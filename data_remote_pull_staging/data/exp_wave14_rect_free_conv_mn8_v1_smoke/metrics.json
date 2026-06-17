@@ -1,0 +1,59 @@
+{
+  "verdict": "RECT_FREE_CONV_INCONCLUSIVE",
+  "verdict_msg": "Kerdock KS=nan in middle band [0.1, 0.2], or kappa-dev =0.0000 in [0.15, 0.5]. iid-gauss control KS=0.0321.",
+  "elapsed_s": 0.031000000017229468,
+  "summary": {
+    "cells": [
+      {
+        "N": 64,
+        "M": 512,
+        "c": 8.0,
+        "seed": 0,
+        "codebook": "iid_gauss",
+        "ks_distance": 0.032101201914826155,
+        "moments": [
+          7.964435838162899,
+          71.75943092865775,
+          712.8562435988861,
+          7618.562417069452
+        ],
+        "free_cumulants": [
+          7.964435838162899,
+          8.327192708444187,
+          8.690076107665732,
+          10.108250757424685
+        ],
+        "kappa_devs_from_c": [
+          0.04089908855552338,
+          0.08625951345821647,
+          0.2635313446780856
+        ],
+        "max_kappa_dev": 0.2635313446780856
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N_list": [
+        64
+      ],
+      "ratio": 8,
+      "n_seeds": 1,
+      "codebooks": [
+        "iid_gauss",
+        "kerdock"
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      64
+    ],
+    "ratio": 8,
+    "n_seeds": 1,
+    "codebooks": [
+      "iid_gauss",
+      "kerdock"
+    ]
+  }
+}

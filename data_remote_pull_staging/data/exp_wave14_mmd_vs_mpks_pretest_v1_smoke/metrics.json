@@ -1,0 +1,79 @@
+{
+  "verdict": "MMD_VS_MPKS_PRETEST_INCONCLUSIVE",
+  "verdict_msg": "Only 2 codebooks; need 5.",
+  "elapsed_s": 0.23399999999674037,
+  "summary": {
+    "codebook_results": [
+      {
+        "name": "iid_gauss",
+        "expected_label": "AMP_OK",
+        "ks_mean": 0.0798855437620477,
+        "mmd_mean": 0.012227003306811002,
+        "w1_mean": 0.025094321254719536,
+        "amp_rel_err_mean": 0.5452741852192992,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.0798855437620477
+        ],
+        "per_seed_mmd": [
+          0.012227003306811002
+        ],
+        "per_seed_w1": [
+          0.025094321254719536
+        ],
+        "per_seed_amp_rel": [
+          0.5452741852192992
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label": "AMP_OK",
+        "ks_mean": 0.5743233451135475,
+        "mmd_mean": 0.7102305233894406,
+        "w1_mean": 0.8450410850702821,
+        "amp_rel_err_mean": 0.8896181754236606,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.5743233451135475
+        ],
+        "per_seed_mmd": [
+          0.7102305233894406
+        ],
+        "per_seed_w1": [
+          0.8450410850702821
+        ],
+        "per_seed_amp_rel": [
+          0.8896181754236606
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "n_seeds": 1,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 50,
+      "n_ref_samples": 256,
+      "codebooks": [
+        "iid_gauss",
+        "srht"
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "n_seeds": 1,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 50,
+    "n_ref_samples": 256,
+    "codebooks": [
+      "iid_gauss",
+      "srht"
+    ]
+  }
+}

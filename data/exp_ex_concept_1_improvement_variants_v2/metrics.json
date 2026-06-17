@@ -1,0 +1,47 @@
+{
+  "anchor_name": "ex_concept_1_improvement_variants_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: best substrate < trigram (loses to fair sequence baselines). best_substrate=substrate_extctx_K5:0.551 | bigram=0.523 trigram=0.592 neural1L=0.649 | variants={'substrate_single_pass': 0.512, 'substrate_extctx_K2': 0.54, 'substrate_extctx_K5': 0.551, 'substrate_extctx_K10': 0.549}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_docs": 6000,
+      "unigram": null,
+      "bigram": 0.5104718066743383,
+      "trigram": 0.5897196261682243,
+      "neural_1layer": 0.6501726121979287,
+      "substrate_single_pass": 0.49712313003452246,
+      "substrate_extctx_K2": 0.5331415420023015,
+      "substrate_extctx_K5": 0.5395857307249712,
+      "substrate_extctx_K10": 0.5399309551208286
+    },
+    {
+      "seed": 17,
+      "n_docs": 6000,
+      "unigram": null,
+      "bigram": 0.5253244515906742,
+      "trigram": 0.5867856667110697,
+      "neural_1layer": 0.6561387389456759,
+      "substrate_single_pass": 0.5140691397725967,
+      "substrate_extctx_K2": 0.5343976111174916,
+      "substrate_extctx_K5": 0.554611232341794,
+      "substrate_extctx_K10": 0.5518548294475709
+    },
+    {
+      "seed": 23,
+      "n_docs": 6000,
+      "unigram": null,
+      "bigram": 0.5322858125931873,
+      "trigram": 0.5995478122090704,
+      "neural_1layer": 0.6418167221011584,
+      "substrate_single_pass": 0.5249455212753756,
+      "substrate_extctx_K2": 0.5517834614061246,
+      "substrate_extctx_K5": 0.5582062163092097,
+      "substrate_extctx_K10": 0.555682991168712
+    }
+  ],
+  "elapsed_s": 1347.548626422882,
+  "summary": "HARD_FAIL: best substrate < trigram (loses to fair sequence baselines). best_substrate=substrate_extctx_K5:0.551 | bigram=0.523 trigram=0.592 neural1L=0.649 | variants={'substrate_single_pass': 0.512, 'substrate_extctx_K2': 0.54, 'substrate_extctx_K5': 0.551, 'substrate_extctx_K10': 0.549}"
+}

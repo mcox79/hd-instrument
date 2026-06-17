@@ -1,0 +1,18 @@
+{
+  "verdict": "R32_M1_KILLED",
+  "verdict_msg": "Phasor codebook capacity 1.00*N below kill threshold 2.0. Phasor substrate not viable.",
+  "elapsed_s": 3.702999999994063,
+  "summary": {
+    "phasor_capacity": 1.0,
+    "random_capacity": 1.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_grid": [
+      256,
+      512
+    ],
+    "seeds": 1
+  }
+}

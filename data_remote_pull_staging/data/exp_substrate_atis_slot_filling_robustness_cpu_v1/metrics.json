@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_atis_slot_filling_robustness_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: moderate slot-filling robustness (55-70%% retention @20%% noise). clean=0.8502 @20%-noise=0.5447 retention=64.1% (83 slot-tags); curve=[(0.0, 0.8502), (0.2, 0.5447)]",
+  "summary": "MIDDLE_BAND: moderate slot-filling robustness (55-70%% retention @20%% noise). clean=0.8502 @20%-noise=0.5447 retention=64.1% (83 slot-tags); curve=[(0.0, 0.8502), (0.2, 0.5447)]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.8502,
+      "slot_f1_clean": 0.8502,
+      "slot_f1_20noise": 0.5447,
+      "retention_20": 0.6407,
+      "curve": [
+        {
+          "noise": 0.0,
+          "slot_f1": 0.8502
+        },
+        {
+          "noise": 0.2,
+          "slot_f1": 0.5447
+        }
+      ],
+      "n_train": 400,
+      "n_tags": 83
+    }
+  ],
+  "elapsed_s": 11.89573049545288
+}

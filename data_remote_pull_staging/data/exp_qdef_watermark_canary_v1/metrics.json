@@ -1,0 +1,15 @@
+{
+  "anchor_name": "qdef_watermark_canary_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 10/10 canaries detected when extracted -- zero-cost MIA-detection feature works. 10/10 canaries detected on extraction",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_canary": 10,
+      "detected": 10
+    }
+  ],
+  "elapsed_s": 0.03385639190673828,
+  "summary": "HARD_PASS: 10/10 canaries detected when extracted -- zero-cost MIA-detection feature works. 10/10 canaries detected on extraction"
+}

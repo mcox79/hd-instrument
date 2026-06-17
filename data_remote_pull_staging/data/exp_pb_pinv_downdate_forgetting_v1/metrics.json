@@ -1,0 +1,28 @@
+{
+  "anchor_name": "pb_pinv_downdate_forgetting_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: rank-1 downdate exactly forgets a fact (matches full rebuild <1e-3) while preserving retained recall >=0.95 -- production deletion/GDPR erasure without rebuild. at N=512: downdate_max_dev=1.67e-16 retained_recall=1.000 deleted_recall=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "N256": {
+          "N": 256,
+          "max_dev": 2.220446049250313e-16,
+          "retained_recall": 1.0,
+          "deleted_recall": 0.0
+        },
+        "N512": {
+          "N": 512,
+          "max_dev": 1.6653345369377348e-16,
+          "retained_recall": 1.0,
+          "deleted_recall": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.4065532684326172,
+  "summary": "HARD_PASS: rank-1 downdate exactly forgets a fact (matches full rebuild <1e-3) while preserving retained recall >=0.95 -- production deletion/GDPR erasure without rebuild. at N=512: downdate_max_dev=1.67e-16 retained_recall=1.000 deleted_recall=0.000"
+}

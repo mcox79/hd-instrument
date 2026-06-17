@@ -1,0 +1,143 @@
+{
+  "verdict": "F6_ENVELOPE_MIDDLE_BAND",
+  "verdict_msg": "Partial envelope: 11/12 cells pass full criteria; 0 hard-fail cells. F-6 stays \ud83d\udfe1 with density-envelope narrowing annotation. Cells: N=64,d=0.10:share=0.050,kkl=1.169 | N=64,d=0.30:share=0.085,kkl=1.156 | N=64,d=0.50:share=0.131,kkl=1.001 | N=64,d=0.70:share=0.151,kkl=0.955 | N=256,d=0.10:share=0.023,kkl=1.959 | N=256,d=0.30:share=0.048,kkl=1.627 | N=256,d=0.50:share=0.064,kkl=1.500 | N=256,d=0.70:share=0.074,kkl=1.482 | N=1024,d=0.10:share=0.015,kkl=2.669 | N=1024,d=0.30:share=0.027,kkl=2.350 | N=1024,d=0.50:share=0.042,kkl=1.874 | N=1024,d=0.70:share=0.049,kkl=1.865.",
+  "elapsed_s": 13.625,
+  "summary": {
+    "cells": [
+      {
+        "N": 64,
+        "density": 0.1,
+        "M_stored": 6,
+        "max_inf_share": 0.050201294155174346,
+        "kkl_ratio": 1.1686615724389888,
+        "inf_total": 4.8256000213325025,
+        "n_seeds": 5
+      },
+      {
+        "N": 64,
+        "density": 0.3,
+        "M_stored": 19,
+        "max_inf_share": 0.08460892003615451,
+        "kkl_ratio": 1.1558636520776635,
+        "inf_total": 4.7975999969989065,
+        "n_seeds": 5
+      },
+      {
+        "N": 64,
+        "density": 0.5,
+        "M_stored": 32,
+        "max_inf_share": 0.1306290777231624,
+        "kkl_ratio": 1.0013625560517834,
+        "inf_total": 4.1584000159054995,
+        "n_seeds": 5
+      },
+      {
+        "N": 64,
+        "density": 0.7,
+        "M_stored": 44,
+        "max_inf_share": 0.150508707754278,
+        "kkl_ratio": 0.9553109464650624,
+        "inf_total": 3.9712000174447892,
+        "n_seeds": 5
+      },
+      {
+        "N": 256,
+        "density": 0.1,
+        "M_stored": 25,
+        "max_inf_share": 0.0230842550731471,
+        "kkl_ratio": 1.9591803718261822,
+        "inf_total": 10.840800045104697,
+        "n_seeds": 5
+      },
+      {
+        "N": 256,
+        "density": 0.3,
+        "M_stored": 76,
+        "max_inf_share": 0.04751144722604717,
+        "kkl_ratio": 1.6269872843641813,
+        "inf_total": 8.971600019885226,
+        "n_seeds": 5
+      },
+      {
+        "N": 256,
+        "density": 0.5,
+        "M_stored": 128,
+        "max_inf_share": 0.06398295493738938,
+        "kkl_ratio": 1.4997878818269366,
+        "inf_total": 8.283600022876636,
+        "n_seeds": 5
+      },
+      {
+        "N": 256,
+        "density": 0.7,
+        "M_stored": 179,
+        "max_inf_share": 0.07427452302764273,
+        "kkl_ratio": 1.4822735098328788,
+        "inf_total": 8.213200031919405,
+        "n_seeds": 5
+      },
+      {
+        "N": 1024,
+        "density": 0.1,
+        "M_stored": 102,
+        "max_inf_share": 0.014962144243053001,
+        "kkl_ratio": 2.669286840141436,
+        "inf_total": 18.458800107100977,
+        "n_seeds": 5
+      },
+      {
+        "N": 1024,
+        "density": 0.3,
+        "M_stored": 307,
+        "max_inf_share": 0.026611525721670175,
+        "kkl_ratio": 2.34975728523859,
+        "inf_total": 16.257200099620967,
+        "n_seeds": 5
+      },
+      {
+        "N": 1024,
+        "density": 0.5,
+        "M_stored": 512,
+        "max_inf_share": 0.04166419092194583,
+        "kkl_ratio": 1.8736990095449386,
+        "inf_total": 12.967200092412531,
+        "n_seeds": 5
+      },
+      {
+        "N": 1024,
+        "density": 0.7,
+        "M_stored": 716,
+        "max_inf_share": 0.04856676622338198,
+        "kkl_ratio": 1.8651492061345412,
+        "inf_total": 12.915200093667954,
+        "n_seeds": 5
+      }
+    ]
+  },
+  "config": {
+    "mode": "full",
+    "N_values": [
+      64,
+      256,
+      1024
+    ],
+    "densities": [
+      0.1,
+      0.3,
+      0.5,
+      0.7
+    ],
+    "n_samples": 500,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_max_inf_share": 0.3,
+    "pass_kkl_ratio": 1.0,
+    "fail_max_inf_share": 0.6,
+    "fail_n_cells": 2
+  }
+}

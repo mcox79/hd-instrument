@@ -1,0 +1,143 @@
+{
+  "verdict": "CB_N16384_HARD_FAIL",
+  "verdict_msg": "OOM_AT_M=[2048, 4096, 8192]: per_M_recall={2048: 0.0, 4096: 0.0, 8192: 0.0} max_M_at_95=0 peak_gib=inf oomed=9/9",
+  "elapsed_s": 6.17,
+  "summary": {
+    "anchor": "chunked_codebook_n16384_v6",
+    "N": 16384,
+    "smoke": false,
+    "M_grid": [
+      2048,
+      4096,
+      8192
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "cells": [
+      {
+        "N": 16384,
+        "M": 2048,
+        "seed": 7,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.02 GiB is allocated by PyTorch, and 4.88"
+      },
+      {
+        "N": 16384,
+        "M": 2048,
+        "seed": 17,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 2048,
+        "seed": 23,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 4096,
+        "seed": 7,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 4096,
+        "seed": 17,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 4096,
+        "seed": 23,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 8192,
+        "seed": 7,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 8192,
+        "seed": 17,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      },
+      {
+        "N": 16384,
+        "M": 8192,
+        "seed": 23,
+        "recall": 0.0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.0,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 0,
+        "oom": true,
+        "error": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 2.85 GiB is free. 6.80 GiB allowed; Of the allocated memory 1.01 GiB is allocated by PyTorch, and 3.01 G"
+      }
+    ],
+    "verdict": "CB_N16384_HARD_FAIL",
+    "verdict_msg": "OOM_AT_M=[2048, 4096, 8192]: per_M_recall={2048: 0.0, 4096: 0.0, 8192: 0.0} max_M_at_95=0 peak_gib=inf oomed=9/9",
+    "elapsed_s": 6.17,
+    "smoke_peak_gpu_gib_max": 0.0
+  }
+}

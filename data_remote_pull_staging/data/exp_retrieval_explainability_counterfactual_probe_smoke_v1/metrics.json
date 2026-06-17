@@ -1,0 +1,495 @@
+{
+  "verdict": "REXCF_HARD_PASS",
+  "verdict_msg": "COUNTERFACTUAL_VALIDATED n_trial_pass=10/10. N=1024 M_grid=[64, 128] n_trials=10 n_trial_pass=10 max_rel_err=0.00e+00 mean_rel_err=0.00e+00",
+  "elapsed_s": 0.09,
+  "summary": {
+    "anchor": "retrieval_explainability_counterfactual_probe_smoke_v1",
+    "N": 1024,
+    "M_grid": [
+      64,
+      128
+    ],
+    "seed": 23,
+    "cells": [
+      {
+        "M": 64,
+        "seed": 23,
+        "N": 1024,
+        "ok": true,
+        "trials": [
+          {
+            "trial": 0,
+            "s_total": 1.006233,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 1.0,
+                "delta_cf": 1.0,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.0018158,
+                "delta_cf": -0.0018158,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": 0.0006485,
+                "delta_cf": 0.0006485,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00320435,
+                "delta_cf": -0.00320435,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": -0.00032043,
+                "delta_cf": -0.00032043,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 1,
+            "s_total": 0.011391,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": -0.00585938,
+                "delta_cf": -0.00585938,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": 0.00032425,
+                "delta_cf": 0.00032425,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": -0.00030518,
+                "delta_cf": -0.00030518,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00010681,
+                "delta_cf": -0.00010681,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": -0.00034714,
+                "delta_cf": -0.00034714,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 2,
+            "s_total": 0.020302,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 0.0234375,
+                "delta_cf": 0.0234375,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.0005188,
+                "delta_cf": -0.0005188,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": 0.0006485,
+                "delta_cf": 0.0006485,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00106812,
+                "delta_cf": -0.00106812,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": 0.00042725,
+                "delta_cf": 0.00042725,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 3,
+            "s_total": 0.014145,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 0.01953125,
+                "delta_cf": 0.01953125,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.00233459,
+                "delta_cf": -0.00233459,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": -0.00011444,
+                "delta_cf": -0.00011444,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": 0.0,
+                "delta_cf": 0.0,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": -0.00021362,
+                "delta_cf": -0.00021362,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 4,
+            "s_total": -0.00573,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 0.0,
+                "delta_cf": 0.0,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.0010376,
+                "delta_cf": -0.0010376,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": -0.00034332,
+                "delta_cf": -0.00034332,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00192261,
+                "delta_cf": -0.00192261,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": 0.00016022,
+                "delta_cf": 0.00016022,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          }
+        ]
+      },
+      {
+        "M": 128,
+        "seed": 23,
+        "N": 1024,
+        "ok": true,
+        "trials": [
+          {
+            "trial": 0,
+            "s_total": 1.012966,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 1.0,
+                "delta_cf": 1.0,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.0018158,
+                "delta_cf": -0.0018158,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": 0.0006485,
+                "delta_cf": 0.0006485,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00320435,
+                "delta_cf": -0.00320435,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": -0.00032043,
+                "delta_cf": -0.00032043,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 1,
+            "s_total": 0.025326,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": -0.00585938,
+                "delta_cf": -0.00585938,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": 0.00032425,
+                "delta_cf": 0.00032425,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": -0.00030518,
+                "delta_cf": -0.00030518,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00010681,
+                "delta_cf": -0.00010681,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": -0.00034714,
+                "delta_cf": -0.00034714,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 2,
+            "s_total": 0.027271,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 0.0234375,
+                "delta_cf": 0.0234375,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.0005188,
+                "delta_cf": -0.0005188,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": 0.0006485,
+                "delta_cf": 0.0006485,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00106812,
+                "delta_cf": -0.00106812,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": 0.00042725,
+                "delta_cf": 0.00042725,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 3,
+            "s_total": 0.019245,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 0.01953125,
+                "delta_cf": 0.01953125,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.00233459,
+                "delta_cf": -0.00233459,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": -0.00011444,
+                "delta_cf": -0.00011444,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": 0.0,
+                "delta_cf": 0.0,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": -0.00021362,
+                "delta_cf": -0.00021362,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          },
+          {
+            "trial": 4,
+            "s_total": -0.011868,
+            "n_atoms_pass": 5,
+            "n_atoms_probed": 5,
+            "max_rel_err": 0.0,
+            "mean_rel_err": 0.0,
+            "atom_probes": [
+              {
+                "atom_idx": 0,
+                "c_i": 0.0,
+                "delta_cf": 0.0,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 1,
+                "c_i": -0.0010376,
+                "delta_cf": -0.0010376,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 2,
+                "c_i": -0.00034332,
+                "delta_cf": -0.00034332,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 3,
+                "c_i": -0.00192261,
+                "delta_cf": -0.00192261,
+                "rel_err": 0.0,
+                "pass": true
+              },
+              {
+                "atom_idx": 4,
+                "c_i": 0.00016022,
+                "delta_cf": 0.00016022,
+                "rel_err": 0.0,
+                "pass": true
+              }
+            ],
+            "trial_pass": true
+          }
+        ]
+      }
+    ],
+    "verdict": "REXCF_HARD_PASS",
+    "verdict_msg": "COUNTERFACTUAL_VALIDATED n_trial_pass=10/10. N=1024 M_grid=[64, 128] n_trials=10 n_trial_pass=10 max_rel_err=0.00e+00 mean_rel_err=0.00e+00",
+    "elapsed_s": 0.09
+  }
+}

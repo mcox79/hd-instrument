@@ -1,0 +1,53 @@
+{
+  "verdict": "S12_HARD_FAIL",
+  "verdict_msg": "ADVERSARIAL_BREACH: def={'p1_crosstalk': 1.0, 'p2_collision': 0.0, 'p3_deleted': 1.0, 'p4_edited': 0.0, 'p5_composition': 1.0} max_leak={'p1_crosstalk': 0.0, 'p2_collision': 1.0, 'p3_deleted': 0.0, 'p4_edited': 0.0, 'p5_composition': 0.0}",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "adversarial_multi_hop_probing_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "n_q": 8,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "patterns": {
+          "p1_crosstalk": {
+            "defense_rate": 1.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          },
+          "p2_collision": {
+            "defense_rate": 0.0,
+            "leakage_rate": 1.0,
+            "n_q": 8
+          },
+          "p3_deleted": {
+            "defense_rate": 1.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          },
+          "p4_edited": {
+            "defense_rate": 0.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          },
+          "p5_composition": {
+            "defense_rate": 1.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          }
+        }
+      }
+    ],
+    "verdict": "S12_HARD_FAIL",
+    "verdict_msg": "ADVERSARIAL_BREACH: def={'p1_crosstalk': 1.0, 'p2_collision': 0.0, 'p3_deleted': 1.0, 'p4_edited': 0.0, 'p5_composition': 1.0} max_leak={'p1_crosstalk': 0.0, 'p2_collision': 1.0, 'p3_deleted': 0.0, 'p4_edited': 0.0, 'p5_composition': 0.0}",
+    "elapsed_s": 0.07
+  }
+}

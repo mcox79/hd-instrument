@@ -1,0 +1,35 @@
+{
+  "anchor_name": "a2_oneshot_addition_recall_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions met in >=2/2 seeds. n_seeds=2 new_cos=1.0000(HP>=0.9) acc_after=1.0000(HP>=0.95) drop=0.00pp max_write_t=0.0011s hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 256,
+  "M_INIT": 20,
+  "K_NEW": 5,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.0861964225769043,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_new_cos": 1.0,
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "mean_new_cos": 1.0,
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.0011420249938964844,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    }
+  ]
+}

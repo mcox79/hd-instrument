@@ -1,0 +1,22 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Matrix-trace primitives: mean_pass=5.00/5, n_hp_seeds=2/2, count=1.00 contains=1.00 effrank=1.00 jaccard=1.00 frobenius=1.00, N=2048",
+  "mean_n_primitives_pass": 5.0,
+  "n_hp_seeds": 2,
+  "n_seeds": 2,
+  "count_pass_frac": 1.0,
+  "contains_pass_frac": 1.0,
+  "effrank_pass_frac": 1.0,
+  "jaccard_pass_frac": 1.0,
+  "frobenius_pass_frac": 1.0,
+  "N": 2048,
+  "M1": 50,
+  "M2": 50,
+  "K_grid": [
+    0,
+    10,
+    30
+  ],
+  "elapsed_s": 3.8433260917663574,
+  "run_mode": "smoke"
+}

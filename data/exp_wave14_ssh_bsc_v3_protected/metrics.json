@@ -1,0 +1,396 @@
+{
+  "verdict": "BET_F_NO_TRANSITION",
+  "verdict_msg": "No q gives recovery rate >= 0.5 at any p; no sharp transition observed.",
+  "elapsed_s": 15.531000000002678,
+  "summary": {
+    "per_cell": {
+      "2_0.0_17": {
+        "q": 2,
+        "p": 0.0,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.0_23": {
+        "q": 2,
+        "p": 0.0,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.0_31": {
+        "q": 2,
+        "p": 0.0,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.02_17": {
+        "q": 2,
+        "p": 0.02,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.02_23": {
+        "q": 2,
+        "p": 0.02,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.02_31": {
+        "q": 2,
+        "p": 0.02,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.05_17": {
+        "q": 2,
+        "p": 0.05,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.05_23": {
+        "q": 2,
+        "p": 0.05,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.05_31": {
+        "q": 2,
+        "p": 0.05,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.1_17": {
+        "q": 2,
+        "p": 0.1,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.1_23": {
+        "q": 2,
+        "p": 0.1,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.1_31": {
+        "q": 2,
+        "p": 0.1,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.2_17": {
+        "q": 2,
+        "p": 0.2,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.2_23": {
+        "q": 2,
+        "p": 0.2,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.2_31": {
+        "q": 2,
+        "p": 0.2,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.0_17": {
+        "q": 5,
+        "p": 0.0,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.0_23": {
+        "q": 5,
+        "p": 0.0,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.0_31": {
+        "q": 5,
+        "p": 0.0,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.02_17": {
+        "q": 5,
+        "p": 0.02,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.02_23": {
+        "q": 5,
+        "p": 0.02,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.02_31": {
+        "q": 5,
+        "p": 0.02,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.05_17": {
+        "q": 5,
+        "p": 0.05,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.05_23": {
+        "q": 5,
+        "p": 0.05,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.05_31": {
+        "q": 5,
+        "p": 0.05,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.1_17": {
+        "q": 5,
+        "p": 0.1,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.1_23": {
+        "q": 5,
+        "p": 0.1,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.1_31": {
+        "q": 5,
+        "p": 0.1,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.2_17": {
+        "q": 5,
+        "p": 0.2,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.2_23": {
+        "q": 5,
+        "p": 0.2,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "5_0.2_31": {
+        "q": 5,
+        "p": 0.2,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.0_17": {
+        "q": 10,
+        "p": 0.0,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.0_23": {
+        "q": 10,
+        "p": 0.0,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.0_31": {
+        "q": 10,
+        "p": 0.0,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.02_17": {
+        "q": 10,
+        "p": 0.02,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.02_23": {
+        "q": 10,
+        "p": 0.02,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.02_31": {
+        "q": 10,
+        "p": 0.02,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.05_17": {
+        "q": 10,
+        "p": 0.05,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.05_23": {
+        "q": 10,
+        "p": 0.05,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.05_31": {
+        "q": 10,
+        "p": 0.05,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.1_17": {
+        "q": 10,
+        "p": 0.1,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.1_23": {
+        "q": 10,
+        "p": 0.1,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.1_31": {
+        "q": 10,
+        "p": 0.1,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.2_17": {
+        "q": 10,
+        "p": 0.2,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.2_23": {
+        "q": 10,
+        "p": 0.2,
+        "seed": 23,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "10_0.2_31": {
+        "q": 10,
+        "p": 0.2,
+        "seed": 31,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "N_facts": 500,
+    "q_sweep": [
+      2,
+      5,
+      10
+    ],
+    "q_distribution": [
+      2,
+      5,
+      10
+    ],
+    "p_sweep": [
+      0.0,
+      0.02,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

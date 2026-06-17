@@ -1,0 +1,118 @@
+{
+  "verdict": "OVERLAP_DOMINANT",
+  "verdict_msg": "OVERLAP_DOMINANT: intra-expert overlap explains flat K-scaling. inter_cosine=-0.0010 (>=0.3), routing_entropy=2.487bits (>=1.5) at K=8.",
+  "elapsed_s": 0.044,
+  "summary": {
+    "K_sweep": [
+      2,
+      4,
+      8
+    ],
+    "inter_cosine_per_K": {
+      "2": -0.0072,
+      "4": -0.0039,
+      "8": -0.001
+    },
+    "intra_cosine_per_K": {
+      "2": 0.0068,
+      "4": 0.0054,
+      "8": 0.0096
+    },
+    "entropy_per_K": {
+      "2": 0.7466,
+      "4": 1.6071,
+      "8": 2.4868
+    },
+    "gini_per_K": {
+      "2": 0.055,
+      "4": 0.035,
+      "8": 0.0425
+    }
+  },
+  "per_K_details": {
+    "2": {
+      "mean_inter_expert_cosine": -0.0072,
+      "mean_intra_expert_cosine": 0.0068,
+      "mean_routing_entropy_bits": 0.7466,
+      "mean_gini": 0.055,
+      "seed_results": [
+        {
+          "seed": 17,
+          "K": 2,
+          "gini": 0.055,
+          "mean_intra_expert_cosine": 0.0068,
+          "mean_inter_expert_cosine": -0.0072,
+          "mean_routing_entropy_bits": 0.7466,
+          "expert_sizes": [
+            111.0,
+            89.0
+          ],
+          "retention_proxy": 1.3613
+        }
+      ]
+    },
+    "4": {
+      "mean_inter_expert_cosine": -0.0039,
+      "mean_intra_expert_cosine": 0.0054,
+      "mean_routing_entropy_bits": 1.6071,
+      "mean_gini": 0.035,
+      "seed_results": [
+        {
+          "seed": 17,
+          "K": 4,
+          "gini": 0.035,
+          "mean_intra_expert_cosine": 0.0054,
+          "mean_inter_expert_cosine": -0.0039,
+          "mean_routing_entropy_bits": 1.6071,
+          "expert_sizes": [
+            105.0,
+            87.0,
+            103.0,
+            105.0
+          ],
+          "retention_proxy": 2.0
+        }
+      ]
+    },
+    "8": {
+      "mean_inter_expert_cosine": -0.001,
+      "mean_intra_expert_cosine": 0.0096,
+      "mean_routing_entropy_bits": 2.4868,
+      "mean_gini": 0.0425,
+      "seed_results": [
+        {
+          "seed": 17,
+          "K": 8,
+          "gini": 0.0425,
+          "mean_intra_expert_cosine": 0.0096,
+          "mean_inter_expert_cosine": -0.001,
+          "mean_routing_entropy_bits": 2.4868,
+          "expert_sizes": [
+            116.0,
+            98.0,
+            93.0,
+            98.0,
+            95.0,
+            105.0,
+            105.0,
+            90.0
+          ],
+          "retention_proxy": 0.3009
+        }
+      ]
+    }
+  },
+  "config": {
+    "K_sweep": [
+      2,
+      4,
+      8
+    ],
+    "N": 256,
+    "M_per_expert": 100,
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  }
+}

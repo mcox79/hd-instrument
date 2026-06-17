@@ -1,0 +1,43 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Ultrametricity: mean_ratio=0.633, n_hp=0/2, q_spread=0.260, N=2048, alpha=0.15, n_starts=10",
+  "mean_ultrametricity_ratio": 0.6332925795263535,
+  "n_hp_seeds": 0,
+  "n_seeds": 2,
+  "mean_q_spread_normalized": 0.2600744874561009,
+  "N": 2048,
+  "M": 307,
+  "alpha": 0.15,
+  "elapsed_s": 0.11133027076721191,
+  "run_mode": "smoke",
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M": 307,
+      "n_starts": 10,
+      "n_triplets_sampled": 50,
+      "mean_ultrametricity_ratio": 0.6092781545555939,
+      "std_ultrametricity_ratio": 0.24829029704580854,
+      "q_mean": 0.0915625,
+      "q_std": 0.06724866628919701,
+      "q_max": 0.23828125,
+      "q_spread_normalized": 0.28222391098417104,
+      "hp": false
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M": 307,
+      "n_starts": 10,
+      "n_triplets_sampled": 50,
+      "mean_ultrametricity_ratio": 0.6573070044971131,
+      "std_ultrametricity_ratio": 0.21688784648245116,
+      "q_mean": 0.08381510416666667,
+      "q_std": 0.054137245991436676,
+      "q_max": 0.2275390625,
+      "q_spread_normalized": 0.23792506392803073,
+      "hp": false
+    }
+  ]
+}

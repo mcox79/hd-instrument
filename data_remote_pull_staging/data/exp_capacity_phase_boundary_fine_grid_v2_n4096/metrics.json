@@ -1,0 +1,42 @@
+{
+  "anchor": "capacity_phase_boundary_fine_grid_v2_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: universal onset_frac=0.365 in [0.30,0.70] range=0.030. mean_onset_frac=0.365 onset_range=0.030 n_defined=2 a0.1:onset=0.38 a0.2:onset=0.35",
+  "n_seeds": 2,
+  "N": 4096,
+  "run_mode": "smoke",
+  "elapsed_s": 0.6687285900115967,
+  "sigma_g_crits": {
+    "0.05": 4.358898943540674,
+    "0.1": 3.0,
+    "0.2": 2.0,
+    "0.5": 1.0
+  },
+  "summary": "HARD_PASS: universal onset_frac=0.365 in [0.30,0.70] range=0.030. mean_onset_frac=0.365 onset_range=0.030 n_defined=2 a0.1:onset=0.38 a0.2:onset=0.35",
+  "results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.310199499130249,
+      "onset_fracs": {
+        "0.1": 0.38,
+        "0.2": 0.38
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780456389.7723958
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.302736759185791,
+      "onset_fracs": {
+        "0.1": 0.38,
+        "0.2": 0.32
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780456390.0824142
+    }
+  ]
+}

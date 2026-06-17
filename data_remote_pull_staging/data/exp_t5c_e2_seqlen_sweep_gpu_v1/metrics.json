@@ -1,0 +1,23 @@
+{
+  "anchor_name": "t5c_e2_seqlen_sweep_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: seq-length sweep -- improvement@512=0.209 vs @128=0.260 (0.81x). HARD_PASS=context-extension (longer seq -> bigger gain); HARD_FAIL=flat=regularization-dominated.",
+  "run_mode": "full",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "improvement_by_seqlen": {
+        "128": 0.26,
+        "512": 0.2093
+      },
+      "ratio_gain": 0.805
+    }
+  ],
+  "summary": {
+    "improvement_by_seqlen": {
+      "128": 0.26,
+      "512": 0.2093
+    }
+  },
+  "elapsed_s": 102.68143105506897
+}

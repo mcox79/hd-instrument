@@ -1,0 +1,58 @@
+{
+  "verdict": "STREAMING_NOISE_ENVELOPE_KILL",
+  "verdict_msg": "Noise envelope KILL: 0/1 noisy cells satisfy throughput_ratio>=0.9. Cap 3 envelope narrows to clean substrate only.",
+  "elapsed_s": 1.8910000000032596,
+  "summary": {
+    "per_noise_throughput_ratio": {
+      "0.0": 0.9703037890235592,
+      "0.1": 0.8805541756835932
+    },
+    "per_noise_cell_details": {
+      "0.0": {
+        "17": {
+          "throughput_ratio": 0.9703037890235592,
+          "burn_throughput": 128.20512819096854,
+          "steady_throughput_mean": 124.3979216559479,
+          "steady_throughputs": [
+            106.95187165469123,
+            141.84397165720458
+          ]
+        }
+      },
+      "0.1": {
+        "17": {
+          "throughput_ratio": 0.8805541756835932,
+          "burn_throughput": 37.73584905461448,
+          "steady_throughput_mean": 33.22845945800655,
+          "steady_throughputs": [
+            32.7868852466525,
+            33.67003366936059
+          ]
+        }
+      }
+    },
+    "peak_vram_mb": null,
+    "N": 2048,
+    "M": 50,
+    "burn_in": 10,
+    "steady": 20,
+    "n_blocks": 2,
+    "seeds": [
+      17
+    ]
+  },
+  "config": {
+    "N": 2048,
+    "M": 50,
+    "burn_in": 10,
+    "steady": 20,
+    "n_blocks": 2,
+    "seeds": [
+      17
+    ],
+    "noise_levels": [
+      0.0,
+      0.1
+    ]
+  }
+}

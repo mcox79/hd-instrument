@@ -1,0 +1,47 @@
+{
+  "anchor_name": "ccc1_extra_fb15k237_kg_multihop_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate stores + traverses real FB15k-237 KG multi-hop. 1hop=0.946 (relbase=0.200) 2hop=0.709 3hop=0.643 (n_triples=5000 n_ent=5427)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_ent": 5427,
+      "n_rel": 226,
+      "n_triples": 5000,
+      "hop1_acc": 0.956,
+      "hop1_relbase": 0.198,
+      "hop2_acc": 0.712,
+      "hop2_n": 500,
+      "hop3_acc": 0.6018518518518519,
+      "hop3_n": 324
+    },
+    {
+      "seed": 17,
+      "n_ent": 5468,
+      "n_rel": 231,
+      "n_triples": 5000,
+      "hop1_acc": 0.934,
+      "hop1_relbase": 0.214,
+      "hop2_acc": 0.7,
+      "hop2_n": 500,
+      "hop3_acc": 0.6418918918918919,
+      "hop3_n": 296
+    },
+    {
+      "seed": 23,
+      "n_ent": 5443,
+      "n_rel": 233,
+      "n_triples": 5000,
+      "hop1_acc": 0.948,
+      "hop1_relbase": 0.188,
+      "hop2_acc": 0.716,
+      "hop2_n": 500,
+      "hop3_acc": 0.685131195335277,
+      "hop3_n": 343
+    }
+  ],
+  "elapsed_s": 2688.3714742660522,
+  "summary": "HARD_PASS: substrate stores + traverses real FB15k-237 KG multi-hop. 1hop=0.946 (relbase=0.200) 2hop=0.709 3hop=0.643 (n_triples=5000 n_ent=5427)"
+}

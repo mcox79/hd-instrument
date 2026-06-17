@@ -1,0 +1,46 @@
+{
+  "verdict": "MOE_KSWEEP_HARD_FAIL_REJECTED",
+  "verdict_msg": "MoE-on-substrate REJECTED: retention flat in K \u2014 lift=0.001 < 0.05, max_dev=0.000 <= 0.03. K=2: ret=0.897, pred=0.000, K=4: ret=0.897, pred=0.000.",
+  "elapsed_s": 0.0779999999795109,
+  "summary": {
+    "per_K": {
+      "2": {
+        "17": {
+          "retention": 0.8967562913894653,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 252,
+          "M_per_expert": 128,
+          "N_per_expert": 512
+        }
+      },
+      "4": {
+        "17": {
+          "retention": 0.897340714931488,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 251,
+          "M_per_expert": 64,
+          "N_per_expert": 256
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_total": 256,
+    "K_sweep": [
+      2,
+      4
+    ],
+    "seeds": [
+      17
+    ],
+    "batch_probe": 256,
+    "device": "cpu",
+    "pass_lift": 0.2,
+    "pass_track_tol": 0.1,
+    "monotone_tol": 0.02,
+    "fail_flat_lift": 0.05,
+    "fail_max_dev": 0.03
+  }
+}

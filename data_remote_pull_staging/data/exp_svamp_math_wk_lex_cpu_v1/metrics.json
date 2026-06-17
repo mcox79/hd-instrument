@@ -1,0 +1,20 @@
+{
+  "anchor_name": "svamp_math_wk_lex_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: math-WK <0.39 -- trigger coverage or selection insufficient; more substrate-only paths (multi-hop selector, subset-sum) before any claim. +math-WK=0.3633 vs base-pool=0.3667 (lift=-0.0033, WK-selector-pair=0.6578, test=300). World-knowledge via substrate LEX_constant concept partition (rule 8).",
+  "summary": "HARD_FAIL: math-WK <0.39 -- trigger coverage or selection insufficient; more substrate-only paths (multi-hop selector, subset-sum) before any claim. +math-WK=0.3633 vs base-pool=0.3667 (lift=-0.0033, WK-selector-pair=0.6578, test=300). World-knowledge via substrate LEX_constant concept partition (rule 8).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3633,
+      "acc_wk": 0.3633,
+      "acc_base": 0.3667,
+      "lift": -0.0033,
+      "wk_selector_pair_acc": 0.6578,
+      "n_test": 300,
+      "n_train_wk": 580
+    }
+  ],
+  "elapsed_s": 1.1454806327819824
+}

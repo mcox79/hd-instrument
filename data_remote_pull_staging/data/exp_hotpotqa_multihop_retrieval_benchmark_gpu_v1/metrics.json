@@ -1,0 +1,20 @@
+{
+  "anchor_name": "hotpotqa_multihop_retrieval_benchmark_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best-config recall@10 0.55-0.70. best-config(raw bge-large) r@2/5/10=0.340/0.533/0.587 | per-query-whiten r@2/5/10=0.313/0.510/0.560 (whitening regresses on small pools) n=300",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 300,
+      "raw_r2": 0.34,
+      "raw_r5": 0.5333333333333333,
+      "raw_r10": 0.5866666666666667,
+      "sub_r2": 0.31333333333333335,
+      "sub_r5": 0.51,
+      "sub_r10": 0.56
+    }
+  ],
+  "elapsed_s": 135.60210132598877,
+  "summary": "MIDDLE_BAND: best-config recall@10 0.55-0.70. best-config(raw bge-large) r@2/5/10=0.340/0.533/0.587 | per-query-whiten r@2/5/10=0.313/0.510/0.560 (whitening regresses on small pools) n=300"
+}

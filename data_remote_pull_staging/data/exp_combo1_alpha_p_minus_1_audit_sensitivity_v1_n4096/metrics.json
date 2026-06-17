@@ -1,0 +1,12 @@
+{
+  "anchor_name": "combo1_alpha_p_minus_1_audit_sensitivity_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 cells pass. slope=1.0157(HP [1.5,2.5] HF<0.5) rho=1.0000(HP>=0.8 HF<0.3) sens_05=0.1786 n_seeds=2",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.7598464488983154,
+  "mean_slope": 1.0156828579765746,
+  "mean_spearman_rho": 0.9999999999999999,
+  "mean_sensitivity_at_05": 0.17858533859252929
+}

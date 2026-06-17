@@ -1,0 +1,60 @@
+{
+  "anchor_name": "substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity primitives compose MULTIPLICATIVELY to >=100K patterns. dense_M_crit=100 sparse_M_crit=12000 (sparse_factor=120x) x K=10 x D=5 -> total=600000 independence_recall=1.00 (sparse hit grid ceiling; total is LOWER BOUND)",
+  "N": 2048,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "dense_M_crit": 100,
+      "sparse_M_crit": 12000,
+      "k_active": 164,
+      "independence_recall": 1.0,
+      "K_ens": 10,
+      "D_dom": 5,
+      "total_capacity": 600000,
+      "ceiling_note": " (sparse hit grid ceiling; total is LOWER BOUND)",
+      "peak_gpu_gb": 2.20214272,
+      "elapsed_s": 11.783862590789795,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780618481.2049642
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "dense_M_crit": 100,
+      "sparse_M_crit": 12000,
+      "k_active": 164,
+      "independence_recall": 1.0,
+      "K_ens": 10,
+      "D_dom": 5,
+      "total_capacity": 600000,
+      "ceiling_note": " (sparse hit grid ceiling; total is LOWER BOUND)",
+      "peak_gpu_gb": 2.20214272,
+      "elapsed_s": 12.443784236907959,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780618493.654977
+    },
+    {
+      "seed": 23,
+      "N": 2048,
+      "dense_M_crit": 100,
+      "sparse_M_crit": 12000,
+      "k_active": 164,
+      "independence_recall": 1.0,
+      "K_ens": 10,
+      "D_dom": 5,
+      "total_capacity": 600000,
+      "ceiling_note": " (sparse hit grid ceiling; total is LOWER BOUND)",
+      "peak_gpu_gb": 2.20214272,
+      "elapsed_s": 12.394951581954956,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1780618506.0640936
+    }
+  ],
+  "elapsed_s": 36.62259840965271,
+  "summary": "HARD_PASS: capacity primitives compose MULTIPLICATIVELY to >=100K patterns. dense_M_crit=100 sparse_M_crit=12000 (sparse_factor=120x) x K=10 x D=5 -> total=600000 independence_recall=1.00 (sparse hit grid ceiling; total is LOWER BOUND)"
+}

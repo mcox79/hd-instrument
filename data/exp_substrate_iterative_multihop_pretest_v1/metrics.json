@@ -1,0 +1,19 @@
+{
+  "anchor_name": "substrate_iterative_multihop_pretest_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: iterative retrieval does not beat single-shot on recall@2 or F1 -- ceiling holds even with iteration. recall@2 single=0.333 iter=0.373; F1 single=0.539 iter=0.561; audit=1.000 (n=150)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 150,
+      "ss_r2": 0.3333333333333333,
+      "it_r2": 0.37333333333333335,
+      "ss_f1": 0.5393931789458105,
+      "it_f1": 0.560960264079459,
+      "audit": 1.0
+    }
+  ],
+  "elapsed_s": 190.24188828468323,
+  "summary": "HARD_FAIL: iterative retrieval does not beat single-shot on recall@2 or F1 -- ceiling holds even with iteration. recall@2 single=0.333 iter=0.373; F1 single=0.539 iter=0.561; audit=1.000 (n=150)"
+}

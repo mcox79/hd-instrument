@@ -1,0 +1,24 @@
+{
+  "anchor": "kf3_multisub_v3_n8192",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    4
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "coupling_count": 0,
+      "info_leakage": 0.02297494374215603,
+      "state_contamination": 0.09456119686365128,
+      "acc_B_own": 0.6549999713897705,
+      "M_frac": 4,
+      "seed": 17
+    }
+  ],
+  "verdict": "KF3_V3_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_ISOLATION: max_leak=0.00000. max_leak=0.00000 max_cont=0.00000 mean_leak=0.00000 theory_bound=0.03125 pass_seeds=1/1 HP_leak=0.015 N=1024",
+  "elapsed_s": 1.0
+}

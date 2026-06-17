@@ -1,0 +1,27 @@
+{
+  "verdict": "BET_F_S5_PARTIAL",
+  "verdict_msg": "Partial: Kerdock recovery=1.000, control=0.988. Some protection signal but doesn't clear PASS threshold.",
+  "elapsed_s": 0.25,
+  "summary": {
+    "recovery_by_p_kerdock": {
+      "0.05": 1.0,
+      "0.3": 1.0
+    },
+    "recovery_by_p_random": {
+      "0.05": 0.98828125,
+      "0.3": 0.98828125
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M": 256,
+    "p_sweep": [
+      0.05,
+      0.3
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

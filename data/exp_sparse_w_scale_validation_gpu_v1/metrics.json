@@ -1,0 +1,33 @@
+{
+  "anchor_name": "sparse_w_scale_validation_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <4x sparse-W reduction -- not a viable compression path. at N=8192 base=1.000, max reduction at <=3pct drop = 2.0x | curve={'sp0.0000': 1.0, 'sp0.5000': 1.0, 'sp0.7500': 0.0, 'sp0.8750': 0.0, 'sp0.9375': 0.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "N4096": {
+        "base": 1.0,
+        "curve": {
+          "sp0.0000": 1.0,
+          "sp0.5000": 1.0,
+          "sp0.7500": 0.0,
+          "sp0.8750": 0.0,
+          "sp0.9375": 0.0
+        }
+      },
+      "N8192": {
+        "base": 1.0,
+        "curve": {
+          "sp0.0000": 1.0,
+          "sp0.5000": 1.0,
+          "sp0.7500": 0.0,
+          "sp0.8750": 0.0,
+          "sp0.9375": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 1.4592292308807373,
+  "summary": "HARD_FAIL: <4x sparse-W reduction -- not a viable compression path. at N=8192 base=1.000, max reduction at <=3pct drop = 2.0x | curve={'sp0.0000': 1.0, 'sp0.5000': 1.0, 'sp0.7500': 0.0, 'sp0.8750': 0.0, 'sp0.9375': 0.0}"
+}

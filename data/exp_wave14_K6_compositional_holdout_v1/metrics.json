@@ -1,0 +1,78 @@
+{
+  "verdict": "K6_HARD_FAIL_NO_GENERALIZATION",
+  "verdict_msg": "No compositional generalization: held=0.000 <= 0.1 OR gap=0.434 >= 0.4. K6 axis 2 REJECTED. cos_held=0.000, cos_seen=0.434, gap=0.434, cos_held_control=-0.000.",
+  "elapsed_s": 0.2029999999795109,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "cos_seen_treatment": 0.4344046711921692,
+        "cos_held_treatment": -0.0006066163768991828,
+        "cos_seen_control": 0.4361617863178253,
+        "cos_held_control": 0.0011201569577679038,
+        "gap_treatment": 0.4350112875690684,
+        "M_seen": 200,
+        "M_held": 100,
+        "p_atoms": 40
+      },
+      "17": {
+        "cos_seen_treatment": 0.4310518801212311,
+        "cos_held_treatment": -0.0019944212399423122,
+        "cos_seen_control": 0.43129873275756836,
+        "cos_held_control": 9.194313861371484e-06,
+        "gap_treatment": 0.4330463013611734,
+        "M_seen": 200,
+        "M_held": 100,
+        "p_atoms": 40
+      },
+      "23": {
+        "cos_seen_treatment": 0.4378131628036499,
+        "cos_held_treatment": 0.002577955601736903,
+        "cos_seen_control": 0.43801942467689514,
+        "cos_held_control": 0.002811766229569912,
+        "gap_treatment": 0.435235207201913,
+        "M_seen": 200,
+        "M_held": 100,
+        "p_atoms": 40
+      },
+      "31": {
+        "cos_seen_treatment": 0.4363362491130829,
+        "cos_held_treatment": 0.0008723607752472162,
+        "cos_seen_control": 0.4369965195655823,
+        "cos_held_control": -0.0004919925122521818,
+        "gap_treatment": 0.43546388833783567,
+        "M_seen": 200,
+        "M_held": 100,
+        "p_atoms": 40
+      },
+      "41": {
+        "cos_seen_treatment": 0.4314335882663727,
+        "cos_held_treatment": 0.0009340838878415525,
+        "cos_seen_control": 0.43315204977989197,
+        "cos_held_control": -0.003659298410639167,
+        "gap_treatment": 0.43049950437853113,
+        "M_seen": 200,
+        "M_held": 100,
+        "p_atoms": 40
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "p_atoms": 40,
+    "M_seen": 200,
+    "M_held": 100,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "device": "cuda",
+    "pass_held_cosine": 0.5,
+    "pass_gap": 0.15,
+    "fail_held_cosine": 0.1,
+    "fail_gap": 0.4
+  }
+}

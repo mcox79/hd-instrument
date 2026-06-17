@@ -1,0 +1,258 @@
+{
+  "verdict": "LC_HARD_PASS",
+  "verdict_msg": "COMBINATIONS_WORK_BOTH_MODES: mode_pass={'uniform': 5, 'weighted': 5} mode_hf={'uniform': 0, 'weighted': 0} n_cells=10",
+  "elapsed_s": 3.91,
+  "summary": {
+    "anchor": "linear_combination_substrates_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M_per": 256,
+    "K": 3,
+    "modes": [
+      "uniform",
+      "weighted"
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "uniform"
+      },
+      {
+        "seed": 17,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "uniform"
+      },
+      {
+        "seed": 23,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "uniform"
+      },
+      {
+        "seed": 31,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "uniform"
+      },
+      {
+        "seed": 41,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "uniform"
+      },
+      {
+        "seed": 7,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.6,
+          0.3,
+          0.1
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "weighted"
+      },
+      {
+        "seed": 17,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.6,
+          0.3,
+          0.1
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "weighted"
+      },
+      {
+        "seed": 23,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.6,
+          0.3,
+          0.1
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "weighted"
+      },
+      {
+        "seed": 31,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.6,
+          0.3,
+          0.1
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "weighted"
+      },
+      {
+        "seed": 41,
+        "K": 3,
+        "M_per": 256,
+        "weights": [
+          0.6,
+          0.3,
+          0.1
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "weighted"
+      }
+    ],
+    "verdict": "LC_HARD_PASS",
+    "verdict_msg": "COMBINATIONS_WORK_BOTH_MODES: mode_pass={'uniform': 5, 'weighted': 5} mode_hf={'uniform': 0, 'weighted': 0} n_cells=10",
+    "elapsed_s": 3.91
+  }
+}

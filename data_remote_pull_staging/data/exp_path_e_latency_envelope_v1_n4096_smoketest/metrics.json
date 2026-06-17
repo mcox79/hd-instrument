@@ -1,0 +1,50 @@
+{
+  "verdict": "PATH_E_ENV_MIDDLE_BAND",
+  "verdict_msg": "PATH_E_NARROW_ENVELOPE / no clean advantage: cfgs=2 above_hp=2 (1.00) below_hf=0 (0.00) sublinear_monotone_cells=0/2",
+  "elapsed_s": 0.39,
+  "summary": {
+    "anchor": "path_e_latency_envelope_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "depths": [
+      3,
+      5
+    ],
+    "K_grid": [
+      50
+    ],
+    "M_grid": [
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 512,
+        "depth": 3,
+        "K_paths": 50,
+        "seed": 17,
+        "n_pos": 8,
+        "accuracy": 1.0,
+        "latency_ms_E": 111.2568,
+        "latency_ms_BD_extrap": 50.6163,
+        "advantage_ratio": 0.4549
+      },
+      {
+        "M": 512,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "n_pos": 8,
+        "accuracy": 1.0,
+        "latency_ms_E": 159.1584,
+        "latency_ms_BD_extrap": 100.1,
+        "advantage_ratio": 0.6289
+      }
+    ],
+    "verdict": "PATH_E_ENV_MIDDLE_BAND",
+    "verdict_msg": "PATH_E_NARROW_ENVELOPE / no clean advantage: cfgs=2 above_hp=2 (1.00) below_hf=0 (0.00) sublinear_monotone_cells=0/2",
+    "elapsed_s": 0.39
+  }
+}

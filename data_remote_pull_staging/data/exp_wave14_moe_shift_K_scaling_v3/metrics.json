@@ -1,0 +1,56 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: extreme-K plateau. ratio(128/64)=0.993 (< 1.1 threshold), monotone=True, structural_lift_128=-0.214. SHIFT saturating at K>=64.",
+  "elapsed_s": 13.234,
+  "summary": {
+    "K_sweep": [
+      64,
+      128
+    ],
+    "retention_A_per_K": {
+      "64": 0.775,
+      "128": 0.7694
+    },
+    "retention_C_per_K": {
+      "64": 0.9765,
+      "128": 0.9833
+    },
+    "k64_to_128_ratio": 0.993,
+    "structural_lift_at_K128": -0.2139,
+    "monotone_nondecreasing_A": true,
+    "mean_ginis": {
+      "64": 0.0844,
+      "128": 0.0886
+    }
+  },
+  "per_K_details": {
+    "64": {
+      "mean_retention_A": 0.775,
+      "mean_retention_B": 0.1904,
+      "mean_retention_C": 0.9765,
+      "mean_gini_A": 0.0844,
+      "mode_collapse_flag": false
+    },
+    "128": {
+      "mean_retention_A": 0.7694,
+      "mean_retention_B": 0.1221,
+      "mean_retention_C": 0.9833,
+      "mean_gini_A": 0.0886,
+      "mode_collapse_flag": false
+    }
+  },
+  "config": {
+    "N": 256,
+    "M_per_expert": 100,
+    "K_sweep": [
+      64,
+      128
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "trigger": "ship when v2 HARD_PASS or monotone K-scaling past K=64",
+    "note": "N=2048 used (N=4096 OOMs at K>=128)"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "anchor_name": "padding_side_audit_capacity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: right-pad + position[-1] extracts PAD (cap~0) while correct extraction works -- THIS explains the last-token=0 anomaly; fix = mask-aware last-token or left-pad. cap {'rightpad_pos_neg1_BUG': 7.0, 'rightpad_lastreal_OK': 46.0, 'leftpad_pos_neg1_OK': 46.0}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cap": {
+        "rightpad_pos_neg1_BUG": 7,
+        "rightpad_lastreal_OK": 46,
+        "leftpad_pos_neg1_OK": 46
+      }
+    },
+    {
+      "seed": 17,
+      "cap": {
+        "rightpad_pos_neg1_BUG": 7,
+        "rightpad_lastreal_OK": 46,
+        "leftpad_pos_neg1_OK": 46
+      }
+    },
+    {
+      "seed": 23,
+      "cap": {
+        "rightpad_pos_neg1_BUG": 7,
+        "rightpad_lastreal_OK": 46,
+        "leftpad_pos_neg1_OK": 46
+      }
+    }
+  ],
+  "elapsed_s": 13.42446255683899,
+  "summary": "HARD_PASS: right-pad + position[-1] extracts PAD (cap~0) while correct extraction works -- THIS explains the last-token=0 anomaly; fix = mask-aware last-token or left-pad. cap {'rightpad_pos_neg1_BUG': 7.0, 'rightpad_lastreal_OK': 46.0, 'leftpad_pos_neg1_OK': 46.0}"
+}

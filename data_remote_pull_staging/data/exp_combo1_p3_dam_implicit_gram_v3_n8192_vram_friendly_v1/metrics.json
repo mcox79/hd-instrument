@@ -1,0 +1,11 @@
+{
+  "anchor_name": "combo1_p3_dam_implicit_gram_v3_n8192_vram_friendly_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: MMD=0.9501(HP<0.02 HF>=0.1) kappa3_resc=11.0174(|k-1|<=0.05) slope=2.090(HP<=1.3) cos=1.0000(HP>=0.95 HF<0.7) n_results=5",
+  "N": 8192,
+  "n_active": 8192,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 5.419982433319092,
+  "peak_gpu_gb": 2.69422592
+}

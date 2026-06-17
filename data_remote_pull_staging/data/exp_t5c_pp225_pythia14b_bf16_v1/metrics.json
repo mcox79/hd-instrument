@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_pp225_pythia14b_bf16_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: held-out <0.05 -- projection memorizes train / does not generalize (projection path also limited). bare=0.000 train-recall=0.000 HELD-OUT-recall=0.000 (best 0.000) (149/100)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.0,
+      "heldout_recall": 0.0,
+      "best_heldout": 0.0,
+      "n_train": 149,
+      "n_test": 100
+    }
+  ],
+  "elapsed_s": 86.44779968261719,
+  "summary": "HARD_FAIL: held-out <0.05 -- projection memorizes train / does not generalize (projection path also limited). bare=0.000 train-recall=0.000 HELD-OUT-recall=0.000 (best 0.000) (149/100)"
+}

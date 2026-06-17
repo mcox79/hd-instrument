@@ -1,0 +1,42 @@
+{
+  "verdict": "MSWEEP_HARD_FAIL_INTERFERENCE_BOUND",
+  "verdict_msg": "Interference-bound: retention_A plateaus within +/-0.03 across all M; max_dev=0.013. M=1024:retA=0.903, M=4096:retA=0.930.",
+  "elapsed_s": 21.03100000001723,
+  "summary": {
+    "per_substrate_width": {
+      "1024": {
+        "17": {
+          "retention_A": 0.9031066698728326,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 4.108840606689453,
+          "N_substrate": 1024
+        }
+      },
+      "4096": {
+        "17": {
+          "retention_A": 0.9297947743257539,
+          "bpc_A_baseline": 3.657063192367554,
+          "bpc_A_after_C": 3.933193962097168,
+          "N_substrate": 4096
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "M_sweep": [
+      1024,
+      4096
+    ],
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "ema_alpha": 0.7,
+    "pass_lift": 0.1,
+    "plateau_band": 0.03
+  }
+}

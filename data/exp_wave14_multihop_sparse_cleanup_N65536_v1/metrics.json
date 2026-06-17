@@ -1,0 +1,44 @@
+{
+  "verdict": "SPARSE_INSUFFICIENT",
+  "verdict_msg": "Sparse cleanup insufficient: acc_50hop=0.200 (<0.3) vs argmax 0.250.",
+  "elapsed_s": 4.3439999999973224,
+  "summary": {
+    "per_depth_mean_acc_argmax": {
+      "1": 1.0,
+      "5": 0.775,
+      "10": 0.575,
+      "25": 0.35,
+      "50": 0.25
+    },
+    "per_depth_mean_acc_sparse": {
+      "1": 1.0,
+      "5": 0.775,
+      "10": 0.575,
+      "25": 0.35,
+      "50": 0.2
+    },
+    "acc_50hop_argmax_baseline": 0.25,
+    "acc_50hop_sparse": 0.2
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 20,
+    "top_k": 5,
+    "tau": 0.5,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

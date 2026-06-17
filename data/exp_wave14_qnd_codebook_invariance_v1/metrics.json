@@ -1,0 +1,43 @@
+{
+  "verdict": "QND_CB_INVARIANT",
+  "verdict_msg": "Codebook is invariant across VAMP iterations under both codebooks. iid_gauss max_drift_F=0.000000; kerdock max_drift_F=0.000000. Cap 8 audit-trail QND-equivalence is structurally guaranteed.",
+  "elapsed_s": 0.8599999999860302,
+  "summary": {
+    "by_cb": {
+      "iid_gauss": {
+        "max_drift_F": 0.0,
+        "mean_drift_F": 0.0,
+        "n_seeds": 3
+      },
+      "kerdock": {
+        "max_drift_F": 0.0,
+        "mean_drift_F": 0.0,
+        "n_seeds": 3
+      }
+    },
+    "config": {
+      "N": 1024,
+      "M": 1024,
+      "n_iter": 50,
+      "n_seeds": 3,
+      "sigma_noise_sq": 0.01,
+      "codebooks": [
+        "iid_gauss",
+        "kerdock"
+      ],
+      "mode": "full"
+    }
+  },
+  "config": {
+    "N": 1024,
+    "M": 1024,
+    "n_iter": 50,
+    "n_seeds": 3,
+    "sigma_noise_sq": 0.01,
+    "codebooks": [
+      "iid_gauss",
+      "kerdock"
+    ],
+    "mode": "full"
+  }
+}

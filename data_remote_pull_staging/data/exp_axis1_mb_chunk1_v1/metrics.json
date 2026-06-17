@@ -1,0 +1,117 @@
+{
+  "verdict": "AXIS1_HARD_PASS",
+  "verdict_msg": "Phase structure detected. ret_M_range=0.000 (need 0.2). ret_beta_range=0.000. bundle_norm_var_range=0.6351. mean_hysteresis=0.0000. ret_by_M={256: 1.0, 1024: 1.0, 2048: 1.0}.",
+  "elapsed_s": 0.7336609363555908,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      0.25,
+      1.0,
+      2.0
+    ],
+    "betas": [
+      4.0,
+      32.0,
+      128.0
+    ]
+  },
+  "summary": {
+    "cells": [
+      {
+        "M": 256,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.11668632924556732,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 256,
+        "beta": 32.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.11668632924556732,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 256,
+        "beta": 128.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.11668632924556732,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 1024,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.41131672263145447,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 1024,
+        "beta": 32.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.41131672263145447,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 1024,
+        "beta": 128.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.41131672263145447,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.7517371773719788,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 2048,
+        "beta": 32.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.7517371773719788,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 2048,
+        "beta": 128.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 0.7517371773719788,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      }
+    ],
+    "N_full": 4096,
+    "N_used": 1024,
+    "m_fracs": [
+      0.25,
+      1.0,
+      2.0
+    ],
+    "betas": [
+      4.0,
+      32.0,
+      128.0
+    ],
+    "smoke": true
+  }
+}

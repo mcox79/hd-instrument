@@ -1,0 +1,24 @@
+{
+  "verdict": "WARMSTART_RESCUES",
+  "verdict_msg": "Backward evidence rescues Resonator: acc_50hop=1.000>=0.70 vs argmax 0.250. Loopy dynamics work given right starting point.",
+  "elapsed_s": 53.29700000000594,
+  "summary": {
+    "acc_50hop_argmax_baseline": 0.25,
+    "acc_50hop_warmstart": 1.0,
+    "depth": 50
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "depth": 50,
+    "T_inner": 20,
+    "n_trials": 20,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

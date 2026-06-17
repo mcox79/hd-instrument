@@ -1,0 +1,740 @@
+{
+  "anchor_name": "substrate_cognitive_core_introspection_toolkit_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate introspection toolkit functional -- audit-trail + density + crosstalk all produce actionable insights (categorical 'show your work' feature). density[hot=96 sparse_frac=0.07 mean_conf=0.04] crosstalk[max_sim=0.13 near_collisions=0 conflation=low] audit[20 traced, e.g. concept235->210 conf=0.08 prov_docs=174]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_docs": 6000,
+      "n_concepts": 256,
+      "n_transitions_stored": 43634,
+      "density": {
+        "hot_concept": 96,
+        "hot_count": 917,
+        "mean_count": 170.4453125,
+        "sparse_zone_frac": 0.07421875,
+        "mean_retrieval_conf": 0.04156454537405807,
+        "low_conf_frac": 1.0
+      },
+      "crosstalk": {
+        "max_offdiag_sim": 0.134765625,
+        "mean_offdiag_sim": 0.0001798742014216259,
+        "near_collision_pairs_gt0.3": 0,
+        "conflation_risk": "low"
+      },
+      "audit_trail_examples": [
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        },
+        {
+          "query_concept": 235,
+          "predicted": 210,
+          "confidence": 0.076,
+          "provenance_doc_count": 174,
+          "top3_candidates": [
+            210,
+            248,
+            148
+          ]
+        }
+      ],
+      "audit_functional": true
+    },
+    {
+      "seed": 17,
+      "n_docs": 6000,
+      "n_concepts": 256,
+      "n_transitions_stored": 43634,
+      "density": {
+        "hot_concept": 22,
+        "hot_count": 1451,
+        "mean_count": 170.4453125,
+        "sparse_zone_frac": 0.05859375,
+        "mean_retrieval_conf": 0.042121908751141746,
+        "low_conf_frac": 1.0
+      },
+      "crosstalk": {
+        "max_offdiag_sim": 0.125,
+        "mean_offdiag_sim": 0.0002495260850992054,
+        "near_collision_pairs_gt0.3": 0,
+        "conflation_risk": "low"
+      },
+      "audit_trail_examples": [
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        },
+        {
+          "query_concept": 108,
+          "predicted": 5,
+          "confidence": 0.036,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            5,
+            22,
+            134
+          ]
+        }
+      ],
+      "audit_functional": true
+    },
+    {
+      "seed": 23,
+      "n_docs": 6000,
+      "n_concepts": 256,
+      "n_transitions_stored": 43634,
+      "density": {
+        "hot_concept": 192,
+        "hot_count": 1005,
+        "mean_count": 170.4453125,
+        "sparse_zone_frac": 0.0625,
+        "mean_retrieval_conf": 0.041991172951384215,
+        "low_conf_frac": 1.0
+      },
+      "crosstalk": {
+        "max_offdiag_sim": 0.13671875,
+        "mean_offdiag_sim": 9.370691986987367e-05,
+        "near_collision_pairs_gt0.3": 0,
+        "conflation_risk": "low"
+      },
+      "audit_trail_examples": [
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        },
+        {
+          "query_concept": 170,
+          "predicted": 155,
+          "confidence": 0.038,
+          "provenance_doc_count": 79,
+          "top3_candidates": [
+            155,
+            192,
+            54
+          ]
+        }
+      ],
+      "audit_functional": true
+    }
+  ],
+  "elapsed_s": 464.23393726348877,
+  "summary": "HARD_PASS: substrate introspection toolkit functional -- audit-trail + density + crosstalk all produce actionable insights (categorical 'show your work' feature). density[hot=96 sparse_frac=0.07 mean_conf=0.04] crosstalk[max_sim=0.13 near_collisions=0 conflation=low] audit[20 traced, e.g. concept235->210 conf=0.08 prov_docs=174]"
+}

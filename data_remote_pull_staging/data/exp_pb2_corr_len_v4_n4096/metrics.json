@@ -1,0 +1,27 @@
+{
+  "anchor": "pb2_corr_len_v4_n4096",
+  "N": 1024,
+  "smoke": true,
+  "m_fracs": [
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 1.0,
+      "M": 1024,
+      "seed": 17,
+      "xi_normalized": 0.001,
+      "xi_raw": 0.1,
+      "acc_base": 1.0,
+      "passes_hp": true,
+      "elapsed_s": 0.39
+    }
+  ],
+  "verdict": "PB2_V4_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: xi_norm=0.0010 (HP threshold 0.5). mean_xi_norm=0.0010 max_xi_norm=0.0010 mean_xi_mf1.0=0.0010 n_pass_mf1=1/1 HP_max=0.5 HF_min=1.0 N=1024",
+  "elapsed_s": 0.39
+}

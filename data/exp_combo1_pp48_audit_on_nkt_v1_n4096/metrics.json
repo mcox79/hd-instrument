@@ -1,0 +1,72 @@
+{
+  "anchor_name": "combo1_pp48_audit_on_nkt_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3/4 HP conditions met. cert_A=-1.0117(HP|+1|<=0.2) cert_B_pos=0.0000 kappa3_A=0.01260 cndc_disc=4.1020(HP>=0.05) hp1=5/5 hp2=0/5 hp3=5/5 hp4=5/5",
+  "N": 4096,
+  "NKT_DEPTH": 4,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.24656176567077637,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_cert_A": -1.0108946800231933,
+      "cert_B_positive_rate": 0.0,
+      "kappa3_A": 0.012633735314011574,
+      "cndc_disc": 4.097275257110596,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": true,
+      "peak_gpu_gb": 0.044238848
+    },
+    {
+      "seed": 17,
+      "mean_cert_A": -1.012827253341675,
+      "cert_B_positive_rate": 0.0,
+      "kappa3_A": 0.012547087855637074,
+      "cndc_disc": 4.110908508300781,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": true,
+      "peak_gpu_gb": 0.044238848
+    },
+    {
+      "seed": 23,
+      "mean_cert_A": -1.0130686283111572,
+      "cert_B_positive_rate": 0.0,
+      "kappa3_A": 0.012694879435002804,
+      "cndc_disc": 4.110688149929047,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": true,
+      "peak_gpu_gb": 0.044238848
+    },
+    {
+      "seed": 31,
+      "mean_cert_A": -1.0108664989471436,
+      "cert_B_positive_rate": 0.0,
+      "kappa3_A": 0.012240092270076275,
+      "cndc_disc": 4.0908907651901245,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": true,
+      "peak_gpu_gb": 0.044238848
+    },
+    {
+      "seed": 41,
+      "mean_cert_A": -1.0108575344085693,
+      "cert_B_positive_rate": 0.0,
+      "kappa3_A": 0.012897596694529057,
+      "cndc_disc": 4.100050866603851,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": true,
+      "peak_gpu_gb": 0.044238848
+    }
+  ]
+}

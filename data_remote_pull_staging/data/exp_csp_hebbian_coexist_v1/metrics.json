@@ -1,0 +1,56 @@
+{
+  "anchor": "csp_hebbian_coexist_v1",
+  "run_mode": "full",
+  "N": 1024,
+  "M_data": 20,
+  "n_seeds": 5,
+  "cut_ratio_mean": 0.9999992370605468,
+  "cut_ratio_std": 1.52587890625e-06,
+  "retrieval_acc_mean": 1.0,
+  "retrieval_acc_std": 0.0,
+  "seeds_pass_cut": 5,
+  "seeds_pass_ret": 5,
+  "seeds_fail_cut": 0,
+  "seeds_fail_ret": 0,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 0.6614210605621338,
+  "per_seed": {
+    "7": {
+      "cut_ratio": 1.0,
+      "retrieval_acc": 1.0,
+      "csp_alone_median": 1.0,
+      "data_alone_median": 1.0
+    },
+    "17": {
+      "cut_ratio": 0.9999961853027344,
+      "retrieval_acc": 1.0,
+      "csp_alone_median": 1.0,
+      "data_alone_median": 1.0
+    },
+    "23": {
+      "cut_ratio": 1.0,
+      "retrieval_acc": 1.0,
+      "csp_alone_median": 1.0,
+      "data_alone_median": 1.0
+    },
+    "31": {
+      "cut_ratio": 1.0,
+      "retrieval_acc": 1.0,
+      "csp_alone_median": 1.0,
+      "data_alone_median": 1.0
+    },
+    "41": {
+      "cut_ratio": 1.0,
+      "retrieval_acc": 1.0,
+      "csp_alone_median": 1.0,
+      "data_alone_median": 1.0
+    }
+  },
+  "thresholds": {
+    "HP_cut": 0.8,
+    "HP_ret": 0.9,
+    "HF_cut": 0.5,
+    "HF_ret": 0.5
+  },
+  "verdict_msg": "CSP+Hebbian coexistence at N=1024, M=20: cut_ratio=1.000+/-0.000 (5/5 seeds >= 0.8), retrieval=1.000+/-0.000 (5/5 seeds >= 0.9). Verdict: HARD_PASS."
+}

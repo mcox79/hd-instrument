@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_sq8_homeostatic_deletion_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: recall unstable/low. recent_recall 3x:0.58 6x:0.57 10x:0.61 | min=0.57 drift=0.03",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "x3",
+    "x6",
+    "x10"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "m_cap": 60,
+      "x3": 0.55,
+      "x6": 0.5666666666666667,
+      "x10": 0.6333333333333333
+    },
+    {
+      "seed": 2,
+      "m_cap": 60,
+      "x3": 0.6166666666666667,
+      "x6": 0.5833333333333334,
+      "x10": 0.5833333333333334
+    }
+  ],
+  "elapsed_s": 3.488652229309082,
+  "summary": "HARD_FAIL: recall unstable/low. recent_recall 3x:0.58 6x:0.57 10x:0.61 | min=0.57 drift=0.03"
+}

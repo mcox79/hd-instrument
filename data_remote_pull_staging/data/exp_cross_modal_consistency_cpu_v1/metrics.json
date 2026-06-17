@@ -1,0 +1,16 @@
+{
+  "anchor_name": "cross_modal_consistency_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cross-modal shared-value retrieval consistent >=0.90 AND inconsistency flagged >=0.90 -- two modalities bind to one value space; substrate detects cross-modal conflict. consistency=1.000 inconsistency-detect=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "consistency": 1.0,
+      "inconsistency_detect": 1.0,
+      "n": 250
+    }
+  ],
+  "elapsed_s": 59.82399249076843,
+  "summary": "HARD_PASS: cross-modal shared-value retrieval consistent >=0.90 AND inconsistency flagged >=0.90 -- two modalities bind to one value space; substrate detects cross-modal conflict. consistency=1.000 inconsistency-detect=1.000"
+}

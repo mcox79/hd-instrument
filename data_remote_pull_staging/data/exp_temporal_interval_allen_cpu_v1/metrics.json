@@ -1,0 +1,15 @@
+{
+  "anchor_name": "temporal_interval_allen_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate classifies Allen interval relations >=0.85 (before/after/during/overlaps/meets...) -- temporal interval algebra over substrate-stored endpoints. Allen-relation-acc=1.000 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "allen_acc": 1.0,
+      "n": 300
+    }
+  ],
+  "elapsed_s": 0.09606766700744629,
+  "summary": "HARD_PASS: substrate classifies Allen interval relations >=0.85 (before/after/during/overlaps/meets...) -- temporal interval algebra over substrate-stored endpoints. Allen-relation-acc=1.000 (n=300)"
+}

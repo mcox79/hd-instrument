@@ -1,0 +1,329 @@
+{
+  "verdict": "ALT3_LAPLACE_ASSUMPTION_VIOLATED",
+  "verdict_msg": "Laplace assumption suspect in 21/25 cells (||Delta_W||_F/||W_A||_F > 0.5 majority). KL estimate unreliable. r2_fisher=0.000 (unreliable).",
+  "elapsed_s": 2746.767439842224,
+  "summary": {
+    "r2_fisher": 0.0,
+    "r2_euclidean": 0.0,
+    "fisher_improvement_over_euclidean": 0.0,
+    "n_valid_cells": 25,
+    "n_laplace_suspect": 21,
+    "laplace_assumption_suspect_majority": true,
+    "mean_retention_A": 0.0,
+    "mean_kl_fisher": 148.95032485961914
+  },
+  "per_seed_pair": {
+    "7": {
+      "0": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 202.16969299316406,
+        "kl_euclidean": 23592.79296875,
+        "laplace_ratio": 1.0788736956175278,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9546288099853719,
+        "m_total": 49105
+      },
+      "1": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 11.675472259521484,
+        "kl_euclidean": 22576.45703125,
+        "laplace_ratio": 1.0553798867419342,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9890966645771555,
+        "m_total": 49105
+      },
+      "2": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 196.8349609375,
+        "kl_euclidean": 22301.4375,
+        "laplace_ratio": 1.0489320201882604,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9552314257409024,
+        "m_total": 49105
+      },
+      "3": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 33.31401443481445,
+        "kl_euclidean": 4964.88427734375,
+        "laplace_ratio": 0.4949205674842796,
+        "laplace_suspect": false,
+        "pac_bayes_floor": 0.9563790403394745,
+        "m_total": 8754
+      },
+      "4": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 365.67938232421875,
+        "kl_euclidean": 19863.34765625,
+        "laplace_ratio": 0.9899360936588495,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9389799749164455,
+        "m_total": 49105
+      }
+    },
+    "17": {
+      "0": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 256.151611328125,
+        "kl_euclidean": 23797.421875,
+        "laplace_ratio": 1.0758387912632967,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.948929431704602,
+        "m_total": 49105
+      },
+      "1": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 11.364486694335938,
+        "kl_euclidean": 23003.640625,
+        "laplace_ratio": 1.0577439004859222,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9892428541571185,
+        "m_total": 49105
+      },
+      "2": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 92.21376037597656,
+        "kl_euclidean": 22889.9609375,
+        "laplace_ratio": 1.0551270524368845,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9693577952140692,
+        "m_total": 49105
+      },
+      "3": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 49.499847412109375,
+        "kl_euclidean": 5108.515625,
+        "laplace_ratio": 0.49845916590110034,
+        "laplace_suspect": false,
+        "pac_bayes_floor": 0.9468279185768823,
+        "m_total": 8754
+      },
+      "4": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 370.076416015625,
+        "kl_euclidean": 20171.2421875,
+        "laplace_ratio": 0.9904865106915551,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9386142100119313,
+        "m_total": 49105
+      }
+    },
+    "23": {
+      "0": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 348.6922912597656,
+        "kl_euclidean": 24220.482421875,
+        "laplace_ratio": 1.078819557673661,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9404141254919458,
+        "m_total": 49105
+      },
+      "1": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 10.527996063232422,
+        "kl_euclidean": 23329.833984375,
+        "laplace_ratio": 1.0587982992867366,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9896463137240208,
+        "m_total": 49105
+      },
+      "2": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 98.30496978759766,
+        "kl_euclidean": 23104.708984375,
+        "laplace_ratio": 1.0536773740973673,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9683619373648327,
+        "m_total": 49105
+      },
+      "3": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 35.754817962646484,
+        "kl_euclidean": 5108.16796875,
+        "laplace_ratio": 0.49543877604662756,
+        "laplace_suspect": false,
+        "pac_bayes_floor": 0.9548093054005777,
+        "m_total": 8754
+      },
+      "4": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 188.4306182861328,
+        "kl_euclidean": 20317.416015625,
+        "laplace_ratio": 0.9880788872528057,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9561976025977245,
+        "m_total": 49105
+      }
+    },
+    "31": {
+      "0": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 206.0638427734375,
+        "kl_euclidean": 23719.21484375,
+        "laplace_ratio": 1.079615946507538,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9541939290201005,
+        "m_total": 49105
+      },
+      "1": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 13.146535873413086,
+        "kl_euclidean": 22812.015625,
+        "laplace_ratio": 1.0587683735401767,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9884301478310211,
+        "m_total": 49105
+      },
+      "2": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 102.44232177734375,
+        "kl_euclidean": 22636.6328125,
+        "laplace_ratio": 1.0546905702121725,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9677030247342573,
+        "m_total": 49105
+      },
+      "3": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 26.67828369140625,
+        "kl_euclidean": 5102.3779296875,
+        "laplace_ratio": 0.500732117747253,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9609644166160117,
+        "m_total": 8754
+      },
+      "4": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 370.39031982421875,
+        "kl_euclidean": 19929.0546875,
+        "laplace_ratio": 0.9896063774734712,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9385881814026182,
+        "m_total": 49105
+      }
+    },
+    "41": {
+      "0": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 238.06715393066406,
+        "kl_euclidean": 23841.12109375,
+        "laplace_ratio": 1.0768212956484493,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9507652332833096,
+        "m_total": 49105
+      },
+      "1": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 11.732156753540039,
+        "kl_euclidean": 22999.708984375,
+        "laplace_ratio": 1.0576488271803643,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9890702287425235,
+        "m_total": 49105
+      },
+      "2": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 65.5962905883789,
+        "kl_euclidean": 22665.515625,
+        "laplace_ratio": 1.049936656832203,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9741558778498154,
+        "m_total": 49105
+      },
+      "3": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 45.40696334838867,
+        "kl_euclidean": 5139.3759765625,
+        "laplace_ratio": 0.4999602542239863,
+        "laplace_suspect": false,
+        "pac_bayes_floor": 0.949073601925792,
+        "m_total": 8754
+      },
+      "4": {
+        "bpc_A_baseline": 0.0,
+        "bpc_A_after_B": 0.0,
+        "retention_A": 0.0,
+        "kl_fisher": 373.5439147949219,
+        "kl_euclidean": 20161.232421875,
+        "laplace_ratio": 0.9902362665574146,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9383272978113972,
+        "m_total": 49105
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "n_epochs": 5,
+    "phase_a_epochs": 8,
+    "n_bytes": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pairs": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "pass_r2": 0.5,
+    "fail_r2": 0.2,
+    "fisher_improvement_threshold": 0.1,
+    "laplace_violation_thresh": 0.5,
+    "device": "cuda"
+  }
+}

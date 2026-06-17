@@ -1,0 +1,17 @@
+{
+  "anchor_name": "zkl_completeness_soundness_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: completeness >=99%% top-1 AND soundness <=0.5%% false-positive -- retrieval + no-false-assertion gates met. completeness_top1=1.0000 soundness_FP@0.90=0.0000 (n_kb=500 n_neg=500)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "completeness_top1": 1.0,
+      "soundness_fp": 0.0,
+      "n_kb": 500,
+      "n_neg": 500
+    }
+  ],
+  "elapsed_s": 13.967385053634644,
+  "summary": "HARD_PASS: completeness >=99%% top-1 AND soundness <=0.5%% false-positive -- retrieval + no-false-assertion gates met. completeness_top1=1.0000 soundness_FP@0.90=0.0000 (n_kb=500 n_neg=500)"
+}

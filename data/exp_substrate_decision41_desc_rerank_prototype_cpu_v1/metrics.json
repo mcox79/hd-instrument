@@ -1,0 +1,82 @@
+{
+  "anchor_name": "substrate_decision41_desc_rerank_prototype_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (no rerank strategy beats name-baseline cleanly): DECISION 41 rerank prototype (in-coverage held-out, POOL_K=100). Macro-F1 by strategy: name=0.1480, desc=0.1190, maxfuse=0.1190, meanfuse=0.1468. Best=name (0.1480 vs name-baseline 0.1480, delta +0.0000). Best-strategy per-question regressions vs name: none. Description/fusion signals do not reliably recover MEDIUM; escalate to true cross-encoder (bge-reranker ~2GB) or accept MEDIUM needs M4.",
+  "summary": "HARD_FAIL (no rerank strategy beats name-baseline cleanly): DECISION 41 rerank prototype (in-coverage held-out, POOL_K=100). Macro-F1 by strategy: name=0.1480, desc=0.1190, maxfuse=0.1190, meanfuse=0.1468. Best=name (0.1480 vs name-baseline 0.1480, delta +0.0000). Best-strategy per-question regressions vs name: none. Description/fusion signals do not reliably recover MEDIUM; escalate to true cross-encoder (bge-reranker ~2GB) or accept MEDIUM needs M4.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 7,
+      "base_macro": 0.148,
+      "rerank_macro": 0.1468,
+      "macro_by_strategy": {
+        "name": 0.148,
+        "desc": 0.119,
+        "maxfuse": 0.119,
+        "meanfuse": 0.1468
+      },
+      "rows": [
+        {
+          "qid": "Q54-A",
+          "present_n": 1,
+          "name": 0.0,
+          "desc": 0.0,
+          "maxfuse": 0.0,
+          "meanfuse": 0.0
+        },
+        {
+          "qid": "Q55-B",
+          "present_n": 1,
+          "name": 0.0,
+          "desc": 0.333,
+          "maxfuse": 0.333,
+          "meanfuse": 0.333
+        },
+        {
+          "qid": "Q60-G",
+          "present_n": 4,
+          "name": 0.5,
+          "desc": 0.25,
+          "maxfuse": 0.25,
+          "meanfuse": 0.444
+        },
+        {
+          "qid": "Q61-A",
+          "present_n": 2,
+          "name": 0.286,
+          "desc": 0.0,
+          "maxfuse": 0.0,
+          "meanfuse": 0.0
+        },
+        {
+          "qid": "Q62-B",
+          "present_n": 2,
+          "name": 0.0,
+          "desc": 0.0,
+          "maxfuse": 0.0,
+          "meanfuse": 0.0
+        },
+        {
+          "qid": "Q63-A",
+          "present_n": 2,
+          "name": 0.0,
+          "desc": 0.0,
+          "maxfuse": 0.0,
+          "meanfuse": 0.0
+        },
+        {
+          "qid": "Q64-G",
+          "present_n": 3,
+          "name": 0.25,
+          "desc": 0.25,
+          "maxfuse": 0.25,
+          "meanfuse": 0.25
+        }
+      ],
+      "pool_k": 100,
+      "best_strategy": "name"
+    }
+  ],
+  "elapsed_s": 140.73202991485596
+}

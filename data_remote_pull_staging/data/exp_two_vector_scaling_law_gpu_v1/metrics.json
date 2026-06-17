@@ -1,0 +1,67 @@
+{
+  "anchor_name": "two_vector_scaling_law_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the production two-vector index at N=1024/alpha=0.5 holds identity+structure to >=8000 atoms (>=4x the current substrate) -- ample ingestion headroom; no index change needed for substantial growth. capacity(both>=0.90)=32000 atoms at N=1024 alpha=0.5 -> 18.4x the current ~1742; curve=[(500, 1.0, 1.0), (1000, 1.0, 1.0), (1742, 1.0, 1.0), (2400, 1.0, 1.0), (4000, 1.0, 1.0), (8000, 1.0, 1.0), (16000, 1.0, 1.0), (32000, 1.0, 1.0)]",
+  "summary": "HARD_PASS: the production two-vector index at N=1024/alpha=0.5 holds identity+structure to >=8000 atoms (>=4x the current substrate) -- ample ingestion headroom; no index change needed for substantial growth. capacity(both>=0.90)=32000 atoms at N=1024 alpha=0.5 -> 18.4x the current ~1742; curve=[(500, 1.0, 1.0), (1000, 1.0, 1.0), (1742, 1.0, 1.0), (2400, 1.0, 1.0), (4000, 1.0, 1.0), (8000, 1.0, 1.0), (16000, 1.0, 1.0), (32000, 1.0, 1.0)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "n_atoms": 500,
+          "C": 12,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 1000,
+          "C": 25,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 1742,
+          "C": 43,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 2400,
+          "C": 60,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 4000,
+          "C": 100,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 8000,
+          "C": 200,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 16000,
+          "C": 400,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        },
+        {
+          "n_atoms": 32000,
+          "C": 800,
+          "id_prec": 1.0,
+          "struct_rec": 1.0
+        }
+      ],
+      "capacity": 32000,
+      "N": 1024,
+      "alpha": 0.5,
+      "headroom_x": 18.37
+    }
+  ],
+  "elapsed_s": 0.5851569175720215
+}

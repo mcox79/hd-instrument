@@ -1,0 +1,123 @@
+{
+  "anchor_name": "pp33_mfpt_glauber_n32768_v2_n32768",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (informational): N=32768 tau=5000.0. Combine with v1 (4096, 8192, 16384) results for scaling exponent. N=32768 mean_tau=5000.0 std=0.0 n_seeds=5 max_steps=5000",
+  "N": 32768,
+  "alpha": 0.1,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "max_steps": 5000,
+  "elapsed_s": 6503.803055047989,
+  "all_results": [
+    {
+      "seed": 7,
+      "N": 32768,
+      "alpha": 0.1,
+      "run_mode": "full",
+      "mean_tau": 5000.0,
+      "std_tau": 0.0,
+      "tau_values": [
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000
+      ],
+      "elapsed_s": 1301.3570594787598,
+      "max_steps_active": 5000
+    },
+    {
+      "seed": 17,
+      "N": 32768,
+      "alpha": 0.1,
+      "run_mode": "full",
+      "mean_tau": 5000.0,
+      "std_tau": 0.0,
+      "tau_values": [
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000
+      ],
+      "elapsed_s": 1288.2796766757965,
+      "max_steps_active": 5000
+    },
+    {
+      "seed": 23,
+      "N": 32768,
+      "alpha": 0.1,
+      "run_mode": "full",
+      "mean_tau": 5000.0,
+      "std_tau": 0.0,
+      "tau_values": [
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000
+      ],
+      "elapsed_s": 1241.7689530849457,
+      "max_steps_active": 5000
+    },
+    {
+      "seed": 31,
+      "N": 32768,
+      "alpha": 0.1,
+      "run_mode": "full",
+      "mean_tau": 5000.0,
+      "std_tau": 0.0,
+      "tau_values": [
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000
+      ],
+      "elapsed_s": 1339.6954278945923,
+      "max_steps_active": 5000
+    },
+    {
+      "seed": 41,
+      "N": 32768,
+      "alpha": 0.1,
+      "run_mode": "full",
+      "mean_tau": 5000.0,
+      "std_tau": 0.0,
+      "tau_values": [
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000
+      ],
+      "elapsed_s": 1331.224981546402,
+      "max_steps_active": 5000
+    }
+  ]
+}

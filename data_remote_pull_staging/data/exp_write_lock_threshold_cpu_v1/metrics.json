@@ -1,0 +1,16 @@
+{
+  "anchor_name": "write_lock_threshold_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: engineered WRITE-LOCK wrapper protects core -- locked shards survive 4000 later writes at recall>=0.95 (vs unlocked baseline 0.00). Protection via WRAPPER routing (refuse writes to locked shards), NO algebra change. Validates Sprint-4 engineered-wrapper thesis: missing features = engineering choices, not substrate limits. locked=1.000 baseline=0.000 after 4000 writes",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "locked_recall": 1.0,
+      "baseline_recall": 0.0,
+      "later_writes": 4000
+    }
+  ],
+  "elapsed_s": 133.10909605026245,
+  "summary": "HARD_PASS: engineered WRITE-LOCK wrapper protects core -- locked shards survive 4000 later writes at recall>=0.95 (vs unlocked baseline 0.00). Protection via WRAPPER routing (refuse writes to locked shards), NO algebra change. Validates Sprint-4 engineered-wrapper thesis: missing features = engineering choices, not substrate limits. locked=1.000 baseline=0.000 after 4000 writes"
+}

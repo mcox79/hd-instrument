@@ -1,0 +1,40 @@
+{
+  "verdict": "ON_ENVELOPE",
+  "verdict_msg": "24/24 cells pass >=0.5",
+  "elapsed_s": 121.23399999999674,
+  "summary": {
+    "results": {
+      "smoother_N4096_K200_d25": 1.0,
+      "vamp_N4096_K200_d25": 1.0,
+      "smoother_N4096_K200_d100": 1.0,
+      "vamp_N4096_K200_d100": 1.0,
+      "smoother_N4096_K1000_d25": 1.0,
+      "vamp_N4096_K1000_d25": 1.0,
+      "smoother_N4096_K1000_d100": 1.0,
+      "vamp_N4096_K1000_d100": 1.0,
+      "smoother_N16384_K200_d25": 1.0,
+      "vamp_N16384_K200_d25": 1.0,
+      "smoother_N16384_K200_d100": 1.0,
+      "vamp_N16384_K200_d100": 1.0,
+      "smoother_N16384_K1000_d25": 1.0,
+      "vamp_N16384_K1000_d25": 1.0,
+      "smoother_N16384_K1000_d100": 1.0,
+      "vamp_N16384_K1000_d100": 1.0,
+      "smoother_N65536_K200_d25": 1.0,
+      "vamp_N65536_K200_d25": 1.0,
+      "smoother_N65536_K200_d100": 1.0,
+      "vamp_N65536_K200_d100": 1.0,
+      "smoother_N65536_K1000_d25": 1.0,
+      "vamp_N65536_K1000_d25": 1.0,
+      "smoother_N65536_K1000_d100": 1.0,
+      "vamp_N65536_K1000_d100": 1.0
+    },
+    "seed": 407,
+    "variant": 4
+  },
+  "config": {
+    "smoke": false,
+    "seed": 407,
+    "variant": 4
+  }
+}

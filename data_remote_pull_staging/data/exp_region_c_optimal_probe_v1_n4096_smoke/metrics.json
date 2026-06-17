@@ -1,0 +1,363 @@
+{
+  "verdict": "REGION_C_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: 1-metric wins or 1.2x-2x advantage. n_seeds_hp=0/1 n_seeds_indist=0/1 N=1024 cells=8 per_seed=[(17, False, False, 4)]",
+  "elapsed_s": 8.58,
+  "summary": {
+    "anchor": "region_c_optimal_probe_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "cells_count": 8,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "N": 1024,
+        "M": 512,
+        "beta": 16.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0008,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 116403.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 116403.5,
+          "wall_ns_total": 23280700.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1258.15131,
+        "_sharp_aux": {
+          "kf1_sharpness": 1258.15131,
+          "max_stored_conf": 0.99973,
+          "mean_neg_conf": 0.00079
+        },
+        "cell_key": "c_b16_m0p5",
+        "region": "C",
+        "M_frac": 0.5
+      },
+      {
+        "N": 1024,
+        "M": 1024,
+        "beta": 32.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0044,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 173357.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 173357.0,
+          "wall_ns_total": 34671400.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 224.85327,
+        "_sharp_aux": {
+          "kf1_sharpness": 224.85327,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00445
+        },
+        "cell_key": "c_b32_m1",
+        "region": "C",
+        "M_frac": 1.0
+      },
+      {
+        "N": 1024,
+        "M": 2048,
+        "beta": 64.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.08965,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 158642.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 158642.5,
+          "wall_ns_total": 31728500.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 9.61991,
+        "_sharp_aux": {
+          "kf1_sharpness": 9.61991,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.10395
+        },
+        "cell_key": "c_b64_m2",
+        "region": "C",
+        "M_frac": 2.0
+      },
+      {
+        "N": 1024,
+        "M": 4096,
+        "beta": 128.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0,
+          "n_oos": 0
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 153144.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 153144.0,
+          "wall_ns_total": 30628800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 0.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 0.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.0
+        },
+        "cell_key": "c_b128_m4",
+        "region": "C",
+        "M_frac": 4.0
+      },
+      {
+        "N": 1024,
+        "M": 512,
+        "beta": 4.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00033,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 132748.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 132748.0,
+          "wall_ns_total": 26549600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 46.50133,
+        "_sharp_aux": {
+          "kf1_sharpness": 46.50133,
+          "max_stored_conf": 0.01537,
+          "mean_neg_conf": 0.00033
+        },
+        "cell_key": "a_b4_m0p5",
+        "region": "A",
+        "M_frac": 0.5
+      },
+      {
+        "N": 1024,
+        "M": 1024,
+        "beta": 8.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00054,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 127606.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 127606.5,
+          "wall_ns_total": 25521300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1043.75925,
+        "_sharp_aux": {
+          "kf1_sharpness": 1043.75925,
+          "max_stored_conf": 0.56106,
+          "mean_neg_conf": 0.00054
+        },
+        "cell_key": "a_b8_m1",
+        "region": "A",
+        "M_frac": 1.0
+      },
+      {
+        "N": 1024,
+        "M": 2048,
+        "beta": 10.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00088,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 105559.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 105559.0,
+          "wall_ns_total": 21111800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1024.54072,
+        "_sharp_aux": {
+          "kf1_sharpness": 1024.54072,
+          "max_stored_conf": 0.92168,
+          "mean_neg_conf": 0.0009
+        },
+        "cell_key": "a_b10_m2",
+        "region": "A",
+        "M_frac": 2.0
+      },
+      {
+        "N": 1024,
+        "M": 4096,
+        "beta": 10.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0,
+          "n_oos": 0
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 98448.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 98448.5,
+          "wall_ns_total": 19689700.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 0.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 0.0,
+          "max_stored_conf": 0.96073,
+          "mean_neg_conf": 0.0
+        },
+        "cell_key": "a_b10_m4",
+        "region": "A",
+        "M_frac": 4.0
+      }
+    ],
+    "verdict": "REGION_C_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: 1-metric wins or 1.2x-2x advantage. n_seeds_hp=0/1 n_seeds_indist=0/1 N=1024 cells=8 per_seed=[(17, False, False, 4)]",
+    "elapsed_s": 8.58
+  }
+}

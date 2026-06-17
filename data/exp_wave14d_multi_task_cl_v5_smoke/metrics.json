@@ -1,0 +1,33 @@
+{
+  "verdict": "BET_B_PASS",
+  "verdict_msg": "Tier-1 KILLER validated. retention_A=0.869>=0.8, retention_B=0.937>=0.8, gain_C=4.5972>0, bwt=+0.0789>=0. Multi-task CL works through A->B->C with replay.",
+  "elapsed_s": 0.9840000000003783,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 0.8688702765406247,
+        "retention_B": 0.9365917048928518,
+        "gain_C": 4.5971628837585445,
+        "bwt": 0.07892519760131833,
+        "bpc_A_baseline": 3.6950551624298096,
+        "bpc_A_after_C": 4.252712127685547,
+        "bpc_B_baseline": 5.546480127334595,
+        "bpc_B_after_C": 5.921982971191406,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 3.402837116241455
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_frac": 0.3
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: UNIFIED framework REJECTED. 2/2 valid instances show non-equal-spaced or too-few detached modes. SVD-cascade does not produce equal-spaced ladder in trained delta-rule W.",
+  "elapsed_s": 0.025,
+  "summary": {
+    "instance_results": {
+      "1rsb_regime": {
+        "k_final": 100,
+        "spacing_error": 1.028706,
+        "band": "HARD_FAIL",
+        "top_sigmas": [
+          0.225752,
+          0.216452,
+          0.207249,
+          0.20525,
+          0.200222,
+          0.197904,
+          0.1946,
+          0.179486
+        ]
+      },
+      "over_capacity": {
+        "k_final": 124,
+        "spacing_error": 0.909162,
+        "band": "HARD_FAIL",
+        "top_sigmas": [
+          0.204471,
+          0.199617,
+          0.189312,
+          0.187679,
+          0.185204,
+          0.179383,
+          0.174299,
+          0.170809
+        ]
+      }
+    },
+    "n_hard_pass": 0,
+    "n_hard_fail": 2,
+    "n_instr_fail": 0,
+    "N": 128,
+    "n_instances": 2
+  },
+  "config": {
+    "N": 128,
+    "n_bytes": 1000,
+    "n_instances": 2,
+    "gap_ratio_threshold": 1.5,
+    "hp_spacing_error": 0.1,
+    "hf_spacing_error": 0.3,
+    "smoke": true,
+    "v2_changes": "gap-ratio criterion (not MP bulk edge); wider bands; N=512"
+  }
+}

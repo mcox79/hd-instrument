@@ -1,0 +1,58 @@
+{
+  "verdict": "THREAD_A_PARTIAL",
+  "verdict_msg": "Thread A signal only on Arm1 (cooling-rate independence). Arm2=THREAD_B Arm3=THREAD_AB.",
+  "smoke": true,
+  "N": 512,
+  "elapsed_s": 0.1,
+  "arm1": {
+    "mean_r": 0.0,
+    "abs_r": 0.0,
+    "call": "THREAD_A",
+    "per_seed": {
+      "17": {
+        "r": 0.0,
+        "gaps": [
+          0.00167,
+          0.00167
+        ]
+      }
+    }
+  },
+  "arm2": {
+    "mean_ret_random": 0.84834,
+    "mean_ret_structured": 0.80261,
+    "delta_ret": -0.04573,
+    "call": "THREAD_B"
+  },
+  "arm3": {
+    "mean_max_diff": 0.66897,
+    "call": "THREAD_AB",
+    "per_seed": [
+      {
+        "plateaus": [
+          0.7758778929710388,
+          0.7705557942390442,
+          0.703052818775177
+        ],
+        "s_norm": [
+          1.0,
+          0.10158560425043106,
+          0.04401778057217598
+        ],
+        "diffs": [
+          0.22412210702896118,
+          0.6689701899886131,
+          0.659035038203001
+        ],
+        "max_diff": 0.6689701899886131,
+        "call": "THREAD_AB"
+      }
+    ]
+  },
+  "thresholds": {
+    "arm1_thread_a_r_max": 0.2,
+    "arm1_thread_bc_r_min": 0.5,
+    "arm2_thread_b_delta_max": -0.03,
+    "arm3_thread_c_max_diff": 0.05
+  }
+}

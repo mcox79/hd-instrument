@@ -1,0 +1,86 @@
+{
+  "anchor_name": "substrate_etf_minilm_n_sub_lower_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: lift SHRINKS with N_sub (7.06x->1.00x) -- Hadamard gain N-saturating. orthogonalization M_50 ratio by N_sub: N_sub=384: M50_ratio=7.06x (raw=10 wht=61) N_sub=768: M50_ratio=1.00x (raw=2 wht=2) N_sub=1536: M50_ratio=1.00x (raw=2 wht=2) N_sub=3072: M50_ratio=1.00x (raw=2 wht=2)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_D": {
+        "D384": {
+          "raw_M50": 7,
+          "whitened_M50": 65,
+          "ratio": 9.285714285714286
+        },
+        "D768": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        },
+        "D1536": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        },
+        "D3072": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by_D": {
+        "D384": {
+          "raw_M50": 7,
+          "whitened_M50": 53,
+          "ratio": 7.571428571428571
+        },
+        "D768": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        },
+        "D1536": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        },
+        "D3072": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by_D": {
+        "D384": {
+          "raw_M50": 15,
+          "whitened_M50": 65,
+          "ratio": 4.333333333333333
+        },
+        "D768": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        },
+        "D1536": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        },
+        "D3072": {
+          "raw_M50": 2,
+          "whitened_M50": 2,
+          "ratio": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 45.35876441001892,
+  "summary": "HARD_FAIL: lift SHRINKS with N_sub (7.06x->1.00x) -- Hadamard gain N-saturating. orthogonalization M_50 ratio by N_sub: N_sub=384: M50_ratio=7.06x (raw=10 wht=61) N_sub=768: M50_ratio=1.00x (raw=2 wht=2) N_sub=1536: M50_ratio=1.00x (raw=2 wht=2) N_sub=3072: M50_ratio=1.00x (raw=2 wht=2)"
+}

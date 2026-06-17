@@ -1,0 +1,54 @@
+{
+  "verdict": "COSINE_ROUTER_HARD_FAIL",
+  "verdict_msg": "COSINE_ROUTER_HARD_FAIL: cosine-dot routing fails entropy/retention gates. entropy@K=16=3.999b > 3.0b (FAIL). Random BSC anchors may not provide sufficient discriminability at N=4096. Escalate to Hebbian-anchor rescue (anchor = bundle of first M/K stored patterns per expert).",
+  "elapsed_s": 1.622,
+  "summary": {
+    "K_sweep": [
+      4,
+      16
+    ],
+    "per_K": {
+      "4": {
+        "mean_retention": 0.91378,
+        "std_retention": 0.0,
+        "mean_routing_entropy_bits": 1.99892,
+        "mean_anchor_cosine_spread": 0.03906,
+        "mean_k_eff": 4.0,
+        "n_seeds": 1
+      },
+      "16": {
+        "mean_retention": 0.91408,
+        "std_retention": 0.0,
+        "mean_routing_entropy_bits": 3.99867,
+        "mean_anchor_cosine_spread": 0.00361,
+        "mean_k_eff": 16.0,
+        "n_seeds": 1
+      }
+    },
+    "K_eval_low": 4,
+    "K_eval_high": 16,
+    "entropy_at_K16": 3.99867,
+    "retention_at_K4": 0.91378,
+    "retention_at_K16": 0.91408,
+    "retention_delta_K16_vs_K4": 0.0003,
+    "lsh_baseline_retention_K16": 0.7959,
+    "retention_vs_lsh_delta": 0.11818,
+    "hard_pass_entropy_thresh": 2.0,
+    "hard_fail_entropy_thresh": 3.0,
+    "hard_pass_delta_thresh": -0.005,
+    "hard_fail_delta_thresh": -0.015
+  },
+  "config": {
+    "N": 512,
+    "M_per_expert": 100,
+    "K_sweep": [
+      4,
+      16
+    ],
+    "seeds": [
+      17
+    ],
+    "mode": "smoke",
+    "router": "cosine_dot_top1"
+  }
+}

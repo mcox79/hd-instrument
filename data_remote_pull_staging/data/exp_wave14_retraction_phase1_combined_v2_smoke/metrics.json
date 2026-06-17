@@ -1,0 +1,19 @@
+{
+  "verdict": "RETRACT_REFUTED",
+  "verdict_msg": "0/3 tests pass: idem=0.000, gap=0.975, dest_frac=0.090.",
+  "elapsed_s": 3.5940000000118744,
+  "summary": {
+    "idempotence_rate": 0.0,
+    "gap_ratio": 0.9752762317657471,
+    "destination_fraction": 0.09,
+    "n_destinations": 18
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "seed": 17
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "verdict": "CROOKS_ERASE_VERIFIED",
+  "verdict_msg": "delta_S_emp=0.0000<0.05 (verifiable forensic erase per Crooks FT).",
+  "elapsed_s": 3.389999999984866,
+  "summary": {
+    "delta_S_emp": 0.0,
+    "delta_S_max": 0.0,
+    "delta_S_std": 0.0,
+    "n_trials": 50,
+    "M_base": 200,
+    "N": 16384
+  },
+  "config": {
+    "N": 16384,
+    "M_base": 200,
+    "n_trials": 50,
+    "seed": 17
+  }
+}

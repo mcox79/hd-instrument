@@ -1,0 +1,152 @@
+{
+  "anchor": "kf5_fine_beta_betac_n4096",
+  "N": 1024,
+  "smoke": true,
+  "beta_sweep": [
+    6,
+    8,
+    10,
+    12,
+    16,
+    24,
+    32
+  ],
+  "M_fracs": [
+    2.0,
+    8.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 6.0,
+      "seed": 17,
+      "softmax_conf": 0.08447,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 8.0,
+      "seed": 17,
+      "softmax_conf": 0.35441,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 10.0,
+      "seed": 17,
+      "softmax_conf": 0.67386,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 12.0,
+      "seed": 17,
+      "softmax_conf": 0.78572,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 16.0,
+      "seed": 17,
+      "softmax_conf": 0.81032,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 24.0,
+      "seed": 17,
+      "softmax_conf": 0.81222,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "beta": 32.0,
+      "seed": 17,
+      "softmax_conf": 0.81318,
+      "edit_iso": 0.025126
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 6.0,
+      "seed": 17,
+      "softmax_conf": 0.07877,
+      "edit_iso": 0.01005
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 8.0,
+      "seed": 17,
+      "softmax_conf": 0.29399,
+      "edit_iso": 0.01005
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 10.0,
+      "seed": 17,
+      "softmax_conf": 0.51959,
+      "edit_iso": 0.01005
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 12.0,
+      "seed": 17,
+      "softmax_conf": 0.60226,
+      "edit_iso": 0.01005
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 16.0,
+      "seed": 17,
+      "softmax_conf": 0.62408,
+      "edit_iso": 0.01005
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 24.0,
+      "seed": 17,
+      "softmax_conf": 0.62838,
+      "edit_iso": 0.01005
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 4096,
+      "beta": 32.0,
+      "seed": 17,
+      "softmax_conf": 0.63075,
+      "edit_iso": 0.01005
+    }
+  ],
+  "verdict": "KF5_FINEBETA_MIDDLE_BAND",
+  "verdict_msg": "MARGINAL_SIGNAL: max_signal=0.5786 combos_above_HP=2 < 4. N=1024 softmax_conf@M2.0=0.5786 softmax_conf@M8.0=0.4268 edit_iso@M2.0=0.0000 edit_iso@M8.0=0.0000 max_signal=0.5786 combos_above_HP=2 HP_signal=0.1 HF_signal=0.02",
+  "elapsed_s": 2.29
+}

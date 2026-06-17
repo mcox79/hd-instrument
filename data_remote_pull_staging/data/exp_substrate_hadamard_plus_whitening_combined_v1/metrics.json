@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_hadamard_plus_whitening_combined_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: combining does not beat best single rescue (<1.05x). caps: {'base_raw': 230, 'whiten_only': 768, 'expand_only': 4000, 'expand_plus_whiten': 4000} | combined/best_single=1.00x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "caps": {
+        "base_raw": 230,
+        "whiten_only": 768,
+        "expand_only": 4000,
+        "expand_plus_whiten": 4000
+      }
+    }
+  ],
+  "elapsed_s": 20.05911350250244,
+  "summary": "HARD_FAIL: combining does not beat best single rescue (<1.05x). caps: {'base_raw': 230, 'whiten_only': 768, 'expand_only': 4000, 'expand_plus_whiten': 4000} | combined/best_single=1.00x"
+}

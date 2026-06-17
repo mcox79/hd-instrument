@@ -1,0 +1,44 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hysteresis confirmed at N=4096. max_gap=1.7903>=0.1. 1-RSB glassy phase persists at production scale (cf v3 N=1024 gap=1.84).",
+  "elapsed_s": 1.43,
+  "summary": {
+    "N": 256,
+    "max_gap": 1.790347375869751,
+    "gaps_by_M": {
+      "2000": 1.790347375869751,
+      "10000": 0.052549655914306825
+    },
+    "cells_by_M": {
+      "2000": {
+        "fwd_bpc": [
+          6.420608882904053
+        ],
+        "rev_bpc": [
+          4.630261507034302
+        ]
+      },
+      "10000": {
+        "fwd_bpc": [
+          4.6576259899139405
+        ],
+        "rev_bpc": [
+          4.605076333999634
+        ]
+      }
+    }
+  },
+  "config": {
+    "N_production": 4096,
+    "N_run": 256,
+    "m_sweep": [
+      2000,
+      10000
+    ],
+    "seeds": [
+      17
+    ],
+    "epochs": 1,
+    "smoke": true
+  }
+}

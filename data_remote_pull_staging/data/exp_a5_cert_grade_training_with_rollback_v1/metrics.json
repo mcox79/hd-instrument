@@ -1,0 +1,33 @@
+{
+  "anchor_name": "a5_cert_grade_training_with_rollback_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 caps (audit+rollback+retention) confirmed in pipeline. n_seeds=2 detected=2/2 rollback_err=0.00e+00(HP<1e-10 HF>1e-06) clean_acc=1.0000(HP>=0.95 HF<0.7) hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 512,
+  "M_CLEAN": 20,
+  "DETECT_WINDOW": 15,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.7391047477722168,
+  "per_seed": [
+    {
+      "seed": 7,
+      "detected": true,
+      "detect_latency_writes": 1,
+      "rollback_relative_err": 0.0,
+      "clean_acc_post_rollback": 1.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "detected": true,
+      "detect_latency_writes": 1,
+      "rollback_relative_err": 0.0,
+      "clean_acc_post_rollback": 1.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    }
+  ]
+}

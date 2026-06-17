@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_gpu_t5c2_4layer_pythia160m_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Tier-5c Phase C multi-layer Flamingo adapter -- perplexity IMPROVES baseline with both gates used -> Phase C grounded, Phase D unblocked. baseline=43.38 modified=33.34 ratio=0.769x gates=[0.190,0.173]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 33.33766965801593,
+      "ratio": 0.7685768082412545,
+      "gate0": 0.1900395303964615,
+      "gate1": 0.17299991846084595,
+      "used": true
+    }
+  ],
+  "elapsed_s": 112.494788646698,
+  "summary": "HARD_PASS: Tier-5c Phase C multi-layer Flamingo adapter -- perplexity IMPROVES baseline with both gates used -> Phase C grounded, Phase D unblocked. baseline=43.38 modified=33.34 ratio=0.769x gates=[0.190,0.173]"
+}

@@ -1,0 +1,27 @@
+{
+  "verdict": "DEPTH_CEILING_MID",
+  "verdict_msg": "VAMP-on-chain breaks between d=100 (1.000) and d=200 (0.000). acc_per_depth={'50': 1.0, '100': 1.0}.",
+  "elapsed_s": 4.2810000000172295,
+  "summary": {
+    "acc_per_depth": {
+      "50": 1.0,
+      "100": 1.0
+    },
+    "K": 200
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "num_entities": 300,
+    "num_relations": 20,
+    "num_facts": 200,
+    "hop_depths": [
+      50,
+      100
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

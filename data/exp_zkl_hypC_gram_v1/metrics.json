@@ -1,0 +1,19 @@
+{
+  "anchor_name": "zkl_hypC_gram_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (Hyp C not supported): MM and MN cosine distributions indistinguishable -- leak not in pairwise Gram; run Hyp B (token-position) next. MM=-0.0020 MN=-0.0000 gap=-0.0020 KS_D=0.3578 p=0.00e+00 (n=500)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 500,
+      "ks_p": 0.0,
+      "ks_d": 0.35782052104208406,
+      "gap": -0.0019999006763100624,
+      "mm": -0.002003412926569581,
+      "mn": -3.5121688597428147e-06
+    }
+  ],
+  "elapsed_s": 13.563655614852905,
+  "summary": "HARD_FAIL (Hyp C not supported): MM and MN cosine distributions indistinguishable -- leak not in pairwise Gram; run Hyp B (token-position) next. MM=-0.0020 MN=-0.0000 gap=-0.0020 KS_D=0.3578 p=0.00e+00 (n=500)"
+}

@@ -1,0 +1,28 @@
+{
+  "verdict": "DELTA_DRIFT_NO_POWERLAW",
+  "verdict_msg": "R^2 < 0.7 at all alpha; protocol incompatible at N=4096. Revert to 4-signature stack fallback.",
+  "elapsed_s": 0.29699999999138527,
+  "summary": {
+    "delta_per_alpha": {
+      "0.1": 0.005317643512201494,
+      "0.2": -0.015137928159600505
+    },
+    "r2_per_alpha": {
+      "0.1": 0.005765186929988851,
+      "0.2": 0.0159746797854275
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M": 256,
+    "alpha_sweep": [
+      0.1,
+      0.2
+    ],
+    "n_relax_steps": 50,
+    "seeds": [
+      17
+    ]
+  }
+}

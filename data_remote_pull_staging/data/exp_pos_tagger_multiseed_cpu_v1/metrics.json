@@ -1,0 +1,23 @@
+{
+  "anchor_name": "pos_tagger_multiseed_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-only POS tagger is SEED-ROBUST at n=5 (mean tag-acc>=0.90, std<=0.01) -- promotes to Tier A. Categorical refutation of 'LLM-only-for-NL-parse' is seed-stable on real PTB data. mean=0.9063 std=0.0005 vals=[0.9062, 0.9055, 0.9063, 0.907, 0.9066] (n=5)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "mean_tag_acc": 0.9063,
+      "std_tag_acc": 0.0005,
+      "vals": [
+        0.9062,
+        0.9055,
+        0.9063,
+        0.907,
+        0.9066
+      ],
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 0.07218480110168457,
+  "summary": "HARD_PASS: substrate-only POS tagger is SEED-ROBUST at n=5 (mean tag-acc>=0.90, std<=0.01) -- promotes to Tier A. Categorical refutation of 'LLM-only-for-NL-parse' is seed-stable on real PTB data. mean=0.9063 std=0.0005 vals=[0.9062, 0.9055, 0.9063, 0.907, 0.9066] (n=5)"
+}

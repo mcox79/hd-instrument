@@ -1,0 +1,37 @@
+{
+  "run_mode": "smoke",
+  "N": 8192,
+  "M_GRID": [
+    50,
+    200
+  ],
+  "TAU_GRID_MIN": 0.4,
+  "TAU_GRID_MAX": 0.9,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "configs": [
+      {
+        "M": 50,
+        "avg_knee": NaN,
+        "knee_std": NaN,
+        "n_detected_seeds": 0,
+        "passes_hp": false
+      },
+      {
+        "M": 200,
+        "avg_knee": NaN,
+        "knee_std": NaN,
+        "n_detected_seeds": 0,
+        "passes_hp": false
+      }
+    ],
+    "n_pass_hp": 0,
+    "n_configs": 2
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "No knee detected in any config. Instrumentation issue or flat curve.",
+  "elapsed_s": 24.918185234069824
+}

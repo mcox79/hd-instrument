@@ -1,0 +1,83 @@
+{
+  "verdict": "LONGER_PHASEA_MIDDLE_BAND",
+  "verdict_msg": "retention_A=0.917 in (0.915,0.95); longer consolidation partial benefit; ceiling breaks but HARD-PASS NOT cleared. retention_B=0.980.",
+  "elapsed_s": 331.23499999998603,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.914089410135324,
+        "retention_B": 0.9778079055947102,
+        "gain_C": 5.108572854300446,
+        "bpc_A_baseline": 2.487157024029692,
+        "bpc_A_concat": 2.7209121957353024,
+        "bpc_B_baseline": 5.513143502334363,
+        "bpc_B_concat": 5.638268488922911,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.891427145699554
+      },
+      "17": {
+        "retention_A": 0.9237742081910227,
+        "retention_B": 0.9800709761957948,
+        "gain_C": 5.093198193697718,
+        "bpc_A_baseline": 2.479833923936461,
+        "bpc_A_concat": 2.6844589315744005,
+        "bpc_B_baseline": 5.538745932563989,
+        "bpc_B_concat": 5.651372264958778,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.906801806302281
+      },
+      "23": {
+        "retention_A": 0.9188656193004793,
+        "retention_B": 0.9801409962870593,
+        "gain_C": 5.112934270837228,
+        "bpc_A_baseline": 2.4909873222845924,
+        "bpc_A_concat": 2.710937562536021,
+        "bpc_B_baseline": 5.5696259616967945,
+        "bpc_B_concat": 5.6824742387018645,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.8870657291627717
+      },
+      "31": {
+        "retention_A": 0.9204017157311559,
+        "retention_B": 0.9782495603653143,
+        "gain_C": 5.117937197644695,
+        "bpc_A_baseline": 2.48579888265641,
+        "bpc_A_concat": 2.700776020046553,
+        "bpc_B_baseline": 5.505172073835026,
+        "bpc_B_concat": 5.627574288690907,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.882062802355305
+      },
+      "41": {
+        "retention_A": 0.9090554895992016,
+        "retention_B": 0.9852175698622577,
+        "gain_C": 5.133891963608662,
+        "bpc_A_baseline": 2.460919475642815,
+        "bpc_A_concat": 2.7071168963820056,
+        "bpc_B_baseline": 5.590307110063098,
+        "bpc_B_concat": 5.674185358716931,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.8661080363913376
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 24,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "replay_frac": 0.5,
+    "pass_retention": 0.95,
+    "fail_retention": 0.915,
+    "variant": "longer_phaseA"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "verdict": "BID_N3_PARTIAL",
+  "verdict_msg": "BID outside bands but rate_change not computed (missing N pair). mean_BID_by_N={1024: 66.33}.",
+  "elapsed_s": 0.9396812915802002,
+  "config": {
+    "N_values": [
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "M_frac": 0.125
+  },
+  "summary": {
+    "per_N": {
+      "1024": [
+        {
+          "N": 1024,
+          "seed": 17,
+          "M_stored": 143,
+          "bid_estimate": 66.3263017760239,
+          "bid_ci_low": 56.46125306285368,
+          "bid_ci_high": 75.0149931073327,
+          "bid_normalized": 0.06477177907814834,
+          "in_retrieval_band": false,
+          "in_spinglass_band": false,
+          "in_paramagnetic_band": false,
+          "in_known_class": false,
+          "mean_overlap": 0.9840335445804196,
+          "std_overlap": 0.007857832194106431
+        }
+      ]
+    },
+    "N_values": [
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  }
+}

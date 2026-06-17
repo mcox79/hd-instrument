@@ -1,0 +1,26 @@
+{
+  "anchor_name": "pb_production_recipe_integration_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: full production recipe >=5x naive (or naive~0) -- whiten+pinv composes to a large compound production lift. naive(raw+hebb)=3 full(whiten+pinv)=172 | lift: 57.3x",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "naive_cap": 3,
+      "full_recipe_cap": 172
+    },
+    {
+      "seed": 17,
+      "naive_cap": 3,
+      "full_recipe_cap": 172
+    },
+    {
+      "seed": 23,
+      "naive_cap": 3,
+      "full_recipe_cap": 172
+    }
+  ],
+  "elapsed_s": 4.102884769439697,
+  "summary": "HARD_PASS: full production recipe >=5x naive (or naive~0) -- whiten+pinv composes to a large compound production lift. naive(raw+hebb)=3 full(whiten+pinv)=172 | lift: 57.3x"
+}

@@ -1,0 +1,240 @@
+{
+  "verdict": "SP_HARD_PASS",
+  "verdict_msg": "SPARSE_W_WORKS: M=128 mem=0.0625 ret=1.000 iso=0.0000 n_seeds=5 n_cells=30",
+  "elapsed_s": 23.16,
+  "summary": {
+    "anchor": "sparse_w_active_subspace_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "Ms": [
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "M": 32,
+        "seed": 7,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.01562
+      },
+      {
+        "M": 32,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.01562
+      },
+      {
+        "M": 32,
+        "seed": 23,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.01562
+      },
+      {
+        "M": 32,
+        "seed": 31,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.01562
+      },
+      {
+        "M": 32,
+        "seed": 41,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.01562
+      },
+      {
+        "M": 64,
+        "seed": 7,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.03125
+      },
+      {
+        "M": 64,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.03125
+      },
+      {
+        "M": 64,
+        "seed": 23,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.03125
+      },
+      {
+        "M": 64,
+        "seed": 31,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.03125
+      },
+      {
+        "M": 64,
+        "seed": 41,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.03125
+      },
+      {
+        "M": 128,
+        "seed": 7,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.0625
+      },
+      {
+        "M": 128,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.0625
+      },
+      {
+        "M": 128,
+        "seed": 23,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.0625
+      },
+      {
+        "M": 128,
+        "seed": 31,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.0625
+      },
+      {
+        "M": 128,
+        "seed": 41,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.0625
+      },
+      {
+        "M": 256,
+        "seed": 7,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.125
+      },
+      {
+        "M": 256,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.125
+      },
+      {
+        "M": 256,
+        "seed": 23,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.125
+      },
+      {
+        "M": 256,
+        "seed": 31,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.125
+      },
+      {
+        "M": 256,
+        "seed": 41,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.125
+      },
+      {
+        "M": 512,
+        "seed": 7,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.25
+      },
+      {
+        "M": 512,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.25
+      },
+      {
+        "M": 512,
+        "seed": 23,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.25
+      },
+      {
+        "M": 512,
+        "seed": 31,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.25
+      },
+      {
+        "M": 512,
+        "seed": 41,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.25
+      },
+      {
+        "M": 1024,
+        "seed": 7,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.5
+      },
+      {
+        "M": 1024,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.5
+      },
+      {
+        "M": 1024,
+        "seed": 23,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.5
+      },
+      {
+        "M": 1024,
+        "seed": 31,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.5
+      },
+      {
+        "M": 1024,
+        "seed": 41,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.5
+      }
+    ],
+    "verdict": "SP_HARD_PASS",
+    "verdict_msg": "SPARSE_W_WORKS: M=128 mem=0.0625 ret=1.000 iso=0.0000 n_seeds=5 n_cells=30",
+    "elapsed_s": 23.16
+  }
+}

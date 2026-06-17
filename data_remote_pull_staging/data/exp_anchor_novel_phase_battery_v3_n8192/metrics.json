@@ -1,0 +1,102 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: mixed cell signals (doc=2, novel=1, finite_N=2, middle=1). Cell calls: {'C1': 'DOCUMENTED', 'C2': 'FINITE_N', 'C3': 'FINITE_N', 'C4': 'MIDDLE', 'C5': 'DOCUMENTED', 'C6': 'NOVEL'}. Extend seed count (>=10) + N range up to N=8192 before final class call.",
+  "elapsed_s": 0.103,
+  "summary": {
+    "C1_q_EA_by_N": {
+      "512": {
+        "q_EA_mean": 0.77535,
+        "q_EA_std": 0.0,
+        "binder_g4_mean": 0.66411,
+        "M_per_class": 80
+      },
+      "1024": {
+        "q_EA_mean": 0.7936,
+        "q_EA_std": 0.0,
+        "binder_g4_mean": 0.66478,
+        "M_per_class": 136
+      }
+    },
+    "C2_plateaus_by_N": {
+      "512": {
+        "ret_G1_mean": 0.75211,
+        "ret_G2_mean": 0.75869,
+        "ret_G3_mean": 0.81302
+      },
+      "1024": {
+        "ret_G1_mean": 0.77147,
+        "ret_G2_mean": 0.77667,
+        "ret_G3_mean": 0.83101
+      }
+    },
+    "C3_spectral": {
+      "mean_spectral_gap_frac": 0.011471,
+      "raw": [
+        0.011471
+      ]
+    },
+    "C4_hysteresis": {
+      "mean_hysteresis_area": 0.0,
+      "std_area": 0.0,
+      "cv": 0.0,
+      "raw": [
+        0.0
+      ]
+    },
+    "C5_disorder_op": {
+      "mean_disorder_op": 0.23423,
+      "raw": [
+        0.23423
+      ]
+    },
+    "C6_free_energy": {
+      "n_wells_mode": 7,
+      "mean_gap_ratio": 0.1364,
+      "n_3well_fraction": 0.0
+    },
+    "cell_calls": {
+      "C1": "DOCUMENTED",
+      "C2": "FINITE_N",
+      "C3": "FINITE_N",
+      "C4": "MIDDLE",
+      "C5": "DOCUMENTED",
+      "C6": "NOVEL"
+    },
+    "class_vote_counts": {
+      "DOCUMENTED": 2,
+      "NOVEL": 1,
+      "FINITE_N": 2,
+      "MIDDLE": 1
+    },
+    "v1_comparison": {
+      "v1_cell_calls": {
+        "C1": "DOCUMENTED",
+        "C2": "FINITE_N",
+        "C3": "FINITE_N",
+        "C4": "MIDDLE",
+        "C5": "DOCUMENTED",
+        "C6": "DOCUMENTED"
+      },
+      "v1_N_sweep": [
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "v1_n_seeds": 5
+    }
+  },
+  "config": {
+    "N_sweep": [
+      512,
+      1024
+    ],
+    "N_default": 512,
+    "M_per_class": 80,
+    "seeds": [
+      17
+    ],
+    "mode": "SMOKE",
+    "device": "cpu"
+  }
+}

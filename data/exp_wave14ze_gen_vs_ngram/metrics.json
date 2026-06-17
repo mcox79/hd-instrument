@@ -1,0 +1,25 @@
+{
+  "verdict": "GEN_SUBSTRATE_BEATS_NGRAM",
+  "verdict_msg": "Substrate generation outperforms trigram-Markov baseline: substrate=(e=5.136,r=0.000); ngram=(e=4.788,r=0.057). Composite score 5.136 vs 4.675.",
+  "elapsed_s": 8.781999999999243,
+  "summary": {
+    "substrate": {
+      "char_entropy": 5.135663119354562,
+      "ngram_repetition": 0.0,
+      "sample": "sa0/2ar= =bn.//n 4sman.ddaeni|axtthdh 0_e)krdee|e|\nbs.,>t|mba_En51aM/-/omCus1f(acc 5]09- A mo12m e- e|ntDbdarpeiip|amd.gab=|s_ a1ecie txdya|W./o pes|1eg u-rmbdte6rdaii an|ey,_aes/6\r-Ee=lyn_|a08/aArw=i"
+    },
+    "ngram": {
+      "char_entropy": 4.787744047967697,
+      "ngram_repetition": 0.05660377358490566,
+      "sample": "blationt modult oxyte John)\r\n### Livand perrecommall malgo/nothan lattes/exins metes | Pytesnatect Afte Hebbiall dectente formearizata=3. Tration ation que sto sen quiver-chashboarninetruct Van trach "
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "generate_length": 512,
+    "temperature": 1.0,
+    "ngram_n": 3,
+    "max_epochs": 5
+  }
+}

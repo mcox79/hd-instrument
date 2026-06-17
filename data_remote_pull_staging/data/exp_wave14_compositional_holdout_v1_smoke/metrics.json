@@ -1,0 +1,28 @@
+{
+  "verdict": "COMPOSITIONAL_HARD_FAIL",
+  "verdict_msg": "No compositional generalization: hold_out_acc=0.078<=0.1 (within 2x chance 1/16=0.062). train_acc=0.307. K6 closed-FAIL.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "train_acc": 0.3072916666666667,
+        "hold_out_acc": 0.078125,
+        "n_train": 192,
+        "n_holdout": 64
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "train_frac": 0.75,
+    "epochs": 5,
+    "seeds": [
+      17
+    ],
+    "n_objects": 16,
+    "n_attrs": 16,
+    "pass_holdout_acc": 0.5,
+    "fail_holdout_acc": 0.1
+  }
+}

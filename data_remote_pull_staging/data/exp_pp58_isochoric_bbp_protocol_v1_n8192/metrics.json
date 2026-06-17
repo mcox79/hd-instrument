@@ -1,0 +1,33 @@
+{
+  "anchor_name": "pp58_isochoric_bbp_protocol_v1_n8192",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ratio=5.71 in [3.0,5.5); partial BBP validation. alpha=0.05 N=8192 audit_crit=0.700(pred=0.726) cap_crit=4.000(pred=4.359) ratio=5.71 bbp_ratio_pred=6.00 n_seeds=5",
+  "n_seeds": 5,
+  "N": 8192,
+  "n_active": 8192,
+  "alpha": 0.05,
+  "sigma_g_use": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.65,
+    0.7,
+    0.726,
+    0.75,
+    0.8,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "cap_pred": 4.358898943540674,
+  "bbp_audit_crit_pred": 0.726393202250021,
+  "bbp_ratio_pred": 6.000743027383621,
+  "run_mode": "full",
+  "elapsed_s": 522.7269484996796,
+  "peak_gpu_gb": 0.001048576
+}

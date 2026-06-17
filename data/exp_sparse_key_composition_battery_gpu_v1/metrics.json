@@ -1,0 +1,227 @@
+{
+  "anchor_name": "sparse_key_composition_battery_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: one composition arm passes. alpha: {'flat_sparse': 0.45, 'hadamard': 0.15, 'hadamard_indep_mask': 0.45, 'block_sparse': 0.04} | hadamard_indep/best=1.00 block/flat=0.09",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "arm": "flat_sparse",
+      "N": 4096,
+      "seed": 7,
+      "alpha": 0.599853515625
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 4096,
+      "seed": 17,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 4096,
+      "seed": 23,
+      "alpha": 0.599853515625
+    },
+    {
+      "arm": "hadamard",
+      "N": 4096,
+      "seed": 7,
+      "alpha": 0.14990234375
+    },
+    {
+      "arm": "hadamard",
+      "N": 4096,
+      "seed": 17,
+      "alpha": 0.14990234375
+    },
+    {
+      "arm": "hadamard",
+      "N": 4096,
+      "seed": 23,
+      "alpha": 0.14990234375
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 4096,
+      "seed": 7,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 4096,
+      "seed": 17,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 4096,
+      "seed": 23,
+      "alpha": 0.599853515625
+    },
+    {
+      "arm": "block_sparse",
+      "N": 4096,
+      "seed": 7,
+      "alpha": 0.0498046875
+    },
+    {
+      "arm": "block_sparse",
+      "N": 4096,
+      "seed": 17,
+      "alpha": 0.0498046875
+    },
+    {
+      "arm": "block_sparse",
+      "N": 4096,
+      "seed": 23,
+      "alpha": 0.0498046875
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 8192,
+      "seed": 7,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 8192,
+      "seed": 17,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 8192,
+      "seed": 23,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard",
+      "N": 8192,
+      "seed": 7,
+      "alpha": 0.14990234375
+    },
+    {
+      "arm": "hadamard",
+      "N": 8192,
+      "seed": 17,
+      "alpha": 0.14990234375
+    },
+    {
+      "arm": "hadamard",
+      "N": 8192,
+      "seed": 23,
+      "alpha": 0.14990234375
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 8192,
+      "seed": 7,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 8192,
+      "seed": 17,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 8192,
+      "seed": 23,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "block_sparse",
+      "N": 8192,
+      "seed": 7,
+      "alpha": 0.0499267578125
+    },
+    {
+      "arm": "block_sparse",
+      "N": 8192,
+      "seed": 17,
+      "alpha": 0.0499267578125
+    },
+    {
+      "arm": "block_sparse",
+      "N": 8192,
+      "seed": 23,
+      "alpha": 0.0499267578125
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 16384,
+      "seed": 7,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 16384,
+      "seed": 17,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "flat_sparse",
+      "N": 16384,
+      "seed": 23,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard",
+      "N": 16384,
+      "seed": 7,
+      "alpha": 0.14996337890625
+    },
+    {
+      "arm": "hadamard",
+      "N": 16384,
+      "seed": 17,
+      "alpha": 0.14996337890625
+    },
+    {
+      "arm": "hadamard",
+      "N": 16384,
+      "seed": 23,
+      "alpha": 0.14996337890625
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 16384,
+      "seed": 7,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 16384,
+      "seed": 17,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "hadamard_indep_mask",
+      "N": 16384,
+      "seed": 23,
+      "alpha": 0.449951171875
+    },
+    {
+      "arm": "block_sparse",
+      "N": 16384,
+      "seed": 7,
+      "alpha": 0.01995849609375
+    },
+    {
+      "arm": "block_sparse",
+      "N": 16384,
+      "seed": 17,
+      "alpha": 0.04998779296875
+    },
+    {
+      "arm": "block_sparse",
+      "N": 16384,
+      "seed": 23,
+      "alpha": 0.04998779296875
+    }
+  ],
+  "elapsed_s": 300.75513887405396,
+  "summary": "MIDDLE_BAND: one composition arm passes. alpha: {'flat_sparse': 0.45, 'hadamard': 0.15, 'hadamard_indep_mask': 0.45, 'block_sparse': 0.04} | hadamard_indep/best=1.00 block/flat=0.09"
+}

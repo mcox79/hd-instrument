@@ -1,0 +1,49 @@
+{
+  "verdict": "BASIN_DISCRETE_HARD_FAIL",
+  "verdict_msg": "1-RSB basin-discrete REJECTED: |gap|=0.000<0.02. s7:gap=-0.000,part=0.67,n_same=8,n_diff=16, s17:gap=0.000,part=0.71,n_same=17,n_diff=7, s23:gap=-0.000,part=0.71,n_same=7,n_diff=17.",
+  "elapsed_s": 0.40600000001722947,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "mean_ret_same": 0.9147022217512131,
+        "mean_ret_diff": 0.9148108065128326,
+        "gap": -0.00010858476161956787,
+        "partition_clean": 0.6666666666666666,
+        "n_same": 8,
+        "n_diff": 16
+      },
+      "17": {
+        "mean_ret_same": 0.9148902822943294,
+        "mean_ret_diff": 0.9148309741701398,
+        "gap": 5.930812418963871e-05,
+        "partition_clean": 0.7083333333333334,
+        "n_same": 17,
+        "n_diff": 7
+      },
+      "23": {
+        "mean_ret_same": 0.9147029008184161,
+        "mean_ret_diff": 0.9148727585287655,
+        "gap": -0.0001698577103493859,
+        "partition_clean": 0.7083333333333334,
+        "n_same": 7,
+        "n_diff": 17
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "n": 2048,
+    "m_per_task": 200,
+    "n_pairs": 24,
+    "k_clusters": 4,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "device": "cuda",
+    "pass_gap": 0.1,
+    "pass_partition": 0.8,
+    "fail_gap": 0.02
+  }
+}

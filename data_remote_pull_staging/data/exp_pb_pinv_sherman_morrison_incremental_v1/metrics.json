@@ -1,0 +1,27 @@
+{
+  "anchor_name": "pb_pinv_sherman_morrison_incremental_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: incremental correct but <10x speedup. at N=2048: incremental/full speedup=0.6x max_dev=0.00e+00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N1024": {
+          "incremental_wps": 32.700997774883575,
+          "full_rebuild_wps": 45.43802265761242,
+          "speedup": 0.7196835571233873,
+          "max_dev": 0.0
+        },
+        "N2048": {
+          "incremental_wps": 6.6892880551222555,
+          "full_rebuild_wps": 11.197531164129948,
+          "speedup": 0.597389545701882,
+          "max_dev": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 5.684809446334839,
+  "summary": "MIDDLE_BAND: incremental correct but <10x speedup. at N=2048: incremental/full speedup=0.6x max_dev=0.00e+00"
+}

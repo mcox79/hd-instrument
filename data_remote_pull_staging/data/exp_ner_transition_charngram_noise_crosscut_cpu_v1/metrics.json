@@ -1,0 +1,58 @@
+{
+  "anchor_name": "ner_transition_charngram_noise_crosscut_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: BIO-transition contribution PRESERVED/GROWS under char noise (delta>=-0.01) -- the sequence model is the noise-robustness lever (BIO label legality is invariant to emission-level char noise), compounding with its scale-invariance. Discrete features (gazetteer) shrink under noise; the sequence model does not. Compound A: transition-contribution@5pct clean=+0.0858 noisy=+0.0796 (delta=-0.0062). Compound B: char-n-gram lift@5pct clean=-0.0096 noisy=-0.0088 (delta=+0.0008)",
+  "summary": "HARD_PASS: BIO-transition contribution PRESERVED/GROWS under char noise (delta>=-0.01) -- the sequence model is the noise-robustness lever (BIO label legality is invariant to emission-level char noise), compounding with its scale-invariance. Discrete features (gazetteer) shrink under noise; the sequence model does not. Compound A: transition-contribution@5pct clean=+0.0858 noisy=+0.0796 (delta=-0.0062). Compound B: char-n-gram lift@5pct clean=-0.0096 noisy=-0.0088 (delta=+0.0008)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "frac": 0.05,
+          "noise0": {
+            "means": {
+              "baseline": 0.412,
+              "no_transition": 0.3262,
+              "char_ngram": 0.4024
+            },
+            "trans_contrib": 0.0858,
+            "char_lift": -0.0096
+          },
+          "noise10": {
+            "means": {
+              "baseline": 0.3659,
+              "no_transition": 0.2863,
+              "char_ngram": 0.3571
+            },
+            "trans_contrib": 0.0796,
+            "char_lift": -0.0088
+          }
+        },
+        {
+          "frac": 1.0,
+          "noise0": {
+            "means": {
+              "baseline": 0.6441,
+              "no_transition": 0.5464,
+              "char_ngram": 0.6366
+            },
+            "trans_contrib": 0.0977,
+            "char_lift": -0.0075
+          },
+          "noise10": {
+            "means": {
+              "baseline": 0.533,
+              "no_transition": 0.4419,
+              "char_ngram": 0.5507
+            },
+            "trans_contrib": 0.0911,
+            "char_lift": 0.0177
+          }
+        }
+      ],
+      "noise_level": 0.1
+    }
+  ],
+  "elapsed_s": 630.9266498088837
+}

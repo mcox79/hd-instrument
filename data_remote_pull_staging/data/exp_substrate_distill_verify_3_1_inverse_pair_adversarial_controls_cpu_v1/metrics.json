@@ -1,0 +1,83 @@
+{
+  "anchor_name": "substrate_distill_verify_3_1_inverse_pair_adversarial_controls_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (INVERSE_PAIR detector resists false positives in its sound domain): all 3 genuine inverses detected, ZERO type/non-inverse guard violations. The only residual false-positives are 0 coincidental un-prefix FALSE-FRIENDS, correctly characterized -- and these are closed by V2.1's authored-DUAL-edge grounding (the sound path). The name heuristic is hereby documented as LOW-CONFIDENCE-pending-DUAL-edge. POSITIVE inverses detected 3/3; TYPE+NONINVERSE guard violations=0 (must be 0); FALSE-FRIEND (coincidental un-prefix) hits=0/2. FINDING: the INVERSE_PAIR TYPE guard (same domain + same output + exactly 2 members) correctly rejects type-mismatched and non-inverse decoys. RESIDUAL RISK: the name heuristic's 'un'-prefix rule false-friends on coincidences (union/ion, unit/it) -- which is EXACTLY why V2.1's run() grounds INVERSE_PAIR in an AUTHORED DUAL edge when available; the name path is a LOW-CONFIDENCE fallback. RECOMMENDATION: treat name-heuristic INVERSE_PAIR as provisional pending DUAL-edge confirmation (require an authored DUAL/INVERSE_OF edge for a high-confidence INVERSE_PAIR verdict).",
+  "summary": "HARD_PASS (INVERSE_PAIR detector resists false positives in its sound domain): all 3 genuine inverses detected, ZERO type/non-inverse guard violations. The only residual false-positives are 0 coincidental un-prefix FALSE-FRIENDS, correctly characterized -- and these are closed by V2.1's authored-DUAL-edge grounding (the sound path). The name heuristic is hereby documented as LOW-CONFIDENCE-pending-DUAL-edge. POSITIVE inverses detected 3/3; TYPE+NONINVERSE guard violations=0 (must be 0); FALSE-FRIEND (coincidental un-prefix) hits=0/2. FINDING: the INVERSE_PAIR TYPE guard (same domain + same output + exactly 2 members) correctly rejects type-mismatched and non-inverse decoys. RESIDUAL RISK: the name heuristic's 'un'-prefix rule false-friends on coincidences (union/ion, unit/it) -- which is EXACTLY why V2.1's run() grounds INVERSE_PAIR in an AUTHORED DUAL edge when available; the name path is a LOW-CONFIDENCE fallback. RECOMMENDATION: treat name-heuristic INVERSE_PAIR as provisional pending DUAL-edge confirmation (require an authored DUAL/INVERSE_OF edge for a high-confidence INVERSE_PAIR verdict).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_positive": 3,
+      "pos_detected": 3,
+      "guard_violations": 0,
+      "falsefriend_hits": 0,
+      "n_falsefriend": 2,
+      "rows": [
+        {
+          "decoy": "bind_unbind",
+          "class": "POSITIVE",
+          "verdict": "INVERSE_PAIR",
+          "is_inverse": true,
+          "ok": true
+        },
+        {
+          "decoy": "fold_unfold",
+          "class": "POSITIVE",
+          "verdict": "INVERSE_PAIR",
+          "is_inverse": true,
+          "ok": true
+        },
+        {
+          "decoy": "forward_backward",
+          "class": "POSITIVE",
+          "verdict": "INVERSE_PAIR",
+          "is_inverse": true,
+          "ok": true
+        },
+        {
+          "decoy": "inverse_named_diff_output",
+          "class": "FP_TYPE",
+          "verdict": "THEOREM_LINKED",
+          "is_inverse": false,
+          "ok": true
+        },
+        {
+          "decoy": "inverse_named_diff_domain",
+          "class": "FP_TYPE",
+          "verdict": "DISTINCT",
+          "is_inverse": false,
+          "ok": true
+        },
+        {
+          "decoy": "inverse_named_three_members",
+          "class": "FP_TYPE",
+          "verdict": "SHARED_ABSTRACTION",
+          "is_inverse": false,
+          "ok": true
+        },
+        {
+          "decoy": "noninverse_same_type",
+          "class": "FP_NONINVERSE",
+          "verdict": "SHARED_ABSTRACTION",
+          "is_inverse": false,
+          "ok": true
+        },
+        {
+          "decoy": "falsefriend_union_ion",
+          "class": "FP_FALSEFRIEND",
+          "verdict": "SHARED_ABSTRACTION",
+          "is_inverse": false,
+          "ok": null
+        },
+        {
+          "decoy": "falsefriend_unit_it",
+          "class": "FP_FALSEFRIEND",
+          "verdict": "SHARED_ABSTRACTION",
+          "is_inverse": false,
+          "ok": null
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.0
+}

@@ -1,0 +1,120 @@
+{
+  "verdict": "BID_HARD_PASS_NOVEL_CLASS",
+  "verdict_msg": "HP1 PASS: substrate BID=46.95+/-5.90 is OUTSIDE all 3 Hopfield class bands (retrieval=[1.0,2.5], spin-glass=[256,512], paramagnetic=[1019,1024]) in 5/5 seeds (>= 4/5 threshold met). Sigma margin from nearest band = 7.54 (>= 2.0 required). Per-seed BIDs: [50.67, 52.88, 38.47, 41.26, 51.48]. Stability: max_drift=0.2487. P(H1 novel class) updates to >= 0.65. Next: ship secondary discriminator (joint BID+chi_4+Kovacs).",
+  "elapsed_s": 3.12,
+  "is_smoke": false,
+  "config": {
+    "N_list": [
+      1024,
+      2048,
+      4096
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "M_queries": 200,
+    "S_samples": 500,
+    "ALPHA_LOAD": 0.4
+  },
+  "per_n_summary": {
+    "1024": {
+      "bid_values": [
+        50.668,
+        52.8825,
+        38.4662,
+        41.2622,
+        51.4781
+      ],
+      "bid_mean": 46.9514,
+      "bid_std": 5.8966,
+      "class_counts": {
+        "OUTSIDE_ALL_BANDS": 5
+      },
+      "reference_bands": {
+        "retrieval": [
+          1.0,
+          2.5
+        ],
+        "spin_glass": [
+          256.0,
+          512.0
+        ],
+        "paramagnetic": [
+          1019,
+          1024
+        ]
+      }
+    },
+    "2048": {
+      "bid_values": [
+        60.3238,
+        50.3992,
+        52.1353,
+        48.9938,
+        49.1578
+      ],
+      "bid_mean": 52.202,
+      "bid_std": 4.2137,
+      "class_counts": {
+        "OUTSIDE_ALL_BANDS": 5
+      },
+      "reference_bands": {
+        "retrieval": [
+          1.0,
+          2.5
+        ],
+        "spin_glass": [
+          512.0,
+          1024.0
+        ],
+        "paramagnetic": [
+          2043,
+          2048
+        ]
+      }
+    },
+    "4096": {
+      "bid_values": [
+        58.6878,
+        64.9393,
+        63.2693,
+        62.6058,
+        65.7333
+      ],
+      "bid_mean": 63.0471,
+      "bid_std": 2.4513,
+      "class_counts": {
+        "OUTSIDE_ALL_BANDS": 5
+      },
+      "reference_bands": {
+        "retrieval": [
+          1.0,
+          2.5
+        ],
+        "spin_glass": [
+          1024.0,
+          2048.0
+        ],
+        "paramagnetic": [
+          4091,
+          4096
+        ]
+      }
+    }
+  },
+  "stability": {
+    "stable": false,
+    "unstable_fail": true,
+    "max_drift_frac": 0.2487,
+    "bid_medians": {
+      "1024": 50.668,
+      "2048": 50.3992,
+      "4096": 63.2693
+    }
+  },
+  "hypothesis_update": "P(H1) >= 0.65 if HP1 PASS; P(H2) >= 0.55 if HF1/HF2/HF3 FAIL"
+}

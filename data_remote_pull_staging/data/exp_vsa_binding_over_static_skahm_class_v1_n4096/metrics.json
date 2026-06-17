@@ -1,0 +1,19 @@
+{
+  "anchor": "vsa_binding_over_static_skahm_class_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: mean_cos=1.0000 in [0.6,0.85); seeds_hp=2/5",
+  "mean_cos_all_seeds": 1.0000001192092896,
+  "min_cos_all_seeds": 1.0000001192092896,
+  "cos_per_seed": {
+    "7": 1.0000001192092896,
+    "17": 1.0000001192092896
+  },
+  "seeds_hp": 2,
+  "N": 512,
+  "M": 25,
+  "alpha": 0.05,
+  "n_seeds": 2,
+  "n_probes": 10,
+  "elapsed_s": 0.15976548194885254,
+  "run_mode": "smoke"
+}

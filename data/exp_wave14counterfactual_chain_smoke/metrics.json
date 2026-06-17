@@ -1,0 +1,67 @@
+{
+  "verdict": "CF_CHAIN_PERFECT",
+  "verdict_msg": "All subtraction counts maintain fidelity >= 0.99 (min=1.0000). Counterfactual chain is EXACT - subtract any number of items, result is provably identical to 'never stored those items'.",
+  "elapsed_s": 0.20399999999790452,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K": 100,
+    "n_subtract_list": [
+      1,
+      10,
+      50
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_n_subtract": [
+    {
+      "n_subtract": 1,
+      "fidelity": 1.0,
+      "per_seed_fid": [
+        1.0
+      ]
+    },
+    {
+      "n_subtract": 10,
+      "fidelity": 1.0000001192092896,
+      "per_seed_fid": [
+        1.0000001192092896
+      ]
+    },
+    {
+      "n_subtract": 50,
+      "fidelity": 0.9999998807907104,
+      "per_seed_fid": [
+        0.9999998807907104
+      ]
+    }
+  ],
+  "summary": {
+    "per_n_subtract": [
+      {
+        "n_subtract": 1,
+        "fidelity": 1.0,
+        "per_seed_fid": [
+          1.0
+        ]
+      },
+      {
+        "n_subtract": 10,
+        "fidelity": 1.0000001192092896,
+        "per_seed_fid": [
+          1.0000001192092896
+        ]
+      },
+      {
+        "n_subtract": 50,
+        "fidelity": 0.9999998807907104,
+        "per_seed_fid": [
+          0.9999998807907104
+        ]
+      }
+    ]
+  }
+}

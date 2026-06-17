@@ -1,0 +1,43 @@
+{
+  "anchor_name": "t5c_multi2_6layer_3seed_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-seed mean perplexity ratio 0.766x (std 0.001), gates used all seeds -- multi-seed VALIDATED. ratios=[0.766, 0.765, 0.766]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 33.217763230759694,
+      "ratio": 0.7658124488815998,
+      "gate0": 0.21568724513053894,
+      "gate1": 0.10154473781585693,
+      "used": true
+    },
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 33.174603552355876,
+      "ratio": 0.7648174324868546,
+      "gate0": 0.20389001071453094,
+      "gate1": 0.1925581693649292,
+      "used": true
+    },
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 33.224805607398224,
+      "ratio": 0.765974805981385,
+      "gate0": 0.21029004454612732,
+      "gate1": 0.13893871009349823,
+      "used": true
+    }
+  ],
+  "summary": {
+    "mean_ratio": 0.7655348957832798,
+    "std_ratio": 0.0005116347285910398,
+    "ratios": [
+      0.7658124488815998,
+      0.7648174324868546,
+      0.765974805981385
+    ]
+  },
+  "elapsed_s": 391.11955523490906
+}

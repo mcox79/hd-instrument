@@ -1,0 +1,56 @@
+{
+  "anchor_name": "cs1_dt_algebraic_audit_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: DT boundary partially predictive. DT-below by arm: {'dense': False, 'sparse0.20': False, 'sparse0.10': False, 'sparse0.05': True, 'hadamard': False}",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "arm": "dense",
+          "alpha": 0.05,
+          "delta": 0.05,
+          "rho": 0.999,
+          "rho_DT": 0.008276138941166964,
+          "below_boundary": false
+        },
+        {
+          "arm": "sparse0.20",
+          "alpha": 0.2,
+          "delta": 0.2,
+          "rho": 0.999,
+          "rho_DT": 0.05849876106796306,
+          "below_boundary": false
+        },
+        {
+          "arm": "sparse0.10",
+          "alpha": 0.4,
+          "delta": 0.4,
+          "rho": 0.25,
+          "rho_DT": 0.17916479487760092,
+          "below_boundary": false
+        },
+        {
+          "arm": "sparse0.05",
+          "alpha": 1.0,
+          "delta": 1.0,
+          "rho": 0.05,
+          "rho_DT": 0.9980010003328332,
+          "below_boundary": true
+        },
+        {
+          "arm": "hadamard",
+          "alpha": 0.4,
+          "delta": 0.4,
+          "rho": 0.999,
+          "rho_DT": 0.17916479487760092,
+          "below_boundary": false
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "MIDDLE_BAND: DT boundary partially predictive. DT-below by arm: {'dense': False, 'sparse0.20': False, 'sparse0.10': False, 'sparse0.05': True, 'hadamard': False}"
+}

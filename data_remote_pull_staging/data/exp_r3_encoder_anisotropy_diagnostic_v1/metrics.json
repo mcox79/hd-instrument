@@ -1,0 +1,18 @@
+{
+  "anchor_name": "r3_encoder_anisotropy_diagnostic_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: encoder is ANISOTROPIC (PR/D<0.50, correlated dims, top-10pct hold >50pct energy) -- confirms anisotropy as the real-key ZKL root cause; SRHT engineering (Auth 3) justified. PR/D=0.225 mean|corr|=0.0730 top10pct_energy=0.512 (D=384, PR=86.4)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "D": 384,
+      "PR": 86.42716174002948,
+      "PR_over_D": 0.22507073369799344,
+      "mean_abs_corr": 0.07295674452321108,
+      "top10pct_energy": 0.5120079952984569
+    }
+  ],
+  "elapsed_s": 13.784740924835205,
+  "summary": "HARD_PASS: encoder is ANISOTROPIC (PR/D<0.50, correlated dims, top-10pct hold >50pct energy) -- confirms anisotropy as the real-key ZKL root cause; SRHT engineering (Auth 3) justified. PR/D=0.225 mean|corr|=0.0730 top10pct_energy=0.512 (D=384, PR=86.4)"
+}

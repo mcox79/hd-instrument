@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap2_12_pii_detection_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate detects PII recall>=0.90 with FP<=0.05 -- char-class feature prototypes classify email/phone/SSN/card/name vs normal; production privacy gate. recall=1.000 false-positive=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pii_recall": 1.0,
+      "false_positive": 0.0,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 0.12356090545654297,
+  "summary": "HARD_PASS: substrate detects PII recall>=0.90 with FP<=0.05 -- char-class feature prototypes classify email/phone/SSN/card/name vs normal; production privacy gate. recall=1.000 false-positive=0.000"
+}

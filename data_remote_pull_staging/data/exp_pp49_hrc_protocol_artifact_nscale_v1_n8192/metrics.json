@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pp49_hrc_protocol_artifact_nscale_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: pred_cos > 0.7 at deep d (artifact absent) OR root_cos < 0.5 (root-start broken). pred_cos=d1:1.000 d2:1.000 d3:1.000 root_cos=d1:1.000 d2:0.333 d3:-0.333 n_seeds=2 N=512",
+  "N": 512,
+  "alpha": 0.05,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.12393903732299805,
+  "depths": [
+    1,
+    2,
+    3
+  ]
+}

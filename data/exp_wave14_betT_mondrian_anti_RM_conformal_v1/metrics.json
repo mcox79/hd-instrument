@@ -1,0 +1,146 @@
+{
+  "verdict": "BETT_MONDRIAN_ANTI_RM_FAIL",
+  "verdict_msg": "HARD FAIL: per-coset coverage out of [0.8, 0.99] for 4/4 anti-RM cosets: {'0': 1.0, '1': 1.0, '2': 1.0, '3': 1.0}. Mondrian on anti-RM coset does NOT rescue Bet T. Bet T closes per PROT-004/006 \u2014 Mondrian rescue exhausted.",
+  "elapsed_s": 1.4219999999913853,
+  "summary": {
+    "per_coset_coverage": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0
+    },
+    "mean_set_size": 200.0,
+    "K_hyp": 8,
+    "alpha": 0.1,
+    "n_cosets": 4,
+    "seed_records": {
+      "17": {
+        "per_coset_coverage": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        },
+        "per_coset_count": {
+          "0": 222,
+          "1": 248,
+          "2": 235,
+          "3": 255
+        },
+        "mean_set_size": 200.0,
+        "per_coset_quantile": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      },
+      "23": {
+        "per_coset_coverage": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        },
+        "per_coset_count": {
+          "0": 260,
+          "1": 229,
+          "2": 204,
+          "3": 267
+        },
+        "mean_set_size": 200.0,
+        "per_coset_quantile": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      },
+      "31": {
+        "per_coset_coverage": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        },
+        "per_coset_count": {
+          "0": 311,
+          "1": 185,
+          "2": 225,
+          "3": 239
+        },
+        "mean_set_size": 200.0,
+        "per_coset_quantile": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      },
+      "37": {
+        "per_coset_coverage": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        },
+        "per_coset_count": {
+          "0": 249,
+          "1": 236,
+          "2": 245,
+          "3": 230
+        },
+        "mean_set_size": 200.0,
+        "per_coset_quantile": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      },
+      "41": {
+        "per_coset_coverage": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        },
+        "per_coset_count": {
+          "0": 251,
+          "1": 250,
+          "2": 262,
+          "3": 197
+        },
+        "mean_set_size": 200.0,
+        "per_coset_quantile": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    "note": "Mondrian conformal stratified by anti-RM(1,m) coset at order-1 block"
+  },
+  "config": {
+    "N": 1024,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_hypotheses": 8,
+    "n_facts_per_hyp": 30,
+    "n_cal_per_hyp": 80,
+    "n_test_per_hyp": 120,
+    "beta": 8,
+    "seeds": [
+      17,
+      23,
+      31,
+      37,
+      41
+    ],
+    "alpha": 0.1,
+    "n_cosets": 4,
+    "device": "cpu",
+    "note": "Bet T Mondrian conformal stratified by anti-RM(1,m) coset; final close-or-rescue per Strategy x Research shore-up matrix Weakness #2."
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "verdict": "BOOLEAN_NOISE_STAB_HARD_FAIL",
+  "verdict_msg": "HARD FAIL: PRE-cleanup |dev|=0.2115 > 0.10 OR KKL slack 80.920 > 0.30. PRE-cleanup MC Stab_rho=0.5985, Walsh=0.5985, target rho^2=0.8100, |dev_MC|=0.2115, |dev_Walsh|=0.2115. KKL: I(f)_max=0.8000, lower-bound=0.0098, slack=80.9200 (8092.0%). POST-cleanup MC Stab_rho=0.5972, |dev|=0.2128",
+  "elapsed_s": 0.0779999999795109,
+  "summary": {
+    "N": 1024,
+    "m": 10,
+    "n_codewords": 10,
+    "rho": 0.9,
+    "target_rho_squared": 0.81,
+    "pre_cleanup": {
+      "stab_rho_walsh_mean": 0.5984616656953491,
+      "stab_rho_mc_mean": 0.59849,
+      "stab_rho_walsh_per_cw": [
+        0.5987369392383727,
+        0.5904900000000001,
+        0.5987369392383727,
+        0.5987369392383727,
+        0.5987369392383727,
+        0.7290000000000001,
+        0.531441,
+        0.531441,
+        0.7290000000000001,
+        0.4782969000000001
+      ],
+      "stab_rho_mc_per_cw": [
+        0.5937,
+        0.596,
+        0.5875,
+        0.601,
+        0.5989,
+        0.7303,
+        0.5344,
+        0.5309,
+        0.7301,
+        0.4821
+      ],
+      "dev_walsh_vs_target": -0.21153833430465097,
+      "dev_mc_vs_target": -0.2115100000000001
+    },
+    "post_cleanup": {
+      "stab_rho_mc_mean": 0.5972299999999999,
+      "stab_rho_mc_per_cw": [
+        0.5983,
+        0.598,
+        0.5934,
+        0.5973,
+        0.589,
+        0.7274,
+        0.5271,
+        0.5228,
+        0.7369,
+        0.4821
+      ],
+      "dev_mc_vs_target": -0.21277000000000013
+    },
+    "kkl": {
+      "I_max_emp": 0.8,
+      "I_total_mean": 5.0,
+      "I_lower_bound": 0.009765625,
+      "slack_frac": 80.92,
+      "slack_above": 80.92
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "n_codewords": 10,
+    "mc_samples": 20000,
+    "rho_grid": [
+      0.7,
+      0.8,
+      0.9
+    ],
+    "rho_primary": 0.9,
+    "pass_pre_threshold": 0.02,
+    "fail_pre_threshold": 0.1,
+    "kkl_slack_threshold": 0.3,
+    "seed": 17
+  }
+}

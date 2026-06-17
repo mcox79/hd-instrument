@@ -1,0 +1,30 @@
+{
+  "anchor": "free_prob_free_additivity_v1_n4096",
+  "N": 1024,
+  "M": 128,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M": 128,
+      "n_router": 16,
+      "n_leaves": 4,
+      "M_leaf": 28,
+      "n_query": 128,
+      "acc_flat": 0.546875,
+      "acc_hier_collapsed": 0.546875,
+      "delta_hier_minus_flat": 0.0,
+      "ok": true,
+      "run_mode": "smoke",
+      "_ckpt_key": "M128_seed17",
+      "_partial_written_at": 1780336888.4702673
+    }
+  ],
+  "verdict": "FP_FADD_HARD_PASS",
+  "verdict_msg": "FREE_ADDITIVITY_HOLDS: |delta|<=0.01 in 1/1 seeds. N=1024 M=128 mean_acc_flat=0.5469 mean_acc_hier=0.5469 mean_|delta|=0.0000 n_hp=1/1",
+  "elapsed_s": 0.0
+}

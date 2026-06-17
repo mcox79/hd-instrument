@@ -1,0 +1,40 @@
+{
+  "anchor_name": "substrate_continual_kv_n32768_120_sessions_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: continual KV holds >=0.95 retention at production scale -- memory scales to N=32768/120 sessions. final_retention=1.0000 at 600 facts / 20 sessions (N=4096)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 4096,
+      "total_facts": 600,
+      "final_retention": 1.0,
+      "curve": [
+        {
+          "session": 5,
+          "facts": 150,
+          "retention": 1.0
+        },
+        {
+          "session": 10,
+          "facts": 300,
+          "retention": 1.0
+        },
+        {
+          "session": 15,
+          "facts": 450,
+          "retention": 1.0
+        },
+        {
+          "session": 20,
+          "facts": 600,
+          "retention": 1.0
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.11851191520690918,
+  "summary": "HARD_PASS: continual KV holds >=0.95 retention at production scale -- memory scales to N=32768/120 sessions. final_retention=1.0000 at 600 facts / 20 sessions (N=4096)"
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "tier4_orthogonal_stability_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: orthogonal-subspace updates leave base accuracy within 3pct -- stable continual updates; gates Tier 4 fine-tuning path. before=1.000 after=1.000 drop=0.000 (N_base=150 N_new=100)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "drop": 0.0,
+      "n_base": 150,
+      "n_new": 100
+    }
+  ],
+  "elapsed_s": 0.7927722930908203,
+  "summary": "HARD_PASS: orthogonal-subspace updates leave base accuracy within 3pct -- stable continual updates; gates Tier 4 fine-tuning path. before=1.000 after=1.000 drop=0.000 (N_base=150 N_new=100)"
+}

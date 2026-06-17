@@ -1,0 +1,73 @@
+{
+  "anchor_name": "substrate_training_speed_ladder_stage_a_charlm_v1_n2048",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <2x speed advantage. median_speedup=0.2x min_gap_sub=0.44 | bigram:speedup=0.2x gap=0.49 matched=2/2 trigram:speedup=0.2x gap=0.57 matched=2/2",
+  "N": 256,
+  "V": 40,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "tasks": [
+    "bigram",
+    "trigram"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 256,
+      "uniform_nats": 3.6888794541139363,
+      "cells": {
+        "bigram": {
+          "bpc_sub": 3.146639585494995,
+          "gap_sub": 0.5422398686189411,
+          "t_sub": 0.10059642791748047,
+          "bpc_base_best": 3.1239442825317383,
+          "t_base": 0.01669144630432129,
+          "baseline_matched": true,
+          "speedup": 0.16592484096963492
+        },
+        "trigram": {
+          "bpc_sub": 3.175349473953247,
+          "gap_sub": 0.5135299801606892,
+          "t_sub": 0.1053624153137207,
+          "bpc_base_best": 3.15834903717041,
+          "t_base": 0.016986370086669922,
+          "baseline_matched": true,
+          "speedup": 0.16121849557161672
+        }
+      },
+      "elapsed_s": 0.42005372047424316,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1780606320.1842673
+    },
+    {
+      "seed": 2,
+      "N": 256,
+      "uniform_nats": 3.6888794541139363,
+      "cells": {
+        "bigram": {
+          "bpc_sub": 3.251283645629883,
+          "gap_sub": 0.43759580848405344,
+          "t_sub": 0.0907127857208252,
+          "bpc_base_best": 3.1157801151275635,
+          "t_base": 0.02820444107055664,
+          "baseline_matched": true,
+          "speedup": 0.31092023959398335
+        },
+        "trigram": {
+          "bpc_sub": 3.0590667724609375,
+          "gap_sub": 0.6298126816529988,
+          "t_sub": 0.06193947792053223,
+          "bpc_base_best": 2.864269256591797,
+          "t_base": 0.015726327896118164,
+          "baseline_matched": true,
+          "speedup": 0.25389829595100716
+        }
+      },
+      "elapsed_s": 0.4134647846221924,
+      "_ckpt_key": "2",
+      "_partial_written_at": 1780606320.6047993
+    }
+  ],
+  "elapsed_s": 0.8335185050964355,
+  "summary": "HARD_FAIL: <2x speed advantage. median_speedup=0.2x min_gap_sub=0.44 | bigram:speedup=0.2x gap=0.49 matched=2/2 trigram:speedup=0.2x gap=0.57 matched=2/2"
+}

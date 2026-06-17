@@ -1,0 +1,145 @@
+{
+  "verdict": "XRD2_STRUCTURED_WINS_CLEAR",
+  "verdict_msg": "Hadamard keys give Bragg peaks (max SNR=44194184.2); random keys are amorphous (max SNR=1.2). Crystallography analogy holds: structured keys = crystalline, random = amorphous glass. Materials prediction validated.",
+  "elapsed_s": 1.0,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      50,
+      150,
+      300
+    ],
+    "n_trials": 3,
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "by_keys": {
+    "random": {
+      "per_K": [
+        {
+          "K": 50,
+          "N": 512,
+          "key_source": "random",
+          "mean_snr": 1.2221339613373052,
+          "max_snr": 1.2352025990963755,
+          "min_snr": 1.2107685249964109
+        },
+        {
+          "K": 150,
+          "N": 512,
+          "key_source": "random",
+          "mean_snr": 1.1125784903802691,
+          "max_snr": 1.117010957856203,
+          "min_snr": 1.1081093020269783
+        },
+        {
+          "K": 300,
+          "N": 512,
+          "key_source": "random",
+          "mean_snr": 1.0896838395441997,
+          "max_snr": 1.0940484487143467,
+          "min_snr": 1.083005577506576
+        }
+      ],
+      "transition_K": null,
+      "max_snr": 1.2352025990963755
+    },
+    "hadamard": {
+      "per_K": [
+        {
+          "K": 50,
+          "N": 512,
+          "key_source": "hadamard",
+          "mean_snr": 44194180.51838875,
+          "max_snr": 44194180.51838875,
+          "min_snr": 44194180.51838875
+        },
+        {
+          "K": 150,
+          "N": 512,
+          "key_source": "hadamard",
+          "mean_snr": 44194176.79309845,
+          "max_snr": 44194176.79309845,
+          "min_snr": 44194176.79309845
+        },
+        {
+          "K": 300,
+          "N": 512,
+          "key_source": "hadamard",
+          "mean_snr": 44194184.24367905,
+          "max_snr": 44194184.24367905,
+          "min_snr": 44194184.24367905
+        }
+      ],
+      "transition_K": null,
+      "max_snr": 44194184.24367905
+    }
+  },
+  "summary": {
+    "by_keys": {
+      "random": {
+        "per_K": [
+          {
+            "K": 50,
+            "N": 512,
+            "key_source": "random",
+            "mean_snr": 1.2221339613373052,
+            "max_snr": 1.2352025990963755,
+            "min_snr": 1.2107685249964109
+          },
+          {
+            "K": 150,
+            "N": 512,
+            "key_source": "random",
+            "mean_snr": 1.1125784903802691,
+            "max_snr": 1.117010957856203,
+            "min_snr": 1.1081093020269783
+          },
+          {
+            "K": 300,
+            "N": 512,
+            "key_source": "random",
+            "mean_snr": 1.0896838395441997,
+            "max_snr": 1.0940484487143467,
+            "min_snr": 1.083005577506576
+          }
+        ],
+        "transition_K": null,
+        "max_snr": 1.2352025990963755
+      },
+      "hadamard": {
+        "per_K": [
+          {
+            "K": 50,
+            "N": 512,
+            "key_source": "hadamard",
+            "mean_snr": 44194180.51838875,
+            "max_snr": 44194180.51838875,
+            "min_snr": 44194180.51838875
+          },
+          {
+            "K": 150,
+            "N": 512,
+            "key_source": "hadamard",
+            "mean_snr": 44194176.79309845,
+            "max_snr": 44194176.79309845,
+            "min_snr": 44194176.79309845
+          },
+          {
+            "K": 300,
+            "N": 512,
+            "key_source": "hadamard",
+            "mean_snr": 44194184.24367905,
+            "max_snr": 44194184.24367905,
+            "min_snr": 44194184.24367905
+          }
+        ],
+        "transition_K": null,
+        "max_snr": 44194184.24367905
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "verdict": "AQSIM3W4_INCONCLUSIVE",
+  "verdict_msg": "no cells",
+  "elapsed_s": 11.25,
+  "summary": {
+    "anchor": "adversarial_aqsim_path_d_compose_v4_n16384",
+    "N": 16384,
+    "smoke": false,
+    "M": 8192,
+    "M_over_N": 0.5,
+    "depth": 5,
+    "K_paths": 100,
+    "n_adv": 90,
+    "n_leg": 10,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "collision_alpha": 0.45,
+    "defense_thresh": 0.5,
+    "cells": [],
+    "verdict": "AQSIM3W4_INCONCLUSIVE",
+    "verdict_msg": "no cells",
+    "elapsed_s": 11.25
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "anchor": "kf4_drift_detect_v5_n4096",
+  "N": 1024,
+  "smoke": true,
+  "n_drift_levels": [
+    50,
+    200
+  ],
+  "m_fracs": [
+    0.5
+  ],
+  "seeds": [
+    17
+  ],
+  "per_ndrift": {
+    "50": [
+      {
+        "N": 1024,
+        "M_frac": 0.5,
+        "M": 512,
+        "seed": 17,
+        "acc_base": 1.0,
+        "acc_drifted": 1.0,
+        "acc_drop": 0.0,
+        "noise_fraction": 0.09766,
+        "passes_hp": false,
+        "n_drift_steps": 50
+      }
+    ],
+    "200": [
+      {
+        "N": 1024,
+        "M_frac": 0.5,
+        "M": 512,
+        "seed": 17,
+        "acc_base": 1.0,
+        "acc_drifted": 0.98,
+        "acc_drop": 0.02,
+        "noise_fraction": 0.39062,
+        "passes_hp": false,
+        "n_drift_steps": 200
+      }
+    ]
+  },
+  "verdict": "KF4_V5_MIDDLE_BAND",
+  "verdict_msg": "WEAK_SIGNAL at N_DRIFT=500: mean_acc_drop=0.02000. mean_acc_drop_500=0.02000 n_pass=0/1 dose_slope=0.000133 drift_levels=[50, 200] mean_drops=[0.0, 0.02]",
+  "elapsed_s": 0.31
+}

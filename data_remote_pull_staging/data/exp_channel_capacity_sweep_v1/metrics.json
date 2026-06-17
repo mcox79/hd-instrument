@@ -1,0 +1,60 @@
+{
+  "verdict": "CHCAP_HARD_PASS",
+  "verdict_msg": "CAPACITY_VALIDATED low_acc=1.000 frac=0.340. N=1024 M_sweep=[32, 64, 128] n_cells=3 mean_low_load_acc=1.000 (M<=102) mean_c_eff_frac_low_load=0.340 mean_c_eff_frac_all=0.514 per_M={32: {'acc': 1.0, 'c_eff_frac': 0.227}, 64: {'acc': 1.0, 'c_eff_frac': 0.4539}, 128: {'acc': 0.95, 'c_eff_frac': 0.8624}}",
+  "elapsed_s": 0.01,
+  "summary": {
+    "anchor": "channel_capacity_sweep_v1",
+    "N": 1024,
+    "M_sweep": [
+      32,
+      64,
+      128
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha_c": 0.138,
+    "M_crit": 141,
+    "cells": [
+      {
+        "M": 32,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "n_test": 20,
+        "acc_perfect": 1.0,
+        "acc_bitwise": 1.0,
+        "c_eff": 32.0,
+        "c_eff_fraction": 0.22695,
+        "M_over_N": 0.0312
+      },
+      {
+        "M": 64,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "n_test": 20,
+        "acc_perfect": 1.0,
+        "acc_bitwise": 1.0,
+        "c_eff": 64.0,
+        "c_eff_fraction": 0.4539,
+        "M_over_N": 0.0625
+      },
+      {
+        "M": 128,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "n_test": 20,
+        "acc_perfect": 0.95,
+        "acc_bitwise": 0.99814,
+        "c_eff": 121.6,
+        "c_eff_fraction": 0.86241,
+        "M_over_N": 0.125
+      }
+    ],
+    "verdict": "CHCAP_HARD_PASS",
+    "verdict_msg": "CAPACITY_VALIDATED low_acc=1.000 frac=0.340. N=1024 M_sweep=[32, 64, 128] n_cells=3 mean_low_load_acc=1.000 (M<=102) mean_c_eff_frac_low_load=0.340 mean_c_eff_frac_all=0.514 per_M={32: {'acc': 1.0, 'c_eff_frac': 0.227}, 64: {'acc': 1.0, 'c_eff_frac': 0.4539}, 128: {'acc': 0.95, 'c_eff_frac': 0.8624}}",
+    "elapsed_s": 0.01
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "anchor_name": "substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Mode-5 isolated dual-substrate >=1.5x shared-W (storage-compatibility rule architecturally validated). at M=30 isolated=0.30 shared=0.07 ratio=4.50x | M10:iso=0.70/sh=0.50 M30:iso=0.30/sh=0.07 M100:iso=0.00/sh=0.00",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "M10_shared": 0.4,
+      "M10_isolated": 0.6,
+      "M30_shared": 0.0,
+      "M30_isolated": 0.26666666666666666,
+      "M100_shared": 0.0,
+      "M100_isolated": 0.0
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "M10_shared": 0.6,
+      "M10_isolated": 0.8,
+      "M30_shared": 0.13333333333333333,
+      "M30_isolated": 0.3333333333333333,
+      "M100_shared": 0.0,
+      "M100_isolated": 0.0
+    }
+  ],
+  "elapsed_s": 0.7632949352264404,
+  "summary": "HARD_PASS: Mode-5 isolated dual-substrate >=1.5x shared-W (storage-compatibility rule architecturally validated). at M=30 isolated=0.30 shared=0.07 ratio=4.50x | M10:iso=0.70/sh=0.50 M30:iso=0.30/sh=0.07 M100:iso=0.00/sh=0.00"
+}

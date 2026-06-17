@@ -1,0 +1,53 @@
+{
+  "mode": "smoke",
+  "N": 512,
+  "families": [
+    "bsc",
+    "antipodal"
+  ],
+  "seeds": [
+    17
+  ],
+  "f_sweep": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "elapsed_s": 0.17,
+  "per_family": {
+    "bsc": {
+      "17": {
+        "r2": 0.6676,
+        "max_dev": 0.5156,
+        "f_vals": [
+          0.0,
+          0.5,
+          1.0
+        ],
+        "ret_A_vals": [
+          0.8438,
+          0.9375,
+          0.0
+        ]
+      }
+    },
+    "antipodal": {
+      "17": {
+        "r2": 0.6926,
+        "max_dev": 0.4688,
+        "f_vals": [
+          0.0,
+          0.5,
+          1.0
+        ],
+        "ret_A_vals": [
+          0.8125,
+          0.875,
+          0.0
+        ]
+      }
+    }
+  },
+  "verdict_tag": "SS_V17_MIDDLE_BAND",
+  "verdict_msg": "Partial: plateau at 0 of 2 families. family_pass={'bsc': 1, 'antipodal': 1} HP_MAJORITY_MIN=2 N=512 f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0]"
+}

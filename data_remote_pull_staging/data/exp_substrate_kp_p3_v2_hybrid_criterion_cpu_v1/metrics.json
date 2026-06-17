@@ -1,0 +1,50 @@
+{
+  "anchor_name": "substrate_kp_p3_v2_hybrid_criterion_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (tracking; below 12-class HARD-PASS bar): connected_component=5 archetype(s) exist (math-sharing families forming) but bisimulation=1 < 12 -- cross-domain bridges connect behaviorally-distinct atoms; archetype quotienting needs more SHARES_MATH density (toward 332) and/or within-family bridges. KP P3-v2 hybrid at SHARES_MATH=70 (49 atoms): connected_component archetypes=5, bisimulation archetypes=1 (HARD-PASS bar=12 bisim classes at ~332). Both reported (DECISION 12). connected_component = math-sharing families ('what exists'); bisimulation = behavioral-equivalence-refined ('really one archetype'). cc members: [['characteristic_function', 'discrete_fourier_transform', 'fhrr_bind'], ['dynamic_programming', 'family_sequence_dp', 'sequence_decoder_operator', 'viterbi_decoding'], ['eigendecomposition', 'family_spectral', 'singular_value_decomposition', 'spectral_theorem_synthesis', 'svd']].",
+  "summary": "MIDDLE_BAND (tracking; below 12-class HARD-PASS bar): connected_component=5 archetype(s) exist (math-sharing families forming) but bisimulation=1 < 12 -- cross-domain bridges connect behaviorally-distinct atoms; archetype quotienting needs more SHARES_MATH density (toward 332) and/or within-family bridges. KP P3-v2 hybrid at SHARES_MATH=70 (49 atoms): connected_component archetypes=5, bisimulation archetypes=1 (HARD-PASS bar=12 bisim classes at ~332). Both reported (DECISION 12). connected_component = math-sharing families ('what exists'); bisimulation = behavioral-equivalence-refined ('really one archetype'). cc members: [['characteristic_function', 'discrete_fourier_transform', 'fhrr_bind'], ['dynamic_programming', 'family_sequence_dp', 'sequence_decoder_operator', 'viterbi_decoding'], ['eigendecomposition', 'family_spectral', 'singular_value_decomposition', 'spectral_theorem_synthesis', 'svd']].",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sm_edges": 70,
+      "n_atoms": 49,
+      "criterion": "hybrid",
+      "connected_component_classes": 5,
+      "bisimulation_classes": 1,
+      "cc_members": [
+        [
+          "characteristic_function",
+          "discrete_fourier_transform",
+          "fhrr_bind"
+        ],
+        [
+          "dynamic_programming",
+          "family_sequence_dp",
+          "sequence_decoder_operator",
+          "viterbi_decoding"
+        ],
+        [
+          "eigendecomposition",
+          "family_spectral",
+          "singular_value_decomposition",
+          "spectral_theorem_synthesis",
+          "svd"
+        ],
+        [
+          "dynamic_time_warping",
+          "edit_distance",
+          "levenshtein_distance",
+          "needleman_wunsch"
+        ],
+        [
+          "family_binding",
+          "fhrr_binding_op",
+          "vsa_superposition_op"
+        ]
+      ],
+      "hard_pass_bar": 12
+    }
+  ],
+  "elapsed_s": 0.03745698928833008
+}

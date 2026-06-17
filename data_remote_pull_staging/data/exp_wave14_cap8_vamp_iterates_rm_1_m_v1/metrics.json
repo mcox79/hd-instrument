@@ -1,0 +1,178 @@
+{
+  "verdict": "CAP8_RM_ITERATES_GENERATED",
+  "verdict_msg": "All 15 RM(1,m) VAMP iterate-trace files written successfully with >=3 iterates each.  Audit-trail v5 can now compute Spearman rho on RM(1,m) with REAL iterate data (no spectrum-only fallback) -- v4's 0.40 disambiguation unblocked.",
+  "elapsed_s": 304.46899999998277,
+  "summary": {
+    "manifest": [
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p50\\seed_0013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.5,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.5595261516468369,
+        "vamp_se_pred": 0.5672453789222206
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p50\\seed_1013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.5,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.592922654608615,
+        "vamp_se_pred": 0.5732583986010541
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p50\\seed_2013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.5,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.5121799379136103,
+        "vamp_se_pred": 0.5638780879020738
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p50\\seed_3013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.5,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.565039601163075,
+        "vamp_se_pred": 0.5701316283680606
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p50\\seed_4013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.5,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.5645783874219238,
+        "vamp_se_pred": 0.5686885036451407
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p75\\seed_0013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.75,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.42868815377377945,
+        "vamp_se_pred": 0.39548467440027585
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p75\\seed_1013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.75,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.39317874665863306,
+        "vamp_se_pred": 0.3916363418058224
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p75\\seed_2013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.75,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.361727730420638,
+        "vamp_se_pred": 0.3976493614846559
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p75\\seed_3013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.75,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.38739495615177566,
+        "vamp_se_pred": 0.40101665250480273
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_0p75\\seed_4013.json",
+        "codebook": "rm_1_m",
+        "alpha": 0.75,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.40353086773942953,
+        "vamp_se_pred": 0.3974088406975026
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_1p00\\seed_0013.json",
+        "codebook": "rm_1_m",
+        "alpha": 1.0,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.2701531935638588,
+        "vamp_se_pred": 0.2583589632284124
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_1p00\\seed_1013.json",
+        "codebook": "rm_1_m",
+        "alpha": 1.0,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.25358208702740415,
+        "vamp_se_pred": 0.25354854748534555
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_1p00\\seed_2013.json",
+        "codebook": "rm_1_m",
+        "alpha": 1.0,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.22670952766344335,
+        "vamp_se_pred": 0.2595615671641791
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_1p00\\seed_3013.json",
+        "codebook": "rm_1_m",
+        "alpha": 1.0,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.24400695414636642,
+        "vamp_se_pred": 0.2569158385054924
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1\\iterates\\rm_1_m\\alpha_1p00\\seed_4013.json",
+        "codebook": "rm_1_m",
+        "alpha": 1.0,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.25799212185442055,
+        "vamp_se_pred": 0.2564347969311857
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 4096,
+      "n_seeds": 5,
+      "alpha_grid": [
+        0.5,
+        0.75,
+        1.0
+      ],
+      "codebooks": [
+        "rm_1_m"
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_iter": 300,
+      "expected_n_files": 15
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "n_seeds": 5,
+    "alpha_grid": [
+      0.5,
+      0.75,
+      1.0
+    ],
+    "codebooks": [
+      "rm_1_m"
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_iter": 300,
+    "expected_n_files": 15
+  }
+}

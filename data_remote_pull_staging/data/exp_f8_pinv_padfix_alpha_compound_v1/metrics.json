@@ -1,0 +1,26 @@
+{
+  "anchor_name": "f8_pinv_padfix_alpha_compound_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: NEW production recipe (whiten+pinv) >=3x OLD (or OLD~0) -- adopt new defaults. real-key recipe: OLD(raw+hebb)=0.000 NEW(whiten+pinv)=0.400 | NEW/OLD: OLD~0 -> NEW rescues",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "old_recipe": 0.0,
+      "new_recipe": 0.4
+    },
+    {
+      "seed": 17,
+      "old_recipe": 0.0,
+      "new_recipe": 0.4
+    },
+    {
+      "seed": 23,
+      "old_recipe": 0.0,
+      "new_recipe": 0.4
+    }
+  ],
+  "elapsed_s": 4.330630779266357,
+  "summary": "HARD_PASS: NEW production recipe (whiten+pinv) >=3x OLD (or OLD~0) -- adopt new defaults. real-key recipe: OLD(raw+hebb)=0.000 NEW(whiten+pinv)=0.400 | NEW/OLD: OLD~0 -> NEW rescues"
+}

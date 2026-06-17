@@ -1,0 +1,118 @@
+{
+  "verdict": "S13_HARD_PASS",
+  "verdict_msg": "NOVEL_QUERY_OPEN: max_b=1.000 max_d=1.000 max_e=1.000 depths=[3, 4]",
+  "elapsed_s": 9.93,
+  "summary": {
+    "anchor": "novel_query_construction_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "depths": [
+      3,
+      4
+    ],
+    "K_paths": 100,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "M": 2048,
+        "depth": 3,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 17,
+        "M": 2048,
+        "depth": 3,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 23,
+        "M": 2048,
+        "depth": 3,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 31,
+        "M": 2048,
+        "depth": 3,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 41,
+        "M": 2048,
+        "depth": 3,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 7,
+        "M": 2048,
+        "depth": 4,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 17,
+        "M": 2048,
+        "depth": 4,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 23,
+        "M": 2048,
+        "depth": 4,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 31,
+        "M": 2048,
+        "depth": 4,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      },
+      {
+        "seed": 41,
+        "M": 2048,
+        "depth": 4,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      }
+    ],
+    "verdict": "S13_HARD_PASS",
+    "verdict_msg": "NOVEL_QUERY_OPEN: max_b=1.000 max_d=1.000 max_e=1.000 depths=[3, 4]",
+    "elapsed_s": 9.93
+  }
+}

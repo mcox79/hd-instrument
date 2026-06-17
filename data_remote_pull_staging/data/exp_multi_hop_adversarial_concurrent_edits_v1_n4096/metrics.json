@@ -1,0 +1,51 @@
+{
+  "verdict": "G10_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: s1_crosstalk_edits_on_path: mean_def=0.900 | s2_collision_edits_off_path: mean_def=0.850 | s3_deleted_mixed_edits: mean_def=0.950 | s4_edited_no_edits_baseline: mean_def=1.000 | seed_pass=1/1",
+  "elapsed_s": 0.11,
+  "summary": {
+    "anchor": "multi_hop_adversarial_concurrent_edits_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 20,
+    "n_edits": 4,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 20,
+        "n_edits": 4,
+        "scenarios": {
+          "s1_crosstalk_edits_on_path": {
+            "defense_rate": 0.9,
+            "audit_chain_intact": true,
+            "consistency": 1.0
+          },
+          "s2_collision_edits_off_path": {
+            "defense_rate": 0.85,
+            "audit_chain_intact": true,
+            "consistency": 1.0
+          },
+          "s3_deleted_mixed_edits": {
+            "defense_rate": 0.95,
+            "audit_chain_intact": true,
+            "consistency": 1.0
+          },
+          "s4_edited_no_edits_baseline": {
+            "defense_rate": 1.0,
+            "audit_chain_intact": true,
+            "consistency": 1.0
+          }
+        }
+      }
+    ],
+    "verdict": "G10_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: s1_crosstalk_edits_on_path: mean_def=0.900 | s2_collision_edits_off_path: mean_def=0.850 | s3_deleted_mixed_edits: mean_def=0.950 | s4_edited_no_edits_baseline: mean_def=1.000 | seed_pass=1/1",
+    "elapsed_s": 0.11
+  }
+}

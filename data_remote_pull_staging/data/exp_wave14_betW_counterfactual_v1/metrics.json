@@ -1,0 +1,36 @@
+{
+  "verdict": "BET_W_KILLED",
+  "verdict_msg": "Counterfactual consistency 0.117<0.15. Random-like response to perturbed s.",
+  "elapsed_s": 0.17200000000593718,
+  "summary": {
+    "consistency": 0.11666666666666665,
+    "factual_acc": 0.9555555555555556,
+    "per_seed": [
+      {
+        "consistency": 0.13,
+        "factual_acc": 0.8666666666666667
+      },
+      {
+        "consistency": 0.09999999999999999,
+        "factual_acc": 1.0
+      },
+      {
+        "consistency": 0.12,
+        "factual_acc": 1.0
+      }
+    ]
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "n_perturb": 10,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

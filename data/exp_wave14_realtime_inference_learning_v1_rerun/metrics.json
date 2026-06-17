@@ -1,0 +1,44 @@
+{
+  "verdict": "REALTIME_INFERENCE_HARD_PASS",
+  "verdict_msg": "Online updates LIFT capability: bpc_online=2.198 vs bpc_frozen=2.745; delta=-0.548 bits/char <= -0.05. K5 substrate-compatible.",
+  "elapsed_s": 9.21799999999348,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "bpc_frozen": 2.7284071140289305,
+        "bpc_online": 2.1741032218933105,
+        "delta": -0.55430389213562
+      },
+      "17": {
+        "bpc_frozen": 2.756507834434509,
+        "bpc_online": 2.2065635108947754,
+        "delta": -0.5499443235397337
+      },
+      "23": {
+        "bpc_frozen": 2.7512123727798463,
+        "bpc_online": 2.212615860939026,
+        "delta": -0.5385965118408205
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 2048,
+    "T_infer": 4000,
+    "online_alpha": 0.05,
+    "online_decay": 0.0001,
+    "pretrain_bytes": 40000,
+    "pretrain_bytes_requested": 40000,
+    "corpus_len": 49105,
+    "pretrain_epochs": 3,
+    "batch_size": 64,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "pass_bpc_delta": -0.05,
+    "fail_bpc_delta": 0.05,
+    "rerun_reason": "v190 V10 LABEL-OVER-CLAIM instrumentation repair"
+  }
+}

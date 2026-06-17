@@ -1,0 +1,18 @@
+{
+  "anchor_name": "t5c_a1_differentiability_probe_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: gradients flow through complex FHRR bind/unbind, loss halves, codebook utilized -- Tier-5c training is unblocked (differentiability gate passed). loss 1.9070->0.2454 grad-ok=True util=0.88",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "loss0": 1.9069693088531494,
+      "lossN": 0.245440274477005,
+      "loss_drop": true,
+      "grad_ok": true,
+      "util": 0.875
+    }
+  ],
+  "elapsed_s": 2.2021212577819824,
+  "summary": "HARD_PASS: gradients flow through complex FHRR bind/unbind, loss halves, codebook utilized -- Tier-5c training is unblocked (differentiability gate passed). loss 1.9070->0.2454 grad-ok=True util=0.88"
+}

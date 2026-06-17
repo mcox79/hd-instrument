@@ -1,0 +1,16 @@
+{
+  "anchor_name": "per_relation_sharding_kg_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: per-relation sharding gap 0.05-0.15. per-relation-sharded=0.700 monolithic=0.150 gap=0.550",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mono": 0.15,
+      "sharded": 0.7,
+      "gap": 0.5499999999999999
+    }
+  ],
+  "elapsed_s": 0.1529991626739502,
+  "summary": "MIDDLE_BAND: per-relation sharding gap 0.05-0.15. per-relation-sharded=0.700 monolithic=0.150 gap=0.550"
+}

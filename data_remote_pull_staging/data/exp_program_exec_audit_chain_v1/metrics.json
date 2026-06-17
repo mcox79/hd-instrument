@@ -1,0 +1,37 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "T_LIST": [
+    15,
+    25
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_T": {
+      "15": {
+        "mean_cell_a": 0.999609375,
+        "min_cell_a": 0.99921875,
+        "mean_cell_b": 1.0,
+        "min_cell_b": 1.0,
+        "max_del_residual": 0.09765625,
+        "max_delta_acc": 0.0,
+        "n_seeds": 2
+      },
+      "25": {
+        "mean_cell_a": 0.988515625,
+        "min_cell_a": 0.98578125,
+        "mean_cell_b": 1.0,
+        "min_cell_b": 1.0,
+        "max_del_residual": 0.080078125,
+        "max_delta_acc": 0.0,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Chain-of-thought trace recording confirmed (3/3 cells pass). Cell A: min_cos=0.986>=0.8 (index retrieval). Cell B: min_cos=1.000>=0.7 (next-step prediction). Cell C: del_residual=0.098<0.15 delta_acc=0.000.",
+  "elapsed_s": 2.297072172164917
+}

@@ -1,0 +1,182 @@
+{
+  "verdict": "FAIL",
+  "verdict_msg": "TDA_INCONCLUSIVE: TDA-A=MIDDLE TDA-B=MIDDLE TDA-C=HARD_FAIL(agree=2/5,monotone=False) TDA-D=MIDDLE(bars=2,gap=True) TDA-E=HARD_PASS(maxdiff=0.000)",
+  "elapsed_s": 1.126,
+  "tda_a": {
+    "b0_tau_trajectory": [
+      [
+        1.0,
+        3.0
+      ],
+      [
+        0.8571,
+        3.0
+      ],
+      [
+        0.7143,
+        3.0
+      ],
+      [
+        0.5714,
+        3.0
+      ],
+      [
+        0.4286,
+        3.0
+      ],
+      [
+        0.2857,
+        2.0
+      ],
+      [
+        0.1429,
+        2.0
+      ],
+      [
+        0.0,
+        2.0
+      ],
+      [
+        -0.1429,
+        2.0
+      ],
+      [
+        -0.2857,
+        1.0
+      ],
+      [
+        -0.4286,
+        1.0
+      ],
+      [
+        -0.5714,
+        1.0
+      ],
+      [
+        -0.7143,
+        1.0
+      ],
+      [
+        -0.8571,
+        1.0
+      ],
+      [
+        -1.0,
+        1.0
+      ]
+    ],
+    "plateau_found": false,
+    "plateau_b0": 2,
+    "plateau_width": 0.2667,
+    "monotone": true,
+    "verdict": "MIDDLE"
+  },
+  "tda_b": {
+    "substrate_longest_b1": 0.007851,
+    "random_longest_b1_mean": 0.006281,
+    "ratio": 1.25,
+    "p_value": 0.8333,
+    "n_seeds": 5,
+    "verdict": "MIDDLE"
+  },
+  "tda_c": {
+    "experiments": [
+      {
+        "name": "SHIFT_K4",
+        "tda_call": "PARTITION",
+        "free_additive_call": "MIXED",
+        "dmpk_call": "SHIFT",
+        "agreement": false,
+        "plateau_width": 0.2667
+      },
+      {
+        "name": "SHIFT_K8",
+        "tda_call": "PARTITION",
+        "free_additive_call": "SHIFT",
+        "dmpk_call": "SHIFT",
+        "agreement": false,
+        "plateau_width": 0.6
+      },
+      {
+        "name": "PART_K2",
+        "tda_call": "SHIFT",
+        "free_additive_call": "MIXED",
+        "dmpk_call": "SHIFT",
+        "agreement": false,
+        "plateau_width": 1.0
+      },
+      {
+        "name": "PART_K4",
+        "tda_call": "PARTITION",
+        "free_additive_call": "MIXED",
+        "dmpk_call": "SHIFT",
+        "agreement": true,
+        "plateau_width": 0.7333
+      },
+      {
+        "name": "AMBIG_K2",
+        "tda_call": "SHIFT",
+        "free_additive_call": "MIXED",
+        "dmpk_call": "SHIFT",
+        "agreement": true,
+        "plateau_width": 1.0
+      }
+    ],
+    "n_agree": 2,
+    "n_total": 5,
+    "width_monotonic": false,
+    "w_shift_mean": 0.4333,
+    "w_part_mean": 0.8667,
+    "verdict": "HARD_FAIL"
+  },
+  "tda_d": {
+    "long_bar_count": 2,
+    "long_bar_lifetimes": [
+      0.014132,
+      0.007851
+    ],
+    "short_bar_count": 1,
+    "gap_observed": true,
+    "verdict": "MIDDLE"
+  },
+  "tda_e": {
+    "predicted_heights": [
+      4.0,
+      8.0,
+      1.4142
+    ],
+    "observed_heights": [
+      2.0,
+      1.0,
+      1.0
+    ],
+    "max_abs_diff": 0.0,
+    "per_case_diffs": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "verdict": "HARD_PASS",
+    "note": "diffs computed on normalized [0,1] scale; capacity_adjusted=True"
+  },
+  "joint_call": "TDA_INCONCLUSIVE",
+  "summary": {
+    "joint_call": "TDA_INCONCLUSIVE",
+    "tda_a_verdict": "MIDDLE",
+    "tda_b_verdict": "MIDDLE",
+    "tda_c_verdict": "HARD_FAIL",
+    "tda_d_verdict": "MIDDLE",
+    "tda_e_verdict": "HARD_PASS",
+    "tda_c_n_agree": 2,
+    "tda_c_n_total": 5,
+    "tda_c_width_monotonic": false,
+    "tda_d_long_bar_count": 2,
+    "tda_e_max_diff": 0.0
+  },
+  "config": {
+    "n_cases": 5,
+    "n_tau_steps": 15,
+    "n_rand_seeds_b1": 5,
+    "smoke": true
+  }
+}

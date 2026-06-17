@@ -1,0 +1,14 @@
+{
+  "anchor_name": "hopfield_spurious_minima_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: >=0.90 of random starts settle on a real stored pattern -- few spurious attractors (trustworthy retrieval). genuine-convergence=0.957",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "genuine": 0.9566666666666667
+    }
+  ],
+  "elapsed_s": 0.09284830093383789,
+  "summary": "HARD_PASS: >=0.90 of random starts settle on a real stored pattern -- few spurious attractors (trustworthy retrieval). genuine-convergence=0.957"
+}

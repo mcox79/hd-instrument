@@ -1,0 +1,21 @@
+{
+  "NUM_SLOTS": 16,
+  "SLOT_ITERS": 20,
+  "SLOT_BETA": 4.0,
+  "pre": {
+    "c1": 2.48173095723323,
+    "c3_slot_product": 2.5010435356650524,
+    "c3_slot_rerank": 2.780711473193653,
+    "c3_slot_additive": 2.523994205561472
+  },
+  "post": {
+    "c1": 4.335208573927402,
+    "c3_slot_product": 4.2658545017582306,
+    "c3_slot_rerank": 4.900795919008355,
+    "c3_slot_additive": 4.33737129947098
+  },
+  "slot_uniqueness_max": 0.9999902248382568,
+  "slot_uniqueness_mean": 0.9374914169311523,
+  "best_method": "c3_slot_product",
+  "best_gap_vs_c1": 0.06935407216917167
+}

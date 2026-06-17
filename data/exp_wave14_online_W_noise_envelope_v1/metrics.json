@@ -1,0 +1,85 @@
+{
+  "verdict": "ONLINE_W_NOISE_ENVELOPE_NARROW",
+  "verdict_msg": "4/5 noise cells pass; boundary at p_flip~0.30 (first fail at p~0.40). Partial noise robustness.",
+  "elapsed_s": 89.32800000000861,
+  "summary": {
+    "cell_results": [
+      {
+        "p_flip": 0.0,
+        "mean_min_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pass": true
+      },
+      {
+        "p_flip": 0.05,
+        "mean_min_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pass": true
+      },
+      {
+        "p_flip": 0.1,
+        "mean_min_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pass": true
+      },
+      {
+        "p_flip": 0.2,
+        "mean_min_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "pass": true
+      },
+      {
+        "p_flip": 0.3,
+        "mean_min_acc": 0.9933333333333333,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          0.98
+        ],
+        "pass": true
+      },
+      {
+        "p_flip": 0.4,
+        "mean_min_acc": 0.6077777777777778,
+        "seed_min_accs": [
+          0.6,
+          0.64,
+          0.5833333333333334
+        ],
+        "pass": false
+      }
+    ],
+    "n_seeds": 3,
+    "N": 4096
+  },
+  "config": {
+    "N": 4096,
+    "n_writes": 50,
+    "n_seeds": 3,
+    "noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "mode": "full"
+  }
+}

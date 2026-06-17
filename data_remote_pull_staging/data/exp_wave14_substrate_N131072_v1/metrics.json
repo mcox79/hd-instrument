@@ -1,0 +1,18 @@
+{
+  "verdict": "N131K_SCALES",
+  "verdict_msg": "smoother@N=131072: 1.000>=0.5; substrate scales beyond V2.D.",
+  "elapsed_s": 1.5469999999913853,
+  "summary": {
+    "smoother_acc": 1.0,
+    "N": 131072
+  },
+  "config": {
+    "N": 131072,
+    "K": 100,
+    "depth": 50,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_trials": 15,
+    "seed": 17
+  }
+}

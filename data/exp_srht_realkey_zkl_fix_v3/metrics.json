@@ -1,0 +1,16 @@
+{
+  "anchor_name": "srht_realkey_zkl_fix_v3",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: SRHT reduces ZKL but not to <=0.10 target. ZKL(50) real=0.0367 real+SRHT=0.0200 reduction=1.83x (HIPAA target <=0.10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "zkl_real": 0.03666666666666667,
+      "zkl_real_srht": 0.02,
+      "reduction": 1.8333333333333333
+    }
+  ],
+  "elapsed_s": 11.898200511932373,
+  "summary": "MIDDLE_BAND: SRHT reduces ZKL but not to <=0.10 target. ZKL(50) real=0.0367 real+SRHT=0.0200 reduction=1.83x (HIPAA target <=0.10)"
+}

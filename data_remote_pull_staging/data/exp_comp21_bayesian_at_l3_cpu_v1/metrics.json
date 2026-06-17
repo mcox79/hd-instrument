@@ -1,0 +1,16 @@
+{
+  "anchor_name": "comp21_bayesian_at_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Bayesian belief update over deep L3 composite hypotheses recovers the MAP at >=0.85, within 10pp of atomic (L1) -- posterior-weighted bundle + cleanup works over composites. Reasoning survives composition. L3=1.000 L1=1.000 gap=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall_l3": 1.0,
+      "recall_l1": 1.0,
+      "gap": 0.0
+    }
+  ],
+  "elapsed_s": 62.6129412651062,
+  "summary": "HARD_PASS: Bayesian belief update over deep L3 composite hypotheses recovers the MAP at >=0.85, within 10pp of atomic (L1) -- posterior-weighted bundle + cleanup works over composites. Reasoning survives composition. L3=1.000 L1=1.000 gap=0.000"
+}

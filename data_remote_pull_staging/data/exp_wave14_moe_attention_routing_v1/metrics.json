@@ -1,0 +1,26 @@
+{
+  "verdict": "ATTENTION_ROUTER_HARD_FAIL",
+  "verdict_msg": "ATTENTION_ROUTER_HARD_FAIL: entropy@K=8=2.05b > 3.8 OR retention_delta=-0.150 < -0.05. MoE K-scaling fundamentally broken in BSC space for all router families.",
+  "elapsed_s": 0.32,
+  "summary": "moe_attention_v1 SMOKE: K=8 ret_delta=-0.150 H=2.05b",
+  "k4_retention": 0.8,
+  "k16_retention": 0.65,
+  "k16_entropy": 2.046120712290514,
+  "retention_delta_k16_vs_k4": -0.15000000000000002,
+  "per_K": {
+    "4": {
+      "mean_retention": 0.8,
+      "mean_entropy": 1.1660862757210415,
+      "best_retention": 0.8,
+      "best_entropy": 1.1660862757210415,
+      "best_temp": 1.0
+    },
+    "8": {
+      "mean_retention": 0.65,
+      "mean_entropy": 2.046120712290514,
+      "best_retention": 0.65,
+      "best_entropy": 2.046120712290514,
+      "best_temp": 1.0
+    }
+  }
+}

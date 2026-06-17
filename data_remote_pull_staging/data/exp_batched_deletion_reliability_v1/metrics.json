@@ -1,0 +1,65 @@
+{
+  "anchor": "batched_deletion_reliability_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 200,
+  "n_seeds": 2,
+  "r1_estimate": 1.0,
+  "k_aggregates": {
+    "1": {
+      "k": 1,
+      "mean_r_indep": 1.0,
+      "mean_r_corr": 1.0,
+      "std_r_indep": 0.0
+    },
+    "5": {
+      "k": 5,
+      "mean_r_indep": 1.0,
+      "mean_r_corr": 1.0,
+      "std_r_indep": 0.0
+    },
+    "10": {
+      "k": 10,
+      "mean_r_indep": 1.0,
+      "mean_r_corr": 1.0,
+      "std_r_indep": 0.0
+    },
+    "20": {
+      "k": 20,
+      "mean_r_indep": 1.0,
+      "mean_r_corr": 1.0,
+      "std_r_indep": 0.0
+    },
+    "50": {
+      "k": 50,
+      "mean_r_indep": 1.0,
+      "mean_r_corr": 1.0,
+      "std_r_indep": 0.0
+    }
+  },
+  "deviations_from_r1k": {
+    "5": {
+      "r_pred": 1.0,
+      "r_emp": 1.0,
+      "dev": 0.0
+    },
+    "10": {
+      "r_pred": 1.0,
+      "r_emp": 1.0,
+      "dev": 0.0
+    },
+    "20": {
+      "r_pred": 1.0,
+      "r_emp": 1.0,
+      "dev": 0.0
+    }
+  },
+  "max_deviation_small_k": 0.0,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 56.256425857543945,
+  "thresholds": {
+    "HP_indep_tolerance": 0.02,
+    "HF_indep_deviation": 0.1
+  },
+  "verdict_msg": "Batched deletion reliability N=4096 M=200: r_1=1.0000, max_dev_small_k(k<=20)=0.0000 (HP<0.02). Correlated case (c=0.4) characterized: r_corr(k=10)=1.0000 vs r_indep(k=10)=1.0000. Verdict=HARD_PASS."
+}

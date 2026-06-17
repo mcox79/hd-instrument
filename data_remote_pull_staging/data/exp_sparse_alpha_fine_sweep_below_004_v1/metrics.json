@@ -1,0 +1,24 @@
+{
+  "anchor_name": "sparse_alpha_fine_sweep_below_004_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity keeps rising below f=0.04 (>=1.5x) -- more sparse-coding headroom, zero arch change. alpha_c by sparsity: {'f0.005': 4.0, 'f0.010': 4.0, 'f0.020': 2.5, 'f0.030': 1.5, 'f0.040': 1.5, 'f0.050': 1.0, 'f0.100': 0.4} | below-0.04/at-0.04=2.67x",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha": {
+        "f0.005": 4.0,
+        "f0.010": 4.0,
+        "f0.020": 2.5,
+        "f0.030": 1.5,
+        "f0.040": 1.5,
+        "f0.050": 1.0,
+        "f0.100": 0.4
+      }
+    }
+  ],
+  "elapsed_s": 94.57008767127991,
+  "summary": "HARD_PASS: capacity keeps rising below f=0.04 (>=1.5x) -- more sparse-coding headroom, zero arch change. alpha_c by sparsity: {'f0.005': 4.0, 'f0.010': 4.0, 'f0.020': 2.5, 'f0.030': 1.5, 'f0.040': 1.5, 'f0.050': 1.0, 'f0.100': 0.4} | below-0.04/at-0.04=2.67x"
+}

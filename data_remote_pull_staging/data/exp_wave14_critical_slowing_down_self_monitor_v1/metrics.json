@@ -1,0 +1,24 @@
+{
+  "verdict": "NO_CORRELATION",
+  "verdict_msg": "correlation=0.000 |<0.20| (no detection signal).",
+  "elapsed_s": 21.375,
+  "summary": {
+    "tau_err_correlation": 0.0,
+    "tau_mean": 50.0,
+    "err_rate": 1.0,
+    "n_trials": 200
+  },
+  "config": {
+    "N": 8192,
+    "M": 200,
+    "n_trials": 200,
+    "noise_levels": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "seed": 17
+  }
+}

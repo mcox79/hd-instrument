@@ -1,0 +1,49 @@
+{
+  "anchor_name": "pp48_nkt_depth_9_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP at NKT depth-9. pos_rate=1.0000(HP>=0.8 HF<0.5) nkt_rep=1.0000(HP>=0.7 HF<0.4) tree=1.0000(HP>=0.7) NKT_total=511 depth=9 K_POS=50 n_seeds=5",
+  "N": 4096,
+  "NKT_DEPTH": 9,
+  "TOTAL_NKT": 511,
+  "K_POS": 50,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 1.0639257431030273,
+  "per_seed": [
+    {
+      "seed": 7,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "tree_structure_intact": 1.0,
+      "peak_gpu_gb": 0.026204672
+    },
+    {
+      "seed": 17,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "tree_structure_intact": 1.0,
+      "peak_gpu_gb": 0.026204672
+    },
+    {
+      "seed": 23,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "tree_structure_intact": 1.0,
+      "peak_gpu_gb": 0.026204672
+    },
+    {
+      "seed": 31,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "tree_structure_intact": 1.0,
+      "peak_gpu_gb": 0.026204672
+    },
+    {
+      "seed": 41,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "tree_structure_intact": 1.0,
+      "peak_gpu_gb": 0.026204672
+    }
+  ]
+}

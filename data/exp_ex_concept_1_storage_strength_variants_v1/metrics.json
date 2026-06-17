@@ -1,0 +1,59 @@
+{
+  "anchor_name": "ex_concept_1_storage_strength_variants_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: storage variant partial improvement. trigram=0.592 | accs={'baseline': 0.511, 'multipass': 0.515, 'highlr': 0.514, 'count_hebbian': 0.51, 'hopfield': 0.51} | best=multipass:0.515 | conf base=0.058 best=0.145 (2.5x)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_docs": 6000,
+      "trigram": 0.5897196261682243,
+      "baseline_acc": 0.4993095512082854,
+      "baseline_conf": 0.05644530508119583,
+      "multipass_acc": 0.5026467203682393,
+      "multipass_conf": 0.14262270725099638,
+      "highlr_acc": 0.5014959723820483,
+      "highlr_conf": 0.10329826308298594,
+      "count_hebbian_acc": 0.49677790563866514,
+      "count_hebbian_conf": 0.124156199249903,
+      "hopfield_acc": 0.49677790563866514,
+      "hopfield_conf": 0.124156199249903,
+      "base_conf": 0.05644530508119583
+    },
+    {
+      "seed": 17,
+      "n_docs": 6000,
+      "trigram": 0.5867856667110697,
+      "baseline_acc": 0.5123463879637074,
+      "baseline_conf": 0.0605455252484828,
+      "multipass_acc": 0.5182037441139313,
+      "multipass_conf": 0.1475925602453529,
+      "highlr_acc": 0.5146433903755598,
+      "highlr_conf": 0.10856951490496831,
+      "count_hebbian_acc": 0.5109681865165958,
+      "count_hebbian_conf": 0.13679363476344594,
+      "hopfield_acc": 0.5109681865165958,
+      "hopfield_conf": 0.13679363476344594,
+      "base_conf": 0.0605455252484828
+    },
+    {
+      "seed": 23,
+      "n_docs": 6000,
+      "trigram": 0.5995478122090704,
+      "baseline_acc": 0.5224222961348779,
+      "baseline_conf": 0.05821992609162178,
+      "multipass_acc": 0.5255189815345797,
+      "multipass_conf": 0.14615076500676766,
+      "highlr_acc": 0.524716137171694,
+      "highlr_conf": 0.10627028147235713,
+      "count_hebbian_acc": 0.5213900676683105,
+      "count_hebbian_conf": 0.128459981522069,
+      "hopfield_acc": 0.5213900676683105,
+      "hopfield_conf": 0.128459981522069,
+      "base_conf": 0.05821992609162178
+    }
+  ],
+  "elapsed_s": 2303.795236349106,
+  "summary": "MIDDLE_BAND: storage variant partial improvement. trigram=0.592 | accs={'baseline': 0.511, 'multipass': 0.515, 'highlr': 0.514, 'count_hebbian': 0.51, 'hopfield': 0.51} | best=multipass:0.515 | conf base=0.058 best=0.145 (2.5x)"
+}

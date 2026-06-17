@@ -1,0 +1,26 @@
+{
+  "verdict": "BASIN_SMALL",
+  "verdict_msg": "radius=0.00*N < 0.1 (small basin).",
+  "elapsed_s": 0.25,
+  "summary": {
+    "basin_radius_frac": 0.0,
+    "absorbing_idx": 20,
+    "recovery_per_d_frac": {
+      "0.05": 0.0,
+      "0.1": 0.0
+    }
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "d_flip_grid": [
+      0.05,
+      0.1
+    ],
+    "n_trials": 20,
+    "seed": 17
+  }
+}

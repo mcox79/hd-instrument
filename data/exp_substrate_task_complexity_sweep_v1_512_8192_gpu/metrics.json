@@ -1,0 +1,478 @@
+{
+  "anchor_name": "substrate_task_complexity_sweep_v1_512_8192_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3/3 tasks reach gap>1.0 at N=8192 -> substrate handles complexity beyond bigram. zipf_v512_bigram:+3.783 wiki_v70_trigram:+1.581 wiki_v70_extctx8:+1.705",
+  "archs": [
+    "cfrpe",
+    "drosophila_sparse"
+  ],
+  "tasks": [
+    "zipf_v512_bigram",
+    "wiki_v70_trigram",
+    "wiki_v70_extctx8"
+  ],
+  "N_grid": [
+    512,
+    2048,
+    8192
+  ],
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_steps": 1000,
+  "elapsed_s": 212.17723679542542,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": {
+        "cfrpe_zipf_v512_bigram_N512": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 512,
+          "order": 1,
+          "val_nats": 2.5892724990844727,
+          "gap": 3.649052125955035
+        },
+        "drosophila_sparse_zipf_v512_bigram_N512": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 512,
+          "order": 1,
+          "val_nats": 2.62809681892395,
+          "gap": 3.6102278061155575
+        },
+        "cfrpe_wiki_v70_trigram_N512": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 512,
+          "order": 2,
+          "val_nats": 2.2576003074645996,
+          "gap": 1.5710410890244955
+        },
+        "drosophila_sparse_wiki_v70_trigram_N512": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 512,
+          "order": 2,
+          "val_nats": 2.325348138809204,
+          "gap": 1.503293257679891
+        },
+        "cfrpe_wiki_v70_extctx8_N512": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 512,
+          "order": 8,
+          "val_nats": 2.1903610229492188,
+          "gap": 1.6382803735398763
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N512": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 512,
+          "order": 8,
+          "val_nats": 2.3336074352264404,
+          "gap": 1.4950339612626546
+        },
+        "cfrpe_zipf_v512_bigram_N2048": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 2048,
+          "order": 1,
+          "val_nats": 2.506442070007324,
+          "gap": 3.7318825550321835
+        },
+        "drosophila_sparse_zipf_v512_bigram_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 2048,
+          "order": 1,
+          "val_nats": 2.4372000694274902,
+          "gap": 3.8011245556120175
+        },
+        "cfrpe_wiki_v70_trigram_N2048": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 2048,
+          "order": 2,
+          "val_nats": 2.2552120685577393,
+          "gap": 1.5734293279313558
+        },
+        "drosophila_sparse_wiki_v70_trigram_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 2048,
+          "order": 2,
+          "val_nats": 2.2480976581573486,
+          "gap": 1.5805437383317464
+        },
+        "cfrpe_wiki_v70_extctx8_N2048": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 2048,
+          "order": 8,
+          "val_nats": 2.1249377727508545,
+          "gap": 1.7037036237382406
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 2048,
+          "order": 8,
+          "val_nats": 2.1748745441436768,
+          "gap": 1.6537668523454183
+        },
+        "cfrpe_zipf_v512_bigram_N8192": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 8192,
+          "order": 1,
+          "val_nats": 2.564732789993286,
+          "gap": 3.6735918350462216
+        },
+        "drosophila_sparse_zipf_v512_bigram_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 8192,
+          "order": 1,
+          "val_nats": 2.471700668334961,
+          "gap": 3.7666239567045467
+        },
+        "cfrpe_wiki_v70_trigram_N8192": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 8192,
+          "order": 2,
+          "val_nats": 2.284038782119751,
+          "gap": 1.544602614369344
+        },
+        "drosophila_sparse_wiki_v70_trigram_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 8192,
+          "order": 2,
+          "val_nats": 2.2768027782440186,
+          "gap": 1.5518386182450765
+        },
+        "cfrpe_wiki_v70_extctx8_N8192": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 8192,
+          "order": 8,
+          "val_nats": 2.1143290996551514,
+          "gap": 1.7143122968339437
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 8192,
+          "order": 8,
+          "val_nats": 2.1781508922576904,
+          "gap": 1.6504905042314046
+        }
+      },
+      "peak_gpu_gb": 0.836455936,
+      "elapsed_s": 71.27638149261475
+    },
+    {
+      "seed": 17,
+      "cells": {
+        "cfrpe_zipf_v512_bigram_N512": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 512,
+          "order": 1,
+          "val_nats": 2.4784414768218994,
+          "gap": 3.7598831482176083
+        },
+        "drosophila_sparse_zipf_v512_bigram_N512": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 512,
+          "order": 1,
+          "val_nats": 2.4487662315368652,
+          "gap": 3.7895583935026425
+        },
+        "cfrpe_wiki_v70_trigram_N512": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 512,
+          "order": 2,
+          "val_nats": 2.2911746501922607,
+          "gap": 1.5374667462968343
+        },
+        "drosophila_sparse_wiki_v70_trigram_N512": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 512,
+          "order": 2,
+          "val_nats": 2.32468318939209,
+          "gap": 1.5039582070970052
+        },
+        "cfrpe_wiki_v70_extctx8_N512": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 512,
+          "order": 8,
+          "val_nats": 2.190751075744629,
+          "gap": 1.6378903207444662
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N512": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 512,
+          "order": 8,
+          "val_nats": 2.251401424407959,
+          "gap": 1.577239972081136
+        },
+        "cfrpe_zipf_v512_bigram_N2048": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 2048,
+          "order": 1,
+          "val_nats": 2.5368809700012207,
+          "gap": 3.701443655038287
+        },
+        "drosophila_sparse_zipf_v512_bigram_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 2048,
+          "order": 1,
+          "val_nats": 2.38822865486145,
+          "gap": 3.8500959701780575
+        },
+        "cfrpe_wiki_v70_trigram_N2048": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 2048,
+          "order": 2,
+          "val_nats": 2.222104072570801,
+          "gap": 1.6065373239182943
+        },
+        "drosophila_sparse_wiki_v70_trigram_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 2048,
+          "order": 2,
+          "val_nats": 2.3308794498443604,
+          "gap": 1.4977619466447347
+        },
+        "cfrpe_wiki_v70_extctx8_N2048": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 2048,
+          "order": 8,
+          "val_nats": 2.0849595069885254,
+          "gap": 1.7436818895005697
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 2048,
+          "order": 8,
+          "val_nats": 2.225109577178955,
+          "gap": 1.60353181931014
+        },
+        "cfrpe_zipf_v512_bigram_N8192": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 8192,
+          "order": 1,
+          "val_nats": 2.4393584728240967,
+          "gap": 3.798966152215411
+        },
+        "drosophila_sparse_zipf_v512_bigram_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 8192,
+          "order": 1,
+          "val_nats": 2.4910480976104736,
+          "gap": 3.747276527429034
+        },
+        "cfrpe_wiki_v70_trigram_N8192": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 8192,
+          "order": 2,
+          "val_nats": 2.2269339561462402,
+          "gap": 1.6017074403428548
+        },
+        "drosophila_sparse_wiki_v70_trigram_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 8192,
+          "order": 2,
+          "val_nats": 2.2992641925811768,
+          "gap": 1.5293772039079183
+        },
+        "cfrpe_wiki_v70_extctx8_N8192": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 8192,
+          "order": 8,
+          "val_nats": 2.1458723545074463,
+          "gap": 1.6827690419816488
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 8192,
+          "order": 8,
+          "val_nats": 2.2032105922698975,
+          "gap": 1.6254308042191976
+        }
+      },
+      "peak_gpu_gb": 0.836455936,
+      "elapsed_s": 71.08727788925171
+    },
+    {
+      "seed": 23,
+      "cells": {
+        "cfrpe_zipf_v512_bigram_N512": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 512,
+          "order": 1,
+          "val_nats": 2.461637020111084,
+          "gap": 3.7766876049284237
+        },
+        "drosophila_sparse_zipf_v512_bigram_N512": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 512,
+          "order": 1,
+          "val_nats": 2.400235414505005,
+          "gap": 3.838089210534503
+        },
+        "cfrpe_wiki_v70_trigram_N512": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 512,
+          "order": 2,
+          "val_nats": 2.3579249382019043,
+          "gap": 1.4707164582871908
+        },
+        "drosophila_sparse_wiki_v70_trigram_N512": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 512,
+          "order": 2,
+          "val_nats": 2.3122682571411133,
+          "gap": 1.5163731393479818
+        },
+        "cfrpe_wiki_v70_extctx8_N512": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 512,
+          "order": 8,
+          "val_nats": 2.2613930702209473,
+          "gap": 1.5672483262681478
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N512": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 512,
+          "order": 8,
+          "val_nats": 2.2874679565429688,
+          "gap": 1.5411734399461263
+        },
+        "cfrpe_zipf_v512_bigram_N2048": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 2048,
+          "order": 1,
+          "val_nats": 2.412440538406372,
+          "gap": 3.8258840866331356
+        },
+        "drosophila_sparse_zipf_v512_bigram_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 2048,
+          "order": 1,
+          "val_nats": 2.4602227210998535,
+          "gap": 3.778101903939654
+        },
+        "cfrpe_wiki_v70_trigram_N2048": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 2048,
+          "order": 2,
+          "val_nats": 2.243114948272705,
+          "gap": 1.58552644821639
+        },
+        "drosophila_sparse_wiki_v70_trigram_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 2048,
+          "order": 2,
+          "val_nats": 2.2603795528411865,
+          "gap": 1.5682618436479085
+        },
+        "cfrpe_wiki_v70_extctx8_N2048": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 2048,
+          "order": 8,
+          "val_nats": 2.08933424949646,
+          "gap": 1.7393071469926351
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N2048": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 2048,
+          "order": 8,
+          "val_nats": 2.1994926929473877,
+          "gap": 1.6291487035417074
+        },
+        "cfrpe_zipf_v512_bigram_N8192": {
+          "arch": "cfrpe",
+          "task": "zipf_v512_bigram",
+          "N": 8192,
+          "order": 1,
+          "val_nats": 2.41432785987854,
+          "gap": 3.8239967651609676
+        },
+        "drosophila_sparse_zipf_v512_bigram_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "zipf_v512_bigram",
+          "N": 8192,
+          "order": 1,
+          "val_nats": 2.4041669368743896,
+          "gap": 3.834157688165118
+        },
+        "cfrpe_wiki_v70_trigram_N8192": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_trigram",
+          "N": 8192,
+          "order": 2,
+          "val_nats": 2.2332940101623535,
+          "gap": 1.5953473863267416
+        },
+        "drosophila_sparse_wiki_v70_trigram_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_trigram",
+          "N": 8192,
+          "order": 2,
+          "val_nats": 2.2831523418426514,
+          "gap": 1.5454890546464437
+        },
+        "cfrpe_wiki_v70_extctx8_N8192": {
+          "arch": "cfrpe",
+          "task": "wiki_v70_extctx8",
+          "N": 8192,
+          "order": 8,
+          "val_nats": 2.1097800731658936,
+          "gap": 1.7188613233232015
+        },
+        "drosophila_sparse_wiki_v70_extctx8_N8192": {
+          "arch": "drosophila_sparse",
+          "task": "wiki_v70_extctx8",
+          "N": 8192,
+          "order": 8,
+          "val_nats": 2.202622175216675,
+          "gap": 1.6260192212724203
+        }
+      },
+      "peak_gpu_gb": 0.836455936,
+      "elapsed_s": 69.770761013031
+    }
+  ]
+}

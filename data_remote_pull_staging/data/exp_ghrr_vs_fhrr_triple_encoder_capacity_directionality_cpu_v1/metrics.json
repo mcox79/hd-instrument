@@ -1,0 +1,38 @@
+{
+  "anchor_name": "ghrr_vs_fhrr_triple_encoder_capacity_directionality_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: GHRR wins on exactly one axis (recall_win=False, break_win=True) -- partial upgrade case; non-commutative directionality is a real structural gain but capacity/recall parity is mixed. Decide per ingest priority. matched-budget Nf=1024; recall@10 at load F=200: FHRR=0.7950 GHRR=0.8100 (delta=+0.0150, need>=+0.05); capacity-break FHRR=320 GHRR=320 (need GHRR>=320); directionality cos FHRR=1.000 (commutative -> cannot distinguish a-R-b from b-R-a) GHRR=0.057 (non-commutative -> distinguishes)",
+  "summary": "MIDDLE_BAND: GHRR wins on exactly one axis (recall_win=False, break_win=True) -- partial upgrade case; non-commutative directionality is a real structural gain but capacity/recall parity is mixed. Decide per ingest priority. matched-budget Nf=1024; recall@10 at load F=200: FHRR=0.7950 GHRR=0.8100 (delta=+0.0150, need>=+0.05); capacity-break FHRR=320 GHRR=320 (need GHRR>=320); directionality cos FHRR=1.000 (commutative -> cannot distinguish a-R-b from b-R-a) GHRR=0.057 (non-commutative -> distinguishes)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cmp_load": 200,
+      "fhrr_recall_at_load": 0.795,
+      "ghrr_recall_at_load": 0.81,
+      "recall_delta": 0.015,
+      "fhrr_break": 320,
+      "ghrr_break": 320,
+      "fhrr_dir_cos": 1.0,
+      "ghrr_dir_cos": 0.0566,
+      "fhrr_recall_by_F": {
+        "50": 1.0,
+        "100": 0.99,
+        "200": 0.795,
+        "320": 0.5875,
+        "500": 0.376,
+        "800": 0.215
+      },
+      "ghrr_recall_by_F": {
+        "50": 1.0,
+        "100": 0.97,
+        "200": 0.81,
+        "320": 0.575,
+        "500": 0.368,
+        "800": 0.2225
+      },
+      "Nf": 1024
+    }
+  ],
+  "elapsed_s": 40.525320053100586
+}

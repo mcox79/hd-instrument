@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_vs_knnlm_falsifiable_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate's algebra beats kNN-LM dense retrieval by >=15pp overall (multi-hop delta +1.000) -- the moat is the algebraic traversal, not the injection plumbing; Panel B categorical claim empirically grounded. overall sub=1.000 knn=0.333 (delta=+0.667); multi-hop sub=1.000 knn=0.000 (delta=+1.000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "overall_sub": 1.0,
+      "overall_knn": 0.3333333333333333,
+      "delta": 0.6666666666666667,
+      "mh_sub": 1.0,
+      "mh_knn": 0.0,
+      "mh_delta": 1.0,
+      "per_hop": {
+        "1": {
+          "sub": 1.0,
+          "knn": 1.0
+        },
+        "2": {
+          "sub": 1.0,
+          "knn": 0.0
+        },
+        "3": {
+          "sub": 1.0,
+          "knn": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 7.881582975387573,
+  "summary": "HARD_PASS: substrate's algebra beats kNN-LM dense retrieval by >=15pp overall (multi-hop delta +1.000) -- the moat is the algebraic traversal, not the injection plumbing; Panel B categorical claim empirically grounded. overall sub=1.000 knn=0.333 (delta=+0.667); multi-hop sub=1.000 knn=0.000 (delta=+1.000)"
+}

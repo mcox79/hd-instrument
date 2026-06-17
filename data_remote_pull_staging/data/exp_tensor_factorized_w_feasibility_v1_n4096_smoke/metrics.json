@@ -1,0 +1,42 @@
+{
+  "verdict": "TF_MIDDLE_BAND",
+  "verdict_msg": "INTERMEDIATE: mean_r512_ratio=0.000 n_seeds_uniform_loss=0/1 seed17:full=1.000_r512ratio=0.000",
+  "elapsed_s": 1.24,
+  "summary": {
+    "anchor": "tensor_factorized_w_feasibility_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 64,
+    "ranks": [
+      32,
+      64,
+      128,
+      256
+    ],
+    "seeds": [
+      17
+    ],
+    "per_seed": [
+      {
+        "seed": 17,
+        "M": 64,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "32": 1.0,
+          "64": 1.0,
+          "128": 1.0,
+          "256": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "32": 0.0625,
+          "64": 0.125,
+          "128": 0.25,
+          "256": 0.5
+        }
+      }
+    ],
+    "verdict": "TF_MIDDLE_BAND",
+    "verdict_msg": "INTERMEDIATE: mean_r512_ratio=0.000 n_seeds_uniform_loss=0/1 seed17:full=1.000_r512ratio=0.000",
+    "elapsed_s": 1.24
+  }
+}

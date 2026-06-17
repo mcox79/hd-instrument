@@ -1,0 +1,23 @@
+{
+  "verdict": "STREAMING_CONTINUOUS_PASS",
+  "verdict_msg": "steady/burn-in throughput=1.015>=0.9 (NESS robust streaming).",
+  "elapsed_s": 14.155999999988126,
+  "summary": {
+    "throughput_ratio": 1.0154999999940628,
+    "burn_throughput": 49.23682914849072,
+    "steady_throughput_mean": 50.0,
+    "steady_throughputs": [
+      50.0,
+      50.0,
+      50.0
+    ]
+  },
+  "config": {
+    "N": 8192,
+    "M": 200,
+    "burn_in": 100,
+    "steady": 200,
+    "n_blocks": 3,
+    "seed": 17
+  }
+}

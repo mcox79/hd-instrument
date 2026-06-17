@@ -1,0 +1,161 @@
+{
+  "anchor_name": "substrate_phase3_coevolve1_iter1_P1bge_remote_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (loop works; isolated golds gain sound DEPENDS_ON edges degree 0->>0): CO-EVOLVE-1 Iter1 P1-bge: 29 sound DEPENDS_ON edges (CHTV tier-monotone + corpus + L6-terminates + no-cycle + additive) for 3 isolated golds; per-target {'mutual_information': 2, 'markov_decision_process': 16, 'q_learning': 11}; emitted for Testbed atomic ratify; NO Exp-Dev mutation. P1-bge generation succeeds where P4-lexical failed (formula-notation descriptions).",
+  "summary": "HARD_PASS (loop works; isolated golds gain sound DEPENDS_ON edges degree 0->>0): CO-EVOLVE-1 Iter1 P1-bge: 29 sound DEPENDS_ON edges (CHTV tier-monotone + corpus + L6-terminates + no-cycle + additive) for 3 isolated golds; per-target {'mutual_information': 2, 'markov_decision_process': 16, 'q_learning': 11}; emitted for Testbed atomic ratify; NO Exp-Dev mutation. P1-bge generation succeeds where P4-lexical failed (formula-notation descriptions).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_targets": 3,
+      "total_accept": 29,
+      "rows": [
+        {
+          "target": "mutual_information",
+          "tier": "T1",
+          "generated_P1": 29,
+          "accepted": [
+            [
+              "information_theory_shannon",
+              0.692
+            ],
+            [
+              "shannon_entropy",
+              0.654
+            ]
+          ],
+          "n_accepted": 2,
+          "chtv_acceptance": 0.069
+        },
+        {
+          "target": "markov_decision_process",
+          "tier": "T3",
+          "generated_P1": 29,
+          "accepted": [
+            [
+              "reinforcement_learning",
+              0.713
+            ],
+            [
+              "probabilistic_graphical_model",
+              0.688
+            ],
+            [
+              "mcmc_sampling",
+              0.674
+            ],
+            [
+              "markov_chain_property_lemma",
+              0.672
+            ],
+            [
+              "bayes_rule",
+              0.669
+            ],
+            [
+              "probability_space",
+              0.667
+            ],
+            [
+              "variational_inference",
+              0.66
+            ],
+            [
+              "probabilistic_inference",
+              0.659
+            ],
+            [
+              "markov_chain",
+              0.658
+            ],
+            [
+              "cap_dynamic_programming",
+              0.655
+            ],
+            [
+              "dynamic_programming",
+              0.652
+            ],
+            [
+              "bellman_equation",
+              0.65
+            ],
+            [
+              "dynamic_programming",
+              0.647
+            ],
+            [
+              "cap_forward_algorithm",
+              0.645
+            ],
+            [
+              "dynamical_systems",
+              0.641
+            ],
+            [
+              "structured_perceptron_collins",
+              0.64
+            ]
+          ],
+          "n_accepted": 16,
+          "chtv_acceptance": 0.552
+        },
+        {
+          "target": "q_learning",
+          "tier": "T3",
+          "generated_P1": 29,
+          "accepted": [
+            [
+              "reinforcement_learning",
+              0.786
+            ],
+            [
+              "stdp_to_temporal_policy",
+              0.731
+            ],
+            [
+              "bellman_equation",
+              0.713
+            ],
+            [
+              "markov_decision_process",
+              0.712
+            ],
+            [
+              "stochastic_gradient_descent",
+              0.68
+            ],
+            [
+              "dopamine_rpe_schultz",
+              0.674
+            ],
+            [
+              "optimal_control_lqr",
+              0.674
+            ],
+            [
+              "chain_rule",
+              0.67
+            ],
+            [
+              "discriminative_perceptron",
+              0.67
+            ],
+            [
+              "discriminative_perceptron",
+              0.668
+            ],
+            [
+              "gradient_based_optimizer",
+              0.668
+            ]
+          ],
+          "n_accepted": 11,
+          "chtv_acceptance": 0.379
+        }
+      ],
+      "proposal_file": "C:\\dev\\hd-instrument\\data\\substrate_index\\coevolve1_iter1_P1bge_ACCEPT_edges.jsonl"
+    }
+  ],
+  "elapsed_s": 7.4397807121276855
+}

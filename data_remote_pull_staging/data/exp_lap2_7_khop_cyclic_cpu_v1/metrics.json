@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap2_7_khop_cyclic_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate K-hop traversal detects cycles + terminates >=0.95 -- revisit detection over cleanup-traversal; no infinite loops on cyclic KBs (PP-161/177 at scale). cycle-detect+terminate=1.000 (VE=1000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cycle_detect": 1.0,
+      "VE": 1000
+    }
+  ],
+  "elapsed_s": 32.438008546829224,
+  "summary": "HARD_PASS: substrate K-hop traversal detects cycles + terminates >=0.95 -- revisit detection over cleanup-traversal; no infinite loops on cyclic KBs (PP-161/177 at scale). cycle-detect+terminate=1.000 (VE=1000)"
+}

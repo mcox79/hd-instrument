@@ -1,0 +1,32 @@
+{
+  "anchor_name": "hopfield_phase_map_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: modern Hopfield recall@1>=0.95 at P/N=1.0 (7x past the classic 0.14 cliff, where classic<0.5) -- the substrate's exponential-capacity advantage is auditable + confirmed. at P/N=1.0 modern=1.000 classic=0.000 | full: {'L0.10': (1.0, 0.96), 'L0.50': (1.0, 0.0), 'L1.00': (1.0, 0.0)} (N=256 beta=8.0)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "L0.10": {
+          "P": 25,
+          "modern": 1.0,
+          "classic": 0.96
+        },
+        "L0.50": {
+          "P": 128,
+          "modern": 1.0,
+          "classic": 0.0
+        },
+        "L1.00": {
+          "P": 256,
+          "modern": 1.0,
+          "classic": 0.0
+        }
+      },
+      "N": 256,
+      "beta": 8.0
+    }
+  ],
+  "elapsed_s": 0.027286529541015625,
+  "summary": "HARD_PASS: modern Hopfield recall@1>=0.95 at P/N=1.0 (7x past the classic 0.14 cliff, where classic<0.5) -- the substrate's exponential-capacity advantage is auditable + confirmed. at P/N=1.0 modern=1.000 classic=0.000 | full: {'L0.10': (1.0, 0.96), 'L0.50': (1.0, 0.0), 'L1.00': (1.0, 0.0)} (N=256 beta=8.0)"
+}

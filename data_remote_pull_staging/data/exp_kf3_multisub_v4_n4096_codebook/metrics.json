@@ -1,0 +1,31 @@
+{
+  "anchor": "kf3_multisub_v4_n4096_codebook",
+  "N": 1024,
+  "smoke": true,
+  "codebook_type": "BSC",
+  "m_fracs": [
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "seed": 17,
+      "acc_AA": 0.0,
+      "acc_BB": 0.0,
+      "acc_AB": 0.0,
+      "acc_BA": 0.0,
+      "leakage": 0.0,
+      "contam": 0.0,
+      "passes_hp": true,
+      "elapsed_s": 0.11
+    }
+  ],
+  "verdict": "KF3_V4_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_pass=1/1. max_leakage=0.00000 max_contam=0.00000 n_pass=1/1 mean_acc_AA=0.0000 HP_leak=0.05 HF_leak=0.2 N=1024",
+  "elapsed_s": 0.11
+}

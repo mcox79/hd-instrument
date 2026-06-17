@@ -1,0 +1,21 @@
+{
+  "anchor_name": "kb_determinism_sweep_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-225 kb10k fact-recall is SEED-DETERMINISTic -- mean held-out >=0.90 with std<=0.03 across seeds. The production fact-recall claim is not a lucky seed; reinforces Tier-A. mean=0.9947 std=0.0021 vals=[0.995, 0.992, 0.997] (n=3)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "mean_heldout": 0.9947,
+      "std_heldout": 0.0021,
+      "vals": [
+        0.995,
+        0.992,
+        0.997
+      ],
+      "n_seeds": 3
+    }
+  ],
+  "elapsed_s": 1312.8946375846863,
+  "summary": "HARD_PASS: PP-225 kb10k fact-recall is SEED-DETERMINISTic -- mean held-out >=0.90 with std<=0.03 across seeds. The production fact-recall claim is not a lucky seed; reinforces Tier-A. mean=0.9947 std=0.0021 vals=[0.995, 0.992, 0.997] (n=3)"
+}

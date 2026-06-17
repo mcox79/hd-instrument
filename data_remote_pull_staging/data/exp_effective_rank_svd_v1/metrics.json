@@ -1,0 +1,18 @@
+{
+  "anchor_name": "effective_rank_svd_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: encoder is intrinsic-dim-limited (d_eff<=120) -- validates DT/intrinsic-dim framework; real-encoder substrate capacity bounded by d_eff not nominal D. d_eff(participation_ratio)=91.6  rank90=175  rank99=296  (nominal D=384)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "d_eff": 91.6423718469898,
+      "rank90": 175,
+      "rank99": 296,
+      "D": 384,
+      "n_enc": 8000
+    }
+  ],
+  "elapsed_s": 6.166783094406128,
+  "summary": "HARD_PASS: encoder is intrinsic-dim-limited (d_eff<=120) -- validates DT/intrinsic-dim framework; real-encoder substrate capacity bounded by d_eff not nominal D. d_eff(participation_ratio)=91.6  rank90=175  rank99=296  (nominal D=384)"
+}

@@ -1,0 +1,73 @@
+{
+  "verdict": "ALT3_LAPLACE_ASSUMPTION_VIOLATED",
+  "verdict_msg": "Laplace assumption suspect in 3/3 cells (||Delta_W||_F/||W_A||_F > 0.5 majority). KL estimate unreliable. r2_fisher=0.681 (unreliable).",
+  "elapsed_s": 3.978437900543213,
+  "summary": {
+    "r2_fisher": 0.6807694464905789,
+    "r2_euclidean": 0.9986318079918487,
+    "fisher_improvement_over_euclidean": -0.3178623615012698,
+    "n_valid_cells": 3,
+    "n_laplace_suspect": 3,
+    "laplace_assumption_suspect_majority": true,
+    "mean_retention_A": 0.8890102246883788,
+    "mean_kl_fisher": 17.25081729888916
+  },
+  "per_seed_pair": {
+    "17": {
+      "0": {
+        "bpc_A_baseline": 4.091584663391114,
+        "bpc_A_after_B": 4.330421314239502,
+        "retention_A": 0.9448467866017946,
+        "kl_fisher": 16.57101058959961,
+        "kl_euclidean": 277.4397277832031,
+        "laplace_ratio": 0.5152844403224487,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9474468355066358,
+        "m_total": 3000
+      },
+      "2": {
+        "bpc_A_baseline": 4.091584663391114,
+        "bpc_A_after_B": 4.446891525268555,
+        "retention_A": 0.9200999485014459,
+        "kl_fisher": 10.767287254333496,
+        "kl_euclidean": 415.9699401855469,
+        "laplace_ratio": 0.6309481564368964,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9576378957590366,
+        "m_total": 3000
+      },
+      "4": {
+        "bpc_A_baseline": 4.091584663391114,
+        "bpc_A_after_B": 5.101192611694336,
+        "retention_A": 0.8020839389618958,
+        "kl_fisher": 24.414154052734375,
+        "kl_euclidean": 1294.490478515625,
+        "laplace_ratio": 1.1130433982185757,
+        "laplace_suspect": true,
+        "pac_bayes_floor": 0.9362110850111421,
+        "m_total": 3000
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 32,
+    "n_epochs": 1,
+    "phase_a_epochs": 2,
+    "n_bytes": 3000,
+    "seeds": [
+      17
+    ],
+    "pairs": [
+      0,
+      2,
+      4
+    ],
+    "pass_r2": 0.5,
+    "fail_r2": 0.2,
+    "fisher_improvement_threshold": 0.1,
+    "laplace_violation_thresh": 0.5,
+    "device": "cpu"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "anchor_name": "partition_stratified_smoke_gap_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (proxy): stratified smoke still mispredicts (gap > 0.15) -- degradation has a deeper root than composition (extractor partition-class-blind even after re-sampling; anchor 3 held-out decoupling). proxy P@30 homog=0.7333 strat=0.4333 full=0.8000; gap homog=0.0667 strat=0.3667 (stratification_helps=False); per-partition={'research_drill': 0.6, 'research_history': 0.3333, 'results_history': 0.0, 'findings_history': 0.25, 'decision_history': 0.0, 'meta_history': 0.0} spread=0.6; n_strat=30 n_full=1200 (PROXY: not-meta-jargon; true P@30 batches saved for Research)",
+  "summary": "HARD_FAIL (proxy): stratified smoke still mispredicts (gap > 0.15) -- degradation has a deeper root than composition (extractor partition-class-blind even after re-sampling; anchor 3 held-out decoupling). proxy P@30 homog=0.7333 strat=0.4333 full=0.8000; gap homog=0.0667 strat=0.3667 (stratification_helps=False); per-partition={'research_drill': 0.6, 'research_history': 0.3333, 'results_history': 0.0, 'findings_history': 0.25, 'decision_history': 0.0, 'meta_history': 0.0} spread=0.6; n_strat=30 n_full=1200 (PROXY: not-meta-jargon; true P@30 batches saved for Research)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "proxy_p_homog": 0.7333,
+      "proxy_p_strat": 0.4333,
+      "proxy_p_full": 0.8,
+      "proxy_gap": 0.3667,
+      "proxy_gap_homog": 0.0667,
+      "stratification_helps": false,
+      "per_partition_proxy": {
+        "research_drill": 0.6,
+        "research_history": 0.3333,
+        "results_history": 0.0,
+        "findings_history": 0.25,
+        "decision_history": 0.0,
+        "meta_history": 0.0
+      },
+      "partition_spread": 0.6,
+      "n_strat": 30,
+      "n_homog": 30,
+      "n_full": 1200,
+      "note": "proxy = fraction of top-30 NOT meta-jargon; true P@30 needs Research review (batches saved)"
+    }
+  ],
+  "elapsed_s": 448.4639811515808
+}

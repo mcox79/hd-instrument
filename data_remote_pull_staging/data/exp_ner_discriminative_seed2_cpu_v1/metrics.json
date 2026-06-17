@@ -1,0 +1,18 @@
+{
+  "anchor_name": "ner_discriminative_seed2_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: NER F1 <0.55. entity-F1=0.5752 (P=0.603 R=0.550, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5752,
+      "prec": 0.603,
+      "rec": 0.55,
+      "n_train": 5982,
+      "n_tags": 36
+    }
+  ],
+  "elapsed_s": 246.80766415596008,
+  "summary": "HARD_FAIL: NER F1 <0.55. entity-F1=0.5752 (P=0.603 R=0.550, train=5982)"
+}

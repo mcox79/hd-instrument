@@ -1,0 +1,15 @@
+{
+  "anchor_name": "federated_dp_aggregate_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: federated DP aggregate MAE<0.02 -- averaging across customers cancels per-customer DP noise; global model useful at strong privacy. aggregate MAE=0.0024 across M=8 (eps=1.0)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mae": 0.002433086381622912,
+      "M": 8
+    }
+  ],
+  "elapsed_s": 0.01911306381225586,
+  "summary": "HARD_PASS: federated DP aggregate MAE<0.02 -- averaging across customers cancels per-customer DP noise; global model useful at strong privacy. aggregate MAE=0.0024 across M=8 (eps=1.0)"
+}

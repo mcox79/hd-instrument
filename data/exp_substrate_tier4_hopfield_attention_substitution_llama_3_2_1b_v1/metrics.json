@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_tier4_hopfield_attention_substitution_llama_3_2_1b_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-attention training-stable inside Llama-3.2-1B at SWAP_LAYER=8. entropy_ratio(substrate/others)=2.82 grad_ratio=0.8 ppl_ratio(substrate/baseline)=0.98",
+  "model": "meta-llama/Llama-3.2-1B",
+  "swap_layer": 8,
+  "run_mode": "full",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 7,
+      "substrate_ppl": 4.375406174194708,
+      "baseline_ppl": 4.436076438253947,
+      "ppl_ratio": 0.9863234401187546,
+      "swap_layer_entropy": 3.869807004928589,
+      "other_layers_entropy": 1.4020331064860025,
+      "ent_ratio": 2.760139531845701,
+      "grad_ratio": 0.7942340623662398,
+      "substrate_wall": 61.32045078277588,
+      "baseline_wall": 62.656511306762695
+    },
+    {
+      "seed": 17,
+      "substrate_ppl": 5.227200227764248,
+      "baseline_ppl": 5.418818650031595,
+      "ppl_ratio": 0.9646383399025786,
+      "swap_layer_entropy": 3.8697195053100586,
+      "other_layers_entropy": 1.345752441883087,
+      "ent_ratio": 2.87550620901696,
+      "grad_ratio": 0.8466664884614143,
+      "substrate_wall": 64.00323271751404,
+      "baseline_wall": 64.58315062522888
+    }
+  ],
+  "elapsed_s": 279.95345067977905,
+  "gpu_peak_gb": 25.24740096,
+  "summary": "HARD_PASS: substrate-attention training-stable inside Llama-3.2-1B at SWAP_LAYER=8. entropy_ratio(substrate/others)=2.82 grad_ratio=0.8 ppl_ratio(substrate/baseline)=0.98"
+}

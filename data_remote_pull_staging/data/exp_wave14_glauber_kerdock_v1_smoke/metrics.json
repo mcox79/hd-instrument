@@ -1,0 +1,63 @@
+{
+  "verdict": "GLAUBER_INCONCLUSIVE",
+  "verdict_msg": "Mixed Glauber response: low_T_bimodal=0/1, global_unimodal=1/2, max_bimodal=0.000 at . Need finer T resolution or longer chain length.",
+  "elapsed_s": 0.1879999999946449,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "beta": 1.0,
+        "T": 1.0,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.07041015625,
+        "abs_mean_q_std": 0.033535156249999996,
+        "mean_q": 0.06927734375,
+        "n_seeds": 2
+      },
+      {
+        "alpha": 0.5,
+        "beta": 4.0,
+        "T": 0.25,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.18609375,
+        "abs_mean_q_std": 0.008554687499999991,
+        "mean_q": 0.18609375,
+        "n_seeds": 2
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alpha_list": [
+        0.5
+      ],
+      "beta_list": [
+        1.0,
+        4.0
+      ],
+      "n_seeds": 2,
+      "n_burn": 30,
+      "n_collect": 50
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha_list": [
+      0.5
+    ],
+    "beta_list": [
+      1.0,
+      4.0
+    ],
+    "n_seeds": 2,
+    "n_burn": 30,
+    "n_collect": 50
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "verdict": "T1_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_seeds=1 calib_pass=0 acc_ge_blind=1 lat_ok=0 calib_miss=0 acc_below_frac=0",
+  "elapsed_s": 0.28,
+  "summary": {
+    "anchor": "path_d_mixed_confidence_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 50,
+    "n_paths": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 50,
+        "n_paths": 16,
+        "acc_blind": 1.0,
+        "acc_conf": 1.0,
+        "lat_blind_ns": 51508200,
+        "lat_conf_ns": 151642000,
+        "lat_overhead": 1.944,
+        "calib_per_bucket": {
+          "0.2": {
+            "predicted": null,
+            "actual": null,
+            "n": 0
+          },
+          "0.4": {
+            "predicted": 0.3333,
+            "actual": 1.0,
+            "n": 1
+          },
+          "0.7": {
+            "predicted": 0.6917,
+            "actual": 1.0,
+            "n": 4
+          },
+          "1.0": {
+            "predicted": 1.0,
+            "actual": 1.0,
+            "n": 3
+          }
+        },
+        "mean_calib_dev": 0.325,
+        "n_buckets_observed": 3
+      }
+    ],
+    "verdict": "T1_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: n_seeds=1 calib_pass=0 acc_ge_blind=1 lat_ok=0 calib_miss=0 acc_below_frac=0",
+    "elapsed_s": 0.28
+  }
+}

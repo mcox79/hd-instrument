@@ -1,0 +1,15 @@
+{
+  "anchor_name": "oracle_structured_hotpot_discrete_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: discrete-encoded oracle structure solves real HotpotQA multi-hop >=0.55 (fuzzy oracle-parse got 0.35) -- transfer proven; given discrete structure the substrate answers, only the NL->structure parse remains. discrete oracle recall@1=1.000 (n=20) vs fuzzy oracle-parse 0.35",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 20,
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.4311516284942627,
+  "summary": "HARD_PASS: discrete-encoded oracle structure solves real HotpotQA multi-hop >=0.55 (fuzzy oracle-parse got 0.35) -- transfer proven; given discrete structure the substrate answers, only the NL->structure parse remains. discrete oracle recall@1=1.000 (n=20) vs fuzzy oracle-parse 0.35"
+}

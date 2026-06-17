@@ -1,0 +1,21 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_WRITE": 180,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_acc_eviction": 0.9892578125,
+    "mean_acc_no_eviction": 0.9839843749999999,
+    "mean_t_alarm": 164.5,
+    "frac_A_pass": 0.0,
+    "frac_B_pass": 1.0,
+    "frac_C_pass": 1.0,
+    "n_seeds": 2
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "2/3 cells pass. A:0.00 B:1.00 C:1.00. acc_evict=0.9893 no_evict=0.9840 t_alarm=164.5.",
+  "elapsed_s": 5.560889482498169
+}

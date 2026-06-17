@@ -1,0 +1,29 @@
+{
+  "anchor_name": "bge_large_capacity_measurement_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: BGE-large cap <125 -- SUBLINEAR; cap~1.33*d_eff theory falsified. cap=40 d_eff=113.1 cap/d_eff=0.35 (MP theory ~1.33)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cap": 40,
+      "d_eff": 113.07681860691902,
+      "cap_over_deff": 0.35374182341518806
+    },
+    {
+      "seed": 17,
+      "cap": 40,
+      "d_eff": 113.07681860691902,
+      "cap_over_deff": 0.35374182341518806
+    },
+    {
+      "seed": 23,
+      "cap": 40,
+      "d_eff": 113.07681860691902,
+      "cap_over_deff": 0.35374182341518806
+    }
+  ],
+  "elapsed_s": 36.639750719070435,
+  "summary": "HARD_FAIL: BGE-large cap <125 -- SUBLINEAR; cap~1.33*d_eff theory falsified. cap=40 d_eff=113.1 cap/d_eff=0.35 (MP theory ~1.33)"
+}

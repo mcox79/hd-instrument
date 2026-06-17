@@ -1,0 +1,208 @@
+{
+  "verdict": "CONT_ENV_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: M_cell_pass={512: 1, 2048: 1, 8192: 0, 16384: 0} M_cell_hf={512: 0, 2048: 0, 8192: 0, 16384: 0} n_M_pass=2/4 n_M_hf=0/4",
+  "elapsed_s": 24.14,
+  "summary": {
+    "anchor": "continuous_output_substrate_envelope_v2_n4096",
+    "N": 4096,
+    "smoke": false,
+    "Ms": [
+      512,
+      2048,
+      8192,
+      16384
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "M": 512,
+        "seed": 7,
+        "interp_cosine": 0.95668,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 512,
+        "seed": 17,
+        "interp_cosine": 0.95645,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 512,
+        "seed": 23,
+        "interp_cosine": 0.95674,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 512,
+        "seed": 31,
+        "interp_cosine": 0.95638,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 512,
+        "seed": 41,
+        "interp_cosine": 0.95589,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 2048,
+        "seed": 7,
+        "interp_cosine": 0.85341,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 2048,
+        "seed": 17,
+        "interp_cosine": 0.85245,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 2048,
+        "seed": 23,
+        "interp_cosine": 0.85317,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 2048,
+        "seed": 31,
+        "interp_cosine": 0.85308,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 2048,
+        "seed": 41,
+        "interp_cosine": 0.85273,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 8192,
+        "seed": 7,
+        "interp_cosine": 0.6323,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 8192,
+        "seed": 17,
+        "interp_cosine": 0.63362,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 8192,
+        "seed": 23,
+        "interp_cosine": 0.63313,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 8192,
+        "seed": 31,
+        "interp_cosine": 0.63376,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 8192,
+        "seed": 41,
+        "interp_cosine": 0.63093,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 16384,
+        "seed": 7,
+        "interp_cosine": 0.50008,
+        "hallu_signal_AUC": 0.51672,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 16384,
+        "seed": 17,
+        "interp_cosine": 0.49882,
+        "hallu_signal_AUC": 0.50355,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 16384,
+        "seed": 23,
+        "interp_cosine": 0.49871,
+        "hallu_signal_AUC": 0.49485,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 16384,
+        "seed": 31,
+        "interp_cosine": 0.50293,
+        "hallu_signal_AUC": 0.49755,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 16384,
+        "seed": 41,
+        "interp_cosine": 0.49935,
+        "hallu_signal_AUC": 0.50197,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      }
+    ],
+    "verdict": "CONT_ENV_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: M_cell_pass={512: 1, 2048: 1, 8192: 0, 16384: 0} M_cell_hf={512: 0, 2048: 0, 8192: 0, 16384: 0} n_M_pass=2/4 n_M_hf=0/4",
+    "elapsed_s": 24.14
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "seed": 17,
+  "n_substrate": 4096,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "decay": 0.0001,
+  "max_epochs": 15,
+  "use_relu": true,
+  "relu_b": 0.5,
+  "position_atoms": "grid_cell_fractional_binding",
+  "history": [
+    {
+      "epoch": 1,
+      "test_bpc": 2.8615777858854154,
+      "argmax_accuracy": 0.5493330618063333,
+      "w_frobenius": 45.99094009399414,
+      "wall_s": 4.380250499999875
+    },
+    {
+      "epoch": 3,
+      "test_bpc": 2.599528860650132,
+      "argmax_accuracy": 0.5882293045514714,
+      "w_frobenius": 74.49897766113281,
+      "wall_s": 11.388943200000085
+    },
+    {
+      "epoch": 5,
+      "test_bpc": 2.5443014899019722,
+      "argmax_accuracy": 0.6024844720496895,
+      "w_frobenius": 90.7945556640625,
+      "wall_s": 25.609807100000126
+    },
+    {
+      "epoch": 7,
+      "test_bpc": 2.524816341961417,
+      "argmax_accuracy": 0.6002443742999695,
+      "w_frobenius": 101.43587493896484,
+      "wall_s": 42.51483929999995
+    },
+    {
+      "epoch": 10,
+      "test_bpc": 2.5146786165679256,
+      "argmax_accuracy": 0.6051318602993585,
+      "w_frobenius": 111.59413146972656,
+      "wall_s": 67.55610579999984
+    },
+    {
+      "epoch": 12,
+      "test_bpc": 2.51170076390243,
+      "argmax_accuracy": 0.6076774259240403,
+      "w_frobenius": 116.01945495605469,
+      "wall_s": 82.7541326999999
+    },
+    {
+      "epoch": 15,
+      "test_bpc": 2.509372710404796,
+      "argmax_accuracy": 0.6078810711740149,
+      "w_frobenius": 120.52689361572266,
+      "wall_s": 93.20652019999989
+    }
+  ],
+  "best": {
+    "epoch": 15,
+    "test_bpc": 2.509372710404796,
+    "argmax_accuracy": 0.6078810711740149,
+    "w_frobenius": 120.52689361572266,
+    "wall_s": 93.20652019999989
+  },
+  "headline": "combined + relu + grid_positions @ 15 epochs = 2.509 bpc"
+}

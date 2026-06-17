@@ -1,0 +1,24 @@
+{
+  "anchor_name": "phase4b_multibench_multiseed_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-native word-problem solver SEED-ROBUST (macro-mean>=0.30, std<=0.02, n=5) across >=3 benchmarks -- Tier A multi-benchmark math capability, no LLM. macro-mean=0.336 std=0.0072 ; detail=0.336 per={'SVAMP': 0.294, 'MAWPS': 0.806, 'MultiArith': 0.019, 'ASDiv': 0.224} (4 benchmarks, train-labeled=1356)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_acc": 0.336,
+      "macro_std": 0.0072,
+      "per_benchmark": {
+        "SVAMP": 0.294,
+        "MAWPS": 0.806,
+        "MultiArith": 0.019,
+        "ASDiv": 0.224
+      },
+      "n_seeds": 5,
+      "n_train_labeled": 1356,
+      "n_benchmarks": 4
+    }
+  ],
+  "elapsed_s": 11.51426911354065,
+  "summary": "HARD_PASS: substrate-native word-problem solver SEED-ROBUST (macro-mean>=0.30, std<=0.02, n=5) across >=3 benchmarks -- Tier A multi-benchmark math capability, no LLM. macro-mean=0.336 std=0.0072 ; detail=0.336 per={'SVAMP': 0.294, 'MAWPS': 0.806, 'MultiArith': 0.019, 'ASDiv': 0.224} (4 benchmarks, train-labeled=1356)"
+}

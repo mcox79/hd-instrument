@@ -1,0 +1,20 @@
+{
+  "anchor_name": "hierarchical_vq_plus_sparse_key_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: hierarchical 2-4x sparse-alone. alpha {'B1': 1.0, 'B8': 2.0, 'B64': 2.0} | best_hier/flat-sparse=2.00x",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha": {
+        "B1": 1.0,
+        "B8": 2.0,
+        "B64": 2.0
+      }
+    }
+  ],
+  "elapsed_s": 2.738314628601074,
+  "summary": "MIDDLE_BAND: hierarchical 2-4x sparse-alone. alpha {'B1': 1.0, 'B8': 2.0, 'B64': 2.0} | best_hier/flat-sparse=2.00x"
+}

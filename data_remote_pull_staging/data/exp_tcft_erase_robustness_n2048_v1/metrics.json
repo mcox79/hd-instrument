@@ -1,0 +1,39 @@
+{
+  "verdict": "TCFT_ROB_N2048_SMOKE_PASS",
+  "verdict_msg": "Smoke anchor (a=0.125, split=0.5) var_ratio=0.0155 < 0.1. FULL warranted.",
+  "elapsed_s": 0.13,
+  "n_hp_cells": 1,
+  "n_total_cells": 1,
+  "anchor_hp_count": 1,
+  "cell_results": {
+    "a0.125_s0.5": {
+      "17": {
+        "N": 512,
+        "alpha_ratio": 0.125,
+        "split_q": 0.5,
+        "seed": 17,
+        "M": 64,
+        "tcft_valid": true,
+        "tcft_class_size": 32,
+        "var_ratio": 0.015486400098308973,
+        "hp": true
+      }
+    }
+  },
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "alphas": [
+      0.125
+    ],
+    "splits": [
+      0.5
+    ],
+    "HP_VAR_RATIO": 0.1,
+    "HP_CELLS_STRONG": 9,
+    "HP_CELLS_CORE": 6
+  }
+}

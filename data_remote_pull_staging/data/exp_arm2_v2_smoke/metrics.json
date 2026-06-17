@@ -1,0 +1,318 @@
+{
+  "anchor_name": "ternary_motif_phase_B_arm2_extended_basis_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "corr(bundle,c) CLOSES where ALL 9 EXTENDED runnable single-binders FAIL on 4/5 families incl 4 NON-DFT (majority + >=2 non-DFT); universal-margin=True; no-drift=True (tier-A). Extended-runnable-basis (path A; +corrperm3); 38 are signatures, 9 runnable.",
+  "summary": "corr(bundle,c) CLOSES where ALL 9 EXTENDED runnable single-binders FAIL on 4/5 families incl 4 NON-DFT (majority + >=2 non-DFT); universal-margin=True; no-drift=True (tier-A). Extended-runnable-basis (path A; +corrperm3); 38 are signatures, 9 runnable.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N": 1024,
+  "per_seed": [
+    {
+      "DFT-META": {
+        "n": 9,
+        "corr_bundle": 0.6666666666666666,
+        "best_single": 0.2222222222222222,
+        "closes_clean": false,
+        "margin": 0.4444444444444444,
+        "is_dft": true,
+        "macc": {
+          "xor3": 0.2222222222222222,
+          "conv3": 0.2222222222222222,
+          "bundle3": 0.2222222222222222,
+          "ghrr3": 0.037037037037037035,
+          "perm_idx3": 0.0,
+          "xorperm3": 0.2222222222222222,
+          "bundleperm3": 0.0,
+          "convperm3": 0.0,
+          "corrperm3": 0.0,
+          "corr_bundle": 0.6666666666666666,
+          "xor_corr": 0.6666666666666666
+        },
+        "corr_bundle_per_seed": [
+          0.6666666666666666
+        ],
+        "corr_bundle_std": 0.0,
+        "margin_per_seed": [
+          0.4444444444444444
+        ],
+        "min_margin": 0.4444444444444444,
+        "drift": false
+      },
+      "('backward_algorithm', 'forward_algorithm')": {
+        "n": 4,
+        "corr_bundle": 1.0,
+        "best_single": 0.3333333333333333,
+        "closes_clean": true,
+        "margin": 0.6666666666666667,
+        "is_dft": false,
+        "macc": {
+          "xor3": 0.3333333333333333,
+          "conv3": 0.3333333333333333,
+          "bundle3": 0.3333333333333333,
+          "ghrr3": 0.25,
+          "perm_idx3": 0.08333333333333333,
+          "xorperm3": 0.3333333333333333,
+          "bundleperm3": 0.3333333333333333,
+          "convperm3": 0.0,
+          "corrperm3": 0.08333333333333333,
+          "corr_bundle": 1.0,
+          "xor_corr": 1.0
+        },
+        "corr_bundle_per_seed": [
+          1.0
+        ],
+        "corr_bundle_std": 0.0,
+        "margin_per_seed": [
+          0.6666666666666667
+        ],
+        "min_margin": 0.6666666666666667,
+        "drift": false
+      },
+      "('hilbert_space', 'inner_product')": {
+        "n": 3,
+        "corr_bundle": 1.0,
+        "best_single": 0.6666666666666666,
+        "closes_clean": true,
+        "margin": 0.33333333333333337,
+        "is_dft": false,
+        "macc": {
+          "xor3": 0.3333333333333333,
+          "conv3": 0.3333333333333333,
+          "bundle3": 0.3333333333333333,
+          "ghrr3": 0.0,
+          "perm_idx3": 0.6666666666666666,
+          "xorperm3": 0.3333333333333333,
+          "bundleperm3": 0.2222222222222222,
+          "convperm3": 0.4444444444444444,
+          "corrperm3": 0.1111111111111111,
+          "corr_bundle": 1.0,
+          "xor_corr": 1.0
+        },
+        "corr_bundle_per_seed": [
+          1.0
+        ],
+        "corr_bundle_std": 0.0,
+        "margin_per_seed": [
+          0.33333333333333337
+        ],
+        "min_margin": 0.33333333333333337,
+        "drift": false
+      },
+      "('dynamic_programming', 'viterbi_decoding')": {
+        "n": 2,
+        "corr_bundle": 1.0,
+        "best_single": 0.6666666666666666,
+        "closes_clean": true,
+        "margin": 0.33333333333333337,
+        "is_dft": false,
+        "macc": {
+          "xor3": 0.3333333333333333,
+          "conv3": 0.3333333333333333,
+          "bundle3": 0.3333333333333333,
+          "ghrr3": 0.0,
+          "perm_idx3": 0.5,
+          "xorperm3": 0.3333333333333333,
+          "bundleperm3": 0.6666666666666666,
+          "convperm3": 0.16666666666666666,
+          "corrperm3": 0.0,
+          "corr_bundle": 1.0,
+          "xor_corr": 1.0
+        },
+        "corr_bundle_per_seed": [
+          1.0
+        ],
+        "corr_bundle_std": 0.0,
+        "margin_per_seed": [
+          0.33333333333333337
+        ],
+        "min_margin": 0.33333333333333337,
+        "drift": false
+      },
+      "('bayes_rule', 'conditional_probability')": {
+        "n": 2,
+        "corr_bundle": 1.0,
+        "best_single": 0.6666666666666666,
+        "closes_clean": true,
+        "margin": 0.33333333333333337,
+        "is_dft": false,
+        "macc": {
+          "xor3": 0.3333333333333333,
+          "conv3": 0.3333333333333333,
+          "bundle3": 0.3333333333333333,
+          "ghrr3": 0.0,
+          "perm_idx3": 0.6666666666666666,
+          "xorperm3": 0.3333333333333333,
+          "bundleperm3": 0.3333333333333333,
+          "convperm3": 0.16666666666666666,
+          "corrperm3": 0.0,
+          "corr_bundle": 1.0,
+          "xor_corr": 1.0
+        },
+        "corr_bundle_per_seed": [
+          1.0
+        ],
+        "corr_bundle_std": 0.0,
+        "margin_per_seed": [
+          0.33333333333333337
+        ],
+        "min_margin": 0.33333333333333337,
+        "drift": false
+      }
+    }
+  ],
+  "families": {
+    "DFT-META": {
+      "n": 9,
+      "corr_bundle": 0.6666666666666666,
+      "best_single": 0.2222222222222222,
+      "closes_clean": false,
+      "margin": 0.4444444444444444,
+      "is_dft": true,
+      "macc": {
+        "xor3": 0.2222222222222222,
+        "conv3": 0.2222222222222222,
+        "bundle3": 0.2222222222222222,
+        "ghrr3": 0.037037037037037035,
+        "perm_idx3": 0.0,
+        "xorperm3": 0.2222222222222222,
+        "bundleperm3": 0.0,
+        "convperm3": 0.0,
+        "corrperm3": 0.0,
+        "corr_bundle": 0.6666666666666666,
+        "xor_corr": 0.6666666666666666
+      },
+      "corr_bundle_per_seed": [
+        0.6666666666666666
+      ],
+      "corr_bundle_std": 0.0,
+      "margin_per_seed": [
+        0.4444444444444444
+      ],
+      "min_margin": 0.4444444444444444,
+      "drift": false
+    },
+    "('backward_algorithm', 'forward_algorithm')": {
+      "n": 4,
+      "corr_bundle": 1.0,
+      "best_single": 0.3333333333333333,
+      "closes_clean": true,
+      "margin": 0.6666666666666667,
+      "is_dft": false,
+      "macc": {
+        "xor3": 0.3333333333333333,
+        "conv3": 0.3333333333333333,
+        "bundle3": 0.3333333333333333,
+        "ghrr3": 0.25,
+        "perm_idx3": 0.08333333333333333,
+        "xorperm3": 0.3333333333333333,
+        "bundleperm3": 0.3333333333333333,
+        "convperm3": 0.0,
+        "corrperm3": 0.08333333333333333,
+        "corr_bundle": 1.0,
+        "xor_corr": 1.0
+      },
+      "corr_bundle_per_seed": [
+        1.0
+      ],
+      "corr_bundle_std": 0.0,
+      "margin_per_seed": [
+        0.6666666666666667
+      ],
+      "min_margin": 0.6666666666666667,
+      "drift": false
+    },
+    "('hilbert_space', 'inner_product')": {
+      "n": 3,
+      "corr_bundle": 1.0,
+      "best_single": 0.6666666666666666,
+      "closes_clean": true,
+      "margin": 0.33333333333333337,
+      "is_dft": false,
+      "macc": {
+        "xor3": 0.3333333333333333,
+        "conv3": 0.3333333333333333,
+        "bundle3": 0.3333333333333333,
+        "ghrr3": 0.0,
+        "perm_idx3": 0.6666666666666666,
+        "xorperm3": 0.3333333333333333,
+        "bundleperm3": 0.2222222222222222,
+        "convperm3": 0.4444444444444444,
+        "corrperm3": 0.1111111111111111,
+        "corr_bundle": 1.0,
+        "xor_corr": 1.0
+      },
+      "corr_bundle_per_seed": [
+        1.0
+      ],
+      "corr_bundle_std": 0.0,
+      "margin_per_seed": [
+        0.33333333333333337
+      ],
+      "min_margin": 0.33333333333333337,
+      "drift": false
+    },
+    "('dynamic_programming', 'viterbi_decoding')": {
+      "n": 2,
+      "corr_bundle": 1.0,
+      "best_single": 0.6666666666666666,
+      "closes_clean": true,
+      "margin": 0.33333333333333337,
+      "is_dft": false,
+      "macc": {
+        "xor3": 0.3333333333333333,
+        "conv3": 0.3333333333333333,
+        "bundle3": 0.3333333333333333,
+        "ghrr3": 0.0,
+        "perm_idx3": 0.5,
+        "xorperm3": 0.3333333333333333,
+        "bundleperm3": 0.6666666666666666,
+        "convperm3": 0.16666666666666666,
+        "corrperm3": 0.0,
+        "corr_bundle": 1.0,
+        "xor_corr": 1.0
+      },
+      "corr_bundle_per_seed": [
+        1.0
+      ],
+      "corr_bundle_std": 0.0,
+      "margin_per_seed": [
+        0.33333333333333337
+      ],
+      "min_margin": 0.33333333333333337,
+      "drift": false
+    },
+    "('bayes_rule', 'conditional_probability')": {
+      "n": 2,
+      "corr_bundle": 1.0,
+      "best_single": 0.6666666666666666,
+      "closes_clean": true,
+      "margin": 0.33333333333333337,
+      "is_dft": false,
+      "macc": {
+        "xor3": 0.3333333333333333,
+        "conv3": 0.3333333333333333,
+        "bundle3": 0.3333333333333333,
+        "ghrr3": 0.0,
+        "perm_idx3": 0.6666666666666666,
+        "xorperm3": 0.3333333333333333,
+        "bundleperm3": 0.3333333333333333,
+        "convperm3": 0.16666666666666666,
+        "corrperm3": 0.0,
+        "corr_bundle": 1.0,
+        "xor_corr": 1.0
+      },
+      "corr_bundle_per_seed": [
+        1.0
+      ],
+      "corr_bundle_std": 0.0,
+      "margin_per_seed": [
+        0.33333333333333337
+      ],
+      "min_margin": 0.33333333333333337,
+      "drift": false
+    }
+  },
+  "elapsed_s": 0.8405542373657227,
+  "compute_backend": "cpu",
+  "dtype": "float32"
+}

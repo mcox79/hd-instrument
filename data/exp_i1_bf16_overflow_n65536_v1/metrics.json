@@ -1,0 +1,71 @@
+{
+  "anchor_name": "i1_bf16_overflow_n65536_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: zero NaN/Inf in fp16 accumulation up to N=65536 -- bf16 ELIMINATES overflow -- production gate closed. fp16 NaN/Inf at any N: False | fp16 absmax at N=65536: 134485 (bf16 dynamic range ~3e38 (8 exp bits))",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by": {
+        "N16384": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 46336.0,
+          "fp32_nan_inf": false
+        },
+        "N32768": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 77824.0,
+          "fp32_nan_inf": false
+        },
+        "N65536": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 135168.0,
+          "fp32_nan_inf": false
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by": {
+        "N16384": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 47104.0,
+          "fp32_nan_inf": false
+        },
+        "N32768": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 80384.0,
+          "fp32_nan_inf": false
+        },
+        "N65536": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 135168.0,
+          "fp32_nan_inf": false
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by": {
+        "N16384": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 50176.0,
+          "fp32_nan_inf": false
+        },
+        "N32768": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 80384.0,
+          "fp32_nan_inf": false
+        },
+        "N65536": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 133120.0,
+          "fp32_nan_inf": false
+        }
+      }
+    }
+  ],
+  "elapsed_s": 4.078433990478516,
+  "summary": "HARD_PASS: zero NaN/Inf in fp16 accumulation up to N=65536 -- bf16 ELIMINATES overflow -- production gate closed. fp16 NaN/Inf at any N: False | fp16 absmax at N=65536: 134485 (bf16 dynamic range ~3e38 (8 exp bits))"
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "v32_unified_wrapper_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate v3.2 engineered wrapper works UNIFIED -- per-role isolation (>=0.90) + write-lock core protection through later writes (>=0.95) + RS-parity erasure recovery (>=0.95), all on FHRR algebra via wrapper+routing, NO core change. The engineered-wrapper architecture is demonstrable end-to-end. per-role=1.000 write-lock=1.000 rs-parity=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_role_recall": 1.0,
+      "write_lock_recall": 1.0,
+      "rs_parity_recall": 1.0
+    }
+  ],
+  "elapsed_s": 2.6129066944122314,
+  "summary": "HARD_PASS: substrate v3.2 engineered wrapper works UNIFIED -- per-role isolation (>=0.90) + write-lock core protection through later writes (>=0.95) + RS-parity erasure recovery (>=0.95), all on FHRR algebra via wrapper+routing, NO core change. The engineered-wrapper architecture is demonstrable end-to-end. per-role=1.000 write-lock=1.000 rs-parity=1.000"
+}

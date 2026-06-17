@@ -1,0 +1,17 @@
+{
+  "anchor_name": "wikipedia_ingest_100k_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate ingests + retrieves 10k real Wikipedia articles at recall@5>=0.85 -- real-corpus retrieval green; dry-run for the 5.84M pre-trained substrate. recall@1=0.961 @5=0.992 over 100000 articles, ingest=152 art/sec",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 100000,
+      "r1": 0.96146,
+      "r5": 0.99221,
+      "throughput": 151.8960316702884
+    }
+  ],
+  "elapsed_s": 2359.6513345241547,
+  "summary": "HARD_PASS: substrate ingests + retrieves 10k real Wikipedia articles at recall@5>=0.85 -- real-corpus retrieval green; dry-run for the 5.84M pre-trained substrate. recall@1=0.961 @5=0.992 over 100000 articles, ingest=152 art/sec"
+}

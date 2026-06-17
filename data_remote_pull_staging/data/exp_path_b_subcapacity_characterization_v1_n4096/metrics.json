@@ -1,0 +1,53 @@
+{
+  "verdict": "T5_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_groups=2 hp_groups=1 hf_triggers=0",
+  "elapsed_s": 0.21,
+  "summary": {
+    "anchor": "path_b_subcapacity_characterization_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      50,
+      200
+    ],
+    "depths": [
+      3
+    ],
+    "K_paths": 20,
+    "n_paths": 8,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 50,
+        "depth": 3,
+        "seed": 17,
+        "K": 20,
+        "n_valid": 8,
+        "acc_b": 1.0,
+        "acc_d": 1.0,
+        "lat_b_ns": 2966700,
+        "lat_d_ns": 16663700,
+        "lat_b_faster_than_d": true,
+        "geom_cos_b": 0.94844
+      },
+      {
+        "M": 200,
+        "depth": 3,
+        "seed": 17,
+        "K": 20,
+        "n_valid": 8,
+        "acc_b": 1.0,
+        "acc_d": 1.0,
+        "lat_b_ns": 3034600,
+        "lat_d_ns": 15834500,
+        "lat_b_faster_than_d": true,
+        "geom_cos_b": 0.81176
+      }
+    ],
+    "verdict": "T5_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: n_groups=2 hp_groups=1 hf_triggers=0",
+    "elapsed_s": 0.21
+  }
+}

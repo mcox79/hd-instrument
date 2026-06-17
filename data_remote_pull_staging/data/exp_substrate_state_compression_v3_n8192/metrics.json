@@ -1,0 +1,57 @@
+{
+  "verdict": "C3V3_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL bits8_pass=1/1 N=8192. bits4: comp=8.00x retr=1.000 kfs=PASS | bits8: comp=4.00x retr=1.000 kfs=PASS | bits16: comp=2.00x retr=1.000 kfs=PASS",
+  "elapsed_s": 0.2,
+  "summary": {
+    "anchor": "substrate_state_compression_v3_n8192",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "n_probe": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "n_probe": 16,
+        "configs": [
+          {
+            "approach": "c_quant",
+            "param": "bits4",
+            "compression_ratio": 8.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits8",
+            "compression_ratio": 4.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits16",
+            "compression_ratio": 2.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          }
+        ]
+      }
+    ],
+    "verdict": "C3V3_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL bits8_pass=1/1 N=8192. bits4: comp=8.00x retr=1.000 kfs=PASS | bits8: comp=4.00x retr=1.000 kfs=PASS | bits16: comp=2.00x retr=1.000 kfs=PASS",
+    "elapsed_s": 0.2
+  }
+}

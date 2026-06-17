@@ -1,0 +1,23 @@
+{
+  "verdict": "LANE_D_E2E_SMOOTHER_PASS",
+  "verdict_msg": "Demo 1 with smoother readout PASS: composed_acc=1.000.",
+  "elapsed_s": 0.5,
+  "summary": {
+    "stage_s_acc": 1.0,
+    "stage_t_acc": 1.0,
+    "stage_x_acc": 1.0,
+    "composed_acc": 1.0,
+    "n_trials_total": 15
+  },
+  "config": {
+    "N": 8192,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials": 15,
+    "seeds": [
+      17
+    ]
+  }
+}

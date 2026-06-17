@@ -1,0 +1,12 @@
+{
+  "cuda_available": true,
+  "device_name": "NVIDIA GeForce RTX 4060 Ti",
+  "N": 512,
+  "num_matmuls": 200,
+  "elapsed_s": 0.39100000000325963,
+  "vram_free_before_gb": 7.406092288,
+  "vram_free_after_gb": 7.351566336,
+  "first_norm": 11579.3828125,
+  "last_norm": 11579.3828125,
+  "all_norms_match_seed": true
+}

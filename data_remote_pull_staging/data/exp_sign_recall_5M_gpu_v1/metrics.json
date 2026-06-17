@@ -1,0 +1,15 @@
+{
+  "anchor_name": "sign_recall_5M_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sign-key recall holds at 5M scale (>=0.99) on GPU -- substrate recall scales to 5M. recall@1=1.0000 at N=5000000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 5000000,
+      "recall1": 1.0
+    }
+  ],
+  "elapsed_s": 3.116777181625366,
+  "summary": "HARD_PASS: sign-key recall holds at 5M scale (>=0.99) on GPU -- substrate recall scales to 5M. recall@1=1.0000 at N=5000000"
+}

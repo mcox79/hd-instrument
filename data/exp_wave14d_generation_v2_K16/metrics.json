@@ -1,0 +1,200 @@
+{
+  "K": 16,
+  "GEN_LENGTH": 64,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "EVAL_POSITIONS": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "accuracy": {
+        "substrate_pool": {
+          "1": 0.4666666666666667,
+          "2": 0.43333333333333335,
+          "4": 0.44166666666666665,
+          "8": 0.4083333333333333,
+          "16": 0.33125,
+          "32": 0.22083333333333333,
+          "64": 0.13333333333333333
+        },
+        "substrate_no_pool": {
+          "1": 0.4666666666666667,
+          "2": 0.43333333333333335,
+          "4": 0.44166666666666665,
+          "8": 0.4083333333333333,
+          "16": 0.3333333333333333,
+          "32": 0.21458333333333332,
+          "64": 0.13020833333333334
+        },
+        "b3": {
+          "1": 0.3,
+          "2": 0.31666666666666665,
+          "4": 0.35,
+          "8": 0.3333333333333333,
+          "16": 0.29375,
+          "32": 0.20625,
+          "64": 0.1390625
+        }
+      },
+      "validity": {
+        "substrate_pool": 0.7049180327868853,
+        "substrate_no_pool": 0.6863387978142076,
+        "b3": 1.0
+      },
+      "samples": [
+        {
+          "prefix": "hrr/dashboard.pd",
+          "truth": "f) [trace](data/exp_scaling_depth_hrr/trace.duck",
+          "gen_pool": "f) [trace](data/exp_m4_nested/metrics.json) |..|",
+          "gen_no_pool": "f) [trace](data/exp_m4_nested/metrics.json) |..|",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": " beta=0.717 | [p",
+          "truth": "df](data/exp_depth_pinned_fhrr_clipped/dashboard",
+          "gen_pool": "datestiand d madsiat wsith arew | dabes wed athe",
+          "gen_no_pool": "datestiand d manting | | Betr | ataciast worecat",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": " SNR=1000000000.",
+          "truth": "0; density 0.81 -> SNR=0.99 | [pdf](data/exp_m7_",
+          "gen_pool": " d [ [ ] ratest arepestice reckling...| Pratsins",
+          "gen_no_pool": " d [ [ ] ratest arepestice reckling...| Pratsins",
+          "gen_b3": "                                                "
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "accuracy": {
+        "substrate_pool": {
+          "1": 0.43333333333333335,
+          "2": 0.43333333333333335,
+          "4": 0.3416666666666667,
+          "8": 0.25833333333333336,
+          "16": 0.20208333333333334,
+          "32": 0.14375,
+          "64": 0.10364583333333334
+        },
+        "substrate_no_pool": {
+          "1": 0.4666666666666667,
+          "2": 0.45,
+          "4": 0.3416666666666667,
+          "8": 0.25,
+          "16": 0.19791666666666666,
+          "32": 0.13541666666666666,
+          "64": 0.0921875
+        },
+        "b3": {
+          "1": 0.3,
+          "2": 0.25,
+          "4": 0.225,
+          "8": 0.2,
+          "16": 0.17708333333333334,
+          "32": 0.14270833333333333,
+          "64": 0.1203125
+        }
+      },
+      "validity": {
+        "substrate_pool": 0.6404371584699454,
+        "substrate_no_pool": 0.6,
+        "b3": 1.0
+      },
+      "samples": [
+        {
+          "prefix": "ng beta = 1.015 ",
+          "truth": "(R^2 = 0.9953); HRR pinned 1.232; FHRR k=2 stand",
+          "gen_pool": "| uracanes | dented peromed madens mod brares | ",
+          "gen_no_pool": "| uracanes | dented peromiteracempurithe | Ppesm",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "5-17 | exp_scali",
+          "truth": "ng_depth_hrr_validation | PASS | HRR validation ",
+          "gen_pool": "st | |..| Week | -put-meas aod somplestat siathi",
+          "gen_no_pool": "st | |..| Week | -put-meas aod somplestat siathi",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": " | HRR validatio",
+          "truth": "n beta = 2.441 (R^2 = 0.8451); original beta = 1",
+          "gen_pool": "n armertarin | monc | RA | Bet- | Butad pation s",
+          "gen_no_pool": "n armertarin | monc | RA | Bet- | Butad pation s",
+          "gen_b3": "                                                "
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "accuracy": {
+        "substrate_pool": {
+          "1": 0.4,
+          "2": 0.4166666666666667,
+          "4": 0.36666666666666664,
+          "8": 0.3,
+          "16": 0.23125,
+          "32": 0.1375,
+          "64": 0.08958333333333333
+        },
+        "substrate_no_pool": {
+          "1": 0.4,
+          "2": 0.4166666666666667,
+          "4": 0.36666666666666664,
+          "8": 0.3,
+          "16": 0.225,
+          "32": 0.13645833333333332,
+          "64": 0.08802083333333334
+        },
+        "b3": {
+          "1": 0.23333333333333334,
+          "2": 0.2,
+          "4": 0.20833333333333334,
+          "8": 0.20416666666666666,
+          "16": 0.19375,
+          "32": 0.13333333333333333,
+          "64": 0.10364583333333334
+        }
+      },
+      "validity": {
+        "substrate_pool": 0.6382513661202187,
+        "substrate_no_pool": 0.62896174863388,
+        "b3": 1.0
+      },
+      "samples": [
+        {
+          "prefix": "aling_capacity/d",
+          "truth": "ashboard.pdf) [trace](data/exp_scaling_capacity/",
+          "gen_pool": "estrons |..| Setroms. S | PASS | mptormextation ",
+          "gen_no_pool": "es...`.**in prestins | dectidingstins | pueding ",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "xp_scaling_depth",
+          "truth": "/trace.duckdb) [metrics](data/exp_scaling_depth/",
+          "gen_pool": "ding.m |..| Weeks | 100% | bond |matted | 1ondat",
+          "gen_no_pool": "ding.m |..| Weeks | 100% | bond |matted | 1ondat",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "cs](data/exp_sca",
+          "truth": "ling_capacity/metrics.json) |..| 2026-05-17 | ex",
+          "gen_pool": "nes | dapeddiand)e thand arewhic dastis. dondid ",
+          "gen_no_pool": "nes | dapeddiand)e bonsition | PA Sed dabs | den",
+          "gen_b3": "                                                "
+        }
+      ]
+    }
+  ]
+}

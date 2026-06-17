@@ -1,0 +1,67 @@
+{
+  "verdict": "COSINE_ROUTER_K_STRESS_MIDDLE",
+  "verdict_msg": "Cosine-dot router partial extension: K=16 OK but K=32 degrades. Report: ceiling extended to K=16 but not K=32. Best variant: hebbian_tc.",
+  "smoke": true,
+  "N": 512,
+  "best_variant": "hebbian_tc",
+  "elapsed_s": 5.3,
+  "results_per_variant_K": {
+    "token_choice": {
+      "8": {
+        "mean_retention": 0.91368,
+        "mean_entropy_bits": 2.99879,
+        "n_seeds": 1
+      },
+      "16": {
+        "mean_retention": 0.91441,
+        "mean_entropy_bits": 3.99868,
+        "n_seeds": 1
+      },
+      "32": {
+        "mean_retention": 0.91291,
+        "mean_entropy_bits": 4.99864,
+        "n_seeds": 1
+      }
+    },
+    "expert_choice": {
+      "8": {
+        "mean_retention": 0.91272,
+        "mean_entropy_bits": 2.99879,
+        "n_seeds": 1
+      },
+      "16": {
+        "mean_retention": 0.91313,
+        "mean_entropy_bits": 3.99868,
+        "n_seeds": 1
+      },
+      "32": {
+        "mean_retention": 0.91228,
+        "mean_entropy_bits": 4.99864,
+        "n_seeds": 1
+      }
+    },
+    "hebbian_tc": {
+      "8": {
+        "mean_retention": 0.91433,
+        "mean_entropy_bits": 2.99805,
+        "n_seeds": 1
+      },
+      "16": {
+        "mean_retention": 0.91226,
+        "mean_entropy_bits": 3.99829,
+        "n_seeds": 1
+      },
+      "32": {
+        "mean_retention": 0.91146,
+        "mean_entropy_bits": 4.99845,
+        "n_seeds": 1
+      }
+    }
+  },
+  "thresholds": {
+    "hard_pass_retention_frac": 0.95,
+    "hard_fail_retention_delta": -0.015,
+    "hard_pass_entropy_kmax": 3.0,
+    "hard_fail_entropy_kmid": 4.0
+  }
+}

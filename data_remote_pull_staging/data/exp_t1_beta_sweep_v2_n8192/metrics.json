@@ -1,0 +1,36 @@
+{
+  "anchor": "t1_beta_sweep_v2_n8192",
+  "N": 1024,
+  "smoke": true,
+  "M_frac": 4.0,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "M_frac": 4.0,
+      "M": 4096,
+      "beta_sweep": [
+        1,
+        4,
+        16,
+        64,
+        256
+      ],
+      "ret_by_beta": [
+        0.00066,
+        0.01271,
+        0.9989,
+        1.0,
+        1.0
+      ],
+      "max_gradient": 0.2496,
+      "total_var": 0.9993,
+      "mono_frac": 1.0
+    }
+  ],
+  "verdict": "T1V2_MIDDLE_BAND",
+  "verdict_msg": "DIFFUSE_TRANSITION: pass_seeds=1/1 mean_max_gradient=0.250 mean_total_var=0.999 M_frac=4.0 N=1024 HP_grad=0.1 HP_var=0.05",
+  "elapsed_s": 0.17
+}

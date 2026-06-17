@@ -1,0 +1,46 @@
+{
+  "verdict": "S6_HARD_FAIL",
+  "verdict_msg": "EDIT_BREAKS_MULTIHOP: rate=100 n=1 bP=0 dP=1 eP=1 audit_changed=1/1 consistent=1/1",
+  "elapsed_s": 0.28,
+  "summary": {
+    "anchor": "multi_hop_edit_isolation_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 100,
+    "edit_rates": [
+      10
+    ],
+    "patterns": [
+      "on_path"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "edit_rate": 10,
+        "pattern": "on_path",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K": 100,
+        "pre_acc_b": 1.0,
+        "pre_acc_d": 1.0,
+        "pre_auc_e": 1.0,
+        "post_acc_b": 0.375,
+        "post_acc_d": 1.0,
+        "post_auc_e": 0.97266,
+        "audit_pre": "df129153da414ff4",
+        "audit_post": "ffc00b87f7343844",
+        "audit_changed": true,
+        "consistent": true,
+        "n_edits": 10
+      }
+    ],
+    "verdict": "S6_HARD_FAIL",
+    "verdict_msg": "EDIT_BREAKS_MULTIHOP: rate=100 n=1 bP=0 dP=1 eP=1 audit_changed=1/1 consistent=1/1",
+    "elapsed_s": 0.28
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "anchor_name": "substrate_m1b_distribution_shape_separability_heldout_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (M1 CONCLUSIVELY dead): NO bge score-distribution-shape feature separates in-coverage from coverage-gap (best AUC=0.429 < 0.75). The Director's 'unknown queries are flatter' hypothesis is REFUTED on this held-out: in-coverage (present-but-paraphrased) queries are NOT more confident/peaked than coverage-gap (absent) queries. Confidence calibration of ANY shape cannot fix refuse-robustness here. M4 paraphrase-invariant retrieval is the ENABLING PRECONDITION -- it must raise in-coverage confidence so a gate becomes possible. Confirms the M4-first sequence. M1b distribution-shape separability (DECISION 34a follow-up). Best discriminating feature: flatness AUC=0.429 bal_acc=0.667 (in_cov_mean=0.0176 vs gap_mean=0.0236). n=7/6 (SMALL). Top-1 threshold M1 already FAILED in v1; this tests shape.",
+  "summary": "HARD_FAIL (M1 CONCLUSIVELY dead): NO bge score-distribution-shape feature separates in-coverage from coverage-gap (best AUC=0.429 < 0.75). The Director's 'unknown queries are flatter' hypothesis is REFUTED on this held-out: in-coverage (present-but-paraphrased) queries are NOT more confident/peaked than coverage-gap (absent) queries. Confidence calibration of ANY shape cannot fix refuse-robustness here. M4 paraphrase-invariant retrieval is the ENABLING PRECONDITION -- it must raise in-coverage confidence so a gate becomes possible. Confirms the M4-first sequence. M1b distribution-shape separability (DECISION 34a follow-up). Best discriminating feature: flatness AUC=0.429 bal_acc=0.667 (in_cov_mean=0.0176 vs gap_mean=0.0236). n=7/6 (SMALL). Top-1 threshold M1 already FAILED in v1; this tests shape.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_in_cov": 7,
+      "n_gap": 6,
+      "feature_separability": [
+        {
+          "feature": "flatness",
+          "auc": 0.429,
+          "best_bal_acc": 0.667,
+          "threshold": 0.0117,
+          "in_cov_mean": 0.0176,
+          "gap_mean": 0.0236
+        },
+        {
+          "feature": "margin",
+          "auc": 0.405,
+          "best_bal_acc": 0.583,
+          "threshold": 0.0034,
+          "in_cov_mean": 0.0181,
+          "gap_mean": 0.0273
+        },
+        {
+          "feature": "peak",
+          "auc": 0.357,
+          "best_bal_acc": 0.667,
+          "threshold": 0.0262,
+          "in_cov_mean": 0.0483,
+          "gap_mean": 0.0682
+        },
+        {
+          "feature": "mass070",
+          "auc": 0.345,
+          "best_bal_acc": 0.5,
+          "threshold": 0.0,
+          "in_cov_mean": 5.8571,
+          "gap_mean": 10.1667
+        },
+        {
+          "feature": "mass080",
+          "auc": 0.333,
+          "best_bal_acc": 0.5,
+          "threshold": 0.0,
+          "in_cov_mean": 0.0,
+          "gap_mean": 0.6667
+        },
+        {
+          "feature": "mean5",
+          "auc": 0.31,
+          "best_bal_acc": 0.512,
+          "threshold": 0.6772,
+          "in_cov_mean": 0.7049,
+          "gap_mean": 0.7376
+        },
+        {
+          "feature": "mean20",
+          "auc": 0.286,
+          "best_bal_acc": 0.5,
+          "threshold": 0.634,
+          "in_cov_mean": 0.6804,
+          "gap_mean": 0.7043
+        },
+        {
+          "feature": "top1",
+          "auc": 0.262,
+          "best_bal_acc": 0.512,
+          "threshold": 0.69,
+          "in_cov_mean": 0.7287,
+          "gap_mean": 0.7725
+        }
+      ],
+      "best_feature": {
+        "feature": "flatness",
+        "auc": 0.429,
+        "best_bal_acc": 0.667,
+        "threshold": 0.0117,
+        "in_cov_mean": 0.0176,
+        "gap_mean": 0.0236
+      }
+    }
+  ],
+  "elapsed_s": 13.0586097240448
+}

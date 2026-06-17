@@ -1,0 +1,17 @@
+{
+  "anchor_name": "khop_dim_scaling_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: K_max computed but weak/flat N-scaling. K_max by N: [60, 60, 58, 60] (non-monotone) | N_grid=[2048, 4096, 8192, 16384]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "N2048": 60,
+      "N4096": 60,
+      "N8192": 58,
+      "N16384": 60
+    }
+  ],
+  "elapsed_s": 0.5587122440338135,
+  "summary": "MIDDLE_BAND: K_max computed but weak/flat N-scaling. K_max by N: [60, 60, 58, 60] (non-monotone) | N_grid=[2048, 4096, 8192, 16384]"
+}

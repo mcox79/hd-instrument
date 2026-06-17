@@ -1,0 +1,16 @@
+{
+  "anchor_name": "pp224_audit_chain_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: RAG-prefix carries a 100pct-present, 100pct-reproducible Merkle audit chain per response -- substrate-around-LLM preserves end-to-end compliance provenance (categorical regulated-industry claim). audit-present=1.000 audit-reproduces=1.000 retrieval=0.567",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "audit_present": 1.0,
+      "audit_reproduces": 1.0,
+      "retrieval": 0.5666666666666667
+    }
+  ],
+  "elapsed_s": 0.3311452865600586,
+  "summary": "HARD_PASS: RAG-prefix carries a 100pct-present, 100pct-reproducible Merkle audit chain per response -- substrate-around-LLM preserves end-to-end compliance provenance (categorical regulated-industry claim). audit-present=1.000 audit-reproduces=1.000 retrieval=0.567"
+}

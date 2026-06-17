@@ -1,0 +1,20 @@
+{
+  "verdict": "CROSSTASK_TRANSFERS",
+  "verdict_msg": "multi=1.000 (>=0.5 AND >=70% of single=1.000).",
+  "elapsed_s": 0.46900000001187436,
+  "summary": {
+    "acc_single_task": 1.0,
+    "acc_multi_task": 1.0,
+    "n_chains": 3
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "depth": 25,
+    "n_chains": 3,
+    "num_entities": 400,
+    "num_relations": 20,
+    "n_trials": 5,
+    "seed": 17
+  }
+}

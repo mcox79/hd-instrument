@@ -1,0 +1,22 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/4 HP conditions. M_dyn=1.1893 (HP>=0.82 HF<=0.65) collapse_mse=0.0046 (HP<0.1 HF>0.2) mu=0.1280 (HP=[0.7,1.0]) dft_snr=nan (HP_osc>3.0) piecewise_r2=0.9947 (HP>=0.95) mono_r2=1.0000 (HP>=0.95)",
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "N": 256,
+  "M": 38,
+  "ALPHA": 0.15,
+  "R": 50,
+  "per_seed": [
+    {
+      "seed": 7,
+      "m_dyn": 1.1893182612352875,
+      "scaling_collapse_mse": 0.0045753987630208345,
+      "aging_exponent_mu": 0.1280312226130421,
+      "dft_peak_snr": NaN,
+      "piecewise_r2": 0.9946724546172084,
+      "continuous_monotone_r2": 1.0
+    }
+  ],
+  "elapsed_total_s": 3.0662951469421387
+}

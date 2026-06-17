@@ -1,0 +1,32 @@
+{
+  "anchor_name": "substrate_theta_burst_endpoint_only_K3_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: endpoint-only direct write rescues multi-step (>=10pp over iterated K=1) -- lookahead direction holds. t+1=0.557 | direct_t+3=0.565 vs iter_t+3=0.123 | gain t+2=+28.9pp t+3=+44.2pp (mean multistep gain 36.6pp)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "t1": 0.562,
+      "iter_t2": 0.242,
+      "iter_t3": 0.12,
+      "direct_t2": 0.54,
+      "direct_t3": 0.56,
+      "gain_t2_pp": 29.800000000000004,
+      "gain_t3_pp": 44.00000000000001
+    },
+    {
+      "seed": 2,
+      "t1": 0.552,
+      "iter_t2": 0.254,
+      "iter_t3": 0.126,
+      "direct_t2": 0.534,
+      "direct_t3": 0.57,
+      "gain_t2_pp": 28.000000000000004,
+      "gain_t3_pp": 44.39999999999999
+    }
+  ],
+  "elapsed_s": 1.5163094997406006,
+  "summary": "HARD_PASS: endpoint-only direct write rescues multi-step (>=10pp over iterated K=1) -- lookahead direction holds. t+1=0.557 | direct_t+3=0.565 vs iter_t+3=0.123 | gain t+2=+28.9pp t+3=+44.2pp (mean multistep gain 36.6pp)"
+}

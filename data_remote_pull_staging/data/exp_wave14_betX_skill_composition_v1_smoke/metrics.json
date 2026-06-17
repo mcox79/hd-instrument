@@ -1,0 +1,31 @@
+{
+  "verdict": "BET_X_COMPOSITION_PASS",
+  "verdict_msg": "Both levels pass: L1 skill=1.000/audit=1.000; L2 skill=1.000/audit=1.000. Position-indexed binding works at 2-level hierarchy.",
+  "elapsed_s": 1.062000000005355,
+  "summary": {
+    "level1_skill_acc": 1.0,
+    "level1_audit_decomposable": 1.0,
+    "level2_skill_acc": 1.0,
+    "level2_audit_decomposable": 1.0,
+    "per_seed": {
+      "17": {
+        "level1_skill_acc": 1.0,
+        "level1_audit_decomposable": 1.0,
+        "level2_skill_acc": 1.0,
+        "level2_audit_decomposable": 1.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "n_skills": 5,
+    "max_program_length": 4,
+    "n_meta_skills": 5,
+    "meta_program_length": 4,
+    "n_trials_per_level": 10,
+    "seeds": [
+      17
+    ]
+  }
+}

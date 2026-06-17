@@ -1,0 +1,46 @@
+{
+  "verdict": "LC_HARD_PASS",
+  "verdict_msg": "SMOKE_COMBINATIONS_WORK: mode_pass={'uniform': 1} mode_hf={'uniform': 0} n_cells=1",
+  "elapsed_s": 0.03,
+  "summary": {
+    "anchor": "linear_combination_substrates_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_per": 32,
+    "K": 3,
+    "modes": [
+      "uniform"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "K": 3,
+        "M_per": 32,
+        "weights": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "per_substrate_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_per_substrate_accuracy": 1.0,
+        "interference_rates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_interference": 0.0,
+        "mode": "uniform"
+      }
+    ],
+    "verdict": "LC_HARD_PASS",
+    "verdict_msg": "SMOKE_COMBINATIONS_WORK: mode_pass={'uniform': 1} mode_hf={'uniform': 0} n_cells=1",
+    "elapsed_s": 0.03
+  }
+}

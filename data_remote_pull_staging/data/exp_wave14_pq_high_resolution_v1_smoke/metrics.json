@@ -1,0 +1,21 @@
+{
+  "verdict": "PQ_HIERARCHICAL_28",
+  "verdict_msg": "n_total_peaks=31 in [24,32] (matches ~28 endpoint cardinality; outer=12).",
+  "elapsed_s": 1.8280000000086147,
+  "summary": {
+    "n_total_peaks": 31,
+    "n_outer_peaks": 12,
+    "q_mean": 0.1438222222222222,
+    "q_std": 0.03497029427216022,
+    "n_seeds": 50
+  },
+  "config": {
+    "N": 2048,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 30,
+    "n_seeds": 50
+  }
+}

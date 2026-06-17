@@ -1,0 +1,20 @@
+{
+  "anchor_name": "ner_pos_cascade_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: POS cascade gives a small lift (>=0.005) -- partial; combine with clusters (Path 2 +0.011) for a stacked feature gain. +POS F1=0.5443 vs no-POS 0.4658 (lift=+0.0785, P=0.586 R=0.509, train=300)",
+  "summary": "MIDDLE_BAND: POS cascade gives a small lift (>=0.005) -- partial; combine with clusters (Path 2 +0.011) for a stacked feature gain. +POS F1=0.5443 vs no-POS 0.4658 (lift=+0.0785, P=0.586 R=0.509, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5443,
+      "f1_pos": 0.5443,
+      "f1_baseline": 0.4658,
+      "lift": 0.0785,
+      "prec": 0.586,
+      "rec": 0.509,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 7.715397596359253
+}

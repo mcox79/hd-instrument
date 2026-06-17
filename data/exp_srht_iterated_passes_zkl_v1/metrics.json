@@ -1,0 +1,19 @@
+{
+  "anchor_name": "srht_iterated_passes_zkl_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: iterated SRHT reaches ZKL(50)<=0.10 at P=1 -- HIPAA target achievable by stacking SRHT passes. ZKL(50) by SRHT passes: {'P0': 0.0367, 'P1': 0.02, 'P2': 0.05, 'P3': 0.0733} | min=0.0200 at P=1 (HIPAA<=0.10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_passes": {
+        "P0": 0.03666666666666667,
+        "P1": 0.02,
+        "P2": 0.05,
+        "P3": 0.07333333333333333
+      }
+    }
+  ],
+  "elapsed_s": 13.598430156707764,
+  "summary": "HARD_PASS: iterated SRHT reaches ZKL(50)<=0.10 at P=1 -- HIPAA target achievable by stacking SRHT passes. ZKL(50) by SRHT passes: {'P0': 0.0367, 'P1': 0.02, 'P2': 0.05, 'P3': 0.0733} | min=0.0200 at P=1 (HIPAA<=0.10)"
+}

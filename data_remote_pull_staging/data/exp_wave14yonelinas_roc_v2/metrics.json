@@ -1,0 +1,67 @@
+{
+  "verdict": "YONELINAS_PURE_FAMILIARITY",
+  "verdict_msg": "z-ROC slope = 1.11 ~ 1.0 (symmetric ROC = single signal-detection process). This is FAMILIARITY ONLY, not dual-process. Earlier 'dissociation' was asymmetric-codebook artifact.",
+  "elapsed_s": 2.062000000005355,
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "n_codebook": 4096,
+    "K_stored": 200,
+    "n_probes": 1000,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  },
+  "device": "cuda",
+  "per_seed": [
+    {
+      "K_stored": 200,
+      "n_codebook": 4096,
+      "z_roc_slope": 1.422089879111299,
+      "familiarity_d_prime": 4.515563110510935,
+      "recollection_accuracy": 0.99,
+      "n_roc_points": 85
+    },
+    {
+      "K_stored": 200,
+      "n_codebook": 4096,
+      "z_roc_slope": 0.9000576742954125,
+      "familiarity_d_prime": 3.299234393383707,
+      "recollection_accuracy": 0.98,
+      "n_roc_points": 95
+    },
+    {
+      "K_stored": 200,
+      "n_codebook": 4096,
+      "z_roc_slope": 0.8147700273323196,
+      "familiarity_d_prime": 3.2542767209362555,
+      "recollection_accuracy": 0.975,
+      "n_roc_points": 52
+    },
+    {
+      "K_stored": 200,
+      "n_codebook": 4096,
+      "z_roc_slope": 0.6990463593454017,
+      "familiarity_d_prime": 2.8782727385270492,
+      "recollection_accuracy": 0.94,
+      "n_roc_points": 54
+    },
+    {
+      "K_stored": 200,
+      "n_codebook": 4096,
+      "z_roc_slope": 1.7247003702270634,
+      "familiarity_d_prime": 5.035059078424485,
+      "recollection_accuracy": 0.985,
+      "n_roc_points": 77
+    }
+  ],
+  "summary": {
+    "z_roc_slope": 1.1121328620622992,
+    "recollection_accuracy": 0.974,
+    "familiarity_d_prime": 3.7964812083564867
+  }
+}

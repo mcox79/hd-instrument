@@ -1,0 +1,139 @@
+{
+  "anchor_name": "substrate_position_binding_combined_arch_trigram_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: trigram (K=3) reached by ['E1_posbind_hebbian', 'E2_posbind_stdp'] -> combined-architecture pathway works. E1_posbind_hebbian:HP(gap+1.291,3/3) E2_posbind_stdp:HP(gap+1.249,3/3) E3_posbind_sparse:MID(gap+1.007,2/3) E4_posbind_sparse_stdp:MID(gap+1.001,2/3)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_steps": 1000,
+  "cells": [
+    "E1_posbind_hebbian",
+    "E2_posbind_stdp",
+    "E3_posbind_sparse",
+    "E4_posbind_sparse_stdp"
+  ],
+  "task": "trigram",
+  "elapsed_s": 81.60704326629639,
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "E1_posbind_hebbian": {
+          "coding": "bipolar",
+          "stdp": false,
+          "val_nats": 2.527785301208496,
+          "mean_norm": 0.07892172662913799,
+          "norm_osc": 0.04628507879712596,
+          "gap_vs_uniform": 1.300856095280599
+        },
+        "E2_posbind_stdp": {
+          "coding": "bipolar",
+          "stdp": true,
+          "val_nats": 2.5133986473083496,
+          "mean_norm": 0.12505794402211903,
+          "norm_osc": 0.04520200100974546,
+          "gap_vs_uniform": 1.3152427491807455
+        },
+        "E3_posbind_sparse": {
+          "coding": "sparse",
+          "stdp": false,
+          "val_nats": 2.8086965084075928,
+          "mean_norm": 0.09805578426271677,
+          "norm_osc": 0.03904368904362962,
+          "gap_vs_uniform": 1.0199448880815023
+        },
+        "E4_posbind_sparse_stdp": {
+          "coding": "sparse",
+          "stdp": true,
+          "val_nats": 2.8035683631896973,
+          "mean_norm": 0.1491716958284378,
+          "norm_osc": 0.0421494829582198,
+          "gap_vs_uniform": 1.0250730332993978
+        }
+      },
+      "peak_gpu_gb": 0.48223232,
+      "elapsed_s": 26.996467113494873
+    },
+    {
+      "seed": 17,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "E1_posbind_hebbian": {
+          "coding": "bipolar",
+          "stdp": false,
+          "val_nats": 2.510762929916382,
+          "mean_norm": 0.07891814476251602,
+          "norm_osc": 0.047139412256099154,
+          "gap_vs_uniform": 1.3178784665727132
+        },
+        "E2_posbind_stdp": {
+          "coding": "bipolar",
+          "stdp": true,
+          "val_nats": 2.6012330055236816,
+          "mean_norm": 0.12547702883929016,
+          "norm_osc": 0.046122399356695605,
+          "gap_vs_uniform": 1.2274083909654134
+        },
+        "E3_posbind_sparse": {
+          "coding": "sparse",
+          "stdp": false,
+          "val_nats": 2.8016231060028076,
+          "mean_norm": 0.0980123854279518,
+          "norm_osc": 0.03917926466771333,
+          "gap_vs_uniform": 1.0270182904862875
+        },
+        "E4_posbind_sparse_stdp": {
+          "coding": "sparse",
+          "stdp": true,
+          "val_nats": 2.8116700649261475,
+          "mean_norm": 0.14903117321431636,
+          "norm_osc": 0.04102165071869442,
+          "gap_vs_uniform": 1.0169713315629476
+        }
+      },
+      "peak_gpu_gb": 0.48223232,
+      "elapsed_s": 27.094462156295776
+    },
+    {
+      "seed": 23,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "E1_posbind_hebbian": {
+          "coding": "bipolar",
+          "stdp": false,
+          "val_nats": 2.5744051933288574,
+          "mean_norm": 0.07863957768678666,
+          "norm_osc": 0.044652603556794755,
+          "gap_vs_uniform": 1.2542362031602377
+        },
+        "E2_posbind_stdp": {
+          "coding": "bipolar",
+          "stdp": true,
+          "val_nats": 2.622809648513794,
+          "mean_norm": 0.12498452471196651,
+          "norm_osc": 0.046745882109222,
+          "gap_vs_uniform": 1.2058317479753011
+        },
+        "E3_posbind_sparse": {
+          "coding": "sparse",
+          "stdp": false,
+          "val_nats": 2.8556950092315674,
+          "mean_norm": 0.09865693386644125,
+          "norm_osc": 0.03796824153373795,
+          "gap_vs_uniform": 0.9729463872575277
+        },
+        "E4_posbind_sparse_stdp": {
+          "coding": "sparse",
+          "stdp": true,
+          "val_nats": 2.8678066730499268,
+          "mean_norm": 0.1499659231454134,
+          "norm_osc": 0.04392917918370184,
+          "gap_vs_uniform": 0.9608347234391683
+        }
+      },
+      "peak_gpu_gb": 0.48223232,
+      "elapsed_s": 27.42750835418701
+    }
+  ]
+}

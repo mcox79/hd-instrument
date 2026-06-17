@@ -1,0 +1,16 @@
+{
+  "anchor_name": "sql_rolling_window_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: rolling-window HD aggregation rel-error <0.05 after full stream -- no add/subtract drift; native streaming aggregation viable. rolling-window steady-state rel-error=0.0144 (window=100)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "rel_error": 0.014415820312500003
+    }
+  ],
+  "elapsed_s": 0.10129570960998535,
+  "summary": "HARD_PASS: rolling-window HD aggregation rel-error <0.05 after full stream -- no add/subtract drift; native streaming aggregation viable. rolling-window steady-state rel-error=0.0144 (window=100)"
+}

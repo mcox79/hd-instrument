@@ -1,0 +1,17 @@
+{
+  "anchor_name": "iterative_cleanup_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: iterative cleanup no meaningful gain (single-step already saturates). 1-step=1.000 5-step=1.000 gain=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "step1": 1.0,
+      "stepT": 1.0,
+      "gain": 0.0,
+      "T": 5
+    }
+  ],
+  "elapsed_s": 0.18960237503051758,
+  "summary": "HARD_FAIL: iterative cleanup no meaningful gain (single-step already saturates). 1-step=1.000 5-step=1.000 gain=0.000"
+}

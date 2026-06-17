@@ -1,0 +1,29 @@
+{
+  "anchor_name": "asdiv_pp375_wk_multiseed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: WK adds nothing to PP-375 (<0.02 lift, <0.40) -- WK items too sparse / mechanism can't use them; ~0.38 ceiling holds. +search+WK 1op=0.3949 (+search alone 0.3949, WK-lift +0.0000, text-order 0.0000, overall 0.0000). PP-375 mechanism + question-guided WK constants (cycle's two wins combined).",
+  "summary": "HARD_FAIL: WK adds nothing to PP-375 (<0.02 lift, <0.40) -- WK items too sparse / mechanism can't use them; ~0.38 ceiling holds. +search+WK 1op=0.3949 (+search alone 0.3949, WK-lift +0.0000, text-order 0.0000, overall 0.0000). PP-375 mechanism + question-guided WK constants (cycle's two wins combined).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3949,
+      "std": 0.0132,
+      "vals": [
+        0.4131,
+        0.4017,
+        0.396,
+        0.3903,
+        0.3732
+      ],
+      "searchwk_1op": 0.3949,
+      "search_1op": 0.3949,
+      "wk_lift": 0.0,
+      "textorder_1op": 0.0,
+      "searchwk_overall": 0.0,
+      "n_test": 665,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 11.193303346633911
+}

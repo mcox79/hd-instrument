@@ -1,0 +1,19 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "CT-2 free-Poisson: rank_test=True (8/8 pairs), mean_edge_err=0.0070, n_hp_seeds=2/2, convergence_direction=True, N=4096, alpha_grid=[0.05, 0.1]",
+  "rank_test_pass": true,
+  "mean_edge_error_at_N_main": 0.007010702959220905,
+  "max_edge_error_at_N_main": 0.013882175757703563,
+  "n_hp_seeds": 2,
+  "n_seeds_main": 2,
+  "convergence_direction": true,
+  "mean_edge_ratio_at_N4096": null,
+  "mean_edge_ratio_at_N256": null,
+  "N_main": 4096,
+  "alpha_grid": [
+    0.05,
+    0.1
+  ],
+  "elapsed_s": 20.35826063156128,
+  "run_mode": "smoke"
+}

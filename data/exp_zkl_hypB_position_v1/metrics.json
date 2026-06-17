@@ -1,0 +1,16 @@
+{
+  "anchor_name": "zkl_hypB_position_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (Hyp B supported): last-token pooling concentrates on a few input positions (entropy<0.4 of max OR top-3>60%%) -- queue position-specific subtraction / earlier-layer pooling mitigations. entropy_ratio=0.432 top3_share=0.859 (n=400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 400,
+      "ent": 0.43213639683992355,
+      "top3": 0.8591361063718795
+    }
+  ],
+  "elapsed_s": 13.626845836639404,
+  "summary": "HARD_PASS (Hyp B supported): last-token pooling concentrates on a few input positions (entropy<0.4 of max OR top-3>60%%) -- queue position-specific subtraction / earlier-layer pooling mitigations. entropy_ratio=0.432 top3_share=0.859 (n=400)"
+}

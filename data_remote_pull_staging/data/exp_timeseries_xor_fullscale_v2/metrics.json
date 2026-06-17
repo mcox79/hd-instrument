@@ -1,0 +1,23 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_in_acc": 0.0,
+    "mean_contam": 0.0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Range query fails at N=4096. in_acc=0.000(hf=0.5), contam=0.000(hf=0.4).",
+  "elapsed_s": 3.4466729164123535,
+  "config": {
+    "K_PATTERNS": 15,
+    "WINDOW_SIZES": [
+      2,
+      3
+    ]
+  }
+}

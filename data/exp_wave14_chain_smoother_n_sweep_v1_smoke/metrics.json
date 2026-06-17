@@ -1,0 +1,23 @@
+{
+  "verdict": "NSWEEP_ALL_PASS",
+  "verdict_msg": "All N pass: {'4096': 1.0, '8192': 1.0}.",
+  "elapsed_s": 0.3129999999946449,
+  "summary": {
+    "acc_per_N": {
+      "4096": 1.0,
+      "8192": 1.0
+    }
+  },
+  "config": {
+    "N_grid": [
+      4096,
+      8192
+    ],
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "n_trials": 5,
+    "seed": 17
+  }
+}

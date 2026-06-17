@@ -1,0 +1,16 @@
+{
+  "anchor_name": "storage_3bit_quant_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-bit W drops recall@1 <2% vs 4-bit -- ship 3-bit as default (25% more storage saving). 4-bit=1.000 3-bit=1.000 drop=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "r4": 1.0,
+      "r3": 1.0,
+      "drop": 0.0
+    }
+  ],
+  "elapsed_s": 0.2617485523223877,
+  "summary": "HARD_PASS: 3-bit W drops recall@1 <2% vs 4-bit -- ship 3-bit as default (25% more storage saving). 4-bit=1.000 3-bit=1.000 drop=0.000"
+}

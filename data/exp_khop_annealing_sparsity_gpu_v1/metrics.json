@@ -1,0 +1,15 @@
+{
+  "anchor_name": "khop_annealing_sparsity_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: annealed >= uniform but <15%% gain (marginal). K_max uniform=60 annealed=60 | annealed gain=0.00",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uniform": 60,
+      "annealed": 60
+    }
+  ],
+  "elapsed_s": 0.19519543647766113,
+  "summary": "MIDDLE_BAND: annealed >= uniform but <15%% gain (marginal). K_max uniform=60 annealed=60 | annealed gain=0.00"
+}

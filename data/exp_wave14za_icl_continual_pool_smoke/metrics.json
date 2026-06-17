@@ -1,0 +1,116 @@
+{
+  "verdict": "ICL_CONTINUAL_POOL_IMPROVES",
+  "verdict_msg": "Continual pool reduces bpc by 1.656 vs static (static=5.991, continual=4.335). Substrate learns from its own queries: real-time learning works.",
+  "elapsed_s": 2.4839999999985594,
+  "summary": {
+    "static_pool_bpc": 5.990576622009278,
+    "continual_pool_final_bpc": 4.334795139312744,
+    "trajectory": [
+      {
+        "pos": 256,
+        "bpc_so_far": 5.081179261207581,
+        "pool_used": 4096
+      },
+      {
+        "pos": 448,
+        "bpc_so_far": 5.071409838540213,
+        "pool_used": 4096
+      },
+      {
+        "pos": 640,
+        "bpc_so_far": 4.9444550514221195,
+        "pool_used": 4096
+      },
+      {
+        "pos": 832,
+        "bpc_so_far": 5.019126708690937,
+        "pool_used": 4096
+      },
+      {
+        "pos": 1024,
+        "bpc_so_far": 4.831915855407715,
+        "pool_used": 4096
+      },
+      {
+        "pos": 1216,
+        "bpc_so_far": 4.66446328163147,
+        "pool_used": 4096
+      },
+      {
+        "pos": 1408,
+        "bpc_so_far": 4.573029615662315,
+        "pool_used": 4096
+      },
+      {
+        "pos": 1600,
+        "bpc_so_far": 4.425873508453369,
+        "pool_used": 4096
+      },
+      {
+        "pos": 1856,
+        "bpc_so_far": 4.359088445531911,
+        "pool_used": 4096
+      },
+      {
+        "pos": 2048,
+        "bpc_so_far": 4.303645454347134,
+        "pool_used": 4096
+      },
+      {
+        "pos": 2240,
+        "bpc_so_far": 4.37240275655474,
+        "pool_used": 4096
+      },
+      {
+        "pos": 2432,
+        "bpc_so_far": 4.3941122481697485,
+        "pool_used": 4096
+      },
+      {
+        "pos": 2624,
+        "bpc_so_far": 4.431649545343911,
+        "pool_used": 4096
+      },
+      {
+        "pos": 2816,
+        "bpc_so_far": 4.40975972739133,
+        "pool_used": 4096
+      },
+      {
+        "pos": 3008,
+        "bpc_so_far": 4.418030267066144,
+        "pool_used": 4096
+      },
+      {
+        "pos": 3200,
+        "bpc_so_far": 4.466218438148498,
+        "pool_used": 4096
+      },
+      {
+        "pos": 3456,
+        "bpc_so_far": 4.414664860124941,
+        "pool_used": 4096
+      },
+      {
+        "pos": 3648,
+        "bpc_so_far": 4.363152060592384,
+        "pool_used": 4096
+      },
+      {
+        "pos": 3840,
+        "bpc_so_far": 4.37793804804484,
+        "pool_used": 4096
+      },
+      {
+        "pos": 4000,
+        "bpc_so_far": 4.334795139312744,
+        "pool_used": 4096
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "max_epochs": 1
+  }
+}

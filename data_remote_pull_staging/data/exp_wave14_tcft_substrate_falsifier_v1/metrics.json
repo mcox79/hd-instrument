@@ -1,0 +1,22 @@
+{
+  "verdict": "INSTRUMENTATION_FAIL",
+  "verdict_msg": "INSTRUMENTATION_FAIL: cycle-177 per-step work trajectory data not found at data/exp_wave14_betB_crooks_forensic_erase_v2/work_trajectories.npy. Synthetic validation path executed: all 3 TCFT math assertions PASS (Jarzynski err=1.29%, TCFT-class0 err=0.32%, PR-diagnostic correct). Re-ship with per-step work logging enabled to test real data.",
+  "elapsed_s": 0.0,
+  "synthetic_validation": {
+    "test1_delta_F_err_pct": 1.2934138153428967,
+    "test1_jarzynski_deltaF": 1.4805987927569224,
+    "test1_closed_form_deltaF": 1.5,
+    "test2_tcft0_err_pct": 0.31528202830667745,
+    "test2_tcft0_deltaF": 0.8722412822491638,
+    "test2_tcft1_variance_ratio": 3.52594051330692,
+    "test2_tcft0_Pclass": 0.5,
+    "test3_PR_high_std": true,
+    "test3_PR_low_std": false,
+    "note": "Cycle-177 per-step data not found; synthetic validation executed"
+  },
+  "config": {
+    "mode": "smoke",
+    "data_path": "None",
+    "fallback": "synthetic_validation"
+  }
+}

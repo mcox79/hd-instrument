@@ -1,0 +1,101 @@
+{
+  "verdict": "AXIS2_MIDDLE_BAND",
+  "verdict_msg": "Mixed picture: 0/3 classes drop. n_classes_below_0.5_at_M/N=8: 0/3. ret_at_M8={'bsc': 0.58, 'hadamard': 0.58, 'kerdock': 0.58}. kerdock_drops=False. bsc_drops=False.",
+  "elapsed_s": 0.23253202438354492,
+  "config": {
+    "N": 512,
+    "M_fracs": [
+      1.0,
+      4.0,
+      8.0
+    ],
+    "seeds": [
+      17
+    ],
+    "codebook_classes": [
+      "bsc",
+      "kerdock",
+      "hadamard"
+    ],
+    "beta": 8.0,
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "codebook_class": "bsc",
+        "M_frac": 1.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 0.04726562928408384
+      },
+      {
+        "codebook_class": "bsc",
+        "M_frac": 4.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 0.04726562928408384
+      },
+      {
+        "codebook_class": "bsc",
+        "M_frac": 8.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 0.04726562928408384
+      },
+      {
+        "codebook_class": "kerdock",
+        "M_frac": 1.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 0.04726562928408384
+      },
+      {
+        "codebook_class": "kerdock",
+        "M_frac": 4.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 0.04726562928408384
+      },
+      {
+        "codebook_class": "kerdock",
+        "M_frac": 8.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 0.04726562928408384
+      },
+      {
+        "codebook_class": "hadamard",
+        "M_frac": 1.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 6.174669602287963e-08
+      },
+      {
+        "codebook_class": "hadamard",
+        "M_frac": 4.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 6.174669602287963e-08
+      },
+      {
+        "codebook_class": "hadamard",
+        "M_frac": 8.0,
+        "M": 512,
+        "seed": 17,
+        "retention": 0.5799999833106995,
+        "mean_overlap": 6.174669602287963e-08
+      }
+    ],
+    "N": 512,
+    "smoke": true
+  }
+}

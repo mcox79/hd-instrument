@@ -1,0 +1,105 @@
+{
+  "verdict": "KERDOCK_UNIVERSALITY_IN_CLASS",
+  "verdict_msg": "Kerdock AMP-MSE matches surrogate(s) ['iid_gaussian'] within +-25% across all 2 M/N cells. Cap 8 envelope extends to M/N=8 via Dudeja-Sen-Lu spectral universality.",
+  "elapsed_s": 8.079000000027008,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "mse_mean": {
+          "kerdock": 0.6514588455887772,
+          "iid_gaussian": 0.659136745377077
+        },
+        "mse_std": {
+          "kerdock": 0.0,
+          "iid_gaussian": 0.0
+        },
+        "sigma_summary": {
+          "kerdock": [
+            [
+              0.9469647407531738,
+              1.5396671295166016,
+              0.32481154799461365
+            ]
+          ],
+          "iid_gaussian": [
+            [
+              0.9324295668399516,
+              1.6997453906053612,
+              0.2985321799993868
+            ]
+          ]
+        },
+        "surrogate_max_pair_diff": 0.0,
+        "kerdock_vs_surrogate_diff": {
+          "iid_gaussian": 0.011648417179211352
+        }
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "mse_mean": {
+          "kerdock": 0.08872563658710628,
+          "iid_gaussian": 0.10986170068104414
+        },
+        "mse_std": {
+          "kerdock": 0.0,
+          "iid_gaussian": 0.0
+        },
+        "sigma_summary": {
+          "kerdock": [
+            [
+              0.8720694780349731,
+              1.7296336889266968,
+              0.0009881692240014672
+            ]
+          ],
+          "iid_gaussian": [
+            [
+              0.848788603215176,
+              2.000621882616733,
+              0.00013870910174495203
+            ]
+          ]
+        },
+        "surrogate_max_pair_diff": 0.0,
+        "kerdock_vs_surrogate_diff": {
+          "iid_gaussian": 0.19238792011149655
+        }
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "M_over_N_list": [
+        0.5,
+        1.0
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_seeds": 1,
+      "amp_n_iter": 50,
+      "surrogates": [
+        "iid_gaussian"
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N_list": [
+      0.5,
+      1.0
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_seeds": 1,
+    "amp_n_iter": 50,
+    "surrogates": [
+      "iid_gaussian"
+    ]
+  }
+}

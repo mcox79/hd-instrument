@@ -1,0 +1,27 @@
+{
+  "anchor_name": "substrate_R6_b2_x_sparse_resonator_v1_n5000",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: B2-storage degrades resonator recovery. kmax_resonator_alone=8 kmax_B2+resonator=0 (M_stored=50)",
+  "N": 1000,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1000,
+      "M_stored": 50,
+      "res_alone": {
+        "4": 1.0,
+        "8": 1.0
+      },
+      "b2_res": {
+        "4": 0.4125,
+        "8": 0.2
+      },
+      "kmax_res": 8,
+      "kmax_b2res": 0
+    }
+  ],
+  "elapsed_s": 0.1568129062652588,
+  "summary": "HARD_FAIL: B2-storage degrades resonator recovery. kmax_resonator_alone=8 kmax_B2+resonator=0 (M_stored=50)"
+}

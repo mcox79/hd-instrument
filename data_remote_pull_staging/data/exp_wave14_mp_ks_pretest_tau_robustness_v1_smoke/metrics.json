@@ -1,0 +1,74 @@
+{
+  "verdict": "MP_KS_TAU_ROBUSTNESS_INCONCLUSIVE",
+  "verdict_msg": "Missing codebooks: have 2 need 5.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "codebook_results": [
+      {
+        "name": "iid_gauss",
+        "expected_label": "AMP_OK",
+        "ks_mean": 0.0798855437620477,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.5452741852192992,
+        "vamp_rel_mean": 0.5142068827621412,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.0798855437620477
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label": "AMP_OK",
+        "ks_mean": 0.5743233451135475,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.8896181754236606,
+        "vamp_rel_mean": 0.05445245962706526,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.5743233451135475
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "n_seeds": 1,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 50,
+      "tau_grid": [
+        0.15,
+        0.2,
+        0.25
+      ],
+      "codebooks": [
+        "iid_gauss",
+        "srht"
+      ]
+    },
+    "tau_grid": [
+      0.15,
+      0.2,
+      0.25
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "n_seeds": 1,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 50,
+    "tau_grid": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "codebooks": [
+      "iid_gauss",
+      "srht"
+    ]
+  }
+}

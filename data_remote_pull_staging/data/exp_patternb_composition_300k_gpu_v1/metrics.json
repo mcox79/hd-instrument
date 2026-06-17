@@ -1,0 +1,15 @@
+{
+  "anchor_name": "patternb_composition_300k_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Pattern-B composition recall>=0.95 at V=300k filler vocab -- composition holds at large KB scale. recall@1=1.000 at V=300000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "V": 300000
+    }
+  ],
+  "elapsed_s": 1.5634946823120117,
+  "summary": "HARD_PASS: Pattern-B composition recall>=0.95 at V=300k filler vocab -- composition holds at large KB scale. recall@1=1.000 at V=300000"
+}

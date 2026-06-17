@@ -1,0 +1,179 @@
+{
+  "verdict": "REXCC_HARD_PASS",
+  "verdict_msg": "COSINE_DECOMP_VALIDATED n_hp=15/15. N=1024 M_grid=[64, 128, 256] n_trials=15 max_sum_err=0.00e+00 mean_sum_err=0.00e+00 mean_r=1.0000 n_hp=15/15 n_hf=0",
+  "elapsed_s": 0.02,
+  "summary": {
+    "anchor": "retrieval_explainability_cosine_contribution_smoke_v1",
+    "N": 1024,
+    "M_grid": [
+      64,
+      128,
+      256
+    ],
+    "seed": 17,
+    "cells": [
+      {
+        "M": 64,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "trials": [
+          {
+            "trial": 0,
+            "sum_error": 0.0,
+            "s_total": 1.008026,
+            "s_decomposed": 1.008026,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.681548,
+            "n_atoms": 64
+          },
+          {
+            "trial": 1,
+            "sum_error": 0.0,
+            "s_total": -0.009354,
+            "s_decomposed": -0.009354,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.603938,
+            "n_atoms": 64
+          },
+          {
+            "trial": 2,
+            "sum_error": 0.0,
+            "s_total": -0.029984,
+            "s_decomposed": -0.029984,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.773489,
+            "n_atoms": 64
+          },
+          {
+            "trial": 3,
+            "sum_error": 0.0,
+            "s_total": 0.016258,
+            "s_decomposed": 0.016258,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.635119,
+            "n_atoms": 64
+          },
+          {
+            "trial": 4,
+            "sum_error": 0.0,
+            "s_total": 0.004562,
+            "s_decomposed": 0.004562,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.477793,
+            "n_atoms": 64
+          }
+        ]
+      },
+      {
+        "M": 128,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "trials": [
+          {
+            "trial": 0,
+            "sum_error": 0.0,
+            "s_total": 1.011723,
+            "s_decomposed": 1.011723,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.675117,
+            "n_atoms": 128
+          },
+          {
+            "trial": 1,
+            "sum_error": 0.0,
+            "s_total": -0.003559,
+            "s_decomposed": -0.003559,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.643695,
+            "n_atoms": 128
+          },
+          {
+            "trial": 2,
+            "sum_error": 0.0,
+            "s_total": -0.029888,
+            "s_decomposed": -0.029888,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.686682,
+            "n_atoms": 128
+          },
+          {
+            "trial": 3,
+            "sum_error": 0.0,
+            "s_total": 0.028522,
+            "s_decomposed": 0.028522,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.642602,
+            "n_atoms": 128
+          },
+          {
+            "trial": 4,
+            "sum_error": 0.0,
+            "s_total": 0.016201,
+            "s_decomposed": 0.016201,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.569092,
+            "n_atoms": 128
+          }
+        ]
+      },
+      {
+        "M": 256,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "trials": [
+          {
+            "trial": 0,
+            "sum_error": 0.0,
+            "s_total": 1.019428,
+            "s_decomposed": 1.019428,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.681784,
+            "n_atoms": 256
+          },
+          {
+            "trial": 1,
+            "sum_error": 0.0,
+            "s_total": -0.012043,
+            "s_decomposed": -0.012043,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.632273,
+            "n_atoms": 256
+          },
+          {
+            "trial": 2,
+            "sum_error": 0.0,
+            "s_total": -0.027706,
+            "s_decomposed": -0.027706,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.685789,
+            "n_atoms": 256
+          },
+          {
+            "trial": 3,
+            "sum_error": 0.0,
+            "s_total": 0.036846,
+            "s_decomposed": 0.036846,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.68205,
+            "n_atoms": 256
+          },
+          {
+            "trial": 4,
+            "sum_error": 0.0,
+            "s_total": 0.016109,
+            "s_decomposed": 0.016109,
+            "spearman_r_identity": 1.0,
+            "spearman_r_cross": 0.670941,
+            "n_atoms": 256
+          }
+        ]
+      }
+    ],
+    "verdict": "REXCC_HARD_PASS",
+    "verdict_msg": "COSINE_DECOMP_VALIDATED n_hp=15/15. N=1024 M_grid=[64, 128, 256] n_trials=15 max_sum_err=0.00e+00 mean_sum_err=0.00e+00 mean_r=1.0000 n_hp=15/15 n_hf=0",
+    "elapsed_s": 0.02
+  }
+}

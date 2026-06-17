@@ -1,0 +1,81 @@
+{
+  "verdict": "TIMING_HARD_FAIL_RANDOM",
+  "verdict_msg": "H_inverse: random beats locked by 0.200>=0.03. Phase gating hurts substrate. locked=0.516 random=0.716 delta=-0.200 seeds_locked_win=0/5. per-locked:[0.517, 0.522, 0.517, 0.517, 0.509] per-random:[0.715, 0.731, 0.715, 0.708, 0.711].",
+  "elapsed_s": 388.4530000000377,
+  "summary": {
+    "locked": {
+      "7": {
+        "retA": 0.5167753276850228,
+        "bpc_baseline": 2.496635637049301,
+        "bpc_after": 4.831181953351715
+      },
+      "17": {
+        "retA": 0.5223178380926702,
+        "bpc_baseline": 2.4965502330429286,
+        "bpc_after": 4.779752960686722
+      },
+      "23": {
+        "retA": 0.5173839976722872,
+        "bpc_baseline": 2.5014252767047234,
+        "bpc_after": 4.8347557867244575
+      },
+      "31": {
+        "retA": 0.5166321777196301,
+        "bpc_baseline": 2.5015176249283564,
+        "bpc_after": 4.841970231064273
+      },
+      "41": {
+        "retA": 0.5093636813295505,
+        "bpc_baseline": 2.471044204225609,
+        "bpc_after": 4.8512375239939445
+      }
+    },
+    "random": {
+      "7": {
+        "retA": 0.7154637094067146,
+        "bpc_baseline": 2.496635634718766,
+        "bpc_after": 3.4895349713671098
+      },
+      "17": {
+        "retA": 0.7308020927911125,
+        "bpc_baseline": 2.4965502307123932,
+        "bpc_after": 3.416178272256248
+      },
+      "23": {
+        "retA": 0.7150490166472966,
+        "bpc_baseline": 2.501425275539456,
+        "bpc_after": 3.4982570667226063
+      },
+      "31": {
+        "retA": 0.7079414835926613,
+        "bpc_baseline": 2.501517625705201,
+        "bpc_after": 3.5335090310155297
+      },
+      "41": {
+        "retA": 0.7114556631975949,
+        "bpc_baseline": 2.471044201895074,
+        "bpc_after": 3.4732230407571905
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cascade_depth": 3,
+    "chunk_fraction": 0.5,
+    "replay_interval": 5,
+    "pass_delta": 0.05,
+    "fail_delta": 0.02
+  }
+}

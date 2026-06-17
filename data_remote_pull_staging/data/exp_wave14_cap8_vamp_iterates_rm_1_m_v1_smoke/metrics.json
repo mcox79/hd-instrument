@@ -1,0 +1,48 @@
+{
+  "verdict": "CAP8_RM_ITERATES_GENERATED",
+  "verdict_msg": "All 1 RM(1,m) VAMP iterate-trace files written successfully with >=1 iterates each.  Audit-trail v5 can now compute Spearman rho on RM(1,m) with REAL iterate data (no spectrum-only fallback) -- v4's 0.40 disambiguation unblocked.",
+  "elapsed_s": 0.0470000000204891,
+  "summary": {
+    "manifest": [
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_rm_1_m_v1_smoke\\iterates\\rm_1_m\\alpha_1p00\\seed_0013.json",
+        "codebook": "rm_1_m",
+        "alpha": 1.0,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.28905402129958585,
+        "vamp_se_pred": 0.25619427614403234
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "n_seeds": 1,
+      "alpha_grid": [
+        1.0
+      ],
+      "codebooks": [
+        "rm_1_m"
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_iter": 50,
+      "expected_n_files": 1
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "n_seeds": 1,
+    "alpha_grid": [
+      1.0
+    ],
+    "codebooks": [
+      "rm_1_m"
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_iter": 50,
+    "expected_n_files": 1
+  }
+}

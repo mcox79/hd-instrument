@@ -1,0 +1,31 @@
+{
+  "verdict": "CRIT_EXPONENT_EXPONENTIAL",
+  "verdict_msg": "exponential r2=0.950.",
+  "elapsed_s": 0.14000000001396984,
+  "summary": {
+    "K_to_acc": {
+      "50": 0.8,
+      "100": 0.4,
+      "175": 0.25
+    },
+    "powerlaw_r2": 0.8447626315812921,
+    "fitted_beta": 0.6267342527288906,
+    "fitted_K_c": 205,
+    "exponential_r2": 0.9501049592773829
+  },
+  "config": {
+    "N": 1024,
+    "K_grid": [
+      50,
+      100,
+      175
+    ],
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_trials": 20,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

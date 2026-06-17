@@ -1,0 +1,16 @@
+{
+  "anchor_name": "d2_pythia1p4b_substrate_kv_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Pythia hidden states are viable substrate keys -- substrate recall>=0.80 over 2000 facts, far beyond the context window; the substrate is a working external KV memory for the LLM (Tier-5 MVE green). recall@1=1.000 at M=2000 (in-context could hold only ~3%)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "M": 2000,
+      "in_context_frac": 0.032
+    }
+  ],
+  "elapsed_s": 51.36097455024719,
+  "summary": "HARD_PASS: Pythia hidden states are viable substrate keys -- substrate recall>=0.80 over 2000 facts, far beyond the context window; the substrate is a working external KV memory for the LLM (Tier-5 MVE green). recall@1=1.000 at M=2000 (in-context could hold only ~3%)"
+}

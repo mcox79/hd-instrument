@@ -1,0 +1,101 @@
+{
+  "verdict": "C1_HARD_PASS",
+  "verdict_msg": "PRODUCT_PROFILE_CLEAR: 4/4 KFs pass at M=20000; ret monotone=True; 4/4 KFs survive to M=45000. Product: size substrate to M < 90000. details={'kf_pass_by_M': {20000: {'kf1_pass': 1, 'kf1b_pass': 1, 'kf2_pass': 1, 'kf5_pass': 1, 'ret_mean': 0.21, 'mhop_mean': 0.0, 'n': 1}, 45000: {'kf1_pass': 1, 'kf1b_pass': 1, 'kf2_pass': 1, 'kf5_pass': 1, 'ret_mean': 0.14, 'mhop_mean': 0.0, 'n': 1}}}.",
+  "elapsed_s": 6.53769326210022,
+  "config": {
+    "N": 1024,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "m_vals": [
+      20000,
+      45000
+    ],
+    "beta_op": 32.0,
+    "beta_low": 2.0,
+    "beta_high": 128.0
+  },
+  "all_cells": [
+    {
+      "N": 1024,
+      "M": 20000,
+      "M_over_N": 19.5312,
+      "seed": 17,
+      "elapsed_s": 2.62,
+      "kf1_hallu": {
+        "hallu_margin": 1.0,
+        "above_thresh_frac": 0.0,
+        "n_oos": 0,
+        "mean_oos_max_conf": 0.0
+      },
+      "kf2_isolation": {
+        "isolation_ratio": 0.03,
+        "theory_bound": 0.03125,
+        "passes_threshold": true,
+        "n_edits_run": 20
+      },
+      "kf5_steerability": {
+        "H_low": 11.9342,
+        "H_high": 0.2508,
+        "entropy_range": 11.6834,
+        "passes_threshold": true
+      },
+      "kf_retention": {
+        "retention": 0.21,
+        "n_probe": 100
+      },
+      "kf_multihop": {
+        "max_hop_depth": 0,
+        "chain_acc_by_depth": {
+          "1": 0.15,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "n_trials": 20
+      }
+    },
+    {
+      "N": 1024,
+      "M": 45000,
+      "M_over_N": 43.9453,
+      "seed": 17,
+      "elapsed_s": 3.92,
+      "kf1_hallu": {
+        "hallu_margin": 1.0,
+        "above_thresh_frac": 0.0,
+        "n_oos": 0,
+        "mean_oos_max_conf": 0.0
+      },
+      "kf2_isolation": {
+        "isolation_ratio": 0.0,
+        "theory_bound": 0.03125,
+        "passes_threshold": true,
+        "n_edits_run": 20
+      },
+      "kf5_steerability": {
+        "H_low": 11.8528,
+        "H_high": 0.2094,
+        "entropy_range": 11.6434,
+        "passes_threshold": true
+      },
+      "kf_retention": {
+        "retention": 0.14,
+        "n_probe": 100
+      },
+      "kf_multihop": {
+        "max_hop_depth": 0,
+        "chain_acc_by_depth": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "n_trials": 20
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "verdict": "GEN_SAMPLE_RESCUES_AT_T_0.5",
+  "verdict_msg": "Sampling at temperature=0.5 produces non-degenerate text: entropy=5.131, repetition=0.000. Per-temp: T0.5=(e5.13,r0.00), T0.8=(e5.15,r0.00), T1.0=(e5.14,r0.00), T1.5=(e5.13,r0.00), T2.0=(e5.14,r0.00)",
+  "elapsed_s": 11.406000000000859,
+  "summary": {
+    "per_temperature": {
+      "0.5": {
+        "char_entropy": 5.1307778228150624,
+        "ngram_repetition": 0.0,
+        "sample_bytes": "sae y4x= 0bn[//tieamnn.ddap.i=a0t0cdh.)fe) rdeei;kxbs\n,>t| ba En5HaM/[/omausafmacc 5] 9- A m1 |H0e-1"
+      },
+      "0.8": {
+        "char_entropy": 5.145880844535165,
+        "ngram_repetition": 0.001968503937007874,
+        "sample_bytes": "sa0/2ar= =bn.//t 4aman.ddaeni|axtthdh 0_e)krdeeiecxbc.,>t|mba_En51aM/-/omCus1f(acc 5] 9- A mo12m e- "
+      },
+      "1.0": {
+        "char_entropy": 5.135663119354562,
+        "ngram_repetition": 0.0,
+        "sample_bytes": "sa0/2ar= =bn.//n 4sman.ddaeni|axtthdh 0_e)krdee|e|\nbs.,>t|mba_En51aM/-/omCus1f(acc 5]09- A mo12m e- "
+      },
+      "1.5": {
+        "char_entropy": 5.134422623125856,
+        "ngram_repetition": 0.0,
+        "sample_bytes": "sa0/2ar= =bn.//n 4sman.ddaen |axtthdh 0_e)krdee|e|\nbs.,>t|mba_En51aM/[/omCup1f acc 5]09- A mo12m e- "
+      },
+      "2.0": {
+        "char_entropy": 5.139053586123129,
+        "ngram_repetition": 0.0,
+        "sample_bytes": "sa0/2ar= =bn.//n 4sman.ddaen |axtthdh 0_e)krdee|e|\nbs.,>t|mba_En51aM/[/omCup1f acc 5]09- A mo12m e-p"
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "generate_length": 512,
+    "temperatures": [
+      0.5,
+      0.8,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "max_epochs": 5
+  }
+}

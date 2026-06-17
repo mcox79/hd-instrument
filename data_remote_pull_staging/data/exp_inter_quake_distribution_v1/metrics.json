@@ -1,0 +1,20 @@
+{
+  "anchor": "inter_quake_distribution_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 500,
+  "alpha": 0.1220703125,
+  "T_steps": 500,
+  "n_seeds": 2,
+  "n_sufficient": 0,
+  "mean_ks_p_exp": NaN,
+  "mean_pareto_r2": NaN,
+  "verdict": "HARD_FAIL",
+  "verdict_note": "insufficient_quakes",
+  "elapsed_s": 8.419032096862793,
+  "thresholds": {
+    "HP_ks_p_reject_exp": 0.01,
+    "HP_pareto_r2": 0.95
+  },
+  "verdict_msg": "Inter-quake IQT N=4096 M=500 alpha=0.122 T=500: mean_ks_p_exp=nan (HP reject exp p<0.01), mean_pareto_r2=nan (HP>0.95), 0/2 seeds sufficient. Note=insufficient_quakes. Verdict=HARD_FAIL."
+}

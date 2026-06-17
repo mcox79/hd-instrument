@@ -1,0 +1,16 @@
+{
+  "verdict": "V_PASS",
+  "verdict_msg": "mean=1.000",
+  "elapsed_s": 0.23399999999674037,
+  "summary": {
+    "acc_mean": 1.0,
+    "seed": 55
+  },
+  "config": {
+    "N": 16384,
+    "K": 200,
+    "depth": 50,
+    "n_trials": 3,
+    "seed": 55
+  }
+}

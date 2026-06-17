@@ -1,0 +1,70 @@
+{
+  "verdict": "MULTITASK_DIFF_MIDDLE_BAND",
+  "verdict_msg": "Partial transfer: retention_A=0.604 gain_C=3.758.",
+  "elapsed_s": 2101.5310000000172,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.6048143018377292,
+        "gain_C": 3.7265035829544066,
+        "bpc_A_baseline": 2.5462456995376854,
+        "bpc_A_after_C": 4.209962779982077,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 4.273496417045593
+      },
+      "17": {
+        "retention_A": 0.6028039323978109,
+        "gain_C": 3.7600407624244694,
+        "bpc_A_baseline": 2.555321898119062,
+        "bpc_A_after_C": 4.23905976849653,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 4.239959237575531
+      },
+      "23": {
+        "retention_A": 0.6012004871391903,
+        "gain_C": 3.771602174758911,
+        "bpc_A_baseline": 2.5535147178198554,
+        "bpc_A_after_C": 4.247359695217054,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 4.228397825241089
+      },
+      "31": {
+        "retention_A": 0.6047505938441694,
+        "gain_C": 3.7496986875534057,
+        "bpc_A_baseline": 2.558738758505489,
+        "bpc_A_after_C": 4.231064482699488,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 4.250301312446594
+      },
+      "41": {
+        "retention_A": 0.6061340296207373,
+        "gain_C": 3.7804516634941105,
+        "bpc_A_baseline": 2.5256476757689295,
+        "bpc_A_after_C": 4.1668138602105,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 4.2195483365058895
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 32,
+    "epochs": 3,
+    "phase_a_epochs": 5,
+    "bytes_per_corpus": 80000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_ret_A": 0.7,
+    "pass_gain_C": 0.3,
+    "fail_ret_A": 0.3,
+    "fail_gain_C": 0.05,
+    "corpus_C": "hex_encoded_numerical",
+    "rehab_axis": "N=4096 (v1 was N=2048)"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "anchor": "phase_d_tier6_full_pipeline_4_core_char_lm_v1",
+  "run_mode": "smoke",
+  "config": {
+    "N": 512,
+    "n_layers": 2,
+    "alpha_max": 0.1,
+    "n_steps_per_layer": 3,
+    "corpus_chars": 10000,
+    "seeds": [
+      7,
+      17
+    ],
+    "baseline_hidden": 32,
+    "baseline_n_layers": 2
+  },
+  "thresholds": {
+    "HP_bpc_ratio": 2.0,
+    "HP_wall_ratio": 0.5,
+    "HF_bpc_ratio": 4.0
+  },
+  "verdict": "MIDDLE_BAND",
+  "band_summary": {
+    "verdict": "MIDDLE_BAND",
+    "reason": "bpc_ratio=1.29<=2.0 but wall_ratio=0.87>0.5",
+    "sub_bpc_mean": 5.518354197956288,
+    "sub_bpc_std": 0.0181895142102726,
+    "base_bpc_mean": 4.272608057276026,
+    "base_bpc_std": 0.03759919427498019,
+    "bpc_ratio": 1.2915657425114908,
+    "sub_wall_mean": 0.32251787185668945,
+    "base_wall_mean": 0.371087908744812,
+    "wall_ratio": 0.8691144719524586,
+    "any_primitive_collapse": false,
+    "n_seeds": 2
+  },
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 512,
+      "n_layers": 2,
+      "corpus_chars": 10000,
+      "run_mode": "smoke",
+      "vocab_size": 46,
+      "substrate": {
+        "train_wall_s": 0.2968757152557373,
+        "n_train_pairs": 52,
+        "n_pos_pairs": 52,
+        "n_neg_pairs": 52,
+        "final_alphas": [
+          0.1015625,
+          0.1015625
+        ],
+        "any_primitive_collapse": false,
+        "bpc": 5.531216126800861,
+        "n_scored": 999,
+        "uniform_bpc": 5.523561956057013,
+        "max_alpha": 0.1015625,
+        "health_per_layer": [
+          {
+            "layer": 0,
+            "alpha": 0.1015625,
+            "writes": 52,
+            "fro_norm": 10.328194618225098,
+            "max_abs_eig": 5.116032690248806,
+            "collapsed": false
+          },
+          {
+            "layer": 1,
+            "alpha": 0.1015625,
+            "writes": 52,
+            "fro_norm": 17.61918830871582,
+            "max_abs_eig": 9.416378492714871,
+            "collapsed": false
+          }
+        ]
+      },
+      "baseline": {
+        "train_wall_s": 0.33483171463012695,
+        "n_steps": 19,
+        "final_loss": 2.9025228023529053,
+        "bpc": 4.246021412037037,
+        "n_scored": 999,
+        "uniform_bpc": 5.523561956057013
+      },
+      "seed_wall_s": 0.9580979347229004,
+      "_ckpt_key": "N512_L2_C10000_seed7",
+      "_partial_written_at": 1780496530.9136784
+    },
+    "17": {
+      "seed": 17,
+      "N": 512,
+      "n_layers": 2,
+      "corpus_chars": 10000,
+      "run_mode": "smoke",
+      "vocab_size": 46,
+      "substrate": {
+        "train_wall_s": 0.3481600284576416,
+        "n_train_pairs": 52,
+        "n_pos_pairs": 52,
+        "n_neg_pairs": 52,
+        "final_alphas": [
+          0.1015625,
+          0.1015625
+        ],
+        "any_primitive_collapse": false,
+        "bpc": 5.505492269111715,
+        "n_scored": 999,
+        "uniform_bpc": 5.523561956057013,
+        "max_alpha": 0.1015625,
+        "health_per_layer": [
+          {
+            "layer": 0,
+            "alpha": 0.1015625,
+            "writes": 52,
+            "fro_norm": 10.347282409667969,
+            "max_abs_eig": 5.128486532671982,
+            "collapsed": false
+          },
+          {
+            "layer": 1,
+            "alpha": 0.1015625,
+            "writes": 52,
+            "fro_norm": 16.51673698425293,
+            "max_abs_eig": 9.236386453649882,
+            "collapsed": false
+          }
+        ]
+      },
+      "baseline": {
+        "train_wall_s": 0.40734410285949707,
+        "n_steps": 19,
+        "final_loss": 2.9620304107666016,
+        "bpc": 4.299194702515015,
+        "n_scored": 999,
+        "uniform_bpc": 5.523561956057013
+      },
+      "seed_wall_s": 1.1707372665405273,
+      "_ckpt_key": "N512_L2_C10000_seed17",
+      "_partial_written_at": 1780496532.0931785
+    }
+  },
+  "verdict_msg": "Probe 11+ FULL-PIPELINE 4-CORE substrate-native char-LM: MIDDLE_BAND. Substrate-4-core BPC 5.52 vs baseline 4.27 (1.29x); MIDDLE: partial training -- bpc_ratio=1.29<=2.0 but wall_ratio=0.87>0.5. 2 seeds. Capability implication: Substrate-4-core trains but underperforms gradient baseline; informs which auxiliary primitives (rank-1 deletion / Sherman-Morrison / kappa3 fingerprint / counterfactual abduction / etc.) close the gap. Bands: HP bpc<=2.0x AND wall<=0.5x AND no collapse; MID bpc in (2.0, 4.0]; HF bpc>4.0x OR any collapse.",
+  "n_seeds_attempted": 2,
+  "n_seeds_completed": 2
+}

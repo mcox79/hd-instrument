@@ -1,0 +1,24 @@
+{
+  "anchor_name": "ner_multiseed_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: NER mean-F1 0.55-0.58. mean-F1=0.5739 std=0.0064 (n=5, vals=[0.5772, 0.5694, 0.5682, 0.5696, 0.5849])",
+  "summary": "MIDDLE_BAND: NER mean-F1 0.55-0.58. mean-F1=0.5739 std=0.0064 (n=5, vals=[0.5772, 0.5694, 0.5682, 0.5696, 0.5849])",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "accuracy": 0.5739,
+      "std": 0.0064,
+      "vals": [
+        0.5772,
+        0.5694,
+        0.5682,
+        0.5696,
+        0.5849
+      ],
+      "n_seeds": 5,
+      "n_train": 5982
+    }
+  ],
+  "elapsed_s": 989.5167315006256
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "legal_pacer_citation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: legal-citation snowball recall=precision>=0.95 at 1000-case scale -- legal vertical demo proof. recall=0.999 precision=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.9993333333333333,
+      "precision": 1.0
+    }
+  ],
+  "elapsed_s": 3.041395425796509,
+  "summary": "HARD_PASS: legal-citation snowball recall=precision>=0.95 at 1000-case scale -- legal vertical demo proof. recall=0.999 precision=1.000"
+}

@@ -1,0 +1,71 @@
+{
+  "verdict": "R2_SUBCORPUS_MIDDLE_BAND",
+  "verdict_msg": "Intermediate: mean_r=-0.007 mean_pval=0.582 mean_non_monotone=2.8/6 distance_bins. Weak trend; inconclusive at this N/M envelope.",
+  "elapsed_s": 410.375,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "r": 0.07493032817289286,
+        "pval": 0.5808281167487168,
+        "n_pairs": 56,
+        "monotone": false,
+        "n_non_monotone": 3,
+        "mean_dist": 0.9950108708580956,
+        "mean_retention": 0.9816986257335498
+      },
+      "17": {
+        "r": 0.03361033815218906,
+        "pval": 0.8048121383647904,
+        "n_pairs": 56,
+        "monotone": false,
+        "n_non_monotone": 3,
+        "mean_dist": 0.9992637423898226,
+        "mean_retention": 0.981606339428105
+      },
+      "23": {
+        "r": -0.173666466092615,
+        "pval": 0.19501886346653197,
+        "n_pairs": 56,
+        "monotone": false,
+        "n_non_monotone": 3,
+        "mean_dist": 1.0092067716011246,
+        "mean_retention": 0.9817378241002563
+      },
+      "31": {
+        "r": 0.07398800152621465,
+        "pval": 0.5856208855657168,
+        "n_pairs": 56,
+        "monotone": false,
+        "n_non_monotone": 3,
+        "mean_dist": 1.0064884535635688,
+        "mean_retention": 0.9817793975337199
+      },
+      "41": {
+        "r": -0.04467970742999457,
+        "pval": 0.7424159701630342,
+        "n_pairs": 56,
+        "monotone": false,
+        "n_non_monotone": 2,
+        "mean_dist": 1.00589668937859,
+        "mean_retention": 0.9815710951464874
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 2048,
+    "m_per_chunk": 80,
+    "n_chunks": 8,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_pearson": 0.5,
+    "pass_pval": 0.05,
+    "fail_pearson": 0.15,
+    "fail_non_monotone": 4
+  }
+}

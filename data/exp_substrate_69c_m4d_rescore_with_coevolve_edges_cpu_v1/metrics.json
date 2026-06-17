@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_69c_m4d_rescore_with_coevolve_edges_cpu_v1",
+  "verdict": "MIDDLE",
+  "verdict_msg": "Autonomous edges NEUTRAL on held-out M4d this iteration (edges target MDP/q_learning/MI; held-out has few such questions; the connected golds may not be the bge-anchored ones): CO-EVOLVE-1 Iter1 METRIC: M4d with 29 autonomous edges -- q54-q65 0.2721->0.2313 (-0.0408, improved -); 56d 0.2218->0.2218 (+0.0000, improved -). Edges connect existing atoms (no re-sync; bge pool unchanged).",
+  "summary": "Autonomous edges NEUTRAL on held-out M4d this iteration (edges target MDP/q_learning/MI; held-out has few such questions; the connected golds may not be the bge-anchored ones): CO-EVOLVE-1 Iter1 METRIC: M4d with 29 autonomous edges -- q54-q65 0.2721->0.2313 (-0.0408, improved -); 56d 0.2218->0.2218 (+0.0000, improved -). Edges connect existing atoms (no re-sync; bge pool unchanged).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_coevolve_edges": 29,
+      "q54q65": {
+        "base": 0.2721,
+        "enriched": 0.2313,
+        "delta": -0.0408,
+        "improved_qs": []
+      },
+      "h56d": {
+        "base": 0.2218,
+        "enriched": 0.2218,
+        "delta": 0.0,
+        "improved_qs": []
+      }
+    }
+  ],
+  "elapsed_s": 17.959022760391235
+}

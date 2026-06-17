@@ -1,0 +1,94 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: spectral range HP 1/1; cosim HP 0/1. mean_range=0.0160 mean_cosim=0.109",
+  "elapsed_s": 0.1296696662902832,
+  "n_seeds": 1,
+  "n_hp_range": 1,
+  "n_hp_cosim": 0,
+  "total_diverged": 0,
+  "per_seed": [
+    {
+      "N": 256,
+      "seed": 17,
+      "lambda_range": 0.016015625,
+      "lambda_alpha_corr": 0.9641225976824855,
+      "max_cosim_subcap": 0.10937499999957276,
+      "n_converged": 7,
+      "n_diverged": 0,
+      "alpha_results": [
+        {
+          "alpha": 0.02,
+          "M": 5,
+          "tropical_lambda": 0.001953125,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.0
+        },
+        {
+          "alpha": 0.05,
+          "M": 12,
+          "tropical_lambda": 0.0046875,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.08593749999966431
+        },
+        {
+          "alpha": 0.1,
+          "M": 25,
+          "tropical_lambda": 0.007421875000000002,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.09374999999963379
+        },
+        {
+          "alpha": 0.15,
+          "M": 38,
+          "tropical_lambda": 0.010156250000000004,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.10937499999957276
+        },
+        {
+          "alpha": 0.2,
+          "M": 51,
+          "tropical_lambda": 0.010546875000000004,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.15624999999938965
+        },
+        {
+          "alpha": 0.3,
+          "M": 76,
+          "tropical_lambda": 0.014062500000000007,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.1406249999994507
+        },
+        {
+          "alpha": 0.5,
+          "M": 128,
+          "tropical_lambda": 0.01796875,
+          "converged": true,
+          "n_iter": 2,
+          "max_cosim": 0.14843749999942019
+        }
+      ]
+    }
+  ],
+  "summary": "Tropical geometry N=256: MIDDLE_BAND",
+  "config": {
+    "N": 256,
+    "ALPHA_LOADS": [
+      0.02,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.5
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,533 @@
+{
+  "N": 4096,
+  "CHARGE_VALUES": [
+    2,
+    5,
+    10,
+    20
+  ],
+  "NOISE_LEVELS": [
+    0.0,
+    0.01,
+    0.03,
+    0.05,
+    0.08,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.4
+  ],
+  "NUM_TRIALS": 100,
+  "results": {
+    "2": {
+      "ssh": [
+        {
+          "p": 0.0,
+          "mean_walls": 1488.0,
+          "sd_walls": 0.0,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_walls": 1488.74,
+          "sd_walls": 6.540061161793516,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.03,
+          "mean_walls": 1492.98,
+          "sd_walls": 11.368359600223767,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.05,
+          "mean_walls": 1494.58,
+          "sd_walls": 14.651402663226488,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.08,
+          "mean_walls": 1496.76,
+          "sd_walls": 18.373415577948485,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.1,
+          "mean_walls": 1496.88,
+          "sd_walls": 22.788277688320363,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.15,
+          "mean_walls": 1500.86,
+          "sd_walls": 26.300197717887972,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.2,
+          "mean_walls": 1509.46,
+          "sd_walls": 28.002649874610075,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.25,
+          "mean_walls": 1515.3,
+          "sd_walls": 29.68551835491508,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.3,
+          "mean_walls": 1510.08,
+          "sd_walls": 29.552556572993808,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.4,
+          "mean_walls": 1526.98,
+          "sd_walls": 27.758234814195234,
+          "categorical_correct": 0.0
+        }
+      ],
+      "random_baseline": [
+        {
+          "p": 0.0,
+          "mean_delta": 0.0,
+          "sd_delta": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_delta": -2.06,
+          "sd_delta": 8.26295346713268
+        },
+        {
+          "p": 0.03,
+          "mean_delta": -1.64,
+          "sd_delta": 13.810517731062802
+        },
+        {
+          "p": 0.05,
+          "mean_delta": -2.24,
+          "sd_delta": 15.96065161577058
+        },
+        {
+          "p": 0.08,
+          "mean_delta": -2.34,
+          "sd_delta": 21.042918048597727
+        },
+        {
+          "p": 0.1,
+          "mean_delta": -2.43,
+          "sd_delta": 25.19057561867136
+        },
+        {
+          "p": 0.15,
+          "mean_delta": -0.09,
+          "sd_delta": 27.091362092002687
+        },
+        {
+          "p": 0.2,
+          "mean_delta": -5.15,
+          "sd_delta": 30.556955018456932
+        },
+        {
+          "p": 0.25,
+          "mean_delta": -0.06,
+          "sd_delta": 33.01267029490344
+        },
+        {
+          "p": 0.3,
+          "mean_delta": 4.93,
+          "sd_delta": 32.68738441662165
+        },
+        {
+          "p": 0.4,
+          "mean_delta": 0.3,
+          "sd_delta": 28.17001952430988
+        }
+      ]
+    },
+    "5": {
+      "ssh": [
+        {
+          "p": 0.0,
+          "mean_walls": 694.0,
+          "sd_walls": 0.0,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_walls": 715.34,
+          "sd_walls": 7.735916235327266,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.03,
+          "mean_walls": 760.48,
+          "sd_walls": 11.672600395798712,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.05,
+          "mean_walls": 802.5,
+          "sd_walls": 14.003928020380568,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.08,
+          "mean_walls": 864.84,
+          "sd_walls": 19.422008135102818,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.1,
+          "mean_walls": 905.84,
+          "sd_walls": 20.84165060641791,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.15,
+          "mean_walls": 1006.74,
+          "sd_walls": 25.38921818410327,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.2,
+          "mean_walls": 1100.4,
+          "sd_walls": 30.658114749605865,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.25,
+          "mean_walls": 1180.42,
+          "sd_walls": 35.32850973364146,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.3,
+          "mean_walls": 1258.66,
+          "sd_walls": 33.67498181142789,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.4,
+          "mean_walls": 1405.26,
+          "sd_walls": 30.769666881524746,
+          "categorical_correct": 0.0
+        }
+      ],
+      "random_baseline": [
+        {
+          "p": 0.0,
+          "mean_delta": 0.0,
+          "sd_delta": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_delta": 1.06,
+          "sd_delta": 8.95524427360862
+        },
+        {
+          "p": 0.03,
+          "mean_delta": 3.7,
+          "sd_delta": 16.113658802394948
+        },
+        {
+          "p": 0.05,
+          "mean_delta": 6.64,
+          "sd_delta": 20.770902724725286
+        },
+        {
+          "p": 0.08,
+          "mean_delta": 10.64,
+          "sd_delta": 22.02885380586108
+        },
+        {
+          "p": 0.1,
+          "mean_delta": 13.09,
+          "sd_delta": 24.729777597058977
+        },
+        {
+          "p": 0.15,
+          "mean_delta": 21.83,
+          "sd_delta": 26.662353609537174
+        },
+        {
+          "p": 0.2,
+          "mean_delta": 30.81,
+          "sd_delta": 26.30653721035895
+        },
+        {
+          "p": 0.25,
+          "mean_delta": 30.5,
+          "sd_delta": 31.1388824462279
+        },
+        {
+          "p": 0.3,
+          "mean_delta": 39.25,
+          "sd_delta": 30.781284898457372
+        },
+        {
+          "p": 0.4,
+          "mean_delta": 37.12,
+          "sd_delta": 28.3504074044801
+        }
+      ]
+    },
+    "10": {
+      "ssh": [
+        {
+          "p": 0.0,
+          "mean_walls": 518.0,
+          "sd_walls": 0.0,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_walls": 546.0,
+          "sd_walls": 7.782030583337488,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.03,
+          "mean_walls": 601.58,
+          "sd_walls": 13.494576688433028,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.05,
+          "mean_walls": 653.4,
+          "sd_walls": 17.37008923408282,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.08,
+          "mean_walls": 728.0,
+          "sd_walls": 22.21170862405682,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.1,
+          "mean_walls": 777.46,
+          "sd_walls": 25.59352261803755,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.15,
+          "mean_walls": 896.06,
+          "sd_walls": 29.672148557190802,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.2,
+          "mean_walls": 1009.46,
+          "sd_walls": 31.35583518262589,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.25,
+          "mean_walls": 1110.18,
+          "sd_walls": 32.70607894566391,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.3,
+          "mean_walls": 1198.54,
+          "sd_walls": 34.09381762138114,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.4,
+          "mean_walls": 1380.22,
+          "sd_walls": 31.607461144482958,
+          "categorical_correct": 0.0
+        }
+      ],
+      "random_baseline": [
+        {
+          "p": 0.0,
+          "mean_delta": 0.0,
+          "sd_delta": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_delta": 0.64,
+          "sd_delta": 9.120877150800792
+        },
+        {
+          "p": 0.03,
+          "mean_delta": -0.74,
+          "sd_delta": 15.436074630552934
+        },
+        {
+          "p": 0.05,
+          "mean_delta": -1.36,
+          "sd_delta": 18.016392535688155
+        },
+        {
+          "p": 0.08,
+          "mean_delta": -2.14,
+          "sd_delta": 22.472658943703124
+        },
+        {
+          "p": 0.1,
+          "mean_delta": -2.37,
+          "sd_delta": 26.593478523878748
+        },
+        {
+          "p": 0.15,
+          "mean_delta": -8.37,
+          "sd_delta": 28.017371397045796
+        },
+        {
+          "p": 0.2,
+          "mean_delta": -9.79,
+          "sd_delta": 27.897058984774727
+        },
+        {
+          "p": 0.25,
+          "mean_delta": -6.08,
+          "sd_delta": 32.38199499722029
+        },
+        {
+          "p": 0.3,
+          "mean_delta": -12.53,
+          "sd_delta": 31.155883874478672
+        },
+        {
+          "p": 0.4,
+          "mean_delta": -9.48,
+          "sd_delta": 29.62785176147606
+        }
+      ]
+    },
+    "20": {
+      "ssh": [
+        {
+          "p": 0.0,
+          "mean_walls": 734.0,
+          "sd_walls": 0.0,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_walls": 755.1,
+          "sd_walls": 8.036790404135226,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.03,
+          "mean_walls": 798.84,
+          "sd_walls": 14.403277404813116,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.05,
+          "mean_walls": 838.84,
+          "sd_walls": 16.4369826914796,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.08,
+          "mean_walls": 895.14,
+          "sd_walls": 21.056599915465938,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.1,
+          "mean_walls": 933.9,
+          "sd_walls": 22.994564575133836,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.15,
+          "mean_walls": 1028.56,
+          "sd_walls": 26.980111193247513,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.2,
+          "mean_walls": 1119.36,
+          "sd_walls": 29.66058664288352,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.25,
+          "mean_walls": 1198.2,
+          "sd_walls": 31.064449134018133,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.3,
+          "mean_walls": 1269.98,
+          "sd_walls": 31.389800891372346,
+          "categorical_correct": 0.0
+        },
+        {
+          "p": 0.4,
+          "mean_walls": 1412.58,
+          "sd_walls": 27.727668491959424,
+          "categorical_correct": 0.0
+        }
+      ],
+      "random_baseline": [
+        {
+          "p": 0.0,
+          "mean_delta": 0.0,
+          "sd_delta": 0.0
+        },
+        {
+          "p": 0.01,
+          "mean_delta": -2.12,
+          "sd_delta": 9.151262208023546
+        },
+        {
+          "p": 0.03,
+          "mean_delta": -6.62,
+          "sd_delta": 16.699568856710044
+        },
+        {
+          "p": 0.05,
+          "mean_delta": -5.92,
+          "sd_delta": 19.99083790139873
+        },
+        {
+          "p": 0.08,
+          "mean_delta": -10.92,
+          "sd_delta": 25.046229257115726
+        },
+        {
+          "p": 0.1,
+          "mean_delta": -12.13,
+          "sd_delta": 28.342425795968836
+        },
+        {
+          "p": 0.15,
+          "mean_delta": -18.83,
+          "sd_delta": 27.765826117729688
+        },
+        {
+          "p": 0.2,
+          "mean_delta": -20.49,
+          "sd_delta": 30.467850268766917
+        },
+        {
+          "p": 0.25,
+          "mean_delta": -19.74,
+          "sd_delta": 29.506819550741145
+        },
+        {
+          "p": 0.3,
+          "mean_delta": -24.39,
+          "sd_delta": 31.08661930799166
+        },
+        {
+          "p": 0.4,
+          "mean_delta": -14.96,
+          "sd_delta": 32.34066171246345
+        }
+      ]
+    }
+  }
+}

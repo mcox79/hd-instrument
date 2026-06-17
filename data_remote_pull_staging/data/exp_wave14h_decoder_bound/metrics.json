@@ -1,0 +1,487 @@
+{
+  "N": 4096,
+  "K_VALUES": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "M_VALUES": [
+    256,
+    1024,
+    10000
+  ],
+  "SIGMA_VALUES": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31,
+    41,
+    53
+  ],
+  "TRIALS_PER_CELL": 100,
+  "BETA": 1.0,
+  "N_ITERS_SPARSE": 5,
+  "DEVICE": "cuda",
+  "elapsed_s": 77.14100000000326,
+  "grid": [
+    {
+      "M": 256,
+      "k": 1,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 256,
+      "k": 1,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 256,
+      "k": 1,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 256,
+      "k": 2,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 256,
+      "k": 2,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.9386666666666666,
+        "sparse_k_topk": 0.3359999999999996
+      }
+    },
+    {
+      "M": 256,
+      "k": 2,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.7280000000000002,
+        "sparse_k_topk": 0.3359999999999996
+      }
+    },
+    {
+      "M": 256,
+      "k": 4,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.46556190476190534,
+        "sparse_k_topk": 0.15885714285714272
+      }
+    },
+    {
+      "M": 256,
+      "k": 4,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.41142857142857175,
+        "sparse_k_topk": 0.15619047619047605
+      }
+    },
+    {
+      "M": 256,
+      "k": 4,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.3232761904761903,
+        "sparse_k_topk": 0.15504761904761893
+      }
+    },
+    {
+      "M": 256,
+      "k": 8,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.18101702741702722,
+        "sparse_k_topk": 0.09981538461538456
+      }
+    },
+    {
+      "M": 256,
+      "k": 8,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.16939753579753564,
+        "sparse_k_topk": 0.09491575091575086
+      }
+    },
+    {
+      "M": 256,
+      "k": 8,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.13912061272061255,
+        "sparse_k_topk": 0.08992234432234429
+      }
+    },
+    {
+      "M": 256,
+      "k": 16,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.09707956542820406,
+        "sparse_k_topk": 0.0962172033050788
+      }
+    },
+    {
+      "M": 256,
+      "k": 16,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.0940982878004458,
+        "sparse_k_topk": 0.09169103571417259
+      }
+    },
+    {
+      "M": 256,
+      "k": 16,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.08361674798978476,
+        "sparse_k_topk": 0.08369389331880994
+      }
+    },
+    {
+      "M": 1024,
+      "k": 1,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 1024,
+      "k": 1,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 1024,
+      "k": 1,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 1024,
+      "k": 2,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 1024,
+      "k": 2,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.9293333333333333,
+        "sparse_k_topk": 0.3333333333333329
+      }
+    },
+    {
+      "M": 1024,
+      "k": 2,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.7333333333333332,
+        "sparse_k_topk": 0.3333333333333329
+      }
+    },
+    {
+      "M": 1024,
+      "k": 4,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.5040380952380958,
+        "sparse_k_topk": 0.14857142857142844
+      }
+    },
+    {
+      "M": 1024,
+      "k": 4,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.4075809523809527,
+        "sparse_k_topk": 0.145142857142857
+      }
+    },
+    {
+      "M": 1024,
+      "k": 4,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.32137142857142836,
+        "sparse_k_topk": 0.145142857142857
+      }
+    },
+    {
+      "M": 1024,
+      "k": 8,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.17055850815850798,
+        "sparse_k_topk": 0.07514139194139191
+      }
+    },
+    {
+      "M": 1024,
+      "k": 8,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.16243330003329987,
+        "sparse_k_topk": 0.07374652014652011
+      }
+    },
+    {
+      "M": 1024,
+      "k": 8,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.1266232434232433,
+        "sparse_k_topk": 0.07235164835164831
+      }
+    },
+    {
+      "M": 1024,
+      "k": 16,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.07438984554357193,
+        "sparse_k_topk": 0.0495408443243816
+      }
+    },
+    {
+      "M": 1024,
+      "k": 16,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.07210686774931493,
+        "sparse_k_topk": 0.04803686635944702
+      }
+    },
+    {
+      "M": 1024,
+      "k": 16,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.061829622693871863,
+        "sparse_k_topk": 0.045772000635626885
+      }
+    },
+    {
+      "M": 10000,
+      "k": 1,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 10000,
+      "k": 1,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 10000,
+      "k": 1,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 10000,
+      "k": 2,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 1.0,
+        "sparse_k_topk": 1.0
+      }
+    },
+    {
+      "M": 10000,
+      "k": 2,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.9146666666666665,
+        "sparse_k_topk": 0.33466666666666633
+      }
+    },
+    {
+      "M": 10000,
+      "k": 2,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.7106666666666669,
+        "sparse_k_topk": 0.3333333333333329
+      }
+    },
+    {
+      "M": 10000,
+      "k": 4,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.46262857142857194,
+        "sparse_k_topk": 0.1474285714285713
+      }
+    },
+    {
+      "M": 10000,
+      "k": 4,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.4011809523809527,
+        "sparse_k_topk": 0.1428571428571427
+      }
+    },
+    {
+      "M": 10000,
+      "k": 4,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.30544761904761886,
+        "sparse_k_topk": 0.1428571428571427
+      }
+    },
+    {
+      "M": 10000,
+      "k": 8,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.171186147186147,
+        "sparse_k_topk": 0.06879999999999994
+      }
+    },
+    {
+      "M": 10000,
+      "k": 8,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.15717162837162818,
+        "sparse_k_topk": 0.06727619047619043
+      }
+    },
+    {
+      "M": 10000,
+      "k": 8,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.12734003774003763,
+        "sparse_k_topk": 0.06727619047619043
+      }
+    },
+    {
+      "M": 10000,
+      "k": 16,
+      "sigma": 0.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.06947315328432126,
+        "sparse_k_topk": 0.034887356321839064
+      }
+    },
+    {
+      "M": 10000,
+      "k": 16,
+      "sigma": 0.5,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.06247972883541294,
+        "sparse_k_topk": 0.03418969225064885
+      }
+    },
+    {
+      "M": 10000,
+      "k": 16,
+      "sigma": 1.0,
+      "mean_jaccard": {
+        "matched_filter": 1.0,
+        "dense_lse": 0.05422254934370618,
+        "sparse_k_topk": 0.033639154616240244
+      }
+    }
+  ],
+  "verdict": "DECODER_REHAB_MARGINAL",
+  "summary": "sparse_k_topk does not give 2x lift over matched_filter at any cell. Max gap: 0.000. Matched-filter already near-optimal.",
+  "verdict_cells": []
+}

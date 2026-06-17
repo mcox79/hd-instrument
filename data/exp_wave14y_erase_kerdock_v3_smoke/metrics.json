@@ -1,0 +1,175 @@
+{
+  "verdict": "KERDOCK_V3_EXTENDS_TO_4N",
+  "verdict_msg": "Kerdock arm passes at all M_stored in [512, 1024, 2048] (up to 2048 = 2.00*N). Correlated arm fails as expected. Welch-bound structured codebook extends Mirage protection through 4N at N=1024.",
+  "elapsed_s": 0.40599999999994907,
+  "summary": {
+    "N": 1024,
+    "by_arm": {
+      "kerdock": {
+        "per_M": [
+          {
+            "M_stored": 512,
+            "argmax_leak": 0.0,
+            "mean_rank": 295.2,
+            "norm_ratio": 0.04029881954193115,
+            "cosine": -0.007469035219401121,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 295.2,
+                "norm_ratio": 0.04029881954193115,
+                "cosine": -0.007469035219401121,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          },
+          {
+            "M_stored": 1024,
+            "argmax_leak": 0.0,
+            "mean_rank": 435.2,
+            "norm_ratio": 0.049026358872652054,
+            "cosine": 0.009687249548733234,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 435.2,
+                "norm_ratio": 0.049026358872652054,
+                "cosine": 0.009687249548733234,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          },
+          {
+            "M_stored": 2048,
+            "argmax_leak": 0.0,
+            "mean_rank": 1156.6,
+            "norm_ratio": 0.05878119543194771,
+            "cosine": -0.0015518412692472339,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 1156.6,
+                "norm_ratio": 0.05878119543194771,
+                "cosine": -0.0015518412692472339,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          }
+        ]
+      },
+      "correlated": {
+        "per_M": [
+          {
+            "M_stored": 512,
+            "argmax_leak": 0.0,
+            "mean_rank": 22.6,
+            "norm_ratio": 1.2454646825790405,
+            "cosine": 0.0297675970941782,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 22.6,
+                "norm_ratio": 1.2454646825790405,
+                "cosine": 0.0297675970941782,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          },
+          {
+            "M_stored": 1024,
+            "argmax_leak": 0.0,
+            "mean_rank": 244.0,
+            "norm_ratio": 1.7260006666183472,
+            "cosine": 0.01969834230840206,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 244.0,
+                "norm_ratio": 1.7260006666183472,
+                "cosine": 0.01969834230840206,
+                "paraphrase_leak_h8": 0.05999999865889549,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.05999999865889549
+          },
+          {
+            "M_stored": 2048,
+            "argmax_leak": 0.0,
+            "mean_rank": 580.4,
+            "norm_ratio": 2.345747709274292,
+            "cosine": 0.01307910680770874,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 580.4,
+                "norm_ratio": 2.345747709274292,
+                "cosine": 0.01307910680770874,
+                "paraphrase_leak_h8": 0.029999999329447746,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.029999999329447746
+          }
+        ]
+      }
+    },
+    "codebook_stats": {
+      "size": 4096,
+      "info": {
+        "t": 5,
+        "primitive_poly": "0b100101",
+        "b_values": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "n_cosets": 4,
+        "codebook_size": 4096
+      },
+      "book_max_abs_ip": 0.03125,
+      "within_coset_max": 0.0,
+      "expected_welch_bound": 0.03125
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored_list": [
+      512,
+      1024,
+      2048
+    ],
+    "n_erase": 5,
+    "n_kept_probe": 10,
+    "n_paraphrase": 20,
+    "hamming_radii": [
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

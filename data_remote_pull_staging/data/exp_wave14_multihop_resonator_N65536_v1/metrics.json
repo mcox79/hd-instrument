@@ -1,0 +1,44 @@
+{
+  "verdict": "RESONATOR_INSUFFICIENT",
+  "verdict_msg": "Resonator insufficient: acc_50hop=0.200 (<0.3) vs argmax baseline 0.250. Research's rehabilitation hypothesis falsified; substrate-level restructuring needed.",
+  "elapsed_s": 87.875,
+  "summary": {
+    "per_depth_mean_acc_argmax": {
+      "1": 1.0,
+      "5": 0.775,
+      "10": 0.575,
+      "25": 0.35,
+      "50": 0.25
+    },
+    "per_depth_mean_acc_resonator": {
+      "1": 1.0,
+      "5": 0.775,
+      "10": 0.575,
+      "25": 0.35,
+      "50": 0.2
+    },
+    "acc_50hop_argmax_baseline": 0.25,
+    "acc_50hop_resonator": 0.2,
+    "T_inner": 20
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 20,
+    "T_inner": 20,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

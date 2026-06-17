@@ -1,0 +1,36 @@
+{
+  "anchor_name": "pp47_deletion_cert_composition_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL HF2: deleted location still retrievable (cosine>0.5). n_seeds=2 cert_err=0.00e+00(HP<1e-10) cosine_del=0.7988(HP<0.2,HF>0.5) hp1=2/2 hp2=0/2 hp3=2/2 hp4=1/2(k3_rel=0.0094) hp5=2/2(rho_delta=0.0063)",
+  "N": 1024,
+  "K_LOCS": 51,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.0005970001220703125,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cert_err": 0.0,
+      "cosine_deleted": 0.798828125,
+      "k3_rel_err": 0.010365098312352636,
+      "rho_delta": 0.008231116443843667,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": false,
+      "hp5": true
+    },
+    {
+      "seed": 17,
+      "cert_err": 0.0,
+      "cosine_deleted": 0.798828125,
+      "k3_rel_err": 0.008434374286821561,
+      "rho_delta": 0.0044091501206957595,
+      "hp1": true,
+      "hp2": false,
+      "hp3": true,
+      "hp4": true,
+      "hp5": true
+    }
+  ]
+}

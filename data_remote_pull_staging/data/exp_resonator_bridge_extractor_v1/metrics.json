@@ -1,0 +1,17 @@
+{
+  "anchor_name": "resonator_bridge_extractor_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: resonator factorizes the bridge+answer chain >=0.50 from a VSA-encoded multi-hop query -- substrate-NATIVE multi-hop works algebraically (no LLM decomposition); real-HotpotQA encoding is the next gate. recall@2(both)=0.825 bridge-recall=0.950 (n=40)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall2": 0.825,
+      "bridge_recall": 0.95,
+      "n": 40,
+      "C": 15
+    }
+  ],
+  "elapsed_s": 0.20408892631530762,
+  "summary": "HARD_PASS: resonator factorizes the bridge+answer chain >=0.50 from a VSA-encoded multi-hop query -- substrate-NATIVE multi-hop works algebraically (no LLM decomposition); real-HotpotQA encoding is the next gate. recall@2(both)=0.825 bridge-recall=0.950 (n=40)"
+}

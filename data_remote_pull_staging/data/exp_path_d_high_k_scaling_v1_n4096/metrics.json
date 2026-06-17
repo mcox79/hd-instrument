@@ -1,0 +1,55 @@
+{
+  "verdict": "G2_MIDDLE_BAND",
+  "verdict_msg": "K_SCALING_PARTIAL: K_max=100 acc_at_K_max_per_seed=[1.0]; n_hit_kmax=1/1 (need>=3); mean_acc_per_K={20: 1.0, 50: 1.0, 100: 1.0}; slope_log_lat_log_K=0.5843 (HP<=1.1, HF>=1.5); n_cells=3",
+  "elapsed_s": 0.22,
+  "summary": {
+    "anchor": "path_d_high_k_scaling_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 5,
+    "K_grid": [
+      20,
+      50,
+      100
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 256,
+        "depth": 5,
+        "K_paths": 20,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 23984500,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 256,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 43605500,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 256,
+        "depth": 5,
+        "K_paths": 100,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 61050800,
+        "mem_cuda_delta_mib": 0.0
+      }
+    ],
+    "verdict": "G2_MIDDLE_BAND",
+    "verdict_msg": "K_SCALING_PARTIAL: K_max=100 acc_at_K_max_per_seed=[1.0]; n_hit_kmax=1/1 (need>=3); mean_acc_per_K={20: 1.0, 50: 1.0, 100: 1.0}; slope_log_lat_log_K=0.5843 (HP<=1.1, HF>=1.5); n_cells=3",
+    "elapsed_s": 0.22
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "zkl_hypB_attn_reweight_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: capping top-3 attention does not bring ZKL<=0.15 -- the last linear mitigation fails; lock the QUALIFIED-privacy posture (audit + ZKP + rate-limit), absolute HIPAA via per-customer encoder fine-tune (Path D). CAPPED-top3 ZKL(16)=0.267 F1=1.000 (vs attn-pool ORIG ZKL=0.400 F1=1.000; F1 drop=0.000; n=60)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "z_orig": 0.4,
+      "z_cap": 0.26666666666666666,
+      "f1_orig": 1.0,
+      "f1_cap": 1.0,
+      "n": 60,
+      "k": 16
+    }
+  ],
+  "elapsed_s": 265.26314330101013,
+  "summary": "HARD_FAIL: capping top-3 attention does not bring ZKL<=0.15 -- the last linear mitigation fails; lock the QUALIFIED-privacy posture (audit + ZKP + rate-limit), absolute HIPAA via per-customer encoder fine-tune (Path D). CAPPED-top3 ZKL(16)=0.267 F1=1.000 (vs attn-pool ORIG ZKL=0.400 F1=1.000; F1 drop=0.000; n=60)"
+}

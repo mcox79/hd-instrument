@@ -1,0 +1,44 @@
+{
+  "verdict": "TDA_CROSSVAL_HARD_FAIL",
+  "verdict_msg": "TDA-C not reliable for offline audit: agree_rate=1/2=0.50 TDA-B vs top-edge r=1.000. TDA is only valid for purpose-generated W; cannot audit stored checkpoints.",
+  "smoke": true,
+  "n_total": 2,
+  "n_agree": 1,
+  "agree_rate": 0.5,
+  "tda_b_vs_top_edge_pearson_r": 1.0,
+  "elapsed_s": 0.1,
+  "cases": [
+    {
+      "exp_name": "wave14_moe_smoke_A",
+      "declared_type": "SHIFT",
+      "K": 4,
+      "N": 256,
+      "M_per_expert": 50,
+      "seed": 17,
+      "plateau_b0": 1,
+      "plateau_width": 0.7333,
+      "tda_c": "SHIFT",
+      "strict_agree": true,
+      "b1_ratio": 1.001,
+      "top_edge_ratio": 1.1652
+    },
+    {
+      "exp_name": "wave14_moe_smoke_B",
+      "declared_type": "PARTITION",
+      "K": 2,
+      "N": 256,
+      "M_per_expert": 50,
+      "seed": 17,
+      "plateau_b0": 1,
+      "plateau_width": 0.7333,
+      "tda_c": "SHIFT",
+      "strict_agree": false,
+      "b1_ratio": 1.0303,
+      "top_edge_ratio": 1.2481
+    }
+  ],
+  "thresholds": {
+    "tda_c_agree_pass": 4,
+    "tda_b_top_edge_pearson_min": 0.4
+  }
+}

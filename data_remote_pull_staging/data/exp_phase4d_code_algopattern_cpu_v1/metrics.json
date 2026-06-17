@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4d_code_algopattern_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 0.55-0.70 above majority -- docstring partially predicts algorithm pattern; mechanism transfers but below the 0.70 bar. acc=0.623 majority=0.307 (8 classes, n_test=257, n_train=170)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.623,
+      "majority": 0.307,
+      "n_classes": 8,
+      "n_test": 257,
+      "n_train": 170
+    }
+  ],
+  "elapsed_s": 2.601522207260132,
+  "summary": "MIDDLE_BAND: 0.55-0.70 above majority -- docstring partially predicts algorithm pattern; mechanism transfers but below the 0.70 bar. acc=0.623 majority=0.307 (8 classes, n_test=257, n_train=170)"
+}

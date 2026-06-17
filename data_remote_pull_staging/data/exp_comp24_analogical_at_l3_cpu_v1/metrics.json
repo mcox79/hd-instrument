@@ -1,0 +1,16 @@
+{
+  "anchor_name": "comp24_analogical_at_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: within-domain analogy (A:B::C:D) over deep L3 composite items recovers the target at >=0.85, within 10pp of atomic -- relational binding + cleanup composes over composites. (Cross-domain remains the P9 multi-tier test.) L3=1.000 L1=1.000 gap=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits1_l3": 1.0,
+      "hits1_l1": 1.0,
+      "gap": 0.0
+    }
+  ],
+  "elapsed_s": 272.06152272224426,
+  "summary": "HARD_PASS: within-domain analogy (A:B::C:D) over deep L3 composite items recovers the target at >=0.85, within 10pp of atomic -- relational binding + cleanup composes over composites. (Cross-domain remains the P9 multi-tier test.) L3=1.000 L1=1.000 gap=0.000"
+}

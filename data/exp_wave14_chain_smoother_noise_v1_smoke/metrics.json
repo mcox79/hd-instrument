@@ -1,0 +1,24 @@
+{
+  "verdict": "NOISE_ROBUST",
+  "verdict_msg": "Survives 10% noise: {'0.0': 1.0, '0.10': 1.0}.",
+  "elapsed_s": 0.34400000001187436,
+  "summary": {
+    "acc_per_noise": {
+      "0.0": 1.0,
+      "0.10": 1.0
+    }
+  },
+  "config": {
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "depth": 25,
+    "noise_levels": [
+      0.0,
+      0.1
+    ],
+    "n_trials": 5,
+    "seed": 17
+  }
+}

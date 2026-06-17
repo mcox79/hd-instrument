@@ -1,0 +1,7 @@
+{
+  "N": 4096,
+  "K": 4,
+  "NUM_TIME_BINS": 10,
+  "accuracy": 1.0,
+  "n_pairs": 100
+}

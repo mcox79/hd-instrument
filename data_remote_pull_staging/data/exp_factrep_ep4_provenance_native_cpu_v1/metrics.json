@@ -1,0 +1,15 @@
+{
+  "anchor_name": "factrep_ep4_provenance_native_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: provenance-native facts return value + source >=0.95 -- native citation/audit in the fact rep. value-recall=1.000 source-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "value": 1.0,
+      "source": 1.0
+    }
+  ],
+  "elapsed_s": 0.36386728286743164,
+  "summary": "HARD_PASS: provenance-native facts return value + source >=0.95 -- native citation/audit in the fact rep. value-recall=1.000 source-recall=1.000"
+}

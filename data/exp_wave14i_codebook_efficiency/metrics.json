@@ -1,0 +1,423 @@
+{
+  "D": 4096,
+  "M": 10000,
+  "K_VALUES": [
+    2,
+    4,
+    8,
+    16
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "elapsed_s": 12.687000000005355,
+  "grid": [
+    {
+      "codebook": "random_pm1",
+      "seed": 17,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 17,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 17,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 17,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 23,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 23,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 23,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 23,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 31,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 31,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 31,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "random_pm1",
+      "seed": 31,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 17,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 17,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 17,
+      "k": 8,
+      "recall_at_10": 0.99875,
+      "bits_per_atom": 0.0032400153171569853
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 17,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 23,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 23,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 23,
+      "k": 8,
+      "recall_at_10": 0.99875,
+      "bits_per_atom": 0.0032400153171569853
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 23,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 31,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 31,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 31,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "reed_muller",
+      "seed": 31,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 17,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 17,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 17,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 17,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 23,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 23,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 23,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 23,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 31,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 31,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 31,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "sparse_linear",
+      "seed": 31,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 17,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 17,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 17,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 17,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 23,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 23,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 23,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 23,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 31,
+      "k": 2,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 31,
+      "k": 4,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 31,
+      "k": 8,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    },
+    {
+      "codebook": "welch_like",
+      "seed": 31,
+      "k": 16,
+      "recall_at_10": 1.0,
+      "bits_per_atom": 0.0032440704051634396
+    }
+  ],
+  "summary": {
+    "random_pm1_k=2": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "random_pm1_k=4": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "random_pm1_k=8": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "random_pm1_k=16": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "reed_muller_k=2": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "reed_muller_k=4": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "reed_muller_k=8": {
+      "recall_mean": 0.9991666666666666,
+      "bits_mean": 0.0032413670131591367
+    },
+    "reed_muller_k=16": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "sparse_linear_k=2": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "sparse_linear_k=4": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "sparse_linear_k=8": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "sparse_linear_k=16": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "welch_like_k=2": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "welch_like_k=4": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "welch_like_k=8": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    },
+    "welch_like_k=16": {
+      "recall_mean": 1.0,
+      "bits_mean": 0.0032440704051634396
+    }
+  },
+  "verdict": "CODEBOOK_RANDOM_IS_OPTIMAL",
+  "verdict_msg": "Best ratio 1.00x. Random \u00b11 already near-optimal for our regime.",
+  "structured_random_ratio": 1.0
+}

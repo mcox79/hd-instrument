@@ -1,0 +1,15 @@
+{
+  "anchor_name": "dependency_with_audit_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: dependency K-hop closure >=0.95 with a 100pct-reproducible Merkle audit trail -- verifiable derivations. closure-recall=1.000 audit-reproduces=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "audit": 1.0
+    }
+  ],
+  "elapsed_s": 0.42321324348449707,
+  "summary": "HARD_PASS: dependency K-hop closure >=0.95 with a 100pct-reproducible Merkle audit trail -- verifiable derivations. closure-recall=1.000 audit-reproduces=1.000"
+}

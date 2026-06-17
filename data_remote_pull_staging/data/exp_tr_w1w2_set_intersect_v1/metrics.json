@@ -1,0 +1,66 @@
+{
+  "anchor": "tr_w1w2_set_intersect_v1",
+  "run_mode": "full",
+  "N": 2048,
+  "M1": 50,
+  "M2": 50,
+  "K_grid": [
+    0,
+    5,
+    10,
+    20,
+    30,
+    40,
+    50
+  ],
+  "n_seeds": 5,
+  "n_trials": 3,
+  "pearson_r": 0.9999989773137616,
+  "mae": 0.020674514770507652,
+  "per_k_summary": {
+    "0": {
+      "predicted": 1.220703125,
+      "measured_mean": 1.2248302459716796,
+      "measured_std": 0.02653475946936549
+    },
+    "5": {
+      "predicted": 6.21826171875,
+      "measured_mean": 6.2131904602050785,
+      "measured_std": 0.02152290532686009
+    },
+    "10": {
+      "predicted": 11.2158203125,
+      "measured_mean": 11.232366943359375,
+      "measured_std": 0.015713496865807638
+    },
+    "20": {
+      "predicted": 21.2109375,
+      "measured_mean": 21.203936513264974,
+      "measured_std": 0.02162277231903162
+    },
+    "30": {
+      "predicted": 31.2060546875,
+      "measured_mean": 31.187288792928065,
+      "measured_std": 0.014537899928280333
+    },
+    "40": {
+      "predicted": 41.201171875,
+      "measured_mean": 41.18288014729818,
+      "measured_std": 0.016047756445948306
+    },
+    "50": {
+      "predicted": 51.1962890625,
+      "measured_mean": 51.2159376780192,
+      "measured_std": 0.0224636766580708
+    }
+  },
+  "verdict": "HARD_PASS",
+  "elapsed_s": 18.863982439041138,
+  "thresholds": {
+    "HP_pearson": 0.9999,
+    "HP_mae": 0.5,
+    "HF_pearson": 0.999,
+    "HF_mae": 2.0
+  },
+  "verdict_msg": "tr(W1 W2) set-intersect identity: Pearson r=0.999999 (HP>0.9999), MAE=0.0207 (HP<0.5). Verdict: HARD_PASS."
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "natural_analog_quorum_ema_detector_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: detection recall 0.70-0.90. recall=0.900 fpr=0.000 (injected=10)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.9,
+      "fpr": 0.0,
+      "n_inject": 10
+    }
+  ],
+  "elapsed_s": 0.07661986351013184,
+  "summary": "MIDDLE_BAND: detection recall 0.70-0.90. recall=0.900 fpr=0.000 (injected=10)"
+}

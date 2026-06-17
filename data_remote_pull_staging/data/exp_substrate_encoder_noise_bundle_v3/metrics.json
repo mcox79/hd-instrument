@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_encoder_noise_bundle_v3",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1/3 noise-robustness mechanisms work -- partial recovery path. A1 conf-corr=0.248(True); A2 ensembling={'K1': 0.998, 'K3': 0.997, 'K5': 0.996}(False); A3 ternary={'bipolar': 0.999, 'ternary_best': 1.0, 'tau': 0.5}(False); 1/3 (n=1000, sigma=1.5)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "a1_r": 0.24804847965989893,
+      "a1_pass": true,
+      "a2": {
+        "K1": 0.998,
+        "K3": 0.997,
+        "K5": 0.996
+      },
+      "a2_pass": false,
+      "a3": {
+        "bipolar": 0.999,
+        "ternary_best": 1.0,
+        "tau": 0.5
+      },
+      "a3_pass": false,
+      "npass": 1,
+      "n": 1000
+    }
+  ],
+  "elapsed_s": 30.09514284133911,
+  "summary": "MIDDLE_BAND: 1/3 noise-robustness mechanisms work -- partial recovery path. A1 conf-corr=0.248(True); A2 ensembling={'K1': 0.998, 'K3': 0.997, 'K5': 0.996}(False); A3 ternary={'bipolar': 0.999, 'ternary_best': 1.0, 'tau': 0.5}(False); 1/3 (n=1000, sigma=1.5)"
+}

@@ -1,0 +1,29 @@
+{
+  "verdict": "BET_Q_FACILITATION",
+  "verdict_msg": "Sharp transition observed: sharpness=8.00>=2.0. Substrate exhibits glassy facilitation (sigmoid recovery curve).",
+  "elapsed_s": 0.2649999999994179,
+  "summary": {
+    "transition_sharpness": 8.0,
+    "per_seed_curves": [
+      {
+        "0.0": 1.0,
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.15": 1.0,
+        "0.2": 1.0,
+        "0.25": 1.0,
+        "0.3": 1.0,
+        "0.4": 1.0,
+        "0.5": 0.0
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M": 256,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,300 @@
+{
+  "N": 4096,
+  "K_PAIRS": [
+    [
+      4,
+      4
+    ],
+    [
+      10,
+      10
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      50,
+      50
+    ]
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31,
+    41,
+    53
+  ],
+  "HOLDOUT_FRAC": 0.25,
+  "elapsed_s": 16.40600000001723,
+  "grid": [
+    {
+      "seed": 17,
+      "K_c": 4,
+      "K_o": 4,
+      "n_total": 16,
+      "n_train": 12,
+      "n_holdout": 4,
+      "seen_acc": 0.3333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 3.0
+    },
+    {
+      "seed": 23,
+      "K_c": 4,
+      "K_o": 4,
+      "n_total": 16,
+      "n_train": 12,
+      "n_holdout": 4,
+      "seen_acc": 0.3333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 3.0
+    },
+    {
+      "seed": 31,
+      "K_c": 4,
+      "K_o": 4,
+      "n_total": 16,
+      "n_train": 12,
+      "n_holdout": 4,
+      "seen_acc": 0.3333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 3.0
+    },
+    {
+      "seed": 41,
+      "K_c": 4,
+      "K_o": 4,
+      "n_total": 16,
+      "n_train": 12,
+      "n_holdout": 4,
+      "seen_acc": 0.3333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 3.0
+    },
+    {
+      "seed": 53,
+      "K_c": 4,
+      "K_o": 4,
+      "n_total": 16,
+      "n_train": 12,
+      "n_holdout": 4,
+      "seen_acc": 0.3333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 3.0
+    },
+    {
+      "seed": 17,
+      "K_c": 10,
+      "K_o": 10,
+      "n_total": 100,
+      "n_train": 75,
+      "n_holdout": 25,
+      "seen_acc": 0.13333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 7.5
+    },
+    {
+      "seed": 23,
+      "K_c": 10,
+      "K_o": 10,
+      "n_total": 100,
+      "n_train": 75,
+      "n_holdout": 25,
+      "seen_acc": 0.13333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 7.5
+    },
+    {
+      "seed": 31,
+      "K_c": 10,
+      "K_o": 10,
+      "n_total": 100,
+      "n_train": 75,
+      "n_holdout": 25,
+      "seen_acc": 0.13333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 7.5
+    },
+    {
+      "seed": 41,
+      "K_c": 10,
+      "K_o": 10,
+      "n_total": 100,
+      "n_train": 75,
+      "n_holdout": 25,
+      "seen_acc": 0.13333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 7.5
+    },
+    {
+      "seed": 53,
+      "K_c": 10,
+      "K_o": 10,
+      "n_total": 100,
+      "n_train": 75,
+      "n_holdout": 25,
+      "seen_acc": 0.13333333333333333,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 7.5
+    },
+    {
+      "seed": 17,
+      "K_c": 20,
+      "K_o": 20,
+      "n_total": 400,
+      "n_train": 300,
+      "n_holdout": 100,
+      "seen_acc": 0.06666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 15.0
+    },
+    {
+      "seed": 23,
+      "K_c": 20,
+      "K_o": 20,
+      "n_total": 400,
+      "n_train": 300,
+      "n_holdout": 100,
+      "seen_acc": 0.06666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 15.0
+    },
+    {
+      "seed": 31,
+      "K_c": 20,
+      "K_o": 20,
+      "n_total": 400,
+      "n_train": 300,
+      "n_holdout": 100,
+      "seen_acc": 0.06666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 15.0
+    },
+    {
+      "seed": 41,
+      "K_c": 20,
+      "K_o": 20,
+      "n_total": 400,
+      "n_train": 300,
+      "n_holdout": 100,
+      "seen_acc": 0.06666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 15.0
+    },
+    {
+      "seed": 53,
+      "K_c": 20,
+      "K_o": 20,
+      "n_total": 400,
+      "n_train": 300,
+      "n_holdout": 100,
+      "seen_acc": 0.06666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 15.0
+    },
+    {
+      "seed": 17,
+      "K_c": 50,
+      "K_o": 50,
+      "n_total": 2500,
+      "n_train": 1875,
+      "n_holdout": 625,
+      "seen_acc": 0.02666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 37.5
+    },
+    {
+      "seed": 23,
+      "K_c": 50,
+      "K_o": 50,
+      "n_total": 2500,
+      "n_train": 1875,
+      "n_holdout": 625,
+      "seen_acc": 0.02666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 37.5
+    },
+    {
+      "seed": 31,
+      "K_c": 50,
+      "K_o": 50,
+      "n_total": 2500,
+      "n_train": 1875,
+      "n_holdout": 625,
+      "seen_acc": 0.026133333333333335,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 38.265306122448976
+    },
+    {
+      "seed": 41,
+      "K_c": 50,
+      "K_o": 50,
+      "n_total": 2500,
+      "n_train": 1875,
+      "n_holdout": 625,
+      "seen_acc": 0.02666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 37.5
+    },
+    {
+      "seed": 53,
+      "K_c": 50,
+      "K_o": 50,
+      "n_total": 2500,
+      "n_train": 1875,
+      "n_holdout": 625,
+      "seen_acc": 0.02666666666666667,
+      "unseen_acc": 1.0,
+      "mem_baseline_acc": 0.0,
+      "compositional_ratio": 37.5
+    }
+  ],
+  "summary": {
+    "4x4": {
+      "seen_mean": 0.3333333333333333,
+      "unseen_mean": 1.0,
+      "mem_mean": 0.0,
+      "ratio_mean": 3.0
+    },
+    "10x10": {
+      "seen_mean": 0.13333333333333333,
+      "unseen_mean": 1.0,
+      "mem_mean": 0.0,
+      "ratio_mean": 7.5
+    },
+    "20x20": {
+      "seen_mean": 0.06666666666666667,
+      "unseen_mean": 1.0,
+      "mem_mean": 0.0,
+      "ratio_mean": 15.0
+    },
+    "50x50": {
+      "seen_mean": 0.02656,
+      "unseen_mean": 1.0,
+      "mem_mean": 0.0,
+      "ratio_mean": 37.6530612244898
+    }
+  },
+  "verdict": "COMPOSITIONAL_CONFIRMED",
+  "verdict_msg": "At K=4x4 holdout, unseen/seen = 3.00 >= 0.7. Plate theorem holds."
+}

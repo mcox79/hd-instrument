@@ -1,0 +1,67 @@
+{
+  "verdict": "TEM_NO_SCHEMA",
+  "verdict_msg": "Substrate acc=50.00% not meaningfully above PCA (50.00%) or random (50.00%). No compositional transfer; binding isn't producing transferable role representations.",
+  "elapsed_s": 0.4220000000204891,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_roles": 4,
+    "n_fillers_per_env": 8,
+    "n_scenes_train": 200,
+    "n_scenes_test": 50,
+    "roles_per_scene": 2,
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "by_method": {
+    "substrate": {
+      "in_env_acc": 1.0,
+      "transfer_acc": 0.5
+    },
+    "pca": {
+      "in_env_acc": 0.5,
+      "transfer_acc": 0.5
+    },
+    "random": {
+      "in_env_acc": 0.5399999618530273,
+      "transfer_acc": 0.5
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 17,
+      "methods": {
+        "substrate": {
+          "in_env_acc": 1.0,
+          "transfer_acc": 0.5
+        },
+        "pca": {
+          "in_env_acc": 0.5,
+          "transfer_acc": 0.5
+        },
+        "random": {
+          "in_env_acc": 0.5399999618530273,
+          "transfer_acc": 0.5
+        }
+      }
+    }
+  ],
+  "summary": {
+    "by_method": {
+      "substrate": {
+        "in_env_acc": 1.0,
+        "transfer_acc": 0.5
+      },
+      "pca": {
+        "in_env_acc": 0.5,
+        "transfer_acc": 0.5
+      },
+      "random": {
+        "in_env_acc": 0.5399999618530273,
+        "transfer_acc": 0.5
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "anchor_name": "substrate_codebook_collapse_monitoring_recovery_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: monitoring+recovery eliminates <70pct of persistent dead codes. persistent dead codes: baseline=19.0 with_recovery=6.3 | reduction=0.69",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "dead_baseline": 17,
+      "dead_with_recovery": 6,
+      "dead_reduction": 0.6470588235294118,
+      "n_detections": 17
+    },
+    {
+      "seed": 17,
+      "dead_baseline": 24,
+      "dead_with_recovery": 11,
+      "dead_reduction": 0.5416666666666666,
+      "n_detections": 24
+    },
+    {
+      "seed": 23,
+      "dead_baseline": 16,
+      "dead_with_recovery": 2,
+      "dead_reduction": 0.875,
+      "n_detections": 16
+    }
+  ],
+  "elapsed_s": 76.24574589729309,
+  "summary": "HARD_FAIL: monitoring+recovery eliminates <70pct of persistent dead codes. persistent dead codes: baseline=19.0 with_recovery=6.3 | reduction=0.69"
+}

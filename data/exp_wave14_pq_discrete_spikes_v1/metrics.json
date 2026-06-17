@@ -1,0 +1,21 @@
+{
+  "verdict": "PQ_CONTINUOUS",
+  "verdict_msg": "n_peaks=11 peak/valley=1.40<2.0 (smooth distribution; no discrete spikes).",
+  "elapsed_s": 629.4690000000119,
+  "summary": {
+    "n_peaks_estimate": 11,
+    "peak_to_valley_ratio": 1.4040803967274555,
+    "q_mean": 0.22321260000000015,
+    "q_std": 0.06800767810504932,
+    "n_seeds": 1000
+  },
+  "config": {
+    "N": 16384,
+    "K": 100,
+    "depth": 50,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 100,
+    "n_seeds": 1000
+  }
+}

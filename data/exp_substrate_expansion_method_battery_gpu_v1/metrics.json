@@ -1,0 +1,371 @@
+{
+  "anchor_name": "substrate_expansion_method_battery_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: expansion cannot beat rank (rp_x4 ~ native) while whitening helps via decorrelation -- d_eff framework confirmed at synthetic scale. mean alpha: native=0.0065 rp_x4=0.0065 zca_whiten=0.0517",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "method": "native",
+      "r": 32,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "native",
+      "r": 32,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "native",
+      "r": 32,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 32,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 32,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 32,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 32,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 32,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 32,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "zca_whiten",
+      "r": 32,
+      "seed": 7,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "zca_whiten",
+      "r": 32,
+      "seed": 17,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "zca_whiten",
+      "r": 32,
+      "seed": 23,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "native",
+      "r": 64,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "native",
+      "r": 64,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "native",
+      "r": 64,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 64,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 64,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 64,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 64,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 64,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 64,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "zca_whiten",
+      "r": 64,
+      "seed": 7,
+      "alpha": 0.02978515625
+    },
+    {
+      "method": "zca_whiten",
+      "r": 64,
+      "seed": 17,
+      "alpha": 0.02978515625
+    },
+    {
+      "method": "zca_whiten",
+      "r": 64,
+      "seed": 23,
+      "alpha": 0.02978515625
+    },
+    {
+      "method": "native",
+      "r": 128,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "native",
+      "r": 128,
+      "seed": 17,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "native",
+      "r": 128,
+      "seed": 23,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 128,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 128,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x2",
+      "r": 128,
+      "seed": 23,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x4",
+      "r": 128,
+      "seed": 7,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 128,
+      "seed": 17,
+      "alpha": 0.0
+    },
+    {
+      "method": "rp_x4",
+      "r": 128,
+      "seed": 23,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "zca_whiten",
+      "r": 128,
+      "seed": 7,
+      "alpha": 0.0498046875
+    },
+    {
+      "method": "zca_whiten",
+      "r": 128,
+      "seed": 17,
+      "alpha": 0.0498046875
+    },
+    {
+      "method": "zca_whiten",
+      "r": 128,
+      "seed": 23,
+      "alpha": 0.0498046875
+    },
+    {
+      "method": "native",
+      "r": 256,
+      "seed": 7,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "native",
+      "r": 256,
+      "seed": 17,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "native",
+      "r": 256,
+      "seed": 23,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x2",
+      "r": 256,
+      "seed": 7,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x2",
+      "r": 256,
+      "seed": 17,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x2",
+      "r": 256,
+      "seed": 23,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x4",
+      "r": 256,
+      "seed": 7,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x4",
+      "r": 256,
+      "seed": 17,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "rp_x4",
+      "r": 256,
+      "seed": 23,
+      "alpha": 0.009765625
+    },
+    {
+      "method": "zca_whiten",
+      "r": 256,
+      "seed": 7,
+      "alpha": 0.07958984375
+    },
+    {
+      "method": "zca_whiten",
+      "r": 256,
+      "seed": 17,
+      "alpha": 0.07958984375
+    },
+    {
+      "method": "zca_whiten",
+      "r": 256,
+      "seed": 23,
+      "alpha": 0.07958984375
+    },
+    {
+      "method": "native",
+      "r": 512,
+      "seed": 7,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "native",
+      "r": 512,
+      "seed": 17,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "native",
+      "r": 512,
+      "seed": 23,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "rp_x2",
+      "r": 512,
+      "seed": 7,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "rp_x2",
+      "r": 512,
+      "seed": 17,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "rp_x2",
+      "r": 512,
+      "seed": 23,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "rp_x4",
+      "r": 512,
+      "seed": 7,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "rp_x4",
+      "r": 512,
+      "seed": 17,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "rp_x4",
+      "r": 512,
+      "seed": 23,
+      "alpha": 0.01953125
+    },
+    {
+      "method": "zca_whiten",
+      "r": 512,
+      "seed": 7,
+      "alpha": 0.07958984375
+    },
+    {
+      "method": "zca_whiten",
+      "r": 512,
+      "seed": 17,
+      "alpha": 0.07958984375
+    },
+    {
+      "method": "zca_whiten",
+      "r": 512,
+      "seed": 23,
+      "alpha": 0.07958984375
+    }
+  ],
+  "elapsed_s": 113.02959156036377,
+  "summary": "HARD_PASS: expansion cannot beat rank (rp_x4 ~ native) while whitening helps via decorrelation -- d_eff framework confirmed at synthetic scale. mean alpha: native=0.0065 rp_x4=0.0065 zca_whiten=0.0517"
+}

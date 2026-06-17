@@ -1,0 +1,28 @@
+{
+  "anchor_name": "phase_6_1_h3_distractor_relevance_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: H3+H1 both metrics <+0.04 -- 6-deep operand-selection wall holds at substrate-feature level; defer to Phase-6 full ingest. relevance disc acc=0.7302 F1=0.8390 | EXACT-match: full=0.6019 base=0.6013 (lift +0.0006) | OPERAND-SET-F1: full=0.8092 base=0.8100 (lift -0.0008); distractor-subset opset-F1 0.4842 vs base 0.4810 (lift +0.0032) | n=628 distractor-n=225, H3+H1 multi-seed",
+  "summary": "HARD_FAIL: H3+H1 both metrics <+0.04 -- 6-deep operand-selection wall holds at substrate-feature level; defer to Phase-6 full ingest. relevance disc acc=0.7302 F1=0.8390 | EXACT-match: full=0.6019 base=0.6013 (lift +0.0006) | OPERAND-SET-F1: full=0.8092 base=0.8100 (lift -0.0008); distractor-subset opset-F1 0.4842 vs base 0.4810 (lift +0.0032) | n=628 distractor-n=225, H3+H1 multi-seed",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "rel_acc": 0.7302,
+      "rel_f1": 0.839,
+      "sel_acc": 0.6019,
+      "baseline_sel_acc": 0.6013,
+      "exact_lift": 0.0006,
+      "distractor_sel_acc": 0.0207,
+      "sel_opset_f1": 0.8092,
+      "base_opset_f1": 0.81,
+      "opset_f1_lift": -0.0008,
+      "distractor_opset_f1": 0.4842,
+      "distractor_base_opset_f1": 0.481,
+      "distractor_opset_f1_lift": 0.0032,
+      "n_problems": 2091,
+      "n_test": 628,
+      "n_distractor": 225
+    }
+  ],
+  "elapsed_s": 3.3365674018859863
+}

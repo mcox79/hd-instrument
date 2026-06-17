@@ -1,0 +1,14 @@
+{
+  "anchor_name": "factrep_ep1_bitemporal_native_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: bitemporal-native AS-OF returns the time-valid version >=0.95 -- versioned fact representation is cheap/native (ship-in-v1 candidate). AS-OF correctness=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.16439127922058105,
+  "summary": "HARD_PASS: bitemporal-native AS-OF returns the time-valid version >=0.95 -- versioned fact representation is cheap/native (ship-in-v1 candidate). AS-OF correctness=1.000"
+}

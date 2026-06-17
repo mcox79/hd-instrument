@@ -1,0 +1,8 @@
+{
+  "N": 4096,
+  "K_WORD": 4,
+  "K_PHRASE": 3,
+  "NUM_PHRASES": 50,
+  "byte_accuracy": 1.0,
+  "word_accuracy": 1.0
+}

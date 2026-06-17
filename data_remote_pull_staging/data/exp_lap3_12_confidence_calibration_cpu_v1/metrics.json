@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap3_12_confidence_calibration_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate confidence (cleanup margin) is CALIBRATED -- ECE<=0.10 and confidence correlates with accuracy; PP-107 confidence is trustworthy for routing/abstention. ECE=0.018 conf-acc-corr=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ece": 0.018,
+      "conf_acc_corr": 0.0,
+      "n": 600
+    }
+  ],
+  "elapsed_s": 1.314366102218628,
+  "summary": "HARD_PASS: substrate confidence (cleanup margin) is CALIBRATED -- ECE<=0.10 and confidence correlates with accuracy; PP-107 confidence is trustworthy for routing/abstention. ECE=0.018 conf-acc-corr=0.000"
+}

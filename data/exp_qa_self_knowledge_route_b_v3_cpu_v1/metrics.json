@@ -1,0 +1,59 @@
+{
+  "anchor_name": "qa_self_knowledge_route_b_v3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: improved route_B lifts B-axis >=0.40 (+0.075) without macro regression -- route mechanics recover the route-fixable B failures (bidirectional + explicit rel-type). B-axis=0.6985 (v1 0.325, delta=+0.3735) macro=0.5625 (v1 0.4684, delta=+0.0941); per-type={'A': 0.3781, 'B': 0.6985, 'C': 0.6217, 'D': 0.75, 'E': 0.495, 'G': 0.6667}; B-qs=[('Q06-B', 0.75), ('Q07-B', 0.8421), ('Q08-B', 1.0), ('Q09-B', 0.2), ('Q38-B', 0.75), ('Q39-B', 1.0), ('Q40-B', 0.2222), ('Q41-B', 0.8235)]",
+  "summary": "HARD_PASS: improved route_B lifts B-axis >=0.40 (+0.075) without macro regression -- route mechanics recover the route-fixable B failures (bidirectional + explicit rel-type). B-axis=0.6985 (v1 0.325, delta=+0.3735) macro=0.5625 (v1 0.4684, delta=+0.0941); per-type={'A': 0.3781, 'B': 0.6985, 'C': 0.6217, 'D': 0.75, 'E': 0.495, 'G': 0.6667}; B-qs=[('Q06-B', 0.75), ('Q07-B', 0.8421), ('Q08-B', 1.0), ('Q09-B', 0.2), ('Q38-B', 0.75), ('Q39-B', 1.0), ('Q40-B', 0.2222), ('Q41-B', 0.8235)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_f1": 0.5625,
+      "type_f1": {
+        "A": 0.3781,
+        "B": 0.6985,
+        "C": 0.6217,
+        "D": 0.75,
+        "E": 0.495,
+        "G": 0.6667
+      },
+      "n_qs": 53,
+      "b_questions": [
+        [
+          "Q06-B",
+          0.75
+        ],
+        [
+          "Q07-B",
+          0.8421
+        ],
+        [
+          "Q08-B",
+          1.0
+        ],
+        [
+          "Q09-B",
+          0.2
+        ],
+        [
+          "Q38-B",
+          0.75
+        ],
+        [
+          "Q39-B",
+          1.0
+        ],
+        [
+          "Q40-B",
+          0.2222
+        ],
+        [
+          "Q41-B",
+          0.8235
+        ]
+      ],
+      "b_axis_v1_baseline": 0.325,
+      "macro_v1_baseline": 0.4684
+    }
+  ],
+  "elapsed_s": 0.8139383792877197
+}

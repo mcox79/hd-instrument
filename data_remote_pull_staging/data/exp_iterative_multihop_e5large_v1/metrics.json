@@ -1,0 +1,16 @@
+{
+  "anchor_name": "iterative_multihop_e5large_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: iterative bge-large r@2 <0.50 -- multi-hop ceiling holds (stays closed). iterative r@2=0.160 vs single-shot=0.220 (n=150, bge-large)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 150,
+      "ss_r2": 0.22,
+      "it_r2": 0.16
+    }
+  ],
+  "elapsed_s": 13884.84230351448,
+  "summary": "HARD_FAIL: iterative bge-large r@2 <0.50 -- multi-hop ceiling holds (stays closed). iterative r@2=0.160 vs single-shot=0.220 (n=150, bge-large)"
+}

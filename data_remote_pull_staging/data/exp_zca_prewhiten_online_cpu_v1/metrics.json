@@ -1,0 +1,15 @@
+{
+  "anchor_name": "zca_prewhiten_online_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: prewhitening helps but freq-AUC 0.62-0.70. whitened=0.625 unwhitened=0.586",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "whitened_auc": 0.625,
+      "unwhitened_auc": 0.586
+    }
+  ],
+  "elapsed_s": 36.25980591773987,
+  "summary": "MIDDLE_BAND: prewhitening helps but freq-AUC 0.62-0.70. whitened=0.625 unwhitened=0.586"
+}

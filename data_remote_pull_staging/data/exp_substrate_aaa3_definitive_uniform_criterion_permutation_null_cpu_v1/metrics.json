@@ -1,0 +1,23 @@
+{
+  "anchor_name": "substrate_aaa3_definitive_uniform_criterion_permutation_null_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (Reservation C DEFINITIVELY CONFIRMED): TOOLS have higher capability-sharing degree than MATERIALS BEYOND degree-chance -- excess_ratio 2.34>=1.25, CI lower 1.43>1.0, permutation p=0.0005<0.01, naive 2.34>=1.30. The load-bearing axis is REAL with statistical rigor (uniform criterion + degree-aware null) -- resolves the canonical 0.94x confound AND adds the null model my intrinsic test lacked. 13th methodology rule empirically grounded. uniform capability-sharing graph (179 nodes, 13 tools): naive tool:material degree ratio=2.341; excess_ratio=2.341 (vs degree-aware label-permutation null); permutation p=0.0005; 95% bootstrap CI=[1.432,3.508]. (tool mean-deg 6.08 vs material 2.60.) UNIFORM rule -> no batch-clique confound; permutation null -> degree-aware.",
+  "summary": "HARD_PASS (Reservation C DEFINITIVELY CONFIRMED): TOOLS have higher capability-sharing degree than MATERIALS BEYOND degree-chance -- excess_ratio 2.34>=1.25, CI lower 1.43>1.0, permutation p=0.0005<0.01, naive 2.34>=1.30. The load-bearing axis is REAL with statistical rigor (uniform criterion + degree-aware null) -- resolves the canonical 0.94x confound AND adds the null model my intrinsic test lacked. 13th methodology rule empirically grounded. uniform capability-sharing graph (179 nodes, 13 tools): naive tool:material degree ratio=2.341; excess_ratio=2.341 (vs degree-aware label-permutation null); permutation p=0.0005; 95% bootstrap CI=[1.432,3.508]. (tool mean-deg 6.08 vs material 2.60.) UNIFORM rule -> no batch-clique confound; permutation null -> degree-aware.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_nodes": 179,
+      "n_tools": 13,
+      "naive_ratio": 2.341,
+      "observed_ratio": 2.341,
+      "excess_ratio": 2.341,
+      "perm_p": 0.0005,
+      "ci_lower": 1.432,
+      "ci_upper": 3.508,
+      "tool_mean_deg": 6.08,
+      "mat_mean_deg": 2.6
+    }
+  ],
+  "elapsed_s": 0.14847564697265625
+}

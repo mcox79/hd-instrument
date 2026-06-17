@@ -1,0 +1,61 @@
+{
+  "verdict": "MULTIHOP_N_SCALING_NO_BENEFIT",
+  "verdict_msg": "Slope of acc_1hop vs log2(N) = +0.0000 <= 0. Widening substrate does not improve 1-hop accuracy. acc_1hop per N: N=512:acc=1.000, N=1024:acc=1.000. 1-hop ceiling is intrinsic to the substrate design, not noise-limited.",
+  "elapsed_s": 0.26600000000053114,
+  "summary": {
+    "by_N": {
+      "512": {
+        "N": 512,
+        "acc_by_depth": {
+          "1": 1.0,
+          "10": 0.2
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            1.0
+          ],
+          "10": [
+            0.2
+          ]
+        },
+        "retention_rate": 0.8513399225207846,
+        "max_pairwise_ip": 0.13671875
+      },
+      "1024": {
+        "N": 1024,
+        "acc_by_depth": {
+          "1": 1.0,
+          "10": 0.4
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            1.0
+          ],
+          "10": [
+            0.4
+          ]
+        },
+        "retention_rate": 0.9124435365554808,
+        "max_pairwise_ip": 0.111328125
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      512,
+      1024
+    ],
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 20,
+    "hop_depths": [
+      1,
+      10
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

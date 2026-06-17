@@ -1,0 +1,242 @@
+{
+  "verdict": "GLAUBER_INCONCLUSIVE",
+  "verdict_msg": "Mixed Glauber response: low_T_bimodal=0/6, global_unimodal=12/15, max_bimodal=0.000 at . Need finer T resolution or longer chain length.",
+  "elapsed_s": 20.71799999999348,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.25,
+        "beta": 0.5,
+        "T": 2.0,
+        "N": 1024,
+        "M": 256,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.028218750000000004,
+        "abs_mean_q_std": 0.001116101998046748,
+        "mean_q": -0.0009140624999999999,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.25,
+        "beta": 1.0,
+        "T": 1.0,
+        "N": 1024,
+        "M": 256,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.057564453125000005,
+        "abs_mean_q_std": 0.023514891633926317,
+        "mean_q": 0.015650390625,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.25,
+        "beta": 2.0,
+        "T": 0.5,
+        "N": 1024,
+        "M": 256,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.06760839843750001,
+        "abs_mean_q_std": 0.028082493411973244,
+        "mean_q": 0.0672744140625,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.25,
+        "beta": 4.0,
+        "T": 0.25,
+        "N": 1024,
+        "M": 256,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.171095703125,
+        "abs_mean_q_std": 0.0538038274885439,
+        "mean_q": 0.171095703125,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.25,
+        "beta": 8.0,
+        "T": 0.125,
+        "N": 1024,
+        "M": 256,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.16045800781250003,
+        "abs_mean_q_std": 0.04878944741579047,
+        "mean_q": 0.16045800781250003,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.5,
+        "beta": 0.5,
+        "T": 2.0,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.027087890625,
+        "abs_mean_q_std": 0.0009368772345599598,
+        "mean_q": -0.00123828125,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.5,
+        "beta": 1.0,
+        "T": 1.0,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.0494892578125,
+        "abs_mean_q_std": 0.01673088434822285,
+        "mean_q": 0.0122236328125,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.5,
+        "beta": 2.0,
+        "T": 0.5,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.052598632812500004,
+        "abs_mean_q_std": 0.03733084207692239,
+        "mean_q": 0.041897460937500006,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.5,
+        "beta": 4.0,
+        "T": 0.25,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.11676269531250001,
+        "abs_mean_q_std": 0.03814753782393837,
+        "mean_q": 0.11676269531250001,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 0.5,
+        "beta": 8.0,
+        "T": 0.125,
+        "N": 1024,
+        "M": 512,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.17463183593750004,
+        "abs_mean_q_std": 0.038833223692012,
+        "mean_q": 0.17463183593750004,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 1.0,
+        "beta": 0.5,
+        "T": 2.0,
+        "N": 1024,
+        "M": 1024,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.025666015625,
+        "abs_mean_q_std": 0.001493216753791529,
+        "mean_q": 0.00017578125,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 1.0,
+        "beta": 1.0,
+        "T": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.042146484375,
+        "abs_mean_q_std": 0.01739366996546599,
+        "mean_q": 0.023140624999999998,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 1.0,
+        "beta": 2.0,
+        "T": 0.5,
+        "N": 1024,
+        "M": 1024,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.07080859375000001,
+        "abs_mean_q_std": 0.026631263426012096,
+        "mean_q": 0.070783203125,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 1.0,
+        "beta": 4.0,
+        "T": 0.25,
+        "N": 1024,
+        "M": 1024,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.0828017578125,
+        "abs_mean_q_std": 0.03252031650820864,
+        "mean_q": 0.0827958984375,
+        "n_seeds": 5
+      },
+      {
+        "alpha": 1.0,
+        "beta": 8.0,
+        "T": 0.125,
+        "N": 1024,
+        "M": 1024,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.11870312499999999,
+        "abs_mean_q_std": 0.02423829041756726,
+        "mean_q": 0.11870312499999999,
+        "n_seeds": 5
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "alpha_list": [
+        0.25,
+        0.5,
+        1.0
+      ],
+      "beta_list": [
+        0.5,
+        1.0,
+        2.0,
+        4.0,
+        8.0
+      ],
+      "n_seeds": 5,
+      "n_burn": 200,
+      "n_collect": 400
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "alpha_list": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "beta_list": [
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0
+    ],
+    "n_seeds": 5,
+    "n_burn": 200,
+    "n_collect": 400
+  }
+}

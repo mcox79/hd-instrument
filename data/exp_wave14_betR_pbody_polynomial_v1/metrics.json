@@ -1,0 +1,38 @@
+{
+  "verdict": "PBODY_NOGAIN",
+  "verdict_msg": "Polynomial p-body cleanup matches argmax: best ratio=1.00 at p=2 (<1.05). Substrate finite p-body provides no gain over argmax with Kerdock 4-coset keys. ratio_per_p={'2': 1.0, '4': 1.0, '8': 1.0}.",
+  "elapsed_s": 2537.5780000000086,
+  "summary": {
+    "argmax_capacity": 4.0,
+    "polynomial_capacity_per_p": {
+      "2": 4.0,
+      "4": 4.0,
+      "8": 4.0
+    },
+    "ratio_per_p": {
+      "2": 1.0,
+      "4": 1.0,
+      "8": 1.0
+    },
+    "best_p": 2,
+    "best_ratio": 1.0
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_grid": [
+      1024,
+      4096,
+      8192,
+      16384
+    ],
+    "seeds": 3,
+    "p_values": [
+      2,
+      4,
+      8
+    ],
+    "n_iter": 5,
+    "key_family": "kerdock_4coset"
+  }
+}

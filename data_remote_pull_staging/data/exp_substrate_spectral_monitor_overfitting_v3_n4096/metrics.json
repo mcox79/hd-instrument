@@ -1,0 +1,37 @@
+{
+  "anchor_name": "substrate_spectral_monitor_overfitting_v3_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial overfitting lead; leads=[-100, 3765, 915] mean_lead=1526.7 seeds_hp=2/3 seeds_mid=0/3 seeds_lag=1/3 HP_LEAD=50 val_overfit_detected=3/3 sub_overfit_detected=3/3 TRAIN_CHARS=400000 N_STEPS=9000",
+  "run_mode": "full",
+  "N_OBS": 4096,
+  "BUFFER_SIZE": 491,
+  "TRAIN_CHARS": 400000,
+  "N_STEPS": 9000,
+  "MONITOR_EVERY": 5,
+  "LM_HIDDEN": 128,
+  "HP_LEAD_STEPS": 50,
+  "elapsed_s": 4234.642509222031,
+  "per_seed": [
+    {
+      "seed": 7,
+      "val_overfit_step": 800,
+      "sub_overfit_step": 900,
+      "lead": -100,
+      "elapsed_s": 1403.8207449913025
+    },
+    {
+      "seed": 17,
+      "val_overfit_step": 4705,
+      "sub_overfit_step": 940,
+      "lead": 3765,
+      "elapsed_s": 1429.63831949234
+    },
+    {
+      "seed": 23,
+      "val_overfit_step": 1865,
+      "sub_overfit_step": 950,
+      "lead": 915,
+      "elapsed_s": 1401.1228861808777
+    }
+  ]
+}

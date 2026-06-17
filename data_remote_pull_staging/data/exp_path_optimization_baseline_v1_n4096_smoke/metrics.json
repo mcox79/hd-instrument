@@ -1,0 +1,33 @@
+{
+  "verdict": "S5_HARD_PASS",
+  "verdict_msg": "BASELINE_CLEAN: cv_b=0.00 cv_d=0.00 cv_e=0.00 med_b=3.3ms med_d=73.6ms med_e=228.2ms dom_b=time_normalize dom_d=time_likelihood_query_per_hop dom_e=time_compute_spectrum",
+  "elapsed_s": 0.35,
+  "summary": {
+    "anchor": "path_optimization_baseline_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 50,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "wall_b_ns": 3308300,
+        "wall_d_ns": 73580700,
+        "wall_e_ns": 228243600,
+        "dom_b_op": "time_normalize",
+        "dom_b_frac": 0.5336,
+        "dom_d_op": "time_likelihood_query_per_hop",
+        "dom_d_frac": 0.8531,
+        "dom_e_op": "time_compute_spectrum",
+        "dom_e_frac": 0.7697
+      }
+    ],
+    "verdict": "S5_HARD_PASS",
+    "verdict_msg": "BASELINE_CLEAN: cv_b=0.00 cv_d=0.00 cv_e=0.00 med_b=3.3ms med_d=73.6ms med_e=228.2ms dom_b=time_normalize dom_d=time_likelihood_query_per_hop dom_e=time_compute_spectrum",
+    "elapsed_s": 0.35
+  }
+}

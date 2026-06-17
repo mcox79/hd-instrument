@@ -1,0 +1,115 @@
+{
+  "verdict": "M1_MIDDLE_BAND",
+  "verdict_msg": "GRADUAL_TRANSITION: M_c=40000 monotone=True. Boundary found but may not meet precision target (+/-5K). details={'M_c': 40000, 'is_monotone': True, 'mean_ret_by_M': {40000: 0.0975, 80000: 0.0625, 120000: 0.0525}}.",
+  "elapsed_s": 12.809068202972412,
+  "config": {
+    "N": 1024,
+    "smoke": true,
+    "seeds": [
+      7,
+      17
+    ],
+    "M_vals": [
+      40000,
+      80000,
+      120000
+    ],
+    "beta": 32.0
+  },
+  "summary": {
+    "by_M": {
+      "40000": {
+        "retentions": [
+          0.13,
+          0.065
+        ],
+        "M_over_N": 39.0625,
+        "mean_retention": 0.0975,
+        "std_retention": 0.0325,
+        "n_seeds": 2
+      },
+      "80000": {
+        "retentions": [
+          0.035,
+          0.09
+        ],
+        "M_over_N": 78.125,
+        "mean_retention": 0.0625,
+        "std_retention": 0.0275,
+        "n_seeds": 2
+      },
+      "120000": {
+        "retentions": [
+          0.06,
+          0.045
+        ],
+        "M_over_N": 117.1875,
+        "mean_retention": 0.0525,
+        "std_retention": 0.0075,
+        "n_seeds": 2
+      }
+    },
+    "N": 1024,
+    "beta": 32.0,
+    "seeds": [
+      7,
+      17
+    ]
+  },
+  "all_cells": [
+    {
+      "M": 40000,
+      "M_over_N": 39.0625,
+      "N": 1024,
+      "seed": 7,
+      "beta": 32.0,
+      "retention": 0.13,
+      "elapsed_s": 1.125
+    },
+    {
+      "M": 40000,
+      "M_over_N": 39.0625,
+      "N": 1024,
+      "seed": 17,
+      "beta": 32.0,
+      "retention": 0.065,
+      "elapsed_s": 1.078
+    },
+    {
+      "M": 80000,
+      "M_over_N": 78.125,
+      "N": 1024,
+      "seed": 7,
+      "beta": 32.0,
+      "retention": 0.035,
+      "elapsed_s": 2.125
+    },
+    {
+      "M": 80000,
+      "M_over_N": 78.125,
+      "N": 1024,
+      "seed": 17,
+      "beta": 32.0,
+      "retention": 0.09,
+      "elapsed_s": 2.25
+    },
+    {
+      "M": 120000,
+      "M_over_N": 117.1875,
+      "N": 1024,
+      "seed": 7,
+      "beta": 32.0,
+      "retention": 0.06,
+      "elapsed_s": 3.188
+    },
+    {
+      "M": 120000,
+      "M_over_N": 117.1875,
+      "N": 1024,
+      "seed": 17,
+      "beta": 32.0,
+      "retention": 0.045,
+      "elapsed_s": 3.046
+    }
+  ]
+}

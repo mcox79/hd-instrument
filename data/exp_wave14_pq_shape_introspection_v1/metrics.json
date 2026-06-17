@@ -1,0 +1,49 @@
+{
+  "verdict": "PQ_NO_PHASE_SIGNATURE",
+  "verdict_msg": "moment_separation=0.158<0.5 (P(q) shape invariant across phases).",
+  "elapsed_s": 20.78100000001723,
+  "summary": {
+    "moment_separation": 0.15809850389981625,
+    "phase_moments": {
+      "low_K": {
+        "mean": 0.1144375,
+        "std": 0.01989047157246404,
+        "skew": 0.9605768790364738,
+        "kurt": 1.850122512835208,
+        "K": 100
+      },
+      "K_resonance": {
+        "mean": 0.118875,
+        "std": 0.03134959130515101,
+        "skew": 0.5856899195593217,
+        "kurt": -0.38548534877171026,
+        "K": 1000
+      },
+      "high_K": {
+        "mean": 0.12126562499999997,
+        "std": 0.035138047371003345,
+        "skew": 1.776559454580009,
+        "kurt": 4.286266868995835,
+        "K": 3000
+      }
+    },
+    "phase_names": [
+      "low_K",
+      "K_resonance",
+      "high_K"
+    ]
+  },
+  "config": {
+    "N": 8192,
+    "phases": {
+      "low_K": 100,
+      "K_resonance": 1000,
+      "high_K": 3000
+    },
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 80,
+    "n_seeds": 20
+  }
+}

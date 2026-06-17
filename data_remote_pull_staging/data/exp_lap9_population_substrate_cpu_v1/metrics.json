@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap9_population_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: N=10 substrate population (majority vote) beats single by >=5pp on noisy queries -- biological population coding analog; ensembling averages independent encoding noise. single=0.880 ensemble=1.000 gain=12.0pp",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "single_acc": 0.88,
+      "ensemble_acc": 1.0,
+      "gain_pp": 12.0,
+      "P": 10
+    }
+  ],
+  "elapsed_s": 17.89413571357727,
+  "summary": "HARD_PASS: N=10 substrate population (majority vote) beats single by >=5pp on noisy queries -- biological population coding analog; ensembling averages independent encoding noise. single=0.880 ensemble=1.000 gain=12.0pp"
+}

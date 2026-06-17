@@ -1,0 +1,208 @@
+{
+  "anchor_name": "parser_snr_structured_query_derisk_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: structured query does NOT beat raw bge on benchmark retrieval -- raw bge already saturates query->atom retrieval SNR (gold ~rank 0). Technique 1's lift is NOT in benchmark retrieval; the parser-SNR payoff is in compose/decode (NL->algebra-HRR for reasoning), not retrieval. Scopes the Cycle 52 build away from the retrieval path. n=22; RAW={'median_rank': 0.0, 'mean_rank': 1.45, 'recall_at_3': 0.8636, 'recall_at_10': 0.9545, 'median_cos': 0.7834}; STRUCTURED={'median_rank': 0.5, 'mean_rank': 28.91, 'recall_at_3': 0.5909, 'recall_at_10': 0.7727, 'median_cos': 0.7806}; delta recall@3=-0.2727 median-rank-improvement=-0.5",
+  "summary": "HARD_FAIL: structured query does NOT beat raw bge on benchmark retrieval -- raw bge already saturates query->atom retrieval SNR (gold ~rank 0). Technique 1's lift is NOT in benchmark retrieval; the parser-SNR payoff is in compose/decode (NL->algebra-HRR for reasoning), not retrieval. Scopes the Cycle 52 build away from the retrieval path. n=22; RAW={'median_rank': 0.0, 'mean_rank': 1.45, 'recall_at_3': 0.8636, 'recall_at_10': 0.9545, 'median_cos': 0.7834}; STRUCTURED={'median_rank': 0.5, 'mean_rank': 28.91, 'recall_at_3': 0.5909, 'recall_at_10': 0.7727, 'median_cos': 0.7806}; delta recall@3=-0.2727 median-rank-improvement=-0.5",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 22,
+      "raw": {
+        "median_rank": 0.0,
+        "mean_rank": 1.45,
+        "recall_at_3": 0.8636,
+        "recall_at_10": 0.9545,
+        "median_cos": 0.7834
+      },
+      "structured": {
+        "median_rank": 0.5,
+        "mean_rank": 28.91,
+        "recall_at_3": 0.5909,
+        "recall_at_10": 0.7727,
+        "median_cos": 0.7806
+      },
+      "delta_recall_at_3": -0.2727,
+      "delta_median_rank": -0.5,
+      "rows": [
+        {
+          "id": "Q01-A",
+          "ax": "A",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.791,
+          "struct_cos": 0.791
+        },
+        {
+          "id": "Q02-A",
+          "ax": "A",
+          "raw_rank": 1,
+          "struct_rank": 0,
+          "raw_cos": 0.778,
+          "struct_cos": 0.889
+        },
+        {
+          "id": "Q03-A",
+          "ax": "A",
+          "raw_rank": 2,
+          "struct_rank": 8,
+          "raw_cos": 0.702,
+          "struct_cos": 0.731
+        },
+        {
+          "id": "Q04-A",
+          "ax": "A",
+          "raw_rank": 1,
+          "struct_rank": 0,
+          "raw_cos": 0.667,
+          "struct_cos": 0.883
+        },
+        {
+          "id": "Q05-A",
+          "ax": "A",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.806,
+          "struct_cos": 0.84
+        },
+        {
+          "id": "Q19-E",
+          "ax": "E",
+          "raw_rank": 1,
+          "struct_rank": 0,
+          "raw_cos": 0.82,
+          "struct_cos": 0.872
+        },
+        {
+          "id": "Q20-E",
+          "ax": "E",
+          "raw_rank": 0,
+          "struct_rank": 16,
+          "raw_cos": 0.813,
+          "struct_cos": 0.634
+        },
+        {
+          "id": "Q21-E",
+          "ax": "E",
+          "raw_rank": 1,
+          "struct_rank": 3,
+          "raw_cos": 0.743,
+          "struct_cos": 0.697
+        },
+        {
+          "id": "Q22-E",
+          "ax": "E",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.832,
+          "struct_cos": 0.8
+        },
+        {
+          "id": "Q31-A",
+          "ax": "A",
+          "raw_rank": 2,
+          "struct_rank": 2,
+          "raw_cos": 0.789,
+          "struct_cos": 0.822
+        },
+        {
+          "id": "Q32-A",
+          "ax": "A",
+          "raw_rank": 4,
+          "struct_rank": 15,
+          "raw_cos": 0.689,
+          "struct_cos": 0.719
+        },
+        {
+          "id": "Q33-A",
+          "ax": "A",
+          "raw_rank": 0,
+          "struct_rank": 9,
+          "raw_cos": 0.764,
+          "struct_cos": 0.7
+        },
+        {
+          "id": "Q34-A",
+          "ax": "A",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.724,
+          "struct_cos": 0.809
+        },
+        {
+          "id": "Q35-A",
+          "ax": "A",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.825,
+          "struct_cos": 0.814
+        },
+        {
+          "id": "Q36-A",
+          "ax": "A",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.794,
+          "struct_cos": 0.822
+        },
+        {
+          "id": "Q37-A",
+          "ax": "A",
+          "raw_rank": 2,
+          "struct_rank": 0,
+          "raw_cos": 0.742,
+          "struct_cos": 0.869
+        },
+        {
+          "id": "Q50-E",
+          "ax": "E",
+          "raw_rank": 0,
+          "struct_rank": 8,
+          "raw_cos": 0.753,
+          "struct_cos": 0.726
+        },
+        {
+          "id": "Q51-E",
+          "ax": "E",
+          "raw_rank": 6,
+          "struct_rank": 533,
+          "raw_cos": 0.69,
+          "struct_cos": 0.572
+        },
+        {
+          "id": "Q52-E",
+          "ax": "E",
+          "raw_rank": 0,
+          "struct_rank": 0,
+          "raw_cos": 0.895,
+          "struct_cos": 0.748
+        },
+        {
+          "id": "Q28-G",
+          "ax": "G",
+          "raw_rank": 12,
+          "struct_rank": 23,
+          "raw_cos": 0.672,
+          "struct_cos": 0.659
+        },
+        {
+          "id": "Q30-G",
+          "ax": "G",
+          "raw_rank": 0,
+          "struct_rank": 18,
+          "raw_cos": 0.887,
+          "struct_cos": 0.736
+        },
+        {
+          "id": "Q55-G",
+          "ax": "G",
+          "raw_rank": 0,
+          "struct_rank": 1,
+          "raw_cos": 0.903,
+          "struct_cos": 0.77
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 682.8382303714752
+}

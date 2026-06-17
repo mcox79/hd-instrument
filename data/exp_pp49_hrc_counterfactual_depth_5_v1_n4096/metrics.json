@@ -1,0 +1,52 @@
+{
+  "anchor_name": "pp49_hrc_counterfactual_depth_5_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: hp1_cert_rate=1.0000(HP>=0.85) cf_cos=0.0275(HP>=0.6 HF<0.4) hp3_audit_rate=1.0000(HP>=0.85) ds_cos=0.0031(HP>=0.7) depth=5 n_seeds=5",
+  "N": 4096,
+  "chain_depth": 5,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 2.50014591217041,
+  "per_seed": [
+    {
+      "seed": 7,
+      "hp1_cert_rate": 1.0,
+      "mean_cf_cos": 0.016552734375,
+      "hp3_audit_rate": 1.0,
+      "mean_ds_cos": 0.011669921875,
+      "peak_gpu_gb": 0.28041216
+    },
+    {
+      "seed": 17,
+      "hp1_cert_rate": 1.0,
+      "mean_cf_cos": 0.018701171875,
+      "hp3_audit_rate": 1.0,
+      "mean_ds_cos": -0.04462890625,
+      "peak_gpu_gb": 0.28041216
+    },
+    {
+      "seed": 23,
+      "hp1_cert_rate": 1.0,
+      "mean_cf_cos": -0.014794921875,
+      "hp3_audit_rate": 1.0,
+      "mean_ds_cos": 0.03310546875,
+      "peak_gpu_gb": 0.28041216
+    },
+    {
+      "seed": 31,
+      "hp1_cert_rate": 1.0,
+      "mean_cf_cos": -0.02021484375,
+      "hp3_audit_rate": 1.0,
+      "mean_ds_cos": 0.03564453125,
+      "peak_gpu_gb": 0.28041216
+    },
+    {
+      "seed": 41,
+      "hp1_cert_rate": 1.0,
+      "mean_cf_cos": 0.137109375,
+      "hp3_audit_rate": 1.0,
+      "mean_ds_cos": -0.020166015625,
+      "peak_gpu_gb": 0.28041216
+    }
+  ]
+}

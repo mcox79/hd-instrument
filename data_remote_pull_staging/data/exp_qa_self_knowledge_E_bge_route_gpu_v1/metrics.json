@@ -1,0 +1,30 @@
+{
+  "anchor_name": "qa_self_knowledge_E_bge_route_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a bge cosine-threshold / k policy BEATS the production keyword-only E-route by >=0.05 E-F1 -- a real E-axis lever toward path-to-0.70 (adaptive-size selection captures small multi-atom gold sets the fixed top-3 misses). best=thr_0.70 E-F1=0.8542 vs production 0.5468 (delta +0.3074); all={'prod_E_keyword': 0.5468, 'bge_top3': 0.425, 'bge_top5': 0.2857, 'bge_top8': 0.2167, 'thr_0.60': 0.367, 'thr_0.65': 0.6958, 'thr_0.70': 0.8542, 'thr_0.75': 0.7083, 'kw_U_thr_0.65': 0.5468, 'kw_U_thr_0.70': 0.5468}; n=8",
+  "summary": "HARD_PASS: a bge cosine-threshold / k policy BEATS the production keyword-only E-route by >=0.05 E-F1 -- a real E-axis lever toward path-to-0.70 (adaptive-size selection captures small multi-atom gold sets the fixed top-3 misses). best=thr_0.70 E-F1=0.8542 vs production 0.5468 (delta +0.3074); all={'prod_E_keyword': 0.5468, 'bge_top3': 0.425, 'bge_top5': 0.2857, 'bge_top8': 0.2167, 'thr_0.60': 0.367, 'thr_0.65': 0.6958, 'thr_0.70': 0.8542, 'thr_0.75': 0.7083, 'kw_U_thr_0.65': 0.5468, 'kw_U_thr_0.70': 0.5468}; n=8",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 8,
+      "macro_by_policy": {
+        "prod_E_keyword": 0.5468,
+        "bge_top3": 0.425,
+        "bge_top5": 0.2857,
+        "bge_top8": 0.2167,
+        "thr_0.60": 0.367,
+        "thr_0.65": 0.6958,
+        "thr_0.70": 0.8542,
+        "thr_0.75": 0.7083,
+        "kw_U_thr_0.65": 0.5468,
+        "kw_U_thr_0.70": 0.5468
+      },
+      "prod_A_f1": 0.5468,
+      "best_policy": "thr_0.70",
+      "best_A_f1": 0.8542,
+      "delta": 0.3074
+    }
+  ],
+  "elapsed_s": 234.5213770866394
+}

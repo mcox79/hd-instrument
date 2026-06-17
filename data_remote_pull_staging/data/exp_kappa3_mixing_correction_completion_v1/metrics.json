@@ -1,0 +1,14 @@
+{
+  "anchor_name": "kappa3_mixing_correction_completion_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all rho within 0.03. mean_rel_errs_corrected={'0.0': 0.011956662161312255, '0.1': 0.021739269466645762} n_hp=2/2 HP_REL_ERR=0.03 HF=0.3",
+  "N": 1024,
+  "M": 204,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.3907649517059326,
+  "rho_list": [
+    0.0,
+    0.1
+  ]
+}

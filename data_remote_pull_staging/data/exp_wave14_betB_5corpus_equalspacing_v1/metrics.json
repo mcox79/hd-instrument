@@ -1,0 +1,91 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: criteria not all met for HARD_PASS. Blocking: BIC_delta=-8.6 not < -10.0 (borderline). Note: spacing_error=0.0284 PASSES < 0.05. G4_NOREPLAY distinct from both neighbors: True. Recommend full-scale 5-corpus GPU experiment for clean BIC test (new data, not re-analysis).",
+  "elapsed_s": 0.0,
+  "summary": {
+    "group_means": {
+      "G1_SAME": 0.9406,
+      "G2_REPLAY": 0.8449,
+      "G3_STAGE4": 0.7336,
+      "G4_NOREPLAY": 0.6816,
+      "G5_DIFF": 0.6334
+    },
+    "group_sizes": {
+      "G1_SAME": 5,
+      "G2_REPLAY": 49,
+      "G3_STAGE4": 20,
+      "G4_NOREPLAY": 5,
+      "G5_DIFF": 13
+    },
+    "bic_5state": -395.58,
+    "bic_4state": -386.94,
+    "bic_3state": -244.42,
+    "delta_bic_5vs4": -8.64,
+    "delta_bic_5vs3": -151.16,
+    "spacing_error_5state": 0.0284,
+    "spacing_error_4state_baseline": 0.0035,
+    "gaps": {
+      "G1_SAME->G2_REPLAY": 0.0957,
+      "G2_REPLAY->G3_STAGE4": 0.1113,
+      "G3_STAGE4->G4_NOREPLAY": 0.052,
+      "G4_NOREPLAY->G5_DIFF": 0.0482
+    },
+    "mean_gap": 0.0768,
+    "max_gap_relative_deviation": 0.45,
+    "ordered": true,
+    "g4_distinct_from_g3": true,
+    "g4_distinct_from_g5": true,
+    "all_adjacent_distinct": true,
+    "adjacent_ci_overlaps": [
+      {
+        "pair": "G1_SAME/G2_REPLAY",
+        "overlap": 0.0,
+        "distinct": true
+      },
+      {
+        "pair": "G2_REPLAY/G3_STAGE4",
+        "overlap": 0.0,
+        "distinct": true
+      },
+      {
+        "pair": "G3_STAGE4/G4_NOREPLAY",
+        "overlap": 0.0,
+        "distinct": true
+      },
+      {
+        "pair": "G4_NOREPLAY/G5_DIFF",
+        "overlap": 0.0,
+        "distinct": true
+      }
+    ],
+    "ttest_p_values": [
+      {
+        "pair": "G1_SAME/G2_REPLAY",
+        "p_value": 0.0
+      },
+      {
+        "pair": "G2_REPLAY/G3_STAGE4",
+        "p_value": 0.0
+      },
+      {
+        "pair": "G3_STAGE4/G4_NOREPLAY",
+        "p_value": 0.0
+      },
+      {
+        "pair": "G4_NOREPLAY/G5_DIFF",
+        "p_value": 0.0043
+      }
+    ]
+  },
+  "config": {
+    "design": "5-class re-analysis of existing shift_class_predictor data",
+    "G1": "SAME_CORPUS_PRISTINE",
+    "G2": "REPLAY_SAME_CORPUS",
+    "G3": "STAGE_4_COMPOUND",
+    "G4": "NO_REPLAY_SAME_CORPUS (NEW 5th level)",
+    "G5": "DIFF_CORPUS_2TASK",
+    "data_source": "data/exp_wave14_betB_shift_class_predictor_v1/metrics.json",
+    "parent_experiment": "exp_wave14_betB_4corpus_equalspacing_v1.py",
+    "note": "G4_NOREPLAY n=5 is the boundary of statistical power; CI tests advisory"
+  }
+}

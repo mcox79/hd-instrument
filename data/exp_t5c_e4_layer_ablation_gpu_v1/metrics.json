@@ -1,0 +1,28 @@
+{
+  "anchor_name": "t5c_e4_layer_ablation_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: best pair is L7+8, not L4+5 -- semantic-band hypothesis needs revision. ratios={'L1+2': 0.7939, 'L4+5': 0.7836, 'L7+8': 0.7691, 'L10+11': 0.8411}",
+  "run_mode": "full",
+  "n_seeds": 4,
+  "per_seed": [
+    {
+      "pair_ratios": {
+        "L1+2": 0.7939,
+        "L4+5": 0.7836,
+        "L7+8": 0.7691,
+        "L10+11": 0.8411
+      },
+      "best": "L7+8"
+    }
+  ],
+  "summary": {
+    "pair_ratios": {
+      "L1+2": 0.7939,
+      "L4+5": 0.7836,
+      "L7+8": 0.7691,
+      "L10+11": 0.8411
+    },
+    "best": "L7+8"
+  },
+  "elapsed_s": 352.91411876678467
+}

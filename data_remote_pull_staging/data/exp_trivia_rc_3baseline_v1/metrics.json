@@ -1,0 +1,17 @@
+{
+  "anchor_name": "trivia_rc_3baseline_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: both RAG and substrate beat bare by >=0.15 F1 on TriviaQA -- encyclopedic-recall north-star confirmed; substrate beats RAG by +0.023. bare=0.247 vanilla-RAG=0.436 substrate=0.459 (n=150, TriviaQA-rc, Qwen2.5-1.5B + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 150,
+      "bare": 0.24692063492063493,
+      "rag": 0.43599999999999983,
+      "sub": 0.45939682539682525
+    }
+  ],
+  "elapsed_s": 179.48711109161377,
+  "summary": "HARD_PASS: both RAG and substrate beat bare by >=0.15 F1 on TriviaQA -- encyclopedic-recall north-star confirmed; substrate beats RAG by +0.023. bare=0.247 vanilla-RAG=0.436 substrate=0.459 (n=150, TriviaQA-rc, Qwen2.5-1.5B + bge-small)"
+}

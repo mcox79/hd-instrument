@@ -1,0 +1,11 @@
+{
+  "N": 4096,
+  "NUM_ENTITIES": 100,
+  "NUM_RELATIONS": 10,
+  "NUM_FACTS": 50,
+  "acc_1hop": 0.98,
+  "acc_2hop": 0.9591836734693877,
+  "acc_3hop": 0.9375,
+  "acc_5hop": 0.8913043478260869,
+  "acc_2hop_no_cleanup": 0.9591836734693877
+}

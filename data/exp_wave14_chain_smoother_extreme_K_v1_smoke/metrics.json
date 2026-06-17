@@ -1,0 +1,22 @@
+{
+  "verdict": "EXTREME_K_20K",
+  "verdict_msg": "Scales to 20K: {'10000': 1.0, '20000': 1.0}.",
+  "elapsed_s": 11.296000000002095,
+  "summary": {
+    "acc_per_K": {
+      "10000": 1.0,
+      "20000": 1.0
+    }
+  },
+  "config": {
+    "N": 8192,
+    "depth": 25,
+    "K_grid": [
+      10000,
+      20000
+    ],
+    "num_relations": 20,
+    "n_trials": 3,
+    "seed": 17
+  }
+}

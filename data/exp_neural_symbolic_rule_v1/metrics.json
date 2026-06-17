@@ -1,0 +1,19 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "neural_symbolic_rule: A=HARD_PASS n_hp_a=2/2 n_hf_a=0; C=HARD_PASS mean_cos_c=0.0000 n_hp_c=2/2; N=4096",
+  "verdict_a": "HARD_PASS",
+  "verdict_c": "HARD_PASS",
+  "n_hp_a": 2,
+  "n_hp_c": 2,
+  "n_hf_a": 0,
+  "n_seeds": 2,
+  "mean_cos_at_5_deletion": 0.0,
+  "N": 4096,
+  "F_grid": [
+    10,
+    50,
+    512
+  ],
+  "elapsed_s": 20.886442184448242,
+  "run_mode": "smoke"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pp49_hrc_cross_n_d4_d6_d8_v1_n16384",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: pred_cos > 0.8 (artifact absent) OR root_cos < 0.5 (root-start broken). pred_cos=d4:1.000 d6:1.000 d8:1.000 root_cos=d4:0.040 d6:0.081 d8:-0.000 n_seeds=5 N=16384",
+  "N": 16384,
+  "alpha": 0.05,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.6609513759613037,
+  "depths": [
+    4,
+    6,
+    8
+  ]
+}

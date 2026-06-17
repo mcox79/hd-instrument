@@ -1,0 +1,230 @@
+{
+  "seed": 17,
+  "n_substrate": 4096,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "decay": 0.0001,
+  "max_epochs": 5,
+  "variants": [
+    {
+      "label": "baseline_linear",
+      "mode": null,
+      "alpha": 1.0
+    },
+    {
+      "label": "magnitude_tanh_alpha_1",
+      "mode": "magnitude_tanh",
+      "alpha": 1.0
+    },
+    {
+      "label": "magnitude_tanh_alpha_3",
+      "mode": "magnitude_tanh",
+      "alpha": 3.0
+    },
+    {
+      "label": "magnitude_relu_b_0.5",
+      "mode": "magnitude_relu",
+      "alpha": 0.5
+    },
+    {
+      "label": "magnitude_sigmoid_alpha_2",
+      "mode": "magnitude_sigmoid",
+      "alpha": 2.0
+    },
+    {
+      "label": "real_imag_tanh",
+      "mode": "real_imag_tanh",
+      "alpha": 1.0
+    }
+  ],
+  "results": [
+    {
+      "nl_label": "baseline_linear",
+      "nl_mode": null,
+      "nl_alpha": 1.0,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 2.8623941744093666,
+          "argmax_accuracy": 0.5473984319315752,
+          "w_frobenius": 42.56944274902344,
+          "wall_s": 4.3360884999997324
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.611317669637649,
+          "argmax_accuracy": 0.5839527543020059,
+          "w_frobenius": 70.31240844726562,
+          "wall_s": 11.258602699999756
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.5569643918468468,
+          "argmax_accuracy": 0.5960696466754913,
+          "w_frobenius": 85.98230743408203,
+          "wall_s": 18.227010999999948
+        }
+      ],
+      "wall_time_s": 18.369063000000097
+    },
+    {
+      "nl_label": "magnitude_tanh_alpha_1",
+      "nl_mode": "magnitude_tanh",
+      "nl_alpha": 1.0,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 4.146940626931547,
+          "argmax_accuracy": 0.4845738723144283,
+          "w_frobenius": 370.8973083496094,
+          "wall_s": 4.176979100000153
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 4.148818540908135,
+          "argmax_accuracy": 0.48121372568984827,
+          "w_frobenius": 1046.995849609375,
+          "wall_s": 11.243933000000197
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 4.149572228137568,
+          "argmax_accuracy": 0.4801954994399756,
+          "w_frobenius": 1645.390869140625,
+          "wall_s": 18.28342100000009
+        }
+      ],
+      "wall_time_s": 18.303251799999998
+    },
+    {
+      "nl_label": "magnitude_tanh_alpha_3",
+      "nl_mode": "magnitude_tanh",
+      "nl_alpha": 3.0,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 4.146628125502152,
+          "argmax_accuracy": 0.48498116281437736,
+          "w_frobenius": 369.3711853027344,
+          "wall_s": 4.1470140999999785
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 4.1487369597559,
+          "argmax_accuracy": 0.48121372568984827,
+          "w_frobenius": 1045.645751953125,
+          "wall_s": 11.184684400000151
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 4.149528780751626,
+          "argmax_accuracy": 0.4801954994399756,
+          "w_frobenius": 1644.1995849609375,
+          "wall_s": 18.256663799999842
+        }
+      ],
+      "wall_time_s": 18.276373799999874
+    },
+    {
+      "nl_label": "magnitude_relu_b_0.5",
+      "nl_mode": "magnitude_relu",
+      "nl_alpha": 0.5,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 2.8687852529920588,
+          "argmax_accuracy": 0.5416963649322879,
+          "w_frobenius": 46.1242790222168,
+          "wall_s": 4.117352799999935
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.5960569493385335,
+          "argmax_accuracy": 0.585480093676815,
+          "w_frobenius": 74.68439483642578,
+          "wall_s": 11.172181399999772
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.5379584494706218,
+          "argmax_accuracy": 0.5969860503003768,
+          "w_frobenius": 91.00199890136719,
+          "wall_s": 18.18878659999973
+        }
+      ],
+      "wall_time_s": 18.20810470000015
+    },
+    {
+      "nl_label": "magnitude_sigmoid_alpha_2",
+      "nl_mode": "magnitude_sigmoid",
+      "nl_alpha": 2.0,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 2.863732563722232,
+          "argmax_accuracy": 0.547296609306588,
+          "w_frobenius": 43.11625289916992,
+          "wall_s": 4.116933599999811
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.608931466186014,
+          "argmax_accuracy": 0.585480093676815,
+          "w_frobenius": 70.7243881225586,
+          "wall_s": 11.196607200000017
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.5547301771441466,
+          "argmax_accuracy": 0.5978006313002749,
+          "w_frobenius": 86.36107635498047,
+          "wall_s": 18.264551700000084
+        }
+      ],
+      "wall_time_s": 18.28272489999972
+    },
+    {
+      "nl_label": "real_imag_tanh",
+      "nl_mode": "real_imag_tanh",
+      "nl_alpha": 1.0,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 3.9052219839497115,
+          "argmax_accuracy": 0.5011709601873536,
+          "w_frobenius": 285.1455993652344,
+          "wall_s": 4.099496100000124
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 3.913550279495151,
+          "argmax_accuracy": 0.49831992668771,
+          "w_frobenius": 800.0147094726562,
+          "wall_s": 11.157094199999847
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 3.91613661705167,
+          "argmax_accuracy": 0.49811628143773545,
+          "w_frobenius": 1256.3927001953125,
+          "wall_s": 18.150475899999947
+        }
+      ],
+      "wall_time_s": 18.16903339999999
+    }
+  ],
+  "best": {
+    "epoch": 5,
+    "test_bpc": 2.5379584494706218,
+    "argmax_accuracy": 0.5969860503003768,
+    "w_frobenius": 91.00199890136719,
+    "wall_s": 18.18878659999973,
+    "nl_label": "magnitude_relu_b_0.5",
+    "nl_mode": "magnitude_relu",
+    "nl_alpha": 0.5
+  },
+  "headline": "Dendritic NL best: magnitude_relu_b_0.5 test_bpc=2.538"
+}

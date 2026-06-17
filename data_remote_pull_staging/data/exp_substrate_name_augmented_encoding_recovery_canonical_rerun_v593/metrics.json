@@ -1,0 +1,55 @@
+{
+  "anchor_name": "substrate_name_augmented_encoding_recovery_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (BINDING drill cap-1): alpha=0.5 identity-augmentation generalizes to high binding count -- cleanup@1 >=0.95 at F=10 AND >=0.85 at F=20. Two-vector architecture rule holds across binding scale. alpha=0.5: cleanup@1 F10=0.9883 F20=0.9617; full alpha x F grid=[(0.0, {1: 0.9333, 3: 0.8889, 10: 0.8683, 20: 0.8417}), (0.25, {1: 1.0, 3: 0.9833, 10: 0.9567, 20: 0.9158}), (0.5, {1: 1.0, 3: 1.0, 10: 0.9883, 20: 0.9617}), (1.0, {1: 1.0, 3: 1.0, 10: 0.9983, 20: 0.9908})]; corpus=241 device=cuda",
+  "summary": "HARD_PASS (BINDING drill cap-1): alpha=0.5 identity-augmentation generalizes to high binding count -- cleanup@1 >=0.95 at F=10 AND >=0.85 at F=20. Two-vector architecture rule holds across binding scale. alpha=0.5: cleanup@1 F10=0.9883 F20=0.9617; full alpha x F grid=[(0.0, {1: 0.9333, 3: 0.8889, 10: 0.8683, 20: 0.8417}), (0.25, {1: 1.0, 3: 0.9833, 10: 0.9567, 20: 0.9158}), (0.5, {1: 1.0, 3: 1.0, 10: 0.9883, 20: 0.9617}), (1.0, {1: 1.0, 3: 1.0, 10: 0.9983, 20: 0.9908})]; corpus=241 device=cuda",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "alpha": 0.0,
+          "cleanup": {
+            "1": 0.9333,
+            "3": 0.8889,
+            "10": 0.8683,
+            "20": 0.8417
+          }
+        },
+        {
+          "alpha": 0.25,
+          "cleanup": {
+            "1": 1.0,
+            "3": 0.9833,
+            "10": 0.9567,
+            "20": 0.9158
+          }
+        },
+        {
+          "alpha": 0.5,
+          "cleanup": {
+            "1": 1.0,
+            "3": 1.0,
+            "10": 0.9883,
+            "20": 0.9617
+          }
+        },
+        {
+          "alpha": 1.0,
+          "cleanup": {
+            "1": 1.0,
+            "3": 1.0,
+            "10": 0.9983,
+            "20": 0.9908
+          }
+        }
+      ],
+      "n_atoms": 241,
+      "dim": 1024,
+      "device": "cuda",
+      "n_seeds": 3
+    }
+  ],
+  "elapsed_s": 6.342092514038086
+}

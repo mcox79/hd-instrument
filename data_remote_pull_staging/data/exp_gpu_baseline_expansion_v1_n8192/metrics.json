@@ -1,0 +1,39 @@
+{
+  "verdict": "GPU_BASE_INCONCLUSIVE",
+  "verdict_msg": "No GPU runs.",
+  "elapsed_s": 0.82,
+  "summary": {
+    "anchor": "gpu_baseline_expansion_v1_n8192",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "seeds": [
+      17
+    ],
+    "batches": [
+      1,
+      16
+    ],
+    "cells": [
+      {
+        "M": 256,
+        "seed": 17,
+        "N": 1024,
+        "cpu_lat_per_op_s": {
+          "1": 0.0012299955999478698,
+          "16": 0.001899064800236374
+        },
+        "gpu_lat_per_op_s": null,
+        "speedup_per_batch": null,
+        "speedup_single": 0.0,
+        "gpu_retention": null,
+        "gpu_above_thresh_frac": null,
+        "gpu_max_iso": null,
+        "gpu_kf_pass": false
+      }
+    ],
+    "verdict": "GPU_BASE_INCONCLUSIVE",
+    "verdict_msg": "No GPU runs.",
+    "elapsed_s": 0.82
+  }
+}

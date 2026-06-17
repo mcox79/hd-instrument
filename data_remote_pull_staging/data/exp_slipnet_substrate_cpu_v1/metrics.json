@@ -1,0 +1,17 @@
+{
+  "anchor_name": "slipnet_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: relation-TYPE slipnet activation recovers cross-domain correspondence (Hits@1>=0.70) and beats degree-only by >=0.15 -- relation-type structure (not just degree, not entity geometry) carries cross-domain analogy. NEW mechanism cracks the gap SME could not. slipnet=0.985 degree-baseline=0.827 lift=0.158",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits1_slipnet": 0.985,
+      "hits1_degree": 0.827,
+      "lift": 0.158,
+      "n_entities": 7
+    }
+  ],
+  "elapsed_s": 7.442548990249634,
+  "summary": "HARD_PASS: relation-TYPE slipnet activation recovers cross-domain correspondence (Hits@1>=0.70) and beats degree-only by >=0.15 -- relation-type structure (not just degree, not entity geometry) carries cross-domain analogy. NEW mechanism cracks the gap SME could not. slipnet=0.985 degree-baseline=0.827 lift=0.158"
+}

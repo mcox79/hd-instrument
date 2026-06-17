@@ -1,0 +1,15 @@
+{
+  "anchor_name": "ppr_matrix_khop_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: matrix-PPR recall <0.55. matrix-PPR recall=0.300 iters=9.2",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.30000000000000004,
+      "iters": 9.25
+    }
+  ],
+  "elapsed_s": 0.21347403526306152,
+  "summary": "HARD_FAIL: matrix-PPR recall <0.55. matrix-PPR recall=0.300 iters=9.2"
+}

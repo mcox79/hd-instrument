@@ -1,0 +1,333 @@
+{
+  "anchor_name": "substrate_61a_m4d_on_56d_concept_disjoint_heldout_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "TRIGGER-1 (substrate GENERALIZES to NEW CONCEPTS): F1_56d=0.2218 >= 0.20. Phase 3 CO-EVOLVE-1 dispatch authorized. DECISIVE 56d concept-disjoint blind held-out (n=52 in-cov; SHA-256 locked; one-shot beta=0.10): M4d F1=0.2218 vs bge 0.2167 (paired delta +0.0051); 34/52 questions F1>0. Reference: q54-q65 in-distribution M4d=0.272.",
+  "summary": "TRIGGER-1 (substrate GENERALIZES to NEW CONCEPTS): F1_56d=0.2218 >= 0.20. Phase 3 CO-EVOLVE-1 dispatch authorized. DECISIVE 56d concept-disjoint blind held-out (n=52 in-cov; SHA-256 locked; one-shot beta=0.10): M4d F1=0.2218 vs bge 0.2167 (paired delta +0.0051); 34/52 questions F1>0. Reference: q54-q65 in-distribution M4d=0.272.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_in_cov": 52,
+      "n_gap": 7,
+      "bge_baseline": 0.2167,
+      "m4d_f1": 0.2218,
+      "paired_delta": 0.0051,
+      "n_nonzero": 34,
+      "rows": [
+        {
+          "qid": "H56D-A01",
+          "chapter": "abstract_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-A02",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A03",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A04",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A05",
+          "chapter": "abstract_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-A06",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A07",
+          "chapter": "abstract_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-A08",
+          "chapter": "abstract_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-A09",
+          "chapter": "abstract_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-A10",
+          "chapter": "abstract_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-A11",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A12",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A13",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-A14",
+          "chapter": "abstract_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B01",
+          "chapter": "real_analysis",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-B02",
+          "chapter": "real_analysis",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-B03",
+          "chapter": "real_analysis",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-B04",
+          "chapter": "real_analysis",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-B05",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B06",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B07",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B08",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B09",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B10",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B11",
+          "chapter": "real_analysis",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-B12",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B13",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B14",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-B15",
+          "chapter": "real_analysis",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-C01",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-C02",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-C03",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-C04",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-C05",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-C06",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-C07",
+          "chapter": "combinatorics_number_theory",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D01",
+          "chapter": "graphs_algorithms",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D02",
+          "chapter": "graphs_algorithms",
+          "bge": 0.4,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D03",
+          "chapter": "graphs_algorithms",
+          "bge": 0.4,
+          "m4d": 0.4
+        },
+        {
+          "qid": "H56D-D04",
+          "chapter": "graphs_algorithms",
+          "bge": 0.4,
+          "m4d": 0.4
+        },
+        {
+          "qid": "H56D-D05",
+          "chapter": "graphs_algorithms",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-D06",
+          "chapter": "graphs_algorithms",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-D07",
+          "chapter": "graphs_algorithms",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D08",
+          "chapter": "graphs_algorithms",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-D09",
+          "chapter": "graphs_algorithms",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-D10",
+          "chapter": "graphs_algorithms",
+          "bge": 0.4,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D11",
+          "chapter": "graphs_algorithms",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D12",
+          "chapter": "graphs_algorithms",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-D13",
+          "chapter": "graphs_algorithms",
+          "bge": 0.0,
+          "m4d": 0.4
+        },
+        {
+          "qid": "H56D-E01",
+          "chapter": "physics_stats_algebra",
+          "bge": 0.0,
+          "m4d": 0.0
+        },
+        {
+          "qid": "H56D-E02",
+          "chapter": "physics_stats_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        },
+        {
+          "qid": "H56D-E03",
+          "chapter": "physics_stats_algebra",
+          "bge": 0.333,
+          "m4d": 0.333
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 11.760720252990723
+}

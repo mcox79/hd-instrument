@@ -1,0 +1,18 @@
+{
+  "anchor_name": "v1_corroboration_gate_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: one criterion met. f=4/10 Byzantine, quorum Q=3: recovery=0.835 false_accept=0.000",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "f": 4,
+      "recovery": 0.835,
+      "false_accept": 0.0
+    }
+  ],
+  "elapsed_s": 0.9924747943878174,
+  "summary": "MIDDLE_BAND: one criterion met. f=4/10 Byzantine, quorum Q=3: recovery=0.835 false_accept=0.000"
+}

@@ -1,0 +1,96 @@
+{
+  "N": 4096,
+  "lr_sweep": [
+    0.1,
+    1.0,
+    10.0,
+    30.0
+  ],
+  "results": [
+    {
+      "lr": 0.1,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": 4.607621646900913,
+          "argmax_accuracy": 0.47500254556562466,
+          "w_frob": 58.90744400024414,
+          "wall_s": 17.671138400000928
+        },
+        {
+          "epoch": 15,
+          "test_bpc": 4.403078963855852,
+          "argmax_accuracy": 0.5080948986864882,
+          "w_frob": 52.589012145996094,
+          "wall_s": 52.001725900001475
+        }
+      ],
+      "best_bpc": 4.403078963855852,
+      "gap_vs_delta": -1.9213789638558518
+    },
+    {
+      "lr": 1.0,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": 4.050916967148233,
+          "argmax_accuracy": 0.5333469096833316,
+          "w_frob": 40.668365478515625,
+          "wall_s": 11.008787700004177
+        },
+        {
+          "epoch": 15,
+          "test_bpc": 3.869260270779323,
+          "argmax_accuracy": 0.5554424193055697,
+          "w_frob": 32.36597442626953,
+          "wall_s": 38.640448999998625
+        }
+      ],
+      "best_bpc": 3.869260270779323,
+      "gap_vs_delta": -1.387560270779323
+    },
+    {
+      "lr": 10.0,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": NaN,
+          "argmax_accuracy": 0.0,
+          "w_frob": NaN,
+          "wall_s": 17.934826999997313
+        },
+        {
+          "epoch": 15,
+          "test_bpc": NaN,
+          "argmax_accuracy": 0.0,
+          "w_frob": NaN,
+          "wall_s": 53.27775219999603
+        }
+      ],
+      "best_bpc": NaN,
+      "gap_vs_delta": NaN
+    },
+    {
+      "lr": 30.0,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": NaN,
+          "argmax_accuracy": 0.0,
+          "w_frob": NaN,
+          "wall_s": 17.94297459999507
+        },
+        {
+          "epoch": 15,
+          "test_bpc": NaN,
+          "argmax_accuracy": 0.0,
+          "w_frob": NaN,
+          "wall_s": 53.29542049999873
+        }
+      ],
+      "best_bpc": NaN,
+      "gap_vs_delta": NaN
+    }
+  ],
+  "delta_rule_reference": 2.4817
+}

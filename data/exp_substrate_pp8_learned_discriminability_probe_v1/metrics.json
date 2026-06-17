@@ -1,0 +1,62 @@
+{
+  "anchor_name": "substrate_pp8_learned_discriminability_probe_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: learned probe preserves >=95pct coverage at 10-50x -- learned extraction routing works. learned-probe coverage by speedup: {'sp10': 1.0, 'sp50': 0.986, 'sp100': 0.887}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_speedup": {
+        "sp10": {
+          "probe_cov": 1.0,
+          "random_cov": 1.0
+        },
+        "sp50": {
+          "probe_cov": 0.99,
+          "random_cov": 0.992
+        },
+        "sp100": {
+          "probe_cov": 0.904,
+          "random_cov": 0.888
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by_speedup": {
+        "sp10": {
+          "probe_cov": 1.0,
+          "random_cov": 1.0
+        },
+        "sp50": {
+          "probe_cov": 0.986,
+          "random_cov": 0.994
+        },
+        "sp100": {
+          "probe_cov": 0.89,
+          "random_cov": 0.886
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by_speedup": {
+        "sp10": {
+          "probe_cov": 1.0,
+          "random_cov": 1.0
+        },
+        "sp50": {
+          "probe_cov": 0.982,
+          "random_cov": 0.994
+        },
+        "sp100": {
+          "probe_cov": 0.868,
+          "random_cov": 0.918
+        }
+      }
+    }
+  ],
+  "elapsed_s": 1.0355772972106934,
+  "summary": "HARD_PASS: learned probe preserves >=95pct coverage at 10-50x -- learned extraction routing works. learned-probe coverage by speedup: {'sp10': 1.0, 'sp50': 0.986, 'sp100': 0.887}"
+}

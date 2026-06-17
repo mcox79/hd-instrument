@@ -1,0 +1,101 @@
+{
+  "verdict": "SCALE_FAIL",
+  "verdict_msg": "Mechanism fails even at small n_facts. Per-K: K=20: lk_red=0.0pp kept=100.00%, K=50: lk_red=0.0pp kept=100.00%",
+  "elapsed_s": 0.2659999999741558,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      20,
+      50
+    ],
+    "alpha": 0.5,
+    "erase_frac": 0.3,
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "n_facts": 20,
+      "alpha": 0.5,
+      "n_erase": 6,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0,
+      "per_seed": [
+        {
+          "seed": 17,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        }
+      ]
+    },
+    {
+      "n_facts": 50,
+      "alpha": 0.5,
+      "n_erase": 15,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0,
+      "per_seed": [
+        {
+          "seed": 17,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "n_facts": 20,
+        "alpha": 0.5,
+        "n_erase": 6,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          }
+        ]
+      },
+      {
+        "n_facts": 50,
+        "alpha": 0.5,
+        "n_erase": 15,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          }
+        ]
+      }
+    ]
+  }
+}

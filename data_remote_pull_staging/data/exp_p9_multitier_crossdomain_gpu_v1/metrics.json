@@ -1,0 +1,25 @@
+{
+  "anchor_name": "p9_multitier_crossdomain_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: multi-tier <0.40 -- universal-relation representation insufficient; LLM-hybrid (P6) is the cross-domain answer. held-out-rel Hits@1=0.183 Hits@10=0.514 | in-vocab-ref Hits@1=0.040 Hits@10=0.216 (ents=4347, rels=5, test=218, dev=cuda)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits10_tier3only_heldout": 0.514,
+      "hits10_invocab_tier1plus3": 0.216,
+      "hits10_invocab_shuffled_tier1": 0.096,
+      "hits1_multitier": 0.183,
+      "hits10_multitier": 0.514,
+      "hits1_invocab": 0.04,
+      "hits10_invocab": 0.216,
+      "n_triples": 21601,
+      "n_ent": 4347,
+      "n_rel": 5,
+      "n_test": 218,
+      "dev": "cuda"
+    }
+  ],
+  "elapsed_s": 12.641920328140259,
+  "summary": "HARD_FAIL: multi-tier <0.40 -- universal-relation representation insufficient; LLM-hybrid (P6) is the cross-domain answer. held-out-rel Hits@1=0.183 Hits@10=0.514 | in-vocab-ref Hits@1=0.040 Hits@10=0.216 (ents=4347, rels=5, test=218, dev=cuda)"
+}

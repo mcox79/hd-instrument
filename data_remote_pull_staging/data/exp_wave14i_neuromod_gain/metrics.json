@@ -1,0 +1,196 @@
+{
+  "D": 4096,
+  "T_PER_PHASE": 1000,
+  "SEEDS": [
+    17,
+    23,
+    31,
+    41,
+    53
+  ],
+  "BASE_ALPHA": 0.3,
+  "elapsed_s": 77.79699999999139,
+  "grid": [
+    {
+      "schedule": "fixed",
+      "seed": 17,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "fixed",
+      "seed": 23,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "fixed",
+      "seed": 31,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "fixed",
+      "seed": 41,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "fixed",
+      "seed": 53,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "surprise",
+      "seed": 17,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "surprise",
+      "seed": 23,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "surprise",
+      "seed": 31,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "surprise",
+      "seed": 41,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "surprise",
+      "seed": 53,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "novelty",
+      "seed": 17,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "novelty",
+      "seed": 23,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "novelty",
+      "seed": 31,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "novelty",
+      "seed": 41,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "novelty",
+      "seed": 53,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "hgf",
+      "seed": 17,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "hgf",
+      "seed": 23,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "hgf",
+      "seed": 31,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "hgf",
+      "seed": 41,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    },
+    {
+      "schedule": "hgf",
+      "seed": 53,
+      "acc_A_after_A": 1.0,
+      "acc_A_after_B": 1.0,
+      "acc_B_after_B": 1.0,
+      "forgetting": 0.0
+    }
+  ],
+  "summary": {
+    "fixed": {
+      "forgetting_mean": 0.0,
+      "B_adapt_mean": 1.0
+    },
+    "surprise": {
+      "forgetting_mean": 0.0,
+      "B_adapt_mean": 1.0
+    },
+    "novelty": {
+      "forgetting_mean": 0.0,
+      "B_adapt_mean": 1.0
+    },
+    "hgf": {
+      "forgetting_mean": 0.0,
+      "B_adapt_mean": 1.0
+    }
+  },
+  "verdict": "NEUROMOD_GAIN_COSMETIC",
+  "verdict_msg": "HGF improvement 0.0% < 5%. Schedules are cosmetic in our regime.",
+  "hgf_improvement": 0.0
+}

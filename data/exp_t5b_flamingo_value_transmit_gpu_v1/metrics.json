@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5b_flamingo_value_transmit_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: held-out <0.30 (adapter memorizes train / value path does not generalize). bare-test=0.000 train=0.000 held-out=0.000 (10/7)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "loaded": true,
+      "n_train": 10,
+      "n_test": 7,
+      "bare": 0.0,
+      "train_top1": 0.0,
+      "heldout_top1": 0.0
+    }
+  ],
+  "elapsed_s": 55.99642014503479,
+  "summary": "HARD_FAIL: held-out <0.30 (adapter memorizes train / value path does not generalize). bare-test=0.000 train=0.000 held-out=0.000 (10/7)"
+}

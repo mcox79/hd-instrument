@@ -1,0 +1,15 @@
+{
+  "anchor_name": "n1d_parallel_subq_native_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: parallel sub-question decomposition on native substrate recall>=0.70 -- parallel matches chained K-hop on discrete (decomposition-pattern agnostic when grounded discretely). parallel-native=0.883 chained-Khop=0.833",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "chained": 0.8333333333333334,
+      "parallel": 0.8833333333333333
+    }
+  ],
+  "elapsed_s": 0.1737346649169922,
+  "summary": "HARD_PASS: parallel sub-question decomposition on native substrate recall>=0.70 -- parallel matches chained K-hop on discrete (decomposition-pattern agnostic when grounded discretely). parallel-native=0.883 chained-Khop=0.833"
+}

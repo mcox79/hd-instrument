@@ -1,0 +1,45 @@
+{
+  "anchor_name": "substrate_phase3_coevolve1_iteration1_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 0 sound edges (pipeline produced nothing -- P4 generate or CHTV gate too strict for these targets). CO-EVOLVE-1 Iter 1: 0 ACCEPT (sound DEPENDS_ON) edges for 3 isolated golds, emitted to coevolve1_iter1_ACCEPT_edges.jsonl for Testbed atomic ratify. Per-target: {'mutual_information': 0, 'markov_decision_process': 0, 'q_learning': 0}. NO substrate mutation by Exp-Dev (proposal only). M4d metric DEFERRED (needs remote re-sync). capability_preservation: additive-only edges (each candidate is axiom-terminating + no cycle introduced) -> core axiom termination preserved by construction.",
+  "summary": "HARD_FAIL: 0 sound edges (pipeline produced nothing -- P4 generate or CHTV gate too strict for these targets). CO-EVOLVE-1 Iter 1: 0 ACCEPT (sound DEPENDS_ON) edges for 3 isolated golds, emitted to coevolve1_iter1_ACCEPT_edges.jsonl for Testbed atomic ratify. Per-target: {'mutual_information': 0, 'markov_decision_process': 0, 'q_learning': 0}. NO substrate mutation by Exp-Dev (proposal only). M4d metric DEFERRED (needs remote re-sync). capability_preservation: additive-only edges (each candidate is axiom-terminating + no cycle introduced) -> core axiom termination preserved by construction.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_targets": 3,
+      "total_accept_edges": 0,
+      "rows": [
+        {
+          "target": "mutual_information",
+          "tier": "T1",
+          "generated_P4": 1,
+          "accepted_DEPENDS_ON": [],
+          "n_accepted": 0,
+          "chtv_acceptance": 0.0,
+          "p5_specializes_prims": []
+        },
+        {
+          "target": "markov_decision_process",
+          "tier": "T3",
+          "generated_P4": 0,
+          "accepted_DEPENDS_ON": [],
+          "n_accepted": 0,
+          "chtv_acceptance": 0.0,
+          "p5_specializes_prims": []
+        },
+        {
+          "target": "q_learning",
+          "tier": "T3",
+          "generated_P4": 0,
+          "accepted_DEPENDS_ON": [],
+          "n_accepted": 0,
+          "chtv_acceptance": 0.0,
+          "p5_specializes_prims": []
+        }
+      ],
+      "proposal_file": "D:\\AI\\hd-instrument\\data\\substrate_index\\coevolve1_iter1_ACCEPT_edges.jsonl"
+    }
+  ],
+  "elapsed_s": 1.081958293914795
+}

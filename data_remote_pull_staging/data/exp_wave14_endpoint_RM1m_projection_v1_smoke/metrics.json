@@ -1,0 +1,23 @@
+{
+  "verdict": "RM1M_FAIL_LOW",
+  "verdict_msg": "frac_within_d/2=0.000<0.15 (substrate avoids RM(1,16)).",
+  "elapsed_s": 16.20299999997951,
+  "summary": {
+    "frac_within_d_half": 0.0,
+    "frac_per_seed": [
+      0.0,
+      0.0
+    ],
+    "N": 4096,
+    "threshold": 2048
+  },
+  "config": {
+    "N": 4096,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 1000,
+    "num_relations": 20,
+    "n_starts": 200,
+    "n_seeds": 2
+  }
+}

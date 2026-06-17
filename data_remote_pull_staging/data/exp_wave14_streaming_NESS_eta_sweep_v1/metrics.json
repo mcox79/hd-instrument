@@ -1,0 +1,250 @@
+{
+  "verdict": "NESS_BIMODAL_FRAGILE",
+  "verdict_msg": "Bimodality collapses under streaming noise. Overall fraction = 0.19 <= 0.30 across 16 cells. Per-eta: {'0.001': [1, 4], '0.010': [1, 4], '0.100': [0, 4], '1.000': [1, 4]}.",
+  "elapsed_s": 673.9840000000258,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 0.5,
+        "eta": 0.001,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": -0.0004239095052083333,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 0.5,
+        "eta": 0.01,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.0002998860677083334,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 0.5,
+        "eta": 0.1,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 6.347656249999998e-05,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 0.5,
+        "eta": 1.0,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.00013484700520833334,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 1.0,
+        "eta": 0.001,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.0027793782552083335,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 1.0,
+        "eta": 0.01,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": -0.0010590820312499996,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 1.0,
+        "eta": 0.1,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.0009427897135416667,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 1.0,
+        "eta": 1.0,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.000185302734375,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 2.0,
+        "eta": 0.001,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.11039274088541666,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 2.0,
+        "eta": 0.01,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.09529866536458334,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 2.0,
+        "eta": 0.1,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.014772542317708331,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 2.0,
+        "eta": 1.0,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": -2.115885416666663e-06,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 4.0,
+        "eta": 0.001,
+        "bimodal_score_mean": 1.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.9870930175781248,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 4.0,
+        "eta": 0.01,
+        "bimodal_score_mean": 1.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.9672310384114583,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 4.0,
+        "eta": 0.1,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.077281005859375,
+        "n_seeds": 10
+      },
+      {
+        "alpha": 0.1,
+        "N": 4096,
+        "M": 409,
+        "beta": 4.0,
+        "eta": 1.0,
+        "bimodal_score_mean": 1.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": -3.450520833333334e-05,
+        "n_seeds": 10
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 4096,
+      "alpha_list": [
+        0.1
+      ],
+      "beta_list": [
+        0.5,
+        1.0,
+        2.0,
+        4.0
+      ],
+      "eta_list": [
+        0.001,
+        0.01,
+        0.1,
+        1.0
+      ],
+      "n_seeds": 10,
+      "n_burn": 400,
+      "n_collect": 600,
+      "n_targets": 1
+    },
+    "overall_bimodal_fraction": 0.1875,
+    "per_eta": {
+      "0.001": [
+        1,
+        4
+      ],
+      "0.010": [
+        1,
+        4
+      ],
+      "0.100": [
+        0,
+        4
+      ],
+      "1.000": [
+        1,
+        4
+      ]
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "alpha_list": [
+      0.1
+    ],
+    "beta_list": [
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "eta_list": [
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "n_seeds": 10,
+    "n_burn": 400,
+    "n_collect": 600,
+    "n_targets": 1
+  }
+}

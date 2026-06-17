@@ -1,0 +1,17 @@
+{
+  "anchor_name": "d3_crossshard_substrate_kv_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cross-shard substrate-KV works -- content-routed per-domain recall>=0.90 (routing>=0.95) over an LLM-keyed memory; the full v1.5 architecture (LLM-keyed + sharded + routed external memory) holds. routing=0.999 routed-recall=0.999 monolithic=1.000 (NDOM=40)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "route_acc": 0.9990625,
+      "routed": 0.9990625,
+      "mono": 1.0,
+      "ndom": 40
+    }
+  ],
+  "elapsed_s": 17.877684593200684,
+  "summary": "HARD_PASS: cross-shard substrate-KV works -- content-routed per-domain recall>=0.90 (routing>=0.95) over an LLM-keyed memory; the full v1.5 architecture (LLM-keyed + sharded + routed external memory) holds. routing=0.999 routed-recall=0.999 monolithic=1.000 (NDOM=40)"
+}

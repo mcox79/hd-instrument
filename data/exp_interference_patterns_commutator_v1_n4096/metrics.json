@@ -1,0 +1,178 @@
+{
+  "verdict": "INT_HARD_FAIL",
+  "verdict_msg": "NO_SEPARATION: conditions within +/-20%. means={'independent': 0.0191338, 'related': 0.0165798, 'contradictory': 0.019138} max/min=1.15x span_pct=0.154 n_cells=15 n_conditions=3",
+  "elapsed_s": 6.94,
+  "summary": {
+    "anchor": "interference_patterns_commutator_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 256,
+    "conditions": [
+      "independent",
+      "related",
+      "contradictory"
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "M": 256,
+        "condition": "independent",
+        "commutator_magnitude": 0.019142,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46582,
+        "W_A_norm": 15.99756,
+        "W_B_norm": 15.99702
+      },
+      {
+        "seed": 17,
+        "M": 256,
+        "condition": "independent",
+        "commutator_magnitude": 0.019129,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46246,
+        "W_A_norm": 16.00377,
+        "W_B_norm": 15.99837
+      },
+      {
+        "seed": 23,
+        "M": 256,
+        "condition": "independent",
+        "commutator_magnitude": 0.019151,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46891,
+        "W_A_norm": 16.0004,
+        "W_B_norm": 15.99969
+      },
+      {
+        "seed": 31,
+        "M": 256,
+        "condition": "independent",
+        "commutator_magnitude": 0.019139,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46191,
+        "W_A_norm": 15.99706,
+        "W_B_norm": 16.00032
+      },
+      {
+        "seed": 41,
+        "M": 256,
+        "condition": "independent",
+        "commutator_magnitude": 0.019108,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.45581,
+        "W_A_norm": 16.00053,
+        "W_B_norm": 16.00063
+      },
+      {
+        "seed": 7,
+        "M": 256,
+        "condition": "related",
+        "commutator_magnitude": 0.016603,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46562,
+        "W_A_norm": 15.99756,
+        "W_B_norm": 15.99738
+      },
+      {
+        "seed": 17,
+        "M": 256,
+        "condition": "related",
+        "commutator_magnitude": 0.016585,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46331,
+        "W_A_norm": 16.00377,
+        "W_B_norm": 16.0036
+      },
+      {
+        "seed": 23,
+        "M": 256,
+        "condition": "related",
+        "commutator_magnitude": 0.016593,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.47407,
+        "W_A_norm": 16.0004,
+        "W_B_norm": 15.99713
+      },
+      {
+        "seed": 31,
+        "M": 256,
+        "condition": "related",
+        "commutator_magnitude": 0.016576,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46353,
+        "W_A_norm": 15.99706,
+        "W_B_norm": 15.99887
+      },
+      {
+        "seed": 41,
+        "M": 256,
+        "condition": "related",
+        "commutator_magnitude": 0.016542,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.45363,
+        "W_A_norm": 16.00053,
+        "W_B_norm": 16.00037
+      },
+      {
+        "seed": 7,
+        "M": 256,
+        "condition": "contradictory",
+        "commutator_magnitude": 0.019171,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.47632,
+        "W_A_norm": 15.99756,
+        "W_B_norm": 15.99878
+      },
+      {
+        "seed": 17,
+        "M": 256,
+        "condition": "contradictory",
+        "commutator_magnitude": 0.019125,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46089,
+        "W_A_norm": 16.00377,
+        "W_B_norm": 15.99625
+      },
+      {
+        "seed": 23,
+        "M": 256,
+        "condition": "contradictory",
+        "commutator_magnitude": 0.019137,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46714,
+        "W_A_norm": 16.0004,
+        "W_B_norm": 16.00267
+      },
+      {
+        "seed": 31,
+        "M": 256,
+        "condition": "contradictory",
+        "commutator_magnitude": 0.01913,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.45926,
+        "W_A_norm": 15.99706,
+        "W_B_norm": 15.99908
+      },
+      {
+        "seed": 41,
+        "M": 256,
+        "condition": "contradictory",
+        "commutator_magnitude": 0.019127,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 3.46352,
+        "W_A_norm": 16.00053,
+        "W_B_norm": 16.00357
+      }
+    ],
+    "verdict": "INT_HARD_FAIL",
+    "verdict_msg": "NO_SEPARATION: conditions within +/-20%. means={'independent': 0.0191338, 'related': 0.0165798, 'contradictory': 0.019138} max/min=1.15x span_pct=0.154 n_cells=15 n_conditions=3",
+    "elapsed_s": 6.94
+  }
+}

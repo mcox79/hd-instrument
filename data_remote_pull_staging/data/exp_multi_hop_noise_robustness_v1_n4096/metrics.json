@@ -1,0 +1,712 @@
+{
+  "verdict": "MH_NOISE_HARD_PASS",
+  "verdict_msg": "GRACEFUL_DEGRADATION: paths=['B', 'D', 'E'] robust to sigma<=0.2. B: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000 | D: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000 | E: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000",
+  "elapsed_s": 71.27,
+  "summary": {
+    "anchor": "multi_hop_noise_robustness_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "depth": 5,
+    "sigmas": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "K_paths": 100,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "paths": [
+      "B",
+      "D",
+      "E"
+    ],
+    "cells": [
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.0,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.05,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.1,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.2,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 7,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 17,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 23,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 31,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 2048,
+        "depth": 5,
+        "seed": 41,
+        "sigma": 0.4,
+        "K_paths": 100,
+        "accuracy": 1.0
+      }
+    ],
+    "verdict": "MH_NOISE_HARD_PASS",
+    "verdict_msg": "GRACEFUL_DEGRADATION: paths=['B', 'D', 'E'] robust to sigma<=0.2. B: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000 | D: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000 | E: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000",
+    "elapsed_s": 71.27
+  }
+}

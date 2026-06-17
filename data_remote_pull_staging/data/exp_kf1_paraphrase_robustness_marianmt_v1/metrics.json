@@ -1,0 +1,29 @@
+{
+  "anchor_name": "kf1_paraphrase_robustness_marianmt_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: KF-1 grounding ROBUST to MarianMT round-trip paraphrase (AUC>=0.85) -- deployable vs paraphrase attack. clean_AUC=1.000 paraphrase_AUC=0.985 drop=0.015",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "clean_auc": 1.0,
+      "paraphrase_auc": 0.9846555555555555,
+      "drop": 0.015344444444444494
+    },
+    {
+      "seed": 17,
+      "clean_auc": 1.0,
+      "paraphrase_auc": 0.9830666666666666,
+      "drop": 0.016933333333333356
+    },
+    {
+      "seed": 23,
+      "clean_auc": 1.0,
+      "paraphrase_auc": 0.9876,
+      "drop": 0.012399999999999967
+    }
+  ],
+  "elapsed_s": 205.32096338272095,
+  "summary": "HARD_PASS: KF-1 grounding ROBUST to MarianMT round-trip paraphrase (AUC>=0.85) -- deployable vs paraphrase attack. clean_AUC=1.000 paraphrase_AUC=0.985 drop=0.015"
+}

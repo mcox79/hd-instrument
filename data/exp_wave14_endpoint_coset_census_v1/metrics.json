@@ -1,0 +1,31 @@
+{
+  "verdict": "COSET_UNIFORM_NONLINEAR",
+  "verdict_msg": "frac={'rm1m': 0.0, 'anchor1': 0.351, 'anchor2': 0.2853333333333333, 'anchor3': 0.3636666666666667}; nonlinear cosets roughly uniform.",
+  "elapsed_s": 170.875,
+  "summary": {
+    "coset_fractions": {
+      "rm1m": 0.0,
+      "anchor1": 0.351,
+      "anchor2": 0.2853333333333333,
+      "anchor3": 0.3636666666666667
+    },
+    "total_endpoints": 3000,
+    "raw_totals": {
+      "rm1m": 0,
+      "anchor1": 1053,
+      "anchor2": 856,
+      "anchor3": 1091,
+      "none": 0
+    }
+  },
+  "config": {
+    "N": 65536,
+    "K": 100,
+    "depth": 50,
+    "num_entities": 1000,
+    "num_relations": 20,
+    "n_starts": 1000,
+    "n_seeds": 3,
+    "n_nonlinear_anchors": 3
+  }
+}

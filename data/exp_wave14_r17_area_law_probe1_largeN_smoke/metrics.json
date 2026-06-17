@@ -1,0 +1,60 @@
+{
+  "verdict": "R17_AREA_LAW_LIKE",
+  "verdict_msg": "Substrate W exhibits area-law-like Renyi-2 entropy scaling: log-log slope=-0.207 < 0.4. Consistent with Harlow 2017 RT-QEC area-law expectation. Substrate may have hidden low-dimensional structure.",
+  "elapsed_s": 0.014999999999417923,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "0.125": {
+          "A_size": 64,
+          "s2_mean": 8.020759788422426,
+          "s2_values": [
+            8.014096085194575,
+            8.022112541512762,
+            8.026070738559945
+          ]
+        },
+        "0.25": {
+          "A_size": 128,
+          "s2_mean": 7.07962479655573,
+          "s2_values": [
+            7.062357617395676,
+            7.089786087358523,
+            7.086730684912989
+          ]
+        },
+        "0.5": {
+          "A_size": 256,
+          "s2_mean": 6.023535581405948,
+          "s2_values": [
+            6.027752648712306,
+            6.027708766820505,
+            6.015145328685033
+          ]
+        }
+      }
+    },
+    "avg_s2_by_size": {
+      "64": 8.020759788422426,
+      "128": 7.07962479655573,
+      "256": 6.023535581405948
+    },
+    "loglog_slope": -0.20656418241892516,
+    "N": 512,
+    "M_stored": 256
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_stored": 256,
+    "fracs": [
+      0.125,
+      0.25,
+      0.5
+    ],
+    "seeds": [
+      17
+    ],
+    "n_bipart_per_frac": 3
+  }
+}

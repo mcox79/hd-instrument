@@ -1,0 +1,16 @@
+{
+  "anchor_name": "cleanup_confidence_roc_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: AUC>=0.95 separating stored from novel -- substrate can abstain reliably ('I do not know') instead of hallucinating. AUC=1.0000 (in=0.700 out=0.163)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 1.0,
+      "in_mean": 0.6997734308242798,
+      "out_mean": 0.16289843618869781
+    }
+  ],
+  "elapsed_s": 0.08741450309753418,
+  "summary": "HARD_PASS: AUC>=0.95 separating stored from novel -- substrate can abstain reliably ('I do not know') instead of hallucinating. AUC=1.0000 (in=0.700 out=0.163)"
+}

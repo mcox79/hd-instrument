@@ -1,0 +1,12 @@
+{
+  "N": 4096,
+  "K_BYTE": 4,
+  "K_PHRASE": 3,
+  "WORD_DICT_SIZE": 200,
+  "NUM_PHRASES": 50,
+  "word_acc_no_cleanup": 1.0,
+  "byte_acc_no_cleanup": 1.0,
+  "word_acc_cleanup": 1.0,
+  "byte_acc_cleanup": 1.0,
+  "cleanup_id_accuracy": 1.0
+}

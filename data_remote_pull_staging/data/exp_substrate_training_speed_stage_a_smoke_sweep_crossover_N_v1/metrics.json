@@ -1,0 +1,115 @@
+{
+  "anchor_name": "substrate_training_speed_stage_a_smoke_sweep_crossover_N_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no crossover in range (substrate never beats Adam) -> iterate trick selection. crossover_curve N256:0.29x N512:0.08x | N*=None",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "N_grid": [
+    256,
+    512
+  ],
+  "tasks": [
+    "bigram",
+    "trigram"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "cells": {
+        "N256_bigram": {
+          "N": 256,
+          "task": "bigram",
+          "bpc_sub": 3.2856249809265137,
+          "gap_sub": 0.4032544731874226,
+          "t_sub": 0.06272721290588379,
+          "t_base": 0.03159809112548828,
+          "matched": true,
+          "speedup": 0.5037381650113837
+        },
+        "N256_trigram": {
+          "N": 256,
+          "task": "trigram",
+          "bpc_sub": 3.270341634750366,
+          "gap_sub": 0.41853781936357004,
+          "t_sub": 0.05098700523376465,
+          "t_base": 0.015697002410888672,
+          "matched": true,
+          "speedup": 0.3078628042365154
+        },
+        "N512_bigram": {
+          "N": 512,
+          "task": "bigram",
+          "bpc_sub": 3.362110137939453,
+          "gap_sub": 0.3267693161744831,
+          "t_sub": 0.30541348457336426,
+          "t_base": 0.014823436737060547,
+          "matched": true,
+          "speedup": 0.0485356327922704
+        },
+        "N512_trigram": {
+          "N": 512,
+          "task": "trigram",
+          "bpc_sub": 3.0810816287994385,
+          "gap_sub": 0.6077978253144978,
+          "t_sub": 0.25217700004577637,
+          "t_base": 0.0200955867767334,
+          "matched": true,
+          "speedup": 0.0796884203281249
+        }
+      },
+      "elapsed_s": 1.1500186920166016,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1780606912.6397407
+    },
+    {
+      "seed": 2,
+      "cells": {
+        "N256_bigram": {
+          "N": 256,
+          "task": "bigram",
+          "bpc_sub": 3.170125722885132,
+          "gap_sub": 0.5187537312288044,
+          "t_sub": 0.0665733814239502,
+          "t_base": 0.017407655715942383,
+          "matched": true,
+          "speedup": 0.2614807201257749
+        },
+        "N256_trigram": {
+          "N": 256,
+          "task": "trigram",
+          "bpc_sub": 3.368453025817871,
+          "gap_sub": 0.32042642829606516,
+          "t_sub": 0.052458763122558594,
+          "t_base": 0.014399528503417969,
+          "matched": true,
+          "speedup": 0.2744923373388841
+        },
+        "N512_bigram": {
+          "N": 512,
+          "task": "bigram",
+          "bpc_sub": 3.243224859237671,
+          "gap_sub": 0.44565459487626535,
+          "t_sub": 0.2623450756072998,
+          "t_base": 0.018528461456298828,
+          "matched": true,
+          "speedup": 0.07062629787659437
+        },
+        "N512_trigram": {
+          "N": 512,
+          "task": "trigram",
+          "bpc_sub": 3.177835702896118,
+          "gap_sub": 0.5110437512178181,
+          "t_sub": 0.23147821426391602,
+          "t_base": 0.02564239501953125,
+          "matched": true,
+          "speedup": 0.11077671002894252
+        }
+      },
+      "elapsed_s": 1.0715861320495605,
+      "_ckpt_key": "2",
+      "_partial_written_at": 1780606913.7200732
+    }
+  ],
+  "elapsed_s": 2.221604824066162,
+  "summary": "HARD_FAIL: no crossover in range (substrate never beats Adam) -> iterate trick selection. crossover_curve N256:0.29x N512:0.08x | N*=None"
+}

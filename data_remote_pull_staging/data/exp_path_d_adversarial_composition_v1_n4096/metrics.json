@@ -1,0 +1,35 @@
+{
+  "verdict": "PDAC_HARD_FAIL",
+  "verdict_msg": "COMPOSITION_FAILS n_path_d_fail=0 n_def_fail=1 n_cells=1. mean_def_rate=0.000 mean_acc_gated=1.000 mean_acc_baseline=1.000 mean_fp=0.000 n_cells=1",
+  "elapsed_s": 0.19,
+  "summary": {
+    "anchor": "path_d_adversarial_composition_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 5,
+    "K_paths": 100,
+    "n_leg": 12,
+    "n_adv": 12,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ok": true,
+        "n_leg": 12,
+        "n_adv": 12,
+        "n_leg_pass_gate": 12,
+        "defense_rate": 0.0,
+        "fp_rate": 0.0,
+        "acc_path_d_baseline": 1.0,
+        "acc_path_d_gated": 1.0
+      }
+    ],
+    "verdict": "PDAC_HARD_FAIL",
+    "verdict_msg": "COMPOSITION_FAILS n_path_d_fail=0 n_def_fail=1 n_cells=1. mean_def_rate=0.000 mean_acc_gated=1.000 mean_acc_baseline=1.000 mean_fp=0.000 n_cells=1",
+    "elapsed_s": 0.19
+  }
+}

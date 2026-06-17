@@ -1,0 +1,151 @@
+{
+  "verdict": "KERDOCK_V2_OVERCAPACITY_PASS",
+  "verdict_msg": "Kerdock arm passes all 5 probes at every M_stored in [256, 1024] (up to 1024 = 2.00*N). Correlated arm fails starting at M_stored=256 with rank=24.8<=76.8; norm=1.042. Welch-bound structured codebook extends Mirage protection past the orthogonal capacity limit.",
+  "elapsed_s": 0.375,
+  "summary": {
+    "N": 512,
+    "by_arm": {
+      "kerdock": {
+        "per_M": [
+          {
+            "M_stored": 256,
+            "argmax_leak": 0.0,
+            "mean_rank": 145.4,
+            "norm_ratio": 0.04198363050818443,
+            "cosine": 0.011316731572151184,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 145.4,
+                "norm_ratio": 0.04198363050818443,
+                "cosine": 0.011316731572151184,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          },
+          {
+            "M_stored": 1024,
+            "argmax_leak": 0.0,
+            "mean_rank": 687.0,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 687.0,
+                "norm_ratio": 0.0,
+                "cosine": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          }
+        ],
+        "pairwise_stats": [
+          {
+            "M_stored": 256,
+            "seed": 17,
+            "max_abs": 0.0625,
+            "mean_abs": 0.015621171332895756
+          },
+          {
+            "M_stored": 1024,
+            "seed": 17,
+            "max_abs": 0.0625,
+            "mean_abs": 0.015640273690223694
+          }
+        ]
+      },
+      "correlated": {
+        "per_M": [
+          {
+            "M_stored": 256,
+            "argmax_leak": 0.0,
+            "mean_rank": 24.8,
+            "norm_ratio": 1.042127013206482,
+            "cosine": 0.056456685066223145,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 24.8,
+                "norm_ratio": 1.042127013206482,
+                "cosine": 0.056456685066223145,
+                "paraphrase_leak_h8": 0.009999999776482582,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.009999999776482582
+          },
+          {
+            "M_stored": 1024,
+            "argmax_leak": 0.0,
+            "mean_rank": 380.4,
+            "norm_ratio": 1.8713626861572266,
+            "cosine": 0.00039429665775969625,
+            "kept_preservation": 1.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 380.4,
+                "norm_ratio": 1.8713626861572266,
+                "cosine": 0.00039429665775969625,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ],
+            "paraphrase_leak_h8": 0.0
+          }
+        ],
+        "pairwise_stats": [
+          {
+            "M_stored": 256,
+            "seed": 17,
+            "max_abs": 0.53125,
+            "mean_abs": 0.27227628231048584
+          },
+          {
+            "M_stored": 1024,
+            "seed": 17,
+            "max_abs": 0.484375,
+            "mean_abs": 0.25175711512565613
+          }
+        ]
+      }
+    },
+    "codebook_stats": {
+      "size": 1024,
+      "book_max_abs_ip": 0.0625,
+      "within_coset_0_max": 0.0,
+      "within_coset_1_max": 0.0,
+      "cross_coset_max": 0.0625
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_stored_list": [
+      256,
+      1024
+    ],
+    "n_erase": 5,
+    "n_kept_probe": 10,
+    "n_paraphrase": 20,
+    "hamming_radii": [
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

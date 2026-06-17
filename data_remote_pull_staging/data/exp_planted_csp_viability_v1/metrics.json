@@ -1,0 +1,34 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Planted CSP: max_cut=1.000 3sat=1.000 clique=1.000, viable_classes=3/3, N=1024",
+  "mean_accuracy": {
+    "max_cut": 1.0,
+    "planted_3sat": 1.0,
+    "planted_clique": 1.0
+  },
+  "n_hp_seeds_per_class": {
+    "max_cut": 2,
+    "planted_3sat": 2,
+    "planted_clique": 2
+  },
+  "n_viable_classes": 3,
+  "n_seeds": 2,
+  "N": 1024,
+  "alpha_data": 0.02,
+  "elapsed_s": 0.1585676670074463,
+  "run_mode": "smoke",
+  "per_seed_results": {
+    "max_cut": [
+      1.0,
+      1.0
+    ],
+    "planted_3sat": [
+      1.0,
+      1.0
+    ],
+    "planted_clique": [
+      1.0,
+      1.0
+    ]
+  }
+}

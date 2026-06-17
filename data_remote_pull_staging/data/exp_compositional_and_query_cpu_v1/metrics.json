@@ -1,0 +1,14 @@
+{
+  "anchor_name": "compositional_and_query_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: conjunctive (A AND B) query precision >=0.90 -- multi-constraint structured retrieval works. AND-query precision=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "precision": 1.0
+    }
+  ],
+  "elapsed_s": 1.0386755466461182,
+  "summary": "HARD_PASS: conjunctive (A AND B) query precision >=0.90 -- multi-constraint structured retrieval works. AND-query precision=1.000"
+}

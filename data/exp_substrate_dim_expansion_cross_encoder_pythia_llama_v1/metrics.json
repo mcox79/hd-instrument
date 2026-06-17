@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_dim_expansion_cross_encoder_pythia_llama_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: dim-expansion rescue GENERALIZES to LM-family (Pythia) encoders (>=3x) -- the expand-then-orthogonalize rule is encoder-family-agnostic. whitened_cap D384=230 -> D1024=1536 (expansion scale 6.68x) | D384: raw=0 wht=230 (230.00x) D1024: raw=0 wht=1536 (1536.00x)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_D": {
+        "D384": {
+          "raw_cap": 0,
+          "whitened_cap": 230,
+          "ratio": 230.0
+        },
+        "D1024": {
+          "raw_cap": 0,
+          "whitened_cap": 1536,
+          "ratio": 1536.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 12.827674388885498,
+  "summary": "HARD_PASS: dim-expansion rescue GENERALIZES to LM-family (Pythia) encoders (>=3x) -- the expand-then-orthogonalize rule is encoder-family-agnostic. whitened_cap D384=230 -> D1024=1536 (expansion scale 6.68x) | D384: raw=0 wht=230 (230.00x) D1024: raw=0 wht=1536 (1536.00x)"
+}

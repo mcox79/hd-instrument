@@ -1,0 +1,18 @@
+{
+  "anchor_name": "pb_pinv_capacity_n_scaling_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: pinv alpha_c 0.4-0.8. pinv alpha_c by N: {'N512': 0.4, 'N1024': 0.4} | mean=0.400 flatness=1.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha_c": {
+        "N512": 0.4,
+        "N1024": 0.4
+      }
+    }
+  ],
+  "elapsed_s": 2.6780292987823486,
+  "summary": "MIDDLE_BAND: pinv alpha_c 0.4-0.8. pinv alpha_c by N: {'N512': 0.4, 'N1024': 0.4} | mean=0.400 flatness=1.00"
+}

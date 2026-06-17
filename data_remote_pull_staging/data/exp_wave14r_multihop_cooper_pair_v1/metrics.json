@@ -1,0 +1,57 @@
+{
+  "verdict": "BET_O_KILLED",
+  "verdict_msg": "Cooper-pair encoding fails: acc_50=0.013 < 0.22. Storage-side redundancy axis closes; ALL multi-hop rescue axes now exhausted (cleanup A1/B1/B3/N + encoding O). d=25 architectural closure final.",
+  "elapsed_s": 31.625,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.7266666666666667,
+      "5": 0.24,
+      "10": 0.05333333333333334,
+      "25": 0.02,
+      "50": 0.013333333333333334
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 0.72,
+        "5": 0.22,
+        "10": 0.02,
+        "25": 0.02,
+        "50": 0.02
+      },
+      "23": {
+        "1": 0.78,
+        "5": 0.26,
+        "10": 0.02,
+        "25": 0.02,
+        "50": 0.02
+      },
+      "31": {
+        "1": 0.68,
+        "5": 0.24,
+        "10": 0.12,
+        "25": 0.02,
+        "50": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

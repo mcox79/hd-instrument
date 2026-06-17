@@ -1,0 +1,98 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Spectral MP primitives: HC n_hp=4/5, DP n_hp=2/5, CM n_hp=4/5, N=4096, alpha=0.138",
+  "n_health_check_hp": 4,
+  "n_deletion_privacy_hp": 2,
+  "n_capacity_monitor_hp": 4,
+  "n_seeds": 5,
+  "N": 4096,
+  "alpha_nominal": 0.138,
+  "elapsed_s": 279.2734076976776,
+  "run_mode": "full",
+  "hc_results": [
+    {
+      "Z_clean": -3.259225024833541,
+      "Z_corr": 5.465467154537491,
+      "lambda_max_clean": 1.861345303576923,
+      "health_hp": true
+    },
+    {
+      "Z_clean": -1.512682055639242,
+      "Z_corr": 9.142660131748688,
+      "lambda_max_clean": 1.8717403320939592,
+      "health_hp": true
+    },
+    {
+      "Z_clean": -1.079805793030837,
+      "Z_corr": 9.08058433743911,
+      "lambda_max_clean": 1.8743167136508574,
+      "health_hp": true
+    },
+    {
+      "Z_clean": -3.8944635003631145,
+      "Z_corr": 5.124711826893123,
+      "lambda_max_clean": 1.857564507922468,
+      "health_hp": true
+    },
+    {
+      "Z_clean": -1.7494000933770295,
+      "Z_corr": 2.178353332048467,
+      "lambda_max_clean": 1.8703314399016782,
+      "health_hp": false
+    }
+  ],
+  "dp_results": [
+    {
+      "snr_theory": 0.08203961949495946,
+      "snr_empirical": 0.0997478298937601,
+      "snr_ratio": 1.215849494522444,
+      "deletion_hp": true
+    },
+    {
+      "snr_theory": 0.08203961949495946,
+      "snr_empirical": 0.5101160420055293,
+      "snr_ratio": 6.217923061391954,
+      "deletion_hp": false
+    },
+    {
+      "snr_theory": 0.08203961949495946,
+      "snr_empirical": 0.01658959259396099,
+      "snr_ratio": 0.20221440196928586,
+      "deletion_hp": false
+    },
+    {
+      "snr_theory": 0.08203961949495946,
+      "snr_empirical": 0.0003327855518852275,
+      "snr_ratio": 0.004056400479839792,
+      "deletion_hp": false
+    },
+    {
+      "snr_theory": 0.08203961949495946,
+      "snr_empirical": 0.04521112807923067,
+      "snr_ratio": 0.5510889538195439,
+      "deletion_hp": true
+    }
+  ],
+  "cm_results": [
+    {
+      "pearson_r": 0.9795990276396649,
+      "monitor_hp": false
+    },
+    {
+      "pearson_r": 0.9867151580247331,
+      "monitor_hp": true
+    },
+    {
+      "pearson_r": 0.9820480403076609,
+      "monitor_hp": true
+    },
+    {
+      "pearson_r": 0.9856119419811985,
+      "monitor_hp": true
+    },
+    {
+      "pearson_r": 0.9833942742376831,
+      "monitor_hp": true
+    }
+  ]
+}

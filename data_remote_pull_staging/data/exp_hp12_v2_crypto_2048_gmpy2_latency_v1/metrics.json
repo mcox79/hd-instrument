@@ -1,0 +1,61 @@
+{
+  "anchor_name": "exp_hp12_v2_crypto_2048_gmpy2_latency_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2048-bit crypto 1-5ms (V2-usable; demo uses RSA-512 for headline <1ms). 2048-bit gmpy2=True | add_p50=0.128ms delete_p50=2.216ms verify_p50=0.119ms certs_verified=1.000",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "seed": 7,
+      "rsa_modulus_bits": 2048,
+      "gmpy2": true,
+      "add_p50_ms": 0.12079998850822449,
+      "delete_p50_ms": 2.1246499964036047,
+      "delete_p95_ms": 2.7349949872586876,
+      "verify_p50_ms": 0.11619995348155499,
+      "certs_verified_frac": 1.0
+    },
+    {
+      "seed": 17,
+      "rsa_modulus_bits": 2048,
+      "gmpy2": true,
+      "add_p50_ms": 0.12019998393952847,
+      "delete_p50_ms": 2.139149990398437,
+      "delete_p95_ms": 2.770804899046198,
+      "verify_p50_ms": 0.11545000597834587,
+      "certs_verified_frac": 1.0
+    },
+    {
+      "seed": 23,
+      "rsa_modulus_bits": 2048,
+      "gmpy2": true,
+      "add_p50_ms": 0.1201499835588038,
+      "delete_p50_ms": 2.327850030269474,
+      "delete_p95_ms": 3.719715034822002,
+      "verify_p50_ms": 0.13105006655678153,
+      "certs_verified_frac": 1.0
+    },
+    {
+      "seed": 31,
+      "rsa_modulus_bits": 2048,
+      "gmpy2": true,
+      "add_p50_ms": 0.15189999248832464,
+      "delete_p50_ms": 2.3314000573009253,
+      "delete_p95_ms": 3.683569980785251,
+      "verify_p50_ms": 0.11914997594431043,
+      "certs_verified_frac": 1.0
+    },
+    {
+      "seed": 43,
+      "rsa_modulus_bits": 2048,
+      "gmpy2": true,
+      "add_p50_ms": 0.12450001668184996,
+      "delete_p50_ms": 2.1587000228464603,
+      "delete_p95_ms": 2.7830499922856693,
+      "verify_p50_ms": 0.11449994053691626,
+      "certs_verified_frac": 1.0
+    }
+  ],
+  "elapsed_s": 4.649508714675903,
+  "summary": "MIDDLE_BAND: 2048-bit crypto 1-5ms (V2-usable; demo uses RSA-512 for headline <1ms). 2048-bit gmpy2=True | add_p50=0.128ms delete_p50=2.216ms verify_p50=0.119ms certs_verified=1.000"
+}

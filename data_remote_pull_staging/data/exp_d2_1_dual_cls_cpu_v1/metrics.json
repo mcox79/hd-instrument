@@ -1,0 +1,16 @@
+{
+  "anchor_name": "d2_1_dual_cls_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: dual >= each single system but lift <0.10 (one system dominates). dual=0.962 fast=0.490 slow=0.922",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dual_recall": 0.962,
+      "fast_only": 0.49,
+      "slow_only": 0.922
+    }
+  ],
+  "elapsed_s": 5.645153284072876,
+  "summary": "MIDDLE_BAND: dual >= each single system but lift <0.10 (one system dominates). dual=0.962 fast=0.490 slow=0.922"
+}

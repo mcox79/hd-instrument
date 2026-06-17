@@ -1,0 +1,57 @@
+{
+  "verdict": "KF2V2_HARD_PASS_STANDARD",
+  "verdict_msg": "EDIT ISOLATION PROVED N=8192 (STANDARD): max_iso=0.03030 < 0.05. Kerdock substrate structurally isolates edits at production scale. N=1024. max_iso=0.03030. mean_iso=0.02694. max_undercap_iso=0.03030. theory_bound=0.03125. within_theory_frac=1.00.",
+  "elapsed_s": 1.3717622756958008,
+  "config": {
+    "N": 1024,
+    "M_fracs": [
+      0.25,
+      1.0,
+      2.0
+    ],
+    "seeds": [
+      17
+    ],
+    "n_edits": 10,
+    "smoke": true,
+    "bit_precision": "int1"
+  },
+  "summary": {
+    "cells": [
+      {
+        "M_frac": 0.25,
+        "M": 256,
+        "seed": 17,
+        "isolation_ratio": 0.020202020183205605,
+        "theory_bound": 0.03125,
+        "n_edits_run": 10,
+        "within_theory": true
+      },
+      {
+        "M_frac": 1.0,
+        "M": 1024,
+        "seed": 17,
+        "isolation_ratio": 0.03030303120613098,
+        "theory_bound": 0.03125,
+        "n_edits_run": 10,
+        "within_theory": true
+      },
+      {
+        "M_frac": 2.0,
+        "M": 1024,
+        "seed": 17,
+        "isolation_ratio": 0.03030303120613098,
+        "theory_bound": 0.03125,
+        "n_edits_run": 10,
+        "within_theory": true
+      }
+    ],
+    "N": 1024,
+    "smoke": true
+  },
+  "precision_used": "int1",
+  "precision_memory_bytes": 131072,
+  "precision_baseline_bytes": 4194304,
+  "precision_compression_ratio": 32.0,
+  "precision_numel_W": 1048576
+}

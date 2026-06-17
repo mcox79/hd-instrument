@@ -1,0 +1,17 @@
+{
+  "spec": {
+    "name": "exp_m1_single_binding",
+    "seed": 42,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-16T23:26:55",
+  "total_events": 500,
+  "total_wall_time_us": 9068.0,
+  "trials": 100,
+  "min_sim": 1.0,
+  "mean_sim": 1.0,
+  "perfect_recoveries": 100,
+  "headline": "100/100 at sim > 0.999; min sim = 1.000000",
+  "review": false
+}

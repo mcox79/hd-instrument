@@ -1,0 +1,22 @@
+{
+  "anchor_name": "codegen_gate1_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate grammar-constrained pattern expansion solves >=1/5 HumanEval first-attempt with SyntaxError-rate<0.20 -- Tier-2 pattern coverage works; Path-A full build is justified. 3/5 solved, SyntaxError-rate=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_pass": 3,
+      "n_total": 5,
+      "syntax_err_rate": 0.0,
+      "n_tier1": 70,
+      "solved": [
+        "HumanEval/1:stack-parse",
+        "HumanEval/2:direct-compute",
+        "HumanEval/3:running-balance"
+      ]
+    }
+  ],
+  "elapsed_s": 19.62848949432373,
+  "summary": "HARD_PASS: substrate grammar-constrained pattern expansion solves >=1/5 HumanEval first-attempt with SyntaxError-rate<0.20 -- Tier-2 pattern coverage works; Path-A full build is justified. 3/5 solved, SyntaxError-rate=0.000"
+}

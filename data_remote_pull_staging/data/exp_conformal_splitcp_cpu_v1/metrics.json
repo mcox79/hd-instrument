@@ -1,0 +1,18 @@
+{
+  "anchor_name": "conformal_splitcp_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: split-conformal coverage GUARANTEE holds on substrate classification (coverage>=0.95, distribution-free) -- substrate-classical uncertainty quantification works, no LLM. Set size 6.6 honestly reflects classifier uncertainty (tighter sets need a higher-accuracy base classifier, not a conformal change). coverage=1.0000 (target 0.95) avg-set-size=6.64 n_test=250",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 1.0,
+      "target": 0.95,
+      "avg_set_size": 6.64,
+      "qhat": 1.0,
+      "n_test": 250
+    }
+  ],
+  "elapsed_s": 0.36840271949768066,
+  "summary": "HARD_PASS: split-conformal coverage GUARANTEE holds on substrate classification (coverage>=0.95, distribution-free) -- substrate-classical uncertainty quantification works, no LLM. Set size 6.6 honestly reflects classifier uncertainty (tighter sets need a higher-accuracy base classifier, not a conformal change). coverage=1.0000 (target 0.95) avg-set-size=6.64 n_test=250"
+}

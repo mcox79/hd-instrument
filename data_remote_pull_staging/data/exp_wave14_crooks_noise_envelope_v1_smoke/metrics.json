@@ -1,0 +1,48 @@
+{
+  "verdict": "CROOKS_NOISE_ENVELOPE_KILL",
+  "verdict_msg": "Noise envelope KILL: 0/1 noisy cells satisfy delta_S_emp < 0.05. Cap 1 envelope narrows to clean substrate only.",
+  "elapsed_s": 1.5150000000139698,
+  "summary": {
+    "per_noise_delta_S": {
+      "0.0": 0.0,
+      "0.1": 0.23252510460206555
+    },
+    "per_noise_cell_details": {
+      "0.0": {
+        "17": {
+          "mean": 0.0,
+          "max": 0.0,
+          "std": 0.0,
+          "n_trials": 10
+        }
+      },
+      "0.1": {
+        "17": {
+          "mean": 0.23252510460206555,
+          "max": 0.6628521666203601,
+          "std": 0.239092612825447,
+          "n_trials": 10
+        }
+      }
+    },
+    "peak_vram_mb": null,
+    "N": 4096,
+    "M_base": 50,
+    "n_trials": 10,
+    "seeds": [
+      17
+    ]
+  },
+  "config": {
+    "N": 4096,
+    "M_base": 50,
+    "n_trials": 10,
+    "seeds": [
+      17
+    ],
+    "noise_levels": [
+      0.0,
+      0.1
+    ]
+  }
+}

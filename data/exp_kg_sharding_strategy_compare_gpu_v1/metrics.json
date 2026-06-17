@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kg_sharding_strategy_compare_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: best KG sharding strategy (subject) >=0.85 2-hop at scale -- recommended v1.5 KG layout. shard-by-subject=1.000 shard-by-relation=0.432 (best=subject)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "subject": 1.0,
+      "relation": 0.4325,
+      "best": 1.0
+    }
+  ],
+  "elapsed_s": 7.907680034637451,
+  "summary": "HARD_PASS: best KG sharding strategy (subject) >=0.85 2-hop at scale -- recommended v1.5 KG layout. shard-by-subject=1.000 shard-by-relation=0.432 (best=subject)"
+}

@@ -1,0 +1,175 @@
+{
+  "verdict": "CAL_NO_GAIN",
+  "verdict_msg": "Soft and clip indistinguishable. Brier soft=0.294 clip=0.212.",
+  "elapsed_s": 44.01600000000326,
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "codebook_size": 4096,
+    "M_list": [
+      100,
+      300,
+      627,
+      1000,
+      2000,
+      3000
+    ],
+    "n_probes": 2000,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  },
+  "device": "cuda",
+  "per_M": [
+    {
+      "adaptive_ece_soft": 0.9844632585998626,
+      "brier_soft": 0.9692897200584412,
+      "acc_soft": 1.0,
+      "mean_conf_soft": 0.015536741664012274,
+      "adaptive_ece_clip": 0.9188297218643129,
+      "brier_clip": 0.9124209682146708,
+      "acc_clip": 0.9256666700045267,
+      "mean_conf_clip": 0.0068369461223483086,
+      "M": 100,
+      "n_probes_total": 6000
+    },
+    {
+      "adaptive_ece_soft": 0.5419226694823011,
+      "brier_soft": 0.5418297052383423,
+      "acc_soft": 0.5424999992052714,
+      "mean_conf_soft": 0.0005773270192245642,
+      "adaptive_ece_clip": 0.2529598466266179,
+      "brier_clip": 0.25320609907309216,
+      "acc_clip": 0.25350000460942584,
+      "mean_conf_clip": 0.0005401535696970919,
+      "M": 300,
+      "n_probes_total": 6000
+    },
+    {
+      "adaptive_ece_soft": 0.15681147467306195,
+      "brier_soft": 0.1570511261622111,
+      "acc_soft": 0.15716666976610819,
+      "mean_conf_soft": 0.0003551919265494992,
+      "adaptive_ece_clip": 0.06469275585162299,
+      "brier_clip": 0.06495290746291478,
+      "acc_clip": 0.06500000009934108,
+      "mean_conf_clip": 0.0003530208972127487,
+      "M": 627,
+      "n_probes_total": 6000
+    },
+    {
+      "adaptive_ece_soft": 0.06589877556252759,
+      "brier_soft": 0.06612523645162582,
+      "acc_soft": 0.06616666788856189,
+      "mean_conf_soft": 0.00030803495125534636,
+      "adaptive_ece_clip": 0.027627237764924456,
+      "brier_clip": 0.02781604913373788,
+      "acc_clip": 0.027833333238959312,
+      "mean_conf_clip": 0.000307494376708443,
+      "M": 1000,
+      "n_probes_total": 6000
+    },
+    {
+      "adaptive_ece_soft": 0.017983456411942222,
+      "brier_soft": 0.01815670697639386,
+      "acc_soft": 0.018166666229565937,
+      "mean_conf_soft": 0.0002740436951474597,
+      "adaptive_ece_clip": 0.009556354319405122,
+      "brier_clip": 0.009661408141255379,
+      "acc_clip": 0.009666666698952516,
+      "mean_conf_clip": 0.0002740619044440488,
+      "M": 2000,
+      "n_probes_total": 6000
+    },
+    {
+      "adaptive_ece_soft": 0.008561170821970639,
+      "brier_soft": 0.00866215086231629,
+      "acc_soft": 0.0086666668454806,
+      "mean_conf_soft": 0.0002637495247957607,
+      "adaptive_ece_clip": 0.004386190358976213,
+      "brier_clip": 0.004331108182668686,
+      "acc_clip": 0.0043333334227403,
+      "mean_conf_clip": 0.00026373544824309647,
+      "M": 3000,
+      "n_probes_total": 6000
+    }
+  ],
+  "summary": {
+    "per_M": [
+      {
+        "adaptive_ece_soft": 0.9844632585998626,
+        "brier_soft": 0.9692897200584412,
+        "acc_soft": 1.0,
+        "mean_conf_soft": 0.015536741664012274,
+        "adaptive_ece_clip": 0.9188297218643129,
+        "brier_clip": 0.9124209682146708,
+        "acc_clip": 0.9256666700045267,
+        "mean_conf_clip": 0.0068369461223483086,
+        "M": 100,
+        "n_probes_total": 6000
+      },
+      {
+        "adaptive_ece_soft": 0.5419226694823011,
+        "brier_soft": 0.5418297052383423,
+        "acc_soft": 0.5424999992052714,
+        "mean_conf_soft": 0.0005773270192245642,
+        "adaptive_ece_clip": 0.2529598466266179,
+        "brier_clip": 0.25320609907309216,
+        "acc_clip": 0.25350000460942584,
+        "mean_conf_clip": 0.0005401535696970919,
+        "M": 300,
+        "n_probes_total": 6000
+      },
+      {
+        "adaptive_ece_soft": 0.15681147467306195,
+        "brier_soft": 0.1570511261622111,
+        "acc_soft": 0.15716666976610819,
+        "mean_conf_soft": 0.0003551919265494992,
+        "adaptive_ece_clip": 0.06469275585162299,
+        "brier_clip": 0.06495290746291478,
+        "acc_clip": 0.06500000009934108,
+        "mean_conf_clip": 0.0003530208972127487,
+        "M": 627,
+        "n_probes_total": 6000
+      },
+      {
+        "adaptive_ece_soft": 0.06589877556252759,
+        "brier_soft": 0.06612523645162582,
+        "acc_soft": 0.06616666788856189,
+        "mean_conf_soft": 0.00030803495125534636,
+        "adaptive_ece_clip": 0.027627237764924456,
+        "brier_clip": 0.02781604913373788,
+        "acc_clip": 0.027833333238959312,
+        "mean_conf_clip": 0.000307494376708443,
+        "M": 1000,
+        "n_probes_total": 6000
+      },
+      {
+        "adaptive_ece_soft": 0.017983456411942222,
+        "brier_soft": 0.01815670697639386,
+        "acc_soft": 0.018166666229565937,
+        "mean_conf_soft": 0.0002740436951474597,
+        "adaptive_ece_clip": 0.009556354319405122,
+        "brier_clip": 0.009661408141255379,
+        "acc_clip": 0.009666666698952516,
+        "mean_conf_clip": 0.0002740619044440488,
+        "M": 2000,
+        "n_probes_total": 6000
+      },
+      {
+        "adaptive_ece_soft": 0.008561170821970639,
+        "brier_soft": 0.00866215086231629,
+        "acc_soft": 0.0086666668454806,
+        "mean_conf_soft": 0.0002637495247957607,
+        "adaptive_ece_clip": 0.004386190358976213,
+        "brier_clip": 0.004331108182668686,
+        "acc_clip": 0.0043333334227403,
+        "mean_conf_clip": 0.00026373544824309647,
+        "M": 3000,
+        "n_probes_total": 6000
+      }
+    ]
+  }
+}

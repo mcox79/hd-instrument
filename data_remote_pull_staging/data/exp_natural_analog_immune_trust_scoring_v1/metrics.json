@@ -1,0 +1,16 @@
+{
+  "anchor_name": "natural_analog_immune_trust_scoring_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: per-source trust prefers high-trust >=95%% and flags conflicts -- immune-style provenance trust works. prefer-high-trust=1.000 flagged=1.000 (conflicts=198)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "conflicts": 198,
+      "prefer_hi": 1.0,
+      "flagged": 1.0
+    }
+  ],
+  "elapsed_s": 0.013442277908325195,
+  "summary": "HARD_PASS: per-source trust prefers high-trust >=95%% and flags conflicts -- immune-style provenance trust works. prefer-high-trust=1.000 flagged=1.000 (conflicts=198)"
+}

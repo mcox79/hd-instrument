@@ -1,0 +1,20 @@
+{
+  "anchor_name": "iterative_regime_crossover_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate iterative multi-hop succeeds on DISCRETE symbols (>=0.80) and fails on FUZZY entities (<=0.50) -- the 32-citation universal principle reproduced on the substrate; the 5 iterative HFs were the fuzzy regime, not substrate limits. discrete(rho=0)=0.800 fuzzy(rho=0.9)=0.333 | curve={'rho0.0': 0.8, 'rho0.5': 0.933, 'rho0.9': 0.333}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "rho0.0": 0.8,
+        "rho0.5": 0.9333333333333333,
+        "rho0.9": 0.3333333333333333
+      },
+      "discrete": 0.8,
+      "fuzzy": 0.3333333333333333
+    }
+  ],
+  "elapsed_s": 1.9840810298919678,
+  "summary": "HARD_PASS: substrate iterative multi-hop succeeds on DISCRETE symbols (>=0.80) and fails on FUZZY entities (<=0.50) -- the 32-citation universal principle reproduced on the substrate; the 5 iterative HFs were the fuzzy regime, not substrate limits. discrete(rho=0)=0.800 fuzzy(rho=0.9)=0.333 | curve={'rho0.0': 0.8, 'rho0.5': 0.933, 'rho0.9': 0.333}"
+}

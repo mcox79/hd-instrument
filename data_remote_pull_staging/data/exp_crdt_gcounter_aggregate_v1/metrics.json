@@ -1,0 +1,14 @@
+{
+  "anchor_name": "crdt_gcounter_aggregate_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: CRDT G-Counter gives exact distributed COUNT regardless of merge order / duplicates -- conflict-free aggregation without coordination. exact distributed COUNT fraction=1.0000 (order + duplicate independent)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "exact_fraction": 1.0
+    }
+  ],
+  "elapsed_s": 0.07947468757629395,
+  "summary": "HARD_PASS: CRDT G-Counter gives exact distributed COUNT regardless of merge order / duplicates -- conflict-free aggregation without coordination. exact distributed COUNT fraction=1.0000 (order + duplicate independent)"
+}

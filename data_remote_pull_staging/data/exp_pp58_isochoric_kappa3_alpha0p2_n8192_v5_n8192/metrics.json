@@ -1,0 +1,105 @@
+{
+  "anchor_name": "pp58_isochoric_kappa3_alpha0p2_n8192_v5_n8192",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ratio=2.00 in [2.0,5.0). alpha=0.2 N=8192 audit_crit=1.000 cap_crit=2.000(pred=2.000) ratio=2.00 cap_within_tol=True n_seeds=2",
+  "n_seeds": 2,
+  "N": 8192,
+  "alpha": 0.2,
+  "sigma_g_use": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    3.0
+  ],
+  "cap_pred": 2.0,
+  "run_mode": "smoke",
+  "elapsed_s": 0.5506091117858887,
+  "per_seed": [
+    {
+      "alpha": 0.2,
+      "seed": 7,
+      "N": 1024,
+      "run_mode": "smoke",
+      "sigma_g_cap_pred": 2.0,
+      "elapsed_s": 0.23604369163513184,
+      "cells": {
+        "sg0.000": {
+          "sigma_g": 0.0,
+          "kappa3_ratio": 1.6322243216272907,
+          "recall": 0.942578125
+        },
+        "sg0.500": {
+          "sigma_g": 0.5,
+          "kappa3_ratio": 2.5956024871831604,
+          "recall": 0.91328125
+        },
+        "sg1.000": {
+          "sigma_g": 1.0,
+          "kappa3_ratio": 12.209925026817425,
+          "recall": 0.721484375
+        },
+        "sg1.500": {
+          "sigma_g": 1.5,
+          "kappa3_ratio": 296.7496679272702,
+          "recall": 0.571484375
+        },
+        "sg2.000": {
+          "sigma_g": 2.0,
+          "kappa3_ratio": 321178.40224766266,
+          "recall": 0.48984375
+        },
+        "sg3.000": {
+          "sigma_g": 3.0,
+          "kappa3_ratio": -2613826774.6275773,
+          "recall": 0.420703125
+        }
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780473236.7859612
+    },
+    {
+      "alpha": 0.2,
+      "seed": 17,
+      "N": 1024,
+      "run_mode": "smoke",
+      "sigma_g_cap_pred": 2.0,
+      "elapsed_s": 0.23529815673828125,
+      "cells": {
+        "sg0.000": {
+          "sigma_g": 0.0,
+          "kappa3_ratio": 1.6114277180167846,
+          "recall": 0.9484375
+        },
+        "sg0.500": {
+          "sigma_g": 0.5,
+          "kappa3_ratio": 2.6342206674065305,
+          "recall": 0.907421875
+        },
+        "sg1.000": {
+          "sigma_g": 1.0,
+          "kappa3_ratio": 18.220042088067494,
+          "recall": 0.763671875
+        },
+        "sg1.500": {
+          "sigma_g": 1.5,
+          "kappa3_ratio": 178.5341449871664,
+          "recall": 0.55859375
+        },
+        "sg2.000": {
+          "sigma_g": 2.0,
+          "kappa3_ratio": -1111584.5870590573,
+          "recall": 0.4515625
+        },
+        "sg3.000": {
+          "sigma_g": 3.0,
+          "kappa3_ratio": 155742552264.31366,
+          "recall": 0.425390625
+        }
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780473237.0371258
+    }
+  ]
+}

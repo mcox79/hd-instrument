@@ -1,0 +1,45 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1 HARD-PASS, 0 HARD-FAIL, 0 MIDDLE at N=512. Mixed evidence at full scale.",
+  "elapsed_s": 2.64,
+  "summary": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "n_hardpass": 1,
+    "n_hardfail": 0,
+    "n_middle": 0,
+    "seed_verdicts": {
+      "17": {
+        "verdict": "HARD_PASS",
+        "r2": 0.7824,
+        "max_dev": 0.0845
+      }
+    },
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ]
+  },
+  "config": {
+    "mode": "SMOKE",
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "batch_size": 16,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "n_bytes": 4000,
+    "device": "cpu",
+    "parent_v3_r2": 0.322,
+    "parent_v3_max_dev": 0.249
+  }
+}

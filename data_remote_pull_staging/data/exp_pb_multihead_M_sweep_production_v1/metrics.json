@@ -1,0 +1,21 @@
+{
+  "anchor_name": "pb_multihead_M_sweep_production_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: multi-head (M=2) composes with sparse-KEY (>=1.3x, MMV sqrt(M) gain) -- Batch B 'sparse alone' was premature. alpha H1=0.1992 H2=0.3994 | H2/H1=2.00x (sqrt(2)=1.41 predicted)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha": {
+        "H1": 0.19921875,
+        "H2": 0.3994140625,
+        "H4": 0.3994140625,
+        "H8": 0.3994140625
+      }
+    }
+  ],
+  "elapsed_s": 14.202969312667847,
+  "summary": "HARD_PASS: multi-head (M=2) composes with sparse-KEY (>=1.3x, MMV sqrt(M) gain) -- Batch B 'sparse alone' was premature. alpha H1=0.1992 H2=0.3994 | H2/H1=2.00x (sqrt(2)=1.41 predicted)"
+}

@@ -1,0 +1,50 @@
+{
+  "K": 4,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "post_off": 4.335208573927402,
+      "post_r3": 4.29954304145026,
+      "post_unigram": 4.436133155244004,
+      "post_sparse_unigram": 4.348568464876763,
+      "sparse_unigram_gain": -0.013359890949360853,
+      "r3_minus_sparse_unigram": 0.04902542342650307,
+      "r3_gain": 0.035665532477142214,
+      "unigram_gain": -0.10092458131660198,
+      "r3_residual": 0.1365901137937442
+    },
+    {
+      "seed": 23,
+      "post_off": 4.329523993708575,
+      "post_r3": 4.29454177096691,
+      "post_unigram": 4.430838027610736,
+      "post_sparse_unigram": 4.342226930165191,
+      "sparse_unigram_gain": -0.012702936456616243,
+      "r3_minus_sparse_unigram": 0.047685159198281646,
+      "r3_gain": 0.0349822227416654,
+      "unigram_gain": -0.10131403390216143,
+      "r3_residual": 0.13629625664382683
+    },
+    {
+      "seed": 31,
+      "post_off": 4.340455868107981,
+      "post_r3": 4.314482553441466,
+      "post_unigram": 4.429739441408935,
+      "post_sparse_unigram": 4.349151222905636,
+      "sparse_unigram_gain": -0.008695354797655597,
+      "r3_minus_sparse_unigram": 0.03466866946417024,
+      "r3_gain": 0.025973314666514646,
+      "unigram_gain": -0.08928357330095427,
+      "r3_residual": 0.11525688796746891
+    }
+  ],
+  "mean_r3_gain": 0.03220702329510742,
+  "mean_unigram_gain": -0.09717406283990589,
+  "mean_residual": 0.1293810861350133,
+  "sd_residual": 0.012232796835278016
+}

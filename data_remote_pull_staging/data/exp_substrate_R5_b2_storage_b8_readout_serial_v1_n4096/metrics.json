@@ -1,0 +1,34 @@
+{
+  "anchor_name": "substrate_R5_b2_storage_b8_readout_serial_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: B2 storage + B8 readout serial stack -- both stages intact (storage does NOT corrupt readout). B2_M_crit=3000 dense_M_crit=60 (ratio=50.0x) b8_r=0.406 vs sqrt(K/V)=0.158 (M_crit hit grid ceiling; LOWER BOUND)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "b2_M_crit": 3000,
+      "dense_M_crit": 60,
+      "dense_limit": 141.312,
+      "M_crit_ratio_vs_dense": 50.0,
+      "b8_r": 0.4054889672994614,
+      "sqrt_KV": 0.15811388300841897,
+      "ceil_note": " (M_crit hit grid ceiling; LOWER BOUND)"
+    },
+    {
+      "seed": 2,
+      "N": 1024,
+      "b2_M_crit": 3000,
+      "dense_M_crit": 60,
+      "dense_limit": 141.312,
+      "M_crit_ratio_vs_dense": 50.0,
+      "b8_r": 0.40579585745930674,
+      "sqrt_KV": 0.15811388300841897,
+      "ceil_note": " (M_crit hit grid ceiling; LOWER BOUND)"
+    }
+  ],
+  "elapsed_s": 7.165085554122925,
+  "summary": "HARD_PASS: B2 storage + B8 readout serial stack -- both stages intact (storage does NOT corrupt readout). B2_M_crit=3000 dense_M_crit=60 (ratio=50.0x) b8_r=0.406 vs sqrt(K/V)=0.158 (M_crit hit grid ceiling; LOWER BOUND)"
+}

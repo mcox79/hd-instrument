@@ -1,0 +1,79 @@
+{
+  "verdict": "ALPHA_SWEEP_NO_FRONTIER",
+  "verdict_msg": "No alpha satisfies leak<=15% AND kept_recall>=75%. Best leak: 40.00%; best kept: 100.00%.",
+  "elapsed_s": 0.3120000000053551,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_facts": 60,
+    "n_erase": 15,
+    "rank_L": 16,
+    "alphas": [
+      0.5,
+      1.0
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_alpha": [
+    {
+      "alpha": 0.5,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0
+    },
+    {
+      "alpha": 1.0,
+      "leak_mean": 0.4,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 60.0
+    }
+  ],
+  "grid": [
+    {
+      "seed": 17,
+      "alpha": 0.5,
+      "pairwise_std": 0.1290382593870163,
+      "leak_A": 1.0,
+      "kept_A": 1.0,
+      "leak_B": 1.0,
+      "kept_B": 1.0
+    },
+    {
+      "seed": 17,
+      "alpha": 1.0,
+      "pairwise_std": 0.1290382593870163,
+      "leak_A": 1.0,
+      "kept_A": 1.0,
+      "leak_B": 0.4,
+      "kept_B": 1.0
+    }
+  ],
+  "summary": {
+    "per_alpha": [
+      {
+        "alpha": 0.5,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0
+      },
+      {
+        "alpha": 1.0,
+        "leak_mean": 0.4,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 60.0
+      }
+    ],
+    "mean_pairwise_std": 0.1290382593870163
+  }
+}

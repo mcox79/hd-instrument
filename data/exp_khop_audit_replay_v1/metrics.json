@@ -1,0 +1,18 @@
+{
+  "anchor_name": "khop_audit_replay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate K-hop chains are 100pct deterministic + Merkle-verifiable + tamper-detecting while LLM CoT diverges run-to-run -- the auditable-reasoning categorical win for regulated industries. substrate determinism=1.000 merkle=1.000 tamper=1.000; LLM-CoT-divergence=1.000 (n=20)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 20,
+      "det": 1.0,
+      "ver": 1.0,
+      "tamper": 1.0,
+      "cot_div": 1.0
+    }
+  ],
+  "elapsed_s": 136.96179938316345,
+  "summary": "HARD_PASS: substrate K-hop chains are 100pct deterministic + Merkle-verifiable + tamper-detecting while LLM CoT diverges run-to-run -- the auditable-reasoning categorical win for regulated industries. substrate determinism=1.000 merkle=1.000 tamper=1.000; LLM-CoT-divergence=1.000 (n=20)"
+}

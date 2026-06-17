@@ -1,0 +1,15 @@
+{
+  "anchor_name": "patternb_sparse_fillers_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse fillers give >=10x filler compression at F1>=0.95 -- sparse-KEY analog works for Pattern B. compression=64x F1=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 1.0,
+      "compression": 64.0
+    }
+  ],
+  "elapsed_s": 0.7320451736450195,
+  "summary": "HARD_PASS: sparse fillers give >=10x filler compression at F1>=0.95 -- sparse-KEY analog works for Pattern B. compression=64x F1=1.000"
+}

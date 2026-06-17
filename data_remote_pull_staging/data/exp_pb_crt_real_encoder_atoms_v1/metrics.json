@@ -1,0 +1,29 @@
+{
+  "anchor_name": "pb_crt_real_encoder_atoms_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: CRT multiplicative composition survives real-encoder atoms (>=2x single, >=0.8x random) -- positional addressing deployable on real substrates. real 1-scale=7 real 3-scale=1001 rand 3-scale=1001 (CRT product=1001) | 3/1=143.00x real/rand=1.00",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "real_single": 7,
+      "real_three": 1001,
+      "rand_three": 1001
+    },
+    {
+      "seed": 17,
+      "real_single": 7,
+      "real_three": 1001,
+      "rand_three": 1001
+    },
+    {
+      "seed": 23,
+      "real_single": 7,
+      "real_three": 1001,
+      "rand_three": 1001
+    }
+  ],
+  "elapsed_s": 7.191946029663086,
+  "summary": "HARD_PASS: CRT multiplicative composition survives real-encoder atoms (>=2x single, >=0.8x random) -- positional addressing deployable on real substrates. real 1-scale=7 real 3-scale=1001 rand 3-scale=1001 (CRT product=1001) | 3/1=143.00x real/rand=1.00"
+}

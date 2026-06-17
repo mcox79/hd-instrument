@@ -1,0 +1,15 @@
+{
+  "anchor_name": "drug_interaction_khop_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: drug-interaction K-hop recall>=0.90 with audit chain per prediction -- medical vertical demo proof. interaction-recall=1.000 audit=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "audit": 1.0
+    }
+  ],
+  "elapsed_s": 0.3234572410583496,
+  "summary": "HARD_PASS: drug-interaction K-hop recall>=0.90 with audit chain per prediction -- medical vertical demo proof. interaction-recall=1.000 audit=1.000"
+}

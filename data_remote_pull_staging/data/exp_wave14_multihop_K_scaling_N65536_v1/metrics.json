@@ -1,0 +1,30 @@
+{
+  "verdict": "KSCALE_PARTIAL",
+  "verdict_msg": "Partial confirmation: K=50 acc_50hop=0.417 in [0.35, 0.50]. acc_50hop_per_K={'25': 0.0, '50': 0.41666666666666663, '100': 0.25}.",
+  "elapsed_s": 2.8430000000080327,
+  "summary": {
+    "acc_50hop_per_K": {
+      "25": 0.0,
+      "50": 0.41666666666666663,
+      "100": 0.25
+    },
+    "depth_tested": 50
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "K_grid": [
+      25,
+      50,
+      100
+    ],
+    "num_entities": 200,
+    "num_relations": 20,
+    "depth": 50,
+    "n_trials": 30,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

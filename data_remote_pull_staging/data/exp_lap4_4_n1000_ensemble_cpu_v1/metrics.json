@@ -1,0 +1,24 @@
+{
+  "anchor_name": "lap4_4_n1000_ensemble_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: N=1000 lift 0.10-0.20. single=0.800 N100=1.0 N1000=1.000 sat-gain(1000vs100)=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc_by_P": {
+        "1": 0.8,
+        "10": 1.0,
+        "50": 1.0,
+        "100": 1.0,
+        "300": 1.0,
+        "1000": 1.0
+      },
+      "saturation_gain": 0.0,
+      "single": 0.8,
+      "best": 1.0
+    }
+  ],
+  "elapsed_s": 261.35794711112976,
+  "summary": "MIDDLE_BAND: N=1000 lift 0.10-0.20. single=0.800 N100=1.0 N1000=1.000 sat-gain(1000vs100)=0.000"
+}

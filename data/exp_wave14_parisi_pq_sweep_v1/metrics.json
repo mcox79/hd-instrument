@@ -1,0 +1,299 @@
+{
+  "verdict": "PARISI_DISCRIMINATES_CODEBOOK",
+  "verdict_msg": "P(q) discriminates codebook >= 2.0sigma at 7 (M, codebook-pair) cells. Examples: M=2048:random_bsc-kerdock=1198.7sigma, M=2048:hadamard-kerdock=7068.8sigma, M=4096:random_bsc-kerdock=1645.5sigma. Max separation: 495863899.1sigma.",
+  "elapsed_s": 49.23400000000038,
+  "summary": {
+    "per_cell": {
+      "random_bsc_2048_17": {
+        "codebook_type": "random_bsc",
+        "M_stored": 2048,
+        "seed": 17,
+        "binder": -0.0009346039593256528,
+        "ultrametricity": 0.4618,
+        "q2": 0.00024436868261545897,
+        "q4": 1.7931559170847322e-07,
+        "n_overlaps": 2096128
+      },
+      "random_bsc_2048_23": {
+        "codebook_type": "random_bsc",
+        "M_stored": 2048,
+        "seed": 23,
+        "binder": -0.0008821134569105826,
+        "ultrametricity": 0.4732,
+        "q2": 0.00024398409004788846,
+        "q4": 1.7874224056413368e-07,
+        "n_overlaps": 2096128
+      },
+      "random_bsc_2048_31": {
+        "codebook_type": "random_bsc",
+        "M_stored": 2048,
+        "seed": 31,
+        "binder": 0.0004253651491146204,
+        "ultrametricity": 0.4738,
+        "q2": 0.00024412311904598027,
+        "q4": 1.787122414498299e-07,
+        "n_overlaps": 2096128
+      },
+      "random_bsc_4096_17": {
+        "codebook_type": "random_bsc",
+        "M_stored": 4096,
+        "seed": 17,
+        "binder": -0.0011164645821490904,
+        "ultrametricity": 0.4632,
+        "q2": 0.00024426524760201573,
+        "q4": 1.791963768482674e-07,
+        "n_overlaps": 8386560
+      },
+      "random_bsc_4096_23": {
+        "codebook_type": "random_bsc",
+        "M_stored": 4096,
+        "seed": 23,
+        "binder": -0.0001691196344331125,
+        "ultrametricity": 0.4606,
+        "q2": 0.00024405907606706023,
+        "q4": 1.7872471858026984e-07,
+        "n_overlaps": 8386560
+      },
+      "random_bsc_4096_31": {
+        "codebook_type": "random_bsc",
+        "M_stored": 4096,
+        "seed": 31,
+        "binder": -9.229257801957047e-05,
+        "ultrametricity": 0.463,
+        "q2": 0.0002441795659251511,
+        "q4": 1.7888748971017776e-07,
+        "n_overlaps": 8386560
+      },
+      "random_bsc_8192_17": {
+        "codebook_type": "random_bsc",
+        "M_stored": 8192,
+        "seed": 17,
+        "binder": 0.0001861971056623668,
+        "ultrametricity": 0.4516,
+        "q2": 0.0002441460674162954,
+        "q4": 1.7878861058306939e-07,
+        "n_overlaps": 33550336
+      },
+      "random_bsc_8192_23": {
+        "codebook_type": "random_bsc",
+        "M_stored": 8192,
+        "seed": 23,
+        "binder": 0.00010667712057021994,
+        "ultrametricity": 0.4582,
+        "q2": 0.000244212948018685,
+        "q4": 1.789008052810459e-07,
+        "n_overlaps": 33550336
+      },
+      "random_bsc_8192_31": {
+        "codebook_type": "random_bsc",
+        "M_stored": 8192,
+        "seed": 31,
+        "binder": 0.0005058402416394658,
+        "ultrametricity": 0.4736,
+        "q2": 0.0002442362601868808,
+        "q4": 1.7886353020912793e-07,
+        "n_overlaps": 33550336
+      },
+      "hadamard_2048_17": {
+        "codebook_type": "hadamard",
+        "M_stored": 2048,
+        "seed": 17,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 2096128
+      },
+      "hadamard_2048_23": {
+        "codebook_type": "hadamard",
+        "M_stored": 2048,
+        "seed": 23,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 2096128
+      },
+      "hadamard_2048_31": {
+        "codebook_type": "hadamard",
+        "M_stored": 2048,
+        "seed": 31,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 2096128
+      },
+      "hadamard_4096_17": {
+        "codebook_type": "hadamard",
+        "M_stored": 4096,
+        "seed": 17,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 8386560
+      },
+      "hadamard_4096_23": {
+        "codebook_type": "hadamard",
+        "M_stored": 4096,
+        "seed": 23,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 8386560
+      },
+      "hadamard_4096_31": {
+        "codebook_type": "hadamard",
+        "M_stored": 4096,
+        "seed": 31,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 8386560
+      },
+      "hadamard_8192_17": {
+        "codebook_type": "hadamard",
+        "M_stored": 8192,
+        "seed": 17,
+        "binder": -2729.333374018471,
+        "ultrametricity": 0.9994,
+        "q2": 0.00012208521366119385,
+        "q4": 0.00012208521366119385,
+        "n_overlaps": 33550336
+      },
+      "hadamard_8192_23": {
+        "codebook_type": "hadamard",
+        "M_stored": 8192,
+        "seed": 23,
+        "binder": -2729.333374018471,
+        "ultrametricity": 0.9994,
+        "q2": 0.00012208521366119385,
+        "q4": 0.00012208521366119385,
+        "n_overlaps": 33550336
+      },
+      "hadamard_8192_31": {
+        "codebook_type": "hadamard",
+        "M_stored": 8192,
+        "seed": 31,
+        "binder": -2729.333374018471,
+        "ultrametricity": 0.9994,
+        "q2": 0.00012208521366119385,
+        "q4": 0.00012208521366119385,
+        "n_overlaps": 33550336
+      },
+      "kerdock_2048_17": {
+        "codebook_type": "kerdock",
+        "M_stored": 2048,
+        "seed": 17,
+        "binder": 0.5553499259858115,
+        "ultrametricity": 0.4434,
+        "q2": 0.00018302079115528613,
+        "q4": 4.468281034064603e-08,
+        "n_overlaps": 2096128
+      },
+      "kerdock_2048_23": {
+        "codebook_type": "kerdock",
+        "M_stored": 2048,
+        "seed": 23,
+        "binder": 0.5556581401641758,
+        "ultrametricity": 0.4456,
+        "q2": 0.0001831477420637384,
+        "q4": 4.4713804214779884e-08,
+        "n_overlaps": 2096128
+      },
+      "kerdock_2048_31": {
+        "codebook_type": "kerdock",
+        "M_stored": 2048,
+        "seed": 31,
+        "binder": 0.5555354921679669,
+        "ultrametricity": 0.4374,
+        "q2": 0.0001830972032621503,
+        "q4": 4.470146564017341e-08,
+        "n_overlaps": 2096128
+      },
+      "kerdock_4096_17": {
+        "codebook_type": "kerdock",
+        "M_stored": 4096,
+        "seed": 17,
+        "binder": 0.5554476582062108,
+        "ultrametricity": 0.4488,
+        "q2": 0.00018306102720089257,
+        "q4": 4.469263359396791e-08,
+        "n_overlaps": 8386560
+      },
+      "kerdock_4096_23": {
+        "codebook_type": "kerdock",
+        "M_stored": 4096,
+        "seed": 23,
+        "binder": 0.5555597587470512,
+        "ultrametricity": 0.4424,
+        "q2": 0.00018310720042791218,
+        "q4": 4.4703906354470746e-08,
+        "n_overlaps": 8386560
+      },
+      "kerdock_4096_31": {
+        "codebook_type": "kerdock",
+        "M_stored": 4096,
+        "seed": 31,
+        "binder": 0.5556541859726306,
+        "ultrametricity": 0.4442,
+        "q2": 0.00018314611224923283,
+        "q4": 4.471340631084786e-08,
+        "n_overlaps": 8386560
+      },
+      "kerdock_8192_17": {
+        "codebook_type": "kerdock",
+        "M_stored": 8192,
+        "seed": 17,
+        "binder": 0.5555926397955324,
+        "ultrametricity": 0.448,
+        "q2": 0.00018312074826098979,
+        "q4": 4.470721393090571e-08,
+        "n_overlaps": 33550336
+      },
+      "kerdock_8192_23": {
+        "codebook_type": "kerdock",
+        "M_stored": 8192,
+        "seed": 23,
+        "binder": 0.5555831044391953,
+        "ultrametricity": 0.438,
+        "q2": 0.00018311681924387813,
+        "q4": 4.470625469821243e-08,
+        "n_overlaps": 33550336
+      },
+      "kerdock_8192_31": {
+        "codebook_type": "kerdock",
+        "M_stored": 8192,
+        "seed": 31,
+        "binder": 0.5556011153243302,
+        "ultrametricity": 0.4476,
+        "q2": 0.0001831242407206446,
+        "q4": 4.470806658218862e-08,
+        "n_overlaps": 33550336
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "codebook_types": [
+      "random_bsc",
+      "hadamard",
+      "kerdock"
+    ],
+    "M_ratios": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "n_triples": 5000
+  }
+}

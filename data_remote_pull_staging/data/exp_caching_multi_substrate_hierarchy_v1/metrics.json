@@ -1,0 +1,26 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_HOT": 15,
+  "M_COLD": 30,
+  "K_HOT": 5,
+  "K_COLD": 1,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_l1_acc": 1.0,
+    "mean_hit_rate": 1.0,
+    "mean_miss_rate": 1.0,
+    "mean_cos_after_delete": -0.03466796875,
+    "mean_l2_delta": 0.0,
+    "frac_A_pass": 1.0,
+    "frac_B_pass": 1.0,
+    "frac_C_pass": 1.0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Multi-tier hierarchy CONFIRMED. L1_acc=1.0000>=0.9 hit_rate=1.0000>=0.9 miss_rate=1.0000>=0.9 cos_after_delete=-0.0347<0.15 l2_delta=0.0000. A:1.00 B:1.00 C:1.00.",
+  "elapsed_s": 0.8028035163879395
+}

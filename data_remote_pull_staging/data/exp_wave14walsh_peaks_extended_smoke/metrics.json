@@ -1,0 +1,66 @@
+{
+  "verdict": "PEAKS_FORENSICS_LIMITED",
+  "verdict_msg": "Recall=100.00% at low K. High-K test inconclusive.",
+  "elapsed_s": 0.375,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      20,
+      100,
+      300
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "K": 20,
+      "recall": 1.0,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    {
+      "K": 100,
+      "recall": 1.0,
+      "per_seed_recall": [
+        1.0
+      ]
+    },
+    {
+      "K": 300,
+      "recall": 1.0,
+      "per_seed_recall": [
+        1.0
+      ]
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "K": 20,
+        "recall": 1.0,
+        "per_seed_recall": [
+          1.0
+        ]
+      },
+      {
+        "K": 100,
+        "recall": 1.0,
+        "per_seed_recall": [
+          1.0
+        ]
+      },
+      {
+        "K": 300,
+        "recall": 1.0,
+        "per_seed_recall": [
+          1.0
+        ]
+      }
+    ]
+  }
+}

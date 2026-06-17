@@ -1,0 +1,53 @@
+{
+  "verdict": "MCT_KEXT_INCONCLUSIVE",
+  "verdict_msg": "Not enough K > K_c points. mean_acc_by_K={64: 1.0, 128: 1.0, 256: 1.0}. K_c=141.",
+  "elapsed_s": 0.038854360580444336,
+  "config": {
+    "N": 1024,
+    "K_values": [
+      64,
+      128,
+      256
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "N": 1024,
+        "K": 64,
+        "K_over_N": 0.0625,
+        "seed": 17,
+        "accuracy": 1.0,
+        "chance": 0.015625
+      },
+      {
+        "N": 1024,
+        "K": 128,
+        "K_over_N": 0.125,
+        "seed": 17,
+        "accuracy": 1.0,
+        "chance": 0.0078125
+      },
+      {
+        "N": 1024,
+        "K": 256,
+        "K_over_N": 0.25,
+        "seed": 17,
+        "accuracy": 1.0,
+        "chance": 0.00390625
+      }
+    ],
+    "N": 1024,
+    "K_values": [
+      64,
+      128,
+      256
+    ],
+    "K_c": 141,
+    "smoke": true
+  }
+}

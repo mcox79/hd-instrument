@@ -1,0 +1,30 @@
+{
+  "anchor_name": "smw_whitening_disabled_isolation_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: pure SMW speedup 3-6x -- whitening was significant but not the whole story. pure SMW speedup (whitening OFF) by N: {'N1024': 1.46, 'N2048': 3.43, 'N4096': 7.82} | at N2048=3.43x",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N1024": {
+          "incremental_s": 0.00042847666578988233,
+          "full_rebuild_s": 0.0006237233368059,
+          "speedup": 1.4556763217340831
+        },
+        "N2048": {
+          "incremental_s": 0.0003455966672239204,
+          "full_rebuild_s": 0.0011869600003895661,
+          "speedup": 3.4345238625247103
+        },
+        "N4096": {
+          "incremental_s": 0.00035103999931986133,
+          "full_rebuild_s": 0.002745866666858395,
+          "speedup": 7.82209056568625
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.19540905952453613,
+  "summary": "MIDDLE_BAND: pure SMW speedup 3-6x -- whitening was significant but not the whole story. pure SMW speedup (whitening OFF) by N: {'N1024': 1.46, 'N2048': 3.43, 'N4096': 7.82} | at N2048=3.43x"
+}

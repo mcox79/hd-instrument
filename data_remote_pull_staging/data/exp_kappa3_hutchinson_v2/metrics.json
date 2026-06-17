@@ -1,0 +1,36 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_LIST": [
+    100,
+    500
+  ],
+  "N_PROBES": 500,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "100": {
+      "M": 100,
+      "mean_kappa3_hopfield": 0.026200606695506393,
+      "mean_kappa3_goe": 0.0005659978435959435,
+      "kappa3_theory": 0.0244140625,
+      "mean_sigma_separation": 32.82235967925814,
+      "mean_theory_ratio": 1.073176850247942,
+      "n_seeds": 2
+    },
+    "500": {
+      "M": 500,
+      "mean_kappa3_hopfield": 0.16827752697303425,
+      "mean_kappa3_goe": 0.0005659978435959435,
+      "kappa3_theory": 0.1220703125,
+      "mean_sigma_separation": 170.20470171045383,
+      "mean_theory_ratio": 1.3785295009630967,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "kappa_3 fingerprint confirmed. min_sigma_sep=32.8 mean_sigma_sep=101.5 (HP>=4.0). theory_ratio=1.23 (within 20.0x). GOE discriminated at all M values.",
+  "elapsed_s": 6.258460760116577
+}

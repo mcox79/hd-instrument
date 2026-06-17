@@ -1,0 +1,21 @@
+{
+  "verdict": "BETG_N65K_KILLED",
+  "verdict_msg": "ECE=0.8900>0.20.",
+  "elapsed_s": 0.15599999998812564,
+  "summary": {
+    "ece": 0.89,
+    "avg_conf": 0.99,
+    "avg_acc": 0.1,
+    "n_queries": 100
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "beta": 32.0,
+    "n_queries": 100,
+    "seed": 17
+  }
+}

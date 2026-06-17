@@ -1,0 +1,31 @@
+{
+  "verdict": "ALPHA_FLAT",
+  "verdict_msg": "All alpha values produce min(edit, kept) within 0.02: range [1.0000, 1.0000]. Substrate insensitive to erase strength in tested range.",
+  "elapsed_s": 13.686999999999898,
+  "summary": {
+    "per_alpha": {
+      "0.8": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      },
+      "1.0": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 256,
+    "n_edit": 5,
+    "n_kept": 20,
+    "alphas": [
+      0.8,
+      1.0
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

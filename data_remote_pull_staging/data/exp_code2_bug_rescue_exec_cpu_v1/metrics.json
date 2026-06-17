@@ -1,0 +1,16 @@
+{
+  "anchor_name": "code2_bug_rescue_exec_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: execution-based bug-detection 0.70-0.85. F1=0.704 prec=1.000 rec=0.544",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.704,
+      "precision": 1.0,
+      "recall": 0.544
+    }
+  ],
+  "elapsed_s": 0.29387402534484863,
+  "summary": "MIDDLE_BAND: execution-based bug-detection 0.70-0.85. F1=0.704 prec=1.000 rec=0.544"
+}

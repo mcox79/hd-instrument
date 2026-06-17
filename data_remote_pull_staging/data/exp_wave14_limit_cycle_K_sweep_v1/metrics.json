@@ -1,0 +1,27 @@
+{
+  "verdict": "PERIOD_K_SCALES",
+  "verdict_msg": "period grows >=3x with K: {'100': 3, '500': 12, '1000': 1, '5000': 42}.",
+  "elapsed_s": 53.514999999984866,
+  "summary": {
+    "median_period_per_K": {
+      "100": 3,
+      "500": 12,
+      "1000": 1,
+      "5000": 42
+    }
+  },
+  "config": {
+    "N": 65536,
+    "K_grid": [
+      100,
+      500,
+      1000,
+      5000
+    ],
+    "depth": 25,
+    "num_relations": 20,
+    "max_iter": 200,
+    "n_starts": 100,
+    "seed": 17
+  }
+}

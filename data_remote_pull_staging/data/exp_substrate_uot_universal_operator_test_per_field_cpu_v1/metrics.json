@@ -1,0 +1,94 @@
+{
+  "anchor_name": "substrate_uot_universal_operator_test_per_field_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: systems promote sanely (3/4) and the record control behaves (sane=0), but the system promotable-gap 3.769 exceeds 2x -- universal-over-system-content holds with cross-field strength variation (e.g. cognition's capability-vs-domain signal artifact). SYSTEM fields (math/science/language/cognition) fire=4/4 sane=3/4 via the SAME operator; RECORD field (history) sane=0/1 [NEGATIVE CONTROL: should be 0 -- the operator must NOT axiomatize narrative]; system promotable-gap=3.769; per-field promotable={'math': 0.2176, 'science': 0.0884, 'language': 0.3333, 'cognition': 0.3333, 'history': 0.9502}. (operator code identical; only the signal extractor swaps -- structural for systems, topical for the record.)",
+  "summary": "MIDDLE_BAND: systems promote sanely (3/4) and the record control behaves (sane=0), but the system promotable-gap 3.769 exceeds 2x -- universal-over-system-content holds with cross-field strength variation (e.g. cognition's capability-vs-domain signal artifact). SYSTEM fields (math/science/language/cognition) fire=4/4 sane=3/4 via the SAME operator; RECORD field (history) sane=0/1 [NEGATIVE CONTROL: should be 0 -- the operator must NOT axiomatize narrative]; system promotable-gap=3.769; per-field promotable={'math': 0.2176, 'science': 0.0884, 'language': 0.3333, 'cognition': 0.3333, 'history': 0.9502}. (operator code identical; only the signal extractor swaps -- structural for systems, topical for the record.)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "math": {
+          "n_atoms": 239,
+          "extractor": "structural",
+          "fires": true,
+          "n_groups": 3,
+          "promotable_frac": 0.218,
+          "max_group_frac": 0.192,
+          "sanity": 0.667,
+          "top_group_sizes": [
+            46,
+            3,
+            3
+          ]
+        },
+        "science": {
+          "n_atoms": 147,
+          "extractor": "structural",
+          "fires": true,
+          "n_groups": 3,
+          "promotable_frac": 0.088,
+          "max_group_frac": 0.041,
+          "sanity": 1.0,
+          "top_group_sizes": [
+            6,
+            4,
+            3
+          ]
+        },
+        "language": {
+          "n_atoms": 42,
+          "extractor": "structural",
+          "fires": true,
+          "n_groups": 2,
+          "promotable_frac": 0.333,
+          "max_group_frac": 0.262,
+          "sanity": 0.5,
+          "top_group_sizes": [
+            11,
+            3
+          ]
+        },
+        "cognition": {
+          "n_atoms": 51,
+          "extractor": "structural",
+          "fires": true,
+          "n_groups": 2,
+          "promotable_frac": 0.333,
+          "max_group_frac": 0.275,
+          "sanity": 1.0,
+          "top_group_sizes": [
+            14,
+            3
+          ]
+        },
+        "history": {
+          "n_atoms": 1245,
+          "extractor": "topical",
+          "fires": true,
+          "n_groups": 1,
+          "promotable_frac": 0.95,
+          "max_group_frac": 0.95,
+          "sanity": 2.236,
+          "top_group_sizes": [
+            1183
+          ]
+        }
+      },
+      "n_fire": 5,
+      "n_sane": 3,
+      "m3_gap": 3.769,
+      "sys_fire": 4,
+      "sys_sane": 3,
+      "rec_sane": 0,
+      "promotable_fracs": {
+        "math": 0.2176,
+        "science": 0.0884,
+        "language": 0.3333,
+        "cognition": 0.3333,
+        "history": 0.9502
+      }
+    }
+  ],
+  "elapsed_s": 0.3687584400177002
+}

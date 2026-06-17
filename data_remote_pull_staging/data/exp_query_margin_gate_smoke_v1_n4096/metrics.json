@@ -1,0 +1,74 @@
+{
+  "verdict": "D1_HARD_FAIL",
+  "verdict_msg": "NO_DELTA_DEFENDS: delta=0.0: def=0.000 fpr=0.000 | delta=0.031: def=0.000 fpr=0.000 | delta=0.063: def=0.000 fpr=0.000 | delta=0.125: def=0.000 fpr=0.000",
+  "elapsed_s": 0.09,
+  "summary": {
+    "anchor": "query_margin_gate_smoke_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "deltas": [
+      0.0,
+      0.031,
+      0.063,
+      0.125
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "ok": true,
+        "per_delta": {
+          "0.0": {
+            "delta": 0.0,
+            "p2_defense_rate": 0.0,
+            "p2_leak_rate": 1.0,
+            "p2_reject_rate": 0.0,
+            "p2_n": 11,
+            "legit_fpr": 0.0,
+            "legit_recall_accepted": 0.0,
+            "legit_n": 32
+          },
+          "0.031": {
+            "delta": 0.031,
+            "p2_defense_rate": 0.0,
+            "p2_leak_rate": 1.0,
+            "p2_reject_rate": 0.0,
+            "p2_n": 11,
+            "legit_fpr": 0.0,
+            "legit_recall_accepted": 0.0,
+            "legit_n": 32
+          },
+          "0.063": {
+            "delta": 0.063,
+            "p2_defense_rate": 0.0,
+            "p2_leak_rate": 1.0,
+            "p2_reject_rate": 0.0,
+            "p2_n": 11,
+            "legit_fpr": 0.0,
+            "legit_recall_accepted": 0.0,
+            "legit_n": 32
+          },
+          "0.125": {
+            "delta": 0.125,
+            "p2_defense_rate": 0.0,
+            "p2_leak_rate": 1.0,
+            "p2_reject_rate": 0.0,
+            "p2_n": 11,
+            "legit_fpr": 0.0,
+            "legit_recall_accepted": 0.0,
+            "legit_n": 32
+          }
+        }
+      }
+    ],
+    "verdict": "D1_HARD_FAIL",
+    "verdict_msg": "NO_DELTA_DEFENDS: delta=0.0: def=0.000 fpr=0.000 | delta=0.031: def=0.000 fpr=0.000 | delta=0.063: def=0.000 fpr=0.000 | delta=0.125: def=0.000 fpr=0.000",
+    "elapsed_s": 0.09
+  }
+}

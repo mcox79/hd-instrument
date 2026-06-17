@@ -1,0 +1,25 @@
+{
+  "verdict": "BET_U_PARTIAL",
+  "verdict_msg": "Partial: recent=0.600, old=0.400, ratio=1.50.",
+  "elapsed_s": 0.09400000001187436,
+  "summary": {
+    "recent_acc": 0.6,
+    "old_acc": 0.4,
+    "per_seed": [
+      {
+        "recent": 0.6,
+        "old": 0.4
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "decay": 0.99,
+    "n_items": 50,
+    "n_relations": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "anchor": "region_d_kf2_n4096_beta64_mfrac12",
+  "N": 4096,
+  "smoke": false,
+  "region": "region_D",
+  "M_frac": 12.0,
+  "beta": 64.0,
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    41
+  ],
+  "cells": [
+    {
+      "region": "region_D",
+      "M_frac": 12.0,
+      "M": 49152,
+      "N": 4096,
+      "beta": 64.0,
+      "seed": 7,
+      "retention": 0.35265,
+      "theory_bound_ret": 1e-05
+    },
+    {
+      "region": "region_D",
+      "M_frac": 12.0,
+      "M": 49152,
+      "N": 4096,
+      "beta": 64.0,
+      "seed": 17,
+      "retention": 0.32848,
+      "theory_bound_ret": 1e-05
+    },
+    {
+      "region": "region_D",
+      "M_frac": 12.0,
+      "M": 49152,
+      "N": 4096,
+      "beta": 64.0,
+      "seed": 23,
+      "retention": 0.32679,
+      "theory_bound_ret": 1e-05
+    },
+    {
+      "region": "region_D",
+      "M_frac": 12.0,
+      "M": 49152,
+      "N": 4096,
+      "beta": 64.0,
+      "seed": 31,
+      "retention": 0.32785,
+      "theory_bound_ret": 1e-05
+    },
+    {
+      "region": "region_D",
+      "M_frac": 12.0,
+      "M": 49152,
+      "N": 4096,
+      "beta": 64.0,
+      "seed": 41,
+      "retention": 0.32696,
+      "theory_bound_ret": 1e-05
+    }
+  ],
+  "verdict": "REGION_D_KF2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: 0/5 seeds mean_ret=0.3325",
+  "elapsed_s": 5.75
+}

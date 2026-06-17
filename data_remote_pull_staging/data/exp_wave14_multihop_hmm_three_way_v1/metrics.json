@@ -1,0 +1,24 @@
+{
+  "verdict": "HMM_REFUTED",
+  "verdict_msg": "HMM framework REFUTED: soft=0.217 ~ hard=0.250 (no information gain). smoother=1.000.",
+  "elapsed_s": 9.812000000005355,
+  "summary": {
+    "acc_hard": 0.25,
+    "acc_soft_forward": 0.21666666666666667,
+    "acc_smoother": 1.0,
+    "depth": 50
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "depth": 50,
+    "n_trials": 30,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

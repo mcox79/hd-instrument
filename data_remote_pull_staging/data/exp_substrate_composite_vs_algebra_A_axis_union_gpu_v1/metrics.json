@@ -1,0 +1,49 @@
+{
+  "anchor_name": "substrate_composite_vs_algebra_A_axis_union_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: composite_hrr within +/-0.02 of algebra_hrr on A-axis -- identity-augmentation is A-axis-neutral (doesn't hurt; its decode/cleanup benefit stands; A-axis gold may already be bge-covered). bge_only=0.3562 algebra_union=0.302 composite_union=0.328 | composite-minus-algebra=+0.0260 composite-minus-bge=-0.0282 (n_A=12, device=cuda). INTERNAL delta; NOT Testbed canonical absolute.",
+  "summary": "MIDDLE_BAND: composite_hrr within +/-0.02 of algebra_hrr on A-axis -- identity-augmentation is A-axis-neutral (doesn't hurt; its decode/cleanup benefit stands; A-axis gold may already be bge-covered). bge_only=0.3562 algebra_union=0.302 composite_union=0.328 | composite-minus-algebra=+0.0260 composite-minus-bge=-0.0282 (n_A=12, device=cuda). INTERNAL delta; NOT Testbed canonical absolute.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "best": {
+        "bge_only": {
+          "f1": 0.3562,
+          "kb": 5,
+          "ke": 0
+        },
+        "algebra_union": {
+          "f1": 0.302,
+          "kb": 5,
+          "ke": 3
+        },
+        "composite_union": {
+          "f1": 0.328,
+          "kb": 5,
+          "ke": 3
+        }
+      },
+      "n_A": 12,
+      "grid": {
+        "bge_only_kb5_ke0": 0.3562,
+        "algebra_union_kb5_ke3": 0.302,
+        "algebra_union_kb5_ke5": 0.2639,
+        "composite_union_kb5_ke3": 0.328,
+        "composite_union_kb5_ke5": 0.2858,
+        "bge_only_kb8_ke0": 0.3077,
+        "algebra_union_kb8_ke3": 0.265,
+        "algebra_union_kb8_ke5": 0.2387,
+        "composite_union_kb8_ke3": 0.2851,
+        "composite_union_kb8_ke5": 0.2541,
+        "bge_only_kb12_ke0": 0.2864,
+        "algebra_union_kb12_ke3": 0.2556,
+        "algebra_union_kb12_ke5": 0.2351,
+        "composite_union_kb12_ke3": 0.2634,
+        "composite_union_kb12_ke5": 0.2404
+      },
+      "device": "cuda"
+    }
+  ],
+  "elapsed_s": 218.736989736557
+}

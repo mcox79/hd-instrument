@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_noise_bft_bge_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate does not beat bge at noise 0.50. at noise0.50 bge=0.054 substrate=0.011 (bge drop from 0.05: 0.946); n=1000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "n0.05": {
+          "bge": 1.0,
+          "sub": 0.994
+        },
+        "n0.20": {
+          "bge": 0.693,
+          "sub": 0.183
+        },
+        "n0.50": {
+          "bge": 0.054,
+          "sub": 0.011
+        }
+      },
+      "n": 1000
+    }
+  ],
+  "elapsed_s": 2.398776054382324,
+  "summary": "HARD_FAIL: substrate does not beat bge at noise 0.50. at noise0.50 bge=0.054 substrate=0.011 (bge drop from 0.05: 0.946); n=1000"
+}

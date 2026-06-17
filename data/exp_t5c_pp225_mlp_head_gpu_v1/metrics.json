@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_pp225_mlp_head_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: projection head generalizes (held-out >=0.25) -- direct retrieval->logit projection works; the cross-attn GATE was the Path B limiter, not the projection. bare=0.000 train-recall=0.993 HELD-OUT-recall=0.990 (best 0.990) (149/100)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.9932885906040269,
+      "heldout_recall": 0.99,
+      "best_heldout": 0.99,
+      "n_train": 149,
+      "n_test": 100
+    }
+  ],
+  "elapsed_s": 129.94169974327087,
+  "summary": "HARD_PASS: projection head generalizes (held-out >=0.25) -- direct retrieval->logit projection works; the cross-attn GATE was the Path B limiter, not the projection. bare=0.000 train-recall=0.993 HELD-OUT-recall=0.990 (best 0.990) (149/100)"
+}

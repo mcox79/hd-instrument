@@ -1,0 +1,60 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_SWEEP": [
+    10,
+    20,
+    50,
+    100,
+    200
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "configs": [
+      {
+        "M": 10,
+        "mean_r_eff": 9.952226177011013,
+        "mean_ratio": 0.9952226177011013,
+        "n_seeds": 2,
+        "below_capacity": true
+      },
+      {
+        "M": 20,
+        "mean_r_eff": 19.810703087773874,
+        "mean_ratio": 0.9905351543886936,
+        "n_seeds": 2,
+        "below_capacity": true
+      },
+      {
+        "M": 50,
+        "mean_r_eff": 48.82835449439181,
+        "mean_ratio": 0.9765670898878362,
+        "n_seeds": 2,
+        "below_capacity": true
+      },
+      {
+        "M": 100,
+        "mean_r_eff": 95.37245366343296,
+        "mean_ratio": 0.9537245366343297,
+        "n_seeds": 2,
+        "below_capacity": true
+      },
+      {
+        "M": 200,
+        "mean_r_eff": 182.35005237103283,
+        "mean_ratio": 0.9117502618551641,
+        "n_seeds": 2,
+        "below_capacity": true
+      }
+    ],
+    "n_monotone_seeds": 2,
+    "n_seeds_total": 2,
+    "frac_monotone": 1.0
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "r_eff monotone in M confirmed. frac_monotone=1.00 (HP>=0.80). mean_r_eff/M (below cap)=0.966 (HP>=0.5). Substrate representational dim grows with pattern count.",
+  "elapsed_s": 0.0
+}

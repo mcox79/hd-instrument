@@ -1,0 +1,19 @@
+{
+  "anchor_name": "cascade_router_latency_profile_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cascade router P95 < 500ms at 1M facts -- production latency green; cost/latency display data ready for the demo. P50=0.15ms P95=0.21ms P99=0.31ms fallback=0.0% at 1000000 facts (500 shards)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "p50": 0.14965003356337547,
+      "p95": 0.20964996656402932,
+      "p99": 0.3115920431446283,
+      "fallback_frac": 0.0,
+      "nfacts": 1000000,
+      "nshards": 500
+    }
+  ],
+  "elapsed_s": 8.095876932144165,
+  "summary": "HARD_PASS: cascade router P95 < 500ms at 1M facts -- production latency green; cost/latency display data ready for the demo. P50=0.15ms P95=0.21ms P99=0.31ms fallback=0.0% at 1000000 facts (500 shards)"
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "slipnet_real_polysemic_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: real polysemic cross-domain 0.35-0.50 (real heterogeneity degrades but partial). recall@1=0.375 (n=28, rel-types=10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall1": 0.375,
+      "n_entities": 28,
+      "n_reltypes": 10
+    }
+  ],
+  "elapsed_s": 3.8228185176849365,
+  "summary": "MIDDLE_BAND: real polysemic cross-domain 0.35-0.50 (real heterogeneity degrades but partial). recall@1=0.375 (n=28, rel-types=10)"
+}

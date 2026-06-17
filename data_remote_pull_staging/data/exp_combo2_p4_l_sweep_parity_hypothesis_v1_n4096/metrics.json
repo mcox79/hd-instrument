@@ -1,0 +1,56 @@
+{
+  "anchor": "combo2_p4_l_sweep_parity_hypothesis_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (FLAT): b_rep flat as predicted by signed-AM algebra. L5:b=1.0000 L6:b=1.0000 L7:b=1.0000 | L5:fid=1.0000 L6:fid=1.0000 L7:fid=1.0000",
+  "n_seeds": 2,
+  "N": 4096,
+  "run_mode": "smoke",
+  "elapsed_s": 0.1887660026550293,
+  "summary": "HARD_PASS (FLAT): b_rep flat as predicted by signed-AM algebra. L5:b=1.0000 L6:b=1.0000 L7:b=1.0000 | L5:fid=1.0000 L6:fid=1.0000 L7:fid=1.0000",
+  "results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.0551905632019043,
+      "results_per_L": {
+        "5": {
+          "b_rep": 1.0,
+          "l_fid": 0.9999999999999998
+        },
+        "6": {
+          "b_rep": 1.0,
+          "l_fid": 0.9999999999999998
+        },
+        "7": {
+          "b_rep": 1.0,
+          "l_fid": 0.9999999999999998
+        }
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780453496.5857584
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.06786942481994629,
+      "results_per_L": {
+        "5": {
+          "b_rep": 1.0,
+          "l_fid": 0.9999999999999998
+        },
+        "6": {
+          "b_rep": 1.0,
+          "l_fid": 0.9999999999999998
+        },
+        "7": {
+          "b_rep": 1.0,
+          "l_fid": 0.9999999999999998
+        }
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780453496.6735702
+    }
+  ]
+}

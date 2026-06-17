@@ -1,0 +1,64 @@
+{
+  "verdict": "MULTIHOP_DECAY_AT_50",
+  "verdict_msg": "All tested depths achieve >0.10 mean accuracy but PASS criteria not all met: acc_1hop=0.967<0.98. Soft pass on depth coverage; instability or boundary fail.",
+  "elapsed_s": 7.563000000001921,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.9666666666666667,
+      "5": 0.9,
+      "10": 0.7000000000000001,
+      "25": 0.4666666666666666,
+      "50": 0.38000000000000006
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 0.98,
+        "5": 0.92,
+        "10": 0.82,
+        "25": 0.5,
+        "50": 0.44
+      },
+      "23": {
+        "1": 1.0,
+        "5": 0.9,
+        "10": 0.62,
+        "25": 0.44,
+        "50": 0.32
+      },
+      "31": {
+        "1": 0.92,
+        "5": 0.88,
+        "10": 0.66,
+        "25": 0.46,
+        "50": 0.38
+      }
+    },
+    "per_hop_retention_rate": 0.9808343612379666,
+    "log_decay_slope_per_hop": -0.01947148504717739,
+    "max_pairwise_ip_per_seed": {
+      "17": 0.0313720703125,
+      "23": 0.03076171875,
+      "31": 0.0321044921875
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 16384,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 50,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

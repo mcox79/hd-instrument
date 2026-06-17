@@ -1,0 +1,16 @@
+{
+  "anchor_name": "integration_algebra_flow_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: integration matches equal-weight but no clear lift over single-drive. integrated=0.019 equal-weight=0.022 best-single=0.029",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "integrated_minsat": 0.019,
+      "equalweight_minsat": 0.022,
+      "bestsingle_minsat": 0.029
+    }
+  ],
+  "elapsed_s": 2.4904308319091797,
+  "summary": "MIDDLE_BAND: integration matches equal-weight but no clear lift over single-drive. integrated=0.019 equal-weight=0.022 best-single=0.029"
+}

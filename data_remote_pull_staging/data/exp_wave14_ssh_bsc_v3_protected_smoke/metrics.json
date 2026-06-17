@@ -1,0 +1,45 @@
+{
+  "verdict": "BET_F_NO_TRANSITION",
+  "verdict_msg": "No q gives recovery rate >= 0.5 at any p; no sharp transition observed.",
+  "elapsed_s": 0.5779999999977008,
+  "summary": {
+    "per_cell": {
+      "2_0.0_17": {
+        "q": 2,
+        "p": 0.0,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      },
+      "2_0.1_17": {
+        "q": 2,
+        "p": 0.1,
+        "seed": 17,
+        "chiral_violation": 0.0,
+        "nu_MS": 0,
+        "bott": null
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "N_facts": 100,
+    "q_sweep": [
+      2
+    ],
+    "q_distribution": [
+      2,
+      5,
+      10
+    ],
+    "p_sweep": [
+      0.0,
+      0.1
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

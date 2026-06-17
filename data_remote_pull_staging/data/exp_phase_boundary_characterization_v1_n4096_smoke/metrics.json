@@ -1,0 +1,150 @@
+{
+  "verdict": "PHB_HARD_FAIL",
+  "verdict_msg": "NO_BOUNDARY: beta_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) M_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) beta_rets=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] M_rets=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]",
+  "elapsed_s": 1.5,
+  "summary": {
+    "anchor": "phase_boundary_characterization_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "betas": [
+      9.0,
+      9.5,
+      9.8,
+      10.0,
+      10.2,
+      10.5,
+      11.0
+    ],
+    "Ms": [
+      256,
+      384,
+      512,
+      640,
+      768,
+      896,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "beta_results": [
+      {
+        "M": 2048,
+        "beta": 9.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 2048,
+        "beta": 9.5,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 2048,
+        "beta": 9.8,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 2048,
+        "beta": 10.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 2048,
+        "beta": 10.2,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 2048,
+        "beta": 10.5,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 2048,
+        "beta": 11.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      }
+    ],
+    "M_results": [
+      {
+        "M": 256,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 384,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 512,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 640,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 768,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 896,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 1024,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      }
+    ],
+    "verdict": "PHB_HARD_FAIL",
+    "verdict_msg": "NO_BOUNDARY: beta_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) M_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) beta_rets=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] M_rets=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]",
+    "elapsed_s": 1.5
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_relation_classification_semeval_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: macro-F1 <0.50. macro-F1=0.4056 acc=0.4900 (train=600, 19 classes)",
+  "summary": "HARD_FAIL: macro-F1 <0.50. macro-F1=0.4056 acc=0.4900 (train=600, 19 classes)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.4056,
+      "macro_f1": 0.4056,
+      "accuracy": 0.49,
+      "n_train": 600,
+      "n_classes": 19
+    }
+  ],
+  "elapsed_s": 9.175039291381836
+}

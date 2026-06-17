@@ -1,0 +1,70 @@
+{
+  "anchor_name": "substrate_lean_f1_bge_scorer_cached_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (H1 confirmed; bge-only macro-F1=0.4505 in [0.20,0.50)): 0.0067 was a degraded-scorer artifact (real bge-F1 is much higher); floor not yet met at bge-only -- algebra-union (canonical) may close it. LEAN bge-only F1 (DECISION 25 Option B; reuses canonical Retriever.semantic; full-corpus bge cache 20820 atoms built in 3153.3s reusable). 30q: macro-F1 ungated=0.1177 gated=0.4396 r@10=0.3824. 60q: macro-F1 ungated=0.1199 gated=0.4505 r@10=0.4375. R3: BGE-ONLY -- canonical unions algebra-HRR + structural + L6-PROOF for B/D axes, so canonical macro-F1 >= this LOWER BOUND. tau-gate=0.80 (H1).",
+  "summary": "MIDDLE_BAND (H1 confirmed; bge-only macro-F1=0.4505 in [0.20,0.50)): 0.0067 was a degraded-scorer artifact (real bge-F1 is much higher); floor not yet met at bge-only -- algebra-union (canonical) may close it. LEAN bge-only F1 (DECISION 25 Option B; reuses canonical Retriever.semantic; full-corpus bge cache 20820 atoms built in 3153.3s reusable). 30q: macro-F1 ungated=0.1177 gated=0.4396 r@10=0.3824. 60q: macro-F1 ungated=0.1199 gated=0.4505 r@10=0.4375. R3: BGE-ONLY -- canonical unions algebra-HRR + structural + L6-PROOF for B/D axes, so canonical macro-F1 >= this LOWER BOUND. tau-gate=0.80 (H1).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms_indexed": 20820,
+      "cache_build_s": 3153.3,
+      "tau": 0.8,
+      "qsets": {
+        "30q": {
+          "n_q": 34,
+          "macro_f1_ungated_top5": 0.1177,
+          "macro_f1_tau_gated": 0.4396,
+          "recall_at_10": 0.3824,
+          "per_axis_ungated": {
+            "A": 0.5052,
+            "B": 0.0357,
+            "C": 0.1511,
+            "D": 0.0,
+            "E": 0.1666,
+            "F": 0.0,
+            "G": 0.0833,
+            "negative": 0.0
+          },
+          "per_axis_gated": {
+            "A": 0.1416,
+            "B": 0.0,
+            "C": 0.0,
+            "D": 0.75,
+            "E": 0.375,
+            "F": 0.75,
+            "G": 0.5,
+            "negative": 1.0
+          }
+        },
+        "60q": {
+          "n_q": 64,
+          "macro_f1_ungated_top5": 0.1199,
+          "macro_f1_tau_gated": 0.4505,
+          "recall_at_10": 0.4375,
+          "per_axis_ungated": {
+            "A": 0.498,
+            "B": 0.0387,
+            "C": 0.12,
+            "D": 0.0,
+            "E": 0.1666,
+            "F": 0.0,
+            "G": 0.136,
+            "negative": 0.0
+          },
+          "per_axis_gated": {
+            "A": 0.1106,
+            "B": 0.0,
+            "C": 0.0,
+            "D": 0.8571,
+            "E": 0.3125,
+            "F": 0.8,
+            "G": 0.5238,
+            "negative": 1.0
+          }
+        }
+      }
+    }
+  ],
+  "elapsed_s": 3176.7808244228363
+}

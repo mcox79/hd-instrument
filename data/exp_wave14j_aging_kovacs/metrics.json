@@ -1,0 +1,604 @@
+{
+  "D": 4096,
+  "N_FACTS": 100,
+  "T_TRAIN": 500,
+  "T_PROBE": 5000,
+  "WAIT_TIMES": [
+    100,
+    1000
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "elapsed_s": 185.48499999998603,
+  "grid": [
+    {
+      "schedule": "fixed",
+      "t_w": 100,
+      "seed": 17,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.98
+        },
+        {
+          "t": 30,
+          "recall": 0.98
+        },
+        {
+          "t": 100,
+          "recall": 0.98
+        },
+        {
+          "t": 300,
+          "recall": 0.98
+        },
+        {
+          "t": 1000,
+          "recall": 0.98
+        },
+        {
+          "t": 3000,
+          "recall": 0.98
+        }
+      ],
+      "log_log_slope": 3.2155190388317358e-18
+    },
+    {
+      "schedule": "fixed",
+      "t_w": 100,
+      "seed": 23,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 1.0
+        },
+        {
+          "t": 30,
+          "recall": 1.0
+        },
+        {
+          "t": 100,
+          "recall": 1.0
+        },
+        {
+          "t": 300,
+          "recall": 1.0
+        },
+        {
+          "t": 1000,
+          "recall": 1.0
+        },
+        {
+          "t": 3000,
+          "recall": 1.0
+        }
+      ],
+      "log_log_slope": 0.0
+    },
+    {
+      "schedule": "fixed",
+      "t_w": 100,
+      "seed": 31,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.99
+        },
+        {
+          "t": 30,
+          "recall": 0.99
+        },
+        {
+          "t": 100,
+          "recall": 0.99
+        },
+        {
+          "t": 300,
+          "recall": 0.99
+        },
+        {
+          "t": 1000,
+          "recall": 0.99
+        },
+        {
+          "t": 3000,
+          "recall": 0.99
+        }
+      ],
+      "log_log_slope": -1.6077595194158679e-18
+    },
+    {
+      "schedule": "fixed",
+      "t_w": 1000,
+      "seed": 17,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.98
+        },
+        {
+          "t": 30,
+          "recall": 0.98
+        },
+        {
+          "t": 100,
+          "recall": 0.98
+        },
+        {
+          "t": 300,
+          "recall": 0.98
+        },
+        {
+          "t": 1000,
+          "recall": 0.98
+        },
+        {
+          "t": 3000,
+          "recall": 0.98
+        }
+      ],
+      "log_log_slope": 3.2155190388317358e-18
+    },
+    {
+      "schedule": "fixed",
+      "t_w": 1000,
+      "seed": 23,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 1.0
+        },
+        {
+          "t": 30,
+          "recall": 1.0
+        },
+        {
+          "t": 100,
+          "recall": 1.0
+        },
+        {
+          "t": 300,
+          "recall": 1.0
+        },
+        {
+          "t": 1000,
+          "recall": 1.0
+        },
+        {
+          "t": 3000,
+          "recall": 1.0
+        }
+      ],
+      "log_log_slope": 0.0
+    },
+    {
+      "schedule": "fixed",
+      "t_w": 1000,
+      "seed": 31,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.99
+        },
+        {
+          "t": 30,
+          "recall": 0.99
+        },
+        {
+          "t": 100,
+          "recall": 0.99
+        },
+        {
+          "t": 300,
+          "recall": 0.99
+        },
+        {
+          "t": 1000,
+          "recall": 0.99
+        },
+        {
+          "t": 3000,
+          "recall": 0.99
+        }
+      ],
+      "log_log_slope": -1.6077595194158679e-18
+    },
+    {
+      "schedule": "single_cool",
+      "t_w": 100,
+      "seed": 17,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.98
+        },
+        {
+          "t": 30,
+          "recall": 0.98
+        },
+        {
+          "t": 100,
+          "recall": 0.98
+        },
+        {
+          "t": 300,
+          "recall": 0.98
+        },
+        {
+          "t": 1000,
+          "recall": 0.98
+        },
+        {
+          "t": 3000,
+          "recall": 0.98
+        }
+      ],
+      "log_log_slope": 3.2155190388317358e-18
+    },
+    {
+      "schedule": "single_cool",
+      "t_w": 100,
+      "seed": 23,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 1.0
+        },
+        {
+          "t": 30,
+          "recall": 1.0
+        },
+        {
+          "t": 100,
+          "recall": 1.0
+        },
+        {
+          "t": 300,
+          "recall": 1.0
+        },
+        {
+          "t": 1000,
+          "recall": 1.0
+        },
+        {
+          "t": 3000,
+          "recall": 1.0
+        }
+      ],
+      "log_log_slope": 0.0
+    },
+    {
+      "schedule": "single_cool",
+      "t_w": 100,
+      "seed": 31,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.99
+        },
+        {
+          "t": 30,
+          "recall": 0.99
+        },
+        {
+          "t": 100,
+          "recall": 0.99
+        },
+        {
+          "t": 300,
+          "recall": 0.99
+        },
+        {
+          "t": 1000,
+          "recall": 0.99
+        },
+        {
+          "t": 3000,
+          "recall": 0.99
+        }
+      ],
+      "log_log_slope": -1.6077595194158679e-18
+    },
+    {
+      "schedule": "single_cool",
+      "t_w": 1000,
+      "seed": 17,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.98
+        },
+        {
+          "t": 30,
+          "recall": 0.98
+        },
+        {
+          "t": 100,
+          "recall": 0.98
+        },
+        {
+          "t": 300,
+          "recall": 0.98
+        },
+        {
+          "t": 1000,
+          "recall": 0.98
+        },
+        {
+          "t": 3000,
+          "recall": 0.98
+        }
+      ],
+      "log_log_slope": 3.2155190388317358e-18
+    },
+    {
+      "schedule": "single_cool",
+      "t_w": 1000,
+      "seed": 23,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 1.0
+        },
+        {
+          "t": 30,
+          "recall": 1.0
+        },
+        {
+          "t": 100,
+          "recall": 1.0
+        },
+        {
+          "t": 300,
+          "recall": 1.0
+        },
+        {
+          "t": 1000,
+          "recall": 1.0
+        },
+        {
+          "t": 3000,
+          "recall": 1.0
+        }
+      ],
+      "log_log_slope": 0.0
+    },
+    {
+      "schedule": "single_cool",
+      "t_w": 1000,
+      "seed": 31,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.99
+        },
+        {
+          "t": 30,
+          "recall": 0.99
+        },
+        {
+          "t": 100,
+          "recall": 0.99
+        },
+        {
+          "t": 300,
+          "recall": 0.99
+        },
+        {
+          "t": 1000,
+          "recall": 0.99
+        },
+        {
+          "t": 3000,
+          "recall": 0.99
+        }
+      ],
+      "log_log_slope": -1.6077595194158679e-18
+    },
+    {
+      "schedule": "kovacs",
+      "t_w": 100,
+      "seed": 17,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.98
+        },
+        {
+          "t": 30,
+          "recall": 0.98
+        },
+        {
+          "t": 100,
+          "recall": 0.98
+        },
+        {
+          "t": 300,
+          "recall": 0.98
+        },
+        {
+          "t": 1000,
+          "recall": 0.98
+        },
+        {
+          "t": 3000,
+          "recall": 0.98
+        }
+      ],
+      "log_log_slope": 3.2155190388317358e-18
+    },
+    {
+      "schedule": "kovacs",
+      "t_w": 100,
+      "seed": 23,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 1.0
+        },
+        {
+          "t": 30,
+          "recall": 1.0
+        },
+        {
+          "t": 100,
+          "recall": 1.0
+        },
+        {
+          "t": 300,
+          "recall": 1.0
+        },
+        {
+          "t": 1000,
+          "recall": 1.0
+        },
+        {
+          "t": 3000,
+          "recall": 1.0
+        }
+      ],
+      "log_log_slope": 0.0
+    },
+    {
+      "schedule": "kovacs",
+      "t_w": 100,
+      "seed": 31,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.99
+        },
+        {
+          "t": 30,
+          "recall": 0.99
+        },
+        {
+          "t": 100,
+          "recall": 0.99
+        },
+        {
+          "t": 300,
+          "recall": 0.99
+        },
+        {
+          "t": 1000,
+          "recall": 0.99
+        },
+        {
+          "t": 3000,
+          "recall": 0.99
+        }
+      ],
+      "log_log_slope": -1.6077595194158679e-18
+    },
+    {
+      "schedule": "kovacs",
+      "t_w": 1000,
+      "seed": 17,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.98
+        },
+        {
+          "t": 30,
+          "recall": 0.98
+        },
+        {
+          "t": 100,
+          "recall": 0.98
+        },
+        {
+          "t": 300,
+          "recall": 0.98
+        },
+        {
+          "t": 1000,
+          "recall": 0.98
+        },
+        {
+          "t": 3000,
+          "recall": 0.98
+        }
+      ],
+      "log_log_slope": 3.2155190388317358e-18
+    },
+    {
+      "schedule": "kovacs",
+      "t_w": 1000,
+      "seed": 23,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 1.0
+        },
+        {
+          "t": 30,
+          "recall": 1.0
+        },
+        {
+          "t": 100,
+          "recall": 1.0
+        },
+        {
+          "t": 300,
+          "recall": 1.0
+        },
+        {
+          "t": 1000,
+          "recall": 1.0
+        },
+        {
+          "t": 3000,
+          "recall": 1.0
+        }
+      ],
+      "log_log_slope": 0.0
+    },
+    {
+      "schedule": "kovacs",
+      "t_w": 1000,
+      "seed": 31,
+      "retention": [
+        {
+          "t": 10,
+          "recall": 0.99
+        },
+        {
+          "t": 30,
+          "recall": 0.99
+        },
+        {
+          "t": 100,
+          "recall": 0.99
+        },
+        {
+          "t": 300,
+          "recall": 0.99
+        },
+        {
+          "t": 1000,
+          "recall": 0.99
+        },
+        {
+          "t": 3000,
+          "recall": 0.99
+        }
+      ],
+      "log_log_slope": -1.6077595194158679e-18
+    }
+  ],
+  "summary": {
+    "fixed_t_w=100": 5.359198398052893e-19,
+    "fixed_t_w=1000": 5.359198398052893e-19,
+    "single_cool_t_w=100": 5.359198398052893e-19,
+    "single_cool_t_w=1000": 5.359198398052893e-19,
+    "kovacs_t_w=100": 5.359198398052893e-19,
+    "kovacs_t_w=1000": 5.359198398052893e-19
+  },
+  "verdict": "AGING_COSMETIC",
+  "verdict_msg": "Kov\u00e1cs slope diff 0.000 < 0.1. No aging effect."
+}

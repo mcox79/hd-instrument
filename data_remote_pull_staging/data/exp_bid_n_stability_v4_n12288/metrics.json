@@ -1,0 +1,61 @@
+{
+  "verdict": "BID_N4_PARTIAL",
+  "verdict_msg": "Control only; N=12288 not computed. mean_BID_by_N={256: 24.47, 1024: 66.33}.",
+  "elapsed_s": 2.0069541931152344,
+  "config": {
+    "N_values": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "per_N": {
+      "256": [
+        {
+          "N": 256,
+          "seed": 17,
+          "M_stored": 35,
+          "bid_estimate": 24.46979619733852,
+          "bid_ci_low": 20.491841005245398,
+          "bid_ci_high": 29.526602316684976,
+          "bid_normalized": 0.0955851413958536,
+          "in_retrieval_band": false,
+          "in_spinglass_band": false,
+          "in_paramagnetic_band": false,
+          "in_known_class": false,
+          "mean_overlap": 0.9890625,
+          "std_overlap": 0.012693810007243688
+        }
+      ],
+      "1024": [
+        {
+          "N": 1024,
+          "seed": 17,
+          "M_stored": 143,
+          "bid_estimate": 66.3263017760239,
+          "bid_ci_low": 56.46125306285368,
+          "bid_ci_high": 75.0149931073327,
+          "bid_normalized": 0.06477177907814834,
+          "in_retrieval_band": false,
+          "in_spinglass_band": false,
+          "in_paramagnetic_band": false,
+          "in_known_class": false,
+          "mean_overlap": 0.9840335445804196,
+          "std_overlap": 0.007857832194106431
+        }
+      ]
+    },
+    "N_values": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "anchor_name": "f1_topk_bitflip_rescue_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: top-k rescue recovers >=0.95 recall at 30pct bit-flip with graceful decay through 50pct (top-1 alone degrades) -- robust noisy-key retrieval. top1@0.3=0.750 TOPK@0.3=1.000 topk@0.5=1.000 curve={'f0.0': 1.0, 'f0.1': 1.0, 'f0.3': 1.0, 'f0.5': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "top1_03": 0.75,
+      "topk_03": 1.0,
+      "topk_05": 1.0,
+      "curvek": {
+        "f0.0": 1.0,
+        "f0.1": 1.0,
+        "f0.3": 1.0,
+        "f0.5": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 0.6606817245483398,
+  "summary": "HARD_PASS: top-k rescue recovers >=0.95 recall at 30pct bit-flip with graceful decay through 50pct (top-1 alone degrades) -- robust noisy-key retrieval. top1@0.3=0.750 TOPK@0.3=1.000 topk@0.5=1.000 curve={'f0.0': 1.0, 'f0.1': 1.0, 'f0.3': 1.0, 'f0.5': 1.0}"
+}

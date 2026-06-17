@@ -1,0 +1,25 @@
+{
+  "verdict": "GEN_SIMILAR",
+  "verdict_msg": "Substrate and n-gram generation similar: substrate=(e=4.248,r=0.000); ngram=(e=4.366,r=0.017).",
+  "elapsed_s": 0.5,
+  "summary": {
+    "substrate": {
+      "char_entropy": 4.248232282211646,
+      "ngram_repetition": 0.0,
+      "sample": "saa \nar= abnM ptl `man.diae  \na tthdh mA`ayrdee|e|\nML\n, tw baeEi"
+    },
+    "ngram": {
+      "char_entropy": 4.36588948721889,
+      "ngram_repetition": 0.016666666666666666,
+      "sample": "b Aparquetrace/hrrodulab\"` gebbine, ricalits 10% on |\r\n     eler"
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "generate_length": 64,
+    "temperature": 1.0,
+    "ngram_n": 3,
+    "max_epochs": 1
+  }
+}

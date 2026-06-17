@@ -1,0 +1,691 @@
+{
+  "verdict": "REVERSIBLE_BOTH_HOLD",
+  "verdict_msg": "Both arms survive 10 reversal cycles. Correlated control held unexpectedly; algebra closure may be substrate-wide, not Kerdock-specific.",
+  "elapsed_s": 1274.8280000000013,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_cycle_trajectory": [
+          {
+            "cycle": 50,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 100,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 150,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 200,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 250,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 300,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 350,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 400,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 450,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 500,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "final_orig_recovery_acc": 1.0,
+        "final_kept_acc": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 23,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 31,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 41,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 53,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          }
+        ]
+      },
+      "correlated": {
+        "per_cycle_trajectory": [
+          {
+            "cycle": 50,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 100,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 150,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 200,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 250,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 300,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 350,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 400,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 450,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 500,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "final_orig_recovery_acc": 1.0,
+        "final_kept_acc": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 23,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 31,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 41,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 53,
+            "trajectory": [
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 100,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 150,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 200,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 250,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 300,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 350,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 400,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 450,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 500,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 4096,
+    "n_subjects": 20,
+    "n_cycles": 500,
+    "n_kept": 100,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

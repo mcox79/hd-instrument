@@ -1,0 +1,13 @@
+{
+  "anchor_name": "f4_free_cumulants_m4_v2_full_correction_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: M4 partial improvement (mean_err=0.0570). alpha=0.05:M4_err=0.051 alpha=0.10:M4_err=0.063 mean_M4_err=0.0570 N=1024 n_seeds=3",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "alpha_grid": [
+    0.05,
+    0.1
+  ],
+  "elapsed_s": 0.7545180320739746
+}

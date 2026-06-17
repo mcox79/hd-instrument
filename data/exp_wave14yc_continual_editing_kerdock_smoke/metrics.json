@@ -1,0 +1,139 @@
+{
+  "verdict": "CONTINUAL_BOTH_HOLD",
+  "verdict_msg": "Both arms hold across all 30 edits. Kerdock min_edited=1.000, min_kept=1.000; correlated min_edited=1.000, min_kept=0.984. 30 edits may not be sufficient load; stress-extend in v2 (100+ edits).",
+  "elapsed_s": 0.2820000000001528,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_edit_trajectory": [
+          {
+            "edit_step": 1,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 2,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 3,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 4,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 5,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "min_edited_acc": 1.0,
+        "min_kept_acc": 1.0,
+        "per_seed_trajectories": [
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            }
+          ]
+        ]
+      },
+      "correlated": {
+        "per_edit_trajectory": [
+          {
+            "edit_step": 1,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9843444228172302
+          },
+          {
+            "edit_step": 2,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9980392456054688
+          },
+          {
+            "edit_step": 3,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 4,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 5,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "min_edited_acc": 1.0,
+        "min_kept_acc": 0.9843444228172302,
+        "per_seed_trajectories": [
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9843444228172302
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9980392456054688
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 512,
+    "n_edits": 5,
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

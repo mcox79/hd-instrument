@@ -1,0 +1,40 @@
+{
+  "verdict": "TEMPSCALE_RESCUES_AT_BETA_16",
+  "verdict_msg": "Temperature scaling rescues calibration: best ECE=0.0000 at BETA=16. Per-beta: b1=0.990, b4=0.830, b16=0.000",
+  "elapsed_s": 0.375,
+  "summary": {
+    "per_beta_ece": {
+      "1": 0.9895481714793277,
+      "4": 0.830337880004663,
+      "16": 4.304572939872742e-05
+    },
+    "per_beta_ece_per_seed": {
+      "1": [
+        0.9895481714793277
+      ],
+      "4": [
+        0.830337880004663
+      ],
+      "16": [
+        4.304572939872742e-05
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 256,
+    "betas": [
+      1,
+      4,
+      16
+    ],
+    "hamming_radii": [
+      0,
+      8
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

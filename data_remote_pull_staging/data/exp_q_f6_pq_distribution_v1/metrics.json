@@ -1,0 +1,16 @@
+{
+  "anchor": "q_f6_pq_distribution_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "q_f6_pq_distribution_v1 verdict=HARD_FAIL: mean_unimodality=0.759(HP>=0.7) mean_q_peak=0.467(HP>=0.3,HF<=0.1) mean_q_EA=0.430(HP>=0.2,HF<0.05) mean_BI=0.631(HF_BI>=0.55) cells=1/3 elapsed=0.9s",
+  "mean_unimodality": 0.758775510204031,
+  "mean_q_peak": 0.4666666666666667,
+  "mean_q_ea": 0.4298503401360257,
+  "mean_bimodality_index": 0.6310603025843827,
+  "n_cell_A_pass": 1,
+  "n_cell_B_pass": 1,
+  "n_cell_C_pass": 2,
+  "elapsed_s": 0.852747917175293
+}

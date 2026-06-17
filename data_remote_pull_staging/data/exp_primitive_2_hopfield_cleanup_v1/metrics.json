@@ -1,0 +1,168 @@
+{
+  "anchor_name": "primitive_2_hopfield_cleanup_v1",
+  "run_mode": "full",
+  "device": "cuda",
+  "N": 4096,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "gate_DE": {
+    "R": 1155,
+    "delta_min": 0.866810384092989,
+    "beta_closed_form": 37.061782519005945,
+    "envelope": {
+      "0.05": {
+        "naive": 1.0,
+        "dense": 1.0,
+        "sparse": 1.0,
+        "reson": 1.0
+      },
+      "0.15": {
+        "naive": 1.0,
+        "dense": 1.0,
+        "sparse": 1.0,
+        "reson": 1.0
+      },
+      "0.25": {
+        "naive": 1.0,
+        "dense": 1.0,
+        "sparse": 1.0,
+        "reson": 1.0
+      },
+      "0.35": {
+        "naive": 1.0,
+        "dense": 1.0,
+        "sparse": 1.0,
+        "reson": 1.0
+      },
+      "0.42": {
+        "naive": 1.0,
+        "dense": 1.0,
+        "sparse": 1.0,
+        "reson": 1.0
+      },
+      "0.46": {
+        "naive": 1.0,
+        "dense": 1.0,
+        "sparse": 1.0,
+        "reson": 1.0
+      }
+    },
+    "preregistered_selection_map": {
+      "0.05": "naive",
+      "0.15": "naive",
+      "0.25": "naive",
+      "0.35": "naive",
+      "0.42": "naive",
+      "0.46": "naive"
+    },
+    "regime_map_predicted_vs_empirical": {
+      "0.05": {
+        "predicted": "naive",
+        "empirical_best": "naive",
+        "match": true
+      },
+      "0.15": {
+        "predicted": "naive",
+        "empirical_best": "naive",
+        "match": true
+      },
+      "0.25": {
+        "predicted": "naive",
+        "empirical_best": "naive",
+        "match": true
+      },
+      "0.35": {
+        "predicted": "naive",
+        "empirical_best": "naive",
+        "match": true
+      },
+      "0.42": {
+        "predicted": "naive",
+        "empirical_best": "naive",
+        "match": true
+      },
+      "0.46": {
+        "predicted": "naive",
+        "empirical_best": "naive",
+        "match": true
+      }
+    },
+    "map_match_fraction": 1.0,
+    "gate_D_dense_acc_lownoise": 1.0
+  },
+  "gate_F_sweep": [
+    {
+      "R": 1155,
+      "sum_m_b": 26,
+      "acc": 1.0,
+      "acc_ci95": 4.3826932358995885e-06,
+      "n_test": 200,
+      "avg_K": 1.0,
+      "avg_iters": 2.92,
+      "avg_work": 177.84,
+      "brute_force_O_R": 1155
+    },
+    {
+      "R": 15015,
+      "sum_m_b": 39,
+      "acc": 1.0,
+      "acc_ci95": 4.3826932358995885e-06,
+      "n_test": 200,
+      "avg_K": 1.0,
+      "avg_iters": 4.585,
+      "avg_work": 396.63,
+      "brute_force_O_R": 15015
+    },
+    {
+      "R": 255255,
+      "sum_m_b": 56,
+      "acc": 1.0,
+      "acc_ci95": 4.3826932358995885e-06,
+      "n_test": 200,
+      "avg_K": 1.0,
+      "avg_iters": 10.205,
+      "avg_work": 1198.96,
+      "brute_force_O_R": 255255
+    },
+    {
+      "R": 4849845,
+      "sum_m_b": 75,
+      "acc": 0.96,
+      "acc_ci95": 0.02715855666268001,
+      "n_test": 200,
+      "avg_K": 2.335,
+      "avg_iters": 111.335,
+      "avg_work": 16875.375,
+      "brute_force_O_R": 4849845
+    },
+    {
+      "R": 111546435,
+      "sum_m_b": 98,
+      "acc": 0.01,
+      "acc_ci95": 0.013789822333880883,
+      "n_test": 200,
+      "avg_K": 5.985,
+      "avg_iters": 357.81,
+      "avg_work": 70717.29,
+      "brute_force_O_R": 111546435
+    }
+  ],
+  "verdict": "P2_HONEST_BOUNDED",
+  "verdict_msg": "GATE-D PASS + quad-head envelope characterized BUT GATE-F NOT sub-linear (work exponent=0.549, iters exponent=0.448, k_grows=True, acc_held=False) -> log-scaling advantage NOT demonstrated; convergent OLS-Gram recipe + cleanup envelope still fileable (honest-bounded)",
+  "prereg_bands": {
+    "BETA_K": 2.0,
+    "ACC_BAR": 0.9,
+    "RESON_RESTARTS": 6,
+    "RESON_ITERS": 60,
+    "RESON_BETA": 8.0,
+    "RECON_THRESH": 0.9,
+    "logscaling_band": "work-vs-R log-log exponent < 0.5; acc-ci95-lower >= ACC_BAR"
+  },
+  "honest_scope": "INTEGER-residue cleanup/decode. HEADS 1-3 softness spectrum flat O(R) (HEAD1=HEAD2 at beta-inf); HEAD4 factored sub-O(R). GATE-F log-scaling is INTEGER-scoped; continuous bounded by P1 GATE-C1. Both-verdict-paths; work-vs-R MEASURED not presupposed.",
+  "elapsed_s": 1359.9107646942139,
+  "compute_backend": "cuda",
+  "summary": "GATE-D PASS + quad-head envelope characterized BUT GATE-F NOT sub-linear (work exponent=0.549, iters exponent=0.448, k_grows=True, acc_held=False) -> log-scaling advantage NOT demonstrated; convergent OLS-Gram recipe + cleanup envelope still fileable (honest-bounded)"
+}

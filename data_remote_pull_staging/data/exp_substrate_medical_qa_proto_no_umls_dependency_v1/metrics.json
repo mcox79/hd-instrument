@@ -1,0 +1,42 @@
+{
+  "anchor_name": "substrate_medical_qa_proto_no_umls_dependency_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: deletion-cert OR MedQA-aug partial (MedQA likely Pythia-160M-ceiling). MedQA: substrate_aug=0.207 pythia_raw=0.193 (ratio=1.07x, random=0.25) | deletion-cert operational=True (before=0.95->after=0.00)",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_q": 300,
+      "pythia_raw_mcq": 0.19333333333333333,
+      "substrate_aug_mcq": 0.20666666666666667,
+      "mcq_ratio": 1.0689655172413792,
+      "deletion_cert_operational": true,
+      "del_before": 0.94905463168857,
+      "del_after": 0.0
+    },
+    {
+      "seed": 17,
+      "n_q": 300,
+      "pythia_raw_mcq": 0.19333333333333333,
+      "substrate_aug_mcq": 0.20666666666666667,
+      "mcq_ratio": 1.0689655172413792,
+      "deletion_cert_operational": true,
+      "del_before": 0.9576919543514564,
+      "del_after": 0.0
+    },
+    {
+      "seed": 23,
+      "n_q": 300,
+      "pythia_raw_mcq": 0.19333333333333333,
+      "substrate_aug_mcq": 0.20666666666666667,
+      "mcq_ratio": 1.0689655172413792,
+      "deletion_cert_operational": true,
+      "del_before": 0.9693450988186718,
+      "del_after": 0.0
+    }
+  ],
+  "elapsed_s": 134.23831486701965,
+  "summary": "MIDDLE_BAND: deletion-cert OR MedQA-aug partial (MedQA likely Pythia-160M-ceiling). MedQA: substrate_aug=0.207 pythia_raw=0.193 (ratio=1.07x, random=0.25) | deletion-cert operational=True (before=0.95->after=0.00)"
+}

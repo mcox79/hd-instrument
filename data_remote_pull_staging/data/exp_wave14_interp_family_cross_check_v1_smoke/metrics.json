@@ -1,0 +1,161 @@
+{
+  "verdict": "INTERP_FAMILY_SRHT_KILLED",
+  "verdict_msg": "Predictor does NOT generalize to iid-Gauss -> SRHT: rho = 0.500 (HARD FAIL if < 0.50); max VAMP-rel-err = 0.4029 (HARD FAIL if > 0.20). The v170 monotone curve was specific to a Kerdock-internal property; R1 rehab anchor is killed at this family.",
+  "elapsed_s": 0.014999999955762178,
+  "summary": {
+    "cells": [
+      {
+        "alpha_interp": 0.0,
+        "bbmd_distance_mean": 2.146108756686462,
+        "amp_rel_err_mean": 0.3321338342825425,
+        "vamp_rel_err_mean": 0.4028998952161231,
+        "kappa_mean": [
+          0.9583474630831006,
+          0.9560816253617512,
+          1.0175979754377624,
+          1.197360530271073,
+          1.5816880745031696,
+          2.305543801836208
+        ],
+        "per_seed": [
+          {
+            "seed": 23,
+            "kappas": [
+              0.9583474630831006,
+              0.9560816253617512,
+              1.0175979754377624,
+              1.197360530271073,
+              1.5816880745031696,
+              2.305543801836208
+            ],
+            "bbmd_distance": 2.146108756686462,
+            "amp_se_pred": 0.09512492197593597,
+            "amp_emp": 0.06353071690424067,
+            "amp_rel_err": 0.3321338342825425,
+            "vamp_se_pred": 0.1031980961561203,
+            "vamp_emp": 0.06161959402831603,
+            "vamp_rel_err": 0.4028998952161231
+          }
+        ]
+      },
+      {
+        "alpha_interp": 0.5,
+        "bbmd_distance_mean": 4.732347320126916,
+        "amp_rel_err_mean": 0.061277169739469735,
+        "vamp_rel_err_mean": 0.03629002617224626,
+        "kappa_mean": [
+          0.49568953798006987,
+          0.17394724801601627,
+          0.0565359925940751,
+          0.020654598036857152,
+          0.010050075560128602,
+          0.006464765666006733
+        ],
+        "per_seed": [
+          {
+            "seed": 23,
+            "kappas": [
+              0.49568953798006987,
+              0.17394724801601627,
+              0.0565359925940751,
+              0.020654598036857152,
+              0.010050075560128602,
+              0.006464765666006733
+            ],
+            "bbmd_distance": 4.732347320126916,
+            "amp_se_pred": 0.09512492197593597,
+            "amp_emp": 0.10133440767551727,
+            "amp_rel_err": 0.061277169739469735,
+            "vamp_se_pred": 0.08492425084114075,
+            "vamp_emp": 0.08184234755545734,
+            "vamp_rel_err": 0.03629002617224626
+          }
+        ]
+      },
+      {
+        "alpha_interp": 1.0,
+        "bbmd_distance_mean": 5.0,
+        "amp_rel_err_mean": 0.9273332173076112,
+        "vamp_rel_err_mean": 0.29361340239795747,
+        "kappa_mean": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_seed": [
+          {
+            "seed": 23,
+            "kappas": [
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "bbmd_distance": 5.0,
+            "amp_se_pred": 0.09512492197593597,
+            "amp_emp": 0.006912422033855784,
+            "amp_rel_err": 0.9273332173076112,
+            "vamp_se_pred": 0.009900989942252636,
+            "vamp_emp": 0.006993926598199883,
+            "vamp_rel_err": 0.29361340239795747
+          }
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "alpha_interp_list": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 1,
+      "n_iter": 50,
+      "n_max_moment": 6,
+      "family": "srht"
+    },
+    "family": "srht",
+    "spearman_rho": 0.5,
+    "max_vamp_rel_err": 0.4028998952161231,
+    "bbmd_distances": [
+      2.146108756686462,
+      4.732347320126916,
+      5.0
+    ],
+    "amp_rel_errs": [
+      0.3321338342825425,
+      0.061277169739469735,
+      0.9273332173076112
+    ],
+    "vamp_rel_errs": [
+      0.4028998952161231,
+      0.03629002617224626,
+      0.29361340239795747
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "alpha_interp_list": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 1,
+    "n_iter": 50,
+    "n_max_moment": 6,
+    "family": "srht"
+  }
+}

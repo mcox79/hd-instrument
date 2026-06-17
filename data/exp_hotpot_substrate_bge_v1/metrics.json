@@ -1,0 +1,17 @@
+{
+  "anchor_name": "hotpot_substrate_bge_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: whitening does not lift multi-hop recall meaningfully -- naive-level; need real K-hop or stronger retrieval. bge_substrate(whiten+Khop)_recall@2hop=0.287 naive=0.313 lift=-0.027 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 300,
+      "naive": 0.31333333333333335,
+      "substrate": 0.2866666666666667,
+      "recall_2hop": 0.2866666666666667
+    }
+  ],
+  "elapsed_s": 310.1165864467621,
+  "summary": "HARD_FAIL: whitening does not lift multi-hop recall meaningfully -- naive-level; need real K-hop or stronger retrieval. bge_substrate(whiten+Khop)_recall@2hop=0.287 naive=0.313 lift=-0.027 (n=300)"
+}

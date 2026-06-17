@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_kf1_hallucination_order_sensitive_encoder_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Pythia partial rescue (adv 0.70-0.85). AUC easy=0.804 hard=0.895 ADV(shuffled)=0.746 (MiniLM-only adv was 0.217)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "auc_easy": 0.8017,
+      "auc_hard": 0.8925833333333333,
+      "auc_adv": 0.736025
+    },
+    {
+      "seed": 17,
+      "auc_easy": 0.8023,
+      "auc_hard": 0.8873388888888889,
+      "auc_adv": 0.7331138888888888
+    },
+    {
+      "seed": 23,
+      "auc_easy": 0.8081277777777778,
+      "auc_hard": 0.9055833333333333,
+      "auc_adv": 0.7684944444444445
+    }
+  ],
+  "elapsed_s": 12.59443712234497,
+  "summary": "MIDDLE_BAND: Pythia partial rescue (adv 0.70-0.85). AUC easy=0.804 hard=0.895 ADV(shuffled)=0.746 (MiniLM-only adv was 0.217)"
+}

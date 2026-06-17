@@ -1,0 +1,23 @@
+{
+  "anchor_name": "membership_auroc_mapping_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: membership AUROC=1.000 computed -- ZKL->AUROC mapping established. membership AUROC=1.0000 (maps ZKL TPR@FPR=0.01 to AUROC for regulatory framing)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "auroc": 1.0
+    },
+    {
+      "seed": 17,
+      "auroc": 1.0
+    },
+    {
+      "seed": 23,
+      "auroc": 1.0
+    }
+  ],
+  "elapsed_s": 0.04749870300292969,
+  "summary": "HARD_PASS: membership AUROC=1.000 computed -- ZKL->AUROC mapping established. membership AUROC=1.0000 (maps ZKL TPR@FPR=0.01 to AUROC for regulatory framing)"
+}

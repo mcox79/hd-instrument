@@ -1,0 +1,17 @@
+{
+  "anchor_name": "code2_template_conditional_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: template-conditional grammar check detects out-of-grammar code bugs at F1>=0.78 -- nearest-template ID + min-slot grammar-match flags the violated slot, where the base global-margin and per-op self-decode both failed. Uses substrate's template structure (TSE-for-code). AUC=0.955 F1=0.948 tau=0.05",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 0.955,
+      "f1": 0.948,
+      "best_tau": 0.05,
+      "n": 720
+    }
+  ],
+  "elapsed_s": 4.052430629730225,
+  "summary": "HARD_PASS: template-conditional grammar check detects out-of-grammar code bugs at F1>=0.78 -- nearest-template ID + min-slot grammar-match flags the violated slot, where the base global-margin and per-op self-decode both failed. Uses substrate's template structure (TSE-for-code). AUC=0.955 F1=0.948 tau=0.05"
+}

@@ -1,0 +1,20 @@
+{
+  "anchor_name": "llama_eigenspectrum_diagnostic_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: SRHT did not flatten the spectrum as hypothesized; the ZKL-worsening mechanism is elsewhere. Llama-L15 PR/D pre=0.006->post=0.006, top10pct_energy pre=0.854->post=0.854 (D=2048)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "D": 2048,
+      "PR_pre": 12.732849970474339,
+      "PR_post": 12.732849970474339,
+      "PRoverD_pre": 0.006217211899645673,
+      "PRoverD_post": 0.006217211899645673,
+      "top10_pre": 0.8538202022091061,
+      "top10_post": 0.8538201421914441
+    }
+  ],
+  "elapsed_s": 28.547199487686157,
+  "summary": "MIDDLE_BAND: SRHT did not flatten the spectrum as hypothesized; the ZKL-worsening mechanism is elsewhere. Llama-L15 PR/D pre=0.006->post=0.006, top10pct_energy pre=0.854->post=0.854 (D=2048)"
+}

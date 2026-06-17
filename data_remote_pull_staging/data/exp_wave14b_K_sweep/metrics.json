@@ -1,0 +1,70 @@
+{
+  "config": {
+    "N": 4096,
+    "B": 2,
+    "NUM_TRIALS": 100,
+    "NUM_RESTARTS": 8,
+    "K_SIZES": [
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "SEED": 17
+  },
+  "results": [
+    {
+      "K": 32,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    },
+    {
+      "K": 64,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    },
+    {
+      "K": 128,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    },
+    {
+      "K": 256,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    },
+    {
+      "K": 512,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    },
+    {
+      "K": 1024,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    },
+    {
+      "K": 2048,
+      "trials": 100,
+      "fully_correct": 100,
+      "fully_correct_rate": 1.0,
+      "avg_per_slot_accuracy": 1.0
+    }
+  ],
+  "wall_s": 288.5104776999797
+}

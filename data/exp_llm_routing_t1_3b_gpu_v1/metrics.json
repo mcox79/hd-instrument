@@ -1,0 +1,18 @@
+{
+  "anchor_name": "llm_routing_t1_3b_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: routing 0.60-0.70 zero-shot; few-shot prompting likely lifts it. routing-accuracy=0.667 (ROUTE-recall=0.67 DIRECT-recall=0.67, n=30, Qwen/Qwen2.5-3B-Instruct)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.6666666666666666,
+      "route_recall": 0.6666666666666666,
+      "direct_recall": 0.6666666666666666,
+      "n": 30,
+      "model": "Qwen/Qwen2.5-3B-Instruct"
+    }
+  ],
+  "elapsed_s": 19.59769916534424,
+  "summary": "MIDDLE_BAND: routing 0.60-0.70 zero-shot; few-shot prompting likely lifts it. routing-accuracy=0.667 (ROUTE-recall=0.67 DIRECT-recall=0.67, n=30, Qwen/Qwen2.5-3B-Instruct)"
+}

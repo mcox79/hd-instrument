@@ -1,0 +1,36 @@
+{
+  "verdict": "PARISI_V3_INCONCLUSIVE",
+  "verdict_msg": "No codebook crosses BINDER>0.6 threshold but none declines steeply either. Pattern unclear. by_codebook: random_bsc=B_inf=0.001,slope=-0.438",
+  "elapsed_s": 0.2819999999992433,
+  "summary": {
+    "by_codebook": {
+      "random_bsc": {
+        "codebook_type": "random_bsc",
+        "binders_by_N": {
+          "256": -0.0005605967001027778,
+          "1024": 0.0007223029827164718
+        },
+        "binder_slope_vs_inv_N": -0.43789642506897053,
+        "binder_extrap_to_inf_N": 0.0011499362103228883,
+        "Ns_tested": [
+          256,
+          1024
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "Ns": [
+      256,
+      1024
+    ],
+    "M_mult": 2,
+    "codebook_types": [
+      "random_bsc"
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

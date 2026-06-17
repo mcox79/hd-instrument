@@ -1,0 +1,18 @@
+{
+  "anchor_name": "cascade_native_first_router_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: native-first cascade matches best-of-both accuracy at lower average cost -- Tier-1 routing architecture validated. cascade-acc=0.812 vs best-of-both=0.662, cascade-cost=2.65 vs always-fuzzy=5.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "native": 0.6625,
+      "fuzzy": 0.5,
+      "cascade": 0.8125,
+      "cost": 2.65,
+      "fuzzy_cost": 5.0
+    }
+  ],
+  "elapsed_s": 0.08129429817199707,
+  "summary": "HARD_PASS: native-first cascade matches best-of-both accuracy at lower average cost -- Tier-1 routing architecture validated. cascade-acc=0.812 vs best-of-both=0.662, cascade-cost=2.65 vs always-fuzzy=5.00"
+}

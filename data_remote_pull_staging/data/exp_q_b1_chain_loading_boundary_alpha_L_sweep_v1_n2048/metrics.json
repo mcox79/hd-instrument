@@ -1,0 +1,39 @@
+{
+  "anchor_name": "q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: boundary visible but alpha_c_eff outside [0.25,0.35] or partial. depth_max=a0.05:60 a0.15:20 a0.25:0 alpha_c_eff=0.15 monotone=True n_finite=2",
+  "N": 2048,
+  "run_mode": "smoke",
+  "alpha_grid": [
+    0.05,
+    0.15,
+    0.25
+  ],
+  "L_grid": [
+    20,
+    60,
+    120
+  ],
+  "n_seeds": 2,
+  "elapsed_s": 0.9673268795013428,
+  "per_seed": [
+    {
+      "seed": 7,
+      "depth_max": {
+        "0.05": 60,
+        "0.15": 20,
+        "0.25": 0
+      },
+      "elapsed_s": 0.458754301071167
+    },
+    {
+      "seed": 17,
+      "depth_max": {
+        "0.05": 60,
+        "0.15": 20,
+        "0.25": 0
+      },
+      "elapsed_s": 0.4378349781036377
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "t5b_3_attention_fact_use_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate injection transmits facts <30pct. fact-as-top1 bare=0.000 injected=0.000 (n=9)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 9,
+      "bare_top1": 0.0,
+      "inj_top1": 0.0
+    }
+  ],
+  "elapsed_s": 2.4610025882720947,
+  "summary": "HARD_FAIL: substrate injection transmits facts <30pct. fact-as-top1 bare=0.000 injected=0.000 (n=9)"
+}

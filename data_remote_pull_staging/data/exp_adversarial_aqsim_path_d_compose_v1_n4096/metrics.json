@@ -1,0 +1,38 @@
+{
+  "verdict": "AQSIM3W_HARD_FAIL",
+  "verdict_msg": "3WAY_COMPOSITION_FAILS n_path_fail=0 n_def_fail=1 n_cells=1. def_rate=0.000 fp_rate=0.000 acc_gated_comp=1.000 acc_base_comp=1.000 acc_base_uncomp=1.000 comp_delta=0.0000 n_cells=1",
+  "elapsed_s": 0.21,
+  "summary": {
+    "anchor": "adversarial_aqsim_path_d_compose_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 5,
+    "K_paths": 100,
+    "n_leg": 12,
+    "n_adv": 12,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ok": true,
+        "n_leg": 12,
+        "n_adv": 12,
+        "n_leg_pass_gate": 12,
+        "defense_rate": 0.0,
+        "fp_rate": 0.0,
+        "compression_ratio": 4.0,
+        "acc_path_d_base_uncompressed": 1.0,
+        "acc_path_d_base_compressed": 1.0,
+        "acc_path_d_gated_compressed": 1.0,
+        "acc_path_d_gated_uncompressed": 1.0
+      }
+    ],
+    "verdict": "AQSIM3W_HARD_FAIL",
+    "verdict_msg": "3WAY_COMPOSITION_FAILS n_path_fail=0 n_def_fail=1 n_cells=1. def_rate=0.000 fp_rate=0.000 acc_gated_comp=1.000 acc_base_comp=1.000 acc_base_uncomp=1.000 comp_delta=0.0000 n_cells=1",
+    "elapsed_s": 0.21
+  }
+}

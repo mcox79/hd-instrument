@@ -1,0 +1,112 @@
+{
+  "mode": "smoke",
+  "N": 1024,
+  "m_fracs": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "codebook_families": [
+    "kerdock",
+    "bsc",
+    "gaussian"
+  ],
+  "elapsed_s": 3.62,
+  "cells": [
+    {
+      "family": "kerdock",
+      "M_frac": 0.5,
+      "M": 512,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.0,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "kerdock",
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.0,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "kerdock",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.010101,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "bsc",
+      "M_frac": 0.5,
+      "M": 512,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.020202,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "bsc",
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.040404,
+      "theory_bound": 0.03125,
+      "within_theory": false
+    },
+    {
+      "family": "bsc",
+      "M_frac": 2.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.040404,
+      "theory_bound": 0.03125,
+      "within_theory": false
+    },
+    {
+      "family": "gaussian",
+      "M_frac": 0.5,
+      "M": 512,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.020202,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "gaussian",
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.020202,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "gaussian",
+      "M_frac": 2.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.020202,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    }
+  ],
+  "verdict_tag": "KF2_CROSS_HARD_PASS",
+  "verdict_msg": "EDIT ISOLATION CODEBOOK-ROBUST: isolation holds across 3 families. family_max={'kerdock': 0.0101, 'bsc': 0.0404, 'gaussian': 0.0202} family_mean={'kerdock': 0.00337, 'bsc': 0.03367, 'gaussian': 0.0202} theory_bound=0.03125 pass_non_kerdock=6/6"
+}

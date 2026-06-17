@@ -1,0 +1,55 @@
+{
+  "anchor_name": "substrate_kgram_xor_k4_n16384_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: k=3 XOR reaches trigram-class at N=4096 (within 2pp) -- Phase 3 scaling path validated. decisive k=3 N=4096 V_c=2000: sub_acc=1.000 trigram=1.000 bigram=1.000 (gap vs trigram 0.0pp)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "k": 3,
+      "n": 1024,
+      "vc": 1000,
+      "seed": 1,
+      "sub_acc": 1.0,
+      "bigram": 0.9010247438140465,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 3,
+      "n": 1024,
+      "vc": 1000,
+      "seed": 2,
+      "sub_acc": 0.99,
+      "bigram": 0.9992501874531368,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": -1.0000000000000009
+    },
+    {
+      "k": 3,
+      "n": 4096,
+      "vc": 2000,
+      "seed": 1,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 3,
+      "n": 4096,
+      "vc": 2000,
+      "seed": 2,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    }
+  ],
+  "elapsed_s": 27.833648920059204,
+  "summary": "HARD_PASS: k=3 XOR reaches trigram-class at N=4096 (within 2pp) -- Phase 3 scaling path validated. decisive k=3 N=4096 V_c=2000: sub_acc=1.000 trigram=1.000 bigram=1.000 (gap vs trigram 0.0pp)"
+}

@@ -1,0 +1,70 @@
+{
+  "K": 8,
+  "N": 4096,
+  "N_FACTS": 30,
+  "N_ERASURES": 10,
+  "ALPHA_ERASE": 1.0,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "device": "cuda",
+  "elapsed_s": 51.921999999991385,
+  "grid": [
+    {
+      "seed": 17,
+      "n_facts": 30,
+      "n_kept": 20,
+      "n_erased": 10,
+      "baseline_predict_correct": 26,
+      "method_A_leak_correct": 9,
+      "method_A_kept_correct": 17,
+      "method_B_leak_correct": 0,
+      "method_B_kept_correct": 14,
+      "method_A_leak_rate": 0.9,
+      "method_B_leak_rate": 0.0,
+      "method_A_kept_recall": 0.85,
+      "method_B_kept_recall": 0.7
+    },
+    {
+      "seed": 23,
+      "n_facts": 30,
+      "n_kept": 20,
+      "n_erased": 10,
+      "baseline_predict_correct": 22,
+      "method_A_leak_correct": 7,
+      "method_A_kept_correct": 15,
+      "method_B_leak_correct": 1,
+      "method_B_kept_correct": 13,
+      "method_A_leak_rate": 0.7,
+      "method_B_leak_rate": 0.1,
+      "method_A_kept_recall": 0.75,
+      "method_B_kept_recall": 0.65
+    },
+    {
+      "seed": 31,
+      "n_facts": 30,
+      "n_kept": 20,
+      "n_erased": 10,
+      "baseline_predict_correct": 23,
+      "method_A_leak_correct": 8,
+      "method_A_kept_correct": 15,
+      "method_B_leak_correct": 0,
+      "method_B_kept_correct": 14,
+      "method_A_leak_rate": 0.8,
+      "method_B_leak_rate": 0.0,
+      "method_A_kept_recall": 0.75,
+      "method_B_kept_recall": 0.7
+    }
+  ],
+  "summary": {
+    "method_A_leak_mean": 0.8000000000000002,
+    "method_B_leak_mean": 0.03333333333333333,
+    "method_A_kept_mean": 0.7833333333333333,
+    "method_B_kept_mean": 0.6833333333333332,
+    "leak_reduction_pp": 76.66666666666669
+  },
+  "verdict": "ANTIHEBBIAN_ERASE_PARTIAL",
+  "verdict_msg": "Leak reduction 76.7pp is positive but below 50pp threshold."
+}

@@ -1,0 +1,25 @@
+{
+  "anchor_name": "pubmedbert_swap_pretest_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: biomedical encoder closes the PubMedQA gap (substrate>=0.72) -- per-domain encoder swap works; TriviaQA regression is informational (domain encoder expected to retrieve worse on encyclopedic, confirming per-domain selection). PubMedQA/PubMedBERT: bare=0.510 RAG=0.860 substrate=0.835 | TriviaQA/PubMedBERT(regression): bare=0.236 RAG=0.516 substrate=0.483 (n_pm=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pm": {
+        "n": 200,
+        "bare": 0.51,
+        "rag": 0.86,
+        "sub": 0.835
+      },
+      "tv": {
+        "n": 120,
+        "bare": 0.23642857142857146,
+        "rag": 0.5160042735042734,
+        "sub": 0.4826380778997057
+      }
+    }
+  ],
+  "elapsed_s": 273.13987493515015,
+  "summary": "HARD_PASS: biomedical encoder closes the PubMedQA gap (substrate>=0.72) -- per-domain encoder swap works; TriviaQA regression is informational (domain encoder expected to retrieve worse on encyclopedic, confirming per-domain selection). PubMedQA/PubMedBERT: bare=0.510 RAG=0.860 substrate=0.835 | TriviaQA/PubMedBERT(regression): bare=0.236 RAG=0.516 substrate=0.483 (n_pm=200)"
+}

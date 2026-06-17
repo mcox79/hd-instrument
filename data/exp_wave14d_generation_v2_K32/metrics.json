@@ -1,0 +1,200 @@
+{
+  "K": 32,
+  "GEN_LENGTH": 64,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "EVAL_POSITIONS": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "accuracy": {
+        "substrate_pool": {
+          "1": 0.3333333333333333,
+          "2": 0.25,
+          "4": 0.23333333333333334,
+          "8": 0.225,
+          "16": 0.175,
+          "32": 0.11354166666666667,
+          "64": 0.07552083333333333
+        },
+        "substrate_no_pool": {
+          "1": 0.3333333333333333,
+          "2": 0.25,
+          "4": 0.23333333333333334,
+          "8": 0.225,
+          "16": 0.16458333333333333,
+          "32": 0.11145833333333334,
+          "64": 0.0765625
+        },
+        "b3": {
+          "1": 0.06666666666666667,
+          "2": 0.1,
+          "4": 0.10833333333333334,
+          "8": 0.11666666666666667,
+          "16": 0.11666666666666667,
+          "32": 0.11145833333333334,
+          "64": 0.115625
+        }
+      },
+      "validity": {
+        "substrate_pool": 0.5448087431693989,
+        "substrate_no_pool": 0.47103825136612015,
+        "b3": 0.9983606557377048
+      },
+      "samples": [
+        {
+          "prefix": "ce.duckdb) [metrics](data/exp_sc",
+          "truth": "aling_depth_hrr_validation/metrics.json) |..| 20",
+          "gen_pool": "_anselepremetrics.jsct rindedonts-ticendededatan",
+          "gen_no_pool": "_anselementicesfratk t..... cempleiticeanedigas ",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "alpha = 1.004 (R^2 = 0.9999); k_",
+          "truth": "50%(1024)=86.08201678445715, k_50%(16384)=1394.0",
+          "gen_pool": "daligntio 0apliteat bitactiot waterractarcessuct",
+          "gen_no_pool": "daligntio 0apliteat bitg | ats oes acterices sea",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "hrr/trace.duckdb) [metrics](data",
+          "truth": "/exp_depth_pinned_hrr/metrics.json) |..| 2026-05",
+          "gen_pool": "/exp_m4_nested/metrics.json) |..| 2026-05-16 | e",
+          "gen_no_pool": "/exp_m4_nested/metrics.json) |..| 2026-05-16 | e",
+          "gen_b3": "                                                "
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "accuracy": {
+        "substrate_pool": {
+          "1": 0.3333333333333333,
+          "2": 0.3,
+          "4": 0.30833333333333335,
+          "8": 0.2708333333333333,
+          "16": 0.22291666666666668,
+          "32": 0.14166666666666666,
+          "64": 0.08645833333333333
+        },
+        "substrate_no_pool": {
+          "1": 0.3333333333333333,
+          "2": 0.3,
+          "4": 0.30833333333333335,
+          "8": 0.25833333333333336,
+          "16": 0.20833333333333334,
+          "32": 0.128125,
+          "64": 0.08385416666666666
+        },
+        "b3": {
+          "1": 0.16666666666666666,
+          "2": 0.1,
+          "4": 0.09166666666666666,
+          "8": 0.075,
+          "16": 0.07291666666666667,
+          "32": 0.07291666666666667,
+          "64": 0.071875
+        }
+      },
+      "validity": {
+        "substrate_pool": 0.5207650273224044,
+        "substrate_no_pool": 0.49999999999999994,
+        "b3": 1.0
+      },
+      "samples": [
+        {
+          "prefix": "ics.json) |....# CLAUDE.md....Co",
+          "truth": "nventions for AI-assisted work in this repositor",
+          "gen_pool": "lesint  ceede s ductitit. | Ae biniast suratesu,",
+          "gen_no_pool": "lesint  ceede s ductitit. | Ae biniast suratesu,",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "metrics.json) |..| 2026-05-17 | ",
+          "truth": "exp_scaling_capacity | PASS | alpha = 1.003 (R^2",
+          "gen_pool": "exp_m5_hebbian_msrsingadd | dandingscattreteebca",
+          "gen_no_pool": "exp_me_tistive | Pundods. | Bpthd | ton tentoin ",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "004 (R^2 = 0.9999); k_50%(1024)=",
+          "truth": "86.08201678445715, k_50%(16384)=1394.09331750821",
+          "gen_pool": "00000iardpodddandeegen | momedsiand moms | anden",
+          "gen_no_pool": "00000.0ddachd 00amect.0. 0odund | [ice porice...",
+          "gen_b3": "                                                "
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "accuracy": {
+        "substrate_pool": {
+          "1": 0.3333333333333333,
+          "2": 0.26666666666666666,
+          "4": 0.21666666666666667,
+          "8": 0.17916666666666667,
+          "16": 0.11875,
+          "32": 0.090625,
+          "64": 0.06770833333333333
+        },
+        "substrate_no_pool": {
+          "1": 0.3333333333333333,
+          "2": 0.26666666666666666,
+          "4": 0.21666666666666667,
+          "8": 0.17916666666666667,
+          "16": 0.12708333333333333,
+          "32": 0.096875,
+          "64": 0.07604166666666666
+        },
+        "b3": {
+          "1": 0.1,
+          "2": 0.11666666666666667,
+          "4": 0.11666666666666667,
+          "8": 0.09583333333333334,
+          "16": 0.08958333333333333,
+          "32": 0.09166666666666666,
+          "64": 0.09114583333333333
+        }
+      },
+      "validity": {
+        "substrate_pool": 0.5366120218579236,
+        "substrate_no_pool": 0.4956284153005465,
+        "b3": 1.0
+      },
+      "samples": [
+        {
+          "prefix": "_depth_pinned_fhrr_clipped | PAS",
+          "truth": "S | FHRR clipped (threshold=0.5, 150 trials) bet",
+          "gen_pool": "acalo.p rompte sexpracodets | cateentid et resti",
+          "gen_no_pool": "acalo.p rompte sexpracodets | cateentid et resti",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "onfig constant, default 1024...-",
+          "truth": " All randomness uses a passed-in `torch.Generato",
+          "gen_pool": " **]sthd s bsalabed.pabitatest_ ang.s ion teares",
+          "gen_no_pool": " **]sthd s bsalabed.pabitatest_ ang.s iontres se",
+          "gen_b3": "                                                "
+        },
+        {
+          "prefix": "nts on all public functions. One",
+          "truth": "-line docstrings with shape annotations...- All ",
+          "gen_pool": " bsaricearistare....****cining releareasi e prre",
+          "gen_no_pool": " bsaricearistare....****** sit peabin ares mopli",
+          "gen_b3": "                                                "
+        }
+      ]
+    }
+  ]
+}

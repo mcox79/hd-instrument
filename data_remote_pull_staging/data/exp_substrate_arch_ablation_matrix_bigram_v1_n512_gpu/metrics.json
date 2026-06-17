@@ -1,0 +1,277 @@
+{
+  "anchor_name": "substrate_arch_ablation_matrix_bigram_v1_n512_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: variant(s) ['cfrpe', 'drosophila_sparse', 'two_region', 'bottleneck_adaptor'] beat K=1 baseline by >0.3 nats. baseline_nats=3.154 | cfrpe:HP(gap+0.683,5/5) drosophila_sparse:HP(gap+0.673,5/5) stdp_asym:MID(gap+0.101,4/5) friston_fep:HF(gap-0.789,0/5) two_region:HP(gap+0.564,5/5) bottleneck_adaptor:HP(gap+0.614,5/5)",
+  "N": 512,
+  "V": 512,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "n_steps": 1000,
+  "variants": [
+    "hebbian_k1",
+    "cfrpe",
+    "drosophila_sparse",
+    "stdp_asym",
+    "friston_fep",
+    "two_region",
+    "bottleneck_adaptor"
+  ],
+  "elapsed_s": 105.71056151390076,
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_nats": 6.238324625039508,
+      "cond_ent": 1.1745861012607846,
+      "cells": {
+        "hebbian_k1": {
+          "variant": "hebbian_k1",
+          "coding": "bipolar",
+          "val_nats": 3.6815285682678223,
+          "gap_vs_uniform": 2.5567960567716854
+        },
+        "cfrpe": {
+          "variant": "cfrpe",
+          "coding": "bipolar",
+          "val_nats": 2.5911481380462646,
+          "gap_vs_uniform": 3.647176486993243
+        },
+        "drosophila_sparse": {
+          "variant": "drosophila_sparse",
+          "coding": "sparse",
+          "val_nats": 2.4582881927490234,
+          "gap_vs_uniform": 3.7800364322904842
+        },
+        "stdp_asym": {
+          "variant": "stdp_asym",
+          "coding": "bipolar",
+          "val_nats": 3.5576939582824707,
+          "gap_vs_uniform": 2.680630666757037
+        },
+        "friston_fep": {
+          "variant": "friston_fep",
+          "coding": "bipolar",
+          "val_nats": 4.239699363708496,
+          "gap_vs_uniform": 1.9986252613310116
+        },
+        "two_region": {
+          "variant": "two_region",
+          "coding": "split",
+          "val_nats": 2.6259210109710693,
+          "gap_vs_uniform": 3.6124036140684384
+        },
+        "bottleneck_adaptor": {
+          "variant": "bottleneck_adaptor",
+          "coding": "bipolar",
+          "val_nats": 2.5107595920562744,
+          "gap_vs_uniform": 3.7275650329832333
+        }
+      },
+      "peak_gpu_gb": 0.052192256,
+      "elapsed_s": 20.24686551094055
+    },
+    {
+      "seed": 17,
+      "uniform_nats": 6.238324625039508,
+      "cond_ent": 1.1881406258152292,
+      "cells": {
+        "hebbian_k1": {
+          "variant": "hebbian_k1",
+          "coding": "bipolar",
+          "val_nats": 2.8835535049438477,
+          "gap_vs_uniform": 3.35477112009566
+        },
+        "cfrpe": {
+          "variant": "cfrpe",
+          "coding": "bipolar",
+          "val_nats": 2.5184316635131836,
+          "gap_vs_uniform": 3.719892961526324
+        },
+        "drosophila_sparse": {
+          "variant": "drosophila_sparse",
+          "coding": "sparse",
+          "val_nats": 2.4762182235717773,
+          "gap_vs_uniform": 3.7621064014677303
+        },
+        "stdp_asym": {
+          "variant": "stdp_asym",
+          "coding": "bipolar",
+          "val_nats": 2.8752846717834473,
+          "gap_vs_uniform": 3.3630399532560604
+        },
+        "friston_fep": {
+          "variant": "friston_fep",
+          "coding": "bipolar",
+          "val_nats": 3.6135458946228027,
+          "gap_vs_uniform": 2.624778730416705
+        },
+        "two_region": {
+          "variant": "two_region",
+          "coding": "split",
+          "val_nats": 2.587970018386841,
+          "gap_vs_uniform": 3.650354606652667
+        },
+        "bottleneck_adaptor": {
+          "variant": "bottleneck_adaptor",
+          "coding": "bipolar",
+          "val_nats": 2.3879666328430176,
+          "gap_vs_uniform": 3.85035799219649
+        }
+      },
+      "peak_gpu_gb": 0.052204544,
+      "elapsed_s": 21.019256591796875
+    },
+    {
+      "seed": 23,
+      "uniform_nats": 6.238324625039508,
+      "cond_ent": 1.2039079068910086,
+      "cells": {
+        "hebbian_k1": {
+          "variant": "hebbian_k1",
+          "coding": "bipolar",
+          "val_nats": 3.2055718898773193,
+          "gap_vs_uniform": 3.0327527351621884
+        },
+        "cfrpe": {
+          "variant": "cfrpe",
+          "coding": "bipolar",
+          "val_nats": 2.4863667488098145,
+          "gap_vs_uniform": 3.7519578762296932
+        },
+        "drosophila_sparse": {
+          "variant": "drosophila_sparse",
+          "coding": "sparse",
+          "val_nats": 2.5461697578430176,
+          "gap_vs_uniform": 3.69215486719649
+        },
+        "stdp_asym": {
+          "variant": "stdp_asym",
+          "coding": "bipolar",
+          "val_nats": 2.904683828353882,
+          "gap_vs_uniform": 3.333640796685626
+        },
+        "friston_fep": {
+          "variant": "friston_fep",
+          "coding": "bipolar",
+          "val_nats": 4.035738945007324,
+          "gap_vs_uniform": 2.2025856800321835
+        },
+        "two_region": {
+          "variant": "two_region",
+          "coding": "split",
+          "val_nats": 2.5939650535583496,
+          "gap_vs_uniform": 3.644359571481158
+        },
+        "bottleneck_adaptor": {
+          "variant": "bottleneck_adaptor",
+          "coding": "bipolar",
+          "val_nats": 2.4141685962677,
+          "gap_vs_uniform": 3.8241560287718075
+        }
+      },
+      "peak_gpu_gb": 0.052233216,
+      "elapsed_s": 21.067566633224487
+    },
+    {
+      "seed": 31,
+      "uniform_nats": 6.238324625039508,
+      "cond_ent": 1.2097423489480228,
+      "cells": {
+        "hebbian_k1": {
+          "variant": "hebbian_k1",
+          "coding": "bipolar",
+          "val_nats": 3.2119576930999756,
+          "gap_vs_uniform": 3.026366931939532
+        },
+        "cfrpe": {
+          "variant": "cfrpe",
+          "coding": "bipolar",
+          "val_nats": 2.610391616821289,
+          "gap_vs_uniform": 3.6279330082182186
+        },
+        "drosophila_sparse": {
+          "variant": "drosophila_sparse",
+          "coding": "sparse",
+          "val_nats": 2.61838436126709,
+          "gap_vs_uniform": 3.619940263772418
+        },
+        "stdp_asym": {
+          "variant": "stdp_asym",
+          "coding": "bipolar",
+          "val_nats": 3.068310499191284,
+          "gap_vs_uniform": 3.1700141258482235
+        },
+        "friston_fep": {
+          "variant": "friston_fep",
+          "coding": "bipolar",
+          "val_nats": 3.8588831424713135,
+          "gap_vs_uniform": 2.379441482568194
+        },
+        "two_region": {
+          "variant": "two_region",
+          "coding": "split",
+          "val_nats": 2.7631266117095947,
+          "gap_vs_uniform": 3.475198013329913
+        },
+        "bottleneck_adaptor": {
+          "variant": "bottleneck_adaptor",
+          "coding": "bipolar",
+          "val_nats": 2.772902011871338,
+          "gap_vs_uniform": 3.46542261316817
+        }
+      },
+      "peak_gpu_gb": 0.052233216,
+      "elapsed_s": 21.72210192680359
+    },
+    {
+      "seed": 41,
+      "uniform_nats": 6.238324625039508,
+      "cond_ent": 1.1899414562471504,
+      "cells": {
+        "hebbian_k1": {
+          "variant": "hebbian_k1",
+          "coding": "bipolar",
+          "val_nats": 2.7859883308410645,
+          "gap_vs_uniform": 3.4523362941984432
+        },
+        "cfrpe": {
+          "variant": "cfrpe",
+          "coding": "bipolar",
+          "val_nats": 2.1494693756103516,
+          "gap_vs_uniform": 4.088855249429156
+        },
+        "drosophila_sparse": {
+          "variant": "drosophila_sparse",
+          "coding": "sparse",
+          "val_nats": 2.3031890392303467,
+          "gap_vs_uniform": 3.935135585809161
+        },
+        "stdp_asym": {
+          "variant": "stdp_asym",
+          "coding": "bipolar",
+          "val_nats": 2.8552145957946777,
+          "gap_vs_uniform": 3.38311002924483
+        },
+        "friston_fep": {
+          "variant": "friston_fep",
+          "coding": "bipolar",
+          "val_nats": 3.9677343368530273,
+          "gap_vs_uniform": 2.2705902881864803
+        },
+        "two_region": {
+          "variant": "two_region",
+          "coding": "split",
+          "val_nats": 2.376983880996704,
+          "gap_vs_uniform": 3.8613407440428036
+        },
+        "bottleneck_adaptor": {
+          "variant": "bottleneck_adaptor",
+          "coding": "bipolar",
+          "val_nats": 2.6116831302642822,
+          "gap_vs_uniform": 3.6266414947752255
+        }
+      },
+      "peak_gpu_gb": 0.052233216,
+      "elapsed_s": 21.49813222885132
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "verdict": "SPE_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp_seeds=1/1 hf_seeds=0/1 n_cells=3",
+  "elapsed_s": 0.1,
+  "summary": {
+    "anchor": "sparse_w_active_subspace_envelope_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      16,
+      32,
+      64
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 16,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.03125
+      },
+      {
+        "M": 32,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.0625
+      },
+      {
+        "M": 64,
+        "seed": 17,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "memory_ratio": 0.125
+      }
+    ],
+    "verdict": "SPE_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp_seeds=1/1 hf_seeds=0/1 n_cells=3",
+    "elapsed_s": 0.1
+  }
+}

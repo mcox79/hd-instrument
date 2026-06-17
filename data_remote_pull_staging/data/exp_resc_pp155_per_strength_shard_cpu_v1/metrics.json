@@ -1,0 +1,15 @@
+{
+  "anchor_name": "resc_pp155_per_strength_shard_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: per-strength-tier sharding lifts strongest-wins >=0.95 (PP-155 rescue) + strength recoverable. strongest-wins=1.000 strength-corr=0.996",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "win": 1.0,
+      "corr": 0.995642974268294
+    }
+  ],
+  "elapsed_s": 1.3868186473846436,
+  "summary": "HARD_PASS: per-strength-tier sharding lifts strongest-wins >=0.95 (PP-155 rescue) + strength recoverable. strongest-wins=1.000 strength-corr=0.996"
+}

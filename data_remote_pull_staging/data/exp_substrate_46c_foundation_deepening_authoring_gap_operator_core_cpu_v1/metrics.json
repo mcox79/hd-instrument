@@ -1,0 +1,52 @@
+{
+  "anchor_name": "substrate_46c_foundation_deepening_authoring_gap_operator_core_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: authoring-gap 2.6% < 30% -- 8 Layer-0/1 foundation primitives deepened operator-core axiom termination as Drill 1 predicted. Foundation-deepening (46c) OPERATOR-CORE authoring-gap = 0.0257 (genuine-T1 0.9743) over 272 operator goals (proved 272, sound 272). Was 62% pre-foundation; Drill 1 predicted <30%. avg depth 1.34.",
+  "summary": "HARD_PASS: authoring-gap 2.6% < 30% -- 8 Layer-0/1 foundation primitives deepened operator-core axiom termination as Drill 1 predicted. Foundation-deepening (46c) OPERATOR-CORE authoring-gap = 0.0257 (genuine-T1 0.9743) over 272 operator goals (proved 272, sound 272). Was 62% pre-foundation; Drill 1 predicted <30%. avg depth 1.34.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_operator_core_goals": 272,
+      "proved": 272,
+      "genuine_t1": 265,
+      "genuine_t1_rate": 0.9743,
+      "authoring_gap": 7,
+      "authoring_gap_rate": 0.0257,
+      "avg_depth": 1.34,
+      "sound": 272,
+      "sound_rate": 1.0,
+      "gap_examples": [
+        [
+          "SCHOOL/discriminative_learning_family",
+          "SCHOOL/structured_prediction_family"
+        ],
+        [
+          "SCHOOL/hmm_sequence_labeling_family",
+          "SCHOOL/structured_prediction_family"
+        ],
+        [
+          "T2_FAM/observers",
+          "CAP_spectral_observability"
+        ],
+        [
+          "T3/ghrr_noncommutative_bind",
+          "MWP/SCHEMA_EQUAL_GROUPS"
+        ],
+        [
+          "T3/structured_perceptron_collins",
+          "SCHOOL/structured_prediction_family"
+        ],
+        [
+          "T4/cascade_hmm_pipeline",
+          "SCHOOL/structured_prediction_family"
+        ],
+        [
+          "T4/discriminative_perceptron_pipeline",
+          "SCHOOL/structured_prediction_family"
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 0.41449451446533203
+}

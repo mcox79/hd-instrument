@@ -1,0 +1,25 @@
+{
+  "anchor_name": "phase4b_unified_balanced_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: macro 0.36-0.45 -- unification helps (>= single-op-only Tier A 0.336) but below 0.45. macro-mean=0.422 std=0.0054 ; per=0.422 per={'SVAMP': 0.154, 'MAWPS': 0.692, 'MultiArith': 0.647, 'ASDiv': 0.194} (1-op-train=445, 2-op-train=246)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_acc": 0.422,
+      "macro_std": 0.0054,
+      "per_benchmark": {
+        "SVAMP": 0.154,
+        "MAWPS": 0.692,
+        "MultiArith": 0.647,
+        "ASDiv": 0.194
+      },
+      "n_seeds": 5,
+      "n_benchmarks": 4,
+      "n_1op": 445,
+      "n_2op": 246
+    }
+  ],
+  "elapsed_s": 9.799476146697998,
+  "summary": "MIDDLE_BAND: macro 0.36-0.45 -- unification helps (>= single-op-only Tier A 0.336) but below 0.45. macro-mean=0.422 std=0.0054 ; per=0.422 per={'SVAMP': 0.154, 'MAWPS': 0.692, 'MultiArith': 0.647, 'ASDiv': 0.194} (1-op-train=445, 2-op-train=246)"
+}

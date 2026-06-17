@@ -1,0 +1,18 @@
+{
+  "verdict": "R27_L2_PARTIAL",
+  "verdict_msg": "Dynamic W marginal gain: 1.00x (dyn=1.000, base=1.000).",
+  "elapsed_s": 0.13999999999941792,
+  "summary": {
+    "static_acc": 1.0,
+    "dynamic_acc": 1.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M": 1024,
+    "n_query": 50,
+    "alpha": 0.1,
+    "window": 50,
+    "seeds": 1
+  }
+}

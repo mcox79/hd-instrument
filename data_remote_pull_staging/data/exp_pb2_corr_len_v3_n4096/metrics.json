@@ -1,0 +1,35 @@
+{
+  "anchor": "pb2_corr_len_v3_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    1.0,
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "xi_normalized": 0.10124,
+      "n_edits": 10,
+      "N_used": 1024
+    },
+    {
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "xi_normalized": 0.09285,
+      "n_edits": 10,
+      "N_used": 1024
+    }
+  ],
+  "verdict": "PB2_V3_MIDDLE_BAND",
+  "verdict_msg": "LARGE_RANGE: xi_m1=0.1012. mean_xi_m1=0.1012 max_xi=0.1012 mean_xi_all=0.0970 pass_finite=1/1 HP_xi_max=1.0 HF_xi_global=2.0 N=1024",
+  "elapsed_s": 0.99
+}

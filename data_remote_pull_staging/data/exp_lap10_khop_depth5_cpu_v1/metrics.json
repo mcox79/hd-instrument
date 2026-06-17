@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap10_khop_depth5_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate deterministic 5-hop chain traversal recall>=0.65 -- per-binding sharding keeps cleanup exact to depth 5; compositional K-hop moat extends deep. 5-hop-recall=1.000 (VE=1500)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "fivehop_recall": 1.0,
+      "VE": 1500
+    }
+  ],
+  "elapsed_s": 8.796676397323608,
+  "summary": "HARD_PASS: substrate deterministic 5-hop chain traversal recall>=0.65 -- per-binding sharding keeps cleanup exact to depth 5; compositional K-hop moat extends deep. 5-hop-recall=1.000 (VE=1500)"
+}

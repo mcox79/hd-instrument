@@ -1,0 +1,15 @@
+{
+  "anchor_name": "polysemy_context_bound_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: context-binding RESCUES polysemy -- sense-cluster purity context-bound>=0.60 and clearly beats context-free. Binding concept (X) context disambiguates polysemous senses (the image-schema 0.34 failure was a context-free artifact). Polysemy is tractable substrate-only WITH context. context-bound=1.000 context-free=0.816",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "context_bound_purity": 1.0,
+      "context_free_purity": 0.816
+    }
+  ],
+  "elapsed_s": 53.57988524436951,
+  "summary": "HARD_PASS: context-binding RESCUES polysemy -- sense-cluster purity context-bound>=0.60 and clearly beats context-free. Binding concept (X) context disambiguates polysemous senses (the image-schema 0.34 failure was a context-free artifact). Polysemy is tractable substrate-only WITH context. context-bound=1.000 context-free=0.816"
+}

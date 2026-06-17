@@ -1,0 +1,17 @@
+{
+  "anchor_name": "codegen_light_substrate_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: pass@1 <0.20 -- pattern coverage insufficient even on substrate-natural subset. pass@1=0.150 (6/40, 25 patterns)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pass1": 0.15,
+      "n_pass": 6,
+      "n_curated": 40,
+      "n_patterns": 25
+    }
+  ],
+  "elapsed_s": 8.53021502494812,
+  "summary": "HARD_FAIL: pass@1 <0.20 -- pattern coverage insufficient even on substrate-natural subset. pass@1=0.150 (6/40, 25 patterns)"
+}

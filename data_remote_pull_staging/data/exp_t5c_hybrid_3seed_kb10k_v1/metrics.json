@@ -1,0 +1,37 @@
+{
+  "anchor_name": "t5c_hybrid_3seed_kb10k_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HYBRID composition multi-seed VALIDATED -- LM-ratio 0.792 (std 0.004) <0.85 AND fact-recall 1.000 (std 0.000) >0.95. lmr=[0.796, 0.794, 0.786] fr=[1.0, 1.0, 1.0]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "base_ppl": 48.50385339406074,
+      "mod_ppl": 38.59675167272103,
+      "lm_ratio": 0.7957460896796947,
+      "fact_recall": 1.0,
+      "n_test": 92
+    },
+    {
+      "base_ppl": 48.50385339406074,
+      "mod_ppl": 38.50951775214978,
+      "lm_ratio": 0.7939475950351038,
+      "fact_recall": 1.0,
+      "n_test": 92
+    },
+    {
+      "base_ppl": 48.50385339406074,
+      "mod_ppl": 38.13094135342501,
+      "lm_ratio": 0.786142516216951,
+      "fact_recall": 1.0,
+      "n_test": 92
+    }
+  ],
+  "summary": {
+    "lm_ratio_mean": 0.7919454003105831,
+    "lm_ratio_std": 0.004168432447155868,
+    "fact_recall_mean": 1.0,
+    "fact_recall_std": 0.0
+  },
+  "elapsed_s": 1661.6563789844513
+}

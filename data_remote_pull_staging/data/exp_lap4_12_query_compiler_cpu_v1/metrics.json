@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap4_12_query_compiler_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate compiles+executes relational queries (SELECT-WHERE-FILTER) F1>=0.85 -- a query plan of unbind(traverse)+filter ops over the substrate; declarative querying without an external DB. query-F1=1.000 (n=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "query_f1": 1.0,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 0.4530372619628906,
+  "summary": "HARD_PASS: substrate compiles+executes relational queries (SELECT-WHERE-FILTER) F1>=0.85 -- a query plan of unbind(traverse)+filter ops over the substrate; declarative querying without an external DB. query-F1=1.000 (n=200)"
+}

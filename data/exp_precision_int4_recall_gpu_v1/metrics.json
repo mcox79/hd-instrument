@@ -1,0 +1,17 @@
+{
+  "anchor_name": "precision_int4_recall_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: int4 retains >=95pct of fp16 recall at 5M -- 4-bit storage (8x memory vs fp32) viable at scale. int4=1.0000 fp16=1.0000 ratio=1.000 at N=5000000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 5000000,
+      "fp16": 1.0,
+      "int4": 1.0,
+      "ratio": 0.9999999989999999
+    }
+  ],
+  "elapsed_s": 4.956298828125,
+  "summary": "HARD_PASS: int4 retains >=95pct of fp16 recall at 5M -- 4-bit storage (8x memory vs fp32) viable at scale. int4=1.0000 fp16=1.0000 ratio=1.000 at N=5000000"
+}

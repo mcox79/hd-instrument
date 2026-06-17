@@ -1,0 +1,19 @@
+{
+  "anchor_name": "patternb_h2_bft_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: H=2 BFT holds recall@1>=0.95 at noise 0.50 on bundles (matches CELL-4) -- BFT transfers. recall@1 by noise: {'n0.05': 1.0, 'n0.20': 1.0, 'n0.50': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "n0.05": 1.0,
+        "n0.20": 1.0,
+        "n0.50": 1.0
+      },
+      "n050": 1.0
+    }
+  ],
+  "elapsed_s": 77.09848165512085,
+  "summary": "HARD_PASS: H=2 BFT holds recall@1>=0.95 at noise 0.50 on bundles (matches CELL-4) -- BFT transfers. recall@1 by noise: {'n0.05': 1.0, 'n0.20': 1.0, 'n0.50': 1.0}"
+}

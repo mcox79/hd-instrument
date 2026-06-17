@@ -1,0 +1,17 @@
+{
+  "anchor_name": "legal_citation_snowball_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sharded legal-citation snowball holds >=0.95 recall AND >=0.90 precision at 10x demo scale -- per-source sharding fixes the monolithic frontier-explosion; legal-pitch dataset validated. recall=1.000 precision=1.000 (1000 seeds, 4000 cases)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "precision": 1.0,
+      "cases": 4000,
+      "seeds": 1000
+    }
+  ],
+  "elapsed_s": 4.9670631885528564,
+  "summary": "HARD_PASS: sharded legal-citation snowball holds >=0.95 recall AND >=0.90 precision at 10x demo scale -- per-source sharding fixes the monolithic frontier-explosion; legal-pitch dataset validated. recall=1.000 precision=1.000 (1000 seeds, 4000 cases)"
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "t5c_kblam_rag_prefix_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: RAG-prefix held-out recall >=0.25 -- substrate retrieval + context-window injection works (decoupled from the failed cross-attn adapter; substrate-as-RAG path viable). bare=0.000 retrieval-acc=1.000 RAG-recall=0.470 oracle=0.470",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "retrieval_acc": 1.0,
+      "rag_recall": 0.47,
+      "oracle_recall": 0.47,
+      "n_test": 100
+    }
+  ],
+  "elapsed_s": 10.395897388458252,
+  "summary": "HARD_PASS: RAG-prefix held-out recall >=0.25 -- substrate retrieval + context-window injection works (decoupled from the failed cross-attn adapter; substrate-as-RAG path viable). bare=0.000 retrieval-acc=1.000 RAG-recall=0.470 oracle=0.470"
+}

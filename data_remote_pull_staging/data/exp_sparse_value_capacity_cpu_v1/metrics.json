@@ -1,0 +1,16 @@
+{
+  "anchor_name": "sparse_value_capacity_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse capacity gain <1.2x. dense-cap=332 sparse-cap=313 ratio=0.94",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dense": 332,
+      "sparse": 313,
+      "ratio": 0.9427710843373494
+    }
+  ],
+  "elapsed_s": 20.36861491203308,
+  "summary": "HARD_FAIL: sparse capacity gain <1.2x. dense-cap=332 sparse-cap=313 ratio=0.94"
+}

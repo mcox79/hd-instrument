@@ -1,0 +1,15 @@
+{
+  "anchor_name": "conv13_higher_order_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate retrieves fillers through TWO levels of nested binding >=85pct -- higher-order compositional structure holds (role-of-(subrole-filler)). Substrate algebra extends to nested records. 2-level-retrieval=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "twolevel_acc": 1.0,
+      "depth": 2
+    }
+  ],
+  "elapsed_s": 2.467419147491455,
+  "summary": "HARD_PASS: substrate retrieves fillers through TWO levels of nested binding >=85pct -- higher-order compositional structure holds (role-of-(subrole-filler)). Substrate algebra extends to nested records. 2-level-retrieval=1.000"
+}

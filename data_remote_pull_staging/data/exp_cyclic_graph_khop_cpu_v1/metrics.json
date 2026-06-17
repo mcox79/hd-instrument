@@ -1,0 +1,15 @@
+{
+  "anchor_name": "cyclic_graph_khop_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cyclic K-hop 0.75-0.90. target-reached=0.883 terminated=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.8833333333333333,
+      "terminated": 1.0
+    }
+  ],
+  "elapsed_s": 0.10754513740539551,
+  "summary": "MIDDLE_BAND: cyclic K-hop 0.75-0.90. target-reached=0.883 terminated=1.000"
+}

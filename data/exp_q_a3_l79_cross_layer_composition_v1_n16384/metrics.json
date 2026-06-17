@@ -1,0 +1,42 @@
+{
+  "anchor_name": "q_a3_l79_cross_layer_composition_v1_n16384",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 79 levels EXACT-1.0 unanimous + l79_acc HP at N=16384. L75:1.0000 L76:1.0000 L77:1.0000 L78:1.0000 L79:1.0000 l79_acc=1.0000 n_seeds=5",
+  "N": 16384,
+  "L": 79,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 26.619320392608643,
+  "per_seed": [
+    {
+      "seed": 7,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.199535616,
+      "elapsed_s": 5.442643404006958
+    },
+    {
+      "seed": 17,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.199535616,
+      "elapsed_s": 5.247494459152222
+    },
+    {
+      "seed": 23,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.199535616,
+      "elapsed_s": 5.262824058532715
+    },
+    {
+      "seed": 31,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.199535616,
+      "elapsed_s": 5.257941722869873
+    },
+    {
+      "seed": 41,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.199535616,
+      "elapsed_s": 5.264497995376587
+    }
+  ]
+}

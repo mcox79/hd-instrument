@@ -1,0 +1,71 @@
+{
+  "anchor": "reasoning_storage_4way_cleanup_v1_n16384",
+  "N": 512,
+  "smoke": true,
+  "n_chains": 20,
+  "seeds": [
+    17
+  ],
+  "per_seed": [
+    {
+      "seed": 17,
+      "N": 512,
+      "M_steps": 81,
+      "n_chains": 20,
+      "elapsed_s": 0.2,
+      "hop_rule_sim_mean": 0.033984,
+      "baseline": {
+        "mean_per_hop_acc": 1.0,
+        "n_hops_evaluated": 81,
+        "n_correct": 81
+      },
+      "rand": {
+        "mean_per_hop_acc": 1.0,
+        "n_hops_evaluated": 81,
+        "n_correct": 81
+      },
+      "arm_a_4way": {
+        "retrieval": {
+          "mean_per_hop_acc": 1.0,
+          "n_hops_evaluated": 81,
+          "n_correct": 81
+        },
+        "audit": {
+          "mean_conf": 1.0,
+          "frac_above_hp": 1.0,
+          "frac_below_hf": 0.0,
+          "n_checked": 81
+        }
+      },
+      "arm_b_cleanup": {
+        "retrieval": {
+          "mean_per_hop_acc": 1.0,
+          "n_hops_evaluated": 81,
+          "n_correct": 81
+        },
+        "cleanup_stats": {
+          "verify_rate": 1.0,
+          "mean_snap_sim": 1.0,
+          "n_borderline": 0,
+          "n_total": 81
+        }
+      },
+      "arm_c_combined": {
+        "retrieval": {
+          "mean_per_hop_acc": 1.0,
+          "n_hops_evaluated": 81,
+          "n_correct": 81
+        },
+        "cleanup_stats": {
+          "verify_rate": 1.0,
+          "mean_snap_sim": 1.0,
+          "n_borderline": 0,
+          "n_total": 81
+        }
+      }
+    }
+  ],
+  "verdict": "4WC_HARD_PASS",
+  "verdict_msg": "baseline_ratio=1.000 A_4way_ratio=1.000 B_cleanup_ratio=1.000 C_combined_ratio=1.000 C_verify=1.000 arm_C=HARD_PASS seeds=1 N=512",
+  "elapsed_s": 0.21
+}

@@ -1,0 +1,93 @@
+{
+  "anchor_name": "pp58_bbp_discrete_fallback_v1_n16384",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: audit_crit=0 detected but cap_crit not reached (retrieval robust throughout sweep). ratio undefined. N=16384 M_sig=819",
+  "ratio": null,
+  "audit_crit_k": 0,
+  "cap_crit_k": null,
+  "agg_per_k": {
+    "0": {
+      "merged_majority": true,
+      "recall_ok_majority": true,
+      "mean_cos": 1.0
+    },
+    "50": {
+      "merged_majority": true,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9999918619791668
+    },
+    "100": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9999837239583333
+    },
+    "200": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9999267578125
+    },
+    "300": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9997802734375
+    },
+    "400": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.999658203125
+    },
+    "500": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9995279947916668
+    },
+    "600": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9991536458333334
+    },
+    "700": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9984781901041668
+    },
+    "800": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9978841145833333
+    },
+    "900": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9975341796875
+    },
+    "1000": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.996435546875
+    },
+    "1200": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.993408203125
+    },
+    "1500": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9887125651041666
+    },
+    "2000": {
+      "merged_majority": false,
+      "recall_ok_majority": true,
+      "mean_cos": 0.9717122395833334
+    }
+  },
+  "N": 16384,
+  "M_sig": 819,
+  "alpha": 0.05,
+  "n_seeds": 5,
+  "elapsed_s": 17018.72497868538,
+  "run_mode": "full",
+  "bbp_sigma_audit_crit_theory": 0.726393202250021,
+  "k_audit_crit_theory": 8644
+}

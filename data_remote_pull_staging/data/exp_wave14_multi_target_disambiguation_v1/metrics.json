@@ -1,0 +1,19 @@
+{
+  "verdict": "MULTITARG_DISAMBIG",
+  "verdict_msg": "top-1 acc=1.000 from 5 candidates.",
+  "elapsed_s": 7.046999999991385,
+  "summary": {
+    "acc_top1": 1.0,
+    "n_targets": 5
+  },
+  "config": {
+    "N": 65536,
+    "K": 100,
+    "depth": 50,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_targets": 5,
+    "n_trials": 30,
+    "seed": 17
+  }
+}

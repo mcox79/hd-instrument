@@ -1,0 +1,22 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_BACKGROUND": 20,
+  "N_COOP_WRITES": 5,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_cosine_1adv": 1.0,
+    "mean_threshold_n_adv": 9.0,
+    "mean_cosine_anti_unbal": 1.0,
+    "frac_A_pass": 1.0,
+    "frac_B_pass": 1.0,
+    "frac_C_pass": 1.0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Adversarial resilience CONFIRMED. cos_1adv=1.0000>=0.75 threshold_budget=9.0>=3 cos_anti_unbal=1.0000>=0.5. A:1.00 B:1.00 C:1.00.",
+  "elapsed_s": 0.4106872081756592
+}

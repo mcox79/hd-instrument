@@ -1,0 +1,129 @@
+{
+  "verdict": "INTERP_FAMILY_N8192_INCONCLUSIVE",
+  "verdict_msg": "Only 0 families at N=8192; need >=2 (srht + hadamard; Kerdock structurally absent). Available: ['srht@N=64', 'hadamard@N=64']",
+  "elapsed_s": 0.10899999999674037,
+  "summary": {
+    "cells": [
+      {
+        "family": "srht",
+        "N": 64,
+        "alpha": 0.0,
+        "amp_rel_err_mean": 0.24782244868596978,
+        "vamp_rel_err_mean": 0.24788581666559723,
+        "bbmd_distance_mean": 1.0981896702341214,
+        "n_seeds": 1
+      },
+      {
+        "family": "srht",
+        "N": 64,
+        "alpha": 0.5,
+        "amp_rel_err_mean": 0.25852864529387476,
+        "vamp_rel_err_mean": 0.2507939626736017,
+        "bbmd_distance_mean": 4.715683873971808,
+        "n_seeds": 1
+      },
+      {
+        "family": "srht",
+        "N": 64,
+        "alpha": 1.0,
+        "amp_rel_err_mean": 0.147244060944611,
+        "vamp_rel_err_mean": 0.08875416017911827,
+        "bbmd_distance_mean": 5.0,
+        "n_seeds": 1
+      },
+      {
+        "family": "hadamard",
+        "N": 64,
+        "alpha": 0.0,
+        "amp_rel_err_mean": 0.24782244868596978,
+        "vamp_rel_err_mean": 0.24788581666559723,
+        "bbmd_distance_mean": 1.0981896702341214,
+        "n_seeds": 1
+      },
+      {
+        "family": "hadamard",
+        "N": 64,
+        "alpha": 0.5,
+        "amp_rel_err_mean": 0.33518715969651025,
+        "vamp_rel_err_mean": 0.33734020883402516,
+        "bbmd_distance_mean": 4.679518443438684,
+        "n_seeds": 1
+      },
+      {
+        "family": "hadamard",
+        "N": 64,
+        "alpha": 1.0,
+        "amp_rel_err_mean": 0.13876195684861048,
+        "vamp_rel_err_mean": 0.087749409863378,
+        "bbmd_distance_mean": 5.0,
+        "n_seeds": 1
+      }
+    ],
+    "rho_per_family_N": {
+      "srht@N=64": {
+        "rho": -0.5,
+        "max_vamp_rel_err": 0.2507939626736017,
+        "n_alpha_cells": 3
+      },
+      "hadamard@N=64": {
+        "rho": -0.5,
+        "max_vamp_rel_err": 0.33734020883402516,
+        "n_alpha_cells": 3
+      }
+    },
+    "config": {
+      "mode": "smoke",
+      "N_grid": [
+        64
+      ],
+      "M_over_N": 1.0,
+      "alpha_interp_list": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 1,
+      "n_iter": 50,
+      "n_max_moment": 6,
+      "families": [
+        "srht",
+        "hadamard"
+      ]
+    },
+    "rho_per_family_N_serialized": {
+      "srht@N=64": {
+        "rho": -0.5,
+        "max_vamp_rel_err": 0.2507939626736017,
+        "n_alpha_cells": 3
+      },
+      "hadamard@N=64": {
+        "rho": -0.5,
+        "max_vamp_rel_err": 0.33734020883402516,
+        "n_alpha_cells": 3
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_grid": [
+      64
+    ],
+    "M_over_N": 1.0,
+    "alpha_interp_list": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 1,
+    "n_iter": 50,
+    "n_max_moment": 6,
+    "families": [
+      "srht",
+      "hadamard"
+    ]
+  }
+}

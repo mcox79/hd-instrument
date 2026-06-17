@@ -1,0 +1,28 @@
+{
+  "verdict": "BET_Z1_PASS",
+  "verdict_msg": "SRHT compressive readout: top-10 recall = 1.000 (>=0.9) at M=2000 measurements vs N=4096 (speedup=0.4x over brute force at K=1000 stored patterns). Substrate-novel fast readout viable.",
+  "elapsed_s": 0.10899999999674037,
+  "summary": {
+    "top10_recall": 1.0,
+    "per_query_recalls": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "M_measurements": 2000,
+    "K_patterns": 1000,
+    "N": 4096,
+    "speedup_ratio": 0.40180498332352366
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "K_patterns": 1000,
+    "M_measurements": 2000,
+    "top_k": 10,
+    "n_query_seeds": 5,
+    "seed": 17
+  }
+}

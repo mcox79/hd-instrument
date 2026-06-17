@@ -1,0 +1,85 @@
+{
+  "verdict": "S5_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_CLEAN_1/3: cv_b=0.97 cv_d=0.52 cv_e=0.25 med_b=1.0ms med_d=381.9ms med_e=387.9ms dom_b=time_W_kquery_per_hop dom_d=time_posterior_max dom_e=time_compare_spectra",
+  "elapsed_s": 9.08,
+  "summary": {
+    "anchor": "path_optimization_baseline_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "depth": 5,
+    "K_paths": 500,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "wall_b_ns": 5556600,
+        "wall_d_ns": 1165951800,
+        "wall_e_ns": 491848400,
+        "dom_b_op": "time_argmax_final",
+        "dom_b_frac": 0.801,
+        "dom_d_op": "time_enumerate_paths",
+        "dom_d_frac": 0.5591,
+        "dom_e_op": "time_compare_spectra",
+        "dom_e_frac": 0.7915
+      },
+      {
+        "seed": 17,
+        "wall_b_ns": 1195900,
+        "wall_d_ns": 375488400,
+        "wall_e_ns": 386515300,
+        "dom_b_op": "time_W_kquery_per_hop",
+        "dom_b_frac": 0.4924,
+        "dom_d_op": "time_posterior_max",
+        "dom_d_frac": 0.6031,
+        "dom_e_op": "time_compare_spectra",
+        "dom_e_frac": 0.8784
+      },
+      {
+        "seed": 23,
+        "wall_b_ns": 1042400,
+        "wall_d_ns": 381898200,
+        "wall_e_ns": 387910300,
+        "dom_b_op": "time_W_kquery_per_hop",
+        "dom_b_frac": 0.4693,
+        "dom_d_op": "time_posterior_max",
+        "dom_d_frac": 0.5923,
+        "dom_e_op": "time_compare_spectra",
+        "dom_e_frac": 0.8892
+      },
+      {
+        "seed": 31,
+        "wall_b_ns": 643300,
+        "wall_d_ns": 825584300,
+        "wall_e_ns": 694164100,
+        "dom_b_op": "time_W_kquery_per_hop",
+        "dom_b_frac": 0.4281,
+        "dom_d_op": "time_enumerate_paths",
+        "dom_d_frac": 0.4984,
+        "dom_e_op": "time_compare_spectra",
+        "dom_e_frac": 0.739
+      },
+      {
+        "seed": 41,
+        "wall_b_ns": 1020500,
+        "wall_d_ns": 370492700,
+        "wall_e_ns": 387267000,
+        "dom_b_op": "time_W_kquery_per_hop",
+        "dom_b_frac": 0.4972,
+        "dom_d_op": "time_posterior_max",
+        "dom_d_frac": 0.6116,
+        "dom_e_op": "time_compare_spectra",
+        "dom_e_frac": 0.8784
+      }
+    ],
+    "verdict": "S5_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL_CLEAN_1/3: cv_b=0.97 cv_d=0.52 cv_e=0.25 med_b=1.0ms med_d=381.9ms med_e=387.9ms dom_b=time_W_kquery_per_hop dom_d=time_posterior_max dom_e=time_compare_spectra",
+    "elapsed_s": 9.08
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "reasoning_routing_oracle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-as-classifier routes problems to the right reasoning primitive (routing_acc>=0.75) and the routed validated primitives solve (answer_acc>=0.60). The Phase-3 extraction->reasoning bridge works substrate-only -- no trained router. routing_acc=0.967 answer_acc=0.892 (6 classes, 30 instances)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "routing_acc": 0.967,
+      "answer_acc": 0.892,
+      "n": 30,
+      "n_classes": 6
+    }
+  ],
+  "elapsed_s": 0.6137652397155762,
+  "summary": "HARD_PASS: substrate-as-classifier routes problems to the right reasoning primitive (routing_acc>=0.75) and the routed validated primitives solve (answer_acc>=0.60). The Phase-3 extraction->reasoning bridge works substrate-only -- no trained router. routing_acc=0.967 answer_acc=0.892 (6 classes, 30 instances)"
+}

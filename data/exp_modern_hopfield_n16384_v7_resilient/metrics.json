@@ -1,0 +1,161 @@
+{
+  "verdict": "S4_HARD_PASS",
+  "verdict_msg": "MODERN_HOPFIELD_ACTIVATION: constructed=3/3 max_M=[8192, 8192, 8192] target>4096 n_strong=3 n_full_M_pass=0",
+  "elapsed_s": 51.94,
+  "summary": {
+    "anchor": "modern_hopfield_n16384_v7_resilient",
+    "N": 16384,
+    "smoke": false,
+    "M_sweep": [
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "construction_success": true,
+        "strategy_used": "a_chunked",
+        "strategy_log": {
+          "a_chunked": {
+            "success": true,
+            "elapsed_s": 1.87,
+            "mem_gb_post": 3.0
+          }
+        },
+        "per_M": [
+          {
+            "M": 2048,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.0,
+            "post_mem_gb": 4.307,
+            "elapsed_s": 8.08
+          },
+          {
+            "M": 4096,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 4.557,
+            "elapsed_s": 1.77
+          },
+          {
+            "M": 8192,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 5.057,
+            "elapsed_s": 3.38
+          },
+          {
+            "M": 16384,
+            "success": false,
+            "error": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.01 GiB is allocated by PyTorch, and 13.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try settin",
+            "elapsed_s": 2.34
+          }
+        ],
+        "max_M_at_95_recall": 8192
+      },
+      {
+        "seed": 17,
+        "construction_success": true,
+        "strategy_used": "a_chunked",
+        "strategy_log": {
+          "a_chunked": {
+            "success": true,
+            "elapsed_s": 0.21,
+            "mem_gb_post": 3.008
+          }
+        },
+        "per_M": [
+          {
+            "M": 2048,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 4.307,
+            "elapsed_s": 6.84
+          },
+          {
+            "M": 4096,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 4.557,
+            "elapsed_s": 1.64
+          },
+          {
+            "M": 8192,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 5.057,
+            "elapsed_s": 3.11
+          },
+          {
+            "M": 16384,
+            "success": false,
+            "error": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.01 GiB is allocated by PyTorch, and 13.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try settin",
+            "elapsed_s": 3.27
+          }
+        ],
+        "max_M_at_95_recall": 8192
+      },
+      {
+        "seed": 23,
+        "construction_success": true,
+        "strategy_used": "a_chunked",
+        "strategy_log": {
+          "a_chunked": {
+            "success": true,
+            "elapsed_s": 0.09,
+            "mem_gb_post": 3.008
+          }
+        },
+        "per_M": [
+          {
+            "M": 2048,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 4.307,
+            "elapsed_s": 8.13
+          },
+          {
+            "M": 4096,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 4.557,
+            "elapsed_s": 2.55
+          },
+          {
+            "M": 8192,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 3.008,
+            "post_mem_gb": 5.057,
+            "elapsed_s": 2.22
+          },
+          {
+            "M": 16384,
+            "success": false,
+            "error": "CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. 6.80 GiB allowed; Of the allocated memory 6.01 GiB is allocated by PyTorch, and 13.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try settin",
+            "elapsed_s": 3.91
+          }
+        ],
+        "max_M_at_95_recall": 8192
+      }
+    ],
+    "verdict": "S4_HARD_PASS",
+    "verdict_msg": "MODERN_HOPFIELD_ACTIVATION: constructed=3/3 max_M=[8192, 8192, 8192] target>4096 n_strong=3 n_full_M_pass=0",
+    "elapsed_s": 51.94
+  }
+}

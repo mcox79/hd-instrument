@@ -1,0 +1,64 @@
+{
+  "verdict": "LR_DOSE_INCONCLUSIVE",
+  "verdict_msg": "Need >=3 tau values, got 2.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "cell_table": {
+      "10": {
+        "0.3": 0.6
+      },
+      "40": {
+        "0.3": 0.4
+      }
+    },
+    "raw_cells": [
+      {
+        "tau": 10,
+        "p_flip": 0.3,
+        "mean_min_acc": 0.6,
+        "seed_min_accs": [
+          0.6
+        ]
+      },
+      {
+        "tau": 40,
+        "p_flip": 0.3,
+        "mean_min_acc": 0.4,
+        "seed_min_accs": [
+          0.4
+        ]
+      }
+    ],
+    "envelope_meta": {
+      "10": {
+        "sum": 10.0,
+        "peak": 1.3912629183383547,
+        "rel_err": 0.0
+      },
+      "40": {
+        "sum": 9.999999999999998,
+        "peak": 1.1078500957954014,
+        "rel_err": 1.7763568394002506e-16
+      }
+    },
+    "n_seeds": 1,
+    "N": 64,
+    "n_writes": 10
+  },
+  "config": {
+    "N": 64,
+    "n_writes": 10,
+    "n_seeds": 1,
+    "noise_levels": [
+      0.3
+    ],
+    "tau_list": [
+      10,
+      40
+    ],
+    "snap_threshold": 1.0,
+    "target_lr_sum": 10.0,
+    "lr_sum_tolerance": 0.05,
+    "mode": "smoke"
+  }
+}

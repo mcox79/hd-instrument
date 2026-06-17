@@ -1,0 +1,256 @@
+{
+  "verdict": "EDIT_QUERY_BOTH_PASS",
+  "verdict_msg": "Both arms pass edit-then-query. Kerdock edit=1.000, correlated edit=1.000. wave14d_query_side_integration's 93% leak doesn't reproduce here; audit setup divergence.",
+  "elapsed_s": 3.719000000000051,
+  "summary": {
+    "N": 4096,
+    "by_arm": {
+      "kerdock": {
+        "edit_argmax_acc": 1.0,
+        "kept_argmax_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 23,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 31,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 41,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 53,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          }
+        ],
+        "edit_paraphrase_acc_h4": 1.0,
+        "kept_paraphrase_acc_h4": 1.0,
+        "edit_paraphrase_acc_h8": 1.0,
+        "kept_paraphrase_acc_h8": 1.0,
+        "edit_paraphrase_acc_h16": 1.0,
+        "kept_paraphrase_acc_h16": 1.0
+      },
+      "correlated": {
+        "edit_argmax_acc": 1.0,
+        "kept_argmax_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 23,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 31,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 41,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 53,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "4": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              },
+              "16": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          }
+        ],
+        "edit_paraphrase_acc_h4": 1.0,
+        "kept_paraphrase_acc_h4": 1.0,
+        "edit_paraphrase_acc_h8": 1.0,
+        "kept_paraphrase_acc_h8": 1.0,
+        "edit_paraphrase_acc_h16": 1.0,
+        "kept_paraphrase_acc_h16": 1.0
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 4096,
+    "n_edit": 30,
+    "n_kept": 100,
+    "hamming_radii": [
+      4,
+      8,
+      16
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "anchor_name": "sharding_scaling_largeS_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: per-shard recall flat >=0.95 with ~0 interference up to S=256 -- unbounded-capacity-by-sharding holds at extreme shard counts. per-shard={'S16': 1.0, 'S64': 1.0, 'S128': 1.0, 'S256': 1.0} interference={'S16': 0.0, 'S64': 0.0, 'S128': 0.0, 'S256': 0.0} (spread=0.000 max-inter=0.0000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per": {
+        "S16": 1.0,
+        "S64": 1.0,
+        "S128": 1.0,
+        "S256": 1.0
+      },
+      "inter": {
+        "S16": 0.0,
+        "S64": 0.0,
+        "S128": 0.0,
+        "S256": 0.0
+      },
+      "spread": 0.0,
+      "minp": 1.0,
+      "maxi": 0.0
+    }
+  ],
+  "elapsed_s": 15.783873796463013,
+  "summary": "HARD_PASS: per-shard recall flat >=0.95 with ~0 interference up to S=256 -- unbounded-capacity-by-sharding holds at extreme shard counts. per-shard={'S16': 1.0, 'S64': 1.0, 'S128': 1.0, 'S256': 1.0} interference={'S16': 0.0, 'S64': 0.0, 'S128': 0.0, 'S256': 0.0} (spread=0.000 max-inter=0.0000)"
+}

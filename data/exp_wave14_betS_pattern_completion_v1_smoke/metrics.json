@@ -1,0 +1,53 @@
+{
+  "verdict": "BET_S_PARTIAL",
+  "verdict_msg": "Partial: K=['50'] below 0.85, asymmetric=[]. per_K: {'8': {'subject': 1.0, 'relation': 1.0, 'object': 1.0}, '50': {'subject': 0.65, 'relation': 0.9, 'object': 0.75}}",
+  "elapsed_s": 0.2970000000059372,
+  "summary": {
+    "per_K": {
+      "8": {
+        "subject": 1.0,
+        "relation": 1.0,
+        "object": 1.0
+      },
+      "50": {
+        "subject": 0.65,
+        "relation": 0.9,
+        "object": 0.75
+      }
+    },
+    "per_K_seed": {
+      "8": [
+        {
+          "subject": 1.0,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 8,
+          "n_trials": 8
+        }
+      ],
+      "50": [
+        {
+          "subject": 0.65,
+          "relation": 0.9,
+          "object": 0.75,
+          "K": 50,
+          "n_trials": 20
+        }
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "num_entities": 200,
+    "num_relations": 50,
+    "K_sweep": [
+      8,
+      50
+    ],
+    "n_trials_per_K": 20,
+    "seeds": [
+      17
+    ]
+  }
+}

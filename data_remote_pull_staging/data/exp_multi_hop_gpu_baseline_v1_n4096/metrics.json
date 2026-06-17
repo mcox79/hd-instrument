@@ -1,0 +1,135 @@
+{
+  "verdict": "S11_HARD_PASS",
+  "verdict_msg": "GPU_BASELINE_OK: sp_b=81.25 sp_d=56.52 sp_e=19.32 d_b=0.000 d_d=0.000 d_e=0.000 n_crashes=0",
+  "elapsed_s": 128.33,
+  "summary": {
+    "anchor": "multi_hop_gpu_baseline_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "depth": 5,
+    "K_paths": 500,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "M": 2048,
+        "cpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 144819500,
+          "lat_d_ns": 17285503400,
+          "lat_e_ns": 6079594900,
+          "mem_peak_b": 0
+        },
+        "gpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 3426600,
+          "lat_d_ns": 277943500,
+          "lat_e_ns": 338624000,
+          "mem_peak_b": 612909056
+        }
+      },
+      {
+        "seed": 17,
+        "M": 2048,
+        "cpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 137422800,
+          "lat_d_ns": 13243646200,
+          "lat_e_ns": 5888766200,
+          "mem_peak_b": 0
+        },
+        "gpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 2726300,
+          "lat_d_ns": 280980400,
+          "lat_e_ns": 297024500,
+          "mem_peak_b": 612909056
+        }
+      },
+      {
+        "seed": 23,
+        "M": 2048,
+        "cpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 94665700,
+          "lat_d_ns": 18093760500,
+          "lat_e_ns": 5593331800,
+          "mem_peak_b": 0
+        },
+        "gpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 2752300,
+          "lat_d_ns": 285062800,
+          "lat_e_ns": 291798200,
+          "mem_peak_b": 612909056
+        }
+      },
+      {
+        "seed": 31,
+        "M": 2048,
+        "cpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 655698600,
+          "lat_d_ns": 15700288600,
+          "lat_e_ns": 5912782600,
+          "mem_peak_b": 0
+        },
+        "gpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 3055500,
+          "lat_d_ns": 288342900,
+          "lat_e_ns": 293797000,
+          "mem_peak_b": 612909056
+        }
+      },
+      {
+        "seed": 41,
+        "M": 2048,
+        "cpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 178346600,
+          "lat_d_ns": 15102445600,
+          "lat_e_ns": 5742775300,
+          "mem_peak_b": 0
+        },
+        "gpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 1.0,
+          "lat_b_ns": 2760700,
+          "lat_d_ns": 272925500,
+          "lat_e_ns": 294401500,
+          "mem_peak_b": 612909056
+        }
+      }
+    ],
+    "verdict": "S11_HARD_PASS",
+    "verdict_msg": "GPU_BASELINE_OK: sp_b=81.25 sp_d=56.52 sp_e=19.32 d_b=0.000 d_d=0.000 d_e=0.000 n_crashes=0",
+    "elapsed_s": 128.33
+  }
+}

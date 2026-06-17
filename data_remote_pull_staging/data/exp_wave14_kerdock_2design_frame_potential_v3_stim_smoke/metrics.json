@@ -1,0 +1,42 @@
+{
+  "verdict": "KERDOCK_2DESIGN_MATCH_HAAR",
+  "verdict_msg": "HARD PASS: full-Clifford F_4 = 2.0260 +/- 0.0648 within Haar band [1.9, 2.1]. Confirms Clifford group (ambient of substrate's Kerdock-PSL anchor) IS a unitary 2-design at production d. d=8 cross-check OK (formula F_4 = 1.9140, direct = 1.8900).",
+  "elapsed_s": 0.125,
+  "summary": {
+    "F_4": 2.026,
+    "F_4_se": 0.0648309656585218,
+    "rank_histogram": {
+      "7": 212,
+      "8": 205,
+      "6": 72,
+      "5": 10,
+      "4": 1
+    },
+    "selftest_d8": {
+      "n_samples": 500,
+      "d": 8,
+      "F_4_formula": 1.914,
+      "F_4_formula_se": 0.060369669487152035,
+      "F_4_direct": 1.889999948978424,
+      "F_4_direct_se": 0.18568995464708624,
+      "rank_histogram": {
+        "4": 68,
+        "5": 196,
+        "6": 229,
+        "3": 6,
+        "2": 1
+      }
+    }
+  },
+  "config": {
+    "m": 4,
+    "d": 16,
+    "n_samples": 500,
+    "smoke": true,
+    "haar_band": [
+      1.9,
+      2.1
+    ],
+    "stim_version": "1.16.0"
+  }
+}

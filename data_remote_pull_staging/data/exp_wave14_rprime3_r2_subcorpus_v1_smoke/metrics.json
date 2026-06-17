@@ -1,0 +1,31 @@
+{
+  "verdict": "R2_SUBCORPUS_MIDDLE_BAND",
+  "verdict_msg": "Intermediate: mean_r=0.187 mean_pval=0.161 mean_non_monotone=4.0/6 distance_bins. Weak trend; inconclusive at this N/M envelope.",
+  "elapsed_s": 1.2810000000172295,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "r": 0.18749820616006385,
+        "pval": 0.1607057829131473,
+        "n_pairs": 56,
+        "monotone": false,
+        "n_non_monotone": 4,
+        "mean_dist": 0.9945100536569953,
+        "mean_retention": 0.9815404924130027
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "m_per_chunk": 20,
+    "n_chunks": 8,
+    "seeds": [
+      17
+    ],
+    "pass_pearson": 0.5,
+    "pass_pval": 0.05,
+    "fail_pearson": 0.15,
+    "fail_non_monotone": 4
+  }
+}

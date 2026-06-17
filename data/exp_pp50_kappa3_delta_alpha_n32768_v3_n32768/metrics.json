@@ -1,0 +1,18 @@
+{
+  "anchor_name": "pp50_kappa3_delta_alpha_n32768_v3_n32768",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-50 kappa_3 delta-alpha sensitivity confirmed at N=32768 (v3 protocol). N^(2/3) scaling holds. CLOUD auth needed for N=65536+. delta=0.001:sigma_sep=17.8(n=5) | delta=0.010:sigma_sep=167.3(n=5) | delta=0.040:sigma_sep=572.5(n=5) | n_seeds=5 N=32768",
+  "N": 32768,
+  "n_active": 32768,
+  "run_mode": "full",
+  "alpha_base": 0.05,
+  "delta_alphas": [
+    0.04,
+    0.01,
+    0.001
+  ],
+  "n_probes_sens": 2000,
+  "n_seeds": 5,
+  "elapsed_s": 3.713310480117798,
+  "peak_gpu_gb": 3.403808768
+}

@@ -1,0 +1,104 @@
+{
+  "anchor": "qe1_substrate_annealing_v1_n4096",
+  "verdict": "QE1_HARD_FAIL",
+  "verdict_msg": "NO ANNEALING BENEFIT at N=4096: every schedule mean_delta < 0.02 on >= 2/1 seeds. Substrate is operating at saturation under fixed-beta argmax; beta-schedule does not unlock borderline-case accuracy.",
+  "verdict_tag": "QE1_HARD_FAIL",
+  "elapsed_s": 0.21,
+  "config": {
+    "N": 1024,
+    "M_frac": 1.0,
+    "T": 3,
+    "seeds": [
+      17
+    ],
+    "schedules": [
+      "fixed",
+      "linear",
+      "exponential",
+      "inverse_linear"
+    ],
+    "smoke": true,
+    "n_probes": 50
+  },
+  "summary": {
+    "cells": [
+      {
+        "schedule": "fixed",
+        "seed": 17,
+        "M_frac": 1.0,
+        "M": 1024,
+        "C": 4096,
+        "N": 1024,
+        "T": 3,
+        "betas": [
+          32.0,
+          32.0,
+          32.0
+        ],
+        "n_probes": 50,
+        "accuracy": 0.0
+      },
+      {
+        "schedule": "linear",
+        "seed": 17,
+        "M_frac": 1.0,
+        "M": 1024,
+        "C": 4096,
+        "N": 1024,
+        "T": 3,
+        "betas": [
+          2.0,
+          33.0,
+          64.0
+        ],
+        "n_probes": 50,
+        "accuracy": 0.0
+      },
+      {
+        "schedule": "exponential",
+        "seed": 17,
+        "M_frac": 1.0,
+        "M": 1024,
+        "C": 4096,
+        "N": 1024,
+        "T": 3,
+        "betas": [
+          2.0,
+          4.0,
+          8.0
+        ],
+        "n_probes": 50,
+        "accuracy": 0.0
+      },
+      {
+        "schedule": "inverse_linear",
+        "seed": 17,
+        "M_frac": 1.0,
+        "M": 1024,
+        "C": 4096,
+        "N": 1024,
+        "T": 3,
+        "betas": [
+          2.0,
+          3.878787878787879,
+          64.0
+        ],
+        "n_probes": 50,
+        "accuracy": 0.0
+      }
+    ],
+    "N": 1024,
+    "M_frac": 1.0,
+    "T": 3,
+    "seeds": [
+      17
+    ],
+    "schedules": [
+      "fixed",
+      "linear",
+      "exponential",
+      "inverse_linear"
+    ],
+    "smoke": true
+  }
+}

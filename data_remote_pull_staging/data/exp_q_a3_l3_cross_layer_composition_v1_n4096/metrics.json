@@ -1,0 +1,12 @@
+{
+  "anchor_name": "q_a3_l3_cross_layer_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: L=3 composition CONFIRMED at N=4096. L1_fid=1.0000(HP>=0.9) L2_fid=1.0000(HP>=0.9) L3_fid=1.0000(HP>=0.9) l3_acc=1.0000(HP>=0.8,HF<0.4) n=2",
+  "N": 4096,
+  "M_inner": 30,
+  "M_mid": 15,
+  "M_outer": 8,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 2.307871103286743
+}

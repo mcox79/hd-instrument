@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_e6_zero_input_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: zero-input gives <5%% of real improvement -- the adapter is a genuine MEMORY LOOKUP, not a parametric transform (H2 parametric refuted). random-substrate ratio=1.0000x (improvement 0.00%, = 0.0% of real 16.4%) gates=[0.000,0.000]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 43.37584650036866,
+      "ratio": 1.0,
+      "gate0": 0.0,
+      "gate1": 0.0,
+      "used": false
+    }
+  ],
+  "elapsed_s": 62.23764681816101,
+  "summary": "HARD_PASS: zero-input gives <5%% of real improvement -- the adapter is a genuine MEMORY LOOKUP, not a parametric transform (H2 parametric refuted). random-substrate ratio=1.0000x (improvement 0.00%, = 0.0% of real 16.4%) gates=[0.000,0.000]"
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "markov_transition_nscale_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best recall 0.75-0.90 -- N-scaling helps but below gate. best recall=0.850 at N4096 | by-N: {'N2048': 0.8, 'N4096': 0.85}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N2048": 0.8,
+        "N4096": 0.85
+      },
+      "recall": 0.85,
+      "best_N": "N4096"
+    }
+  ],
+  "elapsed_s": 0.19938254356384277,
+  "summary": "MIDDLE_BAND: best recall 0.75-0.90 -- N-scaling helps but below gate. best recall=0.850 at N4096 | by-N: {'N2048': 0.8, 'N4096': 0.85}"
+}

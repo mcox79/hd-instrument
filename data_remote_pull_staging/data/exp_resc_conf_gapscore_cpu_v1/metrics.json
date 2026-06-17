@@ -1,0 +1,16 @@
+{
+  "anchor_name": "resc_conf_gapscore_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: gap-score conformal coverage >=0.85 with bounded sets -- gap nonconformity rescues calibration. coverage=0.860 mean-set-size=1.0/300",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 0.86,
+      "set_size": 1.0,
+      "vocab": 300
+    }
+  ],
+  "elapsed_s": 0.3439052104949951,
+  "summary": "HARD_PASS: gap-score conformal coverage >=0.85 with bounded sets -- gap nonconformity rescues calibration. coverage=0.860 mean-set-size=1.0/300"
+}

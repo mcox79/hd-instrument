@@ -1,0 +1,75 @@
+{
+  "anchor_name": "substrate_long_conversation_10k_exchanges_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate long-conv memory holds >=0.85 at 1000+ exchanges; Pythia ~0 at depth (categorical win scaled 5x). substrate by depth={50: 1.0, 1000: 1.0, 4000: 0.98, 8000: 1.0, 11000: 1.0} | pythia by depth={50: 0.04, 1000: 0.04, 4000: 0.04, 8000: 0.04, 11000: 0.04} (E=12000)",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "E": 12000,
+      "n_threads": 5,
+      "substrate_by_depth": {
+        "d50": 1.0,
+        "d1000": 1.0,
+        "d4000": 1.0,
+        "d8000": 1.0,
+        "d11000": 1.0
+      },
+      "pythia_by_depth": {
+        "d50": 0.0,
+        "d1000": 0.125,
+        "d4000": 0.0,
+        "d8000": 0.0,
+        "d11000": 0.0
+      },
+      "substrate_at_1000": 1.0,
+      "pythia_at_deep": 0.0
+    },
+    {
+      "seed": 17,
+      "E": 12000,
+      "n_threads": 5,
+      "substrate_by_depth": {
+        "d50": 1.0,
+        "d1000": 1.0,
+        "d4000": 1.0,
+        "d8000": 1.0,
+        "d11000": 1.0
+      },
+      "pythia_by_depth": {
+        "d50": 0.0,
+        "d1000": 0.0,
+        "d4000": 0.125,
+        "d8000": 0.125,
+        "d11000": 0.0
+      },
+      "substrate_at_1000": 1.0,
+      "pythia_at_deep": 0.0
+    },
+    {
+      "seed": 23,
+      "E": 12000,
+      "n_threads": 5,
+      "substrate_by_depth": {
+        "d50": 1.0,
+        "d1000": 1.0,
+        "d4000": 0.95,
+        "d8000": 1.0,
+        "d11000": 1.0
+      },
+      "pythia_by_depth": {
+        "d50": 0.125,
+        "d1000": 0.0,
+        "d4000": 0.0,
+        "d8000": 0.0,
+        "d11000": 0.125
+      },
+      "substrate_at_1000": 1.0,
+      "pythia_at_deep": 0.125
+    }
+  ],
+  "elapsed_s": 118.65834307670593,
+  "summary": "HARD_PASS: substrate long-conv memory holds >=0.85 at 1000+ exchanges; Pythia ~0 at depth (categorical win scaled 5x). substrate by depth={50: 1.0, 1000: 1.0, 4000: 0.98, 8000: 1.0, 11000: 1.0} | pythia by depth={50: 0.04, 1000: 0.04, 4000: 0.04, 8000: 0.04, 11000: 0.04} (E=12000)"
+}

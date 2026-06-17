@@ -1,0 +1,64 @@
+{
+  "anchor_name": "substrate_abduction_f3_hmm_headroom_realgap_deployment_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ABDUCTION KERNEL DEPLOYED ON A REAL GAP (no known filler): from the HMM headroom failure the kernel abduced {uses_transition (sequential transition-model integration)} as the weakest closing signature -- matching the documented PARTIAL filler class (forward/backward/viterbi all model transitions) -- with the past_accum control (uses past observations but NO transition model) FAILING, proving TRANSITION-MODEL integration (not mere past-access) is load-bearing, and a math-native accuracy delta closing >=half the ~0.10 headroom. The loop's ABDUCTION step works on a real documented gap, not just the F1 ground-truth case. HONEST: future/bidirectional integration is a MARGINAL secondary contributor (fwd_back - forward = 0.0161), NOT the primary driver -- v1's bidirectional hypothesis was refuted by the data and corrected. Phase C abduction validated. HMM greedy baseline=0.2476 -> closers ['forward', 'fwd_back', 'viterbi'] (delta 0.1213 vs headroom 0.1213); abduced weakest signature=['uses_transition']; past_accum control FAILS=True (transition-model not mere past-access); documented filler fwd_back+viterbi satisfies=True; future-marginal(fb-fwd)=0.0161.",
+  "summary": "ABDUCTION KERNEL DEPLOYED ON A REAL GAP (no known filler): from the HMM headroom failure the kernel abduced {uses_transition (sequential transition-model integration)} as the weakest closing signature -- matching the documented PARTIAL filler class (forward/backward/viterbi all model transitions) -- with the past_accum control (uses past observations but NO transition model) FAILING, proving TRANSITION-MODEL integration (not mere past-access) is load-bearing, and a math-native accuracy delta closing >=half the ~0.10 headroom. The loop's ABDUCTION step works on a real documented gap, not just the F1 ground-truth case. HONEST: future/bidirectional integration is a MARGINAL secondary contributor (fwd_back - forward = 0.0161), NOT the primary driver -- v1's bidirectional hypothesis was refuted by the data and corrected. Phase C abduction validated. HMM greedy baseline=0.2476 -> closers ['forward', 'fwd_back', 'viterbi'] (delta 0.1213 vs headroom 0.1213); abduced weakest signature=['uses_transition']; past_accum control FAILS=True (transition-model not mere past-access); documented filler fwd_back+viterbi satisfies=True; future-marginal(fb-fwd)=0.0161.",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "macc": {
+        "greedy": 0.24760416666666665,
+        "past_accum": 0.19399999999999998,
+        "forward": 0.35274999999999995,
+        "fwd_back": 0.36889583333333337,
+        "viterbi": 0.33116666666666666
+      },
+      "base": 0.24760416666666665,
+      "ceil": 0.36889583333333337,
+      "headroom": 0.12129166666666671,
+      "closers": [
+        "forward",
+        "fwd_back",
+        "viterbi"
+      ],
+      "props": {
+        "greedy": {
+          "uses_transition": false,
+          "uses_past_obs": false,
+          "uses_future_obs": false
+        },
+        "past_accum": {
+          "uses_transition": false,
+          "uses_past_obs": true,
+          "uses_future_obs": false
+        },
+        "forward": {
+          "uses_transition": true,
+          "uses_past_obs": true,
+          "uses_future_obs": false
+        },
+        "fwd_back": {
+          "uses_transition": true,
+          "uses_past_obs": true,
+          "uses_future_obs": true
+        },
+        "viterbi": {
+          "uses_transition": true,
+          "uses_past_obs": true,
+          "uses_future_obs": true
+        }
+      },
+      "abduced": [
+        "uses_transition"
+      ],
+      "disc": true,
+      "control_fails": true,
+      "filler_satisfies": true,
+      "delta": 0.12129166666666671,
+      "future_marginal": 0.016145833333333415,
+      "hard_pass": true
+    }
+  ],
+  "elapsed_s": 1.3673310279846191
+}

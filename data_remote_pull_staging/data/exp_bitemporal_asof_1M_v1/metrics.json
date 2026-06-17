@@ -1,0 +1,16 @@
+{
+  "anchor_name": "bitemporal_asof_1M_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: bitemporal as-of correct + <0.2ms/query at 1M versions -- temporal queries at production scale. correctness=1.000 per-query=0.0017 ms (N=50000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 50000,
+      "correct": 1.0,
+      "per_ms": 0.0016806001076474786
+    }
+  ],
+  "elapsed_s": 0.027142763137817383,
+  "summary": "HARD_PASS: bitemporal as-of correct + <0.2ms/query at 1M versions -- temporal queries at production scale. correctness=1.000 per-query=0.0017 ms (N=50000)"
+}

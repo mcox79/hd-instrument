@@ -1,0 +1,70 @@
+{
+  "verdict": "KF1_MIDDLE_BAND",
+  "verdict_msg": "No structural hallucinations (all max_conf < 0.5). But tight 5-seed gate: 0/1 seeds have mean_oos_max_conf < 0.001 at undercap. mean_oos_undercap=0.00295. Weaker guarantee than Tier-1 spec requires.",
+  "elapsed_s": 0.1102149486541748,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      0.25,
+      1.0,
+      2.0
+    ],
+    "n_oos": 100,
+    "n_inset": 30
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "per_M": {
+          "0.25": {
+            "M": 256,
+            "M_over_N": 0.25,
+            "seed": 17,
+            "C": 4096,
+            "oos_max_conf_mean": 0.0015247900737449527,
+            "oos_max_conf_max": 0.0020985091105103493,
+            "above_thresh_frac": 0.0,
+            "confidence_margin_mean": -0.0012806495651602745,
+            "inset_acc": 1.0,
+            "inset_max_conf_mean": 1.0
+          },
+          "1.0": {
+            "M": 1024,
+            "M_over_N": 1.0,
+            "seed": 17,
+            "C": 4096,
+            "oos_max_conf_mean": 0.004381660372018814,
+            "oos_max_conf_max": 0.010481630451977253,
+            "above_thresh_frac": 0.0,
+            "confidence_margin_mean": -0.004137519747018814,
+            "inset_acc": 1.0,
+            "inset_max_conf_mean": 1.0
+          },
+          "2.0": {
+            "M": 2048,
+            "M_over_N": 2.0,
+            "seed": 17,
+            "C": 4096,
+            "oos_max_conf_mean": 0.010548276826739311,
+            "oos_max_conf_max": 0.029622038826346397,
+            "above_thresh_frac": 0.0,
+            "confidence_margin_mean": -0.010304136201739311,
+            "inset_acc": 1.0,
+            "inset_max_conf_mean": 1.0
+          }
+        }
+      }
+    },
+    "N_full": 4096,
+    "N_used": 1024,
+    "m_fracs": [
+      0.25,
+      1.0,
+      2.0
+    ],
+    "smoke": true
+  }
+}

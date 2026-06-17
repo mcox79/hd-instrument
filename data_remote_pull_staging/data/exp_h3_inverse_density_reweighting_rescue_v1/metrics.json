@@ -1,0 +1,17 @@
+{
+  "anchor_name": "h3_inverse_density_reweighting_rescue_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: inverse-density insufficient (>0.20). baseline_propagation=0.433 -> inverse-density_propagation=0.367 (beta=4.0, k=10)",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "baseline_propagation": 0.43333333333333335,
+      "density_propagation": 0.36666666666666664
+    }
+  ],
+  "elapsed_s": 0.1687166690826416,
+  "summary": "HARD_FAIL: inverse-density insufficient (>0.20). baseline_propagation=0.433 -> inverse-density_propagation=0.367 (beta=4.0, k=10)"
+}

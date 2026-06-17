@@ -1,0 +1,19 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M": 100,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_delta_sim": 0.0,
+    "std_delta_sim": 0.0,
+    "mean_sim_fast": 0.9628700224541313,
+    "mean_sim_slow": 0.9628700224541313,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Write-through consistency verified. mean_delta_sim=0.00e+00 (HP<0.01). Dual += implements zero-overhead write-through.",
+  "elapsed_s": 1.4510624408721924
+}

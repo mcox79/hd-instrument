@@ -1,0 +1,24 @@
+{
+  "verdict": "CONFORMAL_OVERCOVERAGE",
+  "verdict_msg": "coverage=0.975>0.97 (too conservative).",
+  "elapsed_s": 16.828000000008615,
+  "summary": {
+    "coverage": 0.975,
+    "q_lo": 0.1,
+    "q_hi": 0.24,
+    "n_calibration": 40,
+    "n_test": 40,
+    "target_coverage": 0.95
+  },
+  "config": {
+    "N": 2048,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 20,
+    "n_calibration": 40,
+    "n_test": 40,
+    "target_coverage": 0.95
+  }
+}

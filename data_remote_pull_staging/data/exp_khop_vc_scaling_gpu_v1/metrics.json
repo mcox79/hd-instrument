@@ -1,0 +1,17 @@
+{
+  "anchor_name": "khop_vc_scaling_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: K_max stays >=10 even at large KB (V_C=32000) -- deep K-hop survives production-scale knowledge bases. K_max by V_C: [60, 60, 58, 54] (decreasing) | VC_grid=[500, 2000, 8000, 32000]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "VC500": 60,
+      "VC2000": 60,
+      "VC8000": 58,
+      "VC32000": 54
+    }
+  ],
+  "elapsed_s": 0.8043506145477295,
+  "summary": "HARD_PASS: K_max stays >=10 even at large KB (V_C=32000) -- deep K-hop survives production-scale knowledge bases. K_max by V_C: [60, 60, 58, 54] (decreasing) | VC_grid=[500, 2000, 8000, 32000]"
+}

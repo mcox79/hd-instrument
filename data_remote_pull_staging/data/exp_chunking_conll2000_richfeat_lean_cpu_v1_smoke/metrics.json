@@ -1,0 +1,20 @@
+{
+  "anchor_name": "chunking_conll2000_richfeat_lean_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: richfeat cascade chunk-F1 <0.90. richfeat-F1=0.8316 vs basic-cascade 0.9231 (lift=-0.0915), word-only ref 0.9093, pos-acc=0.9152, train=400",
+  "summary": "HARD_FAIL: richfeat cascade chunk-F1 <0.90. richfeat-F1=0.8316 vs basic-cascade 0.9231 (lift=-0.0915), word-only ref 0.9093, pos-acc=0.9152, train=400",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.8316,
+      "f1_richfeat": 0.8316,
+      "ref_basic_cascade": 0.9231,
+      "ref_wordonly": 0.9093,
+      "lift_vs_basic": -0.0915,
+      "pos_acc": 0.9152,
+      "n_train": 400
+    }
+  ],
+  "elapsed_s": 36.972731590270996
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "code_synthesis_retrieval_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: pass@1 in 0.05-0.15 band -- CONFIRMS the drill-1 substrate-only-synthesis ceiling (retrieval solves only near-duplicate problems; genuine synthesis needs more). Honest boundary. pass@1=0.074 (37/500, templates=474)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pass_at_1": 0.074,
+      "n_passed": 37,
+      "n_test": 500,
+      "n_templates": 474
+    }
+  ],
+  "elapsed_s": 63.951308488845825,
+  "summary": "MIDDLE_BAND: pass@1 in 0.05-0.15 band -- CONFIRMS the drill-1 substrate-only-synthesis ceiling (retrieval solves only near-duplicate problems; genuine synthesis needs more). Honest boundary. pass@1=0.074 (37/500, templates=474)"
+}

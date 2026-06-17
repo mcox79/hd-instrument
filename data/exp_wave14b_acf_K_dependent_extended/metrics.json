@@ -1,0 +1,136 @@
+{
+  "N": 4096,
+  "B": 2,
+  "K_SWEEP": [
+    1536,
+    1792,
+    2048,
+    2176,
+    2304,
+    2432,
+    2560,
+    2688,
+    2816,
+    2944,
+    3072,
+    3328,
+    3584,
+    4096,
+    5120,
+    6144
+  ],
+  "results": [
+    {
+      "K": 1536,
+      "K_over_N": 0.375,
+      "r": 0.0,
+      "use_acf": false,
+      "recovery_pct": 33.333333333333336
+    },
+    {
+      "K": 1792,
+      "K_over_N": 0.4375,
+      "r": 0.0,
+      "use_acf": false,
+      "recovery_pct": 26.666666666666668
+    },
+    {
+      "K": 2048,
+      "K_over_N": 0.5,
+      "r": 0.0,
+      "use_acf": false,
+      "recovery_pct": 16.666666666666668
+    },
+    {
+      "K": 2176,
+      "K_over_N": 0.53125,
+      "r": 0.005,
+      "use_acf": true,
+      "recovery_pct": 50.0
+    },
+    {
+      "K": 2304,
+      "K_over_N": 0.5625,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 36.666666666666664
+    },
+    {
+      "K": 2432,
+      "K_over_N": 0.59375,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 40.0
+    },
+    {
+      "K": 2560,
+      "K_over_N": 0.625,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 46.666666666666664
+    },
+    {
+      "K": 2688,
+      "K_over_N": 0.65625,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 63.333333333333336
+    },
+    {
+      "K": 2816,
+      "K_over_N": 0.6875,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 76.66666666666667
+    },
+    {
+      "K": 2944,
+      "K_over_N": 0.71875,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 50.0
+    },
+    {
+      "K": 3072,
+      "K_over_N": 0.75,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 73.33333333333333
+    },
+    {
+      "K": 3328,
+      "K_over_N": 0.8125,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 90.0
+    },
+    {
+      "K": 3584,
+      "K_over_N": 0.875,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 90.0
+    },
+    {
+      "K": 4096,
+      "K_over_N": 1.0,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 83.33333333333333
+    },
+    {
+      "K": 5120,
+      "K_over_N": 1.25,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 96.66666666666667
+    },
+    {
+      "K": 6144,
+      "K_over_N": 1.5,
+      "r": 0.01,
+      "use_acf": true,
+      "recovery_pct": 96.66666666666667
+    }
+  ]
+}

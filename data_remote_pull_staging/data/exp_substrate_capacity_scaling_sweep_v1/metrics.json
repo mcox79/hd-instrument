@@ -1,0 +1,37 @@
+{
+  "anchor_name": "substrate_capacity_scaling_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate capacity scales linearly M* ~ alpha*N with stable alpha -- Phase-3 N=65536 blueprint supported. mean_alpha(M*/N)=0.049 alpha_CoV=0.010 | capacity@N=1024 is 51 facts",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "capacity_by_N": {
+        "512": 25,
+        "1024": 51
+      },
+      "alpha_by_N": {
+        "512": 0.048828125,
+        "1024": 0.0498046875
+      },
+      "mean_alpha": 0.04931640625,
+      "alpha_cov": 0.009900989898245274
+    },
+    {
+      "seed": 2,
+      "capacity_by_N": {
+        "512": 25,
+        "1024": 51
+      },
+      "alpha_by_N": {
+        "512": 0.048828125,
+        "1024": 0.0498046875
+      },
+      "mean_alpha": 0.04931640625,
+      "alpha_cov": 0.009900989898245274
+    }
+  ],
+  "elapsed_s": 0.2525975704193115,
+  "summary": "HARD_PASS: substrate capacity scales linearly M* ~ alpha*N with stable alpha -- Phase-3 N=65536 blueprint supported. mean_alpha(M*/N)=0.049 alpha_CoV=0.010 | capacity@N=1024 is 51 facts"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "substrate_legal_citation_snowball_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate snowball recovers >=95pct of the 3-hop citation closure -- legal-citation network expansion works (customer-pitch prototype GREEN). 3-hop closure recovery=1.000 (15 seeds)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "seeds": 15
+    }
+  ],
+  "elapsed_s": 13.396716594696045,
+  "summary": "HARD_PASS: substrate snowball recovers >=95pct of the 3-hop citation closure -- legal-citation network expansion works (customer-pitch prototype GREEN). 3-hop closure recovery=1.000 (15 seeds)"
+}

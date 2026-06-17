@@ -1,0 +1,66 @@
+{
+  "verdict": "ICL_EXTENDED_NO_SATURATION",
+  "verdict_msg": "No saturation through ICTX=1024. Full slope on log2(ICTX) = +0.2733 >= 0.1; upper-half slope = +0.2733. Gain at ICTX=1024 = 0.8686.",
+  "elapsed_s": 2.6100000000001273,
+  "summary": {
+    "ictx_list": [
+      256,
+      1024
+    ],
+    "mean_gain": [
+      0.32194932556152267,
+      0.8685644073486323
+    ],
+    "std_gain": [
+      0.0,
+      0.0
+    ],
+    "mean_entropy_per_ictx": [
+      7.600155334472657,
+      7.642331075032552
+    ],
+    "distinct_chunks_floor_ok": true,
+    "n_seeds": 1,
+    "alpha": 1.0,
+    "n_dim": 1024
+  },
+  "config": {
+    "mode": "smoke",
+    "n_dim": 1024,
+    "ictx": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "max_epochs": 1,
+    "alpha": 1.0
+  },
+  "per_seed": [
+    {
+      "seed": 17,
+      "off_bpc": 5.309213216145833,
+      "pool_A_bpc": 5.135513020833334,
+      "pool_A_entropy": 7.588338541666666,
+      "per_ictx": {
+        "256": {
+          "irr_bpc": 5.148334543863932,
+          "rel_bpc": 4.826385218302409,
+          "gain": 0.32194932556152267,
+          "entropy": 7.600155334472657,
+          "distinct_irr": 256,
+          "distinct_rel": 256
+        },
+        "1024": {
+          "irr_bpc": 5.157859903971354,
+          "rel_bpc": 4.289295496622722,
+          "gain": 0.8685644073486323,
+          "entropy": 7.642331075032552,
+          "distinct_irr": 1024,
+          "distinct_rel": 1024
+        }
+      }
+    }
+  ]
+}

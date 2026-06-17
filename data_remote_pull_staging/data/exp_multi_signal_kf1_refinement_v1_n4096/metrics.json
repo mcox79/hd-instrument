@@ -1,0 +1,73 @@
+{
+  "verdict": "G4_MIDDLE_BAND",
+  "verdict_msg": "COMPOSITE_DEGRADES_AT_LIMIT: mean_auc_per_M={64: 1.0, 256: 1.0}; seeds_pass={64: 0, 256: 0}; mean_disagree={64: 0.4, 256: 0.32667}; mean_resolution={64: 0.33333, 256: 0.34694}; n_cells=2",
+  "elapsed_s": 0.36,
+  "summary": {
+    "anchor": "multi_signal_kf1_refinement_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      64,
+      256
+    ],
+    "seeds": [
+      17
+    ],
+    "border_noise": 0.1,
+    "cells": [
+      {
+        "M": 64,
+        "seed": 17,
+        "N": 1024,
+        "per_signal_auc": {
+          "posterior_entropy": 1.0,
+          "spectral_spread": 1.0,
+          "bundle_norm": 1.0,
+          "geom_dist": 0.6096,
+          "replica_consistency": 0.532
+        },
+        "composite_max_auc": 0.8674,
+        "composite_weighted_auc": 1.0,
+        "composite_weights": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "signal_disagreement_rate": 0.4,
+        "resolution_accuracy": 0.33333,
+        "fpr": 0.0,
+        "fnr": 0.5
+      },
+      {
+        "M": 256,
+        "seed": 17,
+        "N": 1024,
+        "per_signal_auc": {
+          "posterior_entropy": 1.0,
+          "spectral_spread": 1.0,
+          "bundle_norm": 1.0,
+          "geom_dist": 0.6516,
+          "replica_consistency": 0.5462
+        },
+        "composite_max_auc": 0.8442,
+        "composite_weighted_auc": 1.0,
+        "composite_weights": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "signal_disagreement_rate": 0.32667,
+        "resolution_accuracy": 0.34694,
+        "fpr": 0.0,
+        "fnr": 0.5
+      }
+    ],
+    "verdict": "G4_MIDDLE_BAND",
+    "verdict_msg": "COMPOSITE_DEGRADES_AT_LIMIT: mean_auc_per_M={64: 1.0, 256: 1.0}; seeds_pass={64: 0, 256: 0}; mean_disagree={64: 0.4, 256: 0.32667}; mean_resolution={64: 0.33333, 256: 0.34694}; n_cells=2",
+    "elapsed_s": 0.36
+  }
+}

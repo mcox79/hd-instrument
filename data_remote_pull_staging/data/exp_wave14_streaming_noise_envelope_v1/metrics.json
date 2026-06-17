@@ -1,0 +1,172 @@
+{
+  "verdict": "STREAMING_NOISE_ENVELOPE_PASS",
+  "verdict_msg": "Noise envelope PASS: 3/3 noisy cells satisfy throughput_ratio>=0.9. Cap 3 streaming verified under bit-flip noise.",
+  "elapsed_s": 857.6410000000033,
+  "summary": {
+    "per_noise_throughput_ratio": {
+      "0.0": 1.004197816243453,
+      "0.05": 1.0049847216917256,
+      "0.1": 1.0053137179219929,
+      "0.2": 1.0054716293629684
+    },
+    "per_noise_cell_details": {
+      "0.0": {
+        "17": {
+          "throughput_ratio": 1.0063396340535762,
+          "burn_throughput": 12.597631645259192,
+          "steady_throughput_mean": 12.677496019831887,
+          "steady_throughputs": [
+            12.686330478921153,
+            12.660631765508679,
+            12.685525815065828
+          ]
+        },
+        "18": {
+          "throughput_ratio": 1.0019432249587241,
+          "burn_throughput": 12.648621300250705,
+          "steady_throughput_mean": 12.673200416854803,
+          "steady_throughputs": [
+            12.673468094553607,
+            12.67266506145719,
+            12.673468094553607
+          ]
+        },
+        "19": {
+          "throughput_ratio": 1.004310589718059,
+          "burn_throughput": 12.623074981079114,
+          "steady_throughput_mean": 12.677487878302843,
+          "steady_throughputs": [
+            12.67266506145719,
+            12.673468094553607,
+            12.686330478897734
+          ]
+        }
+      },
+      "0.05": {
+        "17": {
+          "throughput_ratio": 1.0051712217388589,
+          "burn_throughput": 9.078529278245409,
+          "steady_throughput_mean": 9.125476366205937,
+          "steady_throughputs": [
+            9.123255177450899,
+            9.12991874372813,
+            9.123255177438786
+          ]
+        },
+        "18": {
+          "throughput_ratio": 1.0055071626552432,
+          "burn_throughput": 9.077705156133842,
+          "steady_throughput_mean": 9.12769755496501,
+          "steady_throughputs": [
+            9.129918743716,
+            9.12991874372813,
+            9.123255177450899
+          ]
+        },
+        "19": {
+          "throughput_ratio": 1.004275780681075,
+          "burn_throughput": 9.090909090909092,
+          "steady_throughput_mean": 9.12977982437341,
+          "steady_throughputs": [
+            9.12991874372813,
+            9.129501985663966,
+            9.12991874372813
+          ]
+        }
+      },
+      "0.1": {
+        "17": {
+          "throughput_ratio": 1.0054005837141937,
+          "burn_throughput": 9.078529278245409,
+          "steady_throughput_mean": 9.127558635614331,
+          "steady_throughputs": [
+            9.123255177450899,
+            9.129501985663966,
+            9.12991874372813
+          ]
+        },
+        "18": {
+          "throughput_ratio": 1.0050334073965421,
+          "burn_throughput": 9.077705156133842,
+          "steady_throughput_mean": 9.123396944410354,
+          "steady_throughputs": [
+            9.12991874372813,
+            9.117016912064146,
+            9.123255177438786
+          ]
+        },
+        "19": {
+          "throughput_ratio": 1.005507162655243,
+          "burn_throughput": 9.077705156133842,
+          "steady_throughput_mean": 9.127697554965009,
+          "steady_throughputs": [
+            9.129918743716,
+            9.123255177450899,
+            9.12991874372813
+          ]
+        }
+      },
+      "0.2": {
+        "17": {
+          "throughput_ratio": 1.0055071417194679,
+          "burn_throughput": 9.077705156133842,
+          "steady_throughput_mean": 9.127697364916216,
+          "steady_throughputs": [
+            9.12991874372813,
+            9.129501985663966,
+            9.123671365356548
+          ]
+        },
+        "18": {
+          "throughput_ratio": 1.005400583714194,
+          "burn_throughput": 9.078529278245409,
+          "steady_throughput_mean": 9.127558635614333,
+          "steady_throughputs": [
+            9.12991874372813,
+            9.129501985663966,
+            9.123255177450899
+          ]
+        },
+        "19": {
+          "throughput_ratio": 1.0055071626552432,
+          "burn_throughput": 9.077705156133842,
+          "steady_throughput_mean": 9.12769755496501,
+          "steady_throughputs": [
+            9.12991874372813,
+            9.129918743716,
+            9.123255177450899
+          ]
+        }
+      }
+    },
+    "peak_vram_mb": 3361.1875,
+    "N": 16384,
+    "M": 200,
+    "burn_in": 100,
+    "steady": 200,
+    "n_blocks": 3,
+    "seeds": [
+      17,
+      18,
+      19
+    ]
+  },
+  "config": {
+    "N": 16384,
+    "M": 200,
+    "burn_in": 100,
+    "steady": 200,
+    "n_blocks": 3,
+    "seeds": [
+      17,
+      18,
+      19
+    ],
+    "noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ]
+  }
+}

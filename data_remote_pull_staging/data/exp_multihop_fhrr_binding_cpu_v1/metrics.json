@@ -1,0 +1,15 @@
+{
+  "anchor_name": "multihop_fhrr_binding_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: binding does NOT beat role-labels (ASDiv-1op<=0.40) -- selection ambiguity is at the QUESTION-SEMANTICS level, not role/binding level. Pivot to FCG construction grammar. ASDiv-1op=0.1829 (heuristic 0.376, target 0.45) | SVAMP=0.1567 (prior 0.367). FHRR role-vector binding + template enumeration.",
+  "summary": "HARD_FAIL: binding does NOT beat role-labels (ASDiv-1op<=0.40) -- selection ambiguity is at the QUESTION-SEMANTICS level, not role/binding level. Pivot to FCG construction grammar. ASDiv-1op=0.1829 (heuristic 0.376, target 0.45) | SVAMP=0.1567 (prior 0.367). FHRR role-vector binding + template enumeration.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "svamp": 0.1567,
+      "asdiv_1op": 0.1829
+    }
+  ],
+  "elapsed_s": 15.84317660331726
+}

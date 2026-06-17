@@ -1,0 +1,17 @@
+{
+  "anchor_name": "d2_5_empowerment_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate empowerment correlates (0.5-0.7) but weak policy lift. corr=1.000 emp-policy=15.85 random=14.85 lift=6.8%",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "emp_corr": 1.0,
+      "emp_policy": 15.85,
+      "random_policy": 14.85,
+      "lift_pct": 6.8
+    }
+  ],
+  "elapsed_s": 11.028541326522827,
+  "summary": "MIDDLE_BAND: substrate empowerment correlates (0.5-0.7) but weak policy lift. corr=1.000 emp-policy=15.85 random=14.85 lift=6.8%"
+}

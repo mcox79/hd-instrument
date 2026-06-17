@@ -1,0 +1,33 @@
+{
+  "anchor_name": "encoder_headtohead_benchmark_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best encoder recall@10 0.55-0.70. best=bge-large | {'bge-large': 0.6, 'bge-small': 0.565, 'e5-large': 0.57}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "by": {
+        "bge-large": {
+          "r2": 0.32,
+          "r5": 0.52,
+          "r10": 0.6
+        },
+        "bge-small": {
+          "r2": 0.305,
+          "r5": 0.45,
+          "r10": 0.565
+        },
+        "e5-large": {
+          "r2": 0.205,
+          "r5": 0.395,
+          "r10": 0.57
+        }
+      },
+      "best": "bge-large",
+      "best_r10": 0.6
+    }
+  ],
+  "elapsed_s": 57.62823820114136,
+  "summary": "MIDDLE_BAND: best encoder recall@10 0.55-0.70. best=bge-large | {'bge-large': 0.6, 'bge-small': 0.565, 'e5-large': 0.57}"
+}

@@ -1,0 +1,35 @@
+{
+  "anchor_name": "multi_head_sparse_key_battery_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: multi-head sparse-KEY scales (H2>=1.3x H1, H4>H2) -- composition lever, Batch B 'sparse alone' premature. alpha by H at N=2048: {'H1': 0.1997, 'H2': 0.3999, 'H4': 0.6997, 'H8': 0.6997} | H2/H1=2.00 H4/H2=1.75",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "H": 1,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.19970703125
+    },
+    {
+      "H": 2,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.39990234375
+    },
+    {
+      "H": 4,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.69970703125
+    },
+    {
+      "H": 8,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.69970703125
+    }
+  ],
+  "elapsed_s": 0.8700840473175049,
+  "summary": "HARD_PASS: multi-head sparse-KEY scales (H2>=1.3x H1, H4>H2) -- composition lever, Batch B 'sparse alone' premature. alpha by H at N=2048: {'H1': 0.1997, 'H2': 0.3999, 'H4': 0.6997, 'H8': 0.6997} | H2/H1=2.00 H4/H2=1.75"
+}

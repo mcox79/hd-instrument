@@ -1,0 +1,62 @@
+{
+  "verdict": "RD_MIDDLE_BAND",
+  "verdict_msg": "Inconclusive: fit_R2=0.000 (pass 0.7, fail 0.3), lambda=-0.345, R_inf=0.598 (target 0.74). final_retention=0.862. Partial or ambiguous dynamics. Consider higher-N reship or longer recovery window (k_recovery >= 15).",
+  "elapsed_s": 2.516,
+  "summary": {
+    "n_seeds": 1,
+    "delta_mean": 0.2245,
+    "retention_steady_mean": 0.8685,
+    "retention_perturbed_mean": 0.644,
+    "recovery_trajectory_mean": [
+      0.644,
+      0.8747,
+      0.8642,
+      0.8635,
+      0.8618
+    ],
+    "lambda_fit": -0.3447,
+    "r_inf": 0.5979,
+    "A_fit": 0.0946,
+    "exp_fit_r2": 0.0,
+    "final_retention": 0.8618,
+    "per_seed": [
+      {
+        "seed": 17,
+        "delta": 0.22454,
+        "final": 0.86184
+      }
+    ]
+  },
+  "all_results": [
+    {
+      "seed": 17,
+      "retention_steady": 0.86853,
+      "retention_perturbed": 0.64399,
+      "delta_actual": 0.22454,
+      "recovery_trajectory": [
+        0.64399,
+        0.87467,
+        0.86416,
+        0.86345,
+        0.86184
+      ]
+    }
+  ],
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "batch_size": 16,
+    "phase_a_epochs": 2,
+    "phase_b_epochs": 2,
+    "k_perturb": 1,
+    "k_recovery": 4,
+    "n_bytes": 4000,
+    "seeds": [
+      17
+    ],
+    "target_plateau": 0.74,
+    "exp_fit_r2_pass": 0.7,
+    "exp_fit_r2_fail": 0.3,
+    "perturbation_min_delta": 0.05
+  }
+}

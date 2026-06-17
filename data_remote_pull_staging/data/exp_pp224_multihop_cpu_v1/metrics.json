@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pp224_multihop_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate deterministic 2-hop traversal recall>=0.80 with a reproducible audit chain per response -- multi-hop moat delivered via RAG-prefix end-to-end. 2-hop-recall=1.000 audit=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "twohop_recall": 1.0,
+      "audit": 1.0
+    }
+  ],
+  "elapsed_s": 7.131418704986572,
+  "summary": "HARD_PASS: substrate deterministic 2-hop traversal recall>=0.80 with a reproducible audit chain per response -- multi-hop moat delivered via RAG-prefix end-to-end. 2-hop-recall=1.000 audit=1.000"
+}

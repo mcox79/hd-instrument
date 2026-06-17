@@ -1,0 +1,28 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_A": 20,
+  "M_B": 5,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_repulsion_before": 0.0,
+    "mean_repulsion_after": 1.0,
+    "mean_cos_before": 1.0,
+    "mean_a_retrieval": 1.0,
+    "n_seeds": 2,
+    "repulsion_before_list": [
+      0.0,
+      0.0
+    ],
+    "repulsion_after_list": [
+      1.0,
+      1.0
+    ]
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "B-patterns not actively repulsed. repulsion_before=0.000 < HF 0.5. Signed-AM repulsion not functional at N=4096.",
+  "elapsed_s": 0.0
+}

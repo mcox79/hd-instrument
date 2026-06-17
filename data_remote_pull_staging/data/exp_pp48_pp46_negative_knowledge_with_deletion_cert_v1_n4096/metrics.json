@@ -1,0 +1,16 @@
+{
+  "anchor_name": "pp48_pp46_negative_knowledge_with_deletion_cert_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-48 x PP-46 cross-row composition confirmed at N=4096. n_seeds=5 cert_value=-1.0000(HP~=-1.0 tol=0.0001) pos_cos=1.0000(HP>=0.8 HF<0.5) nkt_rep=1.0000(HP>=0.7 HF<0.3) hp1=5/5 hp2=5/5 hp3=5/5",
+  "N": 4096,
+  "n_active": 4096,
+  "K_POS": 50,
+  "K_NEG": 20,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 8.006054401397705,
+  "peak_gpu_gb": 0.016777216,
+  "mean_cert_value": -1.0,
+  "mean_pos_cos": 1.0,
+  "mean_nkt_rep": 1.0
+}

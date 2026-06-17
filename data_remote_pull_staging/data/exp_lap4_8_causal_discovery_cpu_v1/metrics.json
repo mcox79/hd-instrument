@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap4_8_causal_discovery_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-stored observational data -> causal DAG skeleton recovery >=0.70 edge precision via partial-correlation CI tests -- causal structure discovery (PC-core) over the substrate. edge-precision=0.782 recall=0.972 (120 problems)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "edge_precision": 0.782,
+      "edge_recall": 0.972,
+      "n_problems": 120
+    }
+  ],
+  "elapsed_s": 0.12725567817687988,
+  "summary": "HARD_PASS: substrate-stored observational data -> causal DAG skeleton recovery >=0.70 edge precision via partial-correlation CI tests -- causal structure discovery (PC-core) over the substrate. edge-precision=0.782 recall=0.972 (120 problems)"
+}

@@ -1,0 +1,51 @@
+{
+  "anchor_name": "activation_barrier_r3b_n8192_v3_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ratio=0.9524<=1.02 (flat). ratio=0.9524(HP>1.3 HF<=1.02) b=-0.060(HP<0.7 HF>1.2) n_monotone=0/2 n_valid_nf=4 grid_max=0.90 N=8192 n_seeds=2",
+  "N": 8192,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.2383568286895752,
+  "alpha_values": [
+    0.05,
+    0.1
+  ],
+  "grid_max": 0.9,
+  "grid_len": 19,
+  "predicted_barrier_ratio_b1": 2.31578947368421,
+  "predicted_ratio_b03": 1.286499798901906,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 1024,
+      "run_mode": "smoke",
+      "nf_crit_by_alpha": {
+        "0.05": 0.475,
+        "0.1": 0.525
+      },
+      "ratio_05_10": 0.9047619047619047,
+      "b_fit": -0.11918235251196177,
+      "elapsed_s": 0.08818769454956055,
+      "grid_max": 0.9,
+      "grid_len": 19,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780472845.6950498
+    },
+    {
+      "seed": 17,
+      "N": 1024,
+      "run_mode": "smoke",
+      "nf_crit_by_alpha": {
+        "0.05": 0.525,
+        "0.1": 0.525
+      },
+      "ratio_05_10": 1.0,
+      "b_fit": -2.1017995371815384e-16,
+      "elapsed_s": 0.10271739959716797,
+      "grid_max": 0.9,
+      "grid_len": 19,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780472845.7977672
+    }
+  ]
+}

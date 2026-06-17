@@ -1,0 +1,48 @@
+{
+  "anchor": "t1_beta_fine_v2_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_frac": 8.0,
+  "beta_sweep": [
+    6,
+    10,
+    16,
+    24,
+    32
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "M_frac": 8.0,
+      "M": 8192,
+      "beta_sweep": [
+        6,
+        10,
+        16,
+        24,
+        32
+      ],
+      "ret_by_beta": [
+        0.08448,
+        0.46417,
+        0.52883,
+        0.53233,
+        0.53247
+      ],
+      "gradients": [
+        0.31402,
+        0.05397,
+        0.00364
+      ],
+      "max_gradient": 0.314,
+      "beta_c_est": 10.0,
+      "total_var": 0.448
+    }
+  ],
+  "verdict": "T1_FINE_MIDDLE_BAND",
+  "verdict_msg": "DIFFUSE_OR_PARTIAL: gradient=0.314 window=999.0. pass_seeds=1/1 mean_max_gradient=0.314 mean_beta_c=10.0 window=999.0 HP_grad=0.15 HP_seeds=3 N=1024",
+  "elapsed_s": 0.34
+}

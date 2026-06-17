@@ -1,0 +1,103 @@
+{
+  "verdict": "BETA_M_INIT_OOM_INCONCLUSIVE",
+  "verdict_msg": "A: SweepA-N65536: all M_init OOM, no substrate measurement: {'1024': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '2048': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '4096': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '8192': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}}. | B: SweepB-N8192: all M_init kill (non-OOM): {'16384': {'mean_kept': 0.0, 'sd_kept': 0.0, 'n_seeds': 5, 'oom': False}, '32768': {'mean_kept': 0.0, 'sd_kept': 0.0, 'n_seeds': 5, 'oom': False}, '65536': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}}.",
+  "elapsed_s": 108.45300000000861,
+  "summary": {
+    "sweep_A": {
+      "N": 65536,
+      "M_init_grid": [
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "per_M_init": {
+        "1024": {
+          "mean_kept": 0.0,
+          "n_seeds": 0,
+          "oom": true
+        },
+        "2048": {
+          "mean_kept": 0.0,
+          "n_seeds": 0,
+          "oom": true
+        },
+        "4096": {
+          "mean_kept": 0.0,
+          "n_seeds": 0,
+          "oom": true
+        },
+        "8192": {
+          "mean_kept": 0.0,
+          "n_seeds": 0,
+          "oom": true
+        }
+      },
+      "verdict": "BETA_M_INIT_OOM_INCONCLUSIVE"
+    },
+    "sweep_B": {
+      "N": 8192,
+      "M_init_grid": [
+        16384,
+        32768,
+        65536
+      ],
+      "per_M_init": {
+        "16384": {
+          "mean_kept": 0.0,
+          "sd_kept": 0.0,
+          "n_seeds": 5,
+          "oom": false
+        },
+        "32768": {
+          "mean_kept": 0.0,
+          "sd_kept": 0.0,
+          "n_seeds": 5,
+          "oom": false
+        },
+        "65536": {
+          "mean_kept": 0.0,
+          "n_seeds": 0,
+          "oom": true
+        }
+      },
+      "verdict": "BETA_M_INIT_UNIFORM_KILL"
+    }
+  },
+  "config": {
+    "mode": "full",
+    "sweep_A": {
+      "N": 65536,
+      "M_init_grid": [
+        1024,
+        2048,
+        4096,
+        8192
+      ],
+      "n_edits": 100,
+      "seeds": [
+        17,
+        23,
+        31,
+        41,
+        53
+      ]
+    },
+    "sweep_B": {
+      "N": 8192,
+      "M_init_grid": [
+        16384,
+        32768,
+        65536
+      ],
+      "n_edits": 100,
+      "seeds": [
+        17,
+        23,
+        31,
+        41,
+        53
+      ]
+    }
+  }
+}

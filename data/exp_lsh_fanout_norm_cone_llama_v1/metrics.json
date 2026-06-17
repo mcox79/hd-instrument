@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lsh_fanout_norm_cone_llama_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: normalization/cone brings B_eff<30 but cone not <20 -- partial fix. B_eff raw=5.86 L2norm=5.83 cone=27.28 at S=100 (n=4000 Llama embeddings; baseline ~40)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "raw": 5.86,
+      "norm": 5.833333333333333,
+      "cone": 27.28,
+      "n": 4000
+    }
+  ],
+  "elapsed_s": 31.509294033050537,
+  "summary": "MIDDLE_BAND: normalization/cone brings B_eff<30 but cone not <20 -- partial fix. B_eff raw=5.86 L2norm=5.83 cone=27.28 at S=100 (n=4000 Llama embeddings; baseline ~40)"
+}

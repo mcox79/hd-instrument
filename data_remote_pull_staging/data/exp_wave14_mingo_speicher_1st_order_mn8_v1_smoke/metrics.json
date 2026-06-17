@@ -1,0 +1,50 @@
+{
+  "verdict": "MS_1ST_ORDER_INCONCLUSIVE",
+  "verdict_msg": "Need iid_gauss + kerdock cells.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "by_cb": {
+      "iid_gauss": {
+        "moments": [
+          7.937655635178089,
+          71.01870268668962,
+          699.0856099967841,
+          7397.268494774581
+        ],
+        "rel_dev": [
+          0.007793045602738857,
+          0.01362912935153303,
+          0.018138188206763883,
+          0.021525331379023665
+        ],
+        "n_seeds": 3
+      }
+    },
+    "mp_reference": [
+      8.0,
+      72.0,
+      712.0,
+      7560.0
+    ],
+    "config": {
+      "N": 64,
+      "ratio": 8,
+      "n_seeds": 3,
+      "codebooks": [
+        "iid_gauss"
+      ],
+      "n_moments": 4,
+      "mode": "smoke"
+    }
+  },
+  "config": {
+    "N": 64,
+    "ratio": 8,
+    "n_seeds": 3,
+    "codebooks": [
+      "iid_gauss"
+    ],
+    "n_moments": 4,
+    "mode": "smoke"
+  }
+}

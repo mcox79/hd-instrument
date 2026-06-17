@@ -1,0 +1,18 @@
+{
+  "anchor_name": "sql_hybrid_aggregation_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 classes native; one needs DuckDB. S_recall=1.000 A_rel_err=0.9998 SA_rel_err=0.0000 (2/3 classes native)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "s_recall": 1.0,
+      "a_err": 0.9997547217659424,
+      "sa_err": 0.0
+    }
+  ],
+  "elapsed_s": 0.22977566719055176,
+  "summary": "MIDDLE_BAND: 2/3 classes native; one needs DuckDB. S_recall=1.000 A_rel_err=0.9998 SA_rel_err=0.0000 (2/3 classes native)"
+}

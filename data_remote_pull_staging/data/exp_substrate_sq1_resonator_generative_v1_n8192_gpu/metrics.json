@@ -1,0 +1,94 @@
+{
+  "anchor_name": "substrate_sq1_resonator_generative_v1_n8192_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: Kmax<4. acc K4:0.00 K6:0.00 K8:0.00 K10:0.00 | Kmax=0",
+  "N": 8192,
+  "V": 100,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "V": 100,
+      "cells": [
+        {
+          "K": 4,
+          "recovery": 0.0
+        },
+        {
+          "K": 6,
+          "recovery": 0.0
+        },
+        {
+          "K": 8,
+          "recovery": 0.0
+        },
+        {
+          "K": 10,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.146156032,
+      "elapsed_s": 0.9843583106994629,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780617748.0640342
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "V": 100,
+      "cells": [
+        {
+          "K": 4,
+          "recovery": 0.0
+        },
+        {
+          "K": 6,
+          "recovery": 0.0
+        },
+        {
+          "K": 8,
+          "recovery": 0.0
+        },
+        {
+          "K": 10,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.146156032,
+      "elapsed_s": 0.9740209579467773,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780617749.0468857
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "V": 100,
+      "cells": [
+        {
+          "K": 4,
+          "recovery": 0.0
+        },
+        {
+          "K": 6,
+          "recovery": 0.0
+        },
+        {
+          "K": 8,
+          "recovery": 0.0
+        },
+        {
+          "K": 10,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.146156032,
+      "elapsed_s": 0.9152007102966309,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1780617749.9672327
+    }
+  ],
+  "elapsed_s": 2.873579978942871,
+  "summary": "HARD_FAIL: Kmax<4. acc K4:0.00 K6:0.00 K8:0.00 K10:0.00 | Kmax=0"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pp155_hp_rescue_n32768_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: strength 0.85/0.75. strongest-wins=0.933 strength-correlation=0.998",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "win": 0.9333333333333333,
+      "corr": 0.9976516236131281
+    }
+  ],
+  "elapsed_s": 6.788797616958618,
+  "summary": "MIDDLE_BAND: strength 0.85/0.75. strongest-wins=0.933 strength-correlation=0.998"
+}

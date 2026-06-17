@@ -1,0 +1,35 @@
+{
+  "anchor_name": "streaming_prediction_8_v2_above_capacity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions met in >=2/2 seeds. n_seeds=2 mean_fid_w=1.0000(HP>=0.7) late_w=1.0000 late_u=0.7385 late_adv=+0.2615(HP>0.2) newest=1.0000(HP>=0.8) hpa=2/2 hpb=2/2 hpc=2/2",
+  "N": 1024,
+  "WINDOW_SIZE": 60,
+  "T_TOTAL": 300,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 10.91843867301941,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_fid_window": 0.9999609375,
+      "late_advantage": 0.25554687500000006,
+      "mean_fid_newest": 1.0,
+      "mean_fid_late_w": 0.9999218750000001,
+      "mean_fid_late_u": 0.744375,
+      "hpa": true,
+      "hpb": true,
+      "hpc": true
+    },
+    {
+      "seed": 17,
+      "mean_fid_window": 1.0,
+      "late_advantage": 0.26742187500000003,
+      "mean_fid_newest": 1.0,
+      "mean_fid_late_w": 1.0,
+      "mean_fid_late_u": 0.732578125,
+      "hpa": true,
+      "hpb": true,
+      "hpc": true
+    }
+  ]
+}

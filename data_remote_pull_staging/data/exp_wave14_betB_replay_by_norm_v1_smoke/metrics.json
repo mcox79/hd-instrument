@@ -1,0 +1,45 @@
+{
+  "verdict": "REPLAY_NORM_HARD_PASS",
+  "verdict_msg": "Norm-weighted replay matches-or-beats uniform at 0.91+; ret_uniform=0.919, ret_weighted=0.925, delta=+0.006. Replay-by-vulnerability validated.",
+  "elapsed_s": 2.8280000000377186,
+  "summary": {
+    "per_mode": {
+      "uniform": {
+        "17": {
+          "retention_A": 0.9192736462951037,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 4.036579719543457,
+          "mode": "uniform"
+        }
+      },
+      "norm_weighted": {
+        "17": {
+          "retention_A": 0.9250224137009277,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 4.011493453979492,
+          "mode": "norm_weighted"
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_modes": [
+      "uniform",
+      "norm_weighted"
+    ],
+    "replay_frac": 0.5,
+    "ema_alpha": 0.7,
+    "pass_retention": 0.91,
+    "delta_fail": 0.02,
+    "delta_tie": 0.02
+  }
+}

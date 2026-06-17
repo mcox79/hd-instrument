@@ -1,0 +1,179 @@
+{
+  "anchor_name": "substrate_cfrpe_sparse_superadditive_bigram_v1_n512_gpu",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: combined additive (~= best single). nats: hebbian=3.154 cfrpe=2.471 sparse_hebbian=3.458 combined=2.453 (min_single=2.471) super_seeds=0/5",
+  "N": 512,
+  "V": 512,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "n_steps": 1000,
+  "arms": [
+    "A1_hebbian_k1",
+    "A2_cfrpe",
+    "A3_sparse_hebbian",
+    "C_AB_sparse_cfrpe"
+  ],
+  "elapsed_s": 10.056003332138062,
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_nats": 6.238324625039508,
+      "arms": {
+        "A1_hebbian_k1": {
+          "coding": "bipolar",
+          "rule": "hebbian",
+          "val_nats": 3.6815285682678223,
+          "gap_vs_uniform": 2.5567960567716854
+        },
+        "A2_cfrpe": {
+          "coding": "bipolar",
+          "rule": "cfrpe",
+          "val_nats": 2.5911481380462646,
+          "gap_vs_uniform": 3.647176486993243
+        },
+        "A3_sparse_hebbian": {
+          "coding": "sparse",
+          "rule": "hebbian",
+          "val_nats": 3.9094271659851074,
+          "gap_vs_uniform": 2.3288974590544003
+        },
+        "C_AB_sparse_cfrpe": {
+          "coding": "sparse",
+          "rule": "cfrpe",
+          "val_nats": 2.5824575424194336,
+          "gap_vs_uniform": 3.655867082620074
+        }
+      },
+      "peak_gpu_gb": 0.044831744,
+      "elapsed_s": 2.186997890472412
+    },
+    {
+      "seed": 17,
+      "uniform_nats": 6.238324625039508,
+      "arms": {
+        "A1_hebbian_k1": {
+          "coding": "bipolar",
+          "rule": "hebbian",
+          "val_nats": 2.8835535049438477,
+          "gap_vs_uniform": 3.35477112009566
+        },
+        "A2_cfrpe": {
+          "coding": "bipolar",
+          "rule": "cfrpe",
+          "val_nats": 2.5184316635131836,
+          "gap_vs_uniform": 3.719892961526324
+        },
+        "A3_sparse_hebbian": {
+          "coding": "sparse",
+          "rule": "hebbian",
+          "val_nats": 3.222421884536743,
+          "gap_vs_uniform": 3.0159027405027645
+        },
+        "C_AB_sparse_cfrpe": {
+          "coding": "sparse",
+          "rule": "cfrpe",
+          "val_nats": 2.319456100463867,
+          "gap_vs_uniform": 3.9188685245756405
+        }
+      },
+      "peak_gpu_gb": 0.044831744,
+      "elapsed_s": 1.7868244647979736
+    },
+    {
+      "seed": 23,
+      "uniform_nats": 6.238324625039508,
+      "arms": {
+        "A1_hebbian_k1": {
+          "coding": "bipolar",
+          "rule": "hebbian",
+          "val_nats": 3.2055718898773193,
+          "gap_vs_uniform": 3.0327527351621884
+        },
+        "A2_cfrpe": {
+          "coding": "bipolar",
+          "rule": "cfrpe",
+          "val_nats": 2.4863667488098145,
+          "gap_vs_uniform": 3.7519578762296932
+        },
+        "A3_sparse_hebbian": {
+          "coding": "sparse",
+          "rule": "hebbian",
+          "val_nats": 3.326728582382202,
+          "gap_vs_uniform": 2.9115960426573055
+        },
+        "C_AB_sparse_cfrpe": {
+          "coding": "sparse",
+          "rule": "cfrpe",
+          "val_nats": 2.4540350437164307,
+          "gap_vs_uniform": 3.784289581323077
+        }
+      },
+      "peak_gpu_gb": 0.044831744,
+      "elapsed_s": 1.7632710933685303
+    },
+    {
+      "seed": 31,
+      "uniform_nats": 6.238324625039508,
+      "arms": {
+        "A1_hebbian_k1": {
+          "coding": "bipolar",
+          "rule": "hebbian",
+          "val_nats": 3.2119576930999756,
+          "gap_vs_uniform": 3.026366931939532
+        },
+        "A2_cfrpe": {
+          "coding": "bipolar",
+          "rule": "cfrpe",
+          "val_nats": 2.610391616821289,
+          "gap_vs_uniform": 3.6279330082182186
+        },
+        "A3_sparse_hebbian": {
+          "coding": "sparse",
+          "rule": "hebbian",
+          "val_nats": 3.6790852546691895,
+          "gap_vs_uniform": 2.5592393703703182
+        },
+        "C_AB_sparse_cfrpe": {
+          "coding": "sparse",
+          "rule": "cfrpe",
+          "val_nats": 2.5610318183898926,
+          "gap_vs_uniform": 3.677292806649615
+        }
+      },
+      "peak_gpu_gb": 0.044831744,
+      "elapsed_s": 2.3545000553131104
+    },
+    {
+      "seed": 41,
+      "uniform_nats": 6.238324625039508,
+      "arms": {
+        "A1_hebbian_k1": {
+          "coding": "bipolar",
+          "rule": "hebbian",
+          "val_nats": 2.7859883308410645,
+          "gap_vs_uniform": 3.4523362941984432
+        },
+        "A2_cfrpe": {
+          "coding": "bipolar",
+          "rule": "cfrpe",
+          "val_nats": 2.1494693756103516,
+          "gap_vs_uniform": 4.088855249429156
+        },
+        "A3_sparse_hebbian": {
+          "coding": "sparse",
+          "rule": "hebbian",
+          "val_nats": 3.1523237228393555,
+          "gap_vs_uniform": 3.086000902200152
+        },
+        "C_AB_sparse_cfrpe": {
+          "coding": "sparse",
+          "rule": "cfrpe",
+          "val_nats": 2.3466203212738037,
+          "gap_vs_uniform": 3.891704303765704
+        }
+      },
+      "peak_gpu_gb": 0.044831744,
+      "elapsed_s": 1.9092204570770264
+    }
+  ]
+}

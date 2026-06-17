@@ -1,0 +1,29 @@
+{
+  "anchor": "l2_hadamard_comp_n8192_v1",
+  "run_mode": "smoke",
+  "N": 1024,
+  "n_entities": 20,
+  "n_composite": 20,
+  "n_seeds": 2,
+  "mean_acc_across_seeds": 1.0,
+  "std_acc_across_seeds": 0.0,
+  "seeds_hp": 2,
+  "seeds_hf": 0,
+  "per_seed": {
+    "7": {
+      "mean_acc": 1.0,
+      "min_acc": 1.0
+    },
+    "17": {
+      "mean_acc": 1.0,
+      "min_acc": 1.0
+    }
+  },
+  "verdict": "HARD_PASS",
+  "elapsed_s": 0.09000802040100098,
+  "thresholds": {
+    "HP_acc": 0.88,
+    "MID_acc_low": 0.75
+  },
+  "verdict_msg": "L=2 Hadamard composition at N=1024: mean_acc=1.0000+/-0.0000 (HP>0.88), 2/2 seeds pass HP. Verdict: HARD_PASS."
+}

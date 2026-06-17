@@ -1,0 +1,237 @@
+{
+  "verdict": "AXIS4_HARD_FAIL",
+  "verdict_msg": "NO RETENTION HYSTERESIS: max loop_area=0.000000 < 0.01. Substrate retention is path-independent (no M-history effect). details={'max_loop_area': 0.0, 'mean_loop_area': 0.0, 'loop_areas_by_rate_seed': [(5, 17, 0.0), (10, 17, 0.0)], 'rates_with_pass': [], 'n_ramps': 2}.",
+  "elapsed_s": 0.6650946140289307,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "M_max_frac": 8.0,
+    "rates": [
+      5,
+      10
+    ],
+    "base_beta": 8.0
+  },
+  "summary": {
+    "ramp_results": [
+      {
+        "rate": 5,
+        "seed": 17,
+        "M_max": 8192,
+        "load_points": [
+          {
+            "M": 0,
+            "M_frac": 0.0,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 1638,
+            "M_frac": 1.5996,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 3276,
+            "M_frac": 3.1992,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 4915,
+            "M_frac": 4.7998,
+            "retention": 0.8733,
+            "direction": "load"
+          },
+          {
+            "M": 6553,
+            "M_frac": 6.3994,
+            "retention": 0.7133,
+            "direction": "load"
+          },
+          {
+            "M": 8192,
+            "M_frac": 8.0,
+            "retention": 0.4933,
+            "direction": "load"
+          }
+        ],
+        "unload_points": [
+          {
+            "M": 6553,
+            "M_frac": 6.3994,
+            "retention": 0.7133,
+            "direction": "unload"
+          },
+          {
+            "M": 4915,
+            "M_frac": 4.7998,
+            "retention": 0.8733,
+            "direction": "unload"
+          },
+          {
+            "M": 3276,
+            "M_frac": 3.1992,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 1638,
+            "M_frac": 1.5996,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 0,
+            "M_frac": 0.0,
+            "retention": 1.0,
+            "direction": "unload"
+          }
+        ],
+        "loop_area": 0.0
+      },
+      {
+        "rate": 10,
+        "seed": 17,
+        "M_max": 8192,
+        "load_points": [
+          {
+            "M": 0,
+            "M_frac": 0.0,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 819,
+            "M_frac": 0.7998,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 1638,
+            "M_frac": 1.5996,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 2457,
+            "M_frac": 2.3994,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 3276,
+            "M_frac": 3.1992,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 4096,
+            "M_frac": 4.0,
+            "retention": 1.0,
+            "direction": "load"
+          },
+          {
+            "M": 4915,
+            "M_frac": 4.7998,
+            "retention": 0.8733,
+            "direction": "load"
+          },
+          {
+            "M": 5734,
+            "M_frac": 5.5996,
+            "retention": 0.8,
+            "direction": "load"
+          },
+          {
+            "M": 6553,
+            "M_frac": 6.3994,
+            "retention": 0.7133,
+            "direction": "load"
+          },
+          {
+            "M": 7372,
+            "M_frac": 7.1992,
+            "retention": 0.6067,
+            "direction": "load"
+          },
+          {
+            "M": 8192,
+            "M_frac": 8.0,
+            "retention": 0.4933,
+            "direction": "load"
+          }
+        ],
+        "unload_points": [
+          {
+            "M": 7372,
+            "M_frac": 7.1992,
+            "retention": 0.6067,
+            "direction": "unload"
+          },
+          {
+            "M": 6553,
+            "M_frac": 6.3994,
+            "retention": 0.7133,
+            "direction": "unload"
+          },
+          {
+            "M": 5734,
+            "M_frac": 5.5996,
+            "retention": 0.8,
+            "direction": "unload"
+          },
+          {
+            "M": 4915,
+            "M_frac": 4.7998,
+            "retention": 0.8733,
+            "direction": "unload"
+          },
+          {
+            "M": 4096,
+            "M_frac": 4.0,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 3276,
+            "M_frac": 3.1992,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 2457,
+            "M_frac": 2.3994,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 1638,
+            "M_frac": 1.5996,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 819,
+            "M_frac": 0.7998,
+            "retention": 1.0,
+            "direction": "unload"
+          },
+          {
+            "M": 0,
+            "M_frac": 0.0,
+            "retention": 1.0,
+            "direction": "unload"
+          }
+        ],
+        "loop_area": 0.0
+      }
+    ],
+    "N_used": 1024,
+    "N_full": 4096,
+    "M_max_frac": 8.0,
+    "M_max": 8192,
+    "base_beta": 8.0,
+    "smoke": true
+  }
+}

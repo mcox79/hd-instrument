@@ -1,0 +1,16 @@
+{
+  "anchor_name": "b2_self_improving_routing_3seed_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-seed mean warm-gain >=5pp clears the noise threshold (cycle-192 single-seed was +4.8pp) -- self-improving routing validated. cold=0.944 warm=0.998 gain=+0.054",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cold": 0.9438000000000001,
+      "warm": 0.9975666666666667,
+      "gain": 0.053766666666666664
+    }
+  ],
+  "elapsed_s": 3.6076948642730713,
+  "summary": "HARD_PASS: 3-seed mean warm-gain >=5pp clears the noise threshold (cycle-192 single-seed was +4.8pp) -- self-improving routing validated. cold=0.944 warm=0.998 gain=+0.054"
+}

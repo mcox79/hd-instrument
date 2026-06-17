@@ -1,0 +1,20 @@
+{
+  "anchor_name": "pattern_b_khop_compose_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 2-hop chained unbinding >=0.95 at k=4 -- substrate-native multi-hop composition works algebraically (the LLM-free K-hop the fair-size ceiling needs). substitution-retrieval acc: {'k2': 1.0, 'k4': 1.0, 'k6': 1.0, 'k8': 1.0} (N=1024)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "k2": 1.0,
+        "k4": 1.0,
+        "k6": 1.0,
+        "k8": 1.0
+      },
+      "acc_k4": 1.0
+    }
+  ],
+  "elapsed_s": 0.1532275676727295,
+  "summary": "HARD_PASS: 2-hop chained unbinding >=0.95 at k=4 -- substrate-native multi-hop composition works algebraically (the LLM-free K-hop the fair-size ceiling needs). substitution-retrieval acc: {'k2': 1.0, 'k4': 1.0, 'k6': 1.0, 'k8': 1.0} (N=1024)"
+}

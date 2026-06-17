@@ -1,0 +1,50 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Spectral MP primitives: HC n_hp=0/2, DP n_hp=2/2, CM n_hp=2/2, N=1024, alpha=0.138",
+  "n_health_check_hp": 0,
+  "n_deletion_privacy_hp": 2,
+  "n_capacity_monitor_hp": 2,
+  "n_seeds": 2,
+  "N": 1024,
+  "alpha_nominal": 0.138,
+  "elapsed_s": 1.4629523754119873,
+  "run_mode": "smoke",
+  "hc_results": [
+    {
+      "Z_clean": -2.098557045235712,
+      "Z_corr": 0.5403304091190185,
+      "lambda_max_clean": 1.8483785821324936,
+      "health_hp": false
+    },
+    {
+      "Z_clean": -4.852021747219449,
+      "Z_corr": -1.5019471636768456,
+      "lambda_max_clean": 1.8070966140204556,
+      "health_hp": false
+    }
+  ],
+  "dp_results": [
+    {
+      "snr_theory": 0.1302714233843367,
+      "snr_empirical": 0.10892430438897106,
+      "snr_ratio": 0.8361335245997449,
+      "deletion_hp": true
+    },
+    {
+      "snr_theory": 0.1302714233843367,
+      "snr_empirical": 0.08202290521389173,
+      "snr_ratio": 0.6296308360115287,
+      "deletion_hp": true
+    }
+  ],
+  "cm_results": [
+    {
+      "pearson_r": 0.9913921847112448,
+      "monitor_hp": true
+    },
+    {
+      "pearson_r": 0.9895149643278608,
+      "monitor_hp": true
+    }
+  ]
+}

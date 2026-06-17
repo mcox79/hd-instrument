@@ -1,0 +1,36 @@
+{
+  "anchor_name": "substrate_sparse_pattern_M_activation_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse-value lever NEVER activates across M -- key-collision-limited confirmed (M-independent); DIMSPARSE no-compound stands. by M (dense->sparse recall): {'M50': (1.0, 1.0), 'M200': (1.0, 1.0), 'M800': (1.0, 1.0), 'M2000': (1.0, 1.0)} | max sparse-dense delta=0.0pp",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_M": {
+        "M50": {
+          "dense_recall": 1.0,
+          "sparse_recall": 1.0,
+          "delta_pp": 0.0
+        },
+        "M200": {
+          "dense_recall": 1.0,
+          "sparse_recall": 1.0,
+          "delta_pp": 0.0
+        },
+        "M800": {
+          "dense_recall": 1.0,
+          "sparse_recall": 0.9987499713897705,
+          "delta_pp": -0.12500286102294922
+        },
+        "M2000": {
+          "dense_recall": 0.9985000491142273,
+          "sparse_recall": 0.9985000491142273,
+          "delta_pp": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 14.975791931152344,
+  "summary": "HARD_FAIL: sparse-value lever NEVER activates across M -- key-collision-limited confirmed (M-independent); DIMSPARSE no-compound stands. by M (dense->sparse recall): {'M50': (1.0, 1.0), 'M200': (1.0, 1.0), 'M800': (1.0, 1.0), 'M2000': (1.0, 1.0)} | max sparse-dense delta=0.0pp"
+}

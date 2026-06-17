@@ -1,0 +1,22 @@
+{
+  "anchor": "ck_aging_mu_alpha_invariance_matched_tc_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: delta_mu=0.0305 in [0.05,0.15]; unanimous=False",
+  "mean_mu_alpha_005": 0.3630400554289642,
+  "mean_mu_alpha_010": 0.33252944466179335,
+  "delta_mu": 0.030510610767170876,
+  "delta_per_seed": [
+    0.035587484480738285,
+    0.09660870601508004
+  ],
+  "hp_unanimous": false,
+  "sigma_matched": 0.8,
+  "N": 1024,
+  "alpha_grid": [
+    0.05,
+    0.1
+  ],
+  "n_seeds": 2,
+  "elapsed_s": 5.784972906112671,
+  "run_mode": "smoke"
+}

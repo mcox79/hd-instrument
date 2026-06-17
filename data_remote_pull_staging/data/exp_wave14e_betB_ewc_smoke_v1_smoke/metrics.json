@@ -1,0 +1,57 @@
+{
+  "verdict": "BET_B_EWC_PASS",
+  "verdict_msg": "EWC LIFTS Bet B. best lambda=0.01: retention_A=0.856 >= 0.8, retention_B=0.933, gain_C=4.3164>0, bwt=-0.2627.",
+  "elapsed_s": 2.327999999979511,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "by_lambda": {
+          "0.0": {
+            "lambda": 0.0,
+            "retention_A": 0.8665588771095434,
+            "retention_B": 0.9311505263821381,
+            "gain_C": 4.381683082580567,
+            "bwt": -0.20756291389465353,
+            "bpc_A_baseline": 3.9966835021972655,
+            "bpc_A_after_C": 4.612131509780884,
+            "bpc_B_baseline": 5.4621061515808105,
+            "bpc_B_after_C": 5.865975475311279,
+            "bpc_zero_on_C": 8.0,
+            "bpc_C_after_C": 3.6183169174194334
+          },
+          "0.01": {
+            "lambda": 0.01,
+            "retention_A": 0.8558889601149433,
+            "retention_B": 0.9334044781626863,
+            "gain_C": 4.31641110420227,
+            "bwt": -0.2626898384094245,
+            "bpc_A_baseline": 3.9966835021972655,
+            "bpc_A_after_C": 4.669628524780274,
+            "bpc_B_baseline": 5.472797451019287,
+            "bpc_B_after_C": 5.8632646179199215,
+            "bpc_zero_on_C": 8.0,
+            "bpc_C_after_C": 3.6835888957977296
+          }
+        },
+        "fisher_max": 2.6808129405253567e-06,
+        "fisher_mean": 1.0478709100425476e-06
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 32,
+    "epochs": 2,
+    "phase_a_epochs": 2,
+    "bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "lambdas": [
+      0.0,
+      0.01
+    ],
+    "replay_frac": 0.5
+  }
+}

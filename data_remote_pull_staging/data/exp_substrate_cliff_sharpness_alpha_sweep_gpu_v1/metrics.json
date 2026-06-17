@@ -1,0 +1,49 @@
+{
+  "anchor_name": "substrate_cliff_sharpness_alpha_sweep_gpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: <2 alpha produced a cliff in range. scaled_sharpness across alpha=[0.0479] (predict ~0.28 flat for bulk); F_cliff monotone=True; per-alpha=[(0.0, 12.0, 0.0479), (0.5, 39.726, None)]; N=1024 device=cpu",
+  "summary": "UNKNOWN: <2 alpha produced a cliff in range. scaled_sharpness across alpha=[0.0479] (predict ~0.28 flat for bulk); F_cliff monotone=True; per-alpha=[(0.0, 12.0, 0.0479), (0.5, 39.726, None)]; N=1024 device=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "per_alpha": [
+        {
+          "alpha": 0.0,
+          "F_cliff": 12.0,
+          "abs_sharpness": 0.003991,
+          "scaled_sharpness": 0.0479,
+          "cleanup": [
+            0.85,
+            0.8385,
+            0.702
+          ]
+        },
+        {
+          "alpha": 0.5,
+          "F_cliff": 39.726,
+          "abs_sharpness": null,
+          "scaled_sharpness": null,
+          "cleanup": [
+            1.0,
+            0.9538,
+            0.7647
+          ]
+        }
+      ],
+      "N": 1024,
+      "F_grid": [
+        12,
+        26,
+        51
+      ],
+      "scaled_sharpness_values": [
+        0.0479
+      ],
+      "Fcliff_monotone": true,
+      "device": "cpu",
+      "n_seeds": 1
+    }
+  ],
+  "elapsed_s": 2.050224781036377
+}

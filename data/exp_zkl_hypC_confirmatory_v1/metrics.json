@@ -1,0 +1,21 @@
+{
+  "anchor_name": "zkl_hypC_confirmatory_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (Hyp C SUPPORTED, confound removed): unwhitened/neutral-basis Gram shows MM>MN (gap>0, KS p<0.01) -- the leak IS in Gram structure; the stored-cohort whitening had masked it. Queue rank-randomization mitigations. raw: MM=0.6448 MN=0.6267 gap=+0.0181 p=0.00e+00 | neutral gap=+0.0120 p=5.16e-146 (n=400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 400,
+      "ks_p": 0.0,
+      "ks_d": 0.07388259711779444,
+      "gap": 0.018088698387145996,
+      "mm": 0.6448151469230652,
+      "mn": 0.6267264485359192,
+      "neutral_gap": 0.012014496140182018,
+      "neutral_p": 5.162962420724169e-146
+    }
+  ],
+  "elapsed_s": 16.277427911758423,
+  "summary": "HARD_PASS (Hyp C SUPPORTED, confound removed): unwhitened/neutral-basis Gram shows MM>MN (gap>0, KS p<0.01) -- the leak IS in Gram structure; the stored-cohort whitening had masked it. Queue rank-randomization mitigations. raw: MM=0.6448 MN=0.6267 gap=+0.0181 p=0.00e+00 | neutral gap=+0.0120 p=5.16e-146 (n=400)"
+}

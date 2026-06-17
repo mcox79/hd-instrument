@@ -1,0 +1,17 @@
+{
+  "anchor_name": "substrate_m4d_preview_with_49a_bridges_heldout_cpu_v1",
+  "verdict": "MIDDLE",
+  "verdict_msg": "49a bridges NEUTRAL on held-out M4d (12 bridges among foundations not on held-out anchor-paths): M4d 51c-preview: base=0.2721 -> +49a bridges (12 resolved)=0.2721 (delta +0.0000), beta=0.10. Full densification (relabel + qclass + more edges) needed; 12 bridges alone insufficient.",
+  "summary": "49a bridges NEUTRAL on held-out M4d (12 bridges among foundations not on held-out anchor-paths): M4d 51c-preview: base=0.2721 -> +49a bridges (12 resolved)=0.2721 (delta +0.0000), beta=0.10. Full densification (relabel + qclass + more edges) needed; 12 bridges alone insufficient.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_bridges_resolved": 12,
+      "m4d_base": 0.2721,
+      "m4d_with_bridges": 0.2721,
+      "delta": 0.0
+    }
+  ],
+  "elapsed_s": 26.10620641708374
+}

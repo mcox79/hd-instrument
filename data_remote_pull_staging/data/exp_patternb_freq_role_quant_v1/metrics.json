@@ -1,0 +1,15 @@
+{
+  "anchor_name": "patternb_freq_role_quant_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: frequency-weighted role quant >=1.5x role-storage reduction at F1>=0.95. F1=1.000 role-reduction=7.11x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 1.0,
+      "red": 7.111111111111111
+    }
+  ],
+  "elapsed_s": 0.9228355884552002,
+  "summary": "HARD_PASS: frequency-weighted role quant >=1.5x role-storage reduction at F1>=0.95. F1=1.000 role-reduction=7.11x"
+}

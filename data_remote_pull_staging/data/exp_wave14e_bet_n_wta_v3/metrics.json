@@ -1,0 +1,73 @@
+{
+  "verdict": "BET_N_ATOM_MODE_FLEXIBILITY",
+  "verdict_msg": "BET_N_ATOM_MODE_FLEXIBILITY: P1=HARD_PASS(util=1.000 sparsity_ratio=1.00) P2=MIDDLE(ratio_M200=1.045) P3=HARD_FAIL(retrieval_gap=-0.0483 pca_cos_dist=0.6340)",
+  "elapsed_s": 8.291164636611938,
+  "summary": {
+    "p1_label": "HARD_PASS",
+    "p2_label": "MIDDLE",
+    "p3_label": "HARD_FAIL",
+    "effective_utilization": 0.9999498870033738,
+    "atom_sparsity_avg": 4.0,
+    "cleanup_acc_ratio_at_M_anchor": 1.0447154533595953,
+    "m_anchor": "200",
+    "p2_per_corpus_ratios": {
+      "EN": 0.8292683086389592,
+      "PY": 1.1585365809336226,
+      "RND": 1.146341470506204
+    },
+    "p2_per_M_extended": {
+      "50": {
+        "learned": 0.8933333456516266,
+        "random": 0.8999999761581421,
+        "ratio": 0.9925926325743101
+      },
+      "200": {
+        "learned": 0.2141666660706202,
+        "random": 0.20499999821186066,
+        "ratio": 1.0447154533595953
+      }
+    },
+    "p2_degenerate_flag": false,
+    "cross_corpus_retrieval_gap": -0.048333326975504555,
+    "cross_corpus_retrieval_table": {
+      "EN": {
+        "EN": 0.9650000035762787,
+        "PY": 0.875,
+        "RND": 0.804999977350235
+      },
+      "PY": {
+        "EN": 0.9199999868869781,
+        "PY": 0.8950000107288361,
+        "RND": 0.7199999988079071
+      },
+      "RND": {
+        "EN": 0.9850000143051147,
+        "PY": 0.9350000023841858,
+        "RND": 0.7750000059604645
+      }
+    },
+    "pca_cos_dist_centroids": 0.6340324953198433
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K": 32,
+    "k_active": 4,
+    "n_epochs": 2,
+    "m_grid": [
+      50,
+      200
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "n_bytes": 10000,
+    "device": "cpu",
+    "p2_hard_pass_ratio": 1.1,
+    "p3_hard_pass_retrieval_gap": 0.05,
+    "p3_hard_fail_retrieval_gap": 0.0,
+    "p3_pass_pca_cos_dist": 0.1,
+    "m_eval_corpus": 100
+  }
+}

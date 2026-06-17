@@ -1,0 +1,430 @@
+{
+  "D": 4096,
+  "M": 1000,
+  "K_VALUES": [
+    2,
+    4,
+    8,
+    16
+  ],
+  "SIGMA_VALUES": [
+    0.0,
+    0.3,
+    0.5,
+    1.0
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "QUERIES_PER_CELL": 100,
+  "elapsed_s": 24.78100000001723,
+  "grid": [
+    {
+      "k": 2,
+      "sigma": 0.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.003333333333333333
+    },
+    {
+      "k": 2,
+      "sigma": 0.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 0.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 0.3,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.003333333333333333
+    },
+    {
+      "k": 2,
+      "sigma": 0.3,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 0.3,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 0.5,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.003333333333333333
+    },
+    {
+      "k": 2,
+      "sigma": 0.5,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 0.5,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 1.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.003333333333333333
+    },
+    {
+      "k": 2,
+      "sigma": 1.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 2,
+      "sigma": 1.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0
+    },
+    {
+      "k": 4,
+      "sigma": 0.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0014285714285714286
+    },
+    {
+      "k": 4,
+      "sigma": 0.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.005714285714285714
+    },
+    {
+      "k": 4,
+      "sigma": 0.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.002857142857142857
+    },
+    {
+      "k": 4,
+      "sigma": 0.3,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0014285714285714286
+    },
+    {
+      "k": 4,
+      "sigma": 0.3,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.005714285714285714
+    },
+    {
+      "k": 4,
+      "sigma": 0.3,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.002857142857142857
+    },
+    {
+      "k": 4,
+      "sigma": 0.5,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0014285714285714286
+    },
+    {
+      "k": 4,
+      "sigma": 0.5,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.005714285714285714
+    },
+    {
+      "k": 4,
+      "sigma": 0.5,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.002857142857142857
+    },
+    {
+      "k": 4,
+      "sigma": 1.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0014285714285714286
+    },
+    {
+      "k": 4,
+      "sigma": 1.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.005714285714285714
+    },
+    {
+      "k": 4,
+      "sigma": 1.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.002857142857142857
+    },
+    {
+      "k": 8,
+      "sigma": 0.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0026666666666666666
+    },
+    {
+      "k": 8,
+      "sigma": 0.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0060952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 0.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0040952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 0.3,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0026666666666666666
+    },
+    {
+      "k": 8,
+      "sigma": 0.3,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0060952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 0.3,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0040952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 0.5,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0026666666666666666
+    },
+    {
+      "k": 8,
+      "sigma": 0.5,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0060952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 0.5,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0040952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 1.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0026666666666666666
+    },
+    {
+      "k": 8,
+      "sigma": 1.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0060952380952380945
+    },
+    {
+      "k": 8,
+      "sigma": 1.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.0040952380952380945
+    },
+    {
+      "k": 16,
+      "sigma": 0.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.00679569892473118
+    },
+    {
+      "k": 16,
+      "sigma": 0.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.010709677419354833
+    },
+    {
+      "k": 16,
+      "sigma": 0.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.009464590285502405
+    },
+    {
+      "k": 16,
+      "sigma": 0.3,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.00679569892473118
+    },
+    {
+      "k": 16,
+      "sigma": 0.3,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.010709677419354833
+    },
+    {
+      "k": 16,
+      "sigma": 0.3,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.009464590285502405
+    },
+    {
+      "k": 16,
+      "sigma": 0.5,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.00679569892473118
+    },
+    {
+      "k": 16,
+      "sigma": 0.5,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.010709677419354833
+    },
+    {
+      "k": 16,
+      "sigma": 0.5,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.009464590285502405
+    },
+    {
+      "k": 16,
+      "sigma": 1.0,
+      "seed": 17,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.00679569892473118
+    },
+    {
+      "k": 16,
+      "sigma": 1.0,
+      "seed": 23,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.010709677419354833
+    },
+    {
+      "k": 16,
+      "sigma": 1.0,
+      "seed": 31,
+      "cosine_jaccard": 1.0,
+      "biht_jaccard": 0.009464590285502405
+    }
+  ],
+  "summary": {
+    "k=2_sigma=0.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0011111111111111111
+    },
+    "k=2_sigma=0.3": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0011111111111111111
+    },
+    "k=2_sigma=0.5": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0011111111111111111
+    },
+    "k=2_sigma=1.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0011111111111111111
+    },
+    "k=4_sigma=0.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0033333333333333335
+    },
+    "k=4_sigma=0.3": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0033333333333333335
+    },
+    "k=4_sigma=0.5": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0033333333333333335
+    },
+    "k=4_sigma=1.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.0033333333333333335
+    },
+    "k=8_sigma=0.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.004285714285714285
+    },
+    "k=8_sigma=0.3": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.004285714285714285
+    },
+    "k=8_sigma=0.5": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.004285714285714285
+    },
+    "k=8_sigma=1.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.004285714285714285
+    },
+    "k=16_sigma=0.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.008989988876529473
+    },
+    "k=16_sigma=0.3": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.008989988876529473
+    },
+    "k=16_sigma=0.5": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.008989988876529473
+    },
+    "k=16_sigma=1.0": {
+      "cos_mean": 1.0,
+      "biht_mean": 0.008989988876529473
+    }
+  },
+  "verdict": "BIHT_CLEANUP_COSMETIC",
+  "verdict_msg": "BIHT gap -1.00 < 0.05 at k=8,sigma=0.5. Cosine is near-optimal for our regime.",
+  "gap_at_k8_sig05": -0.9957142857142857
+}

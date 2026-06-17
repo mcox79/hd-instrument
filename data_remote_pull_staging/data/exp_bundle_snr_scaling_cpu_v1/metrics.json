@@ -1,0 +1,14 @@
+{
+  "anchor_name": "bundle_snr_scaling_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SNR deviates >30pct from theory. max deviation from 1/sqrt(K-1) = 198.34",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "max_dev": 198.33923414845307
+    }
+  ],
+  "elapsed_s": 0.29897117614746094,
+  "summary": "HARD_FAIL: SNR deviates >30pct from theory. max deviation from 1/sqrt(K-1) = 198.34"
+}

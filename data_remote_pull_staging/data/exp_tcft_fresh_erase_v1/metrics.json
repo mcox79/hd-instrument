@@ -1,0 +1,44 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: TCFT var_ratio=0.0248 (strong seeds=1/1 < 3); PR_fires=0/1.",
+  "elapsed_s": 0.011106729507446289,
+  "summary": {
+    "verdict": "MIDDLE_BAND",
+    "N": 256,
+    "M": 32,
+    "n_valid_seeds": 1,
+    "mode": "smoke"
+  },
+  "per_seed": [
+    {
+      "seed": 17,
+      "N": 256,
+      "M": 32,
+      "work_std": 0.4478976811961548,
+      "work_mean": 0.16176757812500003,
+      "pr_fires": false,
+      "jarz_delta_F": 0.0646509540584463,
+      "jarz_variance": 0.2256881964812406,
+      "tcft_delta_F": -0.002190913801856771,
+      "tcft_variance": 0.00559075161128406,
+      "tcft_P_class": 0.5,
+      "tcft_n_class": 16,
+      "variance_ratio": 0.024772015986882896,
+      "delta_F_mf": -1.58,
+      "tcft_agreement_pct": 99.86133456950273,
+      "suspect": false
+    }
+  ],
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "M": 32,
+    "alpha_ratio": 0.125,
+    "alpha_hebbian": 0.1,
+    "kBT": 1.0,
+    "pr_threshold": 4.0,
+    "seeds": [
+      17
+    ]
+  }
+}

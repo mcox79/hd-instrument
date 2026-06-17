@@ -1,0 +1,110 @@
+{
+  "verdict": "STRUCTURE_DIFFUSE",
+  "verdict_msg": "STRUCTURE_DIFFUSE: optimal K=1, 0/3 dispatch plateaus matched. Centers: [0.8019]. Distribution is more spread than 3-plateau model suggests.",
+  "elapsed_s": 0.76,
+  "summary": {
+    "n_unique_values": 110,
+    "n_total_values": 209,
+    "value_range": [
+      0.592,
+      0.954
+    ],
+    "optimal_k": 1,
+    "cluster_centers": [
+      0.8019
+    ],
+    "n_dispatch_plateaus_matched": 0,
+    "dispatch_plateau_matches": [
+      {
+        "dispatch_plateau": 0.94,
+        "nearest_center": 0.8019,
+        "error": 0.1381,
+        "within_05": false
+      },
+      {
+        "dispatch_plateau": 0.74,
+        "nearest_center": 0.8019,
+        "error": 0.0619,
+        "within_05": false
+      },
+      {
+        "dispatch_plateau": 0.6,
+        "nearest_center": 0.8019,
+        "error": 0.2019,
+        "within_05": false
+      }
+    ],
+    "n_natural_breaks_gt04": 2
+  },
+  "gap_statistic": {
+    "K1": 0.2686,
+    "K2": 0.257,
+    "K3": 0.1607,
+    "K4": 0.9784,
+    "K5": 1.0237,
+    "K6": 0.9666
+  },
+  "natural_breaks": [
+    {
+      "between": [
+        0.6109,
+        0.6759
+      ],
+      "gap": 0.065
+    },
+    {
+      "between": [
+        0.7494,
+        0.8021
+      ],
+      "gap": 0.0526
+    }
+  ],
+  "histogram": [
+    {
+      "bin_center": 0.61,
+      "count": 10
+    },
+    {
+      "bin_center": 0.646,
+      "count": 0
+    },
+    {
+      "bin_center": 0.683,
+      "count": 5
+    },
+    {
+      "bin_center": 0.719,
+      "count": 13
+    },
+    {
+      "bin_center": 0.755,
+      "count": 10
+    },
+    {
+      "bin_center": 0.791,
+      "count": 1
+    },
+    {
+      "bin_center": 0.827,
+      "count": 38
+    },
+    {
+      "bin_center": 0.864,
+      "count": 14
+    },
+    {
+      "bin_center": 0.9,
+      "count": 9
+    },
+    {
+      "bin_center": 0.936,
+      "count": 10
+    }
+  ],
+  "config": {
+    "gap_threshold_for_breaks": 0.04,
+    "max_k": 6,
+    "n_bootstrap": 20
+  }
+}

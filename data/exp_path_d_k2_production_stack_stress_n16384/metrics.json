@@ -1,0 +1,27 @@
+{
+  "verdict": "PDK2N16K_INCONCLUSIVE",
+  "verdict_msg": "no cells",
+  "elapsed_s": 26.48,
+  "summary": {
+    "anchor": "path_d_k2_production_stack_stress_n16384",
+    "N": 16384,
+    "smoke": false,
+    "M_grid": [
+      2048,
+      4096
+    ],
+    "K_paths": 2,
+    "depth": 5,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [],
+    "verdict": "PDK2N16K_INCONCLUSIVE",
+    "verdict_msg": "no cells",
+    "elapsed_s": 26.48
+  }
+}

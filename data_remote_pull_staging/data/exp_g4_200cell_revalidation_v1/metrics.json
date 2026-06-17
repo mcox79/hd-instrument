@@ -1,0 +1,20 @@
+{
+  "anchor_name": "g4_200cell_revalidation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 flagship capabilities >=0.97 at N=40 (Wilson lower bounds clear) -- production claims statistically supported. N=40: khop=1.000(lb 0.912) loc=1.000(lb 0.912) merkle=1.000(lb 0.912)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "khop_rate": 1.0,
+      "loc_rate": 1.0,
+      "merkle_rate": 1.0,
+      "khop_wilson_lb": 0.9123754607496077,
+      "loc_wilson_lb": 0.9123754607496077,
+      "merkle_wilson_lb": 0.9123754607496077,
+      "trials": 40
+    }
+  ],
+  "elapsed_s": 4.569079637527466,
+  "summary": "HARD_PASS: all 3 flagship capabilities >=0.97 at N=40 (Wilson lower bounds clear) -- production claims statistically supported. N=40: khop=1.000(lb 0.912) loc=1.000(lb 0.912) merkle=1.000(lb 0.912)"
+}

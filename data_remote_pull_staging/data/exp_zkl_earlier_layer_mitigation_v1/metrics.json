@@ -1,0 +1,30 @@
+{
+  "anchor_name": "zkl_earlier_layer_mitigation_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: earlier-layer pooling does not reduce ZKL below 0.10 -- position-subtraction (#1) or mean-pool (#3) next. per-layer: {'L8': {'zkl': 0.35, 'f1': 1.0}, 'L10': {'zkl': 0.25, 'f1': 1.0}, 'L15': {'zkl': 0.233, 'f1': 1.0}} (n_stored=60; L15=production baseline)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "L8": {
+          "zkl": 0.35,
+          "keyf1": 1.0
+        },
+        "L10": {
+          "zkl": 0.25,
+          "keyf1": 1.0
+        },
+        "L15": {
+          "zkl": 0.23333333333333334,
+          "keyf1": 1.0
+        }
+      },
+      "n": 60,
+      "k": 16,
+      "f1_L15": 1.0
+    }
+  ],
+  "elapsed_s": 95.97028470039368,
+  "summary": "HARD_FAIL: earlier-layer pooling does not reduce ZKL below 0.10 -- position-subtraction (#1) or mean-pool (#3) next. per-layer: {'L8': {'zkl': 0.35, 'f1': 1.0}, 'L10': {'zkl': 0.25, 'f1': 1.0}, 'L15': {'zkl': 0.233, 'f1': 1.0}} (n_stored=60; L15=production baseline)"
+}

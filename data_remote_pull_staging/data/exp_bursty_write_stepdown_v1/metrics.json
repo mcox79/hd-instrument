@@ -1,0 +1,43 @@
+{
+  "anchor": "bursty_write_stepdown_v1",
+  "run_mode": "smoke",
+  "N": 2048,
+  "M_steady": 500,
+  "B_burst": 100,
+  "n_probe": 1000,
+  "n_seeds": 2,
+  "delta_theory_expected": 0.8224232200970045,
+  "drop_factor_mean": -0.0118742087545244,
+  "drop_factor_std": 0.009499367003619521,
+  "recovery_mean": -0.6337890625,
+  "recovery_std": 0.0517578125,
+  "per_seed": {
+    "7": {
+      "m_pre": 0.9169921875,
+      "m_post0": 0.9345703125,
+      "m_1000": 0.2490234375,
+      "delta_emp": -0.017578125,
+      "delta_thy": 0.8224232200970045,
+      "drop_factor": -0.02137357575814392,
+      "recovery": -0.685546875
+    },
+    "17": {
+      "m_pre": 0.9345703125,
+      "m_post0": 0.9365234375,
+      "m_1000": 0.3544921875,
+      "delta_emp": -0.001953125,
+      "delta_thy": 0.8224232200970045,
+      "drop_factor": -0.0023748417509048803,
+      "recovery": -0.58203125
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "elapsed_s": 11.522193193435669,
+  "thresholds": {
+    "HP_drop_factor": 2.0,
+    "HF_drop_factor": 5.0,
+    "HP_flat_delta": 0.005,
+    "HF_recovery": 0.02
+  },
+  "verdict_msg": "Bursty write at N=2048 M=500 B=100: drop_factor_mean=-0.01 (HP<2.0, HF>5.0), recovery_mean=-0.63379 (HP<0.005, HF>0.02). delta_theory=0.8224. Verdict: MIDDLE_BAND."
+}

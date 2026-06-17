@@ -1,0 +1,92 @@
+{
+  "anchor_name": "substrate_78d_l6proof_cycle_soundness_probe_cpu_v1",
+  "verdict": "VISITED_SET_SOUND",
+  "verdict_msg": "213/213 axiom-termination is SOUND via visited-set cycle-detection (NOT acyclic-assumed): the prover never fakes a proof through a cycle (T2 None), and removing the 6 reverse edges preserves axiom-termination for every cycle atom (T3 invariant) -> the 6 DEPENDS_ON 2-cycles are HYGIENE/sub-optimal, NOT unsoundness. DECISION 78c cycle-cleanup is MEDIUM priority (graph quality + W-TYPE-SIG directional correctness), not soundness-restoration; capability_preservation will hold across the removals. L6-PROOF cycle-soundness: of 11 cycle atoms, 4 PROVED, 11 axiom-terminating, 0 proofs use a reverse(wrong-dir) edge. T2 pure-2-cycle-no-axiom -> None (sound). T3 remove-6-reverse-edges axiom-termination invariant = True.",
+  "summary": "213/213 axiom-termination is SOUND via visited-set cycle-detection (NOT acyclic-assumed): the prover never fakes a proof through a cycle (T2 None), and removing the 6 reverse edges preserves axiom-termination for every cycle atom (T3 invariant) -> the 6 DEPENDS_ON 2-cycles are HYGIENE/sub-optimal, NOT unsoundness. DECISION 78c cycle-cleanup is MEDIUM priority (graph quality + W-TYPE-SIG directional correctness), not soundness-restoration; capability_preservation will hold across the removals. L6-PROOF cycle-soundness: of 11 cycle atoms, 4 PROVED, 11 axiom-terminating, 0 proofs use a reverse(wrong-dir) edge. T2 pure-2-cycle-no-axiom -> None (sound). T3 remove-6-reverse-edges axiom-termination invariant = True.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "t1": [
+        {
+          "goal": "T3/cosine_similarity",
+          "status": "PROVED",
+          "depth": 1,
+          "terminal": "T1/cosine_similarity",
+          "axiom_term": true,
+          "uses_reverse_edge": [],
+          "path": "T3/cosine_similarity=DEPENDS_ON=>T1/cosine_similarity"
+        },
+        {
+          "goal": "T1/inner_product",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T2/gradient",
+          "status": "PROVED",
+          "depth": 1,
+          "terminal": "T1/vector",
+          "axiom_term": true,
+          "uses_reverse_edge": [],
+          "path": "T2/gradient=SPECIALIZES=>T1/vector"
+        },
+        {
+          "goal": "T1/partial_derivative",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T1/gradient_descent",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T1/newton_method",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T1/hessian",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T1/bayes_rule",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T1/conditional_probability",
+          "status": "IS_AXIOM(T1/leaf)",
+          "axiom_term": true
+        },
+        {
+          "goal": "T3/fast_fourier_transform",
+          "status": "PROVED",
+          "depth": 2,
+          "terminal": "T1/characteristic_function",
+          "axiom_term": true,
+          "uses_reverse_edge": [],
+          "path": "T3/fast_fourier_transform=SHARES_MATH=>T3/discrete_fourier_transform -> T3/discrete_fourier_transform=SHARES_MATH=>T1/characteristic_function"
+        },
+        {
+          "goal": "T3/discrete_fourier_transform",
+          "status": "PROVED",
+          "depth": 1,
+          "terminal": "T1/characteristic_function",
+          "axiom_term": true,
+          "uses_reverse_edge": [],
+          "path": "T3/discrete_fourier_transform=SHARES_MATH=>T1/characteristic_function"
+        }
+      ],
+      "n_proved": 4,
+      "n_axiom_term": 11,
+      "n_uses_reverse": 0,
+      "t2_no_false_proof": true,
+      "t3_removal_invariant": true,
+      "n_cycle_atoms": 11
+    }
+  ],
+  "elapsed_s": 0.4389994144439697
+}

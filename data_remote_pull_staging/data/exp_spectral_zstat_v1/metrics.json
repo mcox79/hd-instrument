@@ -1,0 +1,43 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 200,
+  "seeds": [
+    7,
+    17
+  ],
+  "k_crit_theoretical": 47.99999999999999,
+  "summary": {
+    "cell_a_crossing_seeds": 2,
+    "cell_a_never_cross_seeds": 0,
+    "cell_a_median_k3": 5.0,
+    "cell_a_k3_list": [
+      5,
+      5
+    ],
+    "cell_b_mean_spearman": 0.9999999999999999,
+    "k_crit_theoretical": 47.99999999999999,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Z-stat sensitivity confirmed. Crossing seeds=2/2, median_k3=5 (theory=48.0). Spearman(rho_dup vs k_detect)=1.000>=0.7.",
+  "elapsed_s": 0.0,
+  "config": {
+    "K_SWEEP": [
+      1,
+      3,
+      5,
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      80
+    ],
+    "RHO_DUP_LIST": [
+      0.5,
+      0.95
+    ]
+  }
+}

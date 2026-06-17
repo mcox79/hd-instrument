@@ -1,0 +1,44 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "C_VALUES": [
+    0.0,
+    0.4
+  ],
+  "K_BATCH_LIST": [
+    5,
+    10
+  ],
+  "M_BACKGROUND": 30,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_condition": {
+      "c0.0_K10": {
+        "mean_post_del_cos": 0.1435546875,
+        "max_post_del_cos": 0.16796875,
+        "n_seeds": 2
+      },
+      "c0.0_K5": {
+        "mean_post_del_cos": 0.0830078125,
+        "max_post_del_cos": 0.107421875,
+        "n_seeds": 2
+      },
+      "c0.4_K10": {
+        "mean_post_del_cos": 0.12148437499999999,
+        "max_post_del_cos": 0.1427734375,
+        "n_seeds": 2
+      },
+      "c0.4_K5": {
+        "mean_post_del_cos": 0.1271484375,
+        "max_post_del_cos": 0.130859375,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Partial ghost-attractor signal. max_residual (c>=0.25)=0.143 (HP>=0.15 HF<0.08).",
+  "elapsed_s": 2.637213945388794
+}

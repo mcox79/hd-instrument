@@ -1,0 +1,32 @@
+{
+  "verdict": "MULTIHOP_DEPTH_DECAYS_AT_25",
+  "verdict_msg": "First depth where acc < 0.05: depth=25. Per-depth: d1=0.756, d25=0.011, d50=0.011, d100=0.011",
+  "elapsed_s": 12.171999999998661,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.7555555555555555,
+      "25": 0.011111111111111112,
+      "50": 0.011111111111111112,
+      "100": 0.011111111111111112
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 250,
+    "num_relations": 20,
+    "num_facts": 200,
+    "hop_depths": [
+      1,
+      25,
+      50,
+      100
+    ],
+    "n_trials": 30,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

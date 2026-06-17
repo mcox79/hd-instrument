@@ -1,0 +1,32 @@
+{
+  "anchor_name": "q_c2_mp_hc_v1_n8192",
+  "run_mode": "smoke",
+  "N": 8192,
+  "alpha_list": [
+    0.1,
+    0.3
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregate": {
+    "0.1": {
+      "alpha": 0.1,
+      "mean_z_clean": -28.684396811123868,
+      "std_z_clean": 1.6143805032465957,
+      "mean_lambda_max": 1.610168279180023,
+      "n_seeds": 2
+    },
+    "0.3": {
+      "alpha": 0.3,
+      "mean_z_clean": -55.92280815182083,
+      "std_z_clean": 3.444610832774976,
+      "mean_lambda_max": 2.0657985407432404,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Q-C2 N=8192 spectral anomaly. max_|Z|=55.92 > 5.0. Audit API stays at N=4096 envelope.",
+  "elapsed_s": 19.588983297348022
+}

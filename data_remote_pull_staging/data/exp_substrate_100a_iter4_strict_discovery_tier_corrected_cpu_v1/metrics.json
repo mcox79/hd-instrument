@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_100a_iter4_strict_discovery_tier_corrected_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Iter 4 produces 0 new STRICT edges -> substrate's autonomous STRICT-discovery has a boundary beyond tier-flatness (the tier-corrected atoms' dependencies were already grounded, OR their pointers don't yield new tier-gradient edges). Honest scope: Claim 5 stays OPEN; surface the new boundary. Iter 4 on 9 source atoms: 0 NEW-STRICT (tier-gradient holds; post existence-check), 1 NEW-PLAUSIBLE (no gradient), 9 already-exist, 0 unresolved.",
+  "summary": "Iter 4 produces 0 new STRICT edges -> substrate's autonomous STRICT-discovery has a boundary beyond tier-flatness (the tier-corrected atoms' dependencies were already grounded, OR their pointers don't yield new tier-gradient edges). Honest scope: Claim 5 stays OPEN; surface the new boundary. Iter 4 on 9 source atoms: 0 NEW-STRICT (tier-gradient holds; post existence-check), 1 NEW-PLAUSIBLE (no gradient), 9 already-exist, 0 unresolved.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_targets": 9,
+      "new_strict": [],
+      "new_plausible": [
+        {
+          "src": "measure_space",
+          "tgt": "set",
+          "pointer": "specializes",
+          "edge_type": "SPECIALIZES",
+          "tier": "T1->T1",
+          "witness": "W_TYPE_SIG"
+        }
+      ],
+      "n_new_strict": 0,
+      "n_new_plausible": 1,
+      "n_already": 9,
+      "n_unresolved": 0,
+      "unresolved": []
+    }
+  ],
+  "elapsed_s": 0.44425463676452637
+}

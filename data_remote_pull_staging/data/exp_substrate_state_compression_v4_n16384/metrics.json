@@ -1,0 +1,60 @@
+{
+  "verdict": "C3V4_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL n_hp=0 kf_break=0/3. c_quant/bits4: comp=8.00x retr=1.000 hp_seeds=1/1 kfs=OK | c_quant/bits8: comp=4.00x retr=1.000 hp_seeds=1/1 kfs=OK | c_quant/bits16: comp=2.00x retr=1.000 hp_seeds=0/1 kfs=OK",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "substrate_state_compression_v4_n16384",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "n_probe": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "n_probe": 16,
+        "configs": [
+          {
+            "approach": "c_quant",
+            "param": "bits4",
+            "bits": 4,
+            "compression_ratio": 8.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits8",
+            "bits": 8,
+            "compression_ratio": 4.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits16",
+            "bits": 16,
+            "compression_ratio": 2.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          }
+        ]
+      }
+    ],
+    "verdict": "C3V4_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL n_hp=0 kf_break=0/3. c_quant/bits4: comp=8.00x retr=1.000 hp_seeds=1/1 kfs=OK | c_quant/bits8: comp=4.00x retr=1.000 hp_seeds=1/1 kfs=OK | c_quant/bits16: comp=2.00x retr=1.000 hp_seeds=0/1 kfs=OK",
+    "elapsed_s": 0.07
+  }
+}

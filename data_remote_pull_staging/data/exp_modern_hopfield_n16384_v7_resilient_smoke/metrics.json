@@ -1,0 +1,53 @@
+{
+  "verdict": "S4_HARD_PASS",
+  "verdict_msg": "MODERN_HOPFIELD_ACTIVATION: constructed=1/1 max_M=[512] target>256 n_strong=1 n_full_M_pass=0",
+  "elapsed_s": 0.03,
+  "summary": {
+    "anchor": "modern_hopfield_n16384_v7_resilient",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      256,
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "construction_success": true,
+        "strategy_used": "a_chunked",
+        "strategy_log": {
+          "a_chunked": {
+            "success": true,
+            "elapsed_s": 0.02,
+            "mem_gb_post": 0.0
+          }
+        },
+        "per_M": [
+          {
+            "M": 256,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 0.0,
+            "post_mem_gb": 0.0,
+            "elapsed_s": 0.01
+          },
+          {
+            "M": 512,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem_gb": 0.0,
+            "post_mem_gb": 0.0,
+            "elapsed_s": 0.01
+          }
+        ],
+        "max_M_at_95_recall": 512
+      }
+    ],
+    "verdict": "S4_HARD_PASS",
+    "verdict_msg": "MODERN_HOPFIELD_ACTIVATION: constructed=1/1 max_M=[512] target>256 n_strong=1 n_full_M_pass=0",
+    "elapsed_s": 0.03
+  }
+}

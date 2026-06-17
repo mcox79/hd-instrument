@@ -1,0 +1,22 @@
+{
+  "anchor": "deletion_cert_refusal_joint_v1",
+  "run_mode": "full",
+  "N": 4096,
+  "M": 100,
+  "K_delete": 10,
+  "n_seeds": 5,
+  "avg_post_del_precision": 1.0,
+  "avg_post_ret_recall": 1.0,
+  "joint_reliability": 1.0,
+  "multiplicative_bound": 1.0,
+  "meets_multiplicative": true,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 7.292266845703125,
+  "thresholds": {
+    "HP_precision": 0.95,
+    "HP_recall": 0.9,
+    "HF_precision": 0.8,
+    "HF_recall": 0.75
+  },
+  "verdict_msg": "Deletion+refusal joint N=4096 M=100 K=10: post_del_precision=1.0000 (HP>=0.95), post_ret_recall=1.0000 (HP>=0.9), joint=1.0000 >= mult_bound=1.0000*0.95. Verdict=HARD_PASS."
+}

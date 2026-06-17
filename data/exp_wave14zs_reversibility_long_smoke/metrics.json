@@ -1,0 +1,247 @@
+{
+  "verdict": "REVERSIBLE_BOTH_HOLD",
+  "verdict_msg": "Both arms survive 10 reversal cycles. Correlated control held unexpectedly; algebra closure may be substrate-wide, not Kerdock-specific.",
+  "elapsed_s": 0.6399999999994179,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_cycle_trajectory": [
+          {
+            "cycle": 1,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 2,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 3,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 4,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 5,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 6,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 7,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 8,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 9,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 10,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "final_orig_recovery_acc": 1.0,
+        "final_kept_acc": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "trajectory": [
+              {
+                "cycle": 1,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 2,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 3,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 4,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 6,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 7,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 8,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 9,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          }
+        ]
+      },
+      "correlated": {
+        "per_cycle_trajectory": [
+          {
+            "cycle": 1,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 2,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 3,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 4,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 5,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 6,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 7,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 8,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 9,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 10,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "final_orig_recovery_acc": 1.0,
+        "final_kept_acc": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "trajectory": [
+              {
+                "cycle": 1,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 2,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 3,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 4,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 6,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 7,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 8,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 9,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 512,
+    "n_subjects": 5,
+    "n_cycles": 10,
+    "n_kept": 20,
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

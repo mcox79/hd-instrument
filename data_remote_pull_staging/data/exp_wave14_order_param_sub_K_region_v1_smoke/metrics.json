@@ -1,0 +1,56 @@
+{
+  "verdict": "ORDER_PARAM_SUB_REGION_STABLE",
+  "verdict_msg": "stable in ['normal', 'longer']; consistencies={'resonance': 0.8491048593350383, 'normal': 0.9565217391304348, 'longer': 0.894736842105263}.",
+  "elapsed_s": 1.25,
+  "summary": {
+    "region_consistencies": {
+      "resonance": 0.8491048593350383,
+      "normal": 0.9565217391304348,
+      "longer": 0.894736842105263
+    },
+    "region_qmeans": {
+      "resonance": 0.1448148148148148,
+      "normal": 0.15333333333333332,
+      "longer": 0.12666666666666668
+    },
+    "region_qpers": {
+      "resonance": [
+        0.16666666666666666,
+        0.12296296296296295
+      ],
+      "normal": [
+        0.15999999999999998,
+        0.14666666666666667
+      ],
+      "longer": [
+        0.14,
+        0.11333333333333333
+      ]
+    }
+  },
+  "config": {
+    "N": 4096,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 30,
+    "seeds": [
+      17,
+      23
+    ],
+    "regions": {
+      "resonance": [
+        900,
+        1000,
+        1200
+      ],
+      "normal": [
+        100,
+        300
+      ],
+      "longer": [
+        2000
+      ]
+    }
+  }
+}

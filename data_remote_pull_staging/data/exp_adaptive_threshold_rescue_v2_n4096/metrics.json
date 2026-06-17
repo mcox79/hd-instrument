@@ -1,0 +1,67 @@
+{
+  "verdict": "AT_R2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: op_log2_miss={'(0.125,4.0)': 3.8219, '(0.5,4.0)': 2.8219} match=0 miss=2",
+  "elapsed_s": 0.11,
+  "summary": {
+    "anchor": "adaptive_threshold_rescue_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_fracs": [
+      0.125,
+      0.5
+    ],
+    "betas": [
+      4.0
+    ],
+    "seeds": [
+      17
+    ],
+    "tau_sweep": [
+      0.1,
+      0.5
+    ],
+    "cells": [
+      {
+        "M_frac": 0.125,
+        "beta": 4.0,
+        "seed": 17,
+        "M": 128,
+        "tau_sweep": [
+          0.1,
+          0.5
+        ],
+        "scores": [
+          0.0,
+          0.0
+        ],
+        "score_var": 0.0,
+        "best_score": 0.0,
+        "tau_emp": 0.1,
+        "tau_pred": 1.41421,
+        "log2_miss": 3.82193
+      },
+      {
+        "M_frac": 0.5,
+        "beta": 4.0,
+        "seed": 17,
+        "M": 512,
+        "tau_sweep": [
+          0.1,
+          0.5
+        ],
+        "scores": [
+          0.0,
+          0.0
+        ],
+        "score_var": 0.0,
+        "best_score": 0.0,
+        "tau_emp": 0.1,
+        "tau_pred": 0.70711,
+        "log2_miss": 2.82193
+      }
+    ],
+    "verdict": "AT_R2_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: op_log2_miss={'(0.125,4.0)': 3.8219, '(0.5,4.0)': 2.8219} match=0 miss=2",
+    "elapsed_s": 0.11
+  }
+}

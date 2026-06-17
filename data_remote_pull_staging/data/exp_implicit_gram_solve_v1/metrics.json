@@ -1,0 +1,56 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_LIST": [
+    50,
+    100,
+    200,
+    500
+  ],
+  "N_QUERIES": 100,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "50": {
+      "M": 50,
+      "alpha": 0.01220703125,
+      "mean_hop_acc": 1.0,
+      "mean_gram_acc": 1.0,
+      "mean_delta": 0.0,
+      "mean_mem_ratio": 0.00014901161193847656,
+      "n_seeds": 2
+    },
+    "100": {
+      "M": 100,
+      "alpha": 0.0244140625,
+      "mean_hop_acc": 1.0,
+      "mean_gram_acc": 1.0,
+      "mean_delta": 0.0,
+      "mean_mem_ratio": 0.0005960464477539062,
+      "n_seeds": 2
+    },
+    "200": {
+      "M": 200,
+      "alpha": 0.048828125,
+      "mean_hop_acc": 0.999998779296875,
+      "mean_gram_acc": 1.0,
+      "mean_delta": 1.2207031250266454e-06,
+      "mean_mem_ratio": 0.002384185791015625,
+      "n_seeds": 2
+    },
+    "500": {
+      "M": 500,
+      "alpha": 0.1220703125,
+      "mean_hop_acc": 0.99703857421875,
+      "mean_gram_acc": 0.9998486328125,
+      "mean_delta": 0.0028100585937500533,
+      "mean_mem_ratio": 0.014901161193847656,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Gram-solve confirmed equivalent to Hopfield. min_delta=+0.000 (HP>=-0.05). mean_hop=0.999 mean_gram=1.000. Memory: Gram ratio=0.00015 (< 0.10 threshold confirmed).",
+  "elapsed_s": 0.0010900497436523438
+}

@@ -1,0 +1,42 @@
+{
+  "verdict": "VAMPCHAIN_RESTORES",
+  "verdict_msg": "VAMP-on-chain restores deep composition: acc_50hop=1.000 (>=0.5) vs argmax 0.250. Tree-exact forward-backward EP succeeds where Resonator failed.",
+  "elapsed_s": 9.734000000011292,
+  "summary": {
+    "per_depth_mean_acc_argmax": {
+      "1": 1.0,
+      "5": 0.775,
+      "10": 0.575,
+      "25": 0.35,
+      "50": 0.25
+    },
+    "per_depth_mean_acc_vamp_chain": {
+      "1": 1.0,
+      "5": 1.0,
+      "10": 1.0,
+      "25": 1.0,
+      "50": 1.0
+    },
+    "acc_50hop_argmax_baseline": 0.25,
+    "acc_50hop_vamp_chain": 1.0
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 20,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

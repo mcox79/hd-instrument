@@ -1,0 +1,25 @@
+{
+  "anchor_name": "khop_sparse_bsweep_battery_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse-KEY intermediates give >=2.5x K_max over dense across the B-sweep -- v3 deep-hop viability confirmed (near sqrt(10) prediction). K_max: {'dense_B1': 6, 'dense_B10': 60, 'dense_B30': 60, 'dense_B100': 60, 'dense_B300': 60, 'dense_B1000': 60, 'sparse_B1': 60, 'sparse_B10': 60, 'sparse_B30': 60, 'sparse_B100': 60, 'sparse_B300': 60, 'sparse_B1000': 60} | mean sparse/dense gain=2.50 (drill4 predicts ~sqrt(10)=3.16)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dense_B1": 6,
+      "dense_B10": 60,
+      "dense_B30": 60,
+      "dense_B100": 60,
+      "dense_B300": 60,
+      "dense_B1000": 60,
+      "sparse_B1": 60,
+      "sparse_B10": 60,
+      "sparse_B30": 60,
+      "sparse_B100": 60,
+      "sparse_B300": 60,
+      "sparse_B1000": 60
+    }
+  ],
+  "elapsed_s": 2.519707441329956,
+  "summary": "HARD_PASS: sparse-KEY intermediates give >=2.5x K_max over dense across the B-sweep -- v3 deep-hop viability confirmed (near sqrt(10) prediction). K_max: {'dense_B1': 6, 'dense_B10': 60, 'dense_B30': 60, 'dense_B100': 60, 'dense_B300': 60, 'dense_B1000': 60, 'sparse_B1': 60, 'sparse_B10': 60, 'sparse_B30': 60, 'sparse_B100': 60, 'sparse_B300': 60, 'sparse_B1000': 60} | mean sparse/dense gain=2.50 (drill4 predicts ~sqrt(10)=3.16)"
+}

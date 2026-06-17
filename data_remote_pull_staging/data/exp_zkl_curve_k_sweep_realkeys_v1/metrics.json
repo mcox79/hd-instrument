@@ -1,0 +1,20 @@
+{
+  "anchor_name": "zkl_curve_k_sweep_realkeys_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: real-key ZKL(50)<=0.10 -- sublinear leakage on REAL substrate; HIPAA ZKL claim supportable. REAL-KEY ZKL curve (TPR@FPR=0.01): {'k1': 0.0067, 'k10': 0.0233, 'k50': 0.05, 'k100': 0.11, 'k500': 0.2567}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_k": {
+        "k1": 0.006666666666666667,
+        "k10": 0.023333333333333334,
+        "k50": 0.05,
+        "k100": 0.11,
+        "k500": 0.25666666666666665
+      }
+    }
+  ],
+  "elapsed_s": 17.651738166809082,
+  "summary": "HARD_PASS: real-key ZKL(50)<=0.10 -- sublinear leakage on REAL substrate; HIPAA ZKL claim supportable. REAL-KEY ZKL curve (TPR@FPR=0.01): {'k1': 0.0067, 'k10': 0.0233, 'k50': 0.05, 'k100': 0.11, 'k500': 0.2567}"
+}

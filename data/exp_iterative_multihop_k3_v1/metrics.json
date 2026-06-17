@@ -1,0 +1,16 @@
+{
+  "anchor_name": "iterative_multihop_k3_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: K=3 recall <0.50 -- deeper iteration does not help. iterative r@2=0.193 vs single-shot=0.340 (n=150, bge-large)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 150,
+      "ss_r2": 0.34,
+      "it_r2": 0.19333333333333333
+    }
+  ],
+  "elapsed_s": 33.588366985321045,
+  "summary": "HARD_FAIL: K=3 recall <0.50 -- deeper iteration does not help. iterative r@2=0.193 vs single-shot=0.340 (n=150, bge-large)"
+}

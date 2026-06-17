@@ -1,0 +1,76 @@
+{
+  "verdict": "SINOVA_RS_PARAMAGNET",
+  "verdict_msg": "RS paramagnet confirmed: 2/2 K values have excess extensive eigenvalues == 0. Purely intensive spectrum -- substrate is RS at finite N. Consistent with cycle-122 4-anchor RS certification. by_K excess counts: K=10:excess=0, K=25:excess=0",
+  "elapsed_s": 0.375,
+  "summary": {
+    "by_K": {
+      "10": {
+        "n_extensive_C": 0,
+        "n_extensive_W": 0,
+        "excess_extensive": 0,
+        "top_eigvals_C": [
+          1.7762348651885986,
+          1.8316993713378906,
+          1.9487310647964478,
+          2.389061212539673,
+          2.649784803390503
+        ],
+        "top_eigvals_W": [
+          0.9808667898178101,
+          1.018644094467163,
+          1.1248589754104614,
+          1.1551710367202759,
+          1.239808440208435
+        ],
+        "eigval_C_max_scaled": 0.010350721888244152,
+        "eigval_C_min_scaled": -4.964848976385383e-09,
+        "K": 10,
+        "alpha": 0.0390625
+      },
+      "25": {
+        "n_extensive_C": 0,
+        "n_extensive_W": 0,
+        "excess_extensive": 0,
+        "top_eigvals_C": [
+          4.1092095375061035,
+          5.02274751663208,
+          5.941960334777832,
+          9.851877212524414,
+          17.290250778198242
+        ],
+        "top_eigvals_W": [
+          1.2222199440002441,
+          1.2846465110778809,
+          1.3552111387252808,
+          1.3645402193069458,
+          1.3805886507034302
+        ],
+        "eigval_C_max_scaled": 0.06754004210233688,
+        "eigval_C_min_scaled": -3.969769846179361e-09,
+        "K": 25,
+        "alpha": 0.09765625
+      }
+    },
+    "N": 256,
+    "n_K_tested": 2,
+    "excess_counts": {
+      "10": 0,
+      "25": 0
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "K_grid": [
+      10,
+      25
+    ],
+    "beta": 2.0,
+    "n_seeds": 2,
+    "n_burn": 10,
+    "n_sample": 20,
+    "sample_interval": 3,
+    "threshold_rel": 0.1,
+    "base_seed": 42
+  }
+}

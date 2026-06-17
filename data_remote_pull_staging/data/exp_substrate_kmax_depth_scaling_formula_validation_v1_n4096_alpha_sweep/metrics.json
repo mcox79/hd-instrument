@@ -1,0 +1,31 @@
+{
+  "anchor_name": "substrate_kmax_depth_scaling_formula_validation_v1_n4096_alpha_sweep",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: formula off >50% (deeper model needed). median_rel_err=45.17 | lf0.3:pred=39 emp=24* lf0.5:pred=12 emp=24 lf0.9:pred=0 emp=24 (*=censored at K_CAP)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "lf0.3": {
+        "predicted": 39.05797101449275,
+        "empirical": 24,
+        "censored": true
+      },
+      "lf0.5": {
+        "predicted": 11.956521739130434,
+        "empirical": 24,
+        "censored": false
+      },
+      "lf0.9": {
+        "predicted": 0.26570048309178723,
+        "empirical": 24,
+        "censored": false
+      }
+    }
+  ],
+  "elapsed_s": 0.6047606468200684,
+  "summary": "HARD_FAIL: formula off >50% (deeper model needed). median_rel_err=45.17 | lf0.3:pred=39 emp=24* lf0.5:pred=12 emp=24 lf0.9:pred=0 emp=24 (*=censored at K_CAP)"
+}

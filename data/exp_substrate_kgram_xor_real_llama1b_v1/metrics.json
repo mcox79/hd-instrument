@@ -1,0 +1,39 @@
+{
+  "anchor_name": "substrate_kgram_xor_real_llama1b_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: XOR rescue modest on real 1B. K1=0.468 K2=0.548 K3=0.542 (K2/K1=1.17x) | bigram=0.477 trigram=0.602 (real Llama-1B concepts, V=256)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "K1_acc": 0.4651803346845442,
+      "K2_acc": 0.5468623129567336,
+      "K3_acc": 0.5467786379740192,
+      "bigram": 0.4747427502338634,
+      "trigram": 0.6049762208560492,
+      "ratio_K2_K1": 1.1755920708204075
+    },
+    {
+      "seed": 17,
+      "K1_acc": 0.4742738589211618,
+      "K2_acc": 0.5474537037037037,
+      "K3_acc": 0.5426047120418848,
+      "bigram": 0.4829356846473029,
+      "trigram": 0.5994791666666667,
+      "ratio_K2_K1": 1.154298710346392
+    },
+    {
+      "seed": 23,
+      "K1_acc": 0.46454653752524994,
+      "K2_acc": 0.5485063846998325,
+      "K3_acc": 0.537531848174038,
+      "bigram": 0.47267830320609105,
+      "trigram": 0.6001617842491478,
+      "ratio_K2_K1": 1.1807350618128738
+    }
+  ],
+  "elapsed_s": 3954.9266645908356,
+  "summary": "MIDDLE_BAND: XOR rescue modest on real 1B. K1=0.468 K2=0.548 K3=0.542 (K2/K1=1.17x) | bigram=0.477 trigram=0.602 (real Llama-1B concepts, V=256)"
+}

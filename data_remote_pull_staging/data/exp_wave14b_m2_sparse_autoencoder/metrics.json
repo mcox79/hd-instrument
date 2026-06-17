@@ -1,0 +1,21 @@
+{
+  "SAE_DICT_SIZE": 256,
+  "SAE_TOP_K": 8,
+  "SAE_TRAIN_EPOCHS": 200,
+  "final_train_loss": 0.10873579978942871,
+  "loss_reduction_pct": 89.23250959509087,
+  "dict_uniqueness_max": 0.6879144310951233,
+  "dict_uniqueness_mean": 0.0525999590754509,
+  "pre": {
+    "c1": 2.481730948687935,
+    "c3_sae_product": 2.776224627318565,
+    "c3_sae_rerank": 2.756497383214781
+  },
+  "post": {
+    "c1": 4.335208570820022,
+    "c3_sae_product": 4.706065654997403,
+    "c3_sae_rerank": 4.661739014156626
+  },
+  "best_method": "c3_sae_rerank",
+  "best_gap_vs_c1": -0.32653044333660386
+}

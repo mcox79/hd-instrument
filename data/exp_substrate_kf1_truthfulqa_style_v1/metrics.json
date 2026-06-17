@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_kf1_truthfulqa_style_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: grounding misses negations/contradictions (<0.70) -- MiniLM negation-insensitive (encoder limit, like word-order). AUC hard(held-out same-domain)=0.968 NEGATION(contradiction)=0.018",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "auc_hard": 0.9683078125,
+      "auc_negation": 0.0194
+    },
+    {
+      "seed": 17,
+      "auc_hard": 0.9658515625,
+      "auc_negation": 0.015178125
+    },
+    {
+      "seed": 23,
+      "auc_hard": 0.9686859375,
+      "auc_negation": 0.019028125
+    }
+  ],
+  "elapsed_s": 5.850455045700073,
+  "summary": "HARD_FAIL: grounding misses negations/contradictions (<0.70) -- MiniLM negation-insensitive (encoder limit, like word-order). AUC hard(held-out same-domain)=0.968 NEGATION(contradiction)=0.018"
+}

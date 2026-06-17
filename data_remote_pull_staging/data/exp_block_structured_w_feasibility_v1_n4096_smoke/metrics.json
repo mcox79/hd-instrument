@@ -1,0 +1,27 @@
+{
+  "verdict": "BS_HARD_FAIL",
+  "verdict_msg": "LARGE_LOSS: within_ret=0.406 cross_ret=0.467 mem_savings=4.0x n_seeds=1",
+  "elapsed_s": 0.16,
+  "summary": {
+    "anchor": "block_structured_w_feasibility_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "D": 4,
+    "fpd": 16,
+    "seeds": [
+      17
+    ],
+    "per_seed": [
+      {
+        "seed": 17,
+        "facts_per_domain": 16,
+        "within_ret": 0.40625,
+        "cross_ret": 0.46667,
+        "memory_savings": 4.0
+      }
+    ],
+    "verdict": "BS_HARD_FAIL",
+    "verdict_msg": "LARGE_LOSS: within_ret=0.406 cross_ret=0.467 mem_savings=4.0x n_seeds=1",
+    "elapsed_s": 0.16
+  }
+}

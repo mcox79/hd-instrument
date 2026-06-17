@@ -1,0 +1,31 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: N=512 max_cosine_dist=0.3578 ratio=1.789 >= 1.15 vs N=4096 baseline=0.2. Taxonomy geometry grows with N; consistent with Saad-Solla N-scaling.",
+  "elapsed_s": 1.160099744796753,
+  "summary": {
+    "N": 512,
+    "n_seeds": 1,
+    "max_between_class_dist_mean": 0.3577609062194824,
+    "cosine_dist_G1_G2_mean": 0.3577609062194824,
+    "baseline_N4096": 0.2,
+    "N_scaling_ratio": 1.7888045221533895
+  },
+  "results": [
+    {
+      "N": 512,
+      "seed": 7,
+      "cosine_dist_A_G1": 0.05171000957489014,
+      "cosine_dist_A_G2": 0.3391593098640442,
+      "cosine_dist_G1_G2": 0.3577609062194824,
+      "max_between_class_dist": 0.3577609062194824
+    }
+  ],
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "seeds": [
+      7
+    ],
+    "parent": "wave14_betB_2tier_coarse_analysis_v1 silhouette=0.788"
+  }
+}

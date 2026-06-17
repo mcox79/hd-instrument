@@ -1,0 +1,37 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1/1 seeds HP. mean_R2=0.8027 mean_max_dev=0.1335. Inconclusive at N=8192 (replay DISABLED).",
+  "elapsed_s": 3.17,
+  "summary": {
+    "N": 512,
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "per_seed": {
+      "17": {
+        "0.0": 0.58087,
+        "0.5": 0.61383,
+        "1.0": 1.04742
+      }
+    },
+    "seed_verdicts": [
+      {
+        "seed": "17",
+        "r2": 0.8027016520956046,
+        "max_dev": 0.13354333333333335,
+        "hp": true,
+        "hf": false
+      }
+    ],
+    "replay_disabled": true
+  },
+  "config": {
+    "N": 512,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "batch_size": 16
+  }
+}

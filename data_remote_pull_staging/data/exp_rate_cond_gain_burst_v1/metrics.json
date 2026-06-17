@@ -1,0 +1,22 @@
+{
+  "anchor": "rate_cond_gain_burst_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_steady": 200,
+  "B_burst": 50,
+  "c_gain": 0.8,
+  "n_seeds": 2,
+  "avg_burst_damage_baseline": 0.0,
+  "avg_burst_damage_corrected": 0.0,
+  "avg_curve_max_dev": 0.0,
+  "verdict": "MIDDLE_BAND",
+  "verdict_note": "burst_too_mild",
+  "elapsed_s": 43.857388734817505,
+  "thresholds": {
+    "HP_m_diff": 0.02,
+    "HF_m_diff": 0.1,
+    "HP_curve_tol": 0.05,
+    "min_burst_damage_visible": 0.02
+  },
+  "verdict_msg": "Rate-conditioned burst N=4096 M_steady=200 B=50 c=0.800: baseline_damage=0.0000, corrected_damage=0.0000 (HP<0.02), curve_dev=0.0000 (HP<0.05). Note=burst_too_mild. Verdict=MIDDLE_BAND."
+}

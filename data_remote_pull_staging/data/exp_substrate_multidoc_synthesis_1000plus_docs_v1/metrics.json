@@ -1,0 +1,39 @@
+{
+  "anchor_name": "substrate_multidoc_synthesis_1000plus_docs_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate scales to 1000+ docs (needle + synthesis); Pythia-RAG windowed loses. substrate_needle=1.000 pythia_RAG_needle=0.000 | synthesis-count relerr=0.000 (n_docs=1000)",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_docs": 1000,
+      "substrate_needle": 1.0,
+      "pythia_rag_needle": 0.0,
+      "substrate_synth_count": 90,
+      "true_count": 90,
+      "substrate_synth_relerr": 0.0
+    },
+    {
+      "seed": 17,
+      "n_docs": 1000,
+      "substrate_needle": 1.0,
+      "pythia_rag_needle": 0.0,
+      "substrate_synth_count": 93,
+      "true_count": 93,
+      "substrate_synth_relerr": 0.0
+    },
+    {
+      "seed": 23,
+      "n_docs": 1000,
+      "substrate_needle": 1.0,
+      "pythia_rag_needle": 0.0,
+      "substrate_synth_count": 97,
+      "true_count": 97,
+      "substrate_synth_relerr": 0.0
+    }
+  ],
+  "elapsed_s": 667.294061422348,
+  "summary": "HARD_PASS: substrate scales to 1000+ docs (needle + synthesis); Pythia-RAG windowed loses. substrate_needle=1.000 pythia_RAG_needle=0.000 | synthesis-count relerr=0.000 (n_docs=1000)"
+}

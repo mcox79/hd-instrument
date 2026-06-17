@@ -1,0 +1,517 @@
+{
+  "verdict": "MC_PROBE_MIDDLE_BAND",
+  "verdict_msg": "GRADUAL_DECLINE: no sharp drop, but transition present. n_seeds_sharp=0/5 biggest_step=16.0->20.0 mean_drop=0.145 M_c_estimate=[16384,20480] N=4096 beta=4.0",
+  "elapsed_s": 67.92,
+  "summary": {
+    "anchor": "m_c_probe_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "beta": 4.0,
+    "M_fracs": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      14.0,
+      16.0,
+      20.0,
+      24.0,
+      28.0,
+      32.0
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "M_frac": 2.0,
+        "M": 2048,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 6.0,
+        "M": 6144,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 8.0,
+        "M": 8192,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 10.0,
+        "M": 10240,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 12.0,
+        "M": 12288,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 14.0,
+        "M": 14336,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 16.0,
+        "M": 16384,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 20.0,
+        "M": 20480,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.85
+      },
+      {
+        "M_frac": 24.0,
+        "M": 24576,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.74
+      },
+      {
+        "M_frac": 28.0,
+        "M": 28672,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.585
+      },
+      {
+        "M_frac": 32.0,
+        "M": 32768,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.475
+      },
+      {
+        "M_frac": 2.0,
+        "M": 2048,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 6.0,
+        "M": 6144,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 8.0,
+        "M": 8192,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 10.0,
+        "M": 10240,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 12.0,
+        "M": 12288,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 14.0,
+        "M": 14336,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 16.0,
+        "M": 16384,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 20.0,
+        "M": 20480,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.87
+      },
+      {
+        "M_frac": 24.0,
+        "M": 24576,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.72
+      },
+      {
+        "M_frac": 28.0,
+        "M": 28672,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.635
+      },
+      {
+        "M_frac": 32.0,
+        "M": 32768,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.52
+      },
+      {
+        "M_frac": 2.0,
+        "M": 2048,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 6.0,
+        "M": 6144,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 8.0,
+        "M": 8192,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 10.0,
+        "M": 10240,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 12.0,
+        "M": 12288,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 14.0,
+        "M": 14336,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 16.0,
+        "M": 16384,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 20.0,
+        "M": 20480,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.88
+      },
+      {
+        "M_frac": 24.0,
+        "M": 24576,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.765
+      },
+      {
+        "M_frac": 28.0,
+        "M": 28672,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.675
+      },
+      {
+        "M_frac": 32.0,
+        "M": 32768,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.555
+      },
+      {
+        "M_frac": 2.0,
+        "M": 2048,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 6.0,
+        "M": 6144,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 8.0,
+        "M": 8192,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 10.0,
+        "M": 10240,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 12.0,
+        "M": 12288,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 14.0,
+        "M": 14336,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 16.0,
+        "M": 16384,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 20.0,
+        "M": 20480,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.84
+      },
+      {
+        "M_frac": 24.0,
+        "M": 24576,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.71
+      },
+      {
+        "M_frac": 28.0,
+        "M": 28672,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.585
+      },
+      {
+        "M_frac": 32.0,
+        "M": 32768,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.475
+      },
+      {
+        "M_frac": 2.0,
+        "M": 2048,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 6.0,
+        "M": 6144,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 8.0,
+        "M": 8192,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 10.0,
+        "M": 10240,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 12.0,
+        "M": 12288,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 14.0,
+        "M": 14336,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 16.0,
+        "M": 16384,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 20.0,
+        "M": 20480,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.835
+      },
+      {
+        "M_frac": 24.0,
+        "M": 24576,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.735
+      },
+      {
+        "M_frac": 28.0,
+        "M": 28672,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.6
+      },
+      {
+        "M_frac": 32.0,
+        "M": 32768,
+        "N": 4096,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.49
+      }
+    ],
+    "verdict": "MC_PROBE_MIDDLE_BAND",
+    "verdict_msg": "GRADUAL_DECLINE: no sharp drop, but transition present. n_seeds_sharp=0/5 biggest_step=16.0->20.0 mean_drop=0.145 M_c_estimate=[16384,20480] N=4096 beta=4.0",
+    "elapsed_s": 67.92
+  }
+}

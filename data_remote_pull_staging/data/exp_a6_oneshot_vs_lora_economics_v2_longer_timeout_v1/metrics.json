@@ -1,0 +1,28 @@
+{
+  "anchor_name": "a6_oneshot_vs_lora_economics_v2_longer_timeout_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial speedup advantage. mean_flop_speedup=1.25x(HP>=1.5 HF<1.0) mean_wall_speedup=46.74x(HP>=5.0 HF<1.0) hp_flop=0/2 hp_wall=2/2 N=1024 r=32 K=20",
+  "N": 1024,
+  "LORA_R": 32,
+  "K_LORA_STEPS": 20,
+  "N_KV_PAIRS": 3,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 1.3108248710632324,
+  "per_seed": [
+    {
+      "seed": 7,
+      "flop_speedup": 1.25,
+      "wall_speedup": 47.26557521784193,
+      "hp_flop": false,
+      "hp_wall": true
+    },
+    {
+      "seed": 17,
+      "flop_speedup": 1.25,
+      "wall_speedup": 46.20925429450899,
+      "hp_flop": false,
+      "hp_wall": true
+    }
+  ]
+}

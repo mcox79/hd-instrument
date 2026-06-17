@@ -1,0 +1,39 @@
+{
+  "anchor_name": "zkl_hypC_cosine_entropy_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: projecting out member-clustering directions does not bring ZKL<=0.15 -- Gram-flattening insufficient; Hyp-C linear mitigation bounded too. by project-out-r: {'r0': {'zkl': 0.74, 'f1': 1.0}, 'r2': {'zkl': 0.74, 'f1': 1.0}, 'r5': {'zkl': 0.736, 'f1': 1.0}, 'r10': {'zkl': 0.728, 'f1': 1.0}, 'r20': {'zkl': 0.738, 'f1': 1.0}} (n=500; baseline ZKL=0.740 F1=1.000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "r0": {
+          "zkl": 0.74,
+          "f1": 1.0
+        },
+        "r2": {
+          "zkl": 0.74,
+          "f1": 1.0
+        },
+        "r5": {
+          "zkl": 0.736,
+          "f1": 1.0
+        },
+        "r10": {
+          "zkl": 0.728,
+          "f1": 1.0
+        },
+        "r20": {
+          "zkl": 0.738,
+          "f1": 1.0
+        }
+      },
+      "n": 500,
+      "sanity_ok": false,
+      "k": 50,
+      "f1_base": 1.0
+    }
+  ],
+  "elapsed_s": 803.6894283294678,
+  "summary": "HARD_FAIL: projecting out member-clustering directions does not bring ZKL<=0.15 -- Gram-flattening insufficient; Hyp-C linear mitigation bounded too. by project-out-r: {'r0': {'zkl': 0.74, 'f1': 1.0}, 'r2': {'zkl': 0.74, 'f1': 1.0}, 'r5': {'zkl': 0.736, 'f1': 1.0}, 'r10': {'zkl': 0.728, 'f1': 1.0}, 'r20': {'zkl': 0.738, 'f1': 1.0}} (n=500; baseline ZKL=0.740 F1=1.000)"
+}

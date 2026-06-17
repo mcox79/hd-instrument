@@ -1,0 +1,62 @@
+{
+  "verdict": "HC_REPLAY_EXCEEDS_2X",
+  "verdict_msg": "H-C REFUTED (replay > 2x): diff=0.166 > 0.08. ret_replay=0.845 >> ret_2x=0.679. Replay provides MORE than N-doubling -- mechanism is NOT simple data augmentation. H-A (consolidation) or H-B (interference) likely dominant.",
+  "elapsed_s": 1336.5469999999987,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A_replay": 0.8390243980345562,
+        "retention_A_2x": 0.6802841059930258,
+        "retention_A_1x_noreplay": 0.6839382610542294,
+        "diff_replay_minus_2x": 0.1587402920415304,
+        "replay_lift": 0.1550861369803268
+      },
+      "17": {
+        "retention_A_replay": 0.8585818921430983,
+        "retention_A_2x": 0.6895943648669005,
+        "retention_A_1x_noreplay": 0.6920015098613156,
+        "diff_replay_minus_2x": 0.1689875272761978,
+        "replay_lift": 0.16658038228178274
+      },
+      "23": {
+        "retention_A_replay": 0.8502208733762626,
+        "retention_A_2x": 0.6770314161949001,
+        "retention_A_1x_noreplay": 0.6779593257369524,
+        "diff_replay_minus_2x": 0.17318945718136247,
+        "replay_lift": 0.17226154763931023
+      },
+      "31": {
+        "retention_A_replay": 0.8440838954656285,
+        "retention_A_2x": 0.6789248185867062,
+        "retention_A_1x_noreplay": 0.6780398467766608,
+        "diff_replay_minus_2x": 0.16515907687892228,
+        "replay_lift": 0.1660440486889676
+      },
+      "41": {
+        "retention_A_replay": 0.8339639806283862,
+        "retention_A_2x": 0.6713546141023229,
+        "retention_A_1x_noreplay": 0.6759115906028729,
+        "diff_replay_minus_2x": 0.16260936652606328,
+        "replay_lift": 0.1580523900255133
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 150000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "replay_frac": 0.5,
+    "ema_alpha": 0.7,
+    "hc_match_threshold": 0.04
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "verdict": "SELLKE_INCONCLUSIVE",
+  "verdict_msg": "Baseline at eps=0 not cleanly RS (modes=4); cannot infer threshold. eps=0.000: modes=4 q_mean=0.278 q_std=0.310; eps=0.050: modes=5 q_mean=0.644 q_std=0.663; eps=0.200: modes=6 q_mean=0.281 q_std=0.323.",
+  "elapsed_s": 0.031000000017229468,
+  "summary": {
+    "by_epsilon": {
+      "0.0": {
+        "n_modes": 4,
+        "q_mean": 0.27812498807907104,
+        "q_std": 0.31000566482543945,
+        "n_overlaps": 10
+      },
+      "0.05": {
+        "n_modes": 5,
+        "q_mean": 0.643750011920929,
+        "q_std": 0.6630598902702332,
+        "n_overlaps": 10
+      },
+      "0.2": {
+        "n_modes": 6,
+        "q_mean": 0.28125,
+        "q_std": 0.3231920897960663,
+        "n_overlaps": 10
+      }
+    },
+    "config": {
+      "N": 64,
+      "M": 8,
+      "n_samples": 10,
+      "n_steps": 10,
+      "epsilon_list": [
+        0.0,
+        0.05,
+        0.2
+      ],
+      "n_seeds": 1,
+      "mode": "smoke"
+    }
+  },
+  "config": {
+    "N": 64,
+    "M": 8,
+    "n_samples": 10,
+    "n_steps": 10,
+    "epsilon_list": [
+      0.0,
+      0.05,
+      0.2
+    ],
+    "n_seeds": 1,
+    "mode": "smoke"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "verdict": "COMPOSITIONAL_MIDDLE_BAND",
+  "verdict_msg": "Partial compositional structure: hold_out_acc=0.116 in (0.1, 0.5); train_acc=0.652.",
+  "elapsed_s": 0.46799999999348074,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "train_acc": 0.703125,
+        "hold_out_acc": 0.078125,
+        "n_train": 192,
+        "n_holdout": 64
+      },
+      "17": {
+        "train_acc": 0.625,
+        "hold_out_acc": 0.0625,
+        "n_train": 192,
+        "n_holdout": 64
+      },
+      "23": {
+        "train_acc": 0.6302083333333334,
+        "hold_out_acc": 0.109375,
+        "n_train": 192,
+        "n_holdout": 64
+      },
+      "31": {
+        "train_acc": 0.65625,
+        "hold_out_acc": 0.15625,
+        "n_train": 192,
+        "n_holdout": 64
+      },
+      "41": {
+        "train_acc": 0.6458333333333334,
+        "hold_out_acc": 0.171875,
+        "n_train": 192,
+        "n_holdout": 64
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "train_frac": 0.75,
+    "epochs": 30,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "n_objects": 16,
+    "n_attrs": 16,
+    "pass_holdout_acc": 0.5,
+    "fail_holdout_acc": 0.1
+  }
+}

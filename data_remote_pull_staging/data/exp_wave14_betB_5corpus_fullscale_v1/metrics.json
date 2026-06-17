@@ -1,0 +1,22 @@
+{
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE_PASS: instrumentation valid. 2/2 seeds produced finite G4_NOREPLAY retention values (mean=0.8372). NOTE: smoke at N=512 is regime-mismatched vs existing N=4096 data; BIC analysis skipped at smoke scale. FULL run at N=4096 needed.",
+  "elapsed_s": 0.956,
+  "summary": {
+    "n_new_g4": 2,
+    "new_g4_vals": [
+      0.8394,
+      0.835
+    ],
+    "smoke_only": true,
+    "note": "BIC analysis requires N=4096 full run; smoke validates protocol only"
+  },
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds_new": [
+      100,
+      101
+    ]
+  }
+}

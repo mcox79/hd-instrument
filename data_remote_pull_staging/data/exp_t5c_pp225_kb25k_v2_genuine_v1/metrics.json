@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_pp225_kb25k_v2_genuine_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: projection head generalizes (held-out >=0.25) -- direct retrieval->logit projection works; the cross-attn GATE was the Path B limiter, not the projection. bare=0.000 train-recall=0.993 HELD-OUT-recall=0.996 (best 0.997) (15000/2000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.9933333333333333,
+      "heldout_recall": 0.996,
+      "best_heldout": 0.9965,
+      "n_train": 15000,
+      "n_test": 2000
+    }
+  ],
+  "elapsed_s": 1699.9813168048859,
+  "summary": "HARD_PASS: projection head generalizes (held-out >=0.25) -- direct retrieval->logit projection works; the cross-attn GATE was the Path B limiter, not the projection. bare=0.000 train-recall=0.993 HELD-OUT-recall=0.996 (best 0.997) (15000/2000)"
+}

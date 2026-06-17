@@ -1,0 +1,22 @@
+{
+  "anchor_name": "pattern_b_capacity_curve_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: VSA bundle holds >=8 role-filler bindings at acc>=0.95 (N=1024) -- ample compositional capacity for multi-fact records. acc by bindings: {'k4': 1.0, 'k8': 1.0, 'k12': 1.0, 'k16': 1.0, 'k24': 1.0}; capacity=24 at N=1024",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "k4": 1.0,
+        "k8": 1.0,
+        "k12": 1.0,
+        "k16": 1.0,
+        "k24": 1.0
+      },
+      "capacity": 24,
+      "acc_k4": 1.0
+    }
+  ],
+  "elapsed_s": 0.1683206558227539,
+  "summary": "HARD_PASS: VSA bundle holds >=8 role-filler bindings at acc>=0.95 (N=1024) -- ample compositional capacity for multi-fact records. acc by bindings: {'k4': 1.0, 'k8': 1.0, 'k12': 1.0, 'k16': 1.0, 'k24': 1.0}; capacity=24 at N=1024"
+}

@@ -1,0 +1,45 @@
+{
+  "verdict": "ORDER_INVARIANT_KERDOCK_COMMUTES",
+  "verdict_msg": "Kerdock anti-Hebbian erase near-commutes: frob_drift_rel=0.0227 < 0.05. Correlated drifts 0.3850. Argmax stable: p1=1.000, p2=1.000.",
+  "elapsed_s": 1.0,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "frob_drift_rel": 0.022667180864567604,
+        "argmax_p1": 1.0,
+        "argmax_p2": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "frob_drift_rel": 0.022667180864567604,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          }
+        ]
+      },
+      "correlated": {
+        "frob_drift_rel": 0.3849781148890505,
+        "argmax_p1": 1.0,
+        "argmax_p2": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "frob_drift_rel": 0.3849781148890505,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 256,
+    "n_edit": 10,
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

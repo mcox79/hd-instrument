@@ -1,0 +1,14 @@
+{
+  "anchor_name": "sql_avg_formula_fix_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HD AVG estimator rel-error <5%% -- formula correct; cycle-155 SQL aggregation MID upgrades to HP. AVG rel-error=0.0124 (theory ~1.6% at N=4096)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rel_err": 0.012390250340104103
+    }
+  ],
+  "elapsed_s": 1.0088236331939697,
+  "summary": "HARD_PASS: HD AVG estimator rel-error <5%% -- formula correct; cycle-155 SQL aggregation MID upgrades to HP. AVG rel-error=0.0124 (theory ~1.6% at N=4096)"
+}

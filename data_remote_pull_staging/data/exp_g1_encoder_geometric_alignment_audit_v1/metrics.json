@@ -1,0 +1,38 @@
+{
+  "anchor_name": "g1_encoder_geometric_alignment_audit_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: >=2 encoders pass (PR>40 AND rho_eff<0.35) -- geometric encoder-selection protocol confirmed. PR/rho_eff: {'all-MiniLM-L6-v2': (61.0, 0.255), 'all-mpnet-base-v2': (49.9, 0.333), 'bge-large-en-v1.5': (70.0, 0.605), 'e5-large-v2': (74.6, 0.823), 'Llama-3.2-1B': (91.0, 0.207)} | pass(PR>40,rho<0.35): ['all-MiniLM-L6-v2', 'all-mpnet-base-v2', 'Llama-3.2-1B']",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "all-MiniLM-L6-v2": {
+        "PR": 60.995904645042316,
+        "rho_eff": 0.25483477115631104,
+        "D": 384
+      },
+      "all-mpnet-base-v2": {
+        "PR": 49.933115659398,
+        "rho_eff": 0.33252936601638794,
+        "D": 768
+      },
+      "bge-large-en-v1.5": {
+        "PR": 69.97919034471671,
+        "rho_eff": 0.6050782799720764,
+        "D": 1024
+      },
+      "e5-large-v2": {
+        "PR": 74.60195603141202,
+        "rho_eff": 0.8226755261421204,
+        "D": 1024
+      },
+      "Llama-3.2-1B": {
+        "PR": 91.04189232984547,
+        "rho_eff": 0.20716990530490875,
+        "D": 2048
+      }
+    }
+  ],
+  "elapsed_s": 27.127608060836792,
+  "summary": "HARD_PASS: >=2 encoders pass (PR>40 AND rho_eff<0.35) -- geometric encoder-selection protocol confirmed. PR/rho_eff: {'all-MiniLM-L6-v2': (61.0, 0.255), 'all-mpnet-base-v2': (49.9, 0.333), 'bge-large-en-v1.5': (70.0, 0.605), 'e5-large-v2': (74.6, 0.823), 'Llama-3.2-1B': (91.0, 0.207)} | pass(PR>40,rho<0.35): ['all-MiniLM-L6-v2', 'all-mpnet-base-v2', 'Llama-3.2-1B']"
+}

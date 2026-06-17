@@ -1,0 +1,25 @@
+{
+  "anchor_name": "privacy_combined_fix_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: privacy fix cone_only reaches ZKL<=0.14 with recall>=0.85 -- low-cost privacy fix exists (HIPAA path reopens). baseline ZKL=0.023 | fixes: {'cone_only': (0.033, 1.0), 'combined_cone_rot': (0.097, 1.0)}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "baseline": {
+        "zkl": 0.023333333333333334,
+        "recall": 1.0
+      },
+      "cone_only": {
+        "zkl": 0.03333333333333333,
+        "recall": 1.0
+      },
+      "combined_cone_rot": {
+        "zkl": 0.09666666666666666,
+        "recall": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 12.37371563911438,
+  "summary": "HARD_PASS: privacy fix cone_only reaches ZKL<=0.14 with recall>=0.85 -- low-cost privacy fix exists (HIPAA path reopens). baseline ZKL=0.023 | fixes: {'cone_only': (0.033, 1.0), 'combined_cone_rot': (0.097, 1.0)}"
+}

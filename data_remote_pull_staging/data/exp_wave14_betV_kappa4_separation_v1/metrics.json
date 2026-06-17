@@ -1,0 +1,46 @@
+{
+  "verdict": "BETV_KAPPA4_RESCUE_PARTIAL",
+  "verdict_msg": "Partial: |kappa4_sep|=2.51 SD in [1.0, 2.0); sign_consistent=False. kappa4_stored=0.065, unstored=2.210. Signal present but not strong enough for portfolio rescue.",
+  "elapsed_s": 0.1720000000204891,
+  "summary": {
+    "kappa4_stored_mean": 0.06549485816805341,
+    "kappa4_unstored_mean": 2.2103222956629267,
+    "kappa4_separation_raw": -2.1448274374948735,
+    "pooled_se": 0.8552885451056681,
+    "kappa4_separation_sd": -2.5077237965695978,
+    "sign_consistent_across_seeds": false,
+    "k4_stored_per_seed": [
+      -0.5621918728607991,
+      0.10872526400480398,
+      -0.034481783815161204,
+      0.002667386619358947,
+      0.8127552968920644
+    ],
+    "k4_unstored_per_seed": [
+      2.277998385544624,
+      2.0903656208935404,
+      3.9519030721608663,
+      0.5136341144430916,
+      2.217710285272511
+    ],
+    "n_seeds": 5,
+    "note": "Excess kurtosis (classical k_4 = mu_4/sigma^4 - 3) of stored vs unstored confidence distribution; pooled jackknife + across-seed SE."
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "n_probes": 200,
+    "seeds": [
+      17,
+      23,
+      31,
+      37,
+      41
+    ],
+    "device": "cpu",
+    "note": "Bet V kappa_4 separation: substrate-novel higher-cumulant rescue probe."
+  }
+}

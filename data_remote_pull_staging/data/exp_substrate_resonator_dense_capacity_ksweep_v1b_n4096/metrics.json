@@ -1,0 +1,125 @@
+{
+  "anchor_name": "substrate_resonator_dense_capacity_ksweep_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: K_max=0<5. acc=K5:0.000 K6:0.000 K7:0.000 K8:0.000 K9:0.000 K10:0.000 K11:0.000 -> K_max=0",
+  "N": 4096,
+  "V": 100,
+  "K_grid": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "K": 5,
+          "accuracy": 0.0
+        },
+        {
+          "K": 6,
+          "accuracy": 0.0
+        },
+        {
+          "K": 7,
+          "accuracy": 0.0
+        },
+        {
+          "K": 8,
+          "accuracy": 0.0
+        },
+        {
+          "K": 9,
+          "accuracy": 0.0
+        },
+        {
+          "K": 10,
+          "accuracy": 0.0
+        },
+        {
+          "K": 11,
+          "accuracy": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.116101632,
+      "elapsed_s": 2.8638360500335693
+    },
+    {
+      "seed": 17,
+      "cells": [
+        {
+          "K": 5,
+          "accuracy": 0.0
+        },
+        {
+          "K": 6,
+          "accuracy": 0.0
+        },
+        {
+          "K": 7,
+          "accuracy": 0.0
+        },
+        {
+          "K": 8,
+          "accuracy": 0.0
+        },
+        {
+          "K": 9,
+          "accuracy": 0.0
+        },
+        {
+          "K": 10,
+          "accuracy": 0.0
+        },
+        {
+          "K": 11,
+          "accuracy": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.116101632,
+      "elapsed_s": 2.142500638961792
+    },
+    {
+      "seed": 23,
+      "cells": [
+        {
+          "K": 5,
+          "accuracy": 0.0
+        },
+        {
+          "K": 6,
+          "accuracy": 0.0
+        },
+        {
+          "K": 7,
+          "accuracy": 0.0
+        },
+        {
+          "K": 8,
+          "accuracy": 0.0
+        },
+        {
+          "K": 9,
+          "accuracy": 0.0
+        },
+        {
+          "K": 10,
+          "accuracy": 0.0
+        },
+        {
+          "K": 11,
+          "accuracy": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.116101632,
+      "elapsed_s": 2.347578287124634
+    }
+  ]
+}

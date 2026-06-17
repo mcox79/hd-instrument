@@ -1,0 +1,67 @@
+{
+  "verdict": "NOISE_ROBUST_BOTH_TOLERATE",
+  "verdict_msg": "Both arms tolerate up to sigma=0.0. Noise tolerance is key-structure-independent.",
+  "elapsed_s": 0.25,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_sigma": {
+          "0.0": {
+            "argmax_acc": 1.0
+          },
+          "16.0": {
+            "argmax_acc": 0.8515625
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 1.0
+              },
+              "16.0": {
+                "argmax_acc": 0.8515625
+              }
+            }
+          }
+        ]
+      },
+      "correlated": {
+        "per_sigma": {
+          "0.0": {
+            "argmax_acc": 0.99609375
+          },
+          "16.0": {
+            "argmax_acc": 0.4765625
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 0.99609375
+              },
+              "16.0": {
+                "argmax_acc": 0.4765625
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 256,
+    "sigmas": [
+      0.0,
+      16.0
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

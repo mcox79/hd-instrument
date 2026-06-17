@@ -1,0 +1,59 @@
+{
+  "verdict": "BS_HARD_FAIL",
+  "verdict_msg": "LARGE_LOSS: within_ret=0.343 cross_ret=0.353 mem_savings=4.0x n_seeds=5",
+  "elapsed_s": 5.73,
+  "summary": {
+    "anchor": "block_structured_w_feasibility_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "D": 4,
+    "fpd": 128,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "per_seed": [
+      {
+        "seed": 7,
+        "facts_per_domain": 128,
+        "within_ret": 0.33,
+        "cross_ret": 0.46667,
+        "memory_savings": 4.0
+      },
+      {
+        "seed": 17,
+        "facts_per_domain": 128,
+        "within_ret": 0.36,
+        "cross_ret": 0.3,
+        "memory_savings": 4.0
+      },
+      {
+        "seed": 23,
+        "facts_per_domain": 128,
+        "within_ret": 0.375,
+        "cross_ret": 0.23333,
+        "memory_savings": 4.0
+      },
+      {
+        "seed": 31,
+        "facts_per_domain": 128,
+        "within_ret": 0.345,
+        "cross_ret": 0.43333,
+        "memory_savings": 4.0
+      },
+      {
+        "seed": 41,
+        "facts_per_domain": 128,
+        "within_ret": 0.305,
+        "cross_ret": 0.33333,
+        "memory_savings": 4.0
+      }
+    ],
+    "verdict": "BS_HARD_FAIL",
+    "verdict_msg": "LARGE_LOSS: within_ret=0.343 cross_ret=0.353 mem_savings=4.0x n_seeds=5",
+    "elapsed_s": 5.73
+  }
+}

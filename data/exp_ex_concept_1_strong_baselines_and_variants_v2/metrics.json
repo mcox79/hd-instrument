@@ -1,0 +1,22 @@
+{
+  "anchor_name": "ex_concept_1_strong_baselines_and_variants_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best substrate >= trigram but < neural. best_substrate=substrate_extctx_K2:0.692 | bigram=0.672 trigram=0.677 neural1L=0.747 | variants={'substrate_single_pass': 0.664, 'substrate_extctx_K2': 0.692, 'substrate_extctx_K5': 0.628}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "n_docs": 300,
+      "unigram": null,
+      "bigram": 0.6722222222222223,
+      "trigram": 0.6766666666666666,
+      "neural_1layer": 0.7472222222222222,
+      "substrate_single_pass": 0.6638888888888889,
+      "substrate_extctx_K2": 0.6916666666666667,
+      "substrate_extctx_K5": 0.6277777777777778
+    }
+  ],
+  "elapsed_s": 26.30513834953308,
+  "summary": "MIDDLE_BAND: best substrate >= trigram but < neural. best_substrate=substrate_extctx_K2:0.692 | bigram=0.672 trigram=0.677 neural1L=0.747 | variants={'substrate_single_pass': 0.664, 'substrate_extctx_K2': 0.692, 'substrate_extctx_K5': 0.628}"
+}

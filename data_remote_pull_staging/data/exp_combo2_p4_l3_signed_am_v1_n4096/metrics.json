@@ -1,0 +1,12 @@
+{
+  "anchor_name": "combo2_p4_l3_signed_am_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions met. l3_fidelity_A=1.0000 (HP>=0.85 HF<0.5) b_repulsion=1.0000 (HP>=0.95 HF<0.5) parity_contamination=0.0000 (HP<=0.05) n_seeds=2",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.7596008777618408,
+  "mean_l3_fidelity_A": 1.0,
+  "mean_b_repulsion_rate": 1.0,
+  "mean_parity_contamination": 0.0
+}

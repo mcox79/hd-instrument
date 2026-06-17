@@ -1,0 +1,101 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Sub-linear K-scaling. ratio=0.98 (< 4.0 floor), monotone=True, structural_lift=-0.106. Scaling exponent p=-0.02 (< 1 = sub-linear). Structural separation present but partial; K-scaling benefit is real but diminishing.",
+  "elapsed_s": 1.442,
+  "summary": {
+    "K_sweep": [
+      2,
+      4,
+      8
+    ],
+    "retention_A_per_K": {
+      "2": 0.8181,
+      "4": 0.8091,
+      "8": 0.7986
+    },
+    "retention_B_per_K": {
+      "2": 0.7505,
+      "4": 0.6267,
+      "8": 0.4949
+    },
+    "retention_C_per_K": {
+      "2": 0.8857,
+      "4": 0.9153,
+      "8": 0.9381
+    },
+    "k_scaling_ratio": 0.976,
+    "scaling_exponent_p": -0.017,
+    "monotone_nondecreasing_A": true,
+    "structural_lift_at_K16": -0.1062,
+    "mean_ginis": {
+      "2": 0.0375,
+      "4": 0.05,
+      "8": 0.0519
+    },
+    "mode_collapse_flag": false
+  },
+  "per_K_details": {
+    "2": {
+      "mean_retention_A": 0.8181,
+      "mean_retention_B": 0.7505,
+      "mean_retention_C": 0.8857,
+      "arm_A_vals": [
+        0.8181
+      ],
+      "arm_B_vals": [
+        0.7505
+      ],
+      "arm_C_vals": [
+        0.8857
+      ],
+      "mean_gini_A": 0.0375,
+      "mode_collapse_flag": false
+    },
+    "4": {
+      "mean_retention_A": 0.8091,
+      "mean_retention_B": 0.6267,
+      "mean_retention_C": 0.9153,
+      "arm_A_vals": [
+        0.8091
+      ],
+      "arm_B_vals": [
+        0.6267
+      ],
+      "arm_C_vals": [
+        0.9153
+      ],
+      "mean_gini_A": 0.05,
+      "mode_collapse_flag": false
+    },
+    "8": {
+      "mean_retention_A": 0.7986,
+      "mean_retention_B": 0.4949,
+      "mean_retention_C": 0.9381,
+      "arm_A_vals": [
+        0.7986
+      ],
+      "arm_B_vals": [
+        0.4949
+      ],
+      "arm_C_vals": [
+        0.9381
+      ],
+      "mean_gini_A": 0.0519,
+      "mode_collapse_flag": false
+    }
+  },
+  "config": {
+    "N": 512,
+    "M_per_expert": 200,
+    "K_sweep": [
+      2,
+      4,
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "dependency": "wave14_moe_shift_partition_v2 SHIFT verdict required before full ship"
+  }
+}

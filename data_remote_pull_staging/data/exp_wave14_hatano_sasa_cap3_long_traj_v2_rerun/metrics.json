@@ -1,0 +1,201 @@
+{
+  "verdict": "HATANO_SASA_CAP3_LONG_TRAJ_V2_HARD_FAIL",
+  "verdict_msg": "v2 (longer trajectories: glauber_steps=120, n_traj=300) vs v1 (60/150): HS-IFT VIOLATED: <exp(-W_ex)>=2.8887 outside hard-fail band [0.5,2.0] across 13 cells. Substrate NESS is non-canonical (non-Markov or non-stationary pi_ss). Cap 3 [v2] does NOT acquire Hatano-Sasa audit-cert; informative-negative.",
+  "elapsed_s": 140.8279999999795,
+  "summary": {
+    "hs_identity_val": 2.8886589051592657,
+    "hs_identity_sem": 1.0464877553823941,
+    "cross_basin_frac": 0.38111799345615033,
+    "n_valid_cells": 13,
+    "n_cells_total": 16,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "cells": [
+      {
+        "noise_p": 0.3,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 283,
+        "n_distinct_attractors": 48,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 290,
+        "n_distinct_attractors": 49,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 31,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 286,
+        "n_distinct_attractors": 48,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 41,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 298,
+        "n_distinct_attractors": 50,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 81,
+        "n_distinct_attractors": 38,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 97,
+        "n_distinct_attractors": 41,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 31,
+        "hs_identity_val": 1.1001862562493874,
+        "cross_basin_frac": 0.019801980198019802,
+        "n_valid_traj": 101,
+        "n_distinct_attractors": 38,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 41,
+        "hs_identity_val": 1.1025641025641026,
+        "cross_basin_frac": 0.02564102564102564,
+        "n_valid_traj": 117,
+        "n_distinct_attractors": 46,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 17,
+        "hs_identity_val": 1.5000000000000002,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 2,
+        "n_distinct_attractors": 2,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 31,
+        "hs_identity_val": 5.586776859504132,
+        "cross_basin_frac": 0.9090909090909091,
+        "n_valid_traj": 11,
+        "n_distinct_attractors": 3,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 41,
+        "hs_identity_val": 14.000000000000002,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 13,
+        "n_distinct_attractors": 1,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 31,
+        "hs_identity_val": 2.222222222222222,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 3,
+        "n_distinct_attractors": 2,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 41,
+        "hs_identity_val": 6.04081632653061,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 7,
+        "n_distinct_attractors": 2,
+        "degenerate": false
+      }
+    ]
+  },
+  "config": {
+    "N": 2048,
+    "M": 50,
+    "n_traj_per_cell": 300,
+    "noise_levels": [
+      0.3,
+      0.4,
+      0.5,
+      0.6
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41
+    ],
+    "max_iter": 60,
+    "beta": 1.5,
+    "glauber_steps": 120,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "smoke": false,
+    "v2_changes_from_v1_full": {
+      "glauber_steps": "60 -> 120",
+      "n_traj_per_cell": "150 -> 300"
+    }
+  }
+}

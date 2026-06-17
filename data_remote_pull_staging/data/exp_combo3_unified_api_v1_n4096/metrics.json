@@ -1,0 +1,24 @@
+{
+  "anchor_name": "combo3_unified_api_v1_n4096",
+  "run_mode": "full",
+  "N": 4096,
+  "M_patterns": 200,
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    41
+  ],
+  "aggregate": {
+    "max_hp1_err": 0.0,
+    "max_k3_err": 5.320680004404499e-05,
+    "max_cndc_err": 0.0,
+    "max_cert_err": 0.0,
+    "max_matvecs": 3,
+    "n_seeds": 5
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "COMBO-3 UNIFIED API ALGEBRAIC THEOREM confirmed. HP1 d1d2d3_err=0.00e+00<1e-10 (True), HP2 k3_err=5.32e-05<0.0001 (True), HP3 cndc_err=0.00e+00<1e-10 (True), HP4 cert_err=0.00e+00<1e-10 (True), HP5 matvecs=3<=5 (True). 5-method audit API shares single Krylov buffer. O(N^2) per delete trace-class confirmed tractable at N=4096.",
+  "elapsed_s": 21.130124807357788
+}

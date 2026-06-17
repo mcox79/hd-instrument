@@ -1,0 +1,130 @@
+{
+  "verdict": "C6_HARD_PASS",
+  "verdict_msg": "COST_MODEL_FITS n_hp=5/5. store: r2=1.000 err=0.000 | retrieve: r2=1.000 err=0.000 | edit: r2=1.000 err=0.000 | delete: r2=1.000 err=0.000 | multi_hop: r2=1.000 err=0.000",
+  "elapsed_s": 0.34,
+  "summary": {
+    "anchor": "substrate_operation_cost_modeling_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      64,
+      128
+    ],
+    "n_repeat": 3,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "raw_measurements": [
+          {
+            "op": "store",
+            "M": 64,
+            "latency_s": 0.002084,
+            "peak_mem_mb": 4.75,
+            "throughput_ops_per_s": 479.82
+          },
+          {
+            "op": "retrieve",
+            "M": 64,
+            "latency_s": 0.003119,
+            "peak_mem_mb": 0.094,
+            "throughput_ops_per_s": 320.66
+          },
+          {
+            "op": "edit",
+            "M": 64,
+            "latency_s": 0.002916,
+            "peak_mem_mb": 8.0,
+            "throughput_ops_per_s": 342.9
+          },
+          {
+            "op": "delete",
+            "M": 64,
+            "latency_s": 0.000709,
+            "peak_mem_mb": 8.0,
+            "throughput_ops_per_s": 1411.23
+          },
+          {
+            "op": "multi_hop",
+            "M": 64,
+            "latency_s": 0.004435,
+            "peak_mem_mb": 4.0,
+            "throughput_ops_per_s": 225.47
+          },
+          {
+            "op": "store",
+            "M": 128,
+            "latency_s": 0.003013,
+            "peak_mem_mb": 5.5,
+            "throughput_ops_per_s": 331.93
+          },
+          {
+            "op": "retrieve",
+            "M": 128,
+            "latency_s": 0.002781,
+            "peak_mem_mb": 0.094,
+            "throughput_ops_per_s": 359.57
+          },
+          {
+            "op": "edit",
+            "M": 128,
+            "latency_s": 0.002708,
+            "peak_mem_mb": 8.0,
+            "throughput_ops_per_s": 369.3
+          },
+          {
+            "op": "delete",
+            "M": 128,
+            "latency_s": 0.001281,
+            "peak_mem_mb": 8.0,
+            "throughput_ops_per_s": 780.58
+          },
+          {
+            "op": "multi_hop",
+            "M": 128,
+            "latency_s": 0.004865,
+            "peak_mem_mb": 4.0,
+            "throughput_ops_per_s": 205.57
+          }
+        ],
+        "cost_models": {
+          "store": {
+            "a": 0.000228186,
+            "b": 0.5318,
+            "r2": 1.0,
+            "max_pred_err": 0.0
+          },
+          "retrieve": {
+            "a": 0.006207285,
+            "b": -0.1655,
+            "r2": 1.0,
+            "max_pred_err": 0.0
+          },
+          "edit": {
+            "a": 0.004545908,
+            "b": -0.1068,
+            "r2": 1.0,
+            "max_pred_err": 0.0
+          },
+          "delete": {
+            "a": 2.0381e-05,
+            "b": 0.8534,
+            "r2": 1.0,
+            "max_pred_err": 0.0
+          },
+          "multi_hop": {
+            "a": 0.002545413,
+            "b": 0.1335,
+            "r2": 1.0,
+            "max_pred_err": 0.0
+          }
+        }
+      }
+    ],
+    "verdict": "C6_HARD_PASS",
+    "verdict_msg": "COST_MODEL_FITS n_hp=5/5. store: r2=1.000 err=0.000 | retrieve: r2=1.000 err=0.000 | edit: r2=1.000 err=0.000 | delete: r2=1.000 err=0.000 | multi_hop: r2=1.000 err=0.000",
+    "elapsed_s": 0.34
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "verdict": "BET_Y_PHASE2_PARTIAL",
+  "verdict_msg": "Best ratio=1.00 at beta=8.0 (1.0 <= ratio < 1.5). Partial exp-capacity gain; substrate is in intermediate regime. ratio_per_beta={'8.0': 1.0}. Consider beta-blend strategy.",
+  "elapsed_s": 0.8429999999934807,
+  "summary": {
+    "argmax_capacity": 0.5,
+    "modern_capacity_per_beta": {
+      "8.0": 0.5
+    },
+    "ratio_per_beta": {
+      "8.0": 1.0
+    },
+    "best_beta": 8.0,
+    "best_ratio": 1.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_grid": [
+      256,
+      512
+    ],
+    "seeds": 1,
+    "betas": [
+      8.0
+    ],
+    "n_iter": 5,
+    "key_family": "kerdock_4coset"
+  }
+}

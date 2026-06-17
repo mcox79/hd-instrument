@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_real_vs_synthetic_capacity_N_sweep_disambiguation_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ratio ~flat -- real tracks synthetic; no attenuation in this range. Q_real/Q_synth by N=[512, 1024]: [1.0, 1.0] | slope/log2N=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_N": {
+        "N512": {
+          "real_recall": 1.0,
+          "synth_recall": 1.0,
+          "ratio": 1.0
+        },
+        "N1024": {
+          "real_recall": 1.0,
+          "synth_recall": 1.0,
+          "ratio": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 9.170430660247803,
+  "summary": "HARD_FAIL: ratio ~flat -- real tracks synthetic; no attenuation in this range. Q_real/Q_synth by N=[512, 1024]: [1.0, 1.0] | slope/log2N=0.000"
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "calibration_isotonic_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: isotonic calibration reduces ECE to <0.05 -- substrate classifier confidences become calibrated probabilities (closes the conformal-#3 uncalibration finding). Substrate-classical calibrated uncertainty, no LLM. ECE raw=0.2331 -> calibrated=0.0435 (n_test=250)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ece_raw": 0.2331,
+      "ece_post": 0.0435,
+      "n_test": 250
+    }
+  ],
+  "elapsed_s": 0.24406981468200684,
+  "summary": "HARD_PASS: isotonic calibration reduces ECE to <0.05 -- substrate classifier confidences become calibrated probabilities (closes the conformal-#3 uncalibration finding). Substrate-classical calibrated uncertainty, no LLM. ECE raw=0.2331 -> calibrated=0.0435 (n_test=250)"
+}

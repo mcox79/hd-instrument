@@ -1,0 +1,20 @@
+{
+  "anchor_name": "bm25_bge_rrf_hotpot_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: RRF lifts over bge alone but below the bar -- partial floor lift. RRF r@2=0.270 r@10=0.750 | bge r@2=0.305 r@10=0.705 | BM25 r@2=0.230 r@10=0.680 (n=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "bge_r2": 0.305,
+      "bge_r10": 0.705,
+      "bm25_r2": 0.23,
+      "bm25_r10": 0.68,
+      "rrf_r2": 0.27,
+      "rrf_r10": 0.75
+    }
+  ],
+  "elapsed_s": 13.414881467819214,
+  "summary": "MIDDLE_BAND: RRF lifts over bge alone but below the bar -- partial floor lift. RRF r@2=0.270 r@10=0.750 | bge r@2=0.305 r@10=0.705 | BM25 r@2=0.230 r@10=0.680 (n=200)"
+}

@@ -1,0 +1,36 @@
+{
+  "anchor_name": "comp_1bit_verify_4_depthscale_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1-bit loss <5pp through L=10 -- quantization noise does NOT compound with depth. max 1-bit loss across L<=10 = 0.000 ; rows={'3': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '5': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '8': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '10': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "3": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "5": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "8": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "10": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        }
+      },
+      "max_loss": 0.0
+    }
+  ],
+  "elapsed_s": 1417.7028636932373,
+  "summary": "HARD_PASS: 1-bit loss <5pp through L=10 -- quantization noise does NOT compound with depth. max 1-bit loss across L<=10 = 0.000 ; rows={'3': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '5': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '8': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '10': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}"
+}

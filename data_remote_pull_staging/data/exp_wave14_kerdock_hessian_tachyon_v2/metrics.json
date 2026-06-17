@@ -1,0 +1,81 @@
+{
+  "verdict": "KERDOCK_HAS_EXCESS_ZERO_MODES",
+  "verdict_msg": "Kerdock Hessian has EXCESS zero modes (beyond rank-deficiency floor) in 1/3 cells; max_excess=0.500 at alpha=0.50. This is a degenerate flat-direction signature from the algebraic structure of the Kerdock 4-coset codebook \u2014 substrate-novel kernel dimension beyond generic random-matrix rank-deficiency.",
+  "elapsed_s": 1.6719999999913853,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "zero_frac_mean": 0.5,
+        "zero_frac_std": 0.0,
+        "min_eig_mean": -1.1920874531348243e-15,
+        "max_eig_mean": 2.3631350994110107,
+        "per_seed_zero_frac": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "excess_zero_frac": 0.5,
+        "rank_def_floor": 0.0
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "zero_frac_mean": 0.0006510416666666666,
+        "zero_frac_std": 0.0004603559773349919,
+        "min_eig_mean": 1.4997626749391202e-06,
+        "max_eig_mean": 2.984762191772461,
+        "per_seed_zero_frac": [
+          0.0009765625,
+          0.0,
+          0.0009765625
+        ],
+        "excess_zero_frac": 0.0006510416666666666,
+        "rank_def_floor": 0.0
+      },
+      {
+        "alpha": 2.0,
+        "N": 1024,
+        "M": 2048,
+        "zero_frac_mean": 0.0,
+        "zero_frac_std": 0.0,
+        "min_eig_mean": 0.2760384976863861,
+        "max_eig_mean": 3.725383440653483,
+        "per_seed_zero_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "excess_zero_frac": -0.5,
+        "rank_def_floor": 0.5
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "alphas": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "n_seeds": 3,
+      "eps": 1e-06
+    },
+    "verdict": "KERDOCK_HAS_EXCESS_ZERO_MODES",
+    "verdict_msg": "Kerdock Hessian has EXCESS zero modes (beyond rank-deficiency floor) in 1/3 cells; max_excess=0.500 at alpha=0.50. This is a degenerate flat-direction signature from the algebraic structure of the Kerdock 4-coset codebook \u2014 substrate-novel kernel dimension beyond generic random-matrix rank-deficiency."
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "alphas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "n_seeds": 3,
+    "eps": 1e-06
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "anchor_name": "qa_gap4_integration_demo_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: integrated <=0.481 -- no effective absorption (likely name->id anchor resolution blocking B/G). integrated macro-F1=0.2052 (n=64, per-type {'A': 0.185, 'B': 0.186, 'C': 0.528, 'D': 0.143, 'E': 0.016, 'F': 0.0, 'G': 0.002, 'neg': 0.429}, name->id residual=4, vs router-only 0.481)",
+  "summary": "HARD_FAIL: integrated <=0.481 -- no effective absorption (likely name->id anchor resolution blocking B/G). integrated macro-F1=0.2052 (n=64, per-type {'A': 0.185, 'B': 0.186, 'C': 0.528, 'D': 0.143, 'E': 0.016, 'F': 0.0, 'G': 0.002, 'neg': 0.429}, name->id residual=4, vs router-only 0.481)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.2052,
+      "macro_f1": 0.2052,
+      "type_f1": {
+        "A": 0.185,
+        "B": 0.186,
+        "C": 0.528,
+        "D": 0.143,
+        "E": 0.016,
+        "F": 0.0,
+        "G": 0.002,
+        "neg": 0.429
+      },
+      "n_qs": 64,
+      "name_id_residual": 4,
+      "baseline_router_only": 0.481
+    }
+  ],
+  "elapsed_s": 0.21212124824523926
+}

@@ -1,0 +1,36 @@
+{
+  "run_mode": "smoke",
+  "N_GRID": [
+    512,
+    1024
+  ],
+  "alpha": 0.14,
+  "beta": 2.0,
+  "R_disorder": 3,
+  "Q_replicas": 3,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "per_N": [
+      {
+        "N": 512,
+        "mean_chi_SG": 84.34809027777779,
+        "chi_SG_over_N": 0.16474236382378474,
+        "n_seeds": 2
+      },
+      {
+        "N": 1024,
+        "mean_chi_SG": 142.58116319444446,
+        "chi_SG_over_N": 0.13923941718207467,
+        "n_seeds": 2
+      }
+    ],
+    "gamma": 0.7573560858136691,
+    "ratio_cv": 0.08389629982808311
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "chi_SG shows N-scaling with gamma=0.757 > 0.5. Strong spin-glass susceptibility signature at near-critical alpha=0.14. N_grid=[512, 1024]. Supplementary cross-check of SKAH-M dynamical phase. chi_SG/N coefficient-of-variation=0.084.",
+  "elapsed_s": 24.124913692474365
+}

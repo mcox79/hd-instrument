@@ -1,0 +1,44 @@
+{
+  "verdict": "KF5_MIDDLE_BAND",
+  "verdict_msg": "Partial steerability. 1/1 seeds mono entropy. mean_entropy_range=7.580 bits (PASS requires 1.0). bpc_interior_min in 1/1 seeds.",
+  "elapsed_s": 0.26,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "per_beta": {
+          "2.0": {
+            "output_entropy_bits": 7.886764844258626,
+            "bpc": 6.523198127746582,
+            "retention_argmax": 0.30326704184214276,
+            "top1_top2_gap": 0.0037271964829415083
+          },
+          "8.0": {
+            "output_entropy_bits": 4.631513277689616,
+            "bpc": 4.247144381205241,
+            "retention_argmax": 0.30326704184214276,
+            "top1_top2_gap": 0.1928851306438446
+          },
+          "64.0": {
+            "output_entropy_bits": 0.3063795169194539,
+            "bpc": 16.65641148885091,
+            "retention_argmax": 0.30326704184214276,
+            "top1_top2_gap": 0.84961465994517
+          }
+        }
+      }
+    },
+    "mode": "smoke",
+    "N": 1024
+  },
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "beta_sweep": [
+      2.0,
+      8.0,
+      64.0
+    ]
+  }
+}

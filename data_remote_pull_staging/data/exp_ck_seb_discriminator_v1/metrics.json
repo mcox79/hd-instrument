@@ -1,0 +1,24 @@
+{
+  "anchor": "ck_seb_discriminator_v1",
+  "run_mode": "smoke",
+  "N": 2048,
+  "n_seeds": 2,
+  "alpha_grid": [
+    0.05,
+    0.15
+  ],
+  "slope_change_mean": 0.5390186027736642,
+  "slope_change_std": 0.2044593234400067,
+  "q_ea_mean": 0.7505712890624999,
+  "seeds_kink": 2,
+  "seeds_qea": 1,
+  "verdict": "MIDDLE_BAND",
+  "elapsed_s": 147.10135984420776,
+  "thresholds": {
+    "HP_slope_change": 0.3,
+    "HF_slope_change": 0.1,
+    "HP_q_ea_max": 0.8,
+    "HF_q_ea_min": 0.95
+  },
+  "verdict_msg": "CK discriminator at N=2048 alpha=0.15: slope_change=0.539+/-0.204 (HP>=0.3), q_EA=0.751 (HP<0.8), 2/2 seeds kink. Verdict: MIDDLE_BAND."
+}

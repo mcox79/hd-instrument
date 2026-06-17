@@ -1,0 +1,17 @@
+{
+  "anchor_name": "t5b_flamingo_entropy_pretest_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (decisive): RAW attention over substrate HD is near-UNIFORM (>0.95) -> frozen heads cannot differentiate raw HD; the per-head ADAPTER IS REQUIRED for the Flamingo insert (adapted entropy 0.809 confirms a learned adapter sharpens attention). RAW norm-entropy=0.997 ADAPTED=0.809 (M=256 keys)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "loaded": true,
+      "raw_entropy": 0.9971013069152832,
+      "adapted_entropy": 0.8094939589500427,
+      "m_keys": 256
+    }
+  ],
+  "elapsed_s": 3.290276288986206,
+  "summary": "HARD_PASS (decisive): RAW attention over substrate HD is near-UNIFORM (>0.95) -> frozen heads cannot differentiate raw HD; the per-head ADAPTER IS REQUIRED for the Flamingo insert (adapted entropy 0.809 confirms a learned adapter sharpens attention). RAW norm-entropy=0.997 ADAPTED=0.809 (M=256 keys)"
+}

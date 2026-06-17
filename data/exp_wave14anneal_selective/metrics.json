@@ -1,0 +1,264 @@
+{
+  "verdict": "SEL_ANNEAL_NO_FORGET",
+  "verdict_msg": "No noise level achieves leak<=10%. Best leak: 0.20%.",
+  "elapsed_s": 45.85899999999674,
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "n_facts": 400,
+    "n_erase": 100,
+    "rank_L": 100,
+    "flip_frac": 0.1,
+    "noise_amps": [
+      0.0,
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53,
+      67,
+      79,
+      89,
+      101,
+      113
+    ]
+  },
+  "device": "cuda",
+  "per_noise": [
+    {
+      "noise": 0.0,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.9459999799728394,
+      "mean_rank": 3.077,
+      "norm_ratio": 0.5744873702526092,
+      "cosine": 0.2741721302270889,
+      "kept_recall": 1.0,
+      "leak_paraphrase": 0.9339999794960022
+    },
+    {
+      "noise": 0.1,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0899999976158142,
+      "mean_rank": 51.61999999999999,
+      "norm_ratio": 5.712143993377685,
+      "cosine": 0.0245662335306406,
+      "kept_recall": 1.0,
+      "leak_paraphrase": 0.08799999784678221
+    },
+    {
+      "noise": 0.25,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.012999999709427357,
+      "mean_rank": 125.31799999999998,
+      "norm_ratio": 14.19238052368164,
+      "cosine": 0.009862108062952757,
+      "kept_recall": 0.8050000131130218,
+      "leak_paraphrase": 0.010999999754130841
+    },
+    {
+      "noise": 0.5,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0029999999329447745,
+      "mean_rank": 160.317,
+      "norm_ratio": 28.358736991882324,
+      "cosine": 0.004927290440537036,
+      "kept_recall": 0.1873333364725113,
+      "leak_paraphrase": 0.004999999888241291
+    },
+    {
+      "noise": 0.75,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0029999999329447745,
+      "mean_rank": 172.61700000000002,
+      "norm_ratio": 42.53076057434082,
+      "cosine": 0.0032806162023916842,
+      "kept_recall": 0.061333334818482396,
+      "leak_paraphrase": 0.0019999999552965165
+    },
+    {
+      "noise": 1.0,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0029999999329447745,
+      "mean_rank": 179.0,
+      "norm_ratio": 56.70421180725098,
+      "cosine": 0.002457090017560404,
+      "kept_recall": 0.031000000797212122,
+      "leak_paraphrase": 0.0019999999552965165
+    },
+    {
+      "noise": 1.5,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0019999999552965165,
+      "mean_rank": 185.332,
+      "norm_ratio": 85.05254821777343,
+      "cosine": 0.0016334782689227723,
+      "kept_recall": 0.01366666699759662,
+      "leak_paraphrase": 0.0009999999776482583
+    },
+    {
+      "noise": 2.0,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0019999999552965165,
+      "mean_rank": 188.544,
+      "norm_ratio": 113.4016014099121,
+      "cosine": 0.0012216501141665503,
+      "kept_recall": 0.01000000024214387,
+      "leak_paraphrase": 0.0009999999776482583
+    },
+    {
+      "noise": 3.0,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0019999999552965165,
+      "mean_rank": 191.714,
+      "norm_ratio": 170.10042266845704,
+      "cosine": 0.0008098120481008664,
+      "kept_recall": 0.007666666759178042,
+      "leak_paraphrase": 0.0009999999776482583
+    },
+    {
+      "noise": 5.0,
+      "n_facts": 400,
+      "n_erase": 100,
+      "leak_argmax": 0.0019999999552965165,
+      "mean_rank": 194.23100000000005,
+      "norm_ratio": 283.49892272949216,
+      "cosine": 0.0004803368356078863,
+      "kept_recall": 0.005333333322778344,
+      "leak_paraphrase": 0.0
+    }
+  ],
+  "summary": {
+    "per_noise": [
+      {
+        "noise": 0.0,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.9459999799728394,
+        "mean_rank": 3.077,
+        "norm_ratio": 0.5744873702526092,
+        "cosine": 0.2741721302270889,
+        "kept_recall": 1.0,
+        "leak_paraphrase": 0.9339999794960022
+      },
+      {
+        "noise": 0.1,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0899999976158142,
+        "mean_rank": 51.61999999999999,
+        "norm_ratio": 5.712143993377685,
+        "cosine": 0.0245662335306406,
+        "kept_recall": 1.0,
+        "leak_paraphrase": 0.08799999784678221
+      },
+      {
+        "noise": 0.25,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.012999999709427357,
+        "mean_rank": 125.31799999999998,
+        "norm_ratio": 14.19238052368164,
+        "cosine": 0.009862108062952757,
+        "kept_recall": 0.8050000131130218,
+        "leak_paraphrase": 0.010999999754130841
+      },
+      {
+        "noise": 0.5,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0029999999329447745,
+        "mean_rank": 160.317,
+        "norm_ratio": 28.358736991882324,
+        "cosine": 0.004927290440537036,
+        "kept_recall": 0.1873333364725113,
+        "leak_paraphrase": 0.004999999888241291
+      },
+      {
+        "noise": 0.75,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0029999999329447745,
+        "mean_rank": 172.61700000000002,
+        "norm_ratio": 42.53076057434082,
+        "cosine": 0.0032806162023916842,
+        "kept_recall": 0.061333334818482396,
+        "leak_paraphrase": 0.0019999999552965165
+      },
+      {
+        "noise": 1.0,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0029999999329447745,
+        "mean_rank": 179.0,
+        "norm_ratio": 56.70421180725098,
+        "cosine": 0.002457090017560404,
+        "kept_recall": 0.031000000797212122,
+        "leak_paraphrase": 0.0019999999552965165
+      },
+      {
+        "noise": 1.5,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0019999999552965165,
+        "mean_rank": 185.332,
+        "norm_ratio": 85.05254821777343,
+        "cosine": 0.0016334782689227723,
+        "kept_recall": 0.01366666699759662,
+        "leak_paraphrase": 0.0009999999776482583
+      },
+      {
+        "noise": 2.0,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0019999999552965165,
+        "mean_rank": 188.544,
+        "norm_ratio": 113.4016014099121,
+        "cosine": 0.0012216501141665503,
+        "kept_recall": 0.01000000024214387,
+        "leak_paraphrase": 0.0009999999776482583
+      },
+      {
+        "noise": 3.0,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0019999999552965165,
+        "mean_rank": 191.714,
+        "norm_ratio": 170.10042266845704,
+        "cosine": 0.0008098120481008664,
+        "kept_recall": 0.007666666759178042,
+        "leak_paraphrase": 0.0009999999776482583
+      },
+      {
+        "noise": 5.0,
+        "n_facts": 400,
+        "n_erase": 100,
+        "leak_argmax": 0.0019999999552965165,
+        "mean_rank": 194.23100000000005,
+        "norm_ratio": 283.49892272949216,
+        "cosine": 0.0004803368356078863,
+        "kept_recall": 0.005333333322778344,
+        "leak_paraphrase": 0.0
+      }
+    ]
+  }
+}

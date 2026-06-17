@@ -1,0 +1,17 @@
+{
+  "anchor_name": "sparse_hopfield_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse top-k Hopfield matches softmax within 0.02 -- exact-zero interpretable attention with no recall loss. dense=1.000 sparse=1.000 delta=0.000 (top-5)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dense": 1.0,
+      "sparse": 1.0,
+      "delta": 0.0,
+      "topk": 5
+    }
+  ],
+  "elapsed_s": 0.030047178268432617,
+  "summary": "HARD_PASS: sparse top-k Hopfield matches softmax within 0.02 -- exact-zero interpretable attention with no recall loss. dense=1.000 sparse=1.000 delta=0.000 (top-5)"
+}

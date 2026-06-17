@@ -1,0 +1,266 @@
+{
+  "anchor_name": "substrate_capacity_stress_composition_v1_n16384",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: EXACT at M/N<=0.12, degrades at M/N>=0.15 (boundary near alpha_c=0.138). fids=0.03:1.0000 0.06:1.0000 0.09:1.0000 0.12:1.0000 0.15:0.9999 0.18:0.9998 0.21:0.9996",
+  "N": 16384,
+  "L": 50,
+  "run_mode": "full",
+  "MN_grid": [
+    0.03,
+    0.06,
+    0.09,
+    0.12,
+    0.15,
+    0.18,
+    0.21
+  ],
+  "n_seeds": 5,
+  "elapsed_s": 124.91056227684021,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "mn": 0.03,
+          "M_INNER": 492,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.06,
+          "M_INNER": 983,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.09,
+          "M_INNER": 1475,
+          "mean_fidelity": 0.9999975087691326,
+          "inner_fidelity": 0.9998779296875
+        },
+        {
+          "mn": 0.12,
+          "M_INNER": 1966,
+          "mean_fidelity": 0.9999788245376275,
+          "inner_fidelity": 0.99896240234375
+        },
+        {
+          "mn": 0.15,
+          "M_INNER": 2458,
+          "mean_fidelity": 0.9999090700733418,
+          "inner_fidelity": 0.99554443359375
+        },
+        {
+          "mn": 0.18,
+          "M_INNER": 2949,
+          "mean_fidelity": 0.9997770348373725,
+          "inner_fidelity": 0.98907470703125
+        },
+        {
+          "mn": 0.21,
+          "M_INNER": 3441,
+          "mean_fidelity": 0.9996935786033163,
+          "inner_fidelity": 0.9849853515625
+        }
+      ],
+      "peak_gpu_gb": 2.510176256,
+      "elapsed_s": 26.333390712738037
+    },
+    {
+      "seed": 17,
+      "cells": [
+        {
+          "mn": 0.03,
+          "M_INNER": 492,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.06,
+          "M_INNER": 983,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.09,
+          "M_INNER": 1475,
+          "mean_fidelity": 0.9999950175382653,
+          "inner_fidelity": 0.999755859375
+        },
+        {
+          "mn": 0.12,
+          "M_INNER": 1966,
+          "mean_fidelity": 0.9999838069993623,
+          "inner_fidelity": 0.99920654296875
+        },
+        {
+          "mn": 0.15,
+          "M_INNER": 2458,
+          "mean_fidelity": 0.9999090700733418,
+          "inner_fidelity": 0.99554443359375
+        },
+        {
+          "mn": 0.18,
+          "M_INNER": 2949,
+          "mean_fidelity": 0.9998393156090561,
+          "inner_fidelity": 0.99212646484375
+        },
+        {
+          "mn": 0.21,
+          "M_INNER": 3441,
+          "mean_fidelity": 0.9996699119100765,
+          "inner_fidelity": 0.98382568359375
+        }
+      ],
+      "peak_gpu_gb": 2.510176256,
+      "elapsed_s": 24.68788170814514
+    },
+    {
+      "seed": 23,
+      "cells": [
+        {
+          "mn": 0.03,
+          "M_INNER": 492,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.06,
+          "M_INNER": 983,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.09,
+          "M_INNER": 1475,
+          "mean_fidelity": 0.9999937719228317,
+          "inner_fidelity": 0.99969482421875
+        },
+        {
+          "mn": 0.12,
+          "M_INNER": 1966,
+          "mean_fidelity": 0.9999638771524235,
+          "inner_fidelity": 0.99822998046875
+        },
+        {
+          "mn": 0.15,
+          "M_INNER": 2458,
+          "mean_fidelity": 0.9998903858418368,
+          "inner_fidelity": 0.99462890625
+        },
+        {
+          "mn": 0.18,
+          "M_INNER": 2949,
+          "mean_fidelity": 0.9998330875318877,
+          "inner_fidelity": 0.9918212890625
+        },
+        {
+          "mn": 0.21,
+          "M_INNER": 3441,
+          "mean_fidelity": 0.9996699119100765,
+          "inner_fidelity": 0.98382568359375
+        }
+      ],
+      "peak_gpu_gb": 2.510176256,
+      "elapsed_s": 24.73643708229065
+    },
+    {
+      "seed": 31,
+      "cells": [
+        {
+          "mn": 0.03,
+          "M_INNER": 492,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.06,
+          "M_INNER": 983,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.09,
+          "M_INNER": 1475,
+          "mean_fidelity": 0.9999862982302296,
+          "inner_fidelity": 0.99932861328125
+        },
+        {
+          "mn": 0.12,
+          "M_INNER": 1966,
+          "mean_fidelity": 0.9999626315369898,
+          "inner_fidelity": 0.9981689453125
+        },
+        {
+          "mn": 0.15,
+          "M_INNER": 2458,
+          "mean_fidelity": 0.9999339823820153,
+          "inner_fidelity": 0.99676513671875
+        },
+        {
+          "mn": 0.18,
+          "M_INNER": 2949,
+          "mean_fidelity": 0.99981689453125,
+          "inner_fidelity": 0.99102783203125
+        },
+        {
+          "mn": 0.21,
+          "M_INNER": 3441,
+          "mean_fidelity": 0.9996213329081632,
+          "inner_fidelity": 0.98150634765625
+        }
+      ],
+      "peak_gpu_gb": 2.510176256,
+      "elapsed_s": 24.572221755981445
+    },
+    {
+      "seed": 41,
+      "cells": [
+        {
+          "mn": 0.03,
+          "M_INNER": 492,
+          "mean_fidelity": 1.0,
+          "inner_fidelity": 1.0
+        },
+        {
+          "mn": 0.06,
+          "M_INNER": 983,
+          "mean_fidelity": 0.9999987543845663,
+          "inner_fidelity": 0.99993896484375
+        },
+        {
+          "mn": 0.09,
+          "M_INNER": 1475,
+          "mean_fidelity": 0.9999962631536989,
+          "inner_fidelity": 0.99981689453125
+        },
+        {
+          "mn": 0.12,
+          "M_INNER": 1966,
+          "mean_fidelity": 0.9999701052295918,
+          "inner_fidelity": 0.99853515625
+        },
+        {
+          "mn": 0.15,
+          "M_INNER": 2458,
+          "mean_fidelity": 0.9999190349968112,
+          "inner_fidelity": 0.99603271484375
+        },
+        {
+          "mn": 0.18,
+          "M_INNER": 2949,
+          "mean_fidelity": 0.9997770348373725,
+          "inner_fidelity": 0.98907470703125
+        },
+        {
+          "mn": 0.21,
+          "M_INNER": 3441,
+          "mean_fidelity": 0.9995677714445153,
+          "inner_fidelity": 0.97882080078125
+        }
+      ],
+      "peak_gpu_gb": 2.510176256,
+      "elapsed_s": 24.513949632644653
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "verdict": "BET_V_KILLED",
+  "verdict_msg": "Stored vs unstored confidence indistinguishable: 0.358 vs 0.386. Substrate cannot self-report knowledge.",
+  "elapsed_s": 0.125,
+  "summary": {
+    "stored_confidence": 0.3579823045472652,
+    "unstored_confidence": 0.3856273117637263,
+    "per_seed": [
+      {
+        "stored": 0.3579823045472652,
+        "unstored": 0.3856273117637263
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 30,
+    "n_probes": 20,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "multi_relation_kg_sharded_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sharding restores bidirectional KG recall to >=0.90 at 5000 entities where monolithic collapses -- KG must be sharded by subject/object. sharded (s,r)->o=0.970 (r,o)->s=0.945 monolithic=0.015",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mono": 0.015,
+      "sro": 0.97,
+      "ros": 0.945,
+      "m": 0.945
+    }
+  ],
+  "elapsed_s": 10.534055233001709,
+  "summary": "HARD_PASS: sharding restores bidirectional KG recall to >=0.90 at 5000 entities where monolithic collapses -- KG must be sharded by subject/object. sharded (s,r)->o=0.970 (r,o)->s=0.945 monolithic=0.015"
+}

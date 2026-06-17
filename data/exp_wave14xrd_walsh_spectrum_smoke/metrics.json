@@ -1,0 +1,72 @@
+{
+  "verdict": "XRD_NO_PEAKS",
+  "verdict_msg": "No K shows SNR>=2.0. Substrate is amorphous from start - unexpected. Test setup likely broken.",
+  "elapsed_s": 0.3120000000053551,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      20,
+      100,
+      300
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "K": 20,
+      "N": 512,
+      "peak_snr": 1.4177546440141113,
+      "per_seed_snr": [
+        1.4177546440141113
+      ]
+    },
+    {
+      "K": 100,
+      "N": 512,
+      "peak_snr": 1.1549857742543934,
+      "per_seed_snr": [
+        1.1549857742543934
+      ]
+    },
+    {
+      "K": 300,
+      "N": 512,
+      "peak_snr": 1.0871999400246195,
+      "per_seed_snr": [
+        1.0871999400246195
+      ]
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "K": 20,
+        "N": 512,
+        "peak_snr": 1.4177546440141113,
+        "per_seed_snr": [
+          1.4177546440141113
+        ]
+      },
+      {
+        "K": 100,
+        "N": 512,
+        "peak_snr": 1.1549857742543934,
+        "per_seed_snr": [
+          1.1549857742543934
+        ]
+      },
+      {
+        "K": 300,
+        "N": 512,
+        "peak_snr": 1.0871999400246195,
+        "per_seed_snr": [
+          1.0871999400246195
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "verdict": "NOISY_EDIT_BOTH_PASS",
+  "verdict_msg": "Both arms tolerate noisy edits across radii [8].",
+  "elapsed_s": 1.4839999999985594,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_h": {
+          "8": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_h": {
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          }
+        ]
+      },
+      "correlated": {
+        "per_h": {
+          "8": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_h": {
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 512,
+    "n_edit": 5,
+    "n_kept": 20,
+    "hamming_radii": [
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

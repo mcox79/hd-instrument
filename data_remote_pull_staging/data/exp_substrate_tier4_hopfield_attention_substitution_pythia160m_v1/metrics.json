@@ -1,0 +1,35 @@
+{
+  "anchor_name": "substrate_tier4_hopfield_attention_substitution_pythia160m_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-attention is training-stable inside Pythia-160M. entropy_ratio(substrate/others)=3.58 grad_ratio=0.6 ppl_ratio(substrate/baseline)=0.94",
+  "model": "EleutherAI/pythia-160m",
+  "swap_layer": 6,
+  "run_mode": "full",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 7,
+      "substrate_ppl": 7.913797440529806,
+      "baseline_ppl": 8.61738237123511,
+      "ppl_ratio": 0.9183528244061412,
+      "swap_layer_entropy": 3.8671348094940186,
+      "other_layers_entropy": 1.0824739973653446,
+      "ent_ratio": 3.572496720783889,
+      "grad_ratio": 0.715636052526199,
+      "substrate_wall": 41.734413623809814
+    },
+    {
+      "seed": 17,
+      "substrate_ppl": 9.15038709142999,
+      "baseline_ppl": 9.528558449772166,
+      "ppl_ratio": 0.9603117972885467,
+      "swap_layer_entropy": 3.867333173751831,
+      "other_layers_entropy": 1.0798206119374796,
+      "ent_ratio": 3.581458926989149,
+      "grad_ratio": 0.5586548842063185,
+      "substrate_wall": 41.54613494873047
+    }
+  ],
+  "elapsed_s": 170.43179774284363,
+  "summary": "HARD_PASS: substrate-attention is training-stable inside Pythia-160M. entropy_ratio(substrate/others)=3.58 grad_ratio=0.6 ppl_ratio(substrate/baseline)=0.94"
+}

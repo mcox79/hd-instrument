@@ -1,0 +1,20 @@
+{
+  "anchor_name": "path5_schema_retrieval_mwp_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: schema retrieval <+0.04 over 0.39 -- structural-memory retrieval does NOT break the operand-selection plateau; 4th INDEPENDENT triangulation angle = MWP plateau is corpus/comprehension-bound (per brain-can-do-it refined rule, honest negative IS evidence; supports Phase-6 math+science ingestion). schema-retrieval acc=0.3133 (majority-op 0.2048, n=83, k=5) vs discriminative ~0.39",
+  "summary": "HARD_FAIL: schema retrieval <+0.04 over 0.39 -- structural-memory retrieval does NOT break the operand-selection plateau; 4th INDEPENDENT triangulation angle = MWP plateau is corpus/comprehension-bound (per brain-can-do-it refined rule, honest negative IS evidence; supports Phase-6 math+science ingestion). schema-retrieval acc=0.3133 (majority-op 0.2048, n=83, k=5) vs discriminative ~0.39",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.3133,
+      "accuracy": 0.3133,
+      "schema_acc": 0.3133,
+      "majority_acc": 0.2048,
+      "lift_over_baseline": -0.0767,
+      "n": 83,
+      "k": 5
+    }
+  ],
+  "elapsed_s": 0.06321883201599121
+}

@@ -1,0 +1,27 @@
+{
+  "verdict": "HIPPO_REPLAY_MIDDLE",
+  "verdict_msg": "Intermediate: delta=-0.0133. mean_ret_zero=0.7589 mean_ret_hippo=0.7457.",
+  "elapsed_s": 1.089,
+  "summary": {
+    "N": 256,
+    "f_mix": 0.5,
+    "mean_retention_zero": 0.7589,
+    "mean_retention_hippo": 0.7457,
+    "delta_hippo_minus_zero": -0.0133,
+    "seeds_zero": [
+      0.75894
+    ],
+    "seeds_hippo": [
+      0.74565
+    ]
+  },
+  "config": {
+    "N": 256,
+    "f_mix": 0.5,
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "hippo_scale": 0.1
+  }
+}

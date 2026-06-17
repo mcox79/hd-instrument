@@ -1,0 +1,19 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: eps=1e-03: mean_W=1.5 (HP<=100 HF>200). All: eps=1e-03:W_mean=1.5 eps=1e-02:W_mean=1.5 eps=1e-01:W_mean=1.5",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 512,
+  "TARGET_EPS": 0.001,
+  "HP_W_DETECT": 100,
+  "HF_W_DETECT": 200,
+  "SIGMA_THRESH": 3.0,
+  "eps_list": [
+    0.001,
+    0.01,
+    0.1
+  ],
+  "target_eps_mean_W": 1.5,
+  "target_eps_n_detected": 2,
+  "elapsed_total_s": 0.5183286666870117
+}

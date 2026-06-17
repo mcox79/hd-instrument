@@ -1,0 +1,17 @@
+{
+  "anchor_name": "khop_bundle_noise_battery_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: K_max(B2)<15 -- noise accumulation not polynomial; cross-shard K-hop not noise-safe as modelled. K_max: {'dense_B1': 6, 'dense_B2': 12, 'dense_B10': 50, 'sparse_B10': 50} | polynomial(1/sqrt(B)) fit R^2=0.90",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dense_B1": 6,
+      "dense_B2": 12,
+      "dense_B10": 50,
+      "sparse_B10": 50
+    }
+  ],
+  "elapsed_s": 2.6650607585906982,
+  "summary": "HARD_FAIL: K_max(B2)<15 -- noise accumulation not polynomial; cross-shard K-hop not noise-safe as modelled. K_max: {'dense_B1': 6, 'dense_B2': 12, 'dense_B10': 50, 'sparse_B10': 50} | polynomial(1/sqrt(B)) fit R^2=0.90"
+}

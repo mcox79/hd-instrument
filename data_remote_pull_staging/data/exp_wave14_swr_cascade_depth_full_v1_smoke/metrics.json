@@ -1,0 +1,59 @@
+{
+  "verdict": "SWR_DEPTH_INCONCLUSIVE",
+  "verdict_msg": "Need >= 4 depths to classify; got [1, 2, 3].",
+  "elapsed_s": 1.7349999999860302,
+  "summary": {
+    "by_depth": {
+      "1": {
+        "per_seed": {
+          "17": {
+            "retA": 0.8952841475614316,
+            "bpc_baseline": 4.148816595077514,
+            "bpc_after": 4.634078025817871
+          }
+        },
+        "mean_retA": 0.8952841475614316
+      },
+      "2": {
+        "per_seed": {
+          "17": {
+            "retA": 0.9231048296155836,
+            "bpc_baseline": 4.148816595077514,
+            "bpc_after": 4.494415435791016
+          }
+        },
+        "mean_retA": 0.9231048296155836
+      },
+      "3": {
+        "per_seed": {
+          "17": {
+            "retA": 0.8661000716943837,
+            "bpc_baseline": 4.148816595077514,
+            "bpc_after": 4.790227746963501
+          }
+        },
+        "mean_retA": 0.8661000716943837
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "chunk_fraction": 0.5,
+    "biology_knee_jump": 0.12,
+    "smooth_max_delta": 0.1,
+    "smooth_var": 0.003
+  }
+}

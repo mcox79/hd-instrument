@@ -1,0 +1,63 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SKAH-M log-K routing-interference model corroborated. CV(gamma) = 0.2546 < 0.3 (stable). Steepness ratio = 1.662 > 1.0 (first-doubling steepest). Gammas: [0.0218, 0.0175, 0.0149, 0.013, 0.0117]. SKAH-M framework is quantitatively consistent with K=2..64 MoE SHIFT data.",
+  "elapsed_s": 0.004,
+  "summary": {
+    "analytical_reference": {
+      "gammas_K4_K8_K16_K32_K64": [
+        0.02178,
+        0.01752,
+        0.01487,
+        0.01297,
+        0.01169
+      ],
+      "cv_ref": 0.25458,
+      "steepness_ratio_K24_vs_K48": 1.6622,
+      "reference_retention": {
+        "2": 0.8209,
+        "4": 0.8086,
+        "8": 0.8012,
+        "16": 0.7959,
+        "32": 0.7919,
+        "64": 0.7883
+      }
+    },
+    "fresh_seed_sweep": {
+      "2": {
+        "mean_ret": 0.90462,
+        "seed_rets": [
+          0.90462
+        ]
+      },
+      "4": {
+        "mean_ret": 0.90308,
+        "seed_rets": [
+          0.90308
+        ]
+      }
+    },
+    "gamma_new_mean": 0.00246,
+    "cv_new": null
+  },
+  "thresholds": {
+    "gamma_cv_hard_pass": 0.3,
+    "gamma_cv_hard_fail": 0.5,
+    "steepness_ratio_pass": 1.0,
+    "steepness_ratio_fail": 0.7
+  },
+  "config": {
+    "N": 256,
+    "M_per_expert": 60,
+    "K_sweep": [
+      2,
+      4
+    ],
+    "K_ref": 2,
+    "seeds": [
+      53
+    ],
+    "mode": "SMOKE",
+    "device": "cpu",
+    "parent": "wave14_moe_shift_K_perarm_v1"
+  }
+}

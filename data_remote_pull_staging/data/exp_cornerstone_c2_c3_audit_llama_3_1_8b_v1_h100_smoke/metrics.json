@@ -1,0 +1,112 @@
+{
+  "anchor": "cornerstone_c2_c3_audit_llama_3_1_8b_v1_h100",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "AGGREGATE: MIDDLE_BAND (C2=HARD_PASS, C3=HARD_FAIL). C2: 5/5 deletion targets retained cos > 0.99 on non-targets (overall median 0.9960); HARD_PASS; substrate rank-1 deletion algebra evaluated at Llama-3.1-8B 4096-d residual frontier scale via N=16384 bipolar projection (M=50 patterns). C3: kappa_3 ratio = 1.082 (refusal k3=0.0003, benign k3=0.0003); HARD_FAIL; drift detection between refusal and benign Llama-3.1-8B residual populations evaluated at N=16384 with 200 Hutchinson probes per population (M=5 per pop).",
+  "elapsed_s": 52.0,
+  "summary": {
+    "run_mode": "smoke",
+    "anchor": "cornerstone_c2_c3_audit_llama_3_1_8b_v1_h100",
+    "c2_verdict": "HARD_PASS",
+    "c3_verdict": "HARD_FAIL",
+    "aggregate_verdict": "MIDDLE_BAND",
+    "c2": {
+      "verdict": "HARD_PASS",
+      "verdict_msg": "C2: 5/5 deletion targets retained cos > 0.99 on non-targets (overall median 0.9960); HARD_PASS; substrate rank-1 deletion algebra evaluated at Llama-3.1-8B 4096-d residual frontier scale via N=16384 bipolar projection (M=50 patterns).",
+      "median_cos_per_target": [
+        0.9960505962371826,
+        0.9960079789161682,
+        0.9960371851921082,
+        0.9960454106330872,
+        0.9959953427314758
+      ],
+      "overall_median_cos": 0.9960371851921082,
+      "n_hp_targets": 5,
+      "n_deletion_targets": 5,
+      "n_non_target_probes": 100,
+      "M_patterns": 50,
+      "substrate_N": 16384,
+      "residual_source": "synthetic_smoke",
+      "per_target": [
+        {
+          "target_index": 42,
+          "median_cos": 0.9960505962371826,
+          "mean_cos": 0.9961181112698146,
+          "min_cos": 0.9939776062965393,
+          "max_cos": 0.9976142644882202,
+          "n_probes": 49
+        },
+        {
+          "target_index": 21,
+          "median_cos": 0.9960079789161682,
+          "mean_cos": 0.9960891081362354,
+          "min_cos": 0.9942501187324524,
+          "max_cos": 0.9975797533988953,
+          "n_probes": 49
+        },
+        {
+          "target_index": 5,
+          "median_cos": 0.9960371851921082,
+          "mean_cos": 0.9961752076538242,
+          "min_cos": 0.9948874711990356,
+          "max_cos": 0.9974518418312073,
+          "n_probes": 49
+        },
+        {
+          "target_index": 31,
+          "median_cos": 0.9960454106330872,
+          "mean_cos": 0.9961079346890352,
+          "min_cos": 0.9940441846847534,
+          "max_cos": 0.9974815249443054,
+          "n_probes": 49
+        },
+        {
+          "target_index": 17,
+          "median_cos": 0.9959953427314758,
+          "mean_cos": 0.996077896380911,
+          "min_cos": 0.9939830303192139,
+          "max_cos": 0.9974960088729858,
+          "n_probes": 49
+        }
+      ],
+      "thresholds": {
+        "hp_cos": 0.99,
+        "mid_cos_low": 0.95,
+        "hp_targets_ok": 4
+      },
+      "anchor": "substrate_deletion_cert_llama_3_1_8b_v1_h100",
+      "cell": "C2",
+      "elapsed_s": 42.65599999995902,
+      "summary": "C2: 5/5 deletion targets retained cos > 0.99 on non-targets (overall median 0.9960); HARD_PASS; substrate rank-1 deletion algebra evaluated at Llama-3.1-8B 4096-d residual frontier scale via N=16384 bipolar projection (M=50 patterns)."
+    },
+    "c3": {
+      "verdict": "HARD_FAIL",
+      "verdict_msg": "C3: kappa_3 ratio = 1.082 (refusal k3=0.0003, benign k3=0.0003); HARD_FAIL; drift detection between refusal and benign Llama-3.1-8B residual populations evaluated at N=16384 with 200 Hutchinson probes per population (M=5 per pop).",
+      "kappa_3_refusal": 0.0003198656547247447,
+      "kappa_3_refusal_se": 1.549149383933046e-05,
+      "kappa_3_benign": 0.00029565978495887046,
+      "kappa_3_benign_se": 1.2744072492051746e-05,
+      "ratio": 1.0818706871793253,
+      "n_probes": 200,
+      "n_per_population": 5,
+      "substrate_N": 16384,
+      "residual_source": "synthetic_smoke",
+      "thresholds": {
+        "hp_ratio": 4.0,
+        "mid_ratio_low": 2.0
+      },
+      "anchor": "substrate_drift_detection_refusal_benign_llama_3_1_8b_v1_h100",
+      "cell": "C3",
+      "elapsed_s": 51.95299999997951,
+      "summary": "C3: kappa_3 ratio = 1.082 (refusal k3=0.0003, benign k3=0.0003); HARD_FAIL; drift detection between refusal and benign Llama-3.1-8B residual populations evaluated at N=16384 with 200 Hutchinson probes per population (M=5 per pop)."
+    },
+    "boot_error": null,
+    "substrate_N": 16384,
+    "llm_hidden": 4096,
+    "M_patterns": 50,
+    "kappa_3_probes": 200,
+    "refusal_benign_n": 5,
+    "use_synthetic": true
+  },
+  "cell": "C2_C3_batch",
+  "cornerstone_batch": "cornerstone_c1_c2_c3_llama_3_1_8b_h100"
+}

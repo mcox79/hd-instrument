@@ -1,0 +1,15 @@
+{
+  "anchor_name": "depparse_v2_mst_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: corpus_load_failed",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "error": "corpus_load_failed",
+      "uas": 0.0
+    }
+  ],
+  "elapsed_s": 0.020004987716674805,
+  "summary": "UNKNOWN: corpus_load_failed"
+}

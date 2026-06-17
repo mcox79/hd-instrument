@@ -1,0 +1,88 @@
+{
+  "anchor_name": "substrate_trained_mini_lm_readout_fix_nsweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no learning at any N (max gap 0.026 < 0.3); de-confound refuted. gaps=N128:0.005 N256:-0.004 N512:0.026 thresh=None monotone=True max_gap=0.026",
+  "N_grid": [
+    128,
+    256,
+    512
+  ],
+  "run_mode": "smoke",
+  "alpha_max": 0.05,
+  "n_seeds": 2,
+  "elapsed_s": 3.252768039703369,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "N": 128,
+          "calibrated_bpc": 5.512836335381855,
+          "temp1_bpc": 5.513174823065813,
+          "best_temp": 0.5,
+          "uniform_bpc": 5.523561956057013,
+          "gap": 0.010725620675158254,
+          "n_train_pairs": 7,
+          "max_alpha": 0.0546875
+        },
+        {
+          "N": 256,
+          "calibrated_bpc": 5.5249386019608355,
+          "temp1_bpc": 5.5249386019608355,
+          "best_temp": 1.0,
+          "uniform_bpc": 5.523561956057013,
+          "gap": -0.001376645903822471,
+          "n_train_pairs": 13,
+          "max_alpha": 0.05078125
+        },
+        {
+          "N": 512,
+          "calibrated_bpc": 5.528574527508058,
+          "temp1_bpc": 5.528574527508058,
+          "best_temp": 1.0,
+          "uniform_bpc": 5.523561956057013,
+          "gap": -0.005012571451044501,
+          "n_train_pairs": 26,
+          "max_alpha": 0.05078125
+        }
+      ],
+      "elapsed_s": 1.6299998760223389
+    },
+    {
+      "seed": 17,
+      "cells": [
+        {
+          "N": 128,
+          "calibrated_bpc": 5.52515790699489,
+          "temp1_bpc": 5.52515790699489,
+          "best_temp": 1.0,
+          "uniform_bpc": 5.523561956057013,
+          "gap": -0.0015959509378769,
+          "n_train_pairs": 7,
+          "max_alpha": 0.0546875
+        },
+        {
+          "N": 256,
+          "calibrated_bpc": 5.530531455063173,
+          "temp1_bpc": 5.530531455063173,
+          "best_temp": 1.0,
+          "uniform_bpc": 5.523561956057013,
+          "gap": -0.0069694990061597295,
+          "n_train_pairs": 13,
+          "max_alpha": 0.05078125
+        },
+        {
+          "N": 512,
+          "calibrated_bpc": 5.467545595308695,
+          "temp1_bpc": 5.506342936625238,
+          "best_temp": 0.15,
+          "uniform_bpc": 5.523561956057013,
+          "gap": 0.05601636074831795,
+          "n_train_pairs": 26,
+          "max_alpha": 0.05078125
+        }
+      ],
+      "elapsed_s": 1.5704374313354492
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "confidence_weighted_bundling_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: confidence-weighting no better than naive. f=4/10 Byzantine: confidence_weighted=1.000 naive=1.000 delta=+0.000",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "f": 4,
+      "cw": 1.0,
+      "naive": 1.0
+    }
+  ],
+  "elapsed_s": 3.750753879547119,
+  "summary": "HARD_FAIL: confidence-weighting no better than naive. f=4/10 Byzantine: confidence_weighted=1.000 naive=1.000 delta=+0.000"
+}

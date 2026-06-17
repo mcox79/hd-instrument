@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4b_collins_ab_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: structured ~ flat (within 2SE) -- flat perceptron captures the signal on 2-quantity SVAMP; assignment-structure benefit likely only for 3+ entities. Ship flat; dep-parser for >0.30. A(flat)=0.159 B(structured)=0.155 diff=-0.003 2SE=0.060",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "A": 0.159,
+      "B": 0.155,
+      "diff": -0.003,
+      "two_se": 0.06,
+      "n_test": 290
+    }
+  ],
+  "elapsed_s": 3.7177162170410156,
+  "summary": "MIDDLE_BAND: structured ~ flat (within 2SE) -- flat perceptron captures the signal on 2-quantity SVAMP; assignment-structure benefit likely only for 3+ entities. Ship flat; dep-parser for >0.30. A(flat)=0.159 B(structured)=0.155 diff=-0.003 2SE=0.060"
+}

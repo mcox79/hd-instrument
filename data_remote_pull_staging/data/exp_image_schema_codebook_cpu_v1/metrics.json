@@ -1,0 +1,16 @@
+{
+  "anchor_name": "image_schema_codebook_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate grounds abstract concepts in image-schemas (retrieval>=0.85) AND concepts sharing a schema cluster across domains (purity>=0.70) -- embodied grounding of abstract cognition via Lakoff/Johnson primitives, substrate-only. grounding=1.000 cross-domain-cluster-purity=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "grounding_acc": 1.0,
+      "cluster_purity": 1.0,
+      "n_concepts": 200
+    }
+  ],
+  "elapsed_s": 36.07775092124939,
+  "summary": "HARD_PASS: substrate grounds abstract concepts in image-schemas (retrieval>=0.85) AND concepts sharing a schema cluster across domains (purity>=0.70) -- embodied grounding of abstract cognition via Lakoff/Johnson primitives, substrate-only. grounding=1.000 cross-domain-cluster-purity=1.000"
+}

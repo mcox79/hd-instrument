@@ -1,0 +1,77 @@
+{
+  "verdict": "VAMP_AMP_CONTRAST_PASS",
+  "verdict_msg": "Clean substrate-product split: VAMP-SE tracks empirical VAMP (3/3 cells < 20% rel err, mean=0.021) while AMP-SE diverges from empirical AMP (1/3 cells close, mean=0.450). Mechanism: VAMP uses the full singular spectrum (S-transform-equivalent info); AMP uses only the scalar mean and breaks on Kerdock's higher kappa_n.",
+  "elapsed_s": 1411.3280000000377,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 4096,
+        "M": 2048,
+        "vamp_se_mse": 0.5084717413410544,
+        "vamp_emp_mse": 0.5247517333153603,
+        "amp_se_mse": 0.5049028943114744,
+        "amp_emp_mse": 0.7037792269281316,
+        "vamp_se_std": 2.9161458479766856e-06,
+        "vamp_emp_std": 0.020855782908078237,
+        "amp_emp_std": 0.033235965414517836,
+        "vamp_rel_err": 0.031024179513328178,
+        "amp_rel_err": 0.2825834082723871
+      },
+      {
+        "alpha": 1.0,
+        "N": 4096,
+        "M": 4096,
+        "vamp_se_mse": 0.0839705541729927,
+        "vamp_emp_mse": 0.08636672247717028,
+        "amp_se_mse": 0.09512492197593597,
+        "amp_emp_mse": 0.08759749856070012,
+        "vamp_se_std": 2.9982196863046686e-05,
+        "vamp_emp_std": 0.00697781476571519,
+        "amp_emp_std": 0.007403452054794781,
+        "vamp_rel_err": 0.027744115273228835,
+        "amp_rel_err": 0.07913197991521176
+      },
+      {
+        "alpha": 2.0,
+        "N": 4096,
+        "M": 8192,
+        "vamp_se_mse": 0.007397949323058128,
+        "vamp_emp_mse": 0.007355812854679705,
+        "amp_se_mse": 0.019244744896542747,
+        "amp_emp_mse": 1.6635421571822413,
+        "vamp_se_std": 1.3551614395297248e-06,
+        "vamp_emp_std": 0.0001095068533664717,
+        "amp_emp_std": 0.0072749130439199216,
+        "vamp_rel_err": 0.005695695731125203,
+        "amp_rel_err": 0.9884314654645482
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 4096,
+      "M_over_N_list": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 5,
+      "n_iter": 300
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_over_N_list": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 5,
+    "n_iter": 300
+  }
+}

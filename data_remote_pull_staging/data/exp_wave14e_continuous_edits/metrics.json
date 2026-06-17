@@ -1,0 +1,37 @@
+{
+  "N": 4096,
+  "K": 4,
+  "GAMMA_VALUES": [
+    1.0,
+    2.0,
+    4.0,
+    8.0
+  ],
+  "ALPHAS": [
+    0.0,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    0.9,
+    1.0
+  ],
+  "results_per_gamma": {
+    "1.0": {
+      "mono_a_rate": 1.0,
+      "mono_b_rate": 1.0
+    },
+    "2.0": {
+      "mono_a_rate": 1.0,
+      "mono_b_rate": 1.0
+    },
+    "4.0": {
+      "mono_a_rate": 1.0,
+      "mono_b_rate": 1.0
+    },
+    "8.0": {
+      "mono_a_rate": 1.0,
+      "mono_b_rate": 1.0
+    }
+  }
+}

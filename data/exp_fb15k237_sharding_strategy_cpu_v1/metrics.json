@@ -1,0 +1,18 @@
+{
+  "anchor_name": "fb15k237_sharding_strategy_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: best real-KG sharding (subject) 1-hop recall@5>=0.85 on Freebase -- recommended v1.5 KG layout. shard-by-subject=1.000 shard-by-relation=0.843 (best=subject, 12838 ents)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "subject": 1.0,
+      "relation": 0.8425,
+      "best": 1.0,
+      "win": "subject",
+      "VE": 12838
+    }
+  ],
+  "elapsed_s": 52.95512509346008,
+  "summary": "HARD_PASS: best real-KG sharding (subject) 1-hop recall@5>=0.85 on Freebase -- recommended v1.5 KG layout. shard-by-subject=1.000 shard-by-relation=0.843 (best=subject, 12838 ents)"
+}

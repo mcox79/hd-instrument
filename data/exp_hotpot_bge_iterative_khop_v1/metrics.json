@@ -1,0 +1,17 @@
+{
+  "anchor_name": "hotpot_bge_iterative_khop_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: iterative K-hop does not beat naive bge -- text-level relay insufficient; needs explicit entity-bridge/LLM decomposition. iterative_khop_recall@2hop=0.280 naive=0.313 lift=-0.033 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 300,
+      "naive": 0.31333333333333335,
+      "substrate": 0.28,
+      "recall_2hop": 0.28
+    }
+  ],
+  "elapsed_s": 150.52436518669128,
+  "summary": "HARD_FAIL: iterative K-hop does not beat naive bge -- text-level relay insufficient; needs explicit entity-bridge/LLM decomposition. iterative_khop_recall@2hop=0.280 naive=0.313 lift=-0.033 (n=300)"
+}

@@ -1,0 +1,124 @@
+{
+  "anchor_name": "substrate_history_latent_structure_probe_cpu_v1",
+  "verdict": "WEAK",
+  "verdict_msg": "WEAK / MIXED: history shows SOME latent topical structure (coverage 0.96, 1.9x null) but not strongly -- a topical signal partially organizes history; field-appropriate instrumentation helps but the structure is looser than math's. history atoms=1245: REAL sibling-coverage=0.9566 vs NULL=0.5169 (ratio=1.85x); 2606 cohesive topic buckets (sizes [60, 60, 60, 60, 60, 60, 59, 59, 59, 58, 58, 58]). Field-appropriate signal = distinctive shared vocabulary (df-banded, boilerplate auto-stripped), chaining-free pairwise, NOT math's prereq-sharing.",
+  "summary": "WEAK / MIXED: history shows SOME latent topical structure (coverage 0.96, 1.9x null) but not strongly -- a topical signal partially organizes history; field-appropriate instrumentation helps but the structure is looser than math's. history atoms=1245: REAL sibling-coverage=0.9566 vs NULL=0.5169 (ratio=1.85x); 2606 cohesive topic buckets (sizes [60, 60, 60, 60, 60, 60, 59, 59, 59, 58, 58, 58]). Field-appropriate signal = distinctive shared vocabulary (df-banded, boilerplate auto-stripped), chaining-free pairwise, NOT math's prereq-sharing.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_history": 1245,
+      "n_eff": 1245,
+      "df_max": 99,
+      "real_coverage": 0.9566,
+      "null_coverage": 0.5169,
+      "ratio": 1.851,
+      "n_topic_buckets": 2606,
+      "bucket_sizes": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        59,
+        59,
+        59,
+        58,
+        58,
+        58,
+        58,
+        58,
+        58,
+        58,
+        58,
+        57,
+        57,
+        57
+      ],
+      "example_topics": [
+        {
+          "topic_token": "does",
+          "size": 60,
+          "members": [
+            "research_drill_1bit_depth_verify_2x_2026-06-10",
+            "research_drill_biological_precedents_animal_scales_substrate_2x_2026-06-04",
+            "research_drill_bridge_id_accuracy_2x_2026-06-07",
+            "research_drill_cross_domain_revival_3x_2026-06-10"
+          ]
+        },
+        {
+          "topic_token": "hybrid",
+          "size": 60,
+          "members": [
+            "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05",
+            "research_drill_code_synthesis_substrate_feasibility_2x_2026-06-11",
+            "research_drill_counterfactual_capability_extension_2026-06-07",
+            "research_drill_dev_speed_acceleration_phase4a_infrastructure_2x_2026-06-05"
+          ]
+        },
+        {
+          "topic_token": "failure",
+          "size": 60,
+          "members": [
+            "research_drill_7_invariants_empirical_validation_2x_2026-06-11",
+            "research_drill_aesthetic_revival_3x_2026-06-10",
+            "research_drill_bf16_projection_failure_2x_2026-06-09",
+            "research_drill_BGE_d_eff_theory_failure_2x_2026-06-07"
+          ]
+        },
+        {
+          "topic_token": "request",
+          "size": 60,
+          "members": [
+            "research_drill_activation_distillation_cascade_2x_2026-06-05",
+            "research_drill_asdiv_mixed_adversarial_2x_2026-06-11",
+            "research_drill_concept_drift_detection_2x_2026-06-07",
+            "research_drill_disparate_fields_substrate_capability_plus_process_2x_2026-06-05"
+          ]
+        },
+        {
+          "topic_token": "benchmark",
+          "size": 60,
+          "members": [
+            "research_drill_benchmark_sweep_2x_2026-06-09",
+            "research_drill_chunglu_automorphism_analogy_2x_2026-06-11",
+            "research_drill_code_synthesis_substrate_feasibility_2x_2026-06-11",
+            "research_drill_killer_demo_and_regulated_ai_deployment_2x_2026-06-05"
+          ]
+        },
+        {
+          "topic_token": "facts",
+          "size": 60,
+          "members": [
+            "research_drill_formal_math_representation_2x_2026-06-11",
+            "research_drill_generalizable_retrieval_training_5x_2026-06-09",
+            "research_drill_killer_demo_and_regulated_ai_deployment_2x_2026-06-05",
+            "research_drill_longctx_icl_ux_2x_2026-06-07"
+          ]
+        },
+        {
+          "topic_token": "cost",
+          "size": 59,
+          "members": [
+            "research_drill_activation_distillation_cascade_2x_2026-06-05",
+            "research_drill_bipartite_engineered_underperforms_learned_2x_2026-06-11",
+            "research_drill_boredom_refinement_2x_2026-06-10",
+            "research_drill_concept_drift_detection_2x_2026-06-07"
+          ]
+        },
+        {
+          "topic_token": "direction",
+          "size": 59,
+          "members": [
+            "research_drill_b3b_surprise_gating_regularization_mechanism_2x_2026-06-04",
+            "research_drill_cell3_distillation_alternatives_2x_2026-06-07",
+            "research_drill_cfrpe_sparse_shared_axis_negative_2x_2026-06-04",
+            "research_drill_distributed_coordination_patterns_3x_2026-06-07"
+          ]
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.877307653427124
+}

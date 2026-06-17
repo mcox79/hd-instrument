@@ -1,0 +1,154 @@
+{
+  "verdict": "KERDOCK_MUB_BBMD_NOVEL_SIGNATURE_CONFIRMED",
+  "verdict_msg": "HARD PASS: 2 of 3 states show TV >= 0.750 on non-native MUBs. Substrate carries BBMD-novel structure beyond MUB encoding.",
+  "elapsed_s": 0.11000000004423782,
+  "summary": {
+    "tv": {
+      "vanilla_stab": [
+        0.9375,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "enriched_kerdock": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9375,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "haar": [
+        0.32268442418767473,
+        0.44780279750507973,
+        0.30999925450066057,
+        0.343067608102653,
+        0.3669919059478397,
+        0.4004546824031514,
+        0.3269084692086507,
+        0.40112112164377023,
+        0.4019964930093044,
+        0.3482429645141949,
+        0.3387762909923656,
+        0.3937835400256278,
+        0.22379949822083428,
+        0.36796945643304907,
+        0.32229031685162635,
+        0.27454861577867323,
+        0.37099733006629376
+      ]
+    },
+    "spike_basis_per_state": {
+      "vanilla_stab": {
+        "native": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "spike_bases": [
+          0
+        ]
+      },
+      "enriched_kerdock": {
+        "native": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "spike_bases": [
+          11
+        ]
+      },
+      "haar": {
+        "native": [],
+        "spike_bases": []
+      }
+    },
+    "n_states_with_spike": 2,
+    "all_flat": false,
+    "selftest": {
+      "unbiasedness_m2": {
+        "max_err": 0.0,
+        "n_pairs": 10,
+        "tol": 1e-08,
+        "passed": true
+      },
+      "stab_uniform_m2": {
+        "tol": 1e-10,
+        "n_mubs_checked": 4,
+        "passed": true
+      },
+      "haar_floor_m2": {
+        "mean_tv": 0.31669593790837336,
+        "std_tv": 0.1112457834291338,
+        "n_trials": 200,
+        "expected_order_of_magnitude": 0.5,
+        "passed": true
+      }
+    }
+  },
+  "config": {
+    "m": 4,
+    "N": 16,
+    "seed": 42,
+    "stat_noise": 0.25,
+    "HP_threshold": 0.75,
+    "HF_threshold": 0.375,
+    "n_mubs": 17,
+    "state_kinds": [
+      "vanilla_stab",
+      "enriched_kerdock",
+      "haar"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: depth_ratio=1.000 <= 1.0 ALL seeds at K=8. HiPPO init inapplicable in d-cliff regime. PROT-004 rescue sketch #4 CLOSED.",
+  "elapsed_s": 0.5071051120758057,
+  "summary": {
+    "K8": {
+      "K": 8,
+      "n_seeds": 1,
+      "depth_ratio_mean": 1.0,
+      "depth_ratio_std": 0.0,
+      "hippo_beats_random_frac": 0.0
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      8
+    ],
+    "seeds": [
+      7
+    ],
+    "parent": "wave14f_hippo_init_w_v1 P1_HARD_FAIL",
+    "prot004_rescue": "sketch #4 (K>=8 regime)"
+  }
+}

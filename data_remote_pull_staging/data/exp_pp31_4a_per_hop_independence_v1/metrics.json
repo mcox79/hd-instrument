@@ -1,0 +1,183 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "PP31-4A PER-HOP INDEPENDENCE: verdict=HARD_PASS | 5/5 seeds pass HP | avg_mean_rho=0.0000 avg_max_rho=0.0000 | HP: max|rho|<0.20 in >=4/5 seeds (product rule justified) | HF: max|rho|>=0.50 in >=4/5 seeds (product rule invalid)",
+  "seeds_pass": 5,
+  "seeds_hf": 0,
+  "seeds_total": 5,
+  "avg_mean_rho": 0.0,
+  "avg_max_rho": 0.0,
+  "all_results": [
+    {
+      "seed": 7,
+      "mean_rho": 0.0,
+      "max_rho": 0.0,
+      "error_rate": 0.0,
+      "corr_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "passes_hp": true,
+      "passes_hf": false
+    },
+    {
+      "seed": 17,
+      "mean_rho": 0.0,
+      "max_rho": 0.0,
+      "error_rate": 0.0,
+      "corr_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "passes_hp": true,
+      "passes_hf": false
+    },
+    {
+      "seed": 23,
+      "mean_rho": 0.0,
+      "max_rho": 0.0,
+      "error_rate": 0.0,
+      "corr_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "passes_hp": true,
+      "passes_hf": false
+    },
+    {
+      "seed": 31,
+      "mean_rho": 0.0,
+      "max_rho": 0.0,
+      "error_rate": 0.0,
+      "corr_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "passes_hp": true,
+      "passes_hf": false
+    },
+    {
+      "seed": 41,
+      "mean_rho": 0.0,
+      "max_rho": 0.0,
+      "error_rate": 0.0,
+      "corr_matrix": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "passes_hp": true,
+      "passes_hf": false
+    }
+  ],
+  "smoke": false,
+  "elapsed_s": 21.000261068344116
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "substrate_llm_triples_khop_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: LLM-triples K-hop <0.45 -- Qwen-1.5B extraction too weak; escalate to a stronger extractor (gap is extraction, not substrate -- R1 oracle=1.0). K-hop answer-recall=0.183 extraction-coverage=0.700 (n=60) vs R1 oracle 1.0 / fuzzy 0.37",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 60,
+      "recall": 0.18333333333333332,
+      "coverage": 0.7
+    }
+  ],
+  "elapsed_s": 405.09337854385376,
+  "summary": "HARD_FAIL: LLM-triples K-hop <0.45 -- Qwen-1.5B extraction too weak; escalate to a stronger extractor (gap is extraction, not substrate -- R1 oracle=1.0). K-hop answer-recall=0.183 extraction-coverage=0.700 (n=60) vs R1 oracle 1.0 / fuzzy 0.37"
+}

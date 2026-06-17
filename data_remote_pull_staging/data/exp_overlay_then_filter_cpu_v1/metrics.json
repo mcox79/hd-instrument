@@ -1,0 +1,15 @@
+{
+  "anchor_name": "overlay_then_filter_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: overlay-filter 0.40-0.50. overlay-filter=0.989 early-commit=0.989",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "overlay_filter_recall": 0.989,
+      "early_commit_recall": 0.989
+    }
+  ],
+  "elapsed_s": 10.661468982696533,
+  "summary": "MIDDLE_BAND: overlay-filter 0.40-0.50. overlay-filter=0.989 early-commit=0.989"
+}

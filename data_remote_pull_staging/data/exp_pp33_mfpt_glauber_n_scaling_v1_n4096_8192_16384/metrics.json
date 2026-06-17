@@ -1,0 +1,76 @@
+{
+  "anchor_name": "pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: scaling exponent=0.8279 (between 1-RSB and AGS RS). exponent=0.8279 r2_loglog=1.0000 r2_1rsb=1.0000 tau_means: N512=675.8 N1024=1199.7 n_seeds=2",
+  "N_values": [
+    512,
+    1024
+  ],
+  "alpha": 0.1,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "max_steps": 2000,
+  "elapsed_s": 0.7470519542694092,
+  "all_results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "alpha": 0.1,
+      "run_mode": "smoke",
+      "mean_tau": 702.3333333333334,
+      "std_tau": 43.083897481799646,
+      "tau_values": [
+        744,
+        720,
+        643
+      ],
+      "elapsed_s": 0.0910191535949707,
+      "max_steps_active": 2000
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "alpha": 0.1,
+      "run_mode": "smoke",
+      "mean_tau": 649.3333333333334,
+      "std_tau": 10.624918300339486,
+      "tau_values": [
+        662,
+        636,
+        650
+      ],
+      "elapsed_s": 0.07508063316345215,
+      "max_steps_active": 2000
+    },
+    {
+      "seed": 7,
+      "N": 1024,
+      "alpha": 0.1,
+      "run_mode": "smoke",
+      "mean_tau": 1206.0,
+      "std_tau": 67.45368781616021,
+      "tau_values": [
+        1211,
+        1286,
+        1121
+      ],
+      "elapsed_s": 0.2705082893371582,
+      "max_steps_active": 2000
+    },
+    {
+      "seed": 17,
+      "N": 1024,
+      "alpha": 0.1,
+      "run_mode": "smoke",
+      "mean_tau": 1193.3333333333333,
+      "std_tau": 134.12017828135416,
+      "tau_values": [
+        1100,
+        1097,
+        1383
+      ],
+      "elapsed_s": 0.3104438781738281,
+      "max_steps_active": 2000
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "verdict": "K2_M1_MIDDLE_BAND",
+  "verdict_msg": "M1 partial improvement: retention_A=0.719 retention_B=0.847 retention_C=0.786 delta_from_baseline=-0.021. Above baseline but below HARD-PASS.",
+  "elapsed_s": 221.7029999999795,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.7136622491349286,
+        "retention_B": 0.8478362915508321,
+        "retention_C": 0.7835532436749052,
+        "bpc_A_baseline": 2.4966356339419207,
+        "bpc_A_after_D": 3.4983434208103867,
+        "bpc_B_baseline": 5.537555630490368,
+        "bpc_B_after_D": 6.531397258734074,
+        "bpc_C_baseline": 2.07175431039485,
+        "bpc_C_after_D": 2.6440504549227763,
+        "bpc_D_after_D": 2.7255166443740038,
+        "thin_A_count": 512,
+        "chunk_fraction": 0.5
+      },
+      "17": {
+        "retention_A": 0.7315297250597111,
+        "retention_B": 0.8432106776974964,
+        "retention_C": 0.7854285851233372,
+        "bpc_A_baseline": 2.4965502330429286,
+        "bpc_A_after_D": 3.412780297942298,
+        "bpc_B_baseline": 5.554505901610508,
+        "bpc_B_after_D": 6.587328705060823,
+        "bpc_C_baseline": 2.0814518316777733,
+        "bpc_C_after_D": 2.650084133812012,
+        "bpc_D_after_D": 2.766358898272465,
+        "thin_A_count": 512,
+        "chunk_fraction": 0.5
+      },
+      "23": {
+        "retention_A": 0.721124620551411,
+        "retention_B": 0.8492143314380373,
+        "retention_C": 0.7952349552546707,
+        "bpc_A_baseline": 2.501425274762611,
+        "bpc_A_after_D": 3.468783624181193,
+        "bpc_B_baseline": 5.584342994608373,
+        "bpc_B_after_D": 6.575893491048359,
+        "bpc_C_baseline": 2.0882684466486654,
+        "bpc_C_after_D": 2.6259766787790486,
+        "bpc_D_after_D": 2.758289050527905,
+        "thin_A_count": 512,
+        "chunk_fraction": 0.5
+      },
+      "31": {
+        "retention_A": 0.7196260132611226,
+        "retention_B": 0.8443303990727766,
+        "retention_C": 0.7837550273312759,
+        "bpc_A_baseline": 2.5015176288125813,
+        "bpc_A_after_D": 3.476135635337134,
+        "bpc_B_baseline": 5.521936694542267,
+        "bpc_B_after_D": 6.540018813258797,
+        "bpc_C_baseline": 2.078432659561996,
+        "bpc_C_after_D": 2.651890689159801,
+        "bpc_D_after_D": 2.6910398942387705,
+        "thin_A_count": 512,
+        "chunk_fraction": 0.5
+      },
+      "41": {
+        "retention_A": 0.709739892530813,
+        "retention_B": 0.8528782159799096,
+        "retention_C": 0.7817361478464724,
+        "bpc_A_baseline": 2.4710441972340043,
+        "bpc_A_after_D": 3.481619425988127,
+        "bpc_B_baseline": 5.593173351080035,
+        "bpc_B_after_D": 6.5579976675260605,
+        "bpc_C_baseline": 2.0842915366536916,
+        "bpc_C_after_D": 2.6662340514705636,
+        "bpc_D_after_D": 2.7758330594823883,
+        "thin_A_count": 512,
+        "chunk_fraction": 0.5
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "chunk_fraction": 0.5,
+    "pass_ret_A": 0.8,
+    "pass_ret_B": 0.7,
+    "pass_ret_C": 0.7,
+    "fail_ret_A": 0.65,
+    "fail_delta": 0.03,
+    "baseline_ret_A": 0.74
+  }
+}

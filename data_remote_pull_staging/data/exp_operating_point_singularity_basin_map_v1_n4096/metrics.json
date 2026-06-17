@@ -1,0 +1,170 @@
+{
+  "anchor": "operating_point_singularity_basin_map_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "m_fracs": [
+    4.0,
+    5.5,
+    7.0
+  ],
+  "beta_sweep": [
+    8.0,
+    32.0,
+    128.0
+  ],
+  "seeds": [
+    17,
+    23,
+    31
+  ],
+  "n_probe": 50,
+  "cells": [
+    {
+      "M_frac": 4.0,
+      "M": 4096,
+      "beta": 8.0,
+      "N": 1024,
+      "retentions": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_retention": 1.0,
+      "retention_variance": 0.0,
+      "hysteresis_amp": 0.0,
+      "bundle_norm_var": 1.36327,
+      "spectral_gap": 0.04563
+    },
+    {
+      "M_frac": 4.0,
+      "M": 4096,
+      "beta": 32.0,
+      "N": 1024,
+      "retentions": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_retention": 1.0,
+      "retention_variance": 0.0,
+      "hysteresis_amp": 0.0,
+      "bundle_norm_var": 1.36327,
+      "spectral_gap": 0.04563
+    },
+    {
+      "M_frac": 4.0,
+      "M": 4096,
+      "beta": 128.0,
+      "N": 1024,
+      "retentions": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_retention": 1.0,
+      "retention_variance": 0.0,
+      "hysteresis_amp": 0.0,
+      "bundle_norm_var": 1.36327,
+      "spectral_gap": 0.04563
+    },
+    {
+      "M_frac": 5.5,
+      "M": 5632,
+      "beta": 8.0,
+      "N": 1024,
+      "retentions": [
+        0.8,
+        0.78,
+        0.82
+      ],
+      "mean_retention": 0.8,
+      "retention_variance": 0.0004,
+      "hysteresis_amp": 0.02,
+      "bundle_norm_var": 13.68924,
+      "spectral_gap": 0.01849
+    },
+    {
+      "M_frac": 5.5,
+      "M": 5632,
+      "beta": 32.0,
+      "N": 1024,
+      "retentions": [
+        0.8,
+        0.78,
+        0.82
+      ],
+      "mean_retention": 0.8,
+      "retention_variance": 0.0004,
+      "hysteresis_amp": 0.02,
+      "bundle_norm_var": 13.68924,
+      "spectral_gap": 0.01849
+    },
+    {
+      "M_frac": 5.5,
+      "M": 5632,
+      "beta": 128.0,
+      "N": 1024,
+      "retentions": [
+        0.8,
+        0.78,
+        0.82
+      ],
+      "mean_retention": 0.8,
+      "retention_variance": 0.0004,
+      "hysteresis_amp": 0.02,
+      "bundle_norm_var": 13.68924,
+      "spectral_gap": 0.01849
+    },
+    {
+      "M_frac": 7.0,
+      "M": 7168,
+      "beta": 8.0,
+      "N": 1024,
+      "retentions": [
+        0.64,
+        0.64,
+        0.6
+      ],
+      "mean_retention": 0.62667,
+      "retention_variance": 0.000533,
+      "hysteresis_amp": 0.0,
+      "bundle_norm_var": 10.3315,
+      "spectral_gap": 0.01849
+    },
+    {
+      "M_frac": 7.0,
+      "M": 7168,
+      "beta": 32.0,
+      "N": 1024,
+      "retentions": [
+        0.64,
+        0.64,
+        0.6
+      ],
+      "mean_retention": 0.62667,
+      "retention_variance": 0.000533,
+      "hysteresis_amp": 0.0,
+      "bundle_norm_var": 10.3315,
+      "spectral_gap": 0.01849
+    },
+    {
+      "M_frac": 7.0,
+      "M": 7168,
+      "beta": 128.0,
+      "N": 1024,
+      "retentions": [
+        0.64,
+        0.64,
+        0.6
+      ],
+      "mean_retention": 0.62667,
+      "retention_variance": 0.000533,
+      "hysteresis_amp": 0.0,
+      "bundle_norm_var": 10.3315,
+      "spectral_gap": 0.01849
+    }
+  ],
+  "verdict": "BASIN_MAP_SMOKE_PASS",
+  "verdict_msg": "SMOKE_BOUNDARY_SIGNAL: max_ret_var=0.00053 mean_ret_var=0.00031 HP_VAR=0.05. max_hyst=0.0200 HP_HYST=0.02. bnv_spikes=0 HP_SPIKES=2. ret_range_over_M=0.373. ret_by_mfrac={4.0: 1.0, 5.5: 0.8, 7.0: 0.627}",
+  "elapsed_s": 3.5
+}

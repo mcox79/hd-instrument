@@ -1,0 +1,50 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Partial polylog support. r2=1.000, MRE=3.692, dc_range=0, valid_N_count=2. Some N-dependence present but not cleanly polylog.",
+  "elapsed_s": 0.237,
+  "summary": {
+    "N_sweep": [
+      256,
+      512
+    ],
+    "d_c_empirical_per_N": {
+      "256": 30,
+      "512": 30
+    },
+    "d_c_predicted_per_N": {
+      "256": 5.33,
+      "512": 7.99
+    },
+    "relative_errors_per_N": {
+      "256": 4.63,
+      "512": 2.754
+    },
+    "r2_log_dc_vs_log_pred": 1.0,
+    "mean_relative_error": 3.692,
+    "d_c_range_across_N": 0,
+    "valid_N_count": 2,
+    "alpha_load": 0.4,
+    "calibration_note": "no prior empirical anchor; bands widened to 30% MRE"
+  },
+  "config": {
+    "K_gram": 50,
+    "N_sweep": [
+      256,
+      512
+    ],
+    "d_sweep": [
+      2,
+      5,
+      10,
+      20,
+      30
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha_load": 0.4,
+    "acc_threshold": 0.5,
+    "smoke": true,
+    "v2_fix": "ALPHA_LOAD raised 0.12 -> 0.40; degenerate_thresh raised 0.01 -> 0.05"
+  }
+}

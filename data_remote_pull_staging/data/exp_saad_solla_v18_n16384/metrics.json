@@ -1,0 +1,37 @@
+{
+  "verdict": "SS_V18_HARD_PASS",
+  "verdict_msg": "SAAD-SOLLA PLATEAU N=512: 1/1 seeds confirm plateau. pass_seeds=1/1 mean_r2=0.803 mean_max_dev=0.200 N=512 f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0] HP_R2_MAX=0.85 HP_MAX_DEV_ALT=0.4",
+  "elapsed_s": 6.005445241928101,
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ]
+  },
+  "results": [
+    {
+      "seed": 17,
+      "N": 512,
+      "f_vals": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "ret_A_vals": [
+        0.58087,
+        0.61383,
+        1.04742
+      ],
+      "r2": 0.8027,
+      "max_dev": 0.2003,
+      "passes_hp": true,
+      "elapsed_s": 6.0
+    }
+  ]
+}

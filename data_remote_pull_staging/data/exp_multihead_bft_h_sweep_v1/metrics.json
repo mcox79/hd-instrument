@@ -1,0 +1,19 @@
+{
+  "anchor_name": "multihead_bft_h_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: H=1 heads give recall@1>=0.95 at noise 0.50 -- multi-head BFT robustness confirmed, minimal-H identified. recall@1@noise0.50 by H: {'H1': 1.0, 'H2': 1.0, 'H4': 1.0}; minimal H for >=0.95 = 1",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "H1": 1.0,
+        "H2": 1.0,
+        "H4": 1.0
+      },
+      "minH": 1
+    }
+  ],
+  "elapsed_s": 42.79961705207825,
+  "summary": "HARD_PASS: H=1 heads give recall@1>=0.95 at noise 0.50 -- multi-head BFT robustness confirmed, minimal-H identified. recall@1@noise0.50 by H: {'H1': 1.0, 'H2': 1.0, 'H4': 1.0}; minimal H for >=0.95 = 1"
+}

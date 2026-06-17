@@ -1,0 +1,20 @@
+{
+  "verdict": "GEN_POOL_BOTH_WORK",
+  "verdict_msg": "Both static and continual pool produce non-degenerate generation. static=(e=4.248,r=0.000); continual=(e=4.332,r=0.000). Continual pool doesn't measurably help (already at substrate limit).",
+  "elapsed_s": 0.6869999999998981,
+  "summary": {
+    "static_entropy": 4.248232282211646,
+    "static_repetition": 0.0,
+    "continual_entropy": 4.332267080954299,
+    "continual_repetition": 0.0,
+    "static_sample": "saa \nar= abnM ptl `man.diae  \na tthdh mA`ayrdee|e|\nML\n, tw baeEi",
+    "continual_sample": " \rpir. \npss\rylccFfS \r m  ye .nhlmgme dem* mf yl0 s\na_`| ya0\ruM\n "
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "generate_length": 64,
+    "temperature": 1.0,
+    "max_epochs": 1
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "anchor_name": "hnsw_ef_search_calibration_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: recall@1>=0.95 reached by ef_search<=256 -- pin ef_search=256 in production HNSW (default 64 insufficient). recall@1 by ef_search: {'ef64': 0.897, 'ef256': 0.982, 'ef512': 0.995, 'ef1024': 0.999} | first ef>=0.95: 256",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_ef": {
+        "ef64": 0.9,
+        "ef256": 0.983,
+        "ef512": 0.997,
+        "ef1024": 0.9995
+      }
+    },
+    {
+      "seed": 17,
+      "by_ef": {
+        "ef64": 0.8825,
+        "ef256": 0.9825,
+        "ef512": 0.9935,
+        "ef1024": 0.9985
+      }
+    },
+    {
+      "seed": 23,
+      "by_ef": {
+        "ef64": 0.9085,
+        "ef256": 0.982,
+        "ef512": 0.9935,
+        "ef1024": 0.999
+      }
+    }
+  ],
+  "elapsed_s": 336.41087913513184,
+  "summary": "HARD_PASS: recall@1>=0.95 reached by ef_search<=256 -- pin ef_search=256 in production HNSW (default 64 insufficient). recall@1 by ef_search: {'ef64': 0.897, 'ef256': 0.982, 'ef512': 0.995, 'ef1024': 0.999} | first ef>=0.95: 256"
+}

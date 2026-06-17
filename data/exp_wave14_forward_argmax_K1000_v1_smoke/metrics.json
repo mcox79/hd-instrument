@@ -1,0 +1,18 @@
+{
+  "verdict": "FORWARD_K1000_SAME",
+  "verdict_msg": "acc_50hop=0.000<0.2 (same as K=100).",
+  "elapsed_s": 0.6090000000258442,
+  "summary": {
+    "acc_50hop_K1000": 0.0,
+    "K": 1000,
+    "depth": 25
+  },
+  "config": {
+    "N": 8192,
+    "K": 1000,
+    "depth": 25,
+    "num_relations": 20,
+    "n_trials": 5,
+    "seed": 17
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "verdict": "LR_ENVELOPE_MIXED",
+  "verdict_msg": "Envelopes differ but not in predicted direction (extended dominates AND brief-spike ties/loses). Gaps: p=0.30: E2-E1=-0.953 E3-E1=-0.793 E4-E1=+0.007, p=0.40: E2-E1=-0.568 E3-E1=-0.408 E4-E1=+0.347. Substrate-novel pattern; trigger 2x drill on envelope dose-response.",
+  "elapsed_s": 250.7029999999795,
+  "summary": {
+    "cell_table": {
+      "E1_baseline_RM_tau10": {
+        "0.2": 1.0,
+        "0.3": 0.9933333333333333,
+        "0.4": 0.6077777777777778
+      },
+      "E2_brief_spike_rect": {
+        "0.2": 0.04,
+        "0.3": 0.04,
+        "0.4": 0.04
+      },
+      "E3_extended_rect": {
+        "0.2": 0.20000000000000004,
+        "0.3": 0.20000000000000004,
+        "0.4": 0.20000000000000004
+      },
+      "E4_optogenetic_RM_tau40": {
+        "0.2": 1.0,
+        "0.3": 1.0,
+        "0.4": 0.9546031746031746
+      }
+    },
+    "raw_cells": [
+      {
+        "envelope": "E1_baseline_RM_tau10",
+        "p_flip": 0.2,
+        "mean_min_acc": 1.0,
+        "mean_final_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "seed_final_accs": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "envelope": "E1_baseline_RM_tau10",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.9933333333333333,
+        "mean_final_acc": 0.9933333333333333,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          0.98
+        ],
+        "seed_final_accs": [
+          1.0,
+          1.0,
+          0.98
+        ]
+      },
+      {
+        "envelope": "E1_baseline_RM_tau10",
+        "p_flip": 0.4,
+        "mean_min_acc": 0.6077777777777778,
+        "mean_final_acc": 0.6133333333333333,
+        "seed_min_accs": [
+          0.6,
+          0.64,
+          0.5833333333333334
+        ],
+        "seed_final_accs": [
+          0.6,
+          0.64,
+          0.6
+        ]
+      },
+      {
+        "envelope": "E2_brief_spike_rect",
+        "p_flip": 0.2,
+        "mean_min_acc": 0.04,
+        "mean_final_acc": 0.04,
+        "seed_min_accs": [
+          0.04,
+          0.04,
+          0.04
+        ],
+        "seed_final_accs": [
+          0.04,
+          0.04,
+          0.04
+        ]
+      },
+      {
+        "envelope": "E2_brief_spike_rect",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.04,
+        "mean_final_acc": 0.04,
+        "seed_min_accs": [
+          0.04,
+          0.04,
+          0.04
+        ],
+        "seed_final_accs": [
+          0.04,
+          0.04,
+          0.04
+        ]
+      },
+      {
+        "envelope": "E2_brief_spike_rect",
+        "p_flip": 0.4,
+        "mean_min_acc": 0.04,
+        "mean_final_acc": 0.04,
+        "seed_min_accs": [
+          0.04,
+          0.04,
+          0.04
+        ],
+        "seed_final_accs": [
+          0.04,
+          0.04,
+          0.04
+        ]
+      },
+      {
+        "envelope": "E3_extended_rect",
+        "p_flip": 0.2,
+        "mean_min_acc": 0.20000000000000004,
+        "mean_final_acc": 0.20000000000000004,
+        "seed_min_accs": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "seed_final_accs": [
+          0.2,
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "envelope": "E3_extended_rect",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.20000000000000004,
+        "mean_final_acc": 0.20000000000000004,
+        "seed_min_accs": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "seed_final_accs": [
+          0.2,
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "envelope": "E3_extended_rect",
+        "p_flip": 0.4,
+        "mean_min_acc": 0.20000000000000004,
+        "mean_final_acc": 0.20000000000000004,
+        "seed_min_accs": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "seed_final_accs": [
+          0.2,
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "envelope": "E4_optogenetic_RM_tau40",
+        "p_flip": 0.2,
+        "mean_min_acc": 1.0,
+        "mean_final_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "seed_final_accs": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "envelope": "E4_optogenetic_RM_tau40",
+        "p_flip": 0.3,
+        "mean_min_acc": 1.0,
+        "mean_final_acc": 1.0,
+        "seed_min_accs": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "seed_final_accs": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "envelope": "E4_optogenetic_RM_tau40",
+        "p_flip": 0.4,
+        "mean_min_acc": 0.9546031746031746,
+        "mean_final_acc": 0.9733333333333333,
+        "seed_min_accs": [
+          0.94,
+          0.9523809523809523,
+          0.9714285714285714
+        ],
+        "seed_final_accs": [
+          0.94,
+          1.0,
+          0.98
+        ]
+      }
+    ],
+    "envelope_meta": {
+      "E1_baseline_RM_tau10": {
+        "sum": 9.999999999999996,
+        "peak": 0.5451862665338041,
+        "nonzero_steps": 50,
+        "rel_err": 3.552713678800501e-16
+      },
+      "E2_brief_spike_rect": {
+        "sum": 10.0,
+        "peak": 5.0,
+        "nonzero_steps": 2,
+        "rel_err": 0.0
+      },
+      "E3_extended_rect": {
+        "sum": 10.0,
+        "peak": 1.0,
+        "nonzero_steps": 10,
+        "rel_err": 0.0
+      },
+      "E4_optogenetic_RM_tau40": {
+        "sum": 9.999999999999996,
+        "peak": 0.30565469021175995,
+        "nonzero_steps": 50,
+        "rel_err": 3.552713678800501e-16
+      }
+    },
+    "n_seeds": 3,
+    "N": 4096,
+    "n_writes": 50
+  },
+  "config": {
+    "N": 4096,
+    "n_writes": 50,
+    "n_seeds": 3,
+    "noise_levels": [
+      0.2,
+      0.3,
+      0.4
+    ],
+    "snap_threshold": 1.0,
+    "target_lr_sum": 10.0,
+    "lr_sum_tolerance": 0.05,
+    "mode": "full",
+    "envelopes": [
+      "E1_baseline_RM_tau10",
+      "E2_brief_spike_rect",
+      "E3_extended_rect",
+      "E4_optogenetic_RM_tau40"
+    ]
+  }
+}

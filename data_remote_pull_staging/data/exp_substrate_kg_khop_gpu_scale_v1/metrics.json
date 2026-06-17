@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_kg_khop_gpu_scale_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 2-hop <0.55 at scale. recall by hops: {'2hop': 0.0, '3hop': 0.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "2hop": 0.0,
+        "3hop": 0.0
+      },
+      "r2": 0.0
+    }
+  ],
+  "elapsed_s": 16.447914123535156,
+  "summary": "HARD_FAIL: 2-hop <0.55 at scale. recall by hops: {'2hop': 0.0, '3hop': 0.0}"
+}

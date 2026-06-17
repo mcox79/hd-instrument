@@ -1,0 +1,89 @@
+{
+  "anchor_name": "substrate_distill_verify_3_adversarial_overmerge_controls_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (guard sound in-domain + boundary correctly mapped): ZERO unsound merges across 9 adversarial decoys (every signature-expressible distinction refused, AND merge refused when no capability evidence exists), AND all 1 signature-INVISIBLE decoys correctly land at MERGEABLE -- the cell PREDICTS exactly the single point where type-only equivalence saturates and body-level proof becomes necessary. Hardens V2 from '2 easy positives' to 'robust against decoys designed to break it, with the validity boundary explicit.' VISIBLE+CONSERVATIVE decoys: 9/9 correctly refused merge (unsound-MERGE=0). INVISIBLE decoys: 1/1 merged (the boundary). FINDING (refined by V3): the verifier merges ONLY when typed signatures are identical AND serves_capability is identical and NON-EMPTY -- so CHTV-1 typed equality is NECESSARY but NOT SUFFICIENT for operational equivalence. It is SOUND for every distinction expressible in the signature (operation_type / output / domain / complexity / input / contradictory caps / stub-vs-full) AND it is conservatively refuses to merge on signature alone when there is NO capability evidence. It SATURATES at exactly one point: two distinct algorithms with an identical signature AND identical non-empty caps (distinct only in body). That single saturation point is WHY the loop needs body-level witnesses (V1's provenance pointer or an L6-PROOF derivation chain). The guard's domain of validity is now MAPPED, not assumed.",
+  "summary": "HARD_PASS (guard sound in-domain + boundary correctly mapped): ZERO unsound merges across 9 adversarial decoys (every signature-expressible distinction refused, AND merge refused when no capability evidence exists), AND all 1 signature-INVISIBLE decoys correctly land at MERGEABLE -- the cell PREDICTS exactly the single point where type-only equivalence saturates and body-level proof becomes necessary. Hardens V2 from '2 easy positives' to 'robust against decoys designed to break it, with the validity boundary explicit.' VISIBLE+CONSERVATIVE decoys: 9/9 correctly refused merge (unsound-MERGE=0). INVISIBLE decoys: 1/1 merged (the boundary). FINDING (refined by V3): the verifier merges ONLY when typed signatures are identical AND serves_capability is identical and NON-EMPTY -- so CHTV-1 typed equality is NECESSARY but NOT SUFFICIENT for operational equivalence. It is SOUND for every distinction expressible in the signature (operation_type / output / domain / complexity / input / contradictory caps / stub-vs-full) AND it is conservatively refuses to merge on signature alone when there is NO capability evidence. It SATURATES at exactly one point: two distinct algorithms with an identical signature AND identical non-empty caps (distinct only in body). That single saturation point is WHY the loop needs body-level witnesses (V1's provenance pointer or an L6-PROOF derivation chain). The guard's domain of validity is now MAPPED, not assumed.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "decoy": "contradictory_caps_same_sig",
+          "class": "VISIBLE",
+          "verdict": "DISTINCT",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "different_operation_type",
+          "class": "VISIBLE",
+          "verdict": "SHARED_ABSTRACTION",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "different_output_type",
+          "class": "VISIBLE",
+          "verdict": "THEOREM_LINKED",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "different_domain",
+          "class": "VISIBLE",
+          "verdict": "DISTINCT",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "different_complexity",
+          "class": "VISIBLE",
+          "verdict": "DISTINCT",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "different_input_type",
+          "class": "VISIBLE",
+          "verdict": "DISTINCT",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "stub_vs_full",
+          "class": "VISIBLE",
+          "verdict": "DISTINCT",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "three_way_one_divergent",
+          "class": "VISIBLE",
+          "verdict": "SHARED_ABSTRACTION",
+          "merged": false,
+          "ok": true
+        },
+        {
+          "decoy": "identical_sig_identical_caps_distinct_body",
+          "class": "INVISIBLE",
+          "verdict": "MERGEABLE",
+          "merged": true,
+          "ok": true
+        },
+        {
+          "decoy": "identical_sig_empty_caps_no_evidence",
+          "class": "CONSERVATIVE",
+          "verdict": "DISTINCT",
+          "merged": false,
+          "ok": true
+        }
+      ],
+      "n_norefuse_required": 9,
+      "n_unsound_merge": 0,
+      "n_invisible": 1,
+      "n_invisible_merged": 1
+    }
+  ],
+  "elapsed_s": 0.01082754135131836
+}

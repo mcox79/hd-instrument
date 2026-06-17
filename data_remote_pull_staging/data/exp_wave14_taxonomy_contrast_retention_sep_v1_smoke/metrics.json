@@ -1,0 +1,162 @@
+{
+  "verdict": "TWO_TIER_SUFFICIENT",
+  "verdict_msg": "TWO_TIER_SUFFICIENT: 2-tier F=334.21 is within 80% of 4-tier F=256.15. Marginal gains from extra classes are small. Use 2-tier for simplicity.",
+  "elapsed_s": 0.018,
+  "summary": {
+    "silhouette": {
+      "K2": 0.2222,
+      "K3": 0.3224,
+      "K4": 0.5835
+    },
+    "f_ratio": {
+      "K2": 334.21,
+      "K3": 266.56,
+      "K4": 256.15
+    },
+    "sil_gain": {
+      "2to3": 0.1002,
+      "3to4": 0.2611
+    },
+    "f_gain": {
+      "2to3": -67.65,
+      "3to4": -10.41
+    },
+    "sil_efficiency_per_class": {
+      "2to3": 0.1002,
+      "3to4": 0.2611
+    },
+    "cascade_k3_compatible": false,
+    "sil_cascade_k3": 0.3224
+  },
+  "taxonomy_details": {
+    "2tier": {
+      "tax_name": "2class_highlow",
+      "k": 2,
+      "f_ratio": 334.2141,
+      "silhouette": 0.2222,
+      "nonoverlap_pairs": 1,
+      "total_pairs": 1,
+      "nonoverlap_fraction": 1.0,
+      "group_means": [
+        0.8605,
+        0.6925
+      ],
+      "group_sizes": [
+        69,
+        38
+      ],
+      "product_clarity": 0.084
+    },
+    "3tier_standard": {
+      "tax_name": "3class_standard",
+      "k": 3,
+      "f_ratio": 81.9962,
+      "silhouette": 0.2778,
+      "nonoverlap_pairs": 1,
+      "total_pairs": 3,
+      "nonoverlap_fraction": 0.3333,
+      "group_means": [
+        0.8986,
+        0.8038,
+        0.6334
+      ],
+      "group_sizes": [
+        20,
+        74,
+        13
+      ],
+      "product_clarity": 0.0884
+    },
+    "3tier_nosplit": {
+      "tax_name": "3class_nosplit",
+      "k": 3,
+      "f_ratio": 266.562,
+      "silhouette": 0.3224,
+      "nonoverlap_pairs": 2,
+      "total_pairs": 3,
+      "nonoverlap_fraction": 0.6667,
+      "group_means": [
+        0.8605,
+        0.7232,
+        0.6334
+      ],
+      "group_sizes": [
+        69,
+        25,
+        13
+      ],
+      "product_clarity": 0.0757
+    },
+    "4tier_best": {
+      "tax_name": "4class_noreplay_isolated",
+      "k": 4,
+      "f_ratio": 256.1499,
+      "silhouette": 0.5835,
+      "nonoverlap_pairs": 4,
+      "total_pairs": 6,
+      "nonoverlap_fraction": 0.6667,
+      "group_means": [
+        0.8986,
+        0.8449,
+        0.7232,
+        0.6334
+      ],
+      "group_sizes": [
+        20,
+        49,
+        25,
+        13
+      ],
+      "product_clarity": 0.0663
+    },
+    "4tier_plateau": {
+      "tax_name": "4class_plateau",
+      "k": 4,
+      "f_ratio": 239.9988,
+      "silhouette": 0.4942,
+      "nonoverlap_pairs": 4,
+      "total_pairs": 6,
+      "nonoverlap_fraction": 0.6667,
+      "group_means": [
+        0.9406,
+        0.8542,
+        0.7232,
+        0.6334
+      ],
+      "group_sizes": [
+        5,
+        64,
+        25,
+        13
+      ],
+      "product_clarity": 0.0768
+    },
+    "6tier_original": {
+      "tax_name": "6class_original",
+      "k": 6,
+      "f_ratio": 196.2079,
+      "silhouette": 0.4789,
+      "nonoverlap_pairs": 11,
+      "total_pairs": 15,
+      "nonoverlap_fraction": 0.7333,
+      "group_means": [
+        0.9406,
+        0.8846,
+        0.8449,
+        0.6816,
+        0.7336,
+        0.6334
+      ],
+      "group_sizes": [
+        5,
+        15,
+        49,
+        5,
+        20,
+        13
+      ],
+      "product_clarity": 0.0512
+    }
+  },
+  "config": {}
+}

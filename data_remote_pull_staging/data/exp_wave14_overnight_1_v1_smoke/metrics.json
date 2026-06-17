@@ -1,0 +1,32 @@
+{
+  "verdict": "ON_ENVELOPE",
+  "verdict_msg": "16/16 cells pass >=0.5",
+  "elapsed_s": 4.9689999999827705,
+  "summary": {
+    "results": {
+      "smoother_N4096_K200_d25": 1.0,
+      "vamp_N4096_K200_d25": 1.0,
+      "smoother_N4096_K200_d100": 1.0,
+      "vamp_N4096_K200_d100": 1.0,
+      "smoother_N4096_K1000_d25": 1.0,
+      "vamp_N4096_K1000_d25": 1.0,
+      "smoother_N4096_K1000_d100": 1.0,
+      "vamp_N4096_K1000_d100": 1.0,
+      "smoother_N8192_K200_d25": 1.0,
+      "vamp_N8192_K200_d25": 1.0,
+      "smoother_N8192_K200_d100": 1.0,
+      "vamp_N8192_K200_d100": 1.0,
+      "smoother_N8192_K1000_d25": 1.0,
+      "vamp_N8192_K1000_d25": 1.0,
+      "smoother_N8192_K1000_d100": 1.0,
+      "vamp_N8192_K1000_d100": 1.0
+    },
+    "seed": 107,
+    "variant": 1
+  },
+  "config": {
+    "smoke": true,
+    "seed": 107,
+    "variant": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "anchor_name": "concept_drift_shift_sweep_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: min detectable shift <=0.35. min-detectable-shift=0.30 | ratios={'s0.05': 1.01, 's0.10': 1.41, 's0.20': 1.97, 's0.30': 3.56, 's0.50': 4.56}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ratios": {
+        "s0.05": 1.0070316919375033,
+        "s0.10": 1.408273628082541,
+        "s0.20": 1.9671811192778839,
+        "s0.30": 3.5560133211973026,
+        "s0.50": 4.561460742871704
+      },
+      "min_detect": 0.3
+    }
+  ],
+  "elapsed_s": 0.0391237735748291,
+  "summary": "MIDDLE_BAND: min detectable shift <=0.35. min-detectable-shift=0.30 | ratios={'s0.05': 1.01, 's0.10': 1.41, 's0.20': 1.97, 's0.30': 3.56, 's0.50': 4.56}"
+}

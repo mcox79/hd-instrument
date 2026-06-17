@@ -1,0 +1,16 @@
+{
+  "anchor_name": "hippocampal_engram_consolidation_v3_longer_timeout_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 cells pass. gain=0.1648(HP>=0.08) fid_replay=0.9898(HP>=0.7 HF<0.4) fid_no_replay=0.8250(HF_no_stress if >0.8) new_fid=0.2945(HP>=0.3) n=2",
+  "N": 512,
+  "M_old": 55,
+  "M_new": 55,
+  "alpha_c": 0.138,
+  "alpha_total_target": 0.21484375,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.24238014221191406,
+  "mean_consolidation_gain": 0.16484375,
+  "mean_fidelity_with_replay": 0.98984375,
+  "mean_fidelity_no_replay": 0.825
+}

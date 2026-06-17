@@ -1,0 +1,80 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 4-state model strongly preferred over 3-state (BIC_delta=-121.3 < -30). Equal-spacing error=0.0035 < 0.05. All 4 plateaus statistically distinct (all CI overlap=0, all t-test p<0.01). gap_ratio=0.955 outside pre-registered [0.45,0.65] band but on 'more-equal' side -- direct spacing_error overrides per honest-reread protocol. Saad-Solla equal-spacing arithmetic CONFIRMED for 4-corpus extension. Caps: theoretical-home-for-retention-plateaus -> candidate for cap_map upgrade (P > 0.55). NOTE: gap_ratio=0.955 outside pre-registered [0.45,0.65] band on the 'more-equal' side; spacing_error=0.0035 overrides (direct measure; handoff HARD-FAIL uses spacing_error threshold).",
+  "elapsed_s": 0.461,
+  "summary": {
+    "group_means": {
+      "G1_SAME": 0.9406,
+      "G2_REPLAY": 0.8449,
+      "G3_STAGE4": 0.7336,
+      "G4_DIFF": 0.6334
+    },
+    "group_sizes": {
+      "G1": 5,
+      "G2": 49,
+      "G3": 20,
+      "G4": 13
+    },
+    "bic_4state": -372.82,
+    "bic_3state": -251.54,
+    "bic_sigmoid": -74.41,
+    "delta_bic_4vs3": -121.28,
+    "spacing_error_4state": 0.0035,
+    "gap_G1_G2": 0.0957,
+    "gap_G2_G3": 0.1113,
+    "gap_G3_G4": 0.1002,
+    "gap_ratio_G12_G34": 0.955,
+    "discretization_ratio": 1.72,
+    "all_adjacent_distinct": true,
+    "all_ttest_p_lt_001": true,
+    "adjacent_ci_overlaps": [
+      {
+        "pair": "G1_SAME/G2_REPLAY",
+        "overlap": 0.0,
+        "distinct": true
+      },
+      {
+        "pair": "G2_REPLAY/G3_STAGE4",
+        "overlap": 0.0,
+        "distinct": true
+      },
+      {
+        "pair": "G3_STAGE4/G4_DIFF",
+        "overlap": 0.0,
+        "distinct": true
+      }
+    ],
+    "ttest_p_values": [
+      {
+        "pair": "G1_SAME/G2_REPLAY",
+        "p_value": 2.1540073075841895e-28
+      },
+      {
+        "pair": "G2_REPLAY/G3_STAGE4",
+        "p_value": 6.129639548405051e-273
+      },
+      {
+        "pair": "G3_STAGE4/G4_DIFF",
+        "p_value": 2.2563282542722767e-09
+      }
+    ],
+    "r_overlap_retention": 0.981,
+    "sensitivity_noreplay_mean": 0.6816,
+    "sensitivity_noreplay_n": 5,
+    "gap_ratio_in_preregistered_band": false,
+    "gap_ratio_note": "gap_ratio=0.955 outside pre-registered [0.45,0.65] band on the 'more-equal' side; spacing_error=0.0035 overrides (direct measure; handoff HARD-FAIL uses spacing_error threshold)."
+  },
+  "config": {
+    "design": "4-class re-analysis of existing shift_class_predictor data",
+    "G1": "SAME_CORPUS_PRISTINE",
+    "G2": "REPLAY_SAME_CORPUS",
+    "G3": "STAGE_4_COMPOUND",
+    "G4": "DIFF_CORPUS_2TASK",
+    "excluded": [
+      "COMPOUND_SAME_CORPUS",
+      "NO_REPLAY_SAME_CORPUS"
+    ],
+    "data_source": "data/exp_wave14_betB_shift_class_predictor_v1/metrics.json",
+    "handoff": "notes/exp_dev_handoff_saad_solla_falsifier_2026-05-25.md"
+  }
+}

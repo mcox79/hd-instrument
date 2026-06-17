@@ -1,0 +1,88 @@
+{
+  "verdict": "FOURSTAGE_MIDDLE_BAND",
+  "verdict_msg": "4-stage partial: retention_A=0.740 retention_B=0.854 retention_C=0.798. Phase D adds load but mechanism survives partially.",
+  "elapsed_s": 220.98399999999674,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.731829454784949,
+        "retention_B": 0.8543463067410112,
+        "retention_C": 0.7940631991830277,
+        "bpc_A_baseline": 2.4966356386029904,
+        "bpc_A_after_D": 3.4114992533836137,
+        "bpc_B_baseline": 5.542917823150606,
+        "bpc_B_after_D": 6.487905173131276,
+        "bpc_C_baseline": 2.089110997013319,
+        "bpc_C_after_D": 2.6309127524896025,
+        "bpc_D_after_D": 2.7393048711606265
+      },
+      "17": {
+        "retention_A": 0.74815313577263,
+        "retention_B": 0.8493097221470018,
+        "retention_C": 0.7938172045746706,
+        "bpc_A_baseline": 2.4965502330429286,
+        "bpc_A_after_D": 3.336950837564425,
+        "bpc_B_baseline": 5.5578509246170515,
+        "bpc_B_after_D": 6.54396244348546,
+        "bpc_C_baseline": 2.0940111733785733,
+        "bpc_C_after_D": 2.6379009692798863,
+        "bpc_D_after_D": 2.758098257332844
+      },
+      "23": {
+        "retention_A": 0.7436150986034281,
+        "retention_B": 0.8549572724515078,
+        "retention_C": 0.7989622915014025,
+        "bpc_A_baseline": 2.5014252685478513,
+        "bpc_A_after_D": 3.3638710042947473,
+        "bpc_B_baseline": 5.59430608738708,
+        "bpc_B_after_D": 6.543375052353137,
+        "bpc_C_baseline": 2.0977952716175627,
+        "bpc_C_after_D": 2.625649913559006,
+        "bpc_D_after_D": 2.7894135024344546
+      },
+      "31": {
+        "retention_A": 0.7443392372445076,
+        "retention_B": 0.849483039742372,
+        "retention_C": 0.8011867977529106,
+        "bpc_A_baseline": 2.5015176284241587,
+        "bpc_A_after_D": 3.360722508307642,
+        "bpc_B_baseline": 5.5243589593320035,
+        "bpc_B_after_D": 6.503201006823408,
+        "bpc_C_baseline": 2.1029016677234638,
+        "bpc_C_after_D": 2.6247333001760316,
+        "bpc_D_after_D": 2.703752273813012
+      },
+      "41": {
+        "retention_A": 0.730038464655034,
+        "retention_B": 0.860715465399903,
+        "retention_C": 0.8035177073674409,
+        "bpc_A_baseline": 2.471044199564539,
+        "bpc_A_after_D": 3.384813703935703,
+        "bpc_B_baseline": 5.61266054154025,
+        "bpc_B_after_D": 6.520924471750386,
+        "bpc_C_baseline": 2.1155342921676272,
+        "bpc_C_after_D": 2.632840910374877,
+        "bpc_D_after_D": 2.7219144688914767
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_ret_A": 0.8,
+    "pass_ret_B": 0.7,
+    "pass_ret_C": 0.7,
+    "fail_ret_A": 0.5
+  }
+}

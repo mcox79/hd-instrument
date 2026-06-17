@@ -1,0 +1,23 @@
+{
+  "anchor_name": "e4_world_model_mwp_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: world-model schema <=0.40 ~= discriminative plateau -- HONEST brain-can-do-it evidence the 1-op MWP bottleneck is comprehension/operand-selection (corpus-bound per BMA), NOT the op-mapping mechanism; supports math+science ingestion strategy. ASDiv-1op acc=0.3431 (n=1364, per-op {'+': 0.301, '*': 0.29, '-': 0.481, '/': 0.204}) vs discriminative ~0.39",
+  "summary": "HARD_FAIL: world-model schema <=0.40 ~= discriminative plateau -- HONEST brain-can-do-it evidence the 1-op MWP bottleneck is comprehension/operand-selection (corpus-bound per BMA), NOT the op-mapping mechanism; supports math+science ingestion strategy. ASDiv-1op acc=0.3431 (n=1364, per-op {'+': 0.301, '*': 0.29, '-': 0.481, '/': 0.204}) vs discriminative ~0.39",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.3431,
+      "accuracy": 0.3431,
+      "n": 1364,
+      "op_acc": {
+        "+": 0.301,
+        "*": 0.29,
+        "-": 0.481,
+        "/": 0.204
+      },
+      "disc_plateau": 0.39
+    }
+  ],
+  "elapsed_s": 0.06906843185424805
+}

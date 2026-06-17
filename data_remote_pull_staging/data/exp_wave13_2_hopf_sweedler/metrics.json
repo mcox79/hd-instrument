@@ -1,0 +1,36 @@
+{
+  "seed": 17,
+  "h_dim": 4,
+  "stack": 1024,
+  "n_total": 4096,
+  "num_atoms": 64,
+  "K_bind_values": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "num_trials": 100,
+  "delta_recovery": {
+    "naive": 0,
+    "svd": 0
+  },
+  "multi_bind_results": [
+    {
+      "K": 1,
+      "recovery_acc": 1.0
+    },
+    {
+      "K": 2,
+      "recovery_acc": 1.0
+    },
+    {
+      "K": 4,
+      "recovery_acc": 1.0
+    },
+    {
+      "K": 8,
+      "recovery_acc": 1.0
+    }
+  ]
+}

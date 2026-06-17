@@ -1,0 +1,277 @@
+{
+  "anchor": "kf1_hallu_rescue_v2_n4096",
+  "N": 4096,
+  "smoke": false,
+  "m_fracs": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    41
+  ],
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "N": 4096,
+      "per_M": {
+        "0.25": {
+          "M": 1024,
+          "M_over_N": 0.25,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00021064162137918174,
+          "oos_max_conf_max": 0.0003401090216357261,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 3.4511523246765137,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9711494445800781
+        },
+        "0.5": {
+          "M": 2048,
+          "M_over_N": 0.5,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0002651121176313609,
+          "oos_max_conf_max": 0.0005773140001110733,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 4.343596935272217,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9546585083007812
+        },
+        "1.0": {
+          "M": 4096,
+          "M_over_N": 1.0,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0003920121234841645,
+          "oos_max_conf_max": 0.0008724780636839569,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 6.422726631164551,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9294428825378418
+        }
+      }
+    },
+    "17": {
+      "seed": 17,
+      "N": 4096,
+      "per_M": {
+        "0.25": {
+          "M": 1024,
+          "M_over_N": 0.25,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0002047776652034372,
+          "oos_max_conf_max": 0.0003101853362750262,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 3.3550772666931152,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9702132940292358
+        },
+        "0.5": {
+          "M": 2048,
+          "M_over_N": 0.5,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00026543947751633823,
+          "oos_max_conf_max": 0.0005210958188399673,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 4.3489603996276855,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9445886015892029
+        },
+        "1.0": {
+          "M": 4096,
+          "M_over_N": 1.0,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0003839732089545578,
+          "oos_max_conf_max": 0.0007869089604355395,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 6.291017055511475,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9214993715286255
+        }
+      }
+    },
+    "23": {
+      "seed": 23,
+      "N": 4096,
+      "per_M": {
+        "0.25": {
+          "M": 1024,
+          "M_over_N": 0.25,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00019490964768920094,
+          "oos_max_conf_max": 0.00031284024589695036,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 3.193399667739868,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9612289071083069
+        },
+        "0.5": {
+          "M": 2048,
+          "M_over_N": 0.5,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00025567508419044316,
+          "oos_max_conf_max": 0.00045068611507304013,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 4.188980579376221,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9537655711174011
+        },
+        "1.0": {
+          "M": 4096,
+          "M_over_N": 1.0,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00041276970296166837,
+          "oos_max_conf_max": 0.0012877552071586251,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 6.762818813323975,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9099705219268799
+        }
+      }
+    },
+    "31": {
+      "seed": 31,
+      "N": 4096,
+      "per_M": {
+        "0.25": {
+          "M": 1024,
+          "M_over_N": 0.25,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0001887774997157976,
+          "oos_max_conf_max": 0.0003007977793458849,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 3.092930555343628,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9892715215682983
+        },
+        "0.5": {
+          "M": 2048,
+          "M_over_N": 0.5,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0002769416896626353,
+          "oos_max_conf_max": 0.0005947251920588315,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 4.537412643432617,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9732653498649597
+        },
+        "1.0": {
+          "M": 4096,
+          "M_over_N": 1.0,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0004081262450199574,
+          "oos_max_conf_max": 0.0011981234420090914,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 6.686740398406982,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9016746282577515
+        }
+      }
+    },
+    "41": {
+      "seed": 41,
+      "N": 4096,
+      "per_M": {
+        "0.25": {
+          "M": 1024,
+          "M_over_N": 0.25,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00020038629008922726,
+          "oos_max_conf_max": 0.0003109326644334942,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 3.2831289768218994,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9738489985466003
+        },
+        "0.5": {
+          "M": 2048,
+          "M_over_N": 0.5,
+          "C": 16384,
+          "oos_max_conf_mean": 0.00026248159701935947,
+          "oos_max_conf_max": 0.0005130638601258397,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 4.3004984855651855,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9382780194282532
+        },
+        "1.0": {
+          "M": 4096,
+          "M_over_N": 1.0,
+          "C": 16384,
+          "oos_max_conf_mean": 0.0004026326350867748,
+          "oos_max_conf_max": 0.0009065853082574904,
+          "above_thresh_frac": 0.0,
+          "near_uniform_mean": true,
+          "near_uniform_max": true,
+          "bound_10x": 0.0006103515625,
+          "bound_50x": 0.0030517578125,
+          "ratio_to_uniform_mean": 6.596733093261719,
+          "inset_acc": 0.0,
+          "inset_max_conf_mean": 0.9303582310676575
+        }
+      }
+    }
+  },
+  "verdict": "KF1T1_HARD_PASS",
+  "verdict_msg": "Tier-1 reformulated claim PASSES. (a) above_thresh_frac=0 in all 5 seeds at M<=N. (b) 5/5 seeds have mean_max_conf <= 10/C. max_max_conf < 50/C in all cells. mean_ratio_to_uniform=4.72x (expected ~2-4x for BSC/Kerdock). Structural impossibility holds; OOS responses are near-uniform.",
+  "elapsed_s": 3.98
+}

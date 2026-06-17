@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_hallucination_detection_minilm_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate is a real-time grounding/hallucination detector (AUC>=0.90; clean grounded-vs-hallucinated separation). AUC=0.999 | grounded_conf=0.204 hall_conf=0.107 | at-thr grounded_recall=0.988 hallucination_flag=0.988",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_kb": 2000,
+      "auc": 0.9996138888888889,
+      "grounded_conf_mean": 0.2036607563495636,
+      "hall_conf_mean": 0.10716153681278229,
+      "grounded_recall_at_thr": 0.9933333333333333,
+      "hallucination_flag_rate": 0.9933333333333333
+    },
+    {
+      "seed": 17,
+      "n_kb": 2000,
+      "auc": 0.9988944444444444,
+      "grounded_conf_mean": 0.2034517228603363,
+      "hall_conf_mean": 0.10732747614383698,
+      "grounded_recall_at_thr": 0.9833333333333333,
+      "hallucination_flag_rate": 0.9833333333333333
+    },
+    {
+      "seed": 23,
+      "n_kb": 2000,
+      "auc": 0.9994111111111111,
+      "grounded_conf_mean": 0.20633697509765625,
+      "hall_conf_mean": 0.10664879530668259,
+      "grounded_recall_at_thr": 0.9883333333333333,
+      "hallucination_flag_rate": 0.9883333333333333
+    }
+  ],
+  "elapsed_s": 6.329967975616455,
+  "summary": "HARD_PASS: substrate is a real-time grounding/hallucination detector (AUC>=0.90; clean grounded-vs-hallucinated separation). AUC=0.999 | grounded_conf=0.204 hall_conf=0.107 | at-thr grounded_recall=0.988 hallucination_flag=0.988"
+}

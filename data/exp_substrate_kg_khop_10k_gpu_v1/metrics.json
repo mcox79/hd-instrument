@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_kg_khop_10k_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 2-hop <0.50 at 10k. recall: {'2hop': 0.0, '3hop': 0.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "2hop": 0.0,
+        "3hop": 0.0
+      },
+      "r2": 0.0
+    }
+  ],
+  "elapsed_s": 36.3846321105957,
+  "summary": "HARD_FAIL: 2-hop <0.50 at 10k. recall: {'2hop': 0.0, '3hop': 0.0}"
+}

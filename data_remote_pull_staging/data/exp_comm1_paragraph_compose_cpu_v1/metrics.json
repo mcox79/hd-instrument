@@ -1,0 +1,16 @@
+{
+  "anchor_name": "comm1_paragraph_compose_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate composes a structured paragraph top-down -- ordered slot content recoverable >=0.65 AND topic identifiable >=0.80, substrate-only (no LLM). Compositional communication at concept level works. slot-recovery=1.000 topic-coherence=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "slot_recovery": 1.0,
+      "topic_coherence": 1.0,
+      "n_slot": 6
+    }
+  ],
+  "elapsed_s": 2.8871450424194336,
+  "summary": "HARD_PASS: substrate composes a structured paragraph top-down -- ordered slot content recoverable >=0.65 AND topic identifiable >=0.80, substrate-only (no LLM). Compositional communication at concept level works. slot-recovery=1.000 topic-coherence=1.000"
+}

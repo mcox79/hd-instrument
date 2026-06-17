@@ -1,0 +1,90 @@
+{
+  "verdict": "ENSEMBLE_OVERLAY_FAIL",
+  "verdict_msg": "Spearman rho < 0.3 in 5/5 codewords (rhos=[0.021, 0.001, 0.004, 0.001, 0.02]). VAMP-ensemble variance is NOT informative about per-coordinate reconstruction error. Bet Z.5's per-coordinate-variance certificate is genuinely additional capability; file S3 toy-scale fresh impl as a NEW \ud83d\udd2c row.",
+  "elapsed_s": 25.89100000000326,
+  "summary": {
+    "per_codeword": [
+      {
+        "spearman_rho": 0.021403004352275542,
+        "spearman_p": 0.17083333325387146,
+        "mean_var": 0.00828138007690209,
+        "mean_err": 0.5063957346652125,
+        "K": 64,
+        "N": 4096,
+        "codeword_idx": 0
+      },
+      {
+        "spearman_rho": 0.0008537450848516872,
+        "spearman_p": 0.9564388001540416,
+        "mean_var": 0.008200037479417418,
+        "mean_err": 0.5084532563725641,
+        "K": 64,
+        "N": 4096,
+        "codeword_idx": 1
+      },
+      {
+        "spearman_rho": 0.0037258565900426563,
+        "spearman_p": 0.8115841536490535,
+        "mean_var": 0.008289677924219927,
+        "mean_err": 0.4909354493913026,
+        "K": 64,
+        "N": 4096,
+        "codeword_idx": 2
+      },
+      {
+        "spearman_rho": 0.0010294956186671924,
+        "spearman_p": 0.947483214591868,
+        "mean_var": 0.008244918504256734,
+        "mean_err": 0.4977580302141134,
+        "K": 64,
+        "N": 4096,
+        "codeword_idx": 3
+      },
+      {
+        "spearman_rho": 0.02000156525066139,
+        "spearman_p": 0.2006022968601529,
+        "mean_var": 0.008207107960604481,
+        "mean_err": 0.5042021032030489,
+        "K": 64,
+        "N": 4096,
+        "codeword_idx": 4
+      }
+    ],
+    "spearman_rhos": [
+      0.021403004352275542,
+      0.0008537450848516872,
+      0.0037258565900426563,
+      0.0010294956186671924,
+      0.02000156525066139
+    ],
+    "n_pass_rho_ge_0p50": 0,
+    "n_fail_rho_lt_0p30": 5,
+    "vamp_se_pred_mse": 0.5084792064706786,
+    "config": {
+      "mode": "full",
+      "codebook": "kerdock",
+      "N": 4096,
+      "alpha": 0.5,
+      "n_codewords": 5,
+      "K": 64,
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_iter": 200,
+      "base_seed": 13,
+      "M": 2048
+    }
+  },
+  "config": {
+    "mode": "full",
+    "codebook": "kerdock",
+    "N": 4096,
+    "alpha": 0.5,
+    "n_codewords": 5,
+    "K": 64,
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_iter": 200,
+    "base_seed": 13,
+    "M": 2048
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "hotpot_3baseline_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: both RAG and substrate beat bare by >=0.15 F1 -- north-star confirmed; substrate matches vanilla-RAG by -0.023. bare=0.222 vanilla-RAG=0.524 substrate=0.501 (n=120, Qwen2.5-1.5B + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 120,
+      "bare": 0.22179292929292924,
+      "rag": 0.5239169000933707,
+      "sub": 0.5007142857142857
+    }
+  ],
+  "elapsed_s": 91.7623074054718,
+  "summary": "HARD_PASS: both RAG and substrate beat bare by >=0.15 F1 -- north-star confirmed; substrate matches vanilla-RAG by -0.023. bare=0.222 vanilla-RAG=0.524 substrate=0.501 (n=120, Qwen2.5-1.5B + bge-small)"
+}

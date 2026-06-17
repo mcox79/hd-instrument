@@ -1,0 +1,23 @@
+{
+  "anchor_name": "e4_world_model_mwp_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: world-model schema-simulation breaks the discriminative 0.39 plateau (>=0.50) -- new mechanism class adds beyond discriminative; world-knowledge schemas help. ASDiv-1op acc=0.5000 (n=200, per-op {'+': 0.557, '*': 0.259, '-': 0.527, '/': 0.0}) vs discriminative ~0.39",
+  "summary": "HARD_PASS: world-model schema-simulation breaks the discriminative 0.39 plateau (>=0.50) -- new mechanism class adds beyond discriminative; world-knowledge schemas help. ASDiv-1op acc=0.5000 (n=200, per-op {'+': 0.557, '*': 0.259, '-': 0.527, '/': 0.0}) vs discriminative ~0.39",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5,
+      "accuracy": 0.5,
+      "n": 200,
+      "op_acc": {
+        "+": 0.557,
+        "*": 0.259,
+        "-": 0.527,
+        "/": 0.0
+      },
+      "disc_plateau": 0.39
+    }
+  ],
+  "elapsed_s": 0.03431296348571777
+}

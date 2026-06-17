@@ -1,0 +1,15 @@
+{
+  "anchor_name": "cheap1_contradiction_detect_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ACC-style contradiction detection >=0.90 recall, <0.02 FP -- pre-output conflict/hallucination pre-check works. recall=1.000 FP-rate=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "fp": 0.0
+    }
+  ],
+  "elapsed_s": 0.13945984840393066,
+  "summary": "HARD_PASS: ACC-style contradiction detection >=0.90 recall, <0.02 FP -- pre-output conflict/hallucination pre-check works. recall=1.000 FP-rate=0.000"
+}

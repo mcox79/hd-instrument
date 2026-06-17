@@ -1,0 +1,812 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "PP31-2D REFUSAL CERT: verdict=HARD_PASS | correct=50/50 max_cert_time=0.004ms | HP: 5/5 correct AND <=1ms | HF: >=2 wrong OR >10ms",
+  "correct_classifications": 50,
+  "total_trials": 50,
+  "wrong_trials": 0,
+  "max_cert_time_ms": 0.0039000005926936865,
+  "all_cert_results": [
+    {
+      "seed": 7,
+      "trial": 0,
+      "scenario": "confidence",
+      "score": 0.09375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.09375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0028999929782003164,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 1,
+      "scenario": "confidence",
+      "score": 0.07421875,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.07421875,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0030999945010989904,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 2,
+      "scenario": "confidence",
+      "score": 0.078125,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.078125,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0026999914553016424,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 3,
+      "scenario": "confidence",
+      "score": 0.109375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.109375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.00200001522898674,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 4,
+      "scenario": "confidence",
+      "score": 0.12890625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.12890625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0014999823179095984,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 0,
+      "scenario": "system_failure",
+      "score": 0.140625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.140625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0027999922167509794,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 1,
+      "scenario": "system_failure",
+      "score": 0.1484375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.1484375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0026999914553016424,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 2,
+      "scenario": "system_failure",
+      "score": 0.08984375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.08984375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001600012183189392,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 3,
+      "scenario": "system_failure",
+      "score": 0.09765625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.09765625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0012999807950109243,
+      "correct": true
+    },
+    {
+      "seed": 7,
+      "trial": 4,
+      "scenario": "system_failure",
+      "score": 0.12109375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.12109375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001300009898841381,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 0,
+      "scenario": "confidence",
+      "score": 0.24609375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.24609375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.003200024366378784,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 1,
+      "scenario": "confidence",
+      "score": 0.11328125,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.11328125,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001800013706088066,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 2,
+      "scenario": "confidence",
+      "score": 0.12890625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.12890625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001500011421740055,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 3,
+      "scenario": "confidence",
+      "score": 0.1171875,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.1171875,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001100008375942707,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 4,
+      "scenario": "confidence",
+      "score": 0.12890625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.12890625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001600012183189392,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 0,
+      "scenario": "system_failure",
+      "score": 0.12109375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.12109375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0028999929782003164,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 1,
+      "scenario": "system_failure",
+      "score": 0.1484375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.1484375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001600012183189392,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 2,
+      "scenario": "system_failure",
+      "score": 0.17578125,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.17578125,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.002400018274784088,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 3,
+      "scenario": "system_failure",
+      "score": 0.1171875,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.1171875,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0016999838408082724,
+      "correct": true
+    },
+    {
+      "seed": 17,
+      "trial": 4,
+      "scenario": "system_failure",
+      "score": 0.17578125,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.17578125,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0015999830793589354,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 0,
+      "scenario": "confidence",
+      "score": 0.0859375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.0859375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.002100015990436077,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 1,
+      "scenario": "confidence",
+      "score": 0.0625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.0625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0015999830793589354,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 2,
+      "scenario": "confidence",
+      "score": 0.08203125,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.08203125,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001600012183189392,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 3,
+      "scenario": "confidence",
+      "score": 0.09375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.09375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001500011421740055,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 4,
+      "scenario": "confidence",
+      "score": 0.09375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.09375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001300009898841381,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 0,
+      "scenario": "system_failure",
+      "score": 0.046875,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.046875,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001800013706088066,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 1,
+      "scenario": "system_failure",
+      "score": 0.1015625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.1015625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001400010660290718,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 2,
+      "scenario": "system_failure",
+      "score": 0.140625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.140625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001200009137392044,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 3,
+      "scenario": "system_failure",
+      "score": 0.19921875,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.19921875,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0013999815564602613,
+      "correct": true
+    },
+    {
+      "seed": 23,
+      "trial": 4,
+      "scenario": "system_failure",
+      "score": 0.15234375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.15234375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001700012944638729,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 0,
+      "scenario": "confidence",
+      "score": 0.3125,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.3125,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0039000005926936865,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 1,
+      "scenario": "confidence",
+      "score": 0.19140625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.19140625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0033999967854470015,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 2,
+      "scenario": "confidence",
+      "score": 0.12890625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.12890625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0018999853637069464,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 3,
+      "scenario": "confidence",
+      "score": 0.234375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.234375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0016999838408082724,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 4,
+      "scenario": "confidence",
+      "score": 0.02734375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.02734375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0015999830793589354,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 0,
+      "scenario": "system_failure",
+      "score": 0.09375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.09375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.002500019036233425,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 1,
+      "scenario": "system_failure",
+      "score": 0.16015625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.16015625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0017999846022576094,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 2,
+      "scenario": "system_failure",
+      "score": 0.1171875,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.1171875,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0021999876480549574,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 3,
+      "scenario": "system_failure",
+      "score": 0.17578125,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.17578125,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001800013706088066,
+      "correct": true
+    },
+    {
+      "seed": 31,
+      "trial": 4,
+      "scenario": "system_failure",
+      "score": 0.12109375,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.12109375,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001800013706088066,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 0,
+      "scenario": "confidence",
+      "score": 0.2890625,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.2890625,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.00300002284348011,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 1,
+      "scenario": "confidence",
+      "score": 0.20703125,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.20703125,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0017999846022576094,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 2,
+      "scenario": "confidence",
+      "score": 0.234375,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.234375,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.0015999830793589354,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 3,
+      "scenario": "confidence",
+      "score": 0.1171875,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.1171875,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.001600012183189392,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 4,
+      "scenario": "confidence",
+      "score": 0.3046875,
+      "cert": {
+        "refusal_type": "confidence",
+        "confidence_score": 0.3046875,
+        "threshold_used": 0.5,
+        "alpha": 0.078125,
+        "alpha_c_estimated": 0.138,
+        "overloaded": false
+      },
+      "t_ms": 0.002300017513334751,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 0,
+      "scenario": "system_failure",
+      "score": 0.11328125,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.11328125,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0019999861251562834,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 1,
+      "scenario": "system_failure",
+      "score": 0.140625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.140625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0017999846022576094,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 2,
+      "scenario": "system_failure",
+      "score": 0.06640625,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.06640625,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0016999838408082724,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 3,
+      "scenario": "system_failure",
+      "score": 0.14453125,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.14453125,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.001700012944638729,
+      "correct": true
+    },
+    {
+      "seed": 41,
+      "trial": 4,
+      "scenario": "system_failure",
+      "score": 0.17578125,
+      "cert": {
+        "refusal_type": "system_failure",
+        "confidence_score": 0.17578125,
+        "threshold_used": 0.5,
+        "alpha": 0.1875,
+        "alpha_c_estimated": 0.138,
+        "overloaded": true
+      },
+      "t_ms": 0.0021999876480549574,
+      "correct": true
+    }
+  ],
+  "smoke": false,
+  "elapsed_s": 0.08433794975280762
+}

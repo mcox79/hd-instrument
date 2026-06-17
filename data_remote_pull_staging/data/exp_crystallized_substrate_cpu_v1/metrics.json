@@ -1,0 +1,17 @@
+{
+  "anchor_name": "crystallized_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: crystallized substrate protects frozen Tier-1 foundations -- a separate frozen store keeps Tier-1 recall>=0.95 while a shared store mixing heavy mutable writes degrades to 0.25. Separation (engineered wrapper) protects foundations, no core change. crystallized=1.000 shared=0.250",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "crystallized_recall": 1.0,
+      "shared_recall": 0.25,
+      "mut_writes": 2000,
+      "n_tier1": 40
+    }
+  ],
+  "elapsed_s": 1.1854400634765625,
+  "summary": "HARD_PASS: crystallized substrate protects frozen Tier-1 foundations -- a separate frozen store keeps Tier-1 recall>=0.95 while a shared store mixing heavy mutable writes degrades to 0.25. Separation (engineered wrapper) protects foundations, no core change. crystallized=1.000 shared=0.250"
+}

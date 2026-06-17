@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_b6_x_sq2_audit_preserving_reasoning_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: audit-preserving reasoning -- K=12 holds AND deletion-cert preserved. reasoning_acc@12=1.00 deletion_cert=1.00 (retained chains=47)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "G_retained": 47,
+      "reasoning_acc12": 1.0,
+      "deletion_cert": 1.0
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "G_retained": 47,
+      "reasoning_acc12": 1.0,
+      "deletion_cert": 1.0
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "G_retained": 47,
+      "reasoning_acc12": 1.0,
+      "deletion_cert": 1.0
+    }
+  ],
+  "elapsed_s": 57.46110439300537,
+  "summary": "HARD_PASS: audit-preserving reasoning -- K=12 holds AND deletion-cert preserved. reasoning_acc@12=1.00 deletion_cert=1.00 (retained chains=47)"
+}

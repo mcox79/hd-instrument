@@ -1,0 +1,200 @@
+{
+  "verdict": "CODEBOOK_INCONCLUSIVE",
+  "verdict_msg": "Neither codebook located K*.",
+  "elapsed_s": 1.625,
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M": 4096,
+    "K_list": [
+      50,
+      100,
+      200,
+      400,
+      600,
+      900,
+      1300,
+      2000,
+      3000
+    ],
+    "n_trials": 20,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  },
+  "device": "cuda",
+  "by_codebook": {
+    "random": {
+      "k_star": null,
+      "sweep": [
+        {
+          "K": 50,
+          "mean_recovery": 0.9998000000000001
+        },
+        {
+          "K": 100,
+          "mean_recovery": 0.9708
+        },
+        {
+          "K": 200,
+          "mean_recovery": 0.8687999999999999
+        },
+        {
+          "K": 400,
+          "mean_recovery": 0.7397250000000001
+        },
+        {
+          "K": 600,
+          "mean_recovery": 0.6831166666666666
+        },
+        {
+          "K": 900,
+          "mean_recovery": 0.6558555555555554
+        },
+        {
+          "K": 1300,
+          "mean_recovery": 0.6589384615384615
+        },
+        {
+          "K": 2000,
+          "mean_recovery": 0.708975
+        },
+        {
+          "K": 3000,
+          "mean_recovery": 0.81988
+        }
+      ]
+    },
+    "hadamard": {
+      "k_star": null,
+      "sweep": [
+        {
+          "K": 50,
+          "mean_recovery": 0.9810000000000002
+        },
+        {
+          "K": 100,
+          "mean_recovery": 0.9810000000000002
+        },
+        {
+          "K": 200,
+          "mean_recovery": 0.9890499999999998
+        },
+        {
+          "K": 400,
+          "mean_recovery": 0.9633499999999999
+        },
+        {
+          "K": 600,
+          "mean_recovery": 0.9308333333333334
+        },
+        {
+          "K": 900,
+          "mean_recovery": 0.8991666666666667
+        },
+        {
+          "K": 1300,
+          "mean_recovery": 0.8885538461538462
+        },
+        {
+          "K": 2000,
+          "mean_recovery": 0.9053799999999999
+        },
+        {
+          "K": 3000,
+          "mean_recovery": 0.9603966666666667
+        }
+      ]
+    }
+  },
+  "summary": {
+    "by_codebook": {
+      "random": {
+        "k_star": null,
+        "sweep": [
+          {
+            "K": 50,
+            "mean_recovery": 0.9998000000000001
+          },
+          {
+            "K": 100,
+            "mean_recovery": 0.9708
+          },
+          {
+            "K": 200,
+            "mean_recovery": 0.8687999999999999
+          },
+          {
+            "K": 400,
+            "mean_recovery": 0.7397250000000001
+          },
+          {
+            "K": 600,
+            "mean_recovery": 0.6831166666666666
+          },
+          {
+            "K": 900,
+            "mean_recovery": 0.6558555555555554
+          },
+          {
+            "K": 1300,
+            "mean_recovery": 0.6589384615384615
+          },
+          {
+            "K": 2000,
+            "mean_recovery": 0.708975
+          },
+          {
+            "K": 3000,
+            "mean_recovery": 0.81988
+          }
+        ]
+      },
+      "hadamard": {
+        "k_star": null,
+        "sweep": [
+          {
+            "K": 50,
+            "mean_recovery": 0.9810000000000002
+          },
+          {
+            "K": 100,
+            "mean_recovery": 0.9810000000000002
+          },
+          {
+            "K": 200,
+            "mean_recovery": 0.9890499999999998
+          },
+          {
+            "K": 400,
+            "mean_recovery": 0.9633499999999999
+          },
+          {
+            "K": 600,
+            "mean_recovery": 0.9308333333333334
+          },
+          {
+            "K": 900,
+            "mean_recovery": 0.8991666666666667
+          },
+          {
+            "K": 1300,
+            "mean_recovery": 0.8885538461538462
+          },
+          {
+            "K": 2000,
+            "mean_recovery": 0.9053799999999999
+          },
+          {
+            "K": 3000,
+            "mean_recovery": 0.9603966666666667
+          }
+        ]
+      }
+    }
+  }
+}

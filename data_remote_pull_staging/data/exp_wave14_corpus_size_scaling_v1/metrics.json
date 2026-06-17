@@ -1,0 +1,58 @@
+{
+  "verdict": "CORPUS_SCALING_HARD_FAIL",
+  "verdict_msg": "CORPUS_SCALING_HARD_FAIL: tau-limit binding in tested range. bpc non-monotone: [7.6511, 7.7485]. N-scaling required before corpus-size scaling extrapolation is safe for path-(b).",
+  "elapsed_s": 5.479,
+  "summary": {
+    "corpus_sizes": [
+      3000,
+      20000
+    ],
+    "per_size": {
+      "3000": {
+        "train_bytes": 3000,
+        "mean_bpc": 7.65108,
+        "std_bpc": 0.0,
+        "mean_top_edge_ratio": 22.952,
+        "mean_effective_rank": 78.08,
+        "n_seeds": 1
+      },
+      "20000": {
+        "train_bytes": 20000,
+        "mean_bpc": 7.74851,
+        "std_bpc": 0.0,
+        "mean_top_edge_ratio": 18.6087,
+        "mean_effective_rank": 82.64,
+        "n_seeds": 1
+      }
+    },
+    "bpc_sequence": [
+      7.65108,
+      7.74851
+    ],
+    "top_edge_sequence": [
+      22.952,
+      18.6087
+    ],
+    "top_edge_hard_fail_thresh": 1.5,
+    "top_edge_middle_band": [
+      1.5,
+      2.0
+    ],
+    "monotone_bpc": false,
+    "top_edge_at_largest": 18.6087,
+    "whitening_onset": false
+  },
+  "config": {
+    "N": 256,
+    "K": 4,
+    "corpus_sizes": [
+      3000,
+      20000
+    ],
+    "seeds": [
+      17
+    ],
+    "max_epochs": 3,
+    "mode": "smoke"
+  }
+}

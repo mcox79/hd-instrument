@@ -1,0 +1,51 @@
+{
+  "verdict": "KERDOCK_SPECTRUM_BULK_BOUNDED",
+  "verdict_msg": "All 1 cells have spectrum CONFINED within 5% of the MP bulk edges. Max excursion=0.000. The substrate-novel signature is therefore MOMENT-BASED ONLY: free cumulants deviate from MP, but the support does not. The mechanism is shape-of-bulk, not outliers.",
+  "elapsed_s": 0.8589999999967404,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "lam_max_mean": 2.9866596460342407,
+        "lam_max_std": 0.004973053932189941,
+        "lam_min_mean": 1.7623946746425645e-06,
+        "lam_min_std": 7.859162565182487e-07,
+        "per_seed": [
+          {
+            "seed": 100,
+            "lam_max": 2.9916326999664307,
+            "lam_min": 9.764784181243158e-07
+          },
+          {
+            "seed": 1100,
+            "lam_max": 2.981686592102051,
+            "lam_min": 2.548310931160813e-06
+          }
+        ],
+        "mp_lam_min": 0.0,
+        "mp_lam_max": 4.0,
+        "worst_excursion_rel": -4.405986686606411e-07
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alphas": [
+        1.0
+      ],
+      "n_seeds": 2
+    },
+    "verdict": "KERDOCK_SPECTRUM_BULK_BOUNDED",
+    "verdict_msg": "All 1 cells have spectrum CONFINED within 5% of the MP bulk edges. Max excursion=0.000. The substrate-novel signature is therefore MOMENT-BASED ONLY: free cumulants deviate from MP, but the support does not. The mechanism is shape-of-bulk, not outliers."
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alphas": [
+      1.0
+    ],
+    "n_seeds": 2
+  }
+}

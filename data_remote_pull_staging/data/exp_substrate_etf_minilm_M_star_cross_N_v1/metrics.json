@@ -1,0 +1,86 @@
+{
+  "anchor_name": "substrate_etf_minilm_M_star_cross_N_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (H1+H2 mixed): M_50 ratio ~ constant across N_sub. whitened/raw M_50 ratio by N_sub: {'N384': 3.0, 'N768': 3.0, 'N1536': 3.0, 'N3072': 3.0} | slope(vs logN)=-0.00",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_N": {
+        "N384": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N768": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N1536": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N3072": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by_N": {
+        "N384": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N768": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N1536": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N3072": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by_N": {
+        "N384": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N768": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N1536": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        },
+        "N3072": {
+          "m50_raw": 8,
+          "m50_whitened": 24,
+          "ratio": 3.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 57.09720826148987,
+  "summary": "MIDDLE_BAND (H1+H2 mixed): M_50 ratio ~ constant across N_sub. whitened/raw M_50 ratio by N_sub: {'N384': 3.0, 'N768': 3.0, 'N1536': 3.0, 'N3072': 3.0} | slope(vs logN)=-0.00"
+}

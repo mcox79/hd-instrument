@@ -1,0 +1,48 @@
+{
+  "verdict": "EWC_INCONCLUSIVE",
+  "verdict_msg": "Best lift +0.013 below partial threshold 0.02; Fisher-diagonal weighting not effective at tested lam grid.",
+  "elapsed_s": 2.5,
+  "summary": {
+    "per_lam": {
+      "0.0": {
+        "17": {
+          "retention_A": 0.9867276950222519,
+          "gain_B": 0.4433451228671599,
+          "bpc_A_baseline": 7.718846506542629,
+          "bpc_A_after_B": 7.822671386930677,
+          "bpc_B_pre_phase": 7.833771308263143,
+          "bpc_B_after_B": 7.390426185395983,
+          "fisher_mean": 1.0821157303553264e-08,
+          "fisher_max": 8.055736770984367e-07
+        }
+      },
+      "1.0": {
+        "17": {
+          "retention_A": 1.0,
+          "gain_B": 0.7241477171579991,
+          "bpc_A_baseline": 7.808601087994045,
+          "bpc_A_after_B": 7.664595550960964,
+          "bpc_B_pre_phase": 7.819920380910237,
+          "bpc_B_after_B": 7.095772663752238,
+          "fisher_mean": 8.78221229072551e-09,
+          "fisher_max": 4.893695404462051e-07
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs_a": 2,
+    "epochs_b": 1,
+    "bytes_per_corpus": 3000,
+    "lambdas": [
+      0.0,
+      1.0
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

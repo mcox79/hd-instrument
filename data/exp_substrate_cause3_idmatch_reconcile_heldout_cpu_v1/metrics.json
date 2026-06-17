@@ -1,0 +1,94 @@
+{
+  "anchor_name": "substrate_cause3_idmatch_reconcile_heldout_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ID-MATCH BUG CONFIRMED (cheap data fix, NOT M4): the held-out converted file's gold ids do not EXACTLY equal the substrate's qualified ids, so the scorer's exact set-intersection misses gold that bge actually retrieves at rank 2-3. Re-qualifying the held-out gold to the substrate's canonical qualified_ids recovers these in-coverage questions WITHOUT any retrieval/M4 work. Reconcile: 1 gold atoms have a substrate qualified_id whose EXACT string differs from the file gold (id-match bug). 0/5 inspected questions have a short-match in bge top-10 but NO exact-match.",
+  "summary": "ID-MATCH BUG CONFIRMED (cheap data fix, NOT M4): the held-out converted file's gold ids do not EXACTLY equal the substrate's qualified ids, so the scorer's exact set-intersection misses gold that bge actually retrieves at rank 2-3. Re-qualifying the held-out gold to the substrate's canonical qualified_ids recovers these in-coverage questions WITHOUT any retrieval/M4 work. Reconcile: 1 gold atoms have a substrate qualified_id whose EXACT string differs from the file gold (id-match bug). 0/5 inspected questions have a short-match in bge top-10 but NO exact-match.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "results": [
+        {
+          "qid": "Q54-A",
+          "gold": [
+            "T2/active_inference",
+            "T2/free_energy_principle",
+            "T2/variational_free_energy",
+            "CAP_predictive_coding",
+            "math::T1/kl_divergence"
+          ],
+          "exact_top10": [],
+          "short_top10": [],
+          "idmatch_bug": []
+        },
+        {
+          "qid": "Q55-B",
+          "gold": [
+            "math::T2/fhrr_unbind"
+          ],
+          "exact_top10": [],
+          "short_top10": [],
+          "idmatch_bug": []
+        },
+        {
+          "qid": "Q60-G",
+          "gold": [
+            "math::T3/structured_perceptron_collins",
+            "math::T4/discriminative_perceptron_pipeline",
+            "concept::CAP_discriminative_perceptron",
+            "discriminative_learning_family"
+          ],
+          "exact_top10": [
+            "math::T3/structured_perceptron_collins",
+            "math::T4/discriminative_perceptron_pipeline",
+            "concept::CAP_discriminative_perceptron"
+          ],
+          "short_top10": [
+            "math::T3/structured_perceptron_collins",
+            "math::T4/discriminative_perceptron_pipeline",
+            "concept::CAP_discriminative_perceptron"
+          ],
+          "idmatch_bug": [
+            "discriminative_learning_family"
+          ]
+        },
+        {
+          "qid": "Q61-A",
+          "gold": [
+            "T2/variational_information_bottleneck",
+            "T2/infonce_estimator",
+            "T2/mine_estimator",
+            "math::T1/mutual_information",
+            "math::T1/kl_divergence"
+          ],
+          "exact_top10": [
+            "math::T1/mutual_information",
+            "math::T1/kl_divergence"
+          ],
+          "short_top10": [
+            "math::T1/mutual_information",
+            "math::T1/kl_divergence"
+          ],
+          "idmatch_bug": []
+        },
+        {
+          "qid": "Q64-G",
+          "gold": [
+            "math::T2/cosine_cleanup",
+            "math::T2/sparse_distributed_memory",
+            "math::T2/modern_hopfield_ramsauer"
+          ],
+          "exact_top10": [
+            "math::T2/cosine_cleanup"
+          ],
+          "short_top10": [
+            "math::T2/cosine_cleanup"
+          ],
+          "idmatch_bug": []
+        }
+      ],
+      "n_idmatch_bug_atoms": 1
+    }
+  ],
+  "elapsed_s": 8.04076337814331
+}

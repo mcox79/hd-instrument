@@ -1,0 +1,428 @@
+{
+  "verdict": "GRID_HARD_PASS",
+  "verdict_msg": "ENVELOPE_MAP_DELIVERED: 9/9 cells populated with 6 metrics each (frac=1.000). cells_complete=9/9 mean_retention=1.000 mean_above_thresh=0.000 N=1024 betas=3 mfracs=3",
+  "elapsed_s": 9.75,
+  "summary": {
+    "anchor": "phase_lattice_grid_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "betas": [
+      4.0,
+      10.0,
+      32.0
+    ],
+    "mfracs": [
+      0.25,
+      1.0,
+      4.0
+    ],
+    "seeds": [
+      17
+    ],
+    "total_expected": 9,
+    "n_completed": 9,
+    "n_done_this_run": 9,
+    "n_skipped_already_done": 0,
+    "cells": [
+      {
+        "N": 1024,
+        "M": 256,
+        "beta": 10.0,
+        "seed": "b10_m0p25_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00044,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 122597.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 122597.0,
+          "wall_ns_total": 24519400.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1973.62055,
+        "_sharp_aux": {
+          "kf1_sharpness": 1973.62055,
+          "max_stored_conf": 0.87077,
+          "mean_neg_conf": 0.00044
+        },
+        "M_frac": 0.25,
+        "cell_key": "b10_m0p25_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142004.4175265
+      },
+      {
+        "N": 1024,
+        "M": 1024,
+        "beta": 10.0,
+        "seed": "b10_m1_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00065,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 202809.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 202809.5,
+          "wall_ns_total": 40561900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1406.02317,
+        "_sharp_aux": {
+          "kf1_sharpness": 1406.02317,
+          "max_stored_conf": 0.91461,
+          "mean_neg_conf": 0.00065
+        },
+        "M_frac": 1.0,
+        "cell_key": "b10_m1_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142005.488482
+      },
+      {
+        "N": 1024,
+        "M": 4096,
+        "beta": 10.0,
+        "seed": "b10_m4_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0,
+          "n_oos": 0
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 190445.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 190445.5,
+          "wall_ns_total": 38089100.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 0.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 0.0,
+          "max_stored_conf": 0.96073,
+          "mean_neg_conf": 0.0
+        },
+        "M_frac": 4.0,
+        "cell_key": "b10_m4_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142006.7089128
+      },
+      {
+        "N": 1024,
+        "M": 256,
+        "beta": 32.0,
+        "seed": "b32_m0p25_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00155,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 133393.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 133393.0,
+          "wall_ns_total": 26678600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 653.29776,
+        "_sharp_aux": {
+          "kf1_sharpness": 653.29776,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00153
+        },
+        "M_frac": 0.25,
+        "cell_key": "b32_m0p25_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142007.5858705
+      },
+      {
+        "N": 1024,
+        "M": 1024,
+        "beta": 32.0,
+        "seed": "b32_m1_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0044,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 158545.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 158545.0,
+          "wall_ns_total": 31709000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 224.85327,
+        "_sharp_aux": {
+          "kf1_sharpness": 224.85327,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00445
+        },
+        "M_frac": 1.0,
+        "cell_key": "b32_m1_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142008.5977292
+      },
+      {
+        "N": 1024,
+        "M": 4096,
+        "beta": 32.0,
+        "seed": "b32_m4_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0,
+          "n_oos": 0
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 130720.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 130720.0,
+          "wall_ns_total": 26144000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 0.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 0.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.0
+        },
+        "M_frac": 4.0,
+        "cell_key": "b32_m4_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142009.84248
+      },
+      {
+        "N": 1024,
+        "M": 256,
+        "beta": 4.0,
+        "seed": "b4_m0p25_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00031,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 125570.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 125570.5,
+          "wall_ns_total": 25114100.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 46.92006,
+        "_sharp_aux": {
+          "kf1_sharpness": 46.92006,
+          "max_stored_conf": 0.01454,
+          "mean_neg_conf": 0.00031
+        },
+        "M_frac": 0.25,
+        "cell_key": "b4_m0p25_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142001.3014095
+      },
+      {
+        "N": 1024,
+        "M": 1024,
+        "beta": 4.0,
+        "seed": "b4_m1_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00036,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 130938.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 130938.0,
+          "wall_ns_total": 26187600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 48.24013,
+        "_sharp_aux": {
+          "kf1_sharpness": 48.24013,
+          "max_stored_conf": 0.01757,
+          "mean_neg_conf": 0.00036
+        },
+        "M_frac": 1.0,
+        "cell_key": "b4_m1_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142002.2728837
+      },
+      {
+        "N": 1024,
+        "M": 4096,
+        "beta": 4.0,
+        "seed": "b4_m4_seed17",
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.0,
+          "n_oos": 0
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 97605.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 97605.5,
+          "wall_ns_total": 19521100.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 0.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 0.0,
+          "max_stored_conf": 0.02497,
+          "mean_neg_conf": 0.0
+        },
+        "M_frac": 4.0,
+        "cell_key": "b4_m4_seed17",
+        "seed_int": 17,
+        "_partial_written_at": 1780142003.2977602
+      }
+    ],
+    "verdict": "GRID_HARD_PASS",
+    "verdict_msg": "ENVELOPE_MAP_DELIVERED: 9/9 cells populated with 6 metrics each (frac=1.000). cells_complete=9/9 mean_retention=1.000 mean_above_thresh=0.000 N=1024 betas=3 mfracs=3",
+    "elapsed_s": 9.75
+  }
+}

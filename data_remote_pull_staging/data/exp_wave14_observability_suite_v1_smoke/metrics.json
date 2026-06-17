@@ -1,0 +1,30 @@
+{
+  "verdict": "OBS_SUITE_RS_CERTIFIED",
+  "verdict_msg": "Cross-family RS certification: C_ij excess eigvals=0 (<=1), P(h) unimodal narrow wipeout=0.025. Substrate confirmed in RS / paramagnet phase.",
+  "elapsed_s": 1.9530000000086147,
+  "summary": {
+    "cij_verdict": "OBS_CIJ_RS",
+    "cij_excess_eigvals": 0,
+    "cij_n_extensive": 0,
+    "cij_W_n_extensive": 0,
+    "ph_verdict": "OBS_PH_PARAMAGNETIC",
+    "ph_bimodal": false,
+    "ph_wipeout_fraction": 0.024687500670552254,
+    "ph_sigma": 1.264237403869629,
+    "ph_skew": 0.00547111826017499,
+    "ph_kurtosis": 2.2312209606170654,
+    "ph_bimodality_coef": 0.44819852035562135,
+    "n_samples": 50
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "alpha": 0.15,
+    "beta": 2.0,
+    "n_burn": 20,
+    "n_sample": 50,
+    "sample_interval": 5,
+    "seed": 17,
+    "cij_threshold_rel": 0.1
+  }
+}

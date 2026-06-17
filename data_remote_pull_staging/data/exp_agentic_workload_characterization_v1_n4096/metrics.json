@@ -1,0 +1,89 @@
+{
+  "verdict": "G13B_P1_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: A_customer_support: n=1 acc_mean=1.000 p99_ms=1.9 kf=1/1 chain_ok=1; B_compliance: n=1 acc_mean=1.000 p99_ms=3.4 kf=1/1 chain_ok=1; C_diagnostic: n=1 acc_mean=1.000 p99_ms=2.0 kf=1/1 chain_ok=1",
+  "elapsed_s": 0.33,
+  "summary": {
+    "anchor": "agentic_workload_characterization_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "K_paths": 30,
+    "workloads": {
+      "A_customer_support": {
+        "calls": 4,
+        "d_min": 1,
+        "d_max": 3,
+        "edit_frac": 0.0
+      },
+      "B_compliance": {
+        "calls": 5,
+        "d_min": 2,
+        "d_max": 4,
+        "edit_frac": 0.0
+      },
+      "C_diagnostic": {
+        "calls": 6,
+        "d_min": 3,
+        "d_max": 5,
+        "edit_frac": 0.0
+      }
+    },
+    "sessions_per_workload": 1,
+    "cells": [
+      {
+        "session_id": 0,
+        "n_calls": 4,
+        "n_calls_acc": 4,
+        "session_acc": 1.0,
+        "session_wall_s": 0.01,
+        "per_call_mean_ms": 1.706,
+        "per_call_p50_ms": 1.724,
+        "per_call_p95_ms": 1.899,
+        "per_call_p99_ms": 1.899,
+        "retention_end": 1.0,
+        "max_iso_end": 0.0,
+        "kf_stable": true,
+        "audit_chain_ok": true,
+        "cert_chain_len": 4,
+        "workload_name": "A_customer_support"
+      },
+      {
+        "session_id": 0,
+        "n_calls": 5,
+        "n_calls_acc": 5,
+        "session_acc": 1.0,
+        "session_wall_s": 0.02,
+        "per_call_mean_ms": 2.754,
+        "per_call_p50_ms": 2.203,
+        "per_call_p95_ms": 3.384,
+        "per_call_p99_ms": 3.384,
+        "retention_end": 1.0,
+        "max_iso_end": 0.0,
+        "kf_stable": true,
+        "audit_chain_ok": true,
+        "cert_chain_len": 5,
+        "workload_name": "B_compliance"
+      },
+      {
+        "session_id": 0,
+        "n_calls": 6,
+        "n_calls_acc": 6,
+        "session_acc": 1.0,
+        "session_wall_s": 0.01,
+        "per_call_mean_ms": 1.998,
+        "per_call_p50_ms": 1.822,
+        "per_call_p95_ms": 2.031,
+        "per_call_p99_ms": 2.031,
+        "retention_end": 1.0,
+        "max_iso_end": 0.0,
+        "kf_stable": true,
+        "audit_chain_ok": true,
+        "cert_chain_len": 6,
+        "workload_name": "C_diagnostic"
+      }
+    ],
+    "verdict": "G13B_P1_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: A_customer_support: n=1 acc_mean=1.000 p99_ms=1.9 kf=1/1 chain_ok=1; B_compliance: n=1 acc_mean=1.000 p99_ms=3.4 kf=1/1 chain_ok=1; C_diagnostic: n=1 acc_mean=1.000 p99_ms=2.0 kf=1/1 chain_ok=1",
+    "elapsed_s": 0.33
+  }
+}

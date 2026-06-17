@@ -1,0 +1,31 @@
+{
+  "verdict": "YONELINAS_DUAL_PROCESS_VALIDATED",
+  "verdict_msg": "z-ROC slope = 0.81 (< 0.85 indicates dual-process per DPSD model). Recollection accuracy = 90.00%, familiarity d' = 2.78. The Yonelinas dissociation holds under PROPER test (equal codebooks + ROC).",
+  "elapsed_s": 0.15599999998812564,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_codebook": 128,
+    "K_stored": 30,
+    "n_probes": 100,
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_seed": [
+    {
+      "K_stored": 30,
+      "n_codebook": 128,
+      "z_roc_slope": 0.8136201611355662,
+      "familiarity_d_prime": 2.7790529939997715,
+      "recollection_accuracy": 0.9,
+      "n_roc_points": 12
+    }
+  ],
+  "summary": {
+    "z_roc_slope": 0.8136201611355662,
+    "recollection_accuracy": 0.9,
+    "familiarity_d_prime": 2.7790529939997715
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "verdict": "BINDER_RSB_SIGNAL",
+  "verdict_msg": "g4 monotone increasing with N (RSB non-self-averaging signal). g4={'256': 0.2106, '512': 0.2824}, slope=0.0717",
+  "elapsed_s": 0.17199999999138527,
+  "summary": {
+    "g4_by_N": {
+      "256": 0.21062,
+      "512": 0.28236
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_values": [
+      256,
+      512
+    ],
+    "K": 50,
+    "K_store": 40,
+    "n_codebook_seeds": 3,
+    "n_overlap_pairs": 10
+  }
+}

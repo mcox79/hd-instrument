@@ -1,0 +1,14 @@
+{
+  "anchor_name": "combo3_unified_api_v1_n8192",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 5 HP at N=8192. mean_prim_fails=0.00(HP==0 HF>3) kappa3_err=0.00e+00(HP<1e-05) cndc_err=0.00e+00(HP<1e-08) cert_err=0.00e+00(HP<1e-08) matvec=2.0(HP<=5) n_seeds=2",
+  "N": 8192,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 2.532691478729248,
+  "mean_n_primitive_fails": 0.0,
+  "mean_kappa3_err": 0.0,
+  "mean_cndc_err": 0.0,
+  "mean_cert_err": 0.0,
+  "mean_matvec_count": 2.0
+}

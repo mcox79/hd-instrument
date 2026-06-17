@@ -1,0 +1,24 @@
+{
+  "verdict": "CONFORMAL_COVERED",
+  "verdict_msg": "coverage=0.940 in [0.93, 0.97] (proper 95% conformal coverage).",
+  "elapsed_s": 61.92200000002049,
+  "summary": {
+    "coverage": 0.94,
+    "q_lo": 0.08666666666666667,
+    "q_hi": 0.22944444444444445,
+    "n_calibration": 200,
+    "n_test": 200,
+    "target_coverage": 0.95
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 60,
+    "n_calibration": 200,
+    "n_test": 200,
+    "target_coverage": 0.95
+  }
+}

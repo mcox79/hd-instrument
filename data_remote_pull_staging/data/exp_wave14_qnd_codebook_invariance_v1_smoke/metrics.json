@@ -1,0 +1,36 @@
+{
+  "verdict": "QND_INCONCLUSIVE",
+  "verdict_msg": "Need both iid_gauss and kerdock cells.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "by_cb": {
+      "iid_gauss": {
+        "max_drift_F": 0.0,
+        "mean_drift_F": 0.0,
+        "n_seeds": 2
+      }
+    },
+    "config": {
+      "N": 64,
+      "M": 64,
+      "n_iter": 5,
+      "n_seeds": 2,
+      "sigma_noise_sq": 0.01,
+      "codebooks": [
+        "iid_gauss"
+      ],
+      "mode": "smoke"
+    }
+  },
+  "config": {
+    "N": 64,
+    "M": 64,
+    "n_iter": 5,
+    "n_seeds": 2,
+    "sigma_noise_sq": 0.01,
+    "codebooks": [
+      "iid_gauss"
+    ],
+    "mode": "smoke"
+  }
+}

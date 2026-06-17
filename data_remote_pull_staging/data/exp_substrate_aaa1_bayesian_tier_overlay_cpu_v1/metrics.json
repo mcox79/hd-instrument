@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_aaa1_bayesian_tier_overlay_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (Reservation A REFUTED): Bayesian posterior is WORSE than hard labels (delta -0.0246) -- the overlay hurts; KEEP hard tier labels. Per 7th rule, this honestly closes Reservation A as not-worth-integrating at the current corpus. 447 tiered atoms (mix {'T1': 261, 'T2': 76, 'T3': 110}, majority-baseline 0.584); 5-fold tier-prediction BAYESIAN=0.5906 vs HARD=0.6152 delta=-0.0246. (same structural features both models; only hard-cell-majority vs naive-Bayes-posterior differs.)",
+  "summary": "HARD_FAIL (Reservation A REFUTED): Bayesian posterior is WORSE than hard labels (delta -0.0246) -- the overlay hurts; KEEP hard tier labels. Per 7th rule, this honestly closes Reservation A as not-worth-integrating at the current corpus. 447 tiered atoms (mix {'T1': 261, 'T2': 76, 'T3': 110}, majority-baseline 0.584); 5-fold tier-prediction BAYESIAN=0.5906 vs HARD=0.6152 delta=-0.0246. (same structural features both models; only hard-cell-majority vs naive-Bayes-posterior differs.)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 447,
+      "tier_mix": {
+        "T1": 261,
+        "T2": 76,
+        "T3": 110
+      },
+      "majority_baseline": 0.5839,
+      "bayesian_acc": 0.5906,
+      "hard_acc": 0.6152,
+      "delta": -0.0246,
+      "n_eval": 447
+    }
+  ],
+  "elapsed_s": 0.08554291725158691
+}

@@ -1,0 +1,73 @@
+{
+  "verdict": "CAP11_CHI4_MIDDLE_BAND",
+  "verdict_msg": "chi4 SNR=63411459.33 lead=0.000 perm_pass=False. Triggers combined-indicator v2 (chi_4 + AC + Var + tau_R).",
+  "elapsed_s": 0.2649999999557622,
+  "summary": {
+    "alpha_grid": [
+      0.05,
+      0.1,
+      0.14,
+      0.18
+    ],
+    "chi4_median_per_alpha": [
+      0.0,
+      0.0015625000232830644,
+      0.02087673544883728,
+      0.06341145932674408
+    ],
+    "ac1_mean_per_alpha": [
+      0.0,
+      0.0,
+      0.058272302847386846,
+      0.6119265344568473
+    ],
+    "var_mean_per_alpha": [
+      0.0,
+      4.882663233729545e-07,
+      1.0871700624193181e-06,
+      6.675737495243084e-06
+    ],
+    "tau_R_mean_per_alpha": [
+      2.0,
+      2.0,
+      3.0,
+      30.0
+    ],
+    "retrieval_overlap_mean_per_alpha": [
+      1.0,
+      0.9993489583333334,
+      0.9973307291666667,
+      0.8425130208333333
+    ],
+    "chi4_peak": 0.06341145932674408,
+    "chi4_baseline": 0.0,
+    "chi4_snr": 63411459.32674407,
+    "chi4_peak_alpha": 0.18,
+    "knee_alpha": 0.18,
+    "lead_time_alpha": 0.0,
+    "lead_time_frac": 0.0,
+    "n_seeds": 1,
+    "seeds_with_negative_lead": 1,
+    "permutation_null_passed": false,
+    "ac1_snr": 611926534.4568473,
+    "var_snr": 6675.737495243084,
+    "tau_R_snr": 30000000000.0
+  },
+  "config": {
+    "N": 1024,
+    "alpha_c": 0.14,
+    "alpha_grid": [
+      0.05,
+      0.1,
+      0.14,
+      0.18
+    ],
+    "n_runs": 10,
+    "T_steps": 5,
+    "noise_p": 0.05,
+    "n_retrieval_probes": 30,
+    "n_seeds": 1,
+    "seed": 17,
+    "perm_null": true
+  }
+}

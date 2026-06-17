@@ -1,0 +1,16 @@
+{
+  "anchor_name": "self_improving_routing_warm_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: warm >= cold but gain <5pp. cold=1.000 warm=1.000 gain=+0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cold": 1.0,
+      "warm": 1.0,
+      "gain": 0.0
+    }
+  ],
+  "elapsed_s": 0.12311887741088867,
+  "summary": "MIDDLE_BAND: warm >= cold but gain <5pp. cold=1.000 warm=1.000 gain=+0.000"
+}

@@ -1,0 +1,26 @@
+{
+  "verdict": "TPHDC_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_SUBSPACE: ret_A=0.9665 above HF but below HP. mean_ret_A=0.9665 seeds_pass=1/1 per_seed=[0.9665] HP=0.8 HF=0.55",
+  "elapsed_s": 3.89,
+  "N": 512,
+  "smoke": true,
+  "results": [
+    {
+      "seed": 17,
+      "N": 512,
+      "d": 128,
+      "bpc_A_baseline": 4.19291,
+      "bpc_A_final": 4.33805,
+      "retention_A": 0.9665
+    }
+  ],
+  "config": {
+    "N": 512,
+    "eta": 0.3,
+    "subspace_dim_frac": 0.25,
+    "seeds": [
+      17
+    ],
+    "T_bytes": 20000
+  }
+}

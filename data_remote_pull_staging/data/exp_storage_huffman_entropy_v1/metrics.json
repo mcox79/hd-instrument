@@ -1,0 +1,15 @@
+{
+  "anchor_name": "storage_huffman_entropy_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 4-bit W codeword entropy <3.0 bits -- Huffman/entropy coding gives 1.33x+ free storage gain on top of 4-bit. H=1.445 bits (of 4); entropy-coding gain=2.77x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "entropy_bits": 1.4447337714298687,
+      "gain": 2.7686761942590685
+    }
+  ],
+  "elapsed_s": 0.10007381439208984,
+  "summary": "HARD_PASS: 4-bit W codeword entropy <3.0 bits -- Huffman/entropy coding gives 1.33x+ free storage gain on top of 4-bit. H=1.445 bits (of 4); entropy-coding gain=2.77x"
+}

@@ -1,0 +1,75 @@
+{
+  "verdict": "G12_HARD_PASS",
+  "verdict_msg": "PROFILE_EMITTED: store: peak=0.00MB elap=0.004s | retrieve: peak=0.00MB elap=0.003s | edit: peak=0.00MB elap=0.004s | multi_hop: peak=0.00MB elap=0.007s",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "memory_pattern_characterization_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "n_ops": 8,
+    "depth": 2,
+    "K_paths": 10,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "device": "cpu",
+        "profiles": {
+          "store": {
+            "op": "store",
+            "peak_alloc_bytes": 0,
+            "trace_bytes": [
+              0,
+              0
+            ],
+            "mean_alloc_bytes": 0,
+            "elapsed_s": 0.0044,
+            "n_allocs": 2
+          },
+          "retrieve": {
+            "op": "retrieve",
+            "peak_alloc_bytes": 0,
+            "trace_bytes": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "mean_alloc_bytes": 0,
+            "elapsed_s": 0.0025,
+            "n_allocs": 4
+          },
+          "edit": {
+            "op": "edit",
+            "peak_alloc_bytes": 0,
+            "trace_bytes": [
+              0,
+              0
+            ],
+            "mean_alloc_bytes": 0,
+            "elapsed_s": 0.0039,
+            "n_allocs": 2
+          },
+          "multi_hop": {
+            "op": "multi_hop",
+            "peak_alloc_bytes": 0,
+            "trace_bytes": [
+              0,
+              0
+            ],
+            "mean_alloc_bytes": 0,
+            "elapsed_s": 0.0075,
+            "n_allocs": 2
+          }
+        }
+      }
+    ],
+    "verdict": "G12_HARD_PASS",
+    "verdict_msg": "PROFILE_EMITTED: store: peak=0.00MB elap=0.004s | retrieve: peak=0.00MB elap=0.003s | edit: peak=0.00MB elap=0.004s | multi_hop: peak=0.00MB elap=0.007s",
+    "elapsed_s": 0.07
+  }
+}

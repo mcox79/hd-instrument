@@ -1,0 +1,38 @@
+{
+  "N": 4096,
+  "K": 32,
+  "B_SWEEP": [
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "NUM_TRIALS": 50,
+  "NUM_RESTARTS": 8,
+  "results": [
+    {
+      "B": 256,
+      "recovery_pct": 84.0,
+      "correct": 42,
+      "trials": 50
+    },
+    {
+      "B": 512,
+      "recovery_pct": 76.0,
+      "correct": 38,
+      "trials": 50
+    },
+    {
+      "B": 1024,
+      "recovery_pct": 84.0,
+      "correct": 42,
+      "trials": 50
+    },
+    {
+      "B": 2048,
+      "recovery_pct": 92.0,
+      "correct": 46,
+      "trials": 50
+    }
+  ]
+}

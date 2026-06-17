@@ -1,0 +1,29 @@
+{
+  "verdict": "VAMP_KILLED",
+  "verdict_msg": "VAMP MSE=1742.6021, LASSO=0.0076, ratio=230395.03 (>2.0). VAMP fails to recover; investigate Onsager / damping settings.",
+  "elapsed_s": 0.34400000001187436,
+  "summary": {
+    "vamp_mse": 1742.6021118164062,
+    "lasso_mse": 0.007563540246337652,
+    "per_trial_vamp": [
+      1949.26708984375,
+      1535.9371337890625
+    ],
+    "per_trial_lasso": [
+      0.00717949029058218,
+      0.007947590202093124
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N": 0.5,
+    "sparsity": 0.1,
+    "sigma_noise": 0.05,
+    "n_iter": 10,
+    "lasso_lam": 0.1,
+    "lasso_iter": 100,
+    "n_trials": 2,
+    "seed": 17
+  }
+}

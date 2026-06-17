@@ -1,0 +1,32 @@
+{
+  "verdict": "MULTIHOP_FHRR_KILLED",
+  "verdict_msg": "FHRR 50-hop fails: acc_50=0.000 < 0.4. acc_1=1.000. R8 A1 rescue does not rehabilitate multi-hop depth cliff. See prereg pre-armed rescue sketches.",
+  "elapsed_s": 0.75,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 1.0,
+      "5": 0.6
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 1.0,
+        "5": 0.6
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 20,
+    "hop_depths": [
+      1,
+      5
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

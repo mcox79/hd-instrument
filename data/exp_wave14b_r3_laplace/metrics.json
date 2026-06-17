@@ -1,0 +1,72 @@
+{
+  "K_LEVELS": [
+    4,
+    32
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "LAPLACE_ALPHA": 1.0,
+  "all_results": {
+    "4": [
+      {
+        "seed": 17,
+        "bpc_a_initial": 2.4814246138539775,
+        "replay_R10_only": 3.658539451488032,
+        "replay_R10_R3laplace": 3.6587783620042162,
+        "replay_R10_R3broken": 3.71474933769926,
+        "vote_laplace_std": 0.09801085293292999,
+        "vote_broken_std": 1.0056110620498657
+      },
+      {
+        "seed": 23,
+        "bpc_a_initial": 2.4956606317350594,
+        "replay_R10_only": 3.6642963761723024,
+        "replay_R10_R3laplace": 3.665108299973953,
+        "replay_R10_R3broken": 3.7316255044116593,
+        "vote_laplace_std": 0.09801085293292999,
+        "vote_broken_std": 1.0056110620498657
+      },
+      {
+        "seed": 31,
+        "bpc_a_initial": 2.4891457328023425,
+        "replay_R10_only": 3.673038093078259,
+        "replay_R10_R3laplace": 3.6765765357243287,
+        "replay_R10_R3broken": 3.7368201995840287,
+        "vote_laplace_std": 0.09801085293292999,
+        "vote_broken_std": 1.0056110620498657
+      }
+    ],
+    "32": [
+      {
+        "seed": 17,
+        "bpc_a_initial": 3.760451862664199,
+        "replay_R10_only": 4.655098959088945,
+        "replay_R10_R3laplace": 4.652183691191219,
+        "replay_R10_R3broken": 4.793047014801022,
+        "vote_laplace_std": 0.07592445611953735,
+        "vote_broken_std": 1.0978657007217407
+      },
+      {
+        "seed": 23,
+        "bpc_a_initial": 3.7904734373116926,
+        "replay_R10_only": 4.60812279386902,
+        "replay_R10_R3laplace": 4.605591156880587,
+        "replay_R10_R3broken": 4.754604830177213,
+        "vote_laplace_std": 0.07592445611953735,
+        "vote_broken_std": 1.0978657007217407
+      },
+      {
+        "seed": 31,
+        "bpc_a_initial": 3.739312940915458,
+        "replay_R10_only": 4.634124168564571,
+        "replay_R10_R3laplace": 4.630290417039531,
+        "replay_R10_R3broken": 4.771497027279949,
+        "vote_laplace_std": 0.07592445611953735,
+        "vote_broken_std": 1.0978657007217407
+      }
+    ]
+  }
+}

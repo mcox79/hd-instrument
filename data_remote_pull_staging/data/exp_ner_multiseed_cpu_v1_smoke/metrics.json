@@ -1,0 +1,22 @@
+{
+  "anchor_name": "ner_multiseed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: NER mean-F1 <0.55. mean-F1=0.4975 std=0.0093 (n=3, vals=[0.4951, 0.4875, 0.5098])",
+  "summary": "HARD_FAIL: NER mean-F1 <0.55. mean-F1=0.4975 std=0.0093 (n=3, vals=[0.4951, 0.4875, 0.5098])",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "accuracy": 0.4975,
+      "std": 0.0093,
+      "vals": [
+        0.4951,
+        0.4875,
+        0.5098
+      ],
+      "n_seeds": 3,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 8.52025294303894
+}

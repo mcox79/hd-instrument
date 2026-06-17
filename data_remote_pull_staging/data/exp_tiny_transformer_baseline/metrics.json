@@ -1,0 +1,130 @@
+{
+  "n_params": 862976,
+  "context": 32,
+  "d_model": 128,
+  "n_layers": 4,
+  "n_heads": 4,
+  "lr": 0.0003,
+  "time_budget_s": 600,
+  "total_steps": 7304,
+  "final_test_bpc": 3.605350507358589,
+  "best_test_bpc": 2.3869177165577415,
+  "history": [
+    {
+      "step": 437,
+      "elapsed_s": 29.927839099997072,
+      "train_loss_bpc": 3.220700872546826,
+      "test_bpc": 3.3482935430830834
+    },
+    {
+      "step": 842,
+      "elapsed_s": 63.406719699996756,
+      "train_loss_bpc": 2.836008359270387,
+      "test_bpc": 2.861103780070838
+    },
+    {
+      "step": 1208,
+      "elapsed_s": 96.64189169999736,
+      "train_loss_bpc": 2.825981942707736,
+      "test_bpc": 2.820384996153332
+    },
+    {
+      "step": 1573,
+      "elapsed_s": 130.84354060000624,
+      "train_loss_bpc": 2.423897339897494,
+      "test_bpc": 2.623475822630364
+    },
+    {
+      "step": 1975,
+      "elapsed_s": 164.14756260000286,
+      "train_loss_bpc": 2.124955720306553,
+      "test_bpc": 2.3869177165577415
+    },
+    {
+      "step": 2387,
+      "elapsed_s": 197.8926167000027,
+      "train_loss_bpc": 1.745040713088432,
+      "test_bpc": 2.421241075393282
+    },
+    {
+      "step": 2795,
+      "elapsed_s": 231.4872381000023,
+      "train_loss_bpc": 1.5560154414383733,
+      "test_bpc": 2.4526819305592906
+    },
+    {
+      "step": 3207,
+      "elapsed_s": 264.84273800000665,
+      "train_loss_bpc": 1.4450169786582623,
+      "test_bpc": 2.4550821508167577
+    },
+    {
+      "step": 3618,
+      "elapsed_s": 298.1753250000038,
+      "train_loss_bpc": 1.4863217079506812,
+      "test_bpc": 2.5072805795253803
+    },
+    {
+      "step": 4029,
+      "elapsed_s": 331.53614290000405,
+      "train_loss_bpc": 1.257620296720549,
+      "test_bpc": 2.713690090877278
+    },
+    {
+      "step": 4441,
+      "elapsed_s": 364.9145753000048,
+      "train_loss_bpc": 1.0578056074772866,
+      "test_bpc": 2.8331500873803526
+    },
+    {
+      "step": 4845,
+      "elapsed_s": 398.66429960000096,
+      "train_loss_bpc": 0.8818749228812712,
+      "test_bpc": 2.962147923139006
+    },
+    {
+      "step": 5257,
+      "elapsed_s": 431.9815765000094,
+      "train_loss_bpc": 0.8901553715723629,
+      "test_bpc": 2.9641510877832364
+    },
+    {
+      "step": 5663,
+      "elapsed_s": 465.3935616999952,
+      "train_loss_bpc": 0.8808133599688206,
+      "test_bpc": 3.121204860969928
+    },
+    {
+      "step": 6075,
+      "elapsed_s": 498.7137842000084,
+      "train_loss_bpc": 0.8066163467596114,
+      "test_bpc": 3.306200106291627
+    },
+    {
+      "step": 6479,
+      "elapsed_s": 532.1977404000063,
+      "train_loss_bpc": 0.6837255416463135,
+      "test_bpc": 3.495466101578704
+    },
+    {
+      "step": 6889,
+      "elapsed_s": 565.7407561,
+      "train_loss_bpc": 0.6145639654760537,
+      "test_bpc": 3.5685023874225634
+    },
+    {
+      "step": 7304,
+      "elapsed_s": 599.0468731000001,
+      "train_loss_bpc": 0.6264097435065196,
+      "test_bpc": 3.605350507358589
+    }
+  ],
+  "comparison": {
+    "unigram": 5.7383,
+    "two_gram": 4.9047,
+    "hebbian_vsa_best": 3.1,
+    "tiny_transformer_best": 2.3869177165577415
+  },
+  "verdict": "Transformer moderately better",
+  "headline": "Tiny transformer (0.86M params, ctx=32) best test bpc = 2.387 vs Hebbian-VSA = 3.100"
+}

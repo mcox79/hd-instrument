@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_49b_wikidata_abstraction_analysis_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL (<20 groups at this threshold): 49b abstraction analysis on 5363 wikidata atoms: 1 SHARED_ABSTRACTION groups (largest 5360), 11830 candidate SHARES_MATH edges, 0 INVERSE_PAIR (name-heuristic). Edges densify the M4d graph. Consider lower SIM_THRESH for more groups.",
+  "summary": "PARTIAL (<20 groups at this threshold): 49b abstraction analysis on 5363 wikidata atoms: 1 SHARED_ABSTRACTION groups (largest 5360), 11830 candidate SHARES_MATH edges, 0 INVERSE_PAIR (name-heuristic). Edges densify the M4d graph. Consider lower SIM_THRESH for more groups.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_wikidata": 5363,
+      "n_shared_abstraction_groups": 1,
+      "n_candidate_edges": 11830,
+      "n_inverse_pairs": 0,
+      "largest_group": 5360,
+      "sample_groups": [
+        [
+          "wikidata Q182505",
+          "wikidata Q11518",
+          "wikidata Q193878",
+          "wikidata Q200787"
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 16.22286319732666
+}

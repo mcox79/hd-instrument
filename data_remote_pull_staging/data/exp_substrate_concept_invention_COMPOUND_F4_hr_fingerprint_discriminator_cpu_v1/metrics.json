@@ -1,0 +1,21 @@
+{
+  "anchor_name": "substrate_concept_invention_COMPOUND_F4_hr_fingerprint_discriminator_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "F4 PASS: extensional-fingerprint discriminator reliably distinguishes rediscovery from novelty (precision+recall>=0.80) -> the compound's PRECISION mechanism is sound; rediscovery-vs-novel three-way decomposition is supportable. CAVEAT (honest): F4 validates DISCRIMINATION only; it does NOT certify novelty SOUNDNESS (the INV-1/INV-2 grounding/authoring-time-bound gap is separate and unaddressed by F4). Compound worth building IFF a truth-source for novelty-soundness is supplied (Lever b / G3-with-11th-rule-reconcile). COMPOUND-F4 HR-fingerprint discriminator: 11 rediscovery + 22 novel seed; precision=1.000 recall=1.000 (TP=11 FP=0 TN=22 FN=0).",
+  "summary": "F4 PASS: extensional-fingerprint discriminator reliably distinguishes rediscovery from novelty (precision+recall>=0.80) -> the compound's PRECISION mechanism is sound; rediscovery-vs-novel three-way decomposition is supportable. CAVEAT (honest): F4 validates DISCRIMINATION only; it does NOT certify novelty SOUNDNESS (the INV-1/INV-2 grounding/authoring-time-bound gap is separate and unaddressed by F4). Compound worth building IFF a truth-source for novelty-soundness is supplied (Lever b / G3-with-11th-rule-reconcile). COMPOUND-F4 HR-fingerprint discriminator: 11 rediscovery + 22 novel seed; precision=1.000 recall=1.000 (TP=11 FP=0 TN=22 FN=0).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_rediscovery": 11,
+      "n_novel": 22,
+      "TP": 11,
+      "FP": 0,
+      "TN": 22,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 2.1410491466522217
+}

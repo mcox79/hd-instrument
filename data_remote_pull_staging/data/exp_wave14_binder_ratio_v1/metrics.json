@@ -1,0 +1,28 @@
+{
+  "verdict": "BINDER_RS_CONFIRMED",
+  "verdict_msg": "g4 monotone decreasing with N (RS self-averaging confirmed). g4={'512': 0.1902, '1024': 0.0459, '2048': -0.2507, '4096': -0.2647, '8192': -1.4102}, slope=-0.4001",
+  "elapsed_s": 249.03100000001723,
+  "summary": {
+    "g4_by_N": {
+      "512": 0.19017,
+      "1024": 0.04592,
+      "2048": -0.25071,
+      "4096": -0.26469,
+      "8192": -1.41023
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N_values": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "K": 50,
+    "K_store": 40,
+    "n_codebook_seeds": 10,
+    "n_overlap_pairs": 50
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "verdict": "GLAUBER_BIMODAL_KERDOCK",
+  "verdict_msg": "Glauber dynamics on Kerdock-Hebbian W shows substrate-characteristic bimodal P(q) at low T. 1/1 low-T cells satisfy bimodal_score >= 0.5 and abs_mean_q >= 0.30. Max bimodal_score=1.000 at beta=6.00, alpha=0.10. Substrate codeword space supports retrieval-noise two-mode equilibrium under finite-T thermal dynamics; Cap 3 streaming-NESS framing extends from drift-diffusion to a Glauber-Hopfield discrete analog.",
+  "elapsed_s": 0.25,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.1,
+        "beta": 2.0,
+        "T": 0.5,
+        "N": 1024,
+        "M": 102,
+        "bimodal_score": 0.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.12880859375,
+        "abs_mean_q_std": 0.046484375,
+        "mean_q": 0.12880859375,
+        "n_seeds": 2
+      },
+      {
+        "alpha": 0.1,
+        "beta": 6.0,
+        "T": 0.16666666666666666,
+        "N": 1024,
+        "M": 102,
+        "bimodal_score": 1.0,
+        "bimodal_score_std": 0.0,
+        "abs_mean_q": 0.99825439453125,
+        "abs_mean_q_std": 0.0007690429687500222,
+        "mean_q": 0.99825439453125,
+        "n_seeds": 2
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alpha_list": [
+        0.1
+      ],
+      "beta_list": [
+        2.0,
+        6.0
+      ],
+      "n_seeds": 2,
+      "n_burn": 50,
+      "n_collect": 80
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha_list": [
+      0.1
+    ],
+    "beta_list": [
+      2.0,
+      6.0
+    ],
+    "n_seeds": 2,
+    "n_burn": 50,
+    "n_collect": 80
+  }
+}

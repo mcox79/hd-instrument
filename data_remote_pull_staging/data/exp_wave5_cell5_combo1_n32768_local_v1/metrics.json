@@ -1,0 +1,11 @@
+{
+  "anchor_name": "wave5_cell5_combo1_n32768_local_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: MMD=0.9328(HP<0.02 HF>=0.1) k3_resc=2.2802(|k-1|<=0.05) slope=1.522(HP<=1.3) cos=1.0000(HP>=0.95 HF<0.7) n_results=10",
+  "N": 32768,
+  "n_active": 32768,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 22.049355506896973,
+  "peak_gpu_gb": 6.450970624
+}

@@ -1,0 +1,11 @@
+{
+  "anchor_name": "streaming_prediction_7_corrected_hypothesis_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sliding-window r_eff stationary and maintains diversity. mean_CV=0.0008(HP<0.5) reff_norm=0.972(HP>=0.5) mean_min_reff=58.3(HP>3) hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 1024,
+  "W_WIN": 60,
+  "T_TOTAL": 180,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.4095041751861572
+}

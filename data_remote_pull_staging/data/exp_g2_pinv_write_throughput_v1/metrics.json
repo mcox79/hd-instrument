@@ -1,0 +1,32 @@
+{
+  "anchor_name": "g2_pinv_write_throughput_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pinv throughput >200 writes/sec at N=16384 -- production-viable as-is. writes/sec by N: {'N2048': 192792.9, 'N4096': 94754.3, 'N8192': 35002.7, 'N16384': 11335.3} | at N=16384=11335.3 (cuda)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N2048": {
+          "writes_per_sec": 192792.85891510363,
+          "M": 1024
+        },
+        "N4096": {
+          "writes_per_sec": 94754.27699470684,
+          "M": 2048
+        },
+        "N8192": {
+          "writes_per_sec": 35002.68331054512,
+          "M": 4096
+        },
+        "N16384": {
+          "writes_per_sec": 11335.300313764248,
+          "M": 8192
+        }
+      },
+      "device": "cuda"
+    }
+  ],
+  "elapsed_s": 2.816941738128662,
+  "summary": "HARD_PASS: pinv throughput >200 writes/sec at N=16384 -- production-viable as-is. writes/sec by N: {'N2048': 192792.9, 'N4096': 94754.3, 'N8192': 35002.7, 'N16384': 11335.3} | at N=16384=11335.3 (cuda)"
+}

@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_58a_m4d_namespace_normalized_heldout_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL (normalization helps but below both pre-reg bars): 58a namespace-normalize: OLD(faithful, ~1/4 graph)=0.2721 -> NEW(normalized, full graph)=0.1888 (delta -0.0833). Isolated golds recovered: 1/3 (['mutual_information']). beta=0.10 one-shot.",
+  "summary": "PARTIAL (normalization helps but below both pre-reg bars): 58a namespace-normalize: OLD(faithful, ~1/4 graph)=0.2721 -> NEW(normalized, full graph)=0.1888 (delta -0.0833). Isolated golds recovered: 1/3 (['mutual_information']). beta=0.10 one-shot.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 7,
+      "old_macro": 0.2721,
+      "new_macro": 0.1888,
+      "new_best_beta": 0.01,
+      "new_sweep": {
+        "0.0": 0.148,
+        "0.01": 0.1888,
+        "0.02": 0.1888,
+        "0.05": 0.1122,
+        "0.1": 0.1122,
+        "0.2": 0.0765
+      },
+      "delta": -0.0833,
+      "iso_recovered": [
+        "mutual_information"
+      ],
+      "n_iso_recovered": 1
+    }
+  ],
+  "elapsed_s": 7.550076007843018
+}

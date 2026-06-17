@@ -1,0 +1,46 @@
+{
+  "anchor_name": "pp58_scs_low_tau_sweep_d8_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 0/9 tau values have ratio in [0.5,2.0]; SCS invalid across all low-tau. tau=0.01:ratio=24.438(ok=False) tau=0.05:ratio=19.805(ok=False) tau=0.09:ratio=15.513(ok=False)",
+  "N": 8192,
+  "alpha": 0.05,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.3297386169433594,
+  "summary": "HARD_FAIL: 0/9 tau values have ratio in [0.5,2.0]; SCS invalid across all low-tau. tau=0.01:ratio=24.438(ok=False) tau=0.05:ratio=19.805(ok=False) tau=0.09:ratio=15.513(ok=False)",
+  "per_tau": {
+    "0.01": {
+      "mean_ratio": 24.437940177828594,
+      "mean_d": 29.83746361698647,
+      "mean_gamma_emp": 1.2145540246845623,
+      "mean_gamma_scs": 29.539439829241623,
+      "in_range": false
+    },
+    "0.05": {
+      "mean_ratio": 19.804959930485197,
+      "mean_d": 25.75851471069185,
+      "mean_gamma_emp": 1.2390734895351905,
+      "mean_gamma_scs": 24.474222005524766,
+      "in_range": false
+    },
+    "0.09": {
+      "mean_ratio": 15.512855106624139,
+      "mean_d": 22.42164341873585,
+      "mean_gamma_emp": 1.3155782084593899,
+      "mean_gamma_scs": 20.416617310162323,
+      "in_range": false
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.1253063678741455,
+      "n_tau": 3
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 0.12534809112548828,
+      "n_tau": 3
+    }
+  ]
+}

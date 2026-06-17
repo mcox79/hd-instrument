@@ -1,0 +1,66 @@
+{
+  "verdict": "HARD_PASS_CLIFFORD_TN_N4096_LICENSED",
+  "verdict_msg": "rel_err_max=0.0000e+00, eig_max_dev_2pt=1.0014e-04, magic_max=0.0000e+00: Clifford-TN bond-dim-1 closed form reproduces empirical N=4096 Schur-Weyl-Pauli; Barnes-Wall magic = 0; Cap 13 licensed at production scale.",
+  "elapsed_s": 1.9858603477478027,
+  "summary": {
+    "N": 1024,
+    "n_orders": [
+      2
+    ],
+    "seeds": [
+      17
+    ],
+    "codeword_indices": [
+      0
+    ],
+    "num_measurements": 1,
+    "rel_err_max": 0.0,
+    "rel_err_mean": 0.0,
+    "eig_max_dev_from_2point": 0.00010013580322265625,
+    "eig_mean_dev_from_2point": 0.00010013580322265625,
+    "magic_max": 0.0,
+    "magic_mean": 0.0,
+    "device": "cpu"
+  },
+  "config": {
+    "N": 1024,
+    "n_orders": [
+      2
+    ],
+    "seeds": [
+      17
+    ],
+    "codeword_indices": [
+      0
+    ],
+    "smoke": true
+  },
+  "all_results": [
+    {
+      "N": 1024,
+      "seed": 17,
+      "codeword_idx": 0,
+      "codebook_shape": [
+        4096,
+        1024
+      ],
+      "magic_monotone": 0.0,
+      "per_n_emp_mass_n": {
+        "2": 1.0
+      },
+      "per_n_tn_mass_n": {
+        "2": 1.0
+      },
+      "per_n_rel_err": {
+        "2": 0.0
+      },
+      "eig_diagnostics": {
+        "eig_mean": 0.9999998211860657,
+        "eig_std": 1.7320497035980225,
+        "eig_max_abs_dev_from_1": 3.0001001358032227,
+        "eig_max_dev_from_2point": 0.00010013580322265625,
+        "eig_mean_dev_from_2point": 2.927242348960135e-06
+      }
+    }
+  ]
+}

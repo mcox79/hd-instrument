@@ -1,0 +1,73 @@
+{
+  "verdict": "AMP_SE_DIVERGES",
+  "verdict_msg": "SE fixed-point diverges from empirical AMP. Mean rel err=0.847, max=0.866. Kerdock codebook is OUTSIDE the AMP universality class. Novel finding: Kerdock structure breaks AMP-SE assumptions. Only 0/2 cells < 20% error.",
+  "elapsed_s": 3.187000000005355,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "se_mse_fixed": 0.09133589285590127,
+        "se_mse_std": 6.745365664180547e-05,
+        "emp_mse_final": 0.6811631915921756,
+        "emp_mse_std": 0.028062045148875614,
+        "se_overlap_mean": 0.9086641071440987,
+        "emp_overlap_mean": 0.31921429844218185,
+        "rel_err": 0.8659118784113842
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "se_mse_fixed": 0.016411413872343336,
+        "se_mse_std": 7.345441399488756e-07,
+        "emp_mse_final": 0.0952503445401588,
+        "emp_mse_std": 0.004487336802562386,
+        "se_overlap_mean": 0.9835885861276566,
+        "emp_overlap_mean": 0.9034127097215457,
+        "rel_err": 0.8277023148674904
+      }
+    ],
+    "eigenspectrum_summary": {
+      "0.5": {
+        "mean_lam_max": 2.3533735275268555,
+        "mean_lam_min": 0.10787453502416611,
+        "mean_lam_mean": 1.0
+      },
+      "1.0": {
+        "mean_lam_max": 2.986659526824951,
+        "mean_lam_min": 1.7623947314859834e-06,
+        "mean_lam_mean": 1.0
+      }
+    },
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "M_over_N_list": [
+        0.5,
+        1.0
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_seeds": 2,
+      "amp_n_iter": 50,
+      "se_n_iter": 200,
+      "se_tol": 1e-09
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N_list": [
+      0.5,
+      1.0
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_seeds": 2,
+    "amp_n_iter": 50,
+    "se_n_iter": 200,
+    "se_tol": 1e-09
+  }
+}

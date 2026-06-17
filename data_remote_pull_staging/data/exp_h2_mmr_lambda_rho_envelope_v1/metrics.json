@@ -1,0 +1,21 @@
+{
+  "anchor_name": "h2_mmr_lambda_rho_envelope_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MMR safe-deployment envelope is broad (majority of cells <0.10) -- clear production guidance. propagation by lambda_rho: {'l0.3_r0.4': 0.0, 'l0.3_r0.8': -0.025, 'l0.7_r0.4': 0.417, 'l0.7_r0.8': 0.458} | safe(<0.10): 2/4 ['l0.3_r0.4', 'l0.3_r0.8']",
+  "N": 1536,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "grid": {
+        "l0.3_r0.4": 0.0,
+        "l0.3_r0.8": -0.025,
+        "l0.7_r0.4": 0.4166666666666667,
+        "l0.7_r0.8": 0.4583333333333333
+      }
+    }
+  ],
+  "elapsed_s": 4.3809144496917725,
+  "summary": "HARD_PASS: MMR safe-deployment envelope is broad (majority of cells <0.10) -- clear production guidance. propagation by lambda_rho: {'l0.3_r0.4': 0.0, 'l0.3_r0.8': -0.025, 'l0.7_r0.4': 0.417, 'l0.7_r0.8': 0.458} | safe(<0.10): 2/4 ['l0.3_r0.4', 'l0.3_r0.8']"
+}

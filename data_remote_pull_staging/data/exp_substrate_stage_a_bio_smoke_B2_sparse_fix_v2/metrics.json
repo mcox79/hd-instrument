@@ -1,0 +1,41 @@
+{
+  "anchor_name": "substrate_stage_a_bio_smoke_B2_sparse_fix_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: DG sparse expansion gives >=10x capacity. M_crit dense=100 sparse=4800 ratio=48.0x (sparse M_crit hit grid ceiling -- true ratio is HIGHER)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "cells": [
+    "B2_sparse_fix"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "M_crit_dense": 100,
+      "M_crit_sparse": 4800,
+      "k_active": 82,
+      "N_dense": 2048,
+      "N_dg": 4096,
+      "ratio": 48.0
+    },
+    {
+      "seed": 17,
+      "M_crit_dense": 100,
+      "M_crit_sparse": 4800,
+      "k_active": 82,
+      "N_dense": 2048,
+      "N_dg": 4096,
+      "ratio": 48.0
+    },
+    {
+      "seed": 23,
+      "M_crit_dense": 100,
+      "M_crit_sparse": 4800,
+      "k_active": 82,
+      "N_dense": 2048,
+      "N_dg": 4096,
+      "ratio": 48.0
+    }
+  ],
+  "elapsed_s": 20.50793719291687,
+  "summary": "HARD_PASS: DG sparse expansion gives >=10x capacity. M_crit dense=100 sparse=4800 ratio=48.0x (sparse M_crit hit grid ceiling -- true ratio is HIGHER)"
+}

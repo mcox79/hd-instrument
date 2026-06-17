@@ -1,0 +1,64 @@
+{
+  "verdict": "ALPHA_C_OUT_OF_RANGE",
+  "verdict_msg": "alpha_c_measured=0.3906 outside expected range [0.08, 0.25]. BSC substrate capacity atypical. Review substrate implementation before MoE rebuild.",
+  "elapsed_s": 0.013625383377075195,
+  "summary": {
+    "alpha_c_measured": 0.390625,
+    "alpha_c_ci_lo": 0.390625,
+    "alpha_c_ci_hi": 0.390625,
+    "alpha_c_ci_width": 0.0,
+    "alpha_c_per_seed": [
+      0.390625
+    ],
+    "N": 512,
+    "mean_cosines": {
+      "50": 0.953708827495575,
+      "100": 0.9160705804824829,
+      "200": 0.8450091481208801,
+      "400": 0.7496334314346313
+    },
+    "m_per_expert_recommended": 140,
+    "m_total_recommended_k4": 448,
+    "cosine_at_alpha_c_M": 0.8450091481208801,
+    "cosine_at_3x_alpha_c_M": 0.7496334314346313
+  },
+  "per_seed": {
+    "17": {
+      "alpha_c_measured": 0.390625,
+      "50": {
+        "mean_cosine": 0.953708827495575,
+        "std_cosine": 0.009163999930024147
+      },
+      "100": {
+        "mean_cosine": 0.9160705804824829,
+        "std_cosine": 0.011708337813615799
+      },
+      "200": {
+        "mean_cosine": 0.8450091481208801,
+        "std_cosine": 0.016768718138337135
+      },
+      "400": {
+        "mean_cosine": 0.7496334314346313,
+        "std_cosine": 0.018743811175227165
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "m_grid": [
+      50,
+      100,
+      200,
+      400
+    ],
+    "seeds": [
+      17
+    ],
+    "pass_cosine": 0.8,
+    "fail_cosine": 0.5,
+    "alpha_c_lo": 0.08,
+    "alpha_c_hi": 0.25,
+    "device": "cpu"
+  }
+}

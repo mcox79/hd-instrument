@@ -1,0 +1,15 @@
+{
+  "anchor_name": "conv15_tool_routing_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: tool-routing-acc clears bar -- intent-conditioned routing works. tool-routing-acc=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 1.0,
+      "K": 6
+    }
+  ],
+  "elapsed_s": 0.18287348747253418,
+  "summary": "HARD_PASS: tool-routing-acc clears bar -- intent-conditioned routing works. tool-routing-acc=1.000"
+}

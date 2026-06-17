@@ -1,0 +1,69 @@
+{
+  "anchor_name": "pp58_scs_tau_sweep_d8_tau020_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SCS ratio=8.861 outside [0.5,2.0]. SCS formula off by >2x. gamma_emp=1.422 gamma_scs=12.598 ratio=8.861 tau_actual=0.2433 d=15.648 match_30%=0/5 tau_target=0.2",
+  "N": 8192,
+  "alpha": 0.05,
+  "tau_target": 0.2,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 202.13268995285034,
+  "summary": "HARD_FAIL: SCS ratio=8.861 outside [0.5,2.0]. SCS formula off by >2x. gamma_emp=1.422 gamma_scs=12.598 ratio=8.861 tau_actual=0.2433 d=15.648 match_30%=0/5 tau_target=0.2",
+  "per_seed": [
+    {
+      "seed": 7,
+      "tau_target": 0.2,
+      "tau_actual": 0.2433389127254486,
+      "d": 15.625903026996157,
+      "gamma_scs": 12.5802190032919,
+      "gamma_emp": 1.4240770321426657,
+      "scs_rel_error": 7.833945579730127,
+      "scs_ratio": 8.833945579730127,
+      "elapsed_s": 40.35130333900452
+    },
+    {
+      "seed": 17,
+      "tau_target": 0.2,
+      "tau_actual": 0.243339404463768,
+      "d": 15.694430374339682,
+      "gamma_scs": 12.635274924490213,
+      "gamma_emp": 1.4150887385712971,
+      "scs_rel_error": 7.928962954822923,
+      "scs_ratio": 8.928962954822923,
+      "elapsed_s": 40.414833784103394
+    },
+    {
+      "seed": 23,
+      "tau_target": 0.2,
+      "tau_actual": 0.24333937466144562,
+      "d": 15.713380454473125,
+      "gamma_scs": 12.650501464095488,
+      "gamma_emp": 1.4350433340402884,
+      "scs_rel_error": 7.815414255455737,
+      "scs_ratio": 8.815414255455737,
+      "elapsed_s": 40.63531446456909
+    },
+    {
+      "seed": 31,
+      "tau_target": 0.2,
+      "tau_actual": 0.24334017932415009,
+      "d": 15.674679877514093,
+      "gamma_scs": 12.619397772108314,
+      "gamma_emp": 1.4141173130633746,
+      "scs_rel_error": 7.923869084645573,
+      "scs_ratio": 8.923869084645574,
+      "elapsed_s": 40.23555326461792
+    },
+    {
+      "seed": 41,
+      "tau_target": 0.2,
+      "tau_actual": 0.24333883821964264,
+      "d": 15.532293830406372,
+      "gamma_scs": 12.50500667343177,
+      "gamma_emp": 1.4204212667250846,
+      "scs_rel_error": 7.803730953890352,
+      "scs_ratio": 8.803730953890351,
+      "elapsed_s": 40.38769221305847
+    }
+  ]
+}

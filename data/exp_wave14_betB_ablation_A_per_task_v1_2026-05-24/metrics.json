@@ -1,0 +1,82 @@
+{
+  "verdict": "ABLATION_A_MIDDLE_BAND",
+  "verdict_msg": "retention_A=0.821 in [0.8,0.95); partial structural-separation effect. retention_B=0.982.",
+  "elapsed_s": 197.8279999999795,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.8220828077245089,
+        "retention_B": 0.9791724677974332,
+        "gain_C": 5.124606236954625,
+        "bpc_A_baseline": 2.496635631611386,
+        "bpc_A_concat": 3.036963683162247,
+        "bpc_B_baseline": 5.488768797908341,
+        "bpc_B_concat": 5.605517902535463,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.8753937630453748
+      },
+      "17": {
+        "retention_A": 0.8244094032055627,
+        "retention_B": 0.9822505119588675,
+        "gain_C": 5.112608830772929,
+        "bpc_A_baseline": 2.496550230323971,
+        "bpc_A_concat": 3.028289367657137,
+        "bpc_B_baseline": 5.517552501545238,
+        "bpc_B_concat": 5.617255918290923,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.8873911692270706
+      },
+      "23": {
+        "retention_A": 0.8222166258854431,
+        "retention_B": 0.9823379595300099,
+        "gain_C": 5.114274166722783,
+        "bpc_A_baseline": 2.501425280200526,
+        "bpc_A_concat": 3.0422946963724398,
+        "bpc_B_baseline": 5.539994832054319,
+        "bpc_B_concat": 5.639601705613489,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.885725833277217
+      },
+      "31": {
+        "retention_A": 0.823991434255827,
+        "retention_B": 0.9793887077315007,
+        "gain_C": 5.1352986203300865,
+        "bpc_A_baseline": 2.5015176299778488,
+        "bpc_A_concat": 3.0358539251528134,
+        "bpc_B_baseline": 5.470713348279913,
+        "bpc_B_concat": 5.585844828608856,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.864701379669914
+      },
+      "41": {
+        "retention_A": 0.8140042656106987,
+        "retention_B": 0.9857727467268012,
+        "gain_C": 5.143850320954565,
+        "bpc_A_baseline": 2.471044204225609,
+        "bpc_A_concat": 3.0356649327528182,
+        "bpc_B_baseline": 5.564534243152627,
+        "bpc_B_concat": 5.644844880961993,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.8561496790454353
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "replay_frac": 0.0,
+    "pass_retention": 0.95,
+    "fail_retention": 0.8
+  }
+}

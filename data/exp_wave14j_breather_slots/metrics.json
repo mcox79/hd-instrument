@@ -1,0 +1,181 @@
+{
+  "D": 4096,
+  "N_BREATHER": 10,
+  "N_REGULAR": 100,
+  "SIGMA_VALUES": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.8,
+    1.0
+  ],
+  "T_ITER": 5,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "elapsed_s": 0.8280000000086147,
+  "grid": [
+    {
+      "seed": 17,
+      "by_sigma": [
+        {
+          "sigma": 0.0,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 0.1,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 0.2,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 0.3,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 0.5,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 0.8,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 1.0,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        }
+      ],
+      "contraction_mean": 90.50419860839844
+    },
+    {
+      "seed": 23,
+      "by_sigma": [
+        {
+          "sigma": 0.0,
+          "regular_recall": 1.0,
+          "breather_recall": 0.2
+        },
+        {
+          "sigma": 0.1,
+          "regular_recall": 1.0,
+          "breather_recall": 0.2
+        },
+        {
+          "sigma": 0.2,
+          "regular_recall": 1.0,
+          "breather_recall": 0.2
+        },
+        {
+          "sigma": 0.3,
+          "regular_recall": 1.0,
+          "breather_recall": 0.2
+        },
+        {
+          "sigma": 0.5,
+          "regular_recall": 1.0,
+          "breather_recall": 0.1
+        },
+        {
+          "sigma": 0.8,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 1.0,
+          "regular_recall": 1.0,
+          "breather_recall": 0.2
+        }
+      ],
+      "contraction_mean": 90.46012100219727
+    },
+    {
+      "seed": 31,
+      "by_sigma": [
+        {
+          "sigma": 0.0,
+          "regular_recall": 1.0,
+          "breather_recall": 0.1
+        },
+        {
+          "sigma": 0.1,
+          "regular_recall": 1.0,
+          "breather_recall": 0.1
+        },
+        {
+          "sigma": 0.2,
+          "regular_recall": 1.0,
+          "breather_recall": 0.1
+        },
+        {
+          "sigma": 0.3,
+          "regular_recall": 1.0,
+          "breather_recall": 0.1
+        },
+        {
+          "sigma": 0.5,
+          "regular_recall": 1.0,
+          "breather_recall": 0.1
+        },
+        {
+          "sigma": 0.8,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        },
+        {
+          "sigma": 1.0,
+          "regular_recall": 1.0,
+          "breather_recall": 0.0
+        }
+      ],
+      "contraction_mean": 90.39789901733398
+    }
+  ],
+  "sigma_summary": {
+    "0.0": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.10000000000000002
+    },
+    "0.1": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.10000000000000002
+    },
+    "0.2": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.10000000000000002
+    },
+    "0.3": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.10000000000000002
+    },
+    "0.5": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.06666666666666667
+    },
+    "0.8": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.0
+    },
+    "1.0": {
+      "regular_mean": 1.0,
+      "breather_mean": 0.06666666666666667
+    }
+  },
+  "verdict": "BREATHER_SLOTS_FAILED",
+  "verdict_msg": "Margin ratio 0.00x < 2. No meaningful noise advantage.",
+  "regular_fail_sigma": 1.0,
+  "breather_fail_sigma": 0.0,
+  "margin_ratio": 0.0
+}

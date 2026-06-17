@@ -1,0 +1,77 @@
+{
+  "verdict": "PALEY_QUICKPROBE_PERFECT_ISOMETRY",
+  "verdict_msg": "Paley Type-I Hadamard (p=1019, D=1020) sub-block (M=510, N=1020) is a PERFECT ISOMETRY: all M singular values equal (rows mutually orthogonal). Empirical spectrum is a delta function; kappa_1 ~ 1.000, kappa_n ~ 0 for n>=2. This is the deterministic OPPOSITE of MP (which is full bulk). Implication for BBMD: Paley sub-blocks are TOO structured -- they collapse the spectrum entirely, not deviate from MP within a bulk. Recommendation: a Paley codebook in the Anchor-2 battery would test a DIFFERENT axis (isometric vs spread spectrum) than Kerdock's algebraic-bulk deviation. Include only if BBMD-distance is generalized to handle delta-spectra; otherwise SKIP.",
+  "elapsed_s": 0.0940000000409782,
+  "summary": {
+    "cells": [
+      {
+        "p": 1019,
+        "D": 1020,
+        "N": 1020,
+        "M": 510,
+        "c_ref": 0.5,
+        "moments_emp": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "kappa_emp": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "kappa_mp": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "dev_rel": [
+          1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "dev_abs_n2plus": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "growth_class": "PERFECT_ISOMETRY",
+        "svd_seconds": 0.062000000034458935
+      }
+    ],
+    "config": {
+      "mode": "quickprobe",
+      "p": 1019,
+      "D": 1020,
+      "M": 510,
+      "N": 1020,
+      "n_seeds": 1,
+      "n_max_moment": 6,
+      "seed": 0
+    }
+  },
+  "config": {
+    "mode": "quickprobe",
+    "p": 1019,
+    "D": 1020,
+    "M": 510,
+    "N": 1020,
+    "n_seeds": 1,
+    "n_max_moment": 6,
+    "seed": 0
+  }
+}

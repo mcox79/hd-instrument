@@ -1,0 +1,29 @@
+{
+  "anchor": "dr_merkle_randproj_w_verify_v1_n4096",
+  "N": 512,
+  "M": 128,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "n_flip": 50,
+  "n_trials": 10,
+  "cells": [
+    {
+      "seed": 17,
+      "N": 512,
+      "M": 128,
+      "n_flip": 50,
+      "n_trials": 10,
+      "p_detect_merkle": 1.0,
+      "p_detect_proj": 1.0,
+      "p_detect_combined": 1.0,
+      "passes_hp": 1,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "DR_MERKLE_HARD_PASS",
+  "verdict_msg": "CORRUPTION_DETECTABLE: P>=0.95 in 1/1 seeds. N=512 n_flip=50 mean_P_detect=1.0000 n_hp=1/1 P_vals=[1.0]",
+  "elapsed_s": 0.04
+}

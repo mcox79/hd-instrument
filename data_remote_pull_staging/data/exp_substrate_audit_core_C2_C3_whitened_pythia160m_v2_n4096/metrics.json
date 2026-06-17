@@ -1,0 +1,42 @@
+{
+  "anchor_name": "substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: audit-core operational on real Pythia residuals (deletion-cert + drift). C2_deletion_cert=0.98 C3_drift_separation=11.0x (real_residuals=True, M=2000)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 0.9842499999999985,
+      "C3_kappa3_drift": 1.6080226600170135,
+      "C3_kappa3_nodrift": 0.14424139558104798,
+      "C3_separation": 11.148135759082278
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 0.9789999999999985,
+      "C3_kappa3_drift": 1.5604974031448364,
+      "C3_kappa3_nodrift": 0.14424139558104798,
+      "C3_separation": 10.818651586520504
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 0.989999999999999,
+      "C3_kappa3_drift": 1.5987964272499084,
+      "C3_kappa3_nodrift": 0.14424139558104798,
+      "C3_separation": 11.084171924498323
+    }
+  ],
+  "elapsed_s": 76.50626611709595,
+  "summary": "HARD_PASS: audit-core operational on real Pythia residuals (deletion-cert + drift). C2_deletion_cert=0.98 C3_drift_separation=11.0x (real_residuals=True, M=2000)"
+}

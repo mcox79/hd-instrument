@@ -1,0 +1,15 @@
+{
+  "anchor": "multiagent_emergence_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "multiagent_emergence_v1 verdict=HARD_FAIL: mean_cos_joint=0.484(HP>=0.7) mean_contamination=0.018(HP<=0.2) mean_joint_improvement=-0.008(HP>=0.1) cells=1/3 elapsed=0.3s",
+  "mean_cos_joint": 0.484375,
+  "mean_contamination": 0.017578125,
+  "mean_joint_improvement": -0.007999999998361599,
+  "n_cell_A_pass": 0,
+  "n_cell_B_pass": 2,
+  "n_cell_C_pass": 0,
+  "elapsed_s": 0.27913594245910645
+}

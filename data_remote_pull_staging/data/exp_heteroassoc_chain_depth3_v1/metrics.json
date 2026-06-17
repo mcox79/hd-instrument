@@ -1,0 +1,22 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_CHAINS": 5,
+  "M_BACKGROUND": 10,
+  "N_TRIALS": 20,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_d1": 0.9970294359225746,
+    "mean_d2": 0.9971113844581005,
+    "mean_d3": 0.9971126280037009,
+    "mean_d2_after_deletion": -0.001585360436570771,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Heteroassoc depth-3 chain confirmed. d1=0.997 (HP>=0.9) d3=0.997 (HP>=0.8). Deletion: d2_after=-0.002 (link broken, HP<=0.5). Counterfactual depth-3 + cert-deletion compose correctly.",
+  "elapsed_s": 102.24887990951538,
+  "composition_classification": "HANDOFF"
+}

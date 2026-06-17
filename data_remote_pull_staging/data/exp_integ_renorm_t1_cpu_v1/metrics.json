@@ -1,0 +1,17 @@
+{
+  "anchor_name": "integ_renorm_t1_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: renorm-flow <90% of minimax. renorm=0.026 minimax=0.041 additive=0.024 ratio=0.636",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "renorm_minsat": 0.026,
+      "minimax_minsat": 0.041,
+      "additive_minsat": 0.024,
+      "renorm_over_minimax": 0.636
+    }
+  ],
+  "elapsed_s": 0.12658977508544922,
+  "summary": "HARD_FAIL: renorm-flow <90% of minimax. renorm=0.026 minimax=0.041 additive=0.024 ratio=0.636"
+}

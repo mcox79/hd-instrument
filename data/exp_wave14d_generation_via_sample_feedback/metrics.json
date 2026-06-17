@@ -1,0 +1,215 @@
+{
+  "K": 4,
+  "GEN_LENGTH": 64,
+  "TEMPERATURES": [
+    0.0,
+    0.7,
+    1.0
+  ],
+  "EVAL_POSITIONS": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.6,
+          "2": 0.51,
+          "4": 0.425,
+          "8": 0.32,
+          "16": 0.2375,
+          "32": 0.145625,
+          "64": 0.0859375
+        },
+        "samples": [
+          {
+            "prefix": ") |.",
+            "truth": ".| 2026-05-17 | exp_depth_pinned_hrr | PASS | HR",
+            "generated": ".| 2026-05-16 | exp_m4_nested/metrics](data/exp_"
+          },
+          {
+            "prefix": "); F",
+            "truth": "HRR shared-roles beta was 0.717, FHRR fresh-role",
+            "generated": "HRR depth beta=0.00 | [pdf](data/exp_m4_nested/m"
+          },
+          {
+            "prefix": "....",
+            "truth": "## Project....`hd-instrument` is an observable h",
+            "generated": "| 2026-05-16 | exp_m4_nested/metrics](data/exp_m"
+          },
+          {
+            "prefix": "ASS ",
+            "truth": "| FHRR clipped (threshold=0.5, 150 trials) beta ",
+            "generated": "| for composition/metrics](data/exp_m4_nested/me"
+          },
+          {
+            "prefix": " FHR",
+            "truth": "R/BSC capacity ratio = 2.52 | [pdf](data/exp_sca",
+            "generated": "R depth beta=0.00 | [pdf](data/exp_m4_nested/met"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.56,
+          "2": 0.49,
+          "4": 0.39,
+          "8": 0.3,
+          "16": 0.2075,
+          "32": 0.12,
+          "64": 0.08
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.44,
+          "2": 0.39,
+          "4": 0.3,
+          "8": 0.2275,
+          "16": 0.16125,
+          "32": 0.0975,
+          "64": 0.0678125
+        },
+        "samples": null
+      }
+    },
+    {
+      "seed": 23,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.66,
+          "2": 0.56,
+          "4": 0.475,
+          "8": 0.3625,
+          "16": 0.2725,
+          "32": 0.18,
+          "64": 0.10625
+        },
+        "samples": [
+          {
+            "prefix": "4)=8",
+            "truth": "6.08201678445715, k_50%(16384)=1394.093317508219",
+            "generated": " descenec/metrics](data/exp_m4_nested/metrics](d"
+          },
+          {
+            "prefix": "md) ",
+            "truth": "for the full build plan and [PROGRESS.md](PROGRE",
+            "generated": "| [pdf](data/exp_m4_nested/metrics](data/exp_m4_"
+          },
+          {
+            "prefix": " | H",
+            "truth": "yperbolic (tier 1) beta = 0.411 (R^2 = 0.9009); ",
+            "generated": "ebbian/metrics](data/exp_m4_nested/metrics](data"
+          },
+          {
+            "prefix": "](da",
+            "truth": "ta/exp_differentiable_vsa/dashboard.pdf) [trace]",
+            "generated": "ta/exp_m4_nested/metrics](data/exp_m4_nested/met"
+          },
+          {
+            "prefix": " das",
+            "truth": "hes in code output.....## Verification disciplin",
+            "generated": "hboard.pdf) [trace](data/exp_m4_nested/metrics]("
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.56,
+          "2": 0.48,
+          "4": 0.42,
+          "8": 0.32,
+          "16": 0.24875,
+          "32": 0.16,
+          "64": 0.0971875
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.5,
+          "2": 0.44,
+          "4": 0.34,
+          "8": 0.2375,
+          "16": 0.15125,
+          "32": 0.09375,
+          "64": 0.061875
+        },
+        "samples": null
+      }
+    },
+    {
+      "seed": 31,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.66,
+          "2": 0.63,
+          "4": 0.515,
+          "8": 0.4375,
+          "16": 0.35,
+          "32": 0.2425,
+          "64": 0.1371875
+        },
+        "samples": [
+          {
+            "prefix": "Gene",
+            "truth": "rator` with a known seed...- Type hints on all p",
+            "generated": "rgy/metrics](data/exp_m4_nested/metrics](data/ex"
+          },
+          {
+            "prefix": "Ever",
+            "truth": "y framework feature ships with at least one scaf",
+            "generated": "y@k=10: 100% d5=97% | [pdf](data/exp_m4_nested/m"
+          },
+          {
+            "prefix": "n=0.",
+            "truth": "40 | [pdf](data/exp_connectivity_multihop/dashbo",
+            "generated": "00 | [pdf](data/exp_m4_nested/metrics](data/exp_"
+          },
+          {
+            "prefix": "e](d",
+            "truth": "ata/exp_scaling_depth_fresh/trace.duckdb) [metri",
+            "generated": "ata/exp_m4_nested/metrics](data/exp_m4_nested/me"
+          },
+          {
+            "prefix": " sca",
+            "truth": "ffold-free witness in `verification/`...- Verifi",
+            "generated": "le. See [PROGRESS.md](data/exp_m4_nested/metrics"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.62,
+          "2": 0.55,
+          "4": 0.485,
+          "8": 0.3875,
+          "16": 0.29625,
+          "32": 0.200625,
+          "64": 0.11625
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.52,
+          "2": 0.51,
+          "4": 0.415,
+          "8": 0.3175,
+          "16": 0.2125,
+          "32": 0.12125,
+          "64": 0.080625
+        },
+        "samples": null
+      }
+    }
+  ]
+}

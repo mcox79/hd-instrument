@@ -1,0 +1,189 @@
+{
+  "anchor_name": "kappa3_nlo_formula_validation_v2_per_pattern_lognormal_noise",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: positive but non-monotone sign signal. measured_sign=POS n_pos=7/7 monotone_pos=False signed_dev=0.10:+0.246 0.30:+19.765 0.50:+15.826 0.60:+225.014 0.70:+108.096 0.75:+218.122 0.80:+7912.425 | (secondary) mag_match=0/7 vs formula -- exact normalization pending NLO drill",
+  "N": 4096,
+  "run_mode": "smoke",
+  "alpha": 0.05,
+  "sigma_g_grid": [
+    0.1,
+    0.3,
+    0.5,
+    0.6,
+    0.7,
+    0.75,
+    0.8
+  ],
+  "n_seeds": 2,
+  "elapsed_s": 0.10297417640686035,
+  "per_seed": [
+    {
+      "seed": 7,
+      "ratio_clean": -0.09191086888313293,
+      "cells": [
+        {
+          "sigma_g": 0.1,
+          "k3_free": 0.05093323274914545,
+          "ratio_meas": 0.018664654982908813,
+          "signed_dev": 0.11057552386604175,
+          "abs_dev": 0.11057552386604175,
+          "formula": 0.0015075250626251924,
+          "rel_err": 72.34904513858389,
+          "identity_dev": 0.11057552386604175,
+          "match": false
+        },
+        {
+          "sigma_g": 0.3,
+          "k3_free": 0.3105674471792263,
+          "ratio_meas": 5.211348943584525,
+          "signed_dev": 5.303259812467658,
+          "abs_dev": 5.303259812467658,
+          "formula": 0.014126142555781563,
+          "rel_err": 374.4216546750857,
+          "identity_dev": 5.303259812467658,
+          "match": false
+        },
+        {
+          "sigma_g": 0.5,
+          "k3_free": 0.11136786529294414,
+          "ratio_meas": 1.2273573058588827,
+          "signed_dev": 1.3192681747420156,
+          "abs_dev": 1.3192681747420156,
+          "formula": 0.04260381250316121,
+          "rel_err": 29.96596518548958,
+          "identity_dev": 1.3192681747420156,
+          "match": false
+        },
+        {
+          "sigma_g": 0.6,
+          "k3_free": 1.0252847378977024,
+          "ratio_meas": 19.505694757954046,
+          "signed_dev": 19.59760562683718,
+          "abs_dev": 19.59760562683718,
+          "formula": 0.06499941218405102,
+          "rel_err": 300.5043516292885,
+          "identity_dev": 19.59760562683718,
+          "match": false
+        },
+        {
+          "sigma_g": 0.7,
+          "k3_free": 6.133449014431183,
+          "ratio_meas": 121.66898028862366,
+          "signed_dev": 121.76089115750679,
+          "abs_dev": 121.76089115750679,
+          "formula": 0.09484743299330683,
+          "rel_err": 1282.7552616326388,
+          "identity_dev": 121.76089115750679,
+          "match": false
+        },
+        {
+          "sigma_g": 0.75,
+          "k3_free": 21.061708000166714,
+          "ratio_meas": 420.23416000333424,
+          "signed_dev": 420.3260708722174,
+          "abs_dev": 420.3260708722174,
+          "formula": 0.11325819854404479,
+          "rel_err": 3710.2198169809094,
+          "identity_dev": 420.3260708722174,
+          "match": false
+        },
+        {
+          "sigma_g": 0.8,
+          "k3_free": 770.8005479789226,
+          "ratio_meas": 15415.010959578452,
+          "signed_dev": 15415.102870447336,
+          "abs_dev": 15415.102870447336,
+          "formula": 0.13447213189574275,
+          "rel_err": 114633.18221404254,
+          "identity_dev": 15415.102870447336,
+          "match": false
+        }
+      ],
+      "elapsed_s": 0.014246940612792969
+    },
+    {
+      "seed": 17,
+      "ratio_clean": 0.022765859961509705,
+      "cells": [
+        {
+          "sigma_g": 0.1,
+          "k3_free": 0.07023215887683339,
+          "ratio_meas": 0.4046431775366677,
+          "signed_dev": 0.38187731757515797,
+          "abs_dev": 0.38187731757515797,
+          "formula": 0.0015075250626251924,
+          "rel_err": 252.3140755286415,
+          "identity_dev": 0.38187731757515797,
+          "match": false
+        },
+        {
+          "sigma_g": 0.3,
+          "k3_free": 1.7624625905960003,
+          "ratio_meas": 34.249251811920004,
+          "signed_dev": 34.226485951958495,
+          "abs_dev": 34.226485951958495,
+          "formula": 0.014126142555781563,
+          "rel_err": 2421.9180625074637,
+          "identity_dev": 34.226485951958495,
+          "match": false
+        },
+        {
+          "sigma_g": 0.5,
+          "k3_free": 1.567739381863967,
+          "ratio_meas": 30.35478763727934,
+          "signed_dev": 30.33202177731783,
+          "abs_dev": 30.33202177731783,
+          "formula": 0.04260381250316121,
+          "rel_err": 710.9555738131932,
+          "identity_dev": 30.33202177731783,
+          "match": false
+        },
+        {
+          "sigma_g": 0.6,
+          "k3_free": 21.572648592668994,
+          "ratio_meas": 430.45297185337984,
+          "signed_dev": 430.4302059934183,
+          "abs_dev": 430.4302059934183,
+          "formula": 0.06499941218405102,
+          "rel_err": 6621.063054579953,
+          "identity_dev": 430.4302059934183,
+          "match": false
+        },
+        {
+          "sigma_g": 0.7,
+          "k3_free": 4.772652600808308,
+          "ratio_meas": 94.45305201616615,
+          "signed_dev": 94.43028615620464,
+          "abs_dev": 94.43028615620464,
+          "formula": 0.09484743299330683,
+          "rel_err": 994.6019174801322,
+          "identity_dev": 94.43028615620464,
+          "match": false
+        },
+        {
+          "sigma_g": 0.75,
+          "k3_free": 0.8470601432381019,
+          "ratio_meas": 15.941202864762037,
+          "signed_dev": 15.918437004800527,
+          "abs_dev": 15.918437004800527,
+          "formula": 0.11325819854404479,
+          "rel_err": 139.5499752727396,
+          "identity_dev": 15.918437004800527,
+          "match": false
+        },
+        {
+          "sigma_g": 0.8,
+          "k3_free": 20.538543324280713,
+          "ratio_meas": 409.77086648561425,
+          "signed_dev": 409.74810062565274,
+          "abs_dev": 409.74810062565274,
+          "formula": 0.13447213189574275,
+          "rel_err": 3046.085629186972,
+          "identity_dev": 409.74810062565274,
+          "match": false
+        }
+      ],
+      "elapsed_s": 0.02033543586730957
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+{
+  "verdict": "PHB_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_BOUNDARY: beta_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) M_slope_ratio=2.78 (max_c=0.0000 mean_e=0.0000) beta_rets=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] M_rets=[1.0, 1.0, 1.0, 0.85, 0.726, 0.626, 0.518]",
+  "elapsed_s": 61.44,
+  "summary": {
+    "anchor": "phase_boundary_characterization_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "betas": [
+      9.0,
+      9.5,
+      9.8,
+      10.0,
+      10.2,
+      10.5,
+      11.0
+    ],
+    "Ms": [
+      8192,
+      12288,
+      16384,
+      20480,
+      24576,
+      28672,
+      32768
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "beta_results": [
+      {
+        "M": 8192,
+        "beta": 9.0,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.0,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.0,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.0,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.5,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.5,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.5,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.5,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.5,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.8,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.8,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.8,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.8,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 9.8,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.2,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.2,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.2,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.2,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.2,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.5,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.5,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.5,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.5,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 10.5,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 11.0,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 11.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 11.0,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 11.0,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      },
+      {
+        "M": 8192,
+        "beta": 11.0,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "beta"
+      }
+    ],
+    "M_results": [
+      {
+        "M": 8192,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 8192,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 8192,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 8192,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 8192,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 12288,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 12288,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 12288,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 12288,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 12288,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 16384,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 16384,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 16384,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 16384,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 16384,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 1.0,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 20480,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.87,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 20480,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.87,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 20480,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.87,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 20480,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.85,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 20480,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.79,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 24576,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.75,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 24576,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.7,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 24576,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.74,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 24576,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.72,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 24576,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.72,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 28672,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.64,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 28672,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.61,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 28672,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.69,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 28672,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.59,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 28672,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.6,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 32768,
+        "beta": 4.0,
+        "seed": 7,
+        "retention": 0.47,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 32768,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.53,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 32768,
+        "beta": 4.0,
+        "seed": 23,
+        "retention": 0.57,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 32768,
+        "beta": 4.0,
+        "seed": 31,
+        "retention": 0.48,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      },
+      {
+        "M": 32768,
+        "beta": 4.0,
+        "seed": 41,
+        "retention": 0.54,
+        "above_thresh_frac": 0.0,
+        "sweep": "M"
+      }
+    ],
+    "verdict": "PHB_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL_BOUNDARY: beta_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) M_slope_ratio=2.78 (max_c=0.0000 mean_e=0.0000) beta_rets=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] M_rets=[1.0, 1.0, 1.0, 0.85, 0.726, 0.626, 0.518]",
+    "elapsed_s": 61.44
+  }
+}

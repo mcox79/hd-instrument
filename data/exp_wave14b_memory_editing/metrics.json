@@ -1,0 +1,8 @@
+{
+  "round_trip_recovery_rate": 1.0,
+  "edit_position_correct": 1.0,
+  "other_positions_preserved": 1.0,
+  "full_edit_correct": 1.0,
+  "mean_cos_orig_vs_edited": 0.62505859375,
+  "edit_equiv_to_direct_construct": 1.0
+}

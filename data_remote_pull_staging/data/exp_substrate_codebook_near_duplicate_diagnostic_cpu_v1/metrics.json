@@ -1,0 +1,109 @@
+{
+  "anchor_name": "substrate_codebook_near_duplicate_diagnostic_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: de-duplication (merge cos>0.95) lifts F=3 cleanup by >=+0.05 -- a chunk of the clustered-codebook deficit IS mergeable near-duplicates; de-dup is a real mitigation, and the residual is genuine distinct-but-close atoms needing finer encoding. near-dup pairs {'0.9': 49, '0.95': 49, '0.99': 49}; atoms w/ NN>thr {'0.9': 54, '0.95': 54, '0.99': 54}; F1_full=0.8667 (near-dup floor=0.1333) F3_full=0.8296; de-dup@0.95 K=241->209 F1=1.0000 F3_lift=0.1704; top pair cos=1.0000 (math::T1/probability_space <-> math::T1/measure_space)",
+  "summary": "HARD_PASS: de-duplication (merge cos>0.95) lifts F=3 cleanup by >=+0.05 -- a chunk of the clustered-codebook deficit IS mergeable near-duplicates; de-dup is a real mitigation, and the residual is genuine distinct-but-close atoms needing finer encoding. near-dup pairs {'0.9': 49, '0.95': 49, '0.99': 49}; atoms w/ NN>thr {'0.9': 54, '0.95': 54, '0.99': 54}; F1_full=0.8667 (near-dup floor=0.1333) F3_full=0.8296; de-dup@0.95 K=241->209 F1=1.0000 F3_lift=0.1704; top pair cos=1.0000 (math::T1/probability_space <-> math::T1/measure_space)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "n_atoms": 241,
+      "dim": 1024,
+      "near_dup_pair_counts": {
+        "0.9": 49,
+        "0.95": 49,
+        "0.99": 49
+      },
+      "atoms_with_NN_above": {
+        "0.9": 54,
+        "0.95": 54,
+        "0.99": 54
+      },
+      "top_colliding_pairs": [
+        {
+          "a": "math::T1/probability_space",
+          "b": "math::T1/measure_space",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T1/matrix",
+          "b": "math::T1/matrix_norms",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARG1_theme",
+          "b": "concept::MWP/ROLE_ARG2_recipient",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T1/cauchy_sequence",
+          "b": "math::T3/euclidean_distance",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARG0_agent",
+          "b": "concept::MWP/ROLE_ARG1_theme",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARG0_agent",
+          "b": "concept::MWP/ROLE_ARG2_recipient",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARG0_agent",
+          "b": "concept::MWP/ROLE_ARGM_LOC_location",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T1/rank_nullity_theorem",
+          "b": "math::T1/null_space",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARG2_recipient",
+          "b": "concept::MWP/ROLE_ARGM_LOC_location",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARG2_recipient",
+          "b": "concept::MWP/ROLE_ARGM_TMP_time",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T3/fast_fourier_transform",
+          "b": "math::T3/wavelet_transform",
+          "cos": 1.0
+        },
+        {
+          "a": "concept::MWP/ROLE_ARGM_LOC_location",
+          "b": "concept::MWP/ROLE_ARGM_TMP_time",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T3/fast_fourier_transform",
+          "b": "math::T3/digital_filter_design",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T3/wavelet_transform",
+          "b": "math::T3/digital_filter_design",
+          "cos": 1.0
+        },
+        {
+          "a": "math::T1/tracy_widom_distribution",
+          "b": "math::T3/tw_edge_z",
+          "cos": 1.0
+        }
+      ],
+      "cleanup_F1_full": 0.8667,
+      "cleanup_F3_full": 0.8296,
+      "dedup_thr": 0.95,
+      "K_after_dedup": 209,
+      "cleanup_F1_dedup": 1.0,
+      "cleanup_F3_dedup": 1.0,
+      "f3_dedup_lift": 0.1704
+    }
+  ],
+  "elapsed_s": 0.4711575508117676
+}

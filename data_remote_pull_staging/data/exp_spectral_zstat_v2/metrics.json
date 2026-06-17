@@ -1,0 +1,43 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 200,
+  "seeds": [
+    7,
+    17
+  ],
+  "k_crit_theoretical": 47.99999999999999,
+  "summary": {
+    "cell_a_crossing_seeds": 2,
+    "cell_a_never_cross_seeds": 0,
+    "cell_a_median_k3": 6.0,
+    "cell_a_k3_list": [
+      6,
+      6
+    ],
+    "cell_b_mean_spearman": 0.9999999999999999,
+    "k_crit_theoretical": 47.99999999999999,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Z-stat sensitivity confirmed. crossing_seeds=2/2 (100%), median_k3=6 (theory=48.0). Spearman=1.000>=0.7.",
+  "elapsed_s": 0.0015788078308105469,
+  "config": {
+    "K_SWEEP": [
+      0,
+      3,
+      6,
+      10,
+      15,
+      20,
+      30,
+      40,
+      50,
+      60
+    ],
+    "RHO_DUP_LIST": [
+      0.5,
+      0.95
+    ]
+  }
+}

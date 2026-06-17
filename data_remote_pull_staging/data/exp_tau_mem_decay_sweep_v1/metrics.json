@@ -1,0 +1,47 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "CONFIGS": [
+    [
+      2.0,
+      0.2
+    ],
+    [
+      5.0,
+      0.5
+    ]
+  ],
+  "T_MAX_STEPS": 4000,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "configs": {
+      "lam2.0_gam0.2": {
+        "lambda_rate": 2.0,
+        "gamma_decay": 0.2,
+        "tau_theory": 1024.0,
+        "mean_ratio": 29.609587549301004,
+        "n_pass": 0,
+        "n_seeds": 2,
+        "passes_hp": false
+      },
+      "lam5.0_gam0.5": {
+        "lambda_rate": 5.0,
+        "gamma_decay": 0.5,
+        "tau_theory": 409.6,
+        "mean_ratio": 691.4185578232261,
+        "n_pass": 0,
+        "n_seeds": 2,
+        "passes_hp": false
+      }
+    },
+    "n_configs_pass_hp": 0,
+    "n_configs_total": 2,
+    "overall_mean_ratio": 360.51407268626355
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "tau_mem prediction severely off. mean_ratio=360.51 outside [0.1,10.0]. SDE model mis-specified or decay not exponential.",
+  "elapsed_s": 1.2573661804199219
+}

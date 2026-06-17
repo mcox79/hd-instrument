@@ -1,0 +1,322 @@
+{
+  "anchor_name": "substrate_proof_finder_backward_chaining_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate is a sound self-DEDUCING prover -- backward-chaining FINDS multi-step proof chains for >=75pct of goals, every found proof is SOUND (CHTV-verified), and >=90pct terminate at a foundational axiom. With CHTV (verifier) this completes the find+verify prover surface; closes the USER 'substrate understands its own mathematics' goal at the deduction level. found=1.0000 sound=1.0000 axiom-term=1.0000 avg_depth=1.00 over n=20 goals; 4731 structural edges, goal pool 1338",
+  "summary": "HARD_PASS: substrate is a sound self-DEDUCING prover -- backward-chaining FINDS multi-step proof chains for >=75pct of goals, every found proof is SOUND (CHTV-verified), and >=90pct terminate at a foundational axiom. With CHTV (verifier) this completes the find+verify prover surface; closes the USER 'substrate understands its own mathematics' goal at the deduction level. found=1.0000 sound=1.0000 axiom-term=1.0000 avg_depth=1.00 over n=20 goals; 4731 structural edges, goal pool 1338",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_goals": 20,
+      "found_rate": 1.0,
+      "sound_rate": 1.0,
+      "axiom_term_rate": 1.0,
+      "avg_depth": 1.0,
+      "n_real_edges": 4731,
+      "goal_pool": 1338,
+      "rows": [
+        {
+          "goal": "T3/wikidata_Q134267833",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T3/wikidata_Q11348",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/wikidata_Q134267833",
+              "DEPENDS_ON",
+              "T3/wikidata_Q11348"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A005932",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T2/oeis_A003781",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A005932",
+              "DEPENDS_ON",
+              "T2/oeis_A003781"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/wikidata_Q29035552",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T3/wikidata_Q11348",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/wikidata_Q29035552",
+              "DEPENDS_ON",
+              "T3/wikidata_Q11348"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/wikidata_Q124453937",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T3/wikidata_Q11348",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/wikidata_Q124453937",
+              "DEPENDS_ON",
+              "T3/wikidata_Q11348"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A000189",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/sequence_convergence",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A000189",
+              "DEPENDS_ON",
+              "T1/sequence_convergence"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A002343",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/joint_distribution",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A002343",
+              "DEPENDS_ON",
+              "T1/joint_distribution"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/cross_entropy_loss",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/kl_divergence",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/cross_entropy_loss",
+              "SHARES_MATH",
+              "T1/kl_divergence"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A002460",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/integral",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A002460",
+              "DEPENDS_ON",
+              "T1/integral"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/levenshtein_distance",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/sequence",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/levenshtein_distance",
+              "DEPENDS_ON",
+              "T1/sequence"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A001937",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/log_partition_function",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A001937",
+              "DEPENDS_ON",
+              "T1/log_partition_function"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A004933",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T2/oeis_A001622",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A004933",
+              "DEPENDS_ON",
+              "T2/oeis_A001622"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/principal_component_analysis",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/eigenvalue_eigenvector",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/principal_component_analysis",
+              "USES",
+              "T1/eigenvalue_eigenvector"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/wikidata_Q81570391",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T3/wikidata_Q11348",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/wikidata_Q81570391",
+              "DEPENDS_ON",
+              "T3/wikidata_Q11348"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A003876",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/permutation_group",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A003876",
+              "DEPENDS_ON",
+              "T1/permutation_group"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/dynamic_time_warping",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/sequence",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/dynamic_time_warping",
+              "DEPENDS_ON",
+              "T1/sequence"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/wikidata_Q113680115",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T3/wikidata_Q11348",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/wikidata_Q113680115",
+              "DEPENDS_ON",
+              "T3/wikidata_Q11348"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A002331",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/joint_distribution",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A002331",
+              "DEPENDS_ON",
+              "T1/joint_distribution"
+            ]
+          ]
+        },
+        {
+          "goal": "T3/wikidata_Q371162",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T3/wikidata_Q11348",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T3/wikidata_Q371162",
+              "DEPENDS_ON",
+              "T3/wikidata_Q11348"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A003277",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T2/oeis_A000001",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A003277",
+              "DEPENDS_ON",
+              "T2/oeis_A000001"
+            ]
+          ]
+        },
+        {
+          "goal": "T2/oeis_A002431",
+          "proved": true,
+          "depth": 1,
+          "sound": true,
+          "terminal": "T1/taylor_series",
+          "terminal_is_axiom": true,
+          "witness": [
+            [
+              "T2/oeis_A002431",
+              "DEPENDS_ON",
+              "T1/taylor_series"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.41199588775634766
+}

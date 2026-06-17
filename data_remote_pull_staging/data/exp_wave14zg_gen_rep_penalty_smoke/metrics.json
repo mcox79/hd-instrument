@@ -1,0 +1,30 @@
+{
+  "verdict": "GEN_REP_NO_RESCUE",
+  "verdict_msg": "No penalty value produces non-degenerate output. Per-penalty: p0.5=(e1.02,r0.90), p1.0=(e1.50,r0.73)",
+  "elapsed_s": 0.6090000000003783,
+  "summary": {
+    "per_penalty": {
+      "0.5": {
+        "char_entropy": 1.0191833309992433,
+        "ngram_repetition": 0.9,
+        "sample_bytes": " e  t   e    t   e    t   e    t   e    t   e    t   e    t   e "
+      },
+      "1.0": {
+        "char_entropy": 1.5014954801874634,
+        "ngram_repetition": 0.7272727272727273,
+        "sample_bytes": " e  tr  e   x    t  s   t e   x    t  s   t e   x    t  s   t e "
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "generate_length": 64,
+    "penalties": [
+      0.5,
+      1.0
+    ],
+    "window": 16,
+    "max_epochs": 1
+  }
+}

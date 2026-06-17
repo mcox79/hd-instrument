@@ -1,0 +1,711 @@
+{
+  "verdict": "STRUCT_KEYS_FIX_MIRAGE",
+  "verdict_msg": "Hadamard arm passes all 5 probes at alpha=1.0 (argmax=0.000, rank=100.7, norm=0.000, para_h8=0.000, kept=1.000). Correlated arm reproduces Mirage at same alpha. Structured-keys (orthogonal) family validated at v1; route to v2 with full Kerdock + snap for dense-codebook regime.",
+  "elapsed_s": 34.75,
+  "summary": {
+    "by_arm": {
+      "hadamard": {
+        "per_alpha": [
+          {
+            "alpha": 1.0,
+            "argmax_leak": 0.0,
+            "mean_rank": 100.69333333333333,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 92.1,
+                "norm_ratio": 0.0,
+                "cosine": 0.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 97.46666666666667,
+                "norm_ratio": 0.0,
+                "cosine": 0.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 23
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 96.83333333333333,
+                "norm_ratio": 0.0,
+                "cosine": 0.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 31
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 101.5,
+                "norm_ratio": 0.0,
+                "cosine": 0.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 41
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 115.56666666666666,
+                "norm_ratio": 0.0,
+                "cosine": 0.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 53
+              }
+            ]
+          },
+          {
+            "alpha": 1.5,
+            "argmax_leak": 0.0,
+            "mean_rank": 200.0,
+            "norm_ratio": 0.5,
+            "cosine": -1.0,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 0.5,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 0.5,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 23
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 0.5,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 31
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 0.5,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 41
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 0.5,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 53
+              }
+            ]
+          },
+          {
+            "alpha": 2.0,
+            "argmax_leak": 0.0,
+            "mean_rank": 200.0,
+            "norm_ratio": 1.0,
+            "cosine": -1.0,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 1.0,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 1.0,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 23
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 1.0,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 31
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 1.0,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 41
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 200.0,
+                "norm_ratio": 1.0,
+                "cosine": -1.0,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 53
+              }
+            ]
+          }
+        ],
+        "pairwise_stats": [
+          {
+            "alpha": 1.0,
+            "seed": 17,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "seed": 23,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "seed": 31,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "seed": 41,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "seed": 53,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.5,
+            "seed": 17,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.5,
+            "seed": 23,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.5,
+            "seed": 31,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.5,
+            "seed": 41,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 1.5,
+            "seed": 53,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 2.0,
+            "seed": 17,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 2.0,
+            "seed": 23,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 2.0,
+            "seed": 31,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 2.0,
+            "seed": 41,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          },
+          {
+            "alpha": 2.0,
+            "seed": 53,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          }
+        ],
+        "config_arm": {
+          "n_facts": 200,
+          "rank_L_for_correlated": 50,
+          "key_maker": "hadamard"
+        }
+      },
+      "correlated": {
+        "per_alpha": [
+          {
+            "alpha": 1.0,
+            "argmax_leak": 0.8666667222976685,
+            "mean_rank": 4.933333333333334,
+            "norm_ratio": 0.6930627226829529,
+            "cosine": 0.23048418164253234,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h2": 0.8670000195503235,
+            "paraphrase_leak_h4": 0.8680000185966492,
+            "paraphrase_leak_h8": 0.868333351612091,
+            "paraphrase_leak_h16": 0.8700000166893005,
+            "per_seed": [
+              {
+                "argmax_leak": 0.8666667342185974,
+                "mean_rank": 2.433333333333333,
+                "norm_ratio": 0.6984608173370361,
+                "cosine": 0.22364893555641174,
+                "paraphrase_leak_h2": 0.8666666746139526,
+                "paraphrase_leak_h4": 0.8666666746139526,
+                "paraphrase_leak_h8": 0.8700000047683716,
+                "paraphrase_leak_h16": 0.8633333444595337,
+                "kept_preservation": 1.0,
+                "seed": 17
+              },
+              {
+                "argmax_leak": 0.9000000357627869,
+                "mean_rank": 4.233333333333333,
+                "norm_ratio": 0.6974020004272461,
+                "cosine": 0.23674072325229645,
+                "paraphrase_leak_h2": 0.9000000357627869,
+                "paraphrase_leak_h4": 0.9000000357627869,
+                "paraphrase_leak_h8": 0.9000000357627869,
+                "paraphrase_leak_h16": 0.9000000357627869,
+                "kept_preservation": 1.0,
+                "seed": 23
+              },
+              {
+                "argmax_leak": 0.9000000357627869,
+                "mean_rank": 6.4,
+                "norm_ratio": 0.7320271730422974,
+                "cosine": 0.24204333126544952,
+                "paraphrase_leak_h2": 0.9016667008399963,
+                "paraphrase_leak_h4": 0.9016667008399963,
+                "paraphrase_leak_h8": 0.9033333659172058,
+                "paraphrase_leak_h16": 0.9116666913032532,
+                "kept_preservation": 1.0,
+                "seed": 31
+              },
+              {
+                "argmax_leak": 0.8000000715255737,
+                "mean_rank": 6.533333333333333,
+                "norm_ratio": 0.6778367161750793,
+                "cosine": 0.20548662543296814,
+                "paraphrase_leak_h2": 0.800000011920929,
+                "paraphrase_leak_h4": 0.8050000071525574,
+                "paraphrase_leak_h8": 0.8016666769981384,
+                "paraphrase_leak_h16": 0.8083333373069763,
+                "kept_preservation": 1.0,
+                "seed": 41
+              },
+              {
+                "argmax_leak": 0.8666667342185974,
+                "mean_rank": 5.066666666666666,
+                "norm_ratio": 0.6595869064331055,
+                "cosine": 0.2445012927055359,
+                "paraphrase_leak_h2": 0.8666666746139526,
+                "paraphrase_leak_h4": 0.8666666746139526,
+                "paraphrase_leak_h8": 0.8666666746139526,
+                "paraphrase_leak_h16": 0.8666666746139526,
+                "kept_preservation": 1.0,
+                "seed": 53
+              }
+            ]
+          },
+          {
+            "alpha": 1.5,
+            "argmax_leak": 0.0,
+            "mean_rank": 153.13333333333333,
+            "norm_ratio": 0.9465580463409424,
+            "cosine": -0.10112023949623108,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 153.33333333333334,
+                "norm_ratio": 0.9285706877708435,
+                "cosine": -0.08708647638559341,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 162.46666666666667,
+                "norm_ratio": 0.9466097354888916,
+                "cosine": -0.11560430377721786,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 23
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 141.96666666666667,
+                "norm_ratio": 0.9900041818618774,
+                "cosine": -0.08098190277814865,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 31
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 166.63333333333333,
+                "norm_ratio": 0.9527093768119812,
+                "cosine": -0.13516226410865784,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 41
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 141.26666666666668,
+                "norm_ratio": 0.9148962497711182,
+                "cosine": -0.08676625043153763,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 53
+              }
+            ]
+          },
+          {
+            "alpha": 2.0,
+            "argmax_leak": 0.0,
+            "mean_rank": 194.10666666666665,
+            "norm_ratio": 1.3968772411346435,
+            "cosine": -0.2032724976539612,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 191.6,
+                "norm_ratio": 1.4039220809936523,
+                "cosine": -0.17618727684020996,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 196.7,
+                "norm_ratio": 1.3904929161071777,
+                "cosine": -0.22290736436843872,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 23
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 193.83333333333334,
+                "norm_ratio": 1.413918137550354,
+                "cosine": -0.1929382085800171,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 31
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 196.9,
+                "norm_ratio": 1.4137872457504272,
+                "cosine": -0.23185226321220398,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 41
+              },
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 191.5,
+                "norm_ratio": 1.3622658252716064,
+                "cosine": -0.19247737526893616,
+                "paraphrase_leak_h2": 0.0,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "paraphrase_leak_h16": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 53
+              }
+            ]
+          }
+        ],
+        "pairwise_stats": [
+          {
+            "alpha": 1.0,
+            "seed": 17,
+            "mean_abs": 0.2532167136669159,
+            "max_abs": 0.52001953125,
+            "std": 0.06892411410808563
+          },
+          {
+            "alpha": 1.0,
+            "seed": 23,
+            "mean_abs": 0.25470125675201416,
+            "max_abs": 0.5322265625,
+            "std": 0.06867044419050217
+          },
+          {
+            "alpha": 1.0,
+            "seed": 31,
+            "mean_abs": 0.26095542311668396,
+            "max_abs": 0.544921875,
+            "std": 0.07043948769569397
+          },
+          {
+            "alpha": 1.0,
+            "seed": 41,
+            "mean_abs": 0.25365114212036133,
+            "max_abs": 0.546875,
+            "std": 0.07043096423149109
+          },
+          {
+            "alpha": 1.0,
+            "seed": 53,
+            "mean_abs": 0.25597676634788513,
+            "max_abs": 0.521484375,
+            "std": 0.07058607786893845
+          },
+          {
+            "alpha": 1.5,
+            "seed": 17,
+            "mean_abs": 0.2532167136669159,
+            "max_abs": 0.52001953125,
+            "std": 0.06892411410808563
+          },
+          {
+            "alpha": 1.5,
+            "seed": 23,
+            "mean_abs": 0.25470125675201416,
+            "max_abs": 0.5322265625,
+            "std": 0.06867044419050217
+          },
+          {
+            "alpha": 1.5,
+            "seed": 31,
+            "mean_abs": 0.26095542311668396,
+            "max_abs": 0.544921875,
+            "std": 0.07043948769569397
+          },
+          {
+            "alpha": 1.5,
+            "seed": 41,
+            "mean_abs": 0.25365114212036133,
+            "max_abs": 0.546875,
+            "std": 0.07043096423149109
+          },
+          {
+            "alpha": 1.5,
+            "seed": 53,
+            "mean_abs": 0.25597676634788513,
+            "max_abs": 0.521484375,
+            "std": 0.07058607786893845
+          },
+          {
+            "alpha": 2.0,
+            "seed": 17,
+            "mean_abs": 0.2532167136669159,
+            "max_abs": 0.52001953125,
+            "std": 0.06892411410808563
+          },
+          {
+            "alpha": 2.0,
+            "seed": 23,
+            "mean_abs": 0.25470125675201416,
+            "max_abs": 0.5322265625,
+            "std": 0.06867044419050217
+          },
+          {
+            "alpha": 2.0,
+            "seed": 31,
+            "mean_abs": 0.26095542311668396,
+            "max_abs": 0.544921875,
+            "std": 0.07043948769569397
+          },
+          {
+            "alpha": 2.0,
+            "seed": 41,
+            "mean_abs": 0.25365114212036133,
+            "max_abs": 0.546875,
+            "std": 0.07043096423149109
+          },
+          {
+            "alpha": 2.0,
+            "seed": 53,
+            "mean_abs": 0.25597676634788513,
+            "max_abs": 0.521484375,
+            "std": 0.07058607786893845
+          }
+        ],
+        "config_arm": {
+          "n_facts": 200,
+          "rank_L_for_correlated": 50,
+          "key_maker": "correlated"
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 200,
+    "n_erase": 30,
+    "n_kept_probe": 100,
+    "n_paraphrase": 20,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alphas": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "hamming_radii": [
+      2,
+      4,
+      8,
+      16
+    ]
+  }
+}

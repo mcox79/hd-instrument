@@ -1,0 +1,105 @@
+{
+  "anchor_name": "pp58_isochoric_kappa3_n16384_v5_n16384",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ratio=4.00 in [2.0,5.0). alpha=0.05 N=16384 audit_crit=1.000 cap_crit=4.000(pred=4.359) ratio=4.00 cap_within_tol=True n_seeds=2",
+  "n_seeds": 2,
+  "N": 16384,
+  "alpha": 0.05,
+  "sigma_g_use": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "cap_pred": 4.358898943540674,
+  "run_mode": "smoke",
+  "elapsed_s": 0.6619069576263428,
+  "per_seed": [
+    {
+      "alpha": 0.05,
+      "seed": 7,
+      "N": 1024,
+      "run_mode": "smoke",
+      "sigma_g_cap_pred": 4.358898943540674,
+      "elapsed_s": 0.2523651123046875,
+      "cells": {
+        "sg0.000": {
+          "sigma_g": 0.0,
+          "kappa3_ratio": 1.1684512533829545,
+          "recall": 1.0
+        },
+        "sg0.250": {
+          "sigma_g": 0.25,
+          "kappa3_ratio": 1.2923272264036756,
+          "recall": 1.0
+        },
+        "sg0.500": {
+          "sigma_g": 0.5,
+          "kappa3_ratio": 1.815562648034075,
+          "recall": 1.0
+        },
+        "sg1.000": {
+          "sigma_g": 1.0,
+          "kappa3_ratio": 6.300644483553077,
+          "recall": 0.998828125
+        },
+        "sg2.000": {
+          "sigma_g": 2.0,
+          "kappa3_ratio": 21560.513701025324,
+          "recall": 0.70234375
+        },
+        "sg4.000": {
+          "sigma_g": 4.0,
+          "kappa3_ratio": 323832131641369.2,
+          "recall": 0.423828125
+        }
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780472848.0992353
+    },
+    {
+      "alpha": 0.05,
+      "seed": 17,
+      "N": 1024,
+      "run_mode": "smoke",
+      "sigma_g_cap_pred": 4.358898943540674,
+      "elapsed_s": 0.3451664447784424,
+      "cells": {
+        "sg0.000": {
+          "sigma_g": 0.0,
+          "kappa3_ratio": 1.0975128898862747,
+          "recall": 1.0
+        },
+        "sg0.250": {
+          "sigma_g": 0.25,
+          "kappa3_ratio": 1.2781108396462373,
+          "recall": 1.0
+        },
+        "sg0.500": {
+          "sigma_g": 0.5,
+          "kappa3_ratio": 1.8958417044388032,
+          "recall": 1.0
+        },
+        "sg1.000": {
+          "sigma_g": 1.0,
+          "kappa3_ratio": 5.770637742911307,
+          "recall": 0.999609375
+        },
+        "sg2.000": {
+          "sigma_g": 2.0,
+          "kappa3_ratio": -43153.64452464914,
+          "recall": 0.718359375
+        },
+        "sg4.000": {
+          "sigma_g": 4.0,
+          "kappa3_ratio": -101545400585585.95,
+          "recall": 0.441796875
+        }
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780472848.4533823
+    }
+  ]
+}

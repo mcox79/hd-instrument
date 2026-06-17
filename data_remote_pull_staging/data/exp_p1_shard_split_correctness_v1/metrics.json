@@ -1,0 +1,29 @@
+{
+  "anchor_name": "p1_shard_split_correctness_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: shard-split restores capacity under overflow (sharded>=0.95 while single fails) -- production sharding strategy correct. at ov3x overload: sharded_recall=1.000 single_recall=0.000",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "ov1x": {
+          "M": 61,
+          "K_shards": 2,
+          "single_recall": 0.9344262295081968,
+          "sharded_recall": 1.0
+        },
+        "ov3x": {
+          "M": 183,
+          "K_shards": 6,
+          "single_recall": 0.0,
+          "sharded_recall": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.06279826164245605,
+  "summary": "HARD_PASS: shard-split restores capacity under overflow (sharded>=0.95 while single fails) -- production sharding strategy correct. at ov3x overload: sharded_recall=1.000 single_recall=0.000"
+}

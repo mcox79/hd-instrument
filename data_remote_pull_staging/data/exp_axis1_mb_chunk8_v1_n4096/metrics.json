@@ -1,0 +1,27 @@
+{
+  "anchor": "axis1_mb_chunk8_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    25.0
+  ],
+  "betas": [
+    32.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 25.0,
+      "M": 25600,
+      "beta": 32.0,
+      "seed": 17,
+      "retention": 0.16
+    }
+  ],
+  "verdict": "C8_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_COLLAPSE: ret_low=0.1600. mean_ret_by_M={25.0: 0.16} ret_low(M=25.0)=0.1600 ret_high(M=25.0)=0.1600 pass_collapse=0/1 N=1024",
+  "elapsed_s": 0.82
+}

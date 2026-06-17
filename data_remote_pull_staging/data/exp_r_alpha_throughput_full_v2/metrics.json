@@ -1,0 +1,99 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "R(alpha) throughput: mean_R_low_alpha=1.000 [HP: >0.97], n_hp=2/2, N=512, alpha_grid_len=4",
+  "mean_R_at_low_alpha": 1.0,
+  "n_hp_seeds": 2,
+  "n_seeds": 2,
+  "N_production": 4096,
+  "N_run": 512,
+  "alpha_grid": [
+    0.01,
+    0.05,
+    0.1,
+    0.15
+  ],
+  "elapsed_s": 0.053102970123291016,
+  "run_mode": "smoke",
+  "per_result": [
+    {
+      "alpha": 0.01,
+      "M": 5,
+      "R": 1.0,
+      "n_test": 5,
+      "correct": 5,
+      "seed": 7
+    },
+    {
+      "alpha": 0.05,
+      "M": 25,
+      "R": 1.0,
+      "n_test": 20,
+      "correct": 20,
+      "seed": 7
+    },
+    {
+      "alpha": 0.1,
+      "M": 51,
+      "R": 1.0,
+      "n_test": 20,
+      "correct": 20,
+      "seed": 7
+    },
+    {
+      "alpha": 0.15,
+      "M": 76,
+      "R": 1.0,
+      "n_test": 20,
+      "correct": 20,
+      "seed": 7
+    },
+    {
+      "alpha": 0.01,
+      "M": 5,
+      "R": 1.0,
+      "n_test": 5,
+      "correct": 5,
+      "seed": 17
+    },
+    {
+      "alpha": 0.05,
+      "M": 25,
+      "R": 1.0,
+      "n_test": 20,
+      "correct": 20,
+      "seed": 17
+    },
+    {
+      "alpha": 0.1,
+      "M": 51,
+      "R": 1.0,
+      "n_test": 20,
+      "correct": 20,
+      "seed": 17
+    },
+    {
+      "alpha": 0.15,
+      "M": 76,
+      "R": 1.0,
+      "n_test": 20,
+      "correct": 20,
+      "seed": 17
+    }
+  ],
+  "seed_verdicts": [
+    {
+      "seed": 7,
+      "R_at_alpha_001": 1.0,
+      "monotone": true,
+      "cliff_found": false,
+      "hp": true
+    },
+    {
+      "seed": 17,
+      "R_at_alpha_001": 1.0,
+      "monotone": true,
+      "cliff_found": false,
+      "hp": true
+    }
+  ]
+}

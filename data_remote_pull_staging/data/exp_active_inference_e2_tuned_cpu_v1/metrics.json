@@ -1,0 +1,17 @@
+{
+  "anchor_name": "active_inference_e2_tuned_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: one of error_drop>30%% / goal_reach>0.70 holds. error_drop=70.5% goal_reach=0.12+/-0.03 (n=5)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "error_drop": 0.705,
+      "goal_reach": 0.12,
+      "goal_reach_std": 0.034,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 18.65717077255249,
+  "summary": "MIDDLE_BAND: one of error_drop>30%% / goal_reach>0.70 holds. error_drop=70.5% goal_reach=0.12+/-0.03 (n=5)"
+}

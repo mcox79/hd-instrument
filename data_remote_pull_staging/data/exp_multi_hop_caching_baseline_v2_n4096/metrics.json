@@ -1,0 +1,40 @@
+{
+  "verdict": "C2_HARD_PASS",
+  "verdict_msg": "CACHE_VIABLE hit=0.867 hot=2.37ms. a=1.0: hit=0.867 hot=2.37ms audit=1.000",
+  "elapsed_s": 0.16,
+  "summary": {
+    "anchor": "multi_hop_caching_baseline_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 10,
+    "n_q": 30,
+    "alphas": [
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "alpha": 1.0,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 10,
+        "ok": true,
+        "n_queries": 30,
+        "n_hits": 26,
+        "hit_rate": 0.86667,
+        "mean_hot_latency_s": 0.002366,
+        "mean_cold_latency_s": 0.002484,
+        "audit_violations": 0,
+        "audit_integrity": 1.0
+      }
+    ],
+    "verdict": "C2_HARD_PASS",
+    "verdict_msg": "CACHE_VIABLE hit=0.867 hot=2.37ms. a=1.0: hit=0.867 hot=2.37ms audit=1.000",
+    "elapsed_s": 0.16
+  }
+}

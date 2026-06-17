@@ -1,0 +1,111 @@
+{
+  "anchor_name": "streaming_write_aging_baseline_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_total": 2048,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregate": {
+    "A": {
+      "regime": "A",
+      "mean_retain_final": 1.0,
+      "retain_std_over_time": 0.0,
+      "power_law_exponent": 0.0,
+      "stretched_exp_beta": NaN,
+      "mean_retain_curve": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_kappa3_curve": [
+        2.1716075777836385e-05,
+        4.734180108989682e-05,
+        7.363207456534732e-05,
+        0.00010327898537930969,
+        0.00013696505551402376,
+        0.00017420564644204104
+      ],
+      "checkpoint_ms": [
+        85,
+        170,
+        256,
+        341,
+        426,
+        512
+      ],
+      "n_seeds": 2
+    },
+    "B": {
+      "regime": "B",
+      "mean_retain_final": 1.0,
+      "retain_std_over_time": 0.0,
+      "power_law_exponent": 0.0,
+      "stretched_exp_beta": NaN,
+      "mean_retain_curve": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_kappa3_curve": [
+        0.02171607577783637,
+        0.04734180108989676,
+        0.07363207456534723,
+        0.10327898537930955,
+        0.1369650555140235,
+        0.17420564644204053
+      ],
+      "checkpoint_ms": [
+        85,
+        170,
+        256,
+        341,
+        426,
+        512
+      ],
+      "n_seeds": 2
+    },
+    "C": {
+      "regime": "C",
+      "mean_retain_final": 1.0,
+      "retain_std_over_time": 0.0,
+      "power_law_exponent": 0.0,
+      "stretched_exp_beta": NaN,
+      "mean_retain_curve": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_kappa3_curve": [
+        21.716075777836373,
+        47.34180108989676,
+        73.63207456534724,
+        103.27898537930955,
+        136.9650555140235,
+        174.20564644204057
+      ],
+      "checkpoint_ms": [
+        85,
+        170,
+        256,
+        341,
+        426,
+        512
+      ],
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Regime A and C are identical (retain_A=1.000 retain_C=1.000 |diff|=0.0000 < 0.02). Refutes CK class for streaming.",
+  "elapsed_s": 633.9515981674194
+}

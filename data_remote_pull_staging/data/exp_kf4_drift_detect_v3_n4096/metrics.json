@@ -1,0 +1,26 @@
+{
+  "anchor": "kf4_drift_detect_v3_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "seed": 17,
+      "ret_base": 1.0,
+      "ret_drifted": 1.0,
+      "drift_gap": 0.0,
+      "passes_hp": false
+    }
+  ],
+  "verdict": "KF4_V3_SMOKE_ONLY",
+  "verdict_msg": "PARTIAL: gap_m2=0.0000. mean_gap_m2=0.0000 smoke_only=True",
+  "elapsed_s": 1.24
+}

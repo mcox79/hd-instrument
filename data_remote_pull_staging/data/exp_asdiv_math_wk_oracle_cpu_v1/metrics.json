@@ -1,0 +1,34 @@
+{
+  "anchor_name": "asdiv_math_wk_oracle_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: WK constants lift the ASDiv ceiling (>=0.75 or lift>=0.05) -- world-knowledge closes much of the gap; remaining items need multi-fact/non-adjacent constants. 3-op: base=0.6709 +WK=0.7848 (lift=+0.1139) | 2-op +WK=0.8612 | 1-op +WK=0.7122. WK = substrate LEX_constant adjacent-to-number (rule 8).",
+  "summary": "MIDDLE_BAND: WK constants lift the ASDiv ceiling (>=0.75 or lift>=0.05) -- world-knowledge closes much of the gap; remaining items need multi-fact/non-adjacent constants. 3-op: base=0.6709 +WK=0.7848 (lift=+0.1139) | 2-op +WK=0.8612 | 1-op +WK=0.7122. WK = substrate LEX_constant adjacent-to-number (rule 8).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "op1": {
+        "base": 0.6791,
+        "wk": 0.7122,
+        "lift": 0.033,
+        "n": 1362
+      },
+      "op2": {
+        "base": 0.8141,
+        "wk": 0.8612,
+        "lift": 0.0471,
+        "n": 425
+      },
+      "op3": {
+        "base": 0.6709,
+        "wk": 0.7848,
+        "lift": 0.1139,
+        "n": 79
+      },
+      "ceiling_3op_wk": 0.7848,
+      "ceiling_3op_base": 0.6709,
+      "lift_3op": 0.1139
+    }
+  ],
+  "elapsed_s": 0.9809825420379639
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "modern_hopfield_gpu_scale_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: modern Hopfield >0.90 at N=16384 M/N=0.40 -- exponential-energy capacity holds at scale; storage path to drop N confirmed. accuracy: {'N8192_L0.30': 1.0, 'N8192_L0.40': 1.0, 'N16384_L0.30': 1.0, 'N16384_L0.40': 1.0} (N=16384 M/N=0.40 -> 1.000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N8192_L0.30": 1.0,
+        "N8192_L0.40": 1.0,
+        "N16384_L0.30": 1.0,
+        "N16384_L0.40": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 1.3089654445648193,
+  "summary": "HARD_PASS: modern Hopfield >0.90 at N=16384 M/N=0.40 -- exponential-energy capacity holds at scale; storage path to drop N confirmed. accuracy: {'N8192_L0.30': 1.0, 'N8192_L0.40': 1.0, 'N16384_L0.30': 1.0, 'N16384_L0.40': 1.0} (N=16384 M/N=0.40 -> 1.000)"
+}

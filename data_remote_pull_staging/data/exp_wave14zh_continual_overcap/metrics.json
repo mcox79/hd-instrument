@@ -1,0 +1,6059 @@
+{
+  "verdict": "CONTINUAL_OC_KERDOCK_HOLDS",
+  "verdict_msg": "At M=2N, Kerdock holds 100 sequential edits: min_edited=1.000, min_kept=1.000. Continual editing at over-capacity works with structured keys.",
+  "elapsed_s": 68.82800000000134,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_edit_trajectory": [
+          {
+            "edit_step": 1,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 2,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 3,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 4,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 5,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 6,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 7,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 8,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 9,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 10,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 11,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 12,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 13,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 14,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 15,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 16,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 17,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 18,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 19,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 20,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 21,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 22,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 23,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 24,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 25,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 26,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 27,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 28,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 29,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 30,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 31,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 32,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 33,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 34,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 35,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 36,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 37,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 38,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 39,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 40,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 41,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 42,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 43,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 44,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 45,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 46,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 47,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 48,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 49,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 50,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 51,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 52,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 53,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 54,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 55,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 56,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 57,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 58,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 59,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 60,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 61,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 62,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 63,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 64,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 65,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 66,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 67,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 68,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 69,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 70,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 71,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 72,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 73,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 74,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 75,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 76,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 77,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 78,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 79,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 80,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 81,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 82,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 83,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 84,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 85,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 86,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 87,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 88,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 89,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 90,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 91,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 92,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 93,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 94,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 95,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 96,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 97,
+            "edited_acc": 0.9999999403953552,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 98,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 99,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 100,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          }
+        ],
+        "min_edited_acc": 0.9999999403953552,
+        "min_kept_acc": 0.9999999403953552,
+        "per_seed_trajectories": [
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ]
+        ]
+      },
+      "correlated": {
+        "per_edit_trajectory": [
+          {
+            "edit_step": 1,
+            "edited_acc": 1.0,
+            "kept_acc": 0.10638505518436432
+          },
+          {
+            "edit_step": 2,
+            "edited_acc": 1.0,
+            "kept_acc": 0.36498170495033266
+          },
+          {
+            "edit_step": 3,
+            "edited_acc": 1.0,
+            "kept_acc": 0.8098180413246154
+          },
+          {
+            "edit_step": 4,
+            "edited_acc": 1.0,
+            "kept_acc": 0.990254032611847
+          },
+          {
+            "edit_step": 5,
+            "edited_acc": 0.9600000023841858,
+            "kept_acc": 0.9999266982078552
+          },
+          {
+            "edit_step": 6,
+            "edited_acc": 0.9333333492279052,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 7,
+            "edited_acc": 0.8571429014205932,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 8,
+            "edited_acc": 0.875,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 9,
+            "edited_acc": 0.8888888955116272,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 10,
+            "edited_acc": 0.900000023841858,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 11,
+            "edited_acc": 0.9090909361839294,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 12,
+            "edited_acc": 0.9166666865348816,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 13,
+            "edited_acc": 0.892307710647583,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 14,
+            "edited_acc": 0.9000000476837158,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 15,
+            "edited_acc": 0.9200000524520874,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 16,
+            "edited_acc": 0.925,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 17,
+            "edited_acc": 0.929411768913269,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 18,
+            "edited_acc": 0.9333333492279052,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 19,
+            "edited_acc": 0.9368421077728272,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 20,
+            "edited_acc": 0.9400000095367431,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 21,
+            "edited_acc": 0.9428571462631226,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 22,
+            "edited_acc": 0.9454545736312866,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 23,
+            "edited_acc": 0.939130449295044,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 24,
+            "edited_acc": 0.9333333492279052,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 25,
+            "edited_acc": 0.943999969959259,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 26,
+            "edited_acc": 0.9461538910865783,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 27,
+            "edited_acc": 0.9555555582046509,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 28,
+            "edited_acc": 0.9571428775787354,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 29,
+            "edited_acc": 0.9586206912994385,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 30,
+            "edited_acc": 0.9600000381469727,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 31,
+            "edited_acc": 0.9612902879714966,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 32,
+            "edited_acc": 0.9625,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 33,
+            "edited_acc": 0.9636363983154297,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 34,
+            "edited_acc": 0.9705882549285889,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 35,
+            "edited_acc": 0.9714285731315613,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 36,
+            "edited_acc": 0.9722222208976745,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 37,
+            "edited_acc": 0.9675675868988037,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 38,
+            "edited_acc": 0.9684210538864135,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 39,
+            "edited_acc": 0.9692307710647583,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 40,
+            "edited_acc": 0.9700000047683716,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 41,
+            "edited_acc": 0.9707316756248474,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 42,
+            "edited_acc": 0.9714285850524902,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 43,
+            "edited_acc": 0.9720930099487305,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 44,
+            "edited_acc": 0.9727272987365723,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 45,
+            "edited_acc": 0.9733333349227905,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 46,
+            "edited_acc": 0.973913049697876,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 47,
+            "edited_acc": 0.9744680285453796,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 48,
+            "edited_acc": 0.9750000238418579,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 49,
+            "edited_acc": 0.9755101919174194,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 50,
+            "edited_acc": 0.9759999752044678,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 51,
+            "edited_acc": 0.9764706373214722,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 52,
+            "edited_acc": 0.9769231081008911,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 53,
+            "edited_acc": 0.9773585081100464,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 54,
+            "edited_acc": 0.9777777910232544,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 55,
+            "edited_acc": 0.978181779384613,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 56,
+            "edited_acc": 0.9785714626312256,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 57,
+            "edited_acc": 0.978947377204895,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 58,
+            "edited_acc": 0.9793103456497192,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 59,
+            "edited_acc": 0.9796610116958618,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 60,
+            "edited_acc": 0.9800000429153443,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 61,
+            "edited_acc": 0.9803278088569641,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 62,
+            "edited_acc": 0.9806451320648193,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 63,
+            "edited_acc": 0.9809524297714234,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 64,
+            "edited_acc": 0.98125,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 65,
+            "edited_acc": 0.981538462638855,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 66,
+            "edited_acc": 0.978787899017334,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 67,
+            "edited_acc": 0.9791044473648072,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 68,
+            "edited_acc": 0.979411780834198,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 69,
+            "edited_acc": 0.982608699798584,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 70,
+            "edited_acc": 0.9828571557998658,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 71,
+            "edited_acc": 0.980281674861908,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 72,
+            "edited_acc": 0.9805555462837219,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 73,
+            "edited_acc": 0.983561635017395,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 74,
+            "edited_acc": 0.9837837934494018,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 75,
+            "edited_acc": 0.9840000152587891,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 76,
+            "edited_acc": 0.9842105150222779,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 77,
+            "edited_acc": 0.9844155788421631,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 78,
+            "edited_acc": 0.9846153974533081,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 79,
+            "edited_acc": 0.9848101615905762,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 80,
+            "edited_acc": 0.9850000143051147,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 81,
+            "edited_acc": 0.985185194015503,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 82,
+            "edited_acc": 0.9853658080101013,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 83,
+            "edited_acc": 0.9855421185493469,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 84,
+            "edited_acc": 0.985714316368103,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 85,
+            "edited_acc": 0.9858823537826538,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 86,
+            "edited_acc": 0.9860465049743652,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 87,
+            "edited_acc": 0.9862068891525269,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 88,
+            "edited_acc": 0.9863636493682861,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 89,
+            "edited_acc": 0.9865168571472168,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 90,
+            "edited_acc": 0.9866666793823242,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 91,
+            "edited_acc": 0.9868131875991821,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 92,
+            "edited_acc": 0.986956524848938,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 93,
+            "edited_acc": 0.9870967864990234,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 94,
+            "edited_acc": 0.9872339844703675,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 95,
+            "edited_acc": 0.9894737005233765,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 96,
+            "edited_acc": 0.9854166984558106,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 97,
+            "edited_acc": 0.9855669736862183,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 98,
+            "edited_acc": 0.9877551078796387,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 99,
+            "edited_acc": 0.9858585715293884,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 100,
+            "edited_acc": 0.987999951839447,
+            "kept_acc": 0.9999999403953552
+          }
+        ],
+        "min_edited_acc": 0.8571429014205932,
+        "min_kept_acc": 0.10638505518436432,
+        "per_seed_trajectories": [
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.09510438144207001
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.305372416973114
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 0.7098546624183655
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9777723550796509
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9997556805610657
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9999999403953552,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 0.9791666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9896906614303589,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 0.9897959232330322,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 0.9898989796638489,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 0.9899999499320984,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.12586985528469086
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.3975580334663391
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 0.8601782917976379
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9959697127342224
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 0.8571429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 0.875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 0.8888888955116272,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 0.9000000357627869,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 0.9090909361839294,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 0.9230769872665405,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 0.9285714626312256,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 0.9333333969116211,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 0.9375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 0.9411764740943909,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 0.944444477558136,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 0.9473684430122375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 0.949999988079071,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 0.9523809552192688,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 0.9545454978942871,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 0.8695652484893799,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 0.9199999570846558,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 0.9230769872665405,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 0.9629629850387573,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 0.9642857313156128,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 0.9655172228813171,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 0.9666666984558105,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 0.9677419066429138,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 0.96875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 0.9696969985961914,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 0.9705882668495178,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 0.9714285731315613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 0.9722222089767456,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 0.9729729890823364,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 0.9736841917037964,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 0.9743589758872986,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 0.9750000238418579,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9756097197532654,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 0.9761905074119568,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 0.9767441749572754,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 0.9772727489471436,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 0.9777777791023254,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 0.97826087474823,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9787233471870422,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 0.9791666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 0.9795918464660645,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 0.9799999594688416,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 0.9803922176361084,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 0.9807692766189575,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 0.9811320900917053,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 0.9814814925193787,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9818181395530701,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 0.9821429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 0.9824561476707458,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 0.982758641242981,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 0.9830508232116699,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 0.98333340883255,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9836065173149109,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 0.9838709235191345,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 0.9841270446777344,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 0.984375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 0.9846153855323792,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 0.9696969985961914,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 0.9701492190361023,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 0.9705882668495178,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 0.9855072498321533,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 0.985714316368103,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 0.98591548204422,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 0.9861111044883728,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 0.9863013625144958,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 0.9864864945411682,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 0.9866666793823242,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 0.9868420958518982,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 0.9870129823684692,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 0.9871795177459717,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 0.9873418211936951,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 0.987500011920929,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 0.9876543283462524,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9878048300743103,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9879517555236816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 0.9880952835083008,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 0.9882352948188782,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 0.9883720874786377,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 0.9885057210922241,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 0.9886363744735718,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 0.9887640476226807,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 0.9888889193534851,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 0.9890109896659851,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 0.989130437374115,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 0.9892473220825195,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9893616437911987,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 0.9894737005233765,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 0.9895833730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9896906614303589,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 0.9897959232330322,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 0.9898989796638489,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 0.9899999499320984,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.1172018051147461
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.44481077790260315
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 0.8694590330123901
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 0.994015634059906
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9998778104782104
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 0.7142857313156128,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 0.75,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 0.7777777910232544,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 0.800000011920929,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 0.8181818723678589,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 0.8333333730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 0.8461538553237915,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 0.8571429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 0.8666667342185974,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 0.875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 0.8823529481887817,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 0.8888888955116272,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 0.8947368264198303,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 0.9000000357627869,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 0.9047619104385376,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 0.9090909361839294,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 0.9130434989929199,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 0.9199999570846558,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 0.9230769872665405,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 0.9259259104728699,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 0.9285714626312256,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 0.931034505367279,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 0.9333333969116211,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 0.9354838132858276,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 0.9375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 0.9393939971923828,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 0.9411764740943909,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 0.9428571462631226,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 0.944444477558136,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 0.9459459781646729,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 0.9473684430122375,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 0.9487179517745972,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 0.949999988079071,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9512194991111755,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 0.9523809552192688,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 0.9534883499145508,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 0.9545454978942871,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 0.9555555582046509,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 0.95652174949646,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9574467539787292,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 0.9583333730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 0.9591836333274841,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 0.9599999785423279,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 0.960784375667572,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 0.9615384936332703,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 0.9622641801834106,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 0.9629629850387573,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9636363387107849,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 0.9642857313156128,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 0.9649122953414917,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 0.9655172228813171,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 0.9661017060279846,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 0.9666666984558105,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9672130346298218,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 0.9677419066429138,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 0.968254029750824,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 0.96875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 0.9692307710647583,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 0.9696969985961914,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 0.9701492190361023,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 0.9705882668495178,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 0.9710144996643066,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 0.9714285731315613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 0.9718309640884399,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 0.9722222089767456,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 0.9726027250289917,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 0.9729729890823364,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 0.9733333587646484,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 0.9736841917037964,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 0.9740259647369385,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 0.9743589758872986,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 0.9746835827827454,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 0.9750000238418579,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 0.9753086566925049,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9756097197532654,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9759035706520081,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 0.9761905074119568,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 0.9764705896377563,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 0.9767441749572754,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 0.977011501789093,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 0.9772727489471436,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 0.9775280952453613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 0.9777777791023254,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 0.9780219793319702,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 0.97826087474823,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 0.9784946441650391,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9787233471870422,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 0.9789474010467529,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 0.9791666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9793814420700073,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 0.9795918464660645,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 0.9797979593276978,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 0.9799999594688416,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.08423879742622375
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.32271063327789307
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 0.7954573035240173
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9893746972084045
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 0.800000011920929,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 0.8333333730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 0.8571429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 0.875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 0.8888888955116272,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 0.9000000357627869,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 0.9090909361839294,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 0.8461538553237915,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 0.8571429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 0.8666667342185974,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 0.875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 0.8823529481887817,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 0.8888888955116272,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 0.8947368264198303,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 0.9000000357627869,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 0.9047619104385376,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 0.9090909361839294,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 0.95652174949646,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 0.9199999570846558,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 0.9230769872665405,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 0.9259259104728699,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 0.9285714626312256,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 0.931034505367279,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 0.9333333969116211,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 0.9354838132858276,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 0.9375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 0.9393939971923828,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 0.9705882668495178,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 0.9714285731315613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 0.9722222089767456,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 0.9459459781646729,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 0.9473684430122375,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 0.9487179517745972,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 0.949999988079071,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9512194991111755,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 0.9523809552192688,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 0.9534883499145508,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 0.9545454978942871,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 0.9555555582046509,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 0.95652174949646,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9574467539787292,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 0.9583333730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 0.9591836333274841,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 0.9599999785423279,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 0.960784375667572,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 0.9615384936332703,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 0.9622641801834106,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 0.9629629850387573,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9636363387107849,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 0.9642857313156128,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 0.9649122953414917,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 0.9655172228813171,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 0.9661017060279846,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 0.9666666984558105,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9672130346298218,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 0.9677419066429138,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 0.968254029750824,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 0.96875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 0.9692307710647583,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 0.9696969985961914,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 0.9701492190361023,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 0.9705882668495178,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 0.9710144996643066,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 0.9714285731315613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 0.9718309640884399,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 0.9722222089767456,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 0.9726027250289917,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 0.9729729890823364,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 0.9733333587646484,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 0.9736841917037964,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 0.9740259647369385,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 0.9743589758872986,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 0.9746835827827454,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 0.9750000238418579,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 0.9753086566925049,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9756097197532654,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9759035706520081,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 0.9761905074119568,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 0.9764705896377563,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 0.9767441749572754,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 0.977011501789093,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 0.9772727489471436,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 0.9775280952453613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 0.9777777791023254,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 0.9780219793319702,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 0.97826087474823,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 0.9784946441650391,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9787233471870422,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 0.9894737005233765,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 0.9895833730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9793814420700073,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 0.9897959232330322,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 0.9797979593276978,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 0.9899999499320984,
+              "kept_acc": 0.9999999403953552
+            }
+          ],
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.10951043665409088
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.35445666313171387
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 0.8141409158706665
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9941377639770508
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 0.8333333730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 0.8571429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 0.875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 0.8888888955116272,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 0.9000000357627869,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 0.9090909361839294,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 0.8461538553237915,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 0.8571429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 0.9333333969116211,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 0.9375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 0.9411764740943909,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 0.944444477558136,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 0.9473684430122375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 0.949999988079071,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 0.9523809552192688,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 0.9545454978942871,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 0.95652174949646,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 0.9166666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 0.9599999785423279,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 0.9615384936332703,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 0.9629629850387573,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 0.9642857313156128,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 0.9655172228813171,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 0.9666666984558105,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 31,
+              "edited_acc": 0.9677419066429138,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 32,
+              "edited_acc": 0.96875,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 33,
+              "edited_acc": 0.9696969985961914,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 34,
+              "edited_acc": 0.9705882668495178,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 35,
+              "edited_acc": 0.9714285731315613,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 36,
+              "edited_acc": 0.9722222089767456,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 37,
+              "edited_acc": 0.9729729890823364,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 38,
+              "edited_acc": 0.9736841917037964,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 39,
+              "edited_acc": 0.9743589758872986,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 40,
+              "edited_acc": 0.9750000238418579,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 41,
+              "edited_acc": 0.9756097197532654,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 42,
+              "edited_acc": 0.9761905074119568,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 43,
+              "edited_acc": 0.9767441749572754,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 44,
+              "edited_acc": 0.9772727489471436,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 45,
+              "edited_acc": 0.9777777791023254,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 46,
+              "edited_acc": 0.97826087474823,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 47,
+              "edited_acc": 0.9787233471870422,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 48,
+              "edited_acc": 0.9791666865348816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 49,
+              "edited_acc": 0.9795918464660645,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 50,
+              "edited_acc": 0.9799999594688416,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 51,
+              "edited_acc": 0.9803922176361084,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 52,
+              "edited_acc": 0.9807692766189575,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 53,
+              "edited_acc": 0.9811320900917053,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 54,
+              "edited_acc": 0.9814814925193787,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 55,
+              "edited_acc": 0.9818181395530701,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 56,
+              "edited_acc": 0.9821429252624512,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 57,
+              "edited_acc": 0.9824561476707458,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 58,
+              "edited_acc": 0.982758641242981,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 59,
+              "edited_acc": 0.9830508232116699,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 60,
+              "edited_acc": 0.98333340883255,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 61,
+              "edited_acc": 0.9836065173149109,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 62,
+              "edited_acc": 0.9838709235191345,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 63,
+              "edited_acc": 0.9841270446777344,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 64,
+              "edited_acc": 0.984375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 65,
+              "edited_acc": 0.9846153855323792,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 66,
+              "edited_acc": 0.9848484992980957,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 67,
+              "edited_acc": 0.9850745797157288,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 68,
+              "edited_acc": 0.9852941036224365,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 69,
+              "edited_acc": 0.9855072498321533,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 70,
+              "edited_acc": 0.985714316368103,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 71,
+              "edited_acc": 0.9718309640884399,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 72,
+              "edited_acc": 0.9722222089767456,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 73,
+              "edited_acc": 0.9863013625144958,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 74,
+              "edited_acc": 0.9864864945411682,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 75,
+              "edited_acc": 0.9866666793823242,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 76,
+              "edited_acc": 0.9868420958518982,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 77,
+              "edited_acc": 0.9870129823684692,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 78,
+              "edited_acc": 0.9871795177459717,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 79,
+              "edited_acc": 0.9873418211936951,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 80,
+              "edited_acc": 0.987500011920929,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 81,
+              "edited_acc": 0.9876543283462524,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 82,
+              "edited_acc": 0.9878048300743103,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 83,
+              "edited_acc": 0.9879517555236816,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 84,
+              "edited_acc": 0.9880952835083008,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 85,
+              "edited_acc": 0.9882352948188782,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 86,
+              "edited_acc": 0.9883720874786377,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 87,
+              "edited_acc": 0.9885057210922241,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 88,
+              "edited_acc": 0.9886363744735718,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 89,
+              "edited_acc": 0.9887640476226807,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 90,
+              "edited_acc": 0.9888889193534851,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 91,
+              "edited_acc": 0.9890109896659851,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 92,
+              "edited_acc": 0.989130437374115,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 93,
+              "edited_acc": 0.9892473220825195,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 94,
+              "edited_acc": 0.9893616437911987,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 95,
+              "edited_acc": 0.9894737005233765,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 96,
+              "edited_acc": 0.9895833730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 97,
+              "edited_acc": 0.9896906614303589,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 98,
+              "edited_acc": 0.9897959232330322,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 99,
+              "edited_acc": 0.9898989796638489,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 100,
+              "edited_acc": 0.9899999499320984,
+              "kept_acc": 0.9999999403953552
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 8192,
+    "n_edits": 100,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

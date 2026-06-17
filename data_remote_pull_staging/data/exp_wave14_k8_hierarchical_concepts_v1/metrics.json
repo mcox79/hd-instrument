@@ -1,0 +1,52 @@
+{
+  "verdict": "HIER_CONCEPTS_HARD_FAIL",
+  "verdict_msg": "K8 KILLER substrate-level: mean cos=0.049<0.05 OR ratio=1.74<1.5x chance. s7:cos=0.048,ratio=1.53, s17:cos=0.041,ratio=1.22, s23:cos=0.052,ratio=1.94, s31:cos=0.052,ratio=1.89, s41:cos=0.053,ratio=2.14.",
+  "elapsed_s": 0.18800000002374873,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "mean_2level_cos": 0.04785859979200781,
+        "mean_chance_cos": 0.03135756844574456,
+        "ratio_to_chance": 1.5262216480469024
+      },
+      "17": {
+        "mean_2level_cos": 0.040784426569642,
+        "mean_chance_cos": 0.033461727002040434,
+        "ratio_to_chance": 1.2188380643699304
+      },
+      "23": {
+        "mean_2level_cos": 0.052294781429015565,
+        "mean_chance_cos": 0.026950497457632654,
+        "ratio_to_chance": 1.940401341801769
+      },
+      "31": {
+        "mean_2level_cos": 0.05166909657348033,
+        "mean_chance_cos": 0.027388749797013914,
+        "ratio_to_chance": 1.8865080354676724
+      },
+      "41": {
+        "mean_2level_cos": 0.05327863569738091,
+        "mean_chance_cos": 0.024861243762640553,
+        "ratio_to_chance": 2.1430398336483747
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "n": 1024,
+    "n_atoms_per_mid": 4,
+    "n_mids": 4,
+    "n_queries": 30,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_cos": 0.3,
+    "pass_chance_mult": 3.0,
+    "fail_cos": 0.05,
+    "fail_chance_mult": 1.5
+  }
+}

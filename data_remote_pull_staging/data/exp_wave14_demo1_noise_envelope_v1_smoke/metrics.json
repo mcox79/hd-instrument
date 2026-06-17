@@ -1,0 +1,32 @@
+{
+  "verdict": "DEMO1_NOISE_ROBUST",
+  "verdict_msg": "Demo 1 noise-robust: composed_acc at p=0.10 = 1.000 >= 0.5; clean=1.000. Cap 1 envelope extends to moderate noise. acc_per_noise={'0.00': 1.0, '0.10': 1.0}.",
+  "elapsed_s": 0.3120000000053551,
+  "summary": {
+    "acc_per_noise": {
+      "0.00": 1.0,
+      "0.10": 1.0
+    },
+    "n_trials_per_cell": 10,
+    "device": "cpu",
+    "N": 8192
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials_per_noise_per_seed": 10,
+    "noise_levels": [
+      0.0,
+      0.1
+    ],
+    "seeds": [
+      17
+    ],
+    "device": "cpu",
+    "note": "Cap 1 Demo 1 Lane D N=65536 noise envelope; 4-primitive composition"
+  }
+}

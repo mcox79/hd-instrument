@@ -1,0 +1,23 @@
+{
+  "anchor_name": "hotpot_bge_recall_at_k_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: both supporting facts in bge top-10 >=70%% -- the facts ARE retrievable; a reranker on bge top-10 closes the multi-hop gap. both-facts recall: {'r@2': 0.313, 'r@5': 0.55, 'r@10': 0.733, 'r@20': 0.92} (n=300, bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 300,
+      "by": {
+        "r@2": 0.31333333333333335,
+        "r@5": 0.55,
+        "r@10": 0.7333333333333333,
+        "r@20": 0.92
+      },
+      "r2": 0.31333333333333335,
+      "r10": 0.7333333333333333,
+      "recall_2hop": 0.31333333333333335
+    }
+  ],
+  "elapsed_s": 279.3842432498932,
+  "summary": "HARD_PASS: both supporting facts in bge top-10 >=70%% -- the facts ARE retrievable; a reranker on bge top-10 closes the multi-hop gap. both-facts recall: {'r@2': 0.313, 'r@5': 0.55, 'r@10': 0.733, 'r@20': 0.92} (n=300, bge-small)"
+}

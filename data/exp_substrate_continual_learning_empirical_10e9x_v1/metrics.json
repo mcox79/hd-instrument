@@ -1,0 +1,57 @@
+{
+  "anchor_name": "substrate_continual_learning_empirical_10e9x_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate continual learning faster (27x) + NO forgetting; LLM slower + forgets. (1000x is large-LLM-scale; Pythia-160M conservative). speedup=27x (sub_wall=1.358s llm_wall=36.9s) | sub_old_retention=1.00 sub_new=1.00 | llm_old 0.50->0.45 (forget=True) llm_new=0.46",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "sub": {
+        "wall": 1.3927912712097168,
+        "old_before": 1.0,
+        "old_after": 1.0,
+        "new_recall": 1.0
+      },
+      "llm": {
+        "wall": 41.517516136169434,
+        "old_before": 0.505972683429718,
+        "old_after": 0.45477816462516785,
+        "new_recall": 0.4477739632129669
+      }
+    },
+    {
+      "seed": 17,
+      "sub": {
+        "wall": 1.4801304340362549,
+        "old_before": 1.0,
+        "old_after": 1.0,
+        "new_recall": 1.0
+      },
+      "llm": {
+        "wall": 34.50949001312256,
+        "old_before": 0.48020219802856445,
+        "old_after": 0.45408591628074646,
+        "new_recall": 0.45907172560691833
+      }
+    },
+    {
+      "seed": 23,
+      "sub": {
+        "wall": 1.2020621299743652,
+        "old_before": 1.0,
+        "old_after": 1.0,
+        "new_recall": 1.0
+      },
+      "llm": {
+        "wall": 34.613569259643555,
+        "old_before": 0.5030043125152588,
+        "old_after": 0.44978541135787964,
+        "new_recall": 0.4674457311630249
+      }
+    }
+  ],
+  "elapsed_s": 185.3752179145813,
+  "summary": "MIDDLE_BAND: substrate continual learning faster (27x) + NO forgetting; LLM slower + forgets. (1000x is large-LLM-scale; Pythia-160M conservative). speedup=27x (sub_wall=1.358s llm_wall=36.9s) | sub_old_retention=1.00 sub_new=1.00 | llm_old 0.50->0.45 (forget=True) llm_new=0.46"
+}

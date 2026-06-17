@@ -1,0 +1,125 @@
+{
+  "verdict": "TF_HARD_PASS",
+  "verdict_msg": "FACTORIZATION_WORKS: mean_r512_ratio=1.000 n_seeds_uniform_loss=0/5 seed7:full=1.000_r512ratio=1.000 seed17:full=1.000_r512ratio=1.000 seed23:full=1.000_r512ratio=1.000 seed31:full=1.000_r512ratio=1.000 seed41:full=1.000_r512ratio=1.000",
+  "elapsed_s": 587.32,
+  "summary": {
+    "anchor": "tensor_factorized_w_feasibility_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 512,
+    "ranks": [
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "per_seed": [
+      {
+        "seed": 7,
+        "M": 512,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "128": 1.0,
+          "256": 1.0,
+          "512": 1.0,
+          "1024": 1.0,
+          "2048": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "128": 0.0625,
+          "256": 0.125,
+          "512": 0.25,
+          "1024": 0.5,
+          "2048": 1.0
+        }
+      },
+      {
+        "seed": 17,
+        "M": 512,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "128": 1.0,
+          "256": 1.0,
+          "512": 1.0,
+          "1024": 1.0,
+          "2048": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "128": 0.0625,
+          "256": 0.125,
+          "512": 0.25,
+          "1024": 0.5,
+          "2048": 1.0
+        }
+      },
+      {
+        "seed": 23,
+        "M": 512,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "128": 1.0,
+          "256": 1.0,
+          "512": 1.0,
+          "1024": 1.0,
+          "2048": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "128": 0.0625,
+          "256": 0.125,
+          "512": 0.25,
+          "1024": 0.5,
+          "2048": 1.0
+        }
+      },
+      {
+        "seed": 31,
+        "M": 512,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "128": 1.0,
+          "256": 1.0,
+          "512": 1.0,
+          "1024": 1.0,
+          "2048": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "128": 0.0625,
+          "256": 0.125,
+          "512": 0.25,
+          "1024": 0.5,
+          "2048": 1.0
+        }
+      },
+      {
+        "seed": 41,
+        "M": 512,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "128": 1.0,
+          "256": 1.0,
+          "512": 1.0,
+          "1024": 1.0,
+          "2048": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "128": 0.0625,
+          "256": 0.125,
+          "512": 0.25,
+          "1024": 0.5,
+          "2048": 1.0
+        }
+      }
+    ],
+    "verdict": "TF_HARD_PASS",
+    "verdict_msg": "FACTORIZATION_WORKS: mean_r512_ratio=1.000 n_seeds_uniform_loss=0/5 seed7:full=1.000_r512ratio=1.000 seed17:full=1.000_r512ratio=1.000 seed23:full=1.000_r512ratio=1.000 seed31:full=1.000_r512ratio=1.000 seed41:full=1.000_r512ratio=1.000",
+    "elapsed_s": 587.32
+  }
+}

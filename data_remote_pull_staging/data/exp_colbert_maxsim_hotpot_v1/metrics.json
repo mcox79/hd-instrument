@@ -1,0 +1,16 @@
+{
+  "anchor_name": "colbert_maxsim_hotpot_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ColBERT recall@2 <0.50 -- late interaction does not beat bge-small enough; ColBERT path closed, pivot benchmark. (Note: proxy is a lower bound; the proj-head/index version may do better.) ColBERT-MaxSim recall@2hop=0.150 recall@10=0.630 (n=100; bge-small 0.42/0.74; proxy=no proj-head/index, lower bound)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 100,
+      "r2": 0.15,
+      "r10": 0.63
+    }
+  ],
+  "elapsed_s": 36.40218377113342,
+  "summary": "HARD_FAIL: ColBERT recall@2 <0.50 -- late interaction does not beat bge-small enough; ColBERT path closed, pivot benchmark. (Note: proxy is a lower bound; the proj-head/index version may do better.) ColBERT-MaxSim recall@2hop=0.150 recall@10=0.630 (n=100; bge-small 0.42/0.74; proxy=no proj-head/index, lower bound)"
+}

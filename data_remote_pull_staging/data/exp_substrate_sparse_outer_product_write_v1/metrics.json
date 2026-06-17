@@ -1,0 +1,25 @@
+{
+  "anchor_name": "substrate_sparse_outer_product_write_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse write <2x capacity (no linear-noise benefit at this scale). dense_capacity=819 sparse_capacity=409 ratio=0.50x (N=1024, f=0.10)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "dense_capacity": 819,
+      "sparse_capacity": 409,
+      "ratio": 0.4993894993894994
+    },
+    {
+      "seed": 2,
+      "N": 1024,
+      "dense_capacity": 819,
+      "sparse_capacity": 409,
+      "ratio": 0.4993894993894994
+    }
+  ],
+  "elapsed_s": 1084.11611866951,
+  "summary": "HARD_FAIL: sparse write <2x capacity (no linear-noise benefit at this scale). dense_capacity=819 sparse_capacity=409 ratio=0.50x (N=1024, f=0.10)"
+}

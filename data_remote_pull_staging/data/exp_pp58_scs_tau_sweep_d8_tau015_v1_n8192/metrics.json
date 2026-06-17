@@ -1,0 +1,36 @@
+{
+  "anchor_name": "pp58_scs_tau_sweep_d8_tau015_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SCS ratio=12.634 outside [0.5,2.0]. SCS formula off by >2x. gamma_emp=1.296 gamma_scs=16.383 ratio=12.634 tau_actual=0.1738 d=19.221 match_30%=0/2 tau_target=0.15",
+  "N": 8192,
+  "alpha": 0.05,
+  "tau_target": 0.15,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.07875990867614746,
+  "summary": "HARD_FAIL: SCS ratio=12.634 outside [0.5,2.0]. SCS formula off by >2x. gamma_emp=1.296 gamma_scs=16.383 ratio=12.634 tau_actual=0.1738 d=19.221 match_30%=0/2 tau_target=0.15",
+  "per_seed": [
+    {
+      "seed": 7,
+      "tau_target": 0.15,
+      "tau_actual": 0.17378532886505127,
+      "d": 20.142051742390244,
+      "gamma_scs": 17.16726153605899,
+      "gamma_emp": 1.3039568600699962,
+      "scs_rel_error": 12.165513416707247,
+      "scs_ratio": 13.165513416707247,
+      "elapsed_s": 0.012971639633178711
+    },
+    {
+      "seed": 17,
+      "tau_target": 0.15,
+      "tau_actual": 0.17378532886505127,
+      "d": 18.30044432914665,
+      "gamma_scs": 15.599053859650562,
+      "gamma_emp": 1.2888319624728768,
+      "scs_rel_error": 11.103248766208994,
+      "scs_ratio": 12.103248766208994,
+      "elapsed_s": 0.012786626815795898
+    }
+  ]
+}

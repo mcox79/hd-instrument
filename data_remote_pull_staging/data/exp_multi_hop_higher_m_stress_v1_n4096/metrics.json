@@ -1,0 +1,58 @@
+{
+  "verdict": "MH_M_STRESS_HARD_FAIL",
+  "verdict_msg": "TRIVIALIZATION_CONFIRMED_SUB_CAPACITY_ONLY: path_M_depth_acc:  | paths_passing=[] hp_record={'B': {2048: 0, 4096: 0, 8192: 0}, 'D': {2048: 0, 4096: 0, 8192: 0}, 'E': {2048: 0, 4096: 0, 8192: 0}} any_path_M_d_pass=False",
+  "elapsed_s": 0.26,
+  "summary": {
+    "anchor": "multi_hop_higher_m_stress_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      128
+    ],
+    "depths": [
+      3
+    ],
+    "seeds": [
+      17
+    ],
+    "paths": [
+      "B",
+      "D",
+      "E"
+    ],
+    "cells": [
+      {
+        "path": "B",
+        "N": 1024,
+        "M": 128,
+        "depth": 3,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_used": 16
+      },
+      {
+        "path": "D",
+        "N": 1024,
+        "M": 128,
+        "depth": 3,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_used": 16,
+        "K_paths": 20
+      },
+      {
+        "path": "E",
+        "N": 1024,
+        "M": 128,
+        "depth": 3,
+        "seed": 17,
+        "accuracy": 0.99219,
+        "n_used": 32,
+        "acc_definition": "2*(AUC-0.5) clipped to [0,1]"
+      }
+    ],
+    "verdict": "MH_M_STRESS_HARD_FAIL",
+    "verdict_msg": "TRIVIALIZATION_CONFIRMED_SUB_CAPACITY_ONLY: path_M_depth_acc:  | paths_passing=[] hp_record={'B': {2048: 0, 4096: 0, 8192: 0}, 'D': {2048: 0, 4096: 0, 8192: 0}, 'E': {2048: 0, 4096: 0, 8192: 0}} any_path_M_d_pass=False",
+    "elapsed_s": 0.26
+  }
+}

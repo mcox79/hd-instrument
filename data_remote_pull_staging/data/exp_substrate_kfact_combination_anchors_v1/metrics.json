@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_kfact_combination_anchors_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/4 anchors confirm. A1 beta* recovery=1.00 of grid [ok] | A2 transition K=25.0 (sqrt(N)/2=16) [no] | A3 Rule8-Rule1=+29.3pp [ok] | A4 resonator disagree=0.0% [no]",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "A1_betastar_recovery_ratio": 0.9999685418789519,
+      "A2_transition_K": 25.0,
+      "A3_rule8": 0.9602095180749893,
+      "A3_rule1": 0.6673085504770279,
+      "A3_gain_pp": 29.290096759796146,
+      "A4_resonator_disagree": 0.0
+    },
+    {
+      "seed": 2,
+      "A1_betastar_recovery_ratio": 0.9999722943274157,
+      "A2_transition_K": 25.0,
+      "A3_rule8": 0.9602678382396698,
+      "A3_rule1": 0.6667983186244965,
+      "A3_gain_pp": 29.34695196151733,
+      "A4_resonator_disagree": 0.0
+    }
+  ],
+  "elapsed_s": 0.6286699771881104,
+  "summary": "MIDDLE_BAND: 2/4 anchors confirm. A1 beta* recovery=1.00 of grid [ok] | A2 transition K=25.0 (sqrt(N)/2=16) [no] | A3 Rule8-Rule1=+29.3pp [ok] | A4 resonator disagree=0.0% [no]"
+}

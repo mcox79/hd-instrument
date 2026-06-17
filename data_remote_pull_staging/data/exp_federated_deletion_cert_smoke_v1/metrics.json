@@ -1,0 +1,105 @@
+{
+  "verdict": "FDEL_HARD_PASS",
+  "verdict_msg": "DELETION_CERT_VALIDATED cert=3/3 contam=0.0000. N=1024 n_clients=5 m_per_client=30 n_cert_valid=3/3 n_acc_drop_ok=3/3 mean_acc_drop=1.000 mean_acc_post=0.0000 max_contam=0.0000",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "federated_deletion_cert_smoke_v1",
+    "N": 1024,
+    "n_clients": 5,
+    "m_per_client": 30,
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "N": 1024,
+        "n_clients": 5,
+        "m_per_client": 30,
+        "ok": true,
+        "delete_client": 0,
+        "cert_valid": true,
+        "cert_hash": "df4dac90fa9d65f1...",
+        "cert_verified": true,
+        "acc_pre_deleted": 1.0,
+        "acc_post_deleted": 0.0,
+        "acc_drop_frac": 1.0,
+        "acc_pre_others": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "acc_post_others": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "contamination_rate": 0.0,
+        "contam_count": 0
+      },
+      {
+        "seed": 23,
+        "N": 1024,
+        "n_clients": 5,
+        "m_per_client": 30,
+        "ok": true,
+        "delete_client": 0,
+        "cert_valid": true,
+        "cert_hash": "ce24380946c38807...",
+        "cert_verified": true,
+        "acc_pre_deleted": 1.0,
+        "acc_post_deleted": 0.0,
+        "acc_drop_frac": 1.0,
+        "acc_pre_others": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "acc_post_others": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "contamination_rate": 0.0,
+        "contam_count": 0
+      },
+      {
+        "seed": 31,
+        "N": 1024,
+        "n_clients": 5,
+        "m_per_client": 30,
+        "ok": true,
+        "delete_client": 0,
+        "cert_valid": true,
+        "cert_hash": "10759fcf84a0a5aa...",
+        "cert_verified": true,
+        "acc_pre_deleted": 1.0,
+        "acc_post_deleted": 0.0,
+        "acc_drop_frac": 1.0,
+        "acc_pre_others": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "acc_post_others": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "contamination_rate": 0.0,
+        "contam_count": 0
+      }
+    ],
+    "verdict": "FDEL_HARD_PASS",
+    "verdict_msg": "DELETION_CERT_VALIDATED cert=3/3 contam=0.0000. N=1024 n_clients=5 m_per_client=30 n_cert_valid=3/3 n_acc_drop_ok=3/3 mean_acc_drop=1.000 mean_acc_post=0.0000 max_contam=0.0000",
+    "elapsed_s": 0.07
+  }
+}

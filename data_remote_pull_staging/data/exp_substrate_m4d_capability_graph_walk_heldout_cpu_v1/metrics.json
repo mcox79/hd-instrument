@@ -1,0 +1,116 @@
+{
+  "anchor_name": "substrate_m4d_capability_graph_walk_heldout_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL (M4d helps, below 0.30): lift +0.1241 >= 0.04, no regression -- structural walk pulls some MEDIUM gold up but not to 0.30. Compose with M4b. M4d capability-graph walk (DECISION 50a). IN-COVERAGE base(bge)=0.1480 -> best graph-walk=0.2721 at beta=0.10 (lift +0.1241). Regressions vs bge at best beta: none.",
+  "summary": "PARTIAL (M4d helps, below 0.30): lift +0.1241 >= 0.04, no regression -- structural walk pulls some MEDIUM gold up but not to 0.30. Compose with M4b. M4d capability-graph walk (DECISION 50a). IN-COVERAGE base(bge)=0.1480 -> best graph-walk=0.2721 at beta=0.10 (lift +0.1241). Regressions vs bge at best beta: none.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 7,
+      "base_macro": 0.148,
+      "best_beta": 0.1,
+      "best_macro": 0.2721,
+      "sweep": [
+        {
+          "beta": 0.0,
+          "macro": 0.148,
+          "f1s": {
+            "Q54-A": 0.0,
+            "Q55-B": 0.0,
+            "Q60-G": 0.5,
+            "Q61-A": 0.28571428571428575,
+            "Q62-B": 0.0,
+            "Q63-A": 0.0,
+            "Q64-G": 0.25
+          }
+        },
+        {
+          "beta": 0.05,
+          "macro": 0.2245,
+          "f1s": {
+            "Q54-A": 0.0,
+            "Q55-B": 0.0,
+            "Q60-G": 0.75,
+            "Q61-A": 0.5714285714285715,
+            "Q62-B": 0.0,
+            "Q63-A": 0.0,
+            "Q64-G": 0.25
+          }
+        },
+        {
+          "beta": 0.1,
+          "macro": 0.2721,
+          "f1s": {
+            "Q54-A": 0.0,
+            "Q55-B": 0.33333333333333337,
+            "Q60-G": 0.75,
+            "Q61-A": 0.5714285714285715,
+            "Q62-B": 0.0,
+            "Q63-A": 0.0,
+            "Q64-G": 0.25
+          }
+        },
+        {
+          "beta": 0.2,
+          "macro": 0.2194,
+          "f1s": {
+            "Q54-A": 0.0,
+            "Q55-B": 0.33333333333333337,
+            "Q60-G": 0.6666666666666665,
+            "Q61-A": 0.28571428571428575,
+            "Q62-B": 0.0,
+            "Q63-A": 0.0,
+            "Q64-G": 0.25
+          }
+        },
+        {
+          "beta": 0.3,
+          "macro": 0.1876,
+          "f1s": {
+            "Q54-A": 0.0,
+            "Q55-B": 0.33333333333333337,
+            "Q60-G": 0.4444444444444445,
+            "Q61-A": 0.28571428571428575,
+            "Q62-B": 0.0,
+            "Q63-A": 0.0,
+            "Q64-G": 0.25
+          }
+        },
+        {
+          "beta": 0.5,
+          "macro": 0.2353,
+          "f1s": {
+            "Q54-A": 0.33333333333333337,
+            "Q55-B": 0.33333333333333337,
+            "Q60-G": 0.4444444444444445,
+            "Q61-A": 0.28571428571428575,
+            "Q62-B": 0.0,
+            "Q63-A": 0.0,
+            "Q64-G": 0.25
+          }
+        }
+      ],
+      "regressed_at_best": [],
+      "base_f1s": {
+        "Q54-A": 0.0,
+        "Q55-B": 0.0,
+        "Q60-G": 0.5,
+        "Q61-A": 0.28571428571428575,
+        "Q62-B": 0.0,
+        "Q63-A": 0.0,
+        "Q64-G": 0.25
+      },
+      "best_f1s": {
+        "Q54-A": 0.0,
+        "Q55-B": 0.33333333333333337,
+        "Q60-G": 0.75,
+        "Q61-A": 0.5714285714285715,
+        "Q62-B": 0.0,
+        "Q63-A": 0.0,
+        "Q64-G": 0.25
+      }
+    }
+  ],
+  "elapsed_s": 7.231300592422485
+}

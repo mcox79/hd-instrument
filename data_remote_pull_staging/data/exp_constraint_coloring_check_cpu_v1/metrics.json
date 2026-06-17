@@ -1,0 +1,14 @@
+{
+  "anchor_name": "constraint_coloring_check_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate readout verifies graph-coloring constraints >=0.95 vs ground truth -- substrate as a constraint checker. coloring-validity agreement=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc": 1.0
+    }
+  ],
+  "elapsed_s": 0.08796024322509766,
+  "summary": "HARD_PASS: substrate readout verifies graph-coloring constraints >=0.95 vs ground truth -- substrate as a constraint checker. coloring-validity agreement=1.000"
+}

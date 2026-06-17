@@ -1,0 +1,142 @@
+{
+  "anchor_name": "substrate_knowledge_promotion_p4_replay_consolidation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sleep-replay consolidation surfaces 6 coherent T2-archetype candidates -- dense, above-chance clusters of T3 episodics whose centroid is a candidate consolidated cortical schema. The promotion operator's P4 path works WITHOUT any relation edges (pure codebook geometry), complementing P1 (frequency). P4 consolidation candidates=6 (math-themed=6) from 83 replayed T3 atoms; TAU=mean+2sigma=0.5015 (random-pair mean=0.1208 std=0.1904) so each cluster is >=2sigma denser than chance; top=[('math', [], 22, 2.33), ('math', [], 20, 2.41), ('math', [], 7, 2.37), ('math', [], 6, 2.32), ('math', [], 4, 2.3)]; saved bench_reports/kp_p4_replay_consolidation_archetypes.json (READ-ONLY -- Testbed creates T2 + re-parents + benchmark-validates)",
+  "summary": "HARD_PASS: sleep-replay consolidation surfaces 6 coherent T2-archetype candidates -- dense, above-chance clusters of T3 episodics whose centroid is a candidate consolidated cortical schema. The promotion operator's P4 path works WITHOUT any relation edges (pure codebook geometry), complementing P1 (frequency). P4 consolidation candidates=6 (math-themed=6) from 83 replayed T3 atoms; TAU=mean+2sigma=0.5015 (random-pair mean=0.1208 std=0.1904) so each cluster is >=2sigma denser than chance; top=[('math', [], 22, 2.33), ('math', [], 20, 2.41), ('math', [], 7, 2.37), ('math', [], 6, 2.32), ('math', [], 4, 2.3)]; saved bench_reports/kp_p4_replay_consolidation_archetypes.json (READ-ONLY -- Testbed creates T2 + re-parents + benchmark-validates)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_t3": 83,
+      "n_clusters": 25,
+      "n_candidates": 6,
+      "n_math_themed": 6,
+      "tau": 0.5015,
+      "random_pair_mean": 0.1208,
+      "random_pair_std": 0.1904,
+      "random_pair_p99": 0.5965,
+      "candidates": [
+        {
+          "size": 22,
+          "mean_intra_cos": 0.5639,
+          "z_over_chance": 2.33,
+          "dominant_corpus": "math",
+          "corpus_mix": {
+            "math": 22
+          },
+          "shared_tokens": [],
+          "members": [
+            "T3/backward_algorithm_atom",
+            "T3/bayes_factor",
+            "T3/bocpd_changepoint",
+            "T3/bootstrap_resampling",
+            "T3/conformal_prediction",
+            "T3/contrastive_learning",
+            "T3/cross_validation",
+            "T3/expectation_maximization",
+            "T3/forward_algorithm_atom",
+            "T3/gaussian_process",
+            "T3/glove_embedding",
+            "T3/iterative_proportional_fitting"
+          ]
+        },
+        {
+          "size": 20,
+          "mean_intra_cos": 0.5788,
+          "z_over_chance": 2.41,
+          "dominant_corpus": "math",
+          "corpus_mix": {
+            "math": 20
+          },
+          "shared_tokens": [],
+          "members": [
+            "T3/attention_mechanism",
+            "T3/bpe_tokenization",
+            "T3/digital_filter_design",
+            "T3/fast_fourier_transform",
+            "T3/feature_hashing",
+            "T3/finite_state_transducer",
+            "T3/ghrr_noncommutative_bind",
+            "T3/gram_schmidt",
+            "T3/kernel_method",
+            "T3/locality_sensitive_hashing",
+            "T3/lstm_cell",
+            "T3/normal_form_NF"
+          ]
+        },
+        {
+          "size": 7,
+          "mean_intra_cos": 0.571,
+          "z_over_chance": 2.37,
+          "dominant_corpus": "math",
+          "corpus_mix": {
+            "math": 7
+          },
+          "shared_tokens": [],
+          "members": [
+            "T3/hierarchical_clustering",
+            "T3/isotonic_regression",
+            "T3/k_means_clustering",
+            "T3/layer_normalization",
+            "T3/lbfgs_quasi_newton",
+            "T3/levenberg_marquardt",
+            "T3/mean_squared_error"
+          ]
+        },
+        {
+          "size": 6,
+          "mean_intra_cos": 0.5616,
+          "z_over_chance": 2.32,
+          "dominant_corpus": "math",
+          "corpus_mix": {
+            "math": 6
+          },
+          "shared_tokens": [],
+          "members": [
+            "T3/chu_liu_edmonds_algo",
+            "T3/cyk_parser",
+            "T3/earley_parser",
+            "T3/eisner_parsing",
+            "T3/hungarian_algorithm",
+            "T3/needleman_wunsch"
+          ]
+        },
+        {
+          "size": 4,
+          "mean_intra_cos": 0.559,
+          "z_over_chance": 2.3,
+          "dominant_corpus": "math",
+          "corpus_mix": {
+            "math": 4
+          },
+          "shared_tokens": [],
+          "members": [
+            "T3/conjugate_gradient",
+            "T3/principal_component_analysis",
+            "T3/runge_kutta",
+            "T3/spectral_gap"
+          ]
+        },
+        {
+          "size": 3,
+          "mean_intra_cos": 0.5996,
+          "z_over_chance": 2.52,
+          "dominant_corpus": "math",
+          "corpus_mix": {
+            "math": 3
+          },
+          "shared_tokens": [
+            "distance"
+          ],
+          "members": [
+            "T3/cosine_similarity",
+            "T3/edit_distance",
+            "T3/euclidean_distance"
+          ]
+        }
+      ],
+      "vector_field": "composite_hrr"
+    }
+  ],
+  "elapsed_s": 0.3530254364013672
+}

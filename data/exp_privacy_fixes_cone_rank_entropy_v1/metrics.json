@@ -1,0 +1,29 @@
+{
+  "anchor_name": "privacy_fixes_cone_rank_entropy_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: privacy fix F1_cone_center reaches ZKL<=0.14 with recall>=0.85 -- low-cost privacy fix exists (HIPAA path reopens). baseline ZKL=0.023 | fixes: {'F1_cone_center': (0.033, 1.0), 'E1_entropy_rot': (0.097, 1.0), 'B1_rank_random': (0.04, 1.0)}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "baseline": {
+        "zkl": 0.023333333333333334,
+        "recall": 1.0
+      },
+      "F1_cone_center": {
+        "zkl": 0.03333333333333333,
+        "recall": 1.0
+      },
+      "E1_entropy_rot": {
+        "zkl": 0.09666666666666666,
+        "recall": 1.0
+      },
+      "B1_rank_random": {
+        "zkl": 0.04,
+        "recall": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 13.790528297424316,
+  "summary": "HARD_PASS: privacy fix F1_cone_center reaches ZKL<=0.14 with recall>=0.85 -- low-cost privacy fix exists (HIPAA path reopens). baseline ZKL=0.023 | fixes: {'F1_cone_center': (0.033, 1.0), 'E1_entropy_rot': (0.097, 1.0), 'B1_rank_random': (0.04, 1.0)}"
+}

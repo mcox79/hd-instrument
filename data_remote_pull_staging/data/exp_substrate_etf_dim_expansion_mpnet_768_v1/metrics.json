@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_etf_dim_expansion_mpnet_768_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: expansion gives 1.5-3x headroom. whitened_cap D768=1152 -> D1536=2304 (expansion scale 2.00x) | D768: raw=460 wht=1152 (2.50x) D1536: raw=2304 wht=2304 (1.00x)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_D": {
+        "D768": {
+          "raw_cap": 460,
+          "whitened_cap": 1152,
+          "ratio": 2.5043478260869567
+        },
+        "D1536": {
+          "raw_cap": 2304,
+          "whitened_cap": 2304,
+          "ratio": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 26.128108739852905,
+  "summary": "MIDDLE_BAND: expansion gives 1.5-3x headroom. whitened_cap D768=1152 -> D1536=2304 (expansion scale 2.00x) | D768: raw=460 wht=1152 (2.50x) D1536: raw=2304 wht=2304 (1.00x)"
+}

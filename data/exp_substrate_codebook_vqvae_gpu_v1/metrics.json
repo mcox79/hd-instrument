@@ -1,0 +1,19 @@
+{
+  "anchor_name": "substrate_codebook_vqvae_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: VQ codebook utilization>=0.50, reconstruction>=0.70, same-category words share atoms more than cross -- substrate atoms are semantically coherent primitives; downstream substrate-LM paths viable. util=1.000 recon-cos=0.897 same-cat-share=0.205 cross-cat-share=0.012 (K=24, 72 words)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "util": 1.0,
+      "recon": 0.8965674638748169,
+      "same_share": 0.20454545454545456,
+      "cross_share": 0.011574074074074073,
+      "K": 24,
+      "nwords": 72
+    }
+  ],
+  "elapsed_s": 2.023585319519043,
+  "summary": "HARD_PASS: VQ codebook utilization>=0.50, reconstruction>=0.70, same-category words share atoms more than cross -- substrate atoms are semantically coherent primitives; downstream substrate-LM paths viable. util=1.000 recon-cos=0.897 same-cat-share=0.205 cross-cat-share=0.012 (K=24, 72 words)"
+}

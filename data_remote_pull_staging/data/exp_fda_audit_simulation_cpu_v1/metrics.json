@@ -1,0 +1,15 @@
+{
+  "anchor_name": "fda_audit_simulation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 100pct of substrate-mediated decisions traceable to source facts with complete audit chains -- FDA-grade regulatory audit demo proof. traceable=1.000 complete=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "traceable": 1.0,
+      "complete": 1.0
+    }
+  ],
+  "elapsed_s": 0.166731595993042,
+  "summary": "HARD_PASS: 100pct of substrate-mediated decisions traceable to source facts with complete audit chains -- FDA-grade regulatory audit demo proof. traceable=1.000 complete=1.000"
+}

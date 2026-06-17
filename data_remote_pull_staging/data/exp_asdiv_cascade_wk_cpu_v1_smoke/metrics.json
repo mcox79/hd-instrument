@@ -1,0 +1,20 @@
+{
+  "anchor_name": "asdiv_cascade_wk_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cascade+WK >=0.33 or lift>=0.02 -- world-knowledge lifts the existing cascade toward the ceiling. +WK=0.3400 vs base=0.3400 (lift=+0.0000, vs prior 0.224, n_test=100). Existing cascade (1-op+2-op+verifier) + substrate LEX_constant world-knowledge.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.34,
+      "acc_wk": 0.34,
+      "acc_base": 0.34,
+      "lift": 0.0,
+      "n_1op_wk": 63,
+      "n_2op_wk": 16,
+      "n_test": 100
+    }
+  ],
+  "elapsed_s": 0.12659382820129395,
+  "summary": "MIDDLE_BAND: cascade+WK >=0.33 or lift>=0.02 -- world-knowledge lifts the existing cascade toward the ceiling. +WK=0.3400 vs base=0.3400 (lift=+0.0000, vs prior 0.224, n_test=100). Existing cascade (1-op+2-op+verifier) + substrate LEX_constant world-knowledge."
+}

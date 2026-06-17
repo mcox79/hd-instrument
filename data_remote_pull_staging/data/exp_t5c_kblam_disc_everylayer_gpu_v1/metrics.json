@@ -1,0 +1,21 @@
+{
+  "anchor_name": "t5c_kblam_disc_everylayer_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: held-out <0.20 (architecture still memorizes at moderate scale; rethink before scaling). bare=0.000 train-recall=0.056 HELD-OUT-recall=0.044 (best 0.056) gate|mean|=0.345 (2000 facts, 1200/800)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.05583333333333333,
+      "heldout_recall": 0.04375,
+      "best_heldout": 0.05625,
+      "gate_mean": 0.34536921977996826,
+      "n_facts": 2000,
+      "n_train": 1200,
+      "n_test": 800
+    }
+  ],
+  "elapsed_s": 428.34817600250244,
+  "summary": "HARD_FAIL: held-out <0.20 (architecture still memorizes at moderate scale; rethink before scaling). bare=0.000 train-recall=0.056 HELD-OUT-recall=0.044 (best 0.056) gate|mean|=0.345 (2000 facts, 1200/800)"
+}
