@@ -1,12 +1,14 @@
-# Audit-discipline status LEDGER v1 (2026-06-16)
+# Audit-discipline status LEDGER v1 (2026-06-16; amended 2026-06-17)
 
 **Artifact:** audit_discipline_status_ledger
-**Version:** v1
-**Date:** 2026-06-16
+**Version:** v1 (axiom_term correction 2026-06-17 per Testbed fc3c6157 reconcile)
+**Date:** 2026-06-16 (authored); 2026-06-17 (axiom_term footnote amendment)
 **Authored by:** Orchestrator (Infrastructure Custodian) per DECISION 238 Option A RATIFY
 **Purpose:** Canonical authoritative status reference for audit-discipline instance types; defeats numbering-scheme drift (236c) by promoting by-name slug as canonical identifier and recording instance-number-provenance as a string per source (per DECISION 236 numbering convention)
 **Status default per Director spec:** CANDIDATE unless 3+ first-hand cross-cell witnesses verified per 19th-rule strict criterion
 **Spec:** notes/research_to_orch_skunkworks_audit_ledger_dispatch_2026-06-16.md (DECISION 238) + notes/research_to_orch_238_optA_GO_confirm_2026-06-16.md
+
+**AMENDMENT FOOTNOTE (2026-06-17):** axiom_term references in this ledger (e.g., "207/207" in Sources walked + entries referencing Director board snapshot) were derived from Director board claim 2026-06-16; substrate truth per Testbed canonical method (commit fc3c6157 "axiom-term reconcile complete: T1 math=237 atoms / 70 axiom-tagged; V1 denominator 206 T2/T3 math operators with algebra>=3 excluding OEIS/wikidata; substrate truth = 206/206; Director E6 207 stale/off-by-1") is 206/206. The 4 in-store CONFIRMED atoms (entries 1-4) are unaffected by this correction (status verified from data/substrate_index/meta/atoms.jsonl directly). Composes with 99th candidate ORCHESTRATOR-COLLECTOR-RELATION-COUNT-LAGS-AUTHORITATIVE-STORE-COUNT (custodian-tool-truth-vs-authoritative-source family).
 
 ---
 
