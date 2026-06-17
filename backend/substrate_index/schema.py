@@ -114,6 +114,24 @@ class AtomKind(enum.Enum):
     VERDICT = "verdict"           # cap_map cycle verdicts (PP-NNN HARD_PASS/MIDDLE/HARD_FAIL)
     MEMORY = "memory"             # memory entries from .claude/projects/.../memory/*.md
 
+    # Per Research DECISION 220b + Skunkworks TIER-2 atomization spec 2026-06-16
+    # (ratified DECISION 222a + Testbed pre-receive VET 05fd0af8):
+    AUDIT_LESSON = "audit_lesson"               # Tier-A audit-discipline lessons
+                                                 # (88 confirmed + candidates); composes_with
+                                                 # related lessons; confirmed_or_candidate +
+                                                 # witnesses_count fields enforce CANDIDATE !=
+                                                 # CONFIRMED discipline (Skunkworks condition 1)
+    EXPERIMENT_RECORD = "experiment_record"     # Tier-B experiment records (for Tier-3
+                                                 # atomizer); relevance_tier-filtered
+                                                 # HIGH/MEDIUM/LOW/ARCHIVE
+    DECISION_RECORD = "decision_record"         # Tier-B decision records;
+                                                 # decision_class STRATEGIC/OPERATIONAL/ROUTINE
+    HONEST_SIGNAL_RECORD = "honest_signal_record"  # Tier-C archive (per Skunkworks
+                                                    # condition 4 RECO: git-only, not bulk-
+                                                    # atomized; schema defined for on-demand use)
+    COMMUNICATION_RECORD = "communication_record"  # Tier-C archive (same Skunkworks
+                                                    # condition 4 RECO)
+
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
 # 13 categories on 3 axes; category 13 'substrate_native' is the novel
