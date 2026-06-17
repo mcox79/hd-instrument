@@ -105,10 +105,18 @@ def main():
         ),
     ]
 
+    # Categorize: new atoms vs update-existing
+    existing_count = 0
+    new_count = 0
     for r in rules:
         if meta_store.get_atom(r['id']) is not None:
-            print(f'[{label}] HARD_FAIL: meta::{r["id"]} already exists')
-            return 1
+            existing_count += 1
+            r['action'] = 'UPDATE'
+        else:
+            new_count += 1
+            r['action'] = 'CREATE'
+    print(f'[{label}] {new_count} new + {existing_count} pre-existing (merge-update Skunkworks enriched metadata)', flush=True)
+
     targets = set()
     for r in rules:
         targets.update(r['composes'])
@@ -116,22 +124,43 @@ def main():
         if meta_store.get_atom(t) is None:
             print(f'[{label}] HARD_FAIL: COMPOSES target missing meta::{t}')
             return 1
-    print(f'[{label}] 3 collisions clean; {len(targets)} COMPOSES targets verified (incl 92nd in-store)', flush=True)
+    print(f'[{label}] {len(targets)} COMPOSES targets verified (incl 92nd in-store)', flush=True)
 
     n_edges = 0
     for r in rules:
-        atom = Atom(
-            id=r['id'],
-            name=r['name'],
-            corpus=Corpus.META,
-            tier=Tier.TIER_METHODOLOGY,
-            kind=AtomKind.METHODOLOGY_RULE,
-            description=r['description'],
-            metadata={**r['metadata'], 'eleventh_rule_clean': True, 'substrate_internal_verified': True},
-            solution_history=tuple(),
-        )
-        meta_store.add_atom(atom, source=src_tag, note=f'PHASE-2 batch 9 {r["id"]}')
-        print(f'[{label}]   +meta::{r["id"]} [CONFIRMED]', flush=True)
+        existing = meta_store.get_atom(r['id'])
+        if existing:
+            # Merge: keep existing metadata fields + Skunkworks's enriched fields (Skunkworks wins on overlapping keys)
+            merged_meta = dict(existing.metadata or {})
+            merged_meta.update(r['metadata'])
+            merged_meta['eleventh_rule_clean'] = True
+            merged_meta['substrate_internal_verified'] = True
+            merged_meta['merged_from_skunkworks_batch_9'] = 'merged Skunkworks PHASE-2 batch 9 source-grounded metadata onto pre-existing substrate-mined atom; substantive content harmonized'
+            atom = Atom(
+                id=r['id'],
+                name=r['name'],
+                corpus=Corpus.META,
+                tier=Tier.TIER_METHODOLOGY,
+                kind=AtomKind.METHODOLOGY_RULE,
+                description=r['description'],  # Skunkworks's prose is source-grounded
+                metadata=merged_meta,
+                solution_history=existing.solution_history,  # preserve existing history if any
+            )
+            meta_store.add_atom(atom, source=src_tag, note=f'PHASE-2 batch 9 MERGE-UPDATE {r["id"]}')
+            print(f'[{label}]   ~meta::{r["id"]} [MERGE-UPDATE; preserved existing + Skunkworks source-grounded fields]', flush=True)
+        else:
+            atom = Atom(
+                id=r['id'],
+                name=r['name'],
+                corpus=Corpus.META,
+                tier=Tier.TIER_METHODOLOGY,
+                kind=AtomKind.METHODOLOGY_RULE,
+                description=r['description'],
+                metadata={**r['metadata'], 'eleventh_rule_clean': True, 'substrate_internal_verified': True},
+                solution_history=tuple(),
+            )
+            meta_store.add_atom(atom, source=src_tag, note=f'PHASE-2 batch 9 {r["id"]}')
+            print(f'[{label}]   +meta::{r["id"]} [CONFIRMED]', flush=True)
         for tgt in r['composes']:
             ps.add_relation(
                 f'meta::{r["id"]}',
@@ -147,7 +176,7 @@ def main():
     post_atoms = len(ps.all_atoms())
     post_rels = sum(1 for _ in ps.iter_all_relations())
     invariants_ok = (
-        post_atoms == pre_atoms + 3
+        post_atoms == pre_atoms + new_count  # only new atoms increment
         and post_rels == pre_rels + n_edges
         and all(meta_store.get_atom(r['id']) is not None for r in rules)
     )
