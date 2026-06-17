@@ -10,8 +10,11 @@
 
 ```
 What it is: hd-instrument is an observable hyperdimensional computing
-   substrate (HRR/FHRR; ~26305 atoms / ~5230 relations / 207/207 axiom
-   term / cap_pres=1.0 / methodology FROZEN at 24).
+   substrate (HRR/FHRR; ~28285 atoms / ~6328 relations / 206/206 axiom
+   term / cap_pres=1.0 / methodology FROZEN at 24). Amended 2026-06-17:
+   atoms+relations updated post Tier-3 APPLY + methodology + audit_lesson
+   atomization; axiom_term reconciled to Testbed canonical method (206/206)
+   per integrity health check 2026-06-17 08:01.
 
 What it does honestly: characterizes its OWN capabilities + foundations
    within method-contingent measured envelopes; preserves cert-chain
