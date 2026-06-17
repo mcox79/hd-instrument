@@ -55,7 +55,8 @@ SESSION = "exp_dev"
 # Substrate-build cutoff (schema.py: SUBSTRATE_SELF_INDEX_PILOT 2026-06-11). era is DESCRIPTIVE only.
 SUBSTRATE_BUILD_CUTOFF = "2026-06-10"
 
-VERDICT_SET = {"PASS", "HARD_FAIL", "HONEST_NEGATIVE", "HONEST_BOUNDED", "MIDDLE_BAND", "LOAD_BEARING", "KILLED"}
+VERDICT_SET = {"PASS", "HARD_FAIL", "HONEST_NEGATIVE", "HONEST_BOUNDED", "MIDDLE_BAND", "LOAD_BEARING", "KILLED",
+               "SPARSITY_NEUTRAL"}  # recapture-program: capability-lifted-but-sparsity-neutral (distinct from MIDDLE_BAND)
 
 # Deterministic curated primitive-keyword -> candidate atom-id map (every target VERIFIED in-store before
 # any edge is emitted; condition 2). Conservative: only the highest-frequency, unambiguous primitives.
@@ -188,6 +189,8 @@ def normalize_verdict(raw) -> str | None:
         return "HARD_FAIL"
     if "KILLED" in u:
         return "KILLED"
+    if "SPARSITY_NEUTRAL" in u or "SPARSITY-NEUTRAL" in u:   # recapture: capability lifted, sparsity gives no edge
+        return "SPARSITY_NEUTRAL"
     if "MIDDLE" in u:
         return "MIDDLE_BAND"
     if "HONEST_BOUNDED" in u or "BOUNDED" in u:

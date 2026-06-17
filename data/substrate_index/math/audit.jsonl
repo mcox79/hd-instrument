@@ -40095,3 +40095,4 @@
 {"ts": 1781720122.5467637, "op": "add_atom", "target": "T3/EXP_results_pp31_4a_per_hop_independence_v1", "note": "", "source": "manual"}
 {"ts": 1781720123.3529189, "op": "add_atom", "target": "T3/EXP_skypilot_results_exp_phase05_probe_training_v1", "note": "", "source": "manual"}
 {"ts": 1781724297.258135, "op": "add_atom", "target": "T3/EXP_drosophila_recapture_arch_a_v1", "note": "", "source": "manual"}
+{"ts": 1781730181.477639, "op": "add_atom", "target": "T3/EXP_drosophila_recapture_arch_b_softmax_v1", "note": "", "source": "manual"}
