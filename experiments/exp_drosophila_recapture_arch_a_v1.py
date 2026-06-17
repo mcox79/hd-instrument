@@ -122,10 +122,13 @@ def main() -> int:
     fk_at_anchor = [grid_exact[f"{fk}"][aMk] for fk in F_K]   # ordered by increasing f_k
     spike = a_sparse > max(fk_at_anchor[1:]) + 0.05
     # per-seed 5/5 check for HARD-PASS (exact-recall at anchor)
-    seeds_pass = all(
-        (ps_exact["0.05"][aMk][i] - ps_exact["1.0"][aMk][i]) >= 0.05
-        for i in range(len(SEEDS))
-    )
+    per_seed_delta = [ps_exact["0.05"][aMk][i] - ps_exact["1.0"][aMk][i] for i in range(len(SEEDS))]
+    n_seeds_5pp = sum(1 for d in per_seed_delta if d >= 0.05)
+    seeds_pass = (n_seeds_5pp == len(SEEDS))
+    # SECONDARY (diagnostic ONLY; does NOT decide verdict -- no proxy substitution): per-bit-acc at anchor
+    pb_sparse = grid_perbit["0.05"][aMk]
+    pb_dense = grid_perbit["1.0"][aMk]
+    perbit_flat = abs(pb_sparse - pb_dense) < 0.01
 
     if delta >= 0.05 and seeds_pass and not spike:
         verdict = "HARD_PASS"
@@ -139,12 +142,14 @@ def main() -> int:
                f"selection step (ARCH-B softmax) per drill. Method/N-contingent (N={N}).")
     else:
         verdict = "MIDDLE_BAND"
-        msg = (f"sparse-key NEUTRAL on EXACT-recall: f_k=0.05 {a_sparse:.3f} vs dense f_k=1.0 {a_dense:.3f} "
-               f"(delta={delta:+.3f}) within [-3pp,+5pp] at anchor M={aM}; not a recapture; bounded.")
-
-    # SECONDARY (diagnostic ONLY; does NOT decide verdict -- no proxy substitution): per-bit-acc at anchor
-    pb_sparse = grid_perbit["0.05"][aMk]
-    pb_dense = grid_perbit["1.0"][aMk]
+        msg = (f"NO ROBUST recapture: f_k=0.05 {a_sparse:.3f} vs dense f_k=1.0 {a_dense:.3f} (delta={delta:+.3f}) "
+               f"within [-3pp,+5pp] at anchor M={aM}. NON-ROBUST: only {n_seeds_5pp}/{len(SEEDS)} seeds >= +5pp; "
+               f"positive mean driven by high-variance seeds at the steepest cliff point (exact-recall~0.5 = max "
+               f"per-seed variance). Per-bit-acc {'FLAT' if perbit_flat else 'differs'} ({pb_sparse:.3f} vs "
+               f"{pb_dense:.3f}); f_k=0.05 tracks dense across the whole cliff (no horizontal shift = no capacity-"
+               f"gain signature). Honest-negative-leaning bounded: sparse-key/dense-value/LINEAR-readout does NOT "
+               f"recapture; limiter localized to the READOUT. NOT to be cited as 'almost recaptured/promising' "
+               f"(Skunkworks result-VET ruling). Next fork = ARCH-B (nonlinear/softmax readout).")
 
     metrics = {
         "anchor_name": ANCHOR,
@@ -171,7 +176,11 @@ def main() -> int:
         "per_seed_exact": ps_exact,
         "per_seed_per_bit": ps_perbit,
         "primary": {f"f_k_0.05_{aMk}": a_sparse, f"f_k_1.0_{aMk}": a_dense, "delta": delta,
-                    "anchor_M": aM, "seeds_pass_5pp": seeds_pass, "lone_spike_guard_tripped": bool(spike)},
+                    "anchor_M": aM, "seeds_pass_5pp": seeds_pass, "n_seeds_ge_5pp": n_seeds_5pp,
+                    "per_seed_delta": per_seed_delta, "lone_spike_guard_tripped": bool(spike)},
+        # Skunkworks result-VET ruling: honest-negative read lives in the DESCRIPTION/headline (NOT the verdict field;
+        # bands are sacrosanct). MIDDLE_BAND must not be mis-cited as promising/almost-recaptured.
+        "honest_negative_read": msg if verdict in ("MIDDLE_BAND", "HONEST_BOUNDED") else "",
         "secondary_per_bit_at_anchor": {f"f_k_0.05_{aMk}": pb_sparse, f"f_k_1.0_{aMk}": pb_dense,
                                         "delta": pb_sparse - pb_dense, "note": "diagnostic only; NOT a verdict input"},
         "prereg_bands": {
