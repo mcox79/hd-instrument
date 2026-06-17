@@ -43,6 +43,14 @@ HARD-FAIL (lit bound does not transfer): entmax recall < 0.50 at M/N = 2 (fails 
 MIDDLE_BAND: recall 0.50-0.95 at M/N=2, OR compute parity (entmax recall>=0.95 but FLOPs ~= softmax = no compute win).
 NON-TEST: any M/N where BOTH are recall-saturated -> report COMPUTE comparison only (not a recall verdict).
 ```
+VERDICT-MAPPING (Skunkworks SCHEMA-VET refinement -- PRIMARY axis is COMPUTE-at-iso-recall):
+   The PRIMARY discriminating axis is COMPUTE-AT-ISO-RECALL (entmax matches softmax recall at strictly lower FLOPs in
+   the saturated zone). Recall-HEADROOM (does entmax shift the cliff?) is a CONDITIONAL BONUS scored ONLY IF a
+   discriminating recall regime is actually reached (cliff at feasible M/N, or under the added noisy-cue regime). If NO
+   discriminating recall regime is reachable (softmax + entmax both saturated everywhere feasible), the verdict is
+   COMPUTE-BASED (HARD-PASS iff lower FLOPs at iso-recall; MIDDLE iff compute-parity), NOT a recall HARD-FAIL -- a recall
+   NON-TEST must NOT read as a recall refutation. (Sharpens the discriminating-regime guard; prevents the ARCH-B-style
+   saturation from being mis-scored.)
 
 ## Provenance / cert-chain
 - recapture_of: n/a (this is a NEW frontier candidate, not a scorecard-claim recapture); bears_on = nonlinear-readout
