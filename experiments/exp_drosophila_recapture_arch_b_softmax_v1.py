@@ -151,6 +151,15 @@ def main() -> int:
     # PRE-REGISTERED anchor (dense f_k=1.0 SOFTMAX exact-recall first crosses 0.5)
     dense_exact_by_m = {m: grid_exact["1.0"][f"M{m}"] for m in M_LIST}
     aM, m_cross, anchor_mode = anchor_M(dense_exact_by_m, M_LIST)
+    # SOFTMAX-SATURATED handling (smoke + probe finding 2026-06-17): modern-Hopfield/softmax recall is SATURATED-PERFECT
+    # for both sparse and dense out to >=16*N (raw-dot AND cosine, multi-beta) -- the cliff is beyond any feasible/
+    # meaningful M. When dense softmax never crosses 0.5 (min >= 0.9), the nearest-0.5 fallback is meaningless; evaluate
+    # at the LARGEST M that is BEYOND the linear cliff (linear dense < LINEAR_DEAD) = the most-stressed regime where the
+    # readout still works perfectly = the legitimate sparsity test point (sparse vs dense where linear was dead).
+    if anchor_mode == "fallback_nearest_0.5" and min(dense_exact_by_m.values()) >= 0.9:
+        beyond = [m for m in M_LIST if grid_linear["1.0"][f"M{m}"] < LINEAR_DEAD]
+        if beyond:
+            aM = max(beyond); m_cross = float(aM); anchor_mode = "softmax_saturated_max_beyond_linear_cliff"
     aMk = f"M{aM}"
 
     a_sparse = grid_exact["0.05"][aMk]

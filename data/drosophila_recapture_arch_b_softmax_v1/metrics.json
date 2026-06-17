@@ -1,8 +1,8 @@
 {
   "anchor_name": "drosophila_recapture_arch_b_softmax_v1",
-  "verdict": "HONEST_BOUNDED",
-  "verdict_msg": "softmax does NOT recapture: at anchor M=128 the regime is not beyond the linear cliff (linear dense 1.000 >= 0.1) -- the nonlinear readout did not lift capacity meaningfully. Next fork = ARCH-C (Willshaw/thresholded). Method/N-contingent (N=1024).",
-  "headline": "softmax does NOT recapture: at anchor M=128 the regime is not beyond the linear cliff (linear dense 1.000 >= 0.1) -- the nonlinear readout did not lift capacity meaningfully. Next fork = ARCH-C (Willshaw/thresholded). Method/N-contingent (N=1024).",
+  "verdict": "SPARSITY_NEUTRAL",
+  "verdict_msg": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/1 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
+  "headline": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/1 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
   "run_mode": "smoke",
   "n_seeds": 1,
   "seeds": [
@@ -26,14 +26,14 @@
     "20.0": 1.0,
     "50.0": 1.0
   },
-  "elapsed_s": 24.65,
+  "elapsed_s": 24.27,
   "anchor_rule": "PRE-REGISTERED: anchor M = grid-M nearest where dense f_k=1.0 SOFTMAX exact-recall first crosses 0.5 (interp; fixed pre-run). beta FROZEN dense-tuned (argmax mean dense exact over M_LIST).",
-  "anchor_M": 128,
-  "anchor_M_cross_interp": 128.0,
-  "anchor_mode": "fallback_nearest_0.5",
+  "anchor_M": 4096,
+  "anchor_M_cross_interp": 4096.0,
+  "anchor_mode": "softmax_saturated_max_beyond_linear_cliff",
   "combined_framing": {
-    "regime_lift (linear dense < 0.10 at anchor)": false,
-    "linear_dense_at_anchor": 1.0,
+    "regime_lift (linear dense < 0.10 at anchor)": true,
+    "linear_dense_at_anchor": 0.0,
     "sparsity_gate (sparse>dense+5pp all-seeds; Skunkworks-BINDING)": false,
     "capability (sparse>=0.90 all-seeds)": true,
     "n_seeds_ge_5pp": 0,
@@ -272,17 +272,17 @@
     }
   },
   "primary": {
-    "f_k_0.05_M128": 1.0,
-    "f_k_1.0_M128": 1.0,
+    "f_k_0.05_M4096": 1.0,
+    "f_k_1.0_M4096": 1.0,
     "delta": 0.0,
-    "anchor_M": 128,
+    "anchor_M": 4096,
     "sparsity_gate": false,
     "capability": true,
-    "regime_lift": false
+    "regime_lift": true
   },
   "secondary_per_bit_at_anchor": {
-    "f_k_0.05_M128": 1.0,
-    "f_k_1.0_M128": 1.0,
+    "f_k_0.05_M4096": 1.0,
+    "f_k_1.0_M4096": 1.0,
     "delta": 0.0,
     "note": "diagnostic only; NOT a verdict input"
   },
