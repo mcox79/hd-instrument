@@ -82,9 +82,12 @@ SECTION_CAND_RE = re.compile(r'^#{1,4}\s.*(candidate|anchor|recommend|ranked|nex
 # Skunkworks STEP-B ruling-A enhancement: capture PROSE result-lines (251 notes state findings under
 # ## Trigger / **Anchor pointer** / prose that the header-only SECTION_FIND_RE misses). Deterministic (11th-rule).
 RESULT_LINE_RE = re.compile(
-    r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|\bCONFIRMED\b|\bREFUTED\b|\bVALIDATED\b|MIDDLE_BAND|\d+(?:\.\d+)?\s*(?:x|%|pp)\b|->|'
-    r'\bwe found\b|\bresults? show\b|\bachieves?\b|\bmeasured\b|\bp_?deflated\b|\brecall@?\d|\bF1\b|\bacc(?:uracy)?\b)',
-    re.IGNORECASE)
+    r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|\bCONFIRMED\b|\bREFUTED\b|\bVALIDATED\b|MIDDLE_BAND|'   # pass/fail verdicts
+    r'\d+(?:\.\d+)?\s*(?:x|%|pp)\b|->|'                                                    # x/%/pp ratios + deltas
+    r'[=:]\s*-?\d|'                                                                        # a MEASURED value (key=0.x)
+    r'\b(?:recall|precision|f1|acc(?:uracy)?|bpc|rmse|auc|p_?deflated)\b\s*[@=:]?\s*-?\d|' # metric WITH a number
+    r'\bwe found\b|\bresults? show\b)',                                                    # explicit finding phrase
+    re.IGNORECASE)   # NOTE: bare "measured"/"achieves" REMOVED -- they match PLAN/spec lines (precision leak)
 # Skunkworks precision-guard: a STRONG result signal (numeric/arrow/pass-fail) lets a line survive even if it also
 # reads as a request; a REQUEST line WITHOUT a strong result is DROPPED (so what_found carries findings, not requests).
 STRONG_RESULT_RE = re.compile(r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|\bCONFIRMED\b|\bREFUTED\b|\bVALIDATED\b|'
