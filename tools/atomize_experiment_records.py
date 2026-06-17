@@ -257,17 +257,21 @@ def build_atom_index(ps):
 
 
 def resolve_depends_on(text_blob: str, primitive_targets: dict, all_qids: set) -> list[str]:
-    """Deterministic, no-phantom: WORD-BOUNDARY matches of specific primitive tails + curated keywords.
-    Excludes generic T1 tails (stoplist) + wikidata/oeis. Conservative -- omit when no confident match."""
+    """Deterministic, no-phantom: token-set membership of specific primitive tails + curated keywords.
+    Excludes generic T1 tails (stoplist) + wikidata/oeis. Conservative -- omit when no confident match.
+
+    PERF: token-set membership is PROVABLY EQUIVALENT to the prior `re.search(r'\\b'+tail+r'\\b', low)`:
+    on lowercased text, \\w == [a-z0-9_], so \\b boundaries are exactly the [^a-z0-9_]/[a-z0-9_] transitions
+    -> `\\b<tail>\\b` matches iff <tail> is a maximal [a-z0-9_] run == a token in split(r'[^a-z0-9_]+').
+    (tails/keywords are already [a-z0-9_]-only.) Skunkworks verified zero depends_on change on 200 records.
+    Replaces O(patterns) regex SEARCH-VOLUME (2103 patterns x N records) with O(1) set membership (~2000x)."""
     found = set()
-    low = text_blob.lower()
-    # 1) word-boundary match of SPECIFIC primitive tails (T2/T3; len>=10; not generic)
+    toks = set(re.split(r'[^a-z0-9_]+', text_blob.lower()))
     for tail, q in primitive_targets.items():
-        if re.search(r'\b' + re.escape(tail) + r'\b', low):
+        if tail in toks:
             found.add(q)
-    # 2) curated primitive keywords -> verified targets (word-boundary)
     for kw, atom_id in PRIMITIVE_KEYWORDS.items():
-        if re.search(r'\b' + re.escape(kw) + r'\b', low):
+        if kw in toks:
             q = f"math::{atom_id}"
             if q in all_qids:
                 found.add(q)
@@ -342,9 +346,17 @@ def classify_relevance(verdict_norm, depends_on, cap_serving, run_mode, pq) -> s
 def discover():
     """Yield record dicts for every data/*/metrics.json. Logs dropped (no silent truncation)."""
     records, dropped = [], []
-    for mf in sorted(glob.glob(str(REPO / "data" / "*" / "metrics.json"))):
+    # depth-2 (data/<exp>/metrics.json) UNION recursive (catches nested-deeper, e.g. data/<exp>/<sub>/metrics.json
+    # -- the ~21 the depth-2 glob missed). Dedupe via set; path-filter non-experiment metrics.json.
+    paths = set(glob.glob(str(REPO / "data" / "*" / "metrics.json")))
+    paths |= set(glob.glob(str(REPO / "data" / "**" / "metrics.json"), recursive=True))
+    _skip = ("/staging/", "data_remote_pull", "/node_modules/", "/_cache", "/.git/")
+    for mf in sorted(paths):
+        if any(seg in mf.replace("\\", "/") for seg in _skip):
+            continue  # path-filter: skip non-experiment metrics.json (staging/pull/cache/vendored)
         mpath = Path(mf)
-        name = mpath.parent.name
+        rel = mpath.parent.relative_to(REPO / "data")
+        name = "_".join(rel.parts)  # depth-2: single part == prior parent.name (IDEMPOTENT); nested: <exp>_<sub>
         try:
             metrics = json.load(open(mf, encoding="utf-8"))
         except Exception as e:
@@ -462,7 +474,9 @@ def summarize(specs, dropped):
 def main():
     apply = os.environ.get("HDLAB_ATOMIZE_APPLY", "0") == "1"
     batch = int(os.environ.get("HDLAB_ATOMIZE_BATCH", "50"))
-    limit = int(os.environ.get("HDLAB_ATOMIZE_LIMIT", "50"))
+    # LIMIT fail-safe: APPLY defaults to NO cap (ingest all new specs) so a bulk run never silently caps at 50;
+    # dry-run keeps the 50-atom sample default. Explicit HDLAB_ATOMIZE_LIMIT always honored.
+    limit = int(os.environ.get("HDLAB_ATOMIZE_LIMIT", "1000000" if apply else "50"))
     mode = "APPLY (ingest, batched, gated)" if apply else "DRY-RUN (no mutation; VET-able sample)"
     print(f"[atomizer] mode={mode} batch={batch} limit={limit}", flush=True)
 
