@@ -19,9 +19,12 @@ P_deflated = 0.35 (drill; likely-fail-leaning) -- we go in expecting either outc
 
 ```
 SUBSTRATE: N = 1024 dense bipolar (+/-1) baseline (per drill; substrate-canonical small-N).
-KEY encoding: TopK sparse bipolar. active-fraction f_k in {0.05, 0.10, 0.20, 0.50}.
+KEY encoding: TopK sparse bipolar. active-fraction f_k in {0.05, 0.10, 0.20, 0.50, 1.00}.
    - per key: k = round(f_k * N) positions chosen (seeded random per key); each active position = random +/-1;
-     inactive positions = 0. (f_k=0.50 ~ dense control; f_k=0.05 = Drosophila operating point.)
+     inactive positions = 0.
+   - f_k=1.00 = FULLY-DENSE bipolar = the substrate's CANONICAL dense baseline (Ask-3 fix: the TRUE-dense
+     control; ALL N positions +/-1). f_k=0.05 = Drosophila operating point. f_k=0.50/0.20/0.10 = intermediate
+     sparsity points (NOTE: f_k=0.50 is itself 50%-sparse, NOT a dense control -- per Skunkworks Ask 3).
 VALUE encoding: DENSE bipolar (+/-1), N-dim -- HELD DENSE to ISOLATE the sparse-KEY variable (per drill reco).
 STORE: W = sum_{i=1..M} val_i (outer) key_i^T   (linear outer-product; PRESERVED -- the substrate's host math).
 READOUT: recall_i = sign(W @ key_i); accuracy = mean cosine(recall_i, val_i) thresholded, OR exact-recall rate
@@ -35,17 +38,19 @@ COMPUTE: LAPTOP super-fast bucket (N=1024 -> W is 1024x1024 ~ 1M entries; M<=204
 ## Pre-registered bands (from drill sec (c); tightened to exact-recall cert metric)
 
 ```
-PRIMARY comparison: at M = N = 1024, exact-recall accuracy at f_k=0.05 vs the f_k=0.50 dense-control baseline.
+PRIMARY comparison (Ask-3 fix): at M = N = 1024, exact-recall at f_k=0.05 vs the f_k=1.00 TRUE-DENSE baseline
+   (NOT f_k=0.50, which is itself half-sparse). This makes the test "sparse-key beats the substrate's DENSE
+   baseline" = the actual claim, not "5%-sparse beats 50%-sparse".
 
-HARD-PASS (RECAPTURE):   acc(f_k=0.05, M=1024) >= acc(f_k=0.50, M=1024) + 0.05 (>= +5pp absolute), 5/5 seeds
+HARD-PASS (RECAPTURE):   acc(f_k=0.05, M=1024) >= acc(f_k=1.00, M=1024) + 0.05 (>= +5pp absolute), 5/5 seeds
                           AND the f_k -> accuracy curve is monotone-or-flat (no degenerate single-point spike).
-HARD-FAIL (REFUTED):     acc(f_k=0.05, M=1024) <= acc(f_k=0.50, M=1024) - 0.03 (<= -3pp) -> sparse-key gives
-                          NO gain (or hurts) in the linear regime; honest-negative; row closes at bipolar-value
-                          end; next = ARCH-B (softmax readout) per drill.
-MIDDLE_BAND:             between -3pp and +5pp -> sparse-key neutral; not a recapture; bounded.
+HARD-FAIL (REFUTED):     acc(f_k=0.05, M=1024) <= acc(f_k=1.00, M=1024) - 0.03 (<= -3pp) -> sparse-key gives
+                          NO gain (or hurts) vs the true-dense baseline in the linear regime; honest-negative
+                          (verdict HONEST_BOUNDED); row closes at bipolar-value end; next = ARCH-B (softmax).
+MIDDLE_BAND:             between -3pp and +5pp vs f_k=1.00 -> sparse-key neutral; not a recapture; bounded.
 
-SECONDARY (capacity-curve): report exact-recall(f_k, M) full grid {0.05,0.10,0.20,0.50} x {512,1024,2048} so the
-   capacity-vs-sparsity surface is visible (informs ARCH-B decision + cap_map METHOD-CONTINGENT bump).
+SECONDARY (capacity-curve): report exact-recall(f_k, M) full grid {0.05,0.10,0.20,0.50,1.00} x {512,1024,2048}
+   so the capacity-vs-sparsity surface is visible (informs ARCH-B decision + cap_map METHOD-CONTINGENT bump).
 ```
 
 ## Provenance / verdict (incl. Skunkworks R3-framework-VET 2 refinements)
