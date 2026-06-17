@@ -1,12 +1,16 @@
 {
   "anchor_name": "drosophila_recapture_arch_b_softmax_v1",
   "verdict": "SPARSITY_NEUTRAL",
-  "verdict_msg": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/1 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
-  "headline": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/1 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
-  "run_mode": "smoke",
-  "n_seeds": 1,
+  "verdict_msg": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/5 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
+  "headline": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/5 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
+  "run_mode": "full",
+  "n_seeds": 5,
   "seeds": [
-    7
+    7,
+    17,
+    23,
+    31,
+    41
   ],
   "N": 1024,
   "M_list": [
@@ -26,7 +30,7 @@
     "20.0": 1.0,
     "50.0": 1.0
   },
-  "elapsed_s": 24.27,
+  "elapsed_s": 157.53,
   "anchor_rule": "PRE-REGISTERED: anchor M = grid-M nearest where dense f_k=1.0 SOFTMAX exact-recall first crosses 0.5 (interp; fixed pre-run). beta FROZEN dense-tuned (argmax mean dense exact over M_LIST).",
   "anchor_M": 4096,
   "anchor_M_cross_interp": 4096.0,
@@ -38,6 +42,10 @@
     "capability (sparse>=0.90 all-seeds)": true,
     "n_seeds_ge_5pp": 0,
     "per_seed_delta": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.0
     ]
   },
@@ -131,7 +139,7 @@
     "0.05": {
       "M128": 1.0,
       "M256": 1.0,
-      "M512": 0.001953125,
+      "M512": 0.00234375,
       "M1024": 0.0,
       "M2048": 0.0,
       "M4096": 0.0
@@ -139,15 +147,15 @@
     "0.1": {
       "M128": 1.0,
       "M256": 1.0,
-      "M512": 0.001953125,
+      "M512": 0.002734375,
       "M1024": 0.0,
       "M2048": 0.0,
       "M4096": 0.0
     },
     "0.2": {
       "M128": 1.0,
-      "M256": 0.99609375,
-      "M512": 0.001953125,
+      "M256": 0.99921875,
+      "M512": 0.0015625,
       "M1024": 0.0,
       "M2048": 0.0,
       "M4096": 0.0
@@ -155,7 +163,7 @@
     "0.5": {
       "M128": 1.0,
       "M256": 1.0,
-      "M512": 0.00390625,
+      "M512": 0.00234375,
       "M1024": 0.0,
       "M2048": 0.0,
       "M4096": 0.0
@@ -163,7 +171,7 @@
     "1.0": {
       "M128": 1.0,
       "M256": 1.0,
-      "M512": 0.0078125,
+      "M512": 0.003515625,
       "M1024": 0.0,
       "M2048": 0.0,
       "M4096": 0.0
@@ -172,101 +180,221 @@
   "per_seed_exact_softmax": {
     "0.05": {
       "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ]
     },
     "0.1": {
       "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ]
     },
     "0.2": {
       "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ]
     },
     "0.5": {
       "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ]
     },
     "1.0": {
       "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ],
       "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
         1.0
       ]
     }
