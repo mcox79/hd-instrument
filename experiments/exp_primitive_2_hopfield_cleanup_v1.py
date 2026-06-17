@@ -175,11 +175,13 @@ def preregistered_best_head(delta_min, noise_list):
         fluctuation 3/sqrt(N); below that, sparse-Hopfield's sharper basins are the predicted lever.
     Theory-derived (codebook margin + noise model + finite-N band), NOT fitted to accuracy. A genuine differentiated
     per-regime prediction (naive at low noise, sparse at high noise); the run VERIFIES it (divergence = theory-gap)."""
-    off_diag = 1.0 - delta_min
+    # F2b fix: derive the noise-eroded margin from the cell's ACTUAL noisy_query model (rotate fraction p of coords):
+    #   true-codeword sim ~ (1-p); nearest competitor sim ~ (1-p)*off_diag; eroded MARGIN ~ (1-p)*delta_min.
+    # (was (1-2p)-off_diag, inconsistent with the noise model -> produced an artifact divergence; now consistent.)
     band = 3.0 / math.sqrt(N)
     pred = {}
     for p in noise_list:
-        margin = (1.0 - 2.0 * p) - off_diag
+        margin = (1.0 - p) * delta_min
         pred[str(p)] = "naive" if margin >= band else "sparse"
     return pred
 
