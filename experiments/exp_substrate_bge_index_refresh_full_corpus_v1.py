@@ -24,6 +24,10 @@ import sys
 import time
 from pathlib import Path
 
+import torch   # satisfies the overnight_queue GPU-routing gate (q_f5 incident: literal grep for `import torch`);
+               # the FULL bge encode runs CUDA via sentence-transformers. CUDA assertion is in the FULL branch only
+               # (NOT module-top) so the laptop --smoke wiring-check still runs without a GPU.
+
 REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
@@ -77,6 +81,7 @@ def main() -> int:
         return 0 if ok else 1
 
     # FULL (REMOTE GPU): bge-encode the full corpus + write the cache.
+    assert torch.cuda.is_available(), "GPU not available on this runner (FULL bge encode needs CUDA; route to GPU queue)"
     from backend.substrate_index.encode import AtomEncoder
     from backend.substrate_index.retrieve import Retriever
     from backend.substrate_index.retrieve_cache import rebuild_index_cached
