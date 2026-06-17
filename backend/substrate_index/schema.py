@@ -131,6 +131,12 @@ class AtomKind(enum.Enum):
                                                     # atomized; schema defined for on-demand use)
     COMMUNICATION_RECORD = "communication_record"  # Tier-C archive (same Skunkworks
                                                     # condition 4 RECO)
+    RESEARCH_FINDING = "research_finding"        # Tier-B research findings (STEP-B research-onboarding
+                                                 # atomizer); confidence_tier T0_PROVEN/T1_TESTED_PARTIAL/
+                                                 # T2_RESEARCH_SUPPORTED/T3_HYPOTHESIS; NO algebra field
+                                                 # (structural guard: excluded from axiom_term; never
+                                                 # current_best_solution unless cert-promoted). research-
+                                                 # being-wrong is STRUCTURALLY SAFE (queryable, never trusted)
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
