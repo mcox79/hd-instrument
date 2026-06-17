@@ -8,6 +8,20 @@
    ARCH-A localized the limiter to the LINEAR readout (per-bit-acc flat; sparse tracks dense across the whole cliff).
    ARCH-B replaces ONLY the readout with a supra-linear (softmax / modern-Hopfield) selection step.
 
+## SCOPE (Director PROMOTED ARCH-B; final scope = USER E4 #13)
+Director ratified ARCH-A MIDDLE_BAND + (converging with Skunkworks's corpus-wide weak-spot synthesis: LINEAR readout
+= recurring capability ceiling) PROMOTED ARCH-B from "Drosophila conditional fork" to a candidate SUBSTRATE-WIDE
+CROSS-CUTTING architectural experiment. The CORE design below (sparse-key / dense-value / softmax readout + the
+framing question + beta no-Goodhart rule) is SCOPE-INVARIANT. Two scopes, USER decides (E4 #13):
+- **(narrow) Drosophila-recapture-only:** the prereg below as-is (claim-1 recapture; smaller bet).
+- **(wide) substrate-wide cross-cutting:** ADD test surfaces -- does softmax readout lift (a) charLM LM-hybrid
+  (composes with R1.2), (b) real-encoder/projection cells (~24 cluster); AND a REGRESSION GUARD: no degradation on
+  cert-grade EXACT/combinatorial flagships (composition L=10000, B2xB4, deletion-cert, multi-hop). Each surface =
+  its own pre-registered band; the regression guard is a HARD gate (a readout change that lifts approximate tasks
+  but regresses exact flagships is NOT a net win). Heavier -> some surfaces REMOTE (R4).
+Either way the Drosophila recapture (below) is the anchor cell + lands first on laptop. I'll expand to the wide
+surfaces only on USER E4 #13 = wide.
+
 ## Why ARCH-B is the right next fork (load-bearing from ARCH-A)
 ARCH-A showed sparse-KEY gives no capacity gain THROUGH A LINEAR (superposition) readout: W=sum val key^T crosstalk
 caps exact-recall at the alpha~0.25-0.5 cliff for ALL f_k. The drill's diagnosis: the MB uses sparse coding WITH a
