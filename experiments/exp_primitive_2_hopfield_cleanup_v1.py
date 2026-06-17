@@ -38,10 +38,10 @@ DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ANCHOR = "primitive_2_hopfield_cleanup_v1"
 
 if RUN_MODE == "smoke":
-    N = 1024; SEEDS = [7]; ENV_BASES = [3, 5, 7]; NOISE = [0.05, 0.15, 0.30]; F_BASES = [[3, 5, 7], [3, 5, 7, 11]]
+    N = 1024; SEEDS = [7]; ENV_BASES = [3, 5, 7]; NOISE = [0.05, 0.30, 0.45]; F_BASES = [[3, 5, 7], [3, 5, 7, 11]]
 else:
     N = 4096; SEEDS = [7, 17, 23]; ENV_BASES = [3, 5, 7, 11]
-    NOISE = [0.02, 0.05, 0.10, 0.15, 0.20, 0.30]
+    NOISE = [0.05, 0.15, 0.25, 0.35, 0.42, 0.46]   # span the naive->sparse crossover (high noise differentiates heads)
     # GATE-F R-sweep: 5 points spanning R ~1155 -> ~111M (5 orders of magnitude) for the R8 asymptotic regression.
     # The resonator is FACTORED (per-base codebooks sum(m_b); NEVER the R-codebook) -> large R is cheap (no OOM).
     F_BASES = [[3, 5, 7, 11], [3, 5, 7, 11, 13], [3, 5, 7, 11, 13, 17],
@@ -56,7 +56,10 @@ RESON_RESTARTS = 6          # GATE-F pre-registered K_max (FIXED across the R-sw
 RESON_ITERS = 60            # GATE-F pre-registered iteration cap
 RESON_BETA = 8.0            # GATE-F resonator soft-weight temperature (FIXED)
 RECON_THRESH = 0.9          # GATE-F reconstruction-accept threshold (FIXED)
-LOGSCALE_WORK_RATIO_MAX = 8.0  # GATE-F PASS: work growth ratio over the R-sweep must stay << R growth (sub-linear)
+# GATE-F log-scaling band = log-log work-vs-R EXPONENT < 0.5 (the operative test; a raw ratio constant was dropped
+# per STEP-4 VET minor -- the regression exponent is the better, scale-robust band).
+# WORK granularity: "work" = number of N-dim codeword-correlations (HEAD-4 ~ sum(m_b)/iter; brute-force ~ R), so
+# work-vs-O(R) is apples-to-apples (both pay O(N) per correlation).
 
 
 def _gen(seed):
@@ -156,9 +159,29 @@ def head_resonator(Rx, chans, cbs, Grams, bases, R):
     return picks, RESON_RESTARTS, iters_total, work
 
 
-def beta_closed_form(delta_min):
-    # Ramsauer-Theorem-4-style closed-form beta from separation; SET not fitted (GATE-D tune-free)
-    return BETA_K / max(delta_min, 1e-6) * math.log(2 * N * 64)
+def beta_closed_form(delta_min, M):
+    # Ramsauer-Theorem-4-style closed-form beta = f(N, |M|, Delta_min); SET not fitted (GATE-D tune-free).
+    # |M| = R = the ACTUAL number of stored patterns (codebook size), NOT a hardcoded cap (F1 fix).
+    return BETA_K / max(delta_min, 1e-6) * math.log(2 * N * M)
+
+
+def preregistered_best_head(delta_min, noise_list):
+    """GATE-E gerrymander-guard (F2 fix): PRE-REGISTERED theory-derived selection map, computed from the codebook
+    margin + noise-erosion model BEFORE any accuracy. SIMILARITY-MARGIN crossover (naive-suffices-at-large-separation
+    vs sparse-at-small):
+      - phase-noise rate p erodes the true-codeword similarity to ~ (1 - 2p) (rotated coords average to ~0).
+      - the nearest COMPETITOR similarity ~ off_diag_max = (1 - delta_min) (the codebook's max off-diagonal).
+      - naive (hard nearest-codeword) is robust while the margin (1-2p) - off_diag exceeds the finite-N noise
+        fluctuation 3/sqrt(N); below that, sparse-Hopfield's sharper basins are the predicted lever.
+    Theory-derived (codebook margin + noise model + finite-N band), NOT fitted to accuracy. A genuine differentiated
+    per-regime prediction (naive at low noise, sparse at high noise); the run VERIFIES it (divergence = theory-gap)."""
+    off_diag = 1.0 - delta_min
+    band = 3.0 / math.sqrt(N)
+    pred = {}
+    for p in noise_list:
+        margin = (1.0 - 2.0 * p) - off_diag
+        pred[str(p)] = "naive" if margin >= band else "sparse"
+    return pred
 
 
 # ---------------- GATES ----------------
@@ -180,7 +203,9 @@ def gate_DE(seed, bases):
     cbs = [torch.stack([per_base_vec(m, a, r) for r in range(m)], 0) for (m, a) in chans]
     Grams = [torch.linalg.pinv(cb @ cb.conj().T) for cb in cbs]
     dmin = codebook_delta_min(C)
-    beta = beta_closed_form(dmin)                                         # SET from formula (tune-free)
+    beta = beta_closed_form(dmin, R)                                      # SET from formula, |M|=R (F1 fix)
+    # GATE-E gerrymander-guard (F2): PRE-REGISTERED theory-derived selection map, BEFORE the accuracy run
+    predicted = preregistered_best_head(dmin, NOISE)
     n_test = min(R, 120)
     env = {}
     for p in NOISE:
@@ -194,9 +219,14 @@ def gate_DE(seed, bases):
             picks, _, _, _ = head_resonator(q, chans, cbs, Grams, bases, R)
             if _crt(picks, bases, R) == int(tgt[i]): acc["reson"] += 1
         env[str(p)] = {h: acc[h] / n_test for h in acc}
-    # best-head per noise regime (the envelope) + the pre-registered selection map prediction
-    best = {p: max(env[p], key=env[p].get) for p in env}
-    return {"R": R, "delta_min": dmin, "beta_closed_form": beta, "envelope": env, "best_head_per_regime": best,
+    # empirical best among the FLAT heads (1-3; HEAD-4 resonator efficiency is GATE-F's domain, not the flat envelope)
+    emp_best = {p: max(("naive", "dense", "sparse"), key=lambda h: env[p][h]) for p in env}
+    # gerrymander-guarded comparison: empirical-best vs PRE-REGISTERED predicted; divergence = honest theory-gap
+    regime_map = {p: {"predicted": predicted[p], "empirical_best": emp_best[p],
+                      "match": predicted[p] == emp_best[p]} for p in env}
+    return {"R": R, "delta_min": dmin, "beta_closed_form": beta, "envelope": env,
+            "preregistered_selection_map": predicted, "regime_map_predicted_vs_empirical": regime_map,
+            "map_match_fraction": sum(v["match"] for v in regime_map.values()) / len(regime_map),
             "gate_D_dense_acc_lownoise": env[str(NOISE[0])]["dense"]}
 
 
@@ -240,7 +270,9 @@ def verdict(de, fsweep):
     work_exp = _loglog_slope(Rs, [f["avg_work"] for f in fsweep])      # < 1 => sub-linear in R (log-scaling)
     iters_exp = _loglog_slope(Rs, [max(f["avg_iters"], 1e-9) for f in fsweep])
     k_grows = fsweep[-1]["avg_K"] > fsweep[0]["avg_K"] + 0.5
-    acc_held = all(f["acc"] + f["acc_ci95"] >= ACC_BAR for f in fsweep)  # R7: accuracy held within CI across sweep
+    # R7 (F3 fix): PASS gate uses the CONSERVATIVE LOWER CI bound (acc - ci95 >= bar), not the lenient upper bound,
+    # so sub-bar accuracy at large R cannot slip through and get labeled log-scaling-demonstrated.
+    acc_held = all(f["acc"] - f["acc_ci95"] >= ACC_BAR for f in fsweep)
     # PASS: work exponent well below 1 (sub-linear), iterations not accelerating, K not growing, accuracy held
     sublinear = (work_exp < 0.5) and (iters_exp < 0.5) and (not k_grows) and acc_held
     if sublinear:
@@ -271,9 +303,11 @@ def main():
     out = get_output_dir(os.environ.get("HDLAB_EXP_NAME", ANCHOR)); t0 = time.time()
     de = gate_DE(SEEDS[0], ENV_BASES)
     print(f"\n[GATE-D] R={de['R']} delta_min={de['delta_min']:.3f} beta_cf={de['beta_closed_form']:.2f} dense_acc_lownoise={de['gate_D_dense_acc_lownoise']:.3f}", flush=True)
-    print(f"[GATE-E] envelope (acc per head per noise):", flush=True)
+    print(f"[GATE-E] envelope (acc per head per noise) + gerrymander-guard (predicted vs empirical best):", flush=True)
     for p, row in de["envelope"].items():
-        print(f"   noise={p}: naive={row['naive']:.2f} dense={row['dense']:.2f} sparse={row['sparse']:.2f} reson={row['reson']:.2f} -> best={de['best_head_per_regime'][p]}", flush=True)
+        rm = de["regime_map_predicted_vs_empirical"][p]
+        print(f"   noise={p}: naive={row['naive']:.2f} dense={row['dense']:.2f} sparse={row['sparse']:.2f} reson={row['reson']:.2f} | predicted={rm['predicted']} empirical={rm['empirical_best']} match={rm['match']}", flush=True)
+    print(f"[GATE-E] selection-map match fraction (predicted==empirical): {de['map_match_fraction']:.2f}", flush=True)
     print(f"[GATE-F] resonator WORK-vs-R sweep (K + work first-class):", flush=True)
     fsweep = [gate_F(SEEDS[0], B) for B in F_BASES]
     for f in fsweep:
@@ -284,7 +318,7 @@ def main():
                "gate_DE": de, "gate_F_sweep": fsweep, "verdict": v, "verdict_msg": vmsg,
                "prereg_bands": {"BETA_K": BETA_K, "ACC_BAR": ACC_BAR, "RESON_RESTARTS": RESON_RESTARTS,
                                 "RESON_ITERS": RESON_ITERS, "RESON_BETA": RESON_BETA, "RECON_THRESH": RECON_THRESH,
-                                "LOGSCALE_WORK_RATIO_MAX": LOGSCALE_WORK_RATIO_MAX},
+                                "logscaling_band": "work-vs-R log-log exponent < 0.5; acc-ci95-lower >= ACC_BAR"},
                "honest_scope": "INTEGER-residue cleanup/decode. HEADS 1-3 softness spectrum flat O(R) (HEAD1=HEAD2 at beta-inf); HEAD4 factored sub-O(R). GATE-F log-scaling is INTEGER-scoped; continuous bounded by P1 GATE-C1. Both-verdict-paths; work-vs-R MEASURED not presupposed.",
                "elapsed_s": time.time() - t0, "compute_backend": str(DEV)}
     write_metrics(out, metrics, [{"gate_DE": de, "gate_F_sweep": fsweep}])
