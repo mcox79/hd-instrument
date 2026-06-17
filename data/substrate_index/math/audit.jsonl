@@ -39643,3 +39643,434 @@
 {"ts": 1781718745.5571966, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v3_smoke", "note": "", "source": "manual"}
 {"ts": 1781718747.1302435, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v4", "note": "", "source": "manual"}
 {"ts": 1781718748.72911, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v4_smoke", "note": "", "source": "manual"}
+{"ts": 1781718750.2582784, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v5", "note": "", "source": "manual"}
+{"ts": 1781718752.0673645, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v5_smoke", "note": "", "source": "manual"}
+{"ts": 1781718753.911084, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v6", "note": "", "source": "manual"}
+{"ts": 1781718755.3522577, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v6_smoke", "note": "", "source": "manual"}
+{"ts": 1781718756.8467994, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v7", "note": "", "source": "manual"}
+{"ts": 1781718758.367489, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v7_smoke", "note": "", "source": "manual"}
+{"ts": 1781718759.8838649, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v8", "note": "", "source": "manual"}
+{"ts": 1781718761.2534003, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v8_smoke", "note": "", "source": "manual"}
+{"ts": 1781718762.8176398, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v9", "note": "", "source": "manual"}
+{"ts": 1781718764.3079505, "op": "add_atom", "target": "T3/EXP_wave14d_multi_task_cl_v9_smoke", "note": "", "source": "manual"}
+{"ts": 1781718765.799932, "op": "add_atom", "target": "T3/EXP_wave14d_query_side_integration", "note": "", "source": "manual"}
+{"ts": 1781718766.9730184, "op": "add_atom", "target": "T3/EXP_wave14d_sequential_edit_stress", "note": "", "source": "manual"}
+{"ts": 1781718768.1806993, "op": "add_atom", "target": "T3/EXP_wave14e2_parisi_ultrametricity", "note": "", "source": "manual"}
+{"ts": 1781718769.494106, "op": "add_atom", "target": "T3/EXP_wave14e2_ssh_bsc_topological", "note": "", "source": "manual"}
+{"ts": 1781718770.7681775, "op": "add_atom", "target": "T3/EXP_wave14e_betB_ewc_smoke_v1", "note": "", "source": "manual"}
+{"ts": 1781718772.0857477, "op": "add_atom", "target": "T3/EXP_wave14e_continuous_edits", "note": "", "source": "manual"}
+{"ts": 1781718773.4234843, "op": "add_atom", "target": "T3/EXP_wave14e_continuous_edits_v2", "note": "", "source": "manual"}
+{"ts": 1781718774.9617455, "op": "add_atom", "target": "T3/EXP_wave14e_hierarchical_composition", "note": "", "source": "manual"}
+{"ts": 1781718776.284291, "op": "add_atom", "target": "T3/EXP_wave14e_hierarchical_v2", "note": "", "source": "manual"}
+{"ts": 1781718777.7161157, "op": "add_atom", "target": "T3/EXP_wave14e_lsh_for_bsc", "note": "", "source": "manual"}
+{"ts": 1781718779.421114, "op": "add_atom", "target": "T3/EXP_wave14e_lsh_v2_binaryivf", "note": "", "source": "manual"}
+{"ts": 1781718780.7987535, "op": "add_atom", "target": "T3/EXP_wave14e_moe_xtalk_v1_post_device_fix_rerun_2026_05_24", "note": "", "source": "manual"}
+{"ts": 1781718782.00135, "op": "add_atom", "target": "T3/EXP_wave14e_multi_hop_reasoning", "note": "", "source": "manual"}
+{"ts": 1781718783.3840065, "op": "add_atom", "target": "T3/EXP_wave14e_multi_hop_v2", "note": "", "source": "manual"}
+{"ts": 1781718784.8287184, "op": "add_atom", "target": "T3/EXP_wave14e_polarity_binding", "note": "", "source": "manual"}
+{"ts": 1781718786.120138, "op": "add_atom", "target": "T3/EXP_wave14e_s4_depth_smoke_v1_2026_05_24", "note": "", "source": "manual"}
+{"ts": 1781718787.4879925, "op": "add_atom", "target": "T3/EXP_wave14e_s4_depth_smoke_v1_reship_2026_05_24_rerun_2026_05_24", "note": "", "source": "manual"}
+{"ts": 1781718788.853221, "op": "add_atom", "target": "T3/EXP_wave14e_substrate_uncertainty", "note": "", "source": "manual"}
+{"ts": 1781718790.0635521, "op": "add_atom", "target": "T3/EXP_wave14e_temporal_binding", "note": "", "source": "manual"}
+{"ts": 1781718791.359169, "op": "add_atom", "target": "T3/EXP_wave14f_hippo_init_w_v1", "note": "", "source": "manual"}
+{"ts": 1781718792.742768, "op": "add_atom", "target": "T3/EXP_wave14f_icl_rsb_synergy", "note": "", "source": "manual"}
+{"ts": 1781718794.1593113, "op": "add_atom", "target": "T3/EXP_wave14f_icl_scaling_pool", "note": "", "source": "manual"}
+{"ts": 1781718795.6964536, "op": "add_atom", "target": "T3/EXP_wave14f_r10_K_adaptive", "note": "", "source": "manual"}
+{"ts": 1781718797.1450086, "op": "add_atom", "target": "T3/EXP_wave14f_rsb_tree_walk", "note": "", "source": "manual"}
+{"ts": 1781718798.71831, "op": "add_atom", "target": "T3/EXP_wave14forensics_svd_recovery", "note": "", "source": "manual"}
+{"ts": 1781718800.2723384, "op": "add_atom", "target": "T3/EXP_wave14forensics_svd_recovery_smoke", "note": "", "source": "manual"}
+{"ts": 1781718801.6550777, "op": "add_atom", "target": "T3/EXP_wave14forensics_walsh_peaks", "note": "", "source": "manual"}
+{"ts": 1781718803.3138645, "op": "add_atom", "target": "T3/EXP_wave14forensics_walsh_peaks_smoke", "note": "", "source": "manual"}
+{"ts": 1781718804.6380434, "op": "add_atom", "target": "T3/EXP_wave14g_acf_multiseed_verify", "note": "", "source": "manual"}
+{"ts": 1781718805.9697876, "op": "add_atom", "target": "T3/EXP_wave14g_acf_resonator_high_K_trimmed__shard_K_SWEEP_12288", "note": "", "source": "manual"}
+{"ts": 1781718807.3693461, "op": "add_atom", "target": "T3/EXP_wave14g_acf_resonator_high_K_trimmed__shard_K_SWEEP_4096", "note": "", "source": "manual"}
+{"ts": 1781718809.0447104, "op": "add_atom", "target": "T3/EXP_wave14g_acf_resonator_high_K_trimmed__shard_K_SWEEP_8192", "note": "", "source": "manual"}
+{"ts": 1781718810.4639456, "op": "add_atom", "target": "T3/EXP_wave14g_decompose_K_cliff_N8192", "note": "", "source": "manual"}
+{"ts": 1781718811.9684882, "op": "add_atom", "target": "T3/EXP_wave14g_erase_under_replay", "note": "", "source": "manual"}
+{"ts": 1781718813.2625895, "op": "add_atom", "target": "T3/EXP_wave14g_icl_saturation_extended_fix", "note": "", "source": "manual"}
+{"ts": 1781718814.9997451, "op": "add_atom", "target": "T3/EXP_wave14h_alpha_sweep", "note": "", "source": "manual"}
+{"ts": 1781718816.6967952, "op": "add_atom", "target": "T3/EXP_wave14h_alpha_sweep_smoke", "note": "", "source": "manual"}
+{"ts": 1781718818.137541, "op": "add_atom", "target": "T3/EXP_wave14h_alpha_sweep_v2", "note": "", "source": "manual"}
+{"ts": 1781718819.5548449, "op": "add_atom", "target": "T3/EXP_wave14h_alpha_sweep_v2_gate_test", "note": "", "source": "manual"}
+{"ts": 1781718820.917106, "op": "add_atom", "target": "T3/EXP_wave14h_alpha_sweep_v2_smoke", "note": "", "source": "manual"}
+{"ts": 1781718822.1966784, "op": "add_atom", "target": "T3/EXP_wave14h_decoder_bound", "note": "", "source": "manual"}
+{"ts": 1781718823.6715603, "op": "add_atom", "target": "T3/EXP_wave14h_scale_K", "note": "", "source": "manual"}
+{"ts": 1781718825.2355936, "op": "add_atom", "target": "T3/EXP_wave14h_scale_K_smoke", "note": "", "source": "manual"}
+{"ts": 1781718826.9191961, "op": "add_atom", "target": "T3/EXP_wave14h_scale_K_v2_rerun", "note": "", "source": "manual"}
+{"ts": 1781718828.368345, "op": "add_atom", "target": "T3/EXP_wave14h_scale_K_v2_rerun_smoke", "note": "", "source": "manual"}
+{"ts": 1781718829.772623, "op": "add_atom", "target": "T3/EXP_wave14h_scale_K_v2_smoke", "note": "", "source": "manual"}
+{"ts": 1781718829.8340316, "op": "add_relation", "target": "T3/EXP_wave14calibration_v2|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14calibration_v2 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718829.8933566, "op": "add_relation", "target": "T3/EXP_wave14calibration_v2|DEPENDS_ON|T3/resonator_network_decoder", "note": "T3/EXP_wave14calibration_v2 DEPENDS_ON math::T3/resonator_network_decoder (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718829.9548397, "op": "add_relation", "target": "T3/EXP_wave14calibration_v2_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14calibration_v2_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.0196297, "op": "add_relation", "target": "T3/EXP_wave14calibration_v2_smoke|DEPENDS_ON|T3/resonator_network_decoder", "note": "T3/EXP_wave14calibration_v2_smoke DEPENDS_ON math::T3/resonator_network_decoder (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.0851243, "op": "add_relation", "target": "T3/EXP_wave14cpu_alpha_c_extended|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14cpu_alpha_c_extended DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.1686053, "op": "add_relation", "target": "T3/EXP_wave14cpu_alpha_c_extended_smoke|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14cpu_alpha_c_extended_smoke DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.236898, "op": "add_relation", "target": "T3/EXP_wave14e_continuous_edits|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14e_continuous_edits DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.297342, "op": "add_relation", "target": "T3/EXP_wave14e_continuous_edits_v2|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14e_continuous_edits_v2 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.3569415, "op": "add_relation", "target": "T3/EXP_wave14e_hierarchical_composition|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14e_hierarchical_composition DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.415979, "op": "add_relation", "target": "T3/EXP_wave14e_hierarchical_v2|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14e_hierarchical_v2 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.4725056, "op": "add_relation", "target": "T3/EXP_wave14e_hierarchical_v2|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14e_hierarchical_v2 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.5460598, "op": "add_relation", "target": "T3/EXP_wave14e_multi_hop_reasoning|DEPENDS_ON|T3/resonator_network_decoder", "note": "T3/EXP_wave14e_multi_hop_reasoning DEPENDS_ON math::T3/resonator_network_decoder (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.6015332, "op": "add_relation", "target": "T3/EXP_wave14e_multi_hop_v2|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14e_multi_hop_v2 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.6521704, "op": "add_relation", "target": "T3/EXP_wave14e_multi_hop_v2|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14e_multi_hop_v2 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.7097156, "op": "add_relation", "target": "T3/EXP_wave14f_hippo_init_w_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14f_hippo_init_w_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718830.7673988, "op": "add_relation", "target": "T3/EXP_wave14f_hippo_init_w_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14f_hippo_init_w_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718834.250135, "op": "add_atom", "target": "T3/EXP_wave14h_wside_erase", "note": "", "source": "manual"}
+{"ts": 1781718835.5681338, "op": "add_atom", "target": "T3/EXP_wave14i_codebook_efficiency", "note": "", "source": "manual"}
+{"ts": 1781718836.4682825, "op": "add_atom", "target": "T3/EXP_wave14i_compositional_gen", "note": "", "source": "manual"}
+{"ts": 1781718837.1628885, "op": "add_atom", "target": "T3/EXP_wave14i_negation_tag", "note": "", "source": "manual"}
+{"ts": 1781718837.8349798, "op": "add_atom", "target": "T3/EXP_wave14i_neuromod_gain", "note": "", "source": "manual"}
+{"ts": 1781718838.5781322, "op": "add_atom", "target": "T3/EXP_wave14i_schema_emergence", "note": "", "source": "manual"}
+{"ts": 1781718839.338062, "op": "add_atom", "target": "T3/EXP_wave14j_aging_kovacs", "note": "", "source": "manual"}
+{"ts": 1781718840.0197349, "op": "add_atom", "target": "T3/EXP_wave14j_breather_slots", "note": "", "source": "manual"}
+{"ts": 1781718840.7548199, "op": "add_atom", "target": "T3/EXP_wave14k_1bit_cs_cleanup", "note": "", "source": "manual"}
+{"ts": 1781718841.4883764, "op": "add_atom", "target": "T3/EXP_wave14k_mp_gauge", "note": "", "source": "manual"}
+{"ts": 1781718842.265255, "op": "add_atom", "target": "T3/EXP_wave14k_tda_trajectory", "note": "", "source": "manual"}
+{"ts": 1781718843.1308756, "op": "add_atom", "target": "T3/EXP_wave14k_wht_interpretability", "note": "", "source": "manual"}
+{"ts": 1781718843.974407, "op": "add_atom", "target": "T3/EXP_wave14kerdock_hadamard", "note": "", "source": "manual"}
+{"ts": 1781718844.744929, "op": "add_atom", "target": "T3/EXP_wave14kerdock_hadamard_smoke", "note": "", "source": "manual"}
+{"ts": 1781718845.5083666, "op": "add_atom", "target": "T3/EXP_wave14m_alpha_c", "note": "", "source": "manual"}
+{"ts": 1781718846.2716355, "op": "add_atom", "target": "T3/EXP_wave14mp_edge_detector", "note": "", "source": "manual"}
+{"ts": 1781718847.0209968, "op": "add_atom", "target": "T3/EXP_wave14mp_edge_detector_smoke", "note": "", "source": "manual"}
+{"ts": 1781718847.9052517, "op": "add_atom", "target": "T3/EXP_wave14n_decoder_bound", "note": "", "source": "manual"}
+{"ts": 1781718848.6679773, "op": "add_atom", "target": "T3/EXP_wave14n_decoder_bound_smoke", "note": "", "source": "manual"}
+{"ts": 1781718849.4940054, "op": "add_atom", "target": "T3/EXP_wave14p_erase_multiprobe", "note": "", "source": "manual"}
+{"ts": 1781718850.2190151, "op": "add_atom", "target": "T3/EXP_wave14p_erase_multiprobe_smoke", "note": "", "source": "manual"}
+{"ts": 1781718850.8813941, "op": "add_atom", "target": "T3/EXP_wave14q_rome_vs_antihebbian", "note": "", "source": "manual"}
+{"ts": 1781718851.5357313, "op": "add_atom", "target": "T3/EXP_wave14q_rome_vs_antihebbian_smoke", "note": "", "source": "manual"}
+{"ts": 1781718852.199308, "op": "add_atom", "target": "T3/EXP_wave14r_R31_S1_pyrkov_cgle_v1", "note": "", "source": "manual"}
+{"ts": 1781718852.9960077, "op": "add_atom", "target": "T3/EXP_wave14r_R31_S1_pyrkov_cgle_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718853.72212, "op": "add_atom", "target": "T3/EXP_wave14r_erase_orthkeys_v1", "note": "", "source": "manual"}
+{"ts": 1781718854.4904554, "op": "add_atom", "target": "T3/EXP_wave14r_erase_orthkeys_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718855.289655, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_FHRR_N8192", "note": "", "source": "manual"}
+{"ts": 1781718856.0244756, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke", "note": "", "source": "manual"}
+{"ts": 1781718856.7047303, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_FHRR_largeN", "note": "", "source": "manual"}
+{"ts": 1781718857.3907163, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke", "note": "", "source": "manual"}
+{"ts": 1781718858.068007, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_FHRR_v1", "note": "", "source": "manual"}
+{"ts": 1781718858.781178, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_FHRR_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718859.4705389, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K100", "note": "", "source": "manual"}
+{"ts": 1781718860.1112545, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K100_smoke", "note": "", "source": "manual"}
+{"ts": 1781718860.7798924, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K10", "note": "", "source": "manual"}
+{"ts": 1781718861.434672, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K10_smoke", "note": "", "source": "manual"}
+{"ts": 1781718862.081848, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K2", "note": "", "source": "manual"}
+{"ts": 1781718862.7481549, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K2_smoke", "note": "", "source": "manual"}
+{"ts": 1781718863.3986208, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K30", "note": "", "source": "manual"}
+{"ts": 1781718864.0770926, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K30_smoke", "note": "", "source": "manual"}
+{"ts": 1781718864.7546785, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K50", "note": "", "source": "manual"}
+{"ts": 1781718865.5062492, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K50_smoke", "note": "", "source": "manual"}
+{"ts": 1781718866.1631463, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K5", "note": "", "source": "manual"}
+{"ts": 1781718866.8133998, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_K5_smoke", "note": "", "source": "manual"}
+{"ts": 1781718867.4740665, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N1024", "note": "", "source": "manual"}
+{"ts": 1781718868.1304133, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N1024_smoke", "note": "", "source": "manual"}
+{"ts": 1781718868.7643635, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N12288", "note": "", "source": "manual"}
+{"ts": 1781718869.4192655, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N12288_smoke", "note": "", "source": "manual"}
+{"ts": 1781718870.0930257, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N2048", "note": "", "source": "manual"}
+{"ts": 1781718870.7732131, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N2048_smoke", "note": "", "source": "manual"}
+{"ts": 1781718871.426822, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N32768", "note": "", "source": "manual"}
+{"ts": 1781718872.081809, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N32768_smoke", "note": "", "source": "manual"}
+{"ts": 1781718872.7492216, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N65536", "note": "", "source": "manual"}
+{"ts": 1781718873.4693751, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N65536_smoke", "note": "", "source": "manual"}
+{"ts": 1781718874.1530921, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N8192", "note": "", "source": "manual"}
+{"ts": 1781718874.918405, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_N8192_smoke", "note": "", "source": "manual"}
+{"ts": 1781718875.613131, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMENT_100", "note": "", "source": "manual"}
+{"ts": 1781718876.3094826, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMENT_100_smoke", "note": "", "source": "manual"}
+{"ts": 1781718877.028407, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMENT_300", "note": "", "source": "manual"}
+{"ts": 1781718877.7092118, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMENT_300_smoke", "note": "", "source": "manual"}
+{"ts": 1781718878.386483, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMENT_500", "note": "", "source": "manual"}
+{"ts": 1781718879.044127, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMENT_500_smoke", "note": "", "source": "manual"}
+{"ts": 1781718879.7279353, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_1000", "note": "", "source": "manual"}
+{"ts": 1781718880.3862126, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_1000_smoke", "note": "", "source": "manual"}
+{"ts": 1781718881.051687, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_2000", "note": "", "source": "manual"}
+{"ts": 1781718881.7316113, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_2000_smoke", "note": "", "source": "manual"}
+{"ts": 1781718882.389624, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_200", "note": "", "source": "manual"}
+{"ts": 1781718883.1206176, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_200_smoke", "note": "", "source": "manual"}
+{"ts": 1781718883.880629, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_300", "note": "", "source": "manual"}
+{"ts": 1781718884.5194423, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_300_smoke", "note": "", "source": "manual"}
+{"ts": 1781718885.177249, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_500", "note": "", "source": "manual"}
+{"ts": 1781718885.8745563, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_500_smoke", "note": "", "source": "manual"}
+{"ts": 1781718886.6062753, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_50", "note": "", "source": "manual"}
+{"ts": 1781718887.260929, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_50_smoke", "note": "", "source": "manual"}
+{"ts": 1781718887.9354382, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_600", "note": "", "source": "manual"}
+{"ts": 1781718888.5962834, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_NUMFACTS_600_smoke", "note": "", "source": "manual"}
+{"ts": 1781718889.2691302, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_adaptive_beta_v1", "note": "", "source": "manual"}
+{"ts": 1781718889.9406328, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_adaptive_beta_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718890.586264, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_cooper_pair_v1", "note": "", "source": "manual"}
+{"ts": 1781718891.27649, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_cooper_pair_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718891.9366875, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_depth_100", "note": "", "source": "manual"}
+{"ts": 1781718892.6485417, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_depth_100_smoke", "note": "", "source": "manual"}
+{"ts": 1781718893.3263779, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_depth_200", "note": "", "source": "manual"}
+{"ts": 1781718894.1593676, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_depth_200_smoke", "note": "", "source": "manual"}
+{"ts": 1781718894.8144994, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_fine_depths", "note": "", "source": "manual"}
+{"ts": 1781718895.4740443, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_fine_depths_smoke", "note": "", "source": "manual"}
+{"ts": 1781718896.1264384, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_hybrid_v1", "note": "", "source": "manual"}
+{"ts": 1781718896.8036516, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_hybrid_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718897.4593735, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_largeN_v1", "note": "", "source": "manual"}
+{"ts": 1781718898.097484, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_largeN_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718898.7430751, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1", "note": "", "source": "manual"}
+{"ts": 1781718899.3914626, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718900.03608, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1", "note": "", "source": "manual"}
+{"ts": 1781718900.6822042, "op": "add_atom", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718901.3367252, "op": "add_atom", "target": "T3/EXP_wave14r_orthkeys_capsweep", "note": "", "source": "manual"}
+{"ts": 1781718901.9812398, "op": "add_atom", "target": "T3/EXP_wave14r_orthkeys_capsweep_smoke", "note": "", "source": "manual"}
+{"ts": 1781718902.635285, "op": "add_atom", "target": "T3/EXP_wave14s_chargeflip_forensics_v1_b", "note": "", "source": "manual"}
+{"ts": 1781718903.2834842, "op": "add_atom", "target": "T3/EXP_wave14s_chargeflip_forensics_v1_b_smoke", "note": "", "source": "manual"}
+{"ts": 1781718903.9177413, "op": "add_atom", "target": "T3/EXP_wave14s_chargeflip_forensics_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718903.9494312, "op": "add_relation", "target": "T3/EXP_wave14m_alpha_c|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14m_alpha_c DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718903.965253, "op": "add_relation", "target": "T3/EXP_wave14m_alpha_c|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14m_alpha_c DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718903.996854, "op": "add_relation", "target": "T3/EXP_wave14n_decoder_bound|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14n_decoder_bound DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.0283747, "op": "add_relation", "target": "T3/EXP_wave14n_decoder_bound_smoke|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14n_decoder_bound_smoke DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.0440753, "op": "add_relation", "target": "T3/EXP_wave14r_R31_S1_pyrkov_cgle_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_R31_S1_pyrkov_cgle_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.075138, "op": "add_relation", "target": "T3/EXP_wave14r_R31_S1_pyrkov_cgle_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_R31_S1_pyrkov_cgle_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.1069698, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_N8192|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_FHRR_N8192 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.122853, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_N8192|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_FHRR_N8192 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.1544685, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_N8192|DEPENDS_ON|T2/fhrr_unbind", "note": "T3/EXP_wave14r_multihop_FHRR_N8192 DEPENDS_ON math::T2/fhrr_unbind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.1859775, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.2018163, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.233352, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke|DEPENDS_ON|T2/fhrr_unbind", "note": "T3/EXP_wave14r_multihop_FHRR_N8192_smoke DEPENDS_ON math::T2/fhrr_unbind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.2490723, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_largeN|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_FHRR_largeN DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.2892516, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_largeN|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_FHRR_largeN DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.312734, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_largeN|DEPENDS_ON|T2/fhrr_unbind", "note": "T3/EXP_wave14r_multihop_FHRR_largeN DEPENDS_ON math::T2/fhrr_unbind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.3425162, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.353138, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.3953874, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke|DEPENDS_ON|T2/fhrr_unbind", "note": "T3/EXP_wave14r_multihop_FHRR_largeN_smoke DEPENDS_ON math::T2/fhrr_unbind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.4199123, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_FHRR_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.4357562, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_FHRR_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.4671865, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_v1|DEPENDS_ON|T2/fhrr_unbind", "note": "T3/EXP_wave14r_multihop_FHRR_v1 DEPENDS_ON math::T2/fhrr_unbind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.4983048, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_FHRR_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.5283248, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_v1_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_FHRR_v1_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.5552208, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_FHRR_v1_smoke|DEPENDS_ON|T2/fhrr_unbind", "note": "T3/EXP_wave14r_multihop_FHRR_v1_smoke DEPENDS_ON math::T2/fhrr_unbind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.5836513, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K100|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K100 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.6130106, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K100_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K100_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.640164, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K10|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K10 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.6689847, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K10_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K10_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.6972992, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K2|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K2 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.7268043, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K2_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K2_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.7548616, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K30|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K30 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.7826972, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K30_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K30_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.8105435, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K50|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K50 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.8369937, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K50_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K50_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.8679044, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K5|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K5 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.8959496, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_K5_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_K5_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.92347, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N1024|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N1024 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.9541643, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N1024_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N1024_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718904.9825687, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N12288|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N12288 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.0104756, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N12288_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N12288_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.0382564, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N2048|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N2048 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.06631, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N2048_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N2048_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.0868618, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N32768|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N32768 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.1174052, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N32768_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N32768_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.133043, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N65536|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N65536 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.1646366, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N65536_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N65536_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.1964433, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N8192|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N8192 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.3709257, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_N8192_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_N8192_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.4055414, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMENT_100|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMENT_100 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.4331105, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMENT_100_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMENT_100_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.4532936, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMENT_300|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMENT_300 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.4847562, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMENT_300_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMENT_300_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.5004888, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMENT_500|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMENT_500 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.5321305, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMENT_500_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMENT_500_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.5640543, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_1000|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_1000 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.57914, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_1000_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_1000_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.6109934, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_2000|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_2000 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.642572, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_2000_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_2000_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.6582658, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_200|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_200 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.6961277, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_200_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_200_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.7211363, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_300|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_300 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.7530258, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_300_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_300_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.7687473, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_500|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_500 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.8001947, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_500_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_500_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.8318617, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_50|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_50 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.84751, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_50_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_50_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.887101, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_600|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_600 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.9135966, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_NUMFACTS_600_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_NUMFACTS_600_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.9398434, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_adaptive_beta_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_adaptive_beta_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.952286, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_adaptive_beta_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14r_multihop_adaptive_beta_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718905.983696, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_adaptive_beta_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_adaptive_beta_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.0154874, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_adaptive_beta_v1_smoke|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14r_multihop_adaptive_beta_v1_smoke DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.0312595, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_cooper_pair_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_cooper_pair_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.0629747, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_cooper_pair_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_cooper_pair_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.094541, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_depth_100|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_depth_100 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.1272113, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_depth_100_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_depth_100_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.15858, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_depth_200|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_depth_200 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.1856384, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_depth_200_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_depth_200_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.2175484, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_fine_depths|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_fine_depths DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.2467773, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_fine_depths_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_fine_depths_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.276118, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_hybrid_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_hybrid_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.308931, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_hybrid_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_hybrid_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.352806, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_hybrid_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_hybrid_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.384097, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_hybrid_v1_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_hybrid_v1_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.41436, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_largeN_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_largeN_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.444774, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_largeN_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_largeN_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.476052, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_modernhopfield_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.5062253, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_modernhopfield_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.5373702, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14r_multihop_modernhopfield_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.566606, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.5988097, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.6289635, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14r_multihop_modernhopfield_v1_smoke DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.656957, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_soft_cleanup_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.685796, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_soft_cleanup_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.705816, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14r_multihop_soft_cleanup_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.7449632, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.7726405, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718906.8000364, "op": "add_relation", "target": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14r_multihop_soft_cleanup_v1_smoke DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718908.3300185, "op": "add_atom", "target": "T3/EXP_wave14soft_trace", "note": "", "source": "manual"}
+{"ts": 1781718909.050507, "op": "add_atom", "target": "T3/EXP_wave14soft_trace_extended_smoke", "note": "", "source": "manual"}
+{"ts": 1781718909.7156324, "op": "add_atom", "target": "T3/EXP_wave14soft_trace_smoke", "note": "", "source": "manual"}
+{"ts": 1781718910.3922045, "op": "add_atom", "target": "T3/EXP_wave14source_monitoring", "note": "", "source": "manual"}
+{"ts": 1781718911.0850918, "op": "add_atom", "target": "T3/EXP_wave14source_monitoring_extended", "note": "", "source": "manual"}
+{"ts": 1781718911.7659738, "op": "add_atom", "target": "T3/EXP_wave14source_monitoring_extended_smoke", "note": "", "source": "manual"}
+{"ts": 1781718912.4415505, "op": "add_atom", "target": "T3/EXP_wave14source_monitoring_smoke", "note": "", "source": "manual"}
+{"ts": 1781718913.1113656, "op": "add_atom", "target": "T3/EXP_wave14t_multihop_v3", "note": "", "source": "manual"}
+{"ts": 1781718913.7790875, "op": "add_atom", "target": "T3/EXP_wave14t_multihop_v3_smoke", "note": "", "source": "manual"}
+{"ts": 1781718914.4677992, "op": "add_atom", "target": "T3/EXP_wave14t_tem_cross_env", "note": "", "source": "manual"}
+{"ts": 1781718915.1243086, "op": "add_atom", "target": "T3/EXP_wave14u_multihop_envelope_v1", "note": "", "source": "manual"}
+{"ts": 1781718915.7968163, "op": "add_atom", "target": "T3/EXP_wave14u_multihop_envelope_v1_b", "note": "", "source": "manual"}
+{"ts": 1781718916.455939, "op": "add_atom", "target": "T3/EXP_wave14u_multihop_envelope_v1_b_smoke", "note": "", "source": "manual"}
+{"ts": 1781718917.1170714, "op": "add_atom", "target": "T3/EXP_wave14u_multihop_envelope_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781718917.785905, "op": "add_atom", "target": "T3/EXP_wave14v_erase_kerdock_v2", "note": "", "source": "manual"}
+{"ts": 1781718918.4649572, "op": "add_atom", "target": "T3/EXP_wave14v_erase_kerdock_v2_smoke", "note": "", "source": "manual"}
+{"ts": 1781718919.1778464, "op": "add_atom", "target": "T3/EXP_wave14w_icl_extended", "note": "", "source": "manual"}
+{"ts": 1781718919.8437798, "op": "add_atom", "target": "T3/EXP_wave14w_icl_extended_smoke", "note": "", "source": "manual"}
+{"ts": 1781718920.5091333, "op": "add_atom", "target": "T3/EXP_wave14walsh_peaks_extended", "note": "", "source": "manual"}
+{"ts": 1781718921.2469294, "op": "add_atom", "target": "T3/EXP_wave14walsh_peaks_extended_smoke", "note": "", "source": "manual"}
+{"ts": 1781718922.015186, "op": "add_atom", "target": "T3/EXP_wave14x_multihop_N_scaling", "note": "", "source": "manual"}
+{"ts": 1781718922.9126203, "op": "add_atom", "target": "T3/EXP_wave14x_multihop_N_scaling_smoke", "note": "", "source": "manual"}
+{"ts": 1781718923.7499871, "op": "add_atom", "target": "T3/EXP_wave14xrd_structured_keys", "note": "", "source": "manual"}
+{"ts": 1781718924.566042, "op": "add_atom", "target": "T3/EXP_wave14xrd_structured_keys_smoke", "note": "", "source": "manual"}
+{"ts": 1781718925.34404, "op": "add_atom", "target": "T3/EXP_wave14xrd_walsh_spectrum", "note": "", "source": "manual"}
+{"ts": 1781718926.0746388, "op": "add_atom", "target": "T3/EXP_wave14xrd_walsh_spectrum_smoke", "note": "", "source": "manual"}
+{"ts": 1781718926.7535274, "op": "add_atom", "target": "T3/EXP_wave14y_erase_kerdock_v3", "note": "", "source": "manual"}
+{"ts": 1781718927.437022, "op": "add_atom", "target": "T3/EXP_wave14y_erase_kerdock_v3_smoke", "note": "", "source": "manual"}
+{"ts": 1781718928.1151855, "op": "add_atom", "target": "T3/EXP_wave14ya_erase_kerdock_v4", "note": "", "source": "manual"}
+{"ts": 1781718928.773259, "op": "add_atom", "target": "T3/EXP_wave14ya_erase_kerdock_v4_smoke", "note": "", "source": "manual"}
+{"ts": 1781718929.4330783, "op": "add_atom", "target": "T3/EXP_wave14yb_edit_then_query_kerdock", "note": "", "source": "manual"}
+{"ts": 1781718930.0988412, "op": "add_atom", "target": "T3/EXP_wave14yb_edit_then_query_kerdock_smoke", "note": "", "source": "manual"}
+{"ts": 1781718930.7767317, "op": "add_atom", "target": "T3/EXP_wave14yc_continual_editing_kerdock", "note": "", "source": "manual"}
+{"ts": 1781718931.49571, "op": "add_atom", "target": "T3/EXP_wave14yc_continual_editing_kerdock_smoke", "note": "", "source": "manual"}
+{"ts": 1781718932.1944623, "op": "add_atom", "target": "T3/EXP_wave14yd_calibration_fact_retrieval", "note": "", "source": "manual"}
+{"ts": 1781718932.9758654, "op": "add_atom", "target": "T3/EXP_wave14yd_calibration_fact_retrieval_smoke", "note": "", "source": "manual"}
+{"ts": 1781718933.6964612, "op": "add_atom", "target": "T3/EXP_wave14ye_erase_kerdock_v5_smoke", "note": "", "source": "manual"}
+{"ts": 1781718934.3871725, "op": "add_atom", "target": "T3/EXP_wave14yf_continual_editing_v2_stress", "note": "", "source": "manual"}
+{"ts": 1781718935.068821, "op": "add_atom", "target": "T3/EXP_wave14yf_continual_editing_v2_stress_smoke", "note": "", "source": "manual"}
+{"ts": 1781718935.9361098, "op": "add_atom", "target": "T3/EXP_wave14yh_edit_query_overcapacity", "note": "", "source": "manual"}
+{"ts": 1781718936.6061244, "op": "add_atom", "target": "T3/EXP_wave14yh_edit_query_overcapacity_smoke", "note": "", "source": "manual"}
+{"ts": 1781718937.2745206, "op": "add_atom", "target": "T3/EXP_wave14yi_multihop_edited_factbase", "note": "", "source": "manual"}
+{"ts": 1781718937.966394, "op": "add_atom", "target": "T3/EXP_wave14yi_multihop_edited_factbase_smoke", "note": "", "source": "manual"}
+{"ts": 1781718938.6703913, "op": "add_atom", "target": "T3/EXP_wave14yj_continual_editing_v3_200", "note": "", "source": "manual"}
+{"ts": 1781718939.3671963, "op": "add_atom", "target": "T3/EXP_wave14yj_continual_editing_v3_200_smoke", "note": "", "source": "manual"}
+{"ts": 1781718940.119346, "op": "add_atom", "target": "T3/EXP_wave14yk_edit_query_undercapacity", "note": "", "source": "manual"}
+{"ts": 1781718940.823872, "op": "add_atom", "target": "T3/EXP_wave14yk_edit_query_undercapacity_smoke", "note": "", "source": "manual"}
+{"ts": 1781718941.5373924, "op": "add_atom", "target": "T3/EXP_wave14ym_continual_editing_v4_500", "note": "", "source": "manual"}
+{"ts": 1781718942.250527, "op": "add_atom", "target": "T3/EXP_wave14ym_continual_editing_v4_500_smoke", "note": "", "source": "manual"}
+{"ts": 1781718943.015091, "op": "add_atom", "target": "T3/EXP_wave14yonelinas_roc_v2", "note": "", "source": "manual"}
+{"ts": 1781718943.759658, "op": "add_atom", "target": "T3/EXP_wave14yonelinas_roc_v2_smoke", "note": "", "source": "manual"}
+{"ts": 1781718944.4643548, "op": "add_atom", "target": "T3/EXP_wave14yp_multihop_depth_100", "note": "", "source": "manual"}
+{"ts": 1781718945.1531544, "op": "add_atom", "target": "T3/EXP_wave14yp_multihop_depth_100_smoke", "note": "", "source": "manual"}
+{"ts": 1781718945.8481271, "op": "add_atom", "target": "T3/EXP_wave14yr_continual_editing_1000", "note": "", "source": "manual"}
+{"ts": 1781718946.525876, "op": "add_atom", "target": "T3/EXP_wave14yr_continual_editing_1000_smoke", "note": "", "source": "manual"}
+{"ts": 1781718947.183345, "op": "add_atom", "target": "T3/EXP_wave14ys_continual_editing_2000", "note": "", "source": "manual"}
+{"ts": 1781718947.84132, "op": "add_atom", "target": "T3/EXP_wave14ys_continual_editing_2000_smoke", "note": "", "source": "manual"}
+{"ts": 1781718948.5766163, "op": "add_atom", "target": "T3/EXP_wave14yt_edit_query_4N_smoke", "note": "", "source": "manual"}
+{"ts": 1781718949.2684946, "op": "add_atom", "target": "T3/EXP_wave14yu_continual_editing_undercap", "note": "", "source": "manual"}
+{"ts": 1781718949.9512997, "op": "add_atom", "target": "T3/EXP_wave14yu_continual_editing_undercap_smoke", "note": "", "source": "manual"}
+{"ts": 1781718950.6616533, "op": "add_atom", "target": "T3/EXP_wave14yv_iterative_reedit", "note": "", "source": "manual"}
+{"ts": 1781718951.3591442, "op": "add_atom", "target": "T3/EXP_wave14yv_iterative_reedit_smoke", "note": "", "source": "manual"}
+{"ts": 1781718952.110005, "op": "add_atom", "target": "T3/EXP_wave14yw_polysemy_shared_subj", "note": "", "source": "manual"}
+{"ts": 1781718952.8484104, "op": "add_atom", "target": "T3/EXP_wave14yw_polysemy_shared_subj_smoke", "note": "", "source": "manual"}
+{"ts": 1781718953.582584, "op": "add_atom", "target": "T3/EXP_wave14yx_calibration_temp_scaling", "note": "", "source": "manual"}
+{"ts": 1781718954.3120804, "op": "add_atom", "target": "T3/EXP_wave14yx_calibration_temp_scaling_smoke", "note": "", "source": "manual"}
+{"ts": 1781718955.029064, "op": "add_atom", "target": "T3/EXP_wave14yy_autoregressive_generation", "note": "", "source": "manual"}
+{"ts": 1781718955.703711, "op": "add_atom", "target": "T3/EXP_wave14yy_autoregressive_generation_smoke", "note": "", "source": "manual"}
+{"ts": 1781718956.382853, "op": "add_atom", "target": "T3/EXP_wave14yz_generation_with_sampling", "note": "", "source": "manual"}
+{"ts": 1781718957.072462, "op": "add_atom", "target": "T3/EXP_wave14yz_generation_with_sampling_smoke", "note": "", "source": "manual"}
+{"ts": 1781718957.7477853, "op": "add_atom", "target": "T3/EXP_wave14z_anneal_erase", "note": "", "source": "manual"}
+{"ts": 1781718958.4196064, "op": "add_atom", "target": "T3/EXP_wave14z_anneal_erase_smoke", "note": "", "source": "manual"}
+{"ts": 1781718959.099053, "op": "add_atom", "target": "T3/EXP_wave14z_multihop_hadamard_entities", "note": "", "source": "manual"}
+{"ts": 1781718959.777907, "op": "add_atom", "target": "T3/EXP_wave14z_multihop_hadamard_entities_smoke", "note": "", "source": "manual"}
+{"ts": 1781718960.4795916, "op": "add_atom", "target": "T3/EXP_wave14za_icl_continual_pool", "note": "", "source": "manual"}
+{"ts": 1781718961.1546693, "op": "add_atom", "target": "T3/EXP_wave14za_icl_continual_pool_smoke", "note": "", "source": "manual"}
+{"ts": 1781718961.8373547, "op": "add_atom", "target": "T3/EXP_wave14zb_continual_5000", "note": "", "source": "manual"}
+{"ts": 1781718962.504409, "op": "add_atom", "target": "T3/EXP_wave14zb_continual_5000_smoke", "note": "", "source": "manual"}
+{"ts": 1781718963.1796954, "op": "add_atom", "target": "T3/EXP_wave14zc_erase_kerdock_v7_32coset_smoke", "note": "", "source": "manual"}
+{"ts": 1781718963.8480124, "op": "add_atom", "target": "T3/EXP_wave14zd_gen_with_continual_pool", "note": "", "source": "manual"}
+{"ts": 1781718964.5325203, "op": "add_atom", "target": "T3/EXP_wave14zd_gen_with_continual_pool_smoke", "note": "", "source": "manual"}
+{"ts": 1781718965.2088726, "op": "add_atom", "target": "T3/EXP_wave14ze_gen_vs_ngram", "note": "", "source": "manual"}
+{"ts": 1781718965.8716357, "op": "add_atom", "target": "T3/EXP_wave14ze_gen_vs_ngram_smoke", "note": "", "source": "manual"}
+{"ts": 1781718966.5582266, "op": "add_atom", "target": "T3/EXP_wave14zf_icl_n_1024", "note": "", "source": "manual"}
+{"ts": 1781718967.2317383, "op": "add_atom", "target": "T3/EXP_wave14zg_gen_rep_penalty", "note": "", "source": "manual"}
+{"ts": 1781718967.9053988, "op": "add_atom", "target": "T3/EXP_wave14zg_gen_rep_penalty_smoke", "note": "", "source": "manual"}
+{"ts": 1781718968.5958664, "op": "add_atom", "target": "T3/EXP_wave14zh_continual_overcap", "note": "", "source": "manual"}
+{"ts": 1781718969.2843108, "op": "add_atom", "target": "T3/EXP_wave14zh_continual_overcap_smoke", "note": "", "source": "manual"}
+{"ts": 1781718969.9969082, "op": "add_atom", "target": "T3/EXP_wave14zi_continual_4N", "note": "", "source": "manual"}
+{"ts": 1781718970.7315724, "op": "add_atom", "target": "T3/EXP_wave14zi_continual_4N_smoke", "note": "", "source": "manual"}
+{"ts": 1781718971.4117873, "op": "add_atom", "target": "T3/EXP_wave14zj_edit_reversibility", "note": "", "source": "manual"}
+{"ts": 1781718972.1593268, "op": "add_atom", "target": "T3/EXP_wave14zj_edit_reversibility_smoke", "note": "", "source": "manual"}
+{"ts": 1781718973.150079, "op": "add_atom", "target": "T3/EXP_wave14zk_noisy_edit_keys", "note": "", "source": "manual"}
+{"ts": 1781718973.9946177, "op": "add_atom", "target": "T3/EXP_wave14zk_noisy_edit_keys_smoke", "note": "", "source": "manual"}
+{"ts": 1781718975.0042152, "op": "add_atom", "target": "T3/EXP_wave14zl_calibration_after_edit", "note": "", "source": "manual"}
+{"ts": 1781718976.5965571, "op": "add_atom", "target": "T3/EXP_wave14zl_calibration_after_edit_smoke", "note": "", "source": "manual"}
+{"ts": 1781718977.7523475, "op": "add_atom", "target": "T3/EXP_wave14zm_noise_robust", "note": "", "source": "manual"}
+{"ts": 1781718978.437214, "op": "add_atom", "target": "T3/EXP_wave14zm_noise_robust_smoke", "note": "", "source": "manual"}
+{"ts": 1781718979.1211257, "op": "add_atom", "target": "T3/EXP_wave14zn_edit_order_invariance", "note": "", "source": "manual"}
+{"ts": 1781718979.8044796, "op": "add_atom", "target": "T3/EXP_wave14zn_edit_order_invariance_smoke", "note": "", "source": "manual"}
+{"ts": 1781718979.8359325, "op": "add_relation", "target": "T3/EXP_wave14source_monitoring|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14source_monitoring DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718979.8675172, "op": "add_relation", "target": "T3/EXP_wave14source_monitoring_extended|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14source_monitoring_extended DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718979.883274, "op": "add_relation", "target": "T3/EXP_wave14source_monitoring_extended_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14source_monitoring_extended_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718979.9148014, "op": "add_relation", "target": "T3/EXP_wave14source_monitoring_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14source_monitoring_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718979.957981, "op": "add_relation", "target": "T3/EXP_wave14t_multihop_v3|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14t_multihop_v3 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718979.9872806, "op": "add_relation", "target": "T3/EXP_wave14t_multihop_v3_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14t_multihop_v3_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.002468, "op": "add_relation", "target": "T3/EXP_wave14t_tem_cross_env|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14t_tem_cross_env DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.0463257, "op": "add_relation", "target": "T3/EXP_wave14yd_calibration_fact_retrieval|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14yd_calibration_fact_retrieval DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.0721135, "op": "add_relation", "target": "T3/EXP_wave14yd_calibration_fact_retrieval_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14yd_calibration_fact_retrieval_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.104585, "op": "add_relation", "target": "T3/EXP_wave14yonelinas_roc_v2|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14yonelinas_roc_v2 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.116671, "op": "add_relation", "target": "T3/EXP_wave14yonelinas_roc_v2_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14yonelinas_roc_v2_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.1600764, "op": "add_relation", "target": "T3/EXP_wave14yw_polysemy_shared_subj|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14yw_polysemy_shared_subj DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.1858382, "op": "add_relation", "target": "T3/EXP_wave14yw_polysemy_shared_subj_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14yw_polysemy_shared_subj_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.2177262, "op": "add_relation", "target": "T3/EXP_wave14z_multihop_hadamard_entities|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14z_multihop_hadamard_entities DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.2336102, "op": "add_relation", "target": "T3/EXP_wave14z_multihop_hadamard_entities|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14z_multihop_hadamard_entities DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.2650945, "op": "add_relation", "target": "T3/EXP_wave14z_multihop_hadamard_entities_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_wave14z_multihop_hadamard_entities_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718980.2967184, "op": "add_relation", "target": "T3/EXP_wave14z_multihop_hadamard_entities_smoke|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave14z_multihop_hadamard_entities_smoke DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781718982.7196178, "op": "add_atom", "target": "T3/EXP_wave14zo_alpha_sweep", "note": "", "source": "manual"}
+{"ts": 1781718983.376572, "op": "add_atom", "target": "T3/EXP_wave14zo_alpha_sweep_smoke", "note": "", "source": "manual"}
+{"ts": 1781718984.0503983, "op": "add_atom", "target": "T3/EXP_wave14zp_kerdock_v8_32coset_retry", "note": "", "source": "manual"}
+{"ts": 1781718984.753925, "op": "add_atom", "target": "T3/EXP_wave14zp_kerdock_v8_32coset_retry_smoke", "note": "", "source": "manual"}
+{"ts": 1781718985.4562805, "op": "add_atom", "target": "T3/EXP_wave14zq_continual_8N_kerdock_only_smoke", "note": "", "source": "manual"}
+{"ts": 1781718986.144326, "op": "add_atom", "target": "T3/EXP_wave14zq_continual_8N_smoke", "note": "", "source": "manual"}
+{"ts": 1781718986.867953, "op": "add_atom", "target": "T3/EXP_wave14zr_extreme_noise", "note": "", "source": "manual"}
+{"ts": 1781718987.5659933, "op": "add_atom", "target": "T3/EXP_wave14zr_extreme_noise_smoke", "note": "", "source": "manual"}
+{"ts": 1781718988.2509172, "op": "add_atom", "target": "T3/EXP_wave14zs_reversibility_long", "note": "", "source": "manual"}
+{"ts": 1781718988.9213035, "op": "add_atom", "target": "T3/EXP_wave14zs_reversibility_long_smoke", "note": "", "source": "manual"}
+{"ts": 1781718989.6154408, "op": "add_atom", "target": "T3/EXP_wave14zt_continual_16N_kerdock_only_smoke", "note": "", "source": "manual"}
+{"ts": 1781718990.3497558, "op": "add_atom", "target": "T3/EXP_wave14zt_continual_16N_smoke", "note": "", "source": "manual"}
+{"ts": 1781718991.067097, "op": "add_atom", "target": "T3/EXP_wave14zu_parallel_batch_edit", "note": "", "source": "manual"}
+{"ts": 1781718991.7744565, "op": "add_atom", "target": "T3/EXP_wave14zu_parallel_batch_edit_smoke", "note": "", "source": "manual"}
+{"ts": 1781718992.51527, "op": "add_atom", "target": "T3/EXP_wave14zv_sparse_keys", "note": "", "source": "manual"}
+{"ts": 1781718993.417042, "op": "add_atom", "target": "T3/EXP_wave14zv_sparse_keys_smoke", "note": "", "source": "manual"}
+{"ts": 1781718994.133453, "op": "add_atom", "target": "T3/EXP_wave15_ewc_betB_smoke_v1", "note": "", "source": "manual"}
+{"ts": 1781718994.849709, "op": "add_atom", "target": "T3/EXP_wave45_gradient_w_frozen_atoms", "note": "", "source": "manual"}
+{"ts": 1781718995.5441904, "op": "add_atom", "target": "T3/EXP_wave45_v4_sgd", "note": "", "source": "manual"}
+{"ts": 1781718996.33361, "op": "add_atom", "target": "T3/EXP_wave46_learnable_offsets", "note": "", "source": "manual"}
+{"ts": 1781718997.519832, "op": "add_atom", "target": "T3/EXP_wave4_full_streaming_battery_n8192_v1", "note": "", "source": "manual"}
+{"ts": 1781718998.5508037, "op": "add_atom", "target": "T3/EXP_wave5_cell5_combo1_n32768_local_v1", "note": "", "source": "manual"}
+{"ts": 1781718999.2714922, "op": "add_atom", "target": "T3/EXP_wave8_clifford_g20", "note": "", "source": "manual"}
+{"ts": 1781719000.1230118, "op": "add_atom", "target": "T3/EXP_wave9_mps_prototype", "note": "", "source": "manual"}
+{"ts": 1781719000.8034804, "op": "add_atom", "target": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781719001.5641353, "op": "add_atom", "target": "T3/EXP_wikipedia_ingest_100k_gpu_v1", "note": "", "source": "manual"}
+{"ts": 1781719002.290256, "op": "add_atom", "target": "T3/EXP_wikipedia_ingest_benchmark_gpu_v1", "note": "", "source": "manual"}
+{"ts": 1781719003.0208423, "op": "add_atom", "target": "T3/EXP_zkl_completeness_soundness_v1", "note": "", "source": "manual"}
+{"ts": 1781719003.706906, "op": "add_atom", "target": "T3/EXP_zkl_curve_k_sweep_realkeys_v1", "note": "", "source": "manual"}
+{"ts": 1781719004.4354017, "op": "add_atom", "target": "T3/EXP_zkl_earlier_layer_mitigation_v1", "note": "", "source": "manual"}
+{"ts": 1781719005.174595, "op": "add_atom", "target": "T3/EXP_zkl_hypB_attn_reweight_v1", "note": "", "source": "manual"}
+{"ts": 1781719005.9255595, "op": "add_atom", "target": "T3/EXP_zkl_hypB_cap_ksweep_v1", "note": "", "source": "manual"}
+{"ts": 1781719006.6709545, "op": "add_atom", "target": "T3/EXP_zkl_hypB_position_v1", "note": "", "source": "manual"}
+{"ts": 1781719007.5346572, "op": "add_atom", "target": "T3/EXP_zkl_hypB_repool_debias_v1", "note": "", "source": "manual"}
+{"ts": 1781719008.2367675, "op": "add_atom", "target": "T3/EXP_zkl_hypC_confirmatory_v1", "note": "", "source": "manual"}
+{"ts": 1781719008.9701862, "op": "add_atom", "target": "T3/EXP_zkl_hypC_cosine_entropy_v1", "note": "", "source": "manual"}
+{"ts": 1781719009.6617694, "op": "add_atom", "target": "T3/EXP_zkl_hypC_entropy_max_v1", "note": "", "source": "manual"}
+{"ts": 1781719010.3883865, "op": "add_atom", "target": "T3/EXP_zkl_hypC_gram_v1", "note": "", "source": "manual"}
+{"ts": 1781719010.416902, "op": "add_relation", "target": "T3/EXP_wave14zv_sparse_keys|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14zv_sparse_keys DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781719010.442624, "op": "add_relation", "target": "T3/EXP_wave14zv_sparse_keys_smoke|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_wave14zv_sparse_keys_smoke DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781719010.6151237, "op": "add_relation", "target": "T3/EXP_wave8_clifford_g20|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave8_clifford_g20 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781719010.646469, "op": "add_relation", "target": "T3/EXP_wave9_mps_prototype|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave9_mps_prototype DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781719010.6782897, "op": "add_relation", "target": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781719010.710001, "op": "add_relation", "target": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
