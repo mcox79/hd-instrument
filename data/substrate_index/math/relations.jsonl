@@ -234,15 +234,16 @@
 {"src_id": "T3/newton_method", "tgt_id": "T2/hessian", "rel_type": "USES", "metadata": {}}
 {"src_id": "T3/eisner_parsing", "tgt_id": "T2_FAM/sequence_decoding", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_code2_bug_rescue_exec_cpu_v1", "tgt_id": "T2/cosine_cleanup", "rel_type": "DEPENDS_ON", "metadata": {}}
+{"src_id": "T2/oeis_A004957", "tgt_id": "T2/oeis_A001622", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_transfer_p5_factrecall_mwp_cpu_v1_smoke", "tgt_id": "T2/cosine_cleanup", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A005453", "tgt_id": "T1/lie_algebra", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/dual_space", "tgt_id": "T1/duality_lagrangian", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A002315", "tgt_id": "T2/oeis_A001653", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_wave14_betS_pattern_completion_v1", "tgt_id": "T2/fhrr_bind", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/permutation_group", "tgt_id": "T1/group", "rel_type": "INSTANCE_OF", "metadata": {}}
-{"src_id": "T1/field_axioms", "tgt_id": "T1/ring_axioms", "rel_type": "DEPENDS_ON", "metadata": {}}
-{"src_id": "T3/backward_algorithm", "tgt_id": "T2/hmm_inference_operator", "rel_type": "SPECIALIZES", "metadata": {}}
 {"src_id": "T3/em_algorithm", "tgt_id": "T3/bayesian_inference", "rel_type": "USES", "metadata": {}}
+{"src_id": "T3/backward_algorithm", "tgt_id": "T2/hmm_inference_operator", "rel_type": "SPECIALIZES", "metadata": {}}
+{"src_id": "T1/field_axioms", "tgt_id": "T1/ring_axioms", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2_FAM/binders", "tgt_id": "T2/tensor_product_representation", "rel_type": "RELATES", "metadata": {}}
 {"src_id": "T2/oeis_A004310", "tgt_id": "T1/combinatorics_choose", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_r_alpha_throughput_v1", "tgt_id": "T2/modern_hopfield_ramsauer", "rel_type": "DEPENDS_ON", "metadata": {}}
@@ -453,7 +454,6 @@
 {"src_id": "T2/oeis_A003006", "tgt_id": "T2/oeis_A001622", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_iterative_regime_crossover_cpu_v1", "tgt_id": "T2/cosine_cleanup", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/total_probability", "tgt_id": "T1/conditional_probability", "rel_type": "DEPENDS_ON", "metadata": {}}
-{"src_id": "T3/EXP_resonator_bridge_extractor_v1", "tgt_id": "T2/cosine_cleanup", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_wave14_k6_axis3_cleanup_iter_v1_smoke", "tgt_id": "T2/fhrr_bind", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/ring_field", "tgt_id": "concept::MWP/SCHEMA_EQUAL_GROUPS", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A003041", "tgt_id": "T1/isomorphism", "rel_type": "DEPENDS_ON", "metadata": {}}
@@ -801,7 +801,6 @@
 {"src_id": "T1/dot_product", "tgt_id": "T1/hilbert_space", "rel_type": "RELATES", "metadata": {}}
 {"src_id": "T3/EXP_transfer_p5_factrecall_mwp_cpu_v1", "tgt_id": "T2/cosine_cleanup", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/total_derivative", "tgt_id": "T1/sufficient_statistic", "rel_type": "DEPENDS_ON", "metadata": {}}
-{"src_id": "T3/hopfield_cleanup_quad_head", "tgt_id": "T1/chinese_remainder_theorem", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A000579", "tgt_id": "T1/combinatorics_choose", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_m1_boundary_fine_v1_n4096", "tgt_id": "T3/EXP_axis1_mb_chunk1_v1", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A005039", "tgt_id": "T2/oeis_A005038", "rel_type": "DEPENDS_ON", "metadata": {}}
@@ -915,9 +914,9 @@
 {"src_id": "T2/oeis_A003040", "tgt_id": "T1/permutation_group", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_wave14_hatano_sasa_cap3_ness_crooks_v1_smoke", "tgt_id": "T2/modern_hopfield_ramsauer", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/complementary_learning_systems", "tgt_id": "T1/probability_distribution", "rel_type": "DEPENDS_ON", "metadata": {}}
-{"src_id": "T3/EXP_substrate_llama_layer_sweep_capacity_battery_gpu_v1", "tgt_id": "T2/modern_hopfield_ramsauer", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A002331", "tgt_id": "T1/sequence_convergence", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/wikidata_Q118112302", "tgt_id": "T3/wikidata_Q11348", "rel_type": "DEPENDS_ON", "metadata": {}}
+{"src_id": "T3/EXP_substrate_llama_layer_sweep_capacity_battery_gpu_v1", "tgt_id": "T2/modern_hopfield_ramsauer", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/admissible_heuristic_lemma", "tgt_id": "T3/bellman_optimality_principle_subform_lemma", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_substrate_sr3_foundational_vs_frequency_curated_tools_cpu_v1", "tgt_id": "T2/context_binding", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/wikidata_Q124256319", "tgt_id": "T3/wikidata_Q11348", "rel_type": "DEPENDS_ON", "metadata": {}}
@@ -1145,6 +1144,7 @@
 {"src_id": "T2/oeis_A000513", "tgt_id": "T1/isomorphism", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_q_a3_l6_cross_layer_composition_v1_n4096", "tgt_id": "T2/modern_hopfield_ramsauer", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2_FAM/sequence_decoding", "tgt_id": "T3/dynamic_programming", "rel_type": "DEPENDS_ON", "metadata": {}}
+{"src_id": "T3/EXP_wave14_betM_logforget_longt_v1", "tgt_id": "T3/EXP_wave14_betM_logforget_fitform_v1", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/conditional_entropy", "tgt_id": "T1/conditional_probability", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/wikidata_Q116740863", "tgt_id": "T3/wikidata_Q11348", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2_FAM/weak_supervision", "tgt_id": "T1/probability_distribution", "rel_type": "DEPENDS_ON", "metadata": {}}
@@ -2218,6 +2218,7 @@
 {"src_id": "T3/EXP_counterfactual_axiom_exclusion_cpu_v1", "tgt_id": "T2/fhrr_bind", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/category", "tgt_id": "T1/functor", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A000158", "tgt_id": "T1/integral", "rel_type": "DEPENDS_ON", "metadata": {}}
+{"src_id": "T3/EXP_wave14b_r1_modern_hopfield", "tgt_id": "T2/modern_hopfield_ramsauer", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/ghrr_noncommutative_bind", "tgt_id": "T2/circular_convolution", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/wikidata_Q52390193", "tgt_id": "T3/wikidata_Q11563", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/cleanup", "tgt_id": "T1/inner_product", "rel_type": "DEPENDS_ON", "metadata": {}}
@@ -3700,6 +3701,6 @@
 {"src_id": "T1/conditional_entropy", "tgt_id": "T1/chain_rule_entropy", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T2/oeis_A004949", "tgt_id": "T2/oeis_A001622", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T3/EXP_fb15k237_sharding_strategy_cpu_v1", "tgt_id": "T2/fhrr_bind", "rel_type": "DEPENDS_ON", "metadata": {}}
-{"src_id": "T2/oeis_A004957", "tgt_id": "T2/oeis_A001622", "rel_type": "DEPENDS_ON", "metadata": {}}
-{"src_id": "T3/EXP_wave14_betM_logforget_longt_v1", "tgt_id": "T3/EXP_wave14_betM_logforget_fitform_v1", "rel_type": "DEPENDS_ON", "metadata": {}}
+{"src_id": "T3/EXP_resonator_bridge_extractor_v1", "tgt_id": "T2/cosine_cleanup", "rel_type": "DEPENDS_ON", "metadata": {}}
+{"src_id": "T3/hopfield_cleanup_quad_head", "tgt_id": "T1/chinese_remainder_theorem", "rel_type": "DEPENDS_ON", "metadata": {}}
 {"src_id": "T1/lp_space", "tgt_id": "T1/integral", "rel_type": "DEPENDS_ON", "metadata": {}}
