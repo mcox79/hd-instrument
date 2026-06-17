@@ -82,9 +82,15 @@ SECTION_CAND_RE = re.compile(r'^#{1,4}\s.*(candidate|anchor|recommend|ranked|nex
 # Skunkworks STEP-B ruling-A enhancement: capture PROSE result-lines (251 notes state findings under
 # ## Trigger / **Anchor pointer** / prose that the header-only SECTION_FIND_RE misses). Deterministic (11th-rule).
 RESULT_LINE_RE = re.compile(
-    r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|CONFIRMED|REFUTED|VALIDATED|MIDDLE_BAND|\d+(?:\.\d+)?\s*(?:x|%|pp)\b|->|'
-    r'\bwe found\b|\bresults? show\b|\banchor pointer\b|\bheadline\b|\bp_?deflated\b|\brecall@?\d|\bf1\b|\bacc(?:uracy)?\b)',
+    r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|\bCONFIRMED\b|\bREFUTED\b|\bVALIDATED\b|MIDDLE_BAND|\d+(?:\.\d+)?\s*(?:x|%|pp)\b|->|'
+    r'\bwe found\b|\bresults? show\b|\bachieves?\b|\bmeasured\b|\bp_?deflated\b|\brecall@?\d|\bF1\b|\bacc(?:uracy)?\b)',
     re.IGNORECASE)
+# Skunkworks precision-guard: a STRONG result signal (numeric/arrow/pass-fail) lets a line survive even if it also
+# reads as a request; a REQUEST line WITHOUT a strong result is DROPPED (so what_found carries findings, not requests).
+STRONG_RESULT_RE = re.compile(r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|\bCONFIRMED\b|\bREFUTED\b|\bVALIDATED\b|'
+                              r'\d+(?:\.\d+)?\s*(?:x|%|pp)\b|->)', re.IGNORECASE)
+REQUEST_RE = re.compile(r'\b(probe|dispatch|please run|should run|request|TODO|next.?step|propose|recommend\w* running|'
+                        r'hand.?off|to run|will run|plan to)\b', re.IGNORECASE)
 
 
 def classify(fname: str) -> bool:
@@ -142,6 +148,8 @@ def capture_findings(text: str) -> str:
         if not s or ln.lstrip().startswith("#"):
             continue
         if RESULT_LINE_RE.search(s):
+            if REQUEST_RE.search(s) and not STRONG_RESULT_RE.search(s):
+                continue   # request/intent line without a strong result -> NOT a finding (precision-guard)
             if s not in prose:
                 prose.append(s)
         if len(prose) >= 6:
