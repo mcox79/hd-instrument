@@ -15,9 +15,18 @@ rescue-dispatch to modern-Hopfield surprise-energy). P_deflated=0.45 (one named 
 
 ## Design (3-arm diagnostic + matched lift; reuse existing B3b cell)
 ```
-BASE CELL: the B3b surprise-gating anchor (candidate: experiments/exp_surprise_gated_pool_charlm.py -- SCHEMA-VET item:
-   CONFIRM the B3b anchor cell + that it is NOT blocked by the Tier-6 charLM pause [the gating MECHANISM is general;
-   the cell merely tests it on a pooled charLM task -- the diagnostic is mechanism-level, not LM-training-dependent]).
+BASE TASK (R1 RESOLVED -- data-independence confirmed; OPTION A chosen): the original anchor
+   exp_surprise_gated_pool_charlm.py IS charLM-DEPENDENT (Titans surprise-gate scored by BPC on a char-LM byte-
+   prediction task, baseline 2.4994) -> charLM is DATA-PAUSED (USER; Tier-6) -> a "lift failed" there could be a DATA
+   artifact, NOT a gating-mechanism artifact (the confound Skunkworks flagged). RESOLUTION (Director-recommended A):
+   re-scope the MECHANISM recapture to a DATA-SUFFICIENT SYNTHETIC memory-pool gating task where data is NOT the binding
+   constraint -- a pool fed a controllable Zipf/power-law item-frequency stream (the real "frequent items flood the pool,
+   crowd out rare/informative" problem, generated to any size), metric = pool-retrieval top-1 quality under write-all vs
+   surprise-gated writes. The Titans surprise-gate + the 3 named-failure-mode arms are MECHANISM-level (router-collapse/
+   ECE/noisy-TV) and run identically on the synthetic pool. This tests the GATING-MECHANISM recapture cleanly; the
+   charLM-pool (BPC) instantiation DEFERS to Tier-6-resume (when language packs are ingested) -- so the verdict cannot be
+   confounded by char-LM data scarcity. (If Director prefers OPTION C, add the charLM-data-limited regime as a reported
+   CONTROL alongside; but A is the clean primary.)
 ARM 1 (router/specialization COLLAPSE): diagnostic = router-logit norm + per-expert token-share entropy over last 100
    batches. COLLAPSE iff max-share > 0.40 OR token-share entropy < 0.7*uniform. LIFT = L2-normalize hidden + low-dim
    projection before routing (Chi 2022 XMoE) + router z-loss (Zoph 2022, coef 1e-3).
@@ -35,6 +44,12 @@ SEEDS: >=5 (drill specifies n>=5, p<0.05). COMPUTE: diagnostics = laptop-cheap (
 ARM 1 LIFT (L2 + z-loss + low-dim route):  HARD-PASS = >= +6 pp on B3b metric vs MIDDLE baseline (expected +8..+15).
 ARM 2 LIFT (temperature scaling):          HARD-PASS = >= +4 pp (expected +3..+8; cheapest, no retrain).
 ARM 3 LIFT (forward-error -> RND):         HARD-PASS = >= +5 pp (expected +5..+12 if NOISY-TV dominant).
+R2 BASELINE-DISCRIMINATING-RANGE (Skunkworks-required; before scoring any +Npp LIFT): CONFIRM the write-all baseline
+   pool-retrieval metric is measurably BETWEEN floor (chance) and ceiling (saturation) -- NOT already ~0 (nothing to
+   lift) and NOT already near-perfect (no headroom). If the baseline is degenerate (floor/ceiling), the +Npp lift is
+   undetectable -> that config is a NON-TEST (report it; re-pick the pool load so the baseline is discriminating). This
+   makes the LIFT measurement meaningful. (The all-3-fail -> HONEST_BOUNDED structural-closure verdict already has its
+   discriminating guard via the diagnostics: max-share<0.30 + ECE<0.03 + noise-firing<0.5x.)
 VERDICT MAP:
    any arm HARD-PASS -> PASS (B3b cap_map VALIDATED; surprise-gating becomes load-bearing conditional-compute primitive;
       the winning mode+lift is the recaptured mechanism; cert-grade at >=5 seeds; method-contingent).

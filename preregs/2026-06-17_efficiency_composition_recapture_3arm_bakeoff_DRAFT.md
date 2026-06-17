@@ -37,8 +37,22 @@ ARM A HARD-PASS: capacity slope >= 0.85 * linear-in-N theoretical at d=2 AND sub
    HARD-FAIL:    capacity slope <= 0.60 of linear-in-N -> binder is NOT the bottleneck.
 ARM B HARD-PASS: factorization success >= 0.80 at f=3,k=N^(1/3) AND decode latency O(f*k) not O(k^f).
    HARD-FAIL:    factorization success <= 0.50 at f=3 -> decoder dynamics do not recover multiplicative reach.
-ARM C HARD-PASS: GSBC matches ARM B success at >= 2x faster wall-clock AND sparsity preserved across >= 3 depths.
-   HARD-FAIL:    sparsity collapses (density grows linearly with depth) -> sparse binding does not iterate stably.
+ARM C HARD-PASS (R2 -- ABSOLUTE bar, independent of ARM-B so it is scorable when ARM-B fails): factorization
+   success >= 0.80 at f=3,k=N^(1/3) (the SAME absolute bar as ARM-B's target, NOT "matches ARM-B") AND >= 2x faster
+   wall-clock than ARM-B's decode AND sparsity preserved across >= 3 depths.
+   HARD-FAIL:    factorization success <= 0.50 at f=3 OR sparsity collapses (density grows linearly with depth).
+```
+
+## R1 -- DISCRIMINATING-REGIME GUARD per depth (Skunkworks-required; DEGENERATE-REGIME-NOT-REFUTATION class)
+```
+BEFORE scoring per-arm HARD-PASS/HARD-FAIL at a depth d, CONFIRM that depth is in the DISCRIMINATING range:
+   a REFERENCE point (e.g. ARM-A unitary at the lowest load, or the dense oracle) achieves composite recall
+   measurably > chance AND < ceiling at d. If at depth d ALL arms (incl. the reference) collapse to ~0 -- e.g.
+   d=4 at N=2048 may be beyond EVERY method's reach -- that depth is a NON-TEST (the task is degenerate-hard there,
+   not the methods failing): REPORT it as NON-TEST, DO NOT score it as HARD-FAIL, and DO NOT let it drive the
+   all-arms-fail -> "intrinsic sub-mult ceiling" verdict. The HONEST_BOUNDED (intrinsic-ceiling) verdict requires
+   all arms to fail AT A DEPTH THAT IS DEMONSTRABLY DISCRIMINATING (reference > chance). (D-ECR both-1.000 lesson
+   applied to the low-end dead-zone: saturation at EITHER end = a non-test, not a verdict.)
 VERDICT MAP:
    any arm HARD-PASS -> PASS (recapture; cap_map green "linear-capacity vectors address k^f composite space"); the
       winning arm's mechanism is the recaptured capability (cert-grade at FULL >=3 seeds; method-contingent envelope).
