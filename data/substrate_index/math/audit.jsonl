@@ -35063,3 +35063,132 @@
 {"ts": 1781663600.0883527, "op": "add_relation", "target": "T3/EXP_active_inference_e1_e2_cpu_v1|DEPENDS_ON|T2/fractional_power_encoding", "note": "T3/EXP_active_inference_e1_e2_cpu_v1 DEPENDS_ON math::T2/fractional_power_encoding (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
 {"ts": 1781663600.106692, "op": "add_relation", "target": "T3/EXP_active_inference_e2_tuned_cpu_v1|DEPENDS_ON|T2/fractional_power_encoding", "note": "T3/EXP_active_inference_e2_tuned_cpu_v1 DEPENDS_ON math::T2/fractional_power_encoding (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
 {"ts": 1781663600.1244123, "op": "add_relation", "target": "T3/EXP_adaptive_cleanup_operator_v1_n4096_smoke|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_adaptive_cleanup_operator_v1_n4096_smoke DEPENDS_ON math::T2/cosine_cleanup (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663895.826906, "op": "add_atom", "target": "T3/EXP_adversarial_aqsim_path_d_compose_v5_k2_n16384", "note": "", "source": "manual"}
+{"ts": 1781663896.4146793, "op": "add_atom", "target": "T3/EXP_adversarial_codebook_collision_defense_probe_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663897.1083717, "op": "add_atom", "target": "T3/EXP_adversarial_multi_hop_probing_v1_n4096_smoke", "note": "", "source": "manual"}
+{"ts": 1781663897.764426, "op": "add_atom", "target": "T3/EXP_adversarial_multi_hop_probing_v2_n4096", "note": "", "source": "manual"}
+{"ts": 1781663898.3890758, "op": "add_atom", "target": "T3/EXP_agentic_edge_cases_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663898.998123, "op": "add_atom", "target": "T3/EXP_agentic_workload_characterization_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663899.5060027, "op": "add_atom", "target": "T3/EXP_aging_exponent_mu_v1", "note": "", "source": "manual"}
+{"ts": 1781663899.999476, "op": "add_atom", "target": "T3/EXP_alpha1_cleanup_sweep_n4096", "note": "", "source": "manual"}
+{"ts": 1781663900.5144877, "op": "add_atom", "target": "T3/EXP_alpha2_codebook_variation_n4096", "note": "", "source": "manual"}
+{"ts": 1781663901.078378, "op": "add_atom", "target": "T3/EXP_alpha_mu_snap_interaction_v1", "note": "", "source": "manual"}
+{"ts": 1781663901.5690873, "op": "add_atom", "target": "T3/EXP_alternative_edit_isolation_mechanisms_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663902.108578, "op": "add_atom", "target": "T3/EXP_analogy_chain_transfer_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663902.6085014, "op": "add_atom", "target": "T3/EXP_analogy_map_v1", "note": "", "source": "manual"}
+{"ts": 1781663903.110119, "op": "add_atom", "target": "T3/EXP_analogy_relation_transfer_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663903.6298263, "op": "add_atom", "target": "T3/EXP_analogy_transfer_continuous_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663904.2326038, "op": "add_atom", "target": "T3/EXP_anchor_novel_class_declaration_probe_v1", "note": "", "source": "manual"}
+{"ts": 1781663904.7809308, "op": "add_atom", "target": "T3/EXP_anchor_novel_phase_battery_v1", "note": "", "source": "manual"}
+{"ts": 1781663905.32742, "op": "add_atom", "target": "T3/EXP_anchor_novel_phase_battery_v2_lit_threads", "note": "", "source": "manual"}
+{"ts": 1781663905.8562365, "op": "add_atom", "target": "T3/EXP_anchor_novel_phase_battery_v3_n8192", "note": "", "source": "manual"}
+{"ts": 1781663906.3425248, "op": "add_atom", "target": "T3/EXP_api_as_of_checkpoint_v1", "note": "", "source": "manual"}
+{"ts": 1781663906.8589108, "op": "add_atom", "target": "T3/EXP_api_subscribe_as_of_composition_v1", "note": "", "source": "manual"}
+{"ts": 1781663907.378621, "op": "add_atom", "target": "T3/EXP_api_subscribe_poc_v1", "note": "", "source": "manual"}
+{"ts": 1781663907.8892665, "op": "add_atom", "target": "T3/EXP_api_verify_roundtrip_v1", "note": "", "source": "manual"}
+{"ts": 1781663908.4209616, "op": "add_atom", "target": "T3/EXP_approximate_multi_hop_sampling_v1_n4096_smoke", "note": "", "source": "manual"}
+{"ts": 1781663908.9996395, "op": "add_atom", "target": "T3/EXP_aqsim_3way_diagnostic_verbose_v2_n4096", "note": "", "source": "manual"}
+{"ts": 1781663909.514841, "op": "add_atom", "target": "T3/EXP_arc_lirs_hybrid_v1", "note": "", "source": "manual"}
+{"ts": 1781663910.010145, "op": "add_atom", "target": "T3/EXP_argumentation_grounded_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663910.4988396, "op": "add_atom", "target": "T3/EXP_arm2_smoke_test", "note": "", "source": "manual"}
+{"ts": 1781663911.0152805, "op": "add_atom", "target": "T3/EXP_arm2_timing", "note": "", "source": "manual"}
+{"ts": 1781663911.5926628, "op": "add_atom", "target": "T3/EXP_arm2_v2_smoke", "note": "", "source": "manual"}
+{"ts": 1781663912.0897477, "op": "add_atom", "target": "T3/EXP_asdiv_3op_ceiling_constants_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663912.5942035, "op": "add_atom", "target": "T3/EXP_asdiv_3op_ceiling_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663913.4371548, "op": "add_atom", "target": "T3/EXP_asdiv_3op_ceiling_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663913.9859703, "op": "add_atom", "target": "T3/EXP_asdiv_bma_ensemble_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663914.526795, "op": "add_atom", "target": "T3/EXP_asdiv_bma_ensemble_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663915.1548507, "op": "add_atom", "target": "T3/EXP_asdiv_cascade_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663915.7550797, "op": "add_atom", "target": "T3/EXP_asdiv_cascade_v2_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663916.2722287, "op": "add_atom", "target": "T3/EXP_asdiv_cascade_wk_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663916.8408942, "op": "add_atom", "target": "T3/EXP_asdiv_cascade_wk_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663917.4877934, "op": "add_atom", "target": "T3/EXP_asdiv_math_wk_oracle_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663918.004191, "op": "add_atom", "target": "T3/EXP_asdiv_math_wk_oracle_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663918.4832487, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_multiseed_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663919.061694, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_multiseed_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663919.56153, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_port_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663920.0740027, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_port_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663920.5605323, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_wk_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663921.168251, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_wk_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663921.6706836, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_wk_multiseed_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663922.2795513, "op": "add_atom", "target": "T3/EXP_asdiv_pp375_wk_multiseed_cpu_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663922.858657, "op": "add_atom", "target": "T3/EXP_asdiv_program_ranker_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663923.4366906, "op": "add_relation", "target": "T3/EXP_aging_exponent_mu_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_aging_exponent_mu_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.4574788, "op": "add_relation", "target": "T3/EXP_alpha1_cleanup_sweep_n4096|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_alpha1_cleanup_sweep_n4096 DEPENDS_ON math::T2/cosine_cleanup (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.4806633, "op": "add_relation", "target": "T3/EXP_analogy_map_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_analogy_map_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.4985604, "op": "add_relation", "target": "T3/EXP_analogy_transfer_continuous_cpu_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_analogy_transfer_continuous_cpu_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.5142717, "op": "add_relation", "target": "T3/EXP_analogy_transfer_continuous_cpu_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_analogy_transfer_continuous_cpu_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.5299323, "op": "add_relation", "target": "T3/EXP_anchor_novel_phase_battery_v2_lit_threads|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_anchor_novel_phase_battery_v2_lit_threads DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.5592263, "op": "add_relation", "target": "T3/EXP_argumentation_grounded_cpu_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_argumentation_grounded_cpu_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663923.58239, "op": "add_relation", "target": "T3/EXP_asdiv_cascade_cpu_v1|DEPENDS_ON|T3/discriminative_perceptron", "note": "T3/EXP_asdiv_cascade_cpu_v1 DEPENDS_ON math::T3/discriminative_perceptron (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663925.6636324, "op": "add_atom", "target": "T3/EXP_asdiv_solver_wk_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663926.1868231, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk1_v1", "note": "", "source": "manual"}
+{"ts": 1781663926.8282158, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk2_v1", "note": "", "source": "manual"}
+{"ts": 1781663927.4407427, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk3_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663927.9989924, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk4_n8192", "note": "", "source": "manual"}
+{"ts": 1781663928.513819, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk5_n4096", "note": "", "source": "manual"}
+{"ts": 1781663929.1305888, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk6_n4096", "note": "", "source": "manual"}
+{"ts": 1781663929.6867707, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk7_n4096", "note": "", "source": "manual"}
+{"ts": 1781663930.1861026, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk8_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663930.7237067, "op": "add_atom", "target": "T3/EXP_axis1_mb_chunk9_v1_n8192", "note": "", "source": "manual"}
+{"ts": 1781663931.4840343, "op": "add_atom", "target": "T3/EXP_axis2_codebook_density_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663931.9969141, "op": "add_atom", "target": "T3/EXP_axis3_triplepoint_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663932.512043, "op": "add_atom", "target": "T3/EXP_axis3_triplepoint_v2_n4096", "note": "", "source": "manual"}
+{"ts": 1781663933.1082263, "op": "add_atom", "target": "T3/EXP_axis3_triplepoint_v3_n4096", "note": "", "source": "manual"}
+{"ts": 1781663933.7131793, "op": "add_atom", "target": "T3/EXP_axis4_hyst_ramp_v1_n4096", "note": "", "source": "manual"}
+{"ts": 1781663934.216447, "op": "add_atom", "target": "T3/EXP_b1_continuous_strength_n16384_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663934.8072836, "op": "add_atom", "target": "T3/EXP_b2_self_improving_routing_3seed_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663935.3273554, "op": "add_atom", "target": "T3/EXP_batched_deletion_extended_v1", "note": "", "source": "manual"}
+{"ts": 1781663935.9047735, "op": "add_atom", "target": "T3/EXP_batched_deletion_reliability_v1", "note": "", "source": "manual"}
+{"ts": 1781663936.5763218, "op": "add_atom", "target": "T3/EXP_beam_retrieval_cpu_v1", "note": "", "source": "manual"}
+{"ts": 1781663937.4301348, "op": "add_atom", "target": "T3/EXP_bet_b_4stage_batch128_v1", "note": "", "source": "manual"}
+{"ts": 1781663938.0746381, "op": "add_atom", "target": "T3/EXP_bet_b_4stage_n16384_v1", "note": "", "source": "manual"}
+{"ts": 1781663938.5850759, "op": "add_atom", "target": "T3/EXP_bet_b_4stage_phaseD_aweight_v2", "note": "", "source": "manual"}
+{"ts": 1781663939.0609763, "op": "add_atom", "target": "T3/EXP_bet_b_4stage_rehab_epochs_v3", "note": "", "source": "manual"}
+{"ts": 1781663939.654894, "op": "add_atom", "target": "T3/EXP_bet_b_cl_frozen_phaseA_v1", "note": "", "source": "manual"}
+{"ts": 1781663940.3272688, "op": "add_atom", "target": "T3/EXP_bet_b_cl_wide_phaseA_v1", "note": "", "source": "manual"}
+{"ts": 1781663940.825327, "op": "add_atom", "target": "T3/EXP_bet_b_cls_dual_w_smoke", "note": "", "source": "manual"}
+{"ts": 1781663941.4264736, "op": "add_atom", "target": "T3/EXP_bet_b_genreplay_phaseD_v1_n2048", "note": "", "source": "manual"}
+{"ts": 1781663941.998576, "op": "add_atom", "target": "T3/EXP_bet_b_hebb_consolidation_v1", "note": "", "source": "manual"}
+{"ts": 1781663942.5662525, "op": "add_atom", "target": "T3/EXP_bet_b_k1_ceiling_stress_n8192_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781663943.1596649, "op": "add_atom", "target": "T3/EXP_bet_b_moe_per_task_dg_gating_v1_n2048", "note": "", "source": "manual"}
+{"ts": 1781663943.6659217, "op": "add_atom", "target": "T3/EXP_bet_b_n8192_4stage_v1", "note": "", "source": "manual"}
+{"ts": 1781663944.187362, "op": "add_atom", "target": "T3/EXP_bet_b_tp_hdc_subspace_v1_n2048", "note": "", "source": "manual"}
+{"ts": 1781663944.9994106, "op": "add_atom", "target": "T3/EXP_bid_m_normalized_v1", "note": "", "source": "manual"}
+{"ts": 1781663945.569177, "op": "add_atom", "target": "T3/EXP_bid_m_normalized_v2_n4096", "note": "", "source": "manual"}
+{"ts": 1781663946.081988, "op": "add_atom", "target": "T3/EXP_bid_m_normalized_v3_n4096", "note": "", "source": "manual"}
+{"ts": 1781663946.593859, "op": "add_atom", "target": "T3/EXP_bid_m_normalized_v4_n8192", "note": "", "source": "manual"}
+{"ts": 1781663947.0790195, "op": "add_atom", "target": "T3/EXP_bid_m_normalized_v5_n8192", "note": "", "source": "manual"}
+{"ts": 1781663947.5925605, "op": "add_atom", "target": "T3/EXP_bid_n_stability_v2", "note": "", "source": "manual"}
+{"ts": 1781663948.1521869, "op": "add_atom", "target": "T3/EXP_bid_n_stability_v3_n16384", "note": "", "source": "manual"}
+{"ts": 1781663948.7176898, "op": "add_atom", "target": "T3/EXP_bid_n_stability_v4_n12288", "note": "", "source": "manual"}
+{"ts": 1781663949.2249806, "op": "add_atom", "target": "T3/EXP_bid_n_sweep_v1", "note": "", "source": "manual"}
+{"ts": 1781663949.7797182, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v1", "note": "", "source": "manual"}
+{"ts": 1781663950.320883, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v1_nsweep_test", "note": "", "source": "manual"}
+{"ts": 1781663950.9631186, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v2", "note": "", "source": "manual"}
+{"ts": 1781663951.4974308, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v3_full", "note": "", "source": "manual"}
+{"ts": 1781663952.0007384, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v4_full", "note": "", "source": "manual"}
+{"ts": 1781663952.6466496, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v6_n4096", "note": "", "source": "manual"}
+{"ts": 1781663953.1557906, "op": "add_atom", "target": "T3/EXP_bid_order_parameter_v7_n4096_bsc", "note": "", "source": "manual"}
+{"ts": 1781663953.7055268, "op": "add_atom", "target": "T3/EXP_bid_substrate_probe_v1", "note": "", "source": "manual"}
+{"ts": 1781663954.237119, "op": "add_relation", "target": "T3/EXP_axis1_mb_chunk1_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_axis1_mb_chunk1_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.2481892, "op": "add_relation", "target": "T3/EXP_axis1_mb_chunk2_v1|DEPENDS_ON|T3/spectral_gap", "note": "T3/EXP_axis1_mb_chunk2_v1 DEPENDS_ON math::T3/spectral_gap (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.263854, "op": "add_relation", "target": "T3/EXP_axis3_triplepoint_v1_n4096|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_axis3_triplepoint_v1_n4096 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.2955806, "op": "add_relation", "target": "T3/EXP_b1_continuous_strength_n16384_cpu_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_b1_continuous_strength_n16384_cpu_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.3112216, "op": "add_relation", "target": "T3/EXP_bet_b_n8192_4stage_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_bet_b_n8192_4stage_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.3369312, "op": "add_relation", "target": "T3/EXP_bid_m_normalized_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_m_normalized_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.3580983, "op": "add_relation", "target": "T3/EXP_bid_m_normalized_v2_n4096|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_m_normalized_v2_n4096 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.373921, "op": "add_relation", "target": "T3/EXP_bid_m_normalized_v3_n4096|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_m_normalized_v3_n4096 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.3897195, "op": "add_relation", "target": "T3/EXP_bid_m_normalized_v4_n8192|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_m_normalized_v4_n8192 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.4215868, "op": "add_relation", "target": "T3/EXP_bid_m_normalized_v5_n8192|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_m_normalized_v5_n8192 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.4372208, "op": "add_relation", "target": "T3/EXP_bid_n_stability_v2|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_n_stability_v2 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.465931, "op": "add_relation", "target": "T3/EXP_bid_n_stability_v3_n16384|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_n_stability_v3_n16384 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.4835818, "op": "add_relation", "target": "T3/EXP_bid_n_stability_v4_n12288|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_n_stability_v4_n12288 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.4994168, "op": "add_relation", "target": "T3/EXP_bid_n_sweep_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_n_sweep_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.5309038, "op": "add_relation", "target": "T3/EXP_bid_order_parameter_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_order_parameter_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.547033, "op": "add_relation", "target": "T3/EXP_bid_order_parameter_v2|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_order_parameter_v2 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.5719824, "op": "add_relation", "target": "T3/EXP_bid_order_parameter_v3_full|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_order_parameter_v3_full DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.5770473, "op": "add_relation", "target": "T3/EXP_bid_order_parameter_v4_full|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_order_parameter_v4_full DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.608929, "op": "add_relation", "target": "T3/EXP_bid_order_parameter_v6_n4096|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_order_parameter_v6_n4096 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.6249156, "op": "add_relation", "target": "T3/EXP_bid_order_parameter_v7_n4096_bsc|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_order_parameter_v7_n4096_bsc DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781663954.6406558, "op": "add_relation", "target": "T3/EXP_bid_substrate_probe_v1|DEPENDS_ON|T2/modern_hopfield_ramsauer", "note": "T3/EXP_bid_substrate_probe_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
