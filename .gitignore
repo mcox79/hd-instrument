@@ -42,20 +42,16 @@ htmlcov/
 # Project
 data/*
 !data/.gitkeep
-# DECISION 220 Tier-1 preservation sweep: load-bearing experimental measurements.
-# Negation patterns must come BEFORE excludes that would re-exclude them.
+# DECISION 220 Tier-1 preservation sweep: keep load-bearing experimental measurements.
+# Pattern requires: (1) unignore subdirs so git traverses, (2) re-ignore their contents,
+# (3) explicit allowlist for files we want tracked.
 !data/*/
+data/*/**
 !data/*/metrics.json
 !data/*/results.json
 !data/*/provenance.json
 !data/*/verdict.json
 !data/*/recent_verdicts.json
-# Keep heavy artifacts excluded even within data/<exp>/ dirs:
-data/*/model_weights.*
-data/*/*.npy
-data/*/*.pkl
-data/*/cache/
-data/*/__pycache__/
 *.log
 
 # MVP designs - gitignored until disclosure decision (see mvp/README.md)
