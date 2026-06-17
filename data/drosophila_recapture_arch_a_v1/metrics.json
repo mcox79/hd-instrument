@@ -1,0 +1,114 @@
+{
+  "anchor_name": "drosophila_recapture_arch_a_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "sparse-key NEUTRAL: f_k=0.05 0.000 vs dense f_k=1.0 0.000 (delta=+0.000) within [-3pp,+5pp] at M=1024; not a recapture; bounded.",
+  "headline": "sparse-key NEUTRAL: f_k=0.05 0.000 vs dense f_k=1.0 0.000 (delta=+0.000) within [-3pp,+5pp] at M=1024; not a recapture; bounded.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    7
+  ],
+  "N": 1024,
+  "elapsed_s": 0.71,
+  "grid_exact_recall": {
+    "0.05": {
+      "M512": 0.001953125,
+      "M1024": 0.0,
+      "M2048": 0.0
+    },
+    "0.1": {
+      "M512": 0.001953125,
+      "M1024": 0.0,
+      "M2048": 0.0
+    },
+    "0.2": {
+      "M512": 0.001953125,
+      "M1024": 0.0,
+      "M2048": 0.0
+    },
+    "0.5": {
+      "M512": 0.00390625,
+      "M1024": 0.0,
+      "M2048": 0.0
+    },
+    "1.0": {
+      "M512": 0.0078125,
+      "M1024": 0.0,
+      "M2048": 0.0
+    }
+  },
+  "per_seed": {
+    "0.05": {
+      "M512": [
+        0.001953125
+      ],
+      "M1024": [
+        0.0
+      ],
+      "M2048": [
+        0.0
+      ]
+    },
+    "0.1": {
+      "M512": [
+        0.001953125
+      ],
+      "M1024": [
+        0.0
+      ],
+      "M2048": [
+        0.0
+      ]
+    },
+    "0.2": {
+      "M512": [
+        0.001953125
+      ],
+      "M1024": [
+        0.0
+      ],
+      "M2048": [
+        0.0
+      ]
+    },
+    "0.5": {
+      "M512": [
+        0.00390625
+      ],
+      "M1024": [
+        0.0
+      ],
+      "M2048": [
+        0.0
+      ]
+    },
+    "1.0": {
+      "M512": [
+        0.0078125
+      ],
+      "M1024": [
+        0.0
+      ],
+      "M2048": [
+        0.0
+      ]
+    }
+  },
+  "primary": {
+    "f_k_0.05_M1024": 0.0,
+    "f_k_1.0_M1024": 0.0,
+    "delta": 0.0,
+    "seeds_pass_5pp": false,
+    "lone_spike_guard_tripped": false
+  },
+  "prereg_bands": {
+    "HARD_PASS": "acc(0.05,M1024) >= acc(1.0,M1024)+0.05 all-seeds + monotone",
+    "HARD_FAIL_HONEST_BOUNDED": "acc(0.05,M1024) <= acc(1.0,M1024)-0.03",
+    "MIDDLE": "between",
+    "acc_thresh": 0.9
+  },
+  "recapture_of": "scorecard_claim_1_drosophila_mb_sparse_f0.05 / EXP_substrate_drosophila_mb_sparse_single_modulator_v1 (HARD_FAIL gap 0.004)",
+  "failing_config_avoided": "raw sparse-coding expecting bundle-capacity-gain through a LINEAR heteroassociative readout with NO encoder-threshold / supra-linear selection (STEP-4 mechanism); failing config made BOTH keys and values sparse-BINARY {0,1}",
+  "method_delta": "sparsity on the KEY ONLY (TopK routing); VALUE held DENSE bipolar; keys sparse-BIPOLAR (+/-1, zero-mean) NOT sparse-binary; linear W=sum val key^T + sign readout PRESERVED. Tests sparse-as-ROUTING, not sparse-as-bundle-capacity.",
+  "n_gate_before_validated": "N=1024 first decisive test; confirm at N=4096 (claim's original N; remote) before VALIDATED"
+}
