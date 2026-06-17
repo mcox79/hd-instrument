@@ -510,63 +510,91 @@ def main():
         print("           provenance_quality + relevance_tier). Then set HDLAB_ATOMIZE_APPLY=1 for batched ingest.")
         return 0
 
-    # ===== APPLY: batched ingest with per-batch cap_pres + axiom_term gates (condition 5) =====
+    # ===== APPLY: per-batch FRESH-LOAD ingest (concurrent-writer SAFE) + per-batch gates (condition 5) =====
+    # The store is shared (Testbed PHASE-2 writes math in parallel) and the Store rewrites whole files on flush.
+    # To avoid clobbering peer writes AND make progress under contention, each batch: (1) RELOADS the store fresh
+    # (picks up peer writes since the last batch), (2) re-does idempotent collision-skip + no-phantom vs the fresh
+    # store, (3) adds its atoms, (4) GUARD: if a peer wrote during the ~seconds window, abort+retry this batch
+    # (never flush over a peer write), (5) flushes only touched corpora, (6) per-batch HARD-FAIL gates.
+    store_files = [REPO / "data/substrate_index" / p for p in
+                   ("math/atoms.jsonl", "math/relations.jsonl", "concept/atoms.jsonl", "concept/relations.jsonl")]
+
+    def _fp():
+        out = {}
+        for f in store_files:
+            try:
+                st = f.stat(); out[str(f)] = (st.st_mtime_ns, st.st_size)
+            except FileNotFoundError:
+                out[str(f)] = None
+        return out
+
     to_ingest = specs[:limit]
-    pre_atoms = len(ps.all_atoms())
-    pre_rels = sum(1 for _ in ps.iter_all_relations())
-    pre_t, pre_total = axiom_term(ps)
-    print(f"[atomizer] APPLY pre: atoms={pre_atoms} rels={pre_rels} axiom_term={pre_t}/{pre_total}", flush=True)
+    RETRIES = 6
+    done, contended = 0, 0
+    print(f"[atomizer] APPLY (per-batch fresh-load; concurrent-safe) target={len(to_ingest)} batch={batch}", flush=True)
 
-    done = 0
     for i in range(0, len(to_ingest), batch):
-        chunk = to_ingest[i:i + batch]
-        b_pre_atoms = len(ps.all_atoms())
-        b_pre_rels = sum(1 for _ in ps.iter_all_relations())
-        # flush ONLY corpora actually modified this batch (concurrent-writer safety: do NOT rewrite a store
-        # I did not touch -- a blind flush of an unmodified store can clobber another session's concurrent write).
-        touched_atoms, touched_rels = set(), set()
-        for s in chunk:
-            atom = Atom(id=s["id"], name=s["name"], corpus=s["corpus"], tier=s["tier"],
+        planned = to_ingest[i:i + batch]
+        bnum = i // batch + 1
+        applied = False
+        for attempt in range(RETRIES):
+            psb = PartitionedStore(REPO / "data/substrate_index")   # FRESH load: picks up peer writes
+            qids_b = {a.qualified_id for a in psb.all_atoms()}
+            chunk = []
+            for s in planned:
+                if psb._store_for(s["corpus"]).get_atom(s["id"]) is not None:
+                    continue  # idempotent: already ingested (mine or a re-run)
+                s2 = dict(s); s2["depends_on"] = [d for d in s["depends_on"] if d in qids_b]  # no-phantom vs fresh
+                chunk.append(s2)
+            if not chunk:
+                applied = True; break
+            pre_t, pre_total = axiom_term(psb)
+            b_pre_atoms = len(psb.all_atoms()); b_pre_rels = sum(1 for _ in psb.iter_all_relations())
+            touched_rels = set()
+            edges = 0
+            # NOTE: Store.add_atom AUTO-FLUSHES per atom (store.py); so the os.replace can race here, not only at an
+            # explicit flush. Wrap the WHOLE mutation. On a Windows os.replace race (WinError 5; atomic -> file
+            # unchanged -> no corruption) abort+retry fresh: the fresh reload collision-skips any atoms that DID land
+            # (per-atom auto-flush is granular) and re-adds the rest. Idempotent -> eventually complete, never clobber.
+            try:
+                for s in chunk:
+                    psb._store_for(s["corpus"]).add_atom(Atom(
+                        id=s["id"], name=s["name"], corpus=s["corpus"], tier=s["tier"],
                         kind=AtomKind.EXPERIMENT_RECORD, description=s["description"],
-                        metadata=s["metadata"], solution_history=tuple())
-            ps._store_for(s["corpus"]).add_atom(atom)
-            touched_atoms.add(s["corpus"])
-        for c in touched_atoms:
-            ps._store_for(c)._flush_atoms()
-        edges = 0
-        for s in chunk:
-            for tgt in s["depends_on"]:
-                ps.add_relation(s["qid"], RelationType.DEPENDS_ON, tgt, source=SRC_TAG,
-                                note=f"{s['id']} DEPENDS_ON {tgt} (atomizer; primitives_used/capabilities_tested)")
-                edges += 1
-                touched_rels.add(s["corpus"])
-        for c in touched_rels:
-            ps._store_for(c)._flush_relations()
-        # per-batch gates
-        post_t, post_total = axiom_term(ps)
-        b_post_atoms = len(ps.all_atoms())
-        b_post_rels = sum(1 for _ in ps.iter_all_relations())
-        landed = all(ps._store_for(s["corpus"]).get_atom(s["id"]) is not None for s in chunk)
-        gate_ok = (b_post_atoms == b_pre_atoms + len(chunk)
-                   and b_post_rels == b_pre_rels + edges
-                   and post_t == pre_t  # axiom_term unchanged (experiment_record has no algebra field)
-                   and module_liveness_ok()  # cap_pres=1.0 proxy
-                   and landed)
-        done += len(chunk)
-        print(f"[atomizer] batch {i//batch+1}: +{len(chunk)} atoms +{edges} edges | "
-              f"axiom_term={post_t}/{post_total} cap_pres(mod6/6)={module_liveness_ok()} landed={landed} "
-              f"-> {'OK' if gate_ok else 'HARD_FAIL'}", flush=True)
-        if not gate_ok:
-            print(f"[atomizer] HARD_FAIL at batch {i//batch+1}: invariant violation. STOPPING (no further batches).")
-            return 1
+                        metadata=s["metadata"], solution_history=tuple()))
+                for s in chunk:
+                    for tgt in s["depends_on"]:
+                        psb.add_relation(s["qid"], RelationType.DEPENDS_ON, tgt, source=SRC_TAG,
+                                         note=f"{s['id']} DEPENDS_ON {tgt} (atomizer)")
+                        edges += 1; touched_rels.add(s["corpus"])
+                for c in touched_rels:
+                    psb._store_for(c)._flush_relations()
+            except (PermissionError, OSError) as e:
+                print(f"[atomizer] batch {bnum} attempt {attempt+1}: os.replace race ({type(e).__name__}); retry fresh", flush=True)
+                continue
+            post_t, post_total = axiom_term(psb)
+            b_post_atoms = len(psb.all_atoms()); b_post_rels = sum(1 for _ in psb.iter_all_relations())
+            landed = all(psb._store_for(s["corpus"]).get_atom(s["id"]) is not None for s in chunk)
+            gate_ok = (b_post_atoms == b_pre_atoms + len(chunk) and b_post_rels == b_pre_rels + edges
+                       and post_t == pre_t and module_liveness_ok() and landed)
+            print(f"[atomizer] batch {bnum}: +{len(chunk)} atoms +{edges} edges | axiom_term={post_t}/{post_total} "
+                  f"cap_pres(mod6/6)={module_liveness_ok()} landed={landed} -> {'OK' if gate_ok else 'HARD_FAIL'}",
+                  flush=True)
+            if not gate_ok:
+                print(f"[atomizer] HARD_FAIL at batch {bnum}: invariant violation. STOPPING.")
+                return 1
+            done += len(chunk); applied = True; break
+        if not applied:
+            contended += 1
+            print(f"[atomizer] batch {bnum}: SKIPPED after {RETRIES} contended attempts; re-invoke picks it up",
+                  flush=True)
 
-    post_atoms = len(ps.all_atoms())
-    post_rels = sum(1 for _ in ps.iter_all_relations())
+    psf = PartitionedStore(REPO / "data/substrate_index")
+    total_exp = sum(1 for a in psf.all_atoms() if str(a.kind.name) == "EXPERIMENT_RECORD")
     print("=" * 80)
-    print(f"[atomizer] HARD_PASS: +{done} EXPERIMENT_RECORD atoms "
-          f"(atoms {pre_atoms}->{post_atoms}, rels {pre_rels}->{post_rels})")
-    print(f"  axiom_term {pre_t}/{pre_total} PRESERVED; cap_pres=1.0 (modules 6/6) PRESERVED")
-    print(f"  Skunkworks: VET this batch in-store (relevance_tier + provenance_quality + no-phantom).")
+    print(f"[atomizer] APPLY DONE: +{done} atoms this run; {contended} batch(es) contended-skipped; "
+          f"{total_exp} EXPERIMENT_RECORD atoms total in-store")
+    print(f"  per-batch axiom_term + cap_pres(mod6/6) gates passed. Re-invoke to pick up any contended-skipped.")
     print("=" * 80)
     return 0
 

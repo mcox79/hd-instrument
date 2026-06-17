@@ -376,3 +376,29 @@
 {"ts": 1781650361.619995, "op": "add_relation", "target": "FINDING_cardinality_arm1_distribution_scoping|DEPENDS_ON|CAP_cardinality_quantifier_most", "note": "FINDING DEPENDS_ON CAP_cardinality_quantifier_most", "source": "207_190c_RESULTS_FINDING_cardinality_arm1_distribution_scoping_HONEST_NEGATIVE_generalization"}
 {"ts": 1781664571.5325909, "op": "add_atom", "target": "EXP_bloch_charlm", "note": "", "source": "manual"}
 {"ts": 1781664594.7809343, "op": "add_relation", "target": "EXP_bloch_charlm|DEPENDS_ON|math::T2/fhrr_bind", "note": "EXP_bloch_charlm DEPENDS_ON math::T2/fhrr_bind (atomizer; primitives_used/capabilities_tested)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781665649.0792544, "op": "add_atom", "target": "EXP_eligibility_charlm", "note": "", "source": "manual"}
+{"ts": 1781665702.9031749, "op": "add_atom", "target": "EXP_hebbian_v2_charlm", "note": "", "source": "manual"}
+{"ts": 1781665759.516815, "op": "add_atom", "target": "EXP_krotov_charlm", "note": "", "source": "manual"}
+{"ts": 1781665786.1699305, "op": "add_relation", "target": "EXP_krotov_charlm|DEPENDS_ON|math::T2/cosine_cleanup", "note": "EXP_krotov_charlm DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781665786.1769009, "op": "add_relation", "target": "EXP_krotov_charlm|DEPENDS_ON|math::T2/modern_hopfield_ramsauer", "note": "EXP_krotov_charlm DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781665839.547866, "op": "add_atom", "target": "EXP_multiepoch_charlm", "note": "", "source": "manual"}
+{"ts": 1781665839.547866, "op": "add_atom", "target": "EXP_multiepoch_decay_charlm", "note": "", "source": "manual"}
+{"ts": 1781665845.2969096, "op": "add_relation", "target": "EXP_multiepoch_charlm|DEPENDS_ON|math::T2/cosine_cleanup", "note": "EXP_multiepoch_charlm DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781665965.7824006, "op": "add_atom", "target": "EXP_phase_d_tier6_full_pipeline_4_core_char_lm_v1", "note": "", "source": "manual"}
+{"ts": 1781665968.143379, "op": "add_relation", "target": "EXP_phase_d_tier6_full_pipeline_4_core_char_lm_v1|DEPENDS_ON|math::T2/modern_hopfield_ramsauer", "note": "EXP_phase_d_tier6_full_pipeline_4_core_char_lm_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781665971.5417583, "op": "add_atom", "target": "EXP_pointerchain_charlm", "note": "", "source": "manual"}
+{"ts": 1781666030.3538132, "op": "add_atom", "target": "EXP_pure_hebbian_charlm", "note": "", "source": "manual"}
+{"ts": 1781666047.1251109, "op": "add_relation", "target": "EXP_pure_hebbian_charlm|DEPENDS_ON|math::T2/fhrr_bind", "note": "EXP_pure_hebbian_charlm DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781666850.3138647, "op": "add_atom", "target": "EXP_substrate_curriculum_learning_small_lm_v1", "note": "", "source": "manual"}
+{"ts": 1781666855.7088895, "op": "add_atom", "target": "EXP_substrate_direct_generative_lm_ensemble_v1_n8192_J10", "note": "", "source": "manual"}
+{"ts": 1781667500.445314, "op": "add_atom", "target": "EXP_substrate_max_for_reasoning_tasks_not_lm_v1", "note": "", "source": "manual"}
+{"ts": 1781667506.1077852, "op": "add_relation", "target": "EXP_substrate_max_for_reasoning_tasks_not_lm_v1|DEPENDS_ON|math::T2/cosine_cleanup", "note": "EXP_substrate_max_for_reasoning_tasks_not_lm_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781667559.2588959, "op": "add_atom", "target": "EXP_substrate_tier6_phase_D_4layer_charLM_shakespeare_CPU_v1_n2048", "note": "", "source": "manual"}
+{"ts": 1781667561.1055267, "op": "add_atom", "target": "EXP_substrate_trained_mini_lm_readout_fix_nsweep_v1", "note": "", "source": "manual"}
+{"ts": 1781667561.1180606, "op": "add_atom", "target": "EXP_substrate_trained_mini_lm_rung1_readout_fix_v2", "note": "", "source": "manual"}
+{"ts": 1781667561.1297102, "op": "add_atom", "target": "EXP_substrate_trained_mini_lm_rung1_tinychar_v1", "note": "", "source": "manual"}
+{"ts": 1781667561.139542, "op": "add_atom", "target": "EXP_substrate_training_speed_ladder_stage_a_charlm_v1_n2048", "note": "", "source": "manual"}
+{"ts": 1781667585.591645, "op": "add_relation", "target": "EXP_substrate_trained_mini_lm_rung1_readout_fix_v2|DEPENDS_ON|math::T2/modern_hopfield_ramsauer", "note": "EXP_substrate_trained_mini_lm_rung1_readout_fix_v2 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781667585.598425, "op": "add_relation", "target": "EXP_substrate_trained_mini_lm_rung1_tinychar_v1|DEPENDS_ON|math::T2/modern_hopfield_ramsauer", "note": "EXP_substrate_trained_mini_lm_rung1_tinychar_v1 DEPENDS_ON math::T2/modern_hopfield_ramsauer (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781667585.6117837, "op": "add_relation", "target": "EXP_substrate_training_speed_ladder_stage_a_charlm_v1_n2048|DEPENDS_ON|math::T2/fhrr_bind", "note": "EXP_substrate_training_speed_ladder_stage_a_charlm_v1_n2048 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781667623.791856, "op": "add_atom", "target": "EXP_tiny_transformer_baseline", "note": "", "source": "manual"}
