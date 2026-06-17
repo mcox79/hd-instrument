@@ -225,16 +225,25 @@ def main():
     notes, dropped = discover()
     print(f"[rf-atomizer] {len(notes)} finding-notes pass classification; {dropped} excluded (bus/spec/state)", flush=True)
 
-    specs, skipped = [], 0
+    # SCOPE (Director-lean Option B; Skunkworks cert-owner ruling): "signal" (default) keeps only notes with a
+    # finding-signal (what_found OR citations OR ranked_candidates) -> drops borderline request-only notes (881);
+    # "broad" keeps every classified note (1229; also SAFE per the non-load-bearing structural guard).
+    scope = os.environ.get("HDLAB_RF_SCOPE", "signal").lower()
+    specs, skipped, scope_filtered = [], 0, 0
     for p in notes:
         parsed = parse_note(p)
+        has_signal = bool(parsed["what_found"] or parsed["citations"] or parsed["ranked_candidates"])
+        if scope == "signal" and not has_signal:
+            scope_filtered += 1
+            continue
         spec = build_spec(p, parsed, all_qids, primitive_targets)
         if ps._store_for(Corpus.CONCEPT).get_atom(spec["id"]) is not None:
             skipped += 1
             continue
         spec["bears_on"] = [b for b in spec["bears_on"] if b in all_qids]   # no-phantom re-assert
         specs.append(spec)
-    print(f"[rf-atomizer] {len(specs)} new specs ({skipped} already in-store, idempotent-skip)", flush=True)
+    print(f"[rf-atomizer] scope={scope}: {len(specs)} new specs ({skipped} in-store-skip; "
+          f"{scope_filtered} dropped no-finding-signal)", flush=True)
     summarize(specs, dropped)
 
     if not apply:
