@@ -49,42 +49,57 @@ PRIMARY metric = exact-recall (cos(sign(recall),val) >= 0.90), DECIDES verdict. 
        only, no proxy substitution / Goodhart). (Carries ARCH-A REQ-1 anchor-rule + REQ-2 metric discipline.)
 ```
 
-## FRAMING QUESTION for the Director (strategic; do NOT lock until ratified)
-The original claim 1 is "sparse coding (f=0.05) achieves high capacity" -- NOT necessarily "sparse BEATS dense." Two
-candidate PRIMARY bands; they answer different questions:
+## FRAMING for the Director (strategic; do NOT lock until ratified) + Skunkworks AUDIT CONSTRAINT (binding either way)
+SKUNKWORKS SCHEMA-VET audit flag (binding under ANY framing): claim-1 = "Drosophila MB sparse f=0.05 gives a CAPACITY
+BOOST" = a SPARSITY-ADVANTAGE claim. Therefore **sparse > dense MUST GATE the recapture VERDICT LABEL** -- NOT be a mere
+scoping/secondary diagnostic. A softmax readout that helps sparse and dense EQUALLY is a real finding ("nonlinear
+readout lifts capacity, SPARSITY-NEUTRAL") but it is NOT a recapture of the Drosophila SPARSITY claim. (This corrects
+Exp-Dev's first draft, which had sparse-vs-dense as a scoping diagnostic; 19th-rule update -- Skunkworks is right: that
+would let a trivial-softmax-pass be mis-credited as a sparse recapture.)
 
-**(A) Sparsity-advantage framing** -- PRIMARY = sparse-key(0.05) vs dense-key(1.0) under the SAME softmax, at the
-   pre-registered anchor M (dense softmax exact-recall ~0.5). HARD_PASS = +5pp. Tests "sparsity gives a capacity EDGE
-   under nonlinear readout." STRICTER than the original claim; risks a false-negative if softmax makes both near-perfect.
+RECOMMENDED FRAMING = HYBRID (B-regime + A-gating), the two combined:
+- **REGIME (from B):** evaluate at a pre-registered HIGH-LOAD M_test BEYOND the ARCH-A linear cliff (where ARCH-A
+  linear exact-recall < 0.10) -- the regime where the linear readout failed, so any readout-enabled capacity is visible.
+- **GATING (from A; Skunkworks-required):** the RECAPTURE label requires sparse-key(0.05) > dense-key(1.0) by +5pp at
+  M_test (5/5 seeds) under the SAME frozen-beta softmax -- the sparsity advantage, which IS claim-1.
+- Both must hold for HARD_PASS=RECAPTURE. If the capability appears but is sparsity-NEUTRAL (sparse ~= dense), that is
+  filed honestly as "nonlinear readout lifts capacity (sparsity-neutral)" -- a real READOUT finding, claim-1 STAYS
+  DOWNGRADED (NOT a Drosophila-sparse recapture). This is the only framing that faithfully tests claim-1 + cannot be
+  gamed by a trivial softmax lookup.
 
-**(B) Capability-recapture framing (RECOMMENDED)** -- PRIMARY = at a pre-registered HIGH-LOAD M_test BEYOND the ARCH-A
-   linear cliff (where linear exact-recall < 0.10), does sparse-key(0.05)+softmax achieve exact-recall >= 0.90 (5/5
-   seeds) AND substantially beat the ARCH-A linear baseline at the same M? This faithfully re-establishes the ORIGINAL
-   capability ("the sparse-coding architecture, with its nonlinear readout, achieves high-capacity recall"). The
-   sparse-vs-dense comparison (framing A) is reported as a DIAGNOSTIC to SCOPE the finding precisely + avoid a trivial
-   softmax-lookup pass: "recapture is nonlinear-readout-enabled; sparsity {is / is not} required (dense-key {fails /
-   also passes})." Avoids over-reaching beyond what the original claim asserted.
+(Pure A vs pure B is moot now: the audit constraint folds A's gating into B's regime. Director still owns whether to
+also report the absolute-capability bar as a secondary headline; Exp-Dev recommends yes -- it cleanly separates "is the
+limiter the readout" from "does sparsity specifically help".)
 
-Exp-Dev recommends (B): it matches the original claim's semantic, avoids the framing-(A) over-reach, and the diagnostic
-keeps it honest (no trivial-softmax-pass, sparsity role explicitly scoped). Director owns the call.
-
-## Pre-registered bands (under recommended framing B; finalize on Director ratify + smoke)
+## Pre-registered bands (HYBRID framing + Skunkworks sparse>dense GATING; finalize on Director ratify + smoke)
 ```
 M_test: pre-registered load where ARCH-A LINEAR exact-recall < 0.10 (smoke-confirm; candidate M=512 or higher).
-HARD_PASS (RECAPTURE): exact-recall(f_k=0.05, M_test) >= 0.90, 5/5 seeds, AND >= ARCH-A-linear(same M) + large margin.
-   -> capability recaptured via nonlinear readout. N=4096 confirm (Ask-4, REMOTE) REQUIRED before scorecard VALIDATED.
-HONEST_BOUNDED: exact-recall(f_k=0.05, M_test) < 0.90 (softmax also fails to recapture at this load) -> bounded; the
-   linear-readout ceiling is not the only limiter; next fork = ARCH-C (Willshaw / thresholded) or scope as method-bound.
-DIAGNOSTIC (scopes, not gates): sparse-key vs dense-key under softmax at M_test + the per-f_k x M exact-recall surface;
-   per-bit-acc surface. Reports whether sparsity is REQUIRED or softmax alone suffices (honest scope of the recapture).
+beta: frozen by the dense-baseline-tuned rule, applied identically to all f_k (no per-f_k tuning).
+
+HARD_PASS (RECAPTURE -- requires BOTH, the sparse>dense gate is Skunkworks-binding):
+   (i) CAPABILITY: exact-recall(f_k=0.05, M_test) >= 0.90, 5/5 seeds, AND >= ARCH-A-linear(same M) + large margin; AND
+   (ii) SPARSITY ADVANTAGE: exact-recall(f_k=0.05, M_test) >= exact-recall(f_k=1.0 dense, M_test) + 0.05, 5/5 seeds.
+   -> claim-1 sparsity capacity-boost RECAPTURED via nonlinear readout. N=4096 confirm (Ask-4, REMOTE) before VALIDATED.
+
+SPARSITY_NEUTRAL (capability exists but sparsity gives no edge -- NOT a Drosophila-sparse recapture):
+   (i) holds [softmax lifts capacity beyond the linear cliff] BUT (ii) fails [sparse ~= dense, within +5pp].
+   -> file honestly as "nonlinear readout lifts capacity (SPARSITY-NEUTRAL)" = a real READOUT finding (feeds the
+   cross-cutting nonlinear-readout bet + held-out-retrieval track), but claim-1 Drosophila-sparse STAYS DOWNGRADED.
+
+HONEST_BOUNDED: (i) fails [exact-recall(f_k=0.05, M_test) < 0.90 -- softmax does not recapture capacity at this load
+   either] -> bounded; the linear readout is not the sole limiter; next fork = ARCH-C (Willshaw/thresholded) or method-bound.
+
+DIAGNOSTIC (reported, does not gate): per-f_k x M exact-recall surface + per-bit-acc surface (shows WHERE the sparse and
+   dense softmax cliffs sit + whether sparse shifts the cliff). Scopes the finding; the verdict LABEL is set by the gates above.
 ```
 
 ## Honest-recapture framing (per central discipline; point 5)
-P_recapture(absolute capacity via softmax) is plausibly HIGHER than ARCH-A's 0.35 (the drill localized the limiter to
-the linear readout). BUT the SPARSITY-SPECIFIC advantage (framing A) is uncertain -- softmax may recapture capacity
-with OR without sparsity. Either is a real finding: a framing-(B) HARD_PASS with dense-key-also-passing honestly
-scopes the recapture as "nonlinear-readout-enabled, sparsity-not-required" -- still re-establishes the capability, with
-precise scope. We TEST recapture; we do not manufacture it (no per-f_k beta tuning; absolute bar pre-registered).
+P(capability via softmax) is plausibly HIGHER than ARCH-A's 0.35 (the drill localized the limiter to the linear
+readout), so SPARSITY_NEUTRAL (capability lifts but sparse ~= dense) is a live + likely outcome. But the SPARSITY-
+SPECIFIC advantage (the actual claim-1) is genuinely uncertain. Per Skunkworks's binding constraint, only sparse>dense
+earns the RECAPTURE label; a sparsity-neutral capability lift is filed as a READOUT finding (claim-1 stays downgraded).
+All three outcomes (HARD_PASS / SPARSITY_NEUTRAL / HONEST_BOUNDED) are real findings. We TEST recapture; we do not
+manufacture it (no per-f_k beta tuning; absolute bar + sparse>dense gate both pre-registered).
 
 ## Cert-chain next steps
 1. ARCH-A result-VET clean (Skunkworks) + Director ratify ARCH-A verdict.
