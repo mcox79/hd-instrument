@@ -79,6 +79,12 @@ CITATION_RE = re.compile(
     r'(arxiv[:\s]*\d{4}\.\d{4,5}|\bPMC\d{5,}|\bdoi[:\s]|10\.\d{4,}/|\b[A-Z][a-z]+ et al\.?,? \d{4}|\([A-Z][a-z]+,? \d{4}\))')
 SECTION_FIND_RE = re.compile(r'^#{1,4}\s.*(found|finding|result|conclusion|takeaway|mechanism)', re.IGNORECASE)
 SECTION_CAND_RE = re.compile(r'^#{1,4}\s.*(candidate|anchor|recommend|ranked|next.?step|proposal)', re.IGNORECASE)
+# Skunkworks STEP-B ruling-A enhancement: capture PROSE result-lines (251 notes state findings under
+# ## Trigger / **Anchor pointer** / prose that the header-only SECTION_FIND_RE misses). Deterministic (11th-rule).
+RESULT_LINE_RE = re.compile(
+    r'(HARD[_ ]?PASS|HARD[_ ]?FAIL|CONFIRMED|REFUTED|VALIDATED|MIDDLE_BAND|\d+(?:\.\d+)?\s*(?:x|%|pp)\b|->|'
+    r'\bwe found\b|\bresults? show\b|\banchor pointer\b|\bheadline\b|\bp_?deflated\b|\brecall@?\d|\bf1\b|\bacc(?:uracy)?\b)',
+    re.IGNORECASE)
 
 
 def classify(fname: str) -> bool:
@@ -125,6 +131,25 @@ def section_body(text: str, header_re) -> str:
     return _ascii(" ".join(out))[:600]
 
 
+def capture_findings(text: str) -> str:
+    """what_found = header-section (SECTION_FIND_RE) PLUS prose result-lines (RESULT_LINE_RE) -- Skunkworks ruling-A
+    enhancement so the 251 prose-finding notes land semantically substantive (the bge index retrieves the finding,
+    not just the headline). Deterministic, no-LLM (11th rule)."""
+    body = section_body(text, SECTION_FIND_RE)
+    prose = []
+    for ln in text.splitlines():
+        s = ln.strip().lstrip("#*->-").strip()
+        if not s or ln.lstrip().startswith("#"):
+            continue
+        if RESULT_LINE_RE.search(s):
+            if s not in prose:
+                prose.append(s)
+        if len(prose) >= 6:
+            break
+    combined = " | ".join(x for x in ([body] if body else []) + prose)
+    return _ascii(combined)[:700]
+
+
 def tags_for(blob: str, vocab: dict) -> list:
     low = blob.lower()
     return sorted([t for t, kws in vocab.items() if any(k in low for k in kws)])
@@ -140,7 +165,7 @@ def parse_note(path: Path) -> dict:
         headline=headline,
         confidence_tier=tier,
         citations=citations,
-        what_found=section_body(text, SECTION_FIND_RE),
+        what_found=capture_findings(text),
         ranked_candidates=section_body(text, SECTION_CAND_RE),
         field_tags=tags_for(blob, FIELD_KEYWORDS),
         topic_tags=tags_for(blob, TOPIC_KEYWORDS),
@@ -228,7 +253,7 @@ def main():
     # SCOPE (Director-lean Option B; Skunkworks cert-owner ruling): "signal" (default) keeps only notes with a
     # finding-signal (what_found OR citations OR ranked_candidates) -> drops borderline request-only notes (881);
     # "broad" keeps every classified note (1229; also SAFE per the non-load-bearing structural guard).
-    scope = os.environ.get("HDLAB_RF_SCOPE", "signal").lower()
+    scope = os.environ.get("HDLAB_RF_SCOPE", "broad").lower()   # Skunkworks RULING = A (broad, 1229); B lost 251 real prose-findings
     specs, skipped, scope_filtered = [], 0, 0
     for p in notes:
         parsed = parse_note(p)
