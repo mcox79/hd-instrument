@@ -40074,3 +40074,23 @@
 {"ts": 1781719010.646469, "op": "add_relation", "target": "T3/EXP_wave9_mps_prototype|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_wave9_mps_prototype DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
 {"ts": 1781719010.6782897, "op": "add_relation", "target": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1|DEPENDS_ON|T2/cosine_cleanup", "note": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1 DEPENDS_ON math::T2/cosine_cleanup (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
 {"ts": 1781719010.710001, "op": "add_relation", "target": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1|DEPENDS_ON|T2/fhrr_bind", "note": "T3/EXP_webqsp_kgqa_benchmark_cpu_v1 DEPENDS_ON math::T2/fhrr_bind (atomizer)", "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"}
+{"ts": 1781720106.585258, "op": "add_atom", "target": "T3/EXP_cornerstone_results_exp_cornerstone_c1_c2_c3_aggregate_llama_3_1_8b_v1_h100", "note": "", "source": "manual"}
+{"ts": 1781720107.3051076, "op": "add_atom", "target": "T3/EXP_cornerstone_results_exp_cornerstone_c2_c3_audit_llama_3_1_8b_v1_h100", "note": "", "source": "manual"}
+{"ts": 1781720108.0233302, "op": "add_atom", "target": "T3/EXP_cornerstone_results_exp_phase05_probe_training_v1", "note": "", "source": "manual"}
+{"ts": 1781720108.926446, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_combo3_unified_api_n32768_v1_bd9c5a0f_data_exp_combo3_unified_api_n32768_v1", "note": "", "source": "manual"}
+{"ts": 1781720109.733508, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_deletion_cert_zratio_n32768_v1_bd9c5a0f_data_exp_deletion_cert_zratio_n32768_v1", "note": "", "source": "manual"}
+{"ts": 1781720110.6503463, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_kappa46_fingerprint_n32768_v1_bd9c5a0f_data_exp_kappa46_fingerprint_n32768_v1", "note": "", "source": "manual"}
+{"ts": 1781720111.552088, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_phase05_probe_training_v1_4e165924_data_exp_phase05_probe_training_v1", "note": "", "source": "manual"}
+{"ts": 1781720112.4867964, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_phase05_probe_training_v1_7054a914_data_exp_phase05_probe_training_v1", "note": "", "source": "manual"}
+{"ts": 1781720113.4592762, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_q_b1_depth_extended_n32768_bd9c5a0f_data_exp_q_b1_depth_extended_n32768", "note": "", "source": "manual"}
+{"ts": 1781720114.4330816, "op": "add_atom", "target": "T3/EXP_lambda_batch_results_qd1_spectral_primitives_n32768_v1_bd9c5a0f_data_exp_qd1_spectral_primitives_n32768_v1", "note": "", "source": "manual"}
+{"ts": 1781720115.305696, "op": "add_atom", "target": "T3/EXP_results_ne1_mct_aging_signature_v1", "note": "", "source": "manual"}
+{"ts": 1781720116.124384, "op": "add_atom", "target": "T3/EXP_results_ne2_dmft_retrieval_cliff_v1", "note": "", "source": "manual"}
+{"ts": 1781720116.917645, "op": "add_atom", "target": "T3/EXP_results_ne3_crooks_kl_drift_v1", "note": "", "source": "manual"}
+{"ts": 1781720117.9314857, "op": "add_atom", "target": "T3/EXP_results_ne4_su_landauer_cert_v1", "note": "", "source": "manual"}
+{"ts": 1781720118.8280714, "op": "add_atom", "target": "T3/EXP_results_ne5_su_audit_no_benefit_v1", "note": "", "source": "manual"}
+{"ts": 1781720119.7259245, "op": "add_atom", "target": "T3/EXP_results_pp28_r1_edit_impact_scale_v1", "note": "", "source": "manual"}
+{"ts": 1781720120.4710479, "op": "add_atom", "target": "T3/EXP_results_pp31_2a_precision_coverage_v1", "note": "", "source": "manual"}
+{"ts": 1781720121.3891382, "op": "add_atom", "target": "T3/EXP_results_pp31_2d_refusal_cert_v1", "note": "", "source": "manual"}
+{"ts": 1781720122.5467637, "op": "add_atom", "target": "T3/EXP_results_pp31_4a_per_hop_independence_v1", "note": "", "source": "manual"}
+{"ts": 1781720123.3529189, "op": "add_atom", "target": "T3/EXP_skypilot_results_exp_phase05_probe_training_v1", "note": "", "source": "manual"}
