@@ -1,0 +1,9 @@
+{
+  "queue": "overnight_queue",
+  "name": "c1_entmax_envelope_sweep_v2",
+  "script": "experiments/exp_substrate_c1_entmax_envelope_sweep_v1.py",
+  "prereg": "preregs/2026-06-17_nonlinear_readout_C1_entmax_sparse_hopfield_DRAFT.md",
+  "timeout_s": 10800,
+  "skip_smoke": false,
+  "authored_utc": "2026-06-18T11:25:22Z"
+}
