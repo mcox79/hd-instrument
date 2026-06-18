@@ -653,5 +653,11 @@
   "measured_bounds": "4-channel attribution of the 8a sparse op @ flagship d=1024/e=8/this-hardware; NOT fundamental",
   "elapsed_s": 7.89,
   "measures_quantity": "t_sparse (ABSOLUTE) -- NOT net_speedup (ratio); no t_dense measured",
-  "net_speedup_nonmonotonicity_localization": "OPEN -- future drill: measure t_dense + t_sparse, attribute the RATIO"
+  "net_speedup_nonmonotonicity_localization": "OPEN -- future drill: measure t_dense + t_sparse, attribute the RATIO",
+  "attribution_findings": {
+    "residual_inversion": "cost_model_misses_61pct_median_under_predicts_t_sparse",
+    "measures_quantity": "t_sparse_cost_structure_NOT_net_speedup",
+    "nonmonotonicity_localization": "OPEN_a1_measured_t_sparse_monotone_canonical_nonmonotone_in_net_speedup_ratio",
+    "future_drill": "a1_v2_ratio_profile_t_dense_and_t_sparse"
+  }
 }
