@@ -225,17 +225,34 @@ These 3 independent replications converge on a SUBSTRATE-LEVEL FINDING:
     stays YELLOW; readout-swap-recapture CLOSED NEGATIVE; learned-adapter is
     T2 NEXT-STEP HYPOTHESIS, NOT cert-proven by this run)
 
-1 HONEST-NEGATIVE (cost-model HARD_PASS REFUTED by measured GPU wall-time HARD_FAIL):
+2 ADDITIONAL HONEST-NEGATIVES (real runs on real data; symmetric-discipline working):
 
-  - 8a active-gating: cost-model predicted break-even; METHOD GATE
-    rejected via measured GPU wall-time. The 13.8x flagship stays downgraded.
-    Re-atomize to HARD_FAIL-measured pending sync (Store currently records
-    SMOKE_ONLY/PASS; needs measured-HARD_FAIL re-atomize).
+  - 8a active-gating: cost-model HARD_PASS REFUTED by measured GPU wall-time
+    HARD_FAIL; METHOD GATE rejected via measured GPU wall-time; 13.8x flagship
+    stays downgraded; re-atomize to HARD_FAIL-measured pending sync.
     DISCIPLINE WORKED EXACTLY AS DESIGNED.
 
-Framing: "2 proven cert-grade frontier results (ARCH-B, C1) + refuse-gate PENDING
-its FULL + 8a honest-negative (recapture refuted under measurement)." NOT "3 confirmed
-proof points + 1 negative."
+  - A5 expansion-axis: HARD-FAIL on Option B noise-robustness (fair-start
+    met both >=0.95 at zero noise; fly-LSH expanded-linear noise_at_half=0.366
+    <= raw-linear=0.449; expansion adds NO noise-robustness EVEN on fly-MB's
+    OWN claimed metric); ARCH-A MIDDLE_BAND CLOSURE RE-AFFIRMED; candidate
+    audit-discipline #93 DESIGN-INCOMPLETE-NOT-REFUTATION orthogonal-2x2-
+    completed = closure stands (design-incompleteness RESOLVED by completion
+    not by re-opening); symmetric discipline working as designed (HARD-FAIL
+    pre-reg gate kept the real negative closed)
+
+Composing finding: cheap mechanism-swap recaptures (active-gating cost-model,
+   readout swap, fly-LSH expansion) ALL NEGATIVE under measurement on their
+   OWN claimed metrics. Real lever is DEEPER + is the SAME ONE: the nonlinear
+   READOUT (per 3 cert-grade positives above; ARCH-B + C1 + ARCH-A-readout-axis).
+   The substrate has ONE operative lever identified across all 6 cert-grade
+   results today (3 positives + 3 negatives all triangulating the same line).
+
+Framing: "3 cert-grade positives of one lever (nonlinear-readout-lifts-capacity;
+ARCH-B + C1 + ARCH-A-readout-axis) + 3 cert-grade honest-negatives (8a measured
+HARD_FAIL + refuse-gate NON_TEST + A5 expansion HARD-FAIL) + 1 LANDED PROOF_RECORD
+formal cert (Pythagoras-IP)." Triangulation: one operative lever; three failed
+cheap recapture mechanisms; one formal-oracle path proven end-to-end.
 ```
 
 ## TOMORROW MORNING QUEUE (in flight ready)
