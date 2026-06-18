@@ -96,7 +96,10 @@ LEAN = integrity-layer extension toward substrate-autonomy
 DURABILITY+FINDABILITY = rail completion validated tonight:
    - hd_metrics_sync working autonomous 20-min cadence
    - STEP-B APPLY DONE (1229 RF queryable)
-   - Action A bge-cache chain in flight (queue ready; cache ETA tonight)
+   - Action A bge-cache COVERAGE-VET COMPLETE+PASS (long-pending since 06-17
+     evening; both halves PASS: indexed 31274/31274 100% + verdict=OK + no-
+     mutation confirmed; 31274->31310 delta is normal sub-trigger drift not
+     gap; corpus-completeness gap CLOSED via 95f76878 file-set-diff sync fix)
    - hd_dispatch_consumer working end-to-end (USER directive 17:09)
    - cron-pipeline gated on Skunkworks SCHEMA-VETs
 ```
