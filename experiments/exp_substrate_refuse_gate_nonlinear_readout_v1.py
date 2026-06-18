@@ -264,10 +264,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true", help="synthetic mechanism + spread-detection check (laptop-safe)")
     ap.add_argument("--self-test", action="store_true", help="PROT-020 fast wiring-check (<30s; tiny synthetic; no bge)")
+    ap.add_argument("--full", action="store_true", help="force REAL held-out FULL (remote dispatch; overrides env)")
     args, _ = ap.parse_known_args()
-    run_mode = os.environ.get("HDLAB_RUN_MODE", "smoke").lower()
+    # Default FULL for remote dispatch (the autonomous GPU runner does NOT export HDLAB_RUN_MODE=full -- matches Action A's
+    # proven default). --smoke/--self-test force smoke (the gate + laptop); --full forces full (explicit override).
+    run_mode = os.environ.get("HDLAB_RUN_MODE", "full").lower()
     self_test = getattr(args, "self_test", False)
-    is_smoke = args.smoke or self_test or run_mode == "smoke"
+    is_smoke = (args.smoke or self_test or run_mode == "smoke") and not getattr(args, "full", False)
     t0 = time.time()
 
     if is_smoke:
