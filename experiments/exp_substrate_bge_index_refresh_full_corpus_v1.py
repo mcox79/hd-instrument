@@ -39,8 +39,11 @@ OUT = REPO / "data" / ANCHOR
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true", help="wiring-check only (no heavy bge encode; laptop-safe)")
+    ap.add_argument("--self-test", action="store_true", help="PROT-020 gate fast-path: same fast wiring-check as --smoke (NO encoder load; <30s)")
     args, _ = ap.parse_known_args()
-    smoke = args.smoke or os.environ.get("HDLAB_RUN_MODE", "full") == "smoke"
+    # --self-test (the PROT-020 queue gate's 180s check) delegates to the fast --smoke wiring-check -- it must NOT
+    # trigger the bge encoder load (q_f5/Skunkworks: encoder is REMOTE-GPU-only + heavy). Both = fast wiring-check.
+    smoke = args.smoke or getattr(args, "self_test", False) or os.environ.get("HDLAB_RUN_MODE", "full") == "smoke"
     t0 = time.time()
 
     from backend.substrate_index.partition import PartitionedStore
