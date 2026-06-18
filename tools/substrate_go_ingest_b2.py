@@ -20,6 +20,7 @@ Laptop-safe (no GPU). Deterministic. ASCII-only. 11th-rule (no LLM).
 from __future__ import annotations
 import argparse
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path('.').resolve()))
@@ -178,10 +179,26 @@ def dry_run() -> int:
     return 0
 
 
+def _save_atoms_with_retry(atoms_list, path, attempts=12):
+    """Single flush with os.replace-race retry+backoff (bulk-ingest WinError-5 gotcha)."""
+    from backend.substrate_index.schema import save_atoms
+    for attempt in range(attempts):
+        try:
+            save_atoms(atoms_list, path)
+            return True
+        except PermissionError:
+            time.sleep(0.3 * (attempt + 1))
+    return False
+
+
 def apply_run() -> int:
     from backend.substrate_index.partition import PartitionedStore
-    ps = PartitionedStore(Path('data/substrate_index'))
 
+    # Build atoms FIRST (slow parse), BEFORE touching the Store -> minimal fresh-load->flush window (clobber-safe).
+    terms = parse_obo(OBO_PATH)
+    selected = select_top_terms(terms, N_TARGET)
+
+    ps = PartitionedStore(Path('data/substrate_index'))   # FRESH load right before mutation
     pre_n = sum(1 for _ in ps.all_atoms())
     pre_axiom = axiom_term_count(ps)
     pre_mod = module_liveness_ok()
@@ -190,19 +207,22 @@ def apply_run() -> int:
         print('PRE-GATE FAIL (cap_pres or axiom_term != 206). Halting; no mutation.')
         return 1
 
-    terms = parse_obo(OBO_PATH)
-    selected = select_top_terms(terms, N_TARGET)
-    existing = {a.id for a in ps.all_atoms()}
+    cstore = ps._store_for(Corpus.SCIENCE)
     added = 0
+    # BATCH index into the SCIENCE sub-store WITHOUT per-atom flush (avoid O(n^2) rewrites + N race windows)
     for i, t in enumerate(selected):
         atom = build_atom(t, i + 1)
-        if atom.id in existing:
+        if atom.id in cstore._by_id:
             continue
-        ps.add_atom(atom, source='b2_go_top5k_science_concept',
-                    note='STEP-B GO extension; SCIENCE_CONCEPT; per-term; is_a relations as metadata')
-        existing.add(atom.id)
+        cstore._index_atom(atom)
         added += 1
+    # SINGLE flush with os.replace-race retry
+    if not _save_atoms_with_retry(list(cstore._by_id.values()), cstore.atoms_path):
+        print('HARD_FAIL: os.replace race persisted after retries (concurrent Store writer?). No partial -- atoms.jsonl intact.')
+        return 3
 
+    # FRESH reload for verify-the-referent
+    ps = PartitionedStore(Path('data/substrate_index'))
     post_n = sum(1 for _ in ps.all_atoms())
     post_axiom = axiom_term_count(ps)
     post_mod = module_liveness_ok()
