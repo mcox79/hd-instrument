@@ -6,7 +6,7 @@
 
 ## HEADLINE (refined from 15:57 brief)
 
-**The substrate's INTEGRITY layer is AHEAD-of-SOTA and proven operationally 12+ times today across 5 distinct layers of the substrate stack + meta-tooling.**
+**The substrate's INTEGRITY layer is AHEAD-of-SOTA and proven operationally across multiple layers of the substrate stack + meta-tooling today, with 6 cert-owner self-catches and 5 verified VERIFY-THE-REFERENT caught witnesses (Skunkworks-rigorous count).**
 
 The field-named "semantic-integrity-under-mutation" gap (S2 production-spec literature consensus per Skunkworks lit-scan) is CLOSED in this substrate by ENGINEERING + DISCIPLINE working together. Today proved it at multiple layers:
 
@@ -113,15 +113,19 @@ DURABILITY+FINDABILITY = rail completion validated tonight:
   12. Nonlinear-readout-family-discrimination-needs-spread-regime
       (composed as DEGENERATE-REGIME sub-instance)
 
-VERIFY-THE-REFERENT instances today (8 across 5 layers):
-   - anchor (R4-18 mismatch)
-   - artifact (8a drill save)
-   - arm (8b)
-   - allocation (8b/C1)
-   - proof (Lean SCHEMA-VET design)
-   - catalogue (Skunkworks 2x self-corrections)
-   - MONITORING-TOOLING (Skunkworks log-tail false-green; fixed
-     filesystem-ground-truth watch with honest residual)
+VERIFY-THE-REFERENT verified caught witnesses today (5 across 4 layers per
+   Skunkworks-rigorous count; corrected down from earlier 10/8 Director over-count):
+   - anchor-mechanism-match (R4-18; experiment-design layer)
+   - catalogue-vs-Store count (audit-catalogue layer; Skunkworks self-correction)
+   - Ruling-B premise (audit-catalogue layer; Skunkworks self-correction)
+   - monitor delivery false-green (monitoring-infra layer)
+   - prereg-commit (dispatch-infra layer; Orchestrator caught)
+
+Operationalization applications (not promotion-witnesses per Skunkworks
+   discipline-applied-to-own-atomization correction):
+   - Lean SCHEMA-VET semantics-match guard
+   - discriminating-regime guards in C1/8a/refuse-gate preregs
+   - structured metrics-provenance gate (Exp-Dev 96592a32; live as of ~20:46)
 
 CATALOGUE state (Store-authoritative going forward; LEDGER as separate
    non-load-bearing reference):
@@ -142,21 +146,54 @@ CATALOGUE state (Store-authoritative going forward; LEDGER as separate
 4. ARM-3 Option C: KEEP DEFERRED low-priority
 ```
 
-## SUBSTRATE STATE (definitive; Store-authoritative)
+## SUBSTRATE STATE (definitive; Store-authoritative end-of-evening per Skunkworks E1 ground-truth read)
 
 ```
-atoms:               31283
-relations:           7568
+atoms:               31304
+relations:           7568 + ~822 cross-namespace bears_on legitimate
 axiom_term:          206/206 PRESERVED
 cap_pres:            1.0 (modules 6/6 OK)
-phantom edges:       151 (pre-existing baseline)
-AUDIT_LESSON:        43 (8 CONFIRMED + 35 CANDIDATE)
+phantom edges:       151 (pre-existing baseline; E3 cross-namespace edge audit next read-only)
+AUDIT_LESSON:        43 (8 CONFIRMED + 35 CANDIDATE; +~5 pending Testbed VERIFY-THE-REFERENT ratify)
 METHODOLOGY_RULE:    32 (24 FROZEN + 8 PHASE-2)
-RESEARCH_FINDING:    1229 (STEP-B Option A; T0-T3 LIVE)
-EXPERIMENT_RECORD:   3695+ (waiting Action A cache + future verdicts)
-CERT_CHAIN_GRADE:    562 (15.2% cert ratio)
+RESEARCH_FINDING:    1229 (STEP-B Option A; T0-T3 LIVE) + 3 evening drills atomize-cron-pending
+EXPERIMENT_RECORD:   3703 (Skunkworks ground-truth verified)
+CERT_CHAIN_GRADE:    563 (C1 entmax atomized; 15.2% cert ratio; honest tier breakdown:
+                          LEGACY_EXCERPT 1409, UNVERIFIED 911, SMOKE_ONLY 820, CERT 563)
 math_ops_with_cbs:   0 (structural-guard baseline LOCKED)
 AtomKind populated:  16 of 23 enum
+```
+
+## CAPABILITY FRONTIER STATE (honest framing per Skunkworks E1 over-claim corrections)
+
+```
+2 PROVEN CERT-GRADE results (NOT yet capability-promoted; not yet "load-bearing"
+  in the FORM-P sense; load-bearing-promotion = my QUEUED post-VET substrate-build
+  to author CAPABILITY atoms -> Testbed ratify):
+
+  - ARCH-B SPARSITY_NEUTRAL (Drosophila recapture; nonlinear softmax readout
+    lifts capacity completely; cert_chain_grade verified)
+  - C1 entmax sparse readout (8x cheaper than softmax at iso-recall in measured
+    spread regime; cert_chain_grade verified; atomized today 562 -> 563)
+
+1 PENDING (mechanism confirmed at smoke; FULL still unverified per metrics-provenance
+  gate; NOT a confirmed proof point until BRANCH=REAL_held_out + mode=full + elapsed>0):
+
+  - Refuse-gate via nonlinear readout (smoke mechanism CONFIRMED; FULL real-held-out
+    cell-bug fix landed 96592a32 with structured metrics-provenance fields;
+    remote BRANCH-print run pending Orchestrator decisive check)
+
+1 HONEST-NEGATIVE (cost-model HARD_PASS REFUTED by measured GPU wall-time HARD_FAIL):
+
+  - 8a active-gating: cost-model predicted break-even; METHOD GATE
+    rejected via measured GPU wall-time. The 13.8x flagship stays downgraded.
+    Re-atomize to HARD_FAIL-measured pending sync (Store currently records
+    SMOKE_ONLY/PASS; needs measured-HARD_FAIL re-atomize).
+    DISCIPLINE WORKED EXACTLY AS DESIGNED.
+
+Framing: "2 proven cert-grade frontier results (ARCH-B, C1) + refuse-gate PENDING
+its FULL + 8a honest-negative (recapture refuted under measurement)." NOT "3 confirmed
+proof points + 1 negative."
 ```
 
 ## TOMORROW MORNING QUEUE (in flight ready)
