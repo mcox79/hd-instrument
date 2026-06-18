@@ -184,8 +184,12 @@ AtomKind populated:  16 of 23 enum
   gate; NOT a confirmed proof point until BRANCH=REAL_held_out + mode=full + elapsed>0):
 
   - Refuse-gate via nonlinear readout (smoke mechanism CONFIRMED; FULL real-held-out
-    cell-bug fix landed 96592a32 with structured metrics-provenance fields;
-    remote BRANCH-print run pending Orchestrator decisive check)
+    branching fix landed 96592a32 + structured metrics-provenance; remote run
+    HIT THE REAL PATH (PATH=REAL_held_out_q54_q65; bge 391 weights; 13min then
+    silent failure); fail-loud + progress prints landed fcb4abd5; Exp-Dev hypothesis
+    = cache-miss re-encode (corpus 31282 -> 31301 after C1 atomize -> Action A
+    content-hash mismatch -> re-encode 13min -> likely GPU-OOM); Orchestrator
+    decisive remote redispatch pending; verdict-VET on result)
 
 1 HONEST-NEGATIVE (cost-model HARD_PASS REFUTED by measured GPU wall-time HARD_FAIL):
 
