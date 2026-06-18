@@ -28,13 +28,14 @@ from backend.substrate_index.schema import Atom, AtomKind, Corpus, Tier
 
 ATOM_ID = 'PROOF_triangle_inequality_real_inner_product'
 
-# Condition 3: DRAFT honest scope (Skunkworks finalizes verbatim at VET; honesty mandate applied).
+# Condition 3: FINALIZED scope (Skunkworks SEMANTICS-MATCH VET PASS 2026-06-18, verbatim).
 CLAIM_SCOPE = (
     "Certifies the EXACT triangle inequality ||u + v|| <= ||u|| + ||v|| for all u, v in a "
     "real inner-product space, holding UNCONDITIONALLY. This inequality is TRUE IN ANY NORMED "
-    "SPACE and does NOT use the inner-product structure; it is certified here SPECIALIZED to the "
-    "real inner-product setting. It is NOT an inner-product-specific result -- the "
-    "inner-product-specific identity is the parallelogram law. Real, not complex."
+    "SPACE and does NOT use the inner-product structure (proof: the canonical norm_add_le); it "
+    "is certified here SPECIALIZED to the real inner-product setting for batch consistency. It "
+    "is NOT an inner-product-specific result -- the inner-product-specific identity in this "
+    "batch is the parallelogram law. Real, not complex."
 )
 
 DESCRIPTION = (
@@ -89,9 +90,9 @@ def build_atom() -> Atom:
         'no_algebra_structural_guard': True,
         'axiom_term_promotion': 'SEPARATE explicit USER/PHASE-III authority; NEVER automatic on lake-PASS',
         'framing': 'A_canonical_norm_add_le_holds_in_any_normed_space_specialized_to_real_IP_NOT_ip_specific',
-        'semantics_match_vet': 'PENDING',   # Skunkworks sets PASS at VET
+        'semantics_match_vet': 'PASS',   # Skunkworks SEMANTICS-MATCH VET PASS 2026-06-18
         'vet_by': 'skunkworks',
-        'vet_date': 'PENDING',
+        'vet_date': '2026-06-18',
         'vet_checks': 'real-not-complex + exact-not-approximate + non-vacuous + canonical-lemma(norm_add_le) + olean-artifact-verified + no-sorry-axiom + print-axioms-standard-trio + honest-scope-any-normed-space',
         'references_methodology_rule': 'RULE_M_LEAN_semantics_match_necessary_lake_pass_necessary_not_sufficient_T0_PROVEN_FORMAL',
         'eleventh_rule_clean': True,
