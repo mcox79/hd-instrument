@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "bge_index_refresh_full_corpus_v1",
-  "script": "experiments/exp_substrate_bge_index_refresh_full_corpus_v1.py",
-  "prereg": "notes/skunkworks_to_research_orchestrator_exp_dev_actionA_bge_refresh_cell_SCHEMA_VET_GO_2026-06-17.md",
-  "timeout_s": 5400,
-  "skip_smoke": false,
-  "authored_utc": "2026-06-18T00:56:42Z"
-}
