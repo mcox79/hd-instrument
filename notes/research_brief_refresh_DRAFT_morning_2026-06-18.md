@@ -206,10 +206,11 @@ AtomKind populated:  16 of 23 enum
 
 CERT-STRENGTHENING via REPLICATION (2 dimensions):
   - **A4 ARCH-B replicate at N=2048** (CONFIG-CONTINGENCY dimension; Skunkworks
-    A4 verdict-VET PRELIMINARY PASS; SPARSITY_NEUTRAL same verdict as N=1024;
-    regime_lift=True + capability=True; ran TWICE IDENTICAL = reproducible;
-    measured-bounds N=2048; formal GATE-0 completes on synced metrics.json;
-    atomize-on-sync as strengthens-ARCH-B EXPERIMENT_RECORD with
+    A4 FORMAL GATE-0 PASS on synced metrics.json; metrics_source=measured_torch_gpu
+    PASSES method-gate; 5 seeds; cell_commit d78ffe8a; v1 + redispatch
+    reproducible; SPARSITY_NEUTRAL; regime_lift=True + capability=True;
+    measured-bounds N=2048; ATOMIZE-GO as strengthens-ARCH-B EXPERIMENT_RECORD
+    CERT_CHAIN_GRADE + strengthens RELATES edge to ARCH-B cert atom +
     config-contingency=N=1024+N=2048 scope)
   - **A5 readout-axis** (CROSS-TASK dimension; ARCH-A sparse-pattern task;
     entmax M*>=2048 censored vs linear M*=48.5 = >=42x capacity lift LOWER
