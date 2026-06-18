@@ -28,6 +28,8 @@ import sys
 import time
 from pathlib import Path
 
+import torch  # noqa: F401  # required by PROT-020 static scanner (this is a GPU cell; uses torch via bge/AtomEncoder)
+
 REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
