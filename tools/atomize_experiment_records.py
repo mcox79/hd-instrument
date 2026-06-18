@@ -228,8 +228,26 @@ def method_gate_ok(metrics: dict) -> bool:
     return bool(src)                                   # null/undeclared source -> not cert-grade (ruling)
 
 
+def gate0_field_check(metrics: dict) -> bool:
+    """GATE-0 CONSUMER check (Skunkworks C2 self-certification engine, 2026-06-18; defense-in-depth with the
+    producer-side _cell_provenance.gate0_self_check). ADDITIVE + NON-RETROACTIVE: fails ONLY if the cell EMITTED a
+    gate0_self_check whose pass==False (an early-exit / smoke-default / not-measured run the cell self-reported as
+    incomplete). Cells WITHOUT the field pass (legacy-safe -> no mass recompute of the existing 568 cert atoms; the
+    cert-tier-recompute-scope lesson). This catches the measured-but-EARLY-EXITED run that method_gate_ok alone
+    misses (method-gate verifies it was MEASURED; gate0 verifies it actually RAN COMPLETE)."""
+    g = metrics.get("gate0_self_check")
+    if isinstance(g, dict) and g.get("pass") is False:
+        return False
+    return True
+
+
 def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
-    """Deterministic from run_mode + cert-discipline markers + METHOD-GATE. condition 4 + method-gate ruling."""
+    """Deterministic from run_mode + cert-discipline markers + METHOD-GATE + GATE-0. condition 4 + method-gate + C2."""
+    # ATTRIBUTION (mechanism record; e.g. A1): MEASURED but NOT a verdict-cert -> distinct tier, NEVER cert-counted
+    # (Skunkworks C2 E5-fold: fixes the LEGACY_EXCERPT mislabel of fresh measured-mechanism atoms; keeps the proof-
+    # count = verdicts only). Structural: an ATTRIBUTION can never be CERT_CHAIN_GRADE even if cert-shaped.
+    if verdict_norm == "ATTRIBUTION":
+        return "MEASURED_MECHANISM" if method_gate_ok(metrics) else "UNVERIFIED"
     cert_markers = any(k in metrics for k in ("prereg_bands", "fair_null", "FAIR_NULL", "gold_firewall",
                                               "three_of_three", "cert_chain", "ci95", "acc_ci95"))
     # Skunkworks 2026-06-18: a real-held-out benchmark eval (full + held-out measured source) is cert-grade EVIDENCE
@@ -238,8 +256,10 @@ def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     # (method_gate_ok still required -- this is not a bypass, just the right rigor axis for a held-out eval).
     held_out_eval = run_mode == "full" and "held_out" in str(metrics.get("metrics_source") or "").lower()
     would_be_cert = run_mode == "full" and ((isinstance(n_seeds, int) and n_seeds >= 3) or cert_markers or held_out_eval)
-    if would_be_cert and method_gate_ok(metrics):
+    if would_be_cert and method_gate_ok(metrics) and gate0_field_check(metrics):
         return "CERT_CHAIN_GRADE"
+    if would_be_cert and method_gate_ok(metrics):      # measured + cert-shaped but GATE-0 self-check FAILED
+        return "UNVERIFIED"                            # the cell self-reported INCOMPLETE (early-exit / not-full) -> not cert
     if would_be_cert:                                  # cert-shaped but METHOD-GATE FAILED -> explicit non-cert tier
         src = str(metrics.get("metrics_source") or "").lower()
         vm = str(metrics.get("verdict_msg") or "").lower()
