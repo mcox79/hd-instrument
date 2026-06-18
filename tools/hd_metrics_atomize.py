@@ -116,9 +116,15 @@ def main() -> int:
         proc = subprocess.run([sys.executable, str(REPO / "tools" / "atomize_experiment_records.py")],
                               cwd=str(REPO), env=env, capture_output=True, text=True)
         info = _parse(proc.stdout)
-        # gate_ok: clean exit + no HARD_FAIL + cap_pres confirmed -- OR nothing was added (0 batches => no per-batch
-        # cap_pres line printed, which is NOT a failure; an idempotent no-op tick is trivially safe).
-        gate_ok = (proc.returncode == 0) and (not info["hard_fail"]) and (info["cap_pres"] or info["atoms_added"] == 0)
+        # gate_ok: EXIT CODE is the SOLE authoritative real-gate signal (Skunkworks durable-fix RE-VET: the atomizer HALTs
+        # exit 1 on any real per-batch gate-fail). cap_pres is a positive confirmation when atoms were added. The stdout
+        # hard_fail substring is a LOGGED CROSS-CHECK ONLY (never a halt trigger) -- this eliminates the substring-fragility
+        # class entirely (a record whose text contains a gate-token can NEVER false-halt the rail). 100th-rule: read the
+        # structured signal (exit code), not an inference from stdout.
+        gate_ok = (proc.returncode == 0) and (info["cap_pres"] or info["atoms_added"] == 0)
+        # cross-check: real gate-fail should ALWAYS be exit!=0; if exit==0 but stdout shows a gate token, that's the
+        # record-content false-match (informational), NOT a halt. Surfaced in status for observability only.
+        stdout_hard_fail_crosscheck = bool(info["hard_fail"])
         now = _now()
         status = dict(
             last_run_utc=now,
@@ -129,6 +135,7 @@ def main() -> int:
             total_exp_atoms=info["total_exp_atoms"],   # authoritative in-store ground-truth count (verify-the-referent)
             axiom_term=info["axiom_term"],
             cap_pres_6_6=info["cap_pres"],
+            stdout_hard_fail_crosscheck=stdout_hard_fail_crosscheck,  # logged-only (record-content match; not a gate)
             gate_ok=gate_ok,
         )
         STATUS.write_text(json.dumps(status, indent=2), encoding="utf-8")
