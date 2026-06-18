@@ -194,19 +194,16 @@ AtomKind populated:  16 of 23 enum
 1 PENDING (mechanism confirmed at smoke; FULL still unverified per metrics-provenance
   gate; NOT a confirmed proof point until BRANCH=REAL_held_out + mode=full + elapsed>0):
 
-  - Refuse-gate via nonlinear readout (smoke mechanism CONFIRMED; FULL real-held-out
-    branching fix landed 96592a32 + structured metrics-provenance; remote run
-    HIT THE REAL PATH (PATH=REAL_held_out_q54_q65; bge 391 weights; 13min then
-    silent failure); fail-loud + progress prints landed fcb4abd5; Exp-Dev hypothesis
-    = cache-miss re-encode (corpus 31282 -> 31301 after C1 atomize -> Action A
-    content-hash mismatch -> re-encode 13min -> likely GPU-OOM); cache-API
-    verify-the-referent caught fix-(b) reuse-31282 needs risky retriever-internal
-    surgery -> WITHDRAWN; cleaner candidate REFRESH cache to 31301 via Action A
-    force_rebuild (infra, benefits ALL retrieval), pre-staged + held until prints
-    localize death; cert-condition gold-subset-31282 pre-verified by both Exp-Dev
-    (13 in-coverage) + Skunkworks INDEPENDENTLY (10 in-coverage; 3-gap is
-    school/sub_op resolution diff not records; robust both counts); Orchestrator
-    decisive remote redispatch pending; verdict-VET on result)
+  - Refuse-gate via nonlinear readout: SMOKE mechanism CONFIRMED + FULL REAL
+    held-out NON_TEST honest-negative (Skunkworks verdict-VET PASS 21:55 on
+    Orchestrator run_index=4 at 21:48; 62-min real FULL; cell_commit d78ffe8a
+    carries fcb4abd5 fail-loud + structured metrics-provenance; GATE-0 + gold-
+    in-index + metrics-provenance ALL PASS via FIELD-CHECK not inference;
+    spread shows discriminates=False at every beta 10/20/40/80/160; SELF-
+    DOMINANCE WALL confirmed on REAL data (not just synthetic) =
+    DEGENERATE-REGIME-NOT-REFUTATION class applied correctly; refuse-gate
+    stays YELLOW; readout-swap-recapture CLOSED NEGATIVE; learned-adapter is
+    T2 NEXT-STEP HYPOTHESIS, NOT cert-proven by this run)
 
 1 HONEST-NEGATIVE (cost-model HARD_PASS REFUTED by measured GPU wall-time HARD_FAIL):
 
