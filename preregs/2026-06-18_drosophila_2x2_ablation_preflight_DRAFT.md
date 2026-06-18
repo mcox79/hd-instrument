@@ -63,3 +63,18 @@ EFFECT-SIZE floor: deltas must exceed >=0.05 (the drill's threshold) to count as
 - If pre-flight HARD-PASSES PRED-1: ARCH-A closure preserved as cert-grade-but-DESIGN-INCOMPLETE; new finding (expansion+WTA stage) lands as a SEPARATE cap_map row (NOT a retraction).
 
 -- Exp-Dev (Prover) [DRAFT]
+
+---
+## ADDENDUM (2026-06-18): OPTION B -- expansion-axis NOISE-ROBUSTNESS metric (Skunkworks VERDICT-VET: capacity-curve disfavors binary codes; test the fly-MB mechanism on ITS claimed benefit = noise-robust separation). B is FINAL for the expansion axis (pre-commit; no third metric).
+
+READOUT axis: SETTLED -- capacity-curve VET PASS (A1 linear M*=48.5 vs A2 entmax M*>2048 censored = C1 REPLICATED, ">=42x censored" lower bound). Cert-grade-eligible positive.
+
+EXPANSION axis (option B), PRE-REGISTERED + FROZEN before the official run:
+- FIXED LOAD M_fixed = 30 (N=256); FAIR-START precondition: both raw-linear AND expanded-linear must be >= 0.95 retrieval accuracy at noise=0.0 (verified in probe; else NON_TEST -> lower load).
+- NOISE GRID = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5] (bit-flip fraction); SEEDS >= 3.
+- METRIC: re-nearest retrieval accuracy at M_fixed per noise; noise_at_half = the noise level where accuracy crosses 0.5 (higher = MORE noise-robust). Compare raw-linear (A1) vs expanded-linear (A3) -- the canonical fly-MB claim (WTA is the nonlinearity, readout linear).
+- HARD-PASS: expanded-linear noise_at_half > raw-linear noise_at_half + 0.03 (the fly-MB expansion adds noise-robustness) -> ARCH-A capability recovers WITH the upstream WTA stage (scoped to noise-robustness; #93).
+- HARD-FAIL: expanded-linear noise_at_half <= raw-linear noise_at_half (no noise-robustness advantage) -> RE-AFFIRMS the ARCH-A MIDDLE_BAND closure; entmax readout fix sufficient.
+- MIDDLE: |delta| < 0.03 (essentially equal).
+- NON_TEST: fair-start fails (expanded < 0.95 at noise=0 at M_fixed).
+- B is FINAL: whatever B returns disposition the expansion axis; no third metric (no-Goodhart switch-once guarantee).
