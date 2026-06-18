@@ -247,9 +247,43 @@ def discrimination_gate(metrics: dict, verdict_norm):
     discriminates==False, the EFFECTIVE verdict is forced to NON_TEST -- a PASS/HARD_FAIL on a non-discriminating
     regime is meaningless (the self-dominance-wall / saturation / one-hot trap). Cells WITHOUT the field pass
     through UNCHANGED (legacy-safe -> no mass re-grade of existing atoms). Generalizes the manual per-cell
-    discrimination guard into a shared producer-attest (discrimination_self_check) + consumer-enforce gate."""
+    discrimination guard into a shared producer-attest (discrimination_self_check) + consumer-enforce gate.
+
+    Handles BOTH the FLAT single-task schema {discriminates: bool} AND the NESTED per-task schema
+    {taskA: {discriminates: bool}, taskB: {...}} a multi-task cell emits (e.g. B-delta v2's bipolar+continuous);
+    forces NON_TEST if ANY task self-reports discriminates==False (a multi-task PASS is meaningless if any arm's
+    regime is degenerate). Without this, a nested self-check silently no-ops the gate (the flat d.get fails)."""
     d = metrics.get("discrimination_self_check")
-    if isinstance(d, dict) and d.get("discriminates") is False:
+    if not isinstance(d, dict):
+        return verdict_norm
+    flags = [d.get("discriminates")] if "discriminates" in d \
+        else [v.get("discriminates") for v in d.values() if isinstance(v, dict)]
+    if any(f is False for f in flags):
+        return "NON_TEST"
+    return verdict_norm
+
+
+def baseline_cliff_gate(metrics: dict, verdict_norm):
+    """WORKING-BASELINE-CLIFF CONSUMER gate (Skunkworks 3rd self-cert gate, 2026-06-18; the B-delta v1 catch
+    -- a lift over a FLOORED baseline is NOT a lever -- as a deterministic gate; REFINES discrimination_gate
+    [audit 79] for LEVER claims). ADDITIVE + NON-RETROACTIVE: if the cell EMITTED a baseline_cliff_self_check
+    with is_working_baseline_cliff==False, the EFFECTIVE verdict is forced to NON_TEST -- a PASS that rests on a
+    lift over a non-working / non-cliffing baseline measures denoising / threshold-rescue, not the lever (B-delta
+    v1: linear=0 at ALL M -> the 'TRANSFER CONFIRMED' was denoising-over-a-floor). Cells WITHOUT the field pass
+    through UNCHANGED (legacy-safe -> no mass re-grade; a non-lever cell has no comparison baseline so never emits
+    it). COMPOSES with discrimination_gate (discrimination = does the test discriminate at all; baseline-cliff =
+    is the comparison baseline a working-baseline-with-a-cliff so the lift is a real lever).
+
+    Handles BOTH the FLAT single-task schema {is_working_baseline_cliff: bool} AND the NESTED per-task schema
+    {taskA: {is_working_baseline_cliff: bool}, ...} a multi-task lever cell emits (B-delta v2 is exactly this --
+    bipolar+continuous); forces NON_TEST if ANY task's baseline is floored / non-cliffing (a cross-task lever
+    PASS is invalid if any arm's baseline doesn't actually cliff)."""
+    b = metrics.get("baseline_cliff_self_check")
+    if not isinstance(b, dict):
+        return verdict_norm
+    flags = [b.get("is_working_baseline_cliff")] if "is_working_baseline_cliff" in b \
+        else [v.get("is_working_baseline_cliff") for v in b.values() if isinstance(v, dict)]
+    if any(f is False for f in flags):
         return "NON_TEST"
     return verdict_norm
 
@@ -437,6 +471,8 @@ def discover():
         prereg = find_prereg(name)
         # B-epsilon discrimination-regime gate: a cell self-reporting non-discriminating -> effective verdict NON_TEST
         verdict_norm = discrimination_gate(metrics, normalize_verdict(metrics.get("verdict")))
+        # 3rd gate (working-baseline-cliff): a lever PASS over a floored/non-cliffing baseline -> NON_TEST (B-delta v1)
+        verdict_norm = baseline_cliff_gate(metrics, verdict_norm)
         # BLOCKING-fix (Skunkworks VET): atomize on ANY substantive content with verdict=null when unmapped;
         # preserve headline + key metrics. DROP ONLY a genuinely-empty metrics.json (no content at all).
         if not has_substantive_content(metrics, cell):

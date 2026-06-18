@@ -91,3 +91,45 @@ def discrimination_self_check(discriminates: bool, reference_value, floor, ceili
     """
     return {"discriminates": bool(discriminates), "reference_value": reference_value,
             "floor": floor, "ceiling": ceiling, "reason": reason}
+
+
+def baseline_cliff_self_check(baseline_low, baseline_high, works_threshold=0.5, cliff_drop=0.2,
+                              reason: str = "") -> dict:
+    """WORKING-BASELINE-CLIFF self-check (Skunkworks 3rd self-cert gate, 2026-06-18; encodes the B-delta v1 catch
+    -- 'a lift over a FLOORED baseline is NOT a lever' -- as a DETERMINISTIC self-applied gate. REFINES the
+    discrimination-regime gate [audit 79] specifically for LEVER / baseline-comparison claims).
+
+    For a LEVER claim ('method X LIFTS capability over baseline B'), the lift is a real lever ONLY IF the
+    comparison baseline B is a WORKING baseline WITH A CLIFF: it WORKS (recall/score > works_threshold) at the
+    EASY end AND DEGRADES (drops >= cliff_drop) at the HARD end. Two ways a lever claim is actually a NON_TEST:
+      - baseline FLOORED everywhere (never works): the 'lift' measures DENOISING / threshold-rescue, NOT the
+        lever (the B-delta v1 noise-bug: linear=0 at ALL M -> nonlinear's lift was denoising-over-a-floor).
+      - baseline never CLIFFS (works everywhere): no headroom for a lever to be demonstrated.
+
+    The CELL -- which alone knows its metric -- passes its MEASURED baseline at the EASY end (baseline_low) and
+    the HARD end (baseline_high); the gate DETERMINISTICALLY decides
+        is_working_baseline_cliff = (low > works_threshold) AND ((low - high) >= cliff_drop).
+    Pairs with the consumer-side baseline_cliff_gate (the atomizer forces the effective verdict -> NON_TEST when
+    is_working_baseline_cliff==False). ADDITIVE + NON-RETROACTIVE: ONLY lever cells emit it (a non-lever cell has
+    no comparison baseline), so nothing existing re-grades. COMPOSES with discrimination_self_check (discrimination
+    = does the test discriminate at all; baseline-cliff = is the comparison baseline a working-baseline-with-a-cliff
+    so the lift is a real lever). 11th-rule clean; no LLM; ASCII.
+    """
+    try:
+        lo = float(baseline_low)
+        hi = float(baseline_high)
+        works = lo > float(works_threshold)
+        cliffs = (lo - hi) >= float(cliff_drop)
+        is_wbc = works and cliffs
+    except (TypeError, ValueError):
+        works = cliffs = is_wbc = False
+    return {
+        "is_working_baseline_cliff": bool(is_wbc),
+        "baseline_low": baseline_low,
+        "baseline_high": baseline_high,
+        "works": bool(works),
+        "cliffs": bool(cliffs),
+        "works_threshold": works_threshold,
+        "cliff_drop": cliff_drop,
+        "reason": reason,
+    }
