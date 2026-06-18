@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from experiments._cell_provenance import baseline_cliff_self_check, corpus_completeness_self_check, path_provenance_self_check
-from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate, corpus_completeness_gate, path_provenance_gate
+from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate, corpus_completeness_gate, path_provenance_gate, provenance_quality
 
 ok = True
 def check(label, got, want):
@@ -155,6 +155,24 @@ m = {"discrimination_self_check": {"discriminates": True},
      "path_provenance_self_check": {"is_provenance_sound": True}}
 v = discrimination_gate(m, "PASS"); v = baseline_cliff_gate(m, v); v = corpus_completeness_gate(m, v); v = path_provenance_gate(m, v)
 check("all-5-gates-clean PASS -> PASS survives", v, "PASS")
+
+print("6th gate: VERDICT-MAPPABLE in provenance_quality (CERT requires verdict_norm not None -- re-validation lesson):")
+_cm = {"metrics_source": "measured_torch_gpu", "gate0_self_check": {"pass": True}}
+# would-be-cert (n_seeds>=3) + valid verdict -> CERT (unchanged)
+check("would-be-cert + verdict PASS -> CERT_CHAIN_GRADE",
+      provenance_quality("full", 3, _cm, "PASS"), "CERT_CHAIN_GRADE")
+# would-be-cert + verdict=None (the 190c mis-tier shape) -> UNVERIFIED (the 6th-gate fix)
+check("would-be-cert + verdict=None -> UNVERIFIED (6th gate)",
+      provenance_quality("full", 3, _cm, None), "UNVERIFIED")
+# smoke + verdict=None -> SMOKE_ONLY (guard TARGETED; not over-broadened)
+check("smoke + verdict=None -> SMOKE_ONLY (unchanged)",
+      provenance_quality("smoke", 1, {"metrics_source": "measured_torch_gpu"}, None), "SMOKE_ONLY")
+# non-would-be-cert (n_seeds=1, no markers) + verdict=None -> UNVERIFIED (unchanged)
+check("non-would-be-cert + verdict=None -> UNVERIFIED (unchanged)",
+      provenance_quality("full", 1, {"metrics_source": "measured_torch_gpu"}, None), "UNVERIFIED")
+# regression: would-be-cert + valid verdict + gate0-FAIL -> UNVERIFIED (unchanged)
+check("would-be-cert + verdict PASS + gate0-FAIL -> UNVERIFIED (unchanged)",
+      provenance_quality("full", 3, {"metrics_source": "measured_torch_gpu", "gate0_self_check": {"pass": False}}, "PASS"), "UNVERIFIED")
 
 print(("ALL PASS" if ok else "SOME FAILED"))
 sys.exit(0 if ok else 1)

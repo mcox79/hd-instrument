@@ -341,8 +341,16 @@ def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     # (method_gate_ok still required -- this is not a bypass, just the right rigor axis for a held-out eval).
     held_out_eval = run_mode == "full" and "held_out" in str(metrics.get("metrics_source") or "").lower()
     would_be_cert = run_mode == "full" and ((isinstance(n_seeds, int) and n_seeds >= 3) or cert_markers or held_out_eval)
-    if would_be_cert and method_gate_ok(metrics) and gate0_field_check(metrics):
+    # 6th self-cert gate (verdict-mappable, 2026-06-18; the cert-re-validation lesson): a CERT_CHAIN_GRADE atom MUST
+    # have a RECOGNIZED verdict. A would-be-cert atom whose verdict_norm is None (unmappable: typo / unknown verdict
+    # label) is NOT cert -- the 190c pair were CERT_CHAIN_GRADE with verdict=None (re-tiered to UNVERIFIED, 1fdb6c45).
+    # ADDITIVE + NON-RETROACTIVE: existing CERT atoms all have mappable verdicts (0 verdict=None in CERT post-re-
+    # validation -> no flip); this only blocks NEW verdict=None atoms from reaching CERT. Targeted to the would-be-cert
+    # path -> smoke (SMOKE_ONLY) and non-would-be-cert (LEGACY/UNVERIFIED) verdict=None paths are UNCHANGED.
+    if would_be_cert and method_gate_ok(metrics) and gate0_field_check(metrics) and verdict_norm is not None:
         return "CERT_CHAIN_GRADE"
+    if would_be_cert and verdict_norm is None:         # 6th gate: cert-shaped + measured + gate0-OK but NO mappable verdict -> not cert
+        return "UNVERIFIED"
     if would_be_cert and method_gate_ok(metrics):      # measured + cert-shaped but GATE-0 self-check FAILED
         return "UNVERIFIED"                            # the cell self-reported INCOMPLETE (early-exit / not-full) -> not cert
     if would_be_cert:                                  # cert-shaped but METHOD-GATE FAILED -> explicit non-cert tier
