@@ -21,12 +21,12 @@ from backend.substrate_index.schema import Atom, AtomKind, Corpus, Tier
 
 ATOM_ID = 'PROOF_orthonormal_linearly_independent_real_inner_product'
 
+# FINALIZED (Skunkworks SEMANTICS-MATCH VET PASS 2026-06-18, verbatim).
 CLAIM_SCOPE = (
-    "Certifies that an ORTHONORMAL family in a REAL inner-product space is LINEARLY INDEPENDENT "
-    "(theorem orthonormal_linear_independent: Orthonormal R v -> LinearIndependent R v). A genuinely "
-    "inner-product-STRUCTURAL result (orthonormality, an inner-product notion, implies a linear-algebra "
-    "property) -- distinct from the norm-identity/inequality batch (Pythagoras/Cauchy-Schwarz/triangle/"
-    "parallelogram). Real, not complex. Idealized identity ONLY (no substrate approximate-regime claim)."
+    "Certifies (Lean formal-oracle, T0_PROVEN_FORMAL) that an ORTHONORMAL family in a REAL inner-product "
+    "space is LINEARLY INDEPENDENT (Orthonormal.linearIndependent). A genuinely inner-product-STRUCTURAL "
+    "result: orthonormality (an inner-product notion) implies a linear-algebra property (independence). "
+    "Real (R), not complex. Distinct from the norm-identity/inequality PROOF_RECORD batch."
 )
 
 DESCRIPTION = (
@@ -80,9 +80,9 @@ def build_atom() -> Atom:
         'no_algebra_structural_guard': True,
         'axiom_term_promotion': 'SEPARATE explicit USER/PHASE-III authority; NEVER automatic on lake-PASS',
         'inner_product_structural': 'TRUE -- orthonormality (IP notion) implies linear independence (structural, not a norm identity)',
-        'semantics_match_vet': 'PENDING',   # Skunkworks sets PASS at VET
+        'semantics_match_vet': 'PASS',   # Skunkworks SEMANTICS-MATCH VET PASS 2026-06-18 (conditional met: #print trio confirmed)
         'vet_by': 'skunkworks',
-        'vet_date': 'PENDING',
+        'vet_date': '2026-06-18',
         'vet_checks': 'real-not-complex + exact-not-approximate + non-vacuous + canonical-lemma(Orthonormal.linearIndependent) + olean-verified + no-sorry-axiom',
         'references_methodology_rule': 'RULE_M_LEAN_semantics_match_necessary_lake_pass_necessary_not_sufficient_T0_PROVEN_FORMAL',
         'eleventh_rule_clean': True,
