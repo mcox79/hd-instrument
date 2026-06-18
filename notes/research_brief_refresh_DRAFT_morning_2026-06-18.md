@@ -246,8 +246,14 @@ These 2 cert-grade positives + 2 dimensional replications converge on a
 
   - 8a active-gating: cost-model HARD_PASS REFUTED by measured GPU wall-time
     HARD_FAIL; METHOD GATE rejected via measured GPU wall-time; 13.8x flagship
-    stays downgraded; re-atomize to HARD_FAIL-measured pending sync.
-    DISCIPLINE WORKED EXACTLY AS DESIGNED.
+    stays downgraded. CANONICAL measured-8a HARD_FAIL now PRODUCED as synced
+    metrics.json (Skunkworks VET PASS; metrics_source=measured_gpu_walltime
+    passes method-gate; 3 seeds; cell_commit d78ffe8a; non-monotone boundary
+    + deadlock_guard_ok=True = regime discriminates = real HARD_FAIL not
+    degenerate; ATOMIZE-GO as cert-eligible honest-negative + SUPERSEDED_BY
+    edge cost-model 8a -> measured 8a). DISCIPLINE WORKED EXACTLY AS DESIGNED;
+    canonical inversion permanently resolved (prediction superseded by
+    measurement).
 
   - A5 expansion-axis: HARD-FAIL on Option B noise-robustness (fair-start
     met both >=0.95 at zero noise; fly-LSH expanded-linear noise_at_half=0.366
@@ -272,6 +278,15 @@ Framing per Skunkworks's CONVERGENT SESSION FINDING:
     pending atomize-GO; 2-task replication) + 3 INDEPENDENT cert-grade
     HONEST-NEGATIVES (8a measured HARD_FAIL + refuse-gate NON_TEST + A5
     expansion HARD-FAIL) + 1 LANDED PROOF_RECORD formal cert (Pythagoras-IP)."
+
+**RECAPTURE PROGRAM CANONICAL DISPOSITIONS COMPLETE** (Skunkworks-flagged
+   end-of-overnight): all 3 honest-negatives + 2 positives now have CANONICAL
+   measured/real verdicts in corpus; PHASE-A recapture CLOSED. Every "PASS"
+   the cheap mechanism-swaps initially showed (cost-model 8a HARD_PASS, smoke
+   refuse_gate confirmed) was CAUGHT + CORRECTED by the cert layer (method-
+   gate + GATE-0 + corpus-completeness gap-check + sync file-set-diff fix);
+   the linear-readout-as-ceiling thesis is supported BOTH directions with
+   canonical measured verdicts.
 
 TRIANGULATION (Skunkworks-flagged): one operative substrate lever (nonlinear
    READOUT); cheap upstream mechanism-swap recaptures (cost-model 8a, readout-
