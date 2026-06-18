@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "a1v2_ratio_profile_v1",
-  "script": "experiments/exp_substrate_a1v2_ratio_profile_v1.py",
-  "prereg": "notes/exp_dev_to_skunkworks_orchestrator_BucketD_A1v2_ratio_profile_quick_SCHEMA_VET_ready_dispatch_2026-06-18.md",
-  "timeout_s": 5400,
-  "skip_smoke": false,
-  "authored_utc": "2026-06-18T15:18:58Z"
-}

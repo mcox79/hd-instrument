@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "arch_b_replicate_n2048_v1_redispatch",
-  "script": "experiments/exp_substrate_arch_b_replicate_n2048_v1.py",
-  "prereg": "preregs/2026-06-17_drosophila_recapture_ARCH_B_sparse_key_softmax_readout_DRAFT.md",
-  "timeout_s": 5400,
-  "skip_smoke": true,
-  "authored_utc": "2026-06-18T09:22:07Z"
-}

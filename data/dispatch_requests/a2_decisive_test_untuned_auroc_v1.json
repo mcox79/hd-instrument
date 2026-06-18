@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "a2_decisive_test_untuned_auroc_v1",
-  "script": "experiments/exp_substrate_a2_decisive_test_untuned_auroc_gpu_v1.py",
-  "prereg": "notes/skunkworks_to_exp_dev_orchestrator_B_delta_taskB_redesign_continuous_values_plus_A2_decisive_test_SCHEMA_VET_PASS_2026-06-18.md",
-  "timeout_s": 7200,
-  "skip_smoke": false,
-  "authored_utc": "2026-06-18T16:35:11Z"
-}

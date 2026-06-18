@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "active_gating_8a_break_even_v1",
-  "script": "experiments/exp_substrate_active_gating_8a_break_even_v1.py",
-  "prereg": "notes/skunkworks_to_exp_dev_orchestrator_research_8a_smoke_VET_PASS_scoping_fair_condition_2026-06-17.md",
-  "timeout_s": 5400,
-  "skip_smoke": true,
-  "authored_utc": "2026-06-18T02:53:44Z"
-}

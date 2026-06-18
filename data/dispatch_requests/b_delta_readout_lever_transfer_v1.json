@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "b_delta_readout_lever_transfer_v1",
-  "script": "experiments/exp_substrate_b_delta_readout_lever_transfer_v1.py",
-  "prereg": "notes/exp_dev_to_skunkworks_orchestrator_TRACK2_B_delta_SCHEMA_VET_ready_dispatch_2026-06-18.md",
-  "timeout_s": 5400,
-  "skip_smoke": false,
-  "authored_utc": "2026-06-18T16:02:38Z"
-}

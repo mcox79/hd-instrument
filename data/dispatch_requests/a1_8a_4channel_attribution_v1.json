@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "a1_8a_4channel_attribution_v1",
-  "script": "experiments/exp_substrate_8a_4channel_attribution_v1.py",
-  "prereg": "preregs/2026-06-17_active_gating_8a_break_even_recapture_DRAFT.md",
-  "timeout_s": 5400,
-  "skip_smoke": false,
-  "authored_utc": "2026-06-18T11:42:56Z"
-}
