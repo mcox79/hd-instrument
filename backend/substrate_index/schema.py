@@ -226,6 +226,21 @@ class RelationType(enum.Enum):
     # P3 KP knowledge-promotion independence.
     SHARES_MATH = "SHARES_MATH"          # A and B share the same underlying math (bisimulation)
 
+    # E2 first-class role rel_types (Bucket-2 TRACK-3 2026-06-18; USER-ratified). Per the
+    # reference_store_drops_relation_edge_metadata finding: relation_role on a RELATES edge is
+    # SILENTLY DROPPED on flush (3-tuple persistence). Making the role the REL_TYPE persists it
+    # in the 3-tuple -> edge-queryable. Replaces RELATES+metadata.relation_role for these roles.
+    STRENGTHENS = "STRENGTHENS"          # experiment/result STRENGTHENS a cert (e.g. A3 -> C1-cert)
+    MECHANISM_FOR = "MECHANISM_FOR"      # mechanism atom explains a verdict (e.g. A1/A1-v2 -> measured-8a)
+    REPLICATES = "REPLICATES"            # a run REPLICATES a prior result/cert
+
+    # Edge-materialization rel_types (Bucket-2 TRACK-3 2026-06-18): materialize the B1 WordNet +
+    # B2 GO hierarchy METADATA into TYPED EDGES (the graph is sparse: ~0.19 edges/atom; metadata
+    # hierarchies not edge-queryable until materialized). 0-phantom: only when BOTH endpoints exist.
+    HYPERNYM = "HYPERNYM"                # WordNet: synset -> its more-general (is-a-kind-of) synset
+    IS_A = "IS_A"                        # GO: term -> its superclass term (ontological subsumption)
+    PART_OF = "PART_OF"                  # WordNet meronym + GO part_of: part -> whole
+
 
 # ============================================================
 # Dataclasses
