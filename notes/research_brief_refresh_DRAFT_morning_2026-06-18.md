@@ -153,7 +153,11 @@ atoms:               31304
 relations:           7568 + ~822 cross-namespace bears_on legitimate
 axiom_term:          206/206 PRESERVED
 cap_pres:            1.0 (modules 6/6 OK)
-phantom edges:       151 (pre-existing baseline; E3 cross-namespace edge audit next read-only)
+phantom edges:       151 SOURCE-side (pre-existing stable baseline; 0 phantom TARGETS;
+                          E3 read-only audit CLEAN tonight)
+bears_on targets:    822 (STEP-B Option A); ALL 822 resolve in-store (0 phantom)
+cross-namespace edges (resolved): 3451 (DEPENDS_ON 2286 + RELATES 966 + USES 148);
+                                   all endpoints resolve
 AUDIT_LESSON:        43 (8 CONFIRMED + 35 CANDIDATE; +~5 pending Testbed VERIFY-THE-REFERENT ratify)
 METHODOLOGY_RULE:    32 (24 FROZEN + 8 PHASE-2)
 RESEARCH_FINDING:    1229 (STEP-B Option A; T0-T3 LIVE) + 3 evening drills atomize-cron-pending
