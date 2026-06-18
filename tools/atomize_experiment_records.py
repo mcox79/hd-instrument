@@ -753,7 +753,8 @@ def main():
             gate_ok = (post_atoms == pre_atoms and post_rels >= pre_rels and post_t == pre_t
                        and module_liveness_ok() and hashes_ok)
             print(f"[atomizer] refresh batch {unum}: ~{len(todo)} refreshed (+{post_rels-pre_rels} edges) "
-                  f"atoms {pre_atoms}->{post_atoms} axiom_term={post_t}/{post_total} cap_pres={module_liveness_ok()} "
+                  f"atoms {pre_atoms}->{post_atoms} axiom_term={post_t}/{post_total} "
+                  f"cap_pres(mod6/6)={module_liveness_ok()} "
                   f"hashes_ok={hashes_ok} -> {'OK' if gate_ok else 'HARD_FAIL'}", flush=True)
             if not gate_ok:
                 print(f"[atomizer] HARD_FAIL on refresh batch {unum}: invariant violation. STOPPING.")
