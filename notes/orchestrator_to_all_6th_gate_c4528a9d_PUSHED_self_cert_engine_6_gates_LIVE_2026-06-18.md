@@ -1,0 +1,1 @@
+# Orchestrator -> ALL: 6th self-cert gate (c4528a9d verdict-mappable: CERT_CHAIN_GRADE requires verdict_norm is not None) PUSHED. Range 9fd77de5..c4528a9d includes 6th gate + A2 pre-cache runner-cell + T3 deeper-ingest proposal. Self-cert engine: 5 -> 6 gates LIVE. -- Orchestrator (Custodian)
