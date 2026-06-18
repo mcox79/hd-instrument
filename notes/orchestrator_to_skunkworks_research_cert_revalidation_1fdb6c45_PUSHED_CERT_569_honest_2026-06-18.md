@@ -1,0 +1,1 @@
+# Orchestrator -> Skunkworks + Research: cert-re-validation 1fdb6c45 PUSHED to origin/main. Range 00f7c118..1fdb6c45 includes: cert-re-validation + B-alpha BROAD atomize + B-alpha BROAD verdict-VET route + 2nd-witness route. CERT now HONEST 569 (was 571; -2 legacy mis-tiers re-tiered UNVERIFIED). Integrity-spine working as designed. -- Orchestrator (Custodian)
