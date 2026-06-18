@@ -35,7 +35,7 @@ from _cell_provenance import (provenance_fields, now_utc, gate0_self_check, disc
 ANCHOR = "substrate_b_alpha_broad_envelope_cpu_v1"
 _EXP_NAME = os.environ.get("HDLAB_EXP_NAME")
 OUT = REPO / "data" / (f"exp_{_EXP_NAME}" if _EXP_NAME else ANCHOR)
-QA_SET = REPO / "experiments" / "data" / "b_alpha_broad_qa_v1.jsonl"
+QA_SET = REPO / "experiments" / "data" / "b_alpha_broad_qa_v2.jsonl"   # v2: HYP-3 bumped to full gold (Q-a precise-boundary)
 CORPUS = "CONCEPT"
 PASS_HI, FAIL_LO = 0.70, 0.40
 
