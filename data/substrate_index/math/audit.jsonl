@@ -40104,3 +40104,4 @@
 {"ts": 1781747449.9794135, "op": "add_atom", "target": "T3/EXP_substrate_bge_index_refresh_full_corpus_v1", "note": "", "source": "manual"}
 {"ts": 1781747453.4379811, "op": "add_atom", "target": "T3/EXP_substrate_refuse_gate_nonlinear_readout_v1", "note": "", "source": "manual"}
 {"ts": 1781747456.9851544, "op": "add_atom", "target": "T3/EXP_surprise_gating_b3b_synthetic_pool_recapture_v1", "note": "", "source": "manual"}
+{"ts": 1781767388.354607, "op": "add_atom", "target": "PROOF_pythagoras_ip_real_inner_product", "note": "first PROOF_RECORD; Skunkworks SEMANTICS-MATCH VET PASS", "source": "path_A_proof_record_pythagoras_ip"}

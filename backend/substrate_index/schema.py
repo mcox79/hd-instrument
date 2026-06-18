@@ -137,6 +137,17 @@ class AtomKind(enum.Enum):
                                                  # (structural guard: excluded from axiom_term; never
                                                  # current_best_solution unless cert-promoted). research-
                                                  # being-wrong is STRUCTURALLY SAFE (queryable, never trusted)
+    PROOF_RECORD = "proof_record"                # Tier-B formal-proof records (Lean formal-oracle; PHASE-2).
+                                                 # metadata.confidence_tier = T0_PROVEN_FORMAL (the top trust
+                                                 # tier, formal-proven). NO algebra field (SAME structural
+                                                 # guard as RESEARCH_FINDING: excluded from axiom_term; the
+                                                 # formal-proven identity is queryable PROVEN-FORMAL knowledge,
+                                                 # NOT auto-promoted to the proven-core; axiom_term promotion is
+                                                 # a SEPARATE explicit USER/PHASE-III authority). Skunkworks
+                                                 # SEMANTICS-MATCH VET gates creation (P_lean == P_substrate;
+                                                 # exact-not-approximate; real-not-complex). Per Skunkworks
+                                                 # corrected-model 2026-06-18 (kind separate from trust-tier;
+                                                 # USER+Research CONCUR; NOT a kind literally named T0_PROVEN_FORMAL)
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
