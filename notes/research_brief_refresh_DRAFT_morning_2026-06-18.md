@@ -125,7 +125,14 @@ Operationalization applications (not promotion-witnesses per Skunkworks
    discipline-applied-to-own-atomization correction):
    - Lean SCHEMA-VET semantics-match guard
    - discriminating-regime guards in C1/8a/refuse-gate preregs
-   - structured metrics-provenance gate (Exp-Dev 96592a32; live as of ~20:46)
+   - structured metrics-provenance gate (Exp-Dev 96592a32 refuse_gate +
+     fcb4abd5 fleet-wide shared provenance_fields() helper + 8a no-CUDA
+     guard; SCHEMA-VET PASS both)
+   - CERT-DISCIPLINE NOW SELF-APPLIED AT CELL LEVEL: METHOD-GATE +
+     metrics-provenance encoded INSIDE cells (8a self-withholds verdict
+     when source != measured_gpu_walltime; shared helper self-declares
+     provenance). USER's "audit-judgment -> deterministic self-applied
+     check" directive realized at the cell. Substrate-autonomy milestone.
 
 CATALOGUE state (Store-authoritative going forward; LEDGER as separate
    non-load-bearing reference):
