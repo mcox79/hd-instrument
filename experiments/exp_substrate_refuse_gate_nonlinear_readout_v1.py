@@ -273,6 +273,12 @@ def main() -> int:
     is_smoke = (args.smoke or self_test or run_mode == "smoke") and not getattr(args, "full", False)
     t0 = time.time()
 
+    # BRANCH DIAGNOSTIC (verify-the-referent at runtime): print the exact path BEFORE running, so the remote stdout/gate_log
+    # PROVES which path executed -- no more inferring smoke-vs-full from a (possibly stale) metrics.json.
+    _path = "self_test_wiring(no-write)" if self_test else ("synthetic_smoke" if is_smoke else "REAL_held_out_q54_q65")
+    print(f"[{ANCHOR}] BRANCH: run_mode={run_mode} self_test={self_test} args.smoke={args.smoke} "
+          f"args.full={getattr(args, 'full', False)} -> PATH={_path}", flush=True)
+
     # --self-test is a PURE wiring check (queue_add gate checks exit 0 ONLY). It must NOT write metrics.json: queue_add runs
     # it under HDLAB_EXP_NAME=<entry>, so writing here would pollute data/exp_<entry>/metrics.json with synthetic n=64 output
     # that masquerades as the run if the real FULL is slow/killed/not-overwritten (the stale-n=64 smoke-bug Orchestrator saw).
