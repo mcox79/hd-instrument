@@ -71,7 +71,10 @@ def _parse(stdout: str) -> dict:
     at = re.findall(r"axiom_term=(\d+)/(\d+)", stdout)
     axiom_term = f"{at[-1][0]}/{at[-1][1]}" if at else None
     cap_pres = ("cap_pres(mod6/6)=True" in stdout)
-    hard_fail = ("HARD_FAIL" in stdout)
+    # REAL atomizer gate-fail signals ONLY: the per-batch gate result "-> HARD_FAIL" (line 598) or the explicit
+    # "invariant violation" halt (line 601). NOT a bare "HARD_FAIL" token -- that matches an atomized RECORD's
+    # verdict=HARD_FAIL (a legitimate honest-negative experiment being atomized), which is NOT a cron gate-failure.
+    hard_fail = ("invariant violation" in stdout) or ("-> HARD_FAIL" in stdout)
     total = None
     mt = re.search(r"(\d+)\s+EXPERIMENT_RECORD atoms total in-store", stdout)
     if mt:
