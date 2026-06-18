@@ -83,26 +83,63 @@ try {
         exit 0
     }
 
-    # Step 1: git reconcile (handles Testbed-committed-on-remote divergence;
-    # mirrors tools/remote_sync.sh logic: preserve divergent commits on
-    # timestamped backup branch + hard reset to origin/main)
+    # Step 1: git reconcile -- HARDENED to push remote-side commits to
+    # origin FIRST (Testbed-committed-on-remote pattern; if we just reset
+    # those commits get backed up and never make it to origin -> infinite
+    # divergence loop). New flow:
+    #   1. fetch origin
+    #   2. if HEAD == origin/main: nothing
+    #   3. if HEAD ahead-only of origin/main: try fast-forward push HEAD up
+    #   4. if HEAD behind-only: reset (no local commits to lose)
+    #   5. if diverged (both): try push HEAD up; if push rejects, preserve
+    #      + reset (current behavior)
     try {
         $env:GIT_TERMINAL_PROMPT = "0"
         $localHead = & git rev-parse HEAD 2>$null
         & git fetch origin main 2>$null | Out-Null
         $originHead = & git rev-parse origin/main 2>$null
-        if ($localHead -ne $originHead) {
-            $aheadCount = & git rev-list --count origin/main..HEAD 2>$null
-            if ($aheadCount -and [int]$aheadCount -gt 0) {
-                $ts = (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssZ")
-                $backup = "backup_consumer_$ts"
-                & git branch $backup HEAD 2>$null | Out-Null
-                Write-Log ("GIT preserved $aheadCount divergent commit(s) on $backup")
-            }
-            & git reset --hard origin/main 2>$null | Out-Null
-            Write-Log ("GIT reconciled to origin/main $originHead")
-        } else {
+
+        if ($localHead -eq $originHead) {
             Write-Log "GIT already at origin/main"
+        } else {
+            $ahead = & git rev-list --count origin/main..HEAD 2>$null
+            $behind = & git rev-list --count HEAD..origin/main 2>$null
+            $aheadCount = if ($ahead) { [int]$ahead } else { 0 }
+            $behindCount = if ($behind) { [int]$behind } else { 0 }
+            Write-Log ("GIT divergence ahead={0} behind={1}" -f $aheadCount, $behindCount)
+
+            if ($aheadCount -gt 0) {
+                # Try to push remote's local commits to origin BEFORE any reset.
+                # This preserves Testbed-style work + closes the divergence loop.
+                & git push origin "HEAD:main" 2>&1 | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    Write-Log ("GIT pushed {0} local commit(s) to origin/main" -f $aheadCount)
+                    # If behindCount was also > 0, we'll be ff'd by the push if remote allows
+                    # (it won't; remote requires --force on divergence). In that case the push
+                    # would have failed; fall through to reset path below.
+                    & git fetch origin main 2>$null | Out-Null
+                    $newOrigin = & git rev-parse origin/main 2>$null
+                    $newHead = & git rev-parse HEAD 2>$null
+                    if ($newHead -ne $newOrigin) {
+                        # Still diverged after push (likely because origin moved
+                        # while we were pushing; try ff merge)
+                        & git merge --ff-only origin/main 2>&1 | Out-Null
+                    }
+                } else {
+                    # Push rejected (true divergence: remote ahead + behind)
+                    # Fall back to preserve + reset
+                    $ts = (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssZ")
+                    $backup = "backup_consumer_$ts"
+                    & git branch $backup HEAD 2>$null | Out-Null
+                    Write-Log ("GIT push rejected; preserved $aheadCount commit(s) on $backup")
+                    & git reset --hard origin/main 2>$null | Out-Null
+                    Write-Log ("GIT reset to origin/main $originHead")
+                }
+            } else {
+                # Behind only; just ff
+                & git merge --ff-only origin/main 2>&1 | Out-Null
+                Write-Log ("GIT ff'd $behindCount commit(s) from origin/main")
+            }
         }
     } catch {
         Write-Log ("GIT reconcile failed: " + $_.Exception.Message)
