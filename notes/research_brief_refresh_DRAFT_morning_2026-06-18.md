@@ -269,9 +269,13 @@ These 2 cert-grade positives + 2 dimensional replications converge on a
     passes method-gate; 3 seeds; cell_commit d78ffe8a; non-monotone boundary
     + deadlock_guard_ok=True = regime discriminates = real HARD_FAIL not
     degenerate; ATOMIZE-GO as cert-eligible honest-negative + SUPERSEDED_BY
-    edge cost-model 8a -> measured 8a). DISCIPLINE WORKED EXACTLY AS DESIGNED;
-    canonical inversion permanently resolved (prediction superseded by
-    measurement).
+    edge cost-model 8a -> measured 8a). A1 4-channel attribution profiler
+    LANDED-VERIFIED (mechanism record; cost-model misses 61% MEDIAN of
+    t_sparse cost; non-monotonicity localization OPEN per attribution_findings;
+    deepens 8a method-gate finding substantively; NOT a cert bump but
+    structurally linked to measured-8a HARD_FAIL via bears_on edge).
+    DISCIPLINE WORKED EXACTLY AS DESIGNED; canonical inversion permanently
+    resolved (prediction superseded by measurement).
 
   - A5 expansion-axis: HARD-FAIL on Option B noise-robustness (fair-start
     met both >=0.95 at zero noise; fly-LSH expanded-linear noise_at_half=0.366
