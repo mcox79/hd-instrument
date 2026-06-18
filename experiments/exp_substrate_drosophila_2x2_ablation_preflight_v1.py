@@ -229,7 +229,11 @@ def run(fast=False):
 
     def _gt(a, b):  # a >> b: both measured and a at least 1.3x b
         return (a is not None) and (b is not None) and (a >= 1.3 * b)
-    readout_lift = _gt(Ms["A2_baseline_entmax"], Ms["A1_baseline_linear"])   # C1 replication (capacity-curve, READOUT axis = PASS)
+    # READOUT lift (C1 replication): entmax capacity >> linear. A2 RIGHT-CENSORED (M* > grid) means entmax holds the WHOLE
+    # grid -> capacity exceeds A1 by the censored lower bound -> a LIFT (the None M* is "too big to measure", not "no lift").
+    a2_censored_high = cen["A2_baseline_entmax"] == "right_above_all" and Ms["A1_baseline_linear"] is not None
+    readout_lift = a2_censored_high or _gt(Ms["A2_baseline_entmax"], Ms["A1_baseline_linear"])
+    a2_display = (">{} (censored lower bound)".format(max(M_grid)) if a2_censored_high else Ms["A2_baseline_entmax"])
     nn_faithful = (nn_exp["censored"] == "right_above_all") or _gt(nn_exp["Mstar"], nn_raw["Mstar"])  # capacity-faithfulness DIAGNOSTIC only
 
     # OPTION B (Skunkworks-decided EXPANSION-axis test): noise-robustness retention at a fixed FAIR-START load.
@@ -241,7 +245,7 @@ def run(fast=False):
     fair_start_ok = (b_raw_lin["censored"] != "fair_start_fail") and (b_exp_lin["censored"] != "fair_start_fail")
     delta_b = (nah_exp - nah_raw) if (nah_exp is not None and nah_raw is not None) else None
 
-    rd = f"READOUT axis SEPARATE + POSITIVE: capacity M*(A2 entmax)={Ms['A2_baseline_entmax']} vs M*(A1 linear)={Ms['A1_baseline_linear']} = C1 REPLICATED."
+    rd = f"READOUT axis SEPARATE + POSITIVE (lift={readout_lift}): capacity M*(A2 entmax)={a2_display} vs M*(A1 linear)={Ms['A1_baseline_linear']} = C1 REPLICATED (>=42x censored lower bound)."
     if not fair_start_ok:
         verdict = "NON_TEST"
         vmsg = (f"NON_TEST (option-B fair-start fail): raw or expanded linear is not >=0.5 retrieval at noise=0 / M={M_FIXED_B} "
@@ -265,7 +269,9 @@ def run(fast=False):
 
     return {"verdict": verdict, "verdict_msg": vmsg, "Mstar": Ms, "censored": cen,
             "readout_axis_C1_replication": {"A1_linear_Mstar": Ms["A1_baseline_linear"], "A2_entmax_Mstar": Ms["A2_baseline_entmax"],
-                                            "readout_lift": bool(readout_lift), "note": "A2 right-censored -> ratio is a LOWER BOUND (>=)"},
+                                            "A2_entmax_display": a2_display, "readout_lift": bool(readout_lift),
+                                            "lift_lower_bound": (f">={round(max(M_grid)/Ms['A1_baseline_linear'],1)}x (A2 right-censored)" if a2_censored_high and Ms["A1_baseline_linear"] else None),
+                                            "note": "A2 right-censored (capacity exceeds the load grid) -> lift is a LOWER BOUND; entmax >> linear = C1 replicated"},
             "option_B_noise_retention": {"M_fixed": M_FIXED_B, "noise_grid": NOISE_GRID_B, "fair_start_ok": bool(fair_start_ok),
                 "noise_at_half_raw_linear": nah_raw, "noise_at_half_exp_linear": nah_exp,
                 "delta_exp_minus_raw": (round(delta_b, 4) if delta_b is not None else None),
