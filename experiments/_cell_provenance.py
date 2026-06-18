@@ -173,3 +173,34 @@ def corpus_completeness_self_check(claim_kind: str, n_checked, n_total, method: 
         "method_ok": bool(method_ok),
         "reason": reason,
     }
+
+
+def path_provenance_self_check(n_paths, n_path_edges, n_unverifiable_edges, reason: str = "") -> dict:
+    """MULTI-HOP PATH-PROVENANCE self-check (5th self-cert gate, 2026-06-18; composed-reasoning A1).
+
+    For any cell that returns multi-hop PATHS over the typed-edge KG (path-finding / composed reasoning), every hop
+    in every returned path MUST be a PERSISTED (src, rel_type, tgt) tuple in the Store -- a path with ANY edge not
+    in the Store is a HALLUCINATED hop (the failure mode an LLM/RL walker has + a deterministic walker must not).
+    This is the structural-soundness property that makes a multi-hop answer PROVENANCE-CERT: the PATH is sound.
+
+    HONEST CERT SEMANTIC (min-cert-along-path): provenance-soundness certifies the PATH (every edge real), NOT the
+    answer's CLAIM-cert -- the claim-cert is the WEAKEST edge's tier (ontology-ingested IS_A/HYPERNYM/PART_OF edges
+    are not experiment-cert). So a provenance-sound path over ontology-tier edges = 'structurally sound over ingested
+    edges', NOT a CERT_CHAIN_GRADE experiment claim. (The cell reports min_cert_along_path separately.)
+
+    The cell passes the number of returned paths, total path-edges, and how many were NOT persisted Store tuples;
+    the gate decides is_provenance_sound = (n_unverifiable_edges == 0). Pairs with a consumer-side
+    path_provenance_gate (a returned path with an unverifiable edge -> HARD_FAIL / NON_TEST). ADDITIVE +
+    NON-RETROACTIVE (only multi-hop path cells emit it). COMPOSES with the other 4 gates. 11th-rule clean; no LLM; ASCII.
+    """
+    try:
+        sound = int(n_unverifiable_edges) == 0 and int(n_path_edges) >= 0
+    except (TypeError, ValueError):
+        sound = False
+    return {
+        "is_provenance_sound": bool(sound),
+        "n_paths": n_paths,
+        "n_path_edges": n_path_edges,
+        "n_unverifiable_edges": n_unverifiable_edges,
+        "reason": reason,
+    }
