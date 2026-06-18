@@ -75,14 +75,29 @@ try {
     Write-Log "RUN START"
     Set-Location $repo
 
-    # Step 1: git pull (fast-forward only; resilient)
+    # Step 1: git reconcile (handles Testbed-committed-on-remote divergence;
+    # mirrors tools/remote_sync.sh logic: preserve divergent commits on
+    # timestamped backup branch + hard reset to origin/main)
     try {
         $env:GIT_TERMINAL_PROMPT = "0"
+        $localHead = & git rev-parse HEAD 2>$null
         & git fetch origin main 2>$null | Out-Null
-        & git merge --ff-only origin/main 2>&1 | Out-Null
-        Write-Log "GIT pulled"
+        $originHead = & git rev-parse origin/main 2>$null
+        if ($localHead -ne $originHead) {
+            $aheadCount = & git rev-list --count origin/main..HEAD 2>$null
+            if ($aheadCount -and [int]$aheadCount -gt 0) {
+                $ts = (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssZ")
+                $backup = "backup_consumer_$ts"
+                & git branch $backup HEAD 2>$null | Out-Null
+                Write-Log ("GIT preserved $aheadCount divergent commit(s) on $backup")
+            }
+            & git reset --hard origin/main 2>$null | Out-Null
+            Write-Log ("GIT reconciled to origin/main $originHead")
+        } else {
+            Write-Log "GIT already at origin/main"
+        }
     } catch {
-        Write-Log ("GIT pull failed: " + $_.Exception.Message)
+        Write-Log ("GIT reconcile failed: " + $_.Exception.Message)
     }
 
     # Step 2: scan dispatch_requests/*.json
