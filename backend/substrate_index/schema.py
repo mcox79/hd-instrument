@@ -171,6 +171,13 @@ class AtomKind(enum.Enum):
                                                  # map is an AGGREGATION over many cert atoms with regeneratable
                                                  # scour-query metadata. Domain heuristics carry "approximate"
                                                  # qualifier (11th-rule clean: substring-match not LLM categorization).
+    SEMANTIC_FRAME = "semantic_frame"            # FrameNet ARC-3 ingest (Item 2; USER-GO 2026-06-18; Skunkworks
+                                                 # discretion). One atom per FrameNet frame (id=FN_<framename>,
+                                                 # corpus=CONCEPT). STRUCTURAL GUARDS (same as SCIENCE_CONCEPT):
+                                                 # (a) NO algebra field -> excluded from axiom_term; (b)
+                                                 # provenance_quality=RESEARCH_FINDING (T2 non-load-bearing until
+                                                 # cert-promoted by experiment). LU lemmas carried as METADATA;
+                                                 # frame-to-frame relations as first-class FRAME_* rel_types.
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
@@ -253,6 +260,17 @@ class RelationType(enum.Enum):
     HYPERNYM = "HYPERNYM"                # WordNet: synset -> its more-general (is-a-kind-of) synset
     IS_A = "IS_A"                        # GO: term -> its superclass term (ontological subsumption)
     PART_OF = "PART_OF"                  # WordNet meronym + GO part_of: part -> whole
+    # FrameNet frame-to-frame relations (Item 2 ingest; first-class rel_types per metadata-drop lesson; 2026-06-18):
+    FRAME_INHERITS = "FRAME_INHERITS"            # child frame inherits from parent frame (Inheritance)
+    FRAME_USES = "FRAME_USES"                    # frame uses another frame (Using)
+    FRAME_SUBFRAME = "FRAME_SUBFRAME"            # complex frame decomposes into subframe (Subframe)
+    FRAME_PERSPECTIVE_ON = "FRAME_PERSPECTIVE_ON"  # frame is a perspective on a neutral frame (Perspective_on)
+    FRAME_PRECEDES = "FRAME_PRECEDES"            # temporal ordering of subframes (Precedes)
+    FRAME_INCHOATIVE_OF = "FRAME_INCHOATIVE_OF"  # inchoative (onset) of a state frame (Inchoative_of)
+    FRAME_CAUSATIVE_OF = "FRAME_CAUSATIVE_OF"    # causative of a state/event frame (Causative_of)
+    FRAME_SEE_ALSO = "FRAME_SEE_ALSO"            # cross-reference between related frames (See_also)
+    FRAME_REFRAMING_MAPPING = "FRAME_REFRAMING_MAPPING"  # ReFraming_Mapping (in nltk; scaffold's 8 omitted it)
+    FRAME_METAPHOR = "FRAME_METAPHOR"            # Metaphor (in nltk; scaffold's 8 omitted it)
 
 
 # ============================================================
