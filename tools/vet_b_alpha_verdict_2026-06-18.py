@@ -60,14 +60,15 @@ def main():
     verdict = m.get("verdict")
     recall = m.get("recall_answer_found")
 
-    # (1) gate0
+    # (1) gate0 (run_mode lives at metrics top-level via provenance_fields; gate0 dict carries pass/is_smoke/n_cells)
     g0 = m.get("gate0_self_check") or {}
+    run_mode_top = m.get("run_mode") or (m.get("provenance") or {}).get("run_mode")
     if not g0.get("pass"):
-        fails.append(f"(1) gate0 FAIL: {g0}")
-    elif g0.get("run_mode") != "full":
-        fails.append(f"(1) gate0 run_mode != full: {g0.get('run_mode')}")
+        fails.append(f"(1) gate0 FAIL (pass != True): {g0}")
+    elif run_mode_top != "full" or g0.get("is_smoke"):
+        fails.append(f"(1) run_mode={run_mode_top} (top-level) / gate0.is_smoke={g0.get('is_smoke')} -- not a full run")
     else:
-        notes.append(f"(1) gate0 PASS (run_mode=full, n_decl={g0.get('n_cells_declared')}, n_emit={g0.get('n_cells_emitted')})")
+        notes.append(f"(1) gate0 PASS (run_mode=full, is_smoke=False, n_decl={g0.get('n_cells_declared')}, n_emit={g0.get('n_cells_emitted')})")
 
     # (2) discrimination + provenance + FP
     if verdict == "NON_TEST":

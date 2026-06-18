@@ -53,16 +53,15 @@ def main():
 
     fails, halts, notes = [], [], []
 
-    # (1) gate0
+    # (1) gate0 (run_mode lives at metrics top-level via provenance_fields; gate0 dict carries pass/is_smoke/n_cells -- NOT run_mode)
     g0 = m.get("gate0_self_check") or {}
+    run_mode_top = m.get("run_mode") or (m.get("provenance") or {}).get("run_mode")
     if not g0.get("pass"):
-        fails.append(f"(1) gate0 FAIL: {g0}")
+        fails.append(f"(1) gate0 FAIL (pass != True): {g0}")
+    elif run_mode_top != "full" or g0.get("is_smoke"):
+        fails.append(f"(1) run_mode={run_mode_top} (top-level) / gate0.is_smoke={g0.get('is_smoke')} -- smoke/synthetic slip")
     else:
-        if g0.get("run_mode") != "full":
-            fails.append(f"(1) gate0 run_mode != full: {g0.get('run_mode')} -- smoke/synthetic slip")
-        if m.get("provenance", {}).get("metrics_source", m.get("metrics_source")) and "measured" not in json.dumps(g0):
-            notes.append("(1) gate0 metrics_source not visible in gate0 dict; check provenance block")
-        notes.append(f"(1) gate0 PASS (run_mode={g0.get('run_mode')}, n_declared={g0.get('n_cells_declared')}, n_emitted={g0.get('n_cells_emitted')})")
+        notes.append(f"(1) gate0 PASS (run_mode=full, is_smoke=False, n_declared={g0.get('n_cells_declared')}, n_emitted={g0.get('n_cells_emitted')})")
 
     # (2) NON_TEST guard
     disc = m.get("discrimination_self_check") or {}
