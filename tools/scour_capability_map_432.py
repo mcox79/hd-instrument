@@ -179,7 +179,7 @@ def build_atom(cert, corpus_total):
             "capability_inventory": {
                 "cert_chain_grade_total": len(cert),
                 "positives_total": len(positives),
-                "positives_by_verdict": dict(collections.Counter(c["verdict"] for c in cert)),
+                "cert_by_verdict": dict(collections.Counter(c["verdict"] for c in cert)),
                 "positives_high_relevance": len(high),
                 "positives_low_relevance": len(low),
                 "positives_high_by_domain": dict(high_by_dom),
@@ -205,10 +205,24 @@ def build_atom(cert, corpus_total):
     return atom
 
 
+def _live_atom_count():
+    """Count current total atoms in Store at scour time (verify-the-referent on corpus_total)."""
+    n = 0
+    for p in sorted(os.listdir(ROOT)):
+        fp = os.path.join(ROOT, p, "atoms.jsonl")
+        if not os.path.isfile(fp):
+            continue
+        with open(fp, encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    n += 1
+    return n
+
+
 def main():
     cert = scour()
-    # Approximate corpus total (not loading entire corpus; pass via known value)
-    atom = build_atom(cert, corpus_total=41324)
+    corpus_total = _live_atom_count()
+    atom = build_atom(cert, corpus_total=corpus_total)
     out_path = "data/capability_map_atom_DRAFT_pre_skunkworks_FINAL_VET.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(atom, f, indent=2)
