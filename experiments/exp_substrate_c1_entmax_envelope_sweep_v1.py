@@ -168,10 +168,13 @@ def run_cell(n, cluster, noise, seeds, device):
     sm = agg[1.0]
     discriminates = sm["nz"] > 2.0                      # softmax genuinely spreads -> readout-family discriminates
     best = {"alpha": None, "flops_reduction": -1e9, "recall_delta": 0.0}
+    per_alpha = {}                                       # Skunkworks reporting-req: per-alpha (for fixed-vs-best-alpha)
     for a in (1.5, 2.0):
         em = agg[a]
         red = 1.0 - em["nz"] / max(sm["nz"], 1e-9)      # iso-M FLOPs reduction (entmax fewer nonzero)
         rdelta = em["exact"] - sm["exact"]
+        per_alpha[f"a{a}"] = {"flops_reduction": round(red, 4), "recall_delta": round(rdelta, 4),
+                              "win": bool(discriminates and rdelta >= WIN_RECALL_DELTA and red >= WIN_FLOPS_RED)}
         if rdelta >= WIN_RECALL_DELTA and red > best["flops_reduction"]:
             best = {"alpha": a, "flops_reduction": red, "recall_delta": rdelta,
                     "softmax_recall": sm["exact"], "entmax_recall": em["exact"],
@@ -182,7 +185,7 @@ def run_cell(n, cluster, noise, seeds, device):
             "softmax_nz": round(sm["nz"], 3), "softmax_recall": round(sm["exact"], 3),
             "discriminates": discriminates, "win": win,
             "best_alpha": best["alpha"], "flops_reduction": round(best["flops_reduction"], 4),
-            "recall_delta": round(best["recall_delta"], 4)}
+            "recall_delta": round(best["recall_delta"], 4), "per_alpha": per_alpha}
 
 
 def main():
@@ -228,6 +231,29 @@ def main():
     win_frac = (len(wins) / n_disc) if n_disc > 0 else 0.0
     med_red = (sorted(c["flops_reduction"] for c in wins)[len(wins) // 2] if wins else 0.0)
 
+    # Skunkworks reporting-req (a): flops_reduction MAGNITUDE distribution (does ~8x HOLD across the envelope or DEGRADE?)
+    def _pct(xs, q):
+        if not xs:
+            return 0.0
+        xs = sorted(xs)
+        return xs[min(len(xs) - 1, int(q * (len(xs) - 1) + 0.5))]
+    disc_reds = [c["flops_reduction"] for c in discriminating]
+    win_reds = [c["flops_reduction"] for c in wins]
+    magnitude = {
+        "discriminating_flops_reduction": {
+            "min": round(min(disc_reds), 4) if disc_reds else 0.0, "p25": round(_pct(disc_reds, 0.25), 4),
+            "median": round(_pct(disc_reds, 0.5), 4), "p75": round(_pct(disc_reds, 0.75), 4),
+            "max": round(max(disc_reds), 4) if disc_reds else 0.0},
+        "win_flops_reduction_median": round(_pct(win_reds, 0.5), 4),
+        "note": "8x ~= flops_reduction 0.875; HOLDS if median stays ~0.875 across cells, DEGRADES if it falls toward 0.05 at edges",
+    }
+    # Skunkworks reporting-req (b): fixed-vs-best-alpha (is a SINGLE fixed alpha envelope-robust, or only per-cell-best?)
+    fixed_alpha = {}
+    for a in ("a1.5", "a2.0"):
+        fa_wins = sum(1 for c in discriminating if c["per_alpha"][a]["win"])
+        fixed_alpha[a] = {"wins": fa_wins, "win_fraction": round(fa_wins / n_disc, 4) if n_disc else 0.0}
+    fixed_alpha["best_of_both"] = {"wins": len(wins), "win_fraction": round(win_frac, 4)}
+
     if n_disc == 0:
         verdict = "HONEST_BOUNDED"
         msg = (f"NON-TEST envelope: NO cell discriminates (softmax one-hots everywhere; nonzero<=2) across the swept "
@@ -259,6 +285,8 @@ def main():
         "n_cells": len(cells), "n_discriminating": n_disc, "n_non_discriminating": len(non_disc),
         "n_wins": len(wins), "win_fraction_of_discriminating": round(win_frac, 4),
         "median_flops_reduction_of_wins": round(med_red, 4),
+        "magnitude_distribution": magnitude,        # Skunkworks reporting-req (a): does 8x hold or degrade
+        "fixed_vs_best_alpha": fixed_alpha,          # Skunkworks reporting-req (b): fixed-alpha-robust vs per-cell-best
         "thresholds": {"WIN_FLOPS_RED": WIN_FLOPS_RED, "WIN_RECALL_DELTA": WIN_RECALL_DELTA,
                        "PASS_FRAC": PASS_FRAC, "FAIL_FRAC": FAIL_FRAC, "ACC_THRESH": ACC_THRESH},
         "grid": {"N": n_grid, "cluster": cluster_grid, "noise": noise_grid, "alphas": ALPHAS, "M": "M=N (iso-load)"},
