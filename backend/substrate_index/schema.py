@@ -158,6 +158,19 @@ class AtomKind(enum.Enum):
                                                  # relations (is_a/part_of) carried as METADATA fields (mirrors
                                                  # the WordNet hypernym/hyponym-as-metadata rule). Skunkworks
                                                  # SCHEMA-VET confirms the enum-add at the B2 dry-run.
+    CAPABILITY_MAP = "capability_map"            # Meta aggregation/INDEX atom over existing CERT atoms (Director-
+                                                 # authored substrate-breadth-map; 2026-06-18; Skunkworks 432-map
+                                                 # VET APPROVE per genuinely-distinct-role; pending pre-Store-write
+                                                 # FINAL VET). TWO MANDATORY STRUCTURAL GUARDS: (a) NO algebra field
+                                                 # (SAME guard as RESEARCH_FINDING/PROOF_RECORD/SCIENCE_CONCEPT:
+                                                 # excluded from axiom_term -> axiom_term unchanged); (b)
+                                                 # provenance_quality MUST NOT be CERT_CHAIN_GRADE (an INVENTORY
+                                                 # pointing AT cert atoms, NEVER itself cert-counted -> CERT count
+                                                 # unchanged by this kind). Distinct from CAPABILITY (single-concept
+                                                 # with 8-field schema + serves_capability linkage); a capability-
+                                                 # map is an AGGREGATION over many cert atoms with regeneratable
+                                                 # scour-query metadata. Domain heuristics carry "approximate"
+                                                 # qualifier (11th-rule clean: substring-match not LLM categorization).
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):

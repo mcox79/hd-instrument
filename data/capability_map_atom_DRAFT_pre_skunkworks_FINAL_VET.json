@@ -1,0 +1,623 @@
+{
+  "id": "meta::CAPABILITY_MAP_substrate_breadth_2026_06_18_v1",
+  "name": "CAPABILITY_MAP substrate breadth 2026-06-18 v1",
+  "corpus": "meta",
+  "tier": "NA",
+  "kind": "capability_map",
+  "description": "Director-authored substrate-breadth inventory pointing AT CERT_CHAIN_GRADE atoms in the substrate as of 2026-06-18. HONEST FRAMING (per Skunkworks 432-map VET, negativity-bias-symmetric toward PRECISION): the substrate contains 569 CERT_CHAIN_GRADE atoms, of which 433 are PASS-verdict. The 433 PASS atoms split into 62 distinct HIGH-relevance capability claims + 371 LOW-relevance replication/sweep/parameter atoms (all CERT_CHAIN_GRADE; LOW are robust replication evidence, NOT independent capability claims). DOMAIN DISTRIBUTION: 386/433 are substrate-mechanism CORE (VSA/HDC capacity, binding, retrieval, formal proofs); 47/433 are across 5 applied domains (NLP, Cognitive, KG, Audit, Retrieval). The substrate's STRONGEST cert-grade claim is the substrate-mechanism CORE; applied-domain breadth is more modest. NEGATIVE COMPANION: 63 HARD_FAIL CERT atoms (recapture-program honest-negatives + 8a measured-fail + others); the POSITIVES are credible BECAUSE the negatives are at cert tier (cert-architecture catches its own custodians). DOMAIN HEURISTIC IS APPROXIMATE (substring-match on name + description, 11th-rule clean, NOT authoritative). THIS ATOM IS AN INVENTORY/INDEX, NOT itself a CERT (structural guards: algebra=None excluded from axiom_term, provenance_quality NOT CERT_CHAIN_GRADE). Regeneratable via tools/scour_capability_map_432.py for honest refresh.",
+  "aliases": [],
+  "metadata": {
+    "record_class": "capability_map",
+    "term_class": "INVENTORY_NON_MATH",
+    "algebra": null,
+    "provenance_quality": "INVENTORY_NON_CERT",
+    "verdict": "INVENTORY",
+    "relevance_tier": "HIGH",
+    "authored_by": "research_director",
+    "cert_owner_vet": "PENDING_FINAL_PRE_STORE_WRITE",
+    "scour_query": {
+      "tool": "tools/scour_capability_map_432.py",
+      "pattern": "metadata.provenance_quality == CERT_CHAIN_GRADE",
+      "corpus_root": "data/substrate_index/*/atoms.jsonl",
+      "date": "2026-06-18",
+      "corpus_total_atoms_at_scour": 41324
+    },
+    "domain_heuristic": "APPROXIMATE substring-match on name+description; NOT authoritative",
+    "honest_framing_correction_applied": "PRECISION: distinct HIGH-relevance claims + LOW-relevance replication (not all-432-as-capabilities or all-432-as-applied-domains); mirror of morning 2026-06-18 NEGATIVITY-BIAS-symmetric catch which cut UPWARD",
+    "capability_inventory": {
+      "cert_chain_grade_total": 569,
+      "positives_total": 433,
+      "positives_by_verdict": {
+        "MIDDLE_BAND": 67,
+        "HARD_FAIL": 63,
+        "PASS": 432,
+        "null": 2,
+        "HONEST_BOUNDED": 1,
+        "SPARSITY_NEUTRAL": 2,
+        "NON_TEST": 1,
+        "HARD_PASS": 1
+      },
+      "positives_high_relevance": 62,
+      "positives_low_relevance": 371,
+      "positives_high_by_domain": {
+        "Cognitive/Reasoning": 8,
+        "Audit/Capability": 4,
+        "NLP/Language": 2,
+        "SubstrateMechanism": 44,
+        "Retrieval/Memory": 2,
+        "KnowledgeGraph/MultiHop": 2
+      },
+      "positives_low_by_domain": {
+        "Retrieval/Memory": 1,
+        "NLP/Language": 2,
+        "Cognitive/Reasoning": 8,
+        "SubstrateMechanism": 342,
+        "Audit/Capability": 3,
+        "KnowledgeGraph/MultiHop": 15
+      },
+      "positives_high_exemplars_per_domain": {
+        "Cognitive/Reasoning": [
+          {
+            "aid": "T3/EXP_active_inference_dpefe_h2_cpu_v1",
+            "name": "exp_active_inference_dpefe_h2_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_crt_module_scaling_battery_v1",
+            "name": "exp_crt_module_scaling_battery_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_csp_hebbian_coexist_v1",
+            "name": "exp_csp_hebbian_coexist_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_abduction_f1_weakest_signature_kernel_kgram_xor_groundtruth_cpu_v1",
+            "name": "exp_substrate_abduction_f1_weakest_signature_kernel_kgram_xor_groundtruth_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_decomposition_resonator_alpha05_cpu_v1",
+            "name": "exp_substrate_decomposition_resonator_alpha05_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_symbolic_prim_battery_v1",
+            "name": "exp_symbolic_prim_battery_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_pb_crt_real_encoder_atoms_v1",
+            "name": "exp_pb_crt_real_encoder_atoms_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_planted_csp_viability_full_v3",
+            "name": "exp_planted_csp_viability_full_v3",
+            "metric_type": null
+          }
+        ],
+        "Audit/Capability": [
+          {
+            "aid": "T3/EXP_deletion_cert_refusal_joint_v1",
+            "name": "exp_deletion_cert_refusal_joint_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096",
+            "name": "exp_substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_padding_side_audit_capacity_v1",
+            "name": "exp_padding_side_audit_capacity_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096",
+            "name": "exp_substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096",
+            "metric_type": null
+          }
+        ],
+        "NLP/Language": [
+          {
+            "aid": "T3/EXP_intent_atis_multiseed_cpu_v1",
+            "name": "exp_intent_atis_multiseed_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1",
+            "name": "exp_substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1",
+            "metric_type": null
+          }
+        ],
+        "SubstrateMechanism": [
+          {
+            "aid": "T3/EXP_substrate_capacity_composition_b2xb4_v1_n2048",
+            "name": "exp_substrate_capacity_composition_b2xb4_v1_n2048",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_tier4_multiseed_sweep_cpu_v1",
+            "name": "exp_tier4_multiseed_sweep_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_tr_w1w2_set_intersect_v1",
+            "name": "exp_tr_w1w2_set_intersect_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_wave1_multiseed_sweep_cpu_v1",
+            "name": "exp_wave1_multiseed_sweep_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_wave1_tier1_sweep_cpu_v1",
+            "name": "exp_wave1_tier1_sweep_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_wave2_rescue_multiseed_sweep_cpu_v1",
+            "name": "exp_wave2_rescue_multiseed_sweep_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_f4_kappa_n_deviation_snr_cpu_v1",
+            "name": "exp_f4_kappa_n_deviation_snr_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_fp16_vs_fp32_parity_v1",
+            "name": "exp_fp16_vs_fp32_parity_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_i1_bf16_overflow_n65536_v1",
+            "name": "exp_i1_bf16_overflow_n65536_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1",
+            "name": "exp_kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_modern_hopfield_n_sweep_v1",
+            "name": "exp_modern_hopfield_n_sweep_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_pb_pinv_llama_l15_keys_v1",
+            "name": "exp_pb_pinv_llama_l15_keys_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_pb_production_recipe_integration_v1",
+            "name": "exp_pb_production_recipe_integration_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_pp55_vsa_binding_n131072_v6_n131072",
+            "name": "exp_pp55_vsa_binding_n131072_v6_n131072",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_pp55_vsa_binding_n16384_v3_n16384",
+            "name": "exp_pp55_vsa_binding_n16384_v3_n16384",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l10_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l10_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l11_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l11_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l12_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l12_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l13_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l13_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l14_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l14_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l15_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l15_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l5_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l5_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l6_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l6_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l7_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l7_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l8_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l8_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_q_a3_l9_cross_layer_composition_v1_n4096",
+            "name": "exp_q_a3_l9_cross_layer_composition_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_capacity_battery_gpu_v1",
+            "name": "exp_substrate_capacity_battery_gpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu",
+            "name": "exp_substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_capacity_scaling_sweep_xl_v1",
+            "name": "exp_substrate_capacity_scaling_sweep_xl_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_capacity_stress_composition_v1_n16384",
+            "name": "exp_substrate_capacity_stress_composition_v1_n16384",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_cognitive_core_analogical_v1",
+            "name": "exp_substrate_cognitive_core_analogical_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1",
+            "name": "exp_substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_encoder_capacity_at_scale_battery_gpu_v1",
+            "name": "exp_substrate_encoder_capacity_at_scale_battery_gpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_etf_minilm_dim_expansion_v1",
+            "name": "exp_substrate_etf_minilm_dim_expansion_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_expansion_method_battery_gpu_v1",
+            "name": "exp_substrate_expansion_method_battery_gpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_hierarchical_5corpus_meta_v1_n2048_gpu",
+            "name": "exp_substrate_hierarchical_5corpus_meta_v1_n2048_gpu",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048",
+            "name": "exp_substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_last_token_vs_whitening_mean_pool_v1",
+            "name": "exp_substrate_last_token_vs_whitening_mean_pool_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_position_binding_combined_arch_trigram_v1_n4096",
+            "name": "exp_substrate_position_binding_combined_arch_trigram_v1_n4096",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_sparse_vs_dense_alpha_sweep_v1",
+            "name": "exp_substrate_sparse_vs_dense_alpha_sweep_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_sparsity_fine_battery_gpu_v1",
+            "name": "exp_substrate_sparsity_fine_battery_gpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_t5c_hybrid_3seed_kb10k_v1",
+            "name": "exp_t5c_hybrid_3seed_kb10k_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_t5c_pp225_pythia14b_fp32proj_3seed_v1",
+            "name": "exp_t5c_pp225_pythia14b_fp32proj_3seed_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_b_delta_readout_lever_transfer_v2",
+            "name": "Experiment record (CERT): nonlinear-readout capacity lever transfers across value-type (B-delta v2)",
+            "metric_type": "capacity_extension_recall"
+          }
+        ],
+        "Retrieval/Memory": [
+          {
+            "aid": "T3/EXP_substrate_codebook_near_duplicate_diagnostic_cpu_v1",
+            "name": "exp_substrate_codebook_near_duplicate_diagnostic_cpu_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_pca_prewhitening_codebook_v1",
+            "name": "exp_substrate_pca_prewhitening_codebook_v1",
+            "metric_type": null
+          }
+        ],
+        "KnowledgeGraph/MultiHop": [
+          {
+            "aid": "T3/EXP_ccc1_extra_fb15k237_kg_multihop_v1",
+            "name": "exp_ccc1_extra_fb15k237_kg_multihop_v1",
+            "metric_type": null
+          },
+          {
+            "aid": "T3/EXP_substrate_multimodal_binding_text_kg_v1",
+            "name": "exp_substrate_multimodal_binding_text_kg_v1",
+            "metric_type": null
+          }
+        ]
+      },
+      "positives_low_samples_per_domain": {
+        "Retrieval/Memory": [
+          {
+            "aid": "T3/EXP_hnsw_ef_search_calibration_v1",
+            "name": "exp_hnsw_ef_search_calibration_v1"
+          }
+        ],
+        "NLP/Language": [
+          {
+            "aid": "T3/EXP_ner_transition_charngram_noise_crosscut_cpu_v1",
+            "name": "exp_ner_transition_charngram_noise_crosscut_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_pos_tagger_multiseed_cpu_v1",
+            "name": "exp_pos_tagger_multiseed_cpu_v1"
+          }
+        ],
+        "Cognitive/Reasoning": [
+          {
+            "aid": "T3/EXP_substrate_abduction_f1b_confound_break_recoverability_vs_infopreservation_cpu_v1",
+            "name": "exp_substrate_abduction_f1b_confound_break_recoverability_vs_infopreservation_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_substrate_abduction_f3_hmm_headroom_realgap_deployment_cpu_v1",
+            "name": "exp_substrate_abduction_f3_hmm_headroom_realgap_deployment_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_substrate_b6_x_sq2_audit_preserving_reasoning_v1_n4096",
+            "name": "exp_substrate_b6_x_sq2_audit_preserving_reasoning_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_substrate_compositional_generalization_K10_to_K20_v1_n4096",
+            "name": "exp_substrate_compositional_generalization_K10_to_K20_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_substrate_novel_assembly_2_tier2_novel_composition_equivalence_checked_cpu_v1",
+            "name": "exp_substrate_novel_assembly_2_tier2_novel_composition_equivalence_checked_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_crt_module_scaling_battery_fixed_v1",
+            "name": "exp_crt_module_scaling_battery_fixed_v1"
+          },
+          {
+            "aid": "T3/EXP_csp_memory_warm_start_full_v3",
+            "name": "exp_csp_memory_warm_start_full_v3"
+          },
+          {
+            "aid": "T3/EXP_substrate_arch_ablation_matrix_bigram_v1_n512_gpu",
+            "name": "exp_substrate_arch_ablation_matrix_bigram_v1_n512_gpu"
+          }
+        ],
+        "SubstrateMechanism": [
+          {
+            "aid": "T3/EXP_substrate_stage_a_bio_smoke_B2_sparse_fix_v2",
+            "name": "exp_substrate_stage_a_bio_smoke_B2_sparse_fix_v2"
+          },
+          {
+            "aid": "T3/EXP_temporal_contextual_multiseed_cpu_v1",
+            "name": "exp_temporal_contextual_multiseed_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096",
+            "name": "exp_combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_combo2_p4_l3_signed_am_v1_n32768",
+            "name": "exp_combo2_p4_l3_signed_am_v1_n32768"
+          },
+          {
+            "aid": "T3/EXP_combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1",
+            "name": "exp_combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1"
+          },
+          {
+            "aid": "T3/EXP_combo3_unified_api_v1_n16384_l4_alpha_grid_v1",
+            "name": "exp_combo3_unified_api_v1_n16384_l4_alpha_grid_v1"
+          },
+          {
+            "aid": "T3/EXP_deletion_cert_z_ratio_n16384_full_alpha_v1",
+            "name": "exp_deletion_cert_z_ratio_n16384_full_alpha_v1"
+          },
+          {
+            "aid": "T3/EXP_deletion_cert_z_ratio_n16384_v1",
+            "name": "exp_deletion_cert_z_ratio_n16384_v1"
+          }
+        ],
+        "Audit/Capability": [
+          {
+            "aid": "T3/EXP_c_infty_seb_detection_full_v3",
+            "name": "exp_c_infty_seb_detection_full_v3"
+          },
+          {
+            "aid": "T3/EXP_capacity_cliff_graceful_full_v3",
+            "name": "exp_capacity_cliff_graceful_full_v3"
+          },
+          {
+            "aid": "T3/EXP_f6_bge_large_pinv_mmax_reaudit_v1",
+            "name": "exp_f6_bge_large_pinv_mmax_reaudit_v1"
+          }
+        ],
+        "KnowledgeGraph/MultiHop": [
+          {
+            "aid": "T3/EXP_pp48_nkt_cross_n_depth13_v1_n8192",
+            "name": "exp_pp48_nkt_cross_n_depth13_v1_n8192"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_cross_n_depth17_v1_n8192",
+            "name": "exp_pp48_nkt_cross_n_depth17_v1_n8192"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_cross_n_depth19_v1_n16384",
+            "name": "exp_pp48_nkt_cross_n_depth19_v1_n16384"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_cross_n_depth19_v1_n8192",
+            "name": "exp_pp48_nkt_cross_n_depth19_v1_n8192"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_depth_11_v1_n4096",
+            "name": "exp_pp48_nkt_depth_11_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_depth_13_v1_n4096",
+            "name": "exp_pp48_nkt_depth_13_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_depth_15_v1_n4096",
+            "name": "exp_pp48_nkt_depth_15_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_pp48_nkt_depth_17_v1_n4096",
+            "name": "exp_pp48_nkt_depth_17_v1_n4096"
+          }
+        ]
+      },
+      "applied_domain_total": 47,
+      "core_total": 386,
+      "hard_fail_total": 63,
+      "hard_fail_by_domain": {
+        "SubstrateMechanism": 52,
+        "NLP/Language": 1,
+        "Cognitive/Reasoning": 6,
+        "Audit/Capability": 2,
+        "KnowledgeGraph/MultiHop": 1,
+        "Math/Formal": 1
+      },
+      "hard_fail_exemplars_per_domain": {
+        "SubstrateMechanism": [
+          {
+            "aid": "EXP_substrate_trained_mini_lm_readout_fix_nsweep_v2_capped",
+            "name": "exp_substrate_trained_mini_lm_readout_fix_nsweep_v2_capped"
+          },
+          {
+            "aid": "T3/EXP_e1_substrate_crf_shared_lib_cpu_v1",
+            "name": "exp_e1_substrate_crf_shared_lib_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_phase_6_1_h3_distractor_relevance_cpu_v1",
+            "name": "exp_phase_6_1_h3_distractor_relevance_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_pp31c_knee_full_n8192_v2",
+            "name": "exp_pp31c_knee_full_n8192_v2"
+          },
+          {
+            "aid": "T3/EXP_substrate_autonomous_tier2_mixed_symmetry_link_prediction_cpu_v1",
+            "name": "exp_substrate_autonomous_tier2_mixed_symmetry_link_prediction_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_substrate_stage_a_bio_b3_b6_ceiling_followup_v1",
+            "name": "exp_substrate_stage_a_bio_b3_b6_ceiling_followup_v1"
+          },
+          {
+            "aid": "T3/EXP_substrate_stage_a_bio_b5_palimpsest_revised_v1",
+            "name": "exp_substrate_stage_a_bio_b5_palimpsest_revised_v1"
+          },
+          {
+            "aid": "T3/EXP_substrate_stage_a_bio_smoke_REVISED_v1",
+            "name": "exp_substrate_stage_a_bio_smoke_REVISED_v1"
+          }
+        ],
+        "NLP/Language": [
+          {
+            "aid": "T3/EXP_ner_gazetteer_noise_crosscut_cpu_v1",
+            "name": "exp_ner_gazetteer_noise_crosscut_cpu_v1"
+          }
+        ],
+        "Cognitive/Reasoning": [
+          {
+            "aid": "T3/EXP_substrate_novel_assembly_1_combine_interpolate_no_existing_filler_gap_cpu_v1",
+            "name": "exp_substrate_novel_assembly_1_combine_interpolate_no_existing_filler_gap_cpu_v1"
+          },
+          {
+            "aid": "T3/EXP_substrate_resonator_dense_capacity_ksweep_v1_n4096",
+            "name": "exp_substrate_resonator_dense_capacity_ksweep_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_substrate_resonator_dense_capacity_ksweep_v1b_n4096",
+            "name": "exp_substrate_resonator_dense_capacity_ksweep_v1b_n4096"
+          },
+          {
+            "aid": "T3/EXP_substrate_resonator_noise_injection_ksweep_v1_n4096_gpu",
+            "name": "exp_substrate_resonator_noise_injection_ksweep_v1_n4096_gpu"
+          },
+          {
+            "aid": "T3/EXP_substrate_sq1_resonator_generative_v1_n8192_gpu",
+            "name": "exp_substrate_sq1_resonator_generative_v1_n8192_gpu"
+          },
+          {
+            "aid": "T3/EXP_substrate_drosophila_2x2_ablation_preflight_v1",
+            "name": "substrate_drosophila_2x2_ablation_preflight_v1"
+          }
+        ],
+        "Audit/Capability": [
+          {
+            "aid": "T3/EXP_pp49_hrc_counterfactual_depth_5_v1_n4096",
+            "name": "exp_pp49_hrc_counterfactual_depth_5_v1_n4096"
+          },
+          {
+            "aid": "T3/EXP_substrate_codebook_collapse_monitoring_recovery_v1_Freaudit_rerun_2026_06_06",
+            "name": "exp_substrate_codebook_collapse_monitoring_recovery_v1_Freaudit_rerun_2026-06-06"
+          }
+        ],
+        "KnowledgeGraph/MultiHop": [
+          {
+            "aid": "T3/EXP_substrate_cognitive_core_multihop_hotpotqa_v1",
+            "name": "exp_substrate_cognitive_core_multihop_hotpotqa_v1"
+          }
+        ],
+        "Math/Formal": [
+          {
+            "aid": "T3/EXP_substrate_etf_hadamard_phase4a_infra_eval_v1",
+            "name": "exp_substrate_etf_hadamard_phase4a_infra_eval_v1"
+          }
+        ]
+      },
+      "unset_legacy_count": 0,
+      "unset_aids_for_flag_dont_auto": []
+    }
+  },
+  "current_best_solution": null,
+  "solution_history": []
+}
