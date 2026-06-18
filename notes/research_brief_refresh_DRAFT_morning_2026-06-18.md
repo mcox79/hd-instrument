@@ -169,8 +169,13 @@ phantom edges:       151 SOURCE-side (pre-existing stable baseline; 0 phantom TA
 bears_on targets:    822 (STEP-B Option A); ALL 822 resolve in-store (0 phantom)
 cross-namespace edges (resolved): 3451 (DEPENDS_ON 2286 + RELATES 966 + USES 148);
                                    all endpoints resolve
-AUDIT_LESSON:        43 (8 CONFIRMED + 35 CANDIDATE; +~5 pending Testbed VERIFY-THE-REFERENT ratify)
-METHODOLOGY_RULE:    32 (24 FROZEN + 8 PHASE-2)
+AUDIT_LESSON:        46 (Testbed Store-current reconciliation; was 43 in
+                          earlier snapshot; VERIFY-THE-REFERENT parent 7
+                          witnesses / 6 layers; growing)
+METHODOLOGY_RULE:    42 (Testbed Store-current reconciliation; was 32 in
+                          earlier snapshot; A4 M_LEAN PHASE-2 rules now
+                          empirically validated end-to-end via first
+                          PROOF_RECORD landing)
 RESEARCH_FINDING:    1229 (STEP-B Option A; T0-T3 LIVE) + 3 evening drills atomize-cron-pending
 EXPERIMENT_RECORD:   3703 (Skunkworks ground-truth verified)
 CERT_CHAIN_GRADE:    563 (C1 entmax atomized; 15.2% cert ratio; honest tier breakdown:
