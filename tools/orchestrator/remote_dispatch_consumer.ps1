@@ -75,6 +75,14 @@ try {
     Write-Log "RUN START"
     Set-Location $repo
 
+    # Disk-space pre-check (need at least 2 GB)
+    $drive = (Get-Item $repo).PSDrive
+    $freeGB = [math]::Round($drive.Free / 1GB, 2)
+    if ($freeGB -lt 2.0) {
+        Write-Log ("DISK LOW free={0}GB exit" -f $freeGB)
+        exit 0
+    }
+
     # Step 1: git reconcile (handles Testbed-committed-on-remote divergence;
     # mirrors tools/remote_sync.sh logic: preserve divergent commits on
     # timestamped backup branch + hard reset to origin/main)
@@ -128,7 +136,7 @@ try {
             # Build queue_add.py invocation
             $pythonExe = Join-Path $repo ".venv/Scripts/python.exe"
             $queueAddPy = Join-Path $repo "tools/queue_add.py"
-            $args = @(
+            $cmdArgs = @(
                 $queueAddPy,
                 $queue,
                 $name,
@@ -136,14 +144,23 @@ try {
                 "--prereg", $prereg,
                 "--timeout", $timeout
             )
-            if ($skipSmoke) { $args += "--skip-smoke" }
+            if ($skipSmoke) { $cmdArgs += "--skip-smoke" }
 
             $env:HDLAB_QUEUE_ADD_ON_REMOTE = "1"
-            $out = & $pythonExe $args 2>&1 | Out-String
+            $out = & $pythonExe $cmdArgs 2>&1 | Out-String
             $exit = $LASTEXITCODE
 
             if ($exit -eq 0) {
                 Write-Log ("OK {0}: queued {1}" -f $m.Name, $name)
+                # git rm + commit + push so origin/main doesn't restore the manifest
+                # on next reset (otherwise manifest re-processes every cycle)
+                $relPath = "data/dispatch_requests/" + $m.Name
+                & git rm $relPath 2>$null | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    & git commit -m ("dispatch-consumer: processed " + $m.Name) 2>$null | Out-Null
+                    & git push origin "HEAD:main" 2>$null | Out-Null
+                    Write-Log ("GIT rm + push for " + $m.Name)
+                }
                 Move-Item $m.FullName (Join-Path $processedDir $m.Name) -Force -ErrorAction SilentlyContinue
                 $processed += 1
             } else {

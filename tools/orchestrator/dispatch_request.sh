@@ -27,6 +27,30 @@ REQ_DIR="data/dispatch_requests"
 mkdir -p "$REQ_DIR"
 MANIFEST="$REQ_DIR/${NAME}.json"
 
+# Guard: prereg + script MUST be git-tracked + on origin/main; otherwise
+# the remote consumer won't see them on its git pull -> dispatch silently
+# gate-fails (per Skunkworks 18:29 ratify). Fail loud at dispatch-time.
+for f in "$SCRIPT" "$PREREG"; do
+    if [ ! -f "$f" ]; then
+        echo "[dispatch-request] FAIL: $f does not exist locally" >&2
+        exit 3
+    fi
+    if ! git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
+        # Untracked: auto-stage + commit + push (logged clearly per Skunkworks's
+        # "auto-stage clearly logged" condition)
+        echo "[dispatch-request] AUTO-STAGE: $f (untracked; staging before dispatch)"
+        git add "$f"
+        git commit -m "dispatch-request auto-stage: $f" 2>&1 | tail -2
+        git push origin HEAD:main 2>&1 | tail -2
+    else
+        # Tracked: ensure it's pushed (not only in local index)
+        if ! git diff origin/main -- "$f" --quiet 2>/dev/null; then
+            echo "[dispatch-request] AUTO-PUSH: $f (tracked but ahead of origin)"
+            git push origin HEAD:main 2>&1 | tail -2
+        fi
+    fi
+done
+
 cat > "$MANIFEST" <<EOF
 {
   "queue": "$QUEUE",
