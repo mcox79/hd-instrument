@@ -5,8 +5,10 @@ completeness set = every out-of-5k DIRECT hypernym ("missing parent") of an in-5
 WordNet-canonical direct parent in-corpus. DROP the frontier slice (POOL-3 subset POOL-1 -> already ingested; the only
 gold-touching vector) + DROP corpus-frequency (depth-cliff-irrelevant confound). Clean SINGLE-VARIABLE 2-hop-coverage
 test. NOT recursive (grandparents = Option B next-step, result-directed). Deterministic completeness rule (no RL/learned
--> 11th-rule clean). LEXICON tier (same as B1). Materializes the NEW HYPERNYM edges (in5k->new-parent + among-new +
-new->in5k) -- 0-phantom (all endpoints in the post-ingest corpus).
+-> 11th-rule clean). LEXICON tier (same as B1). Materializes the NEW HYPERNYM edges = in5k->new-parent ONLY (NO RECURSION;
+among-new + new->in5k = the new parents' OWN upward edges = grandparent-recursion = Option B, EXCLUDED). 0-phantom (both
+endpoints in-corpus post-ingest). APPLY captures intended_edges PRE-ingest (re-analyze post-ingest would FLIP in5k 5000->
+6339 and recompute target->grandparent recursion -- Skunkworks HALT catch); edge READ-BACK gate enforces declared==actual.
 
 DEFAULT --dry-run (NO mutation; counts + edge-budget + cross-corpus 0-ID-collision + axiom/cap_pres SNAPSHOT for the
 pre-ingest cert-gate). --apply mutates SERIALLY (fresh-load + os.replace-retry; axiom_term/cap_pres gated; non-retroactive).
@@ -176,9 +178,13 @@ def apply_run() -> int:
     if a['collisions']:
         print(f"HALT: {len(a['collisions'])} ID-collisions (e.g. {a['collisions'][:3]})."); return 1
     ps = a['ps']
+    # CAPTURE the intended edges PRE-ingest (Skunkworks HALT fix: re-analyze post-ingest flips in5k 5000->6339 ->
+    # target->grandparent recursion. Materialize the CAPTURED in5k->target set; do NOT re-analyze.)
+    intended_edges = set(a['new_edges'])
+    persisted_pre = _persisted_hypernym_edges(ps)
     pre_axiom = axiom_term_count(ps); pre_mod = module_liveness_ok(); pre_cert = cert_count(ps)
     pre_atoms = len(list(ps.all_atoms()))
-    print(f"PRE: atoms={pre_atoms} axiom_term={pre_axiom} cap_pres={pre_mod} CERT={pre_cert}")
+    print(f"PRE: atoms={pre_atoms} axiom_term={pre_axiom} cap_pres={pre_mod} CERT={pre_cert} | intended_edges={len(intended_edges)}")
     if not pre_mod or pre_axiom != 206:
         print('PRE-GATE FAIL. Halt.'); return 1
 
@@ -192,13 +198,12 @@ def apply_run() -> int:
         added += 1
     print(f"  atoms added: {added}")
 
-    # 2) edge-mat the NEW HYPERNYM edges (re-analyze post-ingest so all endpoints exist -> 0-phantom)
+    # 2) edge-mat the CAPTURED intended edges (in5k->target; NOT a re-analyze). Atoms added first -> 0-phantom.
     from backend.substrate_index.schema import Corpus, Relation
     ps2 = PartitionedStore(Path('data/substrate_index'))
-    a2 = analyze()   # recompute new edges over the now-expanded corpus (idempotent: subtracts persisted)
     cstore = ps2._store_for(Corpus.CONCEPT)
     edge_added = 0
-    for (src, tgt) in sorted(a2['new_edges']):
+    for (src, tgt) in sorted(intended_edges):
         triple = (f"WN_{src}", RelationType.HYPERNYM.value, f"WN_{tgt}")
         if triple in cstore._all_relations:
             continue
@@ -208,16 +213,22 @@ def apply_run() -> int:
         print('HARD_FAIL: os.replace race on relations flush.'); return 3
     print(f"  HYPERNYM edges added: {edge_added}")
 
-    # 3) POST gates + read-back
+    # 3) POST gates + EDGE READ-BACK (Skunkworks fix: the gate that would have caught the recursion-flip)
     ps3 = PartitionedStore(Path('data/substrate_index'))
     post_axiom = axiom_term_count(ps3); post_mod = module_liveness_ok(); post_cert = cert_count(ps3)
     post_atoms = len(list(ps3.all_atoms()))
-    gate_ok = post_axiom == 206 and post_mod and post_cert == pre_cert and added > 0
-    print(f"POST: atoms={post_atoms} (+{post_atoms - pre_atoms}) axiom_term={post_axiom} cap_pres={post_mod} CERT={post_cert} (unchanged from {pre_cert})")
+    persisted_now = _persisted_hypernym_edges(ps3)
+    edges_present = intended_edges.issubset(persisted_now)            # ALL intended edges actually persisted
+    expected_new = len(intended_edges - persisted_pre)
+    edge_count_ok = (edge_added == expected_new)                      # declared==actual for edges
+    gate_ok = (post_axiom == 206 and post_mod and post_cert == pre_cert and added > 0
+               and edges_present and edge_count_ok)
+    print(f"POST: atoms={post_atoms} (+{post_atoms - pre_atoms}) axiom_term={post_axiom} cap_pres={post_mod} "
+          f"CERT={post_cert} (unchanged from {pre_cert}) | edges_present={edges_present} edge_added={edge_added} expected_new={expected_new}")
     if not gate_ok:
-        print('HARD_FAIL: gate failed (axiom_term/cap_pres/CERT must be preserved).'); return 2
+        print('HARD_FAIL: gate failed (axiom_term/cap_pres/CERT preserved + ALL intended edges read-back + declared==actual).'); return 2
     print('=' * 74)
-    print(f"T3 Phase A APPLY complete: +{added} LEXICON completeness synsets, +{edge_added} HYPERNYM edges | axiom_term 206 | cap_pres 6/6 | CERT {post_cert} unchanged")
+    print(f"T3 Phase A APPLY complete: +{added} LEXICON completeness synsets, +{edge_added} HYPERNYM edges (all {len(intended_edges)} intended read-back-verified) | axiom_term 206 | cap_pres 6/6 | CERT {post_cert} unchanged")
     print('=' * 74)
     return 0
 
