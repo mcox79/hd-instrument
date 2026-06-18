@@ -110,6 +110,7 @@ try {
     }
 
     $delta = $remoteCount - $localCount
+    # Gap-alert (preserved for the remote-has-more case; informational)
     if ($delta -gt 0) {
         $persistentGap += 1
         Write-Log ("GAP delta={0} persistent={1}/{2}" -f $delta, $persistentGap, $GAP_ALERT_RUNS)
@@ -130,7 +131,17 @@ try {
             )
             Set-Content -Path $gapAlertPath -Value ($alertContent -join "`n") -Encoding ASCII
         }
+    } else {
+        Write-Log ("DELTA={0} (count-equal-or-local-more; pull runs anyway per file-set diff fix 2026-06-18)" -f $delta)
+    }
 
+    # ALWAYS run the pull pipeline (FIX 2026-06-18: Skunkworks AFFIRMED the
+    # delta-gating was the corpus-completeness ROOT -- when local-old > remote-new,
+    # delta went NEGATIVE and the tar pull silently skipped, so new remote results
+    # never synced. The per-file merge step at ~line 187 already performs file-set
+    # diff [if-exists-skip / else-copy], so unconditional pull is safe; the
+    # LOAD_BEARING tarball filter keeps it ~30MB per cycle).
+    if ($true) {
         # Step 3: trigger remote tar build
         try {
             & ssh -o ConnectTimeout=20 -o BatchMode=yes marsh@home "python $remoteScript" 2>$null | Out-Null
@@ -198,11 +209,11 @@ try {
             Write-Log ("GAP NOT CLOSED local={0} remote={1} delta={2}" -f $localCountPost, $remoteCount, ($remoteCount - $localCountPost))
         }
         $localCount = $localCountPost
-    } else {
-        $persistentGap = 0
-        if (Test-Path $gapAlertPath) { Remove-Item $gapAlertPath -Force -ErrorAction SilentlyContinue }
-        Write-Log "NO GAP"
     }
+    # Note: persistentGap is reset inside the GAP CLOSED branch (line ~196 above)
+    # when the local post-pull count >= remote count; the previous else-branch
+    # (delta <= 0 -> skip pull + clear persistent) was the corpus-completeness
+    # bug and is removed.
 
     # ===== GIT PUSH STEP (per USER directive via Skunkworks 15:19) =====
     # Off-machine backup; LAST step of cadence after sync.

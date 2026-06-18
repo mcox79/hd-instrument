@@ -1,0 +1,67 @@
+{
+  "anchor_name": "substrate_bge_index_refresh_full_corpus_v1",
+  "run_mode": "full",
+  "verdict": "OK",
+  "verdict_msg": "FULL bge refresh: indexed 31274/31274 (100.0%) -> bge_large_v2_name_31274_9b57131f.npz in 5046.12s. verdict=OK (OK iff coverage == n_atoms; CACHE write only, zero substrate-atom mutation -- Testbed invariant check).",
+  "summary": "FULL bge refresh: indexed 31274/31274 (100.0%) -> bge_large_v2_name_31274_9b57131f.npz in 5046.12s. verdict=OK (OK iff coverage == n_atoms; CACHE write only, zero substrate-atom mutation -- Testbed invariant check).",
+  "n_atoms": 31274,
+  "atoms_indexed": 31274,
+  "index_coverage_pct": 100.0,
+  "from_cache": false,
+  "force_rebuild": true,
+  "target_cache_file": "bge_large_v2_name_31274_9b57131f.npz",
+  "caches_after": [
+    {
+      "file": "bge_large_1731_4480d0c0.npz",
+      "size_mb": 12.6,
+      "mtime": "2026-06-18 00:01"
+    },
+    {
+      "file": "bge_large_1742_49029a5d.npz",
+      "size_mb": 12.68,
+      "mtime": "2026-06-18 00:01"
+    },
+    {
+      "file": "bge_large_v2_name_1742_49029a5d.npz",
+      "size_mb": 12.68,
+      "mtime": "2026-06-18 00:01"
+    },
+    {
+      "file": "bge_large_v2_name_1743_db186b35.npz",
+      "size_mb": 12.69,
+      "mtime": "2026-06-18 00:01"
+    },
+    {
+      "file": "bge_large_v2_name_1774_043430c8.npz",
+      "size_mb": 12.91,
+      "mtime": "2026-06-18 00:01"
+    },
+    {
+      "file": "bge_large_v2_name_1782_c2420fcf.npz",
+      "size_mb": 12.97,
+      "mtime": "2026-06-18 00:01"
+    },
+    {
+      "file": "bge_large_v2_name_20820_e1aa0b31.npz",
+      "size_mb": 151.23,
+      "mtime": "2026-06-14 11:35"
+    },
+    {
+      "file": "bge_large_v2_name_26261_c4e45c9a.npz",
+      "size_mb": 190.76,
+      "mtime": "2026-06-14 21:04"
+    },
+    {
+      "file": "bge_large_v2_name_26300_acc05b3f.npz",
+      "size_mb": 191.06,
+      "mtime": "2026-06-17 18:28"
+    },
+    {
+      "file": "bge_large_v2_name_31274_9b57131f.npz",
+      "size_mb": 227.24,
+      "mtime": "2026-06-18 00:02"
+    }
+  ],
+  "elapsed_s": 5046.12,
+  "note": "FULL bge refresh; cache -> cached_indices/*.npz; hd_metrics_sync pulls to local (Q6 manifest)."
+}
