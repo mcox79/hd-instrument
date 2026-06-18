@@ -53,6 +53,10 @@ PROOF_SPECS = {
         Path('lean_oracle/pythagoras_ip_v1/PythagorasIpV1/Parallelogram.lean'),
         'parallelogram_law_ip',
     ),
+    'PROOF_orthonormal_linearly_independent_real_inner_product': (
+        Path('lean_oracle/pythagoras_ip_v1/PythagorasIpV1/OrthonormalIndependent.lean'),
+        'orthonormal_linear_independent',
+    ),
 }
 
 
