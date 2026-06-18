@@ -28,6 +28,12 @@ import sys
 import time
 from pathlib import Path
 
+# v5 stall-fix: the v4 run HUNG post-bge-load with GPU 0% + an "unauthenticated HF Hub" warning -> an HF Hub network
+# call was blocking (rate-limit/offline wait). bge loads 391/391 from the LOCAL cache, so force HF OFFLINE -> no network
+# call -> no hang. Harmless if HF was not the cause (bge is cached). Set BEFORE any transformers/bge import.
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+
 import torch  # noqa: F401  # required by PROT-020 static scanner (this is a GPU cell; uses torch via bge/AtomEncoder)
 
 REPO = Path(__file__).resolve().parents[1]
@@ -85,13 +91,18 @@ def main():
     except Exception as e:
         print(f"[{ANCHOR}] ERROR import: {e}")
         return 2
+    # v5: progress prints (flush) so any HANG is locatable (v4 hung silently post-bge-load; GPU 0%)
+    print(f"[{ANCHOR}] STEP load PartitionedStore...", flush=True)
     pstore = PartitionedStore(REPO / "data" / "substrate_index")
+    print(f"[{ANCHOR}] STEP init AtomEncoder (bge; HF_HUB_OFFLINE={os.environ.get('HF_HUB_OFFLINE')})...", flush=True)
     try:
         enc = AtomEncoder()
     except Exception as e:
         print(f"[{ANCHOR}] ERROR bge_unavailable (needs GPU/bge): {str(e)[:100]}")
         return 3
+    print(f"[{ANCHOR}] STEP rebuild_index_cached over substrate (the v4 suspected-hang point)...", flush=True)
     r = Retriever(pstore, enc); rebuild_index_cached(r, REPO / "data" / "substrate_index")
+    print(f"[{ANCHOR}] STEP index ready -> scoring {len(items)} questions...", flush=True)
 
     n_declared = len(items)
     rows = []
