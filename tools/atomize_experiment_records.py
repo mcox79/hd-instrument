@@ -46,7 +46,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from backend.substrate_index.partition import PartitionedStore
-from backend.substrate_index.schema import Atom, Corpus, Tier, AtomKind, RelationType
+from backend.substrate_index.schema import Atom, Corpus, Tier, AtomKind, RelationType, Relation
 
 REPO = Path(__file__).resolve().parents[1]
 SRC_TAG = "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"  # non-"manual" -> bypass hand cap
@@ -398,6 +398,68 @@ def discover():
     return records, dropped
 
 
+# ===== Skunkworks A5-queryability durable fix (PATH a; spec 2026-06-18) =====
+# Dual-axis / positive-in-payload records (A5 readout-C1, A1 attribution channels, A3 envelope) buried their
+# positives in structured payload fields -> key_metrics empty -> non-queryable. (1) flatten all-scalar payload
+# dicts into prefixed key_metrics; (2) build a strengthens/replicates RELATES edge from a `strengthens_cert`
+# record field; (3) refresh existing atoms on content-change (update-in-place) instead of blind collision-skip.
+PAYLOAD_FLATTEN_EXCLUDE = ("config", "spec", "provenance", "per_seed", "cells", "aggregated", "results",
+                           "result", "depends_on", "env", "args", "capacity_curves")
+_SCALARISH = (int, float, str, bool)
+
+
+def flatten_payload_metrics(metrics: dict, max_fields: int = 80) -> dict:
+    """Flatten all-scalar result-payload dicts into prefixed key_metrics (Skunkworks dual-axis fix #1)."""
+    out: dict = {}
+    for k, v in metrics.items():
+        if k in PAYLOAD_FLATTEN_EXCLUDE or not isinstance(v, dict) or not v:
+            continue
+        if all((sv is None or isinstance(sv, _SCALARISH)) for sv in v.values()):  # genuine result payload
+            for sk, sv in v.items():
+                out[f"{k}.{sk}"] = sv
+                if len(out) >= max_fields:
+                    return out
+    return out
+
+
+def read_strengthens(metrics: dict) -> list:
+    """Read the optional strengthens_cert record field (qids this record replicates/strengthens) -> edge targets."""
+    raw = metrics.get("strengthens_cert") or []
+    if isinstance(raw, str):
+        raw = [raw]
+    return [s for s in raw if isinstance(s, str) and "::" in s]
+
+
+def content_hash(key_metrics: dict, headline, verdict, rel_tier, strengthens: list, desc: str) -> str:
+    """Stable hash of the QUERYABLE content (drives update-on-content-change #3; ignores volatile provenance)."""
+    blob = json.dumps(dict(km=key_metrics, hl=headline, v=verdict, rt=rel_tier,
+                           st=sorted(strengthens), d=desc), sort_keys=True, ensure_ascii=True, default=str)
+    return hashlib.sha1(blob.encode("utf-8")).hexdigest()
+
+
+def add_strengthens_edge(psb, src_qid: str, tgt_qid: str) -> bool:
+    """RELATES edge tagged relation_role=replicates_strengthens (Skunkworks #2); True iff a NEW triple landed.
+
+    Same-corpus path constructs the Relation with metadata (queryable role) + dedups exactly; cross-corpus falls
+    back to the partition path (role-in-note). Caller must no-phantom-gate (tgt must resolve) BEFORE calling.
+    """
+    from backend.substrate_index.partition import QualifiedAtomId   # defined in partition, not schema
+    src_q = QualifiedAtomId.parse(src_qid)
+    tgt_q = QualifiedAtomId.parse(tgt_qid)
+    if src_q.corpus == tgt_q.corpus:
+        st = psb._store_for(src_q.corpus)
+        triple = (src_q.local_id, RelationType.RELATES.value, tgt_q.local_id)
+        if triple in st._all_relations:
+            return False                                          # idempotent: edge already present
+        st.add_relation(Relation(src_id=src_q.local_id, tgt_id=tgt_q.local_id, rel_type=RelationType.RELATES,
+                                 metadata={"relation_role": "replicates_strengthens", "source": SRC_TAG}),
+                        source=SRC_TAG, note=f"{src_q.local_id} replicates_strengthens {tgt_q.local_id}")
+        return True
+    psb.add_relation(src_qid, RelationType.RELATES, tgt_qid, source=SRC_TAG,
+                     note=f"replicates_strengthens: {src_qid} -> {tgt_qid}")
+    return True
+
+
 def build_atom_spec(rec, all_qids, primitive_targets, cap_serving):
     name = rec["name"]
     metrics = rec["metrics"]
@@ -418,6 +480,8 @@ def build_atom_spec(rec, all_qids, primitive_targets, cap_serving):
     headline = metrics_headline(metrics)   # preserved on EVERY record (older-schema results survive)
     key_metrics = {k: metrics[k] for k in NUMERIC_RESULT_FIELDS
                    if k in metrics and isinstance(metrics[k], (int, float))}
+    key_metrics.update(flatten_payload_metrics(metrics))   # Skunkworks #1: payload positives -> queryable
+    strengthens = read_strengthens(metrics)                # Skunkworks #2: replicates/strengthens edge targets
     cell_sha = sha1_file(cell) if cell else None
     metrics_sha = sha1_file(mpath)
     corpus, tier, local_id = corpus_for(name, hypothesis)   # Q4 deterministic routing
@@ -425,6 +489,7 @@ def build_atom_spec(rec, all_qids, primitive_targets, cap_serving):
     desc = (f"Experiment record: {name}. Verdict {verdict_norm or 'UNMAPPED(null)'} "
             f"(raw {rec['verdict_raw']!r}); run_mode {run_mode}; provenance_quality {pq}; "
             f"relevance_tier {rel_tier}; era {era}. Headline: {headline or 'n/a'}. Hypothesis: {hypothesis}")
+    chash = content_hash(key_metrics, headline, verdict_norm, rel_tier, strengthens, desc[:1200])  # Skunkworks #3
     metadata = dict(
         record_class="experiment_record",
         term_class="PROCESS_KNOWLEDGE_NON_MATH",
@@ -436,7 +501,8 @@ def build_atom_spec(rec, all_qids, primitive_targets, cap_serving):
         remote_run_id=rec["remote_run_id"],
         hypothesis=hypothesis,
         metrics_headline=headline,            # condition-5 fix: preserve older-schema result string
-        key_metrics=key_metrics,              # condition-5 fix: preserve numeric result fields
+        key_metrics=key_metrics,              # condition-5 fix + Skunkworks #1: numeric + flattened-payload, queryable
+        strengthens_cert=strengthens,         # Skunkworks #2: replicates/strengthens edge targets (qids)
         verdict=verdict_norm,                 # null when unmapped (preserved-but-unjudged, never dropped)
         verdict_raw=str(rec["verdict_raw"]),
         relevance_tier=rel_tier,
@@ -448,11 +514,13 @@ def build_atom_spec(rec, all_qids, primitive_targets, cap_serving):
         provenance=dict(cell_sha=cell_sha, metrics_sha=metrics_sha, date=rec["date_str"], session_authored=SESSION),
         eleventh_rule_clean=True,
         deterministic_no_llm=True,
+        content_hash=chash,                   # Skunkworks #3: update-on-content-change anchor
         source=SRC_TAG,
     )
     return dict(id=local_id, qid=qid, corpus=corpus, tier=tier, name=f"EXP {name}"[:120],
                 description=desc[:1200], metadata=metadata, depends_on=depends_on, verdict=verdict_norm,
-                relevance_tier=rel_tier, provenance_quality=pq, era=era, run_mode=run_mode)
+                relevance_tier=rel_tier, provenance_quality=pq, era=era, run_mode=run_mode,
+                strengthens=strengthens, content_hash=chash)
 
 
 def summarize(specs, dropped):
@@ -492,17 +560,32 @@ def main():
     records, dropped = discover()
     print(f"[atomizer] discovered {len(records)} metrics tuples; dropped {len(dropped)}", flush=True)
 
-    # build specs; skip atom-id collisions (idempotent re-run)
-    specs, skipped_existing = [], 0
+    # build specs; classify NEW vs UPDATE (queryable content changed) vs SKIP (identical) -- Skunkworks #3.
+    # Replaces blind collision-skip: an existing atom whose content_hash differs (e.g. old-atomizer atom with empty
+    # key_metrics, or a re-run with new payload) is REFRESHED in place rather than silently skipped.
+    specs, updates, skipped_existing = [], [], 0
     for rec in records:
         spec = build_atom_spec(rec, all_qids, primitive_targets, cap_serving)
-        if ps._store_for(spec["corpus"]).get_atom(spec["id"]) is not None:
-            skipped_existing += 1
-            continue
-        # condition 2 re-assert: every DEPENDS_ON target must exist in-store
+        # condition 2 re-assert: every DEPENDS_ON target must exist in-store (does not affect content_hash)
         spec["depends_on"] = [d for d in spec["depends_on"] if d in all_qids]
-        specs.append(spec)
-    print(f"[atomizer] {len(specs)} new specs ({skipped_existing} already in-store, skipped idempotently)", flush=True)
+        existing = ps._store_for(spec["corpus"]).get_atom(spec["id"])
+        if existing is None:
+            specs.append(spec)                                                      # NEW
+        else:
+            # UPDATE only on a GENUINE queryable-content change (not mere content_hash-absence on legacy atoms) --
+            # scopes the refresh to records that actually GAIN queryability (flattened payloads / strengthens edges),
+            # avoiding a no-value mass-rewrite of the whole corpus.
+            em = existing.metadata or {}
+            changed = (em.get("key_metrics") != spec["metadata"]["key_metrics"]
+                       or (em.get("strengthens_cert") or []) != spec["strengthens"]
+                       or em.get("metrics_headline") != spec["metadata"]["metrics_headline"])
+            if changed:
+                spec["_update"] = True
+                updates.append(spec)                                                # UPDATE: refresh in place
+            else:
+                skipped_existing += 1                                               # SKIP: no queryable change
+    print(f"[atomizer] {len(specs)} new specs, {len(updates)} content-changed refreshes, "
+          f"{skipped_existing} unchanged (skipped idempotently)", flush=True)
 
     summarize(specs, dropped)
 
@@ -517,14 +600,18 @@ def main():
         sample = specs[:limit]
         out = REPO / "data" / "atomize_experiment_records_dryrun_sample.jsonl"
         with open(out, "w", encoding="utf-8") as f:
-            for s in sample:
-                f.write(json.dumps(dict(id=s["qid"], name=s["name"], verdict=s["verdict"],
+            for s in (sample + updates):   # surface UPDATEs too so the refresh + strengthens edges are VET-able
+                f.write(json.dumps(dict(action=("UPDATE" if s.get("_update") else "ADD"),
+                                        id=s["qid"], name=s["name"], verdict=s["verdict"],
                                         relevance_tier=s["relevance_tier"], provenance_quality=s["provenance_quality"],
                                         era=s["era"], run_mode=s["run_mode"], depends_on=s["depends_on"],
+                                        strengthens=s.get("strengthens", []),
+                                        key_metrics=s["metadata"].get("key_metrics"),
                                         metadata=s["metadata"]), ensure_ascii=False) + "\n")
-        print(f"[atomizer] DRY-RUN sample ({len(sample)} atoms) -> {out.relative_to(REPO)}")
+        print(f"[atomizer] DRY-RUN sample ({len(sample)} ADD + {len(updates)} UPDATE) -> {out.relative_to(REPO)}")
         print("[atomizer] NO substrate mutation. Skunkworks: VET this sample (classification + no-phantom +")
-        print("           provenance_quality + relevance_tier). Then set HDLAB_ATOMIZE_APPLY=1 for batched ingest.")
+        print("           provenance_quality + relevance_tier + flattened key_metrics + strengthens edges + UPDATEs).")
+        print("           Then set HDLAB_ATOMIZE_APPLY=1 for batched ingest.")
         return 0
 
     # ===== APPLY: per-batch FRESH-LOAD ingest (concurrent-writer SAFE) + per-batch gates (condition 5) =====
@@ -584,6 +671,9 @@ def main():
                         psb.add_relation(s["qid"], RelationType.DEPENDS_ON, tgt, source=SRC_TAG,
                                          note=f"{s['id']} DEPENDS_ON {tgt} (atomizer)")
                         edges += 1; touched_rels.add(s["corpus"])
+                    for tgt in s.get("strengthens", []):   # Skunkworks #2: replicates/strengthens RELATES edge
+                        if tgt in qids_b and add_strengthens_edge(psb, s["qid"], tgt):  # no-phantom + new-only
+                            edges += 1; touched_rels.add(s["corpus"])
                 for c in touched_rels:
                     psb._store_for(c)._flush_relations()
             except (PermissionError, OSError) as e:
@@ -606,10 +696,79 @@ def main():
             print(f"[atomizer] batch {bnum}: SKIPPED after {RETRIES} contended attempts; re-invoke picks it up",
                   flush=True)
 
+    # ===== UPDATE pass: refresh content-changed atoms IN PLACE, BATCHED (Skunkworks #3) =====
+    # add_atom's is_update path overwrites metadata+description (store.py); load-bearing invariant per batch: ATOM
+    # COUNT UNCHANGED (update != add) + axiom_term constant (EXPERIMENT_RECORD carries no algebra) + cap_pres + every
+    # batch atom's content_hash actually refreshed. Rel count is gated >= (depends_on/strengthens edges dedup; can
+    # only stay equal or rise by genuinely-new edges, never fall). Batched (reload per batch) for the one-time
+    # corpus-wide flatten migration; steady-state this pass is empty (all hashes match -> 0 updates -> 0 cost).
+    refreshed, refresh_contended = 0, 0
+    upd = updates[:limit]
+    if upd:
+        print(f"[atomizer] UPDATE pass: {len(upd)} content-changed atoms to refresh in place (batched)", flush=True)
+    for i in range(0, len(upd), batch):
+        ub = upd[i:i + batch]
+        unum = i // batch + 1
+        ok = False
+        for attempt in range(RETRIES):
+            psb = PartitionedStore(REPO / "data/substrate_index")           # FRESH load (per batch)
+            qids_b = {a.qualified_id for a in psb.all_atoms()}
+            todo = []
+            for s in ub:
+                ex = psb._store_for(s["corpus"]).get_atom(s["id"])
+                if ex is None:
+                    continue                                                # vanished -> re-invoke re-adds as NEW
+                if (ex.metadata or {}).get("content_hash") == s["content_hash"]:
+                    continue                                                # already refreshed (peer/prior)
+                todo.append(s)
+            if not todo:
+                ok = True; break
+            pre_t, pre_total = axiom_term(psb)
+            pre_atoms = len(psb.all_atoms()); pre_rels = sum(1 for _ in psb.iter_all_relations())
+            touched = set()
+            try:
+                for s in todo:
+                    psb._store_for(s["corpus"]).add_atom(Atom(
+                        id=s["id"], name=s["name"], corpus=s["corpus"], tier=s["tier"],
+                        kind=AtomKind.EXPERIMENT_RECORD, description=s["description"],
+                        metadata=s["metadata"], solution_history=tuple()),
+                        source=SRC_TAG, note="content-change refresh (Skunkworks #3)")
+                for s in todo:
+                    for tgt in [d for d in s["depends_on"] if d in qids_b]:  # no-phantom vs fresh
+                        psb.add_relation(s["qid"], RelationType.DEPENDS_ON, tgt, source=SRC_TAG,
+                                         note=f"{s['id']} DEPENDS_ON {tgt} (atomizer refresh)")
+                        touched.add(s["corpus"])
+                    for tgt in s.get("strengthens", []):
+                        if tgt in qids_b and add_strengthens_edge(psb, s["qid"], tgt):
+                            touched.add(s["corpus"])
+                for c in touched:
+                    psb._store_for(c)._flush_relations()
+            except (PermissionError, OSError) as e:
+                print(f"[atomizer] refresh batch {unum} attempt {attempt+1}: os.replace race ({type(e).__name__}); retry", flush=True)
+                continue
+            post_t, post_total = axiom_term(psb)
+            post_atoms = len(psb.all_atoms()); post_rels = sum(1 for _ in psb.iter_all_relations())
+            hashes_ok = all((psb._store_for(s["corpus"]).get_atom(s["id"]).metadata or {}).get("content_hash")
+                            == s["content_hash"] for s in todo)
+            gate_ok = (post_atoms == pre_atoms and post_rels >= pre_rels and post_t == pre_t
+                       and module_liveness_ok() and hashes_ok)
+            print(f"[atomizer] refresh batch {unum}: ~{len(todo)} refreshed (+{post_rels-pre_rels} edges) "
+                  f"atoms {pre_atoms}->{post_atoms} axiom_term={post_t}/{post_total} cap_pres={module_liveness_ok()} "
+                  f"hashes_ok={hashes_ok} -> {'OK' if gate_ok else 'HARD_FAIL'}", flush=True)
+            if not gate_ok:
+                print(f"[atomizer] HARD_FAIL on refresh batch {unum}: invariant violation. STOPPING.")
+                return 1
+            refreshed += len(todo); ok = True; break
+        if not ok:
+            refresh_contended += 1
+            print(f"[atomizer] refresh batch {unum}: SKIPPED after {RETRIES} contended attempts; re-invoke picks it up",
+                  flush=True)
+
     psf = PartitionedStore(REPO / "data/substrate_index")
     total_exp = sum(1 for a in psf.all_atoms() if str(a.kind.name) == "EXPERIMENT_RECORD")
     print("=" * 80)
-    print(f"[atomizer] APPLY DONE: +{done} atoms this run; {contended} batch(es) contended-skipped; "
+    print(f"[atomizer] APPLY DONE: +{done} atoms, ~{refreshed} refreshed this run; "
+          f"{contended} batch(es)/{refresh_contended} refresh(es) contended-skipped; "
           f"{total_exp} EXPERIMENT_RECORD atoms total in-store")
     print(f"  per-batch axiom_term + cap_pres(mod6/6) gates passed. Re-invoke to pick up any contended-skipped.")
     print("=" * 80)

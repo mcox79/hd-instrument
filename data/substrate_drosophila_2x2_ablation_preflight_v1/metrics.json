@@ -1,0 +1,766 @@
+{
+  "anchor_name": "substrate_drosophila_2x2_ablation_preflight_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (option B): the fly-LSH expansion+WTA adds NO noise-robustness -- expanded-linear noise_at_half=0.366 <= raw-linear=0.4489 (delta=-0.083); raw-linear is at least as robust. -> RE-AFFIRMS the ARCH-A MIDDLE_BAND closure (real negative stays closed). The entmax READOUT fix (C1) is the operative lever; no upstream expansion stage needed under this substrate's retrieval. READOUT axis SEPARATE + POSITIVE (lift=True): capacity M*(A2 entmax)=>2048 (censored lower bound) vs M*(A1 linear)=48.5 = C1 REPLICATED (>=42x censored lower bound). B is FINAL (pre-committed) -> expansion axis DISPOSITIONED. Product-positive: cleaner story, no extra stage.",
+  "summary": "HARD_FAIL (option B): the fly-LSH expansion+WTA adds NO noise-robustness -- expanded-linear noise_at_half=0.366 <= raw-linear=0.4489 (delta=-0.083); raw-linear is at least as robust. -> RE-AFFIRMS the ARCH-A MIDDLE_BAND closure (real negative stays closed). The entmax READOUT fix (C1) is the operative lever; no upstream expansion stage needed under this substrate's retrieval. READOUT axis SEPARATE + POSITIVE (lift=True): capacity M*(A2 entmax)=>2048 (censored lower bound) vs M*(A1 linear)=48.5 = C1 REPLICATED (>=42x censored lower bound). B is FINAL (pre-committed) -> expansion axis DISPOSITIONED. Product-positive: cleaner story, no extra stage.",
+  "headline": "HARD_FAIL (option B): the fly-LSH expansion+WTA adds NO noise-robustness -- expanded-linear noise_at_half=0.366 <= raw-linear=0.4489 (delta=-0.083); raw-linear is at least as robust. -> RE-AFFIRMS the ARCH-A MIDDLE_BAND closure (real negative stays closed). The entmax READOUT fix (C1) is the operative lever; no upstream expansion stage needed under this substrate's retrieval. READOUT axis SEPARATE + POSITIVE (lift=True): capacity M*(A2 entmax)=>2048 (censored lower bound) vs M*(A1 linear)=48.5 = C1 REPLICATED (>=42x censored lower bound). B is FINAL (pre-committed) -> expansion axis DISPOSITIONED. Product-positive: cleaner story, no extra stage.",
+  "n_seeds": 3,
+  "run_mode": "full",
+  "branch_path": "preflight_2x2_optB",
+  "metrics_source": "synthetic_2x2_readout_capacity_plus_expansion_noise_retention",
+  "run_started_utc": "2026-06-18T07:58:44.222732+00:00",
+  "cell_commit": "b212966e",
+  "readout_axis_C1_replication": {
+    "A1_linear_Mstar": 48.5,
+    "A2_entmax_Mstar": null,
+    "A2_entmax_display": ">2048 (censored lower bound)",
+    "readout_lift": true,
+    "lift_lower_bound": ">=42.2x (A2 right-censored)",
+    "note": "A2 right-censored (capacity exceeds the load grid) -> lift is a LOWER BOUND; entmax >> linear = C1 replicated"
+  },
+  "option_B_noise_retention": {
+    "M_fixed": 30,
+    "noise_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "fair_start_ok": true,
+    "noise_at_half_raw_linear": 0.4489,
+    "noise_at_half_exp_linear": 0.366,
+    "delta_exp_minus_raw": -0.0829,
+    "A1_raw_linear": {
+      "curve": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.1,
+          1.0,
+          0.0
+        ],
+        [
+          0.2,
+          1.0,
+          0.0
+        ],
+        [
+          0.3,
+          1.0,
+          0.0
+        ],
+        [
+          0.4,
+          0.9777777777777779,
+          0.01571348402636772
+        ],
+        [
+          0.5,
+          0.0,
+          0.0
+        ]
+      ],
+      "noise_at_half": 0.4489,
+      "censored": "none"
+    },
+    "A3_expansion_linear": {
+      "curve": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.1,
+          1.0,
+          0.0
+        ],
+        [
+          0.2,
+          0.9888888888888889,
+          0.01571348402636772
+        ],
+        [
+          0.3,
+          0.8888888888888888,
+          0.01571348402636772
+        ],
+        [
+          0.4,
+          0.3,
+          0.07200822998230957
+        ],
+        [
+          0.5,
+          0.0,
+          0.0
+        ]
+      ],
+      "noise_at_half": 0.366,
+      "censored": "none"
+    },
+    "A2_raw_entmax": {
+      "curve": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.1,
+          1.0,
+          0.0
+        ],
+        [
+          0.2,
+          1.0,
+          0.0
+        ],
+        [
+          0.3,
+          1.0,
+          0.0
+        ],
+        [
+          0.4,
+          0.9777777777777779,
+          0.01571348402636772
+        ],
+        [
+          0.5,
+          0.0,
+          0.0
+        ]
+      ],
+      "noise_at_half": 0.4489,
+      "censored": "none"
+    },
+    "A4_expansion_entmax": {
+      "curve": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.1,
+          1.0,
+          0.0
+        ],
+        [
+          0.2,
+          1.0,
+          0.0
+        ],
+        [
+          0.3,
+          0.9222222222222222,
+          0.01571348402636772
+        ],
+        [
+          0.4,
+          0.3,
+          0.09813067629253164
+        ],
+        [
+          0.5,
+          0.011111111111111112,
+          0.01571348402636772
+        ]
+      ],
+      "noise_at_half": 0.3679,
+      "censored": "none"
+    }
+  },
+  "no_noise_faithfulness_diagnostic": {
+    "raw_Mstar": null,
+    "exp_Mstar": 41.8,
+    "faithful": false,
+    "note": "capacity-metric faithfulness (binary code lossy by construction); DIAGNOSTIC, not the gate -- option B is the expansion test"
+  },
+  "Mstar": {
+    "A1_baseline_linear": 48.5,
+    "A2_baseline_entmax": null,
+    "A3_expansion_linear": null,
+    "A4_expansion_entmax": null
+  },
+  "censored": {
+    "A1_baseline_linear": "none",
+    "A2_baseline_entmax": "right_above_all",
+    "A3_expansion_linear": "left_below_all",
+    "A4_expansion_entmax": "right_above_all"
+  },
+  "kc_overlap_preservation": 0.2931,
+  "capacity_curves": {
+    "A1_baseline_linear": [
+      [
+        32,
+        0.9270833333333334,
+        0.02946278254943948
+      ],
+      [
+        64,
+        0.21354166666666666,
+        0.03210632293213009
+      ],
+      [
+        128,
+        0.0,
+        0.0
+      ],
+      [
+        256,
+        0.0,
+        0.0
+      ],
+      [
+        512,
+        0.0,
+        0.0
+      ],
+      [
+        1024,
+        0.0,
+        0.0
+      ],
+      [
+        2048,
+        0.0,
+        0.0
+      ]
+    ],
+    "A2_baseline_entmax": [
+      [
+        32,
+        1.0,
+        0.0
+      ],
+      [
+        64,
+        1.0,
+        0.0
+      ],
+      [
+        128,
+        1.0,
+        0.0
+      ],
+      [
+        256,
+        1.0,
+        0.0
+      ],
+      [
+        512,
+        1.0,
+        0.0
+      ],
+      [
+        1024,
+        1.0,
+        0.0
+      ],
+      [
+        2048,
+        1.0,
+        0.0
+      ]
+    ],
+    "A3_expansion_linear": [
+      [
+        32,
+        0.0,
+        0.0
+      ],
+      [
+        64,
+        0.0,
+        0.0
+      ],
+      [
+        128,
+        0.0,
+        0.0
+      ],
+      [
+        256,
+        0.0,
+        0.0
+      ],
+      [
+        512,
+        0.0,
+        0.0
+      ],
+      [
+        1024,
+        0.0,
+        0.0
+      ],
+      [
+        2048,
+        0.0,
+        0.0
+      ]
+    ],
+    "A4_expansion_entmax": [
+      [
+        32,
+        1.0,
+        0.0
+      ],
+      [
+        64,
+        0.90625,
+        0.05846339666834283
+      ],
+      [
+        128,
+        0.921875,
+        0.016876928902103804
+      ],
+      [
+        256,
+        0.88671875,
+        0.011048543456039806
+      ],
+      [
+        512,
+        0.83984375,
+        0.01275775907699572
+      ],
+      [
+        1024,
+        0.7874348958333334,
+        0.01597375539893919
+      ],
+      [
+        2048,
+        0.7350260416666666,
+        0.008173749693678203
+      ]
+    ]
+  },
+  "config": {
+    "N": 256,
+    "M_grid": [
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "alpha": 1.5,
+    "beta": 8.0,
+    "tau_fidelity": 0.9,
+    "recall_thresh": 0.5,
+    "noise_frac": 0.2,
+    "expand": 8,
+    "m_samp": 6,
+    "wta_frac": 0.05,
+    "M_fixed_B": 30,
+    "noise_grid_B": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ]
+  },
+  "measured_bounds": "EXPANSION axis = noise-robustness retention (noise_at_half) at M=30/N=256 (option B); READOUT axis = capacity M* at N=256; both method/config-contingent, NOT fundamental",
+  "recapture_of": "ARCH_A_Drosophila_MIDDLE_BAND (DESIGN-INCOMPLETE; conflated expansion-stage x readout axes)",
+  "method_delta": "2x2: READOUT axis via capacity-curve M* (C1 replication); EXPANSION axis via option-B noise-robustness retention (fly-MB mechanism's OWN claim; Skunkworks-decided after capacity-metric shown to disfavor binary codes by construction)",
+  "result": {
+    "verdict": "HARD_FAIL",
+    "verdict_msg": "HARD_FAIL (option B): the fly-LSH expansion+WTA adds NO noise-robustness -- expanded-linear noise_at_half=0.366 <= raw-linear=0.4489 (delta=-0.083); raw-linear is at least as robust. -> RE-AFFIRMS the ARCH-A MIDDLE_BAND closure (real negative stays closed). The entmax READOUT fix (C1) is the operative lever; no upstream expansion stage needed under this substrate's retrieval. READOUT axis SEPARATE + POSITIVE (lift=True): capacity M*(A2 entmax)=>2048 (censored lower bound) vs M*(A1 linear)=48.5 = C1 REPLICATED (>=42x censored lower bound). B is FINAL (pre-committed) -> expansion axis DISPOSITIONED. Product-positive: cleaner story, no extra stage.",
+    "Mstar": {
+      "A1_baseline_linear": 48.5,
+      "A2_baseline_entmax": null,
+      "A3_expansion_linear": null,
+      "A4_expansion_entmax": null
+    },
+    "censored": {
+      "A1_baseline_linear": "none",
+      "A2_baseline_entmax": "right_above_all",
+      "A3_expansion_linear": "left_below_all",
+      "A4_expansion_entmax": "right_above_all"
+    },
+    "readout_axis_C1_replication": {
+      "A1_linear_Mstar": 48.5,
+      "A2_entmax_Mstar": null,
+      "A2_entmax_display": ">2048 (censored lower bound)",
+      "readout_lift": true,
+      "lift_lower_bound": ">=42.2x (A2 right-censored)",
+      "note": "A2 right-censored (capacity exceeds the load grid) -> lift is a LOWER BOUND; entmax >> linear = C1 replicated"
+    },
+    "option_B_noise_retention": {
+      "M_fixed": 30,
+      "noise_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5
+      ],
+      "fair_start_ok": true,
+      "noise_at_half_raw_linear": 0.4489,
+      "noise_at_half_exp_linear": 0.366,
+      "delta_exp_minus_raw": -0.0829,
+      "A1_raw_linear": {
+        "curve": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.1,
+            1.0,
+            0.0
+          ],
+          [
+            0.2,
+            1.0,
+            0.0
+          ],
+          [
+            0.3,
+            1.0,
+            0.0
+          ],
+          [
+            0.4,
+            0.9777777777777779,
+            0.01571348402636772
+          ],
+          [
+            0.5,
+            0.0,
+            0.0
+          ]
+        ],
+        "noise_at_half": 0.4489,
+        "censored": "none"
+      },
+      "A3_expansion_linear": {
+        "curve": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.1,
+            1.0,
+            0.0
+          ],
+          [
+            0.2,
+            0.9888888888888889,
+            0.01571348402636772
+          ],
+          [
+            0.3,
+            0.8888888888888888,
+            0.01571348402636772
+          ],
+          [
+            0.4,
+            0.3,
+            0.07200822998230957
+          ],
+          [
+            0.5,
+            0.0,
+            0.0
+          ]
+        ],
+        "noise_at_half": 0.366,
+        "censored": "none"
+      },
+      "A2_raw_entmax": {
+        "curve": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.1,
+            1.0,
+            0.0
+          ],
+          [
+            0.2,
+            1.0,
+            0.0
+          ],
+          [
+            0.3,
+            1.0,
+            0.0
+          ],
+          [
+            0.4,
+            0.9777777777777779,
+            0.01571348402636772
+          ],
+          [
+            0.5,
+            0.0,
+            0.0
+          ]
+        ],
+        "noise_at_half": 0.4489,
+        "censored": "none"
+      },
+      "A4_expansion_entmax": {
+        "curve": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.1,
+            1.0,
+            0.0
+          ],
+          [
+            0.2,
+            1.0,
+            0.0
+          ],
+          [
+            0.3,
+            0.9222222222222222,
+            0.01571348402636772
+          ],
+          [
+            0.4,
+            0.3,
+            0.09813067629253164
+          ],
+          [
+            0.5,
+            0.011111111111111112,
+            0.01571348402636772
+          ]
+        ],
+        "noise_at_half": 0.3679,
+        "censored": "none"
+      }
+    },
+    "no_noise_faithfulness_diagnostic": {
+      "raw_Mstar": null,
+      "exp_Mstar": 41.8,
+      "faithful": false,
+      "note": "capacity-metric faithfulness (binary code lossy by construction); DIAGNOSTIC, not the gate -- option B is the expansion test"
+    },
+    "capacity_curves": {
+      "A1_baseline_linear": [
+        [
+          32,
+          0.9270833333333334,
+          0.02946278254943948
+        ],
+        [
+          64,
+          0.21354166666666666,
+          0.03210632293213009
+        ],
+        [
+          128,
+          0.0,
+          0.0
+        ],
+        [
+          256,
+          0.0,
+          0.0
+        ],
+        [
+          512,
+          0.0,
+          0.0
+        ],
+        [
+          1024,
+          0.0,
+          0.0
+        ],
+        [
+          2048,
+          0.0,
+          0.0
+        ]
+      ],
+      "A2_baseline_entmax": [
+        [
+          32,
+          1.0,
+          0.0
+        ],
+        [
+          64,
+          1.0,
+          0.0
+        ],
+        [
+          128,
+          1.0,
+          0.0
+        ],
+        [
+          256,
+          1.0,
+          0.0
+        ],
+        [
+          512,
+          1.0,
+          0.0
+        ],
+        [
+          1024,
+          1.0,
+          0.0
+        ],
+        [
+          2048,
+          1.0,
+          0.0
+        ]
+      ],
+      "A3_expansion_linear": [
+        [
+          32,
+          0.0,
+          0.0
+        ],
+        [
+          64,
+          0.0,
+          0.0
+        ],
+        [
+          128,
+          0.0,
+          0.0
+        ],
+        [
+          256,
+          0.0,
+          0.0
+        ],
+        [
+          512,
+          0.0,
+          0.0
+        ],
+        [
+          1024,
+          0.0,
+          0.0
+        ],
+        [
+          2048,
+          0.0,
+          0.0
+        ]
+      ],
+      "A4_expansion_entmax": [
+        [
+          32,
+          1.0,
+          0.0
+        ],
+        [
+          64,
+          0.90625,
+          0.05846339666834283
+        ],
+        [
+          128,
+          0.921875,
+          0.016876928902103804
+        ],
+        [
+          256,
+          0.88671875,
+          0.011048543456039806
+        ],
+        [
+          512,
+          0.83984375,
+          0.01275775907699572
+        ],
+        [
+          1024,
+          0.7874348958333334,
+          0.01597375539893919
+        ],
+        [
+          2048,
+          0.7350260416666666,
+          0.008173749693678203
+        ]
+      ]
+    },
+    "kc_overlap_preservation": 0.2931,
+    "config": {
+      "N": 256,
+      "M_grid": [
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "seeds": [
+        7,
+        17,
+        23
+      ],
+      "alpha": 1.5,
+      "beta": 8.0,
+      "tau_fidelity": 0.9,
+      "recall_thresh": 0.5,
+      "noise_frac": 0.2,
+      "expand": 8,
+      "m_samp": 6,
+      "wta_frac": 0.05,
+      "M_fixed_B": 30,
+      "noise_grid_B": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5
+      ]
+    },
+    "measured_bounds": "EXPANSION axis = noise-robustness retention (noise_at_half) at M=30/N=256 (option B); READOUT axis = capacity M* at N=256; both method/config-contingent, NOT fundamental",
+    "branch_path": "preflight_2x2_optB"
+  },
+  "elapsed_s": 14.21,
+  "strengthens_cert": [
+    "math::T3/EXP_substrate_C1_entmax_alpha_readout_v1"
+  ]
+}
