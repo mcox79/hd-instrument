@@ -51,6 +51,25 @@ for f in "$SCRIPT" "$PREREG"; do
     fi
 done
 
+# Local --self-test gate: catch python syntax errors + obvious cell-side bugs
+# BEFORE pushing the manifest (so we don't waste a remote round-trip).
+# Skip if HDLAB_SKIP_LOCAL_SELFTEST=1.
+if [ -z "${HDLAB_SKIP_LOCAL_SELFTEST:-}" ]; then
+    PYTHON_EXE=".venv/Scripts/python.exe"
+    if [ ! -x "$PYTHON_EXE" ]; then
+        PYTHON_EXE="python"
+    fi
+    echo "[dispatch-request] running local --self-test on $SCRIPT (timeout 60s)..."
+    if ! timeout 60 "$PYTHON_EXE" "$SCRIPT" --self-test >/tmp/selftest.log 2>&1; then
+        echo "[dispatch-request] FAIL: local --self-test failed (exit $?)" >&2
+        echo "[dispatch-request] last 20 lines of self-test output:" >&2
+        tail -20 /tmp/selftest.log >&2
+        echo "[dispatch-request] fix the cell + retry; manifest NOT pushed" >&2
+        exit 5
+    fi
+    echo "[dispatch-request] local --self-test PASS"
+fi
+
 cat > "$MANIFEST" <<EOF
 {
   "queue": "$QUEUE",
