@@ -39,7 +39,7 @@ from _cell_provenance import provenance_fields, now_utc, gate0_self_check, discr
 ANCHOR = "substrate_a2_decisive_test_untuned_auroc_gpu_v1"
 _EXP_NAME = os.environ.get("HDLAB_EXP_NAME")
 OUT = REPO / "data" / (f"exp_{_EXP_NAME}" if _EXP_NAME else ANCHOR)
-A2_SET = REPO / "data" / "exp_a2_gap_balanced" / "a2_gap_balanced_v1.jsonl"
+A2_SET = REPO / "experiments" / "data" / "a2_gap_balanced_v1.jsonl"   # TRACKED location (data/*/ is gitignored -> remote lacked it; experiments/data/ is git-tracked, like the held-out gold)
 TOP_K = 20
 NEAR_CHANCE_LO, NEAR_CHANCE_HI = 0.45, 0.60
 ALREADY_SEP = 0.70
