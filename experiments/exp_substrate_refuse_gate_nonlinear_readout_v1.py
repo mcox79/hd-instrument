@@ -29,8 +29,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -66,6 +68,15 @@ def _rng(seed):
 
 def _short(x):
     return str(x).split("::")[-1].split("/")[-1].strip().lower()
+
+
+def _cell_commit():
+    """Best-effort git short hash of the running cell (metrics-provenance: which code produced this file)."""
+    try:
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=str(REPO),
+                              capture_output=True, text=True, timeout=5).stdout.strip() or "unknown"
+    except Exception:
+        return "unknown"
 
 
 def f1_present(pred: set, present_gold: set) -> float:
@@ -272,6 +283,7 @@ def main() -> int:
     self_test = getattr(args, "self_test", False)
     is_smoke = (args.smoke or self_test or run_mode == "smoke") and not getattr(args, "full", False)
     t0 = time.time()
+    run_started_utc = datetime.now(timezone.utc).isoformat()
 
     # BRANCH DIAGNOSTIC (verify-the-referent at runtime): print the exact path BEFORE running, so the remote stdout/gate_log
     # PROVES which path executed -- no more inferring smoke-vs-full from a (possibly stale) metrics.json.
@@ -298,6 +310,10 @@ def main() -> int:
 
     metrics = {"anchor_name": ANCHOR, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "headline": vmsg,
                "run_mode": "smoke" if is_smoke else "full", "alpha": ALPHA, "path": path_note,
+               # STRUCTURED METRICS-PROVENANCE (Skunkworks gate; field-check not inference): which path/method/run produced this file
+               "branch_path": _path,                                  # REAL_held_out_q54_q65 | synthetic_smoke | self_test
+               "metrics_source": "real_bge_held_out" if not is_smoke else "synthetic_harness",
+               "run_started_utc": run_started_utc, "cell_commit": _cell_commit(),
                "recapture_of": "PHASE_V1_6th_module_refuse_gated_retriever_YELLOW (M1 bge-cosine-tau HARD_FAIL gap-refuse>=0.95)",
                "method_delta": "refuse signal = NONLINEAR readout attention-CONCENTRATION (softmax/entmax max-weight over candidate scores) vs LINEAR scalar cosine tau (M1); readout<->readout anchor-match",
                "verify_the_referent_condition": "MEASURE present-vs-absent concentration spread + confirm a discriminating regime (in-cov concentrated, gap diffuse, separable c); else NON_TEST",
