@@ -1,0 +1,9 @@
+{
+  "queue": "overnight_queue",
+  "name": "a2_decisive_test_untuned_auroc_v4",
+  "script": "experiments/exp_substrate_a2_decisive_test_untuned_auroc_gpu_v1.py",
+  "prereg": "notes/skunkworks_to_orchestrator_exp_dev_A2_v4_skip_smoke_OK_durable_fix_timeout_OVERRIDE_not_global_raise_2026-06-18.md",
+  "timeout_s": 7200,
+  "skip_smoke": true,
+  "authored_utc": "2026-06-18T19:56:56Z"
+}
