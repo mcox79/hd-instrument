@@ -273,6 +273,14 @@ def main() -> int:
     is_smoke = (args.smoke or self_test or run_mode == "smoke") and not getattr(args, "full", False)
     t0 = time.time()
 
+    # --self-test is a PURE wiring check (queue_add gate checks exit 0 ONLY). It must NOT write metrics.json: queue_add runs
+    # it under HDLAB_EXP_NAME=<entry>, so writing here would pollute data/exp_<entry>/metrics.json with synthetic n=64 output
+    # that masquerades as the run if the real FULL is slow/killed/not-overwritten (the stale-n=64 smoke-bug Orchestrator saw).
+    if self_test:
+        run_synthetic(fast=True)
+        print(f"[{ANCHOR}] --self-test wiring OK (synthetic harness imports + runs); NO metrics written (full-path uncontaminated).")
+        return 0
+
     if is_smoke:
         r = run_synthetic(fast=self_test)
         v, vmsg = r["verdict"], r["verdict_msg"]
