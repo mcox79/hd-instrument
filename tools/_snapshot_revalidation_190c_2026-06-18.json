@@ -1,0 +1,95 @@
+[
+  {
+    "id": "T3/EXP_cardinality_generalization_stage1_190c_2026_06_16",
+    "name": "EXP exp_cardinality_generalization_stage1_190c_2026-06-16",
+    "kind": "AtomKind.EXPERIMENT_RECORD",
+    "tier": "Tier.TIER_3_ALGORITHM",
+    "corpus": "Corpus.MATH",
+    "metadata": {
+      "record_class": "experiment_record",
+      "term_class": "PROCESS_KNOWLEDGE_NON_MATH",
+      "metric_type": null,
+      "experiment_path": null,
+      "prereg_path": "preregs\\2026-06-16_cardinality_generalization_stage1_190c.md",
+      "metrics_path": "data\\exp_cardinality_generalization_stage1_190c_2026-06-16\\metrics.json",
+      "cell_sha": null,
+      "remote_run_id": null,
+      "hypothesis": "Pre-registration: cardinality_generalization_stage1_190c_cpu_v1",
+      "metrics_headline": null,
+      "key_metrics": {
+        "prereg.exact_count_C2_rmse_max": 1.0,
+        "prereg.exact_count_rmse_reduction": 2.0,
+        "prereg.quant_hardpass_acc": 0.8,
+        "prereg.quant_margin": 0.2
+      },
+      "strengthens_cert": [],
+      "verdict": null,
+      "verdict_raw": "None",
+      "relevance_tier": "ARCHIVE",
+      "run_mode": "full",
+      "era": "SUBSTRATE_BUILD",
+      "provenance_quality": "CERT_CHAIN_GRADE",
+      "depends_on_resolved": [],
+      "depends_on_count": 0,
+      "provenance": {
+        "cell_sha": null,
+        "metrics_sha": "7da0d0353548",
+        "date": "2026-06-16",
+        "session_authored": "exp_dev"
+      },
+      "eleventh_rule_clean": true,
+      "deterministic_no_llm": true,
+      "content_hash": "af992abe98a43d544034a60b6fe62db25e0e0a9e",
+      "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"
+    }
+  },
+  {
+    "id": "T3/EXP_cardinality_generalization_stage1_190c_cpu_v1",
+    "name": "EXP exp_cardinality_generalization_stage1_190c_cpu_v1",
+    "kind": "AtomKind.EXPERIMENT_RECORD",
+    "tier": "Tier.TIER_3_ALGORITHM",
+    "corpus": "Corpus.MATH",
+    "metadata": {
+      "record_class": "experiment_record",
+      "term_class": "PROCESS_KNOWLEDGE_NON_MATH",
+      "metric_type": null,
+      "experiment_path": "experiments\\exp_cardinality_generalization_stage1_190c_cpu_v1.py",
+      "prereg_path": "preregs\\2026-06-16_cardinality_generalization_stage1_190c.md",
+      "metrics_path": "data\\exp_cardinality_generalization_stage1_190c_cpu_v1\\metrics.json",
+      "cell_sha": "35bfdaf27254",
+      "remote_run_id": null,
+      "hypothesis": "190c STAGE-1 -- CARDINALITY GENERALIZATION test (DECISION 192 GO). Tests whether ARM-1's ratified cleanup_distinct_count operator GENERALIZES to a DIFFERENT generator distribution than the one it was authored on -- i.e. generalization, NOT refit. The OPERATOR IS UNCHANGED (CLEANUP_THRESH = 0.30, the ARM-1 ratified value; NOT re-tuned -- re-tuning would be refit, not generalization). DISTRIBUTION SHIFT vs ARM-1 cell (exp_cardinality_phase_B_skeleton_cpu_v1): ARM-1: VOCAB=120 ROLES=4 n_distinct in",
+      "metrics_headline": null,
+      "key_metrics": {
+        "prereg.exact_count_C2_rmse_max": 1.0,
+        "prereg.exact_count_rmse_reduction": 2.0,
+        "prereg.quant_hardpass_acc": 0.8,
+        "prereg.quant_margin": 0.2
+      },
+      "strengthens_cert": [],
+      "verdict": null,
+      "verdict_raw": "None",
+      "relevance_tier": "LOW",
+      "run_mode": "full",
+      "era": "SUBSTRATE_BUILD",
+      "provenance_quality": "CERT_CHAIN_GRADE",
+      "depends_on_resolved": [
+        "math::T2/cosine_cleanup",
+        "math::T2/fhrr_bind",
+        "math::T3/EXP_cardinality_generalization_stage1_190c_cpu_v1",
+        "math::T3/cleanup_distinct_count"
+      ],
+      "depends_on_count": 4,
+      "provenance": {
+        "cell_sha": "35bfdaf27254",
+        "metrics_sha": "7da0d0353548",
+        "date": "2026-06-16",
+        "session_authored": "exp_dev"
+      },
+      "eleventh_rule_clean": true,
+      "deterministic_no_llm": true,
+      "content_hash": "caed10f71e2c823faa1be68f59d2f6715d08843f",
+      "source": "DECISION_237_tier_3_EXPERIMENT_RECORD_atomizer_SCHEMA_3_5_auditor_conditions"
+    }
+  }
+]
