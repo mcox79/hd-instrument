@@ -1,0 +1,129 @@
+{
+  "anchor_name": "substrate_8a_4channel_attribution_v1",
+  "verdict": "ATTRIBUTION",
+  "verdict_msg": "SMOKE WIRING-CHECK ONLY (NON-test): 2 T-points < 3 cannot test non-monotonicity (need a reversal). The full 7-T-point run is the real attribution. residual frac across cells: min=0.5982 median=0.7743 max=0.7743 (2+/0- cells). measured-8a HARD_FAIL STANDS.",
+  "summary": "SMOKE WIRING-CHECK ONLY (NON-test): 2 T-points < 3 cannot test non-monotonicity (need a reversal). The full 7-T-point run is the real attribution. residual frac across cells: min=0.5982 median=0.7743 max=0.7743 (2+/0- cells). measured-8a HARD_FAIL STANDS.",
+  "headline": "SMOKE WIRING-CHECK ONLY (NON-test): 2 T-points < 3 cannot test non-monotonicity (need a reversal). The full 7-T-point run is the real attribution. residual frac across cells: min=0.5982 median=0.7743 max=0.7743 (2+/0- cells). measured-8a HARD_FAIL STANDS.",
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "branch_path": "4channel_attribution",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T11:52:46.628192+00:00",
+  "cell_commit": "d78ffe8a",
+  "n_cells": 2,
+  "residual_drives_nonmonotonicity": false,
+  "roofline_channel_nonmonotone": [],
+  "residual_frac_distribution": {
+    "min": 0.5982,
+    "median": 0.7743,
+    "max": 0.7743,
+    "n_positive": 2,
+    "n_negative": 0
+  },
+  "max_residual_frac_of_measured": 0.7743,
+  "volume_match_ok": true,
+  "volume_ratios": {
+    "compute_flops_ratio_minmax": [
+      1.0,
+      1.0
+    ],
+    "membw_bytes_ratio_minmax": [
+      1.0,
+      1.0
+    ]
+  },
+  "smoke_cant_test_nonmonotonicity": true,
+  "driving": [],
+  "localize": {
+    "k2": {
+      "t_sparse_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "compute_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "membw_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "launch_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "residual_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    }
+  },
+  "cells": [
+    {
+      "T": 1024,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 2.8563,
+      "compute_ms": 0.4043,
+      "membw_ms": 0.1556,
+      "launch_ms": 0.2404,
+      "cost_model_pred_ms": 0.6447,
+      "residual_ms": 2.2116,
+      "band_ms": {
+        "t_sparse_ms": 0.3747,
+        "compute_ms": 0.0304,
+        "membw_ms": 0.0166,
+        "launch_ms": 0.3289,
+        "residual_ms": 0.7506
+      },
+      "residual_frac_of_measured": 0.7743,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 4096,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 4.4465,
+      "compute_ms": 1.6188,
+      "membw_ms": 0.1995,
+      "launch_ms": 0.1677,
+      "cost_model_pred_ms": 1.7865,
+      "residual_ms": 2.66,
+      "band_ms": {
+        "t_sparse_ms": 1.8992,
+        "compute_ms": 0.0562,
+        "membw_ms": 0.0059,
+        "launch_ms": 0.0409,
+        "residual_ms": 2.0022
+      },
+      "residual_frac_of_measured": 0.5982,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    }
+  ],
+  "config": {
+    "d": 1024,
+    "e": 8,
+    "k_list": [
+      2
+    ],
+    "T_grid": [
+      1024,
+      4096
+    ],
+    "iters": 20
+  },
+  "bears_on": "substrate_active_gating_8a_break_even_v1 (measured HARD_FAIL, boundary non-monotone) -- mechanism WHY",
+  "recovery_candidate_note": "drill-2: any cheap-attackable dominant channel (e.g. launch-tax via kernel fusion) is a T2/T3 RECOVERY-CANDIDATE HYPOTHESIS to be TESTED, NOT a recovery claim (refinement 4)",
+  "measured_bounds": "4-channel attribution of the 8a sparse op @ flagship d=1024/e=8/this-hardware; NOT fundamental",
+  "elapsed_s": 0.42
+}

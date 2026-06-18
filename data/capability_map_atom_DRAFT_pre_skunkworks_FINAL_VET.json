@@ -31,7 +31,7 @@
         "MIDDLE_BAND": 67,
         "HARD_FAIL": 63,
         "PASS": 432,
-        "null": 2,
+        "": 2,
         "HONEST_BOUNDED": 1,
         "SPARSITY_NEUTRAL": 2,
         "NON_TEST": 1,
@@ -614,8 +614,11 @@
           }
         ]
       },
-      "unset_legacy_count": 0,
-      "unset_aids_for_flag_dont_auto": []
+      "unset_legacy_count": 2,
+      "unset_aids_for_flag_dont_auto": [
+        "T3/EXP_cardinality_generalization_stage1_190c_2026_06_16",
+        "T3/EXP_cardinality_generalization_stage1_190c_cpu_v1"
+      ]
     }
   },
   "current_best_solution": null,

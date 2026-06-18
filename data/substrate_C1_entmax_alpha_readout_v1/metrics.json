@@ -1,0 +1,139 @@
+{
+  "anchor_name": "substrate_C1_entmax_alpha_readout_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SPARSE-readout WIN in the spread regime: entmax alpha=1.5 (M=512) preserves softmax recall (1.000 vs 1.000, delta +0.000) at 87.5% fewer nonzero (entmax nz 1.0 vs softmax 8.0). Sparse readout matches softmax recall cheaper where attention spreads. N=1024; readout-family/config envelope (measured-bounds), NOT fundamental.",
+  "headline": "SPARSE-readout WIN in the spread regime: entmax alpha=1.5 (M=512) preserves softmax recall (1.000 vs 1.000, delta +0.000) at 87.5% fewer nonzero (entmax nz 1.0 vs softmax 8.0). Sparse readout matches softmax recall cheaper where attention spreads. N=1024; readout-family/config envelope (measured-bounds), NOT fundamental.",
+  "run_mode": "full",
+  "N": 1024,
+  "n_seeds": 3,
+  "M_list": [
+    512,
+    1024,
+    2048
+  ],
+  "alphas": [
+    1.0,
+    1.5,
+    2.0
+  ],
+  "cluster_size": 8,
+  "noise": 0.15,
+  "beta_tuned": 40.0,
+  "spread_M": [
+    512,
+    1024,
+    2048
+  ],
+  "best": {
+    "alpha": 1.5,
+    "M": 512,
+    "flops_reduction": 0.875,
+    "recall_delta": 0.0,
+    "softmax_recall": 1.0,
+    "entmax_recall": 1.0,
+    "softmax_nz": 8.0,
+    "entmax_nz": 1.0
+  },
+  "grid": {
+    "a1.0": {
+      "M512": {
+        "exact": 1.0,
+        "nz": 8.0,
+        "sp": [
+          true,
+          true,
+          true
+        ],
+        "spread": true
+      },
+      "M1024": {
+        "exact": 1.0,
+        "nz": 8.0,
+        "sp": [
+          true,
+          true,
+          true
+        ],
+        "spread": true
+      },
+      "M2048": {
+        "exact": 1.0,
+        "nz": 8.0,
+        "sp": [
+          true,
+          true,
+          true
+        ],
+        "spread": true
+      }
+    },
+    "a1.5": {
+      "M512": {
+        "exact": 1.0,
+        "nz": 1.0,
+        "sp": [
+          false,
+          false,
+          false
+        ],
+        "spread": false
+      },
+      "M1024": {
+        "exact": 1.0,
+        "nz": 1.0,
+        "sp": [
+          false,
+          false,
+          false
+        ],
+        "spread": false
+      },
+      "M2048": {
+        "exact": 1.0,
+        "nz": 1.0,
+        "sp": [
+          false,
+          false,
+          false
+        ],
+        "spread": false
+      }
+    },
+    "a2.0": {
+      "M512": {
+        "exact": 1.0,
+        "nz": 1.0,
+        "sp": [
+          false,
+          false,
+          false
+        ],
+        "spread": false
+      },
+      "M1024": {
+        "exact": 1.0,
+        "nz": 1.0,
+        "sp": [
+          false,
+          false,
+          false
+        ],
+        "spread": false
+      },
+      "M2048": {
+        "exact": 1.0,
+        "nz": 1.0,
+        "sp": [
+          false,
+          false,
+          false
+        ],
+        "spread": false
+      }
+    }
+  },
+  "regime": "SPREAD (cosine + clustered + noisy-cue; shared spread-attention harness)",
+  "recapture_of": "n/a -- nonlinear-readout FRONTIER (bears_on ARCH-B + nonlinear-readout ceiling)",
+  "measured_bounds": "envelope of entmax readout-family at N=1024/cluster_size=8/noise=0.15; NOT fundamental",
+  "elapsed_s": 29.36
+}

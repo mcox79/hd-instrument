@@ -1,0 +1,2163 @@
+{
+  "anchor_name": "substrate_c1_entmax_envelope_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "C1 ENVELOPE HOLDS: entmax cheaper-at-iso-recall WINS in 80/80 discriminating cells (100% >= 70%); median FLOPs-reduction 94%. The sparse-readout win is ROBUSTLY config-contingent across N x cluster x noise. measured-bounds: THIS grid (N[512, 1024, 2048, 4096] x cluster[4, 8, 16, 32] x noise[0.05, 0.1, 0.15, 0.2, 0.3]), NOT fundamental. (0 non-discriminating cells EXCLUDED.)",
+  "summary": "C1 ENVELOPE HOLDS: entmax cheaper-at-iso-recall WINS in 80/80 discriminating cells (100% >= 70%); median FLOPs-reduction 94%. The sparse-readout win is ROBUSTLY config-contingent across N x cluster x noise. measured-bounds: THIS grid (N[512, 1024, 2048, 4096] x cluster[4, 8, 16, 32] x noise[0.05, 0.1, 0.15, 0.2, 0.3]), NOT fundamental. (0 non-discriminating cells EXCLUDED.)",
+  "headline": "C1 ENVELOPE HOLDS: entmax cheaper-at-iso-recall WINS in 80/80 discriminating cells (100% >= 70%); median FLOPs-reduction 94%. The sparse-readout win is ROBUSTLY config-contingent across N x cluster x noise. measured-bounds: THIS grid (N[512, 1024, 2048, 4096] x cluster[4, 8, 16, 32] x noise[0.05, 0.1, 0.15, 0.2, 0.3]), NOT fundamental. (0 non-discriminating cells EXCLUDED.)",
+  "n_seeds": 3,
+  "run_mode": "full",
+  "branch_path": "envelope_sweep",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T11:26:15.927000+00:00",
+  "cell_commit": "d78ffe8a",
+  "n_cells": 80,
+  "n_discriminating": 80,
+  "n_non_discriminating": 0,
+  "n_wins": 80,
+  "win_fraction_of_discriminating": 1.0,
+  "median_flops_reduction_of_wins": 0.9375,
+  "magnitude_distribution": {
+    "discriminating_flops_reduction": {
+      "min": 0.7499,
+      "p25": 0.8749,
+      "median": 0.9375,
+      "p75": 0.9384,
+      "max": 0.969
+    },
+    "win_flops_reduction_median": 0.9375,
+    "note": "8x ~= flops_reduction 0.875; HOLDS if median stays ~0.875 across cells, DEGRADES if it falls toward 0.05 at edges"
+  },
+  "fixed_vs_best_alpha": {
+    "a1.5": {
+      "wins": 80,
+      "win_fraction": 1.0
+    },
+    "a2.0": {
+      "wins": 80,
+      "win_fraction": 1.0
+    },
+    "best_of_both": {
+      "wins": 80,
+      "win_fraction": 1.0
+    }
+  },
+  "thresholds": {
+    "WIN_FLOPS_RED": 0.05,
+    "WIN_RECALL_DELTA": -0.01,
+    "PASS_FRAC": 0.7,
+    "FAIL_FRAC": 0.3,
+    "ACC_THRESH": 0.9
+  },
+  "grid": {
+    "N": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "cluster": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "noise": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3
+    ],
+    "alphas": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "M": "M=N (iso-load)"
+  },
+  "cells": [
+    {
+      "N": 512,
+      "cluster": 4,
+      "noise": 0.05,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 4,
+      "noise": 0.1,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 4,
+      "noise": 0.15,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.007,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.7504,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.7504,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.7504,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 4,
+      "noise": 0.2,
+      "M": 512,
+      "beta_mode": 60.0,
+      "softmax_nz": 3.999,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.7499,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.7499,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.7499,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 4,
+      "noise": 0.3,
+      "M": 512,
+      "beta_mode": 80.0,
+      "softmax_nz": 4.309,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.7679,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.7679,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.7679,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 8,
+      "noise": 0.05,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 8,
+      "noise": 0.1,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 8,
+      "noise": 0.15,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.006,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.8751,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.8751,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.8751,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 8,
+      "noise": 0.2,
+      "M": 512,
+      "beta_mode": 60.0,
+      "softmax_nz": 7.996,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.8749,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.8749,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.8749,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 8,
+      "noise": 0.3,
+      "M": 512,
+      "beta_mode": 80.0,
+      "softmax_nz": 8.276,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 2.0,
+      "flops_reduction": 0.8792,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.8791,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.8792,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 16,
+      "noise": 0.05,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 16,
+      "noise": 0.1,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 16,
+      "noise": 0.15,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.007,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 16,
+      "noise": 0.2,
+      "M": 512,
+      "beta_mode": 60.0,
+      "softmax_nz": 15.989,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 16,
+      "noise": 0.3,
+      "M": 512,
+      "beta_mode": 80.0,
+      "softmax_nz": 16.228,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 2.0,
+      "flops_reduction": 0.9384,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9383,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9384,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 32,
+      "noise": 0.05,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 32,
+      "noise": 0.1,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 32,
+      "noise": 0.15,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.003,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 32,
+      "noise": 0.2,
+      "M": 512,
+      "beta_mode": 60.0,
+      "softmax_nz": 31.981,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9687,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9687,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9687,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 512,
+      "cluster": 32,
+      "noise": 0.3,
+      "M": 512,
+      "beta_mode": 80.0,
+      "softmax_nz": 32.265,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.969,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.969,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.969,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 4,
+      "noise": 0.05,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 4,
+      "noise": 0.1,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 4,
+      "noise": 0.15,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 4,
+      "noise": 0.2,
+      "M": 1024,
+      "beta_mode": 60.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 4,
+      "noise": 0.3,
+      "M": 1024,
+      "beta_mode": 80.0,
+      "softmax_nz": 4.004,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.7503,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.7503,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.7503,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 8,
+      "noise": 0.05,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 8,
+      "noise": 0.1,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 8,
+      "noise": 0.15,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 8,
+      "noise": 0.2,
+      "M": 1024,
+      "beta_mode": 60.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 8,
+      "noise": 0.3,
+      "M": 1024,
+      "beta_mode": 80.0,
+      "softmax_nz": 8.003,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 16,
+      "noise": 0.05,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 16,
+      "noise": 0.1,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 16,
+      "noise": 0.15,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 16,
+      "noise": 0.2,
+      "M": 1024,
+      "beta_mode": 60.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 16,
+      "noise": 0.3,
+      "M": 1024,
+      "beta_mode": 80.0,
+      "softmax_nz": 16.002,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 32,
+      "noise": 0.05,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 32,
+      "noise": 0.1,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 32,
+      "noise": 0.15,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 32,
+      "noise": 0.2,
+      "M": 1024,
+      "beta_mode": 60.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 32,
+      "noise": 0.3,
+      "M": 1024,
+      "beta_mode": 80.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 4,
+      "noise": 0.05,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 4,
+      "noise": 0.1,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 4,
+      "noise": 0.15,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 4,
+      "noise": 0.2,
+      "M": 2048,
+      "beta_mode": 60.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 4,
+      "noise": 0.3,
+      "M": 2048,
+      "beta_mode": 80.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 8,
+      "noise": 0.05,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 8,
+      "noise": 0.1,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 8,
+      "noise": 0.15,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 8,
+      "noise": 0.2,
+      "M": 2048,
+      "beta_mode": 60.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 8,
+      "noise": 0.3,
+      "M": 2048,
+      "beta_mode": 80.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 16,
+      "noise": 0.05,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 16,
+      "noise": 0.1,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 16,
+      "noise": 0.15,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 16,
+      "noise": 0.2,
+      "M": 2048,
+      "beta_mode": 60.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 16,
+      "noise": 0.3,
+      "M": 2048,
+      "beta_mode": 80.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 32,
+      "noise": 0.05,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 32,
+      "noise": 0.1,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 32,
+      "noise": 0.15,
+      "M": 2048,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 32,
+      "noise": 0.2,
+      "M": 2048,
+      "beta_mode": 60.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 2048,
+      "cluster": 32,
+      "noise": 0.3,
+      "M": 2048,
+      "beta_mode": 80.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 4,
+      "noise": 0.05,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 4,
+      "noise": 0.1,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 4,
+      "noise": 0.15,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 4,
+      "noise": 0.2,
+      "M": 4096,
+      "beta_mode": 60.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 4,
+      "noise": 0.3,
+      "M": 4096,
+      "beta_mode": 80.0,
+      "softmax_nz": 4.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.75,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.75,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 8,
+      "noise": 0.05,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 8,
+      "noise": 0.1,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 8,
+      "noise": 0.15,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 8,
+      "noise": 0.2,
+      "M": 4096,
+      "beta_mode": 60.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 8,
+      "noise": 0.3,
+      "M": 4096,
+      "beta_mode": 80.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 16,
+      "noise": 0.05,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 16,
+      "noise": 0.1,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 16,
+      "noise": 0.15,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 16,
+      "noise": 0.2,
+      "M": 4096,
+      "beta_mode": 60.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 16,
+      "noise": 0.3,
+      "M": 4096,
+      "beta_mode": 80.0,
+      "softmax_nz": 16.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9375,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9375,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 32,
+      "noise": 0.05,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 32,
+      "noise": 0.1,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 32,
+      "noise": 0.15,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 32,
+      "noise": 0.2,
+      "M": 4096,
+      "beta_mode": 40.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 4096,
+      "cluster": 32,
+      "noise": 0.3,
+      "M": 4096,
+      "beta_mode": 80.0,
+      "softmax_nz": 32.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.9688,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.9688,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    }
+  ],
+  "bears_on": "C1_entmax_alpha_readout_v1 (envelope test) + ARCH-B nonlinear-readout lever",
+  "measured_bounds": "entmax cheaper-at-iso-recall WIN-ENVELOPE over THIS N x cluster x noise grid; NOT fundamental",
+  "elapsed_s": 33.81
+}

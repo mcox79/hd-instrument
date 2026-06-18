@@ -1,0 +1,60 @@
+{
+  "anchor_name": "surprise_gating_b3b_synthetic_pool_recapture_v1",
+  "verdict": "HONEST_BOUNDED",
+  "verdict_msg": "HONEST_BOUNDED: no named-failure-mode lift (stacked +0.000 < +3pp; lifts={'arm1_decorr': 0.0, 'arm2_tempcal': 0.0, 'arm3_rnd': -0.033}). Surprise-gating ceiling here is NOT one of the 3 named modes (collapse/mis-cal/noisy-TV) -> substrate-novel ceiling; next = modern-Hopfield surprise-energy.",
+  "headline": "HONEST_BOUNDED: no named-failure-mode lift (stacked +0.000 < +3pp; lifts={'arm1_decorr': 0.0, 'arm2_tempcal': 0.0, 'arm3_rnd': -0.033}). Surprise-gating ceiling here is NOT one of the 3 named modes (collapse/mis-cal/noisy-TV) -> substrate-novel ceiling; next = modern-Hopfield surprise-energy.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N": 256,
+  "V": 200,
+  "M": 40,
+  "T": 4000,
+  "mean_retrieval_informative": {
+    "write_all": 0.03333333333333333,
+    "gate_raw": 0.3333333333333333,
+    "arm1_decorr": 0.3333333333333333,
+    "arm2_tempcal": 0.3333333333333333,
+    "arm3_rnd": 0.3,
+    "oracle": 0.6666666666666666
+  },
+  "gate_raw_baseline": 0.3333333333333333,
+  "floor_chance": 0.03333333333333333,
+  "ceiling_write_all": 0.6666666666666666,
+  "discriminating_regime": true,
+  "lifts_vs_baseline": {
+    "arm1_decorr": 0.0,
+    "arm2_tempcal": 0.0,
+    "arm3_rnd": -0.033333333333333326
+  },
+  "bands": {
+    "arm1_decorr": 0.06,
+    "arm2_tempcal": 0.04,
+    "arm3_rnd": 0.05
+  },
+  "arm_pass": {
+    "arm1_decorr": false,
+    "arm2_tempcal": false,
+    "arm3_rnd": false
+  },
+  "noise_fire_rate_gate_raw": 0.24289405684754523,
+  "per_seed_retrieval": {
+    "write_all": [
+      0.03333333333333333
+    ],
+    "gate_raw": [
+      0.3333333333333333
+    ],
+    "arm1_decorr": [
+      0.3333333333333333
+    ],
+    "arm2_tempcal": [
+      0.3333333333333333
+    ],
+    "arm3_rnd": [
+      0.3
+    ]
+  },
+  "verdict_scoping": "synthetic-pool MECHANISM recapture (OPTION A; data-sufficient); charLM/LM-frontier instantiation deferred to Tier-6-resume; method/task-contingent (Skunkworks verdict-time lock)",
+  "recapture_of": "scorecard_claim_8b_surprise_gating_B3b (MIDDLE/HF; charLM-anchor data-confounded -> re-scoped synthetic)",
+  "elapsed_s": 0.03
+}

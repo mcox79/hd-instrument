@@ -325,6 +325,45 @@ def orchestrator_health():
     return snap.get("orchestrator_health") or {"primary": None, "by_window": None}
 
 
+@app.get("/api/infra_flags")
+def infra_flags():
+    """Infrastructure alert flags written by orchestrator cron scripts.
+
+    Per Director RATIFY 2026-06-17 18:43 (research_to_orchestrator_skunkworks
+    _RATIFY_crons_C1_certgrade_ACK): wire .substrate_gate_fail +
+    .index_coverage_gap + .coverage_gap + .backup_stale_alert into
+    dashboard for unattended safety net.
+
+    Each flag = file existence in data/. Returns true/false + last-modified
+    + content preview (first 500 chars if present).
+    """
+    from pathlib import Path as _Path
+    data_root = _Path(__file__).resolve().parents[2] / "data"
+    flags = {
+        "substrate_gate_fail": ".substrate_gate_fail",
+        "index_coverage_gap": ".index_coverage_gap",
+        "coverage_gap": ".coverage_gap",
+        "backup_stale_alert": ".backup_stale_alert",
+    }
+    out = {}
+    for k, fname in flags.items():
+        p = data_root / fname
+        if p.is_file():
+            try:
+                content = p.read_text(encoding="utf-8", errors="replace")[:500]
+            except Exception:
+                content = ""
+            try:
+                mtime = p.stat().st_mtime
+            except Exception:
+                mtime = None
+            out[k] = {"active": True, "modified_unix": mtime, "preview": content}
+        else:
+            out[k] = {"active": False, "modified_unix": None, "preview": ""}
+    out["any_active"] = any(v["active"] for v in out.values() if isinstance(v, dict))
+    return out
+
+
 @app.get("/api/questions")
 def questions():
     """Orchestrator open questions for the user (from orchestrator_questions.md)."""
