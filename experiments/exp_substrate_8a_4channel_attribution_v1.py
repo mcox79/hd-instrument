@@ -252,9 +252,12 @@ def main():
                   "discrimination. " if residual_drives else "")
                + f"{resid_scope}. measured-bounds: flagship d={D}/e={E} @ this hardware, NOT fundamental. measured-8a HARD_FAIL STANDS.")
     else:
-        msg = (f"8a attribution: t_sparse MONOTONE in T (noise-guarded) at this grid/hardware. {resid_scope}. (If monotone here "
-               f"but the canonical HARD_FAIL was non-monotone, the boundary non-monotonicity is config/hardware-sensitive -- "
-               f"measured-bounds; flag for cross-config.) measured-8a HARD_FAIL STANDS.")
+        msg = (f"8a attribution: t_sparse MONOTONE in T (noise-guarded) at this grid/hardware. {resid_scope}. METRIC SCOPE "
+               f"(Skunkworks): A1 measured t_sparse (ABSOLUTE cost), NOT net_speedup (the RATIO t_dense/t_sparse where the "
+               f"canonical 8a non-monotonicity lives) -- A1 has no t_dense, so t_sparse-monotone says NOTHING about "
+               f"net_speedup-non-monotonicity (a ratio can be non-monotone with monotone numerator+denominator). So the "
+               f"non-monotonicity localization remains OPEN (future drill: measure t_dense + t_sparse, attribute the RATIO). "
+               f"measured-8a HARD_FAIL STANDS (its net_speedup non-monotonicity is independent of A1's t_sparse finding).")
 
     metrics = {
         "anchor_name": ANCHOR, "verdict": verdict, "verdict_msg": msg, "summary": msg, "headline": msg,
@@ -266,6 +269,8 @@ def main():
         "max_residual_frac_of_measured": round(max_residual_frac, 4),
         "volume_match_ok": vol_ok, "volume_ratios": volume_ratios,  # reporting ask: actual ratios, not just the gate
         "smoke_cant_test_nonmonotonicity": smoke_cant_test,     # note 3: <3 T-points = NON-test of the boundary
+        "measures_quantity": "t_sparse (ABSOLUTE sparse-op cost) -- NOT net_speedup (the ratio t_dense/t_sparse); no t_dense measured",
+        "net_speedup_nonmonotonicity_localization": "OPEN -- A1 measured t_sparse (monotone); the canonical 8a non-monotonicity is in net_speedup; future drill must measure t_dense + t_sparse and attribute the RATIO",
         "driving": driving, "localize": localize, "cells": cells,
         "config": {"d": D, "e": E, "k_list": k_list, "T_grid": t_grid, "iters": ITERS},
         "bears_on": "substrate_active_gating_8a_break_even_v1 (measured HARD_FAIL, boundary non-monotone) -- mechanism WHY",

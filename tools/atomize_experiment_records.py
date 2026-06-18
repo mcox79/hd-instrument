@@ -191,6 +191,8 @@ def normalize_verdict(raw) -> str | None:
         return "KILLED"
     if "NON_TEST" in u or "NON-TEST" in u:                  # honest non-discriminating-regime result (real verdict)
         return "NON_TEST"
+    if "ATTRIBUTION" in u:                                  # mechanism-attribution record (not a pass/fail; e.g. A1)
+        return "ATTRIBUTION"
     if "SPARSITY_NEUTRAL" in u or "SPARSITY-NEUTRAL" in u:   # recapture: capability lifted, sparsity gives no edge
         return "SPARSITY_NEUTRAL"
     if "MIDDLE" in u:
