@@ -58,8 +58,32 @@ def run_with_flag(script: Path, flag: str, env_extra: dict) -> tuple[int, str]:
 
     Uses a temp log file (matches the actual runner's approach) instead of
     capture_output, which has pipe-buffering issues with CUDA-heavy scripts.
+
+    Smoke timeout (per Skunkworks 2026-06-18 ratify): per-dispatch override via
+    HDLAB_SMOKE_TIMEOUT_S env var; default SMOKE_TIMEOUT_S=180 UNCHANGED for all
+    other cells (a global raise would weaken hang-catch for genuinely-hung cells
+    -- the historical 4hr-CPU-on-GPU incident is exactly why the cap exists).
+    Override is LOGGED so a long smoke timeout is visible (a 4hr hang can't hide
+    behind a silently-raised timeout). Use only for cells with verified fixed-
+    setup costs that exceed 180s (e.g. bge AtomEncoder + 41k-atom index rebuild).
     """
     env = {**os.environ, **env_extra}
+    timeout_s = SMOKE_TIMEOUT_S
+    override_raw = os.environ.get("HDLAB_SMOKE_TIMEOUT_S")
+    if override_raw:
+        try:
+            timeout_s = int(override_raw)
+            print(
+                f"[gate] SMOKE_TIMEOUT_S override via HDLAB_SMOKE_TIMEOUT_S: "
+                f"using {timeout_s}s (default {SMOKE_TIMEOUT_S}s)",
+                file=sys.stderr,
+            )
+        except ValueError:
+            print(
+                f"[gate] WARN: HDLAB_SMOKE_TIMEOUT_S={override_raw!r} not an int; "
+                f"using default {SMOKE_TIMEOUT_S}s",
+                file=sys.stderr,
+            )
     log_path = REPO / "data" / f"gate_log_{script.stem}_{flag.lstrip('-')}.txt"
     log_path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -70,10 +94,10 @@ def run_with_flag(script: Path, flag: str, env_extra: dict) -> tuple[int, str]:
                 env=env,
                 stdout=logf,
                 stderr=subprocess.STDOUT,
-                timeout=SMOKE_TIMEOUT_S,
+                timeout=timeout_s,
             )
     except subprocess.TimeoutExpired:
-        return 124, f"TIMEOUT after {SMOKE_TIMEOUT_S}s (log: {log_path})"
+        return 124, f"TIMEOUT after {timeout_s}s (log: {log_path})"
     try:
         lines = log_path.read_text(encoding="utf-8").splitlines()
         tail = "\n".join(lines[-15:])
