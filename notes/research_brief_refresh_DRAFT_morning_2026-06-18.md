@@ -71,10 +71,12 @@ LAYER 5 (cross-session integrity): coordinated cert-discipline
   - **USER honest framing locked + STANDS unchanged post-VET-PASS**: pipeline-works + first EXACT identity formally proven + cert-gated + semantics-match discipline RAN FOR REAL and PASSED; NOT "substrate formally verified" (one idealized identity != system-level verification); NOT certification of APPROXIMATE-orthogonality binding regime; NOT axiom_term promotion (NO mutation; 206/206 preserved); NOT "PHASE III committed" (production lean_oracle infrastructure = USER architectural decision per ESCALATE)
   - Substrate state on atomize cron pickup: 31304 -> 31305 (first T0_PROVEN_FORMAL); AtomKind 16 -> 17 of 23 populated
 
-- **TIER-6 char-LM**: correctly data-gated per USER directive
-  - WordNet + text8 + enwik8 packs VALID on remote (false-alarm resolved)
-  - WordNet ingestion QUEUED as STEP-B language-knowledge extension morning (start-small 5k high-frequency noun synsets; Testbed methodology pre-stage drafted; 3 open questions queued for Director + Skunkworks consensus)
-  - text8/enwik8 STAGED for Tier-6 future resume
+- **LANGUAGE + SCIENCE INGESTION** (USER overnight directive "ingest language AND science"):
+  - **WordNet APPLY** queued morning (LANGUAGE; 5k high-frequency noun synsets -> LEXICON atoms; per-synset granularity; bears_on edges scoped math + sub_op; Testbed methodology pre-stage drafted; conditional on Skunkworks SCHEMA-VET on dry-run per refinement 1)
+  - **GO-5k starter ingest STAGED** (SCIENCE biology; Gene Ontology go-basic.obo top-5k-most-referenced terms; ~5000 atoms + ~14000 typed bears_on edges; CC BY 4.0; laptop-super-fast; Exp-Dev hand-off auto-filed by drill 7 scientific corpora landscape; pre-reg HARD-PASS edge-budget [10k, 30k] + 0-phantom-edge + axiom_term 206/206 + cap_pres 1.0)
+  - **CSO-5k + OEIS-core** (sequential after GO-5k verdict; USER-owned queue decision; default = wait for GO-5k verdict before queueing)
+  - **text8/enwik8 STAGED** for Tier-6 future resume (data-gated per USER; PAUSED)
+  - **2nd drill->exp_dev auto-routing tonight** (1st ARCH-A->A5 ablation; 2nd scientific corpora->GO-5k ingest); substrate-autonomy infrastructure working as designed (research lane feeds cells via hand-off without Director cross-laning)
 
 ## SUBSTRATE-PRODUCT POSITIONING NARRATIVE (refined for tomorrow)
 
