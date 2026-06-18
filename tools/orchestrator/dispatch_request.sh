@@ -59,9 +59,22 @@ if [ -z "${HDLAB_SKIP_LOCAL_SELFTEST:-}" ]; then
     if [ ! -x "$PYTHON_EXE" ]; then
         PYTHON_EXE="python"
     fi
-    echo "[dispatch-request] running local --self-test on $SCRIPT (timeout 60s)..."
-    if ! timeout 60 "$PYTHON_EXE" "$SCRIPT" --self-test >/tmp/selftest.log 2>&1; then
-        echo "[dispatch-request] FAIL: local --self-test failed (exit $?)" >&2
+    # TIMEOUT_SELFTEST env override (default 120s; raised from 60s after A4 N=2048
+    # cell legitimately took 73s and was killed; Skunkworks AFFIRMed 2026-06-18).
+    # Per-cell override: HDLAB_SELFTEST_TIMEOUT=300 bash tools/orchestrator/dispatch_request.sh ...
+    SELFTEST_TIMEOUT="${HDLAB_SELFTEST_TIMEOUT:-120}"
+    echo "[dispatch-request] running local --self-test on $SCRIPT (timeout ${SELFTEST_TIMEOUT}s)..."
+    set +e
+    timeout "$SELFTEST_TIMEOUT" "$PYTHON_EXE" "$SCRIPT" --self-test >/tmp/selftest.log 2>&1
+    SELFTEST_RC=$?
+    set -e
+    if [ "$SELFTEST_RC" -ne 0 ]; then
+        if [ "$SELFTEST_RC" -eq 124 ]; then
+            echo "[dispatch-request] FAIL: local --self-test TIMED OUT after ${SELFTEST_TIMEOUT}s (exit 124)" >&2
+            echo "[dispatch-request] if the cell genuinely needs longer, retry with HDLAB_SELFTEST_TIMEOUT=300 (or higher)" >&2
+        else
+            echo "[dispatch-request] FAIL: local --self-test failed (exit $SELFTEST_RC)" >&2
+        fi
         echo "[dispatch-request] last 20 lines of self-test output:" >&2
         tail -20 /tmp/selftest.log >&2
         echo "[dispatch-request] fix the cell + retry; manifest NOT pushed" >&2
