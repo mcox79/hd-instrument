@@ -86,7 +86,7 @@ def scour():
                     "aid": a.get("id", ""),
                     "name": a.get("name", ""),
                     "description": (a.get("description") or ""),
-                    "verdict": md.get("verdict", ""),
+                    "verdict": md.get("verdict") or "",
                     "relevance_tier": md.get("relevance_tier", ""),
                     "experiment_path": md.get("experiment_path", ""),
                     "metric_type": md.get("metric_type", ""),
