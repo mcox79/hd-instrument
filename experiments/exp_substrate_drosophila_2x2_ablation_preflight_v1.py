@@ -304,7 +304,7 @@ def main() -> int:
 
     r = run(fast=is_smoke)
     metrics = {"anchor_name": ANCHOR, "verdict": r["verdict"], "verdict_msg": r["verdict_msg"], "summary": r["verdict_msg"],
-               "headline": r["verdict_msg"],
+               "headline": r["verdict_msg"], "n_seeds": len(r["config"]["seeds"]),   # atomizer: run_mode=full + n_seeds>=3 -> CERT_CHAIN_GRADE
                **provenance_fields("smoke" if is_smoke else "full", r["branch_path"], "synthetic_2x2_readout_capacity_plus_expansion_noise_retention", run_started_utc),
                "readout_axis_C1_replication": r["readout_axis_C1_replication"], "option_B_noise_retention": r["option_B_noise_retention"],
                "no_noise_faithfulness_diagnostic": r["no_noise_faithfulness_diagnostic"], "Mstar": r["Mstar"], "censored": r["censored"],
