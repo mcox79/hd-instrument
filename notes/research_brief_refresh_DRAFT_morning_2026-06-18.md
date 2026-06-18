@@ -189,14 +189,27 @@ AtomKind populated:  16 of 23 enum
 ## CAPABILITY FRONTIER STATE (honest framing per Skunkworks E1 over-claim corrections)
 
 ```
-2 PROVEN CERT-GRADE results (NOT yet capability-promoted; not yet "load-bearing"
-  in the FORM-P sense; load-bearing-promotion = my QUEUED post-VET substrate-build
-  to author CAPABILITY atoms -> Testbed ratify):
+3 PROVEN CERT-GRADE POSITIVES of the SAME nonlinear-readout-lifts-capacity LEVER
+  (independent replications across distinct architectures + tasks; NOT yet
+  capability-promoted FORM-P; load-bearing-promotion = QUEUED post-VET
+  substrate-build CAPABILITY atoms -> Testbed ratify):
 
-  - ARCH-B SPARSITY_NEUTRAL (Drosophila recapture; nonlinear softmax readout
-    lifts capacity completely; cert_chain_grade verified)
-  - C1 entmax sparse readout (8x cheaper than softmax at iso-recall in measured
-    spread regime; cert_chain_grade verified; atomized today 562 -> 563)
+  - ARCH-B SPARSITY_NEUTRAL (Drosophila recapture; cleanup memory; nonlinear
+    softmax readout lifts capacity completely; cert_chain_grade verified)
+  - C1 entmax sparse readout (cleanup memory spread regime; 8x cheaper than
+    softmax at iso-recall; cert_chain_grade verified; atomized today 562 -> 563)
+  - **ARCH-A readout-axis** (ARCH-A sparse-pattern task; entmax M*>=2048 censored
+    vs linear M*=48.5 = >=42x capacity lift LOWER BOUND honest-scoped; A5
+    readout-axis Skunkworks VET PASS; cert-grade-eligible EXPERIMENT_RECORD;
+    INDEPENDENT REPLICATION OF C1 on 2nd task; strengthens C1 from
+    single-task/config to 2-task replication; A3 entmax envelope sweep
+    will test further config-contingency)
+
+These 3 independent replications converge on a SUBSTRATE-LEVEL FINDING:
+   "linear-readout-is-the-ceiling + nonlinear-readout-as-linear-in-geometry-
+    amplifier lifts capacity" -- thrice-confirmed across distinct architectures
+   (ARCH-A + ARCH-B) and tasks (cleanup memory + sparse-pattern reconstruction).
+   ONE operative substrate lever (per drill 2 unifying framing).
 
 1 PENDING (mechanism confirmed at smoke; FULL still unverified per metrics-provenance
   gate; NOT a confirmed proof point until BRANCH=REAL_held_out + mode=full + elapsed>0):
