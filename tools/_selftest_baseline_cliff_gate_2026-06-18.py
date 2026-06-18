@@ -6,8 +6,10 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from experiments._cell_provenance import baseline_cliff_self_check, corpus_completeness_self_check, path_provenance_self_check
-from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate, corpus_completeness_gate, path_provenance_gate, provenance_quality
+from experiments._cell_provenance import (baseline_cliff_self_check, corpus_completeness_self_check,
+                                           path_provenance_self_check, phantom_dep_self_check)
+from tools.atomize_experiment_records import (baseline_cliff_gate, discrimination_gate, corpus_completeness_gate,
+                                              path_provenance_gate, provenance_quality, _phantom_dep_violation)
 
 ok = True
 def check(label, got, want):
@@ -173,6 +175,61 @@ check("non-would-be-cert + verdict=None -> UNVERIFIED (unchanged)",
 # regression: would-be-cert + valid verdict + gate0-FAIL -> UNVERIFIED (unchanged)
 check("would-be-cert + verdict PASS + gate0-FAIL -> UNVERIFIED (unchanged)",
       provenance_quality("full", 3, {"metrics_source": "measured_torch_gpu", "gate0_self_check": {"pass": False}}, "PASS"), "UNVERIFIED")
+
+print("7th gate: PHANTOM-DEPENDENCY (declared DEPENDS_ON/COMPOSES/STRENGTHENS target absent -> UNVERIFIED, NOT HARD_FAIL):")
+# producer: 0 phantom -> phantom-free; >0 -> not; 0 declared -> trivially free; bad inputs -> not, no-crash
+check("0 phantom (5 declared) -> phantom-free",
+      phantom_dep_self_check(5, 0)["is_phantom_free"], True)
+check("1 phantom (5 declared) -> NOT phantom-free (the catch)",
+      phantom_dep_self_check(5, 1)["is_phantom_free"], False)
+check("0 declared edges -> trivially phantom-free",
+      phantom_dep_self_check(0, 0)["is_phantom_free"], True)
+check("bad inputs (None) -> NOT phantom-free no-crash",
+      phantom_dep_self_check(None, None)["is_phantom_free"], False)
+# detector: violation iff field present AND is_phantom_free==False (flat + nested + non-retroactive)
+check("detector: phantom violation (flat) -> True",
+      _phantom_dep_violation({"phantom_dep_self_check": {"is_phantom_free": False}}), True)
+check("detector: phantom-free (flat) -> False",
+      _phantom_dep_violation({"phantom_dep_self_check": {"is_phantom_free": True}}), False)
+check("detector: no field -> False (non-retroactive)",
+      _phantom_dep_violation({}), False)
+check("detector: malformed (str) -> False (legacy-safe)",
+      _phantom_dep_violation({"phantom_dep_self_check": "oops"}), False)
+check("detector: nested one-phantom -> True",
+      _phantom_dep_violation({"phantom_dep_self_check": {"frame_edges": {"is_phantom_free": True},
+                                                         "lu_edges": {"is_phantom_free": False}}}), True)
+# CONSUMER via provenance_quality (the 7th guard lives in provenance_quality, like the 6th):
+_pc = {"metrics_source": "measured_torch_gpu", "gate0_self_check": {"pass": True}}
+# would-be-cert + phantom-free + verdict PASS -> CERT (unchanged)
+check("would-be-cert + phantom-free PASS -> CERT_CHAIN_GRADE",
+      provenance_quality("full", 3, {**_pc, "phantom_dep_self_check": {"is_phantom_free": True}}, "PASS"),
+      "CERT_CHAIN_GRADE")
+# would-be-cert + PHANTOM -> UNVERIFIED (the 7th-gate fix; lineage unverifiable, NOT HARD_FAIL)
+check("would-be-cert + phantom -> UNVERIFIED (7th gate; lineage unverifiable)",
+      provenance_quality("full", 3, {**_pc, "phantom_dep_self_check": {"is_phantom_free": False}}, "PASS"),
+      "UNVERIFIED")
+# phantom pre-empts CERT even with valid verdict + method-gate + gate0 all OK (placed before CERT grant)
+check("would-be-cert + phantom + all-else-OK -> UNVERIFIED (pre-empts CERT)",
+      provenance_quality("full", 5, {**_pc, "phantom_dep_self_check": {"is_phantom_free": False}}, "HARD_FAIL"),
+      "UNVERIFIED")
+# NON-RETROACTIVE: would-be-cert + NO phantom field + PASS -> CERT (unchanged; the critical 0-flip test)
+check("would-be-cert + NO phantom field PASS -> CERT_CHAIN_GRADE (non-retroactive)",
+      provenance_quality("full", 3, _pc, "PASS"), "CERT_CHAIN_GRADE")
+# TARGETED: smoke + phantom -> SMOKE_ONLY (not over-broadened; guard is would-be-cert-only)
+check("smoke + phantom -> SMOKE_ONLY (targeted, not over-broadened)",
+      provenance_quality("smoke", 1, {"metrics_source": "measured_torch_gpu",
+                                       "phantom_dep_self_check": {"is_phantom_free": False}}, "PASS"),
+      "SMOKE_ONLY")
+# TARGETED: non-would-be-cert + phantom -> existing tier (LEGACY_EXCERPT), guard does not fire
+check("non-would-be-cert + phantom PASS -> LEGACY_EXCERPT (guard would-be-cert-only)",
+      provenance_quality("full", 1, {"metrics_source": "measured_torch_gpu",
+                                      "phantom_dep_self_check": {"is_phantom_free": False}}, "PASS"),
+      "LEGACY_EXCERPT")
+# nested phantom (FrameNet-shape: frame-edges clean, LU-edges phantom) -> UNVERIFIED
+check("would-be-cert + nested one-phantom -> UNVERIFIED",
+      provenance_quality("full", 3, {**_pc, "phantom_dep_self_check": {"a": {"is_phantom_free": True},
+                                                                       "b": {"is_phantom_free": False}}}, "PASS"),
+      "UNVERIFIED")
 
 print(("ALL PASS" if ok else "SOME FAILED"))
 sys.exit(0 if ok else 1)

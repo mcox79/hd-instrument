@@ -204,3 +204,37 @@ def path_provenance_self_check(n_paths, n_path_edges, n_unverifiable_edges, reas
         "n_unverifiable_edges": n_unverifiable_edges,
         "reason": reason,
     }
+
+
+def phantom_dep_self_check(n_declared_edges, n_phantom_edges, reason: str = "") -> dict:
+    """PHANTOM-DEPENDENCY self-check (Skunkworks 7th self-cert gate, 2026-06-18; encodes audit lessons 2+4 --
+    don't-fabricate-grounding / phantom-dep-pre-ratify [BOTH CONFIRMED] -- as a DETERMINISTIC self-applied gate).
+
+    Every provenance edge an atom DECLARES (DEPENDS_ON / COMPOSES / STRENGTHENS) MUST have a target that EXISTS in
+    the Store at atomize time. A PHANTOM edge (declared target ABSENT) means the atom's provenance LINEAGE is broken
+    -- the grounding it claims cannot be verified. UNLIKE the 5th gate (path-provenance, which forces HARD_FAIL: a
+    hallucinated REASONING-PATH hop makes the composed-reasoning RESULT false), a phantom LINEAGE edge does NOT prove
+    the result false -- it makes the PROVENANCE unverifiable. So the honest consequence is UNVERIFIED (block CERT;
+    the provenance chain is insufficient for a cert-grade claim), NOT HARD_FAIL (do NOT over-assert result-false).
+    (COMPOSES with an absent target is treated identically -- UNVERIFIED is the honest floor; a stricter HARD_FAIL
+    could be argued for a broken composition claim but UNVERIFIED does not over-assert.)
+
+    The cell -- which for an INGEST cell BUILDS the Store + for any cell KNOWS its declared edges -- passes the number
+    of declared provenance edges and how many had ABSENT targets; the gate decides is_phantom_free = (n_phantom == 0).
+    Pairs with the consumer-side phantom-dep guard inside provenance_quality (would-be-cert + is_phantom_free==False
+    -> UNVERIFIED). Moves the integrator's manual pre-ratify phantom-dep scan to a deterministic atomize-time check,
+    AND is the deterministic enforcement of the FrameNet / deeper-ingest '0-phantom verified post-ingest' pre-ingest
+    cert-condition. ADDITIVE + NON-RETROACTIVE (only edge-declaring cells emit it; legacy atoms pass through). The
+    INDEPENDENT re-verification (does each target actually exist) is the Testbed 2nd-witness's job (defense-in-depth).
+    11th-rule clean; no LLM; ASCII.
+    """
+    try:
+        free = int(n_phantom_edges) == 0 and int(n_declared_edges) >= 0
+    except (TypeError, ValueError):
+        free = False
+    return {
+        "is_phantom_free": bool(free),
+        "n_declared_edges": n_declared_edges,
+        "n_phantom_edges": n_phantom_edges,
+        "reason": reason,
+    }

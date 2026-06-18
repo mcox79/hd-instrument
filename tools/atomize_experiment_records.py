@@ -326,6 +326,20 @@ def path_provenance_gate(metrics: dict, verdict_norm):
     return verdict_norm
 
 
+def _phantom_dep_violation(metrics: dict) -> bool:
+    """7th self-cert gate (phantom-dependency, 2026-06-18; audit lessons 2+4) detector. True iff the cell emitted a
+    phantom_dep_self_check reporting a PHANTOM provenance edge (is_phantom_free==False) -- a declared
+    DEPENDS_ON / COMPOSES / STRENGTHENS target ABSENT from the Store at atomize time. Handles flat + nested-per-group
+    schema. ADDITIVE + NON-RETROACTIVE: no field (or malformed) -> False (legacy / non-edge-declaring atoms
+    unaffected). Consumed by provenance_quality (would-be-cert + violation -> UNVERIFIED: lineage unverifiable)."""
+    p = metrics.get("phantom_dep_self_check")
+    if not isinstance(p, dict):
+        return False
+    flags = [p.get("is_phantom_free")] if "is_phantom_free" in p \
+        else [v.get("is_phantom_free") for v in p.values() if isinstance(v, dict)]
+    return any(f is False for f in flags)
+
+
 def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     """Deterministic from run_mode + cert-discipline markers + METHOD-GATE + GATE-0. condition 4 + method-gate + C2."""
     # ATTRIBUTION (mechanism record; e.g. A1): MEASURED but NOT a verdict-cert -> distinct tier, NEVER cert-counted
@@ -347,6 +361,18 @@ def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     # ADDITIVE + NON-RETROACTIVE: existing CERT atoms all have mappable verdicts (0 verdict=None in CERT post-re-
     # validation -> no flip); this only blocks NEW verdict=None atoms from reaching CERT. Targeted to the would-be-cert
     # path -> smoke (SMOKE_ONLY) and non-would-be-cert (LEGACY/UNVERIFIED) verdict=None paths are UNCHANGED.
+    # 7th self-cert gate (phantom-dependency, 2026-06-18; audit lessons 2+4 don't-fabricate-grounding /
+    # phantom-dep-pre-ratify, BOTH CONFIRMED). A would-be-cert atom whose cell self-attests a PHANTOM provenance edge
+    # (a declared DEPENDS_ON / COMPOSES / STRENGTHENS target ABSENT from the Store at atomize time) cannot be
+    # CERT_CHAIN_GRADE -- its provenance LINEAGE is broken / unverifiable. UNLIKE the 5th gate (path-provenance ->
+    # HARD_FAIL: a hallucinated REASONING-path hop makes the RESULT false), a phantom LINEAGE edge does NOT prove the
+    # result false -> UNVERIFIED (the honest floor; block CERT, do not over-assert result-false). This is the
+    # deterministic enforcement of the FrameNet / deeper-ingest '0-phantom' pre-ingest cert-condition + moves the
+    # integrator's manual pre-ratify phantom-dep scan to atomize time. ADDITIVE + NON-RETROACTIVE (no field -> no
+    # change; 0 current CERT atoms emit it -> CERT 569 UNCHANGED). Targeted to the would-be-cert path -> placed BEFORE
+    # the CERT grant so a phantom violation pre-empts CERT even when verdict + method-gate + gate0 all pass.
+    if would_be_cert and _phantom_dep_violation(metrics):
+        return "UNVERIFIED"
     if would_be_cert and method_gate_ok(metrics) and gate0_field_check(metrics) and verdict_norm is not None:
         return "CERT_CHAIN_GRADE"
     if would_be_cert and verdict_norm is None:         # 6th gate: cert-shaped + measured + gate0-OK but NO mappable verdict -> not cert
