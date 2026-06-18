@@ -419,5 +419,8 @@
   },
   "recapture_of": "ARCH-B SPARSITY_NEUTRAL @N=1024 (exp_drosophila_recapture_arch_b_softmax_v1); A4 config-contingency replicate @N=2048",
   "method_delta": "UNCHANGED ARCH-B design (sparse-key/dense-value x softmax readout, frozen dense-tuned beta, exact-recall primary) at N=2048 (was 1024); tests single-config caveat (E1)",
-  "measured_bounds": "ARCH-B 2x2 at N=2048/M_LIST/beta-dense-tuned; config-contingency check vs N=1024; NOT fundamental"
+  "measured_bounds": "ARCH-B 2x2 at N=2048/M_LIST/beta-dense-tuned; config-contingency check vs N=1024; NOT fundamental",
+  "strengthens_cert": [
+    "math::T3/EXP_drosophila_recapture_arch_b_softmax_v1"
+  ]
 }
