@@ -75,7 +75,7 @@ def build_atom() -> Atom:
             'olean_artifact': 'lean_oracle/pythagoras_ip_v1/.lake/build/lib/lean/PythagorasIpV1/OrthonormalIndependent.olean (12184 bytes)',
             'lean_commit': '3ce1d2a7',
             'lake_build': 'exit 0; target theorem built; no sorry/admit/axiom',
-            'print_axioms': '[propext, Classical.choice, Quot.sound] expected (standard trio; Testbed 2nd-witness re-run)',
+            'print_axioms': '[propext, Classical.choice, Quot.sound] CONFIRMED (standard trio; no sorryAx; Testbed 2nd-witness re-run)',
         },
         'no_algebra_structural_guard': True,
         'axiom_term_promotion': 'SEPARATE explicit USER/PHASE-III authority; NEVER automatic on lake-PASS',
