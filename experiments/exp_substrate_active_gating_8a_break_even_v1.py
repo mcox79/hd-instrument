@@ -276,9 +276,9 @@ def run(fast=False):
     # the line between honest regime-scoping and Goodhart). The small-T launch-tax regime where active-gating is a net LOSS.
     cold_start = sorted([{"T": p["T"], "k": p["k"], "net_speedup": p["net_speedup"]}
                          for p in surface if p["net_speedup"] < 1.0 and not p["degenerate"]], key=lambda p: (p["k"], p["T"]))
+    _cs_ex = ", ".join("(T=%d,k=%d:%s)" % (c["T"], c["k"], c["net_speedup"]) for c in cold_start[:4])
     cold_start_summary = (f"small-batch/cold-start NET-LOSS (active-gating LOSES here, by the launch/dispatch tax): "
-                          f"{len(cold_start)} grid points net_speedup<1.0, e.g. "
-                          f"{', '.join(f'(T={c['T']},k={c['k']}:{c['net_speedup']})' for c in cold_start[:4])}"
+                          f"{len(cold_start)} grid points net_speedup<1.0, e.g. {_cs_ex}"
                           if cold_start else "no net-loss points (active-gating net-win across the whole grid).")
 
     if not guard_ok:
@@ -288,12 +288,14 @@ def run(fast=False):
         smoke_caveat = ("" if measured_used else " SMOKE/cost-model run: this validates the boundary-DETECTION + the "
                         "deadlock guard + that the model PREDICTS a clean boundary; the REMOTE GPU FULL (measured wall-time) "
                         "is the ACTUAL recapture verdict.")
+        _be = ", ".join("k%d:T*=%s" % (k, boundary["k%d" % k]["T_break_even"]) for k in K_grid)
+        _perf = ", ".join("k%d:%s" % (k, boundary["k%d" % k]["net_win_meets_perf_bar"]) for k in K_grid)
         vmsg = (f"HARD_PASS (8a recaptured AS A BOUNDED regime map; source={src}): a SHARP MONOTONE break-even boundary "
-                f"exists -- per-k break-even token-counts {{{', '.join(f'k{k}:T*={boundary[f'k{k}']['T_break_even']}' for k in K_grid)}}}; "
+                f"exists -- per-k break-even token-counts {{{_be}}}; "
                 f"net_speedup spans {min(ns_all):.2f}..{max(ns_all):.2f} (net-LOSS at small token-count from the launch/"
                 f"dispatch tax -> net-WIN at large token-count from k/E flop savings). The 13.8x-class speedup holds INSIDE "
                 f"the frontier and fails OUTSIDE = the ceiling-fail EXPLAINED, not re-asserted. perf bar {PERF_BAR}: "
-                f"{{{', '.join(f'k{k}:{boundary[f'k{k}']['net_win_meets_perf_bar']}' for k in K_grid)}}} net-win-also-meets-perf. "
+                f"{{{_perf}}} net-win-also-meets-perf. "
                 f"selective-deadlock guard ACTIVE ({n_degen} degenerate pts excluded; forced-collapse correctly flagged). "
                 f"{cold_start_summary} measured-bounds: break-even boundary characterized IN THE THROUGHPUT-AMORTIZATION "
                 f"regime (n_active>=0.99E); small-batch/cold-start is net-LOSS by the launch tax (reported above, NOT hidden). "
