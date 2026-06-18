@@ -125,19 +125,26 @@ def attribute_cell(T, k, d, e, device):
             s = s + t.sum()          # one tiny kernel launch each (the launch overhead, not the work)
         return s
 
-    t_sparse = _timed(sparse, device)["median_s"]
-    t_compute = _timed(ch_compute, device)["median_s"]
-    t_membw = _timed(ch_membw, device)["median_s"]
-    t_launch = _timed(ch_launch, device)["median_s"]
+    ds = _timed(sparse, device); dc = _timed(ch_compute, device)
+    dm = _timed(ch_membw, device); dl = _timed(ch_launch, device)
+    t_sparse, t_compute, t_membw, t_launch = ds["median_s"], dc["median_s"], dm["median_s"], dl["median_s"]
+    # jitter BAND per timing (p95-min) -> the measurement-noise floor (Skunkworks must-fix: noise-guard non-monotonicity)
+    b_sparse = ds["p95_s"] - ds["min_s"]; b_compute = dc["p95_s"] - dc["min_s"]
+    b_membw = dm["p95_s"] - dm["min_s"]; b_launch = dl["p95_s"] - dl["min_s"]
 
     cost_model_pred = max(t_compute, t_membw) + t_launch       # the cost-model's STRUCTURE: roofline(max) + additive launch
     residual = t_sparse - cost_model_pred                       # what the additive/roofline cost-model CANNOT represent
+    b_residual = b_sparse + b_compute + b_membw + b_launch      # conservative residual jitter (propagated from components)
     return {
         "T": T, "k": k, "n_active": round(n_active, 3), "launch_count": launch_count,
         "t_sparse_ms": round(t_sparse * 1e3, 4),
         "compute_ms": round(t_compute * 1e3, 4), "membw_ms": round(t_membw * 1e3, 4),
         "launch_ms": round(t_launch * 1e3, 4), "cost_model_pred_ms": round(cost_model_pred * 1e3, 4),
         "residual_ms": round(residual * 1e3, 4),
+        # jitter bands (ms) -- the noise floor a reversal must EXCEED to count as real non-monotonicity
+        "band_ms": {"t_sparse_ms": round(b_sparse * 1e3, 4), "compute_ms": round(b_compute * 1e3, 4),
+                    "membw_ms": round(b_membw * 1e3, 4), "launch_ms": round(b_launch * 1e3, 4),
+                    "residual_ms": round(b_residual * 1e3, 4)},
         "residual_frac_of_measured": round(residual / t_sparse, 4) if t_sparse > 0 else 0.0,
         # refinement 1: volume-match verification (isolation volume vs the real op's volume; ratio ~1.0 = matched)
         "volume_match": {"compute_flops_ratio": round(compute_flops / max(flops_sparse, 1), 3),
@@ -146,10 +153,16 @@ def attribute_cell(T, k, d, e, device):
     }
 
 
-def _nonmonotone(seq):
-    """Is the per-T sequence non-monotone (has a local dip/rise reversing direction)? Returns (is_nonmonotone, n_reversals)."""
-    diffs = [b - a for a, b in zip(seq, seq[1:])]
-    signs = [1 if d > 0 else (-1 if d < 0 else 0) for d in diffs if d != 0]
+def _nonmonotone(seq, bands, rel_eps=0.05):
+    """NOISE-GUARDED non-monotonicity (Skunkworks must-fix): a reversal counts ONLY if its magnitude EXCEEDS the
+    measurement-noise floor = max(jitter-band of the two adjacent points, rel_eps*|median|). Diffs inside the noise band
+    are NOT counted (else timing jitter masquerades as real non-monotonicity = a false WHY). Returns (is_nonmonotone, n_sig_reversals)."""
+    signs = []
+    for i in range(len(seq) - 1):
+        d = seq[i + 1] - seq[i]
+        floor = max(bands[i], bands[i + 1], rel_eps * abs(seq[i]), rel_eps * abs(seq[i + 1]))
+        if abs(d) > floor:                              # SIGNIFICANT diff only (exceeds the noise floor)
+            signs.append(1 if d > 0 else -1)
     rev = sum(1 for a, b in zip(signs, signs[1:]) if a != b)
     return (rev > 0, rev)
 
@@ -184,15 +197,18 @@ def main():
                   f"membw={c['membw_ms']} launch={c['launch_ms']} residual={c['residual_ms']} "
                   f"({c['residual_frac_of_measured']*100:.0f}% of measured)", flush=True)
 
-    # refinement 3: per-channel non-monotonicity ACROSS T (per k), to localize the channel driving the non-monotone boundary
+    # refinement 3: NOISE-GUARDED per-channel non-monotonicity ACROSS T (per k) -> localize the channel driving the boundary
     localize = {}
     for k in k_list:
         kc = sorted([c for c in cells if c["k"] == k], key=lambda c: c["T"])
-        chans = {ch: [c[ch] for c in kc] for ch in ("t_sparse_ms", "compute_ms", "membw_ms", "launch_ms", "residual_ms")}
-        nm = {ch: _nonmonotone(seq) for ch, seq in chans.items()}
-        localize[f"k{k}"] = {ch: {"non_monotone": v[0], "reversals": v[1]} for ch, v in nm.items()}
+        nm = {}
+        for ch in ("t_sparse_ms", "compute_ms", "membw_ms", "launch_ms", "residual_ms"):
+            seq = [c[ch] for c in kc]
+            bands = [c["band_ms"][ch] for c in kc]           # the jitter floor a reversal must EXCEED (must-fix)
+            nm[ch] = _nonmonotone(seq, bands)
+        localize[f"k{k}"] = {ch: {"non_monotone": v[0], "sig_reversals": v[1]} for ch, v in nm.items()}
 
-    # which non-sparse channel is non-monotone where t_sparse is non-monotone (the channel driving the boundary)
+    # which non-sparse channel is non-monotone (NOISE-GUARDED) where t_sparse is non-monotone (the channel driving the boundary)
     driving = []
     for k in k_list:
         L = localize[f"k{k}"]
@@ -200,28 +216,44 @@ def main():
             chans_nm = [ch.replace("_ms", "") for ch in ("compute_ms", "membw_ms", "launch_ms", "residual_ms")
                         if L[ch]["non_monotone"]]
             driving.append({"k": k, "sparse_nonmonotone": True, "nonmonotone_channels": chans_nm})
-    # residual-carries-the-nonmonotonicity check (the inversion explanation, refinement 2)
-    residual_drives = any(d["k"] and "residual" in d["nonmonotone_channels"] for d in driving)
-    max_residual_frac = max((c["residual_frac_of_measured"] for c in cells), default=0.0)
-    vol_ok = all(0.5 <= c["volume_match"]["compute_flops_ratio"] <= 2.0
-                 and 0.5 <= c["volume_match"]["membw_bytes_ratio"] <= 2.0 for c in cells)
+    residual_drives = any("residual" in d["nonmonotone_channels"] for d in driving)
+    # note 1 (honesty): a ROOFLINE channel (compute/membw/launch) going non-monotone DESPITE its monotone-by-construction
+    # volume = a MEASURED hardware effect (discriminating); residual non-monotone = the EXPECTED cost-model blind spot.
+    roofline_nonmonotone = sorted({ch for d in driving for ch in d["nonmonotone_channels"] if ch != "residual"})
+    # note 2 (honesty): residual DISTRIBUTION + SIGN (not just max -- max can mask a mostly-negative picture)
+    resid_fracs = sorted(c["residual_frac_of_measured"] for c in cells)
+    residual_dist = {"min": round(resid_fracs[0], 4), "median": round(resid_fracs[len(resid_fracs) // 2], 4),
+                     "max": round(resid_fracs[-1], 4),
+                     "n_positive": sum(1 for r in resid_fracs if r > 0), "n_negative": sum(1 for r in resid_fracs if r < 0)}
+    max_residual_frac = resid_fracs[-1]
+    # the reporting ask: actual volume-match ratios (min..max), not just the [0.5,2.0] gate
+    cr = [c["volume_match"]["compute_flops_ratio"] for c in cells]
+    mr = [c["volume_match"]["membw_bytes_ratio"] for c in cells]
+    volume_ratios = {"compute_flops_ratio_minmax": [round(min(cr), 3), round(max(cr), 3)],
+                     "membw_bytes_ratio_minmax": [round(min(mr), 3), round(max(mr), 3)]}
+    vol_ok = all(0.5 <= x <= 2.0 for x in cr + mr)
+    smoke_cant_test = (len(t_grid) < 3)                       # note 3: <3 T-points cannot test non-monotonicity
 
-    if driving:
-        chset = sorted({ch for d in driving for ch in d["nonmonotone_channels"]})
-        verdict = "ATTRIBUTION"
-        msg = (f"8a non-monotonicity ATTRIBUTED: t_sparse is non-monotone in T for k={[d['k'] for d in driving]}; "
-               f"the non-monotone channel(s) = {chset}. "
-               + ("RESIDUAL carries the non-monotonicity -> EXPLAINS the cost-model-vs-measured inversion (the additive "
-                  "max+launch cost-model structurally cannot represent the non-additive residual where the non-monotonicity "
-                  "lives -> predicted clean-monotone HARD_PASS; measurement non-monotone HARD_FAIL). "
-                  if residual_drives else "")
-               + f"max residual={max_residual_frac*100:.0f}% of measured. measured-bounds: flagship d={D}/e={E} @ this "
-               f"hardware, NOT fundamental. The measured-8a HARD_FAIL STANDS (A1 explains, does not re-verdict).")
+    verdict = "ATTRIBUTION"          # A1 is a mechanism-WHY attribution, NEVER a pass/fail (measured-8a HARD_FAIL STANDS)
+    resid_scope = (f"residual frac across cells: min={residual_dist['min']} median={residual_dist['median']} "
+                   f"max={residual_dist['max']} ({residual_dist['n_positive']}+/{residual_dist['n_negative']}- cells)")
+    if smoke_cant_test:
+        msg = (f"SMOKE WIRING-CHECK ONLY (NON-test): {len(t_grid)} T-points < 3 cannot test non-monotonicity (need a "
+               f"reversal). The full 7-T-point run is the real attribution. {resid_scope}. measured-8a HARD_FAIL STANDS.")
+    elif driving:
+        msg = (f"8a non-monotonicity ATTRIBUTED (noise-guarded): t_sparse non-monotone in T for k={[d['k'] for d in driving]}. "
+               + (f"A ROOFLINE channel {roofline_nonmonotone} is measured-non-monotone DESPITE monotone-by-construction "
+                  f"volume = a MEASURED HARDWARE effect (discriminating: a real tile/cache cliff). " if roofline_nonmonotone else "")
+               + ("RESIDUAL carries the non-monotonicity -> EXPLAINS the cost-model-vs-measured inversion (additive max+launch "
+                  "cost-model structurally cannot represent the non-additive residual -> predicted clean-monotone HARD_PASS; "
+                  "measurement non-monotone HARD_FAIL). HONEST SCOPING: residual-drives is PARTLY STRUCTURAL -- the 3 cost-model "
+                  "channels are monotone-in-volume by construction (n_active saturates ~e at all T; flops/bytes ~linear), so "
+                  "t_sparse non-monotonicity falls to the residual BY ELIMINATION (the scheduling blind spot), NOT a discovered "
+                  "discrimination. " if residual_drives else "")
+               + f"{resid_scope}. measured-bounds: flagship d={D}/e={E} @ this hardware, NOT fundamental. measured-8a HARD_FAIL STANDS.")
     else:
-        verdict = "ATTRIBUTION"
-        msg = (f"8a attribution: t_sparse MONOTONE in T at this run's grid/hardware (no reversal); dominant channel by "
-               f"share reported per-cell. max residual={max_residual_frac*100:.0f}% of measured. (If monotone here but the "
-               f"canonical HARD_FAIL was non-monotone, the boundary non-monotonicity is config/hardware-sensitive -- "
+        msg = (f"8a attribution: t_sparse MONOTONE in T (noise-guarded) at this grid/hardware. {resid_scope}. (If monotone here "
+               f"but the canonical HARD_FAIL was non-monotone, the boundary non-monotonicity is config/hardware-sensitive -- "
                f"measured-bounds; flag for cross-config.) measured-8a HARD_FAIL STANDS.")
 
     metrics = {
@@ -229,7 +261,11 @@ def main():
         "n_seeds": 1,
         **provenance_fields("smoke" if is_smoke else "full", "4channel_attribution", src, run_started_utc),
         "n_cells": len(cells), "residual_drives_nonmonotonicity": residual_drives,
-        "max_residual_frac_of_measured": round(max_residual_frac, 4), "volume_match_ok": vol_ok,
+        "roofline_channel_nonmonotone": roofline_nonmonotone,   # note 1: measured hardware effect (discriminating) vs residual (expected)
+        "residual_frac_distribution": residual_dist,            # note 2: min/median/max + signs (not just max)
+        "max_residual_frac_of_measured": round(max_residual_frac, 4),
+        "volume_match_ok": vol_ok, "volume_ratios": volume_ratios,  # reporting ask: actual ratios, not just the gate
+        "smoke_cant_test_nonmonotonicity": smoke_cant_test,     # note 3: <3 T-points = NON-test of the boundary
         "driving": driving, "localize": localize, "cells": cells,
         "config": {"d": D, "e": E, "k_list": k_list, "T_grid": t_grid, "iters": ITERS},
         "bears_on": "substrate_active_gating_8a_break_even_v1 (measured HARD_FAIL, boundary non-monotone) -- mechanism WHY",
