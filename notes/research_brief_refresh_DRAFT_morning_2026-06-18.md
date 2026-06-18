@@ -189,27 +189,32 @@ AtomKind populated:  16 of 23 enum
 ## CAPABILITY FRONTIER STATE (honest framing per Skunkworks E1 over-claim corrections)
 
 ```
-3 PROVEN CERT-GRADE POSITIVES of the SAME nonlinear-readout-lifts-capacity LEVER
-  (independent replications across distinct architectures + tasks; NOT yet
-  capability-promoted FORM-P; load-bearing-promotion = QUEUED post-VET
-  substrate-build CAPABILITY atoms -> Testbed ratify):
+2 INDEPENDENT CERT-GRADE POSITIVE LEVER-INSTANCES of the SAME nonlinear-readout-
+  lifts-capacity lever (NOT yet capability-promoted FORM-P; load-bearing-
+  promotion = QUEUED post-VET substrate-build CAPABILITY atoms -> Testbed ratify):
 
   - ARCH-B SPARSITY_NEUTRAL (Drosophila recapture; cleanup memory; nonlinear
     softmax readout lifts capacity completely; cert_chain_grade verified)
   - C1 entmax sparse readout (cleanup memory spread regime; 8x cheaper than
-    softmax at iso-recall; cert_chain_grade verified; atomized today 562 -> 563)
-  - **ARCH-A readout-axis** (ARCH-A sparse-pattern task; entmax M*>=2048 censored
-    vs linear M*=48.5 = >=42x capacity lift LOWER BOUND honest-scoped; A5
-    readout-axis Skunkworks VET PASS; cert-grade-eligible EXPERIMENT_RECORD;
-    INDEPENDENT REPLICATION OF C1 on 2nd task; strengthens C1 from
-    single-task/config to 2-task replication; A3 entmax envelope sweep
-    will test further config-contingency)
+    softmax at iso-recall; cert_chain_grade verified; atomized today 562 -> 563;
+    NOW STRENGTHENED to 2-task replication via A5 readout-axis below)
 
-These 3 independent replications converge on a SUBSTRATE-LEVEL FINDING:
+C1 cert-STRENGTHENED via REPLICATION (not a separate positive lever):
+  - **A5 readout-axis** (ARCH-A sparse-pattern task; entmax M*>=2048 censored
+    vs linear M*=48.5 = >=42x capacity lift LOWER BOUND honest-scoped; A5
+    Skunkworks VET PASS + ATOMIZE-GO; cert-grade-eligible strengthens-C1
+    EXPERIMENT_RECORD; REPLICATION OF C1 on ARCH-A sparse-pattern task;
+    strengthens C1 from single-task to 2-task replication = no longer
+    single-task/config single-point; A3 entmax envelope sweep next will
+    test further config-contingency)
+
+These 2 independent lever-instances + A5 replication converge on a SUBSTRATE-
+   LEVEL FINDING per Skunkworks's CONVERGENT SESSION FINDING flag:
    "linear-readout-is-the-ceiling + nonlinear-readout-as-linear-in-geometry-
-    amplifier lifts capacity" -- thrice-confirmed across distinct architectures
-   (ARCH-A + ARCH-B) and tasks (cleanup memory + sparse-pattern reconstruction).
-   ONE operative substrate lever (per drill 2 unifying framing).
+    amplifier lifts capacity" -- 2 INDEPENDENT POSITIVE LEVER CONFIRMATIONS
+    across distinct architectures (ARCH-A + ARCH-B) + tasks (cleanup memory
+    + sparse-pattern reconstruction); ONE operative substrate lever (per
+    drill 2 unifying framing).
 
 1 PENDING (mechanism confirmed at smoke; FULL still unverified per metrics-provenance
   gate; NOT a confirmed proof point until BRANCH=REAL_held_out + mode=full + elapsed>0):
@@ -248,11 +253,29 @@ Composing finding: cheap mechanism-swap recaptures (active-gating cost-model,
    The substrate has ONE operative lever identified across all 6 cert-grade
    results today (3 positives + 3 negatives all triangulating the same line).
 
-Framing: "3 cert-grade positives of one lever (nonlinear-readout-lifts-capacity;
-ARCH-B + C1 + ARCH-A-readout-axis) + 3 cert-grade honest-negatives (8a measured
-HARD_FAIL + refuse-gate NON_TEST + A5 expansion HARD-FAIL) + 1 LANDED PROOF_RECORD
-formal cert (Pythagoras-IP)." Triangulation: one operative lever; three failed
-cheap recapture mechanisms; one formal-oracle path proven end-to-end.
+Framing per Skunkworks's CONVERGENT SESSION FINDING:
+   "2 INDEPENDENT cert-grade POSITIVE lever-instances (ARCH-B + C1) of the
+    SAME nonlinear-readout-lifts-capacity lever + C1 cert-strengthened via
+    REPLICATION on ARCH-A sparse-pattern task (A5 readout-axis EXPERIMENT_RECORD
+    pending atomize-GO; 2-task replication) + 3 INDEPENDENT cert-grade
+    HONEST-NEGATIVES (8a measured HARD_FAIL + refuse-gate NON_TEST + A5
+    expansion HARD-FAIL) + 1 LANDED PROOF_RECORD formal cert (Pythagoras-IP)."
+
+TRIANGULATION (Skunkworks-flagged): one operative substrate lever (nonlinear
+   READOUT); cheap upstream mechanism-swap recaptures (cost-model 8a, readout-
+   swap refuse-gate, fly-LSH expansion A5) ALL FAIL on their OWN claimed
+   metrics; deeper levers needed for the 3 negatives. Cross-experiment
+   convergence is MORE TRUSTWORTHY than any single result. Still measured-
+   bounds/method-contingent, NOT a fundamental claim (A3 C1-envelope sweep
+   next will test readout-lever's config-envelope).
+
+NEW AUDIT-DISCIPLINE candidate EXEMPLIFIED end-to-end via A5 metric-mismatch
+   resolution (Skunkworks asks Director + Testbed ratify to CONFIRMED):
+   "test a mechanism on ITS CLAIMED BENEFIT + switch metrics ONCE on a
+    PRINCIPLED ARGUMENT (not when result-chasing); switch must be PRE-
+    REGISTERED; switch-ONCE-only; a metric non-discriminating FOR THE CLAIM
+    is a NON_TEST not a refutation". Composes with anchor-mechanism-match +
+   DEGENERATE-REGIME-NOT-REFUTATION + no-Goodhart.
 ```
 
 ## TOMORROW MORNING QUEUE (in flight ready)
