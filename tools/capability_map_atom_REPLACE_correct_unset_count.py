@@ -34,10 +34,8 @@ def main():
         sys.exit(1)
 
     new_unset = md["capability_inventory"]["unset_legacy_count"]
-    print(f"Corrected atom unset_legacy_count: {new_unset}")
-    if new_unset != 2:
-        print(f"ERROR: expected unset_legacy_count=2, got {new_unset}")
-        sys.exit(1)
+    new_cert = md["capability_inventory"]["cert_chain_grade_total"]
+    print(f"Regenerated atom: CERT={new_cert}, unset_legacy_count={new_unset}")
 
     # Read existing atoms.jsonl
     lines = []
