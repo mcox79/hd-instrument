@@ -40096,3 +40096,11 @@
 {"ts": 1781720123.3529189, "op": "add_atom", "target": "T3/EXP_skypilot_results_exp_phase05_probe_training_v1", "note": "", "source": "manual"}
 {"ts": 1781724297.258135, "op": "add_atom", "target": "T3/EXP_drosophila_recapture_arch_a_v1", "note": "", "source": "manual"}
 {"ts": 1781730181.477639, "op": "add_atom", "target": "T3/EXP_drosophila_recapture_arch_b_softmax_v1", "note": "", "source": "manual"}
+{"ts": 1781747432.2334394, "op": "add_atom", "target": "T3/EXP_active_gating_8a_break_even_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781747436.2126591, "op": "add_atom", "target": "T3/EXP_bge_index_refresh_full_corpus_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781747439.5168512, "op": "add_atom", "target": "T3/EXP_refuse_gate_nonlinear_readout_v1_smoke", "note": "", "source": "manual"}
+{"ts": 1781747443.1581726, "op": "add_atom", "target": "T3/EXP_substrate_C1_entmax_alpha_readout_v1", "note": "", "source": "manual"}
+{"ts": 1781747446.5472002, "op": "add_atom", "target": "T3/EXP_substrate_active_gating_8a_break_even_v1", "note": "", "source": "manual"}
+{"ts": 1781747449.9794135, "op": "add_atom", "target": "T3/EXP_substrate_bge_index_refresh_full_corpus_v1", "note": "", "source": "manual"}
+{"ts": 1781747453.4379811, "op": "add_atom", "target": "T3/EXP_substrate_refuse_gate_nonlinear_readout_v1", "note": "", "source": "manual"}
+{"ts": 1781747456.9851544, "op": "add_atom", "target": "T3/EXP_surprise_gating_b3b_synthetic_pool_recapture_v1", "note": "", "source": "manual"}
