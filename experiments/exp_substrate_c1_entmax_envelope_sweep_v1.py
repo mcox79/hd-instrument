@@ -38,7 +38,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _cell_provenance import provenance_fields, now_utc
 
 ANCHOR = "substrate_c1_entmax_envelope_sweep_v1"
-OUT = REPO / "data" / ANCHOR
+_EXP_NAME = os.environ.get("HDLAB_EXP_NAME")          # queue_add contract: write to data/exp_<HDLAB_EXP_NAME>/metrics.json
+OUT = REPO / "data" / (f"exp_{_EXP_NAME}" if _EXP_NAME else ANCHOR)
 
 # ENVELOPE grid (Director spec) -- full sweep
 N_GRID_FULL = [512, 1024, 2048, 4096]
