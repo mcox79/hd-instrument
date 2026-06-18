@@ -6,8 +6,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from experiments._cell_provenance import baseline_cliff_self_check
-from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate
+from experiments._cell_provenance import baseline_cliff_self_check, corpus_completeness_self_check
+from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate, corpus_completeness_gate
 
 ok = True
 def check(label, got, want):
@@ -95,6 +95,40 @@ check("nested cliff one-floored PASS -> NON_TEST",
       baseline_cliff_gate({"baseline_cliff_self_check": {"a": {"is_working_baseline_cliff": True},
                                                          "b": {"is_working_baseline_cliff": False}}}, "PASS"),
       "NON_TEST")
+
+print("4th gate: CORPUS-COMPLETENESS (absence/coverage must verify FULL corpus -- A2 catch):")
+# full corpus, exhaustive method -> complete
+check("full+exhaustive (41324/41324, per_topic) -> complete",
+      corpus_completeness_self_check("absence", 41324, 41324, "exhaustive_per_topic")["is_complete"], True)
+# subset / local-only (the half-data catch: 1935 of 3684) -> incomplete
+check("half-data (1935/3684) -> incomplete",
+      corpus_completeness_self_check("coverage", 1935, 3684, "local_only")["is_complete"], False)
+# full count but ESTIMATE method (the A2 token-match over-flag) -> incomplete (method not exhaustive)
+check("full-count but grep-estimate method -> incomplete (A2 over-flag)",
+      corpus_completeness_self_check("gap_set", 41324, 41324, "token_match_grep")["is_complete"], False)
+# n_total=0 (no corpus) -> incomplete (guard)
+check("n_total=0 -> incomplete",
+      corpus_completeness_self_check("absence", 0, 0, "exhaustive")["is_complete"], False)
+# bad inputs -> incomplete no-crash
+check("bad inputs (None) -> incomplete no-crash",
+      corpus_completeness_self_check("absence", None, None, "exhaustive")["is_complete"], False)
+# CONSUMER: incomplete -> NON_TEST; complete -> unchanged; absent field -> unchanged (non-retroactive)
+check("incomplete-corpus PASS -> NON_TEST",
+      corpus_completeness_gate({"corpus_completeness_self_check": {"is_complete": False}}, "PASS"), "NON_TEST")
+check("complete-corpus PASS -> PASS unchanged",
+      corpus_completeness_gate({"corpus_completeness_self_check": {"is_complete": True}}, "PASS"), "PASS")
+check("legacy (no field) PASS -> PASS unchanged (non-retroactive)",
+      corpus_completeness_gate({}, "PASS"), "PASS")
+# nested per-claim: one incomplete -> NON_TEST
+check("nested one-incomplete PASS -> NON_TEST",
+      corpus_completeness_gate({"corpus_completeness_self_check": {"a": {"is_complete": True},
+                                                                  "b": {"is_complete": False}}}, "PASS"), "NON_TEST")
+# all 4 gates compose: clean everything -> PASS survives
+m = {"discrimination_self_check": {"discriminates": True},
+     "baseline_cliff_self_check": {"is_working_baseline_cliff": True},
+     "corpus_completeness_self_check": {"is_complete": True}}
+v = discrimination_gate(m, "PASS"); v = baseline_cliff_gate(m, v); v = corpus_completeness_gate(m, v)
+check("all-4-gates-clean PASS -> PASS survives", v, "PASS")
 
 print(("ALL PASS" if ok else "SOME FAILED"))
 sys.exit(0 if ok else 1)

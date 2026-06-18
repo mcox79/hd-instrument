@@ -133,3 +133,43 @@ def baseline_cliff_self_check(baseline_low, baseline_high, works_threshold=0.5, 
         "cliff_drop": cliff_drop,
         "reason": reason,
     }
+
+
+# Methods that do NOT establish full-corpus coverage (a subset / estimate / local-only search).
+_CORPUS_ESTIMATE_DENYLIST = ("grep", "estimate", "sample", "subset", "local_only", "local-only", "token_match")
+
+
+def corpus_completeness_self_check(claim_kind: str, n_checked, n_total, method: str = "",
+                                   reason: str = "") -> dict:
+    """CORPUS-COMPLETENESS self-check (Skunkworks 4th self-cert gate, 2026-06-18; encodes the corpus-completeness
+    audit discipline as a DETERMINISTIC self-applied gate. An ABSENCE / COVERAGE / GAP claim must be verified
+    against the FULL corpus by an EXHAUSTIVE method -- NOT a subset, a token-grep estimate, or a local-only read).
+
+    Two catches this generalizes: (1) the A2 over-flag -- naive token-match gap-lists LEAK common nouns now IN the
+    corpus after the +10k WordNet/GO ingest (a 'gap' that isn't a gap once you check the full corpus precisely);
+    (2) the remote-vs-local HALF-DATA catch -- a corpus claim read local-only (1935 of remote 3684) is half-data.
+    An absence/coverage claim is VALID only if it searched the FULL corpus exhaustively.
+
+    The cell passes how many atoms it actually searched (n_checked), the full corpus size at claim time (n_total),
+    and the search method; the gate decides
+        is_complete = (n_checked >= n_total > 0) AND (method is non-empty AND not in the estimate denylist).
+    Pairs with the consumer-side corpus_completeness_gate. ADDITIVE + NON-RETROACTIVE (only absence/coverage cells
+    emit it). COMPOSES with the other 3 self-cert gates (gate0 / discrimination-regime / working-baseline-cliff).
+    11th-rule clean; no LLM; ASCII.
+    """
+    m = str(method or "").lower()
+    try:
+        complete_corpus = int(n_checked) >= int(n_total) and int(n_total) > 0
+    except (TypeError, ValueError):
+        complete_corpus = False
+    method_ok = bool(m) and not any(t in m for t in _CORPUS_ESTIMATE_DENYLIST)
+    return {
+        "is_complete": bool(complete_corpus and method_ok),
+        "claim_kind": claim_kind,
+        "n_checked": n_checked,
+        "n_total": n_total,
+        "complete_corpus": bool(complete_corpus),
+        "method": method,
+        "method_ok": bool(method_ok),
+        "reason": reason,
+    }

@@ -288,6 +288,25 @@ def baseline_cliff_gate(metrics: dict, verdict_norm):
     return verdict_norm
 
 
+def corpus_completeness_gate(metrics: dict, verdict_norm):
+    """CORPUS-COMPLETENESS CONSUMER gate (Skunkworks 4th self-cert gate, 2026-06-18; the A2 over-flag + the
+    remote-vs-local HALF-DATA catches as a deterministic gate). ADDITIVE + NON-RETROACTIVE: if the cell EMITTED a
+    corpus_completeness_self_check with is_complete==False, the EFFECTIVE verdict is forced to NON_TEST -- an
+    absence / coverage / gap claim verified against an INCOMPLETE corpus (subset / grep-estimate / local-only) is
+    UNVERIFIED, not a valid verdict (A2: naive gap-lists leak common nouns after the +10k WordNet/GO ingest).
+    Cells WITHOUT the field pass through UNCHANGED (legacy-safe -> no mass re-grade; a non-absence cell makes no
+    coverage claim so never emits it). Handles BOTH the flat schema {is_complete: bool} AND the nested per-claim
+    schema {claimA: {is_complete: bool}, ...}; forces NON_TEST if ANY claim is incomplete."""
+    c = metrics.get("corpus_completeness_self_check")
+    if not isinstance(c, dict):
+        return verdict_norm
+    flags = [c.get("is_complete")] if "is_complete" in c \
+        else [v.get("is_complete") for v in c.values() if isinstance(v, dict)]
+    if any(f is False for f in flags):
+        return "NON_TEST"
+    return verdict_norm
+
+
 def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     """Deterministic from run_mode + cert-discipline markers + METHOD-GATE + GATE-0. condition 4 + method-gate + C2."""
     # ATTRIBUTION (mechanism record; e.g. A1): MEASURED but NOT a verdict-cert -> distinct tier, NEVER cert-counted
@@ -473,6 +492,8 @@ def discover():
         verdict_norm = discrimination_gate(metrics, normalize_verdict(metrics.get("verdict")))
         # 3rd gate (working-baseline-cliff): a lever PASS over a floored/non-cliffing baseline -> NON_TEST (B-delta v1)
         verdict_norm = baseline_cliff_gate(metrics, verdict_norm)
+        # 4th gate (corpus-completeness): an absence/coverage claim verified against an incomplete corpus -> NON_TEST (A2)
+        verdict_norm = corpus_completeness_gate(metrics, verdict_norm)
         # BLOCKING-fix (Skunkworks VET): atomize on ANY substantive content with verdict=null when unmapped;
         # preserve headline + key metrics. DROP ONLY a genuinely-empty metrics.json (no content at all).
         if not has_substantive_content(metrics, cell):
