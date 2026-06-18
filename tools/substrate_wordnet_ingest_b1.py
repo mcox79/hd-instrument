@@ -22,6 +22,7 @@ Laptop-safe (no GPU, no bge). Deterministic. ASCII-only. 11th-rule (no LLM).
 from __future__ import annotations
 import argparse
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path('.').resolve()))
@@ -174,11 +175,29 @@ def dry_run() -> int:
     return 0
 
 
+def _save_atoms_with_retry(atoms_list, path, attempts=12):
+    """Single flush with os.replace-race retry+backoff (the bulk-ingest WinError-5 gotcha:
+    concurrent reader-monitors briefly hold the file handle -> os.replace fails; retry succeeds)."""
+    from backend.substrate_index.schema import save_atoms
+    for attempt in range(attempts):
+        try:
+            save_atoms(atoms_list, path)
+            return True
+        except PermissionError:
+            time.sleep(0.3 * (attempt + 1))   # linear backoff (max ~23s cumulative)
+    return False
+
+
 def apply_run() -> int:
+    import time
     from nltk.corpus import wordnet as wn
     from backend.substrate_index.partition import PartitionedStore
-    ps = PartitionedStore(Path('data/substrate_index'))
+    from backend.substrate_index.schema import RelationType
 
+    # Build atoms FIRST (the slow part), BEFORE touching the Store -> minimal fresh-load->flush window (clobber-safe).
+    synsets = select_top_nouns(wn, N_TARGET)
+
+    ps = PartitionedStore(Path('data/substrate_index'))   # FRESH load right before mutation
     pre_n = sum(1 for _ in ps.all_atoms())
     pre_axiom = axiom_term_count(ps)
     pre_mod = module_liveness_ok()
@@ -187,30 +206,36 @@ def apply_run() -> int:
         print('PRE-GATE FAIL (cap_pres or axiom_term != 206). Halting; no mutation.')
         return 1
 
-    synsets = select_top_nouns(wn, N_TARGET)
-    existing = {a.id for a in ps.all_atoms()}
+    cstore = ps._store_for(Corpus.CONCEPT)
     math_local_ids = {a.id for a in ps.all_atoms() if str(a.corpus.name) == 'MATH'}
     added = 0
-    resolved_edges = []   # Skunkworks decision-3 cert-condition: report ACTUAL resolved bears_on edges
-    from backend.substrate_index.schema import RelationType
+    bears_on_pairs = []   # (src_id, tgt) -- emit AFTER the atom batch flush
+    # BATCH index into the concept sub-store WITHOUT per-atom flush (avoid O(n^2) rewrites + N race windows)
     for i, s in enumerate(synsets):
         atom = build_atom(s, i + 1)
-        if atom.id in existing:
+        if atom.id in cstore._by_id:
             continue
-        ps.add_atom(atom, source='b1_wordnet_top5k_noun_lexicon',
-                    note='STEP-B WordNet extension; LEXICON; per-synset; internal relations as metadata')
-        existing.add(atom.id)
+        cstore._index_atom(atom)
         added += 1
-        # bears_on math:: ONLY on a RESOLVING target (0-phantom): exact lemma == existing math:: local-id.
         if atom.metadata['math_candidate']:
             for lemma in atom.metadata['synonyms']:
                 if lemma in math_local_ids:               # exact, conservative; no fuzzy matching
-                    tgt = f'math::{lemma}'
-                    ps.add_relation(f'concept::{atom.id}', RelationType.RELATES, tgt,
-                                    source='b1_wordnet_bears_on',
-                                    note='bears_on math (WordNet synset -> math atom; exact-lemma match)')
-                    resolved_edges.append((atom.id, tgt))
+                    bears_on_pairs.append((atom.id, f'math::{lemma}'))
+    # SINGLE flush with os.replace-race retry
+    if not _save_atoms_with_retry(list(cstore._by_id.values()), cstore.atoms_path):
+        print('HARD_FAIL: os.replace race persisted after retries (concurrent Store writer?). No partial -- atoms.jsonl intact.')
+        return 3
 
+    # bears_on edges (rare; ~0): emit via add_relation (per-edge flush is fine at this count)
+    resolved_edges = []
+    for src_id, tgt in bears_on_pairs:
+        ps.add_relation(f'concept::{src_id}', RelationType.RELATES, tgt,
+                        source='b1_wordnet_bears_on',
+                        note='bears_on math (WordNet synset -> math atom; exact-lemma match)')
+        resolved_edges.append((src_id, tgt))
+
+    # FRESH reload for verify-the-referent (read landed state from disk, not in-memory)
+    ps = PartitionedStore(Path('data/substrate_index'))
     post_n = sum(1 for _ in ps.all_atoms())
     post_axiom = axiom_term_count(ps)
     post_mod = module_liveness_ok()
