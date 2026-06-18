@@ -69,13 +69,28 @@ def run_with_flag(script: Path, flag: str, env_extra: dict) -> tuple[int, str]:
     """
     env = {**os.environ, **env_extra}
     timeout_s = SMOKE_TIMEOUT_S
+    # CEILING (Skunkworks 2026-06-18 hardening reco; mirrors PROT-019/021 timeout-FLOOR
+    # guards): cap the smoke override so a typo'd HDLAB_SMOKE_TIMEOUT_S can't run a
+    # 10hr "smoke." 3600s = 1 hour, well above any legitimate heavy-fixed-setup
+    # (bge+41k ~ 3-10 min), well below an abusive value.
+    SMOKE_TIMEOUT_CEILING_S = 3600
     override_raw = os.environ.get("HDLAB_SMOKE_TIMEOUT_S")
     if override_raw:
         try:
-            timeout_s = int(override_raw)
+            requested = int(override_raw)
+            if requested > SMOKE_TIMEOUT_CEILING_S:
+                print(
+                    f"[gate] WARN: HDLAB_SMOKE_TIMEOUT_S={requested}s exceeds ceiling "
+                    f"{SMOKE_TIMEOUT_CEILING_S}s; capping at ceiling",
+                    file=sys.stderr,
+                )
+                timeout_s = SMOKE_TIMEOUT_CEILING_S
+            else:
+                timeout_s = requested
             print(
                 f"[gate] SMOKE_TIMEOUT_S override via HDLAB_SMOKE_TIMEOUT_S: "
-                f"using {timeout_s}s (default {SMOKE_TIMEOUT_S}s)",
+                f"using {timeout_s}s (default {SMOKE_TIMEOUT_S}s, ceiling "
+                f"{SMOKE_TIMEOUT_CEILING_S}s)",
                 file=sys.stderr,
             )
         except ValueError:
