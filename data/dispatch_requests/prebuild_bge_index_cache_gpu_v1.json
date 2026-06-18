@@ -1,0 +1,9 @@
+{
+  "queue": "overnight_queue",
+  "name": "prebuild_bge_index_cache_gpu_v1",
+  "script": "experiments/exp_prebuild_bge_index_cache_gpu_v1.py",
+  "prereg": "notes/skunkworks_to_exp_dev_orchestrator_A2_precache_CELL_SCHEMA_VET_equiv_CARRIES_smoke_first_dont_atomize_buildstatus_2026-06-18.md",
+  "timeout_s": 3600,
+  "skip_smoke": false,
+  "authored_utc": "2026-06-18T22:35:47Z"
+}
