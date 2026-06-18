@@ -14,6 +14,7 @@ this wrapper then writes data/.substrate_gate_fail (dashboard-visible) and exits
 Run: python tools/hd_metrics_atomize.py   (system python; the atomizer's deps are present there, no .venv needed)
 """
 from __future__ import annotations
+import argparse
 import json
 import os
 import re
@@ -28,7 +29,13 @@ LOCK = STATUS_DIR / ".lock"
 STATUS = STATUS_DIR / "status.json"
 LOG = STATUS_DIR / "atomize.log"
 GATE_FAIL_FLAG = REPO / "data" / ".substrate_gate_fail"
+DRYRUN_SAMPLE = REPO / "data" / "atomize_experiment_records_dryrun_sample.jsonl"  # the atomizer's VET-able sample
 LOCK_STALE_S = 1800   # 30 min: a lock older than this is treated as abandoned (mirror sync concurrent-protection)
+# UNATTENDED STALENESS CONTRACT (Skunkworks cron-safety): the cron cannot self-alert on its OWN death (no pipeline
+# validates its own death). status.json carries last_success_utc + stale_after_s; the DASHBOARD/orchestrator reads them
+# and raises a stall alert if (now - last_success_utc) > stale_after_s. Health = "produced correct gated output recently",
+# NOT "process alive". The authoritative freshness check is this ground-truth timestamp, not the cron's liveness.
+STALE_AFTER_S = 6 * 3600   # 6h: no successful gated run in this window (while syncs occur) -> dashboard stall alert
 
 
 def _now() -> str:
@@ -73,11 +80,35 @@ def _parse(stdout: str) -> dict:
                 hard_fail=hard_fail, total_exp_atoms=total)
 
 
+def _dry_run() -> int:
+    """Skunkworks pre-APPLY VET sample: run the atomizer in DRY mode (no mutation; writes the VET-able sample JSONL)."""
+    env = dict(os.environ); env.pop("HDLAB_ATOMIZE_APPLY", None)              # absent/0 = DRY-RUN (atomizer default)
+    proc = subprocess.run([sys.executable, str(REPO / "tools" / "atomize_experiment_records.py")],
+                          cwd=str(REPO), env=env, capture_output=True, text=True)
+    m = re.search(r"DRY-RUN sample \((\d+) atoms\)", proc.stdout)
+    n = int(m.group(1)) if m else 0
+    print(f"[hd_metrics_atomize] DRY-RUN: {n} atoms WOULD be added; NO mutation. exit={proc.returncode}", flush=True)
+    print(f"  VET-able sample -> {DRYRUN_SAMPLE.relative_to(REPO) if DRYRUN_SAMPLE.exists() else '(none written)'}", flush=True)
+    if proc.returncode != 0:
+        sys.stderr.write(proc.stdout[-1500:] + "\n" + proc.stderr[-800:])
+    return proc.returncode
+
+
 def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dry-run", action="store_true", help="no-mutation VET sample (atomizer dry mode); for Skunkworks pre-install VET")
+    args, _ = ap.parse_known_args()
+    if getattr(args, "dry_run", False):
+        return _dry_run()
     if not _acquire_lock():
         print("[hd_metrics_atomize] another run holds the lock (fresh); skipping this tick.", flush=True)
         return 0
     try:
+        prior = {}
+        try:
+            prior = json.loads(STATUS.read_text(encoding="utf-8")) if STATUS.exists() else {}
+        except Exception:
+            prior = {}
         env = dict(os.environ, HDLAB_ATOMIZE_APPLY="1", HDLAB_ATOMIZE_LIMIT="1000000")
         proc = subprocess.run([sys.executable, str(REPO / "tools" / "atomize_experiment_records.py")],
                               cwd=str(REPO), env=env, capture_output=True, text=True)
@@ -85,11 +116,14 @@ def main() -> int:
         # gate_ok: clean exit + no HARD_FAIL + cap_pres confirmed -- OR nothing was added (0 batches => no per-batch
         # cap_pres line printed, which is NOT a failure; an idempotent no-op tick is trivially safe).
         gate_ok = (proc.returncode == 0) and (not info["hard_fail"]) and (info["cap_pres"] or info["atoms_added"] == 0)
+        now = _now()
         status = dict(
-            last_run_utc=_now(),
+            last_run_utc=now,
+            last_success_utc=(now if gate_ok else prior.get("last_success_utc")),  # staleness anchor (dashboard stall-alert)
+            stale_after_s=STALE_AFTER_S,
             exit_code=proc.returncode,
             atoms_added=info["atoms_added"],
-            total_exp_atoms=info["total_exp_atoms"],
+            total_exp_atoms=info["total_exp_atoms"],   # authoritative in-store ground-truth count (verify-the-referent)
             axiom_term=info["axiom_term"],
             cap_pres_6_6=info["cap_pres"],
             gate_ok=gate_ok,

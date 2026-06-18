@@ -272,6 +272,14 @@ def run(fast=False):
     spread = (max(ns_all) - min(ns_all)) if ns_all else 0.0
     measured_used = any(p["measured"] for p in surface)
     src = "MEASURED GPU wall-time" if measured_used else "the stated roofline COST-MODEL (no GPU; FULL run measures real wall-time = the actual verdict)"
+    # COLD-START net-loss (Skunkworks FULL CONDITION: report the EXCLUDED small-batch regime explicitly, do NOT hide it --
+    # the line between honest regime-scoping and Goodhart). The small-T launch-tax regime where active-gating is a net LOSS.
+    cold_start = sorted([{"T": p["T"], "k": p["k"], "net_speedup": p["net_speedup"]}
+                         for p in surface if p["net_speedup"] < 1.0 and not p["degenerate"]], key=lambda p: (p["k"], p["T"]))
+    cold_start_summary = (f"small-batch/cold-start NET-LOSS (active-gating LOSES here, by the launch/dispatch tax): "
+                          f"{len(cold_start)} grid points net_speedup<1.0, e.g. "
+                          f"{', '.join(f'(T={c['T']},k={c['k']}:{c['net_speedup']})' for c in cold_start[:4])}"
+                          if cold_start else "no net-loss points (active-gating net-win across the whole grid).")
 
     if not guard_ok:
         verdict = "UNKNOWN"; vmsg = "UNKNOWN: selective-deadlock guard self-check FAILED (forced collapse not flagged degenerate); fix instrumentation before scoring."
@@ -287,9 +295,10 @@ def run(fast=False):
                 f"the frontier and fails OUTSIDE = the ceiling-fail EXPLAINED, not re-asserted. perf bar {PERF_BAR}: "
                 f"{{{', '.join(f'k{k}:{boundary[f'k{k}']['net_win_meets_perf_bar']}' for k in K_grid)}}} net-win-also-meets-perf. "
                 f"selective-deadlock guard ACTIVE ({n_degen} degenerate pts excluded; forced-collapse correctly flagged). "
-                f"measured-bounds: (tokens,sparsity) envelope; cost-model constants PEAK_FLOP={PEAK_FLOP:.0e}, PEAK_BW="
-                f"{PEAK_BW:.0e}, TAU_LAUNCH={TAU_LAUNCH:.0e}; transfer to other hardware UNTESTED. Candidate A (secondary): "
-                f"pass={cand_a['candidate_a_pass']}.{smoke_caveat}")
+                f"{cold_start_summary} measured-bounds: break-even boundary characterized IN THE THROUGHPUT-AMORTIZATION "
+                f"regime (n_active>=0.99E); small-batch/cold-start is net-LOSS by the launch tax (reported above, NOT hidden). "
+                f"cost-model constants PEAK_FLOP={PEAK_FLOP:.0e}, PEAK_BW={PEAK_BW:.0e}, TAU_LAUNCH={TAU_LAUNCH:.0e}; transfer "
+                f"to other hardware UNTESTED. Candidate A (secondary): pass={cand_a['candidate_a_pass']}.{smoke_caveat}")
     elif not has_boundary or spread <= 0.5:
         verdict = "HARD_FAIL"
         vmsg = (f"HARD_FAIL (no characterizable net-win regime): net-savings flat (net_speedup spread {spread:.3f}) or no "
