@@ -50,7 +50,7 @@ N = 256 if os.environ.get("HDLAB_RUN_MODE") == "smoke" else 1024
 # span the LINEAR (classic Hopfield) capacity cliff (~0.14N): low M -> linear works; high M -> linear fails,
 # nonlinear (modern Hopfield) extends. The lever = that capacity extension. (N=1024 -> cliff ~143.)
 M_LIST_FULL = [64, 128, 256, 512, 1024]
-M_LIST_SMOKE = [64, 256]
+M_LIST_SMOKE = [16, 128]   # span the cliff at smoke N=256 (cliff ~0.14*256=36): M16 works, M128 fails
 SEEDS_FULL = [7, 17, 23]
 SEEDS_SMOKE = [7]
 ALPHAS_UNUSED = None
@@ -60,8 +60,8 @@ BETA_GRID = [10.0, 20.0, 40.0, 60.0, 80.0, 120.0]
 ACC_THRESH = 0.90
 LIFT_MIN = 0.05          # a "lift" must be >= 5pp recall to count
 LIFT_GAP = 0.10          # lifts on the 2 tasks "comparable" if within 10pp -> task-general
-CEIL = 0.95              # headroom ceiling: linear >= CEIL = no room for the lever to lift -> NON_TEST that task
-FLOOR = 0.02             # something must recall (not all-degenerate)
+WORKS = 0.5              # capacity-lever: linear MUST recall > WORKS at low M (a working baseline) -> else degenerate NON_TEST
+CLIFF_DROP = 0.2         # linear must DROP by >= this from low-M to high-M (a real capacity cliff, not flat)
 
 
 def _gen(device, seed):
@@ -90,7 +90,11 @@ def make_values(M, n, device, g):
 
 
 def make_noisy_queries(keys, noise, device, g):
-    return _cos_normalize(keys + noise * torch.randn(keys.shape, generator=g, device=device))
+    # v2 FIX (Skunkworks B-delta HALT root-cause): scale noise by 1/sqrt(N) so the noise-term norm ~= noise
+    # (a real ~15% perturbation), NOT noise*randn(N) (norm ~noise*sqrt(N)~4.8 >> key norm 1 -> cue mostly-noise,
+    # cos~0.20 -> linear floored at ALL M, no cliff). Fixed -> cos(noisy,key)~0.99 -> linear works at low M, cliffs at high M.
+    n = keys.shape[1]
+    return _cos_normalize(keys + (noise / (n ** 0.5)) * torch.randn(keys.shape, generator=g, device=device))
 
 
 def _recall_acc(recall, V):
@@ -165,60 +169,59 @@ def main():
             print(f"[{ANCHOR}] task={t} M={m}: lin={sum(grid[t][m]['lin'])/len(seeds):.3f} "
                   f"nl={sum(grid[t][m]['nl'])/len(seeds):.3f} nz={sum(grid[t][m]['nz'])/len(seeds):.1f}", flush=True)
 
-    # per-task lift = max over M of (mean nonlinear - mean linear), in a MEASURABLE regime = HEADROOM exists
-    # (linear NOT already at ceiling AND something recalls). The lever question is linear-vs-nonlinear capacity,
-    # NOT softmax spread -> headroom is the right discrimination criterion (NOT C1's nz>2 spread gate).
-    def task_lift(t):
-        best = {"M": None, "lift": -1e9, "lin": None, "nl": None, "nz": None, "measurable": False}
-        for m in m_list:
-            lin = sum(grid[t][m]["lin"]) / len(seeds); nl = sum(grid[t][m]["nl"]) / len(seeds)
-            nz = sum(grid[t][m]["nz"]) / len(seeds)
-            # measurable if linear has headroom to be lifted (lin < CEIL) AND the cell isn't all-degenerate
-            if lin < CEIL and max(lin, nl) > FLOOR and (nl - lin) > best["lift"]:
-                best = {"M": m, "lift": nl - lin, "lin": lin, "nl": nl, "nz": nz, "measurable": True}
-        return best
+    # CAPACITY-LEVER discrimination (Skunkworks B-delta-HALT refinement): the lever is "nonlinear EXTENDS capacity
+    # PAST the linear cliff" -- an M-DEPENDENCE claim. So the BASELINE (linear) MUST WORK at low M and CLIFF at high M
+    # (a real capacity-curve). A linear floored at ALL M (no cliff) = degenerate -> NON_TEST (a lift over a non-working
+    # baseline is denoising, NOT a capacity lever). discrimination = working-baseline-WITH-a-cliff, NOT just linear<ceiling.
+    def task_capacity(t):
+        ms = sorted(m_list)
+        lin = {m: sum(grid[t][m]["lin"]) / len(seeds) for m in ms}
+        nl = {m: sum(grid[t][m]["nl"]) / len(seeds) for m in ms}
+        lin_low, lin_high, nl_high = lin[ms[0]], lin[ms[-1]], nl[ms[-1]]
+        cliff = (lin_low > WORKS) and (lin_high < lin_low - CLIFF_DROP)   # linear works low-M + degrades high-M
+        extension = nl_high - lin_high                                     # nonlinear maintains where linear cliffed
+        return {"M_low": ms[0], "M_high": ms[-1], "lin_low": round(lin_low, 4), "lin_high": round(lin_high, 4),
+                "nl_high": round(nl_high, 4), "cliff": cliff, "extension": round(extension, 4)}
 
-    lift_A = task_lift("clustered")   # spread regime
-    lift_B = task_lift("uniform")     # classic regime
-    both_measurable = lift_A["measurable"] and lift_B["measurable"]
+    capA = task_capacity("clustered")   # spread regime
+    capB = task_capacity("uniform")     # classic regime
+    both_cliff = capA["cliff"] and capB["cliff"]
 
-    if not both_measurable:
+    if not both_cliff:
         verdict = "NON_TEST"
-        which = ("both" if not lift_A["measurable"] and not lift_B["measurable"]
-                 else ("clustered" if not lift_A["measurable"] else "uniform"))
-        msg = (f"NON-TEST: no measurable regime (linear at ceiling >= {CEIL} OR all-degenerate) on the {which} task "
-               f"-> no headroom to test the lever's transfer there. beta={betas}. (Adjust M/N to span the linear cliff.)")
+        which = ("both" if not capA["cliff"] and not capB["cliff"] else ("clustered" if not capA["cliff"] else "uniform"))
+        msg = (f"NON-TEST (capacity lever): the LINEAR baseline does NOT show a working-low-M -> cliff on the {which} task "
+               f"(clustered lin {capA['lin_low']}@M{capA['M_low']}->{capA['lin_high']}@M{capA['M_high']}; uniform lin "
+               f"{capB['lin_low']}->{capB['lin_high']}) -> no capacity-curve to extend. A lift over a non-working baseline is "
+               f"DENOISING, not a capacity-lever (Skunkworks B-delta-HALT refinement: baseline must WORK in some regime). "
+               f"beta={betas}. (Adjust noise/M/N so linear works at low M.)")
     else:
-        lA, lB = lift_A["lift"], lift_B["lift"]
-        comparable = abs(lA - lB) <= LIFT_GAP
-        if lA >= LIFT_MIN and lB >= LIFT_MIN:
+        eA, eB = capA["extension"], capB["extension"]
+        if eA >= LIFT_MIN and eB >= LIFT_MIN:
             verdict = "HARD_PASS"
-            mag = ("COMPARABLE magnitude" if comparable else
-                   f"magnitude REGIME-DEPENDENT (|delta|={abs(lA-lB)*100:.1f}pp > {LIFT_GAP*100:.0f}pp -- stronger on the "
-                   f"{'uniform' if lB > lA else 'clustered'} task)")
-            msg = (f"TRANSFER CONFIRMED: the nonlinear-readout lever lifts capacity on BOTH tasks (clustered "
-                   f"+{lA*100:.1f}pp @M{lift_A['M']}, uniform +{lB*100:.1f}pp @M{lift_B['M']}); {mag} -> the lever is "
-                   f"TASK-GENERAL (present in both the spread and classic regimes). N={N}; readout-family/config envelope "
-                   f"(measured-bounds), NOT fundamental.")
-        elif (lA >= LIFT_MIN and lB <= 0.0) or (lB >= LIFT_MIN and lA <= 0.0):
+            msg = (f"CAPACITY-LEVER TRANSFER CONFIRMED: linear CLIFFS (clustered {capA['lin_low']}@M{capA['M_low']}->"
+                   f"{capA['lin_high']}@M{capA['M_high']}; uniform {capB['lin_low']}->{capB['lin_high']}) and the NONLINEAR "
+                   f"readout EXTENDS capacity past the cliff on BOTH tasks (extension clustered +{eA*100:.1f}pp, uniform "
+                   f"+{eB*100:.1f}pp @M{capA['M_high']}) -> the CAPACITY lever is TASK-GENERAL. N={N}; measured-bounds, NOT fundamental.")
+        elif (eA >= LIFT_MIN) != (eB >= LIFT_MIN):
             verdict = "HARD_FAIL"
-            msg = (f"TRANSFER FAILS: the nonlinear lever helps ONE task but NOT the other (clustered {lA*100:+.1f}pp, "
-                   f"uniform {lB*100:+.1f}pp) -> TASK-SPECIFIC, not a general lever. The convergent nonlinear-readout "
-                   f"finding does NOT transfer across these two memory regimes. N={N}; substrate-novel negative.")
+            msg = (f"CAPACITY-LEVER TRANSFER FAILS: nonlinear extends capacity past the cliff on ONE task not the other "
+                   f"(clustered ext +{eA*100:.1f}pp, uniform +{eB*100:.1f}pp) -> TASK-SPECIFIC, not a general capacity lever. "
+                   f"N={N}; substrate-novel negative.")
         else:
             verdict = "MIDDLE_BAND"
-            msg = (f"PARTIAL transfer: clustered {lA*100:+.1f}pp, uniform {lB*100:+.1f}pp -- lift on both but one is "
-                   f"marginal (< {LIFT_MIN*100:.0f}pp); not a clean task-general lever.")
+            msg = (f"PARTIAL: both linear cliffs but nonlinear extension is marginal (< {LIFT_MIN*100:.0f}pp) on at least one "
+                   f"task (clustered +{eA*100:.1f}pp, uniform +{eB*100:.1f}pp); not a clean task-general capacity lever.")
 
     g0 = gate0_self_check(run_mode=("smoke" if is_smoke else "full"), metrics_source=src,
                           n_cells_declared=n_cells_declared, n_cells_emitted=n_emitted,
                           elapsed_s=round(time.time() - t0, 2), is_smoke=is_smoke)
-    # B-epsilon discrimination_self_check (HEADROOM criterion -- NOT C1 spread; per Skunkworks refinement):
-    # the cell self-attests its regime DISCRIMINATES (linear has headroom: < ceiling AND something recalls).
-    _disc_reason = "headroom: linear<ceiling + recalls (capacity-lever discrimination, NOT spread)"
+    # B-epsilon discrimination_self_check (CAPACITY-LEVER criterion = WORKING-BASELINE-WITH-A-CLIFF, per the B-delta-HALT
+    # refinement -- NOT just linear<ceiling, which a floored-everywhere linear trivially passes).
+    _disc_reason = "working-baseline-cliff: linear works at low M (>WORKS) AND cliffs at high M (capacity-lever, not denoising)"
     discrimination = {
-        "clustered": discrimination_self_check(lift_A["measurable"], lift_A.get("lin"), FLOOR, CEIL, _disc_reason),
-        "uniform": discrimination_self_check(lift_B["measurable"], lift_B.get("lin"), FLOOR, CEIL, _disc_reason),
+        "clustered": discrimination_self_check(capA["cliff"], capA["lin_low"], WORKS, 1.0, _disc_reason),
+        "uniform": discrimination_self_check(capB["cliff"], capB["lin_low"], WORKS, 1.0, _disc_reason),
     }
 
     metrics = {
@@ -230,8 +233,8 @@ def main():
         "n_cells": n_emitted,
         "lever": "linear(classic Hopfield sign(S@V)) vs nonlinear(modern Hopfield sign(softmax(beta*S)@V))",
         "tasks": {"A": "clustered-key spread regime", "B": "uniform-iid-key classic regime"},
-        "lift_clustered": lift_A, "lift_uniform": lift_B,
-        "beta_tuned": betas, "both_measurable": both_measurable,
+        "capacity_clustered": capA, "capacity_uniform": capB,
+        "beta_tuned": betas, "both_cliff": both_cliff,
         "grid": {t: {str(m): {"lin": round(sum(grid[t][m]["lin"])/len(seeds), 4),
                                "nl": round(sum(grid[t][m]["nl"])/len(seeds), 4),
                                "nz": round(sum(grid[t][m]["nz"])/len(seeds), 2)} for m in m_list} for t in tasks},
@@ -248,7 +251,7 @@ def main():
     os.replace(tmp, OUT / "metrics.json")
 
     print(f"[{ANCHOR}] run_mode={'smoke' if is_smoke else 'full'} device={device.type} -> {verdict}")
-    print(f"  lift clustered={lift_A['lift']*100:+.1f}pp uniform={lift_B['lift']*100:+.1f}pp both_measurable={both_measurable} gate0={g0['pass']}")
+    print(f"  capacity-ext clustered={capA['extension']*100:+.1f}pp uniform={capB['extension']*100:+.1f}pp both_cliff={both_cliff} gate0={g0['pass']}")
     print(f"  {msg}")
     return 0
 
