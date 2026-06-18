@@ -239,8 +239,16 @@ These 2 cert-grade positives + 2 dimensional replications converge on a
     spread shows discriminates=False at every beta 10/20/40/80/160; SELF-
     DOMINANCE WALL confirmed on REAL data (not just synthetic) =
     DEGENERATE-REGIME-NOT-REFUTATION class applied correctly; refuse-gate
-    stays YELLOW; readout-swap-recapture CLOSED NEGATIVE; learned-adapter is
-    T2 NEXT-STEP HYPOTHESIS, NOT cert-proven by this run)
+    stays YELLOW; readout-swap-recapture CLOSED NEGATIVE; LEARNED-ADAPTER
+    T2-hypothesis = UNTESTED-PENDING-DATA per Skunkworks A2 Stage 1 ruling:
+    DATA-BLOCKED by q54-q65 12-answerable/1-gap split (a separator with
+    1 gap example cannot support an in-cov-vs-gap separation test;
+    bge-structure screen would be wrong-mechanism trivial-pass NON-TEST;
+    confidence-profile separation is RIGHT mechanism but data-blocked);
+    A2 DEFERRED until gap-BALANCED held-out exists (data-construction task;
+    refuse-gate's only remaining path beyond YELLOW; USER decision point
+    for morning: whether to construct that benchmark; NOT refuted, NOT
+    proxy-tested on insufficient data per 18th-rule + anchor-mechanism-match)
 
 2 ADDITIONAL HONEST-NEGATIVES (real runs on real data; symmetric-discipline working):
 
