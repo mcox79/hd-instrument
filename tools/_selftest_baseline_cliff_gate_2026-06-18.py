@@ -6,8 +6,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from experiments._cell_provenance import baseline_cliff_self_check, corpus_completeness_self_check
-from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate, corpus_completeness_gate
+from experiments._cell_provenance import baseline_cliff_self_check, corpus_completeness_self_check, path_provenance_self_check
+from tools.atomize_experiment_records import baseline_cliff_gate, discrimination_gate, corpus_completeness_gate, path_provenance_gate
 
 ok = True
 def check(label, got, want):
@@ -129,6 +129,32 @@ m = {"discrimination_self_check": {"discriminates": True},
      "corpus_completeness_self_check": {"is_complete": True}}
 v = discrimination_gate(m, "PASS"); v = baseline_cliff_gate(m, v); v = corpus_completeness_gate(m, v)
 check("all-4-gates-clean PASS -> PASS survives", v, "PASS")
+
+print("5th gate: MULTI-HOP-PROVENANCE (hallucinated path edge -> HARD_FAIL, not NON_TEST -- A1/ARC-1):")
+# producer: 0 unverifiable -> sound; >0 -> unsound
+check("0 unverifiable (600 edges) -> sound",
+      path_provenance_self_check(300, 600, 0)["is_provenance_sound"], True)
+check("1 unverifiable (hallucinated hop) -> unsound",
+      path_provenance_self_check(300, 600, 1)["is_provenance_sound"], False)
+check("bad inputs (None) -> unsound no-crash",
+      path_provenance_self_check(None, None, None)["is_provenance_sound"], False)
+# consumer: unsound -> HARD_FAIL (a false result, NOT NON_TEST); sound -> unchanged; absent -> unchanged
+check("unsound path PASS -> HARD_FAIL (false result, not non-test)",
+      path_provenance_gate({"path_provenance_self_check": {"is_provenance_sound": False}}, "PASS"), "HARD_FAIL")
+check("sound path PASS -> PASS unchanged",
+      path_provenance_gate({"path_provenance_self_check": {"is_provenance_sound": True}}, "PASS"), "PASS")
+check("legacy (no field) PASS -> PASS unchanged (non-retroactive)",
+      path_provenance_gate({}, "PASS"), "PASS")
+check("nested one-unsound PASS -> HARD_FAIL",
+      path_provenance_gate({"path_provenance_self_check": {"a": {"is_provenance_sound": True},
+                                                           "b": {"is_provenance_sound": False}}}, "PASS"), "HARD_FAIL")
+# full 5-gate compose: all clean -> PASS survives all five
+m = {"discrimination_self_check": {"discriminates": True},
+     "baseline_cliff_self_check": {"is_working_baseline_cliff": True},
+     "corpus_completeness_self_check": {"is_complete": True},
+     "path_provenance_self_check": {"is_provenance_sound": True}}
+v = discrimination_gate(m, "PASS"); v = baseline_cliff_gate(m, v); v = corpus_completeness_gate(m, v); v = path_provenance_gate(m, v)
+check("all-5-gates-clean PASS -> PASS survives", v, "PASS")
 
 print(("ALL PASS" if ok else "SOME FAILED"))
 sys.exit(0 if ok else 1)

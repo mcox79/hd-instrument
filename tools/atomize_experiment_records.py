@@ -307,6 +307,25 @@ def corpus_completeness_gate(metrics: dict, verdict_norm):
     return verdict_norm
 
 
+def path_provenance_gate(metrics: dict, verdict_norm):
+    """MULTI-HOP PATH-PROVENANCE CONSUMER gate (Skunkworks 5th self-cert gate, 2026-06-18; composed-reasoning A1 /
+    ARC-1). ADDITIVE + NON-RETROACTIVE: if the cell EMITTED a path_provenance_self_check with
+    is_provenance_sound==False, the EFFECTIVE verdict is forced to HARD_FAIL -- a returned multi-hop path containing
+    an edge NOT persisted in the Store is a HALLUCINATED hop (the failure mode an LLM/RL walker has). UNLIKE the
+    other gates (which force NON_TEST = 'the test was degenerate/invalid'), a provenance violation forces HARD_FAIL =
+    'the RESULT is UNSOUND / FALSE' (the walker claimed a path that does not exist). Cells WITHOUT the field pass
+    UNCHANGED (legacy-safe; only multi-hop-path cells emit it). Handles flat + nested-per-claim schemas. This is the
+    structural enforcement of the 11th-rule multi-hop-provenance requirement (no LLM-synthesized hops in a cert path)."""
+    p = metrics.get("path_provenance_self_check")
+    if not isinstance(p, dict):
+        return verdict_norm
+    flags = [p.get("is_provenance_sound")] if "is_provenance_sound" in p \
+        else [v.get("is_provenance_sound") for v in p.values() if isinstance(v, dict)]
+    if any(f is False for f in flags):
+        return "HARD_FAIL"
+    return verdict_norm
+
+
 def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     """Deterministic from run_mode + cert-discipline markers + METHOD-GATE + GATE-0. condition 4 + method-gate + C2."""
     # ATTRIBUTION (mechanism record; e.g. A1): MEASURED but NOT a verdict-cert -> distinct tier, NEVER cert-counted
@@ -494,6 +513,8 @@ def discover():
         verdict_norm = baseline_cliff_gate(metrics, verdict_norm)
         # 4th gate (corpus-completeness): an absence/coverage claim verified against an incomplete corpus -> NON_TEST (A2)
         verdict_norm = corpus_completeness_gate(metrics, verdict_norm)
+        # 5th gate (multi-hop-provenance): a returned path with a non-persisted (hallucinated) edge -> HARD_FAIL (A1/ARC-1)
+        verdict_norm = path_provenance_gate(metrics, verdict_norm)
         # BLOCKING-fix (Skunkworks VET): atomize on ANY substantive content with verdict=null when unmapped;
         # preserve headline + key metrics. DROP ONLY a genuinely-empty metrics.json (no content at all).
         if not has_substantive_content(metrics, cell):
