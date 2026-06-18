@@ -53,8 +53,10 @@ def select_top_nouns(wn, n: int):
 
 
 def _atom_id(s) -> str:
-    """Namespaced offset-based id (methodology: per-synset offset). WN_<pos><8-digit-offset>."""
-    return f"WN_{s.pos()}{s.offset():08d}"
+    """Namespaced SYNSET-NAME id (Skunkworks decision-2: version-STABLE across 3.0->3.1,
+    unlike offsets which are version-FRAGILE). WN_<synset.name()> e.g. WN_person.n.01.
+    synset.name() (lemma.pos.sense) is a unique WordNet identifier -> 0 collisions."""
+    return f"WN_{s.name()}"
 
 
 def _math_candidate(s) -> bool:
@@ -141,7 +143,7 @@ def dry_run() -> int:
     print(f'WordNet version: {WORDNET_VERSION} (FLAG: methodology rule said 3.1; offsets differ)')
     print(f'selected: {len(atoms)} top-frequency noun synsets (by SemCor freq desc, offset asc)')
     print(f'AtomKind: LEXICON | tier: TIER_LEXICON | corpus: CONCEPT | algebra: None (no-algebra guard)')
-    print(f'id-scheme: WN_<pos><8-digit-offset> e.g. {atoms[0].id} (offset-based per methodology; version-specific)')
+    print(f'id-scheme: WN_<synset.name()> e.g. {atoms[0].id} (SYNSET-NAME, version-STABLE per Skunkworks decision-2; offset kept in metadata.synset_offset)')
     print(f'duplicate ids: {dup_ids} (0-phantom: internal relations are METADATA not edges -> no phantom risk)')
     print(f'bears_on math:: candidates (lexname noun.quantity/relation OR math-keyword in gloss): {n_math} '
           f'({100.0*n_math/len(atoms):.1f}% -- methodology expected ~0-10%)')
@@ -187,7 +189,10 @@ def apply_run() -> int:
 
     synsets = select_top_nouns(wn, N_TARGET)
     existing = {a.id for a in ps.all_atoms()}
+    math_local_ids = {a.id for a in ps.all_atoms() if str(a.corpus.name) == 'MATH'}
     added = 0
+    resolved_edges = []   # Skunkworks decision-3 cert-condition: report ACTUAL resolved bears_on edges
+    from backend.substrate_index.schema import RelationType
     for i, s in enumerate(synsets):
         atom = build_atom(s, i + 1)
         if atom.id in existing:
@@ -196,6 +201,15 @@ def apply_run() -> int:
                     note='STEP-B WordNet extension; LEXICON; per-synset; internal relations as metadata')
         existing.add(atom.id)
         added += 1
+        # bears_on math:: ONLY on a RESOLVING target (0-phantom): exact lemma == existing math:: local-id.
+        if atom.metadata['math_candidate']:
+            for lemma in atom.metadata['synonyms']:
+                if lemma in math_local_ids:               # exact, conservative; no fuzzy matching
+                    tgt = f'math::{lemma}'
+                    ps.add_relation(f'concept::{atom.id}', RelationType.RELATES, tgt,
+                                    source='b1_wordnet_bears_on',
+                                    note='bears_on math (WordNet synset -> math atom; exact-lemma match)')
+                    resolved_edges.append((atom.id, tgt))
 
     post_n = sum(1 for _ in ps.all_atoms())
     post_axiom = axiom_term_count(ps)
@@ -205,11 +219,18 @@ def apply_run() -> int:
     rb_ok = rb is not None and rb.kind == AtomKind.LEXICON and rb.algebra is None
     gate_ok = (post_axiom == 206) and post_mod and (post_n == pre_n + added) and rb_ok and added > 0
     print(f'POST: atoms={post_n} (added {added})  axiom_term={post_axiom}  cap_pres={post_mod}  read-back_ok={rb_ok}')
+    # Skunkworks decision-3 cert-condition: report the ACTUAL resolved bears_on edges for spot-check
+    print(f'resolved bears_on math:: edges: {len(resolved_edges)} (0-phantom: only exact-lemma==math-local-id matches)')
+    for src, tgt in resolved_edges[:50]:
+        print(f'    {src} -RELATES(bears_on)-> {tgt}')
+    if not resolved_edges:
+        print('    (none -- no top-5k noun lemma exactly matches an existing math:: atom id; '
+              'math_candidate flags preserved in metadata for future curated linking)')
     if not gate_ok:
         print('HARD_FAIL: gate or read-back failed. Inspect (no auto-revert on bulk -- manual).')
         return 2
     print('=' * 72)
-    print(f'B1 WordNet APPLY complete: +{added} LEXICON atoms  |  atoms {pre_n} -> {post_n}  |  axiom_term 206/206  |  cap_pres 6/6')
+    print(f'B1 WordNet APPLY complete: +{added} LEXICON atoms + {len(resolved_edges)} bears_on edges  |  atoms {pre_n} -> {post_n}  |  axiom_term 206/206  |  cap_pres 6/6')
     print('=' * 72)
     return 0
 

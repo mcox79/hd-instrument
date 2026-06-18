@@ -148,6 +148,16 @@ class AtomKind(enum.Enum):
                                                  # exact-not-approximate; real-not-complex). Per Skunkworks
                                                  # corrected-model 2026-06-18 (kind separate from trust-tier;
                                                  # USER+Research CONCUR; NOT a kind literally named T0_PROVEN_FORMAL)
+    SCIENCE_CONCEPT = "science_concept"          # Tier-B science-ontology concept records (Bucket B2 GO ingest,
+                                                 # PHASE-2 2026-06-18; Skunkworks plan-VET R2: biology ontology
+                                                 # DISTINCT from LEXICON [lexical] -- a separate kind). NO algebra
+                                                 # field (SAME structural guard as LEXICON/RESEARCH_FINDING/
+                                                 # PROOF_RECORD: corpus=SCIENCE + algebra=None -> excluded from
+                                                 # axiom_term; ontology concepts are queryable SCIENCE knowledge,
+                                                 # NOT proven-core/current_best_solution). Internal ontology
+                                                 # relations (is_a/part_of) carried as METADATA fields (mirrors
+                                                 # the WordNet hypernym/hyponym-as-metadata rule). Skunkworks
+                                                 # SCHEMA-VET confirms the enum-add at the B2 dry-run.
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
