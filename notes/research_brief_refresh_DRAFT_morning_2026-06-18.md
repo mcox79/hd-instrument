@@ -192,31 +192,37 @@ AtomKind populated:  16 of 23 enum
 
 ```
 2 INDEPENDENT CERT-GRADE POSITIVE LEVER-INSTANCES of the SAME nonlinear-readout-
-  lifts-capacity lever (NOT yet capability-promoted FORM-P; load-bearing-
-  promotion = QUEUED post-VET substrate-build CAPABILITY atoms -> Testbed ratify):
+  lifts-capacity lever, NOW SUPPORTED ALONG 2 DIMENSIONS (config-contingency
+  + cross-task) per Skunkworks's net session finding:
 
-  - ARCH-B SPARSITY_NEUTRAL (Drosophila recapture; cleanup memory; nonlinear
-    softmax readout lifts capacity completely; cert_chain_grade verified)
+  - ARCH-B SPARSITY_NEUTRAL (cleanup memory; nonlinear softmax readout lifts
+    capacity completely; cert_chain_grade verified at N=1024; NOW STRENGTHENED
+    to 2-CONFIG REPLICATION via A4 at N=2048 below = E1 single-config caveat
+    ADDRESSED)
   - C1 entmax sparse readout (cleanup memory spread regime; 8x cheaper than
-    softmax at iso-recall; cert_chain_grade verified; atomized today 562 -> 563;
-    NOW STRENGTHENED to 2-task replication via A5 readout-axis below)
+    softmax at iso-recall; cert_chain_grade verified at single-config;
+    NOW STRENGTHENED to 2-TASK REPLICATION via A5 readout-axis on ARCH-A
+    sparse-pattern task = single-task caveat addressed)
 
-C1 cert-STRENGTHENED via REPLICATION (not a separate positive lever):
-  - **A5 readout-axis** (ARCH-A sparse-pattern task; entmax M*>=2048 censored
-    vs linear M*=48.5 = >=42x capacity lift LOWER BOUND honest-scoped; A5
-    Skunkworks VET PASS + ATOMIZE-GO; cert-grade-eligible strengthens-C1
-    EXPERIMENT_RECORD; REPLICATION OF C1 on ARCH-A sparse-pattern task;
-    strengthens C1 from single-task to 2-task replication = no longer
-    single-task/config single-point; A3 entmax envelope sweep next will
-    test further config-contingency)
+CERT-STRENGTHENING via REPLICATION (2 dimensions):
+  - **A4 ARCH-B replicate at N=2048** (CONFIG-CONTINGENCY dimension; Skunkworks
+    A4 verdict-VET PRELIMINARY PASS; SPARSITY_NEUTRAL same verdict as N=1024;
+    regime_lift=True + capability=True; ran TWICE IDENTICAL = reproducible;
+    measured-bounds N=2048; formal GATE-0 completes on synced metrics.json;
+    atomize-on-sync as strengthens-ARCH-B EXPERIMENT_RECORD with
+    config-contingency=N=1024+N=2048 scope)
+  - **A5 readout-axis** (CROSS-TASK dimension; ARCH-A sparse-pattern task;
+    entmax M*>=2048 censored vs linear M*=48.5 = >=42x capacity lift LOWER
+    BOUND honest-scoped; A5 Skunkworks VET PASS + ATOMIZE-GO; cert-grade-
+    eligible strengthens-C1 EXPERIMENT_RECORD; cross-task replication of
+    nonlinear-readout-lifts-capacity)
 
-These 2 independent lever-instances + A5 replication converge on a SUBSTRATE-
-   LEVEL FINDING per Skunkworks's CONVERGENT SESSION FINDING flag:
-   "linear-readout-is-the-ceiling + nonlinear-readout-as-linear-in-geometry-
-    amplifier lifts capacity" -- 2 INDEPENDENT POSITIVE LEVER CONFIRMATIONS
-    across distinct architectures (ARCH-A + ARCH-B) + tasks (cleanup memory
-    + sparse-pattern reconstruction); ONE operative substrate lever (per
-    drill 2 unifying framing).
+These 2 cert-grade positives + 2 dimensional replications converge on a
+   SUBSTRATE-LEVEL FINDING per Skunkworks's net session synthesis:
+   "the readout-lever line is now ROBUSTLY SUPPORTED via CONFIG-CONTINGENCY
+    (N=1024+N=2048) AND CROSS-TASK (ARCH-B + ARCH-A) -- the linear-readout-
+    as-ceiling thesis is well-supported BOTH DIRECTIONS, MEASURED" (composes
+    with drill 2 unifying framing "READOUT IS LINEAR-IN-GEOMETRY AMPLIFIER").
 
 1 PENDING (mechanism confirmed at smoke; FULL still unverified per metrics-provenance
   gate; NOT a confirmed proof point until BRANCH=REAL_held_out + mode=full + elapsed>0):
