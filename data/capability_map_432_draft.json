@@ -1,0 +1,536 @@
+{
+  "cert_chain_grade_total": 568,
+  "positives_total": 432,
+  "high_relevance_total": 61,
+  "low_relevance_total": 371,
+  "high_by_domain": {
+    "Cognitive/Reasoning": 8,
+    "Audit/Capability": 4,
+    "NLP/Language": 2,
+    "SubstrateMechanism": 43,
+    "Retrieval/Memory": 2,
+    "KnowledgeGraph/MultiHop": 2
+  },
+  "low_by_domain": {
+    "Retrieval/Memory": 1,
+    "NLP/Language": 2,
+    "Cognitive/Reasoning": 8,
+    "SubstrateMechanism": 342,
+    "Audit/Capability": 3,
+    "KnowledgeGraph/MultiHop": 15
+  },
+  "high_exemplars_per_domain": {
+    "Cognitive/Reasoning": [
+      {
+        "aid": "T3/EXP_active_inference_dpefe_h2_cpu_v1",
+        "name": "exp_active_inference_dpefe_h2_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_active_inference_dpefe_h2_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD_PA"
+      },
+      {
+        "aid": "T3/EXP_crt_module_scaling_battery_v1",
+        "name": "exp_crt_module_scaling_battery_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_crt_module_scaling_battery_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_P"
+      },
+      {
+        "aid": "T3/EXP_csp_hebbian_coexist_v1",
+        "name": "exp_csp_hebbian_coexist_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_csp_hebbian_coexist_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: CSP+Hebbian c"
+      },
+      {
+        "aid": "T3/EXP_substrate_abduction_f1_weakest_signature_kernel_kgram_xor_groundtruth_cpu_v1",
+        "name": "exp_substrate_abduction_f1_weakest_signature_kernel_kgram_xor_groundtruth_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_abduction_f1_weakest_signature_kernel_kgram_xor_groundtruth_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier "
+      },
+      {
+        "aid": "T3/EXP_substrate_decomposition_resonator_alpha05_cpu_v1",
+        "name": "exp_substrate_decomposition_resonator_alpha05_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_decomposition_resonator_alpha05_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. H"
+      },
+      {
+        "aid": "T3/EXP_symbolic_prim_battery_v1",
+        "name": "exp_symbolic_prim_battery_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_symbolic_prim_battery_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: Symbolic ba"
+      },
+      {
+        "aid": "T3/EXP_pb_crt_real_encoder_atoms_v1",
+        "name": "exp_pb_crt_real_encoder_atoms_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_pb_crt_real_encoder_atoms_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_PA"
+      },
+      {
+        "aid": "T3/EXP_planted_csp_viability_full_v3",
+        "name": "exp_planted_csp_viability_full_v3",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_planted_csp_viability_full_v3. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: Plante"
+      }
+    ],
+    "Audit/Capability": [
+      {
+        "aid": "T3/EXP_deletion_cert_refusal_joint_v1",
+        "name": "exp_deletion_cert_refusal_joint_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_deletion_cert_refusal_joint_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: Delet"
+      },
+      {
+        "aid": "T3/EXP_substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096",
+        "name": "exp_substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRA"
+      },
+      {
+        "aid": "T3/EXP_padding_side_audit_capacity_v1",
+        "name": "exp_padding_side_audit_capacity_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_padding_side_audit_capacity_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_"
+      },
+      {
+        "aid": "T3/EXP_substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096",
+        "name": "exp_substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_"
+      }
+    ],
+    "NLP/Language": [
+      {
+        "aid": "T3/EXP_intent_atis_multiseed_cpu_v1",
+        "name": "exp_intent_atis_multiseed_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_intent_atis_multiseed_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD_PASS: "
+      },
+      {
+        "aid": "T3/EXP_substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1",
+        "name": "exp_substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBST"
+      }
+    ],
+    "SubstrateMechanism": [
+      {
+        "aid": "T3/EXP_substrate_capacity_composition_b2xb4_v1_n2048",
+        "name": "exp_substrate_capacity_composition_b2xb4_v1_n2048",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_capacity_composition_b2xb4_v1_n2048. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. "
+      },
+      {
+        "aid": "T3/EXP_tier4_multiseed_sweep_cpu_v1",
+        "name": "exp_tier4_multiseed_sweep_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_tier4_multiseed_sweep_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD_PASS: "
+      },
+      {
+        "aid": "T3/EXP_tr_w1w2_set_intersect_v1",
+        "name": "exp_tr_w1w2_set_intersect_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_tr_w1w2_set_intersect_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: tr(W1 W2) s"
+      },
+      {
+        "aid": "T3/EXP_wave1_multiseed_sweep_cpu_v1",
+        "name": "exp_wave1_multiseed_sweep_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_wave1_multiseed_sweep_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD_PASS: "
+      },
+      {
+        "aid": "T3/EXP_wave1_tier1_sweep_cpu_v1",
+        "name": "exp_wave1_tier1_sweep_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_wave1_tier1_sweep_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD_PASS: WAVE"
+      },
+      {
+        "aid": "T3/EXP_wave2_rescue_multiseed_sweep_cpu_v1",
+        "name": "exp_wave2_rescue_multiseed_sweep_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_wave2_rescue_multiseed_sweep_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD"
+      },
+      {
+        "aid": "T3/EXP_f4_kappa_n_deviation_snr_cpu_v1",
+        "name": "exp_f4_kappa_n_deviation_snr_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_f4_kappa_n_deviation_snr_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD. Headline: HARD_PAS"
+      },
+      {
+        "aid": "T3/EXP_fp16_vs_fp32_parity_v1",
+        "name": "exp_fp16_vs_fp32_parity_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_fp16_vs_fp32_parity_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_PASS: fp"
+      },
+      {
+        "aid": "T3/EXP_i1_bf16_overflow_n65536_v1",
+        "name": "exp_i1_bf16_overflow_n65536_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_i1_bf16_overflow_n65536_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_PASS"
+      },
+      {
+        "aid": "T3/EXP_kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1",
+        "name": "exp_kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBS"
+      },
+      {
+        "aid": "T3/EXP_modern_hopfield_n_sweep_v1",
+        "name": "exp_modern_hopfield_n_sweep_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_modern_hopfield_n_sweep_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_PASS"
+      },
+      {
+        "aid": "T3/EXP_pb_pinv_llama_l15_keys_v1",
+        "name": "exp_pb_pinv_llama_l15_keys_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_pb_pinv_llama_l15_keys_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_PASS:"
+      },
+      {
+        "aid": "T3/EXP_pb_production_recipe_integration_v1",
+        "name": "exp_pb_production_recipe_integration_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_pb_production_recipe_integration_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: "
+      },
+      {
+        "aid": "T3/EXP_pp55_vsa_binding_n131072_v6_n131072",
+        "name": "exp_pp55_vsa_binding_n131072_v6_n131072",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_pp55_vsa_binding_n131072_v6_n131072. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: "
+      },
+      {
+        "aid": "T3/EXP_pp55_vsa_binding_n16384_v3_n16384",
+        "name": "exp_pp55_vsa_binding_n16384_v3_n16384",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_pp55_vsa_binding_n16384_v3_n16384. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HP"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l10_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l10_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l10_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l11_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l11_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l11_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l12_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l12_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l12_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l13_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l13_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l13_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l14_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l14_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l14_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l15_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l15_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l15_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l5_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l5_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l5_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headl"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l6_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l6_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l6_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headl"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l7_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l7_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l7_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headl"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l8_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l8_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l8_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headl"
+      },
+      {
+        "aid": "T3/EXP_q_a3_l9_cross_layer_composition_v1_n4096",
+        "name": "exp_q_a3_l9_cross_layer_composition_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_q_a3_l9_cross_layer_composition_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headl"
+      },
+      {
+        "aid": "T3/EXP_substrate_capacity_battery_gpu_v1",
+        "name": "exp_substrate_capacity_battery_gpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_capacity_battery_gpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HA"
+      },
+      {
+        "aid": "T3/EXP_substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu",
+        "name": "exp_substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUB"
+      },
+      {
+        "aid": "T3/EXP_substrate_capacity_scaling_sweep_xl_v1",
+        "name": "exp_substrate_capacity_scaling_sweep_xl_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_capacity_scaling_sweep_xl_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headlin"
+      },
+      {
+        "aid": "T3/EXP_substrate_capacity_stress_composition_v1_n16384",
+        "name": "exp_substrate_capacity_stress_composition_v1_n16384",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_capacity_stress_composition_v1_n16384. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD"
+      },
+      {
+        "aid": "T3/EXP_substrate_cognitive_core_analogical_v1",
+        "name": "exp_substrate_cognitive_core_analogical_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_cognitive_core_analogical_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headlin"
+      },
+      {
+        "aid": "T3/EXP_substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1",
+        "name": "exp_substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBST"
+      },
+      {
+        "aid": "T3/EXP_substrate_encoder_capacity_at_scale_battery_gpu_v1",
+        "name": "exp_substrate_encoder_capacity_at_scale_battery_gpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_encoder_capacity_at_scale_battery_gpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BU"
+      },
+      {
+        "aid": "T3/EXP_substrate_etf_minilm_dim_expansion_v1",
+        "name": "exp_substrate_etf_minilm_dim_expansion_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_etf_minilm_dim_expansion_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline"
+      },
+      {
+        "aid": "T3/EXP_substrate_expansion_method_battery_gpu_v1",
+        "name": "exp_substrate_expansion_method_battery_gpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_expansion_method_battery_gpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Head"
+      },
+      {
+        "aid": "T3/EXP_substrate_hierarchical_5corpus_meta_v1_n2048_gpu",
+        "name": "exp_substrate_hierarchical_5corpus_meta_v1_n2048_gpu",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_hierarchical_5corpus_meta_v1_n2048_gpu. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUIL"
+      },
+      {
+        "aid": "T3/EXP_substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048",
+        "name": "exp_substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era"
+      },
+      {
+        "aid": "T3/EXP_substrate_last_token_vs_whitening_mean_pool_v1",
+        "name": "exp_substrate_last_token_vs_whitening_mean_pool_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_last_token_vs_whitening_mean_pool_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD."
+      },
+      {
+        "aid": "T3/EXP_substrate_position_binding_combined_arch_trigram_v1_n4096",
+        "name": "exp_substrate_position_binding_combined_arch_trigram_v1_n4096",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_position_binding_combined_arch_trigram_v1_n4096. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBST"
+      },
+      {
+        "aid": "T3/EXP_substrate_sparse_vs_dense_alpha_sweep_v1",
+        "name": "exp_substrate_sparse_vs_dense_alpha_sweep_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_sparse_vs_dense_alpha_sweep_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headl"
+      },
+      {
+        "aid": "T3/EXP_substrate_sparsity_fine_battery_gpu_v1",
+        "name": "exp_substrate_sparsity_fine_battery_gpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_sparsity_fine_battery_gpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headlin"
+      },
+      {
+        "aid": "T3/EXP_t5c_hybrid_3seed_kb10k_v1",
+        "name": "exp_t5c_hybrid_3seed_kb10k_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_t5c_hybrid_3seed_kb10k_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: HARD_PASS:"
+      },
+      {
+        "aid": "T3/EXP_t5c_pp225_pythia14b_fp32proj_3seed_v1",
+        "name": "exp_t5c_pp225_pythia14b_fp32proj_3seed_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_t5c_pp225_pythia14b_fp32proj_3seed_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline"
+      }
+    ],
+    "Retrieval/Memory": [
+      {
+        "aid": "T3/EXP_substrate_codebook_near_duplicate_diagnostic_cpu_v1",
+        "name": "exp_substrate_codebook_near_duplicate_diagnostic_cpu_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_codebook_near_duplicate_diagnostic_cpu_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era SUBSTRATE_BUILD"
+      },
+      {
+        "aid": "T3/EXP_substrate_pca_prewhitening_codebook_v1",
+        "name": "exp_substrate_pca_prewhitening_codebook_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_pca_prewhitening_codebook_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headlin"
+      }
+    ],
+    "KnowledgeGraph/MultiHop": [
+      {
+        "aid": "T3/EXP_ccc1_extra_fb15k237_kg_multihop_v1",
+        "name": "exp_ccc1_extra_fb15k237_kg_multihop_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_ccc1_extra_fb15k237_kg_multihop_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headline: H"
+      },
+      {
+        "aid": "T3/EXP_substrate_multimodal_binding_text_kg_v1",
+        "name": "exp_substrate_multimodal_binding_text_kg_v1",
+        "metric_type": null,
+        "description_snippet": "Experiment record: exp_substrate_multimodal_binding_text_kg_v1. Verdict PASS (raw 'HARD_PASS'); run_mode full; provenance_quality CERT_CHAIN_GRADE; relevance_tier HIGH; era PRE_SUBSTRATE_BUILD. Headli"
+      }
+    ]
+  },
+  "low_samples_per_domain": {
+    "Retrieval/Memory": [
+      [
+        "T3/EXP_hnsw_ef_search_calibration_v1",
+        "exp_hnsw_ef_search_calibration_v1"
+      ]
+    ],
+    "NLP/Language": [
+      [
+        "T3/EXP_ner_transition_charngram_noise_crosscut_cpu_v1",
+        "exp_ner_transition_charngram_noise_crosscut_cpu_v1"
+      ],
+      [
+        "T3/EXP_pos_tagger_multiseed_cpu_v1",
+        "exp_pos_tagger_multiseed_cpu_v1"
+      ]
+    ],
+    "Cognitive/Reasoning": [
+      [
+        "T3/EXP_substrate_abduction_f1b_confound_break_recoverability_vs_infopreservation_cpu_v1",
+        "exp_substrate_abduction_f1b_confound_break_recoverability_vs_infopreservation_cpu_v1"
+      ],
+      [
+        "T3/EXP_substrate_abduction_f3_hmm_headroom_realgap_deployment_cpu_v1",
+        "exp_substrate_abduction_f3_hmm_headroom_realgap_deployment_cpu_v1"
+      ],
+      [
+        "T3/EXP_substrate_b6_x_sq2_audit_preserving_reasoning_v1_n4096",
+        "exp_substrate_b6_x_sq2_audit_preserving_reasoning_v1_n4096"
+      ],
+      [
+        "T3/EXP_substrate_compositional_generalization_K10_to_K20_v1_n4096",
+        "exp_substrate_compositional_generalization_K10_to_K20_v1_n4096"
+      ],
+      [
+        "T3/EXP_substrate_novel_assembly_2_tier2_novel_composition_equivalence_checked_cpu_v1",
+        "exp_substrate_novel_assembly_2_tier2_novel_composition_equivalence_checked_cpu_v1"
+      ],
+      [
+        "T3/EXP_crt_module_scaling_battery_fixed_v1",
+        "exp_crt_module_scaling_battery_fixed_v1"
+      ],
+      [
+        "T3/EXP_csp_memory_warm_start_full_v3",
+        "exp_csp_memory_warm_start_full_v3"
+      ],
+      [
+        "T3/EXP_substrate_arch_ablation_matrix_bigram_v1_n512_gpu",
+        "exp_substrate_arch_ablation_matrix_bigram_v1_n512_gpu"
+      ]
+    ],
+    "SubstrateMechanism": [
+      [
+        "T3/EXP_substrate_stage_a_bio_smoke_B2_sparse_fix_v2",
+        "exp_substrate_stage_a_bio_smoke_B2_sparse_fix_v2"
+      ],
+      [
+        "T3/EXP_temporal_contextual_multiseed_cpu_v1",
+        "exp_temporal_contextual_multiseed_cpu_v1"
+      ],
+      [
+        "T3/EXP_combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096",
+        "exp_combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096"
+      ],
+      [
+        "T3/EXP_combo2_p4_l3_signed_am_v1_n32768",
+        "exp_combo2_p4_l3_signed_am_v1_n32768"
+      ],
+      [
+        "T3/EXP_combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1",
+        "exp_combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1"
+      ],
+      [
+        "T3/EXP_combo3_unified_api_v1_n16384_l4_alpha_grid_v1",
+        "exp_combo3_unified_api_v1_n16384_l4_alpha_grid_v1"
+      ],
+      [
+        "T3/EXP_deletion_cert_z_ratio_n16384_full_alpha_v1",
+        "exp_deletion_cert_z_ratio_n16384_full_alpha_v1"
+      ],
+      [
+        "T3/EXP_deletion_cert_z_ratio_n16384_v1",
+        "exp_deletion_cert_z_ratio_n16384_v1"
+      ]
+    ],
+    "Audit/Capability": [
+      [
+        "T3/EXP_c_infty_seb_detection_full_v3",
+        "exp_c_infty_seb_detection_full_v3"
+      ],
+      [
+        "T3/EXP_capacity_cliff_graceful_full_v3",
+        "exp_capacity_cliff_graceful_full_v3"
+      ],
+      [
+        "T3/EXP_f6_bge_large_pinv_mmax_reaudit_v1",
+        "exp_f6_bge_large_pinv_mmax_reaudit_v1"
+      ]
+    ],
+    "KnowledgeGraph/MultiHop": [
+      [
+        "T3/EXP_pp48_nkt_cross_n_depth13_v1_n8192",
+        "exp_pp48_nkt_cross_n_depth13_v1_n8192"
+      ],
+      [
+        "T3/EXP_pp48_nkt_cross_n_depth17_v1_n8192",
+        "exp_pp48_nkt_cross_n_depth17_v1_n8192"
+      ],
+      [
+        "T3/EXP_pp48_nkt_cross_n_depth19_v1_n16384",
+        "exp_pp48_nkt_cross_n_depth19_v1_n16384"
+      ],
+      [
+        "T3/EXP_pp48_nkt_cross_n_depth19_v1_n8192",
+        "exp_pp48_nkt_cross_n_depth19_v1_n8192"
+      ],
+      [
+        "T3/EXP_pp48_nkt_depth_11_v1_n4096",
+        "exp_pp48_nkt_depth_11_v1_n4096"
+      ],
+      [
+        "T3/EXP_pp48_nkt_depth_13_v1_n4096",
+        "exp_pp48_nkt_depth_13_v1_n4096"
+      ],
+      [
+        "T3/EXP_pp48_nkt_depth_15_v1_n4096",
+        "exp_pp48_nkt_depth_15_v1_n4096"
+      ],
+      [
+        "T3/EXP_pp48_nkt_depth_17_v1_n4096",
+        "exp_pp48_nkt_depth_17_v1_n4096"
+      ]
+    ]
+  }
+}
