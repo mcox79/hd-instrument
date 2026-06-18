@@ -33,7 +33,11 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 DATA_ROOT = REPO / "data" / "substrate_index"
 ANCHOR = "substrate_bge_index_refresh_full_corpus_v1"
-OUT = REPO / "data" / ANCHOR
+# PROT-020 gate renames the run via HDLAB_EXP_NAME (smoke = "<entry>_smoke") and validates metrics at
+# data/exp_<HDLAB_EXP_NAME>/metrics.json. HONOR that env name (the "hardcoded-name vs queue-rename" trap queue_add warns
+# about) -- write to data/exp_<HDLAB_EXP_NAME>/ when set, else fall back to the ANCHOR dir for direct local runs.
+_EXP_NAME = os.environ.get("HDLAB_EXP_NAME")
+OUT = REPO / "data" / (f"exp_{_EXP_NAME}" if _EXP_NAME else ANCHOR)
 
 
 def main() -> int:
@@ -72,7 +76,12 @@ def main() -> int:
             enc_import_ok = True
         except Exception:
             enc_import_ok = False
-        metrics = {"anchor_name": ANCHOR, "run_mode": "smoke", "wiring_ok": bool(ok), "encode_module_importable": enc_import_ok,
+        _v = "OK" if ok else "WIRING_FAIL"
+        _vmsg = (f"SMOKE wiring-check: ok={ok} (Retriever+rebuild_index_cached importable; n_atoms={n_atoms}; "
+                 f"encode-module-importable={enc_import_ok}; target={target_cache}). AtomEncoder NOT constructed locally "
+                 f"(bge eager-loads = REMOTE-only); FULL bge encode = remote GPU.")
+        metrics = {"anchor_name": ANCHOR, "run_mode": "smoke", "verdict": _v, "verdict_msg": _vmsg, "summary": _vmsg,
+                   "wiring_ok": bool(ok), "encode_module_importable": enc_import_ok,
                    "n_atoms": n_atoms, "target_cache_file": target_cache, "existing_caches": existing,
                    "elapsed_s": round(time.time() - t0, 2),
                    "note": "wiring-check; AtomEncoder NOT constructed (bge eager-loads sentence-transformers = REMOTE-only); FULL = remote GPU."}
@@ -96,12 +105,16 @@ def main() -> int:
     sem = getattr(retriever, "_semantic_matrix", None)
     indexed = int(sem.shape[0]) if sem is not None else 0
     cache_now = list_caches(DATA_ROOT)
+    _v = "OK" if indexed == n_atoms else "COVERAGE_GAP"
+    _vmsg = (f"FULL bge refresh: indexed {indexed}/{n_atoms} ({round(100.0 * indexed / max(1, n_atoms), 2)}%) -> "
+             f"{target_cache} in {round(elapsed, 2)}s. verdict={_v} (OK iff coverage == n_atoms; CACHE write only, "
+             f"zero substrate-atom mutation -- Testbed invariant check).")
     metrics = {
-        "anchor_name": ANCHOR, "run_mode": "full", "n_atoms": n_atoms, "atoms_indexed": indexed,
+        "anchor_name": ANCHOR, "run_mode": "full", "verdict": _v, "verdict_msg": _vmsg, "summary": _vmsg,
+        "n_atoms": n_atoms, "atoms_indexed": indexed,
         "index_coverage_pct": round(100.0 * indexed / max(1, n_atoms), 2),
         "from_cache": bool(from_cache), "force_rebuild": True, "target_cache_file": target_cache,
         "caches_after": cache_now, "elapsed_s": round(elapsed, 2),
-        "verdict": "OK" if indexed == n_atoms else "COVERAGE_GAP",
         "note": "FULL bge refresh; cache -> cached_indices/*.npz; hd_metrics_sync pulls to local (Q6 manifest).",
     }
     (OUT / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
