@@ -74,3 +74,20 @@ def gate0_self_check(run_mode: str, metrics_source: str, n_cells_declared: int, 
         "elapsed_s": elapsed_s,
         "is_smoke": bool(is_smoke),
     }
+
+
+def discrimination_self_check(discriminates: bool, reference_value, floor, ceiling, reason: str = "") -> dict:
+    """DISCRIMINATION-REGIME self-check (Skunkworks B-epsilon self-cert engine, 2026-06-18; encodes
+    degenerate-regime-not-refutation [audit lesson 79, CONFIRMED 7-witness] as a DETERMINISTIC self-applied gate).
+
+    The CELL -- which alone knows its metric -- self-attests whether its regime DISCRIMINATES: the reference
+    point measurably ABOVE the floor AND BELOW the ceiling (NOT saturated / collapsed / one-hot / under-stressed).
+    A NON-discriminating regime is a NON_TEST, not a verdict: a PASS/HARD_FAIL on a metric that cannot
+    discriminate is meaningless ("a measurement is a test only if its discriminating range covers reality").
+
+    Pairs with the consumer-side discrimination_gate (the atomizer forces the effective verdict -> NON_TEST when
+    discriminates==False). Generalizes the per-cell discrimination guard hand-written in A3/8a/refuse-gate into
+    ONE shared producer-attest + consumer-enforce gate. 11th-rule clean; no LLM; ASCII.
+    """
+    return {"discriminates": bool(discriminates), "reference_value": reference_value,
+            "floor": floor, "ceiling": ceiling, "reason": reason}

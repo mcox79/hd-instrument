@@ -241,6 +241,19 @@ def gate0_field_check(metrics: dict) -> bool:
     return True
 
 
+def discrimination_gate(metrics: dict, verdict_norm):
+    """DISCRIMINATION-REGIME CONSUMER gate (Skunkworks B-epsilon self-cert engine; encodes degenerate-regime-
+    not-refutation [audit 79]). ADDITIVE + NON-RETROACTIVE: if the cell EMITTED a discrimination_self_check with
+    discriminates==False, the EFFECTIVE verdict is forced to NON_TEST -- a PASS/HARD_FAIL on a non-discriminating
+    regime is meaningless (the self-dominance-wall / saturation / one-hot trap). Cells WITHOUT the field pass
+    through UNCHANGED (legacy-safe -> no mass re-grade of existing atoms). Generalizes the manual per-cell
+    discrimination guard into a shared producer-attest (discrimination_self_check) + consumer-enforce gate."""
+    d = metrics.get("discrimination_self_check")
+    if isinstance(d, dict) and d.get("discriminates") is False:
+        return "NON_TEST"
+    return verdict_norm
+
+
 def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     """Deterministic from run_mode + cert-discipline markers + METHOD-GATE + GATE-0. condition 4 + method-gate + C2."""
     # ATTRIBUTION (mechanism record; e.g. A1): MEASURED but NOT a verdict-cert -> distinct tier, NEVER cert-counted
@@ -422,7 +435,8 @@ def discover():
             continue
         cell = find_cell(name)
         prereg = find_prereg(name)
-        verdict_norm = normalize_verdict(metrics.get("verdict"))
+        # B-epsilon discrimination-regime gate: a cell self-reporting non-discriminating -> effective verdict NON_TEST
+        verdict_norm = discrimination_gate(metrics, normalize_verdict(metrics.get("verdict")))
         # BLOCKING-fix (Skunkworks VET): atomize on ANY substantive content with verdict=null when unmapped;
         # preserve headline + key metrics. DROP ONLY a genuinely-empty metrics.json (no content at all).
         if not has_substantive_content(metrics, cell):
