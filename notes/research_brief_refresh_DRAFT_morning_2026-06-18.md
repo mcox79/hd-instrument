@@ -61,11 +61,12 @@ LAYER 5 (cross-session integrity): coordinated cert-discipline
   - SEQUENCING = bottom-up canonical (substrate has implicitly followed correctly)
   - LEAN INTEGRATION = first concrete substrate-autonomy commitment landed clean
 
-- **LEAN integration** (substrate-autonomy commitment): PHASE I CLEAN; PHASE II ready
+- **LEAN integration** (substrate-autonomy commitment): PHASE I CLEAN; PHASE II DELIVERED
   - PHASE I install + smoke CLEAN PASS in ~40min (Lean 4.31.0 + lean-interact 0.11.4 + hello-world proof type-check PASS; ZERO substrate impact; ~500MB disk; reversible)
   - Lean SCHEMA-VET discipline RATIFIED (T0_PROVEN_FORMAL sub-kind + no-algebra-default structural guard + proof_obligation metadata + staleness guard + failure-mode coverage)
   - **ESCALATE flagged for USER PHASE III+**: axiom_term-formal-promotion policy = USER-architectural-authority NOT Director-fiat (same class as trust-tier T0-T3)
-  - PHASE II morning queued: first-substrate-proof candidate consensus (Director recommends **Pythagoras-IP** from L6 chain #6 shipped today; Cauchy-Schwarz alternative; Skunkworks consensus response pending)
+  - **PHASE II DELIVERED within USER 1-hour better-internet window** (Orchestrator commit 21:08; ~50 min wall): lake cache 8560 files + build 1908 jobs + exit 0; Pythagoras-IP proof BUILT (`PythagorasIpV1.Pythagoras`); proof matches Director+Skunkworks consensus EXACTLY (real inner product space + orthogonal pair exact-not-approximate + norm_add_sq_real + ring close + NO axiom_term invocation); Skunkworks SEMANTICS-MATCH VET cycle next (cert-owner authority); on PASS the T0_PROVEN_FORMAL atom lands via live atomize cron (substrate 31304 -> 31305; first AtomKind populated via PHASE II Lean integration)
+  - **USER honest framing locked**: pipeline-works + first EXACT identity built + semantics-match discipline running for real; NOT "substrate formally verified" (one proof != formal verification); NOT "PHASE III committed" (production lean_oracle infrastructure = USER architectural decision per ESCALATE)
 
 - **TIER-6 char-LM**: correctly data-gated per USER directive
   - WordNet + text8 + enwik8 packs VALID on remote (false-alarm resolved)
