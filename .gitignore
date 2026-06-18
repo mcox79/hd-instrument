@@ -52,6 +52,8 @@ data/*/**
 !data/*/provenance.json
 !data/*/verdict.json
 !data/*/recent_verdicts.json
+# Dispatch consumer manifests (orchestrator autonomous remote-pull pattern)
+!data/dispatch_requests/**/*.json
 *.log
 
 # MVP designs - gitignored until disclosure decision (see mvp/README.md)
