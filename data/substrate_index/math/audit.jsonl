@@ -40806,3 +40806,6 @@
 {"ts": 1781793770.4962113, "op": "add_atom", "target": "PROOF_triangle_inequality_real_inner_product", "note": "3rd PROOF_RECORD; Skunkworks SEMANTICS-MATCH VET PASS", "source": "bucket_a_proof_record_triangle"}
 {"ts": 1781794109.7376964, "op": "add_atom", "target": "PROOF_parallelogram_law_real_inner_product", "note": "4th PROOF_RECORD; Skunkworks SEMANTICS-MATCH VET PASS", "source": "bucket_a_proof_record_parallelogram"}
 {"ts": 1781794341.6118288, "op": "update_atom", "target": "T3/EXP_a1_8a_4channel_attribution_v1", "note": "LEGACY_EXCERPT->MEASURED_MECHANISM deliberate single-atom", "source": "C2_A1_retier_2026_06_18"}
+{"ts": 1781797071.932826, "op": "add_atom", "target": "T3/EXP_a1v2_ratio_profile_v1", "note": "A1-v2 verdict-VET disposition; localization OPEN; bears_on A1+8a", "source": "a1v2_measured_mechanism"}
+{"ts": 1781797071.982665, "op": "add_relation", "target": "T3/EXP_a1v2_ratio_profile_v1|RELATES|T3/EXP_a1_8a_4channel_attribution_v1", "note": "bears_on A1 (does NOT close its OPEN localization -- different referent)", "source": "a1v2_bears_on"}
+{"ts": 1781797072.0287142, "op": "add_relation", "target": "T3/EXP_a1v2_ratio_profile_v1|RELATES|T3/EXP_active_gating_8a_break_even_v1_measured", "note": "bears_on measured-8a (localization REMAINS OPEN; HARD_FAIL stands)", "source": "a1v2_bears_on"}
