@@ -1,2 +1,3 @@
 import PythagorasIpV1.Basic
 import PythagorasIpV1.Pythagoras
+import PythagorasIpV1.CauchySchwarz
