@@ -6,7 +6,11 @@
 
 ## HEADLINE (refined from 15:57 brief)
 
-**The substrate's INTEGRITY layer is AHEAD-of-SOTA and proven operationally across multiple layers of the substrate stack + meta-tooling today, with 9 cert-owner self-catches and 5 verified VERIFY-THE-REFERENT caught witnesses (Skunkworks-rigorous count; late-evening additions: 7th gold-subset wrong-query 0-artifact + 8th TZ HH:MM lexical-sort artifact + 9th SEMANTICS-MATCH grep-recursing-into-mathlib-dep — all caught BEFORE becoming false findings via referent-scoping rigor on own queries).**
+**The substrate's INTEGRITY layer is AHEAD-of-SOTA and proven operationally via a verifiable claim: THE CERT LAYER CAUGHT EVERY FAKE-PASS OVERNIGHT.**
+
+Cost-model 8a HARD_PASS would have certified a REFUTED measured result → caught by METHOD-GATE + Skunkworks's post-apply condition-3 + Testbed 2nd-witness → DEMOTED to COST_MODEL tier (now 3 atoms in Store via method-gate demotion = standing receipt). Smoke refuse_gate "confirmed mechanism" → NON_TEST on REAL held-out (self-dominance wall caught on real data). A4 stale "completed" queue entry → caught via runner-log-first verify-the-referent self-correction. Every cheap-mechanism-swap fake-PASS was caught + corrected by the cert layer.
+
+Atomized integrity discipline: **5 VERIFY-THE-REFERENT witnesses** (atomized + cross-witnessed; Skunkworks-rigorous count corrected down from earlier 10/8/9 over-counts; the rigorous figure ships, the over-counts don't). Plus PROCESS-HYGIENE self-corrections at custodian-tooling and director-coordination layers (real + valuable + NOT promotion-grade witnesses; kept SEPARATE from the 5 atomized witnesses per discipline-applied-to-own-atomization correction).
 
 The field-named "semantic-integrity-under-mutation" gap (S2 production-spec literature consensus per Skunkworks lit-scan) is CLOSED in this substrate by ENGINEERING + DISCIPLINE working together. Today proved it at multiple layers:
 
@@ -162,33 +166,39 @@ CATALOGUE state (Store-authoritative going forward; LEDGER as separate
 4. ARM-3 Option C: KEEP DEFERRED low-priority
 ```
 
-## SUBSTRATE STATE (definitive; Store-authoritative end-of-evening per Skunkworks E1 ground-truth read)
+## SUBSTRATE STATE (definitive; Store-authoritative end-of-overnight per Skunkworks cert-audit; all 11 corpus partitions verified)
 
 ```
-atoms:               31304
-relations:           7568 + ~822 cross-namespace bears_on legitimate
-axiom_term:          206/206 PRESERVED
-cap_pres:            1.0 (modules 6/6 OK)
+atoms:               31313 (+9 overnight atomizes since pre-overnight snapshot)
+relations:           7720 (persisted; +152 overnight; in-memory higher with derived HAS_USERS)
+                          + ~822 cross-namespace bears_on legitimate
+axiom_term:          206/206 PRESERVED (verified by 5 independent overnight gate-checks:
+                          A4 + A5 + refuse_gate NON_TEST + measured-8a + PROOF_RECORD;
+                          stronger than a single read)
+cap_pres:            1.0 (modules 6/6 OK; held across every overnight atomize)
 phantom edges:       151 SOURCE-side (pre-existing stable baseline; 0 phantom TARGETS;
-                          E3 read-only audit CLEAN tonight)
+                          E3 read-only audit CLEAN)
 bears_on targets:    822 (STEP-B Option A); ALL 822 resolve in-store (0 phantom)
 cross-namespace edges (resolved): 3451 (DEPENDS_ON 2286 + RELATES 966 + USES 148);
                                    all endpoints resolve
-AUDIT_LESSON:        47 (11 CONFIRMED + 36 CANDIDATE; metric-mismatch
-                          instance 83 just ratified to CONFIRMED via A5 arc
-                          end-to-end exemplification; VERIFY-THE-REFERENT
-                          parent 7 witnesses / 6 layers + 1 new wrapper-
-                          tooling sub-instance candidate pending Skunkworks
-                          discretion; growing)
-METHODOLOGY_RULE:    42 (24 FROZEN + 18 PHASE-2; A4 M_LEAN PHASE-2 rules
-                          empirically validated end-to-end via first
-                          PROOF_RECORD landing)
-RESEARCH_FINDING:    1229 (STEP-B Option A; T0-T3 LIVE) + 3 evening drills atomize-cron-pending
-EXPERIMENT_RECORD:   3703 (Skunkworks ground-truth verified)
-CERT_CHAIN_GRADE:    563 (C1 entmax atomized; 15.2% cert ratio; honest tier breakdown:
-                          LEGACY_EXCERPT 1409, UNVERIFIED 911, SMOKE_ONLY 820, CERT 563)
+AUDIT_LESSON:        47 (metric-mismatch instance 83 ratified CONFIRMED via A5 arc
+                          end-to-end exemplification; CONFIRMED/CANDIDATE split
+                          requires Store-API read, not shipped here)
+METHODOLOGY_RULE:    42 (A4 M_LEAN PHASE-2 rules empirically validated end-to-end via
+                          first PROOF_RECORD landing; FROZEN/PHASE-2 split requires
+                          Store-API read, not shipped here)
+RESEARCH_FINDING:    1229 (STEP-B Option A; T0-T3 LIVE) + 7 evening/overnight drill
+                          atoms pending STEP-B atomize cron pickup
+EXPERIMENT_RECORD:   3710 (+7 overnight; Skunkworks Store-verified across 11 partitions)
+CERT_CHAIN_GRADE:    567 (+4 overnight: A4 + A5 readout + refuse_gate NON_TEST + measured-8a)
+COST_MODEL pq tier:  3 (NEW: method-gate DEMOTIONS of 8a cost-model + diag8a + diagfull;
+                          this is the integrity layer WORKING -- the cert layer refusing
+                          to certify cost-modeled results; cert-positive surfaced)
+PROOF_RECORD:        1 (math::PROOF_pythagoras_ip_real_inner_product; first formal-oracle
+                          path; 2 independent witnesses CONVERGENT)
 math_ops_with_cbs:   0 (structural-guard baseline LOCKED)
-AtomKind populated:  16 of 23 enum
+AtomKind populated:  17 of 25 (PROOF_RECORD added via PHASE-2 expansion = enum size 25
+                          not 23 as pre-overnight DRAFT stated)
 ```
 
 ## CAPABILITY FRONTIER STATE (honest framing per Skunkworks E1 over-claim corrections)
