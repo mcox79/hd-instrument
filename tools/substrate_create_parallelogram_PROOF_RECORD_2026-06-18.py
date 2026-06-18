@@ -26,13 +26,13 @@ from backend.substrate_index.schema import Atom, AtomKind, Corpus, Tier
 
 ATOM_ID = 'PROOF_parallelogram_law_real_inner_product'
 
-# Condition 3: DRAFT scope (Skunkworks finalizes verbatim at VET).
+# Condition 3: FINALIZED scope (Skunkworks SEMANTICS-MATCH VET PASS 2026-06-18, verbatim).
 CLAIM_SCOPE = (
     "Certifies the EXACT parallelogram law for REAL inner-product spaces, holding "
     "UNCONDITIONALLY for all u, v: ||u + v||^2 + ||u - v||^2 = 2*(||u||^2 + ||v||^2). "
     "This identity is genuinely INNER-PRODUCT-SPECIFIC: it FAILS in general normed spaces "
-    "and characterizes norms induced by an inner product (unlike the triangle inequality, "
-    "which holds in any normed space). Real, not complex."
+    "and CHARACTERIZES norms induced by an inner product (the Jordan-von Neumann property; "
+    "unlike the triangle inequality, which holds in any normed space). Real, not complex."
 )
 
 DESCRIPTION = (
@@ -87,9 +87,9 @@ def build_atom() -> Atom:
         'no_algebra_structural_guard': True,
         'axiom_term_promotion': 'SEPARATE explicit USER/PHASE-III authority; NEVER automatic on lake-PASS',
         'inner_product_specific': 'TRUE -- parallelogram law fails in general normed spaces; characterizes IP norms',
-        'semantics_match_vet': 'PENDING',   # Skunkworks sets PASS at VET
+        'semantics_match_vet': 'PASS',   # Skunkworks SEMANTICS-MATCH VET PASS 2026-06-18
         'vet_by': 'skunkworks',
-        'vet_date': 'PENDING',
+        'vet_date': '2026-06-18',
         'vet_checks': 'real-not-complex + exact-not-approximate + non-vacuous + canonical-lemma(parallelogram_law_with_norm) + olean-artifact-verified + no-sorry-axiom + print-axioms-standard-trio + ip-specific',
         'references_methodology_rule': 'RULE_M_LEAN_semantics_match_necessary_lake_pass_necessary_not_sufficient_T0_PROVEN_FORMAL',
         'eleventh_rule_clean': True,
