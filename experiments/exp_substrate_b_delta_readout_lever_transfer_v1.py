@@ -40,7 +40,7 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _cell_provenance import provenance_fields, now_utc, gate0_self_check
+from _cell_provenance import provenance_fields, now_utc, gate0_self_check, discrimination_self_check
 
 ANCHOR = "substrate_b_delta_readout_lever_transfer_v1"
 _EXP_NAME = os.environ.get("HDLAB_EXP_NAME")
@@ -60,6 +60,8 @@ BETA_GRID = [10.0, 20.0, 40.0, 60.0, 80.0, 120.0]
 ACC_THRESH = 0.90
 LIFT_MIN = 0.05          # a "lift" must be >= 5pp recall to count
 LIFT_GAP = 0.10          # lifts on the 2 tasks "comparable" if within 10pp -> task-general
+CEIL = 0.95              # headroom ceiling: linear >= CEIL = no room for the lever to lift -> NON_TEST that task
+FLOOR = 0.02             # something must recall (not all-degenerate)
 
 
 def _gen(device, seed):
@@ -166,14 +168,13 @@ def main():
     # per-task lift = max over M of (mean nonlinear - mean linear), in a MEASURABLE regime = HEADROOM exists
     # (linear NOT already at ceiling AND something recalls). The lever question is linear-vs-nonlinear capacity,
     # NOT softmax spread -> headroom is the right discrimination criterion (NOT C1's nz>2 spread gate).
-    CEIL = 0.95
     def task_lift(t):
         best = {"M": None, "lift": -1e9, "lin": None, "nl": None, "nz": None, "measurable": False}
         for m in m_list:
             lin = sum(grid[t][m]["lin"]) / len(seeds); nl = sum(grid[t][m]["nl"]) / len(seeds)
             nz = sum(grid[t][m]["nz"]) / len(seeds)
             # measurable if linear has headroom to be lifted (lin < CEIL) AND the cell isn't all-degenerate
-            if lin < CEIL and max(lin, nl) > 0.02 and (nl - lin) > best["lift"]:
+            if lin < CEIL and max(lin, nl) > FLOOR and (nl - lin) > best["lift"]:
                 best = {"M": m, "lift": nl - lin, "lin": lin, "nl": nl, "nz": nz, "measurable": True}
         return best
 
@@ -212,12 +213,20 @@ def main():
     g0 = gate0_self_check(run_mode=("smoke" if is_smoke else "full"), metrics_source=src,
                           n_cells_declared=n_cells_declared, n_cells_emitted=n_emitted,
                           elapsed_s=round(time.time() - t0, 2), is_smoke=is_smoke)
+    # B-epsilon discrimination_self_check (HEADROOM criterion -- NOT C1 spread; per Skunkworks refinement):
+    # the cell self-attests its regime DISCRIMINATES (linear has headroom: < ceiling AND something recalls).
+    _disc_reason = "headroom: linear<ceiling + recalls (capacity-lever discrimination, NOT spread)"
+    discrimination = {
+        "clustered": discrimination_self_check(lift_A["measurable"], lift_A.get("lin"), FLOOR, CEIL, _disc_reason),
+        "uniform": discrimination_self_check(lift_B["measurable"], lift_B.get("lin"), FLOOR, CEIL, _disc_reason),
+    }
 
     metrics = {
         "anchor_name": ANCHOR, "verdict": verdict, "verdict_msg": msg, "summary": msg, "headline": msg,
         "n_seeds": len(seeds),
         **provenance_fields("smoke" if is_smoke else "full", "readout_lever_transfer_2task", src, run_started_utc),
         "gate0_self_check": g0,
+        "discrimination_self_check": discrimination,
         "n_cells": n_emitted,
         "lever": "linear(classic Hopfield sign(S@V)) vs nonlinear(modern Hopfield sign(softmax(beta*S)@V))",
         "tasks": {"A": "clustered-key spread regime", "B": "uniform-iid-key classic regime"},
