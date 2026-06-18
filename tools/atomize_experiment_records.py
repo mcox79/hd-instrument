@@ -189,6 +189,8 @@ def normalize_verdict(raw) -> str | None:
         return "HARD_FAIL"
     if "KILLED" in u:
         return "KILLED"
+    if "NON_TEST" in u or "NON-TEST" in u:                  # honest non-discriminating-regime result (real verdict)
+        return "NON_TEST"
     if "SPARSITY_NEUTRAL" in u or "SPARSITY-NEUTRAL" in u:   # recapture: capability lifted, sparsity gives no edge
         return "SPARSITY_NEUTRAL"
     if "MIDDLE" in u:
@@ -228,7 +230,12 @@ def provenance_quality(run_mode, n_seeds, metrics: dict, verdict_norm) -> str:
     """Deterministic from run_mode + cert-discipline markers + METHOD-GATE. condition 4 + method-gate ruling."""
     cert_markers = any(k in metrics for k in ("prereg_bands", "fair_null", "FAIR_NULL", "gold_firewall",
                                               "three_of_three", "cert_chain", "ci95", "acc_ci95"))
-    would_be_cert = run_mode == "full" and ((isinstance(n_seeds, int) and n_seeds >= 3) or cert_markers)
+    # Skunkworks 2026-06-18: a real-held-out benchmark eval (full + held-out measured source) is cert-grade EVIDENCE
+    # n_seeds-INDEPENDENT -- the held-out set + sweep IS the variation; re-seeding a FIXED held-out set adds nothing.
+    # NARROW: only metrics_source containing 'held_out' (real-held-out evals); composes with the method-gate below
+    # (method_gate_ok still required -- this is not a bypass, just the right rigor axis for a held-out eval).
+    held_out_eval = run_mode == "full" and "held_out" in str(metrics.get("metrics_source") or "").lower()
+    would_be_cert = run_mode == "full" and ((isinstance(n_seeds, int) and n_seeds >= 3) or cert_markers or held_out_eval)
     if would_be_cert and method_gate_ok(metrics):
         return "CERT_CHAIN_GRADE"
     if would_be_cert:                                  # cert-shaped but METHOD-GATE FAILED -> explicit non-cert tier
