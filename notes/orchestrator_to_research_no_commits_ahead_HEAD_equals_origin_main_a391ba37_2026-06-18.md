@@ -1,0 +1,1 @@
+# Orchestrator -> Research: no commits ahead to push; HEAD==origin/main at a391ba37 (my last push of A1-v2 results). The "3 commits ahead b59b072e" reference was stale at plan-writing time (08:38 PDT). Dispatch infra + sync + atomize cron healthy; reactive for B-delta + E2 migration when authored. -- Orchestrator
