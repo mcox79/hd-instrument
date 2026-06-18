@@ -47,6 +47,8 @@ import torch   # q_f5 GPU-routing gate; FULL measures real wall-time of dense/sp
 REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _cell_provenance import provenance_fields, now_utc
 
 ANCHOR = "substrate_active_gating_8a_break_even_v1"
 _EXP_NAME = os.environ.get("HDLAB_EXP_NAME")
@@ -331,10 +333,32 @@ def main() -> int:
     self_test = getattr(args, "self_test", False)
     is_smoke = (args.smoke or self_test or run_mode == "smoke") and not getattr(args, "full", False)
     t0 = time.time()
+    run_started_utc = now_utc()
 
     r = run(fast=(self_test or is_smoke))
-    metrics = {"anchor_name": ANCHOR, "verdict": r["verdict"], "verdict_msg": r["verdict_msg"], "summary": r["verdict_msg"],
-               "headline": r["verdict_msg"], "run_mode": "smoke" if is_smoke else "full", "n_seeds": len(r["seeds"]),
+
+    # --self-test is a PURE wiring check (queue_add gate checks exit 0 ONLY): exercise run() at fast scale, write NO metrics
+    # (writing under HDLAB_EXP_NAME=<entry> would pollute the full-run path with synthetic metrics -- the stale-metrics trap).
+    if self_test:
+        print(f"[{ANCHOR}] --self-test wiring OK (verdict={r['verdict']}, guard={r['deadlock_guard_ok']}); NO metrics written.")
+        return 0
+
+    verdict, vmsg = r["verdict"], r["verdict_msg"]
+    verdict_reason = None
+    source = r.get("net_speedup_source")
+    # NO-CUDA GUARD (Skunkworks METHOD-GATE, cell-side): a FULL run that fell to the COST-MODEL (no measured GPU wall-time)
+    # must NEVER emit a measured-looking HARD_PASS/HARD_FAIL. Keep the cost-model numbers as a DIAGNOSTIC; withhold the verdict.
+    if (not is_smoke) and source != "measured_gpu_walltime":
+        verdict = "UNKNOWN"; verdict_reason = "COST_MODEL_ONLY_NO_CUDA"
+        vmsg = ("UNKNOWN (COST_MODEL_ONLY_NO_CUDA): FULL run produced COST-MODEL numbers (torch.cuda.is_available()=False; no "
+                "measured GPU wall-time). Cost-model is a DIAGNOSTIC prediction ONLY -- the measured break-even verdict REQUIRES "
+                "CUDA; verdict withheld (cost-model numbers retained in result for inspection). " + r["verdict_msg"])
+    branch_path = "smoke" if is_smoke else ("full_measured_gpu" if source == "measured_gpu_walltime" else "full_cost_model")
+
+    metrics = {"anchor_name": ANCHOR, "verdict": verdict, "verdict_msg": vmsg, "summary": vmsg,
+               "headline": vmsg, "verdict_reason": verdict_reason, "n_seeds": len(r["seeds"]),
+               # STRUCTURED METRICS-PROVENANCE (shared helper; metrics_source = the METHOD-GATE field for 8a)
+               **provenance_fields("smoke" if is_smoke else "full", branch_path, source, run_started_utc),
                "recapture_of": "scorecard_claim_8a_active_gating_13.8x (FLAGSHIP->PARTIAL; ceiling_followup HARD_FAIL @perf 0.83; B3a top-k-error gate, b3axb3b family)",
                "method_delta": "replace single-point 13.8x with a DETERMINISTIC break-even regime MAP (total cost incl. memory/dispatch/launch, not just FLOPs; perf at each point; selective-deadlock usage-entropy guard) + secondary Bayesian-surprise arm; same active-gating mechanism as anchor (anchor-match holds)",
                "result": r, "elapsed_s": round(time.time() - t0, 2)}
@@ -344,8 +368,8 @@ def main() -> int:
         json.dump(metrics, f, indent=2); f.flush(); os.fsync(f.fileno())
     os.replace(tmp, OUT / "metrics.json")
 
-    print(f"[{ANCHOR}] run_mode={'smoke' if is_smoke else 'full'} -> {r['verdict']}")
-    print(f"  deadlock_guard_ok={r['deadlock_guard_ok']} n_degenerate={r['n_degenerate_points']} net_speedup_spread={r['net_speedup_spread']}")
+    print(f"[{ANCHOR}] run_mode={'smoke' if is_smoke else 'full'} branch={branch_path} -> {verdict}" + (f" ({verdict_reason})" if verdict_reason else ""))
+    print(f"  deadlock_guard_ok={r['deadlock_guard_ok']} n_degenerate={r['n_degenerate_points']} net_speedup_spread={r['net_speedup_spread']} source={source}")
     for k in [1, 2, 4]:
         b = r["boundary"][f"k{k}"]
         print(f"  k={k}: T_break_even={b['T_break_even']} monotone_sat={b['monotone_in_T_saturated']} net_win_meets_perf={b['net_win_meets_perf_bar']}")

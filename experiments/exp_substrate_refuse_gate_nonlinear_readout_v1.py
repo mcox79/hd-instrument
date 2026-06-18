@@ -29,10 +29,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import subprocess
 import sys
 import time
-from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -44,6 +42,7 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _spread_attention_harness import make_clustered_keys, cosine_scores, verify_spread
+from _cell_provenance import provenance_fields, now_utc
 
 ANCHOR = "substrate_refuse_gate_nonlinear_readout_v1"
 # PROT-020 gate renames the run via HDLAB_EXP_NAME and validates data/exp_<HDLAB_EXP_NAME>/metrics.json -- honor it
@@ -68,15 +67,6 @@ def _rng(seed):
 
 def _short(x):
     return str(x).split("::")[-1].split("/")[-1].strip().lower()
-
-
-def _cell_commit():
-    """Best-effort git short hash of the running cell (metrics-provenance: which code produced this file)."""
-    try:
-        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=str(REPO),
-                              capture_output=True, text=True, timeout=5).stdout.strip() or "unknown"
-    except Exception:
-        return "unknown"
 
 
 def f1_present(pred: set, present_gold: set) -> float:
@@ -182,16 +172,24 @@ def run_real_heldout():
         return {"mode_path": "real", "error": "import_failed:" + str(e)[:120]}
     assert torch.cuda.is_available(), "GPU not available (FULL bge encode needs CUDA; route to GPU queue)"
     pstore = PartitionedStore(DATA_ROOT)
+    n_atoms = len(pstore.all_atoms())
+    print(f"[{ANCHOR}] real-path: {n_atoms} atoms in store; loading bge encoder...", flush=True)
     try:
         enc = AtomEncoder()
     except Exception as e:
         return {"mode_path": "real", "error": "bge_unavailable:" + str(e)[:100]}
+    print(f"[{ANCHOR}] bge loaded; rebuild_index_cached over {n_atoms} atoms (HEAVY if cache miss -- the ~13min step)...", flush=True)
     r = Retriever(pstore, enc); rebuild_index_cached(r, DATA_ROOT)
+    sem = getattr(r, "_semantic_matrix", None)
+    print(f"[{ANCHOR}] index ready (indexed={None if sem is None else sem.shape[0]}/{n_atoms}); loading held-out + scoring...", flush=True)
     qual = {a.id: a.qualified_id for a in pstore.all_atoms()}
     sset = {_short(a.id) for a in pstore.all_atoms()}
     qs = [json.loads(l) for l in open(HELDOUT, encoding="utf-8") if l.strip()]
+    print(f"[{ANCHOR}] {len(qs)} held-out questions; running semantic retrieval per question...", flush=True)
     perq = []
-    for q in qs:
+    for _qi, q in enumerate(qs):
+        if _qi % 5 == 0:
+            print(f"[{ANCHOR}]   scoring question {_qi + 1}/{len(qs)}", flush=True)
         gold = q.get("ground_truth_atoms") or []
         present = {_short(g) for g in gold if _short(g) in sset}
         in_cov = bool(present)
@@ -283,7 +281,7 @@ def main() -> int:
     self_test = getattr(args, "self_test", False)
     is_smoke = (args.smoke or self_test or run_mode == "smoke") and not getattr(args, "full", False)
     t0 = time.time()
-    run_started_utc = datetime.now(timezone.utc).isoformat()
+    run_started_utc = now_utc()
 
     # BRANCH DIAGNOSTIC (verify-the-referent at runtime): print the exact path BEFORE running, so the remote stdout/gate_log
     # PROVES which path executed -- no more inferring smoke-vs-full from a (possibly stale) metrics.json.
@@ -304,16 +302,25 @@ def main() -> int:
         v, vmsg = r["verdict"], r["verdict_msg"]
         path_note = "synthetic smoke (mechanism + spread-detection); REAL held-out FULL is the actual verdict"
     else:
-        r = run_real_heldout()
+        # FAIL-LOUD-NEVER-SILENT: any exception in the 13-min real path STILL writes a metrics.json (status=UNKNOWN +
+        # error + traceback), so a remote failure is never a silent no-metrics death (Orchestrator's REAL_PATH_HIT note).
+        try:
+            r = run_real_heldout()
+        except Exception as e:
+            import traceback
+            r = {"mode_path": "real", "error": f"EXCEPTION {type(e).__name__}: {str(e)[:200]}",
+                 "traceback_tail": traceback.format_exc()[-1800:]}
+            print(f"[{ANCHOR}] run_real_heldout EXCEPTION: {type(e).__name__}: {str(e)[:200]}", flush=True)
         v, vmsg = verdict_real(r)
+        if r.get("traceback_tail"):
+            vmsg = vmsg + " | TRACEBACK_TAIL: " + r["traceback_tail"][-600:]
         path_note = "REAL bge held-out q54-q65 -- the actual V1 6th-module recapture verdict"
 
     metrics = {"anchor_name": ANCHOR, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "headline": vmsg,
-               "run_mode": "smoke" if is_smoke else "full", "alpha": ALPHA, "path": path_note,
-               # STRUCTURED METRICS-PROVENANCE (Skunkworks gate; field-check not inference): which path/method/run produced this file
-               "branch_path": _path,                                  # REAL_held_out_q54_q65 | synthetic_smoke | self_test
-               "metrics_source": "real_bge_held_out" if not is_smoke else "synthetic_harness",
-               "run_started_utc": run_started_utc, "cell_commit": _cell_commit(),
+               "alpha": ALPHA, "path": path_note,
+               # STRUCTURED METRICS-PROVENANCE (shared helper; Skunkworks gate; field-check not inference)
+               **provenance_fields("smoke" if is_smoke else "full", _path,
+                                   "real_bge_held_out" if not is_smoke else "synthetic_harness", run_started_utc),
                "recapture_of": "PHASE_V1_6th_module_refuse_gated_retriever_YELLOW (M1 bge-cosine-tau HARD_FAIL gap-refuse>=0.95)",
                "method_delta": "refuse signal = NONLINEAR readout attention-CONCENTRATION (softmax/entmax max-weight over candidate scores) vs LINEAR scalar cosine tau (M1); readout<->readout anchor-match",
                "verify_the_referent_condition": "MEASURE present-vs-absent concentration spread + confirm a discriminating regime (in-cov concentrated, gap diffuse, separable c); else NON_TEST",
