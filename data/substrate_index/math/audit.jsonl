@@ -40805,3 +40805,4 @@
 {"ts": 1781793296.7359674, "op": "add_atom", "target": "PROOF_cauchy_schwarz_real_inner_product", "note": "2nd PROOF_RECORD; Skunkworks SEMANTICS-MATCH VET PASS", "source": "bucket_a_proof_record_cauchy_schwarz"}
 {"ts": 1781793770.4962113, "op": "add_atom", "target": "PROOF_triangle_inequality_real_inner_product", "note": "3rd PROOF_RECORD; Skunkworks SEMANTICS-MATCH VET PASS", "source": "bucket_a_proof_record_triangle"}
 {"ts": 1781794109.7376964, "op": "add_atom", "target": "PROOF_parallelogram_law_real_inner_product", "note": "4th PROOF_RECORD; Skunkworks SEMANTICS-MATCH VET PASS", "source": "bucket_a_proof_record_parallelogram"}
+{"ts": 1781794341.6118288, "op": "update_atom", "target": "T3/EXP_a1_8a_4channel_attribution_v1", "note": "LEGACY_EXCERPT->MEASURED_MECHANISM deliberate single-atom", "source": "C2_A1_retier_2026_06_18"}
