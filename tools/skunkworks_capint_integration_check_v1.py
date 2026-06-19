@@ -145,6 +145,44 @@ def main():
     no_bound = [a.id for a in integ if not (md(a).get('capint_proven_bound') or '').strip()]
     checks.append(('I5 no-Goodhart (honest-scoped proven_bound present; metric measures claimed thing)', not no_bound,
                    f'missing_proven_bound={len(no_bound)}', no_bound[:8]))
+    # I7/I8/I9 (v1.2) -- A/B-iterate IMPROVE-track swap-discipline (DRILL_D M2). GATE-ON-POPULATE: these fire only
+    # when a capability has a capint_superseded_chain (a current_best was swapped via an A/B-iterate). With 0 swaps
+    # they pass trivially ("layer ready"), exactly like the whole check did before Track-A populated. Field schema
+    # proposed to Research 2026-06-19 (coordinate before the A/B-iterate apply is built).
+    pq_by_id = {}
+    for a in atoms:
+        pq_by_id[a.id] = md(a).get('provenance_quality')
+        pq_by_id[a.id.split('::')[-1]] = md(a).get('provenance_quality')
+    swapped = [a for a in integ if md(a).get('capint_superseded_chain')]
+    n_swapped = len(swapped)
+    # I7 superseded_chain-consistency: every prior current_best preserved + RESOLVES (no silent history loss).
+    i7_bad = []
+    for a in swapped:
+        chain = md(a).get('capint_superseded_chain') or []
+        for prior in (chain if isinstance(chain, list) else [chain]):
+            if isinstance(prior, str) and prior not in resolvable and prior.split('::')[-1] not in resolvable:
+                i7_bad.append((a.id, f'superseded_unresolved:{prior}'))
+    checks.append(('I7 superseded_chain-consistency (swap history preserved + resolves) [v1.2; gate-on-populate]',
+                   not i7_bad, f'swapped={n_swapped} unresolved_superseded={len(i7_bad)}', i7_bad[:8]))
+    # I8 cert-grade-on-swap: the NEW current_best must itself be CERT_CHAIN_GRADE (cannot swap in a non-cert winner).
+    i8_bad = []
+    for a in swapped:
+        cb = md(a).get('capint_current_best_citation')
+        cb_id = cb if isinstance(cb, str) else None
+        cb_pq = pq_by_id.get(cb_id) or pq_by_id.get((cb_id or '').split('::')[-1])
+        if cb_pq != 'CERT_CHAIN_GRADE':
+            i8_bad.append((a.id, f'current_best_not_cert:{cb_id}={cb_pq}'))
+    checks.append(('I8 cert-grade-on-swap (new current_best is CERT_CHAIN_GRADE) [v1.2; gate-on-populate]',
+                   not i8_bad, f'swapped={n_swapped} non_cert_winner={len(i8_bad)}', i8_bad[:8]))
+    # I9 pre-reg-win-condition: the swap win-condition must be RECORDED (the no-Goodhart pre-reg discipline-marker;
+    # a swap with no recorded win-condition is a candidate post-hoc "it scored higher"). Winner verdict-faithfulness
+    # is already covered by I3 on the winner atom.
+    i9_bad = []
+    for a in swapped:
+        if not (md(a).get('capint_swap_win_condition') or '').strip():
+            i9_bad.append((a.id, 'no_swap_win_condition'))
+    checks.append(('I9 pre-reg-win-condition (swap win-condition recorded; no post-hoc it-scored-higher) [v1.2; gate-on-populate]',
+                   not i9_bad, f'swapped={n_swapped} missing_win_condition={len(i9_bad)}', i9_bad[:8]))
     # I6 (v1.1) cluster verdict-HOMOGENEITY -- SOFT FLAG (review, NOT a hard gate). A cluster spanning MULTIPLE
     # verdict-CLASSES (e.g. WIN + BOUND) is EITHER a legitimate scaling-cliff (capability degrades with scale)
     # OR a candidate-mis-cluster (distinct configs wrongly grouped -- the decomposition_resonator lesson).
@@ -162,7 +200,7 @@ def main():
 
     # report
     print('=' * 78)
-    print('CAP-INT INTEGRATION-CHECK v1.1 (capability-integration cert-gate) -- READ-ONLY')
+    print('CAP-INT INTEGRATION-CHECK v1.2 (capability-integration cert-gate; +I7/I8/I9 A/B-iterate) -- READ-ONLY')
     print(f'  cap-int Track-A integrated atoms = {n}'
           + ('' if args.expect_integrated is None else f' (expect {args.expect_integrated}: '
              + ("OK" if n == args.expect_integrated else "MISMATCH") + ')'))
