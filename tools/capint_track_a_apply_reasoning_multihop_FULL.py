@@ -68,23 +68,14 @@ CLUSTER_DEFS = {
         ),
         "scale_point_proven_bound_template": "CRT module scaling {tag}",
     },
-    "decomposition_resonator": {
-        "shared_benchmark": "decomposition_resonator",
-        "capability_name": "Decomposition via resonator",
-        "membership_substrings_all": ["decomposition_resonator"],
-        "membership_substrings_excludes": [],
-        # Canonical = the PASS variant (not the cpu MIDDLE_BAND)
-        "canonical_substring_all": ["alpha05"],
-        "canonical_substring_excludes": ["cpu"],
-        "canonical_proven_bound": (
-            "Decomposition via resonator at cert-grade (alpha05; the canonical "
-            "execution mode)"
-        ),
-        "scale_point_proven_bound_template": (
-            "Decomposition resonator {tag} (execution-mode variant of the "
-            "canonical resonator decomposition)"
-        ),
-    },
+    # decomposition_resonator REVERTED to 2 singletons per Skunkworks's
+    # integration-check FAIL ruling 2026-06-19:
+    # - alpha05 = hyperparameter; cpu = execution-platform (different axes,
+    #   not a scale-series like q_a3 layer-depth)
+    # - mixed verdicts: alpha05 PASS vs cpu MIDDLE_BAND (cpu = distinct bound)
+    # - cluster fold lost the cpu MIDDLE_BAND bound-semantics (I3 FAIL) +
+    #   apply bug marked both as scale_point with 0 canonical (I4 FAIL)
+    # - revert: handled via SINGLETONS dict below.
     "capacity_composition": {
         "shared_benchmark": "capacity_composition",
         "capability_name": "Capacity composition",
@@ -265,6 +256,26 @@ SINGLETONS = {
         "verdict": "PASS", "is_bound": False,
         "capability_name": "Codebook near-duplicate",
         "proven_bound": "Codebook near-duplicate at cert-grade",
+    },
+    # decomposition_resonator: REVERTED to 2 singletons (Skunkworks ruling
+    # 2026-06-19 INTEGRATION-FAIL fix; not a scale-series; mixed verdicts;
+    # cpu MIDDLE_BAND is its own bound).
+    "decomposition_resonator_alpha05": {
+        "verdict": "PASS", "is_bound": False,
+        "capability_name": "Decomposition via resonator (alpha05)",
+        "proven_bound": (
+            "Decomposition via resonator at cert-grade (alpha=0.05 "
+            "hyperparameter configuration)"
+        ),
+    },
+    "decomposition_resonator_cpu": {
+        "verdict": "MIDDLE_BAND", "is_bound": True,
+        "capability_name": "Decomposition via resonator (cpu execution-platform)",
+        "proven_bound": (
+            "Decomposition via resonator on cpu execution-platform "
+            "MIDDLE_BAND (discriminating-but-not-strong; the cpu-platform "
+            "bound, distinct from the alpha05 PASS variant)"
+        ),
     },
 }
 
