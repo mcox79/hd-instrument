@@ -459,12 +459,19 @@ def dry_run(csv_path: Path) -> int:
     ps = PartitionedStore(Path('data/substrate_index'))
     print(f'DEVICE={DEVICE} (7th checklist item: PURE-CPU cell; route to cpu_queue, NOT a GPU runner).')
     print(f'SNAPSHOT: axiom_term={axiom_term_count(ps)} (206) | cap_pres={module_liveness_ok()} (6/6) | CERT={cert_count(ps)}')
-    print(f'rel-map: {len(REL_MAP)} ConceptNet relations -> first-class rel_types (IsA->IS_A, PartOf->PART_OF, rest CN_*); unmapped -> SKIP (counted).')
-    if not csv_path.exists():
-        print(f'\nDATA-ACQUISITION PRECURSOR: ConceptNet 5.7 assertions CSV not at {csv_path}.')
-        print('  Acquire conceptnet-assertions-5.7.0.csv.gz (https://github.com/commonsense/conceptnet5/wiki/Downloads)')
-        print('  -> place at data/conceptnet/assertions.csv[.gz]. (infra/data lane; apply is DEFERRED until push-fix anyway.)')
-        print('  Cell logic verified via --self-test + --resume-test (no data needed). Schema-add (CONCEPT_NODE + 29 CN_*) verify-loads OK.')
+    scope_desc = ('load-bearing 16 (Director default: ' + ', '.join(sorted(LOAD_BEARING_NAMES)) + ')'
+                  if SCOPE_LOAD_BEARING else f'ALL {len(REL_MAP)} mapped rels (--all-rels)')
+    print(f'rel-scope: {scope_desc}; mapped via first-class rel_types (IsA->IS_A, PartOf->PART_OF, rest CN_*); out-of-scope/unmapped -> SKIP (counted).')
+    print('ACQUISITION: Option B (Director-decided) -- cell wgets ' + CONCEPTNET_URL + ' if absent (cache-first, wget -c resumable).')
+    print('WRITE-PATH: Atom-construction (_make_atom -> _index_atom -> save_atoms to_dict) + fresh-Store all_atoms() LOAD gate')
+    print('            -> SAFE under Skunkworks write-hold refinement (Atom-construction NEW-ATOM-ADDS allowed; only raw-JSONL-append held).')
+    print('PROVENANCE: cell_commit + substrate_id_hash (pre/post) recorded at run-time (A2 v6 hardening lesson).')
+    print('FIREWALL (cert-condition, ROUTED to Skunkworks SCHEMA-VET): ConceptNet ingest is reference-KB (NEW knowledge_graph')
+    print('            corpus, RESEARCH_FINDING tier, CERT-unchanged); the knowledge_graph CAPABILITY eval must use a held-out')
+    print('            split NOT ingested (PART_OF-design precedent) + confirm no EXISTING certified eval sources from ConceptNet.')
+    if not csv_path.exists() and not DEFAULT_GZ.exists():
+        print(f'\nDATA not local yet ({csv_path} / {DEFAULT_GZ} absent) -- --apply will wget it (Option B). Cell logic verified via')
+        print('  --self-test + --resume-test (no data needed). Schema (CONCEPT_NODE + CN_* rel_types) verify-loads OK.')
         print('=' * 78)
         return 0
     # sample-parse the first SAMPLE rows for a coverage preview
