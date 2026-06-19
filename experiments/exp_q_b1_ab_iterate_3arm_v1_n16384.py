@@ -90,6 +90,13 @@ N = 16384
 assert N == _N_SUFFIX, f"PROT-018: anchor _n{_N_SUFFIX} but N={N}"
 
 ARMS = ["control", "cand_c_tropical", "cand2_cleanup"]
+# Condition 2 (Skunkworks SCHEMA-VET honest-scope): name the SPECIFIC op per arm. A candidate's
+# HARD_FAIL means THIS op failed, NOT "tropical algebra / cleanup in general" (no-Goodhart).
+ARM_OP = {
+    "control": "linear heteroassoc sign-cleanup r=sign(H@r)",
+    "cand_c_tropical": "Ritter-Sussner (min,+)-store/(max,+)-recall morphological AM",
+    "cand2_cleanup": "cleanup-between-hops snap-to-stored-node (resonator-seeded)",
+}
 
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 
@@ -365,7 +372,9 @@ def compute_verdict(units: List[Dict]) -> Tuple[str, str, Dict]:
            f"Bonferroni alpha=0.025). " + " || ".join(lines))
     detail = {"arm_verdict": arm_verdict, "per_depth": per_depth, "robust_floor_frac": robust,
               "mean_profile": {a: {str(d): mean_prof[a][d] for d in DEPTHS} for a in ARMS},
-              "best_candidate": best, "n_candidate_hard_pass": n_hp, "swap_decision": swap}
+              "best_candidate": best, "n_candidate_hard_pass": n_hp, "swap_decision": swap,
+              "arm_op": ARM_OP,
+              "honest_scope": {a: f"{arm_verdict[a]} scoped to op: {ARM_OP[a]}" for a in ARMS}}
     return (overall, msg, detail)
 
 

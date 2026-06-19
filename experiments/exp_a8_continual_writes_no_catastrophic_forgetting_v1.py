@@ -16,15 +16,18 @@ SCIENTIFIC QUESTION (Phase 3, Cluster A8):
   This differs from A4 (anomaly injection) and A7 (distributional drift).
   A8 is the fundamental "how many writes before forgetting?" capacity test.
 
-PRE-REGISTERED BANDS:
-  HP1: retrieval accuracy >= 0.60 at alpha = 0.05 (M = 0.05*N well below alpha_c).
-  HP2: retrieval accuracy >= 0.60 at alpha = 0.10 (M = 0.10*N below alpha_c).
-  HP3: retrieval accuracy declines smoothly from alpha=0.05 to alpha=0.20 (no sudden cliff).
-       Smooth = slope from alpha=0.10 to alpha=0.15 < -0.50 per alpha-unit (max cliff threshold).
-
-  HARD-PASS: HP1 AND HP2 AND HP3 in >= 4/5 seeds.
-  HARD-FAIL: accuracy < 0.30 at alpha = 0.05 (catastrophic forgetting before alpha_c).
-  MIDDLE: HP1 + HP2 but HP3 cliff detected (sudden forgetting at alpha_c).
+PRE-REGISTERED BANDS (v2 DISCRIMINATING REGIME; research note commit 0e54609d):
+  Sweep alpha = {0.05, 0.10, 0.138, 0.20, 0.30, 0.50, 0.75, 1.0, 1.5} to FIND the cliff; the claim is
+  honest-scoped to the MEASURED no-forgetting boundary X (largest contiguous alpha with acc >= 0.60).
+  HARD-PASS: cliff identified (acc drops below 0.60 at some alpha) AND no-forgetting region acc >= 0.60
+             AND capacity-stress verified (acc at highest alpha < 0.30 = genuinely above-capacity, NOT a
+             degenerate thin regime) AND seeds reproduce within +-0.05 in the no-forgetting region.
+  MIDDLE:    cliff identified but retention weak ([0.30, 0.60)) or seed-repro loose.
+  HARD-FAIL: catastrophic forgetting at alpha=0.05 (acc<0.30) OR DEGENERATE-REGIME TRAP (acc stays
+             >=0.30 even at the highest alpha = not stress-tested) OR seeds disagree (region std>0.10)
+             OR real forgetting within capacity (acc<0.60 at alpha<=alpha_c).
+  Seed-reproduce is scoped to the no-forgetting region (where the claim lives); cliff-edge variance is
+  physically expected and excluded. Both region- and global-std emitted; band-scoping flagged for VET.
 
 No _nN suffix: production N=1024 (standard CPU cluster scale). PROT-018 rule 3.
 
@@ -66,29 +69,30 @@ ALPHA_C = 0.138
 NOISE_FRAC = 0.10
 N_RETRIEVE_STEPS = 5
 
+# v2 DISCRIMINATING REGIME (research_to_skunkworks_PREREGS_v2_DISCRIMINATING_REGIME_added_all_3,
+# commit 0e54609d): extend the alpha sweep ~10x beyond Hopfield capacity (alpha_c=0.138) to FIND
+# the forgetting cliff, and honest-scope the claim to the MEASURED boundary X (NOT a pre-claimed
+# alpha_c). Degenerate-regime trap guarded: acc must collapse at the highest (above-capacity) alpha.
 if RUN_MODE == "smoke":
     SEEDS = [7, 17]
     N = 256
-    M_MAX = 60       # max writes (alpha_max = 0.23)
-    CHECKPOINT_EVERY = 10
+    TARGET_ALPHAS = [0.05, 0.10, 0.20, 0.30]
     N_TEST = 10
 else:
     SEEDS = [7, 17, 23, 31, 41]
     N = 1024
-    M_MAX = 250      # covers alpha = 0 to 0.244
-    CHECKPOINT_EVERY = 25
+    TARGET_ALPHAS = [0.05, 0.10, 0.138, 0.20, 0.30, 0.50, 0.75, 1.0, 1.5]
     N_TEST = 30
 
-# alpha checkpoints
-ALPHA_5 = 0.05
-ALPHA_10 = 0.10
-ALPHA_15 = 0.15
-ALPHA_20 = 0.20
+M_MAX = int(round(max(TARGET_ALPHAS) * N))   # writes needed to reach the highest tested alpha
 
-HP_ACC_5 = 0.60
-HP_ACC_10 = 0.60
-HP_CLIFF_SLOPE_MAX = -0.50  # per alpha-unit; must be >= -0.50 (not too steep)
-HF_ACC_5 = 0.30
+ACC_NOFORGET = 0.60             # acc >= this at an alpha = "no catastrophic forgetting" there
+ACC_MIDDLE_LO = 0.30            # acc in [0.30, 0.60) = weak retention
+HF_ACC_5 = 0.30                 # acc < this at alpha=0.05 = catastrophic forgetting before capacity
+SEED_REPRO_TOL = 0.05           # max per-alpha across-seed std for HARD_PASS (seeds reproduce)
+SEED_DISAGREE_MAX = 0.10        # max per-alpha across-seed std > this = HARD_FAIL (seeds disagree)
+CAPACITY_STRESS_MAX_ACC = 0.30  # acc at the HIGHEST alpha must be < this (genuine above-capacity
+                                # stress); else degenerate-regime trap (acc=1.0 everywhere) = HARD_FAIL
 
 
 def hopfield_retrieve(Xi: np.ndarray, probe: np.ndarray, n_dim: int,
@@ -149,101 +153,108 @@ def run_seed(seed: int) -> Dict:
     rng = np.random.RandomState(seed)
     t0 = time.time()
 
-    # Write M_MAX patterns one by one, checkpoint every CHECKPOINT_EVERY
+    # Write all M_MAX patterns sequentially (continual writes from W=0), then evaluate
+    # retrieval accuracy on the FULL set-so-far at each pre-registered target alpha.
     Xi_all = np.empty((M_MAX, N), dtype=np.float64)
-    acc_curve = {}  # {alpha_str: acc}
-
     for m in range(M_MAX):
-        xi = rng.choice([-1.0, 1.0], size=N).astype(np.float64)
-        Xi_all[m] = xi
+        Xi_all[m] = rng.choice([-1.0, 1.0], size=N).astype(np.float64)
 
-        alpha = (m + 1) / N
-        if (m + 1) % CHECKPOINT_EVERY == 0 or (m + 1) == M_MAX:
-            acc = eval_retrieval_accuracy(Xi_all[:m + 1], N, N_TEST, rng)
-            alpha_key = f"{alpha:.3f}"
-            acc_curve[alpha_key] = acc
-            print(f"  [seed={seed}] M={m+1} alpha={alpha:.3f} acc={acc:.4f}", flush=True)
-
-    # Extract key alpha checkpoints
-    def acc_at_alpha(target_alpha):
-        """Find closest checkpoint to target alpha."""
-        best_key = None
-        best_dist = float('inf')
-        for key in acc_curve:
-            dist = abs(float(key) - target_alpha)
-            if dist < best_dist:
-                best_dist = dist
-                best_key = key
-        return acc_curve.get(best_key, 0.0) if best_key else 0.0
-
-    acc_5 = acc_at_alpha(ALPHA_5)
-    acc_10 = acc_at_alpha(ALPHA_10)
-    acc_15 = acc_at_alpha(ALPHA_15)
-    acc_20 = acc_at_alpha(ALPHA_20)
-
-    # Compute cliff slope between alpha=0.10 and alpha=0.15
-    delta_alpha = ALPHA_15 - ALPHA_10
-    cliff_slope = (acc_15 - acc_10) / delta_alpha if abs(delta_alpha) > 1e-6 else 0.0
+    acc_curve = {}  # {alpha_str: acc}
+    for a in TARGET_ALPHAS:
+        M_a = max(1, int(round(a * N)))
+        acc = eval_retrieval_accuracy(Xi_all[:M_a], N, N_TEST, rng)
+        acc_curve[f"{a:.3f}"] = float(acc)
+        print(f"  [seed={seed}] alpha={a:.3f} M={M_a} acc={acc:.4f}", flush=True)
 
     elapsed = time.time() - t0
-    print(f"  [seed={seed}] acc@a=0.05: {acc_5:.4f} acc@a=0.10: {acc_10:.4f} "
-          f"acc@a=0.15: {acc_15:.4f} acc@a=0.20: {acc_20:.4f} "
-          f"cliff_slope={cliff_slope:.4f} elapsed={elapsed:.2f}s", flush=True)
+    max_a = max(TARGET_ALPHAS)
+    print(f"  [seed={seed}] acc@max_alpha={max_a:.3f}: {acc_curve[f'{max_a:.3f}']:.4f} "
+          f"elapsed={elapsed:.2f}s", flush=True)
 
     return {
-        "seed": seed, "N": N, "run_mode": RUN_MODE,
-    "elapsed_s": time.time() - t0_total,
-    "summary": verdict_msg[:200],
-        "acc_alpha_005": float(acc_5),
-        "acc_alpha_010": float(acc_10),
-        "acc_alpha_015": float(acc_15),
-        "acc_alpha_020": float(acc_20),
-        "cliff_slope_010_015": float(cliff_slope),
-        "acc_curve": {k: float(v) for k, v in acc_curve.items()},
+        "seed": seed, "N": N, "run_mode": RUN_MODE, "M_MAX": M_MAX,
+        "target_alphas": TARGET_ALPHAS,
+        "acc_curve": acc_curve,
+        "acc_max_alpha": float(acc_curve[f"{max_a:.3f}"]),
         "elapsed_s": float(elapsed),
-        "hp1_pass": int(acc_5 >= HP_ACC_5),
-        "hp2_pass": int(acc_10 >= HP_ACC_10),
-        "hp3_pass": int(cliff_slope >= HP_CLIFF_SLOPE_MAX),
     }
 
 
 def compute_verdict(results: List[Dict]) -> tuple:
+    """v2 bands: find the forgetting cliff; honest-scope to the measured boundary X; guard the
+    degenerate-regime trap (acc high even far above capacity = not genuinely stress-tested)."""
     if not results:
-        return ("HARD_FAIL", "No valid results.")
+        return ("HARD_FAIL", "No valid results.", {})
 
-    def count_pass(key):
-        return sum(1 for r in results if r.get(key, 0))
+    alphas = TARGET_ALPHAS
+    keys = [f"{a:.3f}" for a in alphas]
+    mean_acc, std_acc = {}, {}
+    for a, k in zip(alphas, keys):
+        vs = [r["acc_curve"][k] for r in results if k in r.get("acc_curve", {})]
+        mean_acc[a] = float(np.mean(vs)) if vs else 0.0
+        std_acc[a] = float(np.std(vs)) if vs else 1.0
 
-    n = len(results)
-    hp1_c = count_pass("hp1_pass")
-    hp2_c = count_pass("hp2_pass")
-    hp3_c = count_pass("hp3_pass")
+    max_alpha = max(alphas)
+    acc_max = mean_acc[max_alpha]
 
-    def mean_key(k):
-        vs = [r[k] for r in results if k in r]
-        return float(sum(vs) / len(vs)) if vs else 0.0
+    # measured no-forgetting boundary X = largest CONTIGUOUS-from-smallest alpha with acc >= 0.60
+    X = None
+    for a in alphas:
+        if mean_acc[a] >= ACC_NOFORGET:
+            X = a
+        else:
+            break
+    cliff_found = any(mean_acc[a] < ACC_NOFORGET for a in alphas)         # acc drops somewhere in range
+    capacity_stress_ok = acc_max < CAPACITY_STRESS_MAX_ACC               # collapses far above capacity
+    # Seed-reproduce is scoped to the NO-FORGETTING REGION (where the cert claim lives) per the v2
+    # pre-reg ("bands within [.,alpha_cliff) ... ALL 5 seeds reproduce within +-0.05"). Cliff-EDGE
+    # variance is physically expected and is NOT part of the claim. Both region- and global-std are
+    # emitted + the judgment is flagged to Skunkworks at verdict-VET (no self-serving reinterpretation).
+    noforget_alphas = [a for a in alphas if mean_acc[a] >= ACC_NOFORGET]
+    region_max_std = max((std_acc[a] for a in noforget_alphas), default=0.0)
+    global_max_std = max(std_acc.values())
+    seeds_reproduce = region_max_std <= SEED_REPRO_TOL
+    seeds_disagree = region_max_std > SEED_DISAGREE_MAX
+    early_forget = any(mean_acc[a] < ACC_NOFORGET for a in alphas if a <= ALPHA_C)
+    catastrophic_5 = mean_acc[alphas[0]] < HF_ACC_5
 
-    a5 = mean_key("acc_alpha_005")
-    a10 = mean_key("acc_alpha_010")
-    a15 = mean_key("acc_alpha_015")
-    a20 = mean_key("acc_alpha_020")
-    slope = mean_key("cliff_slope_010_015")
+    summary = ("accs[" + " ".join(f"a{a:.3f}={mean_acc[a]:.3f}+-{std_acc[a]:.3f}" for a in alphas) + "] "
+               f"X={X} cliff_found={cliff_found} acc@max({max_alpha})={acc_max:.3f} "
+               f"capacity_stress_ok={capacity_stress_ok} region_std={region_max_std:.3f} "
+               f"global_std={global_max_std:.3f}")
+    detail = {
+        "mean_acc": {f"{a:.3f}": mean_acc[a] for a in alphas},
+        "std_acc": {f"{a:.3f}": std_acc[a] for a in alphas},
+        "no_forget_boundary_X": X, "cliff_found": cliff_found,
+        "capacity_stress_ok": capacity_stress_ok, "acc_max_alpha": acc_max,
+        "max_alpha_tested": max_alpha,
+        "region_max_std": region_max_std, "global_max_std": global_max_std,
+        "reproduce_scope_note": ("seed-reproduce scoped to no-forgetting region [smallest, X] per v2 "
+                                 "pre-reg; cliff-edge variance excluded. FLAG for Skunkworks verdict-VET: "
+                                 "if cert-owner requires GLOBAL reproduce<=0.05, this drops to MIDDLE_BAND."),
+        "honest_scope": (f"Hebbian continual-writes no-catastrophic-forgetting up to alpha={X} (measured)"
+                         if X is not None else "no no-forgetting region measured"),
+    }
 
-    summary = (f"acc@0.05={a5:.4f}(HP>={HP_ACC_5} HF<{HF_ACC_5}) "
-               f"acc@0.10={a10:.4f}(HP>={HP_ACC_10}) "
-               f"acc@0.15={a15:.4f} acc@0.20={a20:.4f} "
-               f"cliff_slope={slope:.4f}(HP>={HP_CLIFF_SLOPE_MAX}) "
-               f"hp1={hp1_c}/{n} hp2={hp2_c}/{n} hp3={hp3_c}/{n}")
-
-    if a5 < HF_ACC_5:
-        return ("HARD_FAIL", f"HARD_FAIL: catastrophic forgetting at alpha=0.05. {summary}")
-
-    GATE = max(4, n - 1) if n >= 4 else n
-    if hp1_c >= GATE and hp2_c >= GATE and hp3_c >= GATE:
-        return ("HARD_PASS", f"HARD_PASS: continual writes without catastrophic forgetting. {summary}")
-    if hp1_c >= GATE and hp2_c >= GATE:
-        return ("MIDDLE_BAND", f"MIDDLE_BAND: acc maintained but cliff detected. {summary}")
-    return ("MIDDLE_BAND", f"MIDDLE_BAND: {summary}")
+    if catastrophic_5:
+        return ("HARD_FAIL", f"HARD_FAIL: catastrophic forgetting at alpha={alphas[0]:.3f}. {summary}", detail)
+    if not capacity_stress_ok:
+        return ("HARD_FAIL",
+                f"HARD_FAIL: degenerate-regime trap -- acc stays >= {CAPACITY_STRESS_MAX_ACC} even at "
+                f"alpha={max_alpha:.3f} ({max_alpha/ALPHA_C:.1f}x Hopfield capacity); the writes are not "
+                f"genuinely above-capacity (thin/degenerate) so the no-forgetting claim is untested. {summary}", detail)
+    if seeds_disagree:
+        return ("HARD_FAIL", f"HARD_FAIL: seeds disagree in no-forget region (std {region_max_std:.3f} > {SEED_DISAGREE_MAX}). {summary}", detail)
+    if early_forget:
+        return ("HARD_FAIL", f"HARD_FAIL: real forgetting within capacity (acc<{ACC_NOFORGET} at alpha<=alpha_c={ALPHA_C}). {summary}", detail)
+    if X is not None and cliff_found and seeds_reproduce:
+        return ("HARD_PASS",
+                f"HARD_PASS: no catastrophic forgetting up to MEASURED boundary alpha={X}; cliff identified "
+                f"above it; capacity-stress verified (acc@{max_alpha:.3f}={acc_max:.3f}); seeds reproduce "
+                f"(std<={SEED_REPRO_TOL}). {summary}", detail)
+    return ("MIDDLE_BAND",
+            f"MIDDLE_BAND: cliff identified but retention weak ([{ACC_MIDDLE_LO},{ACC_NOFORGET})) or seed-repro "
+            f"loose (region std {region_max_std:.3f}). {summary}", detail)
 
 
 out_dir = get_output_dir(ANCHOR_NAME)
@@ -259,15 +270,19 @@ for s in seeds_todo:
 
 per_seed = aggregate_partials(out_dir, SEEDS)
 all_results = list(per_seed.values())
-verdict, verdict_msg = compute_verdict(all_results)
+verdict, verdict_msg, detail = compute_verdict(all_results)
 
 metrics = {
     "anchor": ANCHOR_NAME,
+    "anchor_name": ANCHOR_NAME,
     "verdict": verdict,
     "verdict_msg": verdict_msg,
     "n_seeds": len(all_results),
     "N": N,
     "run_mode": RUN_MODE,
+    "target_alphas": TARGET_ALPHAS,
+    "detail": detail,
+    "metrics_source": "measured_cpu_hopfield_continual_writes_cliff_sweep",
     "elapsed_s": time.time() - t0_total,
     "summary": verdict_msg[:200],
     "results": all_results,
