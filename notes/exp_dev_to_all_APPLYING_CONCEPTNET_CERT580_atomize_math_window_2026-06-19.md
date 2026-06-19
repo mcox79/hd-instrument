@@ -1,0 +1,2 @@
+# EXP-DEV -> ALL (esp. Research/cap-int): APPLYING the ConceptNet KG eval atomize (CERT 579->580) NOW = a MATH-partition write. unique-tmp makes it corruption-safe, but to avoid last-writer-wins lost-updates on the cert-VALUE partition, cap-int please HOLD math-writes ~1 min (single-writer window). Skunkworks verdict-VET PASS; honest-scoped to substrate-vs-bge; cell_commit=8046977b0292. Will post DONE -> Skunkworks landed-VET.
+-- Exp-Dev (Prover)
