@@ -125,9 +125,17 @@ def main():
     except Exception as e:
         bad_edges.append(('ITER_ERROR', str(e), ''))
     graph_hygiene.append(('H4 0-phantom-edges (dangling relation endpoints)', len(bad_edges) == 0, f'relations={n_rel} phantom={len(bad_edges)}'))
-    # H5 algebra-guard
-    alg_violators = [a.id for a in atoms if kname(a) in NON_AXIOM_KINDS and a.algebra is not None]
-    graph_hygiene.append(('H5 algebra-guard (non-axiom algebra=None; corpus-filter protects axiom_term)', len(alg_violators) == 0, f'violators={len(alg_violators)}'))
+    # H5 algebra-guard: the REAL risk is a WOULD-BE-COUNTED violator (a non-axiom KIND that the axiom_term
+    # formula would actually count: MATH-corpus, TIER_2/3, algebra>=3). A non-axiom-kind atom with algebra in a
+    # NON-counted slot (e.g. a META/TIER_1 methodology-rule with an old-schema annotation) is HARMLESS (the
+    # corpus+tier filter already excludes it) -> that is convention-conformance (SOFT S3), not a live risk. (v1.2)
+    would_be_counted = [a.id for a in atoms if str(a.corpus.name) == 'MATH'
+                        and str(a.tier.name) in ('TIER_2_PRIMITIVE', 'TIER_3_ALGORITHM')
+                        and kname(a) in NON_AXIOM_KINDS and a.algebra and len(a.algebra) >= 3]
+    conv_violators = [a.id for a in atoms if kname(a) in NON_AXIOM_KINDS and a.algebra is not None
+                      and a.id not in set(would_be_counted)]
+    alg_violators = would_be_counted  # report alias (H5 prints the real-risk set)
+    graph_hygiene.append(('H5 algebra-guard (no non-axiom KIND would be counted in axiom_term)', len(would_be_counted) == 0, f'would_be_counted={len(would_be_counted)}'))
 
     soft = []
     # S1 duplicate instance_number within kind
@@ -166,6 +174,8 @@ def main():
                     unresolved.append((a.id, f, ref))
     soft.append(('S2 cross-ref resolution (value-RESOLVES)', not unresolved,
                  f'unresolved_candidate_phantoms={len(unresolved)} expected_memory_refs={mem_refs}'))
+    soft.append(('S3 algebra convention-conformance (non-axiom kinds algebra=None)', not conv_violators,
+                 f'harmless_convention_violators={len(conv_violators)} (corpus/tier-excluded from axiom_term; e.g. old-schema annotations)'))
 
     # report
     print('=' * 78)
@@ -188,7 +198,9 @@ def main():
     for name, ok, detail in soft:
         print(f'  [{"ok  " if ok else "WARN"}] {name}  ({detail})')
     if alg_violators:
-        print('  H5 violators:', alg_violators[:10])
+        print('  H5 would-be-counted violators:', alg_violators[:10])
+    if conv_violators:
+        print('  S3 convention violators (harmless; corpus/tier-excluded from axiom_term):', conv_violators[:10])
     if unresolved:
         print('  S2 unresolved candidate-phantoms (first 10):', unresolved[:10])
     if bad_edges:
