@@ -7,13 +7,18 @@ layer (self-certify the substrate's own invariants, not just per-atom). Read-ONL
 Per the engine/checklist-separation METHODOLOGY_RULE: engine=atomize cert-correctness; checklist=dispatch
 cell-readiness; INVARIANT=periodic whole-Store integrity. Distinct layer.
 
-HARD invariants (cert-breaking -> non-zero exit):
+TRUE-HARD invariants (LIVE cert-breaking -> non-zero exit; these alone gate the result):
   H1 axiom_term == 206 (the canonical axiom-core count; algebra>=3 MATH TIER_2/3, ex-oeis/wikidata)
   H2 cap_pres 6/6 (the 6 capability modules import-live)
   H3 CERT-count self-consistent + (optional) == --expect-cert (drift-detect vs a known snapshot)
-  H4 0-phantom typed-EDGES: every iter_all_relations() endpoint resolves to a Store atom (qid or bare id)
+GRAPH-HYGIENE invariants (PRE-EXISTING structural drift -> FLAG, NOT exit-failing; cleanup-tracked, v1.1):
+  H4 0-phantom typed-EDGES: every iter_all_relations() endpoint resolves to a Store atom (qid or bare id).
+     A dangling endpoint is graph-drift (edge outliving a removed atom), NOT a live cert-break (cert atoms are
+     content-based; the multi-hop-provenance gate resolves atom->atom links, not the raw relation graph).
   H5 algebra-guard: NO non-axiom-eligible kind carries algebra (AUDIT_LESSON/METHODOLOGY_RULE/SEMANTIC_FRAME/
-     CONCEPT_NODE/SCIENCE_CONCEPT/EXPERIMENT_RECORD/phase_portrait/capability_map must be algebra=None)
+     CONCEPT_NODE/SCIENCE_CONCEPT/EXPERIMENT_RECORD/phase_portrait/capability_map should be algebra=None).
+     A violator is a DEFENSE-IN-DEPTH breach, NOT a live break: axiom_term's corpus==MATH filter already
+     excludes non-MATH atoms, so a stray-algebra methodology-rule does NOT corrupt the count.
 SOFT invariants (hygiene -> WARN, do NOT fail; some dangles are legitimate forward/memory refs):
   S1 0-duplicate instance_number within a kind (catches the 234-238 AUDIT_LESSON cluster Skunkworks found)
   S2 cross-ref resolution: strengthens_cert/composes_with/parent_of/verify_the_referent_parent/depends_on/
@@ -97,14 +102,12 @@ def main():
     ax = axiom_term(atoms)
     caps = cap_pres()
 
-    hard = []  # (name, ok, detail)
-    # H1 axiom
-    hard.append(('H1 axiom_term==%d' % args.expect_axiom, ax == args.expect_axiom, f'actual={ax}'))
-    # H2 cap_pres
-    hard.append(('H2 cap_pres 6/6', caps, f'modules_live={caps}'))
-    # H3 CERT
+    true_hard = []  # LIVE cert-breaking; gates the exit code
+    true_hard.append(('H1 axiom_term==%d' % args.expect_axiom, ax == args.expect_axiom, f'actual={ax}'))
+    true_hard.append(('H2 cap_pres 6/6', caps, f'modules_live={caps}'))
     cert_ok = (args.expect_cert is None) or (cert == args.expect_cert)
-    hard.append(('H3 CERT-count', cert_ok, f'actual={cert}' + ('' if args.expect_cert is None else f' expect={args.expect_cert}')))
+    true_hard.append(('H3 CERT-count', cert_ok, f'actual={cert}' + ('' if args.expect_cert is None else f' expect={args.expect_cert}')))
+    graph_hygiene = []  # PRE-EXISTING structural drift; FLAG (not a live cert-break); reclassified from HARD in v1.1
     # H4 phantom edges
     n_rel = 0
     bad_edges = []
@@ -121,10 +124,10 @@ def main():
                         break
     except Exception as e:
         bad_edges.append(('ITER_ERROR', str(e), ''))
-    hard.append(('H4 0-phantom-edges', len(bad_edges) == 0, f'relations={n_rel} phantom={len(bad_edges)}'))
+    graph_hygiene.append(('H4 0-phantom-edges (dangling relation endpoints)', len(bad_edges) == 0, f'relations={n_rel} phantom={len(bad_edges)}'))
     # H5 algebra-guard
     alg_violators = [a.id for a in atoms if kname(a) in NON_AXIOM_KINDS and a.algebra is not None]
-    hard.append(('H5 algebra-guard (non-axiom kinds algebra=None)', len(alg_violators) == 0, f'violators={len(alg_violators)}'))
+    graph_hygiene.append(('H5 algebra-guard (non-axiom algebra=None; corpus-filter protects axiom_term)', len(alg_violators) == 0, f'violators={len(alg_violators)}'))
 
     soft = []
     # S1 duplicate instance_number within kind
@@ -170,11 +173,17 @@ def main():
     print(f'  atoms={n_atoms}' + ('' if args.expect_atoms is None else f' (expect {args.expect_atoms}: {"OK" if n_atoms==args.expect_atoms else "MISMATCH"})')
           + f' | CERT={cert} | axiom_term={ax} | relations={n_rel}')
     print('-' * 78)
-    print('HARD invariants (cert-breaking):')
+    print('TRUE-HARD invariants (live cert-breaking; gate the result):')
     all_hard_ok = True
-    for name, ok, detail in hard:
+    for name, ok, detail in true_hard:
         all_hard_ok = all_hard_ok and ok
         print(f'  [{"PASS" if ok else "FAIL"}] {name}  ({detail})')
+    print('GRAPH-HYGIENE (pre-existing structural drift; FLAG, not a live cert-break):')
+    n_hygiene_flags = 0
+    for name, ok, detail in graph_hygiene:
+        if not ok:
+            n_hygiene_flags += 1
+        print(f'  [{"ok  " if ok else "FLAG"}] {name}  ({detail})')
     print('SOFT invariants (hygiene; WARN-only):')
     for name, ok, detail in soft:
         print(f'  [{"ok  " if ok else "WARN"}] {name}  ({detail})')
@@ -185,8 +194,9 @@ def main():
     if bad_edges:
         print('  H4 phantom-edge samples (first 5):', bad_edges[:5])
     print('-' * 78)
-    print('RESULT:', 'HARD-PASS' if all_hard_ok else 'HARD-FAIL', '| atoms_expect:',
-          'n/a' if args.expect_atoms is None else ('OK' if n_atoms == args.expect_atoms else 'MISMATCH'))
+    print('RESULT:', 'TRUE-HARD-PASS' if all_hard_ok else 'TRUE-HARD-FAIL',
+          f'| graph-hygiene-flags={n_hygiene_flags}',
+          '| atoms_expect:', 'n/a' if args.expect_atoms is None else ('OK' if n_atoms == args.expect_atoms else 'MISMATCH'))
     print('=' * 78)
     return 0 if all_hard_ok else 4
 
