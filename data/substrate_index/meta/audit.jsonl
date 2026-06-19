@@ -287,3 +287,4 @@
 {"ts": 1781845455.272765, "op": "update_atom", "target": "AUDIT_numbering_scheme_overload_time_drift_at_atomization", "note": "dup-reconcile inst 236->98", "source": "skunkworks_dup_reconcile_2026_06_19"}
 {"ts": 1781845455.272765, "op": "update_atom", "target": "AUDIT_substrate_canonical_field_pollution", "note": "dup-reconcile inst 237->99", "source": "skunkworks_dup_reconcile_2026_06_19"}
 {"ts": 1781847869.905292, "op": "add_atom", "target": "WRITEUP_substrate_as_reasoning_engine_v1_2026-06-19", "note": "Item-3 WRITEUP v1.2; Director-routed; Skunkworks v1.1 PASS + M1 multi-relation upgrade", "source": "exp_dev_writeup_v1p2_atomize_2026-06-19"}
+{"ts": 1781878580.2217722, "op": "update_atom", "target": "PORTRAIT_v1_2026-06-18", "note": "in-place v1->v2 schema_version + content-refresh (A5-safe)", "source": "exp_dev_phase_portrait_v2_patch_2026-06-19"}
