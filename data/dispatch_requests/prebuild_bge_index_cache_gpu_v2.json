@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "prebuild_bge_index_cache_gpu_v2",
-  "script": "experiments/exp_prebuild_bge_index_cache_gpu_v1.py",
-  "prereg": "notes/skunkworks_to_exp_dev_orch_A2_precache_item6_SCHEMA_VET_PASS_byte_equiv_apply_GO_2026-06-18.md",
-  "timeout_s": 10800,
-  "skip_smoke": false,
-  "authored_utc": "2026-06-19T00:55:39Z"
-}
