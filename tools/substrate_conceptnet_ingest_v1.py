@@ -36,6 +36,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path('.').resolve()))
 from backend.substrate_index.schema import RelationType
 
+DEVICE = "cpu"            # 7th BLOCKING checklist item (device-exercise, USER-caught 2026-06-18): this cell is PURE-CPU
+                          # (CSV parse + Store atom/edge writes; NO torch/bge -- the bge-KV pipeline is the SEPARATE
+                          # backend/kb/conceptnet_ingest.py). MUST route to cpu_queue, NOT a GPU runner (would be 0% util).
 DEFAULT_CSV = Path('data/conceptnet/assertions.csv')
 SHARD_ROOT = Path('data/conceptnet/cached_conceptnet')
 CHUNK = 100_000           # rows per shard (resume granularity)
@@ -363,6 +366,7 @@ def dry_run(csv_path: Path) -> int:
     print('CONCEPTNET INGEST -- DRY-RUN (no mutation) for Skunkworks SCHEMA-VET')
     print('=' * 78)
     ps = PartitionedStore(Path('data/substrate_index'))
+    print(f'DEVICE={DEVICE} (7th checklist item: PURE-CPU cell; route to cpu_queue, NOT a GPU runner).')
     print(f'SNAPSHOT: axiom_term={axiom_term_count(ps)} (206) | cap_pres={module_liveness_ok()} (6/6) | CERT={cert_count(ps)}')
     print(f'rel-map: {len(REL_MAP)} ConceptNet relations -> first-class rel_types (IsA->IS_A, PartOf->PART_OF, rest CN_*); unmapped -> SKIP (counted).')
     if not csv_path.exists():
