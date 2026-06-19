@@ -99,21 +99,47 @@ def manifest_gap(current_ids: set, ack_deletions: bool, write: bool):
             "n_floor_after": len(new_floor)}
 
 
-def run_snapshot(date: str, push: bool):
+def _prune_snapshots(keep_n: int):
+    """Keep only the last keep_n snapshots (the 2.4GB/run balloon guard; Orchestrator's NB)."""
+    snaps = sorted(SNAP_DIR.glob("substrate-*.tar.gz"), key=lambda p: p.name)
+    removed = []
+    for old in snaps[:-keep_n] if keep_n > 0 else []:
+        try:
+            old.unlink(); removed.append(old.name)
+        except Exception:
+            pass
+    return removed
+
+
+def run_snapshot(date: str, offmachine: bool, keep_n: int):
+    """LOCAL snapshot + prune-keep-N. OFF-MACHINE durability is the runner's NON-GIT step (scp/LFS), NEVER a git-push:
+    a 2.4GB tar git-pushed = GH001 (>100MB) = re-breaks the pipeline (the data_remote_pull.tar incident). The cron does
+    LOCAL snapshot + rotation; the runner does the off-machine copy via scp (hd_metrics_sync pattern) or git-LFS -- its lane."""
     SNAP_DIR.mkdir(parents=True, exist_ok=True)
     snap = SNAP_DIR / f"substrate-{date}.tar.gz"
+    # SCOPED snapshot = SOURCE-OF-TRUTH only (atoms.jsonl + relations.jsonl + small metadata). EXCLUDE the REGENERABLE
+    # caches: cached_indices/*.npz (~2.4GB bge embedding indices, rebuildable via rebuild_index_cached) + bench_reports/
+    # (regenerable). -> snapshot ~57MB source-of-truth (<100MB) -> git-PUSHABLE (no GH001; the 2.4GB-rebreak fix).
     try:
-        p = subprocess.run(["tar", "-czf", str(snap), "-C", str(REPO), "data/substrate_index"],
+        p = subprocess.run(["tar", "-czf", str(snap), "-C", str(REPO),
+                            "--exclude=data/substrate_index/cached_indices",
+                            "--exclude=data/substrate_index/bench_reports",
+                            "data/substrate_index"],
                            capture_output=True, text=True, timeout=600)
         ok = (p.returncode == 0 and snap.exists())
         size_mb = round(snap.stat().st_size / 1e6, 1) if snap.exists() else 0
-        out = {"snapshot_ok": ok, "path": str(snap.relative_to(REPO)), "size_mb": size_mb}
+        out = {"snapshot_ok": ok, "path": str(snap.relative_to(REPO)), "size_mb": size_mb,
+               "git_pushable": (size_mb < 100), "scope": "source-of-truth (atoms+relations+metadata); excludes regenerable cached_indices + bench_reports"}
     except Exception as e:
         return {"snapshot_ok": False, "note": f"tar error: {str(e)[:120]}"}
-    if push and ok:
-        # runner step: push the snapshot tar to origin/snapshots/ (orphan-ish branch). Best-effort; runner owns creds.
-        out["push_attempted"] = True
-        out["push_note"] = "push to origin/snapshots/ is the runner's step (Orchestrator push creds); script created the tar."
+    out["pruned"] = _prune_snapshots(keep_n)
+    out["kept_last_n"] = keep_n
+    out["offmachine_note"] = ("SCOPED snapshot (source-of-truth, excludes the 2.4GB regenerable cached_indices) is small "
+                              "(<100MB) -> SAFE to git-push to origin/snapshots OR scp (runner's step). The cron does LOCAL "
+                              "snapshot + prune-keep-N; the runner does the off-machine copy. (NEVER snapshot the full 2.4GB "
+                              "incl. cached_indices -> GH001 re-break.)")
+    if offmachine:
+        out["offmachine_requested"] = True
     return out
 
 
@@ -191,7 +217,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--dry-run", action="store_true", help="report only; no snapshot, no floor-advance write")
-    ap.add_argument("--push", action="store_true", help="attempt origin/snapshots push (runner step)")
+    ap.add_argument("--offmachine", action="store_true", help="mark off-machine durability requested (runner does the NON-GIT scp/LFS; the cron NEVER git-pushes a multi-GB tar -> GH001)")
+    ap.add_argument("--keep-snapshots", type=int, default=int(os.environ.get("HDLAB_KEEP_SNAPSHOTS", "7")), help="prune: keep only the last N local snapshots (2.4GB/run balloon guard)")
     ap.add_argument("--ack-deletions", action="store_true", help="human-ack: reset expected_floor to current (drops missing)")
     ap.add_argument("--check-remote", action="store_true", help="4th layer: ssh the remote consumer + verify HEAD==origin/main + 0-dirty (runner step; needs ssh access)")
     ap.add_argument("--remote-host", default=os.environ.get("HDLAB_REMOTE_HOST", "marsh@home"), help="remote consumer ssh host")
@@ -215,7 +242,7 @@ def main() -> int:
             pass
     inv = run_invariant_check(expect)
     gap = manifest_gap(current_ids, args.ack_deletions, write)
-    snap = run_snapshot(date, args.push) if write else {"snapshot_ok": None, "note": "dry-run: skipped"}
+    snap = run_snapshot(date, args.offmachine, args.keep_snapshots) if write else {"snapshot_ok": None, "note": "dry-run: skipped"}
     remote = remote_reconcile_state(args.check_remote, args.remote_host, args.remote_path)   # 4th layer
 
     hard_drift = (inv.get("ran") and inv.get("hard_pass") is False)
