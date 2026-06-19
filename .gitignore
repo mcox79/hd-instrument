@@ -103,3 +103,7 @@ data/session_heartbeat_*.json
 # v1 demo backend local env (api keys; NEVER commit)
 .env.local
 data/substrate_index/substrate_pos_tagger.npz
+
+# remote-pull artifacts (re-pullable) -- purged from history 2026-06-18; never re-commit
+data_remote_pull.tar
+data_remote_pull_staging/
