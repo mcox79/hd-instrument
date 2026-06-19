@@ -219,7 +219,9 @@ def classify_value(value, qids, bare, audit_atom_ids):
 
 
 def main():
-    lessons = list(load_atoms("audit_lesson"))
+    # Per Skunkworks 2026-06-19 close-sweep: extend reconcile to METHODOLOGY_RULE
+    # atoms (8 pre-existing phantoms; same treatment as AUDIT_LESSON).
+    lessons = list(load_atoms("audit_lesson")) + list(load_atoms("methodology_rule"))
     qids, bare, audit_atom_ids = load_qualified_ids()
 
     patches = {}
