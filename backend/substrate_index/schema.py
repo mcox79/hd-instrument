@@ -190,6 +190,16 @@ class AtomKind(enum.Enum):
                                                  # NOT be CERT_CHAIN_GRADE (INVENTORY_NON_CERT; points AT cert
                                                  # atoms, never itself cert-counted -> CERT unchanged). Measured-
                                                  # only-no-extrapolation cert-condition (LOAD-BEARING per Skunkworks).
+    CONCEPT_NODE = "concept_node"                # ConceptNet ARC-3 second-direction ingest (Item 4, 20h sprint;
+                                                 # 2026-06-18; apply DEFERRED until push-fix). One atom per ConceptNet
+                                                 # english concept (id=CN_<concept>, namespaced -> 0 cross-corpus id
+                                                 # collision; lemma-overlap with WordNet WN_/LEXICON EXPECTED, not a
+                                                 # collision). STRUCTURAL GUARDS (same as SEMANTIC_FRAME/SCIENCE_CONCEPT):
+                                                 # (a) NO algebra field -> excluded from axiom_term; (b)
+                                                 # provenance_quality=RESEARCH_FINDING (ingest tier; non-load-bearing
+                                                 # until cert-promoted). ConceptNet relations carried as FIRST-CLASS
+                                                 # rel_types (IsA->IS_A, PartOf->PART_OF, rest CN_*), NEVER metadata-
+                                                 # on-RELATES (the edge-metadata-drop lesson).
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
@@ -283,6 +293,38 @@ class RelationType(enum.Enum):
     FRAME_SEE_ALSO = "FRAME_SEE_ALSO"            # cross-reference between related frames (See_also)
     FRAME_REFRAMING_MAPPING = "FRAME_REFRAMING_MAPPING"  # ReFraming_Mapping (in nltk; scaffold's 8 omitted it)
     FRAME_METAPHOR = "FRAME_METAPHOR"            # Metaphor (in nltk; scaffold's 8 omitted it)
+    # ConceptNet ARC-3 second-direction ingest (Item 4, 20h sprint; 2026-06-18; apply DEFERRED until push-fix).
+    # ALL ConceptNet relations FIRST-CLASS (rel_types-as-first-class principle; NEVER metadata-on-RELATES -- the
+    # edge-metadata-drop lesson). IsA -> IS_A and PartOf -> PART_OF reuse the existing rel_types; the rest are CN_*.
+    CN_RELATED_TO = "CN_RELATED_TO"
+    CN_HAS_A = "CN_HAS_A"
+    CN_USED_FOR = "CN_USED_FOR"
+    CN_CAPABLE_OF = "CN_CAPABLE_OF"
+    CN_AT_LOCATION = "CN_AT_LOCATION"
+    CN_CAUSES = "CN_CAUSES"
+    CN_HAS_SUBEVENT = "CN_HAS_SUBEVENT"
+    CN_HAS_PREREQUISITE = "CN_HAS_PREREQUISITE"
+    CN_HAS_PROPERTY = "CN_HAS_PROPERTY"
+    CN_MOTIVATED_BY_GOAL = "CN_MOTIVATED_BY_GOAL"
+    CN_OBSTRUCTED_BY = "CN_OBSTRUCTED_BY"
+    CN_DESIRES = "CN_DESIRES"
+    CN_CREATED_BY = "CN_CREATED_BY"
+    CN_SYNONYM = "CN_SYNONYM"
+    CN_ANTONYM = "CN_ANTONYM"
+    CN_DISTINCT_FROM = "CN_DISTINCT_FROM"
+    CN_DERIVED_FROM = "CN_DERIVED_FROM"
+    CN_SYMBOL_OF = "CN_SYMBOL_OF"
+    CN_DEFINED_AS = "CN_DEFINED_AS"
+    CN_MANNER_OF = "CN_MANNER_OF"
+    CN_LOCATED_NEAR = "CN_LOCATED_NEAR"
+    CN_HAS_CONTEXT = "CN_HAS_CONTEXT"
+    CN_SIMILAR_TO = "CN_SIMILAR_TO"
+    CN_ETYMOLOGICALLY_RELATED_TO = "CN_ETYMOLOGICALLY_RELATED_TO"
+    CN_ETYMOLOGICALLY_DERIVED_FROM = "CN_ETYMOLOGICALLY_DERIVED_FROM"
+    CN_CAUSES_DESIRE = "CN_CAUSES_DESIRE"
+    CN_MADE_OF = "CN_MADE_OF"
+    CN_RECEIVES_ACTION = "CN_RECEIVES_ACTION"
+    CN_FORM_OF = "CN_FORM_OF"
 
 
 # ============================================================
