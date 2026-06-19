@@ -237,7 +237,14 @@ def check_timeout_floor(entry_name: str, timeout_s: int, purpose: str = "") -> N
 
 
 CHECKPOINT_IMPORT_RE = re.compile(
-    r'^\s*(?:from\s+_seed_checkpoint\b|import\s+_seed_checkpoint\b)',
+    # Recognize both bare (`from _seed_checkpoint import`) AND package-qualified
+    # (`from experiments._seed_checkpoint import`) forms -- the canonical repo-root
+    # import is `from experiments._seed_checkpoint import (...)`, which the old
+    # bare-only pattern false-rejected (PROT-021 false-positive on a genuinely
+    # checkpointed cell, 2026-06-19 q_b1). Optional `(?:[\w.]+\.)?` package prefix;
+    # still rejects cells that truly do not import the helper. Strengthens detection,
+    # does not weaken the safety floor.
+    r'^\s*(?:from\s+(?:[\w.]+\.)?_seed_checkpoint\b|import\s+(?:[\w.]+\.)?_seed_checkpoint\b)',
     re.MULTILINE,
 )
 PROT021_TIMEOUT_THRESHOLD_S = 14400  # 4h — anchors at/above this floor must checkpoint
