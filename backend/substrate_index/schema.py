@@ -733,15 +733,24 @@ def load_relations(path: Path) -> list[Relation]:
 
 
 def save_test_queries(qs: list[TestQuery], path: Path) -> None:
-    """Atomic write via temp + fsync + os.replace per Research Pattern 1."""
+    """Atomic write via UNIQUE-temp + fsync + os.replace per Research Pattern 1
+    (UNIQUE per-write tmp added 2026-06-19 -- same concurrent-save tmp-collision fix as save_atoms/save_relations;
+    completes the fix Store-wide: the last fixed-tmp site)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump([q.to_dict() for q in qs], f, indent=2, ensure_ascii=False)
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+    tmp = _unique_tmp(path)
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump([q.to_dict() for q in qs], f, indent=2, ensure_ascii=False)
+            f.flush()
+            os.fsync(f.fileno())
+        _atomic_replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
 
 
 def load_test_queries(path: Path) -> list[TestQuery]:
