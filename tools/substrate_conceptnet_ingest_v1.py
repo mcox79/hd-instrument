@@ -44,6 +44,23 @@ SHARD_ROOT = Path('data/conceptnet/cached_conceptnet')
 CHUNK = 100_000           # rows per shard (resume granularity)
 MIN_WEIGHT = 1.0          # ConceptNet assertion weight floor (drop low-confidence)
 
+# Option B (Director-decided 2026-06-19): remote-direct, self-contained acquisition. The cell wgets the canonical
+# ConceptNet 5.7 assertions gz if absent (cache-first + wget -c resumable -> the 6th-checklist long-cell pattern;
+# a dispatch-time network failure resumes from the partial, not from zero). License CC-BY-SA 4.0 (cite conceptnet5).
+CONCEPTNET_URL = 'https://s3.amazonaws.com/conceptnet/downloads/2019/edges/conceptnet-assertions-5.7.0.csv.gz'
+DEFAULT_GZ = Path('data/conceptnet/conceptnet-assertions-5.7.0.csv.gz')
+
+# Director-recommended LOAD-BEARING scope (the cap-int Track-B target; ~3-5M edges English-only). DEFAULT filter.
+# NotHasProperty is in Director's 17 but has NO RelationType yet (CN_NOT_HAS_PROPERTY absent) -> deferred to a vetted
+# schema-add; the other 16 all map. --all-rels uses the full REL_MAP (incl. commonsense-reasoning rels) -- FLAGGED to
+# Research as a scope question (HasSubevent/HasPrerequisite/Desires/CausesDesire are arguably load-bearing for the
+# knowledge_graph REASONING capability, not noise; default stays Director's conservative set pending their call).
+LOAD_BEARING_NAMES = frozenset({
+    'IsA', 'PartOf', 'HasA', 'UsedFor', 'Causes', 'HasProperty', 'AtLocation', 'CapableOf', 'MadeOf',
+    'DerivedFrom', 'RelatedTo', 'Synonym', 'Antonym', 'MannerOf', 'MotivatedByGoal', 'ReceivesAction',
+})
+SCOPE_LOAD_BEARING = True   # default; --all-rels sets False (use full REL_MAP)
+
 # ConceptNet relation name -> first-class RelationType. IsA/PartOf reuse existing; rest CN_*.
 REL_MAP = {
     'IsA': RelationType.IS_A, 'PartOf': RelationType.PART_OF,
@@ -94,6 +111,8 @@ def parse_row(line: str):
     if not s or not o:
         return None
     rn = rel_name(rel_uri)
+    if SCOPE_LOAD_BEARING and rn not in LOAD_BEARING_NAMES:
+        return None  # outside Director's load-bearing scope (default) -> SKIP (counted)
     rt = REL_MAP.get(rn)
     if rt is None:
         return None  # unmapped relation -> SKIP (counted), not coerced
@@ -117,6 +136,53 @@ def _csv_hash(path: Path) -> str:
     h.update(str(path).encode())
     h.update(str(path.stat().st_size).encode())
     return h.hexdigest()[:8]
+
+
+def acquire(csv_path: Path) -> Path:
+    """Option B (remote-direct, self-contained): return an existing CSV/gz, else wget the canonical gz (cache-first,
+    wget -c resumable -> partial-download survives a kill per the 6th-checklist long-cell pattern). Returns the resolved
+    readable path (_open_csv handles .gz transparently). No network call if a local copy already exists."""
+    import subprocess
+    if csv_path.exists():
+        return csv_path
+    if DEFAULT_GZ.exists():
+        return DEFAULT_GZ
+    DEFAULT_GZ.parent.mkdir(parents=True, exist_ok=True)
+    print(f'ACQUIRE (Option B): wget -c {CONCEPTNET_URL} -> {DEFAULT_GZ} (resumable; ~350MB)', flush=True)
+    # wget -c resumes a partial download; if wget is absent, fall back to curl -C -.
+    cmd_wget = ['wget', '-c', '-O', str(DEFAULT_GZ), CONCEPTNET_URL]
+    cmd_curl = ['curl', '-L', '-C', '-', '-o', str(DEFAULT_GZ), CONCEPTNET_URL]
+    for cmd in (cmd_wget, cmd_curl):
+        try:
+            rc = subprocess.call(cmd)
+            if rc == 0 and DEFAULT_GZ.exists() and DEFAULT_GZ.stat().st_size > 1_000_000:
+                print(f'  acquired {DEFAULT_GZ} ({DEFAULT_GZ.stat().st_size} bytes)', flush=True)
+                return DEFAULT_GZ
+        except FileNotFoundError:
+            continue  # tool not on PATH; try the next
+    raise RuntimeError(f'ACQUIRE failed: neither wget nor curl fetched {CONCEPTNET_URL}. '
+                       f'Place the gz at {DEFAULT_GZ} manually (Option A fallback).')
+
+
+def cell_commit() -> str:
+    """Run-time git HEAD (corpus-provenance pin; the A2 v6 lesson). 'UNKNOWN' if git unavailable."""
+    import subprocess
+    try:
+        out = subprocess.check_output(['git', 'rev-parse', 'HEAD'], stderr=subprocess.DEVNULL)
+        return out.decode().strip()[:12]
+    except Exception:
+        return 'UNKNOWN'
+
+
+def substrate_id_hash(ps) -> str:
+    """Deterministic content-identity hash of the Store (sorted atom ids + count). Surfaces the substrate-id the A2 v6
+    cell left None (Skunkworks's cell-hardening follow-on). cache<->corpus correspondence anchor."""
+    ids = sorted(str(a.id) for a in ps.all_atoms())
+    h = hashlib.sha256()
+    h.update(str(len(ids)).encode())
+    for i in ids:
+        h.update(i.encode()); h.update(b'\n')
+    return h.hexdigest()[:12]
 
 
 def _shard_dir(path: Path) -> Path:
@@ -236,8 +302,10 @@ def apply_run(csv_path: Path) -> int:
     from backend.substrate_index.partition import PartitionedStore
     from backend.substrate_index.schema import Corpus, Relation, save_atoms
     import os
-    if not csv_path.exists():
-        print(f'APPLY blocked: ConceptNet CSV not found at {csv_path} (data-acquisition precursor; see --dry-run).'); return 5
+    commit = cell_commit()
+    print(f'CELL_COMMIT={commit} | scope={"load_bearing(16)" if SCOPE_LOAD_BEARING else "all_rels(full REL_MAP)"} '
+          f'| DEVICE={DEVICE} (cpu_queue)', flush=True)
+    csv_path = acquire(csv_path)   # Option B: fetch-if-absent (cache-first, resumable), else use existing
     print(f'STEP 1/3 chunk+shard (resume-aware) from {csv_path} ...', flush=True)
     pr = process_csv(csv_path)
     print(f'  chunks={pr["n_chunks"]} processed={pr["processed"]} skipped(resumed)={pr["skipped"]}', flush=True)
@@ -248,6 +316,8 @@ def apply_run(csv_path: Path) -> int:
     ps = PartitionedStore(Path('data/substrate_index'))
     pre_axiom = axiom_term_count(ps); pre_mod = module_liveness_ok(); pre_cert = cert_count(ps)
     pre_atoms = len(list(ps.all_atoms()))
+    pre_sid = substrate_id_hash(ps)        # corpus-identity pin (A2 v6 hardening lesson)
+    print(f'PRE: substrate_id_hash={pre_sid} atoms={pre_atoms} axiom={pre_axiom} cert={pre_cert}', flush=True)
     if not pre_mod or pre_axiom != 206:
         print('PRE-GATE FAIL. Halt.'); return 1
     cs = ps._store_for(Corpus.CONCEPT)
@@ -288,9 +358,30 @@ def apply_run(csv_path: Path) -> int:
     gate_ok = (post_axiom == 206 and post_mod and post_cert == pre_cert and atoms_present and edges_present)
     print(f'POST: axiom_term={post_axiom} cap_pres={post_mod} CERT={post_cert} (unchanged from {pre_cert}) '
           f'atoms_present={atoms_present} edges_present={edges_present} edge_added={edge_added}')
+    post_sid = substrate_id_hash(ps3)
+    # metrics OUT honors HDLAB_EXP_NAME (2nd checklist item) + 4 required fields (run_mode/metrics_source/anchor/verdict).
+    exp_name = os.environ.get('HDLAB_EXP_NAME', 'substrate_conceptnet_ingest_v1')
+    metrics = {
+        'anchor': exp_name, 'run_mode': 'full', 'metrics_source': 'measured_curated_kb_deterministic',
+        'verdict': 'INGESTED' if gate_ok else 'HARD_FAIL',
+        'cell_commit': commit, 'substrate_id_hash_pre': pre_sid, 'substrate_id_hash_post': post_sid,
+        'scope': 'load_bearing_16' if SCOPE_LOAD_BEARING else 'all_rels_full',
+        'n_concept_atoms_intended': len(intended_atoms), 'n_concept_atoms_added': len(intended_atoms),
+        'n_edges_added': edge_added, 'n_edges_intended': len(intended_edges),
+        'pre_atoms': pre_atoms, 'post_axiom_term': post_axiom, 'cap_pres_6_6': post_mod,
+        'cert_pre': pre_cert, 'cert_post': post_cert, 'cert_unchanged': post_cert == pre_cert,
+        'atoms_present': atoms_present, 'edges_present': edges_present, 'min_weight': MIN_WEIGHT,
+        'source': 'conceptnet_5.7_en', 'license': 'CC-BY-SA-4.0',
+    }
+    out_dir = Path(os.environ.get('HDLAB_OUT_DIR', 'data'))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f'{exp_name}_metrics.json'
+    out_path.write_text(json.dumps(metrics, indent=2), encoding='utf-8')
+    print(f'metrics -> {out_path}', flush=True)
     if not gate_ok:
         print('HARD_FAIL: post-gate failed.'); return 2
-    print(f'CONCEPTNET INGEST complete: +{len(intended_atoms)} CONCEPT_NODE atoms + {edge_added} first-class edges | axiom 206 | cap_pres 6/6 | CERT {post_cert} unchanged')
+    print(f'CONCEPTNET INGEST complete: +{len(intended_atoms)} CONCEPT_NODE atoms + {edge_added} first-class edges | '
+          f'axiom 206 | cap_pres 6/6 | CERT {post_cert} unchanged | substrate_id_hash {pre_sid}->{post_sid} | commit {commit}')
     return 0
 
 
@@ -400,9 +491,14 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--csv', default=str(DEFAULT_CSV))
     ap.add_argument('--apply', action='store_true')
+    ap.add_argument('--all-rels', action='store_true',
+                    help='use the full REL_MAP (incl. commonsense-reasoning rels); default = Director load-bearing 16')
     ap.add_argument('--self-test', action='store_true')
     ap.add_argument('--resume-test', action='store_true')
     args = ap.parse_args()
+    if args.all_rels:
+        global SCOPE_LOAD_BEARING
+        SCOPE_LOAD_BEARING = False
     if args.self_test:
         return self_test()
     if args.resume_test:
