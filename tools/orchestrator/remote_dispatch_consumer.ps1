@@ -136,9 +136,13 @@ try {
                     Write-Log ("GIT reset to origin/main $originHead")
                 }
             } else {
-                # Behind only; just ff
-                & git merge --ff-only origin/main 2>&1 | Out-Null
-                Write-Log ("GIT ff'd $behindCount commit(s) from origin/main")
+                # Behind only (ahead=0 -> no local commits to lose): reset --hard, NOT ff-merge.
+                # ff-merge FAILS when the working tree has uncommitted experiment-output churn
+                # ("would be overwritten") -> the remote silently stays behind forever. reset --hard
+                # is robust (discards re-derivable churn) and matches the behind-only-reset intent.
+                # (staleness-sweep consumer-arch fix 2026-06-19; pairs with core.longpaths)
+                & git reset --hard origin/main 2>&1 | Out-Null
+                Write-Log ("GIT reset --hard to origin/main (behind-only, $behindCount commit(s))")
             }
         }
     } catch {
