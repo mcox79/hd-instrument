@@ -61,6 +61,15 @@ LOAD_BEARING_NAMES = frozenset({
 })
 SCOPE_LOAD_BEARING = True   # default; --all-rels sets False (use full REL_MAP)
 
+# Bounded-v1 (Skunkworks ruling 2026-06-19): prove the knowledge_graph capability cert-grade at a KNOWN/manageable
+# scale (Store grows 3-8x not 30x) BEFORE a deliberate full-scale v1.1. Three principled levers (all default-OFF =
+# the SCHEMA-VET'd full-ingest behavior). + HELDOUT_FRAC reserves a DETERMINISTIC never-ingested split for the
+# firewall-#3 capability eval (split-before-ingest; held-out edges are EXCLUDED from the Store + written to a
+# firewalled file). The capability eval (cert-claim) tests inference-transfer on those never-seen edges.
+MAX_EDGES = 0               # 0 = no cap; >0 = keep top-N by WEIGHT (principled, not first-N; stable key tiebreak)
+HELDOUT_FRAC = 0.0          # 0 = ingest all; >0 = reserve this frac (deterministic hash) as never-ingested held-out
+HELDOUT_PATH = Path('data/conceptnet/heldout_edges.jsonl')   # firewalled; NEVER ingested; for the firewall-#3 eval
+
 # ConceptNet relation name -> first-class RelationType. IsA/PartOf reuse existing; rest CN_*.
 REL_MAP = {
     'IsA': RelationType.IS_A, 'PartOf': RelationType.PART_OF,
@@ -122,7 +131,7 @@ def parse_row(line: str):
         w = 1.0
     if w < MIN_WEIGHT:
         return None
-    return (s, rt, o)
+    return (s, rt, o, w)
 
 
 def _open_csv(path: Path):
@@ -190,12 +199,12 @@ def _shard_dir(path: Path) -> Path:
 
 
 def _chunk_to_records(rows):
-    """rows: list[(s, rt, o)] -> ({concept,...}, [(s_id, rel, o_id),...]) for the chunk."""
+    """rows: list[(s, rt, o, w)] -> ({concept,...}, [(s_id, rel, o_id, w),...]) for the chunk (weight kept for top-by-weight)."""
     concepts = set()
     edges = []
-    for (s, rt, o) in rows:
+    for (s, rt, o, w) in rows:
         concepts.add(s); concepts.add(o)
-        edges.append((cn_id(s), rt.value, cn_id(o)))
+        edges.append((cn_id(s), rt.value, cn_id(o), w))
     return concepts, edges
 
 
@@ -253,16 +262,37 @@ def _row_generator(path: Path):
 
 
 def assemble(shard_dir: Path):
-    """Load all shards -> dedup concepts + edges. Returns (concepts:set, edges:set)."""
-    concepts = set()
-    edges = set()
+    """Load all shards -> dedup edges by (s,r,o) keeping MAX weight. Returns (edge_w:dict{(s,r,o):w}, n_shards).
+    (concepts are derived from the FINAL ingested edges in apply_run, AFTER the bounded-v1 cap + held-out reserve.)"""
+    edge_w = {}
     shards = sorted(shard_dir.glob('chunk_*.jsonl'), key=lambda p: int(p.stem.split('_')[1]))
     for sp in shards:
         d = json.loads(sp.read_text(encoding='utf-8'))
-        concepts.update(d['concepts'])
-        for (s, r, o) in d['edges']:
-            edges.add((s, r, o))
-    return concepts, edges, len(shards)
+        for rec in d['edges']:
+            s, r, o = rec[0], rec[1], rec[2]
+            w = rec[3] if len(rec) > 3 else 1.0   # back-compat with any pre-weight shards
+            k = (s, r, o)
+            if w > edge_w.get(k, -1.0):
+                edge_w[k] = w
+    return edge_w, len(shards)
+
+
+def _select_and_reserve(edge_w):
+    """Bounded-v1 (Skunkworks ruling): apply MAX_EDGES (top-by-WEIGHT, principled) then HELDOUT_FRAC (deterministic
+    hash reserve -> NEVER ingested). Returns (ingest:set[(s,r,o)], heldout:set[(s,r,o)]). Deterministic (11th-rule)."""
+    items = list(edge_w.items())                          # [((s,r,o), w), ...]
+    if MAX_EDGES and len(items) > MAX_EDGES:
+        items.sort(key=lambda kv: (-kv[1], kv[0]))        # top-by-weight; stable key tiebreak (NOT arbitrary first-N)
+        items = items[:MAX_EDGES]
+    selected = {k for (k, _w) in items}
+    heldout = set()
+    if HELDOUT_FRAC and HELDOUT_FRAC > 0.0:
+        thresh = int(HELDOUT_FRAC * 10000)
+        for k in selected:
+            hh = int(hashlib.sha256('|'.join(k).encode()).hexdigest(), 16)
+            if (hh % 10000) < thresh:                     # deterministic split-before-ingest (firewall #3a)
+                heldout.add(k)
+    return (selected - heldout), heldout
 
 
 # ---------------- Store apply (DEFERRED until push-fix) ----------------
@@ -290,10 +320,12 @@ def cert_count(ps) -> int:
     return sum(1 for a in ps.all_atoms() if (a.metadata or {}).get('provenance_quality') == 'CERT_CHAIN_GRADE')
 
 
-def _make_atom(concept: str):
+def _make_atom(cnid: str):
+    """cnid = 'CN_<concept_underscored>'. name = round-tripped concept (CN_ice_cream -> 'ice cream')."""
     from backend.substrate_index.schema import Atom, AtomKind, Corpus, Tier
-    return Atom(id=cn_id(concept), name=concept, corpus=Corpus.CONCEPT, tier=Tier.TIER_NA,
-                kind=AtomKind.CONCEPT_NODE, description=f'ConceptNet english concept: {concept}',
+    name = cnid[3:].replace('_', ' ') if cnid.startswith('CN_') else cnid
+    return Atom(id=cnid, name=name, corpus=Corpus.CONCEPT, tier=Tier.TIER_NA,
+                kind=AtomKind.CONCEPT_NODE, description=f'ConceptNet english concept: {name}',
                 metadata={'provenance_quality': 'RESEARCH_FINDING', 'relevance_tier': 'ACTIVE',
                           'source': 'conceptnet_5.7_en', 'term_class': 'CONCEPT_NODE'})
 
@@ -309,9 +341,23 @@ def apply_run(csv_path: Path) -> int:
     print(f'STEP 1/3 chunk+shard (resume-aware) from {csv_path} ...', flush=True)
     pr = process_csv(csv_path)
     print(f'  chunks={pr["n_chunks"]} processed={pr["processed"]} skipped(resumed)={pr["skipped"]}', flush=True)
-    print('STEP 2/3 assemble shards ...', flush=True)
-    concepts, edges, n_sh = assemble(pr['shard_dir'])
-    print(f'  assembled {len(concepts)} concepts + {len(edges)} edges from {n_sh} shards', flush=True)
+    print('STEP 2/3 assemble shards + bounded-v1 select/reserve ...', flush=True)
+    edge_w, n_sh = assemble(pr['shard_dir'])
+    ingest_edges, heldout_edges = _select_and_reserve(edge_w)
+    print(f'  assembled {len(edge_w)} unique edges from {n_sh} shards | min_weight={MIN_WEIGHT} max_edges={MAX_EDGES or "off"} '
+          f'-> INGEST {len(ingest_edges)} + HELDOUT-reserved {len(heldout_edges)} (frac {HELDOUT_FRAC})', flush=True)
+    if heldout_edges:                                    # firewall #3a: never-ingested split written firewalled
+        HELDOUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(HELDOUT_PATH, 'w', encoding='utf-8') as f:
+            for (s, r, o) in sorted(heldout_edges):
+                f.write(json.dumps({'src': s, 'rel': r, 'tgt': o}) + '\n')
+        print(f'  HELD-OUT {len(heldout_edges)} edges -> {HELDOUT_PATH} (FIREWALLED; NEVER ingested; for the firewall-#3 capability eval)', flush=True)
+    # concepts derived from the FINAL ingested edge endpoints (post cap + reserve) -> CN_ ids
+    concepts = set()
+    for (s, r, o) in ingest_edges:
+        concepts.add(s); concepts.add(o)
+    edges = ingest_edges
+    print(f'  -> {len(concepts)} concept-atoms + {len(edges)} edges to ingest', flush=True)
     print('STEP 3/3 Store apply (batched single-flush + gates) ...', flush=True)
     ps = PartitionedStore(Path('data/substrate_index'))
     pre_axiom = axiom_term_count(ps); pre_mod = module_liveness_ok(); pre_cert = cert_count(ps)
@@ -321,15 +367,16 @@ def apply_run(csv_path: Path) -> int:
     if not pre_mod or pre_axiom != 206:
         print('PRE-GATE FAIL. Halt.'); return 1
     cs = ps._store_for(Corpus.CONCEPT)
-    # 0-collision: a CN_ id already present under a DIFFERENT kind = collision (namespaced -> should be none)
+    # 0-collision: a CN_ id already present under a DIFFERENT kind = collision (namespaced -> should be none).
+    # concepts are already CN_ ids (derived from final ingested edges) -> use directly (NOT cn_id(c) = double-prefix).
     from backend.substrate_index.schema import AtomKind
-    collisions = [c for c in concepts if cn_id(c) in cs._by_id and cs._by_id[cn_id(c)].kind != AtomKind.CONCEPT_NODE]
+    collisions = [c for c in concepts if c in cs._by_id and cs._by_id[c].kind != AtomKind.CONCEPT_NODE]
     if collisions:
         print(f'HARD_FAIL: {len(collisions)} CN_ id collisions with non-CONCEPT_NODE atoms (e.g. {collisions[:3]}). Halt.'); return 6
-    intended_atoms = {cn_id(c) for c in concepts}
+    intended_atoms = set(concepts)
     intended_edges = set(edges)
     for c in sorted(concepts):                                  # batched _index_atom (NOT per-atom add_atom)
-        if cn_id(c) not in cs._by_id:
+        if c not in cs._by_id:
             cs._index_atom(_make_atom(c))
     for attempt in range(12):
         try:
@@ -371,6 +418,8 @@ def apply_run(csv_path: Path) -> int:
         'pre_atoms': pre_atoms, 'post_axiom_term': post_axiom, 'cap_pres_6_6': post_mod,
         'cert_pre': pre_cert, 'cert_post': post_cert, 'cert_unchanged': post_cert == pre_cert,
         'atoms_present': atoms_present, 'edges_present': edges_present, 'min_weight': MIN_WEIGHT,
+        'max_edges': MAX_EDGES, 'heldout_frac': HELDOUT_FRAC, 'n_heldout_reserved': len(heldout_edges),
+        'heldout_path': str(HELDOUT_PATH) if heldout_edges else None,
         'source': 'conceptnet_5.7_en', 'license': 'CC-BY-SA-4.0',
     }
     out_dir = Path(os.environ.get('HDLAB_OUT_DIR', 'data'))
@@ -400,14 +449,32 @@ def self_test() -> int:
     parsed = [parse_row(r) for r in rows]
     kept = [p for p in parsed if p is not None]
     ok = (len(kept) == 3
-          and kept[0] == ('dog', RelationType.IS_A, 'animal')
-          and kept[1] == ('knife', RelationType.CN_USED_FOR, 'cut')
-          and kept[2] == ('wheel', RelationType.PART_OF, 'car')
+          and kept[0][:3] == ('dog', RelationType.IS_A, 'animal') and kept[0][3] == 2.0
+          and kept[1][:3] == ('knife', RelationType.CN_USED_FOR, 'cut')
+          and kept[2][:3] == ('wheel', RelationType.PART_OF, 'car')
           and cn_id('used for') == 'CN_used_for')
     c, e = _chunk_to_records(kept)
-    # concepts = {dog, animal, knife, cut, wheel, car} = 6 distinct
-    ok = ok and (len(c) == 6 and len(e) == 3 and ('CN_dog', 'IS_A', 'CN_animal') in e)
-    print(f'[conceptnet_ingest] --self-test {"OK" if ok else "FAIL"} (parse/map/en-filter/unmapped-skip/low-weight-drop/atom-id; kept={len(kept)}/6, concepts={len(c)}, edges={len(e)}); NO Store mutation.')
+    # concepts = {dog, animal, knife, cut, wheel, car} = 6 distinct; edges carry weight (4-tuple)
+    ok = ok and (len(c) == 6 and len(e) == 3 and ('CN_dog', 'IS_A', 'CN_animal', 2.0) in e)
+    # bounded-v1 select/reserve: top-by-weight cap + deterministic held-out reserve
+    global MAX_EDGES, HELDOUT_FRAC
+    sv_max, sv_ho = MAX_EDGES, HELDOUT_FRAC
+    try:
+        edge_w = {('CN_a', 'IS_A', 'CN_b'): 3.0, ('CN_c', 'IS_A', 'CN_d'): 1.0, ('CN_e', 'IS_A', 'CN_f'): 2.0}
+        MAX_EDGES, HELDOUT_FRAC = 2, 0.0
+        ing, ho = _select_and_reserve(edge_w)        # top-2 by weight = {a-b(3.0), e-f(2.0)}; c-d(1.0) dropped
+        cap_ok = (ing == {('CN_a', 'IS_A', 'CN_b'), ('CN_e', 'IS_A', 'CN_f')} and len(ho) == 0)
+        MAX_EDGES, HELDOUT_FRAC = 0, 0.5
+        ing2, ho2 = _select_and_reserve(edge_w)      # deterministic split; ingest+heldout partition the 3 edges
+        res_ok = (len(ing2) + len(ho2) == 3 and ing2.isdisjoint(ho2))
+        ing2b, ho2b = _select_and_reserve(edge_w)    # determinism: same split on re-run
+        det_ok = (ing2 == ing2b and ho2 == ho2b)
+    finally:
+        MAX_EDGES, HELDOUT_FRAC = sv_max, sv_ho
+    ok = ok and cap_ok and res_ok and det_ok
+    print(f'[conceptnet_ingest] --self-test {"OK" if ok else "FAIL"} (parse/map/en-filter/unmapped-skip/low-weight-drop/atom-id/'
+          f'weight-kept; top-by-weight cap={cap_ok}; heldout-reserve partition={res_ok}; determinism={det_ok}; kept={len(kept)}/6, '
+          f'concepts={len(c)}, edges={len(e)}); NO Store mutation.')
     return 0 if ok else 1
 
 
@@ -424,7 +491,7 @@ def resume_test() -> int:
     # 15 synthetic parsed rows -> 5 chunks of 3
     def gen_all():
         for i in range(15):
-            yield (f'c{i}', RelationType.IS_A, f'c{i+1}')
+            yield (f'c{i}', RelationType.IS_A, f'c{i+1}', 1.0)
     try:
         # run 1: process only first 2 chunks (simulate death after chunk 1)
         def gen_partial():
@@ -439,12 +506,12 @@ def resume_test() -> int:
         # run 2 (RESUME): full iter -> skip 2 existing, process remaining 3
         r2 = process_csv(fake_csv, row_iter=gen_all(), verbose=False)
         after2 = len(list(_shard_dir(fake_csv).glob('chunk_*.jsonl')))
-        concepts, edges, n_sh = assemble(_shard_dir(fake_csv))
+        edge_w, n_sh = assemble(_shard_dir(fake_csv))
         ok = (after1 == 2 and after2 == 5 and r2['skipped'] == 2 and r2['processed'] == 3
-              and n_sh == 5 and len(edges) == 15)
+              and n_sh == 5 and len(edge_w) == 15)
         print(f'[conceptnet_ingest] --resume-test {"OK" if ok else "FAIL"}: run1 wrote {after1} shards (died); '
               f'run2 RESUMED skip={r2["skipped"]} process={r2["processed"]} -> {after2} shards; '
-              f'assembled {len(concepts)} concepts/{len(edges)} edges. (demonstrated resume, not asserted.)')
+              f'assembled {len(edge_w)} unique edges. (demonstrated resume, not asserted.)')
         return 0 if ok else 1
     finally:
         SHARD_ROOT, CHUNK = saved_root, saved_chunk
@@ -465,6 +532,8 @@ def dry_run(csv_path: Path) -> int:
     print('ACQUISITION: Option B (Director-decided) -- cell wgets ' + CONCEPTNET_URL + ' if absent (cache-first, wget -c resumable).')
     print('WRITE-PATH: Atom-construction (_make_atom -> _index_atom -> save_atoms to_dict) + fresh-Store all_atoms() LOAD gate')
     print('            -> SAFE under Skunkworks write-hold refinement (Atom-construction NEW-ATOM-ADDS allowed; only raw-JSONL-append held).')
+    print(f'BOUNDED-V1 (Skunkworks ruling): min_weight={MIN_WEIGHT} | max_edges={MAX_EDGES or "off"} (top-by-WEIGHT) | '
+          f'heldout_frac={HELDOUT_FRAC} -> never-ingested reserve for the firewall-#3 capability eval (split-before-ingest).')
     print('PROVENANCE: cell_commit + substrate_id_hash (pre/post) recorded at run-time (A2 v6 hardening lesson).')
     print('FIREWALL (cert-condition, ROUTED to Skunkworks SCHEMA-VET): ConceptNet ingest is reference-KB (NEW knowledge_graph')
     print('            corpus, RESEARCH_FINDING tier, CERT-unchanged); the knowledge_graph CAPABILITY eval must use a held-out')
@@ -500,12 +569,22 @@ def main() -> int:
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--all-rels', action='store_true',
                     help='use the full REL_MAP (incl. commonsense-reasoning rels); default = Director load-bearing 16')
+    ap.add_argument('--min-weight', type=float, default=None,
+                    help='ConceptNet weight floor (bounded-v1 high-confidence subset, e.g. 2.0); default 1.0')
+    ap.add_argument('--max-edges', type=int, default=0,
+                    help='bounded-v1: keep top-N edges by WEIGHT (0=no cap; principled, not first-N)')
+    ap.add_argument('--heldout-frac', type=float, default=0.0,
+                    help='firewall #3a: reserve this frac (deterministic hash) as NEVER-ingested held-out for the capability eval')
     ap.add_argument('--self-test', action='store_true')
     ap.add_argument('--resume-test', action='store_true')
     args = ap.parse_args()
+    global SCOPE_LOAD_BEARING, MIN_WEIGHT, MAX_EDGES, HELDOUT_FRAC
     if args.all_rels:
-        global SCOPE_LOAD_BEARING
         SCOPE_LOAD_BEARING = False
+    if args.min_weight is not None:
+        MIN_WEIGHT = args.min_weight
+    MAX_EDGES = args.max_edges
+    HELDOUT_FRAC = args.heldout_frac
     if args.self_test:
         return self_test()
     if args.resume_test:
