@@ -12,6 +12,8 @@ from __future__ import annotations
 import enum
 import os
 import json
+import time
+import itertools
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -629,22 +631,56 @@ class QueryResult:
 # ============================================================
 
 
+_save_tmp_seq = itertools.count()
+
+
+def _unique_tmp(path: Path) -> Path:
+    """UNIQUE temp path per write (pid + monotonic counter) so CONCURRENT save_atoms/save_relations on the SAME
+    partition write DISTINCT tmps -> os.replace = last-writer-wins, NEVER an interleaved/NULL-corrupted SHARED tmp.
+    Root-cause fix for the 2026-06-19 concept-partition corruption (two save_atoms(concept) -- bulk ingest + cap-int --
+    both wrote concept/atoms.jsonl.tmp -> interleave -> NULL seam -> Store unloadable). Deterministic naming; no
+    randomness. pid disambiguates processes; the per-process counter disambiguates concurrent same-process calls."""
+    return path.with_suffix(path.suffix + f".tmp.{os.getpid()}.{next(_save_tmp_seq)}")
+
+
+def _atomic_replace(tmp: Path, path: Path) -> None:
+    """os.replace with a bounded retry. On Windows os.replace raises PermissionError (WinError 5/32) if the target is
+    momentarily open by a concurrent reader/writer; retry briefly. The unique-tmp ALREADY prevents corruption -- this
+    only prevents a transient lock from RAISING under concurrency (last-writer-wins). Raises if still locked after the
+    bound (a genuine persistent lock, not transient)."""
+    for attempt in range(20):
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError:
+            if attempt == 19:
+                raise
+            time.sleep(0.02 * (attempt + 1))
+
+
 def save_atoms(atoms: list[Atom], path: Path) -> None:
-    """Atomic write via temp + fsync + os.replace per Research Pattern 1
+    """Atomic write via UNIQUE-temp + fsync + os.replace per Research Pattern 1
     (write-tmp + fsync + os.replace; production-database standard).
     Solves recurring JSONDecodeError race in concurrent readers during ingest
     bursts. Original fix commit 56ff427e (lost across worktree split);
     re-applied a5acfc36; fsync added per atomic-write-shard-swap routing
-    2026-06-13."""
+    2026-06-13; UNIQUE per-write tmp added 2026-06-19 (concurrent-save tmp-collision root-cause fix)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        for a in atoms:
-            f.write(json.dumps(a.to_dict(), ensure_ascii=False) + "\n")
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+    tmp = _unique_tmp(path)
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            for a in atoms:
+                f.write(json.dumps(a.to_dict(), ensure_ascii=False) + "\n")
+            f.flush()
+            os.fsync(f.fileno())
+        _atomic_replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):  # only lingers if the write threw before os.replace consumed it
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
 
 
 def load_atoms(path: Path) -> list[Atom]:
@@ -662,16 +698,24 @@ def load_atoms(path: Path) -> list[Atom]:
 
 
 def save_relations(relations: list[Relation], path: Path) -> None:
-    """Atomic write via temp + fsync + os.replace per Research Pattern 1."""
+    """Atomic write via UNIQUE-temp + fsync + os.replace per Research Pattern 1
+    (UNIQUE per-write tmp added 2026-06-19 -- same concurrent-save tmp-collision fix as save_atoms)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        for r in relations:
-            f.write(json.dumps(r.to_dict(), ensure_ascii=False) + "\n")
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+    tmp = _unique_tmp(path)
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            for r in relations:
+                f.write(json.dumps(r.to_dict(), ensure_ascii=False) + "\n")
+            f.flush()
+            os.fsync(f.fileno())
+        _atomic_replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
 
 
 def load_relations(path: Path) -> list[Relation]:
