@@ -1,0 +1,18 @@
+{
+  "anchor_name": "math_wordproblem_extract_gate_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: extraction accuracy <0.25 -- even keyword+number extraction fails; word-problem understanding is harder than simple extraction (multi-step reasoning, not just quantity+op). accuracy=0.023 coverage=0.801 (4/177 correct of attempted)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.023,
+      "coverage": 0.801,
+      "n_attempted": 177,
+      "n_correct": 4,
+      "n_total": 221
+    }
+  ],
+  "elapsed_s": 3.672931671142578,
+  "summary": "HARD_FAIL: extraction accuracy <0.25 -- even keyword+number extraction fails; word-problem understanding is harder than simple extraction (multi-step reasoning, not just quantity+op). accuracy=0.023 coverage=0.801 (4/177 correct of attempted)"
+}

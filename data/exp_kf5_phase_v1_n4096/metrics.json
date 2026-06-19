@@ -1,0 +1,65 @@
+{
+  "anchor": "kf5_phase_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    2.0
+  ],
+  "beta_sweep": [
+    4.0,
+    12.0,
+    32.0,
+    64.0,
+    128.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "steerable_range": 124.0,
+      "high_betas": [
+        4.0,
+        12.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "low_betas": [
+        4.0,
+        12.0,
+        32.0,
+        64.0,
+        128.0
+      ],
+      "ret_by_beta": [
+        [
+          4.0,
+          1.0
+        ],
+        [
+          12.0,
+          1.0
+        ],
+        [
+          32.0,
+          1.0
+        ],
+        [
+          64.0,
+          1.0
+        ],
+        [
+          128.0,
+          1.0
+        ]
+      ],
+      "M_frac": 2.0,
+      "seed": 17,
+      "M": 2048
+    }
+  ],
+  "verdict": "KF5_PHASE_SMOKE_ONLY",
+  "verdict_msg": "SINGLE_MFRAC_SMOKE: mean_range=124.00",
+  "elapsed_s": 0.62
+}

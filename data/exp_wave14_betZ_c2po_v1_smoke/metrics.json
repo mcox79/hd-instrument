@@ -1,0 +1,41 @@
+{
+  "verdict": "C2PO_BROKEN",
+  "verdict_msg": "Diagonal echo=-0.0139 < 0.05; cue mechanism does not couple to substrate. off_orth=0.1241, off_corr=0.0616.",
+  "elapsed_s": 52.390999999974156,
+  "summary": {
+    "diag_mean": -0.013888888888888888,
+    "off_orth_mean": 0.12413194444444446,
+    "off_corr_mean": 0.06163194444444445,
+    "diag_echoes": [
+      0.0026041666666666665,
+      0.013020833333333334,
+      -0.057291666666666664
+    ],
+    "orth_echoes": [
+      0.2838541666666667,
+      0.0234375,
+      0.06510416666666667
+    ],
+    "corr_echoes": [
+      0.14583333333333334,
+      0.028645833333333332,
+      0.010416666666666666
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "K_patterns": 20,
+    "n_diag_pairs": 3,
+    "n_orth_pairs": 3,
+    "n_corr_pairs": 3,
+    "delay_steps": 5,
+    "T_cue": 5,
+    "T_readout": 10,
+    "cue_strength": 0.5,
+    "beta": 2.0,
+    "n_reps": 3,
+    "corr_overlap": 0.5,
+    "seed": 17
+  }
+}

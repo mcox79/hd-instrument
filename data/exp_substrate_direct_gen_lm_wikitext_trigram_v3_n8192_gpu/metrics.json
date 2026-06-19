@@ -1,0 +1,39 @@
+{
+  "anchor_name": "substrate_direct_gen_lm_wikitext_trigram_v3_n8192_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ensemble does NOT beat bigram-count. single=14.2 ensemble=13.5 bigram_count=9.3 trigram_count(oracle)=6.6",
+  "N": 512,
+  "J": 4,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "J": 4,
+      "single_ppl": 14.19877995279884,
+      "ensemble_ppl": 13.605298707347032,
+      "bigram_count_ppl": 9.304447725389737,
+      "trigram_count_ppl": 6.608456991168244,
+      "peak_gpu_gb": 0.036105728,
+      "elapsed_s": 4.846134424209595,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1780618238.7303758
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "J": 4,
+      "single_ppl": 14.251773176291968,
+      "ensemble_ppl": 13.418388512798408,
+      "bigram_count_ppl": 9.304447725389737,
+      "trigram_count_ppl": 6.608456991168244,
+      "peak_gpu_gb": 0.036105728,
+      "elapsed_s": 0.7036018371582031,
+      "_ckpt_key": "2",
+      "_partial_written_at": 1780618239.4399061
+    }
+  ],
+  "elapsed_s": 5.549736261367798,
+  "summary": "HARD_FAIL: ensemble does NOT beat bigram-count. single=14.2 ensemble=13.5 bigram_count=9.3 trigram_count(oracle)=6.6"
+}

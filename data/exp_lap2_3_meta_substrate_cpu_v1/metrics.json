@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap2_3_meta_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate reports its OWN knowledge state >=0.80 (knows-P discrimination + confidence) -- meta-cognition via cleanup-margin; the substrate represents what it knows. know-discrim=0.992 confidence-report=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "know_acc": 0.992,
+      "confidence_acc": 1.0,
+      "n": 250
+    }
+  ],
+  "elapsed_s": 58.709418296813965,
+  "summary": "HARD_PASS: substrate reports its OWN knowledge state >=0.80 (knows-P discrimination + confidence) -- meta-cognition via cleanup-margin; the substrate represents what it knows. know-discrim=0.992 confidence-report=1.000"
+}

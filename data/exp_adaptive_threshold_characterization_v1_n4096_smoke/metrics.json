@@ -1,0 +1,86 @@
+{
+  "verdict": "ATC_MIDDLE_BAND",
+  "verdict_msg": "FRAMEWORK_PARTIAL: n_within_20=3/4 (frac 0.750) n_off_50=1/4 (frac 0.250) cells: b4.0_m1.0=0.054 b4.0_m4.0=0.000 b32.0_m1.0=4.000 b32.0_m4.0=0.000",
+  "elapsed_s": 0.47,
+  "summary": {
+    "anchor": "adaptive_threshold_characterization_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "betas": [
+      4.0,
+      32.0
+    ],
+    "mfracs": [
+      1.0,
+      4.0
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "beta": 4.0,
+        "M_frac": 1.0,
+        "M": 1024,
+        "seed": 17,
+        "best_threshold": 0.05,
+        "best_score": 0.0,
+        "pred_threshold": 0.04743,
+        "rel_err": 0.05419,
+        "all_scores": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "beta": 4.0,
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 17,
+        "best_threshold": 0.5,
+        "best_score": 0.0,
+        "pred_threshold": 0.5,
+        "rel_err": 0.0,
+        "all_scores": []
+      },
+      {
+        "beta": 32.0,
+        "M_frac": 1.0,
+        "M": 1024,
+        "seed": 17,
+        "best_threshold": 0.05,
+        "best_score": 1.0,
+        "pred_threshold": 0.01,
+        "rel_err": 4.0,
+        "all_scores": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "beta": 32.0,
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 17,
+        "best_threshold": 0.5,
+        "best_score": 0.0,
+        "pred_threshold": 0.5,
+        "rel_err": 0.0,
+        "all_scores": []
+      }
+    ],
+    "verdict": "ATC_MIDDLE_BAND",
+    "verdict_msg": "FRAMEWORK_PARTIAL: n_within_20=3/4 (frac 0.750) n_off_50=1/4 (frac 0.250) cells: b4.0_m1.0=0.054 b4.0_m4.0=0.000 b32.0_m1.0=4.000 b32.0_m4.0=0.000",
+    "elapsed_s": 0.47
+  }
+}

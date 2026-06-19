@@ -1,0 +1,6 @@
+{
+  "experiments": [
+    {"name": "r10_best_config_multiseed", "script": "experiments/exp_wave14b_r10_best_config_multiseed.py", "status": "running", "purpose": "Verify best config at K=128, K=256", "timeout_s": 7200},
+    {"name": "r3_alone_laplace", "script": "experiments/exp_wave14b_r3_alone_laplace.py", "status": "pending", "purpose": "DECISIVE: settle +0.154 R3 mystery. R3-Laplace alone (no replay, no R10) at K=4, 3 seeds. Three outcomes: real (+0.10-0.16), partial (0.04-0.10), artifact (<0.04).", "timeout_s": 1800}
+  ]
+}

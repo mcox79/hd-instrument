@@ -1,0 +1,11 @@
+{
+  "anchor_name": "caching_v3_well_stressed_above_capacity_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: fid_eviction below HF threshold. fid_evict=0.1769(HP>=0.8 HF<0.5) fid_no_evict=0.2430(HP<=0.5) retained_fid=0.9995(HP>=0.85) cell_a=0/5 cell_b=0/5 cell_c=5/5",
+  "N": 4096,
+  "alpha_stress": 0.22,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 24.047240257263184,
+  "peak_gpu_gb": 0.29876224
+}

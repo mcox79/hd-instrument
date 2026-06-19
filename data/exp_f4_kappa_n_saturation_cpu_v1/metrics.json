@@ -1,0 +1,45 @@
+{
+  "anchor_name": "f4_kappa_n_saturation_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SNR_6 >= 3.0 -- kappa_6 carries INDEPENDENT signal, REFUTING pillar-completeness at kappa_3+kappa_4 (a 9th spectral dimension would be needed). SNR_3=12.90 SNR_4=9.19 SNR_5=6.06 SNR_6=3.63 (..SNR_7=2.02 SNR_8=1.07); n_sat/seed=[8] range=0; N=1024 alpha=0.50 B=100",
+  "summary": "HARD_FAIL: SNR_6 >= 3.0 -- kappa_6 carries INDEPENDENT signal, REFUTING pillar-completeness at kappa_3+kappa_4 (a 9th spectral dimension would be needed). SNR_3=12.90 SNR_4=9.19 SNR_5=6.06 SNR_6=3.63 (..SNR_7=2.02 SNR_8=1.07); n_sat/seed=[8] range=0; N=1024 alpha=0.50 B=100",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "snr_mean": {
+        "1": 0.084,
+        "2": 17.278,
+        "3": 12.905,
+        "4": 9.191,
+        "5": 6.057,
+        "6": 3.634,
+        "7": 2.019,
+        "8": 1.071
+      },
+      "n_sat_per_seed": [
+        8
+      ],
+      "n_sat_range": 0,
+      "n_sat_median": 8,
+      "seed_rows": [
+        {
+          "seed": 11,
+          "n_sat": 8,
+          "snr": {
+            "3": 12.905,
+            "4": 9.191,
+            "5": 6.057,
+            "6": 3.634,
+            "7": 2.019,
+            "8": 1.071
+          }
+        }
+      ],
+      "N": 1024,
+      "alpha": 0.5,
+      "B": 100
+    }
+  ],
+  "elapsed_s": 1.431915044784546
+}

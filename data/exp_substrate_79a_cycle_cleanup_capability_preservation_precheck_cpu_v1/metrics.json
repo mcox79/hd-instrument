@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_79a_cycle_cleanup_capability_preservation_precheck_cpu_v1",
+  "verdict": "PASS",
+  "verdict_msg": "capability_preservation=1.0 HOLDS across the DECISION 79a batch (9 removals + fhrr INVERSE_PAIR): NO goal atom loses axiom-termination, every removed-edge src still grounds -> Testbed's first non-additive ratify is SAFE to commit; no rollback expected. 79a cleanup pre-check: 1338 goal atoms; removals present=8/9 (absent/mismatch=1); axiom-terminating before=1336 after=1336; regressed=0; endpoint-fail=0.",
+  "summary": "capability_preservation=1.0 HOLDS across the DECISION 79a batch (9 removals + fhrr INVERSE_PAIR): NO goal atom loses axiom-termination, every removed-edge src still grounds -> Testbed's first non-additive ratify is SAFE to commit; no rollback expected. 79a cleanup pre-check: 1338 goal atoms; removals present=8/9 (absent/mismatch=1); axiom-terminating before=1336 after=1336; regressed=0; endpoint-fail=0.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_goals": 1338,
+      "present": 8,
+      "absent": [
+        [
+          "inner_product",
+          "cosine_similarity"
+        ]
+      ],
+      "before_term": 1336,
+      "after_term": 1336,
+      "regressed": [],
+      "endpoint_fail": [],
+      "cap_preserved": true
+    }
+  ],
+  "elapsed_s": 0.45981407165527344
+}

@@ -1,0 +1,24 @@
+{
+  "anchor_name": "gap4v2_semantic_A_eval_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: semantic A 0.22-0.30 -- partial A-axis lift over keyword. best-k=8 F1=0.2966 (per-k {5: 0.2937, 8: 0.2966, 12: 0.2704, 16: 0.2337}) vs keyword 0.185 (n_A=12)",
+  "summary": "MIDDLE_BAND: semantic A 0.22-0.30 -- partial A-axis lift over keyword. best-k=8 F1=0.2966 (per-k {5: 0.2937, 8: 0.2966, 12: 0.2704, 16: 0.2337}) vs keyword 0.185 (n_A=12)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.2966,
+      "best_k": 8,
+      "best_f1": 0.2966,
+      "per_k": {
+        "5": 0.2937,
+        "8": 0.2966,
+        "12": 0.2704,
+        "16": 0.2337
+      },
+      "keyword_baseline": 0.185,
+      "n_A": 12
+    }
+  ],
+  "elapsed_s": 279.33006048202515
+}

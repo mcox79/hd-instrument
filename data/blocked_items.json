@@ -1,0 +1,24 @@
+{
+  "_schema": "Global skip list for exp_dev. Items here are NOT to be shipped without explicit unblock from research/strategy. exp_dev reads this at dispatch start and auto-skips matching candidates without needing them re-listed in every prompt.",
+  "_format": {
+    "blocked": "list of items, each with: anchor_pattern (str/regex), reason (str), routing_file (str path to the routing that surfaced the block), surfaced_at (ISO date), unblock_condition (str), owner (research|strategy|exp_dev)"
+  },
+  "blocked": [
+    {
+      "anchor_pattern": "combo1_v5*",
+      "reason": "MMD all-pairs formula bug: kappa3 fix CONFIRMED (rel_err=0.008% vs MP m_3=11.0) but MMD gate uses all-pairs formula that always fails; mean_cos=1.0 confirms retrieval is HP; requires v5 with per-pattern MMD formula",
+      "routing_file": "notes/exp_dev_to_strategy_instrumentation_suspect_combo1_v4_mmd_formula_2026-06-02.md",
+      "surfaced_at": "2026-06-02",
+      "unblock_condition": "Research delivers per-pattern MMD formula spec; strategy/exp_dev re-derive HP gate normalization",
+      "owner": "research"
+    },
+    {
+      "anchor_pattern": "pp47_v3*",
+      "reason": "INSTRUMENTATION_SUSPECT: all 3 metrics identically 0.7998 across ALL query positions AND seeds; root cause: boundary-attractor dominance in linear K-space at PLACE_FRAC=0.10; requires v3 with circular K-space topology",
+      "routing_file": "notes/exp_dev_to_strategy_instrumentation_suspect_pp47_pp49_sparse_2026-06-02.md",
+      "surfaced_at": "2026-06-02",
+      "unblock_condition": "Research delivers circular K-space topology spec; PP-47 R3 retry with sparse + circular",
+      "owner": "research"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "pca_bottleneck_zkl_sweep_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: T5 paraphraser did NOT reproduce cycle-151 baseline (d=full ZKL=0.083, need 0.17-0.27) -- non-equivalent; revert to MarianMT de-en. ZKL(50) by dim: {'full': 0.083} (n_stored=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "full": 0.08333333333333333
+      },
+      "n": 300,
+      "sanity_ok": false,
+      "k": 50
+    }
+  ],
+  "elapsed_s": 999.9065227508545,
+  "summary": "UNKNOWN: T5 paraphraser did NOT reproduce cycle-151 baseline (d=full ZKL=0.083, need 0.17-0.27) -- non-equivalent; revert to MarianMT de-en. ZKL(50) by dim: {'full': 0.083} (n_stored=300)"
+}

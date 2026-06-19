@@ -1,0 +1,69 @@
+{
+  "verdict": "SPECTRAL_ANTICORR_MIDDLE_BAND",
+  "verdict_msg": "Mixed variant response. mean_corr_by_variant={'bsc': -0.949, 'gaussian': 0.0}. Some variants anti-correlated, some near-zero. Partial architecturally-robust signal.",
+  "elapsed_s": 0.19617533683776855,
+  "config": {
+    "N": 256,
+    "alpha_b_vals": [
+      0.0,
+      0.1,
+      0.3
+    ],
+    "seeds": [
+      17
+    ],
+    "variants": [
+      "bsc",
+      "gaussian"
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "variant": "bsc",
+        "N": 256,
+        "seed": 17,
+        "corr_lambda_ret": -0.9490565447141448,
+        "lambdas": [
+          0.3449955138598279,
+          0.4744608564962875,
+          0.6804771379068862
+        ],
+        "retentions": [
+          1.0,
+          0.92,
+          0.0
+        ],
+        "alpha_b_vals": [
+          0.0,
+          0.1,
+          0.3
+        ]
+      },
+      {
+        "variant": "gaussian",
+        "N": 256,
+        "seed": 17,
+        "corr_lambda_ret": 0.0,
+        "lambdas": [
+          0.0010341347543582227,
+          0.0015852794576706713,
+          0.0024213893607911686
+        ],
+        "retentions": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "alpha_b_vals": [
+          0.0,
+          0.1,
+          0.3
+        ]
+      }
+    ],
+    "N": 256,
+    "smoke": true
+  }
+}

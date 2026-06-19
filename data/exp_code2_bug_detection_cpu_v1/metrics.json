@@ -1,0 +1,16 @@
+{
+  "anchor_name": "code2_bug_detection_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: bug-detection F1 0.55-0.70. AUC=0.566 F1=0.567",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 0.566,
+      "f1": 0.567,
+      "n": 120
+    }
+  ],
+  "elapsed_s": 0.5255961418151855,
+  "summary": "MIDDLE_BAND: bug-detection F1 0.55-0.70. AUC=0.566 F1=0.567"
+}

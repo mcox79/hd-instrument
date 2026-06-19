@@ -1,0 +1,95 @@
+{
+  "B": 2,
+  "N_VALUES": [
+    1024,
+    2048,
+    4096,
+    8192
+  ],
+  "NUM_TRIALS": 30,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "elapsed_s": 56.60999999998603,
+  "grid": [
+    {
+      "N": 1024,
+      "seed": 17,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 1024,
+      "seed": 23,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 1024,
+      "seed": 31,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 2048,
+      "seed": 17,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 2048,
+      "seed": 23,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 2048,
+      "seed": 31,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 4096,
+      "seed": 17,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 4096,
+      "seed": 23,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 4096,
+      "seed": 31,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 8192,
+      "seed": 17,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 8192,
+      "seed": 23,
+      "cliff_K": null,
+      "cliff_KN": null
+    },
+    {
+      "N": 8192,
+      "seed": 31,
+      "cliff_K": null,
+      "cliff_KN": null
+    }
+  ],
+  "summary_KN_per_N": {},
+  "verdict": "K_N_INVARIANT",
+  "verdict_msg": "Cliff K/N varies by only 0.00 across N. Original K/N invariance prediction holds.",
+  "monotone_decreasing": true,
+  "range_KN": 0
+}

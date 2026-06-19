@@ -1,0 +1,145 @@
+{
+  "anchor_name": "substrate_b_delta_readout_lever_transfer_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CAPACITY-LEVER TRANSFER CONFIRMED: linear CLIFFS (bipolar 1.0@M64->0.0@M1024; continuous 1.0->0.0) and the NONLINEAR readout EXTENDS capacity past the cliff on BOTH tasks (extension bipolar +100.0pp, continuous +100.0pp @M1024) -> the CAPACITY lever generalizes across VALUE-TYPE (bipolar+continuous; both uniform keys -- NOT tested across key-distribution). N=1024; measured-bounds, NOT fundamental.",
+  "summary": "CAPACITY-LEVER TRANSFER CONFIRMED: linear CLIFFS (bipolar 1.0@M64->0.0@M1024; continuous 1.0->0.0) and the NONLINEAR readout EXTENDS capacity past the cliff on BOTH tasks (extension bipolar +100.0pp, continuous +100.0pp @M1024) -> the CAPACITY lever generalizes across VALUE-TYPE (bipolar+continuous; both uniform keys -- NOT tested across key-distribution). N=1024; measured-bounds, NOT fundamental.",
+  "headline": "CAPACITY-LEVER TRANSFER CONFIRMED: linear CLIFFS (bipolar 1.0@M64->0.0@M1024; continuous 1.0->0.0) and the NONLINEAR readout EXTENDS capacity past the cliff on BOTH tasks (extension bipolar +100.0pp, continuous +100.0pp @M1024) -> the CAPACITY lever generalizes across VALUE-TYPE (bipolar+continuous; both uniform keys -- NOT tested across key-distribution). N=1024; measured-bounds, NOT fundamental.",
+  "n_seeds": 3,
+  "run_mode": "full",
+  "branch_path": "readout_lever_transfer_2task",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T16:42:59.948456+00:00",
+  "cell_commit": "d78ffe8a",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 30,
+    "n_cells_emitted": 30,
+    "elapsed_s": 0.22,
+    "is_smoke": false
+  },
+  "discrimination_self_check": {
+    "bipolar": {
+      "discriminates": true,
+      "reference_value": 1.0,
+      "floor": 0.5,
+      "ceiling": 1.0,
+      "reason": "working-baseline-cliff: linear works at low M (>WORKS) AND cliffs at high M (capacity-lever, not denoising)"
+    },
+    "continuous": {
+      "discriminates": true,
+      "reference_value": 1.0,
+      "floor": 0.5,
+      "ceiling": 1.0,
+      "reason": "working-baseline-cliff: linear works at low M (>WORKS) AND cliffs at high M (capacity-lever, not denoising)"
+    }
+  },
+  "n_cells": 30,
+  "lever": "linear(classic Hopfield raw-dot) vs nonlinear(modern Hopfield softmax); cleanup=sign(bipolar)/identity(continuous)",
+  "tasks": {
+    "A": "uniform-keys + BIPOLAR values",
+    "B": "uniform-keys + CONTINUOUS(Gaussian) values"
+  },
+  "generality_axis": "VALUE-TYPE (NOT key-distribution)",
+  "capacity_bipolar": {
+    "M_low": 64,
+    "M_high": 1024,
+    "lin_low": 1.0,
+    "lin_high": 0.0,
+    "nl_high": 1.0,
+    "cliff": true,
+    "extension": 1.0
+  },
+  "capacity_continuous": {
+    "M_low": 64,
+    "M_high": 1024,
+    "lin_low": 1.0,
+    "lin_high": 0.0,
+    "nl_high": 1.0,
+    "cliff": true,
+    "extension": 1.0
+  },
+  "beta_tuned": {
+    "bipolar": 40.0,
+    "continuous": 40.0
+  },
+  "both_cliff": true,
+  "grid": {
+    "bipolar": {
+      "64": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "128": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "256": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "512": {
+        "lin": 0.002,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "1024": {
+        "lin": 0.0,
+        "nl": 1.0,
+        "nz": 1.0
+      }
+    },
+    "continuous": {
+      "64": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "128": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "256": {
+        "lin": 0.2591,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "512": {
+        "lin": 0.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "1024": {
+        "lin": 0.0,
+        "nl": 1.0,
+        "nz": 1.0
+      }
+    }
+  },
+  "config": {
+    "N": 1024,
+    "M_list": [
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "cluster_size": 8,
+    "noise": 0.15,
+    "LIFT_MIN": 0.05,
+    "LIFT_GAP": 0.1
+  },
+  "bears_on": "ARCH-B (nonlinear readout lifts capacity) + C1 entmax (sparse readout cheaper at iso-recall) -- tests lever GENERALITY across tasks",
+  "measured_bounds": "readout-lever transfer envelope at N=1024/cluster=8/noise=0.15; NOT fundamental",
+  "elapsed_s": 0.26
+}

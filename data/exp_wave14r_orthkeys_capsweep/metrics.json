@@ -1,0 +1,294 @@
+{
+  "verdict": "CAPSWEEP_ROBUST",
+  "verdict_msg": "All M_stored values [200, 800, 1600, 3200] pass all 5 Mirage probes at alpha=1.0. Orthogonal-key Mirage protection robust through M_stored=3200/N=4096 = 0.78. Envelope characterized; cap_map upgrade candidate.",
+  "elapsed_s": 14.125,
+  "summary": {
+    "by_M_stored": {
+      "200": {
+        "M_stored": 200,
+        "N": 4096,
+        "argmax_leak": 0.0,
+        "mean_rank": 95.46666666666665,
+        "norm_ratio": 0.0,
+        "cosine": 0.0,
+        "kept_preservation": 1.0,
+        "pairwise_stats": [
+          {
+            "seed": 17,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 23,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 31,
+            "max_abs": 0.0
+          }
+        ],
+        "per_seed": [
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 92.1,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 17
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 97.46666666666667,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 23
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 96.83333333333333,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 31
+          }
+        ],
+        "paraphrase_leak_h2": 0.0,
+        "paraphrase_leak_h4": 0.0,
+        "paraphrase_leak_h8": 0.0,
+        "paraphrase_leak_h16": 0.0
+      },
+      "800": {
+        "M_stored": 800,
+        "N": 4096,
+        "argmax_leak": 0.0,
+        "mean_rank": 408.4555555555556,
+        "norm_ratio": 0.0,
+        "cosine": 0.0,
+        "kept_preservation": 1.0,
+        "pairwise_stats": [
+          {
+            "seed": 17,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 23,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 31,
+            "max_abs": 0.0
+          }
+        ],
+        "per_seed": [
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 431.96666666666664,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 17
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 407.76666666666665,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 23
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 385.6333333333333,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 31
+          }
+        ],
+        "paraphrase_leak_h2": 0.0,
+        "paraphrase_leak_h4": 0.0,
+        "paraphrase_leak_h8": 0.0,
+        "paraphrase_leak_h16": 0.0
+      },
+      "1600": {
+        "M_stored": 1600,
+        "N": 4096,
+        "argmax_leak": 0.0,
+        "mean_rank": 826.8333333333334,
+        "norm_ratio": 0.0,
+        "cosine": 0.0,
+        "kept_preservation": 1.0,
+        "pairwise_stats": [
+          {
+            "seed": 17,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 23,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 31,
+            "max_abs": 0.0
+          }
+        ],
+        "per_seed": [
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 820.5333333333333,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 17
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 773.7333333333333,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 23
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 886.2333333333333,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 31
+          }
+        ],
+        "paraphrase_leak_h2": 0.0,
+        "paraphrase_leak_h4": 0.0,
+        "paraphrase_leak_h8": 0.0,
+        "paraphrase_leak_h16": 0.0
+      },
+      "3200": {
+        "M_stored": 3200,
+        "N": 4096,
+        "argmax_leak": 0.0,
+        "mean_rank": 1439.3999999999999,
+        "norm_ratio": 0.0,
+        "cosine": 0.0,
+        "kept_preservation": 1.0,
+        "pairwise_stats": [
+          {
+            "seed": 17,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 23,
+            "max_abs": 0.0
+          },
+          {
+            "seed": 31,
+            "max_abs": 0.0
+          }
+        ],
+        "per_seed": [
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 1403.9666666666667,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 17
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 1218.3666666666666,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 23
+          },
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 1695.8666666666666,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h2": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "paraphrase_leak_h16": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 31
+          }
+        ],
+        "paraphrase_leak_h2": 0.0,
+        "paraphrase_leak_h4": 0.0,
+        "paraphrase_leak_h8": 0.0,
+        "paraphrase_leak_h16": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored_list": [
+      200,
+      800,
+      1600,
+      3200
+    ],
+    "n_erase": 30,
+    "n_kept_probe": 100,
+    "n_paraphrase": 20,
+    "hamming_radii": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "alpha": 1.0
+  }
+}

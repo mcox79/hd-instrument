@@ -1,0 +1,29 @@
+# Config for Path 5: approximate retrieval via random column sampling.
+# Default runs N=2048 with M=1024; the substrate backend is the only target
+# that actually uses retrieve_approx (other backends fall back to retrieve).
+#
+# To exercise the larger configuration use --config and override N=8192
+# at the CLI. Smoke override: pass --backend substrate and rely on the
+# smoke gate in __main__.py which builds a tiny 512-N config.
+
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+# Approx-sweep specific knobs.
+approx_M: 1024
+approx_n_queries: 500
+approx_op_recall_target: 0.85
+approx_sample_fracs: [1.0, 0.5, 0.3, 0.2, 0.1, 0.05]
+
+seeds: [7]
+
+backends: [substrate]
+scenarios:
+  - approx_retrieve_sweep
+
+out_root: testbed_data/benchmarks

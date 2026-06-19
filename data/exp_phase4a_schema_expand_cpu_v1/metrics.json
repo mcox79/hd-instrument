@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4a_schema_expand_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: end-to-end <0.05 -- pieces don't compose on real text (slot-binding/asked-quantity ID is the gap). accuracy=0.059 coverage=0.213 acc-on-covered=0.277 (vs shallow 0.023)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.059,
+      "coverage": 0.213,
+      "acc_on_covered": 0.277,
+      "n_correct": 13,
+      "n_total": 221
+    }
+  ],
+  "elapsed_s": 3.857637405395508,
+  "summary": "HARD_FAIL: end-to-end <0.05 -- pieces don't compose on real text (slot-binding/asked-quantity ID is the gap). accuracy=0.059 coverage=0.213 acc-on-covered=0.277 (vs shallow 0.023)"
+}

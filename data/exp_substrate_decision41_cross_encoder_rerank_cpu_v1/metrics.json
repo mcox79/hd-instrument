@@ -1,0 +1,104 @@
+{
+  "anchor_name": "substrate_decision41_cross_encoder_rerank_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (cross-encoder does not recover MEDIUM and gives no clean refuse-signal): DECISION 41 cross-encoder (BAAI/bge-reranker-base). IN-COVERAGE top5 macro-F1 name=0.1480 -> CE=0.1190 (delta -0.0290). Recovered:['Q55-B'] Regressed:['Q60-G', 'Q61-A']. Refuse-signal: CE top1 median in-coverage=0.064 vs gap=0.167. MEDIUM is genuinely M4/representation-bound; accept it behind the ingest+M4 track.",
+  "summary": "HARD_FAIL (cross-encoder does not recover MEDIUM and gives no clean refuse-signal): DECISION 41 cross-encoder (BAAI/bge-reranker-base). IN-COVERAGE top5 macro-F1 name=0.1480 -> CE=0.1190 (delta -0.0290). Recovered:['Q55-B'] Regressed:['Q60-G', 'Q61-A']. Refuse-signal: CE top1 median in-coverage=0.064 vs gap=0.167. MEDIUM is genuinely M4/representation-bound; accept it behind the ingest+M4 track.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "reranker": "BAAI/bge-reranker-base",
+      "n_in": 7,
+      "name_macro": 0.148,
+      "ce_macro": 0.119,
+      "rows": [
+        {
+          "qid": "Q54-A",
+          "present_n": 1,
+          "name_top5_f1": 0.0,
+          "ce_top5_f1": 0.0,
+          "ce_top1_score": 0.064
+        },
+        {
+          "qid": "Q55-B",
+          "present_n": 1,
+          "name_top5_f1": 0.0,
+          "ce_top5_f1": 0.333,
+          "ce_top1_score": 0.238
+        },
+        {
+          "qid": "Q60-G",
+          "present_n": 4,
+          "name_top5_f1": 0.5,
+          "ce_top5_f1": 0.25,
+          "ce_top1_score": 0.258
+        },
+        {
+          "qid": "Q61-A",
+          "present_n": 2,
+          "name_top5_f1": 0.286,
+          "ce_top5_f1": 0.0,
+          "ce_top1_score": 0.001
+        },
+        {
+          "qid": "Q62-B",
+          "present_n": 2,
+          "name_top5_f1": 0.0,
+          "ce_top5_f1": 0.0,
+          "ce_top1_score": 0.015
+        },
+        {
+          "qid": "Q63-A",
+          "present_n": 2,
+          "name_top5_f1": 0.0,
+          "ce_top5_f1": 0.0,
+          "ce_top1_score": 0.024
+        },
+        {
+          "qid": "Q64-G",
+          "present_n": 3,
+          "name_top5_f1": 0.25,
+          "ce_top5_f1": 0.25,
+          "ce_top1_score": 0.126
+        }
+      ],
+      "gap_ce_top1": [
+        [
+          "Q56-C",
+          0.719
+        ],
+        [
+          "Q57-D",
+          0.225
+        ],
+        [
+          "Q58-E",
+          0.109
+        ],
+        [
+          "Q59-F",
+          0.539
+        ],
+        [
+          "Q65-E",
+          0.003
+        ],
+        [
+          "Q_neg_2",
+          0.03
+        ]
+      ],
+      "in_ce_top1": [
+        0.064,
+        0.238,
+        0.258,
+        0.001,
+        0.015,
+        0.024,
+        0.126
+      ],
+      "pool_k": 100
+    }
+  ],
+  "elapsed_s": 34.36147713661194
+}

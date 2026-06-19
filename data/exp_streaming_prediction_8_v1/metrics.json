@@ -1,0 +1,12 @@
+{
+  "anchor_name": "streaming_prediction_8_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 cells pass. mean_fid_window=1.0000(HP>=0.7 HF<0.4) late_adv=0.0158(HP>=0.05) newest=1.0000(HP>=0.85 HF<0.6) n_seeds=2",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 5.5082337856292725,
+  "mean_fid_window": 1.0,
+  "mean_late_advantage": 0.015820312499999933,
+  "mean_newest_fid": 1.0
+}

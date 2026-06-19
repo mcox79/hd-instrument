@@ -1,0 +1,36 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1/1 seeds HP. mean_R2=0.7557 mean_max_dev=0.0900. Inconclusive at N=8192.",
+  "elapsed_s": 2.1,
+  "summary": {
+    "N": 512,
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "per_seed": {
+      "17": {
+        "0.0": 0.77574,
+        "0.5": 0.77784,
+        "1.0": 1.05002
+      }
+    },
+    "seed_verdicts": [
+      {
+        "seed": "17",
+        "r2": 0.7557419679367421,
+        "max_dev": 0.0900266666666667,
+        "hp": true,
+        "hf": false
+      }
+    ]
+  },
+  "config": {
+    "N": 512,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "batch_size": 16
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "verdict": "ALPHA2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_CODEBOOK_EFFECT: one metric varies, other flat. bpc_range=0.5616 mh_range=0.0518 mean_bpc={'hadamard': 5.8374, 'gaussian': 5.4339, 'sparse_d01': 5.9955} mean_mh={'hadamard': 0.0, 'gaussian': 0.0494, 'sparse_d01': 0.0518} HP_bpc=0.3 HP_mh=0.1 HF_bpc=0.05 HF_mh=0.02",
+  "elapsed_s": 0.91,
+  "summary": {
+    "cells": [
+      {
+        "codebook": "sparse_d01",
+        "seed": 17,
+        "N": 1024,
+        "bpc": 5.9954986572265625,
+        "hop1_acc": 0.2986313005288442,
+        "multi_hop_acc": 0.051841085155804954
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 17,
+        "N": 1024,
+        "bpc": 5.837390422821045,
+        "hop1_acc": 0.0,
+        "multi_hop_acc": 0.0
+      },
+      {
+        "codebook": "gaussian",
+        "seed": 17,
+        "N": 1024,
+        "bpc": 5.433881600697835,
+        "hop1_acc": 0.32200823227564496,
+        "multi_hop_acc": 0.049358042577902474
+      }
+    ],
+    "N_full": 4096,
+    "N_used": 1024,
+    "M_frac": 4.0,
+    "smoke": true
+  }
+}

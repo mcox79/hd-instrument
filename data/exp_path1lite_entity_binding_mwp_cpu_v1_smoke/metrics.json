@@ -1,0 +1,19 @@
+{
+  "anchor_name": "path1lite_entity_binding_mwp_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: entity-binding +0.04-0.10 -- linguistic angle has signal; full Path-1 SRL (CoNLL-2005) warranted to realize it. acc=0.4850 (distractor-subset 0.3846 n=13, n=200) vs discriminative ~0.39",
+  "summary": "MIDDLE_BAND: entity-binding +0.04-0.10 -- linguistic angle has signal; full Path-1 SRL (CoNLL-2005) warranted to realize it. acc=0.4850 (distractor-subset 0.3846 n=13, n=200) vs discriminative ~0.39",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.485,
+      "accuracy": 0.485,
+      "lift_over_baseline": 0.095,
+      "distractor_acc": 0.3846,
+      "n_distractor": 13,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 0.0421142578125
+}

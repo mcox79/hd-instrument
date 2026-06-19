@@ -1,0 +1,129 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "NE-5 S-U AUDIT NO-BENEFIT: verdict=HARD_PASS | max_rel_change=0.000000 all_W_unchanged=True | HP: rel_change<0.01 in ALL seeds/M | HF: rel_change>0.05 in ANY seed (audit mutating W)",
+  "max_rel_change": 0.0,
+  "all_W_unchanged": true,
+  "any_hf": false,
+  "n_results": 9,
+  "all_results": [
+    {
+      "seed": 7,
+      "M": 32,
+      "m_pre": 1.0,
+      "m_post": 1.0,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 32,
+        "mean_score": 1.0020055770874023,
+        "max_score": 1.0231475830078125
+      }
+    },
+    {
+      "seed": 7,
+      "M": 64,
+      "m_pre": 0.99609375,
+      "m_post": 0.99609375,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 64,
+        "mean_score": 1.0011439323425293,
+        "max_score": 1.1159820556640625
+      }
+    },
+    {
+      "seed": 7,
+      "M": 128,
+      "m_pre": 0.66796875,
+      "m_post": 0.66796875,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 128,
+        "mean_score": 1.0006892681121826,
+        "max_score": 1.0762481689453125
+      }
+    },
+    {
+      "seed": 17,
+      "M": 32,
+      "m_pre": 1.0,
+      "m_post": 1.0,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 32,
+        "mean_score": 0.9909553527832031,
+        "max_score": 1.0166015625
+      }
+    },
+    {
+      "seed": 17,
+      "M": 64,
+      "m_pre": 0.99609375,
+      "m_post": 0.99609375,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 64,
+        "mean_score": 1.0011920928955078,
+        "max_score": 1.038787841796875
+      }
+    },
+    {
+      "seed": 17,
+      "M": 128,
+      "m_pre": 0.65625,
+      "m_post": 0.65625,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 128,
+        "mean_score": 0.9979245662689209,
+        "max_score": 1.0967254638671875
+      }
+    },
+    {
+      "seed": 23,
+      "M": 32,
+      "m_pre": 1.0,
+      "m_post": 1.0,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 32,
+        "mean_score": 1.001063346862793,
+        "max_score": 1.0304107666015625
+      }
+    },
+    {
+      "seed": 23,
+      "M": 64,
+      "m_pre": 1.0,
+      "m_post": 1.0,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 64,
+        "mean_score": 0.9942126274108887,
+        "max_score": 1.0644989013671875
+      }
+    },
+    {
+      "seed": 23,
+      "M": 128,
+      "m_pre": 0.54296875,
+      "m_post": 0.54296875,
+      "rel_change": 0.0,
+      "W_unchanged": true,
+      "audit_stats": {
+        "n_patterns": 128,
+        "mean_score": 0.9992892742156982,
+        "max_score": 1.0743865966796875
+      }
+    }
+  ],
+  "smoke": true,
+  "elapsed_s": 0.42066144943237305
+}

@@ -1,0 +1,43 @@
+{
+  "verdict": "MOE_FIXED_CAP_HARD_PASS_NO_CEILING",
+  "verdict_msg": "NO K-SCALING CEILING: ret_delta=0.0000>=-0.05 AND ret_K16=1.0000>=0.7. MoE K-scaling was entropy artifact; K=16 unblocked. M_total=320. entropy_by_K={4: 1.999, 16: 4.0}. retention_by_K={4: 1.0, 16: 1.0}. ret_delta_K16_vs_K4=0.0.",
+  "elapsed_s": 0.0825507640838623,
+  "config": {
+    "N": 512,
+    "K_sweep": [
+      4,
+      16
+    ],
+    "seeds": [
+      17
+    ],
+    "M_total": 320,
+    "n_grad_steps": 50,
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "K": 4,
+        "seed": 17,
+        "routing_entropy_bits": 1.9994362592697144,
+        "retention": 1.0,
+        "M_total": 320,
+        "M_per_expert": 80,
+        "n_patterns_routed": 320
+      },
+      {
+        "K": 16,
+        "seed": 17,
+        "routing_entropy_bits": 4.0,
+        "retention": 1.0,
+        "M_total": 320,
+        "M_per_expert": 20,
+        "n_patterns_routed": 320
+      }
+    ],
+    "N": 512,
+    "smoke": true,
+    "M_total": 320
+  }
+}

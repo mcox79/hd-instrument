@@ -1,0 +1,26 @@
+{
+  "anchor_name": "pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ratio=4.00 in [2.0,5.0). alpha=0.05 N=32768 audit_crit=1.000 cap_crit=4.000(pred=4.359) ratio=4.00 cap_within_tol=True n_seeds=2",
+  "N": 32768,
+  "alpha": 0.05,
+  "M_full": 1638,
+  "cap_pred": 4.358898943540674,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 2.1589815616607666,
+  "per_seed": [
+    {
+      "seed": 7,
+      "alpha": 0.05,
+      "elapsed_s": 0.9090404510498047,
+      "sigma_g_cap_pred": 4.358898943540674
+    },
+    {
+      "seed": 17,
+      "alpha": 0.05,
+      "elapsed_s": 1.0977783203125,
+      "sigma_g_cap_pred": 4.358898943540674
+    }
+  ]
+}

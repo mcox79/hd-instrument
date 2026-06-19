@@ -1,0 +1,68 @@
+{
+  "anchor_name": "substrate_concept_uniform_random_extraction_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: random sampling cannot hold >=0.90 coverage at >=3x speedup. stratified: {'sp10': (0.524, 10.0), 'sp100': (0.094, 100.0), 'sp1000': (0.01, 1000.0)}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_tok": 40000,
+      "by_speedup": {
+        "sp10": {
+          "coverage": 0.5421212121212121,
+          "actual_speedup": 10.0
+        },
+        "sp100": {
+          "coverage": 0.09696969696969697,
+          "actual_speedup": 100.0
+        },
+        "sp1000": {
+          "coverage": 0.009393939393939394,
+          "actual_speedup": 1000.0
+        }
+      },
+      "min_coverage": 0.009393939393939394
+    },
+    {
+      "seed": 17,
+      "n_tok": 40000,
+      "by_speedup": {
+        "sp10": {
+          "coverage": 0.5140131186642815,
+          "actual_speedup": 10.0
+        },
+        "sp100": {
+          "coverage": 0.09719737626714371,
+          "actual_speedup": 100.0
+        },
+        "sp1000": {
+          "coverage": 0.01073345259391771,
+          "actual_speedup": 1000.0
+        }
+      },
+      "min_coverage": 0.01073345259391771
+    },
+    {
+      "seed": 23,
+      "n_tok": 40000,
+      "by_speedup": {
+        "sp10": {
+          "coverage": 0.515282583621684,
+          "actual_speedup": 10.0
+        },
+        "sp100": {
+          "coverage": 0.08910034602076125,
+          "actual_speedup": 100.0
+        },
+        "sp1000": {
+          "coverage": 0.010380622837370242,
+          "actual_speedup": 1000.0
+        }
+      },
+      "min_coverage": 0.010380622837370242
+    }
+  ],
+  "elapsed_s": 3125.3530943393707,
+  "summary": "HARD_FAIL: random sampling cannot hold >=0.90 coverage at >=3x speedup. stratified: {'sp10': (0.524, 10.0), 'sp100': (0.094, 100.0), 'sp1000': (0.01, 1000.0)}"
+}

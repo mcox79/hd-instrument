@@ -1,0 +1,19 @@
+{
+  "anchor_name": "modern_hopfield_n_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: modern Hopfield >0.90 at N=4096 M/N=0.30 -- exponential energy lets N drop from 65536; major storage win. accuracy: {'N4096_L0.20': 1.0, 'N4096_L0.30': 1.0, 'N8192_L0.20': 1.0, 'N8192_L0.30': 1.0} (N=4096 M/N=0.30 -> 1.000)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "by": {
+        "N4096_L0.20": 1.0,
+        "N4096_L0.30": 1.0,
+        "N8192_L0.20": 1.0,
+        "N8192_L0.30": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 24.760743618011475,
+  "summary": "HARD_PASS: modern Hopfield >0.90 at N=4096 M/N=0.30 -- exponential energy lets N drop from 65536; major storage win. accuracy: {'N4096_L0.20': 1.0, 'N4096_L0.30': 1.0, 'N8192_L0.20': 1.0, 'N8192_L0.30': 1.0} (N=4096 M/N=0.30 -> 1.000)"
+}

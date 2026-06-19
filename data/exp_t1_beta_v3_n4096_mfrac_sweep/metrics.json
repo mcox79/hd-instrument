@@ -1,0 +1,50 @@
+{
+  "anchor": "t1_beta_v3_n4096_mfrac_sweep",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    4.0,
+    8.0
+  ],
+  "beta_sweep": [
+    1,
+    4,
+    16,
+    64,
+    256
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "M_frac": 4.0,
+      "seed": 17,
+      "beta_c": 4.0,
+      "max_gradient": 0.24956,
+      "ret_vals": [
+        0.0007,
+        0.0127,
+        0.9989,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "M_frac": 8.0,
+      "seed": 17,
+      "beta_c": 4.0,
+      "max_gradient": 0.13204000000000002,
+      "ret_vals": [
+        0.0007,
+        0.0134,
+        0.5288,
+        0.5262,
+        0.5149
+      ]
+    }
+  ],
+  "verdict": "T1V3_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: 0/2 M_fracs with transition. mean_beta_c_by_mfrac={4.0: 4.0, 8.0: 4.0} monotone_frac=1.00 beta_c_log2_range=0.00 mfracs_with_transition=0/2 N=1024",
+  "elapsed_s": 0.26
+}

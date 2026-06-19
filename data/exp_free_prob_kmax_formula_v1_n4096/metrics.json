@@ -1,0 +1,47 @@
+{
+  "anchor": "free_prob_kmax_formula_v1_n4096",
+  "N": 1024,
+  "M": 102,
+  "alpha": 0.1,
+  "smoke": true,
+  "K_max_predicted": 3.6407067001059006,
+  "K_sweep": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M": 102,
+      "alpha": 0.099609375,
+      "K_max_predicted": 3.6407067001059006,
+      "K_crossover_empirical": 2,
+      "crossover_within_band": 0,
+      "acc_by_k": {
+        "1": 1.0,
+        "2": 0.0,
+        "3": 0.01,
+        "4": 0.0,
+        "5": 0.01,
+        "6": 0.03,
+        "7": 0.01,
+        "8": 0.0
+      },
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "FP_KMAX_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_in_band=0/1. N=1024 M=102 alpha=0.100 K_max_predicted=3.64 K_crossovers=[2] n_in_band=0/1 HP_band=[3,5]",
+  "elapsed_s": 0.03
+}

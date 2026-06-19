@@ -1,0 +1,19 @@
+{
+  "anchor_name": "chunking_pos_cascade_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cascade chunk-F1 <0.90. +POS-cascade F1=0.8478 vs word-only 0.8414 (lift=+0.0064, pos-acc=0.8657, train=300)",
+  "summary": "HARD_FAIL: cascade chunk-F1 <0.90. +POS-cascade F1=0.8478 vs word-only 0.8414 (lift=+0.0064, pos-acc=0.8657, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.8478,
+      "f1_cascade": 0.8478,
+      "f1_wordonly": 0.8414,
+      "lift": 0.0064,
+      "pos_acc": 0.8657,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 4.650772333145142
+}

@@ -1,0 +1,40 @@
+{
+  "anchor_name": "substrate_novel_assembly_2_tier2_novel_composition_equivalence_checked_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "TIER-2 GENUINE SUBSTRATE-INTERNAL NOVEL COMPOSITION: on a generalization-split gap that NO single existing operator closes (full basis incl ghrr -- symmetric ops fail c-sensitivity; asymmetric ops fail to generalize across the held-out a-b swap), the loop assembled a composition (['corr_bundle', 'xor_corr']) that CLOSES it AND is NOT extensionally-equivalent to any single operator (equivalence-check gate b PASSED -- the gate ASSEMBLY-1 was missing). This is real novelty SHORT of novel-primitive: a genuinely-new COMPOSITE capability, no external truth required. single closers=[] (must be EMPTY for gate a); comp closers=['corr_bundle', 'xor_corr']; novel (not-equiv) comps=['corr_bundle', 'xor_corr']; equiv-max={'corr_bundle': 0.002, 'bundle_corr': 0.985, 'xor_corr': 0.001}.",
+  "summary": "TIER-2 GENUINE SUBSTRATE-INTERNAL NOVEL COMPOSITION: on a generalization-split gap that NO single existing operator closes (full basis incl ghrr -- symmetric ops fail c-sensitivity; asymmetric ops fail to generalize across the held-out a-b swap), the loop assembled a composition (['corr_bundle', 'xor_corr']) that CLOSES it AND is NOT extensionally-equivalent to any single operator (equivalence-check gate b PASSED -- the gate ASSEMBLY-1 was missing). This is real novelty SHORT of novel-primitive: a genuinely-new COMPOSITE capability, no external truth required. single closers=[] (must be EMPTY for gate a); comp closers=['corr_bundle', 'xor_corr']; novel (not-equiv) comps=['corr_bundle', 'xor_corr']; equiv-max={'corr_bundle': 0.002, 'bundle_corr': 0.985, 'xor_corr': 0.001}.",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "macc": {
+        "xor3": 0.3452132965291668,
+        "conv3": 0.3452132965291668,
+        "bundle3": 0.23864407139644203,
+        "ghrr3": 0.02526419429444395,
+        "perm_idx3": 0.06810419857258697,
+        "corr_bundle": 0.998581158421001,
+        "bundle_corr": 0.23797851674354428,
+        "xor_corr": 0.9989384288747346
+      },
+      "equiv_max": {
+        "corr_bundle": 0.0017330577902612276,
+        "bundle_corr": 0.9854801098505656,
+        "xor_corr": 0.0008556761313229799
+      },
+      "single_closers": [],
+      "comp_closers": [
+        "corr_bundle",
+        "xor_corr"
+      ],
+      "novel_comps": [
+        "corr_bundle",
+        "xor_corr"
+      ],
+      "gate_a": true,
+      "gate_b": true,
+      "tier2_pass": true
+    }
+  ],
+  "elapsed_s": 123.90276741981506
+}

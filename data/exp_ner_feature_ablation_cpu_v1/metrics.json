@@ -1,0 +1,44 @@
+{
+  "anchor_name": "ner_feature_ablation_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: char n-gram F1@5pct 0.40-0.43 -- marginal; shape/affix features largely subsume char n-grams. char_ngram F1@5pct=0.4024 (lift -0.0096 vs baseline 0.4120; @100pct lift -0.0075 -> flat/inverted); transition-contribution@5pct=+0.0858",
+  "summary": "MIDDLE_BAND: char n-gram F1@5pct 0.40-0.43 -- marginal; shape/affix features largely subsume char n-grams. char_ngram F1@5pct=0.4024 (lift -0.0096 vs baseline 0.4120; @100pct lift -0.0075 -> flat/inverted); transition-contribution@5pct=+0.0858",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "frac": 0.05,
+          "n_train": 299,
+          "lb_ref": 0.404,
+          "baseline": 0.412,
+          "no_transition": 0.3262,
+          "char_ngram": 0.4024
+        },
+        {
+          "frac": 0.1,
+          "n_train": 598,
+          "lb_ref": 0.501,
+          "baseline": 0.4915,
+          "no_transition": 0.3999,
+          "char_ngram": 0.4819
+        },
+        {
+          "frac": 1.0,
+          "n_train": 5982,
+          "lb_ref": 0.644,
+          "baseline": 0.6441,
+          "no_transition": 0.5464,
+          "char_ngram": 0.6366
+        }
+      ],
+      "variants": [
+        "baseline",
+        "no_transition",
+        "char_ngram"
+      ]
+    }
+  ],
+  "elapsed_s": 619.1598680019379
+}

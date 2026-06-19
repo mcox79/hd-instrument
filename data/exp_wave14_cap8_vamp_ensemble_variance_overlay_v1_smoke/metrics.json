@@ -1,0 +1,50 @@
+{
+  "verdict": "ENSEMBLE_OVERLAY_MIDDLE",
+  "verdict_msg": "Mixed: 0/1 pass (rho>=0.5); 1/1 fail (rho<0.3); 0 between. rhos=[-0.031]. Annotate Cap 8 as 'ensemble-variance overlay is partially informative'; Bet Z.5 stays \ud83d\udd2c with reduced priority.",
+  "elapsed_s": 0.23499999998603016,
+  "summary": {
+    "per_codeword": [
+      {
+        "spearman_rho": -0.031071577050997775,
+        "spearman_p": 0.32055603895761825,
+        "mean_var": 0.007875346384734326,
+        "mean_err": 0.5461639511518104,
+        "K": 4,
+        "N": 1024,
+        "codeword_idx": 0
+      }
+    ],
+    "spearman_rhos": [
+      -0.031071577050997775
+    ],
+    "n_pass_rho_ge_0p50": 0,
+    "n_fail_rho_lt_0p30": 1,
+    "vamp_se_pred_mse": 0.5084660841149639,
+    "config": {
+      "mode": "smoke",
+      "codebook": "kerdock",
+      "N": 1024,
+      "alpha": 0.5,
+      "n_codewords": 1,
+      "K": 4,
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_iter": 50,
+      "base_seed": 13,
+      "M": 512
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "codebook": "kerdock",
+    "N": 1024,
+    "alpha": 0.5,
+    "n_codewords": 1,
+    "K": 4,
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_iter": 50,
+    "base_seed": 13,
+    "M": 512
+  }
+}

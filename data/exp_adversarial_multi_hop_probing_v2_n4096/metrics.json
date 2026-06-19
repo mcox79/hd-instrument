@@ -1,0 +1,55 @@
+{
+  "verdict": "S12_HARD_FAIL",
+  "verdict_msg": "ADVERSARIAL_BREACH: defense={p1_crosstalk=1.000 p2_collision=0.000 p3_deleted=1.000 p4_edited=0.000 p5_composition=1.000} max_leak={p1_crosstalk=0.000 p2_collision=1.000 p3_deleted=0.000 p4_edited=0.000 p5_composition=0.000} errors={}",
+  "elapsed_s": 0.06,
+  "summary": {
+    "anchor": "adversarial_multi_hop_probing_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "n_q": 8,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "patterns": {
+          "p1_crosstalk": {
+            "defense_rate": 1.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          },
+          "p2_collision": {
+            "defense_rate": 0.0,
+            "leakage_rate": 1.0,
+            "n_q": 8
+          },
+          "p3_deleted": {
+            "defense_rate": 1.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          },
+          "p4_edited": {
+            "defense_rate": 0.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          },
+          "p5_composition": {
+            "defense_rate": 1.0,
+            "leakage_rate": 0.0,
+            "n_q": 8
+          }
+        },
+        "pattern_errors": {},
+        "mem_alloc_mb": 0.0
+      }
+    ],
+    "verdict": "S12_HARD_FAIL",
+    "verdict_msg": "ADVERSARIAL_BREACH: defense={p1_crosstalk=1.000 p2_collision=0.000 p3_deleted=1.000 p4_edited=0.000 p5_composition=1.000} max_leak={p1_crosstalk=0.000 p2_collision=1.000 p3_deleted=0.000 p4_edited=0.000 p5_composition=0.000} errors={}",
+    "elapsed_s": 0.06
+  }
+}

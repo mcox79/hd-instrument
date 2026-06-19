@@ -1,0 +1,240 @@
+"""Shared metrics-PROVENANCE fields for experiment cells (Skunkworks metrics-provenance gate, 2026-06-17).
+
+Makes "is this metrics.json the output of the run I think, via the path/method I require?" a FIELD CHECK, not an
+inference. Every cell emits the same structured block so the cert gate + the dispatch one-true-test read it programmatically
+(ending the stale / wrong-method / wrong-mode remote-vs-local inference that bit the team today).
+
+Fields (the cert-owner 4-point gate + commit bonus):
+  run_mode        -- full | smoke                                  (MODE; GATE-0)
+  branch_path     -- which code path executed (cell-specific str)  (PATH)
+  metrics_source  -- method that produced the numbers              (METHOD; METHOD-GATE)
+  run_started_utc -- iso8601 at run start                          (IDENTITY/FRESHNESS: is this file from THIS run?)
+  cell_commit     -- git short hash of the running cell            (which CODE produced it)
+
+Deterministic; no LLM. ASCII-only.
+"""
+from __future__ import annotations
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
+
+_REPO = Path(__file__).resolve().parents[1]
+
+
+def now_utc() -> str:
+    """iso8601 UTC timestamp; capture at run start for run_started_utc."""
+    return datetime.now(timezone.utc).isoformat()
+
+
+def cell_commit() -> str:
+    """Best-effort git short hash of the running cell (on the remote = the commit the runner actually pulled)."""
+    try:
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=str(_REPO),
+                              capture_output=True, text=True, timeout=5).stdout.strip() or "unknown"
+    except Exception:
+        return "unknown"
+
+
+def provenance_fields(run_mode: str, branch_path: str, metrics_source: str, run_started_utc: str) -> dict:
+    """The structured provenance block to spread into a cell's metrics dict."""
+    return {"run_mode": run_mode, "branch_path": branch_path, "metrics_source": metrics_source,
+            "run_started_utc": run_started_utc, "cell_commit": cell_commit()}
+
+
+def gate0_self_check(run_mode: str, metrics_source: str, n_cells_declared: int, n_cells_emitted: int,
+                     elapsed_s: float, is_smoke: bool) -> dict:
+    """GATE-0 PRODUCER self-check (Skunkworks C2 self-certification engine, 2026-06-18; the substrate-autonomy path).
+
+    The cell DETERMINISTICALLY self-attests, at the source, the GATE-0 conditions the cert layer would otherwise
+    check post-hoc -- so an early-exit / smoke-default / cost-model run flags ITSELF, not only at cert time.
+    Pairs with the atomizer's consumer-side gate0_field_check (defense-in-depth: GATE-0 at producer AND consumer).
+
+    DETERMINISTIC hard checks (the catch surface):
+      - n_cells_emitted == n_cells_declared   (early-exit / crashed-mid-grid -> emitted < declared)
+      - run_mode == 'full' when not is_smoke   (run-mode-smoke-default ran synthetic/short)
+      - metrics_source startswith 'measured_'  (cost-model / synthetic / null -> not measured)
+    RECORDED (inspectable, NOT a hard gate -- a per-workload time model is not deterministic, per the
+      gate0-plausibility-per-cell-WORKLOAD lesson: wall-time is a TELL not a GATE):
+      - elapsed_s, n_cells_declared, n_cells_emitted  (so elapsed-per-cell is inspectable downstream)
+
+    Returns a dict to spread into metrics under key 'gate0_self_check'. 11th-rule clean; no LLM; ASCII.
+    """
+    reasons = []
+    if n_cells_emitted != n_cells_declared:
+        reasons.append(f"n_cells_emitted({n_cells_emitted})!=n_cells_declared({n_cells_declared})_INCOMPLETE")
+    if not is_smoke and str(run_mode) != "full":
+        reasons.append(f"run_mode({run_mode})!=full_when_not_smoke")
+    if not str(metrics_source or "").lower().startswith("measured_"):
+        reasons.append(f"metrics_source({metrics_source})_not_measured_")
+    return {
+        "pass": len(reasons) == 0,
+        "reasons": reasons,
+        "n_cells_declared": n_cells_declared,
+        "n_cells_emitted": n_cells_emitted,
+        "elapsed_s": elapsed_s,
+        "is_smoke": bool(is_smoke),
+    }
+
+
+def discrimination_self_check(discriminates: bool, reference_value, floor, ceiling, reason: str = "") -> dict:
+    """DISCRIMINATION-REGIME self-check (Skunkworks B-epsilon self-cert engine, 2026-06-18; encodes
+    degenerate-regime-not-refutation [audit lesson 79, CONFIRMED 7-witness] as a DETERMINISTIC self-applied gate).
+
+    The CELL -- which alone knows its metric -- self-attests whether its regime DISCRIMINATES: the reference
+    point measurably ABOVE the floor AND BELOW the ceiling (NOT saturated / collapsed / one-hot / under-stressed).
+    A NON-discriminating regime is a NON_TEST, not a verdict: a PASS/HARD_FAIL on a metric that cannot
+    discriminate is meaningless ("a measurement is a test only if its discriminating range covers reality").
+
+    Pairs with the consumer-side discrimination_gate (the atomizer forces the effective verdict -> NON_TEST when
+    discriminates==False). Generalizes the per-cell discrimination guard hand-written in A3/8a/refuse-gate into
+    ONE shared producer-attest + consumer-enforce gate. 11th-rule clean; no LLM; ASCII.
+    """
+    return {"discriminates": bool(discriminates), "reference_value": reference_value,
+            "floor": floor, "ceiling": ceiling, "reason": reason}
+
+
+def baseline_cliff_self_check(baseline_low, baseline_high, works_threshold=0.5, cliff_drop=0.2,
+                              reason: str = "") -> dict:
+    """WORKING-BASELINE-CLIFF self-check (Skunkworks 3rd self-cert gate, 2026-06-18; encodes the B-delta v1 catch
+    -- 'a lift over a FLOORED baseline is NOT a lever' -- as a DETERMINISTIC self-applied gate. REFINES the
+    discrimination-regime gate [audit 79] specifically for LEVER / baseline-comparison claims).
+
+    For a LEVER claim ('method X LIFTS capability over baseline B'), the lift is a real lever ONLY IF the
+    comparison baseline B is a WORKING baseline WITH A CLIFF: it WORKS (recall/score > works_threshold) at the
+    EASY end AND DEGRADES (drops >= cliff_drop) at the HARD end. Two ways a lever claim is actually a NON_TEST:
+      - baseline FLOORED everywhere (never works): the 'lift' measures DENOISING / threshold-rescue, NOT the
+        lever (the B-delta v1 noise-bug: linear=0 at ALL M -> nonlinear's lift was denoising-over-a-floor).
+      - baseline never CLIFFS (works everywhere): no headroom for a lever to be demonstrated.
+
+    The CELL -- which alone knows its metric -- passes its MEASURED baseline at the EASY end (baseline_low) and
+    the HARD end (baseline_high); the gate DETERMINISTICALLY decides
+        is_working_baseline_cliff = (low > works_threshold) AND ((low - high) >= cliff_drop).
+    Pairs with the consumer-side baseline_cliff_gate (the atomizer forces the effective verdict -> NON_TEST when
+    is_working_baseline_cliff==False). ADDITIVE + NON-RETROACTIVE: ONLY lever cells emit it (a non-lever cell has
+    no comparison baseline), so nothing existing re-grades. COMPOSES with discrimination_self_check (discrimination
+    = does the test discriminate at all; baseline-cliff = is the comparison baseline a working-baseline-with-a-cliff
+    so the lift is a real lever). 11th-rule clean; no LLM; ASCII.
+    """
+    try:
+        lo = float(baseline_low)
+        hi = float(baseline_high)
+        works = lo > float(works_threshold)
+        cliffs = (lo - hi) >= float(cliff_drop)
+        is_wbc = works and cliffs
+    except (TypeError, ValueError):
+        works = cliffs = is_wbc = False
+    return {
+        "is_working_baseline_cliff": bool(is_wbc),
+        "baseline_low": baseline_low,
+        "baseline_high": baseline_high,
+        "works": bool(works),
+        "cliffs": bool(cliffs),
+        "works_threshold": works_threshold,
+        "cliff_drop": cliff_drop,
+        "reason": reason,
+    }
+
+
+# Methods that do NOT establish full-corpus coverage (a subset / estimate / local-only search).
+_CORPUS_ESTIMATE_DENYLIST = ("grep", "estimate", "sample", "subset", "local_only", "local-only", "token_match")
+
+
+def corpus_completeness_self_check(claim_kind: str, n_checked, n_total, method: str = "",
+                                   reason: str = "") -> dict:
+    """CORPUS-COMPLETENESS self-check (Skunkworks 4th self-cert gate, 2026-06-18; encodes the corpus-completeness
+    audit discipline as a DETERMINISTIC self-applied gate. An ABSENCE / COVERAGE / GAP claim must be verified
+    against the FULL corpus by an EXHAUSTIVE method -- NOT a subset, a token-grep estimate, or a local-only read).
+
+    Two catches this generalizes: (1) the A2 over-flag -- naive token-match gap-lists LEAK common nouns now IN the
+    corpus after the +10k WordNet/GO ingest (a 'gap' that isn't a gap once you check the full corpus precisely);
+    (2) the remote-vs-local HALF-DATA catch -- a corpus claim read local-only (1935 of remote 3684) is half-data.
+    An absence/coverage claim is VALID only if it searched the FULL corpus exhaustively.
+
+    The cell passes how many atoms it actually searched (n_checked), the full corpus size at claim time (n_total),
+    and the search method; the gate decides
+        is_complete = (n_checked >= n_total > 0) AND (method is non-empty AND not in the estimate denylist).
+    Pairs with the consumer-side corpus_completeness_gate. ADDITIVE + NON-RETROACTIVE (only absence/coverage cells
+    emit it). COMPOSES with the other 3 self-cert gates (gate0 / discrimination-regime / working-baseline-cliff).
+    11th-rule clean; no LLM; ASCII.
+    """
+    m = str(method or "").lower()
+    try:
+        complete_corpus = int(n_checked) >= int(n_total) and int(n_total) > 0
+    except (TypeError, ValueError):
+        complete_corpus = False
+    method_ok = bool(m) and not any(t in m for t in _CORPUS_ESTIMATE_DENYLIST)
+    return {
+        "is_complete": bool(complete_corpus and method_ok),
+        "claim_kind": claim_kind,
+        "n_checked": n_checked,
+        "n_total": n_total,
+        "complete_corpus": bool(complete_corpus),
+        "method": method,
+        "method_ok": bool(method_ok),
+        "reason": reason,
+    }
+
+
+def path_provenance_self_check(n_paths, n_path_edges, n_unverifiable_edges, reason: str = "") -> dict:
+    """MULTI-HOP PATH-PROVENANCE self-check (5th self-cert gate, 2026-06-18; composed-reasoning A1).
+
+    For any cell that returns multi-hop PATHS over the typed-edge KG (path-finding / composed reasoning), every hop
+    in every returned path MUST be a PERSISTED (src, rel_type, tgt) tuple in the Store -- a path with ANY edge not
+    in the Store is a HALLUCINATED hop (the failure mode an LLM/RL walker has + a deterministic walker must not).
+    This is the structural-soundness property that makes a multi-hop answer PROVENANCE-CERT: the PATH is sound.
+
+    HONEST CERT SEMANTIC (min-cert-along-path): provenance-soundness certifies the PATH (every edge real), NOT the
+    answer's CLAIM-cert -- the claim-cert is the WEAKEST edge's tier (ontology-ingested IS_A/HYPERNYM/PART_OF edges
+    are not experiment-cert). So a provenance-sound path over ontology-tier edges = 'structurally sound over ingested
+    edges', NOT a CERT_CHAIN_GRADE experiment claim. (The cell reports min_cert_along_path separately.)
+
+    The cell passes the number of returned paths, total path-edges, and how many were NOT persisted Store tuples;
+    the gate decides is_provenance_sound = (n_unverifiable_edges == 0). Pairs with a consumer-side
+    path_provenance_gate (a returned path with an unverifiable edge -> HARD_FAIL / NON_TEST). ADDITIVE +
+    NON-RETROACTIVE (only multi-hop path cells emit it). COMPOSES with the other 4 gates. 11th-rule clean; no LLM; ASCII.
+    """
+    try:
+        sound = int(n_unverifiable_edges) == 0 and int(n_path_edges) >= 0
+    except (TypeError, ValueError):
+        sound = False
+    return {
+        "is_provenance_sound": bool(sound),
+        "n_paths": n_paths,
+        "n_path_edges": n_path_edges,
+        "n_unverifiable_edges": n_unverifiable_edges,
+        "reason": reason,
+    }
+
+
+def phantom_dep_self_check(n_declared_edges, n_phantom_edges, reason: str = "") -> dict:
+    """PHANTOM-DEPENDENCY self-check (Skunkworks 7th self-cert gate, 2026-06-18; encodes audit lessons 2+4 --
+    don't-fabricate-grounding / phantom-dep-pre-ratify [BOTH CONFIRMED] -- as a DETERMINISTIC self-applied gate).
+
+    Every provenance edge an atom DECLARES (DEPENDS_ON / COMPOSES / STRENGTHENS) MUST have a target that EXISTS in
+    the Store at atomize time. A PHANTOM edge (declared target ABSENT) means the atom's provenance LINEAGE is broken
+    -- the grounding it claims cannot be verified. UNLIKE the 5th gate (path-provenance, which forces HARD_FAIL: a
+    hallucinated REASONING-PATH hop makes the composed-reasoning RESULT false), a phantom LINEAGE edge does NOT prove
+    the result false -- it makes the PROVENANCE unverifiable. So the honest consequence is UNVERIFIED (block CERT;
+    the provenance chain is insufficient for a cert-grade claim), NOT HARD_FAIL (do NOT over-assert result-false).
+    (COMPOSES with an absent target is treated identically -- UNVERIFIED is the honest floor; a stricter HARD_FAIL
+    could be argued for a broken composition claim but UNVERIFIED does not over-assert.)
+
+    The cell -- which for an INGEST cell BUILDS the Store + for any cell KNOWS its declared edges -- passes the number
+    of declared provenance edges and how many had ABSENT targets; the gate decides is_phantom_free = (n_phantom == 0).
+    Pairs with the consumer-side phantom-dep guard inside provenance_quality (would-be-cert + is_phantom_free==False
+    -> UNVERIFIED). Moves the integrator's manual pre-ratify phantom-dep scan to a deterministic atomize-time check,
+    AND is the deterministic enforcement of the FrameNet / deeper-ingest '0-phantom verified post-ingest' pre-ingest
+    cert-condition. ADDITIVE + NON-RETROACTIVE (only edge-declaring cells emit it; legacy atoms pass through). The
+    INDEPENDENT re-verification (does each target actually exist) is the Testbed 2nd-witness's job (defense-in-depth).
+    11th-rule clean; no LLM; ASCII.
+    """
+    try:
+        free = int(n_phantom_edges) == 0 and int(n_declared_edges) >= 0
+    except (TypeError, ValueError):
+        free = False
+    return {
+        "is_phantom_free": bool(free),
+        "n_declared_edges": n_declared_edges,
+        "n_phantom_edges": n_phantom_edges,
+        "reason": reason,
+    }

@@ -1,0 +1,12 @@
+{
+  "anchor_name": "combo1_pp48_audit_on_nkt_v2_depth_5_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3/4 HP conditions met. cert_A=-1.0117(HP|+1|<=0.2) cert_B_pos=0.0000 kappa3_A=0.01260 cndc_disc=4.0900(HP>=0.05) hp1=5/5 hp2=0/5 hp3=5/5 hp4=5/5",
+  "N": 4096,
+  "NKT_DEPTH": 5,
+  "TOTAL_NKT": 31,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.208085298538208,
+  "peak_gpu_gb": 0.044763136
+}

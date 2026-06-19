@@ -1,0 +1,22 @@
+{
+  "anchor_name": "ner_brown_cluster_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cluster features add nothing (lift<0.005) -- in-corpus distributional clusters insufficient; need external embeddings or larger corpus for the feature lever. +cluster F1=0.4706 vs no-cluster 0.4658 (lift=+0.0047, P=0.514 R=0.434, 48 clusters/394 vocab, train=300)",
+  "summary": "HARD_FAIL: cluster features add nothing (lift<0.005) -- in-corpus distributional clusters insufficient; need external embeddings or larger corpus for the feature lever. +cluster F1=0.4706 vs no-cluster 0.4658 (lift=+0.0047, P=0.514 R=0.434, 48 clusters/394 vocab, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.4706,
+      "f1_cluster": 0.4706,
+      "f1_baseline": 0.4658,
+      "lift": 0.0047,
+      "prec": 0.514,
+      "rec": 0.434,
+      "n_train": 300,
+      "n_clusters": 48,
+      "n_vocab": 394
+    }
+  ],
+  "elapsed_s": 7.658339738845825
+}

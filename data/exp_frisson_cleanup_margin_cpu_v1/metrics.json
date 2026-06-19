@@ -1,0 +1,15 @@
+{
+  "anchor_name": "frisson_cleanup_margin_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate cleanup-margin spike at sequence resolution discriminates RESOLVED vs unresolved (AUC>=0.80) -- prediction-error-resolution frisson proxy from existing cleanup dynamics, substrate-only no new infra. frisson-AUC=0.999",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "frisson_auc": 0.999,
+      "n": 1200
+    }
+  ],
+  "elapsed_s": 22.072723627090454,
+  "summary": "HARD_PASS: substrate cleanup-margin spike at sequence resolution discriminates RESOLVED vs unresolved (AUC>=0.80) -- prediction-error-resolution frisson proxy from existing cleanup dynamics, substrate-only no new infra. frisson-AUC=0.999"
+}

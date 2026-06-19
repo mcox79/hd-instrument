@@ -1,0 +1,757 @@
+{
+  "verdict": "MH_STRESS_MIDDLE_BAND",
+  "verdict_msg": "DIFFERENTIAL_SURVIVAL: 12 cells < 0.6; worst-cell means {'B': 0.0004, 'D': 1.0, 'E': 0.4952}. B: M16384d10=0.000 M16384d15=0.000 M16384d20=0.000 M24576d10=0.000 M24576d15=0.000 M24576d20=0.000 | D: M16384d10=1.000 M16384d15=1.000 M16384d20=1.000 M24576d10=1.000 M24576d15=1.000 M24576d20=1.000 | E: M16384d10=0.467 M16384d15=0.476 M16384d20=0.495 M24576d10=0.467 M24576d15=0.476 M24576d20=0.495",
+  "elapsed_s": 924.49,
+  "summary": {
+    "anchor": "multi_hop_stress_at_breaking_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M_grid": [
+      16384,
+      24576
+    ],
+    "depths": [
+      10,
+      15,
+      20
+    ],
+    "K_paths": 500,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "paths": [
+      "B",
+      "D",
+      "E"
+    ],
+    "cells": [
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 10,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 10,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 10,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 10,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 10,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 15,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 15,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 15,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 15,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 15,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 20,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 20,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 20,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.002
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 20,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 16384,
+        "depth": 20,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 10,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 10,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 10,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 10,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 10,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 15,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 15,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 15,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 15,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 15,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 20,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 20,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 20,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.002
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 20,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "B",
+        "M": 24576,
+        "depth": 20,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 10,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 10,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 10,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 10,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 10,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 15,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 15,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 15,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 15,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 15,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 20,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 20,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 20,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 20,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 16384,
+        "depth": 20,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 10,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 10,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 10,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 10,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 10,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 15,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 15,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 15,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 15,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 15,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 20,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 20,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 20,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 20,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 24576,
+        "depth": 20,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 10,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.478
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 10,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.488
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 10,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.456
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 10,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.464
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 10,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.448
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 15,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.494
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 15,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.442
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 15,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.462
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 15,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.472
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 15,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.51
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 20,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.504
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 20,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.466
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 20,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.526
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 20,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.464
+      },
+      {
+        "path": "E",
+        "M": 16384,
+        "depth": 20,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.516
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 10,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.478
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 10,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.488
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 10,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.456
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 10,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.464
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 10,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.448
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 15,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.494
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 15,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.442
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 15,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.462
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 15,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.472
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 15,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.51
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 20,
+        "seed": 7,
+        "K_paths": 500,
+        "accuracy": 0.504
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 20,
+        "seed": 17,
+        "K_paths": 500,
+        "accuracy": 0.466
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 20,
+        "seed": 23,
+        "K_paths": 500,
+        "accuracy": 0.526
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 20,
+        "seed": 31,
+        "K_paths": 500,
+        "accuracy": 0.464
+      },
+      {
+        "path": "E",
+        "M": 24576,
+        "depth": 20,
+        "seed": 41,
+        "K_paths": 500,
+        "accuracy": 0.516
+      }
+    ],
+    "verdict": "MH_STRESS_MIDDLE_BAND",
+    "verdict_msg": "DIFFERENTIAL_SURVIVAL: 12 cells < 0.6; worst-cell means {'B': 0.0004, 'D': 1.0, 'E': 0.4952}. B: M16384d10=0.000 M16384d15=0.000 M16384d20=0.000 M24576d10=0.000 M24576d15=0.000 M24576d20=0.000 | D: M16384d10=1.000 M16384d15=1.000 M16384d20=1.000 M24576d10=1.000 M24576d15=1.000 M24576d20=1.000 | E: M16384d10=0.467 M16384d15=0.476 M16384d20=0.495 M24576d10=0.467 M24576d15=0.476 M24576d20=0.495",
+    "elapsed_s": 924.49
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "verdict": "AMBIGUOUS",
+  "verdict_msg": "AMBIGUOUS: all arm-pair gaps < 0.03. INTER=0.0162 INTRA_RANDOM=0.0062 INTRA_RECENT=0.0037 FIXED=-0.0053 NO_REPLAY=0.0122. Timing resolution below noise floor at N=?.",
+  "elapsed_s": 2.993,
+  "summary": {
+    "INTER_BOUNDARY": 0.0162,
+    "INTRA_RANDOM": 0.0062,
+    "INTRA_RECENT": 0.0037,
+    "INTRA_FIXED_INTERVAL": -0.0053,
+    "NO_REPLAY": 0.0122,
+    "gap_inter_vs_intra": 0.01,
+    "gap_recent_vs_intra": -0.0025,
+    "gap_inter_vs_fixed": 0.0215
+  },
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "arms": [
+      "INTER_BOUNDARY",
+      "INTRA_RANDOM",
+      "INTRA_RECENT",
+      "INTRA_FIXED_INTERVAL",
+      "NO_REPLAY"
+    ],
+    "smoke": true,
+    "trigger": "ship when replay_hA_direct_v2 returns HARD_PASS (inter > intra by >= 0.05)"
+  }
+}

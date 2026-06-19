@@ -1,0 +1,29 @@
+{
+  "anchor_name": "combo1_p3_dam_implicit_gram_kappa3_v1_n4096",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_list": [
+    8192
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregate": {
+    "per_M": {
+      "8192": {
+        "M": 8192,
+        "alpha": 2.0,
+        "mean_mmd": 0.0,
+        "mean_k3_ratio_err": 0.8749980865251616,
+        "mean_snr_ratio": 0.247283935546875,
+        "kappa3_theory": 2.0,
+        "n_seeds": 2
+      }
+    },
+    "mean_write_slope": NaN
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "COMBO-1 HP2 FAIL: max_k3_ratio_err=0.875 > 0.5. kappa_3 Gram identity fails.",
+  "elapsed_s": 21.61425471305847
+}

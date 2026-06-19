@@ -1,0 +1,64 @@
+{
+  "verdict": "LANE_C_FULL_PASS",
+  "verdict_msg": "All 5 probes pass across all 5 seeds. Smoke PERFECT reproduces at FULL. Lane C is FULL-grounded for substrate-product Demo 2. all_seed_pass={'delete_leak': True, 'edit_acc': True, 'kept_acc': True, 'side_effect': True, 'ece': True}.",
+  "elapsed_s": 2.8910000000032596,
+  "summary": {
+    "per_seed": [
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      }
+    ],
+    "n_seeds": 5,
+    "agg_delete_leak_max": 0.0,
+    "agg_edit_acc_min": 1.0,
+    "agg_kept_acc_min": 1.0,
+    "agg_side_effect_max": 0.0,
+    "agg_ece_max": 0.0
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_facts": 100,
+    "n_edits": 50,
+    "n_deletes": 30,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  }
+}

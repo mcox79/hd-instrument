@@ -1,0 +1,40 @@
+{
+  "anchor_name": "substrate_m6_proof_aware_rerank_feasibility_heldout_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "M6 INFEASIBLE (proof-signal does NOT discriminate gold; most atoms axiom-terminating so signal flat): M6 proof-aware rerank FEASIBILITY: M4d base=0.2721 -> best=0.2721 at gamma=0.00 (delta +0.0000). Held-out gamma-swept (GOODHART-FLAGGED; de-Goodhart on dev if promising). n=7. Deprioritize M6; proof-soundness not a retrieval discriminator here.",
+  "summary": "M6 INFEASIBLE (proof-signal does NOT discriminate gold; most atoms axiom-terminating so signal flat): M6 proof-aware rerank FEASIBILITY: M4d base=0.2721 -> best=0.2721 at gamma=0.00 (delta +0.0000). Held-out gamma-swept (GOODHART-FLAGGED; de-Goodhart on dev if promising). n=7. Deprioritize M6; proof-soundness not a retrieval discriminator here.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 7,
+      "m4d_base": 0.2721,
+      "best_macro": 0.2721,
+      "best_gamma": 0.0,
+      "delta": 0.0,
+      "sweep": [
+        {
+          "gamma": 0.0,
+          "macro": 0.2721
+        },
+        {
+          "gamma": 0.05,
+          "macro": 0.2364
+        },
+        {
+          "gamma": 0.1,
+          "macro": 0.2364
+        },
+        {
+          "gamma": 0.2,
+          "macro": 0.2285
+        },
+        {
+          "gamma": 0.4,
+          "macro": 0.165
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 7.225490570068359
+}

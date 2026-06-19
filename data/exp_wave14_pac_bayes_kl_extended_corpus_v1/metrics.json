@@ -1,0 +1,64 @@
+{
+  "verdict": "FLOOR_VIOLATED",
+  "verdict_msg": "FLOOR_VIOLATED: 107/107 cells have floor > observed_retention. v1 KL cannot extrapolate to full corpus. Wait for GPU v2 direct measurement.",
+  "elapsed_s": 0.002,
+  "summary": {
+    "n_anchor_cells": 3,
+    "n_corpus_cells": 107,
+    "fisher_power_law": {
+      "A": 43.351,
+      "B": 0.416,
+      "fit_r2": 0.6173
+    },
+    "euclidean_power_law": {
+      "A": 9182.099,
+      "B": 1.214,
+      "fit_r2": 0.9997
+    },
+    "M_tokens": 3000,
+    "floor_violations": 107,
+    "floor_tight_fraction": 1.0,
+    "euclidean_proxy_valid": false,
+    "floor_agreement_euclidean_vs_fisher": false,
+    "kl_spacing_ratio": 0.8086
+  },
+  "per_class_floors": {
+    "COMPOUND_SAME_CORPUS": {
+      "mean_retention": 0.8846,
+      "mean_floor": 0.9464,
+      "gap": -0.0618,
+      "n": 15
+    },
+    "DIFF_CORPUS_2TASK": {
+      "mean_retention": 0.6334,
+      "mean_floor": 0.9312,
+      "gap": -0.2977,
+      "n": 13
+    },
+    "NO_REPLAY_SAME_CORPUS": {
+      "mean_retention": 0.6816,
+      "mean_floor": 0.933,
+      "gap": -0.2514,
+      "n": 5
+    },
+    "REPLAY_SAME_CORPUS": {
+      "mean_retention": 0.8449,
+      "mean_floor": 0.9423,
+      "gap": -0.0974,
+      "n": 49
+    },
+    "SAME_CORPUS_PRISTINE": {
+      "mean_retention": 0.9406,
+      "mean_floor": 0.953,
+      "gap": -0.0124,
+      "n": 5
+    },
+    "STAGE_4_COMPOUND": {
+      "mean_retention": 0.7336,
+      "mean_floor": 0.9354,
+      "gap": -0.2019,
+      "n": 20
+    }
+  },
+  "config": {}
+}

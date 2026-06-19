@@ -1,0 +1,58 @@
+{
+  "anchor_name": "comp4_capacity_per_level_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity curve characterized -- kstar>=10 at L=3 AND kstar>=5 at L=5 (with cleanup); operational depth-capacity envelope mapped. kstar-per-level={1: 80, 2: 80, 3: 80, 4: 80, 5: 80} theo-atomic=455",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "kstar_per_level": {
+        "1": 80,
+        "2": 80,
+        "3": 80,
+        "4": 80,
+        "5": 80
+      },
+      "curve": {
+        "1": {
+          "5": 1.0,
+          "10": 1.0,
+          "20": 1.0,
+          "40": 1.0,
+          "80": 1.0
+        },
+        "2": {
+          "5": 1.0,
+          "10": 1.0,
+          "20": 1.0,
+          "40": 1.0,
+          "80": 1.0
+        },
+        "3": {
+          "5": 1.0,
+          "10": 1.0,
+          "20": 1.0,
+          "40": 1.0,
+          "80": 1.0
+        },
+        "4": {
+          "5": 1.0,
+          "10": 1.0,
+          "20": 1.0,
+          "40": 1.0,
+          "80": 1.0
+        },
+        "5": {
+          "5": 1.0,
+          "10": 1.0,
+          "20": 1.0,
+          "40": 1.0,
+          "80": 1.0
+        }
+      },
+      "theo_atomic": 454.6
+    }
+  ],
+  "elapsed_s": 5166.058061122894,
+  "summary": "HARD_PASS: capacity curve characterized -- kstar>=10 at L=3 AND kstar>=5 at L=5 (with cleanup); operational depth-capacity envelope mapped. kstar-per-level={1: 80, 2: 80, 3: 80, 4: 80, 5: 80} theo-atomic=455"
+}

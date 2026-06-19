@@ -1,0 +1,16 @@
+{
+  "anchor_name": "bipolar_quantization_quality_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1-bit bipolar substrate matches float recall within 3pp -- ~16x memory-efficient deployment viable. float=0.767 bipolar=0.817 delta=+0.050",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "float": 0.7666666666666667,
+      "bipolar": 0.8166666666666667,
+      "delta": 0.04999999999999993
+    }
+  ],
+  "elapsed_s": 0.367779016494751,
+  "summary": "HARD_PASS: 1-bit bipolar substrate matches float recall within 3pp -- ~16x memory-efficient deployment viable. float=0.767 bipolar=0.817 delta=+0.050"
+}

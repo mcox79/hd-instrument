@@ -1,0 +1,99 @@
+{
+  "anchor_name": "substrate_cross_field_promotion_universality_probe_cpu_v1",
+  "verdict": "FIELD_SPECIFIC_LEANING",
+  "verdict_msg": "FIELD-SPECIFIC-LEANING (current corpus): structural-metadata coverage is HIGHLY field-skewed (pct_domain 'math'=0.80 vs 'history'=0.00, spread=0.795). The substrate is currently INSTRUMENTED for math/science promotion (rich domain/capability/signature) but NOT for history/language (sparse) -- and the dominant raw signal differs by field (history: note co-reference, uncorroborated; math: shared capability/USES, corroborated). So promotion needs a UNIVERSAL operator + a PER-FIELD SIGNAL-INSTRUMENTATION layer: each field must populate its own 'structural metadata' for the universal operator to read. OPEN QUESTION for the drill: is this asymmetry FUNDAMENTAL (math is intrinsically more structural) or just UNBUILT (history/language metadata not yet authored)? Matches the SHARES_MATH-auto-discovery finding (history excluded as noise). structural-metadata coverage by field (pct_domain): {'math': 0.795, 'cognition': 0.294, 'language': 0.333, 'history': 0.0, 'science': 0.0} (spread=0.795); per-field signal corroboration {'history': 0.0, 'math': 0.953, 'cognition': 0.021, 'language': 0.934, 'science': 1.0}; cross-field pairs=55 corroboration=0.691. INTERPRETATION: a UNIVERSAL promotion OPERATOR needs per-field SIGNAL DATA; where a field lacks domain/capability/profile, math-style structural promotion has nothing to read.",
+  "summary": "FIELD-SPECIFIC-LEANING (current corpus): structural-metadata coverage is HIGHLY field-skewed (pct_domain 'math'=0.80 vs 'history'=0.00, spread=0.795). The substrate is currently INSTRUMENTED for math/science promotion (rich domain/capability/signature) but NOT for history/language (sparse) -- and the dominant raw signal differs by field (history: note co-reference, uncorroborated; math: shared capability/USES, corroborated). So promotion needs a UNIVERSAL operator + a PER-FIELD SIGNAL-INSTRUMENTATION layer: each field must populate its own 'structural metadata' for the universal operator to read. OPEN QUESTION for the drill: is this asymmetry FUNDAMENTAL (math is intrinsically more structural) or just UNBUILT (history/language metadata not yet authored)? Matches the SHARES_MATH-auto-discovery finding (history excluded as noise). structural-metadata coverage by field (pct_domain): {'math': 0.795, 'cognition': 0.294, 'language': 0.333, 'history': 0.0, 'science': 0.0} (spread=0.795); per-field signal corroboration {'history': 0.0, 'math': 0.953, 'cognition': 0.021, 'language': 0.934, 'science': 1.0}; cross-field pairs=55 corroboration=0.691. INTERPRETATION: a UNIVERSAL promotion OPERATOR needs per-field SIGNAL DATA; where a field lacks domain/capability/profile, math-style structural promotion has nothing to read.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "field_atoms": {
+        "math": 239,
+        "cognition": 51,
+        "language": 42,
+        "meta": 18,
+        "history": 1245,
+        "science": 147
+      },
+      "coverage": {
+        "math": {
+          "n_atoms": 239,
+          "pct_domain": 0.795,
+          "pct_capability": 0.238,
+          "max_indeg": 322,
+          "n_indeg_hubs_ge3": 47
+        },
+        "cognition": {
+          "n_atoms": 51,
+          "pct_domain": 0.294,
+          "pct_capability": 0.0,
+          "max_indeg": 0,
+          "n_indeg_hubs_ge3": 0
+        },
+        "language": {
+          "n_atoms": 42,
+          "pct_domain": 0.333,
+          "pct_capability": 0.262,
+          "max_indeg": 0,
+          "n_indeg_hubs_ge3": 0
+        },
+        "meta": {
+          "n_atoms": 18,
+          "pct_domain": 0.056,
+          "pct_capability": 0.056,
+          "max_indeg": 0,
+          "n_indeg_hubs_ge3": 0
+        },
+        "history": {
+          "n_atoms": 1245,
+          "pct_domain": 0.0,
+          "pct_capability": 0.0,
+          "max_indeg": 0,
+          "n_indeg_hubs_ge3": 0
+        },
+        "science": {
+          "n_atoms": 147,
+          "pct_domain": 0.0,
+          "pct_capability": 0.415,
+          "max_indeg": 0,
+          "n_indeg_hubs_ge3": 0
+        }
+      },
+      "rows": {
+        "history": {
+          "n_signal_pairs": 1021,
+          "corroboration_rate": 0.0
+        },
+        "math": {
+          "n_signal_pairs": 148,
+          "corroboration_rate": 0.9527
+        },
+        "cognition": {
+          "n_signal_pairs": 47,
+          "corroboration_rate": 0.0213
+        },
+        "language": {
+          "n_signal_pairs": 61,
+          "corroboration_rate": 0.9344
+        },
+        "science": {
+          "n_signal_pairs": 35,
+          "corroboration_rate": 1.0
+        }
+      },
+      "eligible_corroboration": {
+        "history": 0.0,
+        "math": 0.9527,
+        "cognition": 0.0213,
+        "language": 0.9344,
+        "science": 1.0
+      },
+      "corroboration_spread": 1.0,
+      "coverage_spread_domain": 0.795,
+      "n_cross_field_pairs": 55,
+      "cross_field_corroboration": 0.6909,
+      "min_pairs_for_field": 20
+    }
+  ],
+  "elapsed_s": 0.09666967391967773
+}

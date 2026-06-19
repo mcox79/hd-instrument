@@ -1,0 +1,53 @@
+{
+  "anchor_name": "substrate_llama_layer_sweep_capacity_battery_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: L=15 ~ optimal (best within 0.9-1.2x). Keep L=15 recipe. cap by layer {'L4': 81.0, 'L6': 122.0, 'L8': 122.0, 'L10': 122.0, 'L12': 122.0, 'L13': 122.0, 'L14': 122.0, 'L15': 122.0, 'L16': 122.0} | best=L6 ref(L15)=122.0 best/ref=1.00x",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cap": {
+        "L4": 81,
+        "L6": 122,
+        "L8": 122,
+        "L10": 122,
+        "L12": 122,
+        "L13": 122,
+        "L14": 122,
+        "L15": 122,
+        "L16": 122
+      }
+    },
+    {
+      "seed": 17,
+      "cap": {
+        "L4": 81,
+        "L6": 122,
+        "L8": 122,
+        "L10": 122,
+        "L12": 122,
+        "L13": 122,
+        "L14": 122,
+        "L15": 122,
+        "L16": 122
+      }
+    },
+    {
+      "seed": 23,
+      "cap": {
+        "L4": 81,
+        "L6": 122,
+        "L8": 122,
+        "L10": 122,
+        "L12": 122,
+        "L13": 122,
+        "L14": 122,
+        "L15": 122,
+        "L16": 122
+      }
+    }
+  ],
+  "elapsed_s": 130.08938789367676,
+  "summary": "MIDDLE_BAND: L=15 ~ optimal (best within 0.9-1.2x). Keep L=15 recipe. cap by layer {'L4': 81.0, 'L6': 122.0, 'L8': 122.0, 'L10': 122.0, 'L12': 122.0, 'L13': 122.0, 'L14': 122.0, 'L15': 122.0, 'L16': 122.0} | best=L6 ref(L15)=122.0 best/ref=1.00x"
+}

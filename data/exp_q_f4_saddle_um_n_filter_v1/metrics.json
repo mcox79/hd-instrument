@@ -1,0 +1,21 @@
+{
+  "run_mode": "smoke",
+  "N": 2048,
+  "alpha": 0.15,
+  "P_SADDLES": 30,
+  "filter_denom": 0.1,
+  "seeds": [
+    7
+  ],
+  "aggregated": {
+    "mean_ratio_saddle": NaN,
+    "std_ratio_saddle": NaN,
+    "mean_ratio_minima": 0.3998669503641449,
+    "saddle_lift_over_minima": NaN,
+    "n_seeds": 0,
+    "filter_denom": 0.1
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "mean_ratio_saddle NaN or no valid seeds (filter_denom=0.1). Saddle proxies not found or all triples filtered.",
+  "elapsed_s": 23.89148235321045
+}

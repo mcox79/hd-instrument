@@ -1,0 +1,18 @@
+{
+  "anchor_name": "resonator_capacity_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: K=3 <0.75 even at N=4096. success by K: {'K2': 1.0, 'K3': 0.7, 'K4': 0.142} (N=4096)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K2": 1.0,
+        "K3": 0.7,
+        "K4": 0.14166666666666666
+      }
+    }
+  ],
+  "elapsed_s": 13.363309860229492,
+  "summary": "HARD_FAIL: K=3 <0.75 even at N=4096. success by K: {'K2': 1.0, 'K3': 0.7, 'K4': 0.142} (N=4096)"
+}

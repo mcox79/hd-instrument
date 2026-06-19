@@ -1,0 +1,19 @@
+{
+  "anchor_name": "substrate_wikipedia_layer15_cache_extraction_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL: only 5844282 of 6500000 articles extracted; resumable via rerun",
+  "run_mode": "full",
+  "model_id": "meta-llama/Llama-3.2-1B",
+  "layer_idx": 15,
+  "target_articles": 6500000,
+  "shard_size": 10000,
+  "extracted_this_run": 5844282,
+  "skipped_existing_this_run": 0,
+  "n_shards_on_disk": 585,
+  "hidden_dim": 2048,
+  "load_wall_s": 5.855716705322266,
+  "extract_wall_s": 17351.480529785156,
+  "elapsed_s": 17358.206928491592,
+  "gpu_peak_gb": 2.472677888,
+  "summary": "PARTIAL: only 5844282 of 6500000 articles extracted; resumable via rerun"
+}

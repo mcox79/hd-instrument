@@ -1,0 +1,126 @@
+{
+  "anchor_name": "substrate_stage_a_bio_smoke_iter2_B1_B6_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: bio iter2 B1[acc=1.00 adam_epochs_to_match=1 HF] B6[best_diff@m2.0: decr=0.79 lru=0.39 none=0.00 (delta=+0.40) HP]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "cells": [
+    "B1_iter",
+    "B6_iter"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "B1": {
+        "M": 283,
+        "acc_oneshot": 1.0,
+        "adam_epochs_to_match": 1,
+        "wall_speedup": 4.189807976366322,
+        "t_oneshot": 0.0016140937805175781,
+        "t_adam": 0.00676274299621582
+      },
+      "B6": {
+        "m1.0": {
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0,
+          "none": 0.0
+        },
+        "m1.5": {
+          "decr": 1.0,
+          "lru": 0.9716981132075472,
+          "random": 0.9433962264150944,
+          "none": 0.0
+        },
+        "m2.0": {
+          "decr": 0.8014184397163121,
+          "lru": 0.375886524822695,
+          "random": 0.3049645390070922,
+          "none": 0.0
+        },
+        "m2.5": {
+          "decr": 0.07344632768361582,
+          "lru": 0.02824858757062147,
+          "random": 0.01694915254237288,
+          "none": 0.0
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "B1": {
+        "M": 283,
+        "acc_oneshot": 1.0,
+        "adam_epochs_to_match": 1,
+        "wall_speedup": 0.0,
+        "t_oneshot": 0.0,
+        "t_adam": 0.0
+      },
+      "B6": {
+        "m1.0": {
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0,
+          "none": 0.0
+        },
+        "m1.5": {
+          "decr": 1.0,
+          "lru": 0.9528301886792453,
+          "random": 0.9905660377358491,
+          "none": 0.0
+        },
+        "m2.0": {
+          "decr": 0.75177304964539,
+          "lru": 0.3971631205673759,
+          "random": 0.2695035460992908,
+          "none": 0.0
+        },
+        "m2.5": {
+          "decr": 0.06779661016949153,
+          "lru": 0.0,
+          "random": 0.005649717514124294,
+          "none": 0.0
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "B1": {
+        "M": 283,
+        "acc_oneshot": 1.0,
+        "adam_epochs_to_match": 1,
+        "wall_speedup": 9204.626083374023,
+        "t_oneshot": 0.0,
+        "t_adam": 0.009204626083374023
+      },
+      "B6": {
+        "m1.0": {
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0,
+          "none": 0.0
+        },
+        "m1.5": {
+          "decr": 1.0,
+          "lru": 0.9811320754716981,
+          "random": 0.9056603773584906,
+          "none": 0.0
+        },
+        "m2.0": {
+          "decr": 0.8297872340425532,
+          "lru": 0.40425531914893614,
+          "random": 0.2695035460992908,
+          "none": 0.0
+        },
+        "m2.5": {
+          "decr": 0.03389830508474576,
+          "lru": 0.005649717514124294,
+          "random": 0.0,
+          "none": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 36.69726896286011,
+  "summary": "MIDDLE_BAND: bio iter2 B1[acc=1.00 adam_epochs_to_match=1 HF] B6[best_diff@m2.0: decr=0.79 lru=0.39 none=0.00 (delta=+0.40) HP]"
+}

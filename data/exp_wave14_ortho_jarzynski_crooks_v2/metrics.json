@@ -1,0 +1,56 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: hp_frac=0.10; mean_agreement=14.290; jarz_var_mean=1.847; mixed signal at beta=0.3; try beta<0.3 or larger M",
+  "elapsed_s": 14.9,
+  "summary": {
+    "M50": {
+      "M": 50,
+      "n_seeds": 5,
+      "agreement_mean": 2.83437,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 0.0597
+    },
+    "M200": {
+      "M": 200,
+      "n_seeds": 5,
+      "agreement_mean": 5.10448,
+      "hp_frac": 0.4,
+      "jarz_variance_mean": 0.294
+    },
+    "M500": {
+      "M": 500,
+      "n_seeds": 5,
+      "agreement_mean": 18.15618,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 1.5356
+    },
+    "M1000": {
+      "M": 1000,
+      "n_seeds": 5,
+      "agreement_mean": 31.06362,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 5.4997
+    }
+  },
+  "config": {
+    "N": 512,
+    "smoke": false,
+    "M_sweep": [
+      50,
+      200,
+      500,
+      1000
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "beta": 0.3,
+    "alpha_hebbian": 0.1,
+    "hp_agreement_band": 0.5,
+    "v2_fix": "N=512 (was 256), beta=0.3 (was 1.0), extended M_sweep"
+  }
+}

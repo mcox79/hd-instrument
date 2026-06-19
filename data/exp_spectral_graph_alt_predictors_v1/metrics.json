@@ -1,0 +1,56 @@
+{
+  "verdict": "SPECTRAL_ALT_MIDDLE_BAND",
+  "verdict_msg": "Mixed spectral signal. mean_corrs: {'clustering_coeff': -0.368, 'spectral_gap_normalized': -0.996, 'avg_path_proxy': -0.887}. best_property=clustering_coeff corr=-0.368. Some properties in [0.2,0.5); not conclusive.",
+  "elapsed_s": 0.17829251289367676,
+  "config": {
+    "N": 256,
+    "alpha_b_vals": [
+      0.0,
+      0.1,
+      0.3
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "N": 256,
+        "seed": 17,
+        "corr_cc_ret": -0.3675987296050695,
+        "corr_sg_ret": -0.9959819088878444,
+        "corr_ap_ret": -0.8874109590964064,
+        "alpha_results": [
+          {
+            "alpha_B": 0.0,
+            "M_B": 0,
+            "clustering_coeff": 0.6914615581946679,
+            "spectral_gap_normalized": 0.889707052322572,
+            "avg_path_proxy": -2.482439339842517,
+            "retention_A": 1.0
+          },
+          {
+            "alpha_B": 0.1,
+            "M_B": 25,
+            "clustering_coeff": 0.6660646674836604,
+            "spectral_gap_normalized": 0.8927423068049675,
+            "avg_path_proxy": -1.7921492639180239,
+            "retention_A": 0.88
+          },
+          {
+            "alpha_B": 0.3,
+            "M_B": 76,
+            "clustering_coeff": 0.6903969252069062,
+            "spectral_gap_normalized": 0.9042064030003284,
+            "avg_path_proxy": -1.2429180359723233,
+            "retention_A": 0.0
+          }
+        ]
+      }
+    ],
+    "N": 256,
+    "smoke": true
+  }
+}

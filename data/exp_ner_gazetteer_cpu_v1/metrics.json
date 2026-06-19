@@ -1,0 +1,18 @@
+{
+  "anchor_name": "ner_gazetteer_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: NER F1 <0.55. entity-F1=0.5747 (P=0.595 R=0.556, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5747,
+      "prec": 0.595,
+      "rec": 0.556,
+      "n_train": 5982,
+      "n_tags": 36
+    }
+  ],
+  "elapsed_s": 285.9705307483673,
+  "summary": "HARD_FAIL: NER F1 <0.55. entity-F1=0.5747 (P=0.595 R=0.556, train=5982)"
+}

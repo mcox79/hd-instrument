@@ -1,0 +1,36 @@
+{
+  "experiments": [
+    {
+      "name": "m2_slot_attention_v2",
+      "status": "failed"
+    },
+    {
+      "name": "m2_sparse_autoencoder_v2",
+      "script": "experiments/exp_wave14b_m2_sparse_autoencoder.py",
+      "status": "running",
+      "purpose": "Top-K SAE",
+      "timeout_s": 1800
+    },
+    {
+      "name": "m2_nmf_v2",
+      "script": "experiments/exp_wave14b_m2_nmf.py",
+      "status": "pending",
+      "purpose": "NMF",
+      "timeout_s": 1200
+    },
+    {
+      "name": "m2_cp_tensor",
+      "script": "experiments/exp_wave14b_m2_cp_tensor.py",
+      "status": "pending",
+      "purpose": "CP tensor",
+      "timeout_s": 1800
+    },
+    {
+      "name": "m2_slot_attention_v3",
+      "script": "experiments/exp_wave14b_m2_slot_attention.py",
+      "status": "pending",
+      "purpose": "Slot attention - re-queued after randn_like fix",
+      "timeout_s": 1200
+    }
+  ]
+}

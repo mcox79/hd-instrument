@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: whitening STILL adds after expansion (d >=1.15x c) -- NO subsumption; production rule = expand + whiten (stacking holds). cap {'base_raw': 3.0, 'whiten_only': 7.0, 'expand_only': 0.0, 'expand_whiten': 7.0} | (d)expand+whiten/(c)expand=7000000000.00x",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cap": {
+        "base_raw": 3,
+        "whiten_only": 7,
+        "expand_only": 0,
+        "expand_whiten": 7
+      }
+    },
+    {
+      "seed": 17,
+      "cap": {
+        "base_raw": 3,
+        "whiten_only": 7,
+        "expand_only": 0,
+        "expand_whiten": 7
+      }
+    },
+    {
+      "seed": 23,
+      "cap": {
+        "base_raw": 3,
+        "whiten_only": 7,
+        "expand_only": 0,
+        "expand_whiten": 7
+      }
+    }
+  ],
+  "elapsed_s": 13.317566871643066,
+  "summary": "HARD_PASS: whitening STILL adds after expansion (d >=1.15x c) -- NO subsumption; production rule = expand + whiten (stacking holds). cap {'base_raw': 3.0, 'whiten_only': 7.0, 'expand_only': 0.0, 'expand_whiten': 7.0} | (d)expand+whiten/(c)expand=7000000000.00x"
+}

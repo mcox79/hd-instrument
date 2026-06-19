@@ -1,0 +1,57 @@
+{
+  "verdict": "KF1T1_MIDDLE_BAND",
+  "verdict_msg": "Zero hallucinations (a passes) but near-uniform bound weak. 0/1 seeds within 10/C; 50x max bound VIOLATED. mean_ratio_to_uniform=17.39x.",
+  "elapsed_s": 0.07,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "per_M": {
+          "0.25": {
+            "M": 256,
+            "M_over_N": 0.25,
+            "C": 4096,
+            "oos_max_conf_mean": 0.001779315760359168,
+            "oos_max_conf_max": 0.003993877209722996,
+            "above_thresh_frac": 0.0,
+            "near_uniform_mean": true,
+            "near_uniform_max": true,
+            "bound_10x": 0.00244140625,
+            "bound_50x": 0.01220703125,
+            "ratio_to_uniform_mean": 7.288077354431152,
+            "inset_acc": 0.0,
+            "inset_max_conf_mean": 0.9433137774467468
+          },
+          "1.0": {
+            "M": 1024,
+            "M_over_N": 1.0,
+            "C": 4096,
+            "oos_max_conf_mean": 0.0067095207050442696,
+            "oos_max_conf_max": 0.023840172216296196,
+            "above_thresh_frac": 0.0,
+            "near_uniform_mean": false,
+            "near_uniform_max": false,
+            "bound_10x": 0.00244140625,
+            "bound_50x": 0.01220703125,
+            "ratio_to_uniform_mean": 27.482196807861328,
+            "inset_acc": 0.0,
+            "inset_max_conf_mean": 0.9085149168968201
+          }
+        }
+      }
+    },
+    "mode": "smoke",
+    "N": 1024
+  },
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      0.25,
+      1.0
+    ],
+    "n_oos": 100,
+    "n_inset": 30
+  }
+}

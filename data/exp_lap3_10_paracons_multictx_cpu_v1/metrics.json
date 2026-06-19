@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap3_10_paracons_multictx_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate tracks Belnap 4-valued truth PER CONTEXT >=0.85 -- a prop can be T/F/U/B differently across contexts; context-bound paraconsistent evidence (no cross-context contamination or explosion). multi-context-4valued-acc=1.000 (NC=5)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "multictx_acc": 1.0,
+      "NC": 5,
+      "n": 6000
+    }
+  ],
+  "elapsed_s": 0.2465221881866455,
+  "summary": "HARD_PASS: substrate tracks Belnap 4-valued truth PER CONTEXT >=0.85 -- a prop can be T/F/U/B differently across contexts; context-bound paraconsistent evidence (no cross-context contamination or explosion). multi-context-4valued-acc=1.000 (NC=5)"
+}

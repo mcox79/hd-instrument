@@ -1,0 +1,16 @@
+{
+  "anchor_name": "cheap2_gap_score_uncertainty_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cleanup gap-score separates correct vs incorrect answers AUC>=0.75 -- usable second-order uncertainty/abstention signal. AUC=0.791 (rho=0.375, acc=0.680)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 0.7912581699346405,
+      "spearman": 0.3746175385572692,
+      "acc": 0.68
+    }
+  ],
+  "elapsed_s": 0.4436969757080078,
+  "summary": "HARD_PASS: cleanup gap-score separates correct vs incorrect answers AUC>=0.75 -- usable second-order uncertainty/abstention signal. AUC=0.791 (rho=0.375, acc=0.680)"
+}

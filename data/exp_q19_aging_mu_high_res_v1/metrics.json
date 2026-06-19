@@ -1,0 +1,32 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "ALPHA_LIST": [
+    0.14
+  ],
+  "T_W_LIST": [
+    5,
+    10,
+    20,
+    40
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_alpha": {
+      "0.14": {
+        "mean_mu": -0.40496323751548013,
+        "min_mu": -0.4917865518107295,
+        "mean_r2": 0.9457058914038576,
+        "min_r2": 0.9375613373453503,
+        "n_seeds_pass": 0,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Aging exponent mu indistinguishable from 0. mean_mu=-0.4050<0.01 OR mean_R2=0.946<0.5. Phi(t_w) does not follow power-law decay; no aging signature.",
+  "elapsed_s": 24.57268786430359
+}

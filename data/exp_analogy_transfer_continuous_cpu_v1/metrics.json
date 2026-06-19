@@ -1,0 +1,16 @@
+{
+  "anchor_name": "analogy_transfer_continuous_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: learned relation transfers as a continuous 2-step chain (cos>=0.6, cleanup>=0.85) -- analogical composition works. cos@1=1.000 cos@2=1.000 cleanup-recall@2=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cos1": 0.9999999990065892,
+      "cos2": 1.0000000059604646,
+      "rec2": 1.0
+    }
+  ],
+  "elapsed_s": 0.08176779747009277,
+  "summary": "HARD_PASS: learned relation transfers as a continuous 2-step chain (cos>=0.6, cleanup>=0.85) -- analogical composition works. cos@1=1.000 cos@2=1.000 cleanup-recall@2=1.000"
+}

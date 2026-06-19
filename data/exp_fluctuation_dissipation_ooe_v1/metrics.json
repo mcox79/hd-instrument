@@ -1,0 +1,28 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FDT violated at N=512. fdt_violation=7.9062>0.05 fdt_ratio=363.2010 (outside equilibrium [0.80,1.20]). Substrate writing is genuine NESS.",
+  "elapsed_s": 0.12,
+  "summary": {
+    "n_seeds": 1,
+    "N": 512,
+    "per_seed": {
+      "17": {
+        "fdt_violation_mean": 7.9062068965517245,
+        "fdt_ratio_mean": 363.2010115759637,
+        "fdt_ratio_std": 1048.8965545544506,
+        "T_eff_ratio": 363.2010115759637,
+        "N": 512,
+        "seed": 17
+      }
+    }
+  },
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "n_traj": 10,
+    "T": 30,
+    "smoke": true
+  }
+}

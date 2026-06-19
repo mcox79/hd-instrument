@@ -1,0 +1,46 @@
+{
+  "verdict": "CROOKS_NOISE_CORRECTED_PASS",
+  "verdict_msg": "Noise-corrected bound PASS: all 1/1 noisy cells satisfy delta_S_emp <= theta(p)+0.02 after re-axiomatization. Cap 1 SLA widens to tiered noise-tolerance certificate.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "source_N": 4096,
+    "source_seeds": [
+      17
+    ],
+    "source_n_trials": 10,
+    "source_noise_levels": [
+      0.0,
+      0.1
+    ],
+    "source_original_verdict": "CROOKS_NOISE_ENVELOPE_KILL",
+    "per_noise_raw_delta_S": {
+      "0.0": 0.0,
+      "0.1": 0.23252510460206555
+    },
+    "theta_values": {
+      "0.0": 0.6931471805599453,
+      "0.1": 0.3680642071684971
+    },
+    "cell_reports": [
+      {
+        "p": 0.1,
+        "delta_S_emp": 0.23252510460206555,
+        "theta_p": 0.3680642071684971,
+        "pass_threshold": 0.3880642071684971,
+        "fail_threshold": 0.41806420716849707,
+        "margin_to_pass": 0.15553910256643155,
+        "cell_result": "PASS",
+        "mean_seed_std": 0.239092612825447
+      }
+    ],
+    "pass_margin": 0.02,
+    "fail_margin": 0.05
+  },
+  "config": {
+    "mode": "smoke",
+    "source_path": "D:\\AI\\hd-instrument\\data\\exp_wave14_crooks_noise_envelope_v1_smoke\\metrics.json",
+    "pass_margin": 0.02,
+    "fail_margin": 0.05,
+    "source_is_smoke_data": true
+  }
+}

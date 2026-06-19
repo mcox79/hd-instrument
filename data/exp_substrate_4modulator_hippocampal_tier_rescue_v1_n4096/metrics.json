@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_4modulator_hippocampal_tier_rescue_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: multi-modulator no gain (single-modulator limit architectural). single_recall=1.000 fourmod_recall=0.914 ratio=0.91x (M=2x m_cap overload)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "M": 284,
+      "m_cap": 71,
+      "single_recall": 1.0,
+      "fourmod_recall": 0.926056338028169,
+      "ratio": 0.926056338028169
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "M": 284,
+      "m_cap": 71,
+      "single_recall": 1.0,
+      "fourmod_recall": 0.9014084507042254,
+      "ratio": 0.9014084507042254
+    }
+  ],
+  "elapsed_s": 0.7445502281188965,
+  "summary": "HARD_FAIL: multi-modulator no gain (single-modulator limit architectural). single_recall=1.000 fourmod_recall=0.914 ratio=0.91x (M=2x m_cap overload)"
+}

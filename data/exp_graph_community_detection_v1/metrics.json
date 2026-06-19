@@ -1,0 +1,24 @@
+{
+  "run_mode": "smoke",
+  "N": 512,
+  "K_COMM": 3,
+  "C_SIZE": 8,
+  "P_IN": 0.5,
+  "P_OUT": 0.05,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_intra_agree": 0.9729166666666667,
+    "mean_inter_sep": 0.5963541666666667,
+    "mean_comm_acc": 0.625,
+    "frac_A_pass": 1.0,
+    "frac_B_pass": 0.0,
+    "frac_C_pass": 0.0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Community detection NOT confirmed. intra=0.9729 inter=0.5964 comm=0.6250. A:1.00 B:0.00 C:0.00.",
+  "elapsed_s": 0.0
+}

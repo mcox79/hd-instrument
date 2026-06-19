@@ -1,0 +1,32 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_TOTAL": 50,
+  "M_DIRTY_LIST": [
+    10,
+    20
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_k": {
+      "10": {
+        "mean_dirty_acc": 1.0,
+        "mean_delta_cos": 0.0,
+        "all_bits_cleared": true,
+        "n_seeds": 2
+      },
+      "20": {
+        "mean_dirty_acc": 1.0,
+        "mean_delta_cos": 0.0,
+        "all_bits_cleared": true,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Write-back dirty bit semantics confirmed. min_dirty_acc=1.000>=0.95 max_delta_cos=0.0000<0.05. O(M) auxiliary vector sufficient; zero W modification required.",
+  "elapsed_s": 2.305346965789795
+}

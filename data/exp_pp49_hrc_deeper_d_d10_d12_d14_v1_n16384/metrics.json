@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pp49_hrc_deeper_d_d10_d12_d14_v1_n16384",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: root_cos < 0.2 for all d (chain completely incoherent). pred_cos=d10:1.000 d12:1.000 d14:1.000 root_cos=d10:-0.440 d12:0.120 d14:-0.360 n_seeds=5 N=16384",
+  "N": 16384,
+  "alpha": 0.05,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.6670858860015869,
+  "depths": [
+    10,
+    12,
+    14
+  ]
+}

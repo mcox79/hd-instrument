@@ -1,0 +1,40 @@
+{
+  "verdict": "PDK2N16K_MIDDLE_BAND",
+  "verdict_msg": "K2_CROSS_N_PARTIAL n_hp=1/1. N=16384 K_paths=2 M_grid=[256] n_cells_per_M={256: 1} def_act=1.000 fp=0.000 acc_gated=1.000 acc_baseline=1.000 adv_max_sim=0.450 n_ok=1",
+  "elapsed_s": 0.04,
+  "summary": {
+    "anchor": "path_d_k2_production_stack_stress_n16384",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      256
+    ],
+    "K_paths": 2,
+    "depth": 5,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 256,
+        "seed": 17,
+        "N": 1024,
+        "ok": true,
+        "n_leg": 2,
+        "n_adv": 9,
+        "n_leg_pass_gate": 2,
+        "defense_activation_rate": 1.0,
+        "fp_rate": 0.0,
+        "adv_mean_max_sim": 0.45,
+        "leg_mean_max_sim": 1.0,
+        "acc_path_d_baseline": 1.0,
+        "acc_path_d_gated": 1.0,
+        "peak_vram_mb": 0.0,
+        "run_mode": "smoke"
+      }
+    ],
+    "verdict": "PDK2N16K_MIDDLE_BAND",
+    "verdict_msg": "K2_CROSS_N_PARTIAL n_hp=1/1. N=16384 K_paths=2 M_grid=[256] n_cells_per_M={256: 1} def_act=1.000 fp=0.000 acc_gated=1.000 acc_baseline=1.000 adv_max_sim=0.450 n_ok=1",
+    "elapsed_s": 0.04
+  }
+}

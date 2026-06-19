@@ -1,0 +1,56 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M": 50,
+  "K_READS_LIST": [
+    1,
+    5,
+    10,
+    20
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "1": {
+      "k_reads": 1,
+      "mean_disc_ratio": 1.9362750959356094,
+      "std_disc_ratio": 0.0010926138258217089,
+      "mean_dot_high": 2117.69703125,
+      "mean_dot_low": 1093.6959375000001,
+      "n_seeds": 2,
+      "theory_ratio": 2.0
+    },
+    "5": {
+      "k_reads": 5,
+      "mean_disc_ratio": 5.309211518450456,
+      "std_disc_ratio": 0.0023742897303273836,
+      "mean_dot_high": 6306.05953125,
+      "mean_dot_low": 1187.7590624999998,
+      "n_seeds": 2,
+      "theory_ratio": 6.0
+    },
+    "10": {
+      "k_reads": 10,
+      "mean_disc_ratio": 8.841814109743801,
+      "std_disc_ratio": 0.01271895515929966,
+      "mean_dot_high": 11541.51265625,
+      "mean_dot_low": 1305.33796875,
+      "n_seeds": 2,
+      "theory_ratio": 11.0
+    },
+    "20": {
+      "k_reads": 20,
+      "mean_disc_ratio": 14.289350639870683,
+      "std_disc_ratio": 0.042134139972941576,
+      "mean_dot_high": 22012.41890625,
+      "mean_dot_low": 1540.4957812500002,
+      "n_seeds": 2,
+      "theory_ratio": 21.0
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "LFU re-Hebbian confirmed. disc_ratio at k=10: 8.84 (HP>=3.0). theory=11x. Monotone in k: True. All k results: [(1, 1.94), (5, 5.31), (10, 8.84), (20, 14.29)]",
+  "elapsed_s": 3.283737897872925
+}

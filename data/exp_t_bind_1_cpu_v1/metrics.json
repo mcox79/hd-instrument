@@ -1,0 +1,15 @@
+{
+  "anchor_name": "t_bind_1_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FHRR holographic binding supports cross-modal retrieval (cue one modality -> recover another) >=0.80 across concurrent scenes with correlated content -- real-time multimodal binding substrate-only. cross-modal-recall=0.944 (25 scenes)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "crossmodal_recall": 0.944,
+      "n_scene": 25
+    }
+  ],
+  "elapsed_s": 68.85662913322449,
+  "summary": "HARD_PASS: FHRR holographic binding supports cross-modal retrieval (cue one modality -> recover another) >=0.80 across concurrent scenes with correlated content -- real-time multimodal binding substrate-only. cross-modal-recall=0.944 (25 scenes)"
+}

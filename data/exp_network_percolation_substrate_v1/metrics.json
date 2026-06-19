@@ -1,0 +1,60 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: tau_c shows no systematic variation with alpha. tau_range=0.0666666030883789; corr(tau_c,ret)=-0.4999999999999999. No percolation-like behavior at substrate capacity transition.",
+  "elapsed_s": 0.17016148567199707,
+  "summary": {
+    "verdict": "HARD_FAIL",
+    "n_seeds": 1,
+    "n_alpha_points": 3,
+    "alpha_sweep": [
+      0.05,
+      0.14,
+      0.22
+    ],
+    "N": 256,
+    "mode": "smoke"
+  },
+  "per_cell": [
+    {
+      "alpha": 0.05,
+      "M": 12,
+      "N": 256,
+      "tau_c_normalized": 0.6666665077209473,
+      "gcf_at_signal": 0.0078125,
+      "retrieval_rate": 1.0,
+      "seed": 17
+    },
+    {
+      "alpha": 0.14,
+      "M": 35,
+      "N": 256,
+      "tau_c_normalized": 0.5999999046325684,
+      "gcf_at_signal": 1.0,
+      "retrieval_rate": 1.0,
+      "seed": 17
+    },
+    {
+      "alpha": 0.22,
+      "M": 56,
+      "N": 256,
+      "tau_c_normalized": 0.6666665077209473,
+      "gcf_at_signal": 1.0,
+      "retrieval_rate": 0.45,
+      "seed": 17
+    }
+  ],
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "seeds": [
+      17
+    ],
+    "alpha_sweep": [
+      0.05,
+      0.14,
+      0.22
+    ],
+    "alpha_c": 0.138,
+    "threshold_rule": "mean(|W_ij|) + 1*std(|W_ij|) for off-diagonal"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "pca_bottleneck_zkl_marian_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: MarianMT d=full ZKL=0.920 outside the 0.17-0.27 calibration band -- baseline mismatch with cycle-151 (harness setup: n/FPR/KB); need cycle-151 exact config to calibrate before trusting the d-sweep. ZKL(50) by dim: {'full': 0.92} (n_stored=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "full": 0.92
+      },
+      "n": 300,
+      "sanity_ok": false,
+      "k": 50
+    }
+  ],
+  "elapsed_s": 667.6428709030151,
+  "summary": "UNKNOWN: MarianMT d=full ZKL=0.920 outside the 0.17-0.27 calibration band -- baseline mismatch with cycle-151 (harness setup: n/FPR/KB); need cycle-151 exact config to calibrate before trusting the d-sweep. ZKL(50) by dim: {'full': 0.92} (n_stored=300)"
+}

@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_alpha_sweep",
+      "script": "experiments/exp_wave14b_cl_phase_b2_alpha_sweep.py",
+      "status": "pending",
+      "purpose": "Characterize C2-vs-C1 deficit across ALPHA in {0.1, 0.3, 0.5, 0.7}",
+      "timeout_s": 7200
+    }
+  ]
+}

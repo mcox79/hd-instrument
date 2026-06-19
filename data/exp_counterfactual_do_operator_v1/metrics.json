@@ -1,0 +1,17 @@
+{
+  "anchor_name": "counterfactual_do_operator_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 20/20 counterfactuals correctly generated with verifiable + tamper-evident audit chains -- auditable do() operator (a capability frontier LLMs cannot offer). correct=20/20 audit=20/20 tamper=20/20",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_cf": 20,
+      "correct": 20,
+      "audited": 20,
+      "tamper": 20
+    }
+  ],
+  "elapsed_s": 0.003030538558959961,
+  "summary": "HARD_PASS: 20/20 counterfactuals correctly generated with verifiable + tamper-evident audit chains -- auditable do() operator (a capability frontier LLMs cannot offer). correct=20/20 audit=20/20 tamper=20/20"
+}

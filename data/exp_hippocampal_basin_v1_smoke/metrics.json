@@ -1,0 +1,15 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "hippocampal_basin: A=HARD_FAIL mean_r2=0.0000 n_hp_a=0/2; B=HARD_PASS mean_pearson=0.9996 n_hp_b=2/2; N=1024",
+  "verdict_a": "HARD_FAIL",
+  "verdict_b": "HARD_PASS",
+  "n_hp_a": 0,
+  "n_hp_b": 2,
+  "n_seeds": 2,
+  "mean_r2_basin_scaling": 0.0,
+  "mean_pearson_ablation": 0.9996049833778786,
+  "N": 1024,
+  "alpha_c_nominal": 0.138,
+  "elapsed_s": 2.0691237449645996,
+  "run_mode": "smoke"
+}

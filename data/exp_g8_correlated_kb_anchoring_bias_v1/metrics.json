@@ -1,0 +1,18 @@
+{
+  "anchor_name": "g8_correlated_kb_anchoring_bias_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cluster structure enables anchoring propagation (>0.20) -- KB clustering is an attack surface. same-cluster anchoring propagation=0.341 (intra_cos=0.60)",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "same_lift": 0.33870318388142984,
+      "other_lift": -0.0018426787775814905,
+      "propagation": 0.3405458626590113
+    }
+  ],
+  "elapsed_s": 0.03580355644226074,
+  "summary": "HARD_FAIL: cluster structure enables anchoring propagation (>0.20) -- KB clustering is an attack surface. same-cluster anchoring propagation=0.341 (intra_cos=0.60)"
+}

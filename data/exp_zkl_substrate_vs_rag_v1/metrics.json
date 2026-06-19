@@ -1,0 +1,16 @@
+{
+  "anchor_name": "zkl_substrate_vs_rag_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate leaks <=70%% of RAG (sign-quantization 2/pi factor) -- quantitative privacy advantage vs incumbent. ZKL_substrate=0.5833 ZKL_rag=1.0000 substrate/rag=0.583 (k=50)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "zkl_substrate": 0.5833333333333334,
+      "zkl_rag": 1.0,
+      "ratio": 0.5833333333333334
+    }
+  ],
+  "elapsed_s": 1.9895029067993164,
+  "summary": "HARD_PASS: substrate leaks <=70%% of RAG (sign-quantization 2/pi factor) -- quantitative privacy advantage vs incumbent. ZKL_substrate=0.5833 ZKL_rag=1.0000 substrate/rag=0.583 (k=50)"
+}

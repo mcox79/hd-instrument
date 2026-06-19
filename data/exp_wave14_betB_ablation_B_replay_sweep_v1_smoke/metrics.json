@@ -1,0 +1,48 @@
+{
+  "verdict": "ABLATION_B_HARD_PASS",
+  "verdict_msg": "Monotone-increasing retention_A across replay_frac sweep; peak=0.925>=0.9; replay-alone closes the gap. By-frac: ['0.840', '0.925'].",
+  "elapsed_s": 3.1410000000032596,
+  "summary": {
+    "per_replay_frac": {
+      "0.0": {
+        "17": {
+          "retention_A": 0.8397683601108643,
+          "retention_B": 0.9150610096376532,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 4.418743946075439,
+          "bpc_B_baseline": 5.254246639251709,
+          "bpc_B_after_C": 5.741963195800781
+        }
+      },
+      "0.5": {
+        "17": {
+          "retention_A": 0.9249431594170984,
+          "retention_B": 0.9403611163298273,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 4.011837181091309,
+          "bpc_B_baseline": 5.326474266052246,
+          "bpc_B_after_C": 5.664285957336426
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_fracs": [
+      0.0,
+      0.5
+    ],
+    "ema_alpha": 0.7,
+    "pass_peak": 0.9,
+    "fail_plateau": 0.8,
+    "plateau_min_frac": 0.25
+  }
+}

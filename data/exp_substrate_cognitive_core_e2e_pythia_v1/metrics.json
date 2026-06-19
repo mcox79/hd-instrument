@@ -1,0 +1,39 @@
+{
+  "anchor_name": "substrate_cognitive_core_e2e_pythia_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cognitive-core partial advantage or cert-only. substrate_core=1.000 pythia_raw=0.790 (ratio=1.27x) | single_evidence=1.000 (Rule8 combine gain) | cert_reconstructible=1.000",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_q": 200,
+      "substrate_core": 1.0,
+      "pythia_raw": 0.82,
+      "single_evidence": 1.0,
+      "cert_reconstructible": 1.0,
+      "ratio": 1.2195121951219512
+    },
+    {
+      "seed": 17,
+      "n_q": 200,
+      "substrate_core": 1.0,
+      "pythia_raw": 0.745,
+      "single_evidence": 1.0,
+      "cert_reconstructible": 1.0,
+      "ratio": 1.342281879194631
+    },
+    {
+      "seed": 23,
+      "n_q": 200,
+      "substrate_core": 1.0,
+      "pythia_raw": 0.805,
+      "single_evidence": 1.0,
+      "cert_reconstructible": 1.0,
+      "ratio": 1.2422360248447204
+    }
+  ],
+  "elapsed_s": 85.24308896064758,
+  "summary": "MIDDLE_BAND: cognitive-core partial advantage or cert-only. substrate_core=1.000 pythia_raw=0.790 (ratio=1.27x) | single_evidence=1.000 (Rule8 combine gain) | cert_reconstructible=1.000"
+}

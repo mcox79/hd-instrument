@@ -1,0 +1,73 @@
+{
+  "anchor_name": "primitive_1_residue_FPE_v1",
+  "run_mode": "full",
+  "device": "cuda",
+  "N": 4096,
+  "bases": [
+    3,
+    5,
+    7,
+    11
+  ],
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "gate_A": {
+    "max_kernel_err": 0.016607460971013427,
+    "tol": 0.066875,
+    "pass": true
+  },
+  "gate_B1_decodability": {
+    "decodability_acc": 1.0,
+    "range": 1155,
+    "max_offdiag_sim": 0.09718071415293081,
+    "coprime": true,
+    "pass": true,
+    "B2_efficient_resonator": "DEFERRED to Primitive 2 (cleanup/decode; quad-head resonator option); simplex-correlated codewords ~ -1/(m-1) is the P2 resonator requirement; log-scaling decode advantage NOT demonstrated here (brute-force is O(R))"
+  },
+  "gate_C": {
+    "c1_kernel_err": 1.0552450357009584,
+    "c1_tol": 0.066875,
+    "c1_product_kernel_holds": false,
+    "c2_resolution_envelope": {
+      "0.02": {
+        "mean_self": 1.0,
+        "mean_near": 0.9668844996412312,
+        "margin": 0.033115500358768764
+      },
+      "0.05": {
+        "mean_self": 1.0,
+        "mean_near": 0.8000685656799411,
+        "margin": 0.19993143432005903
+      },
+      "0.1": {
+        "mean_self": 1.0,
+        "mean_near": 0.2938889924599803,
+        "margin": 0.7061110075400199
+      },
+      "0.2": {
+        "mean_self": 1.0,
+        "mean_near": -0.6928314195198102,
+        "margin": 1.6928314195198102
+      },
+      "0.5": {
+        "mean_self": 1.0,
+        "mean_near": 0.3442142995071385,
+        "margin": 0.6557857004928616
+      },
+      "1.0": {
+        "mean_self": 1.0,
+        "mean_near": 0.0034357847709614005,
+        "margin": 0.9965642152290386
+      }
+    }
+  },
+  "verdict": "HONEST_BOUNDED_C1_BREAKS",
+  "verdict_msg": "GATE-A+B1 pass but GATE-C1 product-kernel BREAKS (err 1.0552>TOL) -> base independence fails for continuous x; file integer-residue + single-channel-continuous BOUNDED (honest scope). log-scaling DECODE (B2) OPEN -> Primitive 2.",
+  "honest_scope": "continuous-magnitude ENCODING sound + uniquely decodable (GATE-A kernel + B1 CRT/brute-force) WITHIN the GATE-C envelope; integer-residue + single-channel-FPE grounded; combined-continuous-residue product-kernel is the verify-not-assume open question (GATE-C remote). LOG-SCALING DECODE (B2 efficient resonator) is OPEN -> Primitive 2 (cleanup/decode); residue-FPE's log-scaling ADVANTAGE is NOT yet demonstrated (do not imply solved).",
+  "elapsed_s": 4.338143825531006,
+  "compute_backend": "cuda",
+  "summary": "GATE-A+B1 pass but GATE-C1 product-kernel BREAKS (err 1.0552>TOL) -> base independence fails for continuous x; file integer-residue + single-channel-continuous BOUNDED (honest scope). log-scaling DECODE (B2) OPEN -> Primitive 2."
+}

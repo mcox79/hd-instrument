@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_certified_deletion_demo_medical_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: certified per-fact deletion -- <1ms cert, 0 phantom recall, third-party verifiable (architecturally impossible for LLMs). cert_latency_median=0.512ms phantom_recall=0.000 verifier_confirmed=1.000 nondeleted_retention=1.000 (M=300, RSA-256, third-party verified)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "M_facts": 300,
+      "n_deleted": 50,
+      "cert_latency_ms_median": 0.5117499968037009,
+      "cert_latency_ms_p95": 0.5996000254526734,
+      "phantom_recall_rate": 0.0,
+      "verifier_confirmed_frac": 1.0,
+      "nondeleted_retention": 1.0,
+      "audit_chain_len": 50,
+      "rsa_bits": 256
+    }
+  ],
+  "elapsed_s": 0.520453929901123,
+  "summary": "HARD_PASS: certified per-fact deletion -- <1ms cert, 0 phantom recall, third-party verifiable (architecturally impossible for LLMs). cert_latency_median=0.512ms phantom_recall=0.000 verifier_confirmed=1.000 nondeleted_retention=1.000 (M=300, RSA-256, third-party verified)"
+}

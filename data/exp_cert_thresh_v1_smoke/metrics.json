@@ -1,0 +1,17 @@
+{
+  "exp_name": "continuous_embedding_cert_threshold_v1_n16384",
+  "N": 512,
+  "corpus_size": 128,
+  "seeds": [
+    17
+  ],
+  "is_smoke": true,
+  "n_seeds_complete": 1,
+  "total_elapsed_s": 0.02504420280456543,
+  "arm_clean_threshold": "HARD_PASS",
+  "arm_cert_quality": "HARD_PASS",
+  "overall": "HARD_PASS",
+  "n_seeds_with_clean_threshold": 1,
+  "mean_best_cert_at_fp_zero": 1.0,
+  "verdict_msg": "continuous_embedding_cert_threshold_v1_n16384 N=512 corpus=128 seeds=[17]\nArmClean: HARD_PASS | n_seeds_clean=1/1\nArmCert: HARD_PASS | mean_best_cert_at_fp_zero=1.0000\nOVERALL: HARD_PASS"
+}

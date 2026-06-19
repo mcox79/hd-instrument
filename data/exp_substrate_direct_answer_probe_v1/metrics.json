@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_direct_answer_probe_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <15%% directly answerable -- raw retrieval is not an answer (sentences != spans); LLM-bypass needs extraction, not raw top-1. A1 direct-answer-frac=0.007 (containment=0.255, median-F1-answerable=0.526); A2 router precision=0.033 at thr=0.810 cov=0.150 (n=400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 400,
+      "frac": 0.0075,
+      "contain_rate": 0.255,
+      "med_ans": 0.5263157894736842,
+      "router_prec": 0.03333333333333333,
+      "router_thr": 0.8103253662586212,
+      "router_cov": 0.15
+    }
+  ],
+  "elapsed_s": 23.672982454299927,
+  "summary": "HARD_FAIL: <15%% directly answerable -- raw retrieval is not an answer (sentences != spans); LLM-bypass needs extraction, not raw top-1. A1 direct-answer-frac=0.007 (containment=0.255, median-F1-answerable=0.526); A2 router precision=0.033 at thr=0.810 cov=0.150 (n=400)"
+}

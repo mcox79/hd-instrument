@@ -1,0 +1,42 @@
+{
+  "verdict": "SP_MCB_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp_seeds=1/1 hf_seeds=0/1 n_cells=2",
+  "elapsed_s": 0.22,
+  "summary": {
+    "anchor": "sparse_w_mc_beat_v1_n4096_m32k",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      64,
+      256
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 64,
+        "seed": 17,
+        "N": 1024,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "dense_bytes": 4194304,
+        "sparse_bytes": 524288,
+        "mem_savings_ratio": 8.0
+      },
+      {
+        "M": 256,
+        "seed": 17,
+        "N": 1024,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "dense_bytes": 4194304,
+        "sparse_bytes": 2097152,
+        "mem_savings_ratio": 2.0
+      }
+    ],
+    "verdict": "SP_MCB_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp_seeds=1/1 hf_seeds=0/1 n_cells=2",
+    "elapsed_s": 0.22
+  }
+}

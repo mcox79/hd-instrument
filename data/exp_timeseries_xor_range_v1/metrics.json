@@ -1,0 +1,23 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "timeseries_xor_range: mean_in_acc=1.000 mean_out_cont=0.000 N=1024 K=10",
+  "mean_in_window_acc": 1.0,
+  "mean_out_window_cont": 0.0,
+  "per_window_n_hp": {
+    "2": 2,
+    "3": 2
+  },
+  "per_window_in_acc": {
+    "2": 1.0,
+    "3": 1.0
+  },
+  "per_window_out_cont": {
+    "2": 0.0,
+    "3": 0.0
+  },
+  "n_seeds": 2,
+  "N": 1024,
+  "K": 10,
+  "elapsed_s": 0.12289547920227051,
+  "run_mode": "smoke"
+}

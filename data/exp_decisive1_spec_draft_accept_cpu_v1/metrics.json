@@ -1,0 +1,17 @@
+{
+  "anchor_name": "decisive1_spec_draft_accept_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-as-draft acceptance alpha>=0.65 on high-similarity contexts -- speculative-draft speedup (1.5-3x) viable. alpha_all=0.541 alpha_high_sim=0.809",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "alpha_all": 0.5405405405405406,
+      "alpha_high_sim": 0.8089887640449438,
+      "sim_thr": 0.9982110500335694,
+      "n_test": 222
+    }
+  ],
+  "elapsed_s": 4.913112163543701,
+  "summary": "HARD_PASS: substrate-as-draft acceptance alpha>=0.65 on high-similarity contexts -- speculative-draft speedup (1.5-3x) viable. alpha_all=0.541 alpha_high_sim=0.809"
+}

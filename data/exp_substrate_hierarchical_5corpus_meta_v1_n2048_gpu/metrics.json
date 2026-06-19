@@ -1,0 +1,49 @@
+{
+  "anchor_name": "substrate_hierarchical_5corpus_meta_v1_n2048_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate aggregates 5 domains (H3<H2, >=80% specialist skill, deletion-clean). H1_own=2.561 H2_cross=6.196 H3_agg=2.598 H4_retention=1.002 hp_seeds=3/3",
+  "N": 2048,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "domains": 5,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "uniform_nats": 6.238324625039508,
+      "H1_own": 2.5313236236572267,
+      "H2_cross": 6.191749382019043,
+      "H3_agg": 2.6576081275939942,
+      "H4_retention": 1.004958340395609,
+      "elapsed_s": 35.67877674102783,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780613609.2092721
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "uniform_nats": 6.238324625039508,
+      "H1_own": 2.616673135757446,
+      "H2_cross": 6.193569016456604,
+      "H3_agg": 2.627869462966919,
+      "H4_retention": 1.0082049938727675,
+      "elapsed_s": 35.00329518318176,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780613644.2189589
+    },
+    {
+      "seed": 23,
+      "N": 2048,
+      "uniform_nats": 6.238324625039508,
+      "H1_own": 2.533577251434326,
+      "H2_cross": 6.201738357543945,
+      "H3_agg": 2.508882474899292,
+      "H4_retention": 0.9915346828379883,
+      "elapsed_s": 35.62754583358765,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1780613679.8545
+    }
+  ],
+  "elapsed_s": 106.30961775779724,
+  "summary": "HARD_PASS: substrate aggregates 5 domains (H3<H2, >=80% specialist skill, deletion-clean). H1_own=2.561 H2_cross=6.196 H3_agg=2.598 H4_retention=1.002 hp_seeds=3/3"
+}

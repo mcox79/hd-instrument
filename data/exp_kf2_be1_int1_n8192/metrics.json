@@ -1,0 +1,29 @@
+{
+  "anchor": "kf2_be1_int1_n8192",
+  "precision": "int1",
+  "N": 1024,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "precision": "int1",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.0,
+      "theory_bound": 0.03125,
+      "within_theory": true,
+      "precision_used": "int1",
+      "precision_memory_bytes": 131072,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 32.0,
+      "precision_numel_W": 1048576
+    }
+  ],
+  "verdict": "KF2_BE1_INT1_MIDDLE_BAND",
+  "verdict_msg": "INT1_PARTIAL: 1/1 seeds, max_iso=0.00000",
+  "elapsed_s": 0.24
+}

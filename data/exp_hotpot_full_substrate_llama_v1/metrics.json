@@ -1,0 +1,16 @@
+{
+  "anchor_name": "hotpot_full_substrate_llama_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: recall@2hop <0.50 -- substrate retrieval can't support multi-hop at 1B scale; escalate (larger LLM / stronger retrieval). full-substrate recall@2hop=0.000 naive-Llama=0.005 lift=-0.005 (n=200, Llama-1B L15 + whiten + K-hop K=2)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "naive": 0.005,
+      "recall_2hop": 0.0
+    }
+  ],
+  "elapsed_s": 1270.2233538627625,
+  "summary": "HARD_FAIL: recall@2hop <0.50 -- substrate retrieval can't support multi-hop at 1B scale; escalate (larger LLM / stronger retrieval). full-substrate recall@2hop=0.000 naive-Llama=0.005 lift=-0.005 (n=200, Llama-1B L15 + whiten + K-hop K=2)"
+}

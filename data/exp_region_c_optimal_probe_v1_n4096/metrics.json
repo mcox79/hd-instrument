@@ -1,0 +1,1743 @@
+{
+  "verdict": "REGION_C_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: 1-metric wins or 1.2x-2x advantage. n_seeds_hp=1/5 n_seeds_indist=0/5 N=4096 cells=40 per_seed=[(7, False, False, 4), (17, True, False, 4), (23, False, False, 4), (31, False, False, 4), (41, False, False, 4)]",
+  "elapsed_s": 36.86,
+  "summary": {
+    "anchor": "region_c_optimal_probe_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "cells_count": 8,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 16.0,
+        "seed": 7,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00012,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16535.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16535.0,
+          "wall_ns_total": 3307000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 8442.35116,
+        "_sharp_aux": {
+          "kf1_sharpness": 8442.35116,
+          "max_stored_conf": 0.99851,
+          "mean_neg_conf": 0.00012
+        },
+        "cell_key": "c_b16_m0p5",
+        "region": "C",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 32.0,
+        "seed": 7,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00033,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 24500.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 24500.0,
+          "wall_ns_total": 4900000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 3041.61937,
+        "_sharp_aux": {
+          "kf1_sharpness": 3041.61937,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00033
+        },
+        "cell_key": "c_b32_m1",
+        "region": "C",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 64.0,
+        "seed": 7,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00345,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17726.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17726.5,
+          "wall_ns_total": 3545300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 276.18868,
+        "_sharp_aux": {
+          "kf1_sharpness": 276.18868,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00362
+        },
+        "cell_key": "c_b64_m2",
+        "region": "C",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 128.0,
+        "seed": 7,
+        "above_thresh_frac": 1.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 1.0,
+          "mean_oos_max_conf": 1.0,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17501.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17501.5,
+          "wall_ns_total": 3500300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 1.0
+        },
+        "cell_key": "c_b128_m4",
+        "region": "C",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 7,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 7e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17751.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17751.5,
+          "wall_ns_total": 3550300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 49.67022,
+        "_sharp_aux": {
+          "kf1_sharpness": 49.67022,
+          "max_stored_conf": 0.00358,
+          "mean_neg_conf": 7e-05
+        },
+        "cell_key": "a_b4_m0p5",
+        "region": "A",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 8.0,
+        "seed": 7,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 9e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16499.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16499.5,
+          "wall_ns_total": 3299900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 2007.02189,
+        "_sharp_aux": {
+          "kf1_sharpness": 2007.02189,
+          "max_stored_conf": 0.18958,
+          "mean_neg_conf": 9e-05
+        },
+        "cell_key": "a_b8_m1",
+        "region": "A",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 7,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00013,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17872.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17872.0,
+          "wall_ns_total": 3574400.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 5330.60205,
+        "_sharp_aux": {
+          "kf1_sharpness": 5330.60205,
+          "max_stored_conf": 0.6738,
+          "mean_neg_conf": 0.00013
+        },
+        "cell_key": "a_b10_m2",
+        "region": "A",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 10.0,
+        "seed": 7,
+        "above_thresh_frac": 0.885,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.885,
+          "mean_oos_max_conf": 0.56195,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17878.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17878.0,
+          "wall_ns_total": 3575600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.2524,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.2524,
+          "max_stored_conf": 0.70053,
+          "mean_neg_conf": 0.55935
+        },
+        "cell_key": "a_b10_m4",
+        "region": "A",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 16.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00012,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17647.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17647.0,
+          "wall_ns_total": 3529400.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 8497.65558,
+        "_sharp_aux": {
+          "kf1_sharpness": 8497.65558,
+          "max_stored_conf": 0.99858,
+          "mean_neg_conf": 0.00012
+        },
+        "cell_key": "c_b16_m0p5",
+        "region": "C",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 32.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00032,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17664.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17664.5,
+          "wall_ns_total": 3532900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 3094.48671,
+        "_sharp_aux": {
+          "kf1_sharpness": 3094.48671,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00032
+        },
+        "cell_key": "c_b32_m1",
+        "region": "C",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 64.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00354,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17826.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17826.5,
+          "wall_ns_total": 3565300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 280.50953,
+        "_sharp_aux": {
+          "kf1_sharpness": 280.50953,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00356
+        },
+        "cell_key": "c_b64_m2",
+        "region": "C",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 128.0,
+        "seed": 17,
+        "above_thresh_frac": 1.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 1.0,
+          "mean_oos_max_conf": 1.0,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17414.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17414.0,
+          "wall_ns_total": 3482800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 1.0
+        },
+        "cell_key": "c_b128_m4",
+        "region": "C",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 7e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17958.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17958.0,
+          "wall_ns_total": 3591600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 50.51359,
+        "_sharp_aux": {
+          "kf1_sharpness": 50.51359,
+          "max_stored_conf": 0.00364,
+          "mean_neg_conf": 7e-05
+        },
+        "cell_key": "a_b4_m0p5",
+        "region": "A",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 8.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 9e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 142483.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 142483.5,
+          "wall_ns_total": 28496700.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 2104.87127,
+        "_sharp_aux": {
+          "kf1_sharpness": 2104.87127,
+          "max_stored_conf": 0.19808,
+          "mean_neg_conf": 9e-05
+        },
+        "cell_key": "a_b8_m1",
+        "region": "A",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 17,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00013,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17070.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17070.0,
+          "wall_ns_total": 3414000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 5336.22264,
+        "_sharp_aux": {
+          "kf1_sharpness": 5336.22264,
+          "max_stored_conf": 0.67287,
+          "mean_neg_conf": 0.00013
+        },
+        "cell_key": "a_b10_m2",
+        "region": "A",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 10.0,
+        "seed": 17,
+        "above_thresh_frac": 0.865,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.865,
+          "mean_oos_max_conf": 0.5562,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17385.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17385.0,
+          "wall_ns_total": 3477000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.28179,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.28179,
+          "max_stored_conf": 0.72559,
+          "mean_neg_conf": 0.56608
+        },
+        "cell_key": "a_b10_m4",
+        "region": "A",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 16.0,
+        "seed": 23,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00012,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17314.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17314.5,
+          "wall_ns_total": 3462900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 8490.06618,
+        "_sharp_aux": {
+          "kf1_sharpness": 8490.06618,
+          "max_stored_conf": 0.99865,
+          "mean_neg_conf": 0.00012
+        },
+        "cell_key": "c_b16_m0p5",
+        "region": "C",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 32.0,
+        "seed": 23,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00033,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17444.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17444.5,
+          "wall_ns_total": 3488900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 3077.88417,
+        "_sharp_aux": {
+          "kf1_sharpness": 3077.88417,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00032
+        },
+        "cell_key": "c_b32_m1",
+        "region": "C",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 64.0,
+        "seed": 23,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00363,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16872.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16872.5,
+          "wall_ns_total": 3374500.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 287.54505,
+        "_sharp_aux": {
+          "kf1_sharpness": 287.54505,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00348
+        },
+        "cell_key": "c_b64_m2",
+        "region": "C",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 128.0,
+        "seed": 23,
+        "above_thresh_frac": 1.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 1.0,
+          "mean_oos_max_conf": 1.0,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 28758.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 28758.5,
+          "wall_ns_total": 5751700.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 1.0
+        },
+        "cell_key": "c_b128_m4",
+        "region": "C",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 23,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 7e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 20729.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 20729.5,
+          "wall_ns_total": 4145900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 50.63351,
+        "_sharp_aux": {
+          "kf1_sharpness": 50.63351,
+          "max_stored_conf": 0.00365,
+          "mean_neg_conf": 7e-05
+        },
+        "cell_key": "a_b4_m0p5",
+        "region": "A",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 8.0,
+        "seed": 23,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 9e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17336.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17336.5,
+          "wall_ns_total": 3467300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1992.24637,
+        "_sharp_aux": {
+          "kf1_sharpness": 1992.24637,
+          "max_stored_conf": 0.18766,
+          "mean_neg_conf": 9e-05
+        },
+        "cell_key": "a_b8_m1",
+        "region": "A",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 23,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00013,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16964.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16964.0,
+          "wall_ns_total": 3392800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 5367.61845,
+        "_sharp_aux": {
+          "kf1_sharpness": 5367.61845,
+          "max_stored_conf": 0.67509,
+          "mean_neg_conf": 0.00013
+        },
+        "cell_key": "a_b10_m2",
+        "region": "A",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 10.0,
+        "seed": 23,
+        "above_thresh_frac": 0.835,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.835,
+          "mean_oos_max_conf": 0.55742,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17787.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17787.5,
+          "wall_ns_total": 3557500.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.27017,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.27017,
+          "max_stored_conf": 0.7118,
+          "mean_neg_conf": 0.5604
+        },
+        "cell_key": "a_b10_m4",
+        "region": "A",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 16.0,
+        "seed": 31,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00012,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17518.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17518.5,
+          "wall_ns_total": 3503700.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 8497.48481,
+        "_sharp_aux": {
+          "kf1_sharpness": 8497.48481,
+          "max_stored_conf": 0.99846,
+          "mean_neg_conf": 0.00012
+        },
+        "cell_key": "c_b16_m0p5",
+        "region": "C",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 32.0,
+        "seed": 31,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00032,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 19002.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 19002.5,
+          "wall_ns_total": 3800500.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 3041.47829,
+        "_sharp_aux": {
+          "kf1_sharpness": 3041.47829,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00033
+        },
+        "cell_key": "c_b32_m1",
+        "region": "C",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 64.0,
+        "seed": 31,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00371,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17644.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17644.0,
+          "wall_ns_total": 3528800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 268.36917,
+        "_sharp_aux": {
+          "kf1_sharpness": 268.36917,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00373
+        },
+        "cell_key": "c_b64_m2",
+        "region": "C",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 128.0,
+        "seed": 31,
+        "above_thresh_frac": 1.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 1.0,
+          "mean_oos_max_conf": 1.0,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16781.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16781.5,
+          "wall_ns_total": 3356300.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 1.0
+        },
+        "cell_key": "c_b128_m4",
+        "region": "C",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 31,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 7e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 20334.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 20334.5,
+          "wall_ns_total": 4066900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 49.19069,
+        "_sharp_aux": {
+          "kf1_sharpness": 49.19069,
+          "max_stored_conf": 0.00354,
+          "mean_neg_conf": 7e-05
+        },
+        "cell_key": "a_b4_m0p5",
+        "region": "A",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 8.0,
+        "seed": 31,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 9e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 20940.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 20940.5,
+          "wall_ns_total": 4188100.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1926.6751,
+        "_sharp_aux": {
+          "kf1_sharpness": 1926.6751,
+          "max_stored_conf": 0.18203,
+          "mean_neg_conf": 9e-05
+        },
+        "cell_key": "a_b8_m1",
+        "region": "A",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 31,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00013,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17283.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17283.5,
+          "wall_ns_total": 3456700.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 5113.34189,
+        "_sharp_aux": {
+          "kf1_sharpness": 5113.34189,
+          "max_stored_conf": 0.64808,
+          "mean_neg_conf": 0.00013
+        },
+        "cell_key": "a_b10_m2",
+        "region": "A",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 10.0,
+        "seed": 31,
+        "above_thresh_frac": 0.865,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.865,
+          "mean_oos_max_conf": 0.56471,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 18259.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 18259.0,
+          "wall_ns_total": 3651800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.28182,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.28182,
+          "max_stored_conf": 0.71834,
+          "mean_neg_conf": 0.56041
+        },
+        "cell_key": "a_b10_m4",
+        "region": "A",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 16.0,
+        "seed": 41,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00012,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16510.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16510.5,
+          "wall_ns_total": 3302100.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 8477.21327,
+        "_sharp_aux": {
+          "kf1_sharpness": 8477.21327,
+          "max_stored_conf": 0.99864,
+          "mean_neg_conf": 0.00012
+        },
+        "cell_key": "c_b16_m0p5",
+        "region": "C",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 32.0,
+        "seed": 41,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00033,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16374.5,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16374.5,
+          "wall_ns_total": 3274900.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 3077.46322,
+        "_sharp_aux": {
+          "kf1_sharpness": 3077.46322,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00032
+        },
+        "cell_key": "c_b32_m1",
+        "region": "C",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 64.0,
+        "seed": 41,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00388,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 16970.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 16970.0,
+          "wall_ns_total": 3394000.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 267.66592,
+        "_sharp_aux": {
+          "kf1_sharpness": 267.66592,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 0.00374
+        },
+        "cell_key": "c_b64_m2",
+        "region": "C",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 128.0,
+        "seed": 41,
+        "above_thresh_frac": 1.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 1.0,
+          "mean_oos_max_conf": 1.0,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17283.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17283.0,
+          "wall_ns_total": 3456600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.0,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.0,
+          "max_stored_conf": 1.0,
+          "mean_neg_conf": 1.0
+        },
+        "cell_key": "c_b128_m4",
+        "region": "C",
+        "M_frac": 4.0
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 41,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 7e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17499.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17499.0,
+          "wall_ns_total": 3499800.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 50.23555,
+        "_sharp_aux": {
+          "kf1_sharpness": 50.23555,
+          "max_stored_conf": 0.00362,
+          "mean_neg_conf": 7e-05
+        },
+        "cell_key": "a_b4_m0p5",
+        "region": "A",
+        "M_frac": 0.5
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "beta": 8.0,
+        "seed": 41,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 9e-05,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17197.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17197.0,
+          "wall_ns_total": 3439400.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1977.05464,
+        "_sharp_aux": {
+          "kf1_sharpness": 1977.05464,
+          "max_stored_conf": 0.18624,
+          "mean_neg_conf": 9e-05
+        },
+        "cell_key": "a_b8_m1",
+        "region": "A",
+        "M_frac": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 8192,
+        "beta": 10.0,
+        "seed": 41,
+        "above_thresh_frac": 0.0,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.0,
+          "mean_oos_max_conf": 0.00013,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17143.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17143.0,
+          "wall_ns_total": 3428600.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 5394.07748,
+        "_sharp_aux": {
+          "kf1_sharpness": 5394.07748,
+          "max_stored_conf": 0.68522,
+          "mean_neg_conf": 0.00013
+        },
+        "cell_key": "a_b10_m2",
+        "region": "A",
+        "M_frac": 2.0
+      },
+      {
+        "N": 4096,
+        "M": 16384,
+        "beta": 10.0,
+        "seed": 41,
+        "above_thresh_frac": 0.86,
+        "_kf1_aux": {
+          "above_thresh_frac": 0.86,
+          "mean_oos_max_conf": 0.55738,
+          "n_oos": 200
+        },
+        "max_iso": 0.0,
+        "_kf2_aux": {
+          "max_iso": 0.0,
+          "n_edits_run": 16,
+          "n_probe": 200
+        },
+        "retention": 1.0,
+        "_ret_aux": {
+          "retention": 1.0,
+          "n_probe": 200
+        },
+        "edit_then_retrieve": 1.0,
+        "_etr_aux": {
+          "edit_then_retrieve": 1.0,
+          "n_edits_run": 16
+        },
+        "retrieval_latency_ns": 17486.0,
+        "_lat_aux": {
+          "retrieval_latency_ns": 17486.0,
+          "wall_ns_total": 3497200.0,
+          "n_probe": 200
+        },
+        "kf1_sharpness": 1.32378,
+        "_sharp_aux": {
+          "kf1_sharpness": 1.32378,
+          "max_stored_conf": 0.74022,
+          "mean_neg_conf": 0.55917
+        },
+        "cell_key": "a_b10_m4",
+        "region": "A",
+        "M_frac": 4.0
+      }
+    ],
+    "verdict": "REGION_C_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: 1-metric wins or 1.2x-2x advantage. n_seeds_hp=1/5 n_seeds_indist=0/5 N=4096 cells=40 per_seed=[(7, False, False, 4), (17, True, False, 4), (23, False, False, 4), (31, False, False, 4), (41, False, False, 4)]",
+    "elapsed_s": 36.86
+  }
+}

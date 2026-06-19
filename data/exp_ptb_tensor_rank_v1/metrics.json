@@ -1,0 +1,29 @@
+{
+  "anchor_name": "ptb_tensor_rank_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no rank gives F1>=0.95 under 200 bytes/fact. by rank: {'rk2': {'f1': 0.045, 'B': 336}, 'rk4': {'f1': 0.09, 'B': 671}, 'rk8': {'f1': 0.21, 'B': 1343}}; best rank with F1>=0.95 = -1 (1000000000 bytes/fact)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "rk2": {
+          "f1": 0.045,
+          "bytes": 335.68
+        },
+        "rk4": {
+          "f1": 0.09,
+          "bytes": 671.36
+        },
+        "rk8": {
+          "f1": 0.21,
+          "bytes": 1342.72
+        }
+      },
+      "best_bytes": 1000000000.0,
+      "best_rk": -1
+    }
+  ],
+  "elapsed_s": 0.9297127723693848,
+  "summary": "HARD_FAIL: no rank gives F1>=0.95 under 200 bytes/fact. by rank: {'rk2': {'f1': 0.045, 'B': 336}, 'rk4': {'f1': 0.09, 'B': 671}, 'rk8': {'f1': 0.21, 'B': 1343}}; best rank with F1>=0.95 = -1 (1000000000 bytes/fact)"
+}

@@ -1,0 +1,95 @@
+{
+  "experiments": [
+    {
+      "name": "r7_concept_replay",
+      "script": "experiments/exp_wave14b_r7_concept_replay.py",
+      "status": "completed",
+      "purpose": "R7 concept-tagged replay.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_K16_m2",
+      "script": "experiments/exp_wave14b_r10_K16_m2.py",
+      "status": "completed",
+      "purpose": "R10 single-seed K=16.",
+      "timeout_s": 2400
+    },
+    {
+      "name": "r3_concept_readout_bias",
+      "script": "experiments/exp_wave14b_r3_concept_readout_bias.py",
+      "status": "completed",
+      "purpose": "R3 PASSED +0.163.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r1_modern_hopfield",
+      "script": "experiments/exp_wave14b_r1_modern_hopfield.py",
+      "status": "completed",
+      "purpose": "R1 best beta=16 steps=1 +0.087.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "replay_mechanism_sweep",
+      "script": "experiments/exp_wave14b_replay_mechanism_sweep.py",
+      "status": "completed",
+      "purpose": "Random r=1.0 BWT +0.67.",
+      "timeout_s": 3600
+    },
+    {
+      "name": "f1_coverage_sweep",
+      "script": "experiments/exp_wave14b_f1_coverage_sweep.py",
+      "status": "completed",
+      "purpose": "F1 monotone, never beats random.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "mir_replay",
+      "script": "experiments/exp_wave14b_mir_replay.py",
+      "status": "completed",
+      "purpose": "Soft-MIR: -0.02 vs random (4 axes off canonical).",
+      "timeout_s": 1800
+    },
+    {
+      "name": "a1_cubic_binding",
+      "script": "experiments/exp_wave14b_a1_cubic_binding.py",
+      "status": "completed",
+      "purpose": "A1 cubic: +0.019 post-shift.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_ksweep_multiseed",
+      "script": "experiments/exp_wave14b_r10_ksweep_multiseed.py",
+      "status": "completed",
+      "purpose": "R10 REOPENED: K=16 t=23.9 pre / 5.1 post; K-sweep monotone in K up to +0.049 at K=32.",
+      "timeout_s": 7200
+    },
+    {
+      "name": "mir_canonical",
+      "script": "experiments/exp_wave14b_mir_canonical.py",
+      "status": "running",
+      "purpose": "Literature-faithful Aljundi MIR.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_K32_K64_multiseed",
+      "script": "experiments/exp_wave14b_r10_K32_K64_multiseed.py",
+      "status": "pending",
+      "purpose": "Confirm R10 theorem-breaking at K=32/K=64 with 5-seed t-test.",
+      "timeout_s": 7200
+    },
+    {
+      "name": "r3_multiseed",
+      "script": "experiments/exp_wave14b_r3_multiseed.py",
+      "status": "pending",
+      "purpose": "R3 multi-seed (3 seeds) verifying +0.163 gamma=0.5 post-shift.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r7_multiseed",
+      "script": "experiments/exp_wave14b_r7_multiseed.py",
+      "status": "pending",
+      "purpose": "R7 multi-seed (3 seeds) random-replay BWT robustness.",
+      "timeout_s": 1800
+    }
+  ]
+}

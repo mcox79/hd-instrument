@@ -1,0 +1,71 @@
+{
+  "anchor": "substrate_trained_mini_lm_rung1_readout_fix_v2",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "VERDICT=HARD_FAIL bpc_mean=5.5190+-0.0062 uniform_bpc_mean=5.5236 seeds_hp=0/2 seeds_mid=0/2 watchlist_triggers_total=2 any_collapse=False HP_THRESHOLD=bpc<=4.5 MID_THRESHOLD=4.5<bpc<=5.2 N=128 SEEDS=[7, 17] total_wall_s=0.6",
+  "bpc_mean": 5.518997121188372,
+  "bpc_std": 0.006160785806517577,
+  "uniform_bpc_mean": 5.523561956057013,
+  "seeds_hard_pass": 0,
+  "seeds_middle": 0,
+  "seeds_hard_fail": 2,
+  "n_valid_seeds": 2,
+  "watchlist_triggers_total": 2,
+  "any_primitive_collapse": false,
+  "HP_BPC_MAX": 4.5,
+  "MID_BPC_MAX": 5.2,
+  "N": 128,
+  "alpha_max": 0.05,
+  "n_layers": 2,
+  "elapsed_s": 0.6332557201385498,
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "val_bpc": 5.512836335381855,
+      "val_bpc_calibrated": 5.512836335381855,
+      "val_bpc_temp1": 5.513174823065813,
+      "val_bpc_nominal_temp02": 5.571862953383376,
+      "best_temp": 0.5,
+      "uniform_bpc": 5.523561956057013,
+      "n_train_pairs": 7,
+      "n_pos_pairs": 7,
+      "n_neg_pairs": 7,
+      "final_alphas": [
+        0.0546875,
+        0.0546875
+      ],
+      "any_primitive_collapse": false,
+      "watchlist_triggers": [
+        "BPC_NEAR_CHANCE"
+      ],
+      "train_wall_s": 0.0,
+      "total_wall_s": 0.26673316955566406,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780582865.1967793
+    },
+    "17": {
+      "seed": 17,
+      "val_bpc": 5.52515790699489,
+      "val_bpc_calibrated": 5.52515790699489,
+      "val_bpc_temp1": 5.52515790699489,
+      "val_bpc_nominal_temp02": 5.635960436093239,
+      "best_temp": 1.0,
+      "uniform_bpc": 5.523561956057013,
+      "n_train_pairs": 7,
+      "n_pos_pairs": 7,
+      "n_neg_pairs": 7,
+      "final_alphas": [
+        0.0546875,
+        0.0546875
+      ],
+      "any_primitive_collapse": false,
+      "watchlist_triggers": [
+        "BPC_NEAR_CHANCE"
+      ],
+      "train_wall_s": 0.0,
+      "total_wall_s": 0.2972385883331299,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780582865.4940178
+    }
+  }
+}

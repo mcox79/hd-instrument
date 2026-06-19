@@ -1,0 +1,25 @@
+{
+  "verdict": "DEMO_1_SMOOTHER_5SEED_PASS",
+  "verdict_msg": "mean=1.000, stdev=0.000.",
+  "elapsed_s": 0.32800000000861473,
+  "summary": {
+    "mean_composed_acc": 1.0,
+    "stdev_composed_acc": 0.0,
+    "per_seed": [
+      1.0,
+      1.0
+    ]
+  },
+  "config": {
+    "N": 8192,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials": 15,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

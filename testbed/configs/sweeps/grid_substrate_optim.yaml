@@ -1,0 +1,22 @@
+# Production substrate optimization grid (3x3x3 = 27 cells).
+# Sweeps the three primary substrate hyperparameters at the M=2000 (mid)
+# scale. Wall budget: ~30-45 min on local CPU at this grid.
+# For wider grids, layer M_total inside the grid as an additional axis.
+
+base_config: testbed/configs/mid.yaml
+
+scenarios:
+  - point_recall
+  - edit_isolation
+  - deletion_verify
+  - hallu_detect
+  - continual_4stage
+  - storage_latency
+
+backends:
+  - substrate
+
+grid:
+  N: [1024, 2048, 4096]
+  codebook_C: [4096, 8192, 16384]
+  beta: [16.0, 32.0, 64.0]

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "freq_decay_real_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: freq-decay AUC <0.60 on realistic stream. AUC=0.590 hi-freq-retained=0.637 (Zipfian+correlated)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 0.59,
+      "hi_freq_retained": 0.637
+    }
+  ],
+  "elapsed_s": 20.69371223449707,
+  "summary": "HARD_FAIL: freq-decay AUC <0.60 on realistic stream. AUC=0.590 hi-freq-retained=0.637 (Zipfian+correlated)"
+}

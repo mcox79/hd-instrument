@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_bio_viterbi_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: hard-BIO F1 <0.58 -- constraint degraded emissions; investigate. hard-BIO F1=0.5692 vs unconstrained 0.5817 (lift=-0.0125, P=0.593 R=0.547, train=5982, OntoNotes 18-type)",
+  "summary": "HARD_FAIL: hard-BIO F1 <0.58 -- constraint degraded emissions; investigate. hard-BIO F1=0.5692 vs unconstrained 0.5817 (lift=-0.0125, P=0.593 R=0.547, train=5982, OntoNotes 18-type)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5692,
+      "f1_unconstrained": 0.5817,
+      "f1_bio": 0.5692,
+      "lift": -0.0125,
+      "prec_bio": 0.593,
+      "rec_bio": 0.547,
+      "n_train": 5982,
+      "n_tags": 36
+    }
+  ],
+  "elapsed_s": 459.36116671562195
+}

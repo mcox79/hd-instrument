@@ -1,0 +1,88 @@
+{
+  "verdict": "HB_INCONCLUSIVE",
+  "verdict_msg": "Direct replay lift=0.122 < 0.15; replay mechanism not active at this scale. Cannot discriminate H-A vs H-B.",
+  "elapsed_s": 839.0939999999991,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_direct_replay": 0.9227830837816398,
+        "retention_held_out": 0.681804265378361,
+        "retention_no_replay": 0.7994142641876198,
+        "direct_lift": 0.12336881959401991,
+        "collateral_lift": -0.11760999880925882,
+        "bpc_A_r_baseline": 3.343618738993538,
+        "bpc_A_h_baseline": 2.387902367214544,
+        "bpc_replay_r_after": 3.6234070582342253,
+        "bpc_replay_h_after": 3.5023282904946327,
+        "bpc_noreplay_all_after": 3.584825388745848
+      },
+      "17": {
+        "retention_direct_replay": 0.9209423088470686,
+        "retention_held_out": 0.6990048144432826,
+        "retention_no_replay": 0.8040121774293528,
+        "direct_lift": 0.1169301314177158,
+        "collateral_lift": -0.10500736298607027,
+        "bpc_A_r_baseline": 3.340832572972743,
+        "bpc_A_h_baseline": 2.3851816848882272,
+        "bpc_replay_r_after": 3.627624163727633,
+        "bpc_replay_h_after": 3.4122535862473113,
+        "bpc_noreplay_all_after": 3.560900206382346
+      },
+      "23": {
+        "retention_direct_replay": 0.922381106059713,
+        "retention_held_out": 0.6791337130162765,
+        "retention_no_replay": 0.7937854011419471,
+        "direct_lift": 0.12859570491776595,
+        "collateral_lift": -0.11465168812567061,
+        "bpc_A_r_baseline": 3.3414596125735354,
+        "bpc_A_h_baseline": 2.382506198684981,
+        "bpc_replay_r_after": 3.6226453367500095,
+        "bpc_replay_h_after": 3.5081548051905957,
+        "bpc_noreplay_all_after": 3.6054869371964524
+      },
+      "31": {
+        "retention_direct_replay": 0.9199076245399351,
+        "retention_held_out": 0.689907684897648,
+        "retention_no_replay": 0.7963510575218469,
+        "direct_lift": 0.12355656701808826,
+        "collateral_lift": -0.1064433726241989,
+        "bpc_A_r_baseline": 3.337017875707118,
+        "bpc_A_h_baseline": 2.3916084003700937,
+        "bpc_replay_r_after": 3.6275575793558943,
+        "bpc_replay_h_after": 3.4665629224363594,
+        "bpc_noreplay_all_after": 3.596797054495061
+      },
+      "41": {
+        "retention_direct_replay": 0.9156243955517668,
+        "retention_held_out": 0.6894639454042777,
+        "retention_no_replay": 0.7962444907981705,
+        "direct_lift": 0.11937990475359628,
+        "collateral_lift": -0.10678054539389281,
+        "bpc_A_r_baseline": 3.344238880913264,
+        "bpc_A_h_baseline": 2.3681672029644765,
+        "bpc_replay_r_after": 3.6524134756129816,
+        "bpc_replay_h_after": 3.434794841339913,
+        "bpc_noreplay_all_after": 3.587093010717729
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "replay_frac": 0.5,
+    "ema_alpha": 0.7,
+    "collateral_hard_pass": 0.05,
+    "collateral_hard_fail": 0.0
+  }
+}

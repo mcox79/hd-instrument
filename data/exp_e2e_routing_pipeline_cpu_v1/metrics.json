@@ -1,0 +1,16 @@
+{
+  "anchor_name": "e2e_routing_pipeline_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: E2E pipeline routes >=0.85 to correct tier with substrate handling a large fraction at <15ms -- hierarchical LLM+substrate orchestration works end-to-end. routing=1.000 substrate-fraction=0.429 latency=0.093ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "routing": 1.0,
+      "sub_frac": 0.42857142857142855,
+      "latency_ms": 0.09266850014682859
+    }
+  ],
+  "elapsed_s": 0.03764629364013672,
+  "summary": "HARD_PASS: E2E pipeline routes >=0.85 to correct tier with substrate handling a large fraction at <15ms -- hierarchical LLM+substrate orchestration works end-to-end. routing=1.000 substrate-fraction=0.429 latency=0.093ms"
+}

@@ -1,0 +1,54 @@
+{
+  "anchor_name": "substrate_algebra_coverage_gap_diagnosis_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the coverage gap decomposes CLEANLY -- the majority (1245) is HISTORY-corpus narrative atoms correctly served by bge (0 have algebra, by design), and the real backfill target is a well-defined 256 structured atoms (incl 144 T1-foundational). The 13.9% headline understates structured coverage (48.6%); backfill should target the structured remainder, not the history corpus. total=1743 covered=242 (raw 13.9%); gap=1501 = HISTORY 1245 (by-design bge) + STRUCTURED 256 (backfillable); history-with-algebra=0; STRUCTURED coverage=48.6%; T1 high-value backfill=144; struct_by_corpus={'math': 45, 'concept': 60, 'meta': 17, 'school': 4, 'methodology': 4, 'science': 126}; t1_sample=['T1/vector_space', 'T1/cosine_similarity', 'T1/complex_field', 'T1/real_field', 'T1/unit_modulus', 'T1/probability_distribution', 'T1/shannon_entropy', 'T1/kl_divergence', 'T1/group_axioms', 'T1/ring_axioms', 'T1/field_axioms', 'T1/discrete_optimization', 'T1/graph_topology', 'PP-367_unified_algebra_lang_math', 'unified_compositional_engine']",
+  "summary": "HARD_PASS: the coverage gap decomposes CLEANLY -- the majority (1245) is HISTORY-corpus narrative atoms correctly served by bge (0 have algebra, by design), and the real backfill target is a well-defined 256 structured atoms (incl 144 T1-foundational). The 13.9% headline understates structured coverage (48.6%); backfill should target the structured remainder, not the history corpus. total=1743 covered=242 (raw 13.9%); gap=1501 = HISTORY 1245 (by-design bge) + STRUCTURED 256 (backfillable); history-with-algebra=0; STRUCTURED coverage=48.6%; T1 high-value backfill=144; struct_by_corpus={'math': 45, 'concept': 60, 'meta': 17, 'school': 4, 'methodology': 4, 'science': 126}; t1_sample=['T1/vector_space', 'T1/cosine_similarity', 'T1/complex_field', 'T1/real_field', 'T1/unit_modulus', 'T1/probability_distribution', 'T1/shannon_entropy', 'T1/kl_divergence', 'T1/group_axioms', 'T1/ring_axioms', 'T1/field_axioms', 'T1/discrete_optimization', 'T1/graph_topology', 'PP-367_unified_algebra_lang_math', 'unified_compositional_engine']",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 1743,
+      "covered": 242,
+      "uncovered": 1501,
+      "history_gap": 1245,
+      "structured_gap": 256,
+      "history_with_algebra": 0,
+      "structured_total": 498,
+      "structured_cov_rate": 0.4859,
+      "t1_backfill": 144,
+      "struct_by_corpus": {
+        "math": 45,
+        "concept": 60,
+        "meta": 17,
+        "school": 4,
+        "methodology": 4,
+        "science": 126
+      },
+      "covered_by_corpus": {
+        "math": 191,
+        "concept": 20,
+        "meta": 1,
+        "school": 9,
+        "science": 21
+      },
+      "t1_backfill_sample": [
+        "T1/vector_space",
+        "T1/cosine_similarity",
+        "T1/complex_field",
+        "T1/real_field",
+        "T1/unit_modulus",
+        "T1/probability_distribution",
+        "T1/shannon_entropy",
+        "T1/kl_divergence",
+        "T1/group_axioms",
+        "T1/ring_axioms",
+        "T1/field_axioms",
+        "T1/discrete_optimization",
+        "T1/graph_topology",
+        "PP-367_unified_algebra_lang_math",
+        "unified_compositional_engine"
+      ]
+    }
+  ],
+  "elapsed_s": 0.12451624870300293
+}

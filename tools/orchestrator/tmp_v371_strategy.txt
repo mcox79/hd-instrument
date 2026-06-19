@@ -1,0 +1,39 @@
+
+## v370 -> v371 (2026-06-03) CYCLE 39 BATCH -- 5 HARD_PASS; 0 LVH; Q-A3 L=58+L=59 N=16384 (rungs 39+40; NEW DEEPEST L=59; {L=20..L=59} 40-rung series); Q-A3 L=33+L=34 N=8192 (rungs 13+14; N=8192 series {L=19,L=22..L=34} 14 rungs); PP-50 v2 N=16384 HARD_PASS (cuda.synchronize fix; closes cycle 38 UNKNOWN; NLO sigma_g_crit=0.833 4.6x-wider envelope confirmed); BAND-LIFT PP-12/Q-A3 0.85-0.97->0.86-0.97 (4-rung batch; lower +0.01); PP-50 3-rung ALL-v3-protocol {N=8192+N=16384+N=32768} COMPLETE (closure annotation; no new lift); HONEST 631->636; LVH 212 UNCHANGED; 282nd PROT-009 paired commit.
+
+### Step 0: Honest re-read -- CYCLE 39 (MANDATORY)
+
+| anchor | label | per-cell check | honest verdict |
+|--------|-------|----------------|----------------|
+| q_a3_l58_cross_layer_composition_v1_n16384 | HARD_PASS | all 58 fids=1.0000 unanimous 5/5 N=16384 source=remote run_mode=full | HONEST |
+| q_a3_l59_cross_layer_composition_v1_n16384 | HARD_PASS | all 59 fids=1.0000 unanimous 5/5 N=16384 source=remote run_mode=full | HONEST |
+| q_a3_l33_cross_layer_composition_v1_n8192 | HARD_PASS | all 33 fids=1.0000000342 (EXACT-class) unanimous 5/5 N=8192 source=remote run_mode=full | HONEST |
+| q_a3_l34_cross_layer_composition_v1_n8192 | HARD_PASS | all 34 fids=1.0000000342 (EXACT-class) unanimous 5/5 N=8192 source=remote run_mode=full | HONEST |
+| pp50_kappa3_delta_alpha_n16384_v2_n16384 | HARD_PASS | sigma_sep: d=0.001:11.8 (HP>=3.0; 3.9x), d=0.01:117.8 (HP>=10; 11.8x), d=0.04:407.2 (HP>=100; 4.07x); n_seeds=5 N=16384 source=remote run_mode=full | HONEST |
+
+LVH catches this batch: 0. HONEST 631->636 (+5). LVH 212 UNCHANGED.
+
+### PROT-022 cross-checks
+
+- Q-A3 L=58+L=59: EXACT pattern consistent with entire {L=20..L=57} series; no ceiling signal at L=59; 1.0000 EXACT N=16384 consistent.
+- Q-A3 L=33+L=34 N=8192: EXACT-class 1.0000000342 consistent with all prior N=8192 anchors; 2-N cross-N at L=33+L=34 {N=4096 v360+N=8192 v371}.
+- PP-50 v2 N=16384: sigma_sep d=0.04:407.2 vs N^(2/3) from N=32768 (572.5): expected 572.5/(32768/16384)^(2/3)=360.7; actual=407.2 (1.13x above; conservative; N-scaling confirmed); NLO sigma_g_crit=0.833 annotation consistent.
+
+### Cap_map decisions -- CYCLE 39
+
+**(A) PP-12/Q-A3 BAND-LIFT: 0.85-0.97 -> 0.86-0.97.** Four-rung batch {L=58,L=59 N=16384 + L=33,L=34 N=8192} meets 4-rung multi-rung threshold. +0.01 lower bound per convention. Upper bound at 0.97 ceiling (unchanged). N=16384 series: {L=20..L=59} = 40 contiguous rungs. L=59 is NEW DEEPEST in project history (prior L=57 v370). N=8192 series: {L=19, L=22..L=34} = 14 rungs. L=34 is N=8192 deepest (new N=8192 record). Ceiling NOT found at either N. Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 59 levels at N=16384; audit API composition moat structurally unbounded through L=59; 40-rung contiguous series.
+
+**(B) PP-50 v2 N=16384 closes cycle 38 UNKNOWN gap.** pp50_kappa3_delta_alpha_n16384_v2_n16384 GENUINE FULL HARD_PASS (wall=1.37s, n_seeds=5, N=16384). cuda.synchronize fix restores correct sigma_sep values. sigma_sep all 3 HP gates met (d=0.04:407.2 / d=0.01:117.8 / d=0.001:11.8). NLO sigma_g_crit=0.833 envelope (4.6x wider than LO) CONFIRMED at N=16384. 3-rung ALL-v3-protocol cross-N {N=8192 v370 + N=16384 v2 + N=32768 v363} COMPLETE. PP-50 band 0.83-0.94 UNCHANGED (v370 applied the band-lift for this 3-rung cross-N when N=8192 rung was added; v2 is the closing confirmation, not a new rung). Annotation added: 'NLO sigma_g_crit=0.833 envelope confirmed at N=16384 v2 (cuda.synchronize fix); 3-rung ALL-v3-protocol cross-N {N=8192+N=16384+N=32768} COMPLETE.'
+
+### PROT compliance
+
+- PROT-004/006: No closures. 0 new top-level rows. 1 BAND-LIFT (PP-12/Q-A3 0.85-0.97->0.86-0.97). No rescue sketches required.
+- PROT-007/008: v371 block appended. No portfolio regression.
+- PROT-009: 282nd paired commit.
+- PROT-018: all 5 _nN suffix bindings verified (_n16384 for L58/L59/pp50v2; _n8192 for L33/L34). 0 violations.
+- PROT-021: all 5 source=remote run_mode=full n_seeds=5 confirmed. No smoke artifacts.
+- PROT-022: all 5 per-metric cross-checks passed (see above).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 282nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Cap_map version: v371.**

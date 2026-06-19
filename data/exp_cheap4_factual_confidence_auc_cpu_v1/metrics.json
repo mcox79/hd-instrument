@@ -1,0 +1,14 @@
+{
+  "anchor_name": "cheap4_factual_confidence_auc_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate confidence separates true vs hallucinated claims AUC>=0.90 -- usable factual-accuracy/hallucination predictor (EU AI Act verification claim). AUC=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 1.0
+    }
+  ],
+  "elapsed_s": 0.3286099433898926,
+  "summary": "HARD_PASS: substrate confidence separates true vs hallucinated claims AUC>=0.90 -- usable factual-accuracy/hallucination predictor (EU AI Act verification claim). AUC=1.000"
+}

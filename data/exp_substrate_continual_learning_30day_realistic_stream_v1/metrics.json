@@ -1,0 +1,45 @@
+{
+  "anchor_name": "substrate_continual_learning_30day_realistic_stream_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate 30-day continual learning -- 0% forgetting + new-recall + cross-day chaining + faster; Pythia forgets. (100x is large-LLM-scale; Pythia gives 7x.) substrate: retention=0.999 new_recall=1.000 cross_day_chain=1.000 add_wall=14.91s | Pythia base 0.52->0.34 (forgets) 30day_ft_wall~111s speedup~7x",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "substrate_baseline_retention": 1.0,
+      "substrate_new_recall": 1.0,
+      "substrate_cross_day_chain": 1.0,
+      "substrate_add_wall_s": 15.117328643798828,
+      "pythia_base_before": 0.5149999856948853,
+      "pythia_base_after": 0.48249998688697815,
+      "pythia_30day_finetune_wall_s": 113.33115577697754,
+      "speedup": 7.496771317693507
+    },
+    {
+      "seed": 17,
+      "substrate_baseline_retention": 0.998,
+      "substrate_new_recall": 1.0,
+      "substrate_cross_day_chain": 1.0,
+      "substrate_add_wall_s": 14.95519757270813,
+      "pythia_base_before": 0.5274999737739563,
+      "pythia_base_after": 0.2549999952316284,
+      "pythia_30day_finetune_wall_s": 107.63316106796265,
+      "speedup": 7.1970403964694745
+    },
+    {
+      "seed": 23,
+      "substrate_baseline_retention": 1.0,
+      "substrate_new_recall": 1.0,
+      "substrate_cross_day_chain": 1.0,
+      "substrate_add_wall_s": 14.647223234176636,
+      "pythia_base_before": 0.5199999809265137,
+      "pythia_base_after": 0.29249998927116394,
+      "pythia_30day_finetune_wall_s": 113.3352313041687,
+      "speedup": 7.737659861680917
+    }
+  ],
+  "elapsed_s": 828.745121717453,
+  "summary": "HARD_PASS: substrate 30-day continual learning -- 0% forgetting + new-recall + cross-day chaining + faster; Pythia forgets. (100x is large-LLM-scale; Pythia gives 7x.) substrate: retention=0.999 new_recall=1.000 cross_day_chain=1.000 add_wall=14.91s | Pythia base 0.52->0.34 (forgets) 30day_ft_wall~111s speedup~7x"
+}

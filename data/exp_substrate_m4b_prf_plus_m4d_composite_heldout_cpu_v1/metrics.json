@@ -1,0 +1,62 @@
+{
+  "anchor_name": "substrate_m4b_prf_plus_m4d_composite_heldout_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (M4b HURTS M4d): PRF expansion adds noise / drifts; drop PRF, keep M4d-only (0.272). M4b(PRF)+M4d composite (DECISION 51b). IN-COVERAGE: bge=0.1480, M4d=0.2721, composite=0.1071 (composite vs M4d -0.1650). beta=0.10 dev-fixed, PRF_K=5.",
+  "summary": "HARD_FAIL (M4b HURTS M4d): PRF expansion adds noise / drifts; drop PRF, keep M4d-only (0.272). M4b(PRF)+M4d composite (DECISION 51b). IN-COVERAGE: bge=0.1480, M4d=0.2721, composite=0.1071 (composite vs M4d -0.1650). beta=0.10 dev-fixed, PRF_K=5.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 7,
+      "bge": 0.148,
+      "m4d": 0.2721,
+      "composite": 0.1071,
+      "comp_vs_m4d": -0.165,
+      "rows": [
+        {
+          "qid": "Q54-A",
+          "bge": 0.0,
+          "m4d": 0.0,
+          "composite": 0.0
+        },
+        {
+          "qid": "Q55-B",
+          "bge": 0.0,
+          "m4d": 0.333,
+          "composite": 0.0
+        },
+        {
+          "qid": "Q60-G",
+          "bge": 0.5,
+          "m4d": 0.75,
+          "composite": 0.75
+        },
+        {
+          "qid": "Q61-A",
+          "bge": 0.286,
+          "m4d": 0.571,
+          "composite": 0.0
+        },
+        {
+          "qid": "Q62-B",
+          "bge": 0.0,
+          "m4d": 0.0,
+          "composite": 0.0
+        },
+        {
+          "qid": "Q63-A",
+          "bge": 0.0,
+          "m4d": 0.0,
+          "composite": 0.0
+        },
+        {
+          "qid": "Q64-G",
+          "bge": 0.25,
+          "m4d": 0.25,
+          "composite": 0.0
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 8.502278327941895
+}

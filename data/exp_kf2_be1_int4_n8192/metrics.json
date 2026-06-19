@@ -1,0 +1,93 @@
+{
+  "anchor": "kf2_be1_int4_n8192",
+  "precision": "int4",
+  "N": 8192,
+  "smoke": false,
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    41
+  ],
+  "cells": [
+    {
+      "precision": "int4",
+      "M_frac": 2.0,
+      "M": 8192,
+      "N": 8192,
+      "seed": 7,
+      "isolation_ratio": 0.010101,
+      "theory_bound": 0.011049,
+      "within_theory": true,
+      "precision_used": "int4",
+      "precision_memory_bytes": 33554432,
+      "precision_baseline_bytes": 268435456,
+      "precision_compression_ratio": 8.0,
+      "precision_numel_W": 67108864
+    },
+    {
+      "precision": "int4",
+      "M_frac": 2.0,
+      "M": 8192,
+      "N": 8192,
+      "seed": 17,
+      "isolation_ratio": 0.0,
+      "theory_bound": 0.011049,
+      "within_theory": true,
+      "precision_used": "int4",
+      "precision_memory_bytes": 33554432,
+      "precision_baseline_bytes": 268435456,
+      "precision_compression_ratio": 8.0,
+      "precision_numel_W": 67108864
+    },
+    {
+      "precision": "int4",
+      "M_frac": 2.0,
+      "M": 8192,
+      "N": 8192,
+      "seed": 23,
+      "isolation_ratio": 0.010101,
+      "theory_bound": 0.011049,
+      "within_theory": true,
+      "precision_used": "int4",
+      "precision_memory_bytes": 33554432,
+      "precision_baseline_bytes": 268435456,
+      "precision_compression_ratio": 8.0,
+      "precision_numel_W": 67108864
+    },
+    {
+      "precision": "int4",
+      "M_frac": 2.0,
+      "M": 8192,
+      "N": 8192,
+      "seed": 31,
+      "isolation_ratio": 0.0,
+      "theory_bound": 0.011049,
+      "within_theory": true,
+      "precision_used": "int4",
+      "precision_memory_bytes": 33554432,
+      "precision_baseline_bytes": 268435456,
+      "precision_compression_ratio": 8.0,
+      "precision_numel_W": 67108864
+    },
+    {
+      "precision": "int4",
+      "M_frac": 2.0,
+      "M": 8192,
+      "N": 8192,
+      "seed": 41,
+      "isolation_ratio": 0.010101,
+      "theory_bound": 0.011049,
+      "within_theory": true,
+      "precision_used": "int4",
+      "precision_memory_bytes": 33554432,
+      "precision_baseline_bytes": 268435456,
+      "precision_compression_ratio": 8.0,
+      "precision_numel_W": 67108864
+    }
+  ],
+  "verdict": "KF2_BE1_INT4_HARD_PASS",
+  "verdict_msg": "INT4_HOLDS: 5/5 seeds pass, max_iso=0.01010 < 0.05, compression=8.0x theory_bound=0.01105",
+  "elapsed_s": 2.87
+}

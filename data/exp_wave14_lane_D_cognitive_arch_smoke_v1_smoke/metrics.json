@@ -1,0 +1,26 @@
+{
+  "verdict": "LANE_D_COMPOSE",
+  "verdict_msg": "All 4 Lane D primitives compose: S=0.750, T=0.867, U_recent=1.000, X=1.000. Cognitive architecture substrate-demo viable.",
+  "elapsed_s": 0.125,
+  "summary": {
+    "S_acc": 0.75,
+    "T_acc": 0.8666666666666667,
+    "U_recent": 1.0,
+    "X_acc": 1.0,
+    "per_seed": [
+      {
+        "S_acc": 0.75,
+        "T_acc": 0.8666666666666667,
+        "U_recent": 1.0,
+        "X_acc": 1.0
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "seeds": [
+      17
+    ]
+  }
+}

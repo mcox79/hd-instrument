@@ -1,0 +1,45 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_A_LIST": [
+    1,
+    5,
+    20
+  ],
+  "M_B": 1,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "per_M_A": [
+      {
+        "M_A": 1,
+        "avg_repulsion_rate": 1.0,
+        "n_seeds": 2,
+        "passes_hp": true,
+        "fails_hard": false
+      },
+      {
+        "M_A": 5,
+        "avg_repulsion_rate": 1.0,
+        "n_seeds": 2,
+        "passes_hp": true,
+        "fails_hard": false
+      },
+      {
+        "M_A": 20,
+        "avg_repulsion_rate": 1.0,
+        "n_seeds": 2,
+        "passes_hp": true,
+        "fails_hard": false
+      }
+    ],
+    "M_A_crit": 20,
+    "hard_fail_at_min_M_A": false,
+    "n_hp": 3
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Signed-AM B-pattern repulsion confirmed at M_A <= M_A_crit=20. Best repulsion_rate=1.000>=0.8. 3/3 M_A cells pass HP. N=4096 M_B=1. Operating envelope: reliable repulsion at M_A <= 20 (alpha_A_crit = 0.0049).",
+  "elapsed_s": 4.298085927963257
+}

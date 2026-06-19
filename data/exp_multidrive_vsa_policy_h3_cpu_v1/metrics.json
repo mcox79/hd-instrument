@@ -1,0 +1,18 @@
+{
+  "anchor_name": "multidrive_vsa_policy_h3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: VSA 3-step policy + harmonic utility breaks the single-action multi-drive ceiling -- worst-drive satisfaction >0.50 at >=3x single-action, with VSA policy encoding round-tripping (decode>=0.95). Harmonic (CES rho=-1) lookahead balances competing drives. worst-H3=0.620 worst-single=0.128 lift=4.9x sum-greedy=0.602 decode=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "worst_h3": 0.62,
+      "worst_sum_greedy": 0.602,
+      "worst_single": 0.128,
+      "lift": 4.86,
+      "vsa_decode_acc": 1.0
+    }
+  ],
+  "elapsed_s": 0.5050573348999023,
+  "summary": "HARD_PASS: VSA 3-step policy + harmonic utility breaks the single-action multi-drive ceiling -- worst-drive satisfaction >0.50 at >=3x single-action, with VSA policy encoding round-tripping (decode>=0.95). Harmonic (CES rho=-1) lookahead balances competing drives. worst-H3=0.620 worst-single=0.128 lift=4.9x sum-greedy=0.602 decode=1.000"
+}

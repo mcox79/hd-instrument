@@ -1,0 +1,32 @@
+{
+  "anchor": "dp_gaussian_write_noise_v1_n512",
+  "N": 256,
+  "M": 50,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 256,
+      "M": 50,
+      "sigma_primary": 0.1,
+      "acc_at_sigma_primary": 1.0,
+      "acc_by_sigma": {
+        "0.0": 1.0,
+        "0.01": 1.0,
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.2": 1.0,
+        "0.5": 1.0
+      },
+      "passes_hp": 1,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "DP_GAUSS_HARD_PASS",
+  "verdict_msg": "DP_COMPATIBLE: acc>=0.95 at sigma=0.1 in 1/1 seeds. N=256 M=50 sigma=0.1 mean_acc=1.0000 n_hp=1/1 n_hf=0/1",
+  "elapsed_s": 0.03
+}

@@ -1,0 +1,63 @@
+{
+  "anchor": "substrate_trained_mini_lm_rung1_tinychar_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "VERDICT=HARD_FAIL bpc_mean=5.5192+-0.0060 uniform_bpc_mean=5.5236 seeds_hp=0/2 seeds_mid=0/2 watchlist_triggers_total=2 any_collapse=False HP_THRESHOLD=bpc<=2.5 MID_THRESHOLD=2.5<bpc<=3.5 N=128 SEEDS=[7, 17] total_wall_s=0.2",
+  "bpc_mean": 5.519166365030351,
+  "bpc_std": 0.005991541964538438,
+  "uniform_bpc_mean": 5.523561956057013,
+  "seeds_hard_pass": 0,
+  "seeds_middle": 0,
+  "seeds_hard_fail": 2,
+  "n_valid_seeds": 2,
+  "watchlist_triggers_total": 2,
+  "any_primitive_collapse": false,
+  "HP_BPC_MAX": 2.5,
+  "MID_BPC_MAX": 3.5,
+  "N": 128,
+  "alpha_max": 0.05,
+  "n_layers": 2,
+  "elapsed_s": 0.15902113914489746,
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "val_bpc": 5.513174823065813,
+      "uniform_bpc": 5.523561956057013,
+      "n_train_pairs": 7,
+      "n_pos_pairs": 7,
+      "n_neg_pairs": 7,
+      "final_alphas": [
+        0.0546875,
+        0.0546875
+      ],
+      "any_primitive_collapse": false,
+      "watchlist_triggers": [
+        "BPC_NEAR_CHANCE"
+      ],
+      "train_wall_s": 0.0,
+      "total_wall_s": 0.047920942306518555,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780547236.0617306
+    },
+    "17": {
+      "seed": 17,
+      "val_bpc": 5.52515790699489,
+      "uniform_bpc": 5.523561956057013,
+      "n_train_pairs": 7,
+      "n_pos_pairs": 7,
+      "n_neg_pairs": 7,
+      "final_alphas": [
+        0.0546875,
+        0.0546875
+      ],
+      "any_primitive_collapse": false,
+      "watchlist_triggers": [
+        "BPC_NEAR_CHANCE"
+      ],
+      "train_wall_s": 0.0,
+      "total_wall_s": 0.0315859317779541,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780547236.099345
+    }
+  }
+}

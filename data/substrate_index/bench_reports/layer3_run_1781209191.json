@@ -1,0 +1,383 @@
+{
+  "archaeology": {
+    "n_atoms_clustered": 60,
+    "algebra_clusters": [
+      [
+        "math::T1/convex_optimization"
+      ],
+      [
+        "math::T3/collins_structured_perceptron"
+      ],
+      [
+        "math::T3/hmm_transition"
+      ],
+      [
+        "math::T2/superposition"
+      ],
+      [
+        "math::T2/bundling"
+      ],
+      [
+        "math::T1/vector_space"
+      ],
+      [
+        "math::T1/inner_product"
+      ],
+      [
+        "math::T1/cosine_similarity",
+        "math::T2/hamming_distance"
+      ],
+      [
+        "math::T1/complex_field",
+        "math::T1/real_field"
+      ],
+      [
+        "math::T1/unit_modulus"
+      ],
+      [
+        "math::T1/probability_distribution",
+        "math::T1/shannon_entropy",
+        "math::T3/answer_consistency_weak_labels",
+        "math::T2_FAM/weak_supervision"
+      ],
+      [
+        "math::T1/kl_divergence",
+        "math::T3/cross_entropy_loss"
+      ],
+      [
+        "math::T1/group_axioms"
+      ],
+      [
+        "math::T1/ring_axioms",
+        "math::T1/field_axioms"
+      ],
+      [
+        "math::T1/discrete_optimization",
+        "math::T3/viterbi_decoding",
+        "math::T3/hungarian_assignment",
+        "math::T3/jonker_volgenant",
+        "math::T3/chu_liu_edmonds",
+        "math::T3/prims_mst",
+        "math::T3/dijkstra",
+        "math::T3/astar",
+        "math::T3/beam_search",
+        "math::T3/dynamic_programming",
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T2_FAM/sequence_decoding"
+      ],
+      [
+        "math::T1/graph_topology",
+        "math::T3/hmm_emission",
+        "math::T3/forward_algorithm",
+        "math::T3/backward_algorithm",
+        "math::T3/count_nb",
+        "math::T3/bayesian_inference",
+        "math::T3/map_estimation",
+        "math::T3/em_algorithm",
+        "math::T2_FAM/probabilistic_inference",
+        "math::T2_FAM/graph_traversal"
+      ],
+      [
+        "math::T2/fhrr_bind",
+        "math::T2/fhrr_unbind"
+      ],
+      [
+        "math::T2/cleanup",
+        "math::T2/cosine_cleanup",
+        "math::T2_FAM/cleanup_retrieval"
+      ],
+      [
+        "math::T2/tier2_schema",
+        "math::T2/role_filler_binding"
+      ],
+      [
+        "math::T2/context_binding"
+      ],
+      [
+        "math::T2/circular_convolution"
+      ],
+      [
+        "math::T3/discriminative_perceptron",
+        "math::T2_FAM/discriminative_classification"
+      ],
+      [
+        "math::T3/pca_whitening",
+        "math::T3/zca_whitening",
+        "math::T3/perceptron_update",
+        "math::T2_FAM/representation_transform"
+      ],
+      [
+        "math::T2_FAM/algebraic_binding"
+      ],
+      [
+        "math::T2_FAM/superposition_aggregation"
+      ]
+    ],
+    "signature_clusters": [
+      [
+        "math::T1/vector_space",
+        "math::T1/inner_product",
+        "math::T1/cosine_similarity",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding"
+      ],
+      [
+        "math::T1/complex_field"
+      ],
+      [
+        "math::T1/real_field"
+      ],
+      [
+        "math::T1/unit_modulus"
+      ],
+      [
+        "math::T1/probability_distribution"
+      ],
+      [
+        "math::T1/shannon_entropy",
+        "math::T1/kl_divergence"
+      ],
+      [
+        "math::T1/group_axioms"
+      ],
+      [
+        "math::T1/ring_axioms"
+      ],
+      [
+        "math::T1/field_axioms"
+      ],
+      [
+        "math::T1/discrete_optimization"
+      ],
+      [
+        "math::T1/graph_topology"
+      ],
+      [
+        "math::T2/fhrr_bind",
+        "math::T2/fhrr_unbind",
+        "math::T2/context_binding"
+      ],
+      [
+        "math::T2/cleanup",
+        "math::T2/cosine_cleanup"
+      ],
+      [
+        "math::T2/tier2_schema",
+        "math::T2_FAM/superposition_aggregation"
+      ],
+      [
+        "math::T2/role_filler_binding"
+      ],
+      [
+        "math::T2/hamming_distance"
+      ],
+      [
+        "math::T3/hmm_emission"
+      ],
+      [
+        "math::T3/viterbi_decoding",
+        "math::T3/forward_algorithm",
+        "math::T3/backward_algorithm"
+      ],
+      [
+        "math::T3/count_nb",
+        "math::T3/discriminative_perceptron"
+      ],
+      [
+        "math::T3/hungarian_assignment"
+      ],
+      [
+        "math::T3/jonker_volgenant"
+      ],
+      [
+        "math::T3/chu_liu_edmonds"
+      ],
+      [
+        "math::T3/prims_mst"
+      ],
+      [
+        "math::T3/dijkstra"
+      ],
+      [
+        "math::T3/astar"
+      ],
+      [
+        "math::T3/beam_search"
+      ],
+      [
+        "math::T3/dynamic_programming"
+      ],
+      [
+        "math::T3/pca_whitening"
+      ],
+      [
+        "math::T3/zca_whitening"
+      ],
+      [
+        "math::T3/bayesian_inference"
+      ],
+      [
+        "math::T3/map_estimation"
+      ],
+      [
+        "math::T3/em_algorithm"
+      ],
+      [
+        "math::T3/answer_consistency_weak_labels"
+      ],
+      [
+        "math::T3/cross_entropy_loss"
+      ],
+      [
+        "math::T3/perceptron_update"
+      ],
+      [
+        "math::T2_FAM/global_discrete_optimization"
+      ],
+      [
+        "math::T2_FAM/probabilistic_inference"
+      ],
+      [
+        "math::T2_FAM/discriminative_classification"
+      ],
+      [
+        "math::T2_FAM/representation_transform"
+      ],
+      [
+        "math::T2_FAM/graph_traversal"
+      ],
+      [
+        "math::T2_FAM/sequence_decoding"
+      ],
+      [
+        "math::T2_FAM/weak_supervision"
+      ],
+      [
+        "math::T2_FAM/cleanup_retrieval"
+      ]
+    ],
+    "mistag_candidates": [
+      {
+        "atom_id": "math::T2_FAM/cleanup_retrieval",
+        "name": "Cleanup retrieval (family)",
+        "declared_family_tags": [],
+        "algebra_cluster_id": 17,
+        "algebra_cluster_members": [
+          "math::T2/cleanup",
+          "math::T2/cosine_cleanup",
+          "math::T2_FAM/cleanup_retrieval"
+        ],
+        "inferred_family_candidate": "math::T2_FAM/cleanup_retrieval",
+        "confidence": 0.67
+      }
+    ],
+    "cluster_to_family_overlap": {
+      "0": {},
+      "1": {
+        "math::T2_FAM/discriminative_classification": 1
+      },
+      "2": {},
+      "3": {
+        "math::T2_FAM/superposition_aggregation": 1
+      },
+      "4": {
+        "math::T2_FAM/superposition_aggregation": 1
+      },
+      "5": {},
+      "6": {},
+      "7": {
+        "math::T2_FAM/cleanup_retrieval": 1
+      },
+      "8": {},
+      "9": {},
+      "10": {
+        "math::T2_FAM/weak_supervision": 1
+      },
+      "11": {},
+      "12": {},
+      "13": {},
+      "14": {
+        "math::T2_FAM/global_discrete_optimization": 5,
+        "math::T2_FAM/sequence_decoding": 1,
+        "math::T2_FAM/graph_traversal": 3
+      },
+      "15": {
+        "math::T2_FAM/probabilistic_inference": 5,
+        "math::T2_FAM/sequence_decoding": 2,
+        "math::T2_FAM/discriminative_classification": 1
+      },
+      "16": {
+        "math::T2_FAM/algebraic_binding": 1
+      },
+      "17": {
+        "math::T2_FAM/cleanup_retrieval": 2
+      },
+      "18": {
+        "math::T2_FAM/superposition_aggregation": 1,
+        "math::T2_FAM/algebraic_binding": 1
+      },
+      "19": {},
+      "20": {
+        "math::T2_FAM/algebraic_binding": 1
+      },
+      "21": {
+        "math::T2_FAM/discriminative_classification": 1
+      },
+      "22": {
+        "math::T2_FAM/representation_transform": 2
+      },
+      "23": {},
+      "24": {}
+    }
+  },
+  "equivalence_candidates": [
+    {
+      "atom_a": "math::T3/hmm_emission",
+      "atom_b": "math::T2_FAM/graph_traversal",
+      "algebra_sim": 0.809,
+      "semantic_sim": 0.48,
+      "divergence": 0.329,
+      "existing_relation": null
+    },
+    {
+      "atom_a": "math::T3/bayesian_inference",
+      "atom_b": "math::T2_FAM/graph_traversal",
+      "algebra_sim": 0.798,
+      "semantic_sim": 0.495,
+      "divergence": 0.302,
+      "existing_relation": null
+    },
+    {
+      "atom_a": "math::T1/shannon_entropy",
+      "atom_b": "math::T3/answer_consistency_weak_labels",
+      "algebra_sim": 0.779,
+      "semantic_sim": 0.487,
+      "divergence": 0.292,
+      "existing_relation": null
+    },
+    {
+      "atom_a": "math::T3/em_algorithm",
+      "atom_b": "math::T2_FAM/graph_traversal",
+      "algebra_sim": 0.775,
+      "semantic_sim": 0.493,
+      "divergence": 0.282,
+      "existing_relation": null
+    },
+    {
+      "atom_a": "math::T3/forward_algorithm",
+      "atom_b": "math::T2_FAM/graph_traversal",
+      "algebra_sim": 0.769,
+      "semantic_sim": 0.497,
+      "divergence": 0.272,
+      "existing_relation": null
+    },
+    {
+      "atom_a": "math::T1/unit_modulus",
+      "atom_b": "math::T2/tier2_schema",
+      "algebra_sim": 0.64,
+      "semantic_sim": 0.478,
+      "divergence": 0.162,
+      "existing_relation": null
+    }
+  ]
+}

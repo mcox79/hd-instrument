@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_efficiency_composition_b3axb3b_v1_n2048",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: combined > best single, sub-multiplicative. writes_all=12800 reduction[b3a=13.8x b3b=8.8x both=16.0x] mult_pred=122.1x",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "all_writes": 12800,
+      "target_bpc": 2.0599225044250487,
+      "b3a_writes": 922,
+      "b3b_writes": 1586,
+      "both_writes": 915
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "all_writes": 12800,
+      "target_bpc": 2.0714130878448485,
+      "b3a_writes": 933,
+      "b3b_writes": 1307,
+      "both_writes": 684
+    }
+  ],
+  "elapsed_s": 10.8401780128479,
+  "summary": "MIDDLE_BAND: combined > best single, sub-multiplicative. writes_all=12800 reduction[b3a=13.8x b3b=8.8x both=16.0x] mult_pred=122.1x"
+}

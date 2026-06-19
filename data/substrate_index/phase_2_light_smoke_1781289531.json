@@ -1,0 +1,991 @@
+{
+  "smoke_run_ts": 1781289531,
+  "n_input_files": 50,
+  "n_atoms_baseline": 1742,
+  "elapsed_s": 80.15532994270325,
+  "proposals": [
+    {
+      "rank": 1,
+      "canonical_name": "independent_verifier",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_tier_5_benchmark_design_2x_2026-06-12.md",
+        "research_drill_substrate_tier_5_self_discovery_pathway_2x_2026-06-11.md",
+        "research_drill_substrate_self_discovery_validation_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "independent-verifier",
+        "INDEPENDENT-VERIFIER",
+        "independent-verifier",
+        "Independent-verifier",
+        "independent-verifier"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9850020734593272,
+      "route": "CREATE",
+      "rank_score": 0.9850896867156467,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "independent_verifier"
+      }
+    },
+    {
+      "rank": 2,
+      "canonical_name": "algebra_hrr",
+      "z_count": 8,
+      "source_files": [
+        "research_drill_free_probability_F4_free_cumulants_substrate_observability_beyond_mean_variance_2x_2026-06-12.md",
+        "research_drill_free_probability_R_transform_clustered_codebook_constructive_cleanup_cliff_prediction_2x_2026-06-12.md",
+        "research_drill_distractor_density_ceiling_vector_retrieval_corpus_growth_2x_2026-06-12.md",
+        "research_drill_substrate_graph_edge_typology_for_content_relevance_propagation_1x_2026-06-12.md",
+        "research_drill_recall_precision_pipeline_cascade_architecture_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "algebra-HRR",
+        "algebra-HRR",
+        "algebra-HRR",
+        "ALGEBRA-HRR",
+        "algebra-HRR"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2/circular_convolution",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/lie_algebra",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9811953715980053,
+      "route": "CREATE",
+      "rank_score": 0.9824249954127213,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "algebra_hrr"
+      }
+    },
+    {
+      "rank": 3,
+      "canonical_name": "open_domain",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_language_beyond_tier_a_hard_drill_3x_2026-06-12.md",
+        "research_drill_substrate_eval_recall_gap_alternatives_2x_2026-06-11.md",
+        "research_drill_substrate_CRF_universal_nl_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "Open-domain",
+        "open-domain",
+        "open-domain",
+        "Open-domain",
+        "open-domain"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/transfer_learning",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9725317545235157,
+      "route": "CREATE",
+      "rank_score": 0.9719486987546962,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "open_domain"
+      }
+    },
+    {
+      "rank": 4,
+      "canonical_name": "hrr_bind",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_creativity_capabilities_hard_drill_3x_2026-06-12.md",
+        "research_drill_substrate_VSA_position_is_meaning_4x_2026-06-12.md",
+        "research_drill_mwp_comprehension_wall_phase_6_corpus_3x_2026-06-12.md",
+        "research_drill_substrate_proposed_architectures_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "HRR-bind",
+        "HRR-bind",
+        "HRR-bind",
+        "HRR-bind",
+        "HRR-bind"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2/fhrr_bind",
+          0.3333333333333333
+        ],
+        [
+          "math::T2/circular_convolution",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/ghrr_noncommutative_bind",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9700438156723976,
+      "route": "CREATE",
+      "rank_score": 0.9702071415589135,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "hrr_bind"
+      }
+    },
+    {
+      "rank": 5,
+      "canonical_name": "query_privacy",
+      "z_count": 7,
+      "source_files": [
+        "research_drill_vsa_composition_decomposition_benchmark_methodology_2x_2026-06-12.md",
+        "research_drill_asymmetric_retrieval_leg_degradation_methodology_2x_2026-06-12.md",
+        "research_drill_substrate_language_beyond_tier_a_hard_drill_3x_2026-06-12.md",
+        "research_drill_substrate_VSA_position_is_meaning_4x_2026-06-12.md",
+        "research_drill_substrate_tier_5_self_discovery_pathway_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "query-privacy",
+        "query-privacy",
+        "query-privacy",
+        "query-privacy",
+        "query-privacy"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.975944809615612,
+      "route": "CREATE",
+      "rank_score": 0.9699260726132813,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "query_privacy"
+      }
+    },
+    {
+      "rank": 6,
+      "canonical_name": "long_form",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_language_beyond_tier_a_hard_drill_3x_2026-06-12.md",
+        "research_drill_substrate_tier_5_benchmark_design_2x_2026-06-12.md",
+        "research_drill_substrate_self_discovery_validation_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "long-form",
+        "long-form",
+        "Long-form"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/tensor",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9630059003829956,
+      "route": "CREATE",
+      "rank_score": 0.9696923655622145,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "long_form"
+      }
+    },
+    {
+      "rank": 7,
+      "canonical_name": "hard_fail",
+      "z_count": 42,
+      "source_files": [
+        "research_drill_free_probability_F4_free_cumulants_substrate_observability_beyond_mean_variance_2x_2026-06-12.md",
+        "research_drill_shares_math_false_merge_auditing_entity_resolution_thresholding_methodology_1x_2026-06-12.md",
+        "research_drill_free_probability_MP_bulk_subleading_1sqrtN_correction_empirical_test_design_2x_2026-06-12.md",
+        "research_drill_shares_math_subgraph_equivalence_class_compression_connected_components_substrate_compressed_lever_set_discovery_1x_2026-06-12.md",
+        "research_drill_marchenko_pastur_bulk_cleanup_cliff_sharpness_rederivation_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "HARD-FAIL",
+        "HARD-FAIL",
+        "HARD-FAIL",
+        "HARD-FAIL",
+        "HARD-FAIL"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.960506297647953,
+      "route": "CREATE",
+      "rank_score": 0.9679426436476848,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "hard_fail"
+      }
+    },
+    {
+      "rank": 8,
+      "canonical_name": "surface_form",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_phase_2_full_substrate_corpus_self_mining_active_learning_methodology_2x_2026-06-12.md",
+        "research_drill_substrate_classical_NER_architectural_ceiling_beyond_feature_engineering_2x_2026-06-12.md",
+        "research_drill_substrate_eval_recall_gap_alternatives_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "surface-form",
+        "surface-form",
+        "surface-form",
+        "surface-form"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/tensor",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9596606083214283,
+      "route": "CREATE",
+      "rank_score": 0.9673506611191174,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "surface_form"
+      }
+    },
+    {
+      "rank": 9,
+      "canonical_name": "tier_hierarchy",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_cross_disc_analogue_surfacing_2x_2026-06-12.md",
+        "research_drill_ner_3datapoint_plateau_substrate_paths_2x_2026-06-11.md",
+        "research_drill_7_invariants_empirical_validation_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "tier-hierarchy",
+        "tier-hierarchy",
+        "tier-hierarchy",
+        "Tier-hierarchy"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9710182324051857,
+      "route": "CREATE",
+      "rank_score": 0.9664774685659828,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "tier_hierarchy"
+      }
+    },
+    {
+      "rank": 10,
+      "canonical_name": "if_hard",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_pos_brown_ptb_cross_domain_transfer_3rd_appearance_capability_class_test_1x_2026-06-12.md",
+        "research_drill_asymmetric_retrieval_leg_degradation_methodology_2x_2026-06-12.md",
+        "research_drill_ner_substrate_paths_remaining_2x_2026-06-11.md",
+        "research_drill_free_probability_F4_substrate_observability_3x_2026-06-11.md",
+        "research_drill_substrate_proposed_architectures_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "If HARD",
+        "If HARD",
+        "If HARD",
+        "If HARD",
+        "If HARD"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9582433886826038,
+      "route": "CREATE",
+      "rank_score": 0.9663586073719403,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "if_hard"
+      }
+    },
+    {
+      "rank": 11,
+      "canonical_name": "does_not",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_elegant_hyperdimensional_mathematics_representation_4x_2026-06-12.md",
+        "research_drill_substrate_VSA_position_is_meaning_4x_2026-06-12.md",
+        "research_drill_substrate_3op_compositional_extension_2x_2026-06-11.md",
+        "research_drill_substrate_as_full_research_ledger_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "DOES NOT",
+        "DOES NOT",
+        "DOES NOT",
+        "DOES NOT"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9642301872372627,
+      "route": "CREATE",
+      "rank_score": 0.9661376016543192,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "does_not"
+      }
+    },
+    {
+      "rank": 12,
+      "canonical_name": "prediction_p2",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_substrate_as_full_research_ledger_2x_2026-06-11.md",
+        "research_drill_asdiv_030_plateau_substrate_paths_2x_2026-06-11.md",
+        "research_drill_substrate_universal_scientific_corpus_2x_2026-06-11.md",
+        "research_drill_substrate_proposed_architectures_2x_2026-06-11.md",
+        "research_drill_7_invariants_empirical_validation_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "Prediction P2",
+        "Prediction P2",
+        "Prediction P2",
+        "Prediction P2",
+        "Prediction P2"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/conformal_prediction",
+          0.3333333333333333
+        ],
+        [
+          "science::BIO/predictive_coding",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9559803828597069,
+      "route": "CREATE",
+      "rank_score": 0.9647745032959125,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "prediction_p2"
+      }
+    },
+    {
+      "rank": 13,
+      "canonical_name": "bag_of_words",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_VSA_position_is_meaning_4x_2026-06-12.md",
+        "research_drill_substrate_classical_nl_multiseed_variance_pattern_2x_2026-06-12.md",
+        "research_drill_substrate_classical_mechanism_transfer_replication_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "bag-of-words",
+        "bag-of-words",
+        "bag-of-words"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9608017541468143,
+      "route": "CREATE",
+      "rank_score": 0.9637376984910052,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "bag_of_words"
+      }
+    },
+    {
+      "rank": 14,
+      "canonical_name": "low_data",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_shares_math_false_merge_auditing_entity_resolution_thresholding_methodology_1x_2026-06-12.md",
+        "research_drill_pos_brown_ptb_cross_domain_transfer_3rd_appearance_capability_class_test_1x_2026-06-12.md",
+        "research_drill_substrate_classical_NER_architectural_ceiling_beyond_feature_engineering_2x_2026-06-12.md",
+        "research_drill_low_data_ner_structured_perceptron_architecture_2x_2026-06-12.md",
+        "research_drill_substrate_language_beyond_tier_a_hard_drill_3x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "low-data",
+        "low-data",
+        "low-data",
+        "low-data",
+        "Low-data"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ],
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.954313114285469,
+      "route": "CREATE",
+      "rank_score": 0.963607415293946,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "low_data"
+      }
+    },
+    {
+      "rank": 15,
+      "canonical_name": "feature_engineering",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_shares_math_false_merge_auditing_entity_resolution_thresholding_methodology_1x_2026-06-12.md",
+        "research_drill_pos_brown_ptb_cross_domain_transfer_3rd_appearance_capability_class_test_1x_2026-06-12.md",
+        "research_drill_substrate_classical_NER_architectural_ceiling_beyond_feature_engineering_2x_2026-06-12.md",
+        "research_drill_substrate_CRF_universal_nl_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "feature-engineering",
+        "feature-engineering",
+        "feature-engineering",
+        "feature-engineering"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/feature_hashing",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9597615227103233,
+      "route": "CREATE",
+      "rank_score": 0.9630095364854615,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "feature_engineering"
+      }
+    },
+    {
+      "rank": 16,
+      "canonical_name": "weak_label",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_operand_selection_mwp_2x_2026-06-12.md",
+        "research_drill_substrate_classical_mechanism_transfer_conditions_2x_2026-06-11.md",
+        "research_drill_beyond_discriminative_mwp_mechanism_classes_2x_2026-06-11.md",
+        "research_drill_asdiv_030_plateau_substrate_paths_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "weak-label",
+        "weak-label",
+        "weak-label",
+        "weak-label",
+        "weak-label"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2_FAM/weak_supervision",
+          0.3333333333333333
+        ],
+        [
+          "math::T2_FAM/weak_supervision",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9592963606119156,
+      "route": "CREATE",
+      "rank_score": 0.9626839230165761,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "weak_label"
+      }
+    },
+    {
+      "rank": 17,
+      "canonical_name": "low_resource",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_low_data_ner_structured_perceptron_architecture_2x_2026-06-12.md",
+        "research_drill_substrate_language_beyond_tier_a_hard_drill_3x_2026-06-12.md",
+        "research_drill_ner_3datapoint_plateau_substrate_paths_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "low-resource",
+        "low-resource",
+        "low-resource",
+        "Low-resource",
+        "Low-Resource"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9644998125731945,
+      "route": "CREATE",
+      "rank_score": 0.961914574683589,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "low_resource"
+      }
+    },
+    {
+      "rank": 18,
+      "canonical_name": "higher_order",
+      "z_count": 11,
+      "source_files": [
+        "research_drill_free_probability_F4_free_cumulants_substrate_observability_beyond_mean_variance_2x_2026-06-12.md",
+        "research_drill_free_probability_MP_bulk_subleading_1sqrtN_correction_empirical_test_design_2x_2026-06-12.md",
+        "research_drill_free_probability_R_transform_clustered_codebook_constructive_cleanup_cliff_prediction_2x_2026-06-12.md",
+        "research_drill_free_probability_VSA_cleanup_clustered_codebook_capacity_2x_2026-06-12.md",
+        "research_drill_substrate_classical_NER_architectural_ceiling_beyond_feature_engineering_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "Higher-order",
+        "HIGHER-ORDER",
+        "higher-order",
+        "higher-order",
+        "higher-order"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::PHYS/topological_phase",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9580354653298855,
+      "route": "CREATE",
+      "rank_score": 0.961801296319155,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "higher_order"
+      }
+    },
+    {
+      "rank": 19,
+      "canonical_name": "structure_mapping",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_creativity_capabilities_hard_drill_3x_2026-06-12.md",
+        "research_drill_substrate_cross_disc_analogue_surfacing_2x_2026-06-12.md",
+        "research_drill_substrate_tier_5_self_discovery_pathway_2x_2026-06-11.md",
+        "research_drill_beyond_discriminative_mwp_mechanism_classes_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "structure-mapping",
+        "structure-mapping",
+        "structure-mapping",
+        "structure-mapping",
+        "Structure-Mapping"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::BIO/dna_double_helix",
+          0.3333333333333333
+        ],
+        [
+          "science::CHEM/atomic_structure",
+          0.3333333333333333
+        ],
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9637110158801079,
+      "route": "CREATE",
+      "rank_score": 0.9613624169984284,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "structure_mapping"
+      }
+    },
+    {
+      "rank": 20,
+      "canonical_name": "pattern_completion",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_creativity_capabilities_hard_drill_3x_2026-06-12.md",
+        "research_drill_substrate_cross_disc_analogue_surfacing_2x_2026-06-12.md",
+        "research_drill_substrate_tier_5_self_discovery_pathway_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "pattern-completion",
+        "pattern-completion",
+        "pattern-completion",
+        "pattern-completion",
+        "pattern-completion"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9496416747570038,
+      "route": "CREATE",
+      "rank_score": 0.9603374076240203,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "pattern_completion"
+      }
+    },
+    {
+      "rank": 21,
+      "canonical_name": "serves_capability",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_shares_math_edge_type_design_anchored_in_32_collision_empirical_1x_2026-06-12.md",
+        "research_drill_elegant_hyperdimensional_mathematics_representation_4x_2026-06-12.md",
+        "research_drill_semantic_a_axis_beyond_bge_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "serves_capability",
+        "serves_capability",
+        "serves_capability",
+        "serves_capability",
+        "serves_capability"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.949215829372406,
+      "route": "CREATE",
+      "rank_score": 0.9600393158548017,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "serves_capability"
+      }
+    },
+    {
+      "rank": 22,
+      "canonical_name": "linear_chain",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_ner_3datapoint_plateau_substrate_paths_2x_2026-06-11.md",
+        "research_drill_substrate_CRF_universal_nl_2x_2026-06-11.md",
+        "research_drill_ner_substrate_paths_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "Linear-chain",
+        "linear-chain",
+        "linear-chain",
+        "LINEAR-CHAIN",
+        "linear-chain"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/vector_space",
+          0.3333333333333333
+        ],
+        [
+          "math::T2_FAM/sequence_decoding",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/chain_rule",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/markov_chain",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9617770202457905,
+      "route": "CREATE",
+      "rank_score": 0.9600086200544062,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "linear_chain"
+      }
+    },
+    {
+      "rank": 23,
+      "canonical_name": "document_level",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_classical_NER_architectural_ceiling_beyond_feature_engineering_2x_2026-06-12.md",
+        "research_drill_ner_substrate_paths_remaining_2x_2026-06-11.md",
+        "research_drill_ner_3datapoint_plateau_substrate_paths_2x_2026-06-11.md",
+        "research_drill_substrate_CRF_universal_nl_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "document-level",
+        "Document-level",
+        "document-level",
+        "document-level",
+        "document-level"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.946790911257267,
+      "route": "CREATE",
+      "rank_score": 0.9583418731742046,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "document_level"
+      }
+    },
+    {
+      "rank": 24,
+      "canonical_name": "hard_pass",
+      "z_count": 43,
+      "source_files": [
+        "research_drill_free_probability_F4_free_cumulants_substrate_observability_beyond_mean_variance_2x_2026-06-12.md",
+        "research_drill_shares_math_false_merge_auditing_entity_resolution_thresholding_methodology_1x_2026-06-12.md",
+        "research_drill_free_probability_MP_bulk_subleading_1sqrtN_correction_empirical_test_design_2x_2026-06-12.md",
+        "research_drill_shares_math_subgraph_equivalence_class_compression_connected_components_substrate_compressed_lever_set_discovery_1x_2026-06-12.md",
+        "research_drill_marchenko_pastur_bulk_cleanup_cliff_sharpness_rederivation_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "HARD-PASS",
+        "HARD-PASS",
+        "HARD-PASS",
+        "HARD-PASS",
+        "HARD-PASS"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9453186728060246,
+      "route": "CREATE",
+      "rank_score": 0.9573113062583347,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "hard_pass"
+      }
+    },
+    {
+      "rank": 25,
+      "canonical_name": "sequence_tagging",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_pos_brown_ptb_cross_domain_transfer_3rd_appearance_capability_class_test_1x_2026-06-12.md",
+        "research_drill_low_data_ner_structured_perceptron_architecture_2x_2026-06-12.md",
+        "research_drill_ner_substrate_paths_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "Sequence Tagging",
+        "sequence-tagging",
+        "sequence-tagging",
+        "sequence-tagging"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2_FAM/sequence_decoding",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/cauchy_sequence",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/cauchy_sequence",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9503721259534359,
+      "route": "CREATE",
+      "rank_score": 0.9564369587556404,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "sequence_tagging"
+      }
+    },
+    {
+      "rank": 26,
+      "canonical_name": "kappa_n",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_free_probability_F4_free_cumulants_substrate_observability_beyond_mean_variance_2x_2026-06-12.md",
+        "research_drill_substrate_tier_5_benchmark_design_2x_2026-06-12.md",
+        "research_drill_free_probability_F4_substrate_observability_3x_2026-06-11.md",
+        "research_drill_layer4_dialectic_methodology_2x_2026-06-11.md",
+        "research_drill_substrate_proposed_atom_candidates_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "kappa_n",
+        "kappa_n",
+        "kappa_n",
+        "kappa_n",
+        "kappa_n"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/kappa_4_free",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9503190256655216,
+      "route": "CREATE",
+      "rank_score": 0.9563997885541003,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "kappa_n"
+      }
+    },
+    {
+      "rank": 27,
+      "canonical_name": "algebra_index",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_phase_2_full_substrate_corpus_self_mining_active_learning_methodology_2x_2026-06-12.md",
+        "research_drill_vsa_composition_decomposition_benchmark_methodology_2x_2026-06-12.md",
+        "research_drill_asymmetric_retrieval_leg_degradation_methodology_2x_2026-06-12.md",
+        "research_drill_substrate_tier_5_benchmark_design_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "algebra_index",
+        "algebra_index",
+        "algebra_index",
+        "algebra_index",
+        "algebra_index"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/lie_algebra",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 1,
+      "novelty": 0.9439665637910366,
+      "route": "CREATE",
+      "rank_score": 0.9563648299478433,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "algebra_index"
+      }
+    },
+    {
+      "rank": 28,
+      "canonical_name": "static_robust",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_beyond_discriminative_mwp_mechanism_classes_2x_2026-06-11.md",
+        "research_drill_substrate_as_full_research_ledger_2x_2026-06-11.md",
+        "research_drill_dep_parse_0787_to_085_substrate_paths_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "STATIC-robust",
+        "static-robust",
+        "static-robust"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9477706924080849,
+      "route": "CREATE",
+      "rank_score": 0.9546159552738946,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "static_robust"
+      }
+    },
+    {
+      "rank": 29,
+      "canonical_name": "within_cluster",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_free_probability_R_transform_clustered_codebook_constructive_cleanup_cliff_prediction_2x_2026-06-12.md",
+        "research_drill_free_probability_VSA_cleanup_clustered_codebook_capacity_2x_2026-06-12.md",
+        "research_drill_substrate_proposed_atom_candidates_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "within-cluster",
+        "within-cluster",
+        "within-cluster",
+        "within-cluster",
+        "within-cluster"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.947596650570631,
+      "route": "CREATE",
+      "rank_score": 0.9544941259876769,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "within_cluster"
+      }
+    },
+    {
+      "rank": 30,
+      "canonical_name": "penn_treebank",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_substrate_classical_mechanism_transfer_conditions_2x_2026-06-11.md",
+        "research_drill_ner_3datapoint_plateau_substrate_paths_2x_2026-06-11.md",
+        "research_drill_substrate_CRF_universal_nl_2x_2026-06-11.md",
+        "research_drill_ner_substrate_paths_2x_2026-06-11.md",
+        "research_drill_7_invariants_empirical_validation_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "Penn Treebank",
+        "Penn Treebank",
+        "Penn Treebank",
+        "Penn Treebank",
+        "Penn-Treebank"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9473958685994148,
+      "route": "CREATE",
+      "rank_score": 0.9543535786078255,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "penn_treebank"
+      }
+    }
+  ]
+}

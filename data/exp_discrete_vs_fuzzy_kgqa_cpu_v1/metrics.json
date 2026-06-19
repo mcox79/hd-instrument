@@ -1,0 +1,16 @@
+{
+  "anchor_name": "discrete_vs_fuzzy_kgqa_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: discrete-KG K-hop >=0.70 and beats fuzzy by >=0.30 on identical 2-hop QA -- universal principle confirmed at the QA level. discrete=0.850 fuzzy=0.000 gap=0.850",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "discrete": 0.85,
+      "fuzzy": 0.0,
+      "gap": 0.85
+    }
+  ],
+  "elapsed_s": 0.11091494560241699,
+  "summary": "HARD_PASS: discrete-KG K-hop >=0.70 and beats fuzzy by >=0.30 on identical 2-hop QA -- universal principle confirmed at the QA level. discrete=0.850 fuzzy=0.000 gap=0.850"
+}

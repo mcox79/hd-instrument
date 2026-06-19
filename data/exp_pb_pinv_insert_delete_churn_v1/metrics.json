@@ -1,0 +1,28 @@
+{
+  "anchor_name": "pb_pinv_insert_delete_churn_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: incremental memory stays numerically exact under interleaved insert/delete churn (dev<1e-3) with live recall >=0.95 -- no periodic rebuild needed. at N=512 after 60 churn ops: max_dev_vs_rebuild=2.17e-18 live_recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "N256": {
+          "N": 256,
+          "live_set": 32,
+          "max_dev": 4.336808689942018e-18,
+          "live_recall": 1.0
+        },
+        "N512": {
+          "N": 512,
+          "live_set": 22,
+          "max_dev": 2.168404344971009e-18,
+          "live_recall": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.09646439552307129,
+  "summary": "HARD_PASS: incremental memory stays numerically exact under interleaved insert/delete churn (dev<1e-3) with live recall >=0.95 -- no periodic rebuild needed. at N=512 after 60 churn ops: max_dev_vs_rebuild=2.17e-18 live_recall=1.000"
+}

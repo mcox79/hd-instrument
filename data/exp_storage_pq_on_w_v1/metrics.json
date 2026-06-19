@@ -1,0 +1,17 @@
+{
+  "anchor_name": "storage_pq_on_w_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: PQ compression/quality off target. full=1.000 PQ=0.000 drop=1.000 compression=256x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "full": 1.0,
+      "pq": 0.0,
+      "drop": 1.0,
+      "comp": 256.0
+    }
+  ],
+  "elapsed_s": 8.513309001922607,
+  "summary": "MIDDLE_BAND: PQ compression/quality off target. full=1.000 PQ=0.000 drop=1.000 compression=256x"
+}

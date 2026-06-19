@@ -1,0 +1,142 @@
+# CELL-A2 Llama-3.1-8B-Instruct triples -> substrate K-hop on Lambda GH200/H100.
+#
+# Per Research path_B_GPU_dispatch_clarification + Exp-Dev v1.5 GPU batch handoff:
+# Llama-3.1-8B is HF-GATED; HF_TOKEN with accepted license required.
+# Setup: arch-aware torch>=2.5 install, transformers, parallel Llama snapshot + HotpotQA verification,
+#        PROT-022 self-test gate.
+# Run: 60 HotpotQA distractor bridge questions, triple extraction + substrate K-hop.
+#
+# HARD-PASS: K-hop recall@2 >= 0.55 (clears 0.37 fuzzy ceiling; multi-hop revival real)
+# BORDER:    0.45-0.55
+# HARD-FAIL: < 0.45
+#
+# Cost: ~$5-7 (~2-3 hr on GH200 at $2.29/h).
+
+name: cella2
+
+resources:
+  cloud: lambda
+  use_spot: false
+  # SKU + accelerators come from CLI --instance-type passed by safety stack.
+  # No top-level accelerators; no any_of (per 2026-06-07 lesson).
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] detect GPU + apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+  ARCH=$(uname -m)
+  GPU_NAME=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
+  echo "Detected ARCH=${ARCH} GPU=${GPU_NAME}"
+
+  echo "=== [setup 3/7] install torch (cu121 x86 H100, cu128 aarch64 GH200) ==="
+  # NOTE 2026-06-07: torch pin must match wheels actually available on target arch.
+  # cu128 aarch64 (GH200) wheels start at 2.7.0; matches CELL-3/4 working pin.
+  pip install --quiet --upgrade pip
+  if [ "$ARCH" = "aarch64" ]; then
+    echo "Installing cu128 wheel for GH200"
+    pip install --quiet --upgrade "torch>=2.5" "torchvision" \
+      --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade "torch" "torchvision" \
+      --index-url https://download.pytorch.org/whl/nightly/cu128
+  else
+    echo "Installing cu121 wheel for x86 H100"
+    pip install --quiet --upgrade "torch>=2.3" "torchvision" \
+      --index-url https://download.pytorch.org/whl/cu121
+  fi
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} ok={torch.cuda.is_available()}')
+  props = torch.cuda.get_device_properties(0)
+  print(f'device: {props.name} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+  # transformers must support Llama-3.1 architecture (>= 4.43)
+  # flash-attn for the speed optimization (Flash Attention 2 in the script)
+  pip install --quiet "transformers>=4.43,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" \
+    "datasets>=2.20" "pyarrow"
+  # Flash Attention 2 (try install but DON'T fail setup if it can't compile;
+  # script falls back to SDPA / eager automatically per attn_implementation chain)
+  pip install --quiet "flash-attn>=2.5,<3" --no-build-isolation 2>&1 | tail -5 || \
+    echo "[setup] flash-attn install failed; script will fall back to SDPA/eager"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.1-8B-Instruct gated-access + pre-pull (~16 GB; biggest setup step) ==="
+  python -c "
+  import os, sys
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi, snapshot_download
+  try:
+      info = HfApi().model_info('meta-llama/Llama-3.1-8B-Instruct', token=os.environ['HF_TOKEN'])
+      print(f'OK: meta-llama/Llama-3.1-8B-Instruct accessible (last_modified={info.last_modified})')
+  except Exception as e:
+      msg = str(e).lower()
+      if 'gated' in msg or '401' in msg or '403' in msg or 'access' in msg:
+          print('FATAL: HF token does NOT have gated access to meta-llama/Llama-3.1-8B-Instruct.')
+          print('Visit https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct and accept license.')
+          print(f'Error: {e}')
+          sys.exit(1)
+      raise
+  path = snapshot_download(
+      repo_id='meta-llama/Llama-3.1-8B-Instruct',
+      token=os.environ['HF_TOKEN'],
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model', '*.txt'],
+  )
+  print(f'OK: Llama-3.1-8B-Instruct snapshot at {path}')
+  # Hardening: verify file count + size of downloaded snapshot
+  import glob
+  safetensors_files = glob.glob(path + '/*.safetensors')
+  total_bytes = sum(os.path.getsize(f) for f in safetensors_files)
+  print(f'OK: {len(safetensors_files)} safetensors files; total {total_bytes/1e9:.1f} GB')
+  if total_bytes < 14e9:
+      print(f'WARN: total weights {total_bytes/1e9:.1f} GB < expected 14-17 GB; partial download?')
+      sys.exit(1)
+  "
+
+  echo "=== [setup 6/7] verify HotpotQA distractor data present in bundle ==="
+  ls -la ~/sky_workdir/data/datasets/hotpot_qa_distractor_dev_1k.jsonl 2>&1
+  head -c 200 ~/sky_workdir/data/datasets/hotpot_qa_distractor_dev_1k.jsonl
+
+  echo ""
+  echo "=== [setup 7/7] CELL-A2 script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_llama8b_triples_khop_gpu_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_EXP_NAME=substrate_llama8b_triples_khop_gpu_v1
+  export HF_TOKEN="$HF_TOKEN"
+  cd ~/sky_workdir
+
+  echo "=== CELL-A2 Llama-3.1-8B-Instruct triples -> substrate K-hop START ==="
+  python -u experiments/exp_substrate_llama8b_triples_khop_gpu_v1.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_llama8b_triples_khop_gpu_v1/ 2>&1 | head -10
+  cat ~/sky_workdir/data/exp_substrate_llama8b_triples_khop_gpu_v1/metrics.json 2>&1 | python3 -m json.tool | head -40

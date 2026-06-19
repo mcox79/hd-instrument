@@ -1,0 +1,56 @@
+{
+  "verdict": "AXIS1C2_MIDDLE_BAND",
+  "verdict_msg": "Partial structure. min_ret=0.515. M_star=None. bnv_monotone=True. ret_by_M={4096: 1.0, 8192: 0.515}. ret_M_range=0.485.",
+  "elapsed_s": 0.361377477645874,
+  "summary": {
+    "cells": [
+      {
+        "M": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 1.3632735013961792,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 4096,
+        "beta": 64.0,
+        "seed": 17,
+        "retention": 1.0,
+        "bundle_norm_var": 1.3632735013961792,
+        "spectral_gap": 0.04562807083129883,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 8192,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.5149999856948853,
+        "bundle_norm_var": 4.484945774078369,
+        "spectral_gap": 0.018492460250854492,
+        "hysteresis_amp": 0.0
+      },
+      {
+        "M": 8192,
+        "beta": 64.0,
+        "seed": 17,
+        "retention": 0.5149999856948853,
+        "bundle_norm_var": 4.484945774078369,
+        "spectral_gap": 0.018492460250854492,
+        "hysteresis_amp": 0.0
+      }
+    ],
+    "N_full": 4096,
+    "N_used": 1024,
+    "m_fracs": [
+      4.0,
+      8.0
+    ],
+    "beta_sweep": [
+      4.0,
+      64.0
+    ],
+    "smoke": true
+  }
+}

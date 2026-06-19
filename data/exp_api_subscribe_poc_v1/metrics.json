@@ -1,0 +1,18 @@
+{
+  "anchor_name": "api_subscribe_poc_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: subscribe() delivers all matches, zero false positives, merkle_path verifies, <100ms -- reactive primitive is buildable on existing write path. delivered=10 expected=10 false_pos=0 paths_ok=True max_lat=0.441ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "delivered": 10,
+      "expected": 10,
+      "false_pos": 0,
+      "paths_ok": true,
+      "max_lat_ms": 0.4414999857544899
+    }
+  ],
+  "elapsed_s": 0.03792238235473633,
+  "summary": "HARD_PASS: subscribe() delivers all matches, zero false positives, merkle_path verifies, <100ms -- reactive primitive is buildable on existing write path. delivered=10 expected=10 false_pos=0 paths_ok=True max_lat=0.441ms"
+}

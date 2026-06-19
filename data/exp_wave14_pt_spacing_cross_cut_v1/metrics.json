@@ -1,0 +1,190 @@
+{
+  "verdict": "SPACING_DOMINANT",
+  "verdict_msg": "H_spacing CONFIRMED: spacing_effect=-0.062>=0.05 dominates depth_effect=0.002. geometric wins. PT framing supported: spacing profile is the primary lever. spacing_effect=-0.062 depth_effect=0.002. Cells: d2_geometric:0.692, d2_densified:0.647, d4_geometric:0.710, d4_densified:0.632.",
+  "elapsed_s": 246.90600000001723,
+  "summary": {
+    "cells": {
+      "d2_geometric": {
+        "per_seed": {
+          "7": {
+            "retA": 0.6967610405665104,
+            "bpc_baseline": 2.5877425039679998,
+            "bpc_after": 3.71395981305729,
+            "mean_adj_kl": 0.840857058763504,
+            "chunk_fracs": [
+              0.5,
+              0.5
+            ]
+          },
+          "17": {
+            "retA": 0.6872955139537773,
+            "bpc_baseline": 2.590621741213001,
+            "bpc_after": 3.7692981965065293,
+            "mean_adj_kl": 0.8390036374330521,
+            "chunk_fracs": [
+              0.5,
+              0.5
+            ]
+          },
+          "23": {
+            "retA": 0.6929005339911429,
+            "bpc_baseline": 2.589022820234517,
+            "bpc_after": 3.736499963886031,
+            "mean_adj_kl": 0.8401853144168854,
+            "chunk_fracs": [
+              0.5,
+              0.5
+            ]
+          }
+        },
+        "mean_retA": 0.6923190295038101,
+        "mean_adj_kl": 0.8400153368711472
+      },
+      "d2_densified": {
+        "per_seed": {
+          "7": {
+            "retA": 0.6584707062011722,
+            "bpc_baseline": 2.5877424907616353,
+            "bpc_after": 3.929928038394836,
+            "mean_adj_kl": 0.8395755887031555,
+            "chunk_fracs": [
+              0.25,
+              0.25
+            ]
+          },
+          "17": {
+            "retA": 0.6396254780560982,
+            "bpc_baseline": 2.590621747039338,
+            "bpc_after": 4.050216628193989,
+            "mean_adj_kl": 0.8377985954284668,
+            "chunk_fracs": [
+              0.25,
+              0.25
+            ]
+          },
+          "23": {
+            "retA": 0.6421696095739188,
+            "bpc_baseline": 2.5890228210113624,
+            "bpc_after": 4.031680699946524,
+            "mean_adj_kl": 0.8399074971675873,
+            "chunk_fracs": [
+              0.25,
+              0.25
+            ]
+          }
+        },
+        "mean_retA": 0.6467552646103965,
+        "mean_adj_kl": 0.8390938937664032
+      },
+      "d4_geometric": {
+        "per_seed": {
+          "7": {
+            "retA": 0.7111586861895182,
+            "bpc_baseline": 2.587742498530085,
+            "bpc_after": 3.6387694459524216,
+            "mean_adj_kl": 0.8344405343135198,
+            "chunk_fracs": [
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ]
+          },
+          "17": {
+            "retA": 0.7086935191249164,
+            "bpc_baseline": 2.5906217419898456,
+            "bpc_after": 3.6554895340212856,
+            "mean_adj_kl": 0.832447960972786,
+            "chunk_fracs": [
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ]
+          },
+          "23": {
+            "retA": 0.7105446952299651,
+            "bpc_baseline": 2.589022812077645,
+            "bpc_after": 3.6437156303583658,
+            "mean_adj_kl": 0.8326919674873352,
+            "chunk_fracs": [
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        },
+        "mean_retA": 0.7101323001814666,
+        "mean_adj_kl": 0.8331934875912137
+      },
+      "d4_densified": {
+        "per_seed": {
+          "7": {
+            "retA": 0.6377380205516305,
+            "bpc_baseline": 2.58774249775324,
+            "bpc_after": 4.057688916704221,
+            "mean_adj_kl": 0.8318975319465002,
+            "chunk_fracs": [
+              0.25,
+              1.0,
+              1.0,
+              0.25
+            ]
+          },
+          "17": {
+            "retA": 0.6250441707498174,
+            "bpc_baseline": 2.590621740436156,
+            "bpc_after": 4.14470186535519,
+            "mean_adj_kl": 0.8304333140452703,
+            "chunk_fracs": [
+              0.25,
+              1.0,
+              1.0,
+              0.25
+            ]
+          },
+          "23": {
+            "retA": 0.6344655902153666,
+            "bpc_baseline": 2.5890228171271374,
+            "bpc_after": 4.080635509718194,
+            "mean_adj_kl": 0.830595021446546,
+            "chunk_fracs": [
+              0.25,
+              1.0,
+              1.0,
+              0.25
+            ]
+          }
+        },
+        "mean_retA": 0.6324159271722716,
+        "mean_adj_kl": 0.8309752891461054
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 2048,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 150000,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "depths": [
+      2,
+      4
+    ],
+    "spacings": [
+      "geometric",
+      "densified"
+    ],
+    "base_chunk_fraction": 0.5,
+    "densified_mid_factor": 2.0,
+    "effect_threshold": 0.05,
+    "null_threshold": 0.03
+  }
+}

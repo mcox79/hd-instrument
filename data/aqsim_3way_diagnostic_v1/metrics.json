@@ -1,0 +1,90 @@
+{
+  "anchor": "aqsim_3way_cross_n_engineering_diagnostic_v1_n4096",
+  "smoke": true,
+  "device": "cpu",
+  "scenarios": {
+    "N4096_control": {
+      "label": "N4096_control",
+      "N": 4096,
+      "M": 2048,
+      "K_paths": 100,
+      "seed": 42,
+      "ok": true,
+      "error": null,
+      "error_traceback": null,
+      "step_reached": "done",
+      "kerdock_exception": false,
+      "import_exception": false,
+      "build_shared_exception": false,
+      "cells": [],
+      "elapsed_s": 0.812,
+      "defense_activation_rate": 1.0,
+      "fp_rate": 0.0,
+      "acc_gated_comp": 1.0,
+      "n_leg": 2,
+      "n_adv": 9
+    },
+    "checkpoint_contamination": {
+      "test": "checkpoint_contamination",
+      "hypothesis": "smoke checkpoint pollutes FULL run via same key pattern",
+      "ok": true,
+      "contamination_confirmed": true,
+      "findings": [
+        "seed42 found in checkpoint with M=256 (should be 256=smoke)",
+        "CONFIRMED: smoke checkpoint M=256 would be loaded for FULL N=4096 M=2048 run",
+        "ROOT CAUSE: _seed_checkpoint uses same key 'seed{N}' for smoke AND full runs",
+        "FIX: Include M (or run_mode='full'/'smoke') in checkpoint key, e.g. 'seed42_M2048' vs 'seed42_M256'",
+        "checkpoint key pattern found: ['\"seed\"', \"'seed'\", '\"seed\"', \"'seed'\", '\"seed\"']"
+      ],
+      "elapsed_s": 0.03
+    },
+    "N8192_test": {
+      "label": "N8192_test",
+      "N": 8192,
+      "M": 4096,
+      "K_paths": 100,
+      "seed": 42,
+      "ok": false,
+      "error": "N=8192 requires even log2(N) for MM construction (got n_log2=13)",
+      "error_traceback": "Traceback (most recent call last):\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_aqsim_3way_cross_n_engineering_diagnostic_v1_n4096.py\", line 199, in run_single_seed\n    codebook, W_base, key_idx, val_idx, relation = build_shared(\n                                                   ^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\_multi_hop_mechanisms.py\", line 96, in build_shared\n    codebook, _W0, _keys, _vals, _ki, _vi = make_substrate(N_use, M, seed, device)\n                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\_metric_battery.py\", line 90, in make_substrate\n    codebook, _ = t1v1.v3.make_kerdock_4coset_codebook(N, device)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AI\\hd-instrument\\experiments\\exp_wave14y_erase_kerdock_v3.py\", line 171, in make_kerdock_4coset_codebook\n    raise ValueError(f\"N={N} requires even log2(N) for MM construction \"\nValueError: N=8192 requires even log2(N) for MM construction (got n_log2=13)\n",
+      "step_reached": "build_shared",
+      "kerdock_exception": true,
+      "import_exception": false,
+      "build_shared_exception": true,
+      "cells": [],
+      "elapsed_s": 0.0
+    },
+    "N16384_test": {
+      "label": "N16384_test",
+      "N": 16384,
+      "M": 4096,
+      "K_paths": 2,
+      "seed": 42,
+      "ok": true,
+      "error": null,
+      "error_traceback": null,
+      "step_reached": "done",
+      "kerdock_exception": false,
+      "import_exception": false,
+      "build_shared_exception": false,
+      "cells": [],
+      "elapsed_s": 19.297,
+      "defense_activation_rate": 1.0,
+      "fp_rate": 0.0,
+      "acc_gated_comp": 1.0,
+      "n_leg": 2,
+      "n_adv": 9
+    }
+  },
+  "findings_summary": [
+    "Scenario-1 (N=4096 control): PASS -- pipeline intact",
+    "Scenario-2: CONTAMINATION CONFIRMED -- smoke checkpoint (M=256) is loaded by FULL run (M=2048)",
+    "Scenario-3 (N=8192): Kerdock ValueError confirmed -- log2(8192)=13 is ODD, not supported by make_kerdock_4coset_codebook",
+    "Scenario-4 (N=16384): pipeline PASS"
+  ],
+  "root_cause": "CHECKPOINT CONTAMINATION: _seed_checkpoint uses key 'seed{N}' for BOTH smoke and FULL runs. After the runner's smoke gate writes partial_metrics_seed17.json with M=256, the FULL run finds 'seed17' in the checkpoint, loads smoke-scale metrics (M=256, elapsed_s~0), and exits without computing FULL results. This affects ALL N>4096 anchors that ran a smoke gate before the FULL run.",
+  "fix_path": "FIX: Include M (or 'full'/'smoke' tag) in checkpoint key, e.g. 'seed42_M2048_full' vs 'seed42_M256_smoke'. Alternatively: clear checkpoint dir between smoke gate and FULL run. Alternatively: add M field validation to load_partial_key -- if loaded M != current M, discard checkpoint and re-run.",
+  "verdict": "DIAGNOSTIC_HARD_PASS",
+  "verdict_msg": "DIAGNOSTIC_HARD_PASS: root cause identified with fix path.\nROOT_CAUSE: CHECKPOINT CONTAMINATION: _seed_checkpoint uses key 'seed{N}' for BOTH smoke and FULL runs. After the runner's smoke gate writes partial_metrics_seed17.json with M=256, the FULL run finds 'seed17' in the checkpoint, loads smoke-scale metrics (M=256, elapsed_s~0), and exits without computing FULL results. This affects ALL N>4096 anchors that ran a smoke gate before the FULL run.\nFIX_PATH: FIX: Include M (or 'full'/'smoke' tag) in checkpoint key, e.g. 'seed42_M2048_full' vs 'seed42_M256_smoke'. Alternatively: clear checkpoint dir between smoke gate and FULL run. Alternatively: add M field validation to load_partial_key -- if loaded M != current M, discard checkpoint and re-run.\nFINDINGS: Scenario-1 (N=4096 control): PASS -- pipeline intact\nScenario-2: CONTAMINATION CONFIRMED -- smoke checkpoint (M=256) is loaded by FULL run (M=2048)\nScenario-3 (N=8192): Kerdock ValueError confirmed -- log2(8192)=13 is ODD, not supported by make_kerdock_4coset_codebook\nScenario-4 (N=16384): pipeline PASS",
+  "elapsed_total_s": 20.14
+}

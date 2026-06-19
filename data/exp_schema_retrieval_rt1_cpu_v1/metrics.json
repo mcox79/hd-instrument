@@ -1,0 +1,16 @@
+{
+  "anchor_name": "schema_retrieval_rt1_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate Tier-2 schema retrieval >=0.90 over a representative ~20-schema inventory -- fine-grained schema cleanup works (Phase-2 schema layer viable). retrieval-acc=0.967 (20 schemas, 30 queries)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "retrieval_acc": 0.967,
+      "n_queries": 30,
+      "n_schemas": 20
+    }
+  ],
+  "elapsed_s": 0.11790108680725098,
+  "summary": "HARD_PASS: substrate Tier-2 schema retrieval >=0.90 over a representative ~20-schema inventory -- fine-grained schema cleanup works (Phase-2 schema layer viable). retrieval-acc=0.967 (20 schemas, 30 queries)"
+}

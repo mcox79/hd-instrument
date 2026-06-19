@@ -1,0 +1,144 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "NE-4 S-U LANDAUER CERT: verdict=MIDDLE_BAND | 3/3 seeds pass HP | avg_relative_error=0.0000 | HP: rel_err<=0.10 AND cert_unique in >=4/5 seeds | HF: rel_err>0.50 (sub-Landauer) in >=4/5 seeds",
+  "seeds_pass": 3,
+  "seeds_hf": 0,
+  "seeds_total": 3,
+  "avg_relative_error": 0.0,
+  "all_results": [
+    {
+      "M": 4,
+      "N": 128,
+      "seed": 7,
+      "theoretical_bits": 2.0,
+      "empirical_bits": 2.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 8,
+      "N": 128,
+      "seed": 7,
+      "theoretical_bits": 3.0,
+      "empirical_bits": 3.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 16,
+      "N": 128,
+      "seed": 7,
+      "theoretical_bits": 4.0,
+      "empirical_bits": 4.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 32,
+      "N": 128,
+      "seed": 7,
+      "theoretical_bits": 5.0,
+      "empirical_bits": 5.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 4,
+      "N": 128,
+      "seed": 17,
+      "theoretical_bits": 2.0,
+      "empirical_bits": 2.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 8,
+      "N": 128,
+      "seed": 17,
+      "theoretical_bits": 3.0,
+      "empirical_bits": 3.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 16,
+      "N": 128,
+      "seed": 17,
+      "theoretical_bits": 4.0,
+      "empirical_bits": 4.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 32,
+      "N": 128,
+      "seed": 17,
+      "theoretical_bits": 5.0,
+      "empirical_bits": 5.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 4,
+      "N": 128,
+      "seed": 23,
+      "theoretical_bits": 2.0,
+      "empirical_bits": 2.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 8,
+      "N": 128,
+      "seed": 23,
+      "theoretical_bits": 3.0,
+      "empirical_bits": 3.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 16,
+      "N": 128,
+      "seed": 23,
+      "theoretical_bits": 4.0,
+      "empirical_bits": 4.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    },
+    {
+      "M": 32,
+      "N": 128,
+      "seed": 23,
+      "theoretical_bits": 5.0,
+      "empirical_bits": 5.0,
+      "relative_error": 0.0,
+      "verified": true,
+      "false_verify_count": 0,
+      "cert_unique": true
+    }
+  ],
+  "smoke": true,
+  "elapsed_s": 0.03054070472717285
+}

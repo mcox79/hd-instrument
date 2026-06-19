@@ -1,0 +1,23 @@
+{
+  "anchor_name": "khop_noise_model_AB_compare_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: both noise models computed and qualitatively DISTINGUISHABLE (averaging increasing vs distractor decreasing) -- Research can resolve the cross-shard relay fork from these curves. K_max(B): averaging=[6, 12, 60, 60, 60] (increasing) | distractor=[6, 6, 0, 0, 0] (decreasing) | B_grid=[1, 2, 10, 30, 100]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "averaging_B1": 6,
+      "averaging_B2": 12,
+      "averaging_B10": 60,
+      "averaging_B30": 60,
+      "averaging_B100": 60,
+      "distractor_B1": 6,
+      "distractor_B2": 6,
+      "distractor_B10": 0,
+      "distractor_B30": 0,
+      "distractor_B100": 0
+    }
+  ],
+  "elapsed_s": 0.28101015090942383,
+  "summary": "HARD_PASS: both noise models computed and qualitatively DISTINGUISHABLE (averaging increasing vs distractor decreasing) -- Research can resolve the cross-shard relay fork from these curves. K_max(B): averaging=[6, 12, 60, 60, 60] (increasing) | distractor=[6, 6, 0, 0, 0] (decreasing) | B_grid=[1, 2, 10, 30, 100]"
+}

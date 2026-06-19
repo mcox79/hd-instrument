@@ -1,0 +1,19 @@
+# Smoke-gate sweep grid (8 cells = 2x2x2).
+# Purpose: validate the sweep machinery end-to-end in under 10 min wall.
+# Production optimization grid is grid_substrate_optim.yaml.
+
+base_config: testbed/configs/smoke.yaml
+
+scenarios:
+  - point_recall
+  - edit_isolation
+  - deletion_verify
+  - hallu_detect
+
+backends:
+  - substrate
+
+grid:
+  N: [512, 1024]
+  codebook_C: [2048, 4096]
+  beta: [16.0, 32.0]

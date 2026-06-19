@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_hnsw_sublinear_cleanup_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: HNSW cleanup loses fidelity or speedup. at M100000: speedup=20x recall@1=0.000 | M10000: 6x recall@1=0.010 | M100000: 20x recall@1=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "per_M": {
+        "M10000": {
+          "speedup": 6.120854039790301,
+          "recall_at1": 0.01,
+          "agree_brute": 0.79,
+          "brute_ms": 240.9,
+          "hnsw_ms": 39.36
+        },
+        "M100000": {
+          "speedup": 20.287533988448025,
+          "recall_at1": 0.0,
+          "agree_brute": 0.315,
+          "brute_ms": 2671.1,
+          "hnsw_ms": 131.66
+        }
+      }
+    }
+  ],
+  "elapsed_s": 135.85852718353271,
+  "summary": "HARD_FAIL: HNSW cleanup loses fidelity or speedup. at M100000: speedup=20x recall@1=0.000 | M10000: 6x recall@1=0.010 | M100000: 20x recall@1=0.000"
+}

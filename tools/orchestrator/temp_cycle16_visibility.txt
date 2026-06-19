@@ -1,0 +1,4 @@
+
+## v347 (2026-06-02 Cycle 16) -- 5 HP; 0 LVH; Q-B1 flat-profile to d=80 + Q-A3 L=14 + PP-48 d=21/d=19-cross-N
+
+Cycle 16 closes 5 sub-property confirmations. Q-B1 chain fidelity confirmed depth-independent from d=5 to d=80 at N=8192 (d80 mean=0.9820 vs d5 mean=0.9814; noise floor dominant; N=16384 is ONLY remaining gate for BAND-LIFT). Q-A3/PP-12 compositional audit now proven at 14 algebraic layers with zero degradation. PP-48 negative-knowledge trees extend to 2.1M-node depth-21 trees (N=4096) and confirm cross-N depth-19 envelope (N=4096+N=8192 both HARD_PASS). HONEST: 502->507; LVH: 207 UNCHANGED; Portfolio: 32+74 UNCHANGED. No band-lifts this cycle. 257th PROT-009 paired commit.

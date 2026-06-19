@@ -1,0 +1,64 @@
+{
+  "verdict": "ADAPTIVE_BETA_KILLED",
+  "verdict_msg": "Adaptive-beta fails: best acc_50hop=0.153 < 0.22. R8 rescue list formally closed (A1, B1, C1, B3 all KILLED). d=25 architectural-closure stance secure. per-pair: beta16.0_dec0.2:0.140, beta32.0_dec0.5:0.147, beta8.0_dec0.1:0.153",
+  "elapsed_s": 55.21799999999712,
+  "summary": {
+    "per_pair_depth": {
+      "beta8.0_dec0.1": {
+        "1": 0.9266666666666667,
+        "5": 0.7200000000000001,
+        "10": 0.54,
+        "25": 0.18666666666666668,
+        "50": 0.15333333333333335
+      },
+      "beta16.0_dec0.2": {
+        "1": 0.9266666666666667,
+        "5": 0.7200000000000001,
+        "10": 0.54,
+        "25": 0.18666666666666668,
+        "50": 0.14
+      },
+      "beta32.0_dec0.5": {
+        "1": 0.9266666666666667,
+        "5": 0.7200000000000001,
+        "10": 0.54,
+        "25": 0.18666666666666668,
+        "50": 0.1466666666666667
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "beta_decay_pairs": [
+      [
+        8.0,
+        0.1
+      ],
+      [
+        16.0,
+        0.2
+      ],
+      [
+        32.0,
+        0.5
+      ]
+    ]
+  }
+}

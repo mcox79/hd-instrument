@@ -1,0 +1,29 @@
+{
+  "anchor": "sparse_block_edit_isolation_v1_n8192",
+  "N": 1024,
+  "M": 64,
+  "K_block": 32,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M": 64,
+      "K_block": 32,
+      "n_filled_blocks": 64,
+      "total_nnz": 65536,
+      "nonzero_frac": 0.0625,
+      "edit_coverage_per_fact": 0.0009765625,
+      "retrieval_acc": 0.2,
+      "passes_hp": 0,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "SPARSE_EDIT_ISO_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: mean_nz=0.062500. N=1024 M=64 K=32 mean_nonzero_frac=0.062500 mean_edit_coverage=0.000977 n_hp=0/1",
+  "elapsed_s": 0.0
+}

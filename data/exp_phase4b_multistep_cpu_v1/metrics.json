@@ -1,0 +1,17 @@
+{
+  "anchor_name": "phase4b_multistep_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate multi-step (2-op) composition reaches >=0.20 on MultiArith -- >9x the single-op 0.022 baseline; discriminative op-SEQUENCE prediction works substrate-only. Multi-step composition is a real substrate capability. classifier-acc=0.750 ceiling=0.791 (n_test=172, train-labeled=305)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.75,
+      "ceiling": 0.791,
+      "n_test": 172,
+      "n_train_labeled": 305
+    }
+  ],
+  "elapsed_s": 3.8627805709838867,
+  "summary": "HARD_PASS: substrate multi-step (2-op) composition reaches >=0.20 on MultiArith -- >9x the single-op 0.022 baseline; discriminative op-SEQUENCE prediction works substrate-only. Multi-step composition is a real substrate capability. classifier-acc=0.750 ceiling=0.791 (n_test=172, train-labeled=305)"
+}

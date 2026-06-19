@@ -1,0 +1,53 @@
+{
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "SMOKE_PASS: instrumentation valid at N=512. mean_hippo_epochs=1.0 mean_zero_epochs=1.0 speedup_ratio=1.000 mean_final_zero_cos=1.0000. Note: smoke at N=512 may not reproduce FULL regime; full run at N=2048 required for pre-reg bands.",
+  "elapsed_s": 1.406,
+  "summary": {
+    "mean_epochs_hippo": 1.0,
+    "mean_epochs_zero": 1.0,
+    "speedup_ratio": 1.0,
+    "mean_final_zero_cos": 1.0,
+    "per_seed": [
+      {
+        "seed": 17,
+        "hippo_epochs_to_threshold": 1.0,
+        "zero_epochs_to_threshold": 1.0,
+        "hippo_curve": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "8": 1.0
+        },
+        "zero_curve": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "8": 1.0
+        }
+      }
+    ]
+  },
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "n_epochs": 8,
+    "checkpoints": [
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "n_patterns": 10,
+    "d_max": 20,
+    "d_train": 15,
+    "target_cos": 0.4,
+    "eval_depth": 5,
+    "rescue": "HiPPO warm-start (rescue #2 from PROT-004 CLOSED wave14f_hippo_init_w_v1)"
+  }
+}

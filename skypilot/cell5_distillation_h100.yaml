@@ -1,0 +1,137 @@
+# CELL-5 cascade distillation FD smoke on Lambda H100 1x (Path A 70B teacher).
+#
+# User authorized 2026-06-07 ~03:35 UTC. ~$3 Lambda cost (1h on H100 SXM5/PCIe).
+# Total CELL-5 budget: ~$6.90 = ~$2.30 Together teacher + ~$3 Lambda cell run.
+#
+# Pipeline (per Research Q5-Q12 rulings + Path A spec):
+#   1. Load runner-prepared (prompts.jsonl, responses.jsonl) shipped in bundle
+#   2. Off-shelf Llama-3.2-1B -> extract H_off at L=15 (last-token pool)
+#   3. LoRA fine-tune 1B on (prompt -> 70B response) for 1 epoch
+#   4. Merge LoRA, extract H_ft at L=15 (same pipeline as H_off)
+#   5. FD_off, FD_ft, ratio = FD_ft / FD_off
+#   6. Verdict: HP>=1.3, MID [1.05,1.3), HF<1.05
+#   7. Auto-escalate to 3 epochs if MID or HF (Research Q9)
+#
+# Bug defenses (carry-forward from CELL-1 + 70B-Instruct + CELL-2):
+#   - cu121 wheel for x86 H100 (not cu128 which is for GH200 aarch64)
+#   - File-first HF token (.hf_token)
+#   - PROT-022 self-test gate
+#   - last-token pool with cross-device safety (in script)
+#   - tokenizer.padding_side='right' (in script)
+#   - AutoModel for extraction (no LM head OOM)
+#   - dict-keyed prompt-response join (in script)
+#   - fp32 FD computation (in script)
+#   - NaN guard during training (in script)
+#   - LoRA adapter persisted to data/ (in script)
+#   - autostop --down -i 30 in launcher
+
+name: cell5fd
+
+resources:
+  cloud: lambda
+  accelerators: H100:1
+  use_spot: false
+  any_of:
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-east-1}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-east-2}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-east-3}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-west-1}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-west-3}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-south-1}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-south-2}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-south-3}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5, region: us-southeast-1}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_pcie, region: us-east-1}
+    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_pcie, region: us-east-3}
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps + GPU info ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+
+  echo "=== [setup 3/7] install torch cu121 (x86 H100; Hopper) ==="
+  pip install --quiet --upgrade pip
+  pip install --quiet --upgrade "torch>=2.5" "torchvision>=0.20" \
+    --index-url https://download.pytorch.org/whl/cu121
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} ok={torch.cuda.is_available()} n_gpus={torch.cuda.device_count()}')
+  if torch.cuda.is_available():
+      props = torch.cuda.get_device_properties(0)
+      print(f'device 0: {props.name} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "peft>=0.11" "datasets>=2.20"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.2-1B Base access ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.2-1B', token=os.environ['HF_TOKEN'])
+  print(f'OK: meta-llama/Llama-3.2-1B accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/7] pre-pull Llama-3.2-1B snapshot (~2.5 GB) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.2-1B',
+      token=os.environ['HF_TOKEN'],
+      allow_patterns=['*.safetensors', '*.bin', '*.json', 'tokenizer*', '*.model', '*.txt'],
+  )
+  print('OK: Llama-3.2-1B snapshot ready')
+  "
+
+  echo "=== [setup 7/7] CELL-5 script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_cascade_distillation_fd_smoke_v1.py --self-test
+
+  echo "=== verifying runner-prepared teacher data is in bundle ==="
+  ls -la ~/sky_workdir/data/cell5_teacher/ 2>&1
+  wc -l ~/sky_workdir/data/cell5_teacher/*.jsonl 2>&1 || echo "no jsonl yet"
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_cascade_distillation_fd_smoke_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-5 cascade distillation FD smoke (H100 Path A) START ==="
+  python -u experiments/exp_substrate_cascade_distillation_fd_smoke_v1.py \
+    --data-dir ~/sky_workdir/data/cell5_teacher
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_cascade_distillation_fd_smoke_v1/ 2>&1 | head -30
+  cat ~/sky_workdir/data/exp_substrate_cascade_distillation_fd_smoke_v1/metrics.json 2>&1 | python3 -m json.tool | head -40

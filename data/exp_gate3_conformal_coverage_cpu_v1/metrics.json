@@ -1,0 +1,16 @@
+{
+  "anchor_name": "gate3_conformal_coverage_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: coverage near target. coverage=0.855 mean-set-size=2.0/300",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 0.855,
+      "set_size": 2.0,
+      "vocab": 300
+    }
+  ],
+  "elapsed_s": 0.6553688049316406,
+  "summary": "MIDDLE_BAND: coverage near target. coverage=0.855 mean-set-size=2.0/300"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "tool_extended_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: using a tool extends the substrate body schema to incorporate it (used tool reaches body-part membership, AUC>=0.85; membership rises after use) -- Maravita-Iriki peripersonal extension, substrate-only. membership-AUC=1.000 tool-delta=0.180",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "membership_auc": 1.0,
+      "tool_delta": 0.18
+    }
+  ],
+  "elapsed_s": 3.0455665588378906,
+  "summary": "HARD_PASS: using a tool extends the substrate body schema to incorporate it (used tool reaches body-part membership, AUC>=0.85; membership rises after use) -- Maravita-Iriki peripersonal extension, substrate-only. membership-AUC=1.000 tool-delta=0.180"
+}

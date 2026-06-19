@@ -1,0 +1,17 @@
+{
+  "anchor_name": "markov_binding_sharpening_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: markov recall>=0.90 -- PP-116 upgrades to HP. (the lever is SHARDING the transition memory, not binding-sharpening: sharpening==plain confirms recall is crosstalk-bound) plain=0.817 sharpened=0.817 sharded=0.967",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "plain": 0.8166666666666667,
+      "sharpened": 0.8166666666666667,
+      "sharded": 0.9666666666666667,
+      "best": 0.9666666666666667
+    }
+  ],
+  "elapsed_s": 0.17262554168701172,
+  "summary": "HARD_PASS: markov recall>=0.90 -- PP-116 upgrades to HP. (the lever is SHARDING the transition memory, not binding-sharpening: sharpening==plain confirms recall is crosstalk-bound) plain=0.817 sharpened=0.817 sharded=0.967"
+}

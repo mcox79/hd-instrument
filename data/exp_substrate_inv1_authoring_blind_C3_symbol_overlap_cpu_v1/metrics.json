@@ -1,0 +1,21 @@
+{
+  "anchor_name": "substrate_inv1_authoring_blind_C3_symbol_overlap_cpu_v1",
+  "verdict": "C3_FAIL",
+  "verdict_msg": "C3_FAIL (z=0.48 < 1.0): the load-bearing axis does NOT survive authoring-blind reconstruction -- body-text symbol edges show no tool>material degree signal. Per INV-1, this means the prior 3 tests may be one tagging confound; the 3-axis-orthogonal capstone needs an honest footnote (axis-existence vs axis-magnitude-as-measured). authoring-BLIND C3 (body-text shared-symbol>=2) graph: 469 edges; tool:material mean-degree ratio=1.102; permutation z=0.485 p=0.3070 (tools 1.76 vs materials 1.59). Edges built from atom `description` ONLY -- curator tags never read.",
+  "summary": "C3_FAIL (z=0.48 < 1.0): the load-bearing axis does NOT survive authoring-blind reconstruction -- body-text symbol edges show no tool>material degree signal. Per INV-1, this means the prior 3 tests may be one tagging confound; the 3-axis-orthogonal capstone needs an honest footnote (axis-existence vs axis-magnitude-as-measured). authoring-BLIND C3 (body-text shared-symbol>=2) graph: 469 edges; tool:material mean-degree ratio=1.102; permutation z=0.485 p=0.3070 (tools 1.76 vs materials 1.59). Edges built from atom `description` ONLY -- curator tags never read.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 585,
+      "n_edges": 469,
+      "n_tools": 33,
+      "tool_mean_deg": 1.758,
+      "mat_mean_deg": 1.594,
+      "ratio": 1.102,
+      "z": 0.485,
+      "perm_p": 0.307
+    }
+  ],
+  "elapsed_s": 0.3085055351257324
+}

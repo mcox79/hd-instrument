@@ -1,0 +1,18 @@
+{
+  "total_atoms": 20884,
+  "dup_groups": 29,
+  "classA_groups": 24,
+  "removable_atoms": 24,
+  "projected_total": 20860,
+  "atom_compression_ratio": 0.001149,
+  "capability_preservation": 1.0,
+  "classB_modes": {
+    "DISTINCT": 2,
+    "SHARED_ABSTRACTION": 3,
+    "INVERSE_PAIR": 1,
+    "THEOREM_LINKED": 2,
+    "CROSS_DOMAIN_ABSTRACTION": 3
+  },
+  "structure_added": 19,
+  "dup_distillation_ratio": 0.9655
+}

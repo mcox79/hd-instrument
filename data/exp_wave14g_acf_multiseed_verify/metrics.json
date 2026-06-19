@@ -1,0 +1,70 @@
+{
+  "N": 4096,
+  "B": 2,
+  "K_VALUES": [
+    8192,
+    12288
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "NUM_TRIALS": 60,
+  "BFM_SPARSITY_R": 0.01,
+  "elapsed_s": 11095.531000000017,
+  "grid": [
+    {
+      "K": 8192,
+      "K_over_N": 2.0,
+      "seed": 17,
+      "recovery_pct": 0.0
+    },
+    {
+      "K": 8192,
+      "K_over_N": 2.0,
+      "seed": 23,
+      "recovery_pct": 0.0
+    },
+    {
+      "K": 8192,
+      "K_over_N": 2.0,
+      "seed": 31,
+      "recovery_pct": 0.0
+    },
+    {
+      "K": 12288,
+      "K_over_N": 3.0,
+      "seed": 17,
+      "recovery_pct": 0.0
+    },
+    {
+      "K": 12288,
+      "K_over_N": 3.0,
+      "seed": 23,
+      "recovery_pct": 0.0
+    },
+    {
+      "K": 12288,
+      "K_over_N": 3.0,
+      "seed": 31,
+      "recovery_pct": 0.0
+    }
+  ],
+  "summary": {
+    "8192": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "range": 0.0
+    },
+    "12288": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "range": 0.0
+    }
+  },
+  "verdict": "ACF_HIGH_K_SUSPECT",
+  "verdict_msg": "Variance across seeds reveals original result was lucky-seed artifact."
+}

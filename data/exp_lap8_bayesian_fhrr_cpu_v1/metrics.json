@@ -1,0 +1,20 @@
+{
+  "anchor_name": "lap8_bayesian_fhrr_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FHRR amplitude-as-probability (|amp|^2) solves canonical Bayes (Monty Hall + medical + spam) >=0.85 -- probabilistic inference native to the substrate via amplitude-weighted superposition + likelihood reweight. bayes-correct=1.000 (n=33) {'monty_hall': 0.667, 'medical': 0.165, 'spam': 0.843}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bayes_acc": 1.0,
+      "n": 33,
+      "detail": {
+        "monty_hall": 0.667,
+        "medical": 0.165,
+        "spam": 0.843
+      }
+    }
+  ],
+  "elapsed_s": 0.04465746879577637,
+  "summary": "HARD_PASS: FHRR amplitude-as-probability (|amp|^2) solves canonical Bayes (Monty Hall + medical + spam) >=0.85 -- probabilistic inference native to the substrate via amplitude-weighted superposition + likelihood reweight. bayes-correct=1.000 (n=33) {'monty_hall': 0.667, 'medical': 0.165, 'spam': 0.843}"
+}

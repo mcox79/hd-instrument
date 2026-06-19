@@ -1,0 +1,23 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "C_CLASSES": 4,
+  "N_PER_CLASS_TRAIN": 50,
+  "N_PER_CLASS_TEST": 12,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_acc_A": 1.0,
+    "std_acc_A": 0.0,
+    "mean_acc_B": 1.0,
+    "std_acc_B": 0.0,
+    "n_seeds": 2,
+    "rho_within_A": 0.7,
+    "rho_within_B": 0.6
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Graph node classification confirmed. cell_A acc=1.0000 (HP>=0.8) cell_B acc=1.0000 (HP>=0.6). BSC-channel prototype classifier operative at N=1024.",
+  "elapsed_s": 0.5386416912078857
+}

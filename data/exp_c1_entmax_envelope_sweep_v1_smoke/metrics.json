@@ -1,0 +1,126 @@
+{
+  "anchor_name": "substrate_c1_entmax_envelope_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "C1 ENVELOPE HOLDS: entmax cheaper-at-iso-recall WINS in 2/2 discriminating cells (100% >= 70%); median FLOPs-reduction 88%. The sparse-readout win is ROBUSTLY config-contingent across N x cluster x noise. measured-bounds: THIS grid (N[512, 1024, 2048, 4096] x cluster[4, 8, 16, 32] x noise[0.05, 0.1, 0.15, 0.2, 0.3]), NOT fundamental. (0 non-discriminating cells EXCLUDED.)",
+  "summary": "C1 ENVELOPE HOLDS: entmax cheaper-at-iso-recall WINS in 2/2 discriminating cells (100% >= 70%); median FLOPs-reduction 88%. The sparse-readout win is ROBUSTLY config-contingent across N x cluster x noise. measured-bounds: THIS grid (N[512, 1024, 2048, 4096] x cluster[4, 8, 16, 32] x noise[0.05, 0.1, 0.15, 0.2, 0.3]), NOT fundamental. (0 non-discriminating cells EXCLUDED.)",
+  "headline": "C1 ENVELOPE HOLDS: entmax cheaper-at-iso-recall WINS in 2/2 discriminating cells (100% >= 70%); median FLOPs-reduction 88%. The sparse-readout win is ROBUSTLY config-contingent across N x cluster x noise. measured-bounds: THIS grid (N[512, 1024, 2048, 4096] x cluster[4, 8, 16, 32] x noise[0.05, 0.1, 0.15, 0.2, 0.3]), NOT fundamental. (0 non-discriminating cells EXCLUDED.)",
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "branch_path": "envelope_sweep",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T11:33:09.999244+00:00",
+  "cell_commit": "d78ffe8a",
+  "n_cells": 2,
+  "n_discriminating": 2,
+  "n_non_discriminating": 0,
+  "n_wins": 2,
+  "win_fraction_of_discriminating": 1.0,
+  "median_flops_reduction_of_wins": 0.8752,
+  "magnitude_distribution": {
+    "discriminating_flops_reduction": {
+      "min": 0.875,
+      "p25": 0.875,
+      "median": 0.8752,
+      "p75": 0.8752,
+      "max": 0.8752
+    },
+    "win_flops_reduction_median": 0.8752,
+    "note": "8x ~= flops_reduction 0.875; HOLDS if median stays ~0.875 across cells, DEGRADES if it falls toward 0.05 at edges"
+  },
+  "fixed_vs_best_alpha": {
+    "a1.5": {
+      "wins": 2,
+      "win_fraction": 1.0
+    },
+    "a2.0": {
+      "wins": 2,
+      "win_fraction": 1.0
+    },
+    "best_of_both": {
+      "wins": 2,
+      "win_fraction": 1.0
+    }
+  },
+  "thresholds": {
+    "WIN_FLOPS_RED": 0.05,
+    "WIN_RECALL_DELTA": -0.01,
+    "PASS_FRAC": 0.7,
+    "FAIL_FRAC": 0.3,
+    "ACC_THRESH": 0.9
+  },
+  "grid": {
+    "N": [
+      512,
+      1024
+    ],
+    "cluster": [
+      8
+    ],
+    "noise": [
+      0.15
+    ],
+    "alphas": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "M": "M=N (iso-load)"
+  },
+  "cells": [
+    {
+      "N": 512,
+      "cluster": 8,
+      "noise": 0.15,
+      "M": 512,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.01,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.8752,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.8752,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.8752,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    },
+    {
+      "N": 1024,
+      "cluster": 8,
+      "noise": 0.15,
+      "M": 1024,
+      "beta_mode": 40.0,
+      "softmax_nz": 8.0,
+      "softmax_recall": 1.0,
+      "discriminates": true,
+      "win": true,
+      "best_alpha": 1.5,
+      "flops_reduction": 0.875,
+      "recall_delta": 0.0,
+      "per_alpha": {
+        "a1.5": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        },
+        "a2.0": {
+          "flops_reduction": 0.875,
+          "recall_delta": 0.0,
+          "win": true
+        }
+      }
+    }
+  ],
+  "bears_on": "C1_entmax_alpha_readout_v1 (envelope test) + ARCH-B nonlinear-readout lever",
+  "measured_bounds": "entmax cheaper-at-iso-recall WIN-ENVELOPE over THIS N x cluster x noise grid; NOT fundamental",
+  "elapsed_s": 0.24
+}

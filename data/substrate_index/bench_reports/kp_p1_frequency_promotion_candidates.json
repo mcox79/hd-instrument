@@ -1,0 +1,276 @@
+{
+  "candidates": [
+    {
+      "atom": "T3/pca_whitening",
+      "in_degree": 53,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "decision_history",
+        "findings_history",
+        "research_history",
+        "results_history"
+      ]
+    },
+    {
+      "atom": "T3/discriminative_perceptron",
+      "in_degree": 52,
+      "n_ref_corpora": 7,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history",
+        "results_history",
+        "verdict_history"
+      ]
+    },
+    {
+      "atom": "T3/bayesian_inference",
+      "in_degree": 28,
+      "n_ref_corpora": 6,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history",
+        "results_history"
+      ]
+    },
+    {
+      "atom": "T3/dijkstra",
+      "in_degree": 21,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "decision_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/hmm_transition",
+      "in_degree": 20,
+      "n_ref_corpora": 5,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "math",
+        "research_history",
+        "results_history"
+      ]
+    },
+    {
+      "atom": "T3/answer_consistency_weak_labels",
+      "in_degree": 19,
+      "n_ref_corpora": 5,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "findings_history",
+        "math",
+        "verdict_history"
+      ]
+    },
+    {
+      "atom": "T3/beam_search",
+      "in_degree": 18,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/zca_whitening",
+      "in_degree": 17,
+      "n_ref_corpora": 6,
+      "ref_corpora": [
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history",
+        "results_history",
+        "verdict_history"
+      ]
+    },
+    {
+      "atom": "T3/forward_algorithm",
+      "in_degree": 15,
+      "n_ref_corpora": 5,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/collins_structured_perceptron",
+      "in_degree": 14,
+      "n_ref_corpora": 6,
+      "ref_corpora": [
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history",
+        "results_history",
+        "verdict_history"
+      ]
+    },
+    {
+      "atom": "T3/dynamic_programming",
+      "in_degree": 11,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "concept",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/hungarian_assignment",
+      "in_degree": 9,
+      "n_ref_corpora": 5,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/perceptron_update",
+      "in_degree": 9,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "decision_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/hmm_emission",
+      "in_degree": 9,
+      "n_ref_corpora": 5,
+      "ref_corpora": [
+        "concept",
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/astar",
+      "in_degree": 8,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "decision_history",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/structured_perceptron_collins",
+      "in_degree": 8,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "school"
+      ]
+    },
+    {
+      "atom": "T3/viterbi_decoder",
+      "in_degree": 8,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "school",
+        "science"
+      ]
+    },
+    {
+      "atom": "T3/viterbi_decoding",
+      "in_degree": 7,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/backward_algorithm",
+      "in_degree": 6,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "concept",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/em_algorithm",
+      "in_degree": 6,
+      "n_ref_corpora": 4,
+      "ref_corpora": [
+        "concept",
+        "findings_history",
+        "math",
+        "research_history"
+      ]
+    },
+    {
+      "atom": "T3/forward_algorithm_atom",
+      "in_degree": 6,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "school"
+      ]
+    },
+    {
+      "atom": "T3/mp_bulk_kl",
+      "in_degree": 4,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "school"
+      ]
+    },
+    {
+      "atom": "T3/backward_algorithm_atom",
+      "in_degree": 4,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "school"
+      ]
+    },
+    {
+      "atom": "T3/hungarian_algorithm",
+      "in_degree": 3,
+      "n_ref_corpora": 3,
+      "ref_corpora": [
+        "concept",
+        "math",
+        "science"
+      ]
+    }
+  ],
+  "z_threshold": 3,
+  "corpora_threshold": 3
+}

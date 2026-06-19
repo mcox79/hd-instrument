@@ -1,0 +1,26 @@
+{
+  "anchor_name": "pb_mmr_real_encoder_clustered_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MMR rescue TRANSFERS to real-encoder clustering (<0.10) -- production-ready anchoring mitigation on real KBs. real-encoder clustered KB: baseline_propagation=0.676 -> MMR=0.036",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "baseline_propagation": 0.5133333333333334,
+      "mmr_propagation": 0.02
+    },
+    {
+      "seed": 17,
+      "baseline_propagation": 0.6533333333333333,
+      "mmr_propagation": 0.04666666666666667
+    },
+    {
+      "seed": 23,
+      "baseline_propagation": 0.86,
+      "mmr_propagation": 0.04
+    }
+  ],
+  "elapsed_s": 20.466902017593384,
+  "summary": "HARD_PASS: MMR rescue TRANSFERS to real-encoder clustering (<0.10) -- production-ready anchoring mitigation on real KBs. real-encoder clustered KB: baseline_propagation=0.676 -> MMR=0.036"
+}

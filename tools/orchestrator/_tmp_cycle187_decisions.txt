@@ -1,0 +1,58 @@
+
+## v512 -> v513 CYCLE 187 -- 4-VERDICT BENCHMARK BATCH (2026-06-08)
+
+Verdicts processed (4 anchors): encoder head-to-head benchmark (GPU) + Wikipedia ingest benchmark (GPU, CRITICAL) + FB15K-237 KG K-hop benchmark (CPU) + FB15K-237 sharding strategy benchmark (CPU)
+
+### Step 0 honest re-read
+
+All 4 metrics fetched source=remote (bridge stale; direct SSH get_metrics successful). 0 LVH catches.
+
+- encoder_headtohead_benchmark_gpu_v1: HONEST. r@10: bge-large=0.600, bge-small=0.565, e5-large=0.570. Band 0.55-0.70: best=0.600 in [0.55,0.70). MIDDLE_BAND label CORRECT. No LVH. +1 HONEST.
+- wikipedia_ingest_benchmark_gpu_v1: HONEST. r@1=0.9711, r@5=0.9916, throughput=155 art/sec over n=10000 Wikipedia articles. HP threshold >=0.85: r@5=0.9916>>0.85 CONFIRMED. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- fb15k237_kg_khop_benchmark_cpu_v1: HONEST. 1-hop r@1=1.000 r@5=1.000 (mono@5=0.007); 2-hop r@5=0.705 (12838 ents, 237 rels). HP thresholds: 1-hop r@5>=0.80 (1.000 CONFIRMED), 2-hop r@5>=0.55 (0.705 CONFIRMED). Both met with margin. Monolithic collapses (0.007) validates sharding requirement. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- fb15k237_sharding_strategy_cpu_v1: HONEST. subject=1.000, relation=0.843, best=1.000 (12838 ents). HP threshold 1-hop recall@5>=0.85: subject=1.000>>0.85 CONFIRMED. Subject-sharding wins over relation-sharding (+15.7 points). HARD_PASS label CORRECT. No LVH. +1 HONEST.
+
+HONEST: 1397 -> 1401 (+4). LVH: 263 UNCHANGED. 0 new LVH catches. All 4 labels HONEST.
+
+### Cap_map decisions (v512 -> v513)
+
+**(A) NEW ROW PP-144: Encoder head-to-head benchmark (bge-large best r@10=0.600; MIDDLE_BAND):**
+encoder_headtohead_benchmark_gpu_v1 MIDDLE_BAND v513: bge-large r@10=0.600, bge-small=0.565, e5-large=0.570 (n=200, cycle 187). Best encoder recall@10 in 0.55-0.70 MIDDLE_BAND. Product implication: bge-large is the recommended encoder for substrate retrieval; r@10=0.600 is functional but below HP bar; encoder choice gap is small (3.5 points); whitening+PCA rescue is the primary lift path. Cross-ref PP-137 (PubMedQA r@5=0.997) -- domain-specific tuning dramatically outperforms general benchmark. Filed at 0.45-0.60 MIDDLE_BAND (n=200, GPU, n_seeds=1; rescue: whitening+PCA per memory [+63% gap-to-0.70 on HotpotQA], larger N, bge-large at N=16384+).
+
+**(B) NEW ROW PP-145: Wikipedia ingest + retrieval benchmark (r@1=0.971 r@5=0.992 at n=10k real articles, 155 art/sec):**
+wikipedia_ingest_benchmark_gpu_v1 HP v513: r@1=0.9711, r@5=0.9916, throughput=155 art/sec over 10000 real Wikipedia articles, elapsed=79s (cycle 187). HP threshold r@5>=0.85: 0.9916>>0.85 CONFIRMED with large margin. Product implication: production-scale real-corpus ingestion validated at 10k Wikipedia articles; 99.2% recall@5 at 155 art/sec -- retrieval quality is not a bottleneck for the pre-demo pipeline. This is the critical dry-run gate for the 5.84M pre-trained substrate. Cross-ref PP-135/PP-136 (LLM-keyed integration). Filed at 0.80-0.92 EXPLORATORY (n=10000, GPU, n_seeds=1; 5.84M scale test is the next gate).
+
+**(C) NEW ROW PP-146: FB15K-237 KG K-hop on standard public benchmark (2-hop r@5=0.705, mono@5=0.007):**
+fb15k237_kg_khop_benchmark_cpu_v1 HP v513: 1-hop r@1=1.000 r@5=1.000; 2-hop r@5=0.705 (12838 ents, 237 rels) (cycle 187). K-hop validated on REAL Freebase public benchmark (not synthetic). HP thresholds: 1-hop r@5>=0.80 (1.000 CONFIRMED), 2-hop r@5>=0.55 (0.705 CONFIRMED). Monolithic collapses at r@5=0.007: sharding mandatory at real-KG scale. Product implication: KG-QA grounded on standard public benchmark; 1-hop at ceiling, 2-hop at 70.5% with 12838 entities and 237 relation types. Cross-ref PP-119 (synthetic KB K-hop), PP-133 (sharded GPU K-hop), PP-134 (subject-sharding). Filed at 0.70-0.85 EXPLORATORY (n_seeds=1; CPU; GPU-sharded at full 14k entity set recommended before VALIDATED).
+
+**(D) NEW ROW PP-147: FB15K-237 sharding strategy recommendation on standard benchmark (subject=1.000 vs relation=0.843):**
+fb15k237_sharding_strategy_cpu_v1 HP v513: subject=1.000, relation=0.843, best=1.000 (12838 ents, cycle 187). Subject-sharding dominates on standard Freebase benchmark. HP threshold >=0.85: subject=1.000>>0.85; relation=0.843 also passes HP bar. Consistent with PP-134 (synthetic KB same conclusion). Product implication: v1.5 KG layout for real-world KGs empirically grounded on a public benchmark -- shard by subject entity is the default. Filed at 0.75-0.88 EXPLORATORY (n_seeds=1; CPU; aligns with PP-134; GPU-scale recommended before VALIDATED).
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**PP-144 encoder head-to-head (MIDDLE_BAND -- r@10=0.600; rescue toward HP >=0.70):**
+R1 (0-compute, ANNOTATION): bge-large best at r@10=0.600; encoder gap among 3 models is small (3.5 points); architecture is the bigger lever.
+R2 (CHEAP, CPU <30min): Whitening + PCA preprocessing (memory: +63% gap-to-0.70 on HotpotQA substrate encoding) applied to this benchmark.
+R3 (CHEAP, GPU <30min): Larger N (N=8192, N=16384) with bge-large encoder.
+R4 (CHEAP, GPU <30min): bge-large-instruction-tuned or e5-mistral variant for this benchmark type.
+
+**PP-146 FB15K-237 2-hop (HP n=1 seed -- scale/GPU validation):**
+R1 (0-compute, ANNOTATION): 2-hop r@5=0.705 meets threshold; 1-hop ceiling=1.000; founding clean. APPLIED.
+R2 (CHEAP, CPU <30min): 3-seed to confirm 2-hop r@5 variance (expected low given n2=596).
+R3 (CHEAP, GPU <1h): GPU-sharded run at full 14k entity set to validate at production scale.
+
+### Portfolio: 32+143 -> 32+147 (+4 NEW ROWS: PP-144 encoder-benchmark + PP-145 Wikipedia-ingest-benchmark + PP-146 FB15K-237-KG-khop + PP-147 FB15K-237-sharding-strategy). 0 closures. 0 rescue annotations to existing rows.
+
+### PROT compliance (v512 -> v513)
+
+- PROT-004/006: No closures. 4 NEW TOP-LEVEL ROWS (PP-144 through PP-147). Rescue sketches cheapest-first for PP-144 (MIDDLE_BAND) and PP-146 (HP n=1 scale gap).
+- PROT-007: v513 history row appended to substrate_capability_map_history.md.
+- PROT-008: 3 HP anchors (wikipedia + fb15k237_khop + fb15k237_sharding). 1 MIDDLE_BAND anchor (encoder). All HP thresholds verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 420th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 4 anchors. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. 0 new LVH catches. All 4 labels HONEST.
+- PROT-021: All 4 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: HP margins: wikipedia r@5=0.9916>>0.85; fb15k_khop 1-hop=1.000>>0.80 + 2-hop=0.705>>0.55; fb15k_sharding subject=1.000>>0.85. No HP-fragility concern.
+
+Cap_map: v512 -> v513 CYCLE 187 (3 HP [GPU:1 CPU:2]; 1 MIDDLE_BAND [GPU:1]; 0 HF; 0 LVH; 4 NEW PP ROWS PP-144..PP-147; Portfolio 32+143 -> 32+147 +4; HONEST 1397->1401 +4; LVH 263 UNCHANGED; 420th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

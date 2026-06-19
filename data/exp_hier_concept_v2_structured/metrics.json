@@ -1,0 +1,49 @@
+{
+  "anchor": "hierarchical_concept_formation_instrumentation_v2_structured_n4096",
+  "N": 512,
+  "M": 256,
+  "K_clusters": 32,
+  "flip_p": 0.3,
+  "seeds": [
+    42
+  ],
+  "smoke": true,
+  "cells": [
+    {
+      "exp_name": "hierarchical_concept_formation_instrumentation_v2_structured_n4096",
+      "N": 512,
+      "M": 256,
+      "K_clusters": 32,
+      "flip_p": 0.3,
+      "n_shuffle": 10,
+      "K_cluster_sil": 8,
+      "seed": 42,
+      "is_smoke": true,
+      "elapsed_s": 0.4654538631439209,
+      "mean_intra_sim_sample": 0.166015625,
+      "expected_intra_sim": 0.16000000000000003,
+      "sigma_1": 2.1910347938537598,
+      "sigma_2": 2.1408939361572266,
+      "sigma_ratio_real": 1.0234205722808838,
+      "eff_rank_real": 49.00157165527344,
+      "null_sigma_ratio_mean": 1.023240578174591,
+      "null_sigma_ratio_std": 0.01460694926647019,
+      "ratio_vs_null": 1.0001759059493258,
+      "z_score_vs_null": 0.012322498216216683,
+      "silhouette_real": 0.08768616616725922,
+      "silhouette_null_mean": 0.0846674993634224,
+      "silhouette_true_cluster": -0.1076870858669281,
+      "silhouette_pass": false,
+      "primary_verdict": "HARD_FAIL",
+      "overall": "HARD_FAIL",
+      "verdict_msg": "hier_concept_v2_structured_n4096 N=512 M=256 K=32 flip_p=0.3 seed=42\nPRIMARY sigma1/sigma2: real=1.0234 null_mean=1.0232 ratio_vs_null=1.0002 z=0.01\nPRIMARY VERDICT: HARD_FAIL\nSilhouette: real=0.0877 null=0.0847 true_cluster=-0.1077 | sil_pass=False\nIntra-cluster sim sample: 0.1660 (expected ~0.40)\nOVERALL: HARD_FAIL"
+    }
+  ],
+  "mean_ratio_vs_null": 1.0001759059493258,
+  "n_hp": 0,
+  "n_hf": 1,
+  "aggregate_verdict": "HARD_FAIL",
+  "aggregate_verdict_msg": "hier_concept_v2_structured_n4096 N=512 seeds=[42]\nmean_ratio_vs_null=1.0002 n_hp=0/1 n_hf=1/1\nratios=[1.0002]\nAGGREGATE VERDICT: HARD_FAIL",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "hier_concept_v2_structured_n4096 N=512 seeds=[42]\nmean_ratio_vs_null=1.0002 n_hp=0/1 n_hf=1/1\nratios=[1.0002]\nAGGREGATE VERDICT: HARD_FAIL"
+}

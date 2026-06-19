@@ -1,0 +1,281 @@
+{
+  "anchor_name": "pp58_scs_d_sweep_v1_n8192",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: d monotone vs alpha=True; spike_alphas=[0.075, 0.1, 0.12, 0.13] but ratio outside [0.7,1.3]. spike_alphas=[0.075, 0.1, 0.12, 0.13] spike_validated=[] monotone_d=True cells: a0.01:d1.20:r0.59 a0.02:d1.30:r0.84 a0.03:d1.37:r1.00 a0.05:d1.49:r1.21 a0.07:d1.61:r1.38 a0.10:d1.72:r1.53 a0.12:d1.81:r1.63 a0.13:d1.84:r1.67",
+  "N": 8192,
+  "alpha_grid": [
+    0.01,
+    0.02,
+    0.03,
+    0.05,
+    0.075,
+    0.1,
+    0.12,
+    0.13
+  ],
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_cells_total": 24,
+  "elapsed_s": 71.61792373657227,
+  "summary": "MIDDLE_BAND: d monotone vs alpha=True; spike_alphas=[0.075, 0.1, 0.12, 0.13] but ratio outside [0.7,1.3]. spike_alphas=[0.075, 0.1, 0.12, 0.13] spike_validated=[] monotone_d=True cells: a0.01:d1.20:r0.59 a0.02:d1.30:r0.84 a0.03:d1.37:r1.00 a0.05:d1.49:r1.21 a0.07:d1.61:r1.38 a0.10:d1.72:r1.53 a0.12:d1.81:r1.63 a0.13:d1.84:r1.67",
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 24.63386845588684,
+      "cells": [
+        {
+          "alpha": 0.01,
+          "M": 81,
+          "d_estimate": 1.1987463066475863,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.1987463066475863,
+          "gamma_emp": 2.0385252681883674,
+          "ratio": 0.588045841449348,
+          "spike": false
+        },
+        {
+          "alpha": 0.02,
+          "M": 163,
+          "d_estimate": 1.2980611219285692,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.2980611219285692,
+          "gamma_emp": 1.5453221017773935,
+          "ratio": 0.8399938889345914,
+          "spike": false
+        },
+        {
+          "alpha": 0.03,
+          "M": 245,
+          "d_estimate": 1.3670728680397308,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.3670728680397308,
+          "gamma_emp": 1.3824087881303322,
+          "ratio": 0.9889063783286978,
+          "spike": false
+        },
+        {
+          "alpha": 0.05,
+          "M": 409,
+          "d_estimate": 1.4926495336405636,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.4926495336405636,
+          "gamma_emp": 1.2356817662224393,
+          "ratio": 1.207956267092693,
+          "spike": false
+        },
+        {
+          "alpha": 0.075,
+          "M": 614,
+          "d_estimate": 1.6090024510472214,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.6090024510472214,
+          "gamma_emp": 1.1612251420712336,
+          "ratio": 1.385607659318592,
+          "spike": true
+        },
+        {
+          "alpha": 0.1,
+          "M": 819,
+          "d_estimate": 1.7286724861136324,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.7286724861136324,
+          "gamma_emp": 1.126002999130125,
+          "ratio": 1.5352290246554314,
+          "spike": true
+        },
+        {
+          "alpha": 0.12,
+          "M": 983,
+          "d_estimate": 1.8096878743458447,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.8096878743458447,
+          "gamma_emp": 1.1049552642904727,
+          "ratio": 1.63779288884415,
+          "spike": true
+        },
+        {
+          "alpha": 0.13,
+          "M": 1064,
+          "d_estimate": 1.8438389111854507,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.8438389111854507,
+          "gamma_emp": 1.1005653792276269,
+          "ratio": 1.6753560905935918,
+          "spike": true
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 23.390060424804688,
+      "cells": [
+        {
+          "alpha": 0.01,
+          "M": 81,
+          "d_estimate": 1.1970633762772012,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.1970633762772012,
+          "gamma_emp": 2.0537779995661745,
+          "ratio": 0.5828591875704484,
+          "spike": false
+        },
+        {
+          "alpha": 0.02,
+          "M": 163,
+          "d_estimate": 1.294075560509278,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.294075560509278,
+          "gamma_emp": 1.5673546270401195,
+          "ratio": 0.8256431175075438,
+          "spike": false
+        },
+        {
+          "alpha": 0.03,
+          "M": 245,
+          "d_estimate": 1.3713266396956798,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.3713266396956798,
+          "gamma_emp": 1.3631877135199124,
+          "ratio": 1.005970510220307,
+          "spike": false
+        },
+        {
+          "alpha": 0.05,
+          "M": 409,
+          "d_estimate": 1.497777889970896,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.497777889970896,
+          "gamma_emp": 1.2457202015635882,
+          "ratio": 1.2023389265831388,
+          "spike": false
+        },
+        {
+          "alpha": 0.075,
+          "M": 614,
+          "d_estimate": 1.603802339217224,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.603802339217224,
+          "gamma_emp": 1.16330451425218,
+          "ratio": 1.378660805978402,
+          "spike": true
+        },
+        {
+          "alpha": 0.1,
+          "M": 819,
+          "d_estimate": 1.7245658225505605,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.7245658225505605,
+          "gamma_emp": 1.1224837278773012,
+          "ratio": 1.5363838064822912,
+          "spike": true
+        },
+        {
+          "alpha": 0.12,
+          "M": 983,
+          "d_estimate": 1.806211697961305,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.806211697961305,
+          "gamma_emp": 1.1141815313406866,
+          "ratio": 1.6211107859487703,
+          "spike": true
+        },
+        {
+          "alpha": 0.13,
+          "M": 1064,
+          "d_estimate": 1.8498909497151783,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.8498909497151783,
+          "gamma_emp": 1.1104296103354856,
+          "ratio": 1.6659236501774164,
+          "spike": true
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 23.55689835548401,
+      "cells": [
+        {
+          "alpha": 0.01,
+          "M": 81,
+          "d_estimate": 1.2061957083449062,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.2061957083449062,
+          "gamma_emp": 2.042835357318559,
+          "ratio": 0.5904517483622213,
+          "spike": false
+        },
+        {
+          "alpha": 0.02,
+          "M": 163,
+          "d_estimate": 1.2971713925967203,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.2971713925967203,
+          "gamma_emp": 1.5057903903047505,
+          "ratio": 0.8614554860681448,
+          "spike": false
+        },
+        {
+          "alpha": 0.03,
+          "M": 245,
+          "d_estimate": 1.3712127281108444,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.3712127281108444,
+          "gamma_emp": 1.3836033673762957,
+          "ratio": 0.9910446595045894,
+          "spike": false
+        },
+        {
+          "alpha": 0.05,
+          "M": 409,
+          "d_estimate": 1.4934881232001176,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.4934881232001176,
+          "gamma_emp": 1.2278064935561364,
+          "ratio": 1.2163872165836807,
+          "spike": false
+        },
+        {
+          "alpha": 0.075,
+          "M": 614,
+          "d_estimate": 1.615116419489149,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.615116419489149,
+          "gamma_emp": 1.163083750738883,
+          "ratio": 1.3886501453253897,
+          "spike": true
+        },
+        {
+          "alpha": 0.1,
+          "M": 819,
+          "d_estimate": 1.7183802929787437,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.7183802929787437,
+          "gamma_emp": 1.1220100230300283,
+          "ratio": 1.5315195566062736,
+          "spike": true
+        },
+        {
+          "alpha": 0.12,
+          "M": 983,
+          "d_estimate": 1.799607255752813,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.799607255752813,
+          "gamma_emp": 1.1110488187206595,
+          "ratio": 1.6197373377571371,
+          "spike": true
+        },
+        {
+          "alpha": 0.13,
+          "M": 1064,
+          "d_estimate": 1.833582318007951,
+          "tau_estimate": 0.0,
+          "gamma_scs": 1.833582318007951,
+          "gamma_emp": 1.1001567078996537,
+          "ratio": 1.666655581738446,
+          "spike": true
+        }
+      ]
+    }
+  ]
+}

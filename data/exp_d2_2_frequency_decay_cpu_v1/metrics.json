@@ -1,0 +1,16 @@
+{
+  "anchor_name": "d2_2_frequency_decay_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: frequency-selective decay -- at 3x capacity, retrievability tracks access frequency (AUC>=0.85) and frequent items are retained (>=0.80) while stale fade. Graceful forgetting solves catastrophic interference, substrate-only. AUC=0.886 hi-freq-retained=0.929 lo-freq-retained=0.051",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 0.886,
+      "hi_freq_retained": 0.929,
+      "lo_freq_retained": 0.051
+    }
+  ],
+  "elapsed_s": 8.621806383132935,
+  "summary": "HARD_PASS: frequency-selective decay -- at 3x capacity, retrievability tracks access frequency (AUC>=0.85) and frequent items are retained (>=0.80) while stale fade. Graceful forgetting solves catastrophic interference, substrate-only. AUC=0.886 hi-freq-retained=0.929 lo-freq-retained=0.051"
+}

@@ -1,0 +1,27 @@
+{
+  "anchor_name": "e1_substrate_crf_shared_lib_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-CRF shared Tier-1 library lifts NER F1 >=+0.03 (CI excludes 0) -- reusable feature library is a real substrate-product lever. baseline-F1=0.3848 +library-F1=0.4271 lift=+0.0423 (lift-2SE=+0.0301, n=2, clusters=150 gaz=53, 4-type NER)",
+  "summary": "HARD_PASS: substrate-CRF shared Tier-1 library lifts NER F1 >=+0.03 (CI excludes 0) -- reusable feature library is a real substrate-product lever. baseline-F1=0.3848 +library-F1=0.4271 lift=+0.0423 (lift-2SE=+0.0301, n=2, clusters=150 gaz=53, 4-type NER)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "f1": 0.4271,
+      "baseline_f1": 0.3848,
+      "library_f1": 0.4271,
+      "lift": 0.0423,
+      "lift_se": 0.0061,
+      "lift_minus_2se": 0.0301,
+      "lifts": [
+        0.0509,
+        0.03370000000000001
+      ],
+      "n_seeds": 2,
+      "n_clusters": 150,
+      "n_gaz": 53,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 2.4524998664855957
+}

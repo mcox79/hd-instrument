@@ -1,0 +1,60 @@
+{
+  "verdict": "ON_DEVICE_HARD_PASS",
+  "verdict_msg": "Viable for on-device deployment: thr=264.1>=100.0 AND lat=0.7ms<=50.0 AND ret_A=1.000>=0.7. K3 closed-PASS.",
+  "elapsed_s": 106.84400000004098,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "add_throughput": 291.1208151236802,
+        "retrieval_latency_ms": 0.46999999962281436,
+        "retention_A": 0.9999385026329372,
+        "n_user_items": 200,
+        "n_retrievals": 100,
+        "bpc_A_baseline": 3.3821931591033936,
+        "bpc_A_after": 3.382401167869568,
+        "add_elapsed_s": 0.6870000000344589,
+        "retrieval_elapsed_s": 0.046999999962281436
+      },
+      "17": {
+        "add_throughput": 272.4795640339076,
+        "retrieval_latency_ms": 0.9399999998277053,
+        "retention_A": 1.0,
+        "n_user_items": 200,
+        "n_retrievals": 100,
+        "bpc_A_baseline": 3.3862046896616618,
+        "bpc_A_after": 3.3817656421661377,
+        "add_elapsed_s": 0.7339999999967404,
+        "retrieval_elapsed_s": 0.09399999998277053
+      },
+      "23": {
+        "add_throughput": 228.57142857142858,
+        "retrieval_latency_ms": 0.779999999795109,
+        "retention_A": 1.0,
+        "n_user_items": 200,
+        "n_retrievals": 100,
+        "bpc_A_baseline": 3.3814507455825806,
+        "bpc_A_after": 3.3811564140319823,
+        "add_elapsed_s": 0.875,
+        "retrieval_elapsed_s": 0.0779999999795109
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 2048,
+    "n_user_items": 200,
+    "n_retrievals": 100,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "pass_throughput": 100.0,
+    "pass_retrieval_ms": 50.0,
+    "pass_ret_A": 0.7,
+    "fail_throughput": 10.0,
+    "fail_retrieval_ms": 500.0,
+    "fail_ret_A": 0.3,
+    "device": "cpu"
+  }
+}

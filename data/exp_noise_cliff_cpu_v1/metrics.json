@@ -1,0 +1,19 @@
+{
+  "anchor_name": "noise_cliff_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: recall>=0.95 even at 0.30 bit-flip -- robust to heavy query corruption. recall by flip: {'f0.1': 1.0, 'f0.2': 1.0, 'f0.3': 1.0, 'f0.4': 0.817}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "f0.1": 1.0,
+        "f0.2": 1.0,
+        "f0.3": 1.0,
+        "f0.4": 0.8166666666666667
+      }
+    }
+  ],
+  "elapsed_s": 0.1004798412322998,
+  "summary": "HARD_PASS: recall>=0.95 even at 0.30 bit-flip -- robust to heavy query corruption. recall by flip: {'f0.1': 1.0, 'f0.2': 1.0, 'f0.3': 1.0, 'f0.4': 0.817}"
+}

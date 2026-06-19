@@ -1,0 +1,70 @@
+{
+  "seed": 17,
+  "n_substrate": 4096,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "decay": 0.0001,
+  "max_epochs": 15,
+  "history": [
+    {
+      "epoch": 1,
+      "test_bpc": 2.8470485557124476,
+      "argmax_accuracy": 0.5447799649592909,
+      "w_frobenius": 42.615203857421875,
+      "wall_s": 93.2063732999959
+    },
+    {
+      "epoch": 3,
+      "test_bpc": 2.59627897543083,
+      "argmax_accuracy": 0.5885808512831083,
+      "w_frobenius": 70.64127349853516,
+      "wall_s": 275.7024162000016
+    },
+    {
+      "epoch": 5,
+      "test_bpc": 2.5437207002314444,
+      "argmax_accuracy": 0.5963104194578996,
+      "w_frobenius": 86.5268783569336,
+      "wall_s": 463.50244479998946
+    },
+    {
+      "epoch": 7,
+      "test_bpc": 2.5239549308760343,
+      "argmax_accuracy": 0.596928784911883,
+      "w_frobenius": 96.7992172241211,
+      "wall_s": 652.0281021999981
+    },
+    {
+      "epoch": 10,
+      "test_bpc": 2.5117771774177196,
+      "argmax_accuracy": 0.6013604039987632,
+      "w_frobenius": 106.43936920166016,
+      "wall_s": 931.858604699999
+    },
+    {
+      "epoch": 12,
+      "test_bpc": 2.507967575326428,
+      "argmax_accuracy": 0.6000206121817995,
+      "w_frobenius": 110.54623413085938,
+      "wall_s": 1120.4235581999965
+    },
+    {
+      "epoch": 15,
+      "test_bpc": 2.504662289737881,
+      "argmax_accuracy": 0.6027001958157271,
+      "w_frobenius": 114.62469482421875,
+      "wall_s": 1398.6259672000015
+    }
+  ],
+  "best": {
+    "epoch": 15,
+    "test_bpc": 2.504662289737881,
+    "argmax_accuracy": 0.6027001958157271,
+    "w_frobenius": 114.62469482421875,
+    "wall_s": 1398.6259672000015
+  },
+  "headline": "N=4096 + pool + 15 epochs + decay = 2.505 bpc"
+}

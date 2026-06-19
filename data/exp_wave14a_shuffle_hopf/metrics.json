@@ -1,0 +1,11 @@
+{
+  "seed": 17,
+  "L_word": 4,
+  "alphabet_size": 8,
+  "num_atoms": 32,
+  "num_trials": 100,
+  "delta_known_split": 100,
+  "delta_all_splits": 100,
+  "naive_both": 100,
+  "naive_either": 100
+}

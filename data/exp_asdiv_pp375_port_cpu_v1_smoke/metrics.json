@@ -1,0 +1,19 @@
+{
+  "anchor_name": "asdiv_pp375_port_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: PP-375 port 0.40-0.45 on ASDiv-1op -- partial transfer. 1op: text-order=0.4416, +search=0.4286 | overall: text-order=0.3450, +search=0.3300 (vs cascade-v2 0.309, multihop 0.376). PP-375 op-seq + answer-consistency.",
+  "summary": "MIDDLE_BAND: PP-375 port 0.40-0.45 on ASDiv-1op -- partial transfer. 1op: text-order=0.4416, +search=0.4286 | overall: text-order=0.3450, +search=0.3300 (vs cascade-v2 0.309, multihop 0.376). PP-375 op-seq + answer-consistency.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.33,
+      "textorder_overall": 0.345,
+      "textorder_1op": 0.4416,
+      "search_overall": 0.33,
+      "search_1op": 0.4286,
+      "n_test": 200
+    }
+  ],
+  "elapsed_s": 0.2942087650299072
+}

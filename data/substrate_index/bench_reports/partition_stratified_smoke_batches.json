@@ -1,0 +1,426 @@
+{
+  "stratified_top30": [
+    {
+      "rank": 1,
+      "name": "hard_fail",
+      "route": "CREATE",
+      "z": 10,
+      "proxy_bona": false
+    },
+    {
+      "rank": 2,
+      "name": "bge_large",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 3,
+      "name": "hard_pass",
+      "route": "CREATE",
+      "z": 11,
+      "proxy_bona": false
+    },
+    {
+      "rank": 4,
+      "name": "tier_2",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 5,
+      "name": "tier_1",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": false
+    },
+    {
+      "rank": 6,
+      "name": "exp_dev",
+      "route": "CREATE",
+      "z": 20,
+      "proxy_bona": false
+    },
+    {
+      "rank": 7,
+      "name": "medium_priority",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 8,
+      "name": "follow_up",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 9,
+      "name": "dep_parser",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 10,
+      "name": "cross_references",
+      "route": "CREATE",
+      "z": 9,
+      "proxy_bona": true
+    },
+    {
+      "rank": 11,
+      "name": "fine_tuning",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 12,
+      "name": "power_law",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 13,
+      "name": "cross_thread",
+      "route": "CREATE",
+      "z": 6,
+      "proxy_bona": true
+    },
+    {
+      "rank": 14,
+      "name": "hd_instrument",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 15,
+      "name": "kf_1",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 16,
+      "name": "zero_shot",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 17,
+      "name": "top_k",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 18,
+      "name": "top_1",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 19,
+      "name": "local_cpu_queue",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 20,
+      "name": "orchestrator_paused",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 21,
+      "name": "prot_009",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 22,
+      "name": "hp_12",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": false
+    },
+    {
+      "rank": 23,
+      "name": "sleep_defrag",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 24,
+      "name": "multi_step",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 25,
+      "name": "one_time",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 26,
+      "name": "near_zero",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 27,
+      "name": "remote_cpu_queue",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 28,
+      "name": "llama_1b",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 29,
+      "name": "cell_2",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 30,
+      "name": "cell_4",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    }
+  ],
+  "full_top30": [
+    {
+      "rank": 1,
+      "name": "fast_fail",
+      "route": "CREATE",
+      "z": 6,
+      "proxy_bona": false
+    },
+    {
+      "rank": 2,
+      "name": "fail_fast",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 3,
+      "name": "already_implemented",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 4,
+      "name": "brief_spike",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": true
+    },
+    {
+      "rank": 5,
+      "name": "reed_solomon",
+      "route": "CREATE",
+      "z": 12,
+      "proxy_bona": true
+    },
+    {
+      "rank": 6,
+      "name": "data_streams",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 7,
+      "name": "dp_by_construction",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 8,
+      "name": "modular_composite_representations",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": true
+    },
+    {
+      "rank": 9,
+      "name": "modal_k_1",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": false
+    },
+    {
+      "rank": 10,
+      "name": "modal_k",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": false
+    },
+    {
+      "rank": 11,
+      "name": "prior_art",
+      "route": "CREATE",
+      "z": 7,
+      "proxy_bona": true
+    },
+    {
+      "rank": 12,
+      "name": "bounded_moment",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 13,
+      "name": "bug_fix",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 14,
+      "name": "universal_relation",
+      "route": "CREATE",
+      "z": 7,
+      "proxy_bona": true
+    },
+    {
+      "rank": 15,
+      "name": "unit_cues",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": true
+    },
+    {
+      "rank": 16,
+      "name": "fast_slow",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 17,
+      "name": "vsa_h3",
+      "route": "CREATE",
+      "z": 6,
+      "proxy_bona": false
+    },
+    {
+      "rank": 18,
+      "name": "same_day",
+      "route": "CREATE",
+      "z": 6,
+      "proxy_bona": true
+    },
+    {
+      "rank": 19,
+      "name": "feature_headroom",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 20,
+      "name": "predicate_argument",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 21,
+      "name": "name_field",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": true
+    },
+    {
+      "rank": 22,
+      "name": "semi_structured",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 23,
+      "name": "temperature_scaled",
+      "route": "CREATE",
+      "z": 5,
+      "proxy_bona": true
+    },
+    {
+      "rank": 24,
+      "name": "codeword_overlap",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 25,
+      "name": "sst_2",
+      "route": "CREATE",
+      "z": 12,
+      "proxy_bona": false
+    },
+    {
+      "rank": 26,
+      "name": "fact_hash",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 27,
+      "name": "out_of_order",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    },
+    {
+      "rank": 28,
+      "name": "resonator_full",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 29,
+      "name": "out_dir",
+      "route": "CREATE",
+      "z": 4,
+      "proxy_bona": true
+    },
+    {
+      "rank": 30,
+      "name": "chinese_conceptnet",
+      "route": "CREATE",
+      "z": 3,
+      "proxy_bona": true
+    }
+  ]
+}

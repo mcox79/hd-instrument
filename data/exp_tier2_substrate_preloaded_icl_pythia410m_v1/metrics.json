@@ -1,0 +1,96 @@
+{
+  "anchor": "tier2_substrate_preloaded_icl_pythia410m_v1",
+  "run_mode": "smoke",
+  "smoke": true,
+  "N": 1024,
+  "alpha_inject": 0.1,
+  "layer_frac": 0.7,
+  "task_n": 20,
+  "k_demos": 4,
+  "n_seeds": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "overall_means": {
+    "standard": {
+      "accuracy": 0.20000000000000004,
+      "mean_tokens": 33.53333333333333,
+      "learning_instance_wall_s": 6.395009889577824e-06
+    },
+    "substrate": {
+      "accuracy": 0.20000000000000004,
+      "mean_tokens": 6.033333333333334,
+      "learning_instance_wall_s": 0.0032442625020242606
+    },
+    "zero_shot": {
+      "accuracy": 0.19166666666666665,
+      "mean_tokens": 6.033333333333334,
+      "learning_instance_wall_s": 3.535831153082351e-06
+    }
+  },
+  "per_task_means": {
+    "analogy": {
+      "standard": {
+        "accuracy": 0.0,
+        "mean_tokens": 44.0,
+        "learning_instance_wall_s": 6.780013791285455e-06
+      },
+      "substrate": {
+        "accuracy": 0.0,
+        "mean_tokens": 8.0,
+        "learning_instance_wall_s": 0.003434285015100613
+      },
+      "zero_shot": {
+        "accuracy": 0.0,
+        "mean_tokens": 8.0,
+        "learning_instance_wall_s": 3.362499410286546e-06
+      }
+    },
+    "arithmetic": {
+      "standard": {
+        "accuracy": 0.07500000000000001,
+        "mean_tokens": 21.575000000000003,
+        "learning_instance_wall_s": 5.710011464543641e-06
+      },
+      "substrate": {
+        "accuracy": 0.07500000000000001,
+        "mean_tokens": 3.575,
+        "learning_instance_wall_s": 0.0030907025007763877
+      },
+      "zero_shot": {
+        "accuracy": 0.1,
+        "mean_tokens": 3.575,
+        "learning_instance_wall_s": 5.014997441321611e-06
+      }
+    },
+    "sentiment": {
+      "standard": {
+        "accuracy": 0.525,
+        "mean_tokens": 35.025,
+        "learning_instance_wall_s": 6.695004412904382e-06
+      },
+      "substrate": {
+        "accuracy": 0.525,
+        "mean_tokens": 6.525,
+        "learning_instance_wall_s": 0.003207799990195781
+      },
+      "zero_shot": {
+        "accuracy": 0.475,
+        "mean_tokens": 6.525,
+        "learning_instance_wall_s": 2.2299966076388957e-06
+      }
+    }
+  },
+  "thresholds": {
+    "HP_acc_gap": 0.05,
+    "HP_tok_ratio": 0.1,
+    "HP_speedup": 50.0,
+    "MID_acc_gap": 0.1,
+    "MID_tok_ratio_hi": 0.3,
+    "MID_speedup": 10.0
+  },
+  "verdict": "MIDDLE",
+  "verdict_msg": "Probe 2 (substrate-pre-loaded ICL, Pythia-410M):\n  acc_standard=0.200  acc_substrate=0.200  acc_zero_shot=0.192\n  tokens_standard=33.5  tokens_substrate=6.0  (ratio=0.180)\n  learning_instance_wall: std=0.000006s  sub=0.003244s  (speedup=0.0x)\n  Verdict: MIDDLE\n  Capability implication: Substrate-loaded ICL shows partial signal: accuracy gap +0.000 (need <=0.05 for HP), token ratio 0.180 (HP<=0.10), speedup 0.0x (HP>=50x). Substrate IS retrievable but not yet competitive with in-context demos; rescue paths: tune alpha, choose layer, train projection, or richer encoder.",
+  "elapsed_s": 0.717658281326294
+}

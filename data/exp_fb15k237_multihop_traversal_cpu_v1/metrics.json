@@ -1,0 +1,18 @@
+{
+  "anchor_name": "fb15k237_multihop_traversal_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate 2-hop traversal on REAL FB15K-237 top1>=0.75 -- traversal moat holds on a public KG at scale. top1=1.000 top3=1.000 (n=600, |E|=14505)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "twohop_top1": 1.0,
+      "twohop_top3": 1.0,
+      "n": 600,
+      "n_ent": 14505,
+      "n_rel": 237
+    }
+  ],
+  "elapsed_s": 123.0341203212738,
+  "summary": "HARD_PASS: substrate 2-hop traversal on REAL FB15K-237 top1>=0.75 -- traversal moat holds on a public KG at scale. top1=1.000 top3=1.000 (n=600, |E|=14505)"
+}

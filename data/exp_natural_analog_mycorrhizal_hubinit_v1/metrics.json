@@ -1,0 +1,15 @@
+{
+  "anchor_name": "natural_analog_mycorrhizal_hubinit_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: hub-init coverage 0.50-0.70. hub-init coverage=0.570 vs cold=0.000 at Q=100",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cold": 0.0,
+      "warm": 0.57
+    }
+  ],
+  "elapsed_s": 0.026781082153320312,
+  "summary": "MIDDLE_BAND: hub-init coverage 0.50-0.70. hub-init coverage=0.570 vs cold=0.000 at Q=100"
+}

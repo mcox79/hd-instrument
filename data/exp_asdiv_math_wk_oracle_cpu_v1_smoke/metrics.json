@@ -1,0 +1,34 @@
+{
+  "anchor_name": "asdiv_math_wk_oracle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate math-world-knowledge closes the ASDiv 3-op ceiling to >=0.85 -- world-knowledge is NOT outside-substrate (brain-can-do-it: dog->4 legs, dozen->12 via concept partition). The earlier 0.68 'ceiling' was missing substrate semantic memory, NOT an architectural bound. 3-op: base=0.8276 +WK=0.9310 (lift=+0.1034) | 2-op +WK=0.8966 | 1-op +WK=0.9667. WK = substrate LEX_constant adjacent-to-number (rule 8).",
+  "summary": "HARD_PASS: substrate math-world-knowledge closes the ASDiv 3-op ceiling to >=0.85 -- world-knowledge is NOT outside-substrate (brain-can-do-it: dog->4 legs, dozen->12 via concept partition). The earlier 0.68 'ceiling' was missing substrate semantic memory, NOT an architectural bound. 3-op: base=0.8276 +WK=0.9310 (lift=+0.1034) | 2-op +WK=0.8966 | 1-op +WK=0.9667. WK = substrate LEX_constant adjacent-to-number (rule 8).",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "op1": {
+        "base": 0.9667,
+        "wk": 0.9667,
+        "lift": 0.0,
+        "n": 30
+      },
+      "op2": {
+        "base": 0.8621,
+        "wk": 0.8966,
+        "lift": 0.0345,
+        "n": 29
+      },
+      "op3": {
+        "base": 0.8276,
+        "wk": 0.931,
+        "lift": 0.1034,
+        "n": 29
+      },
+      "ceiling_3op_wk": 0.931,
+      "ceiling_3op_base": 0.8276,
+      "lift_3op": 0.1034
+    }
+  ],
+  "elapsed_s": 0.26904892921447754
+}

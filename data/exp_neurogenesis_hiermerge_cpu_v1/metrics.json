@@ -1,0 +1,17 @@
+{
+  "anchor_name": "neurogenesis_hiermerge_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: merge helps; purity 0.50-0.60 or count off. pre=13.0 post=13.0 (K=12) purity=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pre_merge_shards": 13.0,
+      "post_merge_shards": 13.0,
+      "post_merge_purity": 1.0,
+      "true_K": 12
+    }
+  ],
+  "elapsed_s": 1.5665111541748047,
+  "summary": "MIDDLE_BAND: merge helps; purity 0.50-0.60 or count off. pre=13.0 post=13.0 (K=12) purity=1.000"
+}

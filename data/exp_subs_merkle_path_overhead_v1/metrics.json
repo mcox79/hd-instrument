@@ -1,0 +1,23 @@
+{
+  "anchor_name": "subs_merkle_path_overhead_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Merkle path generation <10ms per delivery -- compatible with WebSocket push <50ms; crypto-delivery moat is usable live. ms/path by log size: {'n1024': 0.0074, 'n8192': 0.0042} | worst=0.0074ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "n1024": {
+          "ms_per_path": 0.007360000163316727,
+          "path_len": 10
+        },
+        "n8192": {
+          "ms_per_path": 0.0042319996282458305,
+          "path_len": 13
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.11113691329956055,
+  "summary": "HARD_PASS: Merkle path generation <10ms per delivery -- compatible with WebSocket push <50ms; crypto-delivery moat is usable live. ms/path by log size: {'n1024': 0.0074, 'n8192': 0.0042} | worst=0.0074ms"
+}

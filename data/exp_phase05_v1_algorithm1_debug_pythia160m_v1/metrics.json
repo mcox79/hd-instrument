@@ -1,0 +1,50 @@
+{
+  "anchor": "phase05_v1_algorithm1_debug_pythia160m_v1",
+  "run_mode": "smoke",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "VERDICT=MIDDLE_BAND n_valid_seeds=2 n_converged=2/2 balance_mean=0.0060 diversity_mean=0.5611 nan_frac_max=0.0000 pipeline_clean=True diverse_enough=True HP: pipeline_clean AND diverse_enough AND n_converged>=3 total_wall_s=0.0",
+  "n_valid_seeds": 2,
+  "n_converged": 2,
+  "balance_mean": 0.0060329859261401,
+  "diversity_mean": 0.5610532429483202,
+  "nan_frac_max": 0.0,
+  "pipeline_clean": true,
+  "diverse_enough": true,
+  "HP_BALANCE_MAX": 0.7,
+  "HP_DIVERSITY_MIN": 0.1,
+  "LAYER_START": 6,
+  "LAYER_END": 12,
+  "K_CLUSTERS": 5,
+  "MODEL": "EleutherAI/pythia-160m",
+  "elapsed_s": 0.0,
+  "per_seed": {
+    "7": {
+      "seed": 7,
+      "n_train_embs": 20,
+      "n_val_embs": 10,
+      "balance": 0.01015624962747097,
+      "diversity": 0.49079861442248024,
+      "nan_frac": 0.0,
+      "initial_val_loss": 0.4333164691925049,
+      "final_val_loss": 0.27826356887817383,
+      "converged": true,
+      "elapsed_s": 2.13863205909729,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780547353.9112206
+    },
+    "17": {
+      "seed": 17,
+      "n_train_embs": 20,
+      "n_val_embs": 10,
+      "balance": 0.0019097222248092294,
+      "diversity": 0.6313078714741601,
+      "nan_frac": 0.0,
+      "initial_val_loss": 0.2806878089904785,
+      "final_val_loss": 0.2194179743528366,
+      "converged": true,
+      "elapsed_s": 2.388939142227173,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780547356.3071501
+    }
+  }
+}

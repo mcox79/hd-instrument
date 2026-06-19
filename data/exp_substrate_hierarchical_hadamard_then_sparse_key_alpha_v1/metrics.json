@@ -1,0 +1,21 @@
+{
+  "anchor_name": "substrate_hierarchical_hadamard_then_sparse_key_alpha_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ordered ~ best single (1.0-1.2x). alphas={'dense': 0.0498, 'hadamard': 0.3994, 'sparse': 0.6992, 'hadamard_then_sparse': 0.6992} | hadamard_then_sparse/best_single=1.00x",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha": {
+        "dense": 0.0498046875,
+        "hadamard": 0.3994140625,
+        "sparse": 0.69921875,
+        "hadamard_then_sparse": 0.69921875
+      }
+    }
+  ],
+  "elapsed_s": 1.0561418533325195,
+  "summary": "MIDDLE_BAND: ordered ~ best single (1.0-1.2x). alphas={'dense': 0.0498, 'hadamard': 0.3994, 'sparse': 0.6992, 'hadamard_then_sparse': 0.6992} | hadamard_then_sparse/best_single=1.00x"
+}

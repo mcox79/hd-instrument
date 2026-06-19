@@ -1,0 +1,82 @@
+{
+  "anchor": "combo2_l5_extension_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: l5_fid=1.0000(HP>=0.65 HF<0.3) b_rep=0.0000(HP>=0.85 HF<0.35) parity_cont=0.0000(HP<=0.12) hp1=5/5 hp2=0/5 hp3=5/5",
+  "n_seeds": 5,
+  "N": 4096,
+  "run_mode": "full",
+  "elapsed_s": 5.174055337905884,
+  "peak_gpu_gb": 0.2,
+  "results": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "run_mode": "full",
+      "l5_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 1.1483087539672852,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780436837.3311985
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "run_mode": "full",
+      "l5_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.9133150577545166,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780436838.2849023
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "run_mode": "full",
+      "l5_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.8974244594573975,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1780436839.2179587
+    },
+    {
+      "seed": 31,
+      "N": 4096,
+      "run_mode": "full",
+      "l5_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.942842960357666,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "31",
+      "_partial_written_at": 1780436840.1980002
+    },
+    {
+      "seed": 41,
+      "N": 4096,
+      "run_mode": "full",
+      "l5_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 1.002528429031372,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "41",
+      "_partial_written_at": 1780436841.230592
+    }
+  ]
+}

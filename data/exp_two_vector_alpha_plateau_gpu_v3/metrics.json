@@ -1,0 +1,106 @@
+{
+  "anchor_name": "two_vector_alpha_plateau_gpu_v3",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the two-vector composite has a WIDE robust plateau (>=4 alphas satisfy both id_prec>=0.90 and struct_rec_rel>=0.80), with the shipped alpha=0.5 central. There is NO delicate knee: in high-D, identity (name) and structure (algebra) are near-orthogonal so they superpose without interference -- the design is robust to the alpha choice over an order of magnitude. Stronger than a single optimum. robust band alpha in [0.15, 10.0] (7 of 13 alphas); 0.5 central=True; alpha=0.5 id_prec=1.0000 struct_rec_rel=1.0000; curve=[(0.0, 0.0, 1.0), (0.05, 0.156, 1.0), (0.1, 0.584, 1.0), (0.15, 0.918, 1.0), (0.25, 1.0, 1.0), (0.5, 1.0, 1.0), (1.0, 1.0, 1.0), (2.0, 1.0, 1.0), (5.0, 1.0, 1.0), (10.0, 1.0, 0.997), (20.0, 1.0, 0.508), (50.0, 1.0, 0.111), (100.0, 1.0, 0.054)] | n_atoms=2400 C=60 N=1024",
+  "summary": "HARD_PASS: the two-vector composite has a WIDE robust plateau (>=4 alphas satisfy both id_prec>=0.90 and struct_rec_rel>=0.80), with the shipped alpha=0.5 central. There is NO delicate knee: in high-D, identity (name) and structure (algebra) are near-orthogonal so they superpose without interference -- the design is robust to the alpha choice over an order of magnitude. Stronger than a single optimum. robust band alpha in [0.15, 10.0] (7 of 13 alphas); 0.5 central=True; alpha=0.5 id_prec=1.0000 struct_rec_rel=1.0000; curve=[(0.0, 0.0, 1.0), (0.05, 0.156, 1.0), (0.1, 0.584, 1.0), (0.15, 0.918, 1.0), (0.25, 1.0, 1.0), (0.5, 1.0, 1.0), (1.0, 1.0, 1.0), (2.0, 1.0, 1.0), (5.0, 1.0, 1.0), (10.0, 1.0, 0.997), (20.0, 1.0, 0.508), (50.0, 1.0, 0.111), (100.0, 1.0, 0.054)] | n_atoms=2400 C=60 N=1024",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "alpha": 0.0,
+          "id_prec": 0.0004,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.05,
+          "id_prec": 0.1562,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.1,
+          "id_prec": 0.5842,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.15,
+          "id_prec": 0.9179,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.25,
+          "id_prec": 0.9996,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.5,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 1.0,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 2.0,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 5.0,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 10.0,
+          "id_prec": 1.0,
+          "struct_rec": 0.9972,
+          "struct_rec_rel": 0.9972
+        },
+        {
+          "alpha": 20.0,
+          "id_prec": 1.0,
+          "struct_rec": 0.5082,
+          "struct_rec_rel": 0.5082
+        },
+        {
+          "alpha": 50.0,
+          "id_prec": 1.0,
+          "struct_rec": 0.1112,
+          "struct_rec_rel": 0.1112
+        },
+        {
+          "alpha": 100.0,
+          "id_prec": 1.0,
+          "struct_rec": 0.0544,
+          "struct_rec_rel": 0.0544
+        }
+      ],
+      "s0_ceiling": 1.0,
+      "n_atoms": 2400,
+      "C": 60,
+      "at_half": {
+        "alpha": 0.5,
+        "id_prec": 1.0,
+        "struct_rec": 1.0,
+        "struct_rec_rel": 1.0
+      },
+      "N": 1024,
+      "plateau_lo": 0.15,
+      "plateau_hi": 10.0,
+      "plateau_n": 7
+    }
+  ],
+  "elapsed_s": 0.2547481060028076
+}

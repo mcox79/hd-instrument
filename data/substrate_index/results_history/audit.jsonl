@@ -1,0 +1,96 @@
+{"ts": 1781227086.6697729, "op": "add_atom", "target": "strategy_decisions_2026-05-21", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227086.6717863, "op": "add_relation", "target": "strategy_decisions_2026-05-21|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227086.6737998, "op": "add_relation", "target": "strategy_decisions_2026-05-21|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227094.3484519, "op": "add_atom", "target": "strategy_decisions_2026-05-23", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227094.350458, "op": "add_relation", "target": "strategy_decisions_2026-05-23|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227094.352463, "op": "add_relation", "target": "strategy_decisions_2026-05-23|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227101.7723892, "op": "add_atom", "target": "strategy_decisions_2026-05-24", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227101.7743924, "op": "add_relation", "target": "strategy_decisions_2026-05-24|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227101.7763953, "op": "add_relation", "target": "strategy_decisions_2026-05-24|DEPENDS_ON|math::T2/bundling", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227101.7763953, "op": "add_relation", "target": "strategy_decisions_2026-05-24|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227101.7783983, "op": "add_relation", "target": "strategy_decisions_2026-05-24|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227101.780402, "op": "add_relation", "target": "strategy_decisions_2026-05-24|DEPENDS_ON|math::T3/hmm_transition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227110.4676628, "op": "add_atom", "target": "strategy_decisions_2026-05-25", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227110.4696684, "op": "add_relation", "target": "strategy_decisions_2026-05-25|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227120.6735985, "op": "add_atom", "target": "strategy_decisions_2026-05-26", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227120.675601, "op": "add_relation", "target": "strategy_decisions_2026-05-26|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227120.6776032, "op": "add_relation", "target": "strategy_decisions_2026-05-26|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227120.6776032, "op": "add_relation", "target": "strategy_decisions_2026-05-26|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227132.732463, "op": "add_atom", "target": "strategy_decisions_2026-05-27", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227132.73447, "op": "add_relation", "target": "strategy_decisions_2026-05-27|DEPENDS_ON|math::T1/inner_product", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227132.7364755, "op": "add_relation", "target": "strategy_decisions_2026-05-27|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227132.7384808, "op": "add_relation", "target": "strategy_decisions_2026-05-27|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227144.7058873, "op": "add_atom", "target": "strategy_decisions_2026-05-28", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227144.7098927, "op": "add_relation", "target": "strategy_decisions_2026-05-28|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227144.7098927, "op": "add_relation", "target": "strategy_decisions_2026-05-28|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227156.4545774, "op": "add_atom", "target": "strategy_decisions_2026-05-29", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227156.4565816, "op": "add_relation", "target": "strategy_decisions_2026-05-29|DEPENDS_ON|math::T1/cosine_similarity", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227156.458585, "op": "add_relation", "target": "strategy_decisions_2026-05-29|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227156.4605901, "op": "add_relation", "target": "strategy_decisions_2026-05-29|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227156.4605901, "op": "add_relation", "target": "strategy_decisions_2026-05-29|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227167.9705973, "op": "add_atom", "target": "strategy_decisions_2026-05-30", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227167.9746587, "op": "add_relation", "target": "strategy_decisions_2026-05-30|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227167.9762309, "op": "add_relation", "target": "strategy_decisions_2026-05-30|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227167.9802465, "op": "add_relation", "target": "strategy_decisions_2026-05-30|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227179.2072978, "op": "add_atom", "target": "strategy_decisions_2026-05-31", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227179.209307, "op": "add_relation", "target": "strategy_decisions_2026-05-31|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227188.9186547, "op": "add_atom", "target": "strategy_decisions_2026-06-01", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227188.9206607, "op": "add_relation", "target": "strategy_decisions_2026-06-01|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227188.9226704, "op": "add_relation", "target": "strategy_decisions_2026-06-01|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227197.2226985, "op": "add_atom", "target": "strategy_decisions_2026-06-02", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227209.755092, "op": "add_atom", "target": "strategy_decisions_2026-06-03", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227220.729347, "op": "add_atom", "target": "strategy_decisions_2026-06-04", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227220.7324743, "op": "add_relation", "target": "strategy_decisions_2026-06-04|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227220.734543, "op": "add_relation", "target": "strategy_decisions_2026-06-04|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227220.7361124, "op": "add_relation", "target": "strategy_decisions_2026-06-04|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227220.739866, "op": "add_relation", "target": "strategy_decisions_2026-06-04|DEPENDS_ON|math::T2_FAM/algebraic_binding", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227229.2215924, "op": "add_atom", "target": "strategy_decisions_2026-06-05", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227229.225598, "op": "add_relation", "target": "strategy_decisions_2026-06-05|DEPENDS_ON|math::T2/context_binding", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227229.227601, "op": "add_relation", "target": "strategy_decisions_2026-06-05|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227229.2336466, "op": "add_relation", "target": "strategy_decisions_2026-06-05|DEPENDS_ON|math::T2_FAM/algebraic_binding", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227229.2376757, "op": "add_relation", "target": "strategy_decisions_2026-06-05|DEPENDS_ON|math::T2_FAM/graph_traversal", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227229.2396905, "op": "add_relation", "target": "strategy_decisions_2026-06-05|DEPENDS_ON|math::T3/pca_whitening", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227237.3364923, "op": "add_atom", "target": "strategy_decisions_2026-06-06", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227237.3385, "op": "add_relation", "target": "strategy_decisions_2026-06-06|DEPENDS_ON|math::T1/discrete_optimization", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227237.342515, "op": "add_relation", "target": "strategy_decisions_2026-06-06|DEPENDS_ON|math::T1/graph_topology", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227237.3445241, "op": "add_relation", "target": "strategy_decisions_2026-06-06|DEPENDS_ON|math::T2/bundling", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227237.3465302, "op": "add_relation", "target": "strategy_decisions_2026-06-06|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227237.3465302, "op": "add_relation", "target": "strategy_decisions_2026-06-06|DEPENDS_ON|math::T3/pca_whitening", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227237.3485415, "op": "add_relation", "target": "strategy_decisions_2026-06-06|DEPENDS_ON|math::T3/zca_whitening", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6199963, "op": "add_atom", "target": "strategy_decisions_2026-06-07", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227246.6220045, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T1/cosine_similarity", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6240144, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6260216, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6280282, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T2/bundling", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6300366, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6320434, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T2/role_filler_binding", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.634051, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6360586, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T2_FAM/algebraic_binding", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227246.6400716, "op": "add_relation", "target": "strategy_decisions_2026-06-07|DEPENDS_ON|math::T2_FAM/cleanup_retrieval", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.124081, "op": "add_atom", "target": "strategy_decisions_2026-06-08", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227256.1280937, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T1/cosine_similarity", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.1321065, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T1/shannon_entropy", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.1341102, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.1341102, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T2/circular_convolution", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.136116, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.1401305, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T2/fhrr_bind", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227256.1421363, "op": "add_relation", "target": "strategy_decisions_2026-06-08|DEPENDS_ON|math::T2_FAM/algebraic_binding", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227264.859374, "op": "add_atom", "target": "strategy_decisions_2026-06-09", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227264.8613791, "op": "add_relation", "target": "strategy_decisions_2026-06-09|DEPENDS_ON|math::T1/unit_modulus", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227264.8613791, "op": "add_relation", "target": "strategy_decisions_2026-06-09|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227264.8633866, "op": "add_relation", "target": "strategy_decisions_2026-06-09|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227264.8653922, "op": "add_relation", "target": "strategy_decisions_2026-06-09|DEPENDS_ON|math::T2_FAM/graph_traversal", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227264.8673975, "op": "add_relation", "target": "strategy_decisions_2026-06-09|DEPENDS_ON|math::T2_FAM/probabilistic_inference", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227264.8714163, "op": "add_relation", "target": "strategy_decisions_2026-06-09|DEPENDS_ON|math::T3/bayesian_inference", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227272.1022725, "op": "add_atom", "target": "strategy_decisions_2026-06-10", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227272.1042764, "op": "add_relation", "target": "strategy_decisions_2026-06-10|DEPENDS_ON|math::T2/cleanup", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227272.1082942, "op": "add_relation", "target": "strategy_decisions_2026-06-10|DEPENDS_ON|math::T2_FAM/graph_traversal", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227279.743753, "op": "add_atom", "target": "strategy_decisions_2026-06-11", "note": "Phase 5 auto-ingest", "source": "evolve_phase5_strategy"}
+{"ts": 1781227279.7457583, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T1/cosine_similarity", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227279.749771, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T2/circular_convolution", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227279.7517755, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T2/fhrr_bind", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227279.7537813, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227279.7577982, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/collins_structured_perceptron", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781227279.7598045, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781559314.08077, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/structured_perceptron_collins", "note": "DECISION 116a collins MERGE: was results_history::strategy_decisions_2026-06-11 -DEPENDS_ON-> math::T3/collins_structured_perceptron", "source": "phase3_subbatch3_collins_116a"}
+{"ts": 1781559315.838822, "op": "remove_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/collins_structured_perceptron", "note": "", "source": "manual"}

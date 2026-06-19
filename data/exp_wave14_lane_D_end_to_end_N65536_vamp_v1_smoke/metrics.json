@@ -1,0 +1,25 @@
+{
+  "verdict": "LANE_D_E2E_N65K_PASS",
+  "verdict_msg": "Lane D Demo 1 at N=65536 with VAMP-on-chain: composed_acc=1.000 (>=0.50). Stages: S=1.000, T=1.000, X=1.000. Substrate-product Demo 1 viable.",
+  "elapsed_s": 0.9379999999946449,
+  "summary": {
+    "stage_s_acc": 1.0,
+    "stage_t_acc": 1.0,
+    "stage_x_acc": 1.0,
+    "composed_acc": 1.0,
+    "n_trials_total": 20,
+    "N": 8192
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials": 20,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4b_svamp_solver_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SVAMP <0.12 -- substrate context bag-of-words can't disambiguate the operation; needs syntactic structure (full dep-parser). accuracy=0.110 (33/300) train-labeled=319",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.11,
+      "n_correct": 33,
+      "n_test": 300,
+      "n_train_labeled": 319,
+      "maj_op": "SUB_ab"
+    }
+  ],
+  "elapsed_s": 3.3880221843719482,
+  "summary": "HARD_FAIL: SVAMP <0.12 -- substrate context bag-of-words can't disambiguate the operation; needs syntactic structure (full dep-parser). accuracy=0.110 (33/300) train-labeled=319"
+}

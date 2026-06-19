@@ -1,0 +1,72 @@
+{
+  "verdict": "ICL_SATURATION_WEAK",
+  "verdict_msg": "Slope = +0.0308 positive but below 0.1 threshold. Gain at ICTX=64 = +0.0672. ICL works but plateaus; bounded log scaling, not unbounded.",
+  "elapsed_s": 2.51500000001397,
+  "summary": {
+    "ictx_list": [
+      16,
+      64
+    ],
+    "mean_gain": [
+      0.005532348632812933,
+      0.06715115356445356
+    ],
+    "std_gain": [
+      0.0,
+      0.0
+    ],
+    "slope_log2_ictx": 0.030809402465820312,
+    "mean_entropy_per_ictx": [
+      7.509503285725912,
+      7.515299072265625
+    ],
+    "entropy_at_max_ictx": 7.515299072265625,
+    "distinct_chunks_floor_ok": true,
+    "n_seeds": 1,
+    "alpha": 1.0,
+    "n_dim": 512,
+    "corpus_a_bytes": 49105,
+    "corpus_b_bytes": 2652620,
+    "test_b_bytes": 1500
+  },
+  "config": {
+    "mode": "smoke",
+    "n_dim": 512,
+    "ictx": [
+      16,
+      64
+    ],
+    "seeds": [
+      17
+    ],
+    "max_epochs": 1,
+    "alpha": 1.0,
+    "batch_size": 64
+  },
+  "per_seed": [
+    {
+      "seed": 17,
+      "off_bpc": 5.979240193684896,
+      "pool_A_bpc": 6.803626993815104,
+      "pool_A_entropy": 7.5090850016276045,
+      "per_ictx": {
+        "16": {
+          "irr_bpc": 6.80220302327474,
+          "rel_bpc": 6.796670674641927,
+          "gain": 0.005532348632812933,
+          "entropy": 7.509503285725912,
+          "distinct_irr": 16,
+          "distinct_rel": 16
+        },
+        "64": {
+          "irr_bpc": 6.810556966145834,
+          "rel_bpc": 6.74340581258138,
+          "gain": 0.06715115356445356,
+          "entropy": 7.515299072265625,
+          "distinct_irr": 64,
+          "distinct_rel": 64
+        }
+      }
+    }
+  ]
+}

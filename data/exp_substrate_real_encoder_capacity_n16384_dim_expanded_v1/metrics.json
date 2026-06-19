@@ -1,0 +1,21 @@
+{
+  "anchor_name": "substrate_real_encoder_capacity_n16384_dim_expanded_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <3000 facts at N=16384 (real-encoder capacity below production bar). at N_sub=0 dim-expanded MiniLM: whitened_cap=0 raw_cap=0 facts",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_D": {
+        "D2048": {
+          "raw_cap": 0,
+          "whitened_cap": 0,
+          "ratio": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 5.219294548034668,
+  "summary": "HARD_FAIL: <3000 facts at N=16384 (real-encoder capacity below production bar). at N_sub=0 dim-expanded MiniLM: whitened_cap=0 raw_cap=0 facts"
+}

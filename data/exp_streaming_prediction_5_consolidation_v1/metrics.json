@@ -1,0 +1,13 @@
+{
+  "anchor_name": "streaming_prediction_5_consolidation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all HP conditions met at best T. best_T=T20 hot=1.0000(HP>=0.85) cold=0.0389(HP<=0.6) diff=0.9611(HP>=0.25) all={'T5': 'hot=1.000 cold=0.250 diff=0.750', 'T20': 'hot=1.000 cold=0.039 diff=0.961'}",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 2.4528534412384033,
+  "T_rounds": [
+    5,
+    20
+  ]
+}

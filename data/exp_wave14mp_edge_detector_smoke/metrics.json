@@ -1,0 +1,90 @@
+{
+  "verdict": "MPEDGE_NO_TRANSITION",
+  "verdict_msg": "rho never crosses 1.0 in tested K range. K=50: rho=12.15, K=200: rho=3.73, K=500: rho=1.69",
+  "elapsed_s": 0.28200000000651926,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      50,
+      200,
+      500
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "K": 50,
+      "N": 512,
+      "gamma": 0.09765625,
+      "lambda_plus_mp": 1.72265625,
+      "lambda_plus_empirical_mean": 20.936037063598633,
+      "rho": 12.153345778415533,
+      "per_seed_rho": [
+        12.153345778415533
+      ]
+    },
+    {
+      "K": 200,
+      "N": 512,
+      "gamma": 0.390625,
+      "lambda_plus_mp": 2.640625,
+      "lambda_plus_empirical_mean": 9.839621543884277,
+      "rho": 3.72624721188517,
+      "per_seed_rho": [
+        3.72624721188517
+      ]
+    },
+    {
+      "K": 500,
+      "N": 512,
+      "gamma": 0.9765625,
+      "lambda_plus_mp": 3.9529860376052373,
+      "lambda_plus_empirical_mean": 6.695735931396484,
+      "rho": 1.6938425452807406,
+      "per_seed_rho": [
+        1.6938425452807406
+      ]
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "K": 50,
+        "N": 512,
+        "gamma": 0.09765625,
+        "lambda_plus_mp": 1.72265625,
+        "lambda_plus_empirical_mean": 20.936037063598633,
+        "rho": 12.153345778415533,
+        "per_seed_rho": [
+          12.153345778415533
+        ]
+      },
+      {
+        "K": 200,
+        "N": 512,
+        "gamma": 0.390625,
+        "lambda_plus_mp": 2.640625,
+        "lambda_plus_empirical_mean": 9.839621543884277,
+        "rho": 3.72624721188517,
+        "per_seed_rho": [
+          3.72624721188517
+        ]
+      },
+      {
+        "K": 500,
+        "N": 512,
+        "gamma": 0.9765625,
+        "lambda_plus_mp": 3.9529860376052373,
+        "lambda_plus_empirical_mean": 6.695735931396484,
+        "rho": 1.6938425452807406,
+        "per_seed_rho": [
+          1.6938425452807406
+        ]
+      }
+    ]
+  }
+}

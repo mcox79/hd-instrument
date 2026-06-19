@@ -1,0 +1,37 @@
+{
+  "anchor_name": "substrate_tail_shape_oov_law_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: rho 0.5-0.8 -- OOV qualitatively predicts the tail (monotone) but not strongly; the predictor is directionally right, magnitude noisy at n=4. Spearman rho(OOV, tail)=0.6000 over 4 tasks; rows=[('NER', 0.4653, 1.15), ('POS', 0.4853, 1.011), ('topic', 0.2983, 1.002), ('sentiment', 0.3925, 0.998)]",
+  "summary": "MIDDLE_BAND: rho 0.5-0.8 -- OOV qualitatively predicts the tail (monotone) but not strongly; the predictor is directionally right, magnitude noisy at n=4. Spearman rho(OOV, tail)=0.6000 over 4 tasks; rows=[('NER', 0.4653, 1.15), ('POS', 0.4853, 1.011), ('topic', 0.2983, 1.002), ('sentiment', 0.3925, 0.998)]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rho": 0.6,
+      "rows": [
+        {
+          "task": "NER",
+          "oov": 0.4653,
+          "tail": 1.15
+        },
+        {
+          "task": "POS",
+          "oov": 0.4853,
+          "tail": 1.011
+        },
+        {
+          "task": "topic",
+          "oov": 0.2983,
+          "tail": 1.002
+        },
+        {
+          "task": "sentiment",
+          "oov": 0.3925,
+          "tail": 0.998
+        }
+      ],
+      "n_tasks": 4
+    }
+  ],
+  "elapsed_s": 4.967772483825684
+}

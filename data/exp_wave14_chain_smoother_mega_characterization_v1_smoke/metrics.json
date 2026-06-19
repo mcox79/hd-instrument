@@ -1,0 +1,35 @@
+{
+  "verdict": "MEGA_BROAD_ENVELOPE",
+  "verdict_msg": "3/3 cells pass (>=100% envelope).",
+  "elapsed_s": 0.4379999999946449,
+  "summary": {
+    "results": {
+      "N4096_K100_d25": 1.0,
+      "N8192_K100_d25": 1.0,
+      "N8192_K500_d25": 1.0
+    },
+    "n_cells": 3
+  },
+  "config": {
+    "cells": [
+      [
+        4096,
+        100,
+        25
+      ],
+      [
+        8192,
+        100,
+        25
+      ],
+      [
+        8192,
+        500,
+        25
+      ]
+    ],
+    "n_trials": 3,
+    "num_relations": 20,
+    "seed": 17
+  }
+}

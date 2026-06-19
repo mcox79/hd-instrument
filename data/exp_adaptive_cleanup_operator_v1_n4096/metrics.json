@@ -1,0 +1,157 @@
+{
+  "verdict": "ACO_MIDDLE_BAND",
+  "verdict_msg": "MIXED: n_improved=0/5 n_std_opt=0/5 seed7:best=0@1.000(gain+0.000) seed17:best=0@1.000(gain+0.000) seed23:best=0@1.000(gain+0.000) seed31:best=0@1.000(gain+0.000) seed41:best=0@1.000(gain+0.000)",
+  "elapsed_s": 28.91,
+  "summary": {
+    "anchor": "adaptive_cleanup_operator_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 8192,
+    "alphas": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "per_seed": [
+      {
+        "seed": 7,
+        "M": 8192,
+        "alphas": [
+          0.0,
+          0.25,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          3.0
+        ],
+        "retentions": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "best_alpha": 0.0,
+        "retention_at_best": 1.0,
+        "retention_at_1p0": 1.0
+      },
+      {
+        "seed": 17,
+        "M": 8192,
+        "alphas": [
+          0.0,
+          0.25,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          3.0
+        ],
+        "retentions": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "best_alpha": 0.0,
+        "retention_at_best": 1.0,
+        "retention_at_1p0": 1.0
+      },
+      {
+        "seed": 23,
+        "M": 8192,
+        "alphas": [
+          0.0,
+          0.25,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          3.0
+        ],
+        "retentions": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "best_alpha": 0.0,
+        "retention_at_best": 1.0,
+        "retention_at_1p0": 1.0
+      },
+      {
+        "seed": 31,
+        "M": 8192,
+        "alphas": [
+          0.0,
+          0.25,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          3.0
+        ],
+        "retentions": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "best_alpha": 0.0,
+        "retention_at_best": 1.0,
+        "retention_at_1p0": 1.0
+      },
+      {
+        "seed": 41,
+        "M": 8192,
+        "alphas": [
+          0.0,
+          0.25,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          3.0
+        ],
+        "retentions": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "best_alpha": 0.0,
+        "retention_at_best": 1.0,
+        "retention_at_1p0": 1.0
+      }
+    ],
+    "verdict": "ACO_MIDDLE_BAND",
+    "verdict_msg": "MIXED: n_improved=0/5 n_std_opt=0/5 seed7:best=0@1.000(gain+0.000) seed17:best=0@1.000(gain+0.000) seed23:best=0@1.000(gain+0.000) seed31:best=0@1.000(gain+0.000) seed41:best=0@1.000(gain+0.000)",
+    "elapsed_s": 28.91
+  }
+}

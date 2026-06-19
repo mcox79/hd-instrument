@@ -1,0 +1,21 @@
+{
+  "anchor_name": "graceful_overload_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cleanup-backed pinv degrades smoothly+monotonically, recall>=0.50 even at 4x overload -- graceful past-capacity behavior (no catastrophic cliff). recall by overload: {'r2': 1.0, 'r4': 0.989} (monotone=True)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "r2": 1.0,
+        "r4": 0.9892578125
+      },
+      "loads": [
+        2.0,
+        4.0
+      ]
+    }
+  ],
+  "elapsed_s": 0.12044644355773926,
+  "summary": "HARD_PASS: cleanup-backed pinv degrades smoothly+monotonically, recall>=0.50 even at 4x overload -- graceful past-capacity behavior (no catastrophic cliff). recall by overload: {'r2': 1.0, 'r4': 0.989} (monotone=True)"
+}

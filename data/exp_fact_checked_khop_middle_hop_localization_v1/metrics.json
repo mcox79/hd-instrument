@@ -1,0 +1,24 @@
+{
+  "anchor_name": "fact_checked_khop_middle_hop_localization_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: middle-hop fabrication localization >=0.85 -- production gate clears, forward-only K-hop deployable. localization by (K,pos): {'K3_h0': 1.0, 'K3_h1': 1.0, 'K3_h2': 1.0, 'K5_h0': 1.0, 'K5_h2': 1.0, 'K5_h4': 1.0} | middle-hop=1.000",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "loc_by_pos": {
+        "K3_h0": 1.0,
+        "K3_h1": 1.0,
+        "K3_h2": 1.0,
+        "K5_h0": 1.0,
+        "K5_h2": 1.0,
+        "K5_h4": 1.0
+      },
+      "middle_hop_loc": 1.0
+    }
+  ],
+  "elapsed_s": 0.6003437042236328,
+  "summary": "HARD_PASS: middle-hop fabrication localization >=0.85 -- production gate clears, forward-only K-hop deployable. localization by (K,pos): {'K3_h0': 1.0, 'K3_h1': 1.0, 'K3_h2': 1.0, 'K5_h0': 1.0, 'K5_h2': 1.0, 'K5_h4': 1.0} | middle-hop=1.000"
+}

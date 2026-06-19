@@ -1,0 +1,16 @@
+{
+  "anchor_name": "decisive3_multihop_completeness_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate deterministic multi-hop completeness >=0.95 vs probabilistic top-k <0.80 -- categorical completeness advantage (LazyGraphRAG-style probabilistic retrieval misses true low-rank neighbors). substrate=0.997 probabilistic-topk=0.774 margin=0.223",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "substrate_completeness": 0.9968627450980392,
+      "baseline_completeness": 0.7736794720802074,
+      "margin": 0.2231832730178318
+    }
+  ],
+  "elapsed_s": 1.8125643730163574,
+  "summary": "HARD_PASS: substrate deterministic multi-hop completeness >=0.95 vs probabilistic top-k <0.80 -- categorical completeness advantage (LazyGraphRAG-style probabilistic retrieval misses true low-rank neighbors). substrate=0.997 probabilistic-topk=0.774 margin=0.223"
+}

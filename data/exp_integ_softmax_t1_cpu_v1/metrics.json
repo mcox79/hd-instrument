@@ -1,0 +1,17 @@
+{
+  "anchor_name": "integ_softmax_t1_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: multiplicative >= additive but lift <0.05. multiplicative=0.038 additive=0.023 equal-weight=0.023 best-single=0.032",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "multiplicative_minsat": 0.038,
+      "additive_minsat": 0.023,
+      "equalweight_minsat": 0.023,
+      "bestsingle_minsat": 0.032
+    }
+  ],
+  "elapsed_s": 0.024233579635620117,
+  "summary": "MIDDLE_BAND: multiplicative >= additive but lift <0.05. multiplicative=0.038 additive=0.023 equal-weight=0.023 best-single=0.032"
+}

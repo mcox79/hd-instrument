@@ -1,0 +1,46 @@
+{
+  "run_mode": "smoke",
+  "N": 512,
+  "alpha": 0.15,
+  "R": 100,
+  "seeds": [
+    7
+  ],
+  "triplets": [
+    [
+      8,
+      64,
+      512
+    ],
+    [
+      16,
+      128,
+      1024
+    ]
+  ],
+  "aggregated": {
+    "by_triplet": {
+      "16_128_1024": {
+        "mean_M_dyn": 0.9564824670820253,
+        "std_M_dyn": 0.0,
+        "n_seeds": 1
+      },
+      "8_64_512": {
+        "mean_M_dyn": 0.8927542902930778,
+        "std_M_dyn": 0.0,
+        "n_seeds": 1
+      }
+    },
+    "global_mean_M_dyn": 0.9246183786875516,
+    "n_triplets": 2,
+    "n_triplets_pass_hp": 2,
+    "n_triplets_fail_hf": 0
+  },
+  "thresholds": {
+    "HP_MDYN": 0.75,
+    "HF_MDYN": 0.65
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CK DYNAMICAL ULTRAMETRICITY CONFIRMED. global_mean_M_dyn=0.9246 >= 0.75. n_triplets_pass=2/2. CK prediction range [0.85,0.95]; observed 0.9246. Substrate trajectory space is ultrametric: CK aging class confirmed.",
+  "elapsed_s": 371.75673055648804
+}

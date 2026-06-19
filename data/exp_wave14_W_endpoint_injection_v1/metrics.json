@@ -1,0 +1,29 @@
+{
+  "verdict": "ENDPOINT_COLLAPSED",
+  "verdict_msg": "Endpoints collapse: 15/100 distinct. Cluster trapping at endpoint level.",
+  "elapsed_s": 0.8589999999967404,
+  "summary": {
+    "n_distinct_endpoints": 15,
+    "K": 100,
+    "top10_endpoints": {
+      "25": 22,
+      "31": 15,
+      "20": 9,
+      "160": 8,
+      "71": 8,
+      "32": 7,
+      "41": 7,
+      "5": 5,
+      "7": 4,
+      "21": 4
+    }
+  },
+  "config": {
+    "N": 65536,
+    "K": 100,
+    "L": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "seed": 17
+  }
+}

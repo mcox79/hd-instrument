@@ -1,0 +1,42 @@
+{
+  "anchor": "tcft_alpha_sweep_v1_n8192",
+  "N": 2048,
+  "smoke": true,
+  "alpha_sweep": [
+    0.05,
+    0.125
+  ],
+  "split_q": 0.5,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 2048,
+      "alpha_ratio": 0.05,
+      "split_q": 0.5,
+      "seed": 17,
+      "M": 102,
+      "tcft_valid": true,
+      "tcft_class_size": 51,
+      "var_ratio": 0.022407744478909256,
+      "hp": true,
+      "alpha": 0.05
+    },
+    {
+      "N": 2048,
+      "alpha_ratio": 0.125,
+      "split_q": 0.5,
+      "seed": 17,
+      "M": 256,
+      "tcft_valid": true,
+      "tcft_class_size": 128,
+      "var_ratio": 0.0016580845245310883,
+      "hp": true,
+      "alpha": 0.125
+    }
+  ],
+  "verdict": "TCFT_ALPHA_MIDDLE_BAND",
+  "verdict_msg": "CERT_HOLDS_BELOW_TARGET: alpha_c=0.05. alpha_c=0.05 alpha_max_cert=0.000 vr_anchor=0.0017 HP_alpha_target=0.25 N=2048",
+  "elapsed_s": 27.23
+}

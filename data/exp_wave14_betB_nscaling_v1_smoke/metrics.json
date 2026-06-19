@@ -1,0 +1,31 @@
+{
+  "verdict": "INSTRUMENTATION_FAIL",
+  "verdict_msg": "retention_A or retention_B all-None; instrumentation failure",
+  "elapsed_s": 0.9584779739379883,
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "ret_A_mean": null,
+    "ret_B_mean": null,
+    "bic_delta": null,
+    "spacing_error": null,
+    "replay_cohen_d": null,
+    "n_seeds": 1,
+    "seed_results": [
+      {
+        "seed": 17,
+        "retention_A": null,
+        "retention_B": null,
+        "bpc_a_after_abcd": null,
+        "bpc_a_after_a": null,
+        "bpc_b_after_abcd": null,
+        "bpc_b_after_b": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "verdict": "MULTIHOP_V2_NOT_REPLICATED",
+  "verdict_msg": "acc_5hop < 0.5 on seed(s) 17,23,31. v2 finding doesn't replicate; audit test setup before drawing depth conclusions.",
+  "elapsed_s": 53.796000000002095,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.8066666666666666,
+      "5": 0.20000000000000004,
+      "10": 0.05333333333333334,
+      "25": 0.05333333333333334,
+      "50": 0.02
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 0.8,
+        "5": 0.2,
+        "10": 0.06,
+        "25": 0.04,
+        "50": 0.02
+      },
+      "23": {
+        "1": 0.8,
+        "5": 0.1,
+        "10": 0.04,
+        "25": 0.08,
+        "50": 0.0
+      },
+      "31": {
+        "1": 0.82,
+        "5": 0.3,
+        "10": 0.06,
+        "25": 0.04,
+        "50": 0.04
+      }
+    },
+    "per_hop_retention_rate": 0.9247420362361861,
+    "log_decay_slope_per_hop": -0.05979354790626429,
+    "max_pairwise_ip_per_seed": {
+      "17": 0.0313720703125,
+      "23": 0.03076171875,
+      "31": 0.0321044921875
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 16384,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 600,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_b5_escapeB_cfrpe_weighted_replay_v1_n2048",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: B5 FULLY FUNDAMENTAL -- no Hebbian-write replay rescue. retention none=0.528 random=0.528 ordered=0.535 ordered50=0.633 (ordered/none=1.01x)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "none": 0.525,
+      "random": 0.52,
+      "ordered": 0.515,
+      "ordered50": 0.63
+    },
+    {
+      "seed": 2,
+      "none": 0.53,
+      "random": 0.535,
+      "ordered": 0.555,
+      "ordered50": 0.635
+    }
+  ],
+  "elapsed_s": 2.6801929473876953,
+  "summary": "HARD_FAIL: B5 FULLY FUNDAMENTAL -- no Hebbian-write replay rescue. retention none=0.528 random=0.528 ordered=0.535 ordered50=0.633 (ordered/none=1.01x)"
+}

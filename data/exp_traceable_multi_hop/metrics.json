@@ -1,0 +1,130 @@
+{
+  "spec": {
+    "name": "exp_traceable_multi_hop",
+    "seed": 7,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-17T17:54:49",
+  "total_events": 111,
+  "total_wall_time_us": 47.6,
+  "entities": [
+    "alice",
+    "bob",
+    "carol",
+    "dave",
+    "eve",
+    "frank",
+    "grace",
+    "henry",
+    "iris",
+    "jack",
+    "kate",
+    "leo"
+  ],
+  "graph": {
+    "parent_of": [
+      [
+        "alice",
+        "bob"
+      ],
+      [
+        "bob",
+        "carol"
+      ],
+      [
+        "dave",
+        "eve"
+      ],
+      [
+        "eve",
+        "frank"
+      ],
+      [
+        "grace",
+        "henry"
+      ]
+    ],
+    "spouse_of": [
+      [
+        "bob",
+        "iris"
+      ],
+      [
+        "eve",
+        "jack"
+      ],
+      [
+        "henry",
+        "kate"
+      ]
+    ],
+    "works_at": [
+      [
+        "iris",
+        "leo"
+      ],
+      [
+        "jack",
+        "alice"
+      ],
+      [
+        "kate",
+        "dave"
+      ]
+    ],
+    "lives_in": [
+      [
+        "bob",
+        "carol"
+      ],
+      [
+        "iris",
+        "frank"
+      ]
+    ]
+  },
+  "query": {
+    "source": "alice",
+    "relation_chain": [
+      "parent_of",
+      "spouse_of",
+      "works_at"
+    ],
+    "expected": "leo"
+  },
+  "truth_set": [
+    "leo"
+  ],
+  "runs": {
+    "A_full": {
+      "answer": "leo",
+      "path": [
+        "alice",
+        "bob",
+        "iris",
+        "leo"
+      ],
+      "matches_truth": true
+    },
+    "B_ablate_relation_spouse_of": {
+      "answer": null,
+      "path": [
+        "alice",
+        "bob"
+      ],
+      "matches_truth": false
+    },
+    "C_ablate_edge_iris_leo": {
+      "answer": null,
+      "path": [
+        "alice",
+        "bob",
+        "iris"
+      ],
+      "matches_truth": false
+    }
+  },
+  "causality_demonstrated": true,
+  "headline": "A=leo (truth match=True); B (no spouse_of)=None; C (no iris->leo)=None; causal observability: True"
+}

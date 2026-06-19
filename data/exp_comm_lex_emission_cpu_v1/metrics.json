@@ -1,0 +1,15 @@
+{
+  "anchor_name": "comm_lex_emission_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate emits ordered token sequences from a stored lexicon (token-acc>=0.85, exact-sentence>=0.60) -- RETRIEVAL-BASED text generation works substrate-only. This is the substrate-native emission ceiling; novel fluent generation remains the LLM gap (honest). token-acc=1.000 exact-sentence=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "token_accuracy": 1.0,
+      "exact_sentence": 1.0
+    }
+  ],
+  "elapsed_s": 2.9793689250946045,
+  "summary": "HARD_PASS: substrate emits ordered token sequences from a stored lexicon (token-acc>=0.85, exact-sentence>=0.60) -- RETRIEVAL-BASED text generation works substrate-only. This is the substrate-native emission ceiling; novel fluent generation remains the LLM gap (honest). token-acc=1.000 exact-sentence=1.000"
+}

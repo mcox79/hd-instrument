@@ -1,0 +1,17 @@
+{
+  "anchor_name": "comp25_story_shard_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: production-scale STORY retrieval by feature >= 0.85 -- substrate indexes 100 shards of ~500 atoms each and retrieves by top-tier feature; production-granularity composition holds. STORY recall=1.000 (N=100 shards, M=500 atoms/shard)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "n_shard": 100,
+      "m_body": 500,
+      "label": "STORY"
+    }
+  ],
+  "elapsed_s": 827.8513503074646,
+  "summary": "HARD_PASS: production-scale STORY retrieval by feature >= 0.85 -- substrate indexes 100 shards of ~500 atoms each and retrieves by top-tier feature; production-granularity composition holds. STORY recall=1.000 (N=100 shards, M=500 atoms/shard)"
+}

@@ -1,0 +1,34 @@
+{
+  "verdict": "BET_T_CONFORMAL_KILL",
+  "verdict_msg": "HARD FAIL: coverage out of [0.8, 0.99] for 3/3 hypotheses: {'0': 1.0, '1': 1.0, '2': 1.0}. Class-wise conformal does not cover Bet T. mean_set_size=1.00.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "per_hyp_coverage": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0
+    },
+    "mean_set_size": 1.0,
+    "K_hyp": 3,
+    "alpha": 0.1,
+    "target_coverage": 0.9,
+    "set_size_limit": 1.5,
+    "note": "Bet T Rescue #3: Mondrian conformal class-wise coverage check"
+  },
+  "config": {
+    "N": 512,
+    "num_entities": 30,
+    "num_relations": 4,
+    "n_hypotheses": 3,
+    "n_facts_per_hyp": 5,
+    "n_cal_per_hyp": 10,
+    "n_test_per_hyp": 10,
+    "beta": 8,
+    "seeds": [
+      17
+    ],
+    "alpha": 0.1,
+    "device": "cpu",
+    "note": "Bet T Rescue #3: class-wise Mondrian conformal; alpha=0.10; K_hyp=8"
+  }
+}

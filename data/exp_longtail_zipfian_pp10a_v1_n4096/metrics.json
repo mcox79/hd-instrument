@@ -1,0 +1,28 @@
+{
+  "anchor": "longtail_zipfian_pp10a_v1_n4096",
+  "N": 1024,
+  "M": 128,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M": 128,
+      "alpha_zipf": 1.5,
+      "n_head": 12,
+      "n_tail": 12,
+      "acc_head": 1.0,
+      "acc_tail": 1.0,
+      "delta_acc": 0.0,
+      "passes_hp": 1,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "ZIPF_PP10A_HARD_PASS",
+  "verdict_msg": "UNIFORM_TAIL_FIDELITY: delta<=0.02 in 1/1 seeds. N=1024 M=128 alpha=1.5 mean_acc_head=1.0000 mean_acc_tail=1.0000 mean_delta=0.0000 n_hp=1/1",
+  "elapsed_s": 0.01
+}

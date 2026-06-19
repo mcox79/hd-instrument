@@ -1,0 +1,42 @@
+{
+  "anchor_name": "substrate_audit_core_C2_C3_pythia160m_residuals_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: one audit primitive operational. C2_deletion_cert=0.50 C3_drift_separation=84.1x (real_residuals=True, M=2000)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 0.49987499999999996,
+      "C3_kappa3_drift": 1.0171299576759338,
+      "C3_kappa3_nodrift": 0.012079964037017277,
+      "C3_separation": 84.19975047600211
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 0.5,
+      "C3_kappa3_drift": 1.0243497788906097,
+      "C3_kappa3_nodrift": 0.012079964037017277,
+      "C3_separation": 84.79741957439941
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 0.5,
+      "C3_kappa3_drift": 1.0076135396957397,
+      "C3_kappa3_nodrift": 0.012079964037017277,
+      "C3_separation": 83.41196518533134
+    }
+  ],
+  "elapsed_s": 73.02882695198059,
+  "summary": "MIDDLE_BAND: one audit primitive operational. C2_deletion_cert=0.50 C3_drift_separation=84.1x (real_residuals=True, M=2000)"
+}

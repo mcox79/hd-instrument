@@ -1,0 +1,37 @@
+{
+  "verdict": "K_STRESS_AGENT_READY",
+  "verdict_msg": "VAMP-on-chain at K=5000: acc_50hop=1.000>=0.50. Agent-realistic deep chain composition viable. acc_per_K={'100': 1.0, '500': 1.0, '1000': 1.0, '5000': 1.0}.",
+  "elapsed_s": 104.03100000000268,
+  "summary": {
+    "acc_per_K": {
+      "100": 1.0,
+      "500": 1.0,
+      "1000": 1.0,
+      "5000": 1.0
+    },
+    "depth": 50
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "depth": 50,
+    "K_grid": [
+      100,
+      500,
+      1000,
+      5000
+    ],
+    "num_relations": 20,
+    "num_entities_per_K": {
+      "100": 200,
+      "500": 500,
+      "1000": 1000,
+      "5000": 5000
+    },
+    "n_trials": 15,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

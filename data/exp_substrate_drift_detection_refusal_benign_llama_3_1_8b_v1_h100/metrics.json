@@ -1,0 +1,21 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "C3: kappa_3 ratio = 1.082 (refusal k3=0.0003, benign k3=0.0003); HARD_FAIL; drift detection between refusal and benign Llama-3.1-8B residual populations evaluated at N=16384 with 200 Hutchinson probes per population (M=5 per pop).",
+  "kappa_3_refusal": 0.0003198656547247447,
+  "kappa_3_refusal_se": 1.549149383933046e-05,
+  "kappa_3_benign": 0.00029565978495887046,
+  "kappa_3_benign_se": 1.2744072492051746e-05,
+  "ratio": 1.0818706871793253,
+  "n_probes": 200,
+  "n_per_population": 5,
+  "substrate_N": 16384,
+  "residual_source": "synthetic_smoke",
+  "thresholds": {
+    "hp_ratio": 4.0,
+    "mid_ratio_low": 2.0
+  },
+  "anchor": "substrate_drift_detection_refusal_benign_llama_3_1_8b_v1_h100",
+  "cell": "C3",
+  "elapsed_s": 51.95299999997951,
+  "summary": "C3: kappa_3 ratio = 1.082 (refusal k3=0.0003, benign k3=0.0003); HARD_FAIL; drift detection between refusal and benign Llama-3.1-8B residual populations evaluated at N=16384 with 200 Hutchinson probes per population (M=5 per pop)."
+}

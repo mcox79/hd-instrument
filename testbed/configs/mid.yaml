@@ -1,0 +1,27 @@
+# Mid-scale config: substrate killer features fire cleanly, run completes in ~5 min.
+# N=2048 is plenty for KF-1 (M <= N regimes), KF-2 (1/sqrt(N) bound), TCFT (var_ratio).
+# M=2000 keeps dict brute-force at O(M^2)=4M cosines per retrieve sweep ~ tens of seconds.
+
+config_name: mid
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+M_total: 2000
+edit_isolation_M: 256
+deletion_M: 128
+deletion_k_probes: 16
+hallu_M_fracs: [0.25, 0.5, 1.0]
+hallu_n_oos: 256
+continual_M: 256
+storage_latency_Ms: [256, 1000, 2000]
+storage_latency_n_queries: 256
+
+seeds: [7]
+backends: [dict, faiss, sqlite_vec, substrate, chroma]
+scenarios: [point_recall, edit_isolation, deletion_verify, hallu_detect, continual_4stage, storage_latency]
+out_root: testbed_data/benchmarks

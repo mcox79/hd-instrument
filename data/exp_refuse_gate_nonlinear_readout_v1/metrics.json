@@ -1,0 +1,874 @@
+{
+  "anchor_name": "substrate_refuse_gate_nonlinear_readout_v1",
+  "verdict": "NON_TEST",
+  "verdict_msg": "NON_TEST (no discriminating regime on the REAL held-out): in-cov and gap concentrations do NOT separate at any beta (either both one-hot = self-dominance, or both diffuse) -> the present-paraphrased vs near-present-absent separation is DEEPER than the nonlinear readout. Refuse-gate stays YELLOW; next = learned adapter, NOT a readout swap. (This is the actual hard question the synthetic smoke could not answer.) REAL held-out q54-q65 (in-cov=6, gap=7; ungated in-cov F1=0.0738). Concentration spread by beta (in-cov vs gap median, the verify-the-referent measurement on the REAL mix): {'beta10.0': {'in_cov_conc_med': 0.0723, 'gap_conc_med': 0.0825, 'in_cov_minus_gap': -0.0103, 'discriminates': False}, 'beta20.0': {'in_cov_conc_med': 0.1009, 'gap_conc_med': 0.1312, 'in_cov_minus_gap': -0.0302, 'discriminates': False}, 'beta40.0': {'in_cov_conc_med': 0.176, 'gap_conc_med': 0.2835, 'in_cov_minus_gap': -0.1076, 'discriminates': False}, 'beta80.0': {'in_cov_conc_med': 0.3548, 'gap_conc_med': 0.6515, 'in_cov_minus_gap': -0.2968, 'discriminates': False}, 'beta160.0': {'in_cov_conc_med': 0.5335, 'gap_conc_med': 0.9328, 'in_cov_minus_gap': -0.3993, 'discriminates': False}}.",
+  "summary": "NON_TEST (no discriminating regime on the REAL held-out): in-cov and gap concentrations do NOT separate at any beta (either both one-hot = self-dominance, or both diffuse) -> the present-paraphrased vs near-present-absent separation is DEEPER than the nonlinear readout. Refuse-gate stays YELLOW; next = learned adapter, NOT a readout swap. (This is the actual hard question the synthetic smoke could not answer.) REAL held-out q54-q65 (in-cov=6, gap=7; ungated in-cov F1=0.0738). Concentration spread by beta (in-cov vs gap median, the verify-the-referent measurement on the REAL mix): {'beta10.0': {'in_cov_conc_med': 0.0723, 'gap_conc_med': 0.0825, 'in_cov_minus_gap': -0.0103, 'discriminates': False}, 'beta20.0': {'in_cov_conc_med': 0.1009, 'gap_conc_med': 0.1312, 'in_cov_minus_gap': -0.0302, 'discriminates': False}, 'beta40.0': {'in_cov_conc_med': 0.176, 'gap_conc_med': 0.2835, 'in_cov_minus_gap': -0.1076, 'discriminates': False}, 'beta80.0': {'in_cov_conc_med': 0.3548, 'gap_conc_med': 0.6515, 'in_cov_minus_gap': -0.2968, 'discriminates': False}, 'beta160.0': {'in_cov_conc_med': 0.5335, 'gap_conc_med': 0.9328, 'in_cov_minus_gap': -0.3993, 'discriminates': False}}.",
+  "headline": "NON_TEST (no discriminating regime on the REAL held-out): in-cov and gap concentrations do NOT separate at any beta (either both one-hot = self-dominance, or both diffuse) -> the present-paraphrased vs near-present-absent separation is DEEPER than the nonlinear readout. Refuse-gate stays YELLOW; next = learned adapter, NOT a readout swap. (This is the actual hard question the synthetic smoke could not answer.) REAL held-out q54-q65 (in-cov=6, gap=7; ungated in-cov F1=0.0738). Concentration spread by beta (in-cov vs gap median, the verify-the-referent measurement on the REAL mix): {'beta10.0': {'in_cov_conc_med': 0.0723, 'gap_conc_med': 0.0825, 'in_cov_minus_gap': -0.0103, 'discriminates': False}, 'beta20.0': {'in_cov_conc_med': 0.1009, 'gap_conc_med': 0.1312, 'in_cov_minus_gap': -0.0302, 'discriminates': False}, 'beta40.0': {'in_cov_conc_med': 0.176, 'gap_conc_med': 0.2835, 'in_cov_minus_gap': -0.1076, 'discriminates': False}, 'beta80.0': {'in_cov_conc_med': 0.3548, 'gap_conc_med': 0.6515, 'in_cov_minus_gap': -0.2968, 'discriminates': False}, 'beta160.0': {'in_cov_conc_med': 0.5335, 'gap_conc_med': 0.9328, 'in_cov_minus_gap': -0.3993, 'discriminates': False}}.",
+  "alpha": 1.0,
+  "path": "REAL bge held-out q54-q65 -- the actual V1 6th-module recapture verdict",
+  "run_mode": "full",
+  "branch_path": "REAL_held_out_q54_q65",
+  "metrics_source": "real_bge_held_out",
+  "run_started_utc": "2026-06-18T04:20:55.426795+00:00",
+  "cell_commit": "d78ffe8a",
+  "recapture_of": "PHASE_V1_6th_module_refuse_gated_retriever_YELLOW (M1 bge-cosine-tau HARD_FAIL gap-refuse>=0.95)",
+  "method_delta": "refuse signal = NONLINEAR readout attention-CONCENTRATION (softmax/entmax max-weight over candidate scores) vs LINEAR scalar cosine tau (M1); readout<->readout anchor-match",
+  "verify_the_referent_condition": "MEASURE present-vs-absent concentration spread + confirm a discriminating regime (in-cov concentrated, gap diffuse, separable c); else NON_TEST",
+  "result": {
+    "mode_path": "real",
+    "n_in_cov": 6,
+    "n_gap": 7,
+    "ungated_in_cov_f1": 0.0738,
+    "spread_report": {
+      "beta10.0": {
+        "in_cov_conc_med": 0.0723,
+        "gap_conc_med": 0.0825,
+        "in_cov_minus_gap": -0.0103,
+        "discriminates": false
+      },
+      "beta20.0": {
+        "in_cov_conc_med": 0.1009,
+        "gap_conc_med": 0.1312,
+        "in_cov_minus_gap": -0.0302,
+        "discriminates": false
+      },
+      "beta40.0": {
+        "in_cov_conc_med": 0.176,
+        "gap_conc_med": 0.2835,
+        "in_cov_minus_gap": -0.1076,
+        "discriminates": false
+      },
+      "beta80.0": {
+        "in_cov_conc_med": 0.3548,
+        "gap_conc_med": 0.6515,
+        "in_cov_minus_gap": -0.2968,
+        "discriminates": false
+      },
+      "beta160.0": {
+        "in_cov_conc_med": 0.5335,
+        "gap_conc_med": 0.9328,
+        "in_cov_minus_gap": -0.3993,
+        "discriminates": false
+      }
+    },
+    "any_discriminating_beta": false,
+    "sweep": [
+      {
+        "beta": 10.0,
+        "c": 0.1,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.15,
+        "gap_refuse": 0.8571,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.2,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.25,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.3,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.35,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.4,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.45,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.5,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.55,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.6,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.65,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.7,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.75,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.8,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.85,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.9,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 10.0,
+        "c": 0.95,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.1,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.5,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.15,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.2,
+        "gap_refuse": 0.7143,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.25,
+        "gap_refuse": 0.8571,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.3,
+        "gap_refuse": 0.8571,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.35,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.4,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.45,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.5,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.55,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.6,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.65,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.7,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.75,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.8,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.85,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.9,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 20.0,
+        "c": 0.95,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.1,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.15,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.6667,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.2,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.3333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.25,
+        "gap_refuse": 0.4286,
+        "in_cov_accept_rate": 0.3333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.3,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.35,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.4,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.45,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.5,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.55,
+        "gap_refuse": 0.7143,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.6,
+        "gap_refuse": 0.8571,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.65,
+        "gap_refuse": 0.8571,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.7,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.75,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.8,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.85,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.9,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 40.0,
+        "c": 0.95,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.1,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.15,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.2,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.8333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.25,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.8333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.3,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.6667,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.35,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.5,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.4,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.5,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.45,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.3333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.5,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.55,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.6,
+        "gap_refuse": 0.4286,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.65,
+        "gap_refuse": 0.4286,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.7,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.75,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.8,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.85,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.9,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 80.0,
+        "c": 0.95,
+        "gap_refuse": 1.0,
+        "in_cov_accept_rate": 0.0,
+        "gated_in_cov_f1": 0.0,
+        "f1_drop": 0.0738,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.1,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.15,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.2,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.25,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.3,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.35,
+        "gap_refuse": 0.0,
+        "in_cov_accept_rate": 1.0,
+        "gated_in_cov_f1": 0.0738,
+        "f1_drop": 0.0,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.4,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.8333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.45,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.8333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.5,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.8333,
+        "gated_in_cov_f1": 0.0594,
+        "f1_drop": 0.0145,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.55,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.3333,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.6,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.3333,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.65,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.3333,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.7,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.75,
+        "gap_refuse": 0.1429,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.8,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.85,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.9,
+        "gap_refuse": 0.2857,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      },
+      {
+        "beta": 160.0,
+        "c": 0.95,
+        "gap_refuse": 0.5714,
+        "in_cov_accept_rate": 0.1667,
+        "gated_in_cov_f1": 0.0159,
+        "f1_drop": 0.058,
+        "discriminates": false
+      }
+    ],
+    "best": null,
+    "alpha": 1.0,
+    "top_k": 20,
+    "discriminate_margin": 0.1,
+    "min_in_cov_accept": 0.8
+  },
+  "elapsed_s": 3733.48
+}

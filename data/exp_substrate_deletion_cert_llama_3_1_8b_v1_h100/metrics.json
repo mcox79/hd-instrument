@@ -1,0 +1,69 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "C2: 5/5 deletion targets retained cos > 0.99 on non-targets (overall median 0.9960); HARD_PASS; substrate rank-1 deletion algebra evaluated at Llama-3.1-8B 4096-d residual frontier scale via N=16384 bipolar projection (M=50 patterns).",
+  "median_cos_per_target": [
+    0.9960505962371826,
+    0.9960079789161682,
+    0.9960371851921082,
+    0.9960454106330872,
+    0.9959953427314758
+  ],
+  "overall_median_cos": 0.9960371851921082,
+  "n_hp_targets": 5,
+  "n_deletion_targets": 5,
+  "n_non_target_probes": 100,
+  "M_patterns": 50,
+  "substrate_N": 16384,
+  "residual_source": "synthetic_smoke",
+  "per_target": [
+    {
+      "target_index": 42,
+      "median_cos": 0.9960505962371826,
+      "mean_cos": 0.9961181112698146,
+      "min_cos": 0.9939776062965393,
+      "max_cos": 0.9976142644882202,
+      "n_probes": 49
+    },
+    {
+      "target_index": 21,
+      "median_cos": 0.9960079789161682,
+      "mean_cos": 0.9960891081362354,
+      "min_cos": 0.9942501187324524,
+      "max_cos": 0.9975797533988953,
+      "n_probes": 49
+    },
+    {
+      "target_index": 5,
+      "median_cos": 0.9960371851921082,
+      "mean_cos": 0.9961752076538242,
+      "min_cos": 0.9948874711990356,
+      "max_cos": 0.9974518418312073,
+      "n_probes": 49
+    },
+    {
+      "target_index": 31,
+      "median_cos": 0.9960454106330872,
+      "mean_cos": 0.9961079346890352,
+      "min_cos": 0.9940441846847534,
+      "max_cos": 0.9974815249443054,
+      "n_probes": 49
+    },
+    {
+      "target_index": 17,
+      "median_cos": 0.9959953427314758,
+      "mean_cos": 0.996077896380911,
+      "min_cos": 0.9939830303192139,
+      "max_cos": 0.9974960088729858,
+      "n_probes": 49
+    }
+  ],
+  "thresholds": {
+    "hp_cos": 0.99,
+    "mid_cos_low": 0.95,
+    "hp_targets_ok": 4
+  },
+  "anchor": "substrate_deletion_cert_llama_3_1_8b_v1_h100",
+  "cell": "C2",
+  "elapsed_s": 42.65599999995902,
+  "summary": "C2: 5/5 deletion targets retained cos > 0.99 on non-targets (overall median 0.9960); HARD_PASS; substrate rank-1 deletion algebra evaluated at Llama-3.1-8B 4096-d residual frontier scale via N=16384 bipolar projection (M=50 patterns)."
+}

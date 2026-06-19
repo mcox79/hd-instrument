@@ -1,0 +1,31 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "GAMMA": 0.9,
+  "M_PER_GROUP": 10,
+  "T_DECAY_STEPS_LIST": [
+    5,
+    10
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_T": {
+      "5": {
+        "mean_delta": 0.0,
+        "max_delta": 0.0,
+        "n_seeds": 2
+      },
+      "10": {
+        "mean_delta": 0.0,
+        "max_delta": 0.0,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Per-key TTL constraint CONFIRMED (negative result). max_delta_retention=0.0000 < 0.05. Both groups decay identically under global gamma=0.9. Single-W substrate supports only ONE global decay rate -- per-key TTL requires external bookkeeping.",
+  "elapsed_s": 0.5773155689239502
+}

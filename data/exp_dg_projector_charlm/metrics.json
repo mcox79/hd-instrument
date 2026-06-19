@@ -1,0 +1,170 @@
+{
+  "seed": 17,
+  "n_substrate": 4096,
+  "expansion_factor": 4,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "decay": 0.0001,
+  "max_epochs": 5,
+  "variants": [
+    {
+      "label": "baseline_no_dg",
+      "keep_frac": null
+    },
+    {
+      "label": "dg_keep_top_20pct",
+      "keep_frac": 0.2
+    },
+    {
+      "label": "dg_keep_top_10pct",
+      "keep_frac": 0.1
+    },
+    {
+      "label": "dg_keep_top_5pct",
+      "keep_frac": 0.05
+    },
+    {
+      "label": "dg_keep_top_2pct",
+      "keep_frac": 0.02
+    }
+  ],
+  "results": [
+    {
+      "label": "baseline_no_dg",
+      "keep_frac": null,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 2.8623941747977892,
+          "argmax_accuracy": 0.5473984319315752,
+          "wall_s": 4.53367419999995
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.6113176754639866,
+          "argmax_accuracy": 0.5839527543020059,
+          "wall_s": 11.520844399999987
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.556964391264213,
+          "argmax_accuracy": 0.5960696466754913,
+          "wall_s": 18.483977199999572
+        }
+      ],
+      "wall_time_s": 18.65009480000026
+    },
+    {
+      "label": "dg_keep_top_20pct",
+      "keep_frac": 0.2,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 3.2228576066646686,
+          "argmax_accuracy": 0.5180735159352408,
+          "wall_s": 6.718989099999817
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.9788708367836643,
+          "argmax_accuracy": 0.5653192139293352,
+          "wall_s": 14.411847999999736
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.9541018518747544,
+          "argmax_accuracy": 0.5802871398024642,
+          "wall_s": 22.02662250000003
+        }
+      ],
+      "wall_time_s": 22.908117500000117
+    },
+    {
+      "label": "dg_keep_top_10pct",
+      "keep_frac": 0.1,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 3.2148441428893477,
+          "argmax_accuracy": 0.5216373078097953,
+          "wall_s": 6.607777900000201
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.9695026831573,
+          "argmax_accuracy": 0.5667447306791569,
+          "wall_s": 14.280991600000107
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.9441223307668696,
+          "argmax_accuracy": 0.5791670909276041,
+          "wall_s": 21.92100359999995
+        }
+      ],
+      "wall_time_s": 22.842740499999763
+    },
+    {
+      "label": "dg_keep_top_5pct",
+      "keep_frac": 0.05,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 3.2178263559857063,
+          "argmax_accuracy": 0.517768048060279,
+          "wall_s": 6.609694599999784
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.9715505098327943,
+          "argmax_accuracy": 0.5621627125547297,
+          "wall_s": 14.236776499999905
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.9462242637240417,
+          "argmax_accuracy": 0.5788616230526423,
+          "wall_s": 21.863145799999984
+        }
+      ],
+      "wall_time_s": 22.787703299999976
+    },
+    {
+      "label": "dg_keep_top_2pct",
+      "keep_frac": 0.02,
+      "history": [
+        {
+          "epoch": 1,
+          "test_bpc": 3.210136524857262,
+          "argmax_accuracy": 0.5225537114346808,
+          "wall_s": 6.581764399999884
+        },
+        {
+          "epoch": 3,
+          "test_bpc": 2.9690607414870964,
+          "argmax_accuracy": 0.5646064555544242,
+          "wall_s": 14.219205800000054
+        },
+        {
+          "epoch": 5,
+          "test_bpc": 2.9451043039921427,
+          "argmax_accuracy": 0.5801853171774768,
+          "wall_s": 21.816983700000037
+        }
+      ],
+      "wall_time_s": 22.7946508
+    }
+  ],
+  "best": {
+    "epoch": 5,
+    "test_bpc": 2.556964391264213,
+    "argmax_accuracy": 0.5960696466754913,
+    "wall_s": 18.483977199999572,
+    "label": "baseline_no_dg",
+    "keep_frac": null
+  },
+  "headline": "DG sparse projector best: baseline_no_dg test_bpc=2.557"
+}

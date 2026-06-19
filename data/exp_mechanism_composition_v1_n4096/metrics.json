@@ -1,0 +1,38 @@
+{
+  "verdict": "MCOMP_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: depth_means={3: {'B': 1.0, 'D': 1.0, 'E': 1.0, 'cA': 1.0, 'cB': 1.0, 'cC': 1.0, 'inconc_C': 0.0}} hp_winning@d5=0/0 hp_inconc_ok@d5=0/0 hf_depths_failing=0/1",
+  "elapsed_s": 0.45,
+  "summary": {
+    "anchor": "mechanism_composition_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depths": [
+      3
+    ],
+    "seeds": [
+      17
+    ],
+    "K_candidates": 16,
+    "n_queries": 8,
+    "cells": [
+      {
+        "depth": 3,
+        "M": 256,
+        "seed": 17,
+        "n_eval": 8,
+        "acc_B": 1.0,
+        "acc_D": 1.0,
+        "acc_E": 1.0,
+        "acc_compA": 1.0,
+        "acc_compB": 1.0,
+        "acc_compC": 1.0,
+        "inconc_A": 0.0,
+        "inconc_C": 0.0
+      }
+    ],
+    "verdict": "MCOMP_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: depth_means={3: {'B': 1.0, 'D': 1.0, 'E': 1.0, 'cA': 1.0, 'cB': 1.0, 'cC': 1.0, 'inconc_C': 0.0}} hp_winning@d5=0/0 hp_inconc_ok@d5=0/0 hf_depths_failing=0/1",
+    "elapsed_s": 0.45
+  }
+}

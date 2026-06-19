@@ -1,0 +1,17 @@
+{
+  "anchor_name": "phase4b_gsm8k_ceiling_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: GSM8K <=2-op reachability 0.20-0.40 -- partial; deeper-op classifier could capture this fraction. 1-op=0.160 <=2-op=0.385 (n=1157)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ceiling_1op": 0.16,
+      "ceiling_2op": 0.385,
+      "n": 1157,
+      "cap": 6
+    }
+  ],
+  "elapsed_s": 2.7357592582702637,
+  "summary": "MIDDLE_BAND: GSM8K <=2-op reachability 0.20-0.40 -- partial; deeper-op classifier could capture this fraction. 1-op=0.160 <=2-op=0.385 (n=1157)"
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "pubmedqa_substrate_retrieval_benchmark_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate biomedical retrieval reliable (r@5>=0.80, no regression vs raw) -- PubMedQA retrieval green for the head-to-head; substrate's biomedical advantage is in the moats + LLM head-to-head, not raw retrieval (both at ceiling here). substrate r@5=0.997 (r@1=0.985), raw-encoder r@5=1.000 (lift=-0.003) n=1000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 1000,
+      "raw_r1": 0.995,
+      "raw_r5": 1.0,
+      "sub_r1": 0.985,
+      "sub_r5": 0.997,
+      "lift": -0.0030000000000000027
+    }
+  ],
+  "elapsed_s": 20.565072059631348,
+  "summary": "HARD_PASS: substrate biomedical retrieval reliable (r@5>=0.80, no regression vs raw) -- PubMedQA retrieval green for the head-to-head; substrate's biomedical advantage is in the moats + LLM head-to-head, not raw retrieval (both at ceiling here). substrate r@5=0.997 (r@1=0.985), raw-encoder r@5=1.000 (lift=-0.003) n=1000"
+}

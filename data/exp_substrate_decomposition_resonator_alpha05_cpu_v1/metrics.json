@@ -1,0 +1,83 @@
+{
+  "anchor_name": "substrate_decomposition_resonator_alpha05_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: alpha=0.5 identity-augmented resonator decode reaches precision@1>=0.95 at K=241/F=3/noise=0 -- the encoding fix GENERALIZES from composition cleanup to resonator decomposition (two-vector architecture confirmed 2nd appearance). target F=3/K=241/noise=0: plain=0.9111 alpha0.5=1.0000 lift=+0.0889; full grid=[(2, 241, 0.0, 0.8417, 1.0), (3, 241, 0.0, 0.9111, 1.0), (3, 241, 0.1, 0.8833, 1.0), (4, 241, 0.0, 0.8667, 1.0), (6, 241, 0.0, 0.8917, 0.9861), (8, 241, 0.0, 0.8313, 0.9521), (3, 50, 0.0, 0.9611, 1.0), (3, 100, 0.0, 0.95, 1.0)]",
+  "summary": "HARD_PASS: alpha=0.5 identity-augmented resonator decode reaches precision@1>=0.95 at K=241/F=3/noise=0 -- the encoding fix GENERALIZES from composition cleanup to resonator decomposition (two-vector architecture confirmed 2nd appearance). target F=3/K=241/noise=0: plain=0.9111 alpha0.5=1.0000 lift=+0.0889; full grid=[(2, 241, 0.0, 0.8417, 1.0), (3, 241, 0.0, 0.9111, 1.0), (3, 241, 0.1, 0.8833, 1.0), (4, 241, 0.0, 0.8667, 1.0), (6, 241, 0.0, 0.8917, 0.9861), (8, 241, 0.0, 0.8313, 0.9521), (3, 50, 0.0, 0.9611, 1.0), (3, 100, 0.0, 0.95, 1.0)]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "cells": [
+        {
+          "F": 2,
+          "K": 241,
+          "noise": 0.0,
+          "precision1_plain": 0.8417,
+          "precision1_alpha05": 1.0,
+          "lift": 0.1583
+        },
+        {
+          "F": 3,
+          "K": 241,
+          "noise": 0.0,
+          "precision1_plain": 0.9111,
+          "precision1_alpha05": 1.0,
+          "lift": 0.0889
+        },
+        {
+          "F": 3,
+          "K": 241,
+          "noise": 0.1,
+          "precision1_plain": 0.8833,
+          "precision1_alpha05": 1.0,
+          "lift": 0.1167
+        },
+        {
+          "F": 4,
+          "K": 241,
+          "noise": 0.0,
+          "precision1_plain": 0.8667,
+          "precision1_alpha05": 1.0,
+          "lift": 0.1333
+        },
+        {
+          "F": 6,
+          "K": 241,
+          "noise": 0.0,
+          "precision1_plain": 0.8917,
+          "precision1_alpha05": 0.9861,
+          "lift": 0.0944
+        },
+        {
+          "F": 8,
+          "K": 241,
+          "noise": 0.0,
+          "precision1_plain": 0.8313,
+          "precision1_alpha05": 0.9521,
+          "lift": 0.1208
+        },
+        {
+          "F": 3,
+          "K": 50,
+          "noise": 0.0,
+          "precision1_plain": 0.9611,
+          "precision1_alpha05": 1.0,
+          "lift": 0.0389
+        },
+        {
+          "F": 3,
+          "K": 100,
+          "noise": 0.0,
+          "precision1_plain": 0.95,
+          "precision1_alpha05": 1.0,
+          "lift": 0.05
+        }
+      ],
+      "alpha": 0.5,
+      "n_atoms": 241,
+      "n_seeds": 3,
+      "iters": 10
+    }
+  ],
+  "elapsed_s": 3.994338274002075
+}

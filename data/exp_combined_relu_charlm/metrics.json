@@ -1,0 +1,71 @@
+{
+  "seed": 17,
+  "n_substrate": 4096,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "decay": 0.0001,
+  "max_epochs": 15,
+  "relu_b": 0.5,
+  "history": [
+    {
+      "epoch": 1,
+      "test_bpc": 2.8687852494962565,
+      "argmax_accuracy": 0.5416963649322879,
+      "w_frobenius": 46.1242790222168,
+      "wall_s": 4.374175500000092
+    },
+    {
+      "epoch": 3,
+      "test_bpc": 2.596056956135927,
+      "argmax_accuracy": 0.585480093676815,
+      "w_frobenius": 74.68439483642578,
+      "wall_s": 11.38021929999968
+    },
+    {
+      "epoch": 5,
+      "test_bpc": 2.537958446363242,
+      "argmax_accuracy": 0.5969860503003768,
+      "w_frobenius": 91.00199890136719,
+      "wall_s": 18.39631819999977
+    },
+    {
+      "epoch": 7,
+      "test_bpc": 2.516825810261431,
+      "argmax_accuracy": 0.6019753589247531,
+      "w_frobenius": 101.64004516601562,
+      "wall_s": 25.41321650000009
+    },
+    {
+      "epoch": 10,
+      "test_bpc": 2.5051860819036733,
+      "argmax_accuracy": 0.6073719580490785,
+      "w_frobenius": 111.74992370605469,
+      "wall_s": 35.81913089999989
+    },
+    {
+      "epoch": 12,
+      "test_bpc": 2.501949788839241,
+      "argmax_accuracy": 0.6063537317992058,
+      "w_frobenius": 116.13160705566406,
+      "wall_s": 42.82279019999987
+    },
+    {
+      "epoch": 15,
+      "test_bpc": 2.499438156385842,
+      "argmax_accuracy": 0.6072701354240913,
+      "w_frobenius": 120.56753540039062,
+      "wall_s": 53.2145572999998
+    }
+  ],
+  "best": {
+    "epoch": 15,
+    "test_bpc": 2.499438156385842,
+    "argmax_accuracy": 0.6072701354240913,
+    "w_frobenius": 120.56753540039062,
+    "wall_s": 53.2145572999998
+  },
+  "headline": "combined + magnitude_relu (b=0.5) @ 15 epochs = 2.499 bpc"
+}

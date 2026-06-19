@@ -1,0 +1,31 @@
+{
+  "exp_name": "continuous_embedding_cert_threshold_v2_gdpr_n16384",
+  "N": 16384,
+  "corpus_size": 10000,
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    43
+  ],
+  "is_smoke": false,
+  "total_elapsed_s": 285.56394362449646,
+  "overall": "MIDDLE_BAND",
+  "n_seeds": 5,
+  "n_pass": 3,
+  "n_middle": 0,
+  "n_fail": 2,
+  "mean_gdpr_tpr": 0.966,
+  "mean_best_fp": 0.004,
+  "mean_auc": 0.9997450000000001,
+  "mean_sep": 1.001219469845295,
+  "seed_verdicts": [
+    "HARD_PASS",
+    "HARD_PASS",
+    "HARD_FAIL",
+    "HARD_FAIL",
+    "HARD_PASS"
+  ],
+  "verdict_msg": "continuous_embedding_cert_threshold_v2_gdpr_n16384 N=16384 corpus=10000 seeds=[7, 17, 23, 31, 43]\nGDPR gate: FP<=0.0001 TPR>=0.999\nn_pass=3/5 n_mid=0 n_fail=2\nmean_gdpr_tpr=0.9660 mean_best_fp=0.004000 mean_auc=0.9997\nOVERALL: MIDDLE_BAND"
+}

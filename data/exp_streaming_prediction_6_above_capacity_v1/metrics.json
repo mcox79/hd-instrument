@@ -1,0 +1,13 @@
+{
+  "anchor_name": "streaming_prediction_6_above_capacity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: above-capacity importance discrimination confirmed. mean_diff=0.6202(HP>=0.1 HF<0.0) mean_fid_high=0.9999(HP>=0.7) n_hp_diff=2/2 n_hp_high=2/2",
+  "N": 1024,
+  "M_HIGH": 40,
+  "M_LOW": 80,
+  "W_HIGH": 2.0,
+  "W_LOW": 1.0,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 1.5104899406433105
+}

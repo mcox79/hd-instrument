@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "qa_self_knowledge_v3",
+  "benchmark_held_out": false,
+  "axes": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G"
+  ],
+  "axis_descriptions": {
+    "A": "factual retrieval (atom-by-topic)",
+    "B": "compositional (multi-atom traversal + DUAL + INSTANCE_OF chains)",
+    "C": "capability-serves (atom -> serves_capability mapping)",
+    "D": "structural depth (DEPENDS_ON / USES typed-graph reachability)",
+    "E": "semantic similarity (bge-route over META / METHODOLOGY corpus)",
+    "F": "primitives (T1 axiom + foundational atoms identification)",
+    "G": "meta (substrate introspection over its own history + tooling)"
+  },
+  "history": [
+    {
+      "cycle_id": 51,
+      "cycle_phase": "day_2_intro",
+      "timestamp_iso": "2026-06-10T00:00:00Z",
+      "macro_f1": 0.5243,
+      "per_axis_f1": {
+        "A": 0.5,
+        "B": 0.3,
+        "C": 0.65,
+        "D": 0.4,
+        "E": 0.5,
+        "F": 0.8,
+        "G": 0.45
+      },
+      "mechanism_classes_shipped": [
+        "initial Cycle 51 baseline"
+      ],
+      "commit_hash": "(pre-session)",
+      "held_out_companion_macro_f1": null,
+      "notes": "Cycle 51 day-2 baseline; substrate 1844 atoms"
+    },
+    {
+      "cycle_id": 51,
+      "cycle_phase": "day_4_hp_v1",
+      "timestamp_iso": "2026-06-11T00:00:00Z",
+      "macro_f1": 0.7013,
+      "per_axis_f1": {
+        "A": 0.71,
+        "B": 0.516,
+        "C": 0.85,
+        "D": 0.65,
+        "E": 0.689,
+        "F": 0.95,
+        "G": 0.5
+      },
+      "mechanism_classes_shipped": [
+        "B route v3 (accept-all-rel-types)",
+        "D structural edges (Q47/Q48)",
+        "A precision-trim (top-K=7 + threshold)",
+        "E bge-threshold-recall",
+        "C field-backfill (23 atoms + 1 new CAP)",
+        "A alias enrichment Q01/Q33/Q37",
+        "A refuse heuristic (max(1, ceil(n_kws/2)))"
+      ],
+      "commit_hash": "cycle_51_hp_v1_07",
+      "held_out_companion_macro_f1": null,
+      "notes": "HP_v1 0.70 HARD-PASS 2 days early; 7 mechanism classes"
+    },
+    {
+      "cycle_id": 51,
+      "cycle_phase": "day_4_hp_v1_plus",
+      "timestamp_iso": "2026-06-12T00:00:00Z",
+      "macro_f1": 0.7518,
+      "per_axis_f1": {
+        "A": 0.78,
+        "B": 0.55,
+        "C": 0.8766,
+        "D": 0.7,
+        "E": 0.737,
+        "F": 1.0,
+        "G": 0.55
+      },
+      "mechanism_classes_shipped": [
+        "A v3 composite-alias strategy (Q02/Q03/Q04/Q31/Q36)"
+      ],
+      "commit_hash": "00073a25",
+      "held_out_companion_macro_f1": null,
+      "notes": "HP_v1+ 0.75 HARD-PASS; 9 mechanism classes; HIGH GOODHART RISK per USER catch"
+    },
+    {
+      "cycle_id": 51,
+      "cycle_phase": "close",
+      "timestamp_iso": "2026-06-12T00:00:00Z",
+      "macro_f1": 0.7233,
+      "per_axis_f1": {
+        "A": 0.6625,
+        "B": 0.516,
+        "C": 0.8207,
+        "D": 0.65,
+        "E": 0.737,
+        "F": 1.0,
+        "G": 0.5
+      },
+      "mechanism_classes_shipped": [
+        "KP P1 24 T3->T2 promotions",
+        "OEIS partial 18952 atoms"
+      ],
+      "commit_hash": "e4c0892c",
+      "held_out_companion_macro_f1": null,
+      "notes": "Cycle 51 close; HP_v1 0.70 held + HP_v1+ 0.75 LOST after corpus growth; honest retention HARD-FAIL on Research T1.3 KPI 0.75+; A axis -0.0475 + C axis -0.056 dual T2/T3 compete"
+    },
+    {
+      "cycle_id": 51,
+      "cycle_phase": "cycle_51_held_out_local",
+      "timestamp_iso": "2026-06-13T14:08:14Z",
+      "macro_f1": 0.0067,
+      "per_axis_f1": {
+        "A": 0.0217,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0,
+        "E": 0.0,
+        "F": 0.0,
+        "G": 0.0
+      },
+      "mechanism_classes_shipped": [
+        "held-out benchmark Q54-Q65 score (CPU degraded; no bge)"
+      ],
+      "commit_hash": "held_out_local_score",
+      "held_out_companion_macro_f1": 0.0067,
+      "held_out": true,
+      "notes": "Held-out CPU-only score on degraded data\\substrate_index (local laptop 1746 atoms; canonical remote 20820 expected to be higher). Per USER Goodhart directive."
+    }
+  ],
+  "current_cycle_id": 51,
+  "scorecard_methodology_rule": "meta::RULE_held_out_test_methodology_required_for_macro_F1_claims"
+}

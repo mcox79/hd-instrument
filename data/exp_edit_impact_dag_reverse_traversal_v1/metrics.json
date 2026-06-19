@@ -1,0 +1,26 @@
+{
+  "anchor": "edit_impact_dag_reverse_traversal_v1",
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "n_atoms": 100,
+      "m_facts": 50,
+      "k_atoms": 3,
+      "n_tested_atoms": 5,
+      "mean_precision": 1.0,
+      "mean_recall": 1.0,
+      "n_full_recall": 5,
+      "n_pass_hp": 5,
+      "frac_pass_hp": 1.0,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "DAG_TRAVERSAL_HARD_PASS",
+  "verdict_msg": "PRECISION_AND_RECALL_VALIDATED: n_hp=1/1. mean_prec=1.0000 mean_rec=1.0000 n_hp=1/1 n_hf=0/1",
+  "elapsed_s": 0.01
+}

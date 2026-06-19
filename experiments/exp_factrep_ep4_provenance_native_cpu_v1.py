@@ -1,0 +1,61 @@
+"""
+exp_factrep_ep4_provenance_native_cpu_v1.py -- each fact carries its source; retrieval returns the fact AND its provenance -- CPU.
+
+ROUTING: deep-batch (EP4 provenance-native facts). Bind a SOURCE with each fact (key * rel * value * SOURCE-tag); a query recovers the value and the source it came from. Tests native provenance (audit/citation) in the fact representation. Pure numpy. CPU.
+PRE-REGISTERED: HARD-PASS value recall >= 0.95 AND source recall >= 0.95. MIDDLE >= 0.85. HARD-FAIL < 0.85.
+ASCII-only. write_metrics. PROT-018 _v1.
+"""
+from __future__ import annotations
+import sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace"); sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+import argparse, os, time, math
+from pathlib import Path
+from typing import Dict, List, Tuple
+import numpy as np
+REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir, write_metrics
+ANCHOR_NAME = "factrep_ep4_provenance_native_cpu_v1"
+RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
+_ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
+SMOKE = RUN_MODE == "smoke"
+def cphasor(m, d, g):
+    ang = (g.random((m, d)) * 2 - 1) * math.pi; return np.exp(1j * ang).astype(np.complex64)
+def cidx(v, book):
+    return int(np.argmax((book @ np.conj(v)).real))
+def topk(v, book, k):
+    return set(np.argsort((book @ np.conj(v)).real)[::-1][:k].tolist())
+
+def _selftest():
+    g = np.random.default_rng(0); a = cphasor(1, 32, g)[0]; s = cphasor(1, 32, g)[0]; v = cphasor(1, 32, g)[0]
+    assert np.allclose(a * v * s * np.conj(a * v), s, atol=1e-3), "prov bind"; print("[selftest] PASS: factrep-ep4-provenance-native", flush=True)
+def run() -> Dict:
+    g = np.random.default_rng(212); N = 4096; VK = 100; VV = 400; NS = 20; M = int(0.6 * VK); TR = 60 if SMOKE else 200
+    keys = cphasor(VK, N, g); vals = cphasor(VV, N, g); srcs = cphasor(NS, N, g)
+    vh = 0; sh = 0; n = 0
+    for _ in range(TR):
+        Mem = np.zeros(N, dtype=np.complex64); facts = []; ks = g.choice(VK, M, replace=False)
+        for k in ks:
+            vv = int(g.integers(0, VV)); sc = int(g.integers(0, NS)); Mem = Mem + keys[k] * vals[vv] * srcs[sc]; facts.append((int(k), vv, sc))
+        for k, vv, sc in facts[:20 if not SMOKE else 8]:
+            rec = Mem * np.conj(keys[k])                                       # unbind key -> value*source
+            vpred = cidx(rec * np.conj(srcs[sc]), vals); spred = cidx(rec * np.conj(vals[vv]), srcs)
+            vh += int(vpred == vv); sh += int(spred == sc); n += 1
+    print("  value-recall=%.3f source-recall=%.3f (n=%d)" % (vh / n, sh / n, n), flush=True)
+    return {"value": vh / n, "source": sh / n}
+def verdict(r) -> Tuple[str, str]:
+    s = "value-recall=%.3f source-recall=%.3f" % (r["value"], r["source"])
+    if r["value"] >= 0.95 and r["source"] >= 0.95: return ("HARD_PASS", "HARD_PASS: provenance-native facts return value + source >=0.95 -- native citation/audit in the fact rep. " + s)
+    if min(r["value"], r["source"]) >= 0.85: return ("MIDDLE_BAND", "MIDDLE_BAND: provenance recall 0.85-0.95. " + s)
+    return ("HARD_FAIL", "HARD_FAIL: provenance recall <0.85. " + s)
+
+_selftest()
+if _ARGS.self_test:
+    sys.exit(0)
+print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
+out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
+v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
+metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
+write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)

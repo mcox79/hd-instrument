@@ -1,0 +1,33 @@
+{
+  "anchor": "symbolic_prim_battery_v1",
+  "run_mode": "full",
+  "N": 2048,
+  "n_seeds": 5,
+  "S1_rule_fire": {
+    "hp_pass": true,
+    "min_gap_mean": 0.9501953124999993,
+    "min_gap_std": 0.01369974837246108,
+    "HP_threshold": 0.3
+  },
+  "S2_disjunction": {
+    "hp_pass": true,
+    "min_gap_mean": 0.9785156249999993,
+    "HP_threshold": 0.2
+  },
+  "S3_forward_chain": {
+    "hp_pass": false,
+    "final_cos_mean": 0.40566406249999976,
+    "final_cos_std": 0.5826629201272469,
+    "HP_threshold": 0.25
+  },
+  "S5_backward": {
+    "hp_pass": true,
+    "cos_A_mean": 0.9999999999999993,
+    "cos_C_mean": 0.9999999999999993,
+    "HP_threshold": 0.25
+  },
+  "n_subtests_pass": 3,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 2.352487802505493,
+  "verdict_msg": "Symbolic battery at N=2048: S1=HP S2=HP S3=FAIL S5=HP (3/4 pass). Verdict: HARD_PASS."
+}

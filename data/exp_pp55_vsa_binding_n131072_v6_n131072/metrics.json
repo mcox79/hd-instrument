@@ -1,0 +1,22 @@
+{
+  "anchor_name": "pp55_vsa_binding_n131072_v6_n131072",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: seeds_hp=5/5 cos>=0.85; mean_cos=0.99999; min_cos=0.99999; n_seeds=5; PP-55 6th-rung cross-N band-lift gate passed. N=131072 alpha=0.05 M=6553 approach=chunked_hopfield_no_W",
+  "mean_cos_all_seeds": 0.9999900651526806,
+  "min_cos_all_seeds": 0.9999873185705555,
+  "cos_per_seed": {
+    "7": 0.9999898617021529,
+    "17": 0.9999939307127088,
+    "23": 0.9999913875811114,
+    "31": 0.999987827196875,
+    "41": 0.9999873185705555
+  },
+  "seeds_hp": 5,
+  "N": 131072,
+  "M": 6553,
+  "alpha": 0.05,
+  "n_seeds": 5,
+  "n_probes": 30,
+  "elapsed_s": 703.9074654579163,
+  "run_mode": "full"
+}

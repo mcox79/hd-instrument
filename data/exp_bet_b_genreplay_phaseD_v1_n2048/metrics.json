@@ -1,0 +1,26 @@
+{
+  "verdict": "GENREPLAY_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_GENREPLAY: ret_A=1.2239 above HF but below HP. mean_ret_A=1.2239 seeds_pass=1/1 per_seed=[1.2239] HP=0.8 HF=0.55",
+  "elapsed_s": 3.77,
+  "N": 512,
+  "smoke": true,
+  "results": [
+    {
+      "seed": 17,
+      "N": 512,
+      "bpc_A_baseline": 3.02833,
+      "bpc_A_final": 2.47439,
+      "retention_A": 1.2239,
+      "replay_pool_size": 99
+    }
+  ],
+  "config": {
+    "N": 512,
+    "eta": 0.3,
+    "n_replay_per_batch": 16,
+    "T_replay_pool": 100,
+    "seeds": [
+      17
+    ]
+  }
+}

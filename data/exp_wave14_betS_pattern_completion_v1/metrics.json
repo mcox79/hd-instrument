@@ -1,0 +1,141 @@
+{
+  "verdict": "BET_S_PARTIAL",
+  "verdict_msg": "Partial: K=['200', '800'] below 0.85, asymmetric=[]. per_K: {'8': {'subject': 1.0, 'relation': 1.0, 'object': 1.0}, '50': {'subject': 0.9933333333333333, 'relation': 1.0, 'object': 1.0}, '200': {'subject': 0.7799999999999999, 'relation': 0.8833333333333333, 'object': 0.7766666666666667}, '800': {'subject': 0.18666666666666668, 'relation': 0.36000000000000004, 'object': 0.2233333333333333}}",
+  "elapsed_s": 15.921000000002095,
+  "summary": {
+    "per_K": {
+      "8": {
+        "subject": 1.0,
+        "relation": 1.0,
+        "object": 1.0
+      },
+      "50": {
+        "subject": 0.9933333333333333,
+        "relation": 1.0,
+        "object": 1.0
+      },
+      "200": {
+        "subject": 0.7799999999999999,
+        "relation": 0.8833333333333333,
+        "object": 0.7766666666666667
+      },
+      "800": {
+        "subject": 0.18666666666666668,
+        "relation": 0.36000000000000004,
+        "object": 0.2233333333333333
+      }
+    },
+    "per_K_seed": {
+      "8": [
+        {
+          "subject": 1.0,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 8,
+          "n_trials": 8
+        },
+        {
+          "subject": 1.0,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 8,
+          "n_trials": 8
+        },
+        {
+          "subject": 1.0,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 8,
+          "n_trials": 8
+        }
+      ],
+      "50": [
+        {
+          "subject": 0.98,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 50,
+          "n_trials": 50
+        },
+        {
+          "subject": 1.0,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 50,
+          "n_trials": 50
+        },
+        {
+          "subject": 1.0,
+          "relation": 1.0,
+          "object": 1.0,
+          "K": 50,
+          "n_trials": 50
+        }
+      ],
+      "200": [
+        {
+          "subject": 0.8,
+          "relation": 0.91,
+          "object": 0.79,
+          "K": 200,
+          "n_trials": 100
+        },
+        {
+          "subject": 0.83,
+          "relation": 0.88,
+          "object": 0.81,
+          "K": 200,
+          "n_trials": 100
+        },
+        {
+          "subject": 0.71,
+          "relation": 0.86,
+          "object": 0.73,
+          "K": 200,
+          "n_trials": 100
+        }
+      ],
+      "800": [
+        {
+          "subject": 0.21,
+          "relation": 0.39,
+          "object": 0.26,
+          "K": 800,
+          "n_trials": 100
+        },
+        {
+          "subject": 0.16,
+          "relation": 0.35,
+          "object": 0.21,
+          "K": 800,
+          "n_trials": 100
+        },
+        {
+          "subject": 0.19,
+          "relation": 0.34,
+          "object": 0.2,
+          "K": 800,
+          "n_trials": 100
+        }
+      ]
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 50,
+    "K_sweep": [
+      8,
+      50,
+      200,
+      800
+    ],
+    "n_trials_per_K": 100,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

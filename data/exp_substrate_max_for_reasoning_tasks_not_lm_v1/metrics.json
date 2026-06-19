@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_max_for_reasoning_tasks_not_lm_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-MAX (cleanup) helps REASONING >=2x but not LM -- variants belong in reasoning, not generation (reframes LM-negative). REASONING K_plain=0.0 K_cleanup=13.5 ratio=13.50x | LM single=0.912 cleanup=0.912 gain=0.000 (cleanup no-op for LM as expected)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "K_plain": 0,
+      "K_cleanup": 11,
+      "reasoning_ratio": 11.0,
+      "lm_single": 0.95,
+      "lm_cleanup": 0.95
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "K_plain": 0,
+      "K_cleanup": 16,
+      "reasoning_ratio": 16.0,
+      "lm_single": 0.875,
+      "lm_cleanup": 0.875
+    }
+  ],
+  "elapsed_s": 0.06497573852539062,
+  "summary": "HARD_PASS: substrate-MAX (cleanup) helps REASONING >=2x but not LM -- variants belong in reasoning, not generation (reframes LM-negative). REASONING K_plain=0.0 K_cleanup=13.5 ratio=13.50x | LM single=0.912 cleanup=0.912 gain=0.000 (cleanup no-op for LM as expected)"
+}

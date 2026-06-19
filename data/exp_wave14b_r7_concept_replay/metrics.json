@@ -1,0 +1,23 @@
+{
+  "bpc_a_initial": 2.481730951406892,
+  "REPLAY_FRACTION": 0.5,
+  "NUM_CONCEPTS": 50,
+  "pool_pct_with_any_concept": 12.40234375,
+  "results": {
+    "baseline_no_replay": {
+      "bpc_a_post": 4.335208573927402,
+      "bpc_b_post": 5.729224163552989,
+      "bwt": -1.85347762252051
+    },
+    "concept_replay": {
+      "bpc_a_post": 4.213608237102335,
+      "bpc_b_post": 5.732559050286257,
+      "bwt": -1.7318772856954427
+    },
+    "random_replay": {
+      "bpc_a_post": 3.67820776607388,
+      "bpc_b_post": 5.755705858002781,
+      "bwt": -1.1964768146669877
+    }
+  }
+}

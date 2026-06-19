@@ -1,0 +1,159 @@
+# CELL-COLBERT ColBERT-v2 HotpotQA distractor pre-test on Lambda GH200 or H100.
+#
+# Pipeline:
+#   1. Setup: arch-aware torch install (cu121 for x86 H100, cu128 for aarch64 GH200),
+#      colbert-ai DIRECT install (skip ragatouille; per Exp-Dev handoff note),
+#      HotpotQA distractor dataset pre-pull, ColBERT-v2 checkpoint pre-pull,
+#      PROT-022 self-test gate.
+#   2. Run: index + retrieve + verdict.
+#
+# Cost: ~$5-7 (~2-3 hr on GH200 at $2.29/h).
+
+name: cellcb
+
+resources:
+  cloud: lambda
+  use_spot: false
+  # SKU + accelerators come from CLI --instance-type passed by safety stack.
+  # No top-level accelerators; no any_of (per 2026-06-07 lesson).
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/8] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/8] detect GPU + apt deps (incl C++ build chain for colbert-ai ninja extensions) ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  # build-essential + cmake + ninja-build needed for colbert-ai's CUDA extension compile
+  sudo apt-get install -y -qq git rsync curl build-essential cmake ninja-build python3-dev 2>&1 | tail -3
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+  ARCH=$(uname -m)
+  GPU_NAME=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
+  echo "Detected ARCH=${ARCH} GPU=${GPU_NAME}"
+
+  echo "=== [setup 3/8] install torch (cu121 x86 H100, cu128 aarch64 GH200) ==="
+  pip install --quiet --upgrade pip
+  # NOTE 2026-06-07: torch pin must match wheels actually available on target arch.
+  # cu128 aarch64 (GH200) wheels start at 2.7.0; lower pins like ">=2.3,<2.5" cause
+  # install failure. Matching CELL-3/CELL-4's "torch>=2.5" (no upper bound) which
+  # successfully installs latest stable cu128 wheel on aarch64.
+  if [ "$ARCH" = "aarch64" ]; then
+    echo "Installing cu128 wheel for GH200"
+    pip install --quiet --upgrade "torch>=2.5" "torchvision" \
+      --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade "torch" "torchvision" \
+      --index-url https://download.pytorch.org/whl/nightly/cu128
+  else
+    echo "Installing cu121 wheel for x86 H100"
+    pip install --quiet --upgrade "torch>=2.3" "torchvision" \
+      --index-url https://download.pytorch.org/whl/cu121
+  fi
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} ok={torch.cuda.is_available()}')
+  props = torch.cuda.get_device_properties(0)
+  print(f'device: {props.name} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+
+  echo "=== [setup 4/8] install colbert-ai DIRECT (skip ragatouille per Exp-Dev) ==="
+  # colbert-ai 0.2.22 is the latest stable; datasets pinned compatible with HF script-mode loader
+  pip install --quiet "colbert-ai>=0.2.19,<0.3" "faiss-cpu" "ninja" "transformers>=4.40,<4.50" \
+    "datasets>=2.20,<3.0" "huggingface_hub>=0.25" "pyarrow"
+  python -c "
+  from colbert import Indexer, Searcher
+  from colbert.infra import Run, RunConfig, ColBERTConfig
+  print('OK: colbert-ai imports clean')
+  "
+
+  echo "=== [setup 5/8] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 6/8] PARALLEL pre-pull ColBERT-v2 checkpoint + HotpotQA dataset ==="
+  # Background the ColBERT-v2 snapshot (~500 MB); foreground the HotpotQA load (also slow due
+  # to HF's script-mode loader). Both writes go to local HF cache. Saves ~1-2 min wall.
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  path = snapshot_download(repo_id='colbert-ir/colbertv2.0', token=os.environ['HF_TOKEN'])
+  print(f'OK: ColBERT-v2 at {path}')
+  " &
+  COLBERT_DL_PID=$!
+
+  echo "=== [setup 7/8] load HotpotQA distractor dev split AND pre-extract bridge JSONL ==="
+  # Pre-extract first 200 bridge questions to JSONL so the experiment script's load_bridge_questions
+  # uses the FAST PATH (instant load) instead of the slow HF script-mode loader at runtime.
+  python -c "
+  import os, json
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from datasets import load_dataset
+  ds = load_dataset('hotpotqa/hotpot_qa', 'distractor', split='validation', trust_remote_code=True)
+  print(f'OK: HotpotQA distractor/validation loaded; n={len(ds)}')
+  out_dir = os.path.expanduser('~/sky_workdir/data')
+  os.makedirs(out_dir, exist_ok=True)
+  out_path = os.path.join(out_dir, 'hotpot_distractor_bridge.jsonl')
+  bridge_count = 0
+  with open(out_path, 'w') as f:
+      for ex in ds:
+          if ex.get('type') == 'bridge':
+              f.write(json.dumps({
+                  'id': ex['id'],
+                  'question': ex['question'],
+                  'type': ex['type'],
+                  'context': {
+                      'title': list(ex['context']['title']),
+                      'sentences': [list(sl) for sl in ex['context']['sentences']],
+                  },
+                  'supporting_facts': {
+                      'title': list(ex['supporting_facts']['title']),
+                      'sent_id': [int(s) for s in ex['supporting_facts']['sent_id']],
+                  },
+              }) + chr(10))
+              bridge_count += 1
+              if bridge_count >= 200:
+                  break
+  print(f'OK: pre-extracted {bridge_count} bridge questions to {out_path}')
+  "
+
+  echo "  waiting on background ColBERT-v2 download..."
+  wait $COLBERT_DL_PID
+  echo "  parallel downloads complete"
+
+  echo "=== [setup 8/8] CELL-COLBERT script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_colbert_v2_hotpot_distractor_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_EXP_NAME=colbert_v2_hotpot_distractor_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-COLBERT ColBERT-v2 HotpotQA distractor pretest START ==="
+  python -u experiments/exp_colbert_v2_hotpot_distractor_v1.py \
+    --n-questions 100 \
+    --top-k 10
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_colbert_v2_hotpot_distractor_v1/ 2>&1 | head -10
+  cat ~/sky_workdir/data/exp_colbert_v2_hotpot_distractor_v1/metrics.json 2>&1 | python3 -m json.tool | head -40

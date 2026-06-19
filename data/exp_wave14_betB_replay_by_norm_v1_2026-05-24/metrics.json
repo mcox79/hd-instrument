@@ -1,0 +1,97 @@
+{
+  "verdict": "REPLAY_NORM_MIDDLE_BAND",
+  "verdict_msg": "Norm-weighted within +/-0.02 of uniform; ret_uniform=0.843, ret_weighted=0.846, delta=+0.002.",
+  "elapsed_s": 405.98399999999674,
+  "summary": {
+    "per_mode": {
+      "uniform": {
+        "7": {
+          "retention_A": 0.8391320713134582,
+          "bpc_A_baseline": 2.496635631611386,
+          "bpc_A_after_C": 2.9752594579104894,
+          "mode": "uniform"
+        },
+        "17": {
+          "retention_A": 0.8529802958319385,
+          "bpc_A_baseline": 2.4965502276050135,
+          "bpc_A_after_C": 2.9268556844798503,
+          "mode": "uniform"
+        },
+        "23": {
+          "retention_A": 0.8497248993916494,
+          "bpc_A_baseline": 2.501425277869991,
+          "bpc_A_after_C": 2.9438060243507715,
+          "mode": "uniform"
+        },
+        "31": {
+          "retention_A": 0.8432190151503114,
+          "bpc_A_baseline": 2.501517627647314,
+          "bpc_A_after_C": 2.966628577750225,
+          "mode": "uniform"
+        },
+        "41": {
+          "retention_A": 0.8320601562847921,
+          "bpc_A_baseline": 2.471044199176117,
+          "bpc_A_after_C": 2.969790321663166,
+          "mode": "uniform"
+        }
+      },
+      "norm_weighted": {
+        "7": {
+          "retention_A": 0.8413441909120859,
+          "bpc_A_baseline": 2.4966356409335257,
+          "bpc_A_after_C": 2.9674367136557613,
+          "mode": "norm_weighted"
+        },
+        "17": {
+          "retention_A": 0.8564945303541466,
+          "bpc_A_baseline": 2.496550229547126,
+          "bpc_A_after_C": 2.914846669849535,
+          "mode": "norm_weighted"
+        },
+        "23": {
+          "retention_A": 0.8517798901754446,
+          "bpc_A_baseline": 2.5014252735973437,
+          "bpc_A_after_C": 2.936703839159803,
+          "mode": "norm_weighted"
+        },
+        "31": {
+          "retention_A": 0.8443403341115878,
+          "bpc_A_baseline": 2.5015176292010035,
+          "bpc_A_after_C": 2.9626887738735026,
+          "mode": "norm_weighted"
+        },
+        "41": {
+          "retention_A": 0.8338545426087826,
+          "bpc_A_baseline": 2.4710441987876943,
+          "bpc_A_after_C": 2.9633995769296035,
+          "mode": "norm_weighted"
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "replay_modes": [
+      "uniform",
+      "norm_weighted"
+    ],
+    "replay_frac": 0.5,
+    "ema_alpha": 0.7,
+    "pass_retention": 0.91,
+    "delta_fail": 0.02,
+    "delta_tie": 0.02
+  }
+}

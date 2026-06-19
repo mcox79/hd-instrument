@@ -1,0 +1,18 @@
+{
+  "anchor_name": "integ_selection_ops_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: selection ties best blending operator. additive=0.0736 minimax=0.0783 temp=0.0736 tournament=0.0785 topk=0.0818",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "additive": 0.0736,
+      "minimax": 0.0783,
+      "temperature": 0.0736,
+      "tournament": 0.0785,
+      "topk": 0.0818
+    }
+  ],
+  "elapsed_s": 0.07169604301452637,
+  "summary": "MIDDLE_BAND: selection ties best blending operator. additive=0.0736 minimax=0.0783 temp=0.0736 tournament=0.0785 topk=0.0818"
+}

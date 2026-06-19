@@ -1,0 +1,19 @@
+{
+  "anchor_name": "patternb_capacity_K_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Pattern B holds >=20 items/bundle at F1>=0.95 (N=4096) -- ample compositional capacity. F1 by K: {'K5': 1.0, 'K10': 1.0, 'K20': 1.0}; production K-limit(F1>=0.95)=20 at N=4096",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K5": 1.0,
+        "K10": 1.0,
+        "K20": 1.0
+      },
+      "klim": 20
+    }
+  ],
+  "elapsed_s": 1.3282122611999512,
+  "summary": "HARD_PASS: Pattern B holds >=20 items/bundle at F1>=0.95 (N=4096) -- ample compositional capacity. F1 by K: {'K5': 1.0, 'K10': 1.0, 'K20': 1.0}; production K-limit(F1>=0.95)=20 at N=4096"
+}

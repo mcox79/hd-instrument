@@ -1,0 +1,407 @@
+{
+  "verdict": "SCALE_FAIL",
+  "verdict_msg": "Mechanism fails even at small n_facts. Per-K: K=30: lk_red=0.0pp kept=100.00%, K=100: lk_red=0.0pp kept=100.00%, K=300: lk_red=0.0pp kept=100.00%, K=1000: lk_red=0.0pp kept=100.00%",
+  "elapsed_s": 5.75,
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "K_list": [
+      30,
+      100,
+      300,
+      1000
+    ],
+    "alpha": 0.5,
+    "erase_frac": 0.3,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "n_facts": 30,
+      "alpha": 0.5,
+      "n_erase": 9,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0,
+      "per_seed": [
+        {
+          "seed": 17,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 23,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 31,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 41,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 53,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        }
+      ]
+    },
+    {
+      "n_facts": 100,
+      "alpha": 0.5,
+      "n_erase": 30,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0,
+      "per_seed": [
+        {
+          "seed": 17,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 23,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 31,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 41,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 53,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        }
+      ]
+    },
+    {
+      "n_facts": 300,
+      "alpha": 0.5,
+      "n_erase": 90,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0,
+      "per_seed": [
+        {
+          "seed": 17,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 23,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 31,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 41,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 53,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        }
+      ]
+    },
+    {
+      "n_facts": 1000,
+      "alpha": 0.5,
+      "n_erase": 300,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0,
+      "per_seed": [
+        {
+          "seed": 17,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 23,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 31,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 41,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        },
+        {
+          "seed": 53,
+          "leak_A": 1.0,
+          "kept_A": 1.0,
+          "leak_B": 1.0,
+          "kept_B": 1.0
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "n_facts": 30,
+        "alpha": 0.5,
+        "n_erase": 9,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 23,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 31,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 41,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 53,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          }
+        ]
+      },
+      {
+        "n_facts": 100,
+        "alpha": 0.5,
+        "n_erase": 30,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 23,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 31,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 41,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 53,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          }
+        ]
+      },
+      {
+        "n_facts": 300,
+        "alpha": 0.5,
+        "n_erase": 90,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 23,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 31,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 41,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 53,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          }
+        ]
+      },
+      {
+        "n_facts": 1000,
+        "alpha": 0.5,
+        "n_erase": 300,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 23,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 31,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 41,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          },
+          {
+            "seed": 53,
+            "leak_A": 1.0,
+            "kept_A": 1.0,
+            "leak_B": 1.0,
+            "kept_B": 1.0
+          }
+        ]
+      }
+    ]
+  }
+}

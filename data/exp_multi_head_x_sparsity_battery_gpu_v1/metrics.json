@@ -1,0 +1,39 @@
+{
+  "anchor_name": "multi_head_x_sparsity_battery_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial compounding (2-5x). ref(H1,f0.10)=0.0996 best=0.3999 at (H,f)=(2, 0.05) | best/ref=4.01x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "H": 1,
+      "f": 0.05,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.19970703125
+    },
+    {
+      "H": 1,
+      "f": 0.1,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.099609375
+    },
+    {
+      "H": 2,
+      "f": 0.05,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.39990234375
+    },
+    {
+      "H": 2,
+      "f": 0.1,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.19970703125
+    }
+  ],
+  "elapsed_s": 1.0282816886901855,
+  "summary": "MIDDLE_BAND: partial compounding (2-5x). ref(H1,f0.10)=0.0996 best=0.3999 at (H,f)=(2, 0.05) | best/ref=4.01x"
+}

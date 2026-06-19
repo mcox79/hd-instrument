@@ -1,0 +1,94 @@
+{
+  "seed": 17,
+  "configs": [
+    [
+      4096,
+      4,
+      0.3,
+      8.0,
+      1024,
+      0.3,
+      "N=4096 M=1024 alpha=0.3"
+    ],
+    [
+      4096,
+      4,
+      0.3,
+      8.0,
+      1024,
+      0.5,
+      "N=4096 M=1024 alpha=0.5"
+    ],
+    [
+      4096,
+      4,
+      0.3,
+      8.0,
+      256,
+      0.3,
+      "N=4096 M=256 alpha=0.3"
+    ]
+  ],
+  "sweep_results": [
+    {
+      "k": 4,
+      "arousal": 0.3,
+      "beta": 8.0,
+      "pool_size": 1024,
+      "alpha": 0.3,
+      "seed": 17,
+      "n_substrate": 4096,
+      "batch_size": 64,
+      "train_bpc": 3.794509645843506,
+      "test_bpc": 2.8389495699034395,
+      "train_test_gap": -0.9555600759400664,
+      "final_pool_used": 1024,
+      "wall_time_s": 100.41093379999802,
+      "config_label": "N=4096 M=1024 alpha=0.3"
+    },
+    {
+      "k": 4,
+      "arousal": 0.3,
+      "beta": 8.0,
+      "pool_size": 256,
+      "alpha": 0.3,
+      "seed": 17,
+      "n_substrate": 4096,
+      "batch_size": 64,
+      "train_bpc": 3.804954229736328,
+      "test_bpc": 2.8558220506070704,
+      "train_test_gap": -0.9491321791292577,
+      "final_pool_used": 256,
+      "wall_time_s": 95.76917379999941,
+      "config_label": "N=4096 M=256 alpha=0.3"
+    },
+    {
+      "k": 4,
+      "arousal": 0.3,
+      "beta": 8.0,
+      "pool_size": 1024,
+      "alpha": 0.5,
+      "seed": 17,
+      "n_substrate": 4096,
+      "batch_size": 64,
+      "train_bpc": 3.9670986198425293,
+      "test_bpc": 2.889289143576175,
+      "train_test_gap": -1.0778094762663541,
+      "final_pool_used": 1024,
+      "wall_time_s": 103.95593880000524,
+      "config_label": "N=4096 M=1024 alpha=0.5"
+    }
+  ],
+  "best": {
+    "label": "N=4096 M=1024 alpha=0.3",
+    "test_bpc": 2.8389495699034395,
+    "train_bpc": 3.794509645843506
+  },
+  "reference": {
+    "hebbian_baseline_N1024": 3.16,
+    "larger_N4096_no_pool": 3.02,
+    "pointer_chain_N1024_M1024_a03": 2.91,
+    "tiny_transformer_best": 2.39
+  },
+  "headline": "Combined (N=4096 + pointer-chain) best test bpc = 2.839"
+}

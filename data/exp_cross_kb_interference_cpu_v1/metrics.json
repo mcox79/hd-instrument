@@ -1,0 +1,15 @@
+{
+  "anchor_name": "cross_kb_interference_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cross-KB interference <=0.05 -- two tenants share one space with negligible cross-talk (multi-tenant isolation). interference=0.0000 recall=1.0000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "interference": 0.0,
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.13476991653442383,
+  "summary": "HARD_PASS: cross-KB interference <=0.05 -- two tenants share one space with negligible cross-talk (multi-tenant isolation). interference=0.0000 recall=1.0000"
+}

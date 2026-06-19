@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap3_8_zkp_primitive_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate ZK proof-of-knowledge -- honest prover always accepted, prover-without-fact always rejected (soundness), transcript leaks nothing (ZK). Substrate proves it has fact F without revealing F (Schnorr/Fiat-Shamir). completeness=1.000 soundness=1.000 zk-leak=0.0000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "completeness": 1.0,
+      "soundness": 1.0,
+      "zk_leak": 0.0,
+      "n": 50
+    }
+  ],
+  "elapsed_s": 0.22663021087646484,
+  "summary": "HARD_PASS: substrate ZK proof-of-knowledge -- honest prover always accepted, prover-without-fact always rejected (soundness), transcript leaks nothing (ZK). Substrate proves it has fact F without revealing F (Schnorr/Fiat-Shamir). completeness=1.000 soundness=1.000 zk-leak=0.0000"
+}

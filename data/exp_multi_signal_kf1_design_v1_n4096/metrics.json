@@ -1,0 +1,224 @@
+{
+  "verdict": "KF1MS_MIDDLE_BAND",
+  "verdict_msg": "COMPOSITE_INT: min=0.898 in (0.75,0.9). M=128 wmean_AUC=0.906  M=1024 wmean_AUC=0.905  M=4096 wmean_AUC=0.898",
+  "elapsed_s": 33.87,
+  "summary": {
+    "anchor": "multi_signal_kf1_design_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M_ops": [
+      128,
+      1024,
+      4096
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "per_op": {
+      "128": {
+        "composite_wmean": 0.90588,
+        "composite_max": 1.0,
+        "n_seeds": 5,
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.52942
+      },
+      "1024": {
+        "composite_wmean": 0.90533,
+        "composite_max": 1.0,
+        "n_seeds": 5,
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.52664
+      },
+      "4096": {
+        "composite_wmean": 0.8977,
+        "composite_max": 1.0,
+        "n_seeds": 5,
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.48852
+      }
+    },
+    "cells": [
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5436,
+        "composite_wmean": 0.90872,
+        "composite_max": 1.0,
+        "M": 128,
+        "seed": 7
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.462,
+        "composite_wmean": 0.8924,
+        "composite_max": 1.0,
+        "M": 128,
+        "seed": 17
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5608,
+        "composite_wmean": 0.91216,
+        "composite_max": 1.0,
+        "M": 128,
+        "seed": 23
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5233,
+        "composite_wmean": 0.90466,
+        "composite_max": 1.0,
+        "M": 128,
+        "seed": 31
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5574,
+        "composite_wmean": 0.91148,
+        "composite_max": 1.0,
+        "M": 128,
+        "seed": 41
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5173,
+        "composite_wmean": 0.90346,
+        "composite_max": 1.0,
+        "M": 1024,
+        "seed": 7
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.532,
+        "composite_wmean": 0.9064,
+        "composite_max": 1.0,
+        "M": 1024,
+        "seed": 17
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5768,
+        "composite_wmean": 0.91536,
+        "composite_max": 1.0,
+        "M": 1024,
+        "seed": 23
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.515,
+        "composite_wmean": 0.903,
+        "composite_max": 1.0,
+        "M": 1024,
+        "seed": 31
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.4921,
+        "composite_wmean": 0.89842,
+        "composite_max": 1.0,
+        "M": 1024,
+        "seed": 41
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5063,
+        "composite_wmean": 0.90126,
+        "composite_max": 1.0,
+        "M": 4096,
+        "seed": 7
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.4813,
+        "composite_wmean": 0.89626,
+        "composite_max": 1.0,
+        "M": 4096,
+        "seed": 17
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.5247,
+        "composite_wmean": 0.90494,
+        "composite_max": 1.0,
+        "M": 4096,
+        "seed": 23
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.4711,
+        "composite_wmean": 0.89422,
+        "composite_max": 1.0,
+        "M": 4096,
+        "seed": 31
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.4592,
+        "composite_wmean": 0.89184,
+        "composite_max": 1.0,
+        "M": 4096,
+        "seed": 41
+      }
+    ],
+    "verdict": "KF1MS_MIDDLE_BAND",
+    "verdict_msg": "COMPOSITE_INT: min=0.898 in (0.75,0.9). M=128 wmean_AUC=0.906  M=1024 wmean_AUC=0.905  M=4096 wmean_AUC=0.898",
+    "elapsed_s": 33.87
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "anchor_name": "substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial consolidation OR control not null (quant-floor conditional unclear). reduction%: A_n8192_noreplay=0.00 B_n8192_replay=29.17 C_n4096_replay=51.13",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "alpha": 0.12,
+  "topK": 20,
+  "R_star": 10,
+  "lambda": 0.1,
+  "elapsed_s": 1.0233180522918701,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": {
+        "A_n8192_noreplay": {
+          "cell": "A_n8192_noreplay",
+          "N": 8192,
+          "M": 983,
+          "replay": false,
+          "energy_init": 0.003847636515274644,
+          "energy_final": 0.003847636515274644,
+          "reduction_pct": 0.0
+        },
+        "B_n8192_replay": {
+          "cell": "B_n8192_replay",
+          "N": 8192,
+          "M": 983,
+          "replay": true,
+          "energy_init": 0.003847636515274644,
+          "energy_final": 0.0026952330954372883,
+          "reduction_pct": 29.95093522356139
+        },
+        "C_n4096_replay": {
+          "cell": "C_n4096_replay",
+          "N": 4096,
+          "M": 492,
+          "replay": true,
+          "energy_init": 0.0038000585045665503,
+          "energy_final": 0.00185685814358294,
+          "reduction_pct": 51.13605086047881
+        }
+      },
+      "peak_gpu_gb": 0.847282176,
+      "elapsed_s": 0.20673298835754395
+    },
+    {
+      "seed": 17,
+      "cells": {
+        "A_n8192_noreplay": {
+          "cell": "A_n8192_noreplay",
+          "N": 8192,
+          "M": 983,
+          "replay": false,
+          "energy_init": 0.003903766395524144,
+          "energy_final": 0.003903766395524144,
+          "reduction_pct": 0.0
+        },
+        "B_n8192_replay": {
+          "cell": "B_n8192_replay",
+          "N": 8192,
+          "M": 983,
+          "replay": true,
+          "energy_init": 0.003903766395524144,
+          "energy_final": 0.0027689968701452017,
+          "reduction_pct": 29.068574287494947
+        },
+        "C_n4096_replay": {
+          "cell": "C_n4096_replay",
+          "N": 4096,
+          "M": 492,
+          "replay": true,
+          "energy_init": 0.0037345574237406254,
+          "energy_final": 0.0017725005745887756,
+          "reduction_pct": 52.537853918124156
+        }
+      },
+      "peak_gpu_gb": 0.847282176,
+      "elapsed_s": 0.19373416900634766
+    },
+    {
+      "seed": 23,
+      "cells": {
+        "A_n8192_noreplay": {
+          "cell": "A_n8192_noreplay",
+          "N": 8192,
+          "M": 983,
+          "replay": false,
+          "energy_init": 0.0038955705240368843,
+          "energy_final": 0.0038955705240368843,
+          "reduction_pct": 0.0
+        },
+        "B_n8192_replay": {
+          "cell": "B_n8192_replay",
+          "N": 8192,
+          "M": 983,
+          "replay": true,
+          "energy_init": 0.0038955705240368843,
+          "energy_final": 0.0027580687310546637,
+          "reduction_pct": 29.19986928653426
+        },
+        "C_n4096_replay": {
+          "cell": "C_n4096_replay",
+          "N": 4096,
+          "M": 492,
+          "replay": true,
+          "energy_init": 0.00394793227314949,
+          "energy_final": 0.001930298749357462,
+          "reduction_pct": 51.10606953552808
+        }
+      },
+      "peak_gpu_gb": 0.847282176,
+      "elapsed_s": 0.18818044662475586
+    },
+    {
+      "seed": 31,
+      "cells": {
+        "A_n8192_noreplay": {
+          "cell": "A_n8192_noreplay",
+          "N": 8192,
+          "M": 983,
+          "replay": false,
+          "energy_init": 0.003840930527076125,
+          "energy_final": 0.003840930527076125,
+          "reduction_pct": 0.0
+        },
+        "B_n8192_replay": {
+          "cell": "B_n8192_replay",
+          "N": 8192,
+          "M": 983,
+          "replay": true,
+          "energy_init": 0.003840930527076125,
+          "energy_final": 0.0027277686167508364,
+          "reduction_pct": 28.981560917662947
+        },
+        "C_n4096_replay": {
+          "cell": "C_n4096_replay",
+          "N": 4096,
+          "M": 492,
+          "replay": true,
+          "energy_init": 0.003849680768325925,
+          "energy_final": 0.0019283138681203127,
+          "reduction_pct": 49.90975919137179
+        }
+      },
+      "peak_gpu_gb": 0.847282176,
+      "elapsed_s": 0.18985199928283691
+    },
+    {
+      "seed": 41,
+      "cells": {
+        "A_n8192_noreplay": {
+          "cell": "A_n8192_noreplay",
+          "N": 8192,
+          "M": 983,
+          "replay": false,
+          "energy_init": 0.003912707325071096,
+          "energy_final": 0.003912707325071096,
+          "reduction_pct": 0.0
+        },
+        "B_n8192_replay": {
+          "cell": "B_n8192_replay",
+          "N": 8192,
+          "M": 983,
+          "replay": true,
+          "energy_init": 0.003912707325071096,
+          "energy_final": 0.0027908526826649904,
+          "reduction_pct": 28.67207440988388
+        },
+        "C_n4096_replay": {
+          "cell": "C_n4096_replay",
+          "N": 4096,
+          "M": 492,
+          "replay": true,
+          "energy_init": 0.003925106022506952,
+          "energy_final": 0.0019253365462645888,
+          "reduction_pct": 50.94815159880959
+        }
+      },
+      "peak_gpu_gb": 0.847282176,
+      "elapsed_s": 0.1938791275024414
+    }
+  ]
+}

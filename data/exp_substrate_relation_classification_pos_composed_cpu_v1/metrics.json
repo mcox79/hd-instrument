@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_relation_classification_pos_composed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: POS composition hurts (<0.65) -- out-of-domain POS tags add noise. POS-composed macro-F1=0.3965 vs lexical 0.3916 (composition lift +0.0049)",
+  "summary": "HARD_FAIL: POS composition hurts (<0.65) -- out-of-domain POS tags add noise. POS-composed macro-F1=0.3965 vs lexical 0.3916 (composition lift +0.0049)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.3965,
+      "lexical": {
+        "macro_f1": 0.3916,
+        "acc": 0.4967
+      },
+      "pos_composed": {
+        "macro_f1": 0.3965,
+        "acc": 0.49
+      },
+      "composition_lift": 0.0049,
+      "n_classes": 19
+    }
+  ],
+  "elapsed_s": 11.057855129241943
+}

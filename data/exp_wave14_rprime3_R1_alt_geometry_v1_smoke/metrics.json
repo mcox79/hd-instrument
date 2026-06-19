@@ -1,0 +1,41 @@
+{
+  "verdict": "RPRIME3_R1_HARD_PASS_ALT_GEOMETRY_RESCUE",
+  "verdict_msg": "Alt-metric outperforms inner-product: |corr_alt|=0.947 >= 0.6 AND |corr_inner|=0.221 <= 0.35. corr(retention, inner_prod)=-0.221, corr(retention, alt_metric)=-0.947.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "n_pairs": 3,
+        "retentions": [
+          0.8365859985351562,
+          0.8130506277084351,
+          0.8140336871147156
+        ],
+        "inner_products": [
+          0.0042543308809399605,
+          0.01503853127360344,
+          -0.0012262680102139711
+        ],
+        "wasserstein1s": [
+          0.1971873641014099,
+          0.4057811498641968,
+          0.33031246066093445
+        ],
+        "corr_retention_innerprod": -0.2211677320956123,
+        "corr_retention_alt_metric": -0.9465524046514803
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 128,
+    "M_stored": 20,
+    "n_task_pairs": 3,
+    "seeds": [
+      17
+    ],
+    "pass_alt_corr": 0.6,
+    "pass_inner_cap": 0.35,
+    "fail_both_corr": 0.3
+  }
+}

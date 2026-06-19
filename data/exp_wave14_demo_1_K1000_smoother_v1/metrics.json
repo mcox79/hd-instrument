@@ -1,0 +1,23 @@
+{
+  "verdict": "DEMO_1_K1000_BETTER",
+  "verdict_msg": "composed_acc=1.000>0.95.",
+  "elapsed_s": 10.26600000000326,
+  "summary": {
+    "composed_acc": 1.0,
+    "n": 90,
+    "K_total": 999
+  },
+  "config": {
+    "N": 65536,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 333,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials": 30,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

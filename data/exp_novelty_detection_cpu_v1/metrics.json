@@ -1,0 +1,15 @@
+{
+  "anchor_name": "novelty_detection_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate flags novel/OOD inputs by cleanup-confidence (margin) AUC>=0.85 -- known facts retrieve with high margin, novel keys collapse to noise; intrinsic OOD signal, no separate detector. novelty-AUC=1.000 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "novelty_auc": 1.0,
+      "n": 300
+    }
+  ],
+  "elapsed_s": 86.66078186035156,
+  "summary": "HARD_PASS: substrate flags novel/OOD inputs by cleanup-confidence (margin) AUC>=0.85 -- known facts retrieve with high margin, novel keys collapse to noise; intrinsic OOD signal, no separate detector. novelty-AUC=1.000 (n=300)"
+}

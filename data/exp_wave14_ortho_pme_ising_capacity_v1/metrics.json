@@ -1,0 +1,41 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: factor2_frac=0.00; alpha_max_mean=1.0407. PME Ising capacity off from Hopfield by > factor 2.",
+  "elapsed_s": 0.0029249191284179688,
+  "summary": {
+    "N64": {
+      "N": 64,
+      "n_seeds": 2,
+      "alpha_max_mean": 1.017273474691915,
+      "alpha_max_std": 0.004752019773491711,
+      "alpha_c_ratio_mean": 7.371546918057355,
+      "in_factor2_frac": 0.0,
+      "hopfield_alpha_c": 0.138
+    },
+    "N128": {
+      "N": 128,
+      "n_seeds": 2,
+      "alpha_max_mean": 1.0641518310180327,
+      "alpha_max_std": 0.003789980545936933,
+      "alpha_c_ratio_mean": 7.711245152304584,
+      "in_factor2_frac": 0.0,
+      "hopfield_alpha_c": 0.138
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      64,
+      128
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "M_frac": 0.1,
+    "hopfield_alpha_c": 0.138,
+    "field": "Pairwise maximum-entropy / Ising model",
+    "orthogonal_probe": true,
+    "P_deflated": 0.36
+  }
+}

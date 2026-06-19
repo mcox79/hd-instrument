@@ -1,0 +1,2589 @@
+{
+  "candidate_edges": [
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "CS/self_supervised_learning",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T3/contrastive_learning",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T3/count_nb",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T3/discriminative_perceptron",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/basal_ganglia",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/evolutionary_stable_strategy",
+      "b": "CROSSDISC/ess_to_adversarial_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/long_term_potentiation_ltp",
+      "b": "CROSSDISC/ltp_to_hebbian_reinforcement",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/neural_population_dynamics",
+      "b": "PHYS/chaos_theory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "BIO/synaptic_plasticity_stdp",
+      "b": "CROSSDISC/stdp_to_temporal_policy",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CAP_bundling",
+      "b": "CAP_superposition",
+      "signals": [
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "CAP_discriminative_perceptron",
+      "b": "PP-375_multistep_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_discriminative_perceptron",
+      "b": "PP-376_multibench_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_discriminative_perceptron",
+      "b": "PP-378_code_algopattern",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_bind",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_bind",
+      "b": "T2_FAM/algebraic_binding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_unbind",
+      "b": "PP-225_fact_recall_kb100K",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_unbind",
+      "b": "PP-367_unified_algebra_lang_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_unbind",
+      "b": "RETRIEVAL_kb_fact_extensions",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_unbind",
+      "b": "RETRIEVAL_multi_hop",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_unbind",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_fhrr_unbind",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_viterbi_decoding",
+      "b": "PP-364_pos_tagger",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CAP_viterbi_decoding",
+      "b": "PP-369_slot_filling",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "CHEM/protein_folding_levinthal",
+      "b": "CROSSDISC/anderson_to_cleanup_attractors",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CHEM/protein_folding_levinthal",
+      "b": "CROSSDISC/ising_to_modern_hopfield",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CHEM/protein_folding_levinthal",
+      "b": "CROSSDISC/protein_folding_to_cleanup_funnel",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CHEM/protein_folding_levinthal",
+      "b": "PHYS/anderson_localization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CHEM/protein_folding_levinthal",
+      "b": "T1/lyapunov_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/anderson_to_cleanup_attractors",
+      "b": "CROSSDISC/ising_to_modern_hopfield",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/anderson_to_cleanup_attractors",
+      "b": "CROSSDISC/protein_folding_to_cleanup_funnel",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/anderson_to_cleanup_attractors",
+      "b": "PHYS/anderson_localization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/anderson_to_cleanup_attractors",
+      "b": "T1/lyapunov_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/cerebellum_to_predictive_substrate",
+      "b": "CROSSDISC/predictive_coding_to_predictive_substrate",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/cerebellum_to_predictive_substrate",
+      "b": "NEURO/cerebellum_internal_model",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/cerebellum_to_predictive_substrate",
+      "b": "NEURO/predictive_coding_rao_ballard",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/cognitive_map_to_concept_links",
+      "b": "CROSSDISC/percolation_to_capability_path",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/cognitive_map_to_concept_links",
+      "b": "NEURO/cognitive_map_tolman",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/cognitive_map_to_concept_links",
+      "b": "T3/random_walks_on_graphs",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/dmn_to_self_knowing",
+      "b": "NEURO/default_mode_network",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/dmn_to_self_knowing",
+      "b": "RULE_metric_matches_semantic",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/dopamine_rpe_to_credit_assignment",
+      "b": "NEURO/dopamine_rpe_schultz",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/grid_cells_to_wavelets",
+      "b": "NEURO/grid_cells_entorhinal",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/ising_to_modern_hopfield",
+      "b": "CROSSDISC/protein_folding_to_cleanup_funnel",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/ising_to_modern_hopfield",
+      "b": "PHYS/anderson_localization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/ising_to_modern_hopfield",
+      "b": "PHYS/ising_model",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/ising_to_modern_hopfield",
+      "b": "T1/lyapunov_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/ising_to_modern_hopfield",
+      "b": "T3/attention_mechanism",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/kam_to_perturbation_stability",
+      "b": "PHYS/kolmogorov_arnold_moser",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/lorenz_to_dynamical_substrate",
+      "b": "PHYS/lorenz_chaos",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/markov_chain_to_random_walk_retrieval",
+      "b": "T3/random_walks_on_graphs",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/percolation_to_capability_path",
+      "b": "NEURO/cognitive_map_tolman",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/percolation_to_capability_path",
+      "b": "T3/random_walks_on_graphs",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/place_cells_to_spatial_binding",
+      "b": "NEURO/place_cells_hippocampus",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/predictive_coding_to_predictive_substrate",
+      "b": "NEURO/cerebellum_internal_model",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/predictive_coding_to_predictive_substrate",
+      "b": "NEURO/predictive_coding_rao_ballard",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/protein_folding_to_cleanup_funnel",
+      "b": "PHYS/anderson_localization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/protein_folding_to_cleanup_funnel",
+      "b": "T1/lyapunov_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/qubit_to_fhrr_phasor",
+      "b": "QINFO/qubit",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/tda_to_substrate_topology",
+      "b": "PHYS/topological_data_analysis",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/theta_gamma_to_hrr",
+      "b": "NEURO/theta_gamma_coupling",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CROSSDISC/working_memory_baddeley_to_substrate_scratchpad",
+      "b": "NEURO/working_memory_baddeley",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/meta_learning",
+      "b": "T3/backward_algorithm_atom",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/meta_learning",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/meta_learning",
+      "b": "T3/forward_algorithm_atom",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T3/contrastive_learning",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T3/count_nb",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T3/discriminative_perceptron",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/self_supervised_learning",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/transfer_learning",
+      "b": "T3/adam_optimizer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/transfer_learning",
+      "b": "T3/cross_entropy_loss",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/transfer_learning",
+      "b": "T3/stochastic_gradient_descent",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/transfer_learning",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "CS/transfer_learning",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "LEX_entity_gpe",
+      "b": "LEX_entity_org",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "LEX_entity_gpe",
+      "b": "LEX_entity_person",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "LEX_entity_org",
+      "b": "LEX_entity_person",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/ROLE_ARG1_theme",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/ROLE_ARG2_recipient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/ROLE_ARGM_LOC_location",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/ROLE_ARGM_TMP_time",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/SCHEMA_CHANGE_ADD",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/SCHEMA_CHANGE_SUB",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG0_agent",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/ROLE_ARG2_recipient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/ROLE_ARGM_LOC_location",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/ROLE_ARGM_TMP_time",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/SCHEMA_CHANGE_ADD",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/SCHEMA_CHANGE_SUB",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG1_theme",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/ROLE_ARGM_LOC_location",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/ROLE_ARGM_TMP_time",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/SCHEMA_CHANGE_ADD",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/SCHEMA_CHANGE_SUB",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARG2_recipient",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/ROLE_ARGM_TMP_time",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/SCHEMA_CHANGE_ADD",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/SCHEMA_CHANGE_SUB",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_LOC_location",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_TMP_time",
+      "b": "MWP/SCHEMA_CHANGE_ADD",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_TMP_time",
+      "b": "MWP/SCHEMA_CHANGE_SUB",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_TMP_time",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_TMP_time",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_TMP_time",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/ROLE_ARGM_TMP_time",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_ADD",
+      "b": "MWP/SCHEMA_CHANGE_SUB",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_ADD",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_ADD",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_ADD",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_ADD",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_SUB",
+      "b": "MWP/SCHEMA_COMBINE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_SUB",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_SUB",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_CHANGE_SUB",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_COMBINE",
+      "b": "MWP/SCHEMA_COMPARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_COMBINE",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_COMBINE",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_COMPARE",
+      "b": "MWP/SCHEMA_EQUAL_GROUPS",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_COMPARE",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "MWP/SCHEMA_EQUAL_GROUPS",
+      "b": "MWP/SCHEMA_SHARE",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "NEURO/cerebellum_internal_model",
+      "b": "NEURO/predictive_coding_rao_ballard",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "NEURO/cognitive_map_tolman",
+      "b": "T3/random_walks_on_graphs",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "NEURO/default_mode_network",
+      "b": "RULE_metric_matches_semantic",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "PHYS/anderson_localization",
+      "b": "T1/lyapunov_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "PHYS/ising_model",
+      "b": "T1/lyapunov_stability",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "PHYS/ising_model",
+      "b": "T3/attention_mechanism",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "PP-367_unified_algebra_lang_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "PP-371_reasoning_routing",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "RETRIEVAL_kb_fact_extensions",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "RETRIEVAL_multi_hop",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "RETRIEVAL_reasoning_routing_pp371",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-225_fact_recall_kb100K",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-364_pos_tagger",
+      "b": "PP-369_slot_filling",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "PP-364_pos_tagger",
+      "b": "T3/backward_algorithm",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-364_pos_tagger",
+      "b": "T3/forward_algorithm",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-364_pos_tagger",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "PP-371_reasoning_routing",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "RETRIEVAL_kb_fact_extensions",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "RETRIEVAL_multi_hop",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "RETRIEVAL_reasoning_routing_pp371",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-367_unified_algebra_lang_math",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-369_slot_filling",
+      "b": "T3/backward_algorithm",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-369_slot_filling",
+      "b": "T3/forward_algorithm",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-369_slot_filling",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-370_intent_classification",
+      "b": "PP-376_multibench_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-370_intent_classification",
+      "b": "PP-378_code_algopattern",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-370_intent_classification",
+      "b": "T3/count_nb",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-371_reasoning_routing",
+      "b": "PP-375_multistep_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-371_reasoning_routing",
+      "b": "PP-376_multibench_math",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-371_reasoning_routing",
+      "b": "PP-378_code_algopattern",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-371_reasoning_routing",
+      "b": "RETRIEVAL_reasoning_routing_pp371",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-371_reasoning_routing",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-371_reasoning_routing",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-375_multistep_math",
+      "b": "PP-376_multibench_math",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "PP-375_multistep_math",
+      "b": "PP-378_code_algopattern",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "PP-375_multistep_math",
+      "b": "RETRIEVAL_reasoning_routing_pp371",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-375_multistep_math",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "PP-376_multibench_math",
+      "b": "PP-378_code_algopattern",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "PP-376_multibench_math",
+      "b": "RETRIEVAL_reasoning_routing_pp371",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-376_multibench_math",
+      "b": "T2_FAM/discriminative_classification",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-376_multibench_math",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "PP-378_code_algopattern",
+      "b": "RETRIEVAL_reasoning_routing_pp371",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-378_code_algopattern",
+      "b": "T2_FAM/discriminative_classification",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "PP-378_code_algopattern",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_kb_fact_extensions",
+      "b": "RETRIEVAL_multi_hop",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_kb_fact_extensions",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_kb_fact_extensions",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_multi_hop",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_multi_hop",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_reasoning_routing_pp371",
+      "b": "RETRIEVAL_schema_pp372",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_reasoning_routing_pp371",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_schema_pp372",
+      "b": "SCHOOL/vsa_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "RETRIEVAL_schema_pp372",
+      "b": "unified_compositional_engine",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "SCHOOL/cognitive_architecture_family",
+      "b": "SCHOOL/discriminative_learning_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "SCHOOL/free_probability_family",
+      "b": "SCHOOL/spectral_observability_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "SCHOOL/hmm_sequence_labeling_family",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "SCHOOL/hopfield_family",
+      "b": "SCHOOL/sparse_distributed_memory_family",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "SCHOOL/vsa_family",
+      "b": "T2_FAM/algebraic_binding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T1/complex_field",
+      "b": "T1/real_field",
+      "signals": [
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T1/discrete_fourier_transform",
+      "b": "T1/optimal_substructure",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T1/discrete_fourier_transform",
+      "b": "T1/recursion",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T1/dynamic_programming_bellman",
+      "b": "T3/bellman_equation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T1/dynamic_programming_bellman",
+      "b": "T3/eisner_parsing",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T1/dynamic_programming_bellman",
+      "b": "T3/viterbi_decoder",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T1/lyapunov_stability",
+      "b": "T3/attention_mechanism",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T1/optimal_substructure",
+      "b": "T1/recursion",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/cleanup",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/complementary_learning_systems",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/cosine_cleanup",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/fhrr_bind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/fhrr_unbind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/modern_hopfield_ramsauer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/amit_gutfreund_sompolinsky_capacity",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/bundling",
+      "b": "T2/cleanup",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/bundling",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/circular_convolution",
+      "b": "T2/fhrr_bind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/circular_convolution",
+      "b": "T2/superposition",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/circular_convolution",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/circular_convolution",
+      "b": "T3/discrete_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/circular_convolution",
+      "b": "T3/fast_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/complementary_learning_systems",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/cosine_cleanup",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/fhrr_bind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/fhrr_unbind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/modern_hopfield_ramsauer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T3/cosine_similarity",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T3/euclidean_distance",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cleanup",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/complementary_learning_systems",
+      "b": "T2/cosine_cleanup",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/complementary_learning_systems",
+      "b": "T2/fhrr_bind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/complementary_learning_systems",
+      "b": "T2/fhrr_unbind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/complementary_learning_systems",
+      "b": "T2/modern_hopfield_ramsauer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/complementary_learning_systems",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/complementary_learning_systems",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cosine_cleanup",
+      "b": "T2/fhrr_bind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cosine_cleanup",
+      "b": "T2/fhrr_unbind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cosine_cleanup",
+      "b": "T2/modern_hopfield_ramsauer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cosine_cleanup",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/cosine_cleanup",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T2/fhrr_unbind",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T2/modern_hopfield_ramsauer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T2/superposition",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T3/discrete_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T3/fast_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_unbind",
+      "b": "T2/modern_hopfield_ramsauer",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_unbind",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/fhrr_unbind",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/glauber_dynamics",
+      "b": "T3/wright_fisher_process",
+      "signals": [
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T2/modern_hopfield_ramsauer",
+      "b": "T2/sparse_distributed_memory",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/modern_hopfield_ramsauer",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/modern_hopfield_ramsauer",
+      "b": "T3/cosine_similarity",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/modern_hopfield_ramsauer",
+      "b": "T3/euclidean_distance",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/sparse_distributed_memory",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/sparse_distributed_memory",
+      "b": "T3/cosine_similarity",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/sparse_distributed_memory",
+      "b": "T3/euclidean_distance",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/superposition",
+      "b": "T2/tensor_product_representation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/superposition",
+      "b": "T3/discrete_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/superposition",
+      "b": "T3/fast_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/tensor_product_representation",
+      "b": "T3/discrete_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/tensor_product_representation",
+      "b": "T3/fast_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/tier2_schema",
+      "b": "T3/count_nb",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/tier2_schema",
+      "b": "T3/discriminative_perceptron",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/tier2_schema",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2/tier2_schema",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T2_FAM/probabilistic_inference",
+      "b": "T2_FAM/sequence_decoding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/adam_optimizer",
+      "b": "T3/cross_entropy_loss",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/adam_optimizer",
+      "b": "T3/stochastic_gradient_descent",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/adam_optimizer",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/adam_optimizer",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/backward_algorithm",
+      "b": "T3/forward_algorithm",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/backward_algorithm",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/backward_algorithm_atom",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/backward_algorithm_atom",
+      "b": "T3/forward_algorithm_atom",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bayes_factor",
+      "b": "T3/bocpd_changepoint",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bayes_factor",
+      "b": "T3/count_nb",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bayes_factor",
+      "b": "T3/iterative_proportional_fitting",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bayes_factor",
+      "b": "T3/mcmc_sampling",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bellman_equation",
+      "b": "T3/markov_decision_process",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bellman_equation",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bellman_equation",
+      "b": "T3/q_learning",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bocpd_changepoint",
+      "b": "T3/count_nb",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bocpd_changepoint",
+      "b": "T3/iterative_proportional_fitting",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bocpd_changepoint",
+      "b": "T3/mcmc_sampling",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bocpd_changepoint",
+      "b": "T3/mp_bulk_kl",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/bootstrap_resampling",
+      "b": "T3/cross_validation",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/chu_liu_edmonds",
+      "b": "T3/hungarian_assignment",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/chu_liu_edmonds",
+      "b": "T3/prims_mst",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/chu_liu_edmonds_algo",
+      "b": "T3/eisner_parsing",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/contrastive_learning",
+      "b": "T3/count_nb",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/contrastive_learning",
+      "b": "T3/discriminative_perceptron",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/contrastive_learning",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/contrastive_learning",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/contrastive_learning",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/contrastive_learning",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/cosine_similarity",
+      "b": "T3/euclidean_distance",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/discriminative_perceptron",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/hmm_emission",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/iterative_proportional_fitting",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/mcmc_sampling",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/viterbi_decoder",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T4/cascade_hmm_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/count_nb",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/cross_entropy_loss",
+      "b": "T3/stochastic_gradient_descent",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/cross_entropy_loss",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/cross_entropy_loss",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discrete_fourier_transform",
+      "b": "T3/fast_fourier_transform",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T3/expectation_maximization",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T3/hmm_emission",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T3/viterbi_decoder",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T4/cascade_hmm_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/eisner_parsing",
+      "b": "T3/viterbi_decoder",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/expectation_maximization",
+      "b": "T3/forward_algorithm_atom",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/expectation_maximization",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/expectation_maximization",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/expectation_maximization",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/forward_algorithm",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/hmm_emission",
+      "b": "T3/viterbi_decoder",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/hmm_emission",
+      "b": "T4/cascade_hmm_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/hungarian_assignment",
+      "b": "T3/prims_mst",
+      "signals": [
+        "uses>=2"
+      ]
+    },
+    {
+      "a": "T3/iterative_proportional_fitting",
+      "b": "T3/mcmc_sampling",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/markov_decision_process",
+      "b": "T3/policy_gradient",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/markov_decision_process",
+      "b": "T3/q_learning",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/policy_gradient",
+      "b": "T3/q_learning",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/policy_gradient",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/policy_gradient",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/softmax_function",
+      "b": "T3/transformer_block",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/stochastic_gradient_descent",
+      "b": "T3/structured_perceptron_collins",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/stochastic_gradient_descent",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/structured_perceptron_collins",
+      "b": "T3/viterbi_decoder",
+      "signals": [
+        "cap",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T3/structured_perceptron_collins",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/structured_perceptron_collins",
+      "b": "T4/cascade_hmm_pipeline",
+      "signals": [
+        "cap",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T3/structured_perceptron_collins",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "cap",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T3/viterbi_decoder",
+      "b": "T3/viterbi_decoding",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T3/viterbi_decoder",
+      "b": "T4/cascade_hmm_pipeline",
+      "signals": [
+        "cap",
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T3/viterbi_decoder",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "spec/inst"
+      ]
+    },
+    {
+      "a": "T3/viterbi_decoding",
+      "b": "T4/cascade_hmm_pipeline",
+      "signals": [
+        "cap"
+      ]
+    },
+    {
+      "a": "T4/cascade_hmm_pipeline",
+      "b": "T4/discriminative_perceptron_pipeline",
+      "signals": [
+        "spec/inst"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "size": 72,
+      "members": [
+        "BIO/basal_ganglia",
+        "CAP_discriminative_perceptron",
+        "CAP_fhrr_bind",
+        "CAP_fhrr_unbind",
+        "CAP_viterbi_decoding",
+        "CS/meta_learning",
+        "CS/self_supervised_learning",
+        "CS/transfer_learning",
+        "PP-225_fact_recall_kb100K",
+        "PP-364_pos_tagger",
+        "PP-367_unified_algebra_lang_math",
+        "PP-369_slot_filling",
+        "PP-370_intent_classification",
+        "PP-371_reasoning_routing"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 11,
+      "members": [
+        "MWP/ROLE_ARG0_agent",
+        "MWP/ROLE_ARG1_theme",
+        "MWP/ROLE_ARG2_recipient",
+        "MWP/ROLE_ARGM_LOC_location",
+        "MWP/ROLE_ARGM_TMP_time",
+        "MWP/SCHEMA_CHANGE_ADD",
+        "MWP/SCHEMA_CHANGE_SUB",
+        "MWP/SCHEMA_COMBINE",
+        "MWP/SCHEMA_COMPARE",
+        "MWP/SCHEMA_EQUAL_GROUPS",
+        "MWP/SCHEMA_SHARE"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 8,
+      "members": [
+        "CHEM/protein_folding_levinthal",
+        "CROSSDISC/anderson_to_cleanup_attractors",
+        "CROSSDISC/ising_to_modern_hopfield",
+        "CROSSDISC/protein_folding_to_cleanup_funnel",
+        "PHYS/anderson_localization",
+        "PHYS/ising_model",
+        "T1/lyapunov_stability",
+        "T3/attention_mechanism"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 5,
+      "members": [
+        "CROSSDISC/cognitive_map_to_concept_links",
+        "CROSSDISC/markov_chain_to_random_walk_retrieval",
+        "CROSSDISC/percolation_to_capability_path",
+        "NEURO/cognitive_map_tolman",
+        "T3/random_walks_on_graphs"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 4,
+      "members": [
+        "CROSSDISC/cerebellum_to_predictive_substrate",
+        "CROSSDISC/predictive_coding_to_predictive_substrate",
+        "NEURO/cerebellum_internal_model",
+        "NEURO/predictive_coding_rao_ballard"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 3,
+      "members": [
+        "CROSSDISC/dmn_to_self_knowing",
+        "NEURO/default_mode_network",
+        "RULE_metric_matches_semantic"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 3,
+      "members": [
+        "T1/discrete_fourier_transform",
+        "T1/optimal_substructure",
+        "T1/recursion"
+      ],
+      "dominant_signal": "cap"
+    },
+    {
+      "size": 3,
+      "members": [
+        "LEX_entity_gpe",
+        "LEX_entity_org",
+        "LEX_entity_person"
+      ],
+      "dominant_signal": "uses>=2"
+    },
+    {
+      "size": 3,
+      "members": [
+        "T3/chu_liu_edmonds",
+        "T3/hungarian_assignment",
+        "T3/prims_mst"
+      ],
+      "dominant_signal": "uses>=2"
+    }
+  ],
+  "n_math_atoms": 497,
+  "signal_counts": {
+    "cap": 267,
+    "uses>=2": 79,
+    "spec/inst": 16
+  },
+  "min_shared": 2
+}

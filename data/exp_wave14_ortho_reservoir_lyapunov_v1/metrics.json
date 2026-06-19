@@ -1,0 +1,59 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: RC-1 rejected. L_max(alpha_c)=-5.4728, far from 0 (threshold=0.5) or non-monotone. Lyapunov spectrum does not track alpha_c; no edge-of-chaos signature.",
+  "elapsed_s": 0.505,
+  "summary": {
+    "l_max_by_alpha": {
+      "0.3": {
+        "mean": -5.516434,
+        "std": 0.033118,
+        "n_valid": 3,
+        "ftles": [
+          -5.475242,
+          -5.517726,
+          -5.556333
+        ]
+      },
+      "0.5": {
+        "mean": -5.472834,
+        "std": 0.056045,
+        "n_valid": 3,
+        "ftles": [
+          -5.51867,
+          -5.505914,
+          -5.393918
+        ]
+      },
+      "0.7": {
+        "mean": -5.482596,
+        "std": 0.024681,
+        "n_valid": 3,
+        "ftles": [
+          -5.512095,
+          -5.484005,
+          -5.451688
+        ]
+      }
+    },
+    "l_max_at_alpha_c": -5.472834,
+    "alpha_c_closest": 0.5,
+    "is_monotone": false,
+    "sign_flip_alpha": null,
+    "N": 256,
+    "T_lyapunov": 200
+  },
+  "config": {
+    "N": 256,
+    "alpha_sweep": [
+      0.3,
+      0.5,
+      0.7
+    ],
+    "n_ics": 3,
+    "T_lyapunov": 200,
+    "alpha_c": 0.5625,
+    "smoke": true,
+    "orthogonal_probe": "reservoir_computing_lyapunov_spectrum",
+    "hypothesis": "RC-1: L_max ~ 0 at alpha_c (edge-of-chaos)"
+  }
+}

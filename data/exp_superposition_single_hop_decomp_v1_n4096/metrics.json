@@ -1,0 +1,98 @@
+{
+  "verdict": "SUP_DEC_HARD_FAIL",
+  "verdict_msg": "CANNOT_DECOMPOSE: frac_hf=0.500. main_cells=2 per_pattern_pass={'P1_uniform': 0, 'P2_peaked': 0} kscale_mean_per_K={10: 1.0, 5: 1.0} kscale_range=0.000 frac_hf=0.500 N=1024",
+  "elapsed_s": 0.38,
+  "summary": {
+    "anchor": "superposition_single_hop_decomp_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "patterns": [
+      "P1_uniform",
+      "P2_peaked"
+    ],
+    "K_scaling": [
+      5,
+      10
+    ],
+    "seeds": [
+      17
+    ],
+    "main_expected": 2,
+    "kscale_expected": 2,
+    "total_expected": 4,
+    "n_completed": 4,
+    "cells": [
+      {
+        "pattern": "P1_uniform",
+        "K": 10,
+        "seed": "kscale_P1_uniform_K10_seed17",
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.28349,
+        "decomp_correlation": 0.99331,
+        "r_norm": 10.82962,
+        "mean_alpha_stored": 0.106445,
+        "max_spurious_alpha": 0.030176,
+        "betas_sum": 1.0,
+        "per_component_hits": 10,
+        "kind": "kscale",
+        "seed_int": 17,
+        "_partial_written_at": 1780143318.9754593
+      },
+      {
+        "pattern": "P1_uniform",
+        "K": 5,
+        "seed": "kscale_P1_uniform_K5_seed17",
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.12286,
+        "decomp_correlation": 0.99802,
+        "r_norm": 14.75669,
+        "mean_alpha_stored": 0.209844,
+        "max_spurious_alpha": 0.025781,
+        "betas_sum": 1.0,
+        "per_component_hits": 5,
+        "kind": "kscale",
+        "seed_int": 17,
+        "_partial_written_at": 1780143318.8962252
+      },
+      {
+        "pattern": "P1_uniform",
+        "K": 10,
+        "seed": "main_P1_uniform_K10_seed17",
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.28349,
+        "decomp_correlation": 0.99331,
+        "r_norm": 10.82962,
+        "mean_alpha_stored": 0.106445,
+        "max_spurious_alpha": 0.030176,
+        "betas_sum": 1.0,
+        "per_component_hits": 10,
+        "kind": "main",
+        "seed_int": 17,
+        "_partial_written_at": 1780143318.7505636
+      },
+      {
+        "pattern": "P2_peaked",
+        "K": 10,
+        "seed": "main_P2_peaked_K10_seed17",
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.30344,
+        "decomp_correlation": 0.98895,
+        "r_norm": 33.44629,
+        "mean_alpha_stored": 0.189238,
+        "max_spurious_alpha": 0.057422,
+        "betas_sum": 1.9,
+        "per_component_hits": 10,
+        "kind": "main",
+        "seed_int": 17,
+        "_partial_written_at": 1780143318.8240666
+      }
+    ],
+    "verdict": "SUP_DEC_HARD_FAIL",
+    "verdict_msg": "CANNOT_DECOMPOSE: frac_hf=0.500. main_cells=2 per_pattern_pass={'P1_uniform': 0, 'P2_peaked': 0} kscale_mean_per_K={10: 1.0, 5: 1.0} kscale_range=0.000 frac_hf=0.500 N=1024",
+    "elapsed_s": 0.38
+  }
+}

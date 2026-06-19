@@ -1,0 +1,26 @@
+{
+  "verdict": "BET_W_PARTIAL",
+  "verdict_msg": "cons=0.200, factual=0.700. Partial counterfactual behavior.",
+  "elapsed_s": 0.11000000000058208,
+  "summary": {
+    "consistency": 0.2,
+    "factual_acc": 0.7,
+    "per_seed": [
+      {
+        "consistency": 0.2,
+        "factual_acc": 0.7
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 30,
+    "n_perturb": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

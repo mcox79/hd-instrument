@@ -1,0 +1,16 @@
+{
+  "N": 4096,
+  "B": 2,
+  "K_SWEEP": [
+    4096
+  ],
+  "BFM_SPARSITY_R": 0.01,
+  "THRESHOLD_T": 0.05,
+  "results": [
+    {
+      "K": 4096,
+      "K_over_N": 1.0,
+      "recovery_pct": 96.66666666666667
+    }
+  ]
+}

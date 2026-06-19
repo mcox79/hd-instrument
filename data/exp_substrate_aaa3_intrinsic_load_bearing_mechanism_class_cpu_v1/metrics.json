@@ -1,0 +1,41 @@
+{
+  "anchor_name": "substrate_aaa3_intrinsic_load_bearing_mechanism_class_cpu_v1",
+  "verdict": "SUPPORT",
+  "verdict_msg": "SUPPORT (Reservation C CONFIRMED, intrinsic): 3/3 authoring-INDEPENDENT signals show TOOLS far exceed MATERIALS (>=1.4x) -- tools ARE mechanism-class (serve more capabilities, connect to more atoms, span more domains). The load-bearing (Axis 2) distinction is REAL, NOT a category error. This resolves the confounded canonical AAA-3 (0.94x = authored-clique artifact): on intrinsic measures the axis is overwhelmingly real. intrinsic (authoring-independent) mechanism-class signals: capability_span 7.78x, neighbor_reach 27.85x, cross_domain_reach 2.03x (mean ratios TOOLS:MATERIALS). Resolves the canonical-AAA-3 confound (authored-clique sizes) by measuring each atom's OWN structure.",
+  "summary": "SUPPORT (Reservation C CONFIRMED, intrinsic): 3/3 authoring-INDEPENDENT signals show TOOLS far exceed MATERIALS (>=1.4x) -- tools ARE mechanism-class (serve more capabilities, connect to more atoms, span more domains). The load-bearing (Axis 2) distinction is REAL, NOT a category error. This resolves the confounded canonical AAA-3 (0.94x = authored-clique artifact): on intrinsic measures the axis is overwhelmingly real. intrinsic (authoring-independent) mechanism-class signals: capability_span 7.78x, neighbor_reach 27.85x, cross_domain_reach 2.03x (mean ratios TOOLS:MATERIALS). Resolves the canonical-AAA-3 confound (authored-clique sizes) by measuring each atom's OWN structure.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_tools": 34,
+      "signals": {
+        "capability_span": {
+          "tool_mean": 1.676,
+          "mat_mean": 0.215,
+          "mean_ratio": 7.78,
+          "tool_median": 0.0,
+          "mat_median": 0.0,
+          "median_ratio": 0.0
+        },
+        "neighbor_reach": {
+          "tool_mean": 55.588,
+          "mat_mean": 1.996,
+          "mean_ratio": 27.849,
+          "tool_median": 6.0,
+          "mat_median": 1.0,
+          "median_ratio": 6.0
+        },
+        "cross_domain_reach": {
+          "tool_mean": 1.206,
+          "mat_mean": 0.593,
+          "mean_ratio": 2.032,
+          "tool_median": 1.0,
+          "mat_median": 0.0,
+          "median_ratio": 1.0
+        }
+      },
+      "n_signals_pass": 3
+    }
+  ],
+  "elapsed_s": 0.11591362953186035
+}

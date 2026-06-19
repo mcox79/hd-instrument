@@ -1,0 +1,476 @@
+{
+  "n_candidates": 39,
+  "by_justification": {
+    "math_atom_has_no_concept_user": 39
+  },
+  "candidates": [
+    {
+      "proposed_id": "concept::CAPABILITY_using_convex_optimization",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/convex_optimization"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/convex_optimization has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_collins_structured_perceptron",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/collins_structured_perceptron"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/collins_structured_perceptron has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_superposition",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/superposition"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/superposition has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_bundling",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/bundling"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/bundling has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_vector_space",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/vector_space"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/vector_space has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_inner_product",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/inner_product"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/inner_product has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_cosine_similarity",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/cosine_similarity"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/cosine_similarity has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_complex_field",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/complex_field"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/complex_field has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_real_field",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/real_field"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/real_field has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_unit_modulus",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/unit_modulus"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/unit_modulus has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_probability_distribution",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/probability_distribution"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/probability_distribution has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_shannon_entropy",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/shannon_entropy"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/shannon_entropy has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_kl_divergence",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/kl_divergence"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/kl_divergence has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_group_axioms",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/group_axioms"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/group_axioms has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_ring_axioms",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/ring_axioms"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/ring_axioms has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_field_axioms",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/field_axioms"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/field_axioms has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_discrete_optimization",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/discrete_optimization"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/discrete_optimization has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_graph_topology",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T1/graph_topology"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T1/graph_topology has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_context_binding",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/context_binding"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/context_binding has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_role_filler_binding",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/role_filler_binding"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/role_filler_binding has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_hamming_distance",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/hamming_distance"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/hamming_distance has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_cosine_cleanup",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/cosine_cleanup"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/cosine_cleanup has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_circular_convolution",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T2/circular_convolution"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T2/circular_convolution has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_backward_algorithm",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/backward_algorithm"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/backward_algorithm has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_hungarian_assignment",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/hungarian_assignment"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/hungarian_assignment has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_jonker_volgenant",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/jonker_volgenant"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/jonker_volgenant has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_chu_liu_edmonds",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/chu_liu_edmonds"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/chu_liu_edmonds has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_prims_mst",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/prims_mst"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/prims_mst has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_dijkstra",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/dijkstra"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/dijkstra has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_astar",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/astar"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/astar has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_beam_search",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/beam_search"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/beam_search has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_dynamic_programming",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/dynamic_programming"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/dynamic_programming has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_pca_whitening",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/pca_whitening"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/pca_whitening has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_zca_whitening",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/zca_whitening"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/zca_whitening has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_bayesian_inference",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/bayesian_inference"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/bayesian_inference has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_map_estimation",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/map_estimation"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/map_estimation has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_em_algorithm",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/em_algorithm"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/em_algorithm has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_cross_entropy_loss",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/cross_entropy_loss"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/cross_entropy_loss has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    },
+    {
+      "proposed_id": "concept::CAPABILITY_using_perceptron_update",
+      "suggested_corpus": "concept",
+      "suggested_tier": "T2",
+      "suggested_kind": "capability",
+      "justification_type": "math_atom_has_no_concept_user",
+      "referenced_by": [
+        "math::T3/perceptron_update"
+      ],
+      "confidence": 0.4,
+      "notes": "Math primitive math::T3/perceptron_update has no concept-corpus capability decomposing to it; substrate may need a capability that uses this primitive"
+    }
+  ]
+}

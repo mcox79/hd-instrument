@@ -1,0 +1,17 @@
+{
+  "anchor_name": "pb_neg_whiten_pinv_recipe_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: whitening neutral for contradiction (within +-0.05). raw_contradiction_AUC=1.000 whitened_AUC=0.985 delta=-0.015",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "raw_auc": 1.0,
+      "whitened_auc": 0.9854666666666667
+    }
+  ],
+  "elapsed_s": 45.64793586730957,
+  "summary": "MIDDLE_BAND: whitening neutral for contradiction (within +-0.05). raw_contradiction_AUC=1.000 whitened_AUC=0.985 delta=-0.015"
+}

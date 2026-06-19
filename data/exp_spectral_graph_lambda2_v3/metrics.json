@@ -1,0 +1,78 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: corr+monotone HP 0/1. mean_corr=-0.881 monotone=0/1",
+  "elapsed_s": 2.53212308883667,
+  "n_seeds": 1,
+  "n_hp_corr": 0,
+  "n_hf_anti": 1,
+  "per_seed": [
+    {
+      "N": 512,
+      "seed": 17,
+      "corr_lambda_ret": -0.8807498731146524,
+      "is_monotone_lambda": false,
+      "min_lambda_2": 0.5120511621316765,
+      "alpha_results": [
+        {
+          "alpha_B": 0.0,
+          "M_B": 0,
+          "lambda_2": 0.5120511621316765,
+          "retention_A": 1.0
+        },
+        {
+          "alpha_B": 0.05,
+          "M_B": 25,
+          "lambda_2": 0.6204230409729005,
+          "retention_A": 1.0
+        },
+        {
+          "alpha_B": 0.1,
+          "M_B": 51,
+          "lambda_2": 0.7060594971079038,
+          "retention_A": 0.9411764705882353
+        },
+        {
+          "alpha_B": 0.15,
+          "M_B": 76,
+          "lambda_2": 0.8041988019633691,
+          "retention_A": 0.37254901960784315
+        },
+        {
+          "alpha_B": 0.2,
+          "M_B": 102,
+          "lambda_2": 0.8855295922650762,
+          "retention_A": 0.0392156862745098
+        },
+        {
+          "alpha_B": 0.3,
+          "M_B": 153,
+          "lambda_2": 1.0160639806536855,
+          "retention_A": 0.0
+        },
+        {
+          "alpha_B": 0.5,
+          "M_B": 256,
+          "lambda_2": 1.2551865330557932,
+          "retention_A": 0.0
+        }
+      ]
+    }
+  ],
+  "summary": "Spectral graph v3 N=512: MIDDLE_BAND",
+  "config": {
+    "N": 512,
+    "M_A_FRAC": 0.1,
+    "ALPHA_B_VALUES": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.5
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

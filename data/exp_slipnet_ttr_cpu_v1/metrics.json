@@ -1,0 +1,16 @@
+{
+  "anchor_name": "slipnet_ttr_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: TTR recall@1 <0.55 (per-type routing does not rescue polysemic cross-domain). recall@1=0.420 (n=28, rel-types=10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall1": 0.42,
+      "n_entities": 28,
+      "n_reltypes": 10
+    }
+  ],
+  "elapsed_s": 8.068273544311523,
+  "summary": "HARD_FAIL: TTR recall@1 <0.55 (per-type routing does not rescue polysemic cross-domain). recall@1=0.420 (n=28, rel-types=10)"
+}

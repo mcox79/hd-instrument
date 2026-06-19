@@ -1,0 +1,86 @@
+{
+  "seed": 17,
+  "n": 4096,
+  "k": 4,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "relu_b": 0.5,
+  "max_epochs": 15,
+  "lr": 0.01,
+  "w_weight_decay": 0.0001,
+  "delta_weight_decays": [
+    0.01,
+    0.001,
+    0.0001
+  ],
+  "results": [
+    {
+      "delta_wd": 0.01,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": 4.933604257605175,
+          "argmax_accuracy": 0.43386620507076673,
+          "w_frob": 0.0,
+          "byte_offset_norm": 0.0,
+          "wall_s": 57.37928209999518
+        },
+        {
+          "epoch": 15,
+          "test_bpc": 4.933604251390416,
+          "argmax_accuracy": 0.43386620507076673,
+          "w_frob": 0.0,
+          "byte_offset_norm": 0.0,
+          "wall_s": 171.23337360000005
+        }
+      ],
+      "wall_time_s": 172.21904789999826
+    },
+    {
+      "delta_wd": 0.001,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": 4.933604262266245,
+          "argmax_accuracy": 0.43386620507076673,
+          "w_frob": 0.0,
+          "byte_offset_norm": 0.0,
+          "wall_s": 57.20489860000089
+        },
+        {
+          "epoch": 15,
+          "test_bpc": 4.933604268481005,
+          "argmax_accuracy": 0.43386620507076673,
+          "w_frob": 0.0,
+          "byte_offset_norm": 0.0,
+          "wall_s": 171.0825440999979
+        }
+      ],
+      "wall_time_s": 171.09051380000164
+    },
+    {
+      "delta_wd": 0.0001,
+      "history": [
+        {
+          "epoch": 5,
+          "test_bpc": 4.933604260712555,
+          "argmax_accuracy": 0.43386620507076673,
+          "w_frob": 0.0,
+          "byte_offset_norm": 0.0,
+          "wall_s": 55.58531760000187
+        },
+        {
+          "epoch": 15,
+          "test_bpc": 4.933604262266245,
+          "argmax_accuracy": 0.43386620507076673,
+          "w_frob": 0.0,
+          "byte_offset_norm": 0.0,
+          "wall_s": 159.32422940000106
+        }
+      ],
+      "wall_time_s": 159.33187760000146
+    }
+  ],
+  "wall_time_total_s": 502.64154620000045
+}

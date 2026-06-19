@@ -1,0 +1,17 @@
+{
+  "anchor_name": "phase4_bipartite_svamp_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <0.25 -- bipartite factorization underperforms the joint perceptron. accuracy=0.187 (56/300) train-labeled=322",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.187,
+      "n_correct": 56,
+      "n_test": 300,
+      "n_train_labeled": 322
+    }
+  ],
+  "elapsed_s": 4.314190626144409,
+  "summary": "HARD_FAIL: <0.25 -- bipartite factorization underperforms the joint perceptron. accuracy=0.187 (56/300) train-labeled=322"
+}

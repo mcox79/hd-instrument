@@ -1,0 +1,17 @@
+{
+  "anchor_name": "qdef_rate_limit_5qpm_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: rate limit blocks adversarial campaign by k=20 with <1%% legit impact -- universal defense per GOLD 4.0. legit_throughput_impact=0.000% campaign_first_block_at=5/20 campaign_blocked=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "legit_impact": 0.0,
+      "n_legit": 61,
+      "campaign_first_block": 5,
+      "campaign_blocked": true
+    }
+  ],
+  "elapsed_s": 0.09150910377502441,
+  "summary": "HARD_PASS: rate limit blocks adversarial campaign by k=20 with <1%% legit impact -- universal defense per GOLD 4.0. legit_throughput_impact=0.000% campaign_first_block_at=5/20 campaign_blocked=True"
+}

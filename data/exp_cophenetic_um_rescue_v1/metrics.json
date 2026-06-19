@@ -1,0 +1,27 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "P": 20,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "aggregated": {
+    "mean_cophenetic_single": 0.4786740092921226,
+    "std_cophenetic_single": 0.12280697117973197,
+    "mean_silhouette": 0.0015759421007664998,
+    "mean_linkage_disagreement": 0.17995372803642598,
+    "n_seeds": 3,
+    "seeds_pass_hp": 0
+  },
+  "thresholds": {
+    "HP_COPHENETIC": 0.85,
+    "HF_COPHENETIC": 0.65,
+    "HP_SILHOUETTE": 0.4,
+    "HF_LINKAGE_DISAGREEMENT": 0.3
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "cophenetic_corr=0.4787 < 0.65 (hard-fail). No tree structure in overlap matrix. silhouette=0.0016 n_seeds=3.",
+  "elapsed_s": 2.2850115299224854
+}

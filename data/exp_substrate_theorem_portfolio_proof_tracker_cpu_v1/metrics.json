@@ -1,0 +1,150 @@
+{
+  "anchor_name": "substrate_theorem_portfolio_proof_tracker_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: median depth 1.00 < 2 -- groundings are SOUND and complete (grounded-rate 1.00) but mostly SHALLOW single-hop assertions to a T1 axiom; only a few (e.g. convolution depth 3) are genuine multi-step chains. Deep derivation DAGs are still being authored. named-theorem portfolio: 18 goals; GROUNDED-to-T1=1.0000 (18/18); SOUND=1.0000; median depth=1.00 max=2 over 4266 structural edges. (Re-measures the substrate's self-deduction on its OWN named theorems at the post-unblock graph scale; prior sparse-graph FINDER had avg depth ~1.3.)",
+  "summary": "MIDDLE_BAND: median depth 1.00 < 2 -- groundings are SOUND and complete (grounded-rate 1.00) but mostly SHALLOW single-hop assertions to a T1 axiom; only a few (e.g. convolution depth 3) are genuine multi-step chains. Deep derivation DAGs are still being authored. named-theorem portfolio: 18 goals; GROUNDED-to-T1=1.0000 (18/18); SOUND=1.0000; median depth=1.00 max=2 over 4266 structural edges. (Re-measures the substrate's self-deduction on its OWN named theorems at the post-unblock graph scale; prior sparse-graph FINDER had avg depth ~1.3.)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_goals": 18,
+      "grounded": 18,
+      "grounded_rate": 1.0,
+      "sound": 18,
+      "unsound": 0,
+      "sound_rate": 1.0,
+      "median_depth": 1.0,
+      "max_depth": 2,
+      "n_edges": 4266,
+      "rows": [
+        {
+          "goal": "T3/bayes_rule_synthesis",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/conditional_probability"
+        },
+        {
+          "goal": "T3/cauchy_schwarz_synthesis",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/inner_product"
+        },
+        {
+          "goal": "T3/characteristic_function_iid_sum_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/characteristic_function"
+        },
+        {
+          "goal": "T3/characteristic_function_taylor_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/probability_distribution"
+        },
+        {
+          "goal": "T3/clt_synthesis",
+          "grounded": true,
+          "depth": 2,
+          "sound": true,
+          "terminal_T1": "T1/probability_distribution"
+        },
+        {
+          "goal": "T3/convolution_theorem_synthesis",
+          "grounded": true,
+          "depth": 2,
+          "sound": true,
+          "terminal_T1": "T1/convolution_general"
+        },
+        {
+          "goal": "T3/dft_convolution_to_pointwise_lemma",
+          "grounded": true,
+          "depth": 2,
+          "sound": true,
+          "terminal_T1": "T1/characteristic_function"
+        },
+        {
+          "goal": "T3/dft_linearity_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/complex_field"
+        },
+        {
+          "goal": "T3/idft_inverse_property_lemma",
+          "grounded": true,
+          "depth": 2,
+          "sound": true,
+          "terminal_T1": "T1/characteristic_function"
+        },
+        {
+          "goal": "T3/inner_product_bilinearity_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/inner_product_space"
+        },
+        {
+          "goal": "T3/inner_product_positive_semidefinite_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/inner_product"
+        },
+        {
+          "goal": "T3/johnson_lindenstrauss_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/metric_space"
+        },
+        {
+          "goal": "T3/product_rule_probability_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/chain_rule_probability"
+        },
+        {
+          "goal": "T3/pythagoras_inner_product_synthesis",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/inner_product"
+        },
+        {
+          "goal": "T3/quadratic_nonnegative_discriminant_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/vector_space_over_field"
+        },
+        {
+          "goal": "T3/self_adjoint_operator_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/complex_field"
+        },
+        {
+          "goal": "T3/self_adjoint_real_eigenvalues_lemma",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/eigenvalue_eigenvector"
+        },
+        {
+          "goal": "T3/spectral_theorem_synthesis",
+          "grounded": true,
+          "depth": 1,
+          "sound": true,
+          "terminal_T1": "T1/eigenvalue_eigenvector"
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.978430986404419
+}

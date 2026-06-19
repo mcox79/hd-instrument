@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap4_6_schema_1000_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1000 cross-domain schemas at >=0.90 coverage + >=0.70 in-domain coherence -- common-sense schema compression scales to 1000 across domains. coverage=1.000 cross-domain=1.000 (1000 schemas)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 0.9998571428571429,
+      "cross_domain": 1.0,
+      "n_schemas": 1000
+    }
+  ],
+  "elapsed_s": 1.48720383644104,
+  "summary": "HARD_PASS: 1000 cross-domain schemas at >=0.90 coverage + >=0.70 in-domain coherence -- common-sense schema compression scales to 1000 across domains. coverage=1.000 cross-domain=1.000 (1000 schemas)"
+}

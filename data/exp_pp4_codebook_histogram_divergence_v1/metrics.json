@@ -1,0 +1,23 @@
+{
+  "anchor": "pp4_codebook_histogram_divergence_v1",
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "n_codebook": 64,
+      "tau": 0.19628157189874862,
+      "fa_rate": 0.05,
+      "detection_ops": 1,
+      "detected_within_limit": 1,
+      "max_drift_kl": 2.8107546613664254,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "CHD_DRIFT_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_detected=1/1 n_fa_pass=0/1 mean_tau=0.1963 detect_ops=[1]",
+  "elapsed_s": 0.01
+}

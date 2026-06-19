@@ -1,0 +1,20 @@
+{
+  "anchor_name": "exp_hp12_v1_extraction_attack_contrast_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate deletion is CATEGORICAL -- residual extraction <=1%% under 3 attacks (ROME 38%%/MEMIT 29%% leave fact recoverable). The deletion moat is architectural. pre_delete_extractable=1.000 -> post_delete_residual=0.0000 (vs ROME 0.38 / MEMIT 0.29) | retention=1.000",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "M_facts": 600,
+      "n_del": 60,
+      "pre_delete_extractable": 1.0,
+      "post_delete_residual": 0.0,
+      "retention": 1.0
+    }
+  ],
+  "elapsed_s": 3.1841297149658203,
+  "summary": "HARD_PASS: substrate deletion is CATEGORICAL -- residual extraction <=1%% under 3 attacks (ROME 38%%/MEMIT 29%% leave fact recoverable). The deletion moat is architectural. pre_delete_extractable=1.000 -> post_delete_residual=0.0000 (vs ROME 0.38 / MEMIT 0.29) | retention=1.000"
+}

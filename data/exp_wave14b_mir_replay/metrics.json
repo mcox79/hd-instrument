@@ -1,0 +1,19 @@
+{
+  "bpc_a_initial": 2.4817309517953148,
+  "REPLAY_FRACTION": 0.5,
+  "MIR_RESCORE_EVERY_N_BATCHES": 5,
+  "results": {
+    "no_replay": {
+      "bpc_a_post": 4.335208561497883,
+      "bwt": -1.8534776097025678
+    },
+    "random_replay": {
+      "bpc_a_post": 3.674071383517527,
+      "bwt": -1.1923404317222124
+    },
+    "mir_replay": {
+      "bpc_a_post": 3.694023250793078,
+      "bwt": -1.2122922989977631
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "verdict": "PARISI_DISCRIMINATES_CODEBOOK",
+  "verdict_msg": "P(q) discriminates codebook >= 2.0sigma at 1 (M, codebook-pair) cells. Examples: M=1024:random_bsc-hadamard=893.9sigma. Max separation: 893.9sigma.",
+  "elapsed_s": 3.3430000000007567,
+  "summary": {
+    "per_cell": {
+      "random_bsc_1024_17": {
+        "codebook_type": "random_bsc",
+        "M_stored": 1024,
+        "seed": 17,
+        "binder": 0.0008938820180024454,
+        "ultrametricity": 0.282,
+        "q2": 0.0009785618167370558,
+        "q4": 2.870181788239279e-06,
+        "n_overlaps": 523776
+      },
+      "hadamard_1024_17": {
+        "codebook_type": "hadamard",
+        "M_stored": 1024,
+        "seed": 17,
+        "binder": 0.0,
+        "ultrametricity": 1.0,
+        "q2": 0.0,
+        "q4": 0.0,
+        "n_overlaps": 523776
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "codebook_types": [
+      "random_bsc",
+      "hadamard"
+    ],
+    "M_ratios": [
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "n_triples": 500
+  }
+}

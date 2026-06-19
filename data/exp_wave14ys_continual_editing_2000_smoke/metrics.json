@@ -1,0 +1,639 @@
+{
+  "verdict": "CONTINUAL_2000_HOLDS",
+  "verdict_msg": "Kerdock holds 2000 edits: min_edited=1.000, min_kept=1.000.",
+  "elapsed_s": 2.1569999999992433,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_edit_trajectory": [
+          {
+            "edit_step": 1,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 2,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 3,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 4,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 5,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 6,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 7,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 8,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 9,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 10,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 11,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 12,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 13,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 14,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 15,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 16,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 17,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 18,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 19,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 20,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 21,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 22,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 23,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 24,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 25,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 26,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 27,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 28,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 29,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 30,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          }
+        ],
+        "min_edited_acc": 1.0,
+        "min_kept_acc": 0.9999999403953552,
+        "per_seed_trajectories": [
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ]
+        ]
+      },
+      "correlated": {
+        "per_edit_trajectory": [
+          {
+            "edit_step": 1,
+            "edited_acc": 1.0,
+            "kept_acc": 0.589442789554596
+          },
+          {
+            "edit_step": 2,
+            "edited_acc": 1.0,
+            "kept_acc": 0.8894324898719788
+          },
+          {
+            "edit_step": 3,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9794319272041321
+          },
+          {
+            "edit_step": 4,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 5,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 6,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 7,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 8,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 9,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 10,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 11,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 12,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 13,
+            "edited_acc": 0.9230769872665405,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 14,
+            "edited_acc": 0.9285714626312256,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 15,
+            "edited_acc": 0.9333333969116211,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 16,
+            "edited_acc": 0.9375,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 17,
+            "edited_acc": 0.9411764740943909,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 18,
+            "edited_acc": 0.944444477558136,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 19,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 20,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 21,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 22,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 23,
+            "edited_acc": 0.95652174949646,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 24,
+            "edited_acc": 0.9583333730697632,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 25,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 26,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 27,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 28,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          },
+          {
+            "edit_step": 29,
+            "edited_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "edit_step": 30,
+            "edited_acc": 1.0,
+            "kept_acc": 0.9999999403953552
+          }
+        ],
+        "min_edited_acc": 0.9230769872665405,
+        "min_kept_acc": 0.589442789554596,
+        "per_seed_trajectories": [
+          [
+            {
+              "edit_step": 1,
+              "edited_acc": 1.0,
+              "kept_acc": 0.589442789554596
+            },
+            {
+              "edit_step": 2,
+              "edited_acc": 1.0,
+              "kept_acc": 0.8894324898719788
+            },
+            {
+              "edit_step": 3,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9794319272041321
+            },
+            {
+              "edit_step": 4,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 5,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 6,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 7,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 8,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 9,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 10,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 11,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 12,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 13,
+              "edited_acc": 0.9230769872665405,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 14,
+              "edited_acc": 0.9285714626312256,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 15,
+              "edited_acc": 0.9333333969116211,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 16,
+              "edited_acc": 0.9375,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 17,
+              "edited_acc": 0.9411764740943909,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 18,
+              "edited_acc": 0.944444477558136,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 19,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 20,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 21,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 22,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 23,
+              "edited_acc": 0.95652174949646,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 24,
+              "edited_acc": 0.9583333730697632,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 25,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 26,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 27,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 28,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            },
+            {
+              "edit_step": 29,
+              "edited_acc": 1.0,
+              "kept_acc": 1.0
+            },
+            {
+              "edit_step": 30,
+              "edited_acc": 1.0,
+              "kept_acc": 0.9999999403953552
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 1024,
+    "n_edits": 30,
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

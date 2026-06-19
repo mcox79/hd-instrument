@@ -1,0 +1,32 @@
+{
+  "verdict": "HIPPO_INIT_P1_HARD_FAIL_P2_SKIP_P3_HARD_PASS",
+  "verdict_msg": "P1=P1_HARD_FAIL depth_ratio=1.00x (mean across seeds, PASS>=1.5x, FAIL<=1.0x). P2=P2_SKIP ndouble_ratio=N/A (Jelassi bound; PASS<0.8). P3=P3_HARD_PASS spectral_corr=0.986 (PASS>0.5).",
+  "elapsed_s": 116.60899999999674,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "depth_hippo": 50,
+        "depth_random": 50,
+        "p1_depth_ratio": 1.0,
+        "p2_ndouble_ratio": null,
+        "p3_spectral_corr": 0.9856157898902893,
+        "cos_hippo_at_d5": 1.0,
+        "cos_random_at_d5": 1.0
+      }
+    }
+  },
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "N_2x": 8192,
+    "d_max": 50,
+    "n_probes": 10,
+    "seeds": [
+      17
+    ],
+    "top_k_eigen": 32,
+    "p1_hard_pass_ratio": 1.5,
+    "p1_hard_fail_ratio": 1.0,
+    "run_p2": false
+  }
+}

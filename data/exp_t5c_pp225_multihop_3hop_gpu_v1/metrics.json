@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_pp225_multihop_3hop_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-225 delivers 2-HOP chain answers (held-out >=0.25) -- the projection composes with substrate multi-hop; the compositional MOAT pipes to the LLM. bare=0.000 train-recall=0.987 HELD-OUT-recall=0.810 (best 0.810) (149/100)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.9865771812080537,
+      "heldout_recall": 0.81,
+      "best_heldout": 0.81,
+      "n_train": 149,
+      "n_test": 100
+    }
+  ],
+  "elapsed_s": 200.26950192451477,
+  "summary": "HARD_PASS: PP-225 delivers 2-HOP chain answers (held-out >=0.25) -- the projection composes with substrate multi-hop; the compositional MOAT pipes to the LLM. bare=0.000 train-recall=0.987 HELD-OUT-recall=0.810 (best 0.810) (149/100)"
+}

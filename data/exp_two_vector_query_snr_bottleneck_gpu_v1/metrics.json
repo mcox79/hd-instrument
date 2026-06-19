@@ -1,0 +1,65 @@
+{
+  "anchor_name": "two_vector_query_snr_bottleneck_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: identity retrieval tolerates a HEAVILY degraded cue (cos as low as 0.45) -- the operating constraint (query SNR) is generous; cue quality is not a near-term risk and atom count is a non-issue. The two-vector index bottleneck is query encoding, with wide margin. identity holds (>=0.90) down to cos(cue,name)>=0.447 (q<=2.0) at n=8000 N=1024 alpha=0.5; curve=[(0.0, 1.0, 1.0), (0.3, 0.9578, 1.0), (0.6, 0.8575, 1.0), (1.0, 0.7071, 1.0), (1.5, 0.5547, 1.0), (2.0, 0.4472, 0.9979), (3.0, 0.3162, 0.8526), (5.0, 0.1961, 0.2587), (8.0, 0.124, 0.0485)]",
+  "summary": "HARD_PASS: identity retrieval tolerates a HEAVILY degraded cue (cos as low as 0.45) -- the operating constraint (query SNR) is generous; cue quality is not a near-term risk and atom count is a non-issue. The two-vector index bottleneck is query encoding, with wide margin. identity holds (>=0.90) down to cos(cue,name)>=0.447 (q<=2.0) at n=8000 N=1024 alpha=0.5; curve=[(0.0, 1.0, 1.0), (0.3, 0.9578, 1.0), (0.6, 0.8575, 1.0), (1.0, 0.7071, 1.0), (1.5, 0.5547, 1.0), (2.0, 0.4472, 0.9979), (3.0, 0.3162, 0.8526), (5.0, 0.1961, 0.2587), (8.0, 0.124, 0.0485)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "q": 0.0,
+          "cos_cue": 1.0,
+          "id_prec": 1.0
+        },
+        {
+          "q": 0.3,
+          "cos_cue": 0.9578,
+          "id_prec": 1.0
+        },
+        {
+          "q": 0.6,
+          "cos_cue": 0.8575,
+          "id_prec": 1.0
+        },
+        {
+          "q": 1.0,
+          "cos_cue": 0.7071,
+          "id_prec": 1.0
+        },
+        {
+          "q": 1.5,
+          "cos_cue": 0.5547,
+          "id_prec": 1.0
+        },
+        {
+          "q": 2.0,
+          "cos_cue": 0.4472,
+          "id_prec": 0.9979
+        },
+        {
+          "q": 3.0,
+          "cos_cue": 0.3162,
+          "id_prec": 0.8526
+        },
+        {
+          "q": 5.0,
+          "cos_cue": 0.1961,
+          "id_prec": 0.2587
+        },
+        {
+          "q": 8.0,
+          "cos_cue": 0.124,
+          "id_prec": 0.0485
+        }
+      ],
+      "q_max_ok": 2.0,
+      "cos_min_ok": 0.4472,
+      "N": 1024,
+      "n_atoms": 8000,
+      "alpha": 0.5
+    }
+  ],
+  "elapsed_s": 0.25989389419555664
+}

@@ -1,0 +1,23 @@
+{
+  "anchor_name": "substrate_concept_invention_INV_2_richer_metarules_higher_arity_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "0 NOVEL-TIGHT predicates pass 4-gate even with richer metarules (higher-arity + cross-relation + tier-guided) -> Claim 5b stays OPEN, boundary REFINED: the generator gap is not closed by richer metarules alone; novel candidates are either rediscovery, semantically-loose fan-out (rejected), or refuted by adversarial negatives. Phase-5-v3 lever = external truth source (Lever b) to certify novelty the substrate cannot self-supply (consistent with Iter-4 + INV-1 authoring-time-bound finding). CELL-INV-2: 25 primitives, 11 pos / 22 neg (incl adversarial); accepted=14 (REDISCOVERED=9, NOVEL-LOOSE-reject=5, NOVEL-TIGHT=0, NOVEL-TIGHT-4gate-PASS=0). Converged 0.3s.",
+  "summary": "0 NOVEL-TIGHT predicates pass 4-gate even with richer metarules (higher-arity + cross-relation + tier-guided) -> Claim 5b stays OPEN, boundary REFINED: the generator gap is not closed by richer metarules alone; novel candidates are either rediscovery, semantically-loose fan-out (rejected), or refuted by adversarial negatives. Phase-5-v3 lever = external truth source (Lever b) to certify novelty the substrate cannot self-supply (consistent with Iter-4 + INV-1 authoring-time-bound finding). CELL-INV-2: 25 primitives, 11 pos / 22 neg (incl adversarial); accepted=14 (REDISCOVERED=9, NOVEL-LOOSE-reject=5, NOVEL-TIGHT=0, NOVEL-TIGHT-4gate-PASS=0). Converged 0.3s.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_primitives": 25,
+      "n_positives": 11,
+      "n_negatives": 22,
+      "n_accepted": 14,
+      "n_rediscovered": 9,
+      "n_novel_loose": 5,
+      "n_novel_tight": 0,
+      "n_novel_tight_gate_pass": 0,
+      "novel_tight": [],
+      "elapsed_s": 0.3
+    }
+  ],
+  "elapsed_s": 1.451580286026001
+}

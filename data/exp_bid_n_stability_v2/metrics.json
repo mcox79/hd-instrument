@@ -1,0 +1,42 @@
+{
+  "verdict": "BID_N_HARD_PASS",
+  "verdict_msg": "BID remains OUTSIDE all Hopfield class bands through N=8192. mean_BID_by_N={1024: 66.33}. n_drift=0.000. any_inside_band=False. HP3 N-stability confirmed (drift=0.000 < 0.05). Non-static-Hopfield classification holds at production scale.",
+  "elapsed_s": 0.956627368927002,
+  "config": {
+    "N_values": [
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "per_N": {
+      "1024": [
+        {
+          "N": 1024,
+          "seed": 17,
+          "M_stored": 143,
+          "bid_estimate": 66.3263017760239,
+          "bid_ci_low": 56.46125306285368,
+          "bid_ci_high": 75.0149931073327,
+          "bid_normalized": 0.06477177907814834,
+          "in_retrieval_band": false,
+          "in_spinglass_band": false,
+          "in_paramagnetic_band": false,
+          "in_known_class": false,
+          "mean_overlap": 0.9840335445804196,
+          "std_overlap": 0.007857832194106431
+        }
+      ]
+    },
+    "N_values": [
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  }
+}

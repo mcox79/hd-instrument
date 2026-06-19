@@ -1,0 +1,38 @@
+{
+  "mode": "smoke",
+  "N": 512,
+  "m_fracs": [
+    0.25
+  ],
+  "seeds": [
+    17
+  ],
+  "f_sweep": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "elapsed_s": 19.0,
+  "per_mfrac": {
+    "0.25": {
+      "17": {
+        "r2": 0.8027,
+        "max_dev": 0.2003,
+        "M_frac": 0.25,
+        "M": 128,
+        "f_vals": [
+          0.0,
+          0.5,
+          1.0
+        ],
+        "ret_A_vals": [
+          0.5809,
+          0.6138,
+          1.0474
+        ]
+      }
+    }
+  },
+  "verdict_tag": "SS_V16_HARD_PASS",
+  "verdict_msg": "SAAD-SOLLA PLATEAU M-ROBUST: plateau holds at BOTH M_frac=['0.25']. M_fracs=['0.25'] pass_results={'0.25': {'pass_seeds': 1, 'total': 1}} N=8192 f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0]"
+}

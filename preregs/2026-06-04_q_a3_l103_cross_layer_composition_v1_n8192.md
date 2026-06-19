@@ -1,0 +1,33 @@
+# Prereg: q_a3_l103_cross_layer_composition_v1_n8192
+
+## Anchor
+q_a3_l103_cross_layer_composition_v1_n8192
+
+## Priority
+B (cycle 52 ladder continuation L=103 N=8192; PP-12/Q-A3 saturated 0.97, statistical confirmation of unbounded composition)
+
+## Scientific question
+Does cross-layer composition fidelity remain EXACT-1.0 at L=103 N=8192?
+ECC theory predicts UNLIMITED depth when per-stage alpha = 100/8192 = 0.0122 << alpha_c=0.138.
+
+## Pre-registered bands
+HARD-PASS: all 103 level fidelities >= 0.9999 unanimous (5/5 seeds) AND l103_acc >= 0.5.
+MIDDLE: any L_fid in [0.85, 0.9999) OR graceful degradation pattern.
+HARD-FAIL: any L_fid < 0.85 OR l103_acc < 0.5.
+
+## Formula self-tests (PROT-022)
+1. Capacity: M_INNER=100, N=8192 -> alpha=0.0122 < alpha_c=0.138. [EXPECTED: True]
+2. M_MID length == L_DEPTH - 2 == 101. [INPUT: L_DEPTH=103] [EXPECTED: len(M_MID)=101]
+3. L=103 chain: 102-ctx Hadamard roundtrip recovers xi_L1. [EXPECTED: exact]
+
+## N-suffix binding (PROT-018)
+anchor _n8192; production N = 8192. Script constant N = 8192.
+
+## Timeout estimate
+PROT-019 floor applied: timeout_s = 21600.
+
+## Smoke gate
+--skip-smoke: no local CUDA. Structurally identical to EXACT ladder series (generated from gen_qa3_scripts.py, same template as L=137/L=101 HARD_PASS).
+
+## Queue
+overnight_queue (GPU required).

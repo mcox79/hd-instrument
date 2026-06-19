@@ -1,0 +1,11 @@
+{"action": "DROP_SELF_LOOPS", "detail": "em_algorithm<->expectation_maximization + T2<->T3 em_algorithm self-references (collapse on merge)"}
+{"action": "REPOINT", "rel_type": "DEPENDS_ON", "old_src": "T3/expectation_maximization", "old_tgt": "T1/metric_space", "new_src": "math::T3/em_algorithm", "new_tgt": "T1/metric_space", "other": "metric_space"}
+{"action": "REPOINT", "rel_type": "USES", "old_src": "T3/expectation_maximization", "old_tgt": "T3/backward_algorithm_atom", "new_src": "math::T3/em_algorithm", "new_tgt": "T3/backward_algorithm_atom", "other": "backward_algorithm_atom"}
+{"action": "REPOINT", "rel_type": "USES", "old_src": "T3/expectation_maximization", "old_tgt": "T3/forward_algorithm_atom", "new_src": "math::T3/em_algorithm", "new_tgt": "T3/forward_algorithm_atom", "other": "forward_algorithm_atom"}
+{"action": "REPOINT", "rel_type": "USES", "old_src": "T3/expectation_maximization", "old_tgt": "T1/random_variable", "new_src": "math::T3/em_algorithm", "new_tgt": "T1/random_variable", "other": "random_variable"}
+{"action": "REPOINT", "rel_type": "DEPENDS_ON", "old_src": "T3/expectation_maximization", "old_tgt": "T2_FAM/weak_supervision", "new_src": "math::T3/em_algorithm", "new_tgt": "T2_FAM/weak_supervision", "other": "weak_supervision"}
+{"action": "REPOINT", "rel_type": "RELATES", "old_src": "CAP_dynamic_programming", "old_tgt": "math::T3/expectation_maximization", "new_src": "CAP_dynamic_programming", "new_tgt": "math::T3/em_algorithm", "other": "cap_dynamic_programming"}
+{"action": "REPOINT", "rel_type": "RELATES", "old_src": "unified_compositional_engine", "old_tgt": "math::T3/expectation_maximization", "new_src": "unified_compositional_engine", "new_tgt": "math::T3/em_algorithm", "other": "unified_compositional_engine"}
+{"action": "REPOINT", "rel_type": "RELATES", "old_src": "PP-375_multistep_math", "old_tgt": "math::T3/expectation_maximization", "new_src": "PP-375_multistep_math", "new_tgt": "math::T3/em_algorithm", "other": "pp-375_multistep_math"}
+{"action": "CONSOLIDATE_TIER_DUP", "detail": "re-point T2/em_algorithm + math::T2/em_algorithm edges to canonical math::T3/em_algorithm"}
+{"action": "DELETE_ATOM", "atom": "math::T3/expectation_maximization", "note": "merged into em_algorithm; capability preserved"}

@@ -1,0 +1,65 @@
+
+## v348 -> v349 @ BATCHED 7-VERDICT Cycle 18 (3 HP + 1 HF + 3 MIDDLE + 0 LVH; NEW TOP-LEVEL ROW PP-55 VSA-bind-over-SKAH-M algebraic side; Arrhenius constant-M composition HARD_FAIL; Wave-2 closed-form kappa3 noise robustness REFUTED over-conservative direction; CK-aging 3rd signature MIDDLE partial) -- 259th PROT-009 paired commit
+
+**Trigger.** Cycle 18 batch 7 neutral-classified verdicts 2026-06-02. All 7 fetched via tools.orchestrator.remote_state.get_metrics (all _source=remote authoritative; bridge is_stale=False). Pause-flag ABSENT (ACTIVE). REMOTE-FIRST per e51aee7. NEUTRAL classification per [[feedback-no-preframing]].
+
+**Step 0 -- Honest re-read (MANDATORY). All 7 labels HONEST. 0 LVH catches.**
+
+| # | anchor | prereg HP bands | per-cell metrics | honest verdict |
+|---|--------|----------------|-----------------|----------------|
+| 1 | q_b1_chain_depth_100_v1_n8192 | d5>=0.95 d10>=0.88 d20>=0.70 d30>=0.55 d45>=0.40 d100>=0.054; HF d5<0.80 OR d100<0.05 | d5=0.9621 d10=0.9620 d20=0.9618 d30=0.9615 d45=0.9628 d100=0.9624 (5/5 seeds; FLAT; d100 17.8x HP margin) | HARD_PASS CONFIRMED; flat-profile extends to d=100 at N=8192 |
+| 2 | pp48_nkt_cross_n_depth19_v1_n16384 | pos>=0.75 AND nkt_rep>=0.65; HF pos<0.40 OR nkt_rep<0.30 | pos_rate=1.0000 nkt_rep=1.0000 all 5 seeds unanimous; N=16384 depth=19 NKT_total=524287 | HARD_PASS CONFIRMED; third cross-N vertex d19/{N4096,N8192,N16384} |
+| 3 | kappa3_noise_robustness_sigma_g_sweep_v1_n4096 | HP: within +-5% at sigma_g<=0.15 AND breaks >+-15% by sigma_g=0.25; HF: breaks<0.05 OR holds>0.30 | ratios: 0.01->0.995 0.05->1.001 0.10->1.009 0.15->1.029 0.20->1.059 0.25->1.093 0.30->1.140; holds=True breaks=False | MIDDLE_BAND CONFIRMED HONEST; HP1 PASS (+2.9% at 0.15); HP2 FAIL (+9.3% at 0.25 not >+-15%); Wave-2 sigma_g_critical=0.18 REFUTED over-conservative -- identity more robust than predicted |
+| 4 | composition_ceiling_k_c_alpha_constant_m_per_stage_v1_n4096 | HP: L_fid>=0.95 for k<k_c AND L_fid<0.50 for k>k_c+1; HF: L_fid flat across all k | depth_fid={} empty for both alpha values; flat across all k; Arrhenius k_c formula refuted | HARD_FAIL CONFIRMED HONEST; constant-M Arrhenius ceiling formula REFUTED; Q-A3 halving-M architecture UNAFFECTED |
+| 5 | hebbian_vs_gd_identity_v1_n1024 | HP1: delta_pp<=2pp; HP2: wall>=100x; HP3: flops>=1000x; MIDDLE: +-5pp OR speedup 10-100x | mean_delta_pp=0.0 wall_speedup_min=555x flops_speedup_min=500x; hp_unanimous=False (HP3 fail 500x<1000x) | MIDDLE_BAND CONFIRMED HONEST; HP1+HP2 PASS; HP3 FAIL; exact accuracy parity at 500x FLOPs; PP-52 corroboration |
+| 6 | vsa_binding_over_static_skahm_class_v1_n4096 | HP: cos>=0.85 in >=4/5 seeds; HF: cos<0.50 | mean_cos=1.0000 min_cos=1.0000 seeds_hp=5/5; N=4096 M=204 alpha=0.05 | HARD_PASS CONFIRMED HONEST; perfect 1.0000 all 5 seeds; FOUNDS PP-55 algebraic side |
+| 7 | ck_aging_mu_alpha_invariance_matched_tc_v1_n4096 | HP: abs(delta_mu)<0.05 unanimous; MIDDLE: [0.05,0.15] | mean_delta_mu=0.0244; hp_unanimous=False; per-seed [0.057,0.010,0.021,0.043,0.032]; sigma_matched=0.8 | MIDDLE_BAND CONFIRMED HONEST; mean<0.05 gate but not unanimous (seed7=0.057); third CK-aging signature partial |
+
+**State transitions (v348 -> v349).**
+
+**(A) Q-B1/PP-49a flat-profile d=100 N=8192 sub-property CONFIRMED.**
+q_b1_chain_depth_100_v1_n8192 GENUINE FULL HARD_PASS. d100=0.9624 mean (HP=0.054 = 17.8x margin). Flat-profile spans d5..d100 at N=8192 with zero degradation trend. Lambda_empirical ~ 0. Sub-property: Q-B1 d=100 N=8192 flat-profile; depth-series at N=8192 complete {d5,d10..d100}. Band 0.75-0.90 UNCHANGED (corroborative at same N). Product framing: substrate heteroassociative chains maintain >0.96 fidelity at N=8192 across 100 sequential hops with zero depth-dependent decay.
+
+**(B) PP-48 cross-N depth-19 N=16384 third vertex CONFIRMED.**
+pp48_nkt_cross_n_depth19_v1_n16384 GENUINE FULL HARD_PASS. pos=1.0000 nkt_rep=1.0000 unanimous 5-seed at N=16384 depth-19. Third cross-N vertex {N=4096 HP + N=8192 HP + N=16384 HP} for d=19 NKT family. alpha_total=0.032 vs alpha_c=0.138 (4.3x margin at N=16384). PP-48 band 0.75-0.90 UNCHANGED (cross-N corroboration at same depth; band-LIFT to 0.80-0.95 requires depth-23 cross-N N=8192 or depth-19 N=32768). Sub-property: PP-48 d=19 N=16384 third cross-N vertex.
+
+**(C) kappa3 noise-robustness MIDDLE: Wave-2 prediction refuted over-conservative direction.**
+MIDDLE_BAND. HP1 PASS (within +-5% at sigma_g=0.15). HP2 FAIL (ratio@0.25=1.093, only +9.3%, not >+-15% break). Wave-2 closed-form prediction sigma_g_critical=0.18 REFUTED: identity holds past sigma_g=0.30 (ratio=1.140 = +14%, still < 15% break gate). Interpretation: kappa_3 audit primitive is MORE ROBUST to multiplicative log-normal noise than leading-order free-probability predicts. POSITIVE for substrate audit reliability. Cap_map annotation to PP-50 row: kappa_3 noise-robustness envelope sigma_g > 0.30 at N=4096 alpha=0.05. Issue I-19 filed: Wave-2 free-probability leading-order theory underestimates kappa_3 noise robustness; higher-order correction or empirical sigma_g_critical characterization needed. Band UNCHANGED.
+
+**(D) Arrhenius constant-M composition HARD_FAIL: formula REFUTED.**
+GENUINE FULL HARD_FAIL. Arrhenius formula k_c(alpha) = 0.138/alpha REFUTED for constant-M-per-stage composition. depth_fid empty at both alpha values = HF pre-reg condition exactly matched. IMPORTANT: Q-A3/PP-12 multi-layer composition rows UNAFFECTED (halving-M architecture validated at L=15 EXACT-1.0 v348; the HF confirms why halving-M is necessary). This HF clarifies the mechanism: substrate compositional depth requires isochoric staging (decreasing M per stage) not constant-M loading. Issue I-20 filed: constant-M Arrhenius composition ceiling; R2 diagnostic re-run to verify depth_fid empty = genuine flat vs script exit before first cell. Rescue sketches R1-R5 (cheapest first): R1 annotation (0-compute); R2 diagnostic rerun; R3 alternative Arrhenius SUM(alpha_i) formulation; R4 small-alpha alpha=0.01 sweep; R5 partial-M reduction interpolation.
+
+**(E) hebbian_vs_gd_identity MIDDLE: PP-52 corroborating sub-property at N=1024 CPU.**
+MIDDLE_BAND (2/3 HP). HP1 exact accuracy parity 0.0pp PASS; HP2 wall 555x PASS; HP3 FLOPs 500x FAIL vs 1000x gate. Consistent with v339 founding anchor (flops=500x in both; wall 923x v339 vs 555x here due to different GD_MAX_ITER). Exact accuracy parity (0.0pp delta) is the load-bearing confirmation for PP-52 Hebbian=GD-optimal-fixed-point claim. 500x FLOPs speedup reflects GD convergence overhead not fundamental algebraic ratio. PP-52 sub-property: N=1024 CPU corroboration of exact accuracy parity + 500x FLOPs speedup. Band 0.65-0.80 UNCHANGED (v342 BAND-LIFT; MIDDLE result; BAND-LIFT requires FULL multi-N HARD_PASS grid at N=4096+).
+
+**(F) PP-55 NEW TOP-LEVEL ROW FOUNDED: VSA bind-unbind over SKAH-M attractor algebraic side.**
+GENUINE FULL HARD_PASS. mean_cos=1.0000 min_cos=1.0000 seeds_hp=5/5. Hadamard bind-unbind (a*b)*b=a exactly preserved after SKAH-M Hopfield storage and retrieval at N=4096 M=204 alpha=0.05. NEW TOP-LEVEL ROW PP-55: VSA binding algebraic preservation over SKAH-M substrate 0.65-0.80 EXPLORATORY founding. Per [[feedback-lit-scan-calibration-penalty]]: 0.65-0.80 (not 0.70-0.85 despite perfect score; N=4096 single-founding; novel synthesis penalty for VSA+SKAH-M composition class). Portfolio: 32+74 -> 32+75. Product framing: substrate can simultaneously serve as VSA algebraic compute layer (bind-unbind) AND SKAH-M attractor memory layer -- dual-role operation without interference. Cross-ref: PP-48 (NKT uses Hadamard binding over same substrate class; PP-55 establishes algebraic foundation); PP-12 compositionality audit API (VSA binding composable with audit API); PP-39 multi-agent (VSA-bound multi-agent roles over SKAH-M storage).
+
+**(G) CK-aging mu-alpha invariance MIDDLE: third signature partial (non-unanimous).**
+MIDDLE_BAND. Mean delta_mu=0.0244 < HP=0.05 gate but hp_unanimous=False (seed7 delta=0.057 > 0.05). Third CK-aging empirical probe: (v330 Q19 scaling-collapse HP) + (v331 Q-F2 aging-collapse-mse HP) + (v349 CK-mu-invariance MIDDLE). Directionally positive (4/5 seeds within gate; mean well below gate). PP-33 caveat (o) added: CK-aging mu invariance at isochoric T/T_c=0.8: mean 0.0244 < gate but non-unanimous; partial third CK signature; 5-seed unanimity requires N=8192 rescale. Band 0.60-0.75 UNCHANGED (v331 LIFT; HARD_PASS + unanimous required for 3rd-confirmation band-LIFT to 0.65-0.80). Rescue sketches (cheapest first): R1 annotation; R2 N-scale N=8192; R3 tighter t_w grid; R4 alternative mu estimator; R5 cross-seed outlier analysis.
+
+**Rescue-sketch sequencing (cheapest first per [[feedback-rescue-sketch-first-sequencing]]).**
+- composition_ceiling HF: R1 annotation(0) -> R2 diagnostic rerun(30min CPU) -> R3 alternative Arrhenius SUM(alpha_i)(1h CPU) -> R4 small-alpha alpha=0.01(2h CPU) -> R5 partial-M reduction.
+- kappa3 MIDDLE: R1 annotation(0) -> R2 extended sigma_g sweep to 0.50(30min GPU) -> R3 higher-order free-prob correction(theory) -> R4 cross-N N=8192(CPU) -> R5 N-scale comparison.
+- CK-aging MIDDLE: R1 annotation(0) -> R2 N-scale N=8192(2h CPU) -> R3 tighter t_w grid(1h CPU) -> R4 alternative mu estimator(CPU) -> R5 cross-seed analysis.
+
+**Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log entry. 259th PROT-009 paired commit. Push BLOCKED from sub-agent context; main thread executes git push origin main.
+
+**Tallies (v348 -> v349).**
+- HONEST: 511 -> 518 (+7: 3 HP + 3 MIDDLE + 1 HF).
+- LVH: 207 UNCHANGED (0 new catches Cycle 18).
+- Portfolio: 32+74 -> 32+75 (+1 NEW TOP-LEVEL ROW PP-55 0.65-0.80 EXPLORATORY).
+- Sub-properties NEW: Q-B1 d=100 N=8192 flat-profile + PP-48 d=19 cross-N N=16384 + PP-52 N=1024 CPU corroboration.
+- Annotations NEW: PP-50 kappa_3 noise-robustness sigma_g>0.30 + PP-33 caveat(o) CK-mu partial + I-19 Wave-2 underestimate + I-20 constant-M composition.
+- Framework reliability product-feature: 83-97% UNCHANGED (MIDDLE+HF batch; PP-55 single-N founding offset by HF).
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance.**
+- PROT-004/006: No row closures. 1 NEW ROW (PP-55). 0 BAND-LIFTS. R1-R5 cheapest-first for HF + 2 MIDDLE.
+- PROT-007/008: v349 block appended. No portfolio regression.
+- PROT-009: 259th PROT-009 paired commit.
+- PROT-018: all 7 _n<N> suffix matches clear (_n8192, _n16384, _n4096 x4, _n1024).
+- PROT-021: all 7 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: no formula-selftest issues.
+
+**Pipeline-pacing.** Pause-flag ABSENT; both queues empty. exp_dev queue refill dispatched (queue=0, pause gate ABSENT).

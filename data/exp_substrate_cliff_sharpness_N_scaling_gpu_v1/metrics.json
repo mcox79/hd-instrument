@@ -1,0 +1,73 @@
+{
+  "anchor_name": "substrate_cliff_sharpness_N_scaling_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: scaled sharpness slope outside [0.40,0.85] or non-monotone -- free-prob N^{2/3} sharpness prediction not supported empirically; mathematical-foundation pillar scope bounded. SCALED-sharpness log-log slope=-0.17871895048438655 (TW-edge quantity; predict 2/3=0.667); ABSOLUTE-sharpness slope=-1.2522892231157492 (wrong-units control); F_cliff(N) slope=1.073724493979362 (predict ~1 = cliff location scales with N); per-N=[(512, 20.904, 0.6068), (1024, 44.0, 0.5361)]; alpha=0.5 device=cpu",
+  "summary": "HARD_FAIL: scaled sharpness slope outside [0.40,0.85] or non-monotone -- free-prob N^{2/3} sharpness prediction not supported empirically; mathematical-foundation pillar scope bounded. SCALED-sharpness log-log slope=-0.17871895048438655 (TW-edge quantity; predict 2/3=0.667); ABSOLUTE-sharpness slope=-1.2522892231157492 (wrong-units control); F_cliff(N) slope=1.073724493979362 (predict ~1 = cliff location scales with N); per-N=[(512, 20.904, 0.6068), (1024, 44.0, 0.5361)]; alpha=0.5 device=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "per_N": [
+        {
+          "N": 512,
+          "F_grid": [
+            6,
+            10,
+            14,
+            19,
+            22,
+            25,
+            30,
+            35
+          ],
+          "cleanup": [
+            1.0,
+            0.88,
+            0.9714,
+            0.9053,
+            0.8182,
+            0.816,
+            0.7533,
+            0.6571
+          ],
+          "F_cliff": 20.904,
+          "abs_sharpness": 0.029027,
+          "scaled_sharpness": 0.6068
+        },
+        {
+          "N": 1024,
+          "F_grid": [
+            11,
+            20,
+            29,
+            37,
+            44,
+            51,
+            59,
+            70
+          ],
+          "cleanup": [
+            1.0,
+            0.92,
+            0.9379,
+            0.8595,
+            0.85,
+            0.7647,
+            0.6915,
+            0.6286
+          ],
+          "F_cliff": 44.0,
+          "abs_sharpness": 0.012185,
+          "scaled_sharpness": 0.5361
+        }
+      ],
+      "abs_sharpness_slope": -1.2522892231157492,
+      "scaled_sharpness_slope": -0.17871895048438655,
+      "Fcliff_slope": 1.073724493979362,
+      "alpha": 0.5,
+      "device": "cpu",
+      "n_seeds": 1
+    }
+  ],
+  "elapsed_s": 1.1914749145507812
+}

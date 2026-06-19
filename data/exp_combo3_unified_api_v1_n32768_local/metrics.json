@@ -1,0 +1,14 @@
+{
+  "anchor_name": "combo3_unified_api_v1_n32768_local",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 0/3 metrics at HP level. mean_rel tr_W1=1.58e-03 tr_W2=1.46e-03 tr_W3=1.31e-03 worst=1.58e-03 n_seeds=5",
+  "N": 32768,
+  "n_active": 32768,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.5429830551147461,
+  "peak_gpu_gb": 0.653131776,
+  "mean_tr_W1_rel": 0.0015831878624847375,
+  "mean_tr_W2_rel": 0.0014647074660990096,
+  "mean_tr_W3_rel": 0.0013081331525804489
+}

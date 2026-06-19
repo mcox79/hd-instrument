@@ -1,0 +1,32 @@
+{
+  "anchor_name": "substrate_tier2_production_validation_prover_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 Tier-2 modules meet production bars (NB 0.9512, EM purity 1.0, intent 0.9125). DECISION 26b Tier-2 production check (R2 substrate-on-its-own; R3 abstain!=wrong). NB acc=0.9512 on uci_mushroom (bar 0.85; bayes arithmetic also unit-checked exact in selftest; if dataset=sst2_binary_FALLBACK note sentiment-NB is harder than the spec'd mushroom). EMMixture purity=1.0 (bar 0.80). IntentClassifier acc-on-answered=0.9125 abstain=0.0 (bar 0.70; abstains excluded per R3). FAIL flags PRODUCTION-UNVERIFIED, does NOT remove ONLINE counting (R4).",
+  "summary": "HARD_PASS: all 3 Tier-2 modules meet production bars (NB 0.9512, EM purity 1.0, intent 0.9125). DECISION 26b Tier-2 production check (R2 substrate-on-its-own; R3 abstain!=wrong). NB acc=0.9512 on uci_mushroom (bar 0.85; bayes arithmetic also unit-checked exact in selftest; if dataset=sst2_binary_FALLBACK note sentiment-NB is harder than the spec'd mushroom). EMMixture purity=1.0 (bar 0.80). IntentClassifier acc-on-answered=0.9125 abstain=0.0 (bar 0.70; abstains excluded per R3). FAIL flags PRODUCTION-UNVERIFIED, does NOT remove ONLINE counting (R4).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "nb": {
+        "accuracy": 0.9512,
+        "n_test": 2438,
+        "n_train": 5686,
+        "dataset": "uci_mushroom"
+      },
+      "em": {
+        "purity": 1.0,
+        "n": 900,
+        "K": 3
+      },
+      "intent": {
+        "accuracy_on_answered": 0.9125,
+        "abstain_rate": 0.0,
+        "n_test": 800,
+        "n_answered": 800,
+        "overall_acc": 0.9125,
+        "n_labels": 22
+      }
+    }
+  ],
+  "elapsed_s": 6.7850425243377686
+}

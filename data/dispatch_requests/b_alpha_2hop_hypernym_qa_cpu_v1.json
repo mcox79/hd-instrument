@@ -1,0 +1,9 @@
+{
+  "queue": "remote_cpu_queue",
+  "name": "b_alpha_2hop_hypernym_qa_cpu_v1",
+  "script": "experiments/exp_substrate_b_alpha_2hop_hypernym_qa_cpu_v1.py",
+  "prereg": "notes/skunkworks_to_exp_dev_orchestrator_B_alpha_SCHEMA_VET_PASS_validity_VET_PASS_gold_300_300_dispatch_GO_2026-06-18.md",
+  "timeout_s": 1200,
+  "skip_smoke": false,
+  "authored_utc": "2026-06-18T20:21:05Z"
+}

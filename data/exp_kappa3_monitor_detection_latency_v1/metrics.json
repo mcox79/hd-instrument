@@ -1,0 +1,12 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: mean_detection_W=1.8 (HP<=50 HF>100) frac_hp=1.00 frac_hf_fail=0.00 mean_fp_rate=0.000 (HP<0.1 HF>=0.5) n_detections=6",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 512,
+  "HP_W_DETECT": 50,
+  "SIGMA_THRESH": 3.0,
+  "mean_detection_W": 1.8333333333333333,
+  "n_detections": 6,
+  "elapsed_total_s": 0.5557141304016113
+}

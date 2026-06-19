@@ -1,0 +1,39 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: lambda_2=0.5629; corr(lambda_2, retention_A)=nan. Connectivity measurable but correlation inconclusive.",
+  "elapsed_s": 0.5212576389312744,
+  "summary": {
+    "N256": {
+      "N": 256,
+      "n_seeds": 2,
+      "lambda_2_mean": 0.5629284977912903,
+      "lambda_2_std": 0.02431666851043701,
+      "retention_A_mean": 1.0,
+      "retention_A_std": 0.0
+    },
+    "N512": {
+      "N": 512,
+      "n_seeds": 2,
+      "lambda_2_mean": 0.6226838231086731,
+      "lambda_2_std": 0.0026284456253051758,
+      "retention_A_mean": 1.0,
+      "retention_A_std": 0.0
+    }
+  },
+  "corr_lambda2_retention": NaN,
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      256,
+      512
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "M_load_frac": 0.1,
+    "field": "Spectral graph theory / Fiedler value",
+    "orthogonal_probe": true,
+    "P_deflated": 0.38
+  }
+}

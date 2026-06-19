@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_cognitive_core_analogical_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate VSA-native analogy >=2x Pythia ICL (general analogy mechanism on novel relations). substrate_analogical=1.000 pythia_icl=0.001 ratio=900.00x",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_eval": 300,
+      "substrate_analogical": 1.0,
+      "pythia_analogical": 0.0,
+      "ratio": 1000000.0
+    },
+    {
+      "seed": 17,
+      "n_eval": 300,
+      "substrate_analogical": 1.0,
+      "pythia_analogical": 0.0033333333333333335,
+      "ratio": 300.0
+    },
+    {
+      "seed": 23,
+      "n_eval": 300,
+      "substrate_analogical": 1.0,
+      "pythia_analogical": 0.0,
+      "ratio": 1000000.0
+    }
+  ],
+  "elapsed_s": 34.42671489715576,
+  "summary": "HARD_PASS: substrate VSA-native analogy >=2x Pythia ICL (general analogy mechanism on novel relations). substrate_analogical=1.000 pythia_icl=0.001 ratio=900.00x"
+}

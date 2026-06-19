@@ -1,0 +1,58 @@
+{
+  "verdict": "CBP_HARD_FAIL",
+  "verdict_msg": "NO_CROSS_CODEBOOK_COHERENCE: n_hp=0/5 n_hf=5/5 mean_cross=0.012 mean_within=1.000 mean_iso=0.0000",
+  "elapsed_s": 3.23,
+  "summary": {
+    "anchor": "codebook_projection_kerdock_bsc_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 128,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "M": 128,
+        "within_codebook_accuracy": 1.0,
+        "cross_codebook_accuracy": 0.0,
+        "kf2_max_iso_on_W_B": 0.0
+      },
+      {
+        "seed": 17,
+        "M": 128,
+        "within_codebook_accuracy": 1.0,
+        "cross_codebook_accuracy": 0.01562,
+        "kf2_max_iso_on_W_B": 0.0
+      },
+      {
+        "seed": 23,
+        "M": 128,
+        "within_codebook_accuracy": 1.0,
+        "cross_codebook_accuracy": 0.0,
+        "kf2_max_iso_on_W_B": 0.0
+      },
+      {
+        "seed": 31,
+        "M": 128,
+        "within_codebook_accuracy": 1.0,
+        "cross_codebook_accuracy": 0.01562,
+        "kf2_max_iso_on_W_B": 0.0
+      },
+      {
+        "seed": 41,
+        "M": 128,
+        "within_codebook_accuracy": 1.0,
+        "cross_codebook_accuracy": 0.03125,
+        "kf2_max_iso_on_W_B": 0.0
+      }
+    ],
+    "verdict": "CBP_HARD_FAIL",
+    "verdict_msg": "NO_CROSS_CODEBOOK_COHERENCE: n_hp=0/5 n_hf=5/5 mean_cross=0.012 mean_within=1.000 mean_iso=0.0000",
+    "elapsed_s": 3.23
+  }
+}

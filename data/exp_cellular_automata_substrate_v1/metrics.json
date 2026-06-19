@@ -1,0 +1,123 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: conv=0/1, Class_I/II=100.0%, diverging=0/1. Mixed CA dynamics at alpha=0.10.",
+  "elapsed_s": 0.016130924224853516,
+  "n_seeds": 1,
+  "n_converged_at_alpha10": 0,
+  "class12_frac_at_alpha10": 1.0,
+  "n_diverging_at_alpha10": 0,
+  "alpha_summary": {
+    "0.01": {
+      "n_class12": 0,
+      "n_total": 1,
+      "frac_class12": 0.0
+    },
+    "0.05": {
+      "n_class12": 1,
+      "n_total": 1,
+      "frac_class12": 1.0
+    },
+    "0.1": {
+      "n_class12": 1,
+      "n_total": 1,
+      "frac_class12": 1.0
+    }
+  },
+  "per_run": [
+    {
+      "N": 256,
+      "M": 2,
+      "seed": 17,
+      "alpha_load": 0.01,
+      "ca_class": "UNKNOWN",
+      "converged": true,
+      "convergence_steps": 2,
+      "diverging": false,
+      "hamming_final": 0,
+      "hamming_traj": [
+        118,
+        0
+      ]
+    },
+    {
+      "N": 256,
+      "M": 12,
+      "seed": 17,
+      "alpha_load": 0.05,
+      "ca_class": "CLASS_I",
+      "converged": true,
+      "convergence_steps": 25,
+      "diverging": false,
+      "hamming_final": 0,
+      "hamming_traj": [
+        132,
+        26,
+        14,
+        10,
+        10,
+        10,
+        9,
+        6,
+        7,
+        4,
+        6,
+        7,
+        8,
+        13,
+        8,
+        3,
+        4,
+        6,
+        5,
+        5
+      ]
+    },
+    {
+      "N": 256,
+      "M": 25,
+      "seed": 17,
+      "alpha_load": 0.1,
+      "ca_class": "CLASS_II",
+      "converged": false,
+      "convergence_steps": 31,
+      "diverging": false,
+      "hamming_final": 6,
+      "hamming_traj": [
+        119,
+        26,
+        11,
+        5,
+        3,
+        4,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    }
+  ],
+  "summary": "CA-substrate N=256: MIDDLE_BAND (Class_I/II=100.0% at alpha=0.10)",
+  "config": {
+    "N": 256,
+    "alpha_loads": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "seeds": [
+      17
+    ],
+    "HP_CLASS12_FRAC": 0.8,
+    "HP_MAX_CONV_STEPS": 20
+  }
+}

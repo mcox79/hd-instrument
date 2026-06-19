@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap5_schema_layer_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate extracts >=50 category schemas at >=0.95 coverage (precision>=0.8) -- instances compress into prototypes; shared common-sense schema recovered from a bundle. coverage=1.000 precision=1.000 (60 schemas, 25x compression)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 1.0,
+      "precision": 1.0,
+      "n_schemas": 60,
+      "compression": 25
+    }
+  ],
+  "elapsed_s": 0.801255464553833,
+  "summary": "HARD_PASS: substrate extracts >=50 category schemas at >=0.95 coverage (precision>=0.8) -- instances compress into prototypes; shared common-sense schema recovered from a bundle. coverage=1.000 precision=1.000 (60 schemas, 25x compression)"
+}

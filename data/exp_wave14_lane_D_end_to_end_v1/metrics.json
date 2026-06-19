@@ -1,0 +1,26 @@
+{
+  "verdict": "LANE_D_E2E_PASS",
+  "verdict_msg": "End-to-end Lane D pipeline composes: composed_acc=1.000 (>=0.50). Stages: S=1.000 -> T=1.000 -> X=1.000. Substrate-product chained cognitive architecture viable.",
+  "elapsed_s": 1.7810000000026776,
+  "summary": {
+    "stage_s_acc": 1.0,
+    "stage_t_acc": 1.0,
+    "stage_x_acc": 1.0,
+    "composed_acc": 1.0,
+    "n_trials_total": 300
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials": 100,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "comp11_1bit_at_depth_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1-bit (QPSK) quantization of the entire substrate preserves depth-independent recall -- within 5pp of float at L=5 with cleanup. Deep composition holds at 32x memory saving. L3 float=1.000/1bit=1.000 ; L5 float=1.000/1bit=1.000 (L5 loss=0.000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "float_L3": 1.0,
+      "q1bit_L3": 1.0,
+      "float_L5": 1.0,
+      "q1bit_L5": 1.0,
+      "loss_L5": 0.0
+    }
+  ],
+  "elapsed_s": 630.958390712738,
+  "summary": "HARD_PASS: 1-bit (QPSK) quantization of the entire substrate preserves depth-independent recall -- within 5pp of float at L=5 with cleanup. Deep composition holds at 32x memory saving. L3 float=1.000/1bit=1.000 ; L5 float=1.000/1bit=1.000 (L5 loss=0.000)"
+}

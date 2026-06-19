@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_crossdomain_transfer_agnews_20ng_topic_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: missing 2.5pct or 100pct fraction. ratio@2.5pct=1.817 ratio@100pct=None; zero-shot AG-on-20NG F1=0.3444; curve=[(0.025, 0.2805, 0.5098, 1.817)]",
+  "summary": "UNKNOWN: missing 2.5pct or 100pct fraction. ratio@2.5pct=1.817 ratio@100pct=None; zero-shot AG-on-20NG F1=0.3444; curve=[(0.025, 0.2805, 0.5098, 1.817)]",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "frac": 0.025,
+          "scratch_f1": 0.2805,
+          "transfer_f1": 0.5098,
+          "ratio": 1.817
+        }
+      ],
+      "src_only_f1": 0.3444,
+      "n_classes": 3,
+      "n_20ng_test": 150
+    }
+  ],
+  "elapsed_s": 13.519106388092041
+}

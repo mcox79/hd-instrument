@@ -1,0 +1,12 @@
+{
+  "anchor_name": "caching_eviction_pp44_capacity_aware_v2_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-44 capacity-aware eviction v2 CONFIRMED. fid_evict=1.0000(HP>=0.8 HF<0.5) fid_no_evict=0.8935(HP<=0.5) retained=1.0000(HP>=0.85) n_seeds=2",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 4.894999027252197,
+  "mean_fidelity_with_eviction": 1.0,
+  "mean_fidelity_no_eviction": 0.89345703125,
+  "mean_retained_fidelity": 1.0
+}

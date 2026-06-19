@@ -1,0 +1,84 @@
+{
+  "verdict": "G13B_P2_HARD_PASS",
+  "verdict_msg": "SUSTAINED_OK: sessions_done=3 ops=26322 wall=60s init_tp=0.00 final_tp=0.00 drop=0.000 chain_ok=True mem_ratio=1.00",
+  "elapsed_s": 60.09,
+  "summary": {
+    "anchor": "sustained_agentic_load_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "K_paths": 30,
+    "sessions_def": [
+      [
+        "A_customer_support",
+        0
+      ],
+      [
+        "B_compliance",
+        0
+      ],
+      [
+        "C_diagnostic",
+        0
+      ]
+    ],
+    "target_wall_s": 60,
+    "edits_per_hour": 5,
+    "checkpoint_every_s": 30,
+    "metrics": {
+      "total_wall_s": 60.0,
+      "n_sessions": 3,
+      "per_session": [
+        {
+          "name": "A_customer_support",
+          "seed": 338,
+          "n_calls_done": 8774,
+          "session_acc": 1.0,
+          "per_call_mean_ms": 1.491,
+          "per_call_p50_ms": 1.478,
+          "per_call_p95_ms": 2.165,
+          "per_call_p99_ms": 2.676
+        },
+        {
+          "name": "B_compliance",
+          "seed": 731,
+          "n_calls_done": 8774,
+          "session_acc": 1.0,
+          "per_call_mean_ms": 2.1,
+          "per_call_p50_ms": 1.963,
+          "per_call_p95_ms": 3.008,
+          "per_call_p99_ms": 3.48
+        },
+        {
+          "name": "C_diagnostic",
+          "seed": 1016,
+          "n_calls_done": 8774,
+          "session_acc": 1.0,
+          "per_call_mean_ms": 2.962,
+          "per_call_p50_ms": 3.011,
+          "per_call_p95_ms": 3.883,
+          "per_call_p99_ms": 4.698
+        }
+      ],
+      "total_ops": 26322,
+      "initial_throughput_ops_s": 0.0,
+      "final_throughput_ops_s": 0.0,
+      "throughput_drop_frac": 0.0,
+      "cert_chain_len": 26322,
+      "audit_chain_ok": true,
+      "checkpoint_chain_ok": [
+        true
+      ],
+      "chain_break": false,
+      "retention_end": 1.0,
+      "max_iso_end": 0.0,
+      "mem_initial_b": 0,
+      "mem_final_b": 0,
+      "mem_growth_ratio": 1.0,
+      "crash": false
+    },
+    "verdict": "G13B_P2_HARD_PASS",
+    "verdict_msg": "SUSTAINED_OK: sessions_done=3 ops=26322 wall=60s init_tp=0.00 final_tp=0.00 drop=0.000 chain_ok=True mem_ratio=1.00",
+    "elapsed_s": 60.09
+  }
+}

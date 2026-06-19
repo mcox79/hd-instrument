@@ -1,0 +1,3 @@
+{"ratification_tag": "INGEST_PHASE_6_qclass_49c", "counts": {"created": 0, "skipped_exists": 0, "failed": 14, "r2_rejections": 0, "spec_edges_added": 0}}
+{"ratification_tag": "INGEST_PHASE_6_qclass_49c", "counts": {"created": 0, "skipped_exists": 0, "failed": 14, "r2_rejections": 0, "spec_edges_added": 0}}
+{"ratification_tag": "INGEST_PHASE_6_qclass_49c", "counts": {"created": 14, "skipped_exists": 0, "failed": 0, "r2_rejections": 0, "spec_edges_added": 14}}

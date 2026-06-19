@@ -1,0 +1,62 @@
+
+## v509 -> v510 CYCLE 184 -- 6-VERDICT BATCH (2026-06-08)
+
+Verdicts processed (6 anchors): LLM K-hop better-prompt (GPU) + KG K-hop GPU scale + sharding large-S GPU + KG-QA discrete-vs-fuzzy GPU scale + sharding contrast demo (CPU) + parallel sub-query native (CPU)
+
+### Step 0 honest re-read
+
+All 6 metrics fetched source=remote (bridge stale; direct SSH get_metrics successful). 0 LVH catches.
+
+- n2_pathA_betterprompt_gpu_v1: HONEST. answer-recall=0.183, coverage=0.700 (n=60), R1 oracle=1.0. HARD_FAIL label CORRECT. Better prompt did not lift recall above cycle-181 HF baseline (same 0.183). Extraction bottleneck confirmed stronger than prompt engineering. No LVH. +1 HONEST.
+- substrate_kg_khop_gpu_scale_v1: HONEST. 2hop=0.0, 3hop=0.0 (n=1 seed). HARD_FAIL label CORRECT. Complete collapse at GPU scale vs CPU (PP-119: 2hop_r1=0.805, 3hop_r1=0.735). Structural failure at GPU scale -- not a discrete-vs-fuzzy comparison issue; both methods in kgqa companion anchor also zero. Pattern: GPU K-hop encoding has a systemic issue at scale. No LVH. +1 HONEST.
+- sharding_scaling_largeS_gpu_v1: HONEST. S16=1.0, S64=1.0, S128=1.0, S256=1.0; interference all 0.000; spread=0.000. HARD_PASS label CORRECT. All 4 GPU shard counts at per-shard recall=1.000 and zero interference. Threshold >=0.95 confirmed at all cells with large margin. No LVH. +1 HONEST.
+- kgqa_discrete_vs_fuzzy_gpu_scale_v1: HONEST. discrete=0.000, fuzzy=0.000, gap=0.000. HARD_FAIL label CORRECT. NOTE: Both discrete AND fuzzy zeroed at GPU scale -- this is not a discrete-is-worse outcome; it is a total GPU K-hop setup failure affecting both methods simultaneously. The cycle-181 CPU discrete-vs-fuzzy principle (80x gap) is NOT contradicted; it is inapplicable here because the GPU K-hop pipeline fails before the discrete/fuzzy comparison is reached. No LVH. +1 HONEST.
+- sharding_contrast_demo_data_cpu_v1: HONEST. sharded curve: t80-t5120 all 1.000; mono curve: t640=0.542, t1280=0.190, t2560=0.061, t5120=0.017. sharded=1.000, mono=0.017 at largest scale. Threshold: sharded >=0.95 and mono <=0.40 at largest both confirmed by large margin. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- n1d_parallel_subq_native_cpu_v1: HONEST. parallel-native=0.855, chained-Khop=0.810. Threshold >=0.70 confirmed at 0.855 with large margin. HARD_PASS label CORRECT. NOTE: parallel (0.855) slightly exceeds chained (0.810) -- decomposition strategy is agnostic when grounded discretely; native substrate supports both patterns at competitive recall. No LVH. +1 HONEST.
+
+HONEST: 1366 -> 1372 (+6). LVH: 263 UNCHANGED. 0 new LVH catches. All 6 labels HONEST.
+
+### Cap_map decisions (v509 -> v510)
+
+**(A) sharding_scaling_largeS_gpu_v1 (HP -- GPU S=16..256 all per-shard recall=1.000, interference=0.000):**
+Annotation to PP-127 (sharding scaling law row): 'sharding_scaling_largeS GPU HP v510: S16/S64/S128/S256 all per-shard=1.000, interference=0.000 (GPU; cycle 184); extends CPU S1-S32 HP (cycle 183) to GPU S16-S256 -- unbounded-capacity-by-sharding validated at 8x the previously-tested shard count on GPU; S=256 is the new ceiling without any per-shard recall degradation or cross-shard interference; n=1 seed GPU.' PP-127 band candidate for lift from 0.75-0.90 to 0.80-0.92 EXPLORATORY (CPU + GPU ladder: n=1 seed each; multi-seed at S256 recommended for band-LIFT to VALIDATED).
+
+**(B) sharding_contrast_demo_data_cpu_v1 (HP -- demo-scale: sharded=1.000 vs monolithic=0.017 at t5120):**
+Annotation to PP-127 (sharding scaling law row): 'sharding_contrast_demo_data CPU HP v510: demo-scale sharded-curve t80..t5120 all 1.000; mono-curve t640=0.542, t1280=0.190, t2560=0.061, t5120=0.017; contrast_ratio=58.8x at t5120 (cycle 184). Demo-data validation of sharding necessity at real-world scale: monolithic storage collapses at t>=640 (8x the per-shard capacity), sharding holds indefinitely; direct pitch-demo asset confirming the production architecture choice. n=1 seed CPU.'
+
+**(C) n1d_parallel_subq_native_cpu_v1 (HP -- parallel sub-query native recall=0.855 vs chained=0.810):**
+Annotation to PP-126 (parallel sub-query fuzzy rescue row): 'n1d_parallel_subq_native HP v510: parallel-native=0.855, chained-Khop=0.810 (cycle 184); extends PP-126 fuzzy rescue to native-substrate regime; parallel decomposition pattern agnostic at discrete grounding; native substrate parallel recall (0.855) slightly exceeds chained K-hop (0.810); multi-hop QA via parallel sub-question decomposition is a first-class native capability; n=1 seed CPU.' No row state change for PP-126 (already Validated want stronger); annotation confirms the mechanism extends to native mode.
+
+**(D) substrate_kg_khop_gpu_scale_v1 (HF -- GPU K-hop 2hop=0.0 3hop=0.0; GPU pipeline collapse):**
+Annotation to PP-119 (KG K-hop QA row): 'substrate_kg_khop_gpu_scale_v1 HF v510: 2hop=0.000, 3hop=0.000 at GPU scale (cycle 184) vs CPU 2hop_r1=0.805, 3hop_r1=0.735 (PP-119 cycle 181). Complete collapse at GPU scale. Companion kgqa_discrete_vs_fuzzy_gpu_scale_v1 ALSO zeroed (both discrete and fuzzy), confirming a GPU K-hop pipeline setup failure -- not a substrate algebra failure. CPU K-hop (PP-119) validity UNCHANGED. GPU K-hop requires setup investigation: possible N mismatch, encoding schema incompatibility, or dtype issue on GPU path. n=1 seed GPU.' PP-119 remains Validated, want stronger (CPU confirmed); GPU path needs separate investigation.
+
+Rescue sketches for GPU K-hop failure (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): CPU K-hop (PP-119) valid at 2hop=0.805, 3hop=0.735; GPU failure is infrastructure-level; substrate K-hop algebra NOT closed. RECOMMENDED-FIRST per [[feedback-rescue-sketch-first-sequencing]]. APPLIED (annotation D above).
+R2 (CHEAP, CPU <30min): Reproduce CPU result with the GPU-scale script's encoding schema on CPU to isolate encoding vs GPU mismatch. Identifies whether the failure is dtype/device (pure GPU) or encoding (schema-level).
+R3 (CHEAP, GPU <30min): Add diagnostic print of fact bundle norms + query alignment before lookup in GPU K-hop script to confirm bundle write succeeded before hop traversal.
+R4 (MEDIUM, GPU <1h): Re-run substrate_kg_khop_gpu_scale_v1 with explicit CPU-fallback mode to confirm CPU gives matching result and GPU is the failure locus.
+R5 (MEDIUM, GPU <2h): Run GPU K-hop at smaller N matching CPU test config (N=4096, same KB size) to isolate whether failure is scale-dependent or GPU-encoding-dependent.
+
+**(E) kgqa_discrete_vs_fuzzy_gpu_scale_v1 (HF -- both discrete and fuzzy zero; GPU pipeline failure):**
+Annotation to discrete_vs_fuzzy_kgqa CPU annotation block: 'kgqa_discrete_vs_fuzzy_gpu_scale_v1 HF v510: discrete=0.000, fuzzy=0.000, gap=0.000 at GPU scale (cycle 184). NOTE: Both methods zero -- this is not a discrete-vs-fuzzy comparison outcome; it is a co-failure consistent with substrate_kg_khop_gpu_scale_v1 HF in the same cycle. CPU discrete-vs-fuzzy principle (80x gap, cycle 181) is NOT refuted by this result. GPU K-hop pipeline investigation (see PP-119 annotation) applies here too. n=1 seed GPU.' No row state change; CPU PP-119 + discrete_vs_fuzzy annotation both unchanged.
+
+**(F) n2_pathA_betterprompt_gpu_v1 (HF -- better-prompt did not lift recall; extraction bottleneck confirmed):**
+Annotation to substrate_llm_triples_khop annotation block (cycle 181 REVIVE annotation): 'n2_pathA_betterprompt HP-attempt HF v510: answer-recall=0.183 (same as cycle-181 HF), coverage=0.700, R1 oracle=1.0 (cycle 184). Better prompt did not change extraction recall at all (0.183 unchanged). Extraction bottleneck is stronger than prompt engineering can address from Qwen-1.5B. Cycle-181 REVIVE finding stands: extraction gap is the bottleneck (oracle=1.0 confirms substrate K-hop is correct), and requires a stronger extractor (larger LLM or supervised extraction model). n=1 seed GPU.' No cap_map row state change. Multi-hop REVIVE priority from memory remains valid; the rescues (R1-R5 in cycle-181 decisions) are still the forward path.
+
+### PROT compliance (v509 -> v510)
+
+- PROT-004/006: No formal row closures. 0 NEW TOP-LEVEL ROWS. 6 annotations to existing rows. Rescue sketches cheapest-first for 2 HF anchors (D+E). 3 HP annotations (A+B+C) and 1 HF annotation (F) filed.
+- PROT-007: v510 history row appended to substrate_capability_map_history.md.
+- PROT-008: 3 HP anchors (sharding_largeS + sharding_contrast + n1d_parallel_subq). All HP thresholds verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 417th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 6 anchors. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. 0 new LVH catches. All 6 labels HONEST.
+- PROT-021: All 6 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: n=1 seed throughout. HP margins large (sharding recall=1.000 >> 0.95; sharding_contrast shard=1.000 >> 0.95; parallel=0.855 >> 0.70). No HP-fragility concern.
+
+### Queue state
+
+overnight_queue: 0 pending/running. remote_cpu_queue: 0 pending/running. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+Cap_map: v509 -> v510 CYCLE 184 (3 HP [GPU:2 CPU:1] + 0 MIDDLE_BAND + 3 HF [GPU:3]; 0 LVH; 0 NEW PP ROWS; 6 annotations [PP-127 x2 + PP-126 + PP-119 GPU-HF + discrete-vs-fuzzy GPU-HF + LLM-extraction betterprompt-HF]; Portfolio 32+132 UNCHANGED; HONEST 1366->1372 +6; LVH 263 UNCHANGED; 417th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

@@ -1,0 +1,50 @@
+{
+  "anchor": "t1_m_sweep_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    2.0,
+    8.0
+  ],
+  "beta_sweep": [
+    6,
+    10,
+    16
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "M_frac": 2.0,
+      "seed": 17,
+      "M": 2048,
+      "ret_by_beta": [
+        0.08669,
+        0.8195,
+        0.99927
+      ],
+      "max_gradient": 0.6449,
+      "beta_c": 10.0,
+      "total_var": 0.9126,
+      "has_transition": true
+    },
+    {
+      "M_frac": 8.0,
+      "seed": 17,
+      "M": 8192,
+      "ret_by_beta": [
+        0.08448,
+        0.46417,
+        0.52883
+      ],
+      "max_gradient": 0.314,
+      "beta_c": 10.0,
+      "total_var": 0.4444,
+      "has_transition": true
+    }
+  ],
+  "verdict": "T1_MSWEEP_HARD_FAIL",
+  "verdict_msg": "FLAT_BETAC: span=0.00 <= 2.0 (no M-dependence). mean_betac_by_M={2.0: 10.0, 8.0: 10.0} is_monotone=True span=0.00 HP_monotone_mfracs=2 N=1024",
+  "elapsed_s": 0.57
+}

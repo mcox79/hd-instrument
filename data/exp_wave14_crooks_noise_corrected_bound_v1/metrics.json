@@ -1,0 +1,74 @@
+{
+  "verdict": "CROOKS_NOISE_CORRECTED_PASS",
+  "verdict_msg": "Noise-corrected bound PASS: all 3/3 noisy cells satisfy delta_S_emp <= theta(p)+0.02 after re-axiomatization. Cap 1 SLA widens to tiered noise-tolerance certificate.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "source_N": 16384,
+    "source_seeds": [
+      17,
+      18,
+      19
+    ],
+    "source_n_trials": 50,
+    "source_noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "source_original_verdict": "CROOKS_NOISE_ENVELOPE_KILL",
+    "per_noise_raw_delta_S": {
+      "0.0": 0.0,
+      "0.05": 0.07431571938264375,
+      "0.1": 0.08066121755918221,
+      "0.2": 0.05998575669193338
+    },
+    "theta_values": {
+      "0.0": 0.6931471805599453,
+      "0.05": 0.4946319372140727,
+      "0.1": 0.3680642071684971,
+      "0.2": 0.19274475702175742
+    },
+    "cell_reports": [
+      {
+        "p": 0.05,
+        "delta_S_emp": 0.07431571938264375,
+        "theta_p": 0.4946319372140727,
+        "pass_threshold": 0.5146319372140727,
+        "fail_threshold": 0.5446319372140728,
+        "margin_to_pass": 0.440316217831429,
+        "cell_result": "PASS",
+        "mean_seed_std": 0.17281063331379007
+      },
+      {
+        "p": 0.1,
+        "delta_S_emp": 0.08066121755918221,
+        "theta_p": 0.3680642071684971,
+        "pass_threshold": 0.3880642071684971,
+        "fail_threshold": 0.41806420716849707,
+        "margin_to_pass": 0.3074029896093149,
+        "cell_result": "PASS",
+        "mean_seed_std": 0.18732219929172444
+      },
+      {
+        "p": 0.2,
+        "delta_S_emp": 0.05998575669193338,
+        "theta_p": 0.19274475702175742,
+        "pass_threshold": 0.2127447570217574,
+        "fail_threshold": 0.2427447570217574,
+        "margin_to_pass": 0.15275900032982404,
+        "cell_result": "PASS",
+        "mean_seed_std": 0.1425461899377552
+      }
+    ],
+    "pass_margin": 0.02,
+    "fail_margin": 0.05
+  },
+  "config": {
+    "mode": "full",
+    "source_path": "C:\\dev\\hd-instrument\\data\\exp_wave14_crooks_noise_envelope_v1\\metrics.json",
+    "pass_margin": 0.02,
+    "fail_margin": 0.05,
+    "source_is_smoke_data": false
+  }
+}

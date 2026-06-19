@@ -1,0 +1,15 @@
+{
+  "anchor_name": "set_membership_bundle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: bundled-set membership AUC>=0.95 -- set membership without per-item storage. AUC=1.0000 at set size 50",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 1.0,
+      "S": 50
+    }
+  ],
+  "elapsed_s": 0.249420166015625,
+  "summary": "HARD_PASS: bundled-set membership AUC>=0.95 -- set membership without per-item storage. AUC=1.0000 at set size 50"
+}

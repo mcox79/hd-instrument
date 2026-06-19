@@ -1,0 +1,21 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: su_frac>=0.7 in 1/1 seeds at N=512. all_excess_pos=True. mean_su_frac=1.0000",
+  "elapsed_s": 0.52,
+  "summary": "sagawa_ueda_v5 SMOKE N=512: 1/1 HP su_frac>=0.7",
+  "N": 512,
+  "n_seeds": 1,
+  "n_hp": 1,
+  "mean_su_frac": 1.0,
+  "per_seed": [
+    {
+      "N": 512,
+      "M": 64,
+      "seed": 17,
+      "su_frac": 1.0,
+      "excess_mean": 29.53766436062613,
+      "erase_work_mean": 51.2,
+      "n_patterns": 64
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "verdict": "C3_HARD_PASS",
+  "verdict_msg": "COMPRESSION_VIABLE n_hp=2. a_svd/rank128: comp=4.00x retr=1.000 kfs=PASS | a_svd/rank256: comp=2.00x retr=1.000 kfs=PASS | a_svd/rank512: comp=1.00x retr=1.000 kfs=PASS | b_sparse/thresh0.01: comp=0.68x retr=1.000 kfs=PASS | b_sparse/thresh0.05: comp=237.13x retr=1.000 kfs=BREAK | b_sparse/thresh0.1: comp=349525.33x retr=0.000 kfs=BREAK | c_quant/bits4: comp=8.00x retr=1.000 kfs=PASS | c_quant/bits8: comp=4.00x retr=1.000 kfs=PASS | c_quant/bits16: comp=2.00x retr=1.000 kfs=PASS",
+  "elapsed_s": 0.98,
+  "summary": {
+    "anchor": "substrate_state_compression_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "n_probe": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "n_probe": 16,
+        "configs": [
+          {
+            "approach": "a_svd",
+            "param": "rank128",
+            "compression_ratio": 3.998,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "a_svd",
+            "param": "rank256",
+            "compression_ratio": 1.999,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "a_svd",
+            "param": "rank512",
+            "compression_ratio": 0.9995,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "b_sparse",
+            "param": "thresh0.01",
+            "compression_ratio": 0.6773,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "b_sparse",
+            "param": "thresh0.05",
+            "compression_ratio": 237.1271,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 0.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": false
+          },
+          {
+            "approach": "b_sparse",
+            "param": "thresh0.1",
+            "compression_ratio": 349525.3333,
+            "retrieval_acc": 0.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 0.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": false
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits4",
+            "compression_ratio": 8.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits8",
+            "compression_ratio": 4.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          },
+          {
+            "approach": "c_quant",
+            "param": "bits16",
+            "compression_ratio": 2.0,
+            "retrieval_acc": 1.0,
+            "kf1_deletion": 1.0,
+            "kf2_drift_norm": 1.0,
+            "kf3_edit": 1.0,
+            "kfs_all_pass": true
+          }
+        ]
+      }
+    ],
+    "verdict": "C3_HARD_PASS",
+    "verdict_msg": "COMPRESSION_VIABLE n_hp=2. a_svd/rank128: comp=4.00x retr=1.000 kfs=PASS | a_svd/rank256: comp=2.00x retr=1.000 kfs=PASS | a_svd/rank512: comp=1.00x retr=1.000 kfs=PASS | b_sparse/thresh0.01: comp=0.68x retr=1.000 kfs=PASS | b_sparse/thresh0.05: comp=237.13x retr=1.000 kfs=BREAK | b_sparse/thresh0.1: comp=349525.33x retr=0.000 kfs=BREAK | c_quant/bits4: comp=8.00x retr=1.000 kfs=PASS | c_quant/bits8: comp=4.00x retr=1.000 kfs=PASS | c_quant/bits16: comp=2.00x retr=1.000 kfs=PASS",
+    "elapsed_s": 0.98
+  }
+}

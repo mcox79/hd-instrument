@@ -1,0 +1,29 @@
+{
+  "anchor_name": "fact_checked_khop_confidence_weighted_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: confidence ~ binary (no clear lift). at K=10: binary_AUC=1.000 best_conf_AUC=1.000 lift=+0.000",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_K": {
+        "K5": {
+          "binary": 1.0,
+          "c_min": 1.0,
+          "c_chain": 1.0,
+          "best_conf": 1.0
+        },
+        "K10": {
+          "binary": 1.0,
+          "c_min": 1.0,
+          "c_chain": 1.0,
+          "best_conf": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.7885375022888184,
+  "summary": "MIDDLE_BAND: confidence ~ binary (no clear lift). at K=10: binary_AUC=1.000 best_conf_AUC=1.000 lift=+0.000"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "conv5_memory_decision_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: memory decisions >=0.85 (remember/forget/query) + 100pct erasure on forget. decision-acc=1.000 forget-erasure=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "decision_acc": 1.0,
+      "erasure": 1.0
+    }
+  ],
+  "elapsed_s": 0.4319033622741699,
+  "summary": "HARD_PASS: memory decisions >=0.85 (remember/forget/query) + 100pct erasure on forget. decision-acc=1.000 forget-erasure=1.000"
+}

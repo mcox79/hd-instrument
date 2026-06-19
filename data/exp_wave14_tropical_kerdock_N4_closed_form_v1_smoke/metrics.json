@@ -1,0 +1,37 @@
+{
+  "verdict": "TROP_R2_CLOSED_FORM_VERIFIED",
+  "verdict_msg": "Closed-form N=4 tropical margin matches enumeration to 0.00e+00. R2 is a structurally confirmed rescue route for the F-14 row.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "diff_closed_vs_emp": 0.0,
+    "empirical_min_margin": -2.0,
+    "closed_form_min_margin": -2.0,
+    "pair_count": 120,
+    "margin_histogram": {
+      "values_unique": [
+        -2.0,
+        0.0,
+        2.0
+      ],
+      "counts_per_value": {
+        "0.0": 80,
+        "2.0": 39,
+        "-2.0": 1
+      }
+    },
+    "meta": {
+      "min": -2.0,
+      "arg": [
+        14,
+        15
+      ],
+      "n_pairs": 120,
+      "median": 0.0
+    }
+  },
+  "config": {
+    "N": 4,
+    "K": 16,
+    "mode": "smoke"
+  }
+}

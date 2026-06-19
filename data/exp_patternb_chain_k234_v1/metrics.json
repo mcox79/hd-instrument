@@ -1,0 +1,18 @@
+{
+  "anchor_name": "patternb_chain_k234_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: chains fail by k=3. chain retrieval by k: {'k2': 0.0, 'k3': 0.0, 'k4': 0.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "k2": 0.0,
+        "k3": 0.0,
+        "k4": 0.0
+      }
+    }
+  ],
+  "elapsed_s": 1.892120361328125,
+  "summary": "HARD_FAIL: chains fail by k=3. chain retrieval by k: {'k2': 0.0, 'k3': 0.0, 'k4': 0.0}"
+}

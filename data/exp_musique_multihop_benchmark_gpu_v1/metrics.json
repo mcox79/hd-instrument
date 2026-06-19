@@ -1,0 +1,17 @@
+{
+  "anchor_name": "musique_multihop_benchmark_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MuSiQue all-supporting recall@10>=0.60 (re-rankable) -- harder multi-hop covered; ties RAG (same encoder), substrate's multi-hop edge is structured-KG not free text. all-supporting recall@ngold/5/10=0.224/0.580/0.784 (n=250)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 250,
+      "r_ng": 0.224,
+      "r5": 0.58,
+      "r10": 0.784
+    }
+  ],
+  "elapsed_s": 51.46401786804199,
+  "summary": "HARD_PASS: MuSiQue all-supporting recall@10>=0.60 (re-rankable) -- harder multi-hop covered; ties RAG (same encoder), substrate's multi-hop edge is structured-KG not free text. all-supporting recall@ngold/5/10=0.224/0.580/0.784 (n=250)"
+}

@@ -1,0 +1,38 @@
+{
+  "anchor_name": "dimsparse3_alpha_at_mc_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no rescue >1.2x -- real-key capacity rank/collision-limited (confirms d_eff ceiling). M_c by arm: {'baseline': 12.0, 'dim_expand_x2': 13.3, 'sparse_key': 2.0, 'compound': 5.3} | best_rescue/baseline=1.11x",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "Mc": {
+        "baseline": 12,
+        "dim_expand_x2": 12,
+        "sparse_key": 2,
+        "compound": 4
+      }
+    },
+    {
+      "seed": 17,
+      "Mc": {
+        "baseline": 12,
+        "dim_expand_x2": 16,
+        "sparse_key": 2,
+        "compound": 8
+      }
+    },
+    {
+      "seed": 23,
+      "Mc": {
+        "baseline": 12,
+        "dim_expand_x2": 12,
+        "sparse_key": 2,
+        "compound": 4
+      }
+    }
+  ],
+  "elapsed_s": 24.163193702697754,
+  "summary": "HARD_FAIL: no rescue >1.2x -- real-key capacity rank/collision-limited (confirms d_eff ceiling). M_c by arm: {'baseline': 12.0, 'dim_expand_x2': 13.3, 'sparse_key': 2.0, 'compound': 5.3} | best_rescue/baseline=1.11x"
+}

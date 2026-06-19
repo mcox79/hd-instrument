@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_mode5_hierarchical_compound_depth_v1_n512xD",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: compound deeper than single. K_compound=40.0 K_single=0.0 ratio=40.0x (D=4, N_s=256, L=40) (compound hit chain length L=40; LOWER BOUND)",
+  "N": 256,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N_s": 256,
+      "D": 4,
+      "L": 40,
+      "K_compound": 40,
+      "K_single": 0,
+      "ratio": 40.0
+    },
+    {
+      "seed": 2,
+      "N_s": 256,
+      "D": 4,
+      "L": 40,
+      "K_compound": 40,
+      "K_single": 0,
+      "ratio": 40.0
+    }
+  ],
+  "elapsed_s": 0.03468060493469238,
+  "summary": "MIDDLE_BAND: compound deeper than single. K_compound=40.0 K_single=0.0 ratio=40.0x (D=4, N_s=256, L=40) (compound hit chain length L=40; LOWER BOUND)"
+}

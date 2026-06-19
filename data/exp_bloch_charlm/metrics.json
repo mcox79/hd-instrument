@@ -1,0 +1,53 @@
+{
+  "seed": 17,
+  "n_substrate": 1024,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "sweep_results": [
+    {
+      "n_substrate": 1024,
+      "k": 4,
+      "arousal": 0.3,
+      "beta": 8.0,
+      "substrate_method": "dft_randomized",
+      "seed": 17,
+      "batch_size": 64,
+      "train_bpc": 4.1081875183105465,
+      "test_bpc": 3.1377328320113724,
+      "train_test_gap": -0.9704546862991741,
+      "wall_time_s": 6.022855099989101
+    },
+    {
+      "n_substrate": 1024,
+      "k": 4,
+      "arousal": 0.3,
+      "beta": 8.0,
+      "substrate_method": "iid",
+      "seed": 17,
+      "batch_size": 64,
+      "train_bpc": 4.122693444061279,
+      "test_bpc": 3.154993594681788,
+      "train_test_gap": -0.9676998493794913,
+      "wall_time_s": 5.910924299998442
+    },
+    {
+      "n_substrate": 1024,
+      "k": 4,
+      "arousal": 0.3,
+      "beta": 8.0,
+      "substrate_method": "dft_pure",
+      "seed": 17,
+      "batch_size": 64,
+      "train_bpc": 4.37204910736084,
+      "test_bpc": 3.253477499532439,
+      "train_test_gap": -1.1185716078284007,
+      "wall_time_s": 5.738361499999883
+    }
+  ],
+  "best": {
+    "method": "dft_randomized",
+    "test_bpc": 3.1377328320113724
+  },
+  "headline": "Best substrate dft_randomized test bpc = 3.138"
+}

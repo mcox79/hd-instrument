@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_spectral_monitor_overfitting_v2_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: overfitting not detected in val_loss for any seed (0/2); scale-gate R1 still insufficient.",
+  "run_mode": "smoke",
+  "N_OBS": 128,
+  "BUFFER_SIZE": 15,
+  "TRAIN_CHARS": 5000,
+  "N_STEPS": 200,
+  "MONITOR_EVERY": 5,
+  "LM_HIDDEN": 48,
+  "HP_LEAD_STEPS": 50,
+  "elapsed_s": 10.497476577758789,
+  "per_seed": [
+    {
+      "seed": 7,
+      "val_overfit_step": null,
+      "sub_overfit_step": 25,
+      "lead": null,
+      "elapsed_s": 5.000732898712158
+    },
+    {
+      "seed": 17,
+      "val_overfit_step": null,
+      "sub_overfit_step": 25,
+      "lead": null,
+      "elapsed_s": 4.163154125213623
+    }
+  ]
+}

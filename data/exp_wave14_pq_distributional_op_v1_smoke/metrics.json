@@ -1,0 +1,36 @@
+{
+  "verdict": "PQ_DIST_OP_FAIL",
+  "verdict_msg": "mean(P(q))=0.160<0.85; substrate genuinely lacks OP.",
+  "elapsed_s": 3.51500000001397,
+  "summary": {
+    "q_mean": 0.16,
+    "q_std": 0.05935455300954563,
+    "q_skewness": 0.7957766756969218,
+    "frac_above_threshold": 0.0,
+    "bimodal": false,
+    "n_seeds": 10,
+    "q_samples": [
+      0.1288888888888889,
+      0.14,
+      0.14222222222222222,
+      0.22444444444444445,
+      0.10444444444444445,
+      0.11555555555555555,
+      0.1,
+      0.12666666666666668,
+      0.25333333333333335,
+      0.2644444444444444
+    ],
+    "q_min": 0.1,
+    "q_max": 0.2644444444444444
+  },
+  "config": {
+    "N": 4096,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 30,
+    "n_seeds": 10
+  }
+}

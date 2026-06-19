@@ -1,0 +1,16 @@
+{
+  "anchor_name": "pii_strip_inject_hipaa_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: zero PHI to the LLM + exact round-trip + NER>=0.95 -- categorical HIPAA/GDPR substrate-first compliance pattern works. PHI-leakage=0.000 fidelity=1.000 NER-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "leak": 0.0,
+      "fidelity": 1.0,
+      "ner": 1.0
+    }
+  ],
+  "elapsed_s": 0.014437198638916016,
+  "summary": "HARD_PASS: zero PHI to the LLM + exact round-trip + NER>=0.95 -- categorical HIPAA/GDPR substrate-first compliance pattern works. PHI-leakage=0.000 fidelity=1.000 NER-recall=1.000"
+}

@@ -1,0 +1,36 @@
+{
+  "anchor_name": "substrate_compositional_generalization_K10_to_K20_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate composes NOVEL chains (>=70% at K=15). K10=1.00 K15=1.00 K20=1.00 (G=8)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "G_chains": 8,
+      "K10": 1.0,
+      "K15": 1.0,
+      "K20": 1.0
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "G_chains": 8,
+      "K10": 1.0,
+      "K15": 1.0,
+      "K20": 1.0
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "G_chains": 8,
+      "K10": 1.0,
+      "K15": 1.0,
+      "K20": 1.0
+    }
+  ],
+  "elapsed_s": 17.389673948287964,
+  "summary": "HARD_PASS: substrate composes NOVEL chains (>=70% at K=15). K10=1.00 K15=1.00 K20=1.00 (G=8)"
+}

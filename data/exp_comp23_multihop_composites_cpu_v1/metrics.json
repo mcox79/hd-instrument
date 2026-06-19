@@ -1,0 +1,18 @@
+{
+  "anchor_name": "comp23_multihop_composites_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-hop traversal through deep L3 COMPOSITE nodes holds (recall>=0.70) with per-node cleanup -- K-hop reasoning works over composite nodes exactly as over atoms; this is the multi-tier-sharded traversal mechanism. 3-hop recall(node-cleanup)=1.000 recall(no-cleanup)=0.033 NN=40",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall_cleanup": 1.0,
+      "recall_nocleanup": 0.033,
+      "NN": 40,
+      "hops": 3,
+      "n": 120
+    }
+  ],
+  "elapsed_s": 584.9090573787689,
+  "summary": "HARD_PASS: 3-hop traversal through deep L3 COMPOSITE nodes holds (recall>=0.70) with per-node cleanup -- K-hop reasoning works over composite nodes exactly as over atoms; this is the multi-tier-sharded traversal mechanism. 3-hop recall(node-cleanup)=1.000 recall(no-cleanup)=0.033 NN=40"
+}

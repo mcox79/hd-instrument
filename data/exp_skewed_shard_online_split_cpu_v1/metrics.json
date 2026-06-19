@@ -1,0 +1,15 @@
+{
+  "anchor_name": "skewed_shard_online_split_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: online-splitting the hot Zipf shard restores recall to >=0.95 -- elastic split policy handles skew. before-split=0.824 after-split=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "before": 0.8236842105263158,
+      "after": 1.0
+    }
+  ],
+  "elapsed_s": 6.76705265045166,
+  "summary": "HARD_PASS: online-splitting the hot Zipf shard restores recall to >=0.95 -- elastic split policy handles skew. before-split=0.824 after-split=1.000"
+}

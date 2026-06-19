@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap4_9_agm_contraction_depth_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: AGM belief revision stays correct >=0.85 through DEEP contraction chains (mean depth 1.6 supersessions/key) -- repeated exact erasure does not accumulate error; belief base stable under many revisions. deep-AGM-correct=1.000 mean-contraction-depth=1.6",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "belief_acc": 1.0,
+      "mean_depth": 1.6,
+      "n": 2999
+    }
+  ],
+  "elapsed_s": 1.9311623573303223,
+  "summary": "HARD_PASS: AGM belief revision stays correct >=0.85 through DEEP contraction chains (mean depth 1.6 supersessions/key) -- repeated exact erasure does not accumulate error; belief base stable under many revisions. deep-AGM-correct=1.000 mean-contraction-depth=1.6"
+}

@@ -1,0 +1,37 @@
+{
+  "verdict": "TBIND_HARD_FAIL",
+  "verdict_msg": "TENSOR_BIND_BROKEN: 1/1 HF. pass_seeds=0/1 hf_seeds=1 mean_tensor_acc=0.375 mean_match=0.375 mean_seq_acc=1.000 N=1024",
+  "elapsed_s": 0.17,
+  "summary": {
+    "anchor": "tensor_binding_two_shard_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "n_customers": 8,
+    "total_expected": 1,
+    "n_completed": 1,
+    "cells": [
+      {
+        "seed": "seed17",
+        "N": 1024,
+        "n_customers": 8,
+        "sequential_acc": 1.0,
+        "sequential_acc_email": 1.0,
+        "sequential_acc_phone": 1.0,
+        "tensor_acc": 0.375,
+        "tensor_vs_sequential_match": 0.375,
+        "sequential_time_s": 0.02989,
+        "tensor_time_s": 0.02599,
+        "latency_ratio": 0.86952,
+        "n_queries": 16,
+        "seed_int": 17,
+        "_partial_written_at": 1780143326.653364
+      }
+    ],
+    "verdict": "TBIND_HARD_FAIL",
+    "verdict_msg": "TENSOR_BIND_BROKEN: 1/1 HF. pass_seeds=0/1 hf_seeds=1 mean_tensor_acc=0.375 mean_match=0.375 mean_seq_acc=1.000 N=1024",
+    "elapsed_s": 0.17
+  }
+}

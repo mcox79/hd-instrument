@@ -1,0 +1,67 @@
+{
+  "anchor_name": "q_a3_l6_cross_layer_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 6 level fidelities + l6_acc. L1=1.0000 L2=1.0000 L3=1.0000 L4=1.0000 L5=1.0000 L6=1.0000 l6_acc=1.0000(HP>=0.6 HF<0.3) n_seeds=5",
+  "N": 4096,
+  "L": 6,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.6324570178985596,
+  "per_seed": [
+    {
+      "seed": 7,
+      "fid_l1": 1.0,
+      "fid_l2": 1.0,
+      "fid_l3": 1.0,
+      "fid_l4": 1.0,
+      "fid_l5": 1.0,
+      "fid_l6": 1.0,
+      "l6_accuracy": 1.0,
+      "peak_gpu_gb": 0.483065856
+    },
+    {
+      "seed": 17,
+      "fid_l1": 1.0,
+      "fid_l2": 1.0,
+      "fid_l3": 1.0,
+      "fid_l4": 1.0,
+      "fid_l5": 1.0,
+      "fid_l6": 1.0,
+      "l6_accuracy": 1.0,
+      "peak_gpu_gb": 0.483065856
+    },
+    {
+      "seed": 23,
+      "fid_l1": 1.0,
+      "fid_l2": 1.0,
+      "fid_l3": 1.0,
+      "fid_l4": 1.0,
+      "fid_l5": 1.0,
+      "fid_l6": 1.0,
+      "l6_accuracy": 1.0,
+      "peak_gpu_gb": 0.483065856
+    },
+    {
+      "seed": 31,
+      "fid_l1": 1.0,
+      "fid_l2": 1.0,
+      "fid_l3": 1.0,
+      "fid_l4": 1.0,
+      "fid_l5": 1.0,
+      "fid_l6": 1.0,
+      "l6_accuracy": 1.0,
+      "peak_gpu_gb": 0.483065856
+    },
+    {
+      "seed": 41,
+      "fid_l1": 1.0,
+      "fid_l2": 1.0,
+      "fid_l3": 1.0,
+      "fid_l4": 1.0,
+      "fid_l5": 1.0,
+      "fid_l6": 1.0,
+      "l6_accuracy": 1.0,
+      "peak_gpu_gb": 0.483065856
+    }
+  ]
+}

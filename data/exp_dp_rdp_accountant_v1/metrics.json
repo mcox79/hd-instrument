@@ -1,0 +1,27 @@
+{
+  "anchor_name": "dp_rdp_accountant_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: RDP accountant gives >=2x tighter privacy budget than naive composition at T=100 (valid upper bound) -- the federated consortium can run more aggregation rounds at the same eps. at T=100 RDP-eps=111.51 naive-eps=530.26 ratio=0.210 (single-round eps=5.303, sigma=1.0)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "T10": {
+          "rdp": 20.756462732485115,
+          "naive": 53.02585092994046,
+          "ratio": 0.39144044590456933
+        },
+        "T100": {
+          "rdp": 111.51292546497022,
+          "naive": 530.2585092994046,
+          "ratio": 0.21029917202517853
+        }
+      },
+      "eps_single": 5.302585092994046,
+      "sigma": 1.0
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "HARD_PASS: RDP accountant gives >=2x tighter privacy budget than naive composition at T=100 (valid upper bound) -- the federated consortium can run more aggregation rounds at the same eps. at T=100 RDP-eps=111.51 naive-eps=530.26 ratio=0.210 (single-round eps=5.303, sigma=1.0)"
+}

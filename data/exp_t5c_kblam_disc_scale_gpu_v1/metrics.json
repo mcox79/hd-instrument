@@ -1,0 +1,21 @@
+{
+  "anchor_name": "t5c_kblam_disc_scale_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: held-out <0.20 (architecture still memorizes at moderate scale; rethink before scaling). bare=0.000 train-recall=0.048 HELD-OUT-recall=0.041 (best 0.057) gate|mean|=0.379 (4000 facts, 2400/1600)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.04833333333333333,
+      "heldout_recall": 0.04125,
+      "best_heldout": 0.056875,
+      "gate_mean": 0.3787327706813812,
+      "n_facts": 4000,
+      "n_train": 2400,
+      "n_test": 1600
+    }
+  ],
+  "elapsed_s": 1019.7182788848877,
+  "summary": "HARD_FAIL: held-out <0.20 (architecture still memorizes at moderate scale; rethink before scaling). bare=0.000 train-recall=0.048 HELD-OUT-recall=0.041 (best 0.057) gate|mean|=0.379 (4000 facts, 2400/1600)"
+}

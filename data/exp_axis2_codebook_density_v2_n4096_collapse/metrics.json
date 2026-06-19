@@ -1,0 +1,388 @@
+{
+  "anchor": "axis2_codebook_density_v2_n4096_collapse",
+  "N": 4096,
+  "smoke": false,
+  "M_fracs": [
+    4.0,
+    8.0,
+    12.0,
+    16.0,
+    20.0
+  ],
+  "classes": [
+    "bsc",
+    "hadamard",
+    "kerdock"
+  ],
+  "beta": 8.0,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "cells": [
+    {
+      "codebook_class": "bsc",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "bsc",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 4.6740747938756044e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6850000023841858,
+      "mean_overlap": 2.7916395461957678e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6499999761581421,
+      "mean_overlap": 3.530294538922618e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 4.6740747938756044e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6850000023841858,
+      "mean_overlap": 2.7916395461957678e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6499999761581421,
+      "mean_overlap": 3.530294538922618e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 4.6740747938756044e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6850000023841858,
+      "mean_overlap": 2.7916395461957678e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6499999761581421,
+      "mean_overlap": 3.530294538922618e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 4.6740747938756044e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6850000023841858,
+      "mean_overlap": 2.7916395461957678e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6499999761581421,
+      "mean_overlap": 3.530294538922618e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 4.6740747938756044e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6850000023841858,
+      "mean_overlap": 2.7916395461957678e-08
+    },
+    {
+      "codebook_class": "hadamard",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6499999761581421,
+      "mean_overlap": 3.530294538922618e-08
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 8.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 12.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 16.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 7,
+      "retention": 0.6599999666213989,
+      "mean_overlap": 0.015087890625
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 17,
+      "retention": 0.6200000047683716,
+      "mean_overlap": 0.011328125
+    },
+    {
+      "codebook_class": "kerdock",
+      "M_frac": 20.0,
+      "M": 4096,
+      "seed": 23,
+      "retention": 0.6549999713897705,
+      "mean_overlap": 0.011181640625
+    }
+  ],
+  "verdict": "AXIS2V2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_COLLAPSE: hp_collapse_count=0/3 all_above_low=False class_spread_12=0.007 ret_at_8={'bsc': 0.645, 'hadamard': 0.652, 'kerdock': 0.645} ret_at_16={'bsc': 0.645, 'hadamard': 0.652, 'kerdock': 0.645} N=4096",
+  "elapsed_s": 223.71
+}

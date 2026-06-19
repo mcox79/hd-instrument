@@ -1,0 +1,23 @@
+{
+  "anchor_name": "combo1_p3_dam_implicit_gram_v3_formula_fix_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 4 HP conditions met. HP1_mmd=True(mmd={'8192': '0.0000'},thresh<0.02) HP2_kappa3=True(k3_resc={'8192': '1.0000'},tol<0.05,no_NM_factor) HP3_slope=True(1.062,max=1.3) HP4_cosine=True(cosine={'8192': '1.0000'},thresh>=0.95) n_hp=4/4",
+  "elapsed_s": 588.8286001682281,
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_LIST": [
+    8192
+  ],
+  "brand_refresh_k": 16,
+  "agg": {
+    "8192": {
+      "mean_mmd": 0.0,
+      "mean_kappa3_rescaled": 1.0000153077987073,
+      "mean_cosine": 1.0,
+      "n_seeds": 2
+    },
+    "_write_slope": 1.06199472122539
+  },
+  "elapsed_total_s": 588.8286001682281
+}

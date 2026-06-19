@@ -1,0 +1,48 @@
+{
+  "verdict": "GEN_REP_RESCUES_AT_PENALTY_1.0",
+  "verdict_msg": "Repetition penalty=1.0 produces non-degenerate generation: entropy=3.152, repetition=0.427. Per-penalty: p0.0=(e0.92,r1.00), p0.5=(e1.38,r0.80), p1.0=(e3.15,r0.43), p2.0=(e4.13,r0.30), p5.0=(e4.09,r1.00)",
+  "elapsed_s": 10.5,
+  "summary": {
+    "per_penalty": {
+      "0.0": {
+        "char_entropy": 0.9169882436828392,
+        "ngram_repetition": 1.0,
+        "sample_bytes": "  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e  e "
+      },
+      "0.5": {
+        "char_entropy": 1.3811528874603471,
+        "ngram_repetition": 0.8,
+        "sample_bytes": " ee |e   x  e  e  e  |e   x  e  e  e  |e   x  e  e  e  |e   x  e  e  e  |e   x  e  e  e  |e   x  e  "
+      },
+      "1.0": {
+        "char_entropy": 3.151988662413623,
+        "ngram_repetition": 0.42735042735042733,
+        "sample_bytes": " ea |nt| er oc e  p  ae |txd en |e   ea s tgi| md  e  p  ae etx|ni  d  e  p  ae |txe _p dn |e a  et "
+      },
+      "2.0": {
+        "char_entropy": 4.133527996274118,
+        "ngram_repetition": 0.3,
+        "sample_bytes": " eai|nts dr pc  e  ax|nts dripc fe _ax|mts drinc  e  pa| et d/rsicnyo  ap|et_ dr sci(.noap/et_edr sc"
+      },
+      "5.0": {
+        "char_entropy": 4.087380977992541,
+        "ngram_repetition": 1.0,
+        "sample_bytes": " eai|ntscdr.of0p_ eai|ntscdr.of0p_ eai|ntscdr.of0p_ eai|ntscdr.of0p_ eai|ntscdr.of0p_ eai|ntscdr.of0"
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "generate_length": 512,
+    "penalties": [
+      0.0,
+      0.5,
+      1.0,
+      2.0,
+      5.0
+    ],
+    "window": 16,
+    "max_epochs": 5
+  }
+}

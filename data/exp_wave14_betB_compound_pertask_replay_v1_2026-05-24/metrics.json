@@ -1,0 +1,82 @@
+{
+  "verdict": "COMPOUND_MIDDLE_BAND",
+  "verdict_msg": "retention_A=0.915 in (0.821,0.95); partial axis-stacking benefit; replay adds something but compound still does NOT clear HARD-PASS. retention_B=0.982.",
+  "elapsed_s": 206.579000000027,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.9108643016958443,
+        "retention_B": 0.9799577223699747,
+        "gain_C": 5.093673895362651,
+        "bpc_A_baseline": 2.496635634718766,
+        "bpc_A_concat": 2.740952335128885,
+        "bpc_B_baseline": 5.516600333531245,
+        "bpc_B_concat": 5.629426869752754,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.906326104637349
+      },
+      "17": {
+        "retention_A": 0.9232097279415935,
+        "retention_B": 0.9817320697801082,
+        "gain_C": 5.0736267102606085,
+        "bpc_A_baseline": 2.496550231877661,
+        "bpc_A_concat": 2.7042070250321326,
+        "bpc_B_baseline": 5.536953455998108,
+        "bpc_B_concat": 5.63998429555051,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.9263732897393915
+      },
+      "23": {
+        "retention_A": 0.9155964603383179,
+        "retention_B": 0.9814575888115963,
+        "gain_C": 5.092445150371555,
+        "bpc_A_baseline": 2.501425275539456,
+        "bpc_A_concat": 2.732017197418135,
+        "bpc_B_baseline": 5.569148752041424,
+        "bpc_B_concat": 5.674365164148214,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.9075548496284447
+      },
+      "31": {
+        "retention_A": 0.919741296958624,
+        "retention_B": 0.9797529479441746,
+        "gain_C": 5.105752737646979,
+        "bpc_A_baseline": 2.5015176338620737,
+        "bpc_A_concat": 2.7198057129042974,
+        "bpc_B_baseline": 5.501821229152215,
+        "bpc_B_concat": 5.615518933315528,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.894247262353021
+      },
+      "41": {
+        "retention_A": 0.906632878513734,
+        "retention_B": 0.9860396816972836,
+        "gain_C": 5.1088047391846185,
+        "bpc_A_baseline": 2.471044199564539,
+        "bpc_A_concat": 2.7255179666717844,
+        "bpc_B_baseline": 5.585141498024601,
+        "bpc_B_concat": 5.664215752869926,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 2.891195260815381
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "replay_frac": 0.5,
+    "pass_retention": 0.95,
+    "fail_retention": 0.821
+  }
+}

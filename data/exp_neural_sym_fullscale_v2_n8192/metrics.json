@@ -1,0 +1,25 @@
+{
+  "run_mode": "smoke",
+  "N": 8192,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_acc_at_n8": 0.895,
+    "mean_acc_at_n4": 0.895,
+    "mean_del_p": 0.10351562499999997,
+    "n_seeds": 2
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "acc@N/8=0.895(hp=0.95), acc@N/4=0.895, del_P=0.104.",
+  "elapsed_s": 137.05604887008667,
+  "config": {
+    "F_VALUES": [
+      10,
+      50,
+      100
+    ],
+    "K_RULES": 5
+  }
+}

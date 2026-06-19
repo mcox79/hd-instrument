@@ -1,0 +1,111 @@
+{
+  "verdict": "DECODER_BOUND_INCONCLUSIVE",
+  "verdict_msg": "Neither decoder located K*; extend K_grid upward.",
+  "elapsed_s": 0.46900000001187436,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_grid": [
+      50,
+      150,
+      500
+    ],
+    "beta": 1.0,
+    "flip_frac": 0.1,
+    "seeds": [
+      17
+    ],
+    "n_trials": 10
+  },
+  "device": "cuda",
+  "by_decoder": {
+    "softmax": {
+      "k_star": null,
+      "alpha_c": null,
+      "sweep": [
+        {
+          "K": 50,
+          "K_over_N": 0.09765625,
+          "mean_recovery": 1.0
+        },
+        {
+          "K": 150,
+          "K_over_N": 0.29296875,
+          "mean_recovery": 1.0
+        },
+        {
+          "K": 500,
+          "K_over_N": 0.9765625,
+          "mean_recovery": 1.0
+        }
+      ]
+    },
+    "sparsemax": {
+      "k_star": null,
+      "alpha_c": null,
+      "sweep": [
+        {
+          "K": 50,
+          "K_over_N": 0.09765625,
+          "mean_recovery": 1.0
+        },
+        {
+          "K": 150,
+          "K_over_N": 0.29296875,
+          "mean_recovery": 1.0
+        },
+        {
+          "K": 500,
+          "K_over_N": 0.9765625,
+          "mean_recovery": 1.0
+        }
+      ]
+    }
+  },
+  "summary": {
+    "by_decoder": {
+      "softmax": {
+        "k_star": null,
+        "alpha_c": null,
+        "sweep": [
+          {
+            "K": 50,
+            "K_over_N": 0.09765625,
+            "mean_recovery": 1.0
+          },
+          {
+            "K": 150,
+            "K_over_N": 0.29296875,
+            "mean_recovery": 1.0
+          },
+          {
+            "K": 500,
+            "K_over_N": 0.9765625,
+            "mean_recovery": 1.0
+          }
+        ]
+      },
+      "sparsemax": {
+        "k_star": null,
+        "alpha_c": null,
+        "sweep": [
+          {
+            "K": 50,
+            "K_over_N": 0.09765625,
+            "mean_recovery": 1.0
+          },
+          {
+            "K": 150,
+            "K_over_N": 0.29296875,
+            "mean_recovery": 1.0
+          },
+          {
+            "K": 500,
+            "K_over_N": 0.9765625,
+            "mean_recovery": 1.0
+          }
+        ]
+      }
+    }
+  }
+}

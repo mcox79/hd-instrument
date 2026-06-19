@@ -1,0 +1,61 @@
+{
+  "verdict": "VAMP_AMP_CONTRAST_PASS",
+  "verdict_msg": "Clean substrate-product split: VAMP-SE tracks empirical VAMP (2/2 cells < 20% rel err, mean=0.065) while AMP-SE diverges from empirical AMP (1/2 cells close, mean=0.125). Mechanism: VAMP uses the full singular spectrum (S-transform-equivalent info); AMP uses only the scalar mean and breaks on Kerdock's higher kappa_n.",
+  "elapsed_s": 3.5310000000172295,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "vamp_se_mse": 0.5084696095436811,
+        "vamp_emp_mse": 0.48809525820381156,
+        "amp_se_mse": 0.5049028943114744,
+        "amp_emp_mse": 0.6689430214323941,
+        "vamp_se_std": 1.692958176136017e-05,
+        "vamp_emp_std": 0.009511478667923512,
+        "amp_emp_std": 0.01701927612349352,
+        "vamp_rel_err": 0.04006994903422893,
+        "amp_rel_err": 0.24522286931054899
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "vamp_se_mse": 0.08390556275844574,
+        "vamp_emp_mse": 0.09225568992158226,
+        "amp_se_mse": 0.09512492197593597,
+        "amp_emp_mse": 0.0946896415919723,
+        "vamp_se_std": 5.408376455307007e-05,
+        "vamp_emp_std": 0.004778685475091006,
+        "amp_emp_std": 0.006736782114554342,
+        "vamp_rel_err": 0.09051070096851654,
+        "amp_rel_err": 0.00457588163986921
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "M_over_N_list": [
+        0.5,
+        1.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 2,
+      "n_iter": 100
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N_list": [
+      0.5,
+      1.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 2,
+    "n_iter": 100
+  }
+}

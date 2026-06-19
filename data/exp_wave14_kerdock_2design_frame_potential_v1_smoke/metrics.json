@@ -1,0 +1,63 @@
+{
+  "verdict": "KERDOCK_ISOMORPHISM_BROKEN",
+  "verdict_msg": "HARD FAIL: Kerdock F_4=0.0100 outside both Haar band (1.9, 2.1) AND Clifford band (2.8499999999999996, 3.1500000000000004). Either (a) the regular-rep PSL embedding is non-canonical and breaks the Clifford-2-design claim of the drill, or (b) the symplectic-Clifford lift has a phase-tracking bug. Refs: Haar F_4=1.7066, Clifford F_4=0.0000. This is informative -- triggers either a bug audit OR a new substrate finding (off-canonical-path Kerdock).",
+  "elapsed_s": 0.25,
+  "summary": {
+    "F4": {
+      "haar": 1.7065541546838,
+      "kerdock": 0.01,
+      "clifford": 0.0
+    },
+    "F4_se": {
+      "haar": 0.25046678251906473,
+      "kerdock": 0.007053278933842965,
+      "clifford": 0.0
+    },
+    "deviations": {
+      "kerdock_vs_haar": -0.995,
+      "kerdock_vs_cliff": -0.9966666666666667,
+      "kerdock_vs_haar_abs": -1.99,
+      "kerdock_vs_cliff_abs": -2.99
+    },
+    "traces_summary": {
+      "haar": {
+        "n": 200,
+        "mean_abs2": 0.929181465180097,
+        "mean_abs4": 1.7065541546838,
+        "se_abs4": 0.25046678251906473
+      },
+      "kerdock": {
+        "n": 200,
+        "mean_abs2": 0.01,
+        "mean_abs4": 0.01,
+        "se_abs4": 0.007053278933842965
+      },
+      "clifford": {
+        "n": 200,
+        "mean_abs2": 0.0,
+        "mean_abs4": 0.0,
+        "se_abs4": 0.0
+      }
+    }
+  },
+  "config": {
+    "m": 4,
+    "d": 16,
+    "n_samples": 200,
+    "seed": 42,
+    "smoke": true,
+    "groups": [
+      "haar",
+      "kerdock",
+      "clifford"
+    ],
+    "haar_band": [
+      1.9,
+      2.1
+    ],
+    "cliff_band": [
+      2.85,
+      3.15
+    ]
+  }
+}

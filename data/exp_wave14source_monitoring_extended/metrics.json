@@ -1,0 +1,132 @@
+{
+  "verdict": "SRCMON_DISSOCIATION_VALIDATED",
+  "verdict_msg": "At alpha=0.098: item_recall=14.86%, source_recall=82.29%. Yonelinas dual-process dissociation EMERGES from algebra. Source monitoring works at loads where item recall has collapsed.",
+  "elapsed_s": 32.562999999994645,
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "K_sources": 8,
+    "L_items_list": [
+      50,
+      150,
+      300,
+      500,
+      800,
+      1200,
+      1500,
+      2000
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53,
+      67,
+      79
+    ]
+  },
+  "device": "cuda",
+  "per_alpha": [
+    {
+      "L": 50,
+      "alpha": 0.09765625,
+      "item_recall": 0.14857142857142858,
+      "source_recall": 0.8228571428571428
+    },
+    {
+      "L": 150,
+      "alpha": 0.29296875,
+      "item_recall": 0.011428571428571429,
+      "source_recall": 0.5114285714285715
+    },
+    {
+      "L": 300,
+      "alpha": 0.5859375,
+      "item_recall": 0.002857142857142857,
+      "source_recall": 0.4228571428571429
+    },
+    {
+      "L": 500,
+      "alpha": 0.9765625,
+      "item_recall": 0.0,
+      "source_recall": 0.33428571428571424
+    },
+    {
+      "L": 800,
+      "alpha": 1.5625,
+      "item_recall": 0.0,
+      "source_recall": 0.2742857142857143
+    },
+    {
+      "L": 1200,
+      "alpha": 2.34375,
+      "item_recall": 0.002857142857142857,
+      "source_recall": 0.26
+    },
+    {
+      "L": 1500,
+      "alpha": 2.9296875,
+      "item_recall": 0.0,
+      "source_recall": 0.22
+    },
+    {
+      "L": 2000,
+      "alpha": 3.90625,
+      "item_recall": 0.0,
+      "source_recall": 0.21428571428571427
+    }
+  ],
+  "summary": {
+    "per_alpha": [
+      {
+        "L": 50,
+        "alpha": 0.09765625,
+        "item_recall": 0.14857142857142858,
+        "source_recall": 0.8228571428571428
+      },
+      {
+        "L": 150,
+        "alpha": 0.29296875,
+        "item_recall": 0.011428571428571429,
+        "source_recall": 0.5114285714285715
+      },
+      {
+        "L": 300,
+        "alpha": 0.5859375,
+        "item_recall": 0.002857142857142857,
+        "source_recall": 0.4228571428571429
+      },
+      {
+        "L": 500,
+        "alpha": 0.9765625,
+        "item_recall": 0.0,
+        "source_recall": 0.33428571428571424
+      },
+      {
+        "L": 800,
+        "alpha": 1.5625,
+        "item_recall": 0.0,
+        "source_recall": 0.2742857142857143
+      },
+      {
+        "L": 1200,
+        "alpha": 2.34375,
+        "item_recall": 0.002857142857142857,
+        "source_recall": 0.26
+      },
+      {
+        "L": 1500,
+        "alpha": 2.9296875,
+        "item_recall": 0.0,
+        "source_recall": 0.22
+      },
+      {
+        "L": 2000,
+        "alpha": 3.90625,
+        "item_recall": 0.0,
+        "source_recall": 0.21428571428571427
+      }
+    ]
+  }
+}

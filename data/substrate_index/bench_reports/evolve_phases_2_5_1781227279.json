@@ -1,0 +1,422 @@
+{
+  "phases": [
+    {
+      "phase": 2,
+      "glob": "research_to_*.md",
+      "target_corpus": "decision_history",
+      "n_files": 468,
+      "pre_verdicts": {
+        "OUT_OF_DOMAIN": 249,
+        "NOVEL": 70,
+        "TIER-C": 141,
+        "TIER-A": 7,
+        "TIER-B": 1
+      },
+      "ingested": 468,
+      "skipped": 0,
+      "relations_added": 416
+    },
+    {
+      "phase": 3,
+      "glob": "testbed_to_research_*.md",
+      "target_corpus": "findings_history",
+      "n_files": 60,
+      "pre_verdicts": {
+        "OUT_OF_DOMAIN": 28,
+        "TIER-C": 17,
+        "NOVEL": 13,
+        "TIER-A": 1,
+        "TIER-B": 1
+      },
+      "ingested": 60,
+      "skipped": 0,
+      "relations_added": 98
+    },
+    {
+      "phase": 3,
+      "glob": "exp_dev_to_research_*.md",
+      "target_corpus": "verdict_history",
+      "n_files": 247,
+      "pre_verdicts": {
+        "TIER-C": 64,
+        "OUT_OF_DOMAIN": 169,
+        "NOVEL": 11,
+        "TIER-A": 3
+      },
+      "ingested": 247,
+      "skipped": 0,
+      "relations_added": 104
+    },
+    {
+      "phase": 5,
+      "glob": "strategy_decisions_*.md",
+      "target_corpus": "results_history",
+      "n_files": 21,
+      "pre_verdicts": {
+        "NOVEL": 17,
+        "TIER-C": 2,
+        "OUT_OF_DOMAIN": 2
+      },
+      "ingested": 21,
+      "skipped": 0,
+      "relations_added": 73
+    }
+  ],
+  "final_stats": {
+    "partitions": {
+      "math": {
+        "n_atoms": 60,
+        "n_atoms_by_corpus": {
+          "math": 60
+        },
+        "n_atoms_by_tier": {
+          "T1": 15,
+          "T3": 24,
+          "T2": 21
+        },
+        "n_relations": 168,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 7,
+          "DUAL": 4,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 2,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 11,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 65,
+          "HAS_USERS": 65,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 14,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "concept": {
+        "n_atoms": 62,
+        "n_atoms_by_corpus": {
+          "concept": 62
+        },
+        "n_atoms_by_tier": {
+          "T2": 30,
+          "T1": 5,
+          "T3": 9,
+          "T_lexicon": 18
+        },
+        "n_relations": 101,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 50,
+          "HAS_USERS": 50,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 1,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "meta": {
+        "n_atoms": 8,
+        "n_atoms_by_corpus": {
+          "meta": 8
+        },
+        "n_atoms_by_tier": {
+          "NA": 7,
+          "T_methodology": 1
+        },
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "school": {
+        "n_atoms": 0,
+        "n_atoms_by_corpus": {},
+        "n_atoms_by_tier": {},
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "methodology": {
+        "n_atoms": 4,
+        "n_atoms_by_corpus": {
+          "methodology": 4
+        },
+        "n_atoms_by_tier": {
+          "NA": 4
+        },
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "research_history": {
+        "n_atoms": 449,
+        "n_atoms_by_corpus": {
+          "research_history": 449
+        },
+        "n_atoms_by_tier": {
+          "NA": 449
+        },
+        "n_relations": 1524,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 1524,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "decision_history": {
+        "n_atoms": 468,
+        "n_atoms_by_corpus": {
+          "decision_history": 468
+        },
+        "n_atoms_by_tier": {
+          "NA": 468
+        },
+        "n_relations": 416,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 416,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "results_history": {
+        "n_atoms": 21,
+        "n_atoms_by_corpus": {
+          "results_history": 21
+        },
+        "n_atoms_by_tier": {
+          "NA": 21
+        },
+        "n_relations": 73,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 73,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "findings_history": {
+        "n_atoms": 60,
+        "n_atoms_by_corpus": {
+          "findings_history": 60
+        },
+        "n_atoms_by_tier": {
+          "NA": 60
+        },
+        "n_relations": 98,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 98,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "verdict_history": {
+        "n_atoms": 247,
+        "n_atoms_by_corpus": {
+          "verdict_history": 247
+        },
+        "n_atoms_by_tier": {
+          "NA": 247
+        },
+        "n_relations": 104,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 104,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      },
+      "memory_history": {
+        "n_atoms": 0,
+        "n_atoms_by_corpus": {},
+        "n_atoms_by_tier": {},
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "EQUIVALENT_UNDER": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0,
+          "SUPERSEDES": 0,
+          "SUPERSEDED_BY": 0,
+          "CURRENT_BEST_FOR": 0
+        }
+      }
+    },
+    "total_atoms": 1379,
+    "total_relations": 2484,
+    "cross_store_relations": 791
+  }
+}

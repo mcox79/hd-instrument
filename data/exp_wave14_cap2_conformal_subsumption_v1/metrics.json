@@ -1,0 +1,229 @@
+{
+  "verdict": "CAP2_CONFORMAL_RESCUE_PASS",
+  "verdict_msg": "HARD PASS: conformal subsumption rescues Cap 2. 5/5 seeds achieve committed_acc >= 0.9 at abstain <= 0.2. Pareto front monotone. Cap 2 re-axiomatized as calibrated abstention over Bet G stream.",
+  "elapsed_s": 39.687999999994645,
+  "summary": {
+    "seed_results": {
+      "17": {
+        "0.3": {
+          "alpha": 0.3,
+          "tau": 0.968505859375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.295,
+          "n_committed": 282,
+          "n_total": 400
+        },
+        "0.2": {
+          "alpha": 0.2,
+          "tau": 0.966796875,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.185,
+          "n_committed": 326,
+          "n_total": 400
+        },
+        "0.1": {
+          "alpha": 0.1,
+          "tau": 0.96435546875,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.08,
+          "n_committed": 368,
+          "n_total": 400
+        },
+        "0.05": {
+          "alpha": 0.05,
+          "tau": 0.963134765625,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.0375,
+          "n_committed": 385,
+          "n_total": 400
+        }
+      },
+      "23": {
+        "0.3": {
+          "alpha": 0.3,
+          "tau": 0.966796875,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.2975,
+          "n_committed": 281,
+          "n_total": 400
+        },
+        "0.2": {
+          "alpha": 0.2,
+          "tau": 0.9658203125,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.225,
+          "n_committed": 310,
+          "n_total": 400
+        },
+        "0.1": {
+          "alpha": 0.1,
+          "tau": 0.964111328125,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.1175,
+          "n_committed": 353,
+          "n_total": 400
+        },
+        "0.05": {
+          "alpha": 0.05,
+          "tau": 0.962890625,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.0575,
+          "n_committed": 377,
+          "n_total": 400
+        }
+      },
+      "31": {
+        "0.3": {
+          "alpha": 0.3,
+          "tau": 0.968505859375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.29,
+          "n_committed": 284,
+          "n_total": 400
+        },
+        "0.2": {
+          "alpha": 0.2,
+          "tau": 0.966552734375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.19,
+          "n_committed": 324,
+          "n_total": 400
+        },
+        "0.1": {
+          "alpha": 0.1,
+          "tau": 0.965087890625,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.105,
+          "n_committed": 358,
+          "n_total": 400
+        },
+        "0.05": {
+          "alpha": 0.05,
+          "tau": 0.964111328125,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.055,
+          "n_committed": 378,
+          "n_total": 400
+        }
+      },
+      "37": {
+        "0.3": {
+          "alpha": 0.3,
+          "tau": 0.9677734375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.2875,
+          "n_committed": 285,
+          "n_total": 400
+        },
+        "0.2": {
+          "alpha": 0.2,
+          "tau": 0.966552734375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.1575,
+          "n_committed": 337,
+          "n_total": 400
+        },
+        "0.1": {
+          "alpha": 0.1,
+          "tau": 0.96484375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.0925,
+          "n_committed": 363,
+          "n_total": 400
+        },
+        "0.05": {
+          "alpha": 0.05,
+          "tau": 0.963623046875,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.055,
+          "n_committed": 378,
+          "n_total": 400
+        }
+      },
+      "41": {
+        "0.3": {
+          "alpha": 0.3,
+          "tau": 0.9677734375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.2825,
+          "n_committed": 287,
+          "n_total": 400
+        },
+        "0.2": {
+          "alpha": 0.2,
+          "tau": 0.96630859375,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.195,
+          "n_committed": 322,
+          "n_total": 400
+        },
+        "0.1": {
+          "alpha": 0.1,
+          "tau": 0.96435546875,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.095,
+          "n_committed": 362,
+          "n_total": 400
+        },
+        "0.05": {
+          "alpha": 0.05,
+          "tau": 0.9619140625,
+          "committed_acc": 1.0,
+          "abstain_rate": 0.0475,
+          "n_committed": 381,
+          "n_total": 400
+        }
+      }
+    },
+    "pareto_front": [
+      {
+        "alpha": 0.3,
+        "committed_acc": 1.0,
+        "abstain_rate": 0.2905
+      },
+      {
+        "alpha": 0.2,
+        "committed_acc": 1.0,
+        "abstain_rate": 0.19050000000000003
+      },
+      {
+        "alpha": 0.1,
+        "committed_acc": 1.0,
+        "abstain_rate": 0.098
+      },
+      {
+        "alpha": 0.05,
+        "committed_acc": 1.0,
+        "abstain_rate": 0.0505
+      }
+    ],
+    "n_seeds": 5,
+    "alpha_grid": [
+      0.3,
+      0.2,
+      0.1,
+      0.05
+    ],
+    "note": "Pattern 1 metric re-axiomatization; zero substrate change."
+  },
+  "config": {
+    "N": 8192,
+    "M": 200,
+    "n_queries": 800,
+    "seeds": [
+      17,
+      23,
+      31,
+      37,
+      41
+    ],
+    "alpha_grid": [
+      0.3,
+      0.2,
+      0.1,
+      0.05
+    ],
+    "device": "cpu",
+    "note": "Cap 2 conformal subsumption: re-axiomatize as calibrated abstention over Bet G stream; pure post-hoc wrapper."
+  }
+}

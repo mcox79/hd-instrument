@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap2_11_haiku_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate generates valid 5-7-5 haiku >=0.80 (syllable-exact + topic-relevant) -- topic-word retrieval + syllable constraint-fill; creative-form generation with hard constraints. haiku-valid=1.000 (n=100)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "haiku_valid": 1.0,
+      "n": 100
+    }
+  ],
+  "elapsed_s": 0.10846233367919922,
+  "summary": "HARD_PASS: substrate generates valid 5-7-5 haiku >=0.80 (syllable-exact + topic-relevant) -- topic-word retrieval + syllable constraint-fill; creative-form generation with hard constraints. haiku-valid=1.000 (n=100)"
+}

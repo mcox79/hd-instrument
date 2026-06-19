@@ -1,0 +1,18 @@
+{
+  "verdict": "R27_L2_KILLED",
+  "verdict_msg": "Dynamic W (0.418) underperforms static (1.000); ratio=0.42.",
+  "elapsed_s": 2.1569999999919673,
+  "summary": {
+    "static_acc": 1.0,
+    "dynamic_acc": 0.4183333218097687
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M": 16384,
+    "n_query": 200,
+    "alpha": 0.1,
+    "window": 50,
+    "seeds": 3
+  }
+}

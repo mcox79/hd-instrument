@@ -1,0 +1,19 @@
+{
+  "anchor_name": "resonator_factorization_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: factorization success 0.70-0.90 at K=3. success by K: {'K2': 1.0, 'K3': 0.733} (N=2048 M=30)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K2": 1.0,
+        "K3": 0.7333333333333333
+      },
+      "N": 2048,
+      "M": 30
+    }
+  ],
+  "elapsed_s": 0.3116457462310791,
+  "summary": "MIDDLE_BAND: factorization success 0.70-0.90 at K=3. success by K: {'K2': 1.0, 'K3': 0.733} (N=2048 M=30)"
+}

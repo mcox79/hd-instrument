@@ -1,0 +1,148 @@
+{
+  "verdict": "KERDOCK_SPECTRUM_BULK_BOUNDED",
+  "verdict_msg": "All 3 cells have spectrum CONFINED within 5% of the MP bulk edges. Max excursion=0.000. The substrate-novel signature is therefore MOMENT-BASED ONLY: free cumulants deviate from MP, but the support does not. The mechanism is shape-of-bulk, not outliers.",
+  "elapsed_s": 12.125,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "lam_max_mean": 2.3637102603912354,
+        "lam_max_std": 0.017636300117375277,
+        "lam_min_mean": 0.10975194573402405,
+        "lam_min_std": 0.0032037898587647306,
+        "per_seed": [
+          {
+            "seed": 50,
+            "lam_max": 2.370574951171875,
+            "lam_min": 0.10550253838300705
+          },
+          {
+            "seed": 1050,
+            "lam_max": 2.336171865463257,
+            "lam_min": 0.11024653166532516
+          },
+          {
+            "seed": 2050,
+            "lam_max": 2.3826584815979004,
+            "lam_min": 0.1152862012386322
+          },
+          {
+            "seed": 3050,
+            "lam_max": 2.350623369216919,
+            "lam_min": 0.10822658240795135
+          },
+          {
+            "seed": 4050,
+            "lam_max": 2.3785226345062256,
+            "lam_min": 0.10949787497520447
+          }
+        ],
+        "mp_lam_min": 0.08578643762690492,
+        "mp_lam_max": 2.914213562373095,
+        "worst_excursion_rel": -0.008473086648562559
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "lam_max_mean": 2.9882513999938967,
+        "lam_max_std": 0.006172280135055543,
+        "lam_min_mean": 1.3095817500530238e-06,
+        "lam_min_std": 8.964667239739472e-07,
+        "per_seed": [
+          {
+            "seed": 100,
+            "lam_max": 2.9916326999664307,
+            "lam_min": 9.764784181243158e-07
+          },
+          {
+            "seed": 1100,
+            "lam_max": 2.981686592102051,
+            "lam_min": 2.548310931160813e-06
+          },
+          {
+            "seed": 2100,
+            "lam_max": 2.9809675216674805,
+            "lam_min": 9.744986755322316e-07
+          },
+          {
+            "seed": 3100,
+            "lam_max": 2.997234582901001,
+            "lam_min": 1.485282452584613e-10
+          },
+          {
+            "seed": 4100,
+            "lam_max": 2.9897356033325195,
+            "lam_min": 2.0484721972025e-06
+          }
+        ],
+        "mp_lam_min": 0.0,
+        "mp_lam_max": 4.0,
+        "worst_excursion_rel": -3.2739543751325596e-07
+      },
+      {
+        "alpha": 2.0,
+        "N": 1024,
+        "M": 2048,
+        "lam_max_mean": 3.7270735263824464,
+        "lam_max_std": 0.004198512079315703,
+        "lam_min_mean": 0.2762925624847412,
+        "lam_min_std": 0.005273389328608689,
+        "per_seed": [
+          {
+            "seed": 200,
+            "lam_max": 3.7314376831054688,
+            "lam_min": 0.2728446125984192
+          },
+          {
+            "seed": 1200,
+            "lam_max": 3.719960927963257,
+            "lam_min": 0.27701786160469055
+          },
+          {
+            "seed": 2200,
+            "lam_max": 3.7247517108917236,
+            "lam_min": 0.2782530188560486
+          },
+          {
+            "seed": 3200,
+            "lam_max": 3.7299678325653076,
+            "lam_min": 0.26884758472442627
+          },
+          {
+            "seed": 4200,
+            "lam_max": 3.7292494773864746,
+            "lam_min": 0.28449973464012146
+          }
+        ],
+        "mp_lam_min": 0.17157287525381,
+        "mp_lam_max": 5.82842712474619,
+        "worst_excursion_rel": -0.018512000241181447
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "alphas": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "n_seeds": 5
+    },
+    "verdict": "KERDOCK_SPECTRUM_BULK_BOUNDED",
+    "verdict_msg": "All 3 cells have spectrum CONFINED within 5% of the MP bulk edges. Max excursion=0.000. The substrate-novel signature is therefore MOMENT-BASED ONLY: free cumulants deviate from MP, but the support does not. The mechanism is shape-of-bulk, not outliers."
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "alphas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "n_seeds": 5
+  }
+}

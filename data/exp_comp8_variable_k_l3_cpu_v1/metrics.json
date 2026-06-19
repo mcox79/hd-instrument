@@ -1,0 +1,22 @@
+{
+  "anchor_name": "comp8_variable_k_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity-vs-depth tradeoff -- L=3 holds recall>=0.85 even at K=50 per level (with cleanup); width and depth compose. recall-vs-K@L3={'5': 1.0, '10': 1.0, '20': 1.0, '50': 1.0} (recall@K=50=1.000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "L": 3,
+      "recall_curve": {
+        "5": 1.0,
+        "10": 1.0,
+        "20": 1.0,
+        "50": 1.0
+      },
+      "recall_at_kmax": 1.0,
+      "kmax": 50
+    }
+  ],
+  "elapsed_s": 939.0734310150146,
+  "summary": "HARD_PASS: capacity-vs-depth tradeoff -- L=3 holds recall>=0.85 even at K=50 per level (with cleanup); width and depth compose. recall-vs-K@L3={'5': 1.0, '10': 1.0, '20': 1.0, '50': 1.0} (recall@K=50=1.000)"
+}

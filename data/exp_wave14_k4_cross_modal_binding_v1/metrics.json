@@ -1,0 +1,53 @@
+{
+  "verdict": "CROSS_MODAL_BIND_HARD_FAIL",
+  "verdict_msg": "K4 KILLER substrate-level: mean_cos=0.023<0.2 OR mean_lift=0.023<0.05. s7:cos=0.024,lift=0.022, s17:cos=0.024,lift=0.023, s23:cos=0.023,lift=0.022, s31:cos=0.022,lift=0.023, s41:cos=0.023,lift=0.024.",
+  "elapsed_s": 1.6559999999590218,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "mean_cross_cos": 0.02386526231573953,
+        "mean_null_cos": 0.0017504524965625023,
+        "lift": 0.022114809819177027
+      },
+      "17": {
+        "mean_cross_cos": 0.024106582028907725,
+        "mean_null_cos": 0.0009161045882501639,
+        "lift": 0.02319047744065756
+      },
+      "23": {
+        "mean_cross_cos": 0.022956309679939293,
+        "mean_null_cos": 0.0014085337196593174,
+        "lift": 0.021547775960279975
+      },
+      "31": {
+        "mean_cross_cos": 0.022063197620082065,
+        "mean_null_cos": -0.0014116866754193325,
+        "lift": 0.0234748842955014
+      },
+      "41": {
+        "mean_cross_cos": 0.022842700129695005,
+        "mean_null_cos": -0.0006730833860058283,
+        "lift": 0.023515783515700835
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "n": 4096,
+    "n_img_dim": 256,
+    "m_pairs": 200,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "device": "cuda",
+    "pass_mean_cos": 0.5,
+    "pass_lift": 0.15,
+    "pass_seeds": 4,
+    "fail_mean_cos": 0.2,
+    "fail_lift": 0.05
+  }
+}

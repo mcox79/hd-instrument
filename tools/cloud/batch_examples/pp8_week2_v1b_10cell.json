@@ -1,0 +1,92 @@
+[
+  {
+    "anchor": "pp8_w2_v1b_c1_phi3_baseline_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v1b_c1 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --lr-schedule cosine --lr-warmup-frac 0.10 --lr-decay-floor-frac 0.0 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c1/summary.json", "data/testbed_pp8_week2/train_v1b_c1/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c2_phi3_wsd_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v1b_c2 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --lr-schedule wsd --lr-warmup-frac 0.20 --lr-stable-frac 0.60 --lr-decay-floor-frac 0.30 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c2/summary.json", "data/testbed_pp8_week2/train_v1b_c2/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c3_phi3_constant_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v1b_c3 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --lr-schedule constant --lr-warmup-frac 0.10 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c3/summary.json", "data/testbed_pp8_week2/train_v1b_c3/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c4_random_baseline_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v1b_c4 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --path1a-frozen-random-keys --lr-schedule cosine --lr-warmup-frac 0.10 --lr-decay-floor-frac 0.0 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c4/summary.json", "data/testbed_pp8_week2/train_v1b_c4/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c5_random_wsd_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v1b_c5 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --path1a-frozen-random-keys --lr-schedule wsd --lr-warmup-frac 0.20 --lr-stable-frac 0.60 --lr-decay-floor-frac 0.30 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c5/summary.json", "data/testbed_pp8_week2/train_v1b_c5/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c6_random_constant_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v1b_c6 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --path1a-frozen-random-keys --lr-schedule constant --lr-warmup-frac 0.10 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c6/summary.json", "data/testbed_pp8_week2/train_v1b_c6/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c7_heldout_baseline_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1 --out-dir data/testbed_pp8_week2/train_v1b_c7 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --lr-schedule cosine --lr-warmup-frac 0.10 --lr-decay-floor-frac 0.0 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c7/summary.json", "data/testbed_pp8_week2/train_v1b_c7/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c8_heldout_wsd_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1 --out-dir data/testbed_pp8_week2/train_v1b_c8 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --lr-schedule wsd --lr-warmup-frac 0.20 --lr-stable-frac 0.60 --lr-decay-floor-frac 0.30 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c8/summary.json", "data/testbed_pp8_week2/train_v1b_c8/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c9_heldout_constant_h100",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1 --out-dir data/testbed_pp8_week2/train_v1b_c9 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 25 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --path1a-v1 --path1a-v1prime --lr-schedule constant --lr-warmup-frac 0.10 --ema-decay 0.999 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 30,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c9/summary.json", "data/testbed_pp8_week2/train_v1b_c9/train_progress.jsonl"]
+  },
+  {
+    "anchor": "pp8_w2_v1b_c10_path_a_paraphrase_h100",
+    "script": "testbed/llm_integration/path_a_paraphrase_smoke.py",
+    "script_args": "--out-dir data/testbed_pp8_week2/train_v1b_c10 --n-pairs 50 --device cuda --projection-seed 23 --pair-seed 7",
+    "total_cells": 50,
+    "cell_regex": "^\\s+\\[path_a\\]\\s+\\d+/\\d+",
+    "experiment_timeout_min": 20,
+    "result_paths": ["data/testbed_pp8_week2/train_v1b_c10/summary.json"]
+  }
+]

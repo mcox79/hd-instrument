@@ -1,0 +1,42 @@
+{
+  "verdict": "KF2_MIDDLE_BAND",
+  "verdict_msg": "Weak predictability. 0/1 seeds pass. mean_r=0.000. mean_delta_acc=0.000.",
+  "elapsed_s": 0.2920997142791748,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      1.0,
+      2.0
+    ],
+    "n_edits": 3,
+    "n_eval": 50
+  },
+  "summary": {
+    "cells": [
+      {
+        "M": 1024,
+        "M_over_N": 1.0,
+        "seed": 17,
+        "mean_pearson_r": 0.0,
+        "mean_delta_acc": 0.0,
+        "n_edits_run": 3
+      },
+      {
+        "M": 2048,
+        "M_over_N": 2.0,
+        "seed": 17,
+        "mean_pearson_r": 0.0,
+        "mean_delta_acc": 0.0,
+        "n_edits_run": 3
+      }
+    ],
+    "N_full": 4096,
+    "N_used": 1024,
+    "m_fracs": [
+      1.0,
+      2.0
+    ],
+    "smoke": true
+  }
+}

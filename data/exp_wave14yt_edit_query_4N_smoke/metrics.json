@@ -1,0 +1,66 @@
+{
+  "verdict": "EDIT_QUERY_4N_KERDOCK_PASS",
+  "verdict_msg": "Kerdock passes at M=4N (4x over-capacity). edit=1.000. Correlated fails: edit_argmax=0.800<0.95; kept_argmax=0.850<0.95; edit_para_h8=0.800<0.9; kept_para_h8=0.900<0.95. Edit pipeline scales to 4x over-capacity with structured keys.",
+  "elapsed_s": 1.8439999999991414,
+  "summary": {
+    "N": 1024,
+    "by_arm": {
+      "kerdock": {
+        "edit_argmax_acc": 1.0,
+        "kept_argmax_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          }
+        ],
+        "edit_paraphrase_acc_h8": 1.0,
+        "kept_paraphrase_acc_h8": 1.0
+      },
+      "correlated": {
+        "edit_argmax_acc": 0.800000011920929,
+        "kept_argmax_acc": 0.8500000238418579,
+        "side_effect_rate": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "edit_argmax_acc": 0.800000011920929,
+            "kept_argmax_acc": 0.8500000238418579,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "8": {
+                "edit_para_acc": 0.800000011920929,
+                "kept_para_acc": 0.9000000357627869
+              }
+            }
+          }
+        ],
+        "edit_paraphrase_acc_h8": 0.800000011920929,
+        "kept_paraphrase_acc_h8": 0.9000000357627869
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 4096,
+    "n_edit": 5,
+    "n_kept": 20,
+    "hamming_radii": [
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

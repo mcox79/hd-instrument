@@ -1,0 +1,19 @@
+{
+  "anchor_name": "phase4b_role_parser_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: role-acc <0.35 or no lift over unit-cue -- answer-consistency context features insufficient; need full dep-parser syntactic structure. role-acc=0.000 end-to-end=0.000 coverage=0.033 (labeled-train=2, role-evals=0)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.0,
+      "coverage": 0.033,
+      "role_acc": 0.0,
+      "n_labeled": 2,
+      "n_test": 91,
+      "role_tot": 0
+    }
+  ],
+  "elapsed_s": 3.536238431930542,
+  "summary": "HARD_FAIL: role-acc <0.35 or no lift over unit-cue -- answer-consistency context features insufficient; need full dep-parser syntactic structure. role-acc=0.000 end-to-end=0.000 coverage=0.033 (labeled-train=2, role-evals=0)"
+}

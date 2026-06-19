@@ -1,0 +1,138 @@
+{
+  "anchor_name": "substrate_concept_construct_2_autonomous_schema_measured_carrier_real_utility_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "R2 measurable but 0 measured-extension OR R3 zero utility. CONSTRUCT-2: R1 autonomous gap-detection proposed 15 construction operations from 16 result atoms (substrate-internal). R2 measured-carrier-extension: element-level repr present=True -> 0 measured. R3 real-utility: 0 open-derivation closes + 9 >=2-result bridges (of 651 open derivations in corpus).",
+  "summary": "R2 measurable but 0 measured-extension OR R3 zero utility. CONSTRUCT-2: R1 autonomous gap-detection proposed 15 construction operations from 16 result atoms (substrate-internal). R2 measured-carrier-extension: element-level repr present=True -> 0 measured. R3 real-utility: 0 open-derivation closes + 9 >=2-result bridges (of 651 open derivations in corpus).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_results": 16,
+      "n_proposals": 15,
+      "r2_element_repr": true,
+      "r2_measured": 0,
+      "n_open_deriv": 651,
+      "r3a_closes": 0,
+      "r3b_bridges": 9,
+      "util_ops": [
+        {
+          "op": "pythagoras_inner_product_synthesis_construction",
+          "closes_open": 0,
+          "bridges": 4
+        },
+        {
+          "op": "dot_product_construction",
+          "closes_open": 0,
+          "bridges": 4
+        },
+        {
+          "op": "self_adjoint_real_eigenvalues_lemma_construction",
+          "closes_open": 0,
+          "bridges": 4
+        },
+        {
+          "op": "inner_product_construction",
+          "closes_open": 0,
+          "bridges": 3
+        },
+        {
+          "op": "kronecker_product_construction",
+          "closes_open": 0,
+          "bridges": 2
+        },
+        {
+          "op": "inner_product_positive_semidefinite_lemma_construction",
+          "closes_open": 0,
+          "bridges": 4
+        },
+        {
+          "op": "pointwise_product_construction",
+          "closes_open": 0,
+          "bridges": 2
+        },
+        {
+          "op": "inner_product_space_construction",
+          "closes_open": 0,
+          "bridges": 2
+        },
+        {
+          "op": "self_adjoint_operator_lemma_construction",
+          "closes_open": 0,
+          "bridges": 7
+        }
+      ],
+      "hard_pass": false,
+      "proposals_sample": [
+        {
+          "op": "tensor_construction",
+          "result": "tensor",
+          "inputs": [
+            "tensor_product_representation"
+          ]
+        },
+        {
+          "op": "pythagoras_inner_product_synthesis_construction",
+          "result": "pythagoras_inner_product_synthesis",
+          "inputs": [
+            "inner_product"
+          ]
+        },
+        {
+          "op": "dot_product_construction",
+          "result": "dot_product",
+          "inputs": [
+            "cosine_cleanup",
+            "cosine_similarity",
+            "inner_product",
+            "orthogonality"
+          ]
+        },
+        {
+          "op": "self_adjoint_real_eigenvalues_lemma_construction",
+          "result": "self_adjoint_real_eigenvalues_lemma",
+          "inputs": [
+            "eigenvalue_eigenvector",
+            "inner_product",
+            "self_adjoint_operator_lemma"
+          ]
+        },
+        {
+          "op": "quotient_group_construction",
+          "result": "quotient_group",
+          "inputs": [
+            "group_axioms"
+          ]
+        },
+        {
+          "op": "inner_product_construction",
+          "result": "inner_product",
+          "inputs": [
+            "bilinear_form",
+            "hilbert_space",
+            "pair_type",
+            "vector_space"
+          ]
+        },
+        {
+          "op": "inner_product_bilinearity_lemma_construction",
+          "result": "inner_product_bilinearity_lemma",
+          "inputs": [
+            "inner_product_space"
+          ]
+        },
+        {
+          "op": "tensor_product_representation_construction",
+          "result": "tensor_product_representation",
+          "inputs": [
+            "algebraic_binding",
+            "binders",
+            "circular_convolution",
+            "fhrr_bind",
+            "kronecker_product"
+          ]
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.5107543468475342
+}

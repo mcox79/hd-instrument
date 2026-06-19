@@ -1,0 +1,17 @@
+{
+  "anchor_name": "streaming_hyperloglog_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HyperLogLog cardinality within 2pct at O(1) memory -- distinct-fact/KB-size metric works. true=20000 est=20258 rel_err=0.0129 (m=1024)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "true": 20000,
+      "est": 20257.87273236687,
+      "rel": 0.01289363661834359,
+      "m": 1024
+    }
+  ],
+  "elapsed_s": 0.019063711166381836,
+  "summary": "HARD_PASS: HyperLogLog cardinality within 2pct at O(1) memory -- distinct-fact/KB-size metric works. true=20000 est=20258 rel_err=0.0129 (m=1024)"
+}

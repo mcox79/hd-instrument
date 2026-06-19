@@ -1,0 +1,369 @@
+{
+  "anchor_name": "substrate_a1v2_ratio_profile_v1",
+  "verdict": "ATTRIBUTION",
+  "verdict_msg": "net_speedup MONOTONE in T (noise-guarded) at this grid/hardware -> at THIS config the ratio is monotone (A1's t_sparse-monotone finding extends to the ratio here). net_speedup across cells: min=0.237 median=1.246 max=4.733. The canonical 8a net_speedup non-monotonicity may be config/regime-specific (different d/e/k or finer T-grid); measured-8a HARD_FAIL STANDS.",
+  "summary": "net_speedup MONOTONE in T (noise-guarded) at this grid/hardware -> at THIS config the ratio is monotone (A1's t_sparse-monotone finding extends to the ratio here). net_speedup across cells: min=0.237 median=1.246 max=4.733. The canonical 8a net_speedup non-monotonicity may be config/regime-specific (different d/e/k or finer T-grid); measured-8a HARD_FAIL STANDS.",
+  "headline": "net_speedup MONOTONE in T (noise-guarded) at this grid/hardware -> at THIS config the ratio is monotone (A1's t_sparse-monotone finding extends to the ratio here). net_speedup across cells: min=0.237 median=1.246 max=4.733. The canonical 8a net_speedup non-monotonicity may be config/regime-specific (different d/e/k or finer T-grid); measured-8a HARD_FAIL STANDS.",
+  "n_seeds": 1,
+  "run_mode": "full",
+  "branch_path": "ratio_profile_dense_vs_sparse",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T15:19:53.274339+00:00",
+  "cell_commit": "d78ffe8a",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 21,
+    "n_cells_emitted": 21,
+    "elapsed_s": 15.0,
+    "is_smoke": false
+  },
+  "n_cells": 21,
+  "ratio_nonmonotone_any": false,
+  "interaction_only_nonmonotonicity": false,
+  "attribution": [],
+  "net_speedup_localization": "monotone-at-this-config",
+  "measures_quantity": "net_speedup = t_dense/t_sparse (the RATIO) -- closes A1's t_sparse-only gap by adding t_dense",
+  "smoke_cant_test_nonmonotonicity": false,
+  "localize": {
+    "k1": {
+      "t_dense": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "t_sparse": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "net_speedup": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    },
+    "k2": {
+      "t_dense": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "t_sparse": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "net_speedup": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    },
+    "k4": {
+      "t_dense": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "t_sparse": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "net_speedup": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    }
+  },
+  "cells": [
+    {
+      "T": 512,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 0.9703,
+      "t_sparse_ms": 2.7732,
+      "net_speedup": 0.3499,
+      "band_ms": {
+        "t_dense_ms": 0.064,
+        "t_sparse_ms": 1.1754
+      },
+      "band_net_speedup": 0.1714
+    },
+    {
+      "T": 1024,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 1.605,
+      "t_sparse_ms": 3.2419,
+      "net_speedup": 0.4951,
+      "band_ms": {
+        "t_dense_ms": 0.0883,
+        "t_sparse_ms": 1.4945
+      },
+      "band_net_speedup": 0.2555
+    },
+    {
+      "T": 2048,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 3.5953,
+      "t_sparse_ms": 3.258,
+      "net_speedup": 1.1035,
+      "band_ms": {
+        "t_dense_ms": 0.1567,
+        "t_sparse_ms": 2.9996
+      },
+      "band_net_speedup": 1.0641
+    },
+    {
+      "T": 4096,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 7.3678,
+      "t_sparse_ms": 3.7031,
+      "net_speedup": 1.9896,
+      "band_ms": {
+        "t_dense_ms": 0.3603,
+        "t_sparse_ms": 2.0903
+      },
+      "band_net_speedup": 1.2204
+    },
+    {
+      "T": 8192,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 15.7126,
+      "t_sparse_ms": 5.5045,
+      "net_speedup": 2.8545,
+      "band_ms": {
+        "t_dense_ms": 0.1291,
+        "t_sparse_ms": 2.0741
+      },
+      "band_net_speedup": 1.099
+    },
+    {
+      "T": 16384,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 45.0267,
+      "t_sparse_ms": 14.814,
+      "net_speedup": 3.0395,
+      "band_ms": {
+        "t_dense_ms": 19.181,
+        "t_sparse_ms": 20.1069
+      },
+      "band_net_speedup": 5.4202
+    },
+    {
+      "T": 32768,
+      "k": 1,
+      "n_active": 8.0,
+      "t_dense_ms": 62.2911,
+      "t_sparse_ms": 13.162,
+      "net_speedup": 4.7326,
+      "band_ms": {
+        "t_dense_ms": 0.3678,
+        "t_sparse_ms": 1.074
+      },
+      "band_net_speedup": 0.4141
+    },
+    {
+      "T": 512,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 0.8712,
+      "t_sparse_ms": 3.4754,
+      "net_speedup": 0.2507,
+      "band_ms": {
+        "t_dense_ms": 0.0329,
+        "t_sparse_ms": 3.0144
+      },
+      "band_net_speedup": 0.2269
+    },
+    {
+      "T": 1024,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 1.5534,
+      "t_sparse_ms": 2.7128,
+      "net_speedup": 0.5726,
+      "band_ms": {
+        "t_dense_ms": 0.0808,
+        "t_sparse_ms": 1.0059
+      },
+      "band_net_speedup": 0.2421
+    },
+    {
+      "T": 2048,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 3.5171,
+      "t_sparse_ms": 4.4703,
+      "net_speedup": 0.7868,
+      "band_ms": {
+        "t_dense_ms": 0.219,
+        "t_sparse_ms": 2.166
+      },
+      "band_net_speedup": 0.4302
+    },
+    {
+      "T": 4096,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 7.4254,
+      "t_sparse_ms": 4.7252,
+      "net_speedup": 1.5714,
+      "band_ms": {
+        "t_dense_ms": 2.3437,
+        "t_sparse_ms": 1.375
+      },
+      "band_net_speedup": 0.9533
+    },
+    {
+      "T": 8192,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 15.7405,
+      "t_sparse_ms": 7.2124,
+      "net_speedup": 2.1824,
+      "band_ms": {
+        "t_dense_ms": 0.1192,
+        "t_sparse_ms": 1.5462
+      },
+      "band_net_speedup": 0.4844
+    },
+    {
+      "T": 16384,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 31.2683,
+      "t_sparse_ms": 12.7347,
+      "net_speedup": 2.4554,
+      "band_ms": {
+        "t_dense_ms": 0.163,
+        "t_sparse_ms": 3.3534
+      },
+      "band_net_speedup": 0.6594
+    },
+    {
+      "T": 32768,
+      "k": 2,
+      "n_active": 8.0,
+      "t_dense_ms": 62.3192,
+      "t_sparse_ms": 25.8269,
+      "net_speedup": 2.413,
+      "band_ms": {
+        "t_dense_ms": 0.2636,
+        "t_sparse_ms": 1.6952
+      },
+      "band_net_speedup": 0.1686
+    },
+    {
+      "T": 512,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 0.8747,
+      "t_sparse_ms": 3.6971,
+      "net_speedup": 0.2366,
+      "band_ms": {
+        "t_dense_ms": 0.1086,
+        "t_sparse_ms": 2.7915
+      },
+      "band_net_speedup": 0.208
+    },
+    {
+      "T": 1024,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 1.6233,
+      "t_sparse_ms": 3.1652,
+      "net_speedup": 0.5129,
+      "band_ms": {
+        "t_dense_ms": 0.1901,
+        "t_sparse_ms": 2.1896
+      },
+      "band_net_speedup": 0.4148
+    },
+    {
+      "T": 2048,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 3.6587,
+      "t_sparse_ms": 4.2784,
+      "net_speedup": 0.8552,
+      "band_ms": {
+        "t_dense_ms": 0.1814,
+        "t_sparse_ms": 2.0793
+      },
+      "band_net_speedup": 0.458
+    },
+    {
+      "T": 4096,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 7.4476,
+      "t_sparse_ms": 6.4994,
+      "net_speedup": 1.1459,
+      "band_ms": {
+        "t_dense_ms": 0.3277,
+        "t_sparse_ms": 1.7796
+      },
+      "band_net_speedup": 0.3642
+    },
+    {
+      "T": 8192,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 15.7523,
+      "t_sparse_ms": 11.7867,
+      "net_speedup": 1.3364,
+      "band_ms": {
+        "t_dense_ms": 0.1261,
+        "t_sparse_ms": 1.8324
+      },
+      "band_net_speedup": 0.2185
+    },
+    {
+      "T": 16384,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 31.2865,
+      "t_sparse_ms": 25.1,
+      "net_speedup": 1.2465,
+      "band_ms": {
+        "t_dense_ms": 0.1372,
+        "t_sparse_ms": 1.2796
+      },
+      "band_net_speedup": 0.069
+    },
+    {
+      "T": 32768,
+      "k": 4,
+      "n_active": 8.0,
+      "t_dense_ms": 62.3577,
+      "t_sparse_ms": 48.2586,
+      "net_speedup": 1.2922,
+      "band_ms": {
+        "t_dense_ms": 1.32,
+        "t_sparse_ms": 3.9689
+      },
+      "band_net_speedup": 0.1336
+    }
+  ],
+  "config": {
+    "d": 1024,
+    "e": 8,
+    "k_list": [
+      1,
+      2,
+      4
+    ],
+    "T_grid": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "iters": 20
+  },
+  "bears_on": "substrate_8a_4channel_attribution_v1 (A1; closes its OPEN net_speedup localization) + substrate_active_gating_8a_break_even_v1 (measured HARD_FAIL net_speedup non-monotone)",
+  "measured_bounds": "net_speedup ratio profile @ flagship d=1024/e=8/this-hardware; NOT fundamental",
+  "elapsed_s": 15.03
+}

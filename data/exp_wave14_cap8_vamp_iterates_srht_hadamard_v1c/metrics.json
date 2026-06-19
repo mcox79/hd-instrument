@@ -1,0 +1,315 @@
+{
+  "verdict": "CAP8_ITERATES_GENERATED",
+  "verdict_msg": "All 30 VAMP iterate-trace files written successfully with >=3 iterates each.  Composition A audit v4 can now compute Spearman rho on SRHT + Hadamard.",
+  "elapsed_s": 844.4689999999828,
+  "summary": {
+    "manifest": [
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p50\\seed_0013.json",
+        "codebook": "srht",
+        "alpha": 0.5,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.5230196323123514,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p50\\seed_1013.json",
+        "codebook": "srht",
+        "alpha": 0.5,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.5091142402203043,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p50\\seed_2013.json",
+        "codebook": "srht",
+        "alpha": 0.5,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.4761599025990833,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p50\\seed_3013.json",
+        "codebook": "srht",
+        "alpha": 0.5,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.4967329788197503,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p50\\seed_4013.json",
+        "codebook": "srht",
+        "alpha": 0.5,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.5066170271217798,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p75\\seed_0013.json",
+        "codebook": "srht",
+        "alpha": 0.75,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.24601363992803849,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p75\\seed_1013.json",
+        "codebook": "srht",
+        "alpha": 0.75,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.25980796632102027,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p75\\seed_2013.json",
+        "codebook": "srht",
+        "alpha": 0.75,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.24073325425133835,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p75\\seed_3013.json",
+        "codebook": "srht",
+        "alpha": 0.75,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.2442708165858101,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_0p75\\seed_4013.json",
+        "codebook": "srht",
+        "alpha": 0.75,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.2468614936399483,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_1p00\\seed_0013.json",
+        "codebook": "srht",
+        "alpha": 1.0,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.00971273709475854,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_1p00\\seed_1013.json",
+        "codebook": "srht",
+        "alpha": 1.0,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.009662717041666349,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_1p00\\seed_2013.json",
+        "codebook": "srht",
+        "alpha": 1.0,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.009970259741659604,
+        "vamp_se_pred": 0.009900990099009905
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_1p00\\seed_3013.json",
+        "codebook": "srht",
+        "alpha": 1.0,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.009721838107132294,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\srht\\alpha_1p00\\seed_4013.json",
+        "codebook": "srht",
+        "alpha": 1.0,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.010029289032156804,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p50\\seed_0013.json",
+        "codebook": "hadamard",
+        "alpha": 0.5,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.4978760931838859,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p50\\seed_1013.json",
+        "codebook": "hadamard",
+        "alpha": 0.5,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.49149319041196426,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p50\\seed_2013.json",
+        "codebook": "hadamard",
+        "alpha": 0.5,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.4766414391456998,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p50\\seed_3013.json",
+        "codebook": "hadamard",
+        "alpha": 0.5,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.495771045350945,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p50\\seed_4013.json",
+        "codebook": "hadamard",
+        "alpha": 0.5,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.5235592945356808,
+        "vamp_se_pred": 0.504950495049505
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p75\\seed_0013.json",
+        "codebook": "hadamard",
+        "alpha": 0.75,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.2763227115445305,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p75\\seed_1013.json",
+        "codebook": "hadamard",
+        "alpha": 0.75,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.264287666471422,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p75\\seed_2013.json",
+        "codebook": "hadamard",
+        "alpha": 0.75,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.2525208542764471,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p75\\seed_3013.json",
+        "codebook": "hadamard",
+        "alpha": 0.75,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.2656896699309914,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_0p75\\seed_4013.json",
+        "codebook": "hadamard",
+        "alpha": 0.75,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.27125981194512916,
+        "vamp_se_pred": 0.25742574257425743
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_1p00\\seed_0013.json",
+        "codebook": "hadamard",
+        "alpha": 1.0,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.009739022853775266,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_1p00\\seed_1013.json",
+        "codebook": "hadamard",
+        "alpha": 1.0,
+        "seed": 1013,
+        "n_iter_actual": 5,
+        "final_mse": 0.009683004997947584,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_1p00\\seed_2013.json",
+        "codebook": "hadamard",
+        "alpha": 1.0,
+        "seed": 2013,
+        "n_iter_actual": 5,
+        "final_mse": 0.010000158635634408,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_1p00\\seed_3013.json",
+        "codebook": "hadamard",
+        "alpha": 1.0,
+        "seed": 3013,
+        "n_iter_actual": 5,
+        "final_mse": 0.009737966335859372,
+        "vamp_se_pred": 0.009900990099009903
+      },
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c\\iterates\\hadamard\\alpha_1p00\\seed_4013.json",
+        "codebook": "hadamard",
+        "alpha": 1.0,
+        "seed": 4013,
+        "n_iter_actual": 5,
+        "final_mse": 0.009955494246375714,
+        "vamp_se_pred": 0.009900990099009903
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 4096,
+      "n_seeds": 5,
+      "alpha_grid": [
+        0.5,
+        0.75,
+        1.0
+      ],
+      "codebooks": [
+        "srht",
+        "hadamard"
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_iter": 300,
+      "expected_n_files": 30
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "n_seeds": 5,
+    "alpha_grid": [
+      0.5,
+      0.75,
+      1.0
+    ],
+    "codebooks": [
+      "srht",
+      "hadamard"
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_iter": 300,
+    "expected_n_files": 30
+  }
+}

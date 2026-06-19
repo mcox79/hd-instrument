@@ -1,0 +1,32 @@
+{
+  "anchor_name": "code2_adversarial_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: code2 template-conditional detection is ADVERSARIALLY ROBUST -- worst-case F1>=0.78 across out-of-grammar + cross-template + double-swap bug families. The Tier-C result holds under harder bugs. worst-F1=0.944 per-mode={'out-of-grammar': 0.948, 'cross-template': 0.944, 'double-swap': 0.945}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_mode": {
+        "out-of-grammar": {
+          "auc": 0.955,
+          "f1": 0.948,
+          "tau": 0.05
+        },
+        "cross-template": {
+          "auc": 0.953,
+          "f1": 0.944,
+          "tau": 0.05
+        },
+        "double-swap": {
+          "auc": 0.945,
+          "f1": 0.945,
+          "tau": 0.05
+        }
+      },
+      "worst_f1": 0.944,
+      "f1": 0.944
+    }
+  ],
+  "elapsed_s": 13.519535541534424,
+  "summary": "HARD_PASS: code2 template-conditional detection is ADVERSARIALLY ROBUST -- worst-case F1>=0.78 across out-of-grammar + cross-template + double-swap bug families. The Tier-C result holds under harder bugs. worst-F1=0.944 per-mode={'out-of-grammar': 0.948, 'cross-template': 0.944, 'double-swap': 0.945}"
+}

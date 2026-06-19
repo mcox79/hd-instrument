@@ -1,0 +1,47 @@
+{
+  "anchor_name": "exp_hp12_v1_demo_scale_10k_facts_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HP-12 V1 holds at TRUE demo scale (10K facts) -- live recall, certs verified, 0 phantom, retention intact. N=10000 M_seed=10000 | live_write=137.421ms live_recall=1.000 certs_verified=1.000 phantom=0.000 retention=0.999",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 10000,
+      "M_seed": 10000,
+      "k_live": 50,
+      "n_del": 30,
+      "live_write_ms_median": 139.77149996208027,
+      "live_recall": 1.0,
+      "audit_verified_frac": 1.0,
+      "phantom_recall_rate": 0.0,
+      "preseed_retention": 1.0
+    },
+    {
+      "seed": 17,
+      "N": 10000,
+      "M_seed": 10000,
+      "k_live": 50,
+      "n_del": 30,
+      "live_write_ms_median": 139.97474999632686,
+      "live_recall": 1.0,
+      "audit_verified_frac": 1.0,
+      "phantom_recall_rate": 0.0,
+      "preseed_retention": 0.9966666666666667
+    },
+    {
+      "seed": 23,
+      "N": 10000,
+      "M_seed": 10000,
+      "k_live": 50,
+      "n_del": 30,
+      "live_write_ms_median": 132.51655001658946,
+      "live_recall": 1.0,
+      "audit_verified_frac": 1.0,
+      "phantom_recall_rate": 0.0,
+      "preseed_retention": 1.0
+    }
+  ],
+  "elapsed_s": 421.7581453323364,
+  "summary": "HARD_PASS: HP-12 V1 holds at TRUE demo scale (10K facts) -- live recall, certs verified, 0 phantom, retention intact. N=10000 M_seed=10000 | live_write=137.421ms live_recall=1.000 certs_verified=1.000 phantom=0.000 retention=0.999"
+}

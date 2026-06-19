@@ -1,0 +1,26 @@
+{
+  "anchor_name": "lap3_5_gram_matrix_diag_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Gram-condition diagnostic produces a per-encoder fp32/bf16 head recommendation -- proactively flags which encoders need fp32 (high Gram condition), preventing bf16-envelope failures before any re-train. diagnosed=2 encoders; {'bge-large-en-v1.5': {'cond': 301.0, 'need_fp32': False, 'dim': 1024}, 'e5-large-v2': {'cond': 367.3, 'need_fp32': False, 'dim': 1024}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_encoder": {
+        "BAAI/bge-large-en-v1.5": {
+          "cond": 301.0,
+          "need_fp32": false,
+          "dim": 1024
+        },
+        "intfloat/e5-large-v2": {
+          "cond": 367.3,
+          "need_fp32": false,
+          "dim": 1024
+        }
+      },
+      "n_diagnosed": 2
+    }
+  ],
+  "elapsed_s": 15.130460977554321,
+  "summary": "HARD_PASS: Gram-condition diagnostic produces a per-encoder fp32/bf16 head recommendation -- proactively flags which encoders need fp32 (high Gram condition), preventing bf16-envelope failures before any re-train. diagnosed=2 encoders; {'bge-large-en-v1.5': {'cond': 301.0, 'need_fp32': False, 'dim': 1024}, 'e5-large-v2': {'cond': 367.3, 'need_fp32': False, 'dim': 1024}}"
+}

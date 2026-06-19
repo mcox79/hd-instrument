@@ -1,0 +1,35 @@
+{
+  "verdict": "BET_S_N65K_KILLED",
+  "verdict_msg": "K_crit=200<500. Substrate fails to scale to N=65536. per_K={'50': {'subject': 1.0, 'relation': 1.0, 'object': 1.0}, '200': {'subject': 0.9, 'relation': 0.85, 'object': 0.9}}.",
+  "elapsed_s": 0.17200000000593718,
+  "summary": {
+    "per_K": {
+      "50": {
+        "subject": 1.0,
+        "relation": 1.0,
+        "object": 1.0
+      },
+      "200": {
+        "subject": 0.9,
+        "relation": 0.85,
+        "object": 0.9
+      }
+    },
+    "K_crit": 200,
+    "N": 4096
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 50,
+    "K_sweep": [
+      50,
+      200
+    ],
+    "n_trials_per_K": 20,
+    "seeds": [
+      17
+    ]
+  }
+}

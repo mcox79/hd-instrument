@@ -1,0 +1,36 @@
+{
+  "run_mode": "smoke",
+  "N": 512,
+  "alpha": 0.15,
+  "seeds": [
+    7
+  ],
+  "tw_list": [
+    16,
+    64
+  ],
+  "ratio_grid": [
+    2.0,
+    4.0,
+    8.0
+  ],
+  "aggregated": {
+    "mean_collapse_mse": 0.004788716634114583,
+    "std_collapse_mse": 0.0,
+    "mean_dft_snr": NaN,
+    "max_dft_snr": NaN,
+    "mean_piecewise_r2": 0.9825581395348837,
+    "mean_smooth_r2": 0.8546511627906976,
+    "n_seeds": 1
+  },
+  "thresholds": {
+    "HP_COLLAPSE_MSE": 0.05,
+    "HF_COLLAPSE_MSE": 0.2,
+    "HP_PIECEWISE_R2": 0.85,
+    "HP_SMOOTH_R2": 0.85,
+    "HP_DFT_SNR": 3.0
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CK AGING CONFIRMED + SHAPE DISCRIMINATED. collapse_mse=0.0048 < 0.05. max_dft_snr=nan. piecewise_r2=0.9826 smooth_r2=0.8547. n_seeds=1.",
+  "elapsed_s": 0.1927957534790039
+}

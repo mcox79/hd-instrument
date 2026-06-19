@@ -1,0 +1,16 @@
+{
+  "anchor_name": "bge_substrate_compositional_verify_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: compositional selection matches brute top-10 with far less context (efficiency win, no quality loss). substrate-compositional(2 facts) F1=0.550 bge-top10 F1=0.524 lift=+0.027 (n=120, Qwen2.5-1.5B + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 120,
+      "brute": 0.5239169000933707,
+      "comp": 0.5504365079365079
+    }
+  ],
+  "elapsed_s": 68.51126599311829,
+  "summary": "MIDDLE_BAND: compositional selection matches brute top-10 with far less context (efficiency win, no quality loss). substrate-compositional(2 facts) F1=0.550 bge-top10 F1=0.524 lift=+0.027 (n=120, Qwen2.5-1.5B + bge-small)"
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "federated_dp_utility_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: DP routing histograms shareable at MAE<0.05 with eps=1.0 -- federated self-improving routing viable at strong privacy. MAE=0.0055 at eps=1.0 N=500 bins=50 (sigma=4.84)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mae": 0.005461512417376469,
+      "sigma": 4.844805262605389,
+      "eps": 1.0,
+      "n": 500,
+      "bins": 50
+    }
+  ],
+  "elapsed_s": 0.019606828689575195,
+  "summary": "HARD_PASS: DP routing histograms shareable at MAE<0.05 with eps=1.0 -- federated self-improving routing viable at strong privacy. MAE=0.0055 at eps=1.0 N=500 bins=50 (sigma=4.84)"
+}

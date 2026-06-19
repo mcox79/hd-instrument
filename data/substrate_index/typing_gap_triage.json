@@ -1,0 +1,438 @@
+{
+  "EXISTS": [],
+  "SPECIALIZES": [
+    {
+      "type": "weight_vector",
+      "n_uses": 4,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "collins_structured_perceptron",
+        "structured_perceptron_collins"
+      ]
+    },
+    {
+      "type": "parameter_vector",
+      "n_uses": 3,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "adam_optimizer",
+        "gradient_descent",
+        "stochastic_gradient_descent"
+      ]
+    },
+    {
+      "type": "phasor_vector_pair",
+      "n_uses": 2,
+      "related_atom": "T2/oeis_A000341",
+      "used_by": [
+        "fhrr_bind",
+        "fhrr_unbind"
+      ]
+    },
+    {
+      "type": "phasor_vector",
+      "n_uses": 2,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "fhrr_bind",
+        "fhrr_unbind"
+      ]
+    },
+    {
+      "type": "feature_vector_label_pair",
+      "n_uses": 2,
+      "related_atom": "T2/oeis_A000341",
+      "used_by": [
+        "discriminative_perceptron"
+      ]
+    },
+    {
+      "type": "discriminative_weight_vector",
+      "n_uses": 2,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "discriminative_perceptron"
+      ]
+    },
+    {
+      "type": "incomplete_data_likelihood",
+      "n_uses": 2,
+      "related_atom": "T1/maximum_likelihood",
+      "used_by": [
+        "em_algorithm"
+      ]
+    },
+    {
+      "type": "ML_parameter_estimate",
+      "n_uses": 2,
+      "related_atom": "T1/exponential_family",
+      "used_by": [
+        "em_algorithm"
+      ]
+    },
+    {
+      "type": "training_input_output_pairs",
+      "n_uses": 2,
+      "related_atom": "T2/oeis_A000274",
+      "used_by": [
+        "collins_structured_perceptron"
+      ]
+    },
+    {
+      "type": "vector",
+      "n_uses": 2,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "bundling",
+        "permutation_indexed_binding"
+      ]
+    },
+    {
+      "type": "function_and_gradient",
+      "n_uses": 2,
+      "related_atom": "T1/chain_rule",
+      "used_by": [
+        "adam_optimizer",
+        "gradient_descent"
+      ]
+    },
+    {
+      "type": "state_distribution",
+      "n_uses": 2,
+      "related_atom": "T1/dirac_delta",
+      "used_by": [
+        "markov_chain"
+      ]
+    },
+    {
+      "type": "feature_template_and_gold",
+      "n_uses": 2,
+      "related_atom": "T3/feature_hashing",
+      "used_by": [
+        "structured_perceptron_collins"
+      ]
+    },
+    {
+      "type": "observation_and_transition_emission",
+      "n_uses": 2,
+      "related_atom": "T2/hmm_emission",
+      "used_by": [
+        "viterbi_decoder"
+      ]
+    },
+    {
+      "type": "state_sequence",
+      "n_uses": 2,
+      "related_atom": "T1/cauchy_sequence",
+      "used_by": [
+        "viterbi_decoder"
+      ]
+    },
+    {
+      "type": "vector_pair",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A000341",
+      "used_by": [
+        "inner_product"
+      ]
+    },
+    {
+      "type": "scalar",
+      "n_uses": 1,
+      "related_atom": "T1/inner_product",
+      "used_by": [
+        "inner_product"
+      ]
+    },
+    {
+      "type": "noisy_vector_and_codebook",
+      "n_uses": 1,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "cleanup"
+      ]
+    },
+    {
+      "type": "codebook_atom",
+      "n_uses": 1,
+      "related_atom": "T1/shannon_entropy_atom",
+      "used_by": [
+        "cleanup"
+      ]
+    },
+    {
+      "type": "real_vector_pair",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A000341",
+      "used_by": [
+        "circular_convolution"
+      ]
+    },
+    {
+      "type": "real_vector",
+      "n_uses": 1,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "circular_convolution"
+      ]
+    },
+    {
+      "type": "feature_counts_and_labels",
+      "n_uses": 1,
+      "related_atom": "T2/answer_consistency_weak_labels",
+      "used_by": [
+        "count_nb"
+      ]
+    },
+    {
+      "type": "class_probabilities",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A000003",
+      "used_by": [
+        "count_nb"
+      ]
+    },
+    {
+      "type": "vector_set",
+      "n_uses": 1,
+      "related_atom": "T1/almost_everywhere",
+      "used_by": [
+        "bundling"
+      ]
+    },
+    {
+      "type": "address_vector",
+      "n_uses": 1,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "sparse_distributed_memory"
+      ]
+    },
+    {
+      "type": "content_vector",
+      "n_uses": 1,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "sparse_distributed_memory"
+      ]
+    },
+    {
+      "type": "vector_and_pattern_set",
+      "n_uses": 1,
+      "related_atom": "T1/almost_everywhere",
+      "used_by": [
+        "modern_hopfield_ramsauer"
+      ]
+    },
+    {
+      "type": "stored_pattern",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A006345",
+      "used_by": [
+        "modern_hopfield_ramsauer"
+      ]
+    },
+    {
+      "type": "discrete_signal",
+      "n_uses": 1,
+      "related_atom": "T1/discrete_optimization",
+      "used_by": [
+        "discrete_fourier_transform"
+      ]
+    },
+    {
+      "type": "frequency_spectrum",
+      "n_uses": 1,
+      "related_atom": "T1/eigenvalue_eigenvector",
+      "used_by": [
+        "discrete_fourier_transform"
+      ]
+    },
+    {
+      "type": "prior_and_likelihood",
+      "n_uses": 1,
+      "related_atom": "T1/maximum_likelihood",
+      "used_by": [
+        "bayes_rule"
+      ]
+    },
+    {
+      "type": "posterior",
+      "n_uses": 1,
+      "related_atom": "T2/bayesian_inference",
+      "used_by": [
+        "bayes_rule"
+      ]
+    },
+    {
+      "type": "vector_and_position_int",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A003654",
+      "used_by": [
+        "permutation_indexed_binding"
+      ]
+    },
+    {
+      "type": "bound_product_and_codebook_set",
+      "n_uses": 1,
+      "related_atom": "T1/almost_everywhere",
+      "used_by": [
+        "resonator_network_decoder"
+      ]
+    },
+    {
+      "type": "factor_vector_tuple",
+      "n_uses": 1,
+      "related_atom": "T1/quotient_group",
+      "used_by": [
+        "resonator_network_decoder"
+      ]
+    },
+    {
+      "type": "activation_vector_dropout_rate",
+      "n_uses": 1,
+      "related_atom": "T1/directional_derivative",
+      "used_by": [
+        "dropout_regularization"
+      ]
+    },
+    {
+      "type": "masked_activation_vector",
+      "n_uses": 1,
+      "related_atom": "T1/fiedler_vector",
+      "used_by": [
+        "dropout_regularization"
+      ]
+    },
+    {
+      "type": "normalized_activations",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A000435",
+      "used_by": [
+        "batch_normalization"
+      ]
+    },
+    {
+      "type": "function_and_sample_gradient",
+      "n_uses": 1,
+      "related_atom": "T1/chain_rule",
+      "used_by": [
+        "stochastic_gradient_descent"
+      ]
+    },
+    {
+      "type": "policy_parameters_trajectory_returns",
+      "n_uses": 1,
+      "related_atom": "T3/policy_gradient",
+      "used_by": [
+        "policy_gradient"
+      ]
+    },
+    {
+      "type": "policy_parameter_update",
+      "n_uses": 1,
+      "related_atom": "T2/bayesian_inference",
+      "used_by": [
+        "policy_gradient"
+      ]
+    },
+    {
+      "type": "state_action_reward_state_tuple",
+      "n_uses": 1,
+      "related_atom": "T1/state_space_representation",
+      "used_by": [
+        "q_learning"
+      ]
+    },
+    {
+      "type": "q_value_table_or_function",
+      "n_uses": 1,
+      "related_atom": "T1/characteristic_function",
+      "used_by": [
+        "q_learning"
+      ]
+    },
+    {
+      "type": "states_actions_transitions_rewards",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A000802",
+      "used_by": [
+        "markov_decision_process"
+      ]
+    },
+    {
+      "type": "decision_problem",
+      "n_uses": 1,
+      "related_atom": "T2/oeis_A000311",
+      "used_by": [
+        "markov_decision_process"
+      ]
+    },
+    {
+      "type": "value_function_and_transition",
+      "n_uses": 1,
+      "related_atom": "T2/hmm_transition",
+      "used_by": [
+        "bellman_equation"
+      ]
+    },
+    {
+      "type": "updated_value_function",
+      "n_uses": 1,
+      "related_atom": "T1/characteristic_function",
+      "used_by": [
+        "bellman_equation"
+      ]
+    },
+    {
+      "type": "stability_certificate",
+      "n_uses": 1,
+      "related_atom": "T1/condition_number",
+      "used_by": [
+        "lyapunov_stability"
+      ]
+    },
+    {
+      "type": "target_distribution_and_proposal",
+      "n_uses": 1,
+      "related_atom": "T1/dirac_delta",
+      "used_by": [
+        "mcmc_sampling"
+      ]
+    },
+    {
+      "type": "sample_chain",
+      "n_uses": 1,
+      "related_atom": "T1/chain_rule",
+      "used_by": [
+        "mcmc_sampling"
+      ]
+    },
+    {
+      "type": "likelihood_prior_variational_family",
+      "n_uses": 1,
+      "related_atom": "T1/exponential_family",
+      "used_by": [
+        "variational_inference"
+      ]
+    },
+    {
+      "type": "variational_posterior_parameters",
+      "n_uses": 1,
+      "related_atom": "T3/variational_inference",
+      "used_by": [
+        "variational_inference"
+      ]
+    }
+  ],
+  "TRUE_GAP": [
+    {
+      "type": "minibatch_activations",
+      "n_uses": 1,
+      "related_atom": null,
+      "used_by": [
+        "batch_normalization"
+      ]
+    }
+  ]
+}

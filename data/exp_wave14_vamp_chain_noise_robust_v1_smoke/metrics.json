@@ -1,0 +1,28 @@
+{
+  "verdict": "VAMPNOISE_ROBUST",
+  "verdict_msg": "VAMP-on-chain noise robust: acc(p=0.10)=1.000>=0.50; clean=1.000. Substrate handles realistic noise. acc_per_noise={'0.0': 1.0, '0.10': 1.0}.",
+  "elapsed_s": 2.6560000000172295,
+  "summary": {
+    "acc_per_noise": {
+      "0.0": 1.0,
+      "0.10": 1.0
+    },
+    "depth": 25
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "depth": 25,
+    "noise_levels": [
+      0.0,
+      0.1
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "run_mode": "smoke",
+  "N_LIST": [
+    256,
+    512,
+    1024
+  ],
+  "gamma": 0.01,
+  "lambda": 0.1,
+  "T_MAX_STEPS": 1200,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_N": {
+      "256": {
+        "mean_tau_empirical": 370.0,
+        "mean_tau_theory": 262.46685921631587,
+        "mean_c_ratio": 1.4097017852263745,
+        "n_seeds": 2
+      },
+      "512": {
+        "mean_tau_empirical": 400.0,
+        "mean_tau_theory": 328.0911215787653,
+        "mean_c_ratio": 1.2191734969090635,
+        "n_seeds": 2
+      },
+      "1024": {
+        "mean_tau_empirical": 430.0,
+        "mean_tau_theory": 395.5082494888593,
+        "mean_c_ratio": 1.0872086753075736,
+        "n_seeds": 2
+      }
+    },
+    "r2_loglog": 0.9995305888147817
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Partial confirmation. R2=1.000(hp=0.95) n_hp=1/3 n_mid=3/3. Mean ratios: [1.41, 1.22, 1.09].",
+  "elapsed_s": 6.866447687149048
+}

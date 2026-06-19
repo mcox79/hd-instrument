@@ -1,0 +1,32 @@
+{
+  "experiments": [
+    {
+      "name": "r7_concept_replay",
+      "script": "experiments/exp_wave14b_r7_concept_replay.py",
+      "status": "completed",
+      "purpose": "R7: CLS-style concept-tagged replay measured on BWT. PARTIAL: +0.12 BWT, random replay beats by 0.53.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_K16_m2",
+      "script": "experiments/exp_wave14b_r10_K16_m2.py",
+      "status": "pending",
+      "purpose": "R10: M2 retest at K=16 where bundle interference is real.",
+      "timeout_s": 2400
+    },
+    {
+      "name": "r3_concept_readout_bias",
+      "script": "experiments/exp_wave14b_r3_concept_readout_bias.py",
+      "status": "pending",
+      "purpose": "R3: concepts as readout bias (gain-field), not input encoding.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r1_modern_hopfield",
+      "script": "experiments/exp_wave14b_r1_modern_hopfield.py",
+      "status": "pending",
+      "purpose": "R1: Modern Hopfield iterative retrieval (Ramsauer 2021).",
+      "timeout_s": 1800
+    }
+  ]
+}

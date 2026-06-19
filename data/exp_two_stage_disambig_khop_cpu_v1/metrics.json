@@ -1,0 +1,14 @@
+{
+  "anchor_name": "two_stage_disambig_khop_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: fuzzy entity-disambiguation + native K-hop recall@2>=0.65 -- hybrid two-stage works (fuzzy finds the door, native walks the graph). 2-stage recall@2=0.833",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.8333333333333334
+    }
+  ],
+  "elapsed_s": 0.20459747314453125,
+  "summary": "HARD_PASS: fuzzy entity-disambiguation + native K-hop recall@2>=0.65 -- hybrid two-stage works (fuzzy finds the door, native walks the graph). 2-stage recall@2=0.833"
+}

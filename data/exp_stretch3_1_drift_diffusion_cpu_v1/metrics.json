@@ -1,0 +1,16 @@
+{
+  "anchor_name": "stretch3_1_drift_diffusion_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate evidence-accumulation (drift-diffusion) reaches >=0.85 accuracy by integrating noisy samples to a decision threshold -- biological sequential evidence integration; speed-accuracy via threshold. accuracy=1.000 mean-RT=58.5",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ddm_accuracy": 1.0,
+      "mean_rt": 58.5,
+      "n": 400
+    }
+  ],
+  "elapsed_s": 2.6339924335479736,
+  "summary": "HARD_PASS: substrate evidence-accumulation (drift-diffusion) reaches >=0.85 accuracy by integrating noisy samples to a decision threshold -- biological sequential evidence integration; speed-accuracy via threshold. accuracy=1.000 mean-RT=58.5"
+}

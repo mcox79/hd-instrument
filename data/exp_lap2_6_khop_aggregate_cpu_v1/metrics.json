@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap2_6_khop_aggregate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate COUNT/aggregate through a 2-hop chain (FoF-in-city-Y) F1>=0.80 -- aggregation composes with multi-hop traversal. aggregate-chain-F1=1.000 (n=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "aggregate_f1": 1.0,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 1.125054121017456,
+  "summary": "HARD_PASS: substrate COUNT/aggregate through a 2-hop chain (FoF-in-city-Y) F1>=0.80 -- aggregation composes with multi-hop traversal. aggregate-chain-F1=1.000 (n=200)"
+}

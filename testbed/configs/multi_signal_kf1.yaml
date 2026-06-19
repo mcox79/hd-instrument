@@ -1,0 +1,35 @@
+# Path-15 multi-signal KF-1 hallucination detection sweep.
+#
+# Smoke profile: N=1024, light n_oos/n_stored, runs in <60s on a laptop CPU.
+# Production profile (run with --config and override N=2048, codebook_C=8192):
+#   N: 2048, codebook_C: 8192, multi_signal_n_oos: 400, multi_signal_n_stored: 400.
+
+config_name: multi_signal_kf1
+
+N: 1024
+dim: 1024
+codebook_kind: bsc
+codebook_C: 4096
+codebook_scale: 4
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+
+# Path-15 sweep knobs.
+multi_signal_M_per_N: [0.25, 0.5, 1.0, 2.0]
+multi_signal_n_oos: 200
+multi_signal_n_stored: 200
+
+# Generic fallbacks.
+hallu_M_fracs: [0.25, 0.5, 1.0, 2.0]
+hallu_n_oos: 200
+
+seeds: [7]
+
+backends:
+  - substrate
+
+scenarios:
+  - multi_signal_kf1
+
+out_root: testbed_data/benchmarks

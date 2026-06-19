@@ -1,0 +1,123 @@
+{
+  "verdict": "CHARGEFLIP_FORENSICS_MARGINAL",
+  "verdict_msg": "Mixed signal: SVD_baseline_low=False, CF_improves=True, CF_rand_floor=True. improvement=+0.349, recall@10=None. Inspect per-K table.",
+  "elapsed_s": 0.5940000000000509,
+  "summary": {
+    "by_method": {
+      "svd": {
+        "per_k": [
+          {
+            "K": 10,
+            "mean_cos": 0.412109375,
+            "mean_iters": 0.0,
+            "recall_at_10": 0.2,
+            "per_seed": [
+              {
+                "seed": 17,
+                "mean_cos": 0.412109375,
+                "recall_at_10": 0.2,
+                "mean_iters": 0
+              }
+            ]
+          },
+          {
+            "K": 20,
+            "mean_cos": 0.33183595538139343,
+            "mean_iters": 0.0,
+            "recall_at_10": 0.1,
+            "per_seed": [
+              {
+                "seed": 17,
+                "mean_cos": 0.33183595538139343,
+                "recall_at_10": 0.1,
+                "mean_iters": 0
+              }
+            ]
+          }
+        ]
+      },
+      "cf_svd": {
+        "per_k": [
+          {
+            "K": 10,
+            "mean_cos": 0.7304686903953552,
+            "mean_iters": 8.0,
+            "recall_at_10": 0.8,
+            "per_seed": [
+              {
+                "seed": 17,
+                "mean_cos": 0.7304686903953552,
+                "recall_at_10": 0.8,
+                "mean_iters": 8
+              }
+            ]
+          },
+          {
+            "K": 20,
+            "mean_cos": 0.6806640625,
+            "mean_iters": 30.0,
+            "recall_at_10": 1.0,
+            "per_seed": [
+              {
+                "seed": 17,
+                "mean_cos": 0.6806640625,
+                "recall_at_10": 1.0,
+                "mean_iters": 30
+              }
+            ]
+          }
+        ]
+      },
+      "cf_rand": {
+        "per_k": [
+          {
+            "K": 10,
+            "mean_cos": 0.6671874523162842,
+            "mean_iters": 7.0,
+            "recall_at_10": 0.7,
+            "per_seed": [
+              {
+                "seed": 17,
+                "mean_cos": 0.6671874523162842,
+                "recall_at_10": 0.7,
+                "mean_iters": 7
+              }
+            ]
+          },
+          {
+            "K": 20,
+            "mean_cos": 0.6285156607627869,
+            "mean_iters": 29.0,
+            "recall_at_10": 1.0,
+            "per_seed": [
+              {
+                "seed": 17,
+                "mean_cos": 0.6285156607627869,
+                "recall_at_10": 1.0,
+                "mean_iters": 29
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      10,
+      20
+    ],
+    "seeds": [
+      17
+    ],
+    "max_iter": 30,
+    "converge_tol": 0.0001,
+    "methods": [
+      "svd",
+      "cf_svd",
+      "cf_rand"
+    ]
+  }
+}

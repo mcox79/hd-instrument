@@ -1,0 +1,16 @@
+{
+  "anchor_name": "ckm_coefficient_derivation_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: rel_err > 0.3 for some cell. mean_rel_errs={'k2_m0.25': 6.25078125, 'k3_m0.25': 81.20937500000001} n_hp=0/2 HP_REL_ERR=0.05 HF_REL_ERR=0.3",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.37866759300231934,
+  "K_list": [
+    2,
+    3
+  ],
+  "M_frac_list": [
+    0.25
+  ]
+}

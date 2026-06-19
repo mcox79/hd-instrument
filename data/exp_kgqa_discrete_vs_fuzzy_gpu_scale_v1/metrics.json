@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kgqa_discrete_vs_fuzzy_gpu_scale_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: gap <0.15 at scale. discrete=0.000 fuzzy=0.000 gap=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "discrete": 0.0,
+      "fuzzy": 0.0,
+      "gap": 0.0
+    }
+  ],
+  "elapsed_s": 8.714821100234985,
+  "summary": "HARD_FAIL: gap <0.15 at scale. discrete=0.000 fuzzy=0.000 gap=0.000"
+}

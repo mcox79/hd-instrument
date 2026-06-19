@@ -1,0 +1,17 @@
+{
+  "anchor_name": "khop_ceiling_redesign_nscaling_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: sub-ceiling but weak/non-monotone N-signal. K_max by N: [8, 5, 8, 8] (ceiling=119) increasing=False sub-ceiling=True",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "N2048": 8,
+      "N4096": 5,
+      "N8192": 8,
+      "N16384": 8
+    }
+  ],
+  "elapsed_s": 0.13287854194641113,
+  "summary": "MIDDLE_BAND: sub-ceiling but weak/non-monotone N-signal. K_max by N: [8, 5, 8, 8] (ceiling=119) increasing=False sub-ceiling=True"
+}

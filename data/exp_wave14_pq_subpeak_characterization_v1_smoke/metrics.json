@@ -1,0 +1,66 @@
+{
+  "verdict": "PQ_SUBPEAK_GEOMETRIC",
+  "verdict_msg": "Outer peaks non-uniformly / geometrically spaced (CV=0.370 > 0.3). n_outer=11 n_total=9. RSB-cascade or multi-scale heterogeneous structure.",
+  "elapsed_s": 0.5310000000172295,
+  "summary": {
+    "primary_N": 1024,
+    "n_outer_peaks": 11,
+    "n_total_peaks": 9,
+    "outer_spacing_cv": 0.3701705540248374,
+    "peak_positions": [
+      0.10328888580203056,
+      0.11182221934199334,
+      0.12888888642191887,
+      0.13742221996188164,
+      0.14595555350184442,
+      0.16515555396676063,
+      0.1736888875067234,
+      0.18222222104668617,
+      0.19075555458664895,
+      0.19928888812661172,
+      0.20782222166657446
+    ],
+    "results_per_N": {
+      "1024": {
+        "n_outer_peaks": 11,
+        "n_total_peaks": 9,
+        "outer_spacing_cv": 0.3701705540248374,
+        "peak_positions": [
+          0.10328888580203056,
+          0.11182221934199334,
+          0.12888888642191887,
+          0.13742221996188164,
+          0.14595555350184442,
+          0.16515555396676063,
+          0.1736888875067234,
+          0.18222222104668617,
+          0.19075555458664895,
+          0.19928888812661172,
+          0.20782222166657446
+        ],
+        "q_mean": 0.16311111111111112,
+        "n_samples": 20
+      }
+    },
+    "note": "PQ_OTHER_CARDINALITY follow-up: outer-peak spacing structure",
+    "n_outer_per_N": {
+      "1024": 11
+    },
+    "n_outer_range_across_N": 0,
+    "n_outer_stable": true
+  },
+  "config": {
+    "mode": "smoke",
+    "N_sweep": [
+      1024
+    ],
+    "n_seeds_per_N": 20,
+    "n_starts": 15,
+    "depth": 25,
+    "K": 100,
+    "num_entities": 200,
+    "num_relations": 20,
+    "device": "cpu",
+    "note": "P(q) sub-peak spacing characterization after PQ_OTHER_CARDINALITY"
+  }
+}

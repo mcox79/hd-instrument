@@ -1,0 +1,40 @@
+{
+  "verdict": "KF1_RESCUE_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_ENTROPY_GAP: gap=2.70 bits (below threshold). M_BASE=20000 pass_seeds=1/1 mean_entropy_gap=2.704bits mean_H_is=0.69 mean_H_oos=3.39 HP_min=1.0",
+  "elapsed_s": 1.5378704071044922,
+  "config": {
+    "N": 1024,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "m_vals": [
+      20000
+    ],
+    "beta_op": 32.0,
+    "HP_ENTROPY_GAP_MIN": 1.0,
+    "bit_precision": "int8"
+  },
+  "all_cells": [
+    {
+      "N": 1024,
+      "M": 20000,
+      "M_over_N": 19.531,
+      "seed": 17,
+      "C": 4096,
+      "elapsed_s": 1.55,
+      "H_is": 0.6857,
+      "H_oos": 3.3902,
+      "entropy_gap": 2.7045,
+      "n_is": 200,
+      "n_oos": 200,
+      "passes_hp": true,
+      "passes_hf": false
+    }
+  ],
+  "precision_used": "int8",
+  "precision_memory_bytes": 1048576,
+  "precision_baseline_bytes": 4194304,
+  "precision_compression_ratio": 4.0,
+  "precision_numel_W": 1048576
+}

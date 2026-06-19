@@ -1,0 +1,87 @@
+{
+  "verdict": "MS_2ND_ORDER_INCONCLUSIVE",
+  "verdict_msg": "No (p,q) overlap.",
+  "elapsed_s": 519.7970000000205,
+  "summary": {
+    "by_cb_pq_json": {
+      "iid_gauss": {
+        "2,2": 4.609647478102028,
+        "2,3": 70.88795206600325,
+        "3,3": 1126.1690709449213
+      },
+      "srht": {
+        "2,2": NaN,
+        "2,3": NaN,
+        "3,3": NaN
+      },
+      "hadamard": {
+        "2,2": NaN,
+        "2,3": NaN,
+        "3,3": NaN
+      },
+      "kerdock": {
+        "2,2": NaN,
+        "2,3": NaN,
+        "3,3": NaN
+      }
+    },
+    "by_cb_K": {
+      "iid_gauss": 40,
+      "srht": 0,
+      "hadamard": 0,
+      "kerdock": 0
+    },
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "ratio": 8,
+      "K_samples": 40,
+      "codebooks": [
+        "iid_gauss",
+        "srht",
+        "hadamard",
+        "kerdock"
+      ],
+      "pq_list": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "ratio": 8,
+    "K_samples": 40,
+    "codebooks": [
+      "iid_gauss",
+      "srht",
+      "hadamard",
+      "kerdock"
+    ],
+    "pq_list": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ]
+    ]
+  }
+}

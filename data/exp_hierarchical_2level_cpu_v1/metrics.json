@@ -1,0 +1,14 @@
+{
+  "anchor_name": "hierarchical_2level_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: category query recovers its members >=0.90 -- hierarchical/faceted retrieval works. member-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.0315709114074707,
+  "summary": "HARD_PASS: category query recovers its members >=0.90 -- hierarchical/faceted retrieval works. member-recall=1.000"
+}

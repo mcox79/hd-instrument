@@ -1,0 +1,68 @@
+{
+  "anchor_name": "substrate_61b_refuse_aware_scorer_56d_gap_cpu_v1",
+  "verdict": "MIDDLE",
+  "verdict_msg": "refuse-discipline PARTIAL on novel topics: 56d GAP refuse-discipline (n=7 novel-concept questions, tau=0.70): correct-refusal rate=0.5714 (4/7). The gold concepts are NOT in substrate; correct behavior is refuse.",
+  "summary": "refuse-discipline PARTIAL on novel topics: 56d GAP refuse-discipline (n=7 novel-concept questions, tau=0.70): correct-refusal rate=0.5714 (4/7). The gold concepts are NOT in substrate; correct behavior is refuse.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_gap": 7,
+      "tau": 0.7,
+      "correct_refuse": 4,
+      "refusal_rate": 0.5714,
+      "rows": [
+        {
+          "qid": "H56D-GAP01",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.6537,
+          "refused": true,
+          "top_atom": "x^3 + n*y^3 = 1 is solvable."
+        },
+        {
+          "qid": "H56D-GAP02",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.7315,
+          "refused": false,
+          "top_atom": "Floor of imaginary parts of no"
+        },
+        {
+          "qid": "H56D-GAP03",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.6945,
+          "refused": true,
+          "top_atom": "Partial differential equation "
+        },
+        {
+          "qid": "H56D-GAP04",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.7396,
+          "refused": false,
+          "top_atom": "Functor"
+        },
+        {
+          "qid": "H56D-GAP05",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.6229,
+          "refused": true,
+          "top_atom": "The maximal number of partitio"
+        },
+        {
+          "qid": "H56D-GAP06",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.656,
+          "refused": true,
+          "top_atom": "a(n) (n>6) is least integer > "
+        },
+        {
+          "qid": "H56D-GAP07",
+          "chapter": "gap_refuse_control",
+          "max_cos": 0.7041,
+          "refused": false,
+          "top_atom": "Coloring a circuit with 4 colo"
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 7.231595516204834
+}

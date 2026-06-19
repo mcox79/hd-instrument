@@ -1,0 +1,49 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "CSP warm-start: mean_speedup=7.30 [HP: >=2.0], n_hp=2/2, N=2048, rho=0.9",
+  "mean_speedup": 7.300000000000001,
+  "n_hp_seeds": 2,
+  "n_seeds": 2,
+  "N": 2048,
+  "rho": 0.9,
+  "elapsed_s": 0.7477476596832275,
+  "run_mode": "smoke",
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M_data": 10,
+      "rho": 0.9,
+      "n_instances": 5,
+      "mean_speedup": 7.2,
+      "speedups": [
+        7.0,
+        12.0,
+        6.0,
+        5.0,
+        6.0
+      ],
+      "mean_warm_iters": 1.0,
+      "mean_rand_iters": 7.2,
+      "hp": true
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M_data": 10,
+      "rho": 0.9,
+      "n_instances": 5,
+      "mean_speedup": 7.4,
+      "speedups": [
+        7.0,
+        10.0,
+        4.0,
+        10.0,
+        6.0
+      ],
+      "mean_warm_iters": 1.0,
+      "mean_rand_iters": 7.4,
+      "hp": true
+    }
+  ]
+}

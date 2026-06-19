@@ -1,0 +1,284 @@
+{
+  "verdict": "NOISY_EDIT_BOTH_PASS",
+  "verdict_msg": "Both arms tolerate noisy edits across radii [4, 8, 16, 32].",
+  "elapsed_s": 7.29700000000048,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_h": {
+          "4": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          "8": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          "16": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          "32": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 23,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 31,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 41,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 53,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          }
+        ]
+      },
+      "correlated": {
+        "per_h": {
+          "4": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          "8": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          "16": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          "32": {
+            "edit_land_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 23,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 31,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 41,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          },
+          {
+            "seed": 53,
+            "per_h": {
+              "4": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "8": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "16": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              "32": {
+                "edit_land_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 4096,
+    "n_edit": 30,
+    "n_kept": 100,
+    "hamming_radii": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

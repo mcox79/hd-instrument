@@ -1,0 +1,17 @@
+{
+  "anchor_name": "sleep_defrag_scaling_bundle_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 sleep-defrag scaling pre-tests pass -- streaming aggregation, contradiction detection, and GDPR-cascade recompute all work; clears the Phase-1 integration gate. streaming=True adversarial=True gdpr-cascade=True (3/3)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "st1_streaming": true,
+      "st2_adversarial": true,
+      "st3_gdpr": true,
+      "npass": 3
+    }
+  ],
+  "elapsed_s": 0.04140734672546387,
+  "summary": "HARD_PASS: all 3 sleep-defrag scaling pre-tests pass -- streaming aggregation, contradiction detection, and GDPR-cascade recompute all work; clears the Phase-1 integration gate. streaming=True adversarial=True gdpr-cascade=True (3/3)"
+}

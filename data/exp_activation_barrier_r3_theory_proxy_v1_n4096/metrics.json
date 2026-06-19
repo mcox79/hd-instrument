@@ -1,0 +1,45 @@
+{
+  "anchor_name": "activation_barrier_r3_theory_proxy_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ratio unavailable (nf_crit for some alpha outside grid at this N); n_valid_nf=4 measurements exist. Extend grid or N for FULL run. ratio=None b=-0.04582374583484278 n_seeds=2",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.1145334243774414,
+  "alpha_values": [
+    0.05,
+    0.1
+  ],
+  "predicted_barrier_ratio_b1": 2.31578947368421,
+  "predicted_ratio_b03": 1.286499798901906,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "nf_crit_by_alpha": {
+        "0.05": 0.5,
+        "0.1": 0.54
+      },
+      "ratio_05_10": null,
+      "b_fit": -0.09164749166968544,
+      "elapsed_s": 0.022583484649658203,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780466036.6528456
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "nf_crit_by_alpha": {
+        "0.05": 0.5,
+        "0.1": 0.5
+      },
+      "ratio_05_10": null,
+      "b_fit": -1.1520085905101006e-16,
+      "elapsed_s": 0.022016048431396484,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780466036.6808612
+    }
+  ]
+}

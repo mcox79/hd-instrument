@@ -1,0 +1,77 @@
+{
+  "verdict": "BET_T_TEMPSCALE_PASS",
+  "verdict_msg": "HARD PASS: best_min_acc=1.000>=0.85 mean_acc=1.000>=0.9 ECE_max=0.000<=0.1. Per-hypothesis TEMPSCALE rescues Bet T from cycle-101 PARTIAL 0.689.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "best_min_acc": 1.0,
+    "best_mean_acc": 1.0,
+    "best_ece_max": 0.0,
+    "best_beta": 4,
+    "per_beta_summary": {
+      "4": {
+        "min_acc": 1.0,
+        "mean_acc": 1.0,
+        "ece_max": 0.0,
+        "per_hyp_acc": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "per_hyp_ece": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0
+        }
+      },
+      "8": {
+        "min_acc": 1.0,
+        "mean_acc": 1.0,
+        "ece_max": 0.0,
+        "per_hyp_acc": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "per_hyp_ece": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0
+        }
+      },
+      "16": {
+        "min_acc": 1.0,
+        "mean_acc": 1.0,
+        "ece_max": 0.0,
+        "per_hyp_acc": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "per_hyp_ece": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0
+        }
+      }
+    },
+    "baseline_cycle101_min_acc": 0.689,
+    "note": "Baseline beta=32 cycle-101 min_acc=0.689; optimal beta_h=c/N=8 at N=4096"
+  },
+  "config": {
+    "N": 512,
+    "num_entities": 30,
+    "num_relations": 4,
+    "n_hypotheses": 3,
+    "n_facts_per_hyp": 5,
+    "seeds": [
+      17
+    ],
+    "beta_h_list": [
+      4,
+      8,
+      16
+    ],
+    "device": "cpu",
+    "note": "Per-hypothesis TEMPSCALE rescue for Bet T; optimal beta_h=c/N=8 at N=4096"
+  }
+}

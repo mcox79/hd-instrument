@@ -1,0 +1,16 @@
+{
+  "anchor_name": "self_improving_routing_harder_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: positive but <5pp gain. cold=0.951 warm=0.999 gain=+0.048",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cold": 0.9506,
+      "warm": 0.9985,
+      "gain": 0.047900000000000054
+    }
+  ],
+  "elapsed_s": 0.3754727840423584,
+  "summary": "MIDDLE_BAND: positive but <5pp gain. cold=0.951 warm=0.999 gain=+0.048"
+}

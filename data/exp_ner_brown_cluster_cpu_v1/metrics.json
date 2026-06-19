@@ -1,0 +1,22 @@
+{
+  "anchor_name": "ner_brown_cluster_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cluster features give a small lift (>=0.005) -- partial; combine with richer/larger clusters or phrase features. +cluster F1=0.5928 vs no-cluster 0.5817 (lift=+0.0111, P=0.613 R=0.574, 48 clusters/3337 vocab, train=5982)",
+  "summary": "MIDDLE_BAND: cluster features give a small lift (>=0.005) -- partial; combine with richer/larger clusters or phrase features. +cluster F1=0.5928 vs no-cluster 0.5817 (lift=+0.0111, P=0.613 R=0.574, 48 clusters/3337 vocab, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5928,
+      "f1_cluster": 0.5928,
+      "f1_baseline": 0.5817,
+      "lift": 0.0111,
+      "prec": 0.613,
+      "rec": 0.574,
+      "n_train": 5982,
+      "n_clusters": 48,
+      "n_vocab": 3337
+    }
+  ],
+  "elapsed_s": 553.5237860679626
+}

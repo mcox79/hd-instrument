@@ -1,0 +1,170 @@
+{
+  "anchor_name": "substrate_m1c_confidence_coverage_separability_fullset_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL: mixed separability. M1c full-set confidence-coverage separability (n=55 coverage-labeled: in=50 gap=5). Best overall feature flatness AUC=0.622. TUNED top1 AUC=0.500 (n_in=43/gap=0); HELDOUT top1 AUC=0.286 (n_in=7/gap=5).",
+  "summary": "PARTIAL: mixed separability. M1c full-set confidence-coverage separability (n=55 coverage-labeled: in=50 gap=5). Best overall feature flatness AUC=0.622. TUNED top1 AUC=0.500 (n_in=43/gap=0); HELDOUT top1 AUC=0.286 (n_in=7/gap=5).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_total": 77,
+      "n_in": 50,
+      "n_gap": 5,
+      "overall": [
+        {
+          "feature": "flatness",
+          "auc": 0.622,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "peak",
+          "auc": 0.594,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "margin",
+          "auc": 0.502,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "top1",
+          "auc": 0.434,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "mass080",
+          "auc": 0.412,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "mean5",
+          "auc": 0.398,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "mass070",
+          "auc": 0.366,
+          "n_in": 50,
+          "n_gap": 5
+        },
+        {
+          "feature": "mean20",
+          "auc": 0.278,
+          "n_in": 50,
+          "n_gap": 5
+        }
+      ],
+      "tuned": [
+        {
+          "feature": "top1",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "margin",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "mean5",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "mean20",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "peak",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "flatness",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "mass070",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        },
+        {
+          "feature": "mass080",
+          "auc": 0.5,
+          "n_in": 43,
+          "n_gap": 0
+        }
+      ],
+      "heldout": [
+        {
+          "feature": "flatness",
+          "auc": 0.457,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "margin",
+          "auc": 0.4,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "peak",
+          "auc": 0.4,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "mass070",
+          "auc": 0.329,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "mean5",
+          "auc": 0.314,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "mass080",
+          "auc": 0.3,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "top1",
+          "auc": 0.286,
+          "n_in": 7,
+          "n_gap": 5
+        },
+        {
+          "feature": "mean20",
+          "auc": 0.286,
+          "n_in": 7,
+          "n_gap": 5
+        }
+      ],
+      "tuned_in": 43,
+      "tuned_gap": 0,
+      "held_in": 7,
+      "held_gap": 5
+    }
+  ],
+  "elapsed_s": 22.76386857032776
+}

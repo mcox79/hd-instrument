@@ -1,0 +1,15 @@
+{
+  "anchor_name": "stretch3_4_bayes_net_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate stores a Bayes net (CPTs) and computes posteriors via enumeration matching exact inference >=0.85 -- full belief-net inference respecting conditional independence. posterior-match=0.987 (n=150)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bnet_acc": 0.9866666666666667,
+      "n": 150
+    }
+  ],
+  "elapsed_s": 0.6535403728485107,
+  "summary": "HARD_PASS: substrate stores a Bayes net (CPTs) and computes posteriors via enumeration matching exact inference >=0.85 -- full belief-net inference respecting conditional independence. posterior-match=0.987 (n=150)"
+}

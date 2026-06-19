@@ -1,0 +1,22 @@
+{
+  "anchor_name": "colbert_v2_hotpot_distractor_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: recall@2=0.4207 (HP>=0.55, MID>=0.5); recall@10=0.6775 (bge baseline 0.74); 100 bridge questions on 4165 passages",
+  "recall_at_2": 0.4206666666666667,
+  "recall_at_10": 0.6775,
+  "hp_recall_at_2": 0.55,
+  "mid_low_recall_at_2": 0.5,
+  "bge_baseline_recall_at_2": 0.42,
+  "bge_baseline_recall_at_10": 0.74,
+  "n_questions": 100,
+  "n_passages": 4165,
+  "top_k": 10,
+  "colbert_checkpoint": "colbert-ir/colbertv2.0",
+  "hotpot_split": "validation",
+  "hotpot_config": "distractor",
+  "nbits": 2,
+  "doc_maxlen": 180,
+  "kmeans_niters": 4,
+  "elapsed_s": 93.75080275535583,
+  "summary": "HARD_FAIL: recall@2=0.4207 (HP>=0.55, MID>=0.5); recall@10=0.6775 (bge baseline 0.74); 100 bridge questions on 4165 passages"
+}

@@ -1,0 +1,30 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SU bound partially holds at N=8192. n_hp=1/1. mean_su_frac=1.0000. all_excess_pos=True.",
+  "elapsed_s": 0.20194411277770996,
+  "config": {
+    "N": 512,
+    "M": 64,
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "per_seed": [
+    {
+      "N": 512,
+      "M": 64,
+      "seed": 17,
+      "su_frac": 1.0,
+      "excess_mean": 29.537664360626138,
+      "erase_work_mean": 51.2,
+      "n_patterns": 64,
+      "t_build_s": 0.003507852554321289,
+      "t_bound_s": 0.19843626022338867
+    }
+  ],
+  "summary": {
+    "mean_su_frac": 1.0,
+    "mean_excess": 29.537664360626138
+  }
+}

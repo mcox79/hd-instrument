@@ -1,0 +1,251 @@
+{
+  "anchor_name": "hebb_vs_pseudoinverse_long_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pseudoinverse write rule >=3x Hebb capacity -- largest single capacity lever, swap the write rule. at N=4096: hebb_alpha_c=0.050 pinv_alpha_c=0.550 | pinv/hebb=11.00x (theory ~7x)",
+  "run_mode": "full",
+  "n_seeds": 12,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 29,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 37,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 43,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 47,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 53,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 59,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 61,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    },
+    {
+      "seed": 67,
+      "by_N": {
+        "N1024": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N2048": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        },
+        "N4096": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.55,
+          "ratio": 11.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 660.2684605121613,
+  "summary": "HARD_PASS: pseudoinverse write rule >=3x Hebb capacity -- largest single capacity lever, swap the write rule. at N=4096: hebb_alpha_c=0.050 pinv_alpha_c=0.550 | pinv/hebb=11.00x (theory ~7x)"
+}

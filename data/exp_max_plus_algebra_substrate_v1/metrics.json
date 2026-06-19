@@ -1,0 +1,47 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: max-plus retrieval confirmed. K=1 exact=1.000>=0.9. K=4 exact=0.250. Tropical memory algebra viable for HSC substrate.",
+  "elapsed_s": 0.03,
+  "summary": "max_plus N=256: K=1_exact=1.000 K=4_exact=0.250",
+  "k_results": {
+    "1": {
+      "mean_exact": 1.0,
+      "mean_noisy": 1.0,
+      "n_seeds": 1
+    },
+    "4": {
+      "mean_exact": 0.25,
+      "mean_noisy": 0.25,
+      "n_seeds": 1
+    }
+  },
+  "per_trial": [
+    {
+      "N": 256,
+      "K": 1,
+      "seed": 17,
+      "accuracy_noisy": 1.0,
+      "accuracy_exact": 1.0,
+      "n_trials": 20
+    },
+    {
+      "N": 256,
+      "K": 4,
+      "seed": 17,
+      "accuracy_noisy": 0.25,
+      "accuracy_exact": 0.25,
+      "n_trials": 20
+    }
+  ],
+  "config": {
+    "N": 256,
+    "K_values": [
+      1,
+      4
+    ],
+    "seeds": [
+      17
+    ],
+    "n_trials": 20
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "verdict": "LANE_D_CAPACITY_BOUNDED",
+  "verdict_msg": "2 of 4 axes hit breakpoints in sweep. breakpoints={'M_S': 300, 'K': 25, 'U_stream': None, 'X_alphabet': None}. Substrate has measurable joint capacity envelope.",
+  "elapsed_s": 0.7810000000026776,
+  "summary": {
+    "baseline_pass": true,
+    "baseline_metrics": {
+      "S": 1.0,
+      "T": 1.0,
+      "U": 1.0,
+      "X": 1.0
+    },
+    "sweeps": {
+      "M_S": [
+        {
+          "value": 50,
+          "S": 0.9666666666666667,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 150,
+          "S": 0.8666666666666667,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 300,
+          "S": 0.36666666666666664,
+          "T": 0.9666666666666667,
+          "U": 1.0,
+          "X": 1.0
+        }
+      ],
+      "K": [
+        {
+          "value": 3,
+          "S": 1.0,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 10,
+          "S": 1.0,
+          "T": 0.82,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 25,
+          "S": 1.0,
+          "T": 0.296,
+          "U": 1.0,
+          "X": 1.0
+        }
+      ],
+      "U_stream": [
+        {
+          "value": 40,
+          "S": 1.0,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 200,
+          "S": 1.0,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 1000,
+          "S": 1.0,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        }
+      ],
+      "X_alphabet": [
+        {
+          "value": 5,
+          "S": 1.0,
+          "T": 0.9666666666666667,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 20,
+          "S": 1.0,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        },
+        {
+          "value": 50,
+          "S": 1.0,
+          "T": 1.0,
+          "U": 1.0,
+          "X": 1.0
+        }
+      ]
+    },
+    "breakpoints": {
+      "M_S": 300,
+      "K": 25,
+      "U_stream": null,
+      "X_alphabet": null
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "fixed_baseline": {
+      "M_S": 50,
+      "K": 3,
+      "U_stream": 40,
+      "X_alphabet": 5
+    },
+    "sweeps": {
+      "M_S": [
+        50,
+        150,
+        300
+      ],
+      "K": [
+        3,
+        10,
+        25
+      ],
+      "U_stream": [
+        40,
+        200,
+        1000
+      ],
+      "X_alphabet": [
+        5,
+        20,
+        50
+      ]
+    },
+    "seed": 17
+  }
+}

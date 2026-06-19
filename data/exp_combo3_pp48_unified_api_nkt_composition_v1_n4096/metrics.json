@@ -1,0 +1,15 @@
+{
+  "anchor_name": "combo3_pp48_unified_api_nkt_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 5 API methods consistent on NKT W_signed. n_seeds=2 prim_fails=0.00(HF>3) cndc_err=0.00e+00 cert_neg=-0.9979(HP<-0.1) k3err=0.00e+00 mvc=2(HP<=5) hp1=2/2 hp2=2/2 hp3=2/2 hp4=2/2 hp5=2/2",
+  "N": 4096,
+  "n_active": 1024,
+  "K_POS": 8,
+  "K_NEG": 4,
+  "M_API": 5,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.12822842597961426,
+  "mean_n_prim_fails": 0.0,
+  "mean_cert_neg": -0.9978837966918945
+}

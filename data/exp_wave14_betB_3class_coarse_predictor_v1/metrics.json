@@ -1,0 +1,60 @@
+{
+  "verdict": "3CLASS_HARD_PASS",
+  "verdict_msg": "3-class coarse taxonomy CONFIRMED: 3/3 non-overlapping CIs AND K-W p=3.76e-09 < 0.01. HIGH (0.887) MID (0.813) LOW (0.633) are cleanly separated. Defensible product claim: substrate has 3 distinct retention regimes.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "n_nonoverlapping": 3,
+    "kw_p": 3.76439046601007e-09,
+    "pass_threshold_nonoverlap": 3,
+    "pass_threshold_kw_p": 0.01,
+    "n_total_values": 99,
+    "per_coarse_class": {
+      "HIGH": {
+        "n": 16,
+        "mean": 0.8872,
+        "std": 0.0462,
+        "ci_95_lo": 0.8645,
+        "ci_95_hi": 0.9098,
+        "source_six_classes": [
+          "SAME_CORPUS_PRISTINE",
+          "COMPOUND_SAME_CORPUS"
+        ]
+      },
+      "MID": {
+        "n": 70,
+        "mean": 0.813,
+        "std": 0.052,
+        "ci_95_lo": 0.8008,
+        "ci_95_hi": 0.8252,
+        "source_six_classes": [
+          "REPLAY_SAME_CORPUS",
+          "NO_REPLAY_SAME_CORPUS",
+          "STAGE_4_COMPOUND"
+        ]
+      },
+      "LOW": {
+        "n": 13,
+        "mean": 0.6334,
+        "std": 0.0596,
+        "ci_95_lo": 0.601,
+        "ci_95_hi": 0.6658,
+        "source_six_classes": [
+          "DIFF_CORPUS_2TASK"
+        ]
+      }
+    }
+  },
+  "config": {
+    "six_to_three_mapping": {
+      "SAME_CORPUS_PRISTINE": "HIGH",
+      "COMPOUND_SAME_CORPUS": "HIGH",
+      "REPLAY_SAME_CORPUS": "MID",
+      "NO_REPLAY_SAME_CORPUS": "MID",
+      "STAGE_4_COMPOUND": "MID",
+      "DIFF_CORPUS_2TASK": "LOW"
+    },
+    "pass_min_nonoverlapping": 3,
+    "pass_kw_p": 0.01,
+    "ci_z": 1.96
+  }
+}

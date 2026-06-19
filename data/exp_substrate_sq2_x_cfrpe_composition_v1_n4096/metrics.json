@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_sq2_x_cfrpe_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cf-RPE PRESERVES 12-hop reasoning (>=hebbian). hebbian_depth=12.0 cfrpe_depth=12.0 cfrpe_acc@12=1.00",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "hebbian_depth": 12,
+      "hebbian_acc12": 1.0,
+      "G_chains": 2,
+      "cfrpe_depth": 12,
+      "cfrpe_acc12": 1.0
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "hebbian_depth": 12,
+      "hebbian_acc12": 1.0,
+      "G_chains": 2,
+      "cfrpe_depth": 12,
+      "cfrpe_acc12": 1.0
+    }
+  ],
+  "elapsed_s": 0.2244243621826172,
+  "summary": "HARD_PASS: cf-RPE PRESERVES 12-hop reasoning (>=hebbian). hebbian_depth=12.0 cfrpe_depth=12.0 cfrpe_acc@12=1.00"
+}

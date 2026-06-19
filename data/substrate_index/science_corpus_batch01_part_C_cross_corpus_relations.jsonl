@@ -1,0 +1,56 @@
+{"src": "science::PHYS/classical_mechanics", "dst": "math::T1/ode", "type": "USES", "metadata": {"phase_B_C": true, "reason": "Newton 2nd law F=ma is ODE"}}
+{"src": "science::PHYS/lagrangian_hamiltonian", "dst": "math::T1/lagrange_multiplier", "type": "USES_VARIATIONAL", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/thermodynamics", "dst": "math::T1/shannon_entropy_atom", "type": "RELATES_TO", "metadata": {"phase_B_C": true, "reason": "thermodynamic entropy generalizes to Shannon"}}
+{"src": "science::PHYS/statistical_mechanics", "dst": "math::T2/glauber_dynamics", "type": "REALIZES_VIA", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/statistical_mechanics", "dst": "math::T2/modern_hopfield_ramsauer", "type": "INFORMS", "metadata": {"phase_B_C": true, "reason": "Hopfield is stat mech model"}}
+{"src": "science::PHYS/statistical_mechanics", "dst": "math::T2/amit_gutfreund_sompolinsky_capacity", "type": "INFORMS_CAPACITY_BOUND", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/quantum_mechanics", "dst": "math::T1/hilbert_space", "type": "FORMULATED_IN", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/quantum_mechanics", "dst": "math::T1/complex_field", "type": "USES_COMPLEX_AMPLITUDES", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/general_relativity", "dst": "math::T1/riemannian_manifold", "type": "FORMULATED_IN", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/wave_equation", "dst": "math::T1/pde", "type": "INSTANCE_OF", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/dynamical_systems", "dst": "math::T1/ode", "type": "STUDIED_VIA", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/dynamical_systems", "dst": "math::T1/banach_fixed_point", "type": "USES_FIXED_POINT_ANALYSIS", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/random_matrix_theory", "dst": "math::T1/marchenko_pastur_distribution", "type": "PRODUCES", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/random_matrix_theory", "dst": "math::T1/tracy_widom_distribution", "type": "PRODUCES", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/random_matrix_theory", "dst": "math::T1/voiculescu_free_probability", "type": "RELATES_TO_FREE_PROB", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/critical_phenomena", "dst": "science::PHYS/statistical_mechanics", "type": "SUB_FIELD_OF", "metadata": {"phase_B_C": true}}
+{"src": "science::PHYS/spin_glass", "dst": "math::T2/modern_hopfield_ramsauer", "type": "PHYSICAL_BASIS_FOR", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/neuron_action_potential", "dst": "science::BIO/hodgkin_huxley", "type": "MODELED_BY", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/hodgkin_huxley", "dst": "math::T1/ode", "type": "FORMULATED_AS", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/synaptic_plasticity", "dst": "math::T2/bcm_learning_rule", "type": "REALIZED_BY", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/hippocampus", "dst": "math::T2/sparse_distributed_memory", "type": "BIOLOGICAL_BASIS_FOR", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/hippocampus", "dst": "math::T2/complementary_learning_systems", "type": "FAST_MEMORY_SYSTEM_IN", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/theta_gamma_binding", "dst": "math::T3/resonator_network_decoder", "type": "BIOLOGICAL_INSPIRATION_FOR", "metadata": {"phase_B_C": true, "reason": "Lisman-Jensen theta-gamma -> Frady-Kent resonator"}}
+{"src": "science::BIO/theta_gamma_binding", "dst": "math::T3/permutation_indexed_binding", "type": "BIOLOGICAL_INSPIRATION_FOR", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/prefrontal_cortex", "dst": "concept::CAP_discriminative_perceptron", "type": "BIOLOGICAL_BASIS_FOR", "metadata": {"phase_B_C": true, "reason": "PFC top-down attention -> discriminative perceptron"}}
+{"src": "science::BIO/wernicke_broca_language", "dst": "concept::PP-369_slot_filling", "type": "BIOLOGICAL_INSPIRATION_FOR", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/anterior_temporal_lobe", "dst": "concept::PP-364_pos_tagger", "type": "RELATED_TO_LANGUAGE_PROCESSING", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/dopamine_RPE", "dst": "concept::PP-375_multistep_math", "type": "BIOLOGICAL_BASIS_FOR_ANSWER_CONSISTENCY", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/dopamine_RPE", "dst": "math::T1/expectation_variance", "type": "COMPUTES_RPE_VIA", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/evolution_natural_selection", "dst": "math::T3/wright_fisher_process", "type": "MATHEMATICAL_MODEL_OF", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/predictive_coding", "dst": "concept::CAP_bayesian_inference", "type": "REALIZED_BY", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/sparse_coding_neural", "dst": "math::T2/sparse_distributed_memory", "type": "INSPIRES", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/memory_consolidation", "dst": "math::T2/complementary_learning_systems", "type": "EXEMPLIFIES", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/attention_top_down", "dst": "concept::CAP_discriminative_perceptron", "type": "BIOLOGICAL_BASIS_FOR", "metadata": {"phase_B_C": true}}
+{"src": "science::BIO/default_mode_network", "dst": "math::T2/glauber_dynamics", "type": "ANALOGUE_OF_SPONTANEOUS_EXPLORATION", "metadata": {"phase_B_C": true, "reason": "DMN spontaneous activity ~ Glauber-style noise floor"}}
+{"src": "science::BIO/cognitive_architecture", "dst": "concept::unified_compositional_engine", "type": "FRAMEWORK_FOR_COMPARING", "metadata": {"phase_B_C": true}}
+{"src": "science::CHEM/equilibrium_thermodynamic", "dst": "math::T2/glauber_dynamics", "type": "MICROSCOPIC_BASIS_FOR_DETAILED_BALANCE", "metadata": {"phase_B_C": true}}
+{"src": "science::CHEM/molecular_orbital_theory", "dst": "math::T1/hilbert_space", "type": "FORMULATED_IN", "metadata": {"phase_B_C": true}}
+{"src": "science::CHEM/chemical_reaction", "dst": "math::T1/ode", "type": "RATE_EQUATIONS_AS", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/algorithm", "dst": "math::T3/viterbi_decoder", "type": "INCLUDES_EXAMPLE", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/computational_complexity", "dst": "math::T3/hungarian_algorithm", "type": "CLASSIFIES_COMPLEXITY_OF", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/turing_machine", "dst": "math::T1/predicate_logic", "type": "RELATES_TO_COMPUTABILITY", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/lambda_calculus", "dst": "math::T1/category", "type": "FORMULATED_VIA_CCC", "metadata": {"phase_B_C": true, "reason": "Cartesian closed category"}}
+{"src": "science::CS/type_theory", "dst": "math::T1/category", "type": "RELATES_TO", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/information_theory_shannon", "dst": "math::T1/shannon_entropy_atom", "type": "DEFINES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/information_theory_shannon", "dst": "math::T1/mutual_information", "type": "INTRODUCES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/coding_theory", "dst": "math::T2/sparse_distributed_memory", "type": "PRINCIPLES_APPLIED_IN", "metadata": {"phase_B_C": true, "reason": "Reed-Solomon parity in substrate v3.2 wrapper"}}
+{"src": "science::CS/machine_learning", "dst": "concept::CAP_discriminative_perceptron", "type": "INCLUDES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/machine_learning", "dst": "concept::CAP_bayesian_inference", "type": "INCLUDES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/machine_learning", "dst": "concept::CAP_em_algorithm", "type": "INCLUDES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/neural_network_architecture", "dst": "math::T2/modern_hopfield_ramsauer", "type": "INCLUDES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/probabilistic_graphical_model", "dst": "math::T1/markov_chain", "type": "GENERALIZES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/probabilistic_graphical_model", "dst": "concept::CAP_viterbi_decoding", "type": "INCLUDES", "metadata": {"phase_B_C": true}}
+{"src": "science::CS/reinforcement_learning", "dst": "science::BIO/dopamine_RPE", "type": "BIOLOGICALLY_INSPIRED_BY", "metadata": {"phase_B_C": true, "reason": "Schultz RPE -> TD learning"}}
+{"src": "science::CS/reinforcement_learning", "dst": "concept::PP-375_multistep_math", "type": "ANALOGOUS_TO", "metadata": {"phase_B_C": true, "reason": "answer-consistency weak labels analogue of reward signal"}}
+{"src": "science::CS/reinforcement_learning", "dst": "math::T1/expectation_variance", "type": "USES_EXPECTED_REWARD", "metadata": {"phase_B_C": true}}

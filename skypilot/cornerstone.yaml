@@ -1,0 +1,178 @@
+# Cornerstone audit C1+C2+C3 frontier-scale validation on Llama-3.1-8B-Instruct.
+# Single cloud H100 batch per routing_cornerstone_audit_c1_c2_c3_llama_8b_frontier.
+#
+# Cells (all 3 share Llama-3.1-8B bootstrap):
+#   C1: Hyperprobe replication        (val_sim >= 0.85 paper baseline)
+#   C2: Deletion certificate          (cos > 0.99 retention across 4/5 targets)
+#   C3: Drift refusal vs benign       (kappa_3 ratio >= 4x between populations)
+#
+# This YAML is shipped from a WSL-native bundle at ~/cornerstone-ship/ to bypass
+# the WSL2 /mnt/d 9P stat-walk stall. Bundle is rebuilt by
+# skypilot/build_cornerstone_ship.sh.
+#
+# Cost ceiling per routing: ~$9-12 total; ~1.5-2h wall on H100 SXM5.
+# Belt-and-suspenders teardown: autostop -i 30 AND launcher issues explicit
+# `sky down` after job completion (per SkyPilot issues #1472/#2247/#4103).
+#
+# Launch (from WSL Ubuntu, skyvenv activated):
+#   bash /mnt/d/AI/hd-instrument/skypilot/build_cornerstone_ship.sh
+#   bash /mnt/d/AI/hd-instrument/skypilot/launch_cornerstone.sh
+
+name: cornerstone
+
+resources:
+  cloud: lambda
+  # Per feedback_cloud_location_doesnt_matter: any Lambda region OK. But
+  # SkyPilot's failover defaults to us-east-1 first and does NOT auto-switch
+  # regions on capacity miss; the LAUNCHER passes --region explicitly (queried
+  # from Lambda API for live SXM5 capacity at launch time). Pinned to SXM5
+  # only here because PCIe was sold out fleet-wide at 2026-06-04 17:15 UTC
+  # while SXM5 had capacity in us-south-2 + us-southeast-1.
+  # Use instance_type (not accelerators) because SkyPilot's catalog accelerator
+  # names do not differentiate SXM5 vs PCIe ("H100" matches both). With PCIe
+  # sold out fleet-wide (2026-06-04), pin to SXM5 SKU + let launcher pick the
+  # region via Lambda API.
+  instance_type: gpu_1x_h100_sxm5
+  use_spot: false
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  echo "=== [setup 1/9] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env var is empty -- did you pass --env HF_TOKEN=...?"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/9] apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+
+  echo "=== [setup 3/9] pip core + defensive torch pin for older Lambda images ==="
+  pip install --quiet --upgrade pip
+  # Defensive torch pin: some Lambda images (e.g. us-south-2 as of 2026-06-04)
+  # ship CUDA driver 12.0.80, which is too old for the default torch 2.7.x
+  # (built for CUDA 12.6+). Pin torch 2.4.1+cu121:
+  #   - Minor-version-compatible with CUDA driver 12.0+
+  #   - >= 2.4 required by transformers 4.45 (peft.py imports break on 2.3)
+  # On newer-image regions (us-east-1) this is a small downgrade that costs nothing.
+  pip install --quiet --upgrade --force-reinstall \
+    "torch==2.4.1" "torchvision==0.19.1" \
+    --index-url https://download.pytorch.org/whl/cu121 || \
+    pip install --quiet "torch==2.4.1" "torchvision==0.19.1"
+  python -c "import torch; print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()}')"
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "datasets>=2.19" "huggingface_hub>=0.25" "accelerate>=0.30"
+
+  echo "=== [setup 4/9] clone + install hyperprobe ==="
+  if [ ! -d /tmp/hyperprobe ]; then
+    git clone https://github.com/Ipazia-AI/hyperprobe.git /tmp/hyperprobe
+  fi
+  cd /tmp/hyperprobe
+  git pull --ff-only || true
+  pip install --quiet -e .
+  cd ~/sky_workdir
+
+  echo "=== [setup 5/9] transitive deps hyperprobe declares incompletely ==="
+  pip install --quiet \
+    word2number \
+    sentence-transformers \
+    wn \
+    spacy \
+    SPARQLWrapper \
+    requests-cache \
+    python-dotenv \
+    torch-hd \
+    scikit-learn
+
+  echo "=== [setup 6/9] HF login ==="
+  python -c "from huggingface_hub import login; import os; login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)"
+
+  echo "=== [setup 7/9] verify Llama-3.1-8B-Instruct access ==="
+  python -c "
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.1-8B-Instruct')
+  print(f'OK: Llama-3.1-8B-Instruct accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 8/9] pre-pull Llama-3.1-8B snapshot (NOT counted as idle) ==="
+  # Setup phase does NOT count toward idle timer (per SkyPilot autostop docs);
+  # the long model download here cannot trigger premature autostop.
+  python -c "
+  from huggingface_hub import snapshot_download
+  import os
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-8B-Instruct',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-8B-Instruct snapshot ready')
+  "
+
+  echo "=== [setup 9/9] hyperprobe + substrate_audit imports smoke ==="
+  python -c "
+  import hyperprobe
+  for fn in ['create_codebook', 'ingest_embeddings', 'create_vsa_encodings',
+             'inputDataset', 'llm2VSA_dataloader', 'train_hyperprobe',
+             'VSAEncoder', 'load_llm', 'probe_doc']:
+      assert hasattr(hyperprobe, fn), f'hyperprobe missing {fn}'
+  print('OK: hyperprobe API surface present')
+  import sys
+  sys.path.insert(0, '.')
+  from testbed.llm_integration.substrate_audit import (
+      build_W_from_patterns, deletion_cert, retrieval_cosine,
+      kappa_3_hutchinson, kappa_2_hutchinson,
+  )
+  print('OK: substrate_audit primitives importable')
+  "
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  # NO `set -e` at cell-level. The cornerstone routing's "2 of 3 HP = partial
+  # validation" requires each cell's outcome be recorded INDEPENDENTLY, so a
+  # single cell crash MUST NOT block the other cells. Each python call uses
+  # `|| true` so the overall script always reaches the aggregate step.
+  set -u
+  cd ~/sky_workdir
+
+  # Hyperprobe's Lightning Trainer hardcodes deterministic=True; CuBLAS workspace
+  # config must be set BEFORE Python starts to avoid the RuntimeError.
+  export CUBLAS_WORKSPACE_CONFIG=:4096:8
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+
+  echo "=== [1/5] C1 step a: phase05_probe_training_v1 (Hyperprobe MLP train) ==="
+  # HDLAB_EXP_NAME sets the runner's metrics output dir convention (data/exp_<X>/)
+  HDLAB_EXP_NAME=phase05_probe_training_v1 \
+    python -u experiments/exp_phase05_probe_training_v1.py || \
+    echo "  [warn] C1 probe_training exited non-zero; C1 cell will report FAILED_SETUP"
+
+  echo "=== [2/5] C1 step b: phase05_probe_validation_v1 (val_sim measurement) ==="
+  HDLAB_EXP_NAME=phase05_probe_validation_v1 \
+    python -u experiments/exp_phase05_probe_validation_v1.py || \
+    echo "  [warn] C1 probe_validation exited non-zero; C1 cell will report FAILED_SETUP"
+
+  echo "=== [3/5] C1 step c: cornerstone HP=0.85 post-processor ==="
+  HDLAB_EXP_NAME=substrate_hyperprobe_llama_3_1_8b_val_sim_replication_v1_h100 \
+    python -u experiments/exp_cornerstone_c1_replication_postprocess_v1.py || \
+    echo "  [warn] C1 postprocess exited non-zero; metrics may be missing"
+
+  echo "=== [4/5] C2 + C3: unified audit script (Llama loaded once; per-cell isolation) ==="
+  HDLAB_EXP_NAME=cornerstone_c2_c3_audit_llama_3_1_8b_v1_h100 \
+    python -u experiments/exp_cornerstone_c2_c3_audit_llama_3_1_8b_v1.py || \
+    echo "  [warn] C2+C3 script exited non-zero; per-cell metrics may be partial"
+
+  echo "=== [5/5] Aggregate: read 3 cell metrics, emit batch verdict ==="
+  HDLAB_EXP_NAME=cornerstone_c1_c2_c3_aggregate_llama_3_1_8b_v1_h100 \
+    python -u experiments/exp_cornerstone_aggregate_v1.py || \
+    echo "  [warn] aggregate script exited non-zero"
+
+  echo "=== cornerstone batch complete; artifacts at ~/sky_workdir/data/exp_*/ ==="
+  ls -la ~/sky_workdir/data/exp_*/ 2>/dev/null | head -40

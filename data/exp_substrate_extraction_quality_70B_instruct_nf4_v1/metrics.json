@@ -1,0 +1,227 @@
+{
+  "anchor_name": "substrate_extraction_quality_70B_instruct_nf4_v1",
+  "verdict": "ARCHITECTURE_ROBUST",
+  "verdict_msg": "ARCHITECTURE_ROBUST: Instruct L=74 is < 1.5x Base NF4. Late-layer retrieval crash persists across base AND instruct variants. The 70B late-layer specialization is architecturally robust to fine-tuning. Instruct L=74=0.078 vs base NF4 0.056 (ratio=1.39); Instruct L=50=0.072 vs base NF4 0.174 / base fp16 0.244; BEST: Instruct L=68 top-5-RP=0.082",
+  "run_mode": "full",
+  "n_passages": 1000,
+  "n_queries": 500,
+  "top_k": 5,
+  "n_substrate": 4096,
+  "shuffle_seed": 7,
+  "rp_seed": 1729,
+  "per_model": {
+    "70B_instruct_nf4": {
+      "model_id": "meta-llama/Llama-3.1-70B-Instruct",
+      "mode": "nf4",
+      "layers_probed": [
+        40,
+        50,
+        60,
+        68,
+        74
+      ],
+      "best_layer": 68,
+      "load_wall_s": 264.92905497550964,
+      "passage_extract_wall_s": 180.90404868125916,
+      "query_extract_wall_s": 65.23942160606384,
+      "per_layer": {
+        "40": {
+          "layer_idx": 40,
+          "hidden_dim": 8192,
+          "acc_top1_raw": 0.016,
+          "acc_topk_raw": 0.05,
+          "acc_top1_rp": 0.014,
+          "acc_topk_rp": 0.054,
+          "rank_raw": {
+            "median_rank": 154,
+            "p25_rank": 58,
+            "p75_rank": 329,
+            "p95_rank": 824,
+            "min_rank": 1,
+            "max_rank": 982,
+            "n_in_top_5": 25,
+            "n_in_top_50": 115,
+            "n_in_top_100": 179
+          },
+          "rank_rp": {
+            "median_rank": 169,
+            "p25_rank": 60,
+            "p75_rank": 324,
+            "p95_rank": 830,
+            "min_rank": 1,
+            "max_rank": 982,
+            "n_in_top_5": 27,
+            "n_in_top_50": 111,
+            "n_in_top_100": 178
+          }
+        },
+        "50": {
+          "layer_idx": 50,
+          "hidden_dim": 8192,
+          "acc_top1_raw": 0.03,
+          "acc_topk_raw": 0.08,
+          "acc_top1_rp": 0.026,
+          "acc_topk_rp": 0.072,
+          "rank_raw": {
+            "median_rank": 193,
+            "p25_rank": 95,
+            "p75_rank": 289,
+            "p95_rank": 764,
+            "min_rank": 1,
+            "max_rank": 990,
+            "n_in_top_5": 40,
+            "n_in_top_50": 97,
+            "n_in_top_100": 129
+          },
+          "rank_rp": {
+            "median_rank": 197,
+            "p25_rank": 96,
+            "p75_rank": 303,
+            "p95_rank": 738,
+            "min_rank": 1,
+            "max_rank": 976,
+            "n_in_top_5": 36,
+            "n_in_top_50": 102,
+            "n_in_top_100": 129
+          }
+        },
+        "60": {
+          "layer_idx": 60,
+          "hidden_dim": 8192,
+          "acc_top1_raw": 0.026,
+          "acc_topk_raw": 0.078,
+          "acc_top1_rp": 0.026,
+          "acc_topk_rp": 0.074,
+          "rank_raw": {
+            "median_rank": 239,
+            "p25_rank": 139,
+            "p75_rank": 315,
+            "p95_rank": 508,
+            "min_rank": 1,
+            "max_rank": 998,
+            "n_in_top_5": 39,
+            "n_in_top_50": 91,
+            "n_in_top_100": 109
+          },
+          "rank_rp": {
+            "median_rank": 242,
+            "p25_rank": 139,
+            "p75_rank": 331,
+            "p95_rank": 575,
+            "min_rank": 1,
+            "max_rank": 989,
+            "n_in_top_5": 37,
+            "n_in_top_50": 89,
+            "n_in_top_100": 109
+          }
+        },
+        "68": {
+          "layer_idx": 68,
+          "hidden_dim": 8192,
+          "acc_top1_raw": 0.028,
+          "acc_topk_raw": 0.09,
+          "acc_top1_rp": 0.024,
+          "acc_topk_rp": 0.082,
+          "rank_raw": {
+            "median_rank": 296,
+            "p25_rank": 164,
+            "p75_rank": 380,
+            "p95_rank": 557,
+            "min_rank": 1,
+            "max_rank": 938,
+            "n_in_top_5": 45,
+            "n_in_top_50": 89,
+            "n_in_top_100": 111
+          },
+          "rank_rp": {
+            "median_rank": 299,
+            "p25_rank": 166,
+            "p75_rank": 388,
+            "p95_rank": 596,
+            "min_rank": 1,
+            "max_rank": 959,
+            "n_in_top_5": 41,
+            "n_in_top_50": 85,
+            "n_in_top_100": 110
+          }
+        },
+        "74": {
+          "layer_idx": 74,
+          "hidden_dim": 8192,
+          "acc_top1_raw": 0.042,
+          "acc_topk_raw": 0.084,
+          "acc_top1_rp": 0.036,
+          "acc_topk_rp": 0.078,
+          "rank_raw": {
+            "median_rank": 313,
+            "p25_rank": 158,
+            "p75_rank": 447,
+            "p95_rank": 649,
+            "min_rank": 1,
+            "max_rank": 919,
+            "n_in_top_5": 42,
+            "n_in_top_50": 89,
+            "n_in_top_100": 106
+          },
+          "rank_rp": {
+            "median_rank": 315,
+            "p25_rank": 156,
+            "p75_rank": 456,
+            "p95_rank": 665,
+            "min_rank": 1,
+            "max_rank": 928,
+            "n_in_top_5": 39,
+            "n_in_top_50": 86,
+            "n_in_top_100": 106
+          }
+        }
+      },
+      "acc_top1_raw": 0.028,
+      "acc_topk_raw": 0.09,
+      "acc_top1_rp": 0.024,
+      "acc_topk_rp": 0.082,
+      "rank_raw": {
+        "median_rank": 296,
+        "p25_rank": 164,
+        "p75_rank": 380,
+        "p95_rank": 557,
+        "min_rank": 1,
+        "max_rank": 938,
+        "n_in_top_5": 45,
+        "n_in_top_50": 89,
+        "n_in_top_100": 111
+      },
+      "rank_rp": {
+        "median_rank": 299,
+        "p25_rank": 166,
+        "p75_rank": 388,
+        "p95_rank": 596,
+        "min_rank": 1,
+        "max_rank": 959,
+        "n_in_top_5": 41,
+        "n_in_top_50": 85,
+        "n_in_top_100": 110
+      },
+      "hidden_dim": 8192
+    }
+  },
+  "elapsed_s": 520.1771149635315,
+  "gpu_peak_gb": 41.604972032,
+  "summary": "ARCHITECTURE_ROBUST: Instruct L=74 is < 1.5x Base NF4. Late-layer retrieval crash persists across base AND instruct variants. The 70B late-layer specialization is architecturally robust to fine-tuning. Instruct L=74=0.078 vs base NF4 0.056 (ratio=1.39); Instruct L=50=0.072 vs base NF4 0.174 / base fp16 0.244; BEST: Instruct L=68 top-5-RP=0.082",
+  "cell1_base_70B_reference": {
+    "nf4": {
+      "40": 0.146,
+      "50": 0.174,
+      "60": 0.084,
+      "68": 0.064,
+      "74": 0.056
+    },
+    "fp16": {
+      "40": 0.192,
+      "50": 0.244,
+      "60": 0.174,
+      "68": 0.08,
+      "74": 0.056
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "verdict": "BET_Z3_VAMP_PARTIAL",
+  "verdict_msg": "VAMP ~ argmax: vamp=1.000 vs argmax=1.000 (diff=+0.000). No clear advantage.",
+  "elapsed_s": 0.7969999999913853,
+  "summary": {
+    "argmax_acc": 1.0,
+    "vamp_acc": 1.0,
+    "argmax_per_K": {
+      "200": 1.0,
+      "500": 1.0,
+      "1000": 1.0,
+      "2000": 1.0
+    },
+    "vamp_per_K": {
+      "200": 1.0,
+      "500": 1.0,
+      "1000": 1.0,
+      "2000": 1.0
+    },
+    "noise_p": 0.1
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "K_grid": [
+      200,
+      500,
+      1000,
+      2000
+    ],
+    "noise_p": 0.1,
+    "n_trials": 200,
+    "seed": 17
+  }
+}

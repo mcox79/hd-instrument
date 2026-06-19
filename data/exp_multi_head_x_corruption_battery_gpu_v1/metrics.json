@@ -1,0 +1,39 @@
+{
+  "anchor_name": "multi_head_x_corruption_battery_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: corruption erases multi-head advantage (<1.3x at flip=0.45). at flip=0.45 N=2048: H1=0.0000 H4=0.0000 | H4/H1=0.00x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "H": 1,
+      "flip": 0.05,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.19970703125
+    },
+    {
+      "H": 1,
+      "flip": 0.45,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.0
+    },
+    {
+      "H": 4,
+      "flip": 0.05,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.69970703125
+    },
+    {
+      "H": 4,
+      "flip": 0.45,
+      "N": 2048,
+      "seed": 1,
+      "alpha": 0.0
+    }
+  ],
+  "elapsed_s": 0.8199319839477539,
+  "summary": "HARD_FAIL: corruption erases multi-head advantage (<1.3x at flip=0.45). at flip=0.45 N=2048: H1=0.0000 H4=0.0000 | H4/H1=0.00x"
+}

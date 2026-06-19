@@ -1,0 +1,21 @@
+{
+  "anchor_name": "fb15k237_highfanout_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate maintains top1>=0.85 on HIGH-FANOUT (>=10 superposed tails) -- bundle capacity holds; exhaustive retrieval beats probabilistic top-K which over-selects the dominant tail. top1=1.000 recall@fanout=1.000 (n=400) buckets={'10-19': 1.0, '20-49': 1.0, '50+': 1.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "top1": 1.0,
+      "recall_fan": 1.0,
+      "n": 400,
+      "by_bucket": {
+        "10-19": 1.0,
+        "20-49": 1.0,
+        "50+": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 82.83049368858337,
+  "summary": "HARD_PASS: substrate maintains top1>=0.85 on HIGH-FANOUT (>=10 superposed tails) -- bundle capacity holds; exhaustive retrieval beats probabilistic top-K which over-selects the dominant tail. top1=1.000 recall@fanout=1.000 (n=400) buckets={'10-19': 1.0, '20-49': 1.0, '50+': 1.0}"
+}

@@ -1,0 +1,268 @@
+{
+  "verdict": "ALLEN_CAHN_HARD_FAIL",
+  "verdict_msg": "Allen-Cahn t^(1/2) REJECTED: slope=0.069 outside [0.3,0.7] OR r^2=0.990<0.4. t=1:retA=0.860, t=2:retA=0.855, t=3:retA=0.850, t=5:retA=0.845, t=8:retA=0.838, t=13:retA=0.832, t=21:retA=0.829.",
+  "elapsed_s": 1740.2820000000065,
+  "summary": {
+    "per_phase_c_epochs": {
+      "1": {
+        "7": {
+          "retention_A": 0.8572318280099185,
+          "bpc_A_baseline": 2.496635637049301,
+          "bpc_A_after_C": 2.9124392672695,
+          "phase_c_epochs": 1
+        },
+        "17": {
+          "retention_A": 0.8684314876957847,
+          "bpc_A_baseline": 2.4965502330429286,
+          "bpc_A_after_C": 2.8747808761138343,
+          "phase_c_epochs": 1
+        },
+        "23": {
+          "retention_A": 0.8649747994566359,
+          "bpc_A_baseline": 2.501425277093146,
+          "bpc_A_after_C": 2.891905381133073,
+          "phase_c_epochs": 1
+        },
+        "31": {
+          "retention_A": 0.8576451605909448,
+          "bpc_A_baseline": 2.5015176323083836,
+          "bpc_A_after_C": 2.9167279747544526,
+          "phase_c_epochs": 1
+        },
+        "41": {
+          "retention_A": 0.8506163361995287,
+          "bpc_A_baseline": 2.471044199176117,
+          "bpc_A_after_C": 2.9050043997702923,
+          "phase_c_epochs": 1
+        }
+      },
+      "2": {
+        "7": {
+          "retention_A": 0.8470988637054405,
+          "bpc_A_baseline": 2.4966356323882306,
+          "bpc_A_after_C": 2.9472777492195754,
+          "phase_c_epochs": 2
+        },
+        "17": {
+          "retention_A": 0.8672449472932383,
+          "bpc_A_baseline": 2.4965502283818584,
+          "bpc_A_after_C": 2.878714065932412,
+          "phase_c_epochs": 2
+        },
+        "23": {
+          "retention_A": 0.8601017750470816,
+          "bpc_A_baseline": 2.5014252697131187,
+          "bpc_A_after_C": 2.9082898585765524,
+          "phase_c_epochs": 2
+        },
+        "31": {
+          "retention_A": 0.8517059446533027,
+          "bpc_A_baseline": 2.501517628035736,
+          "bpc_A_after_C": 2.9370672398605944,
+          "phase_c_epochs": 2
+        },
+        "41": {
+          "retention_A": 0.8479279678213023,
+          "bpc_A_baseline": 2.4710441999529618,
+          "bpc_A_after_C": 2.914214760838889,
+          "phase_c_epochs": 2
+        }
+      },
+      "3": {
+        "7": {
+          "retention_A": 0.8428351975379424,
+          "bpc_A_baseline": 2.496635633553498,
+          "bpc_A_after_C": 2.9621871996406575,
+          "phase_c_epochs": 3
+        },
+        "17": {
+          "retention_A": 0.8639158311122284,
+          "bpc_A_baseline": 2.4965502353734634,
+          "bpc_A_after_C": 2.889807253745238,
+          "phase_c_epochs": 3
+        },
+        "23": {
+          "retention_A": 0.8580753663540752,
+          "bpc_A_baseline": 2.501425271655231,
+          "bpc_A_after_C": 2.9151580032925053,
+          "phase_c_epochs": 3
+        },
+        "31": {
+          "retention_A": 0.8479733763431397,
+          "bpc_A_baseline": 2.501517628035736,
+          "bpc_A_after_C": 2.9499954807820234,
+          "phase_c_epochs": 3
+        },
+        "41": {
+          "retention_A": 0.8393997940972164,
+          "bpc_A_baseline": 2.4710441999529618,
+          "bpc_A_after_C": 2.943822737782056,
+          "phase_c_epochs": 3
+        }
+      },
+      "5": {
+        "7": {
+          "retention_A": 0.8398273555151552,
+          "bpc_A_baseline": 2.4966356378261456,
+          "bpc_A_after_C": 2.9727962794147067,
+          "phase_c_epochs": 5
+        },
+        "17": {
+          "retention_A": 0.8560283005406234,
+          "bpc_A_baseline": 2.4965502357618856,
+          "bpc_A_after_C": 2.9164342279165223,
+          "phase_c_epochs": 5
+        },
+        "23": {
+          "retention_A": 0.8495332774780462,
+          "bpc_A_baseline": 2.5014252735973437,
+          "bpc_A_after_C": 2.9444700283232708,
+          "phase_c_epochs": 5
+        },
+        "31": {
+          "retention_A": 0.8447144082541872,
+          "bpc_A_baseline": 2.5015176253167786,
+          "bpc_A_after_C": 2.9613767693234783,
+          "phase_c_epochs": 5
+        },
+        "41": {
+          "retention_A": 0.8332015961233541,
+          "bpc_A_baseline": 2.471044203448764,
+          "bpc_A_after_C": 2.965721879249653,
+          "phase_c_epochs": 5
+        }
+      },
+      "8": {
+        "7": {
+          "retention_A": 0.8319832110944847,
+          "bpc_A_baseline": 2.4966356319998084,
+          "bpc_A_after_C": 3.0008245343261817,
+          "phase_c_epochs": 8
+        },
+        "17": {
+          "retention_A": 0.8479639572031811,
+          "bpc_A_baseline": 2.496550231877661,
+          "bpc_A_after_C": 2.944170221706088,
+          "phase_c_epochs": 8
+        },
+        "23": {
+          "retention_A": 0.8448767030186899,
+          "bpc_A_baseline": 2.5014252724320762,
+          "bpc_A_after_C": 2.960698600748068,
+          "phase_c_epochs": 8
+        },
+        "31": {
+          "retention_A": 0.8394366477935232,
+          "bpc_A_baseline": 2.5015176229862437,
+          "bpc_A_after_C": 2.979995726373795,
+          "phase_c_epochs": 8
+        },
+        "41": {
+          "retention_A": 0.826380311819955,
+          "bpc_A_baseline": 2.471044199176117,
+          "bpc_A_after_C": 2.9902021670072023,
+          "phase_c_epochs": 8
+        }
+      },
+      "13": {
+        "7": {
+          "retention_A": 0.8241146229244726,
+          "bpc_A_baseline": 2.4966356339419207,
+          "bpc_A_after_C": 3.029476197233706,
+          "phase_c_epochs": 13
+        },
+        "17": {
+          "retention_A": 0.8436375987614733,
+          "bpc_A_baseline": 2.496550234208196,
+          "bpc_A_after_C": 2.9592685744131475,
+          "phase_c_epochs": 13
+        },
+        "23": {
+          "retention_A": 0.8383093480984695,
+          "bpc_A_baseline": 2.501425274762611,
+          "bpc_A_after_C": 2.983892855825328,
+          "phase_c_epochs": 13
+        },
+        "31": {
+          "retention_A": 0.8324057109222973,
+          "bpc_A_baseline": 2.5015176288125813,
+          "bpc_A_after_C": 3.0051663461570013,
+          "phase_c_epochs": 13
+        },
+        "41": {
+          "retention_A": 0.8200406391540674,
+          "bpc_A_baseline": 2.4710441933497793,
+          "bpc_A_after_C": 3.0133191885451485,
+          "phase_c_epochs": 13
+        }
+      },
+      "21": {
+        "7": {
+          "retention_A": 0.8230762653944829,
+          "bpc_A_baseline": 2.4966356362724555,
+          "bpc_A_after_C": 3.0332980566216077,
+          "phase_c_epochs": 21
+        },
+        "17": {
+          "retention_A": 0.8412770248830311,
+          "bpc_A_baseline": 2.496550231877661,
+          "bpc_A_after_C": 2.967572105305948,
+          "phase_c_epochs": 21
+        },
+        "23": {
+          "retention_A": 0.835055589879637,
+          "bpc_A_baseline": 2.501425273208921,
+          "bpc_A_after_C": 2.9955194642424594,
+          "phase_c_epochs": 21
+        },
+        "31": {
+          "retention_A": 0.8310387946051401,
+          "bpc_A_baseline": 2.5015176292010035,
+          "bpc_A_after_C": 3.0101093299616357,
+          "phase_c_epochs": 21
+        },
+        "41": {
+          "retention_A": 0.8162257110267852,
+          "bpc_A_baseline": 2.4710442026719193,
+          "bpc_A_after_C": 3.027403044635076,
+          "phase_c_epochs": 21
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs_ab": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "phase_c_epochs_sweep": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      13,
+      21
+    ],
+    "ema_alpha": 0.7,
+    "pass_slope_band": [
+      0.4,
+      0.6
+    ],
+    "pass_r2": 0.7,
+    "fail_slope_band": [
+      0.3,
+      0.7
+    ],
+    "fail_r2": 0.4
+  }
+}

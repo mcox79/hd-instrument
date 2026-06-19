@@ -1,0 +1,42 @@
+{
+  "anchor_name": "substrate_cognitive_core_multihop_hotpotqa_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate 2-hop retrieval no better than single-hop. supporting-fact recall@2: 2hop=0.237 1hop=0.253 ratio=0.93x (n=900) | [Pythia-ceiling secondary] end2end EM sub=0.000 raw=0.083",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_eval": 300,
+      "twohop_recall": 0.23833333333333334,
+      "onehop_recall": 0.24833333333333332,
+      "retrieval_ratio": 0.9597315436241611,
+      "substrate_aug_em": 0.0,
+      "pythia_raw_em": 0.08333333333333333,
+      "em_n": 12
+    },
+    {
+      "seed": 17,
+      "n_eval": 300,
+      "twohop_recall": 0.24333333333333335,
+      "onehop_recall": 0.26,
+      "retrieval_ratio": 0.9358974358974359,
+      "substrate_aug_em": 0.0,
+      "pythia_raw_em": 0.08333333333333333,
+      "em_n": 12
+    },
+    {
+      "seed": 23,
+      "n_eval": 300,
+      "twohop_recall": 0.22833333333333333,
+      "onehop_recall": 0.25166666666666665,
+      "retrieval_ratio": 0.9072847682119206,
+      "substrate_aug_em": 0.0,
+      "pythia_raw_em": 0.08333333333333333,
+      "em_n": 12
+    }
+  ],
+  "elapsed_s": 97.74751853942871,
+  "summary": "HARD_FAIL: substrate 2-hop retrieval no better than single-hop. supporting-fact recall@2: 2hop=0.237 1hop=0.253 ratio=0.93x (n=900) | [Pythia-ceiling secondary] end2end EM sub=0.000 raw=0.083"
+}

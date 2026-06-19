@@ -1,0 +1,28 @@
+{
+  "anchor_name": "asdiv_pp375_multiseed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: PP-375 mechanism does NOT transfer to ASDiv-1op (<0.40). MultiArith's 0.753 relied on text-order operand alignment ASDiv lacks; ASDiv needs operand SELECTION which PP-375 sidesteps. Comprehension/selection wall holds. 1op: text-order=0.3783, +search=0.3783 | overall: text-order=0.0000, +search=0.0000 (vs cascade-v2 0.309, multihop 0.376). PP-375 op-seq + answer-consistency.",
+  "summary": "HARD_FAIL: PP-375 mechanism does NOT transfer to ASDiv-1op (<0.40). MultiArith's 0.753 relied on text-order operand alignment ASDiv lacks; ASDiv needs operand SELECTION which PP-375 sidesteps. Comprehension/selection wall holds. 1op: text-order=0.3783, +search=0.3783 | overall: text-order=0.0000, +search=0.0000 (vs cascade-v2 0.309, multihop 0.376). PP-375 op-seq + answer-consistency.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3783,
+      "std": 0.0258,
+      "vals": [
+        0.3305,
+        0.3903,
+        0.4017,
+        0.3732,
+        0.396
+      ],
+      "textorder_1op": 0.3783,
+      "search_1op": 0.3783,
+      "textorder_overall": 0.0,
+      "search_overall": 0.0,
+      "n_test": 665,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 4.400455951690674
+}

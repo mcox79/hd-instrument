@@ -1,0 +1,52 @@
+# Files NOT to ship to remote via SkyPilot workdir rsync
+# Mirrors .gitignore patterns + things we never want on Linux remote
+
+# Windows-specific venv (won't work on Linux)
+.venv/
+
+# Git history (not needed at runtime)
+.git/
+
+# Caches
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Old batch results from custom launcher (huge; not needed for fresh run)
+data/lambda_batch_results/
+data/exp_*/
+data/lambda_batch_*
+data/lambda_bootstrap_*
+data/cloud_cost_tracker.json
+data/session_heartbeat_*.json
+
+# Secrets — never ship; pass via --env / .lambda_cloud
+.hf_token
+.env.lambda
+.env.cloud
+.env.anthropic
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+
+# MVP designs (gitignored)
+mvp/
+prereqs/
+testbed_data/
+
+# Local CPU runner launchers
+cpu_runner_local_launcher.bat
+cpu_runner_local_launcher_hidden.vbs
+
+# Dashboard runtime state
+tools/dashboard/.state/
+
+# Top-level scratch files
+_*.py
+_*.md
+_*.json

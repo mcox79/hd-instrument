@@ -1,0 +1,21 @@
+{
+  "verdict": "PQ_OTHER_CARDINALITY",
+  "verdict_msg": "n_total=60 n_outer=7 (different cardinality).",
+  "elapsed_s": 123.70300000000861,
+  "summary": {
+    "n_total_peaks": 60,
+    "n_outer_peaks": 7,
+    "q_mean": 0.22198000000000007,
+    "q_std": 0.07248924609899042,
+    "n_seeds": 200
+  },
+  "config": {
+    "N": 16384,
+    "K": 100,
+    "depth": 50,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 100,
+    "n_seeds": 200
+  }
+}

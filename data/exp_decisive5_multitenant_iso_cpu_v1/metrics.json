@@ -1,0 +1,16 @@
+{
+  "anchor_name": "decisive5_multitenant_iso_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: multi-tenant isolation -- 0pct cross-tenant leakage with full within-tenant recall (per-tenant key namespaces). categorical SaaS-compliance. within-recall=1.000 cross-tenant-leak=0.0010 (T=50)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "within_recall": 1.0,
+      "cross_leak": 0.001,
+      "tenants": 50
+    }
+  ],
+  "elapsed_s": 11.106104135513306,
+  "summary": "HARD_PASS: multi-tenant isolation -- 0pct cross-tenant leakage with full within-tenant recall (per-tenant key namespaces). categorical SaaS-compliance. within-recall=1.000 cross-tenant-leak=0.0010 (T=50)"
+}

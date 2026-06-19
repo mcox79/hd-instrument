@@ -1,0 +1,55 @@
+{
+  "K": 4,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "post_off": 6.1492320321847,
+      "post_r3same": 6.147356375719619,
+      "post_r3disj": 6.127159350928992,
+      "post_replay_off": 6.090206595645054,
+      "post_replay_r3same": 6.091152492966383,
+      "post_replay_r3disj": 6.069315484725413,
+      "r3same_gain": 0.0018756564650805885,
+      "r3disj_gain": 0.022072681255707494,
+      "replay_gain": 0.059025436539645426,
+      "r3same_compound_gain": -0.0009458973213289923,
+      "r3disj_compound_gain": 0.020891110919641243
+    },
+    {
+      "seed": 23,
+      "post_off": 6.10702459492444,
+      "post_r3same": 6.106103112287087,
+      "post_r3disj": 6.078494647699683,
+      "post_replay_off": 6.055352974928466,
+      "post_replay_r3same": 6.056765808907173,
+      "post_replay_r3disj": 6.030627127250141,
+      "r3same_gain": 0.0009214826373531437,
+      "r3disj_gain": 0.028529947224757102,
+      "replay_gain": 0.05167161999597436,
+      "r3same_compound_gain": -0.001412833978706729,
+      "r3disj_compound_gain": 0.024725847678324975
+    },
+    {
+      "seed": 31,
+      "post_off": 6.1769212653444905,
+      "post_r3same": 6.17738673687224,
+      "post_r3disj": 6.151710630664878,
+      "post_replay_off": 6.040505891952771,
+      "post_replay_r3same": 6.041381374491583,
+      "post_replay_r3disj": 6.013799916143003,
+      "r3same_gain": -0.00046547152774945033,
+      "r3disj_gain": 0.025210634679612376,
+      "replay_gain": 0.13641537339171972,
+      "r3same_compound_gain": -0.0008754825388122001,
+      "r3disj_compound_gain": 0.026705975809767857
+    }
+  ],
+  "mean_r3same_compound": -0.0010780712796159737,
+  "mean_r3disj_compound": 0.024107644802578026,
+  "delta": 0.025185716082194
+}

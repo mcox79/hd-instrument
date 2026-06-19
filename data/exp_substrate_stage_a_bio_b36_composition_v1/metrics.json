@@ -1,0 +1,76 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b36_composition_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: B36 additive (not superadditive) at near-cap. low: none=0.15 gain[gate=+0.67 evict=+0.00 both=+0.67] | near: none=0.11 gain[gate=+0.70 evict=+0.00 both=+0.70] | over: none=0.05 gain[gate=+0.73 evict=-0.00 both=+0.61]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "cells": [
+    "B36_low",
+    "B36_near",
+    "B36_over"
+  ],
+  "per_seed": [
+    {
+      "low": {
+        "none": 0.15492957746478872,
+        "gate": 0.8098591549295775,
+        "evict": 0.15492957746478872,
+        "both": 0.8098591549295775
+      },
+      "near": {
+        "none": 0.11764705882352941,
+        "gate": 0.8117647058823529,
+        "evict": 0.11764705882352941,
+        "both": 0.8117647058823529
+      },
+      "over": {
+        "none": 0.04481132075471698,
+        "gate": 0.7830188679245284,
+        "evict": 0.04245283018867924,
+        "both": 0.6674528301886793
+      }
+    },
+    {
+      "low": {
+        "none": 0.176056338028169,
+        "gate": 0.8380281690140845,
+        "evict": 0.176056338028169,
+        "both": 0.8380281690140845
+      },
+      "near": {
+        "none": 0.10196078431372549,
+        "gate": 0.8235294117647058,
+        "evict": 0.10196078431372549,
+        "both": 0.8235294117647058
+      },
+      "over": {
+        "none": 0.0589622641509434,
+        "gate": 0.7594339622641509,
+        "evict": 0.0589622641509434,
+        "both": 0.6674528301886793
+      }
+    },
+    {
+      "low": {
+        "none": 0.13380281690140844,
+        "gate": 0.8380281690140845,
+        "evict": 0.13380281690140844,
+        "both": 0.8380281690140845
+      },
+      "near": {
+        "none": 0.12156862745098039,
+        "gate": 0.796078431372549,
+        "evict": 0.12156862745098039,
+        "both": 0.796078431372549
+      },
+      "over": {
+        "none": 0.05660377358490566,
+        "gate": 0.7948113207547169,
+        "evict": 0.05660377358490566,
+        "both": 0.6674528301886793
+      }
+    }
+  ],
+  "elapsed_s": 334.2150056362152,
+  "summary": "MIDDLE_BAND: B36 additive (not superadditive) at near-cap. low: none=0.15 gain[gate=+0.67 evict=+0.00 both=+0.67] | near: none=0.11 gain[gate=+0.70 evict=+0.00 both=+0.70] | over: none=0.05 gain[gate=+0.73 evict=-0.00 both=+0.61]"
+}

@@ -1,0 +1,90 @@
+{
+  "anchor": "kf45_pre_argmax_joint_probe_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    1.0,
+    4.0
+  ],
+  "beta_sweep": [
+    2.0,
+    16.0,
+    128.0
+  ],
+  "seeds": [
+    17
+  ],
+  "n_probe": 50,
+  "N_drift_steps": 200,
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 1.0,
+      "M": 1024,
+      "seed": 17,
+      "gap_before": 0.030568,
+      "gap_after": 0.03849,
+      "spectral_gap_shift": 0.259149,
+      "abs_spectral_shift": 0.259149,
+      "passes_hp_spectral": true,
+      "logit_entropies": [
+        {
+          "beta": 2.0,
+          "h_mean": 11.99998,
+          "h_std": 0.0
+        },
+        {
+          "beta": 16.0,
+          "h_mean": 11.99986,
+          "h_std": 0.0
+        },
+        {
+          "beta": 128.0,
+          "h_mean": 11.99999,
+          "h_std": 0.00025
+        }
+      ],
+      "logit_entropy_range": 0.00013,
+      "logit_mono": false,
+      "passes_hp_logit": false,
+      "topk_jsd": -0.0,
+      "passes_hp_topk": false
+    },
+    {
+      "N": 1024,
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 17,
+      "gap_before": 0.02876,
+      "gap_after": 0.033437,
+      "spectral_gap_shift": 0.162628,
+      "abs_spectral_shift": 0.162628,
+      "passes_hp_spectral": true,
+      "logit_entropies": [
+        {
+          "beta": 2.0,
+          "h_mean": 11.99998,
+          "h_std": 0.0
+        },
+        {
+          "beta": 16.0,
+          "h_mean": 11.99986,
+          "h_std": 1e-05
+        },
+        {
+          "beta": 128.0,
+          "h_mean": 12.00004,
+          "h_std": 0.00025
+        }
+      ],
+      "logit_entropy_range": 0.00018,
+      "logit_mono": false,
+      "passes_hp_logit": false,
+      "topk_jsd": 0.0,
+      "passes_hp_topk": false
+    }
+  ],
+  "verdict": "KF45_SMOKE_PASS",
+  "verdict_msg": "SMOKE_PARTIAL_SIGNAL: spectral: shift=0.2109 HP=0.05 HF=0.005 PASS=True. logit: range=0.000bits mono=0/2 HP=1.0 HF=0.1 PASS=False. topk_jsd: mean=0.0000 HP=0.1 HF=0.01 PASS=False. n_hp=1/3 n_hf=2/3",
+  "elapsed_s": 0.51
+}

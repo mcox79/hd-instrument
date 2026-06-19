@@ -1,0 +1,19 @@
+{
+  "anchor_name": "e3b_permutation_binding_endtask_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: permutation binding end-task lift <+0.05 -- retrieval collision not the end-task bottleneck (selection dominates). FHRR=0.0000 perm=0.0250 lift=+0.0250 (multi-occ end-task, test=40, subset=133)",
+  "summary": "HARD_FAIL: permutation binding end-task lift <+0.05 -- retrieval collision not the end-task bottleneck (selection dominates). FHRR=0.0000 perm=0.0250 lift=+0.0250 (multi-occ end-task, test=40, subset=133)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.025,
+      "fhrr_endacc": 0.0,
+      "perm_endacc": 0.025,
+      "lift": 0.025,
+      "n_test": 40,
+      "n_subset": 133
+    }
+  ],
+  "elapsed_s": 0.08507776260375977
+}

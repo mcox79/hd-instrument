@@ -1,0 +1,16 @@
+{
+  "anchor_name": "resc_conf_aps_temperature_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: coverage >=0.88 near target. coverage=0.995 mean-set-size=221.4/300",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 0.995,
+      "set_size": 221.38,
+      "vocab": 300
+    }
+  ],
+  "elapsed_s": 0.4227769374847412,
+  "summary": "MIDDLE_BAND: coverage >=0.88 near target. coverage=0.995 mean-set-size=221.4/300"
+}

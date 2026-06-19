@@ -1,0 +1,38 @@
+{
+  "anchor_name": "ex_concept_1_real_pythia_concept_lm_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate captures some real-concept structure. substrate_top1=0.446 unigram=0.021 bigram_markov=0.453 (ratio_vs_unigram=20.97x, V_C=256)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_docs": 6000,
+      "n_test_pos": 8690,
+      "substrate_top1": 0.4560414269275029,
+      "unigram_top1": 0.017721518987341773,
+      "bigram_top1": 0.46214039125431533,
+      "ratio_vs_unigram": 25.733766233766232
+    },
+    {
+      "seed": 17,
+      "n_docs": 6000,
+      "n_test_pos": 8707,
+      "substrate_top1": 0.4527391753761341,
+      "unigram_top1": 0.02205122315378431,
+      "bigram_top1": 0.4606638336970254,
+      "ratio_vs_unigram": 20.53125
+    },
+    {
+      "seed": 23,
+      "n_docs": 6000,
+      "n_test_pos": 8719,
+      "substrate_top1": 0.4305539626103911,
+      "unigram_top1": 0.02408533088656956,
+      "bigram_top1": 0.4350269526321826,
+      "ratio_vs_unigram": 17.876190476190477
+    }
+  ],
+  "elapsed_s": 2092.197722673416,
+  "summary": "MIDDLE_BAND: substrate captures some real-concept structure. substrate_top1=0.446 unigram=0.021 bigram_markov=0.453 (ratio_vs_unigram=20.97x, V_C=256)"
+}

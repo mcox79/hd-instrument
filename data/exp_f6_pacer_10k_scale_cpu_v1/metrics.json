@@ -1,0 +1,16 @@
+{
+  "anchor_name": "f6_pacer_10k_scale_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: legal-citation snowball recall=precision>=0.95 at 10000-case scale -- VALIDATED at production legal scale. recall=1.000 precision=1.000 at 2000 cases",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "precision": 1.0,
+      "cases": 2000
+    }
+  ],
+  "elapsed_s": 2.656477451324463,
+  "summary": "HARD_PASS: legal-citation snowball recall=precision>=0.95 at 10000-case scale -- VALIDATED at production legal scale. recall=1.000 precision=1.000 at 2000 cases"
+}

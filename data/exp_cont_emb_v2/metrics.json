@@ -1,0 +1,32 @@
+{
+  "exp_name": "continuous_embedding_storage_substrate_v2_n16384",
+  "N": 1024,
+  "corpus_size": 256,
+  "seeds": [
+    17
+  ],
+  "is_smoke": true,
+  "n_seeds_complete": 1,
+  "total_elapsed_s": 0.12325358390808105,
+  "sub_recall_2x_oversample": 1.0,
+  "sub_recall_no_oversample": 1.0,
+  "faiss_recall_at_k": NaN,
+  "audit_frac": 1.0,
+  "arm3_map_delta_dissim": 0.0,
+  "arm3_map_delta_neighbor": 0.0,
+  "arm4_cert_rate": 1.0,
+  "arm4_fp_rate": 0.0,
+  "arm1_recall": "HARD_PASS",
+  "arm2_audit": "HARD_PASS",
+  "arm3_edit": "HARD_PASS",
+  "arm4_cert": "HARD_PASS",
+  "overall": "HARD_PASS",
+  "recall_2x_oversample_mean": 1.0,
+  "audit_frac_mean": 1.0,
+  "edit_delta_dissim_mean": 0.0,
+  "edit_delta_neighbor_mean": 0.0,
+  "cert_rate_mean": 1.0,
+  "fp_rate_mean": 0.0,
+  "faiss_recall_mean": NaN,
+  "verdict_msg": "continuous_embedding_storage_substrate_v2_n16384 N=1024 corpus=256 seeds=[17]\nArm1 recall: HARD_PASS | sub_recall_2x_os=1.000 faiss=nan\nArm2 audit:  HARD_PASS | audit_frac=1.0000\nArm3 edit:   HARD_PASS | delta_dissim=0.0000 delta_neighbor=0.0000\nArm4 cert:   HARD_PASS | cert_rate=1.0000 fp_rate=0.0000\nOVERALL: HARD_PASS"
+}

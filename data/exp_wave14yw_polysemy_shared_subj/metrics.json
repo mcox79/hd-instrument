@@ -1,0 +1,27 @@
+{
+  "verdict": "POLYSEMY_PICKS_ONE_NONDET",
+  "verdict_msg": "Substrate returns one of the conflict pair 0.973 of the time, but inconsistently (consistency=0.494). Substrate can't deterministically disambiguate; picks one based on noise alignment.",
+  "elapsed_s": 6.109000000000378,
+  "summary": {
+    "metrics": {
+      "returns_one_of_pair": 0.9725555555555555,
+      "consistent_choice": 0.4937735633497087,
+      "returns_other_entity": 0.027444444444444445,
+      "n_polysemous_queries": 9000
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_polysemous_pairs": 30,
+    "num_distractor_facts": 70,
+    "n_trials": 100,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

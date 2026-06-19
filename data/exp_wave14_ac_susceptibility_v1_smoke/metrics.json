@@ -1,0 +1,29 @@
+{
+  "verdict": "CHI_FLAT",
+  "verdict_msg": "No freezing peak: peak/baseline=1.17. chi'(omega) flat or non-peaked. chi_per_omega={'0.100': 0.42321745609676126, '0.500': 0.36258085151469444}.",
+  "elapsed_s": 0.4840000000258442,
+  "summary": {
+    "chi_per_omega": {
+      "0.100": 0.42321745609676126,
+      "0.500": 0.36258085151469444
+    },
+    "omega_freeze": 0.1,
+    "peak_chi": 0.42321745609676126,
+    "baseline_chi": 0.36258085151469444,
+    "peak_to_baseline_ratio": 1.1672360918364972
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "alpha": 0.15,
+    "beta_mc": 2.0,
+    "h0": 0.5,
+    "omega_grid": [
+      0.1,
+      0.5
+    ],
+    "n_cycles": 4,
+    "n_burn": 50,
+    "seed": 17
+  }
+}

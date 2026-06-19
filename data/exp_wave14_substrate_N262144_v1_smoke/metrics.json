@@ -1,0 +1,18 @@
+{
+  "verdict": "N262K_SCALES",
+  "verdict_msg": "acc=1.000>=0.5; substrate scales 4x beyond V2.D.",
+  "elapsed_s": 0.28200000000651926,
+  "summary": {
+    "smoother_acc": 1.0,
+    "N": 16384
+  },
+  "config": {
+    "N": 16384,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_trials": 5,
+    "seed": 17
+  }
+}

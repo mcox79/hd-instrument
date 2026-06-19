@@ -1,0 +1,3154 @@
+{
+  "smoke_run_ts": 1781297338,
+  "n_input_files": 2147,
+  "n_atoms_baseline": 1743,
+  "elapsed_s": 495.7394435405731,
+  "proposals": [
+    {
+      "rank": 1,
+      "canonical_name": "reed_solomon",
+      "z_count": 28,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_SUBSTRATE_POS_FILTER_SHIPPED_P30_0_77_HARDPASS_BRANCH_TESTBED_CYCLE50_OPTION_B_2026-06-12.md",
+        "research_to_testbed_PHASE_2_LIGHT_FULL_CORPUS_BATCH_OPTION_A_PLUS_PLUS_CONFIRMED_MIDDLE_PASS_AT_SCALE_OPTION_B_BUILD_GREEN_LIGHT_PARALLEL_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_FULL_CORPUS_SCALE_BATCH_100_PROPOSALS_PLUS_B_AXIS_EDGES_AUTHORED_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_SMOKE_ARCHITECTURALLY_PASS_EXTRACTION_QUALITY_HARDFAIL_LIGHTWEIGHT_BASELINE_DIRECTION_REQUEST_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "reed_solomon",
+        "reed_solomon",
+        "reed_solomon",
+        "reed_solomon",
+        "reed_solomon"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9857236016541719,
+      "route": "CREATE",
+      "rank_score": 0.985594756452038,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "reed_solomon"
+      }
+    },
+    {
+      "rank": 2,
+      "canonical_name": "agent_skeptic",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_substrate_as_OAQEC_2026-05-22.md",
+        "research_decisions_2026-05-21.md",
+        "research_N65536_codebook_engineering_2026-05-22.md"
+      ],
+      "raw_mentions": [
+        "agent_skeptic",
+        "Agent SKEPTIC",
+        "Agent SKEPTIC",
+        "Agent SKEPTIC",
+        "Agent SKEPTIC"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "concept::MWP/ROLE_ARG0_agent",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9907505344599485,
+      "route": "CREATE",
+      "rank_score": 0.9847018447101992,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "agent_skeptic"
+      }
+    },
+    {
+      "rank": 3,
+      "canonical_name": "data_streams",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_sleep_defrag_implicit_generalization_3x_2026-06-07.md",
+        "research_drill_field_streaming_algorithms_5x_2026-06-07.md",
+        "research_drill_composition_cascade_closure_3x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "data_streams",
+        "Data Streams",
+        "Data Streams",
+        "Data Streams"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ],
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9884869270026684,
+      "route": "CREATE",
+      "rank_score": 0.9831173194901031,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "data_streams"
+      }
+    },
+    {
+      "rank": 4,
+      "canonical_name": "dp_by_construction",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_to_exp_dev_field_DP_5x_AUTHORIZE_2026-06-07.md",
+        "research_drill_field_differential_privacy_5x_2026-06-07.md",
+        "research_POST_COMPACTION_BRIEF_2026-06-07_evening.md"
+      ],
+      "raw_mentions": [
+        "dp_by_construction",
+        "DP-by-construction",
+        "DP-by-construction",
+        "DP-by-construction",
+        "DP-by-construction"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/dynamic_programming",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.981844337657094,
+      "route": "CREATE",
+      "rank_score": 0.9828792716540835,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "dp_by_construction"
+      }
+    },
+    {
+      "rank": 5,
+      "canonical_name": "modular_composite_representations",
+      "z_count": 8,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_SUBSTRATE_POS_FILTER_SHIPPED_P30_0_77_HARDPASS_BRANCH_TESTBED_CYCLE50_OPTION_B_2026-06-12.md",
+        "research_to_testbed_PHASE_2_LIGHT_FULL_CORPUS_BATCH_OPTION_A_PLUS_PLUS_CONFIRMED_MIDDLE_PASS_AT_SCALE_OPTION_B_BUILD_GREEN_LIGHT_PARALLEL_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_FULL_CORPUS_SCALE_BATCH_100_PROPOSALS_PLUS_B_AXIS_EDGES_AUTHORED_2026-06-12.md",
+        "research_drill_bundle_capacity_limits_2x_2026-06-09.md"
+      ],
+      "raw_mentions": [
+        "modular_composite_representations",
+        "modular_composite_representations",
+        "modular_composite_representations",
+        "modular_composite_representations",
+        "Modular Composite Representations"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9943985724821687,
+      "route": "CREATE",
+      "rank_score": 0.982843706619871,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "modular_composite_representations"
+      }
+    },
+    {
+      "rank": 6,
+      "canonical_name": "modal_k",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_decisions_2026-06-09.md",
+        "exp_dev_to_research_LAPTOP_EXHAUSTED_NEED_WAVE2_2026-06-09.md",
+        "exp_dev_to_research_LAPTOP_BATCH_DONE_LAP3_DESIGN_Q_2026-06-09.md",
+        "research_drill_substrate_hard_reasoning_2x_2026-06-09.md"
+      ],
+      "raw_mentions": [
+        "modal_k",
+        "modal-K",
+        "modal-K",
+        "MODAL-K",
+        "MODAL-K"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.981762483716011,
+      "route": "CREATE",
+      "rank_score": 0.9828219738953254,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "modal_k"
+      }
+    },
+    {
+      "rank": 7,
+      "canonical_name": "bug_fix",
+      "z_count": 7,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "testbed_to_research_Q2_RUNNING_what_during_2026-06-09.md",
+        "testbed_to_exp_dev_phase05_rung_a_responses_2026-06-04.md",
+        "orchestrator_to_exp_dev_failed_ships_2026-06-04.md",
+        "exp_dev_to_research_phase05_rung_a_bugfix_gate_resolved_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "bug_fix",
+        "Bug-fix",
+        "Bug-fix",
+        "bug-fix",
+        "bug-fix"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.985629690811038,
+      "route": "CREATE",
+      "rank_score": 0.9811172541559618,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "bug_fix"
+      }
+    },
+    {
+      "rank": 8,
+      "canonical_name": "universal_relation",
+      "z_count": 12,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_to_testbed_PHASE_2_LIGHT_FULL_CORPUS_BATCH_OPTION_A_PLUS_PLUS_CONFIRMED_MIDDLE_PASS_AT_SCALE_OPTION_B_BUILD_GREEN_LIGHT_PARALLEL_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_FULL_CORPUS_SCALE_BATCH_100_PROPOSALS_PLUS_B_AXIS_EDGES_AUTHORED_2026-06-12.md",
+        "research_drill_cross_domain_revival_3x_2026-06-10.md",
+        "exp_dev_to_research_P9_CONTROL_RESULT_DECISIVE_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "universal_relation",
+        "universal_relation",
+        "universal_relation",
+        "universal-relation",
+        "universal-relation"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::PHYS/jarzynski_equality",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9853178896009922,
+      "route": "CREATE",
+      "rank_score": 0.9808989933089297,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "universal_relation"
+      }
+    },
+    {
+      "rank": 9,
+      "canonical_name": "unit_cues",
+      "z_count": 8,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "exp_dev_to_research_PHASE4B_WALL_REQUEST_2026-06-11.md",
+        "strategy_request_to_exp_dev_from_exp_dev_PHASE4B_WALL_2026-06-11.md",
+        "research_to_exp_dev_SVAMP_PERCEPTRON_SHIP_DEPPARSER_RESTORED_2026-06-11.md",
+        "research_drill_phase4_v2_anchored_regression_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "unit_cues",
+        "unit-cues",
+        "unit-cues",
+        "unit-cues",
+        "unit-cues"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/unit_modulus",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9847641233354807,
+      "route": "CREATE",
+      "rank_score": 0.9805113569230717,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "unit_cues"
+      }
+    },
+    {
+      "rank": 10,
+      "canonical_name": "same_day",
+      "z_count": 9,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "testbed_to_research_HYBRID_CYCLE49_NULL_NET_BROAD_VS_NARROW_SHAPE_PATH_FORWARD_2026-06-12.md",
+        "research_to_exp_dev_TIER5_MECHANISM_VALIDATED_FIRST_APPEARANCE_PHASE_6_LEVER_2026-06-12.md",
+        "research_drill_continual_scale_2x_2026-06-10.md",
+        "research_to_exp_dev_top20_unrouted_experiments_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "same_day",
+        "same-day",
+        "same-day",
+        "same-day",
+        "same-day"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9780636020004749,
+      "route": "CREATE",
+      "rank_score": 0.98023275669445,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "same_day"
+      }
+    },
+    {
+      "rank": 11,
+      "canonical_name": "feature_headroom",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_SMOKE_ARCHITECTURALLY_PASS_EXTRACTION_QUALITY_HARDFAIL_LIGHTWEIGHT_BASELINE_DIRECTION_REQUEST_2026-06-12.md",
+        "research_drill_substrate_classical_mechanism_transfer_replication_2x_2026-06-12.md",
+        "research_drill_substrate_methodology_rule_calibration_2x_2026-06-11.md",
+        "exp_dev_to_research_PRIORITY3_CONLL2000_CHUNKING_0923_TRANSFER_VALIDATED_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "feature_headroom",
+        "feature_headroom",
+        "feature-headroom",
+        "feature-headroom",
+        "feature-headroom"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/feature_hashing",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9905804675072432,
+      "route": "CREATE",
+      "rank_score": 0.980171033137423,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "feature_headroom"
+      }
+    },
+    {
+      "rank": 12,
+      "canonical_name": "predicate_argument",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_to_exp_dev_4_DRILLS_CONSOLIDATED_PRIORITIZED_PATHS_2026-06-11.md",
+        "research_drill_substrate_classical_mechanism_transfer_conditions_2x_2026-06-11.md",
+        "research_drill_nl_understanding_universal_unlock_3x_2026-06-11.md",
+        "research_drill_substrate_long_form_generation_2x_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "predicate_argument",
+        "predicate-argument",
+        "predicate-argument",
+        "predicate-argument",
+        "predicate-argument"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/predicate_logic",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9836495071649551,
+      "route": "CREATE",
+      "rank_score": 0.9797311256037038,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "predicate_argument"
+      }
+    },
+    {
+      "rank": 13,
+      "canonical_name": "relation_sharding",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_kb_shard_production_2x_2026-06-10.md",
+        "strategy_decisions_2026-06-08.md",
+        "orchestrator_to_research_results_summary_2026-06-08_cycle185.md"
+      ],
+      "raw_mentions": [
+        "relation_sharding",
+        "relation-sharding",
+        "relation-sharding",
+        "relation-sharding",
+        "relation-sharding"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::PHYS/jarzynski_equality",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9771774001419544,
+      "route": "CREATE",
+      "rank_score": 0.9796124153934858,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "relation_sharding"
+      }
+    },
+    {
+      "rank": 14,
+      "canonical_name": "name_field",
+      "z_count": 11,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "strategy_decisions_2026-06-12.md",
+        "exp_dev_to_research_COMPOSITE_VS_ALGEBRA_A_AXIS_INTERNAL_CONFIRMS_COMPOSITE_PLUS0_026_OVER_ALGEBRA_BUT_SET_UNION_EXPANSION_LOSES_TO_BGE_2026-06-12.md",
+        "strategy_request_to_research_2026-06-12_free_probability_drill_pairs_with_PP409_production_fix_prediction_test_v587.md",
+        "testbed_to_research_HYBRID_CYCLE49_NULL_NET_BROAD_VS_NARROW_SHAPE_PATH_FORWARD_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "name_field",
+        "name-field",
+        "name-field",
+        "name-field",
+        "name-field"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/complex_field",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/real_field",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/ring_field",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/field_axioms",
+          0.3333333333333333
+        ],
+        [
+          "math::T1/ring_field",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9833411294966936,
+      "route": "CREATE",
+      "rank_score": 0.9795152612359207,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "name_field"
+      }
+    },
+    {
+      "rank": 15,
+      "canonical_name": "semi_structured",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_stdp_replay_decay_model_design_2x_2026-06-04.md",
+        "research_drill_dev_speed_acceleration_phase4a_infrastructure_2x_2026-06-05.md",
+        "research_drill_benchmark_sweep_2x_2026-06-09.md"
+      ],
+      "raw_mentions": [
+        "semi_structured",
+        "semi-structured",
+        "semi-structured",
+        "semi-structured",
+        "semi-structured"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2/role_filler_binding",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/collins_structured_perceptron",
+          0.3333333333333333
+        ],
+        [
+          "school::SCHOOL/structured_prediction_family",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9830815363675356,
+      "route": "CREATE",
+      "rank_score": 0.9793335460455102,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "semi_structured"
+      }
+    },
+    {
+      "rank": 16,
+      "canonical_name": "data_minimization",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "strategy_decisions_2026-05-21.md",
+        "research_decisions_2026-05-21.md",
+        "research_annealing_erasure_2026-05-21.md"
+      ],
+      "raw_mentions": [
+        "data_minimization",
+        "data-minimization",
+        "data-minimization",
+        "data-minimization",
+        "data-minimization"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ],
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9890741351991892,
+      "route": "CREATE",
+      "rank_score": 0.9791166005217853,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "data_minimization"
+      }
+    },
+    {
+      "rank": 17,
+      "canonical_name": "codeword_overlap",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "visibility_decisions_2026-05-23.md",
+        "strategy_decisions_2026-05-23.md",
+        "research_request_antiRM_mechanism_drill_2026-05-24.md"
+      ],
+      "raw_mentions": [
+        "codeword_overlap",
+        "codeword-overlap",
+        "codeword-overlap",
+        "Codeword-overlap",
+        "codeword-overlap"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9826685786247253,
+      "route": "CREATE",
+      "rank_score": 0.979044475625543,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "codeword_overlap"
+      }
+    },
+    {
+      "rank": 18,
+      "canonical_name": "fact_hash",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_substrate_production_scaling_5x_chain3_drill2_2026-06-07.md",
+        "research_drill_production_deployment_architecture_2026-06-07.md",
+        "research_drill_demo_interface_capabilities_2x_2026-06-07.md",
+        "research_drill_compliance_maximization_2x_2026-06-09.md"
+      ],
+      "raw_mentions": [
+        "fact_hash",
+        "fact_hash",
+        "fact_hash",
+        "fact_hash",
+        "fact_hash"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9755553007125854,
+      "route": "CREATE",
+      "rank_score": 0.9784769457929274,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "fact_hash"
+      }
+    },
+    {
+      "rank": 19,
+      "canonical_name": "tamper_resistant",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_product_positioning_v276_2026-05-29.md",
+        "research_drill_killer_demo_and_regulated_ai_deployment_2x_2026-06-05.md",
+        "research_auditable_memory_competitive_landscape_2026-05-26.md"
+      ],
+      "raw_mentions": [
+        "tamper_resistant",
+        "tamper-resistant",
+        "tamper-resistant",
+        "tamper-resistant",
+        "tamper-resistant"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9752885513007641,
+      "route": "CREATE",
+      "rank_score": 0.9782902212046525,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "tamper_resistant"
+      }
+    },
+    {
+      "rank": 20,
+      "canonical_name": "dp_from_scratch",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "strategy_decisions_2026-05-21.md",
+        "research_decisions_2026-05-21.md",
+        "research_annealing_erasure_2026-05-21.md"
+      ],
+      "raw_mentions": [
+        "dp_from_scratch",
+        "DP-from-scratch",
+        "DP-from-scratch",
+        "DP-from-scratch",
+        "DP-from-scratch"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/dynamic_programming",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9750563316047192,
+      "route": "CREATE",
+      "rank_score": 0.9781276674174211,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "dp_from_scratch"
+      }
+    },
+    {
+      "rank": 21,
+      "canonical_name": "out_of_order",
+      "z_count": 4,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_substrate_long_form_generation_2x_2026-06-10.md",
+        "research_drill_distributed_coordination_patterns_3x_2026-06-07.md",
+        "research_drill_attention_injection_prior_art_5x_2026-06-08.md"
+      ],
+      "raw_mentions": [
+        "out_of_order",
+        "out-of-order",
+        "out-of-order",
+        "out-of-order"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9813005663454533,
+      "route": "CREATE",
+      "rank_score": 0.9780868670300525,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "out_of_order"
+      }
+    },
+    {
+      "rank": 22,
+      "canonical_name": "resonator_full",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "strategy_decisions_2026-05-21.md",
+        "research_multihop_mechanism_redrill_2026-05-22.md",
+        "research_decisions_2026-05-21.md",
+        "research_blocker.md"
+      ],
+      "raw_mentions": [
+        "resonator_full",
+        "Resonator FULL",
+        "Resonator FULL",
+        "Resonator FULL",
+        "Resonator FULL"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/resonator_network_decoder",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9747375380247831,
+      "route": "CREATE",
+      "rank_score": 0.9779045119114658,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "resonator_full"
+      }
+    },
+    {
+      "rank": 23,
+      "canonical_name": "skin_effect",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_nhse_annulus_tau_scaling_2x_2026-06-04.md",
+        "research_drill_drift_detection_lyapunov_framework_2x_2026-06-04.md",
+        "research_strategy_open_questions_2026-05-23.md",
+        "research_comprehensive_audit_2026-05-23.md"
+      ],
+      "raw_mentions": [
+        "skin_effect",
+        "skin-effect",
+        "skin-effect",
+        "skin-effect",
+        "skin-effect"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9809269793331623,
+      "route": "CREATE",
+      "rank_score": 0.9778253561214488,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "skin_effect"
+      }
+    },
+    {
+      "rank": 24,
+      "canonical_name": "hopfield_86",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_slipnet_substrate_only_untested_paths_2x_2026-06-11.md",
+        "research_drill_codebook_capacity_negative_2x_2026-06-10.md",
+        "research_drill_substrate_native_reasoning_capability_expansion_2026-06-06.md",
+        "research_substrate_alpha_c_anomaly_2026-05-24.md",
+        "research_field_scope_update_2026-05-24.md"
+      ],
+      "raw_mentions": [
+        "Hopfield-86",
+        "Hopfield-86",
+        "Hopfield-86",
+        "Hopfield-86",
+        "Hopfield-86"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2/amit_gutfreund_sompolinsky_capacity",
+          0.3333333333333333
+        ],
+        [
+          "math::T2/modern_hopfield_ramsauer",
+          0.3333333333333333
+        ],
+        [
+          "school::SCHOOL/hopfield_family",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9744155183434486,
+      "route": "CREATE",
+      "rank_score": 0.9776790981345316,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "hopfield_86"
+      }
+    },
+    {
+      "rank": 25,
+      "canonical_name": "type_conditional",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_humaneval_substrate_generator_2x_2026-06-11.md",
+        "exp_dev_to_research_WAVE2_RESCUE_BATCH1_2026-06-11.md",
+        "research_drill_substrate_composition_operators_5x_2026-06-08.md"
+      ],
+      "raw_mentions": [
+        "type-conditional",
+        "type-conditional",
+        "type-conditional",
+        "type-conditional"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/type_theory",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9804028198122978,
+      "route": "CREATE",
+      "rank_score": 0.9774584444568437,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "type_conditional"
+      }
+    },
+    {
+      "rank": 26,
+      "canonical_name": "pal_bridge",
+      "z_count": 3,
+      "source_files": [
+        "research_to_exp_dev_8_DRILLS_CONSOLIDATED_BATCH_2026-06-08.md",
+        "research_drill_substrate_math_capabilities_5x_2026-06-08.md",
+        "research_drill_biology_of_substrate_capabilities_5x_2026-06-08.md"
+      ],
+      "raw_mentions": [
+        "PAL-bridge",
+        "PAL-bridge",
+        "PAL-bridge",
+        "PAL-bridge",
+        "PAL-bridge"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9739577770233154,
+      "route": "CREATE",
+      "rank_score": 0.9773586792104385,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "pal_bridge"
+      }
+    },
+    {
+      "rank": 27,
+      "canonical_name": "multi_resolution",
+      "z_count": 15,
+      "source_files": [
+        "research_drill_tbind_refinement_2x_2026-06-10.md",
+        "research_to_exp_dev_NEGATIVE_RESCUES_2026-06-08.md",
+        "research_to_exp_dev_DEMO_SUPPORT_batch_AUTHORIZE_2026-06-08.md",
+        "research_drill_substrate_encoder_noise_robustness_2x_2026-06-07.md",
+        "research_drill_substrate_1M_scale_risks_2x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "Multi-resolution",
+        "Multi-resolution",
+        "multi-resolution",
+        "Multi-resolution",
+        "Multi-resolution"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9799648001790047,
+      "route": "CREATE",
+      "rank_score": 0.9771518307135385,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "multi_resolution"
+      }
+    },
+    {
+      "rank": 28,
+      "canonical_name": "differential_calibration_mia_against_rag",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill3_2026-06-07.md",
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill4_2026-06-07.md",
+        "research_drill_privacy_failure_mechanism_3x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "Differential Calibration MIA Against RAG",
+        "Differential Calibration MIA Against RAG",
+        "Differential Calibration MIA Against RAG"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9798931255936623,
+      "route": "CREATE",
+      "rank_score": 0.9771016585037988,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "differential_calibration_mia_against_rag"
+      }
+    },
+    {
+      "rank": 29,
+      "canonical_name": "dense_associative_memory",
+      "z_count": 29,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_drill_substrate_cross_disc_analogue_surfacing_2x_2026-06-12.md",
+        "research_drill_substrate_universal_scientific_corpus_2x_2026-06-11.md",
+        "research_drill_integration_complete_3x_2026-06-10.md",
+        "research_drill_substrate_confidence_binary_negative_2x_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "dense_associative_memory",
+        "dense_associative_memory",
+        "dense-associative-memory",
+        "Dense Associative Memory",
+        "Dense Associative Memory"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "school::SCHOOL/hopfield_family",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9798908084630966,
+      "route": "CREATE",
+      "rank_score": 0.9771000365124028,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "dense_associative_memory"
+      }
+    },
+    {
+      "rank": 30,
+      "canonical_name": "long_text",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_creativity_capabilities_hard_drill_3x_2026-06-12.md",
+        "research_drill_asdiv_mixed_adversarial_2x_2026-06-11.md",
+        "research_drill_tbind_refinement_2x_2026-06-10.md",
+        "research_drill_strategic_priority_analysis_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "long-text",
+        "Long-text",
+        "long-text",
+        "long-text"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9735659956932068,
+      "route": "CREATE",
+      "rank_score": 0.9770844322793624,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "long_text"
+      }
+    },
+    {
+      "rank": 31,
+      "canonical_name": "krylov_budget",
+      "z_count": 3,
+      "source_files": [
+        "strategy_request_to_exp_dev_cycle12_refill_2026-06-02.md",
+        "strategy_decisions_2026-06-02.md",
+        "research_routing_v342_band_lifts_addendum_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "Krylov-budget",
+        "Krylov-budget",
+        "Krylov-budget",
+        "Krylov-budget",
+        "Krylov-budget"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9798097163438797,
+      "route": "CREATE",
+      "rank_score": 0.977043272028951,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "krylov_budget"
+      }
+    },
+    {
+      "rank": 32,
+      "canonical_name": "commercial_wedge",
+      "z_count": 5,
+      "source_files": [
+        "strategy_decisions_2026-05-23.md",
+        "research_substrate_capabilities_not_being_probed_2026-05-23.md",
+        "research_meta_map_and_adjacencies_2026-05-23.md",
+        "research_high_yield_neighborhood_analysis_2026-05-24.md",
+        "exp_dev_to_queue_crooks_forensic_erase_2026-05-23.md"
+      ],
+      "raw_mentions": [
+        "commercial-wedge",
+        "commercial-wedge",
+        "commercial-wedge",
+        "COMMERCIAL WEDGE",
+        "COMMERCIAL WEDGE"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9797308761626482,
+      "route": "CREATE",
+      "rank_score": 0.9769880839020889,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "commercial_wedge"
+      }
+    },
+    {
+      "rank": 33,
+      "canonical_name": "agnostic_meta",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_self_modification_5x_2026-06-10.md",
+        "research_drill_meta_learning_middle_band_2x_2026-06-10.md",
+        "research_drill_cross_domain_analogy_mechanisms_3x_2026-06-10.md",
+        "research_drill_bcm_snr_vs_polynomial_p_2x_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Agnostic Meta",
+        "Agnostic Meta",
+        "Agnostic Meta",
+        "Agnostic Meta",
+        "Agnostic Meta"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/meta_learning",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.973412711173296,
+      "route": "CREATE",
+      "rank_score": 0.9769771331154249,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "agnostic_meta"
+      }
+    },
+    {
+      "rank": 34,
+      "canonical_name": "basin_mapping",
+      "z_count": 3,
+      "source_files": [
+        "research_surge_synthesis_v276_2026-05-29.md",
+        "research_lagging_caps_v276_fresh_eyes_2026-05-29.md",
+        "research_ags_retrieval_phase_substrate_2026-05-26.md"
+      ],
+      "raw_mentions": [
+        "basin-mapping",
+        "basin-mapping",
+        "basin-mapping",
+        "basin-mapping",
+        "basin-mapping"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9733166303485632,
+      "route": "CREATE",
+      "rank_score": 0.9769098765381119,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "basin_mapping"
+      }
+    },
+    {
+      "rank": 35,
+      "canonical_name": "pos_strong",
+      "z_count": 4,
+      "source_files": [
+        "research_decisions_2026-06-11.md",
+        "research_to_exp_dev_SVAMP_PERCEPTRON_SHIP_DEPPARSER_RESTORED_2026-06-11.md",
+        "research_to_exp_dev_KEYSTONE_REFINED_NOT_LLM_HYBRID_2026-06-11.md",
+        "research_drill_pos_strong_bar_substrate_only_paths_2x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "POS STRONG",
+        "POS STRONG",
+        "POS STRONG",
+        "POS STRONG"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9795730523765087,
+      "route": "CREATE",
+      "rank_score": 0.9768776072517913,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "pos_strong"
+      }
+    },
+    {
+      "rank": 36,
+      "canonical_name": "script_fix",
+      "z_count": 4,
+      "source_files": [
+        "orchestrator_to_exp_dev_gpu_oom_pattern_2026-06-06.md",
+        "visibility_decisions_2026-05-24.md",
+        "strategy_decisions_2026-05-27.md",
+        "strategy_decisions_2026-05-24.md"
+      ],
+      "raw_mentions": [
+        "script-fix",
+        "script-fix",
+        "SCRIPT-FIX",
+        "script-fix"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9857830908149481,
+      "route": "CREATE",
+      "rank_score": 0.9768128694528165,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "script_fix"
+      }
+    },
+    {
+      "rank": 37,
+      "canonical_name": "session_arc",
+      "z_count": 3,
+      "source_files": [
+        "strategy_decisions_2026-05-24.md",
+        "research_substrate_capabilities_not_being_probed_2026-05-23.md",
+        "research_semiconductor_physics_substrate_analogies_2026-05-23.md"
+      ],
+      "raw_mentions": [
+        "Session-arc",
+        "session-arc",
+        "session-arc"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9793784916400909,
+      "route": "CREATE",
+      "rank_score": 0.9767414147362988,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "session_arc"
+      }
+    },
+    {
+      "rank": 38,
+      "canonical_name": "cross_modal_consistency",
+      "z_count": 3,
+      "source_files": [
+        "exp_dev_to_research_LAPTOP_EXHAUSTED_NEED_WAVE2_2026-06-09.md",
+        "research_to_exp_dev_OVERNIGHT_FILL_PRIORITIZED_2026-06-09.md",
+        "research_drill_realtime_multimodal_biology_3x_2026-06-09.md"
+      ],
+      "raw_mentions": [
+        "cross-modal-consistency",
+        "CROSS-MODAL-CONSISTENCY",
+        "CROSS-MODAL-CONSISTENCY",
+        "CROSS-MODAL-CONSISTENCY",
+        "CROSS-MODAL-CONSISTENCY"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9790465272963047,
+      "route": "CREATE",
+      "rank_score": 0.9765090396956485,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "cross_modal_consistency"
+      }
+    },
+    {
+      "rank": 39,
+      "canonical_name": "hebbian_class",
+      "z_count": 6,
+      "source_files": [
+        "research_to_exp_dev_B8_validated_pure_bio_confirmed_substrate_direct_LM_2026-06-04.md",
+        "research_drill_substrate_tier_emergent_tricks_per_llm_scale_2x_2026-06-04.md",
+        "research_drill_substrate_as_training_mechanism_3x_meta_2026-06-04.md",
+        "research_drill_position_binding_translation_language_2x_2026-06-04.md",
+        "research_drill_multimodal_substrate_primitives_2x_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Hebbian-class",
+        "Hebbian-class",
+        "Hebbian-class",
+        "Hebbian-class",
+        "Hebbian-class"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9851326998323202,
+      "route": "CREATE",
+      "rank_score": 0.976357595764977,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "hebbian_class"
+      }
+    },
+    {
+      "rank": 40,
+      "canonical_name": "hot_path",
+      "z_count": 4,
+      "source_files": [
+        "strategy_decisions_2026-06-07.md",
+        "research_drill_substrate_emergent_extreme_scale_5x_2026-06-08.md",
+        "research_drill_final_implementation_perf_bottlenecks_2x_2026-06-07.md",
+        "research_decisions_2026-06-01.md"
+      ],
+      "raw_mentions": [
+        "hot-path",
+        "hot-path",
+        "Hot-path",
+        "hot-path"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/dijkstra",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9787099733948708,
+      "route": "CREATE",
+      "rank_score": 0.9762734519646448,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "hot_path"
+      }
+    },
+    {
+      "rank": 41,
+      "canonical_name": "evaluate_bpc",
+      "z_count": 4,
+      "source_files": [
+        "strategy_decisions_2026-05-26.md",
+        "strategy_decisions_2026-05-24.md",
+        "exp_dev_to_queue_saad_solla_beti_moe_prebuilds_2026-05-26.md",
+        "exp_dev_to_queue_1rsb_hysteresis_v3_2026-05-26.md"
+      ],
+      "raw_mentions": [
+        "evaluate_bpc",
+        "evaluate_bpc",
+        "evaluate_bpc",
+        "evaluate_bpc",
+        "evaluate_bpc"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9723653364926577,
+      "route": "CREATE",
+      "rank_score": 0.9762439708389781,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "evaluate_bpc"
+      }
+    },
+    {
+      "rank": 42,
+      "canonical_name": "basin_to_basin",
+      "z_count": 3,
+      "source_files": [
+        "research_routing_v343_consolidated_priority_queue_2026-06-02.md",
+        "research_drill_arrhenius_paradox_substrate_deep_dive_2026-06-02.md",
+        "research_meta_map_and_adjacencies_2026-05-23.md"
+      ],
+      "raw_mentions": [
+        "basin-to-basin",
+        "basin-to-basin",
+        "basin-to-basin"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9786406047642231,
+      "route": "CREATE",
+      "rank_score": 0.9762248939231913,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "basin_to_basin"
+      }
+    },
+    {
+      "rank": 43,
+      "canonical_name": "neurogenesis_expansion",
+      "z_count": 3,
+      "source_files": [
+        "research_to_exp_dev_REVIVAL_SUBSTRATE_NATIVE_ONLY_2026-06-10.md",
+        "research_to_exp_dev_AGGRESSIVE_REVIVAL_CONSOLIDATED_2026-06-10.md",
+        "research_drill_continual_learning_revival_3x_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "NEUROGENESIS-EXPANSION",
+        "NEUROGENESIS-EXPANSION",
+        "NEUROGENESIS-EXPANSION",
+        "NEUROGENESIS-EXPANSION",
+        "NEUROGENESIS-EXPANSION"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/taylor_series",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9785351511090994,
+      "route": "CREATE",
+      "rank_score": 0.9761510763646047,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "neurogenesis_expansion"
+      }
+    },
+    {
+      "rank": 44,
+      "canonical_name": "layer_zone",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_multi_channel_orchestration_failure_3x_2026-06-04.md",
+        "research_drill_8_channel_orchestration_architecture_2026-06-03.md",
+        "research_decisions_2026-06-03.md"
+      ],
+      "raw_mentions": [
+        "Layer-zone",
+        "layer_zone",
+        "layer-zone"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/layer_normalization",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/transformer_block",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9784882888197899,
+      "route": "CREATE",
+      "rank_score": 0.9761182727620882,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "layer_zone"
+      }
+    },
+    {
+      "rank": 45,
+      "canonical_name": "stress_test",
+      "z_count": 14,
+      "source_files": [
+        "research_drill_substrate_as_full_research_ledger_2x_2026-06-11.md",
+        "research_drill_substrate_proposed_architectures_2x_2026-06-11.md",
+        "research_drill_code2_bug_recall_close_2x_2026-06-11.md",
+        "visibility_decisions_2026-06-10.md",
+        "strategy_decisions_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "stress-test",
+        "stress-test",
+        "stress-test",
+        "stress-test",
+        "stress-test"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/permutation_test",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/permutation_test",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9782577008008957,
+      "route": "CREATE",
+      "rank_score": 0.9759568611488622,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "stress_test"
+      }
+    },
+    {
+      "rank": 46,
+      "canonical_name": "registered_negative_outcomes",
+      "z_count": 3,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_SMOKE_ARCHITECTURALLY_PASS_EXTRACTION_QUALITY_HARDFAIL_LIGHTWEIGHT_BASELINE_DIRECTION_REQUEST_2026-06-12.md",
+        "research_drill_mwp_comprehension_wall_phase_6_corpus_3x_2026-06-12.md",
+        "research_drill_elegant_hyperdimensional_mathematics_representation_4x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "registered_negative_outcomes",
+        "registered_negative_outcomes",
+        "Registered Negative Outcomes",
+        "REGISTERED NEGATIVE OUTCOMES"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9779397919774055,
+      "route": "CREATE",
+      "rank_score": 0.9757343249724191,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "registered_negative_outcomes"
+      }
+    },
+    {
+      "rank": 47,
+      "canonical_name": "comp_overcome_barrier",
+      "z_count": 4,
+      "source_files": [
+        "research_to_exp_dev_NEGATIVE_RESOLUTION_PRIORITIES_2026-06-10.md",
+        "research_to_exp_dev_CROSS_DOMAIN_REVISION_MULTI_TIER_2026-06-10.md",
+        "research_to_exp_dev_COMP_DIRECTION_CONFIRMED_2026-06-10.md",
+        "research_POST_COMPACTION_BRIEF_2026-06-10_v3_cliff_crossed.md"
+      ],
+      "raw_mentions": [
+        "COMP-OVERCOME-BARRIER",
+        "COMP-OVERCOME-BARRIER",
+        "COMP-OVERCOME-BARRIER",
+        "COMP-OVERCOME-BARRIER",
+        "COMP-OVERCOME-BARRIER"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9841676242649555,
+      "route": "CREATE",
+      "rank_score": 0.9756820428678218,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "comp_overcome_barrier"
+      }
+    },
+    {
+      "rank": 48,
+      "canonical_name": "six_sub",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_training_speed_hierarchical_architecture_2x_2026-06-04.md",
+        "research_drill_substrate_training_n_threshold_3x_2026-06-04.md",
+        "research_drill_spectral_gap_alternative_frameworks_2x_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Six Sub",
+        "SIX SUB",
+        "Six Sub"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9777040425688028,
+      "route": "CREATE",
+      "rank_score": 0.9755693003863972,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "six_sub"
+      }
+    },
+    {
+      "rank": 49,
+      "canonical_name": "lambda_a10",
+      "z_count": 4,
+      "source_files": [
+        "strategy_decisions_2026-06-03.md",
+        "strategy_decisions_2026-05-31.md",
+        "exp_dev_to_strategy_pp50_n65536_cloud_routing_2026-06-03.md",
+        "exp_dev_to_strategy_n32768_oom_cloud_required_2026-06-03.md"
+      ],
+      "raw_mentions": [
+        "Lambda A10",
+        "Lambda A10",
+        "Lambda A10",
+        "Lambda A10",
+        "Lambda A10"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/lambda_calculus",
+          0.3333333333333333
+        ],
+        [
+          "science::CS/lambda_calculus",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9776374641805887,
+      "route": "CREATE",
+      "rank_score": 0.9755226955146473,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "lambda_a10"
+      }
+    },
+    {
+      "rank": 50,
+      "canonical_name": "bravyi_maslov",
+      "z_count": 6,
+      "source_files": [
+        "strategy_to_exp_dev_F4_v2_symplectic_trace_2026-05-23.md",
+        "strategy_to_exp_dev_F4_v3_stim_2026-05-23.md",
+        "strategy_decisions_2026-05-23.md",
+        "exp_dev_to_strategy_F4_v2_d8_selftest_failed_2026-05-23.md",
+        "exp_dev_to_strategy_F4_v3_stim_shipped_plus_v2_retro_2026-05-23.md"
+      ],
+      "raw_mentions": [
+        "Bravyi-Maslov",
+        "Bravyi-Maslov",
+        "Bravyi-Maslov",
+        "Bravyi-Maslov",
+        "Bravyi-Maslov"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9838597066700459,
+      "route": "CREATE",
+      "rank_score": 0.975466500551385,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "bravyi_maslov"
+      }
+    },
+    {
+      "rank": 51,
+      "canonical_name": "codegen_subgoal",
+      "z_count": 6,
+      "source_files": [
+        "strategy_decisions_2026-06-11.md",
+        "visibility_decisions_2026-06-11.md",
+        "research_drill_reasoning_composition_routing_2x_2026-06-11.md",
+        "research_to_exp_dev_OPTION_1_SUBSTRATE_ONLY_DEEPER_PATHS_2026-06-11.md",
+        "research_to_exp_dev_NL_EXTRACTION_KEYSTONE_PRIORITY_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "codegen_subgoal",
+        "codegen_subgoal",
+        "CODEGEN-SUBGOAL",
+        "CODEGEN-SUBGOAL",
+        "CODEGEN-SUBGOAL"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9709531627595425,
+      "route": "CREATE",
+      "rank_score": 0.9752554492257974,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "codegen_subgoal"
+      }
+    },
+    {
+      "rank": 52,
+      "canonical_name": "codegen_subgoal_1",
+      "z_count": 7,
+      "source_files": [
+        "research_to_exp_dev_CODEGEN_SUBGOAL_FIRST_NOT_REPAIR_2026-06-11.md",
+        "exp_dev_to_research_CODEGEN_DIAGNOSTIC_2026-06-11.md",
+        "research_to_exp_dev_PRIORITY_RANKING_MULTIDAY_2026-06-11.md",
+        "research_to_exp_dev_3_NEGATIVE_DRILLS_CONSOLIDATED_2026-06-11.md",
+        "research_to_exp_dev_POST_CYCLE229_NEXT_BATCH_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "CODEGEN-SUBGOAL-1",
+        "CODEGEN-SUBGOAL-1",
+        "CODEGEN-SUBGOAL-1",
+        "CODEGEN-SUBGOAL-1",
+        "CODEGEN-SUBGOAL-1"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9709531627595425,
+      "route": "CREATE",
+      "rank_score": 0.9752554492257974,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "codegen_subgoal_1"
+      }
+    },
+    {
+      "rank": 53,
+      "canonical_name": "statistical_fluency",
+      "z_count": 3,
+      "source_files": [
+        "research_to_exp_dev_NER_NORTH_STAR_WIN_E5_E1_PRIORITY_2026-06-11.md",
+        "research_drill_statistical_NL_creative_2x_2026-06-11.md",
+        "exp_dev_to_research_SUBSTRATE_VS_LLM_BOUNDARY_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "statistical-fluency",
+        "Statistical Fluency",
+        "statistical-fluency"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::PHYS/statistical_mechanics",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9772550258785486,
+      "route": "CREATE",
+      "rank_score": 0.9752549887032192,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "statistical_fluency"
+      }
+    },
+    {
+      "rank": 54,
+      "canonical_name": "modern_physics",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_integration_5x_2026-06-10.md",
+        "research_drill_nhse_annulus_tau_scaling_2x_2026-06-04.md",
+        "research_drill_drift_detection_lyapunov_framework_2x_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Modern Physics",
+        "Modern Physics",
+        "Modern Physics"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.977080287411809,
+      "route": "CREATE",
+      "rank_score": 0.9751326717765015,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "modern_physics"
+      }
+    },
+    {
+      "rank": 55,
+      "canonical_name": "factorization_performance",
+      "z_count": 13,
+      "source_files": [
+        "research_drill_substrate_open_domain_creative_nl_2x_2026-06-11.md",
+        "research_drill_substrate_only_nl_synthesis_2x_2026-06-11.md",
+        "research_drill_substrate_operating_modes_beyond_single_pass_2x_2026-06-04.md",
+        "research_drill_substrate_evidence_integration_K_fact_combination_2x_2026-06-05.md",
+        "research_drill_resonator_capacity_at_substrate_scale_2x_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Factorization Performance",
+        "Factorization Performance",
+        "Factorization Performance",
+        "Factorization Performance",
+        "Factorization Performance"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9767361339181662,
+      "route": "CREATE",
+      "rank_score": 0.9748917643309515,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "factorization_performance"
+      }
+    },
+    {
+      "rank": 56,
+      "canonical_name": "privacy_preserving",
+      "z_count": 30,
+      "source_files": [
+        "research_drill_multi_tenant_privacy_scale_2x_2026-06-11.md",
+        "research_drill_lexical_fluency_revival_3x_2026-06-10.md",
+        "research_drill_substrate_extreme_scale_3x_2026-06-09.md",
+        "research_to_orchestrator_exp_dev_NORTH_STAR_reframe_2026-06-07.md",
+        "research_drill_zkl_realkey_rescue_3x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "privacy-preserving",
+        "Privacy-Preserving",
+        "Privacy-preserving",
+        "privacy-preserving",
+        "Privacy-preserving"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9767360538244247,
+      "route": "CREATE",
+      "rank_score": 0.9748917082653326,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "privacy_preserving"
+      }
+    },
+    {
+      "rank": 57,
+      "canonical_name": "bridge_type",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_pretraining_general_knowledge_3x_2026-06-07.md",
+        "research_drill_optimal_shard_granularity_5x_2026-06-08.md",
+        "research_drill_bridge_id_categorical_closure_3x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "bridge-type",
+        "bridge-type",
+        "bridge-type"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/type_theory",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9765608236193657,
+      "route": "CREATE",
+      "rank_score": 0.9747690471217912,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "bridge_type"
+      }
+    },
+    {
+      "rank": 58,
+      "canonical_name": "student_setup",
+      "z_count": 3,
+      "source_files": [
+        "research_wright_fisher_substrate_2026-05-26.md",
+        "research_saad_solla_saddle_cascade_deep_2026-05-25.md",
+        "research_alternative_theoretical_homes_2026-05-24.md"
+      ],
+      "raw_mentions": [
+        "Student Setup",
+        "Student Setup",
+        "Student Setup"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9702112562954426,
+      "route": "CREATE",
+      "rank_score": 0.9747361147009275,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "student_setup"
+      }
+    },
+    {
+      "rank": 59,
+      "canonical_name": "combo_3",
+      "z_count": 12,
+      "source_files": [
+        "visibility_decisions_2026-06-02.md",
+        "strategy_request_to_exp_dev_cycle12_refill_2026-06-02.md",
+        "strategy_decisions_2026-06-02.md",
+        "research_routing_v341_refresh_rescues_new_probes_2026-06-02.md",
+        "research_routing_v342_band_lifts_addendum_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "COMBO-3",
+        "COMBO-3",
+        "COMBO-3",
+        "COMBO-3",
+        "COMBO-3"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9764937814325094,
+      "route": "CREATE",
+      "rank_score": 0.9747221175909918,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "combo_3"
+      }
+    },
+    {
+      "rank": 60,
+      "canonical_name": "combo_2",
+      "z_count": 6,
+      "source_files": [
+        "visibility_decisions_2026-06-02.md",
+        "strategy_decisions_2026-06-02.md",
+        "research_routing_tier4_training_acceleration_FINAL_5drill_consolidation_2026-06-02.md",
+        "research_routing_tier4_training_speedup_small_scale_battery_2026-06-02.md",
+        "research_routing_llm_integration_program_amendment_phase0p5_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "COMBO-2",
+        "COMBO-2",
+        "COMBO-2",
+        "COMBO-2",
+        "COMBO-2"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9764937814325094,
+      "route": "CREATE",
+      "rank_score": 0.9747221175909918,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "combo_2"
+      }
+    },
+    {
+      "rank": 61,
+      "canonical_name": "combo_1",
+      "z_count": 7,
+      "source_files": [
+        "visibility_decisions_2026-06-02.md",
+        "strategy_decisions_2026-06-02.md",
+        "research_routing_v341_refresh_rescues_new_probes_2026-06-02.md",
+        "research_routing_v337_v340_negative_findings_fixes_2026-06-02.md",
+        "research_routing_tier4_training_acceleration_FINAL_5drill_consolidation_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "COMBO-1",
+        "COMBO-1",
+        "COMBO-1",
+        "COMBO-1",
+        "COMBO-1"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9764937814325094,
+      "route": "CREATE",
+      "rank_score": 0.9747221175909918,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "combo_1"
+      }
+    },
+    {
+      "rank": 62,
+      "canonical_name": "combo_4",
+      "z_count": 5,
+      "source_files": [
+        "visibility_decisions_2026-06-02.md",
+        "strategy_decisions_2026-06-02.md",
+        "research_routing_v343_consolidated_priority_queue_2026-06-02.md",
+        "research_routing_v341_refresh_rescues_new_probes_2026-06-02.md",
+        "research_routing_v337_v340_negative_findings_fixes_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "COMBO-4",
+        "COMBO-4",
+        "COMBO-4",
+        "COMBO-4",
+        "COMBO-4"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/kappa_4_free",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9764937814325094,
+      "route": "CREATE",
+      "rank_score": 0.9747221175909918,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "combo_4"
+      }
+    },
+    {
+      "rank": 63,
+      "canonical_name": "pubmedbert_swap_pretest",
+      "z_count": 3,
+      "source_files": [
+        "strategy_decisions_2026-06-07.md",
+        "orchestrator_to_research_results_summary_2026-06-07_cycle174.md",
+        "orchestrator_to_exp_dev_zkl_zombie_loop_resolved_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "pubmedbert_swap_pretest",
+        "pubmedbert_swap_pretest",
+        "pubmedbert_swap_pretest",
+        "pubmedbert_swap_pretest"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9764090031385422,
+      "route": "CREATE",
+      "rank_score": 0.9746627727852147,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "pubmedbert_swap_pretest"
+      }
+    },
+    {
+      "rank": 64,
+      "canonical_name": "mean_cosine",
+      "z_count": 3,
+      "source_files": [
+        "visibility_decisions_2026-06-02.md",
+        "strategy_decisions_2026-06-02.md",
+        "research_routing_llm_integration_program_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "mean_cosine",
+        "mean_cosine",
+        "mean_cosine",
+        "mean_cosine",
+        "mean_cosine"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/cosine_similarity",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/cosine_similarity",
+          0.3333333333333333
+        ],
+        [
+          "math::T2/cosine_cleanup",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/cosine_similarity",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.976224061101675,
+      "route": "CREATE",
+      "rank_score": 0.9745333133594077,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "mean_cosine"
+      }
+    },
+    {
+      "rank": 65,
+      "canonical_name": "training_compute",
+      "z_count": 8,
+      "source_files": [
+        "research_drill_substrate_scaling_laws_2x_2026-06-11.md",
+        "research_drill_lexical_fluency_boundary_probe_2x_2026-06-10.md",
+        "research_drill_tier5c_efficient_path_5x_2026-06-08.md",
+        "research_drill_substrate_true_task_complexity_scaling_law_2x_2026-06-04.md",
+        "research_drill_substrate_training_speed_design_space_2x_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Training Compute",
+        "Training Compute",
+        "Training Compute",
+        "Training Compute",
+        "TRAINING-COMPUTE"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.976086150854826,
+      "route": "CREATE",
+      "rank_score": 0.9744367761866134,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "training_compute"
+      }
+    },
+    {
+      "rank": 66,
+      "canonical_name": "data_independent",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill5_FINAL_2026-06-07.md",
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill3_2026-06-07.md",
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill4_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "data-independent",
+        "data-independent",
+        "data-independent",
+        "data-independent",
+        "data-independent"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ],
+        [
+          "science::CS/data_structure",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9696632139384747,
+      "route": "CREATE",
+      "rank_score": 0.9743524850510499,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "data_independent"
+      }
+    },
+    {
+      "rank": 67,
+      "canonical_name": "hierarchical_containment",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_locality_engineered_3x_2026-06-11.md",
+        "research_to_exp_dev_CROSS_DOMAIN_REVISION_MULTI_TIER_2026-06-10.md",
+        "research_to_exp_dev_AUTHORIZE_P9_MULTI_TIER_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "HIERARCHICAL CONTAINMENT",
+        "hierarchical-containment",
+        "hierarchical-containment"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T3/hierarchical_clustering",
+          0.3333333333333333
+        ],
+        [
+          "science::BIO/predictive_coding",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9696539081633091,
+      "route": "CREATE",
+      "rank_score": 0.9743459710084339,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "hierarchical_containment"
+      }
+    },
+    {
+      "rank": 68,
+      "canonical_name": "pure_substrate",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_only_nl_synthesis_2x_2026-06-11.md",
+        "research_drill_code_synthesis_substrate_feasibility_2x_2026-06-11.md",
+        "research_drill_substrate_direct_generative_language_modeling_3x_2026-06-04.md",
+        "research_capability_exploration_12_directions_audit_v1_2026-05-31.md"
+      ],
+      "raw_mentions": [
+        "pure-substrate",
+        "pure-substrate",
+        "pure-substrate",
+        "pure-substrate"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.969650199636817,
+      "route": "CREATE",
+      "rank_score": 0.9743433750398895,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "pure_substrate"
+      }
+    },
+    {
+      "rank": 69,
+      "canonical_name": "zipf_weighted",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_statistical_NL_creative_2x_2026-06-11.md",
+        "research_to_exp_dev_PROMOTION_CAMPAIGN_WAVES_2026-06-11.md",
+        "research_drill_llm_boundary_is_engineering_3x_2026-06-11.md",
+        "research_drill_continual_learning_revival_3x_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "Zipf-weighted",
+        "Zipf-weighted",
+        "Zipf-weighted",
+        "Zipf-weighted",
+        "Zipf-weighted"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2/tier2_schema",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9758935645222664,
+      "route": "CREATE",
+      "rank_score": 0.9743019657538217,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "zipf_weighted"
+      }
+    },
+    {
+      "rank": 70,
+      "canonical_name": "question_verb",
+      "z_count": 4,
+      "source_files": [
+        "research_to_exp_dev_SRL_TRAINING_SET_30_MWP_WK_SCHEMA_11_SHIPPED_PATH_1_GREEN_2026-06-12.md",
+        "research_to_exp_dev_PATH5_HARDFAIL_4TH_PATH_1_SRL_BUILD_2026-06-12.md",
+        "exp_dev_to_research_REQUEST_MWP_WK_SRL_BATCH_PATH1_TARGETED_TEST_2026-06-12.md",
+        "research_drill_substrate_operand_selection_mwp_2x_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "question_verb",
+        "question_verb",
+        "question_verb",
+        "question_verb",
+        "question_verb"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9758086167275906,
+      "route": "CREATE",
+      "rank_score": 0.9742425022975486,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "question_verb"
+      }
+    },
+    {
+      "rank": 71,
+      "canonical_name": "compatible_dense_associative_memories",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_bundle_capacity_limits_2x_2026-06-09.md",
+        "research_drill_learned_codebooks_real_encoder_rescue_1x_2026-06-06.md",
+        "research_drill_key_collision_real_encoder_rescue_2x_2026-06-06.md",
+        "research_drill_field_modern_hopfield_5x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "Compatible Dense Associative Memories",
+        "Compatible Dense Associative Memories",
+        "Compatible Dense Associative Memories",
+        "Compatible\n  Dense Associative Memories",
+        "Compatible Dense Associative Memories"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9756503272801638,
+      "route": "CREATE",
+      "rank_score": 0.9741316996843499,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "compatible_dense_associative_memories"
+      }
+    },
+    {
+      "rank": 72,
+      "canonical_name": "hotpot_qa",
+      "z_count": 5,
+      "source_files": [
+        "testbed_to_exp_dev_kg_qa_datasets_delivered_2026-06-05.md",
+        "strategy_decisions_2026-06-07.md",
+        "research_POST_COMPACTION_BRIEF_2026-06-07_afternoon.md",
+        "exp_dev_to_research_staging_result_nocontext_gap_2026-06-07.md",
+        "exp_dev_to_research_data_staging_actions_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "hotpot_qa",
+        "Hotpot QA",
+        "hotpot_qa",
+        "hotpot_qa",
+        "hotpot_qa"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9819096531718969,
+      "route": "CREATE",
+      "rank_score": 0.9741014631026808,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "hotpot_qa"
+      }
+    },
+    {
+      "rank": 73,
+      "canonical_name": "serial_vs_parallel",
+      "z_count": 3,
+      "source_files": [
+        "research_drill_position_binding_symmetric_w_trigram_explanation_2x_2026-06-04.md",
+        "research_drill_delinguistification_position_binding_2x_2026-06-04.md",
+        "research_decisions_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "Serial-vs-parallel",
+        "serial-vs-parallel",
+        "serial-vs-parallel"
+      ],
+      "distant_supervision_score": 0.375,
+      "similarity_to_existing_T3": [
+        [
+          "research_history::research_drill_delinguistification_position_binding_2x_2026-06-04",
+          0.375
+        ]
+      ],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9818947501480579,
+      "route": "CREATE",
+      "rank_score": 0.9740910309859935,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "serial_vs_parallel"
+      }
+    },
+    {
+      "rank": 74,
+      "canonical_name": "candidate_atoms",
+      "z_count": 4,
+      "source_files": [
+        "research_to_testbed_HYBRID_OPTION_4_CONVERGENT_BOTH_SIDES_PROCEED_NOVELTY_METRIC_CONFIRMS_RECALL_PRECISION_SPLIT_2026-06-12.md",
+        "research_to_testbed_HYBRID_NULL_NET_OPTION_SELECT_OPT_4_PRIMARY_OPT_2_DIAG_OPT_1_PARALLEL_RULE_12_CANDIDATE_2026-06-12.md",
+        "research_to_exp_dev_QA_V1_NEXT_INCREMENT_VOCAB_RECONCILIATION_2026-06-12.md",
+        "research_to_exp_dev_QA_CELL_SCORING_SPEC_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "candidate_atoms",
+        "candidate_atoms",
+        "candidate_atoms",
+        "candidate_atoms",
+        "candidate_atoms"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9818920455873013,
+      "route": "CREATE",
+      "rank_score": 0.9740891377934637,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "candidate_atoms"
+      }
+    },
+    {
+      "rank": 75,
+      "canonical_name": "sonnet_websearch",
+      "z_count": 16,
+      "source_files": [
+        "research_wright_fisher_substrate_2026-05-26.md",
+        "research_qnd_measurement_substrate_drill_2026-05-24.md",
+        "research_new_continents_deep_drill_2026-05-24.md",
+        "research_new_fields_breadth_analysis_2026-05-24.md",
+        "research_mesoscopic_transport_moe_2026-05-25.md"
+      ],
+      "raw_mentions": [
+        "Sonnet WebSearch",
+        "Sonnet WebSearch",
+        "Sonnet WebSearch",
+        "Sonnet WebSearch",
+        "Sonnet WebSearch"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9818255007266998,
+      "route": "CREATE",
+      "rank_score": 0.9740425563910428,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "sonnet_websearch"
+      }
+    },
+    {
+      "rank": 76,
+      "canonical_name": "meta_tool",
+      "z_count": 3,
+      "source_files": [
+        "strategy_decisions_2026-05-24.md",
+        "research_bbmd_cap12_rehab_assessment_2026-05-24.md",
+        "exp_dev_to_queue_bbmd_cap12_rehab_anchors_2026-05-24.md"
+      ],
+      "raw_mentions": [
+        "meta-tool",
+        "META-tool",
+        "meta-tool"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/meta_learning",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.969171617180109,
+      "route": "CREATE",
+      "rank_score": 0.974008367320194,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "meta_tool"
+      }
+    },
+    {
+      "rank": 77,
+      "canonical_name": "better_rag",
+      "z_count": 3,
+      "source_files": [
+        "research_to_testbed_v1_demo_SPEC_REVISED_2026-06-08.md",
+        "research_to_testbed_TIER5_SPRINT_SPEC_2026-06-08.md",
+        "research_routing_v359_empirical_tier_coverage_program_2026-06-03.md"
+      ],
+      "raw_mentions": [
+        "Better RAG",
+        "better-RAG",
+        "Better-RAG",
+        "Better RAG"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9752113800495863,
+      "route": "CREATE",
+      "rank_score": 0.9738244366229456,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "better_rag"
+      }
+    },
+    {
+      "rank": 78,
+      "canonical_name": "memory_management",
+      "z_count": 3,
+      "source_files": [
+        "strategy_decisions_2026-06-09.md",
+        "strategy_decisions_2026-06-04.md",
+        "orchestrator_to_exp_dev_gpu_oom_pattern_2026-06-06.md"
+      ],
+      "raw_mentions": [
+        "memory-management",
+        "memory-management",
+        "memory-management",
+        "memory-management"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::BIO/hippocampus",
+          0.3333333333333333
+        ],
+        [
+          "science::BIO/hippocampus",
+          0.3333333333333333
+        ],
+        [
+          "science::BIO/memory_consolidation",
+          0.3333333333333333
+        ],
+        [
+          "science::BIO/working_memory",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.975003506988287,
+      "route": "CREATE",
+      "rank_score": 0.9736789254800361,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "memory_management"
+      }
+    },
+    {
+      "rank": 79,
+      "canonical_name": "pure_relay",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_production_scaling_5x_chain3_drill5_FINAL_2026-06-07.md",
+        "research_drill_substrate_native_coordination_3x_2026-06-07.md",
+        "research_drill_khop_noise_model_selection_2x_2026-06-07.md",
+        "research_drill_distributed_coordination_patterns_3x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "Pure Relay",
+        "PURE RELAY",
+        "pure-relay",
+        "pure-relay",
+        "pure-relay"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.968596413731575,
+      "route": "CREATE",
+      "rank_score": 0.9736057249062202,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "pure_relay"
+      }
+    },
+    {
+      "rank": 80,
+      "canonical_name": "satisfaction_k",
+      "z_count": 3,
+      "source_files": [
+        "research_to_exp_dev_WAVE2_RESCUE_SPECS_CONFIRMED_2026-06-11.md",
+        "research_drill_integration_structural_gap_3x_2026-06-10.md",
+        "research_drill_integration_algebra_rescue_2x_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "satisfaction_k",
+        "satisfaction_k",
+        "satisfaction_k",
+        "satisfaction_k",
+        "satisfaction_k"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9748088270425797,
+      "route": "CREATE",
+      "rank_score": 0.9735426495180409,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "satisfaction_k"
+      }
+    },
+    {
+      "rank": 81,
+      "canonical_name": "tp_hdc",
+      "z_count": 6,
+      "source_files": [
+        "research_to_exp_dev_5_CHEAP_EMPIRICAL_GAP_EXPERIMENTS_2026-06-11.md",
+        "research_drill_unified_solver_svamp_rescue_2x_2026-06-11.md",
+        "research_drill_substrate_frontier_scale_interaction_2x_2026-06-11.md",
+        "research_surge_synthesis_v276_2026-05-29.md",
+        "research_decisions_2026-05-29.md"
+      ],
+      "raw_mentions": [
+        "TP-HDC",
+        "TP-HDC",
+        "TP-HDC",
+        "TP-HDC",
+        "TP-HDC"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9745043367147446,
+      "route": "CREATE",
+      "rank_score": 0.9733295062885564,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "tp_hdc"
+      }
+    },
+    {
+      "rank": 82,
+      "canonical_name": "llama_adapter",
+      "z_count": 3,
+      "source_files": [
+        "research_substrate_llm_deep_integration_v1_2026-05-31.md",
+        "research_drill_path_a_mechanism_5x_2026-06-09.md",
+        "research_decisions_2026-05-31.md"
+      ],
+      "raw_mentions": [
+        "LLaMA-Adapter",
+        "LLaMA-Adapter",
+        "LLaMA-Adapter",
+        "LLaMA-Adapter",
+        "LLaMA-Adapter"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9744319766759872,
+      "route": "CREATE",
+      "rank_score": 0.9732788542614262,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "llama_adapter"
+      }
+    },
+    {
+      "rank": 83,
+      "canonical_name": "interference_free",
+      "z_count": 5,
+      "source_files": [
+        "research_drill_slipnet_substrate_only_untested_paths_2x_2026-06-11.md",
+        "research_drill_tier_A_adversarial_robustness_2x_2026-06-11.md",
+        "research_drill_additive_beyond_200_2x_2026-06-10.md",
+        "strategy_decisions_2026-06-07.md",
+        "research_drill_cross_domain_substrate_inspiration_2026-06-06.md"
+      ],
+      "raw_mentions": [
+        "interference-free",
+        "interference-free",
+        "interference-free",
+        "interference-free",
+        "interference-free"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/voiculescu_free_probability",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9744039494544268,
+      "route": "CREATE",
+      "rank_score": 0.973259235206334,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "interference_free"
+      }
+    },
+    {
+      "rank": 84,
+      "canonical_name": "error_correcting",
+      "z_count": 21,
+      "source_files": [
+        "testbed_to_research_PHASE_2_LIGHT_OPTION_B_FULL_CORPUS_HONEST_VERDICT_P30_DEGRADATION_HISTORY_PARTITION_NOISE_2026-06-12.md",
+        "research_to_testbed_PHASE_2_LIGHT_FULL_CORPUS_BATCH_OPTION_A_PLUS_PLUS_CONFIRMED_MIDDLE_PASS_AT_SCALE_OPTION_B_BUILD_GREEN_LIGHT_PARALLEL_2026-06-12.md",
+        "testbed_to_research_PHASE_2_LIGHT_FULL_CORPUS_SCALE_BATCH_100_PROPOSALS_PLUS_B_AXIS_EDGES_AUTHORED_2026-06-12.md",
+        "research_drill_substrate_frontier_scale_interaction_2x_2026-06-11.md",
+        "research_kf4_kf5_rescue_paths_v276_2026-05-29.md"
+      ],
+      "raw_mentions": [
+        "error-correcting",
+        "error-correcting",
+        "error-correcting",
+        "Error-correcting",
+        "error-correcting"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9743892624974251,
+      "route": "CREATE",
+      "rank_score": 0.9732489543364328,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "error_correcting"
+      }
+    },
+    {
+      "rank": 85,
+      "canonical_name": "preserve_composite",
+      "z_count": 3,
+      "source_files": [
+        "research_to_exp_dev_HUGE_BATCH_IMMEDIATE_AND_OVERNIGHT_2026-06-09.md",
+        "research_to_exp_dev_CPU_LANE_PRIORITIES_2026-06-09.md",
+        "exp_dev_to_research_STATUS_REPLY_2026-06-09.md"
+      ],
+      "raw_mentions": [
+        "PRESERVE-COMPOSITE",
+        "PRESERVE-COMPOSITE",
+        "PRESERVE-COMPOSITE",
+        "PRESERVE-COMPOSITE",
+        "PRESERVE-COMPOSITE"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 14,
+      "nearest_density": 2,
+      "novelty": 0.9743202067911625,
+      "route": "CREATE",
+      "rank_score": 0.9732006153420489,
+      "algebra_additions_template": {
+        "category_int": 14,
+        "about_topic": "preserve_composite"
+      }
+    },
+    {
+      "rank": 86,
+      "canonical_name": "trigger_cycle",
+      "z_count": 3,
+      "source_files": [
+        "strategy_request_to_exp_dev_cycle22_2026-06-03.md",
+        "strategy_request_to_exp_dev_cycle25_refill_2026-06-03.md",
+        "strategy_request_to_exp_dev_cycle12_refill_2026-06-02.md"
+      ],
+      "raw_mentions": [
+        "Trigger\nCycle",
+        "Trigger\nCycle",
+        "Trigger\nCycle"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9679715372622013,
+      "route": "CREATE",
+      "rank_score": 0.9731683113776586,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "trigger_cycle"
+      }
+    },
+    {
+      "rank": 87,
+      "canonical_name": "cutting_analysis",
+      "z_count": 4,
+      "source_files": [
+        "research_drill_substrate_llm_intrinsic_language_5x_2026-06-08.md",
+        "research_drill_sparse_value_coding_within_shards_5x_2026-06-08.md",
+        "research_drill_iterative_multihop_where_it_works_5x_2026-06-08.md",
+        "research_drill_dev_speed_acceleration_phase4a_infrastructure_2x_2026-06-05.md"
+      ],
+      "raw_mentions": [
+        "Cutting Analysis",
+        "CUTTING ANALYSIS",
+        "CUTTING ANALYSIS",
+        "CUTTING ANALYSIS"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 5,
+      "nearest_density": 3,
+      "novelty": 0.9805111978203058,
+      "route": "CREATE",
+      "rank_score": 0.973122544356567,
+      "algebra_additions_template": {
+        "category_int": 5,
+        "about_topic": "cutting_analysis"
+      }
+    },
+    {
+      "rank": 88,
+      "canonical_name": "primitive_name",
+      "z_count": 4,
+      "source_files": [
+        "research_to_testbed_exp_dev_DISPATCH_SHARED_AUGMENTATION_TIER_5_CANDIDATE_2026-06-12.md",
+        "research_to_exp_dev_testbed_VERIFICATION_COMPLETE_5TH_RULE_CONFIRMED_TIER_5_SCOPE_2026-06-12.md",
+        "research_to_testbed_GAP4_DIAGNOSTIC_CONFIRMS_CYCLE45_ABSORPTION_PATH_2026-06-12.md",
+        "exp_dev_to_testbed_GAP4_MISSING_PRIMITIVES_WIRING_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "primitive_name",
+        "primitive_name",
+        "primitive_name",
+        "primitive_name",
+        "primitive_name"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9676456153392792,
+      "route": "CREATE",
+      "rank_score": 0.972940166031613,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "primitive_name"
+      }
+    },
+    {
+      "rank": 89,
+      "canonical_name": "bet_b",
+      "z_count": 8,
+      "source_files": [
+        "visibility_decisions_2026-05-29.md",
+        "visibility_decisions_2026-05-30.md",
+        "strategy_decisions_2026-05-30.md",
+        "strategy_decisions_2026-05-29.md",
+        "research_product_positioning_v276_2026-05-29.md"
+      ],
+      "raw_mentions": [
+        "BET-B",
+        "BET-B",
+        "bet_b",
+        "bet_b",
+        "bet_b"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9676370322704315,
+      "route": "CREATE",
+      "rank_score": 0.9729341578834196,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "bet_b"
+      }
+    },
+    {
+      "rank": 90,
+      "canonical_name": "independence_recall",
+      "z_count": 4,
+      "source_files": [
+        "strategy_decisions_2026-06-04.md",
+        "research_to_exp_dev_capacity_HP_ex1_accept_b8_LVH_investigate_2026-06-04.md",
+        "research_drill_updated_goals_brain_training_and_natural_language_llms_2x_2026-06-04.md",
+        "exp_dev_to_research_reframe_validated_ex1_blocked_2026-06-04.md"
+      ],
+      "raw_mentions": [
+        "independence_recall",
+        "independence_recall",
+        "independence_recall",
+        "independence_recall",
+        "independence_recall"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T2_FAM/cleanup_retrieval",
+          0.3333333333333333
+        ],
+        [
+          "math::T2/cleanup",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9739074315875769,
+      "route": "CREATE",
+      "rank_score": 0.972911672699539,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "independence_recall"
+      }
+    },
+    {
+      "rank": 91,
+      "canonical_name": "hours_day",
+      "z_count": 3,
+      "source_files": [
+        "research_to_testbed_INGEST_ROUTE_A_APPROVED_2026-06-11.md",
+        "testbed_to_research_PARALLEL_INGEST_INVENTORY_AND_ESTIMATES_2026-06-10.md",
+        "research_to_testbed_INGEST_APPROVAL_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "hours-day",
+        "hours-day",
+        "hours-day",
+        "hours-day"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9738469570875168,
+      "route": "CREATE",
+      "rank_score": 0.9728693405494969,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "hours_day"
+      }
+    },
+    {
+      "rank": 92,
+      "canonical_name": "segment_and_purify",
+      "z_count": 4,
+      "source_files": [
+        "strategy_request_from_meta_2026-05-21.md",
+        "strategy_decisions_2026-05-21.md",
+        "research_decisions_2026-05-21.md",
+        "research_R33_quantum_repeater_segment_purify_2026-05-21.md"
+      ],
+      "raw_mentions": [
+        "segment-and-purify",
+        "segment-and-purify",
+        "segment-and-purify",
+        "segment-and-purify",
+        "segment-and-purify"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9738390035927296,
+      "route": "CREATE",
+      "rank_score": 0.9728637731031459,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "segment_and_purify"
+      }
+    },
+    {
+      "rank": 93,
+      "canonical_name": "single_agent",
+      "z_count": 7,
+      "source_files": [
+        "research_drill_multi_drive_arbitration_5x_2026-06-10.md",
+        "research_drill_multi_agent_boundary_probe_2x_2026-06-10.md",
+        "research_drill_multi_agent_beyond_context_exchange_2x_2026-06-10.md",
+        "research_routing_v359_substrate_context_training_probe_dossier_2026-06-03.md",
+        "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05.md"
+      ],
+      "raw_mentions": [
+        "single-agent",
+        "single-agent",
+        "single-agent",
+        "single-agent",
+        "single-agent"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "concept::MWP/ROLE_ARG0_agent",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9738253578543663,
+      "route": "CREATE",
+      "rank_score": 0.9728542210862916,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "single_agent"
+      }
+    },
+    {
+      "rank": 94,
+      "canonical_name": "meta_light",
+      "z_count": 3,
+      "source_files": [
+        "research_R31_soliton_attractor_2026-05-21.md",
+        "research_R32_magnon_substrate_2026-05-21.md",
+        "research_BetF_rehab_2026-05-21.md"
+      ],
+      "raw_mentions": [
+        "META Light",
+        "META Light",
+        "META Light"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "science::CS/meta_learning",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9674971848726273,
+      "route": "CREATE",
+      "rank_score": 0.9728362647049567,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "meta_light"
+      }
+    },
+    {
+      "rank": 95,
+      "canonical_name": "open_vocab",
+      "z_count": 8,
+      "source_files": [
+        "visibility_decisions_2026-06-12.md",
+        "strategy_request_to_research_2026-06-12_cross_domain_POS_Brown_PTB_transfer_3rd_appearance_candidate_v591.md",
+        "strategy_decisions_2026-06-12.md",
+        "research_drill_pos_brown_ptb_cross_domain_transfer_3rd_appearance_capability_class_test_1x_2026-06-12.md",
+        "research_CYCLE_50_MID_SYNTHESIS_5_STAGE_ARC_PRODUCTION_DEPLOYED_PLUS_L2_PLUS_15_DRILLS_PLUS_3_RULES_CONFIRMED_PLUS_2_NEW_CANDIDATES_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "open-vocab",
+        "open-vocab",
+        "open-vocab",
+        "open-vocab",
+        "open-vocab"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9737138524651527,
+      "route": "CREATE",
+      "rank_score": 0.9727761673138421,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "open_vocab"
+      }
+    },
+    {
+      "rank": 96,
+      "canonical_name": "magnitude_based",
+      "z_count": 3,
+      "source_files": [
+        "research_to_exp_dev_substrate_encoder_noise_3_pretests_AUTHORIZE_2026-06-07.md",
+        "research_drill_substrate_encoder_noise_robustness_2x_2026-06-07.md",
+        "research_drill_sparse_w_alternatives_3x_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "magnitude-based",
+        "magnitude-based",
+        "magnitude-based"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/unit_modulus",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 7,
+      "nearest_density": 2,
+      "novelty": 0.9736980926245451,
+      "route": "CREATE",
+      "rank_score": 0.9727651354254168,
+      "algebra_additions_template": {
+        "category_int": 7,
+        "about_topic": "magnitude_based"
+      }
+    },
+    {
+      "rank": 97,
+      "canonical_name": "majority_vote",
+      "z_count": 28,
+      "source_files": [
+        "strategy_decisions_2026-06-11.md",
+        "research_to_exp_dev_SVAMP_SUBSTRATE_ONLY_4_WRAPPER_STACK_2026-06-11.md",
+        "research_drill_svamp_substrate_only_above_030_2x_2026-06-11.md",
+        "research_drill_per_shard_protection_3x_2026-06-11.md",
+        "research_drill_erasure_coded_redundancy_3x_2026-06-11.md"
+      ],
+      "raw_mentions": [
+        "majority-vote",
+        "majority-vote",
+        "majority-vote",
+        "majority-vote",
+        "Majority-vote"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9673354998230934,
+      "route": "CREATE",
+      "rank_score": 0.972723085170283,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "majority_vote"
+      }
+    },
+    {
+      "rank": 98,
+      "canonical_name": "cross_talk",
+      "z_count": 60,
+      "source_files": [
+        "research_drill_slipnet_real_polysemic_rescue_2x_2026-06-11.md",
+        "research_drill_active_inference_rescue_2x_2026-06-11.md",
+        "exp_dev_to_research_REALDATA_RESCUES_2026-06-10.md",
+        "research_drill_embodied_AI_boundary_probe_2x_2026-06-10.md",
+        "research_drill_biological_overcome_compositional_depth_3x_2026-06-10.md"
+      ],
+      "raw_mentions": [
+        "cross-talk",
+        "cross-talk",
+        "cross-talk",
+        "cross-talk",
+        "cross-talk"
+      ],
+      "distant_supervision_score": 0.3333333333333333,
+      "similarity_to_existing_T3": [
+        [
+          "math::T1/cross_entropy",
+          0.3333333333333333
+        ],
+        [
+          "math::T3/cross_validation",
+          0.3333333333333333
+        ]
+      ],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9736282303929329,
+      "route": "CREATE",
+      "rank_score": 0.9727162318632883,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "cross_talk"
+      }
+    },
+    {
+      "rank": 99,
+      "canonical_name": "lateral_inhibition",
+      "z_count": 6,
+      "source_files": [
+        "research_drill_integration_structural_gap_3x_2026-06-10.md",
+        "research_drill_codebook_capacity_structural_3x_2026-06-10.md",
+        "research_drill_biological_overcome_compositional_depth_3x_2026-06-10.md",
+        "research_drill_multimodal_substrate_primitives_2x_2026-06-04.md",
+        "research_drill_cross_domain_round5_2026-06-07.md"
+      ],
+      "raw_mentions": [
+        "LATERAL INHIBITION",
+        "Lateral Inhibition",
+        "Lateral Inhibition",
+        "Lateral Inhibition",
+        "LATERAL INHIBITION"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 16,
+      "nearest_density": 1,
+      "novelty": 0.9670720957219601,
+      "route": "CREATE",
+      "rank_score": 0.9725387022994896,
+      "algebra_additions_template": {
+        "category_int": 16,
+        "about_topic": "lateral_inhibition"
+      }
+    },
+    {
+      "rank": 100,
+      "canonical_name": "dead_ends",
+      "z_count": 4,
+      "source_files": [
+        "research_to_exp_dev_TIER5_MECHANISM_VALIDATED_FIRST_APPEARANCE_PHASE_6_LEVER_2026-06-12.md",
+        "testbed_to_research_CYCLE_45_ABSORPTION_MIDDLE_BAND_2026-06-12.md",
+        "testbed_to_exp_dev_GAP4_INTEGRATION_POINT_CONFIRMED_2026-06-12.md",
+        "exp_dev_to_testbed_GAP4_REPRODUCED_0501_Q3_A_SEMANTIC_GATED_2026-06-12.md"
+      ],
+      "raw_mentions": [
+        "dead-ends",
+        "dead-ends",
+        "dead-ends",
+        "dead-ends"
+      ],
+      "distant_supervision_score": 0.0,
+      "similarity_to_existing_T3": [],
+      "nearest_cluster": 15,
+      "nearest_density": 2,
+      "novelty": 0.9732955433428288,
+      "route": "CREATE",
+      "rank_score": 0.9724833509282154,
+      "algebra_additions_template": {
+        "category_int": 15,
+        "about_topic": "dead_ends"
+      }
+    }
+  ]
+}

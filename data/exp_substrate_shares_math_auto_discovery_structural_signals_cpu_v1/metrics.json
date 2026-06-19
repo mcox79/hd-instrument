@@ -1,0 +1,143 @@
+{
+  "anchor_name": "substrate_shares_math_auto_discovery_structural_signals_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 9 SHARES_MATH groups (3-9, math-fraction 1.000) -- enough to RUN P3 (it will produce >=3 bisimulation classes, bisim-refinement may split the larger groups toward 10) but below the >=10 HARD-PASS; structural signals partially seed SHARES_MATH at the current corpus. 351 candidate SHARES_MATH edges over 497 math atoms (signals {'cap': 267, 'uses>=2': 79, 'spec/inst': 16}) -> 9 connected groups size>=3 (sizes [72, 11, 8, 5, 4, 3, 3, 3, 3]), math-fraction=1.000; saved bench_reports/shares_math_auto_discovery_candidates.json (READ-ONLY -- Testbed reviews+ingests as SHARES_MATH edges, then KP P3 runs)",
+  "summary": "MIDDLE_BAND: 9 SHARES_MATH groups (3-9, math-fraction 1.000) -- enough to RUN P3 (it will produce >=3 bisimulation classes, bisim-refinement may split the larger groups toward 10) but below the >=10 HARD-PASS; structural signals partially seed SHARES_MATH at the current corpus. 351 candidate SHARES_MATH edges over 497 math atoms (signals {'cap': 267, 'uses>=2': 79, 'spec/inst': 16}) -> 9 connected groups size>=3 (sizes [72, 11, 8, 5, 4, 3, 3, 3, 3]), math-fraction=1.000; saved bench_reports/shares_math_auto_discovery_candidates.json (READ-ONLY -- Testbed reviews+ingests as SHARES_MATH edges, then KP P3 runs)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_math_atoms": 497,
+      "n_edges": 351,
+      "n_groups_ge3": 9,
+      "group_sizes": [
+        72,
+        11,
+        8,
+        5,
+        4,
+        3,
+        3,
+        3,
+        3
+      ],
+      "math_fraction": 1.0,
+      "signal_counts": {
+        "cap": 267,
+        "uses>=2": 79,
+        "spec/inst": 16
+      },
+      "groups": [
+        {
+          "size": 72,
+          "members": [
+            "BIO/basal_ganglia",
+            "CAP_discriminative_perceptron",
+            "CAP_fhrr_bind",
+            "CAP_fhrr_unbind",
+            "CAP_viterbi_decoding",
+            "CS/meta_learning",
+            "CS/self_supervised_learning",
+            "CS/transfer_learning",
+            "PP-225_fact_recall_kb100K",
+            "PP-364_pos_tagger",
+            "PP-367_unified_algebra_lang_math",
+            "PP-369_slot_filling",
+            "PP-370_intent_classification",
+            "PP-371_reasoning_routing"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 11,
+          "members": [
+            "MWP/ROLE_ARG0_agent",
+            "MWP/ROLE_ARG1_theme",
+            "MWP/ROLE_ARG2_recipient",
+            "MWP/ROLE_ARGM_LOC_location",
+            "MWP/ROLE_ARGM_TMP_time",
+            "MWP/SCHEMA_CHANGE_ADD",
+            "MWP/SCHEMA_CHANGE_SUB",
+            "MWP/SCHEMA_COMBINE",
+            "MWP/SCHEMA_COMPARE",
+            "MWP/SCHEMA_EQUAL_GROUPS",
+            "MWP/SCHEMA_SHARE"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 8,
+          "members": [
+            "CHEM/protein_folding_levinthal",
+            "CROSSDISC/anderson_to_cleanup_attractors",
+            "CROSSDISC/ising_to_modern_hopfield",
+            "CROSSDISC/protein_folding_to_cleanup_funnel",
+            "PHYS/anderson_localization",
+            "PHYS/ising_model",
+            "T1/lyapunov_stability",
+            "T3/attention_mechanism"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 5,
+          "members": [
+            "CROSSDISC/cognitive_map_to_concept_links",
+            "CROSSDISC/markov_chain_to_random_walk_retrieval",
+            "CROSSDISC/percolation_to_capability_path",
+            "NEURO/cognitive_map_tolman",
+            "T3/random_walks_on_graphs"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 4,
+          "members": [
+            "CROSSDISC/cerebellum_to_predictive_substrate",
+            "CROSSDISC/predictive_coding_to_predictive_substrate",
+            "NEURO/cerebellum_internal_model",
+            "NEURO/predictive_coding_rao_ballard"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 3,
+          "members": [
+            "CROSSDISC/dmn_to_self_knowing",
+            "NEURO/default_mode_network",
+            "RULE_metric_matches_semantic"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 3,
+          "members": [
+            "T1/discrete_fourier_transform",
+            "T1/optimal_substructure",
+            "T1/recursion"
+          ],
+          "dominant_signal": "cap"
+        },
+        {
+          "size": 3,
+          "members": [
+            "LEX_entity_gpe",
+            "LEX_entity_org",
+            "LEX_entity_person"
+          ],
+          "dominant_signal": "uses>=2"
+        },
+        {
+          "size": 3,
+          "members": [
+            "T3/chu_liu_edmonds",
+            "T3/hungarian_assignment",
+            "T3/prims_mst"
+          ],
+          "dominant_signal": "uses>=2"
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.22922539710998535
+}

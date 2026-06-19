@@ -1,0 +1,30 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: No recovery at any perturbation magnitude. Saddle-cascade framework correct. Details: {1: {'band': 'HARD_FAIL', 'mean_r2': 0.0602, 'mean_lambda': -0.5362, 'mean_r_inf': 0.6805, 'mean_delta': 0.2277, 'n_valid': 1}}",
+  "elapsed_s": 1.545,
+  "summary": {
+    "perturb_summary": {
+      "1": {
+        "band": "HARD_FAIL",
+        "mean_r2": 0.0602,
+        "mean_lambda": -0.5362,
+        "mean_r_inf": 0.6805,
+        "mean_delta": 0.2277,
+        "n_valid": 1
+      }
+    },
+    "N": 256
+  },
+  "config": {
+    "N": 256,
+    "k_perturb_sweep": [
+      1
+    ],
+    "k_recovery": 3,
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "v3_changes": "k_perturb sweep {1,2,3}; k_recovery=10 (was 5 in v2)"
+  }
+}

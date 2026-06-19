@@ -1,0 +1,94 @@
+{
+  "verdict": "SEL_ANNEAL_NO_FORGET",
+  "verdict_msg": "No noise level achieves leak<=10%. Best leak: 0.00%.",
+  "elapsed_s": 0.28100000001722947,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_facts": 50,
+    "n_erase": 10,
+    "rank_L": 12,
+    "flip_frac": 0.1,
+    "noise_amps": [
+      0.1,
+      0.5,
+      1.0
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_noise": [
+    {
+      "noise": 0.1,
+      "n_facts": 50,
+      "n_erase": 10,
+      "leak_argmax": 0.0,
+      "mean_rank": 24.0,
+      "norm_ratio": 2.161107301712036,
+      "cosine": -0.013042688369750977,
+      "kept_recall": 1.0,
+      "leak_paraphrase": 0.0
+    },
+    {
+      "noise": 0.5,
+      "n_facts": 50,
+      "n_erase": 10,
+      "leak_argmax": 0.0,
+      "mean_rank": 30.3,
+      "norm_ratio": 10.255132675170898,
+      "cosine": -0.021095871925354004,
+      "kept_recall": 0.3499999940395355,
+      "leak_paraphrase": 0.0
+    },
+    {
+      "noise": 1.0,
+      "n_facts": 50,
+      "n_erase": 10,
+      "leak_argmax": 0.0,
+      "mean_rank": 31.0,
+      "norm_ratio": 20.47789764404297,
+      "cosine": -0.02210991457104683,
+      "kept_recall": 0.10000000149011612,
+      "leak_paraphrase": 0.0
+    }
+  ],
+  "summary": {
+    "per_noise": [
+      {
+        "noise": 0.1,
+        "n_facts": 50,
+        "n_erase": 10,
+        "leak_argmax": 0.0,
+        "mean_rank": 24.0,
+        "norm_ratio": 2.161107301712036,
+        "cosine": -0.013042688369750977,
+        "kept_recall": 1.0,
+        "leak_paraphrase": 0.0
+      },
+      {
+        "noise": 0.5,
+        "n_facts": 50,
+        "n_erase": 10,
+        "leak_argmax": 0.0,
+        "mean_rank": 30.3,
+        "norm_ratio": 10.255132675170898,
+        "cosine": -0.021095871925354004,
+        "kept_recall": 0.3499999940395355,
+        "leak_paraphrase": 0.0
+      },
+      {
+        "noise": 1.0,
+        "n_facts": 50,
+        "n_erase": 10,
+        "leak_argmax": 0.0,
+        "mean_rank": 31.0,
+        "norm_ratio": 20.47789764404297,
+        "cosine": -0.02210991457104683,
+        "kept_recall": 0.10000000149011612,
+        "leak_paraphrase": 0.0
+      }
+    ]
+  }
+}

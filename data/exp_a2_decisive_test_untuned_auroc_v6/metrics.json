@@ -1,0 +1,625 @@
+{
+  "anchor_name": "substrate_a2_decisive_test_untuned_auroc_gpu_v1",
+  "verdict": "ALREADY_SEPARATES",
+  "verdict_msg": "ALREADY_SEPARATES: untuned refuse-gate AUROC=0.965 >= 0.7 -- the untuned substrate ALREADY separates gap/in-cov by raw bge-confidence -> LoRA Stage-2 has NO headroom (a calibrated threshold suffices). (near=0.9338235294117647, far=1.0.) (Or residual leakage despite TF-IDF 0.510 -- inspect top gap confidences.)",
+  "summary": "ALREADY_SEPARATES: untuned refuse-gate AUROC=0.965 >= 0.7 -- the untuned substrate ALREADY separates gap/in-cov by raw bge-confidence -> LoRA Stage-2 has NO headroom (a calibrated threshold suffices). (near=0.9338235294117647, far=1.0.) (Or residual leakage despite TF-IDF 0.510 -- inspect top gap confidences.)",
+  "headline": "ALREADY_SEPARATES: untuned refuse-gate AUROC=0.965 >= 0.7 -- the untuned substrate ALREADY separates gap/in-cov by raw bge-confidence -> LoRA Stage-2 has NO headroom (a calibrated threshold suffices). (near=0.9338235294117647, far=1.0.) (Or residual leakage despite TF-IDF 0.510 -- inspect top gap confidences.)",
+  "n_seeds": 1,
+  "run_mode": "full",
+  "branch_path": "untuned_refuse_gate_auroc",
+  "metrics_source": "measured_bge_gpu",
+  "run_started_utc": "2026-06-19T02:19:19.503973+00:00",
+  "cell_commit": "d78ffe8a",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 72,
+    "n_cells_emitted": 72,
+    "elapsed_s": 14.31,
+    "is_smoke": false
+  },
+  "discrimination_self_check": {
+    "discriminates": true,
+    "reference_value": 0.9651702786377709,
+    "floor": 0.5,
+    "ceiling": 1.0,
+    "reason": "AUROC computable (both classes) + confidence has spread (room to rank)"
+  },
+  "n_cells": 72,
+  "untuned_auroc": 0.9652,
+  "near_gap_auroc": 0.9338,
+  "far_gap_auroc": 1.0,
+  "n_gap": 38,
+  "n_in_cov": 34,
+  "bands": {
+    "near_chance": [
+      0.45,
+      0.6
+    ],
+    "already_separates": 0.7
+  },
+  "coincidental_mention_caveat": "Tarjan-SCC + Hopcroft-Karp scored AS GAPS (Skunkworks caveat); high confidence on them = refuse-gate precision limitation the eval exposes",
+  "rows": [
+    {
+      "id": "A2-IC-000",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8394,
+      "refuse_score": 0.1606
+    },
+    {
+      "id": "A2-IC-001",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7479,
+      "refuse_score": 0.2521
+    },
+    {
+      "id": "A2-IC-002",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7569,
+      "refuse_score": 0.2431
+    },
+    {
+      "id": "A2-IC-003",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7947,
+      "refuse_score": 0.2053
+    },
+    {
+      "id": "A2-IC-004",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7669,
+      "refuse_score": 0.2331
+    },
+    {
+      "id": "A2-IC-005",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8282,
+      "refuse_score": 0.1718
+    },
+    {
+      "id": "A2-IC-006",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.695,
+      "refuse_score": 0.305
+    },
+    {
+      "id": "A2-IC-007",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7435,
+      "refuse_score": 0.2565
+    },
+    {
+      "id": "A2-IC-008",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7509,
+      "refuse_score": 0.2491
+    },
+    {
+      "id": "A2-IC-009",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.699,
+      "refuse_score": 0.301
+    },
+    {
+      "id": "A2-IC-010",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7909,
+      "refuse_score": 0.2091
+    },
+    {
+      "id": "A2-IC-011",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7948,
+      "refuse_score": 0.2052
+    },
+    {
+      "id": "A2-IC-012",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7768,
+      "refuse_score": 0.2232
+    },
+    {
+      "id": "A2-IC-013",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.778,
+      "refuse_score": 0.222
+    },
+    {
+      "id": "A2-IC-014",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7412,
+      "refuse_score": 0.2588
+    },
+    {
+      "id": "A2-IC-015",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8483,
+      "refuse_score": 0.1517
+    },
+    {
+      "id": "A2-IC-016",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7552,
+      "refuse_score": 0.2448
+    },
+    {
+      "id": "A2-IC-017",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8741,
+      "refuse_score": 0.1259
+    },
+    {
+      "id": "A2-IC-018",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7743,
+      "refuse_score": 0.2257
+    },
+    {
+      "id": "A2-IC-019",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8377,
+      "refuse_score": 0.1623
+    },
+    {
+      "id": "A2-IC-020",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7196,
+      "refuse_score": 0.2804
+    },
+    {
+      "id": "A2-IC-021",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8143,
+      "refuse_score": 0.1857
+    },
+    {
+      "id": "A2-IC-022",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7919,
+      "refuse_score": 0.2081
+    },
+    {
+      "id": "A2-IC-023",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8133,
+      "refuse_score": 0.1867
+    },
+    {
+      "id": "A2-IC-024",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8428,
+      "refuse_score": 0.1572
+    },
+    {
+      "id": "A2-IC-025",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8036,
+      "refuse_score": 0.1964
+    },
+    {
+      "id": "A2-IC-026",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8398,
+      "refuse_score": 0.1602
+    },
+    {
+      "id": "A2-IC-027",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8605,
+      "refuse_score": 0.1395
+    },
+    {
+      "id": "A2-IC-028",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.775,
+      "refuse_score": 0.225
+    },
+    {
+      "id": "A2-IC-029",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.824,
+      "refuse_score": 0.176
+    },
+    {
+      "id": "A2-IC-030",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7915,
+      "refuse_score": 0.2085
+    },
+    {
+      "id": "A2-IC-031",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.7557,
+      "refuse_score": 0.2443
+    },
+    {
+      "id": "A2-IC-032",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8016,
+      "refuse_score": 0.1984
+    },
+    {
+      "id": "A2-IC-033",
+      "type": "in_cov",
+      "gap_kind": null,
+      "answerable": true,
+      "confidence": 0.8085,
+      "refuse_score": 0.1915
+    },
+    {
+      "id": "A2-GAP-000",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.5691,
+      "refuse_score": 0.4309
+    },
+    {
+      "id": "A2-GAP-001",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6143,
+      "refuse_score": 0.3857
+    },
+    {
+      "id": "A2-GAP-002",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6858,
+      "refuse_score": 0.3142
+    },
+    {
+      "id": "A2-GAP-003",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6903,
+      "refuse_score": 0.3097
+    },
+    {
+      "id": "A2-GAP-004",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.5225,
+      "refuse_score": 0.4775
+    },
+    {
+      "id": "A2-GAP-005",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6454,
+      "refuse_score": 0.3546
+    },
+    {
+      "id": "A2-GAP-006",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6599,
+      "refuse_score": 0.3401
+    },
+    {
+      "id": "A2-GAP-007",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6563,
+      "refuse_score": 0.3437
+    },
+    {
+      "id": "A2-GAP-009",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7886,
+      "refuse_score": 0.2114
+    },
+    {
+      "id": "A2-GAP-011",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.5577,
+      "refuse_score": 0.4423
+    },
+    {
+      "id": "A2-GAP-012",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7385,
+      "refuse_score": 0.2615
+    },
+    {
+      "id": "A2-GAP-013",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7572,
+      "refuse_score": 0.2428
+    },
+    {
+      "id": "A2-GAP-014",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7253,
+      "refuse_score": 0.2747
+    },
+    {
+      "id": "A2-GAP-015",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7598,
+      "refuse_score": 0.2402
+    },
+    {
+      "id": "A2-GAP-017",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.6867,
+      "refuse_score": 0.3133
+    },
+    {
+      "id": "A2-GAP-019",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.5947,
+      "refuse_score": 0.4053
+    },
+    {
+      "id": "A2-GAP-020",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7174,
+      "refuse_score": 0.2826
+    },
+    {
+      "id": "A2-GAP-021",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.5575,
+      "refuse_score": 0.4425
+    },
+    {
+      "id": "A2-GAP-022",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.7048,
+      "refuse_score": 0.2952
+    },
+    {
+      "id": "A2-GAP-023",
+      "type": "gap",
+      "gap_kind": "near",
+      "answerable": false,
+      "confidence": 0.668,
+      "refuse_score": 0.332
+    },
+    {
+      "id": "A2-GAP-024",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5284,
+      "refuse_score": 0.4716
+    },
+    {
+      "id": "A2-GAP-025",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5245,
+      "refuse_score": 0.4755
+    },
+    {
+      "id": "A2-GAP-026",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5704,
+      "refuse_score": 0.4296
+    },
+    {
+      "id": "A2-GAP-027",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5757,
+      "refuse_score": 0.4243
+    },
+    {
+      "id": "A2-GAP-028",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5484,
+      "refuse_score": 0.4516
+    },
+    {
+      "id": "A2-GAP-029",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.6387,
+      "refuse_score": 0.3613
+    },
+    {
+      "id": "A2-GAP-030",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5419,
+      "refuse_score": 0.4581
+    },
+    {
+      "id": "A2-GAP-031",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.6231,
+      "refuse_score": 0.3769
+    },
+    {
+      "id": "A2-GAP-032",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5738,
+      "refuse_score": 0.4262
+    },
+    {
+      "id": "A2-GAP-033",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.6475,
+      "refuse_score": 0.3525
+    },
+    {
+      "id": "A2-GAP-034",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.6047,
+      "refuse_score": 0.3953
+    },
+    {
+      "id": "A2-GAP-035",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5817,
+      "refuse_score": 0.4183
+    },
+    {
+      "id": "A2-GAP-036",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5423,
+      "refuse_score": 0.4577
+    },
+    {
+      "id": "A2-GAP-037",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5523,
+      "refuse_score": 0.4477
+    },
+    {
+      "id": "A2-GAP-038",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.593,
+      "refuse_score": 0.407
+    },
+    {
+      "id": "A2-GAP-039",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.6176,
+      "refuse_score": 0.3824
+    },
+    {
+      "id": "A2-GAP-040",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5021,
+      "refuse_score": 0.4979
+    },
+    {
+      "id": "A2-GAP-041",
+      "type": "gap",
+      "gap_kind": "far",
+      "answerable": false,
+      "confidence": 0.5261,
+      "refuse_score": 0.4739
+    }
+  ],
+  "a2_set": "experiments\\data\\a2_gap_balanced_v1.jsonl",
+  "a2_set_validity_vet": "PASS (Skunkworks independent 2026-06-18)",
+  "bears_on": "A2 gap-balanced v1 (validated); gates B-beta LoRA Stage-2 (near-chance -> justified; already-separates -> no headroom)",
+  "measured_bounds": "untuned refuse-gate (max bge-cosine confidence) @ this corpus/index; pre-LoRA decisive test",
+  "elapsed_s": 14.34
+}

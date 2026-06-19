@@ -1,0 +1,21 @@
+{
+  "anchor_name": "substrate_gpu_throughput_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cleanup 1000-5000 q/s. GPU=2125 q/s recall=1.000 speedup=0.9x V=2000 dev=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "gpu_qps": 2125.0,
+      "gpu_recall": 1.0,
+      "cpu_qps": 2232.8,
+      "cpu_recall": 1.0,
+      "speedup": 0.95,
+      "V": 2000,
+      "NQ": 200,
+      "device": "cpu"
+    }
+  ],
+  "elapsed_s": 1.1081833839416504,
+  "summary": "MIDDLE_BAND: cleanup 1000-5000 q/s. GPU=2125 q/s recall=1.000 speedup=0.9x V=2000 dev=cpu"
+}

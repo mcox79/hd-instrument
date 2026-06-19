@@ -1,0 +1,43 @@
+{
+  "anchor_name": "substrate_system_vs_record_content_ratio_cpu_v1",
+  "verdict": "CONFIRM_SYSTEMS_VS_RECORDS",
+  "verdict_msg": "CONFIRMED: record-fraction INVERSELY predicts promotion (Spearman -0.90<=-0.7) and history is the extreme-record field (1.00>=0.8). The USER reframe holds: math/science/language carry SYSTEM-content that promotes uniformly under ONE operator; history is RECORDS (literature) and is correctly NOT promoted but retrieved/mined. 'Handle everything' = one promotion operator over system-content + a consolidation/retrieval path for record-content; fields differ only by system:record ratio. per-field system-fraction={'math': 1.0, 'science': 1.0, 'language': 1.0, 'cognition': 1.0, 'history': 0.0} record-fraction={'math': 0.0, 'science': 0.0, 'language': 0.0, 'cognition': 0.0, 'history': 1.0}; Spearman(record-frac, promotion-corroboration)=-0.900; history record-frac=1.000. (content-type classifier is INDEPENDENT of the promotion signals -- text/name/corpus only.) INTERPRETATION: where a field is mostly SYSTEM-content the universal operator promotes; where it is mostly RECORD-content (history) promotion correctly does not fire -- the operative axis is CONTENT-TYPE, not field name.",
+  "summary": "CONFIRMED: record-fraction INVERSELY predicts promotion (Spearman -0.90<=-0.7) and history is the extreme-record field (1.00>=0.8). The USER reframe holds: math/science/language carry SYSTEM-content that promotes uniformly under ONE operator; history is RECORDS (literature) and is correctly NOT promoted but retrieved/mined. 'Handle everything' = one promotion operator over system-content + a consolidation/retrieval path for record-content; fields differ only by system:record ratio. per-field system-fraction={'math': 1.0, 'science': 1.0, 'language': 1.0, 'cognition': 1.0, 'history': 0.0} record-fraction={'math': 0.0, 'science': 0.0, 'language': 0.0, 'cognition': 0.0, 'history': 1.0}; Spearman(record-frac, promotion-corroboration)=-0.900; history record-frac=1.000. (content-type classifier is INDEPENDENT of the promotion signals -- text/name/corpus only.) INTERPRETATION: where a field is mostly SYSTEM-content the universal operator promotes; where it is mostly RECORD-content (history) promotion correctly does not fire -- the operative axis is CONTENT-TYPE, not field name.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "fields": [
+        "math",
+        "science",
+        "language",
+        "cognition",
+        "history"
+      ],
+      "system_fraction": {
+        "math": 1.0,
+        "science": 1.0,
+        "language": 1.0,
+        "cognition": 1.0,
+        "history": 0.0
+      },
+      "record_fraction": {
+        "math": 0.0,
+        "science": 0.0,
+        "language": 0.0,
+        "cognition": 0.0,
+        "history": 1.0
+      },
+      "promotion_corroboration": {
+        "math": 0.953,
+        "science": 1.0,
+        "language": 0.934,
+        "cognition": 0.021,
+        "history": 0.0
+      },
+      "spearman_record_vs_promotion": -0.9,
+      "history_record_fraction": 1.0
+    }
+  ],
+  "elapsed_s": 0.09573888778686523
+}

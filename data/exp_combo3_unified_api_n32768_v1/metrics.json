@@ -1,0 +1,61 @@
+{
+  "anchor": "combo3_unified_api_n32768_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 204,
+  "alpha": 0.05,
+  "n_seeds": 2,
+  "n_probes_krylov": 200,
+  "mc_noise_floor_used": 0.1414213562373095,
+  "per_seed_results": [
+    {
+      "seed": 7,
+      "closed_form": {
+        "tr_W1": 204.0,
+        "tr_W2": 214.22970199584958,
+        "tr_W3": 235.24928891938174,
+        "kappa_3": 0.05743390842758343
+      },
+      "krylov_est": {
+        "tr_W1": 205.7557373046875,
+        "tr_W2": 216.1155242919922,
+        "tr_W3": 237.17666625976562,
+        "kappa_3": 0.05790445953607559
+      },
+      "tr_W1_rel_dev": 0.008606555415134803,
+      "tr_W2_rel_dev": 0.008802805019908686,
+      "tr_W3_rel_dev": 0.008192914627871131,
+      "kappa_3_rel_dev": 0.008192914627871131,
+      "elapsed_s": 0.0625765323638916
+    },
+    {
+      "seed": 17,
+      "closed_form": {
+        "tr_W1": 204.00000000000006,
+        "tr_W2": 213.87899732589722,
+        "tr_W3": 234.09051543893298,
+        "kappa_3": 0.05715100474583325
+      },
+      "krylov_est": {
+        "tr_W1": 204.60789489746094,
+        "tr_W2": 214.08120727539062,
+        "tr_W3": 233.78262329101562,
+        "kappa_3": 0.05707583576440811
+      },
+      "tr_W1_rel_dev": 0.0029798769483376495,
+      "tr_W2_rel_dev": 0.0009454408895759487,
+      "tr_W3_rel_dev": 0.0013152696397803307,
+      "kappa_3_rel_dev": 0.0013152696397803307,
+      "elapsed_s": 0.0510256290435791
+    }
+  ],
+  "max_rel_devs": {
+    "tr_W1_rel_dev": 0.008606555415134803,
+    "tr_W2_rel_dev": 0.008802805019908686,
+    "tr_W3_rel_dev": 0.008192914627871131,
+    "kappa_3_rel_dev": 0.008192914627871131
+  },
+  "verdict": "HARD_PASS",
+  "elapsed_s": 0.13316774368286133,
+  "verdict_msg": "COMBO-3 5-method API uniformity at N=4096 alpha=0.05: max rel devs across 2 seeds: tr_W1_rel_dev=8.607e-03 tr_W2_rel_dev=8.803e-03 tr_W3_rel_dev=8.193e-03 kappa_3_rel_dev=8.193e-03. MC noise floor ~ 1.414e-01. Verdict: HARD_PASS."
+}

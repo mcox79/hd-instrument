@@ -1,0 +1,112 @@
+{
+  "verdict": "MULTIHOP_N_IMPROVES_BUT_BOUNDED",
+  "verdict_msg": "acc_1hop improves with N (slope = +0.0100) but doesn't reach 0.99 at any tested N. Best: N=16384, acc_1hop=0.947. Either the sqrt(N)-noise model is incomplete or higher N needed.",
+  "elapsed_s": 16.40599999999995,
+  "summary": {
+    "by_N": {
+      "4096": {
+        "N": 4096,
+        "acc_by_depth": {
+          "1": 0.9266666666666667,
+          "10": 0.5,
+          "50": 0.13333333333333333
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            0.92,
+            0.92,
+            0.94
+          ],
+          "10": [
+            0.36,
+            0.6,
+            0.54
+          ],
+          "50": [
+            0.08,
+            0.12,
+            0.2
+          ]
+        },
+        "retention_rate": 0.9605031085313847,
+        "max_pairwise_ip": 0.0791015625
+      },
+      "8192": {
+        "N": 8192,
+        "acc_by_depth": {
+          "1": 0.94,
+          "10": 0.56,
+          "50": 0.18000000000000002
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            0.94,
+            0.96,
+            0.92
+          ],
+          "10": [
+            0.54,
+            0.58,
+            0.56
+          ],
+          "50": [
+            0.16,
+            0.2,
+            0.18
+          ]
+        },
+        "retention_rate": 0.966285472189759,
+        "max_pairwise_ip": 0.048583984375
+      },
+      "16384": {
+        "N": 16384,
+        "acc_by_depth": {
+          "1": 0.9466666666666667,
+          "10": 0.5266666666666667,
+          "50": 0.19999999999999998
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            0.92,
+            0.96,
+            0.96
+          ],
+          "10": [
+            0.48,
+            0.56,
+            0.54
+          ],
+          "50": [
+            0.28,
+            0.1,
+            0.22
+          ]
+        },
+        "retention_rate": 0.9683237857256298,
+        "max_pairwise_ip": 0.0321044921875
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N_list": [
+      4096,
+      8192,
+      16384
+    ],
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      10,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "predicate_adaptive_routing_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: adaptive routing recall>=0.90 across ALL selectivities -- predicate audit rescued (not just sparse regime). adaptive recall by selectivity: {'sel0.05': 1.0, 'sel0.20': 1.0}; worst=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "sel0.05": 1.0,
+        "sel0.20": 1.0
+      },
+      "worst": 1.0
+    }
+  ],
+  "elapsed_s": 1.0226263999938965,
+  "summary": "HARD_PASS: adaptive routing recall>=0.90 across ALL selectivities -- predicate audit rescued (not just sparse regime). adaptive recall by selectivity: {'sel0.05': 1.0, 'sel0.20': 1.0}; worst=1.000"
+}

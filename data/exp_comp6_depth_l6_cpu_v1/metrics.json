@@ -1,0 +1,18 @@
+{
+  "anchor_name": "comp6_depth_l6_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: composition at L=6 holds with hierarchical cleanup (recall>=0.60); cleanup makes recall near depth-independent while no-cleanup collapses. L=6 recall(cleanup)=1.000 recall(no-cleanup)=0.000 K=10",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "L": 6,
+      "K": 10,
+      "recall_cleanup": 1.0,
+      "recall_nocleanup": 0.0,
+      "n": 120
+    }
+  ],
+  "elapsed_s": 227.7305464744568,
+  "summary": "HARD_PASS: composition at L=6 holds with hierarchical cleanup (recall>=0.60); cleanup makes recall near depth-independent while no-cleanup collapses. L=6 recall(cleanup)=1.000 recall(no-cleanup)=0.000 K=10"
+}

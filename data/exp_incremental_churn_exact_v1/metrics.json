@@ -1,0 +1,15 @@
+{
+  "anchor_name": "incremental_churn_exact_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: surviving-fact recall>=0.95 after interleaved insert/delete churn -- incremental memory stays exact, no drift. survivors=200 recall@1=1.000 after churn",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "survivors": 200,
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 2.750520706176758,
+  "summary": "HARD_PASS: surviving-fact recall>=0.95 after interleaved insert/delete churn -- incremental memory stays exact, no drift. survivors=200 recall@1=1.000 after churn"
+}

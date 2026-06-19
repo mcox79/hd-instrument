@@ -1,0 +1,289 @@
+{
+  "seed": 17,
+  "n_substrate": 1024,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "decay_values": [
+    0.0,
+    0.0001,
+    0.001,
+    0.005,
+    0.01
+  ],
+  "epoch_checkpoints": [
+    1,
+    2,
+    3,
+    5,
+    10,
+    15,
+    20
+  ],
+  "results_by_decay": {
+    "0.0": [
+      {
+        "epoch": 1,
+        "test_bpc": 3.154993594681788,
+        "argmax_accuracy": 0.5430279295063383,
+        "mean_margin": 0.02991314471769269,
+        "w_frobenius": 42.096004486083984
+      },
+      {
+        "epoch": 2,
+        "test_bpc": 3.012071477793104,
+        "argmax_accuracy": 0.565701329485726,
+        "mean_margin": 0.051305349101900356,
+        "w_frobenius": 58.46689987182617
+      },
+      {
+        "epoch": 3,
+        "test_bpc": 3.005150007805996,
+        "argmax_accuracy": 0.5696176440276203,
+        "mean_margin": 0.05711613057827589,
+        "w_frobenius": 70.82091522216797
+      },
+      {
+        "epoch": 5,
+        "test_bpc": 3.070939243791964,
+        "argmax_accuracy": 0.5711635576625785,
+        "mean_margin": 0.05549341117083799,
+        "w_frobenius": 89.80538177490234
+      },
+      {
+        "epoch": 10,
+        "test_bpc": 3.3040329746323787,
+        "argmax_accuracy": 0.5828094403792642,
+        "mean_margin": 0.04119532416435194,
+        "w_frobenius": 122.26140594482422
+      },
+      {
+        "epoch": 15,
+        "test_bpc": 3.5194056353765113,
+        "argmax_accuracy": 0.5910543130990416,
+        "mean_margin": 0.028039723502647308,
+        "w_frobenius": 145.0343780517578
+      },
+      {
+        "epoch": 20,
+        "test_bpc": 3.7076842052401138,
+        "argmax_accuracy": 0.5911573740080388,
+        "mean_margin": 0.017051353579168035,
+        "w_frobenius": 162.97445678710938
+      }
+    ],
+    "0.0001": [
+      {
+        "epoch": 1,
+        "test_bpc": 3.1553357346554485,
+        "argmax_accuracy": 0.5402452849634134,
+        "mean_margin": 0.029650317247191815,
+        "w_frobenius": 41.144866943359375
+      },
+      {
+        "epoch": 2,
+        "test_bpc": 3.0075577827602222,
+        "argmax_accuracy": 0.5682778522106565,
+        "mean_margin": 0.05093524419903866,
+        "w_frobenius": 55.829036712646484
+      },
+      {
+        "epoch": 3,
+        "test_bpc": 2.9847662839326343,
+        "argmax_accuracy": 0.5681747913016593,
+        "mean_margin": 0.05716755691661204,
+        "w_frobenius": 66.1005630493164
+      },
+      {
+        "epoch": 5,
+        "test_bpc": 3.004324954501823,
+        "argmax_accuracy": 0.5710604967535814,
+        "mean_margin": 0.058808741392111834,
+        "w_frobenius": 80.2134017944336
+      },
+      {
+        "epoch": 10,
+        "test_bpc": 3.079726936079283,
+        "argmax_accuracy": 0.5753890549314645,
+        "mean_margin": 0.05399195603411259,
+        "w_frobenius": 98.80951690673828
+      },
+      {
+        "epoch": 15,
+        "test_bpc": 3.1255352694902494,
+        "argmax_accuracy": 0.5774502731114088,
+        "mean_margin": 0.05087733331395464,
+        "w_frobenius": 107.4355697631836
+      },
+      {
+        "epoch": 20,
+        "test_bpc": 3.149691781346041,
+        "argmax_accuracy": 0.579408430382356,
+        "mean_margin": 0.04931072932991013,
+        "w_frobenius": 111.89766693115234
+      }
+    ],
+    "0.001": [
+      {
+        "epoch": 1,
+        "test_bpc": 3.1823688227160005,
+        "argmax_accuracy": 0.5288055240647223,
+        "mean_margin": 0.026295916279554243,
+        "w_frobenius": 34.398223876953125
+      },
+      {
+        "epoch": 2,
+        "test_bpc": 3.0610884387603954,
+        "argmax_accuracy": 0.5431309904153354,
+        "mean_margin": 0.04236736271070055,
+        "w_frobenius": 40.253971099853516
+      },
+      {
+        "epoch": 3,
+        "test_bpc": 3.0301794230808956,
+        "argmax_accuracy": 0.5489024013191797,
+        "mean_margin": 0.046298403691031643,
+        "w_frobenius": 42.460289001464844
+      },
+      {
+        "epoch": 5,
+        "test_bpc": 3.015501141855302,
+        "argmax_accuracy": 0.5507574976811296,
+        "mean_margin": 0.048196193054633255,
+        "w_frobenius": 43.78032302856445
+      },
+      {
+        "epoch": 10,
+        "test_bpc": 3.0123963484282004,
+        "argmax_accuracy": 0.5511697413171184,
+        "mean_margin": 0.048597617989948674,
+        "w_frobenius": 44.11572265625
+      },
+      {
+        "epoch": 15,
+        "test_bpc": 3.0123300516002143,
+        "argmax_accuracy": 0.5511697413171184,
+        "mean_margin": 0.04860614053885814,
+        "w_frobenius": 44.12458038330078
+      },
+      {
+        "epoch": 20,
+        "test_bpc": 3.012328202437214,
+        "argmax_accuracy": 0.5511697413171184,
+        "mean_margin": 0.04860638182617568,
+        "w_frobenius": 44.12487030029297
+      }
+    ],
+    "0.005": [
+      {
+        "epoch": 1,
+        "test_bpc": 3.3933214444936235,
+        "argmax_accuracy": 0.5001545913634958,
+        "mean_margin": 0.011442256922281048,
+        "w_frobenius": 22.06572151184082
+      },
+      {
+        "epoch": 2,
+        "test_bpc": 3.382431879862306,
+        "argmax_accuracy": 0.5009790786354735,
+        "mean_margin": 0.012823605791116688,
+        "w_frobenius": 22.253379821777344
+      },
+      {
+        "epoch": 3,
+        "test_bpc": 3.382140451812823,
+        "argmax_accuracy": 0.5009790786354735,
+        "mean_margin": 0.012860716261544768,
+        "w_frobenius": 22.25904083251953
+      },
+      {
+        "epoch": 5,
+        "test_bpc": 3.382130545119115,
+        "argmax_accuracy": 0.5009790786354735,
+        "mean_margin": 0.012861953216103762,
+        "w_frobenius": 22.25925064086914
+      },
+      {
+        "epoch": 10,
+        "test_bpc": 3.3821304906683705,
+        "argmax_accuracy": 0.5009790786354735,
+        "mean_margin": 0.012861958483648118,
+        "w_frobenius": 22.25925064086914
+      },
+      {
+        "epoch": 15,
+        "test_bpc": 3.3821304904717975,
+        "argmax_accuracy": 0.5009790786354735,
+        "mean_margin": 0.012861959306797907,
+        "w_frobenius": 22.25925064086914
+      },
+      {
+        "epoch": 20,
+        "test_bpc": 3.382130531948718,
+        "argmax_accuracy": 0.5009790786354735,
+        "mean_margin": 0.01286196065209495,
+        "w_frobenius": 22.25925064086914
+      }
+    ],
+    "0.01": [
+      {
+        "epoch": 1,
+        "test_bpc": 3.608776043779172,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.00026085857606408374,
+        "w_frobenius": 17.29360008239746
+      },
+      {
+        "epoch": 2,
+        "test_bpc": 3.608351474224532,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.000199088451482212,
+        "w_frobenius": 17.298431396484375
+      },
+      {
+        "epoch": 3,
+        "test_bpc": 3.6083509417080477,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.0001990194174723196,
+        "w_frobenius": 17.298439025878906
+      },
+      {
+        "epoch": 5,
+        "test_bpc": 3.608350944460071,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.00019901237155584456,
+        "w_frobenius": 17.298439025878906
+      },
+      {
+        "epoch": 10,
+        "test_bpc": 3.6083509334519785,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.00019901341585035263,
+        "w_frobenius": 17.298439025878906
+      },
+      {
+        "epoch": 15,
+        "test_bpc": 3.6083509285376514,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.00019900972396212117,
+        "w_frobenius": 17.298439025878906
+      },
+      {
+        "epoch": 20,
+        "test_bpc": 3.608350911435793,
+        "argmax_accuracy": 0.47943934865505516,
+        "mean_margin": -0.00019901296127509618,
+        "w_frobenius": 17.298439025878906
+      }
+    ]
+  },
+  "best": {
+    "epoch": 3,
+    "test_bpc": 2.9847662839326343,
+    "argmax_accuracy": 0.5681747913016593,
+    "mean_margin": 0.05716755691661204,
+    "w_frobenius": 66.1005630493164,
+    "decay": 0.0001
+  },
+  "headline": "Multi-epoch+decay best: decay=1e-04, epoch=3, test_bpc=2.985"
+}

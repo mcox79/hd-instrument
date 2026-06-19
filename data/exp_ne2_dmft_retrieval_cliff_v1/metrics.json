@@ -1,0 +1,103 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "NE-2 DMFT RETRIEVAL CLIFF: verdict=MIDDLE_BAND | 0/3 seeds pass HP | HP: m*>=0.90 at alpha<0.12 AND m*<=0.50 at alpha>0.15 AND cliff in [0.12,0.16] in >=4/5 seeds | HF: m*<0.70 at low-alpha OR no cliff (range<0.20) in all seeds",
+  "seeds_pass": 0,
+  "seeds_total": 3,
+  "pass_fraction": 0.0,
+  "seeds_fail_low": 0,
+  "seeds_fail_no_cliff": 0,
+  "all_results": [
+    {
+      "seed": 7,
+      "alpha_results": [
+        {
+          "alpha": 0.08,
+          "M": 81,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.12,
+          "M": 122,
+          "overlap": 0.9609375
+        },
+        {
+          "alpha": 0.138,
+          "M": 141,
+          "overlap": 0.9921875
+        },
+        {
+          "alpha": 0.16,
+          "M": 163,
+          "overlap": 0.95703125
+        },
+        {
+          "alpha": 0.2,
+          "M": 204,
+          "overlap": 0.4674479166666667
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "alpha_results": [
+        {
+          "alpha": 0.08,
+          "M": 81,
+          "overlap": 1.0
+        },
+        {
+          "alpha": 0.12,
+          "M": 122,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.138,
+          "M": 141,
+          "overlap": 0.98828125
+        },
+        {
+          "alpha": 0.16,
+          "M": 163,
+          "overlap": 0.5638020833333334
+        },
+        {
+          "alpha": 0.2,
+          "M": 204,
+          "overlap": 0.6516927083333334
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "alpha_results": [
+        {
+          "alpha": 0.08,
+          "M": 81,
+          "overlap": 1.0
+        },
+        {
+          "alpha": 0.12,
+          "M": 122,
+          "overlap": 1.0
+        },
+        {
+          "alpha": 0.138,
+          "M": 141,
+          "overlap": 0.994140625
+        },
+        {
+          "alpha": 0.16,
+          "M": 163,
+          "overlap": 0.921875
+        },
+        {
+          "alpha": 0.2,
+          "M": 204,
+          "overlap": 0.6940104166666666
+        }
+      ]
+    }
+  ],
+  "smoke": true,
+  "elapsed_s": 1.3687686920166016
+}

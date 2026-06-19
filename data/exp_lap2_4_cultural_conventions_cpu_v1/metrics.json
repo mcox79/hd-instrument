@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap2_4_cultural_conventions_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate stores 30+ social scripts and resolves expected-action (ToM) by lookup >=0.85 -- convention-as-retrieval shortcut; common-sense social reasoning without per-step inference. script-lookup=1.000 (30 scripts)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "script_acc": 1.0,
+      "n_scripts": 30,
+      "n": 250
+    }
+  ],
+  "elapsed_s": 0.09848356246948242,
+  "summary": "HARD_PASS: substrate stores 30+ social scripts and resolves expected-action (ToM) by lookup >=0.85 -- convention-as-retrieval shortcut; common-sense social reasoning without per-step inference. script-lookup=1.000 (30 scripts)"
+}

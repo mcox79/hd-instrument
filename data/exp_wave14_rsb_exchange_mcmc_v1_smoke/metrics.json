@@ -1,0 +1,75 @@
+{
+  "verdict": "RSB_PT_FLAT",
+  "verdict_msg": "Swap acceptance rates are uniformly high across all temperatures (1/1 cells), no transition signature. Profiles: [[1.0, 1.0, 1.0]].",
+  "elapsed_s": 0.23399999999674037,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.1,
+        "N": 1024,
+        "M": 102,
+        "acceptance_rates_mean": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "acceptance_rates_std": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tunneling_counts": [
+          14,
+          14
+        ],
+        "tunneling_count_mean": 14.0,
+        "energy_autocorr_1_mean": [
+          0.19454468917198223,
+          0.4269867868330409,
+          0.31206517007130186,
+          0.2004166643581009
+        ],
+        "betas": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alpha_list": [
+        0.1
+      ],
+      "beta_list": [
+        0.5,
+        1.0,
+        2.0,
+        4.0
+      ],
+      "n_seeds": 2,
+      "n_burn": 30,
+      "n_collect": 60,
+      "swap_period": 5
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha_list": [
+      0.1
+    ],
+    "beta_list": [
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "n_seeds": 2,
+    "n_burn": 30,
+    "n_collect": 60,
+    "swap_period": 5
+  }
+}

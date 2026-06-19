@@ -1,0 +1,48 @@
+{
+  "verdict": "INSTRUMENTATION-FAIL",
+  "verdict_msg": "INSTRUMENTATION-FAIL: min_seeds_per_N=2 (need >=3), n_Ns=1, all_sigma_zero=True.",
+  "elapsed_s": 0.9839999999967404,
+  "summary": {
+    "tau_p_by_seed_by_N": {
+      "512": {
+        "7": 2.0,
+        "17": 2.0
+      }
+    },
+    "sigma_tau_p_by_N": {
+      "512": 0.0
+    },
+    "log_sigma_vs_log_N_slope": null,
+    "log_sigma_vs_log_N_ci95": [
+      NaN,
+      NaN
+    ],
+    "n_seeds_per_N": {
+      "512": 2
+    },
+    "verdict": "INSTRUMENTATION-FAIL"
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      512
+    ],
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 3000,
+    "seeds": [
+      7,
+      17
+    ],
+    "slope_hard_pass_range": [
+      -0.7,
+      -0.3
+    ],
+    "slope_hard_fail_flat": [
+      -0.1,
+      0.1
+    ],
+    "ci95_width_hard_pass": 0.4
+  }
+}

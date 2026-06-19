@@ -1,0 +1,68 @@
+{
+  "anchor_name": "qa_self_knowledge_corpus_vs_route_ceiling_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the residual is MAJORITY route/selection-fixable (90% of gold is present + reachable) -- my capstone 'route-mechanics exhausted / corpus-bound' was TOO STRONG. Substantial route headroom remains (gold exists but is not retrieved); only 10% genuinely needs ingest. Honest correction. route-fixable=90% ingest-needed=10% (atom-absent 19 + edge-unreachable 0 of 182 gold; D/F excluded); per-axis={'A': (84.8, 15.2), 'B': (97.1, 2.9), 'C': (88.9, 11.1), 'E': (93.3, 6.7), 'G': (100.0, 0.0)}",
+  "summary": "HARD_PASS: the residual is MAJORITY route/selection-fixable (90% of gold is present + reachable) -- my capstone 'route-mechanics exhausted / corpus-bound' was TOO STRONG. Substantial route headroom remains (gold exists but is not retrieved); only 10% genuinely needs ingest. Honest correction. route-fixable=90% ingest-needed=10% (atom-absent 19 + edge-unreachable 0 of 182 gold; D/F excluded); per-axis={'A': (84.8, 15.2), 'B': (97.1, 2.9), 'C': (88.9, 11.1), 'E': (93.3, 6.7), 'G': (100.0, 0.0)}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "A": {
+          "q": 12,
+          "gold": 79,
+          "absent": 12,
+          "present_unreachable": 0,
+          "route_fixable": 67,
+          "route_fixable_pct": 84.8,
+          "ingest_needed_pct": 15.2
+        },
+        "B": {
+          "q": 8,
+          "gold": 35,
+          "absent": 1,
+          "present_unreachable": 0,
+          "route_fixable": 34,
+          "route_fixable_pct": 97.1,
+          "ingest_needed_pct": 2.9
+        },
+        "C": {
+          "q": 9,
+          "gold": 45,
+          "absent": 5,
+          "present_unreachable": 0,
+          "route_fixable": 40,
+          "route_fixable_pct": 88.9,
+          "ingest_needed_pct": 11.1
+        },
+        "E": {
+          "q": 8,
+          "gold": 15,
+          "absent": 1,
+          "present_unreachable": 0,
+          "route_fixable": 14,
+          "route_fixable_pct": 93.3,
+          "ingest_needed_pct": 6.7
+        },
+        "G": {
+          "q": 3,
+          "gold": 8,
+          "absent": 0,
+          "present_unreachable": 0,
+          "route_fixable": 8,
+          "route_fixable_pct": 100.0,
+          "ingest_needed_pct": 0.0
+        }
+      },
+      "total": {
+        "gold": 182,
+        "absent": 19,
+        "present_unreachable": 0,
+        "route_fixable": 163
+      },
+      "overall_route_fixable_pct": 89.6,
+      "overall_ingest_pct": 10.4
+    }
+  ],
+  "elapsed_s": 0.2577686309814453
+}

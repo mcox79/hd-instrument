@@ -1,0 +1,35 @@
+{
+  "anchor": "lyapunov_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    1.0,
+    4.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 1.0,
+      "M": 1024,
+      "seed": 17,
+      "spec_norm": 2.19349,
+      "mp_upper": 4.0,
+      "deviation": -0.45163
+    },
+    {
+      "N": 1024,
+      "M_frac": 4.0,
+      "M": 4096,
+      "seed": 17,
+      "spec_norm": 3.99995,
+      "mp_upper": 9.0,
+      "deviation": -0.55556
+    }
+  ],
+  "verdict": "LYAP_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_DYNAMICAL_STRUCTURE: variation=1.8065 spec_norm_m4=4.0000 mono_frac=1.00 mfracs=[1.0, 4.0] spec_norms=[2.1935, 4.0] N=1024",
+  "elapsed_s": 0.17
+}

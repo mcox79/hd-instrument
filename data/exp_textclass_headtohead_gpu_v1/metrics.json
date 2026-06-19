@@ -1,0 +1,1 @@
+{"anchor_name": "textclass_headtohead_gpu_v1", "verdict": "HARD_PASS", "verdict_msg": "HARD_PASS: substrate text-classifier acc=0.848 (0.00015s/item) vs Qwen-0.5B acc=0.688 (0.137s/item) -- SUBSTRATE>=LLM. Substrate 915x faster, tiny. AG-News 4-class.", "substrate_acc": 0.848, "llm_acc": 0.688, "sub_latency": 0.00014948129653930665, "llm_latency": 0.13678794503211975}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "d2_7_intentional_forgetting_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: intentional forgetting is clean -- chosen items drop to ~chance recall while retained items keep >=0.90 (no collateral damage), over sequential declutter rounds. GDPR-erasure primitive doubles as cognitive forgetting, substrate-only. retained=1.000 forgotten=0.004",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "retained_recall": 1.0,
+      "forgotten_recall": 0.004
+    }
+  ],
+  "elapsed_s": 17.78768038749695,
+  "summary": "HARD_PASS: intentional forgetting is clean -- chosen items drop to ~chance recall while retained items keep >=0.90 (no collateral damage), over sequential declutter rounds. GDPR-erasure primitive doubles as cognitive forgetting, substrate-only. retained=1.000 forgotten=0.004"
+}

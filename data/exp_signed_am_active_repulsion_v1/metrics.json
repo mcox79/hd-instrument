@@ -1,0 +1,43 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Signed-AM repulsion: mean_frac_anti_b=1.000 [HP: >=0.75], n_hp=2/2, b_is_max=2/2, N=2048, M_A=15, M_B=15",
+  "mean_fraction_anti_b": 1.0,
+  "n_hp_seeds": 2,
+  "n_seeds": 2,
+  "b_is_max_count": 2,
+  "N": 2048,
+  "M_A": 15,
+  "M_B": 15,
+  "elapsed_s": 1.1884512901306152,
+  "run_mode": "smoke",
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 2048,
+      "M_A": 15,
+      "M_B": 15,
+      "fraction_anti_b": 1.0,
+      "fraction_a_correct": 1.0,
+      "mean_b_energy": 0.49963995615641277,
+      "mean_a_energy": -0.4994508743286133,
+      "mean_rand_energy": 0.00018854141235351561,
+      "b_is_max": true,
+      "a_is_min": true,
+      "hp": true
+    },
+    {
+      "seed": 17,
+      "N": 2048,
+      "M_A": 15,
+      "M_B": 15,
+      "fraction_anti_b": 1.0,
+      "fraction_a_correct": 1.0,
+      "mean_b_energy": 0.49891430536905923,
+      "mean_a_energy": -0.49931408564249674,
+      "mean_rand_energy": -0.00025691986083984373,
+      "b_is_max": true,
+      "a_is_min": true,
+      "hp": true
+    }
+  ]
+}

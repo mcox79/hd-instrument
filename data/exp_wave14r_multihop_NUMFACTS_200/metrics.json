@@ -1,0 +1,64 @@
+{
+  "verdict": "MULTIHOP_DECAY_AT_50",
+  "verdict_msg": "Multi-hop works through depth 25; falls below 0.10 at depth=50. acc_1hop=0.953, retention=0.949, slope=-0.0517/hop. Capability bounded at intermediate depth; not catastrophic but not 50-hop.",
+  "elapsed_s": 37.562000000005355,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.9533333333333333,
+      "5": 0.6066666666666668,
+      "10": 0.4266666666666667,
+      "25": 0.13333333333333333,
+      "50": 0.07333333333333335
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 0.98,
+        "5": 0.56,
+        "10": 0.46,
+        "25": 0.06,
+        "50": 0.1
+      },
+      "23": {
+        "1": 0.94,
+        "5": 0.62,
+        "10": 0.4,
+        "25": 0.24,
+        "50": 0.02
+      },
+      "31": {
+        "1": 0.94,
+        "5": 0.64,
+        "10": 0.42,
+        "25": 0.1,
+        "50": 0.1
+      }
+    },
+    "per_hop_retention_rate": 0.9490870082573879,
+    "log_decay_slope_per_hop": -0.051657302028396544,
+    "max_pairwise_ip_per_seed": {
+      "17": 0.0313720703125,
+      "23": 0.03076171875,
+      "31": 0.0321044921875
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 16384,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 200,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "anchor": "t3_susceptibility_v2_n8192",
+  "N": 1024,
+  "smoke": true,
+  "M_frac": 4.0,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "M_frac": 4.0,
+      "chi_by_axis": {
+        "beta": 0.0,
+        "codebook": 0.0,
+        "M": 0.0
+      },
+      "chi_max": 0.0,
+      "chi_min": 0.0,
+      "chi_ratio": 0.0
+    }
+  ],
+  "verdict": "T3_V2_MIDDLE_BAND",
+  "verdict_msg": "WEAK_ASYMMETRY: ratio=0.00. mean_chi_ratio=0.00 pass_seeds=0/1 triple_point_seeds=1/1 HP_ratio=2.0 N=1024",
+  "elapsed_s": 0.5
+}

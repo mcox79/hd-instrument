@@ -1,0 +1,123 @@
+{
+  "verdict": "CAP12_NOISE_CLEANUP_OPTSHRINK_INCONCLUSIVE",
+  "verdict_msg": "Missing cells: have 4 need 25.",
+  "elapsed_s": 0.03200000000651926,
+  "summary": {
+    "cells": [
+      {
+        "name": "iid_gauss",
+        "is_bipolar": false,
+        "expected_route_clean": "AMP_OK",
+        "eta_input": 0.0,
+        "seed": 17,
+        "ks_noisy": 0.0798855437620477,
+        "ks_cleaned": 0.0798855437620477,
+        "routed_noisy": "AMP_OK",
+        "routed_cleaned": "AMP_OK",
+        "correct_noisy": true,
+        "correct_cleaned": true,
+        "eta_effective": 1.8358273116182722e-07,
+        "rank_collapsed": false,
+        "optshrink_threshold": 0.0,
+        "optshrink_lambda_beta": 2.309401076758503,
+        "optshrink_beta": 1.0,
+        "optshrink_rank_kept": 64,
+        "sigma_noise_used": 0.0
+      },
+      {
+        "name": "hadamard",
+        "is_bipolar": true,
+        "expected_route_clean": "VAMP_REQUIRED",
+        "eta_input": 0.0,
+        "seed": 17,
+        "ks_noisy": 0.5743233451135475,
+        "ks_cleaned": 0.5743233451135475,
+        "routed_noisy": "VAMP_REQUIRED",
+        "routed_cleaned": "VAMP_REQUIRED",
+        "correct_noisy": true,
+        "correct_cleaned": true,
+        "eta_effective": 0.0,
+        "rank_collapsed": false,
+        "optshrink_threshold": 0.0,
+        "optshrink_lambda_beta": 2.309401076758503,
+        "optshrink_beta": 1.0,
+        "optshrink_rank_kept": 64,
+        "sigma_noise_used": 0.0
+      },
+      {
+        "name": "iid_gauss",
+        "is_bipolar": false,
+        "expected_route_clean": "AMP_OK",
+        "eta_input": 0.05,
+        "seed": 17,
+        "ks_noisy": 0.0798855437620477,
+        "ks_cleaned": 0.609375,
+        "routed_noisy": "AMP_OK",
+        "routed_cleaned": "VAMP_REQUIRED",
+        "correct_noisy": true,
+        "correct_cleaned": false,
+        "eta_effective": 0.6078277273533559,
+        "rank_collapsed": false,
+        "optshrink_threshold": 8.053156730955465,
+        "optshrink_lambda_beta": 2.309401076758503,
+        "optshrink_beta": 1.0,
+        "optshrink_rank_kept": 25,
+        "sigma_noise_used": 0.43588989435406733
+      },
+      {
+        "name": "hadamard",
+        "is_bipolar": true,
+        "expected_route_clean": "VAMP_REQUIRED",
+        "eta_input": 0.05,
+        "seed": 17,
+        "ks_noisy": 0.19312817196703475,
+        "ks_cleaned": 0.07104263029591801,
+        "routed_noisy": "AMP_OK",
+        "routed_cleaned": "AMP_OK",
+        "correct_noisy": false,
+        "correct_cleaned": false,
+        "eta_effective": 0.103271484375,
+        "rank_collapsed": false,
+        "optshrink_threshold": 8.053156730955465,
+        "optshrink_lambda_beta": 2.309401076758503,
+        "optshrink_beta": 1.0,
+        "optshrink_rank_kept": 29,
+        "sigma_noise_used": 0.43588989435406733
+      }
+    ],
+    "n_seeds": 1,
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "n_seeds": 1,
+      "eta_grid": [
+        0.0,
+        0.05
+      ],
+      "codebooks": [
+        "iid_gauss",
+        "hadamard"
+      ]
+    },
+    "tau_fixed": 0.2,
+    "eta_grid": [
+      0.0,
+      0.05
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "n_seeds": 1,
+    "eta_grid": [
+      0.0,
+      0.05
+    ],
+    "codebooks": [
+      "iid_gauss",
+      "hadamard"
+    ]
+  }
+}

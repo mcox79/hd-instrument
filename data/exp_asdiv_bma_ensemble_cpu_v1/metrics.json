@@ -1,0 +1,24 @@
+{
+  "anchor_name": "asdiv_bma_ensemble_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: BMA <=0.39, no gain over best single -- the mechanisms' errors are CORRELATED (shared comprehension blind-spot). The plateau is the comprehension wall, not strategy variance. BMA=0.3854 vs best-single=0.3854 (gain=+0.0000); singles={'textorder': 0.3732, 'proximity': 0.3756, 'magnitude': 0.3854, 'target': 0.3805}. 4 operand-selection strategies, val-weighted vote.",
+  "summary": "HARD_FAIL: BMA <=0.39, no gain over best single -- the mechanisms' errors are CORRELATED (shared comprehension blind-spot). The plateau is the comprehension wall, not strategy variance. BMA=0.3854 vs best-single=0.3854 (gain=+0.0000); singles={'textorder': 0.3732, 'proximity': 0.3756, 'magnitude': 0.3854, 'target': 0.3805}. 4 operand-selection strategies, val-weighted vote.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3854,
+      "bma": 0.3854,
+      "best_single": 0.3854,
+      "gain": 0.0,
+      "singles": {
+        "textorder": 0.3732,
+        "proximity": 0.3756,
+        "magnitude": 0.3854,
+        "target": 0.3805
+      },
+      "n_test": 410
+    }
+  ],
+  "elapsed_s": 0.32044148445129395
+}

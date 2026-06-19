@@ -1,0 +1,16 @@
+{
+  "anchor_name": "nl_vsa_oracle_parse_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: even with a perfect bridge, 2-hop retrieval <0.45 -- the bottleneck is deeper than the parse. oracle-2hop r@2=0.350 vs single-shot=0.400 (n=20)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 20,
+      "ss_r2": 0.4,
+      "oracle_r2": 0.35
+    }
+  ],
+  "elapsed_s": 13.21762752532959,
+  "summary": "HARD_FAIL: even with a perfect bridge, 2-hop retrieval <0.45 -- the bottleneck is deeper than the parse. oracle-2hop r@2=0.350 vs single-shot=0.400 (n=20)"
+}

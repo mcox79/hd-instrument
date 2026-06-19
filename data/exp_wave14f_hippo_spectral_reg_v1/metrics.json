@@ -1,0 +1,24 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: depth_ratio=0.286 <= 1.0 ALL seeds. HiPPO spectral basis does NOT help even when enforced. PROT-004 rescue sketch #5 CLOSED.",
+  "elapsed_s": 0.15731334686279297,
+  "summary": {
+    "N": 256,
+    "K": 4,
+    "n_seeds": 1,
+    "depth_ratio_mean": 0.2857142857142857,
+    "depth_ratio_std": 0.0,
+    "reg_wins_frac": 0.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "K": 4,
+    "seeds": [
+      7
+    ],
+    "n_proj_components": 64,
+    "parent": "wave14f_hippo_init_w_v1 P3_HARD_PASS spectral_corr=0.993",
+    "prot004_rescue": "sketch #5 (spectral regularization)"
+  }
+}

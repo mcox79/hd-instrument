@@ -1,0 +1,72 @@
+{
+  "verdict": "PARISI_V3_INCONCLUSIVE",
+  "verdict_msg": "No codebook crosses BINDER>0.6 threshold but none declines steeply either. Pattern unclear. by_codebook: random_bsc=B_inf=-0.000,slope=0.592, hadamard=B_inf=-8532.000,slope=8788065.548, kerdock=B_inf=0.556,slope=0.167",
+  "elapsed_s": 871.5629999999983,
+  "summary": {
+    "by_codebook": {
+      "random_bsc": {
+        "codebook_type": "random_bsc",
+        "binders_by_N": {
+          "1024": 0.0005766081350814245,
+          "4096": 9.15744397437986e-05,
+          "16384": 6.0825303843548006e-05
+        },
+        "binder_slope_vs_inv_N": 0.5916181875812953,
+        "binder_extrap_to_inf_N": -9.763933412639453e-06,
+        "Ns_tested": [
+          1024,
+          4096,
+          16384
+        ]
+      },
+      "hadamard": {
+        "codebook_type": "hadamard",
+        "binders_by_N": {
+          "1024": -681.3333334127674,
+          "4096": -2729.333374018471,
+          "16384": -10921.333343505548
+        },
+        "binder_slope_vs_inv_N": 8788065.547523906,
+        "binder_extrap_to_inf_N": -8532.000027110806,
+        "Ns_tested": [
+          1024,
+          4096,
+          16384
+        ]
+      },
+      "kerdock": {
+        "codebook_type": "kerdock",
+        "binders_by_N": {
+          "1024": 0.5556968496153057,
+          "4096": 0.555574392448553
+        },
+        "binder_slope_vs_inv_N": 0.16719485167307843,
+        "binder_extrap_to_inf_N": 0.5555335733929687,
+        "Ns_tested": [
+          1024,
+          4096,
+          16384
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "Ns": [
+      1024,
+      4096,
+      16384
+    ],
+    "M_mult": 2,
+    "codebook_types": [
+      "random_bsc",
+      "hadamard",
+      "kerdock"
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

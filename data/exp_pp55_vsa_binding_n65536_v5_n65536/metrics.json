@@ -1,0 +1,20 @@
+{
+  "anchor_name": "pp55_vsa_binding_n65536_v5_n65536",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: mean_cos=0.99990 in [0.6,0.85); seeds_hp=2/5 n_seeds=2",
+  "mean_cos_all_seeds": 0.9999024569988251,
+  "min_cos_all_seeds": 0.9999024569988251,
+  "cos_per_seed": {
+    "7": 0.9999024569988251,
+    "17": 0.9999024569988251
+  },
+  "seeds_hp": 2,
+  "N": 2048,
+  "M": 102,
+  "alpha": 0.05,
+  "n_seeds": 2,
+  "n_probes": 10,
+  "elapsed_s": 0.16039466857910156,
+  "run_mode": "smoke",
+  "approach": "chunked_hopfield_no_W"
+}

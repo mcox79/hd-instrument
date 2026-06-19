@@ -1,0 +1,17 @@
+{
+  "anchor_name": "asdiv_cascade_v2_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <0.30 -- v2 does not lift v1. accuracy=0.309 (1op-train=430, 2op-train=160, n_test=800)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.309,
+      "n_1op": 430,
+      "n_2op": 160,
+      "n_test": 800
+    }
+  ],
+  "elapsed_s": 2.2585935592651367,
+  "summary": "HARD_FAIL: <0.30 -- v2 does not lift v1. accuracy=0.309 (1op-train=430, 2op-train=160, n_test=800)"
+}

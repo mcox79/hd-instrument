@@ -1,0 +1,82 @@
+{
+  "anchor_name": "substrate_84_cyclecleanup_batch2_direction_precheck_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "All 5 batch-2 direction-error edges EXIST and removing them PRESERVES capability (0 regressions); 2/5 have the correct-direction relationship present as evidence -> batch 2 is safe + evidence-backed for Skunkworks/Testbed removal. Batch-2 direction errors: 5/5 exist; 2/5 have correct-direction edge present (evidence flagged dir is backwards); 1/5 genuine 2-cycles; removal capability pre-check: 1336->1336 axiom-terminating, 0 regressed.",
+  "summary": "All 5 batch-2 direction-error edges EXIST and removing them PRESERVES capability (0 regressions); 2/5 have the correct-direction relationship present as evidence -> batch 2 is safe + evidence-backed for Skunkworks/Testbed removal. Batch-2 direction errors: 5/5 exist; 2/5 have correct-direction edge present (evidence flagged dir is backwards); 1/5 genuine 2-cycles; removal capability pre-check: 1336->1336 axiom-terminating, 0 regressed.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "flagged": "hessian->newton_method",
+          "flagged_types": [
+            "DEPENDS_ON"
+          ],
+          "reverse_types": [
+            "USES"
+          ],
+          "exists": true,
+          "correct_dir_present": true,
+          "is_two_cycle": false,
+          "note": "newton USES hessian"
+        },
+        {
+          "flagged": "partial_derivative->jacobian_matrix",
+          "flagged_types": [
+            "DEPENDS_ON"
+          ],
+          "reverse_types": [],
+          "exists": true,
+          "correct_dir_present": false,
+          "is_two_cycle": false,
+          "note": "jacobian uses partial_derivative"
+        },
+        {
+          "flagged": "partial_derivative->subgradient",
+          "flagged_types": [
+            "DEPENDS_ON"
+          ],
+          "reverse_types": [],
+          "exists": true,
+          "correct_dir_present": false,
+          "is_two_cycle": false,
+          "note": "subgradient uses partial_derivative"
+        },
+        {
+          "flagged": "bayes_rule->bayesian_inference",
+          "flagged_types": [
+            "DEPENDS_ON"
+          ],
+          "reverse_types": [
+            "DEPENDS_ON"
+          ],
+          "exists": true,
+          "correct_dir_present": true,
+          "is_two_cycle": true,
+          "note": "bayesian_inference uses bayes_rule"
+        },
+        {
+          "flagged": "conditional_probability->bayesian_inference",
+          "flagged_types": [
+            "DEPENDS_ON"
+          ],
+          "reverse_types": [],
+          "exists": true,
+          "correct_dir_present": false,
+          "is_two_cycle": false,
+          "note": "bayesian_inference uses conditional_probability"
+        }
+      ],
+      "n_exist": 5,
+      "n_correct_dir": 2,
+      "n_two_cycle": 1,
+      "goal_pool": 1338,
+      "term_before": 1336,
+      "term_after": 1336,
+      "regressed": [],
+      "cap_preserved": true
+    }
+  ],
+  "elapsed_s": 0.4729585647583008
+}

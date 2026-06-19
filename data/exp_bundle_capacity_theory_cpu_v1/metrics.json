@@ -1,0 +1,24 @@
+{
+  "anchor_name": "bundle_capacity_theory_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: bundle capacity tracks N/(2 ln N) within 35pct -- predictable composition capacity law (the earlier cliff was a threshold artifact). max deviation from N/(2 ln N) = 0.21 | (K_crit, theory): {'N1024': (85, 73.9), 'N2048': (163, 134.3)}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "N1024": [
+          85,
+          73.9
+        ],
+        "N2048": [
+          163,
+          134.3
+        ]
+      },
+      "max_dev": 0.2136844675234199
+    }
+  ],
+  "elapsed_s": 8.214337825775146,
+  "summary": "HARD_PASS: bundle capacity tracks N/(2 ln N) within 35pct -- predictable composition capacity law (the earlier cliff was a threshold artifact). max deviation from N/(2 ln N) = 0.21 | (K_crit, theory): {'N1024': (85, 73.9), 'N2048': (163, 134.3)}"
+}

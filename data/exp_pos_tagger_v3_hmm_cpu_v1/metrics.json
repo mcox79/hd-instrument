@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pos_tagger_v3_hmm_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: corpus_load_failed",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "error": "corpus_load_failed",
+      "tag_acc": 0.0
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "UNKNOWN: corpus_load_failed"
+}

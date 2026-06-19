@@ -1,0 +1,37 @@
+{
+  "anchor_name": "substrate_spectral_monitor_overfitting_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: overfitting not detected in val_loss for any seed (0/3); increase TRAIN_CHARS or N_STEPS.",
+  "run_mode": "full",
+  "N_OBS": 4096,
+  "BUFFER_SIZE": 491,
+  "TRAIN_CHARS": 30000,
+  "N_STEPS": 2000,
+  "MONITOR_EVERY": 5,
+  "LM_HIDDEN": 128,
+  "HP_LEAD_STEPS": 50,
+  "elapsed_s": 899.1529588699341,
+  "per_seed": [
+    {
+      "seed": 7,
+      "val_overfit_step": null,
+      "sub_overfit_step": 200,
+      "lead": null,
+      "elapsed_s": 294.51230216026306
+    },
+    {
+      "seed": 17,
+      "val_overfit_step": null,
+      "sub_overfit_step": 200,
+      "lead": null,
+      "elapsed_s": 297.11497139930725
+    },
+    {
+      "seed": 23,
+      "val_overfit_step": null,
+      "sub_overfit_step": 200,
+      "lead": null,
+      "elapsed_s": 307.4576823711395
+    }
+  ]
+}

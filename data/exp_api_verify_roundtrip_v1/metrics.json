@@ -1,0 +1,16 @@
+{
+  "anchor_name": "api_verify_roundtrip_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: verify() round-trip correct -- all genuine facts grounded=True, all tampers grounded=False; merkle_path embeddable in reactive delivery. genuine_verified=50/50 tamper_caught=50/50",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 50,
+      "genuine_ok": 50,
+      "tamper_caught": 50
+    }
+  ],
+  "elapsed_s": 0.07484865188598633,
+  "summary": "HARD_PASS: verify() round-trip correct -- all genuine facts grounded=True, all tampers grounded=False; merkle_path embeddable in reactive delivery. genuine_verified=50/50 tamper_caught=50/50"
+}

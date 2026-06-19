@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kb_shard_real_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: production-scale sharding holds on REAL FB15K entities (shard-retrieval>=0.70) despite real-entity correlation -- the synthetic shard result survives the synthetic-to-real audit. Substrate-as-compositional-storage is real-data-grounded. real-shard-retrieval=0.965 (NE=1539, shards=20)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "shard_recall": 0.965,
+      "n_ent": 1539,
+      "n_shard": 20
+    }
+  ],
+  "elapsed_s": 8.064381837844849,
+  "summary": "HARD_PASS: production-scale sharding holds on REAL FB15K entities (shard-retrieval>=0.70) despite real-entity correlation -- the synthetic shard result survives the synthetic-to-real audit. Substrate-as-compositional-storage is real-data-grounded. real-shard-retrieval=0.965 (NE=1539, shards=20)"
+}

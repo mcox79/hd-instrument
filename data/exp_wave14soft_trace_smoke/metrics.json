@@ -1,0 +1,105 @@
+{
+  "verdict": "SOFT_TRACE_PARTIAL",
+  "verdict_msg": "Soft wins on: counterfactual fidelity 1.00. Other axes inconclusive.",
+  "elapsed_s": 1.452999999979511,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      30,
+      100,
+      300
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "K": 30,
+      "ece_soft_mean": 0.41562707844598423,
+      "ece_clip_mean": 0.16366502084342638,
+      "acc_soft_mean": 0.699999988079071,
+      "acc_clip_mean": 0.2666666805744171,
+      "cf_cos_mean": 1.0
+    },
+    {
+      "K": 100,
+      "ece_soft_mean": 0.16826116736614793,
+      "ece_clip_mean": 0.24441924561432055,
+      "acc_soft_mean": 0.05000000074505806,
+      "acc_clip_mean": 0.019999999552965164,
+      "cf_cos_mean": 1.0
+    },
+    {
+      "K": 300,
+      "ece_soft_mean": 0.33717670462642957,
+      "ece_clip_mean": 0.3226170039032419,
+      "acc_soft_mean": 0.013333333656191826,
+      "acc_clip_mean": 0.0,
+      "cf_cos_mean": 1.0
+    }
+  ],
+  "per_seed": [
+    {
+      "K": 30,
+      "N": 512,
+      "ece_soft": 0.41562707844598423,
+      "ece_clip": 0.16366502084342638,
+      "acc_soft": 0.699999988079071,
+      "acc_clip": 0.2666666805744171,
+      "counterfactual_cos": 1.0
+    },
+    {
+      "K": 100,
+      "N": 512,
+      "ece_soft": 0.16826116736614793,
+      "ece_clip": 0.24441924561432055,
+      "acc_soft": 0.05000000074505806,
+      "acc_clip": 0.019999999552965164,
+      "counterfactual_cos": 1.0
+    },
+    {
+      "K": 300,
+      "N": 512,
+      "ece_soft": 0.33717670462642957,
+      "ece_clip": 0.3226170039032419,
+      "acc_soft": 0.013333333656191826,
+      "acc_clip": 0.0,
+      "counterfactual_cos": 1.0
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "K": 30,
+        "ece_soft_mean": 0.41562707844598423,
+        "ece_clip_mean": 0.16366502084342638,
+        "acc_soft_mean": 0.699999988079071,
+        "acc_clip_mean": 0.2666666805744171,
+        "cf_cos_mean": 1.0
+      },
+      {
+        "K": 100,
+        "ece_soft_mean": 0.16826116736614793,
+        "ece_clip_mean": 0.24441924561432055,
+        "acc_soft_mean": 0.05000000074505806,
+        "acc_clip_mean": 0.019999999552965164,
+        "cf_cos_mean": 1.0
+      },
+      {
+        "K": 300,
+        "ece_soft_mean": 0.33717670462642957,
+        "ece_clip_mean": 0.3226170039032419,
+        "acc_soft_mean": 0.013333333656191826,
+        "acc_clip_mean": 0.0,
+        "cf_cos_mean": 1.0
+      }
+    ],
+    "ece_clip_mean": 0.2435670901203296,
+    "ece_soft_mean": 0.30702165014618726,
+    "counterfactual_fidelity": 1.0,
+    "cliff_steepness_ratio": 0.3883495417416792
+  }
+}

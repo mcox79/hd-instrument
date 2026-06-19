@@ -1,0 +1,63 @@
+{
+  "seed": 17,
+  "profiles": {
+    "baseline N=1024": {
+      "T_test": 9703,
+      "stage_a_recovery_per_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stage_a_recovery_mean": 1.0,
+      "stage_b_argmax_accuracy": 0.5430279295063383,
+      "stage_b_margin_mean": 0.02991314550091357,
+      "stage_b_margin_median": 0.08122050762176514,
+      "stage_b_margin_pct_positive": 0.5430279295063383,
+      "stage_b_correct_sim_mean": 0.9293576940761863,
+      "stage_b_max_wrong_sim_mean": 0.8994445485158592,
+      "stage_c_bits_overall": 3.154993594871279,
+      "stage_c_bits_when_argmax_correct": 0.36381515635835,
+      "stage_c_bits_when_argmax_wrong": 6.471799908025232,
+      "stage_c_pcorrect_when_argmax_correct": 0.8231462743730739,
+      "stage_c_pcorrect_when_argmax_wrong": 0.04705197229517753,
+      "fraction_argmax_correct": 0.5430279295063383,
+      "fraction_argmax_wrong": 0.45697207049366173,
+      "cleanup_bounds": {
+        "perfect_cleanup_if_argmax_kept": 2.9574318037909797,
+        "perfect_cleanup_if_argmax_correct_else_uniform": 3.653196242299513,
+        "current_bits": 3.154993594871279,
+        "lift_from_perfect_cleanup": 0.19756179108029936
+      }
+    },
+    "larger N=4096": {
+      "T_test": 9703,
+      "stage_a_recovery_per_position": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stage_a_recovery_mean": 1.0,
+      "stage_b_argmax_accuracy": 0.5458105740492631,
+      "stage_b_margin_mean": 0.05351516056015333,
+      "stage_b_margin_median": 0.10516548156738281,
+      "stage_b_margin_pct_positive": 0.5458105740492631,
+      "stage_b_correct_sim_mean": 0.9381872033360087,
+      "stage_b_max_wrong_sim_mean": 0.8846720430831448,
+      "stage_c_bits_overall": 3.01783208810129,
+      "stage_c_bits_when_argmax_correct": 0.3377173335249603,
+      "stage_c_bits_when_argmax_wrong": 6.2385917296343605,
+      "stage_c_pcorrect_when_argmax_correct": 0.8317193863181864,
+      "stage_c_pcorrect_when_argmax_wrong": 0.052070608434685015,
+      "fraction_argmax_correct": 0.5458105740492631,
+      "fraction_argmax_wrong": 0.45418942595073686,
+      "cleanup_bounds": {
+        "perfect_cleanup_if_argmax_kept": 2.8335023964236448,
+        "perfect_cleanup_if_argmax_correct_else_uniform": 3.630950798334225,
+        "current_bits": 3.01783208810129,
+        "lift_from_perfect_cleanup": 0.18432969167764535
+      }
+    }
+  }
+}

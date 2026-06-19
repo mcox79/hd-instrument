@@ -1,0 +1,62 @@
+{
+  "anchor_name": "substrate_sparse_vs_dense_alpha_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse PATTERN coding gives >=3x capacity at N16384 (classic linear-noise regime) -- capacity rescue. at N16384: dense_alpha=0.033 sparse_alpha=0.200 | N4096: dense_a=0.040 sparse_a=0.200 N16384: dense_a=0.033 sparse_a=0.200",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by_N": {
+        "N4096": {
+          "dense_alpha": 0.039794921875,
+          "sparse_alpha": 0.199951171875,
+          "dense_cap": 163,
+          "sparse_cap": 819
+        },
+        "N16384": {
+          "dense_alpha": 0.02996826171875,
+          "sparse_alpha": 0.199951171875,
+          "dense_cap": 491,
+          "sparse_cap": 3276
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by_N": {
+        "N4096": {
+          "dense_alpha": 0.039794921875,
+          "sparse_alpha": 0.199951171875,
+          "dense_cap": 163,
+          "sparse_cap": 819
+        },
+        "N16384": {
+          "dense_alpha": 0.02996826171875,
+          "sparse_alpha": 0.199951171875,
+          "dense_cap": 491,
+          "sparse_cap": 3276
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by_N": {
+        "N4096": {
+          "dense_alpha": 0.039794921875,
+          "sparse_alpha": 0.199951171875,
+          "dense_cap": 163,
+          "sparse_cap": 819
+        },
+        "N16384": {
+          "dense_alpha": 0.03997802734375,
+          "sparse_alpha": 0.199951171875,
+          "dense_cap": 655,
+          "sparse_cap": 3276
+        }
+      }
+    }
+  ],
+  "elapsed_s": 329.8800439834595,
+  "summary": "HARD_PASS: sparse PATTERN coding gives >=3x capacity at N16384 (classic linear-noise regime) -- capacity rescue. at N16384: dense_alpha=0.033 sparse_alpha=0.200 | N4096: dense_a=0.040 sparse_a=0.200 N16384: dense_a=0.033 sparse_a=0.200"
+}

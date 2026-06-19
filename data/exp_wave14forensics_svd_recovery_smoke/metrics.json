@@ -1,0 +1,78 @@
+{
+  "verdict": "FORENSICS_PARTIAL",
+  "verdict_msg": "Low K cos = 0.37, high K = 0.15. Gap 0.22 confirms threshold trend but recovery is weaker than predicted.",
+  "elapsed_s": 0.5,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_list": [
+      20,
+      80,
+      200
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_K": [
+    {
+      "K": 20,
+      "N": 512,
+      "mean_cos_match": 0.36884768763557074,
+      "max_cos_match": 0.36884768763557074,
+      "per_seed_cos": [
+        0.36884768763557074
+      ]
+    },
+    {
+      "K": 80,
+      "N": 512,
+      "mean_cos_match": 0.21027833793777972,
+      "max_cos_match": 0.21027833793777972,
+      "per_seed_cos": [
+        0.21027833793777972
+      ]
+    },
+    {
+      "K": 200,
+      "N": 512,
+      "mean_cos_match": 0.15372071647783742,
+      "max_cos_match": 0.15372071647783742,
+      "per_seed_cos": [
+        0.15372071647783742
+      ]
+    }
+  ],
+  "summary": {
+    "per_K": [
+      {
+        "K": 20,
+        "N": 512,
+        "mean_cos_match": 0.36884768763557074,
+        "max_cos_match": 0.36884768763557074,
+        "per_seed_cos": [
+          0.36884768763557074
+        ]
+      },
+      {
+        "K": 80,
+        "N": 512,
+        "mean_cos_match": 0.21027833793777972,
+        "max_cos_match": 0.21027833793777972,
+        "per_seed_cos": [
+          0.21027833793777972
+        ]
+      },
+      {
+        "K": 200,
+        "N": 512,
+        "mean_cos_match": 0.15372071647783742,
+        "max_cos_match": 0.15372071647783742,
+        "per_seed_cos": [
+          0.15372071647783742
+        ]
+      }
+    ]
+  }
+}

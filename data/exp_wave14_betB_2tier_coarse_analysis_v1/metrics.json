@@ -1,0 +1,57 @@
+{
+  "verdict": "2TIER_HARD_PASS",
+  "verdict_msg": "2-tier HIGH/LOW clearly separable: silhouette=0.788 >= 0.7, 1/1 non-overlapping CIs, KW p=0.000500 < 0.001. HIGH_ci_hi=0.863 > LOW_ci_lo=0.673. Bet B retention is BINARY-classifiable at group level. Coarsest defensible taxonomy = 2-tier.",
+  "elapsed_s": 0.015,
+  "summary": {
+    "2tier": {
+      "tier_stats": {
+        "HIGH": {
+          "n": 66,
+          "mean": 0.8551,
+          "ci_lo": 0.8476,
+          "ci_hi": 0.8625
+        },
+        "LOW": {
+          "n": 33,
+          "mean": 0.6941,
+          "ci_lo": 0.6729,
+          "ci_hi": 0.7154
+        }
+      },
+      "silhouette": 0.7877,
+      "n_nonoverlap": 1,
+      "total_pairs": 1,
+      "kw_p": 0.0005
+    },
+    "3tier": {
+      "tier_stats": {
+        "HIGH": {
+          "n": 16,
+          "mean": 0.8872,
+          "ci_lo": 0.8645,
+          "ci_hi": 0.9098
+        },
+        "MID": {
+          "n": 70,
+          "mean": 0.813,
+          "ci_lo": 0.8008,
+          "ci_hi": 0.8252
+        },
+        "LOW": {
+          "n": 13,
+          "mean": 0.6334,
+          "ci_lo": 0.601,
+          "ci_hi": 0.6658
+        }
+      },
+      "silhouette": 0.4462,
+      "n_nonoverlap": 3,
+      "total_pairs": 3,
+      "kw_p": 0.0005
+    }
+  },
+  "config": {
+    "source": "D:\\AI\\hd-instrument\\data\\exp_wave14_betB_shift_class_full_replication_v1\\metrics.json",
+    "silhouette_hard_pass": 0.7
+  }
+}

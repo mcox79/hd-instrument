@@ -1,0 +1,23 @@
+{
+  "anchor_name": "prebuild_bge_index_cache_gpu_v1",
+  "verdict": "SMOKE_OK",
+  "verdict_msg": "SMOKE_OK: bge-init + encoded 200 atoms in 9.8s (init+encode work; full=sharded checkpoint/resume)",
+  "summary": "SMOKE_OK: bge-init + encoded 200 atoms in 9.8s (init+encode work; full=sharded checkpoint/resume)",
+  "n_seeds": 1,
+  "gate0_self_check": {
+    "pass": false,
+    "reasons": [
+      "metrics_source(bge_index_prebuild)_not_measured_"
+    ],
+    "n_cells_declared": 200,
+    "n_cells_emitted": 200,
+    "elapsed_s": 15.8,
+    "is_smoke": true
+  },
+  "run_mode": "smoke",
+  "branch_path": "bge_index_prebuild",
+  "metrics_source": "bge_index_prebuild",
+  "run_started_utc": "2026-06-19T00:53:10.369563+00:00",
+  "cell_commit": "d78ffe8a",
+  "elapsed_s": 15.84
+}

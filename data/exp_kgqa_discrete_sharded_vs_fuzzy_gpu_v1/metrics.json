@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kgqa_discrete_sharded_vs_fuzzy_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: discrete-sharded K-hop >=0.85 beats fuzzy by >=0.40 at 5000-entity scale -- the right architecture (discrete+sharded) wins decisively. discrete-sharded=1.000 fuzzy=0.000 gap=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "discrete": 1.0,
+      "fuzzy": 0.0,
+      "gap": 1.0
+    }
+  ],
+  "elapsed_s": 9.654377698898315,
+  "summary": "HARD_PASS: discrete-sharded K-hop >=0.85 beats fuzzy by >=0.40 at 5000-entity scale -- the right architecture (discrete+sharded) wins decisively. discrete-sharded=1.000 fuzzy=0.000 gap=1.000"
+}

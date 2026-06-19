@@ -1,0 +1,25 @@
+{
+  "anchor_name": "exp_hp12_v1_decisive_extraction_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate geometry clean on BOTH Pythia-160m AND real Llama-1B embeddings (recall>0.80; no HF-3 geometry mismatch) -- desktop V1 geometry de-risked. pythia_recall=1.000 llama_recall=1.000 (real npz embeddings, N_store=300, N_sub=1024) | speed-test deferred (Llama weights gated/not-local)",
+  "run_mode": "full",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 7,
+      "pythia_recall": 1.0,
+      "llama_recall": 1.0,
+      "llama_extract_s_per_1k": -1.0,
+      "llama_vram_gb": -1.0
+    },
+    {
+      "seed": 17,
+      "pythia_recall": 1.0,
+      "llama_recall": 1.0,
+      "llama_extract_s_per_1k": -1.0,
+      "llama_vram_gb": -1.0
+    }
+  ],
+  "elapsed_s": 11.94093108177185,
+  "summary": "HARD_PASS: substrate geometry clean on BOTH Pythia-160m AND real Llama-1B embeddings (recall>0.80; no HF-3 geometry mismatch) -- desktop V1 geometry de-risked. pythia_recall=1.000 llama_recall=1.000 (real npz embeddings, N_store=300, N_sub=1024) | speed-test deferred (Llama weights gated/not-local)"
+}

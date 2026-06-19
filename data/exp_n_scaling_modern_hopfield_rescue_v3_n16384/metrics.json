@@ -1,0 +1,40 @@
+{
+  "verdict": "NSCALE_R_V3_HARD_FAIL",
+  "verdict_msg": "DIAG_FAIL_AT_step1_construct: OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 1.88 GiB is free. 6.80 GiB allowed; Of the allocated memory 5.00 GiB is allocated by PyTorch, and 1.94 M; s1_ok=False s2_ok=False s3_ok=False s4_full_ok=False max_M=0 N=16384",
+  "elapsed_s": 2.3,
+  "summary": {
+    "anchor": "n_scaling_modern_hopfield_rescue_v3_n16384",
+    "N": 16384,
+    "smoke": false,
+    "seed": 7,
+    "M_sweep": [
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "steps": {
+      "step1_construct": {
+        "step": "step1_construct",
+        "success": false,
+        "error_type": "OutOfMemoryError",
+        "error_msg": "CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 1.88 GiB is free. 6.80 GiB allowed; Of the allocated memory 5.00 GiB is allocated by PyTorch, and 1.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_n_scaling_modern_hopfield_rescue_v3_n16384.py\", line 167, in step1_construct\n    codebook, _ = v3.make_kerdock_4coset_codebook(N_use, device)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_wave14y_erase_kerdock_v3.py\", line 189, in make_kerdock_4coset_codebook\n    codebook = torch.cat(cosets, dim=0)  # (4N, N)\n               ^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 1.88 GiB is free. 6.80 GiB allowed; Of the allocated memory 5.00 GiB is allocated by PyTorch, and 1.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n",
+        "pre_mem": "cuda_alloc=0.00GB cuda_reserved=0.00GB",
+        "fail_mem": "cuda_alloc=5.00GB cuda_reserved=5.00GB",
+        "elapsed_s": 2.3
+      },
+      "step4_m_sweep": {
+        "step": "step4_m_sweep",
+        "skipped": true,
+        "reason": "earlier_step_failed",
+        "any_success": false,
+        "per_M": [],
+        "max_M_at_95_recall": 0
+      }
+    },
+    "verdict": "NSCALE_R_V3_HARD_FAIL",
+    "verdict_msg": "DIAG_FAIL_AT_step1_construct: OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 8.00 GiB of which 1.88 GiB is free. 6.80 GiB allowed; Of the allocated memory 5.00 GiB is allocated by PyTorch, and 1.94 M; s1_ok=False s2_ok=False s3_ok=False s4_full_ok=False max_M=0 N=16384",
+    "elapsed_s": 2.3
+  }
+}

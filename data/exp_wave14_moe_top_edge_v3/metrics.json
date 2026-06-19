@@ -1,0 +1,41 @@
+{
+  "verdict": "FREE_ADDITIVE_FORMULA_ERROR",
+  "verdict_msg": "HARD_FAIL: formula error. Mean offset_ratio=0.506 (v1 was ~0.50). Offset did NOT improve at N=16384 vs N=4096. Free-additive-conv formula missing normalization independent of N. Model requires correction. | K2_Mmult1.0: emp=0.5058 pred=1.0000 offset=0.5058 match15=0.00",
+  "elapsed_s": 0.269,
+  "summary": {
+    "agg": {
+      "K2_Mmult1.0": {
+        "K": 2,
+        "M_mult": 1.0,
+        "M_total": 200,
+        "ratio_empirical_mean": 0.5058,
+        "ratio_empirical_ci_lo": 0.5058,
+        "ratio_empirical_ci_hi": 0.5058,
+        "ratio_predicted": 1.0,
+        "mean_offset_ratio": 0.5058,
+        "match_within_15pct_frac": 0.0,
+        "match_within_30pct_frac": 0.0,
+        "c": 0.0977
+      }
+    },
+    "n_cells": 1,
+    "suspicious_pattern": null,
+    "v1_context": "v1 (N=4096) showed systematic offset ~0.50x; this v2 tests N=16384",
+    "finite_n_expected_improvement": 0.5
+  },
+  "config": {
+    "N": 1024,
+    "K_sweep": [
+      2
+    ],
+    "M_per_expert": 100,
+    "M_mults": [
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "v1_reference": "wave14_moe_top_edge_v1 N=4096 FREE_ADDITIVE_MIDDLE offset~0.50"
+  }
+}

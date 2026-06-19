@@ -1,0 +1,43 @@
+{
+  "anchor_name": "q_a3_l89_cross_layer_composition_v1_n16384",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 89 levels EXACT-1.0 unanimous + l89_acc HP at N=16384. L85:1.0000 L86:1.0000 L87:1.0000 L88:1.0000 L89:1.0000 l89_acc=1.0000 n_seeds=5",
+  "N": 16384,
+  "L": 89,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 29.29943323135376,
+  "summary": "HARD_PASS: all 89 levels EXACT-1.0 unanimous + l89_acc HP at N=16384. L85:1.0000 L86:1.0000 L87:1.0000 L88:1.0000 L89:1.0000 l89_acc=1.0000 n_seeds=5",
+  "per_seed": [
+    {
+      "seed": 7,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.202812416,
+      "elapsed_s": 5.9666807651519775
+    },
+    {
+      "seed": 17,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.202812416,
+      "elapsed_s": 5.8078789710998535
+    },
+    {
+      "seed": 23,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.202812416,
+      "elapsed_s": 5.822375774383545
+    },
+    {
+      "seed": 31,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.202812416,
+      "elapsed_s": 5.830012321472168
+    },
+    {
+      "seed": 41,
+      "lacc": 1.0,
+      "peak_gpu_gb": 2.202812416,
+      "elapsed_s": 5.822022438049316
+    }
+  ]
+}

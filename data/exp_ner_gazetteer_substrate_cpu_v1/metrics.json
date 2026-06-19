@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_gazetteer_substrate_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: gazetteer lift <0.02 and F1<0.60 -- substrate-self-referential gazetteer SATURATES like other in-corpus features (lexical surfaces already learned at scale). ACCEPT boundary; promote CoNLL-equivalent 0.648 as PRIMARY NER claim. +gaz F1=0.5883 vs baseline 0.5817 (lift=+0.0066, P=0.611 R=0.567, gaz-hit-rate=0.023, train=5982)",
+  "summary": "HARD_FAIL: gazetteer lift <0.02 and F1<0.60 -- substrate-self-referential gazetteer SATURATES like other in-corpus features (lexical surfaces already learned at scale). ACCEPT boundary; promote CoNLL-equivalent 0.648 as PRIMARY NER claim. +gaz F1=0.5883 vs baseline 0.5817 (lift=+0.0066, P=0.611 R=0.567, gaz-hit-rate=0.023, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5883,
+      "f1_gaz": 0.5883,
+      "f1_baseline": 0.5817,
+      "lift": 0.0066,
+      "prec": 0.611,
+      "rec": 0.567,
+      "n_train": 5982,
+      "gaz_hit_rate": 0.0226
+    }
+  ],
+  "elapsed_s": 505.4534287452698
+}

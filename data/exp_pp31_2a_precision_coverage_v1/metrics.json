@@ -1,0 +1,332 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "PP31-2A PRECISION COVERAGE: verdict=MIDDLE_BAND | 2/5 seeds pass HP | avg_knee=0.740 | HP: prec>=0.92 at cov>=0.60 at some tau AND knee>=0.20 in >=4/5 seeds | HF: no tau achieves prec>=0.80 OR cov<0.10 at tau<=0.50 in >=4/5 seeds",
+  "seeds_pass": 2,
+  "seeds_hf": 0,
+  "seeds_total": 5,
+  "avg_knee": 0.74037316315482,
+  "all_seed_results": [
+    {
+      "seed": 7,
+      "curve": [
+        {
+          "tau": 0.3,
+          "precision": 0.9572649572649573,
+          "coverage": 0.5909090909090909
+        },
+        {
+          "tau": 0.35,
+          "precision": 0.9813084112149533,
+          "coverage": 0.5404040404040404
+        },
+        {
+          "tau": 0.4,
+          "precision": 1.0,
+          "coverage": 0.4898989898989899
+        },
+        {
+          "tau": 0.45,
+          "precision": 1.0,
+          "coverage": 0.47474747474747475
+        },
+        {
+          "tau": 0.5,
+          "precision": 1.0,
+          "coverage": 0.4090909090909091
+        },
+        {
+          "tau": 0.55,
+          "precision": 1.0,
+          "coverage": 0.3484848484848485
+        },
+        {
+          "tau": 0.6,
+          "precision": 1.0,
+          "coverage": 0.3333333333333333
+        },
+        {
+          "tau": 0.65,
+          "precision": 1.0,
+          "coverage": 0.32323232323232326
+        },
+        {
+          "tau": 0.7,
+          "precision": 1.0,
+          "coverage": 0.25757575757575757
+        },
+        {
+          "tau": 0.75,
+          "precision": 1.0,
+          "coverage": 0.17676767676767677
+        },
+        {
+          "tau": 0.8,
+          "precision": 1.0,
+          "coverage": 0.16666666666666666
+        }
+      ],
+      "knee": 0.3738317757009343,
+      "hp_tau": null,
+      "passes_hp": false,
+      "cov_at_50": 0.4090909090909091
+    },
+    {
+      "seed": 17,
+      "curve": [
+        {
+          "tau": 0.3,
+          "precision": 0.9217391304347826,
+          "coverage": 0.5808080808080808
+        },
+        {
+          "tau": 0.35,
+          "precision": 0.9807692307692307,
+          "coverage": 0.5252525252525253
+        },
+        {
+          "tau": 0.4,
+          "precision": 1.0,
+          "coverage": 0.5
+        },
+        {
+          "tau": 0.45,
+          "precision": 1.0,
+          "coverage": 0.4797979797979798
+        },
+        {
+          "tau": 0.5,
+          "precision": 1.0,
+          "coverage": 0.41414141414141414
+        },
+        {
+          "tau": 0.55,
+          "precision": 1.0,
+          "coverage": 0.3484848484848485
+        },
+        {
+          "tau": 0.6,
+          "precision": 1.0,
+          "coverage": 0.3282828282828283
+        },
+        {
+          "tau": 0.65,
+          "precision": 1.0,
+          "coverage": 0.3181818181818182
+        },
+        {
+          "tau": 0.7,
+          "precision": 1.0,
+          "coverage": 0.26262626262626265
+        },
+        {
+          "tau": 0.75,
+          "precision": 1.0,
+          "coverage": 0.18181818181818182
+        },
+        {
+          "tau": 0.8,
+          "precision": 1.0,
+          "coverage": 0.16666666666666666
+        }
+      ],
+      "knee": 0.7959866220735773,
+      "hp_tau": null,
+      "passes_hp": false,
+      "cov_at_50": 0.41414141414141414
+    },
+    {
+      "seed": 23,
+      "curve": [
+        {
+          "tau": 0.3,
+          "precision": 0.8898305084745762,
+          "coverage": 0.5959595959595959
+        },
+        {
+          "tau": 0.35,
+          "precision": 0.9626168224299065,
+          "coverage": 0.5404040404040404
+        },
+        {
+          "tau": 0.4,
+          "precision": 0.98989898989899,
+          "coverage": 0.5
+        },
+        {
+          "tau": 0.45,
+          "precision": 1.0,
+          "coverage": 0.4898989898989899
+        },
+        {
+          "tau": 0.5,
+          "precision": 1.0,
+          "coverage": 0.41919191919191917
+        },
+        {
+          "tau": 0.55,
+          "precision": 1.0,
+          "coverage": 0.3383838383838384
+        },
+        {
+          "tau": 0.6,
+          "precision": 1.0,
+          "coverage": 0.3333333333333333
+        },
+        {
+          "tau": 0.65,
+          "precision": 1.0,
+          "coverage": 0.3282828282828283
+        },
+        {
+          "tau": 0.7,
+          "precision": 1.0,
+          "coverage": 0.23737373737373738
+        },
+        {
+          "tau": 0.75,
+          "precision": 1.0,
+          "coverage": 0.18181818181818182
+        },
+        {
+          "tau": 0.8,
+          "precision": 1.0,
+          "coverage": 0.16666666666666666
+        }
+      ],
+      "knee": 0.9100829297249386,
+      "hp_tau": null,
+      "passes_hp": false,
+      "cov_at_50": 0.41919191919191917
+    },
+    {
+      "seed": 31,
+      "curve": [
+        {
+          "tau": 0.3,
+          "precision": 0.9411764705882353,
+          "coverage": 0.601010101010101
+        },
+        {
+          "tau": 0.35,
+          "precision": 1.0,
+          "coverage": 0.5353535353535354
+        },
+        {
+          "tau": 0.4,
+          "precision": 1.0,
+          "coverage": 0.5
+        },
+        {
+          "tau": 0.45,
+          "precision": 1.0,
+          "coverage": 0.494949494949495
+        },
+        {
+          "tau": 0.5,
+          "precision": 1.0,
+          "coverage": 0.4292929292929293
+        },
+        {
+          "tau": 0.55,
+          "precision": 1.0,
+          "coverage": 0.3484848484848485
+        },
+        {
+          "tau": 0.6,
+          "precision": 1.0,
+          "coverage": 0.3333333333333333
+        },
+        {
+          "tau": 0.65,
+          "precision": 1.0,
+          "coverage": 0.3181818181818182
+        },
+        {
+          "tau": 0.7,
+          "precision": 1.0,
+          "coverage": 0.26262626262626265
+        },
+        {
+          "tau": 0.75,
+          "precision": 1.0,
+          "coverage": 0.18686868686868688
+        },
+        {
+          "tau": 0.8,
+          "precision": 1.0,
+          "coverage": 0.16666666666666666
+        }
+      ],
+      "knee": 1.1764705882352946,
+      "hp_tau": 0.3,
+      "passes_hp": true,
+      "cov_at_50": 0.4292929292929293
+    },
+    {
+      "seed": 41,
+      "curve": [
+        {
+          "tau": 0.3,
+          "precision": 0.9586776859504132,
+          "coverage": 0.6111111111111112
+        },
+        {
+          "tau": 0.35,
+          "precision": 0.9904761904761905,
+          "coverage": 0.5303030303030303
+        },
+        {
+          "tau": 0.4,
+          "precision": 1.0,
+          "coverage": 0.5050505050505051
+        },
+        {
+          "tau": 0.45,
+          "precision": 1.0,
+          "coverage": 0.47474747474747475
+        },
+        {
+          "tau": 0.5,
+          "precision": 1.0,
+          "coverage": 0.40404040404040403
+        },
+        {
+          "tau": 0.55,
+          "precision": 1.0,
+          "coverage": 0.35858585858585856
+        },
+        {
+          "tau": 0.6,
+          "precision": 1.0,
+          "coverage": 0.3333333333333333
+        },
+        {
+          "tau": 0.65,
+          "precision": 1.0,
+          "coverage": 0.3282828282828283
+        },
+        {
+          "tau": 0.7,
+          "precision": 1.0,
+          "coverage": 0.23737373737373738
+        },
+        {
+          "tau": 0.75,
+          "precision": 1.0,
+          "coverage": 0.1717171717171717
+        },
+        {
+          "tau": 0.8,
+          "precision": 1.0,
+          "coverage": 0.16666666666666666
+        }
+      ],
+      "knee": 0.4454939000393557,
+      "hp_tau": 0.3,
+      "passes_hp": true,
+      "cov_at_50": 0.40404040404040403
+    }
+  ],
+  "smoke": false,
+  "elapsed_s": 1.5325279235839844
+}

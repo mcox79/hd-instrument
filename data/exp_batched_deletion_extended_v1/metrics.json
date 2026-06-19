@@ -1,0 +1,14 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Batched deletion: r_1=1.000 [HP: 0.88-0.96], n_hp=0/2, R10_indep=1.0, R10_corr=1.0, formula_ratio=1.0",
+  "mean_r1": 1.0,
+  "mean_R10_independent": 1.0,
+  "mean_R10_correlated": 1.0,
+  "formula_ratio_R10": 1.0,
+  "n_hp_seeds": 0,
+  "n_seeds": 2,
+  "N_production": 4096,
+  "N_run": 512,
+  "elapsed_s": 1.5070679187774658,
+  "run_mode": "smoke"
+}

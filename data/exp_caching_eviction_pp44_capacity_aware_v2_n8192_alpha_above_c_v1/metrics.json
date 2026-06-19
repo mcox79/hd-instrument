@@ -1,0 +1,13 @@
+{
+  "anchor_name": "caching_eviction_pp44_capacity_aware_v2_n8192_alpha_above_c_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-44 eviction at N=8192 confirmed. fid_evict=1.0000(HP>=0.8 HF<0.5) fid_no_evict=0.7534(HP<=0.5) retained=1.0000(HP>=0.85) N=1024 alpha_stress=0.22 n=2",
+  "N": 1024,
+  "alpha_stress": 0.22,
+  "alpha_window": 0.1,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 5.3971686363220215,
+  "mean_fidelity_with_eviction": 1.0,
+  "mean_fidelity_no_eviction": 0.75341796875
+}

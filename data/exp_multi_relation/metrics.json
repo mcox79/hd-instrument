@@ -1,0 +1,69 @@
+{
+  "spec": {
+    "name": "exp_multi_relation",
+    "seed": 42,
+    "n": 4096,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-17T17:31:40",
+  "total_events": 0,
+  "total_wall_time_us": 0.0,
+  "n_substrate": 4096,
+  "n_entities": 30,
+  "relation_names": [
+    "parent_of",
+    "spouse_of",
+    "lives_in",
+    "works_at",
+    "owns",
+    "friend_of"
+  ],
+  "edges_per_relation": 25,
+  "trials_per_query": 30,
+  "total_facts": 150,
+  "results": {
+    "1-hop (parent)": {
+      "graph_recall_at_truthset_size": 1.4761904761904763,
+      "graph_top1_in_set": 1.0,
+      "vsa_top1_in_set": 0.8095238095238095,
+      "attempts": 21,
+      "n_relations": 1
+    },
+    "1-hop (spouse)": {
+      "graph_recall_at_truthset_size": 1.4375,
+      "graph_top1_in_set": 1.0,
+      "vsa_top1_in_set": 0.75,
+      "attempts": 16,
+      "n_relations": 1
+    },
+    "2-hop (par-spouse)": {
+      "graph_recall_at_truthset_size": 0.5769230769230769,
+      "graph_top1_in_set": 1.0,
+      "vsa_top1_in_set": 0.38461538461538464,
+      "attempts": 13,
+      "n_relations": 2
+    },
+    "2-hop (par-lives)": {
+      "graph_recall_at_truthset_size": 0.5666666666666667,
+      "graph_top1_in_set": 1.0,
+      "vsa_top1_in_set": 0.6,
+      "attempts": 15,
+      "n_relations": 2
+    },
+    "3-hop (par-sp-work)": {
+      "graph_recall_at_truthset_size": 0.4358974358974359,
+      "graph_top1_in_set": 1.0,
+      "vsa_top1_in_set": 0.15384615384615385,
+      "attempts": 13,
+      "n_relations": 3
+    },
+    "3-hop (4 rel chain)": {
+      "graph_recall_at_truthset_size": 0.25,
+      "graph_top1_in_set": 1.0,
+      "vsa_top1_in_set": 0.0,
+      "attempts": 1,
+      "n_relations": 4
+    }
+  },
+  "headline": "1-hop: graph_top1=1.00, vsa_top1=0.81; 3-hop: graph_top1=1.00, vsa_top1=0.15"
+}

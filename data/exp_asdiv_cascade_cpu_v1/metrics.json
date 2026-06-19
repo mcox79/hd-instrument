@@ -1,0 +1,17 @@
+{
+  "anchor_name": "asdiv_cascade_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cascade 0.30-0.40 -- beats the 0.224 baseline; verifier/selection helps but below 0.40. cascade=0.300 baseline-first2=0.255 (n_test=800, train-labeled=425)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3,
+      "baseline": 0.255,
+      "n_train_labeled": 425,
+      "n_test": 800
+    }
+  ],
+  "elapsed_s": 1.0714094638824463,
+  "summary": "MIDDLE_BAND: cascade 0.30-0.40 -- beats the 0.224 baseline; verifier/selection helps but below 0.40. cascade=0.300 baseline-first2=0.255 (n_test=800, train-labeled=425)"
+}

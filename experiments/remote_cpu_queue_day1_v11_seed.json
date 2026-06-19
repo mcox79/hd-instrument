@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "decompose_K_cliff_extended", "script": "experiments/exp_wave14b_decompose_K_cliff.py", "status": "pending", "purpose": "K-cliff retry with more trials (current data: 30 trials, want more confidence). Same script as before; just re-running.", "timeout_s": 7200}
+  ]
+}

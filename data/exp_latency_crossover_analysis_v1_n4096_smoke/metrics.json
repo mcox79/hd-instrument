@@ -1,0 +1,39 @@
+{
+  "verdict": "S2_HARD_FAIL",
+  "verdict_msg": "SINGLE_MECHANISM_DOMINATES: wins={'B': 1, 'D': 0, 'E': 0} n_groups=1 inconclusive=0",
+  "elapsed_s": 0.16,
+  "summary": {
+    "anchor": "latency_crossover_analysis_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      128
+    ],
+    "depths": [
+      3
+    ],
+    "Ks": [
+      50
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 128,
+        "depth": 3,
+        "K_paths": 50,
+        "seed": 17,
+        "lat_b_ns": 2739500,
+        "lat_d_ns": 39607600,
+        "lat_e_ns": 90763300,
+        "acc_b": 1.0,
+        "acc_d": 1.0,
+        "auc_e": 1.0
+      }
+    ],
+    "verdict": "S2_HARD_FAIL",
+    "verdict_msg": "SINGLE_MECHANISM_DOMINATES: wins={'B': 1, 'D': 0, 'E': 0} n_groups=1 inconclusive=0",
+    "elapsed_s": 0.16
+  }
+}

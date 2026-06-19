@@ -1,0 +1,16 @@
+{
+  "anchor_name": "bitemporal_sync_throughput_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: append-only bitemporal sync <1ms/write -- synchronous sync adequate for V1 (no async queue needed). per_write=0.0070ms throughput=143599 rows/sec (V1 target <100 writes/sec)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_writes": 2000,
+      "per_write_ms": 0.006963849999010563,
+      "throughput": 143598.72773567523
+    }
+  ],
+  "elapsed_s": 0.014935493469238281,
+  "summary": "HARD_PASS: append-only bitemporal sync <1ms/write -- synchronous sync adequate for V1 (no async queue needed). per_write=0.0070ms throughput=143599 rows/sec (V1 target <100 writes/sec)"
+}

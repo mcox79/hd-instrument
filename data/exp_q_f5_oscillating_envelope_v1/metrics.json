@@ -1,0 +1,21 @@
+{
+  "anchor": "q_f5_oscillating_envelope_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "q_f5_oscillating_envelope_v1 verdict=MIDDLE_BAND: mean_dft_snr=2.324(HP>=3.0,HF<1.5) mean_frac_osc=0.065(HP>=0.2,HF<0.05) cell_A=FAIL(0/2) cell_B=FAIL(0/2) interp: Inconclusive: partial oscillation signal, neither DFT SNR nor frac_osc decisive. elapsed=30.7s",
+  "mean_dft_snr": 2.3239562222572596,
+  "mean_frac_osc": 0.06493933432559996,
+  "n_cell_A_pass": 0,
+  "n_cell_B_pass": 0,
+  "all_dft_snr": [
+    2.3893496693794725,
+    2.2585627751350468
+  ],
+  "all_frac_osc": [
+    0.02488681551122269,
+    0.10499185313997725
+  ],
+  "elapsed_s": 30.66397190093994
+}

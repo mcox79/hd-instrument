@@ -1,0 +1,91 @@
+{
+  "anchor_name": "substrate_b_delta_readout_lever_transfer_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "TRANSFER CONFIRMED: the nonlinear-readout lever lifts capacity on BOTH tasks (clustered +53.1pp @M256, uniform +100.0pp @M64); magnitude REGIME-DEPENDENT (|delta|=46.9pp > 10pp -- stronger on the uniform task) -> the lever is TASK-GENERAL (present in both the spread and classic regimes). N=1024; readout-family/config envelope (measured-bounds), NOT fundamental.",
+  "summary": "TRANSFER CONFIRMED: the nonlinear-readout lever lifts capacity on BOTH tasks (clustered +53.1pp @M256, uniform +100.0pp @M64); magnitude REGIME-DEPENDENT (|delta|=46.9pp > 10pp -- stronger on the uniform task) -> the lever is TASK-GENERAL (present in both the spread and classic regimes). N=1024; readout-family/config envelope (measured-bounds), NOT fundamental.",
+  "headline": "TRANSFER CONFIRMED: the nonlinear-readout lever lifts capacity on BOTH tasks (clustered +53.1pp @M256, uniform +100.0pp @M64); magnitude REGIME-DEPENDENT (|delta|=46.9pp > 10pp -- stronger on the uniform task) -> the lever is TASK-GENERAL (present in both the spread and classic regimes). N=1024; readout-family/config envelope (measured-bounds), NOT fundamental.",
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "branch_path": "readout_lever_transfer_2task",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T16:12:48.615066+00:00",
+  "cell_commit": "d78ffe8a",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 4,
+    "n_cells_emitted": 4,
+    "elapsed_s": 0.19,
+    "is_smoke": true
+  },
+  "n_cells": 4,
+  "lever": "linear(classic Hopfield sign(S@V)) vs nonlinear(modern Hopfield sign(softmax(beta*S)@V))",
+  "tasks": {
+    "A": "clustered-key spread regime",
+    "B": "uniform-iid-key classic regime"
+  },
+  "lift_clustered": {
+    "M": 256,
+    "lift": 0.53125,
+    "lin": 0.0,
+    "nl": 0.53125,
+    "nz": 55.5625,
+    "measurable": true
+  },
+  "lift_uniform": {
+    "M": 64,
+    "lift": 1.0,
+    "lin": 0.0,
+    "nl": 1.0,
+    "nz": 16.328125,
+    "measurable": true
+  },
+  "beta_tuned": {
+    "clustered": 120.0,
+    "uniform": 120.0
+  },
+  "both_measurable": true,
+  "grid": {
+    "clustered": {
+      "64": {
+        "lin": 0.0,
+        "nl": 0.3906,
+        "nz": 15.09
+      },
+      "256": {
+        "lin": 0.0,
+        "nl": 0.5312,
+        "nz": 55.56
+      }
+    },
+    "uniform": {
+      "64": {
+        "lin": 0.0,
+        "nl": 1.0,
+        "nz": 16.33
+      },
+      "256": {
+        "lin": 0.0,
+        "nl": 1.0,
+        "nz": 56.3
+      }
+    }
+  },
+  "config": {
+    "N": 1024,
+    "M_list": [
+      64,
+      256
+    ],
+    "seeds": [
+      7
+    ],
+    "cluster_size": 8,
+    "noise": 0.15,
+    "LIFT_MIN": 0.05,
+    "LIFT_GAP": 0.1
+  },
+  "bears_on": "ARCH-B (nonlinear readout lifts capacity) + C1 entmax (sparse readout cheaper at iso-recall) -- tests lever GENERALITY across tasks",
+  "measured_bounds": "readout-lever transfer envelope at N=1024/cluster=8/noise=0.15; NOT fundamental",
+  "elapsed_s": 0.24
+}

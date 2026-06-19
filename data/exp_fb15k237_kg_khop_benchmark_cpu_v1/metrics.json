@@ -1,0 +1,21 @@
+{
+  "anchor_name": "fb15k237_kg_khop_benchmark_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sharded substrate K-hop works on REAL Freebase (FB15k-237) -- 1-hop r@5>=0.80, 2-hop r@5>=0.55; KG-QA product validated on real data (monolithic collapses). 1-hop r@1=1.000 r@5=1.000 (mono@5=0.007) 2-hop r@5=0.705 (12838 ents, 237 rels)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n1": 800,
+      "n2": 596,
+      "h1_r1": 1.0,
+      "h1_r5": 1.0,
+      "mono1_r5": 0.0075,
+      "h2_r5": 0.7046979865771812,
+      "VE": 12838,
+      "VR": 237
+    }
+  ],
+  "elapsed_s": 116.23341846466064,
+  "summary": "HARD_PASS: sharded substrate K-hop works on REAL Freebase (FB15k-237) -- 1-hop r@5>=0.80, 2-hop r@5>=0.55; KG-QA product validated on real data (monolithic collapses). 1-hop r@1=1.000 r@5=1.000 (mono@5=0.007) 2-hop r@5=0.705 (12838 ents, 237 rels)"
+}

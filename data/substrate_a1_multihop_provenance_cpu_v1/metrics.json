@@ -1,0 +1,71 @@
+{
+  "anchor_name": "substrate_a1_multihop_provenance_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: multi-hop-provenance cert-check WORKS: answer_found=1.000 (>=0.7) on the held-out 2-hop set AND 100% returned-path edges PROVENANCE-VERIFIED (every hop a persisted Store tuple; 600 path-edges, 0 unverifiable). refuse_rate=1.000 on distractors. Deterministic structural check over the materialized typed-edge KG (within-corpus; measured-bounds, NOT fundamental).",
+  "summary": "HARD_PASS: multi-hop-provenance cert-check WORKS: answer_found=1.000 (>=0.7) on the held-out 2-hop set AND 100% returned-path edges PROVENANCE-VERIFIED (every hop a persisted Store tuple; 600 path-edges, 0 unverifiable). refuse_rate=1.000 on distractors. Deterministic structural check over the materialized typed-edge KG (within-corpus; measured-bounds, NOT fundamental).",
+  "headline": "HARD_PASS: multi-hop-provenance cert-check WORKS: answer_found=1.000 (>=0.7) on the held-out 2-hop set AND 100% returned-path edges PROVENANCE-VERIFIED (every hop a persisted Store tuple; 600 path-edges, 0 unverifiable). refuse_rate=1.000 on distractors. Deterministic structural check over the materialized typed-edge KG (within-corpus; measured-bounds, NOT fundamental).",
+  "n_seeds": 1,
+  "run_mode": "full",
+  "branch_path": "multihop_provenance_bfs",
+  "metrics_source": "measured_graph_bfs",
+  "run_started_utc": "2026-06-18T17:39:56.547203+00:00",
+  "cell_commit": "d1e3798f",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 600,
+    "n_cells_emitted": 600,
+    "elapsed_s": 0.74,
+    "is_smoke": false
+  },
+  "discrimination_self_check": {
+    "discriminates": true,
+    "reference_value": 1.0,
+    "floor": 0.4,
+    "ceiling": 1.0,
+    "reason": "answerable + distractor both present (multi-hop recall vs refuse discriminates)"
+  },
+  "path_provenance_self_check": {
+    "is_provenance_sound": true,
+    "n_paths": 300,
+    "n_path_edges": 600,
+    "n_unverifiable_edges": 0,
+    "reason": "every returned-path hop = a persisted (src, rel_type, tgt) Store tuple (0 hallucinated)"
+  },
+  "corpus_completeness_self_check": {
+    "is_complete": true,
+    "claim_kind": "distractor_no_path_reachability",
+    "n_checked": 300,
+    "n_total": 300,
+    "complete_corpus": true,
+    "method": "exhaustive_bfs_depth_8_per_distractor",
+    "method_ok": true,
+    "reason": "distractors verified genuinely unreachable (exhaustive BFS), not bounded-give-up"
+  },
+  "min_cert_along_path": "ontology-INGESTED edge tier (IS_A/HYPERNYM/PART_OF from WordNet/GO; NOT experiment-cert). The PATH is provenance-CERT (every edge persisted/sound); the per-answer CLAIM-cert = the weakest edge tier = ontology-ingested. The A1 RESULT (answer-rate + 100%-edge-verifiable) is the cert-grade EXPERIMENT; per-answer claims carry the min-edge-tier (Skunkworks cert-condition 5).",
+  "honest_scope": "provenance-verified multi-hop PATH-FINDING over the materialized within-5k typed-edge backbone (IS_A/HYPERNYM/PART_OF); NOT general reasoning / NOT 'the substrate reasons'. ARC-1 T1 proof-of-mechanism (narrow, honest-scoped) -- NOT 'ARC 1 shipped'; scale-up awaits USER ratify.",
+  "answer_found": 1.0,
+  "refuse_rate": 1.0,
+  "path_edges_total": 600,
+  "path_edges_unverifiable": 0,
+  "edge_verifiable_100pct": true,
+  "n_answerable": 300,
+  "n_distractor": 300,
+  "n_2hop_chains": 11944,
+  "depth_dist": {
+    "2": 300
+  },
+  "rel_types": [
+    "IS_A",
+    "HYPERNYM",
+    "PART_OF"
+  ],
+  "max_depth": 2,
+  "bands": {
+    "hard_pass": 0.7,
+    "hard_fail": 0.4
+  },
+  "bears_on": "TRACK-3 edge-materialization (IS_A/HYPERNYM/PART_OF); composed-reasoning hand-off A1; 4-gate self-cert engine",
+  "measured_bounds": "within-corpus 2-hop reachability over the materialized within-5k typed-edge backbone; deterministic BFS; NOT fundamental",
+  "elapsed_s": 0.75
+}

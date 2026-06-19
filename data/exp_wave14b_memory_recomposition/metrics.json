@@ -1,0 +1,7 @@
+{
+  "full_synthesis_correct": 1.0,
+  "swapped_bytes_correct": 1.0,
+  "mean_cos_to_A": 0.4420947265625,
+  "mean_cos_to_B": 0.4360107421875,
+  "decompose_recompose_equiv_direct": 1.0
+}

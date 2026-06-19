@@ -1,0 +1,148 @@
+{
+  "verdict": "NO_REFINEMENT",
+  "verdict_msg": "NO_REFINEMENT: no dispatch sub-pattern improves on base multi-agent finding. inline_main V=0.201, concreteness V=0.045. Multi-agent gap is not explained by dispatch style or concreteness.",
+  "elapsed_s": 0.014,
+  "summary": {
+    "n_verdicts": 105,
+    "n_pass_fail": 54,
+    "dispatch_pass_rates": {
+      "empty": 0.8571428571428571,
+      "full_wrapper": 0.6666666666666666,
+      "inline_main": 0.75,
+      "multi_wrapper": 0.3333333333333333,
+      "other": 0.75,
+      "partial_wrapper": 0.0,
+      "vh_only": 0.8333333333333334
+    },
+    "chi2_inline_vs_wrapper": {
+      "chi2": 1.461,
+      "p": 0.2268,
+      "v": 0.201
+    },
+    "chi2_concreteness": {
+      "chi2": 0.11,
+      "p": 0.7399,
+      "v": 0.045
+    },
+    "temporal_gap": {
+      "first_third_gap": 0.357,
+      "last_third_gap": 0.214,
+      "reversal": false
+    },
+    "top_failing_combos": [
+      {
+        "topic": "other",
+        "dispatch": "multi_wrapper",
+        "n": 5,
+        "pass_rate": 0.4,
+        "PASS": 2,
+        "FAIL": 3
+      },
+      {
+        "topic": "other",
+        "dispatch": "full_wrapper",
+        "n": 12,
+        "pass_rate": 0.6666666666666666,
+        "PASS": 8,
+        "FAIL": 4
+      },
+      {
+        "topic": "1rsb_spinglass",
+        "dispatch": "inline_main",
+        "n": 4,
+        "pass_rate": 0.75,
+        "PASS": 3,
+        "FAIL": 1
+      },
+      {
+        "topic": "other",
+        "dispatch": "empty",
+        "n": 5,
+        "pass_rate": 0.8,
+        "PASS": 4,
+        "FAIL": 1
+      },
+      {
+        "topic": "other",
+        "dispatch": "vh_only",
+        "n": 5,
+        "pass_rate": 0.8,
+        "PASS": 4,
+        "FAIL": 1
+      }
+    ],
+    "signals_found": []
+  },
+  "dispatch_breakdown": {
+    "empty": {
+      "n_total": 13,
+      "n_pass": 6,
+      "n_fail": 1,
+      "n_other": 6,
+      "pass_rate": 0.8571428571428571
+    },
+    "full_wrapper": {
+      "n_total": 23,
+      "n_pass": 10,
+      "n_fail": 5,
+      "n_other": 8,
+      "pass_rate": 0.6666666666666666
+    },
+    "inline_main": {
+      "n_total": 18,
+      "n_pass": 9,
+      "n_fail": 3,
+      "n_other": 6,
+      "pass_rate": 0.75
+    },
+    "multi_wrapper": {
+      "n_total": 34,
+      "n_pass": 3,
+      "n_fail": 6,
+      "n_other": 25,
+      "pass_rate": 0.3333333333333333
+    },
+    "other": {
+      "n_total": 4,
+      "n_pass": 3,
+      "n_fail": 1,
+      "n_other": 0,
+      "pass_rate": 0.75
+    },
+    "partial_wrapper": {
+      "n_total": 1,
+      "n_pass": 0,
+      "n_fail": 1,
+      "n_other": 0,
+      "pass_rate": 0.0
+    },
+    "vh_only": {
+      "n_total": 12,
+      "n_pass": 5,
+      "n_fail": 1,
+      "n_other": 6,
+      "pass_rate": 0.8333333333333334
+    }
+  },
+  "temporal_stability": {
+    "first_third": {
+      "multi_pass_rate": 0.6428571428571429,
+      "single_pass_rate": 1.0,
+      "n_multi": 14,
+      "n_single": 4
+    },
+    "mid_third": {
+      "multi_pass_rate": 0.5384615384615384,
+      "single_pass_rate": 0.8,
+      "n_multi": 13,
+      "n_single": 5
+    },
+    "last_third": {
+      "multi_pass_rate": 0.5,
+      "single_pass_rate": 0.7142857142857143,
+      "n_multi": 4,
+      "n_single": 14
+    }
+  },
+  "config": {}
+}

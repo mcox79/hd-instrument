@@ -1,0 +1,20 @@
+{
+  "anchor_name": "svamp_role_asymmetry_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: role-asymmetry lifts SVAMP toward target (0.33-0.42 or lift>=0.05) -- mechanism works, partial; richer role parsing for 0.42. +role=0.3633 vs baseline(first-2)=0.2867 (lift=+0.0767, test=300). Role = target-aligned operand selection + subject/object/transfer-direction features.",
+  "summary": "MIDDLE_BAND: role-asymmetry lifts SVAMP toward target (0.33-0.42 or lift>=0.05) -- mechanism works, partial; richer role parsing for 0.42. +role=0.3633 vs baseline(first-2)=0.2867 (lift=+0.0767, test=300). Role = target-aligned operand selection + subject/object/transfer-direction features.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3633,
+      "acc_role": 0.3633,
+      "acc_baseline": 0.2867,
+      "lift": 0.0767,
+      "n_test": 300,
+      "n_train_labeled_role": 388,
+      "n_train_labeled_base": 322
+    }
+  ],
+  "elapsed_s": 0.44301700592041016
+}

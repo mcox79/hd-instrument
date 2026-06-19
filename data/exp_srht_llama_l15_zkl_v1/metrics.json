@@ -1,0 +1,20 @@
+{
+  "anchor_name": "srht_llama_l15_zkl_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: on production Llama-L15 encoder, iterated SRHT reaches ZKL(50)<=0.10 -- HIPAA absolute claim restorable on the real encoder. Llama-L15 ZKL(50) by SRHT passes: {'P0': 0.0467, 'P1': 0.0733, 'P2': 0.0633, 'P3': 0.0733} | base=0.0467 min=0.0467 (HIPAA<=0.10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_passes": {
+        "P0": 0.04666666666666667,
+        "P1": 0.07333333333333333,
+        "P2": 0.06333333333333334,
+        "P3": 0.07333333333333333
+      },
+      "D": 2048
+    }
+  ],
+  "elapsed_s": 30.90024209022522,
+  "summary": "HARD_PASS: on production Llama-L15 encoder, iterated SRHT reaches ZKL(50)<=0.10 -- HIPAA absolute claim restorable on the real encoder. Llama-L15 ZKL(50) by SRHT passes: {'P0': 0.0467, 'P1': 0.0733, 'P2': 0.0633, 'P3': 0.0733} | base=0.0467 min=0.0467 (HIPAA<=0.10)"
+}

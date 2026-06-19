@@ -1,0 +1,10 @@
+{
+  "NUM_CONCEPTS": 50,
+  "bpc_baseline_pre": 2.481730952960582,
+  "bpc_cubic_pre": 2.48113933462631,
+  "bpc_baseline_post": 4.335208564605263,
+  "bpc_cubic_post": 4.316076281988114,
+  "pre_shift_gain": 0.000591618334272237,
+  "post_shift_gain": 0.019132282617148277,
+  "cubic_byte_overlap_mean": 0.012514114379882812
+}

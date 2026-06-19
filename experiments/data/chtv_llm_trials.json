@@ -1,0 +1,365 @@
+{
+ "trials": [
+  {
+   "chain": [
+    [
+     "CAP_cleanup",
+     "USES",
+     "T2/cleanup"
+    ],
+    [
+     "T2/cleanup",
+     "SPECIALIZES",
+     "T2/cosine_cleanup"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "CAP_cleanup",
+     "USES",
+     "T2/cleanup"
+    ],
+    [
+     "T2/cleanup",
+     "SPECIALIZES",
+     "CS/graph_neural_network"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "LEX_entity_date",
+     "USES",
+     "T2/cleanup"
+    ],
+    [
+     "T2/cleanup",
+     "USES",
+     "BIO/basal_ganglia"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "T2_FAM/global_discrete_optimization",
+     "USES",
+     "T3/prims_mst"
+    ],
+    [
+     "T3/prims_mst",
+     "USES",
+     "MWP/ROLE_ARG2_recipient"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "CAP_backward_algorithm",
+     "USES",
+     "T3/backward_algorithm"
+    ],
+    [
+     "T3/backward_algorithm",
+     "USES",
+     "PHYS/random_matrix_theory"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "LEX_entity_date",
+     "USES",
+     "T2/cleanup"
+    ],
+    [
+     "T2/cleanup",
+     "USES",
+     "T2/hamming_distance"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "SCHOOL/spectral_observability_family",
+     "USES",
+     "T3/mp_bulk_kl"
+    ],
+    [
+     "T3/mp_bulk_kl",
+     "USES",
+     "T1/gradient_descent"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "CAP_discriminative_perceptron",
+     "USES",
+     "T3/discriminative_perceptron"
+    ],
+    [
+     "T3/discriminative_perceptron",
+     "USES",
+     "T1/kalman_filter"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "CAP_backward_algorithm",
+     "USES",
+     "T3/backward_algorithm"
+    ],
+    [
+     "T3/backward_algorithm",
+     "USES",
+     "T3/hmm_emission"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "T2_FAM/discriminative_classification",
+     "USES",
+     "T3/count_nb"
+    ],
+    [
+     "T3/count_nb",
+     "USES",
+     "PHYS/chaos_theory"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "SCHOOL/spectral_observability_family",
+     "USES",
+     "T3/mp_bulk_kl"
+    ],
+    [
+     "T3/mp_bulk_kl",
+     "USES",
+     "T1/marchenko_pastur_distribution"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "CAP_discriminative_perceptron",
+     "USES",
+     "T3/discriminative_perceptron"
+    ],
+    [
+     "T3/discriminative_perceptron",
+     "USES",
+     "T2/tier2_schema"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "T2_FAM/probabilistic_inference",
+     "USES",
+     "T3/backward_algorithm"
+    ],
+    [
+     "T3/backward_algorithm",
+     "USES",
+     "T3/spectral_gap"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "T3/discrete_fourier_transform",
+     "DEFINED_OVER",
+     "T1/complex_field"
+    ],
+    [
+     "T1/complex_field",
+     "INSTANCE_OF",
+     "T1/ring_field"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "PP-375_multistep_math",
+     "USES",
+     "T3/discriminative_perceptron"
+    ],
+    [
+     "T3/discriminative_perceptron",
+     "USES",
+     "T3/perceptron_update"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "T2/glauber_dynamics",
+     "INSTANCE_OF",
+     "T1/markov_chain"
+    ],
+    [
+     "T1/markov_chain",
+     "DEPENDS_ON",
+     "PHYS/renormalization_group"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "T2/glauber_dynamics",
+     "INSTANCE_OF",
+     "T1/markov_chain"
+    ],
+    [
+     "T1/markov_chain",
+     "DEPENDS_ON",
+     "T1/random_variable"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "SCHOOL/sparse_distributed_memory_family",
+     "USES",
+     "T2/cleanup"
+    ],
+    [
+     "T2/cleanup",
+     "USES",
+     "PHYS/active_matter"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "T2_FAM/global_discrete_optimization",
+     "USES",
+     "T3/prims_mst"
+    ],
+    [
+     "T3/prims_mst",
+     "USES",
+     "T1/graph_topology"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "T2_FAM/discriminative_classification",
+     "USES",
+     "T3/count_nb"
+    ],
+    [
+     "T3/count_nb",
+     "USES",
+     "T2/tier2_schema"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "T3/discrete_fourier_transform",
+     "DEFINED_OVER",
+     "T1/complex_field"
+    ],
+    [
+     "T1/complex_field",
+     "INSTANCE_OF",
+     "BIO/cognitive_architecture"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "PP-375_multistep_math",
+     "USES",
+     "T3/discriminative_perceptron"
+    ],
+    [
+     "T3/discriminative_perceptron",
+     "USES",
+     "CROSSDISC/qubit_to_fhrr_phasor"
+    ]
+   ],
+   "label": "invalid"
+  },
+  {
+   "chain": [
+    [
+     "SCHOOL/sparse_distributed_memory_family",
+     "USES",
+     "T2/cleanup"
+    ],
+    [
+     "T2/cleanup",
+     "USES",
+     "T2/hamming_distance"
+    ]
+   ],
+   "label": "valid"
+  },
+  {
+   "chain": [
+    [
+     "T2_FAM/probabilistic_inference",
+     "USES",
+     "T3/backward_algorithm"
+    ],
+    [
+     "T3/backward_algorithm",
+     "USES",
+     "T3/hmm_emission"
+    ]
+   ],
+   "label": "valid"
+  }
+ ],
+ "n": 24
+}

@@ -1,0 +1,42 @@
+{
+  "verdict": "PP2ADV_HARD_PASS",
+  "verdict_msg": "COMPRESSION_ADVERSARIAL_ROBUST kf1_adv100=1.000 kf3_adv100=0.900 kf2=1.000. comp=4.0x kf2=1.000 kf1_nom=1.000 kf3_nom=1.000 | kf1_adv100=1.000 kf3_adv100=0.900 | kf1_adv50=1.000 kf3_adv50=1.000",
+  "elapsed_s": 0.46,
+  "summary": {
+    "anchor": "state_compression_adversarial_codebook_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "bits": 8,
+    "n_probe": 10,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "n_probe": 10,
+        "bits": 8,
+        "compression_ratio": 4.0,
+        "ok": true,
+        "kf2_drift_norm": 1.0,
+        "nominal": {
+          "kf1_deletion": 1.0,
+          "kf3_edit": 1.0
+        },
+        "adv_100pct": {
+          "kf1_deletion": 1.0,
+          "kf3_edit": 0.9
+        },
+        "adv_50pct": {
+          "kf1_deletion": 1.0,
+          "kf3_edit": 1.0
+        }
+      }
+    ],
+    "verdict": "PP2ADV_HARD_PASS",
+    "verdict_msg": "COMPRESSION_ADVERSARIAL_ROBUST kf1_adv100=1.000 kf3_adv100=0.900 kf2=1.000. comp=4.0x kf2=1.000 kf1_nom=1.000 kf3_nom=1.000 | kf1_adv100=1.000 kf3_adv100=0.900 | kf1_adv50=1.000 kf3_adv50=1.000",
+    "elapsed_s": 0.46
+  }
+}

@@ -1,0 +1,34 @@
+# Q4 / E2.4 - Cold start vs warm operation timing
+#
+# 2000 probe retrieves split into phases:
+#   cold:        ops 1-10
+#   warming:     ops 11-100
+#   warm:        ops 101-1000
+#   long_running: ops 1001-2000
+#
+# Wall estimate (rough):
+#   substrate at N=2048: ~10 ms/op * 2000 = ~20s + ~5s build = ~25s
+#   faiss: ~5 ms * 2000 = ~10s
+#   dict: ~50 us * 2000 = ~0.1s
+#   total per backend: <1 min; whole run <3 min
+
+config_name: cold_warm_timing
+
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 4
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+
+cold_warm_M_base: 2000
+cold_warm_N_probe_ops: 2000
+cold_warm_phase_boundaries: [10, 100, 1000, 2000]
+cold_warm_phase_names: ["cold", "warming", "warm", "long_running"]
+
+seeds: [7]
+backends: [substrate, faiss, dict]
+scenarios: [cold_warm_timing]
+out_root: testbed_data/benchmarks

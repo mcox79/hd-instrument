@@ -1,0 +1,46 @@
+{
+  "anchor_name": "smw_profiler_sweep_n_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <30%% bandwidth util -- kernel-launch overhead dominates, not BLAS-2. peak=218 GB/s | bw_util by N: {'N512': 0.0, 'N1024': 0.01, 'N2048': 0.04, 'N4096': 0.19, 'N8192': 0.59} | min=0.00",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "peak_gbps": 217.6954385041078,
+      "by": {
+        "N512": {
+          "sec": 0.00039738199906423687,
+          "achieved_gbps": 0.6304060088023884,
+          "bw_util": 0.002895816343852758,
+          "M": 102
+        },
+        "N1024": {
+          "sec": 0.0005221919994801283,
+          "achieved_gbps": 1.9189263738195828,
+          "bw_util": 0.008814729362293798,
+          "M": 204
+        },
+        "N2048": {
+          "sec": 0.0004337260010652244,
+          "achieved_gbps": 9.267721995286879,
+          "bw_util": 0.04257196227431288,
+          "M": 409
+        },
+        "N4096": {
+          "sec": 0.00038051999872550367,
+          "achieved_gbps": 42.31456967815033,
+          "bw_util": 0.19437508644606658,
+          "M": 819
+        },
+        "N8192": {
+          "sec": 0.000499178001191467,
+          "achieved_gbps": 129.02443586510552,
+          "bw_util": 0.5926832309932433,
+          "M": 1638
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.28932976722717285,
+  "summary": "HARD_FAIL: <30%% bandwidth util -- kernel-launch overhead dominates, not BLAS-2. peak=218 GB/s | bw_util by N: {'N512': 0.0, 'N1024': 0.01, 'N2048': 0.04, 'N4096': 0.19, 'N8192': 0.59} | min=0.00"
+}

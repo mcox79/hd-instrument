@@ -1,0 +1,15 @@
+{
+  "anchor_name": "n1b_perhop_ablation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ablation conclusive -- both per-hop and single-pass clear 0.70 on native substrate (single-pass joint attention is best here); decomposition pattern is not the constraint once grounded discretely. per-hop=0.833 single-pass=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_hop": 0.8333333333333334,
+      "single_pass": 1.0
+    }
+  ],
+  "elapsed_s": 4.577929496765137,
+  "summary": "HARD_PASS: ablation conclusive -- both per-hop and single-pass clear 0.70 on native substrate (single-pass joint attention is best here); decomposition pattern is not the constraint once grounded discretely. per-hop=0.833 single-pass=1.000"
+}

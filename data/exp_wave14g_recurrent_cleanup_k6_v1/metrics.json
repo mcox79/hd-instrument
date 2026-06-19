@@ -1,0 +1,71 @@
+{
+  "verdict": "RECURRENT_MIDDLE_BAND",
+  "verdict_msg": "RECURRENT_MIDDLE_BAND: lift in (0.03,0.10) range for 0/2 d=25 cells; conditional benefit documented; hard_pass=0/2 hard_fail=2/2; d=25 M=20: linear=0.000 lift=+0.000 ci_width=0.000; d=25 M=50: linear=1.000 lift=-1.000 ci_width=0.000",
+  "elapsed_s": 1.4792146682739258,
+  "summary": {
+    "verdict": "RECURRENT_MIDDLE_BAND",
+    "d25_hard_pass_cells": 0,
+    "d25_hard_fail_cells": 2,
+    "d25_diverge_cells": 0,
+    "d25_n_cells": 2,
+    "aggregated_cells": [
+      {
+        "d": 10,
+        "M": 20,
+        "linear_acc_mean": 1.0,
+        "lift_mean": -1.0,
+        "lift_std": 0.0,
+        "ci_width": 0.0
+      },
+      {
+        "d": 10,
+        "M": 50,
+        "linear_acc_mean": 1.0,
+        "lift_mean": -1.0,
+        "lift_std": 0.0,
+        "ci_width": 0.0
+      },
+      {
+        "d": 25,
+        "M": 20,
+        "linear_acc_mean": 0.0,
+        "lift_mean": 0.0,
+        "lift_std": 0.0,
+        "ci_width": 0.0
+      },
+      {
+        "d": 25,
+        "M": 50,
+        "linear_acc_mean": 1.0,
+        "lift_mean": -1.0,
+        "lift_std": 0.0,
+        "ci_width": 0.0
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "d_values": [
+      10,
+      25
+    ],
+    "M_grid": [
+      20,
+      50
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "T_values": [
+      2,
+      3,
+      5
+    ],
+    "hard_pass_lift": 0.1,
+    "hard_fail_thresh": 0.0,
+    "ci_fail_thresh": 0.1,
+    "device": "cpu"
+  }
+}

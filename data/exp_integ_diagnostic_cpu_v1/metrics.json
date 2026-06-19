@@ -1,0 +1,19 @@
+{
+  "anchor_name": "integ_diagnostic_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (diagnostic): STRUCTURAL cause identified -- the objective is maximize-MIN but every mean-based operator (additive/softmax-T/tournament) optimizes a SUM, so all fall short of minimax (best=0.85<0.95). On divergent cases additive picks the higher-MEAN action (0.16 vs 0.11) at the cost of a starved drive. The integration gap is an OBJECTIVE mismatch (sum vs min), NOT a tuning/normalization issue -- needs explicit min-optimization (BG-analog minimax) or a fundamentally different mechanism. divergence=0.698 additive=0.607 softmax-T=0.607 tournament=0.853 (best mean-based=0.853)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "divergence_rate": 0.698,
+      "additive_ratio": 0.607,
+      "softmaxT_ratio": 0.607,
+      "tournament_ratio": 0.853,
+      "add_mean_on_div": 0.16,
+      "minimax_mean_on_div": 0.108
+    }
+  ],
+  "elapsed_s": 0.08118772506713867,
+  "summary": "HARD_PASS (diagnostic): STRUCTURAL cause identified -- the objective is maximize-MIN but every mean-based operator (additive/softmax-T/tournament) optimizes a SUM, so all fall short of minimax (best=0.85<0.95). On divergent cases additive picks the higher-MEAN action (0.16 vs 0.11) at the cost of a starved drive. The integration gap is an OBJECTIVE mismatch (sum vs min), NOT a tuning/normalization issue -- needs explicit min-optimization (BG-analog minimax) or a fundamentally different mechanism. divergence=0.698 additive=0.607 softmax-T=0.607 tournament=0.853 (best mean-based=0.853)"
+}

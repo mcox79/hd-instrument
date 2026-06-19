@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_hallucination_robustness_hard_negatives_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hallucination grounding survives HARD same-domain negatives (AUC>=0.90) -- detection is robust, not brittle. AUC easy=0.621 hard=0.968 adv=0.206 (hard=held-out same-domain; adv=shuffled-KB-fact)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "auc_easy": 0.621359375,
+      "auc_hard": 0.9683078125,
+      "auc_adv": 0.20624375
+    },
+    {
+      "seed": 17,
+      "auc_easy": 0.6201859375,
+      "auc_hard": 0.9658515625,
+      "auc_adv": 0.2037375
+    },
+    {
+      "seed": 23,
+      "auc_easy": 0.620415625,
+      "auc_hard": 0.9686859375,
+      "auc_adv": 0.2077921875
+    }
+  ],
+  "elapsed_s": 6.105784177780151,
+  "summary": "HARD_PASS: hallucination grounding survives HARD same-domain negatives (AUC>=0.90) -- detection is robust, not brittle. AUC easy=0.621 hard=0.968 adv=0.206 (hard=held-out same-domain; adv=shuffled-KB-fact)"
+}

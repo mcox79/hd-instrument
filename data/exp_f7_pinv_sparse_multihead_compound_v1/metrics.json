@@ -1,0 +1,21 @@
+{
+  "anchor_name": "f7_pinv_sparse_multihead_compound_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: levers do not stack (<0.3x product) -- strong interaction/saturation. lifts vs baseline: pinv=8.0x sparse=24.0x | both=12.0x product=192.0x stack_frac=0.06 (multi-head tested separately -- support-recovery formalism)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "cap": {
+        "hebb_dense": 0.05,
+        "hebb_sparse": 1.2,
+        "pinv_dense": 0.4,
+        "pinv_sparse": 0.6
+      }
+    }
+  ],
+  "elapsed_s": 1.7627170085906982,
+  "summary": "HARD_FAIL: levers do not stack (<0.3x product) -- strong interaction/saturation. lifts vs baseline: pinv=8.0x sparse=24.0x | both=12.0x product=192.0x stack_frac=0.06 (multi-head tested separately -- support-recovery formalism)"
+}

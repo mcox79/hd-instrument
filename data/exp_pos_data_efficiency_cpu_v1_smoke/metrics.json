@@ -1,0 +1,31 @@
+{
+  "anchor_name": "pos_data_efficiency_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate POS needs >1000 sentences for 0.90 -- weaker low-data efficiency than hypothesized. n90=None, best=0.8366, curve=[25:0.711, 50:0.782, 100:0.837], test=150 sents",
+  "summary": "HARD_FAIL: substrate POS needs >1000 sentences for 0.90 -- weaker low-data efficiency than hypothesized. n90=None, best=0.8366, curve=[25:0.711, 50:0.782, 100:0.837], test=150 sents",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.8366,
+      "curve": [
+        {
+          "n_sents": 25,
+          "acc": 0.7108
+        },
+        {
+          "n_sents": 50,
+          "acc": 0.7825
+        },
+        {
+          "n_sents": 100,
+          "acc": 0.8366
+        }
+      ],
+      "n90": null,
+      "n_test": 150,
+      "n_tags": 17
+    }
+  ],
+  "elapsed_s": 2.2226998805999756
+}

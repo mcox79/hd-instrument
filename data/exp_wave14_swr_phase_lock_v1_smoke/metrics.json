@@ -1,0 +1,37 @@
+{
+  "verdict": "TIMING_HARD_FAIL_RANDOM",
+  "verdict_msg": "H_inverse: random beats locked by 0.086>=0.03. Phase gating hurts substrate. locked=0.803 random=0.889 delta=-0.086 seeds_locked_win=0/1. per-locked:[0.803] per-random:[0.889].",
+  "elapsed_s": 1.4209999999729916,
+  "summary": {
+    "locked": {
+      "17": {
+        "retA": 0.8025780184752638,
+        "bpc_baseline": 4.148816595077514,
+        "bpc_after": 5.169362354278564
+      }
+    },
+    "random": {
+      "17": {
+        "retA": 0.888968412134021,
+        "bpc_baseline": 4.148816595077514,
+        "bpc_after": 4.667001142501831
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "cascade_depth": 3,
+    "chunk_fraction": 0.5,
+    "replay_interval": 5,
+    "pass_delta": 0.05,
+    "fail_delta": 0.02
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "verdict": "BETA_M_INIT_UNIFORM_KILL",
+  "verdict_msg": "all M_init kill: {'1024': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '2048': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '4096': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '8192': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '16384': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}, '32768': {'mean_kept': 0.0, 'n_seeds': 0, 'oom': True}}.",
+  "elapsed_s": 136.46900000001187,
+  "summary": {
+    "threshold_M_init": null,
+    "per_M_init": {
+      "1024": {
+        "mean_kept": 0.0,
+        "n_seeds": 0,
+        "oom": true
+      },
+      "2048": {
+        "mean_kept": 0.0,
+        "n_seeds": 0,
+        "oom": true
+      },
+      "4096": {
+        "mean_kept": 0.0,
+        "n_seeds": 0,
+        "oom": true
+      },
+      "8192": {
+        "mean_kept": 0.0,
+        "n_seeds": 0,
+        "oom": true
+      },
+      "16384": {
+        "mean_kept": 0.0,
+        "n_seeds": 0,
+        "oom": true
+      },
+      "32768": {
+        "mean_kept": 0.0,
+        "n_seeds": 0,
+        "oom": true
+      }
+    },
+    "M_init_grid": [
+      1024,
+      2048,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  },
+  "config": {
+    "N": 65536,
+    "M_init_grid": [
+      1024,
+      2048,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "n_edits": 100,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  }
+}

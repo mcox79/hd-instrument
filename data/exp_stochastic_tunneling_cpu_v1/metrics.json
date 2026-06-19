@@ -1,0 +1,16 @@
+{
+  "anchor_name": "stochastic_tunneling_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a STOCHASTIC/TEMPORAL policy ESCAPES the single-action frustration -- the maximin MIXED policy exceeds single-action minimax by >=20%%. The ~96%% 'irreducible' conflict was a SINGLE-action artifact; alternating actions over time satisfies all drives far better. Frustration is escapable via temporal policy, substrate-compatible. single-minimax=0.038 mixed=0.046 escape=22%",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "single_minimax": 0.038,
+      "mixed_policy": 0.046,
+      "escape_pct": 22.1
+    }
+  ],
+  "elapsed_s": 0.19800782203674316,
+  "summary": "HARD_PASS: a STOCHASTIC/TEMPORAL policy ESCAPES the single-action frustration -- the maximin MIXED policy exceeds single-action minimax by >=20%%. The ~96%% 'irreducible' conflict was a SINGLE-action artifact; alternating actions over time satisfies all drives far better. Frustration is escapable via temporal policy, substrate-compatible. single-minimax=0.038 mixed=0.046 escape=22%"
+}

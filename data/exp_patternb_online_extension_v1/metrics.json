@@ -1,0 +1,16 @@
+{
+  "anchor_name": "patternb_online_extension_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: online concept extension is a trivial cache add -- 0 pre / 1 post recall, no disruption. pre=0 post=1 disruption=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pre": 0,
+      "post": 1,
+      "disrupt": 0.0
+    }
+  ],
+  "elapsed_s": 0.9102258682250977,
+  "summary": "HARD_PASS: online concept extension is a trivial cache add -- 0 pre / 1 post recall, no disruption. pre=0 post=1 disruption=0.000"
+}

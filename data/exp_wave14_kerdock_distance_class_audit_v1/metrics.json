@@ -1,0 +1,163 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: n_distance_classes=3 (expected 4); n_match_007=1/3; monotone=True; AGS basin-class prediction does not match Kerdock structure",
+  "elapsed_s": 0.03100000007543713,
+  "summary": {
+    "N": 1024,
+    "K": 4096,
+    "n_cosets": 4,
+    "n_distinct_classes_global": 3,
+    "distinct_levels_global": [
+      -0.0312,
+      0.0,
+      0.0312
+    ],
+    "level_to_ags_prediction": {
+      "-0.0312": 0.6782394654787252,
+      "0.0": 0.6951041841796276,
+      "0.0312": 0.7113154278725516
+    },
+    "n_match_within_007": 1,
+    "n_match_within_015": 2,
+    "is_monotone": true,
+    "plateau_comparison": [
+      {
+        "empirical_plateau": 0.94,
+        "ags_prediction": 0.7113154278725516,
+        "abs_diff": 0.2286845721274483,
+        "within_007": false,
+        "within_015": false
+      },
+      {
+        "empirical_plateau": 0.74,
+        "ags_prediction": 0.6951041841796276,
+        "abs_diff": 0.04489581582037239,
+        "within_007": true,
+        "within_015": true
+      },
+      {
+        "empirical_plateau": 0.6,
+        "ags_prediction": 0.6782394654787252,
+        "abs_diff": 0.07823946547872518,
+        "within_007": false,
+        "within_015": true
+      }
+    ],
+    "coset_pair_stats": {
+      "coset_0_0": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0,
+        "std_ip_over_N": 0.0,
+        "discrete_levels": {
+          "0.0": 300
+        },
+        "n_distinct_levels": 1,
+        "ham_frac_mean": 0.5
+      },
+      "coset_0_1": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0010416666666666667,
+        "std_ip_over_N": 0.031232634063676983,
+        "discrete_levels": {
+          "0.0312": 155,
+          "-0.0312": 145
+        },
+        "n_distinct_levels": 2,
+        "ham_frac_mean": 0.49947916666666664
+      },
+      "coset_0_2": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0010416666666666667,
+        "std_ip_over_N": 0.03123263406367698,
+        "discrete_levels": {
+          "-0.0312": 145,
+          "0.0312": 155
+        },
+        "n_distinct_levels": 2,
+        "ham_frac_mean": 0.49947916666666664
+      },
+      "coset_0_3": {
+        "n_pairs": 300,
+        "mean_ip_over_N": -0.001875,
+        "std_ip_over_N": 0.031193699283669447,
+        "discrete_levels": {
+          "-0.0312": 159,
+          "0.0312": 141
+        },
+        "n_distinct_levels": 2,
+        "ham_frac_mean": 0.5009375
+      },
+      "coset_1_1": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0,
+        "std_ip_over_N": 0.0,
+        "discrete_levels": {
+          "0.0": 300
+        },
+        "n_distinct_levels": 1,
+        "ham_frac_mean": 0.5
+      },
+      "coset_1_2": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0014583333333333334,
+        "std_ip_over_N": 0.031215953675787146,
+        "discrete_levels": {
+          "-0.0312": 143,
+          "0.0312": 157
+        },
+        "n_distinct_levels": 2,
+        "ham_frac_mean": 0.49927083333333333
+      },
+      "coset_1_3": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.00020833333333333335,
+        "std_ip_over_N": 0.031249305547839334,
+        "discrete_levels": {
+          "0.0312": 151,
+          "-0.0312": 149
+        },
+        "n_distinct_levels": 2,
+        "ham_frac_mean": 0.4998958333333333
+      },
+      "coset_2_2": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0,
+        "std_ip_over_N": 0.0,
+        "discrete_levels": {
+          "0.0": 300
+        },
+        "n_distinct_levels": 1,
+        "ham_frac_mean": 0.5
+      },
+      "coset_2_3": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0016666666666666668,
+        "std_ip_over_N": 0.031205523905587968,
+        "discrete_levels": {
+          "0.0312": 158,
+          "-0.0312": 142
+        },
+        "n_distinct_levels": 2,
+        "ham_frac_mean": 0.49916666666666665
+      },
+      "coset_3_3": {
+        "n_pairs": 300,
+        "mean_ip_over_N": 0.0,
+        "std_ip_over_N": 0.0,
+        "discrete_levels": {
+          "0.0": 300
+        },
+        "n_distinct_levels": 1,
+        "ham_frac_mean": 0.5
+      }
+    },
+    "ags_alpha": 0.153,
+    "ags_alpha_c": 0.5625
+  },
+  "config": {
+    "N": 1024,
+    "n_pairs_per_coset_pair": 300,
+    "rounding_digits": 4,
+    "min_fraction_per_class": 0.005
+  }
+}

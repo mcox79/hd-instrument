@@ -1,0 +1,42 @@
+{
+  "verdict": "GPU_R_HARD_FAIL",
+  "verdict_msg": "GPU_SLOW_OR_BROKEN: mean_query_speedup_at_N4096=0.00x gpu_op_failures_at_topN=0/0 ",
+  "elapsed_s": 0.19,
+  "summary": {
+    "anchor": "gpu_acceleration_baseline_rescue_v2_n4096",
+    "N_sweep": [
+      1024
+    ],
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "devices_run": [
+      "cpu"
+    ],
+    "cells": [
+      {
+        "N": 1024,
+        "M": 256,
+        "seed": 17,
+        "device": "cpu",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 30544.27,
+        "query_ns_per_op": 38772.1,
+        "edit_ns": 554080.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      }
+    ],
+    "verdict": "GPU_R_HARD_FAIL",
+    "verdict_msg": "GPU_SLOW_OR_BROKEN: mean_query_speedup_at_N4096=0.00x gpu_op_failures_at_topN=0/0 ",
+    "elapsed_s": 0.19
+  }
+}

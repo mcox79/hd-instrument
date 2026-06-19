@@ -1,0 +1,17 @@
+{
+  "anchor_name": "n_reduction_storage_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: alpha_c is ~N-independent (flatness>=0.8) -- N-reduction is near-free storage savings; pick smallest N meeting capacity. alpha_c by N: {'N512': 0.5, 'N1024': 0.5} | flatness=1.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N512": 0.5,
+        "N1024": 0.5
+      }
+    }
+  ],
+  "elapsed_s": 2.98110032081604,
+  "summary": "HARD_PASS: alpha_c is ~N-independent (flatness>=0.8) -- N-reduction is near-free storage savings; pick smallest N meeting capacity. alpha_c by N: {'N512': 0.5, 'N1024': 0.5} | flatness=1.00"
+}

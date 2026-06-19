@@ -1,0 +1,663 @@
+{
+  "anchor_name": "substrate_8a_4channel_attribution_v1",
+  "verdict": "ATTRIBUTION",
+  "verdict_msg": "8a 4-channel ATTRIBUTION: the additive/roofline cost-model (max(compute,membw)+launch) MISSES the MAJORITY of measured t_sparse -- residual median 61% (range 43-89%, ALL 21 cells positive) -> structurally inadequate for this dispatch-heavy op = DEEPENS the 8a method-gate (a cost-model PASS omits >half the cost; measured magnitude). METRIC SCOPE (Skunkworks): A1 attributes t_sparse's COST STRUCTURE (residual-dominated); it did NOT measure net_speedup (no t_dense), so it does NOT speak to the canonical net_speedup/break-even non-monotonicity -- that localization remains OPEN (future drill: measure t_dense + t_sparse, attribute the RATIO). verdict=ATTRIBUTION (mechanism, NOT a positive proof point); measured-8a HARD_FAIL STANDS (its net_speedup non-monotonicity is independent of A1's t_sparse finding). measured-bounds: t_sparse cost structure @ flagship d=1024/e=8/this-hardware.",
+  "summary": "8a 4-channel ATTRIBUTION: the additive/roofline cost-model (max(compute,membw)+launch) MISSES the MAJORITY of measured t_sparse -- residual median 61% (range 43-89%, ALL 21 cells positive) -> structurally inadequate for this dispatch-heavy op = DEEPENS the 8a method-gate (a cost-model PASS omits >half the cost; measured magnitude). METRIC SCOPE (Skunkworks): A1 attributes t_sparse's COST STRUCTURE (residual-dominated); it did NOT measure net_speedup (no t_dense), so it does NOT speak to the canonical net_speedup/break-even non-monotonicity -- that localization remains OPEN (future drill: measure t_dense + t_sparse, attribute the RATIO). verdict=ATTRIBUTION (mechanism, NOT a positive proof point); measured-8a HARD_FAIL STANDS (its net_speedup non-monotonicity is independent of A1's t_sparse finding). measured-bounds: t_sparse cost structure @ flagship d=1024/e=8/this-hardware.",
+  "headline": "8a 4-channel ATTRIBUTION: the additive/roofline cost-model (max(compute,membw)+launch) MISSES the MAJORITY of measured t_sparse -- residual median 61% (range 43-89%, ALL 21 cells positive) -> structurally inadequate for this dispatch-heavy op = DEEPENS the 8a method-gate (a cost-model PASS omits >half the cost; measured magnitude). METRIC SCOPE (Skunkworks): A1 attributes t_sparse's COST STRUCTURE (residual-dominated); it did NOT measure net_speedup (no t_dense), so it does NOT speak to the canonical net_speedup/break-even non-monotonicity -- that localization remains OPEN (future drill: measure t_dense + t_sparse, attribute the RATIO). verdict=ATTRIBUTION (mechanism, NOT a positive proof point); measured-8a HARD_FAIL STANDS (its net_speedup non-monotonicity is independent of A1's t_sparse finding). measured-bounds: t_sparse cost structure @ flagship d=1024/e=8/this-hardware.",
+  "n_seeds": 1,
+  "run_mode": "full",
+  "branch_path": "4channel_attribution",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T11:43:50.943950+00:00",
+  "cell_commit": "d78ffe8a",
+  "n_cells": 21,
+  "residual_drives_nonmonotonicity": false,
+  "roofline_channel_nonmonotone": [],
+  "residual_frac_distribution": {
+    "min": 0.4309,
+    "median": 0.6121,
+    "max": 0.8932,
+    "n_positive": 21,
+    "n_negative": 0
+  },
+  "max_residual_frac_of_measured": 0.8932,
+  "volume_match_ok": true,
+  "volume_ratios": {
+    "compute_flops_ratio_minmax": [
+      1.0,
+      1.0
+    ],
+    "membw_bytes_ratio_minmax": [
+      1.0,
+      1.0
+    ]
+  },
+  "smoke_cant_test_nonmonotonicity": false,
+  "driving": [],
+  "localize": {
+    "k1": {
+      "t_sparse_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "compute_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "membw_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "launch_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "residual_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    },
+    "k2": {
+      "t_sparse_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "compute_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "membw_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "launch_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "residual_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    },
+    "k4": {
+      "t_sparse_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "compute_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "membw_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "launch_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      },
+      "residual_ms": {
+        "non_monotone": false,
+        "sig_reversals": 0
+      }
+    }
+  },
+  "cells": [
+    {
+      "T": 512,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 2.8273,
+      "compute_ms": 0.1249,
+      "membw_ms": 0.1484,
+      "launch_ms": 0.1687,
+      "cost_model_pred_ms": 0.3171,
+      "residual_ms": 2.5102,
+      "band_ms": {
+        "t_sparse_ms": 1.5297,
+        "compute_ms": 0.0044,
+        "membw_ms": 0.0098,
+        "launch_ms": 0.0477,
+        "residual_ms": 1.5916
+      },
+      "residual_frac_of_measured": 0.8878,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 1024,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 3.7328,
+      "compute_ms": 0.2316,
+      "membw_ms": 0.1588,
+      "launch_ms": 0.167,
+      "cost_model_pred_ms": 0.3986,
+      "residual_ms": 3.3342,
+      "band_ms": {
+        "t_sparse_ms": 2.08,
+        "compute_ms": 0.0221,
+        "membw_ms": 0.0238,
+        "launch_ms": 0.0521,
+        "residual_ms": 2.178
+      },
+      "residual_frac_of_measured": 0.8932,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 2048,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 3.2701,
+      "compute_ms": 0.39,
+      "membw_ms": 0.1779,
+      "launch_ms": 0.2346,
+      "cost_model_pred_ms": 0.6246,
+      "residual_ms": 2.6455,
+      "band_ms": {
+        "t_sparse_ms": 1.4307,
+        "compute_ms": 0.0295,
+        "membw_ms": 0.0609,
+        "launch_ms": 0.4369,
+        "residual_ms": 1.958
+      },
+      "residual_frac_of_measured": 0.809,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 4096,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 4.0528,
+      "compute_ms": 0.8265,
+      "membw_ms": 0.2043,
+      "launch_ms": 0.1723,
+      "cost_model_pred_ms": 0.9988,
+      "residual_ms": 3.054,
+      "band_ms": {
+        "t_sparse_ms": 1.7907,
+        "compute_ms": 0.0916,
+        "membw_ms": 0.014,
+        "launch_ms": 0.0567,
+        "residual_ms": 1.953
+      },
+      "residual_frac_of_measured": 0.7536,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 8192,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 4.8581,
+      "compute_ms": 1.6204,
+      "membw_ms": 0.2941,
+      "launch_ms": 0.1681,
+      "cost_model_pred_ms": 1.7885,
+      "residual_ms": 3.0696,
+      "band_ms": {
+        "t_sparse_ms": 1.1278,
+        "compute_ms": 0.0506,
+        "membw_ms": 0.0687,
+        "launch_ms": 0.0625,
+        "residual_ms": 1.3096
+      },
+      "residual_frac_of_measured": 0.6319,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 16384,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 7.2811,
+      "compute_ms": 3.3289,
+      "membw_ms": 0.3803,
+      "launch_ms": 0.1851,
+      "cost_model_pred_ms": 3.514,
+      "residual_ms": 3.7671,
+      "band_ms": {
+        "t_sparse_ms": 2.1393,
+        "compute_ms": 0.1524,
+        "membw_ms": 0.014,
+        "launch_ms": 0.4366,
+        "residual_ms": 2.7423
+      },
+      "residual_frac_of_measured": 0.5174,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 32768,
+      "k": 1,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 13.2211,
+      "compute_ms": 6.6771,
+      "membw_ms": 0.621,
+      "launch_ms": 0.1743,
+      "cost_model_pred_ms": 6.8514,
+      "residual_ms": 6.3697,
+      "band_ms": {
+        "t_sparse_ms": 1.5976,
+        "compute_ms": 0.2337,
+        "membw_ms": 0.0241,
+        "launch_ms": 0.1051,
+        "residual_ms": 1.9605
+      },
+      "residual_frac_of_measured": 0.4818,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 512,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 3.1017,
+      "compute_ms": 0.2231,
+      "membw_ms": 0.1532,
+      "launch_ms": 0.1843,
+      "cost_model_pred_ms": 0.4074,
+      "residual_ms": 2.6943,
+      "band_ms": {
+        "t_sparse_ms": 1.5012,
+        "compute_ms": 0.0474,
+        "membw_ms": 0.0164,
+        "launch_ms": 0.0877,
+        "residual_ms": 1.6527
+      },
+      "residual_frac_of_measured": 0.8687,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 1024,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 3.5569,
+      "compute_ms": 0.4011,
+      "membw_ms": 0.1539,
+      "launch_ms": 0.1818,
+      "cost_model_pred_ms": 0.5829,
+      "residual_ms": 2.974,
+      "band_ms": {
+        "t_sparse_ms": 2.1475,
+        "compute_ms": 0.0436,
+        "membw_ms": 0.0022,
+        "launch_ms": 0.1789,
+        "residual_ms": 2.3722
+      },
+      "residual_frac_of_measured": 0.8361,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 2048,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 4.1271,
+      "compute_ms": 0.7708,
+      "membw_ms": 0.1743,
+      "launch_ms": 0.163,
+      "cost_model_pred_ms": 0.9338,
+      "residual_ms": 3.1933,
+      "band_ms": {
+        "t_sparse_ms": 1.9196,
+        "compute_ms": 0.0625,
+        "membw_ms": 0.0308,
+        "launch_ms": 0.1817,
+        "residual_ms": 2.1946
+      },
+      "residual_frac_of_measured": 0.7737,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 4096,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 4.6834,
+      "compute_ms": 1.6325,
+      "membw_ms": 0.2017,
+      "launch_ms": 0.1844,
+      "cost_model_pred_ms": 1.8169,
+      "residual_ms": 2.8665,
+      "band_ms": {
+        "t_sparse_ms": 1.5585,
+        "compute_ms": 0.1317,
+        "membw_ms": 0.0376,
+        "launch_ms": 0.0652,
+        "residual_ms": 1.793
+      },
+      "residual_frac_of_measured": 0.6121,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 8192,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 6.9325,
+      "compute_ms": 3.242,
+      "membw_ms": 0.2713,
+      "launch_ms": 0.1809,
+      "cost_model_pred_ms": 3.4229,
+      "residual_ms": 3.5096,
+      "band_ms": {
+        "t_sparse_ms": 1.763,
+        "compute_ms": 0.1117,
+        "membw_ms": 0.094,
+        "launch_ms": 0.1539,
+        "residual_ms": 2.1226
+      },
+      "residual_frac_of_measured": 0.5063,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 16384,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 12.4408,
+      "compute_ms": 6.4992,
+      "membw_ms": 0.3817,
+      "launch_ms": 0.1725,
+      "cost_model_pred_ms": 6.6717,
+      "residual_ms": 5.7691,
+      "band_ms": {
+        "t_sparse_ms": 1.6047,
+        "compute_ms": 0.1631,
+        "membw_ms": 0.0309,
+        "launch_ms": 0.064,
+        "residual_ms": 1.8627
+      },
+      "residual_frac_of_measured": 0.4637,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 32768,
+      "k": 2,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 25.5989,
+      "compute_ms": 13.0491,
+      "membw_ms": 0.6293,
+      "launch_ms": 0.1604,
+      "cost_model_pred_ms": 13.2095,
+      "residual_ms": 12.3894,
+      "band_ms": {
+        "t_sparse_ms": 1.2664,
+        "compute_ms": 0.2782,
+        "membw_ms": 0.0266,
+        "launch_ms": 0.0522,
+        "residual_ms": 1.6234
+      },
+      "residual_frac_of_measured": 0.484,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 512,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 3.4299,
+      "compute_ms": 0.3865,
+      "membw_ms": 0.1478,
+      "launch_ms": 0.1606,
+      "cost_model_pred_ms": 0.5471,
+      "residual_ms": 2.8828,
+      "band_ms": {
+        "t_sparse_ms": 2.2633,
+        "compute_ms": 0.0143,
+        "membw_ms": 0.0421,
+        "launch_ms": 0.0457,
+        "residual_ms": 2.3654
+      },
+      "residual_frac_of_measured": 0.8405,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 1024,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 3.3133,
+      "compute_ms": 0.9617,
+      "membw_ms": 0.1761,
+      "launch_ms": 0.2518,
+      "cost_model_pred_ms": 1.2135,
+      "residual_ms": 2.0998,
+      "band_ms": {
+        "t_sparse_ms": 2.5499,
+        "compute_ms": 0.0777,
+        "membw_ms": 0.0708,
+        "launch_ms": 0.1622,
+        "residual_ms": 2.8606
+      },
+      "residual_frac_of_measured": 0.6337,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 2048,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 4.486,
+      "compute_ms": 1.6071,
+      "membw_ms": 0.1707,
+      "launch_ms": 0.259,
+      "cost_model_pred_ms": 1.8661,
+      "residual_ms": 2.6199,
+      "band_ms": {
+        "t_sparse_ms": 2.3917,
+        "compute_ms": 0.1079,
+        "membw_ms": 0.0065,
+        "launch_ms": 0.1611,
+        "residual_ms": 2.6672
+      },
+      "residual_frac_of_measured": 0.584,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 4096,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 6.973,
+      "compute_ms": 3.1756,
+      "membw_ms": 0.2147,
+      "launch_ms": 0.165,
+      "cost_model_pred_ms": 3.3406,
+      "residual_ms": 3.6324,
+      "band_ms": {
+        "t_sparse_ms": 2.0805,
+        "compute_ms": 0.0891,
+        "membw_ms": 0.0893,
+        "launch_ms": 0.0599,
+        "residual_ms": 2.3188
+      },
+      "residual_frac_of_measured": 0.5209,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 8192,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 11.7485,
+      "compute_ms": 6.4775,
+      "membw_ms": 0.2694,
+      "launch_ms": 0.2083,
+      "cost_model_pred_ms": 6.6858,
+      "residual_ms": 5.0627,
+      "band_ms": {
+        "t_sparse_ms": 1.6881,
+        "compute_ms": 0.1198,
+        "membw_ms": 0.0396,
+        "launch_ms": 0.4285,
+        "residual_ms": 2.276
+      },
+      "residual_frac_of_measured": 0.4309,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 16384,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 25.1548,
+      "compute_ms": 12.9923,
+      "membw_ms": 0.4219,
+      "launch_ms": 0.1901,
+      "cost_model_pred_ms": 13.1824,
+      "residual_ms": 11.9724,
+      "band_ms": {
+        "t_sparse_ms": 1.2225,
+        "compute_ms": 0.4751,
+        "membw_ms": 0.1073,
+        "launch_ms": 0.4399,
+        "residual_ms": 2.2448
+      },
+      "residual_frac_of_measured": 0.4759,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    },
+    {
+      "T": 32768,
+      "k": 4,
+      "n_active": 8.0,
+      "launch_count": 8,
+      "t_sparse_ms": 47.3624,
+      "compute_ms": 25.961,
+      "membw_ms": 0.6245,
+      "launch_ms": 0.2029,
+      "cost_model_pred_ms": 26.1639,
+      "residual_ms": 21.1985,
+      "band_ms": {
+        "t_sparse_ms": 0.9698,
+        "compute_ms": 1.262,
+        "membw_ms": 0.0771,
+        "launch_ms": 0.07,
+        "residual_ms": 2.3789
+      },
+      "residual_frac_of_measured": 0.4476,
+      "volume_match": {
+        "compute_flops_ratio": 1.0,
+        "membw_bytes_ratio": 1.0,
+        "launch_count_match": 8
+      }
+    }
+  ],
+  "config": {
+    "d": 1024,
+    "e": 8,
+    "k_list": [
+      1,
+      2,
+      4
+    ],
+    "T_grid": [
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "iters": 20
+  },
+  "bears_on": "substrate_active_gating_8a_break_even_v1 (measured HARD_FAIL, boundary non-monotone) -- mechanism WHY",
+  "recovery_candidate_note": "drill-2: any cheap-attackable dominant channel (e.g. launch-tax via kernel fusion) is a T2/T3 RECOVERY-CANDIDATE HYPOTHESIS to be TESTED, NOT a recovery claim (refinement 4)",
+  "measured_bounds": "4-channel attribution of the 8a sparse op @ flagship d=1024/e=8/this-hardware; NOT fundamental",
+  "elapsed_s": 7.89,
+  "measures_quantity": "t_sparse (ABSOLUTE) -- NOT net_speedup (ratio); no t_dense measured",
+  "net_speedup_nonmonotonicity_localization": "OPEN -- future drill: measure t_dense + t_sparse, attribute the RATIO",
+  "attribution_findings": {
+    "residual_inversion": "cost_model_misses_61pct_median_under_predicts_t_sparse",
+    "measures_quantity": "t_sparse_cost_structure_NOT_net_speedup",
+    "nonmonotonicity_localization": "OPEN_a1_measured_t_sparse_monotone_canonical_nonmonotone_in_net_speedup_ratio",
+    "future_drill": "a1_v2_ratio_profile_t_dense_and_t_sparse"
+  }
+}

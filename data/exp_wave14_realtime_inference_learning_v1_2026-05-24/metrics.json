@@ -1,0 +1,41 @@
+{
+  "verdict": "REALTIME_INFERENCE_MIDDLE_BAND",
+  "verdict_msg": "Online updates have marginal effect: bpc_online=0.000 vs bpc_frozen=0.000; delta=0.000 bits/char in (-0.05,0.05). Pipeline viable; no capability uplift.",
+  "elapsed_s": 10.514999999955762,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "bpc_frozen": 0.0,
+        "bpc_online": 0.0,
+        "delta": 0.0
+      },
+      "17": {
+        "bpc_frozen": 0.0,
+        "bpc_online": 0.0,
+        "delta": 0.0
+      },
+      "23": {
+        "bpc_frozen": 0.0,
+        "bpc_online": 0.0,
+        "delta": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 2048,
+    "T_infer": 4000,
+    "online_alpha": 0.05,
+    "online_decay": 0.0001,
+    "pretrain_bytes": 50000,
+    "pretrain_epochs": 3,
+    "batch_size": 64,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "pass_bpc_delta": -0.05,
+    "fail_bpc_delta": 0.05
+  }
+}

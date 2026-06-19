@@ -1,0 +1,15 @@
+{
+  "anchor_name": "3x_redundant_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3x-redundant reliability works -- averaging 3 noisy mirrored copies recovers recall>=0.95 vs single-copy 0.71 under corruption. Soft redundancy via wrapper (mirror+average), no core change. 3x=0.983 single=0.713",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "redundant3x_recall": 0.983,
+      "single_copy_recall": 0.713
+    }
+  ],
+  "elapsed_s": 3.5821008682250977,
+  "summary": "HARD_PASS: 3x-redundant reliability works -- averaging 3 noisy mirrored copies recovers recall>=0.95 vs single-copy 0.71 under corruption. Soft redundancy via wrapper (mirror+average), no core change. 3x=0.983 single=0.713"
+}

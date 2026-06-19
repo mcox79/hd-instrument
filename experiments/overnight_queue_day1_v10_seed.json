@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "m2_concept_extraction",
+      "script": "experiments/exp_wave14b_m2_concept_extraction.py",
+      "status": "pending",
+      "purpose": "M2 minimal: extract concept atoms + C3 over consolidated pool. Tests if M2 is ADDITIVE to C3 factored.",
+      "timeout_s": 1200
+    }
+  ]
+}

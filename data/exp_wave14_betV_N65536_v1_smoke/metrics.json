@@ -1,0 +1,28 @@
+{
+  "verdict": "BET_V_N65K_PASS",
+  "verdict_msg": "Bet V at N=65536: gap=0.578 (>=0.424). Cycle 103 N-scaling extends. stored_conf=0.770, unstored_conf=0.192.",
+  "elapsed_s": 0.10999999998603016,
+  "summary": {
+    "stored_conf": 0.7702564577649781,
+    "unstored_conf": 0.19183563037413298,
+    "gap": 0.5784208273908451,
+    "per_seed": [
+      {
+        "stored": 0.7702564577649781,
+        "unstored": 0.19183563037413298
+      }
+    ],
+    "N": 8192
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 30,
+    "n_probes": 20,
+    "seeds": [
+      17
+    ]
+  }
+}

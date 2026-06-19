@@ -1,0 +1,182 @@
+{
+  "verdict": "MOE_KSWEEP_HARD_FAIL_REJECTED",
+  "verdict_msg": "MoE-on-substrate REJECTED: retention flat in K \u2014 lift=0.004 < 0.05, max_dev=0.002 <= 0.03. K=2: ret=0.709, pred=0.000, K=4: ret=0.710, pred=0.000, K=8: ret=0.711, pred=0.000, K=16: ret=0.713, pred=0.000.",
+  "elapsed_s": 8.03100000001723,
+  "summary": {
+    "per_K": {
+      "2": {
+        "7": {
+          "retention": 0.7084290385246277,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4068,
+          "M_per_expert": 2048,
+          "N_per_expert": 2048
+        },
+        "17": {
+          "retention": 0.7091661095619202,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4047,
+          "M_per_expert": 2048,
+          "N_per_expert": 2048
+        },
+        "23": {
+          "retention": 0.708318829536438,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4071,
+          "M_per_expert": 2048,
+          "N_per_expert": 2048
+        },
+        "31": {
+          "retention": 0.7105060815811157,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4025,
+          "M_per_expert": 2048,
+          "N_per_expert": 2048
+        },
+        "41": {
+          "retention": 0.709160566329956,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4051,
+          "M_per_expert": 2048,
+          "N_per_expert": 2048
+        }
+      },
+      "4": {
+        "7": {
+          "retention": 0.7082391977310181,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4078,
+          "M_per_expert": 1024,
+          "N_per_expert": 1024
+        },
+        "17": {
+          "retention": 0.7125495672225952,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 3979,
+          "M_per_expert": 1024,
+          "N_per_expert": 1024
+        },
+        "23": {
+          "retention": 0.7099781036376953,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4033,
+          "M_per_expert": 1024,
+          "N_per_expert": 1024
+        },
+        "31": {
+          "retention": 0.7087824940681458,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4067,
+          "M_per_expert": 1024,
+          "N_per_expert": 1024
+        },
+        "41": {
+          "retention": 0.7092153429985046,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4051,
+          "M_per_expert": 1024,
+          "N_per_expert": 1024
+        }
+      },
+      "8": {
+        "7": {
+          "retention": 0.7099835276603699,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4043,
+          "M_per_expert": 512,
+          "N_per_expert": 512
+        },
+        "17": {
+          "retention": 0.7124528288841248,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4001,
+          "M_per_expert": 512,
+          "N_per_expert": 512
+        },
+        "23": {
+          "retention": 0.7104814052581787,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4034,
+          "M_per_expert": 512,
+          "N_per_expert": 512
+        },
+        "31": {
+          "retention": 0.7094526290893555,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4051,
+          "M_per_expert": 512,
+          "N_per_expert": 512
+        },
+        "41": {
+          "retention": 0.7113069295883179,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4020,
+          "M_per_expert": 512,
+          "N_per_expert": 512
+        }
+      },
+      "16": {
+        "7": {
+          "retention": 0.7112703323364258,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4022,
+          "M_per_expert": 256,
+          "N_per_expert": 256
+        },
+        "17": {
+          "retention": 0.7152065634727478,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 3942,
+          "M_per_expert": 256,
+          "N_per_expert": 256
+        },
+        "23": {
+          "retention": 0.7131856679916382,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4001,
+          "M_per_expert": 256,
+          "N_per_expert": 256
+        },
+        "31": {
+          "retention": 0.7113564014434814,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4031,
+          "M_per_expert": 256,
+          "N_per_expert": 256
+        },
+        "41": {
+          "retention": 0.7127727270126343,
+          "moe_predicted_retention": 0.0,
+          "M_actually_stored": 4012,
+          "M_per_expert": 256,
+          "N_per_expert": 256
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_total": 4096,
+    "K_sweep": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "batch_probe": 1024,
+    "device": "cuda",
+    "pass_lift": 0.2,
+    "pass_track_tol": 0.1,
+    "monotone_tol": 0.02,
+    "fail_flat_lift": 0.05,
+    "fail_max_dev": 0.03
+  }
+}

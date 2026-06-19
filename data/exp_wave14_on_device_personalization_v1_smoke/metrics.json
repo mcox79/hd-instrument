@@ -1,0 +1,36 @@
+{
+  "verdict": "ON_DEVICE_HARD_PASS",
+  "verdict_msg": "Viable for on-device deployment: thr=1875.0>=100.0 AND lat=0.0ms<=50.0 AND ret_A=1.000>=0.7. K3 closed-PASS.",
+  "elapsed_s": 8.421999999991385,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "add_throughput": 1874.9999996180122,
+        "retrieval_latency_ms": 0.0,
+        "retention_A": 1.0,
+        "n_user_items": 30,
+        "n_retrievals": 20,
+        "bpc_A_baseline": 3.45537877368927,
+        "bpc_A_after": 3.454391664505005,
+        "add_elapsed_s": 0.01600000000325963,
+        "retrieval_elapsed_s": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "n_user_items": 30,
+    "n_retrievals": 20,
+    "seeds": [
+      17
+    ],
+    "pass_throughput": 100.0,
+    "pass_retrieval_ms": 50.0,
+    "pass_ret_A": 0.7,
+    "fail_throughput": 10.0,
+    "fail_retrieval_ms": 500.0,
+    "fail_ret_A": 0.3,
+    "device": "cpu"
+  }
+}

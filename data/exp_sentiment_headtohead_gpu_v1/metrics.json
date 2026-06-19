@@ -1,0 +1,1 @@
+{"anchor_name": "sentiment_headtohead_gpu_v1", "verdict": "HARD_PASS", "verdict_msg": "HARD_PASS: substrate text-classifier acc=0.767 (0.00003s/item) vs Qwen-0.5B acc=0.580 (0.097s/item) -- SUBSTRATE>=LLM. Substrate 3684x faster, tiny. SST-2 sentiment.", "substrate_acc": 0.767, "llm_acc": 0.58, "sub_latency": 2.6412606239318847e-05, "llm_latency": 0.09732572376728058}

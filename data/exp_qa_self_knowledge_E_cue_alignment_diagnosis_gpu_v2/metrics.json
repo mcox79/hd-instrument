@@ -1,0 +1,73 @@
+{
+  "anchor_name": "qa_self_knowledge_E_cue_alignment_diagnosis_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (CUE-ALIGNED diagnosis): E-gold IS reachable by bge (median cos 0.81, recall@3 0.86) -- the E-axis residual is NOT cue alignment but a downstream RANKING / keyword-UNION-precision problem. Lever is the route's selection/fusion, not the cue. median best-gold bge cos=0.8127 (mean 0.7918); recall@3=0.8571 recall@10=1.0000; median gold rank=0.0/1743; n_scored=7/8; per-q=[('Q19-E', 0.8163, 2), ('Q20-E', 0.8127, 0), ('Q21-E', 0.7167, 4), ('Q22-E', 0.8321, 0), ('Q50-E', 0.7531, 0), ('Q51-E', 0.7174, 0), ('Q52-E', 0.8946, 0)]",
+  "summary": "HARD_PASS (CUE-ALIGNED diagnosis): E-gold IS reachable by bge (median cos 0.81, recall@3 0.86) -- the E-axis residual is NOT cue alignment but a downstream RANKING / keyword-UNION-precision problem. Lever is the route's selection/fusion, not the cue. median best-gold bge cos=0.8127 (mean 0.7918); recall@3=0.8571 recall@10=1.0000; median gold rank=0.0/1743; n_scored=7/8; per-q=[('Q19-E', 0.8163, 2), ('Q20-E', 0.8127, 0), ('Q21-E', 0.7167, 4), ('Q22-E', 0.8321, 0), ('Q50-E', 0.7531, 0), ('Q51-E', 0.7174, 0), ('Q52-E', 0.8946, 0)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_E": 8,
+      "n_scored": 7,
+      "median_best_cos": 0.8127,
+      "mean_best_cos": 0.7918,
+      "recall_at_k": 0.8571,
+      "recall_at_10": 1.0,
+      "median_gold_rank": 0.0,
+      "K": 3,
+      "N_atoms": 1743,
+      "rows": [
+        {
+          "id": "Q19-E",
+          "gold_in_index": true,
+          "best_cos": 0.8163,
+          "best_rank": 2,
+          "in_topk": true
+        },
+        {
+          "id": "Q20-E",
+          "gold_in_index": true,
+          "best_cos": 0.8127,
+          "best_rank": 0,
+          "in_topk": true
+        },
+        {
+          "id": "Q21-E",
+          "gold_in_index": true,
+          "best_cos": 0.7167,
+          "best_rank": 4,
+          "in_topk": false
+        },
+        {
+          "id": "Q22-E",
+          "gold_in_index": true,
+          "best_cos": 0.8321,
+          "best_rank": 0,
+          "in_topk": true
+        },
+        {
+          "id": "Q50-E",
+          "gold_in_index": true,
+          "best_cos": 0.7531,
+          "best_rank": 0,
+          "in_topk": true
+        },
+        {
+          "id": "Q51-E",
+          "gold_in_index": true,
+          "best_cos": 0.7174,
+          "best_rank": 0,
+          "in_topk": true
+        },
+        {
+          "id": "Q52-E",
+          "gold_in_index": true,
+          "best_cos": 0.8946,
+          "best_rank": 0,
+          "in_topk": true
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 236.55496883392334
+}

@@ -1,0 +1,25 @@
+{
+  "anchor_name": "pca_bottleneck_keyjob_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate KEY-job F1>=0.90 at d<=30 -- can truncate to the manifold dim without losing facts; privacy-truncation mitigation has headroom (the facts survive; only the membership-leakage dims need to go). KEY-job pinv F1 by PCA dim: {'full': 1.0, 'd5': 0.306, 'd10': 0.711, 'd20': 0.881, 'd30': 0.935, 'd50': 0.988, 'd100': 0.998} (n=1000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "full": 1.0,
+        "d5": 0.306,
+        "d10": 0.711,
+        "d20": 0.881,
+        "d30": 0.935,
+        "d50": 0.988,
+        "d100": 0.998
+      },
+      "n": 1000,
+      "f1_d30": 0.935,
+      "f1_d100": 0.998
+    }
+  ],
+  "elapsed_s": 20.791831016540527,
+  "summary": "HARD_PASS: substrate KEY-job F1>=0.90 at d<=30 -- can truncate to the manifold dim without losing facts; privacy-truncation mitigation has headroom (the facts survive; only the membership-leakage dims need to go). KEY-job pinv F1 by PCA dim: {'full': 1.0, 'd5': 0.306, 'd10': 0.711, 'd20': 0.881, 'd30': 0.935, 'd50': 0.988, 'd100': 0.998} (n=1000)"
+}

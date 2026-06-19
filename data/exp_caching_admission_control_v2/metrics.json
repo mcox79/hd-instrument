@@ -1,0 +1,23 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: acc_naive=1.0000 > HF=0.75. rate_drop_ratio=1.000 (HP<0.7) acc_admitted=1.0000 (HP>=0.85 HF<0.6) acc_naive=1.0000 (HP<=0.5 HF>0.75) n_seeds=2",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 512,
+  "M_TOTAL": 105,
+  "per_seed": [
+    {
+      "seed": 7,
+      "rate_drop_ratio": 1.0,
+      "acc_admitted": 1.0,
+      "acc_naive": 1.0
+    },
+    {
+      "seed": 17,
+      "rate_drop_ratio": 1.0,
+      "acc_admitted": 1.0,
+      "acc_naive": 1.0
+    }
+  ],
+  "elapsed_total_s": 0.6681773662567139
+}

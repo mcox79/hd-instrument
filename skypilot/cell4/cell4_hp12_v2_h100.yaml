@@ -1,0 +1,67 @@
+# CELL-4 HP-12 V2 100K facts with pseudoinverse + PCA + LEFT-pad + H=2 multi-head.
+#
+# Mostly numpy; H100/GH200 is overkill but uses existing safety infra.
+# Cost: ~$0.40-0.70 expected (15-25 min wall).
+
+name: cell4hp
+
+resources:
+  cloud: lambda
+  use_spot: false
+  # SKU + accelerators come from CLI --instance-type passed by safety stack.
+  # any_of removed: SkyPilot validates each any_of against CLI overrides and
+  # fails when any entry mismatches the CLI's accelerator type (2026-06-07 bug).
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/5] HF_TOKEN sanity (CELL-4 doesn't need Llama but token verifies env) ==="
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars"
+
+  echo "=== [setup 2/5] detect GPU + apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total --format=csv
+
+  echo "=== [setup 3/5] install torch (cu121 x86 or cu128 aarch64) ==="
+  ARCH=$(uname -m)
+  pip install --quiet --upgrade pip
+  if [ "$ARCH" = "aarch64" ]; then
+    pip install --quiet --upgrade "torch>=2.5" --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade "torch" --index-url https://download.pytorch.org/whl/nightly/cu128
+  else
+    pip install --quiet --upgrade "torch>=2.5" --index-url https://download.pytorch.org/whl/cu121
+  fi
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "numpy<2.3"
+
+  echo "=== [setup 4/5] CELL-4 script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_hp12_v2_100k_pseudoinverse_v1.py --self-test
+
+  echo "=== [setup 5/5] verify CELL-2 v3 cache shards present ==="
+  ls ~/sky_workdir/data/cell2_results/shard_*.npz 2>/dev/null | wc -l
+  du -sh ~/sky_workdir/data/cell2_results/ 2>&1 | head -1
+
+  echo "=== setup complete ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_EXP_NAME=substrate_hp12_v2_100k_pseudoinverse_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-4 HP-12 V2 100K pseudoinverse + H=2 multi-head START ==="
+  python -u experiments/exp_substrate_hp12_v2_100k_pseudoinverse_v1.py \
+    --cell2-shards-dir ~/sky_workdir/data/cell2_results \
+    --noise-sweep
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_hp12_v2_100k_pseudoinverse_v1/ 2>&1 | head -10
+  cat ~/sky_workdir/data/exp_substrate_hp12_v2_100k_pseudoinverse_v1/metrics.json 2>&1 | python3 -m json.tool | head -40

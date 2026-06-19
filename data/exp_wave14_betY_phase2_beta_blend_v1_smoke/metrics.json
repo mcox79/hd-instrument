@@ -1,0 +1,33 @@
+{
+  "verdict": "BETA_BLEND_CLASSICAL",
+  "verdict_msg": "Peak ratio=1.00 at beta=4.0 (<1.05). Substrate is classical-Hopfield-class for Kerdock 4-coset; modern dense AM provides no capacity gain. ratio_per_beta={'4.0': 1.0, '8.0': 1.0}.",
+  "elapsed_s": 1.375,
+  "summary": {
+    "argmax_capacity": 0.5,
+    "modern_capacity_per_beta": {
+      "4.0": 0.5,
+      "8.0": 0.5
+    },
+    "ratio_per_beta": {
+      "4.0": 1.0,
+      "8.0": 1.0
+    },
+    "best_beta": 4.0,
+    "best_ratio": 1.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_grid": [
+      256,
+      512
+    ],
+    "seeds": 1,
+    "betas": [
+      4.0,
+      8.0
+    ],
+    "n_iter": 5,
+    "key_family": "kerdock_4coset"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "verdict": "G3_HARD_FAIL",
+  "verdict_msg": "NO_COMPOSITION_VALUE: hp_hits=0/6 (need>=1) advantages=[] max_catch=0.0000 max_delta=0.0000 n_cells=6",
+  "elapsed_s": 0.67,
+  "summary": {
+    "anchor": "handoff_composition_probe_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "regimes": [
+      [
+        "sub_cap",
+        256
+      ],
+      [
+        "past_cap",
+        1024
+      ]
+    ],
+    "K": 50,
+    "depth": 5,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "strategy": "A_heuristic",
+        "M": 256,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "baseline_d_acc": 1.0,
+        "baseline_d_lat_ns": 41283200,
+        "strat_acc": 1.0,
+        "accuracy_delta": 0.0,
+        "strategy_overhead_ns": 2467200,
+        "verifier_catch_rate": 0.0,
+        "when_useful": 0,
+        "strat_meta": {
+          "high_K": false,
+          "sub_cap": true,
+          "chosen": "B"
+        }
+      },
+      {
+        "strategy": "A_heuristic",
+        "M": 1024,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "baseline_d_acc": 1.0,
+        "baseline_d_lat_ns": 40845800,
+        "strat_acc": 1.0,
+        "accuracy_delta": 0.0,
+        "strategy_overhead_ns": 2452600,
+        "verifier_catch_rate": 0.0,
+        "when_useful": 0,
+        "strat_meta": {
+          "high_K": false,
+          "sub_cap": true,
+          "chosen": "B"
+        }
+      },
+      {
+        "strategy": "B_parallel_verify",
+        "M": 256,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "baseline_d_acc": 1.0,
+        "baseline_d_lat_ns": 41079300,
+        "strat_acc": 1.0,
+        "accuracy_delta": 0.0,
+        "strategy_overhead_ns": 89315600,
+        "verifier_catch_rate": 0.0,
+        "when_useful": 0,
+        "strat_meta": {
+          "high_K": false,
+          "sub_cap": true,
+          "chosen": "B+D+E",
+          "verifier_E_auc": 1.0,
+          "verifier_B_acc": 1.0
+        }
+      },
+      {
+        "strategy": "B_parallel_verify",
+        "M": 1024,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "baseline_d_acc": 1.0,
+        "baseline_d_lat_ns": 41857300,
+        "strat_acc": 1.0,
+        "accuracy_delta": 0.0,
+        "strategy_overhead_ns": 105014400,
+        "verifier_catch_rate": 0.0,
+        "when_useful": 0,
+        "strat_meta": {
+          "high_K": false,
+          "sub_cap": true,
+          "chosen": "B+D+E",
+          "verifier_E_auc": 0.9805,
+          "verifier_B_acc": 1.0
+        }
+      },
+      {
+        "strategy": "C_targeted_verifier",
+        "M": 256,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "baseline_d_acc": 1.0,
+        "baseline_d_lat_ns": 45202700,
+        "strat_acc": 1.0,
+        "accuracy_delta": 0.0,
+        "strategy_overhead_ns": 3002000,
+        "verifier_catch_rate": 0.0,
+        "when_useful": 0,
+        "strat_meta": {
+          "high_K": false,
+          "sub_cap": true,
+          "chosen_verifier": "B",
+          "verifier_B_acc": 1.0
+        }
+      },
+      {
+        "strategy": "C_targeted_verifier",
+        "M": 1024,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "baseline_d_acc": 1.0,
+        "baseline_d_lat_ns": 42107800,
+        "strat_acc": 1.0,
+        "accuracy_delta": 0.0,
+        "strategy_overhead_ns": 2530500,
+        "verifier_catch_rate": 0.0,
+        "when_useful": 0,
+        "strat_meta": {
+          "high_K": false,
+          "sub_cap": true,
+          "chosen_verifier": "B",
+          "verifier_B_acc": 1.0
+        }
+      }
+    ],
+    "verdict": "G3_HARD_FAIL",
+    "verdict_msg": "NO_COMPOSITION_VALUE: hp_hits=0/6 (need>=1) advantages=[] max_catch=0.0000 max_delta=0.0000 n_cells=6",
+    "elapsed_s": 0.67
+  }
+}

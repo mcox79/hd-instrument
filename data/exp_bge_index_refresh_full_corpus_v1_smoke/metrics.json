@@ -1,0 +1,45 @@
+{
+  "anchor_name": "substrate_bge_index_refresh_full_corpus_v1",
+  "run_mode": "smoke",
+  "verdict": "OK",
+  "verdict_msg": "SMOKE wiring-check: ok=True (Retriever+rebuild_index_cached importable; n_atoms=31283; encode-module-importable=True; target=bge_large_v2_name_31283_311e495a.npz). AtomEncoder NOT constructed locally (bge eager-loads = REMOTE-only); FULL bge encode = remote GPU.",
+  "summary": "SMOKE wiring-check: ok=True (Retriever+rebuild_index_cached importable; n_atoms=31283; encode-module-importable=True; target=bge_large_v2_name_31283_311e495a.npz). AtomEncoder NOT constructed locally (bge eager-loads = REMOTE-only); FULL bge encode = remote GPU.",
+  "wiring_ok": true,
+  "encode_module_importable": true,
+  "n_atoms": 31283,
+  "target_cache_file": "bge_large_v2_name_31283_311e495a.npz",
+  "existing_caches": [
+    {
+      "file": "bge_large_1731_4480d0c0.npz",
+      "size_mb": 12.6,
+      "mtime": "2026-06-12 05:08"
+    },
+    {
+      "file": "bge_large_1742_49029a5d.npz",
+      "size_mb": 12.68,
+      "mtime": "2026-06-12 06:25"
+    },
+    {
+      "file": "bge_large_v2_name_1742_49029a5d.npz",
+      "size_mb": 12.68,
+      "mtime": "2026-06-12 06:57"
+    },
+    {
+      "file": "bge_large_v2_name_1743_db186b35.npz",
+      "size_mb": 12.69,
+      "mtime": "2026-06-12 12:02"
+    },
+    {
+      "file": "bge_large_v2_name_1774_043430c8.npz",
+      "size_mb": 12.91,
+      "mtime": "2026-06-12 07:28"
+    },
+    {
+      "file": "bge_large_v2_name_1782_c2420fcf.npz",
+      "size_mb": 12.97,
+      "mtime": "2026-06-12 07:16"
+    }
+  ],
+  "elapsed_s": 2.08,
+  "note": "wiring-check; AtomEncoder NOT constructed (bge eager-loads sentence-transformers = REMOTE-only); FULL = remote GPU."
+}

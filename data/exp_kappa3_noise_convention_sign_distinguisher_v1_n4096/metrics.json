@@ -1,0 +1,79 @@
+{
+  "anchor_name": "kappa3_noise_convention_sign_distinguisher_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: B positive (2/3) but formula-match 1/3 or A-contrast weak. A(additive_W)=0.05:+0.0004 0.10:-0.0015 0.20:+0.0031 B(additive_patterns)=0.05:-0.0008 0.10:+0.0019 0.20:+0.0066 B_pos=2/3 B_matches_formula=1/3 |A|<|B|=True",
+  "N": 4096,
+  "run_mode": "smoke",
+  "alpha": 0.05,
+  "sigma_g_grid": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "n_seeds": 2,
+  "elapsed_s": 0.12530994415283203,
+  "per_seed": [
+    {
+      "seed": 7,
+      "k3_clean": 0.05383577197790146,
+      "cells": [
+        {
+          "sigma_g": 0.05,
+          "deltaA": 0.002987757369005188,
+          "deltaB": -0.0015938483839219864,
+          "pred": 0.0003750000000000001,
+          "relB": 5.250262357125297,
+          "matchB": false
+        },
+        {
+          "sigma_g": 0.1,
+          "deltaA": 0.0007224866477242367,
+          "deltaB": 0.0053112055277540204,
+          "pred": 0.0015000000000000005,
+          "relB": 2.540803685169346,
+          "matchB": false
+        },
+        {
+          "sigma_g": 0.2,
+          "deltaA": 0.002090430365154161,
+          "deltaB": 0.0077102346368336586,
+          "pred": 0.006000000000000002,
+          "relB": 0.2850391061389427,
+          "matchB": true
+        }
+      ],
+      "elapsed_s": 0.02936863899230957
+    },
+    {
+      "seed": 17,
+      "k3_clean": 0.05118595436215401,
+      "cells": [
+        {
+          "sigma_g": 0.05,
+          "deltaA": -0.0021819269527894036,
+          "deltaB": -7.325145835477415e-05,
+          "pred": 0.0003750000000000001,
+          "relB": 1.1953372222793976,
+          "matchB": false
+        },
+        {
+          "sigma_g": 0.1,
+          "deltaA": -0.003644049473780865,
+          "deltaB": -0.0014434803848938499,
+          "pred": 0.0015000000000000005,
+          "relB": 1.9623202565958997,
+          "matchB": false
+        },
+        {
+          "sigma_g": 0.2,
+          "deltaA": 0.0040177641599080105,
+          "deltaB": 0.0055185907896371025,
+          "pred": 0.006000000000000002,
+          "relB": 0.08023486839381654,
+          "matchB": true
+        }
+      ],
+      "elapsed_s": 0.03444242477416992
+    }
+  ]
+}

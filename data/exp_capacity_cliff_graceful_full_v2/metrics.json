@@ -1,0 +1,29 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Capacity cliff: n_hp=2/2, n_monotone=2/2, N=512, alpha_fine_grid_len=5",
+  "n_hp_seeds": 2,
+  "n_monotone_seeds": 2,
+  "n_seeds": 2,
+  "N_production": 4096,
+  "N_run": 512,
+  "elapsed_s": 0.0734257698059082,
+  "run_mode": "smoke",
+  "seed_verdicts": [
+    {
+      "seed": 7,
+      "monotone": true,
+      "graceful": true,
+      "sharp": false,
+      "R_at_013": 1.0,
+      "hp": true
+    },
+    {
+      "seed": 17,
+      "monotone": true,
+      "graceful": true,
+      "sharp": false,
+      "R_at_013": 1.0,
+      "hp": true
+    }
+  ]
+}

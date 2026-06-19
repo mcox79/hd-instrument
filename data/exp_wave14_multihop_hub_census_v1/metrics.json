@@ -1,0 +1,46 @@
+{
+  "verdict": "HUBNESS_ABSENT",
+  "verdict_msg": "Hubness mechanism FALSIFIED: skew(N=65536)=0.670<0.5 OR not monotone. skew_per_N={'4096': 1.0880401134490967, '16384': 0.7614350914955139, '65536': 0.6697646975517273}.",
+  "elapsed_s": 0.1879999999946449,
+  "summary": {
+    "skewness_per_N": {
+      "4096": 1.0880401134490967,
+      "16384": 0.7614350914955139,
+      "65536": 0.6697646975517273
+    },
+    "details_per_N": {
+      "4096": {
+        "k_occurrence_max": 4.0,
+        "k_occurrence_mean": 1.0,
+        "k_occurrence_std": 1.0824588537216187,
+        "skewness": 1.0880401134490967,
+        "top10_hub_share": 0.3400000035762787
+      },
+      "16384": {
+        "k_occurrence_max": 4.0,
+        "k_occurrence_mean": 1.0,
+        "k_occurrence_std": 0.9534626007080078,
+        "skewness": 0.7614350914955139,
+        "top10_hub_share": 0.27000001072883606
+      },
+      "65536": {
+        "k_occurrence_max": 4.0,
+        "k_occurrence_mean": 1.0,
+        "k_occurrence_std": 0.9639984369277954,
+        "skewness": 0.6697646975517273,
+        "top10_hub_share": 0.2800000011920929
+      }
+    },
+    "K": 100
+  },
+  "config": {
+    "mode": "full",
+    "N_grid": [
+      4096,
+      16384,
+      65536
+    ],
+    "K": 100,
+    "seed": 17
+  }
+}

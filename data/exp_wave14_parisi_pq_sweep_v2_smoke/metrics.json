@@ -1,0 +1,37 @@
+{
+  "verdict": "PARISI_V2_RSB_CONFIRMED",
+  "verdict_msg": "6-test battery (tests 3, 4, 6) confirms RSB-like phase: self-averaging holds (binder std < 0.02) and equilibrated (binder halves drift < 0.01) for 1/1 codebooks. v1's discrimination is substrate-physical, not finite-size.",
+  "elapsed_s": 0.6559999999990396,
+  "summary": {
+    "by_codebook": {
+      "random_bsc": {
+        "codebook_type": "random_bsc",
+        "M_stored": 2048,
+        "binder_mean": 0.00017456314578153295,
+        "binder_std_across_seeds": 0.0009215211018053718,
+        "binder_halves_drift": 0.0006736232090815975,
+        "binder_per_seed": [
+          -0.0008879794848184464,
+          0.0007553673763081026,
+          0.0006563015458549426
+        ],
+        "eig_min": -2.5148676741082454e-06,
+        "eig_max": 5.799624919891357,
+        "eig_mean": 1.0,
+        "eig_std": 1.4159220457077026,
+        "n_eigvals": 2048
+      }
+    },
+    "M_stored": 2048,
+    "N": 1024
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "codebook_types": [
+      "random_bsc"
+    ],
+    "M_ratio": 2.0,
+    "n_pool_seeds": 3
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "anchor": "reasoning_storage_threshold_sweep_v1_n4096",
+  "N": 512,
+  "smoke": true,
+  "sweep_n_chains": [
+    50,
+    200,
+    500
+  ],
+  "seeds": [
+    17
+  ],
+  "per_seed": [
+    {
+      "seed": 17,
+      "N": 512,
+      "sweep_n_chains": [
+        50,
+        200,
+        500
+      ],
+      "results_by_nchains": {
+        "50": {
+          "sigma_1": 1.89503884,
+          "sigma_2": 1.88173139,
+          "ratio_s1_s2": 1.0071,
+          "mp_edge_ref": 0.75,
+          "spectral_collapsed": false,
+          "collapse_criterion": "ratio_s1_s2 > 3.0",
+          "top_10_sigmas": [
+            1.89503884,
+            1.88173139,
+            1.85968614,
+            1.82300532,
+            1.80025375,
+            1.76614201,
+            1.73972237,
+            1.73196518,
+            1.7027967,
+            1.68069363
+          ],
+          "n_chains": 50,
+          "M_steps": 200,
+          "t_build_s": 0.0
+        },
+        "200": {
+          "sigma_1": 2.93304396,
+          "sigma_2": 2.92591166,
+          "ratio_s1_s2": 1.0024,
+          "mp_edge_ref": 1.5,
+          "spectral_collapsed": false,
+          "collapse_criterion": "ratio_s1_s2 > 3.0",
+          "top_10_sigmas": [
+            2.93304396,
+            2.92591166,
+            2.88827562,
+            2.85102963,
+            2.82137609,
+            2.79844189,
+            2.79240179,
+            2.74582267,
+            2.72900963,
+            2.71624875
+          ],
+          "n_chains": 200,
+          "M_steps": 800,
+          "t_build_s": 0.02
+        },
+        "500": {
+          "sigma_1": 4.27550077,
+          "sigma_2": 4.21747875,
+          "ratio_s1_s2": 1.0138,
+          "mp_edge_ref": 2.37170825,
+          "spectral_collapsed": false,
+          "collapse_criterion": "ratio_s1_s2 > 3.0",
+          "top_10_sigmas": [
+            4.27550077,
+            4.21747875,
+            4.1989131,
+            4.17256021,
+            4.11771965,
+            4.10373354,
+            4.0889225,
+            4.04345703,
+            4.02667332,
+            3.98931122
+          ],
+          "n_chains": 500,
+          "M_steps": 2000,
+          "t_build_s": 0.04
+        }
+      },
+      "elapsed_s": 0.25
+    }
+  ],
+  "verdict": "RSTS_HARD_PASS",
+  "verdict_msg": "No spectral collapse at any n_chains <= 500. sigma_1/sigma_2 stays below 3x MP edge across all sweep points. seeds=1",
+  "elapsed_s": 0.26
+}

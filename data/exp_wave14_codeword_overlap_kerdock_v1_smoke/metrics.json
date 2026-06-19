@@ -1,0 +1,45 @@
+{
+  "verdict": "KERDOCK_OVERLAPS_NON_GAUSSIAN",
+  "verdict_msg": "Kerdock codeword inner-product distribution departs from Gaussian in 1/1 cells (KS > 0.10; max_ks=0.256). Substrate-novel structural-algebraic fingerprint independent of spectral moment family.",
+  "elapsed_s": 0.031000000017229468,
+  "summary": {
+    "cells": [
+      {
+        "N": 1024,
+        "seed": 1024,
+        "features": {
+          "mean": -6.25000029685907e-05,
+          "std": 0.027314644306898117,
+          "ks_vs_gauss": 0.2562286718679452,
+          "n_peaks_detected": 1,
+          "peak_locs": [
+            0.00015624985098838806
+          ],
+          "peak_heights": [
+            236
+          ],
+          "multi_peak_3sigma": false,
+          "n_pairs": 1000
+        }
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N_list": [
+        1024
+      ],
+      "n_pairs": 1000,
+      "n_seeds": 1
+    },
+    "verdict": "KERDOCK_OVERLAPS_NON_GAUSSIAN",
+    "verdict_msg": "Kerdock codeword inner-product distribution departs from Gaussian in 1/1 cells (KS > 0.10; max_ks=0.256). Substrate-novel structural-algebraic fingerprint independent of spectral moment family."
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      1024
+    ],
+    "n_pairs": 1000,
+    "n_seeds": 1
+  }
+}

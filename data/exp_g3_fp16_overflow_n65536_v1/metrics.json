@@ -1,0 +1,26 @@
+{
+  "anchor_name": "g3_fp16_overflow_n65536_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: zero NaN/Inf in fp16 accumulation up to N=16384 -- fp16 production config safe. fp16 NaN/Inf at any N: False | fp16 absmax at N=16384: 50272 (fp16 max ~65504)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "N4096": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 11096.0,
+          "fp32_nan_inf": false
+        },
+        "N16384": {
+          "fp16_nan_inf": false,
+          "fp16_absmax": 50272.0,
+          "fp32_nan_inf": false
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.15311646461486816,
+  "summary": "HARD_PASS: zero NaN/Inf in fp16 accumulation up to N=16384 -- fp16 production config safe. fp16 NaN/Inf at any N: False | fp16 absmax at N=16384: 50272 (fp16 max ~65504)"
+}

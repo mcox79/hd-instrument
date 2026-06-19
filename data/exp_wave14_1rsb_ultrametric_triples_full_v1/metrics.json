@@ -1,0 +1,32 @@
+{
+  "verdict": "ULTRAMETRIC_1RSB_CONFIRMED",
+  "verdict_msg": "Ultrametric fraction=1.000 >= 0.5. mean_isosceles_gap=0.0001 q_EA=-0.000000. Retained-task W triples satisfy isosceles condition >> random baseline. 1-RSB ultrametric inequality SUPPORTED at N=2048 12-seed. | DIAGNOSTIC: mean_q=-0.000000 near zero -- W-vectors from different seeds are nearly orthogonal (UV-problem persists at N=512). Ultrametric test is on near-zero overlaps; trivial satisfaction expected. Pool-level RSB (wave14e2_parisi_ultrametricity) unaffected.",
+  "elapsed_s": 2.0,
+  "summary": {
+    "ultrametric_fraction": 1.0,
+    "mean_isosceles_gap": 6.576529813173693e-05,
+    "n_triples_tested": 50,
+    "n_seeds": 3,
+    "mean_overlap_q": -3.787408786593005e-07,
+    "std_overlap_q": 8.174583490472287e-05,
+    "eps_used": 0.1,
+    "uv_diagnostic": "DIAGNOSTIC: mean_q=-0.000000 near zero -- W-vectors from different seeds are nearly orthogonal (UV-problem persists at N=512). Ultrametric test is on near-zero overlaps; trivial satisfaction expected. Pool-level RSB (wave14e2_parisi_ultrametricity) unaffected."
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 16,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 3000,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "n_triples": 50,
+    "eps_ultrametric": 0.1,
+    "pass_frac": 0.5,
+    "fail_frac": 0.36
+  }
+}

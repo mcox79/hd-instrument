@@ -1,0 +1,260 @@
+{
+  "verdict": "SUBSTRATE_GENERATIVE_LIMITED",
+  "verdict_msg": "PARTIAL: at best cell (beta=5.00): novelty=1.000, diversity=0.070, stability=0.967, coherence=0.120. Some generative behavior but does not satisfy all 4 capability gates simultaneously. Limited 12th axis candidate.",
+  "elapsed_s": 190.43700000000536,
+  "summary": {
+    "cells": [
+      {
+        "beta": 3.0,
+        "novelty_rate": 1.0,
+        "diversity_median": 0.1014892578125,
+        "stability_rate": 0.0,
+        "binding_coherence_median": 0.12421875,
+        "n_seeds": 5,
+        "per_seed": [
+          {
+            "beta": 3.0,
+            "seed": 1020,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.0870361328125,
+            "stability_rate": 0.0,
+            "binding_coherence_median": 0.11669921875,
+            "n_samples": 200
+          },
+          {
+            "beta": 3.0,
+            "seed": 2020,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.1051025390625,
+            "stability_rate": 0.0,
+            "binding_coherence_median": 0.1328125,
+            "n_samples": 200
+          },
+          {
+            "beta": 3.0,
+            "seed": 3020,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.08203125,
+            "stability_rate": 0.0,
+            "binding_coherence_median": 0.1376953125,
+            "n_samples": 200
+          },
+          {
+            "beta": 3.0,
+            "seed": 4020,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.1109619140625,
+            "stability_rate": 0.0,
+            "binding_coherence_median": 0.11181640625,
+            "n_samples": 200
+          },
+          {
+            "beta": 3.0,
+            "seed": 5020,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.122314453125,
+            "stability_rate": 0.0,
+            "binding_coherence_median": 0.1220703125,
+            "n_samples": 200
+          }
+        ]
+      },
+      {
+        "beta": 5.0,
+        "novelty_rate": 1.0,
+        "diversity_median": 0.0702392578125,
+        "stability_rate": 0.9666666666666668,
+        "binding_coherence_median": 0.12041015625,
+        "n_seeds": 5,
+        "per_seed": [
+          {
+            "beta": 5.0,
+            "seed": 1034,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.0845947265625,
+            "stability_rate": 0.9666666666666667,
+            "binding_coherence_median": 0.11865234375,
+            "n_samples": 200
+          },
+          {
+            "beta": 5.0,
+            "seed": 2034,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.045166015625,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.1259765625,
+            "n_samples": 200
+          },
+          {
+            "beta": 5.0,
+            "seed": 3034,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.10498046875,
+            "stability_rate": 0.9333333333333333,
+            "binding_coherence_median": 0.12744140625,
+            "n_samples": 200
+          },
+          {
+            "beta": 5.0,
+            "seed": 4034,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.0728759765625,
+            "stability_rate": 0.9333333333333333,
+            "binding_coherence_median": 0.119140625,
+            "n_samples": 200
+          },
+          {
+            "beta": 5.0,
+            "seed": 5034,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.0435791015625,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.11083984375,
+            "n_samples": 200
+          }
+        ]
+      },
+      {
+        "beta": 7.0,
+        "novelty_rate": 1.0,
+        "diversity_median": 0.041015625,
+        "stability_rate": 1.0,
+        "binding_coherence_median": 0.12646484375,
+        "n_seeds": 5,
+        "per_seed": [
+          {
+            "beta": 7.0,
+            "seed": 1048,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.07275390625,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.121337890625,
+            "n_samples": 200
+          },
+          {
+            "beta": 7.0,
+            "seed": 2048,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.02294921875,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.12646484375,
+            "n_samples": 200
+          },
+          {
+            "beta": 7.0,
+            "seed": 3048,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.02587890625,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.14111328125,
+            "n_samples": 200
+          },
+          {
+            "beta": 7.0,
+            "seed": 4048,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.0296630859375,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.1279296875,
+            "n_samples": 200
+          },
+          {
+            "beta": 7.0,
+            "seed": 5048,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.0538330078125,
+            "stability_rate": 1.0,
+            "binding_coherence_median": 0.115478515625,
+            "n_samples": 200
+          }
+        ]
+      }
+    ],
+    "best_cell": {
+      "beta": 5.0,
+      "novelty_rate": 1.0,
+      "diversity_median": 0.0702392578125,
+      "stability_rate": 0.9666666666666668,
+      "binding_coherence_median": 0.12041015625,
+      "n_seeds": 5,
+      "per_seed": [
+        {
+          "beta": 5.0,
+          "seed": 1034,
+          "novelty_rate": 1.0,
+          "diversity_median": 0.0845947265625,
+          "stability_rate": 0.9666666666666667,
+          "binding_coherence_median": 0.11865234375,
+          "n_samples": 200
+        },
+        {
+          "beta": 5.0,
+          "seed": 2034,
+          "novelty_rate": 1.0,
+          "diversity_median": 0.045166015625,
+          "stability_rate": 1.0,
+          "binding_coherence_median": 0.1259765625,
+          "n_samples": 200
+        },
+        {
+          "beta": 5.0,
+          "seed": 3034,
+          "novelty_rate": 1.0,
+          "diversity_median": 0.10498046875,
+          "stability_rate": 0.9333333333333333,
+          "binding_coherence_median": 0.12744140625,
+          "n_samples": 200
+        },
+        {
+          "beta": 5.0,
+          "seed": 4034,
+          "novelty_rate": 1.0,
+          "diversity_median": 0.0728759765625,
+          "stability_rate": 0.9333333333333333,
+          "binding_coherence_median": 0.119140625,
+          "n_samples": 200
+        },
+        {
+          "beta": 5.0,
+          "seed": 5034,
+          "novelty_rate": 1.0,
+          "diversity_median": 0.0435791015625,
+          "stability_rate": 1.0,
+          "binding_coherence_median": 0.11083984375,
+          "n_samples": 200
+        }
+      ]
+    },
+    "config": {
+      "mode": "full",
+      "N": 4096,
+      "alpha": 0.25,
+      "beta_list": [
+        3.0,
+        5.0,
+        7.0
+      ],
+      "n_seeds": 5,
+      "n_burn": 400,
+      "n_collect": 200,
+      "sample_stride": 5,
+      "n_stability_check": 30
+    },
+    "note": "Substrate generative-mode dead-or-alive test; samples drawn from random-init Glauber chains in bimodal-beta regime"
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "alpha": 0.25,
+    "beta_list": [
+      3.0,
+      5.0,
+      7.0
+    ],
+    "n_seeds": 5,
+    "n_burn": 400,
+    "n_collect": 200,
+    "sample_stride": 5,
+    "n_stability_check": 30
+  }
+}

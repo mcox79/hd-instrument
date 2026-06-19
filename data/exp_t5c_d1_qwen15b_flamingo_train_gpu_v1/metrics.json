@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_d1_qwen15b_flamingo_train_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Tier-5c Phase C multi-layer Flamingo adapter -- perplexity IMPROVES baseline with both gates used -> Phase C grounded, Phase D unblocked. baseline=14.98 modified=12.75 ratio=0.851x gates=[0.245,0.245]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 14.980748324438729,
+      "mod_ppl": 12.75292407490579,
+      "ratio": 0.8512875190688175,
+      "gate0": 0.2451171875,
+      "gate1": 0.2451171875,
+      "used": true
+    }
+  ],
+  "elapsed_s": 1067.5659520626068,
+  "summary": "HARD_PASS: Tier-5c Phase C multi-layer Flamingo adapter -- perplexity IMPROVES baseline with both gates used -> Phase C grounded, Phase D unblocked. baseline=14.98 modified=12.75 ratio=0.851x gates=[0.245,0.245]"
+}

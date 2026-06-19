@@ -1,0 +1,56 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: persistent offset at N=1024. offset_ratio=0.486 < 0.75. Free-additive framework does not converge; formula error is not finite-N. Route to: DMPK fallback or alternative RMT framework.",
+  "elapsed_s": 0.22,
+  "summary": {
+    "N_sweep": [
+      512,
+      1024
+    ],
+    "offsets_by_N": {
+      "512": 0.4972,
+      "1024": 0.4862
+    },
+    "offset_at_N_max": 0.4862,
+    "N_max": 1024,
+    "convergence_A": -0.8498,
+    "convergence_fit_r2": 0.0,
+    "match15_frac_at_Nmax": 0.0,
+    "results": {
+      "N512_K2": {
+        "N": 512,
+        "K": 2,
+        "M_total": 400,
+        "mean_offset_ratio": 0.4972,
+        "ratio_empirical_mean": 0.4972,
+        "ratio_empirical_ci_lo": 0.4972,
+        "ratio_empirical_ci_hi": 0.4972,
+        "match15_frac": 0.0
+      },
+      "N1024_K2": {
+        "N": 1024,
+        "K": 2,
+        "M_total": 800,
+        "mean_offset_ratio": 0.4862,
+        "ratio_empirical_mean": 0.4862,
+        "ratio_empirical_ci_lo": 0.4862,
+        "ratio_empirical_ci_hi": 0.4862,
+        "match15_frac": 0.0
+      }
+    }
+  },
+  "config": {
+    "N_sweep": [
+      512,
+      1024
+    ],
+    "K_sweep": [
+      2
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "trigger": "ship when v3 returns FREE_ADDITIVE_HARD_PASS (offset_ratio ~1.0)"
+  }
+}

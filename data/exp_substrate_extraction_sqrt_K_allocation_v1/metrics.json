@@ -1,0 +1,83 @@
+{
+  "anchor_name": "substrate_extraction_sqrt_K_allocation_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: sqrt-K marginally beats uniform (1.00-1.10x fidelity). VQ-fidelity (centroid_cos+heldout_agree)/2 at 20x: {'uniform': 0.6954, 'prop': 0.6963, 'sqrt_K': 0.7225} | sqrt_K/uniform=1.039",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "speedup": 20,
+      "fidelity_by_policy": {
+        "uniform": {
+          "centroid_cos": 0.9556331038475037,
+          "heldout_agree": 0.4135,
+          "fidelity": 0.6845665519237518,
+          "kept": 1835
+        },
+        "prop": {
+          "centroid_cos": 0.9388011693954468,
+          "heldout_agree": 0.426,
+          "fidelity": 0.6824005846977234,
+          "kept": 1803
+        },
+        "sqrt_K": {
+          "centroid_cos": 0.9540442824363708,
+          "heldout_agree": 0.47775,
+          "fidelity": 0.7158971412181854,
+          "kept": 1793
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "speedup": 20,
+      "fidelity_by_policy": {
+        "uniform": {
+          "centroid_cos": 0.9608204364776611,
+          "heldout_agree": 0.40975,
+          "fidelity": 0.6852852182388306,
+          "kept": 1918
+        },
+        "prop": {
+          "centroid_cos": 0.9389182329177856,
+          "heldout_agree": 0.45575,
+          "fidelity": 0.6973341164588929,
+          "kept": 1809
+        },
+        "sqrt_K": {
+          "centroid_cos": 0.9540538191795349,
+          "heldout_agree": 0.4535,
+          "fidelity": 0.7037769095897675,
+          "kept": 1792
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "speedup": 20,
+      "fidelity_by_policy": {
+        "uniform": {
+          "centroid_cos": 0.9653896689414978,
+          "heldout_agree": 0.46725,
+          "fidelity": 0.7163198344707489,
+          "kept": 1821
+        },
+        "prop": {
+          "centroid_cos": 0.9453670978546143,
+          "heldout_agree": 0.473,
+          "fidelity": 0.7091835489273071,
+          "kept": 1809
+        },
+        "sqrt_K": {
+          "centroid_cos": 0.9555820822715759,
+          "heldout_agree": 0.54,
+          "fidelity": 0.747791041135788,
+          "kept": 1785
+        }
+      }
+    }
+  ],
+  "elapsed_s": 204.32480239868164,
+  "summary": "MIDDLE_BAND: sqrt-K marginally beats uniform (1.00-1.10x fidelity). VQ-fidelity (centroid_cos+heldout_agree)/2 at 20x: {'uniform': 0.6954, 'prop': 0.6963, 'sqrt_K': 0.7225} | sqrt_K/uniform=1.039"
+}

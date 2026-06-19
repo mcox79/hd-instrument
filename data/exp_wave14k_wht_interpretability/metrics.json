@@ -1,0 +1,90 @@
+{
+  "D": 1024,
+  "N_CATEGORIES": 3,
+  "DIMS_PER_CATEGORY": 3,
+  "N_FACTS": 100,
+  "N_EPOCHS": 10,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "elapsed_s": 12.844000000011874,
+  "grid": [
+    {
+      "seed": 17,
+      "cat_dims": [
+        [
+          143,
+          241,
+          623
+        ],
+        [
+          313,
+          390,
+          406
+        ],
+        [
+          278,
+          752,
+          941
+        ]
+      ],
+      "n_cols_analyzed": 50,
+      "alignment_rate": 0.0,
+      "alignment_hits": 0,
+      "alignment_total": 150
+    },
+    {
+      "seed": 23,
+      "cat_dims": [
+        [
+          40,
+          595,
+          742
+        ],
+        [
+          488,
+          950,
+          969
+        ],
+        [
+          31,
+          237,
+          460
+        ]
+      ],
+      "n_cols_analyzed": 50,
+      "alignment_rate": 0.0,
+      "alignment_hits": 0,
+      "alignment_total": 150
+    },
+    {
+      "seed": 31,
+      "cat_dims": [
+        [
+          16,
+          599,
+          722
+        ],
+        [
+          610,
+          663,
+          894
+        ],
+        [
+          28,
+          252,
+          826
+        ]
+      ],
+      "n_cols_analyzed": 50,
+      "alignment_rate": 0.0,
+      "alignment_hits": 0,
+      "alignment_total": 150
+    }
+  ],
+  "verdict": "WHT_INTERPRETABILITY_FAILED",
+  "verdict_msg": "Mean alignment 0.00 < 0.50. Top WHT influences don't align with planted dims.",
+  "mean_alignment": 0.0
+}

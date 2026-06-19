@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_hadamard_expansion_n256_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1.5-4x capacity from bipolar expansion (rank-limited but sign-nonlinearity helps). base_capacity(N=128)=10 exp_capacity(N=1024,k=8)=30 ratio=3.00x (Hopfield, flip=0.30)",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "base_capacity": 10,
+      "exp_capacity": 30,
+      "ratio": 3.0
+    },
+    {
+      "seed": 2,
+      "base_capacity": 10,
+      "exp_capacity": 30,
+      "ratio": 3.0
+    }
+  ],
+  "elapsed_s": 7.183700323104858,
+  "summary": "MIDDLE_BAND: 1.5-4x capacity from bipolar expansion (rank-limited but sign-nonlinearity helps). base_capacity(N=128)=10 exp_capacity(N=1024,k=8)=30 ratio=3.00x (Hopfield, flip=0.30)"
+}

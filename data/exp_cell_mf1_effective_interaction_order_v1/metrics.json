@@ -1,0 +1,18 @@
+{
+  "anchor_name": "cell_mf1_effective_interaction_order_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: alpha_c CONSTANT across N -- O(N) linear capacity confirmed (cap = alpha_c*N is the fundamental scaling). alpha_c by N: {'N512': 0.06, 'N1024': 0.06} | flatness=1.00 mean=0.060 (RSB~0.138-0.144)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha_c": {
+        "N512": 0.06,
+        "N1024": 0.06
+      }
+    }
+  ],
+  "elapsed_s": 0.03220772743225098,
+  "summary": "HARD_PASS: alpha_c CONSTANT across N -- O(N) linear capacity confirmed (cap = alpha_c*N is the fundamental scaling). alpha_c by N: {'N512': 0.06, 'N1024': 0.06} | flatness=1.00 mean=0.060 (RSB~0.138-0.144)"
+}

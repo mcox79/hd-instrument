@@ -1,0 +1,31 @@
+{
+  "anchor_name": "asdiv_solver_wk_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ASDiv <0.30 -- selection/op insufficient; more substrate-only paths before any claim. ASDiv overall +math-WK=0.1667 vs base=0.1833 (lift=-0.0167); 1-op subset +WK=0.2703. vs prior substrate ASDiv ~0.22. Single-step pipeline (1-op); 2/3-op need recursive solver (Path 3). WK = substrate LEX_constant (rule 8).",
+  "summary": "HARD_FAIL: ASDiv <0.30 -- selection/op insufficient; more substrate-only paths before any claim. ASDiv overall +math-WK=0.1667 vs base=0.1833 (lift=-0.0167); 1-op subset +WK=0.2703. vs prior substrate ASDiv ~0.22. Single-step pipeline (1-op); 2/3-op need recursive solver (Path 3). WK = substrate LEX_constant (rule 8).",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.1667,
+      "acc_wk": 0.1667,
+      "acc_base": 0.1833,
+      "lift": -0.0167,
+      "by_op": {
+        "op1": {
+          "base": 0.2973,
+          "wk": 0.2703,
+          "n": 74
+        },
+        "op2": {
+          "base": 0.0,
+          "wk": 0.0,
+          "n": 13
+        }
+      },
+      "op1_wk": 0.2703,
+      "n_test": 120
+    }
+  ],
+  "elapsed_s": 0.29415345191955566
+}

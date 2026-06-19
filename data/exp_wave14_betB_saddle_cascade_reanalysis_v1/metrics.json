@@ -1,0 +1,30 @@
+{
+  "verdict": "CASCADE_PASS",
+  "verdict_msg": "CASCADE_PASS: discrete 3-state model preferred over sigmoid (delta_BIC=194.9 > 2). Equal-spacing formula matches within 0.038 < 0.05. Discretization ratio=2.19. Saddle-cascade framework is consistent with existing Bet B data.",
+  "elapsed_s": 0.6,
+  "summary": {
+    "bic_discrete_3state": -289.16,
+    "bic_sigmoid": -94.25,
+    "delta_bic_sigmoid_minus_discrete": 194.91,
+    "cascade_preferred": true,
+    "group_means": {
+      "G1_SAME": 0.8986,
+      "G2_MID": 0.8038,
+      "G3_DIFF": 0.6334
+    },
+    "group_sizes": {
+      "G1": 20,
+      "G2": 74,
+      "G3": 13
+    },
+    "equal_spacing_pred_G2": 0.766,
+    "spacing_error": 0.0378,
+    "spacing_matches": true,
+    "gap_G1_G2": 0.0948,
+    "gap_G2_G3": 0.1704,
+    "gap_ratio": 0.556,
+    "discretization_ratio": 2.19,
+    "discrete_signal_strong": false
+  },
+  "config": {}
+}

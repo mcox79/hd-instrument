@@ -1,0 +1,57 @@
+{
+  "verdict": "U3_HARD_PASS",
+  "verdict_msg": "COW_FEASIBLE: 2/2 timings HP. pre: cons=1.00 thru=183.9/s mem=2.00x audit=1/1 | mid: cons=1.00 thru=178.8/s mem=3.00x audit=1/1",
+  "elapsed_s": 0.27,
+  "summary": {
+    "anchor": "edit_isolation_guard_probe_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 20,
+    "n_queries": 8,
+    "n_edits": 16,
+    "timings": [
+      "pre",
+      "mid"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "timing": "pre",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 20,
+        "consistency_rate": 1.0,
+        "edit_throughput": 183.891,
+        "audit_chain_valid": true,
+        "mem_amplification": 2.0,
+        "pre_acc": 1.0,
+        "n_queries": 8,
+        "n_edits": 16,
+        "n_audit_entries": 17
+      },
+      {
+        "timing": "mid",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 20,
+        "consistency_rate": 1.0,
+        "edit_throughput": 178.751,
+        "audit_chain_valid": true,
+        "mem_amplification": 3.0,
+        "pre_acc": 1.0,
+        "n_queries": 8,
+        "n_edits": 16,
+        "n_audit_entries": 17
+      }
+    ],
+    "verdict": "U3_HARD_PASS",
+    "verdict_msg": "COW_FEASIBLE: 2/2 timings HP. pre: cons=1.00 thru=183.9/s mem=2.00x audit=1/1 | mid: cons=1.00 thru=178.8/s mem=3.00x audit=1/1",
+    "elapsed_s": 0.27
+  }
+}

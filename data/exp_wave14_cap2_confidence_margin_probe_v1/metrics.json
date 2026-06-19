@@ -1,0 +1,64 @@
+{
+  "verdict": "CAP2_MARGIN_KILL",
+  "verdict_msg": "HARD FAIL: corr(margin, correct) < 0.2 in ALL strata. Substrate carries no margin-based confidence signal; Cap 2 structurally closed.",
+  "elapsed_s": 3.2969999999913853,
+  "summary": {
+    "strata_results": {
+      "p0.0": {
+        "corr_mean": 0.0,
+        "corr_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "p_flip": 0.0
+      },
+      "p0.05": {
+        "corr_mean": 0.0,
+        "corr_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "p_flip": 0.05
+      },
+      "p0.1": {
+        "corr_mean": 0.0,
+        "corr_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "p_flip": 0.1
+      },
+      "p0.2": {
+        "corr_mean": 0.0,
+        "corr_per_seed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "p_flip": 0.2
+      }
+    },
+    "note": "metric=cosine_margin(top1-top2); stratified by noise level; v1 REFUTED tau-based metric; this is the margin-based re-probe"
+  },
+  "config": {
+    "N": 8192,
+    "M": 200,
+    "n_trials_per_stratum": 200,
+    "noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "device": "cuda",
+    "note": "Cap 2 re-probe: cosine margin vs correctness correlation; stratified by noise level"
+  }
+}

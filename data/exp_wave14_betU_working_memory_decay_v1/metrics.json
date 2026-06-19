@@ -1,0 +1,35 @@
+{
+  "verdict": "BET_U_PASS",
+  "verdict_msg": "Working memory decay validated: recent=1.000>=0.80, old=0.000<=0.30. Substrate shows expected recency gradient.",
+  "elapsed_s": 0.125,
+  "summary": {
+    "recent_acc": 1.0,
+    "old_acc": 0.0,
+    "per_seed": [
+      {
+        "recent": 1.0,
+        "old": 0.0
+      },
+      {
+        "recent": 1.0,
+        "old": 0.0
+      },
+      {
+        "recent": 1.0,
+        "old": 0.0
+      }
+    ]
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "decay": 0.95,
+    "n_items": 200,
+    "n_relations": 20,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

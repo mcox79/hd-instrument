@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kg_crossshard_2hop_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cross-shard 2-hop traversal >=0.90 -- routing across shards (recover bridge in shard A, route to shard B) works; realistic sharded KG-QA query path validated. cross-shard 2-hop=1.000 bridge=1.000 at 5000 entities",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "bridge": 1.0,
+      "VE": 5000
+    }
+  ],
+  "elapsed_s": 11.523025751113892,
+  "summary": "HARD_PASS: cross-shard 2-hop traversal >=0.90 -- routing across shards (recover bridge in shard A, route to shard B) works; realistic sharded KG-QA query path validated. cross-shard 2-hop=1.000 bridge=1.000 at 5000 entities"
+}

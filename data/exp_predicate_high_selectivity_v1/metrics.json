@@ -1,0 +1,18 @@
+{
+  "anchor_name": "predicate_high_selectivity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: composite predicate routing recall@10>=0.90 at 50pct selectivity -- routing fully general, not just sparse. recall@10 by selectivity: {'sel0.30': 1.0, 'sel0.50': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "sel0.30": 1.0,
+        "sel0.50": 1.0
+      },
+      "s50": 1.0
+    }
+  ],
+  "elapsed_s": 1.2661769390106201,
+  "summary": "HARD_PASS: composite predicate routing recall@10>=0.90 at 50pct selectivity -- routing fully general, not just sparse. recall@10 by selectivity: {'sel0.30': 1.0, 'sel0.50': 1.0}"
+}

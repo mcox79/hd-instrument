@@ -1,0 +1,42 @@
+{
+  "anchor_name": "substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: audit-core operational on real Pythia residuals (deletion-cert + drift). C2_deletion_cert=1.00 C3_drift_separation=15.5x (real_residuals=True, M=2000)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 1.0,
+      "C3_kappa3_drift": 1.6734910607337952,
+      "C3_kappa3_nodrift": 0.10791503268410452,
+      "C3_separation": 15.507487873654641
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 1.0,
+      "C3_kappa3_drift": 1.6712368726730347,
+      "C3_kappa3_nodrift": 0.10791503268410452,
+      "C3_separation": 15.486599328243559
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "M_stored": 2000,
+      "real_data": true,
+      "C2_deletion_cert": 1.0,
+      "C3_kappa3_drift": 1.6836207509040833,
+      "C3_kappa3_nodrift": 0.10791503268410452,
+      "C3_separation": 15.60135514977307
+    }
+  ],
+  "elapsed_s": 79.54450154304504,
+  "summary": "HARD_PASS: audit-core operational on real Pythia residuals (deletion-cert + drift). C2_deletion_cert=1.00 C3_drift_separation=15.5x (real_residuals=True, M=2000)"
+}

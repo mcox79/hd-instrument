@@ -1,0 +1,19 @@
+{
+  "anchor_name": "nl_slot_filling_atis_v2_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate frame-role binding does NL slot-filling on ATIS at slot-F1>=0.85 AND intent>=0.80 -- the Priority-1 NL primitive works substrate-only on gold-annotated data. Frame-role binding validated; slot-filling is the direct NL-extraction primitive (may skip dep-parser). slot-F1=0.8709 intent-acc=0.8455 (P=0.862 R=0.880)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "slot_f1": 0.8709,
+      "slot_prec": 0.862,
+      "slot_rec": 0.88,
+      "intent_acc": 0.8455,
+      "n_labels": 123,
+      "n_test": 893
+    }
+  ],
+  "elapsed_s": 15.38644003868103,
+  "summary": "HARD_PASS: substrate frame-role binding does NL slot-filling on ATIS at slot-F1>=0.85 AND intent>=0.80 -- the Priority-1 NL primitive works substrate-only on gold-annotated data. Frame-role binding validated; slot-filling is the direct NL-extraction primitive (may skip dep-parser). slot-F1=0.8709 intent-acc=0.8455 (P=0.862 R=0.880)"
+}

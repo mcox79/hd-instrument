@@ -1,0 +1,16 @@
+{
+  "anchor_name": "priority_weighted_capacity_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: weighted high-priority 0.85-0.95. weighted-hi=1.000 uniform-hi=0.948 weighted-lo=0.059",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uniform_hi": 0.9478827361563518,
+      "weighted_hi": 1.0,
+      "weighted_lo": 0.059397884458909686
+    }
+  ],
+  "elapsed_s": 0.11095261573791504,
+  "summary": "MIDDLE_BAND: weighted high-priority 0.85-0.95. weighted-hi=1.000 uniform-hi=0.948 weighted-lo=0.059"
+}

@@ -1,0 +1,147 @@
+{
+  "anchor_name": "substrate_h1_confidence_threshold_gate_cached_bge_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (confidence gate is a viable FP-blowout fix): at tau=0.80 the gate keeps recall=0.750>=0.60 of the true equivalent while cutting mean FP/query by 70.6% (>=50%). A per-axis tau gate should materially reduce the eval's FP explosion (supports H1). H1 confidence-threshold gate prototype on cached BGE (bge_large_v2_name_1782_c2420fcf.npz, 16 pairs, 32 queries). Ungated top-10 mean FP/query=9.250. F1-optimal tau=0.85. This prototypes the FP-blowout fix; CAVEAT: 'FP' = any non-exact-equivalent above tau (pessimistic; many are same-family similars). The signal is the SHAPE: does FP collapse with tau while the equivalent stays retrieved? Ports to the real eval retrieval path once BGE is installed.",
+  "summary": "HARD_PASS (confidence gate is a viable FP-blowout fix): at tau=0.80 the gate keeps recall=0.750>=0.60 of the true equivalent while cutting mean FP/query by 70.6% (>=50%). A per-axis tau gate should materially reduce the eval's FP explosion (supports H1). H1 confidence-threshold gate prototype on cached BGE (bge_large_v2_name_1782_c2420fcf.npz, 16 pairs, 32 queries). Ungated top-10 mean FP/query=9.250. F1-optimal tau=0.85. This prototypes the FP-blowout fix; CAVEAT: 'FP' = any non-exact-equivalent above tau (pessimistic; many are same-family similars). The signal is the SHAPE: does FP collapse with tau while the equivalent stays retrieved? Ports to the real eval retrieval path once BGE is installed.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cache": "bge_large_v2_name_1782_c2420fcf.npz",
+      "n_pairs": 16,
+      "n_queries": 32,
+      "base_fp_mean": 9.25,
+      "curve": [
+        {
+          "tau": 0.3,
+          "recall": 0.75,
+          "fp_mean": 1780.25,
+          "fp_reduction": -191.4595,
+          "precision": 0.0004,
+          "f1": 0.0008
+        },
+        {
+          "tau": 0.35,
+          "recall": 0.75,
+          "fp_mean": 1779.875,
+          "fp_reduction": -191.4189,
+          "precision": 0.0004,
+          "f1": 0.0008
+        },
+        {
+          "tau": 0.4,
+          "recall": 0.75,
+          "fp_mean": 1764.688,
+          "fp_reduction": -189.7771,
+          "precision": 0.0004,
+          "f1": 0.0008
+        },
+        {
+          "tau": 0.45,
+          "recall": 0.75,
+          "fp_mean": 1624.906,
+          "fp_reduction": -174.6655,
+          "precision": 0.0005,
+          "f1": 0.001
+        },
+        {
+          "tau": 0.5,
+          "recall": 0.75,
+          "fp_mean": 1207.188,
+          "fp_reduction": -129.5068,
+          "precision": 0.0006,
+          "f1": 0.0012
+        },
+        {
+          "tau": 0.55,
+          "recall": 0.75,
+          "fp_mean": 726.594,
+          "fp_reduction": -77.5507,
+          "precision": 0.001,
+          "f1": 0.002
+        },
+        {
+          "tau": 0.6,
+          "recall": 0.75,
+          "fp_mean": 405.562,
+          "fp_reduction": -42.8445,
+          "precision": 0.0018,
+          "f1": 0.0036
+        },
+        {
+          "tau": 0.65,
+          "recall": 0.75,
+          "fp_mean": 196.062,
+          "fp_reduction": -20.1959,
+          "precision": 0.0038,
+          "f1": 0.0076
+        },
+        {
+          "tau": 0.7,
+          "recall": 0.75,
+          "fp_mean": 66.812,
+          "fp_reduction": -6.2229,
+          "precision": 0.0111,
+          "f1": 0.0219
+        },
+        {
+          "tau": 0.75,
+          "recall": 0.75,
+          "fp_mean": 14.344,
+          "fp_reduction": -0.5507,
+          "precision": 0.0497,
+          "f1": 0.0932
+        },
+        {
+          "tau": 0.8,
+          "recall": 0.75,
+          "fp_mean": 2.719,
+          "fp_reduction": 0.7061,
+          "precision": 0.2162,
+          "f1": 0.3356
+        },
+        {
+          "tau": 0.85,
+          "recall": 0.5625,
+          "fp_mean": 0.594,
+          "fp_reduction": 0.9358,
+          "precision": 0.4865,
+          "f1": 0.5217
+        },
+        {
+          "tau": 0.9,
+          "recall": 0.125,
+          "fp_mean": 0.281,
+          "fp_reduction": 0.9696,
+          "precision": 0.3077,
+          "f1": 0.1778
+        },
+        {
+          "tau": 0.95,
+          "recall": 0.125,
+          "fp_mean": 0.281,
+          "fp_reduction": 0.9696,
+          "precision": 0.3077,
+          "f1": 0.1778
+        }
+      ],
+      "best_gate": {
+        "tau": 0.8,
+        "recall": 0.75,
+        "fp_mean": 2.719,
+        "fp_reduction": 0.7061,
+        "precision": 0.2162,
+        "f1": 0.3356
+      },
+      "f1_optimal": {
+        "tau": 0.85,
+        "recall": 0.5625,
+        "fp_mean": 0.594,
+        "fp_reduction": 0.9358,
+        "precision": 0.4865,
+        "f1": 0.5217
+      }
+    }
+  ],
+  "elapsed_s": 0.11590099334716797
+}

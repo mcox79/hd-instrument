@@ -1,0 +1,8 @@
+{
+  "anchor": "phase05_v1_llama32_1b_residual_extract_v1",
+  "run_mode": "full",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "datasets import failed: No module named 'datasets'",
+  "n_docs_extracted": 0,
+  "elapsed_s": 0.021035432815551758
+}

@@ -1,0 +1,63 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "chi_SG N-scaling: mean_slope=0.000 [HP: 0.8-1.2], n_hp_seeds=0/0, ctrl_slopes=[], N_grid=[256, 512]",
+  "mean_log_log_slope_sg": 0.0,
+  "sg_slopes_per_seed": [],
+  "ctrl_slopes_per_seed": [],
+  "n_hp_seeds": 0,
+  "n_seeds_sg": 0,
+  "N_grid": [
+    256,
+    512
+  ],
+  "alpha_sg": 0.15,
+  "alpha_ctrl": 0.05,
+  "elapsed_s": 1.9385437965393066,
+  "run_mode": "smoke",
+  "per_result": [
+    {
+      "N": 256,
+      "M": 38,
+      "alpha": 0.1484375,
+      "seed": 7,
+      "chi_sg": 8.851157188415527,
+      "chi_sg_v2": 8.76447582244873,
+      "mean_q2": 0.034574832767248154,
+      "mean_q_abs": 0.13673384487628937,
+      "n_meas": 1280
+    },
+    {
+      "N": 256,
+      "M": 38,
+      "alpha": 0.1484375,
+      "seed": 17,
+      "chi_sg": 8.48955249786377,
+      "chi_sg_v2": 8.416983604431152,
+      "mean_q2": 0.03316231444478035,
+      "mean_q_abs": 0.1466536521911621,
+      "n_meas": 1280
+    },
+    {
+      "N": 512,
+      "M": 76,
+      "alpha": 0.1484375,
+      "seed": 7,
+      "chi_sg": 9.099392890930176,
+      "chi_sg_v2": 9.045937538146973,
+      "mean_q2": 0.017772251740098,
+      "mean_q_abs": 0.10388220101594925,
+      "n_meas": 2560
+    },
+    {
+      "N": 512,
+      "M": 76,
+      "alpha": 0.1484375,
+      "seed": 17,
+      "chi_sg": 8.993483543395996,
+      "chi_sg_v2": 8.908340454101562,
+      "mean_q2": 0.017565397545695305,
+      "mean_q_abs": 0.10496729612350464,
+      "n_meas": 2560
+    }
+  ]
+}

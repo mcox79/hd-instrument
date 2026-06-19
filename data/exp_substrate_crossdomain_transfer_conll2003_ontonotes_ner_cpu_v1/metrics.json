@@ -1,0 +1,48 @@
+{
+  "anchor_name": "substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: positive cross-domain NER transfer -- CoNLL-2003-pretrained discriminative_perceptron lifts OntoNotes F1 by >=20pct at 2.5pct data. 2nd-appearance (non-sentiment) for the cross-domain discriminative-weighting lever. ratio@2.5pct=1.7784 (transfer 0.5500 / scratch 0.3092); zero-shot CoNLL-on-OntoNotes F1=0.5279; curve=[(0.01, 0.09, 0.5212, 5.792), (0.025, 0.3092, 0.55, 1.7784), (0.05, 0.3396, 0.5591, 1.6465), (0.1, 0.3754, 0.586, 1.561), (1.0, 0.5619, 0.6464, 1.1504)]",
+  "summary": "HARD_PASS: positive cross-domain NER transfer -- CoNLL-2003-pretrained discriminative_perceptron lifts OntoNotes F1 by >=20pct at 2.5pct data. 2nd-appearance (non-sentiment) for the cross-domain discriminative-weighting lever. ratio@2.5pct=1.7784 (transfer 0.5500 / scratch 0.3092); zero-shot CoNLL-on-OntoNotes F1=0.5279; curve=[(0.01, 0.09, 0.5212, 5.792), (0.025, 0.3092, 0.55, 1.7784), (0.05, 0.3396, 0.5591, 1.6465), (0.1, 0.3754, 0.586, 1.561), (1.0, 0.5619, 0.6464, 1.1504)]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "frac": 0.01,
+          "scratch_f1": 0.09,
+          "transfer_f1": 0.5212,
+          "ratio": 5.792
+        },
+        {
+          "frac": 0.025,
+          "scratch_f1": 0.3092,
+          "transfer_f1": 0.55,
+          "ratio": 1.7784
+        },
+        {
+          "frac": 0.05,
+          "scratch_f1": 0.3396,
+          "transfer_f1": 0.5591,
+          "ratio": 1.6465
+        },
+        {
+          "frac": 0.1,
+          "scratch_f1": 0.3754,
+          "transfer_f1": 0.586,
+          "ratio": 1.561
+        },
+        {
+          "frac": 1.0,
+          "scratch_f1": 0.5619,
+          "transfer_f1": 0.6464,
+          "ratio": 1.1504
+        }
+      ],
+      "src_only_f1": 0.5279,
+      "n_src": 3000,
+      "n_tgt_test": 1000
+    }
+  ],
+  "elapsed_s": 259.85715675354004
+}

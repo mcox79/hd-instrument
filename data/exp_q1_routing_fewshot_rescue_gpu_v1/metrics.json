@@ -1,0 +1,18 @@
+{
+  "anchor_name": "q1_routing_fewshot_rescue_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: routing 0.60-0.70 zero-shot; few-shot prompting likely lifts it. routing-accuracy=0.733 (ROUTE-recall=1.00 DIRECT-recall=0.47, n=30, Qwen/Qwen2.5-3B-Instruct)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.7333333333333333,
+      "route_recall": 1.0,
+      "direct_recall": 0.4666666666666667,
+      "n": 30,
+      "model": "Qwen/Qwen2.5-3B-Instruct"
+    }
+  ],
+  "elapsed_s": 26.553979635238647,
+  "summary": "MIDDLE_BAND: routing 0.60-0.70 zero-shot; few-shot prompting likely lifts it. routing-accuracy=0.733 (ROUTE-recall=1.00 DIRECT-recall=0.47, n=30, Qwen/Qwen2.5-3B-Instruct)"
+}

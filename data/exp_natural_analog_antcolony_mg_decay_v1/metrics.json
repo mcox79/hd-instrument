@@ -1,0 +1,15 @@
+{
+  "anchor_name": "natural_analog_antcolony_mg_decay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pheromone-decay Misra-Gries detects topic drift within 100 queries and faster than un-decayed -- ant-colony decay is the drift-responsiveness mechanism. decayed-lag=60 undecayed-lag=2000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "lag_decayed": 60,
+      "lag_undecayed": 2000
+    }
+  ],
+  "elapsed_s": 0.021631956100463867,
+  "summary": "HARD_PASS: pheromone-decay Misra-Gries detects topic drift within 100 queries and faster than un-decayed -- ant-colony decay is the drift-responsiveness mechanism. decayed-lag=60 undecayed-lag=2000"
+}

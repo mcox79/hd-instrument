@@ -1,0 +1,18 @@
+{
+  "anchor_name": "shard_merge_primitive_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MERGE consolidates underutilized shards (>=30pct fewer) with no recall loss (>=0.95) -- merge is a safe formula-governed reorganization primitive (with split, full elastic sharding). recall pre=1.000 post=1.000, shards 20->12 (reduction=40%)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pre": 1.0,
+      "post": 1.0,
+      "reduction": 0.4,
+      "pre_count": 20,
+      "post_count": 12
+    }
+  ],
+  "elapsed_s": 13.169479608535767,
+  "summary": "HARD_PASS: MERGE consolidates underutilized shards (>=30pct fewer) with no recall loss (>=0.95) -- merge is a safe formula-governed reorganization primitive (with split, full elastic sharding). recall pre=1.000 post=1.000, shards 20->12 (reduction=40%)"
+}

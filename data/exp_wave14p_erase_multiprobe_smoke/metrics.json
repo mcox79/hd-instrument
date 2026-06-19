@@ -1,0 +1,203 @@
+{
+  "verdict": "MULTIPROBE_ARGMAX_ONLY",
+  "verdict_msg": "alpha=1.50 passes argmax (leak=0.00%) but FAILS deeper probes: rank=44, norm_ratio=0.89, cos=-0.29, paraphrase_leak=0.00%. This is the Mirage failure mode -- argmax flattered the result.",
+  "elapsed_s": 0.40599999998812564,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_facts": 50,
+    "n_erase": 10,
+    "rank_L": 12,
+    "flip_frac": 0.1,
+    "alphas": [
+      1.0,
+      1.5
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_alpha": [
+    {
+      "alpha": 1.0,
+      "n_facts": 50,
+      "n_erase": 10,
+      "rank_L": 12,
+      "flip_frac": 0.1,
+      "mean_pairwise_std": 0.15227222442626953,
+      "leak_argmax": 0.10000000149011612,
+      "mean_rank_canonical": 15.7,
+      "norm_ratio_canonical": 0.47216281294822693,
+      "cosine_canonical": 0.05580185726284981,
+      "leak_argmax_paraphrase": 0.10000000149011612,
+      "mean_rank_paraphrase": 17.3,
+      "norm_ratio_paraphrase": 0.436500608921051,
+      "cosine_paraphrase": 0.025867288932204247,
+      "baseline_leak_argmax": 1.0,
+      "baseline_norm_ratio": 1.8853769302368164,
+      "per_seed": [
+        {
+          "seed": 17,
+          "alpha": 1.0,
+          "baseline": {
+            "argmax_leak_canonical": 1.0,
+            "mean_rank_canonical": 1.0,
+            "norm_ratio_canonical": 1.8853769302368164,
+            "cosine_canonical": 0.5340898633003235,
+            "argmax_leak_paraphrase": 1.0,
+            "mean_rank_paraphrase": 1.0,
+            "norm_ratio_paraphrase": 1.5095914602279663,
+            "cosine_paraphrase": 0.529843270778656
+          },
+          "after": {
+            "argmax_leak_canonical": 0.10000000149011612,
+            "mean_rank_canonical": 15.7,
+            "norm_ratio_canonical": 0.47216281294822693,
+            "cosine_canonical": 0.05580185726284981,
+            "argmax_leak_paraphrase": 0.10000000149011612,
+            "mean_rank_paraphrase": 17.3,
+            "norm_ratio_paraphrase": 0.436500608921051,
+            "cosine_paraphrase": 0.025867288932204247
+          }
+        }
+      ]
+    },
+    {
+      "alpha": 1.5,
+      "n_facts": 50,
+      "n_erase": 10,
+      "rank_L": 12,
+      "flip_frac": 0.1,
+      "mean_pairwise_std": 0.15227222442626953,
+      "leak_argmax": 0.0,
+      "mean_rank_canonical": 44.3,
+      "norm_ratio_canonical": 0.8898937106132507,
+      "cosine_canonical": -0.29474955797195435,
+      "leak_argmax_paraphrase": 0.0,
+      "mean_rank_paraphrase": 43.5,
+      "norm_ratio_paraphrase": 0.745457112789154,
+      "cosine_paraphrase": -0.3016824722290039,
+      "baseline_leak_argmax": 1.0,
+      "baseline_norm_ratio": 1.8853769302368164,
+      "per_seed": [
+        {
+          "seed": 17,
+          "alpha": 1.5,
+          "baseline": {
+            "argmax_leak_canonical": 1.0,
+            "mean_rank_canonical": 1.0,
+            "norm_ratio_canonical": 1.8853769302368164,
+            "cosine_canonical": 0.5340898633003235,
+            "argmax_leak_paraphrase": 1.0,
+            "mean_rank_paraphrase": 1.0,
+            "norm_ratio_paraphrase": 1.5095914602279663,
+            "cosine_paraphrase": 0.529843270778656
+          },
+          "after": {
+            "argmax_leak_canonical": 0.0,
+            "mean_rank_canonical": 44.3,
+            "norm_ratio_canonical": 0.8898937106132507,
+            "cosine_canonical": -0.29474955797195435,
+            "argmax_leak_paraphrase": 0.0,
+            "mean_rank_paraphrase": 43.5,
+            "norm_ratio_paraphrase": 0.745457112789154,
+            "cosine_paraphrase": -0.3016824722290039
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "per_alpha": [
+      {
+        "alpha": 1.0,
+        "n_facts": 50,
+        "n_erase": 10,
+        "rank_L": 12,
+        "flip_frac": 0.1,
+        "mean_pairwise_std": 0.15227222442626953,
+        "leak_argmax": 0.10000000149011612,
+        "mean_rank_canonical": 15.7,
+        "norm_ratio_canonical": 0.47216281294822693,
+        "cosine_canonical": 0.05580185726284981,
+        "leak_argmax_paraphrase": 0.10000000149011612,
+        "mean_rank_paraphrase": 17.3,
+        "norm_ratio_paraphrase": 0.436500608921051,
+        "cosine_paraphrase": 0.025867288932204247,
+        "baseline_leak_argmax": 1.0,
+        "baseline_norm_ratio": 1.8853769302368164,
+        "per_seed": [
+          {
+            "seed": 17,
+            "alpha": 1.0,
+            "baseline": {
+              "argmax_leak_canonical": 1.0,
+              "mean_rank_canonical": 1.0,
+              "norm_ratio_canonical": 1.8853769302368164,
+              "cosine_canonical": 0.5340898633003235,
+              "argmax_leak_paraphrase": 1.0,
+              "mean_rank_paraphrase": 1.0,
+              "norm_ratio_paraphrase": 1.5095914602279663,
+              "cosine_paraphrase": 0.529843270778656
+            },
+            "after": {
+              "argmax_leak_canonical": 0.10000000149011612,
+              "mean_rank_canonical": 15.7,
+              "norm_ratio_canonical": 0.47216281294822693,
+              "cosine_canonical": 0.05580185726284981,
+              "argmax_leak_paraphrase": 0.10000000149011612,
+              "mean_rank_paraphrase": 17.3,
+              "norm_ratio_paraphrase": 0.436500608921051,
+              "cosine_paraphrase": 0.025867288932204247
+            }
+          }
+        ]
+      },
+      {
+        "alpha": 1.5,
+        "n_facts": 50,
+        "n_erase": 10,
+        "rank_L": 12,
+        "flip_frac": 0.1,
+        "mean_pairwise_std": 0.15227222442626953,
+        "leak_argmax": 0.0,
+        "mean_rank_canonical": 44.3,
+        "norm_ratio_canonical": 0.8898937106132507,
+        "cosine_canonical": -0.29474955797195435,
+        "leak_argmax_paraphrase": 0.0,
+        "mean_rank_paraphrase": 43.5,
+        "norm_ratio_paraphrase": 0.745457112789154,
+        "cosine_paraphrase": -0.3016824722290039,
+        "baseline_leak_argmax": 1.0,
+        "baseline_norm_ratio": 1.8853769302368164,
+        "per_seed": [
+          {
+            "seed": 17,
+            "alpha": 1.5,
+            "baseline": {
+              "argmax_leak_canonical": 1.0,
+              "mean_rank_canonical": 1.0,
+              "norm_ratio_canonical": 1.8853769302368164,
+              "cosine_canonical": 0.5340898633003235,
+              "argmax_leak_paraphrase": 1.0,
+              "mean_rank_paraphrase": 1.0,
+              "norm_ratio_paraphrase": 1.5095914602279663,
+              "cosine_paraphrase": 0.529843270778656
+            },
+            "after": {
+              "argmax_leak_canonical": 0.0,
+              "mean_rank_canonical": 44.3,
+              "norm_ratio_canonical": 0.8898937106132507,
+              "cosine_canonical": -0.29474955797195435,
+              "argmax_leak_paraphrase": 0.0,
+              "mean_rank_paraphrase": 43.5,
+              "norm_ratio_paraphrase": 0.745457112789154,
+              "cosine_paraphrase": -0.3016824722290039
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

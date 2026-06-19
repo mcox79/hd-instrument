@@ -1,0 +1,16 @@
+{
+  "anchor_name": "fhrr_rs_parity_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FHRR-Reed-Solomon erasure coding works -- lost data shards RECOVERED from Vandermonde parity at fact-recall>=0.95. FHRR additive bundles support exact phase-domain erasure-coded redundancy via the algebra; engineered redundancy wrapper validated. recovered-recall=1.000 (K=6 R=2)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recovered_recall": 1.0,
+      "K": 6,
+      "R": 2
+    }
+  ],
+  "elapsed_s": 10.074862241744995,
+  "summary": "HARD_PASS: FHRR-Reed-Solomon erasure coding works -- lost data shards RECOVERED from Vandermonde parity at fact-recall>=0.95. FHRR additive bundles support exact phase-domain erasure-coded redundancy via the algebra; engineered redundancy wrapper validated. recovered-recall=1.000 (K=6 R=2)"
+}

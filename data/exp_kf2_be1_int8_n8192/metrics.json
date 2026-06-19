@@ -1,0 +1,29 @@
+{
+  "anchor": "kf2_be1_int8_n8192",
+  "precision": "int8",
+  "N": 1024,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "precision": "int8",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.020202,
+      "theory_bound": 0.03125,
+      "within_theory": true,
+      "precision_used": "int8",
+      "precision_memory_bytes": 1048576,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 4.0,
+      "precision_numel_W": 1048576
+    }
+  ],
+  "verdict": "KF2_BE1_INT8_MIDDLE_BAND",
+  "verdict_msg": "INT8_PARTIAL: 1/1 seeds, max_iso=0.02020",
+  "elapsed_s": 0.25
+}

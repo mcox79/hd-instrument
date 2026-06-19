@@ -1,0 +1,41 @@
+## CYCLE 48 BATCH -- v379 -> v380 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 22 labels honest to per-cell metrics (all source=remote FULL). 0 LVH catches. HONEST 736 -> 758 (+22).
+
+Label checks:
+- Q-A3 L=113..122 N=16384 (10x HP): lacc=1.0000 all levels 5/5 seeds unanimous. Honest.
+- Q-A3 L=73..80 N=8192 (8x HP): lacc=1.0000000342 (EXACT-class) all levels 5/5 seeds. Honest.
+- pp58_scs_tau_sweep_d8_tau020 HARD_FAIL: ratio=8.861 outside [0.5,2.0]; gamma_scs=12.598 vs gamma_emp=1.422; match_30%=0/5. Honest.
+- pp58_scs_tau_sweep_d8_tau030 HARD_FAIL: ratio=5.204 outside [0.5,2.0]; gamma_scs=8.409 vs gamma_emp=1.616; match_30%=0/5. Honest.
+- pp58_scs_low_tau_sweep_d8 HARD_FAIL: 0/9 tau values in [0.5,2.0]; ratios 15.49-23.00 across tau=0.01..0.09; highest-ratio at lowest-tau (tau=0.01 ratio=23.0, tau=0.09 ratio=15.5). Honest.
+- substrate_spectral_monitor_overfitting_v2 MIDDLE_BAND: seeds_hp=2/3 (leads=[365,2140,None]; mean_lead=1252.5); val_overfit_detected=2/3; sub_overfit_detected=3/3; HP_LEAD=50. 2/3 seeds meet HP but not 3/3. Honest (progress from v1 0/3; MIDDLE_BAND correct label).
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=113..122 N=16384 (10x HARD_PASS)**
+All EXACT-1.0000 unanimous 5/5 seeds. Rungs 94-103. N=16384 series: {L=20..L=122} = 103 contiguous rungs. L=122 NEW DEEPEST project history (prior L=112 v379; +10 rungs). Walls 39.1-41.7s GPU (linear scaling; ceiling NOT found). GPU memory 2.210 GB flat (N=16384 throughout series).
+
+**(B) Q-A3 L=73..80 N=8192 (8x HARD_PASS)**
+All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 54-61. N=8192 series: {L=19,L=22..L=80} = 60 rungs. L=80 NEW N=8192 DEEPEST (prior L=72 v379; +8 rungs). Walls 6.95-8.19s GPU. 2-N cross-N confirmed at L=73..L=80 {N=8192+N=16384}.
+
+**(C) BAND-LIFT PP-12/Q-A3: 0.94-0.97 -> 0.95-0.97**
+18-rung batch (10 N=16384 + 8 N=8192) exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 10th consecutive +0.01 lift (v371->v380 = 0.85->0.95). Product framing: EXACT-1.0000 composition moat confirmed through 122 levels at N=16384; 103-rung unbroken series; algebraic audit API moat structurally unbounded through L=122; N=8192 deepest L=80 (60 rungs); 2-N cross-N confirmed L=73..L=80; no ceiling found at any L tested.
+
+**(D) PP-58 SCS tau sweep characterisation -- monotone convergence pattern identified**
+tau=0.20: ratio=8.861; tau=0.30: ratio=5.204. Combined with prior: tau=0.01 ratio=23.0, tau=0.09 ratio=15.5, tau=0.10 ratio=14.7, tau=0.15 ratio=11.4, tau=0.20 ratio=8.9, tau=0.30 ratio=5.2. log(ratio) vs tau MONOTONICALLY DECREASING. Extrapolation: tau~0.5-1.0 may enter [0.5,2.0]. tau_actual drift grows with tau (tau=0.20: +21%; tau=0.30: +32%). PP-58 MIDDLE 0.55-0.70 UNCHANGED. Sub-property annotation: SCS tau-sweep characterisation: monotone ratio decrease (23x at tau=0.01 -> 5.2x at tau=0.30); SCS may become valid near tau=0.5-1.0 (untested); systematic tau_actual overshoot grows with tau_target. Rescue R5 (cheapest new): tau=0.5 single test (~2h CPU) to test whether ratio enters [0.5,2.0]; R6 (free): tau_actual overshoot model.
+
+**(E) substrate_spectral_monitor_overfitting_v2 MIDDLE_BAND -- scale-gate partially opened**
+v2 (TRAIN_CHARS=150000/N_STEPS=5000) vs v1 (30000/2000): seeds_hp 0/3 -> 2/3; val_overfit_detected 0/3 -> 2/3. sub_overfit_detected 3/3 consistent both versions. Mean_lead=1252.5 steps (seeds 1+2). Seed 3 val_overfit_step=None (TRAIN_CHARS=150000 insufficient). MIDDLE_BAND correct. Rescue R1 (BEST-RESCUE): TRAIN_CHARS=300000-500000 + N_STEPS=8000-10000 for seed 3 to reach val overfit; R2: N_OBS=8192; R3: reduce LM_HIDDEN for faster overfit onset. No row movement.
+
+### PROT compliance (v379 -> v380)
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.94-0.97->0.95-0.97). PP-58 tau-sweep sub-property annotation + R5/R6 rescues cheapest-first filed. Spectral monitor v2 MIDDLE_BAND rescue R1-R3 cheapest-first filed.
+- PROT-007/008: v380 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 291st PROT-009 paired commit.
+- PROT-018: 22 anchors -- _n16384 x10 (L=113..122); _n8192 x9 (L=73..80 + pp58_tau020 + pp58_tau030 + pp58_low_tau); _n4096 x1 (spectral_monitor_overfitting_v2). All suffix bindings confirmed. 0 PROT-018 violations.
+- PROT-021: all 22 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=122} N=16384 (103 rungs) and {L=19,L=22..L=80} N=8192 (60 rungs); pp58 tau=0.20 ratio=8.861 consistent with monotone decrease (tau=0.15->0.20: 11.4->8.9); tau=0.30 ratio=5.2 (tau=0.20->0.30: 8.9->5.2 consistent monotone); low_tau ratios 23.0->15.5 monotone tau=0.01..0.09 internally consistent; spectral_monitor v2 leads=[365,2140,None] consistent (seed 3 val overfit never reached at TRAIN_CHARS=150000).
+
+HONEST: 736 -> 758 (+22). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v379 -> v380.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

@@ -1,0 +1,103 @@
+{
+  "verdict": "C8_HARD_PASS",
+  "verdict_msg": "COMPOSITION_OK: M=32:1/1_pass; M=128:1/1_pass | slope=1.0 deployable=True",
+  "elapsed_s": 0.15,
+  "summary": {
+    "anchor": "sparse_w_large_n_integration_v1",
+    "smoke": true,
+    "N_footprint": 1024,
+    "N_validation": 1024,
+    "N_project": 16384,
+    "M_footprint_sweep": [
+      32,
+      128
+    ],
+    "M_validation_sweep": [
+      32,
+      128
+    ],
+    "seeds": [
+      17
+    ],
+    "footprint_cells": [
+      {
+        "N": 1024,
+        "M": 32,
+        "seed": 17,
+        "sparse_bytes": 262144,
+        "dense_bytes": 4194304,
+        "ratio_sparse_dense": 0.0625,
+        "theoretical_sparse_bytes": 262144,
+        "theoretical_dense_bytes": 4194304,
+        "sparse_match_theory": true,
+        "dense_match_theory": true
+      },
+      {
+        "N": 1024,
+        "M": 128,
+        "seed": 17,
+        "sparse_bytes": 1048576,
+        "dense_bytes": 4194304,
+        "ratio_sparse_dense": 0.25,
+        "theoretical_sparse_bytes": 1048576,
+        "theoretical_dense_bytes": 4194304,
+        "sparse_match_theory": true,
+        "dense_match_theory": true
+      }
+    ],
+    "kf_cells": [
+      {
+        "N": 1024,
+        "M": 32,
+        "seed": 17,
+        "retention": 1.0,
+        "max_iso": 0.0,
+        "above_thresh_frac": 0.0,
+        "kf_pass": true
+      },
+      {
+        "N": 1024,
+        "M": 128,
+        "seed": 17,
+        "retention": 1.0,
+        "max_iso": 0.0,
+        "above_thresh_frac": 0.0,
+        "kf_pass": true
+      }
+    ],
+    "projection": {
+      "valid": true,
+      "slope": 1.0,
+      "intercept": 9.01091,
+      "slope_match_theory": true,
+      "projection_at_n16384": {
+        "M1024": {
+          "sparse_bytes": 134217728,
+          "dense_bytes": 1073741824,
+          "ratio": 0.125
+        },
+        "M2048": {
+          "sparse_bytes": 268435456,
+          "dense_bytes": 1073741824,
+          "ratio": 0.25
+        },
+        "M4096": {
+          "sparse_bytes": 536870912,
+          "dense_bytes": 1073741824,
+          "ratio": 0.5
+        },
+        "M8192": {
+          "sparse_bytes": 1073741824,
+          "dense_bytes": 1073741824,
+          "ratio": 1.0
+        }
+      },
+      "on_device_anchor_M": 2048,
+      "on_device_anchor_ratio": 0.25,
+      "on_device_deployable": true
+    },
+    "verdict": "C8_HARD_PASS",
+    "verdict_msg": "COMPOSITION_OK: M=32:1/1_pass; M=128:1/1_pass | slope=1.0 deployable=True",
+    "elapsed_s": 0.15
+  }
+}

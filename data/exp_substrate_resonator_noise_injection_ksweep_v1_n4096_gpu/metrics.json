@@ -1,0 +1,309 @@
+{
+  "anchor_name": "substrate_resonator_noise_injection_ksweep_v1_n4096_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: noise-injection no benefit (K_max noise<=baseline). baseline[K5:0.00 K10:0.00 K20:0.00 K30:0.00 K50:0.00] noise[K5:0.00 K10:0.00 K20:0.00 K30:0.00 K50:0.00] K_max base=0 noise=0",
+  "N": 4096,
+  "V": 512,
+  "K_grid": [
+    5,
+    10,
+    20,
+    30,
+    50
+  ],
+  "arms": [
+    "baseline",
+    "noise"
+  ],
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "arm": "baseline",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 50,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 50,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.65056256,
+      "elapsed_s": 16.26598072052002
+    },
+    {
+      "seed": 17,
+      "cells": [
+        {
+          "arm": "baseline",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 50,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 50,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.65056256,
+      "elapsed_s": 14.218029022216797
+    },
+    {
+      "seed": 23,
+      "cells": [
+        {
+          "arm": "baseline",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 50,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 50,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.65056256,
+      "elapsed_s": 13.996256828308105
+    },
+    {
+      "seed": 31,
+      "cells": [
+        {
+          "arm": "baseline",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 50,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 50,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.65056256,
+      "elapsed_s": 13.988171577453613
+    },
+    {
+      "seed": 41,
+      "cells": [
+        {
+          "arm": "baseline",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "baseline",
+          "K": 50,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 5,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 10,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 20,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 30,
+          "recovery": 0.0
+        },
+        {
+          "arm": "noise",
+          "K": 50,
+          "recovery": 0.0
+        }
+      ],
+      "peak_gpu_gb": 0.65056256,
+      "elapsed_s": 14.33418869972229
+    }
+  ],
+  "elapsed_s": 72.80262684822083,
+  "summary": "HARD_FAIL: noise-injection no benefit (K_max noise<=baseline). baseline[K5:0.00 K10:0.00 K20:0.00 K30:0.00 K50:0.00] noise[K5:0.00 K10:0.00 K20:0.00 K30:0.00 K50:0.00] K_max base=0 noise=0"
+}

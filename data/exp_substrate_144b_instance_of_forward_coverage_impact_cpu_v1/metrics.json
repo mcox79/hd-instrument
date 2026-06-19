@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_144b_instance_of_forward_coverage_impact_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "cap_pres=1.0 INVARIANT under both FORWARD sets (0 newly-stranded; adding INSTANCE_OF is monotone -> cannot lose served capability). COVERAGE DATA for Director's call: adding INSTANCE_OF newly-grounds 7 atoms (e.g. INSTANCE_OF-only atoms like the pre-rescue wright_fisher_process class) that the current FORWARD set leaves stranded. Director call YES (adopt; methodology-rule-25 candidate) raises axiom-term coverage by 7 atoms with 0 cap_pres risk; NO keeps stack frozen at 24. Either way safe; this is the substrate-wide measurement DECISION 144b asked for. (Exp-Dev's assigned part: cap_pres-invariant VERIFIED under both sets.) INSTANCE_OF coverage-impact: base-grounded=1762 -> cand-grounded=1769 (+7 newly-grounded via INSTANCE_OF, 0 newly-stranded); INSTANCE_OF edges=26; cap_pres-invariant=True.",
+  "summary": "cap_pres=1.0 INVARIANT under both FORWARD sets (0 newly-stranded; adding INSTANCE_OF is monotone -> cannot lose served capability). COVERAGE DATA for Director's call: adding INSTANCE_OF newly-grounds 7 atoms (e.g. INSTANCE_OF-only atoms like the pre-rescue wright_fisher_process class) that the current FORWARD set leaves stranded. Director call YES (adopt; methodology-rule-25 candidate) raises axiom-term coverage by 7 atoms with 0 cap_pres risk; NO keeps stack frozen at 24. Either way safe; this is the substrate-wide measurement DECISION 144b asked for. (Exp-Dev's assigned part: cap_pres-invariant VERIFIED under both sets.) INSTANCE_OF coverage-impact: base-grounded=1762 -> cand-grounded=1769 (+7 newly-grounded via INSTANCE_OF, 0 newly-stranded); INSTANCE_OF edges=26; cap_pres-invariant=True.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 26253,
+      "instance_of_edges": 26,
+      "base_grounded": 1762,
+      "cand_grounded": 1769,
+      "newly_grounded": 7,
+      "newly_stranded": 0,
+      "cap_pres_invariant": true,
+      "newly_grounded_sample": [
+        "cap_bayesian_inference",
+        "cap_bundling",
+        "cap_superposition",
+        "cap_viterbi_decoding",
+        "pp-369_slot_filling",
+        "pp-375_multistep_math",
+        "pp-378_code_algopattern"
+      ],
+      "newly_stranded_list": []
+    }
+  ],
+  "elapsed_s": 0.4953758716583252
+}

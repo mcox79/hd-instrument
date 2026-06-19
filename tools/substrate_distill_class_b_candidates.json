@@ -1,0 +1,102 @@
+{
+  "groups": [
+    {
+      "group": "bellman_equation_markov_decision_process_grp4",
+      "members": [
+        "T3/bellman_equation",
+        "T3/markov_decision_process",
+        "T3/policy_gradient",
+        "T3/q_learning"
+      ]
+    },
+    {
+      "group": "count_nb_discriminative_perceptron_grp2",
+      "members": [
+        "T2/discriminative_perceptron",
+        "T3/count_nb"
+      ]
+    },
+    {
+      "group": "optimizer_family",
+      "members": [
+        "T1/gradient_descent",
+        "T3/adam_optimizer",
+        "T3/stochastic_gradient_descent"
+      ],
+      "expected": "SHARED_ABSTRACTION"
+    },
+    {
+      "group": "fhrr_bind_unbind_dual",
+      "members": [
+        "T2/fhrr_bind",
+        "T2/fhrr_unbind"
+      ],
+      "expected": "INVERSE_PAIR"
+    },
+    {
+      "group": "convolution_theorem",
+      "members": [
+        "T2/circular_convolution",
+        "T3/discrete_fourier_transform"
+      ],
+      "expected": "THEOREM_LINKED"
+    },
+    {
+      "group": "modern_hopfield_ramsauer_sparse_distributed_memory_grp2",
+      "members": [
+        "T2/modern_hopfield_ramsauer",
+        "T2/sparse_distributed_memory"
+      ]
+    },
+    {
+      "group": "hmm_family",
+      "members": [
+        "forward_algorithm",
+        "backward_algorithm",
+        "hmm_transition"
+      ],
+      "expected": "SHARED_ABSTRACTION"
+    },
+    {
+      "group": "sequence_decoding_same_domain",
+      "members": [
+        "beam_search",
+        "viterbi_decoder",
+        "viterbi_decoding"
+      ],
+      "expected": "SHARED_ABSTRACTION"
+    },
+    {
+      "group": "sequence_decoding_cross_domain",
+      "members": [
+        "beam_search",
+        "viterbi_decoder",
+        "astar",
+        "dijkstra"
+      ],
+      "expected": "CROSS_DOMAIN_ABSTRACTION"
+    },
+    {
+      "group": "cross_domain_perceptron_weight_vector",
+      "members": [
+        "discriminative_perceptron",
+        "structured_perceptron_collins",
+        "collins_structured_perceptron",
+        "perceptron_update"
+      ],
+      "expected": "CROSS_DOMAIN_ABSTRACTION"
+    },
+    {
+      "group": "cross_domain_state_distribution",
+      "members": [
+        "forward_algorithm",
+        "backward_algorithm",
+        "hmm_transition",
+        "markov_chain"
+      ],
+      "expected": "CROSS_DOMAIN_ABSTRACTION"
+    }
+  ],
+  "provenance": "skunkworks operator-overlap DETECT; Class A promotion-pairs EXCLUDED",
+  "n_groups": 6
+}

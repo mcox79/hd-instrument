@@ -1,0 +1,41 @@
+{
+  "anchor": "a9_cert_chain_replay_validation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cert chain replay validates W within machine precision. mean_replay_rel_err=0.00e+00(HP<1e-10 HF>1e-04) mean_acc=1.0000(HP>=0.9) hp1=2/2 hp2=2/2 hp3=2/2",
+  "n_seeds": 2,
+  "N": 256,
+  "K": 30,
+  "run_mode": "smoke",
+  "results": [
+    {
+      "seed": 7,
+      "N": 256,
+      "K": 30,
+      "run_mode": "smoke",
+      "replay_rel_err": 0.0,
+      "retrieval_acc": 1.0,
+      "cert_chain_length": 30,
+      "elapsed_s": 0.02920365333557129,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780434226.4025912
+    },
+    {
+      "seed": 17,
+      "N": 256,
+      "K": 30,
+      "run_mode": "smoke",
+      "replay_rel_err": 0.0,
+      "retrieval_acc": 1.0,
+      "cert_chain_length": 30,
+      "elapsed_s": 0.017566919326782227,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780434226.427598
+    }
+  ]
+}

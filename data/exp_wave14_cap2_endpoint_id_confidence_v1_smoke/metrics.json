@@ -1,0 +1,49 @@
+{
+  "verdict": "CAP2_ENDPOINT_UNCALIBRABLE",
+  "verdict_msg": "AUC signals present (0/2 strata pass), but ECE=0.375>0.15 (uncalibratable after conformal wrap). Rescue 1 partial.",
+  "elapsed_s": 0.07800000000861473,
+  "summary": {
+    "strata_results": {
+      "p0.0": {
+        "auc_mean": 0.5,
+        "auc_rand_mean": 0.5,
+        "ablation_delta": 0.0,
+        "ece_mean": 0.37500000000000006,
+        "auc_per_seed": [
+          0.5
+        ],
+        "p_flip": 0.0
+      },
+      "p0.1": {
+        "auc_mean": 0.5,
+        "auc_rand_mean": 0.5,
+        "ablation_delta": 0.0,
+        "ece_mean": 0.37500000000000006,
+        "auc_per_seed": [
+          0.5
+        ],
+        "p_flip": 0.1
+      }
+    },
+    "mean_ece": 0.37500000000000006,
+    "ablation_auc_delta": 0.0,
+    "note": "Cap 2 Rescue 1: endpoint-ID W^L dynamics + Mondrian conformal confidence"
+  },
+  "config": {
+    "N": 512,
+    "M": 20,
+    "L_hops": 15,
+    "n_ref_attractors": 8,
+    "n_trials_per_stratum": 20,
+    "noise_levels": [
+      0.0,
+      0.1
+    ],
+    "seeds": [
+      17
+    ],
+    "mode": "smoke",
+    "queue": "local_cpu_queue",
+    "note": "Cap 2 Rescue 1: endpoint-ID + Mondrian conformal confidence proxy"
+  }
+}

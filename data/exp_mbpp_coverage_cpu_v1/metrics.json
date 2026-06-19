@@ -1,0 +1,17 @@
+{
+  "anchor_name": "mbpp_coverage_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (measurement): MBPP coverage 0.33. coverage=0.331 (in-scope=322/974) pass@1-ceiling~=0.248",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_problems": 974,
+      "in_scope": 322,
+      "coverage": 0.331,
+      "pass1_ceiling_est": 0.248
+    }
+  ],
+  "elapsed_s": 0.1959676742553711,
+  "summary": "MIDDLE_BAND (measurement): MBPP coverage 0.33. coverage=0.331 (in-scope=322/974) pass@1-ceiling~=0.248"
+}

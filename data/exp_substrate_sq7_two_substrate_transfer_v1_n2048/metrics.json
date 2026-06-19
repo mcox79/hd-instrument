@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_sq7_two_substrate_transfer_v1_n2048",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: two substrates merge losslessly (both knowledge bases preserved). A_alone=1.00 B_alone=1.00 merged_A=1.00 merged_B=1.00 (M_each=28)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "M_each": 28,
+      "A_alone": 1.0,
+      "B_alone": 1.0,
+      "merged_A": 1.0,
+      "merged_B": 1.0
+    },
+    {
+      "seed": 2,
+      "M_each": 28,
+      "A_alone": 1.0,
+      "B_alone": 1.0,
+      "merged_A": 1.0,
+      "merged_B": 1.0
+    }
+  ],
+  "elapsed_s": 0.008153438568115234,
+  "summary": "HARD_PASS: two substrates merge losslessly (both knowledge bases preserved). A_alone=1.00 B_alone=1.00 merged_A=1.00 merged_B=1.00 (M_each=28)"
+}

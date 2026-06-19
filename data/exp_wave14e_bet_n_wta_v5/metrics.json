@@ -1,0 +1,45 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: P2 degrades at K=128. cleanup_acc_ratio=0.885 < 1.05. K=512 (v4) was optimal; K=1024 overshoots.",
+  "elapsed_s": 4.643,
+  "summary": {
+    "K_sweep": [
+      64,
+      128
+    ],
+    "agg_per_K": {
+      "64": {
+        "mean_p2_ratio": 0.8503,
+        "mean_p3_gap": 0.0012,
+        "mean_dead_frac": 0.0,
+        "p1_pass_frac": 1.0,
+        "p2_pass_frac": 0.0,
+        "p3_pass_frac": 0.0
+      },
+      "128": {
+        "mean_p2_ratio": 0.8854,
+        "mean_p3_gap": -0.0054,
+        "mean_dead_frac": 0.0,
+        "p1_pass_frac": 1.0,
+        "p2_pass_frac": 0.0,
+        "p3_pass_frac": 0.0
+      }
+    },
+    "K_primary": 128
+  },
+  "config": {
+    "N": 512,
+    "K_sweep": [
+      64,
+      128
+    ],
+    "K_active": 4,
+    "n_epochs": 2,
+    "seeds": [
+      7,
+      17
+    ],
+    "smoke": true,
+    "trigger": "ship when v4 returns BET_N_TIER1_PROMOTION or BET_N_PARTIAL_TIER2"
+  }
+}

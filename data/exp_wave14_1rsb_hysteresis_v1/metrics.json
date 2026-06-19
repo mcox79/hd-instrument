@@ -1,0 +1,69 @@
+{
+  "verdict": "HYSTERESIS_MIDDLE",
+  "verdict_msg": "Intermediate hysteresis gap=0.031 in [0.03, 0.1). Inconclusive first-order vs continuous transition.",
+  "elapsed_s": 30.703,
+  "summary": {
+    "max_hysteresis_gap": 0.0313,
+    "cells": [
+      {
+        "M": 25000,
+        "forward_retA_mean": 4.6386,
+        "reverse_retA_mean": 4.6309,
+        "hysteresis_gap": 0.0077,
+        "forward_seeds": [
+          4.6386
+        ],
+        "reverse_seeds": [
+          4.6309
+        ]
+      },
+      {
+        "M": 100000,
+        "forward_retA_mean": 3.8865,
+        "reverse_retA_mean": 3.8722,
+        "hysteresis_gap": 0.0143,
+        "forward_seeds": [
+          3.8865
+        ],
+        "reverse_seeds": [
+          3.8722
+        ]
+      },
+      {
+        "M": 400000,
+        "forward_retA_mean": 3.8499,
+        "reverse_retA_mean": 3.8186,
+        "hysteresis_gap": 0.0313,
+        "forward_seeds": [
+          3.8499
+        ],
+        "reverse_seeds": [
+          3.8186
+        ]
+      }
+    ],
+    "n_seeds": 1,
+    "m_sweep": [
+      25000,
+      100000,
+      400000
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 16,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "m_sweep": [
+      25000,
+      100000,
+      400000
+    ],
+    "seeds": [
+      17
+    ],
+    "gap_1rsb_threshold": 0.1,
+    "gap_rs_threshold": 0.03
+  }
+}

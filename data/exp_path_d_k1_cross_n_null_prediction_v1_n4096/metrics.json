@@ -1,0 +1,38 @@
+{
+  "verdict": "NULL_PRED_HARD_FAIL",
+  "verdict_msg": "NULL_PREDICTION_REFUTED: max|acc_N - baseline| = 0.0780 > 0.03 (3pp). K=1 signal IS N-driven (N-increasing). Percolation framing weakens. N=1024 mean=0.0000; N=4096 mean=0.1000 baseline=0.0220",
+  "elapsed_s": 13.56,
+  "summary": {
+    "anchor": "path_d_k1_cross_n_null_prediction_v1_n4096",
+    "N_grid": [
+      1024,
+      4096
+    ],
+    "smoke": true,
+    "depth": 5,
+    "K_paths": 1,
+    "k_random_keys": 20,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "N": 1024,
+        "M": 16384,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 65536,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.1
+      }
+    ],
+    "verdict": "NULL_PRED_HARD_FAIL",
+    "verdict_msg": "NULL_PREDICTION_REFUTED: max|acc_N - baseline| = 0.0780 > 0.03 (3pp). K=1 signal IS N-driven (N-increasing). Percolation framing weakens. N=1024 mean=0.0000; N=4096 mean=0.1000 baseline=0.0220",
+    "elapsed_s": 13.56
+  }
+}

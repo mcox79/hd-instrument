@@ -1,0 +1,1 @@
+{"ratification_tag": "INGEST_PHASE_6_wikidata_action_api_RELABEL", "source": "exp_dev_DECISION_49b_FIX_handoff", "counts": {"r2_rejections": 0, "atoms_updated_in_place": 5475, "atoms_newly_created": 0, "atoms_failed": 35}, "spot_check": {"atom_id": "T3/wikidata_Q182505", "aliases_before": ["Q182505"], "aliases_after": ["Bayes' theorem", "Q182505"]}}

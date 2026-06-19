@@ -1,0 +1,33 @@
+# Extended-N envelope test: probe whether modern Hopfield exponential capacity
+# activates at N=16384. The previous bench at N=[2048, 4096, 8192] showed
+# linear-in-N scaling (max_M = N/4 at 95% recall). User's Priority 1: test
+# N=16384 to see if the curve bends upward (exponential regime) or stays
+# linear (binding constraint locked).
+#
+# Memory budget at N=16384, codebook_C=65536 (4*N):
+#   W matrix: 16384^2 * 4 = 1024 MB
+#   Codebook: 65536 * 16384 * 4 = 4096 MB
+#   Total per cell: ~5.5 GB
+#   Plus working memory ~2 GB
+#   Net per cell: ~8 GB. Remote has 32+ GB so 1-2 cells fit at a time.
+#
+# 4 M_ratios x 1 N = 4 cells. Per cell wall:
+#   store: M items at ~30 ms each (N=16384 fp32 store ~quadratic in N)
+#   At M=N=16384: 16384 * 30 ms = 8 min
+#   At M=2N=32768: 16 min
+#   Total wall budget: ~45-60 min on remote CPU.
+
+config_name: large_N_envelope_extended
+
+N_sweep: [16384]
+M_per_N_ratios: [0.25, 0.5, 1.0, 2.0]
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+extended_N: true
+
+seeds: [7]
+backends: [substrate]
+scenarios: [large_N_envelope]
+out_root: testbed_data/benchmarks

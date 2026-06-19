@@ -1,0 +1,17 @@
+{
+  "verdict": "BURST_PASS",
+  "verdict_msg": "acc=1.000",
+  "elapsed_s": 7.687000000005355,
+  "summary": {
+    "acc": 1.0,
+    "K": 800,
+    "seed": 79
+  },
+  "config": {
+    "N": 65536,
+    "K": 800,
+    "depth": 50,
+    "n_trials": 30,
+    "seed": 79
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "verdict": "ALT_TAXONOMY_MIDDLE",
+  "verdict_msg": "MIDDLE: best taxonomy '4class_noreplay_isolated' (K=4) silhouette=0.584 (0.40-0.60 band), 6/6 non-overlapping pairs.",
+  "elapsed_s": 0.01,
+  "summary": {
+    "best_taxonomy": "4class_noreplay_isolated",
+    "best_k": 4,
+    "best_silhouette": 0.5835,
+    "best_kw_p": 4.7975417278972475e-17,
+    "best_all_pairs_nonoverlap": true,
+    "pass_silhouette_threshold": 0.6,
+    "fail_silhouette_threshold": 0.4,
+    "n_input_values": 109
+  },
+  "all_taxonomies": {
+    "4class_noreplay_isolated": {
+      "silhouette": 0.5835,
+      "k": 4,
+      "kw_p": 4.7975417278972475e-17,
+      "n_nonoverlap": 6,
+      "n_total": 6
+    },
+    "4class_plateau": {
+      "silhouette": 0.4942,
+      "k": 4,
+      "kw_p": 1.9420685669363792e-14,
+      "n_nonoverlap": 6,
+      "n_total": 6
+    },
+    "6class_original": {
+      "silhouette": 0.4789,
+      "k": 6,
+      "kw_p": 3.105031484104527e-16,
+      "n_nonoverlap": 13,
+      "n_total": 15
+    },
+    "5class_fine": {
+      "silhouette": 0.3689,
+      "k": 5,
+      "kw_p": 2.5975251029197777e-14,
+      "n_nonoverlap": 10,
+      "n_total": 10
+    },
+    "4class_splithi": {
+      "silhouette": 0.3369,
+      "k": 4,
+      "kw_p": 1.308079880149585e-14,
+      "n_nonoverlap": 6,
+      "n_total": 6
+    },
+    "3class_nosplit": {
+      "silhouette": 0.3224,
+      "k": 3,
+      "kw_p": 2.0138293612262297e-12,
+      "n_nonoverlap": 3,
+      "n_total": 3
+    },
+    "3class_standard": {
+      "silhouette": 0.2778,
+      "k": 3,
+      "kw_p": 5.7744202755427084e-11,
+      "n_nonoverlap": 3,
+      "n_total": 3
+    },
+    "2class_highlow": {
+      "silhouette": 0.2222,
+      "k": 2,
+      "kw_p": 2.2363080088294634e-07,
+      "n_nonoverlap": 1,
+      "n_total": 1
+    }
+  },
+  "best_per_class": {
+    "HIGH": {
+      "mean": 0.8999,
+      "ci_lo": 0.8798,
+      "ci_hi": 0.92,
+      "n": 21
+    },
+    "MID_HIGH": {
+      "mean": 0.8449,
+      "ci_lo": 0.8414,
+      "ci_hi": 0.8484,
+      "n": 49
+    },
+    "MID_LOW": {
+      "mean": 0.7276,
+      "ci_lo": 0.7151,
+      "ci_hi": 0.7401,
+      "n": 26
+    },
+    "LOW": {
+      "mean": 0.6334,
+      "ci_lo": 0.601,
+      "ci_hi": 0.6658,
+      "n": 13
+    }
+  },
+  "config": {
+    "n_taxonomies_swept": 8
+  }
+}

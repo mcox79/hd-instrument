@@ -1,0 +1,41 @@
+{
+  "anchor_name": "substrate_sq2_multihop_load_sweep_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: deep reasoning holds to ~1x alpha_c, degrades above. load0.5:depth=12.0 load1.0:depth=12.0 load1.5:depth=12.0 load2.0:depth=1.0",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "load0.5",
+    "load1.0",
+    "load1.5",
+    "load2.0"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "load0.5_depth": 12,
+      "load0.5_G": 2,
+      "load1.0_depth": 12,
+      "load1.0_G": 5,
+      "load1.5_depth": 12,
+      "load1.5_G": 8,
+      "load2.0_depth": 1,
+      "load2.0_G": 11
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "load0.5_depth": 12,
+      "load0.5_G": 2,
+      "load1.0_depth": 12,
+      "load1.0_G": 5,
+      "load1.5_depth": 12,
+      "load1.5_G": 8,
+      "load2.0_depth": 1,
+      "load2.0_G": 11
+    }
+  ],
+  "elapsed_s": 0.7981407642364502,
+  "summary": "MIDDLE_BAND: deep reasoning holds to ~1x alpha_c, degrades above. load0.5:depth=12.0 load1.0:depth=12.0 load1.5:depth=12.0 load2.0:depth=1.0"
+}

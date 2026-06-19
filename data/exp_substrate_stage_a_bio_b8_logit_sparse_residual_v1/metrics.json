@@ -1,0 +1,32 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b8_logit_sparse_residual_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: r in [0.30,0.55] or gain 4-10x. r=0.272 M_crit_gain=0.0x recon_base=0.517 recon_base+residual=0.767 (residual_useful=True)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "B8_cell4_logit_sparse_residual"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "r": 0.27106398676422194,
+      "M_crit_full": 10,
+      "M_crit_sparse": 0,
+      "M_crit_gain": 0.0,
+      "recon_base_acc": 0.5021673891297099,
+      "recon_residual_acc": 0.7679226408802934
+    },
+    {
+      "seed": 2,
+      "r": 0.27389389747479453,
+      "M_crit_full": 10,
+      "M_crit_sparse": 0,
+      "M_crit_gain": 0.0,
+      "recon_base_acc": 0.5325108369456486,
+      "recon_residual_acc": 0.7659219739913304
+    }
+  ],
+  "elapsed_s": 0.4935877323150635,
+  "summary": "MIDDLE_BAND: r in [0.30,0.55] or gain 4-10x. r=0.272 M_crit_gain=0.0x recon_base=0.517 recon_base+residual=0.767 (residual_useful=True)"
+}

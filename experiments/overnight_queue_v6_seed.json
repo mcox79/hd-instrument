@@ -1,0 +1,16 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_alpha_with_beta16",
+      "status": "completed",
+      "result": "Universal across ALPHA: gap within +-0.005 bpc"
+    },
+    {
+      "name": "phaseab_at_n8192",
+      "script": "experiments/exp_wave14b_phaseab_at_n8192.py",
+      "status": "pending",
+      "purpose": "Test N-invariance of BETA=16 fix - does C2 still match C1 at N=8192?",
+      "timeout_s": 1800
+    }
+  ]
+}

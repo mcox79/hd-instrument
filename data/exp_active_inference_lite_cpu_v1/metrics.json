@@ -1,0 +1,17 @@
+{
+  "anchor_name": "active_inference_lite_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: error drops 15-30% or goal-reach weak. error 0.964->0.766 (drop=20%) goal-reach=0.610",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "err_early": 0.964,
+      "err_late": 0.766,
+      "error_drop_pct": 20.5,
+      "goal_reach": 0.61
+    }
+  ],
+  "elapsed_s": 11.187263250350952,
+  "summary": "MIDDLE_BAND: error drops 15-30% or goal-reach weak. error 0.964->0.766 (drop=20%) goal-reach=0.610"
+}

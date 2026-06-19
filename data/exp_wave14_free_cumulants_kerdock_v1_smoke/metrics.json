@@ -1,0 +1,117 @@
+{
+  "verdict": "FREE_CUMULANTS_DIVERGE",
+  "verdict_msg": "Kerdock spectrum has higher free cumulants kappa_n (n>=2) that deviate significantly from MP baseline. 2/2 cells exceed 20% deviation; max_dev=0.988 at alpha=0.50, kappa_4. This is the formal mechanism for AMP_SE_DIVERGES: nontrivial higher free cumulants in the Kerdock R-transform place it outside the AMP universality class. Substrate-novel observability: kappa_n profile distinguishes Kerdock from i.i.d. Gaussian baseline.",
+  "elapsed_s": 1.4530000000086147,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "c_ref": 0.5,
+        "kappa_mean": [
+          0.9999999701976776,
+          0.37438011169433416,
+          0.09366321931236143,
+          0.005985449281751265
+        ],
+        "kappa_std": [
+          2.9802322387695312e-08,
+          5.912780761541114e-05,
+          0.0004415475333416907,
+          0.00012342012882893272
+        ],
+        "kappa_mp": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "moments_mean": [
+          0.9999999701976776,
+          1.3743800520896912,
+          2.2168034315109253,
+          3.9072396755218506
+        ],
+        "moments_mp": [
+          0.5,
+          0.75,
+          1.375,
+          2.8125
+        ],
+        "kappa_dev_relative": [
+          0.9999999403953552,
+          -0.2512397766113317,
+          -0.8126735613752771,
+          -0.9880291014364975
+        ],
+        "worst_kappa_dev": 0.9880291014364975,
+        "worst_kappa_n": 4
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "c_ref": 1.0,
+        "kappa_mean": [
+          1.0,
+          0.749386727809906,
+          0.37390631437301636,
+          0.04632304121103914
+        ],
+        "kappa_std": [
+          0.0,
+          0.00037473440170288086,
+          0.0006350874900817871,
+          0.00016238823944547676
+        ],
+        "kappa_mp": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "moments_mean": [
+          1.0,
+          1.749386727809906,
+          3.6220664978027344,
+          8.16142988204956
+        ],
+        "moments_mp": [
+          1.0,
+          2.0,
+          5.0,
+          14.0
+        ],
+        "kappa_dev_relative": [
+          0.0,
+          -0.250613272190094,
+          -0.6260936856269836,
+          -0.9536769587889609
+        ],
+        "worst_kappa_dev": 0.9536769587889609,
+        "worst_kappa_n": 4
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "M_over_N_list": [
+        0.5,
+        1.0
+      ],
+      "n_seeds": 2,
+      "n_max_moment": 4
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N_list": [
+      0.5,
+      1.0
+    ],
+    "n_seeds": 2,
+    "n_max_moment": 4
+  }
+}

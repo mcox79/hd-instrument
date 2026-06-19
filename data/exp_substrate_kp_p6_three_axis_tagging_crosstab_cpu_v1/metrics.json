@@ -1,0 +1,51 @@
+{
+  "anchor_name": "substrate_kp_p6_three_axis_tagging_crosstab_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the 3 axes genuinely COMPOSE -- all non-degenerate, 12 distinct combination-cells populated (axes are ORTHOGONAL, not collinear), tools span 4 tiers (load-bearing is independent of epistemic tier), and tools are predominantly system-content (100%, sane). Empirical basis for the substrate-product claim: a single atom carries 3 INDEPENDENT coordinates (tier x tool/material x system/record). LLMs have none of these explicitly, let alone composed. Axis1 tier={'T1': 261, 'T2': 76, 'T3': 110, 'T4': 2, 'T_lexicon': 18, 'T_methodology': 10, 'NA': 1256, 'T_school': 13}; Axis2 load-bearing={'tool': 34, 'material': 1712}; Axis3 content-type={'system': 498, 'record': 3, 'episodic': 1245}; 12 distinct (tier x load-bearing x content-type) cells hold >=3 atoms; tools span 4 tiers (load-bearing != just-T1); tools system-fraction=1.000. Per-atom 3-axis tagging saved bench_reports/kp_p6_three_axis_tagging.json (-> Testbed Atom-schema substrate_load_bearing + content_type).",
+  "summary": "HARD_PASS: the 3 axes genuinely COMPOSE -- all non-degenerate, 12 distinct combination-cells populated (axes are ORTHOGONAL, not collinear), tools span 4 tiers (load-bearing is independent of epistemic tier), and tools are predominantly system-content (100%, sane). Empirical basis for the substrate-product claim: a single atom carries 3 INDEPENDENT coordinates (tier x tool/material x system/record). LLMs have none of these explicitly, let alone composed. Axis1 tier={'T1': 261, 'T2': 76, 'T3': 110, 'T4': 2, 'T_lexicon': 18, 'T_methodology': 10, 'NA': 1256, 'T_school': 13}; Axis2 load-bearing={'tool': 34, 'material': 1712}; Axis3 content-type={'system': 498, 'record': 3, 'episodic': 1245}; 12 distinct (tier x load-bearing x content-type) cells hold >=3 atoms; tools span 4 tiers (load-bearing != just-T1); tools system-fraction=1.000. Per-atom 3-axis tagging saved bench_reports/kp_p6_three_axis_tagging.json (-> Testbed Atom-schema substrate_load_bearing + content_type).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 1746,
+      "axis1": {
+        "T1": 261,
+        "T2": 76,
+        "T3": 110,
+        "T4": 2,
+        "T_lexicon": 18,
+        "T_methodology": 10,
+        "NA": 1256,
+        "T_school": 13
+      },
+      "axis2": {
+        "tool": 34,
+        "material": 1712
+      },
+      "axis3": {
+        "system": 498,
+        "record": 3,
+        "episodic": 1245
+      },
+      "n_combo_cells_ge3": 12,
+      "tools_span_tiers": 4,
+      "tools_system_frac": 1.0,
+      "nondegenerate": true,
+      "top_cells": {
+        "('NA', 'material', 'episodic')": 1245,
+        "('T1', 'material', 'system')": 251,
+        "('T3', 'material', 'system')": 102,
+        "('T2', 'material', 'system')": 62,
+        "('T_lexicon', 'material', 'system')": 18,
+        "('T2', 'tool', 'system')": 14,
+        "('T_school', 'material', 'system')": 11,
+        "('T1', 'tool', 'system')": 10,
+        "('T_methodology', 'material', 'system')": 10,
+        "('T3', 'tool', 'system')": 8,
+        "('NA', 'material', 'system')": 8,
+        "('NA', 'material', 'record')": 3
+      }
+    }
+  ],
+  "elapsed_s": 0.10579133033752441
+}

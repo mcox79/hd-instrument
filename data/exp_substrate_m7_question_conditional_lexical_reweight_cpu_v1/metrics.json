@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_m7_question_conditional_lexical_reweight_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "M7 lexical reweight does not add (correlates with bge): M7 lexical reweight (dev-tuned delta=0.05, no Goodhart on held-out): q54-q65 bge 0.1480->M7 0.1480 (+0.0000); 56d-NEW bge 0.2167->M7 0.1936 (-0.0231). M4d ref: +0.124 in-dist, +0.005 new-concept. Lexical overlap is already captured by bge cosine; question-conditional discrimination needs a non-lexical signal (type-match).",
+  "summary": "M7 lexical reweight does not add (correlates with bge): M7 lexical reweight (dev-tuned delta=0.05, no Goodhart on held-out): q54-q65 bge 0.1480->M7 0.1480 (+0.0000); 56d-NEW bge 0.2167->M7 0.1936 (-0.0231). M4d ref: +0.124 in-dist, +0.005 new-concept. Lexical overlap is already captured by bge cosine; question-conditional discrimination needs a non-lexical signal (type-match).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dev_best_delta": 0.05,
+      "dev_sweep": {
+        "0.0": 0.2327,
+        "0.02": 0.2484,
+        "0.05": 0.2536,
+        "0.1": 0.2505,
+        "0.2": 0.2427,
+        "0.4": 0.2427
+      },
+      "q54q65_bge": 0.148,
+      "q54q65_m7": 0.148,
+      "h56d_bge": 0.2167,
+      "h56d_m7": 0.1936,
+      "q54q65_lift": 0.0,
+      "h56d_lift": -0.0231
+    }
+  ],
+  "elapsed_s": 15.976359128952026
+}

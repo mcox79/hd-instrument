@@ -1,0 +1,89 @@
+{
+  "verdict": "HATANO_SASA_CAP3_LONG_TRAJ_V2_MIDDLE_BAND",
+  "verdict_msg": "v2 (longer trajectories: glauber_steps=120, n_traj=300) vs v1 (60/150): HS-IFT PARTIAL: <exp(-W_ex)>=1.2761; cross_basin_frac=0.116; n_valid_cells=4. Outside hard-pass band [0.95,1.05] OR insufficient cross-basin evidence (need >= 0.05) OR n_valid_cells < 3. Partial cert; needs more data or theoretical adjustment.",
+  "elapsed_s": 23.35899999999674,
+  "summary": {
+    "hs_identity_val": 1.2760576287482723,
+    "hs_identity_sem": 0.17786623240230007,
+    "cross_basin_frac": 0.11579457364341085,
+    "n_valid_cells": 4,
+    "n_cells_total": 4,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "cells": [
+      {
+        "noise_p": 0.3,
+        "seed": 17,
+        "hs_identity_val": 1.0486749594375337,
+        "cross_basin_frac": 0.046511627906976744,
+        "n_valid_traj": 43,
+        "n_distinct_attractors": 20,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 61,
+        "n_distinct_attractors": 27,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 17,
+        "hs_identity_val": 1.7777777777777775,
+        "cross_basin_frac": 0.3333333333333333,
+        "n_valid_traj": 9,
+        "n_distinct_attractors": 6,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 23,
+        "hs_identity_val": 1.2777777777777777,
+        "cross_basin_frac": 0.08333333333333333,
+        "n_valid_traj": 12,
+        "n_distinct_attractors": 8,
+        "degenerate": false
+      }
+    ]
+  },
+  "config": {
+    "N": 1024,
+    "M": 30,
+    "n_traj_per_cell": 80,
+    "noise_levels": [
+      0.3,
+      0.4
+    ],
+    "seeds": [
+      17,
+      23
+    ],
+    "max_iter": 30,
+    "beta": 1.5,
+    "glauber_steps": 80,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "smoke": true,
+    "v2_changes_from_v1_full": {
+      "glauber_steps": "60 -> 120",
+      "n_traj_per_cell": "150 -> 300"
+    }
+  }
+}

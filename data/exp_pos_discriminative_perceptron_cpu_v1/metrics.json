@@ -1,0 +1,17 @@
+{
+  "anchor_name": "pos_discriminative_perceptron_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: discriminative structured-perceptron POS tagger >=0.92 -- discriminative weighting beats the HMM 0.906; same lever (math/code/parsing) lifts POS. tag-accuracy=0.9499 (18699 tokens, train=1800 sents)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.9499,
+      "n_tokens": 18699,
+      "n_train": 1800,
+      "n_tags": 44
+    }
+  ],
+  "elapsed_s": 157.6419084072113,
+  "summary": "HARD_PASS: discriminative structured-perceptron POS tagger >=0.92 -- discriminative weighting beats the HMM 0.906; same lever (math/code/parsing) lifts POS. tag-accuracy=0.9499 (18699 tokens, train=1800 sents)"
+}

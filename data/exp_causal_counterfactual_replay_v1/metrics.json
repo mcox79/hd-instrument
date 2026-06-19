@@ -1,0 +1,17 @@
+{
+  "anchor_name": "causal_counterfactual_replay_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: counterfactual replay 50-80%% (or latency>10ms). counterfactual_accuracy=1.000 mean_intervention=16.864ms (do() via hetero-assoc target swap)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "accuracy": 1.0,
+      "intervention_ms": 16.864239994902164
+    }
+  ],
+  "elapsed_s": 0.3685932159423828,
+  "summary": "MIDDLE_BAND: counterfactual replay 50-80%% (or latency>10ms). counterfactual_accuracy=1.000 mean_intervention=16.864ms (do() via hetero-assoc target swap)"
+}

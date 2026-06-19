@@ -1,0 +1,215 @@
+{
+  "K": 16,
+  "GEN_LENGTH": 64,
+  "TEMPERATURES": [
+    0.0,
+    0.7,
+    1.0
+  ],
+  "EVAL_POSITIONS": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.46,
+          "2": 0.43,
+          "4": 0.425,
+          "8": 0.3875,
+          "16": 0.32,
+          "32": 0.2175,
+          "64": 0.1309375
+        },
+        "samples": [
+          {
+            "prefix": "hrr/dashboard.pd",
+            "truth": "f) [trace](data/exp_scaling_depth_hrr/trace.duck",
+            "generated": "f) [trace](data/exp_m4_nested/metrics.json) |..|"
+          },
+          {
+            "prefix": " beta=0.717 | [p",
+            "truth": "df](data/exp_depth_pinned_fhrr_clipped/dashboard",
+            "generated": "datestiand d madsiat wsith arew | dabes wed athe"
+          },
+          {
+            "prefix": " SNR=1000000000.",
+            "truth": "0; density 0.81 -> SNR=0.99 | [pdf](data/exp_m7_",
+            "generated": " d [ [ ] ratest arepestice reckling...| Pratsins"
+          },
+          {
+            "prefix": "(data/exp_m6_bsc",
+            "truth": "/dashboard.pdf) [trace](data/exp_m6_bsc/trace.du",
+            "generated": "ametrics.jscaracepros daseddit aypredest ast and"
+          },
+          {
+            "prefix": "caffold-free wit",
+            "truth": "ness in `verification/`...- Verification tests m",
+            "generated": "natiantingeed cabeorityscs meperic andle d | PAS"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.46,
+          "2": 0.42,
+          "4": 0.395,
+          "8": 0.34,
+          "16": 0.27625,
+          "32": 0.181875,
+          "64": 0.11
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.4,
+          "2": 0.36,
+          "4": 0.355,
+          "8": 0.2925,
+          "16": 0.21,
+          "32": 0.13,
+          "64": 0.0875
+        },
+        "samples": null
+      }
+    },
+    {
+      "seed": 23,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.44,
+          "2": 0.41,
+          "4": 0.325,
+          "8": 0.265,
+          "16": 0.1975,
+          "32": 0.13625,
+          "64": 0.1034375
+        },
+        "samples": [
+          {
+            "prefix": "ng beta = 1.015 ",
+            "truth": "(R^2 = 0.9953); HRR pinned 1.232; FHRR k=2 stand",
+            "generated": "| uracanes | dented peromed madens mod brares | "
+          },
+          {
+            "prefix": "5-17 | exp_scali",
+            "truth": "ng_depth_hrr_validation | PASS | HRR validation ",
+            "generated": "st | |..| Week | -put-meas aod somplestat siathi"
+          },
+          {
+            "prefix": " | HRR validatio",
+            "truth": "n beta = 2.441 (R^2 = 0.8451); original beta = 1",
+            "generated": "n armertarin | monc | RA | Bet- | Butad pation s"
+          },
+          {
+            "prefix": "/exp_connectivit",
+            "truth": "y_multihop/dashboard.pdf) [trace](data/exp_conne",
+            "generated": "ind | decess | podes | metriss | |..| | |e--|---"
+          },
+          {
+            "prefix": "5-17 | exp_depth",
+            "truth": "_hyperbolic | PASS | Hyperbolic (tier 1) beta = ",
+            "generated": "onetronesticherecondsctomed.mdatests searde ted "
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.4,
+          "2": 0.38,
+          "4": 0.32,
+          "8": 0.265,
+          "16": 0.19875,
+          "32": 0.121875,
+          "64": 0.085625
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.28,
+          "2": 0.27,
+          "4": 0.245,
+          "8": 0.1925,
+          "16": 0.13,
+          "32": 0.078125,
+          "64": 0.0590625
+        },
+        "samples": null
+      }
+    },
+    {
+      "seed": 31,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.42,
+          "2": 0.4,
+          "4": 0.325,
+          "8": 0.2775,
+          "16": 0.2175,
+          "32": 0.138125,
+          "64": 0.0859375
+        },
+        "samples": [
+          {
+            "prefix": "aling_capacity/d",
+            "truth": "ashboard.pdf) [trace](data/exp_scaling_capacity/",
+            "generated": "estrons |..| Setroms. S | PASS | mptormextation "
+          },
+          {
+            "prefix": "xp_scaling_depth",
+            "truth": "/trace.duckdb) [metrics](data/exp_scaling_depth/",
+            "generated": "ding.m |..| Weeks | 100% | bond |matted | 1ondat"
+          },
+          {
+            "prefix": "cs](data/exp_sca",
+            "truth": "ling_capacity/metrics.json) |..| 2026-05-17 | ex",
+            "generated": "nes | dapeddiand)e thand arewhic dastis. dondid "
+          },
+          {
+            "prefix": "(data/exp_depth_",
+            "truth": "pinned_fhrr_clipped/metrics.json) |..| 2026-05-1",
+            "generated": "ensimines mack 00 pardes, dodases ataldes...` **"
+          },
+          {
+            "prefix": "pinned was 1.232",
+            "truth": " | [pdf](data/exp_depth_pinned_fhrr_l2bundle/das",
+            "generated": ". deds anaterotes ation | ware s dofacdent on so"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.36,
+          "2": 0.36,
+          "4": 0.31,
+          "8": 0.26,
+          "16": 0.2,
+          "32": 0.13,
+          "64": 0.085625
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.32,
+          "2": 0.29,
+          "4": 0.25,
+          "8": 0.2025,
+          "16": 0.145,
+          "32": 0.094375,
+          "64": 0.0646875
+        },
+        "samples": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "anchor_name": "substrate_8channel_orchestration_ablation_gpt2small_v1",
+  "run_mode": "smoke",
+  "N": 128,
+  "n_layers": 4,
+  "n_steps_max": 500,
+  "conditions": [
+    "1ch",
+    "4ch",
+    "8ch"
+  ],
+  "seeds": [
+    7
+  ],
+  "preflight_verdict": "PASS",
+  "summary": {
+    "1ch": {
+      "n_runs": 1,
+      "blimp_proxy_mean": 0.625,
+      "blimp_proxy_std": 0.0,
+      "final_ce_mean": 3.2676925659179688,
+      "any_collapse": false,
+      "min_grad_norm_ratio": 1.0
+    },
+    "4ch": {
+      "n_runs": 1,
+      "blimp_proxy_mean": 0.6875,
+      "blimp_proxy_std": 0.0,
+      "final_ce_mean": 3.271354913711548,
+      "any_collapse": false,
+      "min_grad_norm_ratio": 1.0
+    },
+    "8ch": {
+      "n_runs": 1,
+      "blimp_proxy_mean": 0.6875,
+      "blimp_proxy_std": 0.0,
+      "final_ce_mean": 3.2734787464141846,
+      "any_collapse": false,
+      "min_grad_norm_ratio": 1.0
+    }
+  },
+  "gain_8_vs_1": 0.0625,
+  "gain_8_vs_4": 0.0,
+  "min_grad_norm_ratio": 1.0,
+  "verdict": "MIDDLE",
+  "verdict_msg": "MIDDLE: blimp_proxy 8ch=0.6875 beats 1ch=0.6250 by 6.2% (within 2-5%) OR 4ch tie (gain_vs_4=0.0%). 8-channel yields some lift but not decisive. CAPABILITY IMPLICATION: substrate orchestration plausible but mechanism uncertain at this scale; re-run at larger model or with refined channel-pair pruning (drop low-synergy channels). Mid-band; not load-bearing for product.",
+  "pre_registered_bands": {
+    "HARD_PASS": "acc(8ch) - acc(1ch) > 0.05 AND acc(8ch) - acc(4ch) > 0.02 AND grad_norm_ratio >= 0.01",
+    "MIDDLE": "acc(8ch) - acc(1ch) in (0.02, 0.05]",
+    "HARD_FAIL": "acc(8ch) < acc(4ch) OR grad_norm_ratio < 0.01"
+  }
+}

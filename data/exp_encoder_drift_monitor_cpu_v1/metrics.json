@@ -1,0 +1,21 @@
+{
+  "anchor_name": "encoder_drift_monitor_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: encoder-drift monitor flags >=99pct of drifts with <=1pct false-positive -- rank-1 silent-failure guard ready for pre-GA. detection=1.000 false-positive=0.000 | by-magnitude: {'m0.01': 1.0, 'm0.02': 1.0, 'm0.05': 1.0, 'm0.10': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "detection": 1.0,
+      "fp": 0.0,
+      "curve": {
+        "m0.01": 1.0,
+        "m0.02": 1.0,
+        "m0.05": 1.0,
+        "m0.10": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 1.7302279472351074,
+  "summary": "HARD_PASS: encoder-drift monitor flags >=99pct of drifts with <=1pct false-positive -- rank-1 silent-failure guard ready for pre-GA. detection=1.000 false-positive=0.000 | by-magnitude: {'m0.01': 1.0, 'm0.02': 1.0, 'm0.05': 1.0, 'm0.10': 1.0}"
+}

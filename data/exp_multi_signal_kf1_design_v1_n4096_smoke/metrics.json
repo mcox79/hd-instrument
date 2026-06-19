@@ -1,0 +1,88 @@
+{
+  "verdict": "KF1MS_MIDDLE_BAND",
+  "verdict_msg": "COMPOSITE_INT: min=0.894 in (0.75,0.9). M=64 wmean_AUC=0.903  M=256 wmean_AUC=0.894  M=512 wmean_AUC=0.907",
+  "elapsed_s": 0.57,
+  "summary": {
+    "anchor": "multi_signal_kf1_design_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_ops": [
+      64,
+      256,
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "per_op": {
+      "64": {
+        "composite_wmean": 0.90322,
+        "composite_max": 1.0,
+        "n_seeds": 1,
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.51609
+      },
+      "256": {
+        "composite_wmean": 0.8945,
+        "composite_max": 1.0,
+        "n_seeds": 1,
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.4725
+      },
+      "512": {
+        "composite_wmean": 0.907,
+        "composite_max": 1.0,
+        "n_seeds": 1,
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.535
+      }
+    },
+    "cells": [
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.51609,
+        "composite_wmean": 0.90322,
+        "composite_max": 1.0,
+        "M": 64,
+        "seed": 17
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.4725,
+        "composite_wmean": 0.8945,
+        "composite_max": 1.0,
+        "M": 256,
+        "seed": 17
+      },
+      {
+        "posterior_entropy": 1.0,
+        "bundle_norm": 1.0,
+        "geometric_distance": 1.0,
+        "spectral_signature": 1.0,
+        "cross_replica": 0.535,
+        "composite_wmean": 0.907,
+        "composite_max": 1.0,
+        "M": 512,
+        "seed": 17
+      }
+    ],
+    "verdict": "KF1MS_MIDDLE_BAND",
+    "verdict_msg": "COMPOSITE_INT: min=0.894 in (0.75,0.9). M=64 wmean_AUC=0.903  M=256 wmean_AUC=0.894  M=512 wmean_AUC=0.907",
+    "elapsed_s": 0.57
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "anchor_name": "e1_substrate_crf_shared_lib_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: shared library lift <=0 -- clusters+gazetteer subsumed by lexical features at full data (aux-features-shrink confirmed; honest). baseline-F1=0.6505 +library-F1=0.6365 lift=-0.0140 (lift-2SE=-0.0497, n=3, clusters=1514 gaz=584, 4-type NER)",
+  "summary": "HARD_FAIL: shared library lift <=0 -- clusters+gazetteer subsumed by lexical features at full data (aux-features-shrink confirmed; honest). baseline-F1=0.6505 +library-F1=0.6365 lift=-0.0140 (lift-2SE=-0.0497, n=3, clusters=1514 gaz=584, 4-type NER)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "f1": 0.6365,
+      "baseline_f1": 0.6505,
+      "library_f1": 0.6365,
+      "lift": -0.014,
+      "lift_se": 0.0179,
+      "lift_minus_2se": -0.0497,
+      "lifts": [
+        -0.04069999999999996,
+        0.029400000000000093,
+        -0.03060000000000007
+      ],
+      "n_seeds": 3,
+      "n_clusters": 1514,
+      "n_gaz": 584,
+      "n_train": 5982
+    }
+  ],
+  "elapsed_s": 316.7823076248169
+}

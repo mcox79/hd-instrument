@@ -1,0 +1,26 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_pearson_k2": 0.9962541781946068,
+    "mean_pearson_k3": 0.9942820823382909,
+    "mean_best_pearson": 0.9962541781946068,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Trace formula correlates with subgraph counts. best_r=0.996>=0.65. k=2 r=0.996, k=3 r=0.994. Substrate trace is a valid subgraph-cardinality primitive.",
+  "elapsed_s": 8.625226497650146,
+  "config": {
+    "N_NODES": 15,
+    "N_EDGES": 40,
+    "K_HOPS": [
+      1,
+      2,
+      3
+    ]
+  }
+}

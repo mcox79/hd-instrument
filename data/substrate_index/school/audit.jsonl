@@ -1,0 +1,77 @@
+{"ts": 1781228155.4725316, "op": "add_atom", "target": "SCHOOL/vsa_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.4745421, "op": "add_relation", "target": "SCHOOL/vsa_family|USES|math::T2/fhrr_bind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4765484, "op": "add_relation", "target": "SCHOOL/vsa_family|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4765484, "op": "add_relation", "target": "SCHOOL/vsa_family|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4800115, "op": "add_relation", "target": "SCHOOL/vsa_family|USES|math::T2/circular_convolution", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4820175, "op": "add_atom", "target": "SCHOOL/hopfield_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.4830248, "op": "add_relation", "target": "SCHOOL/hopfield_family|USES|math::T2/sparse_distributed_memory", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4830248, "op": "add_relation", "target": "SCHOOL/hopfield_family|USES|math::T2/amit_gutfreund_sompolinsky_capacity", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4850297, "op": "add_relation", "target": "SCHOOL/hopfield_family|USES|math::T2/modern_hopfield_ramsauer", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4850297, "op": "add_relation", "target": "SCHOOL/hopfield_family|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.487036, "op": "add_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.4890428, "op": "add_relation", "target": "SCHOOL/cognitive_architecture_family|USES|concept::unified_compositional_engine", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4890428, "op": "add_relation", "target": "SCHOOL/cognitive_architecture_family|USES|concept::CAP_discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.491048, "op": "add_relation", "target": "SCHOOL/cognitive_architecture_family|USES|math::T4/discriminative_perceptron_pipeline", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.491048, "op": "add_atom", "target": "SCHOOL/free_probability_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.4930534, "op": "add_relation", "target": "SCHOOL/free_probability_family|USES|math::T1/marchenko_pastur_distribution", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.49506, "op": "add_relation", "target": "SCHOOL/free_probability_family|USES|math::T1/tracy_widom_distribution", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.49506, "op": "add_relation", "target": "SCHOOL/free_probability_family|USES|math::T1/voiculescu_free_probability", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4970655, "op": "add_relation", "target": "SCHOOL/free_probability_family|USES|math::T3/mp_bulk_kl", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4970655, "op": "add_relation", "target": "SCHOOL/free_probability_family|USES|math::T3/tw_edge_z", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.4990723, "op": "add_relation", "target": "SCHOOL/free_probability_family|USES|math::T3/kappa_4_free", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5010784, "op": "add_atom", "target": "SCHOOL/sparse_distributed_memory_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.5010784, "op": "add_relation", "target": "SCHOOL/sparse_distributed_memory_family|USES|math::T2/sparse_distributed_memory", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5030851, "op": "add_relation", "target": "SCHOOL/sparse_distributed_memory_family|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5030851, "op": "add_atom", "target": "SCHOOL/complementary_learning_systems_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.5050917, "op": "add_relation", "target": "SCHOOL/complementary_learning_systems_family|USES|math::T2/complementary_learning_systems", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5070965, "op": "add_relation", "target": "SCHOOL/complementary_learning_systems_family|USES|math::T2/sparse_distributed_memory", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5070965, "op": "add_atom", "target": "SCHOOL/discriminative_learning_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.5091078, "op": "add_relation", "target": "SCHOOL/discriminative_learning_family|USES|math::T3/structured_perceptron_collins", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5111148, "op": "add_relation", "target": "SCHOOL/discriminative_learning_family|USES|math::T4/discriminative_perceptron_pipeline", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5131269, "op": "add_relation", "target": "SCHOOL/discriminative_learning_family|USES|concept::CAP_discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.515135, "op": "add_atom", "target": "SCHOOL/hmm_sequence_labeling_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.515135, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/viterbi_decoder", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5191505, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/forward_algorithm_atom", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5191505, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/backward_algorithm_atom", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5211558, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T4/cascade_hmm_pipeline", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5231612, "op": "add_atom", "target": "SCHOOL/biological_learning_rules_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.5251667, "op": "add_relation", "target": "SCHOOL/biological_learning_rules_family|USES|math::T2/bcm_learning_rule", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5251667, "op": "add_atom", "target": "SCHOOL/spectral_observability_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.527172, "op": "add_relation", "target": "SCHOOL/spectral_observability_family|USES|math::T1/singular_value_decomposition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5291777, "op": "add_relation", "target": "SCHOOL/spectral_observability_family|USES|math::T3/principal_component_analysis", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5291777, "op": "add_relation", "target": "SCHOOL/spectral_observability_family|USES|math::T3/spectral_gap", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5311852, "op": "add_relation", "target": "SCHOOL/spectral_observability_family|USES|math::T3/tw_edge_z", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.534204, "op": "add_relation", "target": "SCHOOL/spectral_observability_family|USES|math::T3/mp_bulk_kl", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5352094, "op": "add_relation", "target": "SCHOOL/spectral_observability_family|USES|math::T3/kappa_4_free", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5372148, "op": "add_atom", "target": "SCHOOL/categorical_NLP_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.5372148, "op": "add_relation", "target": "SCHOOL/categorical_NLP_family|USES|math::T1/category", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5392215, "op": "add_relation", "target": "SCHOOL/categorical_NLP_family|USES|math::T2/tensor_product_representation", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781228155.5412292, "op": "add_atom", "target": "SCHOOL/dual_process_recognition_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228155.543238, "op": "add_relation", "target": "SCHOOL/dual_process_recognition_family|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781270088.3589199, "op": "update_atom", "target": "SCHOOL/vsa_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3619053, "op": "update_atom", "target": "SCHOOL/hopfield_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3648112, "op": "update_atom", "target": "SCHOOL/sparse_distributed_memory_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3668237, "op": "update_atom", "target": "SCHOOL/discriminative_learning_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3688684, "op": "update_atom", "target": "SCHOOL/hmm_sequence_labeling_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3737957, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3785977, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3834984, "op": "update_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781290632.924199, "op": "add_atom", "target": "SCHOOL/structured_prediction_family", "note": "created SCHOOL/structured_prediction_family for Q39 INSTANCE_OF gold", "source": "b_axis_authoring_per_exp_dev_spec"}
+{"ts": 1781313686.4115658, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "backfilled serves_capability += concept::CAP_spectral_observability for Q44-C gold", "source": "p0_2_field_backfill_q44_c_per_cycle_51_day3_direction"}
+{"ts": 1781313686.4126637, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "backfilled serves_capability += concept::CAP_spectral_observability for Q44-C gold", "source": "p0_2_field_backfill_q44_c_per_cycle_51_day3_direction"}
+{"ts": 1781313824.3593266, "op": "update_atom", "target": "SCHOOL/discriminative_learning_family", "note": "backfilled serves_capability += concept::PP-376_multibench_math", "source": "p0_2_field_backfill_c_axis_full"}
+{"ts": 1781313824.3838172, "op": "update_atom", "target": "SCHOOL/discriminative_learning_family", "note": "backfilled serves_capability += concept::CAP_discriminative_perceptron", "source": "p0_2_field_backfill_c_axis_full"}
+{"ts": 1781317886.0681038, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "added 3 A-axis-topic aliases: random matrix family, RMT free probability school, free_probability random matrix", "source": "p0_1_a_axis_corpus_enrichment_via_aliases"}
+{"ts": 1781317886.069368, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "added 3 A-axis-topic aliases: random matrix spectral, RMT spectral observability, rmt_spectral_school", "source": "p0_1_a_axis_corpus_enrichment_via_aliases"}
+{"ts": 1781351191.5045254, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "composite alias: random matrix free probability family", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.505693, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "composite alias: random matrix spectral family", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.5267894, "op": "update_atom", "target": "SCHOOL/hopfield_family", "note": "composite alias: hopfield network family", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781557459.473548, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was school::SCHOOL/hmm_sequence_labeling_family -USES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.0388944, "op": "remove_relation", "target": "math::T3/viterbi_decoder|HAS_USERS|SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781557460.0388944, "op": "remove_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557460.223795, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/forward_algorithm", "note": "DECISION 109b-2 merge: was school::SCHOOL/hmm_sequence_labeling_family -USES-> math::T3/forward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.7691724, "op": "remove_relation", "target": "math::T3/forward_algorithm_atom|HAS_USERS|SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781557460.7765324, "op": "remove_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/forward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557460.999, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/backward_algorithm", "note": "DECISION 109b-2 merge: was school::SCHOOL/hmm_sequence_labeling_family -USES-> math::T3/backward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557461.5394258, "op": "remove_relation", "target": "math::T3/backward_algorithm_atom|HAS_USERS|SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781557461.5555422, "op": "remove_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/backward_algorithm_atom", "note": "", "source": "manual"}

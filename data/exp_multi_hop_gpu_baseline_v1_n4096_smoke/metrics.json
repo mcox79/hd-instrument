@@ -1,0 +1,37 @@
+{
+  "verdict": "S11_MIDDLE_BAND",
+  "verdict_msg": "NO_GPU_OR_CRASH; cpu_results emitted",
+  "elapsed_s": 0.42,
+  "summary": {
+    "anchor": "multi_hop_gpu_baseline_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 500,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "cpu": {
+          "acc_b": 1.0,
+          "acc_d": 1.0,
+          "auc_e": 0.99653,
+          "lat_b_ns": 2797400,
+          "lat_d_ns": 278951800,
+          "lat_e_ns": 95772000,
+          "mem_peak_b": 0
+        },
+        "gpu": {
+          "error": "no_cuda"
+        }
+      }
+    ],
+    "verdict": "S11_MIDDLE_BAND",
+    "verdict_msg": "NO_GPU_OR_CRASH; cpu_results emitted",
+    "elapsed_s": 0.42
+  }
+}

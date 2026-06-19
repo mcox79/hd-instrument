@@ -1,0 +1,32 @@
+{
+  "anchor_name": "query_redundancy_methodology_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cosine-threshold redundancy estimator recovers ground truth within 0.05 and preserves ordering -- methodology is reliable for customer onboarding redundancy measurement. max_abs_err=0.000 monotone=True | {'r0.1': {'true': 0.105, 'est': 0.105}, 'r0.3': {'true': 0.288, 'est': 0.288}, 'r0.5': {'true': 0.528, 'est': 0.528}} (thresh=0.70)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "r0.1": {
+          "true": 0.105,
+          "est": 0.105,
+          "err": 0.0
+        },
+        "r0.3": {
+          "true": 0.28833333333333333,
+          "est": 0.28833333333333333,
+          "err": 0.0
+        },
+        "r0.5": {
+          "true": 0.5283333333333333,
+          "est": 0.5283333333333333,
+          "err": 0.0
+        }
+      },
+      "max_err": 0.0,
+      "monotone": true
+    }
+  ],
+  "elapsed_s": 0.5462608337402344,
+  "summary": "HARD_PASS: cosine-threshold redundancy estimator recovers ground truth within 0.05 and preserves ordering -- methodology is reliable for customer onboarding redundancy measurement. max_abs_err=0.000 monotone=True | {'r0.1': {'true': 0.105, 'est': 0.105}, 'r0.3': {'true': 0.288, 'est': 0.288}, 'r0.5': {'true': 0.528, 'est': 0.528}} (thresh=0.70)"
+}

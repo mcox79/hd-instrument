@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_g_pythia160m_10layer_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: perplexity within 3x or a gate marginal. baseline=43.38 modified=33.57 ratio=0.774x gates=[0.027,0.215]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 33.57338774228066,
+      "ratio": 0.7740111248778814,
+      "gate0": 0.026685532182455063,
+      "gate1": 0.2153850942850113,
+      "used": false
+    }
+  ],
+  "elapsed_s": 171.88704228401184,
+  "summary": "MIDDLE_BAND: perplexity within 3x or a gate marginal. baseline=43.38 modified=33.57 ratio=0.774x gates=[0.027,0.215]"
+}

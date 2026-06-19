@@ -1,0 +1,68 @@
+{
+  "verdict": "CONT_HARD_PASS",
+  "verdict_msg": "PASS: continuous-output viable. interp_cos=0.956 hallu_AUC=1.000 argmax_cons=1.000 kf2_max_iso=0.000 n_seeds=5",
+  "elapsed_s": 6.21,
+  "summary": {
+    "anchor": "continuous_output_substrate_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 512,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "interp_cosine": 0.95668,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "M": 512,
+        "seed": 7,
+        "beta": 8.0
+      },
+      {
+        "interp_cosine": 0.95645,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "M": 512,
+        "seed": 17,
+        "beta": 8.0
+      },
+      {
+        "interp_cosine": 0.95674,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "M": 512,
+        "seed": 23,
+        "beta": 8.0
+      },
+      {
+        "interp_cosine": 0.95638,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "M": 512,
+        "seed": 31,
+        "beta": 8.0
+      },
+      {
+        "interp_cosine": 0.95589,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "M": 512,
+        "seed": 41,
+        "beta": 8.0
+      }
+    ],
+    "verdict": "CONT_HARD_PASS",
+    "verdict_msg": "PASS: continuous-output viable. interp_cos=0.956 hallu_AUC=1.000 argmax_cons=1.000 kf2_max_iso=0.000 n_seeds=5",
+    "elapsed_s": 6.21
+  }
+}

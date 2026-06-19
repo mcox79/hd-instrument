@@ -1,0 +1,14 @@
+{
+  "anchor_name": "counterfactual_axiom_exclusion_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: removed-axiom dependents correctly identified as excluded >=0.80 -- counterfactual proof-graph reasoning works. exclusion-recall=0.951",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.9506410256410256
+    }
+  ],
+  "elapsed_s": 3.8403823375701904,
+  "summary": "HARD_PASS: removed-axiom dependents correctly identified as excluded >=0.80 -- counterfactual proof-graph reasoning works. exclusion-recall=0.951"
+}

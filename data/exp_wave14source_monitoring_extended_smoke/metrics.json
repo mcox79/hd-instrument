@@ -1,0 +1,61 @@
+{
+  "verdict": "SRCMON_DISSOCIATION_VALIDATED",
+  "verdict_msg": "At alpha=0.078: item_recall=30.00%, source_recall=92.50%. Yonelinas dual-process dissociation EMERGES from algebra. Source monitoring works at loads where item recall has collapsed.",
+  "elapsed_s": 0.25,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_sources": 4,
+    "L_items_list": [
+      10,
+      30,
+      60
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_alpha": [
+    {
+      "L": 10,
+      "alpha": 0.078125,
+      "item_recall": 0.3,
+      "source_recall": 0.925
+    },
+    {
+      "L": 30,
+      "alpha": 0.234375,
+      "item_recall": 0.02,
+      "source_recall": 0.78
+    },
+    {
+      "L": 60,
+      "alpha": 0.46875,
+      "item_recall": 0.02,
+      "source_recall": 0.68
+    }
+  ],
+  "summary": {
+    "per_alpha": [
+      {
+        "L": 10,
+        "alpha": 0.078125,
+        "item_recall": 0.3,
+        "source_recall": 0.925
+      },
+      {
+        "L": 30,
+        "alpha": 0.234375,
+        "item_recall": 0.02,
+        "source_recall": 0.78
+      },
+      {
+        "L": 60,
+        "alpha": 0.46875,
+        "item_recall": 0.02,
+        "source_recall": 0.68
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "anchor_name": "comp_1bit_verify_3_corr_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1-bit tolerates atom correlation up to rho>=0.10 -- real-world correlated atoms do not break quantization. zero-loss holds to rho=0.20 ; rows={'0.00': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '0.05': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '0.10': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '0.20': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "0.00": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "0.05": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "0.10": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "0.20": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        }
+      },
+      "rho_zeroloss_max": 0.2
+    }
+  ],
+  "elapsed_s": 1019.0868000984192,
+  "summary": "HARD_PASS: 1-bit tolerates atom correlation up to rho>=0.10 -- real-world correlated atoms do not break quantization. zero-loss holds to rho=0.20 ; rows={'0.00': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '0.05': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '0.10': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '0.20': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}"
+}

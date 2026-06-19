@@ -1,0 +1,41 @@
+{
+  "verdict": "CALIB_PRESERVED_AFTER_EDIT",
+  "verdict_msg": "ECE preserved. pre=0.0891, post_kept=0.0929 (delta=+0.0038), post_edit=0.0873 (delta=-0.0019). Edits don't break calibration.",
+  "elapsed_s": 10.531999999999243,
+  "summary": {
+    "pre_ece_best": 0.08914117433596404,
+    "pre_ece_best_beta": 8,
+    "post_ece_kept_best": 0.09289699018001553,
+    "post_ece_edit_best": 0.08728467226028447,
+    "pre_per_beta": {
+      "1": 0.9895481714793277,
+      "8": 0.08914117433596404
+    },
+    "post_kept_per_beta": {
+      "1": 0.9896073407772928,
+      "8": 0.09289699018001553
+    },
+    "post_edit_per_beta": {
+      "1": 0.9895575862377882,
+      "8": 0.08728467226028447
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 256,
+    "n_edit": 5,
+    "betas": [
+      1,
+      8
+    ],
+    "hamming_radii": [
+      0,
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

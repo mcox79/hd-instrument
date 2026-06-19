@@ -1,0 +1,79 @@
+{
+  "verdict": "C2_HARD_PASS",
+  "verdict_msg": "ZIPFIAN_CACHE_VIABLE hit@a2=0.933 monotone=True hot<cold=True. a=0.5: hit=0.917 hot=3.23ms cold=3.27ms audit=1.000 | a=1.0: hit=0.917 hot=3.22ms cold=3.20ms audit=1.000 | a=2.0: hit=0.933 hot=2.93ms cold=2.99ms audit=1.000",
+  "elapsed_s": 0.86,
+  "summary": {
+    "anchor": "multi_hop_caching_baseline_v3_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 20,
+    "cache_capacity": 16,
+    "n_q": 60,
+    "alphas": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "alpha": 0.5,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 20,
+        "cache_capacity": 16,
+        "ok": true,
+        "n_queries": 60,
+        "n_hits": 55,
+        "hit_rate": 0.91667,
+        "mean_hot_latency_s": 0.003235,
+        "mean_cold_latency_s": 0.003268,
+        "hot_faster_than_cold": true,
+        "audit_violations": 0,
+        "audit_integrity": 1.0
+      },
+      {
+        "seed": 17,
+        "alpha": 1.0,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 20,
+        "cache_capacity": 16,
+        "ok": true,
+        "n_queries": 60,
+        "n_hits": 55,
+        "hit_rate": 0.91667,
+        "mean_hot_latency_s": 0.003221,
+        "mean_cold_latency_s": 0.003197,
+        "hot_faster_than_cold": false,
+        "audit_violations": 0,
+        "audit_integrity": 1.0
+      },
+      {
+        "seed": 17,
+        "alpha": 2.0,
+        "M": 256,
+        "depth": 3,
+        "K_paths": 20,
+        "cache_capacity": 16,
+        "ok": true,
+        "n_queries": 60,
+        "n_hits": 56,
+        "hit_rate": 0.93333,
+        "mean_hot_latency_s": 0.002925,
+        "mean_cold_latency_s": 0.002986,
+        "hot_faster_than_cold": true,
+        "audit_violations": 0,
+        "audit_integrity": 1.0
+      }
+    ],
+    "verdict": "C2_HARD_PASS",
+    "verdict_msg": "ZIPFIAN_CACHE_VIABLE hit@a2=0.933 monotone=True hot<cold=True. a=0.5: hit=0.917 hot=3.23ms cold=3.27ms audit=1.000 | a=1.0: hit=0.917 hot=3.22ms cold=3.20ms audit=1.000 | a=2.0: hit=0.933 hot=2.93ms cold=2.99ms audit=1.000",
+    "elapsed_s": 0.86
+  }
+}

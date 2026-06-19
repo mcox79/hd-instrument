@@ -1,0 +1,52 @@
+{
+  "dry_run": false,
+  "stats": {
+    "n_caps": 20,
+    "n_caps_updated": 19,
+    "n_entries_updated": 28,
+    "n_entries_already": 0,
+    "n_solver_missing": 9
+  },
+  "examples": [
+    {
+      "cap": "concept::PP-393_asdiv_3op_ceiling",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    },
+    {
+      "cap": "concept::PP-394_asdiv_wk_oracle",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    },
+    {
+      "cap": "concept::PP-395_svamp_role_asymmetry",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    },
+    {
+      "cap": "concept::PP-396_svamp_learned_selector",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    },
+    {
+      "cap": "concept::PP-397_pos_data_efficiency",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    }
+  ]
+}

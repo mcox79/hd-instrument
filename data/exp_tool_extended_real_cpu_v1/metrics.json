@@ -1,0 +1,14 @@
+{
+  "anchor_name": "tool_extended_real_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: peripersonal tool-extension survives realistic correlated+noisy sensor data at AUC>=0.70 -- the synthetic primitive is real-data-grounded. AUC=0.866 (correlated+noisy)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "membership_auc": 0.866
+    }
+  ],
+  "elapsed_s": 8.369938373565674,
+  "summary": "HARD_PASS: peripersonal tool-extension survives realistic correlated+noisy sensor data at AUC>=0.70 -- the synthetic primitive is real-data-grounded. AUC=0.866 (correlated+noisy)"
+}

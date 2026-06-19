@@ -1,0 +1,17 @@
+{
+  "anchor_name": "pp50_kappa3_delta_alpha_n65536_v1_n65536",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sigma_sep(d=0.04)=87.3 < HF=200.0. delta=0.010:sigma_sep=26.7(n=2) | delta=0.040:sigma_sep=87.3(n=2) | n_seeds=2 N=65536",
+  "N": 65536,
+  "n_active": 8192,
+  "run_mode": "smoke",
+  "alpha_base": 0.05,
+  "delta_alphas": [
+    0.01,
+    0.04
+  ],
+  "n_probes_sens": 200,
+  "n_seeds": 2,
+  "elapsed_s": 0.08737587928771973,
+  "peak_gpu_gb": 0.125143552
+}

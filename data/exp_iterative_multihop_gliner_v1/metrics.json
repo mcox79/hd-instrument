@@ -1,0 +1,16 @@
+{
+  "anchor_name": "iterative_multihop_gliner_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: GLiNER-iterative r@2 <0.45 -- bridge-extraction not the right framing. GLiNER-iterative r@2=0.193 vs single-shot=0.307 (n=150)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 150,
+      "ss_r2": 0.30666666666666664,
+      "it_r2": 0.19333333333333333
+    }
+  ],
+  "elapsed_s": 89.45492148399353,
+  "summary": "HARD_FAIL: GLiNER-iterative r@2 <0.45 -- bridge-extraction not the right framing. GLiNER-iterative r@2=0.193 vs single-shot=0.307 (n=150)"
+}

@@ -1,0 +1,36 @@
+{
+  "verdict": "MULTISTEP_INFER_MIDDLE_BAND",
+  "verdict_msg": "Intermediate: acc@d5=0.200, r_per_step=1.000. s17:acc_d5=0.200,r=1.000.",
+  "elapsed_s": 0.031000000017229468,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "per_depth_acc": {
+          "1": 0.2,
+          "2": 0.0,
+          "3": 0.2
+        },
+        "r_per_step": 1.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n": 1024,
+    "n_entities": 30,
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "n_queries": 10,
+    "seeds": [
+      17
+    ],
+    "device": "cpu",
+    "pass_acc_at_5": 0.5,
+    "pass_r_per_step": 0.85,
+    "fail_acc_at_5": 0.1,
+    "fail_r_per_step": 0.65
+  }
+}

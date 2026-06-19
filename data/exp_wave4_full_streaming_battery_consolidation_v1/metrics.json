@@ -1,0 +1,14 @@
+{
+  "anchor_name": "wave4_full_streaming_battery_consolidation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 7 Wave-4 streaming primitives compose without interference. mean_fid_late=1.0000(HP>=0.7 HF<0.4) mean_min_fid=1.0000(HP>=0.4) mean_min_reff=39.2(HP>8) hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 1024,
+  "W_WIN": 40,
+  "T_TOTAL": 120,
+  "K_RETAIN": 10,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 3.294456720352173,
+  "mean_fid_topk_late": 1.0,
+  "mean_min_reff": 39.179844605921346
+}

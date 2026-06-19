@@ -1,0 +1,18 @@
+{
+  "anchor_name": "comp2_depth_l5_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: deep composition at L=5 holds with hierarchical cleanup (recall>=0.70) -- the VSA deep-composition cliff is crossed at this depth via cascading per-level cleanup. L=5 recall(cleanup)=1.000 recall(no-cleanup)=0.007 K=10",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "L": 5,
+      "K": 10,
+      "recall_cleanup": 1.0,
+      "recall_nocleanup": 0.007,
+      "n": 150
+    }
+  ],
+  "elapsed_s": 324.6821689605713,
+  "summary": "HARD_PASS: deep composition at L=5 holds with hierarchical cleanup (recall>=0.70) -- the VSA deep-composition cliff is crossed at this depth via cascading per-level cleanup. L=5 recall(cleanup)=1.000 recall(no-cleanup)=0.007 K=10"
+}

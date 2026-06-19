@@ -1,0 +1,43 @@
+{
+  "anchor_name": "t5c_c1_3seed_validate_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-seed mean perplexity ratio 0.836x std 0.001 gates-used=True ratios=[0.835, 0.835, 0.838] -- multi-seed validation",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 36.23167700127609,
+      "ratio": 0.8352961365484395,
+      "gate0": 0.3263222575187683,
+      "gate1": 0.4267961084842682,
+      "used": true
+    },
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 36.23302993276313,
+      "ratio": 0.8353273274437464,
+      "gate0": 0.3161598742008209,
+      "gate1": 0.42823106050491333,
+      "used": true
+    },
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 36.33950124974033,
+      "ratio": 0.8377819496717251,
+      "gate0": 0.322657972574234,
+      "gate1": 0.4171770513057709,
+      "used": true
+    }
+  ],
+  "summary": {
+    "mean_ratio": 0.8361351378879703,
+    "std_ratio": 0.001164541399385121,
+    "ratios": [
+      0.8352961365484395,
+      0.8353273274437464,
+      0.8377819496717251
+    ]
+  },
+  "elapsed_s": 425.7040047645569
+}

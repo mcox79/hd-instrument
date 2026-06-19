@@ -1,0 +1,35 @@
+{
+  "anchor_name": "sql_hd_aggregation_bound_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HD COUNT aggregation rel-error <0.05 at N=16384 -- native HD aggregation avoids DuckDB round-trip for COUNT/SUM. count rel-error by N: {'N1024': 0.036, 'N4096': 0.0169, 'N16384': 0.0087} | at N=16384=0.0087",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by": {
+        "N1024": 0.03520351562500001,
+        "N4096": 0.016574609374999997,
+        "N16384": 0.007440917968749999
+      }
+    },
+    {
+      "seed": 17,
+      "by": {
+        "N1024": 0.038159375,
+        "N4096": 0.01650615234375,
+        "N16384": 0.009837744140625
+      }
+    },
+    {
+      "seed": 23,
+      "by": {
+        "N1024": 0.034627734375000004,
+        "N4096": 0.017734082031249997,
+        "N16384": 0.008896679687499999
+      }
+    }
+  ],
+  "elapsed_s": 0.3422892093658447,
+  "summary": "HARD_PASS: HD COUNT aggregation rel-error <0.05 at N=16384 -- native HD aggregation avoids DuckDB round-trip for COUNT/SUM. count rel-error by N: {'N1024': 0.036, 'N4096': 0.0169, 'N16384': 0.0087} | at N=16384=0.0087"
+}

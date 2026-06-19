@@ -1,0 +1,39 @@
+{
+  "anchor_name": "zkl_hypB_cap_ksweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: even aggressive capping (top-12) stays >0.15 -- attention-reweighting is bounded; lock QUALIFIED-privacy posture, absolute HIPAA via per-customer fine-tune (Path D). per-cap: {'orig': 0.433, 'cap3': 0.217, 'cap5': 0.4, 'cap8': 0.25, 'cap12': 0.283} (n=60); best capped ZKL=0.217, KEY-F1=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "orig": {
+          "zkl": 0.43333333333333335,
+          "f1": 1.0
+        },
+        "cap3": {
+          "zkl": 0.21666666666666667,
+          "f1": 1.0
+        },
+        "cap5": {
+          "zkl": 0.4,
+          "f1": 1.0
+        },
+        "cap8": {
+          "zkl": 0.25,
+          "f1": 1.0
+        },
+        "cap12": {
+          "zkl": 0.2833333333333333,
+          "f1": 1.0
+        }
+      },
+      "best_cap_zkl": 0.21666666666666667,
+      "f0": 1.0,
+      "n": 60,
+      "k": 16
+    }
+  ],
+  "elapsed_s": 418.32224106788635,
+  "summary": "HARD_FAIL: even aggressive capping (top-12) stays >0.15 -- attention-reweighting is bounded; lock QUALIFIED-privacy posture, absolute HIPAA via per-customer fine-tune (Path D). per-cap: {'orig': 0.433, 'cap3': 0.217, 'cap5': 0.4, 'cap8': 0.25, 'cap12': 0.283} (n=60); best capped ZKL=0.217, KEY-F1=1.000"
+}

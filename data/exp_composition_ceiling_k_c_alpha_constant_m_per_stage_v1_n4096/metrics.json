@@ -1,0 +1,24 @@
+{
+  "anchor": "composition_ceiling_k_c_alpha_constant_m_per_stage_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HF: L_fid flat across all k for both alpha values; composition ceiling formula refuted",
+  "summary": {
+    "0.05": {
+      "kc_predicted": 2.7600000000000002,
+      "depth_fid": {}
+    },
+    "0.1": {
+      "kc_predicted": 1.3800000000000001,
+      "depth_fid": {}
+    }
+  },
+  "N": 4096,
+  "alpha_grid": [
+    0.05,
+    0.1
+  ],
+  "alpha_c": 0.138,
+  "n_seeds": 5,
+  "elapsed_s": 153.77326798439026,
+  "run_mode": "full"
+}

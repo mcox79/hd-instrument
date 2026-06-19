@@ -1,0 +1,33 @@
+{
+  "verdict": "BET_P_PROXY_KILLED",
+  "verdict_msg": "Semantic codebook acc_50=0.000<=0.22. Codebook geometry axis closes on this proxy.",
+  "elapsed_s": 0.1879999999946449,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.2,
+      "5": 0.0
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 0.2,
+        "5": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 20,
+    "n_classes": 10,
+    "hop_depths": [
+      1,
+      5
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

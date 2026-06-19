@@ -1,0 +1,18 @@
+{
+  "anchor_name": "pp50_kappa3_delta_alpha_n8192_v1_n8192",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-50 kappa_3 delta-alpha sensitivity confirmed at N=8192 (v3 protocol downscale). N^(2/3) scaling holds. delta=0.001:sigma_sep=8.9(n=5) | delta=0.010:sigma_sep=83.5(n=5) | delta=0.040:sigma_sep=287.0(n=5) | n_seeds=5 N=8192",
+  "N": 8192,
+  "n_active": 8192,
+  "run_mode": "full",
+  "alpha_base": 0.05,
+  "delta_alphas": [
+    0.04,
+    0.01,
+    0.001
+  ],
+  "n_probes_sens": 2000,
+  "n_seeds": 5,
+  "elapsed_s": 1.8020694255828857,
+  "peak_gpu_gb": 0.717815808
+}

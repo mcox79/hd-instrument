@@ -1,0 +1,101 @@
+{
+  "anchor": "lyapunov_v2_n8192_bsc",
+  "N": 8192,
+  "smoke": false,
+  "M_fracs": [
+    1.0,
+    2.0,
+    4.0
+  ],
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "cells": [
+    {
+      "N": 8192,
+      "M_frac": 1.0,
+      "M": 8192,
+      "seed": 7,
+      "spec_norm": 3.44252,
+      "mp_upper": 4.0,
+      "deviation": -0.13937
+    },
+    {
+      "N": 8192,
+      "M_frac": 1.0,
+      "M": 8192,
+      "seed": 17,
+      "spec_norm": 3.55716,
+      "mp_upper": 4.0,
+      "deviation": -0.11071
+    },
+    {
+      "N": 8192,
+      "M_frac": 1.0,
+      "M": 8192,
+      "seed": 23,
+      "spec_norm": 3.45751,
+      "mp_upper": 4.0,
+      "deviation": -0.13562
+    },
+    {
+      "N": 8192,
+      "M_frac": 2.0,
+      "M": 16384,
+      "seed": 7,
+      "spec_norm": 4.06204,
+      "mp_upper": 5.82843,
+      "deviation": -0.30306
+    },
+    {
+      "N": 8192,
+      "M_frac": 2.0,
+      "M": 16384,
+      "seed": 17,
+      "spec_norm": 4.07376,
+      "mp_upper": 5.82843,
+      "deviation": -0.30105
+    },
+    {
+      "N": 8192,
+      "M_frac": 2.0,
+      "M": 16384,
+      "seed": 23,
+      "spec_norm": 4.06061,
+      "mp_upper": 5.82843,
+      "deviation": -0.30331
+    },
+    {
+      "N": 8192,
+      "M_frac": 4.0,
+      "M": 32768,
+      "seed": 7,
+      "spec_norm": 4.97289,
+      "mp_upper": 9.0,
+      "deviation": -0.44746
+    },
+    {
+      "N": 8192,
+      "M_frac": 4.0,
+      "M": 32768,
+      "seed": 17,
+      "spec_norm": 4.98747,
+      "mp_upper": 9.0,
+      "deviation": -0.44584
+    },
+    {
+      "N": 8192,
+      "M_frac": 4.0,
+      "M": 32768,
+      "seed": 23,
+      "spec_norm": 4.97499,
+      "mp_upper": 9.0,
+      "deviation": -0.44722
+    }
+  ],
+  "verdict": "LYAP_V2_HARD_PASS",
+  "verdict_msg": "EDGE_OF_CHAOS_N8192_BSC: spec_norm varies 1.493. variation=1.4927 monotone=True spec_at_m2=4.0655 in_range=True seeds_with_variation=3/3 N=8192 M_fracs=[1.0, 2.0, 4.0]",
+  "elapsed_s": 71.8
+}

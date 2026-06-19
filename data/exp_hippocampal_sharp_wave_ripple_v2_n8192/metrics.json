@@ -1,0 +1,15 @@
+{
+  "anchor_name": "hippocampal_sharp_wave_ripple_v2_n8192",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 cells. fid_fast=1.0000(HP>=0.7) random=0.1000 wrong=0.1429(HP<=0.2) A:1.00 B:1.00 C:0.50",
+  "N": 8192,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 37.944960832595825,
+  "mean_fidelity_fast": 1.0,
+  "mean_fidelity_random": 0.1,
+  "mean_fidelity_wrong": 0.14285714285714285,
+  "frac_A_pass": 1.0,
+  "frac_B_pass": 1.0,
+  "frac_C_pass": 0.5
+}

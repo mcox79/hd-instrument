@@ -1,0 +1,40 @@
+{
+  "verdict": "LANE_C_FULL_INCONCLUSIVE",
+  "verdict_msg": "Only 2 seeds; need >=3.",
+  "elapsed_s": 0.35999999998603016,
+  "summary": {
+    "per_seed": [
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      }
+    ],
+    "n_seeds": 2,
+    "agg_delete_leak_max": 0.0,
+    "agg_edit_acc_min": 1.0,
+    "agg_kept_acc_min": 1.0,
+    "agg_side_effect_max": 0.0,
+    "agg_ece_max": 0.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_facts": 30,
+    "n_edits": 10,
+    "n_deletes": 8,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

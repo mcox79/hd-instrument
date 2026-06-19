@@ -1,0 +1,42 @@
+{
+  "anchor_name": "pp48_nkt_depth_21_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: both HP at NKT depth-21 sampled-leaves. pos_rate=1.0000(HP>=0.75 HF<0.4) nkt_rep=1.0000(HP>=0.65 HF<0.3) NKT_total_tree=2097151 K_FORBIDDEN_sample=100 depth=21 K_POS=10 n_seeds=5",
+  "N": 4096,
+  "NKT_DEPTH": 21,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 3.433098793029785,
+  "per_seed": [
+    {
+      "seed": 7,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "peak_gpu_gb": 0.012080128
+    },
+    {
+      "seed": 17,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "peak_gpu_gb": 0.012080128
+    },
+    {
+      "seed": 23,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "peak_gpu_gb": 0.012080128
+    },
+    {
+      "seed": 31,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "peak_gpu_gb": 0.012080128
+    },
+    {
+      "seed": 41,
+      "pos_retrieval_rate": 1.0,
+      "nkt_repulsion_rate": 1.0,
+      "peak_gpu_gb": 0.012080128
+    }
+  ]
+}

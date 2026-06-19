@@ -1,0 +1,124 @@
+# CELL-1 70B fp16 disambiguation on Lambda B200:1 SXM6 (180 GB VRAM, single GPU).
+#
+# Same script as cell1_70b_fp16.yaml; this is the B200-specific YAML used by
+# smart_launch_cell1.sh when B200 1x capacity is detected via Lambda API direct
+# probe.
+#
+# WHY B200 is great for CELL-1:
+#   - 180 GB VRAM > 140 GB 70B fp16 (40 GB headroom for activations + KV)
+#   - Single GPU = no sharding, no device_map complexity
+#   - Blackwell (sm_100) ~ 2-3x faster than Hopper for inference
+#   - $6.99/h × ~20 min = ~$2.33 (within Research's $3-5 budget; cheaper than H100:2)
+#
+# Differences from cell1_70b_fp16.yaml (H100:2):
+#   - accelerators: B200:1 (was H100:2)
+#   - torch install: cu128 wheel index (Blackwell needs CUDA 12.6+; cu121 won't work)
+#   - bitsandbytes>=0.45 with cu128 support (was 0.45 with cu121)
+#   - No multi-GPU device_map sharding (single-GPU fp16 fits natively)
+
+name: cell170bb
+
+resources:
+  cloud: lambda
+  accelerators: B200:1
+  use_spot: false
+  any_of:
+    - {instance_type: gpu_1x_b200_sxm6, region: us-east-1}
+    - {instance_type: gpu_1x_b200_sxm6, region: us-east-3}
+    - {instance_type: gpu_1x_b200_sxm6, region: us-south-2}
+    - {instance_type: gpu_1x_b200_sxm6, region: us-west-1}
+    - {instance_type: gpu_1x_b200_sxm6, region: us-west-3}
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps + GPU info ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+
+  echo "=== [setup 3/7] pip core + Blackwell-compatible torch (cu128 wheel) ==="
+  pip install --quiet --upgrade pip
+  # B200 (sm_100) needs CUDA 12.6+ and a torch wheel built against it. cu128 stable
+  # wheels (torch 2.5+) have Blackwell support. Falling back to nightly if stable fails.
+  pip install --quiet --upgrade \
+    "torch>=2.5" "torchvision>=0.20" \
+    --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade \
+      "torch" "torchvision" \
+      --index-url https://download.pytorch.org/whl/nightly/cu128
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()} n_gpus={torch.cuda.device_count()}')
+  if torch.cuda.is_available():
+      props = torch.cuda.get_device_properties(0)
+      print(f'device 0: {props.name} compute_capability={props.major}.{props.minor} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.1-70B access ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  api = HfApi()
+  info = api.model_info('meta-llama/Llama-3.1-70B', token=os.environ['HF_TOKEN'])
+  print(f'OK: meta-llama/Llama-3.1-70B accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/7] pre-pull Llama-3.1-70B snapshot (~140 GB at fp16) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-70B',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-70B snapshot ready')
+  "
+
+  echo "=== [setup 7/7] CELL-1 script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_extraction_quality_70B_fp16_disambiguation_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_extraction_quality_70B_fp16_disambiguation_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-1 70B fp16 disambiguation (B200 single-GPU) START ==="
+  python -u experiments/exp_substrate_extraction_quality_70B_fp16_disambiguation_v1.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_70B_fp16_disambiguation_v1/ 2>&1 | head -25

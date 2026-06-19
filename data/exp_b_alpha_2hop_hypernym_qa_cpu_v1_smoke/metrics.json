@@ -1,0 +1,72 @@
+{
+  "anchor_name": "substrate_b_alpha_2hop_hypernym_qa_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: recall=0.500 in [0.4,0.7) -- the materialized backbone covers ~50% of true 2-hop hypernym QA; the rest route through intermediates NOT ingested -> the walker correctly REFUSES (no hallucination). 100% edge-verifiable (20 edges, 0 unverifiable), 0 false-pos, refuse_rate=1.000. DISCRIMINATING (vs A1 1.0/1.0): honest partial multi-hop coverage with perfect provenance soundness. Denser edge-materialization is the lever (next ARC).",
+  "summary": "MIDDLE: recall=0.500 in [0.4,0.7) -- the materialized backbone covers ~50% of true 2-hop hypernym QA; the rest route through intermediates NOT ingested -> the walker correctly REFUSES (no hallucination). 100% edge-verifiable (20 edges, 0 unverifiable), 0 false-pos, refuse_rate=1.000. DISCRIMINATING (vs A1 1.0/1.0): honest partial multi-hop coverage with perfect provenance soundness. Denser edge-materialization is the lever (next ARC).",
+  "headline": "MIDDLE: recall=0.500 in [0.4,0.7) -- the materialized backbone covers ~50% of true 2-hop hypernym QA; the rest route through intermediates NOT ingested -> the walker correctly REFUSES (no hallucination). 100% edge-verifiable (20 edges, 0 unverifiable), 0 false-pos, refuse_rate=1.000. DISCRIMINATING (vs A1 1.0/1.0): honest partial multi-hop coverage with perfect provenance soundness. Denser edge-materialization is the lever (next ARC).",
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "branch_path": "multihop_2hop_hypernym_qa_bfs",
+  "metrics_source": "measured_graph_bfs_held_out",
+  "run_started_utc": "2026-06-18T20:33:00.877779+00:00",
+  "cell_commit": "d78ffe8a",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 40,
+    "n_cells_emitted": 40,
+    "elapsed_s": 1.39,
+    "is_smoke": true
+  },
+  "discrimination_self_check": {
+    "discriminates": true,
+    "reference_value": 0.5,
+    "floor": 0.4,
+    "ceiling": 1.0,
+    "reason": "positives (recall) + negatives (refuse) both present; recall vs independent nltk gold (not by-construction)"
+  },
+  "path_provenance_self_check": {
+    "is_provenance_sound": true,
+    "n_paths": 10,
+    "n_path_edges": 20,
+    "n_unverifiable_edges": 0,
+    "reason": "every returned-path hop = a persisted (src, HYPERNYM, tgt) Store tuple (0 hallucinated)"
+  },
+  "corpus_completeness_self_check": {
+    "is_complete": true,
+    "claim_kind": "negative_no_path_reachability",
+    "n_checked": 20,
+    "n_total": 20,
+    "complete_corpus": true,
+    "method": "exhaustive_bfs_at_build_depth_8_per_negative",
+    "method_ok": true,
+    "reason": "negatives verified genuinely unreachable at build (exhaustive BFS depth 8), not bounded-give-up"
+  },
+  "recall_answer_found": 0.5,
+  "refuse_rate": 1.0,
+  "false_positives": 0,
+  "correct_found_eq_found": true,
+  "path_edges_total": 20,
+  "path_edges_unverifiable": 0,
+  "edge_verifiable_100pct": true,
+  "n_positives": 20,
+  "n_negatives": 20,
+  "n_found": 10,
+  "rel_type": "HYPERNYM",
+  "max_depth": 2,
+  "prereg_bands": {
+    "hard_pass": 0.7,
+    "hard_fail": 0.4
+  },
+  "bands": {
+    "hard_pass": 0.7,
+    "hard_fail": 0.4
+  },
+  "held_out_eval": true,
+  "n_seeds_rationale": "deterministic structural walker over a FIXED held-out gold; re-seeding adds nothing (held-out-eval n_seeds-independence)",
+  "min_cert_along_path": "WordNet HYPERNYM edges are ontology-INGESTED (not experiment-cert). The PATH is provenance-CERT (every edge persisted/sound); per-answer CLAIM-cert = weakest edge tier = ontology-ingested. The RESULT (recall + 100%-edge-verifiable + 0-FP) is the cert-grade EXPERIMENT; per-answer claims carry the ingested-edge tier (Skunkworks cert-condition).",
+  "honest_scope": "DISCRIMINATING provenance-verified 2-hop-hypernym path-finding over the materialized WordNet backbone; gold = INDEPENDENT true nltk closure (incl. out-of-5k intermediates) so recall measures REAL coverage (not by-construction). NOT general reasoning / NOT 'the substrate reasons'. ARC-1 foundation-stone, narrow + honest-scoped (89% mechanism-core framing).",
+  "bears_on": "TRACK-3 HYPERNYM edge-materialization; A1 by-construction control (this is its discriminating scale-up); 5th multi-hop-provenance gate (a7497620); B-alpha ARC-1 foundation-stone",
+  "measured_bounds": "2-hop hypernym reachability over the materialized within-5k HYPERNYM backbone vs true nltk gold; deterministic BFS depth 2; NOT fundamental (denser ingest / more rel-types / deeper hops untested)",
+  "elapsed_s": 1.44
+}

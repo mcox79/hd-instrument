@@ -1,0 +1,30 @@
+{
+  "anchor_name": "qa_self_knowledge_A_threshold_route_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: a threshold/k policy gives a small A-F1 lift (+0.02..0.05) -- marginal; worth Testbed considering an adaptive-k. best=bge_top5 A-F1=0.3608 vs production 0.3178 (delta +0.0430); all={'prod_kw_U_top3': 0.3178, 'bge_top3': 0.3324, 'bge_top5': 0.3608, 'bge_top8': 0.3499, 'thr_0.60': 0.123, 'thr_0.65': 0.2789, 'thr_0.70': 0.3579, 'thr_0.75': 0.2373, 'kw_U_thr_0.65': 0.2429, 'kw_U_thr_0.70': 0.3341}; n=12",
+  "summary": "MIDDLE_BAND: a threshold/k policy gives a small A-F1 lift (+0.02..0.05) -- marginal; worth Testbed considering an adaptive-k. best=bge_top5 A-F1=0.3608 vs production 0.3178 (delta +0.0430); all={'prod_kw_U_top3': 0.3178, 'bge_top3': 0.3324, 'bge_top5': 0.3608, 'bge_top8': 0.3499, 'thr_0.60': 0.123, 'thr_0.65': 0.2789, 'thr_0.70': 0.3579, 'thr_0.75': 0.2373, 'kw_U_thr_0.65': 0.2429, 'kw_U_thr_0.70': 0.3341}; n=12",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 12,
+      "macro_by_policy": {
+        "prod_kw_U_top3": 0.3178,
+        "bge_top3": 0.3324,
+        "bge_top5": 0.3608,
+        "bge_top8": 0.3499,
+        "thr_0.60": 0.123,
+        "thr_0.65": 0.2789,
+        "thr_0.70": 0.3579,
+        "thr_0.75": 0.2373,
+        "kw_U_thr_0.65": 0.2429,
+        "kw_U_thr_0.70": 0.3341
+      },
+      "prod_A_f1": 0.3178,
+      "best_policy": "bge_top5",
+      "best_A_f1": 0.3608,
+      "delta": 0.043
+    }
+  ],
+  "elapsed_s": 233.41126561164856
+}

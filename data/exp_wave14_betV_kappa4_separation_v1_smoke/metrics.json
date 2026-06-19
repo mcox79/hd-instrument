@@ -1,0 +1,34 @@
+{
+  "verdict": "BETV_KAPPA4_RESCUE_PARTIAL",
+  "verdict_msg": "Partial: |kappa4_sep|=1.61 SD in [1.0, 2.0); sign_consistent=True. kappa4_stored=-1.071, unstored=-0.153. Signal present but not strong enough for portfolio rescue.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "kappa4_stored_mean": -1.0706432782415822,
+    "kappa4_unstored_mean": -0.15300112855629955,
+    "kappa4_separation_raw": -0.9176421496852827,
+    "pooled_se": 0.5698664189619939,
+    "kappa4_separation_sd": -1.6102758807173774,
+    "sign_consistent_across_seeds": true,
+    "k4_stored_per_seed": [
+      -1.0706432782415822
+    ],
+    "k4_unstored_per_seed": [
+      -0.15300112855629955
+    ],
+    "n_seeds": 1,
+    "note": "Excess kurtosis (classical k_4 = mu_4/sigma^4 - 3) of stored vs unstored confidence distribution; pooled jackknife + across-seed SE."
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 30,
+    "n_probes": 30,
+    "seeds": [
+      17
+    ],
+    "device": "cpu",
+    "note": "Bet V kappa_4 separation: substrate-novel higher-cumulant rescue probe."
+  }
+}

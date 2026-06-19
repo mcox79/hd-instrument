@@ -1,0 +1,36 @@
+{
+  "anchor_name": "substrate_sq6_escape_bloom_membership_v1_n2048",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: Bloom no better than bundle. acc E0.5N:0.80 E1.0N:0.62 E2.0N:0.52 E4.0N:0.50 | E_max=0.0N (SQ6 bundle was <0.25N)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "E0.5_acc": 0.79296875,
+      "E0.5_k": 2,
+      "E1.0_acc": 0.642578125,
+      "E1.0_k": 2,
+      "E2.0_acc": 0.5146484375,
+      "E2.0_k": 2,
+      "E4.0_acc": 0.5,
+      "E4.0_k": 2
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "E0.5_acc": 0.798828125,
+      "E0.5_k": 2,
+      "E1.0_acc": 0.5966796875,
+      "E1.0_k": 2,
+      "E2.0_acc": 0.52978515625,
+      "E2.0_k": 2,
+      "E4.0_acc": 0.5,
+      "E4.0_k": 2
+    }
+  ],
+  "elapsed_s": 0.06018829345703125,
+  "summary": "HARD_FAIL: Bloom no better than bundle. acc E0.5N:0.80 E1.0N:0.62 E2.0N:0.52 E4.0N:0.50 | E_max=0.0N (SQ6 bundle was <0.25N)"
+}

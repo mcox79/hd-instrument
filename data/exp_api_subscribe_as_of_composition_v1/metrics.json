@@ -1,0 +1,17 @@
+{
+  "anchor_name": "api_subscribe_as_of_composition_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: subscribe() delivery == as_of(subscription_root) recall (exact agreement) -- reactive+bitemporal composition is the category-defining feature. delivered=10 as_of_recalled=10 missing=0 extra=0",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "delivered": 10,
+      "recalled": 10,
+      "missing": 0,
+      "extra": 0
+    }
+  ],
+  "elapsed_s": 0.01643967628479004,
+  "summary": "HARD_PASS: subscribe() delivery == as_of(subscription_root) recall (exact agreement) -- reactive+bitemporal composition is the category-defining feature. delivered=10 as_of_recalled=10 missing=0 extra=0"
+}

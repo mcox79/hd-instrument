@@ -1,0 +1,15 @@
+{
+  "anchor_name": "comp_a4_cyclic_hierarchical_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hierarchical traversal over cyclic graphs recall>=0.90, always terminates -- navigation + cycle-safety compose. recall=1.000 termination=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "termination": 1.0
+    }
+  ],
+  "elapsed_s": 5.872357606887817,
+  "summary": "HARD_PASS: hierarchical traversal over cyclic graphs recall>=0.90, always terminates -- navigation + cycle-safety compose. recall=1.000 termination=1.000"
+}

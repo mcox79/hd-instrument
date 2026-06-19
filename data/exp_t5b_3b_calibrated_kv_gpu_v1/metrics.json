@@ -1,0 +1,18 @@
+{
+  "anchor_name": "t5b_3b_calibrated_kv_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: held-out fact-transmission <0.30 (projection memorizes train / does not generalize). bare-test=0.000 train=0.000 held-out=0.167 (9/6)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_train": 9,
+      "n_test": 6,
+      "bare_test": 0.0,
+      "train_top1": 0.0,
+      "heldout_top1": 0.16666666666666666
+    }
+  ],
+  "elapsed_s": 9.038548469543457,
+  "summary": "HARD_FAIL: held-out fact-transmission <0.30 (projection memorizes train / does not generalize). bare-test=0.000 train=0.000 held-out=0.167 (9/6)"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "stretch2_2_causal_do_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate answers multi-step do()-intervention queries >=0.80 (Pearl SCM) -- causal graph + mechanisms stored in substrate; do() overrides + propagates correctly. do-query-acc=1.000 (n=250)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "causal_acc": 1.0,
+      "n": 250
+    }
+  ],
+  "elapsed_s": 0.2221992015838623,
+  "summary": "HARD_PASS: substrate answers multi-step do()-intervention queries >=0.80 (Pearl SCM) -- causal graph + mechanisms stored in substrate; do() overrides + propagates correctly. do-query-acc=1.000 (n=250)"
+}

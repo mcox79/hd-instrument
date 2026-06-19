@@ -1,0 +1,271 @@
+{
+  "verdict": "MP_KS_NOISY_SUBSTRATE_INCONCLUSIVE",
+  "verdict_msg": "Partial robustness under eta=0.1: per_tau={'0.15': 2, '0.20': 2, '0.25': 2}. Degraded but partial; Cap 12 \u2705 stands with noise-sensitivity annotation. Routing matrix: [{'tau': 0.15, 'correct': 2, 'rows': [{'name': 'iid_gauss', 'ks_mean': 0.07434497216024478, 'routed': 'AMP_OK', 'truth': 'AMP_OK', 'correct': True}, {'name': 'srht', 'ks_mean': 0.08823556547888584, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}, {'name': 'hadamard', 'ks_mean': 0.08819294849630124, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}, {'name': 'rm_1_m', 'ks_mean': 0.07278247216024478, 'routed': 'AMP_OK', 'truth': 'AMP_OK', 'correct': True}, {'name': 'kerdock', 'ks_mean': 0.06829028466024478, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}]}, {'tau': 0.2, 'correct': 2, 'rows': [{'name': 'iid_gauss', 'ks_mean': 0.07434497216024478, 'routed': 'AMP_OK', 'truth': 'AMP_OK', 'correct': True}, {'name': 'srht', 'ks_mean': 0.08823556547888584, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}, {'name': 'hadamard', 'ks_mean': 0.08819294849630124, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}, {'name': 'rm_1_m', 'ks_mean': 0.07278247216024478, 'routed': 'AMP_OK', 'truth': 'AMP_OK', 'correct': True}, {'name': 'kerdock', 'ks_mean': 0.06829028466024478, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}]}, {'tau': 0.25, 'correct': 2, 'rows': [{'name': 'iid_gauss', 'ks_mean': 0.07434497216024478, 'routed': 'AMP_OK', 'truth': 'AMP_OK', 'correct': True}, {'name': 'srht', 'ks_mean': 0.08823556547888584, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}, {'name': 'hadamard', 'ks_mean': 0.08819294849630124, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}, {'name': 'rm_1_m', 'ks_mean': 0.07278247216024478, 'routed': 'AMP_OK', 'truth': 'AMP_OK', 'correct': True}, {'name': 'kerdock', 'ks_mean': 0.06829028466024478, 'routed': 'AMP_OK', 'truth': 'VAMP_REQUIRED', 'correct': False}]}].",
+  "elapsed_s": 87.76600000000326,
+  "summary": {
+    "codebook_results": [
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "ks_mean": 0.07434497216024478,
+        "ks_std": 0.000390625,
+        "amp_rel_mean": 0.044216689702647666,
+        "vamp_rel_mean": 0.043469518386266975,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07512622216024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "ks_mean": 0.08823556547888584,
+        "ks_std": 0.0008903268969135379,
+        "amp_rel_mean": 0.5979811844199655,
+        "vamp_rel_mean": 0.09089777453148219,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.08911843609410589,
+          0.087530283719911,
+          0.0878332893188849,
+          0.08946582208196724,
+          0.08722999617956018
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "ks_mean": 0.08819294849630124,
+        "ks_std": 0.0009324744737682298,
+        "amp_rel_mean": 0.6076850888188382,
+        "vamp_rel_mean": 0.06878885732643572,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.08946582208196724,
+          0.0878332893188849,
+          0.08814187359410589,
+          0.08881632893711369,
+          0.08670742854943453
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "ks_mean": 0.07278247216024478,
+        "ks_std": 0.00078125,
+        "amp_rel_mean": 0.09460343905193354,
+        "vamp_rel_mean": 0.0924424444832492,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.07219653466024478,
+          0.07219653466024478,
+          0.07317309716024478,
+          0.07219653466024478,
+          0.07414965966024478
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "ks_mean": 0.06829028466024478,
+        "ks_std": 0.0008734640537108553,
+        "amp_rel_mean": 0.10634678591617142,
+        "vamp_rel_mean": 0.09687095135399391,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.06731372216024478,
+          0.06731372216024478,
+          0.06926684716024478,
+          0.06926684716024478,
+          0.06829028466024478
+        ]
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "M_over_N": 1.0,
+      "n_seeds": 5,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 300,
+      "tau_grid": [
+        0.15,
+        0.2,
+        0.25
+      ],
+      "eta": 0.1,
+      "codebooks": [
+        "iid_gauss",
+        "srht",
+        "hadamard",
+        "rm_1_m",
+        "kerdock"
+      ]
+    },
+    "tau_grid": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "eta": 0.1,
+    "per_tau_correct": {
+      "0.15": 2,
+      "0.20": 2,
+      "0.25": 2
+    },
+    "routing_matrix": [
+      {
+        "tau": 0.15,
+        "correct": 2,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07434497216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.08823556547888584,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.08819294849630124,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.07278247216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06829028466024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "tau": 0.2,
+        "correct": 2,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07434497216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.08823556547888584,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.08819294849630124,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.07278247216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06829028466024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "tau": 0.25,
+        "correct": 2,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07434497216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.08823556547888584,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.08819294849630124,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.07278247216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06829028466024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          }
+        ]
+      }
+    ],
+    "min_correct_across_tau": 2,
+    "max_correct_across_tau": 2
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "M_over_N": 1.0,
+    "n_seeds": 5,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 300,
+    "tau_grid": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "eta": 0.1,
+    "codebooks": [
+      "iid_gauss",
+      "srht",
+      "hadamard",
+      "rm_1_m",
+      "kerdock"
+    ]
+  }
+}

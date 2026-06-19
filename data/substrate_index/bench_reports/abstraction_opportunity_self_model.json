@@ -1,0 +1,248 @@
+{
+  "n_operators": 47,
+  "realized": [
+    {
+      "domain": "vector_symbolic_architectures",
+      "output_type": "phasor_vector",
+      "members": [
+        "fhrr_bind",
+        "fhrr_unbind"
+      ],
+      "n": 2,
+      "wiring": {
+        "wired": true,
+        "supertype": "fhrr_binding_op",
+        "n_members_linked": 2
+      }
+    },
+    {
+      "domain": "vector_symbolic_architectures",
+      "output_type": "vector",
+      "members": [
+        "bundling",
+        "permutation_indexed_binding"
+      ],
+      "n": 2,
+      "wiring": {
+        "wired": true,
+        "supertype": "vsa_superposition_op",
+        "n_members_linked": 2
+      }
+    },
+    {
+      "domain": "hidden_markov_models",
+      "output_type": "state_distribution",
+      "members": [
+        "forward_algorithm",
+        "backward_algorithm",
+        "hmm_transition"
+      ],
+      "n": 3,
+      "wiring": {
+        "wired": true,
+        "supertype": "hmm_inference_operator",
+        "n_members_linked": 3
+      }
+    },
+    {
+      "domain": "graph_search",
+      "output_type": "state_sequence",
+      "members": [
+        "dijkstra",
+        "astar"
+      ],
+      "n": 2,
+      "wiring": {
+        "wired": true,
+        "supertype": "path_search_operator",
+        "n_members_linked": 2
+      }
+    },
+    {
+      "domain": "sequence_decoding",
+      "output_type": "state_sequence",
+      "members": [
+        "beam_search",
+        "viterbi_decoder"
+      ],
+      "n": 2,
+      "wiring": {
+        "wired": true,
+        "supertype": "sequence_decoder_operator",
+        "n_members_linked": 2
+      }
+    },
+    {
+      "domain": "convex_optimization",
+      "output_type": "parameter_vector",
+      "members": [
+        "gradient_descent",
+        "adam_optimizer",
+        "stochastic_gradient_descent"
+      ],
+      "n": 3,
+      "wiring": {
+        "wired": true,
+        "supertype": "gradient_based_optimizer",
+        "n_members_linked": 3
+      }
+    }
+  ],
+  "retype_away": [
+    {
+      "domain": "vector_symbolic_architectures",
+      "n_operators": 5,
+      "distinct_outputs": [
+        "codebook_atom",
+        "content_vector",
+        "factor_vector_tuple",
+        "real_vector",
+        "stored_pattern"
+      ],
+      "members": [
+        "cleanup",
+        "circular_convolution",
+        "sparse_distributed_memory",
+        "modern_hopfield_ramsauer",
+        "resonator_network_decoder"
+      ]
+    },
+    {
+      "domain": "machine_learning",
+      "n_operators": 2,
+      "distinct_outputs": [
+        "probability_vector",
+        "weight_vector"
+      ],
+      "members": [
+        "count_nb",
+        "discriminative_perceptron"
+      ]
+    },
+    {
+      "domain": "combinatorial_optimization",
+      "n_operators": 2,
+      "distinct_outputs": [
+        "optimal_assignment_permutation",
+        "optimal_solution_via_table"
+      ],
+      "members": [
+        "hungarian_assignment",
+        "dynamic_programming"
+      ]
+    },
+    {
+      "domain": "linear_algebra_preprocessing",
+      "n_operators": 2,
+      "distinct_outputs": [
+        "whitened_data_matrix",
+        "whitened_data_matrix_pca_then_rotate_back"
+      ],
+      "members": [
+        "pca_whitening",
+        "zca_whitening"
+      ]
+    },
+    {
+      "domain": "probabilistic_graphical_models",
+      "n_operators": 2,
+      "distinct_outputs": [
+        "ML_parameter_estimate",
+        "variational_posterior_parameters"
+      ],
+      "members": [
+        "em_algorithm",
+        "variational_inference"
+      ]
+    },
+    {
+      "domain": "bayesian_inference",
+      "n_operators": 2,
+      "distinct_outputs": [
+        "posterior",
+        "sample_chain"
+      ],
+      "members": [
+        "bayes_rule",
+        "mcmc_sampling"
+      ]
+    },
+    {
+      "domain": "deep_learning",
+      "n_operators": 2,
+      "distinct_outputs": [
+        "masked_activation_vector",
+        "normalized_activations"
+      ],
+      "members": [
+        "dropout_regularization",
+        "batch_normalization"
+      ]
+    },
+    {
+      "domain": "reinforcement_learning",
+      "n_operators": 4,
+      "distinct_outputs": [
+        "decision_problem",
+        "policy_parameter_update",
+        "q_value_table_or_function",
+        "updated_value_function"
+      ],
+      "members": [
+        "policy_gradient",
+        "q_learning",
+        "markov_decision_process",
+        "bellman_equation"
+      ]
+    }
+  ],
+  "cross_domain": [
+    {
+      "output_type": "state_distribution",
+      "domains": [
+        "hidden_markov_models",
+        "stochastic_processes"
+      ],
+      "n_members": 4,
+      "members": [
+        "backward_algorithm",
+        "forward_algorithm",
+        "hmm_transition",
+        "markov_chain"
+      ]
+    },
+    {
+      "output_type": "weight_vector",
+      "domains": [
+        "machine_learning",
+        "natural_language_processing",
+        "online_learning",
+        "structured_prediction"
+      ],
+      "n_members": 4,
+      "members": [
+        "collins_structured_perceptron",
+        "discriminative_perceptron",
+        "perceptron_update",
+        "structured_perceptron_collins"
+      ]
+    },
+    {
+      "output_type": "state_sequence",
+      "domains": [
+        "graph_search",
+        "sequence_decoding"
+      ],
+      "n_members": 4,
+      "members": [
+        "astar",
+        "beam_search",
+        "dijkstra",
+        "viterbi_decoder"
+      ]
+    }
+  ],
+  "n_realized": 6,
+  "n_retype_away": 8,
+  "n_cross_domain": 3
+}

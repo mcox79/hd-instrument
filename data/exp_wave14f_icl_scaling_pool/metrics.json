@@ -1,0 +1,133 @@
+{
+  "POOL_SIZES": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "N_AUGMENT": 64,
+  "slope_log2P": -0.06696423105457172,
+  "results": {
+    "512": [
+      {
+        "pool_size": 512,
+        "baseline_bpc": 5.086428641490037,
+        "relevant_bpc": 4.728099292357407,
+        "shuffled_bpc": 4.81549291063549,
+        "relevant_gain": 0.3583293491326298,
+        "shuffled_gain": 0.27093573085454725,
+        "retrieval_signal": 0.08739361827808256
+      },
+      {
+        "pool_size": 512,
+        "baseline_bpc": 5.121287885834828,
+        "relevant_bpc": 4.719503600177871,
+        "shuffled_bpc": 5.193498832927419,
+        "relevant_gain": 0.4017842856569569,
+        "shuffled_gain": -0.07221094709259113,
+        "retrieval_signal": 0.473995232749548
+      },
+      {
+        "pool_size": 512,
+        "baseline_bpc": 5.1209526705739705,
+        "relevant_bpc": 4.7636726982759034,
+        "shuffled_bpc": 5.187272537845248,
+        "relevant_gain": 0.3572799722980671,
+        "shuffled_gain": -0.06631986727127792,
+        "retrieval_signal": 0.423599839569345
+      }
+    ],
+    "1024": [
+      {
+        "pool_size": 1024,
+        "baseline_bpc": 5.060648533915838,
+        "relevant_bpc": 4.757926754410833,
+        "shuffled_bpc": 4.835540790274273,
+        "relevant_gain": 0.30272177950500545,
+        "shuffled_gain": 0.2251077436415656,
+        "retrieval_signal": 0.07761403586343985
+      },
+      {
+        "pool_size": 1024,
+        "baseline_bpc": 5.092673133544587,
+        "relevant_bpc": 4.757244089577719,
+        "shuffled_bpc": 5.149394044995275,
+        "relevant_gain": 0.3354290439668688,
+        "shuffled_gain": -0.056720911450687694,
+        "retrieval_signal": 0.3921499554175565
+      },
+      {
+        "pool_size": 1024,
+        "baseline_bpc": 5.092961282198592,
+        "relevant_bpc": 4.794188824707298,
+        "shuffled_bpc": 5.138426370367585,
+        "relevant_gain": 0.2987724574912942,
+        "shuffled_gain": -0.045465088168993084,
+        "retrieval_signal": 0.3442375456602873
+      }
+    ],
+    "2048": [
+      {
+        "pool_size": 2048,
+        "baseline_bpc": 5.040968107435593,
+        "relevant_bpc": 4.783401795463559,
+        "shuffled_bpc": 4.851699497842619,
+        "relevant_gain": 0.2575663119720346,
+        "shuffled_gain": 0.18926860959297453,
+        "retrieval_signal": 0.06829770237906008
+      },
+      {
+        "pool_size": 2048,
+        "baseline_bpc": 5.073811033569547,
+        "relevant_bpc": 4.801951721464207,
+        "shuffled_bpc": 5.108548966852905,
+        "relevant_gain": 0.27185931210533987,
+        "shuffled_gain": -0.03473793328335795,
+        "retrieval_signal": 0.3065972453886978
+      },
+      {
+        "pool_size": 2048,
+        "baseline_bpc": 5.077394195448076,
+        "relevant_bpc": 4.827508598090327,
+        "shuffled_bpc": 5.100714261368941,
+        "relevant_gain": 0.24988559735774896,
+        "shuffled_gain": -0.02332006592086433,
+        "retrieval_signal": 0.2732056632786133
+      }
+    ],
+    "4096": [
+      {
+        "pool_size": 4096,
+        "baseline_bpc": 4.9738416921415,
+        "relevant_bpc": 4.79800189281917,
+        "shuffled_bpc": 4.85422505639085,
+        "relevant_gain": 0.17583979932232996,
+        "shuffled_gain": 0.11961663575065007,
+        "retrieval_signal": 0.05622316357167989
+      },
+      {
+        "pool_size": 4096,
+        "baseline_bpc": 5.005913775234471,
+        "relevant_bpc": 4.835487341365381,
+        "shuffled_bpc": 5.022791493562063,
+        "relevant_gain": 0.17042643386908995,
+        "shuffled_gain": -0.016877718327592106,
+        "retrieval_signal": 0.18730415219668206
+      },
+      {
+        "pool_size": 4096,
+        "baseline_bpc": 5.004528749579552,
+        "relevant_bpc": 4.85050633305302,
+        "shuffled_bpc": 5.014957470081805,
+        "relevant_gain": 0.1540224165265318,
+        "shuffled_gain": -0.010428720502253519,
+        "retrieval_signal": 0.16445113702878533
+      }
+    ]
+  }
+}

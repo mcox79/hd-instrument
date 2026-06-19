@@ -1,0 +1,16 @@
+{
+  "anchor_name": "extractive_span_head_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: span-head F1 <0.40 -- a tiny MLP on frozen bge tokens is insufficient for extraction; LLM stays in the loop. extractive span-head F1=0.032 (n_eval=150, n_train=116)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 150,
+      "f1": 0.03208023529264059,
+      "n_train": 116
+    }
+  ],
+  "elapsed_s": 54.08456587791443,
+  "summary": "HARD_FAIL: span-head F1 <0.40 -- a tiny MLP on frozen bge tokens is insufficient for extraction; LLM stays in the loop. extractive span-head F1=0.032 (n_eval=150, n_train=116)"
+}

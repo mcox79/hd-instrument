@@ -1,0 +1,36 @@
+{
+  "anchor_name": "substrate_valueadd_curve_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: curve mapped but not cleanly monotone-decreasing. substrate lift by encoder: {'MiniLM': -0.02, 'bge-small': -0.15, 'bge-large': -0.16, 'e5-large': -0.13} (n=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "MiniLM": {
+          "naive": 0.135,
+          "substrate": 0.115,
+          "lift": -0.02
+        },
+        "bge-small": {
+          "naive": 0.31,
+          "substrate": 0.16,
+          "lift": -0.15
+        },
+        "bge-large": {
+          "naive": 0.325,
+          "substrate": 0.165,
+          "lift": -0.16
+        },
+        "e5-large": {
+          "naive": 0.31,
+          "substrate": 0.18,
+          "lift": -0.13
+        }
+      },
+      "n": 200
+    }
+  ],
+  "elapsed_s": 90.8143208026886,
+  "summary": "MIDDLE_BAND: curve mapped but not cleanly monotone-decreasing. substrate lift by encoder: {'MiniLM': -0.02, 'bge-small': -0.15, 'bge-large': -0.16, 'e5-large': -0.13} (n=200)"
+}

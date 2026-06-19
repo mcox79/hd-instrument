@@ -1,0 +1,25 @@
+{
+  "verdict": "CLSDUALW_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_CLS: ret_A=1.0000 above HF but below HP. mean_ret_A=1.0000 seeds_pass=1/1 per_seed=[1.0] HP=0.8 HF=0.5",
+  "elapsed_s": 1.99,
+  "N": 512,
+  "smoke": true,
+  "results": [
+    {
+      "seed": 17,
+      "N": 512,
+      "bpc_A_baseline": 3.48558,
+      "bpc_A_final": 3.48558,
+      "retention_A": 1.0
+    }
+  ],
+  "config": {
+    "N": 512,
+    "eta_fast": 0.3,
+    "eta_slow": 0.01,
+    "N_replay": 500,
+    "seeds": [
+      17
+    ]
+  }
+}

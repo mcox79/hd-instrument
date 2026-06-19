@@ -1,0 +1,27 @@
+{
+  "anchor": "cascade_ensemble_config5_smoke_v1",
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M_small": 64,
+      "M_large": 256,
+      "n_query": 64,
+      "tau": 0.7,
+      "escalation_rate": 0.0,
+      "acc_cascade": 1.0,
+      "acc_large_only": 1.0,
+      "delta_acc": 0.0,
+      "passes_hp": 1,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "CASCADE5_HARD_PASS",
+  "verdict_msg": "CASCADE_EFFICIENT_AND_ACCURATE: n_hp=1/1. mean_escalation=0.0000 mean_delta_acc=0.0000 n_hp=1/1 n_hf=0/1",
+  "elapsed_s": 0.03
+}

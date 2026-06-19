@@ -1,0 +1,58 @@
+{
+  "verdict": "MULTIHOP_ENVELOPE_INCONCLUSIVE",
+  "verdict_msg": "No NUM_FACTS passed despite smallest passing kill criteria. retention=0.851<0.9",
+  "elapsed_s": 0.40599999999994907,
+  "summary": {
+    "by_num_facts": {
+      "20": {
+        "acc_by_depth": {
+          "1": 1.0,
+          "10": 0.2
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            1.0
+          ],
+          "10": [
+            0.2
+          ]
+        },
+        "retention_rate": 0.8513399225207846
+      },
+      "50": {
+        "acc_by_depth": {
+          "1": 0.8,
+          "10": 0.0
+        },
+        "per_seed_acc_by_depth": {
+          "1": [
+            0.8
+          ],
+          "10": [
+            0.0
+          ]
+        },
+        "retention_rate": 0.8
+      }
+    },
+    "max_depth": 10
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts_list": [
+      20,
+      50
+    ],
+    "hop_depths": [
+      1,
+      10
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

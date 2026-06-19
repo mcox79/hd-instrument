@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lex_wug_test_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate passes the WUG test -- infers a morphological rule from few examples and applies it to NOVEL stems (>=0.85). Systematic RULE-BASED generation works substrate-only; the remaining generation gap is statistical fluency (LM), not systematic morphology. 3-shot=1.000 1-shot=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "reg_3shot": 1.0,
+      "reg_1shot": 1.0
+    }
+  ],
+  "elapsed_s": 12.442666292190552,
+  "summary": "HARD_PASS: substrate passes the WUG test -- infers a morphological rule from few examples and applies it to NOVEL stems (>=0.85). Systematic RULE-BASED generation works substrate-only; the remaining generation gap is statistical fluency (LM), not systematic morphology. 3-shot=1.000 1-shot=1.000"
+}

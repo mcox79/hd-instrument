@@ -1,0 +1,50 @@
+{
+  "verdict": "FAISS_HS_HARD_PASS",
+  "verdict_msg": "SIDECAR_VALIDATED recall_gap_ok=True cert_ok=True lat_ok=True. N=256 M=512 n_queries=[50, 50] max_recall_gap=0.0000 max_p99_ms=0.280 min_cert_per_q=3.000 mean_baseline_recall=1.0000",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "faiss_hybrid_sidecar_smoke_v1",
+    "N": 256,
+    "M": 512,
+    "K": 10,
+    "seeds": [
+      17,
+      23
+    ],
+    "cells": [
+      {
+        "M": 512,
+        "seed": 17,
+        "N": 256,
+        "ok": true,
+        "n_queries": 50,
+        "recall_baseline": 1.0,
+        "recall_hybrid": 1.0,
+        "recall_gap_abs": 0.0,
+        "cert_count": 150,
+        "cert_per_query": 3.0,
+        "p99_cert_lat_ms": 0.28,
+        "cert_fail_rate": 0.0,
+        "n_cert_measured": 150
+      },
+      {
+        "M": 512,
+        "seed": 23,
+        "N": 256,
+        "ok": true,
+        "n_queries": 50,
+        "recall_baseline": 1.0,
+        "recall_hybrid": 1.0,
+        "recall_gap_abs": 0.0,
+        "cert_count": 150,
+        "cert_per_query": 3.0,
+        "p99_cert_lat_ms": 0.27,
+        "cert_fail_rate": 0.0,
+        "n_cert_measured": 150
+      }
+    ],
+    "verdict": "FAISS_HS_HARD_PASS",
+    "verdict_msg": "SIDECAR_VALIDATED recall_gap_ok=True cert_ok=True lat_ok=True. N=256 M=512 n_queries=[50, 50] max_recall_gap=0.0000 max_p99_ms=0.280 min_cert_per_q=3.000 mean_baseline_recall=1.0000",
+    "elapsed_s": 0.07
+  }
+}

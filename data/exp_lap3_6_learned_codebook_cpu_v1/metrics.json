@@ -1,0 +1,18 @@
+{
+  "anchor_name": "lap3_6_learned_codebook_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: capacity ratio <1.2x. random=0.496 learned=0.501 ratio=1.01x (K=150 N=512)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "random_recall": 0.49599999999999994,
+      "learned_recall": 0.5013333333333333,
+      "capacity_ratio": 1.01,
+      "K": 150,
+      "N": 512
+    }
+  ],
+  "elapsed_s": 2.269218921661377,
+  "summary": "HARD_FAIL: capacity ratio <1.2x. random=0.496 learned=0.501 ratio=1.01x (K=150 N=512)"
+}

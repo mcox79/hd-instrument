@@ -1,0 +1,31 @@
+{
+  "anchor_name": "substrate_73g_m4d_13edge_strict_tier_dilution_check_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "STRICT-tier stays DILUTION-SAFE at 13 edges (>=-0.01 vs base AND vs 6): 73g 13-edge STRICT-tier dilution pre-check (upper-bound; Skunkworks vet pending): q54-q65 base 0.2721 -> +6 0.2721 (+0.0000) -> +13 0.2721 (+0.0000; 13-vs-6 +0.0000); 56d +6 +0.0000 -> +13 +0.0000. In-memory adjacency, no substrate mutation, no held-out touch. Claim 12 R1 holds as the tier grows -> ratifying the 7 Iter2 edges into the STRICT tier is dilution-safe.",
+  "summary": "STRICT-tier stays DILUTION-SAFE at 13 edges (>=-0.01 vs base AND vs 6): 73g 13-edge STRICT-tier dilution pre-check (upper-bound; Skunkworks vet pending): q54-q65 base 0.2721 -> +6 0.2721 (+0.0000) -> +13 0.2721 (+0.0000; 13-vs-6 +0.0000); 56d +6 +0.0000 -> +13 +0.0000. In-memory adjacency, no substrate mutation, no held-out touch. Claim 12 R1 holds as the tier grows -> ratifying the 7 Iter2 edges into the STRICT tier is dilution-safe.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "strict6_edges": 6,
+      "strict13_edges": 13,
+      "q54q65": {
+        "base": 0.2721,
+        "strict6": 0.2721,
+        "strict13": 0.2721,
+        "d6": 0.0,
+        "d13": 0.0,
+        "d13_vs_6": 0.0
+      },
+      "h56d": {
+        "base": 0.2218,
+        "strict6": 0.2218,
+        "strict13": 0.2218,
+        "d6": 0.0,
+        "d13": 0.0,
+        "d13_vs_6": 0.0
+      }
+    }
+  ],
+  "elapsed_s": 27.40756368637085
+}

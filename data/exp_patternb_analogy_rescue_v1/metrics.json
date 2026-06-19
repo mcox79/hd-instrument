@@ -1,0 +1,14 @@
+{
+  "anchor_name": "patternb_analogy_rescue_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: single-transform analogy recall>=0.70 -- analogy mode validated when NOT bundled (cycle-158 failure was bundle interference). analogy recall=1.000 (single-transform mode)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc": 1.0
+    }
+  ],
+  "elapsed_s": 2.410276174545288,
+  "summary": "HARD_PASS: single-transform analogy recall>=0.70 -- analogy mode validated when NOT bundled (cycle-158 failure was bundle interference). analogy recall=1.000 (single-transform mode)"
+}

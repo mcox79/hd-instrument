@@ -1,0 +1,19 @@
+{
+  "anchor_name": "tier4_defrag_consistency_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: defrag is lossless (accuracy unchanged) AND latency stable (cv<20pct) -- safe periodic consolidation; gates Tier 4. acc before=1.000 after=1.000 (delta=0.0000) latency_cv=0.150 n_frag=210->dedup=150",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "delta": 0.0,
+      "lat_cv": 0.1501088432329519,
+      "n_frag": 210,
+      "n_dedup": 150
+    }
+  ],
+  "elapsed_s": 0.4256930351257324,
+  "summary": "HARD_PASS: defrag is lossless (accuracy unchanged) AND latency stable (cv<20pct) -- safe periodic consolidation; gates Tier 4. acc before=1.000 after=1.000 (delta=0.0000) latency_cv=0.150 n_frag=210->dedup=150"
+}

@@ -1,0 +1,220 @@
+{
+  "bench_path": "experiments\\data\\gap7_benchmark_v1_HELD_OUT_q54_q65.jsonl",
+  "substrate_dir": "data\\substrate_index",
+  "atoms": 1746,
+  "relations": 2711,
+  "n_qs": 13,
+  "macro_f1": 0.0533,
+  "per_type_f1": {
+    "A": 0.0316,
+    "B": 0.25,
+    "C": 0.0,
+    "D": 0.0,
+    "E": 0.0,
+    "F": 0.0,
+    "G": 0.0333
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "substrate Goodhart'd; held-out macro F1 0.0533 < 0.30",
+  "per_q": [
+    {
+      "id": "Q54-A",
+      "type": "A",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 47,
+      "fn": 1,
+      "gold_present": 1,
+      "gold_attrition": 4,
+      "answerable": true,
+      "retrieved_sample": [
+        "research_drill_substrate_structured_prediction_2x_2026-06-11",
+        "research_drill_active_inference_goal_gap_2x_2026-06-11",
+        "research_drill_kappa3_noise_robustness_nlo_correction_deep_dive_2026-06-03",
+        "t3/bayesian_inference",
+        "research_to_exp_dev_inference_alternatives_5_pretests_authorize_2026-06-07"
+      ]
+    },
+    {
+      "id": "Q55-B",
+      "type": "B",
+      "f1": 0.5,
+      "tp": 1,
+      "fp": 2,
+      "fn": 0,
+      "gold_present": 1,
+      "gold_attrition": 0,
+      "answerable": true,
+      "retrieved_sample": [
+        "t2/fhrr_unbind",
+        "t2_fam/binders",
+        "t3/ghrr_noncommutative_bind"
+      ]
+    },
+    {
+      "id": "Q56-C",
+      "type": "C",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "gold_present": 0,
+      "gold_attrition": 11,
+      "answerable": true,
+      "retrieved_sample": []
+    },
+    {
+      "id": "Q57-D",
+      "type": "D",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "gold_present": 1,
+      "gold_attrition": 0,
+      "answerable": true,
+      "retrieved_sample": []
+    },
+    {
+      "id": "Q58-E",
+      "type": "E",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "gold_present": 0,
+      "gold_attrition": 1,
+      "answerable": true,
+      "retrieved_sample": []
+    },
+    {
+      "id": "Q59-F",
+      "type": "F",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 116,
+      "fn": 0,
+      "gold_present": 0,
+      "gold_attrition": 4,
+      "answerable": true,
+      "retrieved_sample": [
+        "t2_fam/superposition_aggregation",
+        "t1/banach_fixed_point",
+        "t1/borel_set",
+        "t1/rank_nullity_theorem",
+        "t1/kkt_conditions"
+      ]
+    },
+    {
+      "id": "Q60-G",
+      "type": "G",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 1,
+      "fn": 3,
+      "gold_present": 3,
+      "gold_attrition": 1,
+      "answerable": true,
+      "retrieved_sample": [
+        "t3/collins_structured_perceptron"
+      ]
+    },
+    {
+      "id": "Q61-A",
+      "type": "A",
+      "f1": 0.08,
+      "tp": 1,
+      "fp": 22,
+      "fn": 1,
+      "gold_present": 2,
+      "gold_attrition": 3,
+      "answerable": true,
+      "retrieved_sample": [
+        "research_drill_key_collision_real_encoder_rescue_2x_2026-06-06",
+        "t3/contrastive_learning",
+        "research_drill_encoder_bottleneck_phase4a_infrastructure_2x_2026-06-05",
+        "t3/variational_inference",
+        "exp_dev_to_research_codegen_diagnostic_2026-06-11"
+      ]
+    },
+    {
+      "id": "Q62-B",
+      "type": "B",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "gold_present": 1,
+      "gold_attrition": 5,
+      "answerable": true,
+      "retrieved_sample": []
+    },
+    {
+      "id": "Q63-A",
+      "type": "A",
+      "f1": 0.0465,
+      "tp": 1,
+      "fp": 41,
+      "fn": 0,
+      "gold_present": 1,
+      "gold_attrition": 4,
+      "answerable": true,
+      "retrieved_sample": [
+        "research_to_exp_dev_storage_efficiency_test_program_2026-06-07",
+        "research_drill_data_attribution_accuracy_ceiling_2x_2026-06-03",
+        "exp_dev_to_research_multihop_phase1_result_role_binding_helps_2026-06-11",
+        "research_to_exp_dev_llama_1b_extraction_authorized_phase2_start_2026-06-05",
+        "exp_dev_to_research_pp375_port_best_but_039_8mech_convergence_2026-06-11"
+      ]
+    },
+    {
+      "id": "Q64-G",
+      "type": "G",
+      "f1": 0.0667,
+      "tp": 1,
+      "fp": 26,
+      "fn": 2,
+      "gold_present": 3,
+      "gold_attrition": 0,
+      "answerable": true,
+      "retrieved_sample": [
+        "lex_constant_money",
+        "lex_constant_units_length",
+        "retrieval_multi_hop",
+        "lex_entity_money",
+        "t3/resonator_network_decoder"
+      ]
+    },
+    {
+      "id": "Q65-E",
+      "type": "E",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "gold_present": 0,
+      "gold_attrition": 1,
+      "answerable": true,
+      "retrieved_sample": []
+    },
+    {
+      "id": "Q_neg_2",
+      "type": "A",
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 32,
+      "fn": 0,
+      "gold_present": 0,
+      "gold_attrition": 0,
+      "answerable": false,
+      "retrieved_sample": [
+        "t1/dirac_delta",
+        "t1/quotient_group",
+        "testbed_to_research_q2_running_what_during_2026-06-09",
+        "t1/limit_of_function",
+        "t1/permutation_group"
+      ]
+    }
+  ],
+  "scorer_mode": "cpu_only_no_bge_degraded"
+}

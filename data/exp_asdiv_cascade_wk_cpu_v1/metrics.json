@@ -1,0 +1,20 @@
+{
+  "anchor_name": "asdiv_cascade_wk_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cascade+WK <0.33 and lift<0.02 -- WK does not lift the cascade (adjacency triggers too sparse, or selection-bound). +WK=0.2524 vs base=0.2524 (lift=+0.0000, vs prior 0.224, n_test=919). Existing cascade (1-op+2-op+verifier) + substrate LEX_constant world-knowledge.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.2524,
+      "acc_wk": 0.2524,
+      "acc_base": 0.2524,
+      "lift": 0.0,
+      "n_1op_wk": 415,
+      "n_2op_wk": 146,
+      "n_test": 919
+    }
+  ],
+  "elapsed_s": 1.5599820613861084,
+  "summary": "HARD_FAIL: cascade+WK <0.33 and lift<0.02 -- WK does not lift the cascade (adjacency triggers too sparse, or selection-bound). +WK=0.2524 vs base=0.2524 (lift=+0.0000, vs prior 0.224, n_test=919). Existing cascade (1-op+2-op+verifier) + substrate LEX_constant world-knowledge."
+}

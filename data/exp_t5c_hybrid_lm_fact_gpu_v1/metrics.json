@@ -1,0 +1,18 @@
+{
+  "anchor_name": "t5c_hybrid_lm_fact_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HYBRID composes -- substrate IMPROVES the LM (ratio<0.85) AND supplies held-out facts (recall>0.95) simultaneously, no interference. v2.0 product integration proven. LM-ratio=0.793x fact-recall=1.000 (base-ppl=48.50)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 48.50385339406074,
+      "mod_ppl": 38.477668254868384,
+      "lm_ratio": 0.7932909565403714,
+      "fact_recall": 1.0,
+      "n_test": 92
+    }
+  ],
+  "elapsed_s": 394.1001386642456,
+  "summary": "HARD_PASS: HYBRID composes -- substrate IMPROVES the LM (ratio<0.85) AND supplies held-out facts (recall>0.95) simultaneously, no interference. v2.0 product integration proven. LM-ratio=0.793x fact-recall=1.000 (base-ppl=48.50)"
+}

@@ -1,0 +1,69 @@
+{
+  "anchor_name": "substrate_spectral_training_monitor_predictive_v1_gpt2small",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SMOKE (informational): plumbing validated; cumulant trajectory + phase-transition extraction operational. convergence: n_obs=1/1 mean_lead=-20.0 hp=0 mid=0 lag=1; overfitting: n_obs=0/1 mean_lead=None hp=0 mid=0 lag=0; divergence: n_obs=0/1 mean_lead=None hp=0 mid=0 lag=0. Capability implication: if substrate spectral observer leads val_loss across phases, training-monitor auto-stop primitive enables >=100-step early-warning capability (10-20% LLM training compute saving).",
+  "run_mode": "smoke",
+  "use_gpt2": false,
+  "N_OBS": 512,
+  "BUFFER_SIZE": 61,
+  "TRAIN_CHARS": 5000,
+  "MONITOR_EVERY": 10,
+  "MAX_STEPS": null,
+  "LR": 0.005,
+  "BATCH_SIZE": 32,
+  "SEQ_LEN": 64,
+  "LAYER_FRAC": 0.7,
+  "LM_HIDDEN": 96,
+  "LM_LAYERS": 2,
+  "HP_LEAD_STEPS": 100,
+  "HF_LEAD_STEPS": 50,
+  "n_seeds": 1,
+  "elapsed_s": 12.840200901031494,
+  "summary": "SMOKE (informational): plumbing validated; cumulant trajectory + phase-transition extraction operational. convergence: n_obs=1/1 mean_lead=-20.0 hp=0 mid=0 lag=1; overfitting: n_obs=0/1 mean_lead=None hp=0 mid=0 lag=0; divergence: n_obs=0/1",
+  "per_seed": [
+    {
+      "seed": 7,
+      "train_steps": 80,
+      "val_phases": {
+        "convergence_step": 10,
+        "overfitting_step": null,
+        "divergence_step": null
+      },
+      "substrate_phases": {
+        "convergence_step": 30,
+        "overfitting_step": 30,
+        "divergence_step": 30
+      },
+      "lead_times": {
+        "convergence_lead_steps": -20,
+        "convergence_val_step": 10,
+        "convergence_substrate_step": 30,
+        "overfitting_lead_steps": null,
+        "overfitting_val_step": null,
+        "overfitting_substrate_step": 30,
+        "divergence_lead_steps": null,
+        "divergence_val_step": null,
+        "divergence_substrate_step": 30
+      },
+      "vocab_size": 46,
+      "tap_layer": 0,
+      "n_layers": 2,
+      "hidden_dim": 96,
+      "use_gpt2": false,
+      "elapsed_s": 12.819749116897583,
+      "cumulant_trajectory_steps": 9,
+      "k2_first_last": [
+        0.002476215362548828,
+        5.322891991585493
+      ],
+      "k4ex_first_last": [
+        0.002044793567620218,
+        14483.429690336508
+      ],
+      "val_first_last": [
+        3.6951394081115723,
+        1.1839910745620728
+      ]
+    }
+  ]
+}

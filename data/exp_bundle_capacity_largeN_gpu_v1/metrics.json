@@ -1,0 +1,24 @@
+{
+  "anchor_name": "bundle_capacity_largeN_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: within 60pct of theory. max dev from N/(2 ln N) = 0.58 | (K_crit, theory): {'N8192': (662, 454.6), 'N16384': (1330, 844.2)}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "N8192": [
+          662,
+          454.6
+        ],
+        "N16384": [
+          1330,
+          844.2
+        ]
+      },
+      "max_dev": 0.5754883425324927
+    }
+  ],
+  "elapsed_s": 5.878437519073486,
+  "summary": "MIDDLE_BAND: within 60pct of theory. max dev from N/(2 ln N) = 0.58 | (K_crit, theory): {'N8192': (662, 454.6), 'N16384': (1330, 844.2)}"
+}

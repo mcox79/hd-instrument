@@ -1,0 +1,161 @@
+{
+  "verdict": "INTERP_FAMILY_HADAMARD_KILLED",
+  "verdict_msg": "Predictor does NOT generalize to iid-Gauss -> Hadamard: rho = 0.500 (HARD FAIL if < 0.50); max VAMP-rel-err = 0.4029 (HARD FAIL if > 0.20). Hadamard is the first family where the kappa_n explainer breaks; Cap 12 Gate B fails.",
+  "elapsed_s": 0.015000000013969839,
+  "summary": {
+    "cells": [
+      {
+        "alpha_interp": 0.0,
+        "bbmd_distance_mean": 2.146108756686462,
+        "amp_rel_err_mean": 0.3321338342825425,
+        "vamp_rel_err_mean": 0.4028998952161231,
+        "kappa_mean": [
+          0.9583474630831006,
+          0.9560816253617512,
+          1.0175979754377624,
+          1.197360530271073,
+          1.5816880745031696,
+          2.305543801836208
+        ],
+        "per_seed": [
+          {
+            "seed": 23,
+            "kappas": [
+              0.9583474630831006,
+              0.9560816253617512,
+              1.0175979754377624,
+              1.197360530271073,
+              1.5816880745031696,
+              2.305543801836208
+            ],
+            "bbmd_distance": 2.146108756686462,
+            "amp_se_pred": 0.09512492197593597,
+            "amp_emp": 0.06353071690424067,
+            "amp_rel_err": 0.3321338342825425,
+            "vamp_se_pred": 0.1031980961561203,
+            "vamp_emp": 0.06161959402831603,
+            "vamp_rel_err": 0.4028998952161231
+          }
+        ]
+      },
+      {
+        "alpha_interp": 0.5,
+        "bbmd_distance_mean": 4.708140768450203,
+        "amp_rel_err_mean": 0.0007248215618137773,
+        "vamp_rel_err_mean": 0.16697621886617559,
+        "kappa_mean": [
+          0.4916743297214907,
+          0.18752962010771004,
+          0.06530926597611308,
+          0.023453697712866095,
+          0.010034935536606837,
+          0.005531712216500284
+        ],
+        "per_seed": [
+          {
+            "seed": 23,
+            "kappas": [
+              0.4916743297214907,
+              0.18752962010771004,
+              0.06530926597611308,
+              0.023453697712866095,
+              0.010034935536606837,
+              0.005531712216500284
+            ],
+            "bbmd_distance": 4.708140768450203,
+            "amp_se_pred": 0.09512492197593597,
+            "amp_emp": 0.09519392058212749,
+            "amp_rel_err": 0.0007248215618137773,
+            "vamp_se_pred": 0.09822861105203629,
+            "vamp_emp": 0.08182676899409104,
+            "vamp_rel_err": 0.16697621886617559
+          }
+        ]
+      },
+      {
+        "alpha_interp": 1.0,
+        "bbmd_distance_mean": 5.0,
+        "amp_rel_err_mean": 0.8919875849649672,
+        "vamp_rel_err_mean": 0.2570445942084945,
+        "kappa_mean": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_seed": [
+          {
+            "seed": 23,
+            "kappas": [
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "bbmd_distance": 5.0,
+            "amp_se_pred": 0.09512492197593597,
+            "amp_emp": 0.010274672552639901,
+            "amp_rel_err": 0.8919875849649672,
+            "vamp_se_pred": 0.009900989942252636,
+            "vamp_emp": 0.007355994000283922,
+            "vamp_rel_err": 0.2570445942084945
+          }
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "alpha_interp_list": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 1,
+      "n_iter": 50,
+      "n_max_moment": 6,
+      "family": "hadamard"
+    },
+    "family": "hadamard",
+    "spearman_rho": 0.5,
+    "max_vamp_rel_err": 0.4028998952161231,
+    "bbmd_distances": [
+      2.146108756686462,
+      4.708140768450203,
+      5.0
+    ],
+    "amp_rel_errs": [
+      0.3321338342825425,
+      0.0007248215618137773,
+      0.8919875849649672
+    ],
+    "vamp_rel_errs": [
+      0.4028998952161231,
+      0.16697621886617559,
+      0.2570445942084945
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "alpha_interp_list": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 1,
+    "n_iter": 50,
+    "n_max_moment": 6,
+    "family": "hadamard"
+  }
+}

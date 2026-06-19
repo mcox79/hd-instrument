@@ -1,0 +1,31 @@
+{
+  "verdict": "BET_A_N65K_KILLED",
+  "verdict_msg": "Bet A fails at 100 edits: edit_acc=1.000, kept_acc=0.020. 1000-edit: edit=0.000, kept=0.000.",
+  "elapsed_s": 19.21899999998277,
+  "summary": {
+    "edit_acc_at_100": 1.0,
+    "kept_acc_at_100": 0.02,
+    "edit_acc_at_1000": 0.0,
+    "kept_acc_at_1000": 0.0,
+    "per_n_edits": {
+      "50": {
+        "edit_acc": 1.0,
+        "kept_acc": 0.02
+      },
+      "100": {
+        "edit_acc": 1.0,
+        "kept_acc": 0.02
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 4096,
+    "M_init": 4096,
+    "n_edits_grid": [
+      50,
+      100
+    ],
+    "seed": 17
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "anchor_name": "substrate_theta_burst_multistep_write_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: theta-burst no multi-step lookahead value. single t1: base=0.914 theta=0.912 (drop=0.1%) | multi (t2,t3 mean): base=0.851 theta_K3=0.801 (gain=-5.8%)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "baseline": {
+        "1": 0.9136420525657072,
+        "2": 0.8709273182957393,
+        "3": 0.8306148055207027
+      },
+      "theta_K3": {
+        "1": 0.9123904881101377,
+        "2": 0.8245614035087719,
+        "3": 0.7779171894604768
+      },
+      "theta_K5": {
+        "1": 0.9011264080100125,
+        "2": 0.8233082706766918,
+        "3": 0.7791718946047679
+      },
+      "base_t1": 0.9136420525657072,
+      "tb3_t1": 0.9123904881101377,
+      "base_multi": 0.8507710619082209,
+      "tb3_multi": 0.8012392964846244
+    }
+  ],
+  "elapsed_s": 4.456915378570557,
+  "summary": "HARD_FAIL: theta-burst no multi-step lookahead value. single t1: base=0.914 theta=0.912 (drop=0.1%) | multi (t2,t3 mean): base=0.851 theta_K3=0.801 (gain=-5.8%)"
+}

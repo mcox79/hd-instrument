@@ -1,0 +1,71 @@
+{
+  "anchor_name": "substrate_minilm_encoder_fidelity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MiniLM is a drop-in substrate encoder (recall>=0.80, within 5pp of Pythia) -- PHASE4A-1 unlock at V_c<=100k confirmed. minilm_recall=1.000 pythia_recall=1.000 (minilm dim=384) | minilm_vq_separability(small Vc)=0.466",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "seed": 7,
+      "minilm_dim": 384,
+      "minilm_recall": 1.0,
+      "pythia_recall": 1.0,
+      "minilm_vs_pythia_pp": 0.0,
+      "minilm_vq_separability": {
+        "vc1000": 0.46430614590644836,
+        "vc10000": 0.46430614590644836,
+        "vc100000": 0.46430614590644836
+      }
+    },
+    {
+      "seed": 17,
+      "minilm_dim": 384,
+      "minilm_recall": 1.0,
+      "pythia_recall": 1.0,
+      "minilm_vs_pythia_pp": 0.0,
+      "minilm_vq_separability": {
+        "vc1000": 0.4540885090827942,
+        "vc10000": 0.4540885090827942,
+        "vc100000": 0.4540885090827942
+      }
+    },
+    {
+      "seed": 23,
+      "minilm_dim": 384,
+      "minilm_recall": 1.0,
+      "pythia_recall": 1.0,
+      "minilm_vs_pythia_pp": 0.0,
+      "minilm_vq_separability": {
+        "vc1000": 0.47748467326164246,
+        "vc10000": 0.47748467326164246,
+        "vc100000": 0.47748467326164246
+      }
+    },
+    {
+      "seed": 31,
+      "minilm_dim": 384,
+      "minilm_recall": 1.0,
+      "pythia_recall": 1.0,
+      "minilm_vs_pythia_pp": 0.0,
+      "minilm_vq_separability": {
+        "vc1000": 0.4726135730743408,
+        "vc10000": 0.4726135730743408,
+        "vc100000": 0.4726135730743408
+      }
+    },
+    {
+      "seed": 43,
+      "minilm_dim": 384,
+      "minilm_recall": 1.0,
+      "pythia_recall": 1.0,
+      "minilm_vs_pythia_pp": 0.0,
+      "minilm_vq_separability": {
+        "vc1000": 0.4600328207015991,
+        "vc10000": 0.4600328207015991,
+        "vc100000": 0.4600328207015991
+      }
+    }
+  ],
+  "elapsed_s": 28.44129204750061,
+  "summary": "HARD_PASS: MiniLM is a drop-in substrate encoder (recall>=0.80, within 5pp of Pythia) -- PHASE4A-1 unlock at V_c<=100k confirmed. minilm_recall=1.000 pythia_recall=1.000 (minilm dim=384) | minilm_vq_separability(small Vc)=0.466"
+}

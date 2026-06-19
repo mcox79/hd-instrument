@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_sq4_few_shot_meta_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate one-shot Hebbian is a strong few-shot learner. 5w1s:0.98 20w5s:1.00",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "5w1s": 0.98,
+      "20w5s": 1.0
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "5w1s": 0.99,
+      "20w5s": 1.0
+    }
+  ],
+  "elapsed_s": 0.011243343353271484,
+  "summary": "HARD_PASS: substrate one-shot Hebbian is a strong few-shot learner. 5w1s:0.98 20w5s:1.00"
+}

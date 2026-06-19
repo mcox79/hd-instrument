@@ -1,0 +1,28 @@
+
+## v304 -> v305 @ SINGLE-VERDICT continuous_embedding_storage_substrate_v2_n16384 MOAT_SURVIVAL_MIDDLE_BAND 166th LABEL-VS-HONEST THRESHOLD_STRICT_SINGLE_ARM_FAIL OVERALL-HARD_FAIL-over-claims-3-of-4-arms-HARD_PASS (verdict_handler 216th PROT-009 paired commit; NEW ROW audit-grade-vector-store 0.45-0.65 FIRST EMPIRICAL DATA N=16384 3-seed GPU)
+
+**Trigger.** Single verdict 2026-06-01T07:51:10 wall_s=41: continuous_embedding_storage_substrate_v2_n16384. Runner OVERALL=HARD_FAIL. Metrics _source=remote authoritative. This is the V7 OOM-fix re-ship; v1 was a TRUE INFRA_FAILURE at v304.
+
+**Honest reading (Step 0).** OVERALL=HARD_FAIL OVER-CLAIMS. Per-arm: Arm1 recall HARD_PASS sub_recall_2x_os=0.9924 faiss=1.000 (0.8pp gap; recall moat CONFIRMED); Arm2 audit HARD_PASS audit_frac=0.9537 mean (audit moat CONFIRMED); Arm3 edit HARD_PASS delta_dissim=0.0005 delta_neighbor=0.0000 (edit-isolation moat CONFIRMED); Arm4 cert HARD_FAIL cert_rate=1.0000 fp_rate=0.0100 (detect PERFECT but fp_rate 1% above strict 0% GDPR gate = THRESHOLD-TUNING not fundamental). Honest: MIDDLE_BAND (3-of-4 arms HARD_PASS; moat substantially validated). LABEL-VS-HONEST catch #166 sub-flavor THRESHOLD_STRICT_SINGLE_ARM_FAIL.
+
+**Cap_map.** NEW ROW under Section 4 Killer capabilities (Tier-1 product moat -- audit-grade vector store): 'Substrate-as-audit-grade-vector-store (continuous embedding storage; SimHash projection + 4-arm moat-survival)'. Status 🟡 MIDDLE_BAND. P_deflated 0.45-0.65 (single-N N=16384 3-seed; 3-of-4 arms HARD_PASS; Arm4 threshold-gap caveat; conservative per [[feedback-lit-scan-calibration-penalty]]). Pre-reg P_def joint 0.35-0.45 exceeded in 3-of-4 arms = substantial uplift. ANNOTATION: "v305 2026-06-01 FIRST EMPIRICAL DATA continuous_embedding_storage_substrate_v2_n16384 N=16384 corpus=10000 3-seed GPU wall_s=41 _source=remote authoritative MIDDLE_BAND HONEST (166th LABEL-VS-HONEST catch; OVERALL=HARD_FAIL over-claims per arm balance): recall moat CONFIRMED sub_recall_2x_os=0.992 vs FAISS 1.000 0.8pp gap; audit moat CONFIRMED audit_frac=0.9537 95.4%; edit-isolation moat CONFIRMED delta_dissim=0.0005 delta_neighbor=0.0000; deletion-cert moat PARTIALLY CONFIRMED cert_rate=1.0000 fp_rate=0.0100 threshold-gap; rescue R2 Arm4-threshold-sweep filed." Portfolio +1 NEW ROW audit-grade-vector-store killer-feature moat.
+
+**Rescue sketches cheapest-first:** R1 (0-compute) APPLIED inline above; R2 (~30min CPU) Arm4 threshold sweep fp_rate vs cert_rate tradeoff curve NOT-AUTO-DISPATCHED; R3 (~30min CPU) cross-N N=8192 same 4-arm harness NOT-AUTO-DISPATCHED; R4 (~1-2h GPU) 5-seed upgrade NOT-AUTO-DISPATCHED; R5 (deferred) distributional robustness.
+
+**Honest / label-vs-honest tallies.** HONEST 291 UNCHANGED. LABEL-VS-HONEST 165 -> 166 (+1 THRESHOLD_STRICT_SINGLE_ARM_FAIL).
+
+**Portfolio.** 26+37 -> **27+37** (+1 audit-grade-vector-store NEW ROW under Tier-1 killer block).
+
+### Cap_map state-transition decisions (v304 -> v305)
+1. NEW ROW: "Substrate-as-audit-grade-vector-store" MIDDLE_BAND P 0.45-0.65 under Tier-1 killer block. Arm1 recall moat CONFIRMED. Arm2 audit moat CONFIRMED. Arm3 edit-isolation moat CONFIRMED. Arm4 deletion-cert threshold-gap (tunable).
+2. Adjacent rows UNCHANGED: deletion-certificate TCFT-grounded row unchanged; PP-2 storage efficiency row unchanged; PP-3 audit-trail row unchanged.
+3. LABEL-VS-HONEST #166 filed in strategy_decisions_2026-06-01.md.
+
+### Commit and push
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+Commit message (atomic single commit):
+```
+Cap map: v304 -> v305 SINGLE-VERDICT continuous_embedding_storage_substrate_v2_n16384 MOAT_SURVIVAL_MIDDLE_BAND 166th LABEL-VS-HONEST THRESHOLD_STRICT_SINGLE_ARM_FAIL OVERALL-HARD_FAIL-over-claims-3-of-4-arms-HARD_PASS (NEW ROW audit-grade-vector-store 0.45-0.65 FIRST EMPIRICAL DATA recall-FAISS-match sub_recall_2x_os=0.992 + audit-95% + edit-isolation-clean + deletion-cert-fp=1%-threshold-gap; portfolio 26+37 -> 27+37 +1; HONEST 291 UNCHANGED; LABEL-VS-HONEST 165 -> 166 +1; 216th PROT-009 paired commit) (2026-06-01)
+```

@@ -1,0 +1,25 @@
+{
+  "anchor_name": "pos_discriminative_multiseed_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: discriminative POS tagger SEED-ROBUST (mean>=0.92, std<=0.01, n=5) -- beats HMM 0.906; TIER A. mean=0.9508 std=0.0008 (n=5 seeds, vals=[0.9511, 0.951, 0.9494, 0.9517, 0.9507], train=1800 sents, 44 tags)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.9508,
+      "std": 0.0008,
+      "vals": [
+        0.9511,
+        0.951,
+        0.9494,
+        0.9517,
+        0.9507
+      ],
+      "n_train": 1800,
+      "n_tags": 44,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 764.8805253505707,
+  "summary": "HARD_PASS: discriminative POS tagger SEED-ROBUST (mean>=0.92, std<=0.01, n=5) -- beats HMM 0.906; TIER A. mean=0.9508 std=0.0008 (n=5 seeds, vals=[0.9511, 0.951, 0.9494, 0.9517, 0.9507], train=1800 sents, 44 tags)"
+}

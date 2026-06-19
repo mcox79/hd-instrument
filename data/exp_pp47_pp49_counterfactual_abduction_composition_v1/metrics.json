@@ -1,0 +1,31 @@
+{
+  "anchor_name": "pp47_pp49_counterfactual_abduction_composition_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 HP conditions met. n_seeds=2 baseline=0.7203(HP>=0.85) cf=0.9705(HP>=0.7,HF<0.4) consistency=0.9705 hp1=0/2 hp2=2/2 hp3=2/2",
+  "N": 1024,
+  "K_LOCS": 20,
+  "SHIFT_STEPS": 3,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.0011584758758544922,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_baseline_cos": 0.773046875,
+      "mean_cf_cos": 0.983203125,
+      "mean_consistency": 0.983203125,
+      "hp1": false,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "mean_baseline_cos": 0.667578125,
+      "mean_cf_cos": 0.9578125,
+      "mean_consistency": 0.9578125,
+      "hp1": false,
+      "hp2": true,
+      "hp3": true
+    }
+  ]
+}

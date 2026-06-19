@@ -1,0 +1,104 @@
+{
+  "verdict": "HATANO_SASA_CAP3_NESS_CROOKS_MIDDLE_BAND",
+  "verdict_msg": "HS-IFT PARTIAL: <exp(-W_ex)>=1.5008; cross_basin_frac=0.402; n_valid_cells=6. Outside hard-pass band [0.95,1.05] OR insufficient cross-basin evidence (need >= 0.05) OR n_valid_cells < 3. Partial cert; needs more data or theoretical adjustment.",
+  "elapsed_s": 1.3899999999557622,
+  "summary": {
+    "hs_identity_val": 1.5008231767736822,
+    "hs_identity_sem": 0.2274915639463812,
+    "cross_basin_frac": 0.4015804597701149,
+    "n_valid_cells": 6,
+    "n_cells_total": 6,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "cells": [
+      {
+        "noise_p": 0.3,
+        "seed": 17,
+        "hs_identity_val": 1.0011890606420928,
+        "cross_basin_frac": 0.034482758620689655,
+        "n_valid_traj": 29,
+        "n_distinct_attractors": 19,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 42,
+        "n_distinct_attractors": 28,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 17,
+        "hs_identity_val": 1.8437500000000002,
+        "cross_basin_frac": 0.375,
+        "n_valid_traj": 8,
+        "n_distinct_attractors": 6,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 15,
+        "n_distinct_attractors": 12,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 17,
+        "hs_identity_val": 2.0,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 1,
+        "n_distinct_attractors": 1,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 23,
+        "hs_identity_val": 2.1599999999999997,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 5,
+        "n_distinct_attractors": 3,
+        "degenerate": false
+      }
+    ]
+  },
+  "config": {
+    "N": 1024,
+    "M": 30,
+    "n_traj_per_cell": 50,
+    "noise_levels": [
+      0.3,
+      0.4,
+      0.5
+    ],
+    "seeds": [
+      17,
+      23
+    ],
+    "max_iter": 30,
+    "beta": 1.5,
+    "glauber_steps": 40,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "smoke": true
+  }
+}

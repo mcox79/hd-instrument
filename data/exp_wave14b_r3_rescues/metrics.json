@@ -1,0 +1,46 @@
+{
+  "K": 32,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "all_results": [
+    {
+      "seed": 17,
+      "bpc_a_initial": 3.7610359964855284,
+      "results": {
+        "replay_R10_only": 4.655098963750015,
+        "replay_R10_R3default": 4.7930470210157825,
+        "replay_R10_R3kscaled": 6.239044110991782,
+        "replay_R10_R3triples": 4.655098962196324
+      }
+    },
+    {
+      "seed": 23,
+      "bpc_a_initial": 3.789734801842134,
+      "results": {
+        "replay_R10_only": 4.60812280319116,
+        "replay_R10_R3default": 4.754604825516143,
+        "replay_R10_R3kscaled": 6.195320698045055,
+        "replay_R10_R3triples": 4.60812279853009
+      }
+    },
+    {
+      "seed": 31,
+      "bpc_a_initial": 3.739141121838974,
+      "results": {
+        "replay_R10_only": 4.634124170118262,
+        "replay_R10_R3default": 4.771497030387329,
+        "replay_R10_R3kscaled": 6.207181508326746,
+        "replay_R10_R3triples": 4.6341241670108815
+      }
+    }
+  ],
+  "mean_bwt": {
+    "replay_R10_only": -0.8691446722975997,
+    "replay_R10_R3default": -1.0097456522508728,
+    "replay_R10_R3kscaled": -2.4505447990656486,
+    "replay_R10_R3triples": -0.8691446691902196
+  }
+}

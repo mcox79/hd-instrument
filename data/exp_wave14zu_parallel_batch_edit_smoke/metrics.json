@@ -1,0 +1,54 @@
+{
+  "verdict": "BATCH_VS_SEQ_EQUIVALENT",
+  "verdict_msg": "Batched and sequential equivalent: min(edit, kept) seq=1.000, batch=1.000. Frobenius drift_rel=0.0086.",
+  "elapsed_s": 11.90599999999904,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "seq_edit_acc": 1.0,
+        "seq_kept_acc": 1.0,
+        "batch_edit_acc": 1.0,
+        "batch_kept_acc": 1.0,
+        "frob_diff_rel": 0.008590690214586494,
+        "per_seed": [
+          {
+            "seed": 17,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.008590690214586494
+          }
+        ]
+      },
+      "correlated": {
+        "seq_edit_acc": 1.0,
+        "seq_kept_acc": 1.0,
+        "batch_edit_acc": 1.0,
+        "batch_kept_acc": 1.0,
+        "frob_diff_rel": 0.15901303732216956,
+        "per_seed": [
+          {
+            "seed": 17,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.15901303732216956
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 256,
+    "n_edit": 5,
+    "n_kept": 20,
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

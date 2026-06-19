@@ -1,0 +1,32 @@
+{
+  "verdict": "S13_HARD_PASS",
+  "verdict_msg": "NOVEL_QUERY_OPEN: max_b=1.000 max_d=1.000 max_e=1.000 depths=[3]",
+  "elapsed_s": 0.17,
+  "summary": {
+    "anchor": "novel_query_construction_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depths": [
+      3
+    ],
+    "K_paths": 100,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "n_queries": 16,
+        "path_b_acc": 1.0,
+        "path_d_acc": 1.0,
+        "path_e_auc": 1.0
+      }
+    ],
+    "verdict": "S13_HARD_PASS",
+    "verdict_msg": "NOVEL_QUERY_OPEN: max_b=1.000 max_d=1.000 max_e=1.000 depths=[3]",
+    "elapsed_s": 0.17
+  }
+}

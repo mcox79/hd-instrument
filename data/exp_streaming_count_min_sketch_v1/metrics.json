@@ -1,0 +1,17 @@
+{
+  "anchor_name": "streaming_count_min_sketch_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Count-Min Sketch point-query error <0.1pct of stream for all heavy items -- sublinear-memory frequency estimation works. max_err=1 (0.0050 pct of N=20000) heavy=22",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "max_err": 1,
+      "rel": 5e-05,
+      "n": 20000,
+      "heavy": 22
+    }
+  ],
+  "elapsed_s": 0.027984142303466797,
+  "summary": "HARD_PASS: Count-Min Sketch point-query error <0.1pct of stream for all heavy items -- sublinear-memory frequency estimation works. max_err=1 (0.0050 pct of N=20000) heavy=22"
+}

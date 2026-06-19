@@ -1,0 +1,20 @@
+{
+  "anchor_name": "core_refresh_scale_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: temporal refresh-cycle self-mod is SCALE-INVARIANT -- core recall >=0.90 even at 50000 edits. The decay window bounds active capacity so core retention holds at lifelong scale. Self-mod stability via TIME confirmed at production scale. by-edits={'5000': 1.0, '20000': 1.0, '50000': 1.0} (max=50000 edits: 1.000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall_by_edits": {
+        "5000": 1.0,
+        "20000": 1.0,
+        "50000": 1.0
+      },
+      "recall_at_max": 1.0,
+      "max_edits": 50000
+    }
+  ],
+  "elapsed_s": 277.4717833995819,
+  "summary": "HARD_PASS: temporal refresh-cycle self-mod is SCALE-INVARIANT -- core recall >=0.90 even at 50000 edits. The decay window bounds active capacity so core retention holds at lifelong scale. Self-mod stability via TIME confirmed at production scale. by-edits={'5000': 1.0, '20000': 1.0, '50000': 1.0} (max=50000 edits: 1.000)"
+}

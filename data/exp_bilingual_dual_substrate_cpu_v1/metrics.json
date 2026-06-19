@@ -1,0 +1,17 @@
+{
+  "anchor_name": "bilingual_dual_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hub-and-spoke interlingua translation -- A->B and A->C (unseen pair, pivoted through the SAME shared concepts) both >=0.85. N-language translation scales LINEARLY (N codebooks) not N^2 (pairs), substrate-only. A->B=0.997 A->C-pivot=1.000 (NC=400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ab_acc": 0.997,
+      "ac_pivot_acc": 1.0,
+      "n_concepts": 400,
+      "n_lang": 4
+    }
+  ],
+  "elapsed_s": 94.3317928314209,
+  "summary": "HARD_PASS: hub-and-spoke interlingua translation -- A->B and A->C (unseen pair, pivoted through the SAME shared concepts) both >=0.85. N-language translation scales LINEARLY (N codebooks) not N^2 (pairs), substrate-only. A->B=0.997 A->C-pivot=1.000 (NC=400)"
+}

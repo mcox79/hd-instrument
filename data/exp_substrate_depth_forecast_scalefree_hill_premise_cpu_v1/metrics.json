@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_depth_forecast_scalefree_hill_premise_cpu_v1",
+  "verdict": "FORECAST_SUSPECT",
+  "verdict_msg": "FORECAST-SUSPECT: Hill alpha 1.45 or premise count 1.00 outside the Mathlib-like band -> re-derive the depth-7+ forecast before committing LANE B authoring (scale-free priors may not fully apply). in-degree Hill alpha=1.450 (Mathlib ref ~1.81; scale-free if heavy-tailed); avg premise count/goal=1.00; max longest-path=3 hist={'>=3': 3, '>=5': 0, '>=7': 0}. (forecast validity = does the substrate dependency graph match the scale-free priors the depth-7+ extrapolation assumes?)",
+  "summary": "FORECAST-SUSPECT: Hill alpha 1.45 or premise count 1.00 outside the Mathlib-like band -> re-derive the depth-7+ forecast before committing LANE B authoring (scale-free priors may not fully apply). in-degree Hill alpha=1.450 (Mathlib ref ~1.81; scale-free if heavy-tailed); avg premise count/goal=1.00; max longest-path=3 hist={'>=3': 3, '>=5': 0, '>=7': 0}. (forecast validity = does the substrate dependency graph match the scale-free priors the depth-7+ extrapolation assumes?)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hill_alpha": 1.45,
+      "n_tail": 51,
+      "avg_premise_count": 1.0,
+      "n_goals": 109,
+      "max_longest_path": 3,
+      "longest_hist": {
+        ">=3": 3,
+        ">=5": 0,
+        ">=7": 0
+      },
+      "n_indeg_nonzero": 57
+    }
+  ],
+  "elapsed_s": 1.7924222946166992
+}

@@ -1,0 +1,18 @@
+{
+  "anchor_name": "pp50_kappa3_delta_alpha_n16384_v2_n16384",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-50 kappa_3 delta-alpha sensitivity at N=16384. NLO sigma_g_crit=0.833 envelope confirmed. delta=0.001:sigma_sep=11.8(n=5) | delta=0.010:sigma_sep=117.8(n=5) | delta=0.040:sigma_sep=407.2(n=5) | n_seeds=5 N=16384",
+  "N": 16384,
+  "n_active": 16384,
+  "run_mode": "full",
+  "alpha_base": 0.05,
+  "delta_alphas": [
+    0.04,
+    0.01,
+    0.001
+  ],
+  "n_probes_sens": 2000,
+  "n_seeds": 5,
+  "elapsed_s": 1.3672502040863037,
+  "peak_gpu_gb": 1.516568576
+}

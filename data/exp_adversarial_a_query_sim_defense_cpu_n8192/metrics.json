@@ -1,0 +1,46 @@
+{
+  "verdict": "AQS_CPU_HARD_PASS",
+  "verdict_msg": "DEFENSE_CPU_CONFIRMED n_cells=2. mean def=1.000 fp=0.000 min_def=1.000 max_fp=0.000 | M=256: def=1.000 fp=0.000 | M=512: def=1.000 fp=0.000",
+  "elapsed_s": 0.08,
+  "summary": {
+    "anchor": "adversarial_a_query_sim_defense_cpu_n8192",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      256,
+      512
+    ],
+    "n_adv": 8,
+    "n_leg": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ok": true,
+        "n_adv": 8,
+        "n_leg": 16,
+        "a_query_sim": {
+          "defense_rate": 1.0,
+          "fp_rate": 0.0
+        }
+      },
+      {
+        "seed": 17,
+        "M": 512,
+        "ok": true,
+        "n_adv": 8,
+        "n_leg": 16,
+        "a_query_sim": {
+          "defense_rate": 1.0,
+          "fp_rate": 0.0
+        }
+      }
+    ],
+    "verdict": "AQS_CPU_HARD_PASS",
+    "verdict_msg": "DEFENSE_CPU_CONFIRMED n_cells=2. mean def=1.000 fp=0.000 min_def=1.000 max_fp=0.000 | M=256: def=1.000 fp=0.000 | M=512: def=1.000 fp=0.000",
+    "elapsed_s": 0.08
+  }
+}

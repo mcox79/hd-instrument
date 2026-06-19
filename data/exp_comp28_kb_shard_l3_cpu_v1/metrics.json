@@ -1,0 +1,17 @@
+{
+  "anchor_name": "comp28_kb_shard_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: production-scale KB retrieval by feature >= 0.80 -- substrate indexes 40 shards of ~1000 atoms each and retrieves by top-tier feature; production-granularity composition holds. KB recall=1.000 (N=40 shards, M=1000 atoms/shard)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "n_shard": 40,
+      "m_body": 1000,
+      "label": "KB"
+    }
+  ],
+  "elapsed_s": 602.2054014205933,
+  "summary": "HARD_PASS: production-scale KB retrieval by feature >= 0.80 -- substrate indexes 40 shards of ~1000 atoms each and retrieves by top-tier feature; production-granularity composition holds. KB recall=1.000 (N=40 shards, M=1000 atoms/shard)"
+}

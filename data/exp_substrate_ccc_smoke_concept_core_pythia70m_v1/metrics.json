@@ -1,0 +1,44 @@
+{
+  "anchor_name": "substrate_ccc_smoke_concept_core_pythia70m_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: VQ-alignment or substrate-capacity failure. retrieved=20% of held-out transitions (cos>=0.70); V_c=64 N=4096 chains=250",
+  "N": 4096,
+  "V_c": 64,
+  "model": "EleutherAI/pythia-70m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "V_c": 64,
+      "n_chains": 250,
+      "n_transitions": 750,
+      "retrieved": 4,
+      "n_test": 10,
+      "frac": 0.4
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "V_c": 64,
+      "n_chains": 250,
+      "n_transitions": 750,
+      "retrieved": 1,
+      "n_test": 10,
+      "frac": 0.1
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "V_c": 64,
+      "n_chains": 250,
+      "n_transitions": 750,
+      "retrieved": 1,
+      "n_test": 10,
+      "frac": 0.1
+    }
+  ],
+  "elapsed_s": 3652.8058412075043,
+  "summary": "HARD_FAIL: VQ-alignment or substrate-capacity failure. retrieved=20% of held-out transitions (cos>=0.70); V_c=64 N=4096 chains=250"
+}

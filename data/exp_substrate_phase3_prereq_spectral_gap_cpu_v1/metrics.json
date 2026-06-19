@@ -1,0 +1,31 @@
+{
+  "anchor_name": "substrate_phase3_prereq_spectral_gap_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Pattern C VIABLE on full typed-operator graph (largest-CC >=50%% + Fiedler >=0.01; random-walk mixes). SHARES_MATH-only graph is sparse/fragmented (expected; few bridges). Phase-3 spectral prereq: SHARES_MATH graph (nodes=56, edges=88, components=19, largest-CC=12=21%, Fiedler=0.04578); full typed-operator graph (nodes=2486, edges=4762, components=142, largest-CC=1536=62%, Fiedler=0.01796).",
+  "summary": "Pattern C VIABLE on full typed-operator graph (largest-CC >=50%% + Fiedler >=0.01; random-walk mixes). SHARES_MATH-only graph is sparse/fragmented (expected; few bridges). Phase-3 spectral prereq: SHARES_MATH graph (nodes=56, edges=88, components=19, largest-CC=12=21%, Fiedler=0.04578); full typed-operator graph (nodes=2486, edges=4762, components=142, largest-CC=1536=62%, Fiedler=0.01796).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "shares_math": {
+        "graph": "SHARES_MATH-only",
+        "n_nodes_with_edges": 56,
+        "n_undirected_edges": 88,
+        "n_components": 19,
+        "largest_cc": 12,
+        "largest_cc_frac": 0.214,
+        "fiedler_lambda2": 0.04578
+      },
+      "full_graph": {
+        "graph": "full-typed-operator",
+        "n_nodes_with_edges": 2486,
+        "n_undirected_edges": 4762,
+        "n_components": 142,
+        "largest_cc": 1536,
+        "largest_cc_frac": 0.618,
+        "fiedler_lambda2": 0.01796
+      }
+    }
+  ],
+  "elapsed_s": 0.31435275077819824
+}

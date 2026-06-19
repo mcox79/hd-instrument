@@ -1,0 +1,37 @@
+{
+  "anchor": "c2_order_param_id_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_frac": 4.0,
+  "beta_sweep": [
+    4.0,
+    8.0,
+    16.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "M_frac": 4.0,
+      "M": 4096,
+      "beta_sweep": [
+        4.0,
+        8.0,
+        16.0
+      ],
+      "n_basins_by_beta": [
+        195,
+        195,
+        195
+      ],
+      "nb_lo": 195,
+      "nb_hi": 195,
+      "basin_ratio": 1.0
+    }
+  ],
+  "verdict": "C2_HARD_FAIL",
+  "verdict_msg": "FLAT_BASIN_COUNT: ratio=1.00 < 1.1. pass_seeds=0/1 mean_ratio=1.00 mean_nb_lo(b=8)=195.0 mean_nb_hi(b=16)=195.0 HP_ratio=2.0 N=1024",
+  "elapsed_s": 1.0
+}

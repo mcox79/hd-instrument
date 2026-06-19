@@ -1,0 +1,129 @@
+{
+  "total_findings": 17,
+  "classifications": {
+    "SECOND_ORDER": 17
+  },
+  "drill_triggers": [],
+  "verdicts": [
+    {
+      "finding_id": "F06_layer3_eq_01",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.6,
+      "rationale": "No prior relation between math::T3/hmm_emission and math::T2_FAM/graph_traversal; finding extends substrate",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F06_layer3_eq_02",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.6,
+      "rationale": "No prior relation between math::T3/bayesian_inference and math::T2_FAM/graph_traversal; finding extends substrate",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F06_layer3_eq_03",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.6,
+      "rationale": "No prior relation between math::T1/shannon_entropy and math::T3/answer_consistency_weak_labels; finding extends substrate",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F06_layer3_eq_04",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.6,
+      "rationale": "No prior relation between math::T3/em_algorithm and math::T2_FAM/graph_traversal; finding extends substrate",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F06_layer3_eq_05",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.6,
+      "rationale": "No prior relation between math::T3/forward_algorithm and math::T2_FAM/graph_traversal; finding extends substrate",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_0",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_1",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_2",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_3",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_4",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_5",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_6",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_7",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_8",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_9",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_10",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    },
+    {
+      "finding_id": "F09_candidate_11",
+      "classification": "SECOND_ORDER",
+      "confidence": 0.3,
+      "rationale": "No claim relation specified; defaulting to second-order (extending unstructured space)",
+      "drill_trigger": false
+    }
+  ],
+  "surprise_rate": 0.0
+}

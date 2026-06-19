@@ -1,0 +1,15 @@
+{
+  "anchor_name": "image_schema_real_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: grounding purity <0.45 -- polysemy is the killer; synthetic primitive does NOT survive real abstract concepts. cluster-purity=0.342 (polysemy+correlation)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cluster_purity": 0.342,
+      "n_concepts": 200
+    }
+  ],
+  "elapsed_s": 40.28569173812866,
+  "summary": "HARD_FAIL: grounding purity <0.45 -- polysemy is the killer; synthetic primitive does NOT survive real abstract concepts. cluster-purity=0.342 (polysemy+correlation)"
+}

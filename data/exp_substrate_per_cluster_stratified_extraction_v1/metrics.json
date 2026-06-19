@@ -1,0 +1,68 @@
+{
+  "anchor_name": "substrate_per_cluster_stratified_extraction_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: >=0.95 coverage at 10-100x speedup. stratified: {'sp10': (1.0, 12.0), 'sp100': (1.0, 12.0), 'sp1000': (1.0, 12.0)}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_tok": 40000,
+      "by_speedup": {
+        "sp10": {
+          "coverage": 1.0,
+          "actual_speedup": 12.121212121212121
+        },
+        "sp100": {
+          "coverage": 1.0,
+          "actual_speedup": 12.121212121212121
+        },
+        "sp1000": {
+          "coverage": 1.0,
+          "actual_speedup": 12.121212121212121
+        }
+      },
+      "min_coverage": 1.0
+    },
+    {
+      "seed": 17,
+      "n_tok": 40000,
+      "by_speedup": {
+        "sp10": {
+          "coverage": 1.0,
+          "actual_speedup": 11.926058437686345
+        },
+        "sp100": {
+          "coverage": 1.0,
+          "actual_speedup": 11.926058437686345
+        },
+        "sp1000": {
+          "coverage": 1.0,
+          "actual_speedup": 11.926058437686345
+        }
+      },
+      "min_coverage": 1.0
+    },
+    {
+      "seed": 23,
+      "n_tok": 40000,
+      "by_speedup": {
+        "sp10": {
+          "coverage": 1.0,
+          "actual_speedup": 11.534025374855824
+        },
+        "sp100": {
+          "coverage": 1.0,
+          "actual_speedup": 11.534025374855824
+        },
+        "sp1000": {
+          "coverage": 1.0,
+          "actual_speedup": 11.534025374855824
+        }
+      },
+      "min_coverage": 1.0
+    }
+  ],
+  "elapsed_s": 4121.112696170807,
+  "summary": "MIDDLE_BAND: >=0.95 coverage at 10-100x speedup. stratified: {'sp10': (1.0, 12.0), 'sp100': (1.0, 12.0), 'sp1000': (1.0, 12.0)}"
+}

@@ -1,0 +1,8 @@
+{
+  "N": 4096,
+  "K": 4,
+  "NUM_FACTS": 100,
+  "pos_accuracy": 1.0,
+  "neg_accuracy": 1.0,
+  "mean_accuracy": 1.0
+}

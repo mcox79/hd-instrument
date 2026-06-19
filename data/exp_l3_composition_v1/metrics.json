@@ -1,0 +1,37 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "L=3 composition: mean_acc=1.000 [HP: >0.55], n_hp=2/2, N=512, n_entities=10, alpha=0.0195",
+  "mean_accuracy": 1.0,
+  "n_hp_seeds": 2,
+  "n_seeds": 2,
+  "N_production": 4096,
+  "N_run": 512,
+  "n_entities": 10,
+  "alpha_per_level": 0.01953125,
+  "elapsed_s": 0.04623866081237793,
+  "run_mode": "smoke",
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 512,
+      "n_entities": 10,
+      "alpha": 0.01953125,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "min_accuracy": 1.0,
+      "max_accuracy": 1.0,
+      "hp": true
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "n_entities": 10,
+      "alpha": 0.01953125,
+      "mean_accuracy": 1.0,
+      "std_accuracy": 0.0,
+      "min_accuracy": 1.0,
+      "max_accuracy": 1.0,
+      "hp": true
+    }
+  ]
+}

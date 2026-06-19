@@ -1,0 +1,82 @@
+{
+  "anchor_name": "combo3_pp51_5method_on_implicit_gram_v2_cert_fix_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/5 HP. mean_rel tr1=3.53e-03 tr2=3.28e-03 tr3=3.31e-03 cert_diff=0.00e+00 hp1=0/5 hp2=0/5 hp3=0/5 hp4=5/5 hp5=5/5 N=4096",
+  "N": 4096,
+  "M": 204,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.19583606719970703,
+  "per_seed": [
+    {
+      "seed": 7,
+      "rel_tr1": 0.0005337975684350248,
+      "rel_tr2": 0.00021382168170396053,
+      "rel_tr3": 0.0007775550381697587,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 3,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.121864704
+    },
+    {
+      "seed": 17,
+      "rel_tr1": 0.004162753435111135,
+      "rel_tr2": 0.003557400967497385,
+      "rel_tr3": 0.0032021213965020994,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 3,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.121864704
+    },
+    {
+      "seed": 23,
+      "rel_tr1": 0.002265858202675949,
+      "rel_tr2": 0.0018898808251313318,
+      "rel_tr3": 0.0017563005193857086,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 3,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.121864704
+    },
+    {
+      "seed": 31,
+      "rel_tr1": 0.005697967555623302,
+      "rel_tr2": 0.005849255919804437,
+      "rel_tr3": 0.00592595702402513,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 3,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.121864704
+    },
+    {
+      "seed": 41,
+      "rel_tr1": 0.005013607487031059,
+      "rel_tr2": 0.0048848648548055745,
+      "rel_tr3": 0.004864480678523609,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 3,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.121864704
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "verdict": "CAL_NO_GAIN",
+  "verdict_msg": "Soft and clip indistinguishable. Brier soft=0.267 clip=0.151.",
+  "elapsed_s": 0.4370000000053551,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "codebook_size": 1024,
+    "M_list": [
+      50,
+      200
+    ],
+    "n_probes": 200,
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_M": [
+    {
+      "adaptive_ece_soft": 0.4817323870724067,
+      "brier_soft": 0.4798339009284973,
+      "acc_soft": 0.48500001430511475,
+      "mean_conf_soft": 0.00470139691606164,
+      "adaptive_ece_clip": 0.2830852860119194,
+      "brier_clip": 0.28244319558143616,
+      "acc_clip": 0.2849999964237213,
+      "mean_conf_clip": 0.003982581663876772,
+      "M": 50,
+      "n_probes_total": 200
+    },
+    {
+      "adaptive_ece_soft": 0.05468559794826434,
+      "brier_soft": 0.05484331026673317,
+      "acc_soft": 0.054999999701976776,
+      "mean_conf_soft": 0.0014046014985069633,
+      "adaptive_ece_clip": 0.020847291301470252,
+      "brier_clip": 0.01994640752673149,
+      "acc_clip": 0.019999999552965164,
+      "mean_conf_clip": 0.001404041307978332,
+      "M": 200,
+      "n_probes_total": 200
+    }
+  ],
+  "summary": {
+    "per_M": [
+      {
+        "adaptive_ece_soft": 0.4817323870724067,
+        "brier_soft": 0.4798339009284973,
+        "acc_soft": 0.48500001430511475,
+        "mean_conf_soft": 0.00470139691606164,
+        "adaptive_ece_clip": 0.2830852860119194,
+        "brier_clip": 0.28244319558143616,
+        "acc_clip": 0.2849999964237213,
+        "mean_conf_clip": 0.003982581663876772,
+        "M": 50,
+        "n_probes_total": 200
+      },
+      {
+        "adaptive_ece_soft": 0.05468559794826434,
+        "brier_soft": 0.05484331026673317,
+        "acc_soft": 0.054999999701976776,
+        "mean_conf_soft": 0.0014046014985069633,
+        "adaptive_ece_clip": 0.020847291301470252,
+        "brier_clip": 0.01994640752673149,
+        "acc_clip": 0.019999999552965164,
+        "mean_conf_clip": 0.001404041307978332,
+        "M": 200,
+        "n_probes_total": 200
+      }
+    ]
+  }
+}

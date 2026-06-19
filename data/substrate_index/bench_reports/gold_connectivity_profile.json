@@ -1,0 +1,494 @@
+{
+  "graph": {
+    "relations_files": 11,
+    "walkable_edges": 4722,
+    "nodes_with_edges": 2608,
+    "walk_edges": [
+      "DEPENDS_ON",
+      "INSTANCE_OF",
+      "SHARES_MATH",
+      "SPECIALIZES",
+      "USES"
+    ],
+    "max_hop": 2
+  },
+  "n_atoms": 26272,
+  "incoverage_gold": [
+    "cap_discriminative_perceptron",
+    "cosine_cleanup",
+    "discriminative_learning_family",
+    "discriminative_perceptron_pipeline",
+    "fhrr_unbind",
+    "kl_divergence",
+    "markov_decision_process",
+    "modern_hopfield_ramsauer",
+    "mutual_information",
+    "principal_component_analysis",
+    "q_learning",
+    "singular_value_decomposition",
+    "sparse_distributed_memory",
+    "structured_perceptron_collins"
+  ],
+  "per_gold": [
+    {
+      "gold": "cap_discriminative_perceptron",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 2,
+      "typed": {
+        "USES": 2
+      },
+      "hop2_reach": 5,
+      "hop2_only": 3,
+      "hop1_neighbors_short": [
+        "SCHOOL/cognitive_architecture_family",
+        "SCHOOL/discriminative_learning_family"
+      ],
+      "hop2_reach_short": [
+        "SCHOOL/cognitive_architecture_family",
+        "SCHOOL/discriminative_learning_family",
+        "discriminative_perceptron_pipeline",
+        "structured_perceptron_collins",
+        "unified_compositional_engine"
+      ]
+    },
+    {
+      "gold": "cosine_cleanup",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 5,
+      "typed": {
+        "DEPENDS_ON": 4,
+        "SHARES_MATH": 1
+      },
+      "hop2_reach": 12,
+      "hop2_only": 7,
+      "hop1_neighbors_short": [
+        "SELF/family_cleanup",
+        "research_drill_nl_understanding_universal_unlock_3x_2026-06-11",
+        "research_to_testbed_FINDINGS_12_HISTORIES_VALIDATED_Q1_Q2_Q3_Q4_ANSWERED_2026-06-11",
+        "research_to_testbed_FINDINGS_14_DUAL_LEVERS_Q1_Q2_Q3_Q4_ANSWERED_2026-06-11",
+        "testbed_to_research_INDEX_FINDINGS_12_SOLUTION_HISTORIES_UNIVERSAL_LEVER_QUANTIFIED_2026-06-11"
+      ],
+      "hop2_reach_short": [
+        "SELF/family_cleanup",
+        "algebraic_binding",
+        "beam_search",
+        "cleanup",
+        "context_binding",
+        "cosine_similarity",
+        "research_drill_nl_understanding_universal_unlock_3x_2026-06-11",
+        "research_to_testbed_FINDINGS_12_HISTORIES_VALIDATED_Q1_Q2_Q3_Q4_ANSWERED_2026-06-11",
+        "research_to_testbed_FINDINGS_14_DUAL_LEVERS_Q1_Q2_Q3_Q4_ANSWERED_2026-06-11",
+        "sequence_decoding",
+        "superposition",
+        "testbed_to_research_INDEX_FINDINGS_12_SOLUTION_HISTORIES_UNIVERSAL_LEVER_QUANTIFIED_2026-06-11"
+      ]
+    },
+    {
+      "gold": "discriminative_learning_family",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 1,
+      "typed": {
+        "DEPENDS_ON": 1
+      },
+      "hop2_reach": 6,
+      "hop2_only": 5,
+      "hop1_neighbors_short": [
+        "T2_FAM/discriminative_classification"
+      ],
+      "hop2_reach_short": [
+        "T1/cross_entropy",
+        "T2_FAM/discriminative_classification",
+        "T3/collins_structured_perceptron",
+        "T3/count_nb",
+        "T3/discriminative_perceptron",
+        "T4/discriminative_perceptron_pipeline"
+      ]
+    },
+    {
+      "gold": "discriminative_perceptron_pipeline",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 6,
+      "typed": {
+        "INSTANCE_OF": 4,
+        "USES": 2
+      },
+      "hop2_reach": 17,
+      "hop2_only": 11,
+      "hop1_neighbors_short": [
+        "PP-375_multistep_math",
+        "PP-376_multibench_math",
+        "PP-378_code_algopattern",
+        "SCHOOL/cognitive_architecture_family",
+        "SCHOOL/discriminative_learning_family",
+        "unified_compositional_engine"
+      ],
+      "hop2_reach_short": [
+        "PP-375_multistep_math",
+        "PP-376_multibench_math",
+        "PP-378_code_algopattern",
+        "SCHOOL/cognitive_architecture_family",
+        "SCHOOL/discriminative_learning_family",
+        "answer_consistency_weak_labels",
+        "cap_discriminative_perceptron",
+        "category",
+        "cleanup",
+        "count_nb",
+        "discriminative_perceptron",
+        "forward_algorithm",
+        "gradient_descent",
+        "structured_perceptron_collins",
+        "tier2_schema",
+        "unified_compositional_engine"
+      ]
+    },
+    {
+      "gold": "fhrr_unbind",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 18,
+      "typed": {
+        "DEPENDS_ON": 11,
+        "USES": 7
+      },
+      "hop2_reach": 52,
+      "hop2_only": 34,
+      "hop1_neighbors_short": [
+        "CAP_fhrr_unbind",
+        "PP-225_fact_recall_kb100K",
+        "PP-367_unified_algebra_lang_math",
+        "RETRIEVAL_kb_fact_extensions",
+        "RETRIEVAL_multi_hop",
+        "RETRIEVAL_schema_pp372",
+        "SCHOOL/vsa_family",
+        "exp_dev_to_research_CORRECTION_parse_not_the_gate_2026-06-07",
+        "research_drill_cross_domain_substrate_inspiration_2026-06-06",
+        "research_drill_field_VSA_algebraic_foundation_5x_2026-06-07",
+        "research_drill_substrate_iterative_multihop_3x_2026-06-07",
+        "research_drill_substrate_wikidata_ingest_optimization_2x_2026-06-09",
+        "research_drill_tier5c_substrate_intrinsic_llm_aggressive_5x_2026-06-08",
+        "research_to_exp_dev_multihop_revival_HONEST_CLOSURE_2026-06-07",
+        "research_to_testbed_MATH_CORPUS_BATCH_03_PLAN_2026-06-11",
+        "research_to_testbed_SUBSTRATE_SELF_INDEX_PILOT_2026-06-11",
+        "testbed_to_research_INDEX_FINDINGS_01_2026-06-11",
+        "testbed_to_research_SELF_INDEX_REFINEMENTS_INTEGRATED_2026-06-11"
+      ],
+      "hop2_reach_short": [
+        "CAP_fhrr_unbind",
+        "PP-225_fact_recall_kb100K",
+        "PP-367_unified_algebra_lang_math",
+        "RETRIEVAL_kb_fact_extensions",
+        "RETRIEVAL_multi_hop",
+        "RETRIEVAL_schema_pp372",
+        "SCHOOL/vsa_family",
+        "algebraic_binding",
+        "backward_algorithm",
+        "bayesian_inference",
+        "beam_search",
+        "bundling",
+        "circular_convolution",
+        "cleanup",
+        "cleanup_retrieval",
+        "collins_structured_perceptron",
+        "convex_optimization",
+        "cosine_similarity",
+        "dijkstra",
+        "discrete_optimization",
+        "discriminative_perceptron",
+        "dynamic_programming",
+        "exp_dev_to_research_CORRECTION_parse_not_the_gate_2026-06-07",
+        "fhrr_bind",
+        "field_axioms",
+        "global_discrete_optimization",
+        "graph_topology",
+        "graph_traversal",
+        "hamming_distance",
+        "inner_product",
+        "kl_divergence",
+        "probabilistic_inference",
+        "probability_distribution",
+        "real_field",
+        "research_drill_cross_domain_substrate_inspiration_2026-06-06",
+        "research_drill_field_VSA_algebraic_foundation_5x_2026-06-07",
+        "research_drill_substrate_iterative_multihop_3x_2026-06-07",
+        "research_drill_substrate_wikidata_ingest_optimization_2x_2026-06-09",
+        "research_drill_tier5c_substrate_intrinsic_llm_aggressive_5x_2026-06-08",
+        "research_to_exp_dev_multihop_revival_HONEST_CLOSURE_2026-06-07",
+        "research_to_testbed_MATH_CORPUS_BATCH_03_PLAN_2026-06-11",
+        "research_to_testbed_SUBSTRATE_SELF_INDEX_PILOT_2026-06-11",
+        "role_filler_binding",
+        "sequence_decoding",
+        "shannon_entropy",
+        "superposition",
+        "superposition_aggregation",
+        "testbed_to_research_INDEX_FINDINGS_01_2026-06-11",
+        "testbed_to_research_SELF_INDEX_REFINEMENTS_INTEGRATED_2026-06-11",
+        "tier2_schema",
+        "unit_modulus",
+        "vector_space"
+      ]
+    },
+    {
+      "gold": "kl_divergence",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 26,
+      "typed": {
+        "DEPENDS_ON": 25,
+        "USES": 1
+      },
+      "hop2_reach": 54,
+      "hop2_only": 28,
+      "hop1_neighbors_short": [
+        "CAP_kl_divergence",
+        "research_drill_aesthetic_revival_3x_2026-06-10",
+        "research_drill_autonomous_discovery_5x_2026-06-10",
+        "research_drill_cell3_distillation_alternatives_2x_2026-06-07",
+        "research_drill_cf_rank1_as_substrate_native_rpe_2x_2026-06-04",
+        "research_drill_concept_drift_detection_2x_2026-06-07",
+        "research_drill_concept_vocabulary_vs_sequence_prediction_regime_2x_2026-06-05",
+        "research_drill_continuous_truth_biology_3x_2026-06-09",
+        "research_drill_cross_domain_round5_2026-06-07",
+        "research_drill_embodied_revival_3x_2026-06-10",
+        "research_drill_federated_unlearning_2026-06-02",
+        "research_drill_level3_meta_llm_over_substrate_aggregator_2x_2026-06-04",
+        "research_drill_ness_hidden_objective_substrate_2x_2026-06-04",
+        "research_drill_privacy_failure_mechanism_3x_2026-06-07",
+        "research_drill_residual_encoding_representation_question_2x_2026-06-04",
+        "research_drill_schools_of_thought_lineage_2x_2026-06-11",
+        "research_drill_self_modification_deep_3x_2026-06-10",
+        "research_drill_sparse_activation_extraction_entropy_gated_2x_2026-06-05",
+        "research_drill_substrate_as_training_mechanism_3x_meta_2026-06-04",
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill3_2026-06-07",
+        "research_drill_zkl_alternatives_crazy_ideas_3x_2026-06-07",
+        "research_drill_zkl_realkey_rescue_3x_2026-06-07",
+        "research_to_testbed_FINDINGS_11_TOP15_TRIAGE_ALGEBRA_12X_STRUCTURED_2026-06-11",
+        "research_to_testbed_SUBSTRATE_SELF_INDEX_PILOT_2026-06-11",
+        "testbed_to_research_CELL1_deploy_path_plus_CELL5_design_questions_2026-06-06",
+        "testbed_to_research_CELL5_FD_definition_clarification_2026-06-06"
+      ],
+      "hop2_reach_short": [
+        "CAP_kl_divergence",
+        "astar",
+        "bayesian_inference",
+        "beam_search",
+        "bundling",
+        "circular_convolution",
+        "cleanup",
+        "context_binding",
+        "cosine_similarity",
+        "cross_entropy_loss",
+        "dijkstra",
+        "discrete_optimization",
+        "fhrr_bind",
+        "fhrr_unbind",
+        "field_axioms",
+        "global_discrete_optimization",
+        "graph_topology",
+        "hmm_transition",
+        "inner_product",
+        "kullback_leibler_divergence",
+        "pca_whitening",
+        "probabilistic_inference",
+        "probability_distribution",
+        "real_field",
+        "research_drill_aesthetic_revival_3x_2026-06-10",
+        "research_drill_autonomous_discovery_5x_2026-06-10",
+        "research_drill_cell3_distillation_alternatives_2x_2026-06-07",
+        "research_drill_cf_rank1_as_substrate_native_rpe_2x_2026-06-04",
+        "research_drill_concept_drift_detection_2x_2026-06-07",
+        "research_drill_concept_vocabulary_vs_sequence_prediction_regime_2x_2026-06-05",
+        "research_drill_continuous_truth_biology_3x_2026-06-09",
+        "research_drill_cross_domain_round5_2026-06-07",
+        "research_drill_embodied_revival_3x_2026-06-10",
+        "research_drill_federated_unlearning_2026-06-02",
+        "research_drill_level3_meta_llm_over_substrate_aggregator_2x_2026-06-04",
+        "research_drill_ness_hidden_objective_substrate_2x_2026-06-04",
+        "research_drill_privacy_failure_mechanism_3x_2026-06-07",
+        "research_drill_residual_encoding_representation_question_2x_2026-06-04",
+        "research_drill_schools_of_thought_lineage_2x_2026-06-11",
+        "research_drill_self_modification_deep_3x_2026-06-10",
+        "research_drill_sparse_activation_extraction_entropy_gated_2x_2026-06-05",
+        "research_drill_substrate_as_training_mechanism_3x_meta_2026-06-04",
+        "research_drill_substrate_evaluation_methodology_5x_chain1_drill3_2026-06-07",
+        "research_drill_zkl_alternatives_crazy_ideas_3x_2026-06-07",
+        "research_drill_zkl_realkey_rescue_3x_2026-06-07",
+        "research_to_testbed_FINDINGS_11_TOP15_TRIAGE_ALGEBRA_12X_STRUCTURED_2026-06-11",
+        "research_to_testbed_SUBSTRATE_SELF_INDEX_PILOT_2026-06-11",
+        "role_filler_binding",
+        "shannon_entropy",
+        "superposition",
+        "testbed_to_research_CELL1_deploy_path_plus_CELL5_design_questions_2026-06-06",
+        "testbed_to_research_CELL5_FD_definition_clarification_2026-06-06",
+        "unit_modulus",
+        "vector_space"
+      ]
+    },
+    {
+      "gold": "markov_decision_process",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 0,
+      "hop1_degree": 0,
+      "typed": {},
+      "hop2_reach": 0,
+      "hop2_only": 0,
+      "hop1_neighbors_short": [],
+      "hop2_reach_short": []
+    },
+    {
+      "gold": "modern_hopfield_ramsauer",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 1,
+      "typed": {
+        "USES": 1
+      },
+      "hop2_reach": 4,
+      "hop2_only": 3,
+      "hop1_neighbors_short": [
+        "SCHOOL/hopfield_family"
+      ],
+      "hop2_reach_short": [
+        "SCHOOL/hopfield_family",
+        "amit_gutfreund_sompolinsky_capacity",
+        "cleanup",
+        "sparse_distributed_memory"
+      ]
+    },
+    {
+      "gold": "mutual_information",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 0,
+      "hop1_degree": 0,
+      "typed": {},
+      "hop2_reach": 0,
+      "hop2_only": 0,
+      "hop1_neighbors_short": [],
+      "hop2_reach_short": []
+    },
+    {
+      "gold": "principal_component_analysis",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 1,
+      "typed": {
+        "USES": 1
+      },
+      "hop2_reach": 6,
+      "hop2_only": 5,
+      "hop1_neighbors_short": [
+        "SCHOOL/spectral_observability_family"
+      ],
+      "hop2_reach_short": [
+        "SCHOOL/spectral_observability_family",
+        "kappa_4_free",
+        "mp_bulk_kl",
+        "singular_value_decomposition",
+        "spectral_gap",
+        "tw_edge_z"
+      ]
+    },
+    {
+      "gold": "q_learning",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 0,
+      "hop1_degree": 0,
+      "typed": {},
+      "hop2_reach": 0,
+      "hop2_only": 0,
+      "hop1_neighbors_short": [],
+      "hop2_reach_short": []
+    },
+    {
+      "gold": "singular_value_decomposition",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 1,
+      "typed": {
+        "USES": 1
+      },
+      "hop2_reach": 6,
+      "hop2_only": 5,
+      "hop1_neighbors_short": [
+        "SCHOOL/spectral_observability_family"
+      ],
+      "hop2_reach_short": [
+        "SCHOOL/spectral_observability_family",
+        "kappa_4_free",
+        "mp_bulk_kl",
+        "principal_component_analysis",
+        "spectral_gap",
+        "tw_edge_z"
+      ]
+    },
+    {
+      "gold": "sparse_distributed_memory",
+      "n_qual_ids": 1,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 3,
+      "typed": {
+        "USES": 3
+      },
+      "hop2_reach": 7,
+      "hop2_only": 4,
+      "hop1_neighbors_short": [
+        "SCHOOL/complementary_learning_systems_family",
+        "SCHOOL/hopfield_family",
+        "SCHOOL/sparse_distributed_memory_family"
+      ],
+      "hop2_reach_short": [
+        "SCHOOL/complementary_learning_systems_family",
+        "SCHOOL/hopfield_family",
+        "SCHOOL/sparse_distributed_memory_family",
+        "amit_gutfreund_sompolinsky_capacity",
+        "cleanup",
+        "complementary_learning_systems",
+        "modern_hopfield_ramsauer"
+      ]
+    },
+    {
+      "gold": "structured_perceptron_collins",
+      "n_qual_ids": 2,
+      "qual_ids_with_edges": 1,
+      "hop1_degree": 5,
+      "typed": {
+        "USES": 5
+      },
+      "hop2_reach": 13,
+      "hop2_only": 8,
+      "hop1_neighbors_short": [
+        "CAP_discriminative_perceptron",
+        "PP-375_multistep_math",
+        "PP-376_multibench_math",
+        "PP-378_code_algopattern",
+        "SCHOOL/discriminative_learning_family"
+      ],
+      "hop2_reach_short": [
+        "CAP_discriminative_perceptron",
+        "PP-375_multistep_math",
+        "PP-376_multibench_math",
+        "PP-378_code_algopattern",
+        "SCHOOL/discriminative_learning_family",
+        "answer_consistency_weak_labels",
+        "cap_discriminative_perceptron",
+        "count_nb",
+        "discriminative_perceptron",
+        "discriminative_perceptron_pipeline",
+        "forward_algorithm",
+        "gradient_descent",
+        "tier2_schema"
+      ]
+    }
+  ],
+  "agg": {
+    "hop1_median": 1.5,
+    "hop1_min": 0,
+    "hop1_max": 26,
+    "hop2_median": 6.0,
+    "hop2_min": 0,
+    "hop2_max": 54
+  }
+}

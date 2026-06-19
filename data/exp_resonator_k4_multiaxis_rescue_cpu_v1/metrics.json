@@ -1,0 +1,15 @@
+{
+  "anchor_name": "resonator_k4_multiaxis_rescue_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: K=4 <0.65 even multi-axis -- 4-factor joint disentangling is a hard limit. K=4 success=0.280 at N=8192",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.28,
+      "N": 8192
+    }
+  ],
+  "elapsed_s": 1.4225618839263916,
+  "summary": "HARD_FAIL: K=4 <0.65 even multi-axis -- 4-factor joint disentangling is a hard limit. K=4 success=0.280 at N=8192"
+}

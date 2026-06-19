@@ -1,0 +1,332 @@
+{
+  "anchor_name": "substrate_training_n_threshold_sweep_512_8192_v1_gpu",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL(HF2): gap@1024 within 2x gap@8192 -> N not the relevant axis. bipolar_gap[N512:1.184 N1024:1.200 N2048:1.228 N3072:1.240 N4096:1.253 N8192:1.241] continuous_gap[N512:1.185 N1024:1.227 N2048:1.204 N3072:1.184 N4096:1.234 N8192:1.251]",
+  "codings": [
+    "bipolar",
+    "continuous"
+  ],
+  "N_grid": [
+    512,
+    1024,
+    2048,
+    3072,
+    4096,
+    8192
+  ],
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_steps": 1000,
+  "elapsed_s": 97.26615571975708,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": {
+        "bipolar_N512": {
+          "coding": "bipolar",
+          "N": 512,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.631273031234741,
+          "gap_nats": 1.1973683652543539,
+          "diversity": 0.2391304347826087
+        },
+        "bipolar_N1024": {
+          "coding": "bipolar",
+          "N": 1024,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6318421363830566,
+          "gap_nats": 1.1967992601060384,
+          "diversity": 0.2608695652173913
+        },
+        "bipolar_N2048": {
+          "coding": "bipolar",
+          "N": 2048,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.650071144104004,
+          "gap_nats": 1.1785702523850912,
+          "diversity": 0.32608695652173914
+        },
+        "bipolar_N3072": {
+          "coding": "bipolar",
+          "N": 3072,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.554865837097168,
+          "gap_nats": 1.273775559391927,
+          "diversity": 0.34782608695652173
+        },
+        "bipolar_N4096": {
+          "coding": "bipolar",
+          "N": 4096,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.5930211544036865,
+          "gap_nats": 1.2356202420854085,
+          "diversity": 0.34782608695652173
+        },
+        "bipolar_N8192": {
+          "coding": "bipolar",
+          "N": 8192,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.585310697555542,
+          "gap_nats": 1.243330698933553,
+          "diversity": 0.30434782608695654
+        },
+        "continuous_N512": {
+          "coding": "continuous",
+          "N": 512,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6775190830230713,
+          "gap_nats": 1.1511223134660238,
+          "diversity": 0.2608695652173913
+        },
+        "continuous_N1024": {
+          "coding": "continuous",
+          "N": 1024,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6526811122894287,
+          "gap_nats": 1.1759602841996664,
+          "diversity": 0.2391304347826087
+        },
+        "continuous_N2048": {
+          "coding": "continuous",
+          "N": 2048,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.59928297996521,
+          "gap_nats": 1.2293584165238851,
+          "diversity": 0.2826086956521739
+        },
+        "continuous_N3072": {
+          "coding": "continuous",
+          "N": 3072,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6840338706970215,
+          "gap_nats": 1.1446075257920736,
+          "diversity": 0.2826086956521739
+        },
+        "continuous_N4096": {
+          "coding": "continuous",
+          "N": 4096,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.595057487487793,
+          "gap_nats": 1.233583909001302,
+          "diversity": 0.34782608695652173
+        },
+        "continuous_N8192": {
+          "coding": "continuous",
+          "N": 8192,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.583909273147583,
+          "gap_nats": 1.244732123341512,
+          "diversity": 0.21739130434782608
+        }
+      },
+      "peak_gpu_gb": 0.823773184,
+      "elapsed_s": 31.83922052383423
+    },
+    {
+      "seed": 17,
+      "cells": {
+        "bipolar_N512": {
+          "coding": "bipolar",
+          "N": 512,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6910910606384277,
+          "gap_nats": 1.1375503358506673,
+          "diversity": 0.32608695652173914
+        },
+        "bipolar_N1024": {
+          "coding": "bipolar",
+          "N": 1024,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.5901079177856445,
+          "gap_nats": 1.2385334787034505,
+          "diversity": 0.32608695652173914
+        },
+        "bipolar_N2048": {
+          "coding": "bipolar",
+          "N": 2048,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6158552169799805,
+          "gap_nats": 1.2127861795091146,
+          "diversity": 0.30434782608695654
+        },
+        "bipolar_N3072": {
+          "coding": "bipolar",
+          "N": 3072,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.5962932109832764,
+          "gap_nats": 1.2323481855058187,
+          "diversity": 0.2826086956521739
+        },
+        "bipolar_N4096": {
+          "coding": "bipolar",
+          "N": 4096,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.575692892074585,
+          "gap_nats": 1.2529485044145101,
+          "diversity": 0.2391304347826087
+        },
+        "bipolar_N8192": {
+          "coding": "bipolar",
+          "N": 8192,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.5995004177093506,
+          "gap_nats": 1.2291409787797445,
+          "diversity": 0.2608695652173913
+        },
+        "continuous_N512": {
+          "coding": "continuous",
+          "N": 512,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6029131412506104,
+          "gap_nats": 1.2257282552384847,
+          "diversity": 0.30434782608695654
+        },
+        "continuous_N1024": {
+          "coding": "continuous",
+          "N": 1024,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.5811009407043457,
+          "gap_nats": 1.2475404557847494,
+          "diversity": 0.2826086956521739
+        },
+        "continuous_N2048": {
+          "coding": "continuous",
+          "N": 2048,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.594982624053955,
+          "gap_nats": 1.23365877243514,
+          "diversity": 0.34782608695652173
+        },
+        "continuous_N3072": {
+          "coding": "continuous",
+          "N": 3072,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6347577571868896,
+          "gap_nats": 1.1938836393022054,
+          "diversity": 0.2826086956521739
+        },
+        "continuous_N4096": {
+          "coding": "continuous",
+          "N": 4096,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.5404670238494873,
+          "gap_nats": 1.2881743726396078,
+          "diversity": 0.2826086956521739
+        },
+        "continuous_N8192": {
+          "coding": "continuous",
+          "N": 8192,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.558622360229492,
+          "gap_nats": 1.2700190362596029,
+          "diversity": 0.2826086956521739
+        }
+      },
+      "peak_gpu_gb": 0.823773184,
+      "elapsed_s": 32.27953481674194
+    },
+    {
+      "seed": 23,
+      "cells": {
+        "bipolar_N512": {
+          "coding": "bipolar",
+          "N": 512,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.610919952392578,
+          "gap_nats": 1.217721444096517,
+          "diversity": 0.2391304347826087
+        },
+        "bipolar_N1024": {
+          "coding": "bipolar",
+          "N": 1024,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.66520094871521,
+          "gap_nats": 1.1634404477738851,
+          "diversity": 0.30434782608695654
+        },
+        "bipolar_N2048": {
+          "coding": "bipolar",
+          "N": 2048,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.537344217300415,
+          "gap_nats": 1.29129717918868,
+          "diversity": 0.30434782608695654
+        },
+        "bipolar_N3072": {
+          "coding": "bipolar",
+          "N": 3072,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.615309715270996,
+          "gap_nats": 1.213331681218099,
+          "diversity": 0.2826086956521739
+        },
+        "bipolar_N4096": {
+          "coding": "bipolar",
+          "N": 4096,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.558861017227173,
+          "gap_nats": 1.2697803792619222,
+          "diversity": 0.30434782608695654
+        },
+        "bipolar_N8192": {
+          "coding": "bipolar",
+          "N": 8192,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.577272653579712,
+          "gap_nats": 1.2513687429093832,
+          "diversity": 0.2608695652173913
+        },
+        "continuous_N512": {
+          "coding": "continuous",
+          "N": 512,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.649336099624634,
+          "gap_nats": 1.1793052968644613,
+          "diversity": 0.30434782608695654
+        },
+        "continuous_N1024": {
+          "coding": "continuous",
+          "N": 1024,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.572561025619507,
+          "gap_nats": 1.2560803708695882,
+          "diversity": 0.2608695652173913
+        },
+        "continuous_N2048": {
+          "coding": "continuous",
+          "N": 2048,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6781904697418213,
+          "gap_nats": 1.1504509267472738,
+          "diversity": 0.30434782608695654
+        },
+        "continuous_N3072": {
+          "coding": "continuous",
+          "N": 3072,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.6164777278900146,
+          "gap_nats": 1.2121636685990804,
+          "diversity": 0.2826086956521739
+        },
+        "continuous_N4096": {
+          "coding": "continuous",
+          "N": 4096,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.64705491065979,
+          "gap_nats": 1.181586485829305,
+          "diversity": 0.32608695652173914
+        },
+        "continuous_N8192": {
+          "coding": "continuous",
+          "N": 8192,
+          "uniform_nats": 3.828641396489095,
+          "trained_nats": 2.590945243835449,
+          "gap_nats": 1.2376961526536459,
+          "diversity": 0.21739130434782608
+        }
+      },
+      "peak_gpu_gb": 0.823773184,
+      "elapsed_s": 33.05650210380554
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "verdict": "SPEC_PATH_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: depth_means={2: 1.0} hp_pass=0/0 hf_depths=0/1",
+  "elapsed_s": 0.1,
+  "summary": {
+    "anchor": "spectral_path_identification_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 32,
+    "depths": [
+      2
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "depth": 2,
+        "M": 32,
+        "seed": 17,
+        "n_pos": 16,
+        "n_neg": 16,
+        "auc": 1.0
+      }
+    ],
+    "verdict": "SPEC_PATH_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: depth_means={2: 1.0} hp_pass=0/0 hf_depths=0/1",
+    "elapsed_s": 0.1
+  }
+}

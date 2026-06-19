@@ -1,0 +1,25 @@
+{
+  "anchor_name": "substrate_tier1_ptb_accuracy_prover_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 Tier-1 modules meet the production-quality bar at held-out scale (HMM 0.9028, perceptron 0.9149, BIO F1 0.9307). DECISION 24b Prover production-quality check (UD en_ewt POS; conll2000 BIO proxy). HMM viterbi_decode tag_acc=0.9028 (bar 0.90); StructuredPerceptron tag_acc=0.9149 (bar 0.90; train=5000 sents x 6 epochs subset); BIO labeler F1=0.9307 (bar 0.50; conll2000_chunking). Report ACTUAL (10th rule); a FAIL flags PRODUCTION-UNVERIFIED, does NOT remove ONLINE counting (executes-on-live-query is separate).",
+  "summary": "HARD_PASS: all 3 Tier-1 modules meet the production-quality bar at held-out scale (HMM 0.9028, perceptron 0.9149, BIO F1 0.9307). DECISION 24b Prover production-quality check (UD en_ewt POS; conll2000 BIO proxy). HMM viterbi_decode tag_acc=0.9028 (bar 0.90); StructuredPerceptron tag_acc=0.9149 (bar 0.90; train=5000 sents x 6 epochs subset); BIO labeler F1=0.9307 (bar 0.50; conll2000_chunking). Report ACTUAL (10th rule); a FAIL flags PRODUCTION-UNVERIFIED, does NOT remove ONLINE counting (executes-on-live-query is separate).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_train": 12544,
+      "n_test": 2077,
+      "hmm_pos_tag_acc": 0.9028,
+      "perceptron_pos_tag_acc": 0.9149,
+      "perceptron_train_sents": 5000,
+      "perceptron_epochs": 6,
+      "bio": {
+        "f1": 0.9307,
+        "n_train": 4000,
+        "n_test": 2012,
+        "proxy": "conll2000_chunking"
+      }
+    }
+  ],
+  "elapsed_s": 579.4625878334045
+}

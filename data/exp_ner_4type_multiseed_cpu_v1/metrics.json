@@ -1,0 +1,27 @@
+{
+  "anchor_name": "ner_4type_multiseed_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: NER 4-type CoNLL-equiv multi-seed mean-2SE>=0.64 -- PROMOTE Tier-B->Tier-A (seed-robust; matches literature CoNLL-2003 ~0.65). mean-F1=0.6502 std=0.0071 SE=0.0032 mean-2SE=0.6439 (n=5, vals=[0.638, 0.6537, 0.6598, 0.6493, 0.6504])",
+  "summary": "HARD_PASS: NER 4-type CoNLL-equiv multi-seed mean-2SE>=0.64 -- PROMOTE Tier-B->Tier-A (seed-robust; matches literature CoNLL-2003 ~0.65). mean-F1=0.6502 std=0.0071 SE=0.0032 mean-2SE=0.6439 (n=5, vals=[0.638, 0.6537, 0.6598, 0.6493, 0.6504])",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.6502,
+      "accuracy": 0.6502,
+      "std": 0.0071,
+      "se": 0.0032,
+      "mean_minus_2se": 0.6439,
+      "vals": [
+        0.638,
+        0.6537,
+        0.6598,
+        0.6493,
+        0.6504
+      ],
+      "n_seeds": 5,
+      "n_train": 5982
+    }
+  ],
+  "elapsed_s": 257.0132305622101
+}

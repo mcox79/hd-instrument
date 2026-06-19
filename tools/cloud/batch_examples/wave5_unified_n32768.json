@@ -1,0 +1,52 @@
+[
+  {
+    "anchor": "qd1_spectral_primitives_n32768_v1",
+    "script": "experiments/exp_qd1_spectral_primitives_n32768_v1.py",
+    "total_cells": 15,
+    "cell_regex": "^\\s+alpha=[\\d.]+\\s+M=\\d+\\s+lambda_max=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/exp_qd1_spectral_primitives_n32768_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "kappa46_fingerprint_n32768_v1",
+    "script": "experiments/exp_kappa46_fingerprint_n32768_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+kappa_3=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/exp_kappa46_fingerprint_n32768_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "deletion_cert_zratio_n32768_v1",
+    "script": "experiments/exp_deletion_cert_zratio_n32768_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+signal_mean=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/exp_deletion_cert_zratio_n32768_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "combo3_unified_api_n32768_v1",
+    "script": "experiments/exp_combo3_unified_api_n32768_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+closed_form:",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/exp_combo3_unified_api_n32768_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "q_b1_depth_extended_n32768",
+    "script": "experiments/exp_q_b1_depth_extended_n32768.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+d1=",
+    "experiment_timeout_min": 90,
+    "result_paths": [
+      "data/exp_q_b1_depth_extended_n32768/metrics.json"
+    ]
+  }
+]

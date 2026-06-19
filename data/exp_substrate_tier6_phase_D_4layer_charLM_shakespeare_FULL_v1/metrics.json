@@ -1,0 +1,43 @@
+{
+  "anchor_name": "substrate_tier6_phase_D_4layer_charLM_shakespeare_FULL_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial substrate-hybrid benefit. hybrid_BPC=3.623 baseline_BPC=4.568 (ratio=0.79x) hybrid_wall=2.9s baseline_wall=3.7s (speedup=1.27x) audit=True",
+  "N": 2048,
+  "D": 256,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 62,
+      "corpus_src": "local",
+      "hybrid_bpc": 3.6107990413155937,
+      "baseline_bpc": 4.601876584136667,
+      "hybrid_wall": 2.9666459560394287,
+      "baseline_wall": 3.6925296783447266,
+      "audit_ok": true
+    },
+    {
+      "seed": 17,
+      "V": 62,
+      "corpus_src": "local",
+      "hybrid_bpc": 3.6366950537970206,
+      "baseline_bpc": 4.6598140651628,
+      "hybrid_wall": 2.887911081314087,
+      "baseline_wall": 3.5954136848449707,
+      "audit_ok": true
+    },
+    {
+      "seed": 23,
+      "V": 62,
+      "corpus_src": "local",
+      "hybrid_bpc": 3.620618012404774,
+      "baseline_bpc": 4.442301690413416,
+      "hybrid_wall": 2.7828211784362793,
+      "baseline_wall": 3.715458393096924,
+      "audit_ok": true
+    }
+  ],
+  "elapsed_s": 20.811480045318604,
+  "summary": "MIDDLE_BAND: partial substrate-hybrid benefit. hybrid_BPC=3.623 baseline_BPC=4.568 (ratio=0.79x) hybrid_wall=2.9s baseline_wall=3.7s (speedup=1.27x) audit=True"
+}

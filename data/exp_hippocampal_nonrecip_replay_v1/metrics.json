@@ -1,0 +1,26 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_CHAIN": 5,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_forward_bias": 0.6000000000000001,
+    "seeds_passing_bias_threshold": 2,
+    "seeds_significant_p05": 0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Non-reciprocal replay directionality confirmed. mean_bias=0.600>0.25, seeds_passing=2/2, seeds_sig_p05=0/2.",
+  "elapsed_s": 6.838923454284668,
+  "config": {
+    "N_TRIALS": 10,
+    "NOISE_LEVELS": [
+      0.05,
+      0.1
+    ],
+    "N_PERM": 100
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "seeds": [
+    7,
+    17
+  ],
+  "configs": [
+    [
+      20,
+      20,
+      0
+    ],
+    [
+      20,
+      20,
+      10
+    ],
+    [
+      30,
+      15,
+      5
+    ]
+  ],
+  "aggregated": {
+    "configs": [
+      {
+        "n_A": 20,
+        "n_B": 20,
+        "symdiff_size": 40,
+        "symdiff_pred": 40.0,
+        "mean_frob_sq": 39.98488116264343,
+        "mean_rel_error": 0.0005389034748077392,
+        "max_rel_error": 0.0009168744087219238,
+        "passes_hp": true
+      },
+      {
+        "n_A": 20,
+        "n_B": 20,
+        "symdiff_size": 20,
+        "symdiff_pred": 20.0,
+        "mean_frob_sq": 19.99822998046875,
+        "mean_rel_error": 0.0006163597106933593,
+        "max_rel_error": 0.0007048606872558594,
+        "passes_hp": true
+      },
+      {
+        "n_A": 30,
+        "n_B": 15,
+        "symdiff_size": 35,
+        "symdiff_pred": 35.0,
+        "mean_frob_sq": 35.043447971343994,
+        "mean_rel_error": 0.001241370609828404,
+        "max_rel_error": 0.001851109095982143,
+        "passes_hp": true
+      }
+    ],
+    "n_pass_hp": 3,
+    "n_configs": 3
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Frobenius=symdiff/N holds within 5%. 3/3 configs pass. mean_rel_err=0.001 max_rel_err=0.001. Substrate distances encode symmetric set difference.",
+  "elapsed_s": 0.0
+}

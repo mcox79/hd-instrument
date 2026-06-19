@@ -1,0 +1,104 @@
+{
+  "verdict": "AXIS1C5_HARD_PASS",
+  "verdict_msg": "JOINT (M,beta) STRUCTURE: M4_hb=1.0000>=0.5 AND M8_lb=0.0007<0.1. Softmax confidence surface has structure on both M and beta axes. details={'max_conf': 1.0, 'min_conf': 0.00065, 'mean_conf_M4_highbeta': 1.0, 'mean_conf_M8_lowbeta': 0.000675, 'mean_conf_by_M': {4.0: 0.461708, 7.0: 0.328699, 12.0: 0.160826}, 'N_cells': 9}.",
+  "elapsed_s": 0.9322607517242432,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      4.0,
+      7.0,
+      12.0
+    ],
+    "n_betas": 3
+  },
+  "summary": {
+    "cells": [
+      {
+        "M": 4096,
+        "M_over_N": 4.0,
+        "beta": 1.0,
+        "seed": 17,
+        "softmax_conf": 0.0006584443035535514,
+        "argmax_ret": 1.0
+      },
+      {
+        "M": 4096,
+        "M_over_N": 4.0,
+        "beta": 8.0,
+        "seed": 17,
+        "softmax_conf": 0.38446539640426636,
+        "argmax_ret": 1.0
+      },
+      {
+        "M": 4096,
+        "M_over_N": 4.0,
+        "beta": 64.0,
+        "seed": 17,
+        "softmax_conf": 1.0,
+        "argmax_ret": 1.0
+      },
+      {
+        "M": 7168,
+        "M_over_N": 7.0,
+        "beta": 1.0,
+        "seed": 17,
+        "softmax_conf": 0.00067459128331393,
+        "argmax_ret": 0.6499999761581421
+      },
+      {
+        "M": 7168,
+        "M_over_N": 7.0,
+        "beta": 8.0,
+        "seed": 17,
+        "softmax_conf": 0.33426976203918457,
+        "argmax_ret": 0.6499999761581421
+      },
+      {
+        "M": 7168,
+        "M_over_N": 7.0,
+        "beta": 64.0,
+        "seed": 17,
+        "softmax_conf": 0.6511528491973877,
+        "argmax_ret": 0.6499999761581421
+      },
+      {
+        "M": 12288,
+        "M_over_N": 12.0,
+        "beta": 1.0,
+        "seed": 17,
+        "softmax_conf": 0.0006497118156403303,
+        "argmax_ret": 0.2800000011920929
+      },
+      {
+        "M": 12288,
+        "M_over_N": 12.0,
+        "beta": 8.0,
+        "seed": 17,
+        "softmax_conf": 0.19551998376846313,
+        "argmax_ret": 0.2800000011920929
+      },
+      {
+        "M": 12288,
+        "M_over_N": 12.0,
+        "beta": 64.0,
+        "seed": 17,
+        "softmax_conf": 0.2863088548183441,
+        "argmax_ret": 0.2800000011920929
+      }
+    ],
+    "N_used": 1024,
+    "N_full": 4096,
+    "m_fracs": [
+      4.0,
+      7.0,
+      12.0
+    ],
+    "betas": [
+      1.0,
+      8.0,
+      64.0
+    ],
+    "smoke": true
+  }
+}

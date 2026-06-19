@@ -1,0 +1,54 @@
+## v574 -> v575 @ CYCLE 241 7-VERDICT BATCH E3b-endtask + QA-self-knowledge + E4-world-model-MWP + Path5-schema-MWP + Path1lite-entity-MWP + Tier5-self-discovery + Path1-SRL-MWP (verdict_handler 469th PROT-009 paired commit; 1 HP [e3b_permutation_binding_endtask]; 2 MIDDLE_BAND [qa_self_knowledge + tier5_self_discovery_rule_extraction]; 4 HARD_FAIL [e4_world_model_mwp + path5_schema_retrieval_mwp + path1lite_entity_binding_mwp + path1_srl_mwp]; 0 LVH; 3 NEW PP ROWS [PP-400 e3b-endtask + PP-401 qa-self-knowledge + PP-402 tier5-self-discovery]; MWP comprehension-wall CONVERGENTLY CONFIRMED at 6 angles; PP-398 promoted to end-task via PP-400; Phase-6 math+science ingestion strategy structural fix; Portfolio 32+399->32+402 +3; HONEST 1831->1838 +7; LVH 291->291 +0)
+
+Batch: e3b_permutation_binding_endtask_cpu_v1[CPU] + qa_self_knowledge_cpu_v1[CPU] + e4_world_model_mwp_cpu_v1[CPU] + path5_schema_retrieval_mwp_cpu_v1[CPU] + path1lite_entity_binding_mwp_cpu_v1[CPU] + tier5_self_discovery_rule_extraction_cpu_v1[CPU] + path1_srl_mwp_cpu_v1[CPU]. All 7 cpu_runner_local (FrameworkMPC).
+
+### Step 0 honest re-read (CYCLE 241)
+
+Metrics source: LOCAL (all 7 files). 0 LVH catches. All honest.
+
+**e3b_permutation_binding_endtask_cpu_v1 HARD_PASS (HONEST):** perm_endacc=0.3876 vs fhrr_endacc=0.0465, lift=+0.3411, n_test=129. Threshold >=+0.10 met (3.4x). HONEST.
+**qa_self_knowledge_cpu_v1 MIDDLE_BAND (HONEST):** macro-F1=0.4658, band [0.30-0.50], n_qs=53, gold_attrition=19, n_seeds=1. HONEST.
+**e4_world_model_mwp_cpu_v1 HARD_FAIL (HONEST):** acc=0.3431 < disc_plateau=0.39. World-model underperforms discriminative baseline. HONEST.
+**path5_schema_retrieval_mwp_cpu_v1 HARD_FAIL (HONEST):** acc=0.3592, lift=-0.0308 (negative). HONEST.
+**path1lite_entity_binding_mwp_cpu_v1 HARD_FAIL (HONEST):** acc=0.3402, lift=-0.0498 (negative). HONEST.
+**tier5_self_discovery_rule_extraction_cpu_v1 MIDDLE_BAND (HONEST):** n_novel_recurring=0, n_re_derived=5, miner validated. HONEST.
+**path1_srl_mwp_cpu_v1 HARD_FAIL (HONEST):** acc=0.3268, lift=-0.0632 (negative), n_srl_train=30. HONEST.
+
+HONEST: 1831 -> 1838 (+7). LVH: 291 -> 291 (+0).
+
+### Cap_map decisions (v574 -> v575 CYCLE 241)
+
+**(A) e3b_permutation_binding_endtask_cpu_v1 (HARD_PASS -- NEW ROW PP-400; PP-398 end-task promotion):**
+NEW ROW PP-400: e3b_permutation_binding_endtask_cpu_v1 HARD_PASS v575: perm_endacc=0.3876 vs fhrr_endacc=0.0465, lift=+0.3411, n_test=129, n_subset=427, n_seeds=1 (cycle 241). PERMUTATION BINDING END-TASK VALIDATED: cycle-240 PP-398 showed permutation resolves multi-occurrence role collision at representation level (acc=1.000); this cycle confirms lift extends to REAL MWP end-task accuracy (+34.11pp). FHRR endacc=0.0465 ~= chance on multi-occurrence; permutation endacc=0.3876. Composition: PP-398 (role-collision solved) + PP-400 (end-task validated) = substrate-native path to multi-occurrence MWP. Bottleneck shifts to upstream role-detection quality and single-occurrence comprehension ceiling (0.39). P-band: 0.82-0.92 EXPLORATORY n=1 seed CPU n_test=129 elapsed=0.28s. Cross-ref PP-398 (binding mechanism), PP-395/PP-396 (role detection), PP-376 (MAWPS), PP-374 (multibench).
+
+**(B) qa_self_knowledge_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-401; substrate QA self-knowledge v1):**
+NEW ROW PP-401: qa_self_knowledge_cpu_v1 MIDDLE_BAND v575: macro-F1=0.4658, per-type A=0.3548/B=0.325/C=0.6451/D=0.5/E=0.495/G=0.6667, n_qs=53, gold_attrition=19, n_seeds=1 (cycle 241). SUBSTRATE QA SELF-KNOWLEDGE PARTIAL: substrate answers meta-questions about its own content at F1=0.4658. Strong on type-C (0.645) and type-G (0.667); weaker on type-A enumeration (0.355) and type-B boundary detection (0.325). Gold attrition=19 of 53 items. Mechanism: hard-route + keyword retrieval v1 (no learned router). Improvement path: Gap-4 intent router + vocabulary reconciliation. Product implication: substrate can answer questions about what it knows -- useful for knowledge auditing and self-reporting. P-band: 0.45-0.62 EXPLORATORY n=1 seed CPU n=53 elapsed=0.61s. Cross-ref PP-263 (meta-substrate binary know/don't-know), PP-277 (calibration ECE).
+
+**(C) e4_world_model_mwp_cpu_v1 (HARD_FAIL -- 4th MWP triangulation; world-model fails below discriminative baseline):**
+e4_world_model_mwp_cpu_v1 HARD_FAIL v575: acc=0.3431 vs disc_plateau=0.39, n=1364, n_seeds=1 (cycle 241). WORLD-MODEL SCHEMA BELOW DISCRIMINATIVE FLOOR: 4th independent triangulation -- world-model approach (0.3431) falls below discriminative baseline (0.39). Operand-selection bottleneck is at corpus-bound comprehension level. Supports Phase-6 math+science ingestion. No new PP row; ASDiv math series annotated.
+
+**(D) path5_schema_retrieval_mwp_cpu_v1 (HARD_FAIL -- 5th MWP triangulation; schema-retrieval axis closed; PROT-004/006 rescue sketches):**
+path5_schema_retrieval_mwp_cpu_v1 HARD_FAIL v575: acc=0.3592, lift=-0.0308, n=348, k=7, n_seeds=1 (cycle 241). PP-372 SCHEMA RETRIEVAL (96.7% schema selection) does NOT break operand-selection plateau. 5th triangulation confirms: retrieval quality is not the bottleneck; semantic comprehension is. PROT-004/006 rescue sketches for MWP series (cheapest first):
+RESCUE-1 (cheapest/subsumption): Phase-6 math+science ingestion -- structural fix per 6-angle convergence.
+RESCUE-2: PP-400 permutation binding scaled (multi-occ items solved; single-occ ceiling 0.39 is residual).
+RESCUE-3: FCG construction grammar semantic parsing.
+RESCUE-4: PP-381 dependency parse operand roles via full pipeline.
+RESCUE-5: cross-domain schema transfer (richer annotated MWP training set).
+Route RESCUE-1 (Phase-6 ingestion) to Exp-Dev. No new PP row.
+
+**(E) path1lite_entity_binding_mwp_cpu_v1 (HARD_FAIL -- 5th MWP triangulation; entity-binding closed; distractor degradation):**
+path1lite_entity_binding_mwp_cpu_v1 HARD_FAIL v575: acc=0.3402, lift=-0.0498, distractor_acc=0.1354, n_distractor=192, n=1364, n_seeds=1 (cycle 241). HEURISTIC ENTITY-BINDING UNDERPERFORMS DISCRIMINATIVE BASELINE by 5pp. Distractor subset collapses to 0.135 (entity binding creates confusion). Corpus-bound comprehension diagnosis confirmed. No new PP row; ASDiv math series annotated.
+
+**(F) tier5_self_discovery_rule_extraction_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-402; miner validated, novel rule pending richer history):**
+NEW ROW PP-402: tier5_self_discovery_rule_extraction_cpu_v1 MIDDLE_BAND v575: n_sh_atoms=20, n_transitions=11, n_re_derived=5, n_novel_recurring=0, n_existing_rules=18, n_seeds=1 (cycle 241). SELF-DISCOVERY MINER VALIDATED -- NOVEL RULE PENDING: substrate transitions yield 20 atoms / 11 patterns; miner re-derives 5 existing rules (mechanism validated). No novel recurring rule with current sparse solution history. MIDDLE_BAND: solution_history must grow with diverse problem types for novel rule emergence. Product implication: substrate can reflect on its own solution patterns and recover known strategy regularities -- meta-cognitive self-auditing. P-band: 0.40-0.58 EXPLORATORY n=1 seed CPU n_atoms=20 elapsed=0.10s. Cross-ref Tier-5 series.
+
+**(G) path1_srl_mwp_cpu_v1 (HARD_FAIL -- 6th MWP triangulation; SRL-trained approach also plateaus; comprehension wall CLOSED for current corpus):**
+path1_srl_mwp_cpu_v1 HARD_FAIL v575: acc=0.3268, lift=-0.0632, n=1166, n_srl_train=30, n_seeds=1 (cycle 241). TRAINED LINGUISTIC SRL (cycle-239 Research FCG/SRL routing) ALSO PLATEAUS: SRL at 0.3268 is LOWEST of all 6 approaches (below disc 0.39, below entity-binding 0.34, below schema 0.36, below world-model 0.34). Note: n_srl_train=30 very small. STRUCTURAL CONCLUSION: 6 independent approaches converge at or below 0.39. Ceiling is corpus-bound comprehension. Full Phase-6 math+science ingestion is the only remaining structural path for 1-op MWP. No new PP row; MWP series annotated (6th triangulation, comprehension wall CLOSED for current corpus).
+
+ANNOTATIONS this cycle:
+- PP-398 (permutation binding): promoted to end-task demonstration via PP-400 (+34.11pp lift on multi-occ items). Bottleneck shifts to single-occ comprehension ceiling and upstream role-detection.
+- MWP comprehension wall: 6 independent triangulation angles (world-model, schema-retrieval, entity-binding, SRL, multihop-role-binding, BMA ensemble) all converge at 0.385-0.39 for 1-op MWP on current corpus. CLOSED for mechanism search; structural fix = Phase-6 ingestion.
+- Tier-5 self-discovery: miner mechanism validated (re-derivation works); richer solution history needed.
+- QA self-knowledge: v1 MIDDLE_BAND F1=0.4658; Gap-4 intent router is clear next step.
+
+Cap_map: v574 -> v575 CYCLE 241 (1 HP [e3b_permutation_binding_endtask=PP-400]; 2 MIDDLE_BAND [qa_self_knowledge=PP-401 + tier5_self_discovery=PP-402]; 4 HARD_FAIL [e4_world_model_mwp + path5_schema_retrieval_mwp + path1lite_entity_binding_mwp + path1_srl_mwp]; 0 LVH; 3 NEW PP ROWS [PP-400 E3b-endtask + PP-401 QA-self-knowledge + PP-402 Tier5-self-discovery]; PP-398 end-task promoted via PP-400; MWP comprehension-wall CONVERGENTLY CLOSED at 6 triangulation angles; Phase-6 ingestion RESCUE-1 routed to Exp-Dev; Portfolio 32+399 -> 32+402 +3; HONEST 1831->1838 +7; LVH 291->291 +0; 469th PROT-009 paired commit) (2026-06-12)

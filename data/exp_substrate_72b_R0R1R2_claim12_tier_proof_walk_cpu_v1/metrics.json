@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_72b_R0R1R2_claim12_tier_proof_walk_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Claim 12 R1 MEASURED: confidence-tier restriction AVOIDS dilution (R1 > R0 by 0.0408); tier-restricted sound-oracle walk is the substrate's ARM-1 wedge. R2 proof-path plateaus at depth 2. Claim 12 R0/R1/R2: R0(full+loose)=0.2313, R1(STRICT-tier)=0.2721 (R1-R0 +0.0408), R2(proof-path) hop1/2/3=0.0992/0.0992/0.0992 (proof-edges=696).",
+  "summary": "Claim 12 R1 MEASURED: confidence-tier restriction AVOIDS dilution (R1 > R0 by 0.0408); tier-restricted sound-oracle walk is the substrate's ARM-1 wedge. R2 proof-path plateaus at depth 2. Claim 12 R0/R1/R2: R0(full+loose)=0.2313, R1(STRICT-tier)=0.2721 (R1-R0 +0.0408), R2(proof-path) hop1/2/3=0.0992/0.0992/0.0992 (proof-edges=696).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "R0": 0.2313,
+      "R1": 0.2721,
+      "R1_minus_R0": 0.0408,
+      "R2_hop1": 0.0992,
+      "R2_hop2": 0.0992,
+      "R2_hop3": 0.0992,
+      "proof_edges": 696
+    }
+  ],
+  "elapsed_s": 10.468812465667725
+}

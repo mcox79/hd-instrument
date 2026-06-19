@@ -1,0 +1,24 @@
+{
+  "anchor": "kappa3_noise_robustness_sigma_g_sweep_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE: identity_holds=True breaks=False ratio@0.15=1.029 ratio@0.25=1.093",
+  "sigma_g_mean_ratio": {
+    "0.01": 0.9954724609851837,
+    "0.05": 1.00134839117527,
+    "0.1": 1.009420856833458,
+    "0.15": 1.02907133102417,
+    "0.18": 1.0443571209907532,
+    "0.2": 1.059224247932434,
+    "0.25": 1.0927029848098755,
+    "0.3": 1.1395560950040817
+  },
+  "identity_holds_unanimous": true,
+  "identity_breaks_unanimous": false,
+  "N": 4096,
+  "M": 204,
+  "alpha": 0.05,
+  "n_seeds": 5,
+  "n_probes": 2000,
+  "elapsed_s": 18.996011972427368,
+  "run_mode": "full"
+}

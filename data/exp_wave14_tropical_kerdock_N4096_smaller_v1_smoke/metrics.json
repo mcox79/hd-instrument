@@ -1,0 +1,95 @@
+{
+  "verdict": "EMP_MARGIN_WELL_DEFINED",
+  "verdict_msg": "Empirical bit-flip margin baseline well-defined at N=4096. n_total=4, n_used=4, deg_frac=0.000, mean_margin=493.00, std=3.00, cv=0.006, p25=490.00",
+  "elapsed_s": 0.40600000001722947,
+  "summary": {
+    "cells": [
+      {
+        "eps": 0.1,
+        "n_trials": 2,
+        "mean_margin": 496.0,
+        "std_margin": 0.0,
+        "min_margin": 496.0,
+        "max_margin": 496.0,
+        "trials": [
+          {
+            "seed": 0,
+            "i": 3915,
+            "eps": 0.1,
+            "margin_emp": 496.0,
+            "j_emp": 813,
+            "N": 1024
+          },
+          {
+            "seed": 0,
+            "i": 3179,
+            "eps": 0.1,
+            "margin_emp": 496.0,
+            "j_emp": 2172,
+            "N": 1024
+          }
+        ]
+      },
+      {
+        "eps": 0.5,
+        "n_trials": 2,
+        "mean_margin": 490.0,
+        "std_margin": 0.0,
+        "min_margin": 490.0,
+        "max_margin": 490.0,
+        "trials": [
+          {
+            "seed": 0,
+            "i": 3199,
+            "eps": 0.5,
+            "margin_emp": 490.0,
+            "j_emp": 813,
+            "N": 1024
+          },
+          {
+            "seed": 0,
+            "i": 3225,
+            "eps": 0.5,
+            "margin_emp": 490.0,
+            "j_emp": 152,
+            "N": 1024
+          }
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "eps_list": [
+        0.1,
+        0.5
+      ],
+      "n_seeds": 1,
+      "n_codewords": 2,
+      "max_competitors": 32
+    },
+    "codebook_info": {
+      "t": 5,
+      "primitive_poly": "0b100101",
+      "b_values": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "n_cosets": 4,
+      "codebook_size": 4096
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "eps_list": [
+      0.1,
+      0.5
+    ],
+    "n_seeds": 1,
+    "n_codewords": 2,
+    "max_competitors": 32
+  }
+}

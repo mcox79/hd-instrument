@@ -1,0 +1,15 @@
+{
+  "anchor_name": "factrep_ep2_continuous_strength_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: strength 0.85/0.75. strongest-wins=0.900 strength-correlation=0.990",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "win": 0.9,
+      "corr": 0.9896138533119678
+    }
+  ],
+  "elapsed_s": 0.7240874767303467,
+  "summary": "MIDDLE_BAND: strength 0.85/0.75. strongest-wins=0.900 strength-correlation=0.990"
+}

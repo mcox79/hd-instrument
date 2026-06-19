@@ -1,0 +1,49 @@
+{
+  "anchor_name": "substrate_derivation_depth_ceiling_probe_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (EXPECTED baseline, not a defect): derivation ceiling < 5 -- corpus is structurally SHALLOW; shortest~=longest confirms it is NOT a measurement artifact. KP P5 (depth>=10) is many authoring cycles away; recommend Research either recalibrate P5 to a graduated T0 (depth>=5) or commit to sustained deep-chain (multi-hop T3->T2->T1->T0) authoring. Tracked metric: re-run each ingest cycle. derivation depth over 80 math goals: SHORTEST avg=1.38 max=2 ; LONGEST avg=2.21 max=4 ; longest-depth hist {'>=3': 36, '>=5': 0, '>=10': 0}. (shortest = FINDER/P5 metric; longest = true derivation ceiling -- if longest~shortest, shallowness is STRUCTURAL not a shortest-path artifact.) P5 gate = depth>=10.",
+  "summary": "HARD_FAIL (EXPECTED baseline, not a defect): derivation ceiling < 5 -- corpus is structurally SHALLOW; shortest~=longest confirms it is NOT a measurement artifact. KP P5 (depth>=10) is many authoring cycles away; recommend Research either recalibrate P5 to a graduated T0 (depth>=5) or commit to sustained deep-chain (multi-hop T3->T2->T1->T0) authoring. Tracked metric: re-run each ingest cycle. derivation depth over 80 math goals: SHORTEST avg=1.38 max=2 ; LONGEST avg=2.21 max=4 ; longest-depth hist {'>=3': 36, '>=5': 0, '>=10': 0}. (shortest = FINDER/P5 metric; longest = true derivation ceiling -- if longest~shortest, shallowness is STRUCTURAL not a shortest-path artifact.) P5 gate = depth>=10.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_goals": 80,
+      "shortest_avg": 1.375,
+      "shortest_max": 2,
+      "longest_avg": 2.212,
+      "longest_max": 4,
+      "longest_hist": {
+        ">=3": 36,
+        ">=5": 0,
+        ">=10": 0
+      },
+      "deepest": [
+        [
+          4,
+          "SCHOOL/sparse_distributed_memory_family"
+        ],
+        [
+          4,
+          "SCHOOL/hopfield_family"
+        ],
+        [
+          4,
+          "SCHOOL/complementary_learning_systems_family"
+        ],
+        [
+          4,
+          "SCHOOL/cognitive_architecture_family"
+        ],
+        [
+          4,
+          "CAP_viterbi_decoding"
+        ],
+        [
+          4,
+          "CAP_em_algorithm"
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 0.07808446884155273
+}

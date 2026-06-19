@@ -1,0 +1,37 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_LIST": [
+    30,
+    60
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_M": {
+      "30": {
+        "mean_delta_acc": 0.0,
+        "mean_idempotent": 0.0,
+        "mean_new_cosine": 1.0,
+        "frac_A_pass": 1.0,
+        "frac_B_pass": 1.0,
+        "frac_C_pass": 1.0,
+        "n_seeds": 2
+      },
+      "60": {
+        "mean_delta_acc": 0.0,
+        "mean_idempotent": 6.510416666671848e-05,
+        "mean_new_cosine": 1.0,
+        "frac_A_pass": 1.0,
+        "frac_B_pass": 1.0,
+        "frac_C_pass": 1.0,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Write-allocate cost NEAR-ZERO confirmed. delta_acc=0.0000(A:1.00) idempotent_delta=0.0000(B:1.00) new_cosine=1.0000(C:1.00). Rank-1 write-allocate is O(1) overhead per existing pattern.",
+  "elapsed_s": 0.2223498821258545
+}

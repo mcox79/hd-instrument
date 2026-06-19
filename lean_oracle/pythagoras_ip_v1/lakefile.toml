@@ -1,0 +1,18 @@
+name = "pythagoras_ip_v1"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["PythagorasIpV1"]
+
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "master"
+
+[[lean_lib]]
+name = "PythagorasIpV1"

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "nesting_depth_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: nested-structure payload recall>=0.90 at depth 8 -- deep nested data structures are representable. recall by depth: {'d4': 1.0, 'd8': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "d4": 1.0,
+        "d8": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 0.0670173168182373,
+  "summary": "HARD_PASS: nested-structure payload recall>=0.90 at depth 8 -- deep nested data structures are representable. recall by depth: {'d4': 1.0, 'd8': 1.0}"
+}

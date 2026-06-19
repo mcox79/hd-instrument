@@ -1,0 +1,14 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "graph_deletion_multihop: A=HARD_PASS cos_residual=0.0000 n_hp_a=2/2; B=MIDDLE_BAND snr_k2=1.57 n_hp_b=1/2; N=4096",
+  "verdict_a": "HARD_PASS",
+  "verdict_b": "MIDDLE_BAND",
+  "n_hp_a": 2,
+  "n_hp_b": 1,
+  "n_seeds": 2,
+  "mean_cos_residual": 0.0,
+  "mean_snr_k2": 1.5652628808316573,
+  "N": 4096,
+  "elapsed_s": 27.738465070724487,
+  "run_mode": "smoke"
+}

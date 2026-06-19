@@ -1,0 +1,97 @@
+{
+  "anchor": "pb3_extended_v4_n8192",
+  "N": 8192,
+  "smoke": false,
+  "beta_sweep": [
+    4.0,
+    6.0,
+    8.0,
+    10.0,
+    12.0
+  ],
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "cells": [
+    {
+      "seed": 7,
+      "beta": 4.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 7,
+      "beta": 6.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 7,
+      "beta": 8.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 7,
+      "beta": 10.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 7,
+      "beta": 12.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 17,
+      "beta": 4.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 17,
+      "beta": 6.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 17,
+      "beta": 8.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 17,
+      "beta": 10.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 17,
+      "beta": 12.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 23,
+      "beta": 4.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 23,
+      "beta": 6.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 23,
+      "beta": 8.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 23,
+      "beta": 10.0,
+      "tau_recovery": 0.0
+    },
+    {
+      "seed": 23,
+      "beta": 12.0,
+      "tau_recovery": 0.0
+    }
+  ],
+  "verdict": "PB3V4_HARD_FAIL",
+  "verdict_msg": "FLAT_TAU_N8192: no critical slowing. pass_seeds=0/3 tau_ratio=0.000 mean_tau=0.000 HP_ratio=1.5 N=8192",
+  "elapsed_s": 83.12
+}

@@ -1,0 +1,213 @@
+{
+  "scorecard_path": "data\\substrate_index\\bench_reports\\scorecard.json",
+  "benchmark_id": "qa_self_knowledge_v3",
+  "history_row_count": 5,
+  "cycle_over_cycle_deltas": [
+    {
+      "from_phase": "day_2_intro",
+      "to_phase": "day_4_hp_v1",
+      "macro_delta": 0.177,
+      "per_axis_deltas": {
+        "C": 0.2,
+        "B": 0.216,
+        "E": 0.189,
+        "G": 0.05,
+        "A": 0.21,
+        "F": 0.15,
+        "D": 0.25
+      },
+      "mechanism_classes_introduced": [
+        "B route v3 (accept-all-rel-types)",
+        "D structural edges (Q47/Q48)",
+        "A precision-trim (top-K=7 + threshold)",
+        "E bge-threshold-recall",
+        "C field-backfill (23 atoms + 1 new CAP)",
+        "A alias enrichment Q01/Q33/Q37",
+        "A refuse heuristic (max(1, ceil(n_kws/2)))"
+      ]
+    },
+    {
+      "from_phase": "day_4_hp_v1",
+      "to_phase": "day_4_hp_v1_plus",
+      "macro_delta": 0.0505,
+      "per_axis_deltas": {
+        "C": 0.0266,
+        "B": 0.034,
+        "E": 0.048,
+        "G": 0.05,
+        "A": 0.07,
+        "F": 0.05,
+        "D": 0.05
+      },
+      "mechanism_classes_introduced": [
+        "A v3 composite-alias strategy (Q02/Q03/Q04/Q31/Q36)"
+      ]
+    },
+    {
+      "from_phase": "day_4_hp_v1_plus",
+      "to_phase": "close",
+      "macro_delta": -0.0285,
+      "per_axis_deltas": {
+        "C": -0.0559,
+        "B": -0.034,
+        "E": 0.0,
+        "G": -0.05,
+        "A": -0.1175,
+        "F": 0.0,
+        "D": -0.05
+      },
+      "mechanism_classes_introduced": [
+        "KP P1 24 T3->T2 promotions",
+        "OEIS partial 18952 atoms"
+      ]
+    },
+    {
+      "from_phase": "close",
+      "to_phase": "cycle_51_held_out_local",
+      "macro_delta": -0.7166,
+      "per_axis_deltas": {
+        "C": -0.8207,
+        "B": -0.516,
+        "E": -0.737,
+        "G": -0.5,
+        "A": -0.6408,
+        "F": -1.0,
+        "D": -0.65
+      },
+      "mechanism_classes_introduced": [
+        "held-out benchmark Q54-Q65 score (CPU degraded; no bge)"
+      ]
+    }
+  ],
+  "per_axis_best_worst": {
+    "A": {
+      "best_value": 0.78,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0217,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 0.7583
+    },
+    "B": {
+      "best_value": 0.55,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 0.55
+    },
+    "C": {
+      "best_value": 0.8766,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 0.8766
+    },
+    "D": {
+      "best_value": 0.7,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 0.7
+    },
+    "E": {
+      "best_value": 0.737,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 0.737
+    },
+    "F": {
+      "best_value": 1.0,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 1.0
+    },
+    "G": {
+      "best_value": 0.55,
+      "best_phase": "day_4_hp_v1_plus",
+      "best_cycle": 51,
+      "worst_value": 0.0,
+      "worst_phase": "cycle_51_held_out_local",
+      "worst_cycle": 51,
+      "spread": 0.55
+    }
+  },
+  "mechanism_effectiveness_sorted": {
+    "A v3 composite-alias strategy (Q02/Q03/Q04/Q31/Q36)": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0505,
+      "avg_macro_contribution": 0.0505
+    },
+    "B route v3 (accept-all-rel-types)": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "D structural edges (Q47/Q48)": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "A precision-trim (top-K=7 + threshold)": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "E bge-threshold-recall": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "C field-backfill (23 atoms + 1 new CAP)": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "A alias enrichment Q01/Q33/Q37": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "A refuse heuristic (max(1, ceil(n_kws/2)))": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": 0.0253,
+      "avg_macro_contribution": 0.0253
+    },
+    "KP P1 24 T3->T2 promotions": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": -0.0143,
+      "avg_macro_contribution": -0.0143
+    },
+    "OEIS partial 18952 atoms": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": -0.0143,
+      "avg_macro_contribution": -0.0143
+    },
+    "held-out benchmark Q54-Q65 score (CPU degraded; no bge)": {
+      "n_phase_introductions": 1,
+      "sum_macro_contribution": -0.7166,
+      "avg_macro_contribution": -0.7166
+    }
+  },
+  "held_out_vs_tuned_goodhart_gap": {
+    "available": true,
+    "tuned_phase": "day_4_hp_v1_plus",
+    "tuned_macro": 0.7518,
+    "held_out_phase": "cycle_51_held_out_local",
+    "held_out_macro": 0.0067,
+    "goodhart_gap": 0.7451,
+    "interpretation": "goodhart_gap >0: tuned overestimates held-out; gap measures per-Q-tuning credit"
+  }
+}

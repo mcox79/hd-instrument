@@ -1,0 +1,37 @@
+{
+  "anchor_name": "q_a3_l129_cross_layer_composition_v1_n16384",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 129 levels EXACT-1.0 at N=16384. l129_acc=1.0000 n_seeds=5",
+  "N": 16384,
+  "L": 129,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 42.49764633178711,
+  "per_seed": [
+    {
+      "seed": 7,
+      "lacc": 1.0,
+      "elapsed_s": 8.592177391052246
+    },
+    {
+      "seed": 17,
+      "lacc": 1.0,
+      "elapsed_s": 8.461174964904785
+    },
+    {
+      "seed": 23,
+      "lacc": 1.0,
+      "elapsed_s": 8.475108623504639
+    },
+    {
+      "seed": 31,
+      "lacc": 1.0,
+      "elapsed_s": 8.477212190628052
+    },
+    {
+      "seed": 41,
+      "lacc": 1.0,
+      "elapsed_s": 8.443139553070068
+    }
+  ]
+}

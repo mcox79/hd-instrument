@@ -1,0 +1,20 @@
+{
+  "anchor_name": "asdiv_pp375_wk_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: WK adds to PP-375 (lift>=0.02 or >=0.40) -- world-knowledge rescues some items the mechanism alone misses. +search+WK 1op=0.4387 (+search alone 0.3732, WK-lift +0.0655, text-order 0.3932, overall 0.2722). PP-375 mechanism + question-guided WK constants (cycle's two wins combined).",
+  "summary": "MIDDLE_BAND: WK adds to PP-375 (lift>=0.02 or >=0.40) -- world-knowledge rescues some items the mechanism alone misses. +search+WK 1op=0.4387 (+search alone 0.3732, WK-lift +0.0655, text-order 0.3932, overall 0.2722). PP-375 mechanism + question-guided WK constants (cycle's two wins combined).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.4387,
+      "textorder_1op": 0.3932,
+      "search_1op": 0.3732,
+      "searchwk_1op": 0.4387,
+      "wk_lift": 0.0655,
+      "searchwk_overall": 0.2722,
+      "n_test": 665
+    }
+  ],
+  "elapsed_s": 4.53858494758606
+}

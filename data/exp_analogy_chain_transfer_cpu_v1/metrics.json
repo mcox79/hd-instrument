@@ -1,0 +1,15 @@
+{
+  "anchor_name": "analogy_chain_transfer_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 2-step <0.70. 1-step=0.017 2-step=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "step1": 0.016666666666666666,
+      "step2": 0.0
+    }
+  ],
+  "elapsed_s": 0.21018505096435547,
+  "summary": "HARD_FAIL: 2-step <0.70. 1-step=0.017 2-step=0.000"
+}

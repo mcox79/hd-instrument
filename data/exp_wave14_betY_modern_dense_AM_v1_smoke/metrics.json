@@ -1,0 +1,20 @@
+{
+  "verdict": "BET_Y_PARTIAL",
+  "verdict_msg": "Modern dense AM 1.00*N vs argmax 1.00*N (ratio 1.00); some gain but below 1.5x threshold.",
+  "elapsed_s": 1.5,
+  "summary": {
+    "argmax_capacity": 1.0,
+    "modern_capacity": 1.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_grid": [
+      256,
+      512
+    ],
+    "seeds": 1,
+    "beta": 8.0,
+    "n_iter": 5
+  }
+}

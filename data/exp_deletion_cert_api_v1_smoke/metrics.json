@@ -1,0 +1,20 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "deletion_cert_api: A=HARD_PASS mean_cos_residual=0.255 mean_snr_ratio=0.97 n_hp_a=2/2; B=HARD_PASS mean_tr_error=0.0000 N=4096",
+  "verdict_a": "HARD_PASS",
+  "verdict_b": "HARD_PASS",
+  "mean_cos_residual": 0.2550017543837635,
+  "mean_deletion_snr_ratio": 0.9702760103251679,
+  "n_hp_a": 2,
+  "n_seeds_a": 2,
+  "mean_tr_error": 0.0,
+  "n_cert_pass_b": 4,
+  "n_total_b": 4,
+  "N": 4096,
+  "alpha_grid": [
+    0.05,
+    0.1
+  ],
+  "elapsed_s": 85.34211778640747,
+  "run_mode": "smoke"
+}

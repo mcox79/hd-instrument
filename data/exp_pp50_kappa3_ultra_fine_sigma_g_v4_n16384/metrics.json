@@ -1,0 +1,45 @@
+{
+  "anchor_name": "pp50_kappa3_ultra_fine_sigma_g_v4_n16384",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-50 v4 ultra-fine sigma_g bracket HP at N=16384. sep(sg=0.83)=15539 >= 1000.0; monotone=True; amplification=851.1x >= 5.0x. sigma_sep(d=0.04): [sg0.83:15539, sg0.85:17618, sg0.87:19958, sg0.90:24025, sg1.00:44085, sg1.50:797452, sg2.00:13224401] n_seeds=5",
+  "N": 16384,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 6.243941783905029,
+  "sigma_g_grid": [
+    0.83,
+    0.85,
+    0.87,
+    0.9,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "peak_gpu_gb": 1.613049856,
+      "elapsed_s": 1.241023302078247
+    },
+    {
+      "seed": 17,
+      "peak_gpu_gb": 1.613049856,
+      "elapsed_s": 1.242626667022705
+    },
+    {
+      "seed": 23,
+      "peak_gpu_gb": 1.613049856,
+      "elapsed_s": 1.2263145446777344
+    },
+    {
+      "seed": 31,
+      "peak_gpu_gb": 1.613049856,
+      "elapsed_s": 1.22760009765625
+    },
+    {
+      "seed": 41,
+      "peak_gpu_gb": 1.613049856,
+      "elapsed_s": 1.2377543449401855
+    }
+  ]
+}

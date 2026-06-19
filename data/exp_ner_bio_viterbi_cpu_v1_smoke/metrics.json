@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_bio_viterbi_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: hard-BIO adds nothing (|lift|<0.01) -- the learned soft transitions already encode BIO; the 0.58 bottleneck is FEATURES/BENCHMARK-difficulty, not the decoder. Honest correction to the note's argmax premise. hard-BIO F1=0.4568 vs unconstrained 0.4658 (lift=-0.0090, P=0.497 R=0.423, train=300, OntoNotes 18-type)",
+  "summary": "HARD_FAIL: hard-BIO adds nothing (|lift|<0.01) -- the learned soft transitions already encode BIO; the 0.58 bottleneck is FEATURES/BENCHMARK-difficulty, not the decoder. Honest correction to the note's argmax premise. hard-BIO F1=0.4568 vs unconstrained 0.4658 (lift=-0.0090, P=0.497 R=0.423, train=300, OntoNotes 18-type)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.4568,
+      "f1_unconstrained": 0.4658,
+      "f1_bio": 0.4568,
+      "lift": -0.009,
+      "prec_bio": 0.497,
+      "rec_bio": 0.423,
+      "n_train": 300,
+      "n_tags": 26
+    }
+  ],
+  "elapsed_s": 4.6014697551727295
+}

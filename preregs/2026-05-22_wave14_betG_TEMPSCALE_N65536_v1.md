@@ -1,0 +1,1 @@
+Strategic: betG_TEMPSCALE_N65536

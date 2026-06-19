@@ -1,0 +1,18 @@
+{
+  "anchor_name": "t5c_hybrid_1p4b_fp32_kb10k_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HYBRID composes -- substrate IMPROVES the LM (ratio<0.85) AND supplies held-out facts (recall>0.95) simultaneously, no interference. v2.0 product integration proven. LM-ratio=0.837x fact-recall=1.000 (base-ppl=21.12)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 21.122685348311684,
+      "mod_ppl": 17.67984436698261,
+      "lm_ratio": 0.8370074200057023,
+      "fact_recall": 1.0,
+      "n_test": 92
+    }
+  ],
+  "elapsed_s": 561.3037233352661,
+  "summary": "HARD_PASS: HYBRID composes -- substrate IMPROVES the LM (ratio<0.85) AND supplies held-out facts (recall>0.95) simultaneously, no interference. v2.0 product integration proven. LM-ratio=0.837x fact-recall=1.000 (base-ppl=21.12)"
+}

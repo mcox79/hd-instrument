@@ -1,0 +1,337 @@
+{
+  "total_atoms": 19326,
+  "structured_core": 202,
+  "promotion_pairs": [
+    {
+      "promotion": "T2/pca_whitening",
+      "source": "T3/pca_whitening",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/discriminative_perceptron",
+      "source": "T3/discriminative_perceptron",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/bayesian_inference",
+      "source": "T3/bayesian_inference",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/dijkstra",
+      "source": "T3/dijkstra",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/hmm_transition",
+      "source": "T3/hmm_transition",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/answer_consistency_weak_labels",
+      "source": "T3/answer_consistency_weak_labels",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/beam_search",
+      "source": "T3/beam_search",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/zca_whitening",
+      "source": "T3/zca_whitening",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/forward_algorithm",
+      "source": "T3/forward_algorithm",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/collins_structured_perceptron",
+      "source": "T3/collins_structured_perceptron",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/dynamic_programming",
+      "source": "T3/dynamic_programming",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/hungarian_assignment",
+      "source": "T3/hungarian_assignment",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/perceptron_update",
+      "source": "T3/perceptron_update",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/hmm_emission",
+      "source": "T3/hmm_emission",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/astar",
+      "source": "T3/astar",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/structured_perceptron_collins",
+      "source": "T3/structured_perceptron_collins",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/viterbi_decoder",
+      "source": "T3/viterbi_decoder",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/viterbi_decoding",
+      "source": "T3/viterbi_decoding",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/backward_algorithm",
+      "source": "T3/backward_algorithm",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/em_algorithm",
+      "source": "T3/em_algorithm",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/forward_algorithm_atom",
+      "source": "T3/forward_algorithm_atom",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/mp_bulk_kl",
+      "source": "T3/mp_bulk_kl",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/backward_algorithm_atom",
+      "source": "T3/backward_algorithm_atom",
+      "source_present": true
+    },
+    {
+      "promotion": "T2/hungarian_algorithm",
+      "source": "T3/hungarian_algorithm",
+      "source_present": true
+    }
+  ],
+  "exact_duplicate_groups": {
+    "Dynamic-programming algorithm for max-probability state sequence given observations. Globally optimal over linear chains.": [
+      "T3/viterbi_decoding",
+      "T2/viterbi_decoding"
+    ],
+    "DP for marginal observation likelihood under HMM. Sum over all state sequences.": [
+      "T3/forward_algorithm",
+      "T2/forward_algorithm"
+    ],
+    "DP for backward HMM probabilities. Used in EM and posterior decoding.": [
+      "T3/backward_algorithm",
+      "T2/backward_algorithm"
+    ],
+    "Linear classifier with learned weights via mistake-driven update + averaging. Validated substrate-only on MAWPS 0.806, MultiArith 0.753 (2-op), CODE algorithm-pattern 0.750.": [
+      "T3/discriminative_perceptron",
+      "T2/discriminative_perceptron"
+    ],
+    "Polynomial-time optimal bipartite-matching algorithm minimizing total cost. Globally optimal over assignment polytope.": [
+      "T3/hungarian_assignment",
+      "T2/hungarian_assignment"
+    ],
+    "Single-source shortest-path algorithm for non-negative-weight graphs.": [
+      "T3/dijkstra",
+      "T2/dijkstra"
+    ],
+    "Heuristic-guided shortest-path search. Optimal with admissible heuristic.": [
+      "T3/astar",
+      "T2/astar"
+    ],
+    "K-best approximate search keeping top-K candidates at each step. Trades optimality for tractability.": [
+      "T3/beam_search",
+      "T2/beam_search"
+    ],
+    "Optimal substructure + overlapping subproblems via memoization. Foundation for Viterbi, MST, edit-distance, etc.": [
+      "T3/dynamic_programming",
+      "T2/dynamic_programming"
+    ],
+    "Decorrelate features via PCA followed by variance normalization. Preserves variance structure aligned with principal axes.": [
+      "T3/pca_whitening",
+      "T2/pca_whitening"
+    ],
+    "Zero-phase whitening; preserves orientation of original axes. Rotation-equivalent to PCA whitening.": [
+      "T3/zca_whitening",
+      "T2/zca_whitening"
+    ],
+    "Posterior = likelihood * prior / evidence. General framework for substrate-stored posterior updates.": [
+      "T3/bayesian_inference",
+      "T2/bayesian_inference"
+    ],
+    "Iterative algorithm for parameter estimation with latent variables. E-step computes posteriors; M-step maximizes parameters.": [
+      "T3/em_algorithm",
+      "T2/em_algorithm"
+    ],
+    "Weak-supervision method: for each training example, find latent assignment that makes the schema constraint yield the gold answer. Used in substrate MATH solver to train without role annotations.": [
+      "T3/answer_consistency_weak_labels",
+      "T2/answer_consistency_weak_labels"
+    ],
+    "Mistake-driven weight update: w += y*x on mistake. Foundation of perceptron and structured-perceptron learning.": [
+      "T3/perceptron_update",
+      "T2/perceptron_update"
+    ],
+    "Discriminative max-margin classifier with structured-output decoding (assignment-constraint enforcement). Learns weights via mistake-driven structured-perceptron update over joint feature representation. NOT probabilistic; max-margin formulation in structured output space.": [
+      "T3/collins_structured_perceptron",
+      "T2/collins_structured_perceptron"
+    ],
+    "Probabilistic generative model component: probability of next state given current state P(state_{t+1} | state_t). Captures sequential structure in generative HMM framework. Used in Viterbi (max) and forward-backward (sum).": [
+      "T3/hmm_transition",
+      "T2/hmm_transition"
+    ],
+    "Probabilistic generative model component: probability of observation given hidden state P(observation | state). Computed via count statistics (substrate-classical) or substrate Tier-2 schema. Used in Viterbi (max) and forward-backward (sum).": [
+      "T3/hmm_emission",
+      "T2/hmm_emission"
+    ],
+    "KL divergence of eigenvalue empirical density from Marchenko-Pastur bulk. Substrate Layer 2 measure of codebook deviation from random; substrate algebra-HRR codebook 12x semantic-bge per Findings 11 v2.1.": [
+      "T3/mp_bulk_kl",
+      "T2/mp_bulk_kl"
+    ],
+    "Collins 2002 discriminative max-margin classifier with structured-output decoding (assignment-constraint enforcement). Learns weights via mistake-driven structured-perceptron update over joint feature representation. NOT probabilistic; max-margin formulation in structured output space.": [
+      "T3/structured_perceptron_collins",
+      "T2/structured_perceptron_collins"
+    ],
+    "O(N K^2) dynamic programming algorithm for max-product MAP decoding in HMM / chain CRF. Substrate-classical sequence decoder used in PP-364 POS Tier-A + PP-369 slot-filling Tier-B.": [
+      "T3/viterbi_decoder",
+      "T2/viterbi_decoder"
+    ],
+    "O(N K^2) dynamic programming for marginal posterior alpha_t(k) = P(o_1..o_t, x_t=k). Substrate companion to Viterbi for sum-product semiring.": [
+      "T3/forward_algorithm_atom",
+      "T2/forward_algorithm_atom"
+    ],
+    "O(N K^2) dynamic programming for backward probability beta_t(k) = P(o_{t+1}..o_N | x_t=k). Substrate companion to forward for full posteriors + EM training.": [
+      "T3/backward_algorithm_atom",
+      "T2/backward_algorithm_atom"
+    ],
+    "Kuhn-Munkres O(N^3) algorithm for optimal bipartite matching with cost matrix. Substrate role-assigner primitive for discriminative-weighted matching.": [
+      "T3/hungarian_algorithm",
+      "T2/hungarian_algorithm"
+    ]
+  },
+  "name_variant_groups": {
+    "cosine_similarity": [
+      "T1/cosine_similarity",
+      "T3/cosine_similarity"
+    ],
+    "shannon_entropy": [
+      "T1/shannon_entropy",
+      "T1/shannon_entropy_atom"
+    ],
+    "viterbi_decoding": [
+      "T2/viterbi_decoding",
+      "T3/viterbi_decoding"
+    ],
+    "forward_algorithm": [
+      "T2/forward_algorithm",
+      "T2/forward_algorithm_atom",
+      "T3/forward_algorithm",
+      "T3/forward_algorithm_atom"
+    ],
+    "backward_algorithm": [
+      "T2/backward_algorithm",
+      "T2/backward_algorithm_atom",
+      "T3/backward_algorithm",
+      "T3/backward_algorithm_atom"
+    ],
+    "discriminative_perceptron": [
+      "T2/discriminative_perceptron",
+      "T3/discriminative_perceptron"
+    ],
+    "hungarian_assignment": [
+      "T2/hungarian_assignment",
+      "T3/hungarian_assignment"
+    ],
+    "chu_liu_edmonds": [
+      "T3/chu_liu_edmonds",
+      "T3/chu_liu_edmonds_algo"
+    ],
+    "dijkstra": [
+      "T2/dijkstra",
+      "T3/dijkstra"
+    ],
+    "astar": [
+      "T2/astar",
+      "T3/astar"
+    ],
+    "beam_search": [
+      "T2/beam_search",
+      "T3/beam_search"
+    ],
+    "dynamic_programming": [
+      "T2/dynamic_programming",
+      "T3/dynamic_programming"
+    ],
+    "pca_whitening": [
+      "T2/pca_whitening",
+      "T3/pca_whitening"
+    ],
+    "zca_whitening": [
+      "T2/zca_whitening",
+      "T3/zca_whitening"
+    ],
+    "bayesian_inference": [
+      "T2/bayesian_inference",
+      "T3/bayesian_inference"
+    ],
+    "em_algorithm": [
+      "T2/em_algorithm",
+      "T3/em_algorithm"
+    ],
+    "answer_consistency_weak_labels": [
+      "T2/answer_consistency_weak_labels",
+      "T3/answer_consistency_weak_labels"
+    ],
+    "perceptron_update": [
+      "T2/perceptron_update",
+      "T3/perceptron_update"
+    ],
+    "collins_structured_perceptron": [
+      "T2/collins_structured_perceptron",
+      "T3/collins_structured_perceptron"
+    ],
+    "hmm_transition": [
+      "T2/hmm_transition",
+      "T3/hmm_transition"
+    ],
+    "hmm_emission": [
+      "T2/hmm_emission",
+      "T3/hmm_emission"
+    ],
+    "mp_bulk_kl": [
+      "T2/mp_bulk_kl",
+      "T3/mp_bulk_kl"
+    ],
+    "structured_perceptron_collins": [
+      "T2/structured_perceptron_collins",
+      "T3/structured_perceptron_collins"
+    ],
+    "viterbi_decoder": [
+      "T2/viterbi_decoder",
+      "T3/viterbi_decoder"
+    ],
+    "hungarian_algorithm": [
+      "T2/hungarian_algorithm",
+      "T3/hungarian_algorithm"
+    ]
+  },
+  "distillation_ratio_floor_pct_total": 0.398,
+  "components": {
+    "promotion_pairs": 24,
+    "exact_dupe_extra": 24,
+    "variant_extra": 29
+  },
+  "note": "provable zero-capability-loss lower bound; Testbed INTEGRATE worklist; true distillation ratio (incl SHARED_ABSTRACTION supertypes) is higher, needs proof+vectors"
+}

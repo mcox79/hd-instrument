@@ -1,0 +1,19 @@
+{
+  "verdict": "N1M_SCALES",
+  "verdict_msg": "acc=1.000>=0.5; 16x beyond V2.D at FULL.",
+  "elapsed_s": 6.922000000020489,
+  "summary": {
+    "smoother_acc": 1.0,
+    "N": 1048576,
+    "n_trials": 10
+  },
+  "config": {
+    "N": 1048576,
+    "K": 100,
+    "depth": 50,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_trials": 10,
+    "seed": 17
+  }
+}

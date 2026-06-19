@@ -1,0 +1,27 @@
+# Smoke config for large_N_envelope: must complete < 60s on a Windows laptop CPU.
+# Used as the local smoke gate before shipping the FULL sweep to remote CPU.
+
+config_name: large_N_envelope_smoke
+N: 256
+dim: 256
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+N_sweep: [256, 512]
+M_per_N_ratios: [0.25, 1.0]
+extended_N: false
+
+# Smaller sample counts for fast smoke.
+envelope_n_recall_samples: 64
+envelope_n_oos_samples: 64
+envelope_n_edit_trials: 8
+envelope_n_delete_trials: 8
+envelope_n_latency_queries: 64
+envelope_measure_disk: true
+
+seeds: [7]
+backends: [substrate]
+scenarios: [large_N_envelope]
+out_root: testbed_data/benchmarks

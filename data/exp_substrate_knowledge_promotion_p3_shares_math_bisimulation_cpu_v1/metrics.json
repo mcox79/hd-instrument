@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_knowledge_promotion_p3_shares_math_bisimulation_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: only 0 bisimulation classes -- SHARES_MATH structure does not yet support archetype quotienting. P3 bisimulation: 0 archetype classes size>=3 over 16 SHARES_MATH atoms (18 edges); sizes=[]; saved bench_reports/kp_p3_shares_math_bisimulation_classes.json (READ-ONLY -- Testbed creates T2 + re-parents)",
+  "summary": "HARD_FAIL: only 0 bisimulation classes -- SHARES_MATH structure does not yet support archetype quotienting. P3 bisimulation: 0 archetype classes size>=3 over 16 SHARES_MATH atoms (18 edges); sizes=[]; saved bench_reports/kp_p3_shares_math_bisimulation_classes.json (READ-ONLY -- Testbed creates T2 + re-parents)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sm_edges": 18,
+      "n_sm_nodes": 16,
+      "n_classes": 0,
+      "class_sizes": [],
+      "classes": []
+    }
+  ],
+  "elapsed_s": 0.013127565383911133
+}

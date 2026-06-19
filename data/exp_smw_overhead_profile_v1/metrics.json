@@ -1,0 +1,15 @@
+{
+  "anchor_name": "smw_overhead_profile_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: no single phase >50pct. dominant phase=rank1_update frac=0.49",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dom": "rank1_update",
+      "frac": 0.49181300336247596
+    }
+  ],
+  "elapsed_s": 0.1527574062347412,
+  "summary": "MIDDLE_BAND: no single phase >50pct. dominant phase=rank1_update frac=0.49"
+}

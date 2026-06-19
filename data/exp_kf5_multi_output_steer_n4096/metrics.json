@@ -1,0 +1,58 @@
+{
+  "verdict": "KF5_MSTEER_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_MSTEER: some diversity change but below threshold. mean_jc_k5=0.000 mean_entropy_range=7.740bits seeds_pass=0/1 HP_jc=0.3 HP_entropy=1.0 HF_jc=0.1 HF_entropy=0.5",
+  "elapsed_s": 0.27,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "beta_sweep": [
+      2.0,
+      32.0,
+      128.0
+    ]
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "per_beta": {
+          "2.0": {
+            "output_entropy_bits": 7.886764844258626,
+            "bpc": 6.523198127746582,
+            "n_eval": 300,
+            "jaccard_change_k1": 0.0,
+            "jaccard_change_k5": 0.0,
+            "jaccard_change_k10": 0.0
+          },
+          "32.0": {
+            "output_entropy_bits": 0.6691397428512573,
+            "bpc": 9.583732604980469,
+            "n_eval": 300,
+            "jaccard_change_k1": 0.0,
+            "jaccard_change_k5": 0.0,
+            "jaccard_change_k10": 0.0
+          },
+          "128.0": {
+            "output_entropy_bits": 0.1472451314330101,
+            "bpc": 22.4783878326416,
+            "n_eval": 300,
+            "jaccard_change_k1": 0.0,
+            "jaccard_change_k5": 0.0,
+            "jaccard_change_k10": 0.0
+          }
+        }
+      }
+    },
+    "N_full": 4096,
+    "N_used": 1024,
+    "M_frac": 4.0,
+    "beta_sweep": [
+      2.0,
+      32.0,
+      128.0
+    ],
+    "beta_ref": 32.0,
+    "smoke": true
+  }
+}

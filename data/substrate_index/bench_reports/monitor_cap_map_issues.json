@@ -1,0 +1,76 @@
+{
+  "scorecard_state": "current",
+  "current_cycle_id": 51,
+  "current_cycle_phase": "close",
+  "baseline_lookback": 3,
+  "threshold_drop": 0.005,
+  "history_rows": 4,
+  "macro_current": 0.7233,
+  "issue_count": 6,
+  "issues": [
+    {
+      "scope": "axis",
+      "axis": "A",
+      "axis_description": "factual retrieval (atom-by-topic)",
+      "current_score": 0.6625,
+      "baseline_best": 0.78,
+      "baseline_best_phase": "day_4_hp_v1_plus",
+      "delta": -0.1175,
+      "severity": 23.5,
+      "interpretation": "axis A lost 0.1175 vs lookback-best (0.7800 at day_4_hp_v1_plus); candidate compose-fix topic: factual retrieval (atom-by-topic)"
+    },
+    {
+      "scope": "axis",
+      "axis": "C",
+      "axis_description": "capability-serves (atom -> serves_capability mapping)",
+      "current_score": 0.8207,
+      "baseline_best": 0.8766,
+      "baseline_best_phase": "day_4_hp_v1_plus",
+      "delta": -0.0559,
+      "severity": 11.18,
+      "interpretation": "axis C lost 0.0559 vs lookback-best (0.8766 at day_4_hp_v1_plus); candidate compose-fix topic: capability-serves (atom -> serves_capability mapping)"
+    },
+    {
+      "scope": "axis",
+      "axis": "D",
+      "axis_description": "structural depth (DEPENDS_ON / USES typed-graph reachability)",
+      "current_score": 0.65,
+      "baseline_best": 0.7,
+      "baseline_best_phase": "day_4_hp_v1_plus",
+      "delta": -0.05,
+      "severity": 10.0,
+      "interpretation": "axis D lost 0.0500 vs lookback-best (0.7000 at day_4_hp_v1_plus); candidate compose-fix topic: structural depth (DEPENDS_ON / USES typed-graph reachability)"
+    },
+    {
+      "scope": "axis",
+      "axis": "G",
+      "axis_description": "meta (substrate introspection over its own history + tooling)",
+      "current_score": 0.5,
+      "baseline_best": 0.55,
+      "baseline_best_phase": "day_4_hp_v1_plus",
+      "delta": -0.05,
+      "severity": 10.0,
+      "interpretation": "axis G lost 0.0500 vs lookback-best (0.5500 at day_4_hp_v1_plus); candidate compose-fix topic: meta (substrate introspection over its own history + tooling)"
+    },
+    {
+      "scope": "axis",
+      "axis": "B",
+      "axis_description": "compositional (multi-atom traversal + DUAL + INSTANCE_OF chains)",
+      "current_score": 0.516,
+      "baseline_best": 0.55,
+      "baseline_best_phase": "day_4_hp_v1_plus",
+      "delta": -0.034,
+      "severity": 6.8,
+      "interpretation": "axis B lost 0.0340 vs lookback-best (0.5500 at day_4_hp_v1_plus); candidate compose-fix topic: compositional (multi-atom traversal + DUAL + INSTANCE_OF chains)"
+    },
+    {
+      "scope": "macro",
+      "current_score": 0.7233,
+      "baseline_best": 0.7518,
+      "baseline_best_phase": "day_4_hp_v1_plus",
+      "delta": -0.0285,
+      "severity": 5.7,
+      "interpretation": "macro F1 lost 0.0285 vs lookback-best (0.7518 at day_4_hp_v1_plus); likely cause: corpus growth without retention mitigation OR Q-tuning erosion"
+    }
+  ]
+}

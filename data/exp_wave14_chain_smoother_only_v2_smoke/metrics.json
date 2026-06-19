@@ -1,0 +1,22 @@
+{
+  "verdict": "SMOOTHER_ONLY_WORKS",
+  "verdict_msg": "Backward msg alone sufficient: acc=1.000>=0.70 vs argmax 0.400.",
+  "elapsed_s": 0.26500000001396984,
+  "summary": {
+    "acc_50hop_argmax_baseline": 0.4,
+    "acc_50hop_smoother_only": 1.0,
+    "depth": 25
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "depth": 25,
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

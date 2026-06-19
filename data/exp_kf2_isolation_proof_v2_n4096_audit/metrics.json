@@ -1,0 +1,256 @@
+{
+  "verdict": "KF2V2AUDIT_HARD_PASS_STANDARD",
+  "verdict_msg": "EDIT ISOLATION PROVED N=4096 (STANDARD): max_iso=0.02020 < 0.05. Kerdock-safe N=4096 corroboration without BE-1 entanglement. N=4096. max_iso=0.02020. mean_iso=0.01051. max_undercap_iso=0.02020. theory_bound=0.01562. within_theory_frac=0.80.",
+  "elapsed_s": 5.766364812850952,
+  "config": {
+    "N": 4096,
+    "M_fracs": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "n_edits": 50,
+    "smoke": false,
+    "bit_precision": "fp32"
+  },
+  "summary": {
+    "cells": [
+      {
+        "M_frac": 0.25,
+        "M": 1024,
+        "seed": 7,
+        "isolation_ratio": 0.020202020183205605,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": false
+      },
+      {
+        "M_frac": 0.5,
+        "M": 2048,
+        "seed": 7,
+        "isolation_ratio": 0.020202020183205605,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": false
+      },
+      {
+        "M_frac": 1.0,
+        "M": 4096,
+        "seed": 7,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 2.0,
+        "M": 4096,
+        "seed": 7,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 7,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.25,
+        "M": 1024,
+        "seed": 17,
+        "isolation_ratio": 0.0,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.5,
+        "M": 2048,
+        "seed": 17,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 1.0,
+        "M": 4096,
+        "seed": 17,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 2.0,
+        "M": 4096,
+        "seed": 17,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 17,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.25,
+        "M": 1024,
+        "seed": 23,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.5,
+        "M": 2048,
+        "seed": 23,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 1.0,
+        "M": 4096,
+        "seed": 23,
+        "isolation_ratio": 0.020202020183205605,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": false
+      },
+      {
+        "M_frac": 2.0,
+        "M": 4096,
+        "seed": 23,
+        "isolation_ratio": 0.020202020183205605,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": false
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 23,
+        "isolation_ratio": 0.020202020183205605,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": false
+      },
+      {
+        "M_frac": 0.25,
+        "M": 1024,
+        "seed": 31,
+        "isolation_ratio": 0.0,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.5,
+        "M": 2048,
+        "seed": 31,
+        "isolation_ratio": 0.0,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 1.0,
+        "M": 4096,
+        "seed": 31,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 2.0,
+        "M": 4096,
+        "seed": 31,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 31,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.25,
+        "M": 1024,
+        "seed": 41,
+        "isolation_ratio": 0.0,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 0.5,
+        "M": 2048,
+        "seed": 41,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 1.0,
+        "M": 4096,
+        "seed": 41,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 2.0,
+        "M": 4096,
+        "seed": 41,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      },
+      {
+        "M_frac": 4.0,
+        "M": 4096,
+        "seed": 41,
+        "isolation_ratio": 0.010101010091602802,
+        "theory_bound": 0.015625,
+        "n_edits_run": 50,
+        "within_theory": true
+      }
+    ],
+    "N": 4096,
+    "smoke": false
+  }
+}

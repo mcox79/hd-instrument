@@ -1,0 +1,197 @@
+{
+  "verdict": "HATANO_SASA_CAP3_NESS_CROOKS_MIDDLE_BAND",
+  "verdict_msg": "HS-IFT PARTIAL: <exp(-W_ex)>=1.3216; cross_basin_frac=0.274; n_valid_cells=11. Outside hard-pass band [0.95,1.05] OR insufficient cross-basin evidence (need >= 0.05) OR n_valid_cells < 3. Partial cert; needs more data or theoretical adjustment.",
+  "elapsed_s": 36.26500000001397,
+  "summary": {
+    "hs_identity_val": 1.3215777610818933,
+    "hs_identity_sem": 0.19338751964908965,
+    "cross_basin_frac": 0.2743801652892562,
+    "n_valid_cells": 11,
+    "n_cells_total": 16,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "cells": [
+      {
+        "noise_p": 0.3,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 142,
+        "n_distinct_attractors": 49,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 147,
+        "n_distinct_attractors": 50,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 31,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 144,
+        "n_distinct_attractors": 49,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.3,
+        "seed": 41,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 149,
+        "n_distinct_attractors": 50,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 40,
+        "n_distinct_attractors": 28,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 43,
+        "n_distinct_attractors": 32,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 31,
+        "hs_identity_val": 1.0373553719008264,
+        "cross_basin_frac": 0.01818181818181818,
+        "n_valid_traj": 55,
+        "n_distinct_attractors": 33,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.4,
+        "seed": 41,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 61,
+        "n_distinct_attractors": 39,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 31,
+        "hs_identity_val": 2.0,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 1,
+        "n_distinct_attractors": 1,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.5,
+        "seed": 41,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 17,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 23,
+        "hs_identity_val": 1.0,
+        "cross_basin_frac": 0.0,
+        "n_valid_traj": 0,
+        "n_distinct_attractors": 0,
+        "degenerate": true
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 31,
+        "hs_identity_val": 1.5000000000000002,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 2,
+        "n_distinct_attractors": 2,
+        "degenerate": false
+      },
+      {
+        "noise_p": 0.6,
+        "seed": 41,
+        "hs_identity_val": 3.0000000000000004,
+        "cross_basin_frac": 1.0,
+        "n_valid_traj": 2,
+        "n_distinct_attractors": 1,
+        "degenerate": false
+      }
+    ]
+  },
+  "config": {
+    "N": 2048,
+    "M": 50,
+    "n_traj_per_cell": 150,
+    "noise_levels": [
+      0.3,
+      0.4,
+      0.5,
+      0.6
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41
+    ],
+    "max_iter": 60,
+    "beta": 1.5,
+    "glauber_steps": 60,
+    "hard_pass_band": [
+      0.95,
+      1.05
+    ],
+    "hard_fail_outside": [
+      0.5,
+      2.0
+    ],
+    "cross_basin_min": 0.05,
+    "smoke": false
+  }
+}

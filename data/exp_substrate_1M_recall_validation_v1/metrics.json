@@ -1,0 +1,17 @@
+{
+  "anchor_name": "substrate_1M_recall_validation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sign-key autoassociative recall holds at 1M scale (recall@1>=0.99) -- CELL-4 promotes to production scale. recall@1=1.0000 at N=50000 (noise_flip=0.15, n_q=500)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_keys": 50000,
+      "recall1": 1.0,
+      "noise_flip": 0.15,
+      "nq": 500
+    }
+  ],
+  "elapsed_s": 1.0585293769836426,
+  "summary": "HARD_PASS: sign-key autoassociative recall holds at 1M scale (recall@1>=0.99) -- CELL-4 promotes to production scale. recall@1=1.0000 at N=50000 (noise_flip=0.15, n_q=500)"
+}

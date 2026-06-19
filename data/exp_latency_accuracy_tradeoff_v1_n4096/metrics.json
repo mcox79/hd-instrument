@@ -1,0 +1,611 @@
+{
+  "verdict": "S8_HARD_FAIL",
+  "verdict_msg": "NO_TRADEOFF: pareto={'cleanup': 1, 'k_paths': 1, 'audit': 1, 'depth': 1} n_pass=0/4",
+  "elapsed_s": 9.37,
+  "summary": {
+    "anchor": "latency_accuracy_tradeoff_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "cleanups": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "Ks": [
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "audits": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "depths": [
+      3,
+      5,
+      8,
+      12
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "M": 2048,
+        "cleanup": [
+          {
+            "setting": 0.0,
+            "acc": 1.0,
+            "lat_ns": 34014100
+          },
+          {
+            "setting": 0.25,
+            "acc": 1.0,
+            "lat_ns": 1709200
+          },
+          {
+            "setting": 0.5,
+            "acc": 1.0,
+            "lat_ns": 432300
+          },
+          {
+            "setting": 1.0,
+            "acc": 1.0,
+            "lat_ns": 334000
+          },
+          {
+            "setting": 1.5,
+            "acc": 1.0,
+            "lat_ns": 332800
+          },
+          {
+            "setting": 2.0,
+            "acc": 1.0,
+            "lat_ns": 441700
+          }
+        ],
+        "k_paths": [
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 100777000
+          },
+          {
+            "setting": 100,
+            "acc": 1.0,
+            "lat_ns": 39983100
+          },
+          {
+            "setting": 250,
+            "acc": 1.0,
+            "lat_ns": 113513800
+          },
+          {
+            "setting": 500,
+            "acc": 1.0,
+            "lat_ns": 192928400
+          },
+          {
+            "setting": 1000,
+            "acc": 1.0,
+            "lat_ns": 395015000
+          }
+        ],
+        "audit": [
+          {
+            "setting": 1,
+            "acc": 1.0,
+            "lat_ns": 947200
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 73428600
+          },
+          {
+            "setting": 10,
+            "acc": 1.0,
+            "lat_ns": 791700
+          },
+          {
+            "setting": 25,
+            "acc": 1.0,
+            "lat_ns": 1344000
+          },
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 2354700
+          }
+        ],
+        "depth": [
+          {
+            "setting": 3,
+            "acc": 1.0,
+            "lat_ns": 448900
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 318100
+          },
+          {
+            "setting": 8,
+            "acc": 1.0,
+            "lat_ns": 359400
+          },
+          {
+            "setting": 12,
+            "acc": 1.0,
+            "lat_ns": 463400
+          }
+        ]
+      },
+      {
+        "seed": 17,
+        "M": 2048,
+        "cleanup": [
+          {
+            "setting": 0.0,
+            "acc": 1.0,
+            "lat_ns": 413800
+          },
+          {
+            "setting": 0.25,
+            "acc": 1.0,
+            "lat_ns": 343100
+          },
+          {
+            "setting": 0.5,
+            "acc": 1.0,
+            "lat_ns": 254200
+          },
+          {
+            "setting": 1.0,
+            "acc": 1.0,
+            "lat_ns": 246700
+          },
+          {
+            "setting": 1.5,
+            "acc": 1.0,
+            "lat_ns": 237700
+          },
+          {
+            "setting": 2.0,
+            "acc": 1.0,
+            "lat_ns": 231300
+          }
+        ],
+        "k_paths": [
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 32088600
+          },
+          {
+            "setting": 100,
+            "acc": 1.0,
+            "lat_ns": 34657000
+          },
+          {
+            "setting": 250,
+            "acc": 1.0,
+            "lat_ns": 83144300
+          },
+          {
+            "setting": 500,
+            "acc": 1.0,
+            "lat_ns": 203028400
+          },
+          {
+            "setting": 1000,
+            "acc": 1.0,
+            "lat_ns": 364660100
+          }
+        ],
+        "audit": [
+          {
+            "setting": 1,
+            "acc": 1.0,
+            "lat_ns": 405600
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 572800
+          },
+          {
+            "setting": 10,
+            "acc": 1.0,
+            "lat_ns": 613000
+          },
+          {
+            "setting": 25,
+            "acc": 1.0,
+            "lat_ns": 1324900
+          },
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 2192200
+          }
+        ],
+        "depth": [
+          {
+            "setting": 3,
+            "acc": 1.0,
+            "lat_ns": 359000
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 349900
+          },
+          {
+            "setting": 8,
+            "acc": 1.0,
+            "lat_ns": 366000
+          },
+          {
+            "setting": 12,
+            "acc": 1.0,
+            "lat_ns": 468800
+          }
+        ]
+      },
+      {
+        "seed": 23,
+        "M": 2048,
+        "cleanup": [
+          {
+            "setting": 0.0,
+            "acc": 1.0,
+            "lat_ns": 334800
+          },
+          {
+            "setting": 0.25,
+            "acc": 1.0,
+            "lat_ns": 278600
+          },
+          {
+            "setting": 0.5,
+            "acc": 1.0,
+            "lat_ns": 204200
+          },
+          {
+            "setting": 1.0,
+            "acc": 1.0,
+            "lat_ns": 204600
+          },
+          {
+            "setting": 1.5,
+            "acc": 1.0,
+            "lat_ns": 205300
+          },
+          {
+            "setting": 2.0,
+            "acc": 1.0,
+            "lat_ns": 195100
+          }
+        ],
+        "k_paths": [
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 20097300
+          },
+          {
+            "setting": 100,
+            "acc": 1.0,
+            "lat_ns": 33869400
+          },
+          {
+            "setting": 250,
+            "acc": 1.0,
+            "lat_ns": 105043100
+          },
+          {
+            "setting": 500,
+            "acc": 1.0,
+            "lat_ns": 219497800
+          },
+          {
+            "setting": 1000,
+            "acc": 1.0,
+            "lat_ns": 606504000
+          }
+        ],
+        "audit": [
+          {
+            "setting": 1,
+            "acc": 1.0,
+            "lat_ns": 433200
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 557300
+          },
+          {
+            "setting": 10,
+            "acc": 1.0,
+            "lat_ns": 628800
+          },
+          {
+            "setting": 25,
+            "acc": 1.0,
+            "lat_ns": 1042800
+          },
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 1608200
+          }
+        ],
+        "depth": [
+          {
+            "setting": 3,
+            "acc": 1.0,
+            "lat_ns": 939700
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 455900
+          },
+          {
+            "setting": 8,
+            "acc": 1.0,
+            "lat_ns": 1170100
+          },
+          {
+            "setting": 12,
+            "acc": 0.9375,
+            "lat_ns": 870300
+          }
+        ]
+      },
+      {
+        "seed": 31,
+        "M": 2048,
+        "cleanup": [
+          {
+            "setting": 0.0,
+            "acc": 1.0,
+            "lat_ns": 320200
+          },
+          {
+            "setting": 0.25,
+            "acc": 1.0,
+            "lat_ns": 273900
+          },
+          {
+            "setting": 0.5,
+            "acc": 1.0,
+            "lat_ns": 838400
+          },
+          {
+            "setting": 1.0,
+            "acc": 1.0,
+            "lat_ns": 724100
+          },
+          {
+            "setting": 1.5,
+            "acc": 1.0,
+            "lat_ns": 1323200
+          },
+          {
+            "setting": 2.0,
+            "acc": 1.0,
+            "lat_ns": 718400
+          }
+        ],
+        "k_paths": [
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 30464400
+          },
+          {
+            "setting": 100,
+            "acc": 1.0,
+            "lat_ns": 35267900
+          },
+          {
+            "setting": 250,
+            "acc": 1.0,
+            "lat_ns": 89022400
+          },
+          {
+            "setting": 500,
+            "acc": 1.0,
+            "lat_ns": 194359400
+          },
+          {
+            "setting": 1000,
+            "acc": 1.0,
+            "lat_ns": 360103500
+          }
+        ],
+        "audit": [
+          {
+            "setting": 1,
+            "acc": 1.0,
+            "lat_ns": 398900
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 544500
+          },
+          {
+            "setting": 10,
+            "acc": 1.0,
+            "lat_ns": 738300
+          },
+          {
+            "setting": 25,
+            "acc": 1.0,
+            "lat_ns": 1555000
+          },
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 5608400
+          }
+        ],
+        "depth": [
+          {
+            "setting": 3,
+            "acc": 1.0,
+            "lat_ns": 939900
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 895400
+          },
+          {
+            "setting": 8,
+            "acc": 1.0,
+            "lat_ns": 1063800
+          },
+          {
+            "setting": 12,
+            "acc": 0.9375,
+            "lat_ns": 1375100
+          }
+        ]
+      },
+      {
+        "seed": 41,
+        "M": 2048,
+        "cleanup": [
+          {
+            "setting": 0.0,
+            "acc": 1.0,
+            "lat_ns": 274700
+          },
+          {
+            "setting": 0.25,
+            "acc": 1.0,
+            "lat_ns": 667600
+          },
+          {
+            "setting": 0.5,
+            "acc": 1.0,
+            "lat_ns": 722300
+          },
+          {
+            "setting": 1.0,
+            "acc": 1.0,
+            "lat_ns": 621700
+          },
+          {
+            "setting": 1.5,
+            "acc": 1.0,
+            "lat_ns": 593700
+          },
+          {
+            "setting": 2.0,
+            "acc": 1.0,
+            "lat_ns": 604700
+          }
+        ],
+        "k_paths": [
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 31513800
+          },
+          {
+            "setting": 100,
+            "acc": 1.0,
+            "lat_ns": 46837800
+          },
+          {
+            "setting": 250,
+            "acc": 1.0,
+            "lat_ns": 97313700
+          },
+          {
+            "setting": 500,
+            "acc": 1.0,
+            "lat_ns": 182558900
+          },
+          {
+            "setting": 1000,
+            "acc": 1.0,
+            "lat_ns": 381924500
+          }
+        ],
+        "audit": [
+          {
+            "setting": 1,
+            "acc": 1.0,
+            "lat_ns": 490700
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 547200
+          },
+          {
+            "setting": 10,
+            "acc": 1.0,
+            "lat_ns": 815500
+          },
+          {
+            "setting": 25,
+            "acc": 1.0,
+            "lat_ns": 1395200
+          },
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 2665800
+          }
+        ],
+        "depth": [
+          {
+            "setting": 3,
+            "acc": 1.0,
+            "lat_ns": 536100
+          },
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 388800
+          },
+          {
+            "setting": 8,
+            "acc": 1.0,
+            "lat_ns": 438600
+          },
+          {
+            "setting": 12,
+            "acc": 0.9375,
+            "lat_ns": 590100
+          }
+        ]
+      }
+    ],
+    "verdict": "S8_HARD_FAIL",
+    "verdict_msg": "NO_TRADEOFF: pareto={'cleanup': 1, 'k_paths': 1, 'audit': 1, 'depth': 1} n_pass=0/4",
+    "elapsed_s": 9.37
+  }
+}

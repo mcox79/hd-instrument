@@ -1,0 +1,81 @@
+{
+  "anchor_name": "pp52_hebbian_vs_lora_in_lora_valid_regime_n1024_v1",
+  "verdict": "LORA_INCOMPATIBLE",
+  "verdict_msg": "LORA_INCOMPATIBLE: LoRA accuracy never exceeded ACC_FLOOR=0.9 at any tested rank. sub_fact_acc=1.0000 sub_base_ret=1.0000. Substrate value continues to rest on 4 confirmed cross-N anchors. n_seeds=2",
+  "N": 1024,
+  "M_baseline": 100,
+  "K_facts": 10,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.07873773574829102,
+  "lora_ranks": [
+    64,
+    128
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "sub_fact_acc": 1.0,
+      "sub_base_ret": 1.0,
+      "wall_sub_s": 0.0,
+      "lora_results": [
+        {
+          "rank": 64,
+          "lora_fact_acc": 0.0,
+          "lora_base_ret": 1.0,
+          "wall_lora_s": 0.008697748184204102,
+          "n_steps": 2,
+          "final_loss": 4.691897068012446e-05,
+          "flops_lora": 25165824,
+          "both_above_acc_floor": false,
+          "wall_speedup": null,
+          "flops_speedup": null
+        },
+        {
+          "rank": 128,
+          "lora_fact_acc": 0.0,
+          "lora_base_ret": 1.0,
+          "wall_lora_s": 0.0,
+          "n_steps": 2,
+          "final_loss": 4.7629791413583255e-05,
+          "flops_lora": 50331648,
+          "both_above_acc_floor": false,
+          "wall_speedup": null,
+          "flops_speedup": null
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "sub_fact_acc": 1.0,
+      "sub_base_ret": 1.0,
+      "wall_sub_s": 0.0,
+      "lora_results": [
+        {
+          "rank": 64,
+          "lora_fact_acc": 0.0,
+          "lora_base_ret": 1.0,
+          "wall_lora_s": 0.003015279769897461,
+          "n_steps": 2,
+          "final_loss": 4.698130019431157e-05,
+          "flops_lora": 25165824,
+          "both_above_acc_floor": false,
+          "wall_speedup": null,
+          "flops_speedup": null
+        },
+        {
+          "rank": 128,
+          "lora_fact_acc": 0.0,
+          "lora_base_ret": 1.0,
+          "wall_lora_s": 0.003397226333618164,
+          "n_steps": 2,
+          "final_loss": 4.7695767223219936e-05,
+          "flops_lora": 50331648,
+          "both_above_acc_floor": false,
+          "wall_speedup": null,
+          "flops_speedup": null
+        }
+      ]
+    }
+  ]
+}

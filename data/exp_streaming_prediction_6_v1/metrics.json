@@ -1,0 +1,10 @@
+{
+  "anchor_name": "streaming_prediction_6_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: rho too low. mean_rho=0.2857(HP>=0.6,HF<0.1) n_hp=0/2 n_hf=0/2 per_seed=[0.436, 0.136]",
+  "N": 1024,
+  "M": 20,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.2963087558746338
+}

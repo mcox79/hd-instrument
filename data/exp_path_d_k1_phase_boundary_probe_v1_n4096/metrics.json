@@ -1,0 +1,36 @@
+{
+  "verdict": "K1_PHASE_HARD_PASS",
+  "verdict_msg": "PATH_D_STRONG_SUBSTRATE_PHYSICS: k1_mean=1.0000 > 0.95 (above HP upper bound; substrate physics stronger than expected). k1(path_b_top1)=1.0000 k10=1.0000 k100=1.0000 n_seeds=1",
+  "elapsed_s": 0.13,
+  "summary": {
+    "anchor": "path_d_k1_phase_boundary_probe_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 512,
+    "depth": 5,
+    "K_paths_grid": [
+      1,
+      10,
+      100
+    ],
+    "seeds": [
+      17
+    ],
+    "k_random_keys": 20,
+    "cells": [
+      {
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0,
+        "path_d_k10_acc": 1.0,
+        "path_d_k100_acc": 1.0,
+        "lat_b_ns": 3333600,
+        "lat_k10_ns": 16115500,
+        "lat_k100_ns": 74825900
+      }
+    ],
+    "verdict": "K1_PHASE_HARD_PASS",
+    "verdict_msg": "PATH_D_STRONG_SUBSTRATE_PHYSICS: k1_mean=1.0000 > 0.95 (above HP upper bound; substrate physics stronger than expected). k1(path_b_top1)=1.0000 k10=1.0000 k100=1.0000 n_seeds=1",
+    "elapsed_s": 0.13
+  }
+}

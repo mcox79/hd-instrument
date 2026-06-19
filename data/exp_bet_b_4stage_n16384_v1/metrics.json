@@ -1,0 +1,25 @@
+{
+  "verdict": "FOURSTAGE_HARD_PASS_N16384",
+  "verdict_msg": "N=16384 CLEARS ret_A FLOOR. mean_ret_A=0.911 >= 0.8. mean_ret_B=0.916, mean_ret_C=0.943. retA=0.74 floor was finite-N artifact at N=8192. Bet B 4-stage CL scales to production N=16384. n_seeds=1.",
+  "elapsed_s": 2.4640960693359375,
+  "mean_retention_A": 0.9109060547578253,
+  "mean_retention_B": 0.9163673814137792,
+  "mean_retention_C": 0.9432958006507385,
+  "per_seed": [
+    {
+      "retention_A": 0.9109060547578253,
+      "retention_B": 0.9163673814137792,
+      "retention_C": 0.9432958006507385,
+      "bpc_A_baseline": 3.710721357345581,
+      "bpc_A_after_D": 4.073659778594971,
+      "bpc_B_baseline": 5.3191492538452145,
+      "bpc_B_after_D": 5.804603439331054,
+      "bpc_C_baseline": 3.810929841995239,
+      "bpc_C_after_D": 4.040015697479248,
+      "bpc_D_after_D": 4.139370346069336
+    }
+  ],
+  "N_full": 16384,
+  "N_used": 1024,
+  "n_seeds": 1
+}

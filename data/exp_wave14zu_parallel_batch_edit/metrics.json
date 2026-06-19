@@ -1,0 +1,122 @@
+{
+  "verdict": "BATCH_VS_SEQ_EQUIVALENT",
+  "verdict_msg": "Batched and sequential equivalent: min(edit, kept) seq=1.000, batch=1.000. Frobenius drift_rel=0.0095.",
+  "elapsed_s": 2.188000000001921,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "seq_edit_acc": 1.0,
+        "seq_kept_acc": 1.0,
+        "batch_edit_acc": 1.0,
+        "batch_kept_acc": 1.0,
+        "frob_diff_rel": 0.00953991244331116,
+        "per_seed": [
+          {
+            "seed": 17,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.009724619209885266
+          },
+          {
+            "seed": 23,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.009638186604793935
+          },
+          {
+            "seed": 31,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.008962671898824492
+          },
+          {
+            "seed": 41,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.009774163859014263
+          },
+          {
+            "seed": 53,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.009599920644037835
+          }
+        ]
+      },
+      "correlated": {
+        "seq_edit_acc": 1.0,
+        "seq_kept_acc": 1.0,
+        "batch_edit_acc": 1.0,
+        "batch_kept_acc": 1.0,
+        "frob_diff_rel": 0.30907438244236773,
+        "per_seed": [
+          {
+            "seed": 17,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.3103391492077968
+          },
+          {
+            "seed": 23,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.30702706913657835
+          },
+          {
+            "seed": 31,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.3090667812704953
+          },
+          {
+            "seed": 41,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.31585091456039044
+          },
+          {
+            "seed": 53,
+            "seq_edit_acc": 1.0,
+            "seq_kept_acc": 1.0,
+            "batch_edit_acc": 1.0,
+            "batch_kept_acc": 1.0,
+            "frob_diff_rel": 0.303087998036578
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 2048,
+    "n_edit": 30,
+    "n_kept": 100,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

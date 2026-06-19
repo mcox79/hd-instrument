@@ -1,0 +1,39 @@
+{
+  "anchor_name": "phase05_v1_substrate_audit_core_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 audit primitives validated. alg1_balance=0.001(ok 2/2) drift_detected(ok 1/2) deletion_noncos=0.999(ok 2/2)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_docs": 200,
+  "hidden": 256,
+  "per_seed": [
+    {
+      "seed": 7,
+      "src": "synthetic",
+      "balance": 0.002578125102445483,
+      "diversity": 0.05138392746448517,
+      "z_clean": 2.0078562385516876,
+      "z_drift": 10.32175362172048,
+      "drift_detected": true,
+      "deletion_noncos": 0.998125,
+      "deletion_M": 26,
+      "elapsed_s": 11.280149936676025,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780598949.3219624
+    },
+    {
+      "seed": 17,
+      "src": "synthetic",
+      "balance": 0.0002734375011641532,
+      "diversity": 0.05100765451788902,
+      "z_clean": 11.396909817411984,
+      "z_drift": 4.28733116560853,
+      "drift_detected": false,
+      "deletion_noncos": 1.0,
+      "deletion_M": 26,
+      "elapsed_s": 11.681435585021973,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780598961.01191
+    }
+  ]
+}

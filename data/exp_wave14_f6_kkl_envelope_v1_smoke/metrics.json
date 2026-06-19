@@ -1,0 +1,64 @@
+{
+  "verdict": "F6_ENVELOPE_HARD_PASS",
+  "verdict_msg": "Envelope HOLDS at ALL 4 operating points: max_inf_share<=0.3 AND kkl_ratio>=1.0 everywhere. F-6 row promoted \ud83d\udfe1 -> \ud83d\udfe2. Cells: N=64,d=0.10:share=0.048,kkl=1.291 | N=64,d=0.30:share=0.086,kkl=1.097 | N=256,d=0.10:share=0.018,kkl=2.237 | N=256,d=0.30:share=0.041,kkl=1.784.",
+  "elapsed_s": 0.0470000000204891,
+  "summary": {
+    "cells": [
+      {
+        "N": 64,
+        "density": 0.1,
+        "M_stored": 6,
+        "max_inf_share": 0.04756511947340635,
+        "kkl_ratio": 1.2912751236435411,
+        "inf_total": 5.298000022768974,
+        "n_seeds": 1
+      },
+      {
+        "N": 64,
+        "density": 0.3,
+        "M_stored": 19,
+        "max_inf_share": 0.08615384353386178,
+        "kkl_ratio": 1.0965702418798744,
+        "inf_total": 4.5500000193715096,
+        "n_seeds": 1
+      },
+      {
+        "N": 256,
+        "density": 0.1,
+        "M_stored": 25,
+        "max_inf_share": 0.01790033880609849,
+        "kkl_ratio": 2.236681144696455,
+        "inf_total": 12.402000055182725,
+        "n_seeds": 1
+      },
+      {
+        "N": 256,
+        "density": 0.3,
+        "M_stored": 76,
+        "max_inf_share": 0.04142973125732217,
+        "kkl_ratio": 1.784207768374976,
+        "inf_total": 9.847999974619597,
+        "n_seeds": 1
+      }
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N_values": [
+      64,
+      256
+    ],
+    "densities": [
+      0.1,
+      0.3
+    ],
+    "n_samples": 500,
+    "seeds": [
+      17
+    ],
+    "pass_max_inf_share": 0.3,
+    "pass_kkl_ratio": 1.0,
+    "fail_max_inf_share": 0.6,
+    "fail_n_cells": 2
+  }
+}

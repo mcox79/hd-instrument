@@ -1,0 +1,14 @@
+﻿name: cloud1qb
+envs:
+  HF_TOKEN: ""
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_extraction_quality_1B_8B_70B_v2
+  cd ~/sky_workdir
+  echo "=== CLOUD-1b v2 run START ==="
+  python -u experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_1B_8B_70B_v2/ 2>&1 | head -25

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "twowiki_multihop_benchmark_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 2WikiMultiHop all-supporting recall@10>=0.65 -- free-text multi-hop coverage extended; ties RAG (same encoder), consistent with HotpotQA. all-supporting recall@2/5/10=0.316/0.540/0.720 (n=250)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 250,
+      "r2": 0.316,
+      "r5": 0.54,
+      "r10": 0.72
+    }
+  ],
+  "elapsed_s": 49.504289388656616,
+  "summary": "HARD_PASS: 2WikiMultiHop all-supporting recall@10>=0.65 -- free-text multi-hop coverage extended; ties RAG (same encoder), consistent with HotpotQA. all-supporting recall@2/5/10=0.316/0.540/0.720 (n=250)"
+}

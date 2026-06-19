@@ -1,0 +1,40 @@
+{
+  "anchor_name": "substrate_stage_a_training_speed_full_shakespeare_extctx_K8_v1_n8192_gpu",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial training-speed advantage. substrate_BPC=5.728 adam_BPC=4.630 (ratio=1.24x) substrate_wall=2.74s adam_wall=12.21s (speedup=4.5x)",
+  "N": 8192,
+  "D": 512,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "V": 62,
+      "corpus_src": "local",
+      "substrate_bpc": 5.719348063884728,
+      "adam_bpc": 4.675695596677544,
+      "substrate_wall": 2.4280903339385986,
+      "adam_wall": 12.23458218574524
+    },
+    {
+      "seed": 17,
+      "V": 62,
+      "corpus_src": "local",
+      "substrate_bpc": 5.726008264022041,
+      "adam_bpc": 4.622421803591389,
+      "substrate_wall": 2.9225668907165527,
+      "adam_wall": 12.255622863769531
+    },
+    {
+      "seed": 23,
+      "V": 62,
+      "corpus_src": "local",
+      "substrate_bpc": 5.739249896242572,
+      "adam_bpc": 4.593287701759519,
+      "substrate_wall": 2.874959945678711,
+      "adam_wall": 12.154683589935303
+    }
+  ],
+  "elapsed_s": 46.68857407569885,
+  "summary": "MIDDLE_BAND: partial training-speed advantage. substrate_BPC=5.728 adam_BPC=4.630 (ratio=1.24x) substrate_wall=2.74s adam_wall=12.21s (speedup=4.5x)"
+}

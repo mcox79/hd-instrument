@@ -1,0 +1,15 @@
+{
+  "anchor_name": "sign_recall_100M_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sign-key recall >=0.99 at 100M -- substrate recall scales to 100M keys. recall@1=1.0000 at N=100000000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 100000000,
+      "recall1": 1.0
+    }
+  ],
+  "elapsed_s": 33.795671224594116,
+  "summary": "HARD_PASS: sign-key recall >=0.99 at 100M -- substrate recall scales to 100M keys. recall@1=1.0000 at N=100000000"
+}

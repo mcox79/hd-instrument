@@ -1,0 +1,45 @@
+{
+  "spec": {
+    "name": "exp_connectivity_multihop",
+    "seed": 42,
+    "n": 4096,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-17T10:44:12",
+  "total_events": 0,
+  "total_wall_time_us": 0.0,
+  "n_entities": 50,
+  "n_facts": 150,
+  "n_substrate": 4096,
+  "trials_per_hop": 30,
+  "n_hops_tested": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "num_hebbian_training_passes": 50,
+  "results_by_hop": {
+    "1": {
+      "vsa_recall": 1.0,
+      "hebbian_recall": 1.0,
+      "hebbian_top1_in_set_rate": 1.0
+    },
+    "2": {
+      "vsa_recall": 0.46687211093990755,
+      "hebbian_recall": 0.9137134052388289,
+      "hebbian_top1_in_set_rate": 0.9666666666666667
+    },
+    "3": {
+      "vsa_recall": 0.36231884057971014,
+      "hebbian_recall": 0.3977455716586151,
+      "hebbian_top1_in_set_rate": 0.16666666666666666
+    },
+    "4": {
+      "vsa_recall": 0.15384615384615385,
+      "hebbian_recall": 0.0,
+      "hebbian_top1_in_set_rate": 0.0
+    }
+  },
+  "headline": "1-hop: VSA=1.00, Hebbian=1.00; 3-hop: VSA=0.36, Hebbian=0.40"
+}

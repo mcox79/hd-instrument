@@ -1,0 +1,606 @@
+{
+  "verdict": "KF3V2_MIDDLE_BAND",
+  "verdict_msg": "Partial isolation at N=4096. max_leakage_clean=0.0148 (HP<0.01). max_contam_clean=0.0544 (HP<0.05). max_leakage_all=0.0148. max_contam_all=0.0544. mean_acc_B=1.000.",
+  "elapsed_s": 23.46621870994568,
+  "config": {
+    "smoke": false,
+    "N": 4096,
+    "coupling_counts": [
+      0,
+      1,
+      5,
+      25,
+      100
+    ],
+    "n_probe": 200
+  },
+  "summary": {
+    "results": [
+      {
+        "seed": 7,
+        "M_frac": 4,
+        "M": 16384,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 7,
+        "M_frac": 8,
+        "M": 32768,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 7,
+        "M_frac": 12,
+        "M": 49152,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014351668767631054,
+            "state_contamination": 0.04496918246150017,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "M_frac": 4,
+        "M": 16384,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "M_frac": 8,
+        "M": 32768,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 17,
+        "M_frac": 12,
+        "M": 49152,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.0107280183583498,
+            "state_contamination": 0.04912475496530533,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 23,
+        "M_frac": 4,
+        "M": 16384,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 23,
+        "M_frac": 8,
+        "M": 32768,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 23,
+        "M_frac": 12,
+        "M": 49152,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.013569772243499756,
+            "state_contamination": 0.046305518597364426,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 31,
+        "M_frac": 4,
+        "M": 16384,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 31,
+        "M_frac": 8,
+        "M": 32768,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 31,
+        "M_frac": 12,
+        "M": 49152,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014295094646513462,
+            "state_contamination": 0.05439501255750656,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 41,
+        "M_frac": 4,
+        "M": 16384,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 41,
+        "M_frac": 8,
+        "M": 32768,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          }
+        }
+      },
+      {
+        "seed": 41,
+        "M_frac": 12,
+        "M": 49152,
+        "N": 4096,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "1": {
+            "coupling_count": 1,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "25": {
+            "coupling_count": 25,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          },
+          "100": {
+            "coupling_count": 100,
+            "info_leakage": 0.014790558256208897,
+            "state_contamination": 0.0431516170501709,
+            "acc_B_own": 1.0
+          }
+        }
+      }
+    ],
+    "N_full": 4096,
+    "N_used": 4096,
+    "m_fracs": [
+      4,
+      8,
+      12
+    ],
+    "coupling_counts": [
+      0,
+      1,
+      5,
+      25,
+      100
+    ],
+    "smoke": false
+  }
+}

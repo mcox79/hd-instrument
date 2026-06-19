@@ -1,0 +1,30 @@
+{
+  "verdict": "AMP_KERDOCK_KILLED",
+  "verdict_msg": "1/4 steps pass. Kerdock NOT in AMP universality class. Fall back to VAMP with cached SVD (P1 path). {'step1_svd': 'completed', 'step2_ks': 0.05791727192026774, 'step2_pass': False, 'step3_deloc': 22.795658111572266, 'step3_pass': False, 'step4_se_max_rel_err': 4.816717073321341, 'step4_pass': False}",
+  "elapsed_s": 0.10899999999674037,
+  "summary": {
+    "n_steps_pass": 1,
+    "step_results": {
+      "step1_svd": "completed",
+      "step2_ks": 0.05791727192026774,
+      "step2_pass": false,
+      "step3_deloc": 22.795658111572266,
+      "step3_pass": false,
+      "step4_se_max_rel_err": 4.816717073321341,
+      "step4_pass": false
+    },
+    "mp_lambda_minus": 0.08578643762690492,
+    "mp_lambda_plus": 2.914213562373095
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N": 0.5,
+    "ks_threshold": 0.05,
+    "deloc_threshold": 5.0,
+    "se_threshold": 0.05,
+    "se_n_iter": 10,
+    "se_n_trials": 2,
+    "seed": 17
+  }
+}

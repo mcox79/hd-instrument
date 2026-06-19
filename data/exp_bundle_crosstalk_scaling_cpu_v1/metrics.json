@@ -1,0 +1,20 @@
+{
+  "anchor_name": "bundle_crosstalk_scaling_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: bundle crosstalk norm matches sqrt(K-1) within 15pct -- composition noise model validated (predictable capacity). max deviation from sqrt(K-1) = 0.00 | crosstalk-norm: {'K2': 1.0, 'K4': 1.732, 'K8': 2.643, 'K16': 3.88}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "max_dev": 0.0017063689890889902,
+      "rows": {
+        "K2": 1.0,
+        "K4": 1.732,
+        "K8": 2.643,
+        "K16": 3.88
+      }
+    }
+  ],
+  "elapsed_s": 0.3192005157470703,
+  "summary": "HARD_PASS: bundle crosstalk norm matches sqrt(K-1) within 15pct -- composition noise model validated (predictable capacity). max deviation from sqrt(K-1) = 0.00 | crosstalk-norm: {'K2': 1.0, 'K4': 1.732, 'K8': 2.643, 'K16': 3.88}"
+}

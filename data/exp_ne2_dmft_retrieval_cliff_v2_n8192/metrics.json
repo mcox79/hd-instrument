@@ -1,0 +1,159 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "NE-2 v2 DMFT CLIFF N=1024: verdict=MIDDLE_BAND | 0/2 seeds pass HP | avg_cliff_alpha=0.1533 (HP window [0.125,0.152]) | HP: m*>=0.90 at alpha<=0.12, m*<=0.60 at alpha>=0.155, cliff in [0.125,0.152] | HF: m*<0.70 at low-alpha OR no cliff (range<0.20) in all seeds",
+  "seeds_pass": 0,
+  "seeds_total": 2,
+  "pass_fraction": 0.0,
+  "seeds_fail_low": 0,
+  "seeds_fail_no_cliff": 0,
+  "cliff_midpoints": [
+    0.15916666666666668,
+    0.14749940968122785
+  ],
+  "avg_cliff_alpha": 0.15333303817394728,
+  "N_run": 1024,
+  "all_results": [
+    {
+      "seed": 7,
+      "alpha_results": [
+        {
+          "alpha": 0.1,
+          "M": 102,
+          "overlap": 0.9889322916666666
+        },
+        {
+          "alpha": 0.11,
+          "M": 112,
+          "overlap": 0.99609375
+        },
+        {
+          "alpha": 0.12,
+          "M": 122,
+          "overlap": 1.0
+        },
+        {
+          "alpha": 0.125,
+          "M": 128,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.13,
+          "M": 133,
+          "overlap": 0.99609375
+        },
+        {
+          "alpha": 0.133,
+          "M": 136,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.136,
+          "M": 139,
+          "overlap": 0.990234375
+        },
+        {
+          "alpha": 0.138,
+          "M": 141,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.141,
+          "M": 144,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.144,
+          "M": 147,
+          "overlap": 0.962890625
+        },
+        {
+          "alpha": 0.148,
+          "M": 151,
+          "overlap": 0.93359375
+        },
+        {
+          "alpha": 0.155,
+          "M": 158,
+          "overlap": 0.978515625
+        },
+        {
+          "alpha": 0.16,
+          "M": 163,
+          "overlap": 0.404296875
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "alpha_results": [
+        {
+          "alpha": 0.1,
+          "M": 102,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.11,
+          "M": 112,
+          "overlap": 0.998046875
+        },
+        {
+          "alpha": 0.12,
+          "M": 122,
+          "overlap": 0.9772135416666666
+        },
+        {
+          "alpha": 0.125,
+          "M": 128,
+          "overlap": 0.994140625
+        },
+        {
+          "alpha": 0.13,
+          "M": 133,
+          "overlap": 0.994140625
+        },
+        {
+          "alpha": 0.133,
+          "M": 136,
+          "overlap": 1.0
+        },
+        {
+          "alpha": 0.136,
+          "M": 139,
+          "overlap": 0.9720052083333334
+        },
+        {
+          "alpha": 0.138,
+          "M": 141,
+          "overlap": 0.9765625
+        },
+        {
+          "alpha": 0.141,
+          "M": 144,
+          "overlap": 0.6686197916666666
+        },
+        {
+          "alpha": 0.144,
+          "M": 147,
+          "overlap": 0.982421875
+        },
+        {
+          "alpha": 0.148,
+          "M": 151,
+          "overlap": 0.4309895833333333
+        },
+        {
+          "alpha": 0.155,
+          "M": 158,
+          "overlap": 0.654296875
+        },
+        {
+          "alpha": 0.16,
+          "M": 163,
+          "overlap": 0.75390625
+        }
+      ]
+    }
+  ],
+  "smoke": true,
+  "elapsed_s": 0.8630006313323975
+}

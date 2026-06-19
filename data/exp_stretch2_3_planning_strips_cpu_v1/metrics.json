@@ -1,0 +1,15 @@
+{
+  "anchor_name": "stretch2_3_planning_strips_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-as-planner solves >=0.70 of STRIPS problems -- action schemas (pre/add/del) stored in substrate; forward search finds a goal-achieving action sequence. STRIPS-solved=1.000 (n=30)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "plan_rate": 1.0,
+      "n": 30
+    }
+  ],
+  "elapsed_s": 0.0795135498046875,
+  "summary": "HARD_PASS: substrate-as-planner solves >=0.70 of STRIPS problems -- action schemas (pre/add/del) stored in substrate; forward search finds a goal-achieving action sequence. STRIPS-solved=1.000 (n=30)"
+}

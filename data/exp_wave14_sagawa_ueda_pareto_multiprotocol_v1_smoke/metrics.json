@@ -1,0 +1,105 @@
+{
+  "verdict": "CAP1_PARETO_KILL",
+  "verdict_msg": "Sagawa-Ueda Pareto KILL: 0/8 = 0.00% pass. Cap 1 envelope is narrow.",
+  "elapsed_s": 1.1560000000172295,
+  "summary": {
+    "cells": [
+      {
+        "M_base": 50,
+        "p": 0.05,
+        "protocol": "fwd_only",
+        "mean": 0.07544673227683932,
+        "max": 0.6326582357287407,
+        "n_trials": 20
+      },
+      {
+        "M_base": 50,
+        "p": 0.05,
+        "protocol": "both_phases",
+        "mean": 0.11925118186862889,
+        "max": 0.6194927096366882,
+        "n_trials": 20
+      },
+      {
+        "M_base": 50,
+        "p": 0.1,
+        "protocol": "fwd_only",
+        "mean": 0.17311792824439876,
+        "max": 0.821339413523674,
+        "n_trials": 20
+      },
+      {
+        "M_base": 50,
+        "p": 0.1,
+        "protocol": "both_phases",
+        "mean": 0.19337770902601423,
+        "max": 0.949477374521488,
+        "n_trials": 20
+      },
+      {
+        "M_base": 100,
+        "p": 0.05,
+        "protocol": "fwd_only",
+        "mean": 0.16050726597918444,
+        "max": 0.7901367023587227,
+        "n_trials": 20
+      },
+      {
+        "M_base": 100,
+        "p": 0.05,
+        "protocol": "both_phases",
+        "mean": 0.2627860078933735,
+        "max": 0.6868388466536999,
+        "n_trials": 20
+      },
+      {
+        "M_base": 100,
+        "p": 0.1,
+        "protocol": "fwd_only",
+        "mean": 0.2149294648860131,
+        "max": 0.8680437281727791,
+        "n_trials": 20
+      },
+      {
+        "M_base": 100,
+        "p": 0.1,
+        "protocol": "both_phases",
+        "mean": 0.2674071135559529,
+        "max": 0.7133037658892079,
+        "n_trials": 20
+      }
+    ],
+    "per_triple_mean": {
+      "50|0.05|fwd_only": 0.07544673227683932,
+      "50|0.05|both_phases": 0.11925118186862889,
+      "50|0.1|fwd_only": 0.17311792824439876,
+      "50|0.1|both_phases": 0.19337770902601423,
+      "100|0.05|fwd_only": 0.16050726597918444,
+      "100|0.05|both_phases": 0.2627860078933735,
+      "100|0.1|fwd_only": 0.2149294648860131,
+      "100|0.1|both_phases": 0.2674071135559529
+    },
+    "peak_vram_mb": null
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_base_list": [
+      50,
+      100
+    ],
+    "p_list": [
+      0.05,
+      0.1
+    ],
+    "protocols": [
+      "fwd_only",
+      "both_phases"
+    ],
+    "seeds": [
+      17,
+      18
+    ],
+    "n_trials": 10
+  }
+}

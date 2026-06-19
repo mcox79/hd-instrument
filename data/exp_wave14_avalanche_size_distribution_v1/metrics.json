@@ -1,0 +1,19 @@
+{
+  "verdict": "AVAL_NONPOWER",
+  "verdict_msg": "r2=0.014<0.7 (no power-law fit).",
+  "elapsed_s": 12.60899999999674,
+  "summary": {
+    "tau_exponent": 0.06916776299476624,
+    "r2_powerlaw": 0.0143545402555465,
+    "n_events": 4915,
+    "dE_min": 0.02490234375,
+    "dE_max": 2744.55810546875
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "n_runs": 100,
+    "T_relax": 50,
+    "seed": 17
+  }
+}

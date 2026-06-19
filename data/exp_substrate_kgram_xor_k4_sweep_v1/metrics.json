@@ -1,0 +1,110 @@
+{
+  "anchor_name": "substrate_kgram_xor_k4_sweep_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: decisive k3/N4096 cell absent in this grid. cells=9",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "k": 4,
+      "n": 16384,
+      "vc": 1000,
+      "seed": 7,
+      "sub_acc": 1.0,
+      "bigram": 0.9660028330972419,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 4,
+      "n": 16384,
+      "vc": 1000,
+      "seed": 17,
+      "sub_acc": 1.0,
+      "bigram": 0.9012582284809599,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 4,
+      "n": 16384,
+      "vc": 1000,
+      "seed": 23,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 4,
+      "n": 16384,
+      "vc": 100000,
+      "seed": 7,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 4,
+      "n": 16384,
+      "vc": 100000,
+      "seed": 17,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 4,
+      "n": 16384,
+      "vc": 100000,
+      "seed": 23,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 3,
+      "n": 16384,
+      "vc": 100000,
+      "seed": 7,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 3,
+      "n": 16384,
+      "vc": 100000,
+      "seed": 17,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    },
+    {
+      "k": 3,
+      "n": 16384,
+      "vc": 100000,
+      "seed": 23,
+      "sub_acc": 1.0,
+      "bigram": 1.0,
+      "trigram": 1.0,
+      "fourgram": 1.0,
+      "vs_trigram_pp": 0.0
+    }
+  ],
+  "elapsed_s": 552.9719219207764,
+  "summary": "MIDDLE_BAND: decisive k3/N4096 cell absent in this grid. cells=9"
+}

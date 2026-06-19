@@ -1,0 +1,344 @@
+{
+  "scorecard_path": "data\\substrate_index\\bench_reports\\scorecard.json",
+  "stage_1_issues": {
+    "scorecard_state": "current",
+    "current_cycle_id": 51,
+    "current_cycle_phase": "close",
+    "baseline_lookback": 3,
+    "threshold_drop": 0.005,
+    "history_rows": 4,
+    "macro_current": 0.7233,
+    "issue_count": 6,
+    "issues": [
+      {
+        "scope": "axis",
+        "axis": "A",
+        "axis_description": "factual retrieval (atom-by-topic)",
+        "current_score": 0.6625,
+        "baseline_best": 0.78,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.1175,
+        "severity": 23.5,
+        "interpretation": "axis A lost 0.1175 vs lookback-best (0.7800 at day_4_hp_v1_plus); candidate compose-fix topic: factual retrieval (atom-by-topic)"
+      },
+      {
+        "scope": "axis",
+        "axis": "C",
+        "axis_description": "capability-serves (atom -> serves_capability mapping)",
+        "current_score": 0.8207,
+        "baseline_best": 0.8766,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.0559,
+        "severity": 11.18,
+        "interpretation": "axis C lost 0.0559 vs lookback-best (0.8766 at day_4_hp_v1_plus); candidate compose-fix topic: capability-serves (atom -> serves_capability mapping)"
+      },
+      {
+        "scope": "axis",
+        "axis": "D",
+        "axis_description": "structural depth (DEPENDS_ON / USES typed-graph reachability)",
+        "current_score": 0.65,
+        "baseline_best": 0.7,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.05,
+        "severity": 10.0,
+        "interpretation": "axis D lost 0.0500 vs lookback-best (0.7000 at day_4_hp_v1_plus); candidate compose-fix topic: structural depth (DEPENDS_ON / USES typed-graph reachability)"
+      },
+      {
+        "scope": "axis",
+        "axis": "G",
+        "axis_description": "meta (substrate introspection over its own history + tooling)",
+        "current_score": 0.5,
+        "baseline_best": 0.55,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.05,
+        "severity": 10.0,
+        "interpretation": "axis G lost 0.0500 vs lookback-best (0.5500 at day_4_hp_v1_plus); candidate compose-fix topic: meta (substrate introspection over its own history + tooling)"
+      },
+      {
+        "scope": "axis",
+        "axis": "B",
+        "axis_description": "compositional (multi-atom traversal + DUAL + INSTANCE_OF chains)",
+        "current_score": 0.516,
+        "baseline_best": 0.55,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.034,
+        "severity": 6.8,
+        "interpretation": "axis B lost 0.0340 vs lookback-best (0.5500 at day_4_hp_v1_plus); candidate compose-fix topic: compositional (multi-atom traversal + DUAL + INSTANCE_OF chains)"
+      },
+      {
+        "scope": "macro",
+        "current_score": 0.7233,
+        "baseline_best": 0.7518,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.0285,
+        "severity": 5.7,
+        "interpretation": "macro F1 lost 0.0285 vs lookback-best (0.7518 at day_4_hp_v1_plus); likely cause: corpus growth without retention mitigation OR Q-tuning erosion"
+      }
+    ]
+  },
+  "per_issue_resolutions": [
+    {
+      "issue": {
+        "scope": "axis",
+        "axis": "A",
+        "axis_description": "factual retrieval (atom-by-topic)",
+        "current_score": 0.6625,
+        "baseline_best": 0.78,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.1175,
+        "severity": 23.5,
+        "interpretation": "axis A lost 0.1175 vs lookback-best (0.7800 at day_4_hp_v1_plus); candidate compose-fix topic: factual retrieval (atom-by-topic)"
+      },
+      "topic": "factual retrieval (atom-by-topic)",
+      "candidates_count": 8,
+      "fix_specs_count": 3,
+      "top_fix_specs": [
+        {
+          "candidate_atom": "concept::CAP_cleanup",
+          "candidate_name": "Capability using cleanup retrieval",
+          "candidate_relevance": 0.2,
+          "candidate_tier": "T2",
+          "detected_gaps": {
+            "missing_serves_capability": [],
+            "missing_depends_on_to_t1": [
+              {
+                "atom": "concept::CAP_cleanup",
+                "tier": "T2",
+                "explanation": "no DEPENDS_ON path to T1 axioms within depth-3; authoring lever per drill 2 recipe"
+              }
+            ],
+            "shares_math_underutilized": [],
+            "tier_promotion_eligible": false
+          },
+          "proposed_structural_changes": {
+            "atoms_to_add": [],
+            "edges_to_add": [
+              {
+                "src": "concept::CAP_cleanup",
+                "rel_type": "DEPENDS_ON",
+                "tgt": "math::T1/<authored_T1_in_domain_associative_memory>",
+                "rationale": "candidate has domain='associative_memory' but no DEPENDS_ON to T1; author T1 axiom in this domain",
+                "speculative": true
+              }
+            ],
+            "tier_promotions": [],
+            "metadata_field_backfill": []
+          },
+          "estimated_macro_impact": 0.003,
+          "regression_risk_axes": []
+        },
+        {
+          "candidate_atom": "math::T3/random_walks_on_graphs",
+          "candidate_name": "Random walks on graphs",
+          "candidate_relevance": 0.138,
+          "candidate_tier": "T3",
+          "detected_gaps": {
+            "missing_serves_capability": [],
+            "missing_depends_on_to_t1": [
+              {
+                "atom": "math::T3/random_walks_on_graphs",
+                "tier": "T3",
+                "explanation": "no DEPENDS_ON path to T1 axioms within depth-3; authoring lever per drill 2 recipe"
+              }
+            ],
+            "shares_math_underutilized": [],
+            "tier_promotion_eligible": false
+          },
+          "proposed_structural_changes": {
+            "atoms_to_add": [],
+            "edges_to_add": [
+              {
+                "src": "math::T3/random_walks_on_graphs",
+                "rel_type": "DEPENDS_ON",
+                "tgt": "math::T1/<authored_T1_in_domain_stochastic_processes_on_graphs>",
+                "rationale": "candidate has domain='stochastic_processes_on_graphs' but no DEPENDS_ON to T1; author T1 axiom in this domain",
+                "speculative": true
+              }
+            ],
+            "tier_promotions": [],
+            "metadata_field_backfill": []
+          },
+          "estimated_macro_impact": 0.003,
+          "regression_risk_axes": []
+        },
+        {
+          "candidate_atom": "math::T2/cleanup",
+          "candidate_name": "Cleanup",
+          "candidate_relevance": 0.238,
+          "candidate_tier": "T2",
+          "detected_gaps": {
+            "missing_serves_capability": [],
+            "missing_depends_on_to_t1": [
+              {
+                "atom": "math::T2/cleanup",
+                "tier": "T2",
+                "explanation": "no DEPENDS_ON path to T1 axioms within depth-3; authoring lever per drill 2 recipe"
+              }
+            ],
+            "shares_math_underutilized": [],
+            "tier_promotion_eligible": false
+          },
+          "proposed_structural_changes": {
+            "atoms_to_add": [],
+            "edges_to_add": [
+              {
+                "src": "math::T2/cleanup",
+                "rel_type": "DEPENDS_ON",
+                "tgt": "math::T1/<authored_T1_in_domain_vector_symbolic_architectures>",
+                "rationale": "candidate has domain='vector_symbolic_architectures' but no DEPENDS_ON to T1; author T1 axiom in this domain",
+                "speculative": true
+              }
+            ],
+            "tier_promotions": [],
+            "metadata_field_backfill": []
+          },
+          "estimated_macro_impact": 0.003,
+          "regression_risk_axes": [
+            {
+              "axis": "B",
+              "reason": "candidate serves 12 caps; B-axis routing may shift"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "issue": {
+        "scope": "axis",
+        "axis": "C",
+        "axis_description": "capability-serves (atom -> serves_capability mapping)",
+        "current_score": 0.8207,
+        "baseline_best": 0.8766,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.0559,
+        "severity": 11.18,
+        "interpretation": "axis C lost 0.0559 vs lookback-best (0.8766 at day_4_hp_v1_plus); candidate compose-fix topic: capability-serves (atom -> serves_capability mapping)"
+      },
+      "topic": "capability-serves (atom -> serves_capability mapping)",
+      "candidates_count": 8,
+      "fix_specs_count": 1,
+      "top_fix_specs": [
+        {
+          "candidate_atom": "concept::CAP_cleanup",
+          "candidate_name": "Capability using cleanup retrieval",
+          "candidate_relevance": 0.2,
+          "candidate_tier": "T2",
+          "detected_gaps": {
+            "missing_serves_capability": [],
+            "missing_depends_on_to_t1": [
+              {
+                "atom": "concept::CAP_cleanup",
+                "tier": "T2",
+                "explanation": "no DEPENDS_ON path to T1 axioms within depth-3; authoring lever per drill 2 recipe"
+              }
+            ],
+            "shares_math_underutilized": [],
+            "tier_promotion_eligible": false
+          },
+          "proposed_structural_changes": {
+            "atoms_to_add": [],
+            "edges_to_add": [
+              {
+                "src": "concept::CAP_cleanup",
+                "rel_type": "DEPENDS_ON",
+                "tgt": "math::T1/<authored_T1_in_domain_associative_memory>",
+                "rationale": "candidate has domain='associative_memory' but no DEPENDS_ON to T1; author T1 axiom in this domain",
+                "speculative": true
+              }
+            ],
+            "tier_promotions": [],
+            "metadata_field_backfill": []
+          },
+          "estimated_macro_impact": 0.003,
+          "regression_risk_axes": []
+        }
+      ]
+    },
+    {
+      "issue": {
+        "scope": "axis",
+        "axis": "D",
+        "axis_description": "structural depth (DEPENDS_ON / USES typed-graph reachability)",
+        "current_score": 0.65,
+        "baseline_best": 0.7,
+        "baseline_best_phase": "day_4_hp_v1_plus",
+        "delta": -0.05,
+        "severity": 10.0,
+        "interpretation": "axis D lost 0.0500 vs lookback-best (0.7000 at day_4_hp_v1_plus); candidate compose-fix topic: structural depth (DEPENDS_ON / USES typed-graph reachability)"
+      },
+      "topic": "structural depth (DEPENDS_ON / USES typed-graph reachability)",
+      "candidates_count": 8,
+      "fix_specs_count": 2,
+      "top_fix_specs": [
+        {
+          "candidate_atom": "math::T3/random_walks_on_graphs",
+          "candidate_name": "Random walks on graphs",
+          "candidate_relevance": 0.107,
+          "candidate_tier": "T3",
+          "detected_gaps": {
+            "missing_serves_capability": [],
+            "missing_depends_on_to_t1": [
+              {
+                "atom": "math::T3/random_walks_on_graphs",
+                "tier": "T3",
+                "explanation": "no DEPENDS_ON path to T1 axioms within depth-3; authoring lever per drill 2 recipe"
+              }
+            ],
+            "shares_math_underutilized": [],
+            "tier_promotion_eligible": false
+          },
+          "proposed_structural_changes": {
+            "atoms_to_add": [],
+            "edges_to_add": [
+              {
+                "src": "math::T3/random_walks_on_graphs",
+                "rel_type": "DEPENDS_ON",
+                "tgt": "math::T1/<authored_T1_in_domain_stochastic_processes_on_graphs>",
+                "rationale": "candidate has domain='stochastic_processes_on_graphs' but no DEPENDS_ON to T1; author T1 axiom in this domain",
+                "speculative": true
+              }
+            ],
+            "tier_promotions": [],
+            "metadata_field_backfill": []
+          },
+          "estimated_macro_impact": 0.003,
+          "regression_risk_axes": []
+        },
+        {
+          "candidate_atom": "concept::CAP_fhrr_unbind",
+          "candidate_name": "Capability using FHRR unbind",
+          "candidate_relevance": 0.1,
+          "candidate_tier": "T2",
+          "detected_gaps": {
+            "missing_serves_capability": [],
+            "missing_depends_on_to_t1": [
+              {
+                "atom": "concept::CAP_fhrr_unbind",
+                "tier": "T2",
+                "explanation": "no DEPENDS_ON path to T1 axioms within depth-3; authoring lever per drill 2 recipe"
+              }
+            ],
+            "shares_math_underutilized": [],
+            "tier_promotion_eligible": false
+          },
+          "proposed_structural_changes": {
+            "atoms_to_add": [],
+            "edges_to_add": [
+              {
+                "src": "concept::CAP_fhrr_unbind",
+                "rel_type": "DEPENDS_ON",
+                "tgt": "math::T1/<authored_T1_in_domain_vector_symbolic_architectures>",
+                "rationale": "candidate has domain='vector_symbolic_architectures' but no DEPENDS_ON to T1; author T1 axiom in this domain",
+                "speculative": true
+              }
+            ],
+            "tier_promotions": [],
+            "metadata_field_backfill": []
+          },
+          "estimated_macro_impact": 0.003,
+          "regression_risk_axes": []
+        }
+      ]
+    }
+  ]
+}

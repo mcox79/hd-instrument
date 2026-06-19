@@ -1,0 +1,49 @@
+{
+  "verdict": "SPARSE_EQUIVALENT_TO_DENSE",
+  "verdict_msg": "Best sparse p=0.05 score=1.000, dense=1.000. Within tolerance. Substrate sparsity-invariant in tested range.",
+  "elapsed_s": 2.202999999997701,
+  "summary": {
+    "per_p": {
+      "0.05": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      },
+      "0.1": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      },
+      "0.3": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      },
+      "0.5": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      },
+      "1.0": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 2048,
+    "n_edit": 30,
+    "n_kept": 100,
+    "sparsities": [
+      0.05,
+      0.1,
+      0.3,
+      0.5,
+      1.0
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "alpha": 1.0
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "anchor_name": "two_vector_alpha_tradeoff_gpu_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the production two-vector weight (alpha=0.5) sits on the Pareto knee -- near-perfect identity retrieval (>=0.90) while retaining >=80pct of pure-structural recall. The shipped 0.5 is quantitatively justified: identity and structure coexist in one composite. alpha=0.5: identity_prec@1=1.0000, struct_recall_rel=1.0000 (vs alpha=0 ceiling 1.0000); curve=[(0.0, 0.0004, 1.0), (0.25, 0.9996, 1.0), (0.5, 1.0, 1.0), (0.75, 1.0, 1.0), (1.0, 1.0, 1.0), (2.0, 1.0, 1.0)] | n_atoms=2400 C=60 N=1024",
+  "summary": "HARD_PASS: the production two-vector weight (alpha=0.5) sits on the Pareto knee -- near-perfect identity retrieval (>=0.90) while retaining >=80pct of pure-structural recall. The shipped 0.5 is quantitatively justified: identity and structure coexist in one composite. alpha=0.5: identity_prec@1=1.0000, struct_recall_rel=1.0000 (vs alpha=0 ceiling 1.0000); curve=[(0.0, 0.0004, 1.0), (0.25, 0.9996, 1.0), (0.5, 1.0, 1.0), (0.75, 1.0, 1.0), (1.0, 1.0, 1.0), (2.0, 1.0, 1.0)] | n_atoms=2400 C=60 N=1024",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "alpha": 0.0,
+          "id_prec": 0.0004,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.25,
+          "id_prec": 0.9996,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.5,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 0.75,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 1.0,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        },
+        {
+          "alpha": 2.0,
+          "id_prec": 1.0,
+          "struct_rec": 1.0,
+          "struct_rec_rel": 1.0
+        }
+      ],
+      "s0_ceiling": 1.0,
+      "n_atoms": 2400,
+      "C": 60,
+      "at_half": {
+        "alpha": 0.5,
+        "id_prec": 1.0,
+        "struct_rec": 1.0,
+        "struct_rec_rel": 1.0
+      },
+      "N": 1024
+    }
+  ],
+  "elapsed_s": 0.17908954620361328
+}

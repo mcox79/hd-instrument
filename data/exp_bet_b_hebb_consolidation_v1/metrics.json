@@ -1,0 +1,72 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: K-specific preservation 1/1 HP; mean_lift=0.000 mean_preserve=1.25",
+  "elapsed_s": 0.3425710201263428,
+  "n_seeds": 1,
+  "n_hp_preserve": 1,
+  "n_hp_spec": 0,
+  "n_hf": 0,
+  "per_seed": [
+    {
+      "N": 256,
+      "M_A": 12,
+      "M_B": 179,
+      "seed": 17,
+      "n_K_class": 6,
+      "n_nonK_class": 6,
+      "baseline_ret_all": 0.8333333333333334,
+      "baseline_ret_K": 0.8333333333333334,
+      "baseline_ret_nonK": 0.8333333333333334,
+      "best_lift_K": 0.0,
+      "best_lift_nonK": 0.0,
+      "preservation_ratio": 1.2499983750006876,
+      "specificity_ratio": 0.0,
+      "consol_sweep": [
+        {
+          "n_consol": 0,
+          "ret_all": 0.8333333333333334,
+          "ret_K": 0.8333333333333334,
+          "ret_nonK": 0.8333333333333334
+        },
+        {
+          "n_consol": 1,
+          "ret_all": 0.8333333333333334,
+          "ret_K": 0.8333333333333334,
+          "ret_nonK": 0.8333333333333334
+        },
+        {
+          "n_consol": 3,
+          "ret_all": 0.8333333333333334,
+          "ret_K": 0.8333333333333334,
+          "ret_nonK": 0.6666666666666666
+        },
+        {
+          "n_consol": 5,
+          "ret_all": 0.8333333333333334,
+          "ret_K": 0.8333333333333334,
+          "ret_nonK": 0.6666666666666666
+        },
+        {
+          "n_consol": 10,
+          "ret_all": 0.6666666666666666,
+          "ret_K": 0.8333333333333334,
+          "ret_nonK": 0.6666666666666666
+        }
+      ]
+    }
+  ],
+  "summary": "Bet-B Hebbian consolidation N=256: MIDDLE_BAND",
+  "config": {
+    "N": 256,
+    "M_A_FRAC": 0.05,
+    "M_B_FRAC": 0.7,
+    "CONSOL_STEPS_LIST": [
+      0,
+      1,
+      3,
+      5,
+      10
+    ],
+    "K_CLASS_FRAC": 0.5
+  }
+}

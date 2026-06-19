@@ -1,0 +1,83 @@
+{
+  "verdict": "ALPHA_SWEEP_HITS_TARGET",
+  "verdict_msg": "alpha=1.00 gives leak=0.00% and kept_recall=100.00%. GDPR-grade operating point confirmed.",
+  "elapsed_s": 0.34399999998277053,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_facts": 20,
+    "n_erase": 5,
+    "alphas": [
+      0.5,
+      1.0
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "per_alpha": [
+    {
+      "alpha": 0.5,
+      "leak_mean": 1.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 0.0
+    },
+    {
+      "alpha": 1.0,
+      "leak_mean": 0.0,
+      "kept_mean": 1.0,
+      "baseline_leak": 1.0,
+      "baseline_kept": 1.0,
+      "leak_reduction_pp": 100.0
+    }
+  ],
+  "grid": [
+    {
+      "seed": 17,
+      "alpha": 0.5,
+      "n_facts": 20,
+      "n_erase": 5,
+      "baseline_kept": 15,
+      "baseline_erase": 5,
+      "method_A_leak": 1.0,
+      "method_A_kept": 1.0,
+      "method_B_leak": 1.0,
+      "method_B_kept": 1.0
+    },
+    {
+      "seed": 17,
+      "alpha": 1.0,
+      "n_facts": 20,
+      "n_erase": 5,
+      "baseline_kept": 15,
+      "baseline_erase": 5,
+      "method_A_leak": 1.0,
+      "method_A_kept": 1.0,
+      "method_B_leak": 0.0,
+      "method_B_kept": 1.0
+    }
+  ],
+  "summary": {
+    "per_alpha": [
+      {
+        "alpha": 0.5,
+        "leak_mean": 1.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 0.0
+      },
+      {
+        "alpha": 1.0,
+        "leak_mean": 0.0,
+        "kept_mean": 1.0,
+        "baseline_leak": 1.0,
+        "baseline_kept": 1.0,
+        "leak_reduction_pp": 100.0
+      }
+    ]
+  }
+}

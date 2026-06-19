@@ -1,0 +1,179 @@
+{
+  "D": 4096,
+  "N_TOPICS": 4,
+  "N_FACTS_PER_TOPIC": 200,
+  "N_TRAJECTORY_POINTS": 20,
+  "SEEDS": [
+    17,
+    23,
+    31,
+    41,
+    53
+  ],
+  "elapsed_s": 0.5620000000053551,
+  "grid": [
+    {
+      "seed": 17,
+      "n_topics_true": 4,
+      "n_topics_detected": 1,
+      "component_counts": [
+        {
+          "thresh_pct": 0.05,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.1,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.15,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.2,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.3,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.5,
+          "n_components": 1
+        }
+      ],
+      "match": false
+    },
+    {
+      "seed": 23,
+      "n_topics_true": 4,
+      "n_topics_detected": 1,
+      "component_counts": [
+        {
+          "thresh_pct": 0.05,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.1,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.15,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.2,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.3,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.5,
+          "n_components": 1
+        }
+      ],
+      "match": false
+    },
+    {
+      "seed": 31,
+      "n_topics_true": 4,
+      "n_topics_detected": 1,
+      "component_counts": [
+        {
+          "thresh_pct": 0.05,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.1,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.15,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.2,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.3,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.5,
+          "n_components": 1
+        }
+      ],
+      "match": false
+    },
+    {
+      "seed": 41,
+      "n_topics_true": 4,
+      "n_topics_detected": 1,
+      "component_counts": [
+        {
+          "thresh_pct": 0.05,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.1,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.15,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.2,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.3,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.5,
+          "n_components": 1
+        }
+      ],
+      "match": false
+    },
+    {
+      "seed": 53,
+      "n_topics_true": 4,
+      "n_topics_detected": 1,
+      "component_counts": [
+        {
+          "thresh_pct": 0.05,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.1,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.15,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.2,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.3,
+          "n_components": 1
+        },
+        {
+          "thresh_pct": 0.5,
+          "n_components": 1
+        }
+      ],
+      "match": false
+    }
+  ],
+  "verdict": "TDA_TRAJECTORY_FAILED",
+  "verdict_msg": "Detected 4 topics in only 0% of seeds. Trajectory not topologically structured.",
+  "match_rate": 0.0
+}

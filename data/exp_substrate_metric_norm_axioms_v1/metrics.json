@@ -1,0 +1,32 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_LIST": [
+    5,
+    20
+  ],
+  "N_TRIPLES": 10,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_M": {
+      "5": {
+        "mean_max_violation": 8.881784197001252e-16,
+        "overall_max_violation": 1.7763568394002505e-15,
+        "mean_n_all_pass": 10.0,
+        "n_seeds": 2
+      },
+      "20": {
+        "mean_max_violation": 0.0,
+        "overall_max_violation": 0.0,
+        "mean_n_all_pass": 10.0,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "All 4 Frobenius norm axioms confirmed at N=1024. max_violation=1.78e-15 < 1e-08. mean_triples_all_pass=10.0/10. PP-41 mathematical foundation validated.",
+  "elapsed_s": 2.569171667098999
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap2_8_continuous_binding_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: fractional phasor rotation indexes a 100-step sequence at recall>=0.80 -- continuous temporal binding (TIME^t) supports long-sequence recall; native temporal index. temporal-recall=1.000 (steps=100)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "temporal_recall": 1.0,
+      "steps": 100
+    }
+  ],
+  "elapsed_s": 17.34632921218872,
+  "summary": "HARD_PASS: fractional phasor rotation indexes a 100-step sequence at recall>=0.80 -- continuous temporal binding (TIME^t) supports long-sequence recall; native temporal index. temporal-recall=1.000 (steps=100)"
+}

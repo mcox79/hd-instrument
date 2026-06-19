@@ -1,0 +1,26 @@
+{
+  "anchor_name": "patternb_1A_subst_scale_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Pattern B substitution recall>=0.95 with contamination<=1% at scale -- compositional editing is clean + scalable. at 500 facts: recall=1.000 contamination=0.0000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "M100": {
+          "recall": 1.0,
+          "contam": 0.0
+        },
+        "M500": {
+          "recall": 1.0,
+          "contam": 0.0
+        }
+      },
+      "rec_top": 1.0,
+      "con_top": 0.0,
+      "scale": 500
+    }
+  ],
+  "elapsed_s": 0.5783655643463135,
+  "summary": "HARD_PASS: Pattern B substitution recall>=0.95 with contamination<=1% at scale -- compositional editing is clean + scalable. at 500 facts: recall=1.000 contamination=0.0000"
+}

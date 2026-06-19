@@ -1,0 +1,25 @@
+{
+  "verdict": "MULTIHOP_EDIT_LEAKS_SIDE_EFFECTS",
+  "verdict_msg": "Pre=0.600; edits propagate (0.400) but side-effect leakage on untouched chains: 0.600 < 0.8.",
+  "elapsed_s": 0.2179999999998472,
+  "summary": {
+    "metrics": {
+      "pre_edit_accuracy": 0.6,
+      "post_edit_accuracy_following": 0.4,
+      "kept_chain_accuracy": 0.6,
+      "n_trials": 5
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 20,
+    "hop_depth": 2,
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

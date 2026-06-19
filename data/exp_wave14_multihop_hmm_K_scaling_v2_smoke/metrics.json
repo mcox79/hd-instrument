@@ -1,0 +1,25 @@
+{
+  "verdict": "HMMK_INVARIANT",
+  "verdict_msg": "Plateau K-invariant: acc_d50_per_K={'50': 0.5, '100': 0.4}, spread=0.100<0.10.",
+  "elapsed_s": 0.2970000000204891,
+  "summary": {
+    "acc_d50_per_K": {
+      "50": 0.5,
+      "100": 0.4
+    },
+    "depth": 25
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "K_grid": [
+      50,
+      100
+    ],
+    "depth": 25,
+    "num_entities": 600,
+    "num_relations": 20,
+    "n_trials": 10,
+    "seed": 17
+  }
+}

@@ -1,0 +1,71 @@
+
+## CYCLE 180 (v505 -> v506) (2026-06-08)
+
+### PP-106: int4 quantization recall parity at scale
+
+| **PP-106 int4 quantization recall parity** -- int4=fp16=1.000 at N=5M (8x memory saving vs fp32) | Validated, want stronger | precision_int4_recall_gpu_v1 HP (int4=1.0000, fp16=1.0000, ratio=1.000 at N=5M; n=1 seed GPU) | 4-bit storage production-viable at 5M-entry scale with zero accuracy cost; 8x memory reduction enables 8x scale-up at same budget; extends fp16 parity (cycle-175) to int4; 0.65-0.80 EXPLORATORY |
+
+### PP-107: Abstention ROC (hallucination prevention)
+
+| **PP-107 Abstention ROC** -- AUC=1.000 distinguishing stored vs novel items | Validated, want stronger | cleanup_confidence_roc_cpu_v1 HP (AUC=1.0000, in_cosine=0.701, out_cosine=0.177; n=1 seed CPU) | Substrate knows when it does not know; cosine threshold enables hard abstention with perfect AUC; anti-hallucination primitive requires no calibration training; 0.70-0.85 EXPLORATORY |
+
+### PP-108: FHRR algebraic properties (associativity, commutativity, 4-deep unbind)
+
+| **PP-108 FHRR algebraic exactness** -- assoc-err=1.3e-07, commute-err=6.0e-08, 4-deep-recall=1.000 | Validated | binding_associativity_cpu_v1 HP (all three sub-conditions; n=1 seed CPU; deterministic algebraic result) | FHRR binding exact to floating-point precision; supports 4-deep nested entity-role trees; algebraic properties not approximate; 0.70-0.85 VALIDATED |
+
+### PP-109: Subspace storage capacity (capacity ~ d; projected-key designs predictable)
+
+| **PP-109 Subspace capacity linear scaling** -- cap_ratio(half/full)=0.50 exactly | Validated, want stronger | subspace_storage_capacity_cpu_v1 HP (cap_full=665, cap_half=332, ratio=0.50; n=1 seed CPU) | Capacity scales linearly with subspace dimension; projected-key storage capacity = full_capacity * (d/D); per-domain capacity planning; 0.65-0.80 EXPLORATORY |
+
+### PP-110: Top-k recall resilience at high noise (recall@5=1.000 at 35% bit-flip)
+
+| **PP-110 Top-k noise resilience** -- recall@5=1.000 at f=0.35 bit-flip | Validated, want stronger | topk_recall_cpu_v1 HP (f=0.35 k5=1.000, k1=0.995; n=1 seed CPU) | Top-5 re-rank recovers all precision losses from severe query noise; substrate retrieval noise-tolerant with k buffer; complements PP-103 top-1 noise cliff; 0.70-0.85 EXPLORATORY |
+
+### PP-111: Hierarchical 2-level retrieval (category -> member recall=1.000)
+
+| **PP-111 Hierarchical faceted retrieval** -- member-recall=1.000 at 2-level hierarchy | Validated, want stronger | hierarchical_2level_cpu_v1 HP (member-recall=1.000, threshold >=0.90; n=1 seed CPU) | Category-level queries retrieve all members natively; no separate hierarchical index needed; supports class->instance, topic->document, domain->fact; 0.65-0.80 EXPLORATORY |
+
+### PP-112: Bundled-set membership without per-item storage (AUC=1.000)
+
+| **PP-112 Bundled-set membership** -- AUC=1.000 at set_size=50 | Validated, want stronger | set_membership_bundle_cpu_v1 HP (AUC=1.0000 at set_size=50; n=1 seed CPU) | Exact set membership from O(D) bundled vector; no per-item lookup; ingest dedup and containment checks; complements PP-95 Bloom filter; 0.65-0.80 EXPLORATORY |
+
+### PP-113: Continuous-value numeric payload readout (R^2=1.000)
+
+| **PP-113 Numeric payload readout** -- R^2=1.000 continuous scalar retrieval | Validated, want stronger | continuous_regression_cpu_v1 HP (R^2=1.0000, threshold >=0.95; n=1 seed CPU) | Substrate stores and retrieves continuous numeric payloads (prices, scores, timestamps); not binary/categorical only; 0.65-0.80 EXPLORATORY |
+
+### PP-114: Ensemble majority vote for recall recovery (gain=0.255 at 2x over single)
+
+| **PP-114 Ensemble redundancy recall recovery** -- vote=0.510 vs single=0.255, gain=0.255 (2x) | Validated, want stronger | ensemble_vote_cpu_v1 HP (gain=0.255 >> 0.05 threshold; n=1 seed CPU; sub-capacity regime) | Independent substrate replicas combine for error-averaging; 2x recall at 2x memory; reliability-redundancy SLA tier; 0.60-0.75 EXPLORATORY |
+
+### PP-115: Few-shot relational generalization (K=5 cosine=0.913)
+
+| **PP-115 Few-shot relational generalization** -- K5 cosine=0.913 (threshold >=0.90) | Validated, want stronger | analogy_relation_transfer_cpu_v1 HP (K5=0.913, K10=0.953, monotone K-curve; n=1 seed CPU) | Relation vector from 5 examples generalizes to novel inputs; one-shot and few-shot inference without retraining; K1=0.706->K5=0.913->K10=0.953 monotone; 0.65-0.80 EXPLORATORY |
+
+### PP-116: Markov transition encoding (next-item recall=0.800; MIDDLE_BAND)
+
+| **PP-116 Markov transition sequence encoding** -- next-item recall=0.800 (MIDDLE_BAND 0.75-0.90) | Inconclusive | markov_transition_cpu_v1 MIDDLE_BAND (recall=0.800; n=1 seed CPU) | Substrate represents probabilistic sequence structure; 80% next-item recall; below HP (>=0.90); rescue: N-scaling + binding sharpening; 0.50-0.65 MIDDLE_BAND |
+
+### PP-117: Compositional negation query (A but not B; B-contamination=0.000)
+
+| **PP-117 Compositional negation** -- negated B-contamination=0.000 (vs plain=0.500) | Validated, want stronger | negation_query_cpu_v1 HP (B-contamination top-20: plain=0.500, negated=0.000; n=1 seed CPU; orphan anchor source=remote) | Native A-but-not-B algebraic query; exclusion-based retrieval without post-filtering; algebraic negation exact; 0.65-0.80 EXPLORATORY |
+
+### Cycle 180 annotations
+
+Cap_map annotation (Pattern B row): patternb_composition_300k_gpu_v1 HP v506: recall@1=1.000 at V=300k (cycle 180); extends V=100k HP (cycle 173) to V=300k; confirms intermediate scale between 100k HP and 1M HF; n=1 seed.
+
+Cap_map annotation (PP-98 sign-key extreme scale): sign_recall_20M_gpu_v1 HP v506: recall@1=1.0000 at N=20M (cycle 180); extends 1M->5M->10M (PP-98 cycle-178) to 20M; 4-point ladder all=1.000; zero degradation 1M->20M; n=1 seed. Band-LIFT candidate after 3-seed at 20M.
+
+Cap_map annotation (Hopfield row): hopfield_capacity_n4096_gpu_v1 HP v506: N=4096 modern=1.000/classic=0.000 at P/N=0.5/1.0/2.0/4.0 (cycle 180); 3rd GPU phase-map point (N=256/2048/4096); production-N confirmed; n=1 seed.
+
+Cap_map annotation (Hopfield row): hopfield_spurious_minima_cpu_v1 HP v506: genuine-convergence=0.950 (cycle 180); 5% spurious rate; trustworthy attractor dynamics; n=1 seed CPU.
+
+Cap_map annotation (bundle capacity row): bundle_capacity_largeN_gpu_v1 MIDDLE_BAND v506: N8192 K_crit=662 vs theory=454.6 (+45%); N16384 K_crit=1330 vs theory=844.2 (+58%); max_dev=0.58; empirical EXCEEDS theory at both large N; theory is conservative lower bound at large N; n=1 seed GPU.
+
+Cap_map annotation (bundle capacity row): bundle_capacity_theory_cpu_v1 MIDDLE_BAND v506: 4-N CPU sweep N=1024..8192; all K_crit exceed theory; max_dev=0.43; conservative lower bound confirmed CPU multi-N; n=1 seed. Together with GPU result: N/(2 ln N) is safe design lower bound across full N range.
+
+Cap_map annotation (KG rows, PP-35, PP-81): multi_relation_kg_cpu_v1 HP v506: (s,r)->o=0.967, (r,o)->s=0.983; bidirectional KG triple recall; both directions >=0.90; algebraic bidir KB natively supported; n=1 seed CPU.
+
+Cap_map annotation (PP-105 age-decay, forgetting rows): recency_forgetting_curve_cpu_v1 HP v506: monotone=True, half-life=15 steps; t0=1.0->t10=0.717->t15=0.083->t20=0.017; controllable forgetting via competitive cleanup; complements PP-105 (age-decay OAS); forgetting is monotone and predictable; n=1 seed CPU.
+
+Cap_map: v505 -> v506 CYCLE 180 (16 HP + 3 MIDDLE_BAND + 0 HF + 0 LVH; 12 NEW PP ROWS PP-106..PP-117; Portfolio 32+105 -> 32+117 +12; HONEST 1322->1342 +20; LVH 263 UNCHANGED; 413th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

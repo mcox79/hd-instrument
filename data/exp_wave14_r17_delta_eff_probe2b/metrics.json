@@ -1,0 +1,43 @@
+{
+  "verdict": "DELTA_EFF_NO_POWERLAW",
+  "verdict_msg": "No codebook gives R^2 > 0.7. No power-law two-point correlation; substrate has no AQEC analog. by_codebook: random_bsc:R^2=0.000, hadamard:R^2=0.000, kerdock:R^2=0.024",
+  "elapsed_s": 0.15599999999903957,
+  "summary": {
+    "by_codebook": {
+      "random_bsc": {
+        "codebook_type": "random_bsc",
+        "delta_eff": -0.0003959641172221213,
+        "r_squared": 0.00020462630365256914,
+        "c_at_r1": 0.01808120310306549,
+        "c_at_r_max": 0.017858505249023438,
+        "max_r": 512
+      },
+      "hadamard": {
+        "codebook_type": "hadamard",
+        "delta_eff": 0.0,
+        "r_squared": 0.0,
+        "c_at_r1": 0.0,
+        "c_at_r_max": 0.0,
+        "max_r": 512
+      },
+      "kerdock": {
+        "codebook_type": "kerdock",
+        "delta_eff": -0.017426989240463767,
+        "r_squared": 0.023861108430486593,
+        "c_at_r1": 0.011863850057125092,
+        "c_at_r_max": 0.017578125,
+        "max_r": 512
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "M_for_codebook_mult": 2,
+    "codebook_types": [
+      "random_bsc",
+      "hadamard",
+      "kerdock"
+    ]
+  }
+}

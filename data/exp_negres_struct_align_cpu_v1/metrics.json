@@ -1,0 +1,17 @@
+{
+  "anchor_name": "negres_struct_align_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: structural-alignment (concentration-weighted transform) lifts cross-domain analogy to >=0.40 -- projecting out entity-specific (inconsistent) phase dims and keeping the structurally-consistent relation resolves STRETCH4-2. struct-Hits@1=0.402 baseline=0.400 lift=0.001 (test=2078)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits1_struct": 0.402,
+      "hits1_base": 0.4,
+      "lift": 0.001,
+      "n": 2078
+    }
+  ],
+  "elapsed_s": 13.35200309753418,
+  "summary": "HARD_PASS: structural-alignment (concentration-weighted transform) lifts cross-domain analogy to >=0.40 -- projecting out entity-specific (inconsistent) phase dims and keeping the structurally-consistent relation resolves STRETCH4-2. struct-Hits@1=0.402 baseline=0.400 lift=0.001 (test=2078)"
+}

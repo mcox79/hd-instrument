@@ -1,0 +1,40 @@
+{
+  "anchor": "pp31c_knee_calib_n8192_v1",
+  "run_mode": "smoke",
+  "N": 8192,
+  "M_grid": [
+    50,
+    100,
+    200,
+    500
+  ],
+  "M_ref_for_summary": 100,
+  "n_seeds": 2,
+  "n_stable_seeds": 2,
+  "avg_knee": 0.25833333333333336,
+  "knee_std": 0.0,
+  "verdict": "HARD_FAIL",
+  "elapsed_s": 232.46743750572205,
+  "per_seed_per_M": {
+    "7": {
+      "50": 0.25833333333333336,
+      "100": 0.25833333333333336,
+      "200": 0.25833333333333336,
+      "500": 0.25833333333333336
+    },
+    "17": {
+      "50": 0.25833333333333336,
+      "100": 0.25833333333333336,
+      "200": 0.25833333333333336,
+      "500": 0.25833333333333336
+    }
+  },
+  "thresholds": {
+    "HP_knee_std": 0.05,
+    "HP_knee_low": 0.65,
+    "HP_knee_high": 0.85,
+    "HF_knee_std": 0.15,
+    "HP_min_seeds": 4
+  },
+  "verdict_msg": "PP-31c knee at N=8192: avg_knee=0.258 (HP [0.65,0.85]), std=0.0000 (HP<0.05), 2/2 seeds stable. Verdict: HARD_FAIL."
+}

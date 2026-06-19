@@ -1,0 +1,12 @@
+{
+  "anchor_name": "deletion_cert_z_ratio_n16384_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: mean_Z=137.1735 >= 2.5 at N=16384. mean_Z=137.1735 (HP>=2.5 MID>=1.8 HF<1.5) n_seeds=5",
+  "N": 16384,
+  "n_active": 16384,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.2883586883544922,
+  "peak_gpu_gb": 0.1703936,
+  "mean_z_ratio": 137.17350491155563
+}

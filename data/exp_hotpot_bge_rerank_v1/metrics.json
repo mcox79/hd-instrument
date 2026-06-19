@@ -1,0 +1,16 @@
+{
+  "anchor_name": "hotpot_bge_rerank_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: rerank <0.50 -- ranking alone doesn't close the gap; needs question decomposition. reranked recall@2hop=0.290 bge-only=0.305 lift=-0.015 (n=200, bge top-10 + cross-encoder; r@10 ceiling ~0.74)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "bge2": 0.305,
+      "rerank2": 0.29
+    }
+  ],
+  "elapsed_s": 142.06357955932617,
+  "summary": "HARD_FAIL: rerank <0.50 -- ranking alone doesn't close the gap; needs question decomposition. reranked recall@2hop=0.290 bge-only=0.305 lift=-0.015 (n=200, bge top-10 + cross-encoder; r@10 ceiling ~0.74)"
+}

@@ -1,0 +1,47 @@
+{
+  "verdict": "LANE_C_PRIMITIVES_COMPOSE",
+  "verdict_msg": "Lane C primitives compose into compliance-audit pipeline. delete_leak_max=0.0000 (<=0.05), edit_acc=1.000, kept_acc=1.000, side_effect=0.0000, ECE=0.0000.",
+  "elapsed_s": 1.9529999999940628,
+  "summary": {
+    "delete_leak_max": 0.0,
+    "edit_acc": 1.0,
+    "side_effect_rate": 0.0,
+    "kept_acc": 1.0,
+    "ece_post": 0.0,
+    "per_seed": {
+      "17": {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      "23": {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      },
+      "31": {
+        "delete_leak_max": 0.0,
+        "edit_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "kept_acc": 1.0,
+        "ece_post": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_facts": 100,
+    "n_edits": 50,
+    "n_deletes": 30,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "anchor_name": "pp58_scs_formula_test_d8_tau005_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: d_estimate=1.449 < 1.5 (no spike; SCS assumption violated). gamma_emp=1.189 gamma_scs=1.449 ratio=1.219 tau=0.0000 d=1.449 match_30%=2/2",
+  "N": 8192,
+  "alpha": 0.05,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.043470144271850586,
+  "summary": "HARD_FAIL: d_estimate=1.449 < 1.5 (no spike; SCS assumption violated). gamma_emp=1.189 gamma_scs=1.449 ratio=1.219 tau=0.0000 d=1.449 match_30%=2/2",
+  "per_seed": [
+    {
+      "seed": 7,
+      "tau": 0.0,
+      "d": 1.5275323522951354,
+      "gamma_scs": 1.5275323522951354,
+      "gamma_emp": 1.1907429203404503,
+      "scs_rel_error": 0.28283975172272474,
+      "scs_ratio": 1.2828397517227248,
+      "elapsed_s": 0.0
+    },
+    {
+      "seed": 17,
+      "tau": 0.0,
+      "d": 1.3712873760292605,
+      "gamma_scs": 1.3712873760292605,
+      "gamma_emp": 1.1865797381110565,
+      "scs_rel_error": 0.1556639069298826,
+      "scs_ratio": 1.1556639069298826,
+      "elapsed_s": 0.0068166255950927734
+    }
+  ]
+}

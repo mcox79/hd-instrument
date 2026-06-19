@@ -1,0 +1,53 @@
+{
+  "experiments": [
+    {
+      "name": "r7_concept_replay",
+      "script": "experiments/exp_wave14b_r7_concept_replay.py",
+      "status": "completed",
+      "purpose": "R7: CLS-style concept-tagged replay. PARTIAL +0.12, random wins by 0.53.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_K16_m2",
+      "script": "experiments/exp_wave14b_r10_K16_m2.py",
+      "status": "completed",
+      "purpose": "R10: M2 retest at K=16. Best fusion +0.0091, below threshold.",
+      "timeout_s": 2400
+    },
+    {
+      "name": "r3_concept_readout_bias",
+      "script": "experiments/exp_wave14b_r3_concept_readout_bias.py",
+      "status": "completed",
+      "purpose": "R3: concept as readout bias. PASSED at gamma=0.5 with +0.163 post-shift.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r1_modern_hopfield",
+      "script": "experiments/exp_wave14b_r1_modern_hopfield.py",
+      "status": "completed",
+      "purpose": "R1: Modern Hopfield. Best beta=16 steps=1 = +0.087 post-shift (one-shot, not iterative).",
+      "timeout_s": 1800
+    },
+    {
+      "name": "replay_mechanism_sweep",
+      "script": "experiments/exp_wave14b_replay_mechanism_sweep.py",
+      "status": "running",
+      "purpose": "Followup to R7: replay ratio sweep + recency + loss-priority.",
+      "timeout_s": 3600
+    },
+    {
+      "name": "f1_coverage_sweep",
+      "script": "experiments/exp_wave14b_f1_coverage_sweep.py",
+      "status": "pending",
+      "purpose": "F1: coverage-varied concept replay (top-10..1000 PPMI patterns).",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r7_multiseed",
+      "script": "experiments/exp_wave14b_r7_multiseed.py",
+      "status": "pending",
+      "purpose": "Multi-seed verification (3 seeds) of R7's random-replay BWT recovery.",
+      "timeout_s": 1800
+    }
+  ]
+}

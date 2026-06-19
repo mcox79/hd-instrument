@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_pp225_qwen15b_fp32proj_kb10k_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: projection head generalizes (held-out >=0.25) -- direct retrieval->logit projection works; the cross-attn GATE was the Path B limiter, not the projection. bare=0.000 train-recall=0.996 HELD-OUT-recall=0.995 (best 0.995) (6000/2000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.996,
+      "heldout_recall": 0.995,
+      "best_heldout": 0.995,
+      "n_train": 6000,
+      "n_test": 2000
+    }
+  ],
+  "elapsed_s": 4807.701122283936,
+  "summary": "HARD_PASS: projection head generalizes (held-out >=0.25) -- direct retrieval->logit projection works; the cross-attn GATE was the Path B limiter, not the projection. bare=0.000 train-recall=0.996 HELD-OUT-recall=0.995 (best 0.995) (6000/2000)"
+}

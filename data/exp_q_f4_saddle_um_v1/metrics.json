@@ -1,0 +1,25 @@
+{
+  "run_mode": "smoke",
+  "N": 512,
+  "alpha": 0.15,
+  "seeds": [
+    7
+  ],
+  "P_SADDLES": 30,
+  "aggregated": {
+    "mean_ratio_saddle": 0.9450527143526197,
+    "std_ratio_saddle": 0.0,
+    "mean_ratio_minima": 1.009503532462903,
+    "saddle_lift_over_minima": -0.06445081811028319,
+    "mean_n_saddles": 30.0,
+    "n_seeds": 1
+  },
+  "thresholds": {
+    "HP_RATIO_SADDLE": 0.85,
+    "HF_RATIO_SADDLE": 0.7,
+    "HP_SADDLE_LIFT": 0.15
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "SADDLE HIERARCHY ABSENT. mean_ratio_saddle=0.9451 < 0.7. mean_ratio_minima=1.0095. lift=-0.0645. SKAH-M saddle-hierarchy component NOT confirmed in overlap space. n_seeds=1.",
+  "elapsed_s": 0.39896559715270996
+}

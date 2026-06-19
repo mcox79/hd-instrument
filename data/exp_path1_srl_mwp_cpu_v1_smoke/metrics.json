@@ -1,0 +1,18 @@
+{
+  "anchor_name": "path1_srl_mwp_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: targeted MWP-WK + SRL <+0.04 over 0.39 -- 6th INDEPENDENT angle; trained linguistic SRL also plateaus -> corpus-deficiency needs FULL Phase-6 (not minimal targeted); 8th rule requires more targeted data per rule. acc=0.3898 (n=177, SRL-train=30) vs 0.39 discriminative / 0.34 E4+Path-1-lite",
+  "summary": "HARD_FAIL: targeted MWP-WK + SRL <+0.04 over 0.39 -- 6th INDEPENDENT angle; trained linguistic SRL also plateaus -> corpus-deficiency needs FULL Phase-6 (not minimal targeted); 8th rule requires more targeted data per rule. acc=0.3898 (n=177, SRL-train=30) vs 0.39 discriminative / 0.34 E4+Path-1-lite",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.3898,
+      "accuracy": 0.3898,
+      "lift_over_baseline": -0.0002,
+      "n": 177,
+      "n_srl_train": 30
+    }
+  ],
+  "elapsed_s": 0.0577700138092041
+}

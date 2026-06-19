@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b36_mixed_stream_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: B3b+B6 SUPERADDITIVE on mixed stream (both bind). recall none=0.11 gate=0.12 evict=0.06 both=0.30 | gains gate=+0.01 evict=-0.06 both=+0.19 (sum=-0.05)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "m_cap": 71,
+      "none": 0.11244979919678715,
+      "gate": 0.1350210970464135,
+      "evict": 0.05128205128205128,
+      "both": 0.2946058091286307
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "m_cap": 71,
+      "none": 0.11363636363636363,
+      "gate": 0.11158798283261803,
+      "evict": 0.06276150627615062,
+      "both": 0.3034188034188034
+    }
+  ],
+  "elapsed_s": 9.455567598342896,
+  "summary": "HARD_PASS: B3b+B6 SUPERADDITIVE on mixed stream (both bind). recall none=0.11 gate=0.12 evict=0.06 both=0.30 | gains gate=+0.01 evict=-0.06 both=+0.19 (sum=-0.05)"
+}

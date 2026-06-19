@@ -1,0 +1,25 @@
+{
+  "anchor_name": "substrate_82g_m4d_post_cleanup_f1_effect_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Cycle-cleanup PRESERVES headline M4d retrieval F1 (|delta|<=0.01 on both held-out sets) -> Claim 14 (substrate self-corrects own graph) capability_preservation now confirmed at the RETRIEVAL-F1 level, not just axiom-termination. The 10 removed wrong-direction edges were NOT retrieval-load-bearing. M4d post-cleanup F1 effect: q54-q65 0.2721->0.2721 (+0.0000); 56d 0.2218->0.2218 (+0.0000). Removed the 10 DECISION 79/81 cleanup edges in-memory.",
+  "summary": "Cycle-cleanup PRESERVES headline M4d retrieval F1 (|delta|<=0.01 on both held-out sets) -> Claim 14 (substrate self-corrects own graph) capability_preservation now confirmed at the RETRIEVAL-F1 level, not just axiom-termination. The 10 removed wrong-direction edges were NOT retrieval-load-bearing. M4d post-cleanup F1 effect: q54-q65 0.2721->0.2721 (+0.0000); 56d 0.2218->0.2218 (+0.0000). Removed the 10 DECISION 79/81 cleanup edges in-memory.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "removed_edges": 10,
+      "walk_endpoints_removed": 20,
+      "q54q65": {
+        "pre": 0.2721,
+        "post": 0.2721,
+        "delta": 0.0
+      },
+      "h56d": {
+        "pre": 0.2218,
+        "post": 0.2218,
+        "delta": 0.0
+      }
+    }
+  ],
+  "elapsed_s": 19.85137963294983
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap1_defeasible_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate supports NAF default reasoning >=0.90 (birds fly, penguin/ostrich exceptions don't) -- exact fact retrieval enables non-monotonic default+exception logic. defeasible-acc=1.000 (n=400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "defeasible_acc": 1.0,
+      "n": 400
+    }
+  ],
+  "elapsed_s": 0.5563721656799316,
+  "summary": "HARD_PASS: substrate supports NAF default reasoning >=0.90 (birds fly, penguin/ostrich exceptions don't) -- exact fact retrieval enables non-monotonic default+exception logic. defeasible-acc=1.000 (n=400)"
+}

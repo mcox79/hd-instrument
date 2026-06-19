@@ -1,0 +1,26 @@
+{
+  "anchor_name": "pp56_sherman_morrison_cert_drop_n65536_v5_n65536",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cert drops to 0.00097020<0.15 at N=65536 (theory=0.00001526); retained cert stable (delta=0.004391<0.1); 5-seed unanimous. PP-56 5th-rung band-lift gate passed. cert_ratio=0.00097020(HP<0.15 HF>0.3) retained_delta=0.004391(HP<0.1 HF>0.3) N=65536 lam=1.0 n_seeds=2 theo_ratio=0.00001526",
+  "N": 65536,
+  "M_STORE": 5,
+  "lam": 1.0,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.5657517910003662,
+  "theoretical_cert_ratio_n65536": 1.5258556235409006e-05,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_cert_ratio": 0.0009675734679896404,
+      "mean_retained_delta": 0.005885311711868174,
+      "elapsed_s": 0.2232520580291748
+    },
+    {
+      "seed": 17,
+      "mean_cert_ratio": 0.0009728304508431852,
+      "mean_retained_delta": 0.0028971288421222813,
+      "elapsed_s": 0.22776293754577637
+    }
+  ]
+}

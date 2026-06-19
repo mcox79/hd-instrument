@@ -1,0 +1,39 @@
+{
+  "verdict": "K_FINE_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_OR_CLIFF_TRANSITION: largest gap at k1->k2 (delta=0.0000). hp_k2=False hp_k3=False hp_k5=False hp_k10=True monotone=True. k1(path_b)=1.0000 k2=1.0000 k3=1.0000 k5=1.0000 k10=1.0000 k100=1.0000 n_seeds=1",
+  "elapsed_s": 0.17,
+  "summary": {
+    "anchor": "path_d_k_fine_grained_transition_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 512,
+    "depth": 5,
+    "K_paths_grid": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      100
+    ],
+    "k_random_keys": 20,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0,
+        "path_d_k2_acc": 1.0,
+        "path_d_k3_acc": 1.0,
+        "path_d_k5_acc": 1.0,
+        "path_d_k10_acc": 1.0,
+        "path_d_k100_acc": 1.0
+      }
+    ],
+    "verdict": "K_FINE_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL_OR_CLIFF_TRANSITION: largest gap at k1->k2 (delta=0.0000). hp_k2=False hp_k3=False hp_k5=False hp_k10=True monotone=True. k1(path_b)=1.0000 k2=1.0000 k3=1.0000 k5=1.0000 k10=1.0000 k100=1.0000 n_seeds=1",
+    "elapsed_s": 0.17
+  }
+}

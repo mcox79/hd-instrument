@@ -1,0 +1,31 @@
+{
+  "verdict": "DEMO_2_CAPSTONE_PASS",
+  "verdict_msg": "Lane C ALL probes pass AND multi-hop acc_50hop=1.000>=0.50.",
+  "elapsed_s": 1.8589999999967404,
+  "summary": {
+    "lane_C_pass": true,
+    "lane_C_details": {
+      "delete_leak_max": 0.0,
+      "edit_acc": 1.0,
+      "side_effect_rate": 0.0,
+      "kept_acc": 1.0,
+      "ece_post": 0.0
+    },
+    "multihop_acc_50hop": 1.0,
+    "n_chain_trials": 20
+  },
+  "config": {
+    "mode": "full",
+    "N_lane_C": 4096,
+    "N_multihop": 65536,
+    "M_facts": 100,
+    "n_edits": 50,
+    "n_deletes": 30,
+    "K_chain": 100,
+    "depth_chain": 50,
+    "num_relations": 20,
+    "num_entities": 200,
+    "n_chain_trials": 20,
+    "seed": 17
+  }
+}

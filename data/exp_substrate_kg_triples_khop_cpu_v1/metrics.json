@@ -1,0 +1,15 @@
+{
+  "anchor_name": "substrate_kg_triples_khop_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate K-hop on a realistic KG gives 2-hop recall@1>=0.70 -- KG QA as a substrate product is gated GREEN (discrete-symbol regime where iterative multi-hop works). 2hop_r1=0.717 2hop_r5=0.900",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "2hop_r1": 0.7166666666666667,
+      "2hop_r5": 0.9
+    }
+  ],
+  "elapsed_s": 0.6433589458465576,
+  "summary": "HARD_PASS: substrate K-hop on a realistic KG gives 2-hop recall@1>=0.70 -- KG QA as a substrate product is gated GREEN (discrete-symbol regime where iterative multi-hop works). 2hop_r1=0.717 2hop_r5=0.900"
+}

@@ -1,0 +1,129 @@
+{
+  "verdict": "INTERP_FAMILY_N16384_INCONCLUSIVE",
+  "verdict_msg": "Only 0 families at N=16384; need 3. Available: ['srht@N=64', 'hadamard@N=64']",
+  "elapsed_s": 0.03200000000651926,
+  "summary": {
+    "cells": [
+      {
+        "family": "srht",
+        "N": 64,
+        "alpha_interp": 0.0,
+        "bbmd_distance_mean": 2.146108756686462,
+        "amp_rel_err_mean": 0.3321338342825425,
+        "vamp_rel_err_mean": 0.4028998952161231,
+        "n_seeds": 1
+      },
+      {
+        "family": "srht",
+        "N": 64,
+        "alpha_interp": 0.5,
+        "bbmd_distance_mean": 4.732347320126916,
+        "amp_rel_err_mean": 0.061277169739469735,
+        "vamp_rel_err_mean": 0.03629002617224626,
+        "n_seeds": 1
+      },
+      {
+        "family": "srht",
+        "N": 64,
+        "alpha_interp": 1.0,
+        "bbmd_distance_mean": 5.0,
+        "amp_rel_err_mean": 0.9273332173076112,
+        "vamp_rel_err_mean": 0.29361340239795747,
+        "n_seeds": 1
+      },
+      {
+        "family": "hadamard",
+        "N": 64,
+        "alpha_interp": 0.0,
+        "bbmd_distance_mean": 2.146108756686462,
+        "amp_rel_err_mean": 0.3321338342825425,
+        "vamp_rel_err_mean": 0.4028998952161231,
+        "n_seeds": 1
+      },
+      {
+        "family": "hadamard",
+        "N": 64,
+        "alpha_interp": 0.5,
+        "bbmd_distance_mean": 4.708140768450203,
+        "amp_rel_err_mean": 0.0007248215618137773,
+        "vamp_rel_err_mean": 0.16697621886617559,
+        "n_seeds": 1
+      },
+      {
+        "family": "hadamard",
+        "N": 64,
+        "alpha_interp": 1.0,
+        "bbmd_distance_mean": 5.0,
+        "amp_rel_err_mean": 0.8919875849649672,
+        "vamp_rel_err_mean": 0.2570445942084945,
+        "n_seeds": 1
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N_grid": [
+        64
+      ],
+      "M_over_N": 1.0,
+      "alpha_interp_list": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 1,
+      "n_iter": 50,
+      "n_max_moment": 6,
+      "families": [
+        "srht",
+        "hadamard"
+      ]
+    },
+    "rho_per_family_N": {
+      "srht@N=64": {
+        "rho": 0.5,
+        "max_vamp_rel_err": 0.4028998952161231,
+        "n_alpha_cells": 3
+      },
+      "hadamard@N=64": {
+        "rho": 0.5,
+        "max_vamp_rel_err": 0.4028998952161231,
+        "n_alpha_cells": 3
+      }
+    },
+    "rho_per_family_N_serialized": {
+      "srht@N=64": {
+        "rho": 0.5,
+        "max_vamp_rel_err": 0.4028998952161231,
+        "n_alpha_cells": 3
+      },
+      "hadamard@N=64": {
+        "rho": 0.5,
+        "max_vamp_rel_err": 0.4028998952161231,
+        "n_alpha_cells": 3
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_grid": [
+      64
+    ],
+    "M_over_N": 1.0,
+    "alpha_interp_list": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 1,
+    "n_iter": 50,
+    "n_max_moment": 6,
+    "families": [
+      "srht",
+      "hadamard"
+    ]
+  }
+}

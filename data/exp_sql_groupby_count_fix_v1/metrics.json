@@ -1,0 +1,14 @@
+{
+  "anchor_name": "sql_groupby_count_fix_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HD GROUP BY COUNT estimator rel-error <5%% -- formula correct; cycle-155 GROUP BY COUNT capability restored to HP. AVG rel-error=0.0378 (theory ~1.6% at N=4096)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rel_err": 0.03780509032136308
+    }
+  ],
+  "elapsed_s": 0.06298708915710449,
+  "summary": "HARD_PASS: HD GROUP BY COUNT estimator rel-error <5%% -- formula correct; cycle-155 GROUP BY COUNT capability restored to HP. AVG rel-error=0.0378 (theory ~1.6% at N=4096)"
+}

@@ -1,0 +1,66 @@
+{
+  "verdict": "PB1_MIDDLE_BAND",
+  "verdict_msg": "Partial phase sensitivity. susc_beta=0.025, interior_min=1/1, susc_epoch=0.1720.",
+  "elapsed_s": 2.0029754638671875,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "beta_sweep": [
+      4.0,
+      8.0,
+      16.0
+    ],
+    "epoch_sweep": [
+      1,
+      2
+    ]
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "beta_results": {
+          "4.0": {
+            "bpc": 4.4139507865905765,
+            "entropy_bits": 6.982144985198975
+          },
+          "8.0": {
+            "bpc": 3.211664218902588,
+            "entropy_bits": 3.5109934329986574
+          },
+          "16.0": {
+            "bpc": 4.110246286392212,
+            "entropy_bits": 1.2837695646286011
+          }
+        },
+        "susc_beta": 0.02530870834986369,
+        "has_bpc_interior_min": true,
+        "optimal_beta": 8.0,
+        "epoch_results": {
+          "1": {
+            "bpc": 3.383633975982666,
+            "entropy_bits": 4.059619197845459
+          },
+          "2": {
+            "bpc": 3.211664218902588,
+            "entropy_bits": 3.5109934329986574
+          }
+        },
+        "susc_epoch": 0.171969757080078
+      }
+    },
+    "N_full": 4096,
+    "N_used": 1024,
+    "beta_sweep": [
+      4.0,
+      8.0,
+      16.0
+    ],
+    "epoch_sweep": [
+      1,
+      2
+    ],
+    "smoke": true
+  }
+}

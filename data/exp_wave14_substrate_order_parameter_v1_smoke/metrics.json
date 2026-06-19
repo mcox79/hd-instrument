@@ -1,0 +1,26 @@
+{
+  "verdict": "ORDER_PARAM_STABLE",
+  "verdict_msg": "q_overlap seed-consistency=0.940>=0.85.",
+  "elapsed_s": 0.5,
+  "summary": {
+    "q_overlap_per_seed": [
+      0.12,
+      0.1352
+    ],
+    "q_overlap_mean": 0.1276,
+    "q_overlap_stdev": 0.007599999999999996,
+    "q_overlap_seed_consistency": 0.9404388714733543
+  },
+  "config": {
+    "N": 4096,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 50,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

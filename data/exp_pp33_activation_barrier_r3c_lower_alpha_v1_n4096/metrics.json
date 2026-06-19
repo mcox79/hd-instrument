@@ -1,0 +1,39 @@
+{
+  "anchor_name": "pp33_activation_barrier_r3c_lower_alpha_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: marginal nf_crit movement at low alpha. nf_crit: a0.001=0.5250000029802319 a0.005=None a0.01=None a0.02=0.4643359907647372 moderate_boundary~0.5 n_seeds=2",
+  "N": 4096,
+  "run_mode": "smoke",
+  "alpha_values": [
+    0.001,
+    0.02
+  ],
+  "n_seeds": 2,
+  "elapsed_s": 0.08573341369628906,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "nf_crit_alpha0p001": 0.5250000029802319,
+      "recall_nf0_alpha0p001": 1.0000001192092896,
+      "nf_crit_alpha0p02": 0.45689656092352166,
+      "recall_nf0_alpha0p02": 1.0000001192092896,
+      "elapsed_s": 0.011111736297607422,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780479181.6010485
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "nf_crit_alpha0p001": 0.5250000029802319,
+      "recall_nf0_alpha0p001": 1.0000001192092896,
+      "nf_crit_alpha0p02": 0.47177542060595273,
+      "recall_nf0_alpha0p02": 1.0000001192092896,
+      "elapsed_s": 0.011543750762939453,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780479181.6198032
+    }
+  ]
+}

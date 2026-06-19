@@ -1,0 +1,9 @@
+{
+  "verdict": "PASS",
+  "verdict_msg": "routing-test: sum(range(100))==4950",
+  "elapsed_s": 0.001,
+  "summary": {
+    "result": 4950,
+    "smoke": false
+  }
+}

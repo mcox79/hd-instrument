@@ -1,0 +1,28 @@
+{
+  "verdict": "N_SCALING_SUBLINEAR",
+  "verdict_msg": "M_S breakpoint grows sublinearly with N: per-N c ratio = [0.146, 0.073] (rel spread 0.67>0.30). Substrate saturates.",
+  "elapsed_s": 0.0629999999946449,
+  "summary": {
+    "M_S_breakpoint_per_N": {
+      "1024": 150,
+      "2048": 150
+    },
+    "max_M_S_swept": 300
+  },
+  "config": {
+    "mode": "smoke",
+    "N_grid": [
+      1024,
+      2048
+    ],
+    "M_S_grid": [
+      50,
+      150,
+      300
+    ],
+    "K": 3,
+    "U_stream": 40,
+    "X_alphabet": 5,
+    "seed": 17
+  }
+}

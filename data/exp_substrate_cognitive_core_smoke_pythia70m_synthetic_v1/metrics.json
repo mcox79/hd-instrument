@@ -1,0 +1,21 @@
+{
+  "anchor_name": "substrate_cognitive_core_smoke_pythia70m_synthetic_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate cognitive-core scaffold validated (recall+audit+K12 reasoning). recall=1.00 deletion_cert=1.00 sq2_depth=12.0 (5 domains, V_c=64, N=1024)",
+  "N": 1024,
+  "V_c": 64,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "domains": 5,
+      "recall": 1.0,
+      "deletion_cert": 1.0,
+      "sq2_depth": 12.0
+    }
+  ],
+  "elapsed_s": 58.462021827697754,
+  "summary": "HARD_PASS: substrate cognitive-core scaffold validated (recall+audit+K12 reasoning). recall=1.00 deletion_cert=1.00 sq2_depth=12.0 (5 domains, V_c=64, N=1024)"
+}

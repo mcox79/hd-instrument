@@ -1,0 +1,26 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_in_acc": 1.0,
+    "mean_contam": 0.0,
+    "n_seeds": 2,
+    "n_valid_cells": 4
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "XOR time-tag individual retrieval confirmed at N=4096. in_acc=1.000>0.9, contam=0.000<0.1. Individual tau_t -> content_t retrieval scales to N=4096 K=15. Timeseries compliance claim scales to N=4096.",
+  "elapsed_s": 7.808286666870117,
+  "config": {
+    "K_PATTERNS": 15,
+    "WINDOW_SIZES": [
+      2,
+      3
+    ],
+    "prot021_fix": "N in run_config checkpoint key",
+    "arch_fix": "individual tau_t queries for in-window acc"
+  }
+}

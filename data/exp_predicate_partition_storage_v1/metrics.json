@@ -1,0 +1,16 @@
+{
+  "anchor_name": "predicate_partition_storage_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: partition <1.1x flat -- no capacity gain. flat=614 partitioned=612 ratio=1.00 (P=4 groups)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "flat": 614.0,
+      "partitioned": 612.0,
+      "ratio": 0.996742671009772
+    }
+  ],
+  "elapsed_s": 40.37725782394409,
+  "summary": "HARD_FAIL: partition <1.1x flat -- no capacity gain. flat=614 partitioned=612 ratio=1.00 (P=4 groups)"
+}

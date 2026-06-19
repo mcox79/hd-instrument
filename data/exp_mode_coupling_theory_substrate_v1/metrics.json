@@ -1,0 +1,68 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: overlap vs load is linear (R^2=0.9681>0.95). No critical slowing. MCT prediction not supported.",
+  "elapsed_s": 0.24,
+  "summary": "MCT N=256: power_law_R2=0.0000 gamma=None linear_R2=0.9681",
+  "per_K_mean_overlap": {
+    "1": 0.9296875,
+    "4": 0.90234375,
+    "16": 0.904296875,
+    "64": 0.684765625
+  },
+  "power_law_fit": {
+    "gamma": null,
+    "r2": 0.0,
+    "fit_ok": false
+  },
+  "linear_r2": 0.9680893616095455,
+  "per_trial": [
+    {
+      "K": 1,
+      "N": 256,
+      "seed": 17,
+      "load": 0.00390625,
+      "mean_overlap": 0.9296875,
+      "min_overlap": 0.9296875,
+      "n_tested": 1
+    },
+    {
+      "K": 4,
+      "N": 256,
+      "seed": 17,
+      "load": 0.015625,
+      "mean_overlap": 0.90234375,
+      "min_overlap": 0.8671875,
+      "n_tested": 4
+    },
+    {
+      "K": 16,
+      "N": 256,
+      "seed": 17,
+      "load": 0.0625,
+      "mean_overlap": 0.904296875,
+      "min_overlap": 0.859375,
+      "n_tested": 16
+    },
+    {
+      "K": 64,
+      "N": 256,
+      "seed": 17,
+      "load": 0.25,
+      "mean_overlap": 0.684765625,
+      "min_overlap": 0.5390625,
+      "n_tested": 20
+    }
+  ],
+  "config": {
+    "N": 256,
+    "K_values": [
+      1,
+      4,
+      16,
+      64
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

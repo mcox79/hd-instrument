@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_atis_slot_filling_fewshot_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: slot-filling shows LOW-DATA architectural fit -- >=60%% of full slot-F1 at 5%% data (consistent with NER L-B 63%%). Low-data fit generalizes to large-tag-set NLU. F1@5%=0.5288 F1@full=0.8463 (62.5% of full at 5% data); curve=[(0.05, 0.5288), (1.0, 0.8463)]; 83 tags -- CONTRAST: NER L-B 63% of full at 5% data",
+  "summary": "HARD_PASS: slot-filling shows LOW-DATA architectural fit -- >=60%% of full slot-F1 at 5%% data (consistent with NER L-B 63%%). Low-data fit generalizes to large-tag-set NLU. F1@5%=0.5288 F1@full=0.8463 (62.5% of full at 5% data); curve=[(0.05, 0.5288), (1.0, 0.8463)]; 83 tags -- CONTRAST: NER L-B 63% of full at 5% data",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.8463,
+      "slot_f1_5pct": 0.5288,
+      "slot_f1_full": 0.8463,
+      "rel_at_5pct": 0.6248,
+      "curve": [
+        {
+          "frac": 0.05,
+          "slot_f1": 0.5288,
+          "n": 20
+        },
+        {
+          "frac": 1.0,
+          "slot_f1": 0.8463,
+          "n": 400
+        }
+      ],
+      "n_tags": 83
+    }
+  ],
+  "elapsed_s": 11.222506999969482
+}

@@ -1,0 +1,25 @@
+{
+  "anchor_name": "sharding_contrast_demo_data_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: demo contrast is sharp -- sharded stays >=0.95 while monolithic collapses to <=0.40. at largest: sharded=1.000 monolithic=0.193 | sharded-curve={'t80': 1.0, 't320': 1.0, 't1280': 1.0} mono-curve={'t80': 1.0, 't320': 0.947, 't1280': 0.193}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mono": {
+        "t80": 1.0,
+        "t320": 0.947,
+        "t1280": 0.193
+      },
+      "shard": {
+        "t80": 1.0,
+        "t320": 1.0,
+        "t1280": 1.0
+      },
+      "mono_big": 0.193,
+      "shard_big": 1.0
+    }
+  ],
+  "elapsed_s": 14.854084491729736,
+  "summary": "HARD_PASS: demo contrast is sharp -- sharded stays >=0.95 while monolithic collapses to <=0.40. at largest: sharded=1.000 monolithic=0.193 | sharded-curve={'t80': 1.0, 't320': 1.0, 't1280': 1.0} mono-curve={'t80': 1.0, 't320': 0.947, 't1280': 0.193}"
+}

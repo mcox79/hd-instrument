@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap3_11_temporal_ltl_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate evaluates bounded LTL (next / eventually-within-k / always-through-k / until) >=0.85 -- temporal logic over substrate-stored state sequences. bounded-LTL-acc=1.000 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ltl_acc": 1.0,
+      "n": 300
+    }
+  ],
+  "elapsed_s": 0.06299734115600586,
+  "summary": "HARD_PASS: substrate evaluates bounded LTL (next / eventually-within-k / always-through-k / until) >=0.85 -- temporal logic over substrate-stored state sequences. bounded-LTL-acc=1.000 (n=300)"
+}

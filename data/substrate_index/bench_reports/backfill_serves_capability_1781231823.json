@@ -1,0 +1,159 @@
+{
+  "dry_run": false,
+  "stats": {
+    "atoms_examined": 6,
+    "atoms_updated": 0,
+    "atoms_no_match": 8,
+    "atoms_already_complete": 6,
+    "solvers_missing": [
+      "concept::PP-MATH_WK_LEX_FAMILY",
+      "math::T3/discriminative_perceptron_with_role_features",
+      "math::T3/discriminative_perceptron_with_learned_selector",
+      "T3/substrate_as_ranker",
+      "T3/substrate_as_filter",
+      "T3/colbert_v2_wrapper",
+      "T2/prototype_bundle_cleanup",
+      "math::T3/slipnet"
+    ]
+  },
+  "top_levers": [
+    {
+      "atom": "math::T3/discriminative_perceptron",
+      "n_caps": 10,
+      "caps": [
+        "concept::PP-364_NER",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-377_MultiArith_math",
+        "concept::PP-393_asdiv_3op_ceiling",
+        "concept::PP-394_asdiv_wk_oracle",
+        "concept::PP-395_svamp_role_asymmetry",
+        "concept::PP-396_svamp_learned_selector",
+        "concept::PP-397_pos_data_efficiency",
+        "concept::PP-AG_news_text_class",
+        "concept::PP-NORTH_STAR_2026-06-11"
+      ]
+    },
+    {
+      "atom": "math::T2/cleanup",
+      "n_caps": 9,
+      "caps": [
+        "concept::PP-217_path_A_LLM_enhancement",
+        "concept::PP-372_schema_retrieval",
+        "concept::PP-LEX1_morphology",
+        "concept::PP-compositional_depth_retrieval",
+        "concept::PP-multihop_revival",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_multi_hop",
+        "concept::RETRIEVAL_reasoning_routing_pp371",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T2/fhrr_unbind",
+      "n_caps": 4,
+      "caps": [
+        "concept::PP-372_schema_retrieval",
+        "concept::PP-compositional_depth_retrieval",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T3/count_nb",
+      "n_caps": 3,
+      "caps": [
+        "concept::PP-364_NER",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-377_MultiArith_math"
+      ]
+    },
+    {
+      "atom": "science::PHYS/ising_model",
+      "n_caps": 3,
+      "caps": [
+        "math::T2/modern_hopfield_ramsauer",
+        "PHYS/statistical_mechanics",
+        "math::T2/glauber_dynamics"
+      ]
+    },
+    {
+      "atom": "science::BIO/basal_ganglia",
+      "n_caps": 3,
+      "caps": [
+        "BIO/dopamine_RPE",
+        "concept::PP-375_multistep_math",
+        "CS/reinforcement_learning"
+      ]
+    },
+    {
+      "atom": "science::BIO/spike_timing_dependent_plasticity",
+      "n_caps": 2,
+      "caps": [
+        "math::T2/bcm_learning_rule",
+        "BIO/synaptic_plasticity"
+      ]
+    },
+    {
+      "atom": "science::BIO/place_cell",
+      "n_caps": 2,
+      "caps": [
+        "BIO/hippocampus",
+        "math::T2/sparse_distributed_memory"
+      ]
+    },
+    {
+      "atom": "science::BIO/neural_population_dynamics",
+      "n_caps": 2,
+      "caps": [
+        "math::T3/principal_component_analysis",
+        "PHYS/dynamical_systems"
+      ]
+    },
+    {
+      "atom": "science::CS/continual_learning",
+      "n_caps": 2,
+      "caps": [
+        "math::T2/complementary_learning_systems",
+        "BIO/memory_consolidation"
+      ]
+    },
+    {
+      "atom": "science::CS/transfer_learning",
+      "n_caps": 2,
+      "caps": [
+        "concept::CAP_discriminative_perceptron",
+        "meta::RULE_count_nb_to_discriminative_perceptron"
+      ]
+    },
+    {
+      "atom": "science::CS/self_supervised_learning",
+      "n_caps": 2,
+      "caps": [
+        "concept::PP-375_multistep_math",
+        "math::T3/contrastive_learning"
+      ]
+    },
+    {
+      "atom": "science::BIO/cortical_oscillation",
+      "n_caps": 2,
+      "caps": [
+        "BIO/theta_gamma_binding",
+        "math::T3/resonator_network_decoder"
+      ]
+    },
+    {
+      "atom": "science::BIO/dna_replication",
+      "n_caps": 1,
+      "caps": [
+        "BIO/dna_double_helix"
+      ]
+    },
+    {
+      "atom": "science::CS/meta_learning",
+      "n_caps": 1,
+      "caps": [
+        "concept::CAP_em_algorithm"
+      ]
+    }
+  ]
+}

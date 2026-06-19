@@ -1,0 +1,18 @@
+{
+  "anchor_name": "decisive4_gdpr_erasure_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: GDPR exact erasure (sharded) -- pre-recall 1.0, 0 false retentions on deleted + 0 false losses on retained, sub-ms/fact. EU AI Act Art.17 categorical. pre_recall=1.000 false_retentions=0 false_losses=0 latency=0.0297ms",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "false_retentions": 0,
+      "false_losses": 0,
+      "n_del": 100,
+      "pre_recall": 1.0,
+      "latency_ms": 0.0297
+    }
+  ],
+  "elapsed_s": 6.0438408851623535,
+  "summary": "HARD_PASS: GDPR exact erasure (sharded) -- pre-recall 1.0, 0 false retentions on deleted + 0 false losses on retained, sub-ms/fact. EU AI Act Art.17 categorical. pre_recall=1.000 false_retentions=0 false_losses=0 latency=0.0297ms"
+}

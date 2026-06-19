@@ -1,0 +1,17 @@
+{
+  "anchor_name": "hotpot_2hop_khop_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: K-hop relay lifts recall@2hop by >=0.05 over naive but not to 0.70 -- bridge-hop helps; gap remains. khop_recall@2hop=0.200 naive=0.147 lift=+0.053 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 300,
+      "naive": 0.14666666666666667,
+      "substrate": 0.2,
+      "recall_2hop": 0.2
+    }
+  ],
+  "elapsed_s": 114.3398847579956,
+  "summary": "MIDDLE_BAND: K-hop relay lifts recall@2hop by >=0.05 over naive but not to 0.70 -- bridge-hop helps; gap remains. khop_recall@2hop=0.200 naive=0.147 lift=+0.053 (n=300)"
+}

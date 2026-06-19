@@ -1,0 +1,37 @@
+{
+  "verdict": "G8_HARD_PASS",
+  "verdict_msg": "DEFENSE_VIABLE n_hp=1/2. a_query_sim: def=1.000 fp=0.000 | b_dist_check: def=1.000 fp=1.000",
+  "elapsed_s": 0.04,
+  "summary": {
+    "anchor": "adversarial_codebook_collision_defense_probe_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ok": true,
+        "baseline_correct_on_adv": 1.0,
+        "defenses": {
+          "a_query_sim": {
+            "defense_rate": 1.0,
+            "fp_rate": 0.0
+          },
+          "b_dist_check": {
+            "defense_rate": 1.0,
+            "fp_rate": 1.0
+          }
+        },
+        "n_adv": 8,
+        "n_leg": 16
+      }
+    ],
+    "verdict": "G8_HARD_PASS",
+    "verdict_msg": "DEFENSE_VIABLE n_hp=1/2. a_query_sim: def=1.000 fp=0.000 | b_dist_check: def=1.000 fp=1.000",
+    "elapsed_s": 0.04
+  }
+}

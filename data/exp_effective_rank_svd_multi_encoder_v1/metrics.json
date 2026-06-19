@@ -1,0 +1,31 @@
+{
+  "anchor_name": "effective_rank_svd_multi_encoder_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no encoder reaches d_eff>=150 -- d_eff architecture-bounded; encoder choice limited. d_eff by encoder: {'all-MiniLM-L6-v2': 91.1, 'all-mpnet-base-v2': 87.0, 'bge-large-en-v1.5': 114.8} | best/MiniLM=1.26x",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "all-MiniLM-L6-v2": {
+        "d_eff": 91.05800907537451,
+        "rank90": 174,
+        "rank99": 295,
+        "D": 384
+      },
+      "all-mpnet-base-v2": {
+        "d_eff": 86.97355357149092,
+        "rank90": 210,
+        "rank99": 514,
+        "D": 768
+      },
+      "bge-large-en-v1.5": {
+        "d_eff": 114.80632804073704,
+        "rank90": 299,
+        "rank99": 641,
+        "D": 1024
+      }
+    }
+  ],
+  "elapsed_s": 163.88131499290466,
+  "summary": "HARD_FAIL: no encoder reaches d_eff>=150 -- d_eff architecture-bounded; encoder choice limited. d_eff by encoder: {'all-MiniLM-L6-v2': 91.1, 'all-mpnet-base-v2': 87.0, 'bge-large-en-v1.5': 114.8} | best/MiniLM=1.26x"
+}

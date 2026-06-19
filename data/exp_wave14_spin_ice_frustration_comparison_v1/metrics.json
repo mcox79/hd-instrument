@@ -1,0 +1,61 @@
+{
+  "verdict": "FRUSTRATED_NOVEL",
+  "verdict_msg": "Frustration pattern is neither spin-ice nor generic kinetic glass: SIG1=ICE_RULE SIG3=AMBIGUOUS SIG4=SMOOTH_ONSET decay_exp=-0.082. Substrate frustration is driven by the structured codebook geometry (Kerdock orbit structure), which has no direct spin-ice analog. This is a novel frustration mechanism consistent with SKAH-M framing.",
+  "smoke": true,
+  "N": 256,
+  "elapsed_s": 0.0,
+  "agg_sig1": {
+    "call": "ICE_RULE",
+    "mean_match_frac": 1.0
+  },
+  "agg_sig2": {
+    "decay_exponent": -0.0815
+  },
+  "agg_sig3": {
+    "call": "AMBIGUOUS"
+  },
+  "agg_sig4": {
+    "call": "SMOOTH_ONSET"
+  },
+  "per_seed": {
+    "sig1": [
+      {
+        "match_frac": 1.0,
+        "call": "ICE_RULE"
+      }
+    ],
+    "sig2": [
+      {
+        "decay_exponent": -0.0815
+      }
+    ],
+    "sig3": [
+      {
+        "gaps": [
+          0.0024,
+          1e-05,
+          0.0015
+        ],
+        "epochs": [
+          1,
+          4,
+          16
+        ],
+        "non_monotone": false,
+        "call": "AMBIGUOUS"
+      }
+    ],
+    "sig4": [
+      {
+        "slopes_by_load": {
+          "0.2": 0.0,
+          "0.5": 0.0,
+          "1.0": 0.0
+        },
+        "max_dslope": 0.0,
+        "onset_frac": 0.2,
+        "call": "SMOOTH_ONSET"
+      }
+    ]
+  }
+}

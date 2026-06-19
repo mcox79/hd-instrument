@@ -1,0 +1,41 @@
+{
+  "verdict": "JC_HARD_FAIL_NO_CONVERGENCE",
+  "verdict_msg": "JC_HARD_FAIL: hp_frac < 0.2 at ALL tested beta values. Best hp_frac=0.000 at beta=0.1. Per-beta hp_frac: [(0.1, 0.0), (0.05, 0.0)]. Substrate work distribution has too-heavy tails even at near-zero coupling. Jarzynski is structurally inapplicable. Crooks FT (v153 OK) remains primary non-eq estimator.",
+  "elapsed_s": 0.03,
+  "summary": "JC v3 beta-sweep at N=256 M=50: best_hp_frac=0.000 at beta=0.1, convergence_beta=None",
+  "per_beta_summary": {
+    "0.1": {
+      "beta": 0.1,
+      "n_seeds": 1,
+      "agreement_mean": 1.85369,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 0.004399,
+      "convergence_candidate": false
+    },
+    "0.05": {
+      "beta": 0.05,
+      "n_seeds": 1,
+      "agreement_mean": 1.92725,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 0.001091,
+      "convergence_candidate": false
+    }
+  },
+  "config": {
+    "N": 256,
+    "smoke": true,
+    "M_fixed": 50,
+    "beta_sweep": [
+      0.1,
+      0.05
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha_hebbian": 0.1,
+    "hp_agreement_max": 0.5,
+    "hp_frac_thresh": 0.6,
+    "v3_fix": "beta sweep [0.1, 0.05, 0.01] at M=50 (find convergence boundary)",
+    "v2_diagnosis": "jarz_var grows with M; lower beta is correct direction"
+  }
+}

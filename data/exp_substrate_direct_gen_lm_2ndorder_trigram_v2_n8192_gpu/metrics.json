@@ -1,0 +1,52 @@
+{
+  "anchor_name": "substrate_direct_gen_lm_2ndorder_trigram_v2_n8192_gpu",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ensemble beats bigram-count but ppl>=20. single=62.1 ensemble=43.1 bigram_count=55.8 trigram_count(oracle)=20.4",
+  "N": 8192,
+  "J": 10,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "J": 10,
+      "single_ppl": 61.05720191234372,
+      "ensemble_ppl": 42.154074181308296,
+      "bigram_count_ppl": 54.82291627612204,
+      "trigram_count_ppl": 20.269741090527695,
+      "peak_gpu_gb": 3.236579328,
+      "elapsed_s": 38.44929480552673,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780617666.6685686
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "J": 10,
+      "single_ppl": 63.1689566531397,
+      "ensemble_ppl": 45.639479693317156,
+      "bigram_count_ppl": 57.68895264895554,
+      "trigram_count_ppl": 20.829246544976368,
+      "peak_gpu_gb": 3.236579328,
+      "elapsed_s": 38.68736219406128,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780617705.3634388
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "J": 10,
+      "single_ppl": 62.21129383942699,
+      "ensemble_ppl": 41.39748416152953,
+      "bigram_count_ppl": 55.024619562306285,
+      "trigram_count_ppl": 19.965272144624425,
+      "peak_gpu_gb": 3.236579328,
+      "elapsed_s": 38.392616271972656,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1780617743.7620578
+    }
+  ],
+  "elapsed_s": 115.52927327156067,
+  "summary": "MIDDLE_BAND: ensemble beats bigram-count but ppl>=20. single=62.1 ensemble=43.1 bigram_count=55.8 trigram_count(oracle)=20.4"
+}

@@ -1,0 +1,58 @@
+{
+  "verdict": "KF4_HARD_PASS",
+  "verdict_msg": "DRIFT DETECTION 5-SEED CONFIRMED. 1/1 seeds r_drift >= 0.9. 1/1 seeds r_bnv >= 0.9. mean_r_drift=0.993. mean_r_bnv=0.942. mean_r_spectral=0.827. mean_drift_final=0.2568. Cat-B drift-detection killer feature: BNV is reliable early-warning signal.",
+  "elapsed_s": 0.11629152297973633,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "n_edits": 25,
+    "n_probe": 50
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "M": 1024,
+        "r_drift": 0.9930599226470967,
+        "r_bnv": 0.942161267848768,
+        "r_spectral": 0.8272867785583822,
+        "r_retention": -1.0,
+        "drift_final": 0.2567577064037323,
+        "retention_final": 0.5,
+        "n_steps": 5,
+        "drift_series": [
+          0.11526180803775787,
+          0.1630253791809082,
+          0.1996401846408844,
+          0.22987397015094757,
+          0.2567577064037323
+        ],
+        "bnv_series": [
+          9.945244789123535,
+          16.974058151245117,
+          21.839420318603516,
+          24.462726593017578,
+          24.78902244567871
+        ],
+        "spectral_series": [
+          0.06859493255615234,
+          0.07299542427062988,
+          0.09881448745727539,
+          0.08382153511047363,
+          0.1558847427368164
+        ],
+        "retention_series": [
+          0.8999999761581421,
+          0.800000011920929,
+          0.699999988079071,
+          0.6000000238418579,
+          0.5
+        ]
+      }
+    },
+    "N_full": 4096,
+    "N_used": 1024,
+    "smoke": true
+  }
+}

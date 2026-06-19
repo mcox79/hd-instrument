@@ -1,0 +1,109 @@
+{
+  "anchor_name": "substrate_72a_iter2_fullP2_derivation_truth_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Iter2 full-P2 DISCRIMINATES (accepts 7/13 strictly-witnessed; refuses the rest = the bge-artifact PLAUSIBLE that lacked definitional/graph witness): Iter2 full-P2 derivation-truth on 13 PLAUSIBLE hold-overs: 7 ACCEPT (yield 0.54). Witnesses: W-DEF (candidate in target's definition) / W-GRAPH (<=2-hop graph-witnessed) / W-REV (target in candidate def + tier-monotone). Stricter than Iter1 structural-CHTV. full-P2 is stricter than CHTV + applicable where a witness exists.",
+  "summary": "Iter2 full-P2 DISCRIMINATES (accepts 7/13 strictly-witnessed; refuses the rest = the bge-artifact PLAUSIBLE that lacked definitional/graph witness): Iter2 full-P2 derivation-truth on 13 PLAUSIBLE hold-overs: 7 ACCEPT (yield 0.54). Witnesses: W-DEF (candidate in target's definition) / W-GRAPH (<=2-hop graph-witnessed) / W-REV (target in candidate def + tier-monotone). Stricter than Iter1 structural-CHTV. full-P2 is stricter than CHTV + applicable where a witness exists.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_plausible": 13,
+      "p2_accepted": 7,
+      "yield": 0.538,
+      "rows": [
+        {
+          "edge": "mutual_information->information_theory_shannon",
+          "W-DEF": false,
+          "W-GRAPH": true,
+          "W-REV": false,
+          "P2_accept": true
+        },
+        {
+          "edge": "markov_decision_process->probabilistic_graphical_model",
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "P2_accept": true
+        },
+        {
+          "edge": "markov_decision_process->bayes_rule",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "P2_accept": false
+        },
+        {
+          "edge": "markov_decision_process->probabilistic_inference",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "P2_accept": false
+        },
+        {
+          "edge": "markov_decision_process->cap_dynamic_programming",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "P2_accept": false
+        },
+        {
+          "edge": "markov_decision_process->dynamic_programming",
+          "W-DEF": false,
+          "W-GRAPH": true,
+          "W-REV": false,
+          "P2_accept": true
+        },
+        {
+          "edge": "markov_decision_process->bellman_equation",
+          "W-DEF": false,
+          "W-GRAPH": true,
+          "W-REV": false,
+          "P2_accept": true
+        },
+        {
+          "edge": "markov_decision_process->dynamical_systems",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "P2_accept": false
+        },
+        {
+          "edge": "q_learning->reinforcement_learning",
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "P2_accept": true
+        },
+        {
+          "edge": "q_learning->stochastic_gradient_descent",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "P2_accept": true
+        },
+        {
+          "edge": "q_learning->optimal_control_lqr",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "P2_accept": true
+        },
+        {
+          "edge": "q_learning->chain_rule",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "P2_accept": false
+        },
+        {
+          "edge": "q_learning->gradient_based_optimizer",
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "P2_accept": false
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 1.146439790725708
+}

@@ -1,0 +1,63 @@
+{
+  "verdict": "MS_2ND_ORDER_INCONCLUSIVE",
+  "verdict_msg": "Need both iid_gauss and kerdock results.",
+  "elapsed_s": 0.125,
+  "summary": {
+    "by_cb_pq_json": {
+      "iid_gauss": {
+        "2,2": 17.992202773129918,
+        "2,3": 235.31928149058686,
+        "3,3": 3392.5853916942287
+      }
+    },
+    "by_cb_K": {
+      "iid_gauss": 5
+    },
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "ratio": 8,
+      "K_samples": 5,
+      "codebooks": [
+        "iid_gauss"
+      ],
+      "pq_list": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "ratio": 8,
+    "K_samples": 5,
+    "codebooks": [
+      "iid_gauss"
+    ],
+    "pq_list": [
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ]
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+
+# v397 update (2026-06-04) -- CYCLE 67: 2x HARD_PASS (task_complexity + kappa3_sign_convention) + 2x HARD_FAIL (friston_fep + polynomial_p4) + 1x MIDDLE_BAND (cfrpe_sparse_combination); PP-8 + PP-50 sub-property annotations; HONEST 834->839; LVH 217 UNCHANGED; 308th PROT-009 paired commit
+
+## CYCLE 67 BATCH -- v396 -> v397 (2026-06-04)
+
+5 verdicts. All source=remote. 0 LVH catches.
+
+| # | Anchor | N | Seeds | Verdict | Honest |
+|---|--------|---|-------|---------|--------|
+| 1 | substrate_friston_fep_trigram_cell_v1_n4096 | 4096 | 3 | HARD_FAIL | FEP -1.019 nats vs baseline 3/3 seeds; honest |
+| 2 | substrate_cfrpe_sparse_superadditive_bigram_v1_n512_gpu | 512 | 5 | MIDDLE_BAND | combined=2.453 ~= best-single=2.471; super_seeds=0/5; honest |
+| 3 | substrate_task_complexity_sweep_v1_512_8192_gpu | {512,2048,8192} | 3 | HARD_PASS | 3/3 tasks gap>1.0 at N=8192 confirmed 18 cells; honest |
+| 4 | substrate_polynomial_p4_bcm_factorial_rung1_v1_n512 | 512 | 3 | HARD_FAIL | p4+p2 both negative gaps; BCM N=512 scale gate; honest |
+| 5 | kappa3_noise_convention_sign_distinguisher_v1_n4096 | 4096 | 5 | HARD_PASS | B_pos=3/3 cells 5 seeds; formula match 2/3 cells; |A|<|B| 5/5; honest |
+
+Sub-property annotations:
+- PP-8: friston_fep_trigram rung1 HARD_FAIL (FEP subsumption at trigram; rescues R1-R5 to extctx-8 + NLO-corrected FEP)
+- PP-8: task_complexity_sweep_v1 HARD_PASS (extctx-8 gap~1.70 nats at N=8192; flat N-scaling; substrate task-complexity-capable)
+- PP-8/composition: cfrpe+sparse_hebbian MIDDLE_BAND (shared-basis combination insufficient; heterogeneous pairing rescue R1-R5)
+- Polynomial: BCM factorial rung1 N=512 HARD_FAIL (scale gate; rescues R1-R4 at N=2048/4096)
+- PP-50: kappa3_sign_convention LOCKED (noise_on_patterns=positive; noise_on_W=negligible; synergy with cycle-66 sign inversion)
+
+Cap_map: v396 -> v397 CYCLE 67 (2x HP: task_complexity + kappa3_sign; 2x HF: friston_fep + polynomial_p4; 1x MID: cfrpe_sparse; PP-8+PP-50 sub-properties; HONEST 834->839; LVH 217; Portfolio 32+77; 308th PROT-009 paired commit) (2026-06-04)

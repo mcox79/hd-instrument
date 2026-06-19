@@ -1,0 +1,47 @@
+{
+  "verdict": "G9_HARD_PASS",
+  "verdict_msg": "MECHANISM_VIABLE n_hp=3/3. a_delta_encoding: cons=1.000 tp=1947.8 mem_amp=1.05x audit=True | b_lazy_edits: cons=1.000 tp=1267.1 mem_amp=1.05x audit=True | c_log_replay: cons=1.000 tp=2229.6 mem_amp=1.00x audit=True",
+  "elapsed_s": 0.05,
+  "summary": {
+    "anchor": "alternative_edit_isolation_mechanisms_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "n_q": 8,
+    "n_e": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "n_q": 8,
+        "n_e": 16,
+        "mechanisms": {
+          "a_delta_encoding": {
+            "consistency": 1.0,
+            "mem_amplification": 1.047,
+            "throughput_qps": 1947.75,
+            "audit_chain_intact": true
+          },
+          "b_lazy_edits": {
+            "consistency": 1.0,
+            "mem_amplification": 1.047,
+            "throughput_qps": 1267.09,
+            "audit_chain_intact": true
+          },
+          "c_log_replay": {
+            "consistency": 1.0,
+            "mem_amplification": 1.0,
+            "throughput_qps": 2229.59,
+            "audit_chain_intact": true
+          }
+        }
+      }
+    ],
+    "verdict": "G9_HARD_PASS",
+    "verdict_msg": "MECHANISM_VIABLE n_hp=3/3. a_delta_encoding: cons=1.000 tp=1947.8 mem_amp=1.05x audit=True | b_lazy_edits: cons=1.000 tp=1267.1 mem_amp=1.05x audit=True | c_log_replay: cons=1.000 tp=2229.6 mem_amp=1.00x audit=True",
+    "elapsed_s": 0.05
+  }
+}

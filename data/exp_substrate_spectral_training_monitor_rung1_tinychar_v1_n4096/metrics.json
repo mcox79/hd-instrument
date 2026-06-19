@@ -1,0 +1,96 @@
+{
+  "anchor_name": "substrate_spectral_training_monitor_rung1_tinychar_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SMOKE (informational): plumbing validated; cumulant trajectory non-trivial. convergence: n_obs=2/2 mean_lead=-5.0 hp=0 mid=0 lag=2; overfitting: n_obs=0/2 mean_lead=None hp=0 mid=0 lag=0; divergence: n_obs=0/2 mean_lead=None hp=0 mid=0 lag=0. Cap implication: substrate spectral fingerprint predicts training phase transitions before val-loss; enables early-warning auto-stop primitive reducing LLM training compute waste.",
+  "run_mode": "smoke",
+  "N_OBS": 128,
+  "BUFFER_SIZE": 15,
+  "TRAIN_CHARS": 3000,
+  "N_STEPS": 120,
+  "MONITOR_EVERY": 5,
+  "LM_HIDDEN": 48,
+  "LM_LAYERS": 1,
+  "LR": 0.005,
+  "BATCH_SIZE": 16,
+  "SEQ_LEN": 32,
+  "HP_LEAD_STEPS": 20,
+  "MID_LEAD_STEPS": 10,
+  "n_seeds": 2,
+  "elapsed_s": 3.6090641021728516,
+  "per_seed": [
+    {
+      "seed": 7,
+      "N_OBS": 128,
+      "N_STEPS": 120,
+      "val_phases": {
+        "convergence_step": 10,
+        "overfitting_step": null,
+        "divergence_step": null
+      },
+      "substrate_phases": {
+        "convergence_step": 15,
+        "overfitting_step": 15,
+        "divergence_step": 55
+      },
+      "lead_times": {
+        "convergence_lead_steps": -5,
+        "convergence_val_step": 10,
+        "convergence_substrate_step": 15,
+        "overfitting_lead_steps": null,
+        "overfitting_val_step": null,
+        "overfitting_substrate_step": 15,
+        "divergence_lead_steps": null,
+        "divergence_val_step": null,
+        "divergence_substrate_step": 55
+      },
+      "vocab_size": 44,
+      "elapsed_s": 2.5414984226226807,
+      "monitor_points": 25,
+      "k2_first_last": [
+        0.0190887451171875,
+        1.2028083801269531
+      ],
+      "val_first_last": [
+        3.742096185684204,
+        1.5724350214004517
+      ]
+    },
+    {
+      "seed": 17,
+      "N_OBS": 128,
+      "N_STEPS": 120,
+      "val_phases": {
+        "convergence_step": 10,
+        "overfitting_step": null,
+        "divergence_step": null
+      },
+      "substrate_phases": {
+        "convergence_step": 15,
+        "overfitting_step": 15,
+        "divergence_step": 15
+      },
+      "lead_times": {
+        "convergence_lead_steps": -5,
+        "convergence_val_step": 10,
+        "convergence_substrate_step": 15,
+        "overfitting_lead_steps": null,
+        "overfitting_val_step": null,
+        "overfitting_substrate_step": 15,
+        "divergence_lead_steps": null,
+        "divergence_val_step": null,
+        "divergence_substrate_step": 15
+      },
+      "vocab_size": 44,
+      "elapsed_s": 0.9897329807281494,
+      "monitor_points": 25,
+      "k2_first_last": [
+        0.0052337646484375,
+        0.823089599609375
+      ],
+      "val_first_last": [
+        3.72381329536438,
+        1.5712836980819702
+      ]
+    }
+  ]
+}

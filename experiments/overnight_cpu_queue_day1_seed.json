@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "cpu_timing_extended",
+      "script": "experiments/exp_wave14b_cpu_timing_extended.py",
+      "status": "pending",
+      "purpose": "Extended pool sizes (10K-500K) with 3-repeat variance estimation",
+      "timeout_s": 14400
+    }
+  ]
+}

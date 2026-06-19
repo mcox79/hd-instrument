@@ -1,0 +1,31 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_NODES": 15,
+  "N_EDGE_TYPES": 2,
+  "RHO_E_LIST": [
+    0.1,
+    0.2
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_rho": {
+      "0.1": {
+        "mean_auc": 0.971069500674764,
+        "min_auc": 0.9709851551956817,
+        "n_seeds": 2
+      },
+      "0.2": {
+        "mean_auc": 0.96868861814514,
+        "min_auc": 0.9671252660383096,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Partial link prediction. mean_auc=0.970 (HP>=0.75 HF<=0.55) min_auc=0.969. N=4096.",
+  "elapsed_s": 41.13149666786194
+}

@@ -1,0 +1,27 @@
+{
+  "anchor_name": "subs_hnsw_crossover_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: index never beats naive scan at S<=50K -- naive scan sufficient (or index needs tuning). ANN=sklearn crossover_S=None | {'S100': 'naive', 'S1000': 'naive'}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "backend": "sklearn",
+      "crossover_S": null,
+      "by": {
+        "S100": {
+          "naive_ms": 0.3048499987926334,
+          "index_ms": 390.0283400027547,
+          "index_faster": false
+        },
+        "S1000": {
+          "naive_ms": 2.0389650017023087,
+          "index_ms": 153.68905999930575,
+          "index_faster": false
+        }
+      }
+    }
+  ],
+  "elapsed_s": 11.103615283966064,
+  "summary": "HARD_FAIL: index never beats naive scan at S<=50K -- naive scan sufficient (or index needs tuning). ANN=sklearn crossover_S=None | {'S100': 'naive', 'S1000': 'naive'}"
+}

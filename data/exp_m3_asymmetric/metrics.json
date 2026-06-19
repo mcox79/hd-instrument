@@ -1,0 +1,17 @@
+{
+  "spec": {
+    "name": "exp_m3_asymmetric",
+    "seed": 42,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-16T23:32:27",
+  "total_events": 662,
+  "total_wall_time_us": 39863.1,
+  "n_pairs": 30,
+  "correct_forward": 30,
+  "correct_swapped": 30,
+  "role_confusion": 0,
+  "headline": "forward=30/30, swapped=30/30, role_confusion=0/30",
+  "review": false
+}

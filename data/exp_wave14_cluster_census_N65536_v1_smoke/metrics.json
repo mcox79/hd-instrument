@@ -1,0 +1,22 @@
+{
+  "verdict": "CLUSTER_TRAPPING_CONFIRMED",
+  "verdict_msg": "Cluster trapping confirmed: unique=1<10 AND top5_share=1.000>0.9.",
+  "elapsed_s": 1.7339999999967404,
+  "summary": {
+    "unique_codewords_hit": 1,
+    "top5_share": 1.0,
+    "top10_distribution": {
+      "39": 100
+    },
+    "n_trials": 100
+  },
+  "config": {
+    "N": 8192,
+    "K": 100,
+    "depth": 25,
+    "n_trials": 100,
+    "num_relations": 20,
+    "noise_p": 0.05,
+    "seed": 17
+  }
+}

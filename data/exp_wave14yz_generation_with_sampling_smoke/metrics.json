@@ -1,0 +1,29 @@
+{
+  "verdict": "GEN_SAMPLE_RESCUES_AT_T_0.5",
+  "verdict_msg": "Sampling at temperature=0.5 produces non-degenerate text: entropy=4.288, repetition=0.000. Per-temp: T0.5=(e4.29,r0.00), T1.0=(e4.25,r0.00)",
+  "elapsed_s": 0.4690000000009604,
+  "summary": {
+    "per_temperature": {
+      "0.5": {
+        "char_entropy": 4.288473574056652,
+        "ngram_repetition": 0.0,
+        "sample_bytes": "sa\r \nLr  nbnMn.tl `man.eiae  pa tthdh i-e|frde.iec\nbL\n, t| ba Ei"
+      },
+      "1.0": {
+        "char_entropy": 4.248232282211646,
+        "ngram_repetition": 0.0,
+        "sample_bytes": "saa \nar= abnM ptl `man.diae  \na tthdh mA`ayrdee|e|\nML\n, tw baeEi"
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "generate_length": 64,
+    "temperatures": [
+      0.5,
+      1.0
+    ],
+    "max_epochs": 1
+  }
+}

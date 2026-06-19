@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_adversarial_failure_modes_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3/4 adversarial modes predictable; 1 needs mitigation. A contradiction->latest=1.00[ok] | E OOD conf in=0.00/ood=0.00 separable=True[ok] | F overflow recalls=[1.0, 1.0, 0.99, 0.83, 0.57] graceful=True[ok] | D adversarial confusion=0.53[FAIL]",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "contradiction_latest": 1.0,
+      "ood_gap": 0.001157644591803546,
+      "ood_separable": true,
+      "in_conf_mean": 0.0014676354598486797,
+      "ood_conf_mean": 0.00030999086804513355,
+      "overflow_recalls": [
+        1.0,
+        1.0,
+        0.99,
+        0.83,
+        0.575
+      ],
+      "overflow_graceful": true,
+      "overflow_no_nan": true,
+      "adversarial_confusion": 0.53
+    }
+  ],
+  "elapsed_s": 18.619140148162842,
+  "summary": "MIDDLE_BAND: 3/4 adversarial modes predictable; 1 needs mitigation. A contradiction->latest=1.00[ok] | E OOD conf in=0.00/ood=0.00 separable=True[ok] | F overflow recalls=[1.0, 1.0, 0.99, 0.83, 0.57] graceful=True[ok] | D adversarial confusion=0.53[FAIL]"
+}

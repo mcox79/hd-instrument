@@ -1,0 +1,42 @@
+{
+  "verdict": "BETM_LONGT_HARD_FAIL_NO_DISCRIMINATION",
+  "verdict_msg": "Form UNRESOLVED: mean BIC gap=4.86<=1.0 OR no consistent winner (Counter({'C_sqrt': 1})). s17:C_sqrt(gap=4.86).",
+  "elapsed_s": 0.14100000000325963,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "best_form": "C_sqrt",
+        "bic_gap": 4.861896922268581,
+        "bics": {
+          "A_powerlaw": -7.03289669458044,
+          "B_log": -9.887541232040522,
+          "C_sqrt": -14.819069774375379,
+          "D_exp": -9.957172852106797
+        },
+        "rets": [
+          0.9423874020576477,
+          0.8556672930717468,
+          0.6530553102493286,
+          0.3951055407524109
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "t_grid": [
+      1.0,
+      5.0,
+      21.0,
+      89.0
+    ],
+    "n": 512,
+    "m_per": 30,
+    "seeds": [
+      17
+    ],
+    "pass_bic_gap": 6.0,
+    "pass_consistent_seeds": 4,
+    "fail_bic_gap": 1.0
+  }
+}

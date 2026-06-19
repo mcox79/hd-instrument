@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap4_3_meta_calibration_rescue_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: nonlinear-corr <0.15. nonlinear-corr=0.049 (raw=0.156) ECE=0.355",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "raw_corr": 0.156,
+      "conf_acc_corr": 0.049,
+      "ece": 0.355,
+      "n": 2400
+    }
+  ],
+  "elapsed_s": 18.262484073638916,
+  "summary": "HARD_FAIL: nonlinear-corr <0.15. nonlinear-corr=0.049 (raw=0.156) ECE=0.355"
+}

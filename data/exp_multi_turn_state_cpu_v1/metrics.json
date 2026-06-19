@@ -1,0 +1,14 @@
+{
+  "anchor_name": "multi_turn_state_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: multi-turn conversation slot-state recovered >=0.95 (supersede-aware) -- dialogue state tracking works. slot-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.08144187927246094,
+  "summary": "HARD_PASS: multi-turn conversation slot-state recovered >=0.95 (supersede-aware) -- dialogue state tracking works. slot-recall=1.000"
+}

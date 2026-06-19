@@ -1,0 +1,41 @@
+{
+  "verdict": "K2_M1_HARD_PASS",
+  "verdict_msg": "M1 hierarchical chunk-replay BREAKS 4-stage ceiling: retention_A=0.888 retention_B=0.921 retention_C=0.941 delta_from_baseline=+0.148. K2 PARTIAL -> promotion candidate.",
+  "elapsed_s": 2.202999999979511,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 0.8876986422624972,
+        "retention_B": 0.9212763812539391,
+        "retention_C": 0.9414713693098371,
+        "bpc_A_baseline": 3.710721357345581,
+        "bpc_A_after_D": 4.180158874511719,
+        "bpc_B_baseline": 5.323111686706543,
+        "bpc_B_after_D": 5.777974769592285,
+        "bpc_C_baseline": 3.8358795013427733,
+        "bpc_C_after_D": 4.074345355987549,
+        "bpc_D_after_D": 4.181757698059082,
+        "thin_A_count": 512,
+        "chunk_fraction": 0.5
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "chunk_fraction": 0.5,
+    "pass_ret_A": 0.8,
+    "pass_ret_B": 0.7,
+    "pass_ret_C": 0.7,
+    "fail_ret_A": 0.65,
+    "fail_delta": 0.03,
+    "baseline_ret_A": 0.74
+  }
+}

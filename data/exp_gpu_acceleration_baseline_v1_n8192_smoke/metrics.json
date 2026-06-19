@@ -1,0 +1,47 @@
+{
+  "verdict": "GPU_HARD_FAIL",
+  "verdict_msg": "GPU_SLOW_OR_BROKEN: speedup_N8192_query=0.00x kf_max_delta=0.0000 ",
+  "elapsed_s": 0.53,
+  "summary": {
+    "anchor": "gpu_acceleration_baseline_v1_n8192",
+    "N_sweep": [
+      1024
+    ],
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "devices_run": [
+      "cpu"
+    ],
+    "cells": [
+      {
+        "N": 1024,
+        "M": 256,
+        "seed": 17,
+        "device": "cpu",
+        "store_ns_per_fact": 37146.88,
+        "query_ns_per_op": 53870.0,
+        "edit_ns": 751580.0,
+        "delete_ns": 815720.0,
+        "throughput_ops_per_sec": {
+          "1": 859.28,
+          "16": 8569.29,
+          "64": 16206.36,
+          "256": 23629.82
+        },
+        "kfs": {
+          "above_thresh_frac": 0.0,
+          "max_iso": 0.0,
+          "retention": 1.0,
+          "edit_then_retrieve": 1.0,
+          "retrieval_latency_ns": 41891.0,
+          "kf1_sharpness": 1191.46322
+        }
+      }
+    ],
+    "verdict": "GPU_HARD_FAIL",
+    "verdict_msg": "GPU_SLOW_OR_BROKEN: speedup_N8192_query=0.00x kf_max_delta=0.0000 ",
+    "elapsed_s": 0.53
+  }
+}

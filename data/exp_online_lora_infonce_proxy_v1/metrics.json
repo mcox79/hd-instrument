@@ -1,0 +1,17 @@
+{
+  "anchor_name": "online_lora_infonce_proxy_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: InfoNCE-objective LoRA preserves retrieval (>=base) and beats SFT by >=0.10 -- the OBJECTIVE was the problem, LoRA arch is fine with InfoNCE. base=0.593 SFT=0.000 InfoNCE=0.953 (InfoNCE-SFT=+0.953)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "base": 0.5933333333333334,
+      "sft": 0.0,
+      "infonce": 0.9533333333333334
+    }
+  ],
+  "elapsed_s": 0.23606061935424805,
+  "summary": "HARD_PASS: InfoNCE-objective LoRA preserves retrieval (>=base) and beats SFT by >=0.10 -- the OBJECTIVE was the problem, LoRA arch is fine with InfoNCE. base=0.593 SFT=0.000 InfoNCE=0.953 (InfoNCE-SFT=+0.953)"
+}

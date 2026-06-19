@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4d_code_typeclass_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: lift <0.05 over majority -- discriminative weighting transfers only WEAKLY to code (acc 0.560 vs majority 0.521). Code STRUCTURE is not prompt-determined (prompt says WHAT not HOW); unlike MATH op-prediction. Code genuinely needs synthesis, not classification. acc=0.560 majority=0.521 (6 classes, n_test=257, n_train=170)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.56,
+      "majority": 0.521,
+      "n_classes": 6,
+      "n_test": 257,
+      "n_train": 170
+    }
+  ],
+  "elapsed_s": 3.340252161026001,
+  "summary": "HARD_FAIL: lift <0.05 over majority -- discriminative weighting transfers only WEAKLY to code (acc 0.560 vs majority 0.521). Code STRUCTURE is not prompt-determined (prompt says WHAT not HOW); unlike MATH op-prediction. Code genuinely needs synthesis, not classification. acc=0.560 majority=0.521 (6 classes, n_test=257, n_train=170)"
+}

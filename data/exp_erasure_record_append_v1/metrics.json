@@ -1,0 +1,18 @@
+{
+  "anchor_name": "erasure_record_append_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ErasureRecord append-only design correct -- prior records immutable, content gone, replay matches live state. Stronger audit story than in-place downdate. append_only=True content_gone=True live_replay_ok=True (facts=100 erased=15)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "append_only": true,
+      "content_gone": true,
+      "live_ok": true,
+      "n_facts": 100,
+      "n_erased": 15
+    }
+  ],
+  "elapsed_s": 0.08190226554870605,
+  "summary": "HARD_PASS: ErasureRecord append-only design correct -- prior records immutable, content gone, replay matches live state. Stronger audit story than in-place downdate. append_only=True content_gone=True live_replay_ok=True (facts=100 erased=15)"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap2_12_modal_amplitude_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: graded modal operators via FHRR amplitude (box=min, diamond=max over accessible worlds) >=0.85 -- necessity/possibility as amplitude aggregation; modal logic continuous-valued. graded-modal-acc=1.000 (n=50)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "modal_amp_acc": 1.0,
+      "n": 50
+    }
+  ],
+  "elapsed_s": 0.0362093448638916,
+  "summary": "HARD_PASS: graded modal operators via FHRR amplitude (box=min, diamond=max over accessible worlds) >=0.85 -- necessity/possibility as amplitude aggregation; modal logic continuous-valued. graded-modal-acc=1.000 (n=50)"
+}

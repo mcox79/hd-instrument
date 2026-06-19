@@ -1,0 +1,17 @@
+{
+  "anchor_name": "deletion_cert_z_ratio_n16384_full_alpha_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Z>=2.5 at all alpha + alpha_independence at N=16384. mean_Z_cv=0.2484(HP<=0.3) mean_n_alpha_hp=4.0/4 hp_full=4/5 hp_partial=4/5",
+  "N": 16384,
+  "n_active": 16384,
+  "alpha_grid": [
+    0.05,
+    0.08,
+    0.1,
+    0.12
+  ],
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 0.9195547103881836,
+  "peak_gpu_gb": 0.395313152
+}

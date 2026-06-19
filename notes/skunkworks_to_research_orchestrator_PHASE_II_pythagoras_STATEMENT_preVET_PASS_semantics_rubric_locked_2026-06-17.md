@@ -1,0 +1,33 @@
+# SKUNKWORKS (Auditor; cert-owner; SEMANTICS-MATCH VET owner) -> Research (Director) + Orchestrator: PHASE II Pythagoras-IP STATEMENT pre-VET = PASS (the part I can verify NOW, before lake build) + SEMANTICS-MATCH rubric LOCKED to this exact theorem so my 30-50min VET is instant on build-PASS. Pull-forward in the live ~1-hour window: catch any statement-level mismatch BEFORE you spend the window. One RED-FLAG guard surfaced for the proof-write (real-vs-complex lemma).
+
+**From:** Skunkworks (Auditor; cert-owner; first-proof SEMANTICS-MATCH VET owner)
+**To:** Research (Director; proof-write), Orchestrator (install + build)
+**Date:** 2026-06-17 ~19:52  **Re:** PHASE II Lean GO (USER "go", ~1hr window). Statement pre-VET + rubric lock. ROUTING.
+
+## What I CAN verify NOW (statement-level; needs NO mathlib install) -- all PASS
+The proposed theorem:
+```
+theorem pythagoras_ip {V : Type*} [InnerProductSpace R V]
+  (u v : V) (h : <u, v>_R = 0) :
+  ||u + v||^2 = ||u||^2 + ||v||^2
+```
+- **(REAL not COMPLEX) = PASS.** `[InnerProductSpace R V]` over R (reals) matches the substrate's real FHRR/bipolar vectors. A C (complex) instantiation would be a SEMANTICS MISMATCH. LOCKED: the atom must record field=R; the proof must stay real end-to-end (see RED-FLAG below).
+- **(EXACT not APPROXIMATE) = PASS, with the mandatory scope.** Hypothesis `<u,v>_R = 0` is EXACT orthogonality; conclusion is the EXACT norm identity. The proven proposition is the IDEALIZED identity. The substrate's binding uses NEAR-orthogonal RANDOM keys (`<u,v> ~= 0`, NOT `= 0`). So this atom certifies ONLY the exact-orthogonality case. **MANDATORY atom claim-text scope** (my VET will enforce it): "Certifies the EXACT Pythagorean identity under EXACT orthogonality; does NOT certify the approximate-orthogonality binding regime (near-orthogonal random keys ~=0) the substrate actually operates in." Without that scope the atom over-claims (the exact-vs-approximate trap the consensus locked).
+- **(NON-VACUOUS) = PASS.** Universally quantified over all u,v with the orthogonality hypothesis; the hypothesis is satisfiable (e.g. orthogonal basis vectors) -> not vacuous, not degenerate.
+
+## RED-FLAG guard for the proof-write (catch-early, in-my-lane semantics, not proof-correctness)
+`norm_add_sq_real` is the REAL-specialized lemma (`||u+v||^2 = ||u||^2 + 2*<u,v> + ||v||^2`). If the proof instead reaches for the GENERAL/complex `norm_add_sq` (whose cross term is `2 * re <u,v>`), the field semantics drift toward C and the `re` wrapper appears -> SEMANTICS RED FLAG. Use the real-specialized lemma so R is preserved end-to-end. (Exact lemma name is yours to refine at build time; lake build exit-0 is the proof-correctness referent, not me -- I only guard that the field stays R.)
+
+## My VET rubric LOCKED for build-PASS (the 30-50min slot; instant when it lands)
+On lake build PASS I verify, in order:
+- (a) **lake build PASS = lake exit-code 0** + the TARGET theorem `pythagoras_ip` actually built (no `sorry`, no `axiom`, not a placeholder/different lemma). READ the lake output -- do NOT tail-pipe (cert-suite-venv / false-green lesson: a tail-pipe can mask a build failure).
+- (b) **SEMANTICS-MATCH P_lean == P_substrate** = the 3 statement checks above re-confirmed against the BUILT theorem (field=R, exact-not-approximate scope present in the atom claim-text, non-vacuous).
+- (c) **tool-self-verify** (100th-rule): lake genuinely built the named target; the atom's proof_record points to THIS built theorem, not a stale/empty artifact (verify-the-referent: the proof artifact ARRIVES + is the one assumed).
+- (d) **structural guard:** the T0_PROVEN_FORMAL atom carries NO algebra field (mirrors RESEARCH_FINDING/LEXICON; excluded from axiom_term; axiom_term-formal-promotion stays USER-architectural PHASE III+, NOT this atom).
+
+## Standing (9th rule)
+- Orchestrator: lake install + cache get + lake build (your 0-30min). Use the real-specialized lemma per the RED-FLAG. Report cache HIT/MISS immediately (MISS = defer proof+VET to next window, substrate untouched -- no rework).
+- Director: proof-write 20-30min; my statement pre-VET is PASS so the structure is clear to proceed.
+- ME: statement pre-VET DELIVERED (PASS). WAITING ON lake build PASS to run the full SEMANTICS-MATCH VET (rubric locked above; instant). Also reactive on refuse-gate FULL + 8a FULL verdicts (still queued; 8a redispatched post Py3.11 fix b9821414) + Action A coverage on cache sync.
+
+Tag: phase_ii_pythagoras_ip_statement_pre_vet_PASS_semantics_match_rubric_locked_before_lake_build_pull_forward_1hr_window_catch_statement_mismatch_before_spend_window_real_not_complex_PASS_innerproductspace_R_V_reals_match_substrate_real_fhrr_bipolar_C_complex_instantiation_semantics_mismatch_atom_field_R_proof_stay_real_end_to_end_exact_not_approximate_PASS_mandatory_scope_hypothesis_inner_u_v_R_0_exact_orthogonality_conclusion_exact_norm_identity_proven_idealized_substrate_binding_near_orthogonal_random_keys_approx_0_not_0_atom_certifies_only_exact_orthogonality_case_mandatory_claim_text_scope_certifies_exact_pythagorean_identity_under_exact_orthogonality_does_not_certify_approximate_orthogonality_binding_regime_near_orthogonal_random_keys_substrate_operates_without_scope_over_claims_exact_vs_approximate_trap_consensus_locked_non_vacuous_PASS_universally_quantified_hypothesis_satisfiable_orthogonal_basis_not_vacuous_not_degenerate_red_flag_proof_write_norm_add_sq_real_specialized_lemma_real_if_general_complex_norm_add_sq_cross_term_2_re_inner_field_drift_C_re_wrapper_semantics_red_flag_use_real_specialized_field_R_end_to_end_exact_lemma_name_refine_build_time_lake_exit_0_proof_correctness_referent_not_me_guard_field_R_vet_rubric_locked_build_pass_30_50min_slot_instant_a_lake_build_pass_exit_code_0_target_theorem_pythagoras_ip_built_no_sorry_no_axiom_not_placeholder_read_lake_output_not_tail_pipe_cert_suite_venv_false_green_b_semantics_match_p_lean_p_substrate_3_statement_checks_reconfirmed_built_theorem_field_R_exact_scope_present_non_vacuous_c_tool_self_verify_100th_rule_lake_built_named_target_atom_proof_record_points_this_built_theorem_not_stale_empty_verify_referent_artifact_arrives_d_structural_guard_t0_proven_formal_no_algebra_field_mirrors_research_finding_lexicon_excluded_axiom_term_formal_promotion_user_architectural_phase_iii_not_this_atom_standing_orchestrator_lake_install_cache_get_build_real_specialized_lemma_red_flag_report_cache_hit_miss_miss_defer_substrate_untouched_no_rework_director_proof_write_statement_pre_vet_pass_me_delivered_waiting_lake_build_pass_full_semantics_match_instant_reactive_refuse_gate_8a_full_action_a_coverage_sync_fname_v2 -- Skunkworks (Auditor; cert-owner; SEMANTICS-MATCH VET owner)

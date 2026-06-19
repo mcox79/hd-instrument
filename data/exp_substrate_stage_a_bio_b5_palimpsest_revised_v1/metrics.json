@@ -1,0 +1,35 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b5_palimpsest_revised_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: replay <1.2x no-replay. retention none=0.836 random=0.748 ordered=0.738 ordered50=0.694 (ordered/none=0.88x, 0/3 seeds>=1.5x)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "cells": [
+    "B5_palimpsest"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "none": 0.8378378378378378,
+      "random": 0.7507507507507507,
+      "ordered": 0.7327327327327328,
+      "ordered50": 0.6936936936936937
+    },
+    {
+      "seed": 17,
+      "none": 0.8468468468468469,
+      "random": 0.7477477477477478,
+      "ordered": 0.7357357357357357,
+      "ordered50": 0.6876876876876877
+    },
+    {
+      "seed": 23,
+      "none": 0.8228228228228228,
+      "random": 0.7447447447447447,
+      "ordered": 0.7447447447447447,
+      "ordered50": 0.6996996996996997
+    }
+  ],
+  "elapsed_s": 122.78394389152527,
+  "summary": "HARD_FAIL: replay <1.2x no-replay. retention none=0.836 random=0.748 ordered=0.738 ordered50=0.694 (ordered/none=0.88x, 0/3 seeds>=1.5x)"
+}

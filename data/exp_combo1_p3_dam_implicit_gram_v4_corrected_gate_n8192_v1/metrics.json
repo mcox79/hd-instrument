@@ -1,0 +1,12 @@
+{
+  "anchor_name": "combo1_p3_dam_implicit_gram_v4_corrected_gate_n8192_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: MMD>=0.1. MMD=0.7972(HP<0.02) kappa3_resc=10.9748(m_3=11.0) rel_err=0.0082(HP<=0.05 HF>0.2) slope=-9.970(HP<=1.3) cos=1.0000(HP>=0.95 HF<0.7) n_results=2",
+  "N": 8192,
+  "n_active": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.1573023796081543,
+  "peak_gpu_gb": 0.109182976,
+  "gate_correction": "HP2 now uses |kappa3_resc - m_3(alpha)| / m_3(alpha) <= 0.05"
+}

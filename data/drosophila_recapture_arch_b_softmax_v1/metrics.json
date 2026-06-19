@@ -1,0 +1,427 @@
+{
+  "anchor_name": "drosophila_recapture_arch_b_softmax_v1",
+  "verdict": "SPARSITY_NEUTRAL",
+  "verdict_msg": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/5 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
+  "headline": "NONLINEAR READOUT LIFTS CAPACITY but SPARSITY-NEUTRAL: at anchor M=4096 softmax operates beyond the linear cliff (linear dense 0.000<0.1) but sparse f_k=0.05 1.000 does NOT clear gate+capability vs dense 1.000 (delta=+0.000; 0/5 seeds >=+5pp; cap 1.000 vs 0.9). Real READOUT finding (feeds cross-cutting nonlinear-readout bet); NOT a Drosophila-sparse recapture; claim-1 RESCOPE stands. Sparse-specific edge not shown here.",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "seeds": [
+    7,
+    17,
+    23,
+    31,
+    41
+  ],
+  "N": 1024,
+  "M_list": [
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "beta_star": 1.0,
+  "beta_tuning_curve_dense": {
+    "1.0": 1.0,
+    "2.0": 1.0,
+    "5.0": 1.0,
+    "10.0": 1.0,
+    "20.0": 1.0,
+    "50.0": 1.0
+  },
+  "elapsed_s": 157.53,
+  "anchor_rule": "PRE-REGISTERED: anchor M = grid-M nearest where dense f_k=1.0 SOFTMAX exact-recall first crosses 0.5 (interp; fixed pre-run). beta FROZEN dense-tuned (argmax mean dense exact over M_LIST).",
+  "anchor_M": 4096,
+  "anchor_M_cross_interp": 4096.0,
+  "anchor_mode": "softmax_saturated_max_beyond_linear_cliff",
+  "combined_framing": {
+    "regime_lift (linear dense < 0.10 at anchor)": true,
+    "linear_dense_at_anchor": 0.0,
+    "sparsity_gate (sparse>dense+5pp all-seeds; Skunkworks-BINDING)": false,
+    "capability (sparse>=0.90 all-seeds)": true,
+    "n_seeds_ge_5pp": 0,
+    "per_seed_delta": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "primary_metric": "exact_recall (cos(sign(recall),val) >= 0.9) -- DECIDES verdict",
+  "secondary_metric": "per_bit_accuracy -- DIAGNOSTIC ONLY (no proxy substitution / Goodhart)",
+  "grid_exact_recall_softmax": {
+    "0.05": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "0.1": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "0.2": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "0.5": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "1.0": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    }
+  },
+  "grid_per_bit_acc_softmax": {
+    "0.05": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "0.1": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "0.2": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "0.5": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    },
+    "1.0": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 1.0,
+      "M1024": 1.0,
+      "M2048": 1.0,
+      "M4096": 1.0
+    }
+  },
+  "grid_exact_recall_linear_baseline": {
+    "0.05": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 0.00234375,
+      "M1024": 0.0,
+      "M2048": 0.0,
+      "M4096": 0.0
+    },
+    "0.1": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 0.002734375,
+      "M1024": 0.0,
+      "M2048": 0.0,
+      "M4096": 0.0
+    },
+    "0.2": {
+      "M128": 1.0,
+      "M256": 0.99921875,
+      "M512": 0.0015625,
+      "M1024": 0.0,
+      "M2048": 0.0,
+      "M4096": 0.0
+    },
+    "0.5": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 0.00234375,
+      "M1024": 0.0,
+      "M2048": 0.0,
+      "M4096": 0.0
+    },
+    "1.0": {
+      "M128": 1.0,
+      "M256": 1.0,
+      "M512": 0.003515625,
+      "M1024": 0.0,
+      "M2048": 0.0,
+      "M4096": 0.0
+    }
+  },
+  "per_seed_exact_softmax": {
+    "0.05": {
+      "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "0.1": {
+      "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "0.2": {
+      "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "0.5": {
+      "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "1.0": {
+      "M128": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M256": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M512": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M1024": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M2048": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "M4096": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "primary": {
+    "f_k_0.05_M4096": 1.0,
+    "f_k_1.0_M4096": 1.0,
+    "delta": 0.0,
+    "anchor_M": 4096,
+    "sparsity_gate": false,
+    "capability": true,
+    "regime_lift": true
+  },
+  "secondary_per_bit_at_anchor": {
+    "f_k_0.05_M4096": 1.0,
+    "f_k_1.0_M4096": 1.0,
+    "delta": 0.0,
+    "note": "diagnostic only; NOT a verdict input"
+  },
+  "prereg_bands": {
+    "HARD_PASS": "regime_lift AND sparse>dense+0.05 all-seeds AND sparse>=0.90 all-seeds at anchor",
+    "SPARSITY_NEUTRAL": "regime_lift AND NOT(gate AND capability)",
+    "HONEST_BOUNDED": "NOT regime_lift (softmax does not beat linear)",
+    "acc_thresh": 0.9
+  },
+  "recapture_of": "scorecard_claim_1_drosophila_mb_sparse_f0.05 / EXP_substrate_drosophila_mb_sparse_single_modulator_v1 (HARD_FAIL gap 0.004; ARCH-A linear MIDDLE_BAND)",
+  "failing_config_avoided": "raw sparse-coding through a LINEAR heteroassociative readout (ARCH-A MIDDLE_BAND: no robust gain; limiter localized to the readout); ALSO probing at M>>capacity (over-capacity artifact)",
+  "method_delta": "READOUT axis ONLY: ARCH-A linear W=sum val key^T -> ARCH-B explicit separable K,V + softmax (modern-Hopfield) supra-linear single-step selection; sparse-key/dense-value held constant; beta frozen dense-tuned. Tests sparse-as-routing UNDER a nonlinear readout.",
+  "n_gate_before_validated": "N=1024 first decisive test; HARD_PASS confirm at N=4096 (REMOTE) before VALIDATED"
+}

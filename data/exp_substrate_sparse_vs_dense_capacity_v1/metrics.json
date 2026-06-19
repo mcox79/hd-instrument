@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_sparse_vs_dense_capacity_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse coding no capacity benefit at this scale. dense_capacity=819 best_sparse_capacity=819 ratio=1.00x (N=1024, sparsities=[1.0, 0.1])",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "capacity_by_sparsity": {
+        "s1.00": 819,
+        "s0.10": 819
+      },
+      "dense_capacity": 819,
+      "best_sparse_capacity": 819,
+      "ratio": 1.0
+    },
+    {
+      "seed": 2,
+      "N": 1024,
+      "capacity_by_sparsity": {
+        "s1.00": 819,
+        "s0.10": 819
+      },
+      "dense_capacity": 819,
+      "best_sparse_capacity": 819,
+      "ratio": 1.0
+    }
+  ],
+  "elapsed_s": 0.2481217384338379,
+  "summary": "HARD_FAIL: sparse coding no capacity benefit at this scale. dense_capacity=819 best_sparse_capacity=819 ratio=1.00x (N=1024, sparsities=[1.0, 0.1])"
+}

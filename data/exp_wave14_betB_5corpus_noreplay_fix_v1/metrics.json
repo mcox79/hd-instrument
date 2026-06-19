@@ -1,0 +1,77 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 4-plateau structure absent. BIC_delta_4vs3=2.15 (need <-30.0), spacing_err=0.1088 (need <0.05).",
+  "elapsed_s": 4.044,
+  "summary": {
+    "group_means": {
+      "G1_SAME": 1.0,
+      "G2_REPLAY": 0.9098,
+      "G3_STAGE4": 0.8515,
+      "G4_DIFF": 0.5773
+    },
+    "group_sizes": {
+      "G1_SAME": 2,
+      "G2_REPLAY": 2,
+      "G3_STAGE4": 2,
+      "G4_DIFF": 2
+    },
+    "bic_4state": 13.92,
+    "bic_3state": 11.77,
+    "bic_2state": 12.02,
+    "delta_bic_4vs3": 2.15,
+    "delta_bic_4vs2": 1.9,
+    "spacing_error_4state": 0.1088,
+    "ordered_monotone": true,
+    "adjacent_ci_overlaps": [
+      {
+        "pair": "G1_SAME/G2_REPLAY",
+        "overlap": false,
+        "distinct": true
+      },
+      {
+        "pair": "G2_REPLAY/G3_STAGE4",
+        "overlap": false,
+        "distinct": true
+      },
+      {
+        "pair": "G3_STAGE4/G4_DIFF",
+        "overlap": false,
+        "distinct": true
+      }
+    ],
+    "all_distinct": true,
+    "n_seeds": 2
+  },
+  "per_seed_results": [
+    {
+      "seed": 7,
+      "G1_SAME": 1.0,
+      "G2_REPLAY": 0.9088,
+      "G3_STAGE4": 0.8439,
+      "G4_DIFF": 0.5629,
+      "bpc_a_baseline": 3.2528,
+      "bpc_a_replay": 3.5034,
+      "bpc_a_stage4": 3.6816,
+      "bpc_a_diff": 4.4537
+    },
+    {
+      "seed": 17,
+      "G1_SAME": 1.0,
+      "G2_REPLAY": 0.9108,
+      "G3_STAGE4": 0.8591,
+      "G4_DIFF": 0.5916,
+      "bpc_a_baseline": 3.3016,
+      "bpc_a_replay": 3.5422,
+      "bpc_a_stage4": 3.682,
+      "bpc_a_diff": 4.4036
+    }
+  ],
+  "config": {
+    "N": 512,
+    "seeds": [
+      7,
+      17
+    ],
+    "smoke": true
+  }
+}

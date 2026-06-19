@@ -1,0 +1,30 @@
+{
+  "verdict": "BET_T_PASS",
+  "verdict_msg": "All K hypotheses recovered above 0.8: min=0.800, mean=0.867. Substrate maintains parallel hypothesis tracking.",
+  "elapsed_s": 0.09399999999732245,
+  "summary": {
+    "per_hypothesis_acc": {
+      "0": 0.8,
+      "1": 1.0,
+      "2": 0.8
+    },
+    "per_seed": {
+      "17": {
+        "0": 0.8,
+        "1": 1.0,
+        "2": 0.8
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "num_entities": 50,
+    "num_relations": 5,
+    "n_hypotheses": 3,
+    "n_facts_per_hyp": 10,
+    "seeds": [
+      17
+    ]
+  }
+}

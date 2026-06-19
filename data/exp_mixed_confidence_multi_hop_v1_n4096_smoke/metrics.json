@@ -1,0 +1,37 @@
+{
+  "verdict": "S9_HARD_PASS",
+  "verdict_msg": "CONFIDENCE_PROPAGATES: hp_paths=['D'] n_calibrated={'B': 0, 'D': 1, 'E': 1}",
+  "elapsed_s": 0.86,
+  "summary": {
+    "anchor": "mixed_confidence_multi_hop_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 100,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "acc_b_blind": 1.0,
+        "acc_b_conf": 1.0,
+        "acc_d_blind": 1.0,
+        "acc_d_conf": 1.0,
+        "auc_e_blind": 0.99707,
+        "auc_e_conf": 0.44531,
+        "lat_overhead_b": -0.181,
+        "lat_overhead_d": 0.0047,
+        "lat_overhead_e": -0.1648,
+        "calib_dev_b": 0.16775,
+        "n_paths_valid": 32
+      }
+    ],
+    "verdict": "S9_HARD_PASS",
+    "verdict_msg": "CONFIDENCE_PROPAGATES: hp_paths=['D'] n_calibrated={'B': 0, 'D': 1, 'E': 1}",
+    "elapsed_s": 0.86
+  }
+}

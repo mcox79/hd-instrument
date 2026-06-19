@@ -1,0 +1,9 @@
+{
+  "NUM_CONCEPTS": 50,
+  "bpc_baseline_pre": 2.481730948687935,
+  "bpc_extended_pre": 2.4830193293821714,
+  "bpc_baseline_post": 4.335208578588472,
+  "bpc_extended_post": 4.333858835297828,
+  "pre_shift_gain": -0.001288380694236313,
+  "post_shift_gain": 0.0013497432906444118
+}

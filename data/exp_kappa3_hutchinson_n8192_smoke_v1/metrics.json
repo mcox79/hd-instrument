@@ -1,0 +1,33 @@
+{
+  "anchor_name": "kappa3_hutchinson_n8192_smoke_v1",
+  "run_mode": "smoke",
+  "N": 8192,
+  "seeds": [
+    7,
+    17
+  ],
+  "n_probes": 500,
+  "aggregate": {
+    "409": {
+      "M": 409,
+      "mean_kappa3_hopfield": 0.05739108714774174,
+      "mean_kappa3_goe": 0.0003589369270805336,
+      "kappa3_theory": 0.0499267578125,
+      "mean_sigma_separation": 95.64632181356774,
+      "mean_theory_ratio": 1.1495055890325192,
+      "n_seeds": 2
+    },
+    "819": {
+      "M": 819,
+      "mean_kappa3_hopfield": 0.13093265363888207,
+      "mean_kappa3_goe": 0.0003589369270805336,
+      "kappa3_theory": 0.0999755859375,
+      "mean_sigma_separation": 195.62467540500188,
+      "mean_theory_ratio": 1.309646274248745,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "kappa_3 at N=8192 discriminative. min_sigma_sep=95.6 (HP>=4.0). theory_ratio=1.23 in [0.5,2.0]. Spectral-MAC primitive validated at production N=8192.",
+  "elapsed_s": 30.243545532226562
+}

@@ -1,0 +1,19 @@
+{
+  "exp_name": "continuous_embedding_cert_threshold_v1_n16384",
+  "N": 16384,
+  "corpus_size": 10000,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "is_smoke": false,
+  "n_seeds_complete": 3,
+  "total_elapsed_s": 186.7225046157837,
+  "arm_clean_threshold": "MIDDLE_BAND",
+  "arm_cert_quality": "MIDDLE_BAND",
+  "overall": "MIDDLE_BAND",
+  "n_seeds_with_clean_threshold": 2,
+  "mean_best_cert_at_fp_zero": 0.9066666666666666,
+  "verdict_msg": "continuous_embedding_cert_threshold_v1_n16384 N=16384 corpus=10000 seeds=[7, 17, 23]\nArmClean: MIDDLE_BAND | n_seeds_clean=2/3\nArmCert: MIDDLE_BAND | mean_best_cert_at_fp_zero=0.9067\nOVERALL: MIDDLE_BAND"
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "babilong_qa1_substrate_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: retrieval cuts through BABILong distractors -- both RAG and substrate beat full-context bare by >=0.15 acc; substrate matches RAG by -0.040. bare(full-ctx)=0.390 vanilla-RAG=0.600 substrate=0.560 (n=100, BABILong-2k qa1, Qwen2.5-1.5B + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 100,
+      "bare": 0.39,
+      "rag": 0.6,
+      "sub": 0.56
+    }
+  ],
+  "elapsed_s": 87.00530695915222,
+  "summary": "HARD_PASS: retrieval cuts through BABILong distractors -- both RAG and substrate beat full-context bare by >=0.15 acc; substrate matches RAG by -0.040. bare(full-ctx)=0.390 vanilla-RAG=0.600 substrate=0.560 (n=100, BABILong-2k qa1, Qwen2.5-1.5B + bge-small)"
+}

@@ -1,0 +1,58 @@
+{
+  "verdict": "BET_B_INCONCLUSIVE",
+  "verdict_msg": "Pattern doesn't fit standard verdict. retention_A=0.734, retention_B=0.867, gain_C=6.4322, bwt=+0.0387.",
+  "elapsed_s": 47.625,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A": 0.7232873755104492,
+        "retention_B": 0.8692785222955427,
+        "gain_C": 6.427033263969421,
+        "bwt": 0.013393480949374759,
+        "bpc_A_baseline": 2.5872375504594993,
+        "bpc_A_after_C": 3.577053378864238,
+        "bpc_B_baseline": 5.476111393889589,
+        "bpc_B_after_C": 6.2996050787365325,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 1.5729667360305786
+      },
+      "17": {
+        "retention_A": 0.7434323366317575,
+        "retention_B": 0.8657922208400185,
+        "gain_C": 6.445766321182251,
+        "bwt": 0.08471066057651688,
+        "bpc_A_baseline": 2.600261274562471,
+        "bpc_A_after_C": 3.4976434928071365,
+        "bpc_B_baseline": 5.492893975252727,
+        "bpc_B_after_C": 6.344355889364945,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 1.554233678817749
+      },
+      "23": {
+        "retention_A": 0.7343096962710398,
+        "retention_B": 0.8649301772989374,
+        "gain_C": 6.423741483306885,
+        "bwt": 0.017926136790194835,
+        "bpc_A_baseline": 2.598212678422026,
+        "bpc_A_after_C": 3.5383063734773343,
+        "bpc_B_baseline": 5.528241099171259,
+        "bpc_B_after_C": 6.3915460973222435,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 1.5762585166931153
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 3,
+    "bytes_per_corpus": 50000,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "replay_frac": 0.1
+  }
+}

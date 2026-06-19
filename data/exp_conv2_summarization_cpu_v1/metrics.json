@@ -1,0 +1,15 @@
+{
+  "anchor_name": "conv2_summarization_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate multi-fact summarization >=0.95 factually correct (top-K retrieval into template) -- grounded summaries, no hallucination. factual-correctness=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "factual_correct": 1.0,
+      "n": 400
+    }
+  ],
+  "elapsed_s": 0.8952131271362305,
+  "summary": "HARD_PASS: substrate multi-fact summarization >=0.95 factually correct (top-K retrieval into template) -- grounded summaries, no hallucination. factual-correctness=1.000"
+}

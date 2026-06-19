@@ -1,0 +1,61 @@
+{
+  "anchor_name": "pp52_one_shot_addition_n16384_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP at N=16384. mean_cos_new=0.9999(HP>=0.9 HF<0.7) mean_acc_drop_pp=0.0000(HF>10.0pp) mean_max_write_s=0.0336(HP<2.0) hp1_seeds=5/5 hp2_seeds=5/5 hp3_seeds=5/5",
+  "N": 16384,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 13.075125217437744,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_cos_new": 0.99984130859375,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.05295872688293457,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "peak_gpu_gb": 3.31644928
+    },
+    {
+      "seed": 17,
+      "mean_cos_new": 0.9998291015625,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.028409481048583984,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "peak_gpu_gb": 3.31644928
+    },
+    {
+      "seed": 23,
+      "mean_cos_new": 0.99989013671875,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.029263973236083984,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "peak_gpu_gb": 3.31644928
+    },
+    {
+      "seed": 31,
+      "mean_cos_new": 0.9998291015625,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.0286102294921875,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "peak_gpu_gb": 3.31644928
+    },
+    {
+      "seed": 41,
+      "mean_cos_new": 0.99986572265625,
+      "acc_drop_pp": 0.0,
+      "max_write_time_s": 0.028536558151245117,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "peak_gpu_gb": 3.31644928
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "wave4_full_streaming_composition_with_audit_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Wave4 SP1-SP8 + deletion cert compose. kappa3_audit_det=no(N=1024 SNR limited). n=2 fid_late=1.0000(HP>=0.7 HF<0.4) min_fid=1.0000 min_reff=39.2 audit_det=None(HP<=50) cert=-1.0(HP=-1.0) hp1=2/2 hp2=2/2 hp3=2/2 hp4=0/2 hp5=2/2",
+  "N": 1024,
+  "W_WIN": 40,
+  "T_TOTAL": 120,
+  "K_RETAIN": 10,
+  "ANOMALY_INJECT_AT": 60,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 21.935218811035156,
+  "mean_fid_topk_late": 1.0,
+  "mean_audit_detection_W": NaN
+}

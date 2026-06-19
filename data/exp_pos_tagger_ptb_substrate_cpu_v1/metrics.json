@@ -1,0 +1,18 @@
+{
+  "anchor_name": "pos_tagger_ptb_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-only POS tagger reaches tag-accuracy>=0.90 -- a substrate associative lexicon + suffix backoff does PTB POS tagging without an LLM. The 'LLM-only-for-NL-parse' claim is empirically refuted at low cost. tag-acc=0.9066 (20039 tokens, OOV=8.5%, 46 tags)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "tag_acc": 0.9066,
+      "n_tokens": 20039,
+      "oov_rate": 0.085,
+      "n_tags": 46,
+      "n_train_sents": 3131
+    }
+  ],
+  "elapsed_s": 11.624439716339111,
+  "summary": "HARD_PASS: substrate-only POS tagger reaches tag-accuracy>=0.90 -- a substrate associative lexicon + suffix backoff does PTB POS tagging without an LLM. The 'LLM-only-for-NL-parse' claim is empirically refuted at low cost. tag-acc=0.9066 (20039 tokens, OOV=8.5%, 46 tags)"
+}

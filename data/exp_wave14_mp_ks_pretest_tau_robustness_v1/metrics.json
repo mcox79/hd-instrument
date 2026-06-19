@@ -1,0 +1,268 @@
+{
+  "verdict": "MP_KS_TAU_ROBUSTNESS_PASS",
+  "verdict_msg": "Routing is robust across tau in ['0.15', '0.20', '0.25']: per_tau={'0.15': 4, '0.20': 4, '0.25': 4}. >=4/5 correct at every tau. Cap 12 Gate A PASSES; the routing threshold is not a fragile hand-picked artifact.",
+  "elapsed_s": 68.5,
+  "summary": {
+    "codebook_results": [
+      {
+        "name": "iid_gauss",
+        "expected_label": "AMP_OK",
+        "ks_mean": 0.07356372216024479,
+        "ks_std": 0.00078125,
+        "amp_rel_mean": 0.15110603697026628,
+        "vamp_rel_mean": 0.14535415897872989,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07317309716024478,
+          0.07219653466024478,
+          0.07414965966024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label": "AMP_OK",
+        "ks_mean": 0.5889717826135475,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.8661113417501796,
+        "vamp_rel_mean": 0.03196363575045162,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label": "VAMP_REQUIRED",
+        "ks_mean": 0.5889717826135475,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.8666825725837383,
+        "vamp_rel_mean": 0.03358379994722853,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label": "VAMP_REQUIRED",
+        "ks_mean": 0.33662803261354757,
+        "ks_std": 0.005544949049444683,
+        "amp_rel_mean": 0.6287154786525011,
+        "vamp_rel_mean": 0.10022464509719124,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.33701865761354755,
+          0.33799522011354755,
+          0.34287803261354755,
+          0.33897178261354755,
+          0.32627647011354755
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label": "VAMP_REQUIRED",
+        "ks_mean": 0.06464653848811466,
+        "ks_std": 0.0005489650697189005,
+        "amp_rel_mean": 0.09602620112572739,
+        "vamp_rel_mean": 0.03532787341935359,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.06451466296633712,
+          0.06482024336348635,
+          0.06451466296633712,
+          0.06553944228092634,
+          0.06384368086348635
+        ]
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "M_over_N": 1.0,
+      "n_seeds": 5,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 300,
+      "tau_grid": [
+        0.15,
+        0.2,
+        0.25
+      ],
+      "codebooks": [
+        "iid_gauss",
+        "srht",
+        "hadamard",
+        "rm_1_m",
+        "kerdock"
+      ]
+    },
+    "tau_grid": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "per_tau_correct": {
+      "0.15": 4,
+      "0.20": 4,
+      "0.25": 4
+    },
+    "routing_matrix": [
+      {
+        "tau": 0.15,
+        "correct": 4,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07356372216024479,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.33662803261354757,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06464653848811466,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      },
+      {
+        "tau": 0.2,
+        "correct": 4,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07356372216024479,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.33662803261354757,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06464653848811466,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      },
+      {
+        "tau": 0.25,
+        "correct": 4,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07356372216024479,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.33662803261354757,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06464653848811466,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      }
+    ],
+    "min_correct_across_tau": 4,
+    "max_correct_across_tau": 4
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "M_over_N": 1.0,
+    "n_seeds": 5,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 300,
+    "tau_grid": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "codebooks": [
+      "iid_gauss",
+      "srht",
+      "hadamard",
+      "rm_1_m",
+      "kerdock"
+    ]
+  }
+}

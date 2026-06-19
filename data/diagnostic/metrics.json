@@ -1,0 +1,58 @@
+{
+  "spec": {
+    "name": "diagnostic",
+    "seed": 42,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-16T20:32:00",
+  "total_events": 461,
+  "total_wall_time_us": 3560.7,
+  "substrate": {
+    "n": 1024,
+    "dtype": "complex64",
+    "seed": 42
+  },
+  "agent_recovery": {
+    "expected": "person_00",
+    "got": "person_00",
+    "score": 0.6430830359458923
+  },
+  "patient_recovery": {
+    "expected": "person_01",
+    "got": "person_01",
+    "score": 0.6430830359458923
+  },
+  "attention_sweep": [
+    {
+      "attention": 0.0,
+      "name": "person_00",
+      "score": 0.664536714553833
+    },
+    {
+      "attention": 0.2,
+      "name": "person_00",
+      "score": 0.6665696501731873
+    },
+    {
+      "attention": 0.5,
+      "name": "person_00",
+      "score": 0.6691957712173462
+    },
+    {
+      "attention": 0.9,
+      "name": null,
+      "score": 0.6648162007331848
+    }
+  ],
+  "attention_rejections": 1,
+  "hebbian": {
+    "decay": 0.05,
+    "steps": 400,
+    "empirical": 19.9999999754262,
+    "theoretical": 20.0,
+    "ratio": 0.99999999877131
+  },
+  "headline": "Hebbian ratio=1.0000, agent_sim=0.643, attention_rejections=1/4",
+  "review": false
+}

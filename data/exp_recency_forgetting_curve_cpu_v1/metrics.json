@@ -1,0 +1,25 @@
+{
+  "anchor_name": "recency_forgetting_curve_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a decayed fact is competitively forgotten with a finite, monotone half-life (cleanup is scale-invariant so forgetting requires competition) -- controllable forgetting via age-decay. monotone=True half-life=15 | curve={'t0': 1.0, 't5': 1.0, 't10': 0.72, 't15': 0.05, 't20': 0.0, 't25': 0.0, 't30': 0.0, 't35': 0.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "curve": {
+        "t0": 1.0,
+        "t5": 1.0,
+        "t10": 0.7166666666666667,
+        "t15": 0.05,
+        "t20": 0.0,
+        "t25": 0.0,
+        "t30": 0.0,
+        "t35": 0.0
+      },
+      "monotone": true,
+      "half": 15
+    }
+  ],
+  "elapsed_s": 0.23444581031799316,
+  "summary": "HARD_PASS: a decayed fact is competitively forgotten with a finite, monotone half-life (cleanup is scale-invariant so forgetting requires competition) -- controllable forgetting via age-decay. monotone=True half-life=15 | curve={'t0': 1.0, 't5': 1.0, 't10': 0.72, 't15': 0.05, 't20': 0.0, 't25': 0.0, 't30': 0.0, 't35': 0.0}"
+}

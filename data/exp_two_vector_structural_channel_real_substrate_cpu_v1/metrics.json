@@ -1,0 +1,50 @@
+{
+  "anchor_name": "two_vector_structural_channel_real_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the STRUCTURAL channel (algebra_hrr) validates on real atoms -- among atoms sharing >=1 dict field, algebra_hrr cosine tracks dict overlap (Spearman 0.86, Pearson 0.99), identical dicts collide perfectly (cos>=0.95), zero-overlap pairs are orthogonal (cos~0), within-category >> between-category. The structural channel encodes structural similarity as intended (collisions desirable). With the identity channel already validated, BOTH channels of the production two-vector design are confirmed on real data. rho(jac>0)=0.8612 (all-pairs 0.4490 tie-deflated); Pearson(jac>0)=0.9865; identical-dict mean_cos=1.0 (n=49); cos jac>0=0.438 vs jac=0=-0.003; within-cat=0.467 vs between-cat=0.001; binned=[(0.0, -0.003, 24280), (0.01, 0.192, 2366), (0.2, 0.36, 82), (0.4, 0.673, 2384), (0.7, 1.0, 49)]; n=242",
+  "summary": "HARD_PASS: the STRUCTURAL channel (algebra_hrr) validates on real atoms -- among atoms sharing >=1 dict field, algebra_hrr cosine tracks dict overlap (Spearman 0.86, Pearson 0.99), identical dicts collide perfectly (cos>=0.95), zero-overlap pairs are orthogonal (cos~0), within-category >> between-category. The structural channel encodes structural similarity as intended (collisions desirable). With the identity channel already validated, BOTH channels of the production two-vector design are confirmed on real data. rho(jac>0)=0.8612 (all-pairs 0.4490 tie-deflated); Pearson(jac>0)=0.9865; identical-dict mean_cos=1.0 (n=49); cos jac>0=0.438 vs jac=0=-0.003; within-cat=0.467 vs between-cat=0.001; binned=[(0.0, -0.003, 24280), (0.01, 0.192, 2366), (0.2, 0.36, 82), (0.4, 0.673, 2384), (0.7, 1.0, 49)]; n=242",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 242,
+      "rho": 0.8612,
+      "rho_all_pairs": 0.449,
+      "pearson_overlap": 0.9865,
+      "cos_overlap": 0.4377,
+      "cos_zero": -0.0031,
+      "ident_mean_cos": 1.0,
+      "n_ident_pairs": 49,
+      "within_cat_cos": 0.4674,
+      "between_cat_cos": 0.0008,
+      "binned": [
+        [
+          0.0,
+          -0.003,
+          24280
+        ],
+        [
+          0.01,
+          0.192,
+          2366
+        ],
+        [
+          0.2,
+          0.36,
+          82
+        ],
+        [
+          0.4,
+          0.673,
+          2384
+        ],
+        [
+          0.7,
+          1.0,
+          49
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 0.3019537925720215
+}

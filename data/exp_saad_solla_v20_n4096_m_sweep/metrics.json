@@ -1,0 +1,34 @@
+{
+  "anchor": "saad_solla_v20_n4096_m_sweep",
+  "N": 512,
+  "smoke": true,
+  "M_fracs": [
+    0.125
+  ],
+  "f_sweep": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "per_mfrac": {
+    "0.125": {
+      "17": {
+        "r2": 0.8027016520956046,
+        "max_dev": 0.20031500000000002,
+        "seed": 17,
+        "f_results": {
+          "0.0": 0.58087,
+          "0.5": 0.61383,
+          "1.0": 1.04742
+        },
+        "passes_hp": true
+      }
+    }
+  },
+  "verdict": "SS_V20_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL PLATEAU: 0/1 M_fracs pass. mfrac_results={'0.125': {'pass_seeds': 1, 'total': 1}} N=512 f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0]",
+  "elapsed_s": 23.11
+}

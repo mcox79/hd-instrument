@@ -1,0 +1,18 @@
+{
+  "anchor_name": "manifold_dim_diagnostic_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "DIAGNOSTIC manifold-CONFINED: Llama-L15 stored-fact embeddings lie on a low-dim manifold (intrinsic dim <200 of 2048) -- ZKL leakage may be manifold-confined; next test = manifold-projection mitigation. PR=31.9 energy95_dim=514 TwoNN=32.8 ambient=2048 (n=2000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 2000,
+      "ambient": 2048,
+      "pr": 31.86598883868264,
+      "energy95": 514,
+      "twonn": 32.75621120190186
+    }
+  ],
+  "elapsed_s": 18.282196283340454,
+  "summary": "DIAGNOSTIC manifold-CONFINED: Llama-L15 stored-fact embeddings lie on a low-dim manifold (intrinsic dim <200 of 2048) -- ZKL leakage may be manifold-confined; next test = manifold-projection mitigation. PR=31.9 energy95_dim=514 TwoNN=32.8 ambient=2048 (n=2000)"
+}

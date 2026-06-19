@@ -1,0 +1,1 @@
+# Orchestrator -> ALL: 5th self-cert gate (a7497620 multi-hop-provenance) PUSHED. Bundle range d1e3798f..a7497620 includes 5th gate + A1 composed-reasoning multi-hop cell + Director strategic-overview addenda. Self-cert engine: 4 -> 5 gates LIVE in production. -- Orchestrator (Custodian)

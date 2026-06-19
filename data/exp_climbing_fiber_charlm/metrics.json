@@ -1,0 +1,82 @@
+{
+  "seed": 17,
+  "n_substrate": 4096,
+  "k": 4,
+  "arousal": 0.3,
+  "arousal_c": 0.3,
+  "k_sparse": 64,
+  "gamma_c": 0.3,
+  "beta": 8.0,
+  "pool_size": 1024,
+  "alpha": 0.3,
+  "decay": 0.0001,
+  "max_epochs": 15,
+  "relu_b": 0.5,
+  "history": [
+    {
+      "epoch": 1,
+      "test_bpc": 2.8690063652129467,
+      "argmax_accuracy": 0.5416963649322879,
+      "w_frobenius": 46.017879486083984,
+      "c_frobenius": 8.772178649902344,
+      "wall_s": 7.806787299999996
+    },
+    {
+      "epoch": 3,
+      "test_bpc": 2.5966431781165578,
+      "argmax_accuracy": 0.5850728031768659,
+      "w_frobenius": 74.52411651611328,
+      "c_frobenius": 17.830835342407227,
+      "wall_s": 21.35697429999982
+    },
+    {
+      "epoch": 5,
+      "test_bpc": 2.5386004897050514,
+      "argmax_accuracy": 0.5972915181753385,
+      "w_frobenius": 90.80728149414062,
+      "c_frobenius": 23.456466674804688,
+      "wall_s": 34.91165039999987
+    },
+    {
+      "epoch": 7,
+      "test_bpc": 2.5175951334381645,
+      "argmax_accuracy": 0.602688117299664,
+      "w_frobenius": 101.42061614990234,
+      "c_frobenius": 27.3842716217041,
+      "wall_s": 48.45090740000023
+    },
+    {
+      "epoch": 10,
+      "test_bpc": 2.5062121923532303,
+      "argmax_accuracy": 0.6052336829243458,
+      "w_frobenius": 111.5041275024414,
+      "c_frobenius": 31.40352439880371,
+      "wall_s": 68.65725179999981
+    },
+    {
+      "epoch": 12,
+      "test_bpc": 2.5031249294236337,
+      "argmax_accuracy": 0.6056409734242949,
+      "w_frobenius": 115.87284851074219,
+      "c_frobenius": 33.27349090576172,
+      "wall_s": 82.2195115999998
+    },
+    {
+      "epoch": 15,
+      "test_bpc": 2.5007758665419852,
+      "argmax_accuracy": 0.6055391507993076,
+      "w_frobenius": 120.29389190673828,
+      "c_frobenius": 35.2903938293457,
+      "wall_s": 102.37066989999994
+    }
+  ],
+  "best": {
+    "epoch": 15,
+    "test_bpc": 2.5007758665419852,
+    "argmax_accuracy": 0.6055391507993076,
+    "w_frobenius": 120.29389190673828,
+    "c_frobenius": 35.2903938293457,
+    "wall_s": 102.37066989999994
+  },
+  "headline": "climbing-fiber + relu + pool best test bpc = 2.501"
+}

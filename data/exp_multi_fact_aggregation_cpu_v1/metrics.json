@@ -1,0 +1,14 @@
+{
+  "anchor_name": "multi_fact_aggregation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: aggregate count queries within +/-1 >=0.85 -- set-cardinality queries supported. count-within-1=0.950",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.95
+    }
+  ],
+  "elapsed_s": 0.1490802764892578,
+  "summary": "HARD_PASS: aggregate count queries within +/-1 >=0.85 -- set-cardinality queries supported. count-within-1=0.950"
+}

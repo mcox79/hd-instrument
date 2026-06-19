@@ -1,0 +1,43 @@
+{
+  "verdict": "AQSIM3W3_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL n_hp=1/1. def_act=1.000 fp=0.000 acc_gated_comp=1.000 acc_gated_uncomp=1.000 comp_delta=0.0000 acc_base_comp=1.000 acc_base_uncomp=1.000 adv_max_sim=0.450 n_cells=1 N=8192",
+  "elapsed_s": 0.06,
+  "summary": {
+    "anchor": "adversarial_aqsim_path_d_compose_v3_n8192",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 5,
+    "K_paths": 100,
+    "n_adv": 9,
+    "n_leg": 2,
+    "seeds": [
+      17
+    ],
+    "collision_alpha": 0.45,
+    "defense_thresh": 0.5,
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ok": true,
+        "n_leg": 2,
+        "n_adv": 9,
+        "n_leg_pass_gate": 2,
+        "defense_activation_rate": 1.0,
+        "fp_rate": 0.0,
+        "adv_mean_max_sim": 0.45,
+        "leg_mean_max_sim": 1.0,
+        "compression_ratio": 4.0,
+        "acc_path_d_base_uncompressed": 1.0,
+        "acc_path_d_base_compressed": 1.0,
+        "acc_path_d_gated_compressed": 1.0,
+        "acc_path_d_gated_uncompressed": 1.0,
+        "comp_delta_gated": 0.0
+      }
+    ],
+    "verdict": "AQSIM3W3_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL n_hp=1/1. def_act=1.000 fp=0.000 acc_gated_comp=1.000 acc_gated_uncomp=1.000 comp_delta=0.0000 acc_base_comp=1.000 acc_base_uncomp=1.000 adv_max_sim=0.450 n_cells=1 N=8192",
+    "elapsed_s": 0.06
+  }
+}

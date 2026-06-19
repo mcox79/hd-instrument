@@ -1,0 +1,16 @@
+{
+  "anchor_name": "natural_analog_tmr_priority_gating_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: TMR priority gating gives flagged bindings >=1.5x recall -- customer-important facts protected in defrag. priority=1.000 unflagged=0.333 ratio=3.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pri": 1.0,
+      "unflagged": 0.3333333333333333,
+      "ratio": 2.999999991
+    }
+  ],
+  "elapsed_s": 0.019163846969604492,
+  "summary": "HARD_PASS: TMR priority gating gives flagged bindings >=1.5x recall -- customer-important facts protected in defrag. priority=1.000 unflagged=0.333 ratio=3.00"
+}

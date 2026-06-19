@@ -1,0 +1,17 @@
+{
+  "anchor_name": "t5b_1_attention_substitution_scaffold_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: layer-6 attention substitution scaffold runs -- modified Pythia-160M produces finite logits with substrate retrievals injected per token; plumbing proven for T5b-2/3 quality eval. all_finite=True retr_tokens=27 hooked_calls=5 prompts=5",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "all_finite": true,
+      "retr_tokens": 27,
+      "calls": 5,
+      "n_prompts": 5
+    }
+  ],
+  "elapsed_s": 2.9345712661743164,
+  "summary": "HARD_PASS: layer-6 attention substitution scaffold runs -- modified Pythia-160M produces finite logits with substrate retrievals injected per token; plumbing proven for T5b-2/3 quality eval. all_finite=True retr_tokens=27 hooked_calls=5 prompts=5"
+}

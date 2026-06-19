@@ -1,0 +1,1 @@
+queue=remote_cpu_queue name=wave14_kerdock_distance_class_audit_v1 script=experiments/exp_wave14_kerdock_distance_class_audit_v1.py prereg=preregs/2026-05-26_wave14_kerdock_distance_class_audit_v1.md timeout=1800

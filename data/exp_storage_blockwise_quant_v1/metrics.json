@@ -1,0 +1,17 @@
+{
+  "anchor_name": "storage_blockwise_quant_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: block-wise off target. 4bit=1.000 block=1.000 drop=0.000 comp-vs-4bit=1.23x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "r4": 1.0,
+      "rb": 1.0,
+      "drop": 0.0,
+      "comp": 1.2307692307692308
+    }
+  ],
+  "elapsed_s": 8.344285488128662,
+  "summary": "MIDDLE_BAND: block-wise off target. 4bit=1.000 block=1.000 drop=0.000 comp-vs-4bit=1.23x"
+}

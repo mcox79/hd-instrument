@@ -1,0 +1,16 @@
+{
+  "anchor_name": "substrate_vs_bare_llm_hotpot_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-augmented small LLM beats bare small LLM by >=0.15 answer F1 -- the assembled system exceeds the bare model at relative size (the north-star thesis, on answer quality). substrate-augmented F1=0.524 bare-LLM F1=0.222 lift=+0.302 (n=120, Qwen2.5-1.5B + bge-small top-10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 120,
+      "bare": 0.22179292929292924,
+      "aug": 0.5239169000933707
+    }
+  ],
+  "elapsed_s": 65.9215726852417,
+  "summary": "HARD_PASS: substrate-augmented small LLM beats bare small LLM by >=0.15 answer F1 -- the assembled system exceeds the bare model at relative size (the north-star thesis, on answer quality). substrate-augmented F1=0.524 bare-LLM F1=0.222 lift=+0.302 (n=120, Qwen2.5-1.5B + bge-small top-10)"
+}

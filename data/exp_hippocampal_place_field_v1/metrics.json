@@ -1,0 +1,15 @@
+{
+  "anchor": "hippocampal_place_field_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "HARD_PASS",
+  "verdict_msg": "hippocampal_place_field_v1 verdict=HARD_PASS: mean_cosine=0.879(HP>=0.8) mean_rho_spatial=0.856(HP>=0.6) mean_acc_K=0.879(HP>=0.75) cells=3/3 elapsed=0.1s",
+  "mean_cosine": 0.878515625,
+  "mean_rho_spatial": 0.856362722801079,
+  "mean_acc_K": 0.878515625,
+  "n_cell_A_pass": 2,
+  "n_cell_B_pass": 2,
+  "n_cell_C_pass": 2,
+  "elapsed_s": 0.1382579803466797
+}

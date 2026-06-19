@@ -1,0 +1,20 @@
+{
+  "anchor_name": "ner_singletype_boundary_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: boundary-F1 0.62-0.72 -- type confusion is a moderate cost; both boundary features and type discrimination matter. boundary-F1=0.6639 vs 18-type 0.5817 (type-confusion cost=+0.0822, P=0.684 R=0.645, train=5982)",
+  "summary": "MIDDLE_BAND: boundary-F1 0.62-0.72 -- type confusion is a moderate cost; both boundary features and type discrimination matter. boundary-F1=0.6639 vs 18-type 0.5817 (type-confusion cost=+0.0822, P=0.684 R=0.645, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.6639,
+      "boundary_f1": 0.6639,
+      "f1_18type": 0.5817,
+      "type_confusion_cost": 0.0822,
+      "prec": 0.684,
+      "rec": 0.645,
+      "n_train": 5982
+    }
+  ],
+  "elapsed_s": 24.46384859085083
+}

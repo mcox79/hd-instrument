@@ -1,0 +1,28 @@
+{
+  "N": 4096,
+  "B": 2,
+  "K_SWEEP": [
+    4096,
+    8192,
+    16384
+  ],
+  "NUM_TRIALS": 30,
+  "NUM_RESTARTS": 8,
+  "results": [
+    {
+      "K": 4096,
+      "recovery_pct": 0.0,
+      "correct": 0
+    },
+    {
+      "K": 8192,
+      "recovery_pct": 0.0,
+      "correct": 0
+    },
+    {
+      "K": 16384,
+      "recovery_pct": 0.0,
+      "correct": 0
+    }
+  ]
+}

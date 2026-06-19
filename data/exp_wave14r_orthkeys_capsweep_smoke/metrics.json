@@ -1,0 +1,86 @@
+{
+  "verdict": "CAPSWEEP_ROBUST",
+  "verdict_msg": "All M_stored values [40, 100] pass all 5 Mirage probes at alpha=1.0. Orthogonal-key Mirage protection robust through M_stored=100/N=512 = 0.20. Envelope characterized; cap_map upgrade candidate.",
+  "elapsed_s": 0.38999999999998636,
+  "summary": {
+    "by_M_stored": {
+      "40": {
+        "M_stored": 40,
+        "N": 512,
+        "argmax_leak": 0.0,
+        "mean_rank": 26.2,
+        "norm_ratio": 0.0,
+        "cosine": 0.0,
+        "kept_preservation": 1.0,
+        "pairwise_stats": [
+          {
+            "seed": 17,
+            "max_abs": 0.0
+          }
+        ],
+        "per_seed": [
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 26.2,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 17
+          }
+        ],
+        "paraphrase_leak_h4": 0.0,
+        "paraphrase_leak_h8": 0.0
+      },
+      "100": {
+        "M_stored": 100,
+        "N": 512,
+        "argmax_leak": 0.0,
+        "mean_rank": 58.2,
+        "norm_ratio": 0.0,
+        "cosine": 0.0,
+        "kept_preservation": 1.0,
+        "pairwise_stats": [
+          {
+            "seed": 17,
+            "max_abs": 0.0
+          }
+        ],
+        "per_seed": [
+          {
+            "argmax_leak": 0.0,
+            "mean_rank": 58.2,
+            "norm_ratio": 0.0,
+            "cosine": 0.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "kept_preservation": 1.0,
+            "seed": 17
+          }
+        ],
+        "paraphrase_leak_h4": 0.0,
+        "paraphrase_leak_h8": 0.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_stored_list": [
+      40,
+      100
+    ],
+    "n_erase": 5,
+    "n_kept_probe": 10,
+    "n_paraphrase": 20,
+    "hamming_radii": [
+      4,
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

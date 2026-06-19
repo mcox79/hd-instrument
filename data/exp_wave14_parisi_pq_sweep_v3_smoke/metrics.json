@@ -1,0 +1,36 @@
+{
+  "verdict": "PARISI_V3_RSB_FINITE_ONLY",
+  "verdict_msg": "Binder cumulant DECLINES with N for 1/1 codebooks. v2 RSB was finite-size; substrate converges to RS in thermodynamic limit. Codebooks: random_bsc=slope=-1.419",
+  "elapsed_s": 0.2820000000028813,
+  "summary": {
+    "by_codebook": {
+      "random_bsc": {
+        "codebook_type": "random_bsc",
+        "binders_by_N": {
+          "512": -0.0006639196586544216,
+          "1024": 0.0007223029827164718
+        },
+        "binder_slope_vs_inv_N": -1.4194919847637948,
+        "binder_extrap_to_inf_N": 0.002108525624087365,
+        "Ns_tested": [
+          512,
+          1024
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "Ns": [
+      512,
+      1024
+    ],
+    "M_mult": 2,
+    "codebook_types": [
+      "random_bsc"
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

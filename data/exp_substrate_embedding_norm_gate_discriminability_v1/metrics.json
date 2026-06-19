@@ -1,0 +1,44 @@
+{
+  "anchor_name": "substrate_embedding_norm_gate_discriminability_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: norm gate drops concepts (<0.90 coverage). min_coverage=0.4332 (top-30% norm gate) | by_vc={'vc256': 0.505, 'vc1024': 0.4332, 'vc4096': 0.4563} kept_frac=0.30",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_tok": 40000,
+      "kept_frac": 0.3,
+      "coverage_by_vc": {
+        "vc256": 0.5234042553191489,
+        "vc1024": 0.42905027932960893,
+        "vc4096": 0.44303030303030305
+      },
+      "min_coverage": 0.42905027932960893
+    },
+    {
+      "seed": 17,
+      "n_tok": 40000,
+      "kept_frac": 0.3,
+      "coverage_by_vc": {
+        "vc256": 0.49166666666666664,
+        "vc1024": 0.4254835039817975,
+        "vc4096": 0.4594514013118664
+      },
+      "min_coverage": 0.4254835039817975
+    },
+    {
+      "seed": 23,
+      "n_tok": 40000,
+      "kept_frac": 0.3,
+      "coverage_by_vc": {
+        "vc256": 0.5,
+        "vc1024": 0.4450610432852386,
+        "vc4096": 0.46655132641291813
+      },
+      "min_coverage": 0.4450610432852386
+    }
+  ],
+  "elapsed_s": 3178.999987602234,
+  "summary": "HARD_FAIL: norm gate drops concepts (<0.90 coverage). min_coverage=0.4332 (top-30% norm gate) | by_vc={'vc256': 0.505, 'vc1024': 0.4332, 'vc4096': 0.4563} kept_frac=0.30"
+}

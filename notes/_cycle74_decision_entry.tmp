@@ -1,0 +1,36 @@
+
+## CYCLE 74 -- v403 -> v404 (2026-06-04)
+
+### Step 0 Honest Re-Read
+1 verdict. source=remote run_mode=full. HONEST 877 -> 878 (+1). LVH 219 UNCHANGED.
+
+Label check:
+- substrate_b5_escapeB_cfrpe_weighted_replay_v1_n2048 HARD_FAIL: retention none=0.811 random=0.788 ordered=0.794 ordered50=0.809; ordered/none=0.98x. Label 'B5 FULLY FUNDAMENTAL -- no Hebbian-write replay rescue' is HONEST. All 3 replay variants at or below none baseline. No LVH catch.
+
+### Cap_map Decisions
+
+**(A) substrate_b5_escapeB_cfrpe_weighted_replay_v1_n2048 HARD_FAIL -- B5 escape path closed**
+N=2048, 3 seeds, source=remote, run_mode=full. Retention: none=0.811, random=0.788, ordered=0.794, ordered50=0.809. ordered/none=0.98x -- ALL replay variants at or BELOW no-replay baseline. CFRPE-based weighted replay (escapeB) provides zero benefit; replay ordering makes no difference. This confirms B5 bounded-weights failure is fundamental: the palimpsest regime suppresses all replay types equally. Prior v402 B5 HF (ratio=0.96x, replay hurts) was not a cfrpe encoding issue -- the mechanism failure is in the weight-bounding regime itself, not encoding.
+
+Sub-property annotation on Stage A bio row: 'B5 escapeB HARD_FAIL v404: cfrpe_weighted_replay N=2048; none=0.811 random=0.788 ordered=0.794 ordered50=0.809; no replay type rescues B5 bounded-weights regime; mechanism failure is fundamental to weight-bounding palimpsest, not encoding-specific.'
+
+Rescue cheapest-first per PROT-004/006 [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free, subsumption): Weight-bounding defeats all replay because palimpsest is designed to overwrite old traces -- replay reinforces written patterns but weight ceiling prevents accumulation. Annotation-only: B5 may be intentionally correct behavior (palimpsest enables forgetting); reframe B5 as INTENDED mechanism not FAILURE.
+- R2 (free, theory audit): Is escapeA (non-cfrpe replay) path already tested or queued? If escapeA also fails, B5 closure warranted.
+- R3 (1h CPU): Unbounded-weights + ordered replay at N=2048 as comparison to isolate whether weight-bounding alone causes the regression.
+- R4 (1h CPU): Partial-bounded (soft ceiling, not hard clip) regime to test whether strict bounding is the failure mode.
+- R5 (free, composition): B5 + B36 composition: if B36 gate-and-evict provides superadditivity on mixed streams (confirmed HARD_PASS v402), does B5 weight-bounding + B36 eviction compose better than B5 alone?
+
+No row closure yet (R1-R2 free audits open; escapeA data not yet confirmed). Stage A bio B5 sub-property annotation appended only.
+
+### PROT compliance (v403 -> v404)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. B5 escapeB HF rescue R1-R5 cheapest-first filed (R1+R2 free first). No PROT-004 closure trigger (escapeA not yet tested; R1 reframe open).
+- PROT-007/008: v404 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 315th PROT-009 paired commit.
+- PROT-018: _n2048 suffix binding confirmed (N=2048 per_seed). 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: none=0.811 consistent 3 seeds (0.805, 0.817, 0.811 per per_seed); ordered/none=0.98x consistent per-seed (0.977, 0.974, 0.990 -- all below 1.0); replay ordering monotone N/A (ordered50 slightly higher than ordered but still below none baseline).
+
+HONEST: 877 -> 878 (+1). LVH: 219 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v403 -> v404.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

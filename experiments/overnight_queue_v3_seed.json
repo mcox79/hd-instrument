@@ -1,0 +1,19 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_alpha_sweep",
+      "script": "experiments/exp_wave14b_cl_phase_b2_alpha_sweep.py",
+      "status": "completed",
+      "purpose": "Characterize C2-vs-C1 deficit across ALPHA",
+      "timeout_s": 7200,
+      "result": "Gap consistent -0.042 to -0.061 across ALPHA; not pool-weight-dependent"
+    },
+    {
+      "name": "phase_b2_llr_calibration",
+      "script": "experiments/exp_wave14b_cl_phase_b2_llr.py",
+      "status": "pending",
+      "purpose": "Test LLR calibration hypothesis: 2v/(B-1) factor before softmax should close the gap",
+      "timeout_s": 3600
+    }
+  ]
+}

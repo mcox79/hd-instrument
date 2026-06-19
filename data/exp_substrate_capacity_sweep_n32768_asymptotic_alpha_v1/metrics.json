@@ -1,0 +1,35 @@
+{
+  "anchor_name": "substrate_capacity_sweep_n32768_asymptotic_alpha_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: alpha@N=4096 outside model (<0.030 or >0.050). alpha@N=4096 = 0.0498 | N2048:alpha=0.0596 N4096:alpha=0.0498",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "capacity_by_N": {
+        "2048": 122,
+        "4096": 204
+      },
+      "alpha_by_N": {
+        "2048": 0.0595703125,
+        "4096": 0.0498046875
+      },
+      "alpha_largest": 0.0498046875
+    },
+    {
+      "seed": 2,
+      "capacity_by_N": {
+        "2048": 122,
+        "4096": 204
+      },
+      "alpha_by_N": {
+        "2048": 0.0595703125,
+        "4096": 0.0498046875
+      },
+      "alpha_largest": 0.0498046875
+    }
+  ],
+  "elapsed_s": 2.3012561798095703,
+  "summary": "HARD_FAIL: alpha@N=4096 outside model (<0.030 or >0.050). alpha@N=4096 = 0.0498 | N2048:alpha=0.0596 N4096:alpha=0.0498"
+}

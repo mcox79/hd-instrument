@@ -1,0 +1,31 @@
+{
+  "anchor_name": "substrate_cell3_distilled_22M_student_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: val_mse=0.0508 (HP<0.1), val_cos=0.7872 (HP>=0.95); per-metric: mse=HARD_PASS cos=HARD_FAIL",
+  "val_mse": 0.05083664216077959,
+  "val_cos": 0.78719161267904,
+  "mse_verdict": "HARD_PASS",
+  "cos_verdict": "HARD_FAIL",
+  "n_train": 945362,
+  "n_val": 49755,
+  "epochs": 1,
+  "batch": 256,
+  "lr": 0.0006,
+  "max_tok": 512,
+  "student_param_count_M": 28.105088,
+  "target_dim": 2048,
+  "hidden": 384,
+  "n_layers": 6,
+  "n_heads": 12,
+  "elapsed_s": 310.05259466171265,
+  "val_history": [
+    {
+      "epoch": 1,
+      "mse": 0.05083664216077959,
+      "cos": 0.78719161267904,
+      "n_evaluated": 49755,
+      "n_nan_batches": 0
+    }
+  ],
+  "summary": "HARD_PASS: val_mse=0.0508 (HP<0.1), val_cos=0.7872 (HP>=0.95); per-metric: mse=HARD_PASS cos=HARD_FAIL"
+}

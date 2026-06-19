@@ -1,0 +1,17 @@
+{
+  "anchor_name": "g7_e5_large_geometry_capacity_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: E5 geometry fails (PR<40 or rho>0.35) or cap<80. PR=121.7 rho_eff=0.823 pinv_cap=440 D=1024",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "PR": 121.74319247066656,
+      "rho_eff": 0.8226755261421204,
+      "pinv_cap": 440,
+      "D": 1024
+    }
+  ],
+  "elapsed_s": 13.949947118759155,
+  "summary": "HARD_FAIL: E5 geometry fails (PR<40 or rho>0.35) or cap<80. PR=121.7 rho_eff=0.823 pinv_cap=440 D=1024"
+}

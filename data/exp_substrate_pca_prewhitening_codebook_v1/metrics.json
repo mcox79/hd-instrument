@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_pca_prewhitening_codebook_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PCA-prewhitening >=2x unwhitened capacity -- ships as one-line universal real-encoder rescue. cap unwhitened=3.0 pca_whitened=7.0 | ratio=2.33x (N=384 real MiniLM keys)",
+  "N": 384,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cap_unwhitened": 3,
+      "cap_pca_whitened": 7,
+      "ratio": 2.3333333333333335
+    },
+    {
+      "seed": 17,
+      "cap_unwhitened": 3,
+      "cap_pca_whitened": 7,
+      "ratio": 2.3333333333333335
+    },
+    {
+      "seed": 23,
+      "cap_unwhitened": 3,
+      "cap_pca_whitened": 7,
+      "ratio": 2.3333333333333335
+    }
+  ],
+  "elapsed_s": 10.84648847579956,
+  "summary": "HARD_PASS: PCA-prewhitening >=2x unwhitened capacity -- ships as one-line universal real-encoder rescue. cap unwhitened=3.0 pca_whitened=7.0 | ratio=2.33x (N=384 real MiniLM keys)"
+}

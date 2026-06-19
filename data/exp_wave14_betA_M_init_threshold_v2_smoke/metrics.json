@@ -1,0 +1,78 @@
+{
+  "verdict": "BETA_M_INIT_UNIFORM_PASS",
+  "verdict_msg": "A: SweepA-N65536: all M_init pass (non-OOM): {'256': {'mean_kept': 1.0, 'sd_kept': 0.0, 'n_seeds': 2, 'oom': False}, '1024': {'mean_kept': 1.0, 'sd_kept': 0.0, 'n_seeds': 2, 'oom': False}}. | B: SweepB-N8192: intermediate result; per_M_init={'2048': {'mean_kept': 1.0, 'sd_kept': 0.0, 'n_seeds': 2, 'oom': False}, '4096': {'mean_kept': 0.1, 'sd_kept': 0.0, 'n_seeds': 2, 'oom': False}}.",
+  "elapsed_s": 23.421999999991385,
+  "summary": {
+    "sweep_A": {
+      "N": 4096,
+      "M_init_grid": [
+        256,
+        1024
+      ],
+      "per_M_init": {
+        "256": {
+          "mean_kept": 1.0,
+          "sd_kept": 0.0,
+          "n_seeds": 2,
+          "oom": false
+        },
+        "1024": {
+          "mean_kept": 1.0,
+          "sd_kept": 0.0,
+          "n_seeds": 2,
+          "oom": false
+        }
+      },
+      "verdict": "BETA_M_INIT_UNIFORM_PASS"
+    },
+    "sweep_B": {
+      "N": 4096,
+      "M_init_grid": [
+        2048,
+        4096
+      ],
+      "per_M_init": {
+        "2048": {
+          "mean_kept": 1.0,
+          "sd_kept": 0.0,
+          "n_seeds": 2,
+          "oom": false
+        },
+        "4096": {
+          "mean_kept": 0.1,
+          "sd_kept": 0.0,
+          "n_seeds": 2,
+          "oom": false
+        }
+      },
+      "verdict": "BETA_M_INIT_MIXED"
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "sweep_A": {
+      "N": 4096,
+      "M_init_grid": [
+        256,
+        1024
+      ],
+      "n_edits": 20,
+      "seeds": [
+        17,
+        23
+      ]
+    },
+    "sweep_B": {
+      "N": 4096,
+      "M_init_grid": [
+        2048,
+        4096
+      ],
+      "n_edits": 20,
+      "seeds": [
+        17,
+        23
+      ]
+    }
+  }
+}

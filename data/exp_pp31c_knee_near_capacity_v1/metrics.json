@@ -1,0 +1,39 @@
+{
+  "run_mode": "smoke",
+  "N": 8192,
+  "M_GRID": [
+    3000,
+    4000
+  ],
+  "TAU_GRID_MIN": 0.2,
+  "TAU_GRID_MAX": 0.95,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "per_M": [
+      {
+        "M": 3000,
+        "alpha": 0.3662109375,
+        "n_detected_seeds": 2,
+        "avg_knee": 0.403125,
+        "avg_delta_ratio": 1.1670742512847774,
+        "passes_hp": false
+      },
+      {
+        "M": 4000,
+        "alpha": 0.48828125,
+        "n_detected_seeds": 2,
+        "avg_knee": 0.29375,
+        "avg_delta_ratio": 1.0210526315789477,
+        "passes_hp": false
+      }
+    ],
+    "n_hp_M": 0,
+    "any_detectable": true
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Partial knee detection: best_seeds=2 < 3 or ratio borderline. best_ratio=1.167. N=8192.",
+  "elapsed_s": 42.495890378952026
+}

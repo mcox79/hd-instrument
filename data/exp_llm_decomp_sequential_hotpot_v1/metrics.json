@@ -1,0 +1,16 @@
+{
+  "anchor_name": "llm_decomp_sequential_hotpot_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: even sequential agentic decomp <0.50 at fair size -- HotpotQA 2-hop composition is not fair-size-winnable with this stack; argues for Pattern B or a different v1 benchmark. sequential-decomp recall@2hop=0.267 naive=0.333 lift=-0.067 (n=120, Qwen2.5-1.5B retrieve-extract-substitute + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 120,
+      "naive": 0.3333333333333333,
+      "seq": 0.26666666666666666
+    }
+  ],
+  "elapsed_s": 202.58482098579407,
+  "summary": "HARD_FAIL: even sequential agentic decomp <0.50 at fair size -- HotpotQA 2-hop composition is not fair-size-winnable with this stack; argues for Pattern B or a different v1 benchmark. sequential-decomp recall@2hop=0.267 naive=0.333 lift=-0.067 (n=120, Qwen2.5-1.5B retrieve-extract-substitute + bge-small)"
+}

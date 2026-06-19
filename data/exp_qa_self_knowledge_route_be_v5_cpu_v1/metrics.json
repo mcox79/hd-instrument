@@ -1,0 +1,59 @@
+{
+  "anchor_name": "qa_self_knowledge_route_be_v5_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: route_B v2 lifts B to [0.35,0.40) -- partial route recovery; remaining B failures are corpus-bound. B-axis=0.5164 (v1 0.325, delta=+0.1914) macro=0.4578 (v1 0.4684, delta=-0.0106); per-type={'A': 0.3781, 'B': 0.5164, 'C': 0.6217, 'D': 0.5, 'E': 0.2333, 'G': 0.6667}; B-qs=[('Q06-B', 0.75), ('Q07-B', 0.8889), ('Q08-B', 1.0), ('Q09-B', 0.2222), ('Q38-B', 0.7143), ('Q39-B', 0.0), ('Q40-B', 0.2222), ('Q41-B', 0.3333)]",
+  "summary": "MIDDLE_BAND: route_B v2 lifts B to [0.35,0.40) -- partial route recovery; remaining B failures are corpus-bound. B-axis=0.5164 (v1 0.325, delta=+0.1914) macro=0.4578 (v1 0.4684, delta=-0.0106); per-type={'A': 0.3781, 'B': 0.5164, 'C': 0.6217, 'D': 0.5, 'E': 0.2333, 'G': 0.6667}; B-qs=[('Q06-B', 0.75), ('Q07-B', 0.8889), ('Q08-B', 1.0), ('Q09-B', 0.2222), ('Q38-B', 0.7143), ('Q39-B', 0.0), ('Q40-B', 0.2222), ('Q41-B', 0.3333)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_f1": 0.4578,
+      "type_f1": {
+        "A": 0.3781,
+        "B": 0.5164,
+        "C": 0.6217,
+        "D": 0.5,
+        "E": 0.2333,
+        "G": 0.6667
+      },
+      "n_qs": 53,
+      "b_questions": [
+        [
+          "Q06-B",
+          0.75
+        ],
+        [
+          "Q07-B",
+          0.8889
+        ],
+        [
+          "Q08-B",
+          1.0
+        ],
+        [
+          "Q09-B",
+          0.2222
+        ],
+        [
+          "Q38-B",
+          0.7143
+        ],
+        [
+          "Q39-B",
+          0.0
+        ],
+        [
+          "Q40-B",
+          0.2222
+        ],
+        [
+          "Q41-B",
+          0.3333
+        ]
+      ],
+      "b_axis_v1_baseline": 0.325,
+      "macro_v1_baseline": 0.4684
+    }
+  ],
+  "elapsed_s": 0.5657210350036621
+}

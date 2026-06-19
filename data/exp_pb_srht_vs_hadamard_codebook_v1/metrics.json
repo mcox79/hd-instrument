@@ -1,0 +1,19 @@
+{
+  "anchor_name": "pb_srht_vs_hadamard_codebook_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SRHT keeps Hadamard's capacity gain (>=0.9x) while randomizing structure (>=2x random) -- ships as drop-in codebook. alpha_c: {'random': 0.05, 'hadamard': 0.4, 'srht': 0.4} | srht/hadamard=1.00 srht/random=8.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "alpha": {
+        "random": 0.05,
+        "hadamard": 0.4,
+        "srht": 0.4
+      }
+    }
+  ],
+  "elapsed_s": 2.3900649547576904,
+  "summary": "HARD_PASS: SRHT keeps Hadamard's capacity gain (>=0.9x) while randomizing structure (>=2x random) -- ships as drop-in codebook. alpha_c: {'random': 0.05, 'hadamard': 0.4, 'srht': 0.4} | srht/hadamard=1.00 srht/random=8.00"
+}

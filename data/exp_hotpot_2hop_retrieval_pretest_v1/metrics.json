@@ -1,0 +1,16 @@
+{
+  "anchor_name": "hotpot_2hop_retrieval_pretest_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: recall@2hop <0.50 -- retrieval can't support multi-hop; integration story in trouble. recall@2hop=0.147 (single_top2=0.147, n=300 HotpotQA-distractor)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 300,
+      "single_top2": 0.14666666666666667,
+      "recall_2hop": 0.14666666666666667
+    }
+  ],
+  "elapsed_s": 73.63266015052795,
+  "summary": "HARD_FAIL: recall@2hop <0.50 -- retrieval can't support multi-hop; integration story in trouble. recall@2hop=0.147 (single_top2=0.147, n=300 HotpotQA-distractor)"
+}

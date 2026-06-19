@@ -1,0 +1,86 @@
+{
+  "verdict": "FORMULA_VERIFIED",
+  "verdict_msg": "FORMULA_VERIFIED: alpha_c(0.80)=0.5625 (expected 0.5625, error < 1e-4). Band [0.4,0.7] covers prediction. Smoke data matches formula within 0.005 at 4 points. MoE rebuild: M_per_expert = 1612 at N=4096.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "alpha_c_tau080": 0.5625,
+    "formula_correct": true,
+    "corrected_band": [
+      0.4,
+      0.7
+    ],
+    "band_covers_prediction": true,
+    "smoke_all_match": true,
+    "M_per_expert_N4096_recommended": 1612,
+    "safety_factor": 0.7
+  },
+  "formula_sweep": [
+    {
+      "tau": 0.6,
+      "alpha_c_predicted": 1.777778
+    },
+    {
+      "tau": 0.65,
+      "alpha_c_predicted": 1.366864
+    },
+    {
+      "tau": 0.7,
+      "alpha_c_predicted": 1.040816
+    },
+    {
+      "tau": 0.75,
+      "alpha_c_predicted": 0.777778
+    },
+    {
+      "tau": 0.8,
+      "alpha_c_predicted": 0.5625
+    },
+    {
+      "tau": 0.85,
+      "alpha_c_predicted": 0.384083
+    },
+    {
+      "tau": 0.9,
+      "alpha_c_predicted": 0.234568
+    },
+    {
+      "tau": 0.95,
+      "alpha_c_predicted": 0.108033
+    }
+  ],
+  "smoke_cross_check": [
+    {
+      "M": 50,
+      "alpha": 0.0977,
+      "predicted_cos": 0.9545,
+      "measured_cos": 0.954,
+      "residual": 0.0005,
+      "matches": true
+    },
+    {
+      "M": 100,
+      "alpha": 0.1953,
+      "predicted_cos": 0.9147,
+      "measured_cos": 0.916,
+      "residual": 0.0013,
+      "matches": true
+    },
+    {
+      "M": 200,
+      "alpha": 0.3906,
+      "predicted_cos": 0.848,
+      "measured_cos": 0.845,
+      "residual": 0.003,
+      "matches": true
+    },
+    {
+      "M": 400,
+      "alpha": 0.7812,
+      "predicted_cos": 0.7493,
+      "measured_cos": 0.75,
+      "residual": 0.0007,
+      "matches": true
+    }
+  ],
+  "config": {}
+}

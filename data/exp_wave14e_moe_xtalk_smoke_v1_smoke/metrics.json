@@ -1,0 +1,74 @@
+{
+  "verdict": "MOE_PASS",
+  "verdict_msg": "MoE reduces cross-talk: at M=2000, K=4, ratio=1.442 >= 1.3. moe_cos=0.652, single_cos=0.452.",
+  "elapsed_s": 0.0779999999795109,
+  "summary": {
+    "per_seed": {
+      "17": [
+        {
+          "M": 200,
+          "N": 512,
+          "K": 4,
+          "single_W_cos_mean": 0.8481854796409607,
+          "single_W_cos_std": 0.014969983138144016,
+          "moe_cos_mean": 0.9403334259986877,
+          "moe_cos_std": 0.02221926860511303,
+          "ratio": 1.1086412684130522,
+          "expert_loads": [
+            29,
+            78,
+            80,
+            13
+          ]
+        },
+        {
+          "M": 800,
+          "N": 512,
+          "K": 4,
+          "single_W_cos_mean": 0.625382661819458,
+          "single_W_cos_std": 0.02610761672258377,
+          "moe_cos_mean": 0.7998960614204407,
+          "moe_cos_std": 0.06487713009119034,
+          "ratio": 1.279050588152319,
+          "expert_loads": [
+            43,
+            312,
+            369,
+            76
+          ]
+        },
+        {
+          "M": 2000,
+          "N": 512,
+          "K": 4,
+          "single_W_cos_mean": 0.4520060122013092,
+          "single_W_cos_std": 0.03355260565876961,
+          "moe_cos_mean": 0.6518560647964478,
+          "moe_cos_std": 0.09874618053436279,
+          "ratio": 1.4421402530064835,
+          "expert_loads": [
+            118,
+            772,
+            929,
+            181
+          ]
+        }
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_grid": [
+      200,
+      800,
+      2000
+    ],
+    "K_experts": [
+      4
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

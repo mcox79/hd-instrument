@@ -1,0 +1,15 @@
+{
+  "anchor_name": "set_algebra_bundle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate set union (>=0.95) + intersection (F1>=0.90) -- set-algebra query primitives work. union-recall=1.000 intersection-F1=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "union": 1.0,
+      "intersect_f1": 1.0
+    }
+  ],
+  "elapsed_s": 0.38767004013061523,
+  "summary": "HARD_PASS: substrate set union (>=0.95) + intersection (F1>=0.90) -- set-algebra query primitives work. union-recall=1.000 intersection-F1=1.000"
+}

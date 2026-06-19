@@ -1,0 +1,103 @@
+{
+  "verdict": "HADAMARD_HURTS",
+  "verdict_msg": "Hadamard arm acc_1hop=0.827; random_bsc acc_1hop=0.927; delta = -0.100 <= -0.05. Hadamard codebook BREAKS multi-hop storage. Likely cause: BSC bind algebra (Hadamard_a*Hadamard_b=Hadamard_{a XOR b}) makes distractor binds collide with stored entities. The orthogonal-codebook intuition from key-erase doesn't transfer to multi-hop because bind itself isn't permutation-preserving on a sampled Hadamard subset.",
+  "elapsed_s": 11.125,
+  "summary": {
+    "by_arm": {
+      "hadamard": {
+        "acc_by_depth": {
+          "1": 0.8266666666666667,
+          "10": 0.17333333333333334,
+          "50": 0.04
+        },
+        "retention_rate": 0.9376509540020155,
+        "max_pairwise_ip": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "by_depth": {
+              "1": 0.86,
+              "10": 0.1,
+              "50": 0.06
+            },
+            "max_pairwise_ip": 0.0
+          },
+          {
+            "seed": 23,
+            "by_depth": {
+              "1": 0.84,
+              "10": 0.18,
+              "50": 0.04
+            },
+            "max_pairwise_ip": 0.0
+          },
+          {
+            "seed": 31,
+            "by_depth": {
+              "1": 0.78,
+              "10": 0.24,
+              "50": 0.02
+            },
+            "max_pairwise_ip": 0.0
+          }
+        ]
+      },
+      "random_bsc": {
+        "acc_by_depth": {
+          "1": 0.9266666666666667,
+          "10": 0.5,
+          "50": 0.13333333333333333
+        },
+        "retention_rate": 0.9605031085313847,
+        "max_pairwise_ip": 0.0791015625,
+        "per_seed": [
+          {
+            "seed": 17,
+            "by_depth": {
+              "1": 0.92,
+              "10": 0.36,
+              "50": 0.08
+            },
+            "max_pairwise_ip": 0.0791015625
+          },
+          {
+            "seed": 23,
+            "by_depth": {
+              "1": 0.92,
+              "10": 0.6,
+              "50": 0.12
+            },
+            "max_pairwise_ip": 0.06591796875
+          },
+          {
+            "seed": 31,
+            "by_depth": {
+              "1": 0.94,
+              "10": 0.54,
+              "50": 0.2
+            },
+            "max_pairwise_ip": 0.06591796875
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      10,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

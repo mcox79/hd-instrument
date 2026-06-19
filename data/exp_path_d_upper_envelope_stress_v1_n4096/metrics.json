@@ -1,0 +1,63 @@
+{
+  "verdict": "U1_HARD_PASS",
+  "verdict_msg": "PATH_D_PAST_TEST_ENVELOPE: all 4 cells >= 0.85. M16384: d10=nan d20=nan d30=nan d50=nan | M24576: d10=nan d20=nan d30=nan d50=nan | M32768: d10=nan d20=nan d30=nan d50=nan | M49152: d10=nan d20=nan d30=nan d50=nan | M65536: d10=nan d20=nan d30=nan d50=nan",
+  "elapsed_s": 0.26,
+  "summary": {
+    "anchor": "path_d_upper_envelope_stress_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      512,
+      1024
+    ],
+    "depths": [
+      3,
+      5
+    ],
+    "K_paths": 20,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 18869100
+      },
+      {
+        "M": 512,
+        "depth": 5,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 24415100
+      },
+      {
+        "M": 1024,
+        "depth": 3,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 18846700
+      },
+      {
+        "M": 1024,
+        "depth": 5,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 29925900
+      }
+    ],
+    "verdict": "U1_HARD_PASS",
+    "verdict_msg": "PATH_D_PAST_TEST_ENVELOPE: all 4 cells >= 0.85. M16384: d10=nan d20=nan d30=nan d50=nan | M24576: d10=nan d20=nan d30=nan d50=nan | M32768: d10=nan d20=nan d30=nan d50=nan | M49152: d10=nan d20=nan d30=nan d50=nan | M65536: d10=nan d20=nan d30=nan d50=nan",
+    "elapsed_s": 0.26
+  }
+}

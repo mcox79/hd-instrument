@@ -1,0 +1,19 @@
+{
+  "anchor_name": "svamp_learned_selector_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: learned selector >=0.36 or beats heuristic by >=0.02 -- selection mechanism helps; toward 0.42. learned-selector acc=0.3667 (selector-pair acc=0.6457) vs heuristic-v1 0.363 vs first-2 0.287 (test=300)",
+  "summary": "MIDDLE_BAND: learned selector >=0.36 or beats heuristic by >=0.02 -- selection mechanism helps; toward 0.42. learned-selector acc=0.3667 (selector-pair acc=0.6457) vs heuristic-v1 0.363 vs first-2 0.287 (test=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.3667,
+      "selector_pair_acc": 0.6457,
+      "vs_heuristic_v1": 0.363,
+      "vs_first2": 0.287,
+      "n_test": 300,
+      "n_train": 570
+    }
+  ],
+  "elapsed_s": 0.6616418361663818
+}

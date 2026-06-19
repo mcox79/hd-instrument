@@ -1,0 +1,67 @@
+{
+  "verdict": "LKPS_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: accs_by_K={10: {'B': 1.0, 'D': 1.0, 'E': 1.0}, 100: {'B': 1.0, 'D': 1.0, 'E': 0.5}} lat_ratios_K1000/K100={} hp_path_winners@K1000={'B': 0, 'D': 0, 'E': 0} sub_quad_paths=[] hf_all_paths_dropped=False",
+  "elapsed_s": 0.79,
+  "summary": {
+    "anchor": "large_k_path_scaling_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 64,
+    "depth": 3,
+    "K_paths": [
+      10,
+      100
+    ],
+    "seeds": [
+      17
+    ],
+    "n_queries": 2,
+    "cells": [
+      {
+        "depth": 3,
+        "M": 64,
+        "K": 10,
+        "seed": 17,
+        "B": {
+          "acc": 1.0,
+          "lat_ns": 2893700,
+          "n_eval": 2
+        },
+        "D": {
+          "acc": 1.0,
+          "lat_ns": 2996100,
+          "n_eval": 2
+        },
+        "E": {
+          "acc": 1.0,
+          "lat_ns": 24819000,
+          "n_eval": 2
+        }
+      },
+      {
+        "depth": 3,
+        "M": 64,
+        "K": 100,
+        "seed": 17,
+        "B": {
+          "acc": 1.0,
+          "lat_ns": 26735600,
+          "n_eval": 2
+        },
+        "D": {
+          "acc": 1.0,
+          "lat_ns": 32163550,
+          "n_eval": 2
+        },
+        "E": {
+          "acc": 0.5,
+          "lat_ns": 270743950,
+          "n_eval": 2
+        }
+      }
+    ],
+    "verdict": "LKPS_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: accs_by_K={10: {'B': 1.0, 'D': 1.0, 'E': 1.0}, 100: {'B': 1.0, 'D': 1.0, 'E': 0.5}} lat_ratios_K1000/K100={} hp_path_winners@K1000={'B': 0, 'D': 0, 'E': 0} sub_quad_paths=[] hf_all_paths_dropped=False",
+    "elapsed_s": 0.79
+  }
+}

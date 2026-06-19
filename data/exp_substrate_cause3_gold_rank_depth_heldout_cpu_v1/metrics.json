@@ -1,0 +1,80 @@
+{
+  "anchor_name": "substrate_cause3_gold_rank_depth_heldout_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "M4 SCOPE MEDIUM: median present-gold rank=21 (20-100). Mixed -- a top-K increase recovers the shallow tail; the deep tail needs M4. Recommend top-K=50 + measure the residual before sizing M4. (3 of 7 in top-20). Cause-3 gold-rank depth on in-coverage held-out (n=7 q, 20787 atoms). Median best-gold-rank=21. Buckets {'top5': 3, 'top20': 0, 'top100': 2, 'deeper': 2}. Scopes M4: shallow=cheap top-K/rerank; deep=representation-level paraphrase-invariance.",
+  "summary": "M4 SCOPE MEDIUM: median present-gold rank=21 (20-100). Mixed -- a top-K increase recovers the shallow tail; the deep tail needs M4. Recommend top-K=50 + measure the residual before sizing M4. (3 of 7 in top-20). Cause-3 gold-rank depth on in-coverage held-out (n=7 q, 20787 atoms). Median best-gold-rank=21. Buckets {'top5': 3, 'top20': 0, 'top100': 2, 'deeper': 2}. Scopes M4: shallow=cheap top-K/rerank; deep=representation-level paraphrase-invariance.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 20787,
+      "n_questions": 7,
+      "median_best_rank": 21,
+      "buckets": {
+        "top5": 3,
+        "top20": 0,
+        "top100": 2,
+        "deeper": 2
+      },
+      "per_q": [
+        {
+          "qid": "Q54-A",
+          "n_present": 1,
+          "best_rank": 69,
+          "best_gold_score": 0.6054,
+          "top1_score": 0.69,
+          "pctile": 99.67
+        },
+        {
+          "qid": "Q55-B",
+          "n_present": 1,
+          "best_rank": 21,
+          "best_gold_score": 0.6675,
+          "top1_score": 0.7417,
+          "pctile": 99.9
+        },
+        {
+          "qid": "Q60-G",
+          "n_present": 4,
+          "best_rank": 3,
+          "best_gold_score": 0.7594,
+          "top1_score": 0.7938,
+          "pctile": 99.99
+        },
+        {
+          "qid": "Q61-A",
+          "n_present": 2,
+          "best_rank": 2,
+          "best_gold_score": 0.7153,
+          "top1_score": 0.7534,
+          "pctile": 99.99
+        },
+        {
+          "qid": "Q62-B",
+          "n_present": 2,
+          "best_rank": 3635,
+          "best_gold_score": 0.5481,
+          "top1_score": 0.6726,
+          "pctile": 82.51
+        },
+        {
+          "qid": "Q63-A",
+          "n_present": 2,
+          "best_rank": 539,
+          "best_gold_score": 0.5863,
+          "top1_score": 0.7214,
+          "pctile": 97.41
+        },
+        {
+          "qid": "Q64-G",
+          "n_present": 3,
+          "best_rank": 2,
+          "best_gold_score": 0.7248,
+          "top1_score": 0.7282,
+          "pctile": 99.99
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 27.406043767929077
+}

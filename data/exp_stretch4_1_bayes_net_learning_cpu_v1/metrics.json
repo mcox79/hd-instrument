@@ -1,0 +1,16 @@
+{
+  "anchor_name": "stretch4_1_bayes_net_learning_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate LEARNS a Bayes net from data -- structure (skeleton precision>=0.70 via partial-corr) AND parameters (CPT MLE err<=0.10). Full structure+parameter learning. structure-precision=0.950 recall=0.778 CPT-err=0.014",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "struct_precision": 0.95,
+      "struct_recall": 0.778,
+      "cpt_err": 0.014
+    }
+  ],
+  "elapsed_s": 5.174850225448608,
+  "summary": "HARD_PASS: substrate LEARNS a Bayes net from data -- structure (skeleton precision>=0.70 via partial-corr) AND parameters (CPT MLE err<=0.10). Full structure+parameter learning. structure-precision=0.950 recall=0.778 CPT-err=0.014"
+}

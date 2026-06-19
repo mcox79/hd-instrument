@@ -1,0 +1,94 @@
+{
+  "verdict": "PARISI_V2_RSB_CONFIRMED",
+  "verdict_msg": "6-test battery (tests 3, 4, 6) confirms RSB-like phase: self-averaging holds (binder std < 0.02) and equilibrated (binder halves drift < 0.01) for 3/3 codebooks. v1's discrimination is substrate-physical, not finite-size.",
+  "elapsed_s": 12.15599999999904,
+  "summary": {
+    "by_codebook": {
+      "random_bsc": {
+        "codebook_type": "random_bsc",
+        "M_stored": 8192,
+        "binder_mean": 0.0002528812831385396,
+        "binder_std_across_seeds": 0.0003143844263589231,
+        "binder_halves_drift": 6.773557821826426e-05,
+        "binder_per_seed": [
+          0.0001815435164285173,
+          0.0002758727233775904,
+          -0.00013077780240400294,
+          0.00014438974602681842,
+          0.0004272821555928452,
+          -0.00012723415682813766,
+          0.0004456333636193577,
+          0.0006126010677303118,
+          0.0007767950707920912,
+          -7.7292852949995e-05
+        ],
+        "eig_min": -1.5300284985642065e-06,
+        "eig_max": 5.827045440673828,
+        "eig_mean": 1.0,
+        "eig_std": 1.4141182899475098,
+        "n_eigvals": 8192
+      },
+      "hadamard": {
+        "codebook_type": "hadamard",
+        "M_stored": 8192,
+        "binder_mean": -2729.333374018471,
+        "binder_std_across_seeds": 0.0,
+        "binder_halves_drift": 0.0,
+        "binder_per_seed": [
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471,
+          -2729.333374018471
+        ],
+        "eig_min": 5.960464477539063e-08,
+        "eig_max": 2.0,
+        "eig_mean": 1.0,
+        "eig_std": 1.00006103515625,
+        "n_eigvals": 8192
+      },
+      "kerdock": {
+        "codebook_type": "kerdock",
+        "M_stored": 8192,
+        "binder_mean": 0.5555820530755996,
+        "binder_std_across_seeds": 3.478023446214074e-05,
+        "binder_halves_drift": 3.629770563207124e-05,
+        "binder_per_seed": [
+          0.555604717326176,
+          0.5555648095358665,
+          0.5556054942208797,
+          0.5555679176565398,
+          0.5554956072737542,
+          0.5556021747426991,
+          0.5555980076679746,
+          0.5555717674275571,
+          0.5556009034400502,
+          0.5556091314645
+        ],
+        "eig_min": -3.6225430903868983e-06,
+        "eig_max": 3.7298853397369385,
+        "eig_mean": 1.0,
+        "eig_std": 1.2248127460479736,
+        "n_eigvals": 8192
+      }
+    },
+    "M_stored": 8192,
+    "N": 4096
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "codebook_types": [
+      "random_bsc",
+      "hadamard",
+      "kerdock"
+    ],
+    "M_ratio": 2.0,
+    "n_pool_seeds": 10
+  }
+}

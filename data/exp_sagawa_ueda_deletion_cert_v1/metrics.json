@@ -1,0 +1,33 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: SU bound partially satisfied. su_frac_mean=1.000. n_hp1=1, n_hp2=1, n_hf1=0.",
+  "elapsed_s": 0.01224660873413086,
+  "n_seeds": 1,
+  "n_hp1": 1,
+  "n_hp2": 1,
+  "n_hf1": 0,
+  "per_seed": [
+    {
+      "N": 256,
+      "M": 32,
+      "seed": 17,
+      "su_frac": 1.0,
+      "excess_mean": 30.40319234573306,
+      "erase_work_mean": 25.17646484375,
+      "erase_work_std": 0.6667100184968255,
+      "I_mean": 5.276102501983061,
+      "delta_F_1": 0.049375,
+      "su_bound_mean": -5.226727501983062
+    }
+  ],
+  "summary": "Sagawa-Ueda deletion-cert N=256: MIDDLE_BAND (su_frac_mean=1.000)",
+  "config": {
+    "N": 256,
+    "alpha_ratio": 0.125,
+    "seeds": [
+      17
+    ],
+    "HP1_BOUND_FRAC": 0.7,
+    "HF1_BOUND_FRAC": 0.4
+  }
+}

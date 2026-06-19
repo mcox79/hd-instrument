@@ -1,0 +1,64 @@
+{
+  "verdict": "C3_MIDDLE_BAND",
+  "verdict_msg": "TCFT_PARTIAL: var_ratio OK at small M but marginal at M=32. details={'pass_count_by_M': {32: 1, 64: 1}, 'mean_vr_by_M': {32: 0.098536, 64: 0.015486}}.",
+  "elapsed_s": 0.4098780155181885,
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "m_values": [
+      32,
+      64
+    ]
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "by_M": {
+          "32": {
+            "var_ratio": 0.09853602454523026
+          },
+          "64": {
+            "var_ratio": 0.015486400098308973
+          }
+        }
+      }
+    },
+    "m_values": [
+      32,
+      64
+    ],
+    "N": 512,
+    "seeds": [
+      17
+    ]
+  },
+  "all_cells": [
+    {
+      "N": 512,
+      "M": 32,
+      "seed": 17,
+      "elapsed_s": 0.14467811584472656,
+      "vanilla_variance": 0.28107863662178734,
+      "tcft_valid": true,
+      "tcft_variance_ratio": 0.09853602454523026,
+      "delta_F_agree_pct": 100.97127183473901,
+      "var_ratio": 0.09853602454523026,
+      "N_run": 512
+    },
+    {
+      "N": 512,
+      "M": 64,
+      "seed": 17,
+      "elapsed_s": 0.2631525993347168,
+      "vanilla_variance": 4.0572753868921465,
+      "tcft_valid": true,
+      "tcft_variance_ratio": 0.015486400098308973,
+      "delta_F_agree_pct": 99.78728163429615,
+      "var_ratio": 0.015486400098308973,
+      "N_run": 512
+    }
+  ]
+}

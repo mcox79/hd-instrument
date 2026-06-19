@@ -1,0 +1,15 @@
+[
+  {
+    "anchor": "pp8_w2_p25_path1c_poolmask_h100_v2_n4096",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1c --out-dir data/testbed_pp8_week2/train_v25_path1c_v2 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 50 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --substrate-soft --substrate-soft-temperature 1.0 --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/testbed_pp8_week2/train_v25_path1c_v2/summary.json",
+      "data/testbed_pp8_week2/train_v25_path1c_v2/train_progress.jsonl",
+      "data/testbed_pp8_week2/train_v25_path1c_v2/checkpoint_*.pt"
+    ]
+  }
+]

@@ -1,0 +1,264 @@
+{
+  "weight_combos": [
+    {
+      "name": "semantic_only",
+      "sem": 1.0,
+      "tier": 0.0,
+      "corpus": 0.0
+    },
+    {
+      "name": "plus_tier",
+      "sem": 1.0,
+      "tier": 0.3,
+      "corpus": 0.0
+    },
+    {
+      "name": "plus_corpus",
+      "sem": 1.0,
+      "tier": 0.0,
+      "corpus": 0.3
+    },
+    {
+      "name": "default",
+      "sem": 1.0,
+      "tier": 0.3,
+      "corpus": 0.3
+    },
+    {
+      "name": "heavy_tier_corpus",
+      "sem": 1.0,
+      "tier": 0.5,
+      "corpus": 0.5
+    },
+    {
+      "name": "equal",
+      "sem": 1.0,
+      "tier": 1.0,
+      "corpus": 1.0
+    }
+  ],
+  "per_combo_query_results": {
+    "semantic_only": {
+      "Q1": [
+        "math::T2/fhrr_unbind",
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ],
+      "Q2": [
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T3/hungarian_assignment",
+        "math::T1/discrete_optimization",
+        "math::T3/jonker_volgenant",
+        "math::T3/dynamic_programming"
+      ],
+      "Q3": [
+        "math::T1/group_axioms",
+        "math::T3/count_nb",
+        "math::T1/graph_topology",
+        "math::T1/probability_distribution",
+        "math::T2/hamming_distance"
+      ],
+      "Q4": [
+        "math::T2_FAM/probabilistic_inference",
+        "math::T1/probability_distribution",
+        "math::T3/bayesian_inference",
+        "math::T3/cross_entropy_loss",
+        "math::T3/viterbi_decoding"
+      ],
+      "Q5": [
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2/fhrr_unbind",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ]
+    },
+    "plus_tier": {
+      "Q1": [
+        "math::T2/fhrr_unbind",
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ],
+      "Q2": [
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T3/hungarian_assignment",
+        "math::T1/discrete_optimization",
+        "math::T3/jonker_volgenant",
+        "math::T3/dynamic_programming"
+      ],
+      "Q3": [
+        "math::T1/group_axioms",
+        "math::T1/graph_topology",
+        "math::T3/count_nb",
+        "math::T1/probability_distribution",
+        "math::T2/hamming_distance"
+      ],
+      "Q4": [
+        "math::T2_FAM/probabilistic_inference",
+        "math::T1/probability_distribution",
+        "math::T3/bayesian_inference",
+        "math::T3/cross_entropy_loss",
+        "math::T3/viterbi_decoding"
+      ],
+      "Q5": [
+        "math::T2/circular_convolution",
+        "math::T2/fhrr_bind",
+        "math::T2/fhrr_unbind",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ]
+    },
+    "plus_corpus": {
+      "Q1": [
+        "math::T2/fhrr_unbind",
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ],
+      "Q2": [
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T3/hungarian_assignment",
+        "math::T1/discrete_optimization",
+        "math::T3/jonker_volgenant",
+        "math::T1/convex_optimization"
+      ],
+      "Q3": [
+        "math::T1/group_axioms",
+        "math::T3/count_nb",
+        "math::T1/graph_topology",
+        "math::T1/probability_distribution",
+        "concept::PP-375_multistep_math"
+      ],
+      "Q4": [
+        "math::T2_FAM/probabilistic_inference",
+        "math::T1/probability_distribution",
+        "math::T3/bayesian_inference",
+        "math::T3/cross_entropy_loss",
+        "math::T3/viterbi_decoding"
+      ],
+      "Q5": [
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2/fhrr_unbind",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ]
+    },
+    "default": {
+      "Q1": [
+        "math::T2/fhrr_unbind",
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ],
+      "Q2": [
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T3/hungarian_assignment",
+        "math::T1/discrete_optimization",
+        "math::T3/jonker_volgenant",
+        "math::T3/dynamic_programming"
+      ],
+      "Q3": [
+        "math::T1/group_axioms",
+        "math::T1/graph_topology",
+        "math::T3/count_nb",
+        "concept::PP-367_unified_algebra_lang_math",
+        "concept::PP-375_multistep_math"
+      ],
+      "Q4": [
+        "math::T2_FAM/probabilistic_inference",
+        "math::T1/probability_distribution",
+        "math::T3/bayesian_inference",
+        "math::T3/cross_entropy_loss",
+        "math::T3/viterbi_decoding"
+      ],
+      "Q5": [
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2/fhrr_unbind",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ]
+    },
+    "heavy_tier_corpus": {
+      "Q1": [
+        "math::T2/fhrr_unbind",
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ],
+      "Q2": [
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T3/hungarian_assignment",
+        "math::T1/discrete_optimization",
+        "math::T3/jonker_volgenant",
+        "math::T1/convex_optimization"
+      ],
+      "Q3": [
+        "math::T1/group_axioms",
+        "concept::PP-367_unified_algebra_lang_math",
+        "concept::PP-375_multistep_math",
+        "math::T1/graph_topology",
+        "math::T3/count_nb"
+      ],
+      "Q4": [
+        "math::T2_FAM/probabilistic_inference",
+        "math::T1/probability_distribution",
+        "math::T3/bayesian_inference",
+        "math::T3/cross_entropy_loss",
+        "math::T1/group_axioms"
+      ],
+      "Q5": [
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2/fhrr_unbind",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ]
+    },
+    "equal": {
+      "Q1": [
+        "math::T2/fhrr_unbind",
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ],
+      "Q2": [
+        "math::T2_FAM/global_discrete_optimization",
+        "math::T3/hungarian_assignment",
+        "math::T1/discrete_optimization",
+        "math::T1/convex_optimization",
+        "math::T3/jonker_volgenant"
+      ],
+      "Q3": [
+        "concept::PP-367_unified_algebra_lang_math",
+        "concept::PP-375_multistep_math",
+        "concept::PP-371_reasoning_routing",
+        "math::T1/group_axioms",
+        "concept::unified_compositional_engine"
+      ],
+      "Q4": [
+        "math::T2_FAM/probabilistic_inference",
+        "math::T1/probability_distribution",
+        "math::T1/group_axioms",
+        "math::T3/bayesian_inference",
+        "math::T1/shannon_entropy"
+      ],
+      "Q5": [
+        "math::T2/fhrr_bind",
+        "math::T2/circular_convolution",
+        "math::T2/fhrr_unbind",
+        "math::T2_FAM/algebraic_binding",
+        "math::T1/unit_modulus"
+      ]
+    }
+  }
+}

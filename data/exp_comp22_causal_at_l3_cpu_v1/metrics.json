@@ -1,0 +1,16 @@
+{
+  "anchor_name": "comp22_causal_at_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Pearl do() intervention propagated through a causal chain of deep L3 composite-valued variables recovers the effect at >=0.80, within 10pp of atomic -- do-calculus survives composition via per-variable cleanup. L3=1.000 L1=1.000 gap=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall_l3": 1.0,
+      "recall_l1": 1.0,
+      "gap": 0.0
+    }
+  ],
+  "elapsed_s": 59.23724579811096,
+  "summary": "HARD_PASS: Pearl do() intervention propagated through a causal chain of deep L3 composite-valued variables recovers the effect at >=0.80, within 10pp of atomic -- do-calculus survives composition via per-variable cleanup. L3=1.000 L1=1.000 gap=0.000"
+}

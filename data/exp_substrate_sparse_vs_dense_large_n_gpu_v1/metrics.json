@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_sparse_vs_dense_large_n_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse-coding capacity advantage persists >=3x at N=8192 -- production-scale capacity lever. sparse/dense alpha ratio by N: N=4096: 8.03x N=8192: 8.01x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_N": {
+        "N4096": {
+          "dense_alpha": 0.0498046875,
+          "sparse_alpha": 0.39990234375,
+          "ratio": 8.029411764705882
+        },
+        "N8192": {
+          "dense_alpha": 0.0499267578125,
+          "sparse_alpha": 0.39990234375,
+          "ratio": 8.009779951100244
+        }
+      }
+    }
+  ],
+  "elapsed_s": 15.20987844467163,
+  "summary": "HARD_PASS: sparse-coding capacity advantage persists >=3x at N=8192 -- production-scale capacity lever. sparse/dense alpha ratio by N: N=4096: 8.03x N=8192: 8.01x"
+}

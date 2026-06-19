@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "acf_sparsity_sweep", "script": "experiments/exp_wave14b_acf_sparsity_sweep.py", "status": "pending", "purpose": "ACF sparsity sweep: r in {0.005,0.01,0.05,0.1} x K in {2048,2560,3072}. First ACF v2 attempt had K=2048 regression with r=0.01 -- this finds the sweet spot.", "timeout_s": 10800}
+  ]
+}

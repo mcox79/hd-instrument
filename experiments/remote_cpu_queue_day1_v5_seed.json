@@ -1,0 +1,18 @@
+{
+  "experiments": [
+    {
+      "name": "decompose_extreme_B",
+      "script": "experiments/exp_wave14b_decompose_extreme_B.py",
+      "status": "completed",
+      "purpose": "B-sweep at K=32 N=4096: cliff between B=128 and B=256.",
+      "timeout_s": 7200
+    },
+    {
+      "name": "decompose_K_extreme",
+      "script": "experiments/exp_wave14b_decompose_K_extreme.py",
+      "status": "pending",
+      "purpose": "K-sweep {4096, 8192, 16384} at B=2 N=4096 -- find codebook cliff.",
+      "timeout_s": 7200
+    }
+  ]
+}

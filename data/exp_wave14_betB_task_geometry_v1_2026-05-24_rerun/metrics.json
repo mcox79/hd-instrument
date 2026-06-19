@@ -1,0 +1,125 @@
+{
+  "verdict": "TASK_GEOMETRY_HARD_FAIL",
+  "verdict_msg": "Retention NOT geometry-bound: r^2=0.103<0.2 OR non-monotone (monotone=False). E_reversed:d=0,retA=0.838, C_python:d=0.015,retA=0.884, B_shuffled:d=0.0294,retA=0.834, D_random:d=0.508,retA=0.738.",
+  "elapsed_s": 294.4529999999795,
+  "summary": {
+    "per_pair": {
+      "B_shuffled": {
+        "spectral_distance": 0.029401385535796482,
+        "seeds": {
+          "7": {
+            "retention_A": 0.8305479416106039,
+            "spectral_distance": 0.027915406972169876,
+            "bpc_A_baseline": 2.4966356339419207,
+            "bpc_A_after_X": 3.0060102600464327
+          },
+          "17": {
+            "retention_A": 0.835036275014436,
+            "spectral_distance": 0.02448233589529991,
+            "bpc_A_baseline": 2.496550232654506,
+            "bpc_A_after_X": 2.989750634020475
+          },
+          "23": {
+            "retention_A": 0.8376480517915392,
+            "spectral_distance": 0.03580641373991966,
+            "bpc_A_baseline": 2.501425271655231,
+            "bpc_A_after_X": 2.986248539950937
+          }
+        }
+      },
+      "C_python": {
+        "spectral_distance": 0.014960899017751217,
+        "seeds": {
+          "7": {
+            "retention_A": 0.8828803771604903,
+            "spectral_distance": 0.014960899017751217,
+            "bpc_A_baseline": 2.496635638991413,
+            "bpc_A_after_X": 2.8278300249701593
+          },
+          "17": {
+            "retention_A": 0.884936754710394,
+            "spectral_distance": 0.014960899017751217,
+            "bpc_A_baseline": 2.496550232654506,
+            "bpc_A_after_X": 2.821162325291293
+          },
+          "23": {
+            "retention_A": 0.8853001416643828,
+            "spectral_distance": 0.014960899017751217,
+            "bpc_A_baseline": 2.5014252704899635,
+            "bpc_A_after_X": 2.825510979572681
+          }
+        }
+      },
+      "D_random": {
+        "spectral_distance": 0.5082413951555887,
+        "seeds": {
+          "7": {
+            "retention_A": 0.7367978727877902,
+            "spectral_distance": 0.4998207688331604,
+            "bpc_A_baseline": 2.4966356448177502,
+            "bpc_A_after_X": 3.388494642867708
+          },
+          "17": {
+            "retention_A": 0.7350753371741576,
+            "spectral_distance": 0.5218944549560547,
+            "bpc_A_baseline": 2.496550230323971,
+            "bpc_A_after_X": 3.3963188588552473
+          },
+          "23": {
+            "retention_A": 0.7411016196052295,
+            "spectral_distance": 0.5030089616775513,
+            "bpc_A_baseline": 2.5014252767047234,
+            "bpc_A_after_X": 3.3752797329429454
+          }
+        }
+      },
+      "E_reversed": {
+        "spectral_distance": 0.0,
+        "seeds": {
+          "7": {
+            "retention_A": 0.8401652065890421,
+            "spectral_distance": 0.0,
+            "bpc_A_baseline": 2.4966356323882306,
+            "bpc_A_after_X": 2.971600838511554
+          },
+          "17": {
+            "retention_A": 0.8350729139325003,
+            "spectral_distance": 0.0,
+            "bpc_A_baseline": 2.4965502283818584,
+            "bpc_A_after_X": 2.989619453258493
+          },
+          "23": {
+            "retention_A": 0.8401330703968514,
+            "spectral_distance": 0.0,
+            "bpc_A_baseline": 2.5014252743741885,
+            "bpc_A_after_X": 2.9774155577432477
+          }
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "task_pairs": [
+      "B_shuffled",
+      "C_python",
+      "D_random",
+      "E_reversed"
+    ],
+    "ema_alpha": 0.7,
+    "eig_bins": 32,
+    "ppmi_rank_cap": 256,
+    "pass_r2": 0.6,
+    "fail_r2": 0.2
+  }
+}

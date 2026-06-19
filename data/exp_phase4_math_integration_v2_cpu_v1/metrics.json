@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4_math_integration_v2_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: end-to-end <0.05 -- pieces don't compose on real text (slot-binding/asked-quantity ID is the gap). accuracy=0.041 coverage=0.167 acc-on-covered=0.243 (vs shallow 0.023)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.041,
+      "coverage": 0.167,
+      "acc_on_covered": 0.243,
+      "n_correct": 9,
+      "n_total": 221
+    }
+  ],
+  "elapsed_s": 2.785050630569458,
+  "summary": "HARD_FAIL: end-to-end <0.05 -- pieces don't compose on real text (slot-binding/asked-quantity ID is the gap). accuracy=0.041 coverage=0.167 acc-on-covered=0.243 (vs shallow 0.023)"
+}

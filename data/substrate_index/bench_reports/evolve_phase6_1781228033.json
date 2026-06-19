@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "totals": {
+    "ingested": 0,
+    "skipped": 0,
+    "failed": 0,
+    "supersedes_added": 0,
+    "uses_added": 0,
+    "pre_total": 1467,
+    "post_total": 1467
+  }
+}

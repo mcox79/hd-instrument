@@ -1,0 +1,38 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Partial OT structure. W2(G1,G2)=0.0484, W2(G2,G3)=0.1448, W2(G3,G4)=0.0000. monotone=False, separated=True.",
+  "elapsed_s": 6.86,
+  "summary": {
+    "w2_matrix": {
+      "G1_G2": 0.048425,
+      "G1_G3": 0.192863,
+      "G2_G3": 0.144769
+    },
+    "w2_G1_G2": 0.048425,
+    "w2_G2_G3": 0.144769,
+    "w2_G3_G4": 0.0,
+    "monotone": false,
+    "all_separated": true,
+    "barycenter_mean": 0.8966,
+    "barycenter_std": 0.0069,
+    "n_seeds_ok": 5,
+    "gi_means": {
+      "G1": 0.9768,
+      "G2": 0.9288,
+      "G3": 0.7841
+    }
+  },
+  "config": {
+    "N": 512,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "smoke": true,
+    "orthogonal_probe": "optimal_transport_wasserstein",
+    "hypothesis": "OT-1: W2 distances between Gi distributions track plateau gaps"
+  }
+}

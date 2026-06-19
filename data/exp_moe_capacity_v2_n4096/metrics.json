@@ -1,0 +1,70 @@
+{
+  "anchor": "moe_capacity_v2_n4096",
+  "N": 1024,
+  "smoke": true,
+  "K_sweep": [
+    32,
+    64
+  ],
+  "M_budget": 400,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "K": 32,
+      "seed": 17,
+      "M_total": 12800,
+      "M_budget": 400,
+      "mean_ret": 0.95312,
+      "entropy": 5.0,
+      "expert_retentions": [
+        0.98,
+        0.96,
+        0.9,
+        0.96,
+        0.98,
+        0.94,
+        0.98,
+        0.92,
+        0.96,
+        0.94
+      ],
+      "fill_fracs_stats": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      },
+      "routing_entropy": 5.0
+    },
+    {
+      "K": 64,
+      "seed": 17,
+      "M_total": 25600,
+      "M_budget": 400,
+      "mean_ret": 0.95312,
+      "entropy": 6.0,
+      "expert_retentions": [
+        0.96,
+        0.98,
+        0.96,
+        0.94,
+        0.92,
+        0.9,
+        0.98,
+        0.94,
+        0.92,
+        0.96
+      ],
+      "fill_fracs_stats": {
+        "min": 1.0,
+        "max": 1.0,
+        "mean": 1.0
+      },
+      "routing_entropy": 6.0
+    }
+  ],
+  "verdict": "MOE_V2_HARD_PASS",
+  "verdict_msg": "HIGH_K_SCALING: k64_mean=0.953 >= 0.5. k32_mean=0.953 k64_mean=0.953 rets_by_K={32: 0.9531, 64: 0.9531} HP_ret_k64=0.5 HF_ret_k32=0.3 N=1024",
+  "elapsed_s": 114.28
+}

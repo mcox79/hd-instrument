@@ -1,0 +1,20 @@
+{
+  "verdict": "PFAIL_HIGHER",
+  "verdict_msg": "Per-hop p_fail=0.0350 > 0.035 (predicted 0.03). (1-p)^50 = 0.168. Substrate has more per-hop noise than HMM model.",
+  "elapsed_s": 95.5,
+  "summary": {
+    "acc_1hop": 0.965,
+    "p_fail": 0.03500000000000003,
+    "predicted_50hop": 0.1684091435289756,
+    "n_trials": 10000
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "n_trials": 10000,
+    "seed": 17
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "verdict": "K6_HIER_HARD_FAIL",
+  "verdict_msg": "Hierarchical pre-binding REJECTED: hold_out_acc=0.078 train_acc=0.318 chance=0.0625 improvement_vs_chance=1.2x. <=0.08 (1.3x chance). K6 axis 3 cleanup-iter next.",
+  "elapsed_s": 0.031000000017229468,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "train_acc": 0.3177083333333333,
+        "hold_out_acc": 0.078125,
+        "n_train": 192,
+        "n_holdout": 64,
+        "n_groups": 4,
+        "n_group": 4
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "train_frac": 0.75,
+    "epochs": 5,
+    "seeds": [
+      17
+    ],
+    "n_objects": 16,
+    "n_attrs": 16,
+    "n_group": 4,
+    "n_groups": 4,
+    "pass_holdout_acc": 0.2,
+    "fail_holdout_acc": 0.08
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "experiments": [
+    {
+      "name": "r7_concept_replay",
+      "script": "experiments/exp_wave14b_r7_concept_replay.py",
+      "status": "completed",
+      "purpose": "R7 CLS-style concept-tagged replay.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_K16_m2",
+      "script": "experiments/exp_wave14b_r10_K16_m2.py",
+      "status": "completed",
+      "purpose": "R10 single-seed M2 at K=16. Suggestive, not closed.",
+      "timeout_s": 2400
+    },
+    {
+      "name": "r3_concept_readout_bias",
+      "script": "experiments/exp_wave14b_r3_concept_readout_bias.py",
+      "status": "completed",
+      "purpose": "R3 concept readout bias. PASSED at gamma=0.5 with +0.163 post-shift.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r1_modern_hopfield",
+      "script": "experiments/exp_wave14b_r1_modern_hopfield.py",
+      "status": "completed",
+      "purpose": "R1 modern Hopfield. Best beta=16 steps=1 with +0.087.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "replay_mechanism_sweep",
+      "script": "experiments/exp_wave14b_replay_mechanism_sweep.py",
+      "status": "running",
+      "purpose": "Replay ratio + recency + loss-priority sweep.",
+      "timeout_s": 3600
+    },
+    {
+      "name": "f1_coverage_sweep",
+      "script": "experiments/exp_wave14b_f1_coverage_sweep.py",
+      "status": "pending",
+      "purpose": "F1 coverage-varied concept replay.",
+      "timeout_s": 1800
+    },
+    {
+      "name": "mir_replay",
+      "script": "experiments/exp_wave14b_mir_replay.py",
+      "status": "pending",
+      "purpose": "A7 MIR closed-loop priority replay (literature-strongest method).",
+      "timeout_s": 1800
+    },
+    {
+      "name": "r10_ksweep_multiseed",
+      "script": "experiments/exp_wave14b_r10_ksweep_multiseed.py",
+      "status": "pending",
+      "purpose": "R10 deep dive: 5-seed at K=16 + K-sweep, per user 'don't close'.",
+      "timeout_s": 7200
+    },
+    {
+      "name": "r7_multiseed",
+      "script": "experiments/exp_wave14b_r7_multiseed.py",
+      "status": "pending",
+      "purpose": "R7 multi-seed (3 seeds) for random-replay headline.",
+      "timeout_s": 1800
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "verdict": "KERDOCK_NO_EXCESS_ZERO_MODES",
+  "verdict_msg": "All 1 cells have empirical zero-eigenvalue fraction matching the rank-deficiency floor to within 1%. Max_excess=0.001. The Kerdock Hessian has no extra algebraic-degeneracy modes beyond the generic rank-deficiency expected of a random M x N matrix.",
+  "elapsed_s": 0.13999999995576218,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "zero_frac_mean": 0.0009765625,
+        "zero_frac_std": 0.0,
+        "min_eig_mean": 9.76478304437478e-07,
+        "max_eig_mean": 2.9916326999664307,
+        "per_seed_zero_frac": [
+          0.0009765625
+        ],
+        "excess_zero_frac": 0.0009765625,
+        "rank_def_floor": 0.0
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alphas": [
+        1.0
+      ],
+      "n_seeds": 1,
+      "eps": 1e-06
+    },
+    "verdict": "KERDOCK_NO_EXCESS_ZERO_MODES",
+    "verdict_msg": "All 1 cells have empirical zero-eigenvalue fraction matching the rank-deficiency floor to within 1%. Max_excess=0.001. The Kerdock Hessian has no extra algebraic-degeneracy modes beyond the generic rank-deficiency expected of a random M x N matrix."
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alphas": [
+      1.0
+    ],
+    "n_seeds": 1,
+    "eps": 1e-06
+  }
+}

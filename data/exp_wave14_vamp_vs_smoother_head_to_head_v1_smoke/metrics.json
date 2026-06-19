@@ -1,0 +1,37 @@
+{
+  "verdict": "HEADTOHEAD_EQUIVALENT",
+  "verdict_msg": "both >=0.95: smoother=1.000, vamp=1.000.",
+  "elapsed_s": 0.7969999999913853,
+  "summary": {
+    "smoother_mean": 1.0,
+    "vamp_mean": 1.0,
+    "smoother_per_config": [
+      1.0,
+      1.0
+    ],
+    "vamp_per_config": [
+      1.0,
+      1.0
+    ]
+  },
+  "config": {
+    "N": 8192,
+    "configs": [
+      [
+        "K100",
+        "d25",
+        100,
+        25
+      ],
+      [
+        "K500",
+        "d50",
+        500,
+        50
+      ]
+    ],
+    "num_relations": 20,
+    "n_trials": 5,
+    "seed": 17
+  }
+}

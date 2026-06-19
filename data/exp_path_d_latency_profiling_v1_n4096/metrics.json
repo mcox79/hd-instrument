@@ -1,0 +1,374 @@
+{
+  "verdict": "G1_HARD_PASS",
+  "verdict_msg": "DOMINANT_OP_IDENTIFIED: dom_frac=1.000 (target>=0.8); family_mode=1.000 (target>=0.6); res_violations=0.000; seed_disagree=0.000; n_cells=8",
+  "elapsed_s": 0.66,
+  "summary": {
+    "anchor": "path_d_latency_profiling_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      512,
+      1024
+    ],
+    "depth_grid": [
+      3,
+      5
+    ],
+    "K_grid": [
+      20,
+      50
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 512,
+        "depth": 3,
+        "K_paths": 20,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.02214,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 270725,
+            "median_ns": 260000,
+            "total_ns": 4331600,
+            "p99_ns": 268800
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 1045175,
+            "median_ns": 1041900,
+            "total_ns": 16722800,
+            "p99_ns": 1178300
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 13668,
+            "median_ns": 13900,
+            "total_ns": 218700,
+            "p99_ns": 16300
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 16693,
+            "median_ns": 16800,
+            "total_ns": 267100,
+            "p99_ns": 23200
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.7764,
+        "mem_cpu_peak_mib": 0.135,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 512,
+        "depth": 3,
+        "K_paths": 50,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.04115,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 658987,
+            "median_ns": 614200,
+            "total_ns": 10543800,
+            "p99_ns": 636300
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 1831787,
+            "median_ns": 1810200,
+            "total_ns": 29308600,
+            "p99_ns": 1990200
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 16343,
+            "median_ns": 15300,
+            "total_ns": 261500,
+            "p99_ns": 21100
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 20562,
+            "median_ns": 20600,
+            "total_ns": 329000,
+            "p99_ns": 25600
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.7247,
+        "mem_cpu_peak_mib": 0.134,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 512,
+        "depth": 5,
+        "K_paths": 20,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.02792,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 283593,
+            "median_ns": 279700,
+            "total_ns": 4537500,
+            "p99_ns": 311500
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 1394593,
+            "median_ns": 1371100,
+            "total_ns": 22313500,
+            "p99_ns": 1488100
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 14293,
+            "median_ns": 14600,
+            "total_ns": 228700,
+            "p99_ns": 16600
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 16112,
+            "median_ns": 16200,
+            "total_ns": 257800,
+            "p99_ns": 18900
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.8162,
+        "mem_cpu_peak_mib": 0.134,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 512,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.05249,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 664568,
+            "median_ns": 662400,
+            "total_ns": 10633100,
+            "p99_ns": 690900
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 2538675,
+            "median_ns": 2563500,
+            "total_ns": 40618800,
+            "p99_ns": 2652200
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 15437,
+            "median_ns": 14800,
+            "total_ns": 247000,
+            "p99_ns": 19000
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 18687,
+            "median_ns": 18100,
+            "total_ns": 299000,
+            "p99_ns": 21600
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.7842,
+        "mem_cpu_peak_mib": 0.134,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 1024,
+        "depth": 3,
+        "K_paths": 20,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.02234,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 260850,
+            "median_ns": 255200,
+            "total_ns": 4173600,
+            "p99_ns": 282800
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 1072575,
+            "median_ns": 1094000,
+            "total_ns": 17161200,
+            "p99_ns": 1161100
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 13156,
+            "median_ns": 12800,
+            "total_ns": 210500,
+            "p99_ns": 15500
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 13962,
+            "median_ns": 14000,
+            "total_ns": 223400,
+            "p99_ns": 16300
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.7883,
+        "mem_cpu_peak_mib": 0.267,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 1024,
+        "depth": 3,
+        "K_paths": 50,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.04086,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 634550,
+            "median_ns": 626200,
+            "total_ns": 10152800,
+            "p99_ns": 748900
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 1838312,
+            "median_ns": 1805700,
+            "total_ns": 29413000,
+            "p99_ns": 1947600
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 16456,
+            "median_ns": 16600,
+            "total_ns": 263300,
+            "p99_ns": 19400
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 20362,
+            "median_ns": 19400,
+            "total_ns": 325800,
+            "p99_ns": 26100
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.7325,
+        "mem_cpu_peak_mib": 0.267,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 1024,
+        "depth": 5,
+        "K_paths": 20,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.02908,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 298731,
+            "median_ns": 294400,
+            "total_ns": 4779700,
+            "p99_ns": 325000
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 1443075,
+            "median_ns": 1459300,
+            "total_ns": 23089200,
+            "p99_ns": 1527700
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 15118,
+            "median_ns": 15400,
+            "total_ns": 241900,
+            "p99_ns": 18600
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 18093,
+            "median_ns": 17700,
+            "total_ns": 289500,
+            "p99_ns": 21900
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.813,
+        "mem_cpu_peak_mib": 0.267,
+        "mem_cuda_delta_mib": 0.0
+      },
+      {
+        "M": 1024,
+        "depth": 5,
+        "K_paths": 50,
+        "seed": 17,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "wall_s": 0.05503,
+        "op_breakdown_ns": {
+          "time_enumerate_paths": {
+            "n_calls": 16,
+            "mean_ns": 693662,
+            "median_ns": 690800,
+            "total_ns": 11098600,
+            "p99_ns": 751500
+          },
+          "time_likelihood_query_per_hop": {
+            "n_calls": 16,
+            "mean_ns": 2663725,
+            "median_ns": 2708800,
+            "total_ns": 42619600,
+            "p99_ns": 2791000
+          },
+          "time_bayesian_update": {
+            "n_calls": 16,
+            "mean_ns": 18081,
+            "median_ns": 17000,
+            "total_ns": 289300,
+            "p99_ns": 23700
+          },
+          "time_posterior_max": {
+            "n_calls": 16,
+            "mean_ns": 20137,
+            "median_ns": 19900,
+            "total_ns": 322200,
+            "p99_ns": 21900
+          }
+        },
+        "dominant_op": "time_likelihood_query_per_hop",
+        "dominant_frac": 0.7845,
+        "mem_cpu_peak_mib": 0.267,
+        "mem_cuda_delta_mib": 0.0
+      }
+    ],
+    "verdict": "G1_HARD_PASS",
+    "verdict_msg": "DOMINANT_OP_IDENTIFIED: dom_frac=1.000 (target>=0.8); family_mode=1.000 (target>=0.6); res_violations=0.000; seed_disagree=0.000; n_cells=8",
+    "elapsed_s": 0.66
+  }
+}

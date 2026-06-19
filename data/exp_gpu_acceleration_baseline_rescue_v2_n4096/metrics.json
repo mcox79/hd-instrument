@@ -1,0 +1,195 @@
+{
+  "verdict": "GPU_R_HARD_PASS",
+  "verdict_msg": "GPU_FAST_AND_CLEAN: mean_query_speedup_at_N4096=22.67x gpu_op_failures_at_topN=0/3 N=4096_seed7:q_speedup=8.4x N=4096_seed17:q_speedup=26.4x N=4096_seed23:q_speedup=33.3x",
+  "elapsed_s": 10.12,
+  "summary": {
+    "anchor": "gpu_acceleration_baseline_rescue_v2_n4096",
+    "N_sweep": [
+      2048,
+      4096
+    ],
+    "smoke": false,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "devices_run": [
+      "cpu",
+      "cuda"
+    ],
+    "cells": [
+      {
+        "N": 2048,
+        "M": 512,
+        "seed": 7,
+        "device": "cpu",
+        "ops_succeeded": [],
+        "ops_failed": [],
+        "build_failed": "ValueError: N=2048 requires even log2(N) for MM construction (got n_log2=11)"
+      },
+      {
+        "N": 2048,
+        "M": 512,
+        "seed": 7,
+        "device": "cuda",
+        "ops_succeeded": [],
+        "ops_failed": [],
+        "build_failed": "ValueError: N=2048 requires even log2(N) for MM construction (got n_log2=11)"
+      },
+      {
+        "N": 2048,
+        "M": 512,
+        "seed": 17,
+        "device": "cpu",
+        "ops_succeeded": [],
+        "ops_failed": [],
+        "build_failed": "ValueError: N=2048 requires even log2(N) for MM construction (got n_log2=11)"
+      },
+      {
+        "N": 2048,
+        "M": 512,
+        "seed": 17,
+        "device": "cuda",
+        "ops_succeeded": [],
+        "ops_failed": [],
+        "build_failed": "ValueError: N=2048 requires even log2(N) for MM construction (got n_log2=11)"
+      },
+      {
+        "N": 2048,
+        "M": 512,
+        "seed": 23,
+        "device": "cpu",
+        "ops_succeeded": [],
+        "ops_failed": [],
+        "build_failed": "ValueError: N=2048 requires even log2(N) for MM construction (got n_log2=11)"
+      },
+      {
+        "N": 2048,
+        "M": 512,
+        "seed": 23,
+        "device": "cuda",
+        "ops_succeeded": [],
+        "ops_failed": [],
+        "build_failed": "ValueError: N=2048 requires even log2(N) for MM construction (got n_log2=11)"
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 7,
+        "device": "cpu",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 145767.97,
+        "query_ns_per_op": 503551.8,
+        "edit_ns": 15940320.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 7,
+        "device": "cuda",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 109584.11,
+        "query_ns_per_op": 60224.0,
+        "edit_ns": 1741640.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 17,
+        "device": "cpu",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 143781.64,
+        "query_ns_per_op": 466742.1,
+        "edit_ns": 19047780.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 17,
+        "device": "cuda",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 64908.59,
+        "query_ns_per_op": 17701.4,
+        "edit_ns": 1702500.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 23,
+        "device": "cpu",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 149865.76,
+        "query_ns_per_op": 814191.6,
+        "edit_ns": 16318360.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 23,
+        "device": "cuda",
+        "ops_succeeded": [
+          "store",
+          "query",
+          "edit",
+          "retention",
+          "max_iso"
+        ],
+        "ops_failed": [],
+        "store_ns_per_fact": 12620.44,
+        "query_ns_per_op": 24465.5,
+        "edit_ns": 1823600.0,
+        "retention": 1.0,
+        "max_iso": 0.0
+      }
+    ],
+    "verdict": "GPU_R_HARD_PASS",
+    "verdict_msg": "GPU_FAST_AND_CLEAN: mean_query_speedup_at_N4096=22.67x gpu_op_failures_at_topN=0/3 N=4096_seed7:q_speedup=8.4x N=4096_seed17:q_speedup=26.4x N=4096_seed23:q_speedup=33.3x",
+    "elapsed_s": 10.12
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "r7_concept_replay",
+      "script": "experiments/exp_wave14b_r7_concept_replay.py",
+      "status": "pending",
+      "purpose": "CLS-style: concept-tagged replay during Phase B, measured on BWT-on-A. Theorem-untouched.",
+      "timeout_s": 1800
+    }
+  ]
+}

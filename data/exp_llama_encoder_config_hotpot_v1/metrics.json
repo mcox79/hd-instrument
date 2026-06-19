@@ -1,0 +1,24 @@
+{
+  "anchor_name": "llama_encoder_config_hotpot_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: all Llama-1B configs <0.05 recall@2hop -- Llama-1B pooled embeddings are NOT a viable retrieval encoder; escalate the L15 mandate (MiniLM gave 0.16). best=L8_mean @ 0.010 | all: {'L8_last': 0.0, 'L8_mean': 0.01, 'L12_last': 0.0, 'L12_mean': 0.01, 'L15_last': 0.0, 'L15_mean': 0.01} (n=100, MiniLM ref naive=0.16)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "L8_last": 0.0,
+        "L8_mean": 0.01,
+        "L12_last": 0.0,
+        "L12_mean": 0.01,
+        "L15_last": 0.0,
+        "L15_mean": 0.01
+      },
+      "best": 0.01,
+      "best_cfg": "L8_mean",
+      "n": 100
+    }
+  ],
+  "elapsed_s": 30.808531284332275,
+  "summary": "HARD_FAIL: all Llama-1B configs <0.05 recall@2hop -- Llama-1B pooled embeddings are NOT a viable retrieval encoder; escalate the L15 mandate (MiniLM gave 0.16). best=L8_mean @ 0.010 | all: {'L8_last': 0.0, 'L8_mean': 0.01, 'L12_last': 0.0, 'L12_mean': 0.01, 'L15_last': 0.0, 'L15_mean': 0.01} (n=100, MiniLM ref naive=0.16)"
+}

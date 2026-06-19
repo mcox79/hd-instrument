@@ -1,0 +1,215 @@
+{
+  "K": 8,
+  "GEN_LENGTH": 64,
+  "TEMPERATURES": [
+    0.0,
+    0.7,
+    1.0
+  ],
+  "EVAL_POSITIONS": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.54,
+          "2": 0.49,
+          "4": 0.45,
+          "8": 0.3925,
+          "16": 0.34125,
+          "32": 0.2475,
+          "64": 0.14375
+        },
+        "samples": [
+          {
+            "prefix": "ivity_mu",
+            "truth": "ltihop | PASS | 1-hop: VSA=0.28, Hebbian=1.00; 3",
+            "generated": "re H.py` modsanget sempledim dompd pestic/edate "
+          },
+          {
+            "prefix": "7 | dens",
+            "truth": "ity=0.10: recovery@k=10 = 0.98 | [pdf](data/exp_",
+            "generated": "im the ricenticedyste meporetracatast | [pdf](da"
+          },
+          {
+            "prefix": " [metric",
+            "truth": "s](data/exp_traceable_multi_hop/metrics.json) |.",
+            "generated": "s](data/exp_m4_nested/metrics.json) |..| 2026-05"
+          },
+          {
+            "prefix": "capacity",
+            "truth": "/metrics.json) |..| 2026-05-17 | exp_scaling_cap",
+            "generated": "/metrics.json) |..| 2026-05-16 | exp_m5_hebbian/"
+          },
+          {
+            "prefix": " |..| 20",
+            "truth": "26-05-17 | exp_m6_bsc | PASS | recovery@k=50: FH",
+            "generated": "26-05-16 | exp_m5_hebbian/mathe dy |..| Week 8 -"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.5,
+          "2": 0.44,
+          "4": 0.41,
+          "8": 0.3525,
+          "16": 0.285,
+          "32": 0.1875,
+          "64": 0.114375
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.42,
+          "2": 0.37,
+          "4": 0.3,
+          "8": 0.2525,
+          "16": 0.17625,
+          "32": 0.115,
+          "64": 0.0753125
+        },
+        "samples": null
+      }
+    },
+    {
+      "seed": 23,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.46,
+          "2": 0.43,
+          "4": 0.39,
+          "8": 0.32,
+          "16": 0.24625,
+          "32": 0.165625,
+          "64": 0.1009375
+        },
+        "samples": [
+          {
+            "prefix": " = 1.000",
+            "truth": "); k_50%(1024)=216.97748935995307, k_50%(4096)=8",
+            "generated": "000 | [pdf](data/exp_m4_nested/metrics.json) |.."
+          },
+          {
+            "prefix": "n test i",
+            "truth": "n `verification/`...3. Implement the feature in ",
+            "generated": "ne dorection | PASS | maxper | |tate | dith | da"
+          },
+          {
+            "prefix": "a = 1.00",
+            "truth": "4 (R^2 = 0.9999); k_50%(1024)=86.08201678445715,",
+            "generated": "0000 | [pdf](data/exp_m4_nested/metrics.json) |."
+          },
+          {
+            "prefix": "s.json) ",
+            "truth": "|..| 2026-05-17 | exp_depth_hyperbolic | PASS | ",
+            "generated": "|..| 2026-05-16 | exp_m4_nested/metrics.json) |."
+          },
+          {
+            "prefix": "2bundle/",
+            "truth": "trace.duckdb) [metrics](data/exp_depth_pinned_fh",
+            "generated": " daped the | ding | |..| Week 8 - Scaling-law ex"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.44,
+          "2": 0.41,
+          "4": 0.365,
+          "8": 0.2975,
+          "16": 0.22875,
+          "32": 0.155,
+          "64": 0.0978125
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.42,
+          "2": 0.39,
+          "4": 0.315,
+          "8": 0.255,
+          "16": 0.185,
+          "32": 0.118125,
+          "64": 0.076875
+        },
+        "samples": null
+      }
+    },
+    {
+      "seed": 31,
+      "temp_0.0": {
+        "pos_accuracy": {
+          "1": 0.5,
+          "2": 0.49,
+          "4": 0.43,
+          "8": 0.39,
+          "16": 0.3425,
+          "32": 0.25375,
+          "64": 0.1571875
+        },
+        "samples": [
+          {
+            "prefix": ".duckdb)",
+            "truth": " [metrics](data/exp_depth_vtb/metrics.json) |..|",
+            "generated": " [metrics](data/exp_m4_nested/metrics.json) |..|"
+          },
+          {
+            "prefix": "r_clippe",
+            "truth": "d/metrics.json) |..| 2026-05-17 | exp_depth_pinn",
+            "generated": "dsean | PASS | fore | Concamser-conen | Bandim |"
+          },
+          {
+            "prefix": "unnecess",
+            "truth": "ary abstraction...- One-line docstrings, max. No",
+            "generated": "it mm the d=pars | pending | PASS | fore | Conca"
+          },
+          {
+            "prefix": ".pdf) [t",
+            "truth": "race](data/exp_connectivity_resonator/trace.duck",
+            "generated": "race](data/exp_m4_nested/metrics.json) |..| 2026"
+          },
+          {
+            "prefix": "ta/exp_m",
+            "truth": "6_bsc/dashboard.pdf) [trace](data/exp_m6_bsc/tra",
+            "generated": "4_nested/metrics.json) |..| 2026-05-16 | exp_m4_"
+          }
+        ]
+      },
+      "temp_0.7": {
+        "pos_accuracy": {
+          "1": 0.46,
+          "2": 0.46,
+          "4": 0.405,
+          "8": 0.37,
+          "16": 0.31625,
+          "32": 0.22875,
+          "64": 0.13625
+        },
+        "samples": null
+      },
+      "temp_1.0": {
+        "pos_accuracy": {
+          "1": 0.38,
+          "2": 0.33,
+          "4": 0.29,
+          "8": 0.2375,
+          "16": 0.16125,
+          "32": 0.101875,
+          "64": 0.066875
+        },
+        "samples": null
+      }
+    }
+  ]
+}

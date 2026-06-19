@@ -1,0 +1,420 @@
+{
+  "verdict": "T3_HARD_PASS",
+  "verdict_msg": "MODERN_HOPFIELD_BEND_CPU: N=4096 Ms=[512, 1024, 2048, 4096] M_recall={512: 1.0, 1024: 1.0, 2048: 1.0, 4096: 1.0} max_M_at_95=4096 all_M_ok=True",
+  "elapsed_s": 2.31,
+  "summary": {
+    "anchor": "n_scaling_cpu_only_v8_n16384",
+    "N": 4096,
+    "smoke": true,
+    "M_sweep": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "N": 4096,
+        "M": 512,
+        "seed": 17,
+        "success": true,
+        "recall": 1.0,
+        "pre_rss_gb": -1.0,
+        "peak_rss_gb": -1.0,
+        "elapsed_s": 0.27,
+        "rss_log": [
+          {
+            "event": "pre_codebook",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_2",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_6",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_10",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_12",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_14",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_15",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_codebook_cat",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "pre_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_1",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_2",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_3",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_5",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_6",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_7",
+            "rss_gb": -1.0
+          }
+        ]
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 17,
+        "success": true,
+        "recall": 1.0,
+        "pre_rss_gb": -1.0,
+        "peak_rss_gb": -1.0,
+        "elapsed_s": 0.35,
+        "rss_log": [
+          {
+            "event": "pre_codebook",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_2",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_6",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_10",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_12",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_14",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_15",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_codebook_cat",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "pre_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_2",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_6",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_10",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_12",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_14",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_15",
+            "rss_gb": -1.0
+          }
+        ]
+      },
+      {
+        "N": 4096,
+        "M": 2048,
+        "seed": 17,
+        "success": true,
+        "recall": 1.0,
+        "pre_rss_gb": -1.0,
+        "peak_rss_gb": -1.0,
+        "elapsed_s": 0.54,
+        "rss_log": [
+          {
+            "event": "pre_codebook",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_2",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_6",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_10",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_12",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_14",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_15",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_codebook_cat",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "pre_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_12",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_16",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_20",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_24",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_28",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_31",
+            "rss_gb": -1.0
+          }
+        ]
+      },
+      {
+        "N": 4096,
+        "M": 4096,
+        "seed": 17,
+        "success": true,
+        "recall": 1.0,
+        "pre_rss_gb": -1.0,
+        "peak_rss_gb": -1.0,
+        "elapsed_s": 0.98,
+        "rss_log": [
+          {
+            "event": "pre_codebook",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_2",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_4",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_6",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_10",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_12",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_14",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "chunk_15",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_codebook_cat",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "pre_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "post_W_alloc",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_0",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_8",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_16",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_24",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_32",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_40",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_48",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_56",
+            "rss_gb": -1.0
+          },
+          {
+            "event": "W_batch_63",
+            "rss_gb": -1.0
+          }
+        ]
+      }
+    ],
+    "verdict": "T3_HARD_PASS",
+    "verdict_msg": "MODERN_HOPFIELD_BEND_CPU: N=4096 Ms=[512, 1024, 2048, 4096] M_recall={512: 1.0, 1024: 1.0, 2048: 1.0, 4096: 1.0} max_M_at_95=4096 all_M_ok=True",
+    "elapsed_s": 2.31
+  }
+}

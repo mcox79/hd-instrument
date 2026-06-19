@@ -1,0 +1,97 @@
+{
+  "verdict": "ORDER_INVARIANT_KERDOCK_COMMUTES",
+  "verdict_msg": "Kerdock anti-Hebbian erase near-commutes: frob_drift_rel=0.0227 < 0.05. Correlated drifts 0.4750. Argmax stable: p1=1.000, p2=1.000.",
+  "elapsed_s": 5.561999999999898,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "frob_drift_rel": 0.022677058412509277,
+        "argmax_p1": 1.0,
+        "argmax_p2": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "frob_drift_rel": 0.022802913886837455,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 23,
+            "frob_drift_rel": 0.022700074695789593,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 31,
+            "frob_drift_rel": 0.022427435295164916,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 41,
+            "frob_drift_rel": 0.022770877271393465,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 53,
+            "frob_drift_rel": 0.022683990913360954,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          }
+        ]
+      },
+      "correlated": {
+        "frob_drift_rel": 0.474997978411826,
+        "argmax_p1": 1.0,
+        "argmax_p2": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "frob_drift_rel": 0.47982565369386754,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 23,
+            "frob_drift_rel": 0.4800456793310623,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 31,
+            "frob_drift_rel": 0.4795664821538287,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 41,
+            "frob_drift_rel": 0.46998605282256795,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          },
+          {
+            "seed": 53,
+            "frob_drift_rel": 0.4655660240578033,
+            "argmax_p1": 1.0,
+            "argmax_p2": 1.0
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 2048,
+    "n_edit": 50,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

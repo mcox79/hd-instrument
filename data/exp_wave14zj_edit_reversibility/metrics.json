@@ -1,0 +1,691 @@
+{
+  "verdict": "REVERSIBLE_BOTH_HOLD",
+  "verdict_msg": "Both arms survive 10 reversal cycles. Correlated control held unexpectedly; algebra closure may be substrate-wide, not Kerdock-specific.",
+  "elapsed_s": 98.82799999999952,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_cycle_trajectory": [
+          {
+            "cycle": 5,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 10,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 15,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 20,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 25,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 30,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 35,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 40,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 45,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 50,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "final_orig_recovery_acc": 1.0,
+        "final_kept_acc": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 23,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 31,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 41,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 53,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          }
+        ]
+      },
+      "correlated": {
+        "per_cycle_trajectory": [
+          {
+            "cycle": 5,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 10,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 15,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 20,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 25,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 30,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 35,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 40,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 45,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          },
+          {
+            "cycle": 50,
+            "orig_recovery_acc": 1.0,
+            "kept_acc": 1.0
+          }
+        ],
+        "final_orig_recovery_acc": 1.0,
+        "final_kept_acc": 1.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 23,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 31,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 41,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          },
+          {
+            "seed": 53,
+            "trajectory": [
+              {
+                "cycle": 5,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 10,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 15,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 20,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 25,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 30,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 35,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 40,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 45,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              },
+              {
+                "cycle": 50,
+                "orig_recovery_acc": 1.0,
+                "kept_acc": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 4096,
+    "n_subjects": 20,
+    "n_cycles": 50,
+    "n_kept": 100,
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ],
+    "alpha": 1.0
+  }
+}

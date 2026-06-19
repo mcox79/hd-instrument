@@ -1,0 +1,16 @@
+{
+  "anchor_name": "storage_mixed_precision_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: mixed-precision off target. 4bit=1.000 mixed=1.000 compression-vs-4bit=1.25x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "r4": 1.0,
+      "rm": 1.0,
+      "comp": 1.250114451396307
+    }
+  ],
+  "elapsed_s": 7.074050188064575,
+  "summary": "MIDDLE_BAND: mixed-precision off target. 4bit=1.000 mixed=1.000 compression-vs-4bit=1.25x"
+}

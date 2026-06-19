@@ -1,0 +1,16 @@
+{
+  "anchor_name": "stretch3_3_meta_2level_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: depth-2 meta-cognition -- L1 knows-P >=0.80 AND L2 meta-confidence predicts L1 correctness (AUC>=0.70). Substrate knows WHAT IT KNOWS ABOUT what it knows (margin-distance = meta-certainty). L1-knows=0.998 L2-metaconf-AUC=0.998",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "l1_acc": 0.998,
+      "l2_auc": 0.9979959919839679,
+      "n": 2000
+    }
+  ],
+  "elapsed_s": 9.657073020935059,
+  "summary": "HARD_PASS: depth-2 meta-cognition -- L1 knows-P >=0.80 AND L2 meta-confidence predicts L1 correctness (AUC>=0.70). Substrate knows WHAT IT KNOWS ABOUT what it knows (margin-distance = meta-certainty). L1-knows=0.998 L2-metaconf-AUC=0.998"
+}

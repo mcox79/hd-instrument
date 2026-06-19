@@ -1,0 +1,15 @@
+{
+  "anchor_name": "orch_code_exec_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate decides+runs+uses local code end-to-end >=0.88 (route>=0.90). Substrate-as-orchestrator (code exec) validated. route-acc=1.000 end-to-end=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "route_acc": 1.0,
+      "end_to_end": 1.0
+    }
+  ],
+  "elapsed_s": 0.2984189987182617,
+  "summary": "HARD_PASS: substrate decides+runs+uses local code end-to-end >=0.88 (route>=0.90). Substrate-as-orchestrator (code exec) validated. route-acc=1.000 end-to-end=1.000"
+}

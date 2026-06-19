@@ -1,0 +1,18 @@
+{
+  "anchor_name": "erasure_hmac_keystore_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: HMAC key-deletion closes the hash-re-linkage GDPR gap -- deleted facts unverifiable + un-recomputable from content (EDPB Position 3). pre_verify=True post_key_deletion_unverifiable=True relink_impossible=True live_ok=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pre_ok": true,
+      "post_unverifiable": true,
+      "relink_impossible": true,
+      "live_ok": true,
+      "n_deleted": 20
+    }
+  ],
+  "elapsed_s": 0.004922628402709961,
+  "summary": "HARD_PASS: HMAC key-deletion closes the hash-re-linkage GDPR gap -- deleted facts unverifiable + un-recomputable from content (EDPB Position 3). pre_verify=True post_key_deletion_unverifiable=True relink_impossible=True live_ok=True"
+}

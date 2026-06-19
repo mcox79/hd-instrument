@@ -1,0 +1,15 @@
+{
+  "anchor_name": "eu_aiact_gdpr_cocompliance_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: AI Act Art-12 audit (100pct integrity) + GDPR Art-17 erasure (0 leaked content) hold SIMULTANEOUSLY -- co-compliance demo asset. erased-leak/query=0.000 audit-integrity=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "leak": 0.0,
+      "audit": 1.0
+    }
+  ],
+  "elapsed_s": 0.01005101203918457,
+  "summary": "HARD_PASS: AI Act Art-12 audit (100pct integrity) + GDPR Art-17 erasure (0 leaked content) hold SIMULTANEOUSLY -- co-compliance demo asset. erased-leak/query=0.000 audit-integrity=1.000"
+}

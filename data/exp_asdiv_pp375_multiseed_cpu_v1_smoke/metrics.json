@@ -1,0 +1,26 @@
+{
+  "anchor_name": "asdiv_pp375_multiseed_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-375 mechanism TRANSFERS to ASDiv-1op >=0.45 -- proven substrate-product mechanism (MultiArith 0.753) realizes ASDiv; substrate-self-improvement (existing mechanism -> new capability). 1op: text-order=0.4675, +search=0.4675 | overall: text-order=0.0000, +search=0.0000 (vs cascade-v2 0.309, multihop 0.376). PP-375 op-seq + answer-consistency.",
+  "summary": "HARD_PASS: PP-375 mechanism TRANSFERS to ASDiv-1op >=0.45 -- proven substrate-product mechanism (MultiArith 0.753) realizes ASDiv; substrate-self-improvement (existing mechanism -> new capability). 1op: text-order=0.4675, +search=0.4675 | overall: text-order=0.0000, +search=0.0000 (vs cascade-v2 0.309, multihop 0.376). PP-375 op-seq + answer-consistency.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.4675,
+      "std": 0.0092,
+      "vals": [
+        0.461,
+        0.4805,
+        0.461
+      ],
+      "textorder_1op": 0.4675,
+      "search_1op": 0.4675,
+      "textorder_overall": 0.0,
+      "search_overall": 0.0,
+      "n_test": 200,
+      "n_seeds": 3
+    }
+  ],
+  "elapsed_s": 0.40782737731933594
+}

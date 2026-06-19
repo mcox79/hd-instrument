@@ -1,0 +1,64 @@
+{
+  "verdict": "MULTIHOP_50HOP_VALIDATED",
+  "verdict_msg": "50-hop multi-hop reasoning validated. acc_1hop=0.987, acc_5hop=0.913, acc_50hop=0.487, per-hop retention=0.9857 (per-seed std 0.0009), log-decay slope=-0.0138/hop. Tier-2 KILLER probe passes.",
+  "elapsed_s": 10.531000000002678,
+  "summary": {
+    "per_depth_mean_acc": {
+      "1": 0.9866666666666667,
+      "5": 0.9133333333333332,
+      "10": 0.7866666666666667,
+      "25": 0.6933333333333334,
+      "50": 0.48666666666666664
+    },
+    "per_seed_acc": {
+      "17": {
+        "1": 0.98,
+        "5": 0.86,
+        "10": 0.84,
+        "25": 0.72,
+        "50": 0.5
+      },
+      "23": {
+        "1": 1.0,
+        "5": 0.94,
+        "10": 0.78,
+        "25": 0.64,
+        "50": 0.5
+      },
+      "31": {
+        "1": 0.98,
+        "5": 0.94,
+        "10": 0.74,
+        "25": 0.72,
+        "50": 0.46
+      }
+    },
+    "per_hop_retention_rate": 0.9856997173523264,
+    "log_decay_slope_per_hop": -0.013792917549292896,
+    "max_pairwise_ip_per_seed": {
+      "17": 0.0313720703125,
+      "23": 0.03076171875,
+      "31": 0.0321044921875
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 16384,
+    "num_entities": 200,
+    "num_relations": 50,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_trials": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

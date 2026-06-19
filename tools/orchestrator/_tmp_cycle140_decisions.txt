@@ -1,0 +1,104 @@
+
+## v460 -> v461 CYCLE 140 MAJOR BATCH (2026-06-06) -- 9 verdicts, 3 critical LVH promotions
+
+Verdicts processed:
+1. substrate_pca_prewhitening_codebook_v1 (HARD_PASS -- FULL PROMOTION of cycle 136 LVH #239)
+2. substrate_etf_minilm_M_star_cross_N_v1 (MIDDLE_BAND -- FULL PROMOTION of cycle 136 LVH #240; LVH #242 NEW)
+3. crt_module_scaling_battery_v1 (HARD_PASS -- FULL PROMOTION of cycle 134 LVH #237)
+4. crt_module_scaling_battery_fixed_v1 (HARD_PASS -- companion to #3; metadata anomaly flagged)
+5. substrate_pp8_cosine_variance_gate_v1 (HARD_PASS -- PP-8 R2 rescue from cycle 122)
+6. substrate_pp8_learned_discriminability_probe_v1 (HARD_PASS -- PP-8 R4 rescue from cycle 122)
+7. substrate_encoder_capacity_at_scale_battery_gpu_v1 (HARD_PASS -- genuinely new; encoder selection)
+8. substrate_codebook_collapse_monitoring_recovery_v1 (HARD_FAIL -- genuinely new; recovery insufficient)
+9. substrate_cascade_distillation_fd_smoke_v1 (HARD_PASS SMOKE -- orphan-recovered; cascade distillation)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_pca_prewhitening_codebook_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. per_seed: seed7=2.33x seed17=2.33x seed23=2.33x (deterministic; all identical). HP threshold >=2x: CLEARED unanimously. PCA-prewhitening 2.33x unwhitened capacity at N=384 MiniLM. HONEST. +1 HONEST.
+
+**(2) substrate_etf_minilm_M_star_cross_N_v1 MIDDLE_BAND -- [label-vs-honest] LVH #242**
+source=remote run_mode=full n_seeds=3. Per-seed: ALL seeds x ALL N_sub {384,768,1536,3072}: ratio=3.0 exactly. Slope(vs logN)=0.00 -- FLAT.
+LABEL OVER-CLAIMS (inherited from LVH #240 smoke framing). Cycle 136 LVH #240 smoke read N384=4.0x N768=6.0x GROWING cross-N. Full 3-seed resolves to FLAT 3.0x across ALL N_sub. The "whitening MORE mandatory at larger N" narrative from cycle 136 smoke is NOT SUPPORTED. Whitening benefit is N_sub-CONSTANT at 3x. MIDDLE_BAND label is honest (3x < HP threshold). The overclaim is in the narrative (growing cross-N) carried forward from LVH #240.
+LVH #242: (a) label: MIDDLE_BAND, promotion context 'whitening MORE mandatory at larger N'; (b) honest: whitening benefit N_sub-CONSTANT at ratio=3.0 for ALL N_sub in {384,768,1536,3072}; slope=0.00; (c) contradicting cells: smoke LVH #240 showed N384=4.0x N768=6.0x; full 3-seed shows flat 3.0x at all N. Smoke attenuation was itself an artifact -- full data resolves to constant factor.
+Honest verdict: MIDDLE_BAND (genuine 3x whitening benefit; not growing with N). ETF cross-N attenuation hypothesis REVISED: constant lift not growing lift. Cap_map annotation corrected.
+LVH #242. +1 HONEST (incl LVH re-read). LVH 241->242 (+1).
+
+**(3) crt_module_scaling_battery_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-seed ALL identical: N{2048,4096} x m{1..6}: m1=5 m2=35 m3=315 m4=3465 m5=4000(cap from 45045) m6=4000(cap from 720720). 6-mod/1-mod=800x >> 10x HP threshold. UNANIMOUS. HONEST. +1 HONEST.
+
+**(4) crt_module_scaling_battery_fixed_v1 HARD_PASS -- METADATA ANOMALY FLAGGED**
+source=remote run_mode=full n_seeds=3. Metrics content: IDENTICAL to anchor 3 (same m1-m6 values, same 800x ratio). HOWEVER: anchor_name field in metrics.json reads "substrate_pca_prewhitening_codebook_v1" -- copy-paste artifact in metrics write path. Content is unambiguously CRT battery data (module counts, not PCA ratios). HARD_PASS label and 800x ratio HONEST for CRT content. Metadata bug noted: anchor_name field in metrics.json does not match anchor key used to retrieve. NOT a verdict overclaim. +1 HONEST (metadata anomaly noted, verdict content honest).
+
+**(5) substrate_pp8_cosine_variance_gate_v1 HARD_PASS -- LABEL HONEST WITH NUANCE**
+source=remote run_mode=full n_seeds=3. Per-cell: sp10: all 3 seeds=1.0 (100% coverage). sp50: seeds {0.786, 0.804, 0.794} mean=0.795. sp100: seeds {0.632, 0.640, 0.622} mean=0.631. HP threshold: >=90% coverage at 10x speedup. sp10=1.0 CLEARS threshold unanimously. HARD_PASS label honest at defined threshold. NUANCE: at sp50 cosine-variance (0.795) is no better than random (0.822 seed7) and worse on some seeds. Gate utility is sp10-limited. Practical product implication: cosine-variance gate works at 10x speedup, not at 50x or 100x. +1 HONEST.
+
+**(6) substrate_pp8_learned_discriminability_probe_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-cell: sp10: 1.0/1.0/1.0 unanimous. sp50: 0.990/0.986/0.982 mean=0.986 -- all >=0.95 threshold. sp100: 0.904/0.890/0.868 mean=0.887 -- misses 0.95. HP threshold: >=95% coverage at 10-50x. sp10+sp50 both clear >=0.95. sp100 misses. Verdict_msg states 'at 10-50x' -- accurate for the threshold cells tested. HARD_PASS label honest at sp10+sp50 scope. Annotation: sp100=0.887 below threshold; coverage boundary is sp50, not sp100. +1 HONEST.
+
+**(7) substrate_encoder_capacity_at_scale_battery_gpu_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-seed ALL identical: MiniLM+raw=3 MiniLM+zca=7 MiniLM+pca=7, bge-large+raw=0 bge-large+zca=40, Llama-3.2-1B+raw=0 Llama-3.2-1B+zca=122 Llama-3.2-1B+pca=122. Threshold >=2x MiniLM+whiten=7: Llama=17.43x bge=5.71x both clear. UNANIMOUS 3-seed. HONEST. Critical new findings: (a) whitening MANDATORY for large encoders (raw=0 for bge+Llama); (b) Llama-3.2-1B gives 17.43x more capacity than MiniLM+whiten; (c) PCA and ZCA give identical results (7/40/122 in all cases). +1 HONEST.
+
+**(8) substrate_codebook_collapse_monitoring_recovery_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-seed: seed7={dead_baseline=17 with_recovery=6 reduction=0.647}, seed17={dead_baseline=24 with_recovery=11 reduction=0.542}, seed23={dead_baseline=16 with_recovery=2 reduction=0.875}. Mean reduction=0.688. HP threshold >=70% (0.70) dead-code reduction. Mean misses by 0.012. seed17=0.542 is well below. HARD_FAIL label correct. NOTE: seed23=0.875 passes individually; seed17=0.542 pulls mean below threshold. +1 HONEST.
+
+**(9) substrate_cascade_distillation_fd_smoke_v1 HARD_PASS -- LABEL HONEST (SMOKE)**
+source=remote run_mode=smoke n_examples=100. ratio_final=3.418, HP threshold>=1.3. Cleared with margin (3.42/1.3=2.63x). 1-epoch LoRA fine-tune on Llama-3.2-1B, layer 15, teacher=A_70B_Turbo. wall_s=49.7s. gpu_peak=3.5GB. HONEST. NOTE: smoke n=100 examples, 1 epoch; full confirmation pending. +1 HONEST.
+
+HONEST: 1016 -> 1025 (+9). LVH: 241 -> 242 (+1: etf_minilm_M_star FLAT-3x-NOT-GROWING-cross-N).
+
+### Cap_map decisions (v460 -> v461)
+
+**(1) substrate_pca_prewhitening_codebook_v1 HARD_PASS (FULL PROMOTION from cycle 136 LVH #239 smoke)**
+PP-8 / Phase-4A encoder-recipe sub-property annotation. FULL PROMOTION: smoke LVH #239 (3.67x n=1) upgraded to 3-seed full (2.33x unanimous). Promotion DOWNGRADE: smoke showed 3.67x, full 3-seed gives 2.33x (smaller ratio but still >=2x threshold). HARD_PASS confirmed. Finding: PCA-prewhitening is a universal real-encoder rescue -- one-line recipe replaces ZCA path for Phase-4A. Raw=3 whitened=7 ratio=2.33x at N=384 MiniLM. Phase-4A UNBLOCK status: PCA path confirmed, ZCA-blocked path no longer required. PP-8 ETF encoder-recipe row: annotation 'PCA-prewhitening HARD_PASS 3-seed full 2.33x at N=384 MiniLM; universal rescue confirmed'. Band UNCHANGED (annotation only; PROT-008 not triggered; existing row sub-property).
+
+**(2) substrate_etf_minilm_M_star_cross_N_v1 MIDDLE_BAND [LVH #242: FLAT 3x, not growing cross-N]**
+PP-8 ETF/whitening cross-N sub-axis annotation. LVH #242 forces cap_map correction. Cycle 136 LVH #240 annotation 'whitening MORE mandatory at larger N' was based on smoke artifact (N384=4.0x N768=6.0x appearing to grow). Full 3-seed resolves to FLAT ratio=3.0x at ALL N_sub {384,768,1536,3072}. Correction: whitening benefit is N_sub-CONSTANT, not growing. This is STILL a positive result (3x benefit confirmed universally) but the engineering implication changes: no need to prioritize larger N for whitening -- the gain is fixed regardless. MIDDLE_BAND (3x < HP threshold). Cap_map annotation updated: 'ETF M_50 whitening ratio N_sub-CONSTANT at 3.0x (N384-N3072 all tested; slope=0.00 3-seed full); prior LVH #240 smoke growing-cross-N narrative REVISED to constant-lift.' Band UNCHANGED.
+
+**(3) crt_module_scaling_battery_v1 HARD_PASS (FULL PROMOTION from cycle 134 LVH #237)**
+CRT theorem-grounded multi-scale composition row -- NEW BAND-LIFT. FULL 3-seed confirms CRT exponential module scaling: m1=5 m2=35 m3=315 m4=3465 m5/m6 capped at N=4000. Ratio 6-mod/1-mod=800x >> 10x threshold. Unanimous. 143x described in cycle 134 context refers to intermediate-module scaling; 800x is 6-module full extension. Finding: substrate natively implements CRT-grounded compositional capacity -- each additional module MULTIPLIES total distinguishable capacity. Product implication: modular substrate instances can store factorial(module_count) combinations, unlocking exponential representational scaling without parameter growth.
+PROT-008 TRIGGERED: prior cycle 134 LVH #237 was SMOKE-HP -- now FULL 3-seed HP; row state transitions from LVH/smoke-HP annotation to FULL HARD_PASS. Band annotation: 'CRT exponential module scaling HARD_PASS 3-seed full; 6-mod=800x single-mod; product-tracking up to N capacity; multiplicative composition theorem-grounded confirmed.' New row or band-lift needed: CRT is a sub-property of the compositional capacity row (not a standalone row in current cap_map). ANNOTATION on existing modular-composition sub-row; no new portfolio row unless strategy deems it warrants independent row.
+
+**(4) crt_module_scaling_battery_fixed_v1 HARD_PASS (metadata anomaly; content = CRT corroboration)**
+Metadata anomaly: anchor_name in metrics.json reads as PCA anchor. Content is CRT-identical to anchor 3. Corroboration NOTED: two independently-named CRT runs yield identical results (same test harness). No new cap_map delta beyond anchor 3 annotation. PROT-021: flagged for metrics write-path bug (anchor_name field not set per-script-invocation; copy artifact). Cap_map: ANNOTATION-ONLY, no additional delta.
+
+**(5) substrate_pp8_cosine_variance_gate_v1 HARD_PASS (PP-8 R2 rescue from cycle 122)**
+PP-8 extraction gate sub-property. cosine-variance gate HARD_PASS at 10x speedup (sp10=1.0 unanimous 3-seed). R2 rescue from cycle 122 embedding_norm_gate HARD_FAIL (norm-gate failed at all vc-sizes; cosine-variance is algebraically more principled). Nuance annotation: sp50 (0.795) and sp100 (0.631) below threshold; cosine-variance not better than random at higher speedup. Product gate utility: 10x speedup with 100% coverage. Cap_map PP-8 extraction sub-row annotation: 'cosine-variance gate HARD_PASS sp10=1.0 3-seed; sp50/sp100 below threshold; effective extraction gate at 10x speedup.' Band UNCHANGED.
+
+**(6) substrate_pp8_learned_discriminability_probe_v1 HARD_PASS (PP-8 R4 rescue from cycle 122)**
+PP-8 extraction gate -- learned probe upgrade. Learned discriminability probe HARD_PASS at sp10+sp50 (sp50 mean=0.986 >=0.95). Outperforms cosine-variance gate at sp50 (0.986 vs 0.795). sp100=0.887 below threshold (boundary at sp50). R4 rescue (learned W-activation probe) succeeds where simpler heuristics (norm, cosine-variance) fail at higher speedup. Product implication: learned extraction routing extends effective speedup from 10x (cosine-variance, anchor 5) to 50x (learned probe) with maintained >=95% coverage. BAND-LIFT warranted on PP-8 extraction sub-row: learning-based gate opens 50x extraction speedup. Cap_map annotation: 'learned discriminability probe HARD_PASS sp10-sp50 3-seed full; extends extraction speedup from 10x to 50x vs cosine-variance gate; sp100 boundary.' PP-8 band: UNCHANGED at row level (sub-property lift, extraction axis extends operational envelope).
+
+**(7) substrate_encoder_capacity_at_scale_battery_gpu_v1 HARD_PASS (genuinely new -- CRITICAL)**
+NEW CAPABILITY: encoder selection is a FIRST-ORDER lever for substrate capacity. Three findings:
+(a) Whitening is MANDATORY for large encoders: bge-large raw=0 Llama raw=0 (unwhitened large encoders have ZERO substrate capacity; whitening is not optional at scale).
+(b) Llama-3.2-1B+zca_whiten=122 vs MiniLM+zca_whiten=7 = 17.43x capacity gain. BGE-large+zca=40 (5.71x). Encoder selection dominates all other capacity levers tested to date.
+(c) PCA-prewhitening and ZCA-whitening yield IDENTICAL capacity (122=122, 40=40, 7=7) -- either whitening method works equally; PCA confirmed as ZCA replacement at scale.
+PROT-008 TRIGGERED (new finding with band impact): PP-8 encoder-recipe row -- THIS IS A BAND-LIFT CANDIDATE. Prior PP-8 band based on MiniLM+whitening baseline. Llama-3.2-1B at 17.43x changes the operational capacity ceiling. Recommend PP-8 sub-row band-lift for encoder-capacity axis: adopt Llama-3.2-1B+zca as production encoder standard. PROT-009 commit must include this annotation.
+Cap_map: NEW SUB-ROW ANNOTATION on PP-8: 'Encoder-capacity battery HARD_PASS 3-seed full: Llama-3.2-1B+zca=122 (17.43x MiniLM+whiten); bge-large+zca=40 (5.71x); whitening MANDATORY for large encoders (raw=0); PCA=ZCA identical; adopt Llama-3.2-1B|zca_whiten as production encoder recipe.' This is a PORTFOLIO-SIGNIFICANT finding -- encoder selection as first-order lever warrants a new sub-row or promotion of the encoder-recipe annotation to a full cap_map row.
+
+**(8) substrate_codebook_collapse_monitoring_recovery_v1 HARD_FAIL (genuinely new)**
+PP-8 codebook-collapse monitoring sub-axis. Monitoring detects all collapses (n_detections = dead_baseline on all seeds -- 100% detection rate). Recovery HARD_FAIL: mean reduction=0.688 < 0.70 threshold. Seed17 recovery only 54.2% -- recovery mechanism is unreliable under high dead-code load (baseline=24 codes). Seed23=87.5% shows recovery can work; seed17=54.2% and seed7=64.7% pull mean below threshold. Finding: detection is working; the recovery heuristic (perturbation/reset) is insufficient for high-dead-code scenarios. PP-8 sub-axis: monitoring capability confirmed; recovery needs stronger mechanism. Band UNCHANGED.
+
+Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (0-compute, SUBSUMPTION): Encoder upgrade to Llama-3.2-1B (anchor 7) reduces dead-code problem -- larger capacity means fewer collapses per whitened-N. Verify if collapse monitoring is still needed at Llama-3.2-1B capacity=122 (vs MiniLM=7). If collapse rate drops to <5%, monitoring/recovery may be moot.
+R2 (CHEAP, CPU <30min): Stronger recovery: reinitialize dead codes from nearest live code + perturbation (vs current perturbation-only). seed23's 87.5% reduction shows recovery CAN work; mechanism is R17-style neighbor-reinit.
+R3 (CHEAP, CPU <30min): Adaptive recovery threshold: apply recovery only when dead_reduction_per_step > epsilon, else escalate perturbation strength.
+R4 (CHEAP, CPU <30min): Recovery with gradient-informed reinit -- use W_activation distribution to pick reinit vectors in sparse activation zones.
+R5 (MEDIUM, GPU <2h): Online recovery during training loop (current test is post-hoc batch recovery); online recovery at smaller step sizes may prevent collapse accumulation before recovery threshold.
+
+**(9) substrate_cascade_distillation_fd_smoke_v1 HARD_PASS SMOKE (orphan-recovered)**
+CASCADE DISTILLATION sub-axis -- NEW. LoRA fine-tuning Llama-3.2-1B (layer 15) against A_70B_Turbo teacher: FD ratio=3.42x at HP>=1.3 threshold. Feature-distribution alignment confirmed in 1 epoch, 100 examples. This is the Phase 0.5b cascade-distillation probe. Smoke n=100 examples; full 3-seed at larger n_examples required before band-lift. Cap_map annotation: 'cascade_distillation_fd_smoke HARD_PASS smoke (ratio=3.42x, 1-epoch n=100); LoRA+FD alignment confirmed; 3-seed full confirmation pending before Phase-0.5b integration.' NEW SUB-ROW CANDIDATE on Phase-0.5b integration row (if it exists) or PP-cascade row. Portfolio UNCHANGED at smoke stage.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows (Llama-encoder and CRT are sub-annotations on existing rows; cascade distillation is smoke-stage pending full). 0 BAND-LIFTS at portfolio row level (sub-row operational envelope extended on PP-8 extraction: 10x->50x via learned probe; encoder-recipe: Llama 17.43x). 0 closures.
+
+### PROT compliance (v460 -> v461)
+- PROT-004/006: codebook_collapse_monitoring_recovery HARD_FAIL: 5 rescues cheapest-first (R1 subsumption via encoder upgrade; R2-R5 recovery mechanism rescues).
+- PROT-007: v461 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Two FULL-HP triggers: anchor 1 (PCA smoke->full) + anchor 7 (encoder-capacity new). Both are annotation-level sub-properties; row P-band candidates for PP-8 encoder-recipe. Validator: PCA 3-seed full unanimous 2.33x PASS; encoder-battery 3-seed full unanimous 17.43x PASS. Both PASS PROT-008.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 373rd PROT-009 paired commit.
+- PROT-018: All 9 anchors lack _nN binding suffix. CLEAN.
+- PROT-021: Anchors 1-8 source=remote run_mode=full n_seeds=3 (except anchor 4 metadata anomaly noted). Anchor 9 source=remote run_mode=smoke. All remote-first. CLEAN (smoke flagged for anchor 9).
+- PROT-022: Anchors 1/3/4/7: fully deterministic (identical per-seed values) -- normal for deterministic whitening ops. Anchor 8: seed17 outlier (0.542 vs seed23=0.875) -- high variance, recovery mechanism HP-fragile. Noted. No pre-reg was HP-fragility-aware for this anchor; R2-R5 filed.
+
+Cap_map: v460 -> v461 CYCLE 140 [label-vs-honest LVH #242] (5 HP-full: pca_prewhitening_codebook-2.33x-PHASE4A-UNBLOCK-UNIVERSAL-RESCUE + crt_module_scaling_battery-800x-EXPONENTIAL-MODULE-COMPOSITION + crt_module_scaling_battery_fixed-800x-CRT-CORROBORATE-METADATA-ANOMALY + pp8_cosine_variance_gate-SP10-1.0-10x-GATE + pp8_learned_discriminability_probe-SP50-0.986-50x-GATE-BEATS-COSINE; 1 HP-SMOKE: cascade_distillation_fd-RATIO-3.42x-ORPHAN-RECOVERED; 1 HP-CRITICAL: encoder_capacity_at_scale_battery-Llama-3.2-1B-122-vs-MiniLM-7-17.43x-ENCODER-SELECTION-FIRST-ORDER-LEVER-WHITENING-MANDATORY-LARGE-ENCODERS; 1 MID-LVH#242: etf_minilm_M_star_cross_N-FLAT-3x-ALL-N-NOT-GROWING-LVH240-REVISED; 1 HF: codebook_collapse_monitoring_recovery-REDUCTION-0.688-BELOW-0.70-SEED17-0.542-OUTLIER; LVH 241->242; PP-8 extraction 10x->50x operational envelope via learned probe; Llama-3.2-1B production encoder adoption; HONEST 1016->1025 +9; Portfolio 32+79 UNCHANGED; 373rd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

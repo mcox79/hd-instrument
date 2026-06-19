@@ -1,0 +1,15 @@
+{
+  "anchor_name": "f2_latency_at_scale_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: P95@100K 5-10ms. P95@100K=5.567ms P95@1M=23.368ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "p95_100k": 5.567380058346317,
+      "p95_1m": 23.3675200259313
+    }
+  ],
+  "elapsed_s": 3.438410758972168,
+  "summary": "MIDDLE_BAND: P95@100K 5-10ms. P95@100K=5.567ms P95@1M=23.368ms"
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "t5c_e1_random_substrate_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: random substrate gives <2%% of the real improvement -- the real past-token substrate provides GENUINE SIGNAL (H3 regularization refuted as primary; Path A is real context, not architecture artifact). random-substrate ratio=1.0000x (improvement 0.00%, = 0.0% of real 16.4%) gates=[0.020,0.015]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 43.37584650036866,
+      "mod_ppl": 43.37585065919232,
+      "ratio": 1.0000000958787896,
+      "gate0": 0.019897008314728737,
+      "gate1": 0.014835646376013756,
+      "used": false
+    }
+  ],
+  "elapsed_s": 59.321629762649536,
+  "summary": "HARD_PASS: random substrate gives <2%% of the real improvement -- the real past-token substrate provides GENUINE SIGNAL (H3 regularization refuted as primary; Path A is real context, not architecture artifact). random-substrate ratio=1.0000x (improvement 0.00%, = 0.0% of real 16.4%) gates=[0.020,0.015]"
+}

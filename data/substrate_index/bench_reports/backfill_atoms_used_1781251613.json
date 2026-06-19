@@ -1,0 +1,51 @@
+{
+  "dry_run": false,
+  "stats": {
+    "n_caps": 27,
+    "n_caps_updated": 11,
+    "n_entries_updated": 21,
+    "n_entries_already": 24,
+    "n_solver_missing": 10
+  },
+  "examples": [
+    {
+      "cap": "concept::PP-376_multibench_math",
+      "sol": "math::T3/count_nb",
+      "atoms_used": [
+        "math::T1/bayes_rule",
+        "math::T1/probability_distribution",
+        "math::T2/tier2_schema"
+      ]
+    },
+    {
+      "cap": "concept::PP-376_multibench_math",
+      "sol": "math::T2/tier2_schema",
+      "atoms_used": []
+    },
+    {
+      "cap": "concept::PP-376_multibench_math",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    },
+    {
+      "cap": "concept::PP-375_multistep_math",
+      "sol": "math::T3/count_nb",
+      "atoms_used": [
+        "math::T1/bayes_rule",
+        "math::T1/probability_distribution",
+        "math::T2/tier2_schema"
+      ]
+    },
+    {
+      "cap": "concept::PP-375_multistep_math",
+      "sol": "math::T3/discriminative_perceptron",
+      "atoms_used": [
+        "math::T2/tier2_schema",
+        "math::T3/perceptron_update"
+      ]
+    }
+  ]
+}

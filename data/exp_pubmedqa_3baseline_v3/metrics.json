@@ -1,0 +1,17 @@
+{
+  "anchor_name": "pubmedqa_3baseline_v3",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: both RAG and substrate beat bare by >=0.10 acc on medical PubMedQA, substrate within 90%% of RAG -- regulated-domain north-star confirmed. bare=0.510 vanilla-RAG=0.850 substrate=0.810 (n=200, PubMedQA final_decision accuracy, Qwen2.5-1.5B + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "bare": 0.51,
+      "rag": 0.85,
+      "sub": 0.81
+    }
+  ],
+  "elapsed_s": 78.65810489654541,
+  "summary": "HARD_PASS: both RAG and substrate beat bare by >=0.10 acc on medical PubMedQA, substrate within 90%% of RAG -- regulated-domain north-star confirmed. bare=0.510 vanilla-RAG=0.850 substrate=0.810 (n=200, PubMedQA final_decision accuracy, Qwen2.5-1.5B + bge-small)"
+}

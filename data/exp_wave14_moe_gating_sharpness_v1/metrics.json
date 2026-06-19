@@ -1,0 +1,41 @@
+{
+  "verdict": "GATING_HARD_FAIL",
+  "verdict_msg": "Gating sharpness NOT a significant lever: max_lift=-0.0053, lift_range=0.0547. mean_single=0.8476. | t=0.05:lift=-0.0053 t=0.25:lift=-0.0167 t=1.0:lift=-0.0600",
+  "elapsed_s": 0.068,
+  "summary": {
+    "N": 512,
+    "K": 4,
+    "M_per_expert": 201,
+    "mean_single": 0.8476,
+    "max_lift": -0.0053,
+    "lift_range": 0.0547,
+    "tau_results": {
+      "0.05": {
+        "mean_retention": 0.8423,
+        "lift": -0.0053
+      },
+      "0.25": {
+        "mean_retention": 0.8309,
+        "lift": -0.0167
+      },
+      "1.0": {
+        "mean_retention": 0.7876,
+        "lift": -0.06
+      }
+    }
+  },
+  "config": {
+    "N": 512,
+    "K": 4,
+    "M_fraction": 0.7,
+    "tau_sweep": [
+      0.05,
+      0.25,
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "anchor_name": "combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: N=32768 5-seed production-lock verified. l3_fid=1.0000(HP>=0.85 HF<0.5) b_rep=1.0000(HP>=0.95 HF<0.5) parity_contam=0.0000(HP<=0.05) n_seeds=5 N=32768",
+  "N": 32768,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 1.6137449741363525,
+  "per_seed": [
+    {
+      "seed": 7,
+      "l3_fidelity_A": 1.000000034228543,
+      "b_repulsion_rate": 1.0,
+      "parity_contamination": 0.0,
+      "peak_gpu_gb": 0.037879808
+    },
+    {
+      "seed": 17,
+      "l3_fidelity_A": 1.000000034228543,
+      "b_repulsion_rate": 1.0,
+      "parity_contamination": 0.0,
+      "peak_gpu_gb": 0.037879808
+    },
+    {
+      "seed": 23,
+      "l3_fidelity_A": 1.000000034228543,
+      "b_repulsion_rate": 1.0,
+      "parity_contamination": 0.0,
+      "peak_gpu_gb": 0.037879808
+    },
+    {
+      "seed": 31,
+      "l3_fidelity_A": 1.000000034228543,
+      "b_repulsion_rate": 1.0,
+      "parity_contamination": 0.0,
+      "peak_gpu_gb": 0.037879808
+    },
+    {
+      "seed": 41,
+      "l3_fidelity_A": 1.000000034228543,
+      "b_repulsion_rate": 1.0,
+      "parity_contamination": 0.0,
+      "peak_gpu_gb": 0.037879808
+    }
+  ]
+}

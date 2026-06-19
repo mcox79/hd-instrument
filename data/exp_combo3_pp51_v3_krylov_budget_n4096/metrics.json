@@ -1,0 +1,41 @@
+{
+  "anchor_name": "combo3_pp51_v3_krylov_budget_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: max_rel=1.34e-02 cert_diff=0.00e+00. mean_rel tr1=1.34e-02 tr2=1.29e-02 tr3=1.23e-02(HP<1e-03) cert_diff=0.00e+00 krylov_matvec=50 hp1=0/2 hp2=0/2 hp3=0/2 hp4=2/2 hp5=2/2 N=4096",
+  "N": 4096,
+  "M": 25,
+  "krylov_matvec": 50,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.04419970512390137,
+  "per_seed": [
+    {
+      "seed": 7,
+      "rel_tr1": 0.015504989624023437,
+      "rel_tr2": 0.01481943425635086,
+      "rel_tr3": 0.014116510647754824,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 50,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.061820928
+    },
+    {
+      "seed": 17,
+      "rel_tr1": 0.011382522583007813,
+      "rel_tr2": 0.010918916067940116,
+      "rel_tr3": 0.010567841139121553,
+      "mean_cert_diff": 0.0,
+      "matvec_count": 50,
+      "hp1": false,
+      "hp2": false,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true,
+      "peak_gpu_gb": 0.061820928
+    }
+  ]
+}

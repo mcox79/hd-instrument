@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_pool_size_annealed_v2",
+      "script": "experiments/exp_wave14b_phase_b2_pool_size_annealed.py",
+      "status": "pending",
+      "purpose": "Re-queue: diagnostic with sqrt(log P) BETA scaling",
+      "timeout_s": 1800
+    }
+  ]
+}

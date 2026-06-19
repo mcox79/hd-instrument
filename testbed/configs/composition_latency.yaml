@@ -1,0 +1,40 @@
+# Q3 / E2.3 — Operation composition latency
+#
+# 5 mix-ratio profiles run sequentially against the SAME backend instance,
+# 100K ops per ratio = 500K ops total. Surfaces drift over production-scale
+# sustained operation and cross-ratio impact (does ratio-5 see degradation
+# from substrate state accumulated in ratios 1-4?).
+#
+# Per-cell stdout progress + per-ratio partial JSON to support restart per
+# feedback_testbed_progress_logging_and_restart memory rule.
+#
+# Wall-time estimate (rough):
+#   substrate at N=2048 M=2000 batch=64: ~80-130 ops/s -> ~13-21 min/ratio
+#       => 65-105 min substrate
+#   faiss: ~500 ops/s -> ~3 min/ratio => 15 min faiss
+#   dict: ~80 ops/s -> ~21 min/ratio => 105 min dict
+#   total chain: ~3-4 hours
+
+config_name: composition_latency
+
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 4
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+
+# Composition_latency-specific knobs
+composition_latency_M_base: 2000
+composition_latency_N_ops_per_ratio: 100000
+composition_latency_read_batch_size: 64
+composition_latency_n_deciles: 10
+# composition_latency_skip_ratios: []   # uncomment + populate for restart
+# composition_latency_partial_dir: "testbed_data/composition_latency_partial"
+
+seeds: [7]
+backends: [substrate, faiss, dict]
+scenarios: [composition_latency]
+out_root: testbed_data/benchmarks

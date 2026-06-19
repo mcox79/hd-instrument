@@ -1,0 +1,72 @@
+{
+  "verdict": "PB2_BSC_HARD_FAIL",
+  "verdict_msg": "No correlation-length divergence. xi_by_mf={'0.05': 0.0, '0.13': 0.0, '0.20': 0.0}. xi_low(M/N=0.05)=0.0000 xi_high(near_cap)=0.0000 xi_ratio=0.00. xi monotone or decreasing with load. Substrate robust to capacity boundary.",
+  "elapsed_s": 0.061837196350097656,
+  "config": {
+    "N": 1024,
+    "m_fracs": [
+      0.05,
+      0.13,
+      0.2
+    ],
+    "n_edits": 5,
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "M": 51,
+        "M_over_N": 0.0498046875,
+        "seed": 17,
+        "mean_xi": 0.0,
+        "n_edits_run": 5,
+        "xi_vals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "M": 133,
+        "M_over_N": 0.1298828125,
+        "seed": 17,
+        "mean_xi": 0.0,
+        "n_edits_run": 5,
+        "xi_vals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "M": 204,
+        "M_over_N": 0.19921875,
+        "seed": 17,
+        "mean_xi": 0.0,
+        "n_edits_run": 5,
+        "xi_vals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "N": 1024,
+    "m_fracs": [
+      0.05,
+      0.13,
+      0.2
+    ],
+    "n_edits": 5,
+    "smoke": true
+  }
+}

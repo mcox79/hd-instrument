@@ -1,0 +1,36 @@
+{
+  "verdict": "BET_V_PARTIAL",
+  "verdict_msg": "Some separation: stored=0.574, unstored=0.150, gap=0.424.",
+  "elapsed_s": 0.20300000000861473,
+  "summary": {
+    "stored_confidence": 0.5742388671253776,
+    "unstored_confidence": 0.14975323792540285,
+    "per_seed": [
+      {
+        "stored": 0.5674952676068513,
+        "unstored": 0.16033477905482146
+      },
+      {
+        "stored": 0.5818821481078204,
+        "unstored": 0.1835138261839763
+      },
+      {
+        "stored": 0.5733391856614614,
+        "unstored": 0.10541110853741074
+      }
+    ]
+  },
+  "config": {
+    "mode": "full",
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "n_probes": 50,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

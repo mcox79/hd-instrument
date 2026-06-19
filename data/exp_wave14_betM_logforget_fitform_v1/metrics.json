@@ -1,0 +1,196 @@
+{
+  "verdict": "BETM_LOGFORGET_MIDDLE_BAND",
+  "verdict_msg": "Intermediate: correct=4/5, median_BIC_gap=2.23. correct_forms=4/5, median_BIC_gap=2.23, per_form_gaps=[2.22, 2.59, 2.14, 6.22, 2.23].",
+  "elapsed_s": 15.26500000001397,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "A_powerlaw": {
+          "correct_rate": 0.6333333333333333,
+          "mean_bic_gap": 2.5369442898892465,
+          "max_bic_gap": 7.8132565245389145,
+          "min_bic_gap": 0.16135173643534984
+        },
+        "B_log": {
+          "correct_rate": 0.6666666666666666,
+          "mean_bic_gap": 3.2497492834656367,
+          "max_bic_gap": 11.40867393462078,
+          "min_bic_gap": 0.025500434015789608
+        },
+        "C_sqrt": {
+          "correct_rate": 0.5666666666666667,
+          "mean_bic_gap": 2.4761216145813107,
+          "max_bic_gap": 8.024512846615906,
+          "min_bic_gap": 0.06959961424200856
+        },
+        "D_exp": {
+          "correct_rate": 0.8333333333333334,
+          "mean_bic_gap": 5.972767233800434,
+          "max_bic_gap": 14.659693874642706,
+          "min_bic_gap": 0.08479578287975187
+        },
+        "E_satlog": {
+          "correct_rate": 0.2,
+          "mean_bic_gap": 2.4332859847723274,
+          "max_bic_gap": 7.3980840679713396,
+          "min_bic_gap": 0.13865518816300693
+        }
+      },
+      "17": {
+        "A_powerlaw": {
+          "correct_rate": 0.7,
+          "mean_bic_gap": 2.25675953082221,
+          "max_bic_gap": 7.5825278150721545,
+          "min_bic_gap": 0.19752442250236868
+        },
+        "B_log": {
+          "correct_rate": 0.6333333333333333,
+          "mean_bic_gap": 2.240385282926019,
+          "max_bic_gap": 5.987937490245912,
+          "min_bic_gap": 0.07445378517536483
+        },
+        "C_sqrt": {
+          "correct_rate": 0.6,
+          "mean_bic_gap": 2.1429307991855238,
+          "max_bic_gap": 6.082611815291486,
+          "min_bic_gap": 0.005719450639261936
+        },
+        "D_exp": {
+          "correct_rate": 0.9,
+          "mean_bic_gap": 6.1112163764167144,
+          "max_bic_gap": 13.665526747002232,
+          "min_bic_gap": 0.2479186287333306
+        },
+        "E_satlog": {
+          "correct_rate": 0.3,
+          "mean_bic_gap": 2.2509571526334513,
+          "max_bic_gap": 8.13947963050667,
+          "min_bic_gap": 0.07598132597951235
+        }
+      },
+      "23": {
+        "A_powerlaw": {
+          "correct_rate": 0.5666666666666667,
+          "mean_bic_gap": 2.4100704356071088,
+          "max_bic_gap": 9.866186662172481,
+          "min_bic_gap": 0.13232404769308914
+        },
+        "B_log": {
+          "correct_rate": 0.6,
+          "mean_bic_gap": 2.2854948947377665,
+          "max_bic_gap": 12.235749013179898,
+          "min_bic_gap": 0.006506948980671723
+        },
+        "C_sqrt": {
+          "correct_rate": 0.5666666666666667,
+          "mean_bic_gap": 1.9985054103914786,
+          "max_bic_gap": 7.012143534147057,
+          "min_bic_gap": 0.037076373387264994
+        },
+        "D_exp": {
+          "correct_rate": 0.8333333333333334,
+          "mean_bic_gap": 6.853532461755199,
+          "max_bic_gap": 14.473568918978977,
+          "min_bic_gap": 0.041359761384001104
+        },
+        "E_satlog": {
+          "correct_rate": 0.3,
+          "mean_bic_gap": 2.4126652205676438,
+          "max_bic_gap": 9.873148748294867,
+          "min_bic_gap": 0.021148339817465
+        }
+      },
+      "31": {
+        "A_powerlaw": {
+          "correct_rate": 0.5666666666666667,
+          "mean_bic_gap": 2.167578180205905,
+          "max_bic_gap": 7.503145599930775,
+          "min_bic_gap": 0.14382384746370747
+        },
+        "B_log": {
+          "correct_rate": 0.6333333333333333,
+          "mean_bic_gap": 2.536800762113464,
+          "max_bic_gap": 12.593649621504255,
+          "min_bic_gap": 0.17290573387288077
+        },
+        "C_sqrt": {
+          "correct_rate": 0.6666666666666666,
+          "mean_bic_gap": 2.034245342408276,
+          "max_bic_gap": 5.469284747096921,
+          "min_bic_gap": 0.08902388963320362
+        },
+        "D_exp": {
+          "correct_rate": 0.9,
+          "mean_bic_gap": 6.0547858521345175,
+          "max_bic_gap": 13.908390712558493,
+          "min_bic_gap": 0.5788973540658873
+        },
+        "E_satlog": {
+          "correct_rate": 0.2,
+          "mean_bic_gap": 2.314093821851746,
+          "max_bic_gap": 5.51661117771468,
+          "min_bic_gap": 0.11544913019793057
+        }
+      },
+      "41": {
+        "A_powerlaw": {
+          "correct_rate": 0.5,
+          "mean_bic_gap": 1.7449673096075056,
+          "max_bic_gap": 8.720579482094507,
+          "min_bic_gap": 0.028084825909175493
+        },
+        "B_log": {
+          "correct_rate": 0.6,
+          "mean_bic_gap": 2.633368881742916,
+          "max_bic_gap": 8.042465841734227,
+          "min_bic_gap": 0.09865686290009279
+        },
+        "C_sqrt": {
+          "correct_rate": 0.6,
+          "mean_bic_gap": 2.0716368902593953,
+          "max_bic_gap": 6.37792384832413,
+          "min_bic_gap": 0.018324980524994317
+        },
+        "D_exp": {
+          "correct_rate": 0.9,
+          "mean_bic_gap": 6.125578530778815,
+          "max_bic_gap": 15.411885176678972,
+          "min_bic_gap": 0.2900510607819058
+        },
+        "E_satlog": {
+          "correct_rate": 0.36666666666666664,
+          "mean_bic_gap": 1.7280744702570194,
+          "max_bic_gap": 5.971618775419103,
+          "min_bic_gap": 0.07720066675848614
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "t_grid": [
+      1.0,
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      13.0,
+      21.0,
+      34.0,
+      55.0
+    ],
+    "n_replicates": 30,
+    "noise_std": 0.02,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_correct_form": 4,
+    "pass_bic_gap": 4.0,
+    "fail_correct_form": 2,
+    "fail_max_bic_gap": 2.0
+  }
+}

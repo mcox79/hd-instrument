@@ -1,0 +1,17 @@
+{
+  "anchor_name": "zkl_hypB_repool_debias_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (b borderline): reduces ZKL but not to <=0.10 (or F1 cost) -- queue (a) attention-reweighting next. debiased-meanpool ZKL(50)=0.826 KEY-job-F1=1.000 (F1 drop=0.000); baseline ZKL~0.22 (n_stored=500)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "zkl": 0.826,
+      "keyf1": 1.0,
+      "n": 500,
+      "k": 50
+    }
+  ],
+  "elapsed_s": 936.2219743728638,
+  "summary": "MIDDLE_BAND (b borderline): reduces ZKL but not to <=0.10 (or F1 cost) -- queue (a) attention-reweighting next. debiased-meanpool ZKL(50)=0.826 KEY-job-F1=1.000 (F1 drop=0.000); baseline ZKL~0.22 (n_stored=500)"
+}

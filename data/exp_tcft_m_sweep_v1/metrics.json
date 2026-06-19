@@ -1,0 +1,47 @@
+{
+  "verdict": "TCFT_M_SWEEP_HARD_PASS",
+  "verdict_msg": "1/sqrt(M) CONVERGENCE CONFIRMED. vr_by_M={32: 0.098536, 64: 0.015486}. spearman_r=-1.000. all_M>=512_below_0.10=True. Deletion-cert Cat-A foundation: BULLETPROOF across M range.",
+  "elapsed_s": 0.2272634506225586,
+  "config": {
+    "N": 512,
+    "M_values": [
+      32,
+      64
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "N": 512,
+        "M": 32,
+        "seed": 17,
+        "elapsed_s": 0.08299803733825684,
+        "vanilla_variance": 0.28107863662178734,
+        "tcft_valid": true,
+        "tcft_variance_ratio": 0.09853602454523026,
+        "delta_F_agree_pct": 100.97127183473901
+      },
+      {
+        "N": 512,
+        "M": 64,
+        "seed": 17,
+        "elapsed_s": 0.14227032661437988,
+        "vanilla_variance": 4.0572753868921465,
+        "tcft_valid": true,
+        "tcft_variance_ratio": 0.015486400098308973,
+        "delta_F_agree_pct": 99.78728163429615
+      }
+    ],
+    "N_full": 8192,
+    "N_used": 512,
+    "M_values": [
+      32,
+      64
+    ],
+    "smoke": true
+  }
+}

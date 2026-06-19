@@ -1,0 +1,18 @@
+{
+  "anchor_name": "zkl_curve_k_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ZKL(50)>0.30 -- leakage not sublinear; no structural privacy advantage. ZKL curve (TPR@FPR=0.01): {'k1': 0.0, 'k10': 0.0667, 'k50': 0.3833}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_k": {
+        "k1": 0.0,
+        "k10": 0.06666666666666667,
+        "k50": 0.38333333333333336
+      }
+    }
+  ],
+  "elapsed_s": 1.6490716934204102,
+  "summary": "HARD_FAIL: ZKL(50)>0.30 -- leakage not sublinear; no structural privacy advantage. ZKL curve (TPR@FPR=0.01): {'k1': 0.0, 'k10': 0.0667, 'k50': 0.3833}"
+}

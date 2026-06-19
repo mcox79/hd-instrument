@@ -1,0 +1,59 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "ALPHA_C": 0.138,
+  "ALPHA_LIST": [
+    0.09,
+    0.12,
+    0.138,
+    0.16,
+    0.2,
+    0.24
+  ],
+  "M_EVAL": 50,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "0.09": {
+      "alpha": 0.09,
+      "mean_accuracy": 0.99986328125,
+      "std_accuracy": 0.0,
+      "n_seeds": 2
+    },
+    "0.12": {
+      "alpha": 0.12,
+      "mean_accuracy": 0.999287109375,
+      "std_accuracy": 0.0001464843749999778,
+      "n_seeds": 2
+    },
+    "0.138": {
+      "alpha": 0.138,
+      "mean_accuracy": 0.998984375,
+      "std_accuracy": 0.00013671874999998668,
+      "n_seeds": 2
+    },
+    "0.16": {
+      "alpha": 0.16,
+      "mean_accuracy": 0.998095703125,
+      "std_accuracy": 8.789062499997558e-05,
+      "n_seeds": 2
+    },
+    "0.2": {
+      "alpha": 0.2,
+      "mean_accuracy": 0.9964941406250001,
+      "std_accuracy": 6.835937499999334e-05,
+      "n_seeds": 2
+    },
+    "0.24": {
+      "alpha": 0.24,
+      "mean_accuracy": 0.994111328125,
+      "std_accuracy": 0.0003808593749999867,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Graceful capacity degradation confirmed. max_step=0.0024 (HP<0.15). slope=-0.0386 p=0.0007 (sig negative decline). No sharp cliff in alpha=[0.090,0.240].",
+  "elapsed_s": 0.2709510326385498
+}

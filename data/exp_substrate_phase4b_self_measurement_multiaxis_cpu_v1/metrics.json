@@ -1,0 +1,44 @@
+{
+  "anchor_name": "substrate_phase4b_self_measurement_multiaxis_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Phase 4b instrumentation built + proposer recall/precision quantified (closes 67e P2-recall gap): Phase 4b multi-axis self-measurement OPERATIONAL. KEY NEW (67e gap closed): P1-bge+CHTV proposer RECALL on control set (n=12 non-isolated atoms w/ known DEPENDS_ON) = 0.200; precision-vs-known = 0.065. 5 axes (proposer/verifier/retrieval/refuse/drift) now first-class per-iteration signals.",
+  "summary": "Phase 4b instrumentation built + proposer recall/precision quantified (closes 67e P2-recall gap): Phase 4b multi-axis self-measurement OPERATIONAL. KEY NEW (67e gap closed): P1-bge+CHTV proposer RECALL on control set (n=12 non-isolated atoms w/ known DEPENDS_ON) = 0.200; precision-vs-known = 0.065. 5 axes (proposer/verifier/retrieval/refuse/drift) now first-class per-iteration signals.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "report": {
+        "proposer_quality": {
+          "recall_on_control": 0.2,
+          "precision_vs_known_on_control": 0.065,
+          "control_n": 12,
+          "iter1_accepted_edges": 29,
+          "coverage_iter1_targets": "3/3"
+        },
+        "verifier_quality": {
+          "chtv_gate": "tier-monotone+corpus+L6-terminates+no-cycle+additive",
+          "note": "Iter1 CHTV acceptance 0.38-0.55 per-target (rejects 45-62pct of bge candidates)"
+        },
+        "retrieval_quality": {
+          "m4d_indist_lastknown": 0.272,
+          "m4d_56d_lastknown": 0.222,
+          "post_integration_rescore": "DEFERRED (needs remote re-sync of ratified Iter1 edges)"
+        },
+        "refuse_quality": {
+          "refuse_rate_novel_lastknown": 0.57,
+          "tau": 0.7
+        },
+        "process_drift": {
+          "atoms": 26261,
+          "edges": 4720,
+          "pending_iter1_edges": 29,
+          "note": "Iter1 edges NOT yet ratified -> drift=0 until Testbed integrates"
+        }
+      },
+      "proposer_recall": 0.2,
+      "proposer_precision_vs_known": 0.065,
+      "control_n": 12
+    }
+  ],
+  "elapsed_s": 8.547574520111084
+}

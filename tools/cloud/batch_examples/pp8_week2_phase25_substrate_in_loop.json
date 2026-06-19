@@ -1,0 +1,15 @@
+[
+  {
+    "anchor": "pp8_w2_p25_qlora_substrate_in_loop_h100_v1_n4096",
+    "script": "testbed/llm_integration/phase2_qlora_train.py",
+    "script_args": "--dataset-dir data/testbed_pp8_week2/dataset_v1 --out-dir data/testbed_pp8_week2/train_v25 --max-steps 500 --batch-size 8 --lr 2e-4 --eval-every-k 50 --checkpoint-every-k 100 --lora-r 16 --lora-alpha 32 --substrate-seed 7 --eval-max-samples 200 --substrate-in-loop-train --device cuda",
+    "total_cells": 500,
+    "cell_regex": "^\\s+step\\s+\\d+/\\d+\\s+loss=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/testbed_pp8_week2/train_v25/summary.json",
+      "data/testbed_pp8_week2/train_v25/train_progress.jsonl",
+      "data/testbed_pp8_week2/train_v25/checkpoint_*.pt"
+    ]
+  }
+]

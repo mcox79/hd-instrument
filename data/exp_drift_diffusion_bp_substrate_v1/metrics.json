@@ -1,0 +1,68 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: DD-law corr pass 1/1, BP gain pass 0/1, corr_mean=0.616.",
+  "elapsed_s": 0.08024477958679199,
+  "n_seeds": 1,
+  "n_corr_pass": 1,
+  "n_bp_pass": 0,
+  "n_const": 0,
+  "per_seed": [
+    {
+      "N": 256,
+      "M_A": 25,
+      "seed": 17,
+      "retention_corr_dd_law": 0.6155591022561426,
+      "is_monotone_decreasing": true,
+      "is_constant_high": false,
+      "bp_gain_medium": -1.0,
+      "results_by_mb": [
+        {
+          "M_B": 12,
+          "M_B_mult": 0.5,
+          "retention_1step": 1.0,
+          "retention_bp": 1.0,
+          "bp_gain": 0.0
+        },
+        {
+          "M_B": 25,
+          "M_B_mult": 1.0,
+          "retention_1step": 1.0,
+          "retention_bp": 0.96,
+          "bp_gain": -0.040000000000000036
+        },
+        {
+          "M_B": 50,
+          "M_B_mult": 2.0,
+          "retention_1step": 1.0,
+          "retention_bp": 0.0,
+          "bp_gain": -1.0
+        },
+        {
+          "M_B": 75,
+          "M_B_mult": 3.0,
+          "retention_1step": 0.48,
+          "retention_bp": 0.0,
+          "bp_gain": -0.48
+        }
+      ]
+    }
+  ],
+  "summary": "DD-BP N=256: MIDDLE_BAND (corr_pass=1/1, bp_pass=0/1)",
+  "config": {
+    "N": 256,
+    "M_A_frac": 0.1,
+    "M_B_multipliers": [
+      0.5,
+      1.0,
+      2.0,
+      3.0,
+      5.0,
+      7.0
+    ],
+    "seeds": [
+      17
+    ],
+    "HP_CORR_MIN": 0.6,
+    "HP_BP_GAIN": 0.05
+  }
+}

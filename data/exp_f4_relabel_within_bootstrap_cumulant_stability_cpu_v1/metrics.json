@@ -1,0 +1,30 @@
+{
+  "anchor_name": "f4_relabel_within_bootstrap_cumulant_stability_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: kappa_3 or kappa_4 SE/|kappa| > 0.20 (0.1723, 0.2600) -- higher cumulants are OUTLIER-driven, not robust; the 9d pillar's higher dimensions need an honest robustness footnote. M=242 codebook; baseline kappa=[np.float64(0.23633), np.float64(1.93077), np.float64(41.34722), np.float64(1034.97237)]; bootstrap SE/|kappa| k3=0.1723 k4=0.2600 (k1..4={1: 0.0, 2: 0.0782, 3: 0.1723, 4: 0.26}). Pure within-cluster LABEL permutation is analytically SE=0 (Voiculescu: cumulants depend on the spectrum, not labels); this measures BOOTSTRAP-COMPOSITION stability instead.",
+  "summary": "HARD_FAIL: kappa_3 or kappa_4 SE/|kappa| > 0.20 (0.1723, 0.2600) -- higher cumulants are OUTLIER-driven, not robust; the 9d pillar's higher dimensions need an honest robustness footnote. M=242 codebook; baseline kappa=[np.float64(0.23633), np.float64(1.93077), np.float64(41.34722), np.float64(1034.97237)]; bootstrap SE/|kappa| k3=0.1723 k4=0.2600 (k1..4={1: 0.0, 2: 0.0782, 3: 0.1723, 4: 0.26}). Pure within-cluster LABEL permutation is analytically SE=0 (Voiculescu: cumulants depend on the spectrum, not labels); this measures BOOTSTRAP-COMPOSITION stability instead.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "M": 242,
+      "Ndim": 1024,
+      "baseline_kappa": [
+        0.23633,
+        1.93077,
+        41.34722,
+        1034.97237
+      ],
+      "cov": {
+        "1": 0.0,
+        "2": 0.0782,
+        "3": 0.1723,
+        "4": 0.26
+      },
+      "cov_k3": 0.1723,
+      "cov_k4": 0.26,
+      "n_boot": 100
+    }
+  ],
+  "elapsed_s": 74.18287420272827
+}

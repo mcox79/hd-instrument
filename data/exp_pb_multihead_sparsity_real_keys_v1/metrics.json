@@ -1,0 +1,20 @@
+{
+  "anchor_name": "pb_multihead_sparsity_real_keys_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: one lever transfers to real keys. dense: H1=200 H2=400 H4=700 | sparse: H1=100 H2=200 H4=700 | 4head/1head=3.50x sparse/dense=0.50x (D=384)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dense_H1": 200,
+      "dense_H2": 400,
+      "dense_H4": 700,
+      "sparse_H1": 100,
+      "sparse_H2": 200,
+      "sparse_H4": 700,
+      "D": 384
+    }
+  ],
+  "elapsed_s": 4.583702564239502,
+  "summary": "MIDDLE_BAND: one lever transfers to real keys. dense: H1=200 H2=400 H4=700 | sparse: H1=100 H2=200 H4=700 | 4head/1head=3.50x sparse/dense=0.50x (D=384)"
+}

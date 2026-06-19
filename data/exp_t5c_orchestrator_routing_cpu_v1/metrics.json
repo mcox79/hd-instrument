@@ -1,0 +1,16 @@
+{
+  "anchor_name": "t5c_orchestrator_routing_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: orchestrator routes >0.75, math-tool >=0.90, substrate-tier <0.5ms -- substrate+tool handle the deterministic load. routing=1.000 math-correct=1.000 substrate-latency=0.1000ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "routing": 1.0,
+      "math": 1.0,
+      "latency_ms": 0.09998850000556558
+    }
+  ],
+  "elapsed_s": 0.031899452209472656,
+  "summary": "HARD_PASS: orchestrator routes >0.75, math-tool >=0.90, substrate-tier <0.5ms -- substrate+tool handle the deterministic load. routing=1.000 math-correct=1.000 substrate-latency=0.1000ms"
+}

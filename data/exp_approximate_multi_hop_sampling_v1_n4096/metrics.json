@@ -1,0 +1,292 @@
+{
+  "verdict": "S10_HARD_PASS",
+  "verdict_msg": "SAMPLING_SPEEDUP: hp_paths=['D'] n_b=0 n_d=5 n_e=0 n_hf_paths=0/3",
+  "elapsed_s": 21.48,
+  "summary": {
+    "anchor": "approximate_multi_hop_sampling_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "depth": 5,
+    "K_paths": 500,
+    "rates": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "M": 2048,
+        "depth": 5,
+        "rate_results": [
+          {
+            "rate": 0.1,
+            "acc_b": 0.0,
+            "lat_b_ns": 5955000,
+            "acc_d": 1.0,
+            "lat_d_ns": 97861500,
+            "auc_e": 0.5,
+            "lat_e_ns": 415680900
+          },
+          {
+            "rate": 0.25,
+            "acc_b": 0.1875,
+            "lat_b_ns": 1080600,
+            "acc_d": 1.0,
+            "lat_d_ns": 97656000,
+            "auc_e": 1.0,
+            "lat_e_ns": 575904400
+          },
+          {
+            "rate": 0.5,
+            "acc_b": 1.0,
+            "lat_b_ns": 1575300,
+            "acc_d": 1.0,
+            "lat_d_ns": 817033500,
+            "auc_e": 1.0,
+            "lat_e_ns": 391039100
+          },
+          {
+            "rate": 0.75,
+            "acc_b": 1.0,
+            "lat_b_ns": 1970500,
+            "acc_d": 1.0,
+            "lat_d_ns": 299935500,
+            "auc_e": 1.0,
+            "lat_e_ns": 390889800
+          },
+          {
+            "rate": 1.0,
+            "acc_b": 1.0,
+            "lat_b_ns": 461200,
+            "acc_d": 1.0,
+            "lat_d_ns": 386206700,
+            "auc_e": 1.0,
+            "lat_e_ns": 393283900
+          }
+        ]
+      },
+      {
+        "seed": 17,
+        "M": 2048,
+        "depth": 5,
+        "rate_results": [
+          {
+            "rate": 0.1,
+            "acc_b": 0.0,
+            "lat_b_ns": 1074800,
+            "acc_d": 1.0,
+            "lat_d_ns": 43404300,
+            "auc_e": 0.5,
+            "lat_e_ns": 441130100
+          },
+          {
+            "rate": 0.25,
+            "acc_b": 0.3125,
+            "lat_b_ns": 1718500,
+            "acc_d": 1.0,
+            "lat_d_ns": 89404200,
+            "auc_e": 1.0,
+            "lat_e_ns": 382324500
+          },
+          {
+            "rate": 0.5,
+            "acc_b": 1.0,
+            "lat_b_ns": 839200,
+            "acc_d": 1.0,
+            "lat_d_ns": 194322100,
+            "auc_e": 1.0,
+            "lat_e_ns": 985537300
+          },
+          {
+            "rate": 0.75,
+            "acc_b": 1.0,
+            "lat_b_ns": 3886500,
+            "acc_d": 1.0,
+            "lat_d_ns": 407908200,
+            "auc_e": 1.0,
+            "lat_e_ns": 385799400
+          },
+          {
+            "rate": 1.0,
+            "acc_b": 1.0,
+            "lat_b_ns": 366600,
+            "acc_d": 1.0,
+            "lat_d_ns": 392457300,
+            "auc_e": 1.0,
+            "lat_e_ns": 388790500
+          }
+        ]
+      },
+      {
+        "seed": 23,
+        "M": 2048,
+        "depth": 5,
+        "rate_results": [
+          {
+            "rate": 0.1,
+            "acc_b": 0.0,
+            "lat_b_ns": 1214100,
+            "acc_d": 1.0,
+            "lat_d_ns": 52805300,
+            "auc_e": 0.5,
+            "lat_e_ns": 376401900
+          },
+          {
+            "rate": 0.25,
+            "acc_b": 0.34375,
+            "lat_b_ns": 654300,
+            "acc_d": 1.0,
+            "lat_d_ns": 86075000,
+            "auc_e": 1.0,
+            "lat_e_ns": 380544600
+          },
+          {
+            "rate": 0.5,
+            "acc_b": 1.0,
+            "lat_b_ns": 766800,
+            "acc_d": 1.0,
+            "lat_d_ns": 172533200,
+            "auc_e": 1.0,
+            "lat_e_ns": 382845200
+          },
+          {
+            "rate": 0.75,
+            "acc_b": 1.0,
+            "lat_b_ns": 1649000,
+            "acc_d": 1.0,
+            "lat_d_ns": 302410400,
+            "auc_e": 1.0,
+            "lat_e_ns": 569209600
+          },
+          {
+            "rate": 1.0,
+            "acc_b": 1.0,
+            "lat_b_ns": 1179200,
+            "acc_d": 1.0,
+            "lat_d_ns": 974946200,
+            "auc_e": 1.0,
+            "lat_e_ns": 391119300
+          }
+        ]
+      },
+      {
+        "seed": 31,
+        "M": 2048,
+        "depth": 5,
+        "rate_results": [
+          {
+            "rate": 0.1,
+            "acc_b": 0.0,
+            "lat_b_ns": 766000,
+            "acc_d": 1.0,
+            "lat_d_ns": 42280800,
+            "auc_e": 0.5,
+            "lat_e_ns": 377942600
+          },
+          {
+            "rate": 0.25,
+            "acc_b": 0.15625,
+            "lat_b_ns": 742300,
+            "acc_d": 1.0,
+            "lat_d_ns": 92679100,
+            "auc_e": 1.0,
+            "lat_e_ns": 383165800
+          },
+          {
+            "rate": 0.5,
+            "acc_b": 1.0,
+            "lat_b_ns": 585400,
+            "acc_d": 1.0,
+            "lat_d_ns": 187317100,
+            "auc_e": 1.0,
+            "lat_e_ns": 382995100
+          },
+          {
+            "rate": 0.75,
+            "acc_b": 1.0,
+            "lat_b_ns": 994000,
+            "acc_d": 1.0,
+            "lat_d_ns": 289339100,
+            "auc_e": 1.0,
+            "lat_e_ns": 382358400
+          },
+          {
+            "rate": 1.0,
+            "acc_b": 1.0,
+            "lat_b_ns": 886500,
+            "acc_d": 1.0,
+            "lat_d_ns": 373627700,
+            "auc_e": 1.0,
+            "lat_e_ns": 588793300
+          }
+        ]
+      },
+      {
+        "seed": 41,
+        "M": 2048,
+        "depth": 5,
+        "rate_results": [
+          {
+            "rate": 0.1,
+            "acc_b": 0.0,
+            "lat_b_ns": 687000,
+            "acc_d": 1.0,
+            "lat_d_ns": 43021600,
+            "auc_e": 0.5,
+            "lat_e_ns": 377567300
+          },
+          {
+            "rate": 0.25,
+            "acc_b": 0.28125,
+            "lat_b_ns": 1521200,
+            "acc_d": 1.0,
+            "lat_d_ns": 105001700,
+            "auc_e": 1.0,
+            "lat_e_ns": 378721600
+          },
+          {
+            "rate": 0.5,
+            "acc_b": 1.0,
+            "lat_b_ns": 1185100,
+            "acc_d": 1.0,
+            "lat_d_ns": 189192400,
+            "auc_e": 1.0,
+            "lat_e_ns": 385329600
+          },
+          {
+            "rate": 0.75,
+            "acc_b": 1.0,
+            "lat_b_ns": 851300,
+            "acc_d": 1.0,
+            "lat_d_ns": 261753100,
+            "auc_e": 1.0,
+            "lat_e_ns": 383635400
+          },
+          {
+            "rate": 1.0,
+            "acc_b": 1.0,
+            "lat_b_ns": 351300,
+            "acc_d": 1.0,
+            "lat_d_ns": 402991300,
+            "auc_e": 1.0,
+            "lat_e_ns": 383692400
+          }
+        ]
+      }
+    ],
+    "verdict": "S10_HARD_PASS",
+    "verdict_msg": "SAMPLING_SPEEDUP: hp_paths=['D'] n_b=0 n_d=5 n_e=0 n_hf_paths=0/3",
+    "elapsed_s": 21.48
+  }
+}

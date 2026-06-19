@@ -1,0 +1,17 @@
+{
+  "anchor_name": "t5c_b1_single_layer_flamingo_smoke_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: trained single-layer Flamingo cross-attn keeps perplexity within 2x baseline with the gate demonstrably used -- Tier-5c Phase B grounded; escalate Phase C/D. baseline-ppl=61.51 modified-ppl=72.62 ratio=1.181x gate=0.0698",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_ppl": 61.51291608502396,
+      "mod_ppl": 72.62052652356796,
+      "ratio": 1.180573628198522,
+      "gate": 0.06975531578063965
+    }
+  ],
+  "elapsed_s": 7.578697443008423,
+  "summary": "HARD_PASS: trained single-layer Flamingo cross-attn keeps perplexity within 2x baseline with the gate demonstrably used -- Tier-5c Phase B grounded; escalate Phase C/D. baseline-ppl=61.51 modified-ppl=72.62 ratio=1.181x gate=0.0698"
+}

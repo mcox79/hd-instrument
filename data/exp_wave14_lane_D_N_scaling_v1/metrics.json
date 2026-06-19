@@ -1,0 +1,33 @@
+{
+  "verdict": "N_SCALING_LINEAR",
+  "verdict_msg": "M_S breakpoint scales linearly with N: c ratio per N = [0.073, 0.073, 0.073] (rel spread 0.00<=0.30, mean c=0.073).",
+  "elapsed_s": 1.0,
+  "summary": {
+    "M_S_breakpoint_per_N": {
+      "4096": 300,
+      "8192": 600,
+      "16384": 1200
+    },
+    "max_M_S_swept": 2400
+  },
+  "config": {
+    "mode": "full",
+    "N_grid": [
+      4096,
+      8192,
+      16384
+    ],
+    "M_S_grid": [
+      50,
+      150,
+      300,
+      600,
+      1200,
+      2400
+    ],
+    "K": 3,
+    "U_stream": 40,
+    "X_alphabet": 5,
+    "seed": 17
+  }
+}

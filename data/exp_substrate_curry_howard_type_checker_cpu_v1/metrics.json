@@ -1,0 +1,205 @@
+{
+  "anchor_name": "substrate_curry_howard_type_checker_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate is a sound PROOF VERIFIER -- accepts well-typed derivation witnesses (CH-P1 >=0.75) and REJECTS every ill-typed witness with a fabricated edge (CH-P2 = 1.0, zero false-accepts = classical type-checker precision). Substrate-as-verifier surface validated; the CH-P2 honest-failure guarantee is the LLM categorical gap. CH-P1 well-typed-accept=1.0000 (>=0.75 HP); CH-P2 ill-typed-reject=1.0000 false-accepts=0 (must be 0); n=8; typing-context 2491 edges 2595 depth-2 chains",
+  "summary": "HARD_PASS: substrate is a sound PROOF VERIFIER -- accepts well-typed derivation witnesses (CH-P1 >=0.75) and REJECTS every ill-typed witness with a fabricated edge (CH-P2 = 1.0, zero false-accepts = classical type-checker precision). Substrate-as-verifier surface validated; the CH-P2 honest-failure guarantee is the LLM categorical gap. CH-P1 well-typed-accept=1.0000 (>=0.75 HP); CH-P2 ill-typed-reject=1.0000 false-accepts=0 (must be 0); n=8; typing-context 2491 edges 2595 depth-2 chains",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 8,
+      "ch_p1_accept_rate": 1.0,
+      "ch_p2_reject_rate": 1.0,
+      "ch_p2_false_accepts": 0,
+      "n_real_edges": 2491,
+      "n_real_chains": 2595,
+      "rows": [
+        {
+          "goal": "T2/fhrr_bind",
+          "witness": [
+            [
+              "research_drill_categorical_ai_discocat_2x_2026-06-11",
+              "DEPENDS_ON",
+              "T2_FAM/algebraic_binding"
+            ],
+            [
+              "T2_FAM/algebraic_binding",
+              "USES",
+              "T2/fhrr_bind"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 0,
+          "fab_edge": [
+            "research_drill_categorical_ai_discocat_2x_2026-06-11",
+            "DEPENDS_ON",
+            "T1/topological_space"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T1/probability_distribution",
+          "witness": [
+            [
+              "research_drill_zkl_methodology_stability_2x_2026-06-07",
+              "DEPENDS_ON",
+              "T1/shannon_entropy"
+            ],
+            [
+              "T1/shannon_entropy",
+              "USES",
+              "T1/probability_distribution"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 0,
+          "fab_edge": [
+            "research_drill_zkl_methodology_stability_2x_2026-06-07",
+            "DEPENDS_ON",
+            "research_drill_tbind_refinement_2x_2026-06-10"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T2/cleanup",
+          "witness": [
+            [
+              "research_drill_level3_meta_llm_over_substrate_aggregator_2x_2026-06-04",
+              "DEPENDS_ON",
+              "T1/cosine_similarity"
+            ],
+            [
+              "T1/cosine_similarity",
+              "USES",
+              "T2/cleanup"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 0,
+          "fab_edge": [
+            "research_drill_level3_meta_llm_over_substrate_aggregator_2x_2026-06-04",
+            "DEPENDS_ON",
+            "T1/rank_nullity_theorem"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T3/dijkstra",
+          "witness": [
+            [
+              "research_drill_substrate_verticals_5x_2026-06-08",
+              "DEPENDS_ON",
+              "T2_FAM/graph_traversal"
+            ],
+            [
+              "T2_FAM/graph_traversal",
+              "USES",
+              "T3/dijkstra"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 1,
+          "fab_edge": [
+            "T2_FAM/graph_traversal",
+            "USES",
+            "exp_dev_to_research_DISCRIMINATIVE_WEIGHTING_UNIVERSAL_2026-06-11"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T3/astar",
+          "witness": [
+            [
+              "research_drill_substrate_emergent_extreme_scale_5x_2026-06-08",
+              "DEPENDS_ON",
+              "T2_FAM/graph_traversal"
+            ],
+            [
+              "T2_FAM/graph_traversal",
+              "USES",
+              "T3/astar"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 0,
+          "fab_edge": [
+            "research_drill_substrate_emergent_extreme_scale_5x_2026-06-08",
+            "DEPENDS_ON",
+            "T1/dynamic_programming_bellman"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T1/field_axioms",
+          "witness": [
+            [
+              "research_drill_iterative_multihop_where_it_works_5x_2026-06-08",
+              "DEPENDS_ON",
+              "T1/vector_space"
+            ],
+            [
+              "T1/vector_space",
+              "USES",
+              "T1/field_axioms"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 0,
+          "fab_edge": [
+            "research_drill_iterative_multihop_where_it_works_5x_2026-06-08",
+            "DEPENDS_ON",
+            "T3/map_estimation"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T2/hamming_distance",
+          "witness": [
+            [
+              "LEX_constant_percent",
+              "USES",
+              "T2/cleanup"
+            ],
+            [
+              "T2/cleanup",
+              "USES",
+              "T2/hamming_distance"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 1,
+          "fab_edge": [
+            "T2/cleanup",
+            "USES",
+            "T3/lbfgs_quasi_newton"
+          ],
+          "ch_p2_reject": true
+        },
+        {
+          "goal": "T1/inner_product",
+          "witness": [
+            [
+              "strategy_decisions_2026-06-07",
+              "DEPENDS_ON",
+              "T1/cosine_similarity"
+            ],
+            [
+              "T1/cosine_similarity",
+              "USES",
+              "T1/inner_product"
+            ]
+          ],
+          "ch_p1_accept": true,
+          "fab_pos": 0,
+          "fab_edge": [
+            "strategy_decisions_2026-06-07",
+            "DEPENDS_ON",
+            "LEX_constant_collection"
+          ],
+          "ch_p2_reject": true
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.07880091667175293
+}

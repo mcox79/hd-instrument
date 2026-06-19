@@ -1,0 +1,16 @@
+{
+  "anchor_name": "chain3_sparse_key_integration_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse routing B_eff>=39 -- no improvement over dense LSH. sparse-code routing B_eff=39.14 at S=100 (dense LSH ~39)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "B_eff": 39.14
+    }
+  ],
+  "elapsed_s": 0.7554221153259277,
+  "summary": "HARD_FAIL: sparse routing B_eff>=39 -- no improvement over dense LSH. sparse-code routing B_eff=39.14 at S=100 (dense LSH ~39)"
+}

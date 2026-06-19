@@ -1,0 +1,29 @@
+{
+  "anchor_name": "gap2_flat_bundle_comparison_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: flat-bundle recall < 0.85 at story scale where compositional COMP-25 was 1.000 -- composition adds GENUINE lift (it is not an artifact of the chosen N; flat structure fails at the same atom count). flat-bundle recall @ 50000 atoms = 0.000 (composition COMP-25 was 1.000); all={'story': {'total_atoms': 50000, 'flat_recall': 0.0}, 'program': {'total_atoms': 5000, 'flat_recall': 0.017}, 'argument': {'total_atoms': 1000, 'flat_recall': 0.694}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "results": {
+        "story": {
+          "total_atoms": 50000,
+          "flat_recall": 0.0
+        },
+        "program": {
+          "total_atoms": 5000,
+          "flat_recall": 0.017
+        },
+        "argument": {
+          "total_atoms": 1000,
+          "flat_recall": 0.694
+        }
+      },
+      "flat_recall_50k": 0.0,
+      "story_total": 50000
+    }
+  ],
+  "elapsed_s": 561.3037996292114,
+  "summary": "HARD_PASS: flat-bundle recall < 0.85 at story scale where compositional COMP-25 was 1.000 -- composition adds GENUINE lift (it is not an artifact of the chosen N; flat structure fails at the same atom count). flat-bundle recall @ 50000 atoms = 0.000 (composition COMP-25 was 1.000); all={'story': {'total_atoms': 50000, 'flat_recall': 0.0}, 'program': {'total_atoms': 5000, 'flat_recall': 0.017}, 'argument': {'total_atoms': 1000, 'flat_recall': 0.694}}"
+}

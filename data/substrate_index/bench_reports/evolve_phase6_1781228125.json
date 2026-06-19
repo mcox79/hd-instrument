@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\math_corpus_batch03_phase_A6.jsonl",
+      "ingested": 30,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "math": 30
+      }
+    },
+    {
+      "file": "data\\substrate_index\\math_corpus_batch03_phase_A7.jsonl",
+      "ingested": 29,
+      "skipped": 1,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "math": 29
+      }
+    },
+    {
+      "file": "data\\substrate_index\\meta_corpus_batch_01.jsonl",
+      "ingested": 9,
+      "skipped": 1,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "meta": 9
+      }
+    },
+    {
+      "file": "data\\substrate_index\\schools_corpus_batch_01.jsonl",
+      "ingested": 0,
+      "skipped": 0,
+      "failed": 12,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {}
+    }
+  ],
+  "totals": {
+    "ingested": 68,
+    "skipped": 2,
+    "failed": 12,
+    "supersedes_added": 0,
+    "uses_added": 0,
+    "pre_total": 1467,
+    "post_total": 1535
+  }
+}

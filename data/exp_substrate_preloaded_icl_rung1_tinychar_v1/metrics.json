@@ -1,0 +1,57 @@
+{
+  "anchor": "substrate_preloaded_icl_rung1_tinychar_v1",
+  "run_mode": "smoke",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "VERDICT=HARD_FAIL k0_acc_mean=0.0050 best_K=10 best_gain_mean=0.0075 seeds_hp=0/2 seeds_mid=0/2 acc_by_K={'0': 0.005, '10': 0.0125} HP_GAIN_THRESHOLD=0.1 MID_GAIN_THRESHOLD=0.05 N=64 SEEDS=[7, 17] total_wall_s=0.0",
+  "k0_acc_mean": 0.005,
+  "best_K": 10,
+  "best_gain_mean": 0.0075,
+  "acc_by_K": {
+    "0": 0.005,
+    "10": 0.0125
+  },
+  "seeds_hp": 0,
+  "seeds_mid": 0,
+  "HP_ACC_GAIN": 0.1,
+  "MID_ACC_GAIN_LO": 0.05,
+  "N": 64,
+  "K_CONDITIONS": [
+    0,
+    10
+  ],
+  "elapsed_s": 0.033843994140625,
+  "per_cell": {
+    "K0_seed7": {
+      "K": 0,
+      "seed": 7,
+      "accuracy": 0.005,
+      "n_eval_pairs": 200,
+      "vocab_size": 46,
+      "elapsed_s": 0.002779722213745117
+    },
+    "K0_seed17": {
+      "K": 0,
+      "seed": 17,
+      "accuracy": 0.005,
+      "n_eval_pairs": 200,
+      "vocab_size": 46,
+      "elapsed_s": 0.0020172595977783203
+    },
+    "K10_seed7": {
+      "K": 10,
+      "seed": 7,
+      "accuracy": 0.02,
+      "n_eval_pairs": 200,
+      "vocab_size": 46,
+      "elapsed_s": 0.0030183792114257812
+    },
+    "K10_seed17": {
+      "K": 10,
+      "seed": 17,
+      "accuracy": 0.005,
+      "n_eval_pairs": 200,
+      "vocab_size": 46,
+      "elapsed_s": 0.0037631988525390625
+    }
+  }
+}

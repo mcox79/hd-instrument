@@ -1,0 +1,55 @@
+{
+  "anchor_name": "substrate_refuse_gate_nonlinear_readout_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SYNTHETIC HARD_PASS: nonlinear-readout concentration refuse-gate separates present-paraphrased from absent where linear cosine-tau (M1) could not -- (beta=10.0, c=0.15): gap-refuse 1.000>=0.95 AND accept-drop 0.000<=0.05. MECHANISM + spread-detection + operating point validated; NOT the recapture claim (synthetic absent = i.i.d.-random = easy). REAL held-out q54-q65 FULL is the actual verdict. (alpha=1.0, n=256.)",
+  "summary": "SYNTHETIC HARD_PASS: nonlinear-readout concentration refuse-gate separates present-paraphrased from absent where linear cosine-tau (M1) could not -- (beta=10.0, c=0.15): gap-refuse 1.000>=0.95 AND accept-drop 0.000<=0.05. MECHANISM + spread-detection + operating point validated; NOT the recapture claim (synthetic absent = i.i.d.-random = easy). REAL held-out q54-q65 FULL is the actual verdict. (alpha=1.0, n=256.)",
+  "headline": "SYNTHETIC HARD_PASS: nonlinear-readout concentration refuse-gate separates present-paraphrased from absent where linear cosine-tau (M1) could not -- (beta=10.0, c=0.15): gap-refuse 1.000>=0.95 AND accept-drop 0.000<=0.05. MECHANISM + spread-detection + operating point validated; NOT the recapture claim (synthetic absent = i.i.d.-random = easy). REAL held-out q54-q65 FULL is the actual verdict. (alpha=1.0, n=256.)",
+  "run_mode": "smoke",
+  "alpha": 1.0,
+  "path": "synthetic smoke (mechanism + spread-detection); REAL held-out FULL is the actual verdict",
+  "recapture_of": "PHASE_V1_6th_module_refuse_gated_retriever_YELLOW (M1 bge-cosine-tau HARD_FAIL gap-refuse>=0.95)",
+  "method_delta": "refuse signal = NONLINEAR readout attention-CONCENTRATION (softmax/entmax max-weight over candidate scores) vs LINEAR scalar cosine tau (M1); readout<->readout anchor-match",
+  "verify_the_referent_condition": "MEASURE present-vs-absent concentration spread + confirm a discriminating regime (in-cov concentrated, gap diffuse, separable c); else NON_TEST",
+  "result": {
+    "mode_path": "synthetic",
+    "verdict": "HARD_PASS",
+    "verdict_msg": "SYNTHETIC HARD_PASS: nonlinear-readout concentration refuse-gate separates present-paraphrased from absent where linear cosine-tau (M1) could not -- (beta=10.0, c=0.15): gap-refuse 1.000>=0.95 AND accept-drop 0.000<=0.05. MECHANISM + spread-detection + operating point validated; NOT the recapture claim (synthetic absent = i.i.d.-random = easy). REAL held-out q54-q65 FULL is the actual verdict. (alpha=1.0, n=256.)",
+    "spread_report": {
+      "beta10.0": {
+        "present_maxw_med": 0.9775594472885132,
+        "absent_maxw_med": 0.05408439785242081,
+        "absent_spreads": true
+      },
+      "beta20.0": {
+        "present_maxw_med": 0.9999866485595703,
+        "absent_maxw_med": 0.1280587613582611,
+        "absent_spreads": true
+      },
+      "beta40.0": {
+        "present_maxw_med": 1.0,
+        "absent_maxw_med": 0.341664582490921,
+        "absent_spreads": true
+      },
+      "beta80.0": {
+        "present_maxw_med": 1.0,
+        "absent_maxw_med": 0.6904613971710205,
+        "absent_spreads": true
+      },
+      "beta160.0": {
+        "present_maxw_med": 1.0,
+        "absent_maxw_med": 0.9523695707321167,
+        "absent_spreads": false
+      }
+    },
+    "spread_ok_any": true,
+    "best": {
+      "beta": 10.0,
+      "c": 0.15,
+      "gap_refuse": 1.0,
+      "accept_drop": 0.0
+    },
+    "alpha": 1.0,
+    "n": 256
+  },
+  "elapsed_s": 0.08
+}

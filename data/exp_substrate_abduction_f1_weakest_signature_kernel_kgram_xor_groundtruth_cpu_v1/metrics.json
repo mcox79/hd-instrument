@@ -1,0 +1,104 @@
+{
+  "anchor_name": "substrate_abduction_f1_weakest_signature_kernel_kgram_xor_groundtruth_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ABDUCTION KERNEL SOUND: from F1's documented bigram-class failure, the reverse-math kernel abduced the WEAKEST closure signature {recoverable conjunctive binding}, which the known filler k-gram-XOR-binding SATISFIES and which is NON-TRIVIAL (a conjunctive arity-2 op that is non-recoverable FAILS to close -> recoverability, k-gram-XOR's defining self-inverse property, is load-bearing) -- WITHOUT being told the answer. Abduced shape MATCHES k-gram-XOR ground truth (DECISION 139a criterion). Kernel ready for unknown-gap deployment (Phase C), pending Skunkworks STRICT vet. WEAKEST closure-signature=['unbind_recoverable'] (backed by non-recoverable arity-2 failer rectprod which FAILS at 0.18x -> recoverability is load-bearing, not mere arity); ground-truth xor closes at 6.63x and satisfies it. HONEST BOUNDARY: TIER2 strong-vs-weak binder separation (xor/conv ~6.6x vs bundle/permadd ~2x) is GRADED (binding SNR), NOT boolean-capturable -> kernel returns tight-sig=[] rather than hallucinate. strong=['conv', 'xor'].",
+  "summary": "ABDUCTION KERNEL SOUND: from F1's documented bigram-class failure, the reverse-math kernel abduced the WEAKEST closure signature {recoverable conjunctive binding}, which the known filler k-gram-XOR-binding SATISFIES and which is NON-TRIVIAL (a conjunctive arity-2 op that is non-recoverable FAILS to close -> recoverability, k-gram-XOR's defining self-inverse property, is load-bearing) -- WITHOUT being told the answer. Abduced shape MATCHES k-gram-XOR ground truth (DECISION 139a criterion). Kernel ready for unknown-gap deployment (Phase C), pending Skunkworks STRICT vet. WEAKEST closure-signature=['unbind_recoverable'] (backed by non-recoverable arity-2 failer rectprod which FAILS at 0.18x -> recoverability is load-bearing, not mere arity); ground-truth xor closes at 6.63x and satisfies it. HONEST BOUNDARY: TIER2 strong-vs-weak binder separation (xor/conv ~6.6x vs bundle/permadd ~2x) is GRADED (binding SNR), NOT boolean-capturable -> kernel returns tight-sig=[] rather than hallucinate. strong=['conv', 'xor'].",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "mean_acc": {
+        "last": 0.06212215968313528,
+        "xor": 0.41213258286429016,
+        "bundle": 0.11340421096518656,
+        "conv": 0.41213258286429016,
+        "permadd": 0.1384198457369189,
+        "rectprod": 0.01146549927037732
+      },
+      "ratio": {
+        "last": 1.0,
+        "xor": 6.634228187919464,
+        "bundle": 1.825503355704698,
+        "conv": 6.634228187919464,
+        "permadd": 2.2281879194630876,
+        "rectprod": 0.18456375838926178
+      },
+      "base": 0.06212215968313528,
+      "closers": [
+        "bundle",
+        "conv",
+        "permadd",
+        "xor"
+      ],
+      "strong": [
+        "conv",
+        "xor"
+      ],
+      "props": {
+        "last": {
+          "arity_ge2": false,
+          "conjunctive_distinguishing": true,
+          "norm_preserving": true,
+          "self_inverse": false,
+          "order_sensitive": true,
+          "unbind_recoverable": false
+        },
+        "xor": {
+          "arity_ge2": true,
+          "conjunctive_distinguishing": true,
+          "norm_preserving": true,
+          "self_inverse": true,
+          "order_sensitive": false,
+          "unbind_recoverable": true
+        },
+        "bundle": {
+          "arity_ge2": true,
+          "conjunctive_distinguishing": true,
+          "norm_preserving": true,
+          "self_inverse": false,
+          "order_sensitive": false,
+          "unbind_recoverable": true
+        },
+        "conv": {
+          "arity_ge2": true,
+          "conjunctive_distinguishing": true,
+          "norm_preserving": true,
+          "self_inverse": false,
+          "order_sensitive": false,
+          "unbind_recoverable": true
+        },
+        "permadd": {
+          "arity_ge2": true,
+          "conjunctive_distinguishing": true,
+          "norm_preserving": true,
+          "self_inverse": false,
+          "order_sensitive": true,
+          "unbind_recoverable": true
+        },
+        "rectprod": {
+          "arity_ge2": true,
+          "conjunctive_distinguishing": true,
+          "norm_preserving": true,
+          "self_inverse": true,
+          "order_sensitive": false,
+          "unbind_recoverable": false
+        }
+      },
+      "abduced_weakest": [
+        "unbind_recoverable"
+      ],
+      "weak_disc": true,
+      "abduced_tight": [],
+      "tight_disc": false,
+      "gt_closes": true,
+      "gt_strong": true,
+      "gt_sat_tight": false,
+      "weak_nontrivial": true,
+      "backed_by_arity2_failer": true,
+      "gt_sat_weak": true,
+      "tight_nontrivial": false,
+      "hard_pass": true
+    }
+  ],
+  "elapsed_s": 18.819276809692383
+}

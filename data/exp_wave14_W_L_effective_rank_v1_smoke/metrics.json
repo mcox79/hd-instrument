@@ -1,0 +1,24 @@
+{
+  "verdict": "RANK_COLLAPSE_CONFIRMS",
+  "verdict_msg": "Subspace collapse: rank(L=1)=100 -> rank(L=50)=0 (>=2x drop). {'1': 100, '5': 100, '10': 82}.",
+  "elapsed_s": 3.577999999979511,
+  "summary": {
+    "eff_rank_per_L": {
+      "1": 100,
+      "5": 100,
+      "10": 82
+    }
+  },
+  "config": {
+    "N": 4096,
+    "K": 100,
+    "L_grid": [
+      1,
+      5,
+      10
+    ],
+    "num_entities": 200,
+    "num_relations": 20,
+    "seed": 17
+  }
+}

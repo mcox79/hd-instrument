@@ -1,0 +1,191 @@
+{
+  "verdict": "ANNEAL_NONE_GDPR",
+  "verdict_msg": "No method achieves GDPR-grade multi-probe forgetting. Best norm_ratio across all methods: 0.309",
+  "elapsed_s": 0.2960000000020955,
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "n_facts": 50,
+    "n_erase": 10,
+    "rank_L": 12,
+    "flip_frac": 0.1,
+    "etas_anneal": [
+      0.3,
+      0.7,
+      1.0
+    ],
+    "etas_direct": [
+      0.5,
+      1.0
+    ],
+    "etas_ah": [
+      1.0
+    ],
+    "seeds": [
+      17
+    ]
+  },
+  "device": "cuda",
+  "by_method": {
+    "anneal": {
+      "per_eta": [
+        {
+          "method": "anneal",
+          "eta": 0.3,
+          "n_facts": 50,
+          "n_erase": 10,
+          "leak_argmax": 1.0,
+          "mean_rank": 1.0,
+          "norm_ratio": 1.5085080862045288,
+          "cosine": 0.4672572612762451,
+          "leak_paraphrase": 1.0
+        },
+        {
+          "method": "anneal",
+          "eta": 0.7,
+          "n_facts": 50,
+          "n_erase": 10,
+          "leak_argmax": 1.0,
+          "mean_rank": 1.0,
+          "norm_ratio": 0.6832286715507507,
+          "cosine": 0.4436165988445282,
+          "leak_paraphrase": 1.0
+        },
+        {
+          "method": "anneal",
+          "eta": 1.0,
+          "n_facts": 50,
+          "n_erase": 10,
+          "leak_argmax": 0.0,
+          "mean_rank": 22.5,
+          "norm_ratio": 0.309226930141449,
+          "cosine": 0.006721714977174997,
+          "leak_paraphrase": 0.0
+        }
+      ]
+    },
+    "direct_subtract": {
+      "per_eta": [
+        {
+          "method": "direct_subtract",
+          "eta": 0.5,
+          "n_facts": 50,
+          "n_erase": 10,
+          "leak_argmax": 0.10000000149011612,
+          "mean_rank": 4.2,
+          "norm_ratio": 1.837672233581543,
+          "cosine": 0.2663489282131195,
+          "leak_paraphrase": 0.0
+        },
+        {
+          "method": "direct_subtract",
+          "eta": 1.0,
+          "n_facts": 50,
+          "n_erase": 10,
+          "leak_argmax": 0.0,
+          "mean_rank": 42.3,
+          "norm_ratio": 1.7372028827667236,
+          "cosine": -0.019506365060806274,
+          "leak_paraphrase": 0.0
+        }
+      ]
+    },
+    "anti_hebbian": {
+      "per_eta": [
+        {
+          "method": "anti_hebbian",
+          "eta": 1.0,
+          "n_facts": 50,
+          "n_erase": 10,
+          "leak_argmax": 0.10000000149011612,
+          "mean_rank": 10.5,
+          "norm_ratio": 0.6131755709648132,
+          "cosine": 0.043250005692243576,
+          "leak_paraphrase": 0.10000000149011612
+        }
+      ]
+    }
+  },
+  "summary": {
+    "by_method": {
+      "anneal": {
+        "per_eta": [
+          {
+            "method": "anneal",
+            "eta": 0.3,
+            "n_facts": 50,
+            "n_erase": 10,
+            "leak_argmax": 1.0,
+            "mean_rank": 1.0,
+            "norm_ratio": 1.5085080862045288,
+            "cosine": 0.4672572612762451,
+            "leak_paraphrase": 1.0
+          },
+          {
+            "method": "anneal",
+            "eta": 0.7,
+            "n_facts": 50,
+            "n_erase": 10,
+            "leak_argmax": 1.0,
+            "mean_rank": 1.0,
+            "norm_ratio": 0.6832286715507507,
+            "cosine": 0.4436165988445282,
+            "leak_paraphrase": 1.0
+          },
+          {
+            "method": "anneal",
+            "eta": 1.0,
+            "n_facts": 50,
+            "n_erase": 10,
+            "leak_argmax": 0.0,
+            "mean_rank": 22.5,
+            "norm_ratio": 0.309226930141449,
+            "cosine": 0.006721714977174997,
+            "leak_paraphrase": 0.0
+          }
+        ]
+      },
+      "direct_subtract": {
+        "per_eta": [
+          {
+            "method": "direct_subtract",
+            "eta": 0.5,
+            "n_facts": 50,
+            "n_erase": 10,
+            "leak_argmax": 0.10000000149011612,
+            "mean_rank": 4.2,
+            "norm_ratio": 1.837672233581543,
+            "cosine": 0.2663489282131195,
+            "leak_paraphrase": 0.0
+          },
+          {
+            "method": "direct_subtract",
+            "eta": 1.0,
+            "n_facts": 50,
+            "n_erase": 10,
+            "leak_argmax": 0.0,
+            "mean_rank": 42.3,
+            "norm_ratio": 1.7372028827667236,
+            "cosine": -0.019506365060806274,
+            "leak_paraphrase": 0.0
+          }
+        ]
+      },
+      "anti_hebbian": {
+        "per_eta": [
+          {
+            "method": "anti_hebbian",
+            "eta": 1.0,
+            "n_facts": 50,
+            "n_erase": 10,
+            "leak_argmax": 0.10000000149011612,
+            "mean_rank": 10.5,
+            "norm_ratio": 0.6131755709648132,
+            "cosine": 0.043250005692243576,
+            "leak_paraphrase": 0.10000000149011612
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "negres_bundle_split_c4_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: type-routed bundle-split gives >=2x effective capacity vs flat bundle with NO math change (resolves LAP4-1: structural sqrt(N/K) capacity is multiplied by routing into C type shards). M*_flat=200 M*_split=800 ratio=4.00 C=4",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mstar_flat": 200,
+      "mstar_split": 800,
+      "ratio": 4.0,
+      "C": 4
+    }
+  ],
+  "elapsed_s": 16.84770679473877,
+  "summary": "HARD_PASS: type-routed bundle-split gives >=2x effective capacity vs flat bundle with NO math change (resolves LAP4-1: structural sqrt(N/K) capacity is multiplied by routing into C type shards). M*_flat=200 M*_split=800 ratio=4.00 C=4"
+}

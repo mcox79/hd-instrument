@@ -1,0 +1,315 @@
+{"ts": 1781231728.715053, "op": "add_atom", "target": "PHYS/classical_mechanics", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7165496, "op": "add_atom", "target": "PHYS/lagrangian_hamiltonian", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7175488, "op": "add_atom", "target": "PHYS/thermodynamics", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7185485, "op": "add_atom", "target": "PHYS/statistical_mechanics", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.71955, "op": "add_atom", "target": "PHYS/electromagnetism", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.720551, "op": "add_atom", "target": "PHYS/quantum_mechanics", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7223547, "op": "add_atom", "target": "PHYS/special_relativity", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7233517, "op": "add_atom", "target": "PHYS/general_relativity", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7253494, "op": "add_atom", "target": "PHYS/wave_equation", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7271402, "op": "add_atom", "target": "PHYS/entropy_thermodynamic", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.728135, "op": "add_atom", "target": "BIO/neuron_action_potential", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.73014, "op": "add_atom", "target": "BIO/synaptic_plasticity", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7319088, "op": "add_atom", "target": "BIO/hippocampus", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7329063, "op": "add_atom", "target": "BIO/theta_gamma_binding", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7339084, "op": "add_atom", "target": "BIO/prefrontal_cortex", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7359703, "op": "add_atom", "target": "BIO/wernicke_broca_language", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7369764, "op": "add_atom", "target": "BIO/default_mode_network", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7389784, "op": "add_atom", "target": "BIO/anterior_temporal_lobe", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7399757, "op": "add_atom", "target": "BIO/dopamine_RPE", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7413347, "op": "add_atom", "target": "BIO/dna_double_helix", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7423394, "op": "add_atom", "target": "BIO/evolution_natural_selection", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.743339, "op": "add_atom", "target": "BIO/cell_membrane", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.743339, "op": "add_atom", "target": "BIO/protein_folding", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.744783, "op": "add_atom", "target": "BIO/gene_expression", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7457824, "op": "add_atom", "target": "BIO/immune_system", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7467816, "op": "add_atom", "target": "BIO/predictive_coding", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.747782, "op": "add_atom", "target": "BIO/hodgkin_huxley", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7487817, "op": "add_atom", "target": "PHYS/bose_einstein_condensate", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7497826, "op": "add_atom", "target": "PHYS/dynamical_systems", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7509522, "op": "add_atom", "target": "BIO/oscillator_circadian", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_A_physics_biology.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7529519, "op": "add_atom", "target": "CHEM/atomic_structure", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.753952, "op": "add_atom", "target": "CHEM/chemical_bond", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7554848, "op": "add_atom", "target": "CHEM/chemical_reaction", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7564836, "op": "add_atom", "target": "CHEM/equilibrium_thermodynamic", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7574859, "op": "add_atom", "target": "CHEM/acid_base", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7590382, "op": "add_atom", "target": "CHEM/electrochemistry", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7610464, "op": "add_atom", "target": "CHEM/molecular_orbital_theory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7620435, "op": "add_atom", "target": "CS/algorithm", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7630434, "op": "add_atom", "target": "CS/data_structure", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7646313, "op": "add_atom", "target": "CS/computational_complexity", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.765631, "op": "add_atom", "target": "CS/turing_machine", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7676322, "op": "add_atom", "target": "CS/lambda_calculus", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7692778, "op": "add_atom", "target": "CS/type_theory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7702796, "op": "add_atom", "target": "CS/formal_verification", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7722778, "op": "add_atom", "target": "CS/information_theory_shannon", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7739754, "op": "add_atom", "target": "CS/coding_theory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7749786, "op": "add_atom", "target": "CS/machine_learning", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7769766, "op": "add_atom", "target": "CS/neural_network_architecture", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.778638, "op": "add_atom", "target": "PHYS/critical_phenomena", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7796342, "op": "add_atom", "target": "PHYS/random_matrix_theory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7816348, "op": "add_atom", "target": "PHYS/spin_glass", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7835054, "op": "add_atom", "target": "BIO/sparse_coding_neural", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7855034, "op": "add_atom", "target": "BIO/population_coding_neural", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7868137, "op": "add_atom", "target": "BIO/memory_consolidation", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7888136, "op": "add_atom", "target": "BIO/working_memory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7912955, "op": "add_atom", "target": "BIO/attention_top_down", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7922952, "op": "add_atom", "target": "PHYS/quantum_entanglement", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7942944, "op": "add_atom", "target": "CS/probabilistic_graphical_model", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7962954, "op": "add_atom", "target": "CS/reinforcement_learning", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.797844, "op": "add_atom", "target": "BIO/cognitive_architecture", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch01_part_B_chemistry_CS.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.7998416, "op": "add_atom", "target": "PHYS/ising_model", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8022218, "op": "add_atom", "target": "PHYS/topological_phase", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.804221, "op": "add_atom", "target": "PHYS/symmetry_breaking", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.806224, "op": "add_atom", "target": "PHYS/soliton", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8084881, "op": "add_atom", "target": "PHYS/bose_hubbard_model", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8108199, "op": "add_atom", "target": "BIO/spike_timing_dependent_plasticity", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8128178, "op": "add_atom", "target": "BIO/place_cell", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8138192, "op": "add_atom", "target": "BIO/grid_cell", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8162243, "op": "add_atom", "target": "BIO/cortical_column", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.818225, "op": "add_atom", "target": "BIO/connectome", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.820819, "op": "add_atom", "target": "BIO/neural_population_dynamics", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8228252, "op": "add_atom", "target": "BIO/enzyme_kinetics", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8252072, "op": "add_atom", "target": "BIO/metabolic_pathway", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8272069, "op": "add_atom", "target": "BIO/dna_replication", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8297656, "op": "add_atom", "target": "CS/graph_neural_network", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.831772, "op": "add_atom", "target": "CS/meta_learning", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8337705, "op": "add_atom", "target": "CS/continual_learning", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8364756, "op": "add_atom", "target": "CS/transfer_learning", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8384752, "op": "add_atom", "target": "CS/neural_architecture_search", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8410058, "op": "add_atom", "target": "CS/self_supervised_learning", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8433592, "op": "add_atom", "target": "CS/diffusion_model", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8453581, "op": "add_atom", "target": "PHYS/complex_systems", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8473582, "op": "add_atom", "target": "PHYS/chaos_theory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.849819, "op": "add_atom", "target": "PHYS/active_matter", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8518207, "op": "add_atom", "target": "BIO/cortical_oscillation", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.854128, "op": "add_atom", "target": "BIO/cerebellum", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8561273, "op": "add_atom", "target": "BIO/basal_ganglia", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.858127, "op": "add_atom", "target": "BIO/inhibitory_neuron", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8603208, "op": "add_atom", "target": "PHYS/percolation_theory", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231728.8626468, "op": "add_atom", "target": "PHYS/renormalization_group", "note": "Phase 6 bulk JSONL ingest from science_corpus_batch02_advanced.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781231764.6351297, "op": "update_atom", "target": "PHYS/classical_mechanics", "note": "science_algebra_category=[1, 2]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6382349, "op": "update_atom", "target": "PHYS/lagrangian_hamiltonian", "note": "science_algebra_category=[1, 2]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.640469, "op": "update_atom", "target": "PHYS/thermodynamics", "note": "science_algebra_category=[2, 5]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.641655, "op": "update_atom", "target": "PHYS/statistical_mechanics", "note": "science_algebra_category=[5, 11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6436548, "op": "update_atom", "target": "PHYS/electromagnetism", "note": "science_algebra_category=[3, 6]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.646097, "op": "update_atom", "target": "PHYS/quantum_mechanics", "note": "science_algebra_category=[1, 6, 7]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.648097, "op": "update_atom", "target": "PHYS/special_relativity", "note": "science_algebra_category=[3]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6500967, "op": "update_atom", "target": "PHYS/general_relativity", "note": "science_algebra_category=[3, 6]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6524637, "op": "update_atom", "target": "PHYS/wave_equation", "note": "science_algebra_category=[6]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6544642, "op": "update_atom", "target": "PHYS/entropy_thermodynamic", "note": "science_algebra_category=[2, 5]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.659005, "op": "update_atom", "target": "PHYS/bose_einstein_condensate", "note": "science_algebra_category=[4, 7]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6615694, "op": "update_atom", "target": "PHYS/dynamical_systems", "note": "science_algebra_category=[5, 13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6635673, "op": "update_atom", "target": "PHYS/critical_phenomena", "note": "science_algebra_category=[4, 5]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6661143, "op": "update_atom", "target": "PHYS/random_matrix_theory", "note": "science_algebra_category=[5, 13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6681142, "op": "update_atom", "target": "PHYS/spin_glass", "note": "science_algebra_category=[4, 11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6704443, "op": "update_atom", "target": "PHYS/quantum_entanglement", "note": "science_algebra_category=[6, 7]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6724443, "op": "update_atom", "target": "BIO/neuron_action_potential", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6739268, "op": "update_atom", "target": "BIO/synaptic_plasticity", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.675925, "op": "update_atom", "target": "BIO/hippocampus", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.677929, "op": "update_atom", "target": "BIO/theta_gamma_binding", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6802301, "op": "update_atom", "target": "BIO/prefrontal_cortex", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6822288, "op": "update_atom", "target": "BIO/wernicke_broca_language", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6832294, "op": "update_atom", "target": "BIO/default_mode_network", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6865234, "op": "update_atom", "target": "BIO/anterior_temporal_lobe", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.688833, "op": "update_atom", "target": "BIO/dopamine_RPE", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6918325, "op": "update_atom", "target": "BIO/dna_double_helix", "note": "science_algebra_category=[10]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6948614, "op": "update_atom", "target": "BIO/evolution_natural_selection", "note": "science_algebra_category=[12]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6973813, "op": "update_atom", "target": "BIO/cell_membrane", "note": "science_algebra_category=[10]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.6993883, "op": "update_atom", "target": "BIO/protein_folding", "note": "science_algebra_category=[10]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7016873, "op": "update_atom", "target": "BIO/gene_expression", "note": "science_algebra_category=[10]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7036881, "op": "update_atom", "target": "BIO/immune_system", "note": "science_algebra_category=[10, 12]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7056873, "op": "update_atom", "target": "BIO/predictive_coding", "note": "science_algebra_category=[11, 13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.707947, "op": "update_atom", "target": "BIO/hodgkin_huxley", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.709947, "op": "update_atom", "target": "BIO/oscillator_circadian", "note": "science_algebra_category=[12]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7122922, "op": "update_atom", "target": "BIO/sparse_coding_neural", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.71429, "op": "update_atom", "target": "BIO/population_coding_neural", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.71529, "op": "update_atom", "target": "BIO/memory_consolidation", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7176716, "op": "update_atom", "target": "BIO/working_memory", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7206728, "op": "update_atom", "target": "BIO/attention_top_down", "note": "science_algebra_category=[11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7221818, "op": "update_atom", "target": "BIO/cognitive_architecture", "note": "science_algebra_category=[11, 13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7251868, "op": "update_atom", "target": "CHEM/atomic_structure", "note": "science_algebra_category=[7, 8]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7275932, "op": "update_atom", "target": "CHEM/chemical_bond", "note": "science_algebra_category=[8]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7295918, "op": "update_atom", "target": "CHEM/chemical_reaction", "note": "science_algebra_category=[9]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7333038, "op": "update_atom", "target": "CHEM/equilibrium_thermodynamic", "note": "science_algebra_category=[9, 2]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.73571, "op": "update_atom", "target": "CHEM/acid_base", "note": "science_algebra_category=[8, 9]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7387114, "op": "update_atom", "target": "CHEM/electrochemistry", "note": "science_algebra_category=[9]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7407959, "op": "update_atom", "target": "CHEM/molecular_orbital_theory", "note": "science_algebra_category=[6, 8]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7428029, "op": "update_atom", "target": "CS/algorithm", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7462165, "op": "update_atom", "target": "CS/data_structure", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7482197, "op": "update_atom", "target": "CS/computational_complexity", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7506576, "op": "update_atom", "target": "CS/turing_machine", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7536585, "op": "update_atom", "target": "CS/lambda_calculus", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7559726, "op": "update_atom", "target": "CS/type_theory", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7589724, "op": "update_atom", "target": "CS/formal_verification", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7613904, "op": "update_atom", "target": "CS/information_theory_shannon", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7633917, "op": "update_atom", "target": "CS/coding_theory", "note": "science_algebra_category=[13, 11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7669303, "op": "update_atom", "target": "CS/machine_learning", "note": "science_algebra_category=[13]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.769395, "op": "update_atom", "target": "CS/neural_network_architecture", "note": "science_algebra_category=[13, 11]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7713962, "op": "update_atom", "target": "CS/probabilistic_graphical_model", "note": "science_algebra_category=[13, 5]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231764.7737138, "op": "update_atom", "target": "CS/reinforcement_learning", "note": "science_algebra_category=[13, 12]", "source": "apply_science_algebra_backfill"}
+{"ts": 1781231783.0482643, "op": "add_relation", "target": "PHYS/classical_mechanics|USES|math::T1/ode", "note": "{\"phase_B_C\": true, \"reason\": \"Newton 2nd law F=ma is ODE\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0498352, "op": "add_relation", "target": "PHYS/lagrangian_hamiltonian|RELATES|math::T1/lagrange_multiplier", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"USES_VARIATIONAL\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0503542, "op": "add_relation", "target": "PHYS/thermodynamics|RELATES|math::T1/shannon_entropy_atom", "note": "{\"phase_B_C\": true, \"reason\": \"thermodynamic entropy generalizes to Shannon\", \"relation_subtype\": \"RELATES_TO\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0519516, "op": "add_relation", "target": "PHYS/statistical_mechanics|RELATES|math::T2/glauber_dynamics", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"REALIZES_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0530064, "op": "add_relation", "target": "PHYS/statistical_mechanics|RELATES|math::T2/modern_hopfield_ramsauer", "note": "{\"phase_B_C\": true, \"reason\": \"Hopfield is stat mech model\", \"relation_subtype\": \"INFORMS\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0547667, "op": "add_relation", "target": "PHYS/statistical_mechanics|RELATES|math::T2/amit_gutfreund_sompolinsky_capacity", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INFORMS_CAPACITY_BOUND\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0552952, "op": "add_relation", "target": "PHYS/quantum_mechanics|RELATES|math::T1/hilbert_space", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"FORMULATED_IN\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0573018, "op": "add_relation", "target": "PHYS/quantum_mechanics|RELATES|math::T1/complex_field", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"USES_COMPLEX_AMPLITUDES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0583029, "op": "add_relation", "target": "PHYS/general_relativity|RELATES|math::T1/riemannian_manifold", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"FORMULATED_IN\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0598366, "op": "add_relation", "target": "PHYS/wave_equation|INSTANCE_OF|math::T1/pde", "note": "{\"phase_B_C\": true}", "source": "batch03_A4"}
+{"ts": 1781231783.0614462, "op": "add_relation", "target": "PHYS/dynamical_systems|RELATES|math::T1/ode", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"STUDIED_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0625472, "op": "add_relation", "target": "PHYS/dynamical_systems|RELATES|math::T1/banach_fixed_point", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"USES_FIXED_POINT_ANALYSIS\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0637317, "op": "add_relation", "target": "PHYS/random_matrix_theory|RELATES|math::T1/marchenko_pastur_distribution", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"PRODUCES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0648234, "op": "add_relation", "target": "PHYS/random_matrix_theory|RELATES|math::T1/tracy_widom_distribution", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"PRODUCES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0665526, "op": "add_relation", "target": "PHYS/random_matrix_theory|RELATES|math::T1/voiculescu_free_probability", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"RELATES_TO_FREE_PROB\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0676205, "op": "add_relation", "target": "PHYS/critical_phenomena|RELATES|PHYS/statistical_mechanics", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"SUB_FIELD_OF\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0692246, "op": "add_relation", "target": "PHYS/spin_glass|RELATES|math::T2/modern_hopfield_ramsauer", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"PHYSICAL_BASIS_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.070791, "op": "add_relation", "target": "BIO/neuron_action_potential|RELATES|BIO/hodgkin_huxley", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"MODELED_BY\"}", "source": "batch03_A4"}
+{"ts": 1781231783.072106, "op": "add_relation", "target": "BIO/hodgkin_huxley|RELATES|math::T1/ode", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"FORMULATED_AS\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0731337, "op": "add_relation", "target": "BIO/synaptic_plasticity|RELATES|math::T2/bcm_learning_rule", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"REALIZED_BY\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0742297, "op": "add_relation", "target": "BIO/hippocampus|RELATES|math::T2/sparse_distributed_memory", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"BIOLOGICAL_BASIS_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0760052, "op": "add_relation", "target": "BIO/hippocampus|RELATES|math::T2/complementary_learning_systems", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"FAST_MEMORY_SYSTEM_IN\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0772445, "op": "add_relation", "target": "BIO/theta_gamma_binding|RELATES|math::T3/resonator_network_decoder", "note": "{\"phase_B_C\": true, \"reason\": \"Lisman-Jensen theta-gamma -> Frady-Kent resonator\", \"relation_subtype\": \"BIOLOGICAL_INSPIRATION_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0783105, "op": "add_relation", "target": "BIO/theta_gamma_binding|RELATES|math::T3/permutation_indexed_binding", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"BIOLOGICAL_INSPIRATION_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0792956, "op": "add_relation", "target": "BIO/prefrontal_cortex|RELATES|concept::CAP_discriminative_perceptron", "note": "{\"phase_B_C\": true, \"reason\": \"PFC top-down attention -> discriminative perceptron\", \"relation_subtype\": \"BIOLOGICAL_BASIS_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0803444, "op": "add_relation", "target": "BIO/wernicke_broca_language|RELATES|concept::PP-369_slot_filling", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"BIOLOGICAL_INSPIRATION_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0819504, "op": "add_relation", "target": "BIO/anterior_temporal_lobe|RELATES|concept::PP-364_pos_tagger", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"RELATED_TO_LANGUAGE_PROCESSING\"}", "source": "batch03_A4"}
+{"ts": 1781231783.083009, "op": "add_relation", "target": "BIO/dopamine_RPE|RELATES|concept::PP-375_multistep_math", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"BIOLOGICAL_BASIS_FOR_ANSWER_CONSISTENCY\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0842974, "op": "add_relation", "target": "BIO/dopamine_RPE|RELATES|math::T1/expectation_variance", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"COMPUTES_RPE_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0858417, "op": "add_relation", "target": "BIO/evolution_natural_selection|RELATES|math::T3/wright_fisher_process", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"MATHEMATICAL_MODEL_OF\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0869896, "op": "add_relation", "target": "BIO/predictive_coding|RELATES|concept::CAP_bayesian_inference", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"REALIZED_BY\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0880768, "op": "add_relation", "target": "BIO/sparse_coding_neural|RELATES|math::T2/sparse_distributed_memory", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INSPIRES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0898566, "op": "add_relation", "target": "BIO/memory_consolidation|RELATES|math::T2/complementary_learning_systems", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"EXEMPLIFIES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0909908, "op": "add_relation", "target": "BIO/attention_top_down|RELATES|concept::CAP_discriminative_perceptron", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"BIOLOGICAL_BASIS_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0920591, "op": "add_relation", "target": "BIO/default_mode_network|RELATES|math::T2/glauber_dynamics", "note": "{\"phase_B_C\": true, \"reason\": \"DMN spontaneous activity ~ Glauber-style noise floor\", \"relation_subtype\": \"ANALOGUE_OF_SPONTANEOUS_EXPLORATION\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0936785, "op": "add_relation", "target": "BIO/cognitive_architecture|RELATES|concept::unified_compositional_engine", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"FRAMEWORK_FOR_COMPARING\"}", "source": "batch03_A4"}
+{"ts": 1781231783.095475, "op": "add_relation", "target": "CHEM/equilibrium_thermodynamic|RELATES|math::T2/glauber_dynamics", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"MICROSCOPIC_BASIS_FOR_DETAILED_BALANCE\"}", "source": "batch03_A4"}
+{"ts": 1781231783.0975559, "op": "add_relation", "target": "CHEM/molecular_orbital_theory|RELATES|math::T1/hilbert_space", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"FORMULATED_IN\"}", "source": "batch03_A4"}
+{"ts": 1781231783.099369, "op": "add_relation", "target": "CHEM/chemical_reaction|RELATES|math::T1/ode", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"RATE_EQUATIONS_AS\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1003742, "op": "add_relation", "target": "CS/algorithm|RELATES|math::T3/viterbi_decoder", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INCLUDES_EXAMPLE\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1023726, "op": "add_relation", "target": "CS/computational_complexity|RELATES|math::T3/hungarian_algorithm", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"CLASSIFIES_COMPLEXITY_OF\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1039221, "op": "add_relation", "target": "CS/turing_machine|RELATES|math::T1/predicate_logic", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"RELATES_TO_COMPUTABILITY\"}", "source": "batch03_A4"}
+{"ts": 1781231783.105003, "op": "add_relation", "target": "CS/lambda_calculus|RELATES|math::T1/category", "note": "{\"phase_B_C\": true, \"reason\": \"Cartesian closed category\", \"relation_subtype\": \"FORMULATED_VIA_CCC\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1066146, "op": "add_relation", "target": "CS/type_theory|RELATES|math::T1/category", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"RELATES_TO\"}", "source": "batch03_A4"}
+{"ts": 1781231783.108238, "op": "add_relation", "target": "CS/information_theory_shannon|RELATES|math::T1/shannon_entropy_atom", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"DEFINES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1094227, "op": "add_relation", "target": "CS/information_theory_shannon|RELATES|math::T1/mutual_information", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INTRODUCES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1107295, "op": "add_relation", "target": "CS/coding_theory|RELATES|math::T2/sparse_distributed_memory", "note": "{\"phase_B_C\": true, \"reason\": \"Reed-Solomon parity in substrate v3.2 wrapper\", \"relation_subtype\": \"PRINCIPLES_APPLIED_IN\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1117852, "op": "add_relation", "target": "CS/machine_learning|RELATES|concept::CAP_discriminative_perceptron", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INCLUDES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.113777, "op": "add_relation", "target": "CS/machine_learning|RELATES|concept::CAP_bayesian_inference", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INCLUDES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1149466, "op": "add_relation", "target": "CS/machine_learning|RELATES|concept::CAP_em_algorithm", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INCLUDES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1166346, "op": "add_relation", "target": "CS/neural_network_architecture|RELATES|math::T2/modern_hopfield_ramsauer", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INCLUDES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.118459, "op": "add_relation", "target": "CS/probabilistic_graphical_model|GENERALIZES|math::T1/markov_chain", "note": "{\"phase_B_C\": true}", "source": "batch03_A4"}
+{"ts": 1781231783.1201303, "op": "add_relation", "target": "CS/probabilistic_graphical_model|RELATES|concept::CAP_viterbi_decoding", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"INCLUDES\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1217523, "op": "add_relation", "target": "CS/reinforcement_learning|RELATES|BIO/dopamine_RPE", "note": "{\"phase_B_C\": true, \"reason\": \"Schultz RPE -> TD learning\", \"relation_subtype\": \"BIOLOGICALLY_INSPIRED_BY\"}", "source": "batch03_A4"}
+{"ts": 1781231783.122863, "op": "add_relation", "target": "CS/reinforcement_learning|RELATES|concept::PP-375_multistep_math", "note": "{\"phase_B_C\": true, \"reason\": \"answer-consistency weak labels analogue of reward signal\", \"relation_subtype\": \"ANALOGOUS_TO\"}", "source": "batch03_A4"}
+{"ts": 1781231783.1239173, "op": "add_relation", "target": "CS/reinforcement_learning|RELATES|math::T1/expectation_variance", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"USES_EXPECTED_REWARD\"}", "source": "batch03_A4"}
+{"ts": 1781239161.0219324, "op": "add_atom", "target": "CROSSDISC/theta_gamma_to_hrr", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0219324, "op": "add_atom", "target": "CROSSDISC/grid_cells_to_wavelets", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/place_cells_to_spatial_binding", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/dopamine_rpe_to_credit_assignment", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/cerebellum_to_predictive_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/dmn_to_self_knowing", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0569646, "op": "add_atom", "target": "CROSSDISC/stdp_to_temporal_policy", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.062486, "op": "add_atom", "target": "CROSSDISC/ltp_to_hebbian_reinforcement", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0657961, "op": "add_atom", "target": "CROSSDISC/anderson_to_cleanup_attractors", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0693188, "op": "add_atom", "target": "CROSSDISC/protein_folding_to_cleanup_funnel", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0693188, "op": "add_atom", "target": "CROSSDISC/percolation_to_capability_path", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0693188, "op": "add_atom", "target": "CROSSDISC/tda_to_substrate_topology", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/ising_to_modern_hopfield", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/hodgkin_huxley_to_spiking_neuron", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/ess_to_adversarial_stability", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/lorenz_to_dynamical_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1045363, "op": "add_atom", "target": "CROSSDISC/kam_to_perturbation_stability", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1086576, "op": "add_atom", "target": "CROSSDISC/qubit_to_fhrr_phasor", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1136444, "op": "add_atom", "target": "CROSSDISC/landauer_to_atom_update_cost", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1168528, "op": "add_atom", "target": "CROSSDISC/jarzynski_to_substrate_energy", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.12245, "op": "add_atom", "target": "CROSSDISC/no_cloning_to_capacity_bound", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1268501, "op": "add_atom", "target": "CROSSDISC/markov_chain_to_random_walk_retrieval", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1307395, "op": "add_atom", "target": "CROSSDISC/lotka_volterra_to_atom_dynamics", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.132491, "op": "add_atom", "target": "CROSSDISC/hardy_weinberg_to_atom_equilibrium", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.132491, "op": "add_atom", "target": "CROSSDISC/mapk_to_hierarchical_activation", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.132491, "op": "add_atom", "target": "CROSSDISC/michaelis_menten_to_substrate_saturation", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/cognitive_map_to_concept_links", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/working_memory_baddeley_to_substrate_scratchpad", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/predictive_coding_to_predictive_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239834.9511027, "op": "add_relation", "target": "BIO/dopamine_RPE|INFLUENCED_BY|math::T3/q_learning", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9568415, "op": "add_relation", "target": "BIO/dopamine_RPE|INFLUENCED_BY|math::T3/policy_gradient", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9628553, "op": "add_relation", "target": "BIO/place_cell|INFLUENCED_BY|math::T2/cleanup", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9654155, "op": "add_relation", "target": "BIO/default_mode_network|INFLUENCED_BY|math::T2/tier2_schema", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9766214, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T2/circular_convolution", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9766214, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T2/sparse_distributed_memory", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9877687, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T3/permutation_indexed_binding", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9877687, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T3/resonator_network_decoder", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9959657, "op": "add_relation", "target": "PHYS/ising_model|INFLUENCED_BY|math::T2/modern_hopfield_ramsauer", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781249031.9808054, "op": "add_atom", "target": "NEURO/place_cells_hippocampus", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9861546, "op": "add_atom", "target": "NEURO/grid_cells_entorhinal", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9882498, "op": "add_atom", "target": "NEURO/theta_gamma_coupling", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9941232, "op": "add_atom", "target": "NEURO/cognitive_map_tolman", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0004206, "op": "add_atom", "target": "NEURO/working_memory_baddeley", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0004206, "op": "add_atom", "target": "NEURO/predictive_coding_rao_ballard", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.009757, "op": "add_atom", "target": "NEURO/dopamine_rpe_schultz", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.014699, "op": "add_atom", "target": "NEURO/cerebellum_internal_model", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0167055, "op": "add_atom", "target": "NEURO/default_mode_network", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.023447, "op": "add_atom", "target": "PHYS/anderson_localization", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0254533, "op": "add_atom", "target": "PHYS/bcs_superconductivity", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0254533, "op": "add_atom", "target": "PHYS/lorenz_chaos", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0254533, "op": "add_atom", "target": "PHYS/kolmogorov_arnold_moser", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0381877, "op": "add_atom", "target": "PHYS/fluctuation_dissipation", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "PHYS/jarzynski_equality", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "QINFO/qubit", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "QINFO/quantum_entanglement", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "QINFO/no_cloning_theorem", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0568604, "op": "add_atom", "target": "CHEM/michaelis_menten", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0635512, "op": "add_atom", "target": "CHEM/signaling_cascade_mapk", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0635512, "op": "add_atom", "target": "BIO/population_genetics_hardy_weinberg", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0726314, "op": "add_atom", "target": "BIO/evolutionary_stable_strategy", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0726314, "op": "add_atom", "target": "BIO/lotka_volterra", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0726314, "op": "add_atom", "target": "BIO/synaptic_plasticity_stdp", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0837247, "op": "add_atom", "target": "BIO/long_term_potentiation_ltp", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_atom", "target": "CHEM/protein_folding_levinthal", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_atom", "target": "PHYS/topological_data_analysis", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_atom", "target": "PHYS/maxwell_demon_landauer", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_relation", "target": "NEURO/place_cells_hippocampus|INSTANCE_OF|NEURO/cognitive_map_tolman", "note": "original_type=INSTANTIATES", "source": "ingest_mixed"}
+{"ts": 1781249032.1041224, "op": "add_relation", "target": "NEURO/theta_gamma_coupling|ENABLES|NEURO/working_memory_baddeley", "note": "", "source": "ingest_mixed"}
+{"ts": 1781270088.3922305, "op": "update_atom", "target": "BIO/theta_gamma_binding", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3989217, "op": "update_atom", "target": "BIO/place_cell", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.407545, "op": "update_atom", "target": "BIO/grid_cell", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4147651, "op": "update_atom", "target": "BIO/hippocampus", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4237008, "op": "update_atom", "target": "BIO/prefrontal_cortex", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4320254, "op": "update_atom", "target": "BIO/working_memory", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.441421, "op": "update_atom", "target": "BIO/dopamine_RPE", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4495778, "op": "update_atom", "target": "BIO/predictive_coding", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4575784, "op": "update_atom", "target": "BIO/hodgkin_huxley", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4670527, "op": "update_atom", "target": "BIO/long_term_potentiation_ltp", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4743204, "op": "update_atom", "target": "BIO/synaptic_plasticity_stdp", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4743204, "op": "update_atom", "target": "BIO/default_mode_network", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4891589, "op": "update_atom", "target": "PHYS/random_matrix_theory", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4965804, "op": "update_atom", "target": "PHYS/quantum_entanglement", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5030065, "op": "update_atom", "target": "PHYS/anderson_localization", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5122483, "op": "update_atom", "target": "PHYS/ising_model", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5207574, "op": "update_atom", "target": "PHYS/jarzynski_equality", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5287192, "op": "update_atom", "target": "QINFO/qubit", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5404797, "op": "update_atom", "target": "QINFO/quantum_entanglement", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.549637, "op": "update_atom", "target": "CHEM/protein_folding_levinthal", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5600014, "op": "update_atom", "target": "CHEM/michaelis_menten", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781313686.4148498, "op": "update_atom", "target": "PHYS/random_matrix_theory", "note": "backfilled serves_capability += concept::CAP_spectral_observability for Q44-C gold", "source": "p0_2_field_backfill_q44_c_per_cycle_51_day3_direction"}
+{"ts": 1781314056.877583, "op": "update_atom", "target": "BIO/hippocampus", "note": "backfilled serves_capability += concept::PP-225_fact_recall_kb100K", "source": "p0_2_field_backfill_c_axis_full"}
+{"ts": 1781351060.3021963, "op": "update_atom", "target": "CS/probabilistic_graphical_model", "note": "added composite all-kws alias for Q01/Q33/Q37 bonus trigger: graphical markov bayes viterbi model", "source": "a_axis_alias_enrichment_v2_composite_strategy"}
+{"ts": 1781351191.5088778, "op": "update_atom", "target": "PHYS/random_matrix_theory", "note": "composite alias: random matrix theory RMT", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.5299811, "op": "update_atom", "target": "PHYS/spin_glass", "note": "composite alias: hopfield spin glass physics", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.552621, "op": "update_atom", "target": "CS/reinforcement_learning", "note": "composite alias: reinforcement learning RL", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.5550916, "op": "update_atom", "target": "BIO/dopamine_RPE", "note": "composite alias: reinforcement dopamine RPE prediction error", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.5575147, "op": "update_atom", "target": "BIO/basal_ganglia", "note": "composite alias: reinforcement basal ganglia", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.6025631, "op": "update_atom", "target": "BIO/predictive_coding", "note": "composite alias: bayesian bayes predictive coding", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781351191.6047614, "op": "update_atom", "target": "CS/probabilistic_graphical_model", "note": "composite alias: bayesian bayes probabilistic graphical model", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781397333.5026648, "op": "update_atom", "target": "BIO/default_mode_network", "note": "backfill algebra for default_mode_network Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781397333.530349, "op": "update_atom", "target": "NEURO/default_mode_network", "note": "backfill algebra for default_mode_network Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781397333.5791872, "op": "update_atom", "target": "PHYS/quantum_entanglement", "note": "backfill algebra for quantum_entanglement Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781397333.6208801, "op": "update_atom", "target": "QINFO/quantum_entanglement", "note": "backfill algebra for quantum_entanglement Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781557459.4820125, "op": "add_relation", "target": "CS/algorithm|RELATES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was science::CS/algorithm -RELATES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.0522382, "op": "remove_relation", "target": "CS/algorithm|RELATES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557461.6657627, "op": "add_relation", "target": "PHYS/thermodynamics|RELATES|math::T1/shannon_entropy", "note": "DECISION 109b-2 merge: was science::PHYS/thermodynamics -RELATES-> math::T1/shannon_entropy_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557461.6730402, "op": "add_relation", "target": "CS/information_theory_shannon|RELATES|math::T1/shannon_entropy", "note": "DECISION 109b-2 merge: was science::CS/information_theory_shannon -RELATES-> math::T1/shannon_entropy_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557462.174432, "op": "remove_relation", "target": "PHYS/thermodynamics|RELATES|math::T1/shannon_entropy_atom", "note": "", "source": "manual"}
+{"ts": 1781557462.1871488, "op": "remove_relation", "target": "CS/information_theory_shannon|RELATES|math::T1/shannon_entropy_atom", "note": "", "source": "manual"}

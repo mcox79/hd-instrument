@@ -1,0 +1,19 @@
+{
+  "anchor_name": "tier4_defrag_throughput_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: defrag is lossless AND preserves/improves query throughput (ratio>=0.95) -- Gate 3 cleared via the jitter-robust throughput criterion. acc before=1.000 after=1.000 (delta=0.0000) | throughput before=51605 after=49526 q/s (ratio=0.960)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "delta": 0.0,
+      "tput_before": 51605.123777750676,
+      "tput_after": 49525.73497770318,
+      "ratio": 0.9597057685782555
+    }
+  ],
+  "elapsed_s": 2.564396381378174,
+  "summary": "HARD_PASS: defrag is lossless AND preserves/improves query throughput (ratio>=0.95) -- Gate 3 cleared via the jitter-robust throughput criterion. acc before=1.000 after=1.000 (delta=0.0000) | throughput before=51605 after=49526 q/s (ratio=0.960)"
+}

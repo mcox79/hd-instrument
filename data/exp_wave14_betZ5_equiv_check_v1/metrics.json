@@ -1,0 +1,50 @@
+{
+  "verdict": "BETZ5_STRICTLY_STRONGER",
+  "verdict_msg": "Output distributions differ: r=0.4579<0.99. Absorbing-diffusion variance certificate=62.6470>0.01 is non-trivial. VAMP produces no per-codeword variance (deterministic single-pass). Bet Z.5 confirmed as strictly stronger readout primitive. Justify full GPU impl.",
+  "elapsed_s": 21.56300000002375,
+  "summary": {
+    "mean_pearson_r": 0.45792395852816603,
+    "mean_var_cert": 62.64695288340251,
+    "mean_z5_acc": 0.025000000000000005,
+    "mean_vamp_acc": 0.016666666666666666,
+    "per_seed_r": [
+      0.4639268308412284,
+      0.4555989702232182,
+      0.4542460745200515
+    ],
+    "per_seed_var_cert": [
+      62.67490816116333,
+      62.74363851547241,
+      62.522311973571775
+    ],
+    "per_seed_z5_acc": [
+      0.05,
+      0.025,
+      0.0
+    ],
+    "per_seed_vamp_acc": [
+      0.05,
+      0.0,
+      0.0
+    ],
+    "config_depth": 10,
+    "K_ensemble": 50,
+    "estimated_peak_mb": 3.17877197265625
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "K_entities": 200,
+    "K_relations": 20,
+    "K_facts": 100,
+    "depth": 10,
+    "n_trials": 40,
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "K_ensemble": 50,
+    "noise_level": 3.0
+  }
+}

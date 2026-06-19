@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_stage_a_bio_smoke_B5_stdp_replay_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ordered replay no better than no-replay. retention none=0.362 random=0.320 ordered=0.070 ordered50=0.258 (ordered/none=0.19x)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "B5_stdp_replay"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "none": 0.37,
+      "random": 0.33,
+      "ordered": 0.06,
+      "ordered50": 0.25
+    },
+    {
+      "seed": 2,
+      "none": 0.355,
+      "random": 0.31,
+      "ordered": 0.08,
+      "ordered50": 0.265
+    }
+  ],
+  "elapsed_s": 15.961801767349243,
+  "summary": "HARD_FAIL: ordered replay no better than no-replay. retention none=0.362 random=0.320 ordered=0.070 ordered50=0.258 (ordered/none=0.19x)"
+}

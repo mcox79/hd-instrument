@@ -1,0 +1,53 @@
+{
+  "spec": {
+    "name": "exp_m5_hebbian_boost",
+    "seed": 42,
+    "n": 256,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-16T23:45:01",
+  "total_events": 43770,
+  "total_wall_time_us": 2110729.2,
+  "n_facts": 30,
+  "n_distractors": 100,
+  "train_iterations": 800,
+  "train_bundle_k": 5,
+  "test_k_values": [
+    10,
+    20,
+    30,
+    40,
+    50,
+    75
+  ],
+  "test_trials_per_k": 30,
+  "boost_alpha": 0.005,
+  "plain_recovery": {
+    "10": 1.0,
+    "20": 0.9766666666666667,
+    "30": 0.9333333333333333,
+    "40": 0.9333333333333333,
+    "50": 0.9333333333333333,
+    "75": 0.9333333333333333
+  },
+  "boosted_recovery": {
+    "10": 1.0,
+    "20": 1.0,
+    "30": 1.0,
+    "40": 1.0,
+    "50": 1.0,
+    "75": 1.0
+  },
+  "improvement_by_k": {
+    "10": 0.0,
+    "20": 0.023333333333333317,
+    "30": 0.06666666666666665,
+    "40": 0.06666666666666665,
+    "50": 0.06666666666666665,
+    "75": 0.06666666666666665
+  },
+  "max_improvement_k": 30,
+  "max_improvement": 0.06666666666666665,
+  "headline": "max improvement +6.7 pp at k=30 (plain=93% -> boosted=100%)",
+  "review": false
+}

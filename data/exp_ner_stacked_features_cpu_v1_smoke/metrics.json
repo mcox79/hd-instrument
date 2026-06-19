@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_stacked_features_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: stacked lift 0.01-0.025 -- features partially add but largely SATURATE at full data (lexical features subsume most signal); best in-corpus substrate NER ~F1. External resources (embeddings/large-corpus clusters) needed to break ~0.66. stacked(clusters+POS) F1=0.5415 vs baseline 0.4658 (lift=+0.0757, P=0.587 R=0.503, train=300)",
+  "summary": "MIDDLE_BAND: stacked lift 0.01-0.025 -- features partially add but largely SATURATE at full data (lexical features subsume most signal); best in-corpus substrate NER ~F1. External resources (embeddings/large-corpus clusters) needed to break ~0.66. stacked(clusters+POS) F1=0.5415 vs baseline 0.4658 (lift=+0.0757, P=0.587 R=0.503, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5415,
+      "f1_stacked": 0.5415,
+      "f1_baseline": 0.4658,
+      "lift": 0.0757,
+      "prec": 0.587,
+      "rec": 0.503,
+      "n_train": 300,
+      "n_vocab": 394
+    }
+  ],
+  "elapsed_s": 12.029535293579102
+}

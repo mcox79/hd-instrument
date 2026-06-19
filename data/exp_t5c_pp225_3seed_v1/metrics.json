@@ -1,0 +1,43 @@
+{
+  "anchor_name": "t5c_pp225_3seed_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-225 3-seed mean held-out recall 1.000 (std 0.000) -- projection-head fact-recall VALIDATED multi-seed. heldout=[1.0, 1.0, 1.0]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "bare": 0.0,
+      "train_recall": 0.9932885906040269,
+      "heldout_recall": 1.0,
+      "best_heldout": 1.0,
+      "n_train": 149,
+      "n_test": 100
+    },
+    {
+      "bare": 0.0,
+      "train_recall": 0.9932885906040269,
+      "heldout_recall": 1.0,
+      "best_heldout": 1.0,
+      "n_train": 149,
+      "n_test": 100
+    },
+    {
+      "bare": 0.0,
+      "train_recall": 0.9932885906040269,
+      "heldout_recall": 1.0,
+      "best_heldout": 1.0,
+      "n_train": 149,
+      "n_test": 100
+    }
+  ],
+  "summary": {
+    "mean_heldout": 1.0,
+    "std_heldout": 0.0,
+    "heldout": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "elapsed_s": 433.4910590648651
+}

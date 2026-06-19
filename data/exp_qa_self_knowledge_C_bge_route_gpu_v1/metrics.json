@@ -1,0 +1,29 @@
+{
+  "anchor_name": "qa_self_knowledge_C_bge_route_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: bge fallback does not beat what_serves by >0.02 -- C-axis is near its ceiling given the serves_capability field; the lever is field BACKFILL (populate serves_capability), not a semantic route. best=prod_U_bge5 C-F1=0.3602 vs prod(what_serves) 0.5796 (delta -0.2194); prod-empty Qs=1/9; all={'prod_what_serves': 0.5796, 'bge_top5': 0.0494, 'bge_top10': 0.0647, 'prod_U_bge5': 0.3602, 'prod_U_bge10': 0.2613, 'thr_0.55': 0.0136, 'thr_0.60': 0.0237, 'prod_U_thr_0.60': 0.0306}",
+  "summary": "HARD_FAIL: bge fallback does not beat what_serves by >0.02 -- C-axis is near its ceiling given the serves_capability field; the lever is field BACKFILL (populate serves_capability), not a semantic route. best=prod_U_bge5 C-F1=0.3602 vs prod(what_serves) 0.5796 (delta -0.2194); prod-empty Qs=1/9; all={'prod_what_serves': 0.5796, 'bge_top5': 0.0494, 'bge_top10': 0.0647, 'prod_U_bge5': 0.3602, 'prod_U_bge10': 0.2613, 'thr_0.55': 0.0136, 'thr_0.60': 0.0237, 'prod_U_thr_0.60': 0.0306}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 9,
+      "macro_by_policy": {
+        "prod_what_serves": 0.5796,
+        "bge_top5": 0.0494,
+        "bge_top10": 0.0647,
+        "prod_U_bge5": 0.3602,
+        "prod_U_bge10": 0.2613,
+        "thr_0.55": 0.0136,
+        "thr_0.60": 0.0237,
+        "prod_U_thr_0.60": 0.0306
+      },
+      "prod_C_f1": 0.5796,
+      "best_policy": "prod_U_bge5",
+      "best_C_f1": 0.3602,
+      "delta": -0.2194,
+      "n_prod_empty": 1
+    }
+  ],
+  "elapsed_s": 239.29349493980408
+}

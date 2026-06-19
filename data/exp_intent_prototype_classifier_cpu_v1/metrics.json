@@ -1,0 +1,14 @@
+{
+  "anchor_name": "intent_prototype_classifier_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate nearest-prototype intent classification >=0.85 (no LLM) -- conversation-act routing layer works. intent-accuracy=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 1.0
+    }
+  ],
+  "elapsed_s": 0.019853591918945312,
+  "summary": "HARD_PASS: substrate nearest-prototype intent classification >=0.85 (no LLM) -- conversation-act routing layer works. intent-accuracy=1.000"
+}

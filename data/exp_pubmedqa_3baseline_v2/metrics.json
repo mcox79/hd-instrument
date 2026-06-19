@@ -1,0 +1,17 @@
+{
+  "anchor_name": "pubmedqa_3baseline_v2",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: retrieval beats bare by 0.04-0.10 acc. bare=0.510 vanilla-RAG=0.850 substrate=0.570 (n=200, PubMedQA final_decision accuracy, Qwen2.5-1.5B + bge-small)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "bare": 0.51,
+      "rag": 0.85,
+      "sub": 0.57
+    }
+  ],
+  "elapsed_s": 78.62599420547485,
+  "summary": "MIDDLE_BAND: retrieval beats bare by 0.04-0.10 acc. bare=0.510 vanilla-RAG=0.850 substrate=0.570 (n=200, PubMedQA final_decision accuracy, Qwen2.5-1.5B + bge-small)"
+}

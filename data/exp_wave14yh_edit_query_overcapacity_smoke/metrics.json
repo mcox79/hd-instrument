@@ -1,0 +1,66 @@
+{
+  "verdict": "EDIT_QUERY_OC_BOTH_PASS",
+  "verdict_msg": "Both arms pass at M=2N. Kerdock edit=1.000, correlated edit=1.000.",
+  "elapsed_s": 0.375,
+  "summary": {
+    "N": 1024,
+    "by_arm": {
+      "kerdock": {
+        "edit_argmax_acc": 1.0,
+        "kept_argmax_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          }
+        ],
+        "edit_paraphrase_acc_h8": 1.0,
+        "kept_paraphrase_acc_h8": 1.0
+      },
+      "correlated": {
+        "edit_argmax_acc": 1.0,
+        "kept_argmax_acc": 1.0,
+        "side_effect_rate": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "edit_argmax_acc": 1.0,
+            "kept_argmax_acc": 1.0,
+            "side_effect_rate": 0.0,
+            "per_hamming": {
+              "8": {
+                "edit_para_acc": 1.0,
+                "kept_para_acc": 1.0
+              }
+            }
+          }
+        ],
+        "edit_paraphrase_acc_h8": 1.0,
+        "kept_paraphrase_acc_h8": 1.0
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 2048,
+    "n_edit": 5,
+    "n_kept": 20,
+    "hamming_radii": [
+      8
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha": 1.0
+  }
+}

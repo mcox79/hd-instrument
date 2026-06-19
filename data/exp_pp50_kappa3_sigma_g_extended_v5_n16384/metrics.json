@@ -1,0 +1,297 @@
+{
+  "anchor_name": "pp50_kappa3_sigma_g_extended_v5_n16384",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: monotone=False amp_1_to_5=nanx (< 10.0x required). sigma_sep(d=0.04): [sg1.0:44085, sg1.5:797452, sg2.0:13224401, sg3.0:3451376952, sg5.0:nan] n_seeds=5",
+  "N": 16384,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 4.437658786773682,
+  "summary": "MIDDLE_BAND: monotone=False amp_1_to_5=nanx (< 10.0x required). sigma_sep(d=0.04): [sg1.0:44085, sg1.5:797452, sg2.0:13224401, sg3.0:3451376952, sg5.0:nan] n_seeds=5",
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 0.8921999931335449,
+      "peak_gpu_gb": 1.613049856,
+      "cells": {
+        "sg1.0000_da0.0400": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 218250.12451668555
+        },
+        "sg1.0000_da0.0100": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 218097.97170869255
+        },
+        "sg1.5000_da0.0400": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.04,
+          "sigma_sep": 3984924.2537141703
+        },
+        "sg1.5000_da0.0100": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.01,
+          "sigma_sep": 3984823.207555074
+        },
+        "sg2.0000_da0.0400": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 66119648.60418973
+        },
+        "sg2.0000_da0.0100": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 66119480.712551825
+        },
+        "sg3.0000_da0.0400": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 17256882140.712433
+        },
+        "sg3.0000_da0.0100": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 17256878547.130554
+        },
+        "sg5.0000_da0.0400": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": NaN
+        },
+        "sg5.0000_da0.0100": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": NaN
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "elapsed_s": 0.869271993637085,
+      "peak_gpu_gb": 1.613049856,
+      "cells": {
+        "sg1.0000_da0.0400": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 243.99292329879202
+        },
+        "sg1.0000_da0.0100": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 259.9181460741638
+        },
+        "sg1.5000_da0.0400": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.04,
+          "sigma_sep": 149.32292071352896
+        },
+        "sg1.5000_da0.0100": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.01,
+          "sigma_sep": 151.1969495879986
+        },
+        "sg2.0000_da0.0400": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 49.81368753113363
+        },
+        "sg2.0000_da0.0100": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 50.07787537436867
+        },
+        "sg3.0000_da0.0400": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 126.63226811333361
+        },
+        "sg3.0000_da0.0100": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 126.62246485304404
+        },
+        "sg5.0000_da0.0400": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": NaN
+        },
+        "sg5.0000_da0.0100": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": NaN
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "elapsed_s": 0.880894660949707,
+      "peak_gpu_gb": 1.613049856,
+      "cells": {
+        "sg1.0000_da0.0400": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 879.7991054909763
+        },
+        "sg1.0000_da0.0100": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 891.3765984652623
+        },
+        "sg1.5000_da0.0400": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.04,
+          "sigma_sep": 974.6192711318652
+        },
+        "sg1.5000_da0.0100": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.01,
+          "sigma_sep": 975.2553902915569
+        },
+        "sg2.0000_da0.0400": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 993.5657366376477
+        },
+        "sg2.0000_da0.0100": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 993.6055682970531
+        },
+        "sg3.0000_da0.0400": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 999.523448561736
+        },
+        "sg3.0000_da0.0100": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 999.5236317800158
+        },
+        "sg5.0000_da0.0400": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": NaN
+        },
+        "sg5.0000_da0.0100": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": NaN
+        }
+      }
+    },
+    {
+      "seed": 31,
+      "elapsed_s": 0.8710293769836426,
+      "peak_gpu_gb": 1.613049856,
+      "cells": {
+        "sg1.0000_da0.0400": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 611.5712035586777
+        },
+        "sg1.0000_da0.0100": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 696.9394127278223
+        },
+        "sg1.5000_da0.0400": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.04,
+          "sigma_sep": 811.7494897772344
+        },
+        "sg1.5000_da0.0100": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.01,
+          "sigma_sep": 826.1743016628321
+        },
+        "sg2.0000_da0.0400": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 897.4005535389341
+        },
+        "sg2.0000_da0.0100": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 900.1707545037268
+        },
+        "sg3.0000_da0.0400": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 967.099038287779
+        },
+        "sg3.0000_da0.0100": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 967.2260082165469
+        },
+        "sg5.0000_da0.0400": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": NaN
+        },
+        "sg5.0000_da0.0100": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": NaN
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "elapsed_s": 0.8690357208251953,
+      "peak_gpu_gb": 1.613049856,
+      "cells": {
+        "sg1.0000_da0.0400": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 437.0146556277277
+        },
+        "sg1.0000_da0.0100": {
+          "sigma_g": 1.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 42.59190709529144
+        },
+        "sg1.5000_da0.0400": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.04,
+          "sigma_sep": 397.8254750279855
+        },
+        "sg1.5000_da0.0100": {
+          "sigma_g": 1.5,
+          "delta_alpha": 0.01,
+          "sigma_sep": 178.9178700014068
+        },
+        "sg2.0000_da0.0400": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 414.25990529611147
+        },
+        "sg2.0000_da0.0100": {
+          "sigma_g": 2.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 303.1932870335515
+        },
+        "sg3.0000_da0.0400": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": 527.3182464599225
+        },
+        "sg3.0000_da0.0100": {
+          "sigma_g": 3.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": 501.44587149351315
+        },
+        "sg5.0000_da0.0400": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.04,
+          "sigma_sep": NaN
+        },
+        "sg5.0000_da0.0100": {
+          "sigma_g": 5.0,
+          "delta_alpha": 0.01,
+          "sigma_sep": NaN
+        }
+      }
+    }
+  ]
+}

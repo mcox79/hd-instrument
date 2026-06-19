@@ -1,0 +1,61 @@
+{
+  "verdict": "HEADTOHEAD_EQUIVALENT",
+  "verdict_msg": "both >=0.95: smoother=1.000, vamp=1.000.",
+  "elapsed_s": 33.96899999998277,
+  "summary": {
+    "smoother_mean": 1.0,
+    "vamp_mean": 1.0,
+    "smoother_per_config": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "vamp_per_config": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "config": {
+    "N": 65536,
+    "configs": [
+      [
+        "K100",
+        "d50",
+        100,
+        50
+      ],
+      [
+        "K500",
+        "d50",
+        500,
+        50
+      ],
+      [
+        "K1000",
+        "d50",
+        1000,
+        50
+      ],
+      [
+        "K100",
+        "d100",
+        100,
+        100
+      ],
+      [
+        "K100",
+        "d25",
+        100,
+        25
+      ]
+    ],
+    "num_relations": 20,
+    "n_trials": 25,
+    "seed": 17
+  }
+}

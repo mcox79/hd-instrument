@@ -1,0 +1,35 @@
+{
+  "anchor_name": "encoder_ladder_hotpot_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: best recall@10 0.65-0.80 -- usable, pick the best size/quality point. best=e5-large | {'MiniLM': {'r2': 0.14, 'r10': 0.58}, 'bge-small': {'r2': 0.31, 'r10': 0.7}, 'bge-large': {'r2': 0.33, 'r10': 0.76}, 'e5-large': {'r2': 0.31, 'r10': 0.78}} (n=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "MiniLM": {
+          "r2": 0.135,
+          "r10": 0.585
+        },
+        "bge-small": {
+          "r2": 0.31,
+          "r10": 0.705
+        },
+        "bge-large": {
+          "r2": 0.325,
+          "r10": 0.76
+        },
+        "e5-large": {
+          "r2": 0.31,
+          "r10": 0.78
+        }
+      },
+      "best": "e5-large",
+      "best_r10": 0.78,
+      "best_r2": 0.31,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 91.10039758682251,
+  "summary": "MIDDLE_BAND: best recall@10 0.65-0.80 -- usable, pick the best size/quality point. best=e5-large | {'MiniLM': {'r2': 0.14, 'r10': 0.58}, 'bge-small': {'r2': 0.31, 'r10': 0.7}, 'bge-large': {'r2': 0.33, 'r10': 0.76}, 'e5-large': {'r2': 0.31, 'r10': 0.78}} (n=200)"
+}

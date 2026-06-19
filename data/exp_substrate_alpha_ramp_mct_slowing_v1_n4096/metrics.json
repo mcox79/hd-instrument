@@ -1,0 +1,144 @@
+{
+  "anchor_name": "substrate_alpha_ramp_mct_slowing_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: graceful zone (M<0.85 alpha_c) + catastrophic drop + MCT slowing>1.5x (free early-warning). frac_recalled=a0.02:1.00 a0.05:1.00 a0.08:1.00 a0.1:1.00 a0.117:0.97 a0.138:0.85 a0.16:0.64 a0.2:0.14 | catastrophic_drop=0.33 mct_ratio=10.34 (steps_low=1.03 hi=10.68)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "alpha_grid": [
+    0.02,
+    0.05,
+    0.08,
+    0.1,
+    0.117,
+    0.138,
+    0.16,
+    0.2
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "cells": [
+        {
+          "alpha": 0.02,
+          "M": 10,
+          "frac_recalled": 1.0,
+          "mean_overlap": 1.0,
+          "mean_steps": 1.0
+        },
+        {
+          "alpha": 0.05,
+          "M": 26,
+          "frac_recalled": 1.0,
+          "mean_overlap": 1.0,
+          "mean_steps": 1.0
+        },
+        {
+          "alpha": 0.08,
+          "M": 41,
+          "frac_recalled": 1.0,
+          "mean_overlap": 0.9994283536585366,
+          "mean_steps": 1.1219512195121952
+        },
+        {
+          "alpha": 0.1,
+          "M": 51,
+          "frac_recalled": 1.0,
+          "mean_overlap": 0.9986213235294118,
+          "mean_steps": 1.3137254901960784
+        },
+        {
+          "alpha": 0.117,
+          "M": 60,
+          "frac_recalled": 1.0,
+          "mean_overlap": 0.9953776041666667,
+          "mean_steps": 1.8666666666666667
+        },
+        {
+          "alpha": 0.138,
+          "M": 71,
+          "frac_recalled": 0.8873239436619719,
+          "mean_overlap": 0.9662742077464789,
+          "mean_steps": 4.802816901408451
+        },
+        {
+          "alpha": 0.16,
+          "M": 82,
+          "frac_recalled": 0.7073170731707317,
+          "mean_overlap": 0.9181592987804879,
+          "mean_steps": 7.878048780487805
+        },
+        {
+          "alpha": 0.2,
+          "M": 102,
+          "frac_recalled": 0.11764705882352941,
+          "mean_overlap": 0.65234375,
+          "mean_steps": 17.598039215686274
+        }
+      ],
+      "elapsed_s": 0.0769965648651123
+    },
+    {
+      "seed": 2,
+      "cells": [
+        {
+          "alpha": 0.02,
+          "M": 10,
+          "frac_recalled": 1.0,
+          "mean_overlap": 1.0,
+          "mean_steps": 1.0
+        },
+        {
+          "alpha": 0.05,
+          "M": 26,
+          "frac_recalled": 1.0,
+          "mean_overlap": 1.0,
+          "mean_steps": 1.0
+        },
+        {
+          "alpha": 0.08,
+          "M": 41,
+          "frac_recalled": 1.0,
+          "mean_overlap": 0.9997141768292683,
+          "mean_steps": 1.0731707317073171
+        },
+        {
+          "alpha": 0.1,
+          "M": 51,
+          "frac_recalled": 1.0,
+          "mean_overlap": 0.9969362745098039,
+          "mean_steps": 1.5686274509803921
+        },
+        {
+          "alpha": 0.117,
+          "M": 60,
+          "frac_recalled": 0.95,
+          "mean_overlap": 0.9856119791666667,
+          "mean_steps": 2.716666666666667
+        },
+        {
+          "alpha": 0.138,
+          "M": 71,
+          "frac_recalled": 0.8028169014084507,
+          "mean_overlap": 0.9442671654929577,
+          "mean_steps": 5.830985915492958
+        },
+        {
+          "alpha": 0.16,
+          "M": 82,
+          "frac_recalled": 0.573170731707317,
+          "mean_overlap": 0.8362233231707317,
+          "mean_steps": 10.426829268292684
+        },
+        {
+          "alpha": 0.2,
+          "M": 102,
+          "frac_recalled": 0.1568627450980392,
+          "mean_overlap": 0.647250306372549,
+          "mean_steps": 17.53921568627451
+        }
+      ],
+      "elapsed_s": 0.06898927688598633
+    }
+  ]
+}

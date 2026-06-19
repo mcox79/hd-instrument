@@ -1,0 +1,26 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: hs_fail=1/1, zero_sigma=1/1. Glauber NESS not established. mean_hs=11.5179 mean_sigma=0.0000.",
+  "elapsed_s": 0.24,
+  "summary": "hatano_sasa_v4 SMOKE: 0/1 HS, 0/1 sigma>0.01",
+  "n_seeds": 1,
+  "n_pass_hs": 0,
+  "n_pass_sigma": 0,
+  "n_zero_sigma": 1,
+  "mean_hs": 11.517911142838395,
+  "mean_sigma": 0.0,
+  "per_seed": [
+    {
+      "seed": 17,
+      "N": 128,
+      "M": 12,
+      "hs_identity_val": 11.517911142838395,
+      "sigma_hk": 0.0,
+      "mean_W_ex": -2.263671875,
+      "std_W_ex": 0.5993201664096032,
+      "total_var": 2.263671875,
+      "n_traj": 80,
+      "beta": 1.0
+    }
+  ]
+}

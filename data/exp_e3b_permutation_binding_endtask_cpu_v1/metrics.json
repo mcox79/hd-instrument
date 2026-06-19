@@ -1,0 +1,19 @@
+{
+  "anchor_name": "e3b_permutation_binding_endtask_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: permutation binding lifts END-TASK multi-occurrence MWP accuracy >=+0.10 (shared selector; FHRR can't retrieve same-role occurrences, permutation can). FHRR=0.0465 perm=0.3876 lift=+0.3411 (multi-occ end-task, test=129, subset=427)",
+  "summary": "HARD_PASS: permutation binding lifts END-TASK multi-occurrence MWP accuracy >=+0.10 (shared selector; FHRR can't retrieve same-role occurrences, permutation can). FHRR=0.0465 perm=0.3876 lift=+0.3411 (multi-occ end-task, test=129, subset=427)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.3876,
+      "fhrr_endacc": 0.0465,
+      "perm_endacc": 0.3876,
+      "lift": 0.3411,
+      "n_test": 129,
+      "n_subset": 427
+    }
+  ],
+  "elapsed_s": 0.2842371463775635
+}

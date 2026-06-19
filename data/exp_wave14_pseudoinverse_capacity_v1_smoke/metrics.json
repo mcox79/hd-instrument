@@ -1,0 +1,35 @@
+{
+  "verdict": "PINV_PASS",
+  "verdict_msg": "Pseudoinverse > Hebbian: best ratio=20.00 at alpha=0.5 (>=2.0). F2 learning rule unlocks supra-AGS storage. ratio_per_alpha={'0.5': 20.0, '0.95': 20.0}.",
+  "elapsed_s": 0.15600000001722947,
+  "summary": {
+    "ratio_per_alpha": {
+      "0.5": 20.0,
+      "0.95": 20.0
+    },
+    "detail_per_alpha": {
+      "0.5": {
+        "hebbian_acc": 0.0,
+        "pseudo_acc": 1.0
+      },
+      "0.95": {
+        "hebbian_acc": 0.0,
+        "pseudo_acc": 1.0
+      }
+    },
+    "best_ratio": 20.0,
+    "best_alpha": 0.5
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "alpha_grid": [
+      0.5,
+      0.95
+    ],
+    "n_iter": 3,
+    "seeds": [
+      17
+    ]
+  }
+}

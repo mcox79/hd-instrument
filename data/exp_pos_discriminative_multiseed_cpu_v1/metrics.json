@@ -1,0 +1,23 @@
+{
+  "anchor_name": "pos_discriminative_multiseed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <0.906 -- below the HMM baseline. mean=0.9007 std=0.0020 (n=3 seeds, vals=[0.9017, 0.898, 0.9025], train=240 sents, 38 tags)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.9007,
+      "std": 0.002,
+      "vals": [
+        0.9017,
+        0.898,
+        0.9025
+      ],
+      "n_train": 240,
+      "n_tags": 38,
+      "n_seeds": 3
+    }
+  ],
+  "elapsed_s": 13.856290102005005,
+  "summary": "HARD_FAIL: <0.906 -- below the HMM baseline. mean=0.9007 std=0.0020 (n=3 seeds, vals=[0.9017, 0.898, 0.9025], train=240 sents, 38 tags)"
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "phase4b_svamp_perceptron_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 0.20-0.30 -- discriminative weighting beats bag-of-words (0.110) + majority (0.26); partial, richer features/structure for 0.30. accuracy=0.267 (80/300) train-labeled=319",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.267,
+      "n_correct": 80,
+      "n_test": 300,
+      "n_train_labeled": 319
+    }
+  ],
+  "elapsed_s": 2.7048754692077637,
+  "summary": "MIDDLE_BAND: 0.20-0.30 -- discriminative weighting beats bag-of-words (0.110) + majority (0.26); partial, richer features/structure for 0.30. accuracy=0.267 (80/300) train-labeled=319"
+}

@@ -1,0 +1,39 @@
+{
+  "run_mode": "smoke",
+  "N": 512,
+  "R_TARGETS": [
+    0.9,
+    0.95
+  ],
+  "ALPHA_SWEEP": [
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_R": {
+      "0.9": {
+        "mean_alpha_max": 0.14,
+        "std_alpha_max": 0.0,
+        "n_seeds": 2
+      },
+      "0.95": {
+        "mean_alpha_max": 0.14,
+        "std_alpha_max": 0.0,
+        "n_seeds": 2
+      }
+    },
+    "monotone_pass_frac": 1.0
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "2/3 cells. alpha_max(0.90)=0.1400 alpha_max(0.99)=nan mono=1.00. A:1 B:1 C:0.",
+  "elapsed_s": 0.3497886657714844
+}

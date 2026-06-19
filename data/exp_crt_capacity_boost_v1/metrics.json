@@ -1,0 +1,16 @@
+{
+  "anchor_name": "crt_capacity_boost_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: CRT no meaningful boost. single=1.000 CRT=1.000 ratio=1.00x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base": 1.0,
+      "crt": 1.0,
+      "ratio": 1.0
+    }
+  ],
+  "elapsed_s": 26.05306077003479,
+  "summary": "HARD_FAIL: CRT no meaningful boost. single=1.000 CRT=1.000 ratio=1.00x"
+}

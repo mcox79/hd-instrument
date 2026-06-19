@@ -1,0 +1,60 @@
+{
+  "verdict": "K6_CLEANUP_HARD_FAIL",
+  "verdict_msg": "Cleanup-iteration REJECTED: best_hold_out_acc=0.031 at T=0 (0.5x chance). T-curve: T=0:0.031 T=1:0.016 T=2:0.000 T=4:0.000 T=8:0.000. No improvement over baseline at best T. Sequence axis 4.",
+  "elapsed_s": 0.7339999999967404,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "by_T": {
+          "0": {
+            "hold_out_acc": 0.03125,
+            "n_correct": 2,
+            "n_holdout": 64
+          },
+          "1": {
+            "hold_out_acc": 0.015625,
+            "n_correct": 1,
+            "n_holdout": 64
+          },
+          "2": {
+            "hold_out_acc": 0.0,
+            "n_correct": 0,
+            "n_holdout": 64
+          },
+          "4": {
+            "hold_out_acc": 0.0,
+            "n_correct": 0,
+            "n_holdout": 64
+          },
+          "8": {
+            "hold_out_acc": 0.0,
+            "n_correct": 0,
+            "n_holdout": 64
+          }
+        },
+        "n_train": 192,
+        "n_holdout": 64
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "epochs": 5,
+    "seeds": [
+      17
+    ],
+    "t_cleanup_grid": [
+      0,
+      1,
+      2,
+      4,
+      8
+    ],
+    "n_objects": 16,
+    "n_attrs": 16,
+    "train_frac": 0.75,
+    "pass_holdout_acc": 0.2,
+    "fail_holdout_acc": 0.09
+  }
+}

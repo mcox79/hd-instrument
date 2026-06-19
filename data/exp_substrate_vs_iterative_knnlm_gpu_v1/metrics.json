@@ -1,0 +1,36 @@
+{
+  "anchor_name": "substrate_vs_iterative_knnlm_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate beats even ITERATIVE kNN-LM by >=5pp at depth under noise -- exact algebra does not compound per-hop retrieval error; robust categorical advantage (and trivially beats single-shot). 3-hop (noise 0.08): substrate=1.000 iterative-kNN=0.780 single-shot-kNN=0.007 (sub-vs-iter=+0.220, sub-vs-ss=+0.993)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "deepest_hop": 3,
+      "sub": 1.0,
+      "iter": 0.78,
+      "ss": 0.006666666666666667,
+      "delta_iter": 0.21999999999999997,
+      "delta_ss": 0.9933333333333333,
+      "per_hop": {
+        "1": {
+          "substrate": 1.0,
+          "iterative_knn": 0.9266666666666666,
+          "single_shot_knn": 0.9333333333333333
+        },
+        "2": {
+          "substrate": 1.0,
+          "iterative_knn": 0.8066666666666666,
+          "single_shot_knn": 0.0
+        },
+        "3": {
+          "substrate": 1.0,
+          "iterative_knn": 0.78,
+          "single_shot_knn": 0.006666666666666667
+        }
+      }
+    }
+  ],
+  "elapsed_s": 14.164082527160645,
+  "summary": "HARD_PASS: substrate beats even ITERATIVE kNN-LM by >=5pp at depth under noise -- exact algebra does not compound per-hop retrieval error; robust categorical advantage (and trivially beats single-shot). 3-hop (noise 0.08): substrate=1.000 iterative-kNN=0.780 single-shot-kNN=0.007 (sub-vs-iter=+0.220, sub-vs-ss=+0.993)"
+}

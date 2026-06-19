@@ -1,0 +1,61 @@
+{
+  "anchor_name": "substrate_friston_fep_trigram_cell_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: FEP does not beat baseline at trigram -> implicit-subsumption (FEP redundant). baseline_nats=2.568 fep_nats=3.587 fep_improvement=-1.019 nats (0/3 seeds>0.5)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "n_steps": 1000,
+  "task": "trigram",
+  "elapsed_s": 15.257568359375,
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "baseline_k1": {
+          "val_nats": 2.5596039295196533,
+          "gap_vs_uniform": 1.2690374669694418
+        },
+        "friston_fep": {
+          "val_nats": 3.6411020755767822,
+          "gap_vs_uniform": 0.18753932091231285
+        }
+      },
+      "peak_gpu_gb": 0.214878208,
+      "elapsed_s": 5.120919227600098
+    },
+    {
+      "seed": 17,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "baseline_k1": {
+          "val_nats": 2.5434350967407227,
+          "gap_vs_uniform": 1.2852062997483724
+        },
+        "friston_fep": {
+          "val_nats": 3.5712833404541016,
+          "gap_vs_uniform": 0.2573580560349935
+        }
+      },
+      "peak_gpu_gb": 0.214878208,
+      "elapsed_s": 5.049854516983032
+    },
+    {
+      "seed": 23,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "baseline_k1": {
+          "val_nats": 2.6004347801208496,
+          "gap_vs_uniform": 1.2282066163682455
+        },
+        "friston_fep": {
+          "val_nats": 3.548203706741333,
+          "gap_vs_uniform": 0.28043768974776206
+        }
+      },
+      "peak_gpu_gb": 0.214878208,
+      "elapsed_s": 5.043252468109131
+    }
+  ]
+}

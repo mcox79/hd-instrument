@@ -1,0 +1,51 @@
+[
+  {
+    "qid": "Q1_inverse_fhrr_bind",
+    "query_text": "What is the inverse operation of FHRR binding?",
+    "query_type": "trivial_check",
+    "expected_atom_ids": ["math::T2/fhrr_unbind", "math::T2_FAM/algebraic_binding", "math::T2/fhrr_bind"],
+    "expected_relations": [],
+    "sealed": false,
+    "notes": "Research INDEX_FINDINGS_01_RESPONSE 2026-06-11 disclosed query 1. DUAL relation between fhrr_bind and fhrr_unbind is the expected structural answer; semantic retrieval alone ranks the queried atom (fhrr_bind) first which is EMBEDDING_DRIFT. Substrate-typed-edge + algebraic-mode is expected to fix the ranking."
+  },
+  {
+    "qid": "Q2_discrete_combinatorial_optimization",
+    "query_text": "What math operations solve discrete combinatorial optimization globally?",
+    "query_type": "semantic",
+    "expected_atom_ids": ["math::T3/hungarian_assignment", "math::T3/viterbi_decoding", "math::T3/chu_liu_edmonds"],
+    "expected_relations": [],
+    "sealed": false,
+    "notes": "Research disclosed query 2. Tests retrieval of the global_discrete_optimization family members. EMBEDDING_DRIFT signal expected if convex_optimization ranks too high (continuous != discrete)."
+  },
+  {
+    "qid": "Q3_concepts_using_count_nb",
+    "query_text": "What concepts share the count-NB mathematical foundation?",
+    "query_type": "structural",
+    "expected_atom_ids": ["concept::code_algopattern", "concept::intent_classification_atis", "concept::POS_tagger_substrate"],
+    "expected_relations": [
+      ["concept::code_algopattern", "USES", "math::T3/count_nb"],
+      ["concept::intent_classification_atis", "USES", "math::T3/count_nb"],
+      ["concept::POS_tagger_substrate", "USES", "math::T3/count_nb"]
+    ],
+    "sealed": false,
+    "notes": "Research disclosed query 3. Cross-corpus query: blocked until concept corpus lands (Day 2). Tests substrate's HAS_USERS reverse lookup capability."
+  },
+  {
+    "qid": "Q4_probabilistic_inference_family",
+    "query_text": "What math operations are members of probabilistic inference family?",
+    "query_type": "structural",
+    "expected_atom_ids": ["math::T2_FAM/probabilistic_inference", "math::T3/bayesian_inference", "math::T3/em_algorithm"],
+    "expected_relations": [],
+    "sealed": false,
+    "notes": "Research disclosed query 4. Tests substrate's family-tag retrieval. Tests whether description refinements (Collins-perceptron deprioritized as discriminative) fix EMBEDDING_DRIFT seen in findings #1 Q4."
+  },
+  {
+    "qid": "Q5_structural_equivalent_fhrr_bind_freq_domain",
+    "query_text": "What is structurally equivalent to FHRR binding in frequency domain?",
+    "query_type": "hybrid",
+    "expected_atom_ids": ["math::T2/circular_convolution", "math::T2/fhrr_bind", "math::T2_FAM/algebraic_binding"],
+    "expected_relations": [],
+    "sealed": false,
+    "notes": "Research disclosed query 5. Tests EQUIVALENT_UNDER relation (circular_convolution is FFT-dual of FHRR binding). Mix of semantic + structural; substrate's algebraic-mode should rank circular_convolution highest via FFT-domain equivalence."
+  }
+]

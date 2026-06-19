@@ -1,0 +1,64 @@
+{
+  "verdict": "G6_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_BETA_ROBUST 0/2 beta>=N. beta=4.0:median_max_M=512 beta=16.0:median_max_M=512",
+  "elapsed_s": 0.02,
+  "summary": {
+    "anchor": "modern_hopfield_replication_gpu_v1_n8192",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      256,
+      512
+    ],
+    "beta_sweep": [
+      4.0,
+      16.0
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "construction_success": true,
+        "per_cell": [
+          {
+            "M": 256,
+            "beta": 4.0,
+            "success": true,
+            "recall": 1.0,
+            "elapsed_s": 0.0
+          },
+          {
+            "M": 512,
+            "beta": 4.0,
+            "success": true,
+            "recall": 1.0,
+            "elapsed_s": 0.0
+          },
+          {
+            "M": 256,
+            "beta": 16.0,
+            "success": true,
+            "recall": 1.0,
+            "elapsed_s": 0.0
+          },
+          {
+            "M": 512,
+            "beta": 16.0,
+            "success": true,
+            "recall": 1.0,
+            "elapsed_s": 0.02
+          }
+        ],
+        "max_M_by_beta": {
+          "4.0": 512,
+          "16.0": 512
+        }
+      }
+    ],
+    "verdict": "G6_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL_BETA_ROBUST 0/2 beta>=N. beta=4.0:median_max_M=512 beta=16.0:median_max_M=512",
+    "elapsed_s": 0.02
+  }
+}

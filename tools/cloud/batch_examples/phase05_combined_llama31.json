@@ -1,0 +1,66 @@
+[
+  {
+    "anchor": "phase05_probe_training_v1",
+    "script": "experiments/exp_phase05_probe_training_v1.py",
+    "total_cells": 1,
+    "cell_regex": "^\\s+training",
+    "experiment_timeout_min": 240,
+    "result_paths": [
+      "data/exp_phase05_probe_training_v1/metrics.json",
+      "data/exp_phase05_probe_training_v1/probe_ckpt.ckpt",
+      "data/exp_phase05_probe_training_v1/codebook.json",
+      "data/exp_phase05_probe_training_v1/ingested_embeddings.pkl"
+    ]
+  },
+  {
+    "anchor": "phase05_probe_validation_v1",
+    "script": "experiments/exp_phase05_probe_validation_v1.py",
+    "total_cells": 1,
+    "cell_regex": "^\\s+progress:",
+    "experiment_timeout_min": 60,
+    "abort_batch_on_failure": true,
+    "result_paths": [
+      "data/exp_phase05_probe_validation_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "tier7_mvp_hyperprobe_llama31_kappa3_drift_v1",
+    "script": "experiments/exp_tier7_mvp_hyperprobe_llama31_kappa3_drift_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+k3_in=",
+    "experiment_timeout_min": 120,
+    "result_paths": [
+      "data/exp_tier7_mvp_hyperprobe_llama31_kappa3_drift_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "tier7_mvp_hyperprobe_llama31_deletion_cert_v1",
+    "script": "experiments/exp_tier7_mvp_hyperprobe_llama31_deletion_cert_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+del_Z_max=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/exp_tier7_mvp_hyperprobe_llama31_deletion_cert_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "tier7_mvp_hyperprobe_llama31_refusal_cert_v1",
+    "script": "experiments/exp_tier7_mvp_hyperprobe_llama31_refusal_cert_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+precision=",
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/exp_tier7_mvp_hyperprobe_llama31_refusal_cert_v1/metrics.json"
+    ]
+  },
+  {
+    "anchor": "phase0_5b_distillation_mvp_llama31_kg_triples_v1",
+    "script": "experiments/exp_phase0_5b_distillation_mvp_llama31_kg_triples_v1.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+distilled_recall=",
+    "experiment_timeout_min": 240,
+    "result_paths": [
+      "data/exp_phase0_5b_distillation_mvp_llama31_kg_triples_v1/metrics.json"
+    ]
+  }
+]

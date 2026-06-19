@@ -1,0 +1,27 @@
+{
+  "anchor_name": "substrate_m4d_degoodhart_dev_tune_heldout_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "PARTIAL (M4d unbiased lift >= 0.04, below 0.30): real substrate-internal gain, compose with M4b for 0.30. M4d UNBIASED (beta=0.10 tuned on DEV q01-q53, measured once on held-out): held-out IN-COVERAGE bge=0.1480 -> M4d=0.2721 (lift +0.1241). No Goodhart: beta NOT tuned on held-out.",
+  "summary": "PARTIAL (M4d unbiased lift >= 0.04, below 0.30): real substrate-internal gain, compose with M4b for 0.30. M4d UNBIASED (beta=0.10 tuned on DEV q01-q53, measured once on held-out): held-out IN-COVERAGE bge=0.1480 -> M4d=0.2721 (lift +0.1241). No Goodhart: beta NOT tuned on held-out.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "dev_n": 43,
+      "held_n": 7,
+      "dev_scores": {
+        "0.0": 0.2327,
+        "0.05": 0.2492,
+        "0.1": 0.2577,
+        "0.2": 0.2443,
+        "0.3": 0.247,
+        "0.5": 0.2348
+      },
+      "dev_best_beta": 0.1,
+      "held_baseline": 0.148,
+      "held_m4d_unbiased": 0.2721,
+      "lift": 0.1241
+    }
+  ],
+  "elapsed_s": 11.233886241912842
+}

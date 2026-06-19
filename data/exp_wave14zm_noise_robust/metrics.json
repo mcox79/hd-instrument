@@ -1,0 +1,344 @@
+{
+  "verdict": "NOISE_ROBUST_KERDOCK_TOLERATES_SIGMA_16.0",
+  "verdict_msg": "Kerdock argmax holds at all sigmas up to 16.0, correlated up to None. Substrate has noise budget for quantization.",
+  "elapsed_s": 1.4369999999998981,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "per_sigma": {
+          "0.0": {
+            "argmax_acc": 1.0
+          },
+          "0.5": {
+            "argmax_acc": 1.0
+          },
+          "1.0": {
+            "argmax_acc": 1.0
+          },
+          "2.0": {
+            "argmax_acc": 1.0
+          },
+          "4.0": {
+            "argmax_acc": 1.0
+          },
+          "8.0": {
+            "argmax_acc": 1.0
+          },
+          "16.0": {
+            "argmax_acc": 0.98193359375
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 1.0
+              },
+              "0.5": {
+                "argmax_acc": 1.0
+              },
+              "1.0": {
+                "argmax_acc": 1.0
+              },
+              "2.0": {
+                "argmax_acc": 1.0
+              },
+              "4.0": {
+                "argmax_acc": 1.0
+              },
+              "8.0": {
+                "argmax_acc": 1.0
+              },
+              "16.0": {
+                "argmax_acc": 0.98583984375
+              }
+            }
+          },
+          {
+            "seed": 23,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 1.0
+              },
+              "0.5": {
+                "argmax_acc": 1.0
+              },
+              "1.0": {
+                "argmax_acc": 1.0
+              },
+              "2.0": {
+                "argmax_acc": 1.0
+              },
+              "4.0": {
+                "argmax_acc": 1.0
+              },
+              "8.0": {
+                "argmax_acc": 1.0
+              },
+              "16.0": {
+                "argmax_acc": 0.97998046875
+              }
+            }
+          },
+          {
+            "seed": 31,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 1.0
+              },
+              "0.5": {
+                "argmax_acc": 1.0
+              },
+              "1.0": {
+                "argmax_acc": 1.0
+              },
+              "2.0": {
+                "argmax_acc": 1.0
+              },
+              "4.0": {
+                "argmax_acc": 1.0
+              },
+              "8.0": {
+                "argmax_acc": 1.0
+              },
+              "16.0": {
+                "argmax_acc": 0.98486328125
+              }
+            }
+          },
+          {
+            "seed": 41,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 1.0
+              },
+              "0.5": {
+                "argmax_acc": 1.0
+              },
+              "1.0": {
+                "argmax_acc": 1.0
+              },
+              "2.0": {
+                "argmax_acc": 1.0
+              },
+              "4.0": {
+                "argmax_acc": 1.0
+              },
+              "8.0": {
+                "argmax_acc": 1.0
+              },
+              "16.0": {
+                "argmax_acc": 0.9794921875
+              }
+            }
+          },
+          {
+            "seed": 53,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 1.0
+              },
+              "0.5": {
+                "argmax_acc": 1.0
+              },
+              "1.0": {
+                "argmax_acc": 1.0
+              },
+              "2.0": {
+                "argmax_acc": 1.0
+              },
+              "4.0": {
+                "argmax_acc": 1.0
+              },
+              "8.0": {
+                "argmax_acc": 1.0
+              },
+              "16.0": {
+                "argmax_acc": 0.9794921875
+              }
+            }
+          }
+        ]
+      },
+      "correlated": {
+        "per_sigma": {
+          "0.0": {
+            "argmax_acc": 0.7076171875
+          },
+          "0.5": {
+            "argmax_acc": 0.70703125
+          },
+          "1.0": {
+            "argmax_acc": 0.7080078125
+          },
+          "2.0": {
+            "argmax_acc": 0.6998046875
+          },
+          "4.0": {
+            "argmax_acc": 0.6689453125
+          },
+          "8.0": {
+            "argmax_acc": 0.5478515625
+          },
+          "16.0": {
+            "argmax_acc": 0.28916015625
+          }
+        },
+        "per_seed": [
+          {
+            "seed": 17,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 0.82177734375
+              },
+              "0.5": {
+                "argmax_acc": 0.82080078125
+              },
+              "1.0": {
+                "argmax_acc": 0.8095703125
+              },
+              "2.0": {
+                "argmax_acc": 0.79833984375
+              },
+              "4.0": {
+                "argmax_acc": 0.7353515625
+              },
+              "8.0": {
+                "argmax_acc": 0.62451171875
+              },
+              "16.0": {
+                "argmax_acc": 0.32861328125
+              }
+            }
+          },
+          {
+            "seed": 23,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 0.79736328125
+              },
+              "0.5": {
+                "argmax_acc": 0.796875
+              },
+              "1.0": {
+                "argmax_acc": 0.80029296875
+              },
+              "2.0": {
+                "argmax_acc": 0.7978515625
+              },
+              "4.0": {
+                "argmax_acc": 0.74755859375
+              },
+              "8.0": {
+                "argmax_acc": 0.65234375
+              },
+              "16.0": {
+                "argmax_acc": 0.2998046875
+              }
+            }
+          },
+          {
+            "seed": 31,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 0.67626953125
+              },
+              "0.5": {
+                "argmax_acc": 0.671875
+              },
+              "1.0": {
+                "argmax_acc": 0.67919921875
+              },
+              "2.0": {
+                "argmax_acc": 0.6923828125
+              },
+              "4.0": {
+                "argmax_acc": 0.69482421875
+              },
+              "8.0": {
+                "argmax_acc": 0.48974609375
+              },
+              "16.0": {
+                "argmax_acc": 0.28564453125
+              }
+            }
+          },
+          {
+            "seed": 41,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 0.59228515625
+              },
+              "0.5": {
+                "argmax_acc": 0.5966796875
+              },
+              "1.0": {
+                "argmax_acc": 0.59130859375
+              },
+              "2.0": {
+                "argmax_acc": 0.55712890625
+              },
+              "4.0": {
+                "argmax_acc": 0.61083984375
+              },
+              "8.0": {
+                "argmax_acc": 0.47265625
+              },
+              "16.0": {
+                "argmax_acc": 0.27197265625
+              }
+            }
+          },
+          {
+            "seed": 53,
+            "per_sigma": {
+              "0.0": {
+                "argmax_acc": 0.650390625
+              },
+              "0.5": {
+                "argmax_acc": 0.64892578125
+              },
+              "1.0": {
+                "argmax_acc": 0.65966796875
+              },
+              "2.0": {
+                "argmax_acc": 0.6533203125
+              },
+              "4.0": {
+                "argmax_acc": 0.55615234375
+              },
+              "8.0": {
+                "argmax_acc": 0.5
+              },
+              "16.0": {
+                "argmax_acc": 0.259765625
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_stored": 2048,
+    "sigmas": [
+      0.0,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0
+    ],
+    "seeds": [
+      17,
+      23,
+      31,
+      41,
+      53
+    ]
+  }
+}

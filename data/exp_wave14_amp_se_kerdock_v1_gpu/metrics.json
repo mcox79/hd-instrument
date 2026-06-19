@@ -1,0 +1,113 @@
+{
+  "verdict": "AMP_SE_DIVERGES",
+  "verdict_msg": "SE fixed-point diverges from empirical AMP. Mean rel err=0.916, max=0.999. Kerdock codebook is OUTSIDE the AMP universality class. Novel finding: Kerdock structure breaks AMP-SE assumptions. Only 0/4 cells < 20% error.",
+  "elapsed_s": 2521.969000000012,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 4096,
+        "M": 2048,
+        "se_mse_fixed": 0.09121111202828544,
+        "se_mse_std": 2.4493670775718584e-05,
+        "emp_mse_final": 0.6891664591131045,
+        "emp_mse_std": 0.00926037789145789,
+        "se_overlap_mean": 0.9087888879717145,
+        "emp_overlap_mean": 0.3179689723387341,
+        "rel_err": 0.867650099882014
+      },
+      {
+        "alpha": 1.0,
+        "N": 4096,
+        "M": 4096,
+        "se_mse_fixed": 0.016410756454243926,
+        "se_mse_std": 2.752861808703154e-07,
+        "emp_mse_final": 0.08412395564668454,
+        "emp_mse_std": 0.003534632875174587,
+        "se_overlap_mean": 0.983589243545756,
+        "emp_overlap_mean": 0.9163024567532345,
+        "rel_err": 0.8049217214277454
+      },
+      {
+        "alpha": 2.0,
+        "N": 4096,
+        "M": 8192,
+        "se_mse_fixed": 0.01431582152081447,
+        "se_mse_std": 1.0016820215495329e-07,
+        "emp_mse_final": 1.6605523612099595,
+        "emp_mse_std": 0.026404655415841888,
+        "se_overlap_mean": 0.9856841784791855,
+        "emp_overlap_mean": -0.6677741154012022,
+        "rel_err": 0.9913788797901059
+      },
+      {
+        "alpha": 4.0,
+        "N": 4096,
+        "M": 16384,
+        "se_mse_fixed": 0.01236841650256171,
+        "se_mse_std": 0.0,
+        "emp_mse_final": 10.879350008910887,
+        "emp_mse_std": 0.18335439162490969,
+        "se_overlap_mean": 0.9876315834974383,
+        "emp_overlap_mean": -9.723842818128986,
+        "rel_err": 0.998863129093886
+      }
+    ],
+    "eigenspectrum_summary": {
+      "0.5": {
+        "mean_lam_max": 2.3860464096069336,
+        "mean_lam_min": 0.10571680963039398,
+        "mean_lam_mean": 1.0
+      },
+      "1.0": {
+        "mean_lam_max": 2.994818687438965,
+        "mean_lam_min": 1.6754373888261398e-08,
+        "mean_lam_mean": 1.0
+      },
+      "2.0": {
+        "mean_lam_max": 3.7296268939971924,
+        "mean_lam_min": 0.26990169286727905,
+        "mean_lam_mean": 2.0
+      },
+      "4.0": {
+        "mean_lam_max": 4.0,
+        "mean_lam_min": 4.0,
+        "mean_lam_mean": 4.0
+      }
+    },
+    "config": {
+      "mode": "full",
+      "N": 4096,
+      "M_over_N_list": [
+        0.5,
+        1.0,
+        2.0,
+        4.0,
+        8.0
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_seeds": 5,
+      "amp_n_iter": 200,
+      "se_n_iter": 500,
+      "se_tol": 1e-12
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "M_over_N_list": [
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_seeds": 5,
+    "amp_n_iter": 200,
+    "se_n_iter": 500,
+    "se_tol": 1e-12
+  }
+}

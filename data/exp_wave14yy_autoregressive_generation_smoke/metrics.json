@@ -1,0 +1,24 @@
+{
+  "verdict": "GEN_COLLAPSES_TO_REPETITION",
+  "verdict_msg": "Char entropy = 0.977 (< 2.5) OR 4-gram repetition = 1.000 (>= 0.5). Generation collapses to repeating patterns.",
+  "elapsed_s": 0.4210000000002765,
+  "summary": {
+    "metrics": {
+      "char_entropy": 0.9766284625383954,
+      "ngram_repetition": 1.0,
+      "self_bpc": 4.786884809568076,
+      "n_generated": 64
+    },
+    "sample_generated_bytes": "    t   e    t   e    t   e    t   e    t   e    t   e    t   e "
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "generate_length": 64,
+    "prefix_length": 64,
+    "max_epochs": 1,
+    "alpha": 1.0,
+    "beta": 8.0,
+    "seed": 17
+  }
+}

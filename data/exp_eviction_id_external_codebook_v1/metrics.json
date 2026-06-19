@@ -1,0 +1,22 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_HIGH": 15,
+  "M_LOW": 15,
+  "K_HIGH": 6,
+  "K_LOW": 2,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_known_acc": 0.75,
+    "min_known_acc": 0.7333333333333333,
+    "mean_random_acc": 0.5101555555555556,
+    "max_random_acc": 0.5178666666666666,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Eviction codebook constraint CONFIRMED. With codebook: min_known_auroc=0.733>=0.7. Without codebook: mean_random_auroc=0.510~=0.50 (|deviation|=0.010<=0.15). Substrate orders priorities natively but CANNOT enumerate argmin without external dictionary (Tier 2 constraint confirmed).",
+  "elapsed_s": 1.5100898742675781
+}

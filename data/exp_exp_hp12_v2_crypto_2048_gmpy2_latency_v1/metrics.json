@@ -1,0 +1,21 @@
+{
+  "anchor_name": "exp_hp12_v2_crypto_2048_gmpy2_latency_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 2048-bit crypto >10ms or cert fail. 2048-bit gmpy2=False | add_p50=1.111ms delete_p50=18.374ms verify_p50=1.064ms certs_verified=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "rsa_modulus_bits": 2048,
+      "gmpy2": false,
+      "add_p50_ms": 1.1107000173069537,
+      "delete_p50_ms": 18.37360003264621,
+      "delete_p95_ms": 19.83941503567621,
+      "verify_p50_ms": 1.064100011717528,
+      "certs_verified_frac": 1.0
+    }
+  ],
+  "elapsed_s": 1.9868865013122559,
+  "summary": "HARD_FAIL: 2048-bit crypto >10ms or cert fail. 2048-bit gmpy2=False | add_p50=1.111ms delete_p50=18.374ms verify_p50=1.064ms certs_verified=1.000"
+}

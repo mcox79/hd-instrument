@@ -1,0 +1,54 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: two sub-classes show signature (non-reciprocal-Hopfield, saddle-hierarchy-DAM). Probe calls={'A': 'DOCUMENTED', 'B': 'NULL', 'C': 'DOCUMENTED'}. Partial discrimination; extend to larger N.",
+  "elapsed_s": 1.242,
+  "summary": {
+    "probe_A_asymmetry_by_N": {
+      "512": {
+        "mean_asymm": 1.0,
+        "std_asymm": NaN,
+        "n_seeds": 1
+      }
+    },
+    "probe_B_spatial_lift": {
+      "mean_lift": -0.0,
+      "std_lift": 0.0,
+      "n_seeds": 1
+    },
+    "probe_C_saddle_sharpness": {
+      "mean_d_transition": 0.8248,
+      "std_d_transition": 0.0,
+      "per_seed_per_f": {
+        "17": {
+          "0.0": 0.71692,
+          "0.25": 0.92312,
+          "0.5": 0.74057
+        }
+      },
+      "n_seeds": 1
+    },
+    "probe_calls": {
+      "A": "DOCUMENTED",
+      "B": "NULL",
+      "C": "DOCUMENTED"
+    },
+    "thresholds": {
+      "A_hard_pass": 0.075,
+      "A_hard_fail": 0.025,
+      "B_hard_pass": 0.045,
+      "B_hard_fail": 0.015,
+      "C_hard_pass": 0.15,
+      "C_hard_fail": 0.05
+    }
+  },
+  "config": {
+    "N": 256,
+    "M_patterns": 80,
+    "seeds": [
+      17
+    ],
+    "mode": "SMOKE",
+    "device": "cpu",
+    "parent": "anchor_novel_phase_battery_v3_n8192 (DOCUMENTED gated-multistable AM)"
+  }
+}

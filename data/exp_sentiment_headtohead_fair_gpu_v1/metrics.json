@@ -1,0 +1,1 @@
+{"anchor_name": "sentiment_headtohead_fair_gpu_v1", "verdict": "HARD_PASS", "verdict_msg": "HARD_PASS: substrate sentiment=0.767 (0.000042s) vs Qwen-0.5B FAIR(logprob)=0.485 (0.103s) -- SUB>=LLM. (free-gen gave LLM 0.58; fair gives 0.485). Substrate tiny+fast.", "substrate_acc": 0.767, "llm_acc_fair": 0.485, "llm_acc_freegen": 0.58}

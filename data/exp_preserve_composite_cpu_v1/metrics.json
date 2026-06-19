@@ -1,0 +1,20 @@
+{
+  "anchor_name": "preserve_composite_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 5/6 primitives intact. passed=5/6 confidence_auc=0.777",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "confidence_auc": 0.7770935960591133,
+      "negation_exact": 1.0,
+      "contradiction_detected": 1.0,
+      "audit_reproduces": 1.0,
+      "gdpr_erased": 1.0,
+      "multihop_2hop": 1.0,
+      "passed_of_6": 5
+    }
+  ],
+  "elapsed_s": 0.9024221897125244,
+  "summary": "MIDDLE_BAND: 5/6 primitives intact. passed=5/6 confidence_auc=0.777"
+}

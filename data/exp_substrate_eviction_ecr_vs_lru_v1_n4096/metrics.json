@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_eviction_ecr_vs_lru_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ECR ~ LRU (no eviction-policy benefit). ECR_retrieval=1.000 LRU_retrieval=1.000 margin=+0.000",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "LRU": 1.0,
+      "ECR": 1.0,
+      "elapsed_s": 0.4152181148529053
+    },
+    {
+      "seed": 2,
+      "LRU": 1.0,
+      "ECR": 1.0,
+      "elapsed_s": 0.35871148109436035
+    }
+  ],
+  "elapsed_s": 0.7739295959472656,
+  "summary": "HARD_FAIL: ECR ~ LRU (no eviction-policy benefit). ECR_retrieval=1.000 LRU_retrieval=1.000 margin=+0.000"
+}

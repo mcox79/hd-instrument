@@ -1,0 +1,21 @@
+{
+  "anchor_name": "t5b_2_attention_perplexity_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-attention-modified Pythia-160M perplexity within 5x of baseline (PoC-acceptable) -- even with a RANDOM scaffold KB; meaningful KB (T5b-3) expected better. baseline-ppl=55.3 best-ratio=1.00x@alpha0.10 ratios={'0.1': 1.005, '0.3': 1.026, '0.5': 1.063}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "baseline_ppl": 55.276018827926954,
+      "best_ratio": 1.0046141797427326,
+      "best_alpha": 0.1,
+      "ratios": {
+        "0.1": 1.005,
+        "0.3": 1.026,
+        "0.5": 1.063
+      }
+    }
+  ],
+  "elapsed_s": 5.847049951553345,
+  "summary": "HARD_PASS: substrate-attention-modified Pythia-160M perplexity within 5x of baseline (PoC-acceptable) -- even with a RANDOM scaffold KB; meaningful KB (T5b-3) expected better. baseline-ppl=55.3 best-ratio=1.00x@alpha0.10 ratios={'0.1': 1.005, '0.3': 1.026, '0.5': 1.063}"
+}

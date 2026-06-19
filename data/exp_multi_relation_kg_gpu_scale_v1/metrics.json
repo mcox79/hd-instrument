@@ -1,0 +1,16 @@
+{
+  "anchor_name": "multi_relation_kg_gpu_scale_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: bidirectional <0.65 at scale. (s,r)->o=0.045 (r,o)->s=0.028",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sro": 0.045,
+      "ros": 0.0275,
+      "m": 0.0275
+    }
+  ],
+  "elapsed_s": 8.823211431503296,
+  "summary": "HARD_FAIL: bidirectional <0.65 at scale. (s,r)->o=0.045 (r,o)->s=0.028"
+}

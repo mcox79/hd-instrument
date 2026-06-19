@@ -1,0 +1,110 @@
+{
+  "anchor_name": "substrate_b_delta_readout_lever_transfer_v1",
+  "verdict": "NON_TEST",
+  "verdict_msg": "NON-TEST (capacity lever): the LINEAR baseline does NOT show a working-low-M -> cliff on the both task (bipolar lin 1.0@M16->1.0@M128; continuous lin 1.0->1.0) -> no capacity-curve to extend. A lift over a non-working baseline is DENOISING, not a capacity-lever (Skunkworks B-delta-HALT refinement: baseline must WORK in some regime). beta={'bipolar': 40.0, 'continuous': 40.0}. (Adjust noise/M/N so linear works at low M.)",
+  "summary": "NON-TEST (capacity lever): the LINEAR baseline does NOT show a working-low-M -> cliff on the both task (bipolar lin 1.0@M16->1.0@M128; continuous lin 1.0->1.0) -> no capacity-curve to extend. A lift over a non-working baseline is DENOISING, not a capacity-lever (Skunkworks B-delta-HALT refinement: baseline must WORK in some regime). beta={'bipolar': 40.0, 'continuous': 40.0}. (Adjust noise/M/N so linear works at low M.)",
+  "headline": "NON-TEST (capacity lever): the LINEAR baseline does NOT show a working-low-M -> cliff on the both task (bipolar lin 1.0@M16->1.0@M128; continuous lin 1.0->1.0) -> no capacity-curve to extend. A lift over a non-working baseline is DENOISING, not a capacity-lever (Skunkworks B-delta-HALT refinement: baseline must WORK in some regime). beta={'bipolar': 40.0, 'continuous': 40.0}. (Adjust noise/M/N so linear works at low M.)",
+  "n_seeds": 1,
+  "run_mode": "smoke",
+  "branch_path": "readout_lever_transfer_2task",
+  "metrics_source": "measured_torch_gpu",
+  "run_started_utc": "2026-06-18T17:32:30.827440+00:00",
+  "cell_commit": "d78ffe8a",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 4,
+    "n_cells_emitted": 4,
+    "elapsed_s": 0.13,
+    "is_smoke": true
+  },
+  "discrimination_self_check": {
+    "bipolar": {
+      "discriminates": false,
+      "reference_value": 1.0,
+      "floor": 0.5,
+      "ceiling": 1.0,
+      "reason": "working-baseline-cliff: linear works at low M (>WORKS) AND cliffs at high M (capacity-lever, not denoising)"
+    },
+    "continuous": {
+      "discriminates": false,
+      "reference_value": 1.0,
+      "floor": 0.5,
+      "ceiling": 1.0,
+      "reason": "working-baseline-cliff: linear works at low M (>WORKS) AND cliffs at high M (capacity-lever, not denoising)"
+    }
+  },
+  "n_cells": 4,
+  "lever": "linear(classic Hopfield raw-dot) vs nonlinear(modern Hopfield softmax); cleanup=sign(bipolar)/identity(continuous)",
+  "tasks": {
+    "A": "uniform-keys + BIPOLAR values",
+    "B": "uniform-keys + CONTINUOUS(Gaussian) values"
+  },
+  "generality_axis": "VALUE-TYPE (NOT key-distribution)",
+  "capacity_bipolar": {
+    "M_low": 16,
+    "M_high": 128,
+    "lin_low": 1.0,
+    "lin_high": 1.0,
+    "nl_high": 1.0,
+    "cliff": false,
+    "extension": 0.0
+  },
+  "capacity_continuous": {
+    "M_low": 16,
+    "M_high": 128,
+    "lin_low": 1.0,
+    "lin_high": 1.0,
+    "nl_high": 1.0,
+    "cliff": false,
+    "extension": 0.0
+  },
+  "beta_tuned": {
+    "bipolar": 40.0,
+    "continuous": 40.0
+  },
+  "both_cliff": false,
+  "grid": {
+    "bipolar": {
+      "16": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "128": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      }
+    },
+    "continuous": {
+      "16": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      },
+      "128": {
+        "lin": 1.0,
+        "nl": 1.0,
+        "nz": 1.0
+      }
+    }
+  },
+  "config": {
+    "N": 1024,
+    "M_list": [
+      16,
+      128
+    ],
+    "seeds": [
+      7
+    ],
+    "cluster_size": 8,
+    "noise": 0.15,
+    "LIFT_MIN": 0.05,
+    "LIFT_GAP": 0.1
+  },
+  "bears_on": "ARCH-B (nonlinear readout lifts capacity) + C1 entmax (sparse readout cheaper at iso-recall) -- tests lever GENERALITY across tasks",
+  "measured_bounds": "readout-lever transfer envelope at N=1024/cluster=8/noise=0.15; NOT fundamental",
+  "elapsed_s": 0.16
+}

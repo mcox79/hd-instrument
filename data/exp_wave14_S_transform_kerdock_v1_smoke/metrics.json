@@ -1,0 +1,102 @@
+{
+  "verdict": "S_TRANSFORM_DIVERGE",
+  "verdict_msg": "Kerdock S-transform coefficients deviate from MP baseline. 2/2 cells exceed 20% deviation; max_dev=0.999 at alpha=0.50, S_4. The multiplicative free-convolution structure of the Kerdock spectrum is non-MP, independently corroborating the free-cumulant probe and providing a second algebraic-free-probability axis on which the substrate departs from AMP universality.",
+  "elapsed_s": 1.6410000000032596,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.5,
+        "N": 1024,
+        "M": 512,
+        "c_ref": 0.5,
+        "S_mean": [
+          1.0000000298023242,
+          -0.37438014517181495,
+          0.1866577544157445,
+          -0.09302384976154032,
+          0.04672235791775825
+        ],
+        "S_std": [
+          2.980232416405215e-08,
+          5.916128509619867e-05,
+          0.0005301233056053123,
+          0.0010465978797733477,
+          0.0006499185230575133
+        ],
+        "S_mp": [
+          2.0,
+          -4.0,
+          8.0,
+          -16.0,
+          32.0
+        ],
+        "S_dev_relative": [
+          -0.4999999850988379,
+          0.9064049637070463,
+          -0.976667780698032,
+          0.9941860093899038,
+          -0.99853992631507
+        ],
+        "worst_S_dev": 0.99853992631507,
+        "worst_S_k": 4
+      },
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "c_ref": 1.0,
+        "S_mean": [
+          1.0,
+          -0.749386727809906,
+          0.7492549021140036,
+          -0.7495260284864518,
+          0.749817935909471
+        ],
+        "S_std": [
+          0.0,
+          0.00037473440170288086,
+          0.0004881964582779119,
+          0.00023883283641801256,
+          0.00040374597563719306
+        ],
+        "S_mp": [
+          1.0,
+          -1.0,
+          1.0,
+          -1.0,
+          1.0
+        ],
+        "S_dev_relative": [
+          0.0,
+          0.250613272190094,
+          -0.2507450978859964,
+          0.2504739715135482,
+          -0.250182064090529
+        ],
+        "worst_S_dev": 0.2507450978859964,
+        "worst_S_k": 2
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "M_over_N_list": [
+        0.5,
+        1.0
+      ],
+      "n_seeds": 2,
+      "n_max": 5
+    },
+    "n_max": 5
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N_list": [
+      0.5,
+      1.0
+    ],
+    "n_seeds": 2,
+    "n_max": 5
+  }
+}

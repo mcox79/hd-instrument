@@ -1,0 +1,41 @@
+{
+  "verdict": "DEMO1_NOISE_ENVELOPE_PASS",
+  "verdict_msg": "PASS: composed_acc at p=0.10 = 1.000 >= 0.4; clean=1.000. Demo 1 Lane D S->T->X envelope extends to moderate inter-stage W noise. acc_per_noise={'0.00': 1.0, '0.05': 1.0, '0.10': 1.0, '0.20': 1.0, '0.30': 1.0}.",
+  "elapsed_s": 6.046999999962281,
+  "summary": {
+    "acc_per_noise": {
+      "0.00": 1.0,
+      "0.05": 1.0,
+      "0.10": 1.0,
+      "0.20": 1.0,
+      "0.30": 1.0
+    },
+    "n_trials_per_cell": 120,
+    "device": "cuda",
+    "N": 65536
+  },
+  "config": {
+    "mode": "full",
+    "N": 65536,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials_per_noise_per_seed": 40,
+    "noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "noise_axis": "inter_stage_W_bitflip",
+    "device": "cuda",
+    "note": "Demo 1 Lane D S->T->X N=65536 noise envelope v2; W noise between stages"
+  }
+}

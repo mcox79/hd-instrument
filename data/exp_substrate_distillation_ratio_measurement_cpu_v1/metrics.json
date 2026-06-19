@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_distillation_ratio_measurement_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (step-5 metric pre-staged + safety invariant holds): the distillation pipeline produces a well-defined DISTILLATION-RATIO and capability_preservation=1.0 (no planned collapse loses a capability). Corpus-level atom_compression_ratio is currently small (0.001149: 24 removable of 20884 -- the corpus is mostly raw ingest with few duplicates), which is the HONEST baseline; the metric is now instrumented to grow as redundancy is detected and to fire zero-latency at Testbed step-4 integrate. DISTILLATION-RATIO measurement (North Star, step-5 pre-stage). total_atoms=20884, dup_groups=29. ATOM-REMOVING: 24 Class A promotion-pair groups -> 24 atoms removable (projected_total=20860), atom_compression_ratio=0.001149. STRUCTURE-ADDING/INVERSE/REFUSAL Class B modes={'DISTINCT': 2, 'SHARED_ABSTRACTION': 3, 'INVERSE_PAIR': 1, 'THEOREM_LINKED': 2, 'CROSS_DOMAIN_ABSTRACTION': 3}, structure_added=19. dup_distillation_ratio=0.9655. capability_preservation=1.0000. (This same read-only script measures the ACTUAL ratio the instant Testbed applies step-4 integrate -- baseline now, zero-latency at landing.)",
+  "summary": "HARD_PASS (step-5 metric pre-staged + safety invariant holds): the distillation pipeline produces a well-defined DISTILLATION-RATIO and capability_preservation=1.0 (no planned collapse loses a capability). Corpus-level atom_compression_ratio is currently small (0.001149: 24 removable of 20884 -- the corpus is mostly raw ingest with few duplicates), which is the HONEST baseline; the metric is now instrumented to grow as redundancy is detected and to fire zero-latency at Testbed step-4 integrate. DISTILLATION-RATIO measurement (North Star, step-5 pre-stage). total_atoms=20884, dup_groups=29. ATOM-REMOVING: 24 Class A promotion-pair groups -> 24 atoms removable (projected_total=20860), atom_compression_ratio=0.001149. STRUCTURE-ADDING/INVERSE/REFUSAL Class B modes={'DISTINCT': 2, 'SHARED_ABSTRACTION': 3, 'INVERSE_PAIR': 1, 'THEOREM_LINKED': 2, 'CROSS_DOMAIN_ABSTRACTION': 3}, structure_added=19. dup_distillation_ratio=0.9655. capability_preservation=1.0000. (This same read-only script measures the ACTUAL ratio the instant Testbed applies step-4 integrate -- baseline now, zero-latency at landing.)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "total_atoms": 20884,
+      "dup_groups": 29,
+      "classA_groups": 24,
+      "removable_atoms": 24,
+      "projected_total": 20860,
+      "atom_compression_ratio": 0.001149,
+      "capability_preservation": 1.0,
+      "classB_modes": {
+        "DISTINCT": 2,
+        "SHARED_ABSTRACTION": 3,
+        "INVERSE_PAIR": 1,
+        "THEOREM_LINKED": 2,
+        "CROSS_DOMAIN_ABSTRACTION": 3
+      },
+      "structure_added": 19,
+      "dup_distillation_ratio": 0.9655
+    }
+  ],
+  "elapsed_s": 0.7817811965942383
+}

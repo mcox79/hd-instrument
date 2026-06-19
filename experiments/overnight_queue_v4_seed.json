@@ -1,0 +1,21 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_alpha_sweep",
+      "status": "completed",
+      "result": "Gap consistent -0.042 to -0.061 across ALPHA"
+    },
+    {
+      "name": "phase_b2_llr_calibration",
+      "status": "completed",
+      "result": "HYPOTHESIS FALSIFIED: gap got worse (-1.05). LLR misapplication."
+    },
+    {
+      "name": "phase_b2_beta_sweep",
+      "script": "experiments/exp_wave14b_cl_phase_b2_beta_sweep.py",
+      "status": "pending",
+      "purpose": "Test softmax confidence ceiling hypothesis: increase byte-extraction BETA to {8,16,32,64,128}",
+      "timeout_s": 3600
+    }
+  ]
+}

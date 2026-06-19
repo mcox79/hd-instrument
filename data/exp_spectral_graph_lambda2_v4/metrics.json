@@ -1,0 +1,49 @@
+{
+  "verdict": "SPECTRAL_MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Inconsistent sign across seeds N=1024. mean_corr_N1024=-0.927 mean_corr_all=-0.948 hp_N1024=0/1 neg_N1024=1/1 mono_N1024=0/1",
+  "elapsed_s": 7.16738486289978,
+  "summary": {
+    "n_values_tested": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "mode": "smoke",
+    "results_by_N": {
+      "256": [
+        {
+          "seed": 17,
+          "corr_lambda_ret": -0.9691217576944479,
+          "is_monotone_lambda": false,
+          "min_lambda_2": 0.3449955138598279
+        }
+      ],
+      "1024": [
+        {
+          "seed": 17,
+          "corr_lambda_ret": -0.9268475609966994,
+          "is_monotone_lambda": false,
+          "min_lambda_2": 0.7404978499388829
+        }
+      ]
+    }
+  },
+  "config": {
+    "n_values": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "alpha_b_values": [
+      0.0,
+      0.1,
+      0.3
+    ],
+    "M_A_frac": 0.1,
+    "smoke": true
+  }
+}

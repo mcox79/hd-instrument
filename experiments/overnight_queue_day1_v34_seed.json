@@ -1,0 +1,6 @@
+{
+  "experiments": [
+    {"name": "triple_compound_v2", "script": "experiments/exp_wave14b_triple_compound.py", "status": "pending", "purpose": "Retry triple compound after fixing verdict-code bug. Science was clean.", "timeout_s": 3600},
+    {"name": "r10_hyperparam_sweep", "script": "experiments/exp_wave14b_r10_hyperparam_sweep.py", "status": "pending", "purpose": "Audit 2: sweep LAMBDA/NUM_CONCEPTS/BETA at K=64. Default may be suboptimal.", "timeout_s": 3600}
+  ]
+}

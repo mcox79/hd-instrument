@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hd-instrument"
+version = "0.1.0.dev0"
+description = "Observable hyperdimensional computing substrate with neuromodulator-style control and reward-modulated Hebbian learning."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Marshall Cox" }]
+dependencies = [
+    "torch>=2.2",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "torch-hd>=5.7",
+    "duckdb>=0.10",
+    "pyarrow>=15",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dashboard = [
+    "streamlit>=1.32",
+    "plotly>=5.20",
+    "networkx>=3.2",
+    "pyvis>=0.3",
+    "umap-learn>=0.5",
+    "scikit-learn>=1.4",
+]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=4",
+    "pytest-benchmark>=4",
+    "hypothesis>=6",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["hdlab", "reference"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["verification"]
+python_files = ["test_*.py"]

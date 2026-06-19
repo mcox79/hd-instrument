@@ -1,0 +1,51 @@
+{
+  "verdict": "TASK_GEOMETRY_INCONCLUSIVE",
+  "verdict_msg": "Need >=3 task-pairs for regression; got 2.",
+  "elapsed_s": 1.8279999999940628,
+  "summary": {
+    "per_pair": {
+      "B_shuffled": {
+        "spectral_distance": 0.026017576456069946,
+        "seeds": {
+          "17": {
+            "retention_A": 0.9451558856591619,
+            "spectral_distance": 0.026017576456069946,
+            "bpc_A_baseline": 3.710721357345581,
+            "bpc_A_after_X": 3.926041633605957
+          }
+        }
+      },
+      "D_random": {
+        "spectral_distance": 1.243311882019043,
+        "seeds": {
+          "17": {
+            "retention_A": 0.8293714545422451,
+            "spectral_distance": 1.243311882019043,
+            "bpc_A_baseline": 3.710721357345581,
+            "bpc_A_after_X": 4.474136814117432
+          }
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "task_pairs": [
+      "B_shuffled",
+      "D_random"
+    ],
+    "ema_alpha": 0.7,
+    "eig_bins": 32,
+    "ppmi_rank_cap": 256,
+    "pass_r2": 0.6,
+    "fail_r2": 0.2
+  }
+}

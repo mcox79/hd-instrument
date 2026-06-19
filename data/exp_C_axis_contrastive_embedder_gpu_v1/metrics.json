@@ -1,0 +1,33 @@
+{
+  "anchor_name": "C_axis_contrastive_embedder_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: contrastive embedder does not lift C-F1 >= +0.02 on held-out caps (or loss not converged) -- functional similarity not learnable from this sparse supervision (155 pairs, median 1/cap); C stays authoring-bound. best=ws_U_ctop5 C-F1=0.4325 vs what_serves 0.6784 (delta -0.2459); loss 3.628->1.425 conv=True; NONE-gold recovered 1/12; n_pairs=122; all={'what_serves': 0.6784, 'contrastive_top5': 0.0247, 'contrastive_top10': 0.0159, 'thr_0.5': 0.0064, 'thr_0.6': 0.008, 'ws_U_ctop5': 0.4325, 'ws_U_ctop10': 0.3205}",
+  "summary": "HARD_FAIL: contrastive embedder does not lift C-F1 >= +0.02 on held-out caps (or loss not converged) -- functional similarity not learnable from this sparse supervision (155 pairs, median 1/cap); C stays authoring-bound. best=ws_U_ctop5 C-F1=0.4325 vs what_serves 0.6784 (delta -0.2459); loss 3.628->1.425 conv=True; NONE-gold recovered 1/12; n_pairs=122; all={'what_serves': 0.6784, 'contrastive_top5': 0.0247, 'contrastive_top10': 0.0159, 'thr_0.5': 0.0064, 'thr_0.6': 0.008, 'ws_U_ctop5': 0.4325, 'ws_U_ctop10': 0.3205}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 9,
+      "n_pairs": 122,
+      "macro_by_policy": {
+        "what_serves": 0.6784,
+        "contrastive_top5": 0.0247,
+        "contrastive_top10": 0.0159,
+        "thr_0.5": 0.0064,
+        "thr_0.6": 0.008,
+        "ws_U_ctop5": 0.4325,
+        "ws_U_ctop10": 0.3205
+      },
+      "ws_baseline": 0.6784,
+      "best_policy": "ws_U_ctop5",
+      "best_f1": 0.4325,
+      "delta": -0.2459,
+      "converged": true,
+      "loss_first": 3.6277,
+      "loss_last": 1.4252,
+      "none_recovered": 1,
+      "none_total": 12
+    }
+  ],
+  "elapsed_s": 252.61199164390564
+}

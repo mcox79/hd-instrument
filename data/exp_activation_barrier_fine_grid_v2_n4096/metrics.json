@@ -1,0 +1,38 @@
+{
+  "anchor": "activation_barrier_fine_grid_v2_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: nf_crit_05=0.460 nf_crit_10=0.440 ratio=1.0455 n_monotone=1/2 predicted_barrier_ratio=2.3158 grid_step=0.01",
+  "n_seeds": 2,
+  "N": 4096,
+  "run_mode": "smoke",
+  "elapsed_s": 0.13582324981689453,
+  "predicted_barrier_ratio": 2.31578947368421,
+  "grid_step": 0.01,
+  "summary": "MIDDLE_BAND: nf_crit_05=0.460 nf_crit_10=0.440 ratio=1.0455 n_monotone=1/2 predicted_barrier_ratio=2.3158 grid_step=0.01",
+  "results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.03829813003540039,
+      "nf_crit_05": 0.48,
+      "nf_crit_10": 0.44,
+      "ratio_05_10": 1.0909090909090908,
+      "monotone_pass": true,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780456387.7072861
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.03708982467651367,
+      "nf_crit_05": 0.44,
+      "nf_crit_10": 0.44,
+      "ratio_05_10": 1.0,
+      "monotone_pass": false,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780456387.7511325
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "verdict": "LEARNED_CODEBOOK_MIDDLE_BAND",
+  "verdict_msg": "Learned advantage at 2/3 K values; best delta=0.0600. Partial K-dependent benefit. Per-K deltas: {'4': 0.0, '8': 0.0024999999999999467, '16': 0.05999999999999994}.",
+  "elapsed_s": 0.10999999998603016,
+  "summary": {
+    "per_K": {
+      "4": {
+        "17": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        }
+      },
+      "8": {
+        "17": {
+          "random_acc": 0.9975,
+          "learned_acc": 1.0,
+          "delta": 0.0024999999999999467
+        }
+      },
+      "16": {
+        "17": {
+          "random_acc": 0.9334375,
+          "learned_acc": 0.9934375,
+          "delta": 0.05999999999999994
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "vocab": 256,
+    "K_values": [
+      4,
+      8,
+      16
+    ],
+    "seeds": [
+      17
+    ],
+    "n_probes_per_cell": 200
+  }
+}

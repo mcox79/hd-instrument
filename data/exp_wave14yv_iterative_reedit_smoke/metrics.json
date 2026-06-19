@@ -1,0 +1,30 @@
+{
+  "verdict": "REEDIT_BOTH_HOLD",
+  "verdict_msg": "Both arms maintain >= 0.95 accuracy across all re-edits. Kerdock min=1.000, correlated min=1.000.",
+  "elapsed_s": 1.5619999999998981,
+  "summary": {
+    "by_arm": {
+      "kerdock": {
+        "min_acc_along_trajectory": 1.0,
+        "per_seed_min": [
+          1.0
+        ]
+      },
+      "correlated": {
+        "min_acc_along_trajectory": 1.0,
+        "per_seed_min": [
+          1.0
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_stored": 512,
+    "n_iterations": 20,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "srht_realkey_zkl_fix_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SRHT recovers synthetic-key privacy on real keys (real-SRHT ZKL <=1.5x synthetic) -- the real-key ZKL gap is fixed; SRHT-before-storage ships. ZKL real_plain=0.0533 real_SRHT=0.0200 synthetic=0.0633 | SRHT/synth=0.32",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "zkl_real_plain": 0.05333333333333334,
+      "zkl_real_srht": 0.02,
+      "zkl_synthetic": 0.06333333333333334,
+      "srht_over_synth": 0.3157894736842105
+    }
+  ],
+  "elapsed_s": 12.122161149978638,
+  "summary": "HARD_PASS: SRHT recovers synthetic-key privacy on real keys (real-SRHT ZKL <=1.5x synthetic) -- the real-key ZKL gap is fixed; SRHT-before-storage ships. ZKL real_plain=0.0533 real_SRHT=0.0200 synthetic=0.0633 | SRHT/synth=0.32"
+}

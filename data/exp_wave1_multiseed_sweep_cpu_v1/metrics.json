@@ -1,0 +1,215 @@
+{
+  "anchor_name": "wave1_multiseed_sweep_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: WAVE-1 multi-seed promotion -- >=12/15 ceiling-win anchors are SEED-ROBUST (>=4/5 HARD_PASS) and promote D->C; n=1 exploratory wins confirmed not flukes (closes LVH-277). promote=14 fragile=0 fail=1 of 15 anchors (n_seeds=5)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "per_anchor": {
+        "comm1": {
+          "label": "comm1",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "comm2": {
+          "label": "comm2",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "comm6": {
+          "label": "comm6",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "comm-lex": {
+          "label": "comm-lex",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "math1": {
+          "label": "math1",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "math2": {
+          "label": "math2",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "math3": {
+          "label": "math3",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "math4": {
+          "label": "math4",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "math4-rung3": {
+          "label": "math4-rung3",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "code1": {
+          "label": "code1",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "code2": {
+          "label": "code2",
+          "verdicts": [
+            "HARD_FAIL",
+            "HARD_FAIL",
+            "HARD_FAIL",
+            "HARD_FAIL",
+            "HARD_FAIL"
+          ],
+          "n_hard_pass": 0,
+          "n_seeds": 5,
+          "decision": "FAIL"
+        },
+        "code6": {
+          "label": "code6",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "lex-wug": {
+          "label": "lex-wug",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "key-rotation": {
+          "label": "key-rotation",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "slipnet-noise": {
+          "label": "slipnet-noise",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        }
+      },
+      "n_promote": 14,
+      "n_fragile": 0,
+      "n_fail": 1,
+      "n_anchors": 15,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 988.7922880649567,
+  "summary": "HARD_PASS: WAVE-1 multi-seed promotion -- >=12/15 ceiling-win anchors are SEED-ROBUST (>=4/5 HARD_PASS) and promote D->C; n=1 exploratory wins confirmed not flukes (closes LVH-277). promote=14 fragile=0 fail=1 of 15 anchors (n_seeds=5)"
+}

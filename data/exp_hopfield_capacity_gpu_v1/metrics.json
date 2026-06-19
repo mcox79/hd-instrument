@@ -1,0 +1,31 @@
+{
+  "anchor_name": "hopfield_capacity_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: modern Hopfield recall@1>=0.95 at P/N=2.0 (classic dead) at N=2048 -- exponential capacity holds at production dimension. at P/N=2.0 modern=1.000 classic=0.000 | {'L0.5': (1.0, 0.0), 'L1.0': (1.0, 0.0), 'L2.0': (1.0, 0.0), 'L4.0': (1.0, 0.0)}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "L0.5": {
+          "modern": 1.0,
+          "classic": 0.0
+        },
+        "L1.0": {
+          "modern": 1.0,
+          "classic": 0.0
+        },
+        "L2.0": {
+          "modern": 1.0,
+          "classic": 0.0
+        },
+        "L4.0": {
+          "modern": 1.0,
+          "classic": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.2547585964202881,
+  "summary": "HARD_PASS: modern Hopfield recall@1>=0.95 at P/N=2.0 (classic dead) at N=2048 -- exponential capacity holds at production dimension. at P/N=2.0 modern=1.000 classic=0.000 | {'L0.5': (1.0, 0.0), 'L1.0': (1.0, 0.0), 'L2.0': (1.0, 0.0), 'L4.0': (1.0, 0.0)}"
+}

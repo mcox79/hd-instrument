@@ -1,0 +1,40 @@
+{
+  "verdict": "CONT_ENV_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: M_cell_pass={64: 0, 256: 0} M_cell_hf={64: 0, 256: 0} n_M_pass=0/2 n_M_hf=0/2",
+  "elapsed_s": 0.28,
+  "summary": {
+    "anchor": "continuous_output_substrate_envelope_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      64,
+      256
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 64,
+        "seed": 17,
+        "interp_cosine": 0.97826,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      },
+      {
+        "M": 256,
+        "seed": 17,
+        "interp_cosine": 0.91877,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "beta": 8.0
+      }
+    ],
+    "verdict": "CONT_ENV_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: M_cell_pass={64: 0, 256: 0} M_cell_hf={64: 0, 256: 0} n_M_pass=0/2 n_M_hf=0/2",
+    "elapsed_s": 0.28
+  }
+}

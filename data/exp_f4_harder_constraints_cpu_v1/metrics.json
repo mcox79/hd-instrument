@@ -1,0 +1,15 @@
+{
+  "anchor_name": "f4_harder_constraints_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate constraint-check agreement >=0.95 on 100-vertex graphs vs ground truth -- scales to harder constraint problems. 100-vertex coloring agreement=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc": 1.0,
+      "vertices": 100
+    }
+  ],
+  "elapsed_s": 0.0942082405090332,
+  "summary": "HARD_PASS: substrate constraint-check agreement >=0.95 on 100-vertex graphs vs ground truth -- scales to harder constraint problems. 100-vertex coloring agreement=1.000"
+}

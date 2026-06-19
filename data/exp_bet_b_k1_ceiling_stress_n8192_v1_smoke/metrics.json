@@ -1,0 +1,35 @@
+{
+  "verdict": "K1_STRESS_INCONCLUSIVE",
+  "verdict_msg": "Mixed outcome: below_hp=0/1 above_hf=0/1 middle=1/1. Does not fit any pre-registered band. ret_A_after_D per seed: [0.84] mean=0.840 progression: after_B=0.864 after_C=0.814 after_D=0.840",
+  "elapsed_s": 71.1,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A_after_B": 0.864418155374705,
+        "retention_A_after_C": 0.8136933434129955,
+        "retention_A_after_D": 0.839524623112794,
+        "bpc_A_baseline": 3.607593984603882,
+        "bpc_A_after_B": 4.173436157226562,
+        "bpc_A_after_C": 4.433603904724121,
+        "bpc_A_after_D": 4.297186628341675,
+        "retention_B_after_D": 0.9638113260340272,
+        "N": 1024,
+        "seed": 17,
+        "_partial_written_at": 1780140423.2064648
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 2,
+    "bytes_per_corpus": 20000,
+    "seeds": [
+      17
+    ]
+  },
+  "n_seeds_done": 1,
+  "n_seeds_total": 1
+}

@@ -1,0 +1,15 @@
+{
+  "anchor": "caching_eviction_cost_amortized_v1",
+  "run_mode": "full",
+  "N": 1024,
+  "n_seeds": 5,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "caching_eviction_cost_amortized_v1 verdict=MIDDLE_BAND: mean_amortized_ratio=0.108(HP<=2.0,HF>5.0) mean_speedup=26.825(HP>=1.1,HF<0.95) mean_acc_post_eviction=0.800(HP>=0.85) cells=2/3 elapsed=7.2s",
+  "mean_amortized_ratio": 0.10835416333564403,
+  "mean_speedup": 26.8250221310691,
+  "mean_acc_post_eviction": 0.7999590029761904,
+  "n_cell_A_pass": 5,
+  "n_cell_B_pass": 5,
+  "n_cell_C_pass": 0,
+  "elapsed_s": 7.2168402671813965
+}

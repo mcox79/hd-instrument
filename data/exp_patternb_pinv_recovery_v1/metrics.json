@@ -1,0 +1,14 @@
+{
+  "anchor_name": "patternb_pinv_recovery_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pinv auto-associative recovery from a partial (1-role) bundle >=0.95 -- pinv transfers cleanly to Pattern B. partial-bundle recovery acc=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc": 1.0
+    }
+  ],
+  "elapsed_s": 0.203141450881958,
+  "summary": "HARD_PASS: pinv auto-associative recovery from a partial (1-role) bundle >=0.95 -- pinv transfers cleanly to Pattern B. partial-bundle recovery acc=1.000"
+}

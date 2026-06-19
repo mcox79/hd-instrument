@@ -1,0 +1,44 @@
+{
+  "verdict": "REPLAY_STRONG_EFFECT",
+  "verdict_msg": "STRONG: Replay has large effect (d=13.3) but not tested as dominant axis. lift=0.163, recovery=63.1%. 4-tier taxonomy supported empirically; theoretical mechanism needs dedicated probe.",
+  "elapsed_s": 0.009,
+  "summary": {
+    "replay_lift": 0.1633,
+    "replay_cohen_d": 13.33,
+    "replay_rank_biserial_r": 1.0,
+    "replay_is_dominant_within_class_axis": false,
+    "forgetting_recovery_fraction": 0.631,
+    "corpus_gaps": {
+      "SAME_PRISTINE_COMPOUND_SAME": 0.056,
+      "COMPOUND_SAME_REPLAY_SAME": 0.0397,
+      "REPLAY_SAME_STAGE4_COMPOUND": 0.1113,
+      "STAGE4_COMPOUND_NO_REPLAY_SAME": 0.052,
+      "NO_REPLAY_SAME_DIFF_CORPUS": 0.0482
+    },
+    "axis_effects": {
+      "corpus_pristine_vs_noreplay": 18.3,
+      "corpus_replay_vs_diff": 7.31,
+      "replay_within_same_corpus": 13.33,
+      "stage4_vs_noreplay": 4.79,
+      "replay_vs_stage4": 9.03
+    },
+    "hypothesis_ranking": {
+      "A_consolidation": "SUPPORTED (63% forgetting recovery)",
+      "B_interference_reduction": "UNTESTABLE (needs STAGE4+replay sweep)",
+      "C_effective_N_doubling": "UNTESTABLE (needs M_sweep with/without replay)",
+      "recommended_next": "Hyp A consolidation is most consistent with data; Hyp B/C need dedicated probes"
+    }
+  },
+  "config": {
+    "data_source": "data/exp_wave14_betB_shift_class_predictor_v1/metrics.json",
+    "axes_tested": [
+      "replay_within_same_corpus",
+      "corpus_overlap"
+    ],
+    "hypotheses": [
+      "A_consolidation",
+      "B_interference_reduction",
+      "C_effective_N_doubling"
+    ]
+  }
+}

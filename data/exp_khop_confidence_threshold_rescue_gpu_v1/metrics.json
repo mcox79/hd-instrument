@@ -1,0 +1,18 @@
+{
+  "anchor_name": "khop_confidence_threshold_rescue_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a confidence threshold keeps K_max>=12 at coherent c_d=0.48 -- the cheap v1 50-LOC confidence-filter fix IS viable despite coherent distractors. K_max by confidence-T at c_d=0.48: {'T0.0': 22, 'T0.3': 20, 'T0.5': 22, 'T0.7': 20, 'T0.9': 4} | best=22 (target K=12)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "T0.0": 22,
+      "T0.3": 20,
+      "T0.5": 22,
+      "T0.7": 20,
+      "T0.9": 4
+    }
+  ],
+  "elapsed_s": 0.1027529239654541,
+  "summary": "HARD_PASS: a confidence threshold keeps K_max>=12 at coherent c_d=0.48 -- the cheap v1 50-LOC confidence-filter fix IS viable despite coherent distractors. K_max by confidence-T at c_d=0.48: {'T0.0': 22, 'T0.3': 20, 'T0.5': 22, 'T0.7': 20, 'T0.9': 4} | best=22 (target K=12)"
+}

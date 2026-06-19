@@ -1,0 +1,17 @@
+{
+  "anchor_name": "humaneval_real_parse_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (measurement): moderate English-parse cost (end-to-end 0.58 vs 0.75). end-to-end=0.583 parse-recall=1.000 (clean-spec was 0.75)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "end_to_end_pass": 0.583,
+      "parse_recall": 1.0,
+      "clean_baseline": 0.75,
+      "n": 12
+    }
+  ],
+  "elapsed_s": 0.04046201705932617,
+  "summary": "MIDDLE_BAND (measurement): moderate English-parse cost (end-to-end 0.58 vs 0.75). end-to-end=0.583 parse-recall=1.000 (clean-spec was 0.75)"
+}

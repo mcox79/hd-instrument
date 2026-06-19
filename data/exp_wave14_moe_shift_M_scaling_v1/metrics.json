@@ -1,0 +1,60 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: No structural lift. Peak=-0.0219 < 0.05. MoE-SHIFT structural separation absent at all load levels.",
+  "elapsed_s": 0.316,
+  "summary": {
+    "M_sweep": {
+      "0.25": {
+        "frac": 0.25,
+        "M_per_expert": 72,
+        "M_total_K4": 288,
+        "retention_A_mean": 0.9167,
+        "retention_C_mean": 0.9386,
+        "structural_lift": -0.0219,
+        "mean_gini": 0.0503,
+        "mode_collapse_alert": false
+      },
+      "0.55": {
+        "frac": 0.55,
+        "M_per_expert": 158,
+        "M_total_K4": 632,
+        "retention_A_mean": 0.8377,
+        "retention_C_mean": 0.8754,
+        "structural_lift": -0.0377,
+        "mean_gini": 0.0427,
+        "mode_collapse_alert": false
+      },
+      "1.0": {
+        "frac": 1.0,
+        "M_per_expert": 288,
+        "M_total_K4": 1152,
+        "retention_A_mean": 0.7537,
+        "retention_C_mean": 0.7996,
+        "structural_lift": -0.0459,
+        "mean_gini": 0.0347,
+        "mode_collapse_alert": false
+      }
+    },
+    "peak_structural_lift": -0.0219,
+    "peak_frac": 0.25
+  },
+  "config": {
+    "K_fixed": 4,
+    "N": 512,
+    "alpha_c": 0.5625,
+    "M_fractions": [
+      0.25,
+      0.55,
+      1.0
+    ],
+    "M_per_expert_values": [
+      72,
+      158,
+      288
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  }
+}

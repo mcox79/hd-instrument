@@ -1,0 +1,85 @@
+{
+  "verdict": "W_INTERNAL_HARD_FAIL",
+  "verdict_msg": "No W-internal signature predicts retention: best r^2=0.000 < 0.2. Post-Phase-A internal state contains no information about subsequent retention.",
+  "elapsed_s": 1.566624402999878,
+  "summary": {
+    "best_signature": "lam1",
+    "best_r2": 0.0,
+    "sig_r2": {
+      "lam1": 0.0,
+      "lam2": 0.0,
+      "lam3": 0.0,
+      "spectral_gap": 0.0,
+      "spectral_gap_ratio": 0.0,
+      "frob_norm_normalized": 0.0,
+      "bundle_norm_mean": 0.0,
+      "bundle_norm_std": 0.0,
+      "bundle_norm_var": 0.0,
+      "bundle_norm_kurtosis": 0.0,
+      "bundle_norm_skewness": 0.0,
+      "row_norm_mean": 0.0,
+      "row_norm_std": 0.0
+    },
+    "n_cells": 3,
+    "retention_values": [
+      1.0146147897339803,
+      0.9500765475801304,
+      0.8699609943228983
+    ],
+    "per_seed": {
+      "17": {
+        "signatures": {
+          "lam1": 16.339330673217773,
+          "lam2": 7.5910773277282715,
+          "lam3": 6.730923175811768,
+          "spectral_gap": 8.748253345489502,
+          "spectral_gap_ratio": 2.1524389711502954,
+          "frob_norm_normalized": 1.283680557850005,
+          "bundle_norm_mean": 130.5143280029297,
+          "bundle_norm_std": 14.637396812438965,
+          "bundle_norm_var": 214.25338745117188,
+          "bundle_norm_kurtosis": 0.24482345581054688,
+          "bundle_norm_skewness": -0.10186569392681122,
+          "row_norm_mean": 1.2601197957992554,
+          "row_norm_std": 0.245064377784729
+        },
+        "pair_results": {
+          "shuffled_same_corpus": {
+            "bpc_A_baseline": 4.6713720830281575,
+            "bpc_A_after_B": 4.604084358215332,
+            "retention_A": 1.0146147897339803
+          },
+          "python_source": {
+            "bpc_A_baseline": 4.6713720830281575,
+            "bpc_A_after_B": 4.916837590535482,
+            "retention_A": 0.9500765475801304
+          },
+          "random_bytes": {
+            "bpc_A_baseline": 4.6713720830281575,
+            "bpc_A_after_B": 5.369633941650391,
+            "retention_A": 0.8699609943228983
+          }
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 2,
+    "bytes_per_corpus": 3000,
+    "seeds": [
+      17
+    ],
+    "pairs": [
+      0,
+      2,
+      4
+    ],
+    "pass_r2": 0.5,
+    "fail_r2": 0.2,
+    "n_bundle_probe": 512
+  }
+}

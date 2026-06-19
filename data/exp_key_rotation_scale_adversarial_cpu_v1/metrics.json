@@ -1,0 +1,18 @@
+{
+  "anchor_name": "key_rotation_scale_adversarial_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: key rotation scales to 10K keys with adversarial revocation -- legit new-key recall>=0.90 while adversarial OLD-key (<=0.10) and RANDOM-key (<=0.05) probing recover nothing. Substrate-only access rotation/revocation holds at production key-count. new-key=1.000 adv-old=0.000 adv-random=0.000 (10000 facts)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "new_key_recall": 1.0,
+      "adv_old_key_recall": 0.0,
+      "adv_random_key_recall": 0.0,
+      "n_facts": 10000,
+      "n_shards": 84
+    }
+  ],
+  "elapsed_s": 15.096173286437988,
+  "summary": "HARD_PASS: key rotation scales to 10K keys with adversarial revocation -- legit new-key recall>=0.90 while adversarial OLD-key (<=0.10) and RANDOM-key (<=0.05) probing recover nothing. Substrate-only access rotation/revocation holds at production key-count. new-key=1.000 adv-old=0.000 adv-random=0.000 (10000 facts)"
+}

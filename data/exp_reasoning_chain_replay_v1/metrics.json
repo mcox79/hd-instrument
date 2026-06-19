@@ -1,0 +1,16 @@
+{
+  "anchor_name": "reasoning_chain_replay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 100pct deterministic chain replay + 100pct Merkle verification + tamper detection -- auditable reasoning chains for the regulated-industries pitch. deterministic=1.000 merkle-verify=1.000 tamper-caught=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "det": 1.0,
+      "ver": 1.0,
+      "tamper": 1.0
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "HARD_PASS: 100pct deterministic chain replay + 100pct Merkle verification + tamper detection -- auditable reasoning chains for the regulated-industries pitch. deterministic=1.000 merkle-verify=1.000 tamper-caught=1.000"
+}

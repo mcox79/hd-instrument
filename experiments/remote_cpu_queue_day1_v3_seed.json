@@ -1,0 +1,20 @@
+{
+  "experiments": [
+    {
+      "name": "hard_nn_pool_sweep_workstation",
+      "status": "completed"
+    },
+    {
+      "name": "retrieval_3way",
+      "status": "running_or_recent",
+      "note": "may still be running from earlier launch; this entry preserves status"
+    },
+    {
+      "name": "m2_ppmi",
+      "script": "experiments/exp_wave14b_m2_ppmi.py",
+      "status": "pending",
+      "purpose": "PPMI-corrected concept extraction (cheap, drop-in fix per survey)",
+      "timeout_s": 1200
+    }
+  ]
+}

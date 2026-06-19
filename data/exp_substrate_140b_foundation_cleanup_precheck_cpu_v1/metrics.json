@@ -1,0 +1,146 @@
+{
+  "anchor_name": "substrate_140b_foundation_cleanup_precheck_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "Batch is stranding-safe + monotone-safe, BUT 2 atoms have a path/attr-tier mismatch causing 6 edges to be NOT genuinely backwards under the tier-field -- these would wrongly remove legitimate dependencies. RESOLVE before ratify: for each mismatch atom, EITHER fix the tier FIELD to T1 (if genuinely foundational -> then the edge IS backwards -> remove) OR DROP its removes (if genuinely derived -> the deps are legit). The OTHER 64 removes are CLEARED. 140b: 47 atoms (TierA=35 TierB=12); 70 remove-edges -> 64 CLEARED genuine-backwards, 6 NOT-backwards (legit deps), 2 path/attr-tier mismatches, 0 phantom; batch stranded=0 new-monotone=0.",
+  "summary": "Batch is stranding-safe + monotone-safe, BUT 2 atoms have a path/attr-tier mismatch causing 6 edges to be NOT genuinely backwards under the tier-field -- these would wrongly remove legitimate dependencies. RESOLVE before ratify: for each mismatch atom, EITHER fix the tier FIELD to T1 (if genuinely foundational -> then the edge IS backwards -> remove) OR DROP its removes (if genuinely derived -> the deps are legit). The OTHER 64 removes are CLEARED. 140b: 47 atoms (TierA=35 TierB=12); 70 remove-edges -> 64 CLEARED genuine-backwards, 6 NOT-backwards (legit deps), 2 path/attr-tier mismatches, 0 phantom; batch stranded=0 new-monotone=0.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 47,
+      "n_tierA": 35,
+      "n_tierB": 12,
+      "n_removes": 70,
+      "cleared": 64,
+      "not_backwards": [
+        {
+          "src": "bayes_rule",
+          "src_qid": "math::T1/bayes_rule",
+          "src_attr": "T2",
+          "src_path": "T1",
+          "rel": "DEPENDS_ON",
+          "tgt": "probabilistic_inference",
+          "tgt_attr": "T2",
+          "exists": true,
+          "backwards": false
+        },
+        {
+          "src": "gradient_descent",
+          "src_qid": "math::T1/gradient_descent",
+          "src_attr": "T3",
+          "src_path": "T1",
+          "rel": "DEPENDS_ON",
+          "tgt": "gradient_descent_step_lemma",
+          "tgt_attr": "T3",
+          "exists": true,
+          "backwards": false
+        },
+        {
+          "src": "gradient_descent",
+          "src_qid": "math::T1/gradient_descent",
+          "src_attr": "T3",
+          "src_path": "T1",
+          "rel": "DEPENDS_ON",
+          "tgt": "parameter_vector",
+          "tgt_attr": "T2",
+          "exists": true,
+          "backwards": false
+        },
+        {
+          "src": "gradient_descent",
+          "src_qid": "math::T1/gradient_descent",
+          "src_attr": "T3",
+          "src_path": "T1",
+          "rel": "DEPENDS_ON",
+          "tgt": "em_algorithm",
+          "tgt_attr": "T3",
+          "exists": true,
+          "backwards": false
+        },
+        {
+          "src": "gradient_descent",
+          "src_qid": "math::T1/gradient_descent",
+          "src_attr": "T3",
+          "src_path": "T1",
+          "rel": "DEPENDS_ON",
+          "tgt": "discriminative_perceptron",
+          "tgt_attr": "T3",
+          "exists": true,
+          "backwards": false
+        },
+        {
+          "src": "gradient_descent",
+          "src_qid": "math::T1/gradient_descent",
+          "src_attr": "T3",
+          "src_path": "T1",
+          "rel": "DEPENDS_ON",
+          "tgt": "gradient",
+          "tgt_attr": "T2",
+          "exists": true,
+          "backwards": false
+        }
+      ],
+      "path_attr_mismatch": [
+        [
+          "math::T1/bayes_rule",
+          "T1",
+          "T2"
+        ],
+        [
+          "math::T1/gradient_descent",
+          "T1",
+          "T3"
+        ]
+      ],
+      "phantom": [],
+      "retier_recos": [
+        [
+          "brownian_motion",
+          "gaussian_process",
+          "T3",
+          1,
+          "REMOVE edge (in-deg=1 low -> genuine backwards)"
+        ],
+        [
+          "dynamic_programming_bellman",
+          "bellman_equation",
+          "T3",
+          3,
+          "RETIER target (in-deg=3 -> foundational; lower its tier so the dependence is correct)"
+        ],
+        [
+          "dynamic_programming_bellman",
+          "dynamic_programming",
+          "T3",
+          15,
+          "RETIER target (in-deg=15 -> foundational; lower its tier so the dependence is correct)"
+        ],
+        [
+          "dynamic_programming_bellman",
+          "viterbi_decoding",
+          "T3",
+          8,
+          "RETIER target (in-deg=8 -> foundational; lower its tier so the dependence is correct)"
+        ],
+        [
+          "monte_carlo",
+          "law_of_large_numbers_lemma",
+          "T3",
+          1,
+          "REMOVE edge (in-deg=1 low -> genuine backwards)"
+        ],
+        [
+          "total_probability",
+          "product_rule_probability_lemma",
+          "T3",
+          2,
+          "REMOVE edge (in-deg=2 low -> genuine backwards)"
+        ]
+      ],
+      "stranded": [],
+      "new_monotone": [],
+      "hard_pass": false
+    }
+  ],
+  "elapsed_s": 1.409679889678955
+}

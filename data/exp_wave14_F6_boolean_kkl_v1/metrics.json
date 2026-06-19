@@ -1,0 +1,132 @@
+{
+  "verdict": "KKL_HARD_PASS_LOW_INFLUENCE",
+  "verdict_msg": "Substrate boundaries are low-influence/well-distributed: max_inf_share <= 0.3 AND kkl_ratio >= 1.0 at ALL operating points. density=0.10: max_inf_share=0.015, kkl_ratio=1.842, density=0.30: max_inf_share=0.015, kkl_ratio=1.779.",
+  "elapsed_s": 0.09299999999348074,
+  "summary": {
+    "per_density": {
+      "0.1": {
+        "7": {
+          "inf_total": 9.988,
+          "max_inf": 0.173,
+          "max_inf_share": 0.017320784941930317,
+          "var_f": 0.999675989151001,
+          "kkl_ratio": 1.8017885575901322,
+          "N": 256,
+          "density": 0.1,
+          "M_stored": 26
+        },
+        "17": {
+          "inf_total": 10.373999999999999,
+          "max_inf": 0.165,
+          "max_inf_share": 0.015905147484094856,
+          "var_f": 0.9994708299636841,
+          "kkl_ratio": 1.871805297550044,
+          "N": 256,
+          "density": 0.1,
+          "M_stored": 26
+        },
+        "23": {
+          "inf_total": 10.4125,
+          "max_inf": 0.1415,
+          "max_inf_share": 0.013589435774309723,
+          "var_f": 0.9999359250068665,
+          "kkl_ratio": 1.8778780891827116,
+          "N": 256,
+          "density": 0.1,
+          "M_stored": 26
+        },
+        "31": {
+          "inf_total": 10.549,
+          "max_inf": 0.151,
+          "max_inf_share": 0.014314153000284387,
+          "var_f": 0.9993240833282471,
+          "kkl_ratio": 1.9036604641372765,
+          "N": 256,
+          "density": 0.1,
+          "M_stored": 26
+        },
+        "41": {
+          "inf_total": 9.723500000000001,
+          "max_inf": 0.1525,
+          "max_inf_share": 0.015683653005604974,
+          "var_f": 0.9999909400939941,
+          "kkl_ratio": 1.753521540500816,
+          "N": 256,
+          "density": 0.1,
+          "M_stored": 26
+        }
+      },
+      "0.3": {
+        "7": {
+          "inf_total": 10.1115,
+          "max_inf": 0.145,
+          "max_inf_share": 0.014340107798051723,
+          "var_f": 0.9998998641967773,
+          "kkl_ratio": 1.8236589768000402,
+          "N": 256,
+          "density": 0.3,
+          "M_stored": 77
+        },
+        "17": {
+          "inf_total": 9.1605,
+          "max_inf": 0.1555,
+          "max_inf_share": 0.016975055946727796,
+          "var_f": 0.9999909996986389,
+          "kkl_ratio": 1.6519908586734928,
+          "N": 256,
+          "density": 0.3,
+          "M_stored": 77
+        },
+        "23": {
+          "inf_total": 10.2655,
+          "max_inf": 0.1435,
+          "max_inf_share": 0.013978861234231163,
+          "var_f": 0.9999508261680603,
+          "kkl_ratio": 1.8513392802273358,
+          "N": 256,
+          "density": 0.3,
+          "M_stored": 77
+        },
+        "31": {
+          "inf_total": 9.103000000000002,
+          "max_inf": 0.136,
+          "max_inf_share": 0.014940129627595297,
+          "var_f": 0.9998559355735779,
+          "kkl_ratio": 1.6418431508433309,
+          "N": 256,
+          "density": 0.3,
+          "M_stored": 77
+        },
+        "41": {
+          "inf_total": 10.6715,
+          "max_inf": 0.1515,
+          "max_inf_share": 0.014196692123881366,
+          "var_f": 0.9998559355735779,
+          "kkl_ratio": 1.924742303001714,
+          "N": 256,
+          "density": 0.3,
+          "M_stored": 77
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 256,
+    "M_densities": [
+      0.1,
+      0.3
+    ],
+    "n_samples": 2000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "pass_max_inf_share": 0.3,
+    "pass_kkl_ratio": 1.0,
+    "fail_max_inf_share": 0.6
+  }
+}

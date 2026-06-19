@@ -1,0 +1,33 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: short_period 1/1, orbit_member 1/1, tanh_fp 1/1. mean_short=1.000 mean_orbit=1.000",
+  "elapsed_s": 0.011030435562133789,
+  "n_seeds": 1,
+  "n_short_period": 1,
+  "n_orbit_member": 1,
+  "n_tanh_fp": 1,
+  "per_seed": [
+    {
+      "N": 256,
+      "M": 25,
+      "seed": 17,
+      "dominant_period": 1,
+      "frac_short_period": 1.0,
+      "frac_tanh_fixed_point": 1.0,
+      "frac_orbit_member": 1.0,
+      "n_orbit_member": 25,
+      "period_hist": {
+        "1": 25
+      }
+    }
+  ],
+  "summary": "CA substrate v2 N=256: MIDDLE_BAND",
+  "config": {
+    "N": 256,
+    "ALPHA_LOAD": 0.1,
+    "seeds": [
+      17
+    ],
+    "MAX_ORBIT_STEPS": 100
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "verdict": "NSCALE_INCONCLUSIVE",
+  "verdict_msg": "No completed seeds.",
+  "elapsed_s": 115.91,
+  "summary": {
+    "anchor": "n_scaling_modern_hopfield_v1_n16384",
+    "N": 16384,
+    "smoke": false,
+    "M_sweep": [
+      2048,
+      4096,
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "cells": [
+      {
+        "seed": 7,
+        "per_M": [],
+        "max_M_at_95_recall": 0
+      },
+      {
+        "seed": 17,
+        "per_M": [],
+        "max_M_at_95_recall": 0
+      },
+      {
+        "seed": 23,
+        "per_M": [],
+        "max_M_at_95_recall": 0
+      }
+    ],
+    "per_seed_max_M": [],
+    "verdict": "NSCALE_INCONCLUSIVE",
+    "verdict_msg": "No completed seeds.",
+    "elapsed_s": 115.91
+  }
+}

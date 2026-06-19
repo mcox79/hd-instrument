@@ -1,0 +1,17 @@
+{
+  "anchor_name": "frustration_bg_analog_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: BG-analog best but ladder partial. BG-analog=0.040 mult=0.037 additive=0.025 irreducible-frustration=0.960",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bg_minimax": 0.04,
+      "multiplicative": 0.037,
+      "additive": 0.025,
+      "irreducible_frustration": 0.96
+    }
+  ],
+  "elapsed_s": 0.06554436683654785,
+  "summary": "MIDDLE_BAND: BG-analog best but ladder partial. BG-analog=0.040 mult=0.037 additive=0.025 irreducible-frustration=0.960"
+}

@@ -1,0 +1,57 @@
+{
+  "anchor": "kf3_cross_codebook_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    4
+  ],
+  "seeds": [
+    17
+  ],
+  "codebook_families": [
+    "kerdock",
+    "bsc",
+    "gaussian"
+  ],
+  "cells": [
+    {
+      "family": "kerdock",
+      "M_frac": 4,
+      "M": 4096,
+      "N": 1024,
+      "seed": 17,
+      "info_leakage": 0.026156,
+      "state_contamination": 0.091,
+      "theory_bound": 0.03125,
+      "passes_hp_leakage": false,
+      "passes_hp_contam": false
+    },
+    {
+      "family": "bsc",
+      "M_frac": 4,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "info_leakage": 0.028977,
+      "state_contamination": 0.108197,
+      "theory_bound": 0.03125,
+      "passes_hp_leakage": false,
+      "passes_hp_contam": false
+    },
+    {
+      "family": "gaussian",
+      "M_frac": 4,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "info_leakage": 0.033527,
+      "state_contamination": 0.078207,
+      "theory_bound": 0.03125,
+      "passes_hp_leakage": false,
+      "passes_hp_contam": false
+    }
+  ],
+  "verdict": "KF3_CROSS_SMOKE_PARTIAL",
+  "verdict_msg": "SMOKE: best_family=kerdock max_leakage=0.02616 max_contam=0.09100 n_hp=0/1 theory=0.03125 HP_leak<0.01 HP_cont<0.05 N=1024 | kerdock: leak=0.02616 cont=0.09100 | bsc: leak=0.02898 cont=0.10820 | gaussian: leak=0.03353 cont=0.07821",
+  "elapsed_s": 0.26
+}

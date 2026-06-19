@@ -1,0 +1,32 @@
+{
+  "verdict": "SW_DS_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+  "elapsed_s": 0.11,
+  "summary": {
+    "anchor": "sparse_w_deletion_sequences_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_init": 32,
+    "n_deletes": 16,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M_init": 32,
+        "n_deletes": 16,
+        "seed": 17,
+        "N": 1024,
+        "cert_count_success": 16,
+        "cert_rate": 1.0,
+        "audit_chain_valid": true,
+        "deleted_gone_rate": 1.0,
+        "surviving_present_rate": 1.0,
+        "post_delete_kf2": 0.0
+      }
+    ],
+    "verdict": "SW_DS_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+    "elapsed_s": 0.11
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "stretch2_4_active_inference_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: active-inference loop converges to the true generating pattern >=0.85 -- substrate codebook as generative model; hypothesis-generate + predict + prediction-error-minimize converges (Friston FEP). converge-to-true=1.000 mean-iters=3.00 (n=300)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "converge_rate": 1.0,
+      "mean_iters": 3.0,
+      "n": 300
+    }
+  ],
+  "elapsed_s": 0.32955336570739746,
+  "summary": "HARD_PASS: active-inference loop converges to the true generating pattern >=0.85 -- substrate codebook as generative model; hypothesis-generate + predict + prediction-error-minimize converges (Friston FEP). converge-to-true=1.000 mean-iters=3.00 (n=300)"
+}

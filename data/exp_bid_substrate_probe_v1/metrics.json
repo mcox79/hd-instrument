@@ -1,0 +1,51 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: bid outside all known classes (1/1 seeds) BUT HP3 unstable (drift>5%). BID may be finite-N artifact at tested scale.",
+  "elapsed_s": 0.26,
+  "summary": "bid_substrate_probe_v1 SMOKE: N=512 novel_frac=1/1 hp3=False",
+  "hp1_pass": true,
+  "hp3_stable": false,
+  "n_novel_at_primary_N": 1,
+  "n_primary_seeds": 1,
+  "mean_overlap_primary_N": 0.984925176056338,
+  "pq_class": "retrieval",
+  "per_n_summary": [
+    {
+      "N": 512,
+      "n_seeds": 1,
+      "bid_mean": 48.691831814673726,
+      "bid_std": 0.0,
+      "bid_norm_mean": 0.09510123401303462,
+      "n_outside_known_class": 1,
+      "outside_known_fraction": 1.0
+    }
+  ],
+  "all_results": [
+    {
+      "N": 512,
+      "seed": 17,
+      "M_stored": 71,
+      "bid_estimate": 48.691831814673726,
+      "bid_ci_low": 40.81052015489447,
+      "bid_ci_high": 60.00520737695579,
+      "bid_normalized": 0.09510123401303462,
+      "in_retrieval_band": false,
+      "in_spinglass_band": false,
+      "in_paramagnetic_band": false,
+      "in_known_class": false,
+      "mean_overlap": 0.984925176056338,
+      "std_overlap": 0.00916204207225621
+    }
+  ],
+  "config": {
+    "N_sweep": [
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "S_probes": 200,
+    "alpha_c": 0.14,
+    "smoke": true
+  }
+}

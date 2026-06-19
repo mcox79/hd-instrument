@@ -1,0 +1,15 @@
+{
+  "anchor_name": "substrate_khop_3hop_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate deterministic 3-hop chain traversal recall>=0.70 at production KB scale -- compositional K-hop moat extends to depth 3 (per-binding sharding keeps cleanup exact). 3-hop-recall=1.000 (VE=2000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "threehop_recall": 1.0,
+      "VE": 2000
+    }
+  ],
+  "elapsed_s": 9.709938049316406,
+  "summary": "HARD_PASS: substrate deterministic 3-hop chain traversal recall>=0.70 at production KB scale -- compositional K-hop moat extends to depth 3 (per-binding sharding keeps cleanup exact). 3-hop-recall=1.000 (VE=2000)"
+}

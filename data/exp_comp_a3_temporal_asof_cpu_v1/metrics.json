@@ -1,0 +1,14 @@
+{
+  "anchor_name": "comp_a3_temporal_asof_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: AS-OF temporal ordering recall=1.0 -- temporal sequence + bitemporal as-of compose. AS-OF ordering recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.500403642654419,
+  "summary": "HARD_PASS: AS-OF temporal ordering recall=1.0 -- temporal sequence + bitemporal as-of compose. AS-OF ordering recall=1.000"
+}

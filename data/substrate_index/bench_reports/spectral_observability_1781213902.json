@@ -1,0 +1,30 @@
+{
+  "semantic_codebook": {
+    "M": 92,
+    "N": 1024,
+    "aspect_ratio": 0.0898,
+    "eig_min": 2.8e-05,
+    "eig_max": 0.051824,
+    "eig_mean": 0.000977,
+    "eig_var": 2.9e-05,
+    "spectral_gap": 0.048308,
+    "mp_bulk_kl": NaN,
+    "tw_edge_z": -2.4528,
+    "kappa_4_free": 0.0,
+    "insufficient_M_warning": true
+  },
+  "algebra_hrr_codebook": {
+    "M": 60,
+    "N": 1024,
+    "aspect_ratio": 0.0586,
+    "eig_min": -0.0,
+    "eig_max": 0.018005,
+    "eig_mean": 0.000977,
+    "eig_var": 6e-06,
+    "spectral_gap": 0.011758,
+    "mp_bulk_kl": NaN,
+    "tw_edge_z": -2.2596,
+    "kappa_4_free": 0.0,
+    "insufficient_M_warning": true
+  }
+}

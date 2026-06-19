@@ -1,0 +1,86 @@
+{
+  "anchor_name": "substrate_introspection_toolkit_full_10_categories_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3/4 categories functional. DELETION-CERT before=0.06 after=0.01 other_intact=0.00 op=False | gap_frac=0.25 idk=64 | path[corr=0.53 wrong_conf=0.42 bail=0.05] | failure[missing=0.11 wrong_retr=0.89]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_concepts": 256,
+      "cat4_knowledge_gap": {
+        "gap_threshold": 0.0158,
+        "gap_fraction": 0.25,
+        "idk_flaggable_concepts": 64
+      },
+      "cat5_retrieval_path": {
+        "correct": 0.529,
+        "wrong_confident": 0.419,
+        "bailout_lowconf": 0.052
+      },
+      "cat6_bias_deletion": {
+        "recall_before": 0.055,
+        "recall_after": 0.007,
+        "other_pattern_intact": 0.0,
+        "deletion_cert_operational": false
+      },
+      "cat9_failure_mode": {
+        "missing_knowledge_frac": 0.11,
+        "wrong_retrieval_frac": 0.89
+      },
+      "deletion_ok": false
+    },
+    {
+      "seed": 17,
+      "n_concepts": 256,
+      "cat4_knowledge_gap": {
+        "gap_threshold": 0.0192,
+        "gap_fraction": 0.25,
+        "idk_flaggable_concepts": 64
+      },
+      "cat5_retrieval_path": {
+        "correct": 0.567,
+        "wrong_confident": 0.399,
+        "bailout_lowconf": 0.034
+      },
+      "cat6_bias_deletion": {
+        "recall_before": 0.183,
+        "recall_after": -0.002,
+        "other_pattern_intact": 0.0,
+        "deletion_cert_operational": false
+      },
+      "cat9_failure_mode": {
+        "missing_knowledge_frac": 0.079,
+        "wrong_retrieval_frac": 0.921
+      },
+      "deletion_ok": false
+    },
+    {
+      "seed": 23,
+      "n_concepts": 256,
+      "cat4_knowledge_gap": {
+        "gap_threshold": 0.017,
+        "gap_fraction": 0.25,
+        "idk_flaggable_concepts": 64
+      },
+      "cat5_retrieval_path": {
+        "correct": 0.613,
+        "wrong_confident": 0.381,
+        "bailout_lowconf": 0.006
+      },
+      "cat6_bias_deletion": {
+        "recall_before": 0.122,
+        "recall_after": -0.015,
+        "other_pattern_intact": 0.0,
+        "deletion_cert_operational": false
+      },
+      "cat9_failure_mode": {
+        "missing_knowledge_frac": 0.015,
+        "wrong_retrieval_frac": 0.985
+      },
+      "deletion_ok": false
+    }
+  ],
+  "elapsed_s": 427.5685019493103,
+  "summary": "MIDDLE_BAND: 3/4 categories functional. DELETION-CERT before=0.06 after=0.01 other_intact=0.00 op=False | gap_frac=0.25 idk=64 | path[corr=0.53 wrong_conf=0.42 bail=0.05] | failure[missing=0.11 wrong_retr=0.89]"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "ppr_spreading_activation_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: recall <0.55 or no convergence. recall=0.217 convergence-K=5.3",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.21666666666666665,
+      "conv_k": 5.3
+    }
+  ],
+  "elapsed_s": 50.45661783218384,
+  "summary": "HARD_FAIL: recall <0.55 or no convergence. recall=0.217 convergence-K=5.3"
+}

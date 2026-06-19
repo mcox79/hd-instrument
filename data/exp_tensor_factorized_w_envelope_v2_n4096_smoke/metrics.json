@@ -1,0 +1,67 @@
+{
+  "verdict": "TFE_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp_seeds=0/1 hf_seeds_at_M8192=0/1",
+  "elapsed_s": 1.41,
+  "summary": {
+    "anchor": "tensor_factorized_w_envelope_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      64,
+      256
+    ],
+    "ranks": [
+      32,
+      64,
+      128
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 64,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "32": 1.0,
+          "64": 1.0,
+          "128": 1.0
+        },
+        "ratios_by_rank": {
+          "32": 1.0,
+          "64": 1.0,
+          "128": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "32": 0.0625,
+          "64": 0.125,
+          "128": 0.25
+        }
+      },
+      {
+        "seed": 17,
+        "M": 256,
+        "ret_full": 1.0,
+        "rets_by_rank": {
+          "32": 1.0,
+          "64": 1.0,
+          "128": 1.0
+        },
+        "ratios_by_rank": {
+          "32": 1.0,
+          "64": 1.0,
+          "128": 1.0
+        },
+        "memory_ratio_per_rank": {
+          "32": 0.0625,
+          "64": 0.125,
+          "128": 0.25
+        }
+      }
+    ],
+    "verdict": "TFE_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp_seeds=0/1 hf_seeds_at_M8192=0/1",
+    "elapsed_s": 1.41
+  }
+}

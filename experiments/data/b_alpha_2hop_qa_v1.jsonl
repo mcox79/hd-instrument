@@ -1,0 +1,600 @@
+{"id": "BA-POS-000", "type": "positive", "x": "larva.n.01", "z": "organism.n.01", "gold_2hop": true, "in5k_intermediate": "animal.n.01", "walker_can_attest": true}
+{"id": "BA-POS-001", "type": "positive", "x": "double.n.01", "z": "hit.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-002", "type": "positive", "x": "financing.n.01", "z": "commercial_enterprise.n.02", "gold_2hop": true, "in5k_intermediate": "finance.n.01", "walker_can_attest": true}
+{"id": "BA-POS-003", "type": "positive", "x": "goal.n.01", "z": "cognition.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-004", "type": "positive", "x": "grocery_store.n.01", "z": "mercantile_establishment.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-005", "type": "positive", "x": "feature.n.02", "z": "part.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-006", "type": "positive", "x": "love.n.01", "z": "feeling.n.01", "gold_2hop": true, "in5k_intermediate": "emotion.n.01", "walker_can_attest": true}
+{"id": "BA-POS-007", "type": "positive", "x": "front_door.n.01", "z": "doorway.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-008", "type": "positive", "x": "sir.n.01", "z": "male.n.02", "gold_2hop": true, "in5k_intermediate": "man.n.01", "walker_can_attest": true}
+{"id": "BA-POS-009", "type": "positive", "x": "admission.n.01", "z": "arrival.n.02", "gold_2hop": true, "in5k_intermediate": "entrance.n.03", "walker_can_attest": true}
+{"id": "BA-POS-010", "type": "positive", "x": "allusion.n.01", "z": "remark.n.01", "gold_2hop": true, "in5k_intermediate": "mention.n.01", "walker_can_attest": true}
+{"id": "BA-POS-011", "type": "positive", "x": "comb.n.01", "z": "instrumentality.n.03", "gold_2hop": true, "in5k_intermediate": "device.n.01", "walker_can_attest": true}
+{"id": "BA-POS-012", "type": "positive", "x": "class.n.01", "z": "group.n.01", "gold_2hop": true, "in5k_intermediate": "collection.n.01", "walker_can_attest": true}
+{"id": "BA-POS-013", "type": "positive", "x": "educator.n.01", "z": "adult.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-014", "type": "positive", "x": "art.n.03", "z": "ability.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-015", "type": "positive", "x": "cell.n.01", "z": "space.n.02", "gold_2hop": true, "in5k_intermediate": "compartment.n.01", "walker_can_attest": true}
+{"id": "BA-POS-016", "type": "positive", "x": "suit.n.01", "z": "clothing.n.01", "gold_2hop": true, "in5k_intermediate": "garment.n.01", "walker_can_attest": true}
+{"id": "BA-POS-017", "type": "positive", "x": "pause.n.02", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-018", "type": "positive", "x": "floor.n.01", "z": "surface.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-019", "type": "positive", "x": "spirit.n.04", "z": "belief.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-020", "type": "positive", "x": "fool.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-021", "type": "positive", "x": "hovel.n.01", "z": "structure.n.01", "gold_2hop": true, "in5k_intermediate": "shelter.n.01", "walker_can_attest": true}
+{"id": "BA-POS-022", "type": "positive", "x": "reason.n.02", "z": "statement.n.01", "gold_2hop": true, "in5k_intermediate": "explanation.n.01", "walker_can_attest": true}
+{"id": "BA-POS-023", "type": "positive", "x": "king.n.01", "z": "ruler.n.01", "gold_2hop": true, "in5k_intermediate": "sovereign.n.01", "walker_can_attest": true}
+{"id": "BA-POS-024", "type": "positive", "x": "ad.n.01", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "promotion.n.01", "walker_can_attest": true}
+{"id": "BA-POS-025", "type": "positive", "x": "envelope.n.01", "z": "instrumentality.n.03", "gold_2hop": true, "in5k_intermediate": "container.n.01", "walker_can_attest": true}
+{"id": "BA-POS-026", "type": "positive", "x": "child.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-027", "type": "positive", "x": "pennant.n.01", "z": "symbol.n.01", "gold_2hop": true, "in5k_intermediate": "award.n.02", "walker_can_attest": true}
+{"id": "BA-POS-028", "type": "positive", "x": "retention.n.01", "z": "control.n.05", "gold_2hop": true, "in5k_intermediate": "possession.n.01", "walker_can_attest": true}
+{"id": "BA-POS-029", "type": "positive", "x": "money.n.02", "z": "property.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-030", "type": "positive", "x": "integration.n.01", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-031", "type": "positive", "x": "deity.n.01", "z": "belief.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-032", "type": "positive", "x": "athapaskan.n.02", "z": "natural_language.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-033", "type": "positive", "x": "rhode_islander.n.01", "z": "inhabitant.n.01", "gold_2hop": true, "in5k_intermediate": "american.n.01", "walker_can_attest": true}
+{"id": "BA-POS-034", "type": "positive", "x": "sound.n.04", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": "happening.n.01", "walker_can_attest": true}
+{"id": "BA-POS-035", "type": "positive", "x": "microsecond.n.01", "z": "measure.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-036", "type": "positive", "x": "avoidance.n.01", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": "rejection.n.01", "walker_can_attest": true}
+{"id": "BA-POS-037", "type": "positive", "x": "drawing.n.02", "z": "creation.n.02", "gold_2hop": true, "in5k_intermediate": "representation.n.02", "walker_can_attest": true}
+{"id": "BA-POS-038", "type": "positive", "x": "precedent.n.01", "z": "information.n.02", "gold_2hop": true, "in5k_intermediate": "example.n.01", "walker_can_attest": true}
+{"id": "BA-POS-039", "type": "positive", "x": "soldier.n.01", "z": "serviceman.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-040", "type": "positive", "x": "sphere.n.01", "z": "situation.n.01", "gold_2hop": true, "in5k_intermediate": "environment.n.01", "walker_can_attest": true}
+{"id": "BA-POS-041", "type": "positive", "x": "eleven.n.01", "z": "integer.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-042", "type": "positive", "x": "source.n.03", "z": "idea.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-043", "type": "positive", "x": "instinct.n.01", "z": "ability.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-044", "type": "positive", "x": "cocktail_party.n.01", "z": "affair.n.03", "gold_2hop": true, "in5k_intermediate": "party.n.04", "walker_can_attest": true}
+{"id": "BA-POS-045", "type": "positive", "x": "california.n.01", "z": "state.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-046", "type": "positive", "x": "kitchen.n.01", "z": "area.n.05", "gold_2hop": true, "in5k_intermediate": "room.n.01", "walker_can_attest": true}
+{"id": "BA-POS-047", "type": "positive", "x": "mississippi.n.01", "z": "stream.n.01", "gold_2hop": true, "in5k_intermediate": "river.n.01", "walker_can_attest": true}
+{"id": "BA-POS-048", "type": "positive", "x": "passage.n.02", "z": "writing.n.02", "gold_2hop": true, "in5k_intermediate": "section.n.01", "walker_can_attest": true}
+{"id": "BA-POS-049", "type": "positive", "x": "capitalism.n.01", "z": "economy.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-050", "type": "positive", "x": "flight.n.01", "z": "arrangement.n.02", "gold_2hop": true, "in5k_intermediate": "formation.n.01", "walker_can_attest": true}
+{"id": "BA-POS-051", "type": "positive", "x": "bath.n.01", "z": "container.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-052", "type": "positive", "x": "feat.n.01", "z": "action.n.01", "gold_2hop": true, "in5k_intermediate": "accomplishment.n.01", "walker_can_attest": true}
+{"id": "BA-POS-053", "type": "positive", "x": "boy.n.02", "z": "adult.n.01", "gold_2hop": true, "in5k_intermediate": "man.n.01", "walker_can_attest": true}
+{"id": "BA-POS-054", "type": "positive", "x": "restriction.n.01", "z": "concept.n.01", "gold_2hop": true, "in5k_intermediate": "rule.n.01", "walker_can_attest": true}
+{"id": "BA-POS-055", "type": "positive", "x": "stupidity.n.01", "z": "cognition.n.01", "gold_2hop": true, "in5k_intermediate": "inability.n.01", "walker_can_attest": true}
+{"id": "BA-POS-056", "type": "positive", "x": "grove.n.02", "z": "plot.n.02", "gold_2hop": true, "in5k_intermediate": "garden.n.01", "walker_can_attest": true}
+{"id": "BA-POS-057", "type": "positive", "x": "nothing.n.01", "z": "measure.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-058", "type": "positive", "x": "condition.n.07", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "statement.n.01", "walker_can_attest": true}
+{"id": "BA-POS-059", "type": "positive", "x": "san_francisco.n.01", "z": "port.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-060", "type": "positive", "x": "mistake.n.01", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-061", "type": "positive", "x": "neutralism.n.01", "z": "policy.n.02", "gold_2hop": true, "in5k_intermediate": "foreign_policy.n.01", "walker_can_attest": true}
+{"id": "BA-POS-062", "type": "positive", "x": "wife.n.01", "z": "adult.n.01", "gold_2hop": true, "in5k_intermediate": "woman.n.01", "walker_can_attest": true}
+{"id": "BA-POS-063", "type": "positive", "x": "epiphysis.n.01", "z": "bone.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-064", "type": "positive", "x": "vertex.n.01", "z": "point.n.01", "gold_2hop": true, "in5k_intermediate": "intersection.n.01", "walker_can_attest": true}
+{"id": "BA-POS-065", "type": "positive", "x": "commotion.n.02", "z": "motion.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-066", "type": "positive", "x": "end.n.03", "z": "happening.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-067", "type": "positive", "x": "thigh.n.01", "z": "extremity.n.01", "gold_2hop": true, "in5k_intermediate": "limb.n.01", "walker_can_attest": true}
+{"id": "BA-POS-068", "type": "positive", "x": "screech.n.01", "z": "sound.n.04", "gold_2hop": true, "in5k_intermediate": "noise.n.01", "walker_can_attest": true}
+{"id": "BA-POS-069", "type": "positive", "x": "myth.n.01", "z": "fiction.n.01", "gold_2hop": true, "in5k_intermediate": "story.n.02", "walker_can_attest": true}
+{"id": "BA-POS-070", "type": "positive", "x": "manifold.n.01", "z": "tube.n.01", "gold_2hop": true, "in5k_intermediate": "pipe.n.02", "walker_can_attest": true}
+{"id": "BA-POS-071", "type": "positive", "x": "wonder.n.02", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": "happening.n.01", "walker_can_attest": true}
+{"id": "BA-POS-072", "type": "positive", "x": "folk.n.01", "z": "group.n.01", "gold_2hop": true, "in5k_intermediate": "people.n.01", "walker_can_attest": true}
+{"id": "BA-POS-073", "type": "positive", "x": "thorax.n.02", "z": "part.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-074", "type": "positive", "x": "pipeline.n.02", "z": "tube.n.01", "gold_2hop": true, "in5k_intermediate": "pipe.n.02", "walker_can_attest": true}
+{"id": "BA-POS-075", "type": "positive", "x": "mission.n.02", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "operation.n.05", "walker_can_attest": true}
+{"id": "BA-POS-076", "type": "positive", "x": "towel.n.01", "z": "fabric.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-077", "type": "positive", "x": "drain.n.01", "z": "removal.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-078", "type": "positive", "x": "point_of_view.n.01", "z": "attitude.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-079", "type": "positive", "x": "demythologization.n.01", "z": "statement.n.01", "gold_2hop": true, "in5k_intermediate": "restatement.n.01", "walker_can_attest": true}
+{"id": "BA-POS-080", "type": "positive", "x": "albumin.n.01", "z": "protein.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-081", "type": "positive", "x": "order.n.15", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-082", "type": "positive", "x": "ambassador.n.01", "z": "official.n.01", "gold_2hop": true, "in5k_intermediate": "diplomat.n.01", "walker_can_attest": true}
+{"id": "BA-POS-083", "type": "positive", "x": "assembly.n.06", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-084", "type": "positive", "x": "communication_system.n.01", "z": "instrumentality.n.03", "gold_2hop": true, "in5k_intermediate": "system.n.01", "walker_can_attest": true}
+{"id": "BA-POS-085", "type": "positive", "x": "note.n.02", "z": "letter.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-086", "type": "positive", "x": "margin.n.01", "z": "line.n.04", "gold_2hop": true, "in5k_intermediate": "boundary.n.02", "walker_can_attest": true}
+{"id": "BA-POS-087", "type": "positive", "x": "militia.n.01", "z": "unit.n.03", "gold_2hop": true, "in5k_intermediate": "military_unit.n.01", "walker_can_attest": true}
+{"id": "BA-POS-088", "type": "positive", "x": "life.n.03", "z": "state.n.02", "gold_2hop": true, "in5k_intermediate": "being.n.01", "walker_can_attest": true}
+{"id": "BA-POS-089", "type": "positive", "x": "platitude.n.01", "z": "statement.n.01", "gold_2hop": true, "in5k_intermediate": "remark.n.01", "walker_can_attest": true}
+{"id": "BA-POS-090", "type": "positive", "x": "rib.n.01", "z": "device.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-091", "type": "positive", "x": "immediacy.n.01", "z": "characteristic.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-092", "type": "positive", "x": "flash.n.02", "z": "light.n.07", "gold_2hop": true, "in5k_intermediate": "brightness.n.01", "walker_can_attest": true}
+{"id": "BA-POS-093", "type": "positive", "x": "end_product.n.01", "z": "creation.n.02", "gold_2hop": true, "in5k_intermediate": "product.n.02", "walker_can_attest": true}
+{"id": "BA-POS-094", "type": "positive", "x": "literature.n.01", "z": "written_communication.n.01", "gold_2hop": true, "in5k_intermediate": "writing.n.02", "walker_can_attest": true}
+{"id": "BA-POS-095", "type": "positive", "x": "dragon.n.01", "z": "monster.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-096", "type": "positive", "x": "evening.n.01", "z": "time_period.n.01", "gold_2hop": true, "in5k_intermediate": "day.n.04", "walker_can_attest": true}
+{"id": "BA-POS-097", "type": "positive", "x": "veteran.n.02", "z": "skilled_worker.n.01", "gold_2hop": true, "in5k_intermediate": "serviceman.n.01", "walker_can_attest": true}
+{"id": "BA-POS-098", "type": "positive", "x": "care.n.01", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "work.n.01", "walker_can_attest": true}
+{"id": "BA-POS-099", "type": "positive", "x": "service.n.01", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "work.n.01", "walker_can_attest": true}
+{"id": "BA-POS-100", "type": "positive", "x": "grant.n.01", "z": "gift.n.01", "gold_2hop": true, "in5k_intermediate": "aid.n.03", "walker_can_attest": true}
+{"id": "BA-POS-101", "type": "positive", "x": "retreat.n.01", "z": "departure.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-102", "type": "positive", "x": "social_organization.n.01", "z": "group.n.01", "gold_2hop": true, "in5k_intermediate": "system.n.02", "walker_can_attest": true}
+{"id": "BA-POS-103", "type": "positive", "x": "enemy.n.02", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": "adversary.n.01", "walker_can_attest": true}
+{"id": "BA-POS-104", "type": "positive", "x": "monetary_value.n.01", "z": "worth.n.02", "gold_2hop": true, "in5k_intermediate": "value.n.02", "walker_can_attest": true}
+{"id": "BA-POS-105", "type": "positive", "x": "potato_yellow-dwarf_virus.n.01", "z": "virus.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-106", "type": "positive", "x": "worth.n.01", "z": "measure.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-107", "type": "positive", "x": "writer.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-108", "type": "positive", "x": "pegboard.n.01", "z": "surface.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-109", "type": "positive", "x": "vicinity.n.01", "z": "area.n.01", "gold_2hop": true, "in5k_intermediate": "section.n.03", "walker_can_attest": true}
+{"id": "BA-POS-110", "type": "positive", "x": "curtain.n.01", "z": "protective_covering.n.01", "gold_2hop": true, "in5k_intermediate": "blind.n.03", "walker_can_attest": true}
+{"id": "BA-POS-111", "type": "positive", "x": "worship.n.01", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": "activity.n.01", "walker_can_attest": true}
+{"id": "BA-POS-112", "type": "positive", "x": "tuning.n.01", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "calibration.n.01", "walker_can_attest": true}
+{"id": "BA-POS-113", "type": "positive", "x": "agreement.n.04", "z": "thinking.n.01", "gold_2hop": true, "in5k_intermediate": "planning.n.03", "walker_can_attest": true}
+{"id": "BA-POS-114", "type": "positive", "x": "rendition.n.04", "z": "presentation.n.02", "gold_2hop": true, "in5k_intermediate": "performance.n.02", "walker_can_attest": true}
+{"id": "BA-POS-115", "type": "positive", "x": "storehouse.n.01", "z": "facility.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-116", "type": "positive", "x": "london.n.01", "z": "city.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-117", "type": "positive", "x": "sergeant.n.01", "z": "military_officer.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-118", "type": "positive", "x": "cock.n.04", "z": "domestic_fowl.n.01", "gold_2hop": true, "in5k_intermediate": "chicken.n.02", "walker_can_attest": true}
+{"id": "BA-POS-119", "type": "positive", "x": "planner.n.01", "z": "causal_agent.n.01", "gold_2hop": true, "in5k_intermediate": "person.n.01", "walker_can_attest": true}
+{"id": "BA-POS-120", "type": "positive", "x": "treatment.n.01", "z": "work.n.01", "gold_2hop": true, "in5k_intermediate": "care.n.01", "walker_can_attest": true}
+{"id": "BA-POS-121", "type": "positive", "x": "hunter.n.01", "z": "worker.n.01", "gold_2hop": true, "in5k_intermediate": "skilled_worker.n.01", "walker_can_attest": true}
+{"id": "BA-POS-122", "type": "positive", "x": "relief.n.02", "z": "condition.n.01", "gold_2hop": true, "in5k_intermediate": "comfort.n.01", "walker_can_attest": true}
+{"id": "BA-POS-123", "type": "positive", "x": "calendar_year.n.01", "z": "time_period.n.01", "gold_2hop": true, "in5k_intermediate": "year.n.01", "walker_can_attest": true}
+{"id": "BA-POS-124", "type": "positive", "x": "banner.n.01", "z": "emblem.n.01", "gold_2hop": true, "in5k_intermediate": "flag.n.01", "walker_can_attest": true}
+{"id": "BA-POS-125", "type": "positive", "x": "collar.n.01", "z": "strip.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-126", "type": "positive", "x": "imitation.n.02", "z": "representation.n.02", "gold_2hop": true, "in5k_intermediate": "copy.n.02", "walker_can_attest": true}
+{"id": "BA-POS-127", "type": "positive", "x": "fire.n.01", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": "happening.n.01", "walker_can_attest": true}
+{"id": "BA-POS-128", "type": "positive", "x": "discovery.n.03", "z": "understanding.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-129", "type": "positive", "x": "fury.n.01", "z": "emotion.n.01", "gold_2hop": true, "in5k_intermediate": "anger.n.01", "walker_can_attest": true}
+{"id": "BA-POS-130", "type": "positive", "x": "representation.n.01", "z": "cognition.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-131", "type": "positive", "x": "categorization.n.03", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-132", "type": "positive", "x": "cabin.n.02", "z": "building.n.01", "gold_2hop": true, "in5k_intermediate": "house.n.01", "walker_can_attest": true}
+{"id": "BA-POS-133", "type": "positive", "x": "home.n.03", "z": "object.n.01", "gold_2hop": true, "in5k_intermediate": "location.n.01", "walker_can_attest": true}
+{"id": "BA-POS-134", "type": "positive", "x": "bomb.n.01", "z": "instrumentality.n.03", "gold_2hop": true, "in5k_intermediate": "weaponry.n.01", "walker_can_attest": true}
+{"id": "BA-POS-135", "type": "positive", "x": "poverty.n.01", "z": "condition.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-136", "type": "positive", "x": "pause.n.01", "z": "measure.n.02", "gold_2hop": true, "in5k_intermediate": "time_interval.n.01", "walker_can_attest": true}
+{"id": "BA-POS-137", "type": "positive", "x": "midst.n.01", "z": "region.n.01", "gold_2hop": true, "in5k_intermediate": "inside.n.01", "walker_can_attest": true}
+{"id": "BA-POS-138", "type": "positive", "x": "belch.n.01", "z": "reaction.n.03", "gold_2hop": true, "in5k_intermediate": "reflex.n.01", "walker_can_attest": true}
+{"id": "BA-POS-139", "type": "positive", "x": "character.n.05", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": "adult.n.01", "walker_can_attest": true}
+{"id": "BA-POS-140", "type": "positive", "x": "side.n.06", "z": "feature.n.01", "gold_2hop": true, "in5k_intermediate": "aspect.n.01", "walker_can_attest": true}
+{"id": "BA-POS-141", "type": "positive", "x": "line.n.07", "z": "point.n.02", "gold_2hop": true, "in5k_intermediate": "military_position.n.01", "walker_can_attest": true}
+{"id": "BA-POS-142", "type": "positive", "x": "reading.n.02", "z": "explanation.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-143", "type": "positive", "x": "civil_war.n.01", "z": "military_action.n.01", "gold_2hop": true, "in5k_intermediate": "war.n.01", "walker_can_attest": true}
+{"id": "BA-POS-144", "type": "positive", "x": "titer.n.01", "z": "property.n.02", "gold_2hop": true, "in5k_intermediate": "concentration.n.01", "walker_can_attest": true}
+{"id": "BA-POS-145", "type": "positive", "x": "planning.n.01", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "preparation.n.01", "walker_can_attest": true}
+{"id": "BA-POS-146", "type": "positive", "x": "laterality.n.03", "z": "property.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-147", "type": "positive", "x": "control.n.01", "z": "quality.n.01", "gold_2hop": true, "in5k_intermediate": "power.n.01", "walker_can_attest": true}
+{"id": "BA-POS-148", "type": "positive", "x": "holder.n.01", "z": "device.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-149", "type": "positive", "x": "possession.n.01", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "control.n.05", "walker_can_attest": true}
+{"id": "BA-POS-150", "type": "positive", "x": "fire.n.03", "z": "oxidation.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-151", "type": "positive", "x": "old_age.n.01", "z": "time_period.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-152", "type": "positive", "x": "support.n.08", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": "activity.n.01", "walker_can_attest": true}
+{"id": "BA-POS-153", "type": "positive", "x": "agony.n.02", "z": "symptom.n.01", "gold_2hop": true, "in5k_intermediate": "pain.n.01", "walker_can_attest": true}
+{"id": "BA-POS-154", "type": "positive", "x": "ant.n.01", "z": "insect.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-155", "type": "positive", "x": "verb.n.01", "z": "part_of_speech.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-156", "type": "positive", "x": "belt.n.02", "z": "clothing.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-157", "type": "positive", "x": "addendum.n.01", "z": "writing.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-158", "type": "positive", "x": "transformation.n.01", "z": "happening.n.01", "gold_2hop": true, "in5k_intermediate": "change.n.01", "walker_can_attest": true}
+{"id": "BA-POS-159", "type": "positive", "x": "society.n.01", "z": "group.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-160", "type": "positive", "x": "complication.n.01", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": "hindrance.n.03", "walker_can_attest": true}
+{"id": "BA-POS-161", "type": "positive", "x": "domination.n.02", "z": "condition.n.01", "gold_2hop": true, "in5k_intermediate": "dominance.n.02", "walker_can_attest": true}
+{"id": "BA-POS-162", "type": "positive", "x": "ketonemia.n.01", "z": "evidence.n.01", "gold_2hop": true, "in5k_intermediate": "symptom.n.01", "walker_can_attest": true}
+{"id": "BA-POS-163", "type": "positive", "x": "shooting.n.02", "z": "killing.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-164", "type": "positive", "x": "thunder.n.02", "z": "sound.n.04", "gold_2hop": true, "in5k_intermediate": "noise.n.01", "walker_can_attest": true}
+{"id": "BA-POS-165", "type": "positive", "x": "compulsive.n.01", "z": "causal_agent.n.01", "gold_2hop": true, "in5k_intermediate": "person.n.01", "walker_can_attest": true}
+{"id": "BA-POS-166", "type": "positive", "x": "voter.n.01", "z": "national.n.01", "gold_2hop": true, "in5k_intermediate": "citizen.n.01", "walker_can_attest": true}
+{"id": "BA-POS-167", "type": "positive", "x": "news.n.02", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "information.n.01", "walker_can_attest": true}
+{"id": "BA-POS-168", "type": "positive", "x": "white_man.n.01", "z": "male.n.02", "gold_2hop": true, "in5k_intermediate": "man.n.01", "walker_can_attest": true}
+{"id": "BA-POS-169", "type": "positive", "x": "coach.n.01", "z": "leader.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-170", "type": "positive", "x": "conviction.n.02", "z": "judgment.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-171", "type": "positive", "x": "maze.n.01", "z": "instrumentality.n.03", "gold_2hop": true, "in5k_intermediate": "system.n.01", "walker_can_attest": true}
+{"id": "BA-POS-172", "type": "positive", "x": "autonomy.n.01", "z": "freedom.n.01", "gold_2hop": true, "in5k_intermediate": "independence.n.01", "walker_can_attest": true}
+{"id": "BA-POS-173", "type": "positive", "x": "clubhouse.n.01", "z": "structure.n.01", "gold_2hop": true, "in5k_intermediate": "building.n.01", "walker_can_attest": true}
+{"id": "BA-POS-174", "type": "positive", "x": "ballet.n.01", "z": "dancing.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-175", "type": "positive", "x": "new_york.n.02", "z": "state.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-176", "type": "positive", "x": "light_bulb.n.01", "z": "lamp.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-177", "type": "positive", "x": "train.n.01", "z": "conveyance.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-178", "type": "positive", "x": "sense.n.02", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "meaning.n.01", "walker_can_attest": true}
+{"id": "BA-POS-179", "type": "positive", "x": "market.n.01", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": "activity.n.01", "walker_can_attest": true}
+{"id": "BA-POS-180", "type": "positive", "x": "moisture.n.01", "z": "condition.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-181", "type": "positive", "x": "drama.n.02", "z": "happening.n.01", "gold_2hop": true, "in5k_intermediate": "episode.n.01", "walker_can_attest": true}
+{"id": "BA-POS-182", "type": "positive", "x": "calculation.n.02", "z": "thinking.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-183", "type": "positive", "x": "horn.n.01", "z": "device.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-184", "type": "positive", "x": "lady.n.01", "z": "female.n.02", "gold_2hop": true, "in5k_intermediate": "woman.n.01", "walker_can_attest": true}
+{"id": "BA-POS-185", "type": "positive", "x": "history.n.01", "z": "time.n.05", "gold_2hop": true, "in5k_intermediate": "past.n.01", "walker_can_attest": true}
+{"id": "BA-POS-186", "type": "positive", "x": "precedence.n.01", "z": "status.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-187", "type": "positive", "x": "criticism.n.01", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-188", "type": "positive", "x": "cold.n.01", "z": "disease.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-189", "type": "positive", "x": "due_process.n.01", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-190", "type": "positive", "x": "transportation.n.05", "z": "commerce.n.01", "gold_2hop": true, "in5k_intermediate": "commercial_enterprise.n.02", "walker_can_attest": true}
+{"id": "BA-POS-191", "type": "positive", "x": "extension.n.02", "z": "increase.n.05", "gold_2hop": true, "in5k_intermediate": "expansion.n.01", "walker_can_attest": true}
+{"id": "BA-POS-192", "type": "positive", "x": "nitrogen.n.01", "z": "substance.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-193", "type": "positive", "x": "misbehavior.n.01", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-194", "type": "positive", "x": "celebration.n.02", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "diversion.n.01", "walker_can_attest": true}
+{"id": "BA-POS-195", "type": "positive", "x": "specimen.n.01", "z": "information.n.02", "gold_2hop": true, "in5k_intermediate": "example.n.01", "walker_can_attest": true}
+{"id": "BA-POS-196", "type": "positive", "x": "breeze.n.01", "z": "weather.n.01", "gold_2hop": true, "in5k_intermediate": "wind.n.01", "walker_can_attest": true}
+{"id": "BA-POS-197", "type": "positive", "x": "drive.n.08", "z": "travel.n.01", "gold_2hop": true, "in5k_intermediate": "journey.n.01", "walker_can_attest": true}
+{"id": "BA-POS-198", "type": "positive", "x": "traveler.n.01", "z": "causal_agent.n.01", "gold_2hop": true, "in5k_intermediate": "person.n.01", "walker_can_attest": true}
+{"id": "BA-POS-199", "type": "positive", "x": "positivist.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-200", "type": "positive", "x": "coevals.n.01", "z": "group.n.01", "gold_2hop": true, "in5k_intermediate": "people.n.01", "walker_can_attest": true}
+{"id": "BA-POS-201", "type": "positive", "x": "organization.n.01", "z": "group.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-202", "type": "positive", "x": "performance.n.02", "z": "show.n.01", "gold_2hop": true, "in5k_intermediate": "presentation.n.02", "walker_can_attest": true}
+{"id": "BA-POS-203", "type": "positive", "x": "buddy.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": "friend.n.01", "walker_can_attest": true}
+{"id": "BA-POS-204", "type": "positive", "x": "counter.n.01", "z": "furniture.n.01", "gold_2hop": true, "in5k_intermediate": "table.n.02", "walker_can_attest": true}
+{"id": "BA-POS-205", "type": "positive", "x": "room.n.01", "z": "structure.n.01", "gold_2hop": true, "in5k_intermediate": "area.n.05", "walker_can_attest": true}
+{"id": "BA-POS-206", "type": "positive", "x": "soil.n.02", "z": "material.n.01", "gold_2hop": true, "in5k_intermediate": "earth.n.02", "walker_can_attest": true}
+{"id": "BA-POS-207", "type": "positive", "x": "dominion.n.01", "z": "condition.n.01", "gold_2hop": true, "in5k_intermediate": "dominance.n.02", "walker_can_attest": true}
+{"id": "BA-POS-208", "type": "positive", "x": "possibility.n.01", "z": "belief.n.01", "gold_2hop": true, "in5k_intermediate": "expectation.n.01", "walker_can_attest": true}
+{"id": "BA-POS-209", "type": "positive", "x": "contact.n.04", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": "happening.n.01", "walker_can_attest": true}
+{"id": "BA-POS-210", "type": "positive", "x": "alteration.n.02", "z": "action.n.01", "gold_2hop": true, "in5k_intermediate": "change.n.03", "walker_can_attest": true}
+{"id": "BA-POS-211", "type": "positive", "x": "dignity.n.02", "z": "manner.n.02", "gold_2hop": true, "in5k_intermediate": "bearing.n.03", "walker_can_attest": true}
+{"id": "BA-POS-212", "type": "positive", "x": "embankment.n.01", "z": "structure.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-213", "type": "positive", "x": "scene.n.02", "z": "happening.n.01", "gold_2hop": true, "in5k_intermediate": "incident.n.01", "walker_can_attest": true}
+{"id": "BA-POS-214", "type": "positive", "x": "bang.n.04", "z": "joy.n.01", "gold_2hop": true, "in5k_intermediate": "exhilaration.n.01", "walker_can_attest": true}
+{"id": "BA-POS-215", "type": "positive", "x": "red.n.01", "z": "color.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-216", "type": "positive", "x": "pitch.n.01", "z": "property.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-217", "type": "positive", "x": "faculty.n.01", "z": "cognition.n.01", "gold_2hop": true, "in5k_intermediate": "ability.n.02", "walker_can_attest": true}
+{"id": "BA-POS-218", "type": "positive", "x": "debris.n.01", "z": "waste.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-219", "type": "positive", "x": "depository_financial_institution.n.01", "z": "institution.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-220", "type": "positive", "x": "operation.n.01", "z": "state.n.02", "gold_2hop": true, "in5k_intermediate": "action.n.02", "walker_can_attest": true}
+{"id": "BA-POS-221", "type": "positive", "x": "anteroom.n.01", "z": "area.n.05", "gold_2hop": true, "in5k_intermediate": "room.n.01", "walker_can_attest": true}
+{"id": "BA-POS-222", "type": "positive", "x": "newspaper.n.02", "z": "firm.n.01", "gold_2hop": true, "in5k_intermediate": "publisher.n.01", "walker_can_attest": true}
+{"id": "BA-POS-223", "type": "positive", "x": "behavior.n.02", "z": "state.n.02", "gold_2hop": true, "in5k_intermediate": "action.n.02", "walker_can_attest": true}
+{"id": "BA-POS-224", "type": "positive", "x": "identity.n.02", "z": "memory.n.02", "gold_2hop": true, "in5k_intermediate": "recognition.n.02", "walker_can_attest": true}
+{"id": "BA-POS-225", "type": "positive", "x": "sexual_intercourse.n.01", "z": "bodily_process.n.01", "gold_2hop": true, "in5k_intermediate": "sexual_activity.n.01", "walker_can_attest": true}
+{"id": "BA-POS-226", "type": "positive", "x": "song.n.01", "z": "music.n.01", "gold_2hop": true, "in5k_intermediate": "musical_composition.n.01", "walker_can_attest": true}
+{"id": "BA-POS-227", "type": "positive", "x": "direction.n.03", "z": "attitude.n.01", "gold_2hop": true, "in5k_intermediate": "inclination.n.01", "walker_can_attest": true}
+{"id": "BA-POS-228", "type": "positive", "x": "incidence.n.01", "z": "ratio.n.01", "gold_2hop": true, "in5k_intermediate": "frequency.n.02", "walker_can_attest": true}
+{"id": "BA-POS-229", "type": "positive", "x": "couple.n.04", "z": "digit.n.01", "gold_2hop": true, "in5k_intermediate": "two.n.01", "walker_can_attest": true}
+{"id": "BA-POS-230", "type": "positive", "x": "scale.n.02", "z": "relation.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-231", "type": "positive", "x": "rehabilitation.n.01", "z": "repair.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-232", "type": "positive", "x": "training.n.01", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": "activity.n.01", "walker_can_attest": true}
+{"id": "BA-POS-233", "type": "positive", "x": "stature.n.01", "z": "honor.n.02", "gold_2hop": true, "in5k_intermediate": "esteem.n.01", "walker_can_attest": true}
+{"id": "BA-POS-234", "type": "positive", "x": "test.n.02", "z": "measurement.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-235", "type": "positive", "x": "giving.n.01", "z": "distribution.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-236", "type": "positive", "x": "necktie.n.01", "z": "garment.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-237", "type": "positive", "x": "therapy.n.01", "z": "treatment.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-238", "type": "positive", "x": "secret.n.01", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "information.n.01", "walker_can_attest": true}
+{"id": "BA-POS-239", "type": "positive", "x": "direction.n.06", "z": "communication.n.02", "gold_2hop": true, "in5k_intermediate": "message.n.02", "walker_can_attest": true}
+{"id": "BA-POS-240", "type": "positive", "x": "thing.n.07", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "statement.n.01", "walker_can_attest": true}
+{"id": "BA-POS-241", "type": "positive", "x": "problem.n.02", "z": "subject.n.01", "gold_2hop": true, "in5k_intermediate": "question.n.02", "walker_can_attest": true}
+{"id": "BA-POS-242", "type": "positive", "x": "railing.n.01", "z": "obstruction.n.01", "gold_2hop": true, "in5k_intermediate": "barrier.n.01", "walker_can_attest": true}
+{"id": "BA-POS-243", "type": "positive", "x": "view.n.02", "z": "percept.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-244", "type": "positive", "x": "wagon.n.01", "z": "container.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-245", "type": "positive", "x": "exploration.n.01", "z": "journey.n.01", "gold_2hop": true, "in5k_intermediate": "expedition.n.03", "walker_can_attest": true}
+{"id": "BA-POS-246", "type": "positive", "x": "cigar.n.01", "z": "tobacco.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-247", "type": "positive", "x": "michigan.n.01", "z": "state.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-248", "type": "positive", "x": "nonsense.n.01", "z": "communication.n.02", "gold_2hop": true, "in5k_intermediate": "message.n.02", "walker_can_attest": true}
+{"id": "BA-POS-249", "type": "positive", "x": "funds.n.01", "z": "possession.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-250", "type": "positive", "x": "vice_president.n.01", "z": "administrator.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-251", "type": "positive", "x": "text.n.01", "z": "writing.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-252", "type": "positive", "x": "professor.n.01", "z": "educator.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-253", "type": "positive", "x": "portal.n.01", "z": "access.n.03", "gold_2hop": true, "in5k_intermediate": "entrance.n.01", "walker_can_attest": true}
+{"id": "BA-POS-254", "type": "positive", "x": "application.n.03", "z": "labor.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-255", "type": "positive", "x": "behalf.n.01", "z": "function.n.03", "gold_2hop": true, "in5k_intermediate": "stead.n.01", "walker_can_attest": true}
+{"id": "BA-POS-256", "type": "positive", "x": "second.n.01", "z": "measure.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-257", "type": "positive", "x": "carrier.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": "traveler.n.01", "walker_can_attest": true}
+{"id": "BA-POS-258", "type": "positive", "x": "calamity.n.01", "z": "trouble.n.03", "gold_2hop": true, "in5k_intermediate": "misfortune.n.01", "walker_can_attest": true}
+{"id": "BA-POS-259", "type": "positive", "x": "bundle.n.02", "z": "container.n.01", "gold_2hop": true, "in5k_intermediate": "package.n.02", "walker_can_attest": true}
+{"id": "BA-POS-260", "type": "positive", "x": "coal.n.01", "z": "matter.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-261", "type": "positive", "x": "engagement.n.07", "z": "act.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-262", "type": "positive", "x": "model.n.04", "z": "creation.n.02", "gold_2hop": true, "in5k_intermediate": "representation.n.02", "walker_can_attest": true}
+{"id": "BA-POS-263", "type": "positive", "x": "testimony.n.01", "z": "information.n.01", "gold_2hop": true, "in5k_intermediate": "evidence.n.03", "walker_can_attest": true}
+{"id": "BA-POS-264", "type": "positive", "x": "proportion.n.02", "z": "property.n.02", "gold_2hop": true, "in5k_intermediate": "magnitude.n.01", "walker_can_attest": true}
+{"id": "BA-POS-265", "type": "positive", "x": "life.n.08", "z": "causal_agent.n.01", "gold_2hop": true, "in5k_intermediate": "person.n.01", "walker_can_attest": true}
+{"id": "BA-POS-266", "type": "positive", "x": "mission.n.04", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "work.n.01", "walker_can_attest": true}
+{"id": "BA-POS-267", "type": "positive", "x": "liquor.n.02", "z": "fluid.n.01", "gold_2hop": true, "in5k_intermediate": "liquid.n.01", "walker_can_attest": true}
+{"id": "BA-POS-268", "type": "positive", "x": "product.n.03", "z": "concept.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-269", "type": "positive", "x": "brick.n.01", "z": "instrumentality.n.03", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-270", "type": "positive", "x": "barn.n.01", "z": "building.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-271", "type": "positive", "x": "anti-semitism.n.01", "z": "bias.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-272", "type": "positive", "x": "distribution.n.02", "z": "placement.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-273", "type": "positive", "x": "ruler.n.01", "z": "causal_agent.n.01", "gold_2hop": true, "in5k_intermediate": "person.n.01", "walker_can_attest": true}
+{"id": "BA-POS-274", "type": "positive", "x": "invitation.n.01", "z": "text.n.01", "gold_2hop": true, "in5k_intermediate": "letter.n.01", "walker_can_attest": true}
+{"id": "BA-POS-275", "type": "positive", "x": "aspect.n.01", "z": "property.n.04", "gold_2hop": true, "in5k_intermediate": "feature.n.01", "walker_can_attest": true}
+{"id": "BA-POS-276", "type": "positive", "x": "cycle.n.01", "z": "measure.n.02", "gold_2hop": true, "in5k_intermediate": "time_interval.n.01", "walker_can_attest": true}
+{"id": "BA-POS-277", "type": "positive", "x": "skiff.n.01", "z": "boat.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-278", "type": "positive", "x": "recipe.n.01", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "direction.n.06", "walker_can_attest": true}
+{"id": "BA-POS-279", "type": "positive", "x": "gem.n.01", "z": "creation.n.02", "gold_2hop": true, "in5k_intermediate": "art.n.01", "walker_can_attest": true}
+{"id": "BA-POS-280", "type": "positive", "x": "test.n.04", "z": "activity.n.01", "gold_2hop": true, "in5k_intermediate": "attempt.n.01", "walker_can_attest": true}
+{"id": "BA-POS-281", "type": "positive", "x": "collision.n.01", "z": "happening.n.01", "gold_2hop": true, "in5k_intermediate": "contact.n.04", "walker_can_attest": true}
+{"id": "BA-POS-282", "type": "positive", "x": "predicament.n.01", "z": "condition.n.01", "gold_2hop": true, "in5k_intermediate": "difficulty.n.03", "walker_can_attest": true}
+{"id": "BA-POS-283", "type": "positive", "x": "united_states.n.01", "z": "country.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-284", "type": "positive", "x": "passage.n.02", "z": "music.n.01", "gold_2hop": true, "in5k_intermediate": "section.n.01", "walker_can_attest": true}
+{"id": "BA-POS-285", "type": "positive", "x": "port.n.01", "z": "point.n.02", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-286", "type": "positive", "x": "competition.n.03", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-287", "type": "positive", "x": "question.n.02", "z": "message.n.02", "gold_2hop": true, "in5k_intermediate": "subject.n.01", "walker_can_attest": true}
+{"id": "BA-POS-288", "type": "positive", "x": "fishing.n.01", "z": "sport.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-289", "type": "positive", "x": "free_radical.n.01", "z": "substance.n.01", "gold_2hop": true, "in5k_intermediate": "atom.n.01", "walker_can_attest": true}
+{"id": "BA-POS-290", "type": "positive", "x": "color.n.02", "z": "power.n.01", "gold_2hop": true, "in5k_intermediate": "interest.n.03", "walker_can_attest": true}
+{"id": "BA-POS-291", "type": "positive", "x": "return.n.02", "z": "action.n.01", "gold_2hop": true, "in5k_intermediate": "arrival.n.02", "walker_can_attest": true}
+{"id": "BA-POS-292", "type": "positive", "x": "lawsuit.n.01", "z": "due_process.n.01", "gold_2hop": true, "in5k_intermediate": "proceeding.n.01", "walker_can_attest": true}
+{"id": "BA-POS-293", "type": "positive", "x": "surprise.n.02", "z": "happening.n.01", "gold_2hop": true, "in5k_intermediate": "change.n.01", "walker_can_attest": true}
+{"id": "BA-POS-294", "type": "positive", "x": "boy.n.02", "z": "male.n.02", "gold_2hop": true, "in5k_intermediate": "man.n.01", "walker_can_attest": true}
+{"id": "BA-POS-295", "type": "positive", "x": "context.n.02", "z": "situation.n.01", "gold_2hop": true, "in5k_intermediate": "environment.n.01", "walker_can_attest": true}
+{"id": "BA-POS-296", "type": "positive", "x": "defender.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-297", "type": "positive", "x": "experience.n.03", "z": "event.n.01", "gold_2hop": true, "in5k_intermediate": "happening.n.01", "walker_can_attest": true}
+{"id": "BA-POS-298", "type": "positive", "x": "july.n.01", "z": "calendar_month.n.01", "gold_2hop": true, "in5k_intermediate": null, "walker_can_attest": false}
+{"id": "BA-POS-299", "type": "positive", "x": "specialist.n.01", "z": "person.n.01", "gold_2hop": true, "in5k_intermediate": "expert.n.01", "walker_can_attest": true}
+{"id": "BA-NEG-000", "type": "negative", "x": "training.n.01", "z": "retention.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-001", "type": "negative", "x": "kitchen.n.01", "z": "words.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-002", "type": "negative", "x": "line.n.07", "z": "income.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-003", "type": "negative", "x": "coevals.n.01", "z": "literature.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-004", "type": "negative", "x": "support.n.08", "z": "case.n.06", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-005", "type": "negative", "x": "epiphysis.n.01", "z": "september.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-006", "type": "negative", "x": "due_process.n.01", "z": "case.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-007", "type": "negative", "x": "sergeant.n.01", "z": "conviction.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-008", "type": "negative", "x": "contact.n.04", "z": "fortress.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-009", "type": "negative", "x": "admission.n.01", "z": "sand.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-010", "type": "negative", "x": "titer.n.01", "z": "credit.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-011", "type": "negative", "x": "proportion.n.02", "z": "murderer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-012", "type": "negative", "x": "pipeline.n.02", "z": "command.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-013", "type": "negative", "x": "coal.n.01", "z": "letter.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-014", "type": "negative", "x": "shooting.n.02", "z": "bull's_eye.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-015", "type": "negative", "x": "lady.n.01", "z": "east.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-016", "type": "negative", "x": "social_organization.n.01", "z": "inoculation.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-017", "type": "negative", "x": "mission.n.04", "z": "pope.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-018", "type": "negative", "x": "misbehavior.n.01", "z": "pacific.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-019", "type": "negative", "x": "floor.n.01", "z": "cow.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-020", "type": "negative", "x": "sexual_intercourse.n.01", "z": "burial.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-021", "type": "negative", "x": "control.n.01", "z": "decade.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-022", "type": "negative", "x": "brick.n.01", "z": "drought.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-023", "type": "negative", "x": "vice_president.n.01", "z": "member.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-024", "type": "negative", "x": "demythologization.n.01", "z": "verb.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-025", "type": "negative", "x": "towel.n.01", "z": "tree.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-026", "type": "negative", "x": "depository_financial_institution.n.01", "z": "halfback.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-027", "type": "negative", "x": "pegboard.n.01", "z": "commissioner.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-028", "type": "negative", "x": "albumin.n.01", "z": "costume.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-029", "type": "negative", "x": "song.n.01", "z": "struggle.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-030", "type": "negative", "x": "pitch.n.01", "z": "district_of_columbia.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-031", "type": "negative", "x": "spirit.n.04", "z": "interest.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-032", "type": "negative", "x": "thing.n.07", "z": "triamcinolone.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-033", "type": "negative", "x": "instinct.n.01", "z": "moscow.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-034", "type": "negative", "x": "flight.n.01", "z": "chromatography.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-035", "type": "negative", "x": "portal.n.01", "z": "fuss.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-036", "type": "negative", "x": "mission.n.04", "z": "background.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-037", "type": "negative", "x": "cell.n.01", "z": "viscosity.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-038", "type": "negative", "x": "cocktail_party.n.01", "z": "report.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-039", "type": "negative", "x": "home.n.03", "z": "vessel.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-040", "type": "negative", "x": "categorization.n.03", "z": "time.n.06", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-041", "type": "negative", "x": "nitrogen.n.01", "z": "depression.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-042", "type": "negative", "x": "hunter.n.01", "z": "component.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-043", "type": "negative", "x": "experience.n.03", "z": "sophomore.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-044", "type": "negative", "x": "order.n.15", "z": "sequence.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-045", "type": "negative", "x": "banner.n.01", "z": "agony.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-046", "type": "negative", "x": "storehouse.n.01", "z": "creation.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-047", "type": "negative", "x": "thorax.n.02", "z": "death.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-048", "type": "negative", "x": "rib.n.01", "z": "box.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-049", "type": "negative", "x": "restriction.n.01", "z": "horse.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-050", "type": "negative", "x": "passage.n.02", "z": "hearer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-051", "type": "negative", "x": "direction.n.06", "z": "twilight.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-052", "type": "negative", "x": "cabin.n.02", "z": "uncle.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-053", "type": "negative", "x": "bang.n.04", "z": "award.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-054", "type": "negative", "x": "precedent.n.01", "z": "coupling.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-055", "type": "negative", "x": "rehabilitation.n.01", "z": "biscuit.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-056", "type": "negative", "x": "train.n.01", "z": "loss.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-057", "type": "negative", "x": "representation.n.01", "z": "person.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-058", "type": "negative", "x": "positivist.n.01", "z": "animal_foot.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-059", "type": "negative", "x": "old_age.n.01", "z": "free_radical.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-060", "type": "negative", "x": "pegboard.n.01", "z": "catalog.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-061", "type": "negative", "x": "thorax.n.02", "z": "garrison.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-062", "type": "negative", "x": "liquor.n.02", "z": "experiment.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-063", "type": "negative", "x": "rehabilitation.n.01", "z": "left_ventricle.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-064", "type": "negative", "x": "feature.n.02", "z": "germany.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-065", "type": "negative", "x": "red.n.01", "z": "uncertainty.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-066", "type": "negative", "x": "life.n.08", "z": "system.n.07", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-067", "type": "negative", "x": "end.n.03", "z": "longing.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-068", "type": "negative", "x": "return.n.02", "z": "storm.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-069", "type": "negative", "x": "traveler.n.01", "z": "energy.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-070", "type": "negative", "x": "support.n.08", "z": "change.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-071", "type": "negative", "x": "direction.n.03", "z": "hearing.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-072", "type": "negative", "x": "hunter.n.01", "z": "guard.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-073", "type": "negative", "x": "belt.n.02", "z": "capacity.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-074", "type": "negative", "x": "cold.n.01", "z": "crisis.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-075", "type": "negative", "x": "scale.n.02", "z": "appeal_board.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-076", "type": "negative", "x": "drive.n.08", "z": "queen.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-077", "type": "negative", "x": "child.n.01", "z": "idol.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-078", "type": "negative", "x": "engagement.n.07", "z": "pope.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-079", "type": "negative", "x": "direction.n.06", "z": "trade_name.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-080", "type": "negative", "x": "proportion.n.02", "z": "elbow.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-081", "type": "negative", "x": "ambassador.n.01", "z": "adjunct.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-082", "type": "negative", "x": "pause.n.01", "z": "client.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-083", "type": "negative", "x": "drive.n.08", "z": "grandma.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-084", "type": "negative", "x": "retreat.n.01", "z": "sanction.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-085", "type": "negative", "x": "problem.n.02", "z": "half-hour.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-086", "type": "negative", "x": "testimony.n.01", "z": "peace.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-087", "type": "negative", "x": "thigh.n.01", "z": "year.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-088", "type": "negative", "x": "application.n.03", "z": "hayfield.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-089", "type": "negative", "x": "life.n.03", "z": "airport.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-090", "type": "negative", "x": "worth.n.01", "z": "manchester.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-091", "type": "negative", "x": "home.n.03", "z": "coat.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-092", "type": "negative", "x": "cell.n.01", "z": "production.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-093", "type": "negative", "x": "transformation.n.01", "z": "license.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-094", "type": "negative", "x": "care.n.01", "z": "loaf_of_bread.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-095", "type": "negative", "x": "alteration.n.02", "z": "congress.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-096", "type": "negative", "x": "epiphysis.n.01", "z": "gentleman.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-097", "type": "negative", "x": "horn.n.01", "z": "return.n.06", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-098", "type": "negative", "x": "song.n.01", "z": "discharge.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-099", "type": "negative", "x": "drama.n.02", "z": "pound.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-100", "type": "negative", "x": "behavior.n.02", "z": "phonology.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-101", "type": "negative", "x": "precedence.n.01", "z": "vehicle.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-102", "type": "negative", "x": "restriction.n.01", "z": "carrier.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-103", "type": "negative", "x": "port.n.01", "z": "ration.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-104", "type": "negative", "x": "thigh.n.01", "z": "character.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-105", "type": "negative", "x": "front_door.n.01", "z": "spring.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-106", "type": "negative", "x": "drive.n.08", "z": "routine.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-107", "type": "negative", "x": "hunter.n.01", "z": "overseer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-108", "type": "negative", "x": "capitalism.n.01", "z": "policy.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-109", "type": "negative", "x": "money.n.02", "z": "installation.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-110", "type": "negative", "x": "militia.n.01", "z": "intonation.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-111", "type": "negative", "x": "reading.n.02", "z": "stalk.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-112", "type": "negative", "x": "epiphysis.n.01", "z": "thing.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-113", "type": "negative", "x": "autonomy.n.01", "z": "abandonment.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-114", "type": "negative", "x": "thorax.n.02", "z": "absurdity.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-115", "type": "negative", "x": "mississippi.n.01", "z": "maneuver.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-116", "type": "negative", "x": "autonomy.n.01", "z": "rat.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-117", "type": "negative", "x": "retreat.n.01", "z": "freshness.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-118", "type": "negative", "x": "extension.n.02", "z": "travel.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-119", "type": "negative", "x": "necktie.n.01", "z": "grudge.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-120", "type": "negative", "x": "gem.n.01", "z": "dilution.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-121", "type": "negative", "x": "scale.n.02", "z": "party.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-122", "type": "negative", "x": "front_door.n.01", "z": "circumstance.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-123", "type": "negative", "x": "financing.n.01", "z": "climate.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-124", "type": "negative", "x": "white_man.n.01", "z": "eve.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-125", "type": "negative", "x": "society.n.01", "z": "survival.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-126", "type": "negative", "x": "condition.n.07", "z": "shame.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-127", "type": "negative", "x": "ant.n.01", "z": "center.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-128", "type": "negative", "x": "feat.n.01", "z": "survival.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-129", "type": "negative", "x": "control.n.01", "z": "block.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-130", "type": "negative", "x": "collar.n.01", "z": "cold_frame.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-131", "type": "negative", "x": "communication_system.n.01", "z": "pulmonary_vein.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-132", "type": "negative", "x": "communication_system.n.01", "z": "detergent.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-133", "type": "negative", "x": "secret.n.01", "z": "grass.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-134", "type": "negative", "x": "note.n.02", "z": "proportion.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-135", "type": "negative", "x": "lawsuit.n.01", "z": "application.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-136", "type": "negative", "x": "question.n.02", "z": "newspaper.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-137", "type": "negative", "x": "sir.n.01", "z": "compromise.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-138", "type": "negative", "x": "bath.n.01", "z": "key.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-139", "type": "negative", "x": "source.n.03", "z": "nothing.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-140", "type": "negative", "x": "worth.n.01", "z": "gradient.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-141", "type": "negative", "x": "breeze.n.01", "z": "firecracker.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-142", "type": "negative", "x": "therapy.n.01", "z": "warszawa.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-143", "type": "negative", "x": "calamity.n.01", "z": "thread.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-144", "type": "negative", "x": "cold.n.01", "z": "drift.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-145", "type": "negative", "x": "faculty.n.01", "z": "admonition.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-146", "type": "negative", "x": "red.n.01", "z": "wire.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-147", "type": "negative", "x": "planner.n.01", "z": "hut.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-148", "type": "negative", "x": "train.n.01", "z": "slit.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-149", "type": "negative", "x": "complication.n.01", "z": "revolution.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-150", "type": "negative", "x": "direction.n.06", "z": "glory.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-151", "type": "negative", "x": "light_bulb.n.01", "z": "hertz.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-152", "type": "negative", "x": "assembly.n.06", "z": "dressing_room.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-153", "type": "negative", "x": "agreement.n.04", "z": "relations.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-154", "type": "negative", "x": "compulsive.n.01", "z": "answer.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-155", "type": "negative", "x": "transportation.n.05", "z": "ribbon.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-156", "type": "negative", "x": "laterality.n.03", "z": "garage.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-157", "type": "negative", "x": "allusion.n.01", "z": "church_service.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-158", "type": "negative", "x": "giving.n.01", "z": "song.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-159", "type": "negative", "x": "end_product.n.01", "z": "emphysema.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-160", "type": "negative", "x": "positivist.n.01", "z": "window.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-161", "type": "negative", "x": "coach.n.01", "z": "telephone_wire.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-162", "type": "negative", "x": "screech.n.01", "z": "art_school.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-163", "type": "negative", "x": "text.n.01", "z": "pittsburgh.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-164", "type": "negative", "x": "direction.n.06", "z": "protease.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-165", "type": "negative", "x": "cold.n.01", "z": "age.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-166", "type": "negative", "x": "retreat.n.01", "z": "touchdown.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-167", "type": "negative", "x": "monetary_value.n.01", "z": "boy.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-168", "type": "negative", "x": "text.n.01", "z": "contemplation.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-169", "type": "negative", "x": "cocktail_party.n.01", "z": "south.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-170", "type": "negative", "x": "united_states.n.01", "z": "peer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-171", "type": "negative", "x": "reading.n.02", "z": "evening.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-172", "type": "negative", "x": "sphere.n.01", "z": "power.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-173", "type": "negative", "x": "comb.n.01", "z": "surprise.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-174", "type": "negative", "x": "wagon.n.01", "z": "marriage.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-175", "type": "negative", "x": "double.n.01", "z": "emphysema.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-176", "type": "negative", "x": "old_age.n.01", "z": "plenty.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-177", "type": "negative", "x": "couple.n.04", "z": "smile.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-178", "type": "negative", "x": "planning.n.01", "z": "body_weight.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-179", "type": "negative", "x": "spirit.n.04", "z": "capture.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-180", "type": "negative", "x": "train.n.01", "z": "night.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-181", "type": "negative", "x": "dignity.n.02", "z": "nose.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-182", "type": "negative", "x": "cock.n.04", "z": "hush.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-183", "type": "negative", "x": "nonsense.n.01", "z": "party.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-184", "type": "negative", "x": "united_states.n.01", "z": "abnormality.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-185", "type": "negative", "x": "newspaper.n.02", "z": "imprisonment.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-186", "type": "negative", "x": "nonsense.n.01", "z": "deadlock.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-187", "type": "negative", "x": "counter.n.01", "z": "president.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-188", "type": "negative", "x": "performance.n.02", "z": "veteran.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-189", "type": "negative", "x": "ant.n.01", "z": "respect.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-190", "type": "negative", "x": "test.n.04", "z": "muleteer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-191", "type": "negative", "x": "verb.n.01", "z": "pleasure.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-192", "type": "negative", "x": "specialist.n.01", "z": "differential_equation.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-193", "type": "negative", "x": "train.n.01", "z": "atmosphere.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-194", "type": "negative", "x": "faculty.n.01", "z": "propaganda.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-195", "type": "negative", "x": "sexual_intercourse.n.01", "z": "killer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-196", "type": "negative", "x": "rhode_islander.n.01", "z": "fighter.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-197", "type": "negative", "x": "coach.n.01", "z": "fit.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-198", "type": "negative", "x": "nitrogen.n.01", "z": "anti-semitism.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-199", "type": "negative", "x": "clubhouse.n.01", "z": "declaration_of_independence.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-200", "type": "negative", "x": "end_product.n.01", "z": "series.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-201", "type": "negative", "x": "microsecond.n.01", "z": "chin.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-202", "type": "negative", "x": "rib.n.01", "z": "word.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-203", "type": "negative", "x": "suit.n.01", "z": "fingerprint.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-204", "type": "negative", "x": "immediacy.n.01", "z": "adviser.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-205", "type": "negative", "x": "mission.n.04", "z": "profusion.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-206", "type": "negative", "x": "operation.n.01", "z": "district_of_columbia.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-207", "type": "negative", "x": "holder.n.01", "z": "pane.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-208", "type": "negative", "x": "sexual_intercourse.n.01", "z": "kitten.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-209", "type": "negative", "x": "distribution.n.02", "z": "atrophy.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-210", "type": "negative", "x": "order.n.15", "z": "room_temperature.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-211", "type": "negative", "x": "albumin.n.01", "z": "clergyman.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-212", "type": "negative", "x": "san_francisco.n.01", "z": "rhinoceros.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-213", "type": "negative", "x": "titer.n.01", "z": "january.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-214", "type": "negative", "x": "ant.n.01", "z": "organization.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-215", "type": "negative", "x": "suit.n.01", "z": "vessel.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-216", "type": "negative", "x": "pause.n.01", "z": "longing.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-217", "type": "negative", "x": "necktie.n.01", "z": "box.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-218", "type": "negative", "x": "integration.n.01", "z": "information.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-219", "type": "negative", "x": "tuning.n.01", "z": "realization.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-220", "type": "negative", "x": "transformation.n.01", "z": "tactic.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-221", "type": "negative", "x": "potato_yellow-dwarf_virus.n.01", "z": "new_york.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-222", "type": "negative", "x": "sound.n.04", "z": "pope.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-223", "type": "negative", "x": "fool.n.01", "z": "background.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-224", "type": "negative", "x": "kitchen.n.01", "z": "movement.n.05", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-225", "type": "negative", "x": "goal.n.01", "z": "initiation.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-226", "type": "negative", "x": "transformation.n.01", "z": "biology.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-227", "type": "negative", "x": "larva.n.01", "z": "article.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-228", "type": "negative", "x": "reason.n.02", "z": "declaration.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-229", "type": "negative", "x": "margin.n.01", "z": "respect.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-230", "type": "negative", "x": "eleven.n.01", "z": "version.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-231", "type": "negative", "x": "wonder.n.02", "z": "analysis.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-232", "type": "negative", "x": "question.n.02", "z": "control_condition.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-233", "type": "negative", "x": "feat.n.01", "z": "burden.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-234", "type": "negative", "x": "rhode_islander.n.01", "z": "writer.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-235", "type": "negative", "x": "san_francisco.n.01", "z": "englishman.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-236", "type": "negative", "x": "bath.n.01", "z": "scheme.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-237", "type": "negative", "x": "anteroom.n.01", "z": "cage.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-238", "type": "negative", "x": "condition.n.07", "z": "rhinoceros.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-239", "type": "negative", "x": "incidence.n.01", "z": "shape.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-240", "type": "negative", "x": "margin.n.01", "z": "succession.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-241", "type": "negative", "x": "feat.n.01", "z": "coroner.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-242", "type": "negative", "x": "transportation.n.05", "z": "political_campaign.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-243", "type": "negative", "x": "engagement.n.07", "z": "consonant_system.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-244", "type": "negative", "x": "eleven.n.01", "z": "side.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-245", "type": "negative", "x": "pause.n.02", "z": "tendency.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-246", "type": "negative", "x": "fire.n.01", "z": "champion.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-247", "type": "negative", "x": "misbehavior.n.01", "z": "mutter.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-248", "type": "negative", "x": "barn.n.01", "z": "light.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-249", "type": "negative", "x": "question.n.02", "z": "treason.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-250", "type": "negative", "x": "gem.n.01", "z": "outgo.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-251", "type": "negative", "x": "addendum.n.01", "z": "french.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-252", "type": "negative", "x": "free_radical.n.01", "z": "celebration.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-253", "type": "negative", "x": "point_of_view.n.01", "z": "workbench.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-254", "type": "negative", "x": "dominion.n.01", "z": "money.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-255", "type": "negative", "x": "planning.n.01", "z": "meteorite.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-256", "type": "negative", "x": "calamity.n.01", "z": "natural_process.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-257", "type": "negative", "x": "allusion.n.01", "z": "administrator.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-258", "type": "negative", "x": "larva.n.01", "z": "crash.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-259", "type": "negative", "x": "categorization.n.03", "z": "exchange.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-260", "type": "negative", "x": "manifold.n.01", "z": "dress.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-261", "type": "negative", "x": "san_francisco.n.01", "z": "scream.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-262", "type": "negative", "x": "michigan.n.01", "z": "cone.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-263", "type": "negative", "x": "line.n.07", "z": "group.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-264", "type": "negative", "x": "wonder.n.02", "z": "autopsy.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-265", "type": "negative", "x": "life.n.03", "z": "mental_picture.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-266", "type": "negative", "x": "compulsive.n.01", "z": "enemy.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-267", "type": "negative", "x": "passage.n.02", "z": "share.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-268", "type": "negative", "x": "portal.n.01", "z": "crib.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-269", "type": "negative", "x": "discovery.n.03", "z": "lemon.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-270", "type": "negative", "x": "veteran.n.02", "z": "command.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-271", "type": "negative", "x": "banner.n.01", "z": "messenger.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-272", "type": "negative", "x": "counter.n.01", "z": "circulation.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-273", "type": "negative", "x": "side.n.06", "z": "operation.n.04", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-274", "type": "negative", "x": "port.n.01", "z": "mill-hand.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-275", "type": "negative", "x": "suit.n.01", "z": "look.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-276", "type": "negative", "x": "cock.n.04", "z": "oxygen.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-277", "type": "negative", "x": "pause.n.02", "z": "poison.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-278", "type": "negative", "x": "invitation.n.01", "z": "heart.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-279", "type": "negative", "x": "order.n.15", "z": "guard.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-280", "type": "negative", "x": "king.n.01", "z": "hate.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-281", "type": "negative", "x": "sphere.n.01", "z": "lung.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-282", "type": "negative", "x": "scene.n.02", "z": "administration.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-283", "type": "negative", "x": "pause.n.01", "z": "fighter.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-284", "type": "negative", "x": "immediacy.n.01", "z": "glycerol.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-285", "type": "negative", "x": "due_process.n.01", "z": "spokesperson.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-286", "type": "negative", "x": "condition.n.07", "z": "dignity.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-287", "type": "negative", "x": "application.n.03", "z": "end.n.06", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-288", "type": "negative", "x": "color.n.02", "z": "zero.n.02", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-289", "type": "negative", "x": "drawing.n.02", "z": "personal_business.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-290", "type": "negative", "x": "laterality.n.03", "z": "background.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-291", "type": "negative", "x": "cabin.n.02", "z": "acting.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-292", "type": "negative", "x": "cell.n.01", "z": "wound.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-293", "type": "negative", "x": "order.n.15", "z": "little.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-294", "type": "negative", "x": "life.n.03", "z": "peasant.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-295", "type": "negative", "x": "planner.n.01", "z": "variable.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-296", "type": "negative", "x": "test.n.04", "z": "employer.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-297", "type": "negative", "x": "suit.n.01", "z": "support.n.03", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-298", "type": "negative", "x": "veteran.n.02", "z": "reader.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}
+{"id": "BA-NEG-299", "type": "negative", "x": "gem.n.01", "z": "radio_beam.n.01", "gold_2hop": false, "in5k_intermediate": null, "walker_can_attest": false, "unreachable_verified_depth": 8}

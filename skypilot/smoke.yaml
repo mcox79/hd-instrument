@@ -1,0 +1,44 @@
+# Phase 0.5 SkyPilot smoke: validates Lambda + sky launch + sky logs + result retrieval
+# Run from inside WSL Ubuntu:
+#   source /root/skyvenv/bin/activate
+#   sky launch -c hd-smoke -y skypilot/smoke.yaml
+#   sky logs hd-smoke         # follow live
+#   sky rsync-down hd-smoke /tmp/smoke.json /tmp/local_smoke.json
+#   sky down -y hd-smoke
+
+name: hd-smoke
+
+resources:
+  cloud: lambda
+  # Smoke just validates SkyPilot mechanics; any Lambda GPU is fine. List many
+  # accelerators so SkyPilot picks whatever has capacity right now.
+  accelerators: {A10:1, A100:1, A100-80GB:1, RTX6000:1, H100:1}
+  use_spot: false
+
+setup: |
+  set -e
+  pip install --quiet numpy
+
+run: |
+  set -e
+  echo "=== hd-smoke run starting ==="
+  python -c "
+  import json, time, os, platform
+  import numpy as np
+  out = {
+      'hostname': platform.node(),
+      'python': platform.python_version(),
+      'np_version': np.__version__,
+      'np_test': float(np.array([1,2,3]).mean()),
+      'env_marker': os.environ.get('HD_SMOKE_MARKER', 'unset'),
+      'timestamp': time.time(),
+  }
+  with open('/tmp/smoke.json', 'w') as f:
+      json.dump(out, f, indent=2)
+  print('wrote /tmp/smoke.json:')
+  print(json.dumps(out, indent=2))
+  "
+  echo "=== hd-smoke run done ==="
+
+envs:
+  HD_SMOKE_MARKER: "set-from-launch"

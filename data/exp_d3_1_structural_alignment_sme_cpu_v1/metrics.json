@@ -1,0 +1,16 @@
+{
+  "anchor_name": "d3_1_structural_alignment_sme_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: structural alignment 0.50-0.70. structural=0.969 surface-baseline=0.831",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits1_structural": 0.969,
+      "hits1_surface": 0.831,
+      "n_entities": 7
+    }
+  ],
+  "elapsed_s": 7.881410360336304,
+  "summary": "MIDDLE_BAND: structural alignment 0.50-0.70. structural=0.969 surface-baseline=0.831"
+}

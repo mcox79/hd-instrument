@@ -1,0 +1,65 @@
+{
+  "anchor_name": "pp50_transition_zone_n_sweep_tw_vs_hadamard_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: zero violations at all N (test not loading transition zone; raise sigma_g/load). rates=[0.0, 0.0, 0.0]",
+  "N_grid": [
+    512,
+    1024,
+    2048
+  ],
+  "run_mode": "smoke",
+  "sigma_g_crit": 0.833,
+  "load": 0.1,
+  "n_seeds": 2,
+  "elapsed_s": 0.30095505714416504,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "N": 512,
+          "M": 51,
+          "violation_rate": 0.0,
+          "mean_overlap": 0.9908854961395264
+        },
+        {
+          "N": 1024,
+          "M": 102,
+          "violation_rate": 0.0,
+          "mean_overlap": 0.9923981428146362
+        },
+        {
+          "N": 2048,
+          "M": 205,
+          "violation_rate": 0.0,
+          "mean_overlap": 0.9911729097366333
+        }
+      ],
+      "elapsed_s": 0.1258535385131836
+    },
+    {
+      "seed": 17,
+      "cells": [
+        {
+          "N": 512,
+          "M": 51,
+          "violation_rate": 0.0,
+          "mean_overlap": 0.9928768873214722
+        },
+        {
+          "N": 1024,
+          "M": 102,
+          "violation_rate": 0.0,
+          "mean_overlap": 0.990847110748291
+        },
+        {
+          "N": 2048,
+          "M": 205,
+          "violation_rate": 0.0,
+          "mean_overlap": 0.9911966919898987
+        }
+      ],
+      "elapsed_s": 0.1308743953704834
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "composition_regime_A_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no composition regime -- brute context does not degrade at K=50 and filtering does not win. brute@K10=0.518 brute@K50=0.554 filtered@K50=0.479 (brute-degradation=-0.036, filter-win=-0.075, n=120)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 120,
+      "brute10": 0.5178607503607502,
+      "brute50": 0.5539111351611351,
+      "filt50": 0.47935846560846546
+    }
+  ],
+  "elapsed_s": 121.87703275680542,
+  "summary": "HARD_FAIL: no composition regime -- brute context does not degrade at K=50 and filtering does not win. brute@K10=0.518 brute@K50=0.554 filtered@K50=0.479 (brute-degradation=-0.036, filter-win=-0.075, n=120)"
+}

@@ -1,0 +1,70 @@
+{
+  "anchor_name": "f4_cell_c_spike_bulk_decomposition_bbp_9d_pillar_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: the 9th dimension's CORE is validated -- 15 finite-rank BBP spikes that are partition-structured (purity 0.820>0.5), confirming spike-count+strengths as a real per-partition observability lever. Refinements: k=15 exceeds the 2-10 'one-per-partition' guess -> FINER sub-cluster structure (still finite-rank << 50, model holds); deflated kappa_2=0.0917 < alpha=0.2363 -> bulk is SUB-free-Poisson (deflating 15 spikes over-removes variance; consistent with the clustered near-duplicate codebook, NOT clean free-Poisson). F4 Cell B's 'not clean free-Poisson' stands and is now CHARACTERIZED (MP-bulk + structured spikes, sub-Poisson bulk from clustering). [k in 2..10=False | deflated kappa_2 in [.21,.31]=False (got 0.0917) | spike purity>0.5=True (got 0.820)] real composite_hrr codebook M=242 N=1024 alpha=0.2363 MP-edge=2.2086 | BBP spikes k=15 theta=[27.6861, 26.2361, 13.267, 9.4238, 8.5096, 5.5416, 4.8621, 4.6038] | kappa_2 1.9308(pre)->0.0917(post-deflate) target alpha=0.2363 | spikes dominant corpora=['math', 'math', 'math', 'math', 'math', 'math', 'math', 'concept'] mean-purity=0.820",
+  "summary": "MIDDLE_BAND: the 9th dimension's CORE is validated -- 15 finite-rank BBP spikes that are partition-structured (purity 0.820>0.5), confirming spike-count+strengths as a real per-partition observability lever. Refinements: k=15 exceeds the 2-10 'one-per-partition' guess -> FINER sub-cluster structure (still finite-rank << 50, model holds); deflated kappa_2=0.0917 < alpha=0.2363 -> bulk is SUB-free-Poisson (deflating 15 spikes over-removes variance; consistent with the clustered near-duplicate codebook, NOT clean free-Poisson). F4 Cell B's 'not clean free-Poisson' stands and is now CHARACTERIZED (MP-bulk + structured spikes, sub-Poisson bulk from clustering). [k in 2..10=False | deflated kappa_2 in [.21,.31]=False (got 0.0917) | spike purity>0.5=True (got 0.820)] real composite_hrr codebook M=242 N=1024 alpha=0.2363 MP-edge=2.2086 | BBP spikes k=15 theta=[27.6861, 26.2361, 13.267, 9.4238, 8.5096, 5.5416, 4.8621, 4.6038] | kappa_2 1.9308(pre)->0.0917(post-deflate) target alpha=0.2363 | spikes dominant corpora=['math', 'math', 'math', 'math', 'math', 'math', 'math', 'concept'] mean-purity=0.820",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "M": 242,
+      "Ndim": 1024,
+      "alpha": 0.2363,
+      "mp_edge": 2.2086,
+      "k_spikes": 15,
+      "thetas": [
+        27.6861,
+        26.2361,
+        13.267,
+        9.4238,
+        8.5096,
+        5.5416,
+        4.8621,
+        4.6038,
+        3.6996,
+        3.1506,
+        2.9295,
+        2.8708,
+        2.5787,
+        2.4208,
+        2.292
+      ],
+      "kappa_pre": [
+        0.23633,
+        1.93077,
+        41.34722,
+        1034.97237,
+        26900.23401
+      ],
+      "kappa_post": [
+        0.11907,
+        0.09175,
+        0.09106,
+        0.10922,
+        0.15044
+      ],
+      "kappa2_pre": 1.9308,
+      "kappa2_post": 0.0917,
+      "spike_corpora": [
+        "math",
+        "math",
+        "math",
+        "math",
+        "math",
+        "math",
+        "math",
+        "concept",
+        "math",
+        "math",
+        "math",
+        "math",
+        "concept",
+        "science",
+        "math"
+      ],
+      "mean_spike_purity": 0.82,
+      "vector_field": "composite_hrr"
+    }
+  ],
+  "elapsed_s": 4.229328632354736
+}

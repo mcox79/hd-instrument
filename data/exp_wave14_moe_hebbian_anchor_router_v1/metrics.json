@@ -1,0 +1,40 @@
+{
+  "verdict": "HEBBIAN_ROUTER_HARD_FAIL",
+  "verdict_msg": "HEBBIAN_ROUTER_HARD_FAIL: entropy@K=16: rand=3.989b hebb=3.995b soft=3.994b -- ALL > 3.0b; K-scaling collapse fundamental; static anchors insufficient; needs dynamic routing",
+  "elapsed_s": 0.01599999999962165,
+  "summary": {
+    "N": 512,
+    "K_sweep": [
+      4,
+      16
+    ],
+    "agg_by_K": {
+      "4": {
+        "entropy_rand": 1.9904,
+        "entropy_hebb": 1.9872,
+        "entropy_soft": 1.9939,
+        "retention": 0.3877,
+        "k_eff_hebb": 4.0
+      },
+      "16": {
+        "entropy_rand": 3.9887,
+        "entropy_hebb": 3.9946,
+        "entropy_soft": 3.9936,
+        "retention": 0.4066,
+        "k_eff_hebb": 16.0
+      }
+    },
+    "best_variant_K16": "rand"
+  },
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "k_sweep": [
+      4,
+      16
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

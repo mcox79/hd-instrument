@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_kf1_ngram_augmented_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: n-gram augmentation does not rescue order sensitivity (<0.65). AUC easy=0.832 hard=0.992 ADV(shuffled)=0.181 (MiniLM-only adv was 0.217)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "auc_easy": 0.8338666666666666,
+      "auc_hard": 0.9944416666666667,
+      "auc_adv": 0.1705888888888889
+    },
+    {
+      "seed": 17,
+      "auc_easy": 0.8310444444444445,
+      "auc_hard": 0.9914861111111111,
+      "auc_adv": 0.17673333333333333
+    },
+    {
+      "seed": 23,
+      "auc_easy": 0.8318472222222222,
+      "auc_hard": 0.9888722222222223,
+      "auc_adv": 0.1971638888888889
+    }
+  ],
+  "elapsed_s": 31.169352769851685,
+  "summary": "HARD_FAIL: n-gram augmentation does not rescue order sensitivity (<0.65). AUC easy=0.832 hard=0.992 ADV(shuffled)=0.181 (MiniLM-only adv was 0.217)"
+}

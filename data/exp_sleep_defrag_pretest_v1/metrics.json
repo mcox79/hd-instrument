@@ -1,0 +1,18 @@
+{
+  "anchor_name": "sleep_defrag_pretest_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sleep-defrag aggregator RECOVERS the latent regularity no single case states (cosine>=0.65 AND correct filler ranks #1) -- implicit generalization / continual-learning closure supported. cosine_to_true_regularity=0.967 (best_other=0.127) rank1_correct=True n=30",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cos_true": 0.9666244387626648,
+      "cos_other": 0.12665319442749023,
+      "rank1": 0,
+      "true": 0,
+      "n": 30
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "HARD_PASS: sleep-defrag aggregator RECOVERS the latent regularity no single case states (cosine>=0.65 AND correct filler ranks #1) -- implicit generalization / continual-learning closure supported. cosine_to_true_regularity=0.967 (best_other=0.127) rank1_correct=True n=30"
+}

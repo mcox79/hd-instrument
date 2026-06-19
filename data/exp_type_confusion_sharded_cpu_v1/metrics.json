@@ -1,0 +1,14 @@
+{
+  "anchor_name": "type_confusion_sharded_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: per-name sharding lifts disambiguation to >=0.95 (from N5 monolithic 0.75) -- sharding fixes named-entity ambiguity. sharded disambiguation=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.05452895164489746,
+  "summary": "HARD_PASS: per-name sharding lifts disambiguation to >=0.95 (from N5 monolithic 0.75) -- sharding fixes named-entity ambiguity. sharded disambiguation=1.000"
+}

@@ -1,0 +1,49 @@
+{
+  "verdict": "CLEANUP_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_CLEANUP_EFFECT: bpc_range in boundary zone. mean_bpc_range=19.8969 seeds_pass=1/1 HP_range=0.5 HF_range=0.05",
+  "elapsed_s": 0.2,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "tau_sweep": [
+      0.0,
+      1.0,
+      Infinity
+    ]
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "per_tau": {
+          "0.0": {
+            "bpc": 9.583732604980469,
+            "retention_argmax": 0.30326704184214276,
+            "tau_cleanup": 0.0
+          },
+          "1.0": {
+            "bpc": 7.860652764638265,
+            "retention_argmax": 0.14204545567433038,
+            "tau_cleanup": 1.0
+          },
+          "inf": {
+            "bpc": 27.75757598876953,
+            "retention_argmax": 0.30326704184214276,
+            "tau_cleanup": 999.0
+          }
+        }
+      }
+    },
+    "N_full": 4096,
+    "N_used": 1024,
+    "M_frac": 4.0,
+    "beta_readout": 32.0,
+    "tau_sweep": [
+      0.0,
+      1.0,
+      "inf"
+    ],
+    "smoke": true
+  }
+}

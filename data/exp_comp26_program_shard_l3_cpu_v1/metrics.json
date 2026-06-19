@@ -1,0 +1,17 @@
+{
+  "anchor_name": "comp26_program_shard_l3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: production-scale PROGRAM retrieval by feature >= 0.80 -- substrate indexes 50 shards of ~100 atoms each and retrieves by top-tier feature; production-granularity composition holds. PROGRAM recall=1.000 (N=50 shards, M=100 atoms/shard)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "n_shard": 50,
+      "m_body": 100,
+      "label": "PROGRAM"
+    }
+  ],
+  "elapsed_s": 89.25506711006165,
+  "summary": "HARD_PASS: production-scale PROGRAM retrieval by feature >= 0.80 -- substrate indexes 50 shards of ~100 atoms each and retrieves by top-tier feature; production-granularity composition holds. PROGRAM recall=1.000 (N=50 shards, M=100 atoms/shard)"
+}

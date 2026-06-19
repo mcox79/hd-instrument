@@ -1,0 +1,93 @@
+{
+  "verdict": "PERC_DEPTH_HARD_PASS",
+  "verdict_msg": "COMPOSITION_CLIFF_CONFIRMED: depth=1 rel_div=0.000 <= 0.1 (N-independent); max_deep_div=100000.000 > 2.0 (2x) at depth>=3. Percolation valid at per-hop; depth-composition is new framework gap. Closes percolation refutation. Divs: d=1 rel_div=0.000 | d=2 rel_div=0.000 | d=3 rel_div=0.429 | d=5 rel_div=100000.000 | N=1024 d=1 mean=1.0000; N=1024 d=2 mean=1.0000; N=1024 d=3 mean=0.7000; N=1024 d=5 mean=0.0000; N=4096 d=1 mean=1.0000; N=4096 d=2 mean=1.0000; N=4096 d=3 mean=1.0000; N=4096 d=5 mean=0.1000",
+  "elapsed_s": 57.69,
+  "summary": {
+    "anchor": "path_d_percolation_depth_sweep_v1_n4096",
+    "N_grid": [
+      1024,
+      4096
+    ],
+    "depth_grid": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "smoke": true,
+    "K_paths": 1,
+    "k_random_keys": 20,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "N": 1024,
+        "M": 16384,
+        "depth": 1,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0
+      },
+      {
+        "N": 1024,
+        "M": 16384,
+        "depth": 2,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0
+      },
+      {
+        "N": 1024,
+        "M": 16384,
+        "depth": 3,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.7
+      },
+      {
+        "N": 1024,
+        "M": 16384,
+        "depth": 5,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.0
+      },
+      {
+        "N": 4096,
+        "M": 65536,
+        "depth": 1,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 65536,
+        "depth": 2,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 65536,
+        "depth": 3,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 1.0
+      },
+      {
+        "N": 4096,
+        "M": 65536,
+        "depth": 5,
+        "seed": 17,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.1
+      }
+    ],
+    "verdict": "PERC_DEPTH_HARD_PASS",
+    "verdict_msg": "COMPOSITION_CLIFF_CONFIRMED: depth=1 rel_div=0.000 <= 0.1 (N-independent); max_deep_div=100000.000 > 2.0 (2x) at depth>=3. Percolation valid at per-hop; depth-composition is new framework gap. Closes percolation refutation. Divs: d=1 rel_div=0.000 | d=2 rel_div=0.000 | d=3 rel_div=0.429 | d=5 rel_div=100000.000 | N=1024 d=1 mean=1.0000; N=1024 d=2 mean=1.0000; N=1024 d=3 mean=0.7000; N=1024 d=5 mean=0.0000; N=4096 d=1 mean=1.0000; N=4096 d=2 mean=1.0000; N=4096 d=3 mean=1.0000; N=4096 d=5 mean=0.1000",
+    "elapsed_s": 57.69
+  }
+}

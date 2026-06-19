@@ -1,0 +1,50 @@
+{
+  "verdict": "SS_V13_MIDDLE_BAND",
+  "verdict_msg": "Partial replication. pass_seeds=1/1 r2<0.85 AND max_dev>=0.08. mean_r2=0.803 mean_max_dev=0.230. seed_details={'17': {'r2': 0.803, 'max_dev': 0.23, 'passes': True}}. N=4096.",
+  "elapsed_s": 2.9595367908477783,
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "r2": 0.8027016520956046,
+        "max_dev": 0.22976198540827375,
+        "cells": [
+          {
+            "f": 0.0,
+            "seed": 17,
+            "bpc_A_baseline": 3.78051,
+            "bpc_A_after_B": 6.5084,
+            "retention_A": 0.58087
+          },
+          {
+            "f": 0.5,
+            "seed": 17,
+            "bpc_A_baseline": 3.78051,
+            "bpc_A_after_B": 6.15892,
+            "retention_A": 0.61383
+          },
+          {
+            "f": 1.0,
+            "seed": 17,
+            "bpc_A_baseline": 3.78051,
+            "bpc_A_after_B": 3.60935,
+            "retention_A": 1.04742
+          }
+        ]
+      }
+    },
+    "N": 512,
+    "smoke": true
+  }
+}

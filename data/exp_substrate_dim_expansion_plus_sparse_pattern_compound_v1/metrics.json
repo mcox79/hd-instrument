@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_dim_expansion_plus_sparse_pattern_compound_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no stacking (d ~ max(b,c)) -- levers independent, single-lever ceiling. M50 arms={'a_baseline': 2304, 'b_expand_keys': 3072, 'c_sparse_values': 2304, 'd_compound': 3072} | gain_b=1.33x gain_c=1.00x gain_d=1.33x expected(b*c)=1.33x d/expected=1.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "arms": {
+        "a_baseline": 2304,
+        "b_expand_keys": 3072,
+        "c_sparse_values": 2304,
+        "d_compound": 3072
+      }
+    }
+  ],
+  "elapsed_s": 27.888294219970703,
+  "summary": "HARD_FAIL: no stacking (d ~ max(b,c)) -- levers independent, single-lever ceiling. M50 arms={'a_baseline': 2304, 'b_expand_keys': 3072, 'c_sparse_values': 2304, 'd_compound': 3072} | gain_b=1.33x gain_c=1.00x gain_d=1.33x expected(b*c)=1.33x d/expected=1.00"
+}

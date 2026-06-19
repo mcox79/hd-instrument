@@ -1,0 +1,21 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_STORED": 5,
+  "TAU_GRID_MIN": 0.78,
+  "TAU_GRID_MAX": 0.96,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "n_seeds_hp": 0,
+    "n_seeds_total": 2,
+    "mean_tau_star": NaN,
+    "tau_star_std": NaN,
+    "tau_in_band_frac": 0.0
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "No tau in [0.82,0.88] satisfies FN<0.05 AND FP<0.1. n_seeds_hp=0/2. GDPR non-repudiation threshold not achievable.",
+  "elapsed_s": 6.188579082489014
+}

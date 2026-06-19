@@ -1,0 +1,18 @@
+{
+  "anchor_name": "lap4_1_chirp_codebook_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: chirp ratio <1.2x (need Welch-bound construction). random=0.487 chirp=0.498 ratio=1.02x (K=150 N=512)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "random_recall": 0.4874666666666667,
+      "chirp_recall": 0.4978666666666667,
+      "capacity_ratio": 1.02,
+      "K": 150,
+      "N": 512
+    }
+  ],
+  "elapsed_s": 1.4236423969268799,
+  "summary": "HARD_FAIL: chirp ratio <1.2x (need Welch-bound construction). random=0.487 chirp=0.498 ratio=1.02x (K=150 N=512)"
+}

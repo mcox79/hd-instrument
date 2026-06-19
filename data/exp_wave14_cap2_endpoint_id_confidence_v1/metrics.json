@@ -1,0 +1,81 @@
+{
+  "verdict": "CAP2_ENDPOINT_KILL",
+  "verdict_msg": "HARD FAIL: ROC AUC<0.55 in 4/4 strata. Endpoint-ID carries no confidence signal; Rescue 1 refuted.",
+  "elapsed_s": 316.375,
+  "summary": {
+    "strata_results": {
+      "p0.0": {
+        "auc_mean": 0.5,
+        "auc_rand_mean": 0.5,
+        "ablation_delta": 0.0,
+        "ece_mean": 0.8191997354497355,
+        "auc_per_seed": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "p_flip": 0.0
+      },
+      "p0.05": {
+        "auc_mean": 0.5,
+        "auc_rand_mean": 0.5,
+        "ablation_delta": 0.0,
+        "ece_mean": 0.8191997354497355,
+        "auc_per_seed": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "p_flip": 0.05
+      },
+      "p0.1": {
+        "auc_mean": 0.5,
+        "auc_rand_mean": 0.5,
+        "ablation_delta": 0.0,
+        "ece_mean": 0.8191997354497355,
+        "auc_per_seed": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "p_flip": 0.1
+      },
+      "p0.2": {
+        "auc_mean": 0.5,
+        "auc_rand_mean": 0.5,
+        "ablation_delta": 0.0,
+        "ece_mean": 0.8191997354497355,
+        "auc_per_seed": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "p_flip": 0.2
+      }
+    },
+    "mean_ece": 0.8191997354497355,
+    "ablation_auc_delta": 0.0,
+    "note": "Cap 2 Rescue 1: endpoint-ID W^L dynamics + Mondrian conformal confidence"
+  },
+  "config": {
+    "N": 4096,
+    "M": 100,
+    "L_hops": 30,
+    "n_ref_attractors": 20,
+    "n_trials_per_stratum": 200,
+    "noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "mode": "full",
+    "queue": "local_cpu_queue",
+    "note": "Cap 2 Rescue 1: endpoint-ID + Mondrian conformal confidence proxy"
+  }
+}

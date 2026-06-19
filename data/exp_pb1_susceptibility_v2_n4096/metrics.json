@@ -1,0 +1,38 @@
+{
+  "anchor": "pb1_susceptibility_v2_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_frac": 1.0,
+  "beta_vals": [
+    4.0,
+    16.0,
+    64.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 1.0,
+      "M": 1024,
+      "seed": 17,
+      "chi_peak": 0.0,
+      "beta_peak": 4.0,
+      "acc_by_beta": {
+        "4.0": 1.0,
+        "16.0": 1.0,
+        "64.0": 1.0
+      },
+      "chi_by_beta": {
+        "4.0": 0.0,
+        "16.0": 0.0,
+        "64.0": 0.0
+      },
+      "elapsed_s": 0.05
+    }
+  ],
+  "verdict": "PB1_V2_MIDDLE_BAND",
+  "verdict_msg": "chi_peak near zero: 0.00000. mean_chi_peak=0.00000 max_chi=0.00000 N=1024 ref_chi_v1=None",
+  "elapsed_s": 0.05
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "hierarchical_3level_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-level domain->category->item retrieval >=0.85 -- deep faceted navigation works. 3-level recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.049315690994262695,
+  "summary": "HARD_PASS: 3-level domain->category->item retrieval >=0.85 -- deep faceted navigation works. 3-level recall=1.000"
+}

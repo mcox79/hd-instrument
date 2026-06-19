@@ -1,0 +1,18 @@
+{
+  "anchor_name": "substrate_atis_slot_filling_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: slot-F1 0.78-0.88 -- solid; richer features (gazetteer/char-CNN) for 0.90+. slot-F1=0.8502 (P=0.880 R=0.822, train=400, 83 slot-tags)",
+  "summary": "MIDDLE_BAND: slot-F1 0.78-0.88 -- solid; richer features (gazetteer/char-CNN) for 0.90+. slot-F1=0.8502 (P=0.880 R=0.822, train=400, 83 slot-tags)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.8502,
+      "prec": 0.88,
+      "rec": 0.822,
+      "n_train": 400,
+      "n_tags": 83
+    }
+  ],
+  "elapsed_s": 8.31041932106018
+}

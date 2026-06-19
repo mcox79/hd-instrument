@@ -1,0 +1,16 @@
+{
+  "anchor_name": "patternb_4bit_hopfield_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 4-bit on Pattern B bundle store drops recall@1 <3% with 4x storage reduction -- stack transfers. bf16=1.000 4-bit=1.000 drop=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "bf16": 1.0,
+      "q4": 1.0,
+      "drop": 0.0
+    }
+  ],
+  "elapsed_s": 1.084289312362671,
+  "summary": "HARD_PASS: 4-bit on Pattern B bundle store drops recall@1 <3% with 4x storage reduction -- stack transfers. bf16=1.000 4-bit=1.000 drop=0.000"
+}

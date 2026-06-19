@@ -1,0 +1,226 @@
+{
+  "stats": {
+    "partitions": {
+      "math": {
+        "n_atoms": 60,
+        "n_atoms_by_corpus": {
+          "math": 60
+        },
+        "n_atoms_by_tier": {
+          "T1": 15,
+          "T2": 21,
+          "T3": 24
+        },
+        "n_relations": 143,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 7,
+          "DUAL": 4,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 2,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 65,
+          "HAS_USERS": 65,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0
+        }
+      },
+      "concept": {
+        "n_atoms": 0,
+        "n_atoms_by_corpus": {},
+        "n_atoms_by_tier": {},
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0
+        }
+      },
+      "meta": {
+        "n_atoms": 0,
+        "n_atoms_by_corpus": {},
+        "n_atoms_by_tier": {},
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0
+        }
+      },
+      "school": {
+        "n_atoms": 0,
+        "n_atoms_by_corpus": {},
+        "n_atoms_by_tier": {},
+        "n_relations": 0,
+        "n_relations_by_type": {
+          "COMPOSES": 0,
+          "SPECIALIZES": 0,
+          "DUAL": 0,
+          "USES_SUBPROC": 0,
+          "PRESERVES": 0,
+          "OPTIMIZES": 0,
+          "APPROXIMATES": 0,
+          "ENABLES": 0,
+          "VALIDATES": 0,
+          "REFUTES": 0,
+          "DEPENDS_ON": 0,
+          "USES": 0,
+          "HAS_USERS": 0,
+          "CONTRIBUTES_TO": 0,
+          "TRACES_TO": 0,
+          "INFLUENCED_BY": 0
+        }
+      }
+    },
+    "total_atoms": 60,
+    "total_relations": 143,
+    "cross_store_relations": 0
+  },
+  "discover_by_kind": {
+    "cross_corpus_orphan_math": 4,
+    "underutilized_relation_type": 12,
+    "tier_underfilled": 2,
+    "structural_gap": 30,
+    "semantic_structural_disagreement": 10
+  },
+  "discover_total": 58,
+  "query_results": [
+    {
+      "qid": "Q1",
+      "query_text": "What is the inverse operation of FHRR binding?",
+      "expected": [],
+      "top10": [
+        "T2/fhrr_unbind",
+        "T2/fhrr_bind",
+        "T2/circular_convolution",
+        "T2_FAM/algebraic_binding",
+        "T1/unit_modulus",
+        "T1/group_axioms",
+        "T2/context_binding",
+        "T2/bundling",
+        "T2/role_filler_binding",
+        "T1/complex_field"
+      ],
+      "recall_at_1": null,
+      "recall_at_3": null,
+      "recall_at_10": null,
+      "latency_ms": 111.7
+    },
+    {
+      "qid": "Q2",
+      "query_text": "What math operations solve discrete combinatorial optimization globally in polynomial time?",
+      "expected": [],
+      "top10": [
+        "T2_FAM/global_discrete_optimization",
+        "T3/hungarian_assignment",
+        "T1/discrete_optimization",
+        "T3/jonker_volgenant",
+        "T3/dynamic_programming",
+        "T1/convex_optimization",
+        "T3/beam_search",
+        "T3/astar",
+        "T3/dijkstra",
+        "T3/chu_liu_edmonds"
+      ],
+      "recall_at_1": null,
+      "recall_at_3": null,
+      "recall_at_10": null,
+      "latency_ms": 105.3
+    },
+    {
+      "qid": "Q3",
+      "query_text": "What concepts share the count-NB mathematical foundation?",
+      "expected": [],
+      "top10": [
+        "T1/group_axioms",
+        "T1/graph_topology",
+        "T3/count_nb",
+        "T1/probability_distribution",
+        "T2/hamming_distance",
+        "T2/tier2_schema",
+        "T1/vector_space",
+        "T2_FAM/discriminative_classification",
+        "T1/ring_axioms",
+        "T1/field_axioms"
+      ],
+      "recall_at_1": null,
+      "recall_at_3": null,
+      "recall_at_10": null,
+      "latency_ms": 108.3
+    },
+    {
+      "qid": "Q4",
+      "query_text": "What math operations are members of the probabilistic inference family?",
+      "expected": [],
+      "top10": [
+        "T2_FAM/probabilistic_inference",
+        "T1/probability_distribution",
+        "T3/bayesian_inference",
+        "T3/cross_entropy_loss",
+        "T3/viterbi_decoding",
+        "T1/group_axioms",
+        "T3/backward_algorithm",
+        "T1/shannon_entropy",
+        "T3/count_nb",
+        "T3/em_algorithm"
+      ],
+      "recall_at_1": null,
+      "recall_at_3": null,
+      "recall_at_10": null,
+      "latency_ms": 110.0
+    },
+    {
+      "qid": "Q5",
+      "query_text": "What is structurally equivalent to FHRR binding in the frequency domain?",
+      "expected": [],
+      "top10": [
+        "T2/fhrr_bind",
+        "T2/circular_convolution",
+        "T2/fhrr_unbind",
+        "T2_FAM/algebraic_binding",
+        "T1/unit_modulus",
+        "T2/role_filler_binding",
+        "T2/context_binding",
+        "T1/group_axioms",
+        "T1/real_field",
+        "T2/bundling"
+      ],
+      "recall_at_1": null,
+      "recall_at_3": null,
+      "recall_at_10": null,
+      "latency_ms": 121.1
+    }
+  ]
+}

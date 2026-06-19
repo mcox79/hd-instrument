@@ -1,0 +1,37 @@
+{
+  "verdict": "ONLINE_W_NOISE_ENVELOPE_FULL_PASS",
+  "verdict_msg": "All 1 noise cells pass (p_flip up to 0.10). Envelope fully robust at tested noise levels.",
+  "elapsed_s": 0.20300000000861473,
+  "summary": {
+    "cell_results": [
+      {
+        "p_flip": 0.0,
+        "mean_min_acc": 1.0,
+        "seed_min_accs": [
+          1.0
+        ],
+        "pass": true
+      },
+      {
+        "p_flip": 0.1,
+        "mean_min_acc": 1.0,
+        "seed_min_accs": [
+          1.0
+        ],
+        "pass": true
+      }
+    ],
+    "n_seeds": 1,
+    "N": 1024
+  },
+  "config": {
+    "N": 1024,
+    "n_writes": 10,
+    "n_seeds": 1,
+    "noise_levels": [
+      0.0,
+      0.1
+    ],
+    "mode": "smoke"
+  }
+}

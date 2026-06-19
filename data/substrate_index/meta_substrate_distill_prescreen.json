@@ -1,0 +1,107 @@
+[
+  {
+    "base": "discriminative_perceptron",
+    "n": 2,
+    "ids": [
+      "T3/discriminative_perceptron",
+      "T2/discriminative_perceptron"
+    ],
+    "algebra_identical": true,
+    "description_identical": true,
+    "serves_capability_identical": true,
+    "differing_fields": [
+      "metadata"
+    ],
+    "cap_intersection_n": 16,
+    "cap_union_n": 16,
+    "cap_only": {
+      "T3/discriminative_perceptron": [],
+      "T2/discriminative_perceptron": []
+    },
+    "verdict": "REVIEW (same algebra but differs in ['metadata']); verify before merge"
+  },
+  {
+    "base": "structured_perceptron_collins",
+    "n": 2,
+    "ids": [
+      "T3/structured_perceptron_collins",
+      "T2/structured_perceptron_collins"
+    ],
+    "algebra_identical": true,
+    "description_identical": true,
+    "serves_capability_identical": true,
+    "differing_fields": [
+      "metadata"
+    ],
+    "cap_intersection_n": 5,
+    "cap_union_n": 5,
+    "cap_only": {
+      "T3/structured_perceptron_collins": [],
+      "T2/structured_perceptron_collins": []
+    },
+    "verdict": "REVIEW (same algebra but differs in ['metadata']); verify before merge"
+  },
+  {
+    "base": "collins_structured_perceptron",
+    "n": 2,
+    "ids": [
+      "T3/collins_structured_perceptron",
+      "T2/collins_structured_perceptron"
+    ],
+    "algebra_identical": true,
+    "description_identical": true,
+    "serves_capability_identical": true,
+    "differing_fields": [
+      "metadata"
+    ],
+    "cap_intersection_n": 0,
+    "cap_union_n": 0,
+    "cap_only": {
+      "T3/collins_structured_perceptron": [],
+      "T2/collins_structured_perceptron": []
+    },
+    "verdict": "REVIEW (same algebra but differs in ['metadata']); verify before merge"
+  },
+  {
+    "base": "viterbi_decoder",
+    "n": 2,
+    "ids": [
+      "T3/viterbi_decoder",
+      "T2/viterbi_decoder"
+    ],
+    "algebra_identical": true,
+    "description_identical": true,
+    "serves_capability_identical": true,
+    "differing_fields": [
+      "metadata"
+    ],
+    "cap_intersection_n": 3,
+    "cap_union_n": 3,
+    "cap_only": {
+      "T3/viterbi_decoder": [],
+      "T2/viterbi_decoder": []
+    },
+    "verdict": "REVIEW (same algebra but differs in ['metadata']); verify before merge"
+  },
+  {
+    "base": "em_algorithm",
+    "n": 2,
+    "ids": [
+      "T3/em_algorithm",
+      "T2/em_algorithm"
+    ],
+    "algebra_identical": true,
+    "description_identical": true,
+    "serves_capability_identical": true,
+    "differing_fields": [
+      "metadata"
+    ],
+    "cap_intersection_n": 0,
+    "cap_union_n": 0,
+    "cap_only": {
+      "T3/em_algorithm": [],
+      "T2/em_algorithm": []
+    },
+    "verdict": "REVIEW (same algebra but differs in ['metadata']); verify before merge"
+  }
+]

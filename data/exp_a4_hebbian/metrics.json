@@ -1,0 +1,22 @@
+{
+  "spec": {
+    "name": "exp_a4_hebbian",
+    "seed": 42,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-16T20:39:56",
+  "total_events": 3060,
+  "total_wall_time_us": 168200.1,
+  "k": 30,
+  "n_frequent": 5,
+  "n_queries": 1000,
+  "noise_sigma": 0.4,
+  "decay": 0.01,
+  "frequent_mean_weight": 9.593821813091003,
+  "rare_mean_weight": 2.0810629523921533,
+  "ratio_freq_to_rare": 4.610058432909507,
+  "total_correct": 1000,
+  "headline": "freq-RECOGNIZED mean=9.59 vs rare=2.08 (ratio=4.61); 1000/1000 correct retrievals",
+  "review": false
+}

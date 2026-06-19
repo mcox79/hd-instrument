@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\math_corpus_batch03_phase_A2.jsonl",
+      "ingested": 30,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "math": 30
+      }
+    }
+  ],
+  "totals": {
+    "ingested": 30,
+    "skipped": 0,
+    "failed": 0,
+    "supersedes_added": 0,
+    "uses_added": 0,
+    "pre_total": 772,
+    "post_total": 802
+  }
+}

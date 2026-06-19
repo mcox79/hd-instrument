@@ -1,0 +1,2 @@
+
+| v436 | 2026-06-05 | CYCLE 113 | 2 HP; 9 DUPLICATES no action; 0 LVH; KF-1 BAND-LIFT 65-80%->70-85%; PP-8 BAND-LIFT 0.50-0.65->0.55-0.70; HONEST 945->947; LVH 223; Portfolio 32+77; 348th PROT-009 paired commit | hallucination_detection_minilm ENCODER-AGNOSTIC KF1 REAL-AUC999 (MiniLM N=384 3-seed AUC=0.999 grounded_conf=0.204 vs hall_conf=0.107 margin=0.097 recall=0.988); real_encoder_capabilities ALL-CAPS-CEILING-18/18-MINILM+PYTHIA (all 6 dims = 1.000 both encoders 3 seeds) |

@@ -1,0 +1,74 @@
+{
+  "verdict": "H_HARD_FAIL",
+  "verdict_msg": "HIER_DEGRADES: acc=0.062 cap_ratio=0.25 n_seeds=5",
+  "elapsed_s": 6.64,
+  "summary": {
+    "anchor": "hierarchical_w_feasibility_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "n_sum": 16,
+    "n_lps": 16,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "per_seed": [
+      {
+        "seed": 7,
+        "n_sum": 16,
+        "n_lps": 16,
+        "hierarchical_acc": 0.1,
+        "effective_capacity": 256,
+        "flat_capacity_heuristic": 1024,
+        "capacity_ratio": 0.25,
+        "n_test": 200
+      },
+      {
+        "seed": 17,
+        "n_sum": 16,
+        "n_lps": 16,
+        "hierarchical_acc": 0.045,
+        "effective_capacity": 256,
+        "flat_capacity_heuristic": 1024,
+        "capacity_ratio": 0.25,
+        "n_test": 200
+      },
+      {
+        "seed": 23,
+        "n_sum": 16,
+        "n_lps": 16,
+        "hierarchical_acc": 0.06,
+        "effective_capacity": 256,
+        "flat_capacity_heuristic": 1024,
+        "capacity_ratio": 0.25,
+        "n_test": 200
+      },
+      {
+        "seed": 31,
+        "n_sum": 16,
+        "n_lps": 16,
+        "hierarchical_acc": 0.065,
+        "effective_capacity": 256,
+        "flat_capacity_heuristic": 1024,
+        "capacity_ratio": 0.25,
+        "n_test": 200
+      },
+      {
+        "seed": 41,
+        "n_sum": 16,
+        "n_lps": 16,
+        "hierarchical_acc": 0.04,
+        "effective_capacity": 256,
+        "flat_capacity_heuristic": 1024,
+        "capacity_ratio": 0.25,
+        "n_test": 200
+      }
+    ],
+    "verdict": "H_HARD_FAIL",
+    "verdict_msg": "HIER_DEGRADES: acc=0.062 cap_ratio=0.25 n_seeds=5",
+    "elapsed_s": 6.64
+  }
+}

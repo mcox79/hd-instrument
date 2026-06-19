@@ -1,0 +1,30 @@
+{
+  "verdict": "HC_INCONCLUSIVE",
+  "verdict_msg": "Replay lift=0.069 < 0.1; mechanism not active at scale. Cannot test H-C. ret_replay=0.956 ret_2x=0.803 ret_1x_noreplay=0.887.",
+  "elapsed_s": 4.39100000000326,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A_replay": 0.956015381179436,
+        "retention_A_2x": 0.8032483111972616,
+        "retention_A_1x_noreplay": 0.8868524020448717,
+        "diff_replay_minus_2x": 0.15276706998217437,
+        "replay_lift": 0.06916297913456426
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "replay_frac": 0.5,
+    "ema_alpha": 0.7,
+    "hc_match_threshold": 0.04
+  }
+}

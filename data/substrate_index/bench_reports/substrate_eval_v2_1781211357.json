@@ -1,0 +1,604 @@
+{
+  "verdicts": [
+    {
+      "file_path": "notes\\research_drill_1bit_depth_verify_2x_2026-06-10.md",
+      "content_hash": "4fce0de11b2236cc",
+      "file_size_bytes": 22266,
+      "nearest_top5_atoms": [
+        "T2/hamming_distance",
+        "T2_FAM/cleanup_retrieval",
+        "T3/viterbi_decoding",
+        "T2/cosine_cleanup",
+        "T2_FAM/sequence_decoding"
+      ],
+      "nearest_top5_scores": [
+        0.673,
+        0.662,
+        0.649,
+        0.639,
+        0.635
+      ],
+      "semantic_novelty": 0.339,
+      "algebra_novelty": 0.866,
+      "composite_novelty": 0.866,
+      "coherence_score": 0.73,
+      "verdict_class": "NOVEL",
+      "corpus_membership_of_nearest": {
+        "math": 5
+      },
+      "n_math_atoms_in_top5": 6,
+      "reasoning": "high novelty + COHERENT content (novelty=0.866, coherence=0.730) -- substrate lacks structure for this content"
+    },
+    {
+      "file_path": "notes\\research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05.md",
+      "content_hash": "26f2d75d72ac404b",
+      "file_size_bytes": 40077,
+      "nearest_top5_atoms": [
+        "unified_compositional_engine",
+        "PP-375_multistep_math",
+        "PP-367_unified_algebra_lang_math",
+        "PP-225_fact_recall_kb100K",
+        "PP-376_multibench_math"
+      ],
+      "nearest_top5_scores": [
+        0.726,
+        0.717,
+        0.708,
+        0.707,
+        0.702
+      ],
+      "semantic_novelty": 0.283,
+      "algebra_novelty": 0.884,
+      "composite_novelty": 0.884,
+      "coherence_score": 0.632,
+      "verdict_class": "NOVEL",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 5,
+      "reasoning": "high novelty + COHERENT content (novelty=0.884, coherence=0.632) -- substrate lacks structure for this content"
+    },
+    {
+      "file_path": "notes\\research_drill_7_invariants_empirical_validation_2x_2026-06-11.md",
+      "content_hash": "23430c10fad102b3",
+      "file_size_bytes": 22717,
+      "nearest_top5_atoms": [
+        "PP-375_multistep_math",
+        "unified_compositional_engine",
+        "PP-378_code_algopattern",
+        "PP-225_fact_recall_kb100K",
+        "PP-376_multibench_math"
+      ],
+      "nearest_top5_scores": [
+        0.694,
+        0.684,
+        0.682,
+        0.67,
+        0.664
+      ],
+      "semantic_novelty": 0.313,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.648,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 1,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\research_drill_8_channel_orchestration_architecture_2026-06-03.md",
+      "content_hash": "cef81b59231e3b9b",
+      "file_size_bytes": 27291,
+      "nearest_top5_atoms": [
+        "PP-375_multistep_math",
+        "T3/collins_structured_perceptron",
+        "unified_compositional_engine",
+        "PP-371_reasoning_routing",
+        "T2_FAM/cleanup_retrieval"
+      ],
+      "nearest_top5_scores": [
+        0.632,
+        0.631,
+        0.615,
+        0.61,
+        0.603
+      ],
+      "semantic_novelty": 0.374,
+      "algebra_novelty": 0.715,
+      "composite_novelty": 0.715,
+      "coherence_score": 0.612,
+      "verdict_class": "NOVEL",
+      "corpus_membership_of_nearest": {
+        "concept": 3,
+        "math": 2
+      },
+      "n_math_atoms_in_top5": 2,
+      "reasoning": "high novelty + COHERENT content (novelty=0.715, coherence=0.612) -- substrate lacks structure for this content"
+    },
+    {
+      "file_path": "notes\\research_drill_activation_distillation_cascade_2x_2026-06-05.md",
+      "content_hash": "6261d77562998e5e",
+      "file_size_bytes": 21798,
+      "nearest_top5_atoms": [
+        "PP-225_fact_recall_kb100K",
+        "PP-375_multistep_math",
+        "PP-376_multibench_math",
+        "T2_FAM/cleanup_retrieval",
+        "PP-364_pos_tagger"
+      ],
+      "nearest_top5_scores": [
+        0.687,
+        0.682,
+        0.672,
+        0.652,
+        0.649
+      ],
+      "semantic_novelty": 0.32,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.676,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "n_math_atoms_in_top5": 1,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\research_to_all_MONITOR_SETUP_MTIME_AWARE_2026-06-09.md",
+      "content_hash": "4a6eaf4b82464f4d",
+      "file_size_bytes": 6366,
+      "nearest_top5_atoms": [
+        "PP-364_pos_tagger",
+        "PP-376_multibench_math",
+        "T3/bayesian_inference",
+        "PP-378_code_algopattern",
+        "PP-225_fact_recall_kb100K"
+      ],
+      "nearest_top5_scores": [
+        0.583,
+        0.567,
+        0.563,
+        0.56,
+        0.549
+      ],
+      "semantic_novelty": 0.429,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.702,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10.md",
+      "content_hash": "9cb42477452f6f10",
+      "file_size_bytes": 4208,
+      "nearest_top5_atoms": [
+        "T2/hamming_distance",
+        "PP-225_fact_recall_kb100K",
+        "unified_compositional_engine",
+        "PP-364_pos_tagger",
+        "PP-375_multistep_math"
+      ],
+      "nearest_top5_scores": [
+        0.638,
+        0.634,
+        0.628,
+        0.622,
+        0.62
+      ],
+      "semantic_novelty": 0.367,
+      "algebra_novelty": 0.802,
+      "composite_novelty": 0.802,
+      "coherence_score": 0.69,
+      "verdict_class": "NOVEL",
+      "corpus_membership_of_nearest": {
+        "math": 1,
+        "concept": 4
+      },
+      "n_math_atoms_in_top5": 2,
+      "reasoning": "high novelty + COHERENT content (novelty=0.802, coherence=0.690) -- substrate lacks structure for this content"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_2hour_high_priority_battery_2026-06-07.md",
+      "content_hash": "df6c01c358a8b5f1",
+      "file_size_bytes": 6016,
+      "nearest_top5_atoms": [
+        "PP-376_multibench_math",
+        "PP-225_fact_recall_kb100K",
+        "PP-375_multistep_math",
+        "unified_compositional_engine",
+        "PP-367_unified_algebra_lang_math"
+      ],
+      "nearest_top5_scores": [
+        0.632,
+        0.621,
+        0.608,
+        0.599,
+        0.579
+      ],
+      "semantic_novelty": 0.38,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.573,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 1,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_2x_negatives_FILL_2026-06-07.md",
+      "content_hash": "8afe6410e069fdfb",
+      "file_size_bytes": 3287,
+      "nearest_top5_atoms": [
+        "PP-375_multistep_math",
+        "PP-369_slot_filling",
+        "unified_compositional_engine",
+        "PP-376_multibench_math",
+        "PP-364_pos_tagger"
+      ],
+      "nearest_top5_scores": [
+        0.655,
+        0.641,
+        0.636,
+        0.627,
+        0.6
+      ],
+      "semantic_novelty": 0.356,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.664,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_3_drill_synthesis_priority_experiments_2026-06-04.md",
+      "content_hash": "4705404b5ddcb148",
+      "file_size_bytes": 13296,
+      "nearest_top5_atoms": [
+        "unified_compositional_engine",
+        "PP-225_fact_recall_kb100K",
+        "PP-375_multistep_math",
+        "PP-367_unified_algebra_lang_math",
+        "PP-371_reasoning_routing"
+      ],
+      "nearest_top5_scores": [
+        0.668,
+        0.666,
+        0.651,
+        0.641,
+        0.636
+      ],
+      "semantic_novelty": 0.338,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.589,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_1BIT_BATTERY_COMPLETE_2026-06-10.md",
+      "content_hash": "e6a9ba417c6b3a4b",
+      "file_size_bytes": 2223,
+      "nearest_top5_atoms": [
+        "PP-225_fact_recall_kb100K",
+        "T2/hamming_distance",
+        "unified_compositional_engine",
+        "PP-375_multistep_math",
+        "PP-364_pos_tagger"
+      ],
+      "nearest_top5_scores": [
+        0.647,
+        0.629,
+        0.626,
+        0.624,
+        0.61
+      ],
+      "semantic_novelty": 0.366,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.699,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "n_math_atoms_in_top5": 1,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_3THRUSTS_SPRINT1_COMPLETE_2026-06-10.md",
+      "content_hash": "922c0d6b76537211",
+      "file_size_bytes": 2691,
+      "nearest_top5_atoms": [
+        "unified_compositional_engine",
+        "PP-375_multistep_math",
+        "PP-367_unified_algebra_lang_math",
+        "PP-376_multibench_math",
+        "PP-225_fact_recall_kb100K"
+      ],
+      "nearest_top5_scores": [
+        0.677,
+        0.671,
+        0.666,
+        0.652,
+        0.64
+      ],
+      "semantic_novelty": 0.329,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.669,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_6exp_v1_privacy_decisions_2026-06-07.md",
+      "content_hash": "7a41726265c9c7ff",
+      "file_size_bytes": 1927,
+      "nearest_top5_atoms": [
+        "T3/count_nb",
+        "PP-225_fact_recall_kb100K",
+        "PP-376_multibench_math",
+        "PP-375_multistep_math",
+        "T3/discriminative_perceptron"
+      ],
+      "nearest_top5_scores": [
+        0.627,
+        0.624,
+        0.609,
+        0.609,
+        0.602
+      ],
+      "semantic_novelty": 0.38,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.627,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "math": 2,
+        "concept": 3
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_8auth_R3_cellA_results_2026-06-07.md",
+      "content_hash": "2869f89144517fa3",
+      "file_size_bytes": 1666,
+      "nearest_top5_atoms": [
+        "T2_FAM/cleanup_retrieval",
+        "PP-225_fact_recall_kb100K",
+        "T2/cosine_cleanup",
+        "PP-375_multistep_math",
+        "T2/cleanup"
+      ],
+      "nearest_top5_scores": [
+        0.639,
+        0.627,
+        0.624,
+        0.61,
+        0.61
+      ],
+      "semantic_novelty": 0.37,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.611,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "math": 3,
+        "concept": 2
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_archadvantage_HP_2026-06-05.md",
+      "content_hash": "b0040724284bae28",
+      "file_size_bytes": 1851,
+      "nearest_top5_atoms": [
+        "PP-376_multibench_math",
+        "unified_compositional_engine",
+        "PP-375_multistep_math",
+        "PP-225_fact_recall_kb100K",
+        "PP-371_reasoning_routing"
+      ],
+      "nearest_top5_scores": [
+        0.669,
+        0.667,
+        0.659,
+        0.659,
+        0.653
+      ],
+      "semantic_novelty": 0.335,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.66,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_70B_Instruct_ARCHITECTURE_ROBUST_plus_unexpected_finding_2026-06-06.md",
+      "content_hash": "a8f48713341e0c11",
+      "file_size_bytes": 7816,
+      "nearest_top5_atoms": [
+        "PP-376_multibench_math",
+        "PP-375_multistep_math",
+        "PP-225_fact_recall_kb100K",
+        "unified_compositional_engine",
+        "T2_FAM/cleanup_retrieval"
+      ],
+      "nearest_top5_scores": [
+        0.676,
+        0.672,
+        0.656,
+        0.645,
+        0.643
+      ],
+      "semantic_novelty": 0.332,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.637,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_a2_llama8b_priority_verify_2026-06-08.md",
+      "content_hash": "8479575d641a5948",
+      "file_size_bytes": 3509,
+      "nearest_top5_atoms": [
+        "PP-376_multibench_math",
+        "unified_compositional_engine",
+        "PP-371_reasoning_routing",
+        "PP-375_multistep_math",
+        "PP-367_unified_algebra_lang_math"
+      ],
+      "nearest_top5_scores": [
+        0.599,
+        0.593,
+        0.589,
+        0.583,
+        0.576
+      ],
+      "semantic_novelty": 0.406,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.654,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_ARXIV_MATH_VERIFY_RESULT_2026-06-11.md",
+      "content_hash": "531157077d5f6363",
+      "file_size_bytes": 3128,
+      "nearest_top5_atoms": [
+        "PP-367_unified_algebra_lang_math",
+        "PP-375_multistep_math",
+        "PP-225_fact_recall_kb100K",
+        "unified_compositional_engine",
+        "PP-376_multibench_math"
+      ],
+      "nearest_top5_scores": [
+        0.653,
+        0.653,
+        0.635,
+        0.634,
+        0.63
+      ],
+      "semantic_novelty": 0.353,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.702,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 0,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_BACKEND_STAGED_LOAD_OBSERVATION_2026-06-09.md",
+      "content_hash": "dd95a41330f386a4",
+      "file_size_bytes": 3501,
+      "nearest_top5_atoms": [
+        "PP-225_fact_recall_kb100K",
+        "PP-376_multibench_math",
+        "unified_compositional_engine",
+        "PP-364_pos_tagger",
+        "PP-369_slot_filling"
+      ],
+      "nearest_top5_scores": [
+        0.59,
+        0.577,
+        0.574,
+        0.564,
+        0.556
+      ],
+      "semantic_novelty": 0.42,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.658,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 1,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_CELL1_ARCHITECTURAL_CONFIRMED_2026-06-06.md",
+      "content_hash": "6e55a5be16db93ab",
+      "file_size_bytes": 9150,
+      "nearest_top5_atoms": [
+        "PP-376_multibench_math",
+        "PP-225_fact_recall_kb100K",
+        "PP-378_code_algopattern",
+        "PP-375_multistep_math",
+        "unified_compositional_engine"
+      ],
+      "nearest_top5_scores": [
+        0.669,
+        0.666,
+        0.646,
+        0.643,
+        0.642
+      ],
+      "semantic_novelty": 0.34,
+      "algebra_novelty": 0.5,
+      "composite_novelty": 0.5,
+      "coherence_score": 0.662,
+      "verdict_class": "TIER-C",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "n_math_atoms_in_top5": 1,
+      "reasoning": "low confidence (novelty=0.500 in [0.45, 0.55])"
+    }
+  ],
+  "distribution": {
+    "NOVEL": 4,
+    "TIER-C": 16
+  },
+  "thresholds": {
+    "TIER_A": 0.3,
+    "TIER_B": 0.45,
+    "TIER_C": 0.55,
+    "REJECT": 0.7,
+    "COHERENCE_MIN": 0.35
+  },
+  "composite": "max(semantic_novelty, algebra_novelty)"
+}

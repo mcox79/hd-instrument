@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4_v25_gated_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: gating >= v2 but < v1 -- partial; threshold tuning or conformal calibration next. gated=0.048 (v1=0.048 v2=0.048, anchored-frac=0.50)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.048,
+      "v1": 0.048,
+      "v2": 0.048,
+      "anchored_frac": 0.5,
+      "n": 188
+    }
+  ],
+  "elapsed_s": 4.511780023574829,
+  "summary": "MIDDLE_BAND: gating >= v2 but < v1 -- partial; threshold tuning or conformal calibration next. gated=0.048 (v1=0.048 v2=0.048, anchored-frac=0.50)"
+}

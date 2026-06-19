@@ -1,0 +1,18 @@
+{
+  "anchor_name": "ner_frame_semantic_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: frame features lift +0.02 to +0.08 -- construction abstraction helps, partial. +frame F1=0.5015 vs baseline 0.4658 (lift=+0.0357, train=300)",
+  "summary": "MIDDLE_BAND: frame features lift +0.02 to +0.08 -- construction abstraction helps, partial. +frame F1=0.5015 vs baseline 0.4658 (lift=+0.0357, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5015,
+      "f1_frame": 0.5015,
+      "f1_baseline": 0.4658,
+      "lift": 0.0357,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 5.395467519760132
+}

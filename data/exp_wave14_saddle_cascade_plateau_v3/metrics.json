@@ -1,0 +1,90 @@
+{
+  "verdict": "CASCADE_HARD_PASS",
+  "verdict_msg": "Discrete step structure detected: linear-fit R^2=0.768 < 0.85, max deviation from linear=0.094 >= 0.08. Retention vs corpus-overlap-fraction is NOT smooth-monotone. Saddle-cascade plateau dynamics supported. f=0.0 retention=0.738, f=1.0 retention=1.035.",
+  "elapsed_s": 1.844,
+  "summary": {
+    "f_values": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "retention_means": [
+      0.7375,
+      0.7445,
+      1.0346
+    ],
+    "linear_fit_r2": 0.7676,
+    "max_deviation_from_linear": 0.0944,
+    "residuals": [
+      0.0472,
+      -0.0944,
+      0.0472
+    ],
+    "per_f": {
+      "0.0": {
+        "mean": 0.7375,
+        "vals": [
+          0.7375
+        ]
+      },
+      "0.5": {
+        "mean": 0.7445,
+        "vals": [
+          0.7445
+        ]
+      },
+      "1.0": {
+        "mean": 1.0346,
+        "vals": [
+          1.0346
+        ]
+      }
+    },
+    "anchor_ok_f0_lt_f1": true,
+    "ret_f0": 0.7375,
+    "ret_f1": 1.0346
+  },
+  "all_cells": [
+    {
+      "f": 0.0,
+      "seed": 17,
+      "bpc_A_baseline": 3.95054,
+      "bpc_A_after_B": 5.35675,
+      "retention_A": 0.73749
+    },
+    {
+      "f": 0.5,
+      "seed": 17,
+      "bpc_A_baseline": 3.95054,
+      "bpc_A_after_B": 5.30649,
+      "retention_A": 0.74447
+    },
+    {
+      "f": 1.0,
+      "seed": 17,
+      "bpc_A_baseline": 3.95054,
+      "bpc_A_after_B": 3.81842,
+      "retention_A": 1.0346
+    }
+  ],
+  "config": {
+    "mode": "smoke",
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "N": 256,
+    "batch_size": 16,
+    "n_epochs": 1,
+    "phase_a_epochs": 1,
+    "n_bytes": 4000,
+    "seeds": [
+      17
+    ],
+    "linear_r2_pass_threshold": 0.85,
+    "linear_r2_fail_threshold": 0.95,
+    "deviation_pass_threshold": 0.08,
+    "deviation_fail_threshold": 0.04
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "anchor": "calibrated_confidence_ece_v1_n1024",
+  "N": 256,
+  "M": 100,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 256,
+      "M": 100,
+      "n_query": 50,
+      "acc": 1.0,
+      "ece_raw": 0.5056760668754579,
+      "ece_temp_scaled": 0.0003644156455993652,
+      "T_star": 0.1,
+      "passes_hp": 1,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "ECE_HARD_PASS",
+  "verdict_msg": "CALIBRATED: ece<0.05 in 1/1 seeds. N=256 M=100 mean_acc=1.0000 mean_ece_raw=0.5057 mean_ece_ts=0.0004 n_hp=1/1",
+  "elapsed_s": 0.02
+}

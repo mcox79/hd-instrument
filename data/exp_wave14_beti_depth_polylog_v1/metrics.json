@@ -1,0 +1,71 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: Partial polylog support. r2 = 1.000, mean_relative_error = 2.128, d_c range = 0.0 across N values. Some N-dependence present but not cleanly polylog. Recommend higher N-resolution or larger d-sweep.",
+  "elapsed_s": 0.053,
+  "summary": {
+    "N_sweep": [
+      256,
+      512
+    ],
+    "d_c_empirical_per_N": {
+      "256": 20,
+      "512": 20
+    },
+    "d_c_predicted_per_N": {
+      "256": 5.33,
+      "512": 7.99
+    },
+    "relative_errors_per_N": {
+      "256": 2.754,
+      "512": 1.502
+    },
+    "r2_log_dc_vs_log_pred": 1.0,
+    "mean_relative_error": 2.128,
+    "d_c_range_across_N": 0,
+    "valid_N_count": 2,
+    "calibration_note": "no prior empirical anchor; bands widened to 30% MRE per calibration-probe policy"
+  },
+  "per_N_details": {
+    "256": {
+      "acc_per_d": {
+        "5": 1.0,
+        "10": 1.0,
+        "20": 0.9844
+      },
+      "d_c_empirical": 20,
+      "d_c_predicted": 5.33,
+      "relative_error": 2.754,
+      "degenerate": false
+    },
+    "512": {
+      "acc_per_d": {
+        "5": 0.9922,
+        "10": 0.9883,
+        "20": 0.9844
+      },
+      "d_c_empirical": 20,
+      "d_c_predicted": 7.99,
+      "relative_error": 1.502,
+      "degenerate": false
+    }
+  },
+  "config": {
+    "K": 50,
+    "N_sweep": [
+      256,
+      512
+    ],
+    "d_sweep": [
+      5,
+      10,
+      20
+    ],
+    "seeds": [
+      17
+    ],
+    "ACC_THRESHOLD": 0.5,
+    "smoke": true,
+    "hypothesis": "d_c = sqrt(N * log(N) / K) per R16 polylog correction",
+    "parent_bet": "Bet I (R16 free probability) 3rd envelope"
+  }
+}

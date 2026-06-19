@@ -1,0 +1,20 @@
+{
+  "anchor_name": "math4_rung3_deep_chains_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate deductive chaining is DEPTH-ROBUST at lengths 8/10/12 (mean>=0.90) -- beyond human working-memory chain limits (~7). Substrate-over-biology for deductive depth, substrate-only. by-length={8: 1.0, 10: 1.0, 12: 1.0} mean=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy_by_length": {
+        "8": 1.0,
+        "10": 1.0,
+        "12": 1.0
+      },
+      "mean_accuracy": 1.0,
+      "n_prop": 100
+    }
+  ],
+  "elapsed_s": 2.1670055389404297,
+  "summary": "HARD_PASS: substrate deductive chaining is DEPTH-ROBUST at lengths 8/10/12 (mean>=0.90) -- beyond human working-memory chain limits (~7). Substrate-over-biology for deductive depth, substrate-only. by-length={8: 1.0, 10: 1.0, 12: 1.0} mean=1.000"
+}

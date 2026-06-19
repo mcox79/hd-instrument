@@ -1,0 +1,28 @@
+{
+  "anchor": "phase05_v1_pythia160m_residual_extract_pertoken_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Pythia-160M PER-TOKEN residual extraction at layer 12 complete; 6000 docs (49634 tokens) at shape (sum_T=49634, 768) saved to residuals_per_token.npz. Ready for downstream EX-CONCEPT-1 REAL: VQ -> concept-ID sequences -> substrate Hebbian writes -> SQ2 multi-hop reasoning at concept-ID level.",
+  "elapsed_s": 208.36293196678162,
+  "summary": {
+    "anchor": "phase05_v1_pythia160m_residual_extract_pertoken_v1",
+    "model_id": "EleutherAI/pythia-160m",
+    "hidden_dim": 768,
+    "layer_idx_target": 12,
+    "n_layers": 12,
+    "extraction_mode": "pertoken",
+    "n_residuals": 6000,
+    "n_docs_assembled": 6000,
+    "n_tokens_total": 49634,
+    "n_docs_target": 6000,
+    "n_extracted": 6000,
+    "n_failed": 0,
+    "n_bad_partials": 0,
+    "dataset_id": "saturnMars/hyperprobe-dataset-analogy",
+    "run_mode": "full",
+    "max_tok_len": 64,
+    "wall_extract_s": 122.61982440948486,
+    "wall_total_s": 208.3619315624237
+  },
+  "npz_path": "data\\exp_phase05_v1_pythia160m_residual_extract_pertoken_v1\\residuals_per_token.npz",
+  "npz_path_abs": "C:\\dev\\hd-instrument\\data\\exp_phase05_v1_pythia160m_residual_extract_pertoken_v1\\residuals_per_token.npz"
+}

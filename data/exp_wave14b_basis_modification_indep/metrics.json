@@ -1,0 +1,12 @@
+{
+  "NUM_CONCEPTS": 50,
+  "variant": "independent_random_concept_atoms",
+  "bpc_baseline_pre": 2.48173095257216,
+  "bpc_extended_pre": 2.482348985189382,
+  "bpc_baseline_post": 4.335208572373712,
+  "bpc_extended_post": 4.320876273491295,
+  "pre_shift_gain": -0.0006180326172220418,
+  "post_shift_gain": 0.01433229888241705,
+  "concept_byte_overlap_mean": 0.012554778717458248,
+  "concept_byte_overlap_max": 0.0615234375
+}

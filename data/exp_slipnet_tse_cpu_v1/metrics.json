@@ -1,0 +1,16 @@
+{
+  "anchor_name": "slipnet_tse_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: TSE recall@1 <0.55 -- accept 0.40-0.45 as honest ceiling for real polysemic cross-domain analogy; flag for v3.2 PerRole substrate follow-up. recall@1=0.071 (n=28, rel-types=10)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall1": 0.071,
+      "n_entities": 28,
+      "n_reltypes": 10
+    }
+  ],
+  "elapsed_s": 11.795398950576782,
+  "summary": "HARD_FAIL: TSE recall@1 <0.55 -- accept 0.40-0.45 as honest ceiling for real polysemic cross-domain analogy; flag for v3.2 PerRole substrate follow-up. recall@1=0.071 (n=28, rel-types=10)"
+}

@@ -1,0 +1,39 @@
+{
+  "verdict": "BETA_5SEED_PASS",
+  "verdict_msg": "mean edit=1.000 kept=1.000 sd_e=0.000 sd_k=0.000 at N=4096 M_init=512 M/N=0.125 (substrate-product 5-seed editable-memory CONFIRMED at large N).",
+  "elapsed_s": 11.578999999997905,
+  "summary": {
+    "edit_acc_mean": 1.0,
+    "kept_acc_mean": 1.0,
+    "edit_acc_sd": 0.0,
+    "kept_acc_sd": 0.0,
+    "per_seed": {
+      "17": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      },
+      "23": {
+        "edit_acc": 1.0,
+        "kept_acc": 1.0
+      }
+    },
+    "seeds": [
+      17,
+      23
+    ],
+    "M_init": 512,
+    "N": 4096,
+    "headroom": 8.0,
+    "n_edits": 50
+  },
+  "config": {
+    "N": 4096,
+    "M_init": 512,
+    "n_edits": 50,
+    "seeds": [
+      17,
+      23
+    ],
+    "mode": "smoke"
+  }
+}

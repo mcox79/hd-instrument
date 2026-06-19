@@ -1,0 +1,576 @@
+{
+  "n_signature_types": 54,
+  "typing_gaps": [
+    {
+      "type": "weight_vector",
+      "n_uses": 4,
+      "used_by": [
+        "collins_structured_perceptron",
+        "structured_perceptron_collins"
+      ]
+    },
+    {
+      "type": "parameter_vector",
+      "n_uses": 3,
+      "used_by": [
+        "adam_optimizer",
+        "gradient_descent",
+        "stochastic_gradient_descent"
+      ]
+    },
+    {
+      "type": "phasor_vector_pair",
+      "n_uses": 2,
+      "used_by": [
+        "fhrr_bind",
+        "fhrr_unbind"
+      ]
+    },
+    {
+      "type": "phasor_vector",
+      "n_uses": 2,
+      "used_by": [
+        "fhrr_bind",
+        "fhrr_unbind"
+      ]
+    },
+    {
+      "type": "feature_vector_label_pair",
+      "n_uses": 2,
+      "used_by": [
+        "discriminative_perceptron"
+      ]
+    },
+    {
+      "type": "discriminative_weight_vector",
+      "n_uses": 2,
+      "used_by": [
+        "discriminative_perceptron"
+      ]
+    },
+    {
+      "type": "incomplete_data_likelihood",
+      "n_uses": 2,
+      "used_by": [
+        "em_algorithm"
+      ]
+    },
+    {
+      "type": "ML_parameter_estimate",
+      "n_uses": 2,
+      "used_by": [
+        "em_algorithm"
+      ]
+    },
+    {
+      "type": "training_input_output_pairs",
+      "n_uses": 2,
+      "used_by": [
+        "collins_structured_perceptron"
+      ]
+    },
+    {
+      "type": "vector",
+      "n_uses": 2,
+      "used_by": [
+        "bundling",
+        "permutation_indexed_binding"
+      ]
+    },
+    {
+      "type": "function_and_gradient",
+      "n_uses": 2,
+      "used_by": [
+        "adam_optimizer",
+        "gradient_descent"
+      ]
+    },
+    {
+      "type": "state_distribution",
+      "n_uses": 2,
+      "used_by": [
+        "markov_chain"
+      ]
+    },
+    {
+      "type": "feature_template_and_gold",
+      "n_uses": 2,
+      "used_by": [
+        "structured_perceptron_collins"
+      ]
+    },
+    {
+      "type": "observation_and_transition_emission",
+      "n_uses": 2,
+      "used_by": [
+        "viterbi_decoder"
+      ]
+    },
+    {
+      "type": "state_sequence",
+      "n_uses": 2,
+      "used_by": [
+        "viterbi_decoder"
+      ]
+    },
+    {
+      "type": "vector_pair",
+      "n_uses": 1,
+      "used_by": [
+        "inner_product"
+      ]
+    },
+    {
+      "type": "scalar",
+      "n_uses": 1,
+      "used_by": [
+        "inner_product"
+      ]
+    },
+    {
+      "type": "noisy_vector_and_codebook",
+      "n_uses": 1,
+      "used_by": [
+        "cleanup"
+      ]
+    },
+    {
+      "type": "codebook_atom",
+      "n_uses": 1,
+      "used_by": [
+        "cleanup"
+      ]
+    },
+    {
+      "type": "real_vector_pair",
+      "n_uses": 1,
+      "used_by": [
+        "circular_convolution"
+      ]
+    },
+    {
+      "type": "real_vector",
+      "n_uses": 1,
+      "used_by": [
+        "circular_convolution"
+      ]
+    },
+    {
+      "type": "feature_counts_and_labels",
+      "n_uses": 1,
+      "used_by": [
+        "count_nb"
+      ]
+    },
+    {
+      "type": "class_probabilities",
+      "n_uses": 1,
+      "used_by": [
+        "count_nb"
+      ]
+    },
+    {
+      "type": "vector_set",
+      "n_uses": 1,
+      "used_by": [
+        "bundling"
+      ]
+    },
+    {
+      "type": "address_vector",
+      "n_uses": 1,
+      "used_by": [
+        "sparse_distributed_memory"
+      ]
+    },
+    {
+      "type": "content_vector",
+      "n_uses": 1,
+      "used_by": [
+        "sparse_distributed_memory"
+      ]
+    },
+    {
+      "type": "vector_and_pattern_set",
+      "n_uses": 1,
+      "used_by": [
+        "modern_hopfield_ramsauer"
+      ]
+    },
+    {
+      "type": "stored_pattern",
+      "n_uses": 1,
+      "used_by": [
+        "modern_hopfield_ramsauer"
+      ]
+    },
+    {
+      "type": "discrete_signal",
+      "n_uses": 1,
+      "used_by": [
+        "discrete_fourier_transform"
+      ]
+    },
+    {
+      "type": "frequency_spectrum",
+      "n_uses": 1,
+      "used_by": [
+        "discrete_fourier_transform"
+      ]
+    },
+    {
+      "type": "prior_and_likelihood",
+      "n_uses": 1,
+      "used_by": [
+        "bayes_rule"
+      ]
+    },
+    {
+      "type": "posterior",
+      "n_uses": 1,
+      "used_by": [
+        "bayes_rule"
+      ]
+    },
+    {
+      "type": "vector_and_position_int",
+      "n_uses": 1,
+      "used_by": [
+        "permutation_indexed_binding"
+      ]
+    },
+    {
+      "type": "bound_product_and_codebook_set",
+      "n_uses": 1,
+      "used_by": [
+        "resonator_network_decoder"
+      ]
+    },
+    {
+      "type": "factor_vector_tuple",
+      "n_uses": 1,
+      "used_by": [
+        "resonator_network_decoder"
+      ]
+    },
+    {
+      "type": "activation_vector_dropout_rate",
+      "n_uses": 1,
+      "used_by": [
+        "dropout_regularization"
+      ]
+    },
+    {
+      "type": "masked_activation_vector",
+      "n_uses": 1,
+      "used_by": [
+        "dropout_regularization"
+      ]
+    },
+    {
+      "type": "minibatch_activations",
+      "n_uses": 1,
+      "used_by": [
+        "batch_normalization"
+      ]
+    },
+    {
+      "type": "normalized_activations",
+      "n_uses": 1,
+      "used_by": [
+        "batch_normalization"
+      ]
+    },
+    {
+      "type": "function_and_sample_gradient",
+      "n_uses": 1,
+      "used_by": [
+        "stochastic_gradient_descent"
+      ]
+    },
+    {
+      "type": "policy_parameters_trajectory_returns",
+      "n_uses": 1,
+      "used_by": [
+        "policy_gradient"
+      ]
+    },
+    {
+      "type": "policy_parameter_update",
+      "n_uses": 1,
+      "used_by": [
+        "policy_gradient"
+      ]
+    },
+    {
+      "type": "state_action_reward_state_tuple",
+      "n_uses": 1,
+      "used_by": [
+        "q_learning"
+      ]
+    },
+    {
+      "type": "q_value_table_or_function",
+      "n_uses": 1,
+      "used_by": [
+        "q_learning"
+      ]
+    },
+    {
+      "type": "states_actions_transitions_rewards",
+      "n_uses": 1,
+      "used_by": [
+        "markov_decision_process"
+      ]
+    },
+    {
+      "type": "decision_problem",
+      "n_uses": 1,
+      "used_by": [
+        "markov_decision_process"
+      ]
+    },
+    {
+      "type": "value_function_and_transition",
+      "n_uses": 1,
+      "used_by": [
+        "bellman_equation"
+      ]
+    },
+    {
+      "type": "updated_value_function",
+      "n_uses": 1,
+      "used_by": [
+        "bellman_equation"
+      ]
+    },
+    {
+      "type": "stability_certificate",
+      "n_uses": 1,
+      "used_by": [
+        "lyapunov_stability"
+      ]
+    },
+    {
+      "type": "target_distribution_and_proposal",
+      "n_uses": 1,
+      "used_by": [
+        "mcmc_sampling"
+      ]
+    },
+    {
+      "type": "sample_chain",
+      "n_uses": 1,
+      "used_by": [
+        "mcmc_sampling"
+      ]
+    },
+    {
+      "type": "likelihood_prior_variational_family",
+      "n_uses": 1,
+      "used_by": [
+        "variational_inference"
+      ]
+    },
+    {
+      "type": "variational_posterior_parameters",
+      "n_uses": 1,
+      "used_by": [
+        "variational_inference"
+      ]
+    }
+  ],
+  "thin_capabilities": [
+    "concept::CAP_fhrr_unbind",
+    "concept::PP-217_path_A_LLM_enhancement",
+    "concept::PP-LEX1_morphology",
+    "concept::PP-multihop_revival",
+    "concept::RETRIEVAL_reasoning_routing_pp371",
+    "concept::CAP_superposition",
+    "concept::CAP_bundling",
+    "SCHOOL/hmm_sequence_labeling_family",
+    "SCHOOL/structured_prediction_family",
+    "SCHOOL/discriminative_learning_family",
+    "concept::unified_compositional_engine",
+    "SCHOOL/connectionist_family",
+    "math::T2/cleanup",
+    "substrate::T2/cleanup_attractor_dynamics",
+    "math::T2/integration_lebesgue",
+    "math::T2/probability_kolmogorov",
+    "math::T2/topology_general",
+    "substrate::T2/cosine_neighborhood",
+    "substrate::T2/random_walk_retrieval",
+    "substrate::T2/capability_path_search",
+    "substrate::T2/concept_links_graph",
+    "basis_construction",
+    "coordinate_systems",
+    "subspace_construction",
+    "measurability_reasoning",
+    "probability_foundations",
+    "bayesian_inference",
+    "evidence_updating",
+    "causal_reasoning",
+    "factorization_assumptions",
+    "naive_bayes_foundation",
+    "independent_sampling_inference",
+    "symmetric_divergence_measure",
+    "distribution_comparison",
+    "clustering",
+    "point_estimation",
+    "model_fitting",
+    "statistical_inference",
+    "data_reduction",
+    "estimation_foundations",
+    "exponential_family_recognition",
+    "conjugate_priors",
+    "natural_parameterization",
+    "generalized_linear_models",
+    "kl_divergence_proof",
+    "gibbs_inequality_foundation",
+    "EM_algorithm_foundation",
+    "exponential_family_normalization",
+    "cumulant_generation",
+    "variational_inference_foundation",
+    "kl_non_negativity_proof",
+    "cross_entropy_minimization_foundation",
+    "functional_analysis",
+    "limit_theory",
+    "optimization_theory",
+    "stable_function_approximation",
+    "inner_product_foundations",
+    "vector_norm_construction",
+    "density_class_recognition",
+    "efficient_sampling_foundation",
+    "norm_construction",
+    "duality_inequalities",
+    "norm_subadditivity",
+    "entropy_foundations",
+    "maximum_likelihood_foundation",
+    "probability_axiom_foundation",
+    "metric_axiom_foundation",
+    "conditional_uncertainty_measure",
+    "joint_entropy_decomposition",
+    "algebraic_structure_morphisms",
+    "algebraic_structure_equivalence",
+    "higher_categorical_structure",
+    "DisCoCat_foundations",
+    "set_partition_foundations",
+    "quotient_construction",
+    "backpropagation_foundation",
+    "gradient_construction",
+    "gradient_descent_geometry",
+    "linearization",
+    "Taylor_theorem_proof",
+    "matrix_factorization_foundation",
+    "rank_analysis",
+    "low_rank_approximation",
+    "pseudoinverse_construction",
+    "spectral_analysis",
+    "diagonalization_foundation",
+    "least_squares_foundation",
+    "linear_system_solving",
+    "SPD_system_solving",
+    "gaussian_sampling_foundation",
+    "numerical_stability_analysis",
+    "perturbation_bound",
+    "least_squares_solving",
+    "underdetermined_system_solving",
+    "optimization_theory_foundation",
+    "convex_duality",
+    "non_smooth_optimization",
+    "convex_analysis_foundation",
+    "step_size_selection",
+    "quadratic_model_optimization",
+    "iterative_solving",
+    "convergence_to_fixed_point",
+    "integration_foundation",
+    "probability_expectation_foundation",
+    "interchange_limit_and_integral",
+    "monotone_limit_integral",
+    "multivariate_integration",
+    "iterated_integral_exchange",
+    "conditional_probability_foundation",
+    "RN_derivative_existence",
+    "Lp_space_construction",
+    "RN_FT_existence_condition",
+    "fair_game_modeling",
+    "diffusion_modeling",
+    "markov_chain_foundation",
+    "ergodic_theory_foundation",
+    "MCMC_foundation",
+    "optional_stopping_foundation",
+    "stochastic_calculus",
+    "SDE_foundation",
+    "stochastic_modeling",
+    "diffusion_dynamics_foundation",
+    "jump_diffusion_modeling",
+    "counting_event_modeling",
+    "operator_theory",
+    "compact_spectral_theory",
+    "duality_theory",
+    "weak_convergence_theory",
+    "PDE_solution_space",
+    "fourier_analysis_foundation",
+    "generalized_function_theory",
+    "double_dual_isomorphism",
+    "separability_classification",
+    "functional_extension",
+    "data_structure_foundation",
+    "matching_problem_foundation",
+    "topological_graph_theory",
+    "graph_partitioning_foundation",
+    "graph_analysis_foundation",
+    "community_detection_foundation",
+    "scheduling_foundation",
+    "conductance_bound",
+    "spectral_clustering_foundation",
+    "combinatorics_foundation",
+    "sequence_analysis",
+    "numerical_analysis_foundation",
+    "PDE_discretization",
+    "numerical_integration",
+    "stochastic_estimation",
+    "variance_reduction",
+    "monte_carlo_extension",
+    "dynamic_programming_foundation",
+    "structured_prediction_decoding",
+    "optimization_foundation",
+    "combinatorial_optimization",
+    "graph_analysis",
+    "markov_on_graph_foundation",
+    "graph_algorithm_foundation",
+    "routing_foundation",
+    "graphical_model_inference",
+    "message_passing_foundation",
+    "ordering_property",
+    "probability_decomposition",
+    "probability_marginalization",
+    "marginalization",
+    "multivariate_modeling",
+    "probabilistic_modeling_foundation",
+    "graphical_model_foundation",
+    "cap_pointwise_arithmetic",
+    "cap_DFT_inverse_property",
+    "cap_circular_convolution",
+    "cap_fhrr_bind",
+    "cap_gradient_based_optimization",
+    "cap_optimization_substrate",
+    "cap_neural_network_training_default_optimizer",
+    "cap_posterior_computation",
+    "cap_fourier_in_probability",
+    "cap_characteristic_function_property",
+    "cap_probability_limit_theorem",
+    "cap_normal_distribution_universality",
+    "cap_diagonalization_self_adjoint",
+    "cap_eigenvalue_decomposition",
+    "cap_quadratic_property",
+    "cap_inner_product_inequality",
+    "cap_covariance_bound",
+    "cap_cosine_bound",
+    "cap_bilinearity",
+    "cap_pythagoras_inner_product",
+    "cap_variance_additivity_uncorrelated",
+    "cap_orthogonal_decomposition"
+  ],
+  "note": "typing gaps = EXPAND worklist; atomizing these is the precondition for ABSTRACTION-ratio (conceptual distillation) proofs -- the real optimization beyond hygiene"
+}

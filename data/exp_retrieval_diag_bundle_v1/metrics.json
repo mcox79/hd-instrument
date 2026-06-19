@@ -1,0 +1,34 @@
+{
+  "anchor_name": "retrieval_diag_bundle_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: one of (encoder>=0.55 r@2 / graceful scaling) holds. ablation: {'bge-small': (0.512, 0.776), 'bge-large': (0.516, 0.805), 'e5-large': (0.444, 0.764)} | best=bge-large r@2=0.516 | scaling recall@10: {'N25': 0.776, 'N50': 0.776, 'N100': 0.774, 'N200': 0.772, 'N400': 0.767} (drop=0.008)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "abl": {
+        "bge-small": {
+          "r2": 0.5118888888888887,
+          "r10": 0.7757777777777778
+        },
+        "bge-large": {
+          "r2": 0.5163333333333332,
+          "r10": 0.8051111111111112
+        },
+        "e5-large": {
+          "r2": 0.4444444444444445,
+          "r10": 0.7637777777777779
+        }
+      },
+      "scale": {
+        "N25": 0.7757777777777778,
+        "N50": 0.7757777777777778,
+        "N100": 0.7735555555555557,
+        "N200": 0.771888888888889,
+        "N400": 0.7674444444444446
+      }
+    }
+  ],
+  "elapsed_s": 146.91110181808472,
+  "summary": "MIDDLE_BAND: one of (encoder>=0.55 r@2 / graceful scaling) holds. ablation: {'bge-small': (0.512, 0.776), 'bge-large': (0.516, 0.805), 'e5-large': (0.444, 0.764)} | best=bge-large r@2=0.516 | scaling recall@10: {'N25': 0.776, 'N50': 0.776, 'N100': 0.774, 'N200': 0.772, 'N400': 0.767} (drop=0.008)"
+}

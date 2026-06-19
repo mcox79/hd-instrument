@@ -1,0 +1,18 @@
+{
+  "anchor_name": "asdiv_program_ranker_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ASDiv <0.28. ASDiv program-ranker +WK=0.1467 vs base=0.1600 (lift=-0.0133) vs prior ~0.22 (test=150). Subset(<=3)+op-chain(<=2) search + discriminative ranker; WK = substrate LEX_constant.",
+  "summary": "HARD_FAIL: ASDiv <0.28. ASDiv program-ranker +WK=0.1467 vs base=0.1600 (lift=-0.0133) vs prior ~0.22 (test=150). Subset(<=3)+op-chain(<=2) search + discriminative ranker; WK = substrate LEX_constant.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.1467,
+      "acc_wk": 0.1467,
+      "acc_base": 0.16,
+      "lift": -0.0133,
+      "n_test": 150
+    }
+  ],
+  "elapsed_s": 1.5817780494689941
+}

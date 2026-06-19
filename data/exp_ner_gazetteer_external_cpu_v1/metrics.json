@@ -1,0 +1,42 @@
+{
+  "anchor_name": "ner_gazetteer_external_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: external gazetteer gaz F1@5pct 0.45-0.50 -- helps but below the +0.10 bar. gaz F1@5pct=0.4561 (lift +0.0441 over baseline 0.4120); lift@5pct=+0.0441 vs lift@100pct=-0.0368 -> low-data-win; gaz lists PER=198 LOC=207 ORG=129",
+  "summary": "MIDDLE_BAND: external gazetteer gaz F1@5pct 0.45-0.50 -- helps but below the +0.10 bar. gaz F1@5pct=0.4561 (lift +0.0441 over baseline 0.4120); lift@5pct=+0.0441 vs lift@100pct=-0.0368 -> low-data-win; gaz lists PER=198 LOC=207 ORG=129",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "frac": 0.05,
+          "baseline_f1": 0.412,
+          "gaz_f1": 0.4561,
+          "lift": 0.0441,
+          "n_train": 299,
+          "lb_ref": 0.404
+        },
+        {
+          "frac": 0.1,
+          "baseline_f1": 0.4915,
+          "gaz_f1": 0.539,
+          "lift": 0.0475,
+          "n_train": 598,
+          "lb_ref": 0.501
+        },
+        {
+          "frac": 1.0,
+          "baseline_f1": 0.6441,
+          "gaz_f1": 0.6073,
+          "lift": -0.0368,
+          "n_train": 5982,
+          "lb_ref": 0.644
+        }
+      ],
+      "n_per": 198,
+      "n_loc": 207,
+      "n_org": 129
+    }
+  ],
+  "elapsed_s": 424.5325286388397
+}

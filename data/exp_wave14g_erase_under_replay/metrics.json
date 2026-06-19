@@ -1,0 +1,36 @@
+{
+  "K": 8,
+  "NUM_ERASURES": 10,
+  "REPLAY_FRACTION": 0.5,
+  "SEEDS": [
+    17,
+    23,
+    31
+  ],
+  "results": [
+    {
+      "seed": 17,
+      "baseline_correct_pre_erase": 9,
+      "erased_visited_by_replay": 10,
+      "predict_correct_after_replay": 9,
+      "n_erasures": 10
+    },
+    {
+      "seed": 23,
+      "baseline_correct_pre_erase": 9,
+      "erased_visited_by_replay": 10,
+      "predict_correct_after_replay": 8,
+      "n_erasures": 10
+    },
+    {
+      "seed": 31,
+      "baseline_correct_pre_erase": 9,
+      "erased_visited_by_replay": 10,
+      "predict_correct_after_replay": 8,
+      "n_erasures": 10
+    }
+  ],
+  "mean_pre": 9.0,
+  "mean_after": 8.333333333333334,
+  "erase_effective": 0.07407407407407401
+}

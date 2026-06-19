@@ -1,0 +1,23 @@
+{
+  "anchor_name": "nl_slot_filling_atis_bootstrap_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: slot-F1 <0.50. slot-F1=0.6182 [95%CI 0.5762-0.6609 SE=0.0240] intent-acc=0.9000 (P=0.622 R=0.614, B=200, test=120)",
+  "summary": "HARD_FAIL: slot-F1 <0.50. slot-F1=0.6182 [95%CI 0.5762-0.6609 SE=0.0240] intent-acc=0.9000 (P=0.622 R=0.614, B=200, test=120)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "slot_f1": 0.6182,
+      "slot_f1_lo": 0.5762,
+      "slot_f1_hi": 0.6609,
+      "slot_f1_se": 0.024,
+      "intent_acc": 0.9,
+      "intent_acc_lo": 0.8498,
+      "slot_prec": 0.622,
+      "slot_rec": 0.614,
+      "n_boot": 200,
+      "n_test": 120
+    }
+  ],
+  "elapsed_s": 7.7783143520355225
+}

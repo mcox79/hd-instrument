@@ -1,0 +1,16 @@
+{
+  "anchor_name": "beam_retrieval_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: beam retrieval beats greedy by >=0.05 on 2-hop paths -- keeping top-B partial paths recovers bridges greedy loses. greedy=0.600 beam=0.700 gain=0.100",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "greedy": 0.6,
+      "beam": 0.7,
+      "gain": 0.09999999999999998
+    }
+  ],
+  "elapsed_s": 0.14888978004455566,
+  "summary": "HARD_PASS: beam retrieval beats greedy by >=0.05 on 2-hop paths -- keeping top-B partial paths recovers bridges greedy loses. greedy=0.600 beam=0.700 gain=0.100"
+}

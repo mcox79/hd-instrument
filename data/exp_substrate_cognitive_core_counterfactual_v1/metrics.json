@@ -1,0 +1,39 @@
+{
+  "anchor_name": "substrate_cognitive_core_counterfactual_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate counterfactual fact-update >=2x Pythia + retains non-updated (cf-RPE native inference-time update). substrate_updated=1.00 (retention=1.00) pythia_updated=0.00 ratio=1000000.00x",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "F": 300,
+      "K": 100,
+      "sub_updated_acc": 1.0,
+      "sub_nonupdated_retention": 0.995,
+      "pythia_updated_acc": 0.0,
+      "ratio": 1000000.0
+    },
+    {
+      "seed": 17,
+      "F": 300,
+      "K": 100,
+      "sub_updated_acc": 1.0,
+      "sub_nonupdated_retention": 0.995,
+      "pythia_updated_acc": 0.0,
+      "ratio": 1000000.0
+    },
+    {
+      "seed": 23,
+      "F": 300,
+      "K": 100,
+      "sub_updated_acc": 1.0,
+      "sub_nonupdated_retention": 1.0,
+      "pythia_updated_acc": 0.0,
+      "ratio": 1000000.0
+    }
+  ],
+  "elapsed_s": 121.9651894569397,
+  "summary": "HARD_PASS: substrate counterfactual fact-update >=2x Pythia + retains non-updated (cf-RPE native inference-time update). substrate_updated=1.00 (retention=1.00) pythia_updated=0.00 ratio=1000000.00x"
+}

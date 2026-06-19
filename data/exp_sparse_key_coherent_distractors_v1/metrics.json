@@ -1,0 +1,27 @@
+{
+  "anchor_name": "sparse_key_coherent_distractors_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse ~ dense at B=10 coherent -- Option B (sparse only helps at B=1). sparse-dense accuracy delta by K=[8, 12]: [np.float64(0.0), np.float64(0.0)] | mean=0.000 (coherent c_d=0.48, B=10)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "K8": {
+          "dense": 1.0,
+          "sparse": 1.0,
+          "sparse_conf": 1.0
+        },
+        "K12": {
+          "dense": 1.0,
+          "sparse": 1.0,
+          "sparse_conf": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.43894028663635254,
+  "summary": "HARD_FAIL: sparse ~ dense at B=10 coherent -- Option B (sparse only helps at B=1). sparse-dense accuracy delta by K=[8, 12]: [np.float64(0.0), np.float64(0.0)] | mean=0.000 (coherent c_d=0.48, B=10)"
+}

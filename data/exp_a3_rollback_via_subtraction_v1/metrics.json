@@ -1,0 +1,33 @@
+{
+  "anchor_name": "a3_rollback_via_subtraction_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions met in >=2/2 seeds. n_seeds=2 rel_err=0.00e+00(HP<1e-10) acc_after=1.0000(HP>=0.95) drop=0.00pp max_rollback_t=0.0126s hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 512,
+  "M_BASE": 40,
+  "K_WRITES": 5,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.24870967864990234,
+  "per_seed": [
+    {
+      "seed": 7,
+      "relative_err": 0.0,
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "rollback_wall_s": 0.008007049560546875,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "relative_err": 0.0,
+      "acc_before": 1.0,
+      "acc_after": 1.0,
+      "rollback_wall_s": 0.012616157531738281,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    }
+  ]
+}

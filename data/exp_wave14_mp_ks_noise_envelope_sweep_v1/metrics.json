@@ -1,0 +1,835 @@
+{
+  "verdict": "MP_KS_NOISE_ENVELOPE_SWEEP_INCONCLUSIVE",
+  "verdict_msg": "Narrow noise envelope: per_eta_correct={'0.000': 4, '0.010': 4, '0.025': 2, '0.050': 4, '0.075': 1, '0.100': 3}. Routing tolerates eta=0.01 (>=4/5) but degrades before eta=0.05. Cap 12 \u2705 stays with explicit noise-envelope annotation (envelope is 0.01 <= eta_critical < 0.05). eta_critical=0.025.",
+  "elapsed_s": 1334.75,
+  "summary": {
+    "envelope_cells": [
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.0,
+        "ks_mean": 0.07356372216024479,
+        "ks_std": 0.00078125,
+        "amp_rel_mean": 0.15110603697026628,
+        "vamp_rel_mean": 0.14535415897872989,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07317309716024478,
+          0.07219653466024478,
+          0.07414965966024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.0,
+        "ks_mean": 0.5889717826135475,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.8661113417501796,
+        "vamp_rel_mean": 0.03196363575045162,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.0,
+        "ks_mean": 0.5889717826135475,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.8666825725837383,
+        "vamp_rel_mean": 0.03358379994722853,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475,
+          0.5889717826135475
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.0,
+        "ks_mean": 0.33662803261354757,
+        "ks_std": 0.005544949049444683,
+        "amp_rel_mean": 0.6287154786525011,
+        "vamp_rel_mean": 0.10022464509719124,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.33701865761354755,
+          0.33799522011354755,
+          0.34287803261354755,
+          0.33897178261354755,
+          0.32627647011354755
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.0,
+        "ks_mean": 0.06464653848811466,
+        "ks_std": 0.0005489650697189005,
+        "amp_rel_mean": 0.09602620112572739,
+        "vamp_rel_mean": 0.03532787341935359,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.06451466296633712,
+          0.06482024336348635,
+          0.06451466296633712,
+          0.06553944228092634,
+          0.06384368086348635
+        ]
+      },
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.01,
+        "ks_mean": 0.07414965966024478,
+        "ks_std": 0.0010697706201272775,
+        "amp_rel_mean": 0.14282231088883318,
+        "vamp_rel_mean": 0.13490813857619927,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.07317309716024478,
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07610278466024478,
+          0.07317309716024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.01,
+        "ks_mean": 0.41301522387973266,
+        "ks_std": 0.0006535167220267957,
+        "amp_rel_mean": 0.8684741363090778,
+        "vamp_rel_mean": 0.02628563014935653,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.4138174029336411,
+          0.4128408404336411,
+          0.41327679904887,
+          0.41327679904887,
+          0.4118642779336411
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.01,
+        "ks_mean": 0.41301522387973266,
+        "ks_std": 0.000506742313108809,
+        "amp_rel_mean": 0.867746148319525,
+        "vamp_rel_mean": 0.035365846518639735,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.4128408404336411,
+          0.41327679904887,
+          0.4138174029336411,
+          0.41230023654887,
+          0.4128408404336411
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.01,
+        "ks_mean": 0.21298617368901757,
+        "ks_std": 0.004869007614371615,
+        "amp_rel_mean": 0.4262360947930315,
+        "vamp_rel_mean": 0.1115485846983874,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.21296458817460107,
+          0.2146842392987361,
+          0.21784740067460107,
+          0.2156608017987361,
+          0.20377383849841357
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.01,
+        "ks_mean": 0.061649659660244785,
+        "ks_std": 0.0011388577919619726,
+        "amp_rel_mean": 0.08310060391744661,
+        "vamp_rel_mean": 0.04229194460193721,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.06047778466024478,
+          0.06243090966024478,
+          0.06340747216024478,
+          0.06047778466024478,
+          0.06145434716024478
+        ]
+      },
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.025,
+        "ks_mean": 0.07395434716024478,
+        "ks_std": 0.000390625,
+        "amp_rel_mean": 0.11242379590600104,
+        "vamp_rel_mean": 0.12550189823133068,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.07414965966024478,
+          0.07317309716024478,
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07414965966024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.025,
+        "ks_mean": 0.31202481509616903,
+        "ks_std": 0.0011533837802618762,
+        "amp_rel_mean": 0.85127756917131,
+        "vamp_rel_mean": 0.043472046995600755,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.31348813203859655,
+          0.3121189853946041,
+          0.31013240551161336,
+          0.3128495454974348,
+          0.31153500703859655
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.025,
+        "ks_mean": 0.3118787030756029,
+        "ks_std": 0.001436954763073591,
+        "amp_rel_mean": 0.8546602361356396,
+        "vamp_rel_mean": 0.035938465799642036,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.31251156953859655,
+          0.31348813203859655,
+          0.3091892978946041,
+          0.3121189853946041,
+          0.31208553051161336
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.025,
+        "ks_mean": 0.14700700105612657,
+        "ks_std": 0.003283383936381169,
+        "amp_rel_mean": 0.21851381101986406,
+        "vamp_rel_mean": 0.11479117336470168,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.14765179904887,
+          0.1472158404336411,
+          0.1503349179238893,
+          0.14901658632536247,
+          0.14081586154887
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.025,
+        "ks_mean": 0.06418872216024478,
+        "ks_std": 0.0007307924583542854,
+        "amp_rel_mean": 0.10920545669781452,
+        "vamp_rel_mean": 0.040182007051849024,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.06340747216024478,
+          0.06536059716024478,
+          0.06340747216024478,
+          0.06438403466024478,
+          0.06438403466024478
+        ]
+      },
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.05,
+        "ks_mean": 0.07317309716024478,
+        "ks_std": 0.0006176323555016366,
+        "amp_rel_mean": 0.08796697603984868,
+        "vamp_rel_mean": 0.08052378100819155,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.07317309716024478,
+          0.07317309716024478,
+          0.07414965966024478,
+          0.07219653466024478,
+          0.07317309716024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.05,
+        "ks_mean": 0.20723208786088457,
+        "ks_std": 0.000751945026358608,
+        "amp_rel_mean": 0.8126294640263119,
+        "vamp_rel_mean": 0.027019925002851643,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.20682461604943453,
+          0.20780117854943453,
+          0.20780117854943453,
+          0.20780117854943453,
+          0.2059322876066847
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.05,
+        "ks_mean": 0.2067731675833567,
+        "ks_std": 0.0008380946388119783,
+        "amp_rel_mean": 0.8027891406501236,
+        "vamp_rel_mean": 0.050129217177595775,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.20584571038568522,
+          0.20780117854943453,
+          0.20762988458196724,
+          0.20674335401401125,
+          0.20584571038568522
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.05,
+        "ks_mean": 0.09289965966024478,
+        "ks_std": 0.0011388577919619726,
+        "amp_rel_mean": 0.1466078189808257,
+        "vamp_rel_mean": 0.09989002777246576,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.09368090966024478,
+          0.09270434716024478,
+          0.09172778466024478,
+          0.09172778466024478,
+          0.09465747216024478
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.05,
+        "ks_mean": 0.06536059716024478,
+        "ks_std": 0.0006176323555016366,
+        "amp_rel_mean": 0.059249805767743115,
+        "vamp_rel_mean": 0.07257285759443995,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.06536059716024478,
+          0.06536059716024478,
+          0.06536059716024478,
+          0.06438403466024478,
+          0.06633715966024478
+        ]
+      },
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.075,
+        "ks_mean": 0.07375903466024478,
+        "ks_std": 0.00047841596538733945,
+        "amp_rel_mean": 0.11634312009115418,
+        "vamp_rel_mean": 0.11207090764686214,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.07414965966024478,
+          0.07317309716024478,
+          0.07317309716024478,
+          0.07414965966024478,
+          0.07414965966024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.075,
+        "ks_mean": 0.13808142256429723,
+        "ks_std": 0.0014793567432273187,
+        "amp_rel_mean": 0.7523646677610382,
+        "vamp_rel_mean": 0.04211197725439127,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.13634082208196724,
+          0.13748867854943453,
+          0.14024707208196724,
+          0.13936054151401125,
+          0.13696999859410589
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.075,
+        "ks_mean": 0.13790781346669112,
+        "ks_std": 0.0013716725824511784,
+        "amp_rel_mean": 0.7438048694145146,
+        "vamp_rel_mean": 0.03188252802331365,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.1356848518188849,
+          0.13748867854943453,
+          0.13936054151401125,
+          0.13936054151401125,
+          0.1376444539371137
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.075,
+        "ks_mean": 0.07883715966024478,
+        "ks_std": 0.0007307924583542854,
+        "amp_rel_mean": 0.09226796446122867,
+        "vamp_rel_mean": 0.09936570075538022,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.07805590966024478,
+          0.08000903466024478,
+          0.07805590966024478,
+          0.07903247216024478,
+          0.07903247216024478
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.075,
+        "ks_mean": 0.06711840966024478,
+        "ks_std": 0.0007307924583542854,
+        "amp_rel_mean": 0.10581363193755196,
+        "vamp_rel_mean": 0.08462560658460908,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.06633715966024478,
+          0.06731372216024478,
+          0.06829028466024478,
+          0.06731372216024478,
+          0.06633715966024478
+        ]
+      },
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.1,
+        "ks_mean": 0.07336840966024478,
+        "ks_std": 0.0007307924583542854,
+        "amp_rel_mean": 0.07518809204916968,
+        "vamp_rel_mean": 0.07423910161698863,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.07414965966024478,
+          0.07414965966024478,
+          0.07317309716024478,
+          0.07317309716024478,
+          0.07219653466024478
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.1,
+        "ks_mean": 0.08887527525647003,
+        "ks_std": 0.0007427442832958793,
+        "amp_rel_mean": 0.6063228661974343,
+        "vamp_rel_mean": 0.0597162902721728,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.088506846219911,
+          0.08783976643711369,
+          0.09009499859410589,
+          0.08911843609410589,
+          0.08881632893711369
+        ]
+      },
+      {
+        "name": "hadamard",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.1,
+        "ks_mean": 0.08849152835461711,
+        "ks_std": 0.0009345446514512711,
+        "amp_rel_mean": 0.578323429103205,
+        "vamp_rel_mean": 0.029124254318605325,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.08865821038568522,
+          0.08670742854943453,
+          0.08946582208196724,
+          0.08881632893711369,
+          0.0888098518188849
+        ]
+      },
+      {
+        "name": "rm_1_m",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.1,
+        "ks_mean": 0.07278247216024478,
+        "ks_std": 0.001586726250905461,
+        "amp_rel_mean": 0.04048915072560167,
+        "vamp_rel_mean": 0.055511552629852155,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.07317309716024478,
+          0.07317309716024478,
+          0.07024340966024478,
+          0.07219653466024478,
+          0.07512622216024478
+        ]
+      },
+      {
+        "name": "kerdock",
+        "expected_label_clean": "VAMP_REQUIRED",
+        "eta": 0.1,
+        "ks_mean": 0.06829028466024478,
+        "ks_std": 0.0008734640537108553,
+        "amp_rel_mean": 0.07421258854826299,
+        "vamp_rel_mean": 0.06470018283311316,
+        "empirical_label": "AMP_OK",
+        "per_seed_ks": [
+          0.06926684716024478,
+          0.06731372216024478,
+          0.06926684716024478,
+          0.06731372216024478,
+          0.06829028466024478
+        ]
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "M_over_N": 1.0,
+      "n_seeds": 5,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 300,
+      "tau_fixed": 0.2,
+      "eta_grid": [
+        0.0,
+        0.01,
+        0.025,
+        0.05,
+        0.075,
+        0.1
+      ],
+      "codebooks": [
+        "iid_gauss",
+        "srht",
+        "hadamard",
+        "rm_1_m",
+        "kerdock"
+      ]
+    },
+    "tau_fixed": 0.2,
+    "eta_grid": [
+      0.0,
+      0.01,
+      0.025,
+      0.05,
+      0.075,
+      0.1
+    ],
+    "per_eta_correct": {
+      "0.000": 4,
+      "0.010": 4,
+      "0.025": 2,
+      "0.050": 4,
+      "0.075": 1,
+      "0.100": 3
+    },
+    "routing_matrix": [
+      {
+        "eta": 0.0,
+        "correct": 4,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07356372216024479,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.5889717826135475,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.33662803261354757,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06464653848811466,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      },
+      {
+        "eta": 0.01,
+        "correct": 4,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07414965966024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.41301522387973266,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.41301522387973266,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.21298617368901757,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.061649659660244785,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      },
+      {
+        "eta": 0.025,
+        "correct": 2,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07395434716024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.31202481509616903,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.3118787030756029,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.14700700105612657,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06418872216024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "eta": 0.05,
+        "correct": 4,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07317309716024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.20723208786088457,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.2067731675833567,
+            "routed": "VAMP_REQUIRED",
+            "truth": "VAMP_REQUIRED",
+            "correct": true
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.09289965966024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06536059716024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      },
+      {
+        "eta": 0.075,
+        "correct": 1,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07375903466024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.13808142256429723,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.13790781346669112,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.07883715966024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06711840966024478,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "eta": 0.1,
+        "correct": 3,
+        "rows": [
+          {
+            "name": "iid_gauss",
+            "ks_mean": 0.07336840966024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "srht",
+            "ks_mean": 0.08887527525647003,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "hadamard",
+            "ks_mean": 0.08849152835461711,
+            "routed": "AMP_OK",
+            "truth": "VAMP_REQUIRED",
+            "correct": false
+          },
+          {
+            "name": "rm_1_m",
+            "ks_mean": 0.07278247216024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          },
+          {
+            "name": "kerdock",
+            "ks_mean": 0.06829028466024478,
+            "routed": "AMP_OK",
+            "truth": "AMP_OK",
+            "correct": true
+          }
+        ]
+      }
+    ],
+    "eta_critical": "0.025"
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "M_over_N": 1.0,
+    "n_seeds": 5,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 300,
+    "tau_fixed": 0.2,
+    "eta_grid": [
+      0.0,
+      0.01,
+      0.025,
+      0.05,
+      0.075,
+      0.1
+    ],
+    "codebooks": [
+      "iid_gauss",
+      "srht",
+      "hadamard",
+      "rm_1_m",
+      "kerdock"
+    ]
+  }
+}

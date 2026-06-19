@@ -1,0 +1,91 @@
+{
+  "spec": {
+    "name": "exp_m7_hebbian_density",
+    "seed": 42,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-17T00:03:18",
+  "total_events": 0,
+  "total_wall_time_us": 0.0,
+  "K": 20,
+  "T": 1000,
+  "decay": 0.005,
+  "total_pairs": 190,
+  "rows": [
+    {
+      "noise_count": 0,
+      "pairs_per_step": 1,
+      "density_per_step": 0.005263157894736842,
+      "signal_weight": 198.66920628423338,
+      "mean_noise_weight": 0.0,
+      "max_noise_weight": 0.0,
+      "snr_signal_to_max_noise": 1000000000.0
+    },
+    {
+      "noise_count": 2,
+      "pairs_per_step": 2,
+      "density_per_step": 0.010526315789473684,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 0.6552038427455247,
+      "max_noise_weight": 3.9580698778931906,
+      "snr_signal_to_max_noise": 25.200403246407042
+    },
+    {
+      "noise_count": 4,
+      "pairs_per_step": 7,
+      "density_per_step": 0.03684210526315789,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 3.9312230564731476,
+      "max_noise_weight": 7.754801559025627,
+      "snr_signal_to_max_noise": 12.862348087331098
+    },
+    {
+      "noise_count": 6,
+      "pairs_per_step": 16,
+      "density_per_step": 0.08421052631578947,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 9.82805764118287,
+      "max_noise_weight": 15.582299309100067,
+      "snr_signal_to_max_noise": 6.40117065022069
+    },
+    {
+      "noise_count": 8,
+      "pairs_per_step": 29,
+      "density_per_step": 0.15263157894736842,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 18.345707596874693,
+      "max_noise_weight": 26.9853165163597,
+      "snr_signal_to_max_noise": 3.696267818088984
+    },
+    {
+      "noise_count": 10,
+      "pairs_per_step": 46,
+      "density_per_step": 0.24210526315789474,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 29.48417292354862,
+      "max_noise_weight": 37.93056065305175,
+      "snr_signal_to_max_noise": 2.629672625003511
+    },
+    {
+      "noise_count": 14,
+      "pairs_per_step": 92,
+      "density_per_step": 0.4842105263157895,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 59.62354968984283,
+      "max_noise_weight": 68.79436481607516,
+      "snr_signal_to_max_noise": 1.449900108345184
+    },
+    {
+      "noise_count": 18,
+      "pairs_per_step": 154,
+      "density_per_step": 0.8105263157894737,
+      "signal_weight": 99.74495700036549,
+      "mean_noise_weight": 100.24618794006582,
+      "max_noise_weight": 100.24618794006582,
+      "snr_signal_to_max_noise": 0.995
+    }
+  ],
+  "cross_over_density": 0.4842105263157895,
+  "headline": "density 0 -> SNR=1000000000.0; density 0.81 -> SNR=0.99"
+}

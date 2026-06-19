@@ -1,0 +1,21 @@
+{
+  "anchor_name": "hopfield_beta_sweep_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: modern-Hopfield clean retrieval at beta<=16 (P/N=1.0) -- the separation threshold is practical; the substrate operates well inside it. min-beta-for-0.95=1 | {'b1': 1.0, 'b2': 1.0, 'b4': 1.0, 'b8': 1.0, 'b16': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "b1": 1.0,
+        "b2": 1.0,
+        "b4": 1.0,
+        "b8": 1.0,
+        "b16": 1.0
+      },
+      "min_beta": 1
+    }
+  ],
+  "elapsed_s": 0.043044328689575195,
+  "summary": "HARD_PASS: modern-Hopfield clean retrieval at beta<=16 (P/N=1.0) -- the separation threshold is practical; the substrate operates well inside it. min-beta-for-0.95=1 | {'b1': 1.0, 'b2': 1.0, 'b4': 1.0, 'b8': 1.0, 'b16': 1.0}"
+}

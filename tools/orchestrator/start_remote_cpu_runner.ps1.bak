@@ -1,0 +1,13 @@
+# Launch cpu_runner_0 on the remote machine fully detached from any SSH session.
+# PowerShell's Start-Process spawns a new independent process; the parent
+# PowerShell can exit (and SSH disconnect) without affecting the child.
+
+$python = "C:\dev\hd-instrument\.venv\Scripts\python.exe"
+$args = @(
+    "experiments\runner_v2_prod.py",
+    "--queue-dir", "C:\dev\hd-instrument\data\remote_cpu_queue",
+    "--id", "cpu_runner_0",
+    "--idle-exit-minutes", "240"
+)
+Start-Process -FilePath $python -ArgumentList $args -WorkingDirectory "C:\dev\hd-instrument" -WindowStyle Hidden
+Write-Output "Launched cpu_runner_0"

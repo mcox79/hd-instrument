@@ -1,0 +1,71 @@
+{
+  "anchor_name": "f4_kappa_n_deviation_snr_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cumulant hierarchy SATURATES as predicted -- deviation-SNR returns to noise (<=1.5) at n_sat in {3,4,5} (per seed [3, 3, 3]), and no order beyond 5 carries independent signal (max dev-SNR k>=6 = 0.29 < 3). The 8d pillar STANDS: kappa_5+ add nothing independent beyond kappa_2=alpha. DEVIATION-SNR (|kappa_k-alpha|/std) k3..8 = 0.10/0.15/0.19/0.24/0.27/0.29; n_sat/seed=[3, 3, 3] range=0; N=1024 alpha=0.50 B=500",
+  "summary": "HARD_PASS: cumulant hierarchy SATURATES as predicted -- deviation-SNR returns to noise (<=1.5) at n_sat in {3,4,5} (per seed [3, 3, 3]), and no order beyond 5 carries independent signal (max dev-SNR k>=6 = 0.29 < 3). The 8d pillar STANDS: kappa_5+ add nothing independent beyond kappa_2=alpha. DEVIATION-SNR (|kappa_k-alpha|/std) k3..8 = 0.10/0.15/0.19/0.24/0.27/0.29; n_sat/seed=[3, 3, 3] range=0; N=1024 alpha=0.50 B=500",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "snr_mean": {
+        "1": 22.757,
+        "2": 0.029,
+        "3": 0.1,
+        "4": 0.153,
+        "5": 0.19,
+        "6": 0.236,
+        "7": 0.272,
+        "8": 0.294
+      },
+      "n_sat_per_seed": [
+        3,
+        3,
+        3
+      ],
+      "n_sat_range": 0,
+      "n_sat_median": 3,
+      "seed_rows": [
+        {
+          "seed": 11,
+          "n_sat": 3,
+          "snr": {
+            "3": 0.039,
+            "4": 0.026,
+            "5": 0.011,
+            "6": 0.05,
+            "7": 0.074,
+            "8": 0.077
+          }
+        },
+        {
+          "seed": 23,
+          "n_sat": 3,
+          "snr": {
+            "3": 0.234,
+            "4": 0.392,
+            "5": 0.49,
+            "6": 0.551,
+            "7": 0.595,
+            "8": 0.631
+          }
+        },
+        {
+          "seed": 37,
+          "n_sat": 3,
+          "snr": {
+            "3": 0.026,
+            "4": 0.04,
+            "5": 0.068,
+            "6": 0.108,
+            "7": 0.147,
+            "8": 0.174
+          }
+        }
+      ],
+      "N": 1024,
+      "alpha": 0.5,
+      "B": 500
+    }
+  ],
+  "elapsed_s": 1.3632557392120361
+}

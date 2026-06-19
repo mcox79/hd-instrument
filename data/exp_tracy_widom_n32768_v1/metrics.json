@@ -1,0 +1,43 @@
+{
+  "anchor": "tracy_widom_n32768_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "alpha_grid": [
+    0.01,
+    0.02,
+    0.05
+  ],
+  "n_seeds": 2,
+  "alpha_summaries": {
+    "0.01": {
+      "seeds_hp": 0,
+      "seeds_hf": 0,
+      "mean_rel_error": 0.019242465988663755,
+      "mean_sigma_dev": 4.92607129309792,
+      "hp_pass": false
+    },
+    "0.02": {
+      "seeds_hp": 0,
+      "seeds_hf": 0,
+      "mean_rel_error": 0.01681486703348765,
+      "mean_sigma_dev": 4.304605960572838,
+      "hp_pass": false
+    },
+    "0.05": {
+      "seeds_hp": 1,
+      "seeds_hf": 0,
+      "mean_rel_error": 0.010539197023028473,
+      "mean_sigma_dev": 2.698034437895289,
+      "hp_pass": false
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "elapsed_s": 0.060370683670043945,
+  "thresholds": {
+    "HP_sigma": 3.0,
+    "HP_rel_err": 0.1,
+    "HF_sigma": 10.0,
+    "HF_rel_err": 0.2
+  },
+  "verdict_msg": "Tracy-Widom spectral edge at N=4096: alpha_summaries per-alpha: alpha=0.01: rel_err=0.0192 sigma_dev=4.93; alpha=0.02: rel_err=0.0168 sigma_dev=4.30; alpha=0.05: rel_err=0.0105 sigma_dev=2.70. Verdict: MIDDLE_BAND."
+}

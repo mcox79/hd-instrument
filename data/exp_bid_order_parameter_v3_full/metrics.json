@@ -1,0 +1,39 @@
+{
+  "verdict": "BID_MIDDLE_BAND_MIXED",
+  "verdict_msg": "MB1: mixed class distribution. 1/1 seeds OUTSIDE_ALL_BANDS at N=256 (need 4). mean_BID=3.61. Ship secondary discriminator.",
+  "elapsed_s": 0.15,
+  "summary": "BID v3 SMOKE: 1/1 outside_all_bands at N=256",
+  "is_smoke": true,
+  "config": {
+    "N_list": [
+      256,
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "M_queries": 50,
+    "S_samples": 100,
+    "ALPHA_LOAD": 0.4
+  },
+  "per_n_summary": {
+    "256": {
+      "bid_mean": 3.611484788759962,
+      "bid_std": 0.0,
+      "outside_all_bands_count": 1,
+      "n_seeds": 1,
+      "band_classes": [
+        "OUTSIDE_ALL_BANDS"
+      ]
+    },
+    "512": {
+      "bid_mean": 3.9864531876523683,
+      "bid_std": 0.0,
+      "outside_all_bands_count": 1,
+      "n_seeds": 1,
+      "band_classes": [
+        "OUTSIDE_ALL_BANDS"
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "decompose_extreme_B",
+      "script": "experiments/exp_wave14b_decompose_extreme_B.py",
+      "status": "pending",
+      "purpose": "Extreme bundle decompose sweep B in {256,512,1024,2048} at N=4096 -- find substrate cliff.",
+      "timeout_s": 7200
+    }
+  ]
+}

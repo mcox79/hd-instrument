@@ -1,0 +1,71 @@
+{
+  "anchor_name": "qa_self_knowledge_full_stack_AE_combined_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the combined A=bge-top5 + E=bge-thr0.70 route fixes lift FULL-STACK macro by +0.0506 (A +0.0320, E +0.2717) on all 53 Qs with B/C/D/G unchanged -- a substantial, shippable path-to-0.70 increment. MACRO prod=0.5204 -> alt(A=bge-top5 + E=bge-thr0.70)=0.5711 (+0.0506); A +0.0320; E +0.2717; B/C/D/G-unchanged=True; per-type prod={'A': 0.2386, 'B': 0.6985, 'C': 0.6217, 'D': 0.75, 'E': 0.495, 'G': 0.6667} alt={'A': 0.2706, 'B': 0.6985, 'C': 0.6217, 'D': 0.75, 'E': 0.7667, 'G': 0.6667}",
+  "summary": "HARD_PASS: the combined A=bge-top5 + E=bge-thr0.70 route fixes lift FULL-STACK macro by +0.0506 (A +0.0320, E +0.2717) on all 53 Qs with B/C/D/G unchanged -- a substantial, shippable path-to-0.70 increment. MACRO prod=0.5204 -> alt(A=bge-top5 + E=bge-thr0.70)=0.5711 (+0.0506); A +0.0320; E +0.2717; B/C/D/G-unchanged=True; per-type prod={'A': 0.2386, 'B': 0.6985, 'C': 0.6217, 'D': 0.75, 'E': 0.495, 'G': 0.6667} alt={'A': 0.2706, 'B': 0.6985, 'C': 0.6217, 'D': 0.75, 'E': 0.7667, 'G': 0.6667}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_f1": 0.5204,
+      "macro_f1_alt": 0.5711,
+      "type_f1": {
+        "A": 0.2386,
+        "B": 0.6985,
+        "C": 0.6217,
+        "D": 0.75,
+        "E": 0.495,
+        "G": 0.6667
+      },
+      "type_f1_alt": {
+        "A": 0.2706,
+        "B": 0.6985,
+        "C": 0.6217,
+        "D": 0.75,
+        "E": 0.7667,
+        "G": 0.6667
+      },
+      "a_prod": 0.2386,
+      "a_alt": 0.2706,
+      "e_prod": 0.495,
+      "e_alt": 0.7667,
+      "macro_delta": 0.0506,
+      "n_qs": 53,
+      "b_questions": [
+        [
+          "Q06-B",
+          0.75
+        ],
+        [
+          "Q07-B",
+          0.8421
+        ],
+        [
+          "Q08-B",
+          1.0
+        ],
+        [
+          "Q09-B",
+          0.2
+        ],
+        [
+          "Q38-B",
+          0.75
+        ],
+        [
+          "Q39-B",
+          1.0
+        ],
+        [
+          "Q40-B",
+          0.2222
+        ],
+        [
+          "Q41-B",
+          0.8235
+        ]
+      ]
+    }
+  ],
+  "elapsed_s": 239.51399111747742
+}

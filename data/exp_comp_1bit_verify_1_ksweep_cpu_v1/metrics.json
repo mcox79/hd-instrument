@@ -1,0 +1,41 @@
+{
+  "anchor_name": "comp_1bit_verify_1_ksweep_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1-bit holds zero-loss (within 5pp) to K>=20 -- composition complexity does not break quantization. zero-loss holds to K=50 ; rows={'2': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '5': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '10': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '20': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '50': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "2": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "5": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "10": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "20": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "50": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        }
+      },
+      "k_zeroloss_max": 50
+    }
+  ],
+  "elapsed_s": 8288.337162017822,
+  "summary": "HARD_PASS: 1-bit holds zero-loss (within 5pp) to K>=20 -- composition complexity does not break quantization. zero-loss holds to K=50 ; rows={'2': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '5': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '10': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '20': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '50': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}"
+}

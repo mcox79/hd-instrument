@@ -1,0 +1,53 @@
+{
+  "anchor_name": "substrate_k3_synthetic_uniform_zipf_falsifier_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: Zipf IS load-bearing (uniform gap<0.5); marginal skew essential to K=3 trigram. uniform_gap=0.129 zipf_gap=0.453 (ref BundleE-natlang +1.291) uniform_seeds>0.5=0/2",
+  "N": 256,
+  "V": 40,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "arms": [
+    "zipf",
+    "uniform"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 256,
+      "uniform_nats": 3.6888794541139363,
+      "arms": {
+        "zipf": {
+          "gap": 0.45245739219377024,
+          "marginal_entropy": 3.3692910087021986
+        },
+        "uniform": {
+          "gap": 0.10839840171525461,
+          "marginal_entropy": 3.6770490055722256
+        }
+      },
+      "elapsed_s": 0.22399663925170898,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1780605201.2492876
+    },
+    {
+      "seed": 2,
+      "N": 256,
+      "uniform_nats": 3.6888794541139363,
+      "arms": {
+        "zipf": {
+          "gap": 0.45316168067643625,
+          "marginal_entropy": 3.2866509905152337
+        },
+        "uniform": {
+          "gap": 0.14978762862870676,
+          "marginal_entropy": 3.672239306627552
+        }
+      },
+      "elapsed_s": 0.21204066276550293,
+      "_ckpt_key": "2",
+      "_partial_written_at": 1780605201.4696841
+    }
+  ],
+  "elapsed_s": 0.4360373020172119,
+  "summary": "HARD_FAIL: Zipf IS load-bearing (uniform gap<0.5); marginal skew essential to K=3 trigram. uniform_gap=0.129 zipf_gap=0.453 (ref BundleE-natlang +1.291) uniform_seeds>0.5=0/2"
+}

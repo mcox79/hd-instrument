@@ -1,0 +1,82 @@
+{
+  "verdict": "PATTERN_FOUND",
+  "verdict_msg": "PATTERN_FOUND: 1 significant association(s): multi_agent (p=0.019, V=0.32). Consider adjusting pre-reg quality for affected anchor classes.",
+  "elapsed_s": 0.01,
+  "summary": {
+    "n_verdicts_analyzed": 105,
+    "overall_pass_rate": 0.556,
+    "outcome_distribution": {
+      "FAIL": 24,
+      "INCONCLUSIVE": 11,
+      "PASS": 30,
+      "OTHER": 21,
+      "PARTIAL": 19
+    },
+    "signals_found": [
+      {
+        "test": "multi_agent",
+        "p": 0.018607109458244463,
+        "cramers_v": 0.32024493467003995
+      }
+    ],
+    "weak_signals": [
+      "importance",
+      "multi_agent"
+    ]
+  },
+  "analyses": {
+    "importance_vs_outcome": {
+      "chi2": 3.225426136363635,
+      "p": 0.07250290702538568,
+      "cramers_v": 0.24439745014292522,
+      "table": [
+        [
+          21,
+          11
+        ],
+        [
+          9,
+          13
+        ]
+      ],
+      "high_pass_rate": 0.65625,
+      "low_pass_rate": 0.4090909090909091
+    },
+    "topic_vs_outcome": {
+      "chi2": 9.60206043956044,
+      "p": 0.29407371362661106,
+      "cramers_v": 0.4216822667197828,
+      "topic_pass_rates": {
+        "1RSB/spin-glass": 0.15384615384615385,
+        "Bet-B/continual": 0.38461538461538464,
+        "MoE/expert": 0.0,
+        "PAC-Bayes/info-theory": 0.2,
+        "capacity/K-series": 0.14285714285714285,
+        "geometry/topology": 0.2857142857142857,
+        "optimization/flows": 0.4,
+        "other": 0.26666666666666666,
+        "spectral/RMT": 0.4
+      }
+    },
+    "temporal_trend": {
+      "chi2": 0.3,
+      "p": 0.5838824228408352,
+      "cramers_v": 0.07453559924999299,
+      "first_half_pass_rate": 0.5925925925925926,
+      "second_half_pass_rate": 0.5185185185185185
+    },
+    "multiagent_vs_single": {
+      "chi2": 5.538068181818179,
+      "p": 0.018607109458244463,
+      "cramers_v": 0.32024493467003995,
+      "multi_pass_rate": 0.36363636363636365,
+      "single_pass_rate": 0.6875,
+      "n_multi": 50,
+      "n_single": 55
+    }
+  },
+  "config": {
+    "pass_p_threshold": 0.05,
+    "pass_v_threshold": 0.2
+  }
+}

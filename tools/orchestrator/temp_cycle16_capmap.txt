@@ -1,0 +1,36 @@
+
+## v346 -> v347 (2026-06-02) Cycle 16 batch; 5 HARD_PASS; 0 BAND-LIFTS; 0 LVH; Q-B1 FLAT-PROFILE TO d=80; HONEST 502->507; 257th PROT-009 paired commit
+
+**Trigger.** Cycle 16 batch 5 verdicts, all _source=remote authoritative, run_mode=full 5-seed. Pause-flag ABSENT. NEUTRAL classification per [[feedback-no-preframing]].
+
+| # | anchor | wall | N | seeds | verdict | honest reading | cap_map impact |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_b1_chain_depth_70_v1_n8192 | 118.8s | 8192 | 5 | HARD_PASS | d5=0.9883(HP>=0.95); d70=0.9880(HP>=0.15 6.6x); FLAT delta<=0.0007 per seed 5/5 | PP-49a depth-70 sub-property; flat-profile confirmed at d=70 |
+| 2 | q_b1_chain_depth_80_v1_n8192 | 133.9s | 8192 | 5 | HARD_PASS | d5=0.9814(HP>=0.95); d80=0.9820(HP>=0.10 9.8x); FLAT d80>d5 in 3/5 seeds; depth-independent to d=80 | PP-49a depth-80 sub-property; flat-profile confirmed at d=80; BAND-LIFT ELIGIBILITY at N=16384 gate only |
+| 3 | q_a3_l14_cross_layer_composition_v1_n4096 | 1.086s | 4096 | 5 | HARD_PASS | L1-L14 all=1.0000 EXACT unanimous; l14_acc=1.0000; wall consistent | PP-12/Q-A3 L=14 sub-property; L-series L=2..L=14 at N=4096 |
+| 4 | pp48_nkt_depth_21_v1_n4096 | 3.4s | 4096 | 5 | HARD_PASS | pos=1.0000 nkt=1.0000; NKT_total=2097151 (2.1M nodes); 5/5 unanimous | PP-48 depth-21 sub-property at N=4096; depth series {3..21} |
+| 5 | pp48_nkt_cross_n_depth19_v1_n8192 | 3.0s | 8192 | 5 | HARD_PASS | pos=1.0000 nkt=1.0000; NKT_total=524287; alpha=0.0134 sub-capacity; 5/5 unanimous | PP-48 depth-19 cross-N sub-property at N=8192; cross-N {d13 v345, d17 v346, d19 v347}; depth-19 product envelope COMPLETE (N=4096+N=8192) |
+
+**Row updates (v346 -> v347).**
+
+**(A) PP-49a Q-B1 flat-profile cluster COMPLETE at d5-d80.** q-b1-depth70-N8192 + q-b1-depth80-N8192 both HARD_PASS. FLAT: mean d80=0.9820 vs mean d5=0.9814 (d80>d5 in 3/5 seeds; noise dominates depth-dependent decay). Lambda_empirical <= 0.000026/hop (estimated from d5-d80 spread). 5-sub-property flat-profile cluster: d50/d55 (v345) + d60 (v346) + d70/d80 (v347). Band 0.70-0.85 UNCHANGED. N=16384 cross-N = SINGLE REMAINING GATE for BAND-LIFT 0.70-0.85->0.75-0.90.
+
+**(B) PP-12/Q-A3 L=14 added.** L-series L=2..L=14 at N=4096. All EXACT-1.0000. Composition ceiling not found. Band 0.75-0.90 UNCHANGED.
+
+**(C) PP-48 depth-21 at N=4096 + depth-19 cross-N N=8192.** N=4096 depth series {3,5,7,9,11,13,15,17,19,21}. Depth-19 cross-N product envelope COMPLETE (N=4096+N=8192). Band 0.75-0.90 UNCHANGED. Next BAND-LIFT gate: N=32768 cross-N.
+
+**Tallies (v346 -> v347).**
+- HONEST: 502 -> 507 (+5 HP).
+- LVH: 207 UNCHANGED.
+- Portfolio: 32+74 UNCHANGED.
+- BAND-LIFTS: 0.
+- Sub-properties NEW (5): q-b1-depth70-N8192-flat + q-b1-depth80-N8192-flat + q-a3-L14-N4096 + pp48-depth21-N4096 + pp48-depth19-cross-N-N8192.
+- Framework reliability: 82-96% UNCHANGED.
+
+**PROT compliance (v346 -> v347).**
+- PROT-004/006: NO row closures. 0 BAND-LIFTS. 5 NEW SUB-PROPERTIES.
+- PROT-007: this history block appended to cap_map.md inline.
+- PROT-008: all transitions validated. No portfolio regression.
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 257th PROT-009 paired commit.
+- PROT-018: all 5 _n<N> suffix verified PASS.
+- PROT-021: all 5 _source=remote run_mode=full n_seeds=5 PASS.

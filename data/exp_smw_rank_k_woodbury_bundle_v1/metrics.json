@@ -1,0 +1,37 @@
+{
+  "anchor_name": "smw_rank_k_woodbury_bundle_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: <20x over full rebuild -- rank-k advantage doesn't materialize at this N/k. at N=2048 k16: vs_full=1.2x vs_seq_rank1=7.5x | curve: {'k8': 2.1, 'k16': 1.2, 'k32': 1.3}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "k8": {
+          "rankk_s": 0.0005958300025667995,
+          "seq_rank1_s": 0.0035732450021896513,
+          "full_s": 0.0012673549994360656,
+          "vs_full": 2.1270412600513184,
+          "vs_seq": 5.997088073437606
+        },
+        "k16": {
+          "rankk_s": 0.0009778850013390183,
+          "seq_rank1_s": 0.007318730000406504,
+          "full_s": 0.0012156800017692148,
+          "vs_full": 1.2431727658207088,
+          "vs_seq": 7.484244047495324
+        },
+        "k32": {
+          "rankk_s": 0.0009278799989260733,
+          "seq_rank1_s": 0.012289990001590922,
+          "full_s": 0.0012080799962859601,
+          "vs_full": 1.3019787016469693,
+          "vs_seq": 13.245236470034202
+        }
+      },
+      "N": 2048
+    }
+  ],
+  "elapsed_s": 0.6023464202880859,
+  "summary": "HARD_FAIL: <20x over full rebuild -- rank-k advantage doesn't materialize at this N/k. at N=2048 k16: vs_full=1.2x vs_seq_rank1=7.5x | curve: {'k8': 2.1, 'k16': 1.2, 'k32': 1.3}"
+}

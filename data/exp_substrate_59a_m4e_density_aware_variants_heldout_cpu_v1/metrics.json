@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_59a_m4e_density_aware_variants_heldout_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL (all M4e variants <= 0.272): the full graph CANNOT lift M4d under ANY density-aware walk tested (degree-norm + selective-top-k + PPR). Sparse-graph consensus 0.272 IS the graph-walk-class CEILING for the substrate's current typed-operator graph. -> M7 (question-conditional) is the only remaining mechanism; OR Phase 3 pivot. M4e density-aware (full graph): V3 selective-top-k best=0.1582 (0.05, 5), V2 PPR best=0.1888 (1.0, 0.3) vs sparse-M4d 0.2721 (delta -0.0833). (V1 degree-norm already failed 0.148 in 58a addendum.) Held-out-swept (Goodhart-flagged feasibility).",
+  "summary": "HARD_FAIL (all M4e variants <= 0.272): the full graph CANNOT lift M4d under ANY density-aware walk tested (degree-norm + selective-top-k + PPR). Sparse-graph consensus 0.272 IS the graph-walk-class CEILING for the substrate's current typed-operator graph. -> M7 (question-conditional) is the only remaining mechanism; OR Phase 3 pivot. M4e density-aware (full graph): V3 selective-top-k best=0.1582 (0.05, 5), V2 PPR best=0.1888 (1.0, 0.3) vs sparse-M4d 0.2721 (delta -0.0833). (V1 degree-norm already failed 0.148 in 58a addendum.) Held-out-swept (Goodhart-flagged feasibility).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sparse_m4d": 0.2721,
+      "v3_best": 0.1582,
+      "v3_best_cfg": "(0.05, 5)",
+      "v2_best": 0.1888,
+      "v2_best_cfg": "(1.0, 0.3)",
+      "best_density_aware": 0.1888,
+      "delta_vs_sparse": -0.0833
+    }
+  ],
+  "elapsed_s": 9.224538564682007
+}

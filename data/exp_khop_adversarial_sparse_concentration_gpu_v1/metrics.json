@@ -1,0 +1,16 @@
+{
+  "anchor_name": "khop_adversarial_sparse_concentration_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: adversarial concentration DESTROYS the sparse-KEY benefit -- per-shard codebook randomization required before v3. K_max sparse_clean=60 sparse_adversarial=60 dense=60 | benefit_retained=0.00",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sparse_clean": 60,
+      "sparse_adversarial": 60,
+      "dense": 60
+    }
+  ],
+  "elapsed_s": 0.38335132598876953,
+  "summary": "HARD_FAIL: adversarial concentration DESTROYS the sparse-KEY benefit -- per-shard codebook randomization required before v3. K_max sparse_clean=60 sparse_adversarial=60 dense=60 | benefit_retained=0.00"
+}

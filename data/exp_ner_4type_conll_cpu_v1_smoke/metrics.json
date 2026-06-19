@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_4type_conll_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 4-type F1 <0.62 -- coarsening does not rescue; GENUINE FEATURE GAP. Build Path 2 substrate Brown-cluster features. 4-type CoNLL-equivalent F1=0.5109 vs 18-type 0.5817 (gap=-0.0708, P=0.526 R=0.496, 9 tags, train=300)",
+  "summary": "HARD_FAIL: 4-type F1 <0.62 -- coarsening does not rescue; GENUINE FEATURE GAP. Build Path 2 substrate Brown-cluster features. 4-type CoNLL-equivalent F1=0.5109 vs 18-type 0.5817 (gap=-0.0708, P=0.526 R=0.496, 9 tags, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5109,
+      "f1_4type": 0.5109,
+      "f1_18type": 0.5817,
+      "gap_vs_18type": -0.0708,
+      "prec": 0.526,
+      "rec": 0.496,
+      "n_train": 300,
+      "n_tags": 9
+    }
+  ],
+  "elapsed_s": 0.6855144500732422
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "streaming_bloom_dedup_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Bloom dedup FPR<1pct with zero false negatives -- O(1)-memory duplicate-ingest prevention works. FPR=0.0008 FN=0 (M=20000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "fpr": 0.00085,
+      "fn": 0,
+      "m": 20000
+    }
+  ],
+  "elapsed_s": 0.021244525909423828,
+  "summary": "HARD_PASS: Bloom dedup FPR<1pct with zero false negatives -- O(1)-memory duplicate-ingest prevention works. FPR=0.0008 FN=0 (M=20000)"
+}

@@ -1,0 +1,40 @@
+# Single-substrate at large-N envelope test.
+#
+# Empirically determines how far the single SubstrateMemory scales on
+# commodity server CPU before sharding is necessary. The previous testbed
+# characterization is anchored at N=2048; this config exercises N=2048, 4096,
+# 8192 by default. Pass extended_N: true to add N=16384 (needs ~8 GB RAM and
+# adds about two hours of wall time).
+#
+# Memory budget per cell (codebook_scale=4, BSC, float32):
+#   N=2048,  C=8192:   W=16 MB,    codebook=64 MB,   working ~200 MB
+#   N=4096,  C=16384:  W=64 MB,    codebook=256 MB,  working ~400 MB
+#   N=8192,  C=32768:  W=256 MB,   codebook=1.0 GB,  working ~1.5 GB
+#   N=16384, C=65536:  W=1.0 GB,   codebook=4.0 GB,  working ~5.5 GB
+# Cells are freed between iterations (gc.collect + torch empty_cache).
+
+config_name: large_N_envelope
+N: 2048
+dim: 2048
+codebook_kind: bsc          # BSC works at any N. Kerdock requires log2(N) even.
+codebook_scale: 4           # C = 4*N convention
+beta: 32.0
+hallu_threshold: 0.5
+
+# Envelope sweep grid.
+N_sweep: [2048, 4096, 8192]
+M_per_N_ratios: [0.25, 0.5, 1.0, 2.0]
+extended_N: false           # set true to add N=16384 (8 GB RAM required)
+
+# Audit / latency sample counts per cell.
+envelope_n_recall_samples: 200
+envelope_n_oos_samples: 200
+envelope_n_edit_trials: 16
+envelope_n_delete_trials: 16
+envelope_n_latency_queries: 200
+envelope_measure_disk: true
+
+seeds: [7]
+backends: [substrate]
+scenarios: [large_N_envelope]
+out_root: testbed_data/benchmarks

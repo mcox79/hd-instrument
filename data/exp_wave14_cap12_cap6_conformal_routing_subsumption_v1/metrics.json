@@ -1,0 +1,585 @@
+{
+  "verdict": "CONFORMAL_ROUTING_SUBSUMPTION_KILLED",
+  "verdict_msg": "Only 2/3 codebooks have all-correct committed routings; need >=4/5. per_cb={'hadamard': {'n_commit': 5, 'n_correct': 5, 'all_correct': True}, 'iid_gauss': {'n_commit': 0, 'n_correct': 0, 'all_correct': None}, 'kerdock': {'n_commit': 3, 'n_correct': 1, 'all_correct': False}, 'rm_1_m': {'n_commit': 0, 'n_correct': 0, 'all_correct': None}, 'srht': {'n_commit': 5, 'n_correct': 5, 'all_correct': True}}.",
+  "elapsed_s": 91.40599999998813,
+  "summary": {
+    "observations": [
+      {
+        "codebook": "iid_gauss",
+        "seed": 17,
+        "ks": 0.07414965966024478,
+        "amp_emp": 0.07938070175276737,
+        "amp_rel_err": 0.1655109922418802,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 1017,
+        "ks": 0.07414965966024478,
+        "amp_emp": 0.1020105952653236,
+        "amp_rel_err": 0.06749958934636544,
+        "empirical_label": "AMP_OK"
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 2017,
+        "ks": 0.07317309716024478,
+        "amp_emp": 0.10056951728474382,
+        "amp_rel_err": 0.054137629928087405,
+        "empirical_label": "AMP_OK"
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 3017,
+        "ks": 0.07219653466024478,
+        "amp_emp": 0.12021331487281832,
+        "amp_rel_err": 0.20869895255300988,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 4017,
+        "ks": 0.07414965966024478,
+        "amp_emp": 0.1284921522081195,
+        "amp_rel_err": 0.25968302078198846,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "srht",
+        "seed": 17,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.012507235830841045,
+        "amp_rel_err": 0.8685177809238568,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "srht",
+        "seed": 1017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.013428153448302848,
+        "amp_rel_err": 0.8588366416563284,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "srht",
+        "seed": 2017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.011975920986735285,
+        "amp_rel_err": 0.8741032240766005,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "srht",
+        "seed": 3017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.013287397053622264,
+        "amp_rel_err": 0.8603163421570678,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "srht",
+        "seed": 4017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.012482033527883206,
+        "amp_rel_err": 0.8687827199370441,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 17,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.012449294828828748,
+        "amp_rel_err": 0.8691268852553898,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 1017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.013267345494236861,
+        "amp_rel_err": 0.8605271340186419,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 2017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.012079083762008516,
+        "amp_rel_err": 0.873018726206533,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 3017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.013231682571571406,
+        "amp_rel_err": 0.8609020402148801,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 4017,
+        "ks": 0.5889717826135475,
+        "amp_emp": 0.012381642748376503,
+        "amp_rel_err": 0.8698380772232464,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 17,
+        "ks": 0.33701865761354755,
+        "amp_emp": 0.226703148117985,
+        "amp_rel_err": 0.5803987603805603,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 1017,
+        "ks": 0.33799522011354755,
+        "amp_emp": 0.22351711503726418,
+        "amp_rel_err": 0.5744177265348249,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 2017,
+        "ks": 0.34287803261354755,
+        "amp_emp": 0.2847894582346583,
+        "amp_rel_err": 0.6659815901698307,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 3017,
+        "ks": 0.33897178261354755,
+        "amp_emp": 0.2651687231329442,
+        "amp_rel_err": 0.6412664327374521,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 4017,
+        "ks": 0.32627647011354755,
+        "amp_emp": 0.29867745673149326,
+        "amp_rel_err": 0.6815128834398375,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 17,
+        "ks": 0.06451466296633712,
+        "amp_emp": 0.09089374724323385,
+        "amp_rel_err": 0.044480191361129295,
+        "empirical_label": "AMP_OK"
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 1017,
+        "ks": 0.06482024336348635,
+        "amp_emp": 0.08459835928172071,
+        "amp_rel_err": 0.11066040818281242,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 2017,
+        "ks": 0.06451466296633712,
+        "amp_emp": 0.08310178001095349,
+        "amp_rel_err": 0.12639318608875194,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 3017,
+        "ks": 0.06553944228092634,
+        "amp_emp": 0.0896130562378876,
+        "amp_rel_err": 0.057943445561434784,
+        "empirical_label": "AMP_OK"
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 4017,
+        "ks": 0.06384368086348635,
+        "amp_emp": 0.08174524265723244,
+        "amp_rel_err": 0.14065377443450858,
+        "empirical_label": "VAMP_REQUIRED"
+      }
+    ],
+    "fold_results": [
+      {
+        "codebook": "iid_gauss",
+        "seed": 17,
+        "ks": 0.07414965966024478,
+        "amp_rel_err": 0.1655109922418802,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.4,
+        "p_vamp": 0.2857142857142857,
+        "decision": "ABSTAIN",
+        "correct_if_committed": false
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 1017,
+        "ks": 0.07414965966024478,
+        "amp_rel_err": 0.06749958934636544,
+        "empirical_label": "AMP_OK",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.25,
+        "p_vamp": 0.3181818181818182,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 2017,
+        "ks": 0.07317309716024478,
+        "amp_rel_err": 0.054137629928087405,
+        "empirical_label": "AMP_OK",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.5,
+        "p_vamp": 0.22727272727272727,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 3017,
+        "ks": 0.07219653466024478,
+        "amp_rel_err": 0.20869895255300988,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.6,
+        "p_vamp": 0.19047619047619047,
+        "decision": "ABSTAIN",
+        "correct_if_committed": false
+      },
+      {
+        "codebook": "iid_gauss",
+        "seed": 4017,
+        "ks": 0.07414965966024478,
+        "amp_rel_err": 0.25968302078198846,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.4,
+        "p_vamp": 0.2857142857142857,
+        "decision": "ABSTAIN",
+        "correct_if_committed": false
+      },
+      {
+        "codebook": "srht",
+        "seed": 17,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8685177809238568,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "srht",
+        "seed": 1017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8588366416563284,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "srht",
+        "seed": 2017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8741032240766005,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "srht",
+        "seed": 3017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8603163421570678,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "srht",
+        "seed": 4017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8687827199370441,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 17,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8691268852553898,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 1017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8605271340186419,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 2017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.873018726206533,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 3017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8609020402148801,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "hadamard",
+        "seed": 4017,
+        "ks": 0.5889717826135475,
+        "amp_rel_err": 0.8698380772232464,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 1.0,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 17,
+        "ks": 0.33701865761354755,
+        "amp_rel_err": 0.5803987603805603,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 0.38095238095238093,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 1017,
+        "ks": 0.33799522011354755,
+        "amp_rel_err": 0.5744177265348249,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 0.42857142857142855,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 2017,
+        "ks": 0.34287803261354755,
+        "amp_rel_err": 0.6659815901698307,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 0.5238095238095238,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 3017,
+        "ks": 0.33897178261354755,
+        "amp_rel_err": 0.6412664327374521,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 0.47619047619047616,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "rm_1_m",
+        "seed": 4017,
+        "ks": 0.32627647011354755,
+        "amp_rel_err": 0.6815128834398375,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.2,
+        "p_vamp": 0.3333333333333333,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 17,
+        "ks": 0.06451466296633712,
+        "amp_rel_err": 0.044480191361129295,
+        "empirical_label": "AMP_OK",
+        "routed_label": "AMP_OK",
+        "p_amp": 1.0,
+        "p_vamp": 0.13636363636363635,
+        "decision": "COMMIT",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 1017,
+        "ks": 0.06482024336348635,
+        "amp_rel_err": 0.11066040818281242,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.8,
+        "p_vamp": 0.14285714285714285,
+        "decision": "ABSTAIN",
+        "correct_if_committed": false
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 2017,
+        "ks": 0.06451466296633712,
+        "amp_rel_err": 0.12639318608875194,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 1.0,
+        "p_vamp": 0.09523809523809523,
+        "decision": "COMMIT",
+        "correct_if_committed": false
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 3017,
+        "ks": 0.06553944228092634,
+        "amp_rel_err": 0.057943445561434784,
+        "empirical_label": "AMP_OK",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.75,
+        "p_vamp": 0.18181818181818182,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      },
+      {
+        "codebook": "kerdock",
+        "seed": 4017,
+        "ks": 0.06384368086348635,
+        "amp_rel_err": 0.14065377443450858,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 1.0,
+        "p_vamp": 0.047619047619047616,
+        "decision": "COMMIT",
+        "correct_if_committed": false
+      }
+    ],
+    "config": {
+      "mode": "full",
+      "N": 1024,
+      "M_over_N": 1.0,
+      "n_seeds": 5,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 300,
+      "tau_declared": 0.2,
+      "p_commit": 0.9,
+      "p_other_max": 0.5,
+      "codebooks": [
+        "iid_gauss",
+        "srht",
+        "hadamard",
+        "rm_1_m",
+        "kerdock"
+      ]
+    },
+    "n_commit": 13,
+    "n_abstain": 12,
+    "n_correct_at_commit": 11,
+    "abstain_rate": 0.48,
+    "commit_accuracy": 0.8461538461538461,
+    "per_codebook": {
+      "hadamard": {
+        "n_commit": 5,
+        "n_correct": 5,
+        "all_correct": true
+      },
+      "iid_gauss": {
+        "n_commit": 0,
+        "n_correct": 0,
+        "all_correct": null
+      },
+      "kerdock": {
+        "n_commit": 3,
+        "n_correct": 1,
+        "all_correct": false
+      },
+      "rm_1_m": {
+        "n_commit": 0,
+        "n_correct": 0,
+        "all_correct": null
+      },
+      "srht": {
+        "n_commit": 5,
+        "n_correct": 5,
+        "all_correct": true
+      }
+    },
+    "per_codebook_commit_accuracy": [
+      2,
+      3
+    ]
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "M_over_N": 1.0,
+    "n_seeds": 5,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 300,
+    "tau_declared": 0.2,
+    "p_commit": 0.9,
+    "p_other_max": 0.5,
+    "codebooks": [
+      "iid_gauss",
+      "srht",
+      "hadamard",
+      "rm_1_m",
+      "kerdock"
+    ]
+  }
+}

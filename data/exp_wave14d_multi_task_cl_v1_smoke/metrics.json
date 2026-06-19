@@ -1,0 +1,32 @@
+{
+  "verdict": "BET_B_PARTIAL",
+  "verdict_msg": "Partial: retention_A=0.809 held, retention_B=0.909 in [0.5, 0.8), gain_C=4.6251>0, bwt=-0.0554. Product-relevant under partial-retention assumptions.",
+  "elapsed_s": 1.110000000000582,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 0.8094970544001431,
+        "retention_B": 0.9085890495886298,
+        "gain_C": 4.625063400268555,
+        "bwt": -0.05541783523559651,
+        "bpc_A_baseline": 3.695055154800415,
+        "bpc_A_after_C": 4.5646307601928715,
+        "bpc_B_baseline": 5.5032557735443115,
+        "bpc_B_after_C": 6.056925048828125,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 3.3749365997314453
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_frac": 0.1
+  }
+}

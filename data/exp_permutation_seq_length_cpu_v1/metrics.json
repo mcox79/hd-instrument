@@ -1,0 +1,17 @@
+{
+  "anchor_name": "permutation_seq_length_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ordered-sequence recovery >=0.90 at L=15 -- long timelines representable at N=2048. recovery by L: {'L5': 1.0, 'L10': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "L5": 1.0,
+        "L10": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 0.07590413093566895,
+  "summary": "HARD_PASS: ordered-sequence recovery >=0.90 at L=15 -- long timelines representable at N=2048. recovery by L: {'L5': 1.0, 'L10': 1.0}"
+}

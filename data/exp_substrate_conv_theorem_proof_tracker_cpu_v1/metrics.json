@@ -1,0 +1,73 @@
+{
+  "anchor_name": "substrate_conv_theorem_proof_tracker_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (GREEN -- convolution theorem grounds to first principles; COMPLETE ASSEMBLY -- all essential lemmas (DFT-linearity + pointwise-product + inverse-DFT) are reachable in the proof DAG): the apex goal backward-chains to a T1 axiom with a CHTV-sound witness. Substrate's first cross-domain L6-PROOF (VSA binding <-> signal processing); upgrades conv<->DFT from THEOREM_LINKED-edge-present to THEOREM-GROUNDED-AND-VERIFIED. Honest scope: backward_chain returns the SHORTEST grounding path, which proves derivability-to-foundations (Curry-Howard inhabitation), distinct from verifying the chain traverses every essential lemma -- see assembly tag. Convolution-theorem L6-PROOF tracker (strict: must terminate at a T1 axiom). apex(convolution_theorem_synthesis)=GREEN. Per-goal: [('T3/convolution_theorem_synthesis', 'GREEN', 'T1/convolution_general'), ('T3/dft_convolution_to_pointwise_lemma', 'GREEN', 'T1/convolution_general')]. Graph has 389 T1 axioms, 4340 structural edges. This tracks Testbed's live convolution-theorem chain authoring; GREEN = substrate proves conv = IDFT(DFT.x .* DFT.y) from first principles (its first cross-domain L6-PROOF).",
+  "summary": "HARD_PASS (GREEN -- convolution theorem grounds to first principles; COMPLETE ASSEMBLY -- all essential lemmas (DFT-linearity + pointwise-product + inverse-DFT) are reachable in the proof DAG): the apex goal backward-chains to a T1 axiom with a CHTV-sound witness. Substrate's first cross-domain L6-PROOF (VSA binding <-> signal processing); upgrades conv<->DFT from THEOREM_LINKED-edge-present to THEOREM-GROUNDED-AND-VERIFIED. Honest scope: backward_chain returns the SHORTEST grounding path, which proves derivability-to-foundations (Curry-Howard inhabitation), distinct from verifying the chain traverses every essential lemma -- see assembly tag. Convolution-theorem L6-PROOF tracker (strict: must terminate at a T1 axiom). apex(convolution_theorem_synthesis)=GREEN. Per-goal: [('T3/convolution_theorem_synthesis', 'GREEN', 'T1/convolution_general'), ('T3/dft_convolution_to_pointwise_lemma', 'GREEN', 'T1/convolution_general')]. Graph has 389 T1 axioms, 4340 structural edges. This tracks Testbed's live convolution-theorem chain authoring; GREEN = substrate proves conv = IDFT(DFT.x .* DFT.y) from first principles (its first cross-domain L6-PROOF).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "goal": "T3/convolution_theorem_synthesis",
+          "state": "GREEN",
+          "depth": 2,
+          "sound": true,
+          "terminal_T1": "T1/convolution_general",
+          "witness": [
+            [
+              "T3/convolution_theorem_synthesis",
+              "SHARES_MATH",
+              "T2/circular_convolution"
+            ],
+            [
+              "T2/circular_convolution",
+              "DEPENDS_ON",
+              "T1/convolution_general"
+            ]
+          ],
+          "components_reached": [
+            "dft_linearity_lemma",
+            "dft_convolution_to_pointwise_lemma",
+            "idft_inverse_property_lemma",
+            "pointwise_product"
+          ],
+          "components_missing": [],
+          "complete_assembly": true
+        },
+        {
+          "goal": "T3/dft_convolution_to_pointwise_lemma",
+          "state": "GREEN",
+          "depth": 2,
+          "sound": true,
+          "terminal_T1": "T1/convolution_general",
+          "witness": [
+            [
+              "T3/dft_convolution_to_pointwise_lemma",
+              "DEPENDS_ON",
+              "T2/circular_convolution"
+            ],
+            [
+              "T2/circular_convolution",
+              "DEPENDS_ON",
+              "T1/convolution_general"
+            ]
+          ],
+          "components_reached": [
+            "dft_linearity_lemma",
+            "idft_inverse_property_lemma",
+            "pointwise_product"
+          ],
+          "components_missing": [
+            "dft_convolution_to_pointwise_lemma"
+          ],
+          "complete_assembly": false
+        }
+      ],
+      "apex_state": "GREEN",
+      "n_t1": 389,
+      "n_edges": 4340
+    }
+  ],
+  "elapsed_s": 0.9313750267028809
+}

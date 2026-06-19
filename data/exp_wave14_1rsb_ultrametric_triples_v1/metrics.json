@@ -1,0 +1,31 @@
+{
+  "verdict": "ULTRAMETRIC_1RSB_CONFIRMED",
+  "verdict_msg": "Ultrametric fraction=1.000 >= 0.5. mean_isosceles_gap=0.0001. Retained-task W triples satisfy isosceles condition >> random baseline. 1-RSB ultrametric inequality SUPPORTED.",
+  "elapsed_s": 2.452999999979511,
+  "summary": {
+    "ultrametric_fraction": 1.0,
+    "mean_isosceles_gap": 8.817904586067016e-05,
+    "n_triples_tested": 100,
+    "n_seeds": 3,
+    "mean_overlap_q": -3.5260170534456847e-06,
+    "std_overlap_q": 8.336497558047995e-05,
+    "eps_used": 0.1
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 16,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 3000,
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "n_triples": 100,
+    "eps_ultrametric": 0.1,
+    "pass_frac": 0.5,
+    "fail_frac": 0.36
+  }
+}

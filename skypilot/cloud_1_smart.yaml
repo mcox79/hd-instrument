@@ -1,0 +1,116 @@
+# CLOUD-1 smart-launch YAML: minimal resources block; smart_launch_cloud_1.sh
+# polls Lambda API + injects --region + --instance-type via sky launch CLI to
+# pin the spec at acquisition time. No any_of needed here -- the smart launcher
+# handles capacity targeting externally.
+#
+# All other defenses (Bug 5-16) identical to cloud_1_quality_binding.yaml.
+#
+# Launch via:
+#   bash /mnt/d/AI/hd-instrument/skypilot/smart_launch_cloud_1.sh
+
+name: cloud1quality
+
+resources:
+  cloud: lambda
+  accelerators: H100:1
+  use_spot: false
+  # smart_launch_cloud_1.sh pins --region + --instance-type at CLI
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/8] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty -- did you pass --env HF_TOKEN=...?"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/8] apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+
+  echo "=== [setup 3/8] pip core + defensive torch pin ==="
+  pip install --quiet --upgrade pip
+  pip install --quiet --upgrade --force-reinstall \
+    "torch==2.4.1" "torchvision==0.19.1" \
+    --index-url https://download.pytorch.org/whl/cu121 || \
+    pip install --quiet "torch==2.4.1" "torchvision==0.19.1"
+  python -c "import torch; print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()}')"
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45" "sentence-transformers>=2.7"
+
+  echo "=== [setup 4/8] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/8] verify Llama-3.2-1B + 3.1-8B + 3.1-70B access (gated repos) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  api = HfApi()
+  for repo in ['meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.1-8B', 'meta-llama/Llama-3.1-70B']:
+      info = api.model_info(repo, token=os.environ['HF_TOKEN'])
+      print(f'OK: {repo} accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/8] pre-pull Llama-3.2-1B + 3.1-8B + MiniLM snapshots ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  for repo in ['meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.1-8B', 'sentence-transformers/all-MiniLM-L6-v2']:
+      snapshot_download(
+          repo_id=repo,
+          token=os.environ['HF_TOKEN'],
+          cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+          allow_patterns=['*.safetensors', '*.bin', '*.json', 'tokenizer*', '*.model', '*.txt'],
+      )
+      print(f'OK: {repo} snapshot ready')
+  "
+
+  echo "=== [setup 7/8] pre-pull Llama-3.1-70B snapshot (big: ~140GB at fp16) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-70B',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-70B snapshot ready')
+  "
+
+  echo "=== [setup 8/8] CLOUD-1b script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_extraction_quality_1B_8B_70B_v2
+  cd ~/sky_workdir
+
+  echo "=== CLOUD-1b 1B/8B/70B/MiniLM substrate-extraction-quality binding test v2 (x86) START ==="
+  python -u experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_1B_8B_70B_v2/ 2>&1 | head -25

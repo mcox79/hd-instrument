@@ -1,0 +1,50 @@
+{
+  "anchor_name": "substrate_real_encoder_capabilities_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate capabilities hold on REAL encoder embeddings (both MiniLM + Pythia, all dims >=0.90). minilm_single_hop=1.00 minilm_multi_hop=1.00 minilm_counterfactual=1.00 pythia_single_hop=1.00 pythia_multi_hop=1.00 pythia_counterfactual=1.00",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "minilm": {
+        "single_hop": 1.0,
+        "multi_hop": 1.0,
+        "counterfactual": 1.0
+      },
+      "pythia": {
+        "single_hop": 1.0,
+        "multi_hop": 1.0,
+        "counterfactual": 1.0
+      }
+    },
+    {
+      "seed": 17,
+      "minilm": {
+        "single_hop": 1.0,
+        "multi_hop": 1.0,
+        "counterfactual": 1.0
+      },
+      "pythia": {
+        "single_hop": 1.0,
+        "multi_hop": 1.0,
+        "counterfactual": 1.0
+      }
+    },
+    {
+      "seed": 23,
+      "minilm": {
+        "single_hop": 1.0,
+        "multi_hop": 1.0,
+        "counterfactual": 1.0
+      },
+      "pythia": {
+        "single_hop": 1.0,
+        "multi_hop": 1.0,
+        "counterfactual": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 12.708396196365356,
+  "summary": "HARD_PASS: substrate capabilities hold on REAL encoder embeddings (both MiniLM + Pythia, all dims >=0.90). minilm_single_hop=1.00 minilm_multi_hop=1.00 minilm_counterfactual=1.00 pythia_single_hop=1.00 pythia_multi_hop=1.00 pythia_counterfactual=1.00"
+}

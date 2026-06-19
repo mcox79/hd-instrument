@@ -1,0 +1,21 @@
+{
+  "anchor": "aging_exponent_mu_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 200,
+  "n_seeds": 2,
+  "mu_in_range_n": 2,
+  "mean_mu": 0.2564387347428349,
+  "std_mu": 0.03753849074223492,
+  "mean_ci_width": 0.1921244454362246,
+  "sigma_from_0": 6.831354404218968,
+  "sigma_from_1": 19.80796906253293,
+  "verdict": "MIDDLE_BAND",
+  "elapsed_s": 4.214250326156616,
+  "thresholds": {
+    "HP_ci_width": 0.1,
+    "HP_sigma_from_bounds": 2.0,
+    "HF_min_seeds_fail": 3
+  },
+  "verdict_msg": "Aging exponent mu N=4096 M=200: mean_mu=0.2564 (HP range (0,1)), std=0.0375, mean_CI_width=0.1921 (HP<0.1), 2/2 seeds in range. sigma_from_0=6.83 sigma_from_1=19.81. Verdict=MIDDLE_BAND."
+}

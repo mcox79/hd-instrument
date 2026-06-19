@@ -1,0 +1,25 @@
+{
+  "anchor_name": "depparse_hashed_multiseed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: dep-parser mean-UAS <0.75. mean-UAS=0.7088 std=0.0021 SE=0.0012 mean-2SE=0.7064 (n=3, vals=[0.706, 0.7096, 0.7109], train=300)",
+  "summary": "HARD_FAIL: dep-parser mean-UAS <0.75. mean-UAS=0.7088 std=0.0021 SE=0.0012 mean-2SE=0.7064 (n=3, vals=[0.706, 0.7096, 0.7109], train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "uas": 0.7088,
+      "accuracy": 0.7088,
+      "std": 0.0021,
+      "se": 0.0012,
+      "mean_minus_2se": 0.7064,
+      "vals": [
+        0.706,
+        0.7096,
+        0.7109
+      ],
+      "n_seeds": 3,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 7.666238307952881
+}

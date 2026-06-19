@@ -1,0 +1,15 @@
+{
+  "anchor_name": "pp48_pp9_nkt_deletion_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: NKT deletion cert composition confirmed at N=4096. n_seeds=2 cert_value=-1.0000(HP~=-1.0 tol=0.0001) pos_cos_after=1.0000(HP>=0.8 HF<0.5) sib_delta=0.0013(HP<0.05) hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 4096,
+  "n_active": 1024,
+  "K_POS": 10,
+  "K_NEG": 4,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.20622634887695312,
+  "mean_cert_value": -1.0,
+  "mean_pos_cos_after": 1.0,
+  "mean_sib_delta": 0.0013399124145507812
+}

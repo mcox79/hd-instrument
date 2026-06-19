@@ -1,0 +1,20 @@
+{
+  "anchor_name": "q_b1_heteroassoc_chain_cert_v1_n8192",
+  "run_mode": "smoke",
+  "N": 8192,
+  "n_chains": 5,
+  "m_background": 10,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregate": {
+    "mean_depth1_fidelity": 0.9986621438454938,
+    "mean_depth3_fidelity": 0.9975946569474848,
+    "mean_deletion_sim": 0.0035230590459566823,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Q-B1 N=8192 depth-3 heteroassoc chain + cert confirmed. depth1=0.999 depth3=0.998 deletion_sim=0.004. Production envelope for reasoning-chain + deletion-cert primitive.",
+  "elapsed_s": 58.38242435455322
+}

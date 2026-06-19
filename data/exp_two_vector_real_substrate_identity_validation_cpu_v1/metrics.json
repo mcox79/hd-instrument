@@ -1,0 +1,61 @@
+{
+  "anchor_name": "two_vector_real_substrate_identity_validation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the two-vector identity channel VALIDATES on the REAL substrate -- clean-cue identity is near-perfect (>=0.95) and the degraded break-point cos (<=0.55) matches the synthetic trilogy's generous ~0.45 margin. The atom-keyed identity design works on actual atoms; real name/algebra collisions do not break it. n=242 real atoms; clean-cue id_prec@1=0.9959; self-cos mean=0.453 min=0.400; margin=0.237; real break cos=0.319 (synthetic ~0.45); curve=[(0.0, 1.0, 0.9959), (0.5, 0.8944, 0.9959), (1.0, 0.7067, 0.9959), (1.5, 0.5554, 0.9959), (2.0, 0.4426, 0.9793), (2.5, 0.373, 0.9876), (3.0, 0.3191, 0.938), (4.0, 0.2432, 0.6777)]",
+  "summary": "HARD_PASS: the two-vector identity channel VALIDATES on the REAL substrate -- clean-cue identity is near-perfect (>=0.95) and the degraded break-point cos (<=0.55) matches the synthetic trilogy's generous ~0.45 margin. The atom-keyed identity design works on actual atoms; real name/algebra collisions do not break it. n=242 real atoms; clean-cue id_prec@1=0.9959; self-cos mean=0.453 min=0.400; margin=0.237; real break cos=0.319 (synthetic ~0.45); curve=[(0.0, 1.0, 0.9959), (0.5, 0.8944, 0.9959), (1.0, 0.7067, 0.9959), (1.5, 0.5554, 0.9959), (2.0, 0.4426, 0.9793), (2.5, 0.373, 0.9876), (3.0, 0.3191, 0.938), (4.0, 0.2432, 0.6777)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 242,
+      "clean_id_prec": 0.9959,
+      "self_cos_mean": 0.4525,
+      "self_cos_min": 0.4001,
+      "margin": 0.2366,
+      "break_cos": 0.3191,
+      "rows": [
+        {
+          "q": 0.0,
+          "cos_cue": 1.0,
+          "id_prec": 0.9959
+        },
+        {
+          "q": 0.5,
+          "cos_cue": 0.8944,
+          "id_prec": 0.9959
+        },
+        {
+          "q": 1.0,
+          "cos_cue": 0.7067,
+          "id_prec": 0.9959
+        },
+        {
+          "q": 1.5,
+          "cos_cue": 0.5554,
+          "id_prec": 0.9959
+        },
+        {
+          "q": 2.0,
+          "cos_cue": 0.4426,
+          "id_prec": 0.9793
+        },
+        {
+          "q": 2.5,
+          "cos_cue": 0.373,
+          "id_prec": 0.9876
+        },
+        {
+          "q": 3.0,
+          "cos_cue": 0.3191,
+          "id_prec": 0.938
+        },
+        {
+          "q": 4.0,
+          "cos_cue": 0.2432,
+          "id_prec": 0.6777
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.5247578620910645
+}

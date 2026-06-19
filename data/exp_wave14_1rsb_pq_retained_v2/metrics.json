@@ -1,0 +1,25 @@
+{
+  "verdict": "PQ_RETAINED_MIDDLE",
+  "verdict_msg": "MIDDLE at N=512: binder=0.5338 n_peaks=1 mean_q=-9.37e-04 std_q=1.36e-02 q_ea_floor=4.42e-02 mean_q_sig=0.02",
+  "elapsed_s": 2.186326265335083,
+  "config": {
+    "N": 512,
+    "n_seeds": 3,
+    "smoke": true,
+    "kde_bw": 0.02,
+    "peak_sep_sigma": 2.0
+  },
+  "summary": {
+    "n_overlaps": 3,
+    "mean_q": -0.0009373176246347982,
+    "std_q": 0.013593967831423907,
+    "q_ea_random_floor": 0.044194173824159216,
+    "mean_q_sig": 0.02120907675215785,
+    "binder": 0.5337645351893379,
+    "n_peaks": 1,
+    "peak_positions": [
+      -0.0017168054717168063
+    ],
+    "ultrametric_frac": null
+  }
+}

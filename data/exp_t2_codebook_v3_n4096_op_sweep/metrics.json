@@ -1,0 +1,36 @@
+{
+  "anchor": "t2_codebook_v3_n4096_op_sweep",
+  "N": 1024,
+  "smoke": true,
+  "op_points": [
+    [
+      2.0,
+      32.0
+    ]
+  ],
+  "c_fracs": [
+    0.1,
+    0.5,
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "M_frac": 2.0,
+      "beta": 32.0,
+      "seed": 17,
+      "ret_by_c": [
+        0.705,
+        0.65,
+        0.815
+      ],
+      "slope": 0.1307,
+      "total_var": 0.165
+    }
+  ],
+  "verdict": "T2V3_HARD_FAIL",
+  "verdict_msg": "OP-SPECIFIC: codebook-axis only works at v1 op-point. op_results={'(2.0, 32.0)': {'n_pass': 1, 'n_total': 1, 'mean_slope': 0.1307}} n_pass_ops=0/1 N=1024",
+  "elapsed_s": 0.08
+}

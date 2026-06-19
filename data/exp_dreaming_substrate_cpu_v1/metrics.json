@@ -1,0 +1,17 @@
+{
+  "anchor_name": "dreaming_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: offline replay autonomously discovers latent structure -- final compression>=0.70, schema purity>=0.70, and compression-PROGRESS>=0.20 over replay (the Schmidhuber discovery signal is real). Substrate dreams/consolidates, substrate-only. compression=0.712 progress=0.618 purity=0.875 schemas=7.0",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "compression_final": 0.712,
+      "compression_progress": 0.618,
+      "purity": 0.875,
+      "eff_schemas": 7.0
+    }
+  ],
+  "elapsed_s": 15.910650968551636,
+  "summary": "HARD_PASS: offline replay autonomously discovers latent structure -- final compression>=0.70, schema purity>=0.70, and compression-PROGRESS>=0.20 over replay (the Schmidhuber discovery signal is real). Substrate dreams/consolidates, substrate-only. compression=0.712 progress=0.618 purity=0.875 schemas=7.0"
+}

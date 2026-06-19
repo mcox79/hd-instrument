@@ -1,0 +1,20 @@
+{
+  "anchor_name": "subs_naive_scan_cpu_cost_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: naive scan saturates a core (>=90%%) at S=1000 -- scaling-drill model confirmed; document S_limit conservatively. at S=1000,N=65536,100writes/sec: core_util=1.53 (153%) achieved=8.6 GFLOP/s | curve: {'S1000': 1.53}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "S1000": {
+          "sec_per_write": 0.01526879333347703,
+          "core_util_at_100hz": 1.526879333347703,
+          "gflops": 8.584306378201015
+        }
+      }
+    }
+  ],
+  "elapsed_s": 2.5439672470092773,
+  "summary": "HARD_PASS: naive scan saturates a core (>=90%%) at S=1000 -- scaling-drill model confirmed; document S_limit conservatively. at S=1000,N=65536,100writes/sec: core_util=1.53 (153%) achieved=8.6 GFLOP/s | curve: {'S1000': 1.53}"
+}

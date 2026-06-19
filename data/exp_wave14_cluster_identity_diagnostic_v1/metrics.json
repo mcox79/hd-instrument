@@ -1,0 +1,54 @@
+{
+  "verdict": "CLUSTER_DIFFUSE",
+  "verdict_msg": "Many distinct attractors: 10/10. No single absorbing codeword.",
+  "elapsed_s": 7.671999999991385,
+  "summary": {
+    "n_distinct_attractors": 10,
+    "n_configs": 10,
+    "top_attractor_share": 0.1,
+    "absorbing_per_seed": {
+      "11": 159,
+      "13": 135,
+      "17": 49,
+      "19": 101,
+      "23": 22,
+      "29": 198,
+      "31": 93,
+      "37": 69,
+      "41": 19,
+      "43": 61
+    },
+    "attractor_counts": {
+      "159": 1,
+      "135": 1,
+      "49": 1,
+      "101": 1,
+      "22": 1,
+      "198": 1,
+      "93": 1,
+      "69": 1,
+      "19": 1,
+      "61": 1
+    }
+  },
+  "config": {
+    "N": 65536,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "chain_seeds": [
+      11,
+      13,
+      17,
+      19,
+      23,
+      29,
+      31,
+      37,
+      41,
+      43
+    ],
+    "n_trials_per_config": 100
+  }
+}

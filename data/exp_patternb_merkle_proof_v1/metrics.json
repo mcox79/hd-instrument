@@ -1,0 +1,15 @@
+{
+  "anchor_name": "patternb_merkle_proof_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: compositional Merkle proof verifies 100% at <=300 bytes/bundle with selective role disclosure -- Pattern B proves STRUCTURE, not just bundle hash. verify-rate=1.000 proof-size=188B",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "vrate": 1.0,
+      "size": 187.9
+    }
+  ],
+  "elapsed_s": 0.011324405670166016,
+  "summary": "HARD_PASS: compositional Merkle proof verifies 100% at <=300 bytes/bundle with selective role disclosure -- Pattern B proves STRUCTURE, not just bundle hash. verify-rate=1.000 proof-size=188B"
+}

@@ -1,0 +1,27 @@
+{
+  "anchor_name": "additive_only_cert_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: additive mostly stable; in-place gap partial. additive@200=1.000 inplace@200edits=1.000 curves: add={50: 1.0, 100: 1.0, 200: 1.0, 250: 1.0} inplace={20: 1.0, 50: 1.0, 100: 1.0, 200: 1.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "additive_curve": {
+        "50": 1.0,
+        "100": 1.0,
+        "200": 1.0,
+        "250": 1.0
+      },
+      "inplace_curve": {
+        "20": 1.0,
+        "50": 1.0,
+        "100": 1.0,
+        "200": 1.0
+      },
+      "additive_at_200": 1.0,
+      "inplace_at_200edits": 1.0
+    }
+  ],
+  "elapsed_s": 87.8535361289978,
+  "summary": "MIDDLE_BAND: additive mostly stable; in-place gap partial. additive@200=1.000 inplace@200edits=1.000 curves: add={50: 1.0, 100: 1.0, 200: 1.0, 250: 1.0} inplace={20: 1.0, 50: 1.0, 100: 1.0, 200: 1.0}"
+}

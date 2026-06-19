@@ -1,0 +1,107 @@
+{
+  "verdict": "STRUCT_KEYS_ARGMAX_ONLY",
+  "verdict_msg": "Hadamard arm shows Mirage-style failure (argmax_leak=0.000 passes but rank=40.0 or norm=0.500 fail). Orthogonal keys do not remove the Mirage bridges in this regime. Routes to: paraphrase-aware ROME (R1 Candidate 3') as next family.",
+  "elapsed_s": 0.26500000001396984,
+  "summary": {
+    "by_arm": {
+      "hadamard": {
+        "per_alpha": [
+          {
+            "alpha": 1.5,
+            "argmax_leak": 0.0,
+            "mean_rank": 40.0,
+            "norm_ratio": 0.4999999701976776,
+            "cosine": -0.9999999403953552,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 40.0,
+                "norm_ratio": 0.4999999701976776,
+                "cosine": -0.9999999403953552,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ]
+          }
+        ],
+        "pairwise_stats": [
+          {
+            "alpha": 1.5,
+            "seed": 17,
+            "mean_abs": 0.0,
+            "max_abs": 0.0,
+            "std": 0.0
+          }
+        ],
+        "config_arm": {
+          "n_facts": 40,
+          "rank_L_for_correlated": 10,
+          "key_maker": "hadamard"
+        }
+      },
+      "correlated": {
+        "per_alpha": [
+          {
+            "alpha": 1.5,
+            "argmax_leak": 0.0,
+            "mean_rank": 38.6,
+            "norm_ratio": 0.917402446269989,
+            "cosine": -0.3454554080963135,
+            "kept_preservation": 1.0,
+            "paraphrase_leak_h4": 0.0,
+            "paraphrase_leak_h8": 0.0,
+            "per_seed": [
+              {
+                "argmax_leak": 0.0,
+                "mean_rank": 38.6,
+                "norm_ratio": 0.917402446269989,
+                "cosine": -0.3454554080963135,
+                "paraphrase_leak_h4": 0.0,
+                "paraphrase_leak_h8": 0.0,
+                "kept_preservation": 1.0,
+                "seed": 17
+              }
+            ]
+          }
+        ],
+        "pairwise_stats": [
+          {
+            "alpha": 1.5,
+            "seed": 17,
+            "mean_abs": 0.2359124720096588,
+            "max_abs": 0.9609375,
+            "std": 0.18359364569187164
+          }
+        ],
+        "config_arm": {
+          "n_facts": 40,
+          "rank_L_for_correlated": 10,
+          "key_maker": "correlated"
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "M_stored": 40,
+    "n_erase": 5,
+    "n_kept_probe": 10,
+    "n_paraphrase": 20,
+    "seeds": [
+      17
+    ],
+    "alphas": [
+      1.5
+    ],
+    "hamming_radii": [
+      4,
+      8
+    ]
+  }
+}

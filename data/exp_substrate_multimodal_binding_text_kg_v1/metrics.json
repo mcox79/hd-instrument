@@ -1,0 +1,36 @@
+{
+  "anchor_name": "substrate_multimodal_binding_text_kg_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate VSA binding is modality-agnostic (text<->KG cross-modal recovery + combine helps). text->KG=1.000 KG->text=1.000 | cross-modal-combine=1.000 vs single-modality=1.000 (M=2000)",
+  "N": 4096,
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "M_pairs": 2000,
+      "text_to_kg": 1.0,
+      "kg_to_text": 1.0,
+      "single_modality": 1.0,
+      "cross_modal_combine": 1.0
+    },
+    {
+      "seed": 17,
+      "M_pairs": 2000,
+      "text_to_kg": 1.0,
+      "kg_to_text": 1.0,
+      "single_modality": 1.0,
+      "cross_modal_combine": 1.0
+    },
+    {
+      "seed": 23,
+      "M_pairs": 2000,
+      "text_to_kg": 1.0,
+      "kg_to_text": 1.0,
+      "single_modality": 1.0,
+      "cross_modal_combine": 1.0
+    }
+  ],
+  "elapsed_s": 9.5591561794281,
+  "summary": "HARD_PASS: substrate VSA binding is modality-agnostic (text<->KG cross-modal recovery + combine helps). text->KG=1.000 KG->text=1.000 | cross-modal-combine=1.000 vs single-modality=1.000 (M=2000)"
+}

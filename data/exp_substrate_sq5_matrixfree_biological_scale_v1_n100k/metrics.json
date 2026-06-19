@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_sq5_matrixfree_biological_scale_v1_n100k",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse coding extends capacity >=5x dense at biological N. M_crit=15000 dense_limit(alpha_c*N)=1380 ratio=10.9x (hit grid ceiling; M_crit is LOWER BOUND) (matrix-free, N=10000)",
+  "N": 10000,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 10000,
+      "k_active": 100,
+      "M_crit": 15000,
+      "dense_limit": 1380.0000000000002,
+      "ratio_vs_dense": 10.869565217391303
+    },
+    {
+      "seed": 2,
+      "N": 10000,
+      "k_active": 100,
+      "M_crit": 15000,
+      "dense_limit": 1380.0000000000002,
+      "ratio_vs_dense": 10.869565217391303
+    }
+  ],
+  "elapsed_s": 6.887901782989502,
+  "summary": "HARD_PASS: sparse coding extends capacity >=5x dense at biological N. M_crit=15000 dense_limit(alpha_c*N)=1380 ratio=10.9x (hit grid ceiling; M_crit is LOWER BOUND) (matrix-free, N=10000)"
+}

@@ -1,0 +1,55 @@
+{
+  "verdict": "TCFT_SWEEP_HARD_PASS_MONOTONIC",
+  "verdict_msg": "MONOTONIC_CLOSURE (decreasing): vr decreases with M/N (spearman=-1.000, ratio=22642.8). Substrate improves at higher load -- unexpected but definitive. N=512 M/N=[0.25, 1.0] mean_vr=[0.03048954, 1.35e-06] spearman_r=-1.000 valid_cells=2/2 m_values=[128, 512]",
+  "elapsed_s": 0.0,
+  "anchor": "tcft_direct_empirical_sweep_v1_n16384",
+  "config": {
+    "N": 512,
+    "M_values": [
+      128,
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "M_over_N": [
+      0.25,
+      1.0
+    ]
+  },
+  "summary": {
+    "per_seed": {
+      "17": [
+        {
+          "N": 512,
+          "M": 128,
+          "seed": 17,
+          "elapsed_s": 0.0,
+          "M_over_N": 0.25,
+          "tcft_valid": true,
+          "class0_size": 64,
+          "vanilla_variance": 6.36737709562683,
+          "tcft_variance_ratio": 0.03048954027586785
+        },
+        {
+          "N": 512,
+          "M": 512,
+          "seed": 17,
+          "elapsed_s": 0.0,
+          "M_over_N": 1.0,
+          "tcft_valid": true,
+          "class0_size": 256,
+          "vanilla_variance": 719013.8579233802,
+          "tcft_variance_ratio": 1.3465452554925656e-06
+        }
+      ]
+    },
+    "m_values": [
+      128,
+      512
+    ],
+    "N": 512,
+    "smoke": true
+  }
+}

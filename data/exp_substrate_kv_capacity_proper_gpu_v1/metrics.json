@@ -1,0 +1,15 @@
+{
+  "anchor_name": "substrate_kv_capacity_proper_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-KV recall@1 >=0.90 at production scale M=50000 (encoded incrementally + persisted; resumable) -- Tier-5a capacity holds. recall@1=1.000 at M=50000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "M": 50000
+    }
+  ],
+  "elapsed_s": 703.9349389076233,
+  "summary": "HARD_PASS: substrate-KV recall@1 >=0.90 at production scale M=50000 (encoded incrementally + persisted; resumable) -- Tier-5a capacity holds. recall@1=1.000 at M=50000"
+}

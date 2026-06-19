@@ -1,0 +1,29 @@
+{
+  "verdict": "N_SWEEP_INCONCLUSIVE",
+  "verdict_msg": "No clear pattern. argmax_per_N={'4096': 0.2, '8192': 0.0}, vamp_per_N={'4096': 1.0, '8192': 1.0}.",
+  "elapsed_s": 0.5789999999979045,
+  "summary": {
+    "argmax_per_N": {
+      "4096": 0.2,
+      "8192": 0.0
+    },
+    "vamp_per_N": {
+      "4096": 1.0,
+      "8192": 1.0
+    },
+    "depth": 50
+  },
+  "config": {
+    "mode": "smoke",
+    "N_grid": [
+      4096,
+      8192
+    ],
+    "depth": 50,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "n_trials": 5,
+    "seed": 17
+  }
+}

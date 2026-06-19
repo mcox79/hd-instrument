@@ -1,0 +1,47 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sqrtK_match15_frac=1.00 >= 0.60 at K=2 N=512. sqrt(K) CLT scaling describes top singular value. ratio_emp=0.9871 vs pred=1.0 (normalized). Free-additive match=1.00 (compare).",
+  "elapsed_s": 0.05044865608215332,
+  "summary": {
+    "K2_N512": {
+      "K": 2,
+      "N": 512,
+      "c": 0.1,
+      "n_seeds": 2,
+      "ratio_emp_mean": 0.9870773641071028,
+      "sqrtK_match15_frac": 1.0,
+      "freeadd_match15_frac": 1.0
+    },
+    "K4_N512": {
+      "K": 4,
+      "N": 512,
+      "c": 0.1,
+      "n_seeds": 2,
+      "ratio_emp_mean": 1.0052647107384305,
+      "sqrtK_match15_frac": 1.0,
+      "freeadd_match15_frac": 1.0
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      256,
+      512
+    ],
+    "K_list": [
+      1,
+      2,
+      4
+    ],
+    "C_sweep": [
+      0.1,
+      0.3
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "parent": "wave14_moe_top_edge_v4 HARD_FAIL free-additive formula error",
+    "formulation": "DMPK CLT sqrt(K) scaling vs free-additive"
+  }
+}

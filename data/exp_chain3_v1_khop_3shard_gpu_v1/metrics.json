@@ -1,0 +1,30 @@
+{
+  "anchor_name": "chain3_v1_khop_3shard_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: v1 3-shard K-hop reaches K=12 at >=0.90 recovery -- the v1 cross-shard architecture is viable to target depth. K=12 recovery=0.987 K_max(>=0.90)=18 (3-shard binary relay, N=4096)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "k_target": 12,
+      "recovery_at_target": 0.9874999523162842,
+      "k_max": 18,
+      "curve": {
+        "K2": 1.0,
+        "K4": 1.0,
+        "K6": 1.0,
+        "K8": 1.0,
+        "K10": 0.9950000047683716,
+        "K12": 0.9925000071525574,
+        "K14": 0.9899999499320984,
+        "K16": 0.9624999761581421,
+        "K18": 0.9274999499320984,
+        "K20": 0.8725000023841858,
+        "K22": 0.8499999642372131,
+        "K24": 0.7574999928474426
+      }
+    }
+  ],
+  "elapsed_s": 0.048056840896606445,
+  "summary": "HARD_PASS: v1 3-shard K-hop reaches K=12 at >=0.90 recovery -- the v1 cross-shard architecture is viable to target depth. K=12 recovery=0.987 K_max(>=0.90)=18 (3-shard binary relay, N=4096)"
+}

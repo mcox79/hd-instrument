@@ -1,0 +1,44 @@
+{
+  "tier_changes": [
+    {
+      "atom": "gradient_descent",
+      "old_tier": "T1",
+      "new_tier": "T3",
+      "reason": "derived optimization algorithm"
+    },
+    {
+      "atom": "bayes_rule",
+      "old_tier": "T1",
+      "new_tier": "T2",
+      "reason": "derived from conditional_probability"
+    },
+    {
+      "atom": "newton_method",
+      "old_tier": "T1",
+      "new_tier": "T3",
+      "reason": "derived optimization algorithm"
+    },
+    {
+      "atom": "hessian",
+      "old_tier": "T1",
+      "new_tier": "T2",
+      "reason": "composed from partial_derivative"
+    }
+  ],
+  "adds": [
+    {
+      "src": "newton_method",
+      "tgt": "category_type",
+      "rel_type": "SPECIALIZES",
+      "reason": "leaf-strand rescue (89c pattern): outgoing forward edge to terminal primitive"
+    },
+    {
+      "src": "hessian",
+      "tgt": "category_type",
+      "rel_type": "SPECIALIZES",
+      "reason": "leaf-strand rescue: outgoing forward edge to terminal primitive"
+    }
+  ],
+  "gate": "DO NOT execute until Exp-Dev extended precheck_batch(tier_changes=..., corpus-scoped monotone, forward-walk) reports ok=TRUE. NOT on Skunkworks analysis.",
+  "tag": "SUBSTRATE_HYGIENE_TIER_REASSIGN_v1_RETRY"
+}

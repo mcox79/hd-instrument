@@ -1,0 +1,82 @@
+{
+  "anchor": "combo2_p4_l3_signed_am_v1_n4096_l4_extension_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: l4_fid=1.0000(HP>=0.75 HF<0.4) b_rep=0.0000(HP>=0.9 HF<0.4) parity_cont=0.0000(HP<=0.1) hp1=5/5 hp2=0/5 hp3=5/5",
+  "n_seeds": 5,
+  "N": 4096,
+  "run_mode": "full",
+  "elapsed_s": 0.006013631820678711,
+  "summary": "HARD_FAIL: l4_fid=1.0000(HP>=0.75 HF<0.4) b_rep=0.0000(HP>=0.9 HF<0.4) parity_cont=0.0000(HP<=0.1) hp1=5/5 hp2=0/5 hp3=5/5",
+  "results": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "run_mode": "full",
+      "l4_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.8987476825714111,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780434531.8732982
+    },
+    {
+      "seed": 17,
+      "N": 4096,
+      "run_mode": "full",
+      "l4_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.9558918476104736,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780434532.87509
+    },
+    {
+      "seed": 23,
+      "N": 4096,
+      "run_mode": "full",
+      "l4_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.9659736156463623,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1780434533.8821354
+    },
+    {
+      "seed": 31,
+      "N": 4096,
+      "run_mode": "full",
+      "l4_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.9423205852508545,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "31",
+      "_partial_written_at": 1780434534.862785
+    },
+    {
+      "seed": 41,
+      "N": 4096,
+      "run_mode": "full",
+      "l4_fidelity_A": 1.0,
+      "b_repulsion_rate": 0.0,
+      "parity_contamination": 0.0,
+      "elapsed_s": 0.961620569229126,
+      "hp1_pass": 1,
+      "hp2_pass": 0,
+      "hp3_pass": 1,
+      "_ckpt_key": "41",
+      "_partial_written_at": 1780434535.8629713
+    }
+  ]
+}

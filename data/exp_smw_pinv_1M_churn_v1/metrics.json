@@ -1,0 +1,18 @@
+{
+  "anchor_name": "smw_pinv_1M_churn_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SMW delete <5ms/update AND inverse stays accurate after churn -- GDPR erasure + churn feasible at scale. delete per-update=4.7676 ms inv_err=2.61e-04 finite=True (M_base=3000 del=1500)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "m_base": 3000,
+      "n_delete": 1500,
+      "delete_per_ms": 4.767571800000344,
+      "inv_err": 0.00026090134032536166,
+      "finite": true
+    }
+  ],
+  "elapsed_s": 39.68889355659485,
+  "summary": "HARD_PASS: SMW delete <5ms/update AND inverse stays accurate after churn -- GDPR erasure + churn feasible at scale. delete per-update=4.7676 ms inv_err=2.61e-04 finite=True (M_base=3000 del=1500)"
+}

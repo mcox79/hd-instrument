@@ -1,0 +1,28 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 2 alphas have Z in [-3.0,3.0]. alpha=0.05:Z=0.68 alpha=0.1:Z=0.35",
+  "n_seeds": 2,
+  "n_alpha": 2,
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_NULL": 8,
+  "alpha_summary": {
+    "0.05": {
+      "alpha": 0.05,
+      "mean_z_clean": 0.677790363571313,
+      "std_z_clean": 0.12201055133094338,
+      "mean_lambda_max": 1.4250141765090467,
+      "mean_null_mean": 1.412082881872332,
+      "n_seeds": 2
+    },
+    "0.1": {
+      "alpha": 0.1,
+      "mean_z_clean": 0.3484309885918537,
+      "std_z_clean": 0.6840425536098452,
+      "mean_lambda_max": 1.5922447839832117,
+      "mean_null_mean": 1.5872801666558125,
+      "n_seeds": 2
+    }
+  },
+  "elapsed_total_s": 17.27026081085205
+}

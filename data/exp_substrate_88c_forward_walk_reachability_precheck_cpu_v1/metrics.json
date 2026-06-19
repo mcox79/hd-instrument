@@ -1,0 +1,42 @@
+{
+  "anchor_name": "substrate_88c_forward_walk_reachability_precheck_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Primitive VALIDATED: it flags the leaf-stranding the naive batch-2b would cause (catches 87c BEFORE dispatch) AND confirms the DECISION 88a rescue un-strands the T2_FAM atoms. Ready as the standing forward-walk pre-check for non-additive batches. Forward-walk reachability primitive: DEMO1 naive batch-2b strands 9 T2_FAM atoms (['algebraic_binding', 'dynamic_programming', 'fhrr_binding_op', 'gradient_based_optimizer', 'graph_traversal', 'hmm_inference_operator', 'path_search_operator', 'sequence_decoder_operator', 'vsa_superposition_op']) -> pre-check FLAGS (would have caught 87c); DEMO2 DECISION-88a rescue (T2_FAM->root SPECIALIZES; T1 root existed=False) -> 0 T2_FAM stranded (rescue works).",
+  "summary": "Primitive VALIDATED: it flags the leaf-stranding the naive batch-2b would cause (catches 87c BEFORE dispatch) AND confirms the DECISION 88a rescue un-strands the T2_FAM atoms. Ready as the standing forward-walk pre-check for non-additive batches. Forward-walk reachability primitive: DEMO1 naive batch-2b strands 9 T2_FAM atoms (['algebraic_binding', 'dynamic_programming', 'fhrr_binding_op', 'gradient_based_optimizer', 'graph_traversal', 'hmm_inference_operator', 'path_search_operator', 'sequence_decoder_operator', 'vsa_superposition_op']) -> pre-check FLAGS (would have caught 87c); DEMO2 DECISION-88a rescue (T2_FAM->root SPECIALIZES; T1 root existed=False) -> 0 T2_FAM stranded (rescue works).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "fam_roots": [
+        "algebraic_binding",
+        "dynamic_programming",
+        "fhrr_binding_op",
+        "gradient_based_optimizer",
+        "graph_traversal",
+        "hmm_inference_operator",
+        "path_search_operator",
+        "sequence_decoder_operator",
+        "vsa_superposition_op"
+      ],
+      "naive_stranded_total": 33,
+      "naive_fam_stranded": [
+        "algebraic_binding",
+        "dynamic_programming",
+        "fhrr_binding_op",
+        "gradient_based_optimizer",
+        "graph_traversal",
+        "hmm_inference_operator",
+        "path_search_operator",
+        "sequence_decoder_operator",
+        "vsa_superposition_op"
+      ],
+      "naive_ok": false,
+      "rescue_root": "operation_family_root_DEMO_T1",
+      "rescue_t1_root_existed": false,
+      "rescue_stranded_total": 0,
+      "rescue_fam_stranded": [],
+      "rescue_ok": true
+    }
+  ],
+  "elapsed_s": 0.47960591316223145
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "depparse_discriminative_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: UAS 0.70-0.80 -- discriminative lifts well past the 0.60 plateau; richer features (3rd-order, morphology) for 0.85. UAS=0.7350 (24444 arcs, train=4420)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uas": 0.735,
+      "n_arcs": 24444,
+      "n_train": 4420,
+      "n_dev": 1989
+    }
+  ],
+  "elapsed_s": 130.31807684898376,
+  "summary": "MIDDLE_BAND: UAS 0.70-0.80 -- discriminative lifts well past the 0.60 plateau; richer features (3rd-order, morphology) for 0.85. UAS=0.7350 (24444 arcs, train=4420)"
+}

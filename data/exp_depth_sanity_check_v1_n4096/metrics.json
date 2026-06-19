@@ -1,0 +1,43 @@
+{
+  "verdict": "G13A_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: d3: n=1 mean=1.000 n_hp=1/1 n_hf=0/1; d5: n=1 mean=1.000 n_hp=1/1 n_hf=0/1",
+  "elapsed_s": 0.09,
+  "summary": {
+    "anchor": "depth_sanity_check_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "K_paths": 40,
+    "depths": [
+      3,
+      5
+    ],
+    "seeds": [
+      17
+    ],
+    "n_queries": 8,
+    "cells": [
+      {
+        "depth": 3,
+        "M": 256,
+        "K_paths": 40,
+        "n_queries_valid": 8,
+        "acc": 1.0,
+        "latency_s": 0.0128,
+        "mem_peak_b": 0
+      },
+      {
+        "depth": 5,
+        "M": 256,
+        "K_paths": 40,
+        "n_queries_valid": 8,
+        "acc": 1.0,
+        "latency_s": 0.02,
+        "mem_peak_b": 0
+      }
+    ],
+    "verdict": "G13A_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: d3: n=1 mean=1.000 n_hp=1/1 n_hf=0/1; d5: n=1 mean=1.000 n_hp=1/1 n_hf=0/1",
+    "elapsed_s": 0.09
+  }
+}

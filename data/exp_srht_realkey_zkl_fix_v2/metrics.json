@@ -1,0 +1,18 @@
+{
+  "anchor_name": "srht_realkey_zkl_fix_v2",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: did NOT reproduce real-key-worse with MiniLM+noise proxy (real<=2x synth) -- need Llama-3.2-1B L15 left-pad + MarianMT paraphrase to reproduce cycle-151 faithfully. ZKL(50) synth=1.0000 real=0.9767 real+SRHT=1.0000 | real/synth=0.98 srht/synth=1.00",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "zkl_synth": 1.0,
+      "zkl_real": 0.9766666666666667,
+      "zkl_real_srht": 1.0,
+      "real_over_synth": 0.9766666666666667,
+      "srht_over_synth": 1.0
+    }
+  ],
+  "elapsed_s": 12.679502010345459,
+  "summary": "HARD_FAIL: did NOT reproduce real-key-worse with MiniLM+noise proxy (real<=2x synth) -- need Llama-3.2-1B L15 left-pad + MarianMT paraphrase to reproduce cycle-151 faithfully. ZKL(50) synth=1.0000 real=0.9767 real+SRHT=1.0000 | real/synth=0.98 srht/synth=1.00"
+}

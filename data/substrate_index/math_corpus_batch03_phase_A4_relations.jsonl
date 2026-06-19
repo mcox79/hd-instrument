@@ -1,0 +1,105 @@
+{"src": "T1/vector_space", "dst": "T1/group", "type": "GENERALIZES_TO", "metadata": {"reason": "vector space is abelian group under addition + scalar multiplication", "phase_A4": true}}
+{"src": "T1/real_field", "dst": "T1/ring_field", "type": "INSTANCE_OF", "metadata": {"reason": "R is canonical field instance", "phase_A4": true}}
+{"src": "T1/complex_field", "dst": "T1/ring_field", "type": "INSTANCE_OF", "metadata": {"reason": "C is canonical algebraically-closed field", "phase_A4": true}}
+{"src": "T1/eigenvalue_eigenvector", "dst": "T1/matrix", "type": "DEFINED_FOR", "metadata": {"reason": "eigenvalues defined for square matrices/linear operators", "phase_A4": true}}
+{"src": "T1/singular_value_decomposition", "dst": "T1/eigenvalue_eigenvector", "type": "GENERALIZES", "metadata": {"reason": "SVD generalizes eigendecomposition to non-square", "phase_A4": true}}
+{"src": "T1/marchenko_pastur_distribution", "dst": "T1/voiculescu_free_probability", "type": "INSTANCE_OF", "metadata": {"reason": "MP distribution arises in free probability", "phase_A4": true}}
+{"src": "T1/tracy_widom_distribution", "dst": "T1/eigenvalue_eigenvector", "type": "DEFINED_FOR", "metadata": {"reason": "TW distribution governs top eigenvalue", "phase_A4": true}}
+{"src": "T3/spectral_gap", "dst": "T1/eigenvalue_eigenvector", "type": "USES", "metadata": {"reason": "spectral gap = lambda_1 - lambda_2", "phase_A4": true}}
+{"src": "T3/tw_edge_z", "dst": "T1/tracy_widom_distribution", "type": "USES", "metadata": {"reason": "z-score normalizes against TW edge", "phase_A4": true}}
+{"src": "T3/mp_bulk_kl", "dst": "T1/marchenko_pastur_distribution", "type": "USES", "metadata": {"reason": "KL divergence from MP bulk density", "phase_A4": true}}
+{"src": "T3/mp_bulk_kl", "dst": "T1/kullback_leibler_divergence", "type": "USES", "metadata": {"reason": "KL divergence measure", "phase_A4": true}}
+{"src": "T3/kappa_4_free", "dst": "T1/voiculescu_free_probability", "type": "USES", "metadata": {"reason": "4th free cumulant from free-probability theory", "phase_A4": true}}
+{"src": "T3/permutation_indexed_binding", "dst": "T1/permutation_group", "type": "USES", "metadata": {"reason": "uses permutation operators", "phase_A4": true}}
+{"src": "T3/permutation_indexed_binding", "dst": "T2/tensor_product_representation", "type": "ALTERNATIVE_TO", "metadata": {"reason": "alternative non-unique role binding mechanism", "phase_A4": true}}
+{"src": "T3/resonator_network_decoder", "dst": "T2/cleanup", "type": "ITERATIVE_OF", "metadata": {"reason": "iterative multi-factor cleanup", "phase_A4": true}}
+{"src": "T3/resonator_network_decoder", "dst": "T2/fhrr_unbind", "type": "GENERALIZES", "metadata": {"reason": "decodes full set vs single-factor unbind", "phase_A4": true}}
+{"src": "T3/ghrr_noncommutative_bind", "dst": "T2/fhrr_bind", "type": "GENERALIZES_NONCOMMUTATIVE", "metadata": {"reason": "noncommutative matrix bind generalization", "phase_A4": true}}
+{"src": "T3/ghrr_noncommutative_bind", "dst": "T1/lie_algebra", "type": "USES", "metadata": {"reason": "noncommutative algebra structure", "phase_A4": true}}
+{"src": "T3/viterbi_decoder", "dst": "T1/markov_chain", "type": "DEFINED_FOR", "metadata": {"reason": "MAP decoding in HMM (Markov chain)", "phase_A4": true}}
+{"src": "T3/forward_algorithm_atom", "dst": "T1/markov_chain", "type": "DEFINED_FOR", "metadata": {"reason": "marginal posteriors in Markov chain", "phase_A4": true}}
+{"src": "T3/backward_algorithm_atom", "dst": "T1/markov_chain", "type": "DEFINED_FOR", "metadata": {"reason": "backward probabilities in Markov chain", "phase_A4": true}}
+{"src": "T3/expectation_maximization", "dst": "T3/forward_algorithm_atom", "type": "USES", "metadata": {"reason": "E-step uses forward-backward for HMM", "phase_A4": true}}
+{"src": "T3/expectation_maximization", "dst": "T3/backward_algorithm_atom", "type": "USES", "metadata": {"reason": "E-step uses forward-backward for HMM", "phase_A4": true}}
+{"src": "T3/expectation_maximization", "dst": "T1/random_variable", "type": "USES", "metadata": {"reason": "operates on random-variable latents", "phase_A4": true}}
+{"src": "T3/count_nb", "dst": "T1/bayes_rule", "type": "USES", "metadata": {"reason": "Bayes rule for posterior class", "phase_A4": true}}
+{"src": "T3/structured_perceptron_collins", "dst": "T1/gradient_descent", "type": "USES_MISTAKE_DRIVEN_UPDATE", "metadata": {"reason": "mistake-driven update analogous to subgradient", "phase_A4": true}}
+{"src": "T3/structured_perceptron_collins", "dst": "T1/dot_product", "type": "USES", "metadata": {"reason": "linear scoring via dot product", "phase_A4": true}}
+{"src": "T3/eisner_parsing", "dst": "T3/viterbi_decoder", "type": "GENERALIZES_TREE", "metadata": {"reason": "generalizes Viterbi to projective trees", "phase_A4": true}}
+{"src": "T3/chu_liu_edmonds_algo", "dst": "T1/graph_general", "type": "DEFINED_FOR", "metadata": {"reason": "operates on directed weighted graphs", "phase_A4": true}}
+{"src": "T3/hungarian_algorithm", "dst": "T1/graph_general", "type": "DEFINED_FOR", "metadata": {"reason": "operates on bipartite graphs", "phase_A4": true}}
+{"src": "T3/principal_component_analysis", "dst": "T1/eigenvalue_eigenvector", "type": "USES", "metadata": {"reason": "eigendecomposition of covariance", "phase_A4": true}}
+{"src": "T3/principal_component_analysis", "dst": "T1/singular_value_decomposition", "type": "EQUIVALENT_VIA_SVD", "metadata": {"reason": "PCA equivalent to SVD of mean-centered data", "phase_A4": true}}
+{"src": "T3/gram_schmidt", "dst": "T1/orthogonality", "type": "PRODUCES", "metadata": {"reason": "produces orthonormal basis", "phase_A4": true}}
+{"src": "T3/johnson_lindenstrauss_lemma", "dst": "T1/random_variable", "type": "USES", "metadata": {"reason": "random projection matrix", "phase_A4": true}}
+{"src": "T3/johnson_lindenstrauss_lemma", "dst": "T2/sparse_distributed_memory", "type": "BOUNDS_CAPACITY", "metadata": {"reason": "bounds capacity of random near-orthogonal codebooks", "phase_A4": true}}
+{"src": "T3/zca_whitening", "dst": "T1/eigenvalue_eigenvector", "type": "USES", "metadata": {"reason": "Sigma^(-1/2) via eigendecomposition", "phase_A4": true}}
+{"src": "T3/conformal_prediction", "dst": "T3/isotonic_regression", "type": "COMPOSED_WITH", "metadata": {"reason": "isotonic + conformal substrate ECE 0.044 north-star", "phase_A4": true}}
+{"src": "T2/tensor_product_representation", "dst": "T1/tensor", "type": "USES", "metadata": {"reason": "uses tensor product structure", "phase_A4": true}}
+{"src": "T2/tensor_product_representation", "dst": "T1/kronecker_product", "type": "USES", "metadata": {"reason": "TPR via Kronecker product on vectors", "phase_A4": true}}
+{"src": "T2/sparse_distributed_memory", "dst": "T2/cleanup", "type": "USES", "metadata": {"reason": "SDM retrieval via cleanup", "phase_A4": true}}
+{"src": "T2/sparse_distributed_memory", "dst": "T2/amit_gutfreund_sompolinsky_capacity", "type": "BOUNDED_BY", "metadata": {"reason": "AGS capacity theorem bounds SDM", "phase_A4": true}}
+{"src": "T2/modern_hopfield_ramsauer", "dst": "T2/amit_gutfreund_sompolinsky_capacity", "type": "EXCEEDS_CAPACITY", "metadata": {"reason": "modern Hopfield exponential capacity exceeds AGS classical bound", "phase_A4": true}}
+{"src": "T2/bcm_learning_rule", "dst": "T1/derivative", "type": "USES", "metadata": {"reason": "synaptic dynamics via differential equation", "phase_A4": true}}
+{"src": "T2/glauber_dynamics", "dst": "T1/markov_chain", "type": "INSTANCE_OF", "metadata": {"reason": "Glauber is Markov chain with detailed balance", "phase_A4": true}}
+{"src": "T2/glauber_dynamics", "dst": "T1/expectation_variance", "type": "STATIONARY_BOLTZMANN", "metadata": {"reason": "stationary distribution Boltzmann", "phase_A4": true}}
+{"src": "T2/complementary_learning_systems", "dst": "T2/sparse_distributed_memory", "type": "INFLUENCED_BY", "metadata": {"reason": "CLS hippocampal model parallels SDM", "phase_A4": true}}
+{"src": "T3/wright_fisher_process", "dst": "T1/markov_chain", "type": "INSTANCE_OF", "metadata": {"reason": "Wright-Fisher is discrete-time Markov chain", "phase_A4": true}}
+{"src": "T3/discrete_fourier_transform", "dst": "T1/complex_field", "type": "DEFINED_OVER", "metadata": {"reason": "DFT operates on C^N", "phase_A4": true}}
+{"src": "T3/discrete_fourier_transform", "dst": "T2/circular_convolution", "type": "DUAL_VIA_CONVOLUTION_THEOREM", "metadata": {"reason": "F(x conv y) = F(x) F(y)", "phase_A4": true}}
+{"src": "T3/bocpd_changepoint", "dst": "T1/bayes_rule", "type": "USES", "metadata": {"reason": "online Bayesian recursive update", "phase_A4": true}}
+{"src": "T3/bocpd_changepoint", "dst": "T1/kullback_leibler_divergence", "type": "USES_FOR_DETECTION", "metadata": {"reason": "KL divergence between hypothesized regimes", "phase_A4": true}}
+{"src": "T4/cascade_hmm_pipeline", "dst": "T3/viterbi_decoder", "type": "DECOMPOSES_TO", "metadata": {"reason": "cascade uses Viterbi as decoder", "phase_A4": true}}
+{"src": "T4/cascade_hmm_pipeline", "dst": "T3/forward_algorithm_atom", "type": "DECOMPOSES_TO", "metadata": {"reason": "cascade may use forward for marginal posteriors", "phase_A4": true}}
+{"src": "T4/discriminative_perceptron_pipeline", "dst": "T3/structured_perceptron_collins", "type": "DECOMPOSES_TO", "metadata": {"reason": "discriminative pipeline core mechanism", "phase_A4": true}}
+{"src": "T4/discriminative_perceptron_pipeline", "dst": "T3/count_nb", "type": "DECOMPOSES_TO_BASELINE", "metadata": {"reason": "count_NB is the baseline mechanism replaced", "phase_A4": true}}
+{"src": "T4/discriminative_perceptron_pipeline", "dst": "T3/hungarian_algorithm", "type": "DECOMPOSES_TO", "metadata": {"reason": "Hungarian for role-assignment within pipeline", "phase_A4": true}}
+{"src": "T1/chain_rule", "dst": "T1/derivative", "type": "RULE_FOR", "metadata": {"reason": "chain rule operates on composed derivatives", "phase_A4": true}}
+{"src": "T1/taylor_series", "dst": "T1/derivative", "type": "USES", "metadata": {"reason": "Taylor uses k-th derivatives", "phase_A4": true}}
+{"src": "T1/ode", "dst": "T1/derivative", "type": "RELATES", "metadata": {"reason": "ODE involves derivatives", "phase_A4": true}}
+{"src": "T1/pde", "dst": "T1/derivative", "type": "RELATES", "metadata": {"reason": "PDE involves partial derivatives", "phase_A4": true}}
+{"src": "T1/hessian", "dst": "T1/derivative", "type": "SECOND_ORDER_OF", "metadata": {"reason": "Hessian = second derivatives matrix", "phase_A4": true}}
+{"src": "T1/gradient_descent", "dst": "T1/gradient", "type": "USES", "metadata": {"reason": "uses gradient direction", "phase_A4": true}}
+{"src": "T1/gradient_descent", "dst": "T3/structured_perceptron_collins", "type": "ANALOG_OF", "metadata": {"reason": "perceptron update analog to subgradient", "phase_A4": true}}
+{"src": "T1/random_variable", "dst": "T1/probability_space", "type": "DEFINED_OVER", "metadata": {"reason": "RV is measurable function on probability space", "phase_A4": true}}
+{"src": "T1/bayes_rule", "dst": "T1/probability_space", "type": "DERIVED_FROM_AXIOMS", "metadata": {"reason": "derived from Kolmogorov axioms", "phase_A4": true}}
+{"src": "T1/central_limit_theorem", "dst": "T1/random_variable", "type": "DEFINED_FOR_SUM_IID", "metadata": {"reason": "limit theorem for sums of iid RVs", "phase_A4": true}}
+{"src": "T1/markov_chain", "dst": "T1/probability_space", "type": "DEFINED_OVER", "metadata": {"reason": "stochastic process on probability space", "phase_A4": true}}
+{"src": "T1/shannon_entropy_atom", "dst": "T1/probability_space", "type": "DEFINED_OVER", "metadata": {"reason": "entropy of distribution on probability space", "phase_A4": true}}
+{"src": "T1/cross_entropy", "dst": "T1/shannon_entropy_atom", "type": "GENERALIZES", "metadata": {"reason": "cross entropy generalizes Shannon entropy", "phase_A4": true}}
+{"src": "T1/cross_entropy", "dst": "T1/kullback_leibler_divergence", "type": "RELATES_AS", "metadata": {"reason": "H(P,Q) = H(P) + KL(P || Q)", "phase_A4": true}}
+{"src": "T1/lie_algebra", "dst": "T1/group", "type": "INFINITESIMAL_OF", "metadata": {"reason": "Lie algebra is infinitesimal generator of Lie group", "phase_A4": true}}
+{"src": "T1/lie_algebra", "dst": "T3/ghrr_noncommutative_bind", "type": "UNDERLIES", "metadata": {"reason": "noncommutative matrix bind uses Lie group structure", "phase_A4": true}}
+{"src": "T1/group_homomorphism", "dst": "T1/group", "type": "STRUCTURE_PRESERVING_MAP", "metadata": {"reason": "homomorphism preserves group structure", "phase_A4": true}}
+{"src": "T1/monoid", "dst": "T1/group", "type": "RELAXATION_OF", "metadata": {"reason": "monoid is group without inverse axiom", "phase_A4": true}}
+{"src": "T1/continuity", "dst": "T1/limit_of_function", "type": "DEFINED_BY", "metadata": {"reason": "continuity defined via limits", "phase_A4": true}}
+{"src": "T1/compactness", "dst": "T1/metric_space", "type": "DEFINED_OVER", "metadata": {"reason": "compactness in metric/topological spaces", "phase_A4": true}}
+{"src": "T1/permutation_group", "dst": "T1/group", "type": "INSTANCE_OF", "metadata": {"reason": "S_n is a group", "phase_A4": true}}
+{"src": "T1/euclidean_geometry", "dst": "T1/metric_space", "type": "INSTANCE_OF", "metadata": {"reason": "R^N with Euclidean metric is metric space", "phase_A4": true}}
+{"src": "T1/riemannian_manifold", "dst": "T1/euclidean_geometry", "type": "GENERALIZES", "metadata": {"reason": "Riemannian generalizes Euclidean to curved", "phase_A4": true}}
+{"src": "T1/hilbert_space", "dst": "T1/vector_space", "type": "REFINEMENT_OF", "metadata": {"reason": "Hilbert is inner-product vector space + complete", "phase_A4": true}}
+{"src": "T1/hilbert_space", "dst": "T1/banach_space", "type": "INSTANCE_OF", "metadata": {"reason": "Hilbert is special Banach with inner product", "phase_A4": true}}
+{"src": "T1/banach_space", "dst": "T1/vector_space", "type": "REFINEMENT_OF", "metadata": {"reason": "Banach is normed vector space + complete", "phase_A4": true}}
+{"src": "T1/dot_product", "dst": "T1/hilbert_space", "type": "DEFINES", "metadata": {"reason": "inner product structure of Hilbert", "phase_A4": true}}
+{"src": "T1/orthogonality", "dst": "T1/dot_product", "type": "DEFINED_BY", "metadata": {"reason": "orthogonal iff inner product zero", "phase_A4": true}}
+{"src": "T1/tensor", "dst": "T1/vector_space", "type": "GENERALIZES_MULTILINEAR", "metadata": {"reason": "tensor is multilinear over vector spaces", "phase_A4": true}}
+{"src": "T1/kronecker_product", "dst": "T1/tensor", "type": "INSTANCE_OF", "metadata": {"reason": "Kronecker is matrix tensor product", "phase_A4": true}}
+{"src": "T1/matrix", "dst": "T1/vector_space", "type": "REPRESENTS_LINEAR_MAP", "metadata": {"reason": "matrices represent linear maps between vector spaces", "phase_A4": true}}
+{"src": "T2_FAM/binders", "dst": "T2/fhrr_bind", "type": "INCLUDES_MEMBER", "metadata": {"reason": "FHRR bind is binder", "phase_A4": true}}
+{"src": "T2_FAM/binders", "dst": "T2/circular_convolution", "type": "INCLUDES_MEMBER", "metadata": {"reason": "circular convolution is binder", "phase_A4": true}}
+{"src": "T2_FAM/binders", "dst": "T2/tensor_product_representation", "type": "INCLUDES_MEMBER", "metadata": {"reason": "TPR is binder", "phase_A4": true}}
+{"src": "T2_FAM/binders", "dst": "T3/ghrr_noncommutative_bind", "type": "INCLUDES_MEMBER", "metadata": {"reason": "GHRR is binder", "phase_A4": true}}
+{"src": "T2_FAM/binders", "dst": "T3/permutation_indexed_binding", "type": "INCLUDES_MEMBER", "metadata": {"reason": "permutation binding is binder", "phase_A4": true}}
+{"src": "T2_FAM/unbinders", "dst": "T2/fhrr_unbind", "type": "INCLUDES_MEMBER", "metadata": {"reason": "FHRR unbind is unbinder", "phase_A4": true}}
+{"src": "T2_FAM/unbinders", "dst": "T2/cleanup", "type": "INCLUDES_MEMBER", "metadata": {"reason": "cleanup is unbinder", "phase_A4": true}}
+{"src": "T2_FAM/unbinders", "dst": "T3/resonator_network_decoder", "type": "INCLUDES_MEMBER", "metadata": {"reason": "resonator is iterative multi-factor unbinder", "phase_A4": true}}
+{"src": "T2_FAM/mixers", "dst": "T2/superposition", "type": "INCLUDES_MEMBER", "metadata": {"reason": "superposition is mixer", "phase_A4": true}}
+{"src": "T2_FAM/mixers", "dst": "T2/bundling", "type": "INCLUDES_MEMBER", "metadata": {"reason": "bundling is mixer", "phase_A4": true}}
+{"src": "T2_FAM/transformers", "dst": "T3/discrete_fourier_transform", "type": "INCLUDES_MEMBER", "metadata": {"reason": "DFT is transformer", "phase_A4": true}}
+{"src": "T2_FAM/transformers", "dst": "T3/zca_whitening", "type": "INCLUDES_MEMBER", "metadata": {"reason": "ZCA is transformer", "phase_A4": true}}
+{"src": "T2_FAM/observers", "dst": "T3/spectral_gap", "type": "INCLUDES_MEMBER", "metadata": {"reason": "spectral gap is observer", "phase_A4": true}}
+{"src": "T2_FAM/observers", "dst": "T3/tw_edge_z", "type": "INCLUDES_MEMBER", "metadata": {"reason": "TW edge z is observer", "phase_A4": true}}
+{"src": "T2_FAM/observers", "dst": "T3/mp_bulk_kl", "type": "INCLUDES_MEMBER", "metadata": {"reason": "MP bulk KL is observer", "phase_A4": true}}
+{"src": "T2_FAM/observers", "dst": "T3/kappa_4_free", "type": "INCLUDES_MEMBER", "metadata": {"reason": "kappa_4 free cumulant is observer", "phase_A4": true}}
+{"src": "T2_FAM/observers", "dst": "T1/shannon_entropy_atom", "type": "INCLUDES_MEMBER", "metadata": {"reason": "Shannon entropy is observer", "phase_A4": true}}
+{"src": "T2_FAM/observers", "dst": "T1/kullback_leibler_divergence", "type": "INCLUDES_MEMBER", "metadata": {"reason": "KL divergence is observer", "phase_A4": true}}

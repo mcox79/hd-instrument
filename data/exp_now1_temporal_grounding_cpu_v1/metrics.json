@@ -1,0 +1,18 @@
+{
+  "anchor_name": "now1_temporal_grounding_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 'now' shard provides temporal/contextual grounding -- the same query returns context-appropriate answers when bound to now (recall>=0.85), and grounding disambiguates vs ungrounded by >=0.40. One primitive for temporal/multimodal/embodied/multi-agent grounding. grounded=1.000 ungrounded=0.007 disambiguation=0.993 NC=4",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "grounded": 1.0,
+      "ungrounded": 0.007,
+      "disambiguation": 0.993,
+      "NC": 4,
+      "n": 1200
+    }
+  ],
+  "elapsed_s": 21.14009928703308,
+  "summary": "HARD_PASS: 'now' shard provides temporal/contextual grounding -- the same query returns context-appropriate answers when bound to now (recall>=0.85), and grounding disambiguates vs ungrounded by >=0.40. One primitive for temporal/multimodal/embodied/multi-agent grounding. grounded=1.000 ungrounded=0.007 disambiguation=0.993 NC=4"
+}

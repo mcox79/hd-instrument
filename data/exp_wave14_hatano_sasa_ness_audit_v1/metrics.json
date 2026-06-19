@@ -1,0 +1,38 @@
+{
+  "verdict": "HATANO_SASA_NESS_CERT_PARTIAL",
+  "verdict_msg": "HS identity HOLDS: <exp(-W_ex)>=1.0000 (error=0.0000 <= tol=0.1500). BUT cross_basin_frac=0.000 and sigma_hk=0.0000 (tol=0.0200): insufficient basin crossings to resolve NESS cost. Cap 3 streaming PARTIAL certificate; increase noise or M.",
+  "elapsed_s": 388.25,
+  "summary": {
+    "hs_identity_val": 1.0,
+    "hs_identity_sem": 0.0,
+    "hs_tol": 0.15,
+    "w_ex_mean": 0.0,
+    "w_ex_std": 0.0,
+    "sigma_hk_mean": 0.0,
+    "sigma_hk_std": 0.0,
+    "sigma_hk_tol": 0.02,
+    "cross_basin_frac": 0.0,
+    "cross_basin_count": 0,
+    "n_valid_traj": 0,
+    "n_spurious": 650,
+    "n_distinct_attractors": 1,
+    "n_total_traj": 650
+  },
+  "config": {
+    "N": 8192,
+    "M": 150,
+    "n_traj_per_level": 130,
+    "noise_levels": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3
+    ],
+    "max_iter": 60,
+    "seed": 42,
+    "hs_tol": 0.15,
+    "sigma_hk_tol": 0.02,
+    "n_total_traj": 650
+  }
+}

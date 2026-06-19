@@ -1,0 +1,16 @@
+{
+  "anchor_name": "d30_fullstack_storage_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: d=30 4-bit KEYs give <1KB/fact with recall@1>=0.95 (>=0.90 at 5%% noise) -- the ~280x storage reduction is real at the KEY level. recall@1 clean=1.000 @5%=1.000 per-fact-KEY=15 bytes (d=30; vs 286KB baseline)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall_clean": 1.0,
+      "recall_noise5": 1.0,
+      "per_fact_bytes": 15.0
+    }
+  ],
+  "elapsed_s": 5.440616846084595,
+  "summary": "HARD_PASS: d=30 4-bit KEYs give <1KB/fact with recall@1>=0.95 (>=0.90 at 5%% noise) -- the ~280x storage reduction is real at the KEY level. recall@1 clean=1.000 @5%=1.000 per-fact-KEY=15 bytes (d=30; vs 286KB baseline)"
+}

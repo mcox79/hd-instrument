@@ -1,0 +1,69 @@
+{
+  "anchor_name": "substrate_cognitive_core_architectural_advantage_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate categorically wins all 3 architectural-advantage benchmarks. LONGCONV sub=1.00/pythia@200=0.00 [PASS] | CROSS-SESSION sub=1.00/pythia=0.00 [PASS] | MULTIDOC@50 sub=1.00/pythia=0.13 [PASS]",
+  "model": "EleutherAI/pythia-160m",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "longconv_substrate_recall": 1.0,
+      "longconv_pythia_d200": 0.0,
+      "crosssession_substrate": 1.0,
+      "crosssession_pythia": 0.0,
+      "multidoc": {
+        "sub_n10": 1.0,
+        "py_n10": 0.2,
+        "sub_n50": 1.0,
+        "py_n50": 0.14,
+        "sub_n200": 1.0,
+        "py_n200": 0.125,
+        "sub_n400": 1.0,
+        "py_n400": 0.1175
+      },
+      "multidoc_sub_n50": 1.0,
+      "multidoc_py_n50": 0.14
+    },
+    {
+      "seed": 17,
+      "longconv_substrate_recall": 1.0,
+      "longconv_pythia_d200": 0.0,
+      "crosssession_substrate": 1.0,
+      "crosssession_pythia": 0.0,
+      "multidoc": {
+        "sub_n10": 1.0,
+        "py_n10": 0.5,
+        "sub_n50": 1.0,
+        "py_n50": 0.12,
+        "sub_n200": 1.0,
+        "py_n200": 0.09,
+        "sub_n400": 1.0,
+        "py_n400": 0.105
+      },
+      "multidoc_sub_n50": 1.0,
+      "multidoc_py_n50": 0.12
+    },
+    {
+      "seed": 23,
+      "longconv_substrate_recall": 1.0,
+      "longconv_pythia_d200": 0.0,
+      "crosssession_substrate": 1.0,
+      "crosssession_pythia": 0.0,
+      "multidoc": {
+        "sub_n10": 1.0,
+        "py_n10": 0.2,
+        "sub_n50": 1.0,
+        "py_n50": 0.12,
+        "sub_n200": 1.0,
+        "py_n200": 0.16,
+        "sub_n400": 1.0,
+        "py_n400": 0.0775
+      },
+      "multidoc_sub_n50": 1.0,
+      "multidoc_py_n50": 0.12
+    }
+  ],
+  "elapsed_s": 437.4756989479065,
+  "summary": "HARD_PASS: substrate categorically wins all 3 architectural-advantage benchmarks. LONGCONV sub=1.00/pythia@200=0.00 [PASS] | CROSS-SESSION sub=1.00/pythia=0.00 [PASS] | MULTIDOC@50 sub=1.00/pythia=0.13 [PASS]"
+}

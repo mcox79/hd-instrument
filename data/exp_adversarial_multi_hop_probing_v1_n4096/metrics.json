@@ -1,0 +1,24 @@
+{
+  "verdict": "S12_INCONCLUSIVE",
+  "verdict_msg": "no cells",
+  "elapsed_s": 4.46,
+  "summary": {
+    "anchor": "adversarial_multi_hop_probing_v1_n4096",
+    "N": 4096,
+    "smoke": false,
+    "M": 2048,
+    "depth": 5,
+    "n_q": 32,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ],
+    "cells": [],
+    "verdict": "S12_INCONCLUSIVE",
+    "verdict_msg": "no cells",
+    "elapsed_s": 4.46
+  }
+}

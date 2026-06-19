@@ -1,0 +1,56 @@
+# Cloud-instance bootstrap dependencies (Lambda Cloud + others).
+# Use with --system-site-packages venv so we DON'T override the image's
+# pre-installed torch (Lambda's image ships torch 2.7.0 + CUDA 12.8; pip
+# would otherwise pull a newer torch that requires a newer CUDA driver).
+#
+# Pinning intent:
+#   * numpy/scipy: project uses recent versions, but compatible with
+#     system torch's numpy ABI. Floors not ceilings.
+#   * faiss-cpu: substrate testbed work; not strictly required by every
+#     experiment but cheap to install.
+#   * fastapi/pydantic/httpx: hdlab_service Pattern B server + tests
+#   * cryptography: Ed25519 deletion certificates
+#   * pytest: test suites
+#
+# torch INTENTIONALLY OMITTED -- use system torch via --system-site-packages.
+# Add torch back here only if you've also pinned it to the exact version
+# matching the image's CUDA driver.
+
+# numpy: pin to <2 because Lambda's image-pre-installed torch 2.7.0 was
+# compiled against numpy 1.x ABI. Installing numpy 2.x breaks
+# torch.from_numpy / torch <-> numpy conversions at runtime even though
+# `import torch` still succeeds (warning: 'Failed to initialize NumPy:
+# _ARRAY_API not found'). Substrate experiments hit this constantly.
+numpy>=1.24,<2.0
+scipy>=1.10,<1.14
+faiss-cpu>=1.7.4
+pydantic>=2.0
+fastapi>=0.100
+httpx>=0.24
+cryptography>=41.0
+pytest>=7.0
+pyyaml>=6.0
+
+# LLM-integration testbed (Phi-3 latency probes, Anthropic harness, hard-neg gen).
+# Pin transformers floor at 4.40 (Phi-3 builtin support; trust_remote_code=False
+# path uses the builtin impl which handles current rope_scaling schema).
+# bitsandbytes is the 4-bit NF4 quantization backend; accelerate is needed for
+# device_map="auto" + dispatch on multi-device or low-VRAM paths.
+# anthropic is the Tier 2b LLM comparison harness client (real API path).
+# Pillow>=10: transformers 5.x imports PIL.Image.Resampling (added in Pillow
+# 9.1). Lambda's system PIL is too old (Python 3.10 system Pillow); pip-installs
+# a newer Pillow in the --system-site-packages venv which shadows the system
+# version. Without this pin, `from transformers.models.phi3 import ...` raises
+# AttributeError on PIL.Image.Resampling, which kills the experiment at model
+# load. (Observed on H100 attempt 4 2026-06-01.)
+transformers>=4.40
+bitsandbytes>=0.43
+accelerate>=0.30
+# peft for QLoRA fine-tune (PP-8 Week 2 Phase 2): LoraConfig +
+# prepare_model_for_kbit_training + get_peft_model.
+peft>=0.11
+# datasets for MRPC/QQP paraphrase benchmark loading (PP-8 Round 4 Path A
+# paraphrase smoke; cell 10 of v1b grid).
+datasets>=2.14
+anthropic>=0.50
+Pillow>=10.0

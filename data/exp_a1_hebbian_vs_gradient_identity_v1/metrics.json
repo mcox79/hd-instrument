@@ -1,0 +1,34 @@
+{
+  "anchor_name": "a1_hebbian_vs_gradient_identity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions met in >=2/2 seeds. n_seeds=2 hebb=0.9800 gd=1.0000 delta_pp=-2.00 wall=146795400.5x flops=492.0x hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 256,
+  "M": 25,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.6285452842712402,
+  "per_seed": [
+    {
+      "seed": 7,
+      "hebb_acc": 0.96,
+      "gd_acc": 1.0,
+      "acc_delta_pp": -4.0000000000000036,
+      "wall_speedup": 293590545.6542969,
+      "flops_speedup": 492.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "hebb_acc": 1.0,
+      "gd_acc": 1.0,
+      "acc_delta_pp": 0.0,
+      "wall_speedup": 255.3032904148784,
+      "flops_speedup": 492.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    }
+  ]
+}

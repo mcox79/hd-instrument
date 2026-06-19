@@ -1,0 +1,27 @@
+{
+  "verdict": "MULTIHOP_EDIT_COMPOSES",
+  "verdict_msg": "Pre=0.678; post-edit chains following edits: 0.689 >= 0.4; untouched chains: 0.922 >= 0.8. Substrate composes editing with multi-step reasoning: edited facts propagate through chains, untouched chains preserved.",
+  "elapsed_s": 2.25,
+  "summary": {
+    "metrics": {
+      "pre_edit_accuracy": 0.6777777777777778,
+      "post_edit_accuracy_following": 0.6888888888888889,
+      "kept_chain_accuracy": 0.9222222222222224,
+      "n_trials": 90
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depth": 5,
+    "n_trials": 30,
+    "seeds": [
+      17,
+      23,
+      31
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "anchor_name": "substrate_relation_classification_fewshot_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: RE 40-60%% of full at 5%% data -- weaker low-data fit than sequence labeling (19-class classification needs more data per class). macro-F1@5%=0.3512 @full=0.6562 (53.5% of full at 5% data); curve=[(0.01, 0.183), (0.05, 0.3512), (0.1, 0.4627), (0.5, 0.6052), (1.0, 0.6562)] -- CONTRAST: sequence-labeling NER 63%/slot 87% of full at 5%",
+  "summary": "MIDDLE_BAND: RE 40-60%% of full at 5%% data -- weaker low-data fit than sequence labeling (19-class classification needs more data per class). macro-F1@5%=0.3512 @full=0.6562 (53.5% of full at 5% data); curve=[(0.01, 0.183), (0.05, 0.3512), (0.1, 0.4627), (0.5, 0.6052), (1.0, 0.6562)] -- CONTRAST: sequence-labeling NER 63%/slot 87% of full at 5%",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.6562,
+      "macro_f1_5pct": 0.3512,
+      "macro_f1_full": 0.6562,
+      "rel_at_5pct": 0.5352,
+      "curve": [
+        {
+          "frac": 0.01,
+          "macro_f1": 0.183,
+          "n": 80
+        },
+        {
+          "frac": 0.05,
+          "macro_f1": 0.3512,
+          "n": 400
+        },
+        {
+          "frac": 0.1,
+          "macro_f1": 0.4627,
+          "n": 800
+        },
+        {
+          "frac": 0.5,
+          "macro_f1": 0.6052,
+          "n": 4000
+        },
+        {
+          "frac": 1.0,
+          "macro_f1": 0.6562,
+          "n": 8000
+        }
+      ],
+      "n_classes": 19
+    }
+  ],
+  "elapsed_s": 17.242613077163696
+}

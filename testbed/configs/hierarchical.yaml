@@ -1,0 +1,52 @@
+# Hierarchical-capacity envelope sweep.
+#
+# Tests whether a two-level (top router + K leaf substrates) structure
+# extends the per-substrate envelope across M_total in {1000, 5000, 10000,
+# 20000} while preserving recall and routing accuracy. Comparison row:
+# substrate at N=2048 (per-leaf size) and substrate at N=8192 (larger
+# single-shot reference).
+
+config_name: hierarchical
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+hier_K_topics: 10
+hier_N_top: 512
+hier_N_leaf: 2048
+hier_M_capacity_per_leaf: 1000
+hier_codebook_C_top: 2048
+hier_codebook_C_leaf: 8192
+hier_M_totals: [1000, 5000, 10000, 20000]
+hier_n_recall_samples: 500
+hier_n_latency_queries: 500
+hier_n_delete: 100
+
+single_substrate_Ns: [2048, 8192]
+
+hierarchical:
+  N_top: 512
+  N_leaf: 2048
+  K_topics: 10
+  codebook_kind: bsc
+  codebook_C_top: 2048
+  codebook_C_leaf: 8192
+  beta: 32.0
+  hallu_threshold: 0.5
+  M_capacity_per_leaf: 1000
+  routing: hash
+  device: cpu
+  seed: 7
+
+# Auto-size the single-substrate row's codebook to M.
+codebook_M_hint_auto: true
+
+seeds: [7]
+backends: [substrate_hierarchical, substrate]
+scenarios:
+  - hierarchical_capacity
+
+out_root: testbed_data/benchmarks

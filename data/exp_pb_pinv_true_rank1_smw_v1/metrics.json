@@ -1,0 +1,27 @@
+{
+  "anchor_name": "pb_pinv_true_rank1_smw_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: rank-1 correct but <10x speedup. at N=1024: rank1/full speedup=6.0x max_dev=4.73e-13",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "N512": {
+          "incremental_wps": 166.79419473472163,
+          "full_rebuild_wps": 33.61841743488043,
+          "speedup": 4.9613934105555515,
+          "max_dev": 4.725664304316979e-13
+        },
+        "N1024": {
+          "incremental_wps": 62.821548158113465,
+          "full_rebuild_wps": 10.46687495687103,
+          "speedup": 6.001939300600315,
+          "max_dev": 1.079969447204121e-13
+        }
+      }
+    }
+  ],
+  "elapsed_s": 1.616020917892456,
+  "summary": "MIDDLE_BAND: rank-1 correct but <10x speedup. at N=1024: rank1/full speedup=6.0x max_dev=4.73e-13"
+}

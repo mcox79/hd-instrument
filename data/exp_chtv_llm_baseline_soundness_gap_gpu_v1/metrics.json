@@ -1,0 +1,38 @@
+{
+  "anchor_name": "chtv_llm_baseline_soundness_gap_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the LLM HALLUCINATES -- accepts >=1 INVALID derivation (false dependency) as VALID (max false-accepts=3), while the substrate verifier is sound (0 false-accepts). Empirical substrate-vs-LLM SOUNDNESS GAP: the LLM cannot guarantee proof soundness (no checkable ground truth); the substrate can (typed-derivation graph). Capstone of the prover narrative. substrate: 0 false-accepts / accuracy 1.0. LLM(s): [{'0.5B': {'acc': 0.6667, 'false_accept': 3, 'false_reject': 5}}, {'1.5B': {'acc': 0.75, 'false_accept': 1, 'false_reject': 5}}] | (n_valid=12 n_invalid=12)",
+  "summary": "HARD_PASS: the LLM HALLUCINATES -- accepts >=1 INVALID derivation (false dependency) as VALID (max false-accepts=3), while the substrate verifier is sound (0 false-accepts). Empirical substrate-vs-LLM SOUNDNESS GAP: the LLM cannot guarantee proof soundness (no checkable ground truth); the substrate can (typed-derivation graph). Capstone of the prover narrative. substrate: 0 false-accepts / accuracy 1.0. LLM(s): [{'0.5B': {'acc': 0.6667, 'false_accept': 3, 'false_reject': 5}}, {'1.5B': {'acc': 0.75, 'false_accept': 1, 'false_reject': 5}}] | (n_valid=12 n_invalid=12)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_model": [
+        {
+          "model": "0.5B",
+          "accuracy": 0.6667,
+          "false_accepts": 3,
+          "n_invalid": 12,
+          "false_rejects": 5,
+          "n_valid": 12,
+          "unparsed": 0
+        },
+        {
+          "model": "1.5B",
+          "accuracy": 0.75,
+          "false_accepts": 1,
+          "n_invalid": 12,
+          "false_rejects": 5,
+          "n_valid": 12,
+          "unparsed": 0
+        }
+      ],
+      "n_trials": 24,
+      "n_valid": 12,
+      "n_invalid": 12,
+      "substrate_false_accepts": 0,
+      "substrate_accuracy": 1.0
+    }
+  ],
+  "elapsed_s": 14.17780613899231
+}

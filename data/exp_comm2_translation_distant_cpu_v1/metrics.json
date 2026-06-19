@@ -1,0 +1,15 @@
+{
+  "anchor_name": "comm2_translation_distant_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: distant-language translation works substrate-only -- concept pivot via interlingua (>=0.85) AND word-order reordering via stored templates (>=0.85). Systematic syntax (word-order templates) is substrate-native; the gap is only complex/statistical syntax. concept=1.000 order=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "concept_accuracy": 1.0,
+      "order_accuracy": 1.0
+    }
+  ],
+  "elapsed_s": 2.129565954208374,
+  "summary": "HARD_PASS: distant-language translation works substrate-only -- concept pivot via interlingua (>=0.85) AND word-order reordering via stored templates (>=0.85). Systematic syntax (word-order templates) is substrate-native; the gap is only complex/statistical syntax. concept=1.000 order=1.000"
+}

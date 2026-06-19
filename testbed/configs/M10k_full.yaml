@@ -1,0 +1,27 @@
+# M=10k full benchmark: substrate + faiss at deployment-relevant scale.
+# Tests point_recall + edit_isolation + deletion + hallu + continual at scaled M.
+# substrate + faiss only (dict brute-force at M=10k is ~30 min wall).
+
+config_name: M10k_full
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 16384      # 8N for low collision rate
+codebook_scale: 8
+beta: 32.0
+hallu_threshold: 0.5
+
+M_total: 10000
+edit_isolation_M: 512
+deletion_M: 512
+deletion_k_probes: 32
+hallu_M_fracs: [0.25, 0.5, 1.0]
+hallu_n_oos: 256
+continual_M: 1024
+storage_latency_Ms: [10000]
+storage_latency_n_queries: 256
+
+seeds: [7]
+backends: [substrate, faiss]
+scenarios: [point_recall, edit_isolation, deletion_verify, hallu_detect, continual_4stage, storage_latency]
+out_root: testbed_data/benchmarks

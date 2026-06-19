@@ -1,0 +1,45 @@
+{
+  "anchor_name": "substrate_77a_iter4_wtypesig_extractor_laptop_only_cpu_v1",
+  "verdict": "HARD_FINDING",
+  "verdict_msg": "W-TYPE-SIG STRICT pairs add 0 NEW edges (all already grounded) AND 6 have REVERSE DEPENDS_ON cycles -> the celebrated 'STRICT growth' is NOT new growth on the current self-model; the substrate-product value of W-TYPE-SIG here is (a) CYCLE-CLEANUP (remove the 6 reverse edges to realize clean direction) and (b) FUTURE growth as NEW un-grounded operators are authored. DECISION 77c ratify would be redundant (0 new) + would not fix the existing reverse-direction cycles. W-TYPE-SIG mechanism is real (extractor parses author-supplied directional pointers from 45 signatures), BUT vs the CURRENT substrate: of Skunkworks's 14 STRICT pairs, 14 already exist as forward edges, 0 are genuinely NEW, and 6 have a REVERSE DEPENDS_ON edge (2-cycle). Extractor's own additive pass yields 0 NEW (consistent). 2 unresolved (endpoint atom not authored) + 0 compound/non-reliable deferred.",
+  "summary": "W-TYPE-SIG STRICT pairs add 0 NEW edges (all already grounded) AND 6 have REVERSE DEPENDS_ON cycles -> the celebrated 'STRICT growth' is NOT new growth on the current self-model; the substrate-product value of W-TYPE-SIG here is (a) CYCLE-CLEANUP (remove the 6 reverse edges to realize clean direction) and (b) FUTURE growth as NEW un-grounded operators are authored. DECISION 77c ratify would be redundant (0 new) + would not fix the existing reverse-direction cycles. W-TYPE-SIG mechanism is real (extractor parses author-supplied directional pointers from 45 signatures), BUT vs the CURRENT substrate: of Skunkworks's 14 STRICT pairs, 14 already exist as forward edges, 0 are genuinely NEW, and 6 have a REVERSE DEPENDS_ON edge (2-cycle). Extractor's own additive pass yields 0 NEW (consistent). 2 unresolved (endpoint atom not authored) + 0 compound/non-reliable deferred.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_signatures": 45,
+      "new_strict_extracted": 0,
+      "unresolved": 2,
+      "deferred": 0,
+      "sk_strict": 14,
+      "sk_already_exist": 14,
+      "sk_genuinely_new": 0,
+      "sk_reverse_cycles": 6,
+      "cycles": [
+        "cosine_similarity<->inner_product (reverse DEPENDS_ON present)",
+        "fast_fourier_transform<->discrete_fourier_transform (reverse DEPENDS_ON present)",
+        "bayes_rule<->conditional_probability (reverse DEPENDS_ON present)",
+        "gradient<->partial_derivative (reverse DEPENDS_ON present)",
+        "gradient_descent<->gradient (reverse DEPENDS_ON present)",
+        "newton_method<->hessian (reverse DEPENDS_ON present)"
+      ],
+      "new_pairs": [],
+      "unresolved_list": [
+        {
+          "src": "cleanup",
+          "tgt": "cosine_similarity_or_hamming_distance",
+          "pointer": "implemented_via",
+          "why": "tgt-atom-not-found"
+        },
+        {
+          "src": "stochastic_gradient_descent",
+          "tgt": "gradient_minibatch",
+          "pointer": "uses",
+          "why": "tgt-atom-not-found"
+        }
+      ],
+      "strict_sample": []
+    }
+  ],
+  "elapsed_s": 0.44459009170532227
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "zkl_whitening_ablation_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: whitening gives no meaningful privacy reduction. ZKL_whiten_on=0.5833 ZKL_whiten_off=0.6167 on/off=0.946 (k=50)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "zkl_on": 0.5833333333333334,
+      "zkl_off": 0.6166666666666667,
+      "ratio": 0.9459459459459459
+    }
+  ],
+  "elapsed_s": 1.7293949127197266,
+  "summary": "HARD_FAIL: whitening gives no meaningful privacy reduction. ZKL_whiten_on=0.5833 ZKL_whiten_off=0.6167 on/off=0.946 (k=50)"
+}

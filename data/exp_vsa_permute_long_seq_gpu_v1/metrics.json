@@ -1,0 +1,18 @@
+{
+  "anchor_name": "vsa_permute_long_seq_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ordered-sequence recovery >=0.90 at K=12 -- long timelines/ranked-lists representable. recovery by K: {'K5': 1.0, 'K8': 1.0, 'K12': 1.0}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K5": 1.0,
+        "K8": 1.0,
+        "K12": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 0.9898006916046143,
+  "summary": "HARD_PASS: ordered-sequence recovery >=0.90 at K=12 -- long timelines/ranked-lists representable. recovery by K: {'K5': 1.0, 'K8': 1.0, 'K12': 1.0}"
+}

@@ -1,0 +1,20 @@
+{
+  "verdict": "GEN_POOL_BOTH_WORK",
+  "verdict_msg": "Both static and continual pool produce non-degenerate generation. static=(e=5.136,r=0.000); continual=(e=5.136,r=0.000). Continual pool doesn't measurably help (already at substrate limit).",
+  "elapsed_s": 9.140999999999622,
+  "summary": {
+    "static_entropy": 5.135663119354562,
+    "static_repetition": 0.0,
+    "continual_entropy": 5.1358483246179,
+    "continual_repetition": 0.0,
+    "static_sample": "sa0/2ar= =bn.//n 4sman.ddaeni|axtthdh 0_e)krdee|e|\nbs.,>t|mba_En51aM/-/omCus1f(acc 5]09- A mo12m e- e|ntDbdarpeiip|amd.gab=|s_ a1ecie txdya|W./o pes|1eg u-rmbdte6rdaii an|ey,_aes/6\r-Ee=lyn_|a08/aArw=i",
+    "continual_sample": "e\rpir.x\ndssni)ac9cSm_|=d 0e .nplmgme demN mt ee09kra_r| ca0duM 2|\negnsyh]/] ao dd5 0i_r|/mt 0 ip, tn rgeadp,4(spat nceem 6nWbr@%n3ka9| %al.s n.a|tp(.mai_|lPb s Rt| sd rmar]ea9t] |n |aeeertte  rblb]pg["
+  },
+  "config": {
+    "mode": "full",
+    "N": 4096,
+    "generate_length": 512,
+    "temperature": 1.0,
+    "max_epochs": 5
+  }
+}

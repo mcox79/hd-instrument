@@ -1,0 +1,30 @@
+# Factorized substrate vs dense substrate benchmark.
+# Sweeps N in {1024, 2048} and M/N ratios in {0.10, 0.25, 0.50, 1.0, 2.0}.
+# The scenario itself takes one N per run; choose dim=N to set it.
+#
+# Run with:
+#   python -m testbed run \
+#       --scenario factorized_vs_dense \
+#       --backend substrate_factorized \
+#       --config testbed/configs/factorized.yaml
+#
+# Expected wall time at N=1024: ~30-60s. At N=2048: ~60-120s.
+
+N: 1024
+dim: 1024
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+factorized_M_per_N_ratios: [0.10, 0.25, 0.50, 1.0, 2.0]
+factorized_n_recall_samples: 200
+factorized_n_latency_queries: 100
+
+seeds: [7]
+
+backends: [substrate_factorized]
+scenarios:
+  - factorized_vs_dense
+
+out_root: testbed_data/benchmarks

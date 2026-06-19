@@ -1,0 +1,15 @@
+{
+  "anchor_name": "orch_multi_tool_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate composes the correct 3-tool pipeline >=85pct end-to-end (route + ordered slot-bound tool sequence). Substrate-as-multi-tool-orchestrator validated. full-pipeline=1.000 per-step=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pipeline_acc": 1.0,
+      "step_acc": 1.0
+    }
+  ],
+  "elapsed_s": 1.0226919651031494,
+  "summary": "HARD_PASS: substrate composes the correct 3-tool pipeline >=85pct end-to-end (route + ordered slot-bound tool sequence). Substrate-as-multi-tool-orchestrator validated. full-pipeline=1.000 per-step=1.000"
+}

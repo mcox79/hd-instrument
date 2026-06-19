@@ -1,0 +1,15 @@
+{
+  "anchor_name": "math2_equation_solve_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate solves linear+quadratic equations >=0.70 (verified roots) -- recovers coefficients + type and applies closed-form solvers, substrate-only. accuracy=1.000 (n=120)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 1.0,
+      "n": 120
+    }
+  ],
+  "elapsed_s": 0.1164391040802002,
+  "summary": "HARD_PASS: substrate solves linear+quadratic equations >=0.70 (verified roots) -- recovers coefficients + type and applies closed-form solvers, substrate-only. accuracy=1.000 (n=120)"
+}

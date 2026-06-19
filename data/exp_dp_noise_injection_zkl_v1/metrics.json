@@ -1,0 +1,35 @@
+{
+  "anchor_name": "dp_noise_injection_zkl_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no DP sigma reaches ZKL<=0.10 -- DP injection not a sufficient privacy knob here. ZKL/recall by sigma: {'s0.00': (0.35, 1.0), 's0.05': (0.188, 1.0), 's0.10': (0.263, 1.0), 's0.20': (0.375, 1.0), 's0.40': (0.225, 1.0)}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_sigma": {
+        "s0.00": {
+          "zkl": 0.35,
+          "recall": 1.0
+        },
+        "s0.05": {
+          "zkl": 0.1875,
+          "recall": 1.0
+        },
+        "s0.10": {
+          "zkl": 0.2625,
+          "recall": 1.0
+        },
+        "s0.20": {
+          "zkl": 0.375,
+          "recall": 1.0
+        },
+        "s0.40": {
+          "zkl": 0.225,
+          "recall": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 22.721145629882812,
+  "summary": "HARD_FAIL: no DP sigma reaches ZKL<=0.10 -- DP injection not a sufficient privacy knob here. ZKL/recall by sigma: {'s0.00': (0.35, 1.0), 's0.05': (0.188, 1.0), 's0.10': (0.263, 1.0), 's0.20': (0.375, 1.0), 's0.40': (0.225, 1.0)}"
+}

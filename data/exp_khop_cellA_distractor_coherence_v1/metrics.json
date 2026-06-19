@@ -1,0 +1,16 @@
+{
+  "anchor_name": "khop_cellA_distractor_coherence_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: c_d 0.20-0.40 -- partial distractor coherence; confidence threshold helps but margins tight. c_d_empirical=0.3885 (distractor mutual coherence in B=10 fan-out, real MiniLM)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "c_d_empirical": 0.3885221923391024,
+      "B": 10,
+      "n_kb": 3000
+    }
+  ],
+  "elapsed_s": 16.205962419509888,
+  "summary": "MIDDLE_BAND: c_d 0.20-0.40 -- partial distractor coherence; confidence threshold helps but margins tight. c_d_empirical=0.3885 (distractor mutual coherence in B=10 fan-out, real MiniLM)"
+}

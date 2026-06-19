@@ -1,0 +1,21 @@
+{
+  "verdict": "PQ_DISCRETE_OTHER",
+  "verdict_msg": "n_peaks=16 not near 28 but ratio=100.00>=2.0 (discrete but different cardinality).",
+  "elapsed_s": 15.812000000005355,
+  "summary": {
+    "n_peaks_estimate": 16,
+    "peak_to_valley_ratio": 100.0,
+    "q_mean": 0.14386666666666667,
+    "q_std": 0.04680362969991131,
+    "n_seeds": 50
+  },
+  "config": {
+    "N": 2048,
+    "K": 100,
+    "depth": 25,
+    "num_entities": 200,
+    "num_relations": 20,
+    "n_starts": 30,
+    "n_seeds": 50
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "experiments": [
+    {"name": "r10_N8192", "script": "experiments/exp_wave14b_r10_N8192.py", "status": "running", "purpose": "R10 K-effect at N=8192", "timeout_s": 14400},
+    {"name": "r3_laplace", "script": "experiments/exp_wave14b_r3_laplace.py", "status": "pending", "purpose": "DECISIVE compound test: R3 with alpha=1 Laplace smoothing at K=4 and K=32, 3 seeds. Tests if R3 compound reopens with proper normalizer.", "timeout_s": 5400}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "c3_factored",
+      "script": "experiments/exp_wave14b_c3_factored.py",
+      "status": "pending",
+      "purpose": "C3 with factored per-position kernel (test against failed C3 minimal)",
+      "timeout_s": 1200
+    }
+  ]
+}

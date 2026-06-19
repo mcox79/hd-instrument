@@ -1,0 +1,69 @@
+{
+  "verdict": "S8_HARD_FAIL",
+  "verdict_msg": "NO_TRADEOFF: pareto={'cleanup': 1, 'k_paths': 1, 'audit': 1, 'depth': 1} n_pass=0/4",
+  "elapsed_s": 0.08,
+  "summary": {
+    "anchor": "latency_accuracy_tradeoff_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "cleanups": [
+      0.5,
+      1.0
+    ],
+    "Ks": [
+      50
+    ],
+    "audits": [
+      5
+    ],
+    "depths": [
+      3
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "cleanup": [
+          {
+            "setting": 0.5,
+            "acc": 1.0,
+            "lat_ns": 3424100
+          },
+          {
+            "setting": 1.0,
+            "acc": 1.0,
+            "lat_ns": 2838700
+          }
+        ],
+        "k_paths": [
+          {
+            "setting": 50,
+            "acc": 1.0,
+            "lat_ns": 40734100
+          }
+        ],
+        "audit": [
+          {
+            "setting": 5,
+            "acc": 1.0,
+            "lat_ns": 275200
+          }
+        ],
+        "depth": [
+          {
+            "setting": 3,
+            "acc": 1.0,
+            "lat_ns": 2326800
+          }
+        ]
+      }
+    ],
+    "verdict": "S8_HARD_FAIL",
+    "verdict_msg": "NO_TRADEOFF: pareto={'cleanup': 1, 'k_paths': 1, 'audit': 1, 'depth': 1} n_pass=0/4",
+    "elapsed_s": 0.08
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_autonomous_tier2_mixed_symmetry_link_prediction_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "GATE 2 FAILS (honest negative): a SINGLE existing operator (['rolefiller_xor', 'rolefiller_conv', 'rolefiller_ghrr']) CLOSES held-out mixed-symmetry link-prediction -- role_filler-class binding is the canonical multi-relational VSA encoder and handles it. So the LINK-PREDICTION anchor does NOT yield an autonomous-tier-2 gap: binary link-prediction is bimodally/role-filler handled. Partial-symmetry is a TERNARY property that binary link-prediction does not exhibit; a ternary-motif metric to force it would risk gate-1 gerrymandering. Autonomous tier-2 awaits a genuinely partial-symmetric REAL task or the tier-3 architectural decision -- NOT a fabricated one. mixed-symmetry atoms=179; held-out directed link-prediction hit@1: {'bundle_norole': 0.286, 'rolefiller_xor': 0.87, 'rolefiller_conv': 0.867, 'rolefiller_ghrr': 0.868, 'partial_sym_comp': 0.867}; single-op closers (>=0.70)=['rolefiller_xor', 'rolefiller_conv', 'rolefiller_ghrr'].",
+  "summary": "GATE 2 FAILS (honest negative): a SINGLE existing operator (['rolefiller_xor', 'rolefiller_conv', 'rolefiller_ghrr']) CLOSES held-out mixed-symmetry link-prediction -- role_filler-class binding is the canonical multi-relational VSA encoder and handles it. So the LINK-PREDICTION anchor does NOT yield an autonomous-tier-2 gap: binary link-prediction is bimodally/role-filler handled. Partial-symmetry is a TERNARY property that binary link-prediction does not exhibit; a ternary-motif metric to force it would risk gate-1 gerrymandering. Autonomous tier-2 awaits a genuinely partial-symmetric REAL task or the tier-3 architectural decision -- NOT a fabricated one. mixed-symmetry atoms=179; held-out directed link-prediction hit@1: {'bundle_norole': 0.286, 'rolefiller_xor': 0.87, 'rolefiller_conv': 0.867, 'rolefiller_ghrr': 0.868, 'partial_sym_comp': 0.867}; single-op closers (>=0.70)=['rolefiller_xor', 'rolefiller_conv', 'rolefiller_ghrr'].",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "n_atoms": 2521,
+      "n_mixed": 179,
+      "macc": {
+        "bundle_norole": 0.285621734139129,
+        "rolefiller_xor": 0.8698283531905515,
+        "rolefiller_conv": 0.8672812525510899,
+        "rolefiller_ghrr": 0.8676183287831951,
+        "partial_sym_comp": 0.86739030044417
+      },
+      "single_closers": [
+        "rolefiller_xor",
+        "rolefiller_conv",
+        "rolefiller_ghrr"
+      ],
+      "bar": 0.7,
+      "gate2_single_fails": false
+    }
+  ],
+  "elapsed_s": 5.582608699798584
+}

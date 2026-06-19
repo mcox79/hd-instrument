@@ -1,0 +1,28 @@
+{
+  "anchor_name": "neurogenesis_adaptive_density_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: adaptive threshold does not robustly discover across noise levels. by-noise={'0.9': [0.128, 2.2], '1.3': [0.119, 2.0]} K=12 (0/2 levels OK)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_noise": {
+        "0.9": [
+          0.128,
+          2.2
+        ],
+        "1.3": [
+          0.119,
+          2.0
+        ]
+      },
+      "true_K": 12,
+      "noises": [
+        0.9,
+        1.3
+      ]
+    }
+  ],
+  "elapsed_s": 2.7462427616119385,
+  "summary": "HARD_FAIL: adaptive threshold does not robustly discover across noise levels. by-noise={'0.9': [0.128, 2.2], '1.3': [0.119, 2.0]} K=12 (0/2 levels OK)"
+}

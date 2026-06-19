@@ -1,0 +1,117 @@
+{
+  "anchor_name": "nhse_annulus_tau_crit_boundary_v1_n8192",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: discontinuous (max_ratio>5.0) OR non-monotone OR flat (spread<1.5). tau_crit=None max_ratio=1.16 spread=1.47 monotone=True gammas=[1.28, 1.41, 1.35, 1.55, 1.61, 1.88] taus_act=[0.214, 0.271, 0.331, 0.394, 0.458, 0.523]",
+  "N": 256,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "tau_grid": [
+    0.18,
+    0.22,
+    0.26,
+    0.3,
+    0.34,
+    0.38
+  ],
+  "nhse_A_ref": 1.2,
+  "nhse_c_ref": 3.83,
+  "elapsed_s": 0.4862358570098877,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cells": [
+        {
+          "t": 0.18,
+          "tau_actual": 0.2144073247909546,
+          "gamma_emp": 1.2610047898220933,
+          "nhse_pred": 2.727816877585498,
+          "annulus_ratio": 587.2512771885338
+        },
+        {
+          "t": 0.22,
+          "tau_actual": 0.2714601755142212,
+          "gamma_emp": 1.511910602263124,
+          "nhse_pred": 3.3940165023516267,
+          "annulus_ratio": 454.268185185017
+        },
+        {
+          "t": 0.26,
+          "tau_actual": 0.3314859867095947,
+          "gamma_emp": 1.2901977138536838,
+          "nhse_pred": 4.271277171405552,
+          "annulus_ratio": 361.49387017491483
+        },
+        {
+          "t": 0.3,
+          "tau_actual": 0.39391931891441345,
+          "gamma_emp": 1.643022066078713,
+          "nhse_pred": 5.425079470374341,
+          "annulus_ratio": 292.6917167938145
+        },
+        {
+          "t": 0.34,
+          "tau_actual": 0.45795658230781555,
+          "gamma_emp": 1.4042686199185717,
+          "nhse_pred": 6.933018352178174,
+          "annulus_ratio": 239.22887204850753
+        },
+        {
+          "t": 0.38,
+          "tau_actual": 0.5225620865821838,
+          "gamma_emp": 1.8717886405495874,
+          "nhse_pred": 8.879403207683817,
+          "annulus_ratio": 196.25975736673544
+        }
+      ],
+      "elapsed_s": 0.21376514434814453
+    },
+    {
+      "seed": 17,
+      "cells": [
+        {
+          "t": 0.18,
+          "tau_actual": 0.2144073247909546,
+          "gamma_emp": 1.2949647599774399,
+          "nhse_pred": 2.727816877585498,
+          "annulus_ratio": 891.2548807425128
+        },
+        {
+          "t": 0.22,
+          "tau_actual": 0.2714601159095764,
+          "gamma_emp": 1.3076967958096002,
+          "nhse_pred": 3.394015727545979,
+          "annulus_ratio": 691.8462118161528
+        },
+        {
+          "t": 0.26,
+          "tau_actual": 0.33148595690727234,
+          "gamma_emp": 1.4092192314338168,
+          "nhse_pred": 4.27127668386964,
+          "annulus_ratio": 553.4028674404733
+        },
+        {
+          "t": 0.3,
+          "tau_actual": 0.3939193785190582,
+          "gamma_emp": 1.448313143683231,
+          "nhse_pred": 5.425080708843033,
+          "annulus_ratio": 451.4953224872292
+        },
+        {
+          "t": 0.34,
+          "tau_actual": 0.45795661211013794,
+          "gamma_emp": 1.8217805131562006,
+          "nhse_pred": 6.933019143533003,
+          "annulus_ratio": 373.1875829213693
+        },
+        {
+          "t": 0.38,
+          "tau_actual": 0.5225621461868286,
+          "gamma_emp": 1.8835529916210831,
+          "nhse_pred": 8.879405234725619,
+          "annulus_ratio": 296.28879209298543
+        }
+      ],
+      "elapsed_s": 0.20400738716125488
+    }
+  ]
+}

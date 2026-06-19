@@ -1,0 +1,53 @@
+{
+  "verdict": "BET_B_PASS",
+  "verdict_msg": "Tier-1 KILLER validated. retention_A=0.927>=0.8, retention_B=0.959>=0.8, gain_C=4.4900>0, bwt=+0.3438>=0. Multi-task CL works through A->B->C with replay.",
+  "elapsed_s": 17.655999999988126,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 0.9268718501582377,
+        "retention_B": 0.9588418985171722,
+        "gain_C": 4.49004373550415,
+        "bwt": 0.3437880439758296,
+        "bpc_A_baseline": 3.6950551853179934,
+        "bpc_A_after_C": 3.986586910247803,
+        "bpc_B_baseline": 5.537676103591919,
+        "bpc_B_after_C": 5.7753797702789305,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 3.5099562644958495
+      }
+    },
+    "per_alpha": {
+      "0.7": {
+        "17": {
+          "retention_A": 0.9268718501582377,
+          "retention_B": 0.9588418985171722,
+          "gain_C": 4.49004373550415,
+          "bwt": 0.3437880439758296,
+          "bpc_A_baseline": 3.6950551853179934,
+          "bpc_A_after_C": 3.986586910247803,
+          "bpc_B_baseline": 5.537676103591919,
+          "bpc_B_after_C": 5.7753797702789305,
+          "bpc_zero_on_C": 8.0,
+          "bpc_C_after_C": 3.5099562644958495
+        }
+      }
+    },
+    "best_alpha": 0.7
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_frac": 0.3,
+    "alphas": [
+      0.7
+    ]
+  }
+}

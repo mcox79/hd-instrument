@@ -1,0 +1,45 @@
+{
+  "anchor": "moe_capacity_v3_n4096",
+  "N": 1024,
+  "smoke": true,
+  "K_sweep": [
+    4,
+    8
+  ],
+  "C": 512,
+  "M_budget": 200,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "K": 4,
+      "seed": 17,
+      "M_budget": 200,
+      "M_total": 800,
+      "ret_cap_aware": 0.26,
+      "ret_oracle": 0.88,
+      "ret_greedy": 0.22,
+      "benefit": 0.04,
+      "passes_hp_k4": false,
+      "elapsed_s": 0.05
+    },
+    {
+      "N": 1024,
+      "K": 8,
+      "seed": 17,
+      "M_budget": 200,
+      "M_total": 1600,
+      "ret_cap_aware": 0.04,
+      "ret_oracle": 0.76,
+      "ret_greedy": 0.06,
+      "benefit": -0.02,
+      "passes_hp_k4": false,
+      "elapsed_s": 0.06
+    }
+  ],
+  "verdict": "MOE_V3_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: ret_k4=0.2600 benefit=0.0100. mean_ret_k4=0.2600 mean_benefit=0.0100 n_pos_benefit=1/2 HP_ret_k4=0.6 N=1024",
+  "elapsed_s": 0.11
+}

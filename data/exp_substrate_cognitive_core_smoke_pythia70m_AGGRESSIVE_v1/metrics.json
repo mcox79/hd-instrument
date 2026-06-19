@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_cognitive_core_smoke_pythia70m_AGGRESSIVE_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate VSA reasoning validated (recall+analogical+counterfactual+cross-domain). recall=1.00 analogical=1.00 counterfactual=0.94 cross_domain=1.00",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "recall": 1.0,
+      "analogical": 1.0,
+      "counterfactual": 0.9375,
+      "cross_domain": 1.0
+    }
+  ],
+  "elapsed_s": 0.0312504768371582,
+  "summary": "HARD_PASS: substrate VSA reasoning validated (recall+analogical+counterfactual+cross-domain). recall=1.00 analogical=1.00 counterfactual=0.94 cross_domain=1.00"
+}

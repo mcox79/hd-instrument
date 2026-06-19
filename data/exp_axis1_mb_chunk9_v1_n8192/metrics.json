@@ -1,0 +1,43 @@
+{
+  "anchor": "axis1_mb_chunk9_v1_n8192",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    1.0,
+    4.0,
+    8.0
+  ],
+  "beta": 32.0,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 1.0,
+      "M": 1024,
+      "beta": 32.0,
+      "seed": 17,
+      "retention": 1.0
+    },
+    {
+      "N": 1024,
+      "M_frac": 4.0,
+      "M": 4096,
+      "beta": 32.0,
+      "seed": 17,
+      "retention": 1.0
+    },
+    {
+      "N": 1024,
+      "M_frac": 8.0,
+      "M": 8192,
+      "beta": 32.0,
+      "seed": 17,
+      "retention": 0.515
+    }
+  ],
+  "verdict": "C9_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_PHASE_STRUCTURE: ret_m1=1.000 ret_m8=0.515 variation=0.485 mono_frac=1.00 pass_m1=1/1 pass_m8=1/1 N=1024",
+  "elapsed_s": 0.25
+}

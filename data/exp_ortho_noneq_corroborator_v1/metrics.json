@@ -1,0 +1,34 @@
+{
+  "verdict": "SMOKE_MIDDLE_BAND",
+  "verdict_msg": "Smoke N=512: hs_ratio=3.8509 outside pass band. FULL uncertain.",
+  "elapsed_s": 0.31,
+  "hp_count": 0,
+  "n_seeds": 1,
+  "per_seed": {
+    "17": {
+      "N": 512,
+      "seed": 17,
+      "M_init": 51,
+      "M_delta": 10,
+      "M_probe": 50,
+      "hs_ratio": 3.8508951755587533,
+      "hs_std": 6.578333567556454,
+      "sigma_ex_var": 4.31393857421875,
+      "hp": false,
+      "elapsed_s": 0.31
+    }
+  },
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "ALPHA_INIT": 0.1,
+    "ALPHA_DELTA": 0.02,
+    "M_PROBE_CAP": 50,
+    "BETA": 1.0,
+    "HS_PASS_LOW": 0.5,
+    "HS_PASS_HIGH": 1.5
+  }
+}

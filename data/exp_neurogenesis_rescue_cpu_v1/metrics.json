@@ -1,0 +1,18 @@
+{
+  "anchor_name": "neurogenesis_rescue_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: rescue does not recover online discovery (<0.50). purity=0.159 shards=52.4 (K=18) baseline purity=1.000 shards=18.0",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rescue_purity": 0.159,
+      "rescue_shards": 52.4,
+      "baseline_purity": 1.0,
+      "baseline_shards": 18.0,
+      "true_K": 18
+    }
+  ],
+  "elapsed_s": 107.21586680412292,
+  "summary": "HARD_FAIL: rescue does not recover online discovery (<0.50). purity=0.159 shards=52.4 (K=18) baseline purity=1.000 shards=18.0"
+}

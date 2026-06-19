@@ -1,0 +1,60 @@
+{
+  "anchor": "kf2_be1_retrieval_acc_n8192",
+  "N": 1024,
+  "smoke": true,
+  "family": "kerdock",
+  "M_pool_target": 2000,
+  "precisions": [
+    "fp32",
+    "int8",
+    "int1"
+  ],
+  "seeds": [
+    17
+  ],
+  "n_probe": 200,
+  "cells": [
+    {
+      "precision": "fp32",
+      "M_pool": 2000,
+      "N": 1024,
+      "seed": 17,
+      "retrieval_acc": 0.755,
+      "n_probe": 200,
+      "precision_used": "fp32",
+      "precision_memory_bytes": 4194304,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 1.0,
+      "precision_numel_W": 1048576
+    },
+    {
+      "precision": "int8",
+      "M_pool": 2000,
+      "N": 1024,
+      "seed": 17,
+      "retrieval_acc": 0.75,
+      "n_probe": 200,
+      "precision_used": "int8",
+      "precision_memory_bytes": 1048576,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 4.0,
+      "precision_numel_W": 1048576
+    },
+    {
+      "precision": "int1",
+      "M_pool": 2000,
+      "N": 1024,
+      "seed": 17,
+      "retrieval_acc": 0.78,
+      "n_probe": 200,
+      "precision_used": "int1",
+      "precision_memory_bytes": 131072,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 32.0,
+      "precision_numel_W": 1048576
+    }
+  ],
+  "verdict": "KF2_RETA_HARD_FAIL",
+  "verdict_msg": "QUANTIZATION_INSENSITIVE: top-1 retrieval insensitive to W-precision. INT1/FP32 relative_drop=-0.033 < 0.05. fp32_acc=0.7550 int1_acc=0.7800 relative_drop=-0.033 degradation_seeds=0/1 HP_drop=0.2 HF_drop=0.05 mean_acc={'fp32': 0.755, 'fp16': 0.0, 'int8': 0.75, 'int4': 0.0, 'int2': 0.0, 'int1': 0.78} N=1024",
+  "elapsed_s": 0.19
+}

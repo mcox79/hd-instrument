@@ -1,0 +1,83 @@
+{
+  "verdict": "CONFORMAL_ROUTING_SUBSUMPTION_INCONCLUSIVE",
+  "verdict_msg": "Only 2 folds; need 25 for full LOO.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "observations": [
+      {
+        "codebook": "iid_gauss",
+        "seed": 17,
+        "ks": 0.0798855437620477,
+        "amp_emp": 0.20919182259712166,
+        "amp_rel_err": 0.5452741852192992,
+        "empirical_label": "VAMP_REQUIRED"
+      },
+      {
+        "codebook": "srht",
+        "seed": 17,
+        "ks": 0.5743233451135475,
+        "amp_emp": 0.010500062450385726,
+        "amp_rel_err": 0.8896181754236606,
+        "empirical_label": "VAMP_REQUIRED"
+      }
+    ],
+    "fold_results": [
+      {
+        "codebook": "iid_gauss",
+        "seed": 17,
+        "ks": 0.0798855437620477,
+        "amp_rel_err": 0.5452741852192992,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "AMP_OK",
+        "p_amp": 0.9999000099990001,
+        "p_vamp": 0.5,
+        "decision": "ABSTAIN",
+        "correct_if_committed": false
+      },
+      {
+        "codebook": "srht",
+        "seed": 17,
+        "ks": 0.5743233451135475,
+        "amp_rel_err": 0.8896181754236606,
+        "empirical_label": "VAMP_REQUIRED",
+        "routed_label": "VAMP_REQUIRED",
+        "p_amp": 0.9999000099990001,
+        "p_vamp": 1.0,
+        "decision": "ABSTAIN",
+        "correct_if_committed": true
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "n_seeds": 1,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 50,
+      "tau_declared": 0.2,
+      "p_commit": 0.9,
+      "p_other_max": 0.5,
+      "codebooks": [
+        "iid_gauss",
+        "srht"
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "n_seeds": 1,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 50,
+    "tau_declared": 0.2,
+    "p_commit": 0.9,
+    "p_other_max": 0.5,
+    "codebooks": [
+      "iid_gauss",
+      "srht"
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "verdict": "K1_STRESS_HARD_PASS",
+  "verdict_msg": "K=1 ceiling RESPECTED: ret_A_after_D < 0.8 in 5/5 seeds. Rescue trio (wide/frozen/dual-W) genuinely changes architecture class. ret_A_after_D per seed: [0.738, 0.751, 0.748, 0.741, 0.754] mean=0.746 progression: after_B=0.705 after_C=0.737 after_D=0.746",
+  "elapsed_s": 813.95,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "retention_A_after_B": 0.7052796253048798,
+        "retention_A_after_C": 0.7333242754793908,
+        "retention_A_after_D": 0.7379561222741192,
+        "bpc_A_baseline": 2.444777782841426,
+        "bpc_A_after_B": 3.466395022803321,
+        "bpc_A_after_C": 3.3338290638793038,
+        "bpc_A_after_D": 3.3129039912393266,
+        "retention_B_after_D": 0.9305244015634238,
+        "N": 8192,
+        "seed": 7,
+        "_partial_written_at": 1780140706.4454923
+      },
+      "17": {
+        "retention_A_after_B": 0.7075584857245674,
+        "retention_A_after_C": 0.7414519247249343,
+        "retention_A_after_D": 0.7514411150824134,
+        "bpc_A_baseline": 2.4513353783394143,
+        "bpc_A_after_B": 3.4644985931151,
+        "bpc_A_after_C": 3.3061285520956964,
+        "bpc_A_after_D": 3.262178937428207,
+        "retention_B_after_D": 0.927882126664284,
+        "N": 8192,
+        "seed": 17,
+        "_partial_written_at": 1780140868.991503
+      },
+      "23": {
+        "retention_A_after_B": 0.708672112216829,
+        "retention_A_after_C": 0.7389296844847236,
+        "retention_A_after_D": 0.7478007532722464,
+        "bpc_A_baseline": 2.448262863617518,
+        "bpc_A_after_B": 3.454718792247937,
+        "bpc_A_after_C": 3.313255530294145,
+        "bpc_A_after_D": 3.2739507855593146,
+        "retention_B_after_D": 0.9294115053579909,
+        "N": 8192,
+        "seed": 23,
+        "_partial_written_at": 1780141031.6909707
+      },
+      "31": {
+        "retention_A_after_B": 0.7070538509464536,
+        "retention_A_after_C": 0.729738799410019,
+        "retention_A_after_D": 0.7408580045840307,
+        "bpc_A_baseline": 2.4313839169653644,
+        "bpc_A_after_B": 3.438753517445303,
+        "bpc_A_after_C": 3.331855067773696,
+        "bpc_A_after_D": 3.28184875093644,
+        "retention_B_after_D": 0.9322155577904094,
+        "N": 8192,
+        "seed": 31,
+        "_partial_written_at": 1780141195.6725416
+      },
+      "41": {
+        "retention_A_after_B": 0.698303845058771,
+        "retention_A_after_C": 0.7436125556295217,
+        "retention_A_after_D": 0.753814774172526,
+        "bpc_A_baseline": 2.4594413218193805,
+        "bpc_A_after_B": 3.5220217377041476,
+        "bpc_A_after_C": 3.3074230702536833,
+        "bpc_A_after_D": 3.2626600142178788,
+        "retention_B_after_D": 0.9378236394451935,
+        "N": 8192,
+        "seed": 41,
+        "_partial_written_at": 1780141357.6235108
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 8192,
+    "batch_size": 64,
+    "epochs": 5,
+    "phase_a_epochs": 8,
+    "bytes_per_corpus": 200000,
+    "seeds": [
+      7,
+      17,
+      23,
+      31,
+      41
+    ]
+  },
+  "n_seeds_done": 5,
+  "n_seeds_total": 5
+}

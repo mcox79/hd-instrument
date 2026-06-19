@@ -1,0 +1,249 @@
+{
+  "anchor_name": "substrate_concept_invention_INV_1_popper_predicate_invention_linear_algebra_cpu_v1",
+  "verdict": "PARTIAL",
+  "verdict_msg": "Loop REDISCOVERS >=3 existing sound composites (4-gate PASS, provenance solid) but invents <3 NOVEL structurally-new predicates -> substrate's invention loop finds REAL compositional structure but does not autonomously certify genuinely-NEW concepts internally (consistent with Iter-4 authoring-time-bound boundary; Claim 5b stays OPEN with this refined characterization). CELL-INV-1: 20 primitives, 12 pos / 12 neg examples; 11 predicates accepted by Popper entailment; 11 pass 4-gate (REDISCOVERED=11 provenance-solid, NOVEL=0 genuine-Claim-5b). Convergence 0.0s.",
+  "summary": "Loop REDISCOVERS >=3 existing sound composites (4-gate PASS, provenance solid) but invents <3 NOVEL structurally-new predicates -> substrate's invention loop finds REAL compositional structure but does not autonomously certify genuinely-NEW concepts internally (consistent with Iter-4 authoring-time-bound boundary; Claim 5b stays OPEN with this refined characterization). CELL-INV-1: 20 primitives, 12 pos / 12 neg examples; 11 predicates accepted by Popper entailment; 11 pass 4-gate (REDISCOVERED=11 provenance-solid, NOVEL=0 genuine-Claim-5b). Convergence 0.0s.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_primitives": 20,
+      "n_positives": 12,
+      "n_negatives": 12,
+      "n_accepted": 11,
+      "n_gate_pass": 11,
+      "n_rediscovered": 11,
+      "n_novel": 0,
+      "novel": [],
+      "rediscovered_sample": [
+        {
+          "predicate": "P[inner_product+vector_space]",
+          "components": [
+            "inner_product",
+            "vector_space"
+          ],
+          "entails_pos": [
+            "banach_space",
+            "cosine_similarity"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "banach_space",
+            "cosine_similarity"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[eigenvalue_eigenvector+vector_space]",
+          "components": [
+            "eigenvalue_eigenvector",
+            "vector_space"
+          ],
+          "entails_pos": [
+            "spectral_theorem_synthesis"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "spectral_theorem_synthesis"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[vector+vector_space]",
+          "components": [
+            "vector",
+            "vector_space"
+          ],
+          "entails_pos": [
+            "bundling"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "bundling"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[span+vector_space]",
+          "components": [
+            "span",
+            "vector_space"
+          ],
+          "entails_pos": [
+            "linear_independence"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "linear_independence"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[gradient+vector_space]",
+          "components": [
+            "gradient",
+            "vector_space"
+          ],
+          "entails_pos": [
+            "gradient_based_optimizer"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "gradient_based_optimizer"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[eigenvalue_eigenvector+inner_product]",
+          "components": [
+            "eigenvalue_eigenvector",
+            "inner_product"
+          ],
+          "entails_pos": [
+            "self_adjoint_real_eigenvalues_lemma",
+            "zca_whitening"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "self_adjoint_real_eigenvalues_lemma"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[eigendecomposition+inner_product]",
+          "components": [
+            "eigendecomposition",
+            "inner_product"
+          ],
+          "entails_pos": [
+            "pca_whitening",
+            "zca_whitening"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "pca_whitening"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[eigendecomposition+eigenvalue_eigenvector]",
+          "components": [
+            "eigendecomposition",
+            "eigenvalue_eigenvector"
+          ],
+          "entails_pos": [
+            "principal_component_analysis",
+            "zca_whitening"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "principal_component_analysis"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[kronecker_product+tensor]",
+          "components": [
+            "kronecker_product",
+            "tensor"
+          ],
+          "entails_pos": [
+            "tensor_product_representation"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "tensor_product_representation"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        },
+        {
+          "predicate": "P[gradient+hessian]",
+          "components": [
+            "gradient",
+            "hessian"
+          ],
+          "entails_pos": [
+            "newton_method"
+          ],
+          "category": "REDISCOVERED",
+          "matches_existing": [
+            "newton_method"
+          ],
+          "four_gate": {
+            "forward_walk_reaches_T1": true,
+            "tier_monotone_ok": true,
+            "no_dangling": true,
+            "axiom_terminating": true,
+            "cap_pres": true,
+            "PASS": true
+          }
+        }
+      ],
+      "elapsed_s": 0.0
+    }
+  ],
+  "elapsed_s": 1.6284515857696533
+}

@@ -1,0 +1,48 @@
+{
+  "verdict": "KCEIL_N_LIMITED",
+  "verdict_msg": "KCEIL_N_LIMITED (capacity dominant): knob 'N' restores acc by 0.233 (>=0.2). Other knobs: M_gain=0.167, beta_gain=0.000, N_gain=0.233. baseline=0.200.",
+  "elapsed_s": 0.28100000001722947,
+  "summary": {
+    "baseline_acc": 0.2,
+    "M_sweep": {
+      "50": 0.36666666666666664,
+      "200": 0.2,
+      "800": 0.16666666666666666
+    },
+    "best_M_acc": 0.36666666666666664,
+    "beta_sweep": {
+      "1.0": 0.2,
+      "8.0": 0.2,
+      "inf": 0.2
+    },
+    "best_beta_acc": 0.2,
+    "N_sweep": {
+      "1024": 0.2,
+      "2048": 0.43333333333333335
+    },
+    "best_N_acc": 0.43333333333333335
+  },
+  "config": {
+    "mode": "smoke",
+    "K_test": 200,
+    "n_trials": 30,
+    "seed": 17,
+    "N_base": 1024,
+    "M_base": 200,
+    "beta_base": Infinity,
+    "M_sweep": [
+      50,
+      200,
+      800
+    ],
+    "beta_sweep": [
+      1.0,
+      8.0,
+      Infinity
+    ],
+    "N_sweep": [
+      1024,
+      2048
+    ]
+  }
+}

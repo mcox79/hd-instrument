@@ -1,0 +1,18 @@
+{
+  "anchor_name": "fb15k237_2hop_rank_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate 2-hop QA ranking on REAL FB15K-237 -- Hits@10>=0.50 + Hits@1>=0.25 ranking the answer among all subgraph entities. Multi-hop retrieval holds under all-entity ranking. Hits@1=0.956 Hits@10=0.992 MRR=0.9740 (n=250, |subE|=2505)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits1": 0.956,
+      "hits10": 0.992,
+      "mrr": 0.974,
+      "n": 250,
+      "sub_ent": 2505
+    }
+  ],
+  "elapsed_s": 25.80124044418335,
+  "summary": "HARD_PASS: substrate 2-hop QA ranking on REAL FB15K-237 -- Hits@10>=0.50 + Hits@1>=0.25 ranking the answer among all subgraph entities. Multi-hop retrieval holds under all-entity ranking. Hits@1=0.956 Hits@10=0.992 MRR=0.9740 (n=250, |subE|=2505)"
+}

@@ -1,0 +1,121 @@
+{
+  "verdict": "AXIS3_MIDDLE_BAND",
+  "verdict_msg": "Partial sensitivity. max |delta_ret|=0.1300. sign_divergence=False. details={'max_abs_delta_ret': 0.13, 'mean_delta_by_dir': {'M_minus': -0.035, 'M_partial_swap': -0.11, 'M_plus': -0.0525, 'W_noise': -0.01, 'beta_down': 0.0, 'beta_up': 0.0}, 'pos_dirs': [], 'neg_dirs': ['M_plus', 'M_minus', 'M_partial_swap'], 'has_sign_divergence': False, 'N_cells': 12}.",
+  "elapsed_s": 0.31388211250305176,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "M_frac": 6.0,
+    "beta": 8.0,
+    "n_dirs": 6
+  },
+  "summary": {
+    "cells": [
+      {
+        "direction": "M_plus",
+        "epsilon": 0.05,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.76,
+        "delta_ret": -0.01
+      },
+      {
+        "direction": "M_plus",
+        "epsilon": 0.2,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.675,
+        "delta_ret": -0.095
+      },
+      {
+        "direction": "M_minus",
+        "epsilon": 0.05,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.705,
+        "delta_ret": -0.065
+      },
+      {
+        "direction": "M_minus",
+        "epsilon": 0.2,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.765,
+        "delta_ret": -0.005
+      },
+      {
+        "direction": "beta_up",
+        "epsilon": 0.05,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.77,
+        "delta_ret": 0.0
+      },
+      {
+        "direction": "beta_up",
+        "epsilon": 0.2,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.77,
+        "delta_ret": 0.0
+      },
+      {
+        "direction": "beta_down",
+        "epsilon": 0.05,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.77,
+        "delta_ret": 0.0
+      },
+      {
+        "direction": "beta_down",
+        "epsilon": 0.2,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.77,
+        "delta_ret": 0.0
+      },
+      {
+        "direction": "W_noise",
+        "epsilon": 0.05,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.76,
+        "delta_ret": -0.01
+      },
+      {
+        "direction": "W_noise",
+        "epsilon": 0.2,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.76,
+        "delta_ret": -0.01
+      },
+      {
+        "direction": "M_partial_swap",
+        "epsilon": 0.05,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.68,
+        "delta_ret": -0.09
+      },
+      {
+        "direction": "M_partial_swap",
+        "epsilon": 0.2,
+        "seed": 17,
+        "ret_base": 0.77,
+        "ret_perturbed": 0.64,
+        "delta_ret": -0.13
+      }
+    ],
+    "N_used": 1024,
+    "N_full": 4096,
+    "base_M_frac": 6.0,
+    "base_beta": 8.0,
+    "epsilons": [
+      0.05,
+      0.2
+    ],
+    "smoke": true
+  }
+}

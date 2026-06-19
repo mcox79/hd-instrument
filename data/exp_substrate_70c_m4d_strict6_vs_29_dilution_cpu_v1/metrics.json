@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_70c_m4d_strict6_vs_29_dilution_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CURATED 6-STRICT preserves selectivity (dilutes LESS than 29; near-neutral): 70c curated-subset dilution test: q54-q65 base 0.2721 -> +6-STRICT 0.2721 (+0.0000) vs +29-all 0.2313 (-0.0408); 56d +6-STRICT +0.0000 vs +29 +0.0000. Edges connect existing atoms (no re-sync). Supports confidence-tiered-subset path (Claim 6 high-quality-subgraph) -- sound growth into broad substrate + M4d on STRICT subset.",
+  "summary": "CURATED 6-STRICT preserves selectivity (dilutes LESS than 29; near-neutral): 70c curated-subset dilution test: q54-q65 base 0.2721 -> +6-STRICT 0.2721 (+0.0000) vs +29-all 0.2313 (-0.0408); 56d +6-STRICT +0.0000 vs +29 +0.0000. Edges connect existing atoms (no re-sync). Supports confidence-tiered-subset path (Claim 6 high-quality-subgraph) -- sound growth into broad substrate + M4d on STRICT subset.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "strict6_edges": 6,
+      "all29_edges": 29,
+      "q54q65": {
+        "base": 0.2721,
+        "strict6": 0.2721,
+        "all29": 0.2313,
+        "delta_strict6": 0.0,
+        "delta_all29": -0.0408
+      },
+      "h56d": {
+        "base": 0.2218,
+        "strict6": 0.2218,
+        "all29": 0.2218,
+        "delta_strict6": 0.0,
+        "delta_all29": 0.0
+      }
+    }
+  ],
+  "elapsed_s": 24.022316932678223
+}

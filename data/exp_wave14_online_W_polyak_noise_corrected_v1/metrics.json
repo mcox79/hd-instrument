@@ -1,0 +1,109 @@
+{
+  "verdict": "ONLINE_W_POLYAK_PARTIAL",
+  "verdict_msg": "Noise-corrected bound PARTIAL: 4/5 noisy cells pass. Originally failing cells rescued: 0/1. Cells still failing after correction: p in [0.4]. Mechanism #1 partially confirmed; deeper structural failure at high p.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "source_N": 4096,
+    "source_n_writes": 50,
+    "source_n_seeds": 3,
+    "source_noise_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4
+    ],
+    "source_original_verdict": "ONLINE_W_NOISE_ENVELOPE_NARROW",
+    "is_smoke_data": false,
+    "fitted_C": 0.0,
+    "cell_reports": [
+      {
+        "p_flip": 0.0,
+        "mean_min_acc": 1.0,
+        "H2_p": 0.0,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.050000000000000044,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "BASELINE"
+      },
+      {
+        "p_flip": 0.05,
+        "mean_min_acc": 1.0,
+        "H2_p": 0.1985152433458726,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.050000000000000044,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "PASS"
+      },
+      {
+        "p_flip": 0.1,
+        "mean_min_acc": 1.0,
+        "H2_p": 0.3250829733914482,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.050000000000000044,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "PASS"
+      },
+      {
+        "p_flip": 0.2,
+        "mean_min_acc": 1.0,
+        "H2_p": 0.5004024235381879,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.050000000000000044,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "PASS"
+      },
+      {
+        "p_flip": 0.3,
+        "mean_min_acc": 0.9933333333333333,
+        "H2_p": 0.6108643020548935,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.043333333333333335,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "PASS"
+      },
+      {
+        "p_flip": 0.4,
+        "mean_min_acc": 0.6077777777777778,
+        "H2_p": 0.6730116670092565,
+        "theta_p": 0.95,
+        "margin_to_corrected": -0.3422222222222222,
+        "flat_pass": false,
+        "corrected_pass": false,
+        "cell_result": "FAIL"
+      }
+    ],
+    "H2_values": {
+      "0.0": 0.0,
+      "0.05": 0.1985152433458726,
+      "0.1": 0.3250829733914482,
+      "0.2": 0.5004024235381879,
+      "0.3": 0.6108643020548935,
+      "0.4": 0.6730116670092565
+    },
+    "theta_values": {
+      "0.0": 0.95,
+      "0.05": 0.95,
+      "0.1": 0.95,
+      "0.2": 0.95,
+      "0.3": 0.95,
+      "0.4": 0.95
+    },
+    "mechanism": "Polyak-Ruppert noise-corrected retention bound",
+    "ref": "Polyak-Juditsky 1992; Mou et al 2020 arXiv:2004.04719; Krishna et al 2026 arXiv:2603.07415 (binary-entropy retention bound)"
+  },
+  "config": {
+    "mode": "full",
+    "source_is_smoke": false,
+    "fitted_C": 0.0,
+    "baseline_acc": 0.95,
+    "pass_margin": 0.02,
+    "fail_margin": 0.1
+  }
+}

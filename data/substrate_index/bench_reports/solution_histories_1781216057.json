@@ -1,0 +1,175 @@
+{
+  "ingest": {
+    "added": 7,
+    "updated": 7,
+    "supersedes_relations": 14
+  },
+  "post_atoms": 107,
+  "post_relations": 244,
+  "current_best_table": {
+    "concept::PP-371_reasoning_routing": null,
+    "concept::PP-367_unified_algebra_lang_math": null,
+    "concept::unified_compositional_engine": null,
+    "concept::CAP_fhrr_bind": null,
+    "concept::CAP_fhrr_unbind": null,
+    "concept::CAP_superposition": null,
+    "concept::CAP_bundling": null,
+    "concept::CAP_circular_convolution": null,
+    "concept::CAP_cleanup": null,
+    "concept::CAP_viterbi_decoding": null,
+    "concept::CAP_forward_algorithm": null,
+    "concept::CAP_backward_algorithm": null,
+    "concept::CAP_em_algorithm": null,
+    "concept::CAP_bayesian_inference": null,
+    "concept::CAP_hungarian_assignment": null,
+    "concept::CAP_chu_liu_edmonds": null,
+    "concept::CAP_dynamic_programming": null,
+    "concept::CAP_discriminative_perceptron": null,
+    "concept::CAP_shannon_entropy": null,
+    "concept::CAP_kl_divergence": null,
+    "concept::CAP_probability_distribution": null,
+    "concept::LEX_entity_person": null,
+    "concept::LEX_entity_org": null,
+    "concept::LEX_entity_gpe": null,
+    "concept::LEX_entity_money": null,
+    "concept::LEX_entity_date": null,
+    "concept::LEX_entity_time": null,
+    "concept::LEX_entity_percent": null,
+    "concept::LEX_entity_quantity": null,
+    "concept::PP-364_pos_tagger": "math::T3/discriminative_perceptron",
+    "concept::PP-376_multibench_math": "math::T3/discriminative_perceptron",
+    "concept::PP-375_multistep_math": "math::T3/discriminative_perceptron",
+    "concept::PP-369_slot_filling": "math::T3/discriminative_perceptron",
+    "concept::PP-370_intent_classification": "math::T3/discriminative_perceptron",
+    "concept::PP-378_code_algopattern": "math::T3/discriminative_perceptron",
+    "concept::PP-364_NER": "math::T3/discriminative_perceptron",
+    "concept::PP-225_fact_recall_kb100K": "math::T2/fhrr_unbind",
+    "concept::PP-multihop_revival": null,
+    "concept::PP-cross_domain_analogy": null,
+    "concept::PP-374_MAWPS_math": "math::T3/discriminative_perceptron",
+    "concept::PP-377_MultiArith_math": "math::T3/discriminative_perceptron",
+    "concept::PP-NORTH_STAR_2026-06-11": "math::T3/discriminative_perceptron",
+    "concept::PP-AG_news_text_class": "math::T3/discriminative_perceptron"
+  },
+  "universal_levers": {
+    "math::T3/discriminative_perceptron": [
+      "concept::PP-364_pos_tagger",
+      "concept::PP-376_multibench_math",
+      "concept::PP-375_multistep_math",
+      "concept::PP-369_slot_filling",
+      "concept::PP-370_intent_classification",
+      "concept::PP-378_code_algopattern",
+      "concept::PP-364_NER",
+      "concept::PP-374_MAWPS_math",
+      "concept::PP-377_MultiArith_math",
+      "concept::PP-NORTH_STAR_2026-06-11",
+      "concept::PP-AG_news_text_class"
+    ]
+  },
+  "cliffs": [
+    {
+      "capability_qualified_id": "concept::PP-377_MultiArith_math",
+      "from_solution": "math::T3/count_nb",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "lift": 0.728,
+      "metric_name": "accuracy",
+      "source": "PP-377 cycle 234 5-seed",
+      "cliff_score": 1.456
+    },
+    {
+      "capability_qualified_id": "concept::PP-375_multistep_math",
+      "from_solution": "math::T3/cascade_v1",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "lift": 0.529,
+      "metric_name": "accuracy",
+      "source": "PP-375 cycle 233 5-seed",
+      "cliff_score": 1.058
+    },
+    {
+      "capability_qualified_id": "concept::PP-374_MAWPS_math",
+      "from_solution": "math::T3/count_nb",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "lift": 0.432,
+      "metric_name": "accuracy",
+      "source": "PP-374 cycle 234",
+      "cliff_score": 0.432
+    },
+    {
+      "capability_qualified_id": "concept::PP-225_fact_recall_kb100K",
+      "from_solution": "math::T2/cosine_cleanup",
+      "to_solution": "math::T2/fhrr_unbind",
+      "lift": 0.346,
+      "metric_name": "recall_at_1",
+      "source": "PP-225 cycle 220+ memory + post-compaction brief",
+      "cliff_score": 0.346
+    },
+    {
+      "capability_qualified_id": "concept::PP-376_multibench_math",
+      "from_solution": "math::T2/tier2_schema",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "lift": 0.22600000000000003,
+      "metric_name": "macro_accuracy",
+      "source": "PP-376 cycle 233-234 5-seed",
+      "cliff_score": 0.22600000000000003
+    },
+    {
+      "capability_qualified_id": "concept::PP-375_multistep_math",
+      "from_solution": "math::T3/count_nb",
+      "to_solution": "math::T3/cascade_v1",
+      "lift": 0.202,
+      "metric_name": "accuracy",
+      "source": "ASDiv cascade v1 prototype",
+      "cliff_score": 0.202
+    },
+    {
+      "capability_qualified_id": "concept::PP-cross_domain_analogy",
+      "from_solution": "math::T3/slipnet",
+      "to_solution": "math::T3/slipnet",
+      "lift": 0.15900000000000003,
+      "metric_name": "accuracy_within_domain",
+      "source": "P9 PP-275 + retraction memory",
+      "cliff_score": 0.15900000000000003
+    },
+    {
+      "capability_qualified_id": "concept::PP-378_code_algopattern",
+      "from_solution": "math::T3/count_nb",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "lift": 0.15000000000000002,
+      "metric_name": "accuracy",
+      "source": "PP-378 cycle 232",
+      "cliff_score": 0.15000000000000002
+    },
+    {
+      "capability_qualified_id": "concept::PP-370_intent_classification",
+      "from_solution": "math::T3/count_nb",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "lift": 0.11399999999999999,
+      "metric_name": "accuracy",
+      "source": "PP-370 cycle 232",
+      "cliff_score": 0.11399999999999999
+    }
+  ],
+  "reverts": [
+    {
+      "capability_qualified_id": "concept::PP-multihop_revival",
+      "reverted_solution": "math::T2/cleanup",
+      "reason": "ColBERT-v2 architecture HARD_FAIL; substrate doesn't reach LLM-baseline retrieval; Research formal-closure issued but USER REQUIRES REVIVAL",
+      "metric": {
+        "name": "hit_at_10",
+        "value": 0.61
+      },
+      "source": "multi-hop drill 3 + user direction 2026-06-07 PROJECT_MULTIHOP_REVIVE_PRIORITY"
+    },
+    {
+      "capability_qualified_id": "concept::PP-cross_domain_analogy",
+      "reverted_solution": "math::T3/slipnet",
+      "reason": "Within-domain success (0.899) extrapolated to cross-domain; P9 Control 3.1/3.2 revealed entity-geometry + degree-bias confound; cross-domain claim RETRACTED",
+      "metric": {
+        "name": "accuracy_cross_domain_apparent",
+        "value": 0.74
+      },
+      "source": "P9 cross-domain RETRACTION memory 2026-06-10 + cycle 224"
+    }
+  ],
+  "stale": []
+}

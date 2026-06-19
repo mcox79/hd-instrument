@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_kf1_contradiction_detection_order_sensitive_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: even order-sensitive encoder fails (<0.70). AUC easy=0.804 hard=0.895 NEGATION=0.083 (MiniLM negation was 0.034)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "auc_easy": 0.8017,
+      "auc_hard": 0.8925833333333333,
+      "auc_negation": 0.07848055555555555
+    },
+    {
+      "seed": 17,
+      "auc_easy": 0.8023,
+      "auc_hard": 0.8873388888888889,
+      "auc_negation": 0.07993333333333333
+    },
+    {
+      "seed": 23,
+      "auc_easy": 0.8081277777777778,
+      "auc_hard": 0.9055833333333333,
+      "auc_negation": 0.09047222222222222
+    }
+  ],
+  "elapsed_s": 12.995776653289795,
+  "summary": "HARD_FAIL: even order-sensitive encoder fails (<0.70). AUC easy=0.804 hard=0.895 NEGATION=0.083 (MiniLM negation was 0.034)"
+}

@@ -1,0 +1,32 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b26_composition_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: B2+B6 subsumed (~max single, not clearly additive). dense_noevict=0.00 | gains: sparse=+1.00 evict=+1.00 both=+1.00 (sum_singles=+2.00)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "B26_composition"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "m_cap": 71,
+      "T": 213,
+      "dense_noevict": 0.0,
+      "dense_evict": 1.0,
+      "sparse_noevict": 1.0,
+      "sparse_evict": 1.0
+    },
+    {
+      "seed": 2,
+      "m_cap": 71,
+      "T": 213,
+      "dense_noevict": 0.0,
+      "dense_evict": 1.0,
+      "sparse_noevict": 1.0,
+      "sparse_evict": 1.0
+    }
+  ],
+  "elapsed_s": 10.535814046859741,
+  "summary": "MIDDLE_BAND: B2+B6 subsumed (~max single, not clearly additive). dense_noevict=0.00 | gains: sparse=+1.00 evict=+1.00 both=+1.00 (sum_singles=+2.00)"
+}

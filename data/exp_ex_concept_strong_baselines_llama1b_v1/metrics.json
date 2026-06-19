@@ -1,0 +1,47 @@
+{
+  "anchor_name": "ex_concept_strong_baselines_llama1b_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: best substrate < trigram (loses to fair sequence baselines). best_substrate=substrate_single_pass:0.469 | bigram=0.474 trigram=0.601 neural1L=0.657 | variants={'substrate_single_pass': 0.469, 'substrate_extctx_K2': 0.45, 'substrate_extctx_K5': 0.406, 'substrate_extctx_K10': 0.347}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "n_docs": 10000,
+      "unigram": null,
+      "bigram": 0.4699510467659619,
+      "trigram": 0.6031856760841763,
+      "neural_1layer": 0.6599312571607124,
+      "substrate_single_pass": 0.4656285803562129,
+      "substrate_extctx_K2": 0.4611498802208103,
+      "substrate_extctx_K5": 0.4074054785959796,
+      "substrate_extctx_K10": 0.34631809186543067
+    },
+    {
+      "seed": 17,
+      "n_docs": 10000,
+      "unigram": null,
+      "bigram": 0.48554080477513634,
+      "trigram": 0.600493288975565,
+      "neural_1layer": 0.6621899763301431,
+      "substrate_single_pass": 0.47761654831738193,
+      "substrate_extctx_K2": 0.4460224349078934,
+      "substrate_extctx_K5": 0.40696717093753215,
+      "substrate_extctx_K10": 0.3505711639394875
+    },
+    {
+      "seed": 23,
+      "n_docs": 10000,
+      "unigram": null,
+      "bigram": 0.46747565230977556,
+      "trigram": 0.5982791698157084,
+      "neural_1layer": 0.6479870840060413,
+      "substrate_single_pass": 0.46242383209207855,
+      "substrate_extctx_K2": 0.44284151867090255,
+      "substrate_extctx_K5": 0.4022186344461226,
+      "substrate_extctx_K10": 0.34550283839383367
+    }
+  ],
+  "elapsed_s": 4298.634365320206,
+  "summary": "HARD_FAIL: best substrate < trigram (loses to fair sequence baselines). best_substrate=substrate_single_pass:0.469 | bigram=0.474 trigram=0.601 neural1L=0.657 | variants={'substrate_single_pass': 0.469, 'substrate_extctx_K2': 0.45, 'substrate_extctx_K5': 0.406, 'substrate_extctx_K10': 0.347}"
+}

@@ -1,0 +1,40 @@
+{
+  "anchor": "free_prob_rank1_edit_perturb_v1_n4096",
+  "N": 512,
+  "M": 128,
+  "smoke": true,
+  "K_sweep": [
+    0,
+    8,
+    32,
+    64
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 512,
+      "M": 128,
+      "alpha": 0.25,
+      "k_sqrt_N": 23,
+      "k_nearest_to_sqrt": 32,
+      "ks_base": 0.5993678343014608,
+      "ks_at_sqrt_n": 0.5449090245620213,
+      "lift_at_sqrt_n": 0.9091395857054807,
+      "lift_at_2x_sqrt_n": 0.9091395857054807,
+      "ks_per_k": {
+        "0": 0.5993678343014608,
+        "8": 0.5823784459662164,
+        "32": 0.5449090245620213,
+        "64": 0.4988908901519294
+      },
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "FP_RANK1_HARD_FAIL",
+  "verdict_msg": "NO_CROSSOVER_SIGNAL: lift < 1.1 at K=2*sqrt(N) in 1/1 seeds. N=512 M=128 alpha=0.250 k_sqrt=23 mean_lift_at_sqrt=0.909 n_pass=0/1 ks_base_mean=0.5994",
+  "elapsed_s": 0.16
+}

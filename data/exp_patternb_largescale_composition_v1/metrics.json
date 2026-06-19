@@ -1,0 +1,19 @@
+{
+  "anchor_name": "patternb_largescale_composition_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Pattern B composition recall@1>=0.95 at K=4 with V=10000 -- composition holds at production vocab scale. recall@1 by K: {'K2': 1.0, 'K4': 1.0} (V=10000 D=512)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K2": 1.0,
+        "K4": 1.0
+      },
+      "V": 10000,
+      "D": 512
+    }
+  ],
+  "elapsed_s": 0.5807216167449951,
+  "summary": "HARD_PASS: Pattern B composition recall@1>=0.95 at K=4 with V=10000 -- composition holds at production vocab scale. recall@1 by K: {'K2': 1.0, 'K4': 1.0} (V=10000 D=512)"
+}

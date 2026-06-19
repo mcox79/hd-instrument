@@ -1,0 +1,17 @@
+{
+  "anchor_name": "metric_mmax_uncensor_audit_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: true M_c near old censor (1-2x). true M_c=80 vs old censor=50 | ratio=1.60x (N=2048)",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "true_Mc": 80,
+      "censored_at_old": true
+    }
+  ],
+  "elapsed_s": 0.1132807731628418,
+  "summary": "MIDDLE_BAND: true M_c near old censor (1-2x). true M_c=80 vs old censor=50 | ratio=1.60x (N=2048)"
+}

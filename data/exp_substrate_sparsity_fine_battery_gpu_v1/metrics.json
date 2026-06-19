@@ -1,0 +1,347 @@
+{
+  "anchor_name": "substrate_sparsity_fine_battery_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a write-rule gives >=3x dense capacity at N=16384 -- capacity lever persists at scale. at N=16384 dense_alpha=0.0400 | ratios vs dense: {'sparse0.02': 25.01, 'sparse0.05': 25.01, 'sparse0.08': 15.01, 'sparse0.12': 10.0, 'sparse0.20': 5.0, 'sparse0.35': 2.5, 'sparse0.50': 2.0}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "rule": "dense",
+      "N": 8192,
+      "seed": 7,
+      "cap": 327,
+      "alpha": 0.0399169921875
+    },
+    {
+      "rule": "dense",
+      "N": 8192,
+      "seed": 17,
+      "cap": 327,
+      "alpha": 0.0399169921875
+    },
+    {
+      "rule": "dense",
+      "N": 8192,
+      "seed": 23,
+      "cap": 327,
+      "alpha": 0.0399169921875
+    },
+    {
+      "rule": "sparse0.02",
+      "N": 8192,
+      "seed": 7,
+      "cap": 8192,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.02",
+      "N": 8192,
+      "seed": 17,
+      "cap": 8192,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.02",
+      "N": 8192,
+      "seed": 23,
+      "cap": 8192,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.05",
+      "N": 8192,
+      "seed": 7,
+      "cap": 8192,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.05",
+      "N": 8192,
+      "seed": 17,
+      "cap": 8192,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.05",
+      "N": 8192,
+      "seed": 23,
+      "cap": 8192,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.08",
+      "N": 8192,
+      "seed": 7,
+      "cap": 4915,
+      "alpha": 0.5999755859375
+    },
+    {
+      "rule": "sparse0.08",
+      "N": 8192,
+      "seed": 17,
+      "cap": 4915,
+      "alpha": 0.5999755859375
+    },
+    {
+      "rule": "sparse0.08",
+      "N": 8192,
+      "seed": 23,
+      "cap": 4915,
+      "alpha": 0.5999755859375
+    },
+    {
+      "rule": "sparse0.12",
+      "N": 8192,
+      "seed": 7,
+      "cap": 3276,
+      "alpha": 0.39990234375
+    },
+    {
+      "rule": "sparse0.12",
+      "N": 8192,
+      "seed": 17,
+      "cap": 3276,
+      "alpha": 0.39990234375
+    },
+    {
+      "rule": "sparse0.12",
+      "N": 8192,
+      "seed": 23,
+      "cap": 3276,
+      "alpha": 0.39990234375
+    },
+    {
+      "rule": "sparse0.20",
+      "N": 8192,
+      "seed": 7,
+      "cap": 2048,
+      "alpha": 0.25
+    },
+    {
+      "rule": "sparse0.20",
+      "N": 8192,
+      "seed": 17,
+      "cap": 2048,
+      "alpha": 0.25
+    },
+    {
+      "rule": "sparse0.20",
+      "N": 8192,
+      "seed": 23,
+      "cap": 2048,
+      "alpha": 0.25
+    },
+    {
+      "rule": "sparse0.35",
+      "N": 8192,
+      "seed": 7,
+      "cap": 1064,
+      "alpha": 0.1298828125
+    },
+    {
+      "rule": "sparse0.35",
+      "N": 8192,
+      "seed": 17,
+      "cap": 1064,
+      "alpha": 0.1298828125
+    },
+    {
+      "rule": "sparse0.35",
+      "N": 8192,
+      "seed": 23,
+      "cap": 1064,
+      "alpha": 0.1298828125
+    },
+    {
+      "rule": "sparse0.50",
+      "N": 8192,
+      "seed": 7,
+      "cap": 655,
+      "alpha": 0.0799560546875
+    },
+    {
+      "rule": "sparse0.50",
+      "N": 8192,
+      "seed": 17,
+      "cap": 655,
+      "alpha": 0.0799560546875
+    },
+    {
+      "rule": "sparse0.50",
+      "N": 8192,
+      "seed": 23,
+      "cap": 655,
+      "alpha": 0.0799560546875
+    },
+    {
+      "rule": "dense",
+      "N": 16384,
+      "seed": 7,
+      "cap": 655,
+      "alpha": 0.03997802734375
+    },
+    {
+      "rule": "dense",
+      "N": 16384,
+      "seed": 17,
+      "cap": 655,
+      "alpha": 0.03997802734375
+    },
+    {
+      "rule": "dense",
+      "N": 16384,
+      "seed": 23,
+      "cap": 655,
+      "alpha": 0.03997802734375
+    },
+    {
+      "rule": "sparse0.02",
+      "N": 16384,
+      "seed": 7,
+      "cap": 16384,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.02",
+      "N": 16384,
+      "seed": 17,
+      "cap": 16384,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.02",
+      "N": 16384,
+      "seed": 23,
+      "cap": 16384,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.05",
+      "N": 16384,
+      "seed": 7,
+      "cap": 16384,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.05",
+      "N": 16384,
+      "seed": 17,
+      "cap": 16384,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.05",
+      "N": 16384,
+      "seed": 23,
+      "cap": 16384,
+      "alpha": 1.0
+    },
+    {
+      "rule": "sparse0.08",
+      "N": 16384,
+      "seed": 7,
+      "cap": 9830,
+      "alpha": 0.5999755859375
+    },
+    {
+      "rule": "sparse0.08",
+      "N": 16384,
+      "seed": 17,
+      "cap": 9830,
+      "alpha": 0.5999755859375
+    },
+    {
+      "rule": "sparse0.08",
+      "N": 16384,
+      "seed": 23,
+      "cap": 9830,
+      "alpha": 0.5999755859375
+    },
+    {
+      "rule": "sparse0.12",
+      "N": 16384,
+      "seed": 7,
+      "cap": 6553,
+      "alpha": 0.39996337890625
+    },
+    {
+      "rule": "sparse0.12",
+      "N": 16384,
+      "seed": 17,
+      "cap": 6553,
+      "alpha": 0.39996337890625
+    },
+    {
+      "rule": "sparse0.12",
+      "N": 16384,
+      "seed": 23,
+      "cap": 6553,
+      "alpha": 0.39996337890625
+    },
+    {
+      "rule": "sparse0.20",
+      "N": 16384,
+      "seed": 7,
+      "cap": 3276,
+      "alpha": 0.199951171875
+    },
+    {
+      "rule": "sparse0.20",
+      "N": 16384,
+      "seed": 17,
+      "cap": 3276,
+      "alpha": 0.199951171875
+    },
+    {
+      "rule": "sparse0.20",
+      "N": 16384,
+      "seed": 23,
+      "cap": 3276,
+      "alpha": 0.199951171875
+    },
+    {
+      "rule": "sparse0.35",
+      "N": 16384,
+      "seed": 7,
+      "cap": 1638,
+      "alpha": 0.0999755859375
+    },
+    {
+      "rule": "sparse0.35",
+      "N": 16384,
+      "seed": 17,
+      "cap": 1638,
+      "alpha": 0.0999755859375
+    },
+    {
+      "rule": "sparse0.35",
+      "N": 16384,
+      "seed": 23,
+      "cap": 1638,
+      "alpha": 0.0999755859375
+    },
+    {
+      "rule": "sparse0.50",
+      "N": 16384,
+      "seed": 7,
+      "cap": 1310,
+      "alpha": 0.0799560546875
+    },
+    {
+      "rule": "sparse0.50",
+      "N": 16384,
+      "seed": 17,
+      "cap": 1310,
+      "alpha": 0.0799560546875
+    },
+    {
+      "rule": "sparse0.50",
+      "N": 16384,
+      "seed": 23,
+      "cap": 1310,
+      "alpha": 0.0799560546875
+    }
+  ],
+  "elapsed_s": 937.4808964729309,
+  "summary": "HARD_PASS: a write-rule gives >=3x dense capacity at N=16384 -- capacity lever persists at scale. at N=16384 dense_alpha=0.0400 | ratios vs dense: {'sparse0.02': 25.01, 'sparse0.05': 25.01, 'sparse0.08': 15.01, 'sparse0.12': 10.0, 'sparse0.20': 5.0, 'sparse0.35': 2.5, 'sparse0.50': 2.0}"
+}

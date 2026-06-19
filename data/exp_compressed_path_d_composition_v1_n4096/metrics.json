@@ -1,0 +1,33 @@
+{
+  "verdict": "CPD_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL n_m_hp=0/1 n_m_hf=0/1. mean_acc_base=1.000 mean_acc_comp=1.000 mean_delta=0.0000 n_cells=1 | M=2048: mean_acc_comp=1.000 n=1",
+  "elapsed_s": 0.31,
+  "summary": {
+    "anchor": "compressed_path_d_composition_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      2048
+    ],
+    "depth": 5,
+    "K_paths": 100,
+    "n_starts": 20,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 2048,
+        "ok": true,
+        "n_starts": 20,
+        "acc_baseline": 1.0,
+        "acc_compressed": 1.0,
+        "delta": 0.0
+      }
+    ],
+    "verdict": "CPD_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL n_m_hp=0/1 n_m_hf=0/1. mean_acc_base=1.000 mean_acc_comp=1.000 mean_delta=0.0000 n_cells=1 | M=2048: mean_acc_comp=1.000 n=1",
+    "elapsed_s": 0.31
+  }
+}

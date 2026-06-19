@@ -1,0 +1,51 @@
+{
+  "verdict": "PAC_BAYES_FLOOR_HARD_FAIL",
+  "verdict_msg": "PAC-Bayes floor REJECTED: max_abs_err=0.928>0.4 AND r=0.000<0.2. norm=1.0:meas=0.928,pred=0.000,err=0.928, norm=4.0:meas=0.928,pred=0.000,err=0.928.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "per_regime": {
+      "1.0": {
+        "mean_ret_measured": 0.9277925491333008,
+        "mean_ret_predicted": 0.0,
+        "mean_abs_err": 0.9277925491333008,
+        "seeds_meas": [
+          0.9277925491333008
+        ],
+        "seeds_pred": [
+          0.0
+        ]
+      },
+      "4.0": {
+        "mean_ret_measured": 0.9277925491333008,
+        "mean_ret_predicted": 0.0,
+        "mean_abs_err": 0.9277925491333008,
+        "seeds_meas": [
+          0.9277925491333008
+        ],
+        "seeds_pred": [
+          0.0
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n": 512,
+    "m_per_task": 40,
+    "n_tasks": 2,
+    "norm_regimes": [
+      1.0,
+      4.0
+    ],
+    "seeds": [
+      17
+    ],
+    "sigma_pac_bayes": 0.1,
+    "device": "cpu",
+    "pass_within_pct": 0.2,
+    "pass_min_regimes": 3,
+    "pass_pearson": 0.6,
+    "fail_max_abs_err": 0.4,
+    "fail_pearson": 0.2
+  }
+}

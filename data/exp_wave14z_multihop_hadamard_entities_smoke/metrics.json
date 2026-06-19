@@ -1,0 +1,60 @@
+{
+  "verdict": "HADAMARD_HURTS",
+  "verdict_msg": "Hadamard arm acc_1hop=0.600; random_bsc acc_1hop=1.000; delta = -0.400 <= -0.05. Hadamard codebook BREAKS multi-hop storage. Likely cause: BSC bind algebra (Hadamard_a*Hadamard_b=Hadamard_{a XOR b}) makes distractor binds collide with stored entities. The orthogonal-codebook intuition from key-erase doesn't transfer to multi-hop because bind itself isn't permutation-preserving on a sampled Hadamard subset.",
+  "elapsed_s": 0.3429999999998472,
+  "summary": {
+    "by_arm": {
+      "hadamard": {
+        "acc_by_depth": {
+          "1": 0.6,
+          "10": 0.2
+        },
+        "retention_rate": 0.8513399225207846,
+        "max_pairwise_ip": 0.0,
+        "per_seed": [
+          {
+            "seed": 17,
+            "by_depth": {
+              "1": 0.6,
+              "10": 0.2
+            },
+            "max_pairwise_ip": 0.0
+          }
+        ]
+      },
+      "random_bsc": {
+        "acc_by_depth": {
+          "1": 1.0,
+          "10": 0.2
+        },
+        "retention_rate": 0.8513399225207846,
+        "max_pairwise_ip": 0.13671875,
+        "per_seed": [
+          {
+            "seed": 17,
+            "by_depth": {
+              "1": 1.0,
+              "10": 0.2
+            },
+            "max_pairwise_ip": 0.13671875
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "num_entities": 50,
+    "num_relations": 5,
+    "num_facts": 20,
+    "hop_depths": [
+      1,
+      10
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

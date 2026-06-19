@@ -1,0 +1,20 @@
+{
+  "anchor_name": "chunking_conll2000_richfeat_lean_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: richfeat chunk-F1 0.90-0.93 -- strong; rich features help but below the 0.93 canonical bar (0.9231 basic-cascade stands as honest result). richfeat-F1=0.9257 vs basic-cascade 0.9231 (lift=+0.0026), word-only ref 0.9093, pos-acc=0.9764, train=8903",
+  "summary": "MIDDLE_BAND: richfeat chunk-F1 0.90-0.93 -- strong; rich features help but below the 0.93 canonical bar (0.9231 basic-cascade stands as honest result). richfeat-F1=0.9257 vs basic-cascade 0.9231 (lift=+0.0026), word-only ref 0.9093, pos-acc=0.9764, train=8903",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.9257,
+      "f1_richfeat": 0.9257,
+      "ref_basic_cascade": 0.9231,
+      "ref_wordonly": 0.9093,
+      "lift_vs_basic": 0.0026,
+      "pos_acc": 0.9764,
+      "n_train": 8903
+    }
+  ],
+  "elapsed_s": 2273.427100419998
+}

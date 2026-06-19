@@ -1,0 +1,35 @@
+{
+  "anchor_name": "substrate_last_token_vs_whitening_mean_pool_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: last-token + whitening COMPLEMENTARY (combined >=1.2x best single) -- both add; use combined recipe. cap {'last_token_raw': 0.0, 'mean_pool_whiten': 40.0, 'last_token_whiten': 122.0} | combined/best_single=3.05x",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cap": {
+        "last_token_raw": 0,
+        "mean_pool_whiten": 40,
+        "last_token_whiten": 122
+      }
+    },
+    {
+      "seed": 17,
+      "cap": {
+        "last_token_raw": 0,
+        "mean_pool_whiten": 40,
+        "last_token_whiten": 122
+      }
+    },
+    {
+      "seed": 23,
+      "cap": {
+        "last_token_raw": 0,
+        "mean_pool_whiten": 40,
+        "last_token_whiten": 122
+      }
+    }
+  ],
+  "elapsed_s": 47.90531826019287,
+  "summary": "HARD_PASS: last-token + whitening COMPLEMENTARY (combined >=1.2x best single) -- both add; use combined recipe. cap {'last_token_raw': 0.0, 'mean_pool_whiten': 40.0, 'last_token_whiten': 122.0} | combined/best_single=3.05x"
+}
