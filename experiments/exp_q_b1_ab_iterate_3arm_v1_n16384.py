@@ -5,24 +5,23 @@ mechanism EXTEND the heteroassoc chain-depth cliff past control's d287 collapse?
 PRE-REG: research_to_skunkworks_qb1_AB_prereg_v3_CANDIDATE2_ADDED_2026-06-19.md
   (committed origin/main 2b9bf477; Skunkworks quick-confirm PASS). N=2 Bonferroni alpha=0.025.
 
-THREE ARMS (iso-protocol: SAME chains, SAME seeds, SAME eval metric; only the recall op differs):
+ACTIVE ARMS = 2 (Skunkworks 2-arm ruling 2026-06-19; iso-protocol: SAME chains/seeds/eval; only recall differs):
   CONTROL          standard linear heteroassoc: H += outer(b,a)/N ; recall r = sign(H @ r).
-  CANDIDATE-C      tropical / min-plus morphological associative memory (Ritter-Sussner;
-                   the canonical (min,+)-semiring associative memory the pre-reg's
-                   "min-plus semiring; depth-aware noise mitigation" denotes):
-                     store   W_ij = min_p (b_p_i - a_p_j)   over all stored pairs p
-                     recall  v_i  = max_j (W_ij + q_j) ;  r = sign(v).
-                   Hypothesis: max-plus picks the single dominant association per coordinate
-                   instead of SUMMING crosstalk, so per-hop noise does not accumulate
-                   additively -> deeper usable chain. (NOTE: candidate-C's exact tropical
-                   formalization is gated on a Skunkworks/Research SCHEMA-VET confirm that
-                   this Ritter-Sussner (min,+) memory matches the pre-reg intent, so a
-                   HARD_FAIL is not misattributed to a wrong implementation. See routing note.)
-  CANDIDATE-2      cleanup-between-hops (substrate-EVIDENCED; resonator seed
+  CANDIDATE-2      resonator-augmented cleanup-between-hops (substrate-EVIDENCED FAVORITE; seed
                    EXP_substrate_resonator_augmented_iterated_retrieval smoke HARD_PASS 6x):
                    same linear H, but snap each intermediate onto the nearest stored node
                    between hops: r = codebook[argmax(codebook @ (H @ r))]. Resets the noise
                    floor each hop. Track-B IMPROVE-track promote-path (smoke -> cert).
+  (N=1 candidate vs control -> alpha=0.05, no Bonferroni.)
+
+CANDIDATE-C (DEFERRED -- separate properly-grounded cert event; code retained + self-tested below):
+  The canonical element-wise (max,+) tropical-semiring composition (bind=rho(a)+b, superpose=max,
+  unbind next=sign(M-rho(a)); vector-level, NOT a matrix AM). Per Skunkworks PATH-1 + the 2-arm
+  ruling: McMenemy's (max,+) is a COMPOSITION/bind op, but q_b1 is chain heteroassoc RECALL --
+  mapping bind->recall is an INVENTED op (no-Goodhart risk; Exp-Dev's composition-vs-recall flag,
+  cert-owner-affirmed). candidate-C ships ONLY with (a) McMenemy source-grounding + (b) a principled
+  composition->recall mapping, honest-scoped to the specific op. tropical_build_M/tropical_roll +
+  self-test #1 are kept ready; flip ARMS to re-include "cand_c_tropical" then.
 
 TEST DEPTHS (5; span shallow / working / cliff): d100 d276 d280 d287 d293.
   Cluster baseline (informational, NOT the control): PASS at d276; HARD_FAIL at d287+.
@@ -89,13 +88,22 @@ _N_SUFFIX = 16384
 N = 16384
 assert N == _N_SUFFIX, f"PROT-018: anchor _n{_N_SUFFIX} but N={N}"
 
-ARMS = ["control", "cand_c_tropical", "cand2_cleanup"]
+# Skunkworks 2-arm ruling (2026-06-19): candidate-C DEFERRED to a separate properly-grounded cert
+# event. McMenemy's (max,+) is a COMPOSITION/bind op; mapping it to chain-RECALL would be an INVENTED
+# op (no-Goodhart risk; Exp-Dev's composition-vs-recall flag, affirmed + owned by cert-owner). Active
+# dispatch = 2-arm (control + candidate-2, the substrate-evidenced favorite; N=1 candidate -> alpha=0.05,
+# no Bonferroni). The canonical (max,+) tropical-semiring code (tropical_build_M / tropical_roll) is
+# RETAINED + self-tested for the deferred candidate-C event; add "cand_c_tropical" back to ARMS once a
+# principled composition->recall mapping + McMenemy source-grounding land.
+ARMS = ["control", "cand2_cleanup"]
 # Condition 2 (Skunkworks SCHEMA-VET honest-scope): name the SPECIFIC op per arm. A candidate's
 # HARD_FAIL means THIS op failed, NOT "tropical algebra / cleanup in general" (no-Goodhart).
 ARM_OP = {
     "control": "linear heteroassoc sign-cleanup r=sign(H@r)",
-    "cand_c_tropical": "Ritter-Sussner (min,+)-store/(max,+)-recall morphological AM",
-    "cand2_cleanup": "cleanup-between-hops snap-to-stored-node (resonator-seeded)",
+    "cand_c_tropical": "canonical element-wise (max,+) tropical-semiring composition (bind=rho+add, "
+                       "superpose=max, unbind=subtract); DEFERRED -- separate grounded cert event",
+    "cand2_cleanup": "resonator-augmented cleanup-between-hops (re-resonate each intermediate onto a "
+                     "clean stored node between hops)",
 }
 
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
@@ -143,24 +151,18 @@ def cosine_sim_gpu(a: torch.Tensor, b: torch.Tensor) -> float:
     return float(torch.dot(a, b)) / (na * nb)
 
 
-def maxplus_matvec(W: torch.Tensor, q: torch.Tensor, n_dim: int) -> torch.Tensor:
-    """v_i = max_j (W_ij + q_j), computed in row-chunks to bound the N x N temp."""
-    out = torch.empty(n_dim, device=DEVICE, dtype=torch.float32)
-    qb = q.unsqueeze(0)
-    for i0 in range(0, n_dim, MAXPLUS_CHUNK):
-        block = W[i0:i0 + MAXPLUS_CHUNK] + qb            # (chunk, N)
-        out[i0:i0 + block.shape[0]] = block.max(dim=1).values
-    return out
+def tropical_roll(x: torch.Tensor) -> torch.Tensor:
+    """Permutation role rho (cyclic shift by 1 on the last dim) -- breaks bind symmetry so the
+    (commutative) tropical product encodes a DIRECTED transition a->b."""
+    return torch.roll(x, shifts=1, dims=-1)
 
 
-def build_W_morphological(pairs_a: torch.Tensor, pairs_b: torch.Tensor, n_dim: int) -> torch.Tensor:
-    """Ritter-Sussner (min,+) memory: W_ij = min_p (b_p_i - a_p_j). pairs_* are (P, n_dim)."""
-    W = torch.full((n_dim, n_dim), float('inf'), device=DEVICE, dtype=torch.float32)
-    P = pairs_a.shape[0]
-    for p in range(P):
-        diff = pairs_b[p].unsqueeze(1) - pairs_a[p].unsqueeze(0)   # (n_dim, n_dim), freed each iter
-        torch.minimum(W, diff, out=W)
-    return W
+def tropical_build_M(pairs_a: torch.Tensor, pairs_b: torch.Tensor) -> torch.Tensor:
+    """Canonical (max,+) tropical-semiring sequence memory (vector-level, NOT a matrix AM):
+    bind(a,b) = rho(a) + b (tropical product otimes=+); M = max_p bind(a_p,b_p) (tropical
+    superpose oplus=max, element-wise over all stored transitions). Recall: next = sign(M - rho(r))."""
+    bound = tropical_roll(pairs_a) + pairs_b           # (P, n_dim): bind(a_p, b_p) = rho(a_p) + b_p
+    return bound.max(dim=0).values                     # (n_dim,): element-wise tropical superpose
 
 
 def _instrumentation_selftest():
@@ -170,12 +172,13 @@ def _instrumentation_selftest():
     def bsc(m, n_d):
         return (torch.randint(0, 2, (m, n_d), generator=gen, device=DEVICE).float() * 2 - 1)
 
-    # 1. morphological single-pair perfect recall (low load -> exact)
+    # 1. tropical (max,+) single-pair perfect recall (low load -> exact) + directionality
     a = bsc(1, n_t).squeeze(0); b = bsc(1, n_t).squeeze(0)
-    W = build_W_morphological(a.unsqueeze(0), b.unsqueeze(0), n_t)
-    rec = torch.sign(maxplus_matvec(W, a, n_t)); rec[rec == 0] = 1.0
-    assert cosine_sim_gpu(rec, b) > 0.999, "morphological single-pair recall failed"
-    del W
+    M = tropical_build_M(a.unsqueeze(0), b.unsqueeze(0))      # single transition a->b
+    rec = torch.sign(M - tropical_roll(a)); rec[rec == 0] = 1.0
+    assert cosine_sim_gpu(rec, b) > 0.999, "tropical (max,+) single-pair recall failed"
+    rec_rev = torch.sign(M - tropical_roll(b)); rec_rev[rec_rev == 0] = 1.0
+    assert cosine_sim_gpu(rec_rev, a) < 0.5, "tropical bind not directional (rho symmetry not broken)"
 
     # 2. cleanup snaps a noisy node to its nearest codebook node
     cb = bsc(5, n_t)                                # 5 nodes
@@ -250,18 +253,19 @@ def run_unit(depth: int, seed: int, n_dim: int) -> Dict:
     del H
     torch.cuda.empty_cache()
 
-    # ---- morphological W (candidate-C tropical) ----
-    W = build_W_morphological(pairs_a, pairs_b, n_dim)
-    sims = {d: [] for d in snaps}
-    for ch in chains:
-        r = ch[0].clone()
-        for step in range(1, depth + 1):
-            r = torch.sign(maxplus_matvec(W, r, n_dim)); r[r == 0] = 1.0
-            if step in sims:
-                sims[step].append(cosine_sim_gpu(r, ch[step]))
-    for d in snaps:
-        arms_profile["cand_c_tropical"][str(d)] = float(sum(sims[d]) / len(sims[d])) if sims[d] else 0.0
-    del W
+    # ---- canonical (max,+) tropical-semiring composition (candidate-C; DEFERRED unless in ARMS) ----
+    if "cand_c_tropical" in ARMS:
+        M = tropical_build_M(pairs_a, pairs_b)
+        sims = {d: [] for d in snaps}
+        for ch in chains:
+            r = ch[0].clone()
+            for step in range(1, depth + 1):
+                r = torch.sign(M - tropical_roll(r)); r[r == 0] = 1.0   # tropical unbind: next=sign(M-rho(r))
+                if step in sims:
+                    sims[step].append(cosine_sim_gpu(r, ch[step]))
+        for d in snaps:
+            arms_profile["cand_c_tropical"][str(d)] = float(sum(sims[d]) / len(sims[d])) if sims[d] else 0.0
+        del M
     peak_gb = torch.cuda.max_memory_allocated(0) / 1e9
     torch.cuda.empty_cache()
 
@@ -368,8 +372,9 @@ def compute_verdict(units: List[Dict]) -> Tuple[str, str, Dict]:
         lines.append(f"{arm}={arm_verdict[arm]} | per-depth[{pd}] | endpoint[{ep}]")
     n_hp = sum(1 for a in cand if arm_verdict[a] == "HARD_PASS")
     swap = ("SWAP to " + best if n_hp >= 1 else "NO SWAP (current_best d276 stays)")
+    alpha = 0.05 / max(1, len(cand))   # N=1 candidate -> 0.05 (no Bonferroni); N=2 -> 0.025
     msg = (f"{overall} (best candidate={best}; {n_hp} candidate HARD_PASS; {swap}; "
-           f"Bonferroni alpha=0.025). " + " || ".join(lines))
+           f"n_candidates={len(cand)} alpha={alpha:.3f}). " + " || ".join(lines))
     detail = {"arm_verdict": arm_verdict, "per_depth": per_depth, "robust_floor_frac": robust,
               "mean_profile": {a: {str(d): mean_prof[a][d] for d in DEPTHS} for a in ARMS},
               "best_candidate": best, "n_candidate_hard_pass": n_hp, "swap_decision": swap,
@@ -424,7 +429,9 @@ metrics = {
     "verdict": verdict, "verdict_msg": verdict_msg,
     "N": N, "run_mode": RUN_MODE, "arms": ARMS, "depths": DEPTHS,
     "n_seeds": len(SEEDS), "n_chains": N_CHAINS, "m_background": M_BACKGROUND,
-    "bonferroni_alpha": 0.025,
+    "n_candidates": len([a for a in ARMS if a != "control"]),
+    "alpha_per_candidate": 0.05 / max(1, len([a for a in ARMS if a != "control"])),
+    "candidate_c_status": "DEFERRED (separate grounded cert event; see ARMS comment + Skunkworks 2-arm ruling)",
     "detail": detail,
     "per_unit": [{"depth": u["depth"], "seed": u["seed"], "arms": u["arms"],
                   "peak_gpu_gb": u.get("peak_gpu_gb"), "elapsed_s": u.get("elapsed_s")}
