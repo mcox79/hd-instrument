@@ -1,9 +1,0 @@
-{
-  "queue": "overnight_queue",
-  "name": "a2_decisive_test_untuned_auroc_v5",
-  "script": "experiments/exp_substrate_a2_decisive_test_untuned_auroc_gpu_v1.py",
-  "prereg": "notes/skunkworks_to_exp_dev_orchestrator_A2_v5_SCHEMA_VET_CARRIES_kill_ratified_dispatch_GO_2026-06-18.md",
-  "timeout_s": 7200,
-  "skip_smoke": true,
-  "authored_utc": "2026-06-18T21:35:28Z"
-}
