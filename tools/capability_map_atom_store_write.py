@@ -1,4 +1,23 @@
-"""Director Store-write for CAPABILITY_MAP atom after Skunkworks FINAL VET APPROVE.
+"""DEPRECATED 2026-06-19: latent inst-239/240-class risk per Skunkworks 6-tool
+corpus-completeness triage. This tool raw-APPENDS a single atom from a DRAFT
+json to meta/atoms.jsonl with a post-invariant scour via json.loads -- which
+catches malformed JSON but NOT Atom.from_dict enum-VALUE violations (the EXACT
+inst-239/240 gap: raw-verify != Store-LOAD-gate).
+
+This was a ONE-OFF Store-write script (already-run; the CAPABILITY_MAP atom is
+landed). Re-running with a bad payload could write a malformed/colliding atom.
+
+CANONICAL SAFE REPLACEMENT for any future atom-add work:
+  -> tools/atomize_audit_lesson_template_SAFE.py
+     (Atom-construction with enum MEMBERS + ps.add_atom + fresh-Store
+     all_atoms() round-trip gate -- inst-240's rule.)
+
+EXECUTION REFUSED unless --acknowledge-deprecated-incident-class is passed.
+
+Original docstring preserved below:
+
+----- ORIGINAL DOCSTRING -----
+Director Store-write for CAPABILITY_MAP atom after Skunkworks FINAL VET APPROVE.
 
 Appends the atom from data/capability_map_atom_DRAFT_pre_skunkworks_FINAL_VET.json
 to data/substrate_index/meta/atoms.jsonl (single atom; not bulk).
@@ -10,6 +29,19 @@ import json
 import os
 import collections
 import sys
+
+# Deprecation gate (refuse to execute without explicit ack)
+if __name__ == "__main__" and "--acknowledge-deprecated-incident-class" not in sys.argv:
+    print(__doc__.split("----- ORIGINAL DOCSTRING -----")[0])
+    print()
+    print("REFUSED: this tool has the inst-239/240 class risk (deprecated).")
+    print("Use tools/atomize_audit_lesson_template_SAFE.py for new atom-add work")
+    print("(Atom-construction + ps.add_atom + Store-LOAD gate).")
+    print()
+    print("To bypass (NOT RECOMMENDED):")
+    print("  python tools/capability_map_atom_store_write.py \\")
+    print("    --acknowledge-deprecated-incident-class")
+    sys.exit(1)
 
 ROOT = "data/substrate_index"
 META_ATOMS = f"{ROOT}/meta/atoms.jsonl"
