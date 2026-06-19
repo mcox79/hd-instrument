@@ -43,12 +43,29 @@ sys.path.insert(0, str(Path('.').resolve()))
 from backend.substrate_index.partition import PartitionedStore
 
 # verdicts that MUST integrate as a bound (not a win) -- verdict-faithful (I3)
-BOUND_VERDICTS = {'HARD_FAIL', 'HONEST_NEGATIVE', 'MIDDLE_BAND', 'REFUTED', 'SATURATION'}
+BOUND_VERDICTS = {'HARD_FAIL', 'HONEST_NEGATIVE', 'HONEST_BOUNDED', 'MIDDLE_BAND', 'REFUTED', 'SATURATION',
+                  'DISCRIMINATING_DEPTH_EXTENT'}  # v1.1: HONEST_BOUNDED + DISCRIMINATING_DEPTH_EXTENT (HYP-5 depth-bound) added (vocab-completeness from the retrieval-domain scan)
+# v1.1: NEUTRAL verdicts = a characterization (invariance / non-result), NEITHER win NOR bound (e.g. sparsity has no
+# effect; a non-discriminating non-test). Integrate honestly: is_bound=False + no win-language (don't dress as achievement).
+NEUTRAL_VERDICTS = {'SPARSITY_NEUTRAL', 'NEUTRAL', 'INVARIANT', 'NO_EFFECT', 'DEGENERATE_REGIME', 'NON_TEST'}
+# v1.1: WIN verdicts -- for I6 cross-class cluster detection.
+WIN_VERDICTS = {'PASS', 'HARD_PASS', 'ALREADY_SEPARATES', 'VALIDATED', 'SPARSITY_NEUTRAL_LIFT'}
 WIN_LANGUAGE = ('proven', 'achieves', 'demonstrates strong', 'validated strong', 'breakthrough', 'solves')
 
 
 def kname(a):
     return a.kind.value if hasattr(a.kind, 'value') else str(a.kind)
+
+
+def verdict_class(v):  # v1.1: classify a verdict for I6 cross-class cluster detection
+    v = (v or '').upper()
+    if v in BOUND_VERDICTS:
+        return 'BOUND'
+    if v in NEUTRAL_VERDICTS:
+        return 'NEUTRAL'
+    if v in WIN_VERDICTS:
+        return 'WIN'
+    return 'OTHER'
 
 
 def main():
@@ -90,13 +107,19 @@ def main():
         if not v:
             faithless.append((a.id, 'NO_VERDICT'))
             continue
-        if v in BOUND_VERDICTS and not md(a).get('capint_is_bound'):
-            faithless.append((a.id, f'{v}_not_marked_bound'))
-        # a bound-verdict whose capability name carries win-language is a dressed negative
         name = (md(a).get('capint_capability_name') or a.id).lower()
-        if v in BOUND_VERDICTS and any(w in name for w in WIN_LANGUAGE):
-            faithless.append((a.id, f'{v}_with_win_language'))
-    checks.append(('I3 verdict-FAITHFUL (bound-verdict integrated as bound, not a win)', not faithless,
+        is_bound = md(a).get('capint_is_bound')
+        if v in BOUND_VERDICTS:
+            if not is_bound:
+                faithless.append((a.id, f'{v}_not_marked_bound'))
+            if any(w in name for w in WIN_LANGUAGE):  # a bound dressed with win-language
+                faithless.append((a.id, f'{v}_with_win_language'))
+        elif v in NEUTRAL_VERDICTS:  # v1.1: NEUTRAL = neither win nor bound -> is_bound False + no win-dressing
+            if is_bound:
+                faithless.append((a.id, f'{v}_marked_bound_but_NEUTRAL'))
+            if any(w in name for w in WIN_LANGUAGE):
+                faithless.append((a.id, f'{v}_NEUTRAL_with_win_language'))
+    checks.append(('I3 verdict-FAITHFUL (bound->bound; neutral->neither; no win-dressing)', not faithless,
                    f'faithless={len(faithless)}', faithless[:8]))
     # I4 cluster-CONSISTENCY (scale-series = ONE capability)
     cluster_members = defaultdict(list)
@@ -107,7 +130,7 @@ def main():
         if role == 'scale_point' and not cid:
             orphan_scale.append((a.id, 'scale_point_without_cluster_id'))
         if cid:
-            cluster_members[cid].append((a.id, role, md(a).get('capint_shared_benchmark')))
+            cluster_members[cid].append((a.id, role, md(a).get('capint_shared_benchmark'), md(a).get('capint_verdict')))
     cluster_problems = list(orphan_scale)
     for cid, members in cluster_members.items():
         canon = [m for m in members if m[1] == 'canonical']
@@ -122,16 +145,31 @@ def main():
     no_bound = [a.id for a in integ if not (md(a).get('capint_proven_bound') or '').strip()]
     checks.append(('I5 no-Goodhart (honest-scoped proven_bound present; metric measures claimed thing)', not no_bound,
                    f'missing_proven_bound={len(no_bound)}', no_bound[:8]))
+    # I6 (v1.1) cluster verdict-HOMOGENEITY -- SOFT FLAG (review, NOT a hard gate). A cluster spanning MULTIPLE
+    # verdict-CLASSES (e.g. WIN + BOUND) is EITHER a legitimate scaling-cliff (capability degrades with scale)
+    # OR a candidate-mis-cluster (distinct configs wrongly grouped -- the decomposition_resonator lesson).
+    # Surface for cert-owner review: verify the canonical's proven_bound captures the spread + judge
+    # cluster-vs-singletons. Uniform-class clusters (all WIN / all BOUND / all NEUTRAL) are clean.
+    soft_checks = []
+    mixed_clusters = []
+    for cid, members in cluster_members.items():
+        classes = {verdict_class(m[3]) for m in members}
+        classes.discard('OTHER')
+        if len(classes) > 1:
+            mixed_clusters.append((cid, sorted(classes)))
+    soft_checks.append(('I6 cluster verdict-homogeneity (mixed-class -> REVIEW: scaling-cliff vs mis-cluster)',
+                        not mixed_clusters, f'mixed_verdict_clusters={len(mixed_clusters)}', mixed_clusters[:8]))
 
     # report
     print('=' * 78)
-    print('CAP-INT INTEGRATION-CHECK v1 (capability-integration cert-gate) -- READ-ONLY')
+    print('CAP-INT INTEGRATION-CHECK v1.1 (capability-integration cert-gate) -- READ-ONLY')
     print(f'  cap-int Track-A integrated atoms = {n}'
           + ('' if args.expect_integrated is None else f' (expect {args.expect_integrated}: '
              + ("OK" if n == args.expect_integrated else "MISMATCH") + ')'))
     if n == 0:
-        print('  (0 integrated -- Track-A not yet populated; layer READY. Checks I1-I5 will gate on populate.)')
+        print('  (0 integrated -- Track-A not yet populated; layer READY. I1-I5 gate on populate.)')
     print('-' * 78)
+    print('HARD checks (I1-I5; gate the result):')
     all_ok = True
     for name, ok, detail, samples in checks:
         all_ok = all_ok and ok
@@ -139,6 +177,14 @@ def main():
         print(f'  [{tag}] {name}  ({detail})')
         if not ok and samples:
             print(f'         samples: {samples}')
+    print('SOFT flags (I6; review-only, do NOT gate):')
+    n_soft = 0
+    for name, ok, detail, samples in soft_checks:
+        if not ok:
+            n_soft += 1
+        print(f'  [{"ok  " if ok else "FLAG"}] {name}  ({detail})')
+        if not ok and samples:
+            print(f'         review: {samples}')
     print('-' * 78)
     # distribution (informational)
     if n:
@@ -146,7 +192,7 @@ def main():
         print('  cluster count:', len(cluster_members), '| singletons:',
               sum(1 for a in integ if not md(a).get('capint_cluster_id')))
     print('RESULT:', 'INTEGRATION-PASS' if all_ok else 'INTEGRATION-FAIL',
-          f'| integrated={n}')
+          f'| integrated={n} | soft-flags(I6)={n_soft}')
     print('=' * 78)
     return 0 if all_ok else 5
 
