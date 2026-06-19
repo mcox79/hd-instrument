@@ -291,24 +291,48 @@ try {
                 Write-Log ("GIT LARGE PACK {0} bytes (>50MB); pushing anyway + flagging" -f $packBytes)
             }
 
-            # Fast-forward push only (NEVER force)
+            # PRE-PUSH STORE-LOAD GATE (incident 2026-06-19 prevention): NEVER push an unloadable Store
+            # to origin. The concept-partition NULL-corruption reached origin+remote via push before this
+            # gate existed. Only gate when the push actually includes data/substrate_index changes (the
+            # risky case); notes-only pushes skip it (no cost, no transient-fail). Fail-CLOSED (skip push)
+            # if PartitionedStore().all_atoms() throws; fail-OPEN if the .venv python is unavailable.
+            $storeLoadOk = $true
+            $storeChanged = & git diff --name-only origin/main..HEAD -- data/substrate_index/ 2>$null | Where-Object { $_ }
+            if ($storeChanged) {
+                $venvPy = Join-Path $repo ".venv/Scripts/python.exe"
+                if (Test-Path $venvPy) {
+                    $gateCode = "import sys; r=r'$repo'; sys.path.insert(0,r); from backend.substrate_index.partition import PartitionedStore; sum(1 for _ in PartitionedStore(r+'/data/substrate_index').all_atoms()); print('STORE_LOAD_OK')"
+                    $gateOut = & $venvPy -c $gateCode 2>&1 | Out-String
+                    if ($gateOut -notmatch 'STORE_LOAD_OK') { $storeLoadOk = $false; $gitStatus.store_load_error = $gateOut.Trim() }
+                } else {
+                    Write-Log "STORE-LOAD GATE: .venv python not found; gate skipped (fail-open, notes-safe)"
+                }
+            }
+
+            # Fast-forward push only (NEVER force) -- gated by the Store-LOAD check above
             $gitStatus.push_ran = $true
-            $pushOut = & git push origin "HEAD:main" 2>&1
-            if ($LASTEXITCODE -eq 0) {
-                $gitStatus.push_ok = $true
-                $aheadAfter = & git rev-list --count origin/main..HEAD 2>$null
-                if ($aheadAfter) { $gitStatus.ahead_after = [int]$aheadAfter } else { $gitStatus.ahead_after = 0 }
-                Write-Log ("GIT PUSH OK ahead_after={0}" -f $gitStatus.ahead_after)
-                $persistentPushFail = 0
-                if (Test-Path $backupAlertPath) { Remove-Item $backupAlertPath -Force -ErrorAction SilentlyContinue }
+            if (-not $storeLoadOk) {
+                $gitStatus.push_ran = $false
+                $gitStatus.store_load_gate_failed = $true
+                Write-Log "!! STORE-LOAD GATE FAILED: push includes data/substrate_index changes that do NOT load (PartitionedStore threw) -> PUSH SKIPPED this cycle; a corrupt/unloadable Store will NOT propagate to origin. Manual investigation needed (see store_load_error in status)."
             } else {
-                $gitStatus.push_ok = $false
-                $gitStatus.error = ($pushOut | Out-String).Trim()
-                Write-Log ("GIT PUSH FAIL: " + $gitStatus.error.Substring(0, [math]::Min(200, $gitStatus.error.Length)))
-                $persistentPushFail += 1
-                # On non-ff rejection: do NOT --force; log + flag
-                if ($gitStatus.error -match "non-fast-forward|rejected") {
-                    Write-Log "GIT NON-FF rejection; not forcing; alert raised"
+                $pushOut = & git push origin "HEAD:main" 2>&1
+                if ($LASTEXITCODE -eq 0) {
+                    $gitStatus.push_ok = $true
+                    $aheadAfter = & git rev-list --count origin/main..HEAD 2>$null
+                    if ($aheadAfter) { $gitStatus.ahead_after = [int]$aheadAfter } else { $gitStatus.ahead_after = 0 }
+                    Write-Log ("GIT PUSH OK ahead_after={0}" -f $gitStatus.ahead_after)
+                    $persistentPushFail = 0
+                    if (Test-Path $backupAlertPath) { Remove-Item $backupAlertPath -Force -ErrorAction SilentlyContinue }
+                } else {
+                    $gitStatus.push_ok = $false
+                    $gitStatus.error = ($pushOut | Out-String).Trim()
+                    Write-Log ("GIT PUSH FAIL: " + $gitStatus.error.Substring(0, [math]::Min(200, $gitStatus.error.Length)))
+                    $persistentPushFail += 1
+                    # On non-ff rejection: do NOT --force; log + flag
+                    if ($gitStatus.error -match "non-fast-forward|rejected") {
+                        Write-Log "GIT NON-FF rejection; not forcing; alert raised"
+                    }
                 }
             }
         }
