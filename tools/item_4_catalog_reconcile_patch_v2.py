@@ -123,29 +123,53 @@ def parse_annotation(annotation):
     return instance_num, status, annotation, is_recoverable
 
 
-def substring_bind_concept(concept_value, audit_atom_ids):
-    """Per-Q2 substring-scan with 3-token guard. Returns (backing, confidence_score).
+# Skunkworks-VET'd missed-bindings (per-bind VET 2026-06-19; symmetric-verify
+# caught 4 true backings the 3-token guard under-bound). Concept-key (lowercase)
+# -> verified backing audit atom-id.
+SKUNKWORKS_VETTED_BINDS = {
+    "discriminating_regime_guard":
+        "AUDIT_degenerate_regime_not_refutation_non_discriminating_test_is_non_test_verify_regime_discriminating_before_verdict",
+    "discriminating_regime_guard_c1_8a_8b_refuse_gate_preregs":
+        "AUDIT_degenerate_regime_not_refutation_non_discriminating_test_is_non_test_verify_regime_discriminating_before_verdict",
+    "monitor_consumer_can_die_inbox_authoritative_9th_rule":
+        "AUDIT_monitor_must_watch_authoritative_source_not_derived_log_producer_liveness_false_green",
+    "100th_rule_audit_tooling_must_self_verify":
+        "AUDIT_audit_tooling_verify_before_trusted_keyword_search_unreliable",
+}
 
-    Confidence = number of underscore-tokens that overlap (>= 3 to bind).
-    Picks the audit atom with the LONGEST token-overlap.
+
+def substring_bind_concept(concept_value, audit_atom_ids):
+    """Per-Q2 substring-scan with 3-token guard + Skunkworks-VET'd missed-binds.
+
+    Returns (backing, confidence_score, source_tag).
+    Source tag: 'token_scan' | 'skunkworks_vet' | None.
+    Confidence = number of underscore-tokens that overlap (>= 3 to bind by scan),
+    or 99 if Skunkworks explicitly VET'd the bind.
     """
     norm = concept_value.lower().strip()
+
+    # Check Skunkworks-VET'd missed-bindings first (these supersede the token scan)
+    if norm in SKUNKWORKS_VETTED_BINDS:
+        return (SKUNKWORKS_VETTED_BINDS[norm], 99, "skunkworks_vet")
+
     norm_tokens = set(norm.split("_"))
     norm_tokens.discard("")
     if len(norm_tokens) < 3:
-        return (None, 0)
+        return (None, 0, None)
 
     best_backing = None
     best_overlap = 0
     for aid in audit_atom_ids:
         aid_tokens = set(aid.lower().split("_"))
         aid_tokens.discard("")
-        aid_tokens.discard("audit")  # boilerplate prefix; don't count
+        aid_tokens.discard("audit")
         overlap = len(norm_tokens & aid_tokens)
         if overlap >= 3 and overlap > best_overlap:
             best_overlap = overlap
             best_backing = aid
-    return (best_backing, best_overlap)
+    if best_backing:
+        return (best_backing, best_overlap, "token_scan")
+    return (None, 0, None)
 
 
 def classify_value(value, qids, bare, audit_atom_ids):
@@ -190,7 +214,7 @@ def classify_value(value, qids, bare, audit_atom_ids):
         return (2, value, None, None, 0)
 
     # Bucket 3: conceptual shorthand
-    backing, confidence = substring_bind_concept(value, audit_atom_ids)
+    backing, confidence, source = substring_bind_concept(value, audit_atom_ids)
     return (3, value, backing, None, confidence)
 
 
@@ -211,6 +235,7 @@ def main():
 
         # Per-field updated values
         field_new_values = {f: [] for f in ATOM_FIELDS}
+        fields_touched = set()  # fields that had any original content
         memory_refs = list(a.get("memory_references") or
                            md.get("memory_references") or [])
         conceptual_refs = list(a.get("conceptual_references") or
@@ -233,6 +258,7 @@ def main():
                 else:
                     continue
                 for v in vals:
+                    fields_touched.add(field)
                     bucket, clean, backing, ann_info, conf = classify_value(
                         v, qids, bare, audit_atom_ids)
                     bucket_counts[(bucket, field)] += 1
@@ -277,8 +303,11 @@ def main():
             patches[atom_id] = {
                 "atom_id": atom_id,
                 "corpus": corpus,
-                "field_new_values": {k: sorted(set(v)) for k, v in
-                                     field_new_values.items() if v},
+                # Emit field_new_values for ALL fields_touched (even if empty
+                # list -- means all entries moved to memory_/conceptual_refs;
+                # source field must be cleared so phantoms don't persist).
+                "field_new_values": {k: sorted(set(field_new_values[k]))
+                                     for k in fields_touched},
                 "memory_references_new": sorted(set(memory_refs)),
                 "conceptual_references_new": conceptual_refs,
                 "cross_ref_annotations_new": cross_ref_annotations,
