@@ -55,6 +55,9 @@ def build_atom(fr) -> Atom:
         'lexunits_capped': len(lus) > LU_CAP,
         'provenance_quality': 'RESEARCH_FINDING',  # T2 non-load-bearing until cert-promoted (research-can-be-wrong)
         'confidence_tier': 'T2_LEXICAL_RESOURCE',
+        'frame_edge_direction': 'nltk sub->super (specific/child -> base/parent); rel_type carries the semantics '
+                                '(hierarchical: Inherits/Uses/Subframe/Perspective_on; non-hierarchical: Precedes/Causative/'
+                                'Inchoative/See_also/Metaphor/ReFraming -- direction is nltk convention, not a true hierarchy)',
         'source': SRC_TAG,
     }
     return Atom(id=_fid(fr.name), name=fr.name, description=(fr.definition or '')[:500],
@@ -105,10 +108,13 @@ def analyze():
     from backend.substrate_index.partition import PartitionedStore
     from nltk.corpus import framenet as fn
     ps = PartitionedStore(Path('data/substrate_index'))
-    all_ids = {a.id for a in ps.all_atoms()}
+    kind_by_id = {a.id: a.kind for a in ps.all_atoms()}
     frames = list(fn.frames())
     frame_names = {fr.name for fr in frames}
-    collisions = [fr.name for fr in frames if _fid(fr.name) in all_ids]
+    # collision = FN_<frame> held by a NON-SEMANTIC_FRAME atom (genuine foreign id-collision). An existing
+    # SEMANTIC_FRAME at that id is OUR OWN (partial/prior) ingest -> idempotent-skip, NOT a collision.
+    collisions = [fr.name for fr in frames
+                  if _fid(fr.name) in kind_by_id and kind_by_id[_fid(fr.name)] != AtomKind.SEMANTIC_FRAME]
     edges, unmapped = compute_edges(fn, frame_names)
     from collections import Counter
     by_rel = Counter(rt for (_, rt, _) in edges)
@@ -121,6 +127,17 @@ def _flush_relations_with_retry(cstore, attempts=12):
     for attempt in range(attempts):
         try:
             cstore._flush_relations(); return True
+        except PermissionError:
+            time.sleep(0.3 * (attempt + 1))
+    return False
+
+
+def _save_atoms_with_retry(atoms_list, path, attempts=12):
+    """SINGLE batched atom-flush with os.replace-race retry (B1 pattern; avoids the O(n^2) per-atom add_atom flush)."""
+    from backend.substrate_index.schema import save_atoms
+    for attempt in range(attempts):
+        try:
+            save_atoms(atoms_list, path); return True
         except PermissionError:
             time.sleep(0.3 * (attempt + 1))
     return False
@@ -155,20 +172,30 @@ def apply_run() -> int:
     if a['collisions'] or a['unmapped']:
         print(f"HALT: collisions={len(a['collisions'])} unmapped={sorted(a['unmapped'])}"); return 1
     ps = a['ps']
+    # capture intended edge triples PRE-ingest (a['edges'] is corpus-state-independent, but capture-and-readback
+    # makes declared==actual hold for EDGES too -- mirrors the T3 hardening; catches a partial-flush regression).
+    intended_triples = {(_fid(sub), rt, _fid(sup)) for (sub, rt, sup) in a['edges']}
+    cs_pre = ps._store_for(Corpus.CONCEPT)
+    persisted_pre = {t for t in cs_pre._all_relations if t in intended_triples}
     pre_axiom = axiom_term_count(ps); pre_mod = module_liveness_ok(); pre_cert = cert_count(ps)
     pre_atoms = len(list(ps.all_atoms()))
-    print(f"PRE: atoms={pre_atoms} axiom_term={pre_axiom} cap_pres={pre_mod} CERT={pre_cert}")
+    print(f"PRE: atoms={pre_atoms} axiom_term={pre_axiom} cap_pres={pre_mod} CERT={pre_cert} | intended_edges={len(intended_triples)}")
     if not pre_mod or pre_axiom != 206:
         print('PRE-GATE FAIL. Halt.'); return 1
+    # BATCHED atom-add (B1 pattern: _index_atom in-memory + SINGLE save_atoms; avoids O(n^2) per-atom add_atom flush
+    # that timeout-killed the first apply at 576/1221). Idempotent: skip ids already in cstore._by_id.
+    cstore = cs_pre   # the already-loaded CONCEPT sub-store
     added = 0
     for fr in a['frames']:
-        if ps.get_atom(f'concept::{_fid(fr.name)}') is not None:
+        atom = build_atom(fr)
+        if atom.id in cstore._by_id:
             continue
-        ps.add_atom(build_atom(fr), source=SRC_TAG, note='FrameNet ARC-3 ingest v1 (SEMANTIC_FRAME)')
+        cstore._index_atom(atom)
         added += 1
-    print(f"  atoms added: {added}")
-    ps2 = PartitionedStore(Path('data/substrate_index'))
-    cstore = ps2._store_for(Corpus.CONCEPT)
+    if added and not _save_atoms_with_retry(list(cstore._by_id.values()), cstore.atoms_path):
+        print('HARD_FAIL: os.replace race on atom flush.'); return 3
+    print(f"  atoms added (batched single-flush): {added}")
+    # edges on the SAME cstore (atoms now persisted + in _by_id -> 0-phantom)
     edge_added = 0
     for (sub, rt, sup) in sorted(a['edges']):
         triple = (_fid(sub), rt, _fid(sup))
@@ -182,10 +209,17 @@ def apply_run() -> int:
     ps3 = PartitionedStore(Path('data/substrate_index'))
     post_axiom = axiom_term_count(ps3); post_mod = module_liveness_ok(); post_cert = cert_count(ps3)
     post_atoms = len(list(ps3.all_atoms()))
-    gate_ok = post_axiom == 206 and post_mod and post_cert == pre_cert and added > 0
-    print(f"POST: atoms={post_atoms} (+{post_atoms - pre_atoms}) axiom_term={post_axiom} cap_pres={post_mod} CERT={post_cert} (unchanged from {pre_cert})")
+    # EDGE READ-BACK (mirror T3 hardening): ALL intended frame-edges persisted + declared==actual
+    cs_post = ps3._store_for(Corpus.CONCEPT)
+    persisted_post = {t for t in cs_post._all_relations if t in intended_triples}
+    edges_present = intended_triples.issubset(set(cs_post._all_relations))
+    edge_count_ok = (edge_added == len(intended_triples - persisted_pre))
+    gate_ok = (post_axiom == 206 and post_mod and post_cert == pre_cert and added > 0
+               and edges_present and edge_count_ok)
+    print(f"POST: atoms={post_atoms} (+{post_atoms - pre_atoms}) axiom_term={post_axiom} cap_pres={post_mod} "
+          f"CERT={post_cert} (unchanged from {pre_cert}) | edges_present={edges_present} edge_added={edge_added} expected_new={len(intended_triples - persisted_pre)}")
     if not gate_ok:
-        print('HARD_FAIL: gate failed (axiom_term/cap_pres/CERT must be preserved).'); return 2
+        print('HARD_FAIL: gate failed (axiom/cap_pres/CERT preserved + ALL intended edges read-back + declared==actual).'); return 2
     print('=' * 74)
     print(f"FrameNet ingest v1 APPLY complete: +{added} SEMANTIC_FRAME atoms, +{edge_added} FRAME_* edges | axiom_term 206 | cap_pres 6/6 | CERT {post_cert} unchanged")
     print('=' * 74)

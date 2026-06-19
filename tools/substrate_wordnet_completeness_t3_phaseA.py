@@ -172,6 +172,17 @@ def _flush_relations_with_retry(cstore, attempts=12):
     return False
 
 
+def _save_atoms_with_retry(atoms_list, path, attempts=12):
+    """SINGLE batched atom-flush with os.replace-race retry (B1 pattern; avoids O(n^2) per-atom add_atom flush)."""
+    from backend.substrate_index.schema import save_atoms
+    for attempt in range(attempts):
+        try:
+            save_atoms(atoms_list, path); return True
+        except PermissionError:
+            time.sleep(0.3 * (attempt + 1))
+    return False
+
+
 def apply_run() -> int:
     from backend.substrate_index.partition import PartitionedStore
     a = analyze()
@@ -188,20 +199,22 @@ def apply_run() -> int:
     if not pre_mod or pre_axiom != 206:
         print('PRE-GATE FAIL. Halt.'); return 1
 
-    # 1) SERIAL batched atom-add (fresh reload, single save, os.replace-retry handled by add_atom path)
+    # 1) BATCHED atom-add (B1 pattern: _index_atom in-memory + SINGLE save_atoms; avoids the O(n^2) per-atom add_atom
+    # flush that timeout-killed the FrameNet apply at 576/1221). Idempotent: skip ids already in cstore._by_id.
+    from backend.substrate_index.schema import Corpus, Relation
+    cstore = ps._store_for(Corpus.CONCEPT)
     added = 0
     for t in a['targets']:
-        aid = f"WN_{t.name()}"
-        if ps.get_atom(f'concept::{aid}') is not None:
+        atom = build_atom(t)
+        if atom.id in cstore._by_id:
             continue
-        ps.add_atom(build_atom(t), source=SRC_TAG, note='T3 Phase A completeness missing-direct-parent')
+        cstore._index_atom(atom)
         added += 1
-    print(f"  atoms added: {added}")
+    if added and not _save_atoms_with_retry(list(cstore._by_id.values()), cstore.atoms_path):
+        print('HARD_FAIL: os.replace race on atom flush.'); return 3
+    print(f"  atoms added (batched single-flush): {added}")
 
-    # 2) edge-mat the CAPTURED intended edges (in5k->target; NOT a re-analyze). Atoms added first -> 0-phantom.
-    from backend.substrate_index.schema import Corpus, Relation
-    ps2 = PartitionedStore(Path('data/substrate_index'))
-    cstore = ps2._store_for(Corpus.CONCEPT)
+    # 2) edge-mat the CAPTURED intended edges (in5k->target; NOT a re-analyze) on the SAME cstore. Atoms first -> 0-phantom.
     edge_added = 0
     for (src, tgt) in sorted(intended_edges):
         triple = (f"WN_{src}", RelationType.HYPERNYM.value, f"WN_{tgt}")
