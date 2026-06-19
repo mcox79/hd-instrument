@@ -1,7 +1,0 @@
-363236f27b366ba3d0af8017a5673b76ef9710fd commit	refs/heads/kp-p1-promotion
-ecf779bdaa75f8fe3f5120e4c286536a1908770c commit	refs/heads/main
-4b3f6b78d2ee4b0cca5dec1d5b7ad9221aaae9c8 commit	refs/heads/testbed-cycle50-option-b
-14c0f0ed4d1c1d777bbd856983f1895454246ae9 commit	refs/remotes/origin/HEAD
-14c0f0ed4d1c1d777bbd856983f1895454246ae9 commit	refs/remotes/origin/main
-363236f27b366ba3d0af8017a5673b76ef9710fd commit	refs/remotes/origin/testbed-cycle50-option-b
-7795cc4d6f8a2dcefb83b470ac96c017216e744f commit	refs/stash
