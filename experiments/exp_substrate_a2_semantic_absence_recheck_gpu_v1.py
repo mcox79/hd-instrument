@@ -110,9 +110,11 @@ def main():
     contaminated = [x for x in rows if x["contaminated"]]
     verdict = "CONTAMINATED" if contaminated else "ALL_HOLD"
     if verdict == "ALL_HOLD":
-        msg = (f"ALL_HOLD: all {len(gaps)} gap-topics have max-sim < {IN_COVERAGE_THRESHOLD} to the +{len(new_idx)} NEW "
-               f"atoms -> the ARC-3 ingest atoms do NOT semantically cover the CS gaps -> gap-absence labels CARRY -> "
-               f"A2 v6 AUROC on 43892 is TRUSTED. max over all gaps={max(x['max_sim_to_new'] for x in rows):.4f}.")
+        msg = (f"ALL_HOLD: all {len(gaps)} gap-topics have max-sim < {IN_COVERAGE_THRESHOLD} to the {len(new_idx)} ARC-3 "
+               f"ingest atoms -> NO gap is now ANSWERABLE/covered by a new atom -> the gap-absence LABELS CARRY -> the A2 "
+               f"gap-set is VALID on 43892. (REFINE 2: ALL_HOLD validates the LABELS, NOT 'no noise' -- sub-threshold "
+               f"matches [0.45-0.69] may cause a SMALL AUROC shift, a REAL current-state property the v6 measures HONESTLY; "
+               f"the 0.70 bar is the coverage/answerable threshold.) max over all gaps={max(x['max_sim_to_new'] for x in rows):.4f}.")
     else:
         msg = (f"CONTAMINATED: {len(contaminated)} gap(s) now semantically covered (max-sim >= {IN_COVERAGE_THRESHOLD}) by "
                f"an ARC-3 atom -> DELIBERATELY drop/re-scope (documented): "
@@ -124,6 +126,11 @@ def main():
         "anchor_name": ANCHOR, "verdict": verdict, "verdict_msg": msg, "summary": msg, "n_seeds": 1,
         **provenance_fields("smoke" if is_smoke else "full", "semantic_absence_recheck", "measured_bge_gpu_held_out", run_started_utc),
         "gate0_self_check": g0, "in_coverage_threshold": IN_COVERAGE_THRESHOLD,
+        "new_atom_scope": ("REFINE-1: new-atom set = ARC-3 INGEST topic-coverage atoms (FrameNet SEMANTIC_FRAME + WordNet "
+                           "completeness_target); the few depth-cliff/today EXPERIMENT_RECORD atoms (math process-knowledge, "
+                           "NOT CS-topic-coverage candidates; semantically orthogonal to CS-algorithm gaps) are EXCLUDED + "
+                           "documented here -- the exhaustive check covers the atoms that could ANSWER a CS gap, which "
+                           "experiment-records cannot. Count is the ingest-atom subset, not literally all +2562."),
         "n_gaps": len(gaps), "n_new_atoms": len(new_idx), "n_contaminated": len(contaminated),
         "max_sim_over_all_gaps": round(max(x["max_sim_to_new"] for x in rows), 4) if rows else None,
         "rows": rows, "corpus_completeness_method": "exhaustive_bge_cosine_semantic (NOT lexical token_match)",
