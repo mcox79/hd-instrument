@@ -257,6 +257,22 @@ try {
         }
 
         & git fetch origin main 2>$null | Out-Null
+        # PULL-BEFORE-PUSH (staleness-sweep root fix 2026-06-19): integrate origin/main BEFORE pushing.
+        # Was push-only -> when behind origin (e.g. remote-consumer commits) the push rejects non-ff and the
+        # laptop/origin divergence accumulates SILENTLY. Rebase local onto origin first; abort-on-conflict (never
+        # auto-resolve atoms.jsonl) and flag for a manual reconcile.
+        $behind = & git rev-list --count HEAD..origin/main 2>$null
+        if ($behind -and [int]$behind -gt 0) {
+            Write-Log ("GIT behind origin by {0}; rebasing (pull-before-push) before push" -f $behind)
+            & git rebase origin/main 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) {
+                & git rebase --abort 2>$null | Out-Null
+                Write-Log "GIT REBASE CONFLICT -> aborted; manual reconcile needed (push skipped this cycle)"
+                $gitStatus.rebase_conflict = $true
+            } else {
+                Write-Log ("GIT rebased onto origin/main (was behind {0}); now fast-forwardable" -f $behind)
+            }
+        }
         $aheadBefore = & git rev-list --count origin/main..HEAD 2>$null
         if ($aheadBefore) { $gitStatus.ahead_before = [int]$aheadBefore } else { $gitStatus.ahead_before = 0 }
         Write-Log ("GIT ahead_before={0}" -f $gitStatus.ahead_before)
