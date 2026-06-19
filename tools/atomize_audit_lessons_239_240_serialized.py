@@ -1,5 +1,31 @@
 #!/usr/bin/env python3
-"""Co-author + atomize AUDIT_LESSON instances 239 (no-Goodhart) and 240
+"""DEPRECATED 2026-06-19: this tool is the INST-239/240 INCIDENT ORIGIN.
+
+It uses raw-JSONL string-append (json.dumps(atom_dict)) which BYPASSES the
+Atom dataclass constructor + skips to_dict serialization. It wrote
+tier="TIER_METHODOLOGY" (enum NAME) instead of "T_methodology" (enum VALUE)
+into atoms.jsonl. Atom.from_dict(d) then threw ValueError("'TIER_METHODOLOGY'
+is not a valid Tier") -> PartitionedStore().all_atoms() raised -> THE WHOLE
+STORE WAS UNLOADABLE. Skunkworks emergency-repaired.
+
+THIS TOOL IS PRESERVED FOR HISTORY (the inst-240 self-referential witness
+references this very atomization). DO NOT RE-RUN. The atoms inst-239 + inst-240
+already exist in the canonical Store (post-Skunkworks-repair); re-running would
+attempt to add duplicates + likely trip a Store-LOAD-gate failure.
+
+CANONICAL SAFE REPLACEMENT (use for any future AUDIT_LESSON atomization):
+  -> tools/atomize_audit_lesson_template_SAFE.py
+     Uses Atom-construction (enum MEMBERS) + ps.add_atom (to_dict) +
+     fresh-Store all_atoms() round-trip gate. Composes Exp-Dev's reference
+     pattern + inst-240's rule + the 4-layer protection (unique-tmp + sync
+     pre-push load-gate + explicit-staging + name-one-owner).
+
+EXECUTION REFUSED unless --acknowledge-deprecated-incident-origin is passed.
+
+Original docstring preserved below:
+
+----- ORIGINAL DOCSTRING -----
+Co-author + atomize AUDIT_LESSON instances 239 (no-Goodhart) and 240
 (discipline-change-silently-breaks-cross-layer-output-protocol).
 
 Per Skunkworks 2026-06-19 routing: serialized raw-JSONL append on meta partition
@@ -10,24 +36,26 @@ Both atoms per Skunkworks's SCHEMA-VET conventions:
 - composes_with values must resolve to real atoms (value-RESOLVES discipline)
 - new field placements per MUST-FIX semantics: all in metadata
 - raw-JSONL append + verify via raw re-read (no get_atom; no silent-fail)
-
-Inst 239 (no-Goodhart):
-- Per Skunkworks's 4 fixes:
-  - FIX 1: kind/tier/pq consistency (audit_lesson + TIER_METHODOLOGY + None)
-  - FIX 2: instance_number = 239 (max+1; verified unused)
-  - FIX 3: composes_with = {verify_the_referent, degenerate_regime} only;
-    actual_not_bar as unbound conceptual_reference (no atom)
-  - FIX 4 CRITICAL: reword witness to corrected reasoning-scope (do not
-    re-introduce over-generalization; reasoning IS cert-proven; held-out
-    bounds FACT-FABRICATION not reasoning)
-
-Inst 240 (silent-loss-family):
-- Per Skunkworks's SPEC.
-- Composes 3 silent-loss instances + verify-OUTPUT-not-liveness +
-  verify-the-referent.
+  [THIS DOCSTRING NOTED RAW-JSONL APPEND AS SAFE; THE ENUM-NAME-VS-VALUE BUG
+   PROVED IT WASN'T. INST-240'S WHOLE LESSON IS THAT RAW-PRESENCE NECESSARY +
+   STORE-LOAD-ROUND-TRIP SUFFICIENT.]
 """
 
 import json
+import sys
+
+# Deprecation gate (refuse to execute without explicit ack)
+if __name__ == "__main__" and "--acknowledge-deprecated-incident-origin" not in sys.argv:
+    print(__doc__.split("----- ORIGINAL DOCSTRING -----")[0])
+    print()
+    print("REFUSED: this tool is the inst-239/240 incident origin (deprecated).")
+    print("Use tools/atomize_audit_lesson_template_SAFE.py for new AUDIT_LESSON")
+    print("atomization (Atom-construction + ps.add_atom + Store-LOAD gate).")
+    print()
+    print("To bypass this gate (NOT RECOMMENDED; would re-run the dangerous path):")
+    print("  python tools/atomize_audit_lessons_239_240_serialized.py \\")
+    print("    --acknowledge-deprecated-incident-origin")
+    sys.exit(1)
 import os
 from pathlib import Path
 
