@@ -3299,3 +3299,7 @@
 {"ts": 1781827441.7257884, "op": "add_atom", "target": "FN_Holding_off_on", "note": "FrameNet ARC-3 ingest v1 (SEMANTIC_FRAME)", "source": "framenet_v17_arc3_ingest_v1_2026_06_18"}
 {"ts": 1781827442.4909418, "op": "add_atom", "target": "FN_Hospitality", "note": "FrameNet ARC-3 ingest v1 (SEMANTIC_FRAME)", "source": "framenet_v17_arc3_ingest_v1_2026_06_18"}
 {"ts": 1781827443.3177786, "op": "add_atom", "target": "FN_Hostile_encounter", "note": "FrameNet ARC-3 ingest v1 (SEMANTIC_FRAME)", "source": "framenet_v17_arc3_ingest_v1_2026_06_18"}
+{"ts": 1781835287.9817812, "op": "update_atom", "target": "PP-395_svamp_role_asymmetry", "note": "phantom-cleanup option-B current_best->math::T3/discriminative_perceptron", "source": "exp_dev_phantom_cleanup_3of24_2026-06-18"}
+{"ts": 1781835287.9835618, "op": "update_atom", "target": "PP-396_svamp_learned_selector", "note": "phantom-cleanup option-B current_best->math::T3/discriminative_perceptron", "source": "exp_dev_phantom_cleanup_3of24_2026-06-18"}
+{"ts": 1781835287.9847023, "op": "update_atom", "target": "RETRIEVAL_reasoning_routing_pp371", "note": "phantom-cleanup option-3 current_best->None", "source": "exp_dev_phantom_cleanup_3of24_2026-06-18"}
+{"ts": 1781835287.9858265, "op": "update_atom", "target": "PP-371_reasoning_routing", "note": "phantom-cleanup option-3-partner current_best->None", "source": "exp_dev_phantom_cleanup_3of24_2026-06-18"}
