@@ -20,18 +20,17 @@
       "pattern": "metadata.provenance_quality == CERT_CHAIN_GRADE",
       "corpus_root": "data/substrate_index/*/atoms.jsonl",
       "date": "2026-06-18",
-      "corpus_total_atoms_at_scour": 41324
+      "corpus_total_atoms_at_scour": 41330
     },
     "domain_heuristic": "APPROXIMATE substring-match on name+description; NOT authoritative",
     "honest_framing_correction_applied": "PRECISION: distinct HIGH-relevance claims + LOW-relevance replication (not all-432-as-capabilities or all-432-as-applied-domains); mirror of morning 2026-06-18 NEGATIVITY-BIAS-symmetric catch which cut UPWARD",
     "capability_inventory": {
       "cert_chain_grade_total": 569,
       "positives_total": 433,
-      "positives_by_verdict": {
-        "MIDDLE_BAND": 67,
+      "cert_by_verdict": {
+        "MIDDLE_BAND": 69,
         "HARD_FAIL": 63,
         "PASS": 432,
-        "": 2,
         "HONEST_BOUNDED": 1,
         "SPARSITY_NEUTRAL": 2,
         "NON_TEST": 1,
@@ -614,11 +613,8 @@
           }
         ]
       },
-      "unset_legacy_count": 2,
-      "unset_aids_for_flag_dont_auto": [
-        "T3/EXP_cardinality_generalization_stage1_190c_2026_06_16",
-        "T3/EXP_cardinality_generalization_stage1_190c_cpu_v1"
-      ]
+      "unset_legacy_count": 0,
+      "unset_aids_for_flag_dont_auto": []
     }
   },
   "current_best_solution": null,

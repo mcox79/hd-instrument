@@ -1,0 +1,155 @@
+{
+  "anchor_name": "substrate_b_alpha_broad_envelope_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE envelope (PARTIAL composed-reasoning): 3 HARD_PASS / 2 MIDDLE / 0 HARD_FAIL across 5 benchmarks. DEPTH-CLIFF + RELATION-GENERALITY: 2-hop works (MIDDLE) across HYPERNYM+PART_OF; deeper hops (3-4) CLIFF to HARD_FAIL (each hop multiplies out-of-5k-intermediate misses -> correct REFUSE, no hallucination). 100% edge-verifiable (10455 edges, 0 unverifiable), 0 false-pos. Denser/deeper edge-materialization is the lever. envelope=HYPERNYM_2hop:0.99(HARD), HYPERNYM_3hop:0.93(HARD), HYPERNYM_4hop:0.85(HARD), PART_OF_2hop:0.63(MIDD), PART_OF_3hop:0.50(MIDD)",
+  "summary": "MIDDLE envelope (PARTIAL composed-reasoning): 3 HARD_PASS / 2 MIDDLE / 0 HARD_FAIL across 5 benchmarks. DEPTH-CLIFF + RELATION-GENERALITY: 2-hop works (MIDDLE) across HYPERNYM+PART_OF; deeper hops (3-4) CLIFF to HARD_FAIL (each hop multiplies out-of-5k-intermediate misses -> correct REFUSE, no hallucination). 100% edge-verifiable (10455 edges, 0 unverifiable), 0 false-pos. Denser/deeper edge-materialization is the lever. envelope=HYPERNYM_2hop:0.99(HARD), HYPERNYM_3hop:0.93(HARD), HYPERNYM_4hop:0.85(HARD), PART_OF_2hop:0.63(MIDD), PART_OF_3hop:0.50(MIDD)",
+  "headline": "MIDDLE envelope (PARTIAL composed-reasoning): 3 HARD_PASS / 2 MIDDLE / 0 HARD_FAIL across 5 benchmarks. DEPTH-CLIFF + RELATION-GENERALITY: 2-hop works (MIDDLE) across HYPERNYM+PART_OF; deeper hops (3-4) CLIFF to HARD_FAIL (each hop multiplies out-of-5k-intermediate misses -> correct REFUSE, no hallucination). 100% edge-verifiable (10455 edges, 0 unverifiable), 0 false-pos. Denser/deeper edge-materialization is the lever. envelope=HYPERNYM_2hop:0.99(HARD), HYPERNYM_3hop:0.93(HARD), HYPERNYM_4hop:0.85(HARD), PART_OF_2hop:0.63(MIDD), PART_OF_3hop:0.50(MIDD)",
+  "n_seeds": 1,
+  "run_mode": "full",
+  "branch_path": "multihop_broad_envelope_bfs",
+  "metrics_source": "measured_graph_bfs_held_out",
+  "run_started_utc": "2026-06-19T00:44:12.593763+00:00",
+  "cell_commit": "0a085384",
+  "gate0_self_check": {
+    "pass": true,
+    "reasons": [],
+    "n_cells_declared": 4676,
+    "n_cells_emitted": 4676,
+    "elapsed_s": 4.23,
+    "is_smoke": false
+  },
+  "discrimination_self_check": {
+    "HYPERNYM_2hop": {
+      "discriminates": true,
+      "reference_value": 0.9933333333333333,
+      "floor": 0.0,
+      "ceiling": 1.0,
+      "reason": "HYPERNYM_2hop: positives(recall)+negatives(refuse) both present; recall vs independent nltk gold"
+    },
+    "HYPERNYM_3hop": {
+      "discriminates": true,
+      "reference_value": 0.9311485267588695,
+      "floor": 0.0,
+      "ceiling": 1.0,
+      "reason": "HYPERNYM_3hop: positives(recall)+negatives(refuse) both present; recall vs independent nltk gold"
+    },
+    "HYPERNYM_4hop": {
+      "discriminates": true,
+      "reference_value": 0.8533333333333334,
+      "floor": 0.0,
+      "ceiling": 1.0,
+      "reason": "HYPERNYM_4hop: positives(recall)+negatives(refuse) both present; recall vs independent nltk gold"
+    },
+    "PART_OF_2hop": {
+      "discriminates": true,
+      "reference_value": 0.6266666666666667,
+      "floor": 0.0,
+      "ceiling": 1.0,
+      "reason": "PART_OF_2hop: positives(recall)+negatives(refuse) both present; recall vs independent nltk gold"
+    },
+    "PART_OF_3hop": {
+      "discriminates": true,
+      "reference_value": 0.5,
+      "floor": 0.0,
+      "ceiling": 1.0,
+      "reason": "PART_OF_3hop: positives(recall)+negatives(refuse) both present; recall vs independent nltk gold"
+    }
+  },
+  "path_provenance_self_check": {
+    "is_provenance_sound": true,
+    "n_paths": 3543,
+    "n_path_edges": 10455,
+    "n_unverifiable_edges": 0,
+    "reason": "every returned-path hop across ALL benchmarks = a persisted Store tuple (0 hallucinated)"
+  },
+  "corpus_completeness_self_check": {
+    "is_complete": true,
+    "claim_kind": "negative_no_path_reachability",
+    "n_checked": 750,
+    "n_total": 750,
+    "complete_corpus": true,
+    "method": "exhaustive_bfs_at_build_per_negative",
+    "method_ok": true,
+    "reason": "negatives verified genuinely unreachable at build (exhaustive BFS), not bounded-give-up"
+  },
+  "envelope": {
+    "HYPERNYM_2hop": {
+      "rel_type": "HYPERNYM",
+      "depth": 2,
+      "recall": 0.9933,
+      "refuse_rate": 1.0,
+      "false_positives": 0,
+      "n_pos": 150,
+      "n_neg": 150,
+      "n_found": 149,
+      "band": "HARD_PASS"
+    },
+    "HYPERNYM_3hop": {
+      "rel_type": "HYPERNYM",
+      "depth": 3,
+      "recall": 0.9311,
+      "refuse_rate": 1.0,
+      "false_positives": 0,
+      "n_pos": 3326,
+      "n_neg": 150,
+      "n_found": 3097,
+      "band": "HARD_PASS"
+    },
+    "HYPERNYM_4hop": {
+      "rel_type": "HYPERNYM",
+      "depth": 4,
+      "recall": 0.8533,
+      "refuse_rate": 1.0,
+      "false_positives": 0,
+      "n_pos": 150,
+      "n_neg": 150,
+      "n_found": 128,
+      "band": "HARD_PASS"
+    },
+    "PART_OF_2hop": {
+      "rel_type": "PART_OF",
+      "depth": 2,
+      "recall": 0.6267,
+      "refuse_rate": 1.0,
+      "false_positives": 0,
+      "n_pos": 150,
+      "n_neg": 150,
+      "n_found": 94,
+      "band": "MIDDLE_BAND"
+    },
+    "PART_OF_3hop": {
+      "rel_type": "PART_OF",
+      "depth": 3,
+      "recall": 0.5,
+      "refuse_rate": 1.0,
+      "false_positives": 0,
+      "n_pos": 150,
+      "n_neg": 150,
+      "n_found": 75,
+      "band": "MIDDLE_BAND"
+    }
+  },
+  "n_benchmarks": 5,
+  "n_hard_pass": 3,
+  "n_middle": 2,
+  "n_hard_fail": 0,
+  "path_edges_total": 10455,
+  "path_edges_unverifiable": 0,
+  "edge_verifiable_100pct": true,
+  "any_false_positive": false,
+  "prereg_bands": {
+    "hard_pass": 0.7,
+    "hard_fail": 0.4
+  },
+  "bands": {
+    "hard_pass": 0.7,
+    "hard_fail": 0.4
+  },
+  "held_out_eval": true,
+  "n_seeds_rationale": "deterministic structural walker over FIXED per-benchmark held-out gold; re-seeding adds nothing",
+  "min_cert_along_path": "WordNet HYPERNYM/PART_OF edges are ontology-INGESTED. Each returned PATH is provenance-CERT (every edge a persisted Store tuple); the ENVELOPE RESULT (per-benchmark recall + 100%-edge-verifiable + 0-FP) is the cert-grade EXPERIMENT; per-answer claims carry the ingested-edge tier.",
+  "honest_scope": "DISCRIMINATING multi-benchmark composed-reasoning ENVELOPE over the materialized typed-edge backbone vs independent per-benchmark nltk gold. Characterizes WHERE composed reasoning works (2-hop MIDDLE) vs CLIFFS (3-4 hop HARD_FAIL). NOT general reasoning. Per-benchmark HARD_FAIL = honest cliff FINDING. ARC-1 T2 milestone (BROAD); measured-bounds not fundamental (denser/deeper ingest untested).",
+  "bears_on": "B-alpha NARROW (HYPERNYM 2-hop, its single-benchmark predecessor); A1 control; 5th gate (a7497620); TRACK-3 edge-materialization; gold validity-VET",
+  "measured_bounds": "per-(rel_type,depth) 2-4 hop reachability over the materialized within-5k HYPERNYM+PART_OF backbone vs true nltk gold; deterministic BFS; NOT fundamental",
+  "elapsed_s": 5.35
+}
