@@ -25,7 +25,10 @@ $statusPath = Join-Path $stateDir "status.json"
 $gapAlertPath = Join-Path $dataDir ".coverage_gap"
 $stagingDir = Join-Path $repo "data_remote_pull_staging"
 $tarballPath = Join-Path $repo "data_remote_pull.tar"
-$remoteScript = "C:/Users/marsh/remote_metrics_tar.py"
+# Use the VERSION-CONTROLLED repo copy (reconciled to the remote via git), NOT a home-dir copy
+# that drifts. The repo copy carries the 2026-06-19 25MB size-cap fix (the home copy lacked it ->
+# 3.9GB tar -> SCP hang). Repo-tracked => future fixes propagate by commit+push, no remote-host write.
+$remoteScript = "C:/dev/hd-instrument/tools/orchestrator/remote_metrics_tar.py"
 $remoteTarball = "/users/marsh/metrics_pull.tar"
 
 # Coverage gap alert threshold: N consecutive runs with delta > 0
@@ -141,6 +144,12 @@ try {
     # never synced. The per-file merge step at ~line 187 already performs file-set
     # diff [if-exists-skip / else-copy], so unconditional pull is safe; the
     # LOAD_BEARING tarball filter keeps it ~30MB per cycle).
+    # RE-ENABLED 2026-06-19 (Orchestrator): the MERGE was briefly disabled because the remote tar
+    # BALLOONED to ~3.9GB (bge-index .npz caches + huge results.json, no size cap) -> the SCP hung
+    # >10min -> task hard-kill -> the run DIED before the GIT PUSH (which is AFTER the merge) ->
+    # origin fell 60+ behind. ROOT FIX: remote_metrics_tar.py now has a 25MB per-file cap (the
+    # repo copy, pointed-to above) -> tar ~108MB -> SCP-able. Merge re-enabled. (Further hardening
+    # TODO: ssh-runtime-timeout + push-before-merge so a future pull-hang can NEVER block the push.)
     if ($true) {
         # Step 3: trigger remote tar build
         try {
