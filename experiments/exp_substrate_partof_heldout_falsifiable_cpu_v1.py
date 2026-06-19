@@ -61,7 +61,7 @@ def in_train(synset_id: str, salt: str) -> bool:
 def build_baseline_meronym(meronym_map, in_corpus):
     """ORIGINAL ingest rule (EXACT replica of substrate_edge_materialization_b_alpha): for each in-corpus synset A, its
     STORED metadata['meronyms'] M -> edge (M PART_OF A) for in-corpus M. adjacency part->whole. Uses the Store's stored
-    meronyms (the ASYMMETRIC 434 baseline = the pre-Item-1 state), NOT nltk's part/member/substance_meronyms() which return
+    meronyms (the ASYMMETRIC ~530-edge baseline = the pre-Item-1 state), NOT nltk's part/member/substance_meronyms() which return
     the FULL SYMMETRIC closure (559, already containing the holonym-completion -> would make train_completion a no-op)."""
     adj = defaultdict(set)
     edges = set()
@@ -173,7 +173,7 @@ def main():
     from backend.substrate_index.partition import PartitionedStore
     from nltk.corpus import wordnet as wn
     ps = PartitionedStore(REPO / "data" / "substrate_index")
-    # read-only: synset SET + the STORED meronym lists (the original-ingest baseline source = the asymmetric 434)
+    # read-only: synset SET + the STORED meronym lists (the original-ingest baseline source = the asymmetric ~530)
     in_corpus = set()
     meronym_map = {}
     for a in ps.all_atoms():
