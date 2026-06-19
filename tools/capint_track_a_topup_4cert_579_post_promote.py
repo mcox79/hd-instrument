@@ -139,7 +139,12 @@ def main():
     # Build patches per the cluster + singletons spec
     atom_patches = {}
 
-    # b_alpha_broad cluster
+    # b_alpha_broad cluster -- uniform-MIDDLE_BAND
+    # PER VERDICT-FAITHFUL DISCIPLINE: each cluster member is_bound=True for
+    # bound-verdicts (MIDDLE_BAND/HARD_FAIL/HONEST_NEGATIVE/REFUTED). Unlike
+    # the uniform-PASS clusters (q_a3/crt/capacity_composition where members
+    # are not bounds), uniform-MIDDLE_BAND members ARE each a bound. I3
+    # verdict-FAITHFUL requires per-atom is_bound=True for bound-verdicts.
     for atom_id, info in B_ALPHA_BROAD_CLUSTER_MEMBERS.items():
         role = "canonical" if info["is_canonical"] else "scale_point"
         if info["is_canonical"]:
@@ -155,14 +160,7 @@ def main():
             "capint_shared_benchmark": B_ALPHA_BROAD_CLUSTER_SPEC["shared_benchmark"],
             "capint_capability_name": B_ALPHA_BROAD_CLUSTER_SPEC["capability_name"],
             "capint_verdict": "MIDDLE_BAND",
-            "capint_is_bound": False,  # uniform-PASS-or-MIDDLE_BAND? Skunkworks says
-                                       # MIDDLE_BAND is bound-verdict; but uniform cluster
-                                       # PER-MEMBER-IS_BOUND-DECISION: the cluster IS the bound
-                                       # collectively. Use is_bound=False on cluster members; the
-                                       # cluster's proven_bound states it's a bound. (Aligning
-                                       # with batch-1 cluster-PASS pattern; but if Skunkworks's
-                                       # I3 prefers per-member is_bound=True for MIDDLE_BAND
-                                       # cluster, easy to flip.)
+            "capint_is_bound": True,  # uniform-MIDDLE_BAND -> each is bound (I3 verdict-faithful)
             "capint_proven_bound": proven_bound,
             "capint_current_best_citation": None,  # backfill below
         }
