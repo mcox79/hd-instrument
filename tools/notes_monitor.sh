@@ -17,7 +17,15 @@ SESS="${1:?usage: bash tools/notes_monitor.sh <session>}"
 ROOT="/d/AI/hd-instrument"
 cd "$ROOT" || { echo "MONITOR-ERROR: cannot cd $ROOT"; exit 1; }
 LABEL="NOTE-FOR-$(printf '%s' "$SESS" | tr '[:lower:]' '[:upper:]'):"
-filt() { grep -Eai "${SESS}|to_all|_all_" | grep -viE "^${SESS}_"; }
+# Belt-and-suspenders fix 2026-06-19 (USER-caught): the filename-cap discipline
+# (adopted ~05:00 2026-06-19) dropped "to_<session>" addressing from many outbound
+# filenames -> old filter missed substantive notes. NEW: also match notes whose
+# filename STARTS with any OTHER session's prefix (assumes from-that-session-for-
+# everyone-else). Minor false-positive cost << silent-drop cost it replaces.
+filt() {
+  grep -Eai "${SESS}|to_all|_all_|^(skunkworks|orchestrator|exp_dev|testbed|research)_" \
+    | grep -viE "^${SESS}_"
+}
 
 SEEN="$(mktemp)"; CUR="$(mktemp)"
 trap 'rm -f "$SEEN" "$CUR"' EXIT
