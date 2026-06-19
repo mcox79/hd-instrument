@@ -24,6 +24,12 @@ SOFT invariants (hygiene -> WARN, do NOT fail; some dangles are legitimate forwa
   S2 cross-ref resolution: strengthens_cert/composes_with/parent_of/verify_the_referent_parent/depends_on/
      composes_with_siblings values resolve to atoms (the value-RESOLVES lesson, Store-wide). Memory-file refs
      (feedback_/reference_/project_/session_/MEMORY) are EXPECTED-dangling (not phantoms); reported separately.
+  S4 (v1.3) conceptual_references binds: the Item-4 reconcile moved concept-labels OUT of composes_with INTO
+     metadata.conceptual_references. A BOUND entry (backing_atom_proposed set) MUST resolve to a real atom
+     (else it's a bad bind = phantom); an UNBOUND entry (backing None) is fine (pure concept-label). v1.3 keeps
+     S2 meaningful for the new structured location (post-reconcile composes_with is clean for the RIGHT reason).
+  S5 (v1.3) memory_references: metadata.memory_references = memory-file refs (NOT atom-resolve-required); a
+     memory_reference that resolves to an atom-id is MIS-FILED (should be a crossref/conceptual). Counted/flagged.
 
 Usage: python tools/skunkworks_substrate_invariant_check_v1.py [--expect-cert N --expect-atoms N --expect-axiom N]
   (the --expect-* asserts are for the push-fix pre/post landed-verify; omit for a standing report.)
@@ -152,9 +158,18 @@ def main():
         if d:
             dups[k] = d
     soft.append(('S1 0-duplicate instance_number/kind', not dups, f'dup_kinds={list(dups.keys())} detail={dups}'))
-    # S2 cross-ref resolution
+    # S2 cross-ref resolution (atom-resolve-required fields) + S4 conceptual-bind resolution +
+    # S5 memory-ref categorization. v1.3: the Item-4 catalog-reconcile moved memory-file refs and
+    # concept-labels OUT of the atom-resolve crossref fields INTO metadata.memory_references /
+    # metadata.conceptual_references (schema-preserved location). S2 stays meaningful by validating
+    # the NEW structured fields: a BOUND conceptual_reference MUST resolve (else it's a bad bind);
+    # an UNBOUND one is fine (concept-label); memory_references are memory-file refs (not atom-resolve).
     unresolved = []
-    mem_refs = 0
+    mem_refs = 0                  # memory-file refs found INSIDE crossref fields (legacy/pre-reconcile)
+    conc_bound = conc_unbound = 0
+    conc_bad_bind = []           # bound conceptual_references whose backing does NOT resolve (bad bind)
+    mem_struct = 0               # metadata.memory_references entries (post-reconcile structured field)
+    mem_struct_misfiled = []     # memory_references that actually resolve to an atom-id (mis-filed)
     for a in atoms:
         md = a.metadata or {}
         for f in CROSSREF_FIELDS:
@@ -172,8 +187,31 @@ def main():
                     mem_refs += 1
                 else:
                     unresolved.append((a.id, f, ref))
+        # S4: metadata.conceptual_references (concept-labels; unbound-OK, backing-if-bound)
+        for c in (md.get('conceptual_references') or []):
+            if not isinstance(c, dict):
+                continue
+            b = c.get('backing_atom_proposed') or c.get('backing_atom')
+            if b:
+                conc_bound += 1
+                if b not in resolvable and str(b).split('::')[-1] not in resolvable:
+                    conc_bad_bind.append((a.id, c.get('value', ''), b))
+            else:
+                conc_unbound += 1
+        # S5: metadata.memory_references (memory-file refs; NOT atom-resolve-required)
+        for mr in (md.get('memory_references') or []):
+            mrv = mr if isinstance(mr, str) else (mr.get('value') if isinstance(mr, dict) else None)
+            if not mrv:
+                continue
+            mem_struct += 1
+            if mrv in resolvable or str(mrv).split('::')[-1] in resolvable:
+                mem_struct_misfiled.append((a.id, mrv))
     soft.append(('S2 cross-ref resolution (value-RESOLVES)', not unresolved,
                  f'unresolved_candidate_phantoms={len(unresolved)} expected_memory_refs={mem_refs}'))
+    soft.append(('S4 conceptual_references binds resolve (bound->real atom; unbound OK)', not conc_bad_bind,
+                 f'bound={conc_bound} unbound={conc_unbound} bad_binds={len(conc_bad_bind)}'))
+    soft.append(('S5 memory_references categorized (memory-file refs, not atom-resolve)', not mem_struct_misfiled,
+                 f'memory_reference_entries={mem_struct} misfiled_as_atom_id={len(mem_struct_misfiled)}'))
     soft.append(('S3 algebra convention-conformance (non-axiom kinds algebra=None)', not conv_violators,
                  f'harmless_convention_violators={len(conv_violators)} (corpus/tier-excluded from axiom_term; e.g. old-schema annotations)'))
 
@@ -203,6 +241,10 @@ def main():
         print('  S3 convention violators (harmless; corpus/tier-excluded from axiom_term):', conv_violators[:10])
     if unresolved:
         print('  S2 unresolved candidate-phantoms (first 10):', unresolved[:10])
+    if conc_bad_bind:
+        print('  S4 BAD conceptual binds (bound backing unresolved; first 10):', conc_bad_bind[:10])
+    if mem_struct_misfiled:
+        print('  S5 mis-filed memory_references (resolve to an atom-id; first 10):', mem_struct_misfiled[:10])
     if bad_edges:
         print('  H4 phantom-edge samples (first 5):', bad_edges[:5])
     print('-' * 78)
