@@ -8,21 +8,36 @@ Conventions for AI-assisted work in this repository.
 
 ## Monitoring & cross-session event coordination (ALL SESSIONS READ THIS)
 
-This project runs as a 4-session architecture (exp_dev, research, testbed, orchestrator) on one laptop. **Do NOT run your own
-heavy watcher loop** (per-session `find notes/ ... ; sleep` + ssh polling). N heavy scanners over ~3000 notes every few seconds
-overheated the laptop (2026-06-12). Instead:
+This project runs as a 4-session architecture (exp_dev, research, testbed, orchestrator; plus skunkworks) on one laptop. **Do
+NOT run your own heavy watcher loop** (per-session `find notes/ ... ; sleep` + ssh polling). N heavy scanners over ~3000 notes
+every few seconds overheated the laptop (2026-06-12).
 
-- A **single shared producer** `tools/event_bus.sh` (singleton via `data/.event_bus.lock`; auto-started at logon by
-  `tools/event_bus_launch.cmd` registered in the user Startup folder) does the heavy scan ONCE per 30s and ROUTES queue + notes
-  events by recipient into `data/events/<session>.log`.
-- **Each session consumes via a cheap tail only** — set your Monitor to: `tail -n0 -F data/events/<session>.log`
-  (`<session>` = exp_dev | research | testbed | orchestrator). No find, no grep, no ssh in your monitor.
-- **Never launch a second producer** (singleton refuses, but don't try) and never relaunch the old per-session watchers
-  (`queue_watch.sh`, `notes_watch.sh`, `research_seen_v5`, `testbed_seen`, `watch_for_orchestrator.py`). Keep ONE runner and
-  ONE dashboard instance only.
-- Restart the producer if ever truly dead: `rm -f data/.event_bus.lock && bash tools/event_bus.sh &` (or just re-run
-  `tools/event_bus_launch.cmd`). Routing rules live in `tools/event_bus.sh`; if your session is missing an event class, add a
-  route there.
+**CANONICAL monitor (USER directive 2026-06-18 ~00:25 via Skunkworks BROADCAST 21:20): the v5 set-diff TZ-proof
+`notes_monitor.sh`.** It supersedes the prior event-bus-tail prescription. Arm it via the Monitor tool with persistent:true:
+
+- Command: `bash tools/notes_monitor.sh <session>`  (`<session>` = skunkworks | research | exp_dev | testbed | orchestrator)
+- Each new note arrives as one stdout line: `NOTE-FOR-<SESSION>: <filename>.md`
+- 20-second poll cycle; uses `find notes -maxdepth 1 -name '*.md' -printf '%f\n'` (filenames-only -- cheap) + `comm -13` set-diff
+  (never reads the clock, so TZ change / DST jump / mtime granularity boundary CANNOT break it; each new note reported exactly once)
+- Filter: includes filenames containing `<session>` OR `to_all` OR `_all_`; excludes own outgoing (`^<session>_`)
+- **5 `notes_monitor.sh` processes are EXPECTED** (one per session). NOT cruft. Do not kill.
+
+Why v5 supersedes event-bus-tail: production data-point 2026-06-18 ~20:31-20:51 -- the `event_bus.sh` producer hung for 18 min
+and missed routing a critical FREEZE signal; Skunkworks's v5 monitor was unaffected (reads `notes/` directly; verify-OUTPUT-not-
+liveness baked in). v5's 20s cycle on a filenames-only `find` over ~3000 notes is well below the 2026-06-12 thermal threshold
+(that incident was full-content scans every few seconds, plus ssh polling -- a completely different cost class).
+
+**Backstop role of the event bus** (still useful, just not canonical): `tools/event_bus.sh` singleton (via `data/.event_bus.lock`;
+auto-started at logon by `tools/event_bus_launch.cmd` registered in the user Startup folder) is preserved as a SECONDARY routing
+path. Restart if truly dead: `rm -f data/.event_bus.lock && bash tools/event_bus.sh &`. Sessions may tail
+`data/events/<session>.log` as an additional sanity-check; v5 `notes_monitor.sh` is the load-bearing primary.
+
+**Still deprecated** (do NOT relaunch these old per-session watchers): `queue_watch.sh`, `notes_watch.sh`, `research_seen_v5`,
+`testbed_seen`, `watch_for_orchestrator.py`. These are the multi-watcher-proliferation cruft from before the bus consolidation;
+the canonical v5 `notes_monitor.sh` is a DIFFERENT script and not in that deprecation list.
+
+13th-rule backstop-to-the-backstop: no monitor validates its own death. `find notes -maxdepth 1 -name '*.md'` against a known
+sender's recent file is the ground-truth manual cross-check. Verify-OUTPUT-not-liveness applies.
 
 ## Conventions
 
