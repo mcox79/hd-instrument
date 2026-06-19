@@ -328,6 +328,15 @@ def run_eval() -> int:
     # FULL-graph structures (classification + closure + supporting paths use the FULL ingested graph)
     any_adj, rel_adj, tails_by_rel, truths = build_adj(ing)
 
+    # FIREWALL #3a (Skunkworks load-bearing condition): the held-out edges must be EXCLUDED from the compose-graph
+    # (held-out = the PREDICTION TARGET, never a compose-input; else "inference" = traversing the held-out edge = leakage).
+    heldout_set = {(s, r, o) for (s, r, o) in held}
+    heldout_in_compose = len(heldout_set & truths)        # ingested compose-graph (relations.jsonl) -- must be 0
+    if heldout_in_compose > 0:
+        print(f"FIREWALL BREACH: {heldout_in_compose} held-out edges are IN the ingested compose-graph. Halt (no leakage eval).")
+        return 7
+    print(f"  FIREWALL #3a: heldout_edges_in_compose_graph={heldout_in_compose} (held-out never-ingested; compose-graph clean)", flush=True)
+
     # focus the inference-transfer claim on TRANSITIVE rels (same-rel multi-hop composition is well-defined + matches
     # the substrate's same-rel cf-RPE mechanism + the proven Item-1/M1/HYP-5 transitive-rel cert arc)
     # DATA-DRIVEN (b)-emphasis: random held-out is only ~1.5% same-rel-derivable (the coverage-completion bound,
@@ -364,7 +373,10 @@ def run_eval() -> int:
     ents = sorted(ents)
     rels = sorted({r for (_u, r, _v) in store_edges} | {r for (_s, r, _o, _wp, _tr) in classified})
     eid = {e: i for i, e in enumerate(ents)}; rid = {r: i for i, r in enumerate(rels)}
-    print(f"  store: n_ent={len(ents)} n_rel={len(rels)} store_edges={len(store_edges)}", flush=True)
+    store_leak = len(heldout_set & store_edges)           # held-out must NOT be in the compose-store either -- must be 0
+    print(f"  store: n_ent={len(ents)} n_rel={len(rels)} store_edges={len(store_edges)} | heldout_in_store={store_leak}", flush=True)
+    if store_leak > 0:
+        print(f"FIREWALL BREACH: {store_leak} held-out edges leaked into the compose-store. Halt."); return 7
     sq = math.sqrt(N_DIM)
     E = bipolar(len(ents), N_DIM, g); R = bipolar(len(rels), N_DIM, g)
     W = np.zeros((N_DIM, N_DIM), dtype=np.float32)
@@ -407,7 +419,7 @@ def run_eval() -> int:
             "bge_rank": rank_true(bge_sc, true_pos), "rng_rank": rank_true(rng_sc, true_pos),
             "sub_pos_score": float(sub_sc[true_pos]), "sub_neg_score": float(np.max(np.delete(sub_sc, true_pos))),
         })
-    return _summarize(rows, cell_commit())
+    return _summarize(rows, cell_commit(), {"compose": heldout_in_compose, "store": store_leak})
 
 
 def _load_bge_vectors(ents):
@@ -426,8 +438,9 @@ def _load_bge_vectors(ents):
         return None
 
 
-def _summarize(rows, commit) -> int:
+def _summarize(rows, commit, firewall=None) -> int:
     import numpy as _np
+    firewall = firewall or {"compose": None, "store": None}
     with_rows = [r for r in rows if r["with_path"]]
     without_rows = [r for r in rows if not r["with_path"]]
     n_with = len(with_rows); n_without = len(without_rows)
@@ -435,7 +448,8 @@ def _summarize(rows, commit) -> int:
     # discrimination-self-check (GATE)
     if n_with < 30 or n_without < 10:
         print(f"NON-TEST: degenerate split (WITH={n_with}<30 or WITHOUT={n_without}<10). No verdict.")
-        return _write({"verdict": "NON_TEST", "reason": "degenerate_split", "n_with": n_with, "n_without": n_without}, commit)
+        return _write({"verdict": "NON_TEST", "reason": "degenerate_split", "n_with": n_with, "n_without": n_without,
+                       "heldout_edges_in_compose_graph": firewall["compose"], "heldout_edges_in_store": firewall["store"]}, commit)
 
     def hm(method, subset):
         return hits_mrr([r[method + "_rank"] for r in subset])
@@ -468,6 +482,8 @@ def _summarize(rows, commit) -> int:
         "anchor": ANCHOR, "anchor_name": ANCHOR, "run_mode": RUN_MODE,
         "metrics_source": "measured_substrate_cfrpe_plus_graph_bfs_plus_frozen_bge",
         "verdict": it_verdict, "fact_fabrication_bound_verdict": fab_verdict,
+        "scope": "v1.1-transitive-scoped", "transitive_rels": sorted(TRANSITIVE_RELS),
+        "heldout_edges_in_compose_graph": firewall["compose"], "heldout_edges_in_store": firewall["store"],
         "cell_commit": commit, "n_eval_rows": len(rows), "n_with_path": n_with, "n_without_path": n_without,
         "substrate": sub_hm, "closure_baseline": clo_hm, "frozen_bge_baseline": bge_hm, "random_baseline": rng_hm,
         "substrate_auroc_with_path": sub_auroc, "closure_auroc_with_path": clo_auroc, "bge_auroc_with_path": bge_auroc,
