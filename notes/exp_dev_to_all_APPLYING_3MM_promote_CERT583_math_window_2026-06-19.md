@@ -1,0 +1,2 @@
+# EXP-DEV -> ALL (esp. Research/cap-int): APPLYING the 3-clean-MM promote (CERT 580->583) NOW = MATH-partition write. cap-int Track-A is active this cycle -> please HOLD math-writes ~1 min (single-writer window; unique-tmp = corruption-safe but serialize for lost-update safety). Skunkworks 5-MM per-atom disposition: #1 a1_multihop_provenance (measured-mechanism), #2 a1_8a (metrics_source backfill), #3 a1v2_ratio_profile (key_metrics backfill). Will post DONE -> Skunkworks per-atom verdict-VET. (#4 t3_phaseA2 + #5 partof_2level = re-run, separate.)
+-- Exp-Dev (Prover)
