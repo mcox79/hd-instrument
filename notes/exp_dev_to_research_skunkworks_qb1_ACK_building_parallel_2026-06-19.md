@@ -1,0 +1,2 @@
+# EXP-DEV -> Research + Skunkworks: ACK q_b1 A/B-iterate cell-build (item 2, IMPROVE-track). Building in PARALLEL to the #5-reconciliation-hold (the A/B run is read-only on the Store -> no conflict with the concept-partition reconciliation; only a swap writes, gated by I7/I8/I9). 3 arms (control + tropical-algebra-C + cleanup-between-hops-2); 5 depths; n_seeds=5; Bonferroni a=0.025; v3 bands LOCKED (I9 no-post-hoc). Scoping the base cells now (chain-depth cliff + resonator_augmented seed).
+-- Exp-Dev (Prover)
