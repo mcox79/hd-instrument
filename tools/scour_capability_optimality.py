@@ -34,12 +34,70 @@ def load_atoms(kind):
                     yield corpus, a
 
 
+def load_all_qualified_ids():
+    """Build the full set of (qualified_id, id, corpus) tuples across the Store.
+    qualified_id = f"{corpus}::{id}" per schema.py Atom.qualified_id property.
+    Used by layer-3 value-RESOLVES check (Skunkworks 5-layer AUDIT_LESSON, 2026-06-18).
+    """
+    qualified_ids = set()
+    bare_ids = {}  # bare_id -> set of qualified_ids it maps to (for collision detection)
+    for atoms_file in ROOT.glob("*/atoms.jsonl"):
+        corpus = atoms_file.parent.name
+        with atoms_file.open(encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    a = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                aid = a.get("id")
+                if not aid:
+                    continue
+                qid = f"{corpus}::{aid}"
+                qualified_ids.add(qid)
+                bare_ids.setdefault(aid, set()).add(qid)
+    return qualified_ids, bare_ids
+
+
+def resolve_solution(value, qualified_ids, bare_ids):
+    """Layer-3 value-RESOLVES check.
+    Given a capability's current_best_solution string, attempt to resolve it
+    to a real atom in the Store. Returns (status, resolved_qid_or_none).
+    status: 'qualified' (exact qualified_id match), 'bare' (bare id match),
+            'phantom' (no resolution).
+    Composes with Skunkworks 5-layer AUDIT_LESSON layer-3 (value-RESOLVES) and
+    layer-4 (id-FORM bare-vs-qualified).
+    """
+    if not value:
+        return ("empty", None)
+    # layer-3 + layer-4: try qualified form first, then bare
+    if value in qualified_ids:
+        return ("qualified", value)
+    if value in bare_ids:
+        qids = bare_ids[value]
+        if len(qids) == 1:
+            return ("bare", next(iter(qids)))
+        return ("bare_ambiguous", sorted(qids))
+    # try with possible corpus prefixes
+    for corpus in ("math", "concept", "meta", "school", "science",
+                   "research_history", "decision_history", "findings_history",
+                   "verdict_history", "results_history", "methodology"):
+        candidate = f"{corpus}::{value}"
+        if candidate in qualified_ids:
+            return ("corpus_inferred", candidate)
+    return ("phantom", None)
+
+
 def main():
     caps = list(load_atoms("capability"))
     rules = list(load_atoms("methodology_rule"))
     findings = list(load_atoms("finding"))
 
-    print(f"Loaded: {len(caps)} CAPABILITY + {len(rules)} METHODOLOGY_RULE + {len(findings)} FINDING")
+    qualified_ids, bare_ids = load_all_qualified_ids()
+
+    print(f"Loaded: {len(caps)} CAPABILITY + {len(rules)} METHODOLOGY_RULE + {len(findings)} FINDING + {len(qualified_ids)} total qualified_ids")
     print()
 
     # Index methodology rules
@@ -211,6 +269,58 @@ def main():
         print(f"  {cs['id']} -- history={cs['history_len']} -- current_best={cs['current_best']}")
         for r in (cs['replacement_reasons'] or [])[:2]:
             print(f"      reason: {r}")
+
+    # Layer-3 value-RESOLVES check (Skunkworks 5-layer AUDIT_LESSON 2026-06-18)
+    print()
+    print("=" * 90)
+    print("PART 5: LAYER-3 value-RESOLVES check (5-layer audit-lesson; phantom detection)")
+    print("=" * 90)
+    print()
+    phantoms = []
+    resolved_clean = []
+    resolved_inferred = []
+    ambiguous = []
+    for cs in cap_summary:
+        cb = cs["current_best"]
+        if not cb:
+            continue
+        status, resolved = resolve_solution(cb, qualified_ids, bare_ids)
+        entry = {"cap_id": cs["id"], "cap_name": cs["name"], "current_best": cb,
+                 "tier": cs["tier"], "status": status, "resolved": resolved}
+        if status == "phantom":
+            phantoms.append(entry)
+        elif status == "qualified":
+            resolved_clean.append(entry)
+        elif status == "corpus_inferred" or status == "bare":
+            resolved_inferred.append(entry)
+        elif status == "bare_ambiguous":
+            ambiguous.append(entry)
+
+    print(f"Phantoms (no resolution): {len(phantoms)}")
+    print(f"Resolved clean (qualified form): {len(resolved_clean)}")
+    print(f"Resolved inferred (corpus-prefix or bare unique): {len(resolved_inferred)}")
+    print(f"Ambiguous (bare matches multiple): {len(ambiguous)}")
+    print()
+    if phantoms:
+        print("PHANTOM CURRENT_BESTS (cert-hygiene cleanup queue):")
+        for e in phantoms:
+            print(f"  -> {e['cap_id']} ({e['cap_name'][:60]}) tier={e['tier']}")
+            print(f"       current_best='{e['current_best']}' resolves to NO atom")
+        print()
+    if ambiguous:
+        print("AMBIGUOUS CURRENT_BESTS (bare match -> multiple atoms; review):")
+        for e in ambiguous:
+            print(f"  -> {e['cap_id']} ({e['cap_name'][:60]})")
+            print(f"       current_best='{e['current_best']}' could be: {e['resolved']}")
+        print()
+    if resolved_inferred:
+        print(f"INFERRED RESOLUTIONS (corpus-prefix or bare unique; {len(resolved_inferred)}):")
+        for e in resolved_inferred[:10]:
+            print(f"  -> {e['cap_id']} ({e['cap_name'][:60]})")
+            print(f"       current_best='{e['current_best']}' resolves to '{e['resolved']}' (form={e['status']})")
+        if len(resolved_inferred) > 10:
+            print(f"  ... +{len(resolved_inferred) - 10} more")
+        print()
 
 
 if __name__ == "__main__":
