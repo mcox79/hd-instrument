@@ -19,7 +19,7 @@ try { Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction 
 # v1: detection layers + remote-reconcile-state + prune. No --push (v1.1).
 $action = New-ScheduledTaskAction `
     -Execute $pythonExe `
-    -Argument ("`"" + $scriptPath + "`" --check-remote --keep-snapshots 7") `
+    -Argument ("`"" + $scriptPath + "`" --check-remote --keep-snapshots 7 --remote-path C:/dev/hd-instrument") `
     -WorkingDirectory "D:/AI/hd-instrument"
 
 # Daily at 04:10 local + StartWhenAvailable (catches a missed run if the laptop was asleep).
