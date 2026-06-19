@@ -191,12 +191,13 @@ def remote_reconcile_state(check_remote: bool, host: str, path: str):
         origin_head = ls.stdout.split()[0] if ls.returncode == 0 and ls.stdout.split() else None
     except Exception as e:
         return {"checked": False, "note": f"origin ls-remote error: {str(e)[:100]}"}
-    # remote consumer working-tree state via ssh (best-effort; runner's creds)
+    # remote consumer working-tree state via ssh. The remote (marsh@home) is WINDOWS -> wrap in PowerShell (NO Unix `wc`;
+    # use Measure-Object -Line). 4 stdout lines: HEAD, dirty-count, ahead (origin/main..HEAD), behind (HEAD..origin/main).
     try:
-        rc = subprocess.run(
-            ["ssh", host, f"cd {path} && git rev-parse HEAD && git status --porcelain | wc -l && "
-             f"git rev-list --count origin/main..HEAD 2>/dev/null; git rev-list --count HEAD..origin/main 2>/dev/null"],
-            capture_output=True, text=True, timeout=120)
+        ps = (f"cd '{path}'; git rev-parse HEAD; (git status --porcelain | Measure-Object -Line).Lines; "
+              f"git rev-list --count origin/main..HEAD 2>$null; git rev-list --count HEAD..origin/main 2>$null")
+        remote_cmd = f'powershell -NoProfile -Command "{ps}"'
+        rc = subprocess.run(["ssh", host, remote_cmd], capture_output=True, text=True, timeout=120)
         if rc.returncode != 0:
             return {"checked": False, "origin_head": origin_head, "note": f"ssh failed (rc={rc.returncode}): {rc.stderr.strip()[:120]}"}
         lines = rc.stdout.strip().splitlines()
@@ -222,7 +223,7 @@ def main() -> int:
     ap.add_argument("--ack-deletions", action="store_true", help="human-ack: reset expected_floor to current (drops missing)")
     ap.add_argument("--check-remote", action="store_true", help="4th layer: ssh the remote consumer + verify HEAD==origin/main + 0-dirty (runner step; needs ssh access)")
     ap.add_argument("--remote-host", default=os.environ.get("HDLAB_REMOTE_HOST", "marsh@home"), help="remote consumer ssh host")
-    ap.add_argument("--remote-path", default=os.environ.get("HDLAB_REMOTE_PATH", "~/hd-instrument"), help="remote consumer repo path")
+    ap.add_argument("--remote-path", default=os.environ.get("HDLAB_REMOTE_PATH", "C:/dev/hd-instrument"), help="remote consumer repo path (Windows)")
     args = ap.parse_args()
     if args.self_test:
         return self_test()
