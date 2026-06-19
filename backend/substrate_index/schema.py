@@ -178,6 +178,18 @@ class AtomKind(enum.Enum):
                                                  # provenance_quality=RESEARCH_FINDING (T2 non-load-bearing until
                                                  # cert-promoted by experiment). LU lemmas carried as METADATA;
                                                  # frame-to-frame relations as first-class FRAME_* rel_types.
+    PHASE_PORTRAIT = "phase_portrait"            # Director-authored substrate operating-regime INVENTORY atom
+                                                 # (Item 3, 20h sprint; USER 2026-06-18; Skunkworks SCHEMA-VET
+                                                 # PASS sub-counts-verified). Sibling to CAPABILITY_MAP: a meta
+                                                 # AGGREGATION over measured cert atoms (CERT_CHAIN_GRADE +
+                                                 # MEASURED_MECHANISM) inventorying the substrate's measured
+                                                 # operating regimes (N / alpha / kappa / encoder / readout /
+                                                 # task-complexity / backbone-density / corpus-class). SAME TWO
+                                                 # MANDATORY STRUCTURAL GUARDS as CAPABILITY_MAP: (a) NO algebra
+                                                 # field -> excluded from axiom_term; (b) provenance_quality MUST
+                                                 # NOT be CERT_CHAIN_GRADE (INVENTORY_NON_CERT; points AT cert
+                                                 # atoms, never itself cert-counted -> CERT unchanged). Measured-
+                                                 # only-no-extrapolation cert-condition (LOAD-BEARING per Skunkworks).
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
