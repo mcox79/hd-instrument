@@ -53,46 +53,75 @@ def find_partition_for_atom(atom_id):
 def apply_patch_to_atom(atom_dict, patch):
     """Mutate atom_dict in-place per patch entry.
 
+    PER SKUNKWORKS MUST-FIX (2026-06-19 landed-VET): memory_references +
+    conceptual_references + cross_ref_annotations MUST live in metadata
+    (schema-preserved by Atom.to_dict()); top-level placement = silent-loss
+    on next Store-native flush (the recurring Store-drops-unmodeled-fields
+    lesson, generalizing the edge_metadata_role lesson).
+
     Sets:
-    - composes_with / parent_of / etc. to field_new_values (cleaned)
-    - memory_references += memory_references_new (deduplicated)
-    - conceptual_references += conceptual_references_new (deduplicated by value)
-    - cross_ref_annotations += cross_ref_annotations_new (if any)
+    - composes_with / parent_of / etc. -> field_new_values (cleaned).
+      These already live in metadata for AUDIT_LESSON atoms; write to both
+      top-level AND metadata for backwards-compat (whoever reads first gets
+      consistent state; to_dict preserves metadata).
+    - metadata.memory_references += memory_references_new (deduplicated).
+    - metadata.conceptual_references += conceptual_references_new (dedup by value).
+    - metadata.cross_ref_annotations += cross_ref_annotations_new (if any).
+    - REMOVES any TOP-LEVEL placement of these 3 fields (cleanup from v2.1
+      first-pass which wrote them top-level).
     """
+    md = atom_dict.get("metadata") or {}
+
     # Apply field_new_values (cleaned cross-ref fields)
     for field, new_vals in patch.get("field_new_values", {}).items():
         atom_dict[field] = new_vals
-        md = atom_dict.get("metadata") or {}
-        # If the field was originally in metadata, mirror it there too
+        # If the field already lives in metadata (AUDIT_LESSON pattern), mirror
         if field in md:
             md[field] = new_vals
-        atom_dict["metadata"] = md
 
-    # Add memory_references (deduplicated)
+    # Memory_references -> metadata.memory_references (NOT top-level)
     if patch.get("memory_references_new"):
-        existing = set(atom_dict.get("memory_references") or [])
-        new = sorted(existing | set(patch["memory_references_new"]))
-        atom_dict["memory_references"] = new
+        # First sweep up any stale top-level placement (clean-up the first-pass)
+        existing_top = atom_dict.pop("memory_references", None) or []
+        existing_md = md.get("memory_references") or []
+        merged = sorted(set(existing_top) | set(existing_md) |
+                        set(patch["memory_references_new"]))
+        md["memory_references"] = merged
 
-    # Add conceptual_references (deduplicated by value)
+    # Conceptual_references -> metadata.conceptual_references (NOT top-level)
     if patch.get("conceptual_references_new"):
-        existing = atom_dict.get("conceptual_references") or []
-        existing_values = {c.get("value") if isinstance(c, dict) else c
-                           for c in existing}
-        new_entries = []
+        existing_top = atom_dict.pop("conceptual_references", None) or []
+        existing_md = md.get("conceptual_references") or []
+        existing_values = set()
+        merged = []
+        for entry in list(existing_top) + list(existing_md):
+            val = entry.get("value") if isinstance(entry, dict) else entry
+            if val not in existing_values:
+                merged.append(entry)
+                existing_values.add(val)
         for entry in patch["conceptual_references_new"]:
             val = entry.get("value") if isinstance(entry, dict) else entry
             if val not in existing_values:
-                new_entries.append(entry)
+                merged.append(entry)
                 existing_values.add(val)
-        atom_dict["conceptual_references"] = list(existing) + new_entries
+        md["conceptual_references"] = merged
 
-    # Add cross_ref_annotations
+    # Cross_ref_annotations -> metadata.cross_ref_annotations (NOT top-level)
     if patch.get("cross_ref_annotations_new"):
-        existing = atom_dict.get("cross_ref_annotations") or []
-        atom_dict["cross_ref_annotations"] = (
-            list(existing) + list(patch["cross_ref_annotations_new"]))
+        existing_top = atom_dict.pop("cross_ref_annotations", None) or []
+        existing_md = md.get("cross_ref_annotations") or []
+        md["cross_ref_annotations"] = (list(existing_top) + list(existing_md)
+                                       + list(patch["cross_ref_annotations_new"]))
 
+    # IMPORTANT cleanup: remove top-level placements from prior v2.1 first-pass
+    # (silent-loss prevention; the relocation MUST clean up the stale top-level
+    # state so a future Store-native flush doesn't silently drop them and a
+    # raw-JSONL inspector doesn't see two copies)
+    for key in ("memory_references", "conceptual_references",
+                "cross_ref_annotations"):
+        atom_dict.pop(key, None)
+
+    atom_dict["metadata"] = md
     return atom_dict
 
 
@@ -128,7 +157,11 @@ def rewrite_partition(partition_path, patches_for_atoms):
 
 
 def verify_atom_post_patch(atom_id, expected_patch):
-    """RAW jsonl re-read to verify patch landed. No get_atom; no silent-fail."""
+    """RAW jsonl re-read to verify patch landed. No get_atom; no silent-fail.
+
+    Per Skunkworks MUST-FIX: verify the new fields live in METADATA (not top
+    level). Also verify there is NO top-level placement (cleanup confirmation).
+    """
     for atoms_file in ROOT.glob("*/atoms.jsonl"):
         with atoms_file.open(encoding="utf-8") as f:
             for line in f:
@@ -140,36 +173,46 @@ def verify_atom_post_patch(atom_id, expected_patch):
                 except json.JSONDecodeError:
                     continue
                 if a.get("id") == atom_id:
-                    # Check memory_references
+                    md = a.get("metadata") or {}
+
+                    # Cleanup verification: NO top-level placement
+                    for key in ("memory_references", "conceptual_references",
+                                "cross_ref_annotations"):
+                        if key in a:
+                            return False, (f"TOP-LEVEL {key} still present "
+                                           f"(silent-loss risk; must be in metadata only)")
+
+                    # Check memory_references in METADATA
                     expected_mem = set(expected_patch.get(
                         "memory_references_new", []))
-                    actual_mem = set(a.get("memory_references") or [])
+                    actual_mem = set(md.get("memory_references") or [])
                     if expected_mem and not expected_mem.issubset(actual_mem):
-                        return False, f"memory_references missing some: " \
-                                      f"expected {expected_mem - actual_mem}"
-                    # Check conceptual_references (by value)
+                        return False, (f"metadata.memory_references missing: "
+                                       f"expected {expected_mem - actual_mem}")
+
+                    # Check conceptual_references in METADATA (by value)
                     expected_concepts = set()
                     for entry in expected_patch.get(
                             "conceptual_references_new", []):
                         val = entry.get("value") if isinstance(entry, dict) else entry
                         expected_concepts.add(val)
                     actual_concepts = set()
-                    for entry in (a.get("conceptual_references") or []):
+                    for entry in (md.get("conceptual_references") or []):
                         val = entry.get("value") if isinstance(entry, dict) else entry
                         actual_concepts.add(val)
                     if expected_concepts and not expected_concepts.issubset(
                             actual_concepts):
-                        return False, f"conceptual_references missing: " \
-                                      f"{expected_concepts - actual_concepts}"
-                    # Check composes_with cleaned
+                        return False, (f"metadata.conceptual_references missing: "
+                                       f"{expected_concepts - actual_concepts}")
+
+                    # Check composes_with cleaned (top-level OR metadata is OK; both mirror)
                     new_composes = expected_patch.get(
                         "field_new_values", {}).get("composes_with")
                     if new_composes is not None:
                         actual_composes = a.get("composes_with") or []
                         if set(new_composes) != set(actual_composes):
-                            return False, f"composes_with mismatch: " \
-                                          f"expected {set(new_composes)} got " \
-                                          f"{set(actual_composes)}"
+                            return False, (f"composes_with mismatch: expected "
+                                           f"{set(new_composes)} got {set(actual_composes)}")
                     return True, "OK"
     return False, "atom not found"
 
