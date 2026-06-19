@@ -22,6 +22,7 @@ only; no snapshot, no floor-advance). default = full run (snapshot + invariant +
 from __future__ import annotations
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -151,12 +152,50 @@ def self_test() -> int:
         import shutil; shutil.rmtree(tf.parent, ignore_errors=True)
 
 
+def remote_reconcile_state(check_remote: bool, host: str, path: str):
+    """4th layer: verify the remote consumer's checkout == origin/main (HEAD==origin/main + 0-behind/ahead/dirty).
+    The remote-consumer-broken-since-June-12 (1793-behind/6536-dirty) is EXACTLY this drift-class. A5-FLAG-NOT-FIX:
+    flag remote-drift; the reconcile is a deliberate cert-owner action, never auto. Needs ssh (the runner's step) ->
+    graceful 'unchecked' if --check-remote off or ssh unavailable (so the local 3 layers still run)."""
+    if not check_remote:
+        return {"checked": False, "note": "remote-reconcile-state NOT checked (--check-remote off; runner step needs ssh access)"}
+    # origin/main HEAD (GitHub) -- the reference the remote consumer should match
+    try:
+        ls = subprocess.run(["git", "ls-remote", "origin", "main"], cwd=str(REPO), capture_output=True, text=True, timeout=60)
+        origin_head = ls.stdout.split()[0] if ls.returncode == 0 and ls.stdout.split() else None
+    except Exception as e:
+        return {"checked": False, "note": f"origin ls-remote error: {str(e)[:100]}"}
+    # remote consumer working-tree state via ssh (best-effort; runner's creds)
+    try:
+        rc = subprocess.run(
+            ["ssh", host, f"cd {path} && git rev-parse HEAD && git status --porcelain | wc -l && "
+             f"git rev-list --count origin/main..HEAD 2>/dev/null; git rev-list --count HEAD..origin/main 2>/dev/null"],
+            capture_output=True, text=True, timeout=120)
+        if rc.returncode != 0:
+            return {"checked": False, "origin_head": origin_head, "note": f"ssh failed (rc={rc.returncode}): {rc.stderr.strip()[:120]}"}
+        lines = rc.stdout.strip().splitlines()
+        remote_head = lines[0] if lines else None
+        dirty = int(lines[1]) if len(lines) > 1 and lines[1].strip().isdigit() else None
+        ahead = int(lines[2]) if len(lines) > 2 and lines[2].strip().isdigit() else None
+        behind = int(lines[3]) if len(lines) > 3 and lines[3].strip().isdigit() else None
+        head_match = (remote_head == origin_head) if (remote_head and origin_head) else None
+        reconciled = bool(head_match) and dirty == 0 and (ahead in (0, None)) and (behind in (0, None))
+        return {"checked": True, "reconciled": reconciled, "head_match": head_match, "dirty": dirty,
+                "ahead": ahead, "behind": behind, "origin_head": origin_head, "remote_head": remote_head,
+                "flag": (not reconciled), "a5": "FLAG-only; reconcile is a deliberate cert-owner action, never auto"}
+    except Exception as e:
+        return {"checked": False, "origin_head": origin_head, "note": f"ssh error: {str(e)[:100]}"}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--dry-run", action="store_true", help="report only; no snapshot, no floor-advance write")
     ap.add_argument("--push", action="store_true", help="attempt origin/snapshots push (runner step)")
     ap.add_argument("--ack-deletions", action="store_true", help="human-ack: reset expected_floor to current (drops missing)")
+    ap.add_argument("--check-remote", action="store_true", help="4th layer: ssh the remote consumer + verify HEAD==origin/main + 0-dirty (runner step; needs ssh access)")
+    ap.add_argument("--remote-host", default=os.environ.get("HDLAB_REMOTE_HOST", "marsh@home"), help="remote consumer ssh host")
+    ap.add_argument("--remote-path", default=os.environ.get("HDLAB_REMOTE_PATH", "~/hd-instrument"), help="remote consumer repo path")
     args = ap.parse_args()
     if args.self_test:
         return self_test()
@@ -177,18 +216,19 @@ def main() -> int:
     inv = run_invariant_check(expect)
     gap = manifest_gap(current_ids, args.ack_deletions, write)
     snap = run_snapshot(date, args.push) if write else {"snapshot_ok": None, "note": "dry-run: skipped"}
+    remote = remote_reconcile_state(args.check_remote, args.remote_host, args.remote_path)   # 4th layer
 
     hard_drift = (inv.get("ran") and inv.get("hard_pass") is False)
-    overall = "FLAG" if (hard_drift or gap["n_missing"] > 0) else "PASS"
+    remote_drift = bool(remote.get("checked") and remote.get("flag"))   # only FLAGs when actually checked + drifted
+    overall = "FLAG" if (hard_drift or gap["n_missing"] > 0 or remote_drift) else "PASS"
     payload = {"date_utc": date, "device": DEVICE, "overall": overall, "counts": counts,
-               "invariant_check": inv, "manifest_gap": gap, "snapshot": snap,
-               "a5_no_silent": "FLAG-only; no auto-restore / no auto-floor-shrink (missing needs --ack-deletions human-ack)"}
+               "invariant_check": inv, "manifest_gap": gap, "snapshot": snap, "remote_reconcile_state": remote,
+               "a5_no_silent": "FLAG-only; no auto-restore / no auto-floor-shrink / no auto-remote-reconcile (drift needs human-ack)"}
     # persist last_counts INTO the floor manifest (so next run --expects them) -- only on write + clean (A5: don't advance baseline past HARD drift)
     if write and not hard_drift and FLOOR_PATH.exists():
         try:
             fl = json.loads(FLOOR_PATH.read_text(encoding="utf-8"))
             fl["last_counts"] = counts
-            import os
             tmp = FLOOR_PATH.with_suffix(".json.tmp"); tmp.write_text(json.dumps(fl, indent=0), encoding="utf-8"); os.replace(tmp, FLOOR_PATH)
         except Exception:
             pass
@@ -200,6 +240,10 @@ def main() -> int:
     print(f"  manifest-gap: floor_before={gap['n_floor_before']} missing={gap['n_missing']} additions={gap['n_additions']} floor_after={gap['n_floor_after']}")
     if gap["n_missing"]:
         print(f"  !! MISSING (deletion drift; A5 flag-not-fix; resolve via --ack-deletions): {gap['missing_sample']}")
+    print(f"  remote-reconcile-state (4th layer): checked={remote.get('checked')}" +
+          (f" reconciled={remote.get('reconciled')} head_match={remote.get('head_match')} dirty={remote.get('dirty')} behind={remote.get('behind')} ahead={remote.get('ahead')}" if remote.get('checked') else f" ({remote.get('note')})"))
+    if remote_drift:
+        print(f"  !! REMOTE-DRIFT (A5 flag-not-fix; reconcile is a cert-owner action): {remote}")
     print(f"  snapshot: {snap}")
     print(f"  report: {rp}")
     print("=" * 78)
