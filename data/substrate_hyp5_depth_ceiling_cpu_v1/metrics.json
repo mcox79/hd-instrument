@@ -1,0 +1,87 @@
+{
+  "anchor_name": "substrate_hyp5_depth_ceiling_cpu_v1",
+  "device": "cpu",
+  "verdict": "DISCRIMINATING_COVERAGE_CEILING",
+  "verdict_msg": "DEPTH-CEILING = COVERAGE, not algorithmic (cert-grade DISCRIMINATING). recall curve K2..K5 = [0.9442, 0.8907, 0.8631, 0.8453]: declines/plateaus, EXTENDS (no crash at depth-5). 746/746 misses (100%) are COVERAGE (no all-in-5k path = correct-refuse, OR in-5k-path-not-yet-materialized = completion-fixable); 0 ALGORITHMIC (persisted-path-missed). The coverage-completion lever EXTENDS to depth-5 with a COVERAGE-CEILING (~the in-5k-completeness fraction), NOT an algorithmic depth-limit. EXTENDS the coverage-completion-not-reasoning bound to deep hops.",
+  "summary": "DEPTH-CEILING = COVERAGE, not algorithmic (cert-grade DISCRIMINATING). recall curve K2..K5 = [0.9442, 0.8907, 0.8631, 0.8453]: declines/plateaus, EXTENDS (no crash at depth-5). 746/746 misses (100%) are COVERAGE (no all-in-5k path = correct-refuse, OR in-5k-path-not-yet-materialized = completion-fixable); 0 ALGORITHMIC (persisted-path-missed). The coverage-completion lever EXTENDS to depth-5 with a COVERAGE-CEILING (~the in-5k-completeness fraction), NOT an algorithmic depth-limit. EXTENDS the coverage-completion-not-reasoning bound to deep hops.",
+  "headline": "DEPTH-CEILING = COVERAGE, not algorithmic (cert-grade DISCRIMINATING). recall curve K2..K5 = [0.9442, 0.8907, 0.8631, 0.8453]: declines/plateaus, EXTENDS (no crash at depth-5). 746/746 misses (100%) are COVERAGE (no all-in-5k path = correct-refuse, OR in-5k-path-not-yet-materialized = completion-fixable); 0 ALGORITHMIC (persisted-path-missed). The coverage-completion lever EXTENDS to depth-5 with a COVERAGE-CEILING (~the in-5k-completeness fraction), NOT an algorithmic depth-limit. EXTENDS the coverage-completion-not-reasoning bound to deep hops.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "metrics_source": "measured_graph_bfs_depth_ceiling_attribution",
+  "design": "HYP5_depth_ceiling_NON_coextensive_measurement_plus_breakpoint_attribution_in_memory_0_persist",
+  "seed": 0,
+  "sample_n_synsets": 1500,
+  "depths": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "recall_curve": {
+    "K2": 0.9442,
+    "K3": 0.8907,
+    "K4": 0.8631,
+    "K5": 0.8453
+  },
+  "attribution": {
+    "K2": {
+      "n_pos": 1523,
+      "found": 1438,
+      "recall": 0.9442,
+      "miss": 85,
+      "coverage_ceiling": 64,
+      "edge_gap": 21,
+      "algorithmic": 0,
+      "fp": 0,
+      "coverage_frac_of_miss": 1.0
+    },
+    "K3": {
+      "n_pos": 1620,
+      "found": 1443,
+      "recall": 0.8907,
+      "miss": 177,
+      "coverage_ceiling": 157,
+      "edge_gap": 20,
+      "algorithmic": 0,
+      "fp": 0,
+      "coverage_frac_of_miss": 1.0
+    },
+    "K4": {
+      "n_pos": 1695,
+      "found": 1463,
+      "recall": 0.8631,
+      "miss": 232,
+      "coverage_ceiling": 210,
+      "edge_gap": 22,
+      "algorithmic": 0,
+      "fp": 0,
+      "coverage_frac_of_miss": 1.0
+    },
+    "K5": {
+      "n_pos": 1629,
+      "found": 1377,
+      "recall": 0.8453,
+      "miss": 252,
+      "coverage_ceiling": 230,
+      "edge_gap": 22,
+      "algorithmic": 0,
+      "fp": 0,
+      "coverage_frac_of_miss": 1.0
+    }
+  },
+  "fp_total": 0,
+  "declining_or_plateau": true,
+  "no_crash_extends": true,
+  "total_miss": 746,
+  "total_coverage_miss": 746,
+  "total_algorithmic_miss": 0,
+  "prereg_bands": {
+    "hard_fail": 0.4,
+    "coverage_dominated_frac": 0.95
+  },
+  "held_out_eval": true,
+  "honest_scope": "Non-coextensive depth-ceiling probe (measurement + break-point attribution; NO completion added). HYPERNYM/taxonomic/WordNet/deterministic-BFS/in5k. The ceiling is COVERAGE (in-5k-completeness), not algorithmic. EXTENDS the coverage-completion-not-reasoning bound to depth-5. NOT general reasoning. algorithmic=0 by construction (bfsK IS the walker over persisted -> a persisted path it misses is impossible; edge_gap = in-5k-nltk-path-not-persisted = a materialization coverage gap, NOT algorithmic).",
+  "bears_on": "the depth-cliff coverage-story (Phase-A/A2 MEASURED_MECHANISM recoveries); Item-1/M1 coverage-not-reasoning bound; the universal-lever DEPTH extent",
+  "extends": "math::T3/EXP_t3_phaseA2_2level_recovery_cpu_v1",
+  "elapsed_s": 5.0
+}
