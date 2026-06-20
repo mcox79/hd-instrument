@@ -79,6 +79,31 @@ def main() -> int:
     if not session:
         return 0
 
+    # Heartbeat-on-every-turn-end: if we can resolve a role, touch its heartbeat file so
+    # the watchdog has a current liveness signal without needing to ping (eliminates the
+    # self-stale-ping loop that wastes a turn just to touch a file). Done early + tolerant
+    # of failures (the hook's decision logic continues regardless).
+    repo_root_hb = Path(__file__).resolve().parent.parent.parent.parent
+    key_map_file_hb = repo_root_hb / 'data' / 'session_key_map.json'
+    role_for_hb = None
+    if key_map_file_hb.exists():
+        try:
+            with key_map_file_hb.open('r', encoding='utf-8') as f:
+                km_hb = json.load(f)
+            v = km_hb.get(session)
+            if isinstance(v, str) and v.strip():
+                role_for_hb = v.strip()
+        except (json.JSONDecodeError, OSError):
+            pass
+    if role_for_hb:
+        try:
+            hb_dir = repo_root_hb / 'data' / 'heartbeats'
+            hb_dir.mkdir(parents=True, exist_ok=True)
+            hb_file = hb_dir / f'{role_for_hb}.timestamp'
+            hb_file.touch()
+        except OSError:
+            pass
+
     # Resolve the auto_<hash> key to a role name via data/session_key_map.json if mapped.
     # Without this, own-outgoing exclude breaks: session_lower='auto_abc...' never matches
     # the role-prefixed notes (e.g. 'orchestrator_to_...') the session itself emits ->
