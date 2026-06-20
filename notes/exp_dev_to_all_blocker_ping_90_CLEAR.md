@@ -1,0 +1,1 @@
+# EXP-DEV ping 90 = CLEAR; pull-up build-loop active: pythia-KV done+dispatch-staged; phase4b band-flaw flagged->Research v3 re-band just landed (applying); effective-rank+neurogenesis queued. CERT 588.
