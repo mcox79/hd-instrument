@@ -187,9 +187,11 @@ def run_unit(op_depth, benchmark, seed) -> Dict:
 
 
 def compute_verdict(units) -> Tuple[str, str, Dict]:
-    """v3 bands (Research re-calibration 2026-06-19): op-depth MATCHED to each benchmark's content.
-    Gate MultiArith at 2-op (composition), ASDiv/MAWPS at 1-op (their actual content). ASDiv/MAWPS 2-op +
-    SVAMP + 3-op/4-op MultiArith = REPORTED (not gated). Fixes the v2 unreachable-2-op-on-1-op-benchmark flaw."""
+    """REFRAME (Skunkworks pre-emptive landed-VET): the prior 'HARD_PASS: 2-op composition generalizes to
+    MultiArith/ASDiv/MAWPS' was wrong + the 2op/1op ratio (39.91) was a divide-by-near-zero artifact. The DATA shows each
+    benchmark peaks sharply at its NATIVE op-depth (MultiArith 2op 0.68, ASDiv/MAWPS/SVAMP 1op) and collapses off-depth --
+    a content-matching phenomenon, NOT cross-benchmark 2-op generalization. Honest tier = MEASURED_MECHANISM:
+    MultiArith 2-op composition is genuine; op-depth is benchmark-native; the ratio is dropped."""
     if not units:
         return ("HARD_FAIL", "no results", {})
     acc = {}; std = {}
@@ -198,37 +200,42 @@ def compute_verdict(units) -> Tuple[str, str, Dict]:
             vals = [u["accuracy"] for u in units if u["benchmark"] == b and u["op_depth"] == op and "accuracy" in u]
             if vals: acc[(b, op)] = float(np.mean(vals)); std[(b, op)] = float(np.std(vals))
     def A(b, op): return acc.get((b, op))
-    ratio_ma = (A("MultiArith", 2) / A("MultiArith", 1)) if (A("MultiArith", 1) and A("MultiArith", 1) > 1e-6) else (float("inf") if A("MultiArith", 2) else 0.0)
-    # seed-reproduce on the 3 op-depth-matched GATING cells
+    # native op-depth = the op-count where each benchmark PEAKS (its actual content depth)
+    native = {}
+    for b in BENCHMARKS:
+        ops = [(op, A(b, op)) for op in OP_DEPTHS if A(b, op) is not None]
+        if ops: native[b] = max(ops, key=lambda x: x[1])
+    def sharpness(b):                                                  # (peak_acc, best_OFF-depth_acc): sharp peak = off << peak
+        if b not in native or native[b][1] <= 0: return None
+        peak_op = native[b][0]; off = [A(b, op) for op in OP_DEPTHS if op != peak_op and A(b, op) is not None]
+        return (native[b][1], max(off) if off else 0.0)
+    ma2 = A("MultiArith", 2)
     gate_cells = [("MultiArith", 2), ("ASDiv", 1), ("MAWPS", 1)]
-    max_std = max((std.get(c, 0.0) for c in gate_cells), default=0.0)
-    seeds_rep = max_std <= 0.03
-    cliff_ma = next((op for op in OP_DEPTHS if op >= 3 and (A("MultiArith", op) or 0) < 0.20), None)
+    max_std = max((std.get(c, 0.0) for c in gate_cells), default=0.0); seeds_rep = max_std <= 0.03
+    sharp = {b: sharpness(b) for b in BENCHMARKS if sharpness(b) is not None}
     detail = {"acc": {"%s_op%d" % (b, op): A(b, op) for b in BENCHMARKS for op in OP_DEPTHS if A(b, op) is not None},
-              "GATING_op_depth_matched": {"MultiArith_2op": A("MultiArith", 2), "ASDiv_1op": A("ASDiv", 1), "MAWPS_1op": A("MAWPS", 1)},
-              "MultiArith_ratio_2op_1op": round(ratio_ma, 2),
-              "REPORTED_cliff_3op_MultiArith": cliff_ma,
-              "REPORTED_ASDiv_2op": A("ASDiv", 2), "REPORTED_MAWPS_2op": A("MAWPS", 2),
-              "REPORTED_SVAMP_2op": A("SVAMP", 2), "max_seed_std": round(max_std, 4), "seeds_reproduce": seeds_rep,
-              "honest_scope": "MultiArith 2-op composition (gated 2-op) + ASDiv/MAWPS 1-op generalization "
-                              "(gated 1-op, their content) + SVAMP representation-bound (reported). op-depth matched."}
-    ma2 = A("MultiArith", 2); asd1 = A("ASDiv", 1); maw1 = A("MAWPS", 1)
-    if ma2 is None or asd1 is None or maw1 is None:
-        return ("UNKNOWN", "missing a gating cell (MultiArith-2op / ASDiv-1op / MAWPS-1op)", detail)
-    summary = ("MultiArith-2op=%.3f (ratio %.1fx) | ASDiv-1op=%.3f | MAWPS-1op=%.3f | max_std=%.3f | "
-               "REPORTED: ASDiv-2op=%.3f MAWPS-2op=%.3f SVAMP-2op=%.3f cliff_3op=%s" %
-               (ma2, ratio_ma, asd1, maw1, max_std, A("ASDiv", 2) or -1, A("MAWPS", 2) or -1, A("SVAMP", 2) or -1, cliff_ma))
-    # HARD_FAIL
-    if ma2 < 0.15 or ratio_ma < 3.0 or asd1 < 0.10 or maw1 < 0.30 or max_std > 0.05:
-        return ("HARD_FAIL", "HARD_FAIL: " + summary, detail)
-    # HARD_PASS: MultiArith 2-op>=0.20 + ratio>=5x + ASDiv 1-op>=0.15 + MAWPS 1-op>=0.40 + seeds reproduce
-    if ma2 >= 0.20 and ratio_ma >= 5.0 and asd1 >= 0.15 and maw1 >= 0.40 and seeds_rep:
-        return ("HARD_PASS", "HARD_PASS: 2-op composition (MultiArith) + 1-op generalization (ASDiv/MAWPS), op-depth matched. " + summary, detail)
-    # MIDDLE: HP except 1 of {ASDiv-1op [0.10,0.15), MAWPS-1op [0.30,0.40)} OR MultiArith-2op [0.15,0.20)
-    n_mid = sum([0.10 <= asd1 < 0.15, 0.30 <= maw1 < 0.40])
-    if (0.15 <= ma2 < 0.20) or (ma2 >= 0.20 and ratio_ma >= 5.0 and n_mid <= 1):
-        return ("MIDDLE_BAND", "MIDDLE_BAND: " + summary, detail)
-    return ("MIDDLE_BAND", "MIDDLE_BAND (partial): " + summary, detail)
+              "native_op_depth_per_benchmark": {b: {"op": native[b][0], "acc": round(native[b][1], 3)} for b in native},
+              "MultiArith_2op_composition": (round(ma2, 3) if ma2 is not None else None),
+              "op_depth_peak_vs_best_offdepth": {b: [round(sharp[b][0], 3), round(sharp[b][1], 3)] for b in sharp},
+              "max_seed_std": round(max_std, 4), "seeds_reproduce": seeds_rep,
+              "DROPPED_ratio_2op_1op_ARTIFACT": "the 2op/1op ratio (e.g. MultiArith 0.68/0.02=40x) is a native-depth/wrong-depth "
+                                                "content-mismatch artifact, NOT a composition gain -- DROPPED, do not cite",
+              "honest_scope": ("Substrate solves arithmetic word problems at each benchmark's NATIVE op-depth (MultiArith 2-op, "
+                               "ASDiv/MAWPS/SVAMP 1-op); accuracy peaks sharply at native depth + collapses off-depth (wrong op-count "
+                               "= content mismatch, near-zero -- NOT a substrate limit, e.g. 1-op-MultiArith=0.02 because MultiArith "
+                               "problems ARE 2-op). MultiArith 2-op composition genuine (%.2f). NO cross-benchmark 2-op generalization "
+                               "(ASDiv/MAWPS are 1-op content). 1-op solving variable (MAWPS strong ~0.6, ASDiv weak ~0.2)." % (ma2 or 0))}
+    summary = "MultiArith-2op=%.3f (native peak) | native depths: %s | max_std=%.3f" % (
+        (ma2 if ma2 is not None else -1), {b: native[b][0] for b in native}, max_std)
+    if ma2 is None:
+        return ("UNKNOWN", "missing MultiArith-2op measurement " + summary, detail)
+    if ma2 < 0.15 or max_std > 0.05:
+        return ("HARD_FAIL", "HARD_FAIL: MultiArith 2-op composition collapses (<0.15) or seeds disagree (>0.05). " + summary, detail)
+    return ("MEASURED_MECHANISM", "MEASURED_MECHANISM (Skunkworks ruling -- NOT chain-grade as 'composition generalizes'): "
+            "MultiArith 2-op composition is genuine (%.2f, seed-stable), but op-depth is BENCHMARK-NATIVE -- each benchmark peaks "
+            "sharply at its own op-count and collapses off-depth (op_depth_peak_vs_best_offdepth in detail); there is NO cross-benchmark "
+            "2-op generalization (ASDiv/MAWPS are 1-op content; their low 2-op is content-mismatch, not composition-failure). The "
+            "2op/1op ratio is a native-vs-wrong-depth artifact (DROPPED). " % (ma2,) + summary, detail)
 
 
 print("[config] %s mode=%s op_depths=%s benchmarks=%s seeds=%s" % (ANCHOR_NAME, RUN_MODE, OP_DEPTHS, BENCHMARKS, SEEDS), flush=True)
