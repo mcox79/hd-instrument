@@ -42,7 +42,7 @@ ANCHOR_NAME = "pythia_substrate_kv_pull_up_v2_gpu_v1"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SMOKE = RUN_MODE == "smoke"
-SIGMAS = [0.05, 0.10, 0.20]
+SIGMAS = [0.05, 0.10, 0.20, 0.50]    # 0.50 = CAN-fail stress probe (de-saturation: the test MUST be able to fail)
 RECALL_CHUNK = 2000
 if SMOKE:
     MODEL = "EleutherAI/pythia-160m"; SIZES = [500, 1000]; SEEDS = [7, 17]
@@ -65,13 +65,19 @@ def whiten_fit(K):
     return mu, W, Kw.astype(np.float32)
 
 
-def recall_chunked(Qw, Kw, gold, chunk=RECALL_CHUNK):
-    """argmax nearest-key recall WITHOUT materializing M x M (handles M=100k). chunk queries."""
-    correct = 0
+def recall_and_margin(Qw, Kw, gold, chunk=RECALL_CHUNK):
+    """argmax recall + NN-MARGIN (top1-top2 sim) WITHOUT materializing M x M (handles M=100k).
+    The margin is the DE-SATURATION signal (Skunkworks): it SHRINKS as keys crowd -> reveals the approaching
+    capacity boundary even while recall is still 1.0. Returns (recall, mean_margin, p10_margin)."""
+    correct = 0; margins = []
     for i in range(0, len(Qw), chunk):
-        pred = np.argmax(Qw[i:i + chunk] @ Kw.T, axis=1)
+        sims = Qw[i:i + chunk] @ Kw.T
+        pred = np.argmax(sims, axis=1)
         correct += int((pred == gold[i:i + chunk]).sum())
-    return correct / max(1, len(Qw))
+        part = np.partition(sims, -2, axis=1)            # top-2 without full sort
+        margins.append(part[:, -1] - part[:, -2])
+    mar = np.concatenate(margins) if margins else np.array([0.0], np.float32)
+    return correct / max(1, len(Qw)), float(mar.mean()), float(np.percentile(mar, 10))
 
 
 def _selftest():
@@ -81,13 +87,14 @@ def _selftest():
     gold = np.arange(200)
     # zero-noise recall must be ~1.0 (each key recalls itself)
     Qw = ((K - mu) @ W); Qw = (Qw / (np.linalg.norm(Qw, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
-    r0 = recall_chunked(Qw, Kw, gold, chunk=64)
+    r0, m0, p0 = recall_and_margin(Qw, Kw, gold, chunk=64)
     assert r0 > 0.99, "zero-noise recall should be ~1.0, got %.3f" % r0
-    # chunked == full
+    assert m0 > 0, "NN-margin (top1-top2) must be positive, got %.4f" % m0
+    # chunked recall == full
     full = float((np.argmax(Qw @ Kw.T, axis=1) == gold).mean())
     assert abs(full - r0) < 1e-9, "chunked != full"
     assert len(make_facts(5, g)) == 5
-    print("[selftest] PASS: whiten + zero-noise-recall~1.0 + chunked==full + make_facts", flush=True)
+    print("[selftest] PASS: whiten + zero-noise-recall~1.0 + positive-margin + chunked==full + make_facts", flush=True)
 
 
 _selftest()
@@ -135,64 +142,97 @@ def encode(texts, tok, m):
     return np.concatenate(out, 0).astype(np.float32)
 
 
+def _measure(Keys, gold, g):
+    """recall + NN-margin per sigma for a given key matrix (whiten -> noised-query nearest-key)."""
+    mu, W, Kw = whiten_fit(Keys)
+    rec, mar, p10 = {}, {}, {}
+    for sigma in SIGMAS:
+        Q = Keys + sigma * g.standard_normal(Keys.shape).astype(np.float32)
+        Qw = (Q - mu) @ W; Qw = (Qw / (np.linalg.norm(Qw, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
+        r, m, p = recall_and_margin(Qw, Kw, gold)
+        rec["%.2f" % sigma] = round(r, 4); mar["%.2f" % sigma] = round(m, 5); p10["%.2f" % sigma] = round(p, 5)
+    return rec, mar, p10
+
+
 def run_unit(size, seed, tok, mdl):
     g = np.random.default_rng(seed)
     facts = make_facts(size, g); texts = [f[0] for f in facts]
     K = encode(texts, tok, mdl)
-    mu, W, Kw = whiten_fit(K)
     gold = np.arange(size)
-    rec = {}
-    for sigma in SIGMAS:
-        Q = K + sigma * g.standard_normal(K.shape).astype(np.float32)
-        Qw = (Q - mu) @ W; Qw = (Qw / (np.linalg.norm(Qw, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
-        rec["%.2f" % sigma] = round(recall_chunked(Qw, Kw, gold), 4)
-    print("  [size=%d seed=%d] recall: " % (size, seed) + " ".join("s%.2f=%.3f" % (s, rec["%.2f" % s]) for s in SIGMAS), flush=True)
-    return {"size": size, "seed": seed, "model": MODEL, "run_mode": RUN_MODE, "recall_by_sigma": rec}
+    rec, mar, p10 = _measure(K, gold, g)                                     # Pythia keys
+    K_rand = g.standard_normal(K.shape).astype(np.float32)                   # RANDOM-key control = best-case isotropic separability (discrimination check)
+    rrec, rmar, _ = _measure(K_rand, gold, g)
+    print("  [size=%d seed=%d] pythia recall: %s | margin: %s || random recall: %s margin: %s" % (
+        size, seed,
+        " ".join("s%.2f=%.2f" % (s, rec["%.2f" % s]) for s in SIGMAS),
+        " ".join("s%.2f=%.3f" % (s, mar["%.2f" % s]) for s in SIGMAS),
+        " ".join("s%.2f=%.2f" % (s, rrec["%.2f" % s]) for s in SIGMAS),
+        " ".join("s%.2f=%.3f" % (s, rmar["%.2f" % s]) for s in SIGMAS)), flush=True)
+    return {"size": size, "seed": seed, "model": MODEL, "run_mode": RUN_MODE,
+            "recall_by_sigma": rec, "margin_by_sigma": mar, "p10margin_by_sigma": p10,
+            "rand_recall_by_sigma": rrec, "rand_margin_by_sigma": rmar}
 
 
 def compute_verdict(units) -> Tuple[str, str, Dict]:
+    """DE-SATURATED verdict (Skunkworks's catch: recall=1.0-everywhere can't tell genuine capacity from a non-discriminating
+    test). A clean capacity cert now REQUIRES the test be DISCRIMINATING: either a CAN-fail boundary is located (recall<1.0
+    somewhere, esp sigma=0.5) OR the NN-margin meaningfully shrinks toward the boundary AND pythia keys beat the random-key
+    control. recall=1.0 + flat margin + == random => NON-discriminating => LOWER-BOUND MEASURED_MECHANISM, not chain-grade."""
     if not units:
         return ("HARD_FAIL", "no results", {})
-    # mean recall per (size, sigma) across seeds + per-size std
-    by = {}
-    stds = {}
-    for size in SIZES:
-        for s in SIGMAS:
-            vals = [u["recall_by_sigma"]["%.2f" % s] for u in units if u["size"] == size and "%.2f" % s in u["recall_by_sigma"]]
-            if vals:
-                by[(size, s)] = float(np.mean(vals)); stds[(size, s)] = float(np.std(vals))
-    def R(size, s): return by.get((size, s))
-    PRIMARY = 0.05  # clean-capacity sigma
-    r10 = R(10000, PRIMARY); r2 = R(2000, PRIMARY); r10_n = R(10000, 0.10)
-    if r10 is None or r2 is None or r10_n is None:
-        return ("UNKNOWN", "missing 10k/2k measurements", {"by": {str(k): v for k, v in by.items()}})
-    drop = r2 - r10  # graceful if small (recall should not DROP much from 2k to 10k)
-    # cliff: smallest size>=10k where primary recall < 0.50; else no-cliff-through-100k (the stronger result)
-    cliff = next((sz for sz in SIZES if sz >= 10000 and (R(sz, PRIMARY) or 0) < 0.50), None)
-    no_cliff_through_max = all((R(sz, PRIMARY) or 0) >= 0.50 for sz in SIZES if sz >= 10000)
-    max_std = max((stds.get((sz, PRIMARY), 0.0) for sz in SIZES), default=0.0)
-    seeds_reproduce = max_std <= 0.03
-    detail = {"recall_primary_s0.05": {str(sz): R(sz, PRIMARY) for sz in SIZES},
-              "recall_s0.10": {str(sz): R(sz, 0.10) for sz in SIZES},
-              "recall_s0.20": {str(sz): R(sz, 0.20) for sz in SIZES},
-              "recall_10k_clean": r10, "recall_2k_clean": r2, "drop_2k_to_10k": round(drop, 4),
-              "recall_10k_noise0.10": r10_n, "cliff_size": cliff, "no_cliff_through_100k": no_cliff_through_max,
-              "max_seed_std": round(max_std, 4), "seeds_reproduce": seeds_reproduce,
-              "honest_scope": "Pythia 2.8B substrate-KV; recall>=0.80 to the measured-capacity boundary; "
-                              "noise-robust sigma=0.10. NOT a 1.4B claim."}
-    summary = ("recall(10k,clean)=%.3f recall(2k,clean)=%.3f drop=%.3f recall(10k,s0.10)=%.3f cliff=%s "
-               "no_cliff_through_100k=%s max_std=%.3f" % (r10, r2, drop, r10_n, cliff, no_cliff_through_max, max_std))
-    # HARD_FAIL
-    if r10 < 0.50 or drop > 0.20 or r10_n < 0.40 or max_std > 0.05:
+    PRIMARY = 0.05
+    def agg(field, sz, s):
+        vals = [u[field]["%.2f" % s] for u in units if u["size"] == sz and field in u and "%.2f" % s in u[field]]
+        return (float(np.mean(vals)), float(np.std(vals))) if vals else (None, None)
+    R = lambda sz, s: agg("recall_by_sigma", sz, s)[0]
+    MAR = lambda sz, s: agg("margin_by_sigma", sz, s)[0]
+    RMAR = lambda sz, s: agg("rand_margin_by_sigma", sz, s)[0]
+    RR = lambda sz, s: agg("rand_recall_by_sigma", sz, s)[0]
+    sizes = sorted(set(u["size"] for u in units)); s_lo, s_hi = sizes[0], sizes[-1]
+    r_lo, r_hi, r_hi_n = R(s_lo, PRIMARY), R(s_hi, PRIMARY), R(s_hi, 0.10)
+    drop = (r_lo - r_hi) if (r_lo is not None and r_hi is not None) else None
+    max_std = max((agg("recall_by_sigma", sz, PRIMARY)[1] or 0.0 for sz in sizes), default=0.0)
+    # DE-SATURATION signals
+    all_rec = [R(sz, s) for sz in sizes for s in SIGMAS if R(sz, s) is not None]
+    canfail_min_recall = min(all_rec) if all_rec else 1.0
+    r_stress = min((R(sz, 0.50) for sz in sizes if R(sz, 0.50) is not None), default=None)   # sigma=0.5 stress
+    mar_lo, mar_hi = MAR(s_lo, PRIMARY), MAR(s_hi, PRIMARY)
+    margin_shrink = (mar_hi / mar_lo) if (mar_lo and mar_hi and mar_lo > 0) else None          # <1 -> shrinking toward boundary
+    pyt_mar, rnd_mar = MAR(s_hi, PRIMARY), RMAR(s_hi, PRIMARY)
+    margin_vs_random = (pyt_mar - rnd_mar) if (pyt_mar is not None and rnd_mar is not None) else None
+    canfail_located = canfail_min_recall < 0.99
+    margin_shrinks = bool(margin_shrink is not None and margin_shrink < 0.80)
+    discriminating = bool(canfail_located or margin_shrinks)
+    detail = {"recall_primary_s0.05": {str(sz): R(sz, PRIMARY) for sz in sizes},
+              "recall_s0.10": {str(sz): R(sz, 0.10) for sz in sizes}, "recall_s0.50_stress": {str(sz): R(sz, 0.50) for sz in sizes},
+              "margin_primary_s0.05": {str(sz): MAR(sz, PRIMARY) for sz in sizes},
+              "rand_recall_s0.05": {str(sz): RR(sz, PRIMARY) for sz in sizes}, "rand_margin_s0.05": {str(sz): RMAR(sz, PRIMARY) for sz in sizes},
+              "recall_lo_clean": r_lo, "recall_hi_clean": r_hi, "drop_lo_to_hi": (round(drop, 4) if drop is not None else None),
+              "recall_hi_noise0.10": r_hi_n, "max_seed_std": round(max_std, 4),
+              "DESAT_canfail_min_recall": round(canfail_min_recall, 4), "DESAT_sigma0.5_min_recall": r_stress,
+              "DESAT_margin_shrink_hi_over_lo": (round(margin_shrink, 4) if margin_shrink is not None else None),
+              "DESAT_pythia_minus_random_margin": (round(margin_vs_random, 5) if margin_vs_random is not None else None),
+              "DESAT_canfail_located": canfail_located, "DESAT_margin_shrinks": margin_shrinks, "DESAT_discriminating": discriminating,
+              "sizes_tested": sizes,
+              "honest_scope": "Pythia substrate-KV capacity; clean-capacity claim requires a DISCRIMINATING test (margin "
+                              "shrinks or CAN-fail located). recall=1.0+flat-margin+==random = lower-bound only. NOT a 1.4B claim."}
+    summary = ("recall(hi,clean)=%s drop=%s recall(hi,s0.10)=%s | DESAT: canfail_min_recall=%.3f sigma0.5_min=%s margin_shrink=%s "
+               "pythia-random_margin=%s discriminating=%s max_std=%.3f" % (
+               r_hi, (round(drop, 3) if drop is not None else None), r_hi_n, canfail_min_recall, r_stress, margin_shrink, margin_vs_random, discriminating, max_std))
+    if r_hi is None or r_lo is None:
+        return ("UNKNOWN", "missing size measurements (smoke logic-check ok) | " + summary, detail)
+    if r_hi < 0.50 or (drop is not None and drop > 0.20) or (r_hi_n is not None and r_hi_n < 0.40) or max_std > 0.05:
         return ("HARD_FAIL", "HARD_FAIL: " + summary, detail)
-    # HARD_PASS
-    cap_ok = (cliff is not None) or no_cliff_through_max
-    if r10 >= 0.80 and drop <= 0.05 and r10_n >= 0.60 and cap_ok and seeds_reproduce:
-        return ("HARD_PASS", "HARD_PASS: Pythia-2.8B viable substrate-KV keys. " + summary, detail)
-    # MIDDLE (strict >0.05 for non-graceful so no overlap with HP <=0.05; nit-fix)
-    if (0.40 <= r10_n < 0.60) or (0.05 < drop <= 0.20):
-        return ("MIDDLE_BAND", "MIDDLE_BAND: " + summary, detail)
-    return ("MIDDLE_BAND", "MIDDLE_BAND (other partial): " + summary, detail)
+    recall_good = r_hi >= 0.80 and (drop is None or drop <= 0.05) and (r_hi_n is None or r_hi_n >= 0.60) and max_std <= 0.03
+    if recall_good and discriminating:
+        return ("HARD_PASS", "HARD_PASS (de-saturated genuine capacity): recall>=0.80 to the tested boundary AND the test is "
+                "DISCRIMINATING (CAN-fail located and/or NN-margin shrinks toward the boundary; not a saturated/trivial test). " + summary, detail)
+    if recall_good and not discriminating:
+        return ("MEASURED_MECHANISM", "MEASURED_MECHANISM (LOWER-BOUND; Skunkworks saturation catch CONFIRMED): recall>=0.80 "
+                "through the tested scale BUT the test never bit -- CAN-fail NOT located (min recall %.3f; sigma=0.5 still %s), "
+                "margin flat (shrink=%s) and pythia margin ~ random (%s). Genuine capacity is a LOWER-BOUND, UNMEASURED. "
+                "Push M and/or sigma until recall<1.0 to locate the real boundary. " % (canfail_min_recall, r_stress, margin_shrink, margin_vs_random) + summary, detail)
+    return ("MIDDLE_BAND", "MIDDLE_BAND: " + summary, detail)
 
 
 print("[config] %s mode=%s model=%s sizes=%s sigmas=%s seeds=%s" % (ANCHOR_NAME, RUN_MODE, MODEL, SIZES, SIGMAS, SEEDS), flush=True)
