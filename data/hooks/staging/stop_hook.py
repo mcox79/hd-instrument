@@ -43,6 +43,17 @@ def _derive_session_from_transcript(transcript_path: str) -> str:
 
 
 def main() -> int:
+    # DEBUG: prove invocation independent of all other logic (first thing; can't be missed)
+    try:
+        from pathlib import Path as _P
+        debug_log = _P(__file__).resolve().parent.parent.parent.parent / 'data' / 'hook_state' / '_invocation_log.txt'
+        debug_log.parent.mkdir(parents=True, exist_ok=True)
+        import time as _t
+        with debug_log.open('a', encoding='utf-8') as _df:
+            _df.write(f"{_t.strftime('%Y-%m-%dT%H:%M:%SZ', _t.gmtime())} stop_hook invoked  argv={sys.argv[1:]} pid={os.getpid()}\n")
+    except Exception:
+        pass
+
     # Read stdin JSON FIRST (so we can fall back to transcript_path for session key)
     try:
         raw = sys.stdin.read()
