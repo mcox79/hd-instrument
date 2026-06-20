@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-20T17:00:00Z",
+  "ts": "2026-06-20T17:30:00Z",
   "ts_note": "Director-maintained; updated at natural decision points (routings filed, ships landing, SCHEMA-VETs landing). Not 60s-cadence.",
   "schema_version": "v1_skunkworks_vetted",
   "schema_reference": "notes/skunkworks_to_research_testbed_SCHEMAVET_dashboard_plan_json_engagement_metrics_cert_discipline_verdict_2026-06-20.md",
@@ -171,13 +171,62 @@
       "status": "done",
       "owner": "research",
       "owner_asserted": true,
+      "owner_asserted_via": "git commit 811d6247",
       "waiting_on": [],
       "artifact": "data/director_plan.json (this file)",
-      "commit": "(this commit)",
+      "commit": "811d6247",
       "cert_atom": null,
       "cert_class": "INFRA (CERT-neutral)",
       "discriminating_regime": null,
       "last_updated_ts": "2026-06-20T17:00:00Z"
+    },
+    {
+      "id": "rule_director_maintains_plan_json",
+      "title": "Anti-drift rule: Director maintains data/director_plan.json at decision points (USER-directed)",
+      "type": "discipline",
+      "status": "done",
+      "owner": "research",
+      "owner_asserted": true,
+      "owner_asserted_via": "git commit bb506735 (memory file + MEMORY.md index entry)",
+      "waiting_on": [],
+      "artifact": "C:/Users/marsh/.claude/projects/d--AI/memory/feedback_director_maintains_director_plan_json_anti_drift_decision_point_cadence_USER_2026-06-20.md",
+      "commit": "bb506735",
+      "cert_atom": null,
+      "cert_class": "OPERATIONAL_RULE (CERT-neutral)",
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T17:25:00Z"
+    },
+    {
+      "id": "anti_drift_self_check_tool",
+      "title": "Anti-drift item 2: tools/director_plan_self_check.py validator (HARD-EXIT on dangling artifact/commit/cert_atom refs)",
+      "type": "infra",
+      "status": "in-progress",
+      "owner": "research",
+      "owner_asserted": true,
+      "owner_asserted_via": "git commit bb506735 (SCHEMA-VET ask filed)",
+      "waiting_on": ["skunkworks: SCHEMA-VET on Store-read safety + HARD-EXIT-vs-soft-warn discipline (2 questions)"],
+      "artifact": "notes/research_to_skunkworks_SCHEMAVET_ask_anti_drift_2_items_self_check_tool_owner_asserted_commit_cite_lock_USER_GO_2026-06-20.md",
+      "commit": "bb506735",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T17:25:00Z"
+    },
+    {
+      "id": "anti_drift_owner_asserted_commit_cite_lock",
+      "title": "Anti-drift item 3: lock owner-asserted mechanism to commit-cite ONLY (tightens Skunkworks Q4 dual-mechanism answer)",
+      "type": "discipline",
+      "status": "planned",
+      "owner": "testbed",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-proposed; awaiting Skunkworks ratify then Testbed implements in dashboard plan-panel render",
+      "waiting_on": ["skunkworks: SCHEMA-VET tightening Q4 to commit-cite-only (1 question)", "testbed: implementation in dashboard plan-panel render"],
+      "artifact": "notes/research_to_skunkworks_SCHEMAVET_ask_anti_drift_2_items_self_check_tool_owner_asserted_commit_cite_lock_USER_GO_2026-06-20.md",
+      "commit": "bb506735",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T17:25:00Z"
     }
   ],
 
@@ -205,14 +254,14 @@
   ],
 
   "summary": {
-    "priorities_total": 10,
-    "priorities_done": 2,
-    "priorities_in_progress": 4,
-    "priorities_planned": 3,
+    "priorities_total": 13,
+    "priorities_done": 3,
+    "priorities_in_progress": 5,
+    "priorities_planned": 4,
     "priorities_blocked": 1,
     "priorities_dissolved": 0,
-    "priorities_remaining_non_terminal": 8,
-    "next_horizon": "Post-LEVER-#1.5 cell SCHEMA-VET -> smoke -> dispatch (Exp-Dev). Pythia-substrate-KV pull-up SCHEMA-VET. Dashboard panels built by Testbed. Effrank-SVD clarification from Skunkworks unblocks 3rd pull-up. Phase 3 cost brief USER review unblocks hardening Phase 3. Once these clear: pull-up cluster characterizations cascade + LEVER queue continuation (PCA / sparse_coding / multiplicative_composition queued post LEVER #1.5)."
+    "priorities_remaining_non_terminal": 10,
+    "next_horizon": "Skunkworks SCHEMA-VETs in flight (LEVER #1.5 cell + pythia pre-reg + anti-drift items 2+3 = 3+1+3=7 questions across 3 asks). On her ratify cluster: I build self-check tool; Testbed locks owner-asserted commit-cite-only in plan-panel render + builds plan+engagement panels; Exp-Dev cell-author cadence (LEVER #1.5 smoke -> dispatch then refuse-gate #5 Path A). Effrank-SVD clarification from Skunkworks unblocks 3rd pull-up. Phase 3 cost brief USER review unblocks hardening Phase 3. Map v6 mini-refresh on next ship. Anti-drift package PROVES OUT on first non-trivial Director update cycle (this turn IS that test -- I'm updating the plan-JSON because items 2+3 routed + item 1 landed; demonstrating decision-point cadence per the just-locked memory rule)."
   },
 
   "director_narrative": "FLAG: DIRECTOR_JUDGEMENT -- non-load-bearing. This session shipped 3 chain-grade certs (CSP 590 / #7 591 / K_max 592) + 3 atomized MEASURED_MECHANISM characterizations (Hebbian / crosstalk-law / sparse super-capacity) + cleared 1 legacy actionable (a8) + introduced the 16th USER-LOCKED rule (no compaction-state-tracking) + dissolved 4 inflated claims while upgrading 1 understated finding -- discipline producing ALL DIRECTIONS. 15 META disciplines atomized making the audit-catalog the self-cert rulebook. Substrate-KV mechanism architecturally SETTLED = NN-retrieval with #7 learned projection. Phase 3 glass-box-LLM foundation strengthened by depth-beyond-equilibrium (CERT 592) + sparse super-capacity (>=300x@f=0.005). Cascade is in active state with multiple parallel threads; nothing is the load-bearing critical path."
