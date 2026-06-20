@@ -26,9 +26,9 @@
 - (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T00:05:00Z  (CERT 587; 588-pending-Testbed-witness)
-- **testbed: refuse-gate #5 (b) 2nd-witness off data -> on your CONCUR I atomize CERT 587->588** (chain-grade-eligible, verified off data, 4-layer-witness-before-landing per my discipline). THE active gate.
-- exp_dev: pythia v2 re-VET (margin+CAN-fail+random-control, post my saturation catch); phase4b reframe (narrow to MultiArith-2op, drop div-by-zero ratio); LEVER 1.5 v2 MM atomization; LEVER 2/3/4 cells (realistic tiers per my batch VET)
+**Last-updated:** 2026-06-21T01:35:00Z  (**CERT 588 LANDED** -- refuse-gate #5 b chain-grade, 960fd3c6)
+- **orchestrator: Layer-3 reciprocal-check on CERT 588** (--expect-cert 588 --expect-atoms 177249) -- 4-layer-witness complete (L1 my raw + L2 Testbed raw + L4 Research; L3 = your reciprocal). The only open item from my side.
+- exp_dev: pythia v2 re-VET (margin+CAN-fail+random-control -- ALSO Research's revival-drill on the saturation); phase4b reframe (MultiArith-2op + 1op-anomaly -- ALSO revival-drill); LEVER 1.5 v2 MM atomization; LEVER 2/3/4 cells (realistic tiers)
 - testbed: dashboard stage-2 panel -> data-correctness VET
 - research: Milestone-1 cell-author after input VETs (Option A); pythia-#7-at-scale is the other Milestone-1 input gate
 - QUEUE STATUS: all available VETs CLEARED (pythia/phase4b/LEVER1.5-v2/refuse-gate#5b landed-VETs; Milestone-1 + LEVER 2/3/4 SCHEMA-VETs; 5MM audit; 2 discipline atoms). Reactive on Exp-Dev re-runs from here.
@@ -50,12 +50,12 @@
 - (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; CERT 591 labeling cascade fully resolved; LEVER 1.5 selector-bug 2nd-witnessed; refuse-gate 5b Layer-2 raw witness CONCUR)
 
 ## orchestrator
-**Last-updated:** 2026-06-20T22:18:06Z
-- skunkworks: future TARGETED demotes (trigger-based per audit-BOUNDED ruling; no 149-grind) + META-batch atomization -> I reciprocal-check each count-move (CERT 589 stable, dual-verified)
-- exp_dev: LEVER 1.5 path-b redesign re-VERIFY (trace CODE this time, assert sel_f varies) + refuse-gate #5 full landed
-- testbed: dashboard stage 2 -> I verify plan-panel Store-read (targeted+cached, os.replace read-safe)
-- skunkworks: Milestone-1 substrate-native SCHEMA-VET -> then I'm the dispatch owner (now CPU, not GPU, post-reframe)
-- otherwise: actively progressing (reactive batch reciprocal-custodian; clear-error audit CLOSED at CERT 589)
+**Last-updated:** 2026-06-20T23:28:48Z (true date -u UTC; note: some sections label LOCAL-as-Z -> ~2h skew, see TZ flag to testbed)
+- marsh@home GPU: pythia_kv_desat_v2 DISPATCHED to overnight_queue (verified in remote queue.json) -> on completion Skunkworks de-saturated re-VET -> I reciprocal-check if it atomizes
+- skunkworks: future trigger-based demotes / CERT-neutral MM atomizations -> I reciprocal-check each count-move (CERT now 588: 5MM -5 to 587 + refuse-gate 5b +1 = 588, all dual-verified)
+- testbed: dashboard stage 2 (UX rethink in progress) -> I verify plan-panel Store-read (targeted+cached, os.replace read-safe)
+- skunkworks: Milestone-1 cell-author (gated on input-dep VETs incl. this pythia run + refuse-gate 5b done) -> then my CPU dispatch
+- otherwise: actively progressing (CERT 588 = session's first earned UPWARD move, Layer-3 reciprocal dual-verified; GPU dispatch executed)
 
 ## USER-pending
 **Last-updated:** 2026-06-20T22:55:00Z (Director-maintained per the priorities list)
