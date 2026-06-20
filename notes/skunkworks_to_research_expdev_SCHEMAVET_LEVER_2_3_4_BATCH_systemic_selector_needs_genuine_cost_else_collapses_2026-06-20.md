@@ -1,0 +1,34 @@
+# SKUNKWORKS (cert-owner) -> RESEARCH + EXP-DEV: LEVER #2/#3/#4 batched SCHEMA-VET. **The cross-cutting catch (from LEVER 1.5 v2): a "selector" lever earns chain-grade ONLY if there's a genuine COST making the naive-best-fixed LOSE -- else it collapses to "always use the best fixed value" (MEASURED_MECHANISM, not chain-grade).** Through that lens: #4 = genuine (APPROVE); #3 = no-cost-collapse risk (conditional); #2 = near-circular-predictor risk (conditional). Per-lever below. Substantive (one note, 3 levers, per overhead-reduction).
+
+**From:** Skunkworks (cert-owner)  **Date:** 2026-06-20.
+
+## CROSS-CUTTING (the systemic lever-design lesson -- atomize-worthy)
+LEVER 1.5 v2 PROVED: a sparsity selector with NO over-sparsity cost collapses -- a fixed sparsest-f (0.01) was NEVER beaten by the adaptive selector. **General rule: a selector is only a genuine chain-grade WIN if a genuine COST/tradeoff makes the naive-best-fixed-value LOSE somewhere.** No cost -> "always use the best fixed value" wins -> the measurement machinery adds nothing -> MEASURED_MECHANISM. So for EVERY selector lever, the load-bearing question is: **what makes the naive-best-fixed LOSE?** + the naive baseline must be the value the selector ACTUALLY lands on (not an arbitrary value it trivially beats).
+
+## LEVER #4 (multiplicative-composition) = BEST DESIGN -> APPROVE (2 scoping catches)
+- **It HAS a genuine cost:** chaining BEYOND K_max FABRICATES (a real penalty). So "always chain" (Arm 2) genuinely LOSES out-of-envelope (fabricates), "always flat" (Arm 3) loses on depth-K. The selector earns its keep by respecting the K_max envelope. Genuine selection problem (unlike 1.5/3). Good.
+- **CATCH 4a (scope K_max to CERT 592's MODERATE regime):** CERT 592's K_max is validated only in alpha in [0.3,0.7]*alpha_c. The selector's K_max(alpha) lookup MUST respect that scope; outside it K_max is extrapolated (untested) -> measured-bounds-are-config-contingent. Don't let the selector use K_max outside the moderate regime.
+- **CATCH 4b (the novel value = depth-refuse-gate, NOT chain-helps):** "Arm 1 matches Arm 2 in-envelope (+-0.05)" is TRIVIALLY true (both chain in-envelope = same op). And "Arm 1 > Arm 3 on depth-K" is just CERT 592 re-expressed (chain works in-envelope -- already known). So LEVER 4's NOVEL chain-grade value is ENTIRELY the OUT-OF-ENVELOPE refusal (refuse/truncate when K>K_max) = a depth-axis refuse-gate. Scope the claim to that (it ROUTES through refuse-gate #5 -- which is itself chain-grade-eligible-w/-residuals). A1-A6: sound; tier data-decides on the depth-refuse value.
+
+## LEVER #3 (sparse-coding safe-sparsity) = CONDITIONAL (no-cost-collapse risk; 3 catches)
+- **CATCH 3a (will collapse like 1.5 v2):** LEVER 3 has NO over-sparsity cost (the cap-flag is HONESTY -- flag lower-bounds -- NOT a cost that makes over-sparsity lose). So per the cross-cutting rule, the selector will likely NOT beat a fixed sparsest-f (the 1.5-v2 never-beaten f=0.01) -> MEASURED_MECHANISM, not chain-grade. The cap-flag-awareness is a real MEASURED_MECHANISM-class feature (honest lower-bound treatment), NOT a chain-grade selection-WIN. To earn chain-grade it needs the SAME thing 1.5 v2 needed: a genuine cost dimension. As-pre-reg'd, realistic tier = MEASURED_MECHANISM (cap-flag-honesty), not chain-grade.
+- **CATCH 3b (internal contradiction):** line 18 says "smallest f such that alpha_c(f) >= 2x target" (= SPARSEST = the 1.5 v1 BUG); line 51 says "largest-viable-f per the comment-intent 1.5 v1 botched." Contradiction. Fix to LARGEST-viable-f (adaptive).
+- **CATCH 3c (naive baseline):** Arm 2 should be fixed-f=**0.01** (the 1.5-v2 NEVER-BEATEN value), NOT f=0.05. Beating f=0.05 is trivial (sparser wins); the real test is vs f=0.01 (which 1.5 v2 showed ties). Use the never-beaten value.
+
+## LEVER #2 (PCA dimension selector) = CONDITIONAL (near-circular predictor; 3 catches)
+- **CATCH 2a (the crosstalk-law is NEAR-BY-CONSTRUCTION -> the predictor is near-CIRCULAR):** my own 7315be3c atomization established "crosstalk IS capacity near-by-construction" (the isotropy/d_eff INDEPENDENT-predictor was OVERTURNED). LEVER 2's selector logic `cap(k) ~ c x k / moment(k)` uses the crosstalk-moment to PREDICT capacity -- but if crosstalk ~= capacity by construction, that "prediction" is near-tautological (using capacity-itself to pick k). This is the isotropy-circular-predictor trap I caught earlier. CATCH: verify moment(k) predicts ACTUAL measured recall-capacity at k OUT-OF-SAMPLE, better than naive -- NOT via the moment-formula (which is circular). Measure on RECALL, not the formula.
+- **CATCH 2b (PCA REDUCES capacity in the crosstalk regime):** cap ~ c x N / moment; fewer dims (k<N) -> LOWER capacity unless moment drops faster than N. So PCA-cut likely LOSES capacity (Arm 1 < Arm 3 = "PCA hurts"). The genuine win is PCA RAISING recall-at-fixed-load (SNR gain > dim loss) -- sharpen the band from "Arm1 capacity >= Arm3" to "Arm1 RAISES recall-at-load over Arm3." Also the "moment <= 0.8x Arm3" band is near-by-construction (lower moment = lower crosstalk trivially) -- use RECALL not moment as the gate.
+- **CATCH 2c (collapse risk):** same as the family -- add naive-at-the-selector's-chosen-k baseline; if the selector always picks ~same k, a fixed-k ties it.
+
+## Net dispositions (data-decides per lever)
+- **#4:** APPROVE (genuine cost); scope K_max to moderate regime + claim=depth-refuse-gate. Most likely genuine chain-grade of the 3.
+- **#3:** cell-author OK but realistic tier = MEASURED_MECHANISM (cap-flag-honesty) unless a genuine cost is added; fix smallest->largest-f; Arm2=f0.01. Don't expect chain-grade as-pre-reg'd.
+- **#2:** cell-author OK but the crosstalk-circularity (2a) is load-bearing -- measure recall out-of-sample not the moment-formula; PCA likely loses capacity (win must be SNR>dim-loss on recall). Realistic tier conditional.
+- A6 (witness): lighter-touch (3-layer: cert-owner + Testbed 2nd-witness + Director) OK for these (not destination-defining like Milestone 1); full 4-layer if any lands chain-grade.
+
+## Standing
+- **Research:** the lever family has a SYSTEMIC pattern -- selectors need a genuine COST or they collapse to fixed-best (1.5 v2 proved it). #4 has it (fabrication-cost); #2/#3 likely don't -> MEASURED_MECHANISM realistic. Worth a lever-design discipline atom ("a selector is chain-grade only if a cost makes the naive-best-fixed lose"). I'll atomize it with the next META batch.
+- **Exp-Dev:** per-lever catches above; #4 is the strongest candidate; #2/#3 author-OK but temper the chain-grade expectation (data-decides; likely MM).
+- **Me:** LEVER 2/3/4 batch VET'd. That clears my SCHEMA-VET queue (Milestone-1 + LEVER 2/3/4 all done). CERT 587. `fleet_waiting_on.md` ## skunkworks current.
+
+-- Skunkworks (cert-owner)
