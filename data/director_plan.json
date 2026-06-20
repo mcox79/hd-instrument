@@ -64,21 +64,28 @@
   "priorities": [
     {
       "id": "lever_1_5_capacity_sweet_spot",
-      "title": "Phase-1 LEVER #1.5 capacity sweet-spot operating-point selector",
+      "title": "Phase-1 LEVER #1.5 capacity sweet-spot -- NOT CHAIN-GRADE as-is (Skunkworks landed-VET ruling); 3 catches off per_unit (selector NON-ADAPTIVE code-vs-comment bug / no over-sparsity COST modeled / degenerate default arm); blocked on Exp-Dev (a)/(b) pick: (a) reframe v1 as MEASURED_MECHANISM CERT-neutral a3f473dd re-expression OR (b) redesign per 4-step path with cost dimension (Director input filed: precision/SNR substrate-natural)",
       "type": "lever",
-      "status": "in-progress",
+      "status": "blocked",
       "owner": "exp_dev",
       "owner_asserted": true,
-      "owner_asserted_via": "git commit 9097f659 (Exp-Dev cell-author commit)",
-      "waiting_on": ["skunkworks: SCHEMA-VET on built cell", "exp_dev: smoke -> full-run dispatch"],
-      "artifact": "notes/research_to_expdev_skunkworks_LEVER_1_5_PREREG_v2_*.md",
+      "owner_asserted_via": "git commit 9097f659 (cell-author); landed-VET ruling notes/skunkworks_to_expdev_orch_research_LEVER_1_5_LANDED_VET_NOT_chaingrade_*.md",
+      "waiting_on": ["exp_dev: (a) reframe-as-MM OR (b) redesign+rerun pick", "skunkworks: re-VET on (b) re-run OR atomize MM on (a)"],
+      "artifact": "notes/skunkworks_to_expdev_orch_research_LEVER_1_5_LANDED_VET_NOT_chaingrade_selector_NONadaptive_no_sweetspot_in_recall_only_2026-06-20.md + Director cost-dim input notes/research_to_expdev_skunkworks_cc_orch_LEVER_1_5_director_cost_dimension_input_PRECISION_SNR_is_substrate_natural_2026-06-20.md",
       "commit": "e6075dd9",
-      "cell": "experiments/exp_capacity_sweet_spot_v1_cpu_v1.py",
+      "cell": "experiments/exp_capacity_sweet_spot_v1_cpu_v1.py (code-vs-comment bug confirmed by Testbed 2nd-witness)",
       "cert_atom": null,
       "cert_class": null,
-      "discriminating_regime": "3-arm CAN-fail: known-bad-default OFF / selector-improved ON / naive-fixed heuristic. Discriminating iff selector beats BOTH by >=10% recall@K=5",
-      "tier_target": "CHAIN-GRADE-CANDIDATE (data-decides per cb7e89f1)",
-      "last_updated_ts": "2026-06-20T16:53:00Z"
+      "discriminating_regime": "REVISED if (b): 3-arm CAN-fail with cost dimension active (precision/SNR); selector earns its keep iff it beats fixed-f=0.01 (the constant the buggy loop output) on the SNR-cost dimension AT a load where capacity alone doesn't dominate. Discriminating iff selector beats BOTH a too-dense AND a too-sparse fixed-f by tradeoff threshold.",
+      "tier_target": "DEFERRED to (b) re-VET; (a) gives MEASURED_MECHANISM CERT-neutral only",
+      "discipline_catches_this_round": [
+        "Exp-Dev self-flag: degenerate f=1.0 default arm (representation collapse; strawman)",
+        "Skunkworks landed-VET: selector is NON-ADAPTIVE (code-vs-comment bug; constant f=0.01 output)",
+        "Skunkworks landed-VET: no over-sparsity COST modeled -> no sweet-spot -> no genuine selection problem in recall-only metric",
+        "Testbed 2nd-witness: code-vs-comment bug CONFIRMED off cell source independently",
+        "Orchestrator self-OWN: verify-error in earlier review (comment-vs-code missed)"
+      ],
+      "last_updated_ts": "2026-06-20T22:30:00Z"
     },
     {
       "id": "pythia_substrate_kv_pull_up",
