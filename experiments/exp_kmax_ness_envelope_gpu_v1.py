@@ -97,24 +97,27 @@ def recall_chain_depth(alpha, K, seed):
     chains = [bsc(K + 1, N, g) for _ in range(N_CHAINS)]                      # each (K+1, N)
     codebook = torch.cat(chains, 0)                                           # (N_CHAINS*(K+1), N) shared cleanup codebook
     cb_idx0 = [c * (K + 1) for c in range(N_CHAINS)]                          # index of each chain's a_0 in codebook
-    cand_ok = 0; ctrl_ok = 0
+    cand_ok = 0; ctrl_ok = 0; cand_hop_frac = 0.0
     for c in range(N_CHAINS):
         nodes = chains[c]                                                     # (K+1, N)
         W = torch.zeros((N, N), device=DEV, dtype=torch.float32)
         for i in range(K):                                                    # NESS decay: oldest pair decays most
             W = (1.0 - alpha) * W + torch.outer(nodes[i + 1], nodes[i]) / N
         tgt = c * (K + 1) + K                                                 # codebook index of a_K
-        # cand2 (cleanup-ON): snap to codebook each hop
-        r = nodes[0].clone()
-        for _h in range(K):
-            v = W @ r; r = codebook[int(torch.argmax(codebook @ v))]
+        # cand2 (cleanup-ON): snap to codebook each hop; track per-hop CORRECT-NEXT-NODE (genuine traverse vs jump-to-a_K recovery)
+        r = nodes[0].clone(); hop_correct = 0
+        for h in range(K):
+            v = W @ r; snap = int(torch.argmax(codebook @ v)); r = codebook[snap]
+            if snap == c * (K + 1) + (h + 1):                                 # snapped to the CORRECT next chain-node
+                hop_correct += 1
         cand_ok += int(int(torch.argmax(codebook @ r)) == tgt)
+        cand_hop_frac += hop_correct / K                                      # fraction of hops genuinely traversed (per chain)
         # control (cleanup-OFF): sign recall, no snap; final argmax over codebook
         r = nodes[0].clone()
         for _h in range(K):
             v = W @ r; r = torch.sign(v); r[r == 0] = 1.0
         ctrl_ok += int(int(torch.argmax(codebook @ r)) == tgt)
-    return cand_ok / N_CHAINS, ctrl_ok / N_CHAINS
+    return cand_ok / N_CHAINS, ctrl_ok / N_CHAINS, cand_hop_frac / N_CHAINS
 
 
 def interp_kmax(curve_k, curve_recall):
@@ -132,27 +135,29 @@ def interp_kmax(curve_k, curve_recall):
 
 def run_unit(alpha_frac, seed):
     alpha = alpha_frac * ALPHA_C
-    cand_curve = {}; ctrl_curve = {}
+    cand_curve = {}; ctrl_curve = {}; hop_curve = {}                          # hop_curve = cand2 per-hop correct-next-node fraction
     for K in K_GRID:
-        cr, tr = recall_chain_depth(alpha, K, seed)
-        cand_curve[K] = round(cr, 4); ctrl_curve[K] = round(tr, 4)
+        cr, tr, hf = recall_chain_depth(alpha, K, seed)
+        cand_curve[K] = round(cr, 4); ctrl_curve[K] = round(tr, 4); hop_curve[K] = round(hf, 4)
         if cr < RECALL_THRESH and K > K_GRID[0]:
             break                                                            # past the cliff; stop sweeping deeper
     kmax = interp_kmax(list(cand_curve.keys()), list(cand_curve.values()))          # cleanup-ON depth
-    ctrl_kmax = interp_kmax(list(ctrl_curve.keys()), list(ctrl_curve.values()))      # cleanup-OFF depth
-    cleanup_boost = kmax / max(1.0, ctrl_kmax)                                       # the deep-reasoning mechanism (the ~6x)
-    keq = k_eq(alpha); ratio = kmax / (keq + 1e-9)                                   # vs INDEPENDENT Hopfield equilibrium (REPORTED, ~1.0 expected)
-    # genuine-multi-hop: cleanup-OFF recall at the deepest K where cand2 still passed
+    ctrl_kmax = interp_kmax(list(ctrl_curve.keys()), list(ctrl_curve.values()))      # cleanup-OFF depth (artifact-free)
+    cleanup_boost = kmax / max(1.0, ctrl_kmax)                                       # cleanup-augmentation factor
+    keq = k_eq(alpha); ratio = kmax / (keq + 1e-9); ctrl_ratio = ctrl_kmax / (keq + 1e-9)
     deep_K = max([K for K, r in cand_curve.items() if r >= RECALL_THRESH], default=K_GRID[0])
-    ctrl_at_deep = ctrl_curve.get(deep_K, 0.0)
-    genuine = ctrl_at_deep >= GENUINE_FLOOR
-    print("  [af=%.2f a=%.4f s=%d] K_obs=%.1f ctrl_Kobs=%.1f cleanup_boost=%.2fx | K_eq=%.1f ratio_to_eq=%.2f | (1-a/ac)^2=%.3f safe=%s | ctrl@K%d=%.3f genuine=%s" %
-          (alpha_frac, alpha, seed, kmax, ctrl_kmax, cleanup_boost, keq, ratio, (1 - alpha / ALPHA_C) ** 2, safe_gate(alpha), deep_K, ctrl_at_deep, genuine), flush=True)
+    # CORRECTED genuine (Skunkworks): control K_obs > K_eq = artifact-free genuine multi-hop beyond equilibrium (control CANNOT be a cleanup artifact)
+    genuine_control = ctrl_kmax > keq
+    # EXTENSION-genuineness: cand2 per-hop correct-next-node at the deep K -- high=genuine denoise-and-traverse, low=jump-to-a_K recovery
+    ext_hopfrac = hop_curve.get(deep_K, 0.0)
+    extension_genuine = ext_hopfrac >= 0.85
+    print("  [af=%.2f a=%.4f s=%d] K_obs=%.1f ctrlK=%.1f boost=%.2fx | K_eq=%.1f cand/eq=%.2f ctrl/eq=%.2f | genuine_ctrl(ctrlK>Keq)=%s | ext_hopfrac@K%d=%.3f ext_genuine=%s" %
+          (alpha_frac, alpha, seed, kmax, ctrl_kmax, cleanup_boost, keq, ratio, ctrl_ratio, genuine_control, deep_K, ext_hopfrac, extension_genuine), flush=True)
     return {"alpha_frac": alpha_frac, "alpha": round(alpha, 5), "seed": seed, "k_obs": round(kmax, 2), "ctrl_k_obs": round(ctrl_kmax, 2),
-            "cleanup_boost": round(cleanup_boost, 3), "k_eq": round(keq, 2), "ratio_to_eq": round(ratio, 3),
+            "cleanup_boost": round(cleanup_boost, 3), "k_eq": round(keq, 2), "ratio_to_eq": round(ratio, 3), "ctrl_ratio_to_eq": round(ctrl_ratio, 3),
             "one_minus_frac_sq": round((1 - alpha / ALPHA_C) ** 2, 4), "safe_gate": bool(safe_gate(alpha)),
-            "cand_curve": cand_curve, "ctrl_curve": ctrl_curve, "deep_K": deep_K, "ctrl_at_deep": round(ctrl_at_deep, 4),
-            "genuine_multihop": bool(genuine), "run_mode": RUN_MODE}
+            "cand_curve": cand_curve, "ctrl_curve": ctrl_curve, "hop_curve": hop_curve, "deep_K": deep_K,
+            "ext_hopfrac": round(ext_hopfrac, 4), "genuine_control": bool(genuine_control), "extension_genuine": bool(extension_genuine), "run_mode": RUN_MODE}
 
 
 def compute_verdict(units) -> Tuple[str, str, Dict]:
@@ -164,33 +169,35 @@ def compute_verdict(units) -> Tuple[str, str, Dict]:
     for af, us in by.items():
         per[af] = {"alpha": us[0]["alpha"], "k_obs": float(np.mean([u["k_obs"] for u in us])),
                    "ctrl_k_obs": float(np.mean([u["ctrl_k_obs"] for u in us])), "k_eq": us[0]["k_eq"],
-                   "ratio_to_eq": float(np.mean([u["ratio_to_eq"] for u in us])), "cleanup_boost": float(np.mean([u["cleanup_boost"] for u in us])),
-                   "safe_gate": us[0]["safe_gate"], "ctrl_at_deep": float(np.mean([u["ctrl_at_deep"] for u in us])),
-                   "genuine": all(u["genuine_multihop"] for u in us)}
+                   "ratio_to_eq": float(np.mean([u["ratio_to_eq"] for u in us])), "ctrl_ratio_to_eq": float(np.mean([u["ctrl_ratio_to_eq"] for u in us])),
+                   "cleanup_boost": float(np.mean([u["cleanup_boost"] for u in us])), "ext_hopfrac": float(np.mean([u["ext_hopfrac"] for u in us])),
+                   "safe_gate": us[0]["safe_gate"], "genuine_control": all(u["genuine_control"] for u in us), "extension_genuine": all(u["extension_genuine"] for u in us)}
     safe = {af: d for af, d in per.items() if d["safe_gate"]}
     n_safe = len(safe); afs = sorted(safe.keys())
-    n_pass = sum(1 for d in safe.values() if d["ratio_to_eq"] >= 2.0)
-    all_genuine = all(d["genuine"] for d in safe.values()) if safe else False
-    mean_ratio = float(np.mean([safe[a]["ratio_to_eq"] for a in afs])) if afs else 0.0
+    n_ctrl_exceed = sum(1 for d in safe.values() if d["genuine_control"])           # control (artifact-free) > K_eq
+    n_ctrl_2x = sum(1 for d in safe.values() if d["ctrl_ratio_to_eq"] >= 2.0)         # control >= 2x (artifact-free chain-grade)
+    n_cand_2x = sum(1 for d in safe.values() if d["ratio_to_eq"] >= 2.0)             # cand2 (cleanup-ON) >= 2x
+    all_ext_genuine = all(d["extension_genuine"] for d in safe.values()) if safe else False  # cleanup-extension genuinely traverses (not jump-to-a_K)
+    mean_cratio = float(np.mean([safe[a]["ctrl_ratio_to_eq"] for a in afs])) if afs else 0.0
     mean_boost = float(np.mean([safe[a]["cleanup_boost"] for a in afs])) if afs else 0.0
-    detail = {"per_alpha_frac": per, "n_safe_points": n_safe, "n_pass_ge_2x": n_pass, "all_genuine_multihop": bool(all_genuine),
-              "ratios_to_eq_safe": {a: round(safe[a]["ratio_to_eq"], 2) for a in afs}, "cleanup_boost_safe": {a: round(safe[a]["cleanup_boost"], 2) for a in afs},
-              "mean_ratio_to_eq": round(mean_ratio, 2), "mean_cleanup_boost": round(mean_boost, 2),
-              "honest_claim": "Substrate NESS single-chain depth vs INDEPENDENT Hopfield K_eq (ac=0.138) in MODERATE regime "
-                              "[0.3,0.7]ac (K_eq bounded ~3-39): mean ratio_to_eq=%.2f (%d/%d pts >=2x); cleanup-augmentation "
-                              "boost mean=%.2fx (cand2 vs control); genuine-multi-hop=%s. DATA DECIDES tier (Skunkworks): "
-                              ">=2x+genuine across >=4/5 -> chain-grade; ~1.0 -> MEASURED_MECHANISM equilibrium-match." % (mean_ratio, n_pass, n_safe, mean_boost, all_genuine)}
-    summary = "ratio_to_eq(safe)=%s | %d/%d >=2x mean=%.2f | cleanup_boost(safe)=%s mean=%.2fx | genuine=%s | n_safe=%d" % (
-        detail["ratios_to_eq_safe"], n_pass, n_safe, mean_ratio, detail["cleanup_boost_safe"], mean_boost, all_genuine, n_safe)
+    detail = {"per_alpha_frac": per, "n_safe_points": n_safe, "n_ctrl_exceed_eq": n_ctrl_exceed, "n_ctrl_ge_2x": n_ctrl_2x,
+              "n_cand_ge_2x": n_cand_2x, "all_extension_genuine": bool(all_ext_genuine),
+              "ctrl_ratio_to_eq_safe": {a: round(safe[a]["ctrl_ratio_to_eq"], 2) for a in afs}, "cand_ratio_to_eq_safe": {a: round(safe[a]["ratio_to_eq"], 2) for a in afs},
+              "ext_hopfrac_safe": {a: round(safe[a]["ext_hopfrac"], 2) for a in afs}, "mean_ctrl_ratio_to_eq": round(mean_cratio, 2), "mean_cleanup_boost": round(mean_boost, 2),
+              "honest_claim": "Substrate NESS chain depth vs INDEPENDENT Hopfield K_eq (ac=0.138), MODERATE regime [0.3,0.7]ac. "
+                              "ARTIFACT-FREE control (cleanup-OFF): exceeds K_eq on %d/%d (mean %.2fx), >=2x on %d/%d -> substrate "
+                              "GENUINELY deeper than equilibrium. cleanup-augmentation: cand2 >=2x on %d/%d, extension-genuine(per-hop "
+                              "traverse)=%s. CHAIN-GRADE-592 IF cand2 >=2x>=4/5 AND extension genuine; else STRONG MEASURED_MECHANISM." %
+                              (n_ctrl_exceed, n_safe, mean_cratio, n_ctrl_2x, n_safe, n_cand_2x, n_safe, all_ext_genuine)}
+    summary = "ctrl/eq(safe)=%s [%d/%d >eq, %d/%d >=2x] | cand/eq=%s [%d/%d >=2x] | ext_hopfrac=%s ext_genuine=%s | n_safe=%d" % (
+        detail["ctrl_ratio_to_eq_safe"], n_ctrl_exceed, n_safe, n_ctrl_2x, n_safe, detail["cand_ratio_to_eq_safe"], n_cand_2x, n_safe, detail["ext_hopfrac_safe"], all_ext_genuine, n_safe)
     if n_safe < 4:
         return ("UNKNOWN", "need >=4 safe (moderate K_eq-bounded) points (got %d)" % n_safe, detail)
-    if not all_genuine:
-        return ("HARD_FAIL", "HARD_FAIL: cleanup-OFF recall < 0.30 at a moderate point -> deep-K is CLEANUP-RECOVERY ARTIFACT, NOT genuine multi-hop (pre-flag-1); cannot characterize as a depth mechanism. " + summary, detail)
-    if n_pass >= 4:
-        return ("HARD_PASS", "HARD_PASS (chain-grade candidate -> Skunkworks rules 592): NESS K_obs exceeds independent Hopfield K_eq >=2x across >=4/5 moderate points, genuine multi-hop. " + summary, detail)
-    if n_pass >= 2:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: NESS exceeds K_eq >=2x at 2-3 moderate points (not >=4), genuine. " + summary, detail)
-    return ("MEASURED_MECHANISM", "MEASURED_MECHANISM (CERT 591): single-substrate depth MATCHES Hopfield equilibrium (ratio_to_eq~1, does NOT exceed 2x) -- a real validation; genuine cleanup-augmentation boost %.2fx characterized separately. " % mean_boost + summary, detail)
+    if n_ctrl_exceed < 4:
+        return ("HARD_FAIL", "HARD_FAIL: control (artifact-free) does NOT exceed K_eq across >=4/5 -> substrate does not genuinely exceed equilibrium. " + summary, detail)
+    if n_cand_2x >= 4 and all_ext_genuine and n_ctrl_exceed >= 4:
+        return ("HARD_PASS", "HARD_PASS (chain-grade-592 candidate -> Skunkworks rules): cand2 >=2x on >=4/5 AND cleanup-extension GENUINELY traverses (per-hop correct-next-node) AND control genuinely exceeds equilibrium. NESS genuinely + cleanup-augmented deeper. " + summary, detail)
+    return ("MEASURED_MECHANISM", "STRONG MEASURED_MECHANISM (CERT 591): substrate GENUINELY exceeds Hopfield equilibrium on the ARTIFACT-FREE control arm (%d/%d >eq, %d/%d >=2x) -- the session's first genuinely-holding strong claim; cleanup-extension not verified-genuine-enough for chain-grade (ext_genuine=%s). " % (n_ctrl_exceed, n_safe, n_ctrl_2x, n_safe, all_ext_genuine) + summary, detail)
 
 
 print("[config] %s mode=%s N=%d alpha_fracs=%s K_grid=%s seeds=%s n_chains=%d" % (ANCHOR_NAME, RUN_MODE, N, ALPHA_FRACS, K_GRID, SEEDS, N_CHAINS), flush=True)
