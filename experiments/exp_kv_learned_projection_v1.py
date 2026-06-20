@@ -183,11 +183,20 @@ def compute_verdict(units) -> Tuple[str, str, Dict]:
                    "shuffled_ctrl": float(np.mean([u["shuffled_ctrl_recall"] for u in us])),
                    "analytic_ceiling": float(np.mean([u["analytic_ceiling_recall"] for u in us]))}
     Ms = sorted(by_M)
-    worst = min(by_M[M]["heldout_recall_mean"] for M in Ms)
+    worst = min(by_M[M]["heldout_recall_mean"] for M in Ms)                  # = worst-M MEAN (NOT per-unit) -- see relabel below
     worst_keysep = max(by_M[M]["keysep"] for M in Ms); max_std = max(by_M[M]["heldout_recall_std"] for M in Ms)
     analytic = max(by_M[M]["analytic_ceiling"] for M in Ms); margin = worst - analytic
     leak = any(by_M[M]["heldout_recall_mean"] >= 0.999 and by_M[M]["rho_mean"] < 0.02 for M in Ms)
-    detail = {"by_M": by_M, "worst_heldout_recall": round(worst, 4), "worst_keysep": round(worst_keysep, 4),
+    # CERT591 label-fidelity relabel (Skunkworks NOD): "worst" was the worst-M MEAN; ADD the true worst-PER-UNIT (min over units). ADD-don't-break.
+    worstM_recall_mean = worst                                               # min over M of per-M means (e.g. 0.827 @ M=10k)
+    recall_worst_per_unit = min(u["heldout_recall"] for u in units)          # true worst single unit (e.g. 0.805)
+    keysep_mean_all = float(np.mean([u["heldout_keysep"] for u in units]))
+    keysep_worst_per_unit = min(u["heldout_keysep"] for u in units)          # least-separated unit (e.g. 0.726)
+    detail = {"by_M": by_M,
+              "worst_heldout_recall": round(worst, 4),                       # DEPRECATED ALIAS = worst-M MEAN (label imprecise; kept for consumers; see _worstM_mean / _worst_per_unit)
+              "heldout_recall_worstM_mean": round(worstM_recall_mean, 4), "heldout_recall_worst_per_unit": round(recall_worst_per_unit, 4),
+              "worst_keysep": round(worst_keysep, 4),                        # DEPRECATED ALIAS = max-M keysep MEAN
+              "keysep_mean": round(keysep_mean_all, 4), "keysep_worst_per_unit": round(keysep_worst_per_unit, 4),
               "max_std": round(max_std, 4), "analytic_ceiling": round(analytic, 4), "learned_minus_analytic": round(margin, 4),
               "honest_scope": "LEARNED contrastive key-projection generalizes the value-cue->key alignment to HELD-OUT "
                               "facts on Pythia-2.8B; de-crowding table-stakes (reported); analytic ceiling reported."}
