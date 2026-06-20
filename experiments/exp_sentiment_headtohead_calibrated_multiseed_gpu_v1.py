@@ -45,11 +45,12 @@ def _train_eval_substrate(train, test, LAB, seed):
                 for f in feats: w[g][f] += 1; w[pred][f] -= 1; cw[g][f] += c; cw[pred][f] -= c
             c += 1
     avg = {l: {f: w[l][f] - cw[l][f] / c for f in w[l]} for l in LAB}
-    scor = 0
+    scor = 0; t_ev = time.time()
     for e in test:
         feats = _feats(e["text"]); sc = {l: sum(avg[l].get(f, 0.0) for f in feats) for l in LAB}
         if max(LAB, key=lambda l: (sc[l], l)) == e["label"]: scor += 1
-    return scor / len(test)
+    sub_per_ex = (time.time() - t_ev) / max(1, len(test))
+    return scor / len(test), sub_per_ex
 
 
 def main():
@@ -60,9 +61,12 @@ def main():
     LAB = list(range(len(LABELS)))
     SEEDS = [0, 1, 2] if SMOKE else [0, 1, 2, 3, 4]
     t_s = time.time()
-    vals = [round(_train_eval_substrate(train, test, LAB, sd), 4) for sd in SEEDS]
+    res = [_train_eval_substrate(train, test, LAB, sd) for sd in SEEDS]
+    vals = [round(a, 4) for a, _ in res]; sub_per_ex = sum(t for _, t in res) / len(res)
     mean = sum(vals) / len(vals); std = (sum((v - mean) ** 2 for v in vals) / len(vals)) ** 0.5
-    print("  substrate n=%d: mean=%.4f std=%.4f vals=%s" % (len(vals), mean, std, vals), flush=True)
+    seed_spread = max(vals) - min(vals)
+    print("  substrate n=%d: mean=%.4f std=%.4f spread=%.4f vals=%s | sub_per_ex=%.2eus" % (
+        len(vals), mean, std, seed_spread, vals, sub_per_ex * 1e6), flush=True)
     # --- calibrated LLM (deterministic, once) ---
     DEV = "cuda" if torch.cuda.is_available() else "cpu"
     name = "Qwen/Qwen2.5-0.5B-Instruct"
@@ -81,31 +85,44 @@ def main():
     def mk_prompt(txt): return "Review: " + txt[:300] + "\nThe sentiment is"
     CF = [mk_prompt(""), mk_prompt("N/A"), mk_prompt("nothing")]
     cf = [sum(logp_total(p, " " + LABELS[k]) for p in CF) / len(CF) for k in range(len(LABELS))]
-    raw_cor = cal_cor = 0
+    raw_cor = cal_cor = 0; t_llm = time.time()
     for e in test:
         prompt = mk_prompt(e["text"]); lps = [logp_total(prompt, " " + LABELS[k]) for k in range(len(LABELS))]
         if max(range(len(LABELS)), key=lambda k: lps[k]) == e["label"]: raw_cor += 1
         if max(range(len(LABELS)), key=lambda k: lps[k] - cf[k]) == e["label"]: cal_cor += 1
+    llm_per_ex = (time.time() - t_llm) / max(1, len(test))
     llm_raw = raw_cor / len(test); llm_cal = cal_cor / len(test)
-    print("  LLM: raw=%.3f calibrated=%.3f" % (llm_raw, llm_cal), flush=True)
-    # --- verdict ---
+    speed_up = llm_per_ex / max(1e-12, sub_per_ex)
+    print("  LLM: raw=%.3f calibrated=%.3f | llm_per_ex=%.2fms speed_up=%.0fx" % (
+        llm_raw, llm_cal, llm_per_ex * 1e3, speed_up), flush=True)
+    # --- verdict (v2 pre-reg: 4-condition HARD_PASS w/ prompt-fairness calibrated baseline + speed + seed-reproduce) ---
+    c_margin = mean >= llm_cal + 0.01            # cond1: beats best-prompted (calibrated) LLM with margin
+    c_robust = mean - std >= llm_cal             # cond2: seed-robust margin (mean-std over the fair baseline)
+    c_speed = speed_up >= 100.0                   # cond3: latency-dimensionality WIN (reported + gated)
+    c_repro = seed_spread <= 0.04                 # cond4: all seeds reproduce within +-0.02 of mean (spread<=0.04)
+    tail = ("substrate mean=%.4f std=%.4f spread=%.4f vs CALIBRATED-LLM=%.3f (fair baseline; raw=%.3f) | speed_up=%.0fx | "
+            "vals=%s | conds[margin=%s robust=%s speed=%s repro=%s]" % (
+            mean, std, seed_spread, llm_cal, llm_raw, speed_up, vals, c_margin, c_robust, c_speed, c_repro))
     if llm_cal < 0.65:
-        verdict = "UNKNOWN"; msg = "UNKNOWN: calibrated LLM %.3f < 0.65, eval unreliable. substrate mean=%.4f." % (llm_cal, mean)
-    elif mean - std >= llm_cal:
-        verdict = "HARD_PASS"; msg = ("HARD_PASS: substrate ROBUSTLY beats calibrated-LLM on SST-2 -- substrate mean=%.4f std=%.4f "
-            "(mean-std=%.4f) >= calibrated-LLM=%.3f. Robust to seed. vals=%s. Substrate tiny+fast+deterministic-at-fixed-seed." % (
-            mean, std, mean - std, llm_cal, vals))
-    elif mean >= llm_cal:
-        verdict = "MIDDLE_BAND"; msg = ("MIDDLE_BAND: substrate MATCHES calibrated-LLM (edge within seed-noise) -- substrate mean=%.4f "
-            "std=%.4f vs calibrated-LLM=%.3f; mean>=LLM but mean-std=%.4f < LLM. Honest read: substrate ~= 0.5B LLM on SST-2, at "
-            "a tiny fraction of size/latency. vals=%s." % (mean, std, llm_cal, mean - std, vals))
+        verdict = "UNKNOWN"; msg = "UNKNOWN: calibrated LLM %.3f < 0.65, eval unreliable. " % llm_cal + tail
+    elif mean < llm_cal or seed_spread > 0.04:
+        verdict = "HARD_FAIL"; msg = ("HARD_FAIL: substrate does NOT robustly beat the best-prompted (calibrated) LLM "
+            "(win was prompt-artifact) OR seeds disagree >0.04. " + tail)
+    elif c_margin and c_robust and c_speed and c_repro:
+        verdict = "HARD_PASS"; msg = ("HARD_PASS: substrate beats BEST-PROMPTED (PMI-calibrated, multi-seed-robust) Qwen2.5-0.5B "
+            "on SST-2 with margin + >=100x speed-up + seed-robust. " + tail)
     else:
-        verdict = "HARD_FAIL"; msg = "HARD_FAIL: substrate mean=%.4f < calibrated-LLM %.3f - 0.02. vals=%s." % (mean, llm_cal, vals)
+        verdict = "MIDDLE_BAND"; msg = ("MIDDLE_BAND: substrate matches/edges calibrated-LLM but not all 4 cert conds met "
+            "(edge within seed-noise or sub-margin). " + tail)
     print("\n[VERDICT] " + msg, flush=True)
     OUT.mkdir(parents=True, exist_ok=True)
     json.dump({"anchor_name": "sentiment_headtohead_calibrated_multiseed_gpu_v1", "verdict": verdict, "verdict_msg": msg,
-               "summary": msg, "elapsed_s": time.time() - t_s, "substrate_mean": round(mean, 4), "substrate_std": round(std, 4),
-               "substrate_vals": vals, "llm_acc_calibrated": round(llm_cal, 3), "llm_acc_raw": round(llm_raw, 3)},
+               "summary": msg, "elapsed_s": time.time() - t_s, "run_mode": ("smoke" if SMOKE else "full"),
+               "metrics_source": "measured_gpu_sentiment_headtohead_calibrated_multiseed_sst2", "n_seeds": len(SEEDS),
+               "substrate_mean": round(mean, 4), "substrate_std": round(std, 4), "substrate_seed_spread": round(seed_spread, 4),
+               "substrate_vals": vals, "llm_acc_calibrated": round(llm_cal, 3), "llm_acc_raw": round(llm_raw, 3),
+               "substrate_per_ex_s": sub_per_ex, "llm_per_ex_s": llm_per_ex, "speed_up_factor": round(speed_up, 1),
+               "conds": {"margin": c_margin, "robust": c_robust, "speed": c_speed, "repro": c_repro}},
               open(OUT / "metrics.json", "w", encoding="utf-8"))
     print("[metrics] written", flush=True)
 
