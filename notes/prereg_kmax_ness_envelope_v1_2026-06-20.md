@@ -17,13 +17,16 @@ K_eq has TWO bad limits: alpha->0 -> K_eq->inf (/alpha) -> unfair fail (smoke-ca
 
 ## Metrics + DATA-DECIDES verdict
 - K_obs (cleanup-ON cand2 depth at recall>=0.9), ctrl_K_obs (cleanup-OFF), cleanup_boost = K_obs/ctrl_K_obs, K_eq, ratio_to_eq.
-- **GENUINE-MULTI-HOP (load-bearing, Skunkworks + Research):** cleanup-OFF recall >= 0.30 at the deep K (per-depth + REPORT curve).
-  If cleanup-OFF ~ chance while cleanup-ON high -> deep-K is CLEANUP-RECOVERY ARTIFACT, NOT genuine depth -> HARD_FAIL (cannot
-  characterize an artifact as a mechanism).
-- **Bands (data decides):** UNKNOWN if <4 safe points. HARD_FAIL if NOT genuine (artifact). HARD_PASS (chain-grade candidate
-  -> Skunkworks rules 592) if ratio_to_eq>=2x across >=4/5 safe points AND genuine. MIDDLE_BAND if >=2x at 2-3. MEASURED_MECHANISM
-  (CERT 591) if matches equilibrium (~1.0, does NOT exceed 2x) AND genuine -- a real validation (single-substrate ~ Hopfield);
-  cleanup-augmentation boost characterized separately.
+- **GENUINE (load-bearing, CORRECTED per Skunkworks landed-VET -- doc-code parity):** TWO artifact-free checks.
+  (1) **genuine_control = (control K_obs > K_eq):** the cleanup-OFF (control) arm has NO codebook snap -> CANNOT be a cleanup
+  artifact; control K_obs exceeding K_eq = genuine multi-hop beyond equilibrium. [Replaces the OLD mis-spec'd "cleanup-OFF
+  recall >= 0.30 at cand2's deep_K", which read False on ANY cleanup boost because cand2's deep_K is by-design past control's cliff.]
+  (2) **extension_genuine = (ext_hopfrac >= 0.85):** ext_hopfrac = fraction of cand2 hops that snap to the CORRECT next chain-node
+  a_{h+1} (genuine denoise-and-traverse) vs jump to a_K (cleanup-RECOVERY artifact). Per-depth + REPORT curve.
+- **Bands (data decides):** UNKNOWN if <4 safe points. HARD_FAIL if control does NOT exceed K_eq on >=4/5 (substrate does not
+  genuinely exceed equilibrium). HARD_PASS (chain-grade -> Skunkworks rules 592) if cand2 ratio_to_eq>=2x on >=4/5 AND
+  all_extension_genuine AND control exceeds K_eq on >=4/5. Else STRONG MEASURED_MECHANISM (CERT 591) -- control genuinely exceeds
+  equilibrium (the verified floor) but cleanup-extension not verified-genuine-enough / control<2x on >=4/5.
 - **UP-guard:** any ratio_to_eq driven by K_eq near the bounded edges -> verify (report K_eq per-point).
 
 ## SMOKE (N=1024, [0.4,0.6]ac) -- mechanically validated
