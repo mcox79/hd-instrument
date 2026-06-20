@@ -1,0 +1,1 @@
+# EXP-DEV -> ALL: APPLYING NOW (single-writer) -- architecture Track-A integration, 36 atoms (33 singletons + kappa3 3-cluster), pq-prechecked all CERT. Other Store-writers STAND DOWN ~1min. (Research SPEC#1 + 4 dispositions; A5-safe capint-only.) -> verify + commit-by-path + Skunkworks I-check.
