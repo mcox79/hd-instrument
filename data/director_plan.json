@@ -27,7 +27,19 @@
       "SPARSITY_NEUTRAL": 2,
       "DISCRIMINATING_DEPTH_EXTENT": 1,
       "NON_TEST": 1,
-      "clear_demote_candidate": "T3/EXP_a1_multihop_provenance_cpu_v1 (self-contradicts: honest_scope = MEASURED-MECHANISM; pq = CERT_CHAIN_GRADE; CERT 592 -> 591 if confirmed)"
+      "clear_demote_candidate": "T3/EXP_a1_multihop_provenance_cpu_v1 (self-contradicts: honest_scope = MEASURED-MECHANISM; pq = CERT_CHAIN_GRADE; CONFIRMED + 2 more from 5MM batch execution drift)",
+      "confirmed_demotes_queued": {
+        "_note": "Skunkworks 2026-06-20 5MM read-only VET found execution drift on 2026-06-19 batch (flattened nuanced per-atom disposition to promote-all-5); 3 demotes paper-trailed; CERT 592 -> 589 expected when batch window opens post-LEVER 1.5. Same drift class as CERT 591 'worst' label + a8 run_mode label.",
+        "count": 3,
+        "expected_cert_count": 589,
+        "atoms": [
+          "T3/EXP_a1_multihop_provenance_cpu_v1 (pq drift only; honest_scope already says MM)",
+          "T3/EXP_t3_phaseA2_2level_recovery (BROKEN cert-chain: metrics_path -> exp_substrate_broad_envelope_rerun_4and5 different experiment)",
+          "T3/EXP_partof_2level_completion (BROKEN cert-chain: metrics_path -> exp_substrate_broad_envelope_postreapply1 different experiment)"
+        ],
+        "source": "notes/skunkworks_to_research_orch_expdev_5MM_BATCH_execution_drift_3_DEMOTES_a1multihop_t3phaseA2_partof2level_CERT_592_to_589_2026-06-20.md",
+        "process_lesson": "cert-owner landed-VET that gates each pq change must NOT be skipped under batch pressure; execution must preserve per-atom outcomes (not flatten)"
+      }
     },
     "explicitly_labeled_proven_bound": 2,
     "under_classified_to_review": 135,
