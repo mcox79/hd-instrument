@@ -260,7 +260,17 @@ def main() -> int:
         print(json.dumps(decision))
         return 0
 
-    # No concrete signal: exit (true stop). Don't increment counter.
+    # No concrete signal: exit (true stop). Also RESET the continuation counter to 0 -- a
+    # clean stop is the natural cycle boundary (equivalent to "session caught up + handed
+    # back to USER"); the counter should fresh-start the next time work shows up. Without
+    # this, the counter accumulates across DIFFERENT pings/notes during a long reactive
+    # session and eventually hits cap on unrelated notes. (Written as "0" rather than
+    # unlinked so the dry-run tests' count_after read remains valid.)
+    try:
+        if count != 0:
+            cont_file.write_text('0')
+    except OSError:
+        pass
     return 0
 
 
