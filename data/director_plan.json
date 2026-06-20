@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-20T17:30:00Z",
+  "ts": "2026-06-20T18:05:00Z",
   "ts_note": "Director-maintained; updated at natural decision points (routings filed, ships landing, SCHEMA-VETs landing). Not 60s-cadence.",
   "schema_version": "v1_skunkworks_vetted",
   "schema_reference": "notes/skunkworks_to_research_testbed_SCHEMAVET_dashboard_plan_json_engagement_metrics_cert_discipline_verdict_2026-06-20.md",
@@ -69,18 +69,21 @@
     },
     {
       "id": "phase4b_multistep_pull_up",
-      "title": "phase4b multistep pull-up (queued; lower urgency)",
+      "title": "phase4b multistep pull-up (3-of-3 per Skunkworks I4 ruling; pre-reg filed)",
       "type": "characterization",
-      "status": "planned",
-      "owner": "research",
-      "owner_asserted": true,
-      "waiting_on": ["director: author CAN-fail pre-reg", "skunkworks: SCHEMA-VET", "exp_dev: cell-author"],
-      "artifact": "(pre-reg pending)",
+      "status": "in-progress",
+      "owner": "exp_dev",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-proposed; awaiting Exp-Dev acknowledgement",
+      "waiting_on": ["skunkworks: SCHEMA-VET on pre-reg A1-A4", "exp_dev: cell-author bandwidth"],
+      "artifact": "notes/research_to_skunkworks_expdev_PREREG_phase4b_multistep_pull_up_v2_*.md",
+      "commit": "(this commit)",
       "cell": "experiments/exp_phase4b_multistep_pull_up_v2_cpu_v1.py",
       "cert_atom": null,
       "cert_class": null,
-      "discriminating_regime": null,
-      "last_updated_ts": "2026-06-20T16:54:00Z"
+      "discriminating_regime": "HARD_FAIL 2-op acc<0.15 on MultiArith OR >=2 of {ASDiv,MAWPS}<0.15 OR seeds disagree >0.05 (representation-adequate benchmarks; SVAMP representation-limit REPORTED-not-gated)",
+      "tier_target": "CHAIN-GRADE-CANDIDATE (data-decides)",
+      "last_updated_ts": "2026-06-20T18:05:00Z"
     },
     {
       "id": "refuse_gate_5",
@@ -256,8 +259,8 @@
   "summary": {
     "priorities_total": 13,
     "priorities_done": 3,
-    "priorities_in_progress": 5,
-    "priorities_planned": 4,
+    "priorities_in_progress": 6,
+    "priorities_planned": 3,
     "priorities_blocked": 1,
     "priorities_dissolved": 0,
     "priorities_remaining_non_terminal": 10,
