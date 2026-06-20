@@ -149,6 +149,40 @@ def main() -> int:
                          rc == 0 and '"decision"' not in stdout))
     test_note.unlink(missing_ok=True)
 
+    # Future-anchored window so live notes/ contents can't confound:
+    # ts_mtime = NOW + 1000s; test_note mtime = NOW + 2000s.
+    # No real note is newer than ts_mtime, so only the test note enters the scan.
+    future_ts = time.time() + 1000
+    future_note = time.time() + 2000
+
+    # === T6: cross-targeted watchdog ping does NOT trip have_unread (Orchestrator fix) ===
+    print()
+    print('T6: watchdog_ping_to_<OTHER>_to_all_* must NOT trip have_unread for THIS session')
+    CONT_FILE.write_text('0')
+    os.utime(TS_FILE, (future_ts, future_ts))
+    cross_ping = REPO_ROOT / 'notes' / 'watchdog_ping_to_someotherrole_to_all_20260620T999999Z.md'
+    cross_ping.write_text('cross-targeted watchdog ping for regression test')
+    os.utime(cross_ping, (future_note, future_note))
+    stdout, rc = run_hook(STOP_HOOK, '{}', TS)
+    results.append(check('T6 exit=0 + no block on cross-targeted watchdog ping',
+                         rc == 0 and '"decision"' not in stdout))
+    count_after = int(CONT_FILE.read_text().strip()) if CONT_FILE.exists() else -1
+    results.append(check(f'T6 counter NOT incremented (count={count_after})', count_after == 0))
+    cross_ping.unlink(missing_ok=True)
+
+    # === T7: self-targeted watchdog ping STILL trips have_unread ===
+    print()
+    print('T7: watchdog_ping_to_<SELF>_to_all_* MUST still trip have_unread')
+    CONT_FILE.write_text('0')
+    os.utime(TS_FILE, (future_ts, future_ts))
+    self_ping = REPO_ROOT / 'notes' / f'watchdog_ping_to_{TS}_to_all_20260620T999998Z.md'
+    self_ping.write_text('self-targeted watchdog ping for regression test')
+    os.utime(self_ping, (future_note, future_note))
+    stdout, rc = run_hook(STOP_HOOK, '{}', TS)
+    results.append(check('T7 emits decision=block on self-targeted watchdog ping',
+                         '"decision": "block"' in stdout or '"decision":"block"' in stdout))
+    self_ping.unlink(missing_ok=True)
+
     cleanup()
 
     print()

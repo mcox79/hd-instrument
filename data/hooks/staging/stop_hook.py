@@ -79,6 +79,23 @@ def main() -> int:
     if not session:
         return 0
 
+    # Resolve the auto_<hash> key to a role name via data/session_key_map.json if mapped.
+    # Without this, own-outgoing exclude breaks: session_lower='auto_abc...' never matches
+    # the role-prefixed notes (e.g. 'orchestrator_to_...') the session itself emits ->
+    # self-firing on own broadcasts. Map is owned by the launcher / user-bootstrap.
+    repo_root_early = Path(__file__).resolve().parent.parent.parent.parent
+    key_map_file = repo_root_early / 'data' / 'session_key_map.json'
+    role_name = None
+    if key_map_file.exists():
+        try:
+            with key_map_file.open('r', encoding='utf-8') as f:
+                key_map = json.load(f)
+            mapped = key_map.get(session)
+            if isinstance(mapped, str) and mapped.strip():
+                role_name = mapped.strip()
+        except (json.JSONDecodeError, OSError):
+            pass
+
     # === GUARD 1: stop_hook_active (THE load-bearing loop prevention) ===
     if bool(hook_input.get('stop_hook_active', False)):
         # Already in a Stop-hook-triggered continuation; never recurse.
@@ -132,6 +149,15 @@ def main() -> int:
     have_watchdog_ping = False
     have_watchdog_ping_name = None
     session_lower = session.lower()
+    role_lower = role_name.lower() if role_name else None
+    # Prefixes a note can start with that mean "I wrote this" -- exclude.
+    own_prefixes = {f'{session_lower}_'}
+    if role_lower:
+        own_prefixes.add(f'{role_lower}_')
+    # Tokens that mean "this is for me" in the v5 unread filter -- include.
+    self_tokens = {session_lower}
+    if role_lower:
+        self_tokens.add(role_lower)
     if notes_dir.is_dir():
         # Single scandir pass for BOTH unread + watchdog-ping signals.
         # Uses os.scandir for fast DirEntry traversal (much faster than iterdir+stat on Windows
@@ -142,14 +168,21 @@ def main() -> int:
                     if not entry.name.endswith('.md'):
                         continue
                     name_lower = entry.name.lower()
-                    # Exclude own outgoing
-                    if name_lower.startswith(f'{session_lower}_'):
+                    # Exclude own outgoing (under EITHER the hash key or the resolved role)
+                    if any(name_lower.startswith(p) for p in own_prefixes):
                         continue
+                    # FIX (Orchestrator finding #1, 2026-06-20): watchdog pings are filed as
+                    # `watchdog_ping_to_<X>_to_all_*` -- the `to_all` substring would otherwise
+                    # trip have_unread on EVERY session, not just the targeted one. Exclude
+                    # other-targeted watchdog pings explicitly before the unread match.
+                    if name_lower.startswith('watchdog_ping_to_'):
+                        if not any(tok in name_lower for tok in self_tokens):
+                            continue
                     # First: cheap watchdog-ping filter (highest signal)
                     is_watchdog = (name_lower.startswith('watchdog_ping_to_')
-                                   and session_lower in name_lower)
+                                   and any(tok in name_lower for tok in self_tokens))
                     # Then: v5 unread filter
-                    is_unread_match = (session_lower in name_lower
+                    is_unread_match = (any(tok in name_lower for tok in self_tokens)
                                        or 'to_all' in name_lower
                                        or '_all_' in name_lower)
                     if not (is_watchdog or is_unread_match):
