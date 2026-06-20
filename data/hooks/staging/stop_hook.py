@@ -108,14 +108,19 @@ def main() -> int:
     ts_file = repo_root / 'data' / f'last_processed_{session}.timestamp'
 
     if not ts_file.exists():
-        # First-run: treat all current notes as "already processed" (start fresh).
-        # The first time the hook runs, write current time so existing notes don't all trigger.
-        # (Defensive: avoid using touch -t which has Windows quirks; just write now.)
+        # First-run: set timestamp to NOW so existing notes don't all count as "unread".
+        # Without this, the very first hook fire would see 6000+ notes as newer than the
+        # (just-created) timestamp file, blocking the session repeatedly until cap.
         try:
             ts_file.touch()
         except OSError:
             pass
-        ts_mtime = 0
+        # Use current time as ts_mtime so existing notes are "already processed".
+        try:
+            ts_mtime = ts_file.stat().st_mtime
+        except OSError:
+            import time as _t
+            ts_mtime = _t.time()
     else:
         try:
             ts_mtime = ts_file.stat().st_mtime
