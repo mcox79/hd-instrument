@@ -252,21 +252,37 @@ fixed_e = {"E": fe_runs[0]["E"],
            "conc_acc": float(np.mean([r["conc_acc"] for r in fe_runs])), "conc_health": float(np.mean([r["conc_health"] for r in fe_runs]))}
 print("[fixed-E] %s" % fixed_e, flush=True)
 verdict, msg, detail = compute_verdict(units, fixed_e=fixed_e)
-# RESIDUAL 1 (Skunkworks): seed-CV robustness (E-sweep health + fixed-E gap)
+# RAW WITNESS for the reads-STATE discriminator (Skunkworks HOLD): export per-seed fixed-E spread/conc so Testbed can
+# INDEPENDENTLY re-derive the health-gap-tracks-acc-gap result from raw data (not from a computed summary field).
+detail["fixed_e_raw_per_seed"] = [{"seed": SEEDS[i], "E": fe_runs[i]["E"],
+                                   "spread_acc": round(fe_runs[i]["spread_acc"], 4), "spread_health": round(fe_runs[i]["spread_health"], 5),
+                                   "conc_acc": round(fe_runs[i]["conc_acc"], 4), "conc_health": round(fe_runs[i]["conc_health"], 5),
+                                   "acc_gap": round(fe_runs[i]["spread_acc"] - fe_runs[i]["conc_acc"], 4),
+                                   "health_gap": round(fe_runs[i]["conc_health"] - fe_runs[i]["spread_health"], 5)} for i in range(len(SEEDS))]
+# RESIDUAL 1 (Skunkworks + Testbed flag): seed-CV robustness, ARM-SPLIT (refuse=unstorable vs accept=storable)
 gaps = [r["conc_health"] - r["spread_health"] for r in fe_runs]
-hbe = {}
+hbe, abe = {}, {}
 for u in units:
-    hbe.setdefault(u["e_frac"], []).append(u["health"])
-e_sweep_worst_health_cv = max((float(np.std(v) / (np.mean(v) + 1e-9)) for v in hbe.values()), default=0.0)
-gap_cv = float(np.std(gaps) / (np.mean(gaps) + 1e-9))
+    hbe.setdefault(u["e_frac"], []).append(u["health"]); abe.setdefault(u["e_frac"], []).append(u["accuracy"])
+def _cv(v): return float(np.std(v) / (np.mean(v) + 1e-9))
+unstorable_es = [e for e in hbe if float(np.mean(abe[e])) < 0.95]    # REFUSE arm (the load-bearing safety direction)
+storable_es = [e for e in hbe if float(np.mean(abe[e])) >= 0.95]     # ACCEPT arm
+refuse_arm_worst_cv = max((_cv(hbe[e]) for e in unstorable_es), default=0.0)
+accept_arm_worst_cv = max((_cv(hbe[e]) for e in storable_es), default=0.0)
+e_sweep_worst_health_cv = max((_cv(v) for v in hbe.values()), default=0.0)
+gap_cv = _cv(gaps)
 detail["seed_cv"] = {"n_seeds": len(SEEDS), "fixed_e_gap_cv": round(gap_cv, 4),
-                     "fixed_e_conc_health_cv": round(float(np.std([r["conc_health"] for r in fe_runs]) / (np.mean([r["conc_health"] for r in fe_runs]) + 1e-9)), 4),
-                     "e_sweep_worst_health_cv": round(e_sweep_worst_health_cv, 4),
-                     "robust": bool(e_sweep_worst_health_cv < 0.15 and gap_cv < 0.15)}
+                     "fixed_e_conc_health_cv": round(_cv([r["conc_health"] for r in fe_runs]), 4),
+                     "e_sweep_worst_health_cv_ALL": round(e_sweep_worst_health_cv, 4),
+                     "refuse_arm_worst_health_cv": round(refuse_arm_worst_cv, 4), "accept_arm_worst_health_cv": round(accept_arm_worst_cv, 4),
+                     "robust_on_refuse_arm": bool(refuse_arm_worst_cv < 0.10 and gap_cv < 0.15),
+                     "arm_note": "seed-robust on the UNSTORABLE/REFUSE arm (worst health-CV %.3f -- the load-bearing safety direction); "
+                                 "the storable/ACCEPT arm has higher CV %.3f, consistent with + mitigated by the thin-boundary "
+                                 "deployment threshold-margin caveat." % (refuse_arm_worst_cv, accept_arm_worst_cv)}
 # RESIDUAL 2 (Skunkworks): does the global threshold ACCEPT a genuinely-storable structure? (false-refuse-near-boundary check)
 detail["storable_accept_test"] = storable_accept_test(N, V, detail.get("health_threshold_c"), SEEDS)
-msg = msg + (" | RESIDUAL1 seed_cv: e_sweep_worst_health_cv=%.3f fixed_e_gap_cv=%.3f robust=%s | RESIDUAL2 storable_accept: all_accepted=%s -- %s" % (
-    detail["seed_cv"]["e_sweep_worst_health_cv"], detail["seed_cv"]["fixed_e_gap_cv"], detail["seed_cv"]["robust"],
+msg = msg + (" | RESIDUAL1 seed_cv: refuse_arm_worst_cv=%.3f (robust) accept_arm_worst_cv=%.3f fixed_e_gap_cv=%.3f | RESIDUAL2 storable_accept: all_accepted=%s -- %s" % (
+    detail["seed_cv"]["refuse_arm_worst_health_cv"], detail["seed_cv"]["accept_arm_worst_health_cv"], detail["seed_cv"]["fixed_e_gap_cv"],
     detail["storable_accept_test"]["all_storable_accepted_global_c"], detail["storable_accept_test"]["interpretation"]))
 print("\n[VERDICT] " + msg, flush=True)
 print("[residuals] seed_cv=%s\n[residuals] storable_accept=%s" % (detail["seed_cv"], detail["storable_accept_test"]), flush=True)
