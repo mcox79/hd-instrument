@@ -11,8 +11,9 @@ DESIGN (single-alpha NESS, per drill plan "W <- (1-alpha)W + outer; alpha=write-
 
 DISCIPLINES (cert-VET, all baked in):
 - alpha_c=0.138 INDEPENDENT (Hopfield) -> non-circular baseline (Skunkworks constraint SATISFIED).
-- DIVIDE-BY-ZERO GUARD: K_eq->0 as alpha->alpha_c -> gate ONLY where (1-alpha/alpha_c)^2 >= 0.30 (safe regime). SWEEP stays
-  alpha in {0.05..0.25}*alpha_c (all (1-a/ac)^2 in [0.56,0.90]) -> >=4 gating points, ratio CAN fail. Report K_eq + (1-a/ac)^2 per-point.
+- DIVIDE-BY-ZERO GUARD (COMPLETE, both limits): K_eq->0 as alpha->alpha_c (trivial pass) AND K_eq->inf as alpha->0 (/alpha;
+  unfair fail). Gate ONLY in the MODERATE regime where K_eq is BOUNDED: safe_gate = 2.5 <= K_eq <= 45. SWEEP stays
+  alpha in [0.30..0.70]*alpha_c (K_eq ~ {39,21,12,6,3}) -> >=4 discriminating points where ratio CAN pass OR fail. Report K_eq per-point.
 - GENUINE-MULTI-HOP (pre-flag 1): cleanup-OFF (control sign-recall) measured per-depth; cleanup-OFF >= 0.3 = genuine multi-hop
   (PASS); ~chance = cleanup-RECOVERY artifact (FLAG). REPORT the cleanup-OFF curve. (per Research op + Skunkworks add.)
 - empirical envelope = LIVE cert; the NESS predictive ALGEBRA (fitted eta/f_c/tau) stays T3-conjecture (kept distinct).
