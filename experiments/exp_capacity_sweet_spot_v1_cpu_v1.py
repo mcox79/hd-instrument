@@ -57,37 +57,40 @@ def select_config(target_alpha, c):
     return {"status": "OK", "f": f_sel, "projection": bool(proj)}
 
 
-def _bsc(m, n, g):
-    return (g.integers(0, 2, (m, n)) * 2 - 1).astype(np.float32)
+FLIP = 0.05
 
 
-def _sparse_vals(V, n, f, g):
-    k = max(1, int(f * n)); out = np.zeros((V, n), np.float32)
-    for i in range(V):
-        idx = g.choice(n, k, replace=False); out[i, idx] = g.integers(0, 2, k) * 2 - 1
-    return out
+def _sparse_pat(M, n, f, g):
+    """k=f*n active in {-1,+1} (matches sparse-#2 a3f473dd sparse_pat -- the cited auto-assoc atom)."""
+    k = max(1, int(f * n)); P = np.zeros((M, n), np.float32)
+    for i in range(M):
+        idx = g.choice(n, k, replace=False); P[i, idx] = g.integers(0, 2, k) * 2 - 1
+    return P
 
 
 def kv_recall(target_alpha, c_level, f, projection, n, seed):
-    """KV-recall task at config (f, projection): store M=alpha*N (key,value) pairs, recall value via cleanup. Returns recall@1."""
-    g = np.random.default_rng(seed); M = max(2, int(target_alpha * n)); V = max(M, 64)
-    # keys: c_level controls crowding (shared-mean cone). high c -> keys crowded (low capacity unless projected).
-    base = _bsc(1, n, g)
-    keys = _bsc(M, n, g) + c_level * base               # c_level * shared base -> crowding (raises crosstalk-moment)
-    if projection:                                      # de-crowding projection proxy (mean-center -> removes shared cone; #7 is the learned production version)
-        keys = keys - keys.mean(0, keepdims=True)
-    keys = keys / (np.linalg.norm(keys, axis=1, keepdims=True) + 1e-8)
-    book = _sparse_vals(V, n, f, g) if f < 1.0 else _bsc(V, n, g)
-    vi = g.integers(0, V, M)
-    B = np.zeros((n, n), np.float32)
-    for j in range(M):
-        B += np.outer(book[vi[j]], keys[j])             # heteroassoc store value<-key
-    cor = 0
-    for j in range(0, M, 512):
-        q = keys[j:j + 512]; R = (q @ B.T)              # recall value-estimates (chunked)
-        pred = np.argmax(R @ book.T, axis=1)
-        cor += int((pred == vi[j:j + 512]).sum())
-    return cor / M
+    """AUTO-ASSOC sparse recall at config (f, projection) -- matches the CITED atom (sparse-#2 alpha_c(f), W-free non-zero recall).
+    f controls capacity (alpha_c(f) curve); c_level crowds (shared cone); projection de-crowds. Validation tests the SAME
+    capability the cited curve characterizes (verify-the-referent: validation matches the consumed atom)."""
+    g = np.random.default_rng(seed); M = max(2, int(target_alpha * n))
+    P = _sparse_pat(M, n, f, g)
+    if c_level > 0:                                      # crowding: add a shared component on the active support (raises crosstalk)
+        P = P + c_level * P.mean(0, keepdims=True)
+    if projection:                                       # de-crowding projection proxy (mean-center; #7 learned proj is the production version)
+        P = P - P.mean(0, keepdims=True)
+    # W-free single-step sparse recall (reused EXACTLY from sparse-#2; chunked over query-rows -> bounded memory)
+    diag = (P * P).sum(0); s = P.copy()
+    for i in range(M):
+        nz = np.nonzero(P[i])[0]; fl = nz[g.random(len(nz)) < FLIP]; s[i, fl] *= -1
+    correct = 0; CHUNK = 2048
+    for a in range(0, M, CHUNK):
+        b = min(a + CHUNK, M)
+        rc = np.sign((s[a:b] @ P.T) @ P - s[a:b] * diag)
+        for i in range(a, b):
+            nz = np.nonzero(P[i])[0]
+            if len(nz) and np.all(rc[i - a][nz] == P[i][nz]):
+                correct += 1
+    return correct / M
 
 
 def run_unit(task, seed):
@@ -129,9 +132,8 @@ def _selftest():
     assert c_lo["f"] >= c_hi["f"], "higher load -> sparser (smaller f): %.3f vs %.3f" % (c_lo["f"], c_hi["f"])
     assert select_config(0.5, 2.0)["projection"] and not select_config(0.5, 0.0)["projection"], "projection routes on high c"
     assert select_config(12.0, 0.0)["status"] == "INSUFFICIENT_INPUT", "out-of-envelope -> fallback"
-    g = np.random.default_rng(0)
-    assert kv_recall(0.05, 0.0, 1.0, False, 256, 0) >= 0.9, "low-load dense recall works"
-    print("[selftest] PASS: selector(load->f, c->proj, envelope->fallback) + kv_recall", flush=True)
+    assert kv_recall(0.1, 0.0, 0.05, False, 512, 0) >= 0.9, "sparse low-load (alpha 0.1 << alpha_c(0.05)=1.0) recalls"
+    print("[selftest] PASS: selector(load->f, c->proj, envelope->fallback) + auto-assoc kv_recall", flush=True)
 
 
 _selftest()
