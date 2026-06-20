@@ -26,7 +26,7 @@
 - (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T01:35:00Z  (**CERT 588 LANDED** -- refuse-gate #5 b chain-grade, 960fd3c6)
+**Last-updated:** 2026-06-20T23:32:11Z (true date -u UTC)  (**CERT 588 LANDED** -- refuse-gate #5 b chain-grade, 960fd3c6)
 - **orchestrator: Layer-3 reciprocal-check on CERT 588** (--expect-cert 588 --expect-atoms 177249) -- 4-layer-witness complete (L1 my raw + L2 Testbed raw + L4 Research; L3 = your reciprocal). The only open item from my side.
 - exp_dev: pythia v2 re-VET (margin+CAN-fail+random-control -- ALSO Research's revival-drill on the saturation); phase4b reframe (MultiArith-2op + 1op-anomaly -- ALSO revival-drill); LEVER 1.5 v2 MM atomization; LEVER 2/3/4 cells (realistic tiers)
 - testbed: dashboard stage-2 panel -> data-correctness VET
@@ -43,11 +43,12 @@
 - NEXT-CYCLE QUEUE (deferred for quality at depth; all well-specified): pythia reframe (recall_and_margin design ready: NN-margin + sigma=0.5 CAN-fail + random-key control -- the OTHER Milestone-1 input); phase4b reframe->MM (drop div-by-zero ratio, narrow to MultiArith-2op, investigate 1op=0.017 anomaly); LEVER 2/3/4 builds (heed Skunkworks "selector needs genuine cost else collapses" = the LEVER 1.5 lesson; Research absorbed it into realistic-tier preregs).
 
 ## testbed
-**Last-updated:** 2026-06-21T01:18:00Z
-- (nothing immediate -- Layer-2 raw witness on refuse-gate 5b CLOSED (commit b16a8308); CERT 588 atomization on Skunkworks's turn)
-- self: add per-section staleness drift-detector to dashboard (catches stale `## <role>` sections, not just whole-file mtime; USER caught this gap 2026-06-21)
-- self: proactive Health-tab pulse-check on every turn (new audit discipline per USER 2026-06-21)
-- (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; CERT 591 labeling cascade fully resolved; LEVER 1.5 selector-bug 2nd-witnessed; refuse-gate 5b Layer-2 raw witness CONCUR)
+**Last-updated:** 2026-06-20T23:32:00Z (true `date -u` UTC; prior label "01:18Z" was local-as-Z — Orchestrator caught it)
+- (nothing immediate -- Layer-2 raw witness on refuse-gate 5b CLOSED (commit b16a8308); CERT 588 LANDED + Orchestrator Layer-3 reciprocal PASS)
+- self: add per-section staleness drift-detector to dashboard (catches stale `## <role>` sections, not just whole-file mtime; USER caught this gap)
+- self: refine plan-stall detector to be reframe-aware (currently false-positives on priorities awaiting cell-author start)
+- self: standing audit discipline -- proactive Health-tab pulse on every turn + drive resolution on RED, not observe-only
+- (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; refuse-gate 5b Layer-2 raw witness CONCUR -> CERT 588 landed)
 
 ## orchestrator
 **Last-updated:** 2026-06-20T23:28:48Z (true date -u UTC; note: some sections label LOCAL-as-Z -> ~2h skew, see TZ flag to testbed)
