@@ -30,10 +30,13 @@ from pathlib import Path
 
 
 def main() -> int:
-    if len(sys.argv) < 2:
-        # No session arg; fail-safe to no-op stop (never block without session context)
+    # Session resolution: CLAUDE_SESSION_NAME env var preferred (set per-window),
+    # else positional arg. If neither -> fail-safe no-op (never block without session context).
+    session = os.environ.get('CLAUDE_SESSION_NAME', '').strip()
+    if not session and len(sys.argv) >= 2:
+        session = sys.argv[1]
+    if not session:
         return 0
-    session = sys.argv[1]
 
     # Read stdin JSON (Claude Code hook protocol)
     try:

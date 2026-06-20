@@ -36,7 +36,12 @@ from pathlib import Path
 
 
 def main() -> int:
-    session = sys.argv[1] if len(sys.argv) >= 2 else 'unknown'
+    # Session resolution: CLAUDE_SESSION_NAME env var preferred, else positional arg, else 'unknown'.
+    session = os.environ.get('CLAUDE_SESSION_NAME', '').strip()
+    if not session and len(sys.argv) >= 2:
+        session = sys.argv[1]
+    if not session:
+        session = 'unknown'
 
     try:
         raw = sys.stdin.read()

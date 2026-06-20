@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python d:/AI/hd-instrument/data/hooks/staging/stop_hook.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python d:/AI/hd-instrument/data/hooks/staging/stop_failure_hook.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
