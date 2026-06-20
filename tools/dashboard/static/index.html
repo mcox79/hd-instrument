@@ -462,7 +462,7 @@
     overflow-x: hidden;
     align-content: start;
   }
-  main[hidden], #tests-view[hidden], #capability-view[hidden], #foryou-view[hidden], #research-view[hidden] { display: none !important; }
+  main[hidden], #tests-view[hidden], #capability-view[hidden], #foryou-view[hidden], #research-view[hidden], #plan-view[hidden] { display: none !important; }
   #pane-rightnow    { grid-area: rightnow; min-height: 160px; }
   #pane-upnext      { grid-area: upnext;   min-height: 220px; }
   #pane-system      { grid-area: sys;      min-height: 160px; }
@@ -2321,6 +2321,7 @@
   <button class="tab" data-tab="research">Research</button>
   <button class="tab" data-tab="substrate">Substrate <span id="tab-substrate-count" class="badge muted" style="display:none"></span></button>
   <button class="tab" data-tab="substrate3d">Substrate 3D <span id="tab-substrate3d-count" class="badge muted" style="display:none"></span></button>
+  <button class="tab" data-tab="plan">Plan</button>
 </nav>
 
 <!-- ========== For You tab (DEFAULT) ========== -->
@@ -2893,6 +2894,58 @@
     margin-right: 6px; vertical-align: middle;
   }
 </style>
+
+<!-- ========== Plan tab (Director priorities + fleet engagement; reads /api/director_plan + /api/fleet_engagement) ========== -->
+<style>
+  #plan-view { padding: 14px 18px; overflow: auto; }
+  #plan-view h2 { margin: 0 0 8px 0; font-size: 14px; color: var(--text); }
+  #plan-view h3 { margin: 14px 0 6px 0; font-size: 13px; color: var(--dim); }
+  #plan-view .plan-meta { font-size: 11px; color: var(--dimmer); margin-bottom: 12px; }
+  #plan-view .plan-narrative { background: var(--pane2); border: 1px solid var(--border); padding: 8px 10px; margin: 8px 0; border-radius: 4px; font-size: 12px; }
+  #plan-view table { width: 100%; border-collapse: collapse; margin: 6px 0 14px 0; font-size: 12px; }
+  #plan-view th { text-align: left; padding: 5px 8px; background: var(--pane2); border-bottom: 1px solid var(--border); color: var(--dim); font-weight: 500; }
+  #plan-view td { padding: 5px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  #plan-view tr:hover td { background: var(--pane2); }
+  #plan-view .pill { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-family: var(--mono); }
+  #plan-view .pill-status-in-progress { background: #1f3a5c; color: var(--info); }
+  #plan-view .pill-status-done { background: #1f3a1f; color: var(--ok); }
+  #plan-view .pill-status-blocked { background: #5c1f1f; color: var(--err); }
+  #plan-view .pill-status-planned { background: #3a3a1f; color: var(--warn); }
+  #plan-view .pill-status-dissolved { background: #3a3a3a; color: var(--dim); }
+  #plan-view .pill-owner { background: var(--pane); border: 1px solid var(--border); color: var(--text); }
+  #plan-view .stale-badge { background: var(--err); color: white; padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
+  #plan-view .fresh-badge { background: var(--ok); color: white; padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
+  #plan-view .neutral-badge { background: var(--dimmer); color: white; padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
+  #plan-view .waiting { font-size: 11px; color: var(--dim); margin-top: 4px; }
+  #plan-view .err { color: var(--err); padding: 10px; }
+  #plan-view .session-alive { color: var(--ok); }
+  #plan-view .session-stale { color: var(--warn); }
+  #plan-view .session-dead { color: var(--err); }
+  #plan-view .session-unknown { color: var(--dim); }
+  #plan-view .compact-list { margin: 0; padding-left: 16px; font-size: 11px; color: var(--dim); }
+  #plan-view .small { font-size: 11px; color: var(--dim); }
+  #plan-view .cert-breakdown { display: flex; gap: 14px; margin: 6px 0; font-size: 12px; }
+  #plan-view .cert-breakdown .cb-item { background: var(--pane2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; }
+  #plan-view .cert-breakdown .cb-num { font-weight: 600; color: var(--text); font-size: 13px; }
+  #plan-view .cert-breakdown .cb-label { color: var(--dim); font-size: 10px; }
+</style>
+
+<section id="plan-view" hidden>
+  <h2>Director Plan + Fleet Engagement</h2>
+  <div class="plan-meta" id="plan-meta">Loading...</div>
+  <div id="plan-narrative-wrap"></div>
+  <div id="plan-cert-breakdown"></div>
+  <h3>Priorities</h3>
+  <div id="plan-priorities-wrap">Loading...</div>
+  <h3>Fleet Engagement</h3>
+  <div id="plan-fleet-wrap">Loading...</div>
+  <h3>Recent Ships (last 8)</h3>
+  <div id="plan-ships-wrap">Loading...</div>
+  <h3>Dissolved / Retracted</h3>
+  <div id="plan-dissolved-wrap">Loading...</div>
+  <h3>USER-pending</h3>
+  <div id="plan-user-pending-wrap">Loading...</div>
+</section>
 
 <section id="substrate3d-view" hidden>
   <div class="s3d-toolbar">
@@ -5513,6 +5566,7 @@ function setTab(name) {
   document.getElementById("research-view").hidden = name !== "research";
   document.getElementById("substrate-view").hidden = name !== "substrate";
   document.getElementById("substrate3d-view").hidden = name !== "substrate3d";
+  document.getElementById("plan-view").hidden = name !== "plan";
   for (const btn of document.querySelectorAll(".tab")) {
     btn.classList.toggle("active", btn.dataset.tab === name);
   }
@@ -5523,13 +5577,210 @@ function setTab(name) {
   if (name === "substrate" && typeof renderSubstrateState === "function") renderSubstrateState();
   // Initialize 3D substrate view on first reveal (heavy mount; lazy load CDN + render)
   if (name === "substrate3d" && typeof initSubstrate3D === "function") initSubstrate3D();
+  // Render plan tab on every reveal (fresh fetch; quick endpoints)
+  if (name === "plan" && typeof renderPlanTab === "function") renderPlanTab();
 }
+
+// ============================================================================
+// Plan tab renderer (USER visibility: Director plan + fleet engagement)
+// ============================================================================
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function statusPill(status) {
+  const cls = "pill pill-status-" + (status || "unknown").replace(/[^a-z-]/gi, "");
+  return `<span class="${cls}">${escapeHtml(status || "?")}</span>`;
+}
+function staleHoursBadge(h) {
+  if (h == null) return '<span class="neutral-badge">no ts</span>';
+  if (h < 2) return `<span class="fresh-badge">${h.toFixed(1)}h</span>`;
+  if (h < 12) return `<span class="neutral-badge">${h.toFixed(1)}h</span>`;
+  return `<span class="stale-badge">${h.toFixed(1)}h</span>`;
+}
+function sessionStateClass(ageS) {
+  if (ageS == null) return "session-unknown";
+  if (ageS < 1200) return "session-alive";  // < 20min stale
+  if (ageS < 3000) return "session-stale";  // 20-50min
+  return "session-dead";  // > 50min
+}
+function fmtAgeS(ageS) {
+  if (ageS == null || isNaN(ageS)) return "?";
+  if (ageS < 60) return `${Math.round(ageS)}s`;
+  if (ageS < 3600) return `${Math.round(ageS/60)}m`;
+  return `${(ageS/3600).toFixed(1)}h`;
+}
+
+async function renderPlanTab() {
+  const metaEl = document.getElementById("plan-meta");
+  const narrEl = document.getElementById("plan-narrative-wrap");
+  const breakdownEl = document.getElementById("plan-cert-breakdown");
+  const prEl = document.getElementById("plan-priorities-wrap");
+  const flEl = document.getElementById("plan-fleet-wrap");
+  const shipsEl = document.getElementById("plan-ships-wrap");
+  const dissEl = document.getElementById("plan-dissolved-wrap");
+  const userPendEl = document.getElementById("plan-user-pending-wrap");
+  metaEl.textContent = "Fetching...";
+
+  let plan, fleet;
+  try {
+    const [planR, fleetR] = await Promise.all([
+      fetch("/api/director_plan", {cache: "no-store"}),
+      fetch("/api/fleet_engagement", {cache: "no-store"}),
+    ]);
+    if (!planR.ok) {
+      metaEl.innerHTML = `<span class="err">director_plan endpoint HTTP ${planR.status}</span>`;
+      plan = null;
+    } else {
+      plan = await planR.json();
+    }
+    if (!fleetR.ok) {
+      fleet = null;
+    } else {
+      fleet = await fleetR.json();
+    }
+  } catch (e) {
+    metaEl.innerHTML = `<span class="err">Fetch failed: ${escapeHtml(e.message || e)}</span>`;
+    return;
+  }
+
+  // === Meta line ===
+  if (plan && plan.ts) {
+    const meta = plan._dashboard_meta || {};
+    metaEl.innerHTML = `Plan ts: <code>${escapeHtml(plan.ts)}</code> · file mtime: <code>${meta.file_mtime ? new Date(meta.file_mtime*1000).toISOString() : "?"}</code> · cache age: ${meta.cache_age_s || 0}s · served by /api/director_plan`;
+  } else {
+    metaEl.innerHTML = `<span class="err">No plan data</span>`;
+    return;
+  }
+
+  // === Narrative ===
+  if (plan.director_narrative) {
+    narrEl.innerHTML = `<div class="plan-narrative">${escapeHtml(plan.director_narrative)}</div>`;
+  } else {
+    narrEl.innerHTML = "";
+  }
+
+  // === Cert breakdown ===
+  const cb = plan.cert_class_breakdown || {};
+  if (cb.total != null) {
+    const items = [
+      {n: cb.total, l: "TOTAL cert chain-grade RESULTS"},
+      {n: cb.pass_hard_pass, l: "PASS / HARD_PASS (working capabilities)"},
+      {n: (cb.non_pass && cb.non_pass.total) || cb.middle_band_chain_grade + cb.hard_fail_chain_grade, l: "non-PASS (bounds/partials)"},
+      {n: (cb.custom_verdict && cb.custom_verdict.total) || 0, l: "custom-verdict (characterizations)"},
+      {n: cb.under_classified_to_review, l: "under-classified (review-pending)"},
+    ];
+    breakdownEl.innerHTML = '<div class="cert-breakdown">' +
+      items.filter(i => i.n != null).map(i => `<div class="cb-item"><span class="cb-num">${i.n}</span> <span class="cb-label">${escapeHtml(i.l)}</span></div>`).join("") +
+      '</div>';
+  } else {
+    breakdownEl.innerHTML = "";
+  }
+
+  // === Priorities table ===
+  const priorities = plan.priorities || [];
+  if (priorities.length === 0) {
+    prEl.innerHTML = '<div class="small">(no priorities)</div>';
+  } else {
+    let html = '<table><thead><tr><th>id / title</th><th>status</th><th>owner</th><th>last update</th><th>waiting_on</th></tr></thead><tbody>';
+    for (const p of priorities) {
+      const waiting = (p.waiting_on || []).map(w => `<li>${escapeHtml(w)}</li>`).join("");
+      html += `<tr>
+        <td><strong>${escapeHtml(p.id || "?")}</strong><div class="small">${escapeHtml(p.title || "")}</div></td>
+        <td>${statusPill(p.status)}</td>
+        <td><span class="pill pill-owner">${escapeHtml(p.owner || "?")}</span>${p.owner_asserted ? '' : ' <span class="small">(?)</span>'}</td>
+        <td>${staleHoursBadge(p._hours_since_update)}</td>
+        <td>${waiting ? '<ul class="compact-list">' + waiting + '</ul>' : '<span class="small">—</span>'}</td>
+      </tr>`;
+    }
+    html += '</tbody></table>';
+    prEl.innerHTML = html;
+  }
+
+  // === Fleet engagement table ===
+  if (fleet && fleet.sessions) {
+    let html = '<table><thead><tr><th>session</th><th>heartbeat</th><th>last watchdog ping</th><th>recent outgoing notes</th></tr></thead><tbody>';
+    for (const role of Object.keys(fleet.sessions).sort()) {
+      const s = fleet.sessions[role];
+      const ageS = (typeof s.age_s === "number") ? s.age_s : null;
+      const cls = sessionStateClass(ageS);
+      const notes = (s.recent_outgoing_notes || []).slice(0, 3).map(n => `<li>${escapeHtml(n.name)} <span class="small">(${fmtAgeS(n.age_s)})</span></li>`).join("");
+      html += `<tr>
+        <td class="${cls}"><strong>${escapeHtml(role)}</strong></td>
+        <td class="${cls}">${fmtAgeS(ageS)} ago</td>
+        <td><span class="small">${fmtAgeS(s.ping_age_s)} ago</span></td>
+        <td>${notes ? '<ul class="compact-list">' + notes + '</ul>' : '<span class="small">(none)</span>'}</td>
+      </tr>`;
+    }
+    html += '</tbody></table><div class="small">heartbeat &lt;20min = alive; 20-50min = stale; &gt;50min = dead. State derived from data/heartbeats/&lt;role&gt;.timestamp via /api/fleet_engagement.</div>';
+    flEl.innerHTML = html;
+  } else {
+    flEl.innerHTML = '<span class="err">fleet_engagement endpoint unavailable</span>';
+  }
+
+  // === Recent ships ===
+  const ships = (plan.recent_ships || []).slice(0, 8);
+  if (ships.length === 0) {
+    shipsEl.innerHTML = '<div class="small">(no recent ships)</div>';
+  } else {
+    let html = '<table><thead><tr><th>cert / atom</th><th>verdict</th><th>cert_class</th><th>bound</th></tr></thead><tbody>';
+    for (const s of ships) {
+      html += `<tr>
+        <td><strong>${escapeHtml(s.cert_id || "—")}</strong><div class="small">${escapeHtml(s.atom_id || "")}</div></td>
+        <td>${statusPill(s.verdict)}</td>
+        <td><span class="small">${escapeHtml(s.cert_class || "?")}</span></td>
+        <td><span class="small">${escapeHtml(s.bound || "")}</span></td>
+      </tr>`;
+    }
+    html += '</tbody></table>';
+    shipsEl.innerHTML = html;
+  }
+
+  // === Dissolved/retracted ===
+  const dissolved = plan.dissolved_or_retracted || [];
+  if (dissolved.length === 0) {
+    dissEl.innerHTML = '<div class="small">(none dissolved this session)</div>';
+  } else {
+    let html = '<table><thead><tr><th>id</th><th>what</th><th>dissolution mechanism</th></tr></thead><tbody>';
+    for (const d of dissolved) {
+      html += `<tr>
+        <td><strong>${escapeHtml(d.id || "?")}</strong></td>
+        <td>${escapeHtml(d.what || "")}</td>
+        <td><span class="small">${escapeHtml(d.dissolution_mechanism || "")}</span></td>
+      </tr>`;
+    }
+    html += '</tbody></table>';
+    dissEl.innerHTML = html;
+  }
+
+  // === USER pending ===
+  const userPending = plan.waiting_on_user || [];
+  if (userPending.length === 0) {
+    userPendEl.innerHTML = '<div class="small">(nothing pending USER)</div>';
+  } else {
+    let html = '<table><thead><tr><th>item</th><th>since</th><th>blocking</th></tr></thead><tbody>';
+    for (const u of userPending) {
+      html += `<tr>
+        <td><strong>${escapeHtml(u.item || "?")}</strong></td>
+        <td><span class="small">${escapeHtml(u.since || "?")}</span></td>
+        <td>${escapeHtml(u.blocking || "")}</td>
+      </tr>`;
+    }
+    html += '</tbody></table>';
+    userPendEl.innerHTML = html;
+  }
+}
+
+// Auto-refresh plan tab every 30s when active
+setInterval(() => {
+  if (activeTab === "plan" && typeof renderPlanTab === "function") renderPlanTab();
+}, 30000);
 
 // Restore last tab on load (but if hash provides one, use that).
 const savedTab = (() => {
   try { return localStorage.getItem("active_tab"); } catch { return null; }
 })();
-if (savedTab && ["foryou","live","inbox","tests","capability","research"].includes(savedTab)) {
+if (savedTab && ["foryou","live","inbox","tests","capability","research","substrate","substrate3d","plan"].includes(savedTab)) {
   // Apply on first paint.
   requestAnimationFrame(() => setTab(savedTab));
 }
