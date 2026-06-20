@@ -62,14 +62,16 @@ def recall(P, g):
 
 
 def cap(f, seed):
-    g = np.random.default_rng(seed); c = 0.0
-    for load in LOADS:
+    g = np.random.default_rng(seed); c = 0.0; capped = False
+    for li, load in enumerate(LOADS):
         M = max(2, int(load * N))
         if recall(sparse_pat(M, N, f, np.random.default_rng(seed * 13 + M)), g) >= 0.95:
             c = load
+            if li == len(LOADS) - 1:
+                capped = True                                                # recalled at LOADS max -> true alpha_c > max -> LOWER BOUND (Skunkworks cap-flag)
         else:
             break
-    return c
+    return c, capped
 
 
 def _selftest():
@@ -85,18 +87,19 @@ if _ARGS.self_test:
 
 
 def run_unit(f, seed):
-    ac = cap(f, seed)
-    print("  [f=%.3f s=%d] alpha_c=%.3f" % (f, seed, ac), flush=True)
-    return {"f": f, "seed": seed, "alpha_c": round(ac, 4), "run_mode": RUN_MODE}
+    ac, capped = cap(f, seed)
+    print("  [f=%.3f s=%d] alpha_c=%.3f capped=%s" % (f, seed, ac, capped), flush=True)
+    return {"f": f, "seed": seed, "alpha_c": round(ac, 4), "alpha_c_capped": bool(capped), "run_mode": RUN_MODE}
 
 
 def compute_verdict(units) -> Tuple[str, str, Dict]:
     if not units: return ("HARD_FAIL", "no results", {})
     by = {}
     for u in units:
-        by.setdefault(u["f"], []).append(u["alpha_c"])
-    ac = {f: float(np.mean(v)) for f, v in by.items()}                        # mean alpha_c per f
-    cv = {f: (float(np.std(v) / (np.mean(v) + 1e-9))) for f, v in by.items()}
+        by.setdefault(u["f"], []).append(u)
+    ac = {f: float(np.mean([u["alpha_c"] for u in us])) for f, us in by.items()}   # mean alpha_c per f
+    cv = {f: (float(np.std([u["alpha_c"] for u in us]) / (np.mean([u["alpha_c"] for u in us]) + 1e-9))) for f, us in by.items()}
+    capped = {f: any(u.get("alpha_c_capped", False) for u in us) for f, us in by.items()}  # alpha_c hit LOADS max -> gain is a LOWER BOUND
     dense = ac.get(1.0, 0.0)
     fs = sorted(ac.keys())                                                    # ascending f
     gain = {f: (ac[f] / dense if dense > 1e-9 else 0.0) for f in fs}
@@ -111,9 +114,12 @@ def compute_verdict(units) -> Tuple[str, str, Dict]:
     detail = {"alpha_c_by_f": {("f%.3f" % f): round(ac[f], 4) for f in fs}, "gain_vs_dense_by_f": {("f%.3f" % f): round(gain[f], 2) for f in fs},
               "dense_alpha_c": round(dense, 4), "peak_f": peak_f, "peak_alpha_c": round(peak_ac, 4), "peak_gain_vs_dense": round(peak_gain, 2),
               "crosstalk_onset_f": onset_f, "worst_cv": round(max(cv.values()) if cv else 0.0, 3), "n_f": len(fs), "axis": "sparse_fraction_f",
-              "honest_claim": "Substrate auto-assoc critical-load alpha_c RISES as sparsity f decreases (capacity-vs-sparsity); "
-                              "peak gain %.2fx vs dense at f=%.3f; crosstalk-onset boundary f*=%s (sparser stops helping). "
-                              "MEASURED_MECHANISM capacity-vs-sparsity characterization (Phase-1 sparse-coding safe-sparsity input)." % (peak_gain, peak_f, onset_f)}
+              "alpha_c_capped_by_f": {("f%.3f" % f): bool(capped[f]) for f in fs}, "any_capped": bool(any(capped.values())),
+              "honest_claim": "Substrate auto-assoc critical-load alpha_c RISES as sparsity f decreases (PLAIN k-of-N sparse, "
+                              "non-zero-position recall = Willshaw super-capacity); peak gain %.2fx vs dense at f=%.3f; crosstalk-onset "
+                              "boundary f*=%s. capped-f gains are LOWER BOUNDS (alpha_c hit LOADS max). DISTINCT from the novelty-gated "
+                              "sparse-WRITE rule (exp_substrate_sparse_vs_dense, ~1.4x, multi-step) -- this is plain-sparse-pattern capacity. "
+                              "MEASURED_MECHANISM (Phase-1 sparse-coding safe-sparsity input)." % (peak_gain, peak_f, onset_f)}
     summary = "alpha_c/f=%s | gain/dense=%s | peak %.2fx@f%.3f | onset_f=%s | dense_ac=%.3f | worst_cv=%.3f | n_f=%d" % (
         detail["alpha_c_by_f"], detail["gain_vs_dense_by_f"], peak_gain, peak_f, onset_f, dense, detail["worst_cv"], len(fs))
     if len(fs) < 4:
