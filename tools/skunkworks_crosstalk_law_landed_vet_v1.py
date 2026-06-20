@@ -53,7 +53,7 @@ def _cmp(label, mine, cell):
 
 
 def main(path):
-    d = json.load(open(path))
+    d = json.load(open(path, encoding="utf-8-sig"))
     det = d.get("detail", {}) or {}
     print("=== Skunkworks INDEPENDENT landed-VET: crosstalk_capacity_law_v1 ===")
     print("path: %s" % path)
@@ -87,7 +87,7 @@ def main(path):
     print("recompute source      : %s" % src)
     print("n_encoders            : %d   (expect >=8 for chain-eligible)" % n)
     print("encoders              : %s" % ", ".join(shorts))
-    print("pythia-2.8b present   : %s   (version-marker)" % any(("2.8b" in s or "2p8b" in s) for s in shorts))
+    print("pythia-2.8b present   : %s   (version-marker)" % any(("2.8b" in s or "2p8b" in s or "2_8b" in s) for s in shorts))
     if n < 3:
         print("n<3 -> cannot compute cross-encoder correlation. STOP."); return
 
@@ -130,13 +130,16 @@ def main(path):
     print("  cell verdict matches independent       : %s" % (cell_v in tier or tier.split()[0] in cell_v))
 
     def _judge(name, r, p):
+        se = 1.0 / math.sqrt(max(1, n - 3))  # approx SE of a partial correlation at n points
         if abs(p) < 0.30:
             v = "crosstalk-in-disguise (genuinely FAILS -- partial ~0 controlling for crosstalk)"
         elif n < 8:
-            v = ("partial=%+.2f at n=%d is likely DEGENERATE (~1 df small-n -> unstable); NOT a reliable "
-                 "independent signal -> DEFER to n>=8 (do NOT conclude independent predictor)" % (p, n))
+            v = ("partial=%+.2f at n=%d likely DEGENERATE (~1 df small-n -> unstable); NOT reliable -> DEFER to n>=8" % (p, n))
+        elif abs(p) < 2 * se:
+            v = ("WEAK residual, NOT significant (%+.2f ~ %.1f SE at n=%d, SE~%.2f) -> sub-dominant control, "
+                 "not a robust independent predictor" % (p, abs(p) / se, n, se))
         else:
-            v = "INDEPENDENT predictor -- partial SURVIVES at n=%d -> report as a real 2nd finding, do NOT bury under 'fails'" % n
+            v = "INDEPENDENT predictor -- partial %+.2f SURVIVES at >2 SE (n=%d) -> report as a real 2nd finding" % (p, n)
         print("  %-8s : r=%+.2f partial=%+.2f -> %s" % (name, r, p, v))
 
     print("\n-- cert-owner judgments --")
