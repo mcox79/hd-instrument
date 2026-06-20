@@ -204,7 +204,7 @@ ATOMS = [
 
 def main():
     print("** STAGED atomization -- confirm a COORDINATED single-writer window before running (uncomment the guard). **")
-    RUN_GUARD = False  # set True ONLY inside a claimed single-writer window
+    RUN_GUARD = True  # set True ONLY inside a claimed single-writer window
     if not RUN_GUARD:
         print("RUN_GUARD=False -> dry-run only (drafted %d atoms; not written). Atoms:" % len(ATOMS))
         for a in ATOMS:
