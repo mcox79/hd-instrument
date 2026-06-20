@@ -29,16 +29,21 @@ import sys
 from pathlib import Path
 
 
-def main() -> int:
-    # Session resolution: CLAUDE_SESSION_NAME env var preferred (set per-window),
-    # else positional arg. If neither -> fail-safe no-op (never block without session context).
-    session = os.environ.get('CLAUDE_SESSION_NAME', '').strip()
-    if not session and len(sys.argv) >= 2:
-        session = sys.argv[1]
-    if not session:
-        return 0
+def _derive_session_from_transcript(transcript_path: str) -> str:
+    """Derive a stable per-VS-Code-window session key from the Claude transcript path.
 
-    # Read stdin JSON (Claude Code hook protocol)
+    Transcript paths are unique per Claude conversation. We hash to get a short stable key
+    that survives session restarts but distinguishes different VS Code windows. This is the
+    fallback when CLAUDE_SESSION_NAME env var isn't set (e.g. session launched without the
+    launcher).
+    """
+    import hashlib
+    h = hashlib.sha256(transcript_path.encode('utf-8')).hexdigest()[:10]
+    return f'auto_{h}'
+
+
+def main() -> int:
+    # Read stdin JSON FIRST (so we can fall back to transcript_path for session key)
     try:
         raw = sys.stdin.read()
         if not raw.strip():
@@ -47,6 +52,21 @@ def main() -> int:
             hook_input = json.loads(raw)
     except (json.JSONDecodeError, OSError):
         hook_input = {}
+
+    # Session resolution priority:
+    #   1. CLAUDE_SESSION_NAME env var (per-launcher; human-readable)
+    #   2. Derived from transcript_path in hook input (per-VS-Code-window; auto-stable)
+    #   3. Positional arg (manual override)
+    #   4. None -> fail-safe no-op
+    session = os.environ.get('CLAUDE_SESSION_NAME', '').strip()
+    if not session:
+        transcript_path = str(hook_input.get('transcript_path', '')).strip()
+        if transcript_path:
+            session = _derive_session_from_transcript(transcript_path)
+    if not session and len(sys.argv) >= 2:
+        session = sys.argv[1]
+    if not session:
+        return 0
 
     # === GUARD 1: stop_hook_active (THE load-bearing loop prevention) ===
     if bool(hook_input.get('stop_hook_active', False)):
@@ -93,51 +113,48 @@ def main() -> int:
 
     have_unread = False
     have_unread_name = None
-    if notes_dir.is_dir():
-        # Match same filter convention as v5 notes_monitor.sh: filenames containing
-        # session OR to_all OR _all_; exclude own outgoing (session prefix).
-        session_lower = session.lower()
-        for note in notes_dir.iterdir():
-            if not note.is_file():
-                continue
-            if note.suffix != '.md':
-                continue
-            name = note.name
-            name_lower = name.lower()
-            # Exclude own outgoing
-            if name_lower.startswith(f'{session_lower}_'):
-                continue
-            # Match the v5 filter
-            if not (session_lower in name_lower
-                    or 'to_all' in name_lower
-                    or '_all_' in name_lower):
-                continue
-            try:
-                mtime = note.stat().st_mtime
-            except OSError:
-                continue
-            if mtime > ts_mtime:
-                have_unread = True
-                have_unread_name = name
-                break
-
-    # 3b: Watchdog ping-note for THIS session (recent; <30min old)
     have_watchdog_ping = False
     have_watchdog_ping_name = None
+    session_lower = session.lower()
     if notes_dir.is_dir():
-        cutoff = ts_mtime  # newer than last-processed
-        for note in notes_dir.iterdir():
-            if not note.is_file() or note.suffix != '.md':
-                continue
-            n = note.name.lower()
-            if n.startswith('watchdog_ping_to_') and session.lower() in n:
-                try:
-                    if note.stat().st_mtime > cutoff:
+        # Single scandir pass for BOTH unread + watchdog-ping signals.
+        # Uses os.scandir for fast DirEntry traversal (much faster than iterdir+stat on Windows
+        # for ~6000+ note directories; DirEntry caches stat info from the directory entry).
+        try:
+            with os.scandir(notes_dir) as it:
+                for entry in it:
+                    if not entry.name.endswith('.md'):
+                        continue
+                    name_lower = entry.name.lower()
+                    # Exclude own outgoing
+                    if name_lower.startswith(f'{session_lower}_'):
+                        continue
+                    # First: cheap watchdog-ping filter (highest signal)
+                    is_watchdog = (name_lower.startswith('watchdog_ping_to_')
+                                   and session_lower in name_lower)
+                    # Then: v5 unread filter
+                    is_unread_match = (session_lower in name_lower
+                                       or 'to_all' in name_lower
+                                       or '_all_' in name_lower)
+                    if not (is_watchdog or is_unread_match):
+                        continue
+                    # Only stat() if filename matched (much less stat traffic)
+                    try:
+                        mtime = entry.stat().st_mtime
+                    except OSError:
+                        continue
+                    if mtime <= ts_mtime:
+                        continue
+                    if is_watchdog and not have_watchdog_ping:
                         have_watchdog_ping = True
-                        have_watchdog_ping_name = note.name
+                        have_watchdog_ping_name = entry.name
+                    if is_unread_match and not have_unread:
+                        have_unread = True
+                        have_unread_name = entry.name
+                    if have_unread and have_watchdog_ping:
                         break
-                except OSError:
-                    continue
+        except OSError:
+            pass
 
     # NOTE: removed recent-commit-activity gate -- it over-fires across sessions during
     # active commit cycles (any session's git commit triggers .git/index mtime).

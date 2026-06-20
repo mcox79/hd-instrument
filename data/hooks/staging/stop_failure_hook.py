@@ -35,19 +35,29 @@ import time
 from pathlib import Path
 
 
-def main() -> int:
-    # Session resolution: CLAUDE_SESSION_NAME env var preferred, else positional arg, else 'unknown'.
-    session = os.environ.get('CLAUDE_SESSION_NAME', '').strip()
-    if not session and len(sys.argv) >= 2:
-        session = sys.argv[1]
-    if not session:
-        session = 'unknown'
+def _derive_session_from_transcript(transcript_path: str) -> str:
+    import hashlib
+    h = hashlib.sha256(transcript_path.encode('utf-8')).hexdigest()[:10]
+    return f'auto_{h}'
 
+
+def main() -> int:
     try:
         raw = sys.stdin.read()
         hook_input = json.loads(raw) if raw.strip() else {}
     except (json.JSONDecodeError, OSError):
         hook_input = {}
+
+    # Session resolution: env -> transcript -> argv -> unknown
+    session = os.environ.get('CLAUDE_SESSION_NAME', '').strip()
+    if not session:
+        transcript_path = str(hook_input.get('transcript_path', '')).strip()
+        if transcript_path:
+            session = _derive_session_from_transcript(transcript_path)
+    if not session and len(sys.argv) >= 2:
+        session = sys.argv[1]
+    if not session:
+        session = 'unknown'
 
     # Extract error class (best-effort; harness-format-dependent)
     err = hook_input.get('error', hook_input) if isinstance(hook_input, dict) else {}

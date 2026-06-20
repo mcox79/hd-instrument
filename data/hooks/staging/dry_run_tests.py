@@ -102,7 +102,9 @@ def main() -> int:
     print()
     print('T3: no concrete signal -> exit 0 + counter NOT incremented')
     CONT_FILE.write_text('0')
-    TS_FILE.touch()  # now; no notes newer
+    # Set timestamp to FUTURE so no real notes (incl. live watchdog pings) appear newer
+    future = time.time() + 3600
+    os.utime(TS_FILE, (future, future))
     stdout, rc = run_hook(STOP_HOOK, '{}', TS)
     results.append(check('T3 exit=0 + no decision', rc == 0 and '"decision"' not in stdout))
     count_after = int(CONT_FILE.read_text().strip()) if CONT_FILE.exists() else -1
@@ -112,12 +114,15 @@ def main() -> int:
     print()
     print('T4: pending unread inbox -> emits decision=block + counter +1')
     CONT_FILE.write_text('0')
-    # Set timestamp to long-ago via os.utime (avoid touch -t Windows quirk)
-    long_ago = time.time() - 86400  # 1 day ago
-    os.utime(TS_FILE, (long_ago, long_ago))
-    # Create test note newer than timestamp
+    # Set timestamp to "recent past" (1 hour ago) so test note IS newer, but most
+    # real notes are older
+    recent_past = time.time() - 3600
+    os.utime(TS_FILE, (recent_past, recent_past))
+    # Create test note matching the test session name (not 'to_all' so it doesn't conflict
+    # with live watchdog pings); ensure mtime is RIGHT NOW (newer than recent_past)
     test_note = REPO_ROOT / 'notes' / f'test_dryrun_to_{TS}_2026-06-20.md'
     test_note.write_text('test note for dry-run')
+    os.utime(test_note, (time.time(), time.time()))
     stdout, rc = run_hook(STOP_HOOK, '{}', TS)
     results.append(check('T4 emits decision=block', '"decision": "block"' in stdout or '"decision":"block"' in stdout))
     results.append(check('T4 exit=0', rc == 0))
@@ -129,7 +134,8 @@ def main() -> int:
     print()
     print('T5: cap-exact-boundary (N-1 blocks; N exits)')
     test_note.write_text('test note')
-    os.utime(TS_FILE, (long_ago, long_ago))
+    os.utime(test_note, (time.time(), time.time()))
+    os.utime(TS_FILE, (recent_past, recent_past))
     hard_cap = 10
     CONT_FILE.write_text(str(hard_cap - 1))  # one below cap
     stdout, rc = run_hook(STOP_HOOK, '{}', TS)
