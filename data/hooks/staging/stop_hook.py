@@ -240,6 +240,15 @@ def main() -> int:
             cont_file.write_text(str(count + 1))
         except OSError:
             pass
+        # Advance last_processed to NOW so subsequent Stop fires don't re-block on the
+        # SAME notes (the block itself surfaces them to the session as Stop hook feedback;
+        # the session's continuation turn IS the response). Without this, the hook
+        # re-blocks on the same unread note every cycle until cap, even though the
+        # session already saw it.
+        try:
+            ts_file.touch()
+        except OSError:
+            pass
         signals = []
         if have_unread:
             signals.append(f"unread inbox ({have_unread_name})")
