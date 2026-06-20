@@ -39,11 +39,10 @@
 - (sessions write their own waits here)
 
 ## testbed
-**Last-updated:** 2026-06-20T23:05:00Z
-- skunkworks: 4-layer-reciprocal-witness META atom SCHEMA-VET (Research-proposed; would atomize the discipline pattern)
-- skunkworks: optional CERT 590 code-trace backstop go/no-go (offered earlier; their call whether to take it)
+**Last-updated:** 2026-06-20T23:25:00Z
 - self: dashboard MVP stage 2 (HTML plan-panel + engagement-panel in tools/dashboard/static/index.html; endpoints already shipped commit 8b65e99b; next active cycle)
 - self: wire data/fleet_waiting_on.md into the dashboard engagement panel render (next active cycle, stage 2)
+- (skunkworks answers received: META atom YES atomize CERT-neutral; CERT 590 backstop declined no-open-concern; Phase 3 Batch N/A for local Store-writes)
 
 ## orchestrator
 **Last-updated:** 2026-06-20T22:18:06Z
