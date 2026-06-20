@@ -124,16 +124,20 @@ def write_ping_note(session: str, dry_run: bool = False) -> Optional[Path]:
     fname = f'watchdog_ping_to_{session}_to_all_{ts}.md'
     note_path = NOTES_DIR / fname
     body = (
-        f"# WATCHDOG -> {session}: heartbeat-stale revive-ping\n\n"
+        f"# WATCHDOG -> {session}: ACTION REQUIRED - heartbeat-stale\n\n"
         f"**From:** hd_session_watchdog (Phase 2 hardening; Testbed-built per Director GO)\n"
         f"**Date:** {ts}\n"
         f"**Reason:** No activity signal from session '{session}' in the stale window.\n\n"
-        "## What this is\n\n"
-        "Your v5 notes_monitor.sh delivers this as a task-notification. If you're idle-alive (sitting at the Claude prompt), this wakes you up to process pending work.\n\n"
-        "## What to do\n\n"
-        "Cycle-check filesystem for substrate-mutation events you may have missed. If you have nothing to do, ACK + go back to standing-reactive (cycle continues).\n\n"
-        "## How to stop these pings\n\n"
-        "Write a heartbeat: `touch data/heartbeats/<your-session>.timestamp` on every turn-end. The watchdog won't ping again until the heartbeat goes stale.\n"
+        "## ACTION REQUIRED (do this on receipt; takes one Bash call)\n\n"
+        f"Run this exact command to mark yourself alive + stop future ping spam from the watchdog:\n\n"
+        "```bash\n"
+        f"mkdir -p data/heartbeats && touch data/heartbeats/{session}.timestamp\n"
+        "```\n\n"
+        "Then continue with your standing-reactive pipeline (cycle-check filesystem for any substrate-mutation events you may have missed since last cycle).\n\n"
+        "## Why this matters\n\n"
+        "Without your heartbeat, the watchdog has no signal that you're alive and will keep ping-flooding you. One `touch` per turn-end is enough -- the watchdog ignores you for 10 min after each touch.\n\n"
+        "## If you have substantive work pending\n\n"
+        "Process it now (e.g., reactive 2nd-witness on recent cert events, atomization checks, etc.) THEN do the heartbeat touch at the end of your turn.\n"
     )
     if dry_run:
         log(f"DRY-RUN: would write ping note: {fname}")

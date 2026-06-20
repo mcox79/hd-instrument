@@ -6,7 +6,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python d:/AI/hd-instrument/data/hooks/staging/stop_hook.py",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/python.exe D:/AI/hd-instrument/data/hooks/staging/stop_hook.py",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/python.exe -c \"import time,os; os.makedirs('D:/AI/hd-instrument/data/hook_state', exist_ok=True); open('D:/AI/hd-instrument/data/hook_state/_canary.txt','a').write(f'{time.strftime(\\\"%Y-%m-%dT%H:%M:%SZ\\\", time.gmtime())} canary fired pid={os.getpid()}\\n')\"",
             "timeout": 5
           }
         ]
@@ -18,7 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python d:/AI/hd-instrument/data/hooks/staging/stop_failure_hook.py",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/python.exe D:/AI/hd-instrument/data/hooks/staging/stop_failure_hook.py",
             "timeout": 10
           }
         ]
