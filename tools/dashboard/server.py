@@ -325,6 +325,170 @@ def sessions():
     return {"sessions": snap.get("sessions", {})}
 
 
+_DIRECTOR_PLAN_PATH = _DATA_DIR / "director_plan.json"
+_DIRECTOR_PLAN_CACHE = {"mtime": 0.0, "payload": None, "loaded_at": 0.0}
+_DIRECTOR_PLAN_CACHE_LOCK = threading.Lock()
+
+
+@app.get("/api/director_plan")
+def director_plan():
+    """Serve the Director-maintained data/director_plan.json (mtime-invalidate cached).
+
+    Per Research's URGENT dashboard build routing 2026-06-20 (Testbed-owned MVP stage 1):
+    surfaces the canonical plan so USER can see current priorities + status + waiting_on
+    without `cat data/director_plan.json`. Cert-atom resolution against the Store deferred
+    to next MVP stage (Skunkworks's render-time-resolve refinement). For now: pass-through
+    the file with mtime-invalidate cache (1s minimum re-read window) + per-priority
+    `stale_after_h` computed convenience field (h since `last_updated_ts`).
+
+    Returns the parsed JSON plus a `_dashboard_meta` block with cache age + file mtime.
+    Returns 404-shaped JSON if the file doesn't exist (Director hasn't authored it).
+    """
+    p = _DIRECTOR_PLAN_PATH
+    if not p.is_file():
+        return JSONResponse(
+            {"error": "director_plan.json not found",
+             "_dashboard_meta": {"path": str(p), "exists": False}},
+            status_code=404,
+        )
+    try:
+        mtime = p.stat().st_mtime
+    except OSError:
+        return JSONResponse({"error": "cannot stat director_plan.json"}, status_code=500)
+
+    with _DIRECTOR_PLAN_CACHE_LOCK:
+        cache_mtime = _DIRECTOR_PLAN_CACHE["mtime"]
+        cache_payload = _DIRECTOR_PLAN_CACHE["payload"]
+        cache_loaded_at = _DIRECTOR_PLAN_CACHE["loaded_at"]
+        now = time.time()
+        # Re-read only if file changed OR cache is older than 1s
+        if cache_payload is None or mtime != cache_mtime or (now - cache_loaded_at) > 1.0:
+            try:
+                raw = p.read_text(encoding="utf-8", errors="replace")
+                payload = json.loads(raw)
+            except (OSError, json.JSONDecodeError) as e:
+                return JSONResponse(
+                    {"error": f"parse failed: {type(e).__name__}", "detail": str(e)[:200]},
+                    status_code=500,
+                )
+            # Convenience: per-priority hours_since_update (h since last_updated_ts).
+            # Doesn't touch the source file; computed for rendering only.
+            for pr in payload.get("priorities", []) if isinstance(payload, dict) else []:
+                ts_str = pr.get("last_updated_ts")
+                if isinstance(ts_str, str):
+                    try:
+                        dt = datetime.fromisoformat(ts_str.rstrip("Z").rstrip("+00:00"))
+                        age_h = (now - dt.timestamp()) / 3600.0
+                        pr["_hours_since_update"] = round(age_h, 2)
+                    except (ValueError, TypeError):
+                        pr["_hours_since_update"] = None
+            _DIRECTOR_PLAN_CACHE["mtime"] = mtime
+            _DIRECTOR_PLAN_CACHE["payload"] = payload
+            _DIRECTOR_PLAN_CACHE["loaded_at"] = now
+            cache_payload = payload
+            cache_loaded_at = now
+
+    if isinstance(cache_payload, dict):
+        cache_payload = dict(cache_payload)
+        cache_payload["_dashboard_meta"] = {
+            "path": str(p),
+            "file_mtime": mtime,
+            "cache_age_s": round(now - cache_loaded_at, 2),
+            "served_at": now,
+        }
+    return cache_payload
+
+
+_WATCHDOG_STATE_PATH = _DATA_DIR / "watchdog" / "state.json"
+
+
+@app.get("/api/fleet_engagement")
+def fleet_engagement():
+    """Combine /api/sessions (heartbeats) + watchdog state.json + per-session activity counts.
+
+    Per Research's URGENT dashboard build routing 2026-06-20 (Testbed-owned MVP stage 1):
+    surfaces who-is-active so USER can see fleet engagement at a glance. All filesystem-
+    derived; no Store touch; no new Director discipline.
+
+    Output schema:
+      {
+        sessions: {<role>: {heartbeat_ts, age_s, watchdog_state, last_ping_ts, ping_age_s,
+                            recent_outgoing_notes: [name,...], _now}},
+        _dashboard_meta: {sources, served_at}
+      }
+    """
+    snap = app.state.poller.get_snapshot()
+    sessions = dict(snap.get("sessions", {}))  # don't mutate snapshot
+    now = time.time()
+
+    # Augment with watchdog state.json if present
+    watchdog_state = {}
+    if _WATCHDOG_STATE_PATH.is_file():
+        try:
+            wd_raw = _WATCHDOG_STATE_PATH.read_text(encoding="utf-8", errors="replace")
+            wd_parsed = json.loads(wd_raw)
+            if isinstance(wd_parsed, dict):
+                last_pings = wd_parsed.get("last_ping", {})
+                if isinstance(last_pings, dict):
+                    for role, ts in last_pings.items():
+                        if isinstance(ts, (int, float)):
+                            watchdog_state[role] = {
+                                "last_ping_ts": ts,
+                                "ping_age_s": round(now - ts, 1),
+                            }
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    # Per-session recent outgoing notes (top 3 most recent), filesystem mtime-derived
+    notes_dir = _DATA_DIR.parent / "notes"
+    recent_outgoing = {role: [] for role in ("research", "exp_dev", "orchestrator", "skunkworks", "testbed")}
+    if notes_dir.is_dir():
+        try:
+            with os.scandir(notes_dir) as it:
+                # Gather all notes per session-prefix
+                buckets = {role: [] for role in recent_outgoing.keys()}
+                for entry in it:
+                    if not entry.name.endswith(".md"):
+                        continue
+                    name_lower = entry.name.lower()
+                    for role in buckets.keys():
+                        if name_lower.startswith(f"{role}_"):
+                            try:
+                                buckets[role].append((entry.stat().st_mtime, entry.name))
+                            except OSError:
+                                pass
+                            break
+                for role, items in buckets.items():
+                    items.sort(reverse=True)
+                    recent_outgoing[role] = [{"name": n, "age_s": round(now - m, 1)} for m, n in items[:3]]
+        except OSError:
+            pass
+
+    # Combine
+    combined = {}
+    all_roles = set(sessions.keys()) | set(watchdog_state.keys()) | set(recent_outgoing.keys())
+    for role in all_roles:
+        entry = {}
+        if role in sessions:
+            entry.update(sessions[role])
+        if role in watchdog_state:
+            entry.update(watchdog_state[role])
+        entry["recent_outgoing_notes"] = recent_outgoing.get(role, [])
+        combined[role] = entry
+
+    return {
+        "sessions": combined,
+        "_dashboard_meta": {
+            "sources": {
+                "heartbeats": "data/heartbeats/<role>.timestamp (via poller /api/sessions)",
+                "watchdog": "data/watchdog/state.json",
+                "recent_outgoing": "notes/<role>_*.md mtime-derived",
+            },
+            "served_at": now,
+        },
+    }
+
+
 @app.get("/api/exp/{name}/tail")
 def exp_tail(name: str, lines: int = 30):
     """On-demand fetch of an experiment's stdout log tail + metrics.json. Cached 60s."""
