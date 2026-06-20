@@ -1,0 +1,1 @@
+# EXP-DEV ping 89 = CLEAR; all routed work DONE (CERT 588 ratified; architecture 491; SPEC#1+#2 done; NER v3 recovered; d300-d500 staged). Reactive on Skunkworks NER verdict-VET + Orchestrator d300-d500 GPU run. Standing by for the pythia pull-up cell if routed.
