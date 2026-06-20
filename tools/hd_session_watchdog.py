@@ -42,8 +42,14 @@ from typing import Optional
 SESSIONS = ('testbed', 'research', 'exp_dev', 'orchestrator', 'skunkworks')
 
 DEFAULT_POLL_SEC = 60       # check cadence
-DEFAULT_STALE_THRESHOLD_SEC = 600  # 10 min stale -> ping (more conservative than original 5min to avoid noisy revival)
-DEFAULT_DEAD_THRESHOLD_SEC = 1800  # 30 min stale -> mark dead + alert
+DEFAULT_STALE_THRESHOLD_SEC = 1200  # 20 min stale -> ping (2026-06-20: bumped 10->20min after
+                                    # heartbeat-on-turn-end (56653b1a) was found insufficient --
+                                    # between-turn idle in an actively-reactive session legitimately
+                                    # exceeds 10min, wasting turns on self-stale-pings. 20min gives
+                                    # natural idle headroom while still catching genuinely-stuck sessions
+                                    # before the dead threshold.)
+DEFAULT_DEAD_THRESHOLD_SEC = 3000  # 50 min stale -> mark dead + alert (was 30; bumped to keep
+                                    # the dead-state ~30min after the new stale gate)
 PING_COOLDOWN_SEC = 600     # don't re-ping the same session more often than every 10 min
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
