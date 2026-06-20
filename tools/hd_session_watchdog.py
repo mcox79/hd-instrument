@@ -114,30 +114,83 @@ def session_last_activity(session: str) -> Optional[float]:
     return latest if latest > 0 else None
 
 
+def _recent_inbox_for(session: str, max_items: int = 5) -> list:
+    """Return up to max_items recent note filenames addressed to this session.
+
+    Match criteria: filename contains '_to_<session>_' OR starts with anything-and-ends in
+    '_to_all_*.md' OR contains '_<session>_' (excluding own outgoing). Used to seed the ping
+    body with concrete pending work so the session has something specific to do on wake.
+    """
+    candidates = []
+    sess_lower = session.lower()
+    own_prefix = f'{sess_lower}_'
+    try:
+        with os.scandir(NOTES_DIR) as it:
+            for entry in it:
+                if not entry.name.endswith('.md'):
+                    continue
+                name_lower = entry.name.lower()
+                if name_lower.startswith(own_prefix):
+                    continue
+                # Skip watchdog own-broadcasts to keep the list signal-y
+                if name_lower.startswith('watchdog_ping_to_'):
+                    continue
+                addressed = (f'_to_{sess_lower}_' in name_lower
+                             or f'_{sess_lower}_' in name_lower
+                             or '_to_all_' in name_lower
+                             or '_all_' in name_lower)
+                if not addressed:
+                    continue
+                try:
+                    mtime = entry.stat().st_mtime
+                except OSError:
+                    continue
+                candidates.append((mtime, entry.name))
+    except OSError:
+        return []
+    candidates.sort(reverse=True)
+    return [name for (_, name) in candidates[:max_items]]
+
+
 def write_ping_note(session: str, dry_run: bool = False) -> Optional[Path]:
     """Write a high-visibility ping note that the session's monitor will pick up.
 
     Filename includes session name + to_all + watchdog tag so the v5 filter matches it.
+    Body includes the concrete recent-inbox snapshot so the session, on wake, has specific
+    work to act on instead of just running the heartbeat-touch.
     """
+    import os as _os  # local import for scandir
     NOTES_DIR.mkdir(parents=True, exist_ok=True)
     ts = time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
     fname = f'watchdog_ping_to_{session}_to_all_{ts}.md'
     note_path = NOTES_DIR / fname
+
+    # Seed the body with the session's actual recent inbox so they have CONCRETE
+    # pending work to address on wake, not just the ack ritual.
+    recent = _recent_inbox_for(session, max_items=5)
+    if recent:
+        inbox_block = (
+            "## Your recent inbox (5 newest notes likely addressed to you)\n\n"
+            + "\n".join(f"- `{n}`" for n in recent)
+            + "\n\nProcess any of these you haven't yet; reply per their protocol.\n\n"
+        )
+    else:
+        inbox_block = "## Your recent inbox\n\n(none detected matching your name in the last scan)\n\n"
+
     body = (
-        f"# WATCHDOG -> {session}: ACTION REQUIRED - heartbeat-stale\n\n"
+        f"# WATCHDOG -> {session}: heartbeat-stale + concrete inbox snapshot\n\n"
         f"**From:** hd_session_watchdog (Phase 2 hardening; Testbed-built per Director GO)\n"
         f"**Date:** {ts}\n"
         f"**Reason:** No activity signal from session '{session}' in the stale window.\n\n"
-        "## ACTION REQUIRED (do this on receipt; takes one Bash call)\n\n"
-        f"Run this exact command to mark yourself alive + stop future ping spam from the watchdog:\n\n"
+        + inbox_block +
+        "## ACTION (do on wake; takes one Bash call)\n\n"
+        f"After processing the inbox above (if anything new), run:\n\n"
         "```bash\n"
         f"mkdir -p data/heartbeats && touch data/heartbeats/{session}.timestamp\n"
         "```\n\n"
-        "Then continue with your standing-reactive pipeline (cycle-check filesystem for any substrate-mutation events you may have missed since last cycle).\n\n"
+        "Then continue with your standing-reactive pipeline (filesystem cycle-check for substrate-mutation events you may have missed since last cycle).\n\n"
         "## Why this matters\n\n"
-        "Without your heartbeat, the watchdog has no signal that you're alive and will keep ping-flooding you. One `touch` per turn-end is enough -- the watchdog ignores you for 10 min after each touch.\n\n"
-        "## If you have substantive work pending\n\n"
-        "Process it now (e.g., reactive 2nd-witness on recent cert events, atomization checks, etc.) THEN do the heartbeat touch at the end of your turn.\n"
+        "Without your heartbeat, the watchdog has no signal that you're alive and will keep ping-flooding you (10-min cooldown). One `touch` per turn-end is enough.\n"
     )
     if dry_run:
         log(f"DRY-RUN: would write ping note: {fname}")

@@ -22,41 +22,55 @@ VALID_ROLES = {'testbed', 'research', 'exp_dev', 'orchestrator', 'skunkworks'}
 
 
 def main() -> int:
-    if len(sys.argv) < 2:
-        print('usage: python tools/register_session.py <role>', file=sys.stderr)
-        return 2
-    role = sys.argv[1].strip().lower()
+    import argparse
+    ap = argparse.ArgumentParser(description='Register a Claude Code session role -> auto_<hash> mapping.')
+    ap.add_argument('role', help=f'one of: {sorted(VALID_ROLES)}')
+    ap.add_argument('--hash', dest='hash_arg', default=None,
+                    help='Explicit auto_<hex> key (copy from your Stop hook output: '
+                         '"Pending work for auto_XXX"). Bypasses timestamp inference; '
+                         'recommended when other sessions are firing concurrently.')
+    ap.add_argument('--dry-run', action='store_true',
+                    help='Show what would be written without modifying session_key_map.json.')
+    args = ap.parse_args()
+    role = args.role.strip().lower()
     if role not in VALID_ROLES:
         print(f'invalid role {role!r}; must be one of {sorted(VALID_ROLES)}', file=sys.stderr)
         return 2
 
     repo_root = Path(__file__).resolve().parent.parent
-    log_file = repo_root / 'data' / 'hook_state' / '_invocation_log.txt'
-    if not log_file.exists():
-        print(f'no invocation log at {log_file}; has the hook fired yet for this session?',
-              file=sys.stderr)
-        return 1
 
-    # The hook DOES NOT currently log the auto_<hash> key (only pid + argv). We use
-    # the per-session last_processed_<key>.timestamp mtime as the index: the key
-    # whose timestamp was most recently touched by THIS session is the one to claim.
-    candidates = []
-    ts_dir = repo_root / 'data'
-    for f in ts_dir.glob('last_processed_auto_*.timestamp'):
-        try:
-            mtime = f.stat().st_mtime
-        except OSError:
-            continue
-        key = f.stem.replace('last_processed_', '')
-        candidates.append((mtime, key))
-    if not candidates:
-        print('no auto_<hash> timestamps found; has the hook fired yet?', file=sys.stderr)
-        return 1
-    candidates.sort(reverse=True)
-    # Most-recently-touched key is presumed to belong to the session running this script.
-    # Caveat: race condition if multiple sessions are firing simultaneously. Operator
-    # should run this immediately after a turn-end with no concurrent activity.
-    auto_key = candidates[0][1]
+    # Resolve auto_<hash> key:
+    #   1. --hash explicit (safest; copy-paste from Stop hook output)
+    #   2. fallback: most-recently-touched data/last_processed_auto_*.timestamp (racy)
+    if args.hash_arg:
+        h = args.hash_arg.strip()
+        if not h.startswith('auto_'):
+            print(f'--hash must look like auto_<hex>, got {h!r}', file=sys.stderr)
+            return 2
+        auto_key = h
+    else:
+        log_file = repo_root / 'data' / 'hook_state' / '_invocation_log.txt'
+        if not log_file.exists():
+            print(f'no invocation log at {log_file}; has the hook fired yet for this session?',
+                  file=sys.stderr)
+            return 1
+        candidates = []
+        ts_dir = repo_root / 'data'
+        for f in ts_dir.glob('last_processed_auto_*.timestamp'):
+            try:
+                mtime = f.stat().st_mtime
+            except OSError:
+                continue
+            key = f.stem.replace('last_processed_', '')
+            candidates.append((mtime, key))
+        if not candidates:
+            print('no auto_<hash> timestamps found; has the hook fired yet?', file=sys.stderr)
+            return 1
+        candidates.sort(reverse=True)
+        auto_key = candidates[0][1]
+        print(f'INFO: timestamp inference picked {auto_key} (most-recently-touched). '
+              f'If wrong, re-run with --hash <auto_XXX> from your Stop hook output.',
+              file=sys.stderr)
 
     map_file = repo_root / 'data' / 'session_key_map.json'
     if map_file.exists():
@@ -71,8 +85,16 @@ def main() -> int:
     prev = key_map.get(auto_key)
     if prev and prev != role:
         print(f'WARN: {auto_key} was {prev}, now claiming {role}', file=sys.stderr)
-    key_map[auto_key] = role
+        if not args.hash_arg:
+            print(f'  HINT: timestamp inference likely picked the wrong key. Confirm via '
+                  f'your Stop hook output ("Pending work for auto_XXX") and re-run with '
+                  f'--hash <auto_XXX> to override safely.', file=sys.stderr)
 
+    if args.dry_run:
+        print(f'DRY-RUN: would register {auto_key} -> {role} (previous: {prev!r})')
+        return 0
+
+    key_map[auto_key] = role
     tmp = map_file.with_suffix('.json.tmp')
     with tmp.open('w', encoding='utf-8') as f:
         json.dump(key_map, f, indent=2, sort_keys=True)
