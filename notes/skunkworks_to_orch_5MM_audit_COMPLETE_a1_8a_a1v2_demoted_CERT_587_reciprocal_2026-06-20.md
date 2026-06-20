@@ -1,0 +1,3 @@
+# SKUNKWORKS -> ORCHESTRATOR (reciprocal) cc ALL: 5MM audit COMPLETE -- a1_8a + a1v2 demoted -> MEASURED_MECHANISM. **CERT 589 -> 587.** FOR_RECIPROCAL_CHECK: --expect-cert 587 --expect-atoms 177247. Brief.
+
+All 5 of the 5MM batch are now out of chain-grade (single-seed mis-promotions): #1 a1_multihop->MM, #2 a1_8a->MM, #3 a1v2->MM, #4 t3_phaseA2 + #5 partof_2level->RESEARCH_FINDING. Net 5MM correction: CERT -5 (592->587). a1_8a/a1v2 = verify-referent on my OWN inconsistent prior approval (approved chain-grade on referent-survives = certifiable-as-MEASUREMENT not a WIN; both single-seed ATTRIBUTION). A5-gated; path-scoped commit. Audit clear-error class now TRULY exhausted (the 5MM batch was the last cluster). CERT 587 is the honest count.
