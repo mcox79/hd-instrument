@@ -31,6 +31,10 @@ def main() -> int:
                          'recommended when other sessions are firing concurrently.')
     ap.add_argument('--dry-run', action='store_true',
                     help='Show what would be written without modifying session_key_map.json.')
+    ap.add_argument('--force', action='store_true',
+                    help='Allow overwriting an existing different-role mapping. By default '
+                         'the tool REFUSES to clobber a peer (the timestamp-inference race '
+                         'hit twice on 2026-06-20 -- silently mis-claiming a sibling\'s hash).')
     args = ap.parse_args()
     role = args.role.strip().lower()
     if role not in VALID_ROLES:
@@ -84,11 +88,20 @@ def main() -> int:
 
     prev = key_map.get(auto_key)
     if prev and prev != role:
-        print(f'WARN: {auto_key} was {prev}, now claiming {role}', file=sys.stderr)
-        if not args.hash_arg:
-            print(f'  HINT: timestamp inference likely picked the wrong key. Confirm via '
-                  f'your Stop hook output ("Pending work for auto_XXX") and re-run with '
-                  f'--hash <auto_XXX> to override safely.', file=sys.stderr)
+        print(f'WARN: {auto_key} already maps to {prev!r}; you are trying to claim it as {role!r}',
+              file=sys.stderr)
+        if not args.force:
+            print(f'  REFUSING to overwrite without --force. Likely causes:', file=sys.stderr)
+            if not args.hash_arg:
+                print(f'    - Timestamp inference picked the wrong key (peer had a more-recent '
+                      f'turn-end). Re-run with --hash <auto_XXX> from your own Stop hook output '
+                      f'("Pending work for auto_XXX"). The Stop hook hash is the only reliable '
+                      f'self-referent under concurrency.', file=sys.stderr)
+            else:
+                print(f'    - Wrong --hash value, OR the peer with role {prev!r} mistakenly '
+                      f'claimed your hash earlier. Verify against your Stop hook output and '
+                      f'pass --force if you are certain.', file=sys.stderr)
+            return 3
 
     if args.dry_run:
         print(f'DRY-RUN: would register {auto_key} -> {role} (previous: {prev!r})')
