@@ -21,6 +21,7 @@ cert-owner review, not a gate -- a flag is a candidate to re-VET, not an automat
 from __future__ import annotations
 import argparse
 import ast
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -72,11 +73,44 @@ def _num_leaves_01(obj):
     return out
 
 
+# headline metric extractor (D1 fallback for the 422 atoms whose metrics live in metrics_headline text).
+# Match "<metric-name>[@/suffix] = / >= value" where value in [0,1]. Skip threshold parentheticals (HP>=..), counts
+# (5/5), N=, latency=, writes, and bare integers. Conservative: extract clear metric=value, else report unscannable.
+_METRIC_NAME = r"(?:acc|accuracy|recall|precision|f1|auc|cos|mean_cos|min_cos|max_cut|3sat|clique|fidelity|score|rate|purity)"
+_HL_PAT = re.compile(_METRIC_NAME + r"[@\w.]*\s*[><]?=\s*([01](?:\.\d+)?)\b", re.IGNORECASE)
+_HL_CLIFF = re.compile(r"cliff|onset|boundary|m_crit|degrad|drop|breaks?\b|forget", re.IGNORECASE)
+
+
+def _headline_vals(text):
+    if not isinstance(text, str):
+        return []
+    out = []
+    for m in _HL_PAT.finditer(text):
+        # exclude the threshold parentheticals like "(HP>=0.6 HF<0.3)" -- skip if inside parens immediately preceding
+        try:
+            v = float(m.group(1))
+        except Exception:
+            continue
+        if 0.0 <= v <= 1.0:
+            out.append(v)
+    return out
+
+
 def audit_saturation(md, ceiling=0.999):
     km = _parse_km(md.get("key_metrics"))
     vals = _num_leaves_01(km)
+    source = "key_metrics"
     if len(vals) < 3:
-        return None  # too few distilled metric values to judge (headline-only); skip D1 (UNSCANNABLE)
+        # D1 fallback: parse the headline text
+        hl = md.get("metrics_headline") or md.get("verdict_msg") or ""
+        hvals = _headline_vals(hl)
+        if len(hvals) >= 3:
+            vmin, vmax = min(hvals), max(hvals)
+            cliff_key = bool(_HL_CLIFF.search(hl))
+            flag = (vmin >= ceiling) and (vmax <= 1.0) and not (vmin < ceiling) and not cliff_key
+            return {"n_vals": len(hvals), "min": round(vmin, 4), "max": round(vmax, 4), "flag": flag,
+                    "cliff_key_present": cliff_key, "source": "headline"}
+        return None  # truly unscannable (no structured metrics AND no parseable headline metrics)
     vmin, vmax = min(vals), max(vals)
     pinned = vmin >= ceiling
     # cliff-intent: does key_metrics carry a sub-extreme value OR a cliff-ish key? if so, it reached/recorded a regime
@@ -86,7 +120,7 @@ def audit_saturation(md, ceiling=0.999):
     # flag: PASS pinned at ceiling, no sub-extreme value recorded, n>=3 distilled metrics
     flag = pinned and not has_subextreme and not cliff_key
     return {"n_vals": len(vals), "min": round(vmin, 4), "max": round(vmax, 4), "flag": flag,
-            "cliff_key_present": cliff_key}
+            "cliff_key_present": cliff_key, "source": source}
 
 
 def main():
@@ -116,7 +150,7 @@ def main():
             if s is None:
                 d1_unscannable += 1
             elif s["flag"]:
-                d1.append((aid, md.get("verdict"), s["n_vals"], s["min"], s["max"], md.get("run_mode"), md.get("era")))
+                d1.append((aid, md.get("verdict"), s["n_vals"], s["min"], s["max"], md.get("run_mode"), s.get("source")))
         # D2 smoke-mode cert
         if str(md.get("run_mode", "")).lower() == "smoke":
             d2.append((aid, md.get("verdict"), md.get("era"), md.get("relevance_tier")))
@@ -165,8 +199,8 @@ def main():
     print("D1 SATURATION CANDIDATES (PASS pinned at ceiling, no sub-extreme/cliff in key_metrics):")
     if not d1:
         print("  (none -- no cert atom's distilled key_metrics show the pinned-no-cliff pattern)")
-    for aid, v, n, mn, mx, rm, era in d1[:args.show]:
-        print("  [%s] %s  n=%d min=%.3f max=%.3f run=%s era=%s" % (v, aid, n, mn, mx, rm, era))
+    for aid, v, n, mn, mx, rm, src in d1[:args.show]:
+        print("  [%s] %s  n=%d min=%.3f max=%.3f run=%s src=%s" % (v, aid, n, mn, mx, rm, src))
     print("-" * 80)
     print("D2 SMOKE-MODE CERTS (run_mode=smoke but CERT_CHAIN_GRADE; under-powered-cert candidates):")
     for aid, v, era, tier in d2[:args.show]:
