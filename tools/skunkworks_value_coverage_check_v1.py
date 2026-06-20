@@ -11,8 +11,9 @@ A 5th cert-LENS alongside engine / checklist / invariant / integration:
      findings that are un-cert-graded + not yet onboarded, so they can never be
      silently overlooked (inst-242). Mechanizes the value x cert-gap triage rule.
 
-It does NOT mutate. It RANKS the non-cert experiment_records by VALUE (relevance_tier
-+ strategic-theme match + head-to-head-significance) and reports the top un-surfaced
+It does NOT mutate. It RANKS the non-cert experiment_records by ENABLING-VALUE (relevance_tier
++ strategic-theme match + a CORE-ENABLING [load-bearing/composable] bonus; vs-LLM POSITIONING is
+DOWN-weighted -- USER 2026-06-19: certify the backlog + prioritize the TRULY-ENABLING) and reports the top un-surfaced
 high-value findings + coverage stats. Run periodically (e.g. with the invariant-check
 cadence). The substrate is usually MORE capable than the cert-inventory implies; this
 check keeps that surfaced.
@@ -36,8 +37,14 @@ THEMES = {
     'glassbox_llm': ['minilm', 'llama', 'pythia', 'qwen', 'encoder', 'gen_lm', 'trigram', 'bigram', 'language_model', 'distill', 'generative', 'direct_gen'],
     'trust_integrity': ['refuse', 'provenance', 'attribution', 'hallucination', 'introspection', 'grounding', 'conformal', 'calibrat', 'coverage_guarantee', 'uncertainty'],
     'highval_caps': ['continual', 'catastrophic', 'oneshot', 'one_shot', 'rollback', 'transfer', 'superadd', 'world_model'],
+    'knowledge_graph': ['fb15k', 'kg_', 'knowledge_graph', 'multihop_traversal', 'highfanout', 'high_fanout', 'sharding', 'khop', 'k_hop', '2hop', 'relation'],
 }
-HEADTOHEAD = ['headtohead', 'head_to_head', 'vs_qwen', 'vs_llm', 'beats', 'vs_gpt', 'vs_pythia', 'margin']
+# CORE-ENABLING themes = load-bearing / composable / unlock-other-capabilities. USER 2026-06-19: certify the
+# backlog + PRIORITIZE the TRULY-ENABLING, then new things. These are the foundation the rest builds on.
+ENABLING_CORE = {'depth_composition', 'readout_capacity', 'knowledge_graph', 'highval_caps'}
+# POSITIONING = substrate-vs-LLM head-to-head ("beats Qwen at task X"). NOT enabling (terminal; enables nothing
+# further). USER halted these 2026-06-19 -> DOWN-weight (was an UP-weight; corrected).
+POSITIONING = ['headtohead', 'head_to_head', 'vs_qwen', 'vs_llm', 'beats', 'vs_gpt', 'vs_pythia']
 WIN_VERDICTS = {'PASS', 'HARD_PASS', 'ALREADY_SEPARATES', 'VALIDATED'}
 # a finding counts as "surfaced/onboarded" if it's already cap-int integrated or has a queue marker
 SURFACED_KEYS = ('capint_integrated', 'value_mine_queued', 'pull_up_queued')
@@ -56,8 +63,9 @@ def value_score(a):
     themes = [t for t, kw in THEMES.items() if any(w in blob for w in kw)]
     rel = {'HIGH': 4, 'MEDIUM': 3}.get(md(a).get('relevance_tier'), 1)
     hp = 2 if (md(a).get('verdict') or '') == 'HARD_PASS' else 0
-    h2h = 3 if any(w in blob for w in HEADTOHEAD) else 0  # beats-a-baseline = high strategic value
-    return len(themes) * 2 + rel + hp + h2h, themes
+    enabling = 2 if any(t in ENABLING_CORE for t in themes) else 0  # load-bearing foundation -> prioritize (USER)
+    positioning = -3 if any(w in blob for w in POSITIONING) else 0  # vs-LLM positioning != enabling -> DOWN-weight (USER halt)
+    return len(themes) * 2 + rel + hp + enabling + positioning, themes
 
 
 def main():
