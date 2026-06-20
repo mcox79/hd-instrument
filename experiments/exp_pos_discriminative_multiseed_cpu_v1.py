@@ -44,6 +44,37 @@ def _selftest():
 _selftest()
 if _ARGS.self_test:
     sys.exit(0)
+def hmm_baseline(train, test, TAGS):
+    """iso-protocol generative HMM (add-1 smoothed emission/transition; log-space Viterbi) on the SAME split. Returns tag-acc."""
+    ti = {t: k for k, t in enumerate(TAGS)}; T = len(TAGS)
+    em = [defaultdict(float) for _ in range(T)]; tc = np.zeros(T); tr = np.zeros((T, T)); sv = np.zeros(T); vocab = set()
+    for sent in train:
+        prev = None
+        for w, t in sent:
+            if t not in ti: continue
+            wl = w.lower(); k = ti[t]; em[k][wl] += 1.0; tc[k] += 1.0; vocab.add(wl)
+            if prev is None: sv[k] += 1.0
+            else: tr[prev][k] += 1.0
+            prev = k
+    Vsz = len(vocab)
+    ltr = np.log((tr + 1.0) / (tr.sum(1, keepdims=True) + T)); lsv = np.log((sv + 1.0) / (sv.sum() + T))
+    def lem(k, wl): return float(np.log((em[k].get(wl, 0.0) + 1.0) / (tc[k] + Vsz + 1.0)))
+    hit = tot = 0
+    for sent in test:
+        words = [x[0].lower() for x in sent]; gold = [x[1] for x in sent]; n = len(words)
+        if n == 0: continue
+        Vm = np.full((n, T), -1e18); bp = np.zeros((n, T), dtype=int)
+        Vm[0] = lsv + np.array([lem(k, words[0]) for k in range(T)])
+        for i in range(1, n):
+            emi = np.array([lem(k, words[i]) for k in range(T)]); cand = Vm[i - 1][:, None] + ltr
+            bp[i] = np.argmax(cand, 0); Vm[i] = cand[bp[i], np.arange(T)] + emi
+        seq = [int(np.argmax(Vm[n - 1]))]
+        for i in range(n - 1, 0, -1): seq.append(int(bp[i][seq[-1]]))
+        seq.reverse()
+        for g, k in zip(gold, seq): hit += int(g == TAGS[k]); tot += 1
+    return hit / tot if tot else 0.0
+
+
 def run() -> Dict:
     rng = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "1024")))
     try:
@@ -97,19 +128,30 @@ def run() -> Dict:
     SEEDS = [1, 2, 3] if SMOKE else [1, 2, 3, 4, 5]
     vals = [round(train_eval(sd), 4) for sd in SEEDS]
     mean = sum(vals) / len(vals); std = (sum((v - mean) ** 2 for v in vals) / len(vals)) ** 0.5
-    print("  POS-DISCRIMINATIVE n=%d: mean=%.4f std=%.4f vals=%s vs HMM 0.906" % (len(vals), mean, std, vals), flush=True)
-    return {"accuracy": round(mean, 4), "std": round(std, 4), "vals": vals, "n_train": len(train), "n_tags": T, "n_seeds": len(vals)}
+    spread = max(vals) - min(vals)
+    hmm_acc = round(hmm_baseline(train, test, TAGS), 4)
+    print("  POS-DISCRIMINATIVE n=%d: mean=%.4f std=%.4f spread=%.4f vals=%s | iso-protocol HMM=%.4f gain=%.4f" % (
+        len(vals), mean, std, spread, vals, hmm_acc, mean - hmm_acc), flush=True)
+    return {"accuracy": round(mean, 4), "std": round(std, 4), "spread": round(spread, 4), "vals": vals,
+            "hmm_acc": hmm_acc, "gain_vs_hmm": round(mean - hmm_acc, 4), "n_train": len(train), "n_tags": T, "n_seeds": len(vals)}
 def verdict(r) -> Tuple[str, str]:
+    # v2 pre-reg: HARD_PASS tag-acc>=0.92 AND substrate-HMM(iso-protocol)>=0.03 AND seeds reproduce +-0.005 (spread<=0.01).
+    # HARD_FAIL: tag-acc<0.90 OR gain<0.02 OR seeds disagree >0.01.
     if r.get("error"): return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    a = r["accuracy"]; s = "mean=%.4f std=%.4f (n=%d seeds, vals=%s, train=%d sents, %d tags)" % (a, r.get("std", 0), r.get("n_seeds", 0), r.get("vals", []), r.get("n_train", 0), r.get("n_tags", 0))
-    sd = r.get("std", 1.0)
-    if a >= 0.92 and sd <= 0.01:
-        return ("HARD_PASS", "HARD_PASS: discriminative POS tagger SEED-ROBUST (mean>=0.92, std<=0.01, n=%d) -- beats HMM 0.906; TIER A. " % r.get("n_seeds", 5) + s)
-    if a >= 0.906:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: 0.906-0.92 -- matches/edges the HMM; richer features for 0.92. " + s)
-    return ("HARD_FAIL", "HARD_FAIL: <0.906 -- below the HMM baseline. " + s)
+    a = r["accuracy"]; hmm = r.get("hmm_acc", 0.906); gain = r.get("gain_vs_hmm", a - hmm); spread = r.get("spread", 1.0)
+    s = ("mean=%.4f std=%.4f spread=%.4f vs iso-protocol-HMM=%.4f (gain=%.4f) (n=%d seeds, vals=%s, train=%d sents, %d tags)" % (
+        a, r.get("std", 0), spread, hmm, gain, r.get("n_seeds", 0), r.get("vals", []), r.get("n_train", 0), r.get("n_tags", 0)))
+    if a < 0.90 or gain < 0.02 or spread > 0.01:
+        return ("HARD_FAIL", "HARD_FAIL: tag-acc<0.90 OR discriminative-gain<0.02 OR seeds disagree>0.01. " + s)
+    if a >= 0.92 and gain >= 0.03 and spread <= 0.01:
+        return ("HARD_PASS", "HARD_PASS: discriminative structured-perceptron POS tagger SEED-ROBUST (>=0.92) beats iso-protocol "
+                "generative HMM by >=0.03 (discriminative gain). " + s)
+    return ("MIDDLE_BAND", "MIDDLE_BAND: above HMM but gain<0.03 or tag-acc<0.92 (discriminative edge within margin). " + s)
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
 v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
-metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
+metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE,
+           "metrics_source": "measured_cpu_pos_discriminative_vs_isoprotocol_hmm_ptb", "n_seeds": r.get("n_seeds", len(r.get("vals", []))),
+           "accuracy": r.get("accuracy"), "hmm_acc": r.get("hmm_acc"), "gain_vs_hmm": r.get("gain_vs_hmm"),
+           "spread": r.get("spread"), "vals": r.get("vals"), "per_seed": [r], "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
