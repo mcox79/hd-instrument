@@ -17,12 +17,13 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-21T00:15:00Z
-- testbed: synthesize dashboard spec from Director + Skunkworks inputs → USER ratifies → rebuild from self-maintaining sources
-- skunkworks: SCHEMA-VET batch — substrate-native Milestone 1 (6 questions) + LEVER #2 PCA (6 questions) + LEVER #3 sparse-coding (6 questions) + LEVER #4 multiplicative-composition (6 questions); cadence hers
-- skunkworks: ~149-atom classification sub-audit slow-cadence per BOUNDED ruling
-- exp_dev: LEVER 1.5 v2 N=4096 in flight (honest pre-call MEASURED_MECHANISM not chain-grade per Exp-Dev disclosed); refuse-gate #5 full+fixedE landed-VET; pythia v2 reframe (add margin + CAN-fail + random-control); phase4b v2 reframe (drop div-by-near-zero ratio + narrow to MultiArith-2op + investigate 1op-MultiArith=0.017 anomaly)
-- (cleared this cycle: LEVER queue pre-reg batch authoring complete #2+#3+#4; map v6 mini-refresh; substrate-native Milestone 1 pre-reg filed)
+**Last-updated:** 2026-06-21T00:45:00Z
+- exp_dev: pythia v2 reframe (add NN-margin + CAN-fail + random-key control) — the ONLY remaining input-dep blocker for Milestone 1 cell-author per Option A sequence
+- exp_dev: phase4b v2 reframe to MM (drop div-by-near-zero ratio + narrow to MultiArith-2op-only + investigate 1op-MultiArith=0.017 anomaly)
+- exp_dev: LEVER 2/3/4 pre-regs SCHEMA-VET (Skunkworks queue) → cell-author cadence
+- skunkworks: LEVER 2/3/4 SCHEMA-VET batch (3 pre-regs × 6 questions); refuse-gate #5 (b) landed-VET ruling on Exp-Dev's chain-grade-proposal
+- testbed: dashboard stage 2 HTML rendering (composition-bar + sparkline + integrity-light + vital-signs + drift-detectors per converged spec)
+- (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
 **Last-updated:** 2026-06-20T23:20:00Z
