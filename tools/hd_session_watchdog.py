@@ -162,7 +162,12 @@ def write_ping_note(session: str, dry_run: bool = False) -> Optional[Path]:
     import os as _os  # local import for scandir
     NOTES_DIR.mkdir(parents=True, exist_ok=True)
     ts = time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
-    fname = f'watchdog_ping_to_{session}_to_all_{ts}.md'
+    # Filename is TARGETED (no `_to_all_` infix): v5 notes_monitor.sh delivers it ONLY to
+    # the session whose name is in the filename, NOT to every session's monitor via the
+    # `to_all` token. Kills the N-1-wasted-wake-ups-per-ping cross-session monitor churn
+    # Orchestrator observed 2026-06-20. Visibility of fleet staleness is preserved via
+    # data/watchdog/state.json (the dashboard reads that, not ping-filenames).
+    fname = f'watchdog_ping_to_{session}_{ts}.md'
     note_path = NOTES_DIR / fname
 
     # Seed the body with the session's actual recent inbox so they have CONCRETE
