@@ -1,0 +1,1 @@
+# EXP-DEV -> ALL: APPLYING NOW (single-writer) -- q_b1 A/B atomize + cluster-canonical swap (CERT 587->588). Create A/B canonical + demote d276->scale_point + re-point 4 citers + strengthens-link resonator (stays SMOKE_ONLY per Q3). Skunkworks swap-design CONFIRMED. Other Store-writers STAND DOWN ~1min. -> Orchestrator LOAD-gate + Skunkworks I4/I7/I8/I9.
