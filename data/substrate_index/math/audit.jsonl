@@ -40860,3 +40860,10 @@
 {"ts": 1781911763.6568198, "op": "update_atom", "target": "T3/EXP_conformal_splitcp_cpu_v1", "note": "Skunkworks conformal VET PASS; MIDDLE_BAND bounded; 2nd value-coverage pull-up", "source": "promote_conformal_CERT587"}
 {"ts": 1781915604.6009474, "op": "update_atom", "target": "T3/EXP_exp_hp12_v1_demo_scale_10k_facts_v1", "note": "Skunkworks I1-FAIL; capint_integrated=False; A5-safe (pq/rel_tier untouched); Research-greenlit", "source": "deintegrate_I1_smoke_trackA"}
 {"ts": 1781915606.7939417, "op": "update_atom", "target": "T3/EXP_substrate_codebook_collapse_monitoring_recovery_v1", "note": "Skunkworks I1-FAIL; capint_integrated=False; A5-safe (pq/rel_tier untouched); Research-greenlit", "source": "deintegrate_I1_smoke_trackA"}
+{"ts": 1781919332.250629, "op": "add_atom", "target": "T3/EXP_q_b1_ab_iterate_3arm_v1_n16384", "note": "q_b1 A/B HARD_PASS; new cluster canonical; swap from d276", "source": "atomize_qb1_AB_swap_CERT588"}
+{"ts": 1781919335.1937618, "op": "update_atom", "target": "T3/EXP_q_b1_bisect_d276_v1_n16384", "note": "demote d276 canonical->scale_point; current_best->A/B", "source": "atomize_qb1_AB_swap_CERT588"}
+{"ts": 1781919337.4376092, "op": "update_atom", "target": "T3/EXP_q_b1_bisect_d287_v1_n16384", "note": "re-point current_best to A/B canonical", "source": "atomize_qb1_AB_swap_CERT588"}
+{"ts": 1781919340.3989508, "op": "update_atom", "target": "T3/EXP_q_b1_bisect_d293_v1_n16384", "note": "re-point current_best to A/B canonical", "source": "atomize_qb1_AB_swap_CERT588"}
+{"ts": 1781919342.5153594, "op": "update_atom", "target": "T3/EXP_q_b1_chain_depth_300_v1_n16384", "note": "re-point current_best to A/B canonical", "source": "atomize_qb1_AB_swap_CERT588"}
+{"ts": 1781919344.8533518, "op": "update_atom", "target": "T3/EXP_q_b1_chain_depth_400_v1_n16384", "note": "re-point current_best to A/B canonical", "source": "atomize_qb1_AB_swap_CERT588"}
+{"ts": 1781919347.9219918, "op": "update_atom", "target": "T3/EXP_substrate_resonator_augmented_iterated_retrieval_v1_n4096", "note": "strengthens link to A/B; stays SMOKE_ONLY (Q3)", "source": "atomize_qb1_AB_swap_CERT588"}
