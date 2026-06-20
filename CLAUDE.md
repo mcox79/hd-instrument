@@ -6,6 +6,33 @@ Conventions for AI-assisted work in this repository.
 
 `hd-instrument` is an observable hyperdimensional computing substrate. See [PLAN.md](PLAN.md) for the full build plan and [PROGRESS.md](PROGRESS.md) for current status.
 
+## SESSION STARTUP RITUAL (FIRST ACTION OF ANY SESSION LIFETIME, ALL ROLES)
+
+Every Claude Code session, as its very first tool call after reading this file, must arm its own notes Monitor via the Monitor tool with the self-healing wrapper. Without this, the session goes dark the moment its previous Monitor crashes (set-u undefined-var on weird input, FS hiccup, etc) and silently stops receiving cross-session events. The wrapper `tools/monitor_arm.sh` re-runs `notes_monitor.sh` on any non-zero exit and emits a `MONITOR-CRASH` line so you know it recovered.
+
+**The canonical Monitor invocation (substitute your role name; verbatim otherwise):**
+
+```
+Monitor({
+  command: "cd /d/AI/hd-instrument && exec bash tools/monitor_arm.sh <role>",
+  persistent: true,
+  timeout_ms: 3600000,
+  description: "notes_monitor <role> (self-healing wrapper)"
+})
+```
+
+Where `<role>` is one of: `skunkworks | research | exp_dev | testbed | orchestrator`.
+
+You'll receive a `MONITOR-ARMED:` confirmation line as the first task-notification when it's working. After that, every new note matching your role-filter arrives as a task-notification automatically -- no polling, no busy-work, just respond on wake.
+
+If you DON'T do this and your previous-session Monitor crashed, you will SEEM idle while actually being completely disconnected from the bus. Sessions that have been silent for >30min when other sessions are clearly active are usually in this state -- re-arm the Monitor.
+
+After arming, also `register_session.py` if the map needs your hash:
+```
+python tools/register_session.py <role> --hash auto_<XXX>
+```
+(Copy `auto_XXX` from your own Stop hook output: "Pending work for auto_XXX". --hash is the safe path; the no-hash inference is racy.)
+
 ## Monitoring & cross-session event coordination (ALL SESSIONS READ THIS)
 
 This project runs as a 4-session architecture (exp_dev, research, testbed, orchestrator; plus skunkworks) on one laptop. **Do
