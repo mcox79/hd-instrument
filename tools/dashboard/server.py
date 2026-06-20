@@ -330,6 +330,635 @@ _DIRECTOR_PLAN_CACHE = {"mtime": 0.0, "payload": None, "loaded_at": 0.0}
 _DIRECTOR_PLAN_CACHE_LOCK = threading.Lock()
 
 
+# === Dashboard v2 health endpoint (Research + Skunkworks vetted spec; aesthetic-locked-in 2026-06-20) ===
+#
+# Single consolidated endpoint that returns all 8 elements + the top-of-page aggregate.
+# Self-maintaining: every source updates as real work happens (Store mtime, heartbeats,
+# watchdog state, fleet_waiting_on.md, git log of cert-pattern commits).
+#
+# Refresh discipline: each element's data freshness matches its source's update cadence;
+# the frontend shows per-element age stamps so the user can see whether something is fresh
+# or actually stale (vs. the v1 "looks fresh but stale" paradox).
+_HEALTH_CACHE = {
+    "substrate_trust": {"loaded_at": 0.0, "store_mtime": 0.0, "payload": None},  # 5min cache OR Store mtime
+    "discipline_drift": {"loaded_at": 0.0, "payload": None},                      # 5min cache
+}
+_HEALTH_CACHE_LOCK = threading.Lock()
+_FLEET_WAITING_PATH = _DATA_DIR / "fleet_waiting_on.md"
+_REPO_ROOT = _DATA_DIR.parent
+_SUBSTRATE_INDEX_DIR = _DATA_DIR / "substrate_index"
+_EXPERIMENTS_DIR = _REPO_ROOT / "experiments"
+
+
+def _substrate_index_latest_mtime() -> float:
+    """Return the most-recent mtime across all Store partition files."""
+    if not _SUBSTRATE_INDEX_DIR.is_dir():
+        return 0.0
+    latest = 0.0
+    try:
+        with os.scandir(_SUBSTRATE_INDEX_DIR) as it:
+            for entry in it:
+                try:
+                    if entry.is_file():
+                        m = entry.stat().st_mtime
+                        if m > latest:
+                            latest = m
+                except OSError:
+                    pass
+    except OSError:
+        pass
+    return latest
+
+
+def _compute_substrate_trust() -> dict:
+    """Composition bar + sparkline + integrity light.
+
+    Returns:
+      {
+        composition: {total, passes, bounds, custom, to_classify, pct_passes, pct_bounds, pct_custom},
+        motion_7d: {labels: [d-6..d], passes_added: [...], demotes: [...], net: [...]},
+        integrity: {status: 'OK'|'FLAGS', n_flags, detail},
+        _source_mtime, _computed_at
+      }
+    """
+    try:
+        # Local import so the module-load doesn't depend on store availability
+        import sys as _sys
+        if str(_REPO_ROOT) not in _sys.path:
+            _sys.path.insert(0, str(_REPO_ROOT))
+        from backend.substrate_index.partition import PartitionedStore  # type: ignore
+    except Exception as e:
+        return {"error": f"Store import failed: {type(e).__name__}: {str(e)[:100]}"}
+
+    src_mtime = _substrate_index_latest_mtime()
+    now = time.time()
+
+    # Cache by Store mtime (live truth: refresh ONLY when Store actually changes)
+    cache = _HEALTH_CACHE["substrate_trust"]
+    if cache["payload"] is not None and cache["store_mtime"] == src_mtime and (now - cache["loaded_at"]) < 600:
+        return dict(cache["payload"], _cache_age_s=round(now - cache["loaded_at"], 1), _from_cache=True)
+
+    try:
+        ps = PartitionedStore(str(_SUBSTRATE_INDEX_DIR))
+        all_atoms = list(ps.all_atoms())
+    except Exception as e:
+        return {"error": f"Store load failed: {type(e).__name__}: {str(e)[:200]}"}
+
+    # === Composition bar (3 segments) ===
+    pass_verdicts = {"PASS", "HARD_PASS"}
+    bound_verdicts = {"MIDDLE_BAND", "HARD_FAIL"}
+    # Anything else with pq=CERT_CHAIN_GRADE is a "custom-verdict characterization"
+    passes = 0
+    bounds = 0
+    custom = 0
+    no_verdict = 0
+    for a in all_atoms:
+        md = a.metadata or {}
+        if md.get("provenance_quality") != "CERT_CHAIN_GRADE":
+            continue
+        v = md.get("verdict")
+        # Treat the long descriptive "HARD_PASS_chain_grade_*" variant as PASS too
+        if v in pass_verdicts or (isinstance(v, str) and v.startswith("HARD_PASS")):
+            passes += 1
+        elif v in bound_verdicts:
+            bounds += 1
+        elif v is None or v == "":
+            no_verdict += 1
+        else:
+            custom += 1
+    total_chain_grade = passes + bounds + custom + no_verdict
+    composition = {
+        "total": total_chain_grade,
+        "passes": passes,
+        "bounds": bounds,
+        "custom": custom,
+        "no_verdict": no_verdict,
+        "pct_passes": round(100.0 * passes / max(1, total_chain_grade), 1),
+        "pct_bounds": round(100.0 * bounds / max(1, total_chain_grade), 1),
+        "pct_custom": round(100.0 * (custom + no_verdict) / max(1, total_chain_grade), 1),
+        "_label": f"{passes} PASSES + {bounds} bounds + {custom + no_verdict} custom = {total_chain_grade} chain-grade",
+    }
+
+    # === Motion sparkline (7 days; passes-added by cert_promoted_date if present) ===
+    # Look for cert_promoted_date metadata; fall back to atom.id-implied recent activity.
+    from collections import defaultdict
+    from datetime import datetime as _dt, timedelta as _td
+    today = _dt.utcnow().date()
+    day_labels = [(today - _td(days=i)).isoformat() for i in range(6, -1, -1)]
+    daily_passes = defaultdict(int)
+    for a in all_atoms:
+        md = a.metadata or {}
+        if md.get("provenance_quality") != "CERT_CHAIN_GRADE":
+            continue
+        v = md.get("verdict")
+        if not (v in pass_verdicts or (isinstance(v, str) and v.startswith("HARD_PASS"))):
+            continue
+        date_str = md.get("cert_promoted_date") or md.get("atomized_date")
+        if not isinstance(date_str, str):
+            continue
+        # Extract YYYY-MM-DD prefix
+        ds = date_str[:10]
+        if ds in day_labels:
+            daily_passes[ds] += 1
+    passes_series = [daily_passes.get(d, 0) for d in day_labels]
+    # Demotes/reframes from git log: count commits matching demote/reframe patterns in last 7 days
+    daily_demotes = defaultdict(int)
+    daily_reframes = defaultdict(int)
+    try:
+        import subprocess as _sp
+        out = _sp.check_output(
+            ["git", "-C", str(_REPO_ROOT), "log", "--since=7.days.ago",
+             "--pretty=format:%cs|%s"],
+            timeout=8, text=True, errors="replace",
+        )
+        for ln in out.splitlines():
+            if "|" not in ln:
+                continue
+            ds, subj = ln.split("|", 1)
+            ds = ds.strip()
+            if ds not in day_labels:
+                continue
+            sl = subj.lower()
+            if "demote" in sl or "5mm" in sl:
+                daily_demotes[ds] += 1
+            if "reframe" in sl or "relabel" in sl:
+                daily_reframes[ds] += 1
+    except Exception:
+        pass
+    motion_7d = {
+        "labels": day_labels,
+        "passes_added": passes_series,
+        "demotes": [daily_demotes.get(d, 0) for d in day_labels],
+        "reframes": [daily_reframes.get(d, 0) for d in day_labels],
+    }
+    motion_7d["total_passes_added"] = sum(motion_7d["passes_added"])
+    motion_7d["total_demotes"] = sum(motion_7d["demotes"])
+    motion_7d["total_reframes"] = sum(motion_7d["reframes"])
+
+    # === Integrity light: count chain-grade atoms with verdict-vs-pq inconsistency ===
+    # Specifically: pq=CERT_CHAIN_GRADE but verdict=HARD_FAIL with honest_scope NOT mentioning bound/limit
+    # (rough proxy for label-honesty drift). Plus: no_verdict atoms are flags.
+    flags = []
+    bound_keywords = ("bound", "negative", "limit", "ceiling", "envelope", "proven", "measured")
+    for a in all_atoms:
+        md = a.metadata or {}
+        if md.get("provenance_quality") != "CERT_CHAIN_GRADE":
+            continue
+        v = md.get("verdict")
+        if v == "HARD_FAIL":
+            scope = (md.get("honest_scope") or "").lower()
+            if not any(k in scope for k in bound_keywords):
+                flags.append(str(a.id))
+                if len(flags) >= 20:
+                    break
+    integrity = {
+        "status": "OK" if not flags and no_verdict == 0 else "FLAGS",
+        "n_flags": len(flags) + no_verdict,
+        "n_under_classified_hard_fail": len(flags),
+        "n_no_verdict": no_verdict,
+        "sample_flagged_atoms": flags[:5],
+    }
+
+    payload = {
+        "composition": composition,
+        "motion_7d": motion_7d,
+        "integrity": integrity,
+        "_source_mtime": src_mtime,
+        "_computed_at": now,
+        "_total_atoms": len(all_atoms),
+    }
+    with _HEALTH_CACHE_LOCK:
+        cache["payload"] = payload
+        cache["store_mtime"] = src_mtime
+        cache["loaded_at"] = now
+    return dict(payload, _cache_age_s=0.0, _from_cache=False)
+
+
+def _compute_project_health() -> dict:
+    """Fleet activity dots + USER-pending queue + in-flight 1-line."""
+    now = time.time()
+
+    # === Fleet activity per session (5 roles) ===
+    roles = ["research", "exp_dev", "orchestrator", "skunkworks", "testbed"]
+    fleet = {}
+    notes_dir = _REPO_ROOT / "notes"
+    for role in roles:
+        # heartbeat age
+        hb = _DATA_DIR / "heartbeats" / f"{role}.timestamp"
+        hb_age = None
+        if hb.exists():
+            try:
+                hb_age = now - hb.stat().st_mtime
+            except OSError:
+                pass
+        # latest substantive outgoing note (exclude blocker_ping / watchdog / own status)
+        latest_note_age = None
+        latest_note_name = None
+        if notes_dir.is_dir():
+            try:
+                with os.scandir(notes_dir) as it:
+                    for e in it:
+                        if not e.name.endswith(".md"):
+                            continue
+                        nl = e.name.lower()
+                        if not nl.startswith(f"{role}_"):
+                            continue
+                        if "blocker_ping" in nl or "watchdog_ping" in nl:
+                            continue
+                        try:
+                            m = e.stat().st_mtime
+                            age = now - m
+                            if latest_note_age is None or age < latest_note_age:
+                                latest_note_age = age
+                                latest_note_name = e.name
+                        except OSError:
+                            pass
+            except OSError:
+                pass
+        # State: ALIVE (substantive event < 30min) / WORKING (heartbeat but no event)
+        # / STALE (>30min) / DEAD (>2h)
+        # We use the LATEST of {hb_age, latest_note_age} as the canonical liveness signal
+        signal_age = None
+        if hb_age is not None and latest_note_age is not None:
+            signal_age = min(hb_age, latest_note_age)
+        elif hb_age is not None:
+            signal_age = hb_age
+        elif latest_note_age is not None:
+            signal_age = latest_note_age
+        if signal_age is None:
+            state = "unknown"
+        elif latest_note_age is not None and latest_note_age < 1800:  # <30min substantive event
+            state = "alive"
+        elif hb_age is not None and hb_age < 1800:  # <30min heartbeat but no event
+            state = "working"
+        elif signal_age < 7200:  # <2h
+            state = "stale"
+        else:
+            state = "dead"
+        fleet[role] = {
+            "state": state,
+            "heartbeat_age_s": round(hb_age, 1) if hb_age is not None else None,
+            "latest_substantive_note_age_s": round(latest_note_age, 1) if latest_note_age is not None else None,
+            "latest_substantive_note": latest_note_name,
+        }
+
+    # === USER-pending queue from fleet_waiting_on.md ## USER-pending section ===
+    user_pending = {"count": 0, "oldest_age_h": None, "top_items": [], "source_age_s": None}
+    if _FLEET_WAITING_PATH.is_file():
+        try:
+            user_pending["source_age_s"] = round(now - _FLEET_WAITING_PATH.stat().st_mtime, 1)
+            raw = _FLEET_WAITING_PATH.read_text(encoding="utf-8", errors="replace")
+            in_section = False
+            items = []
+            for ln in raw.splitlines():
+                if ln.strip().startswith("## "):
+                    section = ln.strip()[3:].strip().lower()
+                    in_section = section == "user-pending"
+                    continue
+                if in_section and ln.strip().startswith("- ") and "(nothing" not in ln.lower():
+                    items.append(ln.strip().lstrip("- ").strip())
+            user_pending["count"] = len(items)
+            user_pending["top_items"] = items[:3]
+        except OSError:
+            pass
+
+    # === In-flight: max-mtime across {Store, experiments/*/metrics.json, latest substantive note} ===
+    in_flight_candidates = []
+    src_mtime = _substrate_index_latest_mtime()
+    if src_mtime > 0:
+        in_flight_candidates.append({"source": "substrate_store", "mtime": src_mtime,
+                                      "desc": "substrate atom mutation (Store partition write)"})
+    if _EXPERIMENTS_DIR.is_dir():
+        try:
+            with os.scandir(_EXPERIMENTS_DIR) as it:
+                for e in it:
+                    if e.is_dir():
+                        mp = Path(e.path) / "metrics.json"
+                        if mp.exists():
+                            try:
+                                in_flight_candidates.append({
+                                    "source": "experiment",
+                                    "mtime": mp.stat().st_mtime,
+                                    "desc": f"experiment metrics: {e.name}",
+                                })
+                            except OSError:
+                                pass
+        except OSError:
+            pass
+    # Latest non-watchdog non-blocker note across all roles
+    if notes_dir.is_dir():
+        try:
+            with os.scandir(notes_dir) as it:
+                latest_n_mtime = 0
+                latest_n_name = None
+                for e in it:
+                    if not e.name.endswith(".md"):
+                        continue
+                    nl = e.name.lower()
+                    if "blocker_ping" in nl or "watchdog_ping" in nl:
+                        continue
+                    try:
+                        m = e.stat().st_mtime
+                        if m > latest_n_mtime:
+                            latest_n_mtime = m
+                            latest_n_name = e.name
+                    except OSError:
+                        pass
+                if latest_n_name:
+                    in_flight_candidates.append({"source": "note", "mtime": latest_n_mtime,
+                                                  "desc": f"note: {latest_n_name}"})
+        except OSError:
+            pass
+    in_flight = {"desc": "(no recent activity)", "age_s": None}
+    if in_flight_candidates:
+        latest = max(in_flight_candidates, key=lambda c: c["mtime"])
+        in_flight = {
+            "desc": latest["desc"][:160],
+            "source_type": latest["source"],
+            "age_s": round(now - latest["mtime"], 1),
+        }
+
+    return {
+        "fleet": fleet,
+        "user_pending": user_pending,
+        "in_flight": in_flight,
+        "_computed_at": now,
+    }
+
+
+def _compute_discipline_and_drift() -> dict:
+    """Discipline-catches today + 4 drift detectors. 5min cached."""
+    now = time.time()
+    cache = _HEALTH_CACHE["discipline_drift"]
+    if cache["payload"] is not None and (now - cache["loaded_at"]) < 300:
+        return dict(cache["payload"], _cache_age_s=round(now - cache["loaded_at"], 1))
+
+    # === Discipline-catches today: count notes + commits matching patterns since 00:00 UTC today ===
+    from datetime import datetime as _dt
+    today_iso = _dt.utcnow().strftime("%Y-%m-%d")
+    today_start = _dt.strptime(today_iso, "%Y-%m-%d").timestamp()
+    notes_dir = _REPO_ROOT / "notes"
+
+    # Patterns -> categorize each catch
+    pattern_keywords = {
+        "miscites": ["miscite", "phantom", "verify_referent", "verify_the_referent"],
+        "demotes": ["demote", "_5mm_", "downgrade"],
+        "META": ["meta_", "_meta_", "atomized", "atomize"],
+        "label_honesty": ["worst_label", "label_honesty", "relabel"],
+        "LEVER": ["lever_1_5", "lever1_5"],
+        "drift_owned": ["own_my_verify", "verify_miss", "vet_miss", "verify_error"],
+    }
+    catches_breakdown = {k: 0 for k in pattern_keywords}
+
+    if notes_dir.is_dir():
+        try:
+            with os.scandir(notes_dir) as it:
+                for e in it:
+                    if not e.name.endswith(".md"):
+                        continue
+                    try:
+                        m = e.stat().st_mtime
+                        if m < today_start:
+                            continue
+                    except OSError:
+                        continue
+                    nl = e.name.lower()
+                    if "blocker_ping" in nl or "watchdog_ping" in nl:
+                        continue
+                    for cat, kws in pattern_keywords.items():
+                        if any(k in nl for k in kws):
+                            catches_breakdown[cat] += 1
+                            break  # one note -> one category
+        except OSError:
+            pass
+    catches_total = sum(catches_breakdown.values())
+
+    # === Drift detectors (4) ===
+    detectors = []
+
+    # D1. silent-monitor: heartbeat <30min BUT no substantive note in >2h
+    silent = []
+    roles = ["research", "exp_dev", "orchestrator", "skunkworks", "testbed"]
+    for role in roles:
+        hb = _DATA_DIR / "heartbeats" / f"{role}.timestamp"
+        if not hb.exists():
+            continue
+        try:
+            hb_age = now - hb.stat().st_mtime
+        except OSError:
+            continue
+        if hb_age >= 1800:
+            continue
+        # Find latest substantive note for role
+        latest_note_age = float("inf")
+        if notes_dir.is_dir():
+            try:
+                with os.scandir(notes_dir) as it:
+                    for e in it:
+                        if not e.name.endswith(".md"):
+                            continue
+                        nl = e.name.lower()
+                        if not nl.startswith(f"{role}_"):
+                            continue
+                        if "blocker_ping" in nl or "watchdog_ping" in nl:
+                            continue
+                        try:
+                            age = now - e.stat().st_mtime
+                            if age < latest_note_age:
+                                latest_note_age = age
+                        except OSError:
+                            pass
+            except OSError:
+                pass
+        if latest_note_age > 7200:  # >2h
+            silent.append({"role": role, "heartbeat_age_s": round(hb_age, 1),
+                           "latest_note_age_s": round(latest_note_age, 1)})
+    detectors.append({
+        "name": "silent-monitor",
+        "status": "RED" if silent else "OK",
+        "detail": f"{len(silent)} session(s) have fresh heartbeat but no substantive note in >2h" if silent else "all heartbeating sessions have recent substantive notes",
+        "evidence": silent,
+    })
+
+    # D2. upward-bias-creep: CERT count UP today but discipline-catches=0
+    # We approximate "CERT count UP today" by checking if any cert-related commit landed today.
+    cert_commits_today = 0
+    try:
+        import subprocess as _sp
+        out = _sp.check_output(
+            ["git", "-C", str(_REPO_ROOT), "log", f"--since={today_iso} 00:00",
+             "--pretty=format:%s"],
+            timeout=5, text=True, errors="replace",
+        )
+        for ln in out.splitlines():
+            sl = ln.lower()
+            if any(k in sl for k in ("cert ", "cert_", "chain-grade", "atomize")):
+                cert_commits_today += 1
+    except Exception:
+        pass
+    bias_creep = cert_commits_today > 0 and catches_total == 0
+    detectors.append({
+        "name": "upward-bias-creep",
+        "status": "RED" if bias_creep else "OK",
+        "detail": f"{cert_commits_today} cert-related commits today; {catches_total} discipline-catches" + (" (alarm: cert grew without catches)" if bias_creep else ""),
+        "evidence": {"cert_commits_today": cert_commits_today, "catches_today": catches_total},
+    })
+
+    # D3. plan-stall: priority in-progress in director_plan.json but no commit touching its cell in >6h
+    plan_stalls = []
+    plan_p = _DIRECTOR_PLAN_PATH
+    if plan_p.is_file():
+        try:
+            plan = json.loads(plan_p.read_text(encoding="utf-8", errors="replace"))
+            for pr in plan.get("priorities", []) if isinstance(plan, dict) else []:
+                if pr.get("status") != "in-progress":
+                    continue
+                cell = pr.get("cell")
+                if not isinstance(cell, str):
+                    continue
+                # Get last commit touching this path
+                try:
+                    import subprocess as _sp
+                    out = _sp.check_output(
+                        ["git", "-C", str(_REPO_ROOT), "log", "-1", "--format=%ct",
+                         "--", cell.split(" ")[0]],
+                        timeout=3, text=True, errors="replace",
+                    ).strip()
+                    if out:
+                        last_commit_ts = float(out)
+                        age_h = (now - last_commit_ts) / 3600.0
+                        if age_h > 6:
+                            plan_stalls.append({"priority_id": pr.get("id"), "cell": cell.split(" ")[0],
+                                                 "hours_since_commit": round(age_h, 1)})
+                except Exception:
+                    pass
+        except (OSError, json.JSONDecodeError):
+            pass
+    detectors.append({
+        "name": "plan-stall",
+        "status": "RED" if plan_stalls else "OK",
+        "detail": f"{len(plan_stalls)} in-progress priorit(ies) with no cell-commit in >6h" if plan_stalls else "all in-progress priorities have recent cell-commits",
+        "evidence": plan_stalls[:3],
+    })
+
+    # D4. user-pending-stale: fleet_waiting_on.md ## USER-pending mtime > 24h while substrate had mutations
+    user_pending_stale = False
+    user_pending_age_h = None
+    if _FLEET_WAITING_PATH.is_file():
+        try:
+            fw_age_h = (now - _FLEET_WAITING_PATH.stat().st_mtime) / 3600.0
+            user_pending_age_h = round(fw_age_h, 1)
+            store_age_h = (now - _substrate_index_latest_mtime()) / 3600.0
+            # Alarm if waiting-on is >24h stale AND Store has been touched in last 6h
+            if fw_age_h > 24 and store_age_h < 6:
+                user_pending_stale = True
+        except OSError:
+            pass
+    detectors.append({
+        "name": "user-pending-stale",
+        "status": "RED" if user_pending_stale else "OK",
+        "detail": f"fleet_waiting_on.md is {user_pending_age_h}h old while substrate is actively mutating" if user_pending_stale else f"fleet_waiting_on.md updated {user_pending_age_h}h ago (acceptable)",
+        "evidence": {"fleet_waiting_age_h": user_pending_age_h},
+    })
+
+    drift_summary = {
+        "n_total": len(detectors),
+        "n_red": sum(1 for d in detectors if d["status"] == "RED"),
+        "all_ok": all(d["status"] == "OK" for d in detectors),
+    }
+
+    payload = {
+        "catches_today": {
+            "total": catches_total,
+            "breakdown": catches_breakdown,
+            "_date_utc": today_iso,
+        },
+        "drift_detectors": detectors,
+        "drift_summary": drift_summary,
+        "_computed_at": now,
+    }
+    with _HEALTH_CACHE_LOCK:
+        cache["payload"] = payload
+        cache["loaded_at"] = now
+    return dict(payload, _cache_age_s=0.0)
+
+
+@app.get("/api/dashboard/v2/health")
+def dashboard_v2_health():
+    """Consolidated v2 dashboard endpoint -- 8 elements + top-of-page aggregate.
+
+    Per Research + Skunkworks vetted spec + USER aesthetic sign-off 2026-06-20.
+    All data sources self-maintaining (Store mtime, heartbeats, watchdog, git log,
+    fleet_waiting_on.md). No human discipline overhead to keep this fresh.
+    """
+    t0 = time.time()
+    substrate_trust = _compute_substrate_trust()
+    project_health = _compute_project_health()
+    discipline_and_drift = _compute_discipline_and_drift()
+
+    # Top-of-page aggregate: highest-attention-wins per status-page best practice
+    aggregate_status = "OK"  # OK | WARN | ERROR
+    aggregate_notes = []
+    # Substrate trust contributions
+    if isinstance(substrate_trust.get("integrity"), dict):
+        if substrate_trust["integrity"].get("status") == "FLAGS":
+            aggregate_status = "WARN" if aggregate_status == "OK" else aggregate_status
+            aggregate_notes.append(f"{substrate_trust['integrity'].get('n_flags', 0)} cert-hygiene flags")
+    # Project health contributions
+    fleet_states = [s.get("state") for s in (project_health.get("fleet") or {}).values()]
+    n_dead = fleet_states.count("dead")
+    n_stale = fleet_states.count("stale")
+    n_alive_or_working = fleet_states.count("alive") + fleet_states.count("working")
+    if n_dead > 0:
+        aggregate_status = "ERROR"
+        aggregate_notes.append(f"{n_dead} session(s) DEAD")
+    elif n_stale > 0:
+        if aggregate_status == "OK":
+            aggregate_status = "WARN"
+        aggregate_notes.append(f"{n_stale} session(s) stale")
+    # User pending escalation
+    up = project_health.get("user_pending", {})
+    if up.get("count", 0) > 0:
+        aggregate_notes.append(f"{up['count']} USER-pending")
+    # Drift detector escalation
+    ds = discipline_and_drift.get("drift_summary", {})
+    if ds.get("n_red", 0) > 0:
+        aggregate_status = "ERROR"
+        aggregate_notes.append(f"{ds['n_red']}/{ds['n_total']} drift detector(s) RED")
+    # CERT summary
+    comp = substrate_trust.get("composition", {}) if isinstance(substrate_trust, dict) else {}
+    if comp.get("total"):
+        aggregate_notes.insert(0, f"CERT {comp['total']}")
+    # 7d net motion
+    motion = substrate_trust.get("motion_7d", {}) if isinstance(substrate_trust, dict) else {}
+    if motion.get("total_passes_added", 0) or motion.get("total_demotes", 0):
+        aggregate_notes.append(f"7d: +{motion.get('total_passes_added', 0)} / -{motion.get('total_demotes', 0)}")
+
+    aggregate = {
+        "status": aggregate_status,
+        "summary": " · ".join(aggregate_notes) if aggregate_notes else "no signals",
+        "n_fleet_alive_or_working": n_alive_or_working,
+        "n_fleet_total": len(fleet_states),
+    }
+
+    return {
+        "ts": time.time(),
+        "aggregate": aggregate,
+        "substrate_trust": substrate_trust,
+        "project_health": project_health,
+        "discipline": {
+            "catches_today": discipline_and_drift.get("catches_today"),
+            "_cache_age_s": discipline_and_drift.get("_cache_age_s", 0),
+        },
+        "drift_detectors": discipline_and_drift.get("drift_detectors", []),
+        "drift_summary": discipline_and_drift.get("drift_summary", {}),
+        "_meta": {
+            "compute_time_ms": round((time.time() - t0) * 1000, 1),
+            "spec_reference": "notes/testbed_to_research_skunkworks_DASHBOARD_RETHINK_*.md + aesthetic spec 2026-06-20 + USER ratify",
+        },
+    }
+
+
 @app.get("/api/director_plan")
 def director_plan():
     """Serve the Director-maintained data/director_plan.json (mtime-invalidate cached).

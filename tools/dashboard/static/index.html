@@ -462,7 +462,7 @@
     overflow-x: hidden;
     align-content: start;
   }
-  main[hidden], #tests-view[hidden], #capability-view[hidden], #foryou-view[hidden], #research-view[hidden], #plan-view[hidden] { display: none !important; }
+  main[hidden], #tests-view[hidden], #capability-view[hidden], #foryou-view[hidden], #research-view[hidden], #plan-view[hidden], #health-view[hidden] { display: none !important; }
   #pane-rightnow    { grid-area: rightnow; min-height: 160px; }
   #pane-upnext      { grid-area: upnext;   min-height: 220px; }
   #pane-system      { grid-area: sys;      min-height: 160px; }
@@ -2321,7 +2321,7 @@
   <button class="tab" data-tab="research">Research</button>
   <button class="tab" data-tab="substrate">Substrate <span id="tab-substrate-count" class="badge muted" style="display:none"></span></button>
   <button class="tab" data-tab="substrate3d">Substrate 3D <span id="tab-substrate3d-count" class="badge muted" style="display:none"></span></button>
-  <button class="tab" data-tab="plan">Plan</button>
+  <button class="tab" data-tab="health">Health</button>
 </nav>
 
 <!-- ========== For You tab (DEFAULT) ========== -->
@@ -2895,56 +2895,209 @@
   }
 </style>
 
-<!-- ========== Plan tab (Director priorities + fleet engagement; reads /api/director_plan + /api/fleet_engagement) ========== -->
+<!-- ========== Health tab (v2; Research + Skunkworks vetted; aesthetic-locked 2026-06-20) ========== -->
+<!-- Sources: live PartitionedStore + data/heartbeats + data/watchdog/state.json + data/fleet_waiting_on.md
+     + git log + notes/ mtimes. All self-maintaining. Refresh per-element matches source freshness.
+     v1 Plan tab REPLACED (was a data-dump, per USER critique). -->
 <style>
-  #plan-view { padding: 14px 18px; overflow: auto; }
-  #plan-view h2 { margin: 0 0 8px 0; font-size: 14px; color: var(--text); }
-  #plan-view h3 { margin: 14px 0 6px 0; font-size: 13px; color: var(--dim); }
-  #plan-view .plan-meta { font-size: 11px; color: var(--dimmer); margin-bottom: 12px; }
-  #plan-view .plan-narrative { background: var(--pane2); border: 1px solid var(--border); padding: 8px 10px; margin: 8px 0; border-radius: 4px; font-size: 12px; }
-  #plan-view table { width: 100%; border-collapse: collapse; margin: 6px 0 14px 0; font-size: 12px; }
-  #plan-view th { text-align: left; padding: 5px 8px; background: var(--pane2); border-bottom: 1px solid var(--border); color: var(--dim); font-weight: 500; }
-  #plan-view td { padding: 5px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  #plan-view tr:hover td { background: var(--pane2); }
-  #plan-view .pill { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-family: var(--mono); }
-  #plan-view .pill-status-in-progress { background: #1f3a5c; color: var(--info); }
-  #plan-view .pill-status-done { background: #1f3a1f; color: var(--ok); }
-  #plan-view .pill-status-blocked { background: #5c1f1f; color: var(--err); }
-  #plan-view .pill-status-planned { background: #3a3a1f; color: var(--warn); }
-  #plan-view .pill-status-dissolved { background: #3a3a3a; color: var(--dim); }
-  #plan-view .pill-owner { background: var(--pane); border: 1px solid var(--border); color: var(--text); }
-  #plan-view .stale-badge { background: var(--err); color: white; padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
-  #plan-view .fresh-badge { background: var(--ok); color: white; padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
-  #plan-view .neutral-badge { background: var(--dimmer); color: white; padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
-  #plan-view .waiting { font-size: 11px; color: var(--dim); margin-top: 4px; }
-  #plan-view .err { color: var(--err); padding: 10px; }
-  #plan-view .session-alive { color: var(--ok); }
-  #plan-view .session-stale { color: var(--warn); }
-  #plan-view .session-dead { color: var(--err); }
-  #plan-view .session-unknown { color: var(--dim); }
-  #plan-view .compact-list { margin: 0; padding-left: 16px; font-size: 11px; color: var(--dim); }
-  #plan-view .small { font-size: 11px; color: var(--dim); }
-  #plan-view .cert-breakdown { display: flex; gap: 14px; margin: 6px 0; font-size: 12px; }
-  #plan-view .cert-breakdown .cb-item { background: var(--pane2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; }
-  #plan-view .cert-breakdown .cb-num { font-weight: 600; color: var(--text); font-size: 13px; }
-  #plan-view .cert-breakdown .cb-label { color: var(--dim); font-size: 10px; }
+  #health-view { padding: 14px 20px; overflow: auto; max-width: 1280px; margin: 0 auto; }
+  #health-view .h-aggregate {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px; border-radius: 6px;
+    background: var(--pane); border: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  #health-view .h-aggregate .h-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px currentColor;
+  }
+  #health-view .h-aggregate.status-ok    .h-dot { background: var(--ok);   color: var(--ok); }
+  #health-view .h-aggregate.status-warn  .h-dot { background: var(--warn); color: var(--warn); }
+  #health-view .h-aggregate.status-error .h-dot { background: var(--err);  color: var(--err); }
+  #health-view .h-aggregate .h-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  #health-view .h-aggregate .h-summary { font-size: 12px; color: var(--dim); font-family: var(--mono); margin-left: auto; }
+  #health-view .h-row {
+    display: grid; gap: 14px; margin-bottom: 18px;
+  }
+  #health-view .h-row.row-trust { grid-template-columns: 2fr 2fr 1fr; }
+  #health-view .h-row.row-fleet { grid-template-columns: 2fr 1.2fr 1.5fr; }
+  #health-view .h-row.row-discipline { grid-template-columns: 1.2fr 2fr; }
+  @media (max-width: 900px) {
+    #health-view .h-row { grid-template-columns: 1fr !important; }
+  }
+  #health-view .h-card {
+    background: var(--pane); border: 1px solid var(--border);
+    border-radius: 5px; padding: 12px 14px;
+    display: flex; flex-direction: column;
+    min-height: 90px;
+  }
+  #health-view .h-card .h-card-label {
+    font-size: 10.5px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  #health-view .h-card .h-card-age {
+    font-size: 9.5px; color: var(--dimmer); font-family: var(--mono); margin-top: auto; padding-top: 6px;
+  }
+  /* Composition bar */
+  #health-view .h-compbar {
+    display: flex; height: 22px; border-radius: 3px; overflow: hidden;
+    margin: 8px 0;
+  }
+  #health-view .h-compbar .h-seg {
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-family: var(--mono); font-size: 11px; font-weight: 600;
+    min-width: 28px; transition: opacity 0.15s;
+  }
+  #health-view .h-compbar .h-seg-pass    { background: var(--ok); }
+  #health-view .h-compbar .h-seg-bound   { background: var(--warn); }
+  #health-view .h-compbar .h-seg-custom  { background: var(--dimmer); }
+  #health-view .h-compbar-legend {
+    display: flex; gap: 14px; font-size: 11px; color: var(--dim); margin-top: 4px;
+  }
+  #health-view .h-compbar-legend .h-lg-sw {
+    display: inline-block; width: 9px; height: 9px; margin-right: 4px; vertical-align: middle;
+    border-radius: 2px;
+  }
+  /* Sparkline */
+  #health-view .h-sparkline { display: block; width: 100%; height: 36px; margin: 6px 0; }
+  #health-view .h-sparkline-summary { font-size: 12px; color: var(--text); font-family: var(--mono); }
+  #health-view .h-sparkline-summary .h-up   { color: var(--ok); }
+  #health-view .h-sparkline-summary .h-down { color: var(--err); }
+  /* Integrity light */
+  #health-view .h-integrity {
+    display: flex; align-items: center; gap: 10px; margin: 8px 0;
+  }
+  #health-view .h-integrity .h-il-dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    box-shadow: 0 0 4px currentColor;
+  }
+  #health-view .h-integrity.il-ok .h-il-dot   { background: var(--ok);  color: var(--ok); }
+  #health-view .h-integrity.il-warn .h-il-dot { background: var(--warn); color: var(--warn); }
+  #health-view .h-integrity.il-red .h-il-dot  { background: var(--err); color: var(--err); }
+  #health-view .h-integrity .h-il-label { font-size: 13px; color: var(--text); font-weight: 500; }
+  #health-view .h-integrity-detail { font-size: 11px; color: var(--dim); margin-top: 4px; }
+  /* Fleet dots */
+  #health-view .h-fleet { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0; }
+  #health-view .h-fleet .h-sess {
+    display: flex; align-items: center; gap: 5px; padding: 3px 8px;
+    background: var(--pane2); border-radius: 3px; font-size: 11px; font-family: var(--mono);
+  }
+  #health-view .h-fleet .h-sess .h-sd {
+    width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 3px currentColor;
+  }
+  #health-view .h-fleet .h-sess.st-alive   .h-sd { background: var(--ok);   color: var(--ok); }
+  #health-view .h-fleet .h-sess.st-working .h-sd { background: var(--info); color: var(--info); }
+  #health-view .h-fleet .h-sess.st-stale   .h-sd { background: var(--warn); color: var(--warn); }
+  #health-view .h-fleet .h-sess.st-dead    .h-sd { background: var(--err);  color: var(--err); }
+  #health-view .h-fleet .h-sess.st-unknown .h-sd { background: var(--dim);  color: var(--dim); }
+  #health-view .h-fleet .h-sess .h-sn { color: var(--text); }
+  #health-view .h-fleet .h-sess .h-sa { color: var(--dim); font-size: 10px; }
+  /* USER-pending */
+  #health-view .h-pending-big { font-size: 26px; font-family: var(--mono); font-weight: 600; }
+  #health-view .h-pending-big.zero { color: var(--ok); }
+  #health-view .h-pending-big.some { color: var(--warn); }
+  #health-view .h-pending-big.many { color: var(--err); }
+  #health-view .h-pending-items { font-size: 11px; color: var(--dim); margin-top: 4px; }
+  #health-view .h-pending-items li { margin: 2px 0; }
+  /* In-flight */
+  #health-view .h-inflight { font-size: 12.5px; color: var(--text); margin: 6px 0; line-height: 1.4; }
+  #health-view .h-inflight .h-if-src { color: var(--info); font-size: 10px; text-transform: uppercase; margin-right: 6px; }
+  /* Discipline catches */
+  #health-view .h-catches-big { font-size: 32px; font-family: var(--mono); font-weight: 600; color: var(--ok); line-height: 1; }
+  #health-view .h-catches-big.zero { color: var(--err); }
+  #health-view .h-catches-breakdown {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; font-size: 11px; font-family: var(--mono);
+  }
+  #health-view .h-catches-breakdown .h-cb {
+    background: var(--pane2); padding: 2px 7px; border-radius: 2px; color: var(--dim);
+  }
+  #health-view .h-catches-breakdown .h-cb .h-cb-n { color: var(--text); font-weight: 600; }
+  /* Drift detectors */
+  #health-view .h-drift {
+    display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0;
+  }
+  #health-view .h-drift .h-dd {
+    display: flex; align-items: center; gap: 6px; padding: 4px 10px;
+    background: var(--pane2); border-radius: 3px; font-size: 11px;
+  }
+  #health-view .h-drift .h-dd .h-ddot {
+    width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 3px currentColor;
+  }
+  #health-view .h-drift .h-dd.st-OK .h-ddot  { background: var(--ok);  color: var(--ok); }
+  #health-view .h-drift .h-dd.st-RED .h-ddot { background: var(--err); color: var(--err); }
+  #health-view .h-drift .h-dd .h-dn { color: var(--text); font-family: var(--mono); }
+  #health-view .h-drift-summary { font-size: 11.5px; color: var(--dim); margin-top: 4px; }
+  #health-view .h-drift-summary.has-red { color: var(--err); font-weight: 500; }
+  /* Errors */
+  #health-view .h-err { color: var(--err); padding: 8px 12px; font-size: 12px; }
+  #health-view .h-foot {
+    font-size: 10px; color: var(--dimmer); margin-top: 18px; padding-top: 10px;
+    border-top: 1px solid var(--border); font-family: var(--mono); line-height: 1.5;
+  }
 </style>
 
-<section id="plan-view" hidden>
-  <h2>Director Plan + Fleet Engagement</h2>
-  <div class="plan-meta" id="plan-meta">Loading...</div>
-  <div id="plan-narrative-wrap"></div>
-  <div id="plan-cert-breakdown"></div>
-  <h3>Priorities</h3>
-  <div id="plan-priorities-wrap">Loading...</div>
-  <h3>Fleet Engagement</h3>
-  <div id="plan-fleet-wrap">Loading...</div>
-  <h3>Recent Ships (last 8)</h3>
-  <div id="plan-ships-wrap">Loading...</div>
-  <h3>Dissolved / Retracted</h3>
-  <div id="plan-dissolved-wrap">Loading...</div>
-  <h3>USER-pending</h3>
-  <div id="plan-user-pending-wrap">Loading...</div>
+<section id="health-view" hidden>
+  <!-- TOP-OF-PAGE AGGREGATE (Carbon-style 1-second readout) -->
+  <div class="h-aggregate status-ok" id="h-aggregate">
+    <span class="h-dot"></span>
+    <span class="h-title" id="h-aggregate-title">Loading...</span>
+    <span class="h-summary" id="h-aggregate-summary"></span>
+  </div>
+
+  <!-- ROW 1: SUBSTRATE TRUST (composition / motion / integrity) -->
+  <div class="h-row row-trust">
+    <div class="h-card" id="h-card-composition">
+      <div class="h-card-label">Substrate composition</div>
+      <div id="h-comp-content">Loading...</div>
+      <div class="h-card-age" id="h-comp-age"></div>
+    </div>
+    <div class="h-card" id="h-card-motion">
+      <div class="h-card-label">7-day motion (passes vs demotes)</div>
+      <div id="h-motion-content">Loading...</div>
+      <div class="h-card-age" id="h-motion-age"></div>
+    </div>
+    <div class="h-card" id="h-card-integrity">
+      <div class="h-card-label">Integrity</div>
+      <div id="h-integrity-content">Loading...</div>
+      <div class="h-card-age" id="h-integrity-age"></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: PROJECT HEALTH (fleet / user-pending / in-flight) -->
+  <div class="h-row row-fleet">
+    <div class="h-card">
+      <div class="h-card-label">Fleet</div>
+      <div id="h-fleet-content">Loading...</div>
+      <div class="h-card-age" id="h-fleet-age"></div>
+    </div>
+    <div class="h-card">
+      <div class="h-card-label">USER-pending</div>
+      <div id="h-pending-content">Loading...</div>
+      <div class="h-card-age" id="h-pending-age"></div>
+    </div>
+    <div class="h-card">
+      <div class="h-card-label">In-flight (most recent activity)</div>
+      <div id="h-inflight-content">Loading...</div>
+      <div class="h-card-age" id="h-inflight-age"></div>
+    </div>
+  </div>
+
+  <!-- ROW 3: DISCIPLINE + DRIFT -->
+  <div class="h-row row-discipline">
+    <div class="h-card">
+      <div class="h-card-label">Discipline catches today</div>
+      <div id="h-catches-content">Loading...</div>
+      <div class="h-card-age" id="h-catches-age"></div>
+    </div>
+    <div class="h-card">
+      <div class="h-card-label">Drift detectors</div>
+      <div id="h-drift-content">Loading...</div>
+      <div class="h-card-age" id="h-drift-age"></div>
+    </div>
+  </div>
+
+  <div class="h-foot" id="h-foot"></div>
 </section>
 
 <section id="substrate3d-view" hidden>
@@ -5566,7 +5719,7 @@ function setTab(name) {
   document.getElementById("research-view").hidden = name !== "research";
   document.getElementById("substrate-view").hidden = name !== "substrate";
   document.getElementById("substrate3d-view").hidden = name !== "substrate3d";
-  document.getElementById("plan-view").hidden = name !== "plan";
+  document.getElementById("health-view").hidden = name !== "health";
   for (const btn of document.querySelectorAll(".tab")) {
     btn.classList.toggle("active", btn.dataset.tab === name);
   }
@@ -5577,22 +5730,226 @@ function setTab(name) {
   if (name === "substrate" && typeof renderSubstrateState === "function") renderSubstrateState();
   // Initialize 3D substrate view on first reveal (heavy mount; lazy load CDN + render)
   if (name === "substrate3d" && typeof initSubstrate3D === "function") initSubstrate3D();
-  // Render plan tab on every reveal (fresh fetch; quick endpoints)
-  if (name === "plan" && typeof renderPlanTab === "function") renderPlanTab();
+  // Render Health tab on every reveal (fresh fetch; consolidated v2 endpoint with self-caching)
+  if (name === "health" && typeof renderHealthTab === "function") renderHealthTab();
 }
 
 // ============================================================================
-// Plan tab renderer (USER visibility: Director plan + fleet engagement)
+// Health tab renderer (v2; consolidated /api/dashboard/v2/health endpoint)
+// Per Research + Skunkworks vetted spec + USER aesthetic sign-off 2026-06-20.
+// Replaces v1 Plan tab (data-dump → decision-aiding vital-signs panel).
 // ============================================================================
-function escapeHtml(s) {
+function hEsc(s) {
   if (s == null) return "";
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
-function statusPill(status) {
-  const cls = "pill pill-status-" + (status || "unknown").replace(/[^a-z-]/gi, "");
-  return `<span class="${cls}">${escapeHtml(status || "?")}</span>`;
+function hFmtAge(s) {
+  if (s == null || isNaN(s)) return "?";
+  if (s < 0) return "0s";
+  if (s < 60) return Math.round(s) + "s";
+  if (s < 3600) return Math.round(s / 60) + "m";
+  if (s < 86400) return (s / 3600).toFixed(1) + "h";
+  return (s / 86400).toFixed(1) + "d";
 }
-function staleHoursBadge(h) {
+function hSparkSVG(passes, demotes, labels) {
+  // Tufte-style word-sized sparkline; 2 superposed lines (passes green / demotes red).
+  // Today's value highlighted with a dot per Tufte's "highlight extremes" pattern.
+  const n = Math.max(passes.length, demotes.length, 1);
+  const maxV = Math.max(1, ...passes, ...demotes);
+  const w = 200, h = 36, pad = 2;
+  const xStep = (w - 2 * pad) / Math.max(1, n - 1);
+  const yScale = v => h - pad - ((v / maxV) * (h - 2 * pad));
+  let svg = `<svg class="h-sparkline" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">`;
+  // Baseline at y=h-pad
+  svg += `<line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}" stroke="#2a2d34" stroke-width="0.5" />`;
+  // Passes line (green)
+  if (passes.length) {
+    const pts = passes.map((v, i) => `${pad + i * xStep},${yScale(v)}`).join(" ");
+    svg += `<polyline fill="none" stroke="#3a9d23" stroke-width="1.5" points="${pts}" />`;
+    // Today dot
+    const i = passes.length - 1;
+    svg += `<circle cx="${pad + i * xStep}" cy="${yScale(passes[i])}" r="2.5" fill="#3a9d23" />`;
+  }
+  // Demotes line (red, dashed)
+  if (demotes.length) {
+    const pts = demotes.map((v, i) => `${pad + i * xStep},${yScale(v)}`).join(" ");
+    svg += `<polyline fill="none" stroke="#d94545" stroke-width="1.5" stroke-dasharray="2,2" points="${pts}" />`;
+    const i = demotes.length - 1;
+    svg += `<circle cx="${pad + i * xStep}" cy="${yScale(demotes[i])}" r="2.5" fill="#d94545" />`;
+  }
+  svg += `</svg>`;
+  return svg;
+}
+
+async function renderHealthTab() {
+  let data;
+  try {
+    const r = await fetch("/api/dashboard/v2/health", {cache: "no-store"});
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    data = await r.json();
+  } catch (e) {
+    document.getElementById("h-aggregate-title").innerHTML = `<span class="h-err">Health endpoint failed: ${hEsc(e.message || e)}</span>`;
+    return;
+  }
+
+  // === Top-of-page aggregate (1-second readout) ===
+  const agg = data.aggregate || {};
+  const aggEl = document.getElementById("h-aggregate");
+  aggEl.classList.remove("status-ok", "status-warn", "status-error");
+  const aggStatusClass = "status-" + (agg.status || "ok").toLowerCase();
+  aggEl.classList.add(aggStatusClass);
+  const aggIcon = agg.status === "ERROR" ? "ATTENTION" : (agg.status === "WARN" ? "WATCH" : "OPERATIONAL");
+  document.getElementById("h-aggregate-title").textContent = `SUBSTRATE HEALTH · ${aggIcon}`;
+  document.getElementById("h-aggregate-summary").textContent = agg.summary || "";
+
+  // === Substrate trust ===
+  const st = data.substrate_trust || {};
+  if (st.error) {
+    document.getElementById("h-comp-content").innerHTML = `<span class="h-err">${hEsc(st.error)}</span>`;
+  } else {
+    const c = st.composition || {};
+    const total = c.total || 0;
+    if (total > 0) {
+      const passW = Math.max(2, c.pct_passes);
+      const boundW = Math.max(2, c.pct_bounds);
+      const customW = Math.max(2, c.pct_custom);
+      document.getElementById("h-comp-content").innerHTML = `
+        <div class="h-compbar">
+          <div class="h-seg h-seg-pass" style="width:${passW}%" title="${c.passes} PASSES (${c.pct_passes}%)">${c.passes}</div>
+          <div class="h-seg h-seg-bound" style="width:${boundW}%" title="${c.bounds} bounds (${c.pct_bounds}%)">${c.bounds}</div>
+          <div class="h-seg h-seg-custom" style="width:${customW}%" title="${c.custom + c.no_verdict} custom-verdict (${c.pct_custom}%)">${c.custom + c.no_verdict}</div>
+        </div>
+        <div class="h-compbar-legend">
+          <span><span class="h-lg-sw" style="background:#3a9d23"></span>PASSES (working capabilities)</span>
+          <span><span class="h-lg-sw" style="background:#d99b3a"></span>bounds</span>
+          <span><span class="h-lg-sw" style="background:#5a5d64"></span>custom-verdict</span>
+        </div>
+        <div style="font-size:11px;color:var(--dim);margin-top:6px">Total ${total} chain-grade · ${c.passes} firm-floor working capabilities</div>
+      `;
+    }
+    const compAge = (st._source_mtime ? Math.round((data.ts - st._source_mtime)) : null);
+    document.getElementById("h-comp-age").textContent = `Store updated ${hFmtAge(compAge)} ago · cache age ${st._cache_age_s || 0}s`;
+
+    const m = st.motion_7d || {};
+    if (m.labels) {
+      document.getElementById("h-motion-content").innerHTML = `
+        <div class="h-sparkline-summary">
+          <span class="h-up">+${m.total_passes_added || 0}</span> passes /
+          <span class="h-down">−${m.total_demotes || 0}</span> demotes
+          ${m.total_reframes ? ` / <span style="color:var(--info)">~${m.total_reframes}</span> reframes` : ""}
+        </div>
+        ${hSparkSVG(m.passes_added || [], m.demotes || [], m.labels)}
+        <div style="font-size:10px;color:var(--dimmer);margin-top:2px">7 days · green=passes, red=demotes</div>
+      `;
+    }
+    document.getElementById("h-motion-age").textContent = `cache age ${st._cache_age_s || 0}s · refreshed on Store mutation`;
+
+    const ig = st.integrity || {};
+    const ilClass = ig.status === "OK" ? "il-ok" : (ig.n_flags > 10 ? "il-red" : "il-warn");
+    document.getElementById("h-integrity-content").innerHTML = `
+      <div class="h-integrity ${ilClass}">
+        <span class="h-il-dot"></span>
+        <span class="h-il-label">${ig.status === "OK" ? "OK" : `${ig.n_flags} FLAG${ig.n_flags === 1 ? "" : "S"}`}</span>
+      </div>
+      <div class="h-integrity-detail">${ig.n_under_classified_hard_fail || 0} chain-grade+HARD_FAIL atoms lack bound/limit language in honest_scope (label-honesty proxy)${ig.n_no_verdict ? `; ${ig.n_no_verdict} missing verdict field` : ""}</div>
+    `;
+    document.getElementById("h-integrity-age").textContent = `cache age ${st._cache_age_s || 0}s · live Store scan`;
+  }
+
+  // === Project health ===
+  const ph = data.project_health || {};
+  const fl = ph.fleet || {};
+  const roles = ["research", "exp_dev", "orchestrator", "skunkworks", "testbed"];
+  let fleetHtml = '<div class="h-fleet">';
+  for (const role of roles) {
+    const s = fl[role] || {state: "unknown"};
+    const stCls = "st-" + (s.state || "unknown");
+    const ageS = s.latest_substantive_note_age_s != null ? s.latest_substantive_note_age_s : s.heartbeat_age_s;
+    fleetHtml += `<span class="h-sess ${stCls}" title="hb:${hFmtAge(s.heartbeat_age_s)} / note:${hFmtAge(s.latest_substantive_note_age_s)}"><span class="h-sd"></span><span class="h-sn">${role}</span><span class="h-sa">${hFmtAge(ageS)}</span></span>`;
+  }
+  fleetHtml += '</div><div style="font-size:10px;color:var(--dimmer);margin-top:4px">●=alive (note &lt;30min) · ●=working (heartbeat only) · ●=stale (&gt;30min) · ●=dead (&gt;2h)</div>';
+  document.getElementById("h-fleet-content").innerHTML = fleetHtml;
+  document.getElementById("h-fleet-age").textContent = `derived from heartbeats + notes/ mtime · live on every fetch`;
+
+  const up = ph.user_pending || {};
+  const upClass = up.count === 0 ? "zero" : (up.count <= 2 ? "some" : "many");
+  let pendingItems = "";
+  if (up.top_items && up.top_items.length) {
+    pendingItems = '<ul class="h-pending-items">' + up.top_items.map(i => `<li>${hEsc(i)}</li>`).join("") + '</ul>';
+  } else {
+    pendingItems = '<div style="font-size:11px;color:var(--dim);margin-top:4px">(nothing immediate)</div>';
+  }
+  document.getElementById("h-pending-content").innerHTML = `
+    <div class="h-pending-big ${upClass}">${up.count}</div>
+    ${pendingItems}
+  `;
+  document.getElementById("h-pending-age").textContent = `fleet_waiting_on.md age ${hFmtAge(up.source_age_s)}`;
+
+  const inf = ph.in_flight || {};
+  document.getElementById("h-inflight-content").innerHTML = `
+    <div class="h-inflight">
+      <span class="h-if-src">${hEsc(inf.source_type || "?")}</span>
+      ${hEsc(inf.desc || "(no recent activity)")}
+    </div>
+  `;
+  document.getElementById("h-inflight-age").textContent = `${hFmtAge(inf.age_s)} ago`;
+
+  // === Discipline ===
+  const disc = (data.discipline || {}).catches_today || {};
+  const totalCatches = disc.total || 0;
+  const catchesClass = totalCatches === 0 ? "zero" : "";
+  let breakdownHtml = "";
+  if (disc.breakdown) {
+    const items = Object.entries(disc.breakdown).filter(([k, v]) => v > 0).sort((a, b) => b[1] - a[1]);
+    breakdownHtml = '<div class="h-catches-breakdown">' + items.map(([k, v]) => `<span class="h-cb"><span class="h-cb-n">${v}</span> ${hEsc(k)}</span>`).join("") + '</div>';
+  }
+  document.getElementById("h-catches-content").innerHTML = `
+    <div class="h-catches-big ${catchesClass}">${totalCatches}</div>
+    <div style="font-size:11px;color:var(--dim);margin-top:2px">catches today (UTC ${hEsc(disc._date_utc || "")})</div>
+    ${breakdownHtml}
+  `;
+  document.getElementById("h-catches-age").textContent = `cache age ${(data.discipline || {})._cache_age_s || 0}s · 5min refresh`;
+
+  // === Drift detectors ===
+  const drifts = data.drift_detectors || [];
+  const ds = data.drift_summary || {};
+  let driftHtml = '<div class="h-drift">';
+  for (const d of drifts) {
+    driftHtml += `<span class="h-dd st-${hEsc(d.status)}" title="${hEsc(d.detail || "")}"><span class="h-ddot"></span><span class="h-dn">${hEsc(d.name)}</span></span>`;
+  }
+  driftHtml += '</div>';
+  const summaryCls = ds.n_red > 0 ? "has-red" : "";
+  driftHtml += `<div class="h-drift-summary ${summaryCls}">${ds.n_red || 0}/${ds.n_total || 0} red · hover for detail</div>`;
+  if (ds.n_red > 0) {
+    const redOnes = drifts.filter(d => d.status === "RED");
+    driftHtml += '<div style="font-size:11px;color:var(--err);margin-top:4px">';
+    for (const r of redOnes) {
+      driftHtml += `<div>● ${hEsc(r.name)}: ${hEsc(r.detail)}</div>`;
+    }
+    driftHtml += '</div>';
+  }
+  document.getElementById("h-drift-content").innerHTML = driftHtml;
+  document.getElementById("h-drift-age").textContent = `cache age ${(data.discipline || {})._cache_age_s || 0}s · 5min refresh`;
+
+  // === Footer ===
+  document.getElementById("h-foot").innerHTML = `
+    All sources self-maintaining: Store partitions + heartbeats + watchdog state.json + fleet_waiting_on.md + git log + notes/ mtimes ·
+    backend compute ${(data._meta || {}).compute_time_ms}ms ·
+    spec: Research + Skunkworks vetted + USER aesthetic-locked 2026-06-20
+  `;
+}
+
+// Auto-refresh Health tab every 60s when active (fleet + in-flight need this cadence;
+// substrate-trust + drift are server-side cached so this is cheap).
+setInterval(() => {
+  if (activeTab === "health" && typeof renderHealthTab === "function") renderHealthTab();
+}, 60000);
+
+// === REMOVED: prior helper functions for v1 Plan tab (escapeHtml, statusPill, staleHoursBadge,
+// sessionStateClass, fmtAgeS, renderPlanTab) -- the Health tab uses its own hEsc/hFmtAge/hSparkSVG.
+
+function _DEAD_staleHoursBadge_unused(h) {
+  // Dead code retained briefly to localize the cleanup edit; safe to remove.
   if (h == null) return '<span class="neutral-badge">no ts</span>';
   if (h < 2) return `<span class="fresh-badge">${h.toFixed(1)}h</span>`;
   if (h < 12) return `<span class="neutral-badge">${h.toFixed(1)}h</span>`;
