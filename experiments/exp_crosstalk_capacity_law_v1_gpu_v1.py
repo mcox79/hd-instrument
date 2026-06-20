@@ -208,27 +208,38 @@ def compute_verdict(units) -> Tuple[str, str, Dict]:
     dd = [agg[e]["D"] for e in encs]
     r_cross = pearson(loginv, logcap); sp_cross = spearman([agg[e]["inv_e_sq"] for e in encs], [agg[e]["m_crit"] for e in encs])
     r_iso = pearson(iso, logcap); r_deff = pearson(deff, logcap)
+    # PARTIAL correlation control|crosstalk (Skunkworks): r_xy.z=(r_xy - r_xz*r_yz)/sqrt((1-r_xz^2)(1-r_yz^2)).
+    # ~0 -> control is crosstalk-in-disguise (genuinely fails, even if raw |r| high); survives -> independent predictor.
+    r_deff_cross = pearson(deff, loginv); r_iso_cross = pearson(iso, loginv)
+    def _partial(r_xy, r_xz, r_yz):
+        return float((r_xy - r_xz * r_yz) / np.sqrt(max(1e-12, (1 - r_xz ** 2) * (1 - r_yz ** 2))))
+    partial_deff = _partial(r_deff, r_deff_cross, r_cross); partial_iso = _partial(r_iso, r_iso_cross, r_cross)
+    partial_controls_fail = (abs(partial_deff) < 0.30 and abs(partial_iso) < 0.30)  # controls add NO independent power
     c_spread = max(cs) / (min(cs) + 1e-9)
     detail = {"per_encoder": agg, "n_encoders": len(encs),
               "pearson_crosstalk_vs_logMcrit": round(r_cross, 3), "spearman_crosstalk_vs_Mcrit": round(sp_cross, 3),
               "pearson_deff_vs_logMcrit_CONTROL": round(r_deff, 3), "pearson_isoscore_vs_logMcrit_CONTROL": round(r_iso, 3),
+              "partial_pearson_deff_given_crosstalk": round(partial_deff, 3), "partial_pearson_isoscore_given_crosstalk": round(partial_iso, 3),
+              "partial_controls_fail": bool(partial_controls_fail), "control_signs": {"d_eff": round(r_deff, 3), "isoscore": round(r_iso, 3)},
               "c_per_encoder": {agg[e]["short"]: round(agg[e]["c"], 3) for e in encs}, "c_spread_max_over_min": round(c_spread, 2),
               "c_bound_pearson_c_vs_D": round(pearson(dd, cs), 3), "c_bound_pearson_c_vs_isoscore": round(pearson(iso, cs), 3),
               "worst_m_crit_cv": round(max(agg[e]["m_crit_cv"] for e in encs), 3),
               "honest_claim": "Direct crosstalk moment E[<ki,kj>^2] (raw keys) is the DOMINANT cross-encoder predictor of "
-                              "Hebbian capacity (Pearson %.2f / Spearman %.2f, n=%d); SVD d_eff (%.2f) AND mean-centered "
-                              "IsoScore (%.2f) BOTH fail; residual cleanup-boost c spread %.1fx (bounded? see c_bound_*)." %
-                              (r_cross, sp_cross, len(encs), r_deff, r_iso, c_spread)}
-    controls_fail = (abs(r_iso) < 0.5 and abs(r_deff) < 0.5 and r_cross > max(abs(r_iso), abs(r_deff)))
-    summary = ("Pearson(crosstalk)=%.3f Spearman=%.3f | CONTROLS d_eff=%.3f IsoScore=%.3f | c-spread=%.1fx | n=%d" %
-               (r_cross, sp_cross, r_deff, r_iso, c_spread, len(encs)))
-    if not controls_fail:
-        return ("HARD_FAIL", "HARD_FAIL: controls do NOT both fail OR crosstalk not dominant (the 2-failing-controls is the content). " + summary, detail)
-    # MEASURED_MECHANISM is the floor (Skunkworks tier). Chain-grade-ELIGIBLE only if robust + c bounded.
-    chain_eligible = (len(encs) >= 8 and sp_cross > 0.80 and r_cross > 0.80 and c_spread <= 3.0)
+                              "Hebbian capacity (Pearson %.2f / Spearman %.2f, n=%d); controls d_eff (r=%.2f) and IsoScore "
+                              "(r=%.2f) are WEAKER -- partial(ctrl|crosstalk)=%.2f/%.2f decides crosstalk-in-disguise (fails) "
+                              "vs independent predictor (report, don't bury); cleanup-boost c spread %.1fx (bounded? see c_bound_*)." %
+                              (r_cross, sp_cross, len(encs), r_deff, r_iso, partial_deff, partial_iso, c_spread)}
+    # FLOOR = DOMINANCE (Skunkworks band ruling): crosstalk > BOTH control |r|; dropped the arbitrary |r|<0.5. Signs reported honestly.
+    dominant = r_cross > max(abs(r_iso), abs(r_deff))
+    summary = ("Pearson(crosstalk)=%.3f Spearman=%.3f | CONTROLS d_eff=%.3f IsoScore=%.3f | PARTIAL(ctrl|crosstalk) d_eff=%.3f IsoScore=%.3f | c-spread=%.1fx | n=%d" %
+               (r_cross, sp_cross, r_deff, r_iso, partial_deff, partial_iso, c_spread, len(encs)))
+    if not dominant or sp_cross <= 0.70:
+        return ("HARD_FAIL", "HARD_FAIL: crosstalk NOT dominant (a control |r| >= crosstalk) or Spearman<=0.70 -> finding collapses. " + summary, detail)
+    # MEASURED_MECHANISM is the floor. Chain-grade-ELIGIBLE needs robust n + c bounded + PARTIAL controls-fail (controls add no independent power).
+    chain_eligible = (len(encs) >= 8 and sp_cross > 0.80 and r_cross > 0.80 and c_spread <= 3.0 and partial_controls_fail)
     if chain_eligible:
-        return ("HARD_PASS_CHAIN_ELIGIBLE", "CHAIN-GRADE-ELIGIBLE (Skunkworks to rule 592): crosstalk dominant + 2 controls fail, n>=8 robust (Spearman>0.80), c BOUNDED (<=3x). " + summary, detail)
-    return ("MEASURED_MECHANISM", "MEASURED_MECHANISM (Skunkworks tier; CERT stays 591): crosstalk-dominant + d_eff AND IsoScore both fail (the non-trivial content); NOT parameter-free LAW (c-spread %.1fx unbounded / n<8). " % c_spread + summary, detail)
+        return ("HARD_PASS_CHAIN_ELIGIBLE", "CHAIN-GRADE-ELIGIBLE (Skunkworks rules 592): crosstalk dominant, n>=8 robust (Spearman>0.80), c BOUNDED (<=3x), BOTH partial(ctrl|crosstalk)<0.30 (controls add no independent power = rigorous 2-controls-fail). " + summary, detail)
+    return ("MEASURED_MECHANISM", "MEASURED_MECHANISM (Skunkworks tier; CERT stays 591): crosstalk DOMINANT predictor; controls weaker (see PARTIALs for crosstalk-in-disguise vs independent); NOT parameter-free LAW (c-spread %.1fx / n / partial-controls-fail=%s). " % (c_spread, partial_controls_fail) + summary, detail)
 
 
 print("[config] %s mode=%s n_encoders=%d M_keys=%d seeds=%s" % (ANCHOR_NAME, RUN_MODE, len(ENCODERS), M_KEYS, SEEDS), flush=True)
