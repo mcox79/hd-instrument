@@ -109,7 +109,7 @@ def read_baseline():
             snap = json.loads(txt)                                  # whole stdout is JSON (expected)
         except Exception:
             snap = json.loads(txt[txt.index("{"):])                 # fallback: skip any preamble
-        atoms = snap.get("atoms", snap)
+        atoms = snap.get("pre_ship_snapshot") or snap.get("atoms") or {}   # snapshot tool key = pre_ship_snapshot
         return atoms
     except Exception as e:
         print("[baseline] WARN snapshot read failed: %s" % str(e)[:160], flush=True); return {}
