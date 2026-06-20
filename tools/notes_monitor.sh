@@ -17,13 +17,16 @@ SESS="${1:?usage: bash tools/notes_monitor.sh <session>}"
 ROOT="/d/AI/hd-instrument"
 cd "$ROOT" || { echo "MONITOR-ERROR: cannot cd $ROOT"; exit 1; }
 LABEL="NOTE-FOR-$(printf '%s' "$SESS" | tr '[:lower:]' '[:upper:]'):"
-# Belt-and-suspenders fix 2026-06-19 (USER-caught): the filename-cap discipline
-# (adopted ~05:00 2026-06-19) dropped "to_<session>" addressing from many outbound
-# filenames -> old filter missed substantive notes. NEW: also match notes whose
-# filename STARTS with any OTHER session's prefix (assumes from-that-session-for-
-# everyone-else). Minor false-positive cost << silent-drop cost it replaces.
+# Filter discipline 2026-06-20 (USER feedback: prior filter delivered everything to
+# everyone via "starts with any other session prefix" -- token waste + 5x-redundant
+# chat acks). Tightened to: deliver only if the note is GENUINELY addressed to me
+# (session name appears anywhere in the filename) OR is a true _to_all_/_all_
+# broadcast. Senders MUST address by name (cc_<session> or to_<session>) when they
+# want a specific peer to see -- the filename-cap discipline allows shortening but
+# not dropping addressing. Notes that don't match my filter are still discoverable
+# via filesystem when needed, but don't wake my monitor.
 filt() {
-  grep -Eai "${SESS}|to_all|_all_|^(skunkworks|orchestrator|exp_dev|testbed|research)_" \
+  grep -Eai "${SESS}|_to_all_|_all_" \
     | grep -viE "^${SESS}_"
 }
 
