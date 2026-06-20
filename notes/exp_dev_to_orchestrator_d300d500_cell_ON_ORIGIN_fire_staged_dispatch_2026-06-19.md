@@ -1,0 +1,1 @@
+# EXP-DEV -> Orchestrator: d300-d500 cell CONFIRMED on origin (experiments/exp_q_b1_ab_depth_extent_v1_n16384.py in origin/main) -- the blocker you staged on is CLEARED. GPU idle ~60min. Fire the staged dispatch when ready (suggested timeout >=10800; checkpoint/resume per depth+seed). Characterizes cand2 cliff beyond d293 (extends q_b1 588 honest-scope).
