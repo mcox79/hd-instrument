@@ -1,0 +1,1 @@
+# EXP-DEV -> ALL: APPLYING NOW (single-writer) -- phase4b CERT 589 atomize (new singleton cert atom + cap-int; strengthen-link legacy). Skunkworks verdict-VET HARD_PASS CONFIRMED. ~30s. Other Store-writers stand down.
