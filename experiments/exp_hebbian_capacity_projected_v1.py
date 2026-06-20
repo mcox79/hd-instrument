@@ -41,7 +41,7 @@ RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SMOKE = RUN_MODE == "smoke"
 ENCODER = "EleutherAI/pythia-160m" if SMOKE else "EleutherAI/pythia-2.8b"
-M_SWEEP = [200, 500, 1000] if SMOKE else [1000, 5000, 10000, 25000, 50000]
+M_SWEEP = [50, 100, 250, 500, 1000] if SMOKE else [100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000]   # finer low-M -> MEASURE M_crit, not extrapolate
 SEEDS = [0, 1] if SMOKE else [0, 1, 2, 3, 4]
 PROJ_DIM = 128 if SMOKE else 256
 TRAIN_FACTS = 500 if SMOKE else 5000
@@ -166,28 +166,41 @@ def train_projection(Ktr, Qtr, d, steps, seed):
 
 def run_unit(seed):
     g = np.random.default_rng(seed)
-    ktr, qtr = make_facts(TRAIN_FACTS, offset=0)                                  # TRAIN set (for the projection)
-    Mmax = max(M_SWEEP); kc, qc = make_facts(Mmax, offset=10_000_000)             # HELD-OUT capacity facts (disjoint)
-    Ktr = encode(ktr); Qtr = encode(qtr); Kc = encode(kc); Qc = encode(qc)
-    W = train_projection(Ktr, Qtr, PROJ_DIM, TRAIN_STEPS, seed)
-    Kp = Kc @ W; Qp = Qc @ W                                                      # PROJECTED held-out keys + cues
+    Mmax = max(M_SWEEP); M_total = TRAIN_FACTS + Mmax
+    k_all, q_all = make_facts(M_total)                                            # SAME distribution (offset 0); NO 8-digit-year shift
+    K_all = encode(k_all); Q_all = encode(q_all)
+    perm = g.permutation(M_total); tr = perm[:TRAIN_FACTS]; capi = perm[TRAIN_FACTS:]   # disjoint, SAME distribution (#7 split)
+    W = train_projection(K_all[tr], Q_all[tr], PROJ_DIM, TRAIN_STEPS, seed)
+    Kc = K_all[capi]; Qc = Q_all[capi]                                            # held-out CAP keys + cues
+    Kp = Kc @ W; Qp = Qc @ W                                                      # PROJECTED held-out
+    rho_mean, rho_var, e_sq = crosstalk_moments(_norm(Kp), min(len(Kp), 5000))
+    base = {"seed": seed, "rho_mean": round(rho_mean, 5), "rho_var": round(rho_var, 5), "e_sq": round(e_sq, 6)}
+    # rho_mean PRE-FLIGHT (key-sep discipline applied to the capacity cell): keys MUST de-crowd to ~#7's 0.03-0.05.
+    if rho_mean > 0.10:
+        print("  [s=%d] PRE-FLIGHT FAIL: rho_mean=%.4f > 0.10 -> keys NOT de-crowded (projection not generalizing) -> ABORT (capacity on crowded keys is meaningless)" % (seed, rho_mean), flush=True)
+        base.update({"preflight_fail": True, "m_crit_obs": 0.0, "m_crit_pred": 0.0, "recall_1k_proj": 0.0, "recall_1k_raw": 0.0, "canfail_halfdim_mcrit": 0.0, "curve": {}})
+        return base
     cap, curve = capacity_sweep(Kp, Qp, M_SWEEP, RECALL_THRESH)
-    rho_mean, rho_var, e_sq = crosstalk_moments(_norm(Kp), min(Mmax, 5000))       # moments on projected keys (sampled)
-    m_crit_pred = 1.0 / (e_sq + 1e-12)                                            # full crosstalk: 1/E[<>^2] (c=1 SNR)
-    r1k = hebbian_recall(Kp, Qp, min(1000, Mmax))
-    raw_r1k = hebbian_recall(_norm(Kc), _norm(Qc), min(1000, Mmax))              # RAW-key baseline (v3.1-style ~chance)
-    # CAN-FAIL: eff-dim halved (project to d/2 random subspace of the projected keys) -> capacity collapses
-    half = PROJ_DIM // 2; Kp_h = Kp[:, :half]; Qp_h = Qp[:, :half]
-    canfail_cap, _ = capacity_sweep(Kp_h, Qp_h, M_SWEEP, RECALL_THRESH)
-    print("  [s=%d] M_crit_obs=%.1f pred=%.1f (rho_mean=%.4f rho_var=%.4f E[<>^2]=%.5f) | recall@1k proj=%.3f raw=%.3f | canfail(half-dim)=%.1f curve=%s" %
-          (seed, cap, m_crit_pred, rho_mean, rho_var, e_sq, r1k, raw_r1k, canfail_cap, curve), flush=True)
-    return {"seed": seed, "m_crit_obs": round(cap, 2), "m_crit_pred": round(m_crit_pred, 2), "rho_mean": round(rho_mean, 5),
-            "rho_var": round(rho_var, 5), "e_sq": round(e_sq, 6), "recall_1k_proj": round(r1k, 4),
-            "recall_1k_raw": round(raw_r1k, 4), "canfail_halfdim_mcrit": round(canfail_cap, 2), "curve": curve}
+    m_crit_pred = 1.0 / (e_sq + 1e-12)                                            # raw-SNR capacity 1/E[<>^2] (cleanup-boost c reported via ratio)
+    r1k = hebbian_recall(Kp, Qp, min(1000, len(Kp)))
+    raw_r1k = hebbian_recall(_norm(Kc), _norm(Qc), min(1000, len(Kc)))           # RAW (unprojected) baseline
+    half = PROJ_DIM // 2
+    canfail_cap, _ = capacity_sweep(Kp[:, :half], Qp[:, :half], M_SWEEP, RECALL_THRESH)
+    print("  [s=%d] rho_mean=%.4f (de-crowded) M_crit_obs=%.1f pred(1/E[<>^2])=%.1f cleanup-boost-c=%.2f | recall@1k proj=%.3f raw=%.3f | canfail(half)=%.1f curve=%s" %
+          (seed, rho_mean, cap, m_crit_pred, cap / (m_crit_pred + 1e-9), r1k, raw_r1k, canfail_cap, curve), flush=True)
+    base.update({"preflight_fail": False, "m_crit_obs": round(cap, 2), "m_crit_pred": round(m_crit_pred, 2),
+                 "recall_1k_proj": round(r1k, 4), "recall_1k_raw": round(raw_r1k, 4),
+                 "canfail_halfdim_mcrit": round(canfail_cap, 2), "curve": curve})
+    return base
 
 
 def compute_verdict(units) -> Tuple[str, str, Dict]:
     if not units: return ("HARD_FAIL", "no results", {})
+    if any(u.get("preflight_fail") for u in units):
+        rhos = [u.get("rho_mean", -1) for u in units]
+        return ("HARD_FAIL", "HARD_FAIL[pre-flight]: keys NOT de-crowded (rho_mean=%s > 0.10) -> the #7 projection did not "
+                "generalize-de-crowd these keys; capacity-on-crowded-keys is meaningless. Fix the projection/split before measuring. " % rhos,
+                {"preflight_fail": True, "rho_mean_per_seed": rhos})
     obs = [u["m_crit_obs"] for u in units]; pred = [u["m_crit_pred"] for u in units]
     mo = float(np.mean(obs)); mp = float(np.mean(pred)); ratio = mo / (mp + 1e-9)
     r1k = float(np.mean([u["recall_1k_proj"] for u in units])); raw = float(np.mean([u["recall_1k_raw"] for u in units]))
