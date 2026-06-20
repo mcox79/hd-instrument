@@ -309,3 +309,4 @@
 {"ts": 1781994277.637559, "op": "add_atom", "target": "RULE_4_layer_reciprocal_witness_for_high_stakes_ships", "note": "session cert-integrity disciplines (CERT-neutral)", "source": "skunkworks_3_META_disciplines_2026_06_20"}
 {"ts": 1781994277.7599802, "op": "add_atom", "target": "RULE_label_must_match_aggregation_not_per_aggregate_mean", "note": "session cert-integrity disciplines (CERT-neutral)", "source": "skunkworks_3_META_disciplines_2026_06_20"}
 {"ts": 1781994277.8257108, "op": "add_atom", "target": "RULE_disposition_execution_must_preserve_per_atom_outcomes", "note": "session cert-integrity disciplines (CERT-neutral)", "source": "skunkworks_3_META_disciplines_2026_06_20"}
+{"ts": 1781996686.3792436, "op": "add_atom", "target": "RULE_selector_lever_chain_grade_requires_genuine_cost_else_collapses_to_fixed_best", "note": "lever-design discipline (CERT-neutral)", "source": "skunkworks_lever_design_discipline_2026_06_20"}
