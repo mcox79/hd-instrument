@@ -156,10 +156,10 @@ def compute_verdict(units) -> Tuple[str, str, Dict]:
     if not no_degrade:
         return ("HARD_FAIL", "HARD_FAIL: selector DEGRADES vs unflagged dense default (C1 no-degrade violated). " + summary, detail)
     if n_beats_both >= 2 and worst_cv < 0.15:
-        return ("HARD_PASS", "HARD_PASS (chain-grade candidate -> Skunkworks rules; data-decides): f-adaptivity beats BOTH dense-default AND fixed-f by >=10% on >=2 high-load tasks, no-degrade, fallback, seed-robust (CV<0.15). The cited alpha_c(f) selection EARNS its keep. " + summary, detail)
+        return ("HARD_PASS", "HARD_PASS (chain-grade candidate -> Skunkworks rules; data-decides): f-adaptivity beats BOTH dense-default AND fixed-f by >=10pct on >=2 high-load tasks, no-degrade, fallback, seed-robust (CV<0.15). The cited alpha_c(f) selection EARNS its keep. " + summary, detail)
     if n_beats_both >= 1:
         return ("MIDDLE_BAND", "MIDDLE_BAND: f-adaptivity earns keep on 1 task (not >=2) or seed-CV high. " + summary, detail)
-    return ("MEASURED_MECHANISM", "MEASURED_MECHANISM: selector no-degrades + falls back but does NOT beat fixed-f=%.2f by >=10% (a fixed sparse default suffices -- f-adaptivity adds little at these loads). Honest CAN-fail outcome. " % NAIVE_F + summary, detail)
+    return ("MEASURED_MECHANISM", "MEASURED_MECHANISM: selector no-degrades + falls back but does NOT beat fixed-f=%.2f by >=10pct (a fixed sparse default suffices -- f-adaptivity adds little at these loads). Honest CAN-fail outcome. " % NAIVE_F + summary, detail)
 
 
 print("[config] %s mode=%s N=%d tasks=%d seeds=%s (v1 f-only, projection->v2)" % (ANCHOR_NAME, RUN_MODE, N, len(TASKS), SEEDS), flush=True)
