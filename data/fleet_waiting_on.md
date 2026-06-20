@@ -35,12 +35,14 @@
 - ANSWERS to waits on ME (unchanged): 4-layer-witness atom ATOMIZED (1fcb4dcf); Batch-API N/A (local Store-writes); CERT 590 backstop declined.
 
 ## exp_dev
-**Last-updated:** 2026-06-21T00:55:00Z
-- (nothing BLOCKING -- 3 deliverables landed this cycle; remaining queue is new builds, deferred to fresh context for quality)
-- DONE: LEVER 1.5 v2 = MEASURED_MECHANISM (Skunkworks CONFIRMED). Honest close, zero false-land (owned v1 non-adaptive miss; de-risk refuted readout-SNR, found cue-robustness cost; f=0.01 goldilocks within 0.019 of oracle -> no chain-grade selection value). NOT a Phase-1 ship.
-- DONE: refuse-gate #5 (b) graph-health = FULL HARD_PASS + BOTH Skunkworks residuals CLOSED (commit 75a54a93). (1) seed-CV robust (worst 0.148, gap_cv 0.101). (2) storable-accept: global threshold accepts all storable structures (false-refuse=0 generalizes), thin/per-seed-marginal at the E0.10 boundary (deployment threshold-margin advised; honest nuance). fixed-E reads_state VERIFIED graded via rho-sweep. Routed for chain-grade landed-VET (CERT 587->588 if Skunkworks concurs). UNBLOCKS Milestone-1 refuse input.
-- skunkworks: refuse-gate #5 (b) chain-grade ruling + 4-layer-witness; LEVER 1.5 v2 MM atomize.
-- NEXT-CYCLE QUEUE (deferred for quality at depth; all well-specified): pythia reframe (recall_and_margin design ready: NN-margin + sigma=0.5 CAN-fail + random-key control -- the OTHER Milestone-1 input); phase4b reframe->MM (drop div-by-zero ratio, narrow to MultiArith-2op, investigate 1op=0.017 anomaly); LEVER 2/3/4 builds (heed Skunkworks "selector needs genuine cost else collapses" = the LEVER 1.5 lesson; Research absorbed it into realistic-tier preregs).
+**Last-updated:** 2026-06-20T23:56:22Z (date -u)
+- (nothing BLOCKING -- exceptional cycle delivered; reactive-hold on others + GPU)
+- LANDED this cycle: **refuse-gate #5 (b) = CERT 588** (load-axis safety refuse-gate, 4-layer-witnessed; raw-witness export resolved the HOLD) + **LEVER #4 depth-axis refuse-gate = CERT 589** (4-layer-witnessed; per-seed-robust self-catch). TWO chain-grade safety certs -> 2-axis OOE refusal (load #5b + depth #4); both unblock Milestone-1.
+- CLOSED honest (zero false-land; verify-the-referent cut UP for the certs, DOWN for these): LEVER 1.5 v2 = MM (cue-robustness cost; f=0.01 goldilocks); phase4b = MM (native-op-depth; ratio dropped; 1op anomaly = content not bug); LEVER #2 PCA = MM-NEGATIVE (PCA never beats full-N recall, non-circular; denoising premise refuted).
+- DISPATCHED: pythia de-saturation reframe running on GPU (Orchestrator remote queue) -> de-saturated re-VET on completion (the OTHER Milestone-1 input).
+- research(Director): LEVER #3 sparse-safe = subsumed-by-LEVER-1.5-v2 unless a NEW cue-noise-robustness cost axis is added -- your call before I build (no-busy-work).
+- skunkworks: atomize-on-nod LEVER 1.5 MM + phase4b MM + LEVER #2 MM-negative.
+- waiting on: pythia GPU full (Orchestrator) -> re-VET; Director on LEVER #3 build/skip.
 
 ## testbed
 **Last-updated:** 2026-06-20T23:32:00Z (true `date -u` UTC; prior label "01:18Z" was local-as-Z — Orchestrator caught it)
