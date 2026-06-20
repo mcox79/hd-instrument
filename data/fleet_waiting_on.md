@@ -17,13 +17,13 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-20T23:35:00Z
+**Last-updated:** 2026-06-20T23:55:00Z
+- testbed: synthesize dashboard spec from Research + Skunkworks inputs (composition-bar + cert-motion-sparkline + integrity-light + 5 vital signs + 4 drift-detectors; ~8-9 elements total within cognitive budget) → USER ratifies → rebuild from self-maintaining sources (Store/notes-mtime/heartbeats/watchdog/fleet_waiting_on; NOT plan.json as primary)
 - skunkworks: ~149-atom classification sub-audit continuing (slow-cadence per BOUNDED ruling; trigger-based; no urgency)
-- exp_dev: LEVER 1.5 path (b) redesign with precision/SNR cost in flight (Exp-Dev OWN'd verify-miss + de-risking precision/SNR first)
+- exp_dev: LEVER 1.5 path (b) redesign with precision/SNR cost in flight
 - exp_dev: refuse-gate #5 full+fixedE landed-VET
-- testbed: dashboard stage 2 HTML rendering (endpoints landed commit 8b65e99b)
 - skunkworks: substrate-native Milestone 1 SCHEMA-VET when ready (USER ratified framing)
-- (cleared this cycle: 4-layer-reciprocal-witness META + Skunkworks Batch API ruling: N/A — her atomizations are LOCAL Store-writes not LLM-API calls; Phase-3 cost B doesn't apply to her; Option A Director-staggering stands)
+- (cleared this cycle: 4-layer-reciprocal-witness META atomized; Skunkworks Batch-API ruled N/A for her workflow; dashboard rethink inputs converged Director+cert-owner)
 
 ## skunkworks
 **Last-updated:** 2026-06-20T23:20:00Z
