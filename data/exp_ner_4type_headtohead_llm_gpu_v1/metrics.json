@@ -1,1 +1,119 @@
-{"anchor_name": "ner_4type_headtohead_llm_gpu_v1", "verdict": "HARD_PASS", "verdict_msg": "HARD_PASS: substrate NER-4type span-F1=0.7106 (0.00120s/sent) vs Qwen-0.5B few-shot=0.2018 -- margin +0.5088. Ladder: 0.5B F1=0.2018 unmatch=0.193 | 1.5B F1=0.0676 unmatch=0.000. OntoNotes->CoNLL-coarse, 150 test, ~691x faster than 0.5B.", "summary": "HARD_PASS: substrate NER-4type span-F1=0.7106 (0.00120s/sent) vs Qwen-0.5B few-shot=0.2018 -- margin +0.5088. Ladder: 0.5B F1=0.2018 unmatch=0.193 | 1.5B F1=0.0676 unmatch=0.000. OntoNotes->CoNLL-coarse, 150 test, ~691x faster than 0.5B.", "elapsed_s": 188.25718927383423, "substrate_f1": 0.7106, "sub_latency": 0.0012012100219726562, "llm_ladder": [{"label": "0.5B", "model": "Qwen/Qwen2.5-0.5B-Instruct", "unmatched": 111, "pred_total": 574, "unmatch_rate": 0.193, "latency": 0.8307, "unknown": false, "f1": 0.2018}, {"label": "1.5B", "model": "Qwen/Qwen2.5-1.5B-Instruct", "unmatched": 0, "pred_total": 7, "unmatch_rate": 0.0, "latency": 0.1183, "unknown": false, "f1": 0.0676}], "n_test": 150, "shots": 5}
+{
+  "anchor_name": "ner_4type_headtohead_llm_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate NER 4-type=0.7415 (+-0.0288) vs BEST-prompted Qwen-0.5B=0.1985 (m +0.5430) / 1.5B=0.4673 (m +0.2742); 18-type substrate=0.7323. Honest-scope: beats best-prompted 0.5B+1.5B at OntoNotes->CoNLL-coarse; 18-type handled at F1=0.7323; NOT beats-all-LLM; Qwen-7B separate follow-up.",
+  "summary": "MIDDLE_BAND: substrate NER 4-type=0.7415 (+-0.0288) vs BEST-prompted Qwen-0.5B=0.1985 (m +0.5430) / 1.5B=0.4673 (m +0.2742); 18-type substrate=0.7323. Honest-scope: beats best-prompted 0.5B+1.5B at On",
+  "elapsed_s": null,
+  "detail": {
+    "substrate_4type": 0.7415,
+    "substrate_4type_std": 0.0288,
+    "substrate_18type": 0.7323,
+    "best_05B_4type": 0.1985,
+    "best_15B_4type": 0.4673,
+    "margin_vs_05B": 0.543,
+    "margin_vs_best15B": 0.2742,
+    "seeds_reproduce": true
+  },
+  "metrics_source": "measured_gpu_substrate_vs_qwen_ladder_promptfair_4type_18type",
+  "bench_4type": {
+    "benchmark": "4type",
+    "substrate_f1_mean": 0.7415,
+    "substrate_f1_std": 0.0288,
+    "substrate_f1_seeds": [
+      0.7106,
+      0.7681,
+      0.7033,
+      0.7709,
+      0.7544
+    ],
+    "n_test": 150,
+    "llm": [
+      {
+        "label": "0.5B",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "best_f1": 0.1985,
+        "best_prompt": "A",
+        "all_unknown": false,
+        "variants": [
+          {
+            "prompt": "A",
+            "f1": 0.1985
+          },
+          {
+            "prompt": "B",
+            "f1": 0.1952
+          }
+        ]
+      },
+      {
+        "label": "1.5B",
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "best_f1": 0.4673,
+        "best_prompt": "B",
+        "all_unknown": false,
+        "variants": [
+          {
+            "prompt": "A",
+            "f1": 0.0676
+          },
+          {
+            "prompt": "B",
+            "f1": 0.4673
+          }
+        ]
+      }
+    ]
+  },
+  "bench_18type": {
+    "benchmark": "18type",
+    "substrate_f1_mean": 0.7323,
+    "substrate_f1_std": 0.0076,
+    "substrate_f1_seeds": [
+      0.7449,
+      0.73,
+      0.7353,
+      0.7294,
+      0.7219
+    ],
+    "n_test": 150,
+    "llm": [
+      {
+        "label": "0.5B",
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "best_f1": 0.3131,
+        "best_prompt": "B",
+        "all_unknown": false,
+        "variants": [
+          {
+            "prompt": "A",
+            "f1": 0.1522
+          },
+          {
+            "prompt": "B",
+            "f1": 0.3131
+          }
+        ]
+      },
+      {
+        "label": "1.5B",
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "best_f1": 0.4882,
+        "best_prompt": "B",
+        "all_unknown": false,
+        "variants": [
+          {
+            "prompt": "A",
+            "f1": 0.0753
+          },
+          {
+            "prompt": "B",
+            "f1": 0.4882
+          }
+        ]
+      }
+    ]
+  },
+  "n_seeds": 5,
+  "shots": 5,
+  "reconstructed_from": "remote run log (genuine v3 run SUCCEEDED 2026-06-19 ~17:34; on-disk metrics CLOBBERED by remote `git reset --hard origin/main` reconcile restoring committed v1). Numbers Orchestrator-preserved in notes/orchestrator_to_expdev_skunkworks_NER_v3_SUCCEEDED_but_metrics_CLOBBERED_by_remote_reset_hard_plus_I1_durable_qb1_landed_2026-06-19.md; cross-checkable against the run log. Reconstruction = no GPU re-spend; result fully in hand."
+}
