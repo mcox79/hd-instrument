@@ -59,8 +59,9 @@ MIDDLE = [
 HARD_FAIL = [
     "substrate_trained_mini_lm_readout_fix_nsweep", "substrate_autonomous_tier2_mixed_symmetry_link_prediction",
     "substrate_kf1_contradiction_detection_order_sensitive", "substrate_kf1_truthfulqa_style",
-    "combo3_pp51_5method_on_implicit_gram_v2_cert_fix_n4096",  # combo3 -> v2 only (v1 superseded)
-]  # 5
+    # combo3 v2 DROPPED (Research disposition 2026-06-19): already integrated in reasoning_multihop MIDDLE_BAND;
+    # stays there (do NOT re-domain). Architecture batch = 32.
+]  # 4
 NEUTRAL = ["refuse_gate_nonlinear_readout"]  # 1 (NON_TEST; resolved to the CERT variant via OVERRIDE)
 
 # Exact-ID overrides for version-ambiguous stems (dispositions + spec cross-domain note).
@@ -73,7 +74,6 @@ OVERRIDE = {
     "substrate_trained_mini_lm_readout_fix_nsweep": "EXP_substrate_trained_mini_lm_readout_fix_nsweep_v2_capped",
     "combo1_pp48_audit_on_nkt_v1_n4096": "T3/EXP_combo1_pp48_audit_on_nkt_v1_n4096",
     "combo1_pp48_audit_on_nkt_v2_depth_5_v1": "T3/EXP_combo1_pp48_audit_on_nkt_v2_depth_5_v1",
-    "combo3_pp51_5method_on_implicit_gram_v2_cert_fix_n4096": "T3/EXP_combo3_pp51_5method_on_implicit_gram_v2_cert_fix_n4096",
     "refuse_gate_nonlinear_readout": "T3/EXP_refuse_gate_nonlinear_readout_v1",  # CERT variant (spec 'substrate_' was a typo->SMOKE)
     "kappa3_sensitivity_sweep_n16384_v3": "T3/EXP_kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1",  # v3-only singleton (correction)
 }
@@ -86,6 +86,7 @@ CLUSTERS = []
 # SKIP (recorded, NOT integrated; provenance only).
 SKIP = {
     "T3/EXP_combo3_pp51_5method_on_implicit_gram_v1_n4096": "superseded by v2_cert_fix (I7 superseded-chain)",
+    "T3/EXP_combo3_pp51_5method_on_implicit_gram_v2_cert_fix_n4096": "ALREADY reasoning_multihop MIDDLE_BAND; stays there (Research disposition; not re-domained)",
     "T3/EXP_substrate_refuse_gate_nonlinear_readout_v1": "SMOKE_ONLY (spec typo; CERT variant integrated instead) -> Track-B if re-run",
 }
 
