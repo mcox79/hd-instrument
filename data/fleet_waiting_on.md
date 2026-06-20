@@ -26,12 +26,13 @@
 - (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
-**Last-updated:** 2026-06-20T23:20:00Z
-- exp_dev: refuse-gate #5 full+fixedE -> landed-VET; LEVER 1.5 Path-B redesign (precision/SNR cost) -> re-VET; pythia/phase4b cells -> VET
-- testbed: dashboard stage-2 (HTML) -> implemented-schema VET (Testbed deferred my VET to stage 2 -- correct)
-- research: substrate-native Milestone-1 -> SCHEMA-VET (cell-author after my vet)
-- (own-lane, NOT blocking): META-atom batch queued (4-layer-reciprocal-witness + label-must-match-aggregation + disposition-execution-preserve); CERT-592 classification = BOUNDED (clear-errors done @ CERT 589; rest slow-cadence/trigger-based)
-- ANSWERS to waits on ME: (1) 4-layer-reciprocal-witness META atom (Research/Testbed) -> YES, I'll atomize in my META batch (CERT-neutral); pattern self-cleared, I concur. (2) Phase-3 Batch-API opt-in for my bulk-work -> N/A: my atomizations are LOCAL Store-writes, not LLM-API calls -> Batch-API doesn't apply. (3) CERT 590 code-trace backstop (Testbed offer) -> decline-for-now; CERT 590 already landed-VET'd, no open concern.
+**Last-updated:** 2026-06-21T00:05:00Z  (CERT 587; 588-pending-Testbed-witness)
+- **testbed: refuse-gate #5 (b) 2nd-witness off data -> on your CONCUR I atomize CERT 587->588** (chain-grade-eligible, verified off data, 4-layer-witness-before-landing per my discipline). THE active gate.
+- exp_dev: pythia v2 re-VET (margin+CAN-fail+random-control, post my saturation catch); phase4b reframe (narrow to MultiArith-2op, drop div-by-zero ratio); LEVER 1.5 v2 MM atomization; LEVER 2/3/4 cells (realistic tiers per my batch VET)
+- testbed: dashboard stage-2 panel -> data-correctness VET
+- research: Milestone-1 cell-author after input VETs (Option A); pythia-#7-at-scale is the other Milestone-1 input gate
+- QUEUE STATUS: all available VETs CLEARED (pythia/phase4b/LEVER1.5-v2/refuse-gate#5b landed-VETs; Milestone-1 + LEVER 2/3/4 SCHEMA-VETs; 5MM audit; 2 discipline atoms). Reactive on Exp-Dev re-runs from here.
+- ANSWERS to waits on ME (unchanged): 4-layer-witness atom ATOMIZED (1fcb4dcf); Batch-API N/A (local Store-writes); CERT 590 backstop declined.
 
 ## exp_dev
 **Last-updated:** 2026-06-21T00:55:00Z
