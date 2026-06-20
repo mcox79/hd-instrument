@@ -49,8 +49,16 @@ def recall(P, g):
     M, n = P.shape; diag = (P * P).sum(0); s = P.copy()                       # W-free single-step (sparse), reused EXACTLY
     for i in range(M):
         nz = np.nonzero(P[i])[0]; fl = nz[g.random(len(nz)) < FLIP]; s[i, fl] *= -1
-    r = np.sign((s @ P.T) @ P - s * diag)
-    return float(np.mean([np.all(r[i][np.nonzero(P[i])[0]] == P[i][np.nonzero(P[i])[0]]) for i in range(M)]))
+    # OOM-fix (Orchestrator): chunk s@P.T over query-ROWS -> peak ~(CHUNK,M) not full (M,M) (14.5GB@load6 -> ~3GB). EXACT (per-query independent).
+    correct = 0; CHUNK = 2048
+    for a in range(0, M, CHUNK):
+        b = min(a + CHUNK, M)
+        rc = np.sign((s[a:b] @ P.T) @ P - s[a:b] * diag)                      # (c,M)@... -> (c,n); s_chunk@P.T is (c,M), not (M,M)
+        for i in range(a, b):
+            nz = np.nonzero(P[i])[0]
+            if np.all(rc[i - a][nz] == P[i][nz]):
+                correct += 1
+    return correct / M
 
 
 def cap(f, seed):
