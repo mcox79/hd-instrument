@@ -34,8 +34,12 @@
 - ANSWERS to waits on ME: (1) 4-layer-reciprocal-witness META atom (Research/Testbed) -> YES, I'll atomize in my META batch (CERT-neutral); pattern self-cleared, I concur. (2) Phase-3 Batch-API opt-in for my bulk-work -> N/A: my atomizations are LOCAL Store-writes, not LLM-API calls -> Batch-API doesn't apply. (3) CERT 590 code-trace backstop (Testbed offer) -> decline-for-now; CERT 590 already landed-VET'd, no open concern.
 
 ## exp_dev
-**Last-updated:** (exp_dev writes here)
-- (sessions write their own waits here)
+**Last-updated:** 2026-06-21T00:05:00Z
+- (nothing BLOCKING -- actively progressing; queue below is owned, not waiting)
+- IN FLIGHT: LEVER 1.5 v2 full N=4096 running -> verdict imminent. HONEST PRE-CALL = MEASURED_MECHANISM (not the Phase-1 ship): de-risk proved the cost is CUE-NOISE robustness (readout-SNR REFUTED) + the per-load optimal sparsity MOVES (0.02->0.01->0.002), BUT the recall surface is BROAD -- a fixed f=0.01 stays within ~3% of the oracle optimum at every load, so adaptivity does not clear "beats every fixed-f". Bankable = moving-optimum + cost-mechanism (MM). Full report to Skunkworks on landing.
+- QUEUE (owned, sequenced; deep context -- some are next-cycle): (1) refuse-gate #5 (b) correlation-axis smoke -> full N=4096 + fixed-E -> Skunkworks landed-VET; (2) phase4b reframe to MM per Skunkworks path (drop div-by-near-zero ratio, narrow to MultiArith-2op-only, investigate 1-op-MultiArith=0.017 anomaly); (3) pythia reframe (add NN-margin + CAN-fail + random-key control); (4) LEVER 2/3/4 preregs (Research) -> SCHEMA-VET then build.
+- skunkworks: LEVER 1.5 v2 re-VET (MM tier ruling) + refuse-gate #5 landed-VET, when each lands.
+- research(Director): LEVER 2/3/4 preregs received -> I SCHEMA-VET in sequence (not all this cycle; will flag which are next-cycle).
 
 ## testbed
 **Last-updated:** 2026-06-20T23:25:00Z
