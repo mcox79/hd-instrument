@@ -142,6 +142,31 @@ def run_unit(e_frac, seed):
     return {"e_frac": e_frac, "seed": seed, "accuracy": round(acc, 4), "health": round(h, 5), "storable": bool(storable), "run_mode": RUN_MODE}
 
 
+def storable_accept_test(N, V, c, seeds):
+    """RESIDUAL 2 (Skunkworks): does the GLOBAL threshold c correctly ACCEPT a genuinely-storable structure?
+    Uses rho=0 (orthogonal = max-storable) nodes, sweeps E_FRAC across/below the cliff; for each acc>=0.95 point,
+    checks health<c (accepted). If a storable point has health>=c -> the global threshold FALSE-REFUSES it -> the
+    false-refuse=0 claim is E-sweep-SCOPED and a STATE-RELATIVE threshold is needed for deployment. data-decides."""
+    pts = []
+    for ef in [0.05, 0.08, 0.10, 0.12]:
+        accs, hs = [], []
+        for sd in seeds:
+            g = np.random.default_rng(sd * 7757 + 13); E = max(2, int(ef * N)); e = _edge_set(V, E, g)
+            nodes = correlated_bipolar(V, N, 0.0, g)                       # rho=0 = max-storable structure
+            te, ne = graph_scores(nodes, e, g); accs.append(best_balanced_accuracy(te, ne)); hs.append(health(ne))
+        acc, h = float(np.mean(accs)), float(np.mean(hs))
+        pts.append({"e_frac": ef, "acc": round(acc, 3), "health": round(h, 5), "storable_ge_0p95": acc >= 0.95,
+                    "accepted_by_c": bool(c is not None and h < c)})
+    storable = [p for p in pts if p["storable_ge_0p95"]]
+    all_accepted = bool(storable) and all(p["accepted_by_c"] for p in storable)
+    refused = [p["e_frac"] for p in storable if not p["accepted_by_c"]]
+    return {"points": pts, "n_storable_tested": len(storable), "all_storable_accepted_global_c": all_accepted,
+            "storable_but_REFUSED_efracs": refused,
+            "interpretation": ("global threshold ACCEPTS all storable -> false-refuse=0 generalizes (deployable global gate)" if all_accepted
+                               else ("storable structures REFUSED at E_frac %s -> false-refuse=0 is E-sweep-SCOPED; deployment needs a STATE-RELATIVE threshold (health-reads-state still holds)" % refused if storable
+                                     else "no acc>=0.95 storable point in the tested E_frac range -- inconclusive (lower E_frac)"))}
+
+
 def compute_verdict(units, fixed_e=None) -> Tuple[str, str, Dict]:
     if not units: return ("HARD_FAIL", "no results", {})
     by = {}
@@ -227,7 +252,24 @@ fixed_e = {"E": fe_runs[0]["E"],
            "conc_acc": float(np.mean([r["conc_acc"] for r in fe_runs])), "conc_health": float(np.mean([r["conc_health"] for r in fe_runs]))}
 print("[fixed-E] %s" % fixed_e, flush=True)
 verdict, msg, detail = compute_verdict(units, fixed_e=fixed_e)
+# RESIDUAL 1 (Skunkworks): seed-CV robustness (E-sweep health + fixed-E gap)
+gaps = [r["conc_health"] - r["spread_health"] for r in fe_runs]
+hbe = {}
+for u in units:
+    hbe.setdefault(u["e_frac"], []).append(u["health"])
+e_sweep_worst_health_cv = max((float(np.std(v) / (np.mean(v) + 1e-9)) for v in hbe.values()), default=0.0)
+gap_cv = float(np.std(gaps) / (np.mean(gaps) + 1e-9))
+detail["seed_cv"] = {"n_seeds": len(SEEDS), "fixed_e_gap_cv": round(gap_cv, 4),
+                     "fixed_e_conc_health_cv": round(float(np.std([r["conc_health"] for r in fe_runs]) / (np.mean([r["conc_health"] for r in fe_runs]) + 1e-9)), 4),
+                     "e_sweep_worst_health_cv": round(e_sweep_worst_health_cv, 4),
+                     "robust": bool(e_sweep_worst_health_cv < 0.15 and gap_cv < 0.15)}
+# RESIDUAL 2 (Skunkworks): does the global threshold ACCEPT a genuinely-storable structure? (false-refuse-near-boundary check)
+detail["storable_accept_test"] = storable_accept_test(N, V, detail.get("health_threshold_c"), SEEDS)
+msg = msg + (" | RESIDUAL1 seed_cv: e_sweep_worst_health_cv=%.3f fixed_e_gap_cv=%.3f robust=%s | RESIDUAL2 storable_accept: all_accepted=%s -- %s" % (
+    detail["seed_cv"]["e_sweep_worst_health_cv"], detail["seed_cv"]["fixed_e_gap_cv"], detail["seed_cv"]["robust"],
+    detail["storable_accept_test"]["all_storable_accepted_global_c"], detail["storable_accept_test"]["interpretation"]))
 print("\n[VERDICT] " + msg, flush=True)
+print("[residuals] seed_cv=%s\n[residuals] storable_accept=%s" % (detail["seed_cv"], detail["storable_accept_test"]), flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": msg, "run_mode": RUN_MODE, "N": N, "V": V,
            "E_fracs": E_FRACS, "n_seeds": len(SEEDS), "detail": detail, "metrics_source": "measured_cpu_refuse_gate_graph_health_variance", "per_unit": units, "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, units)
