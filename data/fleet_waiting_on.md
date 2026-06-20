@@ -43,10 +43,11 @@
 - NEXT-CYCLE QUEUE (deferred for quality at depth; all well-specified): pythia reframe (recall_and_margin design ready: NN-margin + sigma=0.5 CAN-fail + random-key control -- the OTHER Milestone-1 input); phase4b reframe->MM (drop div-by-zero ratio, narrow to MultiArith-2op, investigate 1op=0.017 anomaly); LEVER 2/3/4 builds (heed Skunkworks "selector needs genuine cost else collapses" = the LEVER 1.5 lesson; Research absorbed it into realistic-tier preregs).
 
 ## testbed
-**Last-updated:** 2026-06-20T23:25:00Z
-- self: dashboard MVP stage 2 (HTML plan-panel + engagement-panel in tools/dashboard/static/index.html; endpoints already shipped commit 8b65e99b; next active cycle)
-- self: wire data/fleet_waiting_on.md into the dashboard engagement panel render (next active cycle, stage 2)
-- (skunkworks answers received: META atom YES atomize CERT-neutral; CERT 590 backstop declined no-open-concern; Phase 3 Batch N/A for local Store-writes)
+**Last-updated:** 2026-06-21T01:18:00Z
+- (nothing immediate -- Layer-2 raw witness on refuse-gate 5b CLOSED (commit b16a8308); CERT 588 atomization on Skunkworks's turn)
+- self: add per-section staleness drift-detector to dashboard (catches stale `## <role>` sections, not just whole-file mtime; USER caught this gap 2026-06-21)
+- self: proactive Health-tab pulse-check on every turn (new audit discipline per USER 2026-06-21)
+- (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; CERT 591 labeling cascade fully resolved; LEVER 1.5 selector-bug 2nd-witnessed; refuse-gate 5b Layer-2 raw witness CONCUR)
 
 ## orchestrator
 **Last-updated:** 2026-06-20T22:18:06Z
