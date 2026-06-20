@@ -115,14 +115,19 @@ def compute_verdict(units):
     # (1) ADAPTIVITY: does the selector pick DIFFERENT f across loads?
     sel_f_by_load = {L: per_load[L]["selector_f"] for L in per_load}
     adaptive = len(set(sel_f_by_load.values())) > 1
-    # (2) EARNS ITS KEEP: is there ANY single fixed-f that is >= selector at EVERY load? (if yes, machinery is redundant)
+    # (2) EARNS ITS KEEP (ORACLE-based -- strongest case for adaptivity): is there ANY single fixed-f within BEAT of the
+    # per-load ORACLE optimum at EVERY load? If yes, that fixed-f is "good enough" everywhere -> adaptivity is NOT necessary
+    # (even a best-possible selector cannot clear the bar). This is independent of my selector heuristic.
+    oracle = {L: max(per_load[L]["recalls"].values()) for L in per_load}
     dominating = []
     for fk in F_SWEEP:
         fkk = "f%.3f" % fk
-        beaten_somewhere = any(per_load[L]["selector_recall"] > per_load[L]["recalls"][fkk] + BEAT for L in per_load)
+        beaten_somewhere = any(oracle[L] > per_load[L]["recalls"][fkk] + BEAT for L in per_load)
         if not beaten_somewhere:
-            dominating.append(fkk)                                          # this fixed-f is never strictly beaten by the selector
-    earns_keep = len(dominating) == 0                                        # selector strictly beats EVERY fixed-f at >=1 load
+            dominating.append(fkk)                                          # this fixed-f stays within BEAT of the oracle at EVERY load
+    earns_keep = len(dominating) == 0                                        # NO single fixed-f is good-enough everywhere -> adaptivity necessary
+    oracle_optimum_moves = len(set(max(per_load[L]["recalls"], key=per_load[L]["recalls"].get) for L in per_load)) > 1
+    best_single_fixed = min((max(oracle[L] - per_load[L]["recalls"]["f%.3f" % fk] for L in per_load), "f%.3f" % fk) for fk in F_SWEEP)  # (worst-load gap, f)
     # (3) selector near-optimal everywhere + seed-stable
     near_opt_all = all(per_load[L]["selector_near_optimal"] for L in per_load)
     seed_stable = all(per_load[L]["selector_f_seed_stable"] for L in per_load) and all(per_load[L]["seed_cv"] < 0.15 for L in per_load)
@@ -130,7 +135,8 @@ def compute_verdict(units):
     too_dense_capacity_fail = [L for L in per_load if per_load[L]["recalls"]["f%.3f" % F_SWEEP[0]] < per_load[L]["selector_recall"] - BEAT]
     too_sparse_robust_fail = [L for L in per_load if per_load[L]["recalls"]["f%.3f" % F_SWEEP[-1]] < per_load[L]["selector_recall"] - BEAT]
     detail = {"per_load": {("alpha%.1f" % L): per_load[L] for L in per_load}, "selector_f_by_load": {("alpha%.1f" % L): sel_f_by_load[L] for L in sel_f_by_load},
-              "adaptive_selector_varies_f": bool(adaptive), "earns_keep_no_single_fixed_f_dominates": bool(earns_keep), "fixed_fs_never_beaten": dominating,
+              "oracle_optimum_f_moves_with_load": bool(oracle_optimum_moves), "best_single_fixed_f": best_single_fixed[1], "best_single_fixed_f_worst_load_gap": round(best_single_fixed[0], 3),
+              "adaptive_selector_varies_f": bool(adaptive), "earns_keep_no_fixed_f_within_BEAT_of_oracle_everywhere": bool(earns_keep), "fixed_fs_within_BEAT_of_oracle_everywhere": dominating,
               "selector_near_optimal_all_loads": bool(near_opt_all), "seed_stable": bool(seed_stable),
               "too_dense_capacity_fail_loads": ["alpha%.1f" % L for L in too_dense_capacity_fail], "too_sparse_robustness_fail_loads": ["alpha%.1f" % L for L in too_sparse_robust_fail],
               "flip_cue": FLIP_CUE, "N": N,
@@ -140,15 +146,17 @@ def compute_verdict(units):
                                "Genuine sweet-spot selection (NOT a3f473dd constant-f re-expression: the optimal f VARIES with load).")
               % (MARGIN, K_MIN, FLIP_CUE, sel_f_by_load, list(per_load.keys()), adaptive, earns_keep, dominating,
                  F_SWEEP[0], ["alpha%.1f" % L for L in too_dense_capacity_fail], F_SWEEP[-1], ["alpha%.1f" % L for L in too_sparse_robust_fail])}
-    summary = "adaptive=%s earns_keep=%s near_opt_all=%s seed_stable=%s | sel_f_by_load=%s | never_beaten=%s" % (
-        adaptive, earns_keep, near_opt_all, seed_stable, sel_f_by_load, dominating)
-    if adaptive and earns_keep and near_opt_all and seed_stable:
-        return ("HARD_PASS", "HARD_PASS (capability; data-decides -> Skunkworks rules): the load-adaptive sparsity selector tracks the per-load optimal f (which VARIES with load), and NO single fixed-sparsity matches it across the load range -- too-dense fails capacity, too-sparse fails cue-robustness. The selection machinery earns its keep. " + summary, detail)
-    if adaptive and near_opt_all and not earns_keep:
-        return ("MEASURED_MECHANISM", "MEASURED_MECHANISM: selector is adaptive + near-optimal, but at least one fixed-f (%s) is never strictly beaten -> the adaptivity does not strictly earn its keep over that fixed value in the tested range. Honest. " % dominating + summary, detail)
+    summary = "oracle_opt_moves=%s earns_keep=%s | adaptive_sel=%s near_opt_all=%s seed_stable=%s | sel_f_by_load=%s | best_fixed=%s(worst_gap=%.3f) within_BEAT_of_oracle_everywhere=%s" % (
+        oracle_optimum_moves, earns_keep, adaptive, near_opt_all, seed_stable, sel_f_by_load, best_single_fixed[1], best_single_fixed[0], dominating)
     if not adaptive:
-        return ("MEASURED_MECHANISM", "MEASURED_MECHANISM / NEGATIVE: selector picks the SAME f across all loads (non-adaptive) -> no genuine selection problem in the tested range (a3f473dd re-expression). " + summary, detail)
-    return ("MIDDLE_BAND", "MIDDLE_BAND: selector adaptive but not near-optimal at all loads or not seed-stable. " + summary, detail)
+        return ("MEASURED_MECHANISM", "MEASURED_MECHANISM / NEGATIVE: the capacity-margin selector picks the SAME f across all loads (non-adaptive) -> no genuine selection problem in the tested range (a3f473dd re-expression). " + summary, detail)
+    if not earns_keep:
+        return ("MEASURED_MECHANISM", "MEASURED_MECHANISM (data-decides, honest): the per-load OPTIMAL sparsity MOVES with load (oracle_opt_moves=%s), and the cost mechanism (crosstalk-vs-error-correction balance under cue-noise) is real -- BUT the recall surface is BROAD: a single fixed sparsity %s stays within BEAT of the ORACLE optimum at EVERY load (worst-load gap %.3f), so even a best-possible selector's gain is marginal. The adaptivity does NOT clear a chain-grade 'beats every fixed-f' bar. Genuine bankable knowledge = the moving-optimum + the cue-robustness cost mechanism (readout-SNR was refuted). Chain-grade path: a calibrated robustness-aware selector IF the marginal gain is deemed worth it. " % (oracle_optimum_moves, dominating, best_single_fixed[0]) + summary, detail)
+    if earns_keep and adaptive and near_opt_all and seed_stable:
+        return ("HARD_PASS", "HARD_PASS (capability; data-decides -> Skunkworks rules): the per-load optimal sparsity VARIES with load AND no single fixed-sparsity stays within BEAT of the oracle everywhere (too-dense fails capacity, too-sparse fails cue-robustness), AND the capacity-margin selector tracks the optimum (near-optimal at every load, seed-stable). The selection machinery earns its keep. " + summary, detail)
+    if earns_keep and not near_opt_all:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: adaptivity IS necessary (no fixed-f within BEAT of the oracle everywhere), but the capacity-margin selector does NOT track the optimum at all loads (it picks too-dense under cue-noise) -> needs a robustness-aware/calibrated selector to be chain-grade. " + summary, detail)
+    return ("MIDDLE_BAND", "MIDDLE_BAND: adaptive + earns_keep but not seed-stable. " + summary, detail)
 
 
 def _selftest():
@@ -156,7 +164,7 @@ def _selftest():
     f_low, f_high = select_f(0.1)["f"], select_f(2.0)["f"]
     assert f_low > f_high, "selector MUST be adaptive: lower load -> larger (less sparse) f, STRICTLY (got %g vs %g)" % (f_low, f_high)
     assert select_f(1.0)["f"] == 0.02, "largest-viable-f at alpha=1.0 (margin 2x -> alpha_c>=2.0 -> f=0.02), got %g" % select_f(1.0)["f"]
-    assert recall_cue(0.5, 0.1, 512, 1) >= 0.8, "moderate-f (k>=50) recalls under cue noise"
+    assert recall_cue(0.1, 0.02, 2048, 1) >= 0.7, "sweet-spot f at low load (k~40, within capacity) recalls under cue noise"
     print("[selftest] PASS: adaptive selector (sel_f VARIES with load) + cue-noise recall", flush=True)
 
 
