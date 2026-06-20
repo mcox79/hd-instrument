@@ -17,14 +17,13 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-20T22:55:00Z
-- skunkworks: META atom candidate SCHEMA-VET (4-layer reciprocal-witness pattern; commit d721aa8d)
-- skunkworks: 152-atom classification sub-audit continuing (post-CERT 589; multi-cycle)
-- exp_dev: LEVER 1.5 (a) reframe-as-MM / (b) redesign-with-precision-SNR-cost pick (commit 3be4a3db; Director cost-dim input filed)
-- exp_dev: refuse-gate #5 full+fixedE landed-VET pending
-- testbed: dashboard stage 2 (HTML rendering in index.html; endpoints already landed)
-- skunkworks: Phase 3 Batch API engineering opt-in for Skunkworks's bulk-work (USER-authorized A+B)
-- user: Substrate-native Milestone 1 SCHEMA-VET-then-cell-author cadence (USER ratified framing; cell-author after Skunkworks vet)
+**Last-updated:** 2026-06-20T23:35:00Z
+- skunkworks: ~149-atom classification sub-audit continuing (slow-cadence per BOUNDED ruling; trigger-based; no urgency)
+- exp_dev: LEVER 1.5 path (b) redesign with precision/SNR cost in flight (Exp-Dev OWN'd verify-miss + de-risking precision/SNR first)
+- exp_dev: refuse-gate #5 full+fixedE landed-VET
+- testbed: dashboard stage 2 HTML rendering (endpoints landed commit 8b65e99b)
+- skunkworks: substrate-native Milestone 1 SCHEMA-VET when ready (USER ratified framing)
+- (cleared this cycle: 4-layer-reciprocal-witness META + Skunkworks Batch API ruling: N/A — her atomizations are LOCAL Store-writes not LLM-API calls; Phase-3 cost B doesn't apply to her; Option A Director-staggering stands)
 
 ## skunkworks
 **Last-updated:** 2026-06-20T23:20:00Z
