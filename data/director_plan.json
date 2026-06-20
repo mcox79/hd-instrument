@@ -1,0 +1,219 @@
+{
+  "ts": "2026-06-20T17:00:00Z",
+  "ts_note": "Director-maintained; updated at natural decision points (routings filed, ships landing, SCHEMA-VETs landing). Not 60s-cadence.",
+  "schema_version": "v1_skunkworks_vetted",
+  "schema_reference": "notes/skunkworks_to_research_testbed_SCHEMAVET_dashboard_plan_json_engagement_metrics_cert_discipline_verdict_2026-06-20.md",
+
+  "active_program": {
+    "name": "4-Phase comprehensive program (cert-architecture C0-C6 + cap-int 4th cert-layer)",
+    "reference": "C:/Users/marsh/.claude/projects/d--AI/memory/project_comprehensive_program_cert_architecture_C0C6_2026-06-19.md",
+    "phases": [
+      {"id": "phase_0", "name": "Phase 0 -- phase-diagram MAP", "status": "in-progress", "evidence": "notes/research_canonical_evidence_map_v5_MINI_REFRESH_*.md (16 cert-canonical clusters DONE)", "last_updated_ts": "2026-06-20T16:45:00Z"},
+      {"id": "phase_1", "name": "Phase 1 -- ship cert-PASS levers", "status": "in-progress", "evidence": "CERT 590 CSP first-ship LIVE; LEVER #1.5 cell built (9097f659); sparse-coding lever input atomized (a3f473dd)", "last_updated_ts": "2026-06-20T16:53:00Z"},
+      {"id": "phase_2", "name": "Phase 2 -- onboard 104-value-trove", "status": "in-progress", "evidence": "cap-int 4th cert-layer integrated; 492 cluster canonicals", "last_updated_ts": "2026-06-20T08:00:00Z"},
+      {"id": "phase_3", "name": "Phase 3 -- glass-box LLM", "status": "in-progress", "evidence": "Substrate-KV mechanism architecturally SETTLED = NN+#7 (CERT 591); depth-beyond-equilibrium CERT 592; sparse super-capacity >=300x@f0.005 (a3f473dd)", "last_updated_ts": "2026-06-20T09:45:00Z"}
+    ]
+  },
+
+  "priorities": [
+    {
+      "id": "lever_1_5_capacity_sweet_spot",
+      "title": "Phase-1 LEVER #1.5 capacity sweet-spot operating-point selector",
+      "type": "lever",
+      "status": "in-progress",
+      "owner": "exp_dev",
+      "owner_asserted": true,
+      "owner_asserted_via": "git commit 9097f659 (Exp-Dev cell-author commit)",
+      "waiting_on": ["skunkworks: SCHEMA-VET on built cell", "exp_dev: smoke -> full-run dispatch"],
+      "artifact": "notes/research_to_expdev_skunkworks_LEVER_1_5_PREREG_v2_*.md",
+      "commit": "e6075dd9",
+      "cell": "experiments/exp_capacity_sweet_spot_v1_cpu_v1.py",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": "3-arm CAN-fail: known-bad-default OFF / selector-improved ON / naive-fixed heuristic. Discriminating iff selector beats BOTH by >=10% recall@K=5",
+      "tier_target": "CHAIN-GRADE-CANDIDATE (data-decides per cb7e89f1)",
+      "last_updated_ts": "2026-06-20T16:53:00Z"
+    },
+    {
+      "id": "pythia_substrate_kv_pull_up",
+      "title": "Pythia-2.8B substrate-KV pull-up (1 of 3 per Skunkworks I4 ruling)",
+      "type": "characterization",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-proposed; awaiting Exp-Dev acknowledgement",
+      "waiting_on": ["skunkworks: SCHEMA-VET on pre-reg A1-A4", "exp_dev: cell-author bandwidth"],
+      "artifact": "notes/research_to_skunkworks_expdev_PREREG_pythia_substrate_kv_pull_up_v2_*.md",
+      "commit": "83f064b7",
+      "cell": "experiments/exp_pythia_substrate_kv_pull_up_v2_gpu_v1.py",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": "HARD_FAIL recall(10k)<0.50 OR drop(2k->10k)>0.20 OR sigma=0.10 recall<0.40 OR seeds disagree >0.05",
+      "tier_target": "CHAIN-GRADE-CANDIDATE (data-decides)",
+      "last_updated_ts": "2026-06-20T16:54:00Z"
+    },
+    {
+      "id": "effrank_svd_pull_up",
+      "title": "effective-rank SVD pull-up (DEFERRED pending Skunkworks clarification)",
+      "type": "characterization",
+      "status": "blocked",
+      "owner": "research",
+      "owner_asserted": true,
+      "waiting_on": ["skunkworks: clarification post crosstalk-law dissolution (atomization 7315be3c said SVD d_eff FAILS as independent predictor; pull-up's original framing was SVD-as-predictor; reframe as diagnostic? drop? defer?)"],
+      "artifact": "(pending clarification)",
+      "cell": "experiments/exp_effective_rank_svd_pull_up_v2_gpu_v1.py",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T16:54:00Z"
+    },
+    {
+      "id": "phase4b_multistep_pull_up",
+      "title": "phase4b multistep pull-up (queued; lower urgency)",
+      "type": "characterization",
+      "status": "planned",
+      "owner": "research",
+      "owner_asserted": true,
+      "waiting_on": ["director: author CAN-fail pre-reg", "skunkworks: SCHEMA-VET", "exp_dev: cell-author"],
+      "artifact": "(pre-reg pending)",
+      "cell": "experiments/exp_phase4b_multistep_pull_up_v2_cpu_v1.py",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T16:54:00Z"
+    },
+    {
+      "id": "refuse_gate_5",
+      "title": "Refuse-gate #5 cell (Path A: against existing SQ6 HARD_FAIL N=512)",
+      "type": "characterization",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": true,
+      "owner_asserted_via": "exp_dev_to_skunkworks_research_ACK_LEVER1_5_*.md (Path A acked)",
+      "waiting_on": ["exp_dev: cell-author post-LEVER #1.5", "skunkworks: SCHEMA-VET on cell arrival"],
+      "artifact": "notes/skunkworks_to_expdev_research_REFUSE_GATE_5_cert_concur_PATH_A_*.md",
+      "commit": null,
+      "cell": "(to be authored)",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": "refuse-on-SQ6-HARD_FAIL AND answer-on-in-envelope-control (the in-envelope-answer arm is the CAN-fail)",
+      "scope_caveat": "Scope to KNOWN-HARD_FAIL regime; do not drift to boundary-precision claim (would need Path B fresh N=2048)",
+      "last_updated_ts": "2026-06-20T16:30:00Z"
+    },
+    {
+      "id": "dashboard_plan_panel",
+      "title": "Dashboard plan-panel build (USER-directed)",
+      "type": "infra",
+      "status": "in-progress",
+      "owner": "testbed",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-proposed BUILD-GO; awaiting Testbed acknowledgement",
+      "waiting_on": ["testbed: build acknowledgement + implementation"],
+      "artifact": "notes/research_to_testbed_BUILD_GO_dashboard_plan_panel_*.md",
+      "commit": "bb23390b",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T17:00:00Z"
+    },
+    {
+      "id": "dashboard_engagement_panel",
+      "title": "Dashboard engagement panel build (filesystem-only; composes with Phase 2 watchdog)",
+      "type": "infra",
+      "status": "in-progress",
+      "owner": "testbed",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-proposed; Orchestrator runtime co-design filed (4 guardrails)",
+      "waiting_on": ["testbed: implementation"],
+      "artifact": "notes/research_to_testbed_ROUTE_engagement_panel_dashboard_build_*.md + ADDENDUM + orchestrator_to_testbed_research_RUNTIME_COdesign_engagement_panel_*.md",
+      "commit": "d74d1ce3",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T17:00:00Z"
+    },
+    {
+      "id": "phase_3_cost_brief",
+      "title": "Phase 3 cost/policy brief (Testbed staged; USER review pending)",
+      "type": "infra",
+      "status": "planned",
+      "owner": "user",
+      "owner_asserted": false,
+      "owner_asserted_via": "Testbed staged at data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md",
+      "waiting_on": ["user: review timing"],
+      "artifact": "data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md",
+      "commit": null,
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T09:30:00Z"
+    },
+    {
+      "id": "rule_16_no_compaction_state_tracking",
+      "title": "16th rule (USER-LOCKED): no session tracks another's compaction state",
+      "type": "discipline",
+      "status": "done",
+      "owner": "research",
+      "owner_asserted": true,
+      "owner_asserted_via": "git commit f8b44bf7",
+      "waiting_on": [],
+      "artifact": "notes/research_to_all_FLEET_BROADCAST_16th_rule_no_compaction_state_tracking_*.md",
+      "commit": "f8b44bf7",
+      "cert_atom": null,
+      "cert_class": "OPERATIONAL_RULE (CERT-neutral; not a substrate claim)",
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T16:50:00Z"
+    },
+    {
+      "id": "first_director_plan_json_snapshot",
+      "title": "First data/director_plan.json snapshot (this file)",
+      "type": "infra",
+      "status": "done",
+      "owner": "research",
+      "owner_asserted": true,
+      "waiting_on": [],
+      "artifact": "data/director_plan.json (this file)",
+      "commit": "(this commit)",
+      "cert_atom": null,
+      "cert_class": "INFRA (CERT-neutral)",
+      "discriminating_regime": null,
+      "last_updated_ts": "2026-06-20T17:00:00Z"
+    }
+  ],
+
+  "recent_ships": [
+    {"cert_id": "CERT 590", "atom_id": "T3/EXP_csp_first_ship_v1", "verdict": "HARD_PASS", "cert_class": "CERT_CHAIN_GRADE", "bound": "8.42x CSP-solve speedup at N=2048/rho=0.9; no-recall-degrade; reversible additive flag; first Phase-1 0->1 ship", "ts": "2026-06-20T~earlier"},
+    {"cert_id": "CERT 591", "atom_id": "T3/EXP_kv_learned_projection_v1", "verdict": "HARD_PASS", "cert_class": "CERT_CHAIN_GRADE", "bound": "Pythia-2.8B held-out value-cue recall 0.83-0.96 at M in {2k,10k}; +0.75 over analytic ceiling; shuffled-control proves generalize-not-memorize; glass-box-KV foundation", "ts": "2026-06-20T~earlier"},
+    {"cert_id": "CERT 592", "atom_id": "T3/EXP_kmax_ness_envelope_corrected_v1", "verdict": "HARD_PASS", "cert_class": "CERT_CHAIN_GRADE", "bound": "Substrate NESS chain-recall depth GENUINELY exceeds classical Hopfield equilibrium 2-12x in moderate regime; artifact-free control 5/5 1.27-8.35x; ext_hopfrac~1.0 traverses correct next-node not jump-recovery", "ts": "2026-06-20T~early-cycle", "atomization_commit": "d391d000"},
+    {"cert_id": null, "atom_id": "Hebbian-superposition_capacity_projected", "verdict": "MEASURED_MECHANISM", "cert_class": "MEASURED_MECHANISM (CERT-neutral)", "bound": "~327 capacity on #7-projected keys; NN-retrieval (#7) >> Hebbian -> substrate-KV mechanism SETTLED = NN+projection", "atomization_commit": "baa06f0a"},
+    {"cert_id": null, "atom_id": "Crosstalk-law_cross_encoder", "verdict": "MEASURED_MECHANISM", "cert_class": "MEASURED_MECHANISM (CERT-neutral)", "bound": "Crosstalk-moment E[<k_i,k_j>^2] on raw keys IS the parameter-free predictor; SVD d_eff AND IsoScore BOTH FAIL as predictors; isotropy hypothesis OVERTURNED", "atomization_commit": "7315be3c"},
+    {"cert_id": null, "atom_id": "T3/EXP_sparse_boundary_v2_cpu_v1", "verdict": "MEASURED_MECHANISM", "cert_class": "MEASURED_MECHANISM (CERT-neutral)", "bound": "PLAIN k-of-N sparse Willshaw super-capacity: alpha_c(f) monotone-rising as f decreases; >=300x@f=0.005 LOWER-BOUND N=8192 (LOADS-capped); seed-robust cv=0; onset NOT located", "atomization_commit": "a3f473dd"},
+    {"cert_id": null, "atom_id": "a8_continual_writes_RE_VET", "verdict": "VERIFY-THE-REFERENT-CLEAN", "cert_class": "CERT-neutral (A5-patch run_mode smoke->full; pq UNTOUCHED)", "bound": "Atom's run_mode was STALE metadata; actual data is FULL (N=1024, 5 seeds, HARD_PASS, region_std=0.0, cliff@0.30); CERT 592 unchanged; D2 audit-flag CLEARED", "atomization_commit": "83f064b7"},
+    {"cert_id": null, "atom_id": "15_META_disciplines_atomized", "verdict": "DONE", "cert_class": "DISCIPLINE (CERT-neutral)", "bound": "ae088f94 (6) + baa06f0a (3) + 7315be3c (1) + cb7e89f1 (5) = 15 META disciplines atomized fleet-wide; the audit-discipline catalog IS the self-cert rulebook (substrate-autonomy path)", "atomization_commits": ["ae088f94", "baa06f0a", "7315be3c", "cb7e89f1"]}
+  ],
+
+  "dissolved_or_retracted": [
+    {"id": "isotropy_vs_capacity_hypothesis", "what": "Independent-isotropy as parameter-free capacity predictor (SVD d_eff / IsoScore)", "dissolution_mechanism": "OVERTURNED by crosstalk-law atomization 7315be3c: both SVD d_eff AND IsoScore FAIL as independent predictors; crosstalk-moment IS the predictor near-by-construction", "ts": "2026-06-20T~early-cycle"},
+    {"id": "sparse_1p4x_miscite", "what": "Sparse coding gives modest ~1.4x rescue at f=0.10, N=16384", "dissolution_mechanism": "MISCITE-accepted (Skunkworks's own reframe Flag-1 caught her own accepted-miscite); cited number does NOT reproduce from sparse_vs_dense's recall code; genuine is 8x@f=0.10 -> >=300x@f=0.005 LOWER-BOUND", "ts": "2026-06-20T08:12:00Z"},
+    {"id": "sparse_6x_25x_phantom", "what": "Sparse super-capacity 6x/25x peak", "dissolution_mechanism": "PHANTOM: sweep-endpoint ratio artifact (literally dividing sweep range bounds, not a measured peak)", "ts": "2026-06-20T~early-cycle"},
+    {"id": "kmax_low_alpha_extrapolation", "what": "K_max chain-grade gate anchored on extrapolation outside bounded regime", "dissolution_mechanism": "Caught by data-decides-no-preempt discipline; gate was anchored outside bounded regime; corrected to use within-regime measurement", "ts": "2026-06-20T~early-cycle"},
+    {"id": "k_eq_scorecard_typo", "what": "K=47 at alpha=0.1*alpha_c", "dissolution_mechanism": "TYPO: actually 0.27*alpha_c (formula consistent; scorecard misstated alpha value)", "ts": "2026-06-20T~early-cycle"}
+  ],
+
+  "waiting_on_user": [
+    {"item": "Phase 3 cost/policy brief review", "since": "2026-06-20T09:30:00Z", "blocking": "Phase 3 hardening cost decisions (concurrency reduction / batch API / separate workspaces / higher account tier)", "artifact": "data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md"}
+  ],
+
+  "summary": {
+    "priorities_total": 10,
+    "priorities_done": 2,
+    "priorities_in_progress": 4,
+    "priorities_planned": 3,
+    "priorities_blocked": 1,
+    "priorities_dissolved": 0,
+    "priorities_remaining_non_terminal": 8,
+    "next_horizon": "Post-LEVER-#1.5 cell SCHEMA-VET -> smoke -> dispatch (Exp-Dev). Pythia-substrate-KV pull-up SCHEMA-VET. Dashboard panels built by Testbed. Effrank-SVD clarification from Skunkworks unblocks 3rd pull-up. Phase 3 cost brief USER review unblocks hardening Phase 3. Once these clear: pull-up cluster characterizations cascade + LEVER queue continuation (PCA / sparse_coding / multiplicative_composition queued post LEVER #1.5)."
+  },
+
+  "director_narrative": "FLAG: DIRECTOR_JUDGEMENT -- non-load-bearing. This session shipped 3 chain-grade certs (CSP 590 / #7 591 / K_max 592) + 3 atomized MEASURED_MECHANISM characterizations (Hebbian / crosstalk-law / sparse super-capacity) + cleared 1 legacy actionable (a8) + introduced the 16th USER-LOCKED rule (no compaction-state-tracking) + dissolved 4 inflated claims while upgrading 1 understated finding -- discipline producing ALL DIRECTIONS. 15 META disciplines atomized making the audit-catalog the self-cert rulebook. Substrate-KV mechanism architecturally SETTLED = NN-retrieval with #7 learned projection. Phase 3 glass-box-LLM foundation strengthened by depth-beyond-equilibrium (CERT 592) + sparse super-capacity (>=300x@f=0.005). Cascade is in active state with multiple parallel threads; nothing is the load-bearing critical path."
+}
