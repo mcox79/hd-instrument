@@ -71,6 +71,8 @@ def verdict_class(v):  # v1.1: classify a verdict for I6 cross-class cluster det
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--expect-integrated', type=int, default=None)
+    ap.add_argument('--json', action='store_true',
+                    help='emit machine-readable JSON snapshot (single source of truth for the dashboard)')
     args = ap.parse_args()
 
     ps = PartitionedStore(Path('data/substrate_index'))
@@ -197,10 +199,57 @@ def main():
             mixed_clusters.append((cid, sorted(classes)))
     soft_checks.append(('I6 cluster verdict-homogeneity (mixed-class -> REVIEW: scaling-cliff vs mis-cluster)',
                         not mixed_clusters, f'mixed_verdict_clusters={len(mixed_clusters)}', mixed_clusters[:8]))
+    # I10 (v1.3) operating-point-series OVER-MINT detection (SOFT; review, not gate). Closes the I4
+    # blind-spot "should-be-clustered-but-marked-singleton": >=3 integrated SINGLETONS sharing a normalized
+    # stem (varying one parameter axis: N / depth / L) look like an un-clustered op-series = ONE capability
+    # minted as N capabilities. cert-owner judges per flag -- distinct config-AXES (combo1 v1_n4096 vs
+    # v2_depth_5) are legitimately N singletons; a single-axis sweep (q_b1_chain_depth d15/20/30/40 @ N=8192)
+    # is the over-mint. (The big families q_a3/pp48/q_b1-cliff are already clustered -> not flagged.)
+    import re as _re
+    def _opstem(aid):
+        s = aid.split('/')[-1]
+        s = _re.sub(r'^EXP_', '', s)
+        s = _re.sub(r'_(n|N)\d+', '', s)          # _n16384
+        s = _re.sub(r'_d(epth)?_?\d+', '', s)      # _depth_5 / _d276
+        s = _re.sub(r'_[lL]\d+', '', s)            # _L100
+        s = _re.sub(r'_v\d+$', '', s)              # _v1
+        s = _re.sub(r'_\d+$', '', s)               # trailing _15
+        return _re.sub(r'_+', '_', s).strip('_')
+    op_groups = defaultdict(list)
+    for a in integ:
+        if not md(a).get('capint_cluster_id'):     # singletons only
+            op_groups[_opstem(a.id)].append(a)
+    opmint = []
+    for stem_k, grp in op_groups.items():
+        if len(stem_k) >= 4 and len(grp) >= 3:
+            benches = {md(a).get('capint_shared_benchmark') for a in grp}
+            opmint.append((stem_k, len(grp), 'same_benchmark' if len(benches) == 1 else f'{len(benches)}_benchmarks'))
+    soft_checks.append(('I10 op-series over-mint (>=3 singletons sharing a stem -> candidate un-clustered op-series) [v1.3]',
+                        not opmint, f'opseries_overmint_candidates={len(opmint)}', opmint[:8]))
+
+    if args.json:
+        import json as _json
+        all_ok = all(ok for _, ok, _, _ in checks)
+        n_soft = sum(1 for _, ok, _, _ in soft_checks if not ok)
+        icheck = {}
+        for name, ok, _detail, _samples in checks + soft_checks:
+            icheck[name.split()[0] + '_pass'] = bool(ok)
+        out = {
+            'capint_integrated_count': n,
+            'capint_cluster_count': len(cluster_members),
+            'singletons': sum(1 for a in integ if not md(a).get('capint_cluster_id')),
+            'integration_pass': bool(all_ok),
+            'soft_flags_I6': n_soft,
+            'checks': icheck,
+            'verdict_distribution': dict(Counter((md(a).get('capint_verdict') or 'NONE') for a in integ)),
+            'track_a_by_domain': dict(Counter((md(a).get('capint_primary_domain') or 'unknown') for a in integ)),
+        }
+        print(_json.dumps(out, indent=2))
+        return 0 if all_ok else 5
 
     # report
     print('=' * 78)
-    print('CAP-INT INTEGRATION-CHECK v1.2 (capability-integration cert-gate; +I7/I8/I9 A/B-iterate) -- READ-ONLY')
+    print('CAP-INT INTEGRATION-CHECK v1.3 (capability-integration cert-gate; +I7/I8/I9 swap +I10 op-series over-mint) -- READ-ONLY')
     print(f'  cap-int Track-A integrated atoms = {n}'
           + ('' if args.expect_integrated is None else f' (expect {args.expect_integrated}: '
              + ("OK" if n == args.expect_integrated else "MISMATCH") + ')'))
@@ -230,7 +279,7 @@ def main():
         print('  cluster count:', len(cluster_members), '| singletons:',
               sum(1 for a in integ if not md(a).get('capint_cluster_id')))
     print('RESULT:', 'INTEGRATION-PASS' if all_ok else 'INTEGRATION-FAIL',
-          f'| integrated={n} | soft-flags(I6)={n_soft}')
+          f'| integrated={n} | soft-flags={n_soft}')
     print('=' * 78)
     return 0 if all_ok else 5
 

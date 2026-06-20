@@ -62,19 +62,34 @@ def axiom_term(atoms):
                and not str(a.id).startswith('T3/wikidata_'))
 
 
+CAP_MODULES = [
+    ('backend.substrate_index.hmm_decoder', 'viterbi_decode'),
+    ('hdlab.perceptron', 'StructuredPerceptron'),
+    ('backend.substrate_index.sequence_labeler', 'NERTagger'),
+    ('hdlab.bayesian_inference', 'EMMixture'),
+    ('backend.substrate_index.intent_classifier', 'IntentClassifier'),
+    ('backend.substrate_index.refuse_gated_retriever', 'RefuseGatedRetriever'),
+]
+
+
 def cap_pres():
     import importlib
     try:
-        return all(hasattr(importlib.import_module(m), s) for m, s in [
-            ('backend.substrate_index.hmm_decoder', 'viterbi_decode'),
-            ('hdlab.perceptron', 'StructuredPerceptron'),
-            ('backend.substrate_index.sequence_labeler', 'NERTagger'),
-            ('hdlab.bayesian_inference', 'EMMixture'),
-            ('backend.substrate_index.intent_classifier', 'IntentClassifier'),
-            ('backend.substrate_index.refuse_gated_retriever', 'RefuseGatedRetriever'),
-        ])
+        return all(hasattr(importlib.import_module(m), s) for m, s in CAP_MODULES)
     except Exception:
         return False
+
+
+def cap_pres_count():
+    import importlib
+    c = 0
+    for m, s in CAP_MODULES:
+        try:
+            if hasattr(importlib.import_module(m), s):
+                c += 1
+        except Exception:
+            pass
+    return c
 
 
 def endpoints(rel):
@@ -95,6 +110,8 @@ def main():
     ap.add_argument('--expect-cert', type=int, default=None)
     ap.add_argument('--expect-atoms', type=int, default=None)
     ap.add_argument('--expect-axiom', type=int, default=206)
+    ap.add_argument('--json', action='store_true',
+                    help='emit machine-readable JSON snapshot (single source of truth for the dashboard)')
     args = ap.parse_args()
 
     ps = PartitionedStore(Path('data/substrate_index'))
@@ -214,6 +231,27 @@ def main():
                  f'memory_reference_entries={mem_struct} misfiled_as_atom_id={len(mem_struct_misfiled)}'))
     soft.append(('S3 algebra convention-conformance (non-axiom kinds algebra=None)', not conv_violators,
                  f'harmless_convention_violators={len(conv_violators)} (corpus/tier-excluded from axiom_term; e.g. old-schema annotations)'))
+
+    if args.json:
+        import json as _json
+        from collections import Counter as _Counter
+        all_hard_ok = all(ok for _, ok, _ in true_hard)
+        n_hygiene_flags = sum(1 for _, ok, _ in graph_hygiene if not ok)
+        out = {
+            'atoms_total': n_atoms,
+            'atoms_by_kind': dict(_Counter(kname(a) for a in atoms)),
+            'cert_chain_grade_count': cert,
+            'axiom_count': ax,
+            'cap_pres_ok': bool(caps),
+            'cap_pres_count': cap_pres_count(),
+            'relations': n_rel,
+            'graph_hygiene_flags': n_hygiene_flags,
+            'true_hard_pass_invariant': bool(all_hard_ok),
+            'hard_checks': {name.split()[0]: bool(ok) for name, ok, _ in true_hard},
+            'soft_warns': [name.split()[0] for name, ok, _ in soft if not ok],
+        }
+        print(_json.dumps(out, indent=2))
+        return 0 if all_hard_ok else 4
 
     # report
     print('=' * 78)
