@@ -187,44 +187,46 @@ def run_unit(op_depth, benchmark, seed) -> Dict:
 
 
 def compute_verdict(units) -> Tuple[str, str, Dict]:
+    """v3 bands (Research re-calibration 2026-06-19): op-depth MATCHED to each benchmark's content.
+    Gate MultiArith at 2-op (composition), ASDiv/MAWPS at 1-op (their actual content). ASDiv/MAWPS 2-op +
+    SVAMP + 3-op/4-op MultiArith = REPORTED (not gated). Fixes the v2 unreachable-2-op-on-1-op-benchmark flaw."""
     if not units:
         return ("HARD_FAIL", "no results", {})
-    # mean accuracy per (benchmark, op_depth) + per-cell std
     acc = {}; std = {}
     for b in BENCHMARKS:
         for op in OP_DEPTHS:
             vals = [u["accuracy"] for u in units if u["benchmark"] == b and u["op_depth"] == op and "accuracy" in u]
             if vals: acc[(b, op)] = float(np.mean(vals)); std[(b, op)] = float(np.std(vals))
     def A(b, op): return acc.get((b, op))
-    # ratio 2op/1op per benchmark
-    ratio = {b: (A(b, 2) / A(b, 1) if A(b, 1) and A(b, 1) > 1e-6 else (float("inf") if A(b, 2) else 0.0)) for b in BENCHMARKS}
-    max_std = max((std.get((b, op), 0.0) for b in GATING for op in [1, 2]), default=0.0)
+    ratio_ma = (A("MultiArith", 2) / A("MultiArith", 1)) if (A("MultiArith", 1) and A("MultiArith", 1) > 1e-6) else (float("inf") if A("MultiArith", 2) else 0.0)
+    # seed-reproduce on the 3 op-depth-matched GATING cells
+    gate_cells = [("MultiArith", 2), ("ASDiv", 1), ("MAWPS", 1)]
+    max_std = max((std.get(c, 0.0) for c in gate_cells), default=0.0)
     seeds_rep = max_std <= 0.03
-    cliff = {b: next((op for op in OP_DEPTHS if op >= 3 and (A(b, op) or 0) < 0.20), None) for b in GATING}
+    cliff_ma = next((op for op in OP_DEPTHS if op >= 3 and (A("MultiArith", op) or 0) < 0.20), None)
     detail = {"acc": {"%s_op%d" % (b, op): A(b, op) for b in BENCHMARKS for op in OP_DEPTHS if A(b, op) is not None},
-              "ratio_2op_1op": {b: round(ratio[b], 2) for b in BENCHMARKS},
-              "cliff_3op_REPORTED": {b: cliff[b] for b in GATING},
-              "svamp_2op_REPORTED": A("SVAMP", 2), "max_seed_std": round(max_std, 4), "seeds_reproduce": seeds_rep,
-              "honest_scope": "2-op composition on MultiArith/ASDiv/MAWPS (gating); SVAMP=representation-bound (reported)."}
-    a_ma = A("MultiArith", 2)
-    if a_ma is None:
-        return ("UNKNOWN", "MultiArith 2-op missing", detail)
-    gating_2op = {b: A(b, 2) for b in GATING}
-    n_low = sum(1 for b in ["ASDiv", "MAWPS"] if (A(b, 2) or 0) < 0.15)
-    summary = ("2op acc " + " ".join("%s=%.3f" % (b, gating_2op[b] if gating_2op[b] is not None else -1) for b in GATING)
-               + " | ratio " + " ".join("%s=%.1fx" % (b, ratio[b]) for b in GATING)
-               + " | SVAMP2op=%.3f(reported-bound) | max_std=%.3f" % (A("SVAMP", 2) or -1, max_std))
+              "GATING_op_depth_matched": {"MultiArith_2op": A("MultiArith", 2), "ASDiv_1op": A("ASDiv", 1), "MAWPS_1op": A("MAWPS", 1)},
+              "MultiArith_ratio_2op_1op": round(ratio_ma, 2),
+              "REPORTED_cliff_3op_MultiArith": cliff_ma,
+              "REPORTED_ASDiv_2op": A("ASDiv", 2), "REPORTED_MAWPS_2op": A("MAWPS", 2),
+              "REPORTED_SVAMP_2op": A("SVAMP", 2), "max_seed_std": round(max_std, 4), "seeds_reproduce": seeds_rep,
+              "honest_scope": "MultiArith 2-op composition (gated 2-op) + ASDiv/MAWPS 1-op generalization "
+                              "(gated 1-op, their content) + SVAMP representation-bound (reported). op-depth matched."}
+    ma2 = A("MultiArith", 2); asd1 = A("ASDiv", 1); maw1 = A("MAWPS", 1)
+    if ma2 is None or asd1 is None or maw1 is None:
+        return ("UNKNOWN", "missing a gating cell (MultiArith-2op / ASDiv-1op / MAWPS-1op)", detail)
+    summary = ("MultiArith-2op=%.3f (ratio %.1fx) | ASDiv-1op=%.3f | MAWPS-1op=%.3f | max_std=%.3f | "
+               "REPORTED: ASDiv-2op=%.3f MAWPS-2op=%.3f SVAMP-2op=%.3f cliff_3op=%s" %
+               (ma2, ratio_ma, asd1, maw1, max_std, A("ASDiv", 2) or -1, A("MAWPS", 2) or -1, A("SVAMP", 2) or -1, cliff_ma))
     # HARD_FAIL
-    if a_ma < 0.15 or n_low >= 2 or max_std > 0.05:
+    if ma2 < 0.15 or ratio_ma < 3.0 or asd1 < 0.10 or maw1 < 0.30 or max_std > 0.05:
         return ("HARD_FAIL", "HARD_FAIL: " + summary, detail)
-    # HARD_PASS: all 3 gating >=0.20 AND ratio>=5x each AND seeds reproduce
-    all_gate = all((A(b, 2) or 0) >= 0.20 for b in GATING)
-    all_ratio = all(ratio[b] >= 5.0 for b in GATING)
-    if all_gate and all_ratio and seeds_rep:
-        return ("HARD_PASS", "HARD_PASS: substrate 2-op composition generalizes across 3 representation-adequate benchmarks. " + summary, detail)
-    # MIDDLE: MultiArith >=0.20 + <=1 of {ASDiv,MAWPS} in [0.15,0.20)
-    n_mid = sum(1 for b in ["ASDiv", "MAWPS"] if 0.15 <= (A(b, 2) or 0) < 0.20)
-    if a_ma >= 0.20 and n_mid <= 1:
+    # HARD_PASS: MultiArith 2-op>=0.20 + ratio>=5x + ASDiv 1-op>=0.15 + MAWPS 1-op>=0.40 + seeds reproduce
+    if ma2 >= 0.20 and ratio_ma >= 5.0 and asd1 >= 0.15 and maw1 >= 0.40 and seeds_rep:
+        return ("HARD_PASS", "HARD_PASS: 2-op composition (MultiArith) + 1-op generalization (ASDiv/MAWPS), op-depth matched. " + summary, detail)
+    # MIDDLE: HP except 1 of {ASDiv-1op [0.10,0.15), MAWPS-1op [0.30,0.40)} OR MultiArith-2op [0.15,0.20)
+    n_mid = sum([0.10 <= asd1 < 0.15, 0.30 <= maw1 < 0.40])
+    if (0.15 <= ma2 < 0.20) or (ma2 >= 0.20 and ratio_ma >= 5.0 and n_mid <= 1):
         return ("MIDDLE_BAND", "MIDDLE_BAND: " + summary, detail)
     return ("MIDDLE_BAND", "MIDDLE_BAND (partial): " + summary, detail)
 
