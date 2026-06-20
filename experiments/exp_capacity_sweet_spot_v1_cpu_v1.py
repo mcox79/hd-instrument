@@ -110,7 +110,9 @@ if SMOKE:
 
 def run_unit(task, seed):
     name, ta = task["name"], task["target_alpha"]
-    eff_ta = ta if ta <= ALPHA_ENVELOPE_MAX else ALPHA_ENVELOPE_MAX
+    # out-of-envelope FALLBACK: use a SMALL load for the (irrelevant) recall -- fallback-demo only checks selector==default config,
+    # not the recall value. Avoids a wasteful M=alpha*N recall at the envelope cap (Orchestrator OOM/runtime flag).
+    eff_ta = ta if ta <= ALPHA_ENVELOPE_MAX else 0.1
     rec_default = recall_at(eff_ta, 1.0, N, seed)                            # arm (a) known-bad-default: dense f=1.0, projection-free
     rec_naive = recall_at(eff_ta, NAIVE_F, N, seed)                          # arm (b) naive-fixed f=0.05, projection-free
     sel = select_f(ta); rec_sel = recall_at(eff_ta, sel["f"], N, seed)       # arm (c) selector f-by-load
