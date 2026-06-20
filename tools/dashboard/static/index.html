@@ -2657,14 +2657,53 @@
   <div class="sstate-meta">
     <span id="sstate-meta-line">Substrate state -- loading...</span>
     <button class="sstate-refresh" onclick="renderSubstrateState()">refresh</button>
+    <button class="sstate-refresh" onclick="refreshSubstrateLive()">Update Substrate (live)</button>
     <span style="margin-left:14px;color:var(--dim);font-size:11px">to regenerate counters from latest notes: <code>python tools/substrate_state_collector.py</code></span>
   </div>
+  <!-- SPEC#2: live authoritative cert metrics (single-source: Skunkworks --json checks via /api/refresh-substrate) -->
+  <div id="substrate-live-panel" class="sstate-card" style="margin:10px 0"></div>
   <div id="sstate-content"></div>
 </section>
 
 <script>
   // TRACK D Phase 4 -- substrate state tab render.
+  // SPEC#2: live authoritative cert metrics (single-source = Skunkworks --json checks via the backend;
+  // button-triggered, NOT a poller). Closes the USER "dashboard not up to date on substrate" gap.
+  function renderSubstrateLivePanel(d) {
+    const panel = document.getElementById("substrate-live-panel");
+    if (!panel) return;
+    if (!d || d.status === "no_snapshot") {
+      panel.innerHTML = "<div class='sstate-sub'>No live snapshot yet -- click 'Update Substrate (live)'.</div>"; return;
+    }
+    const inv = d.invariant || {}, cap = d.capint || {};
+    const thp = inv.true_hard_pass_invariant;
+    const pill = thp === true ? "<span class='sstate-pill ok'>TRUE-HARD-PASS</span>"
+               : "<span class='sstate-pill warn'>invariant=" + String(thp) + "</span>";
+    const row = (k, v) => "<tr><td class='k'>" + k + "</td><td class='v'>" + (v == null ? "-" : v) + "</td></tr>";
+    panel.innerHTML = "<h3>Live cert metrics (authoritative; single-source)</h3>" + pill +
+      "<table>" + row("CERT_CHAIN_GRADE", inv.cert_chain_grade_count) + row("atoms_total", inv.atoms_total) +
+      row("capint_integrated", cap.capint_integrated_count) + row("axiom_count", inv.axiom_count) +
+      row("graph_hygiene_flags", inv.graph_hygiene_flags) + "</table>" +
+      "<div class='sstate-sub' style='margin-top:6px'>snapshot ts: " + (d.ts || "-") +
+      " (button-triggered cached view; authoritative gate = on-demand invariant-check)</div>";
+  }
+  async function refreshSubstrateLive() {
+    const panel = document.getElementById("substrate-live-panel");
+    if (panel) panel.innerHTML = "<div class='sstate-sub'>refreshing (running Skunkworks authoritative --json checks)...</div>";
+    try {
+      const d = await (await fetch("/api/refresh-substrate", { method: "POST", cache: "no-store" })).json();
+      renderSubstrateLivePanel(d);
+    } catch (e) {
+      if (panel) panel.innerHTML = "<div class='sstate-sub' style='color:#e8a04a'>live refresh failed: " + String(e) + "</div>";
+    }
+  }
+  async function loadSubstrateLiveCached() {
+    try { renderSubstrateLivePanel(await (await fetch("/api/substrate", { cache: "no-store" })).json()); }
+    catch (e) { /* no cached snapshot yet -- panel stays empty until the button is clicked */ }
+  }
+
   async function renderSubstrateState() {
+    loadSubstrateLiveCached();  // show the cached live cert-metrics panel alongside the state view
     const meta = document.getElementById("sstate-meta-line");
     const content = document.getElementById("sstate-content");
     if (meta) meta.textContent = "Substrate state -- fetching...";

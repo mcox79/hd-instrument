@@ -192,6 +192,46 @@ def debug():
     return snap.get("_debug", {})
 
 
+# --- SPEC #2: local-substrate snapshot panel (closes the USER dashboard-gap: dashboard polled remote
+#     state but NOT the local Store). Single-source: delegates to Skunkworks's authoritative --json checks
+#     via tools/substrate_snapshot_once.py (NO inline reimplementation of CERT/axiom/invariant logic). ---
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+@app.get("/api/substrate")
+def substrate():
+    """Cached local-substrate snapshot (read-only VIEW). Authoritative gate = the on-demand
+    invariant-check; this is a button-triggered cached view (staleness shown via its `ts`)."""
+    p = _REPO_ROOT / "data" / "local_substrate_snapshot.json"
+    if not p.exists():
+        return {"status": "no_snapshot", "hint": "POST /api/refresh-substrate (the 'Update Substrate' button)"}
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as e:
+        return JSONResponse({"status": "error", "error": str(e)[:200]}, status_code=500)
+
+
+@app.post("/api/refresh-substrate")
+def refresh_substrate():
+    """'Update Substrate' button: run substrate_snapshot_once.py (delegates to Skunkworks's --json
+    authoritative checks; single-source), then return the fresh snapshot. User-triggered, no poller."""
+    import subprocess
+    import sys as _sys
+    script = _REPO_ROOT / "tools" / "substrate_snapshot_once.py"
+    try:
+        subprocess.run([_sys.executable, str(script)], cwd=str(_REPO_ROOT),
+                       capture_output=True, text=True, timeout=180)
+    except subprocess.TimeoutExpired:
+        return JSONResponse({"status": "timeout", "error": "snapshot refresh exceeded 180s"}, status_code=504)
+    p = _REPO_ROOT / "data" / "local_substrate_snapshot.json"
+    if not p.exists():
+        return JSONResponse({"status": "error", "error": "snapshot not written"}, status_code=500)
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as e:
+        return JSONResponse({"status": "error", "error": str(e)[:200]}, status_code=500)
+
+
 @app.get("/api/capability")
 def capability():
     """Raw markdown content of notes/substrate_capability_map.md. Read-only."""
