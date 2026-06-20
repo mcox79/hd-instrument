@@ -121,15 +121,41 @@ def main() -> int:
                 have_unread_name = name
                 break
 
-    if have_unread:
+    # 3b: Watchdog ping-note for THIS session (recent; <30min old)
+    have_watchdog_ping = False
+    have_watchdog_ping_name = None
+    if notes_dir.is_dir():
+        cutoff = ts_mtime  # newer than last-processed
+        for note in notes_dir.iterdir():
+            if not note.is_file() or note.suffix != '.md':
+                continue
+            n = note.name.lower()
+            if n.startswith('watchdog_ping_to_') and session.lower() in n:
+                try:
+                    if note.stat().st_mtime > cutoff:
+                        have_watchdog_ping = True
+                        have_watchdog_ping_name = note.name
+                        break
+                except OSError:
+                    continue
+
+    # NOTE: removed recent-commit-activity gate -- it over-fires across sessions during
+    # active commit cycles (any session's git commit triggers .git/index mtime).
+    # The watchdog-ping signal is the more-targeted external wake-up trigger.
+
+    if have_unread or have_watchdog_ping:
         # Concrete signal: increment counter + emit block decision
         try:
             cont_file.write_text(str(count + 1))
         except OSError:
             pass
-        reason = (f"New inbox items pending for {session} "
-                  f"(found newer than {ts_file.name}: {have_unread_name}); "
-                  f"continuing triage. (continuation {count + 1}/{hard_cap})")
+        signals = []
+        if have_unread:
+            signals.append(f"unread inbox ({have_unread_name})")
+        if have_watchdog_ping:
+            signals.append(f"watchdog ping ({have_watchdog_ping_name})")
+        reason = (f"Pending work for {session}: " + " + ".join(signals) +
+                  f"; continuing. (continuation {count + 1}/{hard_cap})")
         decision = {"decision": "block", "reason": reason}
         print(json.dumps(decision))
         return 0
