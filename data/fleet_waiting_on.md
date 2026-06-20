@@ -17,13 +17,12 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-20T23:55:00Z
-- testbed: synthesize dashboard spec from Research + Skunkworks inputs (composition-bar + cert-motion-sparkline + integrity-light + 5 vital signs + 4 drift-detectors; ~8-9 elements total within cognitive budget) → USER ratifies → rebuild from self-maintaining sources (Store/notes-mtime/heartbeats/watchdog/fleet_waiting_on; NOT plan.json as primary)
-- skunkworks: ~149-atom classification sub-audit continuing (slow-cadence per BOUNDED ruling; trigger-based; no urgency)
-- exp_dev: LEVER 1.5 path (b) redesign with precision/SNR cost in flight
-- exp_dev: refuse-gate #5 full+fixedE landed-VET
-- skunkworks: substrate-native Milestone 1 SCHEMA-VET when ready (USER ratified framing)
-- (cleared this cycle: 4-layer-reciprocal-witness META atomized; Skunkworks Batch-API ruled N/A for her workflow; dashboard rethink inputs converged Director+cert-owner)
+**Last-updated:** 2026-06-21T00:15:00Z
+- testbed: synthesize dashboard spec from Director + Skunkworks inputs → USER ratifies → rebuild from self-maintaining sources
+- skunkworks: SCHEMA-VET batch — substrate-native Milestone 1 (6 questions) + LEVER #2 PCA (6 questions) + LEVER #3 sparse-coding (6 questions) + LEVER #4 multiplicative-composition (6 questions); cadence hers
+- skunkworks: ~149-atom classification sub-audit slow-cadence per BOUNDED ruling
+- exp_dev: LEVER 1.5 v2 N=4096 in flight (honest pre-call MEASURED_MECHANISM not chain-grade per Exp-Dev disclosed); refuse-gate #5 full+fixedE landed-VET; pythia v2 reframe (add margin + CAN-fail + random-control); phase4b v2 reframe (drop div-by-near-zero ratio + narrow to MultiArith-2op + investigate 1op-MultiArith=0.017 anomaly)
+- (cleared this cycle: LEVER queue pre-reg batch authoring complete #2+#3+#4; map v6 mini-refresh; substrate-native Milestone 1 pre-reg filed)
 
 ## skunkworks
 **Last-updated:** 2026-06-20T23:20:00Z
