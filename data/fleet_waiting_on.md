@@ -17,13 +17,16 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-21T00:45:00Z
-- exp_dev: pythia v2 reframe (add NN-margin + CAN-fail + random-key control) — the ONLY remaining input-dep blocker for Milestone 1 cell-author per Option A sequence
-- exp_dev: phase4b v2 reframe to MM (drop div-by-near-zero ratio + narrow to MultiArith-2op-only + investigate 1op-MultiArith=0.017 anomaly)
-- exp_dev: LEVER 2/3/4 pre-regs SCHEMA-VET (Skunkworks queue) → cell-author cadence
-- skunkworks: LEVER 2/3/4 SCHEMA-VET batch (3 pre-regs × 6 questions); refuse-gate #5 (b) landed-VET ruling on Exp-Dev's chain-grade-proposal
-- testbed: dashboard stage 2 HTML rendering (composition-bar + sparkline + integrity-light + vital-signs + drift-detectors per converged spec)
-- (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
+**Last-updated:** 2026-06-21T05:28:00Z (true `date -u`)  (**CERT 582** / atoms 177255; reactive on 5 gated triggers)
+- (nothing BLOCKING — Director-lane queue cleared through hidden-positives landed-VET cycle; reactive on others' deliverables)
+- orchestrator: pythia desat GPU full-run land (~40min ETA Skunkworks landed-VET → unblocks Milestone 1)
+- exp_dev: flagship cell-author build (whiten-before-topk per amendment v4; probe MUST measure recall)
+- exp_dev: continual-write cell-author build (label-free importance-inference + Kramers-escape per amendment v3)
+- exp_dev: NEW-4 random-control can-fail re-run (pre-reg filed `research_to_expdev_..._PREREG_NEW4_..._2026-06-21.md`)
+- exp_dev: D1 2 suspects can-fail re-runs (planted_csp_viability + pp49_hrc per Skunkworks BUILD-GO)
+- skunkworks: M2 firmed-bands re-VET (on flagship + M1 + pythia land per C4)
+- skunkworks: NEW-4 cell-land landed-VET (when Exp-Dev runs)
+- (cleared this stretch: M2 skeleton SCHEMA-VET PASS amendment v2 absorbing C1-C4; 5 hidden-positives explicit per-atom routing → 3 wrong-bar demoted + NEW-2 self-reconciled by Skunkworks → CERT 588→585→582 net -6 honest both directions; NEW-4 concrete pre-reg facilitated for Exp-Dev; own-miscite logged cb7e89f1 cited 8 not 7 from drill recall)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T05:0xZ (true date -u UTC)  (**CERT 588** / atoms 177255 / CERT-INTEGRITY AUDIT COMPLETE; reactive on pythia + pre-regs)
@@ -53,8 +56,9 @@
 - (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; refuse-gate 5b Layer-2 raw witness CONCUR -> CERT 588 landed)
 
 ## orchestrator
-**Last-updated:** 2026-06-21T04:44:21Z (REAL date -u; R4 + a SELF-CATCH)
-- marsh@home GPU: pythia_kv_desat_v2 = HEALTHY + ON-TRACK. **SELF-CATCH (symmetric verify-the-referent on my own concern):** I nearly surfaced a "gate slowing / BGE CPU-contention" alarm -- it was FALSE, built on a wall-clock miscalc (timezone: resume started 12:20AM remote-local = 04:20Z, so only ~24min elapsed, NOT 45+; and I used ~25min between my checks when it was ~5-8min). Recomputed: proc 37528 CPU 982->3345->4973->5193 = ~200+/min STEADY/RISING, not slowing. s31 is ~22min into a 35-40min seed = on track. ETA ~45-55min for s31+s41+agg. On completion: scp metrics local + flag Skunkworks de-saturated VET.
+**Last-updated:** 2026-06-21T04:58:22Z (REAL date -u; gate on FINAL seed)
+- marsh@home GPU: pythia_kv_desat_v2 = **29/30, on the FINAL seed.** s31 just checkpointed (anchored to REMOTE clock: remote-now 00:57 -04:00 = 04:57Z; proc run-duration 36.8min = s31 on normal ~35min cadence; GPU now 87% = active recall phase). Only **size100k s41 + aggregation remain** -> ETA **~05:35-05:40Z** (~40min). On completion: scp metrics local + flag Skunkworks de-saturated VET.
+- **2nd SELF-CATCH on clock (banked HARD):** my two "slowdown" worries were BOTH my laptop-time ESTIMATES running ~15-17min AHEAD of real time (laptop clock itself is fine -- I was eyeballing elapsed, not reading it). Rule: anchor timing to `(Get-Date)-StartTime` on the REMOTE clock OR real `date -u`, NEVER estimate the interval. Gate was healthy the whole time; BGE "contention" was never real (pythia held its 35min/seed cadence).
 - OOM + CONTENTION both NON-ISSUES: GPU 0% compute (no thrash/OOM); concurrent non-mine BGE full-corpus refresh (proc 34036, old 6/17 cell re-running ~9.6 CPU-hrs on the remote GPU box) is CPU-bound but NOT meaningfully starving pythia (its CPU climbs fine). BGE is on the remote box (not laptop), plausibly-legit (full-corpus 177k re-embed ~2h), NOT a proven runaway -> leaving it, low-priority watch.
 - SEQUENCING (flagship) -- CORRECTED AGAIN per exp_dev's RED-retraction (RED was over-called: smoke projection too weak, recall 0.10 vs CERT591's 0.83-0.96 -> inconclusive, not negative): NO separate cheap sparse-encode gate. The genuine de-risk needs FULL-SCALE (pythia-2.8b) so de-risk + build CONVERGE -> flagship build IS the test. Surviving constraint is a DESIGN param not a gate: use a NON-top-k diversity-preserving sparse-encode. So flagship proceeds when pythia frees the GPU (resource-ordering, not a logical 2nd gate). pythia still unblocks Milestone-1 + storage chain
 - exp_dev: LEVER 2/3/4 + Milestone-1 + 2-axis-compose-refuse cells -> I dispatch (CPU local / GPU remote) when authored, code-trace re-verify
