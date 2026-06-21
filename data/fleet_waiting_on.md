@@ -26,14 +26,14 @@
 - (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T04:1xZ (true date -u UTC)  (**CERT 588 honest** / atoms 177253 / STORAGE-chain VETs all cleared; reactive on landed-VETs)
-- (nothing BLOCKING -- reactive-hold on the GPU builds: pythia desat v2 -> flagship -> continual-write, each lands to my VET)
-- **3 critical-path SCHEMA-VETs cleared this stretch (storage chain build-cleared):** phase-0 sparse-onset (295882fa) + FLAGSHIP sparse-projected-KV (39cb073c, 4-layer) + continual-write lever (0a01b235, 4-layer) -- all BUILD_GO; bars pre-staged -> fast turnaround. Exp-Dev's whole storage queue is unblocked.
-- **Sub-audit batches 1-3 DONE (headline-honesty):** 147 non-PASS chain-grades sampled (MIDDLE_BAND 73 / HARD_FAIL 64 / custom 10) -> **0 demotes; population verified-GENUINE** (deterministic-justified single-seeds + documented honest-negatives + genuine bounds). Symmetric-verify found a buried POSITIVE (2-level-ingest lift) not inflation -> 3 relevance-promotes (count-neutral). Confirms: CERT 588 precise; 147 won't recover cert-count (my phase-plan honest-read holds).
-- **D4 cert-integrity self-check live** (fc5ea754, 0 stale/588) + paired discipline (5502fe27). Future enhancement noted: extend D4 to soft-flag non-PASS-vs-non-PASS verdict-label drift (t3_phaseA witness; mostly-legitimate so SOFT).
-- exp_dev: pythia desat v2 re-VET (my landed-VET, gates flagship+M1); flagship build (4-layer landed-VET); 2-axis full re-run (atomize-on-VET, smoke-mislabel caught); continual-write build (4-layer).
-- research: PHASE PLAN v1 USER-RATIFIED (my STORAGE thread central); next Director ships = cross-domain probe + M2 multi-hop pre-reg (-> my SCHEMA-VET).
-- QUEUE STATUS: ALL actionable VETs CLEARED. Reactive on the GPU-build landed-VETs + 2-axis full + continual-write/M2 pre-regs. Sub-audit complete.
+**Last-updated:** 2026-06-21T05:0xZ (true date -u UTC)  (**CERT 588** / atoms 177255 / CERT-INTEGRITY AUDIT COMPLETE; reactive on pythia + pre-regs)
+- (nothing BLOCKING -- all actionable VETs + de-risks + audit done; reactive on others' deliverables)
+- **CERT-INTEGRITY AUDIT COMPLETE** (certify-the-backlog): all 4 dims (D1 saturation 2-suspects-routed+VET'd / D2 0 / D3 0-genuine-inflation / D4 0) + non-PASS 147 verified-genuine + 1 buried positive. CERT 588 verified-precise modulo the 2 D1 re-runs.
+- **6 SCHEMA-VETs cleared:** phase-0, flagship (39cb073c), continual-write (0a01b235), capacity-ceiling (739eccaa), D1-suspect re-runs (5598be5e), M2 glass-box-integration skeleton (ef35a214). + flagship-REDESIGN VET-delta pre-staged (whiten-before-topk, b5ae503d).
+- **3 CPU de-risk probes (heat-safe, GPU-busy):** continual-write GREEN (genuine cost) -> Research v3 adopted label-free-importance axis; flagship saga = 3 verify-the-referent catches -> Research v4 adopted whiten-before-topk + recall-required (my GREEN mislabeled, Exp-Dev RED over-called, truth=top-k-collapses/whiten-rescues).
+- exp_dev: pythia desat re-VET (my landed-VET = master gate); flagship-REDESIGN build (whiten-before-topk) -> my VET-delta instant; continual-write/capacity/D1-rerun/M2 builds -> VETs.
+- research: cross-domain Kramers probe -> my SCHEMA-VET on land; 5 hidden-positives per-atom routing -> landed-VETs.
+- QUEUE: ALL actionable CLEARED. Reactive on pythia + redesign/cross-domain pre-regs + D1-rerun rulings + 2-axis already atomized (+2->177255). Laptop-heat: monitor windowless (buwd1ch35), duplicate TaskStopped.
 
 ## exp_dev
 **Last-updated:** 2026-06-21T04:36:49Z (date -u; round-2)
