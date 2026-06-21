@@ -26,14 +26,14 @@
 - (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T01:25:27Z+ (true date -u UTC)  (**CERT 588 honest** / atoms 177253 / single open item = pythia landed-VET)
-- (nothing BLOCKING -- reactive-hold on the pythia desat v2 GPU run, my one outstanding landed-VET)
-- LANDED+CLOSED this cycle: phase4b STALE chain-grade -> MM (589->588, 0c5c5f6a; Orch L3 PASS); 2 lever MMs (51578dbf); inflation-sweep CLEAN; **D4 cert-integrity self-check added** (fc5ea754: permanent file-grounded atom<->cell-drift detector, 0 stale/588) + its paired discipline atom (5502fe27); **BOTH 2x revival-drills RESOLVED+folded** (2b763cf8: phase4b 1op=content/2.7%-ceiling, ~95% of 2op-solvable solved; LEVER2 PCA 2x-robust, null-space-no-rescue). Net since last reciprocal: +1 atom -> 177253, CERT 588 unchanged (all CERT-neutral).
-- exp_dev: pythia desat v2 GPU re-VET (margin+CAN-fail+random-control) = my ONE open landed-VET item (= Research's saturation revival drill + the key Milestone-1 input)
-- research: Milestone-1 cell-author after pythia VET (Option A); pythia-#7-at-scale = the other Milestone-1 input gate
-- orchestrator: low-stakes reciprocal-check at your cadence (CERT 588 / atoms 177253; all CERT-neutral moves)
-- testbed: dashboard stage-2 panel -> data-correctness VET
-- QUEUE STATUS: ALL available VETs + revival-drill folds + disciplines CLEARED. Genuinely reactive from here -- pythia desat v2 is the single trigger.
+**Last-updated:** 2026-06-21T04:1xZ (true date -u UTC)  (**CERT 588 honest** / atoms 177253 / STORAGE-chain VETs all cleared; reactive on landed-VETs)
+- (nothing BLOCKING -- reactive-hold on the GPU builds: pythia desat v2 -> flagship -> continual-write, each lands to my VET)
+- **3 critical-path SCHEMA-VETs cleared this stretch (storage chain build-cleared):** phase-0 sparse-onset (295882fa) + FLAGSHIP sparse-projected-KV (39cb073c, 4-layer) + continual-write lever (0a01b235, 4-layer) -- all BUILD_GO; bars pre-staged -> fast turnaround. Exp-Dev's whole storage queue is unblocked.
+- **Sub-audit batches 1-3 DONE (headline-honesty):** 147 non-PASS chain-grades sampled (MIDDLE_BAND 73 / HARD_FAIL 64 / custom 10) -> **0 demotes; population verified-GENUINE** (deterministic-justified single-seeds + documented honest-negatives + genuine bounds). Symmetric-verify found a buried POSITIVE (2-level-ingest lift) not inflation -> 3 relevance-promotes (count-neutral). Confirms: CERT 588 precise; 147 won't recover cert-count (my phase-plan honest-read holds).
+- **D4 cert-integrity self-check live** (fc5ea754, 0 stale/588) + paired discipline (5502fe27). Future enhancement noted: extend D4 to soft-flag non-PASS-vs-non-PASS verdict-label drift (t3_phaseA witness; mostly-legitimate so SOFT).
+- exp_dev: pythia desat v2 re-VET (my landed-VET, gates flagship+M1); flagship build (4-layer landed-VET); 2-axis full re-run (atomize-on-VET, smoke-mislabel caught); continual-write build (4-layer).
+- research: PHASE PLAN v1 USER-RATIFIED (my STORAGE thread central); next Director ships = cross-domain probe + M2 multi-hop pre-reg (-> my SCHEMA-VET).
+- QUEUE STATUS: ALL actionable VETs CLEARED. Reactive on the GPU-build landed-VETs + 2-axis full + continual-write/M2 pre-regs. Sub-audit complete.
 
 ## exp_dev
 **Last-updated:** 2026-06-20T23:56:22Z (date -u)
