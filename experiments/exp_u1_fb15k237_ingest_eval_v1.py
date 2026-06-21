@@ -125,20 +125,30 @@ def ingest_hebbian(triples, n_ent, n_rel, g, batch=5000):
     return E, R, W, sq
 
 
+def _scores_batch(E, R, W, sq, sp_pairs):
+    """Batched query scoring: sp_pairs=[(s,p),...] -> scores (B, n_ent) via 2 BLAS matmuls."""
+    if not sp_pairs:
+        return np.zeros((0, E.shape[0]), dtype=np.float32)
+    s = np.array([x[0] for x in sp_pairs]); p = np.array([x[1] for x in sp_pairs])
+    keys = (E[s] * R[p] * sq).astype(np.float32)           # (B, N)
+    return (E @ (W @ keys.T)).T                            # (B, n_ent)
+
+
 def set_recall_at_k(E, R, W, sq, keyobjs, n_eval, g, restrict_1to1=False):
-    """For each (s,p) with K objects, top-K(key) set-overlap with the true objects."""
+    """For each (s,p) with K objects, top-K(key) set-overlap with the true objects (vectorized)."""
     keys = list(keyobjs.items())
     if restrict_1to1:
         keys = [(k, v) for k, v in keys if len(v) == 1]
     if not keys:
         return 0.0
     idx = g.permutation(len(keys))[:min(n_eval, len(keys))]
+    sp = [keys[i][0] for i in idx]; objs = [keys[i][1] for i in idx]
+    S = _scores_batch(E, R, W, sq, sp)                      # (B, n_ent)
     tot = 0.0
-    for i in idx:
-        (s, p), objs = keys[i]; k = len(objs)
-        scores = E @ (W @ (E[s] * R[p] * sq))
-        topk = set(np.argpartition(scores, -k)[-k:].tolist())
-        tot += len(topk & set(objs)) / k
+    for j, ob in enumerate(objs):
+        k = len(ob)
+        topk = set(np.argpartition(S[j], -k)[-k:].tolist())
+        tot += len(topk & set(ob)) / k
     return tot / max(len(idx), 1)
 
 
@@ -146,19 +156,18 @@ def refuse_gate(E, R, W, sq, keyobjs, n_ent, n_rel, n_q, g):
     """confidence = top-1 score; tau calibrated on a held split to max balanced(in-KB-accept, OOD-refuse).
     OOD = (s,p) with s,p in-KB but NO edge (realistic fabrication)."""
     inkb_keys = list(keyobjs.keys())
-    conf = lambda s, p: float(np.max(E @ (W @ (E[s] * R[p] * sq))))
-    # in-KB confidences
+    # in-KB confidences (batched top-1 score)
     idx = g.permutation(len(inkb_keys))[:min(n_q, len(inkb_keys))]
-    inkb_conf = np.array([conf(*inkb_keys[i]) for i in idx])
-    # OOD (no-edge) confidences
-    keyset = set(keyobjs.keys()); ood_conf = []
+    inkb_conf = _scores_batch(E, R, W, sq, [inkb_keys[i] for i in idx]).max(axis=1)
+    # OOD (no-edge) confidences (batched)
+    keyset = set(keyobjs.keys()); ood_sp = []
     tries = 0
-    while len(ood_conf) < n_q and tries < n_q * 50:
+    while len(ood_sp) < n_q and tries < n_q * 50:
         s = int(g.integers(0, n_ent)); p = int(g.integers(0, n_rel)); tries += 1
         if (s, p) in keyset:
             continue
-        ood_conf.append(conf(s, p))
-    ood_conf = np.array(ood_conf)
+        ood_sp.append((s, p))
+    ood_conf = _scores_batch(E, R, W, sq, ood_sp).max(axis=1) if ood_sp else np.zeros(0, np.float32)
     # calibrate tau on first half, evaluate on second half (held split)
     h = len(inkb_conf) // 2; ho = len(ood_conf) // 2
     cal_in, ev_in = inkb_conf[:h], inkb_conf[h:]; cal_ood, ev_ood = ood_conf[:ho], ood_conf[ho:]
@@ -182,12 +191,7 @@ def inference_transfer(E, R, W, sq, triples, keyobjs, n_2hop, g):
         for o in objs:
             adj[s].append((p, o))
     direct = set((s, o) for (s, p, o) in triples)  # any direct s->o edge (for the leakage assert)
-    def recall1(s, p):
-        return int(np.argmax(E @ (W @ (E[s] * R[p] * sq))))
-    chains = []
-    starts = [s for s in adj if adj[s]]
-    tries = 0
-    leak = 0
+    chains = []; starts = [s for s in adj if adj[s]]; tries = 0; leak = 0
     while len(chains) < n_2hop and tries < n_2hop * 80:
         tries += 1
         s = int(g.choice(starts))
@@ -202,14 +206,17 @@ def inference_transfer(E, R, W, sq, triples, keyobjs, n_2hop, g):
         chains.append((s, p1, x, p2, o))
     if not chains:
         return {"n": 0}
-    sub2 = base1 = 0
-    for (s, p1, x, p2, o) in chains:
-        x_hat = recall1(s, p1); o_hat = recall1(x_hat, p2)
-        sub2 += int(o_hat == o)
-        # 1-hop-lookup baseline (composition-blind): can a single hop from s reach o?
-        base1 += int(recall1(s, p1) == o or recall1(s, p2) == o)
+    s_a = [(c[0], c[1]) for c in chains]; o_a = np.array([c[4] for c in chains])
+    s_b = [(c[0], c[3]) for c in chains]   # 1-hop baseline alt: (s, p2)
+    S1 = _scores_batch(E, R, W, sq, s_a)           # hop1 from s via p1 -> x_hat
+    x_hat = S1.argmax(axis=1)
+    S2 = _scores_batch(E, R, W, sq, [(int(x_hat[j]), chains[j][3]) for j in range(len(chains))])  # hop2 via p2
+    o_hat = S2.argmax(axis=1)
+    Sb = _scores_batch(E, R, W, sq, s_b)
+    sub2 = float((o_hat == o_a).mean())
+    base1 = float(((S1.argmax(axis=1) == o_a) | (Sb.argmax(axis=1) == o_a)).mean())  # 1-hop from s can't compose
     n = len(chains)
-    return {"n": n, "substrate_2hop": sub2 / n, "baseline_1hop": base1 / n,
+    return {"n": n, "substrate_2hop": sub2, "baseline_1hop": base1,
             "heldout_in_compose_graph": 0, "leak_skipped": leak}
 
 
@@ -265,7 +272,21 @@ if __name__ == "__main__":
     print("[config] anchor=%s mode=%s seeds=%s N=%d scale=%s | %s" % (
         ANCHOR_NAME, RUN_MODE, SEEDS, N_DIM, SCALE_POINTS, CONFIG_VERSION), flush=True)
     t0 = time.time()
-    ps = [run_seed(s) for s in SEEDS]
+    out_dir = REPO / "data" / ("exp_%s" % ANCHOR_NAME); out_dir.mkdir(parents=True, exist_ok=True)
+    ps = []
+    for s in SEEDS:                                          # per-seed checkpoint + resume (CONFIG_VERSION-gated)
+        pf = out_dir / ("partial_seed%d_%s.json" % (s, RUN_MODE))
+        if pf.exists():
+            try:
+                rec = json.loads(pf.read_text(encoding="utf-8"))
+                if rec.get("config_version") == CONFIG_VERSION:
+                    print("  [seed=%d] RESUME from checkpoint (config match)" % s, flush=True)
+                    ps.append(rec); continue
+            except Exception:
+                pass
+        rec = run_seed(s)
+        pf.write_text(json.dumps(rec, indent=2), encoding="utf-8")  # checkpoint after each seed
+        ps.append(rec)
     v, vmsg = verdict(ps)
     print("\n[VERDICT] " + vmsg, flush=True)
     metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE,
