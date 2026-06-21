@@ -825,6 +825,12 @@ def _compute_discipline_and_drift() -> dict:
     })
 
     # D3. plan-stall: priority in-progress in director_plan.json but no commit touching its cell in >6h
+    # 2026-06-21 reframe-awareness: ALSO check for a reframe/relabel/redesign commit touching
+    # the priority's id keywords or honest_claim in the last 6h. If found, the priority is
+    # functionally active even though its `cell` field points at a now-stale path. Skip in
+    # that case (or downgrade RED -> YELLOW evidence-only). Prevents the false-RED that
+    # fired on phase4b post-reframe today (cell unchanged because reframe wrote to a
+    # different path).
     plan_stalls = []
     plan_p = _DIRECTOR_PLAN_PATH
     if plan_p.is_file():
@@ -836,6 +842,30 @@ def _compute_discipline_and_drift() -> dict:
                 cell = pr.get("cell")
                 if not isinstance(cell, str):
                     continue
+                # Reframe-awareness: look for any commit in last 6h whose subject mentions
+                # the priority id (e.g., "phase4b") OR matches reframe/relabel/redesign
+                # patterns. If yes, skip the stall flag (priority is functionally active).
+                pid_keyword = (pr.get("id") or "").split("_")[0].lower()  # e.g. "phase4b"
+                try:
+                    import subprocess as _sp
+                    out = _sp.check_output(
+                        ["git", "-C", str(_REPO_ROOT), "log", "--since=6.hours.ago",
+                         "--pretty=format:%s"],
+                        timeout=5, text=True, errors="replace",
+                    )
+                    reframe_found = False
+                    if pid_keyword and len(pid_keyword) >= 4:
+                        for ln in out.splitlines():
+                            ll = ln.lower()
+                            if pid_keyword in ll and any(k in ll for k in
+                                ("reframe", "relabel", "redesign", "amendment", "demote",
+                                 "atomize", "retract", "schemavet", "schema_vet")):
+                                reframe_found = True
+                                break
+                    if reframe_found:
+                        continue  # priority is functionally active via reframe; skip
+                except Exception:
+                    pass
                 # Get last commit touching this path
                 try:
                     import subprocess as _sp
