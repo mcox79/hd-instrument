@@ -45,29 +45,30 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-21T16:32:00Z (true `date -u`)  (**CERT 583** VERIFIED-PRECISE / atoms 177265 / M2 v2 task-coupled-ablations FIX absorbed; USER STANDING always-check-tracker discipline banked)
+**Last-updated:** 2026-06-21T17:25:00Z (true `date -u`)  (**CERT 583** / atoms 177266 / RESCUE chain folded; eff-rank intrinsic; 21 disciplines; 3 self-corrections owned)
 
 ### Waiting on
-- [from=orchestrator] [type=cell_land] : N1 concept-LM cell land → Director 4-layer cross-check
-- [from=exp_dev] [type=cell_land] : whitening-revival GPU (~30-60min) → Director cross-check + Skunkworks re-VET
-- [from=exp_dev] [type=cell_land] : NEW-4 + pp49 + anisotropy-rescue 4-arm → Skunkworks landed-VETs
+- [from=orchestrator] [type=cell_land] : N1v3 concept-LM (calibration fix) → Director 4-layer cross-check
+- [from=exp_dev] [type=cell_land] : anisotropy-rescue 4-arm GPU (pre-flight projected-eff-rank = definitive scope) → Director cross-check + Skunkworks landed-VET
+- [from=exp_dev] [type=cell_land] : NEW-4 + pp49 running on revived runner → Skunkworks landed-VETs
+- [from=skunkworks] [type=schema_vet] : N2 frontier-drill Opus synthesis on land → SCHEMA-VET vs N3 BPC bands
 - [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META (Skunkworks bandwidth)
 
 ### In flight
-- N2 frontier-drill 4 lit-scans LANDED; Opus orchestrator (a73fd89b5bde701ad) synthesizing formally
+- N2 frontier-drill Opus orchestrator (a73fd89b5bde701ad) synthesizing (4 lit-scans landed; Skunkworks v2 PoC delivered key insights ahead)
 - U1 ingest-scope subagent in flight (substrate-native re-interpret on land)
 
 ### Next 3 (if bandwidth opens)
-1. Director cross-check on N1 cell-land (Phase-3-native 4-layer)
-2. N3 text-corpus scope-to-confirm pre-stage candidate-corpora analysis
-3. pp49 deeper-sweep dispatch LOW-priority (Hopfield ~573 cliff empirical-clearance upgrade)
+1. Director cross-check on N1v3 cell-land (Phase-3-native 4-layer)
+2. Skunkworks optional key-source eff-rank sweep across pythia layers/poolings (cross-cutting lever; raises ceiling for ALL storage mechanisms)
+3. pp49 deeper-sweep dispatch LOW-priority
 
 ### Recently cleared (≤5)
-- M2 PRE-STAGE v2 task-coupled-ablations FIX (commit c76e7b59; EARLY 2-arm MM / MID 3-arm / LATE 4-arm CHAIN-GRADE; ARM3+ARM4 UN-DISCHARGEABLE on depth-1) + USER STANDING always-check-tracker discipline banked to MEMORY.md
-- N1 storage-density scour DELIVERED to Orch (commit ed3fb904; caught via tracker re-check; N≥4096 sparse f≈log(N)/N V_C-sweep SimVQ-rescue α≤0.5)
-- M2 substrate-native PRE-STAGE v1 (commit 9c9b63d7; closes Skunkworks line-80 wait per RULING B)
-- Concept-LM PoC LEVER-SYNTHESIS PIVOT absorbed (optimal-C tradeoff + B+A multiplicative composition; commit 9081681d)
-- U0 substrate-native + N0-N4 + D1 closure VERIFIED-PRECISE + Item #4 RESCOPED N4-memory (commits b687df86 / 1b44734a / e368d25b / c8088adb)
+- N1↔N3 boundary RULING FILED (architecture-AGNOSTIC eval harness + corpus ingest; closes Exp-Dev line-101 wait)
+- RESCUE-CONTINGENCY chain FOLDED into plan.json per Skunkworks eff-rank diagnostic + USER 'rescue this' (commit 7c8925ba; PC-AM + phase-coding + product-key + key-source cross-cutting lever; scope-caveat REFUTED 3rd self-correction today)
+- N1v2 calibration-bug ACK + Skunkworks scope-caveat absorbed (commit 2c2ad18b; encouraging top-1=0.445~bigram REAL POSITIVE)
+- Whitening-revival LANDED MIDDLE_BAND Director 4-layer cross-check (commit b9dcc28d; convergent-negative validates sparse-over-dense)
+- N3 text-corpus candidate analysis (commit 7baa8d16) + N2 v2 PoC HD-binding insight absorbed + M2 v2 task-coupled-ablations fix + N1 density scour delivered
 
 ## skunkworks
 **Last-updated:** 2026-06-21T18:3xZ (true date -u UTC)  (**CERT 583**/177266; SUBSTRATE-NATIVE; /loop yolo; whitening MM ruled; exp_dev 3 waits cleared)
