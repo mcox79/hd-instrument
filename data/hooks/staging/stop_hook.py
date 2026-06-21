@@ -29,6 +29,47 @@ import sys
 from pathlib import Path
 
 
+def _testbed_lull_check_hint(repo_root: Path) -> str:
+    """For the testbed role only: query Health endpoint + return a one-line LULL hint
+    if >= 2 other sessions have substantive-note age > 15 min, AND no lull-probe
+    fired in the last 90 min. Returns '' otherwise. Silent on any error (best-effort).
+    """
+    import urllib.request
+    import urllib.error
+    # Cooldown via state file
+    cooldown_file = repo_root / 'data' / 'hook_state' / 'lull_probe_last_fired_ts'
+    try:
+        if cooldown_file.exists():
+            last_fired = float(cooldown_file.read_text().strip())
+            if (time.time() - last_fired) < 5400:  # 90 min cooldown
+                return ''
+    except (OSError, ValueError):
+        pass
+    # Query health endpoint
+    try:
+        with urllib.request.urlopen('http://localhost:8765/api/dashboard/v2/health', timeout=3) as r:
+            data = json.loads(r.read().decode('utf-8'))
+    except (urllib.error.URLError, OSError, json.JSONDecodeError, ValueError):
+        return ''  # dashboard down -> silent
+    # Count stale other sessions
+    fleet = (data.get('project_health') or {}).get('fleet') or {}
+    stale = []
+    for role, s in fleet.items():
+        if role == 'testbed':
+            continue
+        age = s.get('latest_substantive_note_age_s')
+        if isinstance(age, (int, float)) and age > 900:  # 15 min
+            stale.append((role, int(age / 60)))
+    if len(stale) < 2:
+        return ''
+    stale_desc = ', '.join(f'{r}({m}m)' for r, m in sorted(stale, key=lambda x: -x[1])[:4])
+    # Don't auto-write the cooldown file here -- only mark it when Testbed actually
+    # fires the probe note. The hint is harmless to repeat; the rate-limit lives at
+    # the note-filing step. (If we wrote it here, the hint would self-suppress even
+    # if Testbed never acted on it -- defeating the purpose.)
+    return f"[LULL-PROBE-DUE: {len(stale)}/4 stale -- {stale_desc} -- fire probe per protocol]"
+
+
 def _derive_session_from_transcript(transcript_path: str) -> str:
     """Derive a stable per-VS-Code-window session key from the Claude transcript path.
 
@@ -256,6 +297,19 @@ def main() -> int:
             signals.append(f"watchdog ping ({have_watchdog_ping_name})")
         reason = (f"Pending work for {session}: " + " + ".join(signals) +
                   f"; continuing. (continuation {count + 1}/{hard_cap})")
+        # Layer 1 of the lull-breaker enforcement (per USER 2026-06-21 + my own
+        # protocol commit). For the testbed (audit) role only: query the dashboard
+        # health endpoint + check if >= 2 OTHER sessions have substantive-note age
+        # > 15 min. If so AND no probe was fired in the last 90 min, INJECT a
+        # "LULL DETECTED" hint into the block reason. The hint becomes Stop hook
+        # feedback text in the next turn -- mechanical, not memory-dependent.
+        if role_for_hb == 'testbed':
+            try:
+                lull_hint = _testbed_lull_check_hint(repo_root_hb)
+                if lull_hint:
+                    reason = reason + " " + lull_hint
+            except Exception:
+                pass  # silent on any failure (don't risk breaking the hook over a hint)
         decision = {"decision": "block", "reason": reason}
         print(json.dumps(decision))
         return 0
