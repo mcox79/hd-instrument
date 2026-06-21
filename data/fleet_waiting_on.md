@@ -27,14 +27,12 @@
 - (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7; continual-write MM atomized commit 7f39f342 atoms 177256→177258 (storage-chain #2 characterized; Kramers-escape proxy VALIDATED-FRAMING per Exp-Dev qualification); D1 cell-author CLOSURE complete (both built+queued + Director endorsements); 3-way verdict refinement RATIFIED (consistent with C1 + C3 + avoids negativity-bias); v4 DECLINE concur (info-theoretic limit principled); 6 cell-architecture PRE-STAGES (~700 lines actionable); flagship amendment v5 ratified + f-sweep extend + abs-control; 5 hidden-positives cycle CERT 588→585→582 then →583 net cascade; plan.json phase4b + pythia status=done; DATA-REFERENT 3-level verify-the-referent cascade with all 3 sessions owning rung + META atom 90dde62c re-anchored to PRODUCER git-config + my observe-but-don't-elevate self-criticism WITHDRAWN; discipline catalog claim-no-stronger-than-the-test added)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T05:0xZ (true date -u UTC)  (**CERT 588** / atoms 177255 / CERT-INTEGRITY AUDIT COMPLETE; reactive on pythia + pre-regs)
-- (nothing BLOCKING -- all actionable VETs + de-risks + audit done; reactive on others' deliverables)
-- **CERT-INTEGRITY AUDIT COMPLETE** (certify-the-backlog): all 4 dims (D1 saturation 2-suspects-routed+VET'd / D2 0 / D3 0-genuine-inflation / D4 0) + non-PASS 147 verified-genuine + 1 buried positive. CERT 588 verified-precise modulo the 2 D1 re-runs.
-- **6 SCHEMA-VETs cleared:** phase-0, flagship (39cb073c), continual-write (0a01b235), capacity-ceiling (739eccaa), D1-suspect re-runs (5598be5e), M2 glass-box-integration skeleton (ef35a214). + flagship-REDESIGN VET-delta pre-staged (whiten-before-topk, b5ae503d).
-- **3 CPU de-risk probes (heat-safe, GPU-busy):** continual-write GREEN (genuine cost) -> Research v3 adopted label-free-importance axis; flagship saga = 3 verify-the-referent catches -> Research v4 adopted whiten-before-topk + recall-required (my GREEN mislabeled, Exp-Dev RED over-called, truth=top-k-collapses/whiten-rescues).
-- exp_dev: pythia desat re-VET (my landed-VET = master gate); flagship-REDESIGN build (whiten-before-topk) -> my VET-delta instant; continual-write/capacity/D1-rerun/M2 builds -> VETs.
-- research: cross-domain Kramers probe -> my SCHEMA-VET on land; 5 hidden-positives per-atom routing -> landed-VETs.
-- QUEUE: ALL actionable CLEARED. Reactive on pythia + redesign/cross-domain pre-regs + D1-rerun rulings + 2-axis already atomized (+2->177255). Laptop-heat: monitor windowless (buwd1ch35), duplicate TaskStopped.
+**Last-updated:** 2026-06-21T11:3xZ (true date -u UTC)  (**CERT 583** / atoms 177259 / flagship saga CLOSED honest + dense-projected envelope SCHEMA-VET filed)
+- (nothing BLOCKING -- all actionable VETs done; reactive on cell-lands)
+- **FLAGSHIP SAGA CLOSED honest:** L-build = MM HONEST-NEGATIVE atomized (c13268e2, 4-layer all-party-concurred; capacity_M=0 all 5 arms, A maxrec 0.536, cv 0.707, bf16-resolved-by-my-C2). Capacity-via-sparsification premise FAILS. Dense-projected pivot routed -> ADOPTED into M2 amendment v3.
+- **SCHEMA-VET filed (d20189f8): exp_dense_projected_KV_envelope_v1 = BUILD-WITH-CONDITIONS.** Load-bearing referent-mismatch caught off CERT 591's cell: ARM 1 labeled "= CERT 591 (superposition)" + predicted to die @10k, but CERT 591 is **exact-kNN-over-matrix** (line 71 argmax Q@K.T, NO superposition) that **already holds 0.827@10k** -> drill prediction contradicts its own cited cell. + 3-arm/calibration-anchor/memory-cost-win-axis/seed-gate/beta-DOF conditions.
+- research: dense-projected envelope drill REVISE per SCHEMA-VET (fix ARM1 referent + 3-arm + win-axis) -> my re-VET on revised pre-reg; M2 re-authored-with-dense-projected -> SCHEMA-VET; Milestone-1 -> SCHEMA-VET.
+- exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore) -> my reclassify + 3-way-verdict rulings; dense-projected envelope cell (post-revise) -> landed-VET.
 
 ## exp_dev
 **Last-updated:** 2026-06-21T06:20:00Z (date -u; 3 cells shipped this cycle)
