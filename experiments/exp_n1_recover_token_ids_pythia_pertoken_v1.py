@@ -159,17 +159,19 @@ def _load_source_npz(npz_path: Path) -> dict:
             f"This recovery cell must run on remote_cpu_queue where "
             f"the npz from {SOURCE_ANCHOR} was written."
         )
-    loaded = np.load(str(npz_path))
-    keys = list(loaded.files)
-    required = {"residuals", "doc_indices", "doc_boundaries"}
-    missing = required - set(keys)
-    if missing:
-        raise ValueError(f"Source npz missing expected keys: {missing}; got {keys}")
-    return {
-        "residuals": loaded["residuals"],
-        "doc_indices": loaded["doc_indices"],
-        "doc_boundaries": loaded["doc_boundaries"],
-    }
+    # Close the handle deterministically (context manager) so npz_path is not
+    # left locked on Windows before the later os.replace rewrite.
+    with np.load(str(npz_path)) as loaded:
+        keys = list(loaded.files)
+        required = {"residuals", "doc_indices", "doc_boundaries"}
+        missing = required - set(keys)
+        if missing:
+            raise ValueError(f"Source npz missing expected keys: {missing}; got {keys}")
+        return {
+            "residuals": loaded["residuals"],
+            "doc_indices": loaded["doc_indices"],
+            "doc_boundaries": loaded["doc_boundaries"],
+        }
 
 
 def _build_corpus(n_docs_target: int, log) -> List[str]:
@@ -531,21 +533,24 @@ def main() -> int:
     # and the later stat/os.replace on "...npz.tmp" would fail (WinError 2).
     tmp_path = npz_path.with_name(npz_path.stem + ".recover_tmp.npz")
     try:
-        # Re-load fresh (in case we subsetted above -- but in full mode we never did)
-        full_npz = np.load(str(npz_path))
-        orig_residuals = full_npz["residuals"]
-        orig_doc_indices = full_npz["doc_indices"]
-        orig_doc_boundaries = full_npz["doc_boundaries"]
-
-        # Verify residuals shape+dtype match what we loaded earlier
-        if orig_residuals.shape != npz_data["residuals"].shape:
-            raise RuntimeError(
-                f"npz reload shape mismatch: {orig_residuals.shape} vs "
-                f"{npz_data['residuals'].shape}")
-        if orig_residuals.dtype != npz_data["residuals"].dtype:
-            raise RuntimeError(
-                f"npz reload dtype mismatch: {orig_residuals.dtype} vs "
-                f"{npz_data['residuals'].dtype}")
+        # Re-load fresh, but CLOSE the handle before os.replace: on Windows you
+        # cannot replace a file that still has an open handle (WinError 32). np.load
+        # on an .npz keeps the zip open until closed; __getitem__ reads each array
+        # fully into memory, so the arrays stay valid after the handle is closed.
+        with np.load(str(npz_path)) as full_npz:
+            orig_residuals = full_npz["residuals"]
+            orig_doc_indices = full_npz["doc_indices"]
+            orig_doc_boundaries = full_npz["doc_boundaries"]
+            # Verify residuals shape+dtype match what we loaded earlier
+            if orig_residuals.shape != npz_data["residuals"].shape:
+                raise RuntimeError(
+                    f"npz reload shape mismatch: {orig_residuals.shape} vs "
+                    f"{npz_data['residuals'].shape}")
+            if orig_residuals.dtype != npz_data["residuals"].dtype:
+                raise RuntimeError(
+                    f"npz reload dtype mismatch: {orig_residuals.dtype} vs "
+                    f"{npz_data['residuals'].dtype}")
+        # full_npz handle now closed -> npz_path no longer locked
 
         np.savez_compressed(
             str(tmp_path),
@@ -556,15 +561,16 @@ def main() -> int:
         )
         log(f"tmp written: {tmp_path} ({tmp_path.stat().st_size / 1e6:.1f} MB)")
 
-        # Verify the tmp file loads correctly before replacing
-        verify = np.load(str(tmp_path))
-        assert "token_ids" in verify.files, "tmp npz missing token_ids after write"
-        assert verify["residuals"].shape == orig_residuals.shape, (
-            f"tmp residuals shape mismatch: {verify['residuals'].shape}")
-        assert verify["residuals"].dtype == orig_residuals.dtype, (
-            f"tmp residuals dtype mismatch: {verify['residuals'].dtype}")
-        assert verify["token_ids"].shape == token_ids.shape, (
-            f"tmp token_ids shape mismatch: {verify['token_ids'].shape}")
+        # Verify the tmp file loads correctly, then CLOSE before replacing.
+        with np.load(str(tmp_path)) as verify:
+            assert "token_ids" in verify.files, "tmp npz missing token_ids after write"
+            assert verify["residuals"].shape == orig_residuals.shape, (
+                f"tmp residuals shape mismatch: {verify['residuals'].shape}")
+            assert verify["residuals"].dtype == orig_residuals.dtype, (
+                f"tmp residuals dtype mismatch: {verify['residuals'].dtype}")
+            assert verify["token_ids"].shape == token_ids.shape, (
+                f"tmp token_ids shape mismatch: {verify['token_ids'].shape}")
+        # verify handle now closed -> tmp_path no longer locked
         log("tmp verification: residuals shape+dtype match; token_ids present")
 
         os.replace(str(tmp_path), str(npz_path))
