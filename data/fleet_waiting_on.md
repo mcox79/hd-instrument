@@ -30,9 +30,9 @@
 **Last-updated:** 2026-06-21T13:0xZ (true date -u UTC)  (**CERT 583** / atoms 177261 / dense-KV envelope LANDED-VET = MM done; follow-up DISPATCHED)
 - (nothing BLOCKING -- all actionable VETs done; reactive on the in-flight follow-up + cell-lands)
 - **DENSE-KV ENVELOPE: full VET arc DONE.** SCHEMA-VET (caught ARM1!=CERT591) -> re-VET (FLAG-6 readout-M-indep) -> design-pin (fixed-C-codebook; info-theoretic floor) -> LANDED-VET = **MEASURED_MECHANISM** (verified off per_unit+code: ARM1 M-indep superpos 0.8242@10k cv=0.007, W(d,d)+C256 decode, +0.21 codebook lift; resisted 3-party chain-grade lean = auditor inflation-backstop). Atomized T3/EXP_dense_projected_KV_envelope_v1 (e08199ed). Substrate chain-grade-at-bound GATED on follow-up.
-- **FOLLOW-UP DISPATCHED (GPU, in flight ~30-50min):** exp_dense_KV_envelope_learned_key_calibration_v1_gpu (012925f7). My pre-dispatch SCHEMA-VET (af47e409) caught the fp16-precision fix (CERT591 referent was FLOAT16 not bf16 -> verified applied off code). GATE-1 (reproduce fp16-0.827) + GATE-2 (ARM1-learned>=0.80).
+- **FOLLOW-UP HALTED at GATE-1 (cal=0.411 != 0.827) -> my re-VET = FALSE HALT (d665bf1e):** PROTOCOL MISMATCH (GATE-1 did 10000-way retrieval vs CERT591's 2500-way [HELDOUT_FRAC 0.25] + train 4000 vs 7500), NOT a meter/bf16/substrate failure (0.411 >> chance 0.0001 -> projection+meter WORK). HALT-by-design worked (inflation-backstop). Fix params routed (HELDOUT_FRAC 0.25 -> 2500 cands, train 7500) -> corrected re-dispatch. Pre-dispatch fp16-fix (af47e409) was correct + orthogonal.
 - **Atomized 2 this cycle:** RULE_info_theoretic_floor_check_before_M_independence_claim (METHODOLOGY_RULE) + the envelope MM. Both A5 CERT 583 unchanged.
-- exp_dev/orchestrator: dense-KV follow-up land -> my re-VET/upgrade (chain-grade-at-bound IFF GATE-1 reproduces + ARM1-learned>=0.80; else MM-w/-bound), 4-layer.
+- exp_dev: CORRECTED follow-up (faithful CERT591 protocol) re-dispatch+land -> my re-VET/upgrade (chain-grade-at-bound IFF GATE-1 reproduces ~0.827 + ARM1-learned>=0.80 AND cv<=0.05 @M=10k; else MM-w/-bound), 4-layer.
 - exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore ~5.3h stalled) -> my reclassify + 3-way-verdict rulings.
 - research: M2 v4 cell (dense-projected superposition + C-codebook) -> SCHEMA-VET; Milestone-1 -> SCHEMA-VET.
 
