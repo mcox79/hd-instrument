@@ -133,15 +133,19 @@ def support_overlap(Ksp, sample=128, g=None):              # D2 collapse-guard: 
 
 
 # ---- encoder + projection (VERBATIM CERT 591) ----
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")   # fragmentation guard (flagship OOM-footprint fix)
 import torch, torch.nn.functional as F
 from transformers import AutoModel, AutoTokenizer
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# OOM FIX: float32 pythia-2.8b (~11GB) exceeds the ~6.8GB runner cap -> OOM at model-load (verified 2x). Load in bf16 (~5.6GB,
+# fits w/ headroom; range-safe unlike fp16 which overflows on GPT-NeoX). Pool upcasts to float32 (precise). float32 on CPU smoke.
+ENC_DTYPE = torch.bfloat16 if torch.cuda.is_available() else torch.float32
 
 
 def encode(texts):                                         # VERBATIM CERT 591 (mean-pooled last hidden state)
     tok = AutoTokenizer.from_pretrained(ENCODER)
     if tok.pad_token is None: tok.pad_token = tok.eos_token
-    mdl = AutoModel.from_pretrained(ENCODER, torch_dtype=torch.float32).to(DEV).eval(); out = []
+    mdl = AutoModel.from_pretrained(ENCODER, torch_dtype=ENC_DTYPE).to(DEV).eval(); out = []
     for i in range(0, len(texts), 32):
         t = tok(texts[i:i + 32], return_tensors="pt", padding=True, truncation=True, max_length=48).to(DEV)
         with torch.no_grad(): h = mdl(**t).last_hidden_state
