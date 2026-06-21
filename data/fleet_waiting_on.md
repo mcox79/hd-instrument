@@ -16,6 +16,32 @@
 
 **NEW 2026-06-21 #3 — pre-staged 3-deep backlog:** each session adds a `### Next 3 (if bandwidth opens)` subsection under their `## <role>` — substantive in-role items to work on when idle + no event-driven trigger. Systemic fix to standing-drift: default-action the top item without prompting. Skunkworks already does this implicitly (cert-integrity audit grind); explicit + tracked for all sessions now.
 
+**NEW 2026-06-21 — SECTION SUB-STRUCTURE** (sub-improvements per USER ack on bloat): each `## <role>` section now uses 5 fixed subsections to keep scannable + parseable:
+
+```
+## <role>
+**Last-updated:** <true date -u +"%Y-%m-%dT%H:%M:%SZ">
+
+### Waiting on
+- [from=<other-role>] [type=schema_vet|landed_vet|build|cell_land|user_decision|reciprocal] [filed=<UTC>] : <≤140 chars>
+
+### In flight
+- <one-line: what you're currently doing>
+
+### Next 3 (if bandwidth opens)
+1. <next ship 1>
+2. <next ship 2>
+3. <next ship 3>
+
+### Steady-state (optional)
+- <"exempt from probes until X" with explicit trigger that un-sets this>
+
+### Recently cleared (rolling; ≤5; older items drop)
+- <commit/note ref + 1-line>
+```
+
+Rules: per-item length cap ≤140 chars (long content goes in routing notes; pointer here). Auto-prune `Recently cleared` to ≤5 entries (or items >6h drop). `Steady-state` is OPTIONAL — only present when declaring; un-set when named trigger fires. `[type=...]` token enables parseable dependency graph (planned dashboard "X blocking Y" tile).
+
 ---
 
 ## research
@@ -53,13 +79,28 @@
 - On flagship land -> probe_gate -> L-build cell 2. FUTURE: HNSW-on-#7-projected, 2-level-ingest, D1 2-suspect re-runs. Monitor clean (b0vh3rfol).
 
 ## testbed
-**Last-updated:** 2026-06-21T14:15:00Z (true `date -u`)
-- (nothing blocking -- standing reactive on cell-lands + 4-layer-witness asks)
-- Just shipped USER #1-5 improvements: auto-pulse-on-every-Stop + self-test log + cycle_responses consolidated doc + 3-deep backlog template + pre-auth memory
+**Last-updated:** 2026-06-21T14:40:00Z
+
+### Waiting on
+- [from=skunkworks] [type=schema_vet] [filed=2026-06-21T14:40Z] : my Layer-2 witness on next chain-grade-eligible cell (when asked)
+
+### In flight
+- Just shipped section-substructure improvements (this file's new template + my own as canonical example)
+
 ### Next 3 (if bandwidth opens)
-1. 2nd-witness ANY un-witnessed cert atom from today's cycle (CERT 583/588/589 already done; check Store for any chain-grade-tagged atoms I haven't verified)
-2. Refine RED-watcher to suppress follow-up notes that contain RED-pattern in filename but are ACK/CONCUR (currently flags them as new RED)
-3. Refine fleet-section-stale detector to expose narrowing-rule status (don't RED a section that explicitly declared steady-state in current cycle round)
+1. Dashboard endpoint that parses sub-structured `Waiting on` items into dependency graph (X blocking Y view)
+2. 2nd-witness any un-witnessed chain-grade atom from today's Store (sweep)
+3. Refine RED-watcher: suppress ACK/CONCUR follow-up notes that contain RED-pattern in filename but aren't new REDs
+
+### Steady-state (optional)
+- (none — actively progressing)
+
+### Recently cleared (rolling; ≤5; older drop)
+- 1bbd0af2 R15 (first under new consolidated-cycle_responses protocol)
+- 108b41ee Stop hook auto-pulse + self-test (USER #1 + #4)
+- e5d89362 cycle_responses.md consolidated doc (USER #2)
+- 55e58d0f 3-deep backlog template + pre-auth memory (USER #3 + #5)
+- 6fd4988a Stop hook import-time bug fix (both hint helpers had been silently broken)
 
 ## orchestrator
 **Last-updated:** 2026-06-21T14:27:24Z (REAL date -u; dense-KV MM atomized [accept-GATE2]; reactive on whitening-revival)
