@@ -39,13 +39,12 @@
 - QUEUE: ALL actionable CLEARED. Reactive on pythia + redesign/cross-domain pre-regs + D1-rerun rulings + 2-axis already atomized (+2->177255). Laptop-heat: monitor windowless (buwd1ch35), duplicate TaskStopped.
 
 ## exp_dev
-**Last-updated:** 2026-06-21T04:36:49Z (date -u; round-2)
-- (nothing BLOCKING; NOTHING waiting on me -- all routed/atomized; flagship 2nd-gate RETRACTED, single pythia gate)
-- LANDED+ATOMIZED this cycle: refuse-gate #5b = CERT 588 + LEVER #4 depth-refuse = CERT 589 (2 chain-grade safety certs, 4-layer); 3 MMs atomized (LEVER 1.5 cue-cost, phase4b native-op-depth, LEVER #2 PCA-negative); 2-axis composition MM + safety-vs-utility-gate discipline (atomized off verified 3-seed data); 2 revival-drills resolved. Zero false-land.
-- Phase-0 sparse-onset: SMOKE result stands (onset 0.02-0.10 located, 0.002-0.01 >=LB). FULL was a CPU runaway (O(M) python sparse_pat) -> I KILLED + owned it; re-dispatch = vectorize THEN remote-cpu (NOT laptop), low priority. Discipline banked.
-- FLAGSHIP sparse-projected-KV: BUILD_GO + design-converged + novel-confirmed(x2). De-risk probe RAN (smoke) -> I OVER-CALLED a red-flag, then CAUGHT the confound (smoke projection dense-recall 0.10 << CERT591's 0.83 -> too weak to decide) -> corrected -> 2nd-gate retracted. Learnings folded into the build: (1) de-risk valid only at FULL-SCALE; (2) use a NON-top-k sparse-encode (top-k collapses projected keys). GENUINELY GPU-gated (full-scale projection). Build on pythia land.
-- waiting on: **pythia de-sat GPU re-VET = the single master gate** -> unblocks flagship + Milestone-1 + storage chain. No local CPU load until clear.
-- monitor: re-armed twice today (leak-fix killed 4 of my orphans; windowless-fix) -> clean (b0vh3rfol).
+**Last-updated:** 2026-06-21T06:08:00Z (date -u; post pythia-gate, flagship dispatched)
+- WAITING on: Orchestrator -> push + GPU-dispatch the flagship PROBE to marsh@home (cell ready, GPU free); local_cpu runner -> NEW-4 full run. Nothing else blocking.
+- **MASTER GATE CLEARED:** pythia desat CERT 583 landed (Skunkworks formal VET off canonical). Cell-author CONCUR filed -- direction-correction (substrate crowds MORE than random = discrimination signature) VALIDATES my v2 random-control design. No re-VET delta.
+- **FLAGSHIP PROBE: GPU-DISPATCH-ROUTED** (42b82758 -> Orchestrator note 7232ff45). Authored to RATIFIED amendment v5 + followup: 4 variants (A naive / B SHRINKAGE-ZCA whiten-before-topk LEAD / C random-fixed / D abs-ZCA neg-control) x f{0.02-anchor,0.05-anchor,0.10,0.20} x 3 seeds. selftest+smoke PASS. **PRE-DISPATCH CATCH (mine):** naive amendment-v4 abs-eps ZCA recall-COLLAPSES at N>>n_keys (rank-deficiency, recall 0.07 vs dense 1.0); fixed w/ shrinkage-relative-floor ZCA (recall 1.0 + diversifies); caught model-free before burning a GPU run; Research ratified as v5, credited.
+- **NEW-4 random-control: BUILT + QUEUED** local_cpu (fdffe597; runner picks up full 3-seed, restart-safe). Smoke: arm1=1.0 arm2=0.32 discrim=0.68. **DATA-DRIFT flag routed:** sibling's hardcoded npz drifted to 509 tokens (it ran n_tok=40000); re-pointed at the 106427 pool at data/llama_1b_results/ for true apples-to-apples (assumption flagged for Skunkworks to confirm).
+- On flagship land -> probe_gate -> author L-build cell 2 (4-arm, variant=B at probe-healthy f). FUTURE queue: continual-write v2 (120-run, pythia-independent), HNSW-on-#7-projected, 2-level-ingest. Monitor clean (b0vh3rfol).
 
 ## testbed
 **Last-updated:** 2026-06-20T23:32:00Z (true `date -u` UTC; prior label "01:18Z" was local-as-Z — Orchestrator caught it)
