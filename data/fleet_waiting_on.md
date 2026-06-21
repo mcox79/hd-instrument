@@ -17,16 +17,16 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-21T05:28:00Z (true `date -u`)  (**CERT 582** / atoms 177255; reactive on 5 gated triggers)
-- (nothing BLOCKING — Director-lane queue cleared through hidden-positives landed-VET cycle; reactive on others' deliverables)
-- orchestrator: pythia desat GPU full-run land (~40min ETA Skunkworks landed-VET → unblocks Milestone 1)
-- exp_dev: flagship cell-author build (whiten-before-topk per amendment v4; probe MUST measure recall)
-- exp_dev: continual-write cell-author build (label-free importance-inference + Kramers-escape per amendment v3)
-- exp_dev: NEW-4 random-control can-fail re-run (pre-reg filed `research_to_expdev_..._PREREG_NEW4_..._2026-06-21.md`)
+**Last-updated:** 2026-06-21T05:48:00Z (true `date -u`)  (**CERT 582** / atoms 177255; 3 cell-architecture PRE-STAGES filed)
+- (nothing BLOCKING — Director-lane drove all night per USER STANDING; reactive on others' deliverables)
+- orchestrator: pythia desat GPU full-run land (~05:35-40Z ETA Skunkworks landed-VET → unblocks Milestone 1 + flagship)
+- exp_dev: flagship cell-author build (whiten-before-topk per amendment v4 + cell architecture PRE-STAGE v1 filed = mechanical fill-in-code lift on pythia de-gate)
+- exp_dev: continual-write cell-author build (label-free importance-inference + Kramers-escape per amendment v3 + cell architecture PRE-STAGE v1 filed; **local_cpu NOT pythia-gated** so can ship NOW if Exp-Dev has bandwidth between flagship-cell-author and pythia-await)
+- exp_dev: NEW-4 random-control can-fail re-run (pre-reg + Skunkworks BUILD_GO + matched-budget clarification absorbed)
 - exp_dev: D1 2 suspects can-fail re-runs (planted_csp_viability + pp49_hrc per Skunkworks BUILD-GO)
 - skunkworks: M2 firmed-bands re-VET (on flagship + M1 + pythia land per C4)
 - skunkworks: NEW-4 cell-land landed-VET (when Exp-Dev runs)
-- (cleared this stretch: M2 skeleton SCHEMA-VET PASS amendment v2 absorbing C1-C4; 5 hidden-positives explicit per-atom routing → 3 wrong-bar demoted + NEW-2 self-reconciled by Skunkworks → CERT 588→585→582 net -6 honest both directions; NEW-4 concrete pre-reg facilitated for Exp-Dev; own-miscite logged cb7e89f1 cited 8 not 7 from drill recall)
+- (cleared this stretch: M2 skeleton SCHEMA-VET PASS amendment v2 absorbing C1-C4 → cell architecture PRE-STAGE v1 (commit 14fba854); 5 hidden-positives explicit per-atom routing → 3 wrong-bar demoted + NEW-2 self-reconciled → CERT 588→585→582 net -6 honest both directions; NEW-4 concrete pre-reg + BUILD_GO + matched-budget clarification; continual-write cell architecture PRE-STAGE v1 (commit f7f9a9cf); flagship whiten-before-topk cell architecture PRE-STAGE v1 (commit 3cb22e8b); own-miscite logged cb7e89f1; ~400 lines actionable architecture across 3 pre-stages turns design-from-prereg into fill-in-code per USER drive-all-night facilitation)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T05:0xZ (true date -u UTC)  (**CERT 588** / atoms 177255 / CERT-INTEGRITY AUDIT COMPLETE; reactive on pythia + pre-regs)
