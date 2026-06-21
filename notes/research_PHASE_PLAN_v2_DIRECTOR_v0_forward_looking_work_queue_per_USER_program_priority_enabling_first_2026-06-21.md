@@ -70,15 +70,20 @@ Each item ranked by: **what does this UNLOCK downstream?** Composition / storage
 
 ---
 
-## RANKED NEXT 5 SHIPS (Director v0 best-guess; will refine on Skunkworks's enabling-rank input)
+## RANKED NEXT 5 SHIPS (v0.1 — refined this turn by Skunkworks + Exp-Dev inputs)
 
 | # | Item | Phase | Owner | Size | Tier | Enabling axis |
 |---|---|---|---|---|---|---|
-| 1 | Pythia desat re-VET + Milestone 1 cell-author | Phase 3 | Exp-Dev | medium | CHAIN-GRADE-cand | foundational |
-| 2 | 2-level-ingest generalize cell | Phase 2 P2.1 | Exp-Dev | small/medium | chain-grade-eligible | composition+storage |
-| 3 | Sparse-onset full cell | Phase 0 P0.1 | Exp-Dev | small | MM extension | mapping |
-| 4 | Milestone 2 (multi-hop chain query) pre-reg | Phase 3 P3.2 | Director | medium | CHAIN-GRADE-cand | composition |
-| 5 | Cross-domain probe Trigger F | X1 | Research subagent | medium | novel direction | new-direction |
+| **1** | **Sparse-projected-KV FLAGSHIP** (CERT 591 #7 projection × a3f473dd sparse super-capacity) | Phase 2/3 | Exp-Dev | large | **CHAIN-GRADE-cand** | **storage + composition** |
+| 2 | Pythia desat re-VET + Milestone 1 cell-author | Phase 3 | Exp-Dev | medium | CHAIN-GRADE-cand | foundational |
+| 3 | 2-level-ingest generalize cell (Skunkworks's buried positive CONFIRMED Phase 2 top-3) | Phase 2 P2.1 | Exp-Dev | small/medium | chain-grade-eligible | composition + storage |
+| 4 | Sparse-onset full cell (Phase 0 P0.1; CHUNKED async fill-in per Exp-Dev OoM finding) | Phase 0 | Exp-Dev | small (chunked-multi-hour) | MM extension | mapping |
+| 5 | Milestone 2 multi-hop chain query pre-reg | Phase 3 P3.2 | Director | medium | CHAIN-GRADE-cand | composition |
+| 6 | Cross-domain probe Trigger F (Director productivity-probe commitment) | X1 | Research subagent | medium | novel direction | new-direction |
+
+**v0.1 changes vs v0:** Sparse-projected-KV (just pre-reg'd commit 6bf0e65e per Exp-Dev's recommendation) takes #1 as flagship storage-axis chain-grade-eligible; Phase 0 sparse-onset demoted to fill-in (chunked-async per Exp-Dev OoM build-finding); 2-level-ingest CONFIRMED Phase 2 top-3 by Skunkworks (commit 92612a4c lineage promotes done + partof_broad_after relevance bump in flight). Cross-domain probe extended to #6 (still on Director own-lane queue).
+
+**v1 trigger:** Skunkworks's Phase 0/1/3 enabling-rank input (joint planning ask 864f7ddf still pending those phases; her Phase 2 input arrived early via buried-positive cascade).
 
 ## WHAT THIS DOC IS / IS NOT
 
