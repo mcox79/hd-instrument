@@ -25,9 +25,9 @@ def _infer_importance(entry: dict) -> str:
       LOW      — re-confirmations of existing FULL, routine cap_map bumps, error messages.
     """
     kind = entry.get("event_kind", "")
-    summary = (entry.get("summary") or "").upper()
-    substrate = (entry.get("substrate_product") or "").upper()
-    outcome = (entry.get("outcome") or "").upper()
+    summary = str(entry.get("summary") or "").upper()
+    substrate = str(entry.get("substrate_product") or "").upper()
+    outcome = str(entry.get("outcome") or "").upper()
     combined = f"{summary} {substrate} {outcome}"
 
     # ---- CRITICAL ----
@@ -167,9 +167,9 @@ def _infer_plain_language(entry: dict) -> str:
     Checks the combined summary+substrate_product text against a keyword template
     table.  Falls through to a generic template if nothing matches.
     """
-    summary = (entry.get("summary") or "")
-    substrate = (entry.get("substrate_product") or "")
-    outcome = (entry.get("outcome") or "")
+    summary = str(entry.get("summary") or "")
+    substrate = str(entry.get("substrate_product") or "")
+    outcome = str(entry.get("outcome") or "")
     kind = entry.get("event_kind", "")
     combined_upper = f"{summary} {substrate} {outcome}".upper()
 
@@ -365,7 +365,7 @@ def derive_news_items(
     # Sort: CRITICAL first, then HIGH, then MEDIUM, then LOW; newest-first within tier.
     # Stable sort preserves the within-tier newest-first order from status_log walk.
     out.sort(key=lambda item: _IMPORTANCE_RANK.get(
-        (item.get("importance") or "LOW").upper(), 3
+        str(item.get("importance") or "LOW").upper(), 3
     ))
     return out[:limit]
 
