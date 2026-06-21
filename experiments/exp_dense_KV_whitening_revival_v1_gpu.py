@@ -36,13 +36,13 @@ from experiments.exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1 im
 from experiments.exp_dense_projected_KV_envelope_v1 import _decode
 
 ANCHOR_NAME = "dense_KV_whitening_revival_v1_gpu"
-PROJ_DIM = 256; C = 256; SIGMA_LK = 0.1; MAX_Q = 2000
-CERT591_MEAN, CAL_TOL = 0.827, 0.06; RANDOM_REF_10k = 0.824
+PROJ_DIM = 768; C = 256; SIGMA_LK = 0.1; MAX_Q = 2000       # Skunkworks RULING A: proj768 (alpha=M/d~13 @M=10k -> store CAN hold; proj256 would crowd at alpha=39)
+CERT591_MEAN, CAL_TOL = 0.827, 0.06; RANDOM_REF_10k = 0.824   # CERT591_MEAN now a REPORTED fidelity-anchor (proj768 cue->key should be >= it), NOT a HALT-gate
 ZCA_TAU = 0.05                                               # shrinkage-ZCA relative floor (Skunkworks PoC used the flagship's relative-floor; ~0.05)
 _P = argparse.ArgumentParser(); _P.add_argument("--self-test", action="store_true", dest="self_test"); _P.add_argument("--smoke", action="store_true"); _ARGS, _ = _P.parse_known_args()
 RUN_MODE = "smoke" if (_ARGS.smoke or _ARGS.self_test) else os.environ.get("HDLAB_RUN_MODE", "full")
 if RUN_MODE == "full":
-    ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23]; M_LK = [3000, 10000]; TRAIN_M = 7500; CAL_POOL = 2500; TRAIN_STEPS = 600
+    ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23, 31, 41]; M_LK = [3000, 10000]; TRAIN_M = 7500; CAL_POOL = 2500; TRAIN_STEPS = 600   # 5-seed (cv<=0.05 bar)
 else:
     ENCODER = "EleutherAI/pythia-160m"; SEEDS = [0]; M_LK = [200, 400]; TRAIN_M = 600; CAL_POOL = 100; TRAIN_STEPS = 200
 CONFIG_VERSION = "whitening-revival: RANDOM-PERM-split(GATE1-fix) + shrinkage-ZCA(tau=%.2f)-isotropize-keys; proj%d C%d TRAIN_M%d CAL_POOL%d M%s; FP16" % (ZCA_TAU, PROJ_DIM, C, TRAIN_M, CAL_POOL, M_LK)
@@ -95,7 +95,7 @@ def run_unit(seed):
 def compute_verdict(units):
     if not units:
         return ("HARD_FAIL", "no results", {})
-    cal_mean = float(np.mean([u["calibration_recall"] for u in units])); meter_valid = abs(cal_mean - CERT591_MEAN) <= CAL_TOL
+    cal_mean = float(np.mean([u["calibration_recall"] for u in units])); fidelity_ok = cal_mean >= CERT591_MEAN - CAL_TOL   # REPORTED anchor (proj768 cue->key >= CERT591 proj256 0.827), NOT a HALT-gate (Skunkworks RULING A)
     def med(M, a): return float(np.median([u["arms"]["M%d" % M][a] for u in units]))
     def cv(M, a):
         xs = [u["arms"]["M%d" % M][a] for u in units]; return float(np.std(xs) / (abs(np.mean(xs)) + 1e-9))
@@ -103,21 +103,22 @@ def compute_verdict(units):
     a2 = {M: med(M, "arm2_softmax") for M in M_LK}; a0 = {M: med(M, "arm0_knn") for M in M_LK}
     M10 = 10000 if 10000 in M_LK else max(M_LK)
     white_cv = cv(M10, "arm1_whitened"); white_10 = white[M10]; raw_10 = raw[M10]
-    detail = {"calibration_mean": round(cal_mean, 4), "meter_valid": bool(meter_valid), "ZCA_TAU": ZCA_TAU,
+    detail = {"calibration_mean": round(cal_mean, 4), "fidelity_anchor_ok": bool(fidelity_ok), "ZCA_TAU": ZCA_TAU,
               "arm1_raw_by_M": raw, "arm1_whitened_by_M": white, "arm2_softmax_by_M": a2, "arm0_knn_by_M": a0,
               "whitened_recovery_at_M10": round(white_10 - raw_10, 4), "random_ref_10k": RANDOM_REF_10k, "arm1_whitened_cv@M10": round(white_cv, 4),
+              "capacity_bound": "~13d (=~%d @d=%d); ~%dx compression vs explicit dict (M*d vs d^2 at the bound)" % (13 * PROJ_DIM, PROJ_DIM, 13),
               "CONFIG_VERSION": CONFIG_VERSION, "cites": ["dense_KV_learned_key_MM", "skunkworks_whitening_revival_cpu_poc", "flagship_shrinkage_zca", "CERT591_kv_learned_projection_v1"]}
-    summ = "GATE1 cal=%.3f(valid=%s) | ARM1_raw=%s ARM1_WHITENED=%s (recovery@M10=%+.3f vs raw; random-ref=%.3f) ARM2=%s ARM0=%s | cv@M10=%.3f" % (
-        cal_mean, meter_valid, raw, white, white_10 - raw_10, RANDOM_REF_10k, a2, a0, white_cv)
-    if not meter_valid:
-        return ("MIDDLE_BAND", "MM (meter not validated): GATE-1 cal=%.3f != CERT591 %.3f (+/-%.2f) -- the random-perm-split fix did not fully reproduce the referent; the whitened-ARM1 magnitude is not meter-anchored (report, don't chain-grade). " % (cal_mean, CERT591_MEAN, CAL_TOL) + summ, detail)
+    # chain-grade uses the VALIDATED C-codebook decode meter (cv-gated); GATE-1 cal is a REPORTED fidelity-anchor only (Skunkworks RULING A)
+    fid = " | fidelity-anchor cal(proj768 cue->key)=%.3f (>=CERT591 0.827? %s)" % (cal_mean, fidelity_ok)
+    summ = "ARM1_raw=%s ARM1_WHITENED=%s (recovery@M10=%+.3f vs raw; random-ref=%.3f) ARM2=%s ARM0=%s | cv@M10=%.3f%s" % (
+        raw, white, white_10 - raw_10, RANDOM_REF_10k, a2, a0, white_cv, fid)
     if white_cv > 0.05 and len(units) >= 2:
         return ("MIDDLE_BAND", "MIDDLE_BAND: ARM1_whitened seed-unstable (cv>0.05). " + summ, detail)
     if white_10 >= 0.80:
-        return ("HARD_PASS", "CHAIN-GRADE-AT-BOUND CANDIDATE: meter validated (cal=%.3f~CERT591) AND ARM1_WHITENED recovers to %.3f >=0.80 @M=10k (from raw %.3f chance) -> ISOTROPIZATION rescues the M-indep superposition store on REAL learned keys -> item #3 viable WITH whitening. " % (cal_mean, white_10, raw_10) + summ, detail)
+        return ("HARD_PASS", "CHAIN-GRADE-AT-BOUND: ARM1_WHITENED recovers to %.3f >=0.80 @M=10k (cv<=0.05) from raw %.3f (chance) -> ISOTROPIZATION rescues the M-indep superposition store on REAL learned pythia keys. SCOPE: a BOUNDED-capacity store (~13d=~%d facts at O(d^2)=~%dx compression vs explicit dict), NOT unbounded M-independence -- a real bounded compression win (useful for M2's bounded fact-set). " % (white_10, raw_10, 13 * PROJ_DIM, 13) + summ, detail)
     if white_10 >= raw_10 + 0.30:
-        return ("MIDDLE_BAND", "MIDDLE_BAND (partial recovery): whitening recovers ARM1 substantially (%.3f from raw %.3f) but < 0.80 @M=10k -> isotropization helps but doesn't fully rescue at this M; honest partial. " % (white_10, raw_10) + summ, detail)
-    return ("HARD_FAIL", "HARD_FAIL: whitening does NOT recover ARM1 @M=10k (whitened %.3f ~ raw %.3f) -> isotropization does not rescue the M-indep store on real keys (contra the synthetic PoC -> investigate real-vs-synthetic anisotropy). " % (white_10, raw_10) + summ, detail)
+        return ("MIDDLE_BAND", "MIDDLE_BAND (partial recovery): whitening recovers ARM1 substantially (%.3f from raw %.3f chance) but < 0.80 @M=10k -> isotropization helps but doesn't fully rescue at the bound; honest partial. " % (white_10, raw_10) + summ, detail)
+    return ("HARD_FAIL", "HARD_FAIL: whitening does NOT recover ARM1 @M=10k (whitened %.3f ~ raw %.3f) -> isotropization does not rescue the M-indep store on real keys (contra the synthetic PoC -> real-vs-synthetic anisotropy investigation). " % (white_10, raw_10) + summ, detail)
 
 
 def _selftest():
