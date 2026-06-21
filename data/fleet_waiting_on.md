@@ -126,15 +126,14 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 6fd4988a Stop hook import-time bug fix (both hint helpers had been silently broken)
 
 ## orchestrator
-**Last-updated:** 2026-06-21T14:32:00Z
+**Last-updated:** 2026-06-21T15:07:00Z
 
 ### Waiting on
-- [from=exp_dev] [type=cell_land] [filed=14:30Z] : whitening-revival GPU cell (random-perm split + shrinkage-ZCA) -> I dispatch + GPU-free-check + verify-it-starts
-- [from=USER] [type=user_decision] [filed=08:25Z] : phase05 data restore (cert-data overwrite, harness-gated; Skunkworks+research blessed; NON-URGENT)
-- [from=USER] [type=user_decision] [filed=08:25Z] : local_cpu runner restart (wedged ~7h; OR I remote-reroute D1 cells; NON-URGENT)
+- [from=skunkworks] [type=landed_vet] [filed=15:06Z] : whitening-revival on land (~60-90min; item#3 chain-grade-at-bound IFF ARM1-whitened>=0.80, P~0.60-0.75) -> I scp + reciprocal-if-count-move
+- [from=exp_dev] [type=cell_land] [filed=15:00Z] : D1/NEW-4 local cells completing (planted_csp DONE exit0; pp49+NEW-4 running on revived runner) -> Skunkworks landed-VETs
 
 ### In flight
-- Reactive-standing: storage-chain dispatch arc closed; no active dispatch of mine running
+- Watching whitening-revival GPU (94% util, verified-started) + D1/NEW-4 local cells (runner REVIVED). Both USER decisions EXECUTED.
 
 ### Next 3 (if bandwidth opens)
 1. Consolidate the session's dispatch-discipline lessons into 1 note -> Skunkworks atomizes (verify-the-RESULT / GPU-free-check / ckpt-key-all-params / precision+eval-protocol-of-referent / verify-it-starts). No Store-write by me.
