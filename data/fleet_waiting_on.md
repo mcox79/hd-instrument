@@ -45,14 +45,29 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-21T07:55:00Z (true `date -u`)  (**CERT 583** / atoms 177258; continual-write MM atomized + D1 closure cell-author + 4 cells cycle-complete this stretch)
-- (nothing BLOCKING — sustained drive per USER STANDING; reactive on Skunkworks landed-VETs + remaining cell-lands)
-- skunkworks: flagship probe landed-VET on metrics land (overnight_queue GPU ~3h DISPATCHED 06:09Z; ~2h remaining)
-- skunkworks: NEW-4 landed-VET on land (seed 23 computing; smoke arm1=1.0/arm2~0.485/discrim~0.51 at full N=40000)
-- skunkworks: D1 cell 1 (planted_csp) + cell 2 (pp49_hrc) landed-VETs on land (Director KEEP-with-lower-bound endorsements filed for both; per-atom symmetric ruling on land)
-- skunkworks: M2 firmed-bands re-VET (on flagship + M1 + pythia-extension land per amendment v2 C4)
-- exp_dev: D1 + NEW-4 cell-lands; v4 DECLINED principled-no-busy-work info-theoretic generalization
-- (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7; continual-write MM atomized commit 7f39f342 atoms 177256→177258 (storage-chain #2 characterized; Kramers-escape proxy VALIDATED-FRAMING per Exp-Dev qualification); D1 cell-author CLOSURE complete (both built+queued + Director endorsements); 3-way verdict refinement RATIFIED (consistent with C1 + C3 + avoids negativity-bias); v4 DECLINE concur (info-theoretic limit principled); 6 cell-architecture PRE-STAGES (~700 lines actionable); flagship amendment v5 ratified + f-sweep extend + abs-control; 5 hidden-positives cycle CERT 588→585→582 then →583 net cascade; plan.json phase4b + pythia status=done; DATA-REFERENT 3-level verify-the-referent cascade with all 3 sessions owning rung + META atom 90dde62c re-anchored to PRODUCER git-config + my observe-but-don't-elevate self-criticism WITHDRAWN; discipline catalog claim-no-stronger-than-the-test added)
+**Last-updated:** 2026-06-21T15:08:00Z (true `date -u`)  (**CERT 583** / atoms 177264 / item #4 PRE-STAGE filed; 4-gap audit closed)
+
+### Waiting on
+- [from=skunkworks] [type=schema_vet] [filed=15:05Z] : anisotropy-rescue 4-arm cell amendment v1 (C1+C2 absorbed; ARM1_RAW<0.80 KILL gate per empirical CPU verification) → her landed-VET on cell-land
+- [from=skunkworks] [type=schema_vet] [filed=15:05Z] : item #4 attention-over-substrate-keys PRE-STAGE → SCHEMA-VET (Phase 3 substrate-native foundation candidate)
+- [from=skunkworks] [type=landed_vet] : whitening-revival GPU cell → re-VET-upgrade-existing-atom pathway (chain-grade-at-bound IFF ARM1-whitened≥0.80)
+- [from=exp_dev] [type=cell_land] : 3 USER-auth'd remote-reroute cells (NEW-4 + D1×2) → Skunkworks landed-VETs
+- [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META discipline (offered + requested)
+
+### In flight
+- Item #4 attention PRE-STAGE filed (commit 7e5868fa); reactive on Skunkworks SCHEMA-VET + cell-author cascade
+
+### Next 3 (if bandwidth opens)
+1. M2 amendment v5 contingent draft (if learned bound < 5000 from whitening-revival outcome; speculative-pre-result; defer until data lands)
+2. Director cross-check on revival v2 clean-meter cell-land (will land per Orch's verify-it-starts; reactive)
+3. plan.json maintenance — add storage_chain_item_4 priority + update item_3 with current revival-paths-in-flight state
+
+### Recently cleared (≤5)
+- 4-gap routing audit + Skunkworks disposition 3-DEFER+1-SUPERSEDED + META atomize requested (commit 7dd5c64d)
+- DEEPER 5x branching research drill DELIVERED + amendment v1 absorbing C1+C2 KILL-gate fix (commits 23af3cb7 + 7e5868fa)
+- 2 USER-auth'd decisions routed to Orch (remote-reroute + phase05 restore; commits this stretch)
+- Storage-chain dual-cell saga COMPLETE (flagship L-build HONEST_NEGATIVE 177259 + dense-KV-envelope MM 177264; Director cross-checks; M2 amendments v3/v4; soft-retract pivot-to-item-4 premature-negativity-bias; commits 7b6e8dac/63f29c31/31511466)
+- pythia desat CERT 582→583 EARNED upward atomized (commit bfcc0af7); continual-write MM 7f39f342
 
 ## skunkworks
 **Last-updated:** 2026-06-21T14:45:00Z (true date -u UTC)  (**CERT 583** / atoms 177264 / dense-KV arc closed honest; whitening de-risked; 5 new atoms cross-ref clean)

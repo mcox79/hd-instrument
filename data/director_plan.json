@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T14:32:00Z",
+  "ts": "2026-06-21T15:10:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -92,17 +92,45 @@
   },
   "priorities": [
     {
+      "id": "storage_chain_item_4_attention_over_substrate_keys",
+      "title": "Storage-chain item #4 attention-over-learned-projected-substrate-keys -- Phase 3 substrate-native foundation candidate (commit 7e5868fa PRE-STAGE v1; ARM 2 already confirmed 0.997 across 2 GPU runs; Bayesian P(item 4 needed as fallback or alternative Phase 3 foundation) ~0.25-0.40; pre-staging collapses Exp-Dev lift to ~30-60min mechanical fill-in-code on de-gate); value proposition transformer-style retrieval with substrate-derived KEYS NOT M-INDEP compression (item #3 lane) but Phase 3 substrate-native ARCHITECTURE; 4-arm CAN-fail (full / no-projection / no-attention / no-substrate-vocab); HARD_PASS recall>=0.80 M>=10k cv<=0.05; tier target MEASURED_MECHANISM characterizing substrate-native attention foundation OR chain-grade Phase 3 substrate-native foundation Skunkworks call; trigger conditions Exp-Dev sequencing call after whitening-revival OR in parallel",
+      "type": "characterization",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-proposed pre-stage; awaiting Skunkworks SCHEMA-VET then Exp-Dev cell-author",
+      "waiting_on": [
+        "skunkworks: SCHEMA-VET on PRE-STAGE v1 A1-A6",
+        "exp_dev: cell-author cleared on Skunkworks SCHEMA-VET pass; ~30-60min lift re-uses existing components",
+        "orch: dispatch + verify-it-starts when cell-author done"
+      ],
+      "artifact": "notes/research_to_expdev_skunkworks_PRESTAGE_attention_over_substrate_keys_item4_2026-06-21.md",
+      "commit": "7e5868fa",
+      "cell": "experiments/exp_attention_over_substrate_keys_v1.py (proposed; not yet authored)",
+      "cert_atom": null,
+      "cert_class": null,
+      "discriminating_regime": "HARD_PASS = ARM 1 recall >= 0.80 at M >= 10k AND cv <= 0.05 AND ARM 1 > ARM 2 (raw LM keys) AND ARM 1 > ARM 3 (no softmax) by >= 0.10 each",
+      "tier_target": "MEASURED_MECHANISM (Phase 3 substrate-native foundation characterization) OR chain-grade if Skunkworks rules Phase-3-native-foundation qualifies for its own substrate-product win-axis",
+      "last_updated_ts": "2026-06-21T15:10:00Z",
+      "composes_with": [
+        "T3/EXP_kv_learned_projection_v1 (CERT 591 foundation; learned projection)",
+        "T3/EXP_dense_projected_KV_envelope_v1 (MM; ARM 2 already confirmed 0.997 across 2 GPU runs)",
+        "T3/EXP_dense_KV_learned_key_calibration_v1 (MM; ARM 2 again confirmed 1.0/0.9955)",
+        "T3/EXP_flagship_sparse_projected_KV_LBUILD_v1 (HONEST_NEGATIVE; the failure that motivates this fallback)"
+      ]
+    },
+    {
       "id": "storage_chain_item_3_dense_projected_superposition_kv",
-      "title": "Storage-chain item #3 dense-projected superposition KV with C-codebook decode -- atomized MEASURED_MECHANISM (T3/EXP_dense_projected_KV_envelope_v1 commit 547a3a85; verified positive: ARM 1 M-indep holds recall=0.824 at M=10k=13xd with cv=0.007 on RANDOM keys upper-bound; C-codebook +0.21 lift confirms substrate-vocab info-theoretic insight); UPGRADE PATH to chain-grade-at-bound requires GPU follow-up 2-gate cell exp_dense_KV_envelope_learned_key_calibration_v1_gpu (commit 2ecb1741; GATE-1 reproduce CERT 591 0.827 on real pythia-2.8b proj256 + GATE-2 ARM 1 superposition + ARM 2 softmax on learned pythia keys M={3k,10k}); if GATE-1 reproduces AND ARM 1-learned >= 0.80 -> re-VET upgrade existing atom to chain-grade-at-bound; else MM stands with learned bound documented; Skunkworks pre-dispatch precision-fix flagged (CERT 591 referent is fp16 not bf16; bf16-OOM-fix propagation introduces precision drift) -- Exp-Dev/Orch coordination on dtype switch",
+      "title": "Storage-chain item #3 dense-projected superposition KV with C-codebook decode -- atomized MEASURED_MECHANISM (T3/EXP_dense_projected_KV_envelope_v1 commit 547a3a85; verified positive: ARM 1 M-indep holds recall=0.824 at M=10k=13xd with cv=0.007 on RANDOM keys upper-bound; C-codebook +0.21 lift confirms substrate-vocab info-theoretic insight); UPGRADE PATH to chain-grade-at-bound requires GPU follow-up 2-gate cell exp_dense_KV_envelope_learned_key_calibration_v1_gpu (commit 2ecb1741; GATE-1 reproduce CERT 591 0.827 on real pythia-2.8b proj256 + GATE-2 ARM 1 superposition + ARM 2 softmax on learned pythia keys M={3k,10k}); if GATE-1 reproduces AND ARM 1-learned >= 0.80 -> re-VET upgrade existing atom to chain-grade-at-bound; else MM stands with learned bound documented; Skunkworks pre-dispatch precision-fix flagged (CERT 591 referent is fp16 not bf16; bf16-OOM-fix propagation introduces precision drift) -- Exp-Dev/Orch coordination on dtype switch UPDATE 2026-06-21T15:10: GPU follow-up cascade complete -- 2nd HALT cal=0.604 (param-fix moved 0.411->0.604 directionally right but ~0.22 gap remains); GATE-2 pool-independent finding ROBUST (ARM 1 collapses to chance 0.02/0.008 on RAW learned anisotropic pythia keys reproduced across 2 GPU runs); MM ruling RAW-learned-keys ROBUST; whitening-revival STILL upgrade path (mechanism CPU-PoC-confirmed iso 0.807 / aniso 0.004 / ZCA 0.843 recover); GATE-1-gap elevated to DEPENDENCY for whitening-revival quality (stronger CERT 591-faithful projection -> higher whitened-ARM 1 ceiling); routed as cheap code-diff diagnosis Exp-Dev; P(item #3 chain-grade-at-bound on whitened) ~0.60-0.75 per de-risk; storage_chain_item_4 priority ADDED in parallel as Phase 3 substrate-native foundation candidate",
       "type": "characterization",
       "status": "in-progress",
       "owner": "skunkworks",
       "owner_asserted": true,
       "owner_asserted_via": "skunkworks_to_research_expdev_cc_orch_LANDED_VET_dense_KV_envelope_MM_now_chain_grade_at_bound_GATED_on_calibration_plus_learned_key_followup_2026-06-21.md",
       "waiting_on": [
-        "exp_dev: GPU follow-up cell dispatch (precision-fix fp16 per Skunkworks SCHEMA-VET)",
-        "orch: dispatch + verify-it-starts on GPU",
-        "skunkworks: re-VET on land for upgrade-existing-atom pathway"
+        "exp_dev: whitening-revival GPU cell author (post-GATE-1-projection-fix code-diff; mechanism CPU-PoC-confirmed Skunkworks 7ffab1eb)",
+        "exp_dev: GATE-1 code-diff diagnosis (proj_dim / TRAIN_STEPS / temperature / fresh-vs-saved-W / make_facts / normalization) to fix CERT 591 projection -> stronger whitening-revival baseline",
+        "skunkworks: re-VET-upgrade-existing-atom pathway on whitening-revival cell-land"
       ],
       "artifact": "notes/skunkworks_to_research_expdev_cc_orch_LANDED_VET_dense_KV_envelope_MM_now_chain_grade_at_bound_GATED_on_calibration_plus_learned_key_followup_2026-06-21.md",
       "commit": "547a3a85",
@@ -111,7 +139,7 @@
       "cert_class": "MEASURED_MECHANISM",
       "discriminating_regime": "GATE-1 ARM 0 exact-kNN on pythia-2.8b proj256 M=10k sigma=0 reproduces 0.827 mean / 0.805 worst_per_unit (+/- 0.06); GATE-2 ARM 1 superposition recall >= 0.80 at some M with C-codebook decode",
       "tier_target": "MEASURED_MECHANISM (chain-grade-at-bound upgradeable via re-VET when GPU follow-up lands)",
-      "last_updated_ts": "2026-06-21T12:35:00Z",
+      "last_updated_ts": "2026-06-21T15:10:00Z",
       "composes_with": [
         "T3/EXP_kv_learned_projection_v1 (CERT 591 dense-projected foundation)",
         "T3/EXP_flagship_sparse_projected_KV_LBUILD_v1 (HONEST_NEGATIVE; the negative that drove this pivot)",
