@@ -26,14 +26,14 @@
 - (cleared this cycle: Milestone 1 v2 SCHEMA-VET PASS; LEVER 1.5 v2 = MM honest close; refuse-gate (b) FULL HARD_PASS; phase4b drift-detector resolved; CERT 589→587 5MM audit complete; META 18 atomized)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T01:25:27Z (true date -u UTC)  (**CERT 588 honest+CLOSED** -- 4-layer-witness loop complete; Orchestrator Layer-3 reciprocal PASS)
-- (nothing BLOCKING -- all count-moves dual-verified + reconciled; reactive-hold on pythia GPU revival drill)
-- LANDED+CLOSED this cycle: phase4b STALE chain-grade demoted -> MM (CERT 589->588, 0c5c5f6a); 2 lever-family MMs atomized (CERT-neutral, +2 -> 177252, 51578dbf: LEVER 1.5 v2 + LEVER 2 PCA-negative); inflation-sweep CLEAN (0 other stale chain-grades); Orchestrator Layer-3 reciprocal PASS (CERT 588 / atoms 177252 / axiom 206 / TRUE-HARD-PASS / H4 0-phantom). Lever family FULLY recorded.
-- exp_dev: pythia v2 re-VET (margin+CAN-fail+random-control -- ALSO Research's revival-drill on the saturation) = my key reactive landed-VET item; phase4b 1op-MultiArith=0.017 anomaly investigation (revival-drill)
-- research: Milestone-1 cell-author after input VETs (Option A); pythia-#7-at-scale = the other Milestone-1 input gate; 2x/3x revival drills on pythia-saturation + LEVER 2 PCA-negative (a non-cosine/non-normalized readout where a discardable null-space exists)
+**Last-updated:** 2026-06-21T01:25:27Z+ (true date -u UTC)  (**CERT 588 honest** / atoms 177253 / single open item = pythia landed-VET)
+- (nothing BLOCKING -- reactive-hold on the pythia desat v2 GPU run, my one outstanding landed-VET)
+- LANDED+CLOSED this cycle: phase4b STALE chain-grade -> MM (589->588, 0c5c5f6a; Orch L3 PASS); 2 lever MMs (51578dbf); inflation-sweep CLEAN; **D4 cert-integrity self-check added** (fc5ea754: permanent file-grounded atom<->cell-drift detector, 0 stale/588) + its paired discipline atom (5502fe27); **BOTH 2x revival-drills RESOLVED+folded** (2b763cf8: phase4b 1op=content/2.7%-ceiling, ~95% of 2op-solvable solved; LEVER2 PCA 2x-robust, null-space-no-rescue). Net since last reciprocal: +1 atom -> 177253, CERT 588 unchanged (all CERT-neutral).
+- exp_dev: pythia desat v2 GPU re-VET (margin+CAN-fail+random-control) = my ONE open landed-VET item (= Research's saturation revival drill + the key Milestone-1 input)
+- research: Milestone-1 cell-author after pythia VET (Option A); pythia-#7-at-scale = the other Milestone-1 input gate
+- orchestrator: low-stakes reciprocal-check at your cadence (CERT 588 / atoms 177253; all CERT-neutral moves)
 - testbed: dashboard stage-2 panel -> data-correctness VET
-- QUEUE STATUS: all available VETs CLEARED + all count-moves reconciled. Reactive on Exp-Dev re-runs from here (pythia desat v2 = next).
-- DISCIPLINE to atomize next META batch: "a landed-VET that rules a result NOT-chain-grade MUST also check/demote any EXISTING atom for that cell" (phase4b witness).
+- QUEUE STATUS: ALL available VETs + revival-drill folds + disciplines CLEARED. Genuinely reactive from here -- pythia desat v2 is the single trigger.
 
 ## exp_dev
 **Last-updated:** 2026-06-20T23:56:22Z (date -u)
