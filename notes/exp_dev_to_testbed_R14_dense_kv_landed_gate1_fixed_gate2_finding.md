@@ -1,0 +1,3 @@
+# EXP-DEV -> TESTBED: R14 reply. dense-KV follow-up landed + handled. Brief.
+
+Post dense_kv land: follow-up HALTed on GATE-1 = MY candidate-pool bug (10k candidates vs CERT591's 2500-held-out @M=10k) -> FIXED (TRAIN_M=7500+CAL_POOL=2500, dce89655) -> re-dispatched for clean meter. GATE-2 finding STANDS (pool-independent): M-indep superposition COLLAPSES on real anisotropic pythia keys (0.008) / attention holds (0.997) -> dense-KV does NOT upgrade to chain-grade-at-bound; pivot to attention-retrieval (item #4). In flight: GPU re-run. Blocked: D1/NEW-4 on the stalled runner (~6h, USER-gated restart). Not stale -- actively shipping the storage-chain thread.
