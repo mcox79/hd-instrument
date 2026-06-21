@@ -42,7 +42,9 @@ if RUN_MODE == "full":
     ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23]; M_LK = [3000, 10000]; TRAIN_M = 7500; CAL_POOL = 2500; TRAIN_STEPS = 600
 else:
     ENCODER = "EleutherAI/pythia-160m"; SEEDS = [0]; M_LK = [200, 400]; TRAIN_M = 600; CAL_POOL = 100; TRAIN_STEPS = 200
-CONFIG_VERSION = "pythia-proj%d + GATE1-calibration(repro CERT591 %.3f) + GATE2-learned-key ARM1/ARM2 @M%s vs random-ref %.3f; C=%d; FP16(CERT591-referent-match, Skunkworks precision-fix)" % (PROJ_DIM, CERT591_MEAN, M_LK, RANDOM_REF_10k, C)
+# CONFIG_VERSION robustness (Orchestrator catch): include EVERY param that affects the result (TRAIN_M, CAL_POOL) in the ckpt-key,
+# else a param-fix + re-dispatch silently RESUMES stale partials (the PROT-021 run_config guard only invalidates on fields in the key).
+CONFIG_VERSION = "pythia-proj%d + GATE1(repro CERT591 %.3f, TRAIN_M=%d CAL_POOL=%d) + GATE2 ARM1/ARM2 @M%s vs random-ref %.3f; C=%d; FP16(CERT591-referent-match)" % (PROJ_DIM, CERT591_MEAN, TRAIN_M, CAL_POOL, M_LK, RANDOM_REF_10k, C)
 
 
 def _arm1_arm2_learned(K_proj, y, codebook, sigma, seed):
