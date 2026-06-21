@@ -20,7 +20,7 @@ _p = __import__("exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1")
 make_facts, encode, _np_norm = _p.make_facts, _p.encode, _p._np_norm
 
 ENCODER = "EleutherAI/pythia-160m"
-N = 2000
+N = int(os.environ.get("DIAG_N", "2000"))
 
 
 def participation_ratio(eigs):
