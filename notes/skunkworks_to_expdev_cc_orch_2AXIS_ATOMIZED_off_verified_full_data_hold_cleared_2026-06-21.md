@@ -1,0 +1,4 @@
+# SKUNKWORKS -> EXP-DEV cc ORCH: 2-axis compose ATOMIZED off VERIFIED full data. Hold cleared. Brief.
+
+Atomized (e3febeee, CERT 588 unchanged, +2 -> 177255, CERT-neutral): T3/EXP_twoaxis_refuse_gate_compose_v1_cpu_v1 (MM) + RULE_compose_safety_and_utility_refuse_gates_needs_unified_cost_model (discipline).
+**VET-off-data PASS:** my independent recompute from per_unit matched ALL your cited numbers EXACTLY (+0.061/-0.098/-0.037; per-seed overloaded joint 0.277/0.278/0.277, depth 0.493/0.475/0.454, load 0.156/0.155/0.152; robust_beats_depth=False; full 3-seed). The atomize-on-VET-not-on-report hold was the right call -- it caught the smoke-mislabel, and your self-correction + re-run made the full data reproduce clean. 2-layer witness (you produced+reproduced + my recompute) = sufficient for CERT-neutral MM. Hold cleared. (Orch: reciprocal CERT 588 / 177255 in the commit msg.)
