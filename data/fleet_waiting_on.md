@@ -45,29 +45,30 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-21T15:08:00Z (true `date -u`)  (**CERT 583** / atoms 177264 / item #4 PRE-STAGE filed; 4-gap audit closed)
+**Last-updated:** 2026-06-21T15:55:00Z (true `date -u`)  (**CERT 583** VERIFIED-PRECISE / atoms 177265 / U0 substrate-native pivot folded; N0-N4 plan live; D1 closed)
 
 ### Waiting on
-- [from=skunkworks] [type=schema_vet] [filed=15:05Z] : anisotropy-rescue 4-arm cell amendment v1 (C1+C2 absorbed; ARM1_RAW<0.80 KILL gate per empirical CPU verification) → her landed-VET on cell-land
-- [from=skunkworks] [type=schema_vet] [filed=15:05Z] : item #4 attention-over-substrate-keys PRE-STAGE → SCHEMA-VET (Phase 3 substrate-native foundation candidate)
-- [from=skunkworks] [type=landed_vet] : whitening-revival GPU cell → re-VET-upgrade-existing-atom pathway (chain-grade-at-bound IFF ARM1-whitened≥0.80)
-- [from=exp_dev] [type=cell_land] : 3 USER-auth'd remote-reroute cells (NEW-4 + D1×2) → Skunkworks landed-VETs
-- [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META discipline (offered + requested)
+- [from=orchestrator] [type=cell_land] : N1 concept-LM cell land (Orch driving cell-authoring; substrate-native-decode + token-BPC + VQ-floor guard) → Director 4-layer cross-check on land
+- [from=exp_dev] [type=cell_land] : whitening-revival GPU (~30-60min ETA; ARM1-whitened≥0.80 → re-VET-upgrade item #3 to chain-grade-at-bound) → Director cross-check + Skunkworks re-VET
+- [from=exp_dev] [type=cell_land] : NEW-4 + pp49 (running on revived runner) → Skunkworks landed-VETs
+- [from=skunkworks] [type=schema_vet] : pp49 deeper-sweep d>>12 (LOW-priority backlog; Hopfield ~573 capacity empirical-clearance upgrade)
+- [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META discipline (offered + requested; pending Skunkworks bandwidth)
 
 ### In flight
-- Item #4 attention PRE-STAGE filed (commit 7e5868fa); reactive on Skunkworks SCHEMA-VET + cell-author cascade
+- U1 ingest-scope subagent (~25min in flight; was augmented framing; will re-interpret substrate-native lens on land)
+- N2 frontier-drill subagent dispatching NOW (Skunkworks's explicit ask; per USER 'definitely work' directive)
 
 ### Next 3 (if bandwidth opens)
-1. M2 amendment v5 contingent draft (if learned bound < 5000 from whitening-revival outcome; speculative-pre-result; defer until data lands)
-2. Director cross-check on revival v2 clean-meter cell-land (will land per Orch's verify-it-starts; reactive)
-3. plan.json maintenance — add storage_chain_item_4 priority + update item_3 with current revival-paths-in-flight state
+1. Director cross-check on N1 cell-land (Phase-3-native high-stakes 4-layer; substrate-native-decode gate verification + token-BPC ladder + VQ-floor)
+2. N3 text-corpus scope-to-confirm Research drill OR pre-stage (Skunkworks asked Exp-Dev but Director-lane can pre-stage candidates)
+3. pp49 deeper-sweep dispatch LOW-priority (Hopfield ~573 cliff; empirical-clearance tier upgrade for KEEP)
 
 ### Recently cleared (≤5)
-- 4-gap routing audit + Skunkworks disposition 3-DEFER+1-SUPERSEDED + META atomize requested (commit 7dd5c64d)
-- DEEPER 5x branching research drill DELIVERED + amendment v1 absorbing C1+C2 KILL-gate fix (commits 23af3cb7 + 7e5868fa)
-- 2 USER-auth'd decisions routed to Orch (remote-reroute + phase05 restore; commits this stretch)
-- Storage-chain dual-cell saga COMPLETE (flagship L-build HONEST_NEGATIVE 177259 + dense-KV-envelope MM 177264; Director cross-checks; M2 amendments v3/v4; soft-retract pivot-to-item-4 premature-negativity-bias; commits 7b6e8dac/63f29c31/31511466)
-- pythia desat CERT 582→583 EARNED upward atomized (commit bfcc0af7); continual-write MM 7f39f342
+- U0 misframe caught + reverted + substrate-native N0-N4 FOLDED + charLM un-defer (commits b687df86 + 1b44734a)
+- D1 closure both KEEP-genuine + CERT-integrity-audit D1 routing CLOSED → CERT 583 VERIFIED-PRECISE (commit e368d25b)
+- Item #4 attention RESCOPED to N4-substrate-LM-memory (NOT Phase-3-foundation) + substrate-only-compatibility check + tier=MM (commit c8088adb)
+- Orch N1 cell-authoring lane-assignment + substrate-only-ness gate SHARPENED off-code (commit 0e221845)
+- Monitor Python re-armed + orphans killed + cycle_responses.md R1 entry (Testbed process improvements adopted; commit c98a5f11)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T15:5xZ (true date -u UTC)  (**CERT 583**/177265 verified-precise; SUBSTRATE-NATIVE pivot; owed-now SCHEMA-VETs cleared)
