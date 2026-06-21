@@ -14,6 +14,14 @@ Audits the CERT_CHAIN_GRADE experiment_records across 3 dimensions:
   (D3) GRADE-INFLATION: a cert atom whose depends_on resolves to a SUB-CERT experiment_record (load-bearing
        evidence weaker than the citing atom's grade -- the C/D pattern, in the Store dependency graph). Math/axiom
        deps (math::, T2/, primitives) are NOT flagged (they're a different grade axis).
+  (D4) STALE-CHAIN-GRADE / ATOM<->CELL DRIFT: a cert atom whose OWN cell metrics.json (at metrics_path) records a
+       WEAKER verdict than CERT_CHAIN_GRADE -- i.e. the cell was later reframed (e.g. -> MEASURED_MECHANISM / FAIL /
+       PARTIAL) but the ATOM stayed chain-grade. This is the phase4b inflation class (2026-06-20): my landed-VET
+       ruled the RESULT not-chain-grade + Exp-Dev reframed the CELL, but the pre-existing chain-grade ATOM persisted
+       -> stale inflation. DETERMINISTIC, file-grounded ("verify-the-referent-ARRIVES applied to atoms"): reads the
+       referent the atom points to and checks the atom's grade still matches the cell's own verdict. A cell whose
+       metrics.json is MISSING/unreadable -> reported separately as UNVERIFIABLE (soft: the referent didn't arrive,
+       can't confirm OR deny -- cross-check manually), NOT a hard drift flag.
 
 Read-ONLY. ASCII. Prints a report + optional --json. Exit 0 (audit always completes; flags are REPORTED for
 cert-owner review, not a gate -- a flag is a candidate to re-VET, not an automatic downgrade).
@@ -21,6 +29,7 @@ cert-owner review, not a gate -- a flag is a candidate to re-VET, not an automat
 from __future__ import annotations
 import argparse
 import ast
+import json
 import re
 import sys
 from collections import Counter
@@ -123,6 +132,46 @@ def audit_saturation(md, ceiling=0.999):
             "cliff_key_present": cliff_key, "source": source}
 
 
+# D4 atom<->cell drift. A cell verdict is PASS-ish if it asserts pass/chain-grade; WEAKER markers mean the cell was
+# reframed below chain-grade. Effective cell grade = first present of provenance_quality / record_class / verdict.
+_PASS_PREFIX = ("HARD_PASS", "PASS")
+_WEAKER_MARKERS = ("MEASURED_MECHANISM", "FAIL", "PARTIAL", "SATURATION", "MIDDLE_BAND", "COST_MODEL",
+                   "RESEARCH_FINDING", "SMOKE", "KILLED", "UNKNOWN", "NEGATIVE", "LEGACY", "RETRACTED",
+                   "DISSOLVED", "REFRAMED")
+
+
+def _cell_grade(md):
+    """Return (status, cell_verdict_str, path) for the atom's referent cell. status in:
+    'ok' (cell asserts pass/chain-grade), 'drift' (cell reframed weaker), 'ambiguous' (verdict present but
+    unrecognized), 'no_path' (no metrics_path), 'missing' (path set but file absent/unreadable)."""
+    mp = md.get("metrics_path")
+    if not mp or not isinstance(mp, str):
+        return ("no_path", None, None)
+    p = Path(mp)
+    if not p.exists():
+        return ("missing", None, mp)
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return ("missing", None, mp)
+    if not isinstance(d, dict):
+        return ("missing", None, mp)
+    # effective grade: prefer explicit classification fields, else the run verdict
+    cv = None
+    for k in ("provenance_quality", "record_class", "verdict"):
+        v = d.get(k)
+        if v is not None and str(v).strip():
+            cv = str(v); break
+    if cv is None:
+        return ("ambiguous", None, mp)
+    u = cv.upper()
+    if u.startswith(_PASS_PREFIX) or "CHAIN_GRADE" in u:
+        return ("ok", cv, mp)
+    if any(m in u for m in _WEAKER_MARKERS):
+        return ("drift", cv, mp)
+    return ("ambiguous", cv, mp)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
@@ -138,12 +187,27 @@ def main():
         by_id[str(a.id).split("::")[-1]] = a
     cert = [a for a in atoms if pq(a) == "CERT_CHAIN_GRADE" and kn(a) == "experiment_record"]
 
-    d1, d2, d3 = [], [], []  # saturation / smoke-cert / grade-inflation
+    d1, d2, d3, d4 = [], [], [], []  # saturation / smoke-cert / grade-inflation / atom<->cell drift
     d1_unscannable = 0
+    d4_unverifiable = []  # no_path / missing -> referent didn't arrive (soft)
+    d4_ambiguous = []
     for a in cert:
         md = a.metadata or {}
         aid = str(a.id)
         verdict = str(md.get("verdict", "")).upper()
+        # D4 atom<->cell drift (the phase4b stale-chain-grade class). ONLY an inflation when the ATOM itself claims
+        # PASS/chain-grade-win but the CELL records weaker -- a DISAGREEMENT in the inflation direction. A chain-grade
+        # atom whose OWN verdict is already a negative/bound (MIDDLE_BAND/HARD_FAIL/...) is a legitimately-recorded
+        # chain-grade honest-negative (atom==cell), NOT drift -- do NOT flag it (the known bounded population).
+        atom_is_pass = verdict.startswith(_PASS_PREFIX) or "CHAIN_GRADE" in verdict
+        if atom_is_pass:
+            st, cv, cp = _cell_grade(md)
+            if st == "drift":
+                d4.append((aid, md.get("verdict"), cv, cp))
+            elif st in ("no_path", "missing"):
+                d4_unverifiable.append((aid, st, cp))
+            elif st == "ambiguous":
+                d4_ambiguous.append((aid, cv, cp))
         # D1 saturation (only meaningful for PASS verdicts)
         if verdict in PASS_VERDICTS:
             s = audit_saturation(md, args.ceiling)
@@ -182,12 +246,15 @@ def main():
         "D1_unscannable_headline_only": d1_unscannable,
         "D2_smoke_mode_certs": len(d2),
         "D3_grade_inflation_dep_edges": len(d3),
+        "D4_stale_chain_grade_drift": len(d4),
+        "D4_unverifiable_cell_missing": len(d4_unverifiable),
+        "D4_ambiguous_cell_verdict": len(d4_ambiguous),
     }
 
     if args.json:
-        import json as _json
-        print(_json.dumps({"summary": summary, "D1": d1[:args.show], "D2": d2[:args.show], "D3": d3[:args.show]},
-                          indent=2, default=str))
+        print(json.dumps({"summary": summary, "D1": d1[:args.show], "D2": d2[:args.show], "D3": d3[:args.show],
+                          "D4": d4[:args.show], "D4_unverifiable": d4_unverifiable[:args.show],
+                          "D4_ambiguous": d4_ambiguous[:args.show]}, indent=2, default=str))
         return 0
 
     print("=" * 80)
@@ -215,10 +282,29 @@ def main():
         print("  %s  --depends_on-->  [%s] %s" % (aid, tg, dep))
     if len(d3) > args.show:
         print("  ... +%d more" % (len(d3) - args.show))
+    print("-" * 80)
+    print("D4 STALE-CHAIN-GRADE DRIFT (atom=CERT_CHAIN_GRADE but its OWN cell metrics.json reframed weaker):")
+    if not d4:
+        print("  (none -- every chain-grade atom's cell verdict still asserts pass/chain-grade)")
+    for aid, av, cv, cp in d4[:args.show]:
+        print("  [atom=%s] %s  <-- cell says [%s] (%s)" % (av, aid, cv, cp))
+    if len(d4) > args.show:
+        print("  ... +%d more" % (len(d4) - args.show))
+    print("  D4 unverifiable (cell metrics.json no_path/missing -- referent didn't arrive, soft): %d" % len(d4_unverifiable))
+    for aid, st, cp in d4_unverifiable[:args.show]:
+        print("    [%s] %s  (%s)" % (st, aid, cp))
+    if len(d4_unverifiable) > args.show:
+        print("    ... +%d more" % (len(d4_unverifiable) - args.show))
+    if d4_ambiguous:
+        print("  D4 ambiguous (cell verdict present but unrecognized -- manual look): %d" % len(d4_ambiguous))
+        for aid, cv, cp in d4_ambiguous[:args.show]:
+            print("    %s  cell=[%s] (%s)" % (aid, cv, cp))
     print("=" * 80)
     print("NOTE: flags are CANDIDATES for cert-owner re-VET, not automatic downgrades. D1 uses distilled")
     print("key_metrics (cross-check the cell); D2 smoke-certs may be deliberately promoted; D3 dep-grade is the")
-    print("load-bearing check. Read-only.")
+    print("load-bearing check; D4 is the file-grounded atom<->cell drift check (phase4b class -- a HARD drift flag")
+    print("is a stale chain-grade to demote; unverifiable = the referent didn't arrive, cross-check manually).")
+    print("Read-only.")
     return 0
 
 
