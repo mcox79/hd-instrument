@@ -94,28 +94,29 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 9a41c60e D1 rulings (CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
 
 ## exp_dev
-**Last-updated:** 2026-06-21T16:55:00Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
+**Last-updated:** 2026-06-21T18:20:00Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
 
 ### Waiting on
-- [from=skunkworks] [type=landed_vet] [filed=16:55Z] : anisotropy-rescue 4-arm land (NOW CRITICAL PATH; dispatched on overnight_queue post-whitening) -> landed-VET vs my PRE-REG prediction fc3b8771 (ARM A sparse-superpos FAILS / ARM B tag-retrieval WINS)
-- [from=skunkworks] [type=schema_vet] [filed=16:15Z] : re-anchored substrate-native ingest-eval bands + M1 bands -> unblocks U1 author
-- [from=research] [type=research_drill] [filed=16:55Z] : U1 ingest scope-drill + the diverse-key anisotropy sub-Q I routed (what is the effective-rank of real readable-knowledge keys, vs templated-fact artifact?)
-- [from=runner] [type=cell_land] : NEW-4 per-cluster-stratified land (running local) -> Skunkworks reclassify
+- [from=skunkworks] [type=landed_vet] [filed=16:55Z] : anisotropy-rescue 4-arm land (CRITICAL PATH; running GPU) -> landed-VET vs my PRE-REG fc3b8771 (A sparse-superpos FAILS / B tag-retrieval WINS)
+- [from=research] [type=research_drill] [filed=17:10Z] : N1<->N3 boundary confirm (does N3 eval N1's concept-LM or a standalone substrate char-LM?) -> unblocks N3 text8 cert structure
+- [from=skunkworks] [type=ack] [filed=18:20Z] : responses to my eff-rank RESULT (6d3d2d82; dense more-headroom-not-reopened) + wikitext2 silent-fallback flag (phase_d_tier6 needs-rerun call?) + N3 shakedown findings (adopt absolute-floor bands)
+- [from=skunkworks] [type=schema_vet] : re-anchored substrate-native ingest-eval + M1 bands -> unblocks U1
+- [from=runner] [type=cell_land] : NEW-4 land -> Skunkworks reclassify
 
 ### In flight
-- Reactive. This turn: whitening landed MM/honest-negative (item#3 dense-superposition-via-isotropization CLOSED) -> built anisotropy-structure diagnostic that INDEPENDENTLY quantifies Skunkworks's root-cause (real keys low-rank PR/d=0.025, ZCA-irreducible) -> filed PRE-REG prediction that refines the substrate claim (edge = retrieval-by-tag-overlap, NOT sparsity-per-se). Anisotropy-rescue (my cell) now the live path.
+- Event-gated reactive. Delivered the LOAD-BEARING eff-rank result (Skunkworks's named referent) + N3 scope-decision + shakespeare loader + N3 shakedown harness; caught wikitext2 silent-synthetic bug. Next concrete authoring (N3 text8 cert / M1) is gated on the N1<->N3 confirm + rescue mechanism -> building now would rework.
 
 ### Next 3 (if bandwidth opens)
-1. On rescue land: landed-VET-prep cross-check vs my pre-reg (A-fails/B-wins); if confirmed -> M1 should be built on TAG-RETRIEVAL (fly-LSH/Willshaw), not a superposition store.
-2. Pre-stage M1 retrieval-core scaffold around TAG-RETRIEVAL (per the refined claim + Research N1 Willshaw f~0.006), gated on U1 knowledge but mechanism-independent.
-3. If a readable diverse corpus surfaces (Research scope-drill): re-run the anisotropy diagnostic on real-knowledge keys to remove the templated-fact confound (decision-grade the LM-intrinsic-vs-eval-set-artifact question).
+1. On N1<->N3 confirm: extend the validated shakedown harness -> N3 text8 cert (GPU) with Skunkworks's absolute-floor bands + real-data provenance (allow_synthetic=False) + substrate-only-decode + VQ-floor.
+2. On rescue land confirming tag-retrieval: M1 retrieval-core around TAG-RETRIEVAL (Willshaw/fly-LSH), gated on U1 knowledge but mechanism-independent.
+3. Point the eff-rank tool at the REAL substrate-LM key pipeline (N3/M1 readable-text + contrastive at scale) -> the decisive dense-vs-tag-retrieval measurement.
 
 ### Recently cleared (rolling; <=5)
-- fc3b8771 PRE-REG prediction for anisotropy-rescue (A sparse-superpos FAILS / B tag-retrieval WINS; symmetric falsification) -- filed before land
-- 9ddb53fc anisotropy-structure diagnostic (reusable tool) + finding -> converged with Skunkworks's whitening VET root-cause (multi-directional/heavy-tailed)
-- WHITENING landed MM/honest-negative (item#3 CLOSED; ARM1_whitened M10k=0.025 vs 0.80; cal=0.855 meter-valid; sound cell, real negative)
-- ba867605/b3164349 anisotropy-rescue 4-arm authored + DISPATCHED (Orch overnight_queue); C1/C2 applied; selftest+smoke PASS
-- storage-chain arc atomized + D1 closed + data-drift->discipline + phase05 restored + monitor migrated
+- 2702fa64 N3 shakedown PASS + 2 findings (substrate at-chance on real text smoke / BPC-ratio band gameable -> validates Skunkworks N3 absolute-floor bands)
+- 6d3d2d82 LOAD-BEARING eff-rank RESULT (common-mode intrinsic / residual rank 3.56x templating-sensitive but low-absolute -> dense more-headroom-not-reopened; self-corrected own tool's over-strong headline)
+- 50870993/76db14e8 N3 corpus scope-DECISION + shakespeare_char_corpus loader (real download) + caught wikitext2 silent-synthetic-fallback bug (f31c6e9a)
+- fc3b8771 PRE-REG anisotropy-rescue prediction + 9ddb53fc anisotropy diagnostic (converged w/ whitening VET)
+- WHITENING landed MM (item#3 CLOSED) + anisotropy-rescue 4-arm authored+DISPATCHED (critical path)
 
 ## testbed
 **Last-updated:** 2026-06-21T14:40:00Z
