@@ -29,6 +29,21 @@ import sys
 from pathlib import Path
 
 
+def _testbed_waiting_cycle_hint(repo_root: Path) -> str:
+    """For testbed role only: if > 60min since last waiting-on-cycle round was fired,
+    return '[WAITING-CYCLE-DUE: file next round per USER hourly protocol]'.
+    Best-effort silent on errors. Cooldown via data/hook_state/waiting_cycle_last_fired_ts."""
+    cooldown_file = repo_root / 'data' / 'hook_state' / 'waiting_cycle_last_fired_ts'
+    try:
+        if cooldown_file.exists():
+            last_fired = float(cooldown_file.read_text().strip())
+            if (time.time() - last_fired) < 3000:  # 50 min suppress
+                return ''
+    except (OSError, ValueError):
+        pass
+    return '[WAITING-CYCLE-DUE: file next waiting-on cycle round per USER hourly protocol]'
+
+
 def _testbed_lull_check_hint(repo_root: Path) -> str:
     """For the testbed role only: query Health endpoint + return a one-line LULL hint
     if >= 2 other sessions have substantive-note age > 15 min, AND no lull-probe
@@ -310,6 +325,12 @@ def main() -> int:
                     reason = reason + " " + lull_hint
             except Exception:
                 pass  # silent on any failure (don't risk breaking the hook over a hint)
+            try:
+                wc_hint = _testbed_waiting_cycle_hint(repo_root_hb)
+                if wc_hint:
+                    reason = reason + " " + wc_hint
+            except Exception:
+                pass
         decision = {"decision": "block", "reason": reason}
         print(json.dumps(decision))
         return 0
