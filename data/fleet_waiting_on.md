@@ -70,28 +70,29 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - U0 substrate-native + N0-N4 + D1 closure VERIFIED-PRECISE + Item #4 RESCOPED N4-memory (commits b687df86 / 1b44734a / e368d25b / c8088adb)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T16:2xZ (true date -u UTC)  (**CERT 583**/177265 verified-precise; SUBSTRATE-NATIVE; /loop yolo-mode active; all owed cleared)
+**Last-updated:** 2026-06-21T18:3xZ (true date -u UTC)  (**CERT 583**/177266; SUBSTRATE-NATIVE; /loop yolo; whitening MM ruled; exp_dev 3 waits cleared)
 
 ### Waiting on (all REACTIVE-on-land; nothing owed-now)
-- [from=orchestrator] [type=cell_land] : N1 concept-LM + substrate-native token-decode (per bands fbfccc99) -> landed-VET (recompute BPC off per_unit + AUDIT zero-LLM-calls), 4-layer
-- [from=exp_dev] [type=cell_land] : whitening-revival proj768/A (verified-started 94% GPU per Orch) -> landed-VET (chain-grade-at-bound IFF ARM1-whitened>=0.80 cv<=0.05; FLAG: smoke recovery weak -> watch real-anisotropy vs synthetic-PoC)
-- [from=exp_dev] [type=cell_land] : anisotropy-rescue 4-arm (C1/C2) -> landed-VET ; NEW-4 -> reclassify
-- [from=research] [type=schema_vet] : N2 frontier-drill output -> SCHEMA-VET vs N3 BPC bands
+- [from=orchestrator] [type=cell_land] : N1 concept-LM + substrate-native token-decode (per fbfccc99) -> landed-VET (BPC off per_unit + AUDIT zero-LLM-calls), 4-layer
+- [from=exp_dev] [type=cell_land] : anisotropy-rescue 4-arm (LIVE rescue; vs exp_dev pre-reg fc3b8771 A-fails/B-wins) -> landed-VET; pre-flight PROJECTED-eff-rank = definitive; NEW-4 -> reclassify
+- [from=research] [type=schema_vet] : N2 frontier-drill output -> SCHEMA-VET vs N3 absolute-floor BPC bands
+- [from=exp_dev/orch] [type=cell_land] : whitening full-metrics scp (item#3 experiment-MM atomize on the data; ruling=MM honest-negative already filed 03452c77)
 
 ### In flight
-- /loop yolo-mode (dynamic self-pace; monitor bi5a08i70 primary wake + ~30min fallback). Cert-gating SUBSTRATE-NATIVE plan; surface to USER only on decision/verdict/blocker/cost.
+- /loop yolo (monitor bi5a08i70 primary wake + ~30min fallback). RESCUE-DRIVE: dense closed (whitening MM) + dense-reopen "more-headroom-not-reopened" (eff-rank: readable 3.6x residual but low-abs); high-M path = fly-LSH tag-retrieval (ARM B, rank-agnostic). 3 deferred rescues (PC-AM/phase-coding/product-key) routed to plan.
+- **PENDING classifier-recovery (Bash/Python down): commit response note (skunkworks_to_expdev..RESPONSES); atomize gameable-ratio-band + synthetic-to-real-deflation discipline; A5-flag phase_d_tier6 if chain-grade-counted.**
 
 ### Next 3 (if bandwidth opens)
-1. CPU PoC: N2 context-depth lever (does trigram-concept-transition beat bigram-concept on synthetic? quantify gain) — de-risk the #1 beat-bigram lever (coordinate w/ Research N2 drill to not duplicate).
-2. Pre-stage M2 multi-hop assembly-demo bands (the chain-grade tier; per my task-coupled-ablations catch — 4 components meaningful only at multi-hop).
-3. Closure-audit any new substrate-native atoms as they land.
+1. CPU: highest-eff-rank key-source sweep DONE (no raw contextual source >24; projection is the eff-rank-raiser) -> next: pre-stage M2 multi-hop assembly bands.
+2. Closure-audit new substrate-native atoms as they land.
+3. pp49 deeper-sweep low-pri (Hopfield ~573 empirical-clearance).
 
 ### Recently cleared (rolling; <=5)
-- b9e4485f U1 INGEST-eval bands + M1 architecture-core bands -> UNBLOCKS exp_dev U1 author (owned: had conflated N3/N1 LM-eval w/ the KB-ingest-eval; distinct -- refuse-gate + inference-transfer vs frozen-encoder + heldout_in_compose_graph==0)
-- 5afb8133 M2 pre-stage SCHEMA-VET (task-coupled ablations: depth-gov inherently multi-hop; EARLY M2=2-of-4 MM, chain-grade=multi-hop)
-- bab6f9b7 N3 canonical BPC cert-bands + 503aeee3 M2 ruling=B + concept-LM CPU PoC
-- fbfccc99 N1 SCHEMA-VET (token-decode + substrate-only gate) + 5da82e45 item-#4 re-scope (N4-memory)
-- 9a41c60e D1 rulings (CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
+- exp_dev 3 waits: eff-rank CONCUR (own last-token-conflation; more-headroom-not-reopened) + phase_d_tier6 NEEDS-RERUN (synthetic-fallback+gameable-band) + N3 absolute-floor ADOPTED (RESPONSES note)
+- 03452c77 whitening landed-VET = MM honest-negative + OWN synthetic-PoC over-estimate + 8856b2ce synthetic-to-real-deflation discipline atomized
+- 2b6cbb28 whitening scope-caveat + eba1d121 rescue-drive (eff-rank intrinsic; sparse/structured chain + 3 deferred) + 2 CPU de-risks (templated-vs-readable, key-source)
+- dfb41903 N2 context-depth PoC (levers COUPLED: depth x codebook-granularity; floor-masks) + b9e4485f U1 ingest-eval/M1 bands
+- 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
 **Last-updated:** 2026-06-21T17:18:53Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
