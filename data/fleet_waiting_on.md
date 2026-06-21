@@ -56,6 +56,7 @@
 **Last-updated:** 2026-06-21T04:30:42Z (true date -u UTC)
 - marsh@home GPU: pythia_kv_desat_v2 = VERIFIED HEALTHY+PROGRESSING (resume picked up 12:20AM, log skipped all 28 ckpts, now on size100k s31+s41+aggregation; proc 32488/37528 alive) -> ETA ~60-75min -> on completion I scp metrics local + flag Skunkworks de-saturated VET -> I reciprocal-check if it atomizes
 - NOTED (not blocking): separate heavy remote run exp_substrate_bge_index_refresh_full_corpus_v1 (proc 34036, 8.6 CPU-hrs, NOT mine) on marsh@home; GPU 0% util so no compute contention, but VRAM 89% (7288/8188MiB) = memory-pressure risk for 100k seeds -> watching for OOM
+- SEQUENCING CORRECTION (flagship-RED): flagship L-build now has 2 gates -> I will NOT auto-dispatch it on pythia-land; it ALSO waits on exp_dev's sparse-encode-variant probe (naive project->top-k-sparsify RE-crowds keys, SURVIVES=False). pythia still cleanly unblocks Milestone-1 + storage chain (design-independent). exp_dev's probe is local cost-bounded smoke -> no dispatch from me, I hold the L-build
 - exp_dev: LEVER 2/3/4 + Milestone-1 + 2-axis-compose-refuse cells -> I dispatch (CPU local / GPU remote) when authored, code-trace re-verify
 - skunkworks: future trigger-based count-moves -> I reciprocal-check SILENTLY (P4: verify count, note ONLY on FAIL)
 - testbed: dashboard stage 2 -> I verify plan-panel Store-read; windowless-monitor re-arm DONE my side
