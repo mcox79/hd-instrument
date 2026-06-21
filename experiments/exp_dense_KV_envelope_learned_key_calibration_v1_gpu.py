@@ -8,17 +8,23 @@ unvalidated on real pythia):
      Learned keys have DECREASED capacity vs i.i.d. random (HMM arXiv:2503.09518) -> the SUBSTRATE's actual M-indep bound is
      <= the random-core's 0.824@10k. If ARM1 holds >=0.80 at some M (meter validated) -> upgrade THIS atom to chain-grade-at-bound.
 
-C1 reuse: probe funcs VERBATIM (make_facts/encode[bf16]/train_contrastive/recall_at/_np_norm) + dense-KV _decode. Same C=256
+C1 reuse: probe funcs VERBATIM (make_facts/encode[fp16-overridden]/train_contrastive/recall_at/_np_norm) + dense-KV _decode. Same C=256
 codebook + ARM1 superposition + ARM2 softmax(beta=1/sqrt(d)) + apples-to-apples scaling (learned keys scaled to Ramsauer norm
-~sqrt(d), matching the random-core) + query-sampled. GPU (pythia-2.8b, bf16, inherits the OOM-fix). ASCII; per-seed ckpt.
+~sqrt(d), matching the random-core) + query-sampled. GPU (pythia-2.8b, FP16 = CERT591-referent precision). ASCII; per-seed ckpt.
 """
 import sys, os, argparse, time
 from pathlib import Path
 import numpy as np
+import torch   # PROT-020 GPU-gate requires a LITERAL 'import torch' (used transitively via the probe encode); also for the fp16 match below
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_partial_key, aggregate_partials, write_metrics
+import experiments.exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1 as _probe
+# Skunkworks PRECISION-FIX (verify-the-referent on the calibration target): CERT591's 0.827 referent was FLOAT16 (its line 117),
+# NOT bf16. Match fp16 so GATE-1 reproduces it (else the HALT misfires on a precision artifact + GATE-2 reads bf16-depressed).
+# Cheap here (proj256, M<=10k -> no OOM, unlike the L-build's 8192/100k that needed the bf16 OOM-fix). float32 on CPU smoke.
+_probe.ENC_DTYPE = torch.float16 if torch.cuda.is_available() else torch.float32
 from experiments.exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1 import (
     make_facts, encode, train_contrastive, recall_at, _np_norm)
 from experiments.exp_dense_projected_KV_envelope_v1 import _decode
@@ -34,7 +40,7 @@ if RUN_MODE == "full":
     ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23]; M_CAL = 10000; M_LK = [3000, 10000]; TRAIN_M = 4000; TRAIN_STEPS = 600
 else:
     ENCODER = "EleutherAI/pythia-160m"; SEEDS = [0]; M_CAL = 400; M_LK = [200, 400]; TRAIN_M = 300; TRAIN_STEPS = 200
-CONFIG_VERSION = "pythia-proj%d + GATE1-calibration(repro CERT591 %.3f) + GATE2-learned-key ARM1/ARM2 @M%s vs random-ref %.3f; C=%d; bf16" % (PROJ_DIM, CERT591_MEAN, M_LK, RANDOM_REF_10k, C)
+CONFIG_VERSION = "pythia-proj%d + GATE1-calibration(repro CERT591 %.3f) + GATE2-learned-key ARM1/ARM2 @M%s vs random-ref %.3f; C=%d; FP16(CERT591-referent-match, Skunkworks precision-fix)" % (PROJ_DIM, CERT591_MEAN, M_LK, RANDOM_REF_10k, C)
 
 
 def _arm1_arm2_learned(K_proj, y, codebook, sigma, seed):
@@ -57,7 +63,7 @@ def run_unit(seed):
     g = np.random.default_rng(seed)
     M_max = max(M_CAL, max(M_LK)); n_total = M_max + TRAIN_M
     keys, cues = make_facts(n_total)
-    print("  [seed=%d] encoding %d facts on %s (bf16)..." % (seed, n_total, ENCODER), flush=True)
+    print("  [seed=%d] encoding %d facts on %s (fp16=CERT591-referent)..." % (seed, n_total, ENCODER), flush=True)
     K = encode(keys); Q = encode(cues)
     Ktr, Qtr = K[:TRAIN_M], Q[:TRAIN_M]; Kho, Qho = K[TRAIN_M:], Q[TRAIN_M:]
     print("  [seed=%d] training CERT591 proj D=%d -> %d..." % (seed, K.shape[1], PROJ_DIM), flush=True)
