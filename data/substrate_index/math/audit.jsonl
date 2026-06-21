@@ -40894,3 +40894,4 @@
 {"ts": 1782012285.8799543, "op": "add_atom", "target": "T3/EXP_twoaxis_refuse_gate_compose_v1_cpu_v1", "note": "2-axis refuse-gate compose MM + composition discipline (CERT-neutral, verified off-data)", "source": "skunkworks_2axis_compose_MM_plus_discipline_2026_06_21"}
 {"ts": 1782021525.189528, "op": "add_atom", "target": "T3/EXP_pythia_kv_desat_v2", "note": "earned de-saturation chain-grade (revival)", "source": "skunkworks_pythia_desat_chaingrade_2026_06_21"}
 {"ts": 1782026652.9894001, "op": "add_atom", "target": "T3/EXP_continual_write_label_free_importance_v1", "note": "continual-write label-free MM scope-locating (CERT-neutral)", "source": "skunkworks_continual_write_label_free_MM_2026_06_21"}
+{"ts": 1782037436.2330918, "op": "add_atom", "target": "T3/EXP_flagship_sparse_projected_KV_LBUILD_v1", "note": "flagship L-build MM honest-negative (CERT-neutral, 4-layer-confirmed)", "source": "skunkworks_flagship_lbuild_honest_negative_MM_2026_06_21"}
