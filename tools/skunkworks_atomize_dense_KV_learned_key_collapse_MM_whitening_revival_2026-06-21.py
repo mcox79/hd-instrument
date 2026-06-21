@@ -87,7 +87,7 @@ ATOM = Atom(
                               '= separate code-diff puzzle, ACCEPT-GATE2 per Orch+Research; collapse pool-independent stands). '
                               'Item #4 attention holds 0.9955 (O(M*d) dict-equivalent).'),
               'composes_with':['T3/EXP_dense_projected_KV_envelope_v1','T3/EXP_kv_learned_projection_v1',
-                               'T3/EXP_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1',
+                               'T3/EXP_flagship_sparse_projected_KV_LBUILD_v1',
                                'RULE_info_theoretic_floor_check_before_M_independence_claim',
                                'RULE_metric_referent_carries_implicit_eval_protocol_match_it_to_reproduce'],
               'verified_off_data':('skunkworks L1 re-VET independent recompute off per_unit -- BOTH runs: first train-4000 '
