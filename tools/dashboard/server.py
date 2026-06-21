@@ -696,17 +696,37 @@ def _compute_discipline_and_drift() -> dict:
     # === Discipline-catches today: count notes + commits matching patterns since 00:00 UTC today ===
     from datetime import datetime as _dt
     today_iso = _dt.utcnow().strftime("%Y-%m-%d")
-    today_start = _dt.strptime(today_iso, "%Y-%m-%d").timestamp()
+    # Bug fix 2026-06-21: parse as UTC, not local time, so the start-of-day is
+    # the correct UTC-midnight anchor. Prior `.strptime(...).timestamp()` treated
+    # the parsed date as LOCAL -> on a TZ where UTC midnight is in the future
+    # (e.g., US Pacific late evening), today_start landed in the future + the
+    # entire day's notes were excluded (catches today = 0 despite real activity).
+    from datetime import timezone as _tz
+    today_start = _dt.strptime(today_iso, "%Y-%m-%d").replace(tzinfo=_tz.utc).timestamp()
     notes_dir = _REPO_ROOT / "notes"
 
-    # Patterns -> categorize each catch
+    # Patterns -> categorize each catch.
+    # 2026-06-21 coverage expansion: today's actual substantive work (cycle-driven
+    # ships, certifications, refutations, redesigns, hidden-positive lifts) was
+    # invisible to the prior narrow patterns. Broadened to capture the real classes:
     pattern_keywords = {
         "miscites": ["miscite", "phantom", "verify_referent", "verify_the_referent"],
-        "demotes": ["demote", "_5mm_", "downgrade"],
+        "demotes": ["demote", "_5mm_", "downgrade", "retract"],
         "META": ["meta_", "_meta_", "atomized", "atomize"],
         "label_honesty": ["worst_label", "label_honesty", "relabel"],
-        "LEVER": ["lever_1_5", "lever1_5"],
-        "drift_owned": ["own_my_verify", "verify_miss", "vet_miss", "verify_error"],
+        "LEVER": ["lever_1_5", "lever1_5", "lever_4", "lever_2", "lever_3"],
+        "drift_owned": ["own_my_verify", "verify_miss", "vet_miss", "verify_error",
+                         "own_my", "self_catch", "selfcatch", "self-catch"],
+        # NEW classes (cycle-driven + cert-cascade work was invisible before):
+        "chain_grade_ship": ["chain_grade_eligible", "chaingrade", "build_go", "schema_vet_pass",
+                              "landed_vet"],
+        "cert_atomize": ["cert_588", "cert_589", "cert_590", "cert_591", "cert_592",
+                          "cert_585", "cert_582", "cert_586", "cert_587"],
+        "hidden_positive": ["hidden_positive", "hidden_positives", "buried_positive",
+                             "negatives_drill"],
+        "redesign": ["redesign", "amendment", "reframe"],
+        "waiting_cycle": ["waiting_cycle", "waiting_on_cycle", "lull_probe", "productivity_probe"],
+        "red_flag": ["red_flag", "red-alert", "_red_", "hold_chaingrade"],
     }
     catches_breakdown = {k: 0 for k in pattern_keywords}
 
