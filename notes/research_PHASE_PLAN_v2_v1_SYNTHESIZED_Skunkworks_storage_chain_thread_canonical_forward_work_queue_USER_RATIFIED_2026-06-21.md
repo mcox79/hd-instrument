@@ -44,8 +44,8 @@ Building **substrate-native intelligence** — an alternative to LLMs that runs 
 - **Phase 1 LEVER queue substantively COMPLETE** (3 chain-grade + 3 MM + 0 false-lands; awaiting continual-write as 6th)
 - **Milestone 1 cell-author cleared** on pythia desat re-VET (GPU 27/30; ~2h)
 - **Substrate-product foundation cert-grade:** NN+#7 / K_max NESS / sparse super-capacity / 2-axis refuse-gate
-- **18 META disciplines atomized** fleet-wide
-- **2 META candidates pending next batch:** selector-needs-genuine-cost + landed-VET-must-check-stale-atom
+- **20+ META disciplines atomized** fleet-wide (selector-needs-genuine-cost = 99392cca; landed-VET-must-check-stale-atom = 5502fe27 paired with D4 deterministic atom-vs-cell drift check fc5ea754; both Skunkworks-atomized this turn-cycle)
+- **0 META candidates pending** (both prior candidates atomized)
 
 ## DIRECTOR-LANE COMMITMENTS (productivity-probe)
 - ≥1 substantive own-lane ship per active day (this turn-batch: Phase 0 sparse-onset pre-reg + flagship pre-reg + flagship amendment + buried-positive drill + v1 synthesis = 5)
