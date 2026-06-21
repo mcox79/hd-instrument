@@ -45,30 +45,31 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-21T17:25:00Z (true `date -u`)  (**CERT 583** / atoms 177266 / RESCUE chain folded; eff-rank intrinsic; 21 disciplines; 3 self-corrections owned)
+**Last-updated:** 2026-06-21T19:55:00Z (true `date -u`)  (**CERT 583** / atoms 177266 / cascade absorbed; N1 DEFINITIVE + 4-arm partial-rescue + N2 3-way knot; 22+ disciplines)
 
 ### Waiting on
-- [from=orchestrator] [type=cell_land] : N1v3 concept-LM (calibration fix) → Director 4-layer cross-check
-- [from=exp_dev] [type=cell_land] : anisotropy-rescue 4-arm GPU (pre-flight projected-eff-rank = definitive scope) → Director cross-check + Skunkworks landed-VET
-- [from=exp_dev] [type=cell_land] : NEW-4 + pp49 running on revived runner → Skunkworks landed-VETs
-- [from=skunkworks] [type=schema_vet] : N2 frontier-drill Opus synthesis on land → SCHEMA-VET vs N3 BPC bands
+- [from=orchestrator] [type=cell_land] : JOINT V_C × N scaling N2 #1 (V_C=1024 × N={8192,16384} × K={1,2,3}, ~10min wall) → Director cross-check + Skunkworks landed-VET on outcome
+- [from=skunkworks] [type=schema_vet] : N2 JOINT V_C × N cell vs N3 absolute-floor BPC bands + alpha<1 saturation guard
+- [from=USER] [type=user_decision] : agent-teams migration timing — NOT-NOW recommendation filed (testbed PROPOSE; Skunkworks disruption-risk consult requested separately)
 - [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META (Skunkworks bandwidth)
+- [from=skunkworks] [type=director_consult] [filed=19:55Z] : disruption-risk advisor consult on agent-teams migration (3 Qs: Store-coord survives task-status-lag / cert-write-discipline survives SendMessage routing / cert-integrity during multi-day migration window)
 
 ### In flight
-- N2 frontier-drill Opus orchestrator (a73fd89b5bde701ad) synthesizing (4 lit-scans landed; Skunkworks v2 PoC delivered key insights ahead)
-- U1 ingest-scope subagent in flight (substrate-native re-interpret on land)
+- Director-stance on agent-teams migration filed (NOT-NOW + LIGHT-SCOPE-NOW; 4-phase rough plan; USER decision-point flagged)
+- SimVQ/FSQ #2 N2 frontier research-drill QUEUED to launch when bandwidth (post-tracker-refresh)
+- ARM A FAIL revival drill QUEUED (Angles 1+3+5 topology/capacity/biology) after SimVQ
 
 ### Next 3 (if bandwidth opens)
-1. Director cross-check on N1v3 cell-land (Phase-3-native 4-layer)
-2. Skunkworks optional key-source eff-rank sweep across pythia layers/poolings (cross-cutting lever; raises ceiling for ALL storage mechanisms)
-3. pp49 deeper-sweep dispatch LOW-priority
+1. Launch SimVQ/FSQ subagent research-drill (#2 N2 frontier per ranking note)
+2. Launch ARM A FAIL revival drill (after SimVQ; topology-variant + capacity-regime + biology-5x)
+3. pp49 deeper-sweep LOW-pri OR N4 governance wrap pre-stage (gates on N2 frontier outcome)
 
 ### Recently cleared (≤5)
-- N1↔N3 boundary RULING FILED (architecture-AGNOSTIC eval harness + corpus ingest; closes Exp-Dev line-101 wait)
-- RESCUE-CONTINGENCY chain FOLDED into plan.json per Skunkworks eff-rank diagnostic + USER 'rescue this' (commit 7c8925ba; PC-AM + phase-coding + product-key + key-source cross-cutting lever; scope-caveat REFUTED 3rd self-correction today)
-- N1v2 calibration-bug ACK + Skunkworks scope-caveat absorbed (commit 2c2ad18b; encouraging top-1=0.445~bigram REAL POSITIVE)
-- Whitening-revival LANDED MIDDLE_BAND Director 4-layer cross-check (commit b9dcc28d; convergent-negative validates sparse-over-dense)
-- N3 text-corpus candidate analysis (commit 7baa8d16) + N2 v2 PoC HD-binding insight absorbed + M2 v2 task-coupled-ablations fix + N1 density scour delivered
+- 10-cycle ping catch-up + Director 4-layer cross-check FILED on 5 cell-lands (4-arm MIDDLE_BAND tag-retrieval CLASS / N1 v3.1 DEFINITIVE PROVEN-BOUND beats unigram NOT bigram / N2 depth HARD_FAIL floor-masked / N2 co-opt DEFINITIVE 3-way knot discovery / Skunkworks phase_d_tier6 CORRECTION no count impact)
+- N2 frontier RANKING RESPONSE FILED — refactored framework (3-way knot V_C × N_DIM × depth = knot-resolution sequence, not independent levers); endorse Orch solo-drive on JOINT V_C × N as #1; SimVQ/FSQ as #2; depth-3+ as #3
+- ARM A sparse-superposition FAIL routed for 2x revival drill per route-negatives USER STANDING (5 angles: topology / decode / capacity-regime / projected-key / biology-5x)
+- Testbed agent-teams migration RESPONSE filed (NOT-NOW + LIGHT-SCOPE-NOW; Director-stance with 4-phase rough plan + USER decision-point + Skunkworks consult)
+- N1↔N3 boundary RULING FILED (architecture-AGNOSTIC eval harness) + RESCUE-CONTINGENCY chain folded into plan.json (commit 7c8925ba)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T18:3xZ (true date -u UTC)  (**CERT 583**/177266; SUBSTRATE-NATIVE; /loop yolo; whitening MM ruled; exp_dev 3 waits cleared)
