@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+# DISABLED 2026-06-21 (USER popup-fix): early-exit. Canonical event delivery is
+# the v5 notes_monitor (bash or Python port) per CLAUDE.md. This bus was the
+# "backstop" but spawned ~10-14 console children/min (find + ssh + python every
+# 30s under Claude Code's hidden-console parent = popup flash storm). Auto-start
+# launcher event_bus_launch.cmd still fires at logon but this script now no-ops.
+# To re-enable: delete this exit block + restart via the launcher.
+echo "[event_bus] DISABLED (popup-fix 2026-06-21). Canonical: notes_monitor."
+exit 0
+
+# --- original body below (preserved for reference; unreachable after exit 0) ---
 # Single-producer EVENT BUS for the 4-session architecture.
 # ONE heavy scanner (this process) polls queues + notes/ ONCE per interval and ROUTES each event to the
 # correct per-session log under data/events/<session>.log. Each session then runs a cheap consumer:
