@@ -40892,3 +40892,4 @@
 {"ts": 1782004967.7582877, "op": "add_atom", "target": "T3/EXP_capacity_sweet_spot_v2_cpu_v1", "note": "lever-family MM characterizations (CERT-neutral)", "source": "skunkworks_lever1_5v2_lever2_MM_2026_06_20"}
 {"ts": 1782004968.4453871, "op": "add_atom", "target": "T3/EXP_pca_dimension_selector_lever_v1_cpu_v1", "note": "lever-family MM characterizations (CERT-neutral)", "source": "skunkworks_lever1_5v2_lever2_MM_2026_06_20"}
 {"ts": 1782012285.8799543, "op": "add_atom", "target": "T3/EXP_twoaxis_refuse_gate_compose_v1_cpu_v1", "note": "2-axis refuse-gate compose MM + composition discipline (CERT-neutral, verified off-data)", "source": "skunkworks_2axis_compose_MM_plus_discipline_2026_06_21"}
+{"ts": 1782021525.189528, "op": "add_atom", "target": "T3/EXP_pythia_kv_desat_v2", "note": "earned de-saturation chain-grade (revival)", "source": "skunkworks_pythia_desat_chaingrade_2026_06_21"}
