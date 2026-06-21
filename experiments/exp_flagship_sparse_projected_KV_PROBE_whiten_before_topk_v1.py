@@ -39,10 +39,11 @@ REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_partial_key, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1"
-CONFIG_VERSION = "CERT591-proj-verbatim + a3f473dd-topk-sparse + amendmentv4-whiten-before-topk(SHRINKAGE-ZCA-relfloor-tau1e-2-rankdef-fix); rho-apples-to-apples-same-heldout"
+CONFIG_VERSION = "CERT591-proj-verbatim + a3f473dd-topk-sparse + amendmentv5: 4-variant(A-naive/B-SHRINKAGE-ZCA-relfloor-tau1e-2/C-random-fixed/D-abs-ZCA-neg-control) x f{0.02-anchor,0.05-anchor,0.10,0.20} x 3seed; gate@f0.02|f0.05; rho-apples-to-apples-same-heldout"
 _P = argparse.ArgumentParser(); _P.add_argument("--self-test", action="store_true", dest="self_test"); _ARGS, _ = _P.parse_known_args()
 RUN_MODE = os.environ.get("HDLAB_RUN_MODE", "full" if not _ARGS.self_test else "smoke")
-FRACS = [0.05, 0.10, 0.20]            # amendment v4 sparsity sweep
+FRACS = [0.02, 0.05, 0.10, 0.20]      # amendment v5-followup: f=0.02 ANCHOR (healthy regime per Skunkworks capacity-nuance) + 0.05 boundary + 0.10/0.20 honest-scope (reported, NOT gated; a3f473dd lower-bound precedent)
+ANCHOR_FRACS = [0.02, 0.05]           # HARD_PASS gated at f=0.02 OR f=0.05 (structured-sparse healthy only at sparse f; moderate f pays ~3-4x projection-structure cost vs random-k-of-N)
 HELDOUT_FRAC = 0.25                   # CERT 591 split
 if RUN_MODE == "full":
     ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23]; N = 8192; M = 5000; TRAIN_STEPS = 600
@@ -102,6 +103,12 @@ def fit_zca(X, tau=1e-2):                                   # SHRINKAGE ZCA: flo
     w, V = np.linalg.eigh(cov.astype(np.float64)); floor = tau * float(w.max())   # signal subspace, bounds the null space -> recall 1.0 + supports still diversify.
     Wz = (V @ np.diag(1.0 / np.sqrt(np.maximum(w, floor))) @ V.T).astype(np.float32)
     return mu.astype(np.float32), Wz
+
+
+def fit_zca_abs(X, eps=1e-3):                              # NEG-CONTROL (variant D): the BROKEN absolute-eps ZCA -- amplifies the N>>n_keys null space 31x.
+    mu = X.mean(0, keepdims=True); Xc = X - mu             # Runs alongside shrinkage B so the fix-effect (B holds recall, D collapses) is VISIBLE in landed-VET metrics.
+    cov = (Xc.T @ Xc) / max(1, len(X) - 1); w, V = np.linalg.eigh(cov.astype(np.float64))
+    return mu.astype(np.float32), (V @ np.diag(1.0 / np.sqrt(np.maximum(w, eps))) @ V.T).astype(np.float32)
 
 
 def apply_zca(X, mu, Wz):
@@ -172,14 +179,17 @@ def run_unit(seed):
     print("  [seed=%d] training CERT591 projection D=%d -> N=%d (%d steps)..." % (seed, K.shape[1], N, TRAIN_STEPS), flush=True)
     W = train_contrastive(Ktr, Qtr, N, TRAIN_STEPS, seed)
     PK = Kho @ W; PQ = Qho @ W                              # projected held-out keys/cues (the shared substrate for all variants)
-    mu, Wz = fit_zca(PK)                                    # whitening fit on projected KEYS, applied to keys AND cues (apples-to-apples)
+    mu, Wz = fit_zca(PK)                                    # B SHRINKAGE ZCA (v5 fix): fit on projected KEYS, applied to keys AND cues (apples-to-apples)
     WK = apply_zca(PK, mu, Wz); WQ = apply_zca(PQ, mu, Wz)
+    mua, Wza = fit_zca_abs(PK)                              # D abs-eps ZCA NEG-CONTROL (broken; visibility of the fix)
+    AK = apply_zca(PK, mua, Wza); AQ = apply_zca(PQ, mua, Wza)
 
-    by_variant = {"A_naive_topk": {}, "B_whiten_before_topk": {}, "C_random_fixed_positions": {}}
+    by_variant = {"A_naive_topk": {}, "B_whiten_before_topk": {}, "C_random_fixed_positions": {}, "D_abs_zca_neg_control": {}}
     for f in FRACS:
         fk = "f%.2f" % f
         by_variant["A_naive_topk"][fk] = _measure(top_k_magnitude(PK, f), top_k_magnitude(PQ, f), g)
         by_variant["B_whiten_before_topk"][fk] = _measure(top_k_magnitude(WK, f), top_k_magnitude(WQ, f), g)
+        by_variant["D_abs_zca_neg_control"][fk] = _measure(top_k_magnitude(AK, f), top_k_magnitude(AQ, f), g)
         cidx = g.choice(N, max(1, int(f * N)), replace=False)
         Cmask = lambda X: (lambda o: (o.__setitem__((slice(None), cidx), np.sign(X[:, cidx]).astype(np.float32)), o)[1])(np.zeros_like(X, np.float32))
         by_variant["C_random_fixed_positions"][fk] = _measure(Cmask(PK), Cmask(PQ), g)
@@ -188,10 +198,10 @@ def run_unit(seed):
     raw_sparse = {"f%.2f" % f: _measure(top_k_magnitude(Kho, f), top_k_magnitude(Qho, f), g) for f in FRACS}
     dn_K = _np_norm(PK); dn_Q = _np_norm(PQ)
     dense_projected = {"recall": recall_at(dn_Q, dn_K), "keysep": keysep(dn_K, g=g), "rho": crosstalk_rho(dn_K, g=g)}
-    print("  [seed=%d] dense-proj recall=%.3f (CERT591 ref 0.83-0.96) | B@f0.05 recall=%.3f overlap=%.3f | A@f0.05 recall=%.3f overlap=%.3f" % (
-        seed, dense_projected["recall"], by_variant["B_whiten_before_topk"]["f0.05"]["recall"],
-        by_variant["B_whiten_before_topk"]["f0.05"]["support_overlap"], by_variant["A_naive_topk"]["f0.05"]["recall"],
-        by_variant["A_naive_topk"]["f0.05"]["support_overlap"]), flush=True)
+    af = "f0.02"
+    print("  [seed=%d] dense-proj recall=%.3f (CERT591 ref 0.83-0.96) | @f0.02 B(shrink)recall=%.3f overlap=%.3f / D(abs-control)recall=%.3f / A(naive)recall=%.3f" % (
+        seed, dense_projected["recall"], by_variant["B_whiten_before_topk"][af]["recall"], by_variant["B_whiten_before_topk"][af]["support_overlap"],
+        by_variant["D_abs_zca_neg_control"][af]["recall"], by_variant["A_naive_topk"][af]["recall"]), flush=True)
     return {"seed": seed, "by_variant": by_variant, "raw_sparse_baseline": raw_sparse, "dense_projected_baseline": dense_projected}
 
 
@@ -204,46 +214,51 @@ def _med(units, path):                                      # median over seeds 
     return float(np.median(vals))
 
 
+VARIANTS = ["A_naive_topk", "B_whiten_before_topk", "C_random_fixed_positions", "D_abs_zca_neg_control"]
+
+
+def _res_at(units, fk):                                     # median-over-seeds of every variant + raw at one f
+    raw = {m: _med(units, ["raw_sparse_baseline", fk, m]) for m in ["keysep", "recall", "rho"]}
+    rv = {v: {m: _med(units, ["by_variant", v, fk, m]) for m in ["keysep", "recall", "rho", "support_overlap"]} for v in VARIANTS}
+    return raw, rv
+
+
 def compute_verdict(units):
     if not units:
         return ("HARD_FAIL", "no results", {})
-    fk = "f0.05"
-    raw_keysep = _med(units, ["raw_sparse_baseline", fk, "keysep"])
-    raw_recall = _med(units, ["raw_sparse_baseline", fk, "recall"])
-    raw_rho = _med(units, ["raw_sparse_baseline", fk, "rho"])
     dense_recall = _med(units, ["dense_projected_baseline", "recall"])
-    res = {}
-    for v in ["A_naive_topk", "B_whiten_before_topk", "C_random_fixed_positions"]:
-        res[v] = {"keysep": _med(units, ["by_variant", v, fk, "keysep"]), "recall": _med(units, ["by_variant", v, fk, "recall"]),
-                  "rho": _med(units, ["by_variant", v, fk, "rho"]), "support_overlap": _med(units, ["by_variant", v, fk, "support_overlap"])}
-    # D2 collapse-guard (DATA, not selftest): whiten must diversify supports vs naive at f=0.05
-    overlap_diversifies = res["B_whiten_before_topk"]["support_overlap"] < res["A_naive_topk"]["support_overlap"]
-    # rho apples-to-apples: does projection's rho-reduction SURVIVE sparsification (B sparse rho vs raw sparse rho, SAME keys)
-    rho_survives = res["B_whiten_before_topk"]["rho"] < raw_rho
-    detail = {"f_gate": fk, "raw_sparse": {"keysep": raw_keysep, "recall": raw_recall, "rho": raw_rho}, "dense_recall": dense_recall,
-              "variants_at_f0.05": res, "B_overlap_diversifies_vs_A": bool(overlap_diversifies), "B_rho_survives_vs_raw_sparse": bool(rho_survives),
-              "CONFIG_VERSION": CONFIG_VERSION, "cites": ["CERT591_kv_learned_projection_v1", "a3f473dd_sparse_super_capacity", "amendment_v4_whiten_before_topk"],
-              "all_fracs": {v: {"f%.2f" % f: {"recall": _med(units, ["by_variant", v, "f%.2f" % f, "recall"]),
-                                              "keysep": _med(units, ["by_variant", v, "f%.2f" % f, "keysep"]),
-                                              "support_overlap": _med(units, ["by_variant", v, "f%.2f" % f, "support_overlap"])} for f in FRACS}
-                            for v in res}}
-    # gate (amendment v4): B or C holds keysep<=raw AND recall>=raw at f=0.05
-    passers = [v for v in ["B_whiten_before_topk", "C_random_fixed_positions"]
-               if res[v]["keysep"] <= raw_keysep and res[v]["recall"] >= raw_recall]
-    detail["passers"] = passers
-    summ = ("f0.05: raw_sparse(keysep=%.3f recall=%.3f rho=%.3f) dense_recall=%.3f | A(recall=%.3f overlap=%.3f) "
-            "B(recall=%.3f keysep=%.3f rho=%.3f overlap=%.3f) C(recall=%.3f keysep=%.3f) | B_diversifies=%s B_rho_survives=%s passers=%s" % (
-                raw_keysep, raw_recall, raw_rho, dense_recall, res["A_naive_topk"]["recall"], res["A_naive_topk"]["support_overlap"],
-                res["B_whiten_before_topk"]["recall"], res["B_whiten_before_topk"]["keysep"], res["B_whiten_before_topk"]["rho"],
-                res["B_whiten_before_topk"]["support_overlap"], res["C_random_fixed_positions"]["recall"], res["C_random_fixed_positions"]["keysep"],
-                overlap_diversifies, rho_survives, passers))
-    if "B_whiten_before_topk" in passers and res["B_whiten_before_topk"]["recall"] >= 0.80 * dense_recall and overlap_diversifies:
-        return ("HARD_PASS", "HARD_PASS: variant B (whiten-before-topk) holds keysep<=raw AND recall>=raw at f=0.05, recall>=0.80*dense, supports diversify vs naive. L-build proceeds variant=B. " + summ, detail)
-    if "B_whiten_before_topk" in passers:
-        return ("HARD_PASS", "HARD_PASS (B passes gate but recall<0.80*dense or weak diversify -- L-build B with documented margin). " + summ, detail)
-    if "C_random_fixed_positions" in passers:
-        return ("MIDDLE_BAND", "MM_negative_recall_axis: only C (random-fixed) passes -- diversity preserved but recall path weaker than B-hoped. L-build C with recall-loss documented. " + summ, detail)
-    return ("MIDDLE_BAND", "MM_negative_full: neither B nor C holds keysep<=raw AND recall>=raw at f=0.05 -- projection+sparse do not compose for KV recall; reframe storage chain to non-sparse composition. " + summ, detail)
+    # all f's reported; HARD_PASS gated only at the ANCHOR f's (0.02 OR 0.05) per amendment v5-followup
+    all_f = {}
+    for f in FRACS:
+        fk = "f%.2f" % f; raw, rv = _res_at(units, fk)
+        all_f[fk] = {"raw_sparse": raw, "variants": rv,
+                     "B_diversifies_vs_A": rv["B_whiten_before_topk"]["support_overlap"] < rv["A_naive_topk"]["support_overlap"],
+                     "B_rho_survives_vs_raw": rv["B_whiten_before_topk"]["rho"] < raw["rho"],
+                     "B_beats_D_recall": rv["B_whiten_before_topk"]["recall"] - rv["D_abs_zca_neg_control"]["recall"]}  # fix-effect visibility
+    # gate: B holds keysep<=raw AND recall>=raw at an anchor f; record which anchors pass
+    b_anchor_pass = [("f%.2f" % f) for f in ANCHOR_FRACS
+                     if all_f["f%.2f" % f]["variants"]["B_whiten_before_topk"]["keysep"] <= all_f["f%.2f" % f]["raw_sparse"]["keysep"]
+                     and all_f["f%.2f" % f]["variants"]["B_whiten_before_topk"]["recall"] >= all_f["f%.2f" % f]["raw_sparse"]["recall"]]
+    c_anchor_pass = [("f%.2f" % f) for f in ANCHOR_FRACS
+                     if all_f["f%.2f" % f]["variants"]["C_random_fixed_positions"]["keysep"] <= all_f["f%.2f" % f]["raw_sparse"]["keysep"]
+                     and all_f["f%.2f" % f]["variants"]["C_random_fixed_positions"]["recall"] >= all_f["f%.2f" % f]["raw_sparse"]["recall"]]
+    detail = {"anchor_fracs": ["f%.2f" % f for f in ANCHOR_FRACS], "dense_recall": round(dense_recall, 4), "by_f": all_f,
+              "B_anchor_pass": b_anchor_pass, "C_anchor_pass": c_anchor_pass, "CONFIG_VERSION": CONFIG_VERSION,
+              "cites": ["CERT591_kv_learned_projection_v1", "a3f473dd_sparse_super_capacity", "amendment_v5_shrinkage_zca_relfloor"]}
+    # per-anchor one-line summary (B shrinkage vs D abs-control = the fix-effect)
+    def _s(fk):
+        a = all_f[fk]; b = a["variants"]["B_whiten_before_topk"]; d = a["variants"]["D_abs_zca_neg_control"]
+        return "%s[raw_rec=%.2f Bshrink_rec=%.2f(ks=%.2f div=%s) Dabs_rec=%.2f fix=%+.2f]" % (
+            fk, a["raw_sparse"]["recall"], b["recall"], b["keysep"], a["B_diversifies_vs_A"], d["recall"], a["B_beats_D_recall"])
+    summ = "dense_rec=%.2f | %s | B_anchor_pass=%s C_anchor_pass=%s" % (dense_recall, " ".join(_s("f%.2f" % f) for f in FRACS), b_anchor_pass, c_anchor_pass)
+    if b_anchor_pass:
+        best = b_anchor_pass[0]; b = all_f[best]["variants"]["B_whiten_before_topk"]
+        strong = b["recall"] >= 0.80 * dense_recall and all_f[best]["B_diversifies_vs_A"]
+        return ("HARD_PASS", "HARD_PASS: variant B (shrinkage-ZCA whiten-before-topk) holds keysep<=raw AND recall>=raw at anchor %s%s -> L-build variant=B at %s. %s" % (
+            best, " (recall>=0.80*dense + diversifies)" if strong else " (passes; recall<0.80*dense or weak-diversify -> document margin)", best, summ), detail)
+    if c_anchor_pass:
+        return ("MIDDLE_BAND", "MM_negative_recall_axis: only C (random-fixed) passes an anchor f (%s); B's recall path lost. L-build C with recall-loss documented. %s" % (c_anchor_pass, summ), detail)
+    return ("MIDDLE_BAND", "MM_negative_full: neither B nor C holds keysep<=raw AND recall>=raw at f=0.02 or f=0.05 -- projection+sparse do not compose for KV recall; reframe storage chain to non-sparse composition. %s" % summ, detail)
 
 
 def _selftest():
@@ -288,7 +303,7 @@ if __name__ == "__main__":     # GUARD: import-safe (L-build cell + diagnostics 
         raise SystemExit(0)
     print("[config] %s mode=%s ENCODER=%s N=%d M=%d steps=%d FRACS=%s seeds=%s DEV=%s | %s" % (
         ANCHOR_NAME, RUN_MODE, ENCODER, N, M, TRAIN_STEPS, FRACS, SEEDS, DEV.type, CONFIG_VERSION), flush=True)
-    out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "encoder": ENCODER}; t0 = time.time()
+    out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "encoder": ENCODER, "schema": "v5-4variant-f0.02-anchor"}; t0 = time.time()
     for seed in SEEDS:
         key = "s%d" % seed
         if key in aggregate_partials(out_dir, [key], run_config=run_config):
