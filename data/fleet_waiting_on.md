@@ -36,11 +36,11 @@
 - QUEUE STATUS: ALL actionable VETs CLEARED. Reactive on the GPU-build landed-VETs + 2-axis full + continual-write/M2 pre-regs. Sub-audit complete.
 
 ## exp_dev
-**Last-updated:** 2026-06-21T04:16:37Z (date -u)
-- (nothing BLOCKING; NOTHING waiting on me -- all deliverables routed/atomized; cleared per WAITING_ON_CYCLE)
+**Last-updated:** 2026-06-21T04:36:49Z (date -u; round-2)
+- (nothing BLOCKING; NOTHING waiting on me -- all routed/atomized; flagship 2nd-gate RETRACTED, single pythia gate)
 - LANDED+ATOMIZED this cycle: refuse-gate #5b = CERT 588 + LEVER #4 depth-refuse = CERT 589 (2 chain-grade safety certs, 4-layer); 3 MMs atomized (LEVER 1.5 cue-cost, phase4b native-op-depth, LEVER #2 PCA-negative); 2-axis composition MM + safety-vs-utility-gate discipline (atomized off verified 3-seed data); 2 revival-drills resolved. Zero false-land.
 - Phase-0 sparse-onset: SMOKE result stands (onset 0.02-0.10 located, 0.002-0.01 >=LB). FULL was a CPU runaway (O(M) python sparse_pat) -> I KILLED + owned it; re-dispatch = vectorize THEN remote-cpu (NOT laptop), low priority. Discipline banked.
-- FLAGSHIP sparse-projected-KV: BUILD_GO 4-layer + design-converged + novel-confirmed(x2). OWNED, fully teed-up; de-risk probe written (not run -- no local load post-runaway). Build on pythia land (GPU-free + pythia informs the key regime).
+- FLAGSHIP sparse-projected-KV: BUILD_GO + design-converged + novel-confirmed(x2). De-risk probe RAN (smoke) -> I OVER-CALLED a red-flag, then CAUGHT the confound (smoke projection dense-recall 0.10 << CERT591's 0.83 -> too weak to decide) -> corrected -> 2nd-gate retracted. Learnings folded into the build: (1) de-risk valid only at FULL-SCALE; (2) use a NON-top-k sparse-encode (top-k collapses projected keys). GENUINELY GPU-gated (full-scale projection). Build on pythia land.
 - waiting on: **pythia de-sat GPU re-VET = the single master gate** -> unblocks flagship + Milestone-1 + storage chain. No local CPU load until clear.
 - monitor: re-armed twice today (leak-fix killed 4 of my orphans; windowless-fix) -> clean (b0vh3rfol).
 
