@@ -29,7 +29,15 @@ if str(REPO) not in sys.path:
 from experiments._seed_checkpoint import get_output_dir, write_partial_key, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "substrate_per_cluster_stratified_extraction_with_random_control_v1"
-NPZ = REPO / "data" / "exp_phase05_v1_llama32_1b_per_token_residual_extract_v1" / "residuals_per_token.npz"
+# REFERENT (Exp-Dev 2026-06-21, git-CONVERGED): the sibling's hardcoded exp_phase05 npz was CLOBBERED by an anomalous Instruct-509
+# SMOKE run; the cert's CANONICAL output is the POOL data/llama_1b_results/residuals_per_token.npz (106427x2048). git-definitive
+# (Orchestrator, commit e5c4ddec): the extractor MODEL_ID = meta-llama/Llama-3.2-1B (BASE) since inception, NEVER changed -> the
+# cert was ALWAYS base; the POOL IS that base canonical (the "106k" in the HARD_PASS commit). So pointing here IS apples-to-apples
+# with the original stratified cert (same base model, 40k sampled from the 106k canonical pool). No re-extract needed; repoint is the fix.
+# (Earlier "POOL=Instruct-different-model" was Orchestrator's mis-read of the clobber artifact, retracted via git.) HDLAB_NEW4_NPZ overrides.
+_NPZ_POOL = REPO / "data" / "llama_1b_results" / "residuals_per_token.npz"          # CANONICAL base extraction (git-proven), 106427x2048
+_NPZ_SIBLING = REPO / "data" / "exp_phase05_v1_llama32_1b_per_token_residual_extract_v1" / "residuals_per_token.npz"   # clobbered to a 509 smoke -- NOT canonical
+NPZ = Path(os.environ["HDLAB_NEW4_NPZ"]) if os.environ.get("HDLAB_NEW4_NPZ") else (_NPZ_POOL if _NPZ_POOL.exists() else _NPZ_SIBLING)
 SPEEDUPS = [10, 100, 1000]
 SOURCE_SIBLING = "substrate_per_cluster_stratified_extraction_v1"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
