@@ -28,6 +28,7 @@
 
 ## orchestrator
 - R15 2026-06-21T14:30:40Z — reactive: whitening-revival cell-author→I dispatch; dense-kv FINALIZED (MM 583/177264); 2 USER decisions pending
+- r1 2026-06-21T15:30Z — active: relayed USER U0-CORRECTION (substrate-NATIVE not external-transformer; HALT augmented; fleet re-anchored); both USER decisions EXECUTED (runner revived + phase05 restored); killed bash-monitor orphans (popup-fix); whitening(U4) running
 
 ## testbed
 - testbed seeds + maintains protocol; will append on each cycle I file
