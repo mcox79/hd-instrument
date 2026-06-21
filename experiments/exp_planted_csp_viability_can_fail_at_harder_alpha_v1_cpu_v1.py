@@ -111,7 +111,7 @@ _selftest()
 if _ARGS.self_test:
     sys.exit(0)
 print("[config] %s mode=%s N=%d seeds=%s alphas=%s gate_alpha=%.2f (sibling=%s)" % (ANCHOR_NAME, RUN_MODE, N, SEEDS, ALPHAS, GATE_ALPHA, SOURCE_CELL), flush=True)
-out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "schema": "alpha-sweep-canfail"}; t0 = time.time()
+out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "schema": "alpha-sweep-canfail", "alphas": str(ALPHAS), "n_seeds": len(SEEDS)}; t0 = time.time()
 for seed in SEEDS:
     key = "s%d" % seed
     if key in aggregate_partials(out_dir, [key], run_config=run_config):

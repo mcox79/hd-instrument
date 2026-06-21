@@ -142,7 +142,7 @@ _selftest()
 if _ARGS.self_test:
     sys.exit(0)
 print("[config] %s mode=%s N=%d seeds=%s depths=%s n_chains=%d (CPU port of %s)" % (ANCHOR_NAME, RUN_MODE, N_ACTIVE if RUN_MODE == "smoke" else N, SEEDS, DEPTHS, N_CHAINS, SOURCE_CELL), flush=True)
-out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "schema": "depth-sweep-canfail-cpu"}; t0 = time.time()
+out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "schema": "depth-sweep-canfail-cpu", "depths": str(DEPTHS), "n_chains": N_CHAINS}; t0 = time.time()
 for seed in SEEDS:
     key = "s%d" % seed
     if key in aggregate_partials(out_dir, [key], run_config=run_config):
