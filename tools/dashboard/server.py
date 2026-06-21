@@ -1122,6 +1122,121 @@ def director_plan():
 _WATCHDOG_STATE_PATH = _DATA_DIR / "watchdog" / "state.json"
 
 
+@app.get("/api/fleet_waiting_graph")
+def fleet_waiting_graph():
+    """Parse fleet_waiting_on.md sub-structured ### Waiting on entries into a
+    dependency graph (X blocking Y). Per USER 2026-06-21 sub-structure v2.
+
+    Format expected per Waiting-on item:
+      - [from=<role>] [type=<schema_vet|landed_vet|build|cell_land|user_decision|reciprocal>] [filed=<UTC>] : <desc>
+
+    Returns:
+      {
+        sessions: {<role>: {last_updated_ts, n_waiting_on, n_in_flight, steady_state: bool, recently_cleared: int}},
+        edges: [{from: <role>, to: <role>, type: <type>, filed: <UTC>, age_h: <float>, desc: <str>}],
+        blockers_by_role: {<role>: <n-times-blocking-others>}  # who has the most pending asks on them
+      }
+    """
+    import re
+    if not _FLEET_WAITING_PATH.is_file():
+        return JSONResponse({"error": "fleet_waiting_on.md not found"}, status_code=404)
+    now = time.time()
+    raw = _FLEET_WAITING_PATH.read_text(encoding="utf-8", errors="replace")
+    lines = raw.splitlines()
+    sessions = {}
+    edges = []
+    blockers_by_role = {}
+    current_role = None
+    current_subsection = None
+    iso_re = re.compile(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})Z?")
+    waiting_token_re = re.compile(
+        r"\[from=([a-z_]+)\]\s*\[type=([a-z_]+)\](?:\s*\[filed=([^\]]+)\])?\s*:\s*(.*)",
+        re.IGNORECASE,
+    )
+    from datetime import datetime as _dt, timezone as _tz
+    for ln in lines:
+        s = ln.strip()
+        if s.startswith("## ") and not s.startswith("## USER"):
+            current_role = s[3:].strip().lower().split()[0]
+            current_subsection = None
+            if current_role in ("research", "exp_dev", "orchestrator", "skunkworks", "testbed"):
+                sessions.setdefault(current_role, {
+                    "last_updated_ts": None,
+                    "last_updated_age_h": None,
+                    "n_waiting_on": 0,
+                    "n_in_flight": 0,
+                    "steady_state": False,
+                    "n_recently_cleared": 0,
+                })
+        elif s.startswith("### ") and current_role and current_role in sessions:
+            sub = s[4:].strip().lower()
+            if "waiting on" in sub:
+                current_subsection = "waiting_on"
+            elif "in flight" in sub:
+                current_subsection = "in_flight"
+            elif "next 3" in sub or "next-3" in sub:
+                current_subsection = "next_3"
+            elif "steady" in sub:
+                current_subsection = "steady_state"
+                sessions[current_role]["steady_state"] = True
+            elif "recently cleared" in sub or "cleared" in sub:
+                current_subsection = "recently_cleared"
+            else:
+                current_subsection = None
+        elif current_role and current_role in sessions and s.startswith("**Last-updated:**"):
+            m = iso_re.search(s)
+            if m:
+                try:
+                    ts = _dt.strptime(m.group(1), "%Y-%m-%dT%H:%M:%S").replace(tzinfo=_tz.utc).timestamp()
+                    sessions[current_role]["last_updated_ts"] = ts
+                    sessions[current_role]["last_updated_age_h"] = round((now - ts) / 3600.0, 2)
+                except ValueError:
+                    pass
+        elif current_role and current_role in sessions and current_subsection and (s.startswith("- ") or (current_subsection == "next_3" and s and s[0].isdigit())):
+            if current_subsection == "waiting_on":
+                sessions[current_role]["n_waiting_on"] += 1
+                m = waiting_token_re.search(s)
+                if m:
+                    from_role = m.group(1).lower()
+                    typ = m.group(2).lower()
+                    filed = (m.group(3) or "").strip()
+                    desc = (m.group(4) or "").strip()[:120]
+                    age_h = None
+                    if filed:
+                        fm = iso_re.search(filed)
+                        if fm:
+                            try:
+                                fts = _dt.strptime(fm.group(1), "%Y-%m-%dT%H:%M:%S").replace(tzinfo=_tz.utc).timestamp()
+                                age_h = round((now - fts) / 3600.0, 2)
+                            except ValueError:
+                                pass
+                    edges.append({
+                        "from": from_role,  # who CAN_PROVIDE the unblock
+                        "to": current_role,  # who is BLOCKED waiting
+                        "type": typ,
+                        "filed": filed or None,
+                        "age_h": age_h,
+                        "desc": desc,
+                    })
+                    blockers_by_role[from_role] = blockers_by_role.get(from_role, 0) + 1
+            elif current_subsection == "in_flight":
+                sessions[current_role]["n_in_flight"] += 1
+            elif current_subsection == "recently_cleared":
+                sessions[current_role]["n_recently_cleared"] += 1
+
+    return {
+        "sessions": sessions,
+        "edges": edges,
+        "blockers_by_role": blockers_by_role,
+        "_meta": {
+            "source": str(_FLEET_WAITING_PATH),
+            "computed_at": now,
+            "n_edges": len(edges),
+            "note": "Edges are 'who is blocking whom' -- `from` field = role that CAN unblock; `to` = role waiting.",
+        },
+    }
+
+
 @app.get("/api/fleet_engagement")
 def fleet_engagement():
     """Combine /api/sessions (heartbeats) + watchdog state.json + per-session activity counts.
