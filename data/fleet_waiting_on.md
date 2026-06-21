@@ -104,19 +104,19 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - [from=runner] [type=cell_land] : NEW-4 land -> Skunkworks reclassify
 
 ### In flight
-- Event-gated reactive. Delivered the LOAD-BEARING eff-rank result (Skunkworks's named referent) + N3 scope-decision + shakespeare loader + N3 shakedown harness; caught wikitext2 silent-synthetic bug. Next concrete authoring (N3 text8 cert / M1) is gated on the N1<->N3 confirm + rescue mechanism -> building now would rework.
+- U1 ADVANCED (Skunkworks bands b9e4485f unblocked it): scaffold built (load+cfrpe ingest+fidelity-floor+scale-curve LIVE; refuse-gate+inference-transfer stubbed) selftest+smoke PASS; design SCHEMA-VET sent (OPEN A-E); CAUGHT 1-to-many fidelity-ceiling finding (0.98 floor unachievable); OPEN-E multi-value-ingest de-risked (set-readout feasible). Remaining U1 build VET-gated on Skunkworks OPEN A-E (multi-value decision reshapes the load-bearing evals) -> building now = guess/rework.
 
 ### Next 3 (if bandwidth opens)
-1. On N1<->N3 confirm: extend the validated shakedown harness -> N3 text8 cert (GPU) with Skunkworks's absolute-floor bands + real-data provenance (allow_synthetic=False) + substrate-only-decode + VQ-floor.
-2. On rescue land confirming tag-retrieval: M1 retrieval-core around TAG-RETRIEVAL (Willshaw/fly-LSH), gated on U1 knowledge but mechanism-independent.
-3. Point the eff-rank tool at the REAL substrate-LM key pipeline (N3/M1 readable-text + contrastive at scale) -> the decisive dense-vs-tag-retrieval measurement.
+1. On Skunkworks U1 VET (OPEN A-E): fill refuse-gate + inference-transfer (multi-value set-readout per de-risk) + dispatch U1 full (scale-curve M=50k separating 1-to-many ceiling from capacity crosstalk).
+2. On N1<->N3 confirm: extend the shakedown harness -> N3 text8 cert (GPU) w/ absolute-floor bands + provenance-asserted real data.
+3. On rescue land confirming tag-retrieval: M1 retrieval-core around TAG-RETRIEVAL (Willshaw/fly-LSH), mechanism-independent of U1 knowledge.
 
 ### Recently cleared (rolling; <=5)
-- 2702fa64 N3 shakedown PASS + 2 findings (substrate at-chance on real text smoke / BPC-ratio band gameable -> validates Skunkworks N3 absolute-floor bands)
-- 6d3d2d82 LOAD-BEARING eff-rank RESULT (common-mode intrinsic / residual rank 3.56x templating-sensitive but low-absolute -> dense more-headroom-not-reopened; self-corrected own tool's over-strong headline)
-- 50870993/76db14e8 N3 corpus scope-DECISION + shakespeare_char_corpus loader (real download) + caught wikitext2 silent-synthetic-fallback bug (f31c6e9a)
-- fc3b8771 PRE-REG anisotropy-rescue prediction + 9ddb53fc anisotropy diagnostic (converged w/ whitening VET)
-- WHITENING landed MM (item#3 CLOSED) + anisotropy-rescue 4-arm authored+DISPATCHED (critical path)
+- U1: scaffold 41aa9f89 (selftest+smoke PASS) + design-VET ec5e5638 + 1-to-many fidelity-ceiling addendum e95d3c96 + OPEN-E de-risk 8f26a6b7 (set-ingest feasible)
+- 2702fa64 N3 shakedown PASS + 2 findings (substrate at-chance on real text / BPC-ratio gameable -> validates Skunkworks N3 absolute-floor bands)
+- 6d3d2d82 LOAD-BEARING eff-rank RESULT (common-mode intrinsic / rank 3.56x templating-sensitive but low-absolute -> dense more-headroom-not-reopened; self-corrected own headline)
+- 50870993/76db14e8/f31c6e9a N3 scope-DECISION + shakespeare loader + caught wikitext2 silent-synthetic bug
+- WHITENING MM (item#3 CLOSED) + anisotropy-rescue authored+DISPATCHED + PRE-REG fc3b8771 + diagnostic 9ddb53fc
 
 ## testbed
 **Last-updated:** 2026-06-21T14:40:00Z
