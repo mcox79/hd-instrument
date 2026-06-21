@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T15:46:00Z",
+  "ts": "2026-06-21T15:49:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -214,16 +214,16 @@
     },
     {
       "id": "storage_chain_item_4_attention_over_substrate_keys",
-      "title": "Storage-chain item #4 attention-over-learned-projected-substrate-keys -- Phase 3 substrate-native foundation candidate (commit 7e5868fa PRE-STAGE v1; ARM 2 already confirmed 0.997 across 2 GPU runs; Bayesian P(item 4 needed as fallback or alternative Phase 3 foundation) ~0.25-0.40; pre-staging collapses Exp-Dev lift to ~30-60min mechanical fill-in-code on de-gate); value proposition transformer-style retrieval with substrate-derived KEYS NOT M-INDEP compression (item #3 lane) but Phase 3 substrate-native ARCHITECTURE; 4-arm CAN-fail (full / no-projection / no-attention / no-substrate-vocab); HARD_PASS recall>=0.80 M>=10k cv<=0.05; tier target MEASURED_MECHANISM characterizing substrate-native attention foundation OR chain-grade Phase 3 substrate-native foundation Skunkworks call; trigger conditions Exp-Dev sequencing call after whitening-revival OR in parallel",
+      "title": "Storage-chain item #4 RESCOPED post-substrate-native-pivot per Skunkworks SCHEMA-VET (2026-06-21T15:44:55Z): item #4 = the substrate-LM's INTERNAL FACT-MEMORY (recall during native generation) under N4 governance wrap, NOT the Phase-3-foundation (native generator is the foundation per USER pivot); attention-over-substrate-keys is a substrate-COMPATIBLE associative-memory op (softmax over STORED substrate keys NOT external-transformer call); tier=MEASURED_MECHANISM (NOT chain-grade; O(M*d) dict-equivalent NOT M-indep); 4-arm CAN-fail design SOUND build-go with substrate-only-compatibility CHECK (no inference-time LLM call; keys pre-stored attention in-substrate); sequencing N1 concept-LM revival FIRST item-#4/N4 when bandwidth not blocking native-generation frontier; ARM 2 already confirmed 0.997 on real learned pythia keys (prior 2 GPU runs); composes UNDER native LM not replaces/competes.",
       "type": "characterization",
       "status": "planned",
       "owner": "exp_dev",
       "owner_asserted": false,
       "owner_asserted_via": "Director-proposed pre-stage; awaiting Skunkworks SCHEMA-VET then Exp-Dev cell-author",
       "waiting_on": [
-        "skunkworks: SCHEMA-VET on PRE-STAGE v1 A1-A6",
-        "exp_dev: cell-author cleared on Skunkworks SCHEMA-VET pass; ~30-60min lift re-uses existing components",
-        "orch: dispatch + verify-it-starts when cell-author done"
+        "exp_dev: cell-author 4-arm with substrate-only-compatibility check (no inference-time LLM call)",
+        "skunkworks: landed-VET per-arm discrimination + the no-LLM-call check (4-layer)",
+        "N1 concept-LM revival prioritized FIRST per sequencing"
       ],
       "artifact": "notes/research_to_expdev_skunkworks_PRESTAGE_attention_over_substrate_keys_item4_2026-06-21.md",
       "commit": "7e5868fa",
@@ -231,13 +231,19 @@
       "cert_atom": null,
       "cert_class": null,
       "discriminating_regime": "HARD_PASS = ARM 1 recall >= 0.80 at M >= 10k AND cv <= 0.05 AND ARM 1 > ARM 2 (raw LM keys) AND ARM 1 > ARM 3 (no softmax) by >= 0.10 each",
-      "tier_target": "MEASURED_MECHANISM (Phase 3 substrate-native foundation characterization) OR chain-grade if Skunkworks rules Phase-3-native-foundation qualifies for its own substrate-product win-axis",
-      "last_updated_ts": "2026-06-21T15:10:00Z",
+      "tier_target": "MEASURED_MECHANISM (substrate-LM internal fact-memory; not chain-grade per win-axis O(M*d) dict-equivalent NOT M-indep)",
+      "last_updated_ts": "2026-06-21T15:49:00Z",
       "composes_with": [
         "T3/EXP_kv_learned_projection_v1 (CERT 591 foundation; learned projection)",
         "T3/EXP_dense_projected_KV_envelope_v1 (MM; ARM 2 already confirmed 0.997 across 2 GPU runs)",
         "T3/EXP_dense_KV_learned_key_calibration_v1 (MM; ARM 2 again confirmed 1.0/0.9955)",
         "T3/EXP_flagship_sparse_projected_KV_LBUILD_v1 (HONEST_NEGATIVE; the failure that motivates this fallback)"
+      ],
+      "dependencies": [
+        "N1_revive_concept_LM_baseline"
+      ],
+      "blocks": [
+        "N4_glass_box_governance_native_LM"
       ]
     },
     {
