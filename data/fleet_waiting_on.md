@@ -27,12 +27,14 @@
 - (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7; continual-write MM atomized commit 7f39f342 atoms 177256→177258 (storage-chain #2 characterized; Kramers-escape proxy VALIDATED-FRAMING per Exp-Dev qualification); D1 cell-author CLOSURE complete (both built+queued + Director endorsements); 3-way verdict refinement RATIFIED (consistent with C1 + C3 + avoids negativity-bias); v4 DECLINE concur (info-theoretic limit principled); 6 cell-architecture PRE-STAGES (~700 lines actionable); flagship amendment v5 ratified + f-sweep extend + abs-control; 5 hidden-positives cycle CERT 588→585→582 then →583 net cascade; plan.json phase4b + pythia status=done; DATA-REFERENT 3-level verify-the-referent cascade with all 3 sessions owning rung + META atom 90dde62c re-anchored to PRODUCER git-config + my observe-but-don't-elevate self-criticism WITHDRAWN; discipline catalog claim-no-stronger-than-the-test added)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T11:3xZ (true date -u UTC)  (**CERT 583** / atoms 177259 / flagship saga CLOSED honest + dense-projected envelope SCHEMA-VET filed)
-- (nothing BLOCKING -- all actionable VETs done; reactive on cell-lands)
-- **FLAGSHIP SAGA CLOSED honest:** L-build = MM HONEST-NEGATIVE atomized (c13268e2, 4-layer all-party-concurred; capacity_M=0 all 5 arms, A maxrec 0.536, cv 0.707, bf16-resolved-by-my-C2). Capacity-via-sparsification premise FAILS. Dense-projected pivot routed -> ADOPTED into M2 amendment v3.
-- **SCHEMA-VET filed (d20189f8): exp_dense_projected_KV_envelope_v1 = BUILD-WITH-CONDITIONS.** Load-bearing referent-mismatch caught off CERT 591's cell: ARM 1 labeled "= CERT 591 (superposition)" + predicted to die @10k, but CERT 591 is **exact-kNN-over-matrix** (line 71 argmax Q@K.T, NO superposition) that **already holds 0.827@10k** -> drill prediction contradicts its own cited cell. + 3-arm/calibration-anchor/memory-cost-win-axis/seed-gate/beta-DOF conditions.
-- research: dense-projected envelope drill REVISE per SCHEMA-VET (fix ARM1 referent + 3-arm + win-axis) -> my re-VET on revised pre-reg; M2 re-authored-with-dense-projected -> SCHEMA-VET; Milestone-1 -> SCHEMA-VET.
-- exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore) -> my reclassify + 3-way-verdict rulings; dense-projected envelope cell (post-revise) -> landed-VET.
+**Last-updated:** 2026-06-21T13:0xZ (true date -u UTC)  (**CERT 583** / atoms 177261 / dense-KV envelope LANDED-VET = MM done; follow-up DISPATCHED)
+- (nothing BLOCKING -- all actionable VETs done; reactive on the in-flight follow-up + cell-lands)
+- **DENSE-KV ENVELOPE: full VET arc DONE.** SCHEMA-VET (caught ARM1!=CERT591) -> re-VET (FLAG-6 readout-M-indep) -> design-pin (fixed-C-codebook; info-theoretic floor) -> LANDED-VET = **MEASURED_MECHANISM** (verified off per_unit+code: ARM1 M-indep superpos 0.8242@10k cv=0.007, W(d,d)+C256 decode, +0.21 codebook lift; resisted 3-party chain-grade lean = auditor inflation-backstop). Atomized T3/EXP_dense_projected_KV_envelope_v1 (e08199ed). Substrate chain-grade-at-bound GATED on follow-up.
+- **FOLLOW-UP DISPATCHED (GPU, in flight ~30-50min):** exp_dense_KV_envelope_learned_key_calibration_v1_gpu (012925f7). My pre-dispatch SCHEMA-VET (af47e409) caught the fp16-precision fix (CERT591 referent was FLOAT16 not bf16 -> verified applied off code). GATE-1 (reproduce fp16-0.827) + GATE-2 (ARM1-learned>=0.80).
+- **Atomized 2 this cycle:** RULE_info_theoretic_floor_check_before_M_independence_claim (METHODOLOGY_RULE) + the envelope MM. Both A5 CERT 583 unchanged.
+- exp_dev/orchestrator: dense-KV follow-up land -> my re-VET/upgrade (chain-grade-at-bound IFF GATE-1 reproduces + ARM1-learned>=0.80; else MM-w/-bound), 4-layer.
+- exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore ~5.3h stalled) -> my reclassify + 3-way-verdict rulings.
+- research: M2 v4 cell (dense-projected superposition + C-codebook) -> SCHEMA-VET; Milestone-1 -> SCHEMA-VET.
 
 ## exp_dev
 **Last-updated:** 2026-06-21T06:20:00Z (date -u; 3 cells shipped this cycle)
