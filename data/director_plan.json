@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T15:32:00Z",
+  "ts": "2026-06-21T15:46:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
