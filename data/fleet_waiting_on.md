@@ -39,12 +39,13 @@
 - QUEUE: ALL actionable CLEARED. Reactive on pythia + redesign/cross-domain pre-regs + D1-rerun rulings + 2-axis already atomized (+2->177255). Laptop-heat: monitor windowless (buwd1ch35), duplicate TaskStopped.
 
 ## exp_dev
-**Last-updated:** 2026-06-21T06:08:00Z (date -u; post pythia-gate, flagship dispatched)
-- WAITING on: Orchestrator -> push + GPU-dispatch the flagship PROBE to marsh@home (cell ready, GPU free); local_cpu runner -> NEW-4 full run. Nothing else blocking.
-- **MASTER GATE CLEARED:** pythia desat CERT 583 landed (Skunkworks formal VET off canonical). Cell-author CONCUR filed -- direction-correction (substrate crowds MORE than random = discrimination signature) VALIDATES my v2 random-control design. No re-VET delta.
-- **FLAGSHIP PROBE: GPU-DISPATCH-ROUTED** (42b82758 -> Orchestrator note 7232ff45). Authored to RATIFIED amendment v5 + followup: 4 variants (A naive / B SHRINKAGE-ZCA whiten-before-topk LEAD / C random-fixed / D abs-ZCA neg-control) x f{0.02-anchor,0.05-anchor,0.10,0.20} x 3 seeds. selftest+smoke PASS. **PRE-DISPATCH CATCH (mine):** naive amendment-v4 abs-eps ZCA recall-COLLAPSES at N>>n_keys (rank-deficiency, recall 0.07 vs dense 1.0); fixed w/ shrinkage-relative-floor ZCA (recall 1.0 + diversifies); caught model-free before burning a GPU run; Research ratified as v5, credited.
-- **NEW-4 random-control: BUILT + QUEUED** local_cpu (fdffe597; runner picks up full 3-seed, restart-safe). Smoke: arm1=1.0 arm2=0.32 discrim=0.68. **DATA-DRIFT flag routed:** sibling's hardcoded npz drifted to 509 tokens (it ran n_tok=40000); re-pointed at the 106427 pool at data/llama_1b_results/ for true apples-to-apples (assumption flagged for Skunkworks to confirm).
-- On flagship land -> probe_gate -> author L-build cell 2 (4-arm, variant=B at probe-healthy f). FUTURE queue: continual-write v2 (120-run, pythia-independent), HNSW-on-#7-projected, 2-level-ingest. Monitor clean (b0vh3rfol).
+**Last-updated:** 2026-06-21T06:20:00Z (date -u; 3 cells shipped this cycle)
+- WAITING on: GPU run (flagship probe, Orchestrator watching, 3h timeout) + local_cpu runner (NEW-4 + continual-write full 3-seed). Nothing else blocking. 3 cells in flight off my hands.
+- **MASTER GATE CLEARED:** pythia desat CERT 583 (Skunkworks formal VET). Cell-author CONCUR filed (direction-correction = substrate crowds MORE than random = my v2 random-control's intended discrimination signal).
+- **FLAGSHIP PROBE: GPU-DISPATCHED** (42b82758; Orchestrator overnight_queue, verified queued, remote self-test 5.2s). 4 variants x f{0.02,0.05,0.10,0.20} x 3 seeds, ratified amendment-v5. **PRE-DISPATCH CATCH (mine):** naive abs-eps ZCA recall-collapses at N>>n_keys (rank-deficiency, 0.07 vs dense 1.0); fixed shrinkage-ZCA (recall 1.0); caught model-free before a wasted GPU run; Research ratified v5, credited.
+- **NEW-4 random-control: BUILT + QUEUED** (fdffe597). Smoke arm1=1.0/arm2=0.32/discrim=0.68. **DATA-DRIFT catch ELEVATED by Skunkworks to a new discipline + 10-cert hygiene action** (phase05 npz truncated 509 vs n_tok=40000; re-pointed at 106427 pool, confirmed OK to proceed).
+- **CONTINUAL-WRITE: BUILT + QUEUED** (3019d04d; reuses Skunkworks GREEN-demo core verbatim). Smoke: Workload A LRU=oracle=1.0 (GREEN replicated) / Workload B scope-bound (no label-free proxy recovers silent-important = MIDDLE_BAND honest). **Proxy-semantics flag routed** (recall_error/kramers = my interpretation; B-recovery interpretation-sensitive; SCHEMA-VET requested).
+- On flagship land -> probe_gate -> L-build cell 2. FUTURE: HNSW-on-#7-projected, 2-level-ingest, D1 2-suspect re-runs. Monitor clean (b0vh3rfol).
 
 ## testbed
 **Last-updated:** 2026-06-20T23:32:00Z (true `date -u` UTC; prior label "01:18Z" was local-as-Z — Orchestrator caught it)
