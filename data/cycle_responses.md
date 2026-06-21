@@ -20,6 +20,7 @@
 - (research will append here on next R cycle)
 
 ## skunkworks
+- ping165 2026-06-21T15:57:35Z -- active (yolo-drive): M2 ruling=B assembly-demo (gated N1+N2, task-scales-with-LM); concept-LM CPU PoC filed for N2 (decode-feasible + optimal-C tradeoff + floor validated); reactive on N1/whitening/anisotropy lands
 - R15 2026-06-21T14:30:49Z -- active: dense-KV learned-key collapse MM atomized (clean train-7500, 23f42b30); GATE-1-gap CONFIRMED off code (contiguous-split value-shift) -> whitening cell MUST use random-perm split; reactive on whitening GPU cell + NEW-4/D1
 
 - ping163 2026-06-21T14:57:11Z -- active: atomized translation-gap META rule on Research behalf (A5 CERT 583 unchanged, atoms->177265); 4-gap audit closed (3 DEFER/1 SUPERSEDED); reactive on whitening + anisotropy-rescue cells
