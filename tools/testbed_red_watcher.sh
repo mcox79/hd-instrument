@@ -5,11 +5,21 @@
 # task-notification that wakes Testbed. Per USER 2026-06-21.
 set -u
 URL="http://localhost:8765/api/dashboard/v2/health"
+NOTES_DIR="/d/AI/hd-instrument/notes"
 STATE_FILE="/tmp/testbed_red_watcher_state.json"
+SEEN_RED_NOTES_FILE="/tmp/testbed_red_watcher_seen_notes.txt"
 PREV_REDS=""
 PREV_AGG=""
 
-echo "RED-WATCHER-ARMED: polling ${URL} every 60s; transitions only (no spam)"
+# Initialize seen-set with current RED-class notes so we only alert on NEW ones (no spam)
+: > "$SEEN_RED_NOTES_FILE"
+if [ -d "$NOTES_DIR" ]; then
+  find "$NOTES_DIR" -maxdepth 1 -name '*.md' 2>/dev/null \
+    | grep -Eai "(red_flag|red-alert|data_referent_drift|data-drift|reproducibility_hazard|hold_chaingrade|runaway|leak)" \
+    | sort -u > "$SEEN_RED_NOTES_FILE"
+fi
+
+echo "RED-WATCHER-ARMED: polling ${URL} + notes/ every 60s; transitions + new RED-class notes (no spam)"
 
 while true; do
   sleep 60
@@ -53,4 +63,23 @@ print(f'{agg}|{\",\".join(red)}')
     esac
   fi
   PREV_AGG="$agg"
+
+  # === NEW: poll notes/ for new RED-class substantive notes ===
+  # Catches cell-level RED-flags (data drift, runaway, leak, hold-chaingrade, etc.)
+  # that aren't surfaced by dashboard drift detectors. Diff vs seen-set.
+  if [ -d "$NOTES_DIR" ]; then
+    current_red=$(find "$NOTES_DIR" -maxdepth 1 -name '*.md' 2>/dev/null \
+      | grep -Eai "(red_flag|red-alert|data_referent_drift|data-drift|reproducibility_hazard|hold_chaingrade|runaway|leak)" \
+      | sort -u)
+    new_red=$(comm -23 <(echo "$current_red") <(sort -u "$SEEN_RED_NOTES_FILE" 2>/dev/null))
+    if [ -n "$new_red" ]; then
+      while IFS= read -r note; do
+        [ -z "$note" ] && continue
+        basename=$(basename "$note")
+        echo "RED-NOTE-NEW: ${basename}"
+      done <<< "$new_red"
+      # Update seen-set
+      echo "$current_red" | sort -u > "$SEEN_RED_NOTES_FILE"
+    fi
+  fi
 done
