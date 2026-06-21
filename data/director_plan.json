@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T06:25:00Z",
+  "ts": "2026-06-21T07:00:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -121,24 +121,21 @@
     },
     {
       "id": "pythia_substrate_kv_pull_up",
-      "title": "Pythia-2.8B substrate-KV pull-up (1 of 3 per Skunkworks I4 ruling)",
+      "title": "Pythia-2.8B substrate-KV pull-up DONE (CERT 583 EARNED 2026-06-21 commit bfcc0af7; pythia desat HARD_PASS via Skunkworks formal landed-VET; v1 saturation null REVIVED; cert scope = discriminating-MEASUREMENT pythia-2.8B substrate-KV recall 0.90-0.95 at sigma=0.5 with size-crowding NOT clean-capacity-1.4B claim; substrate-minus-random margin -0.497 NEGATIVE is the EXPECTED discriminating signature per cell honest_scope)",
       "type": "characterization",
-      "status": "planned",
-      "owner": "exp_dev",
-      "owner_asserted": false,
-      "owner_asserted_via": "Director-proposed; awaiting Exp-Dev acknowledgement",
-      "waiting_on": [
-        "skunkworks: SCHEMA-VET on pre-reg A1-A4",
-        "exp_dev: cell-author bandwidth"
-      ],
+      "status": "done",
+      "owner": "skunkworks",
+      "owner_asserted": true,
+      "owner_asserted_via": "skunkworks_to_orchestrator_research_expdev_cc_all_PYTHIA_DESAT_LANDED_VET_CERT_583_EARNED_*.md (commit bfcc0af7)",
+      "waiting_on": [],
       "artifact": "notes/research_to_skunkworks_expdev_PREREG_pythia_substrate_kv_pull_up_v2_*.md",
-      "commit": "83f064b7",
+      "commit": "bfcc0af7",
       "cell": "experiments/exp_pythia_substrate_kv_pull_up_v2_gpu_v1.py",
-      "cert_atom": null,
-      "cert_class": null,
+      "cert_atom": "T3/EXP_pythia_kv_desat_v2",
+      "cert_class": "CERT_CHAIN_GRADE",
       "discriminating_regime": "HARD_FAIL recall(10k)<0.50 OR drop(2k->10k)>0.20 OR sigma=0.10 recall<0.40 OR seeds disagree >0.05",
       "tier_target": "CHAIN-GRADE-CANDIDATE (data-decides)",
-      "last_updated_ts": "2026-06-20T16:54:00Z"
+      "last_updated_ts": "2026-06-21T07:00:00Z"
     },
     {
       "id": "effrank_svd_pull_up",

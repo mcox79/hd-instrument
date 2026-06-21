@@ -17,16 +17,13 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-21T05:48:00Z (true `date -u`)  (**CERT 582** / atoms 177255; 3 cell-architecture PRE-STAGES filed)
-- (nothing BLOCKING — Director-lane drove all night per USER STANDING; reactive on others' deliverables)
-- orchestrator: pythia desat GPU full-run land (~05:35-40Z ETA Skunkworks landed-VET → unblocks Milestone 1 + flagship)
-- exp_dev: flagship cell-author build (whiten-before-topk per amendment v4 + cell architecture PRE-STAGE v1 filed = mechanical fill-in-code lift on pythia de-gate)
-- exp_dev: continual-write cell-author build (label-free importance-inference + Kramers-escape per amendment v3 + cell architecture PRE-STAGE v1 filed; **local_cpu NOT pythia-gated** so can ship NOW if Exp-Dev has bandwidth between flagship-cell-author and pythia-await)
-- exp_dev: NEW-4 random-control can-fail re-run (pre-reg + Skunkworks BUILD_GO + matched-budget clarification absorbed)
-- exp_dev: D1 2 suspects can-fail re-runs (planted_csp_viability + pp49_hrc per Skunkworks BUILD-GO)
-- skunkworks: M2 firmed-bands re-VET (on flagship + M1 + pythia land per C4)
-- skunkworks: NEW-4 cell-land landed-VET (when Exp-Dev runs)
-- (cleared this stretch: M2 skeleton SCHEMA-VET PASS amendment v2 absorbing C1-C4 → cell architecture PRE-STAGE v1 (commit 14fba854); 5 hidden-positives explicit per-atom routing → 3 wrong-bar demoted + NEW-2 self-reconciled → CERT 588→585→582 net -6 honest both directions; NEW-4 concrete pre-reg + BUILD_GO + matched-budget clarification; continual-write cell architecture PRE-STAGE v1 (commit f7f9a9cf); flagship whiten-before-topk cell architecture PRE-STAGE v1 (commit 3cb22e8b); own-miscite logged cb7e89f1; ~400 lines actionable architecture across 3 pre-stages turns design-from-prereg into fill-in-code per USER drive-all-night facilitation)
+**Last-updated:** 2026-06-21T07:02:00Z (true `date -u`)  (**CERT 583** EARNED / atoms 177256; 6 of 6 high-priority cells PRE-STAGED + cell-author cascade in flight)
+- (nothing BLOCKING — sustained drive per USER STANDING; reactive on cell-author/atomization cascade)
+- skunkworks: flagship probe landed-VET on metrics land (overnight_queue GPU ~3h DISPATCHED 06:09Z)
+- skunkworks: NEW-4 + continual-write + D1 suspects cell-land landed-VETs as they land
+- skunkworks: M2 firmed-bands re-VET (on flagship + M1 + pythia-extension land per amendment v2 C4)
+- exp_dev: cell-author cascade IN FLIGHT (flagship probe GPU-DISPATCHED 42b82758 / NEW-4 BUILT+QUEUED fdffe597 / continual-write BUILT+QUEUED Workload-A LRU=oracle GREEN replicated / D1 suspects authoring per Exp-Dev lull-probe-3 reply); 6 of 6 cell PRE-STAGES filed = cascade collapse-to-fill-in-code working
+- (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7 + plan.json pythia_substrate_kv_pull_up status=done; 6 cell-architecture PRE-STAGES (~700 lines: M2 14fba854 + continual-write v1 f7f9a9cf + v2 a6a363c9 + flagship 3cb22e8b + capacity-saturation 0c7ea8af + D1 suspects this turn); flagship amendment v5 RATIFIED + v5 follow-up f-sweep extend + abs-control arm; 5 hidden-positives full cycle (CERT 588→585→582 honest); plan.json phase4b status=done; DATA-REFERENT DRIFT 3-level verify-the-referent cascade (all 3 sessions owned their rung; META atom 90dde62c re-anchored to PRODUCER git-config not artifact-at-path; my observe-but-don't-elevate self-criticism WITHDRAWN after Orch git-retraction); continual-write v3 readings CONFIRMED + Skunkworks v4 marginal-utility CONCUR + framed as info-theoretic limit not tuning failure)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T05:0xZ (true date -u UTC)  (**CERT 588** / atoms 177255 / CERT-INTEGRITY AUDIT COMPLETE; reactive on pythia + pre-regs)
