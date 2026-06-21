@@ -3111,7 +3111,15 @@
     <span id="s3d-mindeg-val" style="font-family:var(--mono); width:18px">0</span>
     <label style="margin-left:8px">Search:</label>
     <input type="text" id="s3d-search" placeholder="atom name/id (substring)">
+    <button id="s3d-refresh-btn" style="margin-left:8px">Refresh now</button>
     <span class="s3d-status" id="s3d-status">not yet loaded</span>
+    <span id="s3d-freshness" style="margin-left:auto; font-family:var(--mono); color:#888; font-size:11px"></span>
+  </div>
+  <div id="s3d-stats-strip" style="padding:6px 10px; background:#0e1218; border-bottom:1px solid #222; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; font-family:var(--mono); color:#bbb">
+    <span id="s3d-stat-nodes">nodes: -</span>
+    <span id="s3d-stat-links">links: -</span>
+    <span id="s3d-stat-corpora">corpora: -</span>
+    <span id="s3d-stat-snapshot">snapshot: -</span>
   </div>
   <div class="s3d-stage">
     <div id="substrate3d-canvas">
@@ -3283,8 +3291,37 @@
     `;
   }
 
+  function s3dFormatAge(seconds) {
+    if (seconds == null || !isFinite(seconds)) return "?";
+    if (seconds < 60) return `${Math.round(seconds)}s ago`;
+    if (seconds < 3600) return `${Math.round(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${(seconds / 3600).toFixed(1)}h ago`;
+    return `${(seconds / 86400).toFixed(1)}d ago`;
+  }
+
+  function s3dUpdateStatsStrip(data) {
+    const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+    setText("s3d-stat-nodes", `nodes: ${data.nodes.length.toLocaleString()}`);
+    setText("s3d-stat-links", `links: ${data.links.length.toLocaleString()}`);
+    const corpora = data.generated_corpora || [];
+    setText("s3d-stat-corpora", `corpora: ${corpora.join(", ")}`);
+    const gentTs = data.generated_at_ts;
+    const now = Date.now() / 1000;
+    const snapAge = gentTs ? s3dFormatAge(now - gentTs) : "?";
+    setText("s3d-stat-snapshot", `snapshot: ${snapAge}`);
+
+    // Per-corpus freshness in the right-aligned strip
+    const fresh = data.corpus_freshness || {};
+    const parts = [];
+    for (const c of corpora) {
+      const f = fresh[c];
+      if (f) parts.push(`${c}: ${s3dFormatAge((Date.now() / 1000) - f.last_updated_ts)}`);
+    }
+    setText("s3d-freshness", parts.length ? "Last write — " + parts.join(" | ") : "");
+  }
+
   async function initSubstrate3D() {
-    if (window.__substrate3d_state.graph) return; // already initialized
+    if (window.__substrate3d_state.graph) return; // already initialized; refresh path handles updates
     const canvas = document.getElementById("substrate3d-canvas");
     const status = document.getElementById("s3d-status");
     const loading = document.getElementById("s3d-loading");
@@ -3293,6 +3330,7 @@
       const data = await fetchSubstrateSnapshot();
       window.__substrate3d_state.raw = data;
       status.textContent = `loaded ${data.nodes.length} nodes, ${data.links.length} links`;
+      s3dUpdateStatsStrip(data);
 
       s3dPopulateTierFilter(data.summary.tier_breakdown || {});
       s3dPopulateKindFilter(data.summary.kind_breakdown || {});
@@ -3348,12 +3386,62 @@
         tabBadge.textContent = data.nodes.length;
         tabBadge.style.display = "";
       }
+
+      // Wire "Refresh now" button
+      const refreshBtn = document.getElementById("s3d-refresh-btn");
+      if (refreshBtn) refreshBtn.addEventListener("click", refreshSubstrate3D);
     } catch (e) {
       console.error("substrate3d init failed:", e);
       loading.textContent = "failed to load: " + (e && e.message ? e.message : e);
       status.textContent = "load error";
     }
   }
+
+  // Refresh-only: fetch latest snapshot, re-render if the file changed.
+  // Skips work if generated_at_ts is unchanged (cheap; avoids tearing down the graph for nothing).
+  async function refreshSubstrate3D() {
+    if (!window.__substrate3d_state.graph) return; // not yet initialized
+    const status = document.getElementById("s3d-status");
+    const prev = window.__substrate3d_state.raw;
+    const prevTs = prev && prev.generated_at_ts;
+    try {
+      const data = await fetchSubstrateSnapshot();
+      if (data.generated_at_ts && data.generated_at_ts === prevTs) {
+        // unchanged: just refresh the freshness strip ("Nm ago" needs ticking)
+        s3dUpdateStatsStrip(data);
+        return;
+      }
+      // changed: re-seed + re-apply filters
+      window.__substrate3d_state.raw = data;
+      s3dUpdateStatsStrip(data);
+      s3dPopulateTierFilter(data.summary.tier_breakdown || {});
+      s3dPopulateKindFilter(data.summary.kind_breakdown || {});
+      s3dRenderLegend(data.summary || {});
+      s3dApplyFilters();
+      status.textContent = `refreshed ${data.nodes.length} nodes, ${data.links.length} links`;
+      const tabBadge = document.getElementById("tab-substrate3d-count");
+      if (tabBadge) tabBadge.textContent = data.nodes.length;
+    } catch (e) {
+      console.warn("substrate3d refresh failed:", e);
+      // Don't tear down the existing view on a transient fetch fail.
+    }
+  }
+
+  // Auto-refresh every 60s when the 3D tab is the active tab.
+  // Also ticks the freshness strip even when snapshot is unchanged (so "Nm ago" advances).
+  setInterval(() => {
+    if (typeof activeTab !== "undefined" && activeTab === "substrate3d") {
+      refreshSubstrate3D();
+    }
+  }, 60000);
+
+  // Tick the freshness display every 15s while tab is active (so "Nm ago" doesn't lag).
+  setInterval(() => {
+    if (typeof activeTab !== "undefined" && activeTab === "substrate3d") {
+      const data = window.__substrate3d_state.raw;
+      if (data) s3dUpdateStatsStrip(data);
+    }
+  }, 15000);
 </script>
 
 <script>
@@ -5968,7 +6056,12 @@ function fmtAgeS(ageS) {
   return `${(ageS/3600).toFixed(1)}h`;
 }
 
-async function renderPlanTab() {
+// (Removed: renderPlanTab body — Plan tab was replaced by Health tab in 868b7e79.
+//  Function + ~158 lines of body and DOM bindings removed; tab button was already
+//  absent. Restore from git history if Plan tab is ever resurrected.)
+async function renderPlanTab_DELETED() {
+  return;
+  // --- original body retained below (unreachable) for one-line git diff context ---
   const metaEl = document.getElementById("plan-meta");
   const narrEl = document.getElementById("plan-narrative-wrap");
   const breakdownEl = document.getElementById("plan-cert-breakdown");
@@ -6128,16 +6221,13 @@ async function renderPlanTab() {
   }
 }
 
-// Auto-refresh plan tab every 30s when active
-setInterval(() => {
-  if (activeTab === "plan" && typeof renderPlanTab === "function") renderPlanTab();
-}, 30000);
+// (Removed: Plan tab dispatch — Plan tab was replaced by Health tab in 868b7e79)
 
 // Restore last tab on load (but if hash provides one, use that).
 const savedTab = (() => {
   try { return localStorage.getItem("active_tab"); } catch { return null; }
 })();
-if (savedTab && ["foryou","live","inbox","tests","capability","research","substrate","substrate3d","plan"].includes(savedTab)) {
+if (savedTab && ["foryou","live","inbox","tests","capability","research","substrate","substrate3d","health"].includes(savedTab)) {
   // Apply on first paint.
   requestAnimationFrame(() => setTab(savedTab));
 }

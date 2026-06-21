@@ -25,8 +25,8 @@
 ### Waiting on
 - [from=<other-role>] [type=schema_vet|landed_vet|build|cell_land|user_decision|reciprocal] [filed=<UTC>] : <≤140 chars>
 
-### In flight
-- <one-line: what you're currently doing>
+### In flight (REQUIRED — write the active task OR an explicit idle reason)
+- <one-line: what you're currently doing — if reactive-waiting, name the dependency. Empty = idle-without-reason which the dashboard flags as a discipline gap.>
 
 ### Next 3 (if bandwidth opens)
 1. <next ship 1>

@@ -8,12 +8,20 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import sys
 import tempfile
 import threading
 import time
 from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
+
+# USER popup-fix 2026-06-21: dashboard server runs under pythonw.exe (no console).
+# Without this flag, every git/python subprocess.run/check_output spawn allocates
+# a fresh console window = visible popup flash on the desktop. Each endpoint hit
+# could fire 1-5 git invocations; with a Health tab auto-refreshing every 60s,
+# that's a steady popup stream. CREATE_NO_WINDOW suppresses the allocation.
+_CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
@@ -220,7 +228,8 @@ def refresh_substrate():
     script = _REPO_ROOT / "tools" / "substrate_snapshot_once.py"
     try:
         subprocess.run([_sys.executable, str(script)], cwd=str(_REPO_ROOT),
-                       capture_output=True, text=True, timeout=180)
+                       capture_output=True, text=True, timeout=180,
+                       creationflags=_CREATE_NO_WINDOW)
     except subprocess.TimeoutExpired:
         return JSONResponse({"status": "timeout", "error": "snapshot refresh exceeded 180s"}, status_code=504)
     p = _REPO_ROOT / "data" / "local_substrate_snapshot.json"
@@ -470,6 +479,7 @@ def _compute_substrate_trust() -> dict:
             ["git", "-C", str(_REPO_ROOT), "log", "--since=7.days.ago",
              "--pretty=format:%cs|%s"],
             timeout=8, text=True, errors="replace",
+            creationflags=_CREATE_NO_WINDOW,
         )
         for ln in out.splitlines():
             if "|" not in ln:
@@ -809,6 +819,7 @@ def _compute_discipline_and_drift() -> dict:
             ["git", "-C", str(_REPO_ROOT), "log", f"--since={today_iso} 00:00",
              "--pretty=format:%s"],
             timeout=5, text=True, errors="replace",
+            creationflags=_CREATE_NO_WINDOW,
         )
         for ln in out.splitlines():
             sl = ln.lower()
@@ -852,6 +863,7 @@ def _compute_discipline_and_drift() -> dict:
                         ["git", "-C", str(_REPO_ROOT), "log", "--since=6.hours.ago",
                          "--pretty=format:%s"],
                         timeout=5, text=True, errors="replace",
+                        creationflags=_CREATE_NO_WINDOW,
                     )
                     reframe_found = False
                     if pid_keyword and len(pid_keyword) >= 4:
@@ -873,6 +885,7 @@ def _compute_discipline_and_drift() -> dict:
                         ["git", "-C", str(_REPO_ROOT), "log", "-1", "--format=%ct",
                          "--", cell.split(" ")[0]],
                         timeout=3, text=True, errors="replace",
+                        creationflags=_CREATE_NO_WINDOW,
                     ).strip()
                     if out:
                         last_commit_ts = float(out)
@@ -950,6 +963,73 @@ def _compute_discipline_and_drift() -> dict:
                    ", ".join(f"{s['role']}({s['age_h']}h)" for s in stale_sections)
                    if stale_sections else "all session sections updated <3h ago"),
         "evidence": stale_sections,
+    })
+
+    # D6. idle-without-reason: parse fleet_waiting_on.md per-role; flag any role whose
+    # "### In flight" subsection is empty (or just placeholder) AND "### Waiting on"
+    # subsection is also empty AND **Last-updated:** is >15min old. That's a discipline
+    # gap — every active session should have either a task in flight OR an explicit wait.
+    # Authorized 2026-06-21 alongside "In flight (REQUIRED)" template change.
+    idle_no_reason = []
+    if _FLEET_WAITING_PATH.is_file():
+        try:
+            raw = _FLEET_WAITING_PATH.read_text(encoding="utf-8", errors="replace")
+            current_role = None
+            role_data: dict = {}  # role -> {"last_updated_ts", "in_flight_lines", "waiting_lines"}
+            current_sub = None  # "in_flight" | "waiting_on" | None
+            for ln in raw.splitlines():
+                ls = ln.strip()
+                if ls.startswith("## ") and not ls.startswith("## USER"):
+                    current_role = ls[3:].strip().lower().split()[0]
+                    if current_role in ("research", "exp_dev", "skunkworks", "orchestrator", "testbed"):
+                        role_data.setdefault(current_role, {"last_updated_ts": None,
+                                                             "in_flight_lines": [],
+                                                             "waiting_lines": []})
+                    current_sub = None
+                elif current_role and current_role in role_data and ls.startswith("**Last-updated:**"):
+                    import re as _re2
+                    m_ = _re2.search(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})Z?", ls)
+                    if m_:
+                        try:
+                            ts = _dt.strptime(m_.group(1), "%Y-%m-%dT%H:%M:%S")
+                            role_data[current_role]["last_updated_ts"] = ts.timestamp()
+                        except ValueError:
+                            pass
+                elif current_role and current_role in role_data and ls.startswith("### In flight"):
+                    current_sub = "in_flight"
+                elif current_role and current_role in role_data and ls.startswith("### Waiting on"):
+                    current_sub = "waiting_on"
+                elif current_role and current_role in role_data and ls.startswith("### "):
+                    current_sub = None
+                elif current_role and current_role in role_data and current_sub and ls.startswith("- "):
+                    role_data[current_role][f"{current_sub}_lines"].append(ls[2:].strip())
+            for role, d in role_data.items():
+                in_flight = d["in_flight_lines"]
+                waiting = d["waiting_lines"]
+                last_ts = d["last_updated_ts"]
+                # Treat placeholders as empty
+                def _is_placeholder(line):
+                    l = line.lower()
+                    return (not line) or l.startswith("<") or l in ("(nothing — actively progressing)", "(nothing)", "-", "(none)")
+                in_flight_empty = (not in_flight) or all(_is_placeholder(x) for x in in_flight)
+                waiting_empty = (not waiting) or all(_is_placeholder(x) for x in waiting)
+                age_m = ((now - last_ts) / 60.0) if last_ts else None
+                if in_flight_empty and waiting_empty and last_ts and age_m > 15:
+                    idle_no_reason.append({
+                        "role": role,
+                        "last_updated_min_ago": round(age_m, 1),
+                        "in_flight_empty": True,
+                        "waiting_empty": True,
+                    })
+        except OSError:
+            pass
+    detectors.append({
+        "name": "idle-without-reason",
+        "status": "RED" if idle_no_reason else "OK",
+        "detail": (f"{len(idle_no_reason)} role(s) idle-without-reason (empty In flight + empty Waiting on + >15min stale): " +
+                   ", ".join(f"{s['role']}({s['last_updated_min_ago']}m)" for s in idle_no_reason)
+                   if idle_no_reason else "all sessions have In flight task OR explicit wait"),
+        "evidence": idle_no_reason,
     })
 
     drift_summary = {

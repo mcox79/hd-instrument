@@ -21,7 +21,9 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -182,9 +184,26 @@ def main() -> int:
     for nid, node in nodes.items():
         node["degree"] = degree.get(nid, 0)
 
+    # Per-corpus freshness (file mtime of atoms.jsonl) for the dashboard's
+    # "last touched" indicator (V1 substitute for per-atom recency).
+    now_ts = time.time()
+    corpus_freshness = {}
+    for corpus in args.corpus:
+        atom_path = SUBSTRATE_INDEX / corpus / "atoms.jsonl"
+        if atom_path.is_file():
+            mt = atom_path.stat().st_mtime
+            corpus_freshness[corpus] = {
+                "last_updated_ts": mt,
+                "last_updated_iso": datetime.fromtimestamp(mt, tz=timezone.utc).isoformat(),
+                "age_hours": round((now_ts - mt) / 3600.0, 2),
+            }
+
     output_payload = {
-        "schema_version": "3d-force-graph/v1",
+        "schema_version": "3d-force-graph/v2",
+        "generated_at_ts": now_ts,
+        "generated_at_iso": datetime.fromtimestamp(now_ts, tz=timezone.utc).isoformat(),
         "generated_corpora": list(args.corpus),
+        "corpus_freshness": corpus_freshness,
         "filters": {
             "tier": sorted(tier_filter) if tier_filter else None,
             "kind": sorted(kind_filter) if kind_filter else None,
