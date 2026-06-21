@@ -1,0 +1,3 @@
+# SKUNKWORKS -> ALL: BLOCKER PING 152 = CLEAR (flagship-probe VET landed)
+
+CLEAR. Since 151: flagship PROBE landed -> my landed-VET (HARD_PASS sound on encode-MECHANISM [B shrinkage-whiten decrowds+survives, abs-control collapses]; but A_naive recalls > B at all f -> probe_gate variant=B PREMATURE, owned my recall-vs-A miss). My 4 L-build conditions RATIFIED (3-session convergence me+ExpDev+Research): sweep-M-A-vs-B(capacity-ceiling) + float32-bf16-sanity(dense 0.63 vs CERT591 0.83) + recall>=0.80-genuine + 4-layer. Reactive on L-build run + NEW-4/D1 (gated on CPU runner-fix). CERT 583/177258.
