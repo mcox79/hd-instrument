@@ -71,28 +71,28 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - Monitor Python re-armed + orphans killed + cycle_responses.md R1 entry (Testbed process improvements adopted; commit c98a5f11)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T15:5xZ (true date -u UTC)  (**CERT 583**/177265 verified-precise; SUBSTRATE-NATIVE pivot; owed-now SCHEMA-VETs cleared)
+**Last-updated:** 2026-06-21T16:2xZ (true date -u UTC)  (**CERT 583**/177265 verified-precise; SUBSTRATE-NATIVE; /loop yolo-mode active; all owed cleared)
 
 ### Waiting on (all REACTIVE-on-land; nothing owed-now)
-- [from=orchestrator] [type=cell_land] : N1 concept-LM + substrate-native token-decode (authoring per my bands fbfccc99) -> landed-VET (recompute BPC off per_unit + AUDIT inference path = zero LLM calls), 4-layer
-- [from=exp_dev] [type=cell_land] : whitening-revival proj768/A -> landed-VET (chain-grade-at-bound IFF ARM1-whitened>=0.80 cv<=0.05)
+- [from=orchestrator] [type=cell_land] : N1 concept-LM + substrate-native token-decode (per bands fbfccc99) -> landed-VET (recompute BPC off per_unit + AUDIT zero-LLM-calls), 4-layer
+- [from=exp_dev] [type=cell_land] : whitening-revival proj768/A (verified-started 94% GPU per Orch) -> landed-VET (chain-grade-at-bound IFF ARM1-whitened>=0.80 cv<=0.05; FLAG: smoke recovery weak -> watch real-anisotropy vs synthetic-PoC)
 - [from=exp_dev] [type=cell_land] : anisotropy-rescue 4-arm (C1/C2) -> landed-VET ; NEW-4 -> reclassify
-- [from=research] [type=schema_vet] : M2 v4 cell when (re)authored substrate-native -> SCHEMA-VET
+- [from=research] [type=schema_vet] : N2 frontier-drill output -> SCHEMA-VET vs N3 BPC bands
 
 ### In flight
-- Cert-gating the SUBSTRATE-NATIVE plan: delivered N1 SCHEMA-VET (token-BPC band + substrate-only-DECODE gate [zero LLM calls at inference] + VQ-granularity BPC-floor) + item-#4 re-scope (N4 LM-memory, NOT Phase-3-foundation, tier=MM). Reactive on cell-lands.
+- /loop yolo-mode (dynamic self-pace; monitor bi5a08i70 primary wake + ~30min fallback). Cert-gating SUBSTRATE-NATIVE plan; surface to USER only on decision/verdict/blocker/cost.
 
 ### Next 3 (if bandwidth opens)
-1. Pre-stage N2 frontier-lever cert-bands (context-depth / codebook-size+VQ-align / capacity / compositional-syntax — each vs token-BPC, can-fail per lever).
-2. Pre-stage N3 corpus-eval bands (held-out BPC, real chance/bigram baselines, by-construction-saturation guard for ingest-at-scale).
-3. CPU PoC: substrate-native concept->token decode feasibility (does an HD cleanup->token-codebook beat the VQ-granularity floor?) — de-risk N1's decode before it lands.
+1. CPU PoC: N2 context-depth lever (does trigram-concept-transition beat bigram-concept on synthetic? quantify gain) — de-risk the #1 beat-bigram lever (coordinate w/ Research N2 drill to not duplicate).
+2. Pre-stage M2 multi-hop assembly-demo bands (the chain-grade tier; per my task-coupled-ablations catch — 4 components meaningful only at multi-hop).
+3. Closure-audit any new substrate-native atoms as they land.
 
 ### Recently cleared (rolling; <=5)
-- fbfccc99 N1 SCHEMA-VET (concept-LM token-decode bands + substrate-only gate) — cleared Orch's active wait
-- 5da82e45 item-#4 SCHEMA-VET (post-pivot re-scope: N4-memory not Phase-3-foundation; tier MM)
-- 9a41c60e D1 rulings (both KEEP-genuine; CERT-integrity D1 CLOSED -> CERT 583 verified-precise)
-- 5f7d04d4 SUBSTRATE-NATIVE plan N0-N4 routed (concept-LM anchor) + 835d15d5 U0 correction (retract augmented)
-- 1250a2d3 translation-gap META atomized (on Research's behalf)
+- 5afb8133 M2 pre-stage SCHEMA-VET (caught task-coupled ablations: depth-gov inherently multi-hop; EARLY M2=2-of-4 MM, chain-grade=multi-hop)
+- bab6f9b7 N3 canonical BPC cert-bands (the eval foundation) + 503aeee3 M2 ruling=B + concept-LM CPU PoC
+- fbfccc99 N1 SCHEMA-VET (token-decode bands + substrate-only gate) + 5da82e45 item-#4 re-scope (N4-memory)
+- 9a41c60e D1 rulings (both KEEP; CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
+- 1250a2d3 translation-gap META atomized
 
 ## exp_dev
 **Last-updated:** 2026-06-21T16:15:01Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
