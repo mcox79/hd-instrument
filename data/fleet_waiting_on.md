@@ -17,13 +17,14 @@
 ---
 
 ## research
-**Last-updated:** 2026-06-21T07:02:00Z (true `date -u`)  (**CERT 583** EARNED / atoms 177256; 6 of 6 high-priority cells PRE-STAGED + cell-author cascade in flight)
-- (nothing BLOCKING — sustained drive per USER STANDING; reactive on cell-author/atomization cascade)
-- skunkworks: flagship probe landed-VET on metrics land (overnight_queue GPU ~3h DISPATCHED 06:09Z)
-- skunkworks: NEW-4 + continual-write + D1 suspects cell-land landed-VETs as they land
+**Last-updated:** 2026-06-21T07:55:00Z (true `date -u`)  (**CERT 583** / atoms 177258; continual-write MM atomized + D1 closure cell-author + 4 cells cycle-complete this stretch)
+- (nothing BLOCKING — sustained drive per USER STANDING; reactive on Skunkworks landed-VETs + remaining cell-lands)
+- skunkworks: flagship probe landed-VET on metrics land (overnight_queue GPU ~3h DISPATCHED 06:09Z; ~2h remaining)
+- skunkworks: NEW-4 landed-VET on land (seed 23 computing; smoke arm1=1.0/arm2~0.485/discrim~0.51 at full N=40000)
+- skunkworks: D1 cell 1 (planted_csp) + cell 2 (pp49_hrc) landed-VETs on land (Director KEEP-with-lower-bound endorsements filed for both; per-atom symmetric ruling on land)
 - skunkworks: M2 firmed-bands re-VET (on flagship + M1 + pythia-extension land per amendment v2 C4)
-- exp_dev: cell-author cascade IN FLIGHT (flagship probe GPU-DISPATCHED 42b82758 / NEW-4 BUILT+QUEUED fdffe597 / continual-write BUILT+QUEUED Workload-A LRU=oracle GREEN replicated / D1 suspects authoring per Exp-Dev lull-probe-3 reply); 6 of 6 cell PRE-STAGES filed = cascade collapse-to-fill-in-code working
-- (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7 + plan.json pythia_substrate_kv_pull_up status=done; 6 cell-architecture PRE-STAGES (~700 lines: M2 14fba854 + continual-write v1 f7f9a9cf + v2 a6a363c9 + flagship 3cb22e8b + capacity-saturation 0c7ea8af + D1 suspects this turn); flagship amendment v5 RATIFIED + v5 follow-up f-sweep extend + abs-control arm; 5 hidden-positives full cycle (CERT 588→585→582 honest); plan.json phase4b status=done; DATA-REFERENT DRIFT 3-level verify-the-referent cascade (all 3 sessions owned their rung; META atom 90dde62c re-anchored to PRODUCER git-config not artifact-at-path; my observe-but-don't-elevate self-criticism WITHDRAWN after Orch git-retraction); continual-write v3 readings CONFIRMED + Skunkworks v4 marginal-utility CONCUR + framed as info-theoretic limit not tuning failure)
+- exp_dev: D1 + NEW-4 cell-lands; v4 DECLINED principled-no-busy-work info-theoretic generalization
+- (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7; continual-write MM atomized commit 7f39f342 atoms 177256→177258 (storage-chain #2 characterized; Kramers-escape proxy VALIDATED-FRAMING per Exp-Dev qualification); D1 cell-author CLOSURE complete (both built+queued + Director endorsements); 3-way verdict refinement RATIFIED (consistent with C1 + C3 + avoids negativity-bias); v4 DECLINE concur (info-theoretic limit principled); 6 cell-architecture PRE-STAGES (~700 lines actionable); flagship amendment v5 ratified + f-sweep extend + abs-control; 5 hidden-positives cycle CERT 588→585→582 then →583 net cascade; plan.json phase4b + pythia status=done; DATA-REFERENT 3-level verify-the-referent cascade with all 3 sessions owning rung + META atom 90dde62c re-anchored to PRODUCER git-config + my observe-but-don't-elevate self-criticism WITHDRAWN; discipline catalog claim-no-stronger-than-the-test added)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T05:0xZ (true date -u UTC)  (**CERT 588** / atoms 177255 / CERT-INTEGRITY AUDIT COMPLETE; reactive on pythia + pre-regs)
