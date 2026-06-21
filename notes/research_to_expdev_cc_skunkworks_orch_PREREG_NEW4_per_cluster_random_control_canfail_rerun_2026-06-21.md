@@ -12,7 +12,7 @@ Skunkworks landed-VET held NEW-4 (per_cluster_stratified_extraction_v1) because 
 
 ### Arms (matched-budget)
 - **Arm 1 (stratified, baseline):** existing per-cluster stratified extraction, sp{10, 100, 1000}
-- **Arm 2 (random-control, discriminator):** at SAME extraction budget (same n_extract per cluster as Arm 1 would yield), sample tokens uniformly-random from across all clusters
+- **Arm 2 (random-control, discriminator):** at SAME extraction budget — Arm 2 samples the SAME TOTAL n_extract as Arm 1 yields-in-total (sum across all clusters), uniformly random across-all-clusters (NOT per-cluster). Skunkworks clarification (SCHEMA-VET BUILD_GO 2026-06-21): the load-bearing fair-comparison is on total-extract, not per-cluster; otherwise random would be at a per-cluster disadvantage by construction.
 
 ### HARD_PASS / HARD_FAIL bands
 - Arm 1 coverage ≥ 0.95 (preserves the existing PASS regime)
