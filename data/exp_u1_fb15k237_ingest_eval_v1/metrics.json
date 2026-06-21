@@ -1,26 +1,180 @@
 {
   "anchor_name": "u1_fb15k237_ingest_eval_v1",
-  "verdict": "SCAFFOLD_PENDING_SCHEMA_VET",
-  "verdict_msg": "SCAFFOLD: fidelity-floor + retrieval-at-scale curve LIVE; refuse-gate + inference-transfer PENDING Skunkworks SCHEMA-VET (OPEN-B/C). fidelity@M600=0.9667 (floor 0.98) | scale-curve={600: 0.9667}",
-  "run_mode": "smoke",
-  "n_seeds": 1,
-  "config_version": "u1-ingest-scaffold: cfrpe-VSA-bind; fidelity-floor+scale-curve LIVE; refuse-gate+inference-transfer PENDING-SCHEMA-VET; N2048 scale[600] LR0.50",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate KB-ingest GOVERNED (refuse-gate) + COMPOSES (inference-transfer). fidelity@M50000 set-recall all=0.990 1to1=0.988 (floor 0.95) | refuse OOD=0.974 accept=0.958 (>=0.80) | inference 2hop=0.381 vs 1hop-base=0.007 | scale-curve={5000: 1.0, 10000: 1.0, 25000: 0.999, 50000: 0.99}",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "u1-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-inference; N8192 scale[5000, 10000, 25000, 50000]; bands fid0.95 ood0.80 acc0.80",
   "per_seed": [
     {
-      "seed": 1,
+      "seed": 7,
       "scale_curve": {
-        "M600": {
-          "fidelity": 0.9667,
-          "n_ent": 1014,
-          "n_rel": 140,
-          "n_triples": 600,
-          "ingest_s": 7.4
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 5427,
+          "n_rel": 226,
+          "n_keys": 4333,
+          "n_triples": 5000,
+          "ingest_s": 27.0
+        },
+        "M10000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 8001,
+          "n_rel": 234,
+          "n_keys": 7992,
+          "n_triples": 10000,
+          "ingest_s": 16.0
+        },
+        "M25000": {
+          "setrecall_all": 0.9967,
+          "setrecall_1to1": 1.0,
+          "n_ent": 11150,
+          "n_rel": 237,
+          "n_keys": 17069,
+          "n_triples": 25000,
+          "ingest_s": 52.8
+        },
+        "M50000": {
+          "setrecall_all": 0.9924,
+          "setrecall_1to1": 0.985,
+          "n_ent": 12838,
+          "n_rel": 237,
+          "n_keys": 29166,
+          "n_triples": 50000,
+          "ingest_s": 66.6
         }
       },
-      "config_version": "u1-ingest-scaffold: cfrpe-VSA-bind; fidelity-floor+scale-curve LIVE; refuse-gate+inference-transfer PENDING-SCHEMA-VET; N2048 scale[600] LR0.50",
-      "refuse_gate": null,
-      "inference_transfer": null
+      "config_version": "u1-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-inference; N8192 scale[5000, 10000, 25000, 50000]; bands fid0.95 ood0.80 acc0.80",
+      "refuse_gate": {
+        "tau": 9.868409688351676e-05,
+        "inkb_accept": 0.9566666666666667,
+        "ood_refuse": 0.9633333333333334,
+        "inkb_conf_mean": 0.00012438351404853165,
+        "ood_conf_mean": 5.098161636851728e-05
+      },
+      "inference_transfer": {
+        "n": 400,
+        "substrate_2hop": 0.37,
+        "baseline_1hop": 0.0075,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 17
+      }
+    },
+    {
+      "seed": 17,
+      "scale_curve": {
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 5468,
+          "n_rel": 231,
+          "n_keys": 4335,
+          "n_triples": 5000,
+          "ingest_s": 10.6
+        },
+        "M10000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 7977,
+          "n_rel": 237,
+          "n_keys": 7938,
+          "n_triples": 10000,
+          "ingest_s": 19.6
+        },
+        "M25000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 11165,
+          "n_rel": 237,
+          "n_keys": 17148,
+          "n_triples": 25000,
+          "ingest_s": 53.5
+        },
+        "M50000": {
+          "setrecall_all": 0.9847,
+          "setrecall_1to1": 0.9917,
+          "n_ent": 12838,
+          "n_rel": 237,
+          "n_keys": 29166,
+          "n_triples": 50000,
+          "ingest_s": 102.8
+        }
+      },
+      "config_version": "u1-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-inference; N8192 scale[5000, 10000, 25000, 50000]; bands fid0.95 ood0.80 acc0.80",
+      "refuse_gate": {
+        "tau": 9.950465027941391e-05,
+        "inkb_accept": 0.9533333333333334,
+        "ood_refuse": 0.9933333333333333,
+        "inkb_conf_mean": 0.00012453217641450465,
+        "ood_conf_mean": 5.0938291678903624e-05
+      },
+      "inference_transfer": {
+        "n": 400,
+        "substrate_2hop": 0.3675,
+        "baseline_1hop": 0.0075,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 13
+      }
+    },
+    {
+      "seed": 23,
+      "scale_curve": {
+        "M5000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 5443,
+          "n_rel": 233,
+          "n_keys": 4334,
+          "n_triples": 5000,
+          "ingest_s": 14.8
+        },
+        "M10000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 7998,
+          "n_rel": 236,
+          "n_keys": 7990,
+          "n_triples": 10000,
+          "ingest_s": 15.6
+        },
+        "M25000": {
+          "setrecall_all": 1.0,
+          "setrecall_1to1": 1.0,
+          "n_ent": 11220,
+          "n_rel": 237,
+          "n_keys": 17196,
+          "n_triples": 25000,
+          "ingest_s": 44.6
+        },
+        "M50000": {
+          "setrecall_all": 0.9917,
+          "setrecall_1to1": 0.9883,
+          "n_ent": 12838,
+          "n_rel": 237,
+          "n_keys": 29166,
+          "n_triples": 50000,
+          "ingest_s": 76.0
+        }
+      },
+      "config_version": "u1-ingest-multivalue-hebbian: setreadout-topk + margin-refuse + 2hop-vs-1hop-inference; N8192 scale[5000, 10000, 25000, 50000]; bands fid0.95 ood0.80 acc0.80",
+      "refuse_gate": {
+        "tau": 9.402634168509394e-05,
+        "inkb_accept": 0.9633333333333334,
+        "ood_refuse": 0.9666666666666667,
+        "inkb_conf_mean": 0.0001235685049323365,
+        "ood_conf_mean": 5.149607022758573e-05
+      },
+      "inference_transfer": {
+        "n": 400,
+        "substrate_2hop": 0.405,
+        "baseline_1hop": 0.0075,
+        "heldout_in_compose_graph": 0,
+        "leak_skipped": 19
+      }
     }
   ],
-  "elapsed_s": 15.1
+  "elapsed_s": 777.7,
+  "DESIGN_NOTE": "mechanism per exp_dev U1 SCHEMA-VET (de-risked OPEN-E); thresholds=Skunkworks b9e4485f; OPEN-C frozen-encoder baseline DEFERRED (MIDs not readable) -> 1-hop-lookup is the MID-valid bar; pending Skunkworks VET-refinement"
 }
