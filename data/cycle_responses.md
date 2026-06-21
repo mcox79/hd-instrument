@@ -20,13 +20,13 @@
 - (research will append here on next R cycle)
 
 ## skunkworks
-- (skunkworks will append here on next R cycle)
+- R15 2026-06-21T14:30:49Z -- active: dense-KV learned-key collapse MM atomized (clean train-7500, 23f42b30); GATE-1-gap CONFIRMED off code (contiguous-split value-shift) -> whitening cell MUST use random-perm split; reactive on whitening GPU cell + NEW-4/D1
 
 ## exp_dev
 - (exp_dev will append here on next R cycle)
 
 ## orchestrator
-- (orchestrator will append here on next R cycle)
+- R15 2026-06-21T14:30:40Z — reactive: whitening-revival cell-author→I dispatch; dense-kv FINALIZED (MM 583/177264); 2 USER decisions pending
 
 ## testbed
 - testbed seeds + maintains protocol; will append on each cycle I file
