@@ -45,30 +45,29 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-21T15:55:00Z (true `date -u`)  (**CERT 583** VERIFIED-PRECISE / atoms 177265 / U0 substrate-native pivot folded; N0-N4 plan live; D1 closed)
+**Last-updated:** 2026-06-21T16:32:00Z (true `date -u`)  (**CERT 583** VERIFIED-PRECISE / atoms 177265 / M2 v2 task-coupled-ablations FIX absorbed; USER STANDING always-check-tracker discipline banked)
 
 ### Waiting on
-- [from=orchestrator] [type=cell_land] : N1 concept-LM cell land (Orch driving cell-authoring; substrate-native-decode + token-BPC + VQ-floor guard) → Director 4-layer cross-check on land
-- [from=exp_dev] [type=cell_land] : whitening-revival GPU (~30-60min ETA; ARM1-whitened≥0.80 → re-VET-upgrade item #3 to chain-grade-at-bound) → Director cross-check + Skunkworks re-VET
-- [from=exp_dev] [type=cell_land] : NEW-4 + pp49 (running on revived runner) → Skunkworks landed-VETs
-- [from=skunkworks] [type=schema_vet] : pp49 deeper-sweep d>>12 (LOW-priority backlog; Hopfield ~573 capacity empirical-clearance upgrade)
-- [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META discipline (offered + requested; pending Skunkworks bandwidth)
+- [from=orchestrator] [type=cell_land] : N1 concept-LM cell land → Director 4-layer cross-check
+- [from=exp_dev] [type=cell_land] : whitening-revival GPU (~30-60min) → Director cross-check + Skunkworks re-VET
+- [from=exp_dev] [type=cell_land] : NEW-4 + pp49 + anisotropy-rescue 4-arm → Skunkworks landed-VETs
+- [from=skunkworks] [type=meta_atomize] [filed=14:55Z] : A5-atomize translation-gap META (Skunkworks bandwidth)
 
 ### In flight
-- U1 ingest-scope subagent (~25min in flight; was augmented framing; will re-interpret substrate-native lens on land)
-- N2 frontier-drill subagent dispatching NOW (Skunkworks's explicit ask; per USER 'definitely work' directive)
+- N2 frontier-drill 4 lit-scans LANDED; Opus orchestrator (a73fd89b5bde701ad) synthesizing formally
+- U1 ingest-scope subagent in flight (substrate-native re-interpret on land)
 
 ### Next 3 (if bandwidth opens)
-1. Director cross-check on N1 cell-land (Phase-3-native high-stakes 4-layer; substrate-native-decode gate verification + token-BPC ladder + VQ-floor)
-2. N3 text-corpus scope-to-confirm Research drill OR pre-stage (Skunkworks asked Exp-Dev but Director-lane can pre-stage candidates)
-3. pp49 deeper-sweep dispatch LOW-priority (Hopfield ~573 cliff; empirical-clearance tier upgrade for KEEP)
+1. Director cross-check on N1 cell-land (Phase-3-native 4-layer)
+2. N3 text-corpus scope-to-confirm pre-stage candidate-corpora analysis
+3. pp49 deeper-sweep dispatch LOW-priority (Hopfield ~573 cliff empirical-clearance upgrade)
 
 ### Recently cleared (≤5)
-- U0 misframe caught + reverted + substrate-native N0-N4 FOLDED + charLM un-defer (commits b687df86 + 1b44734a)
-- D1 closure both KEEP-genuine + CERT-integrity-audit D1 routing CLOSED → CERT 583 VERIFIED-PRECISE (commit e368d25b)
-- Item #4 attention RESCOPED to N4-substrate-LM-memory (NOT Phase-3-foundation) + substrate-only-compatibility check + tier=MM (commit c8088adb)
-- Orch N1 cell-authoring lane-assignment + substrate-only-ness gate SHARPENED off-code (commit 0e221845)
-- Monitor Python re-armed + orphans killed + cycle_responses.md R1 entry (Testbed process improvements adopted; commit c98a5f11)
+- M2 PRE-STAGE v2 task-coupled-ablations FIX (commit c76e7b59; EARLY 2-arm MM / MID 3-arm / LATE 4-arm CHAIN-GRADE; ARM3+ARM4 UN-DISCHARGEABLE on depth-1) + USER STANDING always-check-tracker discipline banked to MEMORY.md
+- N1 storage-density scour DELIVERED to Orch (commit ed3fb904; caught via tracker re-check; N≥4096 sparse f≈log(N)/N V_C-sweep SimVQ-rescue α≤0.5)
+- M2 substrate-native PRE-STAGE v1 (commit 9c9b63d7; closes Skunkworks line-80 wait per RULING B)
+- Concept-LM PoC LEVER-SYNTHESIS PIVOT absorbed (optimal-C tradeoff + B+A multiplicative composition; commit 9081681d)
+- U0 substrate-native + N0-N4 + D1 closure VERIFIED-PRECISE + Item #4 RESCOPED N4-memory (commits b687df86 / 1b44734a / e368d25b / c8088adb)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T16:2xZ (true date -u UTC)  (**CERT 583**/177265 verified-precise; SUBSTRATE-NATIVE; /loop yolo-mode active; all owed cleared)
