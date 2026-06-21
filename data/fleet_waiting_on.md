@@ -46,12 +46,10 @@
 - On flagship land -> probe_gate -> L-build cell 2. FUTURE: HNSW-on-#7-projected, 2-level-ingest, D1 2-suspect re-runs. Monitor clean (b0vh3rfol).
 
 ## testbed
-**Last-updated:** 2026-06-20T23:32:00Z (true `date -u` UTC; prior label "01:18Z" was local-as-Z — Orchestrator caught it)
-- (nothing immediate -- Layer-2 raw witness on refuse-gate 5b CLOSED (commit b16a8308); CERT 588 LANDED + Orchestrator Layer-3 reciprocal PASS)
-- self: add per-section staleness drift-detector to dashboard (catches stale `## <role>` sections, not just whole-file mtime; USER caught this gap)
-- self: refine plan-stall detector to be reframe-aware (currently false-positives on priorities awaiting cell-author start)
-- self: standing audit discipline -- proactive Health-tab pulse on every turn + drive resolution on RED, not observe-only
-- (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; refuse-gate 5b Layer-2 raw witness CONCUR -> CERT 588 landed)
+**Last-updated:** 2026-06-21T09:33:00Z (true `date -u`; just refreshed after own D5 detector caught my 3.1h section stale -- dogfooding worked)
+- (nothing immediate -- standing reactive on cell-lands + 4-layer-witness asks)
+- Layer-2 witness queued: flagship-probe HARD_PASS naive-beats-shrinkage variant (when Skunkworks asks)
+- (closed since last update: dashboard D5 per-section-stale; plan-stall reframe-awareness; catches matcher UTC bug; RED-watcher v2 + pattern-expansion; Stop hook import-time bug fix; watchdog P2 per-session threshold; monitor_arm leak+windowless; CERT 583 Layer-2 CONCUR; lull-probe protocol mechanically enforced via Stop hook hints)
 
 ## orchestrator
 **Last-updated:** 2026-06-21T09:19:47Z (REAL date -u; FLAGSHIP PROBE COMPLETE + DELIVERED)
