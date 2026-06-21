@@ -1,0 +1,26 @@
+{
+  "anchor_name": "u1_fb15k237_ingest_eval_v1",
+  "verdict": "SCAFFOLD_PENDING_SCHEMA_VET",
+  "verdict_msg": "SCAFFOLD: fidelity-floor + retrieval-at-scale curve LIVE; refuse-gate + inference-transfer PENDING Skunkworks SCHEMA-VET (OPEN-B/C). fidelity@M600=0.9667 (floor 0.98) | scale-curve={600: 0.9667}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "u1-ingest-scaffold: cfrpe-VSA-bind; fidelity-floor+scale-curve LIVE; refuse-gate+inference-transfer PENDING-SCHEMA-VET; N2048 scale[600] LR0.50",
+  "per_seed": [
+    {
+      "seed": 1,
+      "scale_curve": {
+        "M600": {
+          "fidelity": 0.9667,
+          "n_ent": 1014,
+          "n_rel": 140,
+          "n_triples": 600,
+          "ingest_s": 7.4
+        }
+      },
+      "config_version": "u1-ingest-scaffold: cfrpe-VSA-bind; fidelity-floor+scale-curve LIVE; refuse-gate+inference-transfer PENDING-SCHEMA-VET; N2048 scale[600] LR0.50",
+      "refuse_gate": null,
+      "inference_transfer": null
+    }
+  ],
+  "elapsed_s": 15.1
+}
