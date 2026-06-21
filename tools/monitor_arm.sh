@@ -27,23 +27,14 @@ cd "$ROOT" || { echo "MONITOR-ARM-FATAL: cannot cd $ROOT"; exit 1; }
 SELF=$$
 PARENT=$PPID
 
-# === LEAK FIX: kill any prior monitor_arm + notes_monitor processes for THIS role ===
-# Use pgrep -f which excludes itself by design (vs ps|grep which can match the grep itself).
-# Match both wrappers AND inner scripts for this specific role.
+# === LEAK FIX disabled 2026-06-21 (USER popup-fix) ===
+# The pgrep -f "...${ROLE}\b" pattern matched cross-role on Git Bash for Windows
+# (\b word-boundary semantics differ from GNU pgrep), causing wrappers to kill
+# each other's inner monitors -> tight crash-restart loop -> ~20 console flashes/min.
+# Bash wrapper is now NON-canonical (Python port is canonical per CLAUDE.md);
+# living with the leak is preferable to the kill-cascade for the few sessions
+# still on bash until they re-arm Python.
 killed=0
-if command -v pgrep >/dev/null 2>&1; then
-  for pid in $(pgrep -f "monitor_arm\.sh ${ROLE}\b" 2>/dev/null) \
-             $(pgrep -f "notes_monitor\.sh ${ROLE}\b" 2>/dev/null); do
-    # Exclude self + parent (don't kill ourselves or whoever launched us)
-    if [ "$pid" != "$SELF" ] && [ "$pid" != "$PARENT" ] && [ -n "$pid" ]; then
-      kill -TERM "$pid" 2>/dev/null && killed=$((killed + 1))
-    fi
-  done
-fi
-if [ "$killed" -gt 0 ]; then
-  echo "MONITOR-ARM: killed ${killed} prior ${ROLE} bash process(es) before re-arm (leak fix)"
-  sleep 1  # give SIGTERMs time to land
-fi
 
 # === SIGTERM trap: kill all children before exiting ===
 # Children inherit our process group on bash; pkill -P $$ kills direct descendants.
@@ -66,6 +57,6 @@ while true; do
   bash tools/notes_monitor.sh "$ROLE"
   rc=$?
   restart_count=$((restart_count + 1))
-  echo "MONITOR-CRASH: notes_monitor ${ROLE} exited rc=${rc} (restart #${restart_count}); reloading in 5s"
-  sleep 5
+  echo "MONITOR-CRASH: notes_monitor ${ROLE} exited rc=${rc} (restart #${restart_count}); reloading in 60s (popup-rate cap 2026-06-21)"
+  sleep 60
 done
