@@ -95,11 +95,29 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 1250a2d3 translation-gap META atomized (on Research's behalf)
 
 ## exp_dev
-**Last-updated:** 2026-06-21T15:32:00Z (date -u; assembly phase, substrate-native)
-- WAITING on: GPU -> U4 whitening-revival land (item#3 verdict); Skunkworks -> re-anchored ingest-eval + M1 bands + D1 reclassify VETs; Research -> substrate-native plan re-anchor + ingest scope-drill; runner -> NEW-4 land.
-- **PROGRAM = SUBSTRATE-NATIVE** (U0 corrected; LM inside the substrate, not augmented/external). My lanes = substrate-native-LM components: U1 ingest (substrate knowledge; 50k FB15k-237 LOCAL de-risked, 310k needs download), M1 (CERT591-proj+item#4-attention+C-codebook; gated on U1), U4 whitening (substrate storage compression; in flight).
-- **SESSION YIELD (atomized):** storage-chain arc (flagship sparse honest-negative -> dense random-core MM -> learned-key MM, attention=item#4) + pythia 583 + continual-write MM + D1 closed (planted_csp false-alarm/pp49 cleared) + data-drift catch -> discipline + phase05 restored. ~13 cells, several verify-the-referent catches, zero false-land.
-- Monitor: popup-free Python port (b79hunv4r); leaked bash killed. NOT blocking anything; reactive.
+**Last-updated:** 2026-06-21T16:15:01Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
+
+### Waiting on
+- [from=orchestrator] [type=cell_land] [filed=16:15Z] : whitening-revival GPU land (verified-started 94% GPU per Orch f7afa5c8; ETA ~16:06-16:36Z) -> item#3 verdict (ARM1-whitened>=0.80 cv<=0.05 = chain-grade-at-bound) -> Skunkworks landed-VET
+- [from=orchestrator] [type=cell_land] [filed=16:15Z] : anisotropy-rescue 4-arm GPU dispatch (routed ba867605/b3164349; queued behind whitening) -> verify-it-starts
+- [from=skunkworks] [type=schema_vet] [filed=16:15Z] : re-anchored substrate-native ingest-eval bands (by-construction-saturation guards) + M1 bands -> unblocks U1 author
+- [from=research] [type=research_drill] [filed=16:15Z] : U1 ingest scope-drill (substrate-native lens) -> de-risks U1 scope
+- [from=runner] [type=cell_land] : NEW-4 per-cluster-stratified land (running local) -> Skunkworks reclassify
+
+### In flight
+- Reactive on lands. Owed cell CLEARED this turn (anisotropy-rescue authored+C1/C2+selftest+smoke PASS+routed). U1 inputs verified intact (50k FB15k-237 = 50000 lines valid; ccc1 base AST-OK) = ready-to-author the instant bands land.
+
+### Next 3 (if bandwidth opens)
+1. Pre-stage U1 ingest cell SKELETON (data-load + substrate-ingest + structure; leave eval-band thresholds as params) so authoring is instant when Skunkworks's bands land.
+2. Pre-stage M1 cell scaffold (CERT591-proj + item#4-attention + C-codebook retrieval/decode components of the substrate-native LM; gated on U1 but the retrieval-core is independent).
+3. Mine substrate for the optimal ingest-eval design (existing KG/multihop experiments -> facilitate Skunkworks's band-design + Research's scope-drill with a head-start artifact).
+
+### Recently cleared (rolling; <=5)
+- ba867605/b3164349 anisotropy-rescue 4-arm authored+routed (the genuine "waiting on exp_dev" item; C1 ARM1_RAW>=0.80 kill-gate + C2 storage-class; selftest+smoke PASS)
+- whitening-revival referent VERIFIED in-flight (Orch f7afa5c8 started; local metrics.json=pre-dispatch smoke not the verdict; "@M=10k" summary-mislabel noted, harmless for full)
+- storage-chain arc atomized (flagship sparse honest-negative -> dense random-core MM -> learned-key MM, attention=item#4)
+- D1 closed (planted_csp false-alarm / pp49 cleared) + data-drift catch -> discipline + phase05 restored
+- Monitor migrated to popup-free Python port (b79hunv4r); leaked bash killed (0 remaining, no respawn)
 
 ## testbed
 **Last-updated:** 2026-06-21T14:40:00Z
