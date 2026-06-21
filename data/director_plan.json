@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T15:10:00Z",
+  "ts": "2026-06-21T15:24:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -91,6 +91,131 @@
     ]
   },
   "priorities": [
+    {
+      "id": "U0_generation_fork_decision",
+      "title": "U0 -- RESOLVE THE GENERATION FORK (USER-RATIFY; cheapest highest-leverage decision). Native-generation charLM-HD (0 HIGH chain-grade atoms; 3 LOW/ARCHIVE) vs AUGMENTED (external transformer generates + substrate=governed memory/keys/reasoning; CERT 591 + item-#4 + cognitive-core converge). Skunkworks recommends AUGMENTED-primary defer native-as-research-track. Gates U2/U3 framing.",
+      "type": "decision",
+      "status": "USER_PENDING",
+      "owner": "user_decision",
+      "owner_asserted": false,
+      "owner_asserted_via": "skunkworks_to_research_cc_all_PLAN_ADDITION_5_largest_unblockers_full_substrate_2026-06-21.md surfacing + Director ratification ask",
+      "waiting_on": [
+        "user: ratify augmented-primary recommendation OR alternative"
+      ],
+      "artifact": "notes/skunkworks_to_research_cc_all_PLAN_ADDITION_5_largest_unblockers_full_substrate_2026-06-21.md",
+      "commit": null,
+      "cell": null,
+      "cert_atom": null,
+      "cert_class": null,
+      "tier_target": "Decision (architecture direction)",
+      "last_updated_ts": "2026-06-21T15:24:00Z",
+      "dependencies": [],
+      "blocks": [
+        "U2_assemble_M1_M2",
+        "U3_glass_box_advantage_demo"
+      ]
+    },
+    {
+      "id": "U1_significant_ingest_real_KB",
+      "title": "U1 -- SIGNIFICANT INGEST real queryable KNOWLEDGE BASE. Today's 177265 atoms = cert-records + math-primitives NOT a KB the glass-box reasons over; ccc1 used TOY 5k FB15k-237. Ingest: (a) full FB15k-237 ~310k triples/~14k ent [scope-to-confirm], (b) domain text corpus [scope-to-confirm], (c) program 104-value-trove. Unblocks U2 (assemble on real knowledge) + U3 (fabrication-refusal needs real fact-base + held-out false-query). NOT gated on U4 (runs on attention-storage NOW O(M*d) works; compressed-store is optimization).",
+      "type": "infrastructure",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-routed from Skunkworks proposal",
+      "waiting_on": [
+        "exp_dev: scope-to-confirm ingest targets + author ingest pipeline",
+        "skunkworks: SCHEMA-VET ingest-eval correctness (heldout/false-query design; by-construction-saturation guards)"
+      ],
+      "artifact": "notes/skunkworks_to_research_cc_all_PLAN_ADDITION_5_largest_unblockers_full_substrate_2026-06-21.md",
+      "commit": null,
+      "cell": null,
+      "cert_atom": null,
+      "cert_class": null,
+      "tier_target": "Infrastructure (real-KB ingest at non-toy scale)",
+      "last_updated_ts": "2026-06-21T15:24:00Z",
+      "dependencies": [],
+      "blocks": [
+        "U2_assemble_M1_M2",
+        "U3_glass_box_advantage_demo"
+      ]
+    },
+    {
+      "id": "U2_assemble_M1_M2",
+      "title": "U2 -- ASSEMBLE + LAND M1/M2 (biggest BUILD unblocker). 583 parts but 0 current-era assembled system (only e2e demo = cognitive_core_e2e_pythia = ARCHIVE/PRE_SUBSTRATE_BUILD MIDDLE_BAND 1.27-1.30x). Land governed glass-box (storage+retrieval+depth-refuse+K_max-envelope+multi-hop) ON U1 KB. M2 mid-authoring -> prioritize. Assembly problem NOT invention.",
+      "type": "assembly",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-routed from Skunkworks proposal",
+      "waiting_on": [
+        "U0 ratified (augmented vs native frames the storage/retrieval mechanism)",
+        "U1 KB ingested (assembles ON real knowledge)",
+        "exp_dev: M1 substrate-native architecture cell-author",
+        "exp_dev: M2 INTEGRATION cell-author per amendment v4 (M_TRIPLES=5000 provisional)"
+      ],
+      "artifact": "notes/skunkworks_to_research_cc_all_PLAN_ADDITION_5_largest_unblockers_full_substrate_2026-06-21.md + notes/research_to_skunkworks_expdev_cc_orch_M2_AMENDMENT_v4_capacity_bound_300_to_10000_per_dense_kv_envelope_LANDED_substrate_vocab_clarification_2026-06-21.md",
+      "commit": null,
+      "cell": "experiments/exp_milestone_1_substrate_native_architecture_*.py (TBD) + experiments/exp_milestone_2_glass_box_multihop_INTEGRATION_v1_cpu.py (M2 PRE-STAGE filed 14fba854)",
+      "cert_atom": null,
+      "cert_class": null,
+      "tier_target": "CHAIN-GRADE-CANDIDATE Phase 3 destination cell (per RULE 1fcb4dcf 4-layer-witness)",
+      "last_updated_ts": "2026-06-21T15:24:00Z",
+      "dependencies": [
+        "U0_generation_fork_decision",
+        "U1_significant_ingest_real_KB"
+      ],
+      "blocks": [
+        "U3_glass_box_advantage_demo"
+      ]
+    },
+    {
+      "id": "U3_glass_box_advantage_demo",
+      "title": "U3 -- GLASS-BOX vs BLACK-BOX ADVANTAGE DEMO. Head-to-head on governance tasks (fact-fabrication-refusal, depth-bounded honesty) over U1 fact-base: glass-box refuses what black-box hallucinates. Converts individually-certified refuse-gates into demonstrated SYSTEM advantage.",
+      "type": "demonstration",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": false,
+      "owner_asserted_via": "Director-routed from Skunkworks proposal",
+      "waiting_on": [
+        "U2 assembled (M1/M2 land on U1)",
+        "exp_dev: head-to-head cell-author + cell-land",
+        "skunkworks: SCHEMA-VET advantage-demo bands"
+      ],
+      "artifact": "notes/skunkworks_to_research_cc_all_PLAN_ADDITION_5_largest_unblockers_full_substrate_2026-06-21.md",
+      "commit": null,
+      "cell": null,
+      "cert_atom": null,
+      "cert_class": null,
+      "tier_target": "CHAIN-GRADE Phase 3 substrate-product demonstration",
+      "last_updated_ts": "2026-06-21T15:24:00Z",
+      "dependencies": [
+        "U2_assemble_M1_M2"
+      ],
+      "blocks": []
+    },
+    {
+      "id": "U4_storage_compression_real_keys",
+      "title": "U4 -- STORAGE COMPRESSION on real keys (IN FLIGHT enabler not gate). whitening-revival GPU cell dispatched f7afa5c8 (94pct GPU fp16; ETA 60-90min) + anisotropy-rescue 4-arm Skunkworks SCHEMA-VET'd with amendment v1 C1+C2 absorbed (ARM1_RAW<0.80 KILL gate per empirical verification). Turns ingest-at-scale O(M*d) -> compressed substrate win. Enabler not gate (U1 doesn't depend; runs on attention NOW).",
+      "type": "compression_enabler",
+      "status": "in-progress",
+      "owner": "exp_dev",
+      "owner_asserted": true,
+      "owner_asserted_via": "orchestrator_to_all_runner_revived_phase05_restored_whitening_dispatched_2026-06-21.md (whitening dispatched + verified started)",
+      "waiting_on": [
+        "exp_dev: whitening-revival cell-land + anisotropy-rescue cell-author",
+        "skunkworks: re-VET-upgrade-existing-atom pathway + anisotropy SCHEMA-VET cell-land"
+      ],
+      "artifact": "notes/skunkworks_to_research_cc_all_PLAN_ADDITION_5_largest_unblockers_full_substrate_2026-06-21.md + storage-chain dual-cell saga commits",
+      "commit": "f7afa5c8 (whitening-revival)",
+      "cell": "experiments/exp_dense_KV_whitening_revival_v1_gpu.py + experiments/exp_anisotropy_rescue_4arm_sweep_v1.py (pending author)",
+      "cert_atom": "T3/EXP_dense_projected_KV_envelope_v1 (MM upgradeable)",
+      "cert_class": "MEASURED_MECHANISM (upgrade pathway IN FLIGHT)",
+      "tier_target": "MM upgrade to chain-grade-at-bound IFF whitening-revival HARD_PASS (P~0.60-0.75)",
+      "last_updated_ts": "2026-06-21T15:24:00Z",
+      "dependencies": [],
+      "blocks": []
+    },
     {
       "id": "storage_chain_item_4_attention_over_substrate_keys",
       "title": "Storage-chain item #4 attention-over-learned-projected-substrate-keys -- Phase 3 substrate-native foundation candidate (commit 7e5868fa PRE-STAGE v1; ARM 2 already confirmed 0.997 across 2 GPU runs; Bayesian P(item 4 needed as fallback or alternative Phase 3 foundation) ~0.25-0.40; pre-staging collapses Exp-Dev lift to ~30-60min mechanical fill-in-code on de-gate); value proposition transformer-style retrieval with substrate-derived KEYS NOT M-INDEP compression (item #3 lane) but Phase 3 substrate-native ARCHITECTURE; 4-arm CAN-fail (full / no-projection / no-attention / no-substrate-vocab); HARD_PASS recall>=0.80 M>=10k cv<=0.05; tier target MEASURED_MECHANISM characterizing substrate-native attention foundation OR chain-grade Phase 3 substrate-native foundation Skunkworks call; trigger conditions Exp-Dev sequencing call after whitening-revival OR in parallel",
