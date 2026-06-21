@@ -140,6 +140,23 @@ _WEAKER_MARKERS = ("MEASURED_MECHANISM", "FAIL", "PARTIAL", "SATURATION", "MIDDL
                    "DISSOLVED", "REFRAMED")
 
 
+# D1 false-positive guard: a saturated [0,1] guarantee-metric (e.g. recall-no-degrade=1.0) is NOT the chain-grade
+# claim when a NON-saturated claim-metric (speedup/ratio/gain >1) coexists -- the csp_first_ship pattern (claim=8.42x
+# speedup, recall-1.0 is the no-degrade guarantee). This ANNOTATES (does not exclude) so review sees "likely FP".
+_CLAIM_KEYS = ("speedup", "ratio", "gain", "factor", "throughput", "iters", "_x", "xfaster", "fold", "improvement")
+
+
+def _has_claim_metric(md):
+    km = _parse_km(md.get("key_metrics"))
+    if not isinstance(km, dict):
+        return False
+    for k, v in km.items():
+        kl = str(k).lower()
+        if any(c in kl for c in _CLAIM_KEYS) and isinstance(v, (int, float)) and not isinstance(v, bool) and float(v) > 1.5:
+            return True
+    return False
+
+
 def _cell_grade(md):
     """Return (status, cell_verdict_str, path) for the atom's referent cell. status in:
     'ok' (cell asserts pass/chain-grade), 'drift' (cell reframed weaker), 'ambiguous' (verdict present but
@@ -214,7 +231,8 @@ def main():
             if s is None:
                 d1_unscannable += 1
             elif s["flag"]:
-                d1.append((aid, md.get("verdict"), s["n_vals"], s["min"], s["max"], md.get("run_mode"), s.get("source")))
+                d1.append((aid, md.get("verdict"), s["n_vals"], s["min"], s["max"], md.get("run_mode"), s.get("source"),
+                           "likely_FP_has_claim_metric" if _has_claim_metric(md) else ""))
         # D2 smoke-mode cert
         if str(md.get("run_mode", "")).lower() == "smoke":
             d2.append((aid, md.get("verdict"), md.get("era"), md.get("relevance_tier")))
@@ -266,8 +284,10 @@ def main():
     print("D1 SATURATION CANDIDATES (PASS pinned at ceiling, no sub-extreme/cliff in key_metrics):")
     if not d1:
         print("  (none -- no cert atom's distilled key_metrics show the pinned-no-cliff pattern)")
-    for aid, v, n, mn, mx, rm, src in d1[:args.show]:
-        print("  [%s] %s  n=%d min=%.3f max=%.3f run=%s src=%s" % (v, aid, n, mn, mx, rm, src))
+    for row in d1[:args.show]:
+        aid, v, n, mn, mx, rm, src = row[:7]
+        ann = row[7] if len(row) > 7 else ""
+        print("  [%s] %s  n=%d min=%.3f max=%.3f run=%s src=%s %s" % (v, aid, n, mn, mx, rm, src, ann))
     print("-" * 80)
     print("D2 SMOKE-MODE CERTS (run_mode=smoke but CERT_CHAIN_GRADE; under-powered-cert candidates):")
     for aid, v, era, tier in d2[:args.show]:
