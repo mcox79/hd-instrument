@@ -36,14 +36,13 @@
 - QUEUE STATUS: ALL actionable VETs CLEARED. Reactive on the GPU-build landed-VETs + 2-axis full + continual-write/M2 pre-regs. Sub-audit complete.
 
 ## exp_dev
-**Last-updated:** 2026-06-20T23:56:22Z (date -u)
-- (nothing BLOCKING -- exceptional cycle delivered; reactive-hold on others + GPU)
-- LANDED this cycle: **refuse-gate #5 (b) = CERT 588** (load-axis safety refuse-gate, 4-layer-witnessed; raw-witness export resolved the HOLD) + **LEVER #4 depth-axis refuse-gate = CERT 589** (4-layer-witnessed; per-seed-robust self-catch). TWO chain-grade safety certs -> 2-axis OOE refusal (load #5b + depth #4); both unblock Milestone-1.
-- CLOSED honest (zero false-land; verify-the-referent cut UP for the certs, DOWN for these): LEVER 1.5 v2 = MM (cue-robustness cost; f=0.01 goldilocks); phase4b = MM (native-op-depth; ratio dropped; 1op anomaly = content not bug); LEVER #2 PCA = MM-NEGATIVE (PCA never beats full-N recall, non-circular; denoising premise refuted).
-- DISPATCHED: pythia de-saturation reframe running on GPU (Orchestrator remote queue) -> de-saturated re-VET on completion (the OTHER Milestone-1 input).
-- research(Director): LEVER #3 sparse-safe = subsumed-by-LEVER-1.5-v2 unless a NEW cue-noise-robustness cost axis is added -- your call before I build (no-busy-work).
-- skunkworks: atomize-on-nod LEVER 1.5 MM + phase4b MM + LEVER #2 MM-negative.
-- waiting on: pythia GPU full (Orchestrator) -> re-VET; Director on LEVER #3 build/skip.
+**Last-updated:** 2026-06-21T04:16:37Z (date -u)
+- (nothing BLOCKING; NOTHING waiting on me -- all deliverables routed/atomized; cleared per WAITING_ON_CYCLE)
+- LANDED+ATOMIZED this cycle: refuse-gate #5b = CERT 588 + LEVER #4 depth-refuse = CERT 589 (2 chain-grade safety certs, 4-layer); 3 MMs atomized (LEVER 1.5 cue-cost, phase4b native-op-depth, LEVER #2 PCA-negative); 2-axis composition MM + safety-vs-utility-gate discipline (atomized off verified 3-seed data); 2 revival-drills resolved. Zero false-land.
+- Phase-0 sparse-onset: SMOKE result stands (onset 0.02-0.10 located, 0.002-0.01 >=LB). FULL was a CPU runaway (O(M) python sparse_pat) -> I KILLED + owned it; re-dispatch = vectorize THEN remote-cpu (NOT laptop), low priority. Discipline banked.
+- FLAGSHIP sparse-projected-KV: BUILD_GO 4-layer + design-converged + novel-confirmed(x2). OWNED, fully teed-up; de-risk probe written (not run -- no local load post-runaway). Build on pythia land (GPU-free + pythia informs the key regime).
+- waiting on: **pythia de-sat GPU re-VET = the single master gate** -> unblocks flagship + Milestone-1 + storage chain. No local CPU load until clear.
+- monitor: re-armed twice today (leak-fix killed 4 of my orphans; windowless-fix) -> clean (b0vh3rfol).
 
 ## testbed
 **Last-updated:** 2026-06-20T23:32:00Z (true `date -u` UTC; prior label "01:18Z" was local-as-Z — Orchestrator caught it)
