@@ -42,15 +42,18 @@ from typing import Optional
 SESSIONS = ('testbed', 'research', 'exp_dev', 'orchestrator', 'skunkworks')
 
 DEFAULT_POLL_SEC = 60       # check cadence
-DEFAULT_STALE_THRESHOLD_SEC = 1200  # 20 min stale -> ping (2026-06-20: bumped 10->20min after
-                                    # heartbeat-on-turn-end (56653b1a) was found insufficient --
-                                    # between-turn idle in an actively-reactive session legitimately
-                                    # exceeds 10min, wasting turns on self-stale-pings. 20min gives
-                                    # natural idle headroom while still catching genuinely-stuck sessions
-                                    # before the dead threshold.)
-DEFAULT_DEAD_THRESHOLD_SEC = 3000  # 50 min stale -> mark dead + alert (was 30; bumped to keep
-                                    # the dead-state ~30min after the new stale gate)
+DEFAULT_STALE_THRESHOLD_SEC = 1200  # 20 min stale -> ping (2026-06-20: bumped 10->20min)
+DEFAULT_DEAD_THRESHOLD_SEC = 3000  # 50 min stale -> mark dead + alert
 PING_COOLDOWN_SEC = 600     # don't re-ping the same session more often than every 10 min
+
+# Per-session stale-threshold overrides (P2 streamline; 2026-06-21).
+# Skunkworks requested 60min: legit-reactive cert-owner waits multi-hour on cell-lands;
+# default 20min mis-fires + wastes pings. They have active Monitor + Stop hook = alive.
+# Testbed: also 60min self-stale-pings were wasteful when actively cycling but between events.
+PER_SESSION_STALE_THRESHOLD_SEC = {
+    'skunkworks': 3600,  # 60 min (Skunkworks request 2026-06-21; reactive cert-owner)
+    'testbed':    3600,  # 60 min (audit role; always Monitor-armed; was burning self-pings)
+}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 HEARTBEAT_DIR = REPO_ROOT / 'data' / 'heartbeats'
@@ -235,7 +238,9 @@ def poll_once(dry_run: bool = False,
         last_ping = state['last_ping'].get(sess, 0)
         ping_age = now - last_ping
 
-        if age < stale_sec:
+        # Per-session stale threshold override (P2 streamline 2026-06-21)
+        effective_stale_sec = PER_SESSION_STALE_THRESHOLD_SEC.get(sess, stale_sec)
+        if age < effective_stale_sec:
             status[sess] = {'state': 'alive', 'age_sec': int(age)}
         elif age < dead_sec:
             status[sess] = {'state': 'stale', 'age_sec': int(age)}
