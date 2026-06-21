@@ -11,8 +11,14 @@ top-k diversifies supports -> recall survives. This probe DECIDES which sparse-e
   C random_fixed_positions(fallback; fixed random k-of-N mask, diversity-by-construction, may lose recall)
 + baselines raw_sparse (no projection) and dense_projected (CERT 591 raw, ~0.83-0.96 recall).
 
+PRE-DISPATCH CATCH (Exp-Dev, model-free diagnostic before GPU): naive amendment-v4 ZCA (absolute eps=1e-3) RECALL-COLLAPSES in
+the flagship regime N=8192 >> n_held-out-keys~1250 -- cov is rank-deficient (~N-n exactly-zero eigendirections), abs-eps amplifies
+them 31x, top-k then selects amplified noise -> matched key/cue supports diverge -> recall 0.07 while dense recall 1.0 (STRUCTURAL,
+not the smoke under-training confound; verified 3 synthetics). FIX = SHRINKAGE ZCA (relative floor eps=tau*max_eig, tau=1e-2):
+whitens the signal subspace, bounds the null space -> recall 1.0 AND supports still diversify. Baked into fit_zca + selftest guard (6).
+
 Skunkworks VET-delta guards baked in:
-  D1 whiten-before-topk encode (NOT naive). D2 support-overlap (Jaccard) collapse-guard = LOAD-BEARING SELFTEST (deterministic,
+  D1 whiten-before-topk encode (NOT naive; SHRINKAGE-ZCA per the pre-dispatch catch above). D2 support-overlap (Jaccard) collapse-guard = LOAD-BEARING SELFTEST (deterministic,
      no model: assert whiten diversifies supports vs naive on a constructed-collapse synthetic). D3 RECALL measured on every
      arm (recall-required; keysep alone misled the de-risk). rho apples-to-apples: projected-then-sparse rho vs raw-sparse rho
      computed on IDENTICAL held-out keys in THIS run (never vs a canonical CERT591 rho -- the bulk-M_crit/own-flattering trap).
@@ -33,7 +39,7 @@ REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_partial_key, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1"
-CONFIG_VERSION = "CERT591-proj-verbatim + a3f473dd-topk-sparse + amendmentv4-whiten-before-topk; rho-apples-to-apples-same-heldout"
+CONFIG_VERSION = "CERT591-proj-verbatim + a3f473dd-topk-sparse + amendmentv4-whiten-before-topk(SHRINKAGE-ZCA-relfloor-tau1e-2-rankdef-fix); rho-apples-to-apples-same-heldout"
 _P = argparse.ArgumentParser(); _P.add_argument("--self-test", action="store_true", dest="self_test"); _ARGS, _ = _P.parse_known_args()
 RUN_MODE = os.environ.get("HDLAB_RUN_MODE", "full" if not _ARGS.self_test else "smoke")
 FRACS = [0.05, 0.10, 0.20]            # amendment v4 sparsity sweep
@@ -90,11 +96,11 @@ def top_k_magnitude(X, f):                                  # a3f473dd-style: to
     return out
 
 
-def fit_zca(X, eps=1e-3):                                   # ZCA whitening fit on the key set (decorrelates projected dims)
-    mu = X.mean(0, keepdims=True); Xc = X - mu
-    cov = (Xc.T @ Xc) / max(1, len(X) - 1)
-    w, V = np.linalg.eigh(cov.astype(np.float64))
-    Wz = (V @ np.diag(1.0 / np.sqrt(np.maximum(w, eps))) @ V.T).astype(np.float32)
+def fit_zca(X, tau=1e-2):                                   # SHRINKAGE ZCA: floor eigenvalues at tau*max(eig). In N>>n_keys, cov has ~N-n exactly-zero
+    mu = X.mean(0, keepdims=True); Xc = X - mu              # eigendirections; an ABSOLUTE eps (1e-3) amplifies them 31x -> top-k picks amplified-noise -> recall
+    cov = (Xc.T @ Xc) / max(1, len(X) - 1)                  # COLLAPSES (verified: full-ZCA recall 0.07 vs dense 1.0). Spectrum-RELATIVE floor whitens the
+    w, V = np.linalg.eigh(cov.astype(np.float64)); floor = tau * float(w.max())   # signal subspace, bounds the null space -> recall 1.0 + supports still diversify.
+    Wz = (V @ np.diag(1.0 / np.sqrt(np.maximum(w, floor))) @ V.T).astype(np.float32)
     return mu.astype(np.float32), Wz
 
 
@@ -246,10 +252,10 @@ def _selftest():
     X = g.standard_normal((10, 100)).astype(np.float32); S = top_k_magnitude(X, 0.1)
     assert np.all((S != 0).sum(1) == 10), "top-k k-of-N count"
     assert set(np.unique(S).tolist()) <= {-1.0, 0.0, 1.0}, "top-k bipolar"
-    # (2) ZCA whitens: cov(whitened) ~ I
+    # (2) ZCA math: on full-rank well-conditioned Y, tiny relative floor -> cov(whitened) ~ I
     Y = g.standard_normal((400, 32)).astype(np.float32) @ g.standard_normal((32, 32)).astype(np.float32)
-    mu, Wz = fit_zca(Y); Yw = apply_zca(Y, mu, Wz); C = np.cov(Yw.T)
-    assert np.abs(C - np.eye(32)).max() < 0.15, "ZCA off-diag/diag near identity, got %.3f" % np.abs(C - np.eye(32)).max()
+    mu, Wz = fit_zca(Y, tau=1e-8); Yw = apply_zca(Y, mu, Wz); C = np.cov(Yw.T)
+    assert np.abs(C - np.eye(32)).max() < 0.15, "ZCA->I on full-rank, got %.3f" % np.abs(C - np.eye(32)).max()
     # (3) mask_fixed_random: SAME positions all rows, k nonzeros
     Mk = mask_fixed_random(X, 0.1, np.random.default_rng(1))
     sup = [set(np.nonzero(Mk[i])[0].tolist()) for i in range(len(Mk))]
@@ -263,26 +269,36 @@ def _selftest():
     # (5) recall_at chunked==full
     Qn = _np_norm(g.standard_normal((50, 16)).astype(np.float32)); Kn = Qn.copy()
     assert abs(recall_at(Qn, Kn, chunk=8) - recall_at(Qn, Kn, chunk=50)) < 1e-9 and recall_at(Qn, Kn) == 1.0, "recall chunk-invariant + identity=1.0"
-    print("[selftest] PASS: top-k k-of-N + ZCA->I + fixed-random + D2 collapse-guard(oB=%.3f<oA=%.3f) + recall chunk-invariant" % (oB, oA), flush=True)
+    # (6) RANK-DEFICIENCY GUARD (load-bearing pre-dispatch catch): in N>>n_keys, an absolute-eps full-ZCA recall-COLLAPSES
+    #     (amplifies ~N-n null eigendirections 31x -> top-k picks noise); SHRINKAGE ZCA (relative floor, the cell default) PRESERVES recall.
+    Nr, nr, rr = 512, 80, 20; Br = g.standard_normal((rr, Nr)).astype(np.float32); Sr = g.standard_normal((nr, rr)).astype(np.float32)
+    Pk = (Sr @ Br).astype(np.float32); Pq = (Pk + 0.05 * g.standard_normal((nr, Nr)).astype(np.float32)).astype(np.float32)
+    def _abs_zca(Z2, eps):                                                    # the BROKEN absolute-eps full-ZCA (for the negative control)
+        m = Z2.mean(0, keepdims=True); Zc = Z2 - m; cv = (Zc.T @ Zc) / (len(Z2) - 1)
+        wv, Vv = np.linalg.eigh(cv.astype(np.float64)); return m.astype(np.float32), (Vv @ np.diag(1.0 / np.sqrt(np.maximum(wv, eps))) @ Vv.T).astype(np.float32)
+    maf, Waf = _abs_zca(Pk, 1e-3); rec_full = recall_at(_np_norm(top_k_magnitude(apply_zca(Pq, maf, Waf), 0.05)), _np_norm(top_k_magnitude(apply_zca(Pk, maf, Waf), 0.05)))
+    muS, WzS = fit_zca(Pk); rec_shrink = recall_at(_np_norm(top_k_magnitude(apply_zca(Pq, muS, WzS), 0.05)), _np_norm(top_k_magnitude(apply_zca(Pk, muS, WzS), 0.05)))
+    assert rec_shrink > 0.8 and rec_full < 0.5, "rank-deficiency guard: shrinkage rescues recall (shrink=%.2f>0.8 vs broken-full-ZCA=%.2f<0.5)" % (rec_shrink, rec_full)
+    print("[selftest] PASS: top-k + ZCA->I + fixed-random + D2 collapse-guard(oB=%.3f<oA=%.3f) + recall chunk-inv + rank-deficiency-guard(shrink=%.2f vs full-ZCA=%.2f)" % (oB, oA, rec_shrink, rec_full), flush=True)
 
 
-_selftest()
-if _ARGS.self_test:
-    raise SystemExit(0)
-
-print("[config] %s mode=%s ENCODER=%s N=%d M=%d steps=%d FRACS=%s seeds=%s DEV=%s | %s" % (
-    ANCHOR_NAME, RUN_MODE, ENCODER, N, M, TRAIN_STEPS, FRACS, SEEDS, DEV.type, CONFIG_VERSION), flush=True)
-out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "encoder": ENCODER}; t0 = time.time()
-for seed in SEEDS:
-    key = "s%d" % seed
-    if key in aggregate_partials(out_dir, [key], run_config=run_config):
-        print("[ckpt] %s done; skip" % key, flush=True); continue
-    write_partial_key(out_dir, key, run_unit(seed))
-units = list(aggregate_partials(out_dir, ["s%d" % sd for sd in SEEDS], run_config=run_config).values())
-verdict, msg, detail = compute_verdict(units)
-print("\n[VERDICT] " + msg, flush=True)
-metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": msg, "run_mode": RUN_MODE, "model": ENCODER,
-           "N": N, "M": M, "FRACS": FRACS, "n_seeds": len(SEEDS), "detail": detail,
-           "metrics_source": "measured_flagship_probe_whiten_before_topk_3variant", "per_unit": units, "elapsed_s": time.time() - t0}
-write_metrics(out_dir, metrics, units)
-print("[metrics] written to %s" % (out_dir / "metrics.json"), flush=True)
+if __name__ == "__main__":     # GUARD: import-safe (L-build cell + diagnostics reuse these funcs via import; never trigger a run on import)
+    _selftest()
+    if _ARGS.self_test:
+        raise SystemExit(0)
+    print("[config] %s mode=%s ENCODER=%s N=%d M=%d steps=%d FRACS=%s seeds=%s DEV=%s | %s" % (
+        ANCHOR_NAME, RUN_MODE, ENCODER, N, M, TRAIN_STEPS, FRACS, SEEDS, DEV.type, CONFIG_VERSION), flush=True)
+    out_dir = get_output_dir(ANCHOR_NAME); run_config = {"run_mode": RUN_MODE, "encoder": ENCODER}; t0 = time.time()
+    for seed in SEEDS:
+        key = "s%d" % seed
+        if key in aggregate_partials(out_dir, [key], run_config=run_config):
+            print("[ckpt] %s done; skip" % key, flush=True); continue
+        write_partial_key(out_dir, key, run_unit(seed))
+    units = list(aggregate_partials(out_dir, ["s%d" % sd for sd in SEEDS], run_config=run_config).values())
+    verdict, msg, detail = compute_verdict(units)
+    print("\n[VERDICT] " + msg, flush=True)
+    metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": msg, "run_mode": RUN_MODE, "model": ENCODER,
+               "N": N, "M": M, "FRACS": FRACS, "n_seeds": len(SEEDS), "detail": detail,
+               "metrics_source": "measured_flagship_probe_whiten_before_topk_3variant", "per_unit": units, "elapsed_s": time.time() - t0}
+    write_metrics(out_dir, metrics, units)
+    print("[metrics] written to %s" % (out_dir / "metrics.json"), flush=True)
