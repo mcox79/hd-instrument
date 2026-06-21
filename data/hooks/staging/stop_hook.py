@@ -45,45 +45,98 @@ def _testbed_waiting_cycle_hint(repo_root: Path) -> str:
     return '[WAITING-CYCLE-DUE: file next waiting-on cycle round per USER hourly protocol]'
 
 
-def _testbed_lull_check_hint(repo_root: Path) -> str:
-    """For the testbed role only: query Health endpoint + return a one-line LULL hint
-    if >= 2 other sessions have substantive-note age > 15 min, AND no lull-probe
-    fired in the last 90 min. Returns '' otherwise. Silent on any error (best-effort).
+def _testbed_active_pulse(repo_root: Path) -> str:
+    """For the testbed role only: run an active dashboard pulse on EVERY Stop fire
+    and embed rich state in the block reason. Replaces the prior 'hint only when
+    triggered' pattern -- the data is ALWAYS surfaced so I can't drift into
+    standing-without-checking. Cooldown only suppresses the recommend-to-fire
+    action, not the pulse data itself.
+
+    Returns a single line like:
+      [FLEET: agg=WARN | research(22m) exp_dev(35m STALE) skunkworks(active) orchestrator(active) | drift: 0 RED | ACTION: fire probe R12 narrowed to research+exp_dev]
+
+    Silent only on dashboard-unreachable (no false-alarm).
     """
     import urllib.request
     import urllib.error
-    # Cooldown via state file
-    cooldown_file = repo_root / 'data' / 'hook_state' / 'lull_probe_last_fired_ts'
-    try:
-        if cooldown_file.exists():
-            last_fired = float(cooldown_file.read_text().strip())
-            if (time.time() - last_fired) < 2700:  # 45 min cooldown (was 90 -- shortened so post-probe quick lulls re-trigger)
-                return ''
-    except (OSError, ValueError):
-        pass
-    # Query health endpoint
     try:
         with urllib.request.urlopen('http://localhost:8765/api/dashboard/v2/health', timeout=3) as r:
             data = json.loads(r.read().decode('utf-8'))
     except (urllib.error.URLError, OSError, json.JSONDecodeError, ValueError):
-        return ''  # dashboard down -> silent
-    # Count stale other sessions
+        return '[PULSE-DASHBOARD-DOWN]'  # not silent -- I should know if dashboard is down
+
+    agg = (data.get('aggregate') or {}).get('status', '?')
     fleet = (data.get('project_health') or {}).get('fleet') or {}
+    red_drifts = [d.get('name', '?') for d in data.get('drift_detectors', []) if d.get('status') == 'RED']
+
+    # Per-session age summary; mark stale (>15m)
+    fleet_summary = []
     stale = []
-    for role, s in fleet.items():
-        if role == 'testbed':
-            continue
+    for role in ('research', 'exp_dev', 'skunkworks', 'orchestrator'):
+        s = fleet.get(role, {})
         age = s.get('latest_substantive_note_age_s')
-        if isinstance(age, (int, float)) and age > 900:  # 15 min
-            stale.append((role, int(age / 60)))
-    if len(stale) < 2:
-        return ''
-    stale_desc = ', '.join(f'{r}({m}m)' for r, m in sorted(stale, key=lambda x: -x[1])[:4])
-    # Don't auto-write the cooldown file here -- only mark it when Testbed actually
-    # fires the probe note. The hint is harmless to repeat; the rate-limit lives at
-    # the note-filing step. (If we wrote it here, the hint would self-suppress even
-    # if Testbed never acted on it -- defeating the purpose.)
-    return f"[LULL-PROBE-DUE: {len(stale)}/4 stale -- {stale_desc} -- fire probe per protocol]"
+        if not isinstance(age, (int, float)):
+            fleet_summary.append(f'{role}(?)')
+            continue
+        m = int(age / 60)
+        if m > 15:
+            fleet_summary.append(f'{role}({m}m STALE)')
+            stale.append((role, m))
+        else:
+            fleet_summary.append(f'{role}({m}m)')
+
+    # Cooldown check for lull-probe action recommendation
+    lull_cd = repo_root / 'data' / 'hook_state' / 'lull_probe_last_fired_ts'
+    lull_action_due = False
+    if len(stale) >= 2:
+        try:
+            if lull_cd.exists():
+                last = float(lull_cd.read_text().strip())
+                if (time.time() - last) >= 2700:  # 45 min
+                    lull_action_due = True
+            else:
+                lull_action_due = True
+        except (OSError, ValueError):
+            lull_action_due = True
+
+    # Cycle-due check
+    cycle_cd = repo_root / 'data' / 'hook_state' / 'waiting_cycle_last_fired_ts'
+    cycle_action_due = False
+    try:
+        if cycle_cd.exists():
+            last = float(cycle_cd.read_text().strip())
+            if (time.time() - last) >= 3000:  # 50 min
+                cycle_action_due = True
+        else:
+            cycle_action_due = True
+    except (OSError, ValueError):
+        cycle_action_due = True
+
+    actions = []
+    if lull_action_due and len(stale) >= 2:
+        narrow = sorted(stale, key=lambda x: -x[1])
+        narrow_desc = '+'.join(r for r, _ in narrow[:4])
+        actions.append(f'fire LULL probe (narrow_to_{narrow_desc})')
+    if cycle_action_due:
+        if stale:
+            narrow = sorted(stale, key=lambda x: -x[1])
+            narrow_desc = '+'.join(r for r, _ in narrow[:4])
+            actions.append(f'fire CYCLE round (narrow_to_{narrow_desc})')
+        else:
+            actions.append('fire CYCLE round (4/4 active; broad ok)')
+    if red_drifts:
+        actions.append(f'investigate RED drift: {",".join(red_drifts)}')
+
+    action_str = ' | '.join(actions) if actions else 'pulse-only (no action due)'
+    red_str = f'{len(red_drifts)} RED ({",".join(red_drifts)})' if red_drifts else '0 RED'
+    return f"[FLEET: agg={agg} | {' '.join(fleet_summary)} | drift: {red_str} | ACTION: {action_str}]"
+
+
+def _testbed_lull_check_hint(repo_root: Path) -> str:
+    """DEPRECATED: kept for compatibility; replaced by _testbed_active_pulse.
+    Returns '' always; _testbed_active_pulse now embeds lull state + action
+    recommendation directly into the hook's block reason."""
+    return ''
 
 
 def _derive_session_from_transcript(transcript_path: str) -> str:
@@ -320,18 +373,32 @@ def main() -> int:
         # "LULL DETECTED" hint into the block reason. The hint becomes Stop hook
         # feedback text in the next turn -- mechanical, not memory-dependent.
         if role_for_hb == 'testbed':
+            # Auto-execute pulse (replaces both prior hint helpers; ALWAYS runs +
+            # embeds rich fleet data + action recommendation -- no reliance on me
+            # remembering to check). Per USER 2026-06-21 #1 improvement.
             try:
-                lull_hint = _testbed_lull_check_hint(repo_root_hb)
-                if lull_hint:
-                    reason = reason + " " + lull_hint
-            except Exception:
-                pass  # silent on any failure (don't risk breaking the hook over a hint)
-            try:
-                wc_hint = _testbed_waiting_cycle_hint(repo_root_hb)
-                if wc_hint:
-                    reason = reason + " " + wc_hint
-            except Exception:
-                pass
+                pulse = _testbed_active_pulse(repo_root_hb)
+                if pulse:
+                    reason = reason + " " + pulse
+                # Self-test (#4): log success to debug file so any silent failure
+                # of the helpers is visible within minutes (the lull-hint NameError
+                # bug went undetected for hours because no self-test ran).
+                try:
+                    st_log = repo_root_hb / 'data' / 'hook_state' / '_hint_selftest.log'
+                    st_log.parent.mkdir(parents=True, exist_ok=True)
+                    with st_log.open('a', encoding='utf-8') as f:
+                        f.write(f"{time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())} OK pulse_len={len(pulse)}\n")
+                except OSError:
+                    pass
+            except Exception as e:
+                # Self-test (#4): record the failure so it's visible
+                try:
+                    st_log = repo_root_hb / 'data' / 'hook_state' / '_hint_selftest.log'
+                    st_log.parent.mkdir(parents=True, exist_ok=True)
+                    with st_log.open('a', encoding='utf-8') as f:
+                        f.write(f"{time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())} FAIL {type(e).__name__}: {str(e)[:100]}\n")
+                except OSError:
+                    pass
         decision = {"decision": "block", "reason": reason}
         print(json.dumps(decision))
         return 0
