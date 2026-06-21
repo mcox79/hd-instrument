@@ -81,10 +81,15 @@ try:
 except Exception as e:
     print("[FATAL] sklearn missing: %s" % e, flush=True); sys.exit(1)
 
+# Load the (large, ~411MB compressed) residual npz ONCE, not per-seed (the per-seed reload stalled the v1 run on seed 23 -- I/O hang).
+print("[load] reading residuals from %s (once, reused across seeds)..." % NPZ, flush=True)
+_R_RESIDUALS = np.load(NPZ)["residuals"]
+print("[load] residuals shape=%s" % (_R_RESIDUALS.shape,), flush=True)
+
 
 def run_seed(seed) -> Dict:
     g = np.random.default_rng(seed)
-    d = np.load(NPZ); R = d["residuals"]
+    R = _R_RESIDUALS                                          # preloaded once (was np.load per-seed -> I/O hang on seed 23)
     idx = g.choice(R.shape[0], size=min(N_TOK, R.shape[0]), replace=False)
     X = R[idx].astype(np.float32); norms = np.linalg.norm(X, axis=1)
     Xn = X / (norms[:, None] + 1e-8)
