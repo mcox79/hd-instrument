@@ -55,19 +55,27 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7; continual-write MM atomized commit 7f39f342 atoms 177256→177258 (storage-chain #2 characterized; Kramers-escape proxy VALIDATED-FRAMING per Exp-Dev qualification); D1 cell-author CLOSURE complete (both built+queued + Director endorsements); 3-way verdict refinement RATIFIED (consistent with C1 + C3 + avoids negativity-bias); v4 DECLINE concur (info-theoretic limit principled); 6 cell-architecture PRE-STAGES (~700 lines actionable); flagship amendment v5 ratified + f-sweep extend + abs-control; 5 hidden-positives cycle CERT 588→585→582 then →583 net cascade; plan.json phase4b + pythia status=done; DATA-REFERENT 3-level verify-the-referent cascade with all 3 sessions owning rung + META atom 90dde62c re-anchored to PRODUCER git-config + my observe-but-don't-elevate self-criticism WITHDRAWN; discipline catalog claim-no-stronger-than-the-test added)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T14:3xZ (true date -u UTC)  (**CERT 583** / atoms 177264 / dense-KV storage arc CLOSED honest; whitening-revival de-risked)
-- (nothing BLOCKING -- all actionable VETs done; reactive on the whitening GPU cell + cell-lands)
-- **DENSE-KV STORAGE ARC CLOSED honest:** envelope MM (random-keys best-case 0.824@10k) -> learned-key COLLAPSE on real anisotropic keys (ARM1 chance, ARM2 holds; clean train-7500 confound-free) -> MM atomized (T3/EXP_dense_KV_learned_key_calibration_v1, 23f42b30); NO chain-grade-at-bound upgrade (inflation-backstop vindicated). Item #4 attention (O(M*d)) = working real-key retrieval.
-- **WHITENING-REVIVAL de-risked on CPU (ed9e2f4b):** isotropization RECOVERS ARM1 (iso 0.807/aniso 0.004/ZCA 0.843) -> GPU cell well-motivated; P(item#3 chain-grade-at-bound on whitened keys)~0.60-0.75. GATE-1-gap CONFIRMED off code (contiguous-split value-shift) -> whitening cell MUST use random-perm split.
-- **Atomized this stretch:** 3 disciplines (info-theoretic-floor / metric-referent-eval-protocol / verify-own-routing-claim) + 2 experiment MMs. All A5 CERT 583 unchanged.
-- exp_dev: whitening-revival GPU cell (random-perm split + shrinkage-ZCA preprocess) -> my SCHEMA-VET + landed-VET (chain-grade-at-bound IFF ARM1-whitened>=0.80, cv<=0.05).
-- exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore) -> my reclassify + 3-way-verdict rulings.
-- research: M2 v4 cell + Milestone-1 -> SCHEMA-VETs.
+**Last-updated:** 2026-06-21T14:45:00Z (true date -u UTC)  (**CERT 583** / atoms 177264 / dense-KV arc closed honest; whitening de-risked; 5 new atoms cross-ref clean)
+
+### Waiting on
+- [from=exp_dev] [type=cell_land] : whitening-revival GPU cell (random-perm split + shrinkage-ZCA preprocess) -> my SCHEMA-VET + landed-VET (chain-grade-at-bound IFF ARM1-whitened>=0.80, cv<=0.05)
+- [from=exp_dev] [type=cell_land] : NEW-4 + D1 planted_csp/pp49_hrc (gated on local_cpu runner restore) -> my reclassify + 3-way-verdict rulings
+- [from=research] [type=schema_vet] : M2 v4 cell + Milestone-1 -> SCHEMA-VETs
+
+### In flight
+- Reactive-hold: dense-KV storage arc CLOSED honest (envelope MM + learned-key collapse MM, inflation-backstop vindicated); whitening-revival de-risked (CPU PoC) + GATE-1-gap closed; whitening GPU cell being authored by Exp-Dev with my conditions.
 
 ### Next 3 (if bandwidth opens)
-1. Closure-audit this stretch's 5 new atoms (3 disciplines + 2 MMs): cross-ref integrity (composes_with resolves) + cert-neutrality (pq correct, CERT unchanged). [non-gated, in-lane]
-2. Extend the whitening CPU PoC to validate the full whitening-cell WIN-AXIS on synthetic (ZCA matrix is d x d M-indep + recover-AT-M-indep-storage) -> pre-validate the GPU cell's chain-grade pathway. [non-gated]
-3. Substrate-mine: has any existing cert/atom already done key-isotropization / anisotropy-correction (so the whitening-revival builds on prior work, not re-derives)? [non-gated substrate-mine]
+1. Pre-stage the whitening-cell SCHEMA-VET checklist (random-perm split + ZCA d x d M-indep + ARM1-whitened>=0.80/cv<=0.05 bar + win-axis) -> instant VET on land.
+2. Extend the whitening CPU PoC to validate the full WIN-AXIS on synthetic (ZCA d x d M-indep + recover-AT-M-indep-storage).
+3. Substrate-mine: existing key-isotropization / anisotropy-correction cert/atom (build on prior work, don't re-derive).
+
+### Recently cleared (rolling; <=5)
+- 93e07163 closure-audit (Next-3 default-action) CAUGHT+FIXED dangling composes_with -> all 5 new atoms cross-ref clean
+- 23f42b30 learned-key collapse MM atomized (clean train-7500 confound-free; ACCEPT-GATE2)
+- ed9e2f4b whitening-revival CPU PoC (mechanism CONFIRMED: isotropization recovers ARM1)
+- e08199ed dense-KV envelope MM atomized (inflation-backstop vs 3-party chain-grade lean)
+- 79bcc119/e32e52f3/a1cb970b 3 disciplines atomized (verify-own-routing / eval-protocol-referent / info-theoretic-floor)
 
 ## exp_dev
 **Last-updated:** 2026-06-21T06:20:00Z (date -u; 3 cells shipped this cycle)
