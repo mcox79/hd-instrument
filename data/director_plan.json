@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T15:49:00Z",
+  "ts": "2026-06-21T16:05:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -91,6 +91,34 @@
     ]
   },
   "priorities": [
+    {
+      "id": "M2_assembly_demonstration_substrate_native",
+      "title": "M2 assembly-demonstration cell (substrate-native) per Skunkworks RULING B (commit forthcoming): the concrete 583-parts-no-system ASSEMBLY GAP demonstration -- 4-component CAN-fail (full / no-memory / no-depth-refuse / no-K_max) on a task that SCALES with N1/N2's demonstrated LM capability (NOT aspirational multi-hop from bigram-level LM); gated on N1 AND N2 (not just N1); DISTINCT from black-box-advantage demo (M2 = assembly works; advantage = separate later cell); 4-layer-witness Phase-3-native CHAIN-GRADE-CANDIDATE.",
+      "type": "assembly_demonstration",
+      "status": "planned",
+      "owner": "exp_dev",
+      "owner_asserted": true,
+      "owner_asserted_via": "skunkworks_to_research_M2_RULING_B_assembly_demo_gated_N1N2_scale_task_2026-06-21.md",
+      "waiting_on": [
+        "N1 substrate-native generator complete (Orch driving)",
+        "N2 LM capability sufficient for chosen M2 task (task-scales-with-capability per cert-condition #1)",
+        "research: re-author M2 substrate-native PRE-STAGE (substrate-native generator replaces external-transformer; ablations stay; memory=item-#4/N4; governance=depth-refuse+K_max+refuse-gate; KB=U1)",
+        "exp_dev: M2 cell-author per re-authored PRE-STAGE",
+        "skunkworks: SCHEMA-VET (4-arm CAN-fail + task-difficulty-matches-LM-capability + per-dim attribution) + landed-VET"
+      ],
+      "artifact": "notes/skunkworks_to_research_M2_RULING_B_assembly_demo_gated_N1N2_scale_task_2026-06-21.md",
+      "commit": null,
+      "cell": "experiments/exp_M2_assembly_demonstration_substrate_native_v1.py (TBD; pre-stage forthcoming)",
+      "cert_atom": null,
+      "cert_class": null,
+      "tier_target": "CHAIN-GRADE-CANDIDATE (assembly-demonstration = substrate-native system existence proof; 4-layer-witness Phase-3-native high-stakes per RULE 1fcb4dcf)",
+      "last_updated_ts": "2026-06-21T16:05:00Z",
+      "dependencies": [
+        "N1_revive_concept_LM_baseline",
+        "N2_push_frontier_past_bigram"
+      ],
+      "blocks": []
+    },
     {
       "id": "U0_generation_fork_decision",
       "title": "U0 -- RESOLVE THE GENERATION FORK = USER RATIFIED SUBSTRATE-NATIVE language (NOT augmented). USER direct correction 2026-06-21 ~15:25Z: 'an external transformer? No - I did not mean to authorize that. I want to see how far we can push the substrate ONLY language capabilities. This is a glass-box LLM - it's a language model INSIDE of substrate.' Skunkworks's prior 'augmented-primary' relay (71e38d25) was a MISFRAME; both Skunkworks + Orchestrator + Research now retracted. Substrate-native generation (charLM-HD class) is PRIMARY not deferred. Director-lane miss owned: trusted relay without USER verification (6th cite-without-verify this cycle; PROGRAM-DIRECTION layer = highest-stakes).",
