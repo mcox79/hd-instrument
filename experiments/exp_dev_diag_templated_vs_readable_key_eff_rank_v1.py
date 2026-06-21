@@ -36,10 +36,16 @@ def structure(K):
     cm_frac = e_mean / e_total if e_total > 0 else 0.0  # = mean pairwise cosine (single common-mode energy)
     Xc = K - mu; cov = (Xc.T @ Xc) / max(n - 1, 1)
     eigs = np.clip(np.linalg.eigvalsh(cov)[::-1], 0, None)
-    pr = participation_ratio(eigs)
-    top1 = float(eigs[0] / eigs.sum()) if eigs.sum() > 0 else 0.0
-    top5 = float(eigs[:5].sum() / eigs.sum()) if eigs.sum() > 0 else 0.0
-    return dict(d=d, pr=pr, pr_frac=pr / d, cm_frac=cm_frac, top1=top1, top5=top5)
+    pr = participation_ratio(eigs)                       # (sum l)^2/sum(l^2) -- tail-sensitive
+    s = eigs.sum()
+    stable_rank = float(s / eigs[0]) if eigs[0] > 0 else 0.0   # trace/lambda_max (Research's metric)
+    p = eigs / s if s > 0 else eigs
+    p = p[p > 0]
+    eff_rank_roy = float(np.exp(-(p * np.log(p)).sum())) if len(p) else 0.0  # exp(spectral entropy) (Research's metric)
+    top1 = float(eigs[0] / s) if s > 0 else 0.0
+    top5 = float(eigs[:5].sum() / s) if s > 0 else 0.0
+    return dict(d=d, pr=pr, pr_frac=pr / d, cm_frac=cm_frac, top1=top1, top5=top5,
+                eff_rank_roy=eff_rank_roy, stable_rank=stable_rank)
 
 
 def readable_snippets(n):
@@ -74,6 +80,16 @@ def main():
     eff_t, eff_r = st["pr_frac"] * st["d"], sr["pr_frac"] * sr["d"]
     print("[eff-rank ratio readable/templated] PR/d: %.2fx (%.0f -> %.0f eff-dims) | cm_frac: %.3f -> %.3f" % (
         ratio, eff_t, eff_r, st["cm_frac"], sr["cm_frac"]))
+    # RECONCILE vs Research/Skunkworks (eff-rank=Roy spectral-entropy, stable-rank=trace/lmax)
+    print("[RECONCILE 3 metrics templated->readable (ratio)]")
+    print("  PR              : %.1f -> %.1f  (%.2fx)  [tail-sensitive; what I reported]" % (
+        st["pr"], sr["pr"], sr["pr"] / max(st["pr"], 1e-9)))
+    print("  eff_rank (Roy)  : %.1f -> %.1f  (%.2fx)  [Research/Skunkworks metric]" % (
+        st["eff_rank_roy"], sr["eff_rank_roy"], sr["eff_rank_roy"] / max(st["eff_rank_roy"], 1e-9)))
+    print("  stable_rank     : %.1f -> %.1f  (%.2fx)  [Research metric; capacity-relevant]" % (
+        st["stable_rank"], sr["stable_rank"], sr["stable_rank"] / max(st["stable_rank"], 1e-9)))
+    print("  -> if eff_rank/stable_rank ratio ~1.1-1.3x (NOT my PR 3.6x): my PR OVERSTATED the readable")
+    print("     advantage (tail-overcount); CONVERGE w/ Research = anisotropy INTRINSIC, dense not-reopened.")
     print()
     # TWO components, judged SEPARATELY (the headline must not collapse them):
     print("[VERDICT-decomposed] (do NOT collapse the two components)")
