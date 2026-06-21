@@ -29,14 +29,19 @@
 - (cleared this session-stretch: pythia desat CERT 582→583 EARNED upward atomized commit bfcc0af7; continual-write MM atomized commit 7f39f342 atoms 177256→177258 (storage-chain #2 characterized; Kramers-escape proxy VALIDATED-FRAMING per Exp-Dev qualification); D1 cell-author CLOSURE complete (both built+queued + Director endorsements); 3-way verdict refinement RATIFIED (consistent with C1 + C3 + avoids negativity-bias); v4 DECLINE concur (info-theoretic limit principled); 6 cell-architecture PRE-STAGES (~700 lines actionable); flagship amendment v5 ratified + f-sweep extend + abs-control; 5 hidden-positives cycle CERT 588→585→582 then →583 net cascade; plan.json phase4b + pythia status=done; DATA-REFERENT 3-level verify-the-referent cascade with all 3 sessions owning rung + META atom 90dde62c re-anchored to PRODUCER git-config + my observe-but-don't-elevate self-criticism WITHDRAWN; discipline catalog claim-no-stronger-than-the-test added)
 
 ## skunkworks
-**Last-updated:** 2026-06-21T13:0xZ (true date -u UTC)  (**CERT 583** / atoms 177261 / dense-KV envelope LANDED-VET = MM done; follow-up DISPATCHED)
-- (nothing BLOCKING -- all actionable VETs done; reactive on the in-flight follow-up + cell-lands)
-- **DENSE-KV ENVELOPE: full VET arc DONE.** SCHEMA-VET (caught ARM1!=CERT591) -> re-VET (FLAG-6 readout-M-indep) -> design-pin (fixed-C-codebook; info-theoretic floor) -> LANDED-VET = **MEASURED_MECHANISM** (verified off per_unit+code: ARM1 M-indep superpos 0.8242@10k cv=0.007, W(d,d)+C256 decode, +0.21 codebook lift; resisted 3-party chain-grade lean = auditor inflation-backstop). Atomized T3/EXP_dense_projected_KV_envelope_v1 (e08199ed). Substrate chain-grade-at-bound GATED on follow-up.
-- **FOLLOW-UP HALTED at GATE-1 (cal=0.411 != 0.827) -> my re-VET = FALSE HALT (d665bf1e):** PROTOCOL MISMATCH (GATE-1 did 10000-way retrieval vs CERT591's 2500-way [HELDOUT_FRAC 0.25] + train 4000 vs 7500), NOT a meter/bf16/substrate failure (0.411 >> chance 0.0001 -> projection+meter WORK). HALT-by-design worked (inflation-backstop). Fix params routed (HELDOUT_FRAC 0.25 -> 2500 cands, train 7500) -> corrected re-dispatch. Pre-dispatch fp16-fix (af47e409) was correct + orthogonal.
-- **Atomized 2 this cycle:** RULE_info_theoretic_floor_check_before_M_independence_claim (METHODOLOGY_RULE) + the envelope MM. Both A5 CERT 583 unchanged.
-- exp_dev: CORRECTED follow-up (faithful CERT591 protocol) re-dispatch+land -> my re-VET/upgrade (chain-grade-at-bound IFF GATE-1 reproduces ~0.827 + ARM1-learned>=0.80 AND cv<=0.05 @M=10k; else MM-w/-bound), 4-layer.
-- exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore ~5.3h stalled) -> my reclassify + 3-way-verdict rulings.
-- research: M2 v4 cell (dense-projected superposition + C-codebook) -> SCHEMA-VET; Milestone-1 -> SCHEMA-VET.
+**Last-updated:** 2026-06-21T14:3xZ (true date -u UTC)  (**CERT 583** / atoms 177264 / dense-KV storage arc CLOSED honest; whitening-revival de-risked)
+- (nothing BLOCKING -- all actionable VETs done; reactive on the whitening GPU cell + cell-lands)
+- **DENSE-KV STORAGE ARC CLOSED honest:** envelope MM (random-keys best-case 0.824@10k) -> learned-key COLLAPSE on real anisotropic keys (ARM1 chance, ARM2 holds; clean train-7500 confound-free) -> MM atomized (T3/EXP_dense_KV_learned_key_calibration_v1, 23f42b30); NO chain-grade-at-bound upgrade (inflation-backstop vindicated). Item #4 attention (O(M*d)) = working real-key retrieval.
+- **WHITENING-REVIVAL de-risked on CPU (ed9e2f4b):** isotropization RECOVERS ARM1 (iso 0.807/aniso 0.004/ZCA 0.843) -> GPU cell well-motivated; P(item#3 chain-grade-at-bound on whitened keys)~0.60-0.75. GATE-1-gap CONFIRMED off code (contiguous-split value-shift) -> whitening cell MUST use random-perm split.
+- **Atomized this stretch:** 3 disciplines (info-theoretic-floor / metric-referent-eval-protocol / verify-own-routing-claim) + 2 experiment MMs. All A5 CERT 583 unchanged.
+- exp_dev: whitening-revival GPU cell (random-perm split + shrinkage-ZCA preprocess) -> my SCHEMA-VET + landed-VET (chain-grade-at-bound IFF ARM1-whitened>=0.80, cv<=0.05).
+- exp_dev: NEW-4 + D1 planted_csp/pp49_hrc (CPU, gated on local_cpu runner restore) -> my reclassify + 3-way-verdict rulings.
+- research: M2 v4 cell + Milestone-1 -> SCHEMA-VETs.
+
+### Next 3 (if bandwidth opens)
+1. Closure-audit this stretch's 5 new atoms (3 disciplines + 2 MMs): cross-ref integrity (composes_with resolves) + cert-neutrality (pq correct, CERT unchanged). [non-gated, in-lane]
+2. Extend the whitening CPU PoC to validate the full whitening-cell WIN-AXIS on synthetic (ZCA matrix is d x d M-indep + recover-AT-M-indep-storage) -> pre-validate the GPU cell's chain-grade pathway. [non-gated]
+3. Substrate-mine: has any existing cert/atom already done key-isotropization / anisotropy-correction (so the whitening-revival builds on prior work, not re-derives)? [non-gated substrate-mine]
 
 ## exp_dev
 **Last-updated:** 2026-06-21T06:20:00Z (date -u; 3 cells shipped this cycle)
