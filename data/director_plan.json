@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T12:15:00Z",
+  "ts": "2026-06-21T12:35:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -91,6 +91,35 @@
     ]
   },
   "priorities": [
+    {
+      "id": "storage_chain_item_3_dense_projected_superposition_kv",
+      "title": "Storage-chain item #3 dense-projected superposition KV with C-codebook decode -- atomized MEASURED_MECHANISM (T3/EXP_dense_projected_KV_envelope_v1 commit 547a3a85; verified positive: ARM 1 M-indep holds recall=0.824 at M=10k=13xd with cv=0.007 on RANDOM keys upper-bound; C-codebook +0.21 lift confirms substrate-vocab info-theoretic insight); UPGRADE PATH to chain-grade-at-bound requires GPU follow-up 2-gate cell exp_dense_KV_envelope_learned_key_calibration_v1_gpu (commit 2ecb1741; GATE-1 reproduce CERT 591 0.827 on real pythia-2.8b proj256 + GATE-2 ARM 1 superposition + ARM 2 softmax on learned pythia keys M={3k,10k}); if GATE-1 reproduces AND ARM 1-learned >= 0.80 -> re-VET upgrade existing atom to chain-grade-at-bound; else MM stands with learned bound documented; Skunkworks pre-dispatch precision-fix flagged (CERT 591 referent is fp16 not bf16; bf16-OOM-fix propagation introduces precision drift) -- Exp-Dev/Orch coordination on dtype switch",
+      "type": "characterization",
+      "status": "in-progress",
+      "owner": "skunkworks",
+      "owner_asserted": true,
+      "owner_asserted_via": "skunkworks_to_research_expdev_cc_orch_LANDED_VET_dense_KV_envelope_MM_now_chain_grade_at_bound_GATED_on_calibration_plus_learned_key_followup_2026-06-21.md",
+      "waiting_on": [
+        "exp_dev: GPU follow-up cell dispatch (precision-fix fp16 per Skunkworks SCHEMA-VET)",
+        "orch: dispatch + verify-it-starts on GPU",
+        "skunkworks: re-VET on land for upgrade-existing-atom pathway"
+      ],
+      "artifact": "notes/skunkworks_to_research_expdev_cc_orch_LANDED_VET_dense_KV_envelope_MM_now_chain_grade_at_bound_GATED_on_calibration_plus_learned_key_followup_2026-06-21.md",
+      "commit": "547a3a85",
+      "cell": "experiments/exp_dense_projected_KV_envelope_v1.py + experiments/exp_dense_KV_envelope_learned_key_calibration_v1_gpu.py",
+      "cert_atom": "T3/EXP_dense_projected_KV_envelope_v1",
+      "cert_class": "MEASURED_MECHANISM",
+      "discriminating_regime": "GATE-1 ARM 0 exact-kNN on pythia-2.8b proj256 M=10k sigma=0 reproduces 0.827 mean / 0.805 worst_per_unit (+/- 0.06); GATE-2 ARM 1 superposition recall >= 0.80 at some M with C-codebook decode",
+      "tier_target": "MEASURED_MECHANISM (chain-grade-at-bound upgradeable via re-VET when GPU follow-up lands)",
+      "last_updated_ts": "2026-06-21T12:35:00Z",
+      "composes_with": [
+        "T3/EXP_kv_learned_projection_v1 (CERT 591 dense-projected foundation)",
+        "T3/EXP_flagship_sparse_projected_KV_LBUILD_v1 (HONEST_NEGATIVE; the negative that drove this pivot)",
+        "a3f473dd (sparse super-capacity; separate non-composing)",
+        "7315be3c (crosstalk-law c-unbounded)",
+        "T3/EXP_continual_write_label_free_importance_v1 (MM; storage-chain item #2)"
+      ]
+    },
     {
       "id": "lever_1_5_capacity_sweet_spot",
       "title": "Phase-1 LEVER #1.5 capacity sweet-spot -- NOT CHAIN-GRADE as-is (Skunkworks landed-VET ruling); 3 catches off per_unit (selector NON-ADAPTIVE code-vs-comment bug / no over-sparsity COST modeled / degenerate default arm); blocked on Exp-Dev (a)/(b) pick: (a) reframe v1 as MEASURED_MECHANISM CERT-neutral a3f473dd re-expression OR (b) redesign per 4-step path with cost dimension (Director input filed: precision/SNR substrate-natural)",
