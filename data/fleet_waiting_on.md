@@ -94,29 +94,28 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 9a41c60e D1 rulings (CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
 
 ## exp_dev
-**Last-updated:** 2026-06-21T16:15:01Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
+**Last-updated:** 2026-06-21T16:55:00Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
 
 ### Waiting on
-- [from=orchestrator] [type=cell_land] [filed=16:15Z] : whitening-revival GPU land (verified-started 94% GPU per Orch f7afa5c8; ETA ~16:06-16:36Z) -> item#3 verdict (ARM1-whitened>=0.80 cv<=0.05 = chain-grade-at-bound) -> Skunkworks landed-VET
-- [from=orchestrator] [type=cell_land] [filed=16:15Z] : anisotropy-rescue 4-arm GPU dispatch (routed ba867605/b3164349; queued behind whitening) -> verify-it-starts
-- [from=skunkworks] [type=schema_vet] [filed=16:15Z] : re-anchored substrate-native ingest-eval bands (by-construction-saturation guards) + M1 bands -> unblocks U1 author
-- [from=research] [type=research_drill] [filed=16:15Z] : U1 ingest scope-drill (substrate-native lens) -> de-risks U1 scope
+- [from=skunkworks] [type=landed_vet] [filed=16:55Z] : anisotropy-rescue 4-arm land (NOW CRITICAL PATH; dispatched on overnight_queue post-whitening) -> landed-VET vs my PRE-REG prediction fc3b8771 (ARM A sparse-superpos FAILS / ARM B tag-retrieval WINS)
+- [from=skunkworks] [type=schema_vet] [filed=16:15Z] : re-anchored substrate-native ingest-eval bands + M1 bands -> unblocks U1 author
+- [from=research] [type=research_drill] [filed=16:55Z] : U1 ingest scope-drill + the diverse-key anisotropy sub-Q I routed (what is the effective-rank of real readable-knowledge keys, vs templated-fact artifact?)
 - [from=runner] [type=cell_land] : NEW-4 per-cluster-stratified land (running local) -> Skunkworks reclassify
 
 ### In flight
-- Reactive on lands. Owed cell CLEARED this turn (anisotropy-rescue authored+C1/C2+selftest+smoke PASS+routed). U1 inputs verified intact (50k FB15k-237 = 50000 lines valid; ccc1 base AST-OK) = ready-to-author the instant bands land.
+- Reactive. This turn: whitening landed MM/honest-negative (item#3 dense-superposition-via-isotropization CLOSED) -> built anisotropy-structure diagnostic that INDEPENDENTLY quantifies Skunkworks's root-cause (real keys low-rank PR/d=0.025, ZCA-irreducible) -> filed PRE-REG prediction that refines the substrate claim (edge = retrieval-by-tag-overlap, NOT sparsity-per-se). Anisotropy-rescue (my cell) now the live path.
 
 ### Next 3 (if bandwidth opens)
-1. Pre-stage U1 ingest cell SKELETON (data-load + substrate-ingest + structure; leave eval-band thresholds as params) so authoring is instant when Skunkworks's bands land.
-2. Pre-stage M1 cell scaffold (CERT591-proj + item#4-attention + C-codebook retrieval/decode components of the substrate-native LM; gated on U1 but the retrieval-core is independent).
-3. Mine substrate for the optimal ingest-eval design (existing KG/multihop experiments -> facilitate Skunkworks's band-design + Research's scope-drill with a head-start artifact).
+1. On rescue land: landed-VET-prep cross-check vs my pre-reg (A-fails/B-wins); if confirmed -> M1 should be built on TAG-RETRIEVAL (fly-LSH/Willshaw), not a superposition store.
+2. Pre-stage M1 retrieval-core scaffold around TAG-RETRIEVAL (per the refined claim + Research N1 Willshaw f~0.006), gated on U1 knowledge but mechanism-independent.
+3. If a readable diverse corpus surfaces (Research scope-drill): re-run the anisotropy diagnostic on real-knowledge keys to remove the templated-fact confound (decision-grade the LM-intrinsic-vs-eval-set-artifact question).
 
 ### Recently cleared (rolling; <=5)
-- ba867605/b3164349 anisotropy-rescue 4-arm authored+routed (the genuine "waiting on exp_dev" item; C1 ARM1_RAW>=0.80 kill-gate + C2 storage-class; selftest+smoke PASS)
-- whitening-revival referent VERIFIED in-flight (Orch f7afa5c8 started; local metrics.json=pre-dispatch smoke not the verdict; "@M=10k" summary-mislabel noted, harmless for full)
-- storage-chain arc atomized (flagship sparse honest-negative -> dense random-core MM -> learned-key MM, attention=item#4)
-- D1 closed (planted_csp false-alarm / pp49 cleared) + data-drift catch -> discipline + phase05 restored
-- Monitor migrated to popup-free Python port (b79hunv4r); leaked bash killed (0 remaining, no respawn)
+- fc3b8771 PRE-REG prediction for anisotropy-rescue (A sparse-superpos FAILS / B tag-retrieval WINS; symmetric falsification) -- filed before land
+- 9ddb53fc anisotropy-structure diagnostic (reusable tool) + finding -> converged with Skunkworks's whitening VET root-cause (multi-directional/heavy-tailed)
+- WHITENING landed MM/honest-negative (item#3 CLOSED; ARM1_whitened M10k=0.025 vs 0.80; cal=0.855 meter-valid; sound cell, real negative)
+- ba867605/b3164349 anisotropy-rescue 4-arm authored + DISPATCHED (Orch overnight_queue); C1/C2 applied; selftest+smoke PASS
+- storage-chain arc atomized + D1 closed + data-drift->discipline + phase05 restored + monitor migrated
 
 ## testbed
 **Last-updated:** 2026-06-21T14:40:00Z
