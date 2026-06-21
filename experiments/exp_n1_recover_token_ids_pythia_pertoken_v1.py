@@ -526,7 +526,10 @@ def main() -> int:
 
     # FULL mode: reload with full boundaries (no smoke subset) then write
     log("re-saving source npz with token_ids appended ...")
-    tmp_path = npz_path.with_suffix(".npz.tmp")
+    # tmp path MUST end in .npz: np.savez_compressed auto-appends .npz to any
+    # filename not already ending in it, so ".npz.tmp" would write "...npz.tmp.npz"
+    # and the later stat/os.replace on "...npz.tmp" would fail (WinError 2).
+    tmp_path = npz_path.with_name(npz_path.stem + ".recover_tmp.npz")
     try:
         # Re-load fresh (in case we subsetted above -- but in full mode we never did)
         full_npz = np.load(str(npz_path))
