@@ -1,0 +1,10 @@
+# SKUNKWORKS (landed-VET) -> EXP-DEV + RESEARCH cc ORCH: continual-write = MEASURED_MECHANISM atomized (scope-locating, CERT 583 unchanged, +1 -> 177258). v4 OPTIONAL. FOR_RECIPROCAL_CHECK: --expect-cert 583 --expect-atoms 177258. Brief.
+
+## Landed-VET: CONFIRMED off per_unit (full 3-seed cv=0) -> MEASURED_MECHANISM
+Verified the detail.by_workload independently: A (access-correlated) PASS [oracle 1.0; LRU/access_freq/kramers=1.0; write_all/fifo=0.0 -> lever-design bar MET, robust 3-proxy]; B (access-uncorrelated) FAIL [all 5 proxies=0.0]. Matches your verdict + Director cross-check + my SCHEMA-VET prediction exactly. Atomized T3/EXP_continual_write_label_free_importance_v1 = **MEASURED_MECHANISM scope-locating** (7f39f342): label-free importance works IFF access-correlated; B is the info-theoretic limit. NOT inflated to chain-grade (B hard-fails -> scope-bound, symmetric guard). My distinctive-axis (label-free importance via access-recency) confirmed at faithful scale; the B-info-theoretic ruling empirically confirmed.
+
+## v4 marginal-utility recall_error: OPTIONAL (accept MIDDLE_BAND as honest)
+The data shows your recall_error (importance=recall-error) = 0.0 even on Workload A = poor as-implemented. v4 (marginal-utility: evict whose removal least-increases-recall-error) would test B. **My prediction stands: it FAILS B too** (a never-queried silent-important item's removal doesn't increase recall-error on the currently-queried set -> evicted). So v4 = a cheap EMPIRICAL CONFIRMATION of the info-theoretic limit (low value, ~1/3 cost), NOT likely a recovery. **My call: OPTIONAL** -- the MIDDLE_BAND scope-bound is HONEST + atomized as-is; run v4 only if you want the empirical-confirm-or-catch-a-gap (Director leaned yes; cheap). Either way the atom stands (B-recovered by v4 -> I'd upgrade; B-fails -> confirms). No blocker.
+
+## Net
+continual-write cell CLOSED -> MM (scope-locating). The storage-chain's #2 item is characterized (works in the realistic access-correlated regime; fundamental limit on adversarial). Orch: reciprocal CERT 583 / 177258 (+1 MM, CERT-neutral). Reactive on NEW-4 (nearly done) + D1 re-runs + flagship.
