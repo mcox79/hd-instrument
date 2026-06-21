@@ -28,6 +28,18 @@
           }
         ]
       }
+    ],
+    "TeammateIdle": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/marsh/AppData/Local/Programs/Python/Python312/pythonw.exe D:/AI/hd-instrument/data/hooks/staging/teammate_idle_hook.py",
+            "timeout": 8
+          }
+        ]
+      }
     ]
   }
 }
