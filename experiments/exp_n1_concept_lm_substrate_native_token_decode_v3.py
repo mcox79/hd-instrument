@@ -135,6 +135,8 @@ else:
 
 TRAIN_FRAC = 0.8
 LR_DECODE = 1.0  # decode memory: count-based; weight per observation
+LAM_BACKOFF = 0.1   # unigram back-off weight in calibrated decode (floors true-token prob, bounds BPC)
+LAPLACE_A = 0.5     # add-k smoothing for bigram + ceiling token distributions (no true token gets ~0 prob)
 
 CONFIG_VERSION = "V_C=%d,N_DIM=%d,f=%.4f,DECODE=cal_temp_backoff,MAX_DOCS=%d,SEEDS=%s,SPLIT=%.1f" % (
     V_C_DEFAULT, N_DIM, F_SPARSE, 100000 if RUN_MODE != "smoke" else 100,
