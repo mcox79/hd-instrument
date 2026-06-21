@@ -41,7 +41,7 @@ def _testbed_lull_check_hint(repo_root: Path) -> str:
     try:
         if cooldown_file.exists():
             last_fired = float(cooldown_file.read_text().strip())
-            if (time.time() - last_fired) < 5400:  # 90 min cooldown
+            if (time.time() - last_fired) < 2700:  # 45 min cooldown (was 90 -- shortened so post-probe quick lulls re-trigger)
                 return ''
     except (OSError, ValueError):
         pass
