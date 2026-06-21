@@ -129,9 +129,9 @@ V_C = _ARGS.vc if _ARGS.vc is not None else int(os.environ.get("HDLAB_VC", "1024
 F_SPARSE = (_ARGS.f_sparse if _ARGS.f_sparse is not None
             else float(os.environ.get("HDLAB_F_SPARSE", "0.006")))
 
-# N_DIM production grid: {4096, 8192} -- N=16384 deferred (too expensive for 4h budget)
-# Smoke grid uses small N for speed
-_N_GRID_FULL = [4096, 8192]
+# N_DIM production grid: {4096, 8192, 16384}. Orchestrator MEASURED N=16384 W-build=20s + recall=16s
+# (~45s/config), NOT 8h as the author estimated -- un-saturating V_C=1024 (alpha~0.5 at N=16384) is THE breakthrough config.
+_N_GRID_FULL = [4096, 8192, 16384]
 _N_GRID_SMOKE = [512, 1024]
 
 _n_grid_str = _ARGS.n_grid or os.environ.get("HDLAB_N_DIM_GRID", "")
