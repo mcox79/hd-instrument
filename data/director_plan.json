@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-21T05:18:00Z",
+  "ts": "2026-06-21T05:58:00Z",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -31,7 +31,10 @@
       "confirmed_demotes_queued": {
         "_note": "EXECUTED 2026-06-20T22:45Z via Skunkworks commit d758d401 (path-scoped commit per shared-index race lesson; A5-gated; atoms 177244 unchanged; CERT 589 confirmed). First declared DOWNWARD count-move in the cascade. Symmetric guard producing real integrity correction.",
         "status": "AUDIT_COMPLETE",
-        "executed_commits": ["d758d401 (3 demotes -> CERT 589)", "5MM-audit-complete commit (2 more demotes a1_8a + a1v2 -> CERT 587)"],
+        "executed_commits": [
+          "d758d401 (3 demotes -> CERT 589)",
+          "5MM-audit-complete commit (2 more demotes a1_8a + a1v2 -> CERT 587)"
+        ],
         "count": 5,
         "expected_cert_count": 587,
         "actual_cert_count_post_execution": 587,
@@ -53,18 +56,40 @@
   "ts_note": "Director-maintained; updated at natural decision points (routings filed, ships landing, SCHEMA-VETs landing). Not 60s-cadence.",
   "schema_version": "v1_skunkworks_vetted",
   "schema_reference": "notes/skunkworks_to_research_testbed_SCHEMAVET_dashboard_plan_json_engagement_metrics_cert_discipline_verdict_2026-06-20.md",
-
   "active_program": {
     "name": "4-Phase comprehensive program (cert-architecture C0-C6 + cap-int 4th cert-layer)",
     "reference": "C:/Users/marsh/.claude/projects/d--AI/memory/project_comprehensive_program_cert_architecture_C0C6_2026-06-19.md",
     "phases": [
-      {"id": "phase_0", "name": "Phase 0 -- phase-diagram MAP", "status": "in-progress", "evidence": "notes/research_canonical_evidence_map_v5_MINI_REFRESH_*.md (16 cert-canonical clusters DONE)", "last_updated_ts": "2026-06-20T16:45:00Z"},
-      {"id": "phase_1", "name": "Phase 1 -- ship cert-PASS levers", "status": "in-progress", "evidence": "CERT 590 CSP first-ship LIVE; LEVER #1.5 cell built (9097f659); sparse-coding lever input atomized (a3f473dd)", "last_updated_ts": "2026-06-20T16:53:00Z"},
-      {"id": "phase_2", "name": "Phase 2 -- onboard 104-value-trove", "status": "in-progress", "evidence": "cap-int 4th cert-layer integrated; 492 cluster canonicals", "last_updated_ts": "2026-06-20T08:00:00Z"},
-      {"id": "phase_3", "name": "Phase 3 -- glass-box LLM", "status": "in-progress", "evidence": "Substrate-KV mechanism architecturally SETTLED = NN+#7 (CERT 591); depth-beyond-equilibrium CERT 592; sparse super-capacity >=300x@f0.005 (a3f473dd)", "last_updated_ts": "2026-06-20T09:45:00Z"}
+      {
+        "id": "phase_0",
+        "name": "Phase 0 -- phase-diagram MAP",
+        "status": "in-progress",
+        "evidence": "notes/research_canonical_evidence_map_v5_MINI_REFRESH_*.md (16 cert-canonical clusters DONE)",
+        "last_updated_ts": "2026-06-20T16:45:00Z"
+      },
+      {
+        "id": "phase_1",
+        "name": "Phase 1 -- ship cert-PASS levers",
+        "status": "in-progress",
+        "evidence": "CERT 590 CSP first-ship LIVE; LEVER #1.5 cell built (9097f659); sparse-coding lever input atomized (a3f473dd)",
+        "last_updated_ts": "2026-06-20T16:53:00Z"
+      },
+      {
+        "id": "phase_2",
+        "name": "Phase 2 -- onboard 104-value-trove",
+        "status": "in-progress",
+        "evidence": "cap-int 4th cert-layer integrated; 492 cluster canonicals",
+        "last_updated_ts": "2026-06-20T08:00:00Z"
+      },
+      {
+        "id": "phase_3",
+        "name": "Phase 3 -- glass-box LLM",
+        "status": "in-progress",
+        "evidence": "Substrate-KV mechanism architecturally SETTLED = NN+#7 (CERT 591); depth-beyond-equilibrium CERT 592; sparse super-capacity >=300x@f0.005 (a3f473dd)",
+        "last_updated_ts": "2026-06-20T09:45:00Z"
+      }
     ]
   },
-
   "priorities": [
     {
       "id": "lever_1_5_capacity_sweet_spot",
@@ -74,7 +99,10 @@
       "owner": "exp_dev",
       "owner_asserted": true,
       "owner_asserted_via": "git commit 9097f659 (cell-author); landed-VET ruling notes/skunkworks_to_expdev_orch_research_LEVER_1_5_LANDED_VET_NOT_chaingrade_*.md",
-      "waiting_on": ["exp_dev: (a) reframe-as-MM OR (b) redesign+rerun pick", "skunkworks: re-VET on (b) re-run OR atomize MM on (a)"],
+      "waiting_on": [
+        "exp_dev: (a) reframe-as-MM OR (b) redesign+rerun pick",
+        "skunkworks: re-VET on (b) re-run OR atomize MM on (a)"
+      ],
       "artifact": "notes/skunkworks_to_expdev_orch_research_LEVER_1_5_LANDED_VET_NOT_chaingrade_selector_NONadaptive_no_sweetspot_in_recall_only_2026-06-20.md + Director cost-dim input notes/research_to_expdev_skunkworks_cc_orch_LEVER_1_5_director_cost_dimension_input_PRECISION_SNR_is_substrate_natural_2026-06-20.md",
       "commit": "e6075dd9",
       "cell": "experiments/exp_capacity_sweet_spot_v1_cpu_v1.py (code-vs-comment bug confirmed by Testbed 2nd-witness)",
@@ -99,7 +127,10 @@
       "owner": "exp_dev",
       "owner_asserted": false,
       "owner_asserted_via": "Director-proposed; awaiting Exp-Dev acknowledgement",
-      "waiting_on": ["skunkworks: SCHEMA-VET on pre-reg A1-A4", "exp_dev: cell-author bandwidth"],
+      "waiting_on": [
+        "skunkworks: SCHEMA-VET on pre-reg A1-A4",
+        "exp_dev: cell-author bandwidth"
+      ],
       "artifact": "notes/research_to_skunkworks_expdev_PREREG_pythia_substrate_kv_pull_up_v2_*.md",
       "commit": "83f064b7",
       "cell": "experiments/exp_pythia_substrate_kv_pull_up_v2_gpu_v1.py",
@@ -135,7 +166,10 @@
       "owner": "skunkworks",
       "owner_asserted": true,
       "owner_asserted_via": "notes/skunkworks_to_research_orch_expdev_CERT_592_DECOMPOSITION_440_genuine_PASS_137_nonPASS_135_under_classified_label_honesty_2026-06-20.md",
-      "waiting_on": ["skunkworks: per_unit VET sequence (15 blank-verdict first, then 135 under-classified; multi-cycle; interleaves with LEVER 1.5 / refuse-gate #5 / scour streams)", "orchestrator: reciprocal-check each declared count move"],
+      "waiting_on": [
+        "skunkworks: per_unit VET sequence (15 blank-verdict first, then 135 under-classified; multi-cycle; interleaves with LEVER 1.5 / refuse-gate #5 / scour streams)",
+        "orchestrator: reciprocal-check each declared count move"
+      ],
       "artifact": "notes/skunkworks_to_research_orch_expdev_CERT_592_DECOMPOSITION_*.md",
       "commit": null,
       "cert_atom": null,
@@ -147,19 +181,22 @@
       "id": "phase4b_multistep_pull_up",
       "title": "phase4b multistep pull-up v2 -- NOT chain-grade per Skunkworks landed-VET (div-by-near-zero ratio + only-1-of-3-benchmarks-pass-2-op); REFRAME to MEASURED_MECHANISM with narrow MultiArith-2op-only claim + investigate 1op-MultiArith=0.017 anomaly",
       "type": "characterization",
-      "status": "in-progress",
-      "owner": "exp_dev",
-      "owner_asserted": false,
-      "owner_asserted_via": "Director-proposed reframe; awaiting Exp-Dev cell-author absorption",
-      "waiting_on": ["exp_dev: cell-reframe (drop div-by-near-zero ratio gate + narrow claim to MultiArith-2op-only + investigate 1op-MultiArith=0.017 representation anomaly)"],
+      "status": "done",
+      "owner": "skunkworks",
+      "owner_asserted": true,
+      "owner_asserted_via": "skunkworks_to_expdev_cc_research_PHASE4B_reframe_CONFIRM_MEASURED_MECHANISM_opdepth_peaking_verified_atomize_2026-06-20.md",
+      "waiting_on": [
+        "exp_dev: cell-reframe (drop div-by-near-zero ratio gate + narrow claim to MultiArith-2op-only + investigate 1op-MultiArith=0.017 representation anomaly)"
+      ],
       "artifact": "notes/skunkworks_to_expdev_research_orch_PREEMPTIVE_LANDEDVET_pythia_saturation_phase4b_divbyzero_ratio_BOTH_not_chaingrade_2026-06-20.md",
-      "commit": "(Skunkworks landed-VET ruling)",
+      "commit": "40c8897187a41e8f56f47777675392b0a6ae60fc",
       "cell": "experiments/exp_phase4b_multistep_pull_up_v2_cpu_v1.py",
-      "cert_atom": null,
-      "cert_class": "MEASURED_MECHANISM (CERT-neutral; pending reframe)",
+      "cert_atom": "phase4b_multistep_pull_up_v2 (atomized MM CERT-neutral via skunkworks DEMOTE commit 0c5c5f6a)",
+      "cert_class": "MEASURED_MECHANISM",
       "discriminating_regime": "REVISED: HARD_FAIL = MultiArith 2-op acc<0.15 (the 1-of-3 working benchmark); drop the 2op/1op ratio gate (divide-by-near-zero artifact 0.692/0.017=40x); SVAMP HARD_FAIL representation-bound REPORTED-not-gated; honest claim narrowed to 'MultiArith 2-op composition works (0.69); does NOT generalize to ASDiv/MAWPS 2-op (both fail); 1-op MultiArith near-zero=anomalous representation issue to investigate'",
       "tier_target": "MEASURED_MECHANISM (not chain-grade; data-decided downward per Skunkworks landed-VET)",
-      "last_updated_ts": "2026-06-21T00:30:00Z"
+      "last_updated_ts": "2026-06-21T05:58:00Z",
+      "dissolution_mechanism": "reframe to NATIVE-op-depth MEASURED_MECHANISM: each benchmark peaks at its own op-count (MultiArith 2-op peak 0.69, ASDiv/MAWPS/SVAMP 1-op peaks); div-by-near-zero 2op/1op ratio DROPPED; 1op-MultiArith=0.02 EXPLAINED (content not bug); composition-generalizes framing retired (false)"
     },
     {
       "id": "refuse_gate_5",
@@ -169,7 +206,10 @@
       "owner": "exp_dev",
       "owner_asserted": true,
       "owner_asserted_via": "git commit b9bcd7a7 (Exp-Dev cell-author)",
-      "waiting_on": ["skunkworks: SCHEMA-VET on built cell", "exp_dev: smoke -> dispatch"],
+      "waiting_on": [
+        "skunkworks: SCHEMA-VET on built cell",
+        "exp_dev: smoke -> dispatch"
+      ],
       "artifact": "git commit b9bcd7a7 + notes/skunkworks_to_expdev_research_REFUSE_GATE_5_cert_concur_PATH_A_*.md",
       "commit": "b9bcd7a7",
       "cell": "(refuse-gate #5 cell; authored in b9bcd7a7)",
@@ -187,7 +227,9 @@
       "owner": "testbed",
       "owner_asserted": false,
       "owner_asserted_via": "Director-proposed BUILD-GO; awaiting Testbed acknowledgement",
-      "waiting_on": ["testbed: build acknowledgement + implementation"],
+      "waiting_on": [
+        "testbed: build acknowledgement + implementation"
+      ],
       "artifact": "notes/research_to_testbed_BUILD_GO_dashboard_plan_panel_*.md",
       "commit": "bb23390b",
       "cert_atom": null,
@@ -203,7 +245,9 @@
       "owner": "testbed",
       "owner_asserted": false,
       "owner_asserted_via": "Director-proposed; Orchestrator runtime co-design filed (4 guardrails)",
-      "waiting_on": ["testbed: implementation"],
+      "waiting_on": [
+        "testbed: implementation"
+      ],
       "artifact": "notes/research_to_testbed_ROUTE_engagement_panel_dashboard_build_*.md + ADDENDUM + orchestrator_to_testbed_research_RUNTIME_COdesign_engagement_panel_*.md",
       "commit": "d74d1ce3",
       "cert_atom": null,
@@ -219,7 +263,9 @@
       "owner": "user",
       "owner_asserted": false,
       "owner_asserted_via": "Testbed staged at data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md",
-      "waiting_on": ["user: review timing"],
+      "waiting_on": [
+        "user: review timing"
+      ],
       "artifact": "data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md",
       "commit": null,
       "cert_atom": null,
@@ -283,7 +329,9 @@
       "owner": "research",
       "owner_asserted": true,
       "owner_asserted_via": "git commit bb506735 (SCHEMA-VET ask filed)",
-      "waiting_on": ["skunkworks: SCHEMA-VET on Store-read safety + HARD-EXIT-vs-soft-warn discipline (2 questions)"],
+      "waiting_on": [
+        "skunkworks: SCHEMA-VET on Store-read safety + HARD-EXIT-vs-soft-warn discipline (2 questions)"
+      ],
       "artifact": "notes/research_to_skunkworks_SCHEMAVET_ask_anti_drift_2_items_self_check_tool_owner_asserted_commit_cite_lock_USER_GO_2026-06-20.md",
       "commit": "bb506735",
       "cert_atom": null,
@@ -299,7 +347,10 @@
       "owner": "testbed",
       "owner_asserted": false,
       "owner_asserted_via": "Director-proposed; awaiting Skunkworks ratify then Testbed implements in dashboard plan-panel render",
-      "waiting_on": ["skunkworks: SCHEMA-VET tightening Q4 to commit-cite-only (1 question)", "testbed: implementation in dashboard plan-panel render"],
+      "waiting_on": [
+        "skunkworks: SCHEMA-VET tightening Q4 to commit-cite-only (1 question)",
+        "testbed: implementation in dashboard plan-panel render"
+      ],
       "artifact": "notes/research_to_skunkworks_SCHEMAVET_ask_anti_drift_2_items_self_check_tool_owner_asserted_commit_cite_lock_USER_GO_2026-06-20.md",
       "commit": "bb506735",
       "cert_atom": null,
@@ -308,41 +359,128 @@
       "last_updated_ts": "2026-06-20T17:25:00Z"
     }
   ],
-
   "recent_ships": [
-    {"cert_id": "CERT 590", "atom_id": "T3/EXP_csp_first_ship_v1", "verdict": "HARD_PASS", "cert_class": "CERT_CHAIN_GRADE", "bound": "8.42x CSP-solve speedup at N=2048/rho=0.9; no-recall-degrade; reversible additive flag; first Phase-1 0->1 ship", "ts": "2026-06-20T~earlier"},
-    {"cert_id": "CERT 591", "atom_id": "T3/EXP_kv_learned_projection_v1", "verdict": "HARD_PASS", "cert_class": "CERT_CHAIN_GRADE", "bound": "Pythia-2.8B held-out value-cue recall 0.83-0.96 at M in {2k,10k}; +0.75 over analytic ceiling; shuffled-control proves generalize-not-memorize; glass-box-KV foundation", "ts": "2026-06-20T~earlier"},
-    {"cert_id": "CERT 592", "atom_id": "T3/EXP_kmax_ness_envelope_corrected_v1", "verdict": "HARD_PASS", "cert_class": "CERT_CHAIN_GRADE", "bound": "Substrate NESS chain-recall depth GENUINELY exceeds classical Hopfield equilibrium 2-12x in moderate regime; artifact-free control 5/5 1.27-8.35x; ext_hopfrac~1.0 traverses correct next-node not jump-recovery", "ts": "2026-06-20T~early-cycle", "atomization_commit": "d391d000"},
-    {"cert_id": null, "atom_id": "Hebbian-superposition_capacity_projected", "verdict": "MEASURED_MECHANISM", "cert_class": "MEASURED_MECHANISM (CERT-neutral)", "bound": "~327 capacity on #7-projected keys; NN-retrieval (#7) >> Hebbian -> substrate-KV mechanism SETTLED = NN+projection", "atomization_commit": "baa06f0a"},
-    {"cert_id": null, "atom_id": "Crosstalk-law_cross_encoder", "verdict": "MEASURED_MECHANISM", "cert_class": "MEASURED_MECHANISM (CERT-neutral)", "bound": "Crosstalk-moment E[<k_i,k_j>^2] on raw keys IS the parameter-free predictor; SVD d_eff AND IsoScore BOTH FAIL as predictors; isotropy hypothesis OVERTURNED", "atomization_commit": "7315be3c"},
-    {"cert_id": null, "atom_id": "T3/EXP_sparse_boundary_v2_cpu_v1", "verdict": "MEASURED_MECHANISM", "cert_class": "MEASURED_MECHANISM (CERT-neutral)", "bound": "PLAIN k-of-N sparse Willshaw super-capacity: alpha_c(f) monotone-rising as f decreases; >=300x@f=0.005 LOWER-BOUND N=8192 (LOADS-capped); seed-robust cv=0; onset NOT located", "atomization_commit": "a3f473dd"},
-    {"cert_id": null, "atom_id": "a8_continual_writes_RE_VET", "verdict": "VERIFY-THE-REFERENT-CLEAN", "cert_class": "CERT-neutral (A5-patch run_mode smoke->full; pq UNTOUCHED)", "bound": "Atom's run_mode was STALE metadata; actual data is FULL (N=1024, 5 seeds, HARD_PASS, region_std=0.0, cliff@0.30); CERT 592 unchanged; D2 audit-flag CLEARED", "atomization_commit": "83f064b7"},
-    {"cert_id": null, "atom_id": "18_META_disciplines_atomized", "verdict": "DONE", "cert_class": "DISCIPLINE (CERT-neutral)", "bound": "ae088f94 (6) + baa06f0a (3) + 7315be3c (1) + cb7e89f1 (5) + 1fcb4dcf (3) = 18 META disciplines atomized fleet-wide; the audit-discipline catalog IS the self-cert rulebook (substrate-autonomy path); 1fcb4dcf added 4-layer-reciprocal-witness + label-must-match-aggregation + disposition-execution-must-preserve-per-atom-outcomes (atoms 177244->177247 CERT 589 unchanged)", "atomization_commits": ["ae088f94", "baa06f0a", "7315be3c", "cb7e89f1", "1fcb4dcf"]}
+    {
+      "cert_id": "CERT 590",
+      "atom_id": "T3/EXP_csp_first_ship_v1",
+      "verdict": "HARD_PASS",
+      "cert_class": "CERT_CHAIN_GRADE",
+      "bound": "8.42x CSP-solve speedup at N=2048/rho=0.9; no-recall-degrade; reversible additive flag; first Phase-1 0->1 ship",
+      "ts": "2026-06-20T~earlier"
+    },
+    {
+      "cert_id": "CERT 591",
+      "atom_id": "T3/EXP_kv_learned_projection_v1",
+      "verdict": "HARD_PASS",
+      "cert_class": "CERT_CHAIN_GRADE",
+      "bound": "Pythia-2.8B held-out value-cue recall 0.83-0.96 at M in {2k,10k}; +0.75 over analytic ceiling; shuffled-control proves generalize-not-memorize; glass-box-KV foundation",
+      "ts": "2026-06-20T~earlier"
+    },
+    {
+      "cert_id": "CERT 592",
+      "atom_id": "T3/EXP_kmax_ness_envelope_corrected_v1",
+      "verdict": "HARD_PASS",
+      "cert_class": "CERT_CHAIN_GRADE",
+      "bound": "Substrate NESS chain-recall depth GENUINELY exceeds classical Hopfield equilibrium 2-12x in moderate regime; artifact-free control 5/5 1.27-8.35x; ext_hopfrac~1.0 traverses correct next-node not jump-recovery",
+      "ts": "2026-06-20T~early-cycle",
+      "atomization_commit": "d391d000"
+    },
+    {
+      "cert_id": null,
+      "atom_id": "Hebbian-superposition_capacity_projected",
+      "verdict": "MEASURED_MECHANISM",
+      "cert_class": "MEASURED_MECHANISM (CERT-neutral)",
+      "bound": "~327 capacity on #7-projected keys; NN-retrieval (#7) >> Hebbian -> substrate-KV mechanism SETTLED = NN+projection",
+      "atomization_commit": "baa06f0a"
+    },
+    {
+      "cert_id": null,
+      "atom_id": "Crosstalk-law_cross_encoder",
+      "verdict": "MEASURED_MECHANISM",
+      "cert_class": "MEASURED_MECHANISM (CERT-neutral)",
+      "bound": "Crosstalk-moment E[<k_i,k_j>^2] on raw keys IS the parameter-free predictor; SVD d_eff AND IsoScore BOTH FAIL as predictors; isotropy hypothesis OVERTURNED",
+      "atomization_commit": "7315be3c"
+    },
+    {
+      "cert_id": null,
+      "atom_id": "T3/EXP_sparse_boundary_v2_cpu_v1",
+      "verdict": "MEASURED_MECHANISM",
+      "cert_class": "MEASURED_MECHANISM (CERT-neutral)",
+      "bound": "PLAIN k-of-N sparse Willshaw super-capacity: alpha_c(f) monotone-rising as f decreases; >=300x@f=0.005 LOWER-BOUND N=8192 (LOADS-capped); seed-robust cv=0; onset NOT located",
+      "atomization_commit": "a3f473dd"
+    },
+    {
+      "cert_id": null,
+      "atom_id": "a8_continual_writes_RE_VET",
+      "verdict": "VERIFY-THE-REFERENT-CLEAN",
+      "cert_class": "CERT-neutral (A5-patch run_mode smoke->full; pq UNTOUCHED)",
+      "bound": "Atom's run_mode was STALE metadata; actual data is FULL (N=1024, 5 seeds, HARD_PASS, region_std=0.0, cliff@0.30); CERT 592 unchanged; D2 audit-flag CLEARED",
+      "atomization_commit": "83f064b7"
+    },
+    {
+      "cert_id": null,
+      "atom_id": "18_META_disciplines_atomized",
+      "verdict": "DONE",
+      "cert_class": "DISCIPLINE (CERT-neutral)",
+      "bound": "ae088f94 (6) + baa06f0a (3) + 7315be3c (1) + cb7e89f1 (5) + 1fcb4dcf (3) = 18 META disciplines atomized fleet-wide; the audit-discipline catalog IS the self-cert rulebook (substrate-autonomy path); 1fcb4dcf added 4-layer-reciprocal-witness + label-must-match-aggregation + disposition-execution-must-preserve-per-atom-outcomes (atoms 177244->177247 CERT 589 unchanged)",
+      "atomization_commits": [
+        "ae088f94",
+        "baa06f0a",
+        "7315be3c",
+        "cb7e89f1",
+        "1fcb4dcf"
+      ]
+    }
   ],
-
   "dissolved_or_retracted": [
-    {"id": "isotropy_vs_capacity_hypothesis", "what": "Independent-isotropy as parameter-free capacity predictor (SVD d_eff / IsoScore)", "dissolution_mechanism": "OVERTURNED by crosstalk-law atomization 7315be3c: both SVD d_eff AND IsoScore FAIL as independent predictors; crosstalk-moment IS the predictor near-by-construction", "ts": "2026-06-20T~early-cycle"},
-    {"id": "sparse_1p4x_miscite", "what": "Sparse coding gives modest ~1.4x rescue at f=0.10, N=16384", "dissolution_mechanism": "MISCITE-accepted (Skunkworks's own reframe Flag-1 caught her own accepted-miscite); cited number does NOT reproduce from sparse_vs_dense's recall code; genuine is 8x@f=0.10 -> >=300x@f=0.005 LOWER-BOUND", "ts": "2026-06-20T08:12:00Z"},
-    {"id": "sparse_6x_25x_phantom", "what": "Sparse super-capacity 6x/25x peak", "dissolution_mechanism": "PHANTOM: sweep-endpoint ratio artifact (literally dividing sweep range bounds, not a measured peak)", "ts": "2026-06-20T~early-cycle"},
-    {"id": "kmax_low_alpha_extrapolation", "what": "K_max chain-grade gate anchored on extrapolation outside bounded regime", "dissolution_mechanism": "Caught by data-decides-no-preempt discipline; gate was anchored outside bounded regime; corrected to use within-regime measurement", "ts": "2026-06-20T~early-cycle"},
-    {"id": "k_eq_scorecard_typo", "what": "K=47 at alpha=0.1*alpha_c", "dissolution_mechanism": "TYPO: actually 0.27*alpha_c (formula consistent; scorecard misstated alpha value)", "ts": "2026-06-20T~early-cycle"}
+    {
+      "id": "isotropy_vs_capacity_hypothesis",
+      "what": "Independent-isotropy as parameter-free capacity predictor (SVD d_eff / IsoScore)",
+      "dissolution_mechanism": "OVERTURNED by crosstalk-law atomization 7315be3c: both SVD d_eff AND IsoScore FAIL as independent predictors; crosstalk-moment IS the predictor near-by-construction",
+      "ts": "2026-06-20T~early-cycle"
+    },
+    {
+      "id": "sparse_1p4x_miscite",
+      "what": "Sparse coding gives modest ~1.4x rescue at f=0.10, N=16384",
+      "dissolution_mechanism": "MISCITE-accepted (Skunkworks's own reframe Flag-1 caught her own accepted-miscite); cited number does NOT reproduce from sparse_vs_dense's recall code; genuine is 8x@f=0.10 -> >=300x@f=0.005 LOWER-BOUND",
+      "ts": "2026-06-20T08:12:00Z"
+    },
+    {
+      "id": "sparse_6x_25x_phantom",
+      "what": "Sparse super-capacity 6x/25x peak",
+      "dissolution_mechanism": "PHANTOM: sweep-endpoint ratio artifact (literally dividing sweep range bounds, not a measured peak)",
+      "ts": "2026-06-20T~early-cycle"
+    },
+    {
+      "id": "kmax_low_alpha_extrapolation",
+      "what": "K_max chain-grade gate anchored on extrapolation outside bounded regime",
+      "dissolution_mechanism": "Caught by data-decides-no-preempt discipline; gate was anchored outside bounded regime; corrected to use within-regime measurement",
+      "ts": "2026-06-20T~early-cycle"
+    },
+    {
+      "id": "k_eq_scorecard_typo",
+      "what": "K=47 at alpha=0.1*alpha_c",
+      "dissolution_mechanism": "TYPO: actually 0.27*alpha_c (formula consistent; scorecard misstated alpha value)",
+      "ts": "2026-06-20T~early-cycle"
+    }
   ],
-
   "waiting_on_user": [
-    {"item": "Phase 3 cost/policy brief review", "since": "2026-06-20T09:30:00Z", "blocking": "Phase 3 hardening cost decisions (concurrency reduction / batch API / separate workspaces / higher account tier)", "artifact": "data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md"}
+    {
+      "item": "Phase 3 cost/policy brief review",
+      "since": "2026-06-20T09:30:00Z",
+      "blocking": "Phase 3 hardening cost decisions (concurrency reduction / batch API / separate workspaces / higher account tier)",
+      "artifact": "data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md"
+    }
   ],
-
   "summary": {
     "priorities_total": 13,
     "priorities_done": 3,
     "priorities_in_progress": 8,
     "priorities_planned": 2,
-    "priorities_dissolved": 1,
-    "priorities_blocked": 1,
     "priorities_dissolved": 0,
+    "priorities_blocked": 1,
     "priorities_remaining_non_terminal": 10,
     "next_horizon": "Skunkworks SCHEMA-VETs in flight (LEVER #1.5 cell + pythia pre-reg + anti-drift items 2+3 = 3+1+3=7 questions across 3 asks). On her ratify cluster: I build self-check tool; Testbed locks owner-asserted commit-cite-only in plan-panel render + builds plan+engagement panels; Exp-Dev cell-author cadence (LEVER #1.5 smoke -> dispatch then refuse-gate #5 Path A). Effrank-SVD clarification from Skunkworks unblocks 3rd pull-up. Phase 3 cost brief USER review unblocks hardening Phase 3. Map v6 mini-refresh on next ship. Anti-drift package PROVES OUT on first non-trivial Director update cycle (this turn IS that test -- I'm updating the plan-JSON because items 2+3 routed + item 1 landed; demonstrating decision-point cadence per the just-locked memory rule)."
   },
-
   "director_narrative": "FLAG: DIRECTOR_JUDGEMENT -- non-load-bearing. This session shipped 3 chain-grade certs (CSP 590 / #7 591 / K_max 592) + 3 atomized MEASURED_MECHANISM characterizations (Hebbian / crosstalk-law / sparse super-capacity) + cleared 1 legacy actionable (a8) + introduced the 16th USER-LOCKED rule (no compaction-state-tracking) + dissolved 4 inflated claims while upgrading 1 understated finding -- discipline producing ALL DIRECTIONS. 15 META disciplines atomized making the audit-catalog the self-cert rulebook. Substrate-KV mechanism architecturally SETTLED = NN-retrieval with #7 learned projection. Phase 3 glass-box-LLM foundation strengthened by depth-beyond-equilibrium (CERT 592) + sparse super-capacity (>=300x@f=0.005). Cascade is in active state with multiple parallel threads; nothing is the load-bearing critical path."
 }
