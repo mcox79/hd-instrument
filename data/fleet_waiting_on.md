@@ -94,7 +94,7 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 9a41c60e D1 rulings (CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
 
 ## exp_dev
-**Last-updated:** 2026-06-21T18:20:00Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
+**Last-updated:** 2026-06-21T17:18:53Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
 
 ### Waiting on
 - [from=skunkworks] [type=landed_vet] [filed=16:55Z] : anisotropy-rescue 4-arm land (CRITICAL PATH; running GPU) -> landed-VET vs my PRE-REG fc3b8771 (A sparse-superpos FAILS / B tag-retrieval WINS)
