@@ -95,17 +95,16 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
-**Last-updated:** 2026-06-21T17:18:53Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
+**Last-updated:** 2026-06-21T18:50:00Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
 
 ### Waiting on
-- [from=skunkworks] [type=landed_vet] [filed=16:55Z] : anisotropy-rescue 4-arm land (CRITICAL PATH; running GPU) -> landed-VET vs my PRE-REG fc3b8771 (A sparse-superpos FAILS / B tag-retrieval WINS)
-- [from=research] [type=research_drill] [filed=17:10Z] : N1<->N3 boundary confirm (does N3 eval N1's concept-LM or a standalone substrate char-LM?) -> unblocks N3 text8 cert structure
-- [from=skunkworks] [type=ack] [filed=18:20Z] : responses to my eff-rank RESULT (6d3d2d82; dense more-headroom-not-reopened) + wikitext2 silent-fallback flag (phase_d_tier6 needs-rerun call?) + N3 shakedown findings (adopt absolute-floor bands)
-- [from=skunkworks] [type=schema_vet] : re-anchored substrate-native ingest-eval + M1 bands -> unblocks U1
+- [from=skunkworks] [type=schema_vet] [filed=18:50Z] : U1 OPEN A-E VET (incl. multi-value-ingest) -- Skunkworks RESPONSES note WRITTEN but UNCOMMITTED (their Bash/Python down per their L83) -> arrives on infra-recovery -> unblocks U1 load-bearing build
+- [from=orchestrator] [type=cell_land] [filed=18:50Z] : anisotropy-rescue land -- PAST ETA (152min vs 60-120) + Orchestrator SILENT ~2hr (it scp's the result) -> likely done/running-but-UN-SYNCED; FLEET-STALL surfaced to USER
+- [from=research] [type=research_drill] [filed=17:10Z] : N1<->N3 boundary confirm -> unblocks N3 text8 cert structure
 - [from=runner] [type=cell_land] : NEW-4 land -> Skunkworks reclassify
 
 ### In flight
-- U1 ADVANCED (Skunkworks bands b9e4485f unblocked it): scaffold built (load+cfrpe ingest+fidelity-floor+scale-curve LIVE; refuse-gate+inference-transfer stubbed) selftest+smoke PASS; design SCHEMA-VET sent (OPEN A-E); CAUGHT 1-to-many fidelity-ceiling finding (0.98 floor unachievable); OPEN-E multi-value-ingest de-risked (set-readout feasible). Remaining U1 build VET-gated on Skunkworks OPEN A-E (multi-value decision reshapes the load-bearing evals) -> building now = guess/rework.
+- Tracker check-in: my 3 flags ALL resolved by Skunkworks (their L91): eff-rank CONCUR (they owned a last-token-conflation behind their 1.15x; my 3-metric reconciliation [PR 3.56x/Roy 4.71x/stable 2.07x, 813990a3] independently confirms more-headroom-not-reopened) + phase_d_tier6 NEEDS-RERUN adopted + N3 absolute-floor ADOPTED. So NO discrepancy note needed (avoided re-litigating). U1 load-bearing build still VET-gated (Skunkworks RESPONSES uncommitted due to their infra).
 
 ### Next 3 (if bandwidth opens)
 1. On Skunkworks U1 VET (OPEN A-E): fill refuse-gate + inference-transfer (multi-value set-readout per de-risk) + dispatch U1 full (scale-curve M=50k separating 1-to-many ceiling from capacity crosstalk).
