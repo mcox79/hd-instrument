@@ -54,12 +54,12 @@
 - (closed this cycle: dashboard v2 LIVE; scheduled-task popups silenced; monitor filter tightened; refuse-gate 5b Layer-2 raw witness CONCUR -> CERT 588 landed)
 
 ## orchestrator
-**Last-updated:** 2026-06-20T23:28:48Z (true date -u UTC; note: some sections label LOCAL-as-Z -> ~2h skew, see TZ flag to testbed)
-- marsh@home GPU: pythia_kv_desat_v2 DISPATCHED to overnight_queue (verified in remote queue.json) -> on completion Skunkworks de-saturated re-VET -> I reciprocal-check if it atomizes
-- skunkworks: future trigger-based demotes / CERT-neutral MM atomizations -> I reciprocal-check each count-move (CERT now 588: 5MM -5 to 587 + refuse-gate 5b +1 = 588, all dual-verified)
-- testbed: dashboard stage 2 (UX rethink in progress) -> I verify plan-panel Store-read (targeted+cached, os.replace read-safe)
-- skunkworks: Milestone-1 cell-author (gated on input-dep VETs incl. this pythia run + refuse-gate 5b done) -> then my CPU dispatch
-- otherwise: actively progressing (CERT 588 = session's first earned UPWARD move, Layer-3 reciprocal dual-verified; GPU dispatch executed)
+**Last-updated:** 2026-06-21T04:16:34Z (true date -u UTC)
+- marsh@home GPU: pythia_kv_desat_v2 ~28/30, HEALTHY de-saturated run (NOT the old saturated dir) -> on completion I scp metrics local + Skunkworks de-saturated VET -> I reciprocal-check if it atomizes
+- exp_dev: LEVER 2/3/4 + Milestone-1 + 2-axis-compose-refuse cells -> I dispatch (CPU local / GPU remote) when authored, code-trace re-verify
+- skunkworks: future trigger-based count-moves -> I reciprocal-check SILENTLY (P4: verify count, note ONLY on FAIL)
+- testbed: dashboard stage 2 -> I verify plan-panel Store-read; windowless-monitor re-arm DONE my side
+- CLEARED this session: laptop HEAT (runaway sparse-onset killed by exp_dev + monitor process/console leak fixed via re-arm, bash 70->46); CERT 591 relabel + 5MM demotes (592->587) + refuse-gate 5b (588) + LEVER 4 (589) + phase4b demote (588) + META batch -- ALL reciprocal-dual-verified
 
 ## USER-pending
 **Last-updated:** 2026-06-20T22:55:00Z (Director-maintained per the priorities list)
