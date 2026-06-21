@@ -170,6 +170,84 @@ def wikitext2_char_corpus(
     return text
 
 
+_SHAKESPEARE_CACHE = _REPO / "data" / "shakespeare_cache"
+_SHAKESPEARE_URL = (
+    "https://raw.githubusercontent.com/karpathy/char-rnn/master/"
+    "data/tinyshakespeare/input.txt"
+)
+
+
+def _try_download_shakespeare() -> Optional[str]:
+    """Fetch tiny-shakespeare (~1.1MB) via urllib. None on any failure (offline-safe)."""
+    try:
+        import urllib.request
+
+        with urllib.request.urlopen(_SHAKESPEARE_URL, timeout=30) as r:
+            return r.read().decode("utf-8", errors="replace")
+    except Exception as e:
+        print(f"[data] shakespeare download failed ({type(e).__name__}: {e}); "
+              f"will try cache or synthetic.", flush=True)
+        return None
+
+
+def _split_single_file(full: str, split: str) -> str:
+    """Deterministic 90/5/5 char-position split of a single-file corpus."""
+    n = len(full)
+    bounds = {"train": (0, int(n * 0.90)),
+              "validation": (int(n * 0.90), int(n * 0.95)),
+              "test": (int(n * 0.95), n)}
+    lo, hi = bounds.get(split, bounds["train"])
+    return full[lo:hi]
+
+
+def shakespeare_char_corpus(
+    split: str = "train",
+    max_chars: Optional[int] = None,
+    allow_synthetic: bool = True,
+) -> str:
+    """Return a tiny-shakespeare character corpus for the requested split.
+
+    Resolution order (same contract as wikitext2_char_corpus):
+      1. Local cache under data/shakespeare_cache/tinyshakespeare.txt
+      2. urllib download from the canonical char-rnn mirror (then cache)
+      3. Synthetic fallback (deterministic) iff allow_synthetic.
+
+    Split = deterministic 90/5/5 char-position slice of the single file.
+    Use as the N3 pipeline-SHAKEDOWN corpus (CPU-fast; too small to differentiate
+    HD-binding from count-n-gram, so NOT a cert corpus -- text8 is the cert).
+    """
+    cache = _SHAKESPEARE_CACHE / "tinyshakespeare.txt"
+    full = None
+    if cache.exists():
+        try:
+            full = cache.read_text(encoding="utf-8")
+        except Exception:
+            full = None
+    if not full:
+        full = _try_download_shakespeare()
+        if full:
+            try:
+                _SHAKESPEARE_CACHE.mkdir(parents=True, exist_ok=True)
+                cache.write_text(full, encoding="utf-8")
+            except Exception:
+                pass  # cache opportunistic
+    if full is not None and len(full) >= 10000:
+        text = _split_single_file(full, split)
+        return text[:max_chars] if max_chars is not None else text
+
+    if not allow_synthetic:
+        raise RuntimeError(
+            f"tiny-shakespeare not reachable via cache ({_SHAKESPEARE_CACHE}) or "
+            f"download; set allow_synthetic=True or stage the cache."
+        )
+    target = max_chars if max_chars is not None else 200_000
+    seed = {"train": 2729, "validation": 2733, "test": 2741}.get(split, 2729)
+    text = _synthetic_corpus(target, seed=seed)
+    print(f"[data] using synthetic fallback for shakespeare split={split}: "
+          f"{len(text)} chars (seed={seed})", flush=True)
+    return text
+
+
 def char_vocab_from_corpus(text: str) -> list:
     """Return sorted list of unique chars in `text` (canonical vocab order)."""
     return sorted(set(text))
@@ -185,6 +263,15 @@ def _selftest() -> None:
     assert text_smoke[:1000] == text_smoke_2[:1000], "non-deterministic loader"
     print(f"[data selftest] PASS train smoke: {len(text_smoke)} chars, "
           f"vocab={len(vocab)}", flush=True)
+    # Shakespeare loader (download-or-synthetic; offline-safe) + split disjointness
+    sh_tr = shakespeare_char_corpus(split="train", max_chars=8000)
+    sh_va = shakespeare_char_corpus(split="validation", max_chars=2000)
+    assert len(sh_tr) >= 1000, f"shakespeare train too short: {len(sh_tr)}"
+    assert len(sh_va) >= 500, f"shakespeare val too short: {len(sh_va)}"
+    sh_tr2 = shakespeare_char_corpus(split="train", max_chars=8000)
+    assert sh_tr[:1000] == sh_tr2[:1000], "non-deterministic shakespeare loader"
+    print(f"[data selftest] PASS shakespeare: train={len(sh_tr)} val={len(sh_va)} "
+          f"vocab={len(char_vocab_from_corpus(sh_tr))}", flush=True)
 
 
 if __name__ == "__main__":
