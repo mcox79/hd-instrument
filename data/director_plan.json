@@ -46,8 +46,8 @@
     },
     "explicitly_labeled_proven_bound": 2,
     "under_classified_to_review": 135,
-    "total": 589,
-    "total_history": "592 -> 589 -> 587 -> 588 (+1 refuse-gate-5b 960fd3c6) -> 589 (+1 LEVER #4 depth-axis refuse-gate; SECOND UPWARD move; substrate's net = back at 589 by genuine work: -5 honest demotes + 2 chain-grade ships earned; Phase 1 ship count 2/5 = CSP 590 + LEVER #4; 4-layer-witness clean both ships; selector-needs-genuine-cost discipline empirically validated).",
+    "total": 588,
+    "total_history": "592 -> 589 -> 587 -> 588 (+1 #5b) -> 589 (+1 LEVER #4) -> 588 (-1 phase4b STALE chain-grade DEMOTED commit 0c5c5f6a; atom was atomized when v2 FIRST HARD_PASSed before Skunkworks landed-VET ruled it NOT-chain-grade; inflation removed). Net substrate at CERT 588 honest: 2 genuine earned chain-grades (#5b + LEVER #4) + phase4b inflation removed + 5MM honest demote cascade earlier; inflation-sweep clean (phase4b was the only stale pattern across all 588 atoms).",
     "source": "notes/skunkworks_to_orch_cc_all_5MM_DEMOTE_DONE_CERT_589_d758d401_reciprocal_check_request_2026-06-20.md (supersedes prior decomposition + custom-verdict notes; CERT 589 is current as of 2026-06-20T22:45Z; 149 to-classify remaining = 152 prior minus the 3 demoted)"
   },
   "ts_note": "Director-maintained; updated at natural decision points (routings filed, ships landing, SCHEMA-VETs landing). Not 60s-cadence.",
