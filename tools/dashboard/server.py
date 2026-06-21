@@ -861,6 +861,47 @@ def _compute_discipline_and_drift() -> dict:
         "evidence": {"fleet_waiting_age_h": user_pending_age_h},
     })
 
+    # D5. fleet-section-stale: per-section staleness in fleet_waiting_on.md (catches a single
+    # session's section rotting while others are fresh; the whole-file mtime misses it).
+    # Parses ## <role> blocks + their **Last-updated:** UTC timestamp; flags any role section
+    # >3h old. USER caught the gap 2026-06-21 (orchestrator section was 4h stale; my whole-
+    # file detector didn't surface it).
+    from datetime import datetime as _dt
+    stale_sections = []
+    if _FLEET_WAITING_PATH.is_file():
+        try:
+            raw = _FLEET_WAITING_PATH.read_text(encoding="utf-8", errors="replace")
+            current_role = None
+            for ln in raw.splitlines():
+                ls = ln.strip()
+                if ls.startswith("## ") and not ls.startswith("## USER"):
+                    current_role = ls[3:].strip().lower()
+                    if " " in current_role:  # take first word only
+                        current_role = current_role.split()[0]
+                elif current_role and ls.startswith("**Last-updated:**"):
+                    # Extract YYYY-MM-DDTHH:MM:SSZ pattern
+                    import re as _re
+                    m_ = _re.search(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})Z?", ls)
+                    if m_:
+                        try:
+                            ts = _dt.strptime(m_.group(1), "%Y-%m-%dT%H:%M:%S")
+                            age_h = (now - ts.timestamp()) / 3600.0
+                            if age_h > 3:
+                                stale_sections.append({"role": current_role, "age_h": round(age_h, 1)})
+                        except ValueError:
+                            pass
+                    current_role = None  # reset; one Last-updated per section
+        except OSError:
+            pass
+    detectors.append({
+        "name": "fleet-section-stale",
+        "status": "RED" if stale_sections else "OK",
+        "detail": (f"{len(stale_sections)} section(s) >3h stale: " +
+                   ", ".join(f"{s['role']}({s['age_h']}h)" for s in stale_sections)
+                   if stale_sections else "all session sections updated <3h ago"),
+        "evidence": stale_sections,
+    })
+
     drift_summary = {
         "n_total": len(detectors),
         "n_red": sum(1 for d in detectors if d["status"] == "RED"),
