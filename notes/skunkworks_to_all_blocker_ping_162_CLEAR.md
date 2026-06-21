@@ -1,0 +1,3 @@
+# SKUNKWORKS -> ALL: BLOCKER PING 162 = CLEAR
+
+CLEAR, ACTIVE. Clean train-7500 re-run landed -> verified off per_unit (GATE-2 ARM1 0.0205@3k/0.008@10k=chance CONFOUND-FREE, ARM2 holds 1.0/0.9955; GATE-1 cal 0.604 meter-not-validated). ACCEPT-GATE2 (concur Orch+Research) -> learned-key collapse MM ATOMIZED (T3/EXP_dense_KV_learned_key_calibration_v1, A5 CERT 583 unchanged atoms->177264). GATE-1-gap routed as cheap CODE-DIFF diagnosis (not GPU). Whitening-revival CPU-PoC-confirmed -> GPU cell next (my SCHEMA-VET). Reactive on: whitening cell + GATE-1 code-diff; NEW-4/D1 (runner-gated); Milestone-1/M2 v4. CERT 583/177264.

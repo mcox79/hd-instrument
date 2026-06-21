@@ -46,9 +46,11 @@ ATOM = Atom(
         'grade-at-bound), pythia-2.8b fp16 proj256 3-seed. RESULT (verified off per_unit, landed-VET): GATE-2 ARM1 '
         'superposition (M-indep O(d^2), C=256 codebook decode) on REAL learned pythia-projected keys = 0.015 @M=3k, 0.008 '
         '@M=10k = near-CHANCE (1/256=0.0039) -- COLLAPSE from the random-core best-case (1.0@3k / 0.824@10k). ARM2 softmax-'
-        'attention HOLDS (0.9995/0.997). MECHANISM (verified, not under-training): the projection WORKS -- GATE-1 cue->key '
-        'recall 0.41 >> chance (1/10000=1e-4 for the 10k-way retrieval) AND ARM2 0.997 -- so the keys are good for '
-        'retrieval; only the LINEAR superposition readout collapses. Anisotropic pythia keys -> high common-mode (cue.k_j ~ '
+        'attention HOLDS (1.0/0.9955). MECHANISM (verified, not under-training): the projection WORKS -- GATE-1 cue->key '
+        'recall 0.604 >> chance (1/2500=4e-4 for the 2500-way retrieval, CLEAN train-7500 run) AND ARM2 0.9955 -- so the keys '
+        'are good for retrieval; only the LINEAR superposition readout collapses. CONFOUND-FREE: the collapse REPRODUCES on '
+        'the clean train-7500 run (rules out the train-size confound -- full training, ARM1 still ~chance). Anisotropic '
+        'pythia keys -> high common-mode (cue.k_j ~ '
         'c for all j) -> r = W.cue ~ c*(sum_j code[y_j]) + signal -> the common-mode sum-of-all-codes SWAMPS the per-key '
         'signal -> chance decode. ARM2 softmax survives (normalize + exponential-contrast removes the common-mode). '
         'TIER: dense-KV (T3/EXP_dense_projected_KV_envelope_v1) does NOT upgrade to chain-grade-at-bound -- the random-core '
@@ -57,43 +59,53 @@ ATOM = Atom(
         'been inflation). NOT A FINAL NEGATIVE: the collapse is anisotropy-induced common-mode, which is FIXABLE by '
         'ISOTROPIZATION (mean-center / shrinkage-ZCA-whiten the learned keys) -- the random-core isotropic success (0.824) + '
         'the flagship whiten-before-topk shrinkage-ZCA (in-codebase) are the existence proof -> WHITENING REVIVAL routed '
-        '(does ARM1 superposition recover >=0.80 on WHITENED learned keys?). GATE-1 meter pending a clean re-run (faithful '
-        'CERT591 protocol: train 7500, 2500 candidates -> ~0.827) -- but the collapse finding STANDS regardless (projection '
-        'demonstrably works; the 256-codebook decode is selftest-validated + pool-independent). STORAGE: item #4 attention-'
+        '(does ARM1 superposition recover >=0.80 on WHITENED learned keys?). GATE-1 meter NOT formally validated: the param-'
+        'fix (2500 cands, train 7500) moved cal 0.411->0.604 (confirming the candidate-pool diagnosis) but a ~0.22 residual '
+        'gap to CERT591 0.827 remains (a SEPARATE CERT591-setup puzzle -- proj_dim/train_steps/fresh-vs-saved-weights/data; '
+        'routed as a cheap CODE-DIFF diagnosis, NOT more GPU). The collapse finding STANDS regardless (projection works '
+        '0.604>>chance; collapse is pool-independent + the 256-codebook decode is selftest-validated; ACCEPT-GATE2 endorsed '
+        'by Orchestrator + Research). STORAGE: item #4 attention-'
         'over-learned-keys (ARM2, O(M*d) dict-equivalent) is the working real-key retrieval (Phase-3 candidate); item #3 '
         'M-indep store is GATED on the whitening-revival (not abandoned).'),
     kind=AtomKind.EXPERIMENT_RECORD, tier=Tier.TIER_3_ALGORITHM, corpus=Corpus.MATH, algebra=None,
     metadata={'provenance_quality':'MEASURED_MECHANISM','relevance_tier':'HIGH','run_mode':'full','verdict':'MEASURED_MECHANISM_learned_key_collapse_no_upgrade',
               'metrics_path':'data/exp_dense_KV_envelope_learned_key_calibration_v1_gpu/metrics.json',
-              'key_metrics':{'arm1_superpos_learned_M3k':0.015,'arm1_superpos_learned_M10k':0.008,'chance_1_over_C':0.0039,
-                             'arm2_softmax_learned_M3k':0.9995,'arm2_softmax_learned_M10k':0.997,
+              'key_metrics':{'arm1_superpos_learned_M3k':0.0205,'arm1_superpos_learned_M10k':0.008,'chance_1_over_C':0.0039,
+                             'arm2_softmax_learned_M3k':1.0,'arm2_softmax_learned_M10k':0.9955,
                              'random_core_arm1_M3k':1.0,'random_core_arm1_M10k':0.824,
-                             'gate1_cal':0.4107,'gate1_meter_valid':False,'gate1_chance_10k_way':0.0001,
-                             'collapse':'ARM1 1.0->0.015 random->learned at M=3k (near-total, anisotropy common-mode)',
-                             'projection_works':'GATE1 0.41>>chance + ARM2 0.997 -> NOT under-training','n_seeds':3},
+                             'gate1_cal_clean_train7500':0.604,'gate1_cal_first_train4000':0.4107,'gate1_meter_valid':False,
+                             'train_7500_confound_free':True,'collapse_robust_to_full_training':True,
+                             'collapse':'ARM1 1.0->0.02 random->learned at M=3k (near-total, anisotropy common-mode); reproduces on train-7500 confound-free run',
+                             'projection_works':'GATE1 cal 0.604>>chance(1/2500=4e-4) + ARM2 0.996 -> NOT under-training','n_seeds':3},
               'honest_scope':('M-indep superposition KV COLLAPSES to near-chance on REAL anisotropic learned pythia keys '
-                              '(0.015@3k/0.008@10k vs random-core 1.0/0.824); the projection works (GATE-1 0.41>>chance, '
-                              'ARM2 0.997) so it is the linear-superposition readout failing on anisotropy (common-mode), '
-                              'not under-training. Dense-KV does NOT upgrade to chain-grade-at-bound (random-core was best-'
-                              'case-isotropic only). NOT final: FIXABLE by isotropization (mean-center/shrinkage-ZCA) -> '
-                              'whitening revival routed. GATE-1 meter pending clean re-run (collapse stands regardless). '
-                              'Item #4 attention holds 0.997 (O(M*d) dict-equivalent).'),
+                              '(0.02@3k/0.008@10k vs random-core 1.0/0.824), reproduced on the CLEAN train-7500 run '
+                              '(confound-free); the projection works (GATE-1 cal 0.604>>chance, ARM2 0.9955) so it is the '
+                              'linear-superposition readout failing on anisotropy (common-mode), not under-training. Dense-KV '
+                              'does NOT upgrade to chain-grade-at-bound (random-core was best-case-isotropic only). NOT final: '
+                              'FIXABLE by isotropization (mean-center/shrinkage-ZCA) -> whitening revival routed (CPU PoC '
+                              'CONFIRMS recovery). GATE-1 meter NOT formally validated (cal 0.604, ~0.22 residual gap to 0.827 '
+                              '= separate code-diff puzzle, ACCEPT-GATE2 per Orch+Research; collapse pool-independent stands). '
+                              'Item #4 attention holds 0.9955 (O(M*d) dict-equivalent).'),
               'composes_with':['T3/EXP_dense_projected_KV_envelope_v1','T3/EXP_kv_learned_projection_v1',
                                'T3/EXP_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1',
                                'RULE_info_theoretic_floor_check_before_M_independence_claim',
                                'RULE_metric_referent_carries_implicit_eval_protocol_match_it_to_reproduce'],
-              'verified_off_data':('skunkworks L1 re-VET independent recompute off per_unit (ARM1 0.015/0.008=chance, ARM2 '
-                                   '0.9995/0.997, GATE-1 cal 0.4107); mechanism verified (projection works via GATE-1 '
-                                   '0.41>>chance + ARM2 0.997 -> linear-superposition common-mode collapse, not under-train); '
-                                   'Exp-Dev cell-author + Director 4-layer cross-check concur the collapse; my whitening-'
-                                   'revival add is the open thread (symmetric anti-negativity)'),
+              'verified_off_data':('skunkworks L1 re-VET independent recompute off per_unit -- BOTH runs: first train-4000 '
+                                   '(ARM1 0.015/0.008) + CLEAN train-7500 confound-free (ARM1 0.0205/0.008=chance, ARM2 '
+                                   '1.0/0.9955, cal 0.604); mechanism verified (projection works via cal 0.604>>chance + ARM2 '
+                                   '0.9955 -> linear-superposition common-mode collapse, NOT under-training -- collapse robust '
+                                   'to full training); the whitening fix CONFIRMED on a CPU PoC (isotropic 0.807 / anisotropic '
+                                   '0.004 / mean-center 0.806 + ZCA 0.843 recover); Exp-Dev + Orchestrator + Director 4-layer '
+                                   'cross-check concur ACCEPT-GATE2 (collapse pool-independent, robust)'),
               'cert_vet_status':'RE_VET_skunkworks_2026-06-21_MM_no_upgrade_whitening_revival_routed',
               'revival_routed':('WHITENING REVIVAL -> Research/Exp-Dev: shrinkage-ZCA-whiten (or mean-center) the learned '
                                 'pythia-projected keys -> ARM1 superposition + C-codebook @M={3k,10k} -> recover >=0.80? '
                                 '(existence proof: random-core isotropic 0.824 + flagship whiten-before-topk in-codebase). '
                                 'If recovers -> item #3 M-indep store VIABLE on real keys WITH isotropization (chain-grade-'
-                                'at-bound candidate); if not -> THEN item #3 is the honest negative. Also: GATE-1 clean '
-                                're-run (train 7500/2500 cands) for formal meter-validation.'),
+                                'at-bound candidate; CPU PoC pre-confirms recovery); if not -> THEN item #3 is the honest '
+                                'negative. SEPARATE: GATE-1-repro-gap (cal 0.604 not 0.827 at protocol-match) = a cheap '
+                                'CODE-DIFF diagnosis (proj_dim/train_steps/fresh-vs-saved-weights/data vs CERT591), NOT more '
+                                'GPU -- matters for the whitening cell projection quality.'),
               'atomized_by':'skunkworks','atomized_date':'2026-06-21','era':'comprehensive_program_phase3_glassbox',
               'milestone':('storage-chain item #3 substrate-grounding: M-indep superposition does NOT transfer from best-'
                            'case random keys to real anisotropic learned keys (common-mode collapse) -> dense-KV stays MM; '
