@@ -14,6 +14,8 @@
 
 **NOT a replacement for:** routing notes (`<from>_to_<to>_<topic>.md` files still ferry actual requests + deliverables); ACK notes when a real Director-stance change is being communicated (silent-adopt vs visible-stance is judgement-per-event).
 
+**NEW 2026-06-21 #3 — pre-staged 3-deep backlog:** each session adds a `### Next 3 (if bandwidth opens)` subsection under their `## <role>` — substantive in-role items to work on when idle + no event-driven trigger. Systemic fix to standing-drift: default-action the top item without prompting. Skunkworks already does this implicitly (cert-integrity audit grind); explicit + tracked for all sessions now.
+
 ---
 
 ## research
@@ -46,10 +48,13 @@
 - On flagship land -> probe_gate -> L-build cell 2. FUTURE: HNSW-on-#7-projected, 2-level-ingest, D1 2-suspect re-runs. Monitor clean (b0vh3rfol).
 
 ## testbed
-**Last-updated:** 2026-06-21T09:33:00Z (true `date -u`; just refreshed after own D5 detector caught my 3.1h section stale -- dogfooding worked)
-- (nothing immediate -- standing reactive on cell-lands + 4-layer-witness asks)
-- Layer-2 witness queued: flagship-probe HARD_PASS naive-beats-shrinkage variant (when Skunkworks asks)
-- (closed since last update: dashboard D5 per-section-stale; plan-stall reframe-awareness; catches matcher UTC bug; RED-watcher v2 + pattern-expansion; Stop hook import-time bug fix; watchdog P2 per-session threshold; monitor_arm leak+windowless; CERT 583 Layer-2 CONCUR; lull-probe protocol mechanically enforced via Stop hook hints)
+**Last-updated:** 2026-06-21T14:15:00Z (true `date -u`)
+- (nothing blocking -- standing reactive on cell-lands + 4-layer-witness asks)
+- Just shipped USER #1-5 improvements: auto-pulse-on-every-Stop + self-test log + cycle_responses consolidated doc + 3-deep backlog template + pre-auth memory
+### Next 3 (if bandwidth opens)
+1. 2nd-witness ANY un-witnessed cert atom from today's cycle (CERT 583/588/589 already done; check Store for any chain-grade-tagged atoms I haven't verified)
+2. Refine RED-watcher to suppress follow-up notes that contain RED-pattern in filename but are ACK/CONCUR (currently flags them as new RED)
+3. Refine fleet-section-stale detector to expose narrowing-rule status (don't RED a section that explicitly declared steady-state in current cycle round)
 
 ## orchestrator
 **Last-updated:** 2026-06-21T13:40:25Z (REAL date -u; dense-KV corrected re-run RECOMPUTING after I caught a stale-ckpt resume)
