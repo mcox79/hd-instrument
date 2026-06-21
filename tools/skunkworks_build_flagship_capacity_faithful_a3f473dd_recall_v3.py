@@ -26,7 +26,9 @@ def whiten_topk_projected(M, n, f, g):                   # the FLAGSHIP encode: 
     dirs = g.standard_normal((n_shared, n))
     K = (g.standard_normal((M, n_shared)) * 4.0) @ dirs + g.standard_normal((M, n))   # concentrated-energy (InfoNCE-like)
     Kc = K - K.mean(0, keepdims=True); cov = (Kc.T @ Kc) / M
-    U, S, _ = np.linalg.svd(cov + 1e-6 * np.eye(n)); Kw = Kc @ (U @ np.diag(1.0/np.sqrt(S+1e-6)) @ U.T)  # whiten
+    U, S, _ = np.linalg.svd(cov)
+    S_floor = np.maximum(S, 1e-2 * S.max())            # SHRINKAGE ZCA (Exp-Dev v5 fix): RELATIVE floor tau*max_eig
+    Kw = Kc @ (U @ np.diag(1.0/np.sqrt(S_floor)) @ U.T)  # bounds null-space (no 31x amplification in rank-deficient N>>keys)
     k = max(1, int(f * n)); P = np.zeros((M, n), np.float32)
     idx = np.argpartition(-np.abs(Kw), k - 1, axis=1)[:, :k]; r = np.arange(M)[:, None]
     P[r, idx] = np.sign(Kw[r, idx])                       # top-k -> {-1,+1} k-of-N pattern
