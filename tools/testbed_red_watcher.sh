@@ -15,7 +15,7 @@ PREV_AGG=""
 : > "$SEEN_RED_NOTES_FILE"
 if [ -d "$NOTES_DIR" ]; then
   find "$NOTES_DIR" -maxdepth 1 -name '*.md' 2>/dev/null \
-    | grep -Eai "(red_flag|red-alert|data_referent_drift|data-drift|reproducibility_hazard|hold_chaingrade|runaway|leak)" \
+    | grep -Eai "(red_flag|red-alert|data_referent_drift|data-drift|reproducibility_hazard|hold_chaingrade|runaway|leak|failed|cuda_oom|i_missed|missed_it|stall|crash|hang|hazard|over_call|self_catch)" \
     | sort -u > "$SEEN_RED_NOTES_FILE"
 fi
 
@@ -69,7 +69,7 @@ print(f'{agg}|{\",\".join(red)}')
   # that aren't surfaced by dashboard drift detectors. Diff vs seen-set.
   if [ -d "$NOTES_DIR" ]; then
     current_red=$(find "$NOTES_DIR" -maxdepth 1 -name '*.md' 2>/dev/null \
-      | grep -Eai "(red_flag|red-alert|data_referent_drift|data-drift|reproducibility_hazard|hold_chaingrade|runaway|leak)" \
+      | grep -Eai "(red_flag|red-alert|data_referent_drift|data-drift|reproducibility_hazard|hold_chaingrade|runaway|leak|failed|cuda_oom|i_missed|missed_it|stall|crash|hang|hazard|over_call|self_catch)" \
       | sort -u)
     new_red=$(comm -23 <(echo "$current_red") <(sort -u "$SEEN_RED_NOTES_FILE" 2>/dev/null))
     if [ -n "$new_red" ]; then
