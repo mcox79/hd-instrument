@@ -208,6 +208,60 @@ def sparse_recall_next(P_src: np.ndarray, P_dst: np.ndarray,
     return int(np.argmax(sims))
 
 
+def build_W(P_src: np.ndarray, P_dst: np.ndarray) -> np.ndarray:
+    """Precompute collapsed weight matrix W = P_src.T @ P_dst, shape (N, N).
+
+    Identity: for any query q (N,),
+        (q @ P_src.T) @ P_dst == q @ (P_src.T @ P_dst) == q @ W
+    Proof: sum_i (q . P_src[i]) * P_dst[i] = P_src.T @ (overlaps) applied to rows of P_dst
+         = (P_src.T @ P_dst) @ q  [outer-product identity].
+    Cost: one (N, M) @ (M, N) matmul -> (N, N) done ONCE per seed instead of once per query.
+    At N=4096, M~40000: W is 4096x4096 float32 = 67 MB.
+    Returns zeros matrix if P_src is empty (no transitions stored).
+    """
+    if P_src.shape[0] == 0:
+        return np.zeros((P_src.shape[1], P_src.shape[1]), dtype=np.float32)
+    return P_src.T @ P_dst  # (N, N)
+
+
+def batched_concept_recall(W: np.ndarray, Q: np.ndarray, C: np.ndarray) -> np.ndarray:
+    """Vectorized Willshaw concept recall for a batch of query vectors.
+
+    Equivalent to calling sparse_recall_next(P_src, P_dst, Q[i], C) for each i,
+    but using the precomputed W = P_src.T @ P_dst (shape N x N).
+
+    Args:
+        W: (N, N) precomputed weight matrix from build_W()
+        Q: (n_pos, N) batch of source concept codes
+        C: (V_C, N) codebook for cleanup argmax
+
+    Returns:
+        pred_concept_ids: (n_pos,) int64 array of predicted next concept ids
+    """
+    # activated_batch[i] = Q[i] @ W  -- the per-row W-free recall, batched
+    activated_batch = Q @ W              # (n_pos, N)
+    # sims_batch[i, c] = C[c] . activated_batch[i] -- nearest codebook entry
+    sims_batch = activated_batch @ C.T   # (n_pos, V_C)
+    return np.argmax(sims_batch, axis=1).astype(np.int64)
+
+
+def batched_token_logprob(D: np.ndarray, concept_vecs: np.ndarray) -> np.ndarray:
+    """Batched log-probability over tokens for multiple concept vectors.
+
+    Args:
+        D: (N, V_TOK) decode memory
+        concept_vecs: (n_pos, N) concept code vectors
+
+    Returns:
+        log_probs_batch: (n_pos, V_TOK) log-probabilities (base-e), same math as token_logprob()
+    """
+    scores = concept_vecs @ D           # (n_pos, V_TOK)
+    scores -= scores.max(axis=1, keepdims=True)   # numerically stable softmax
+    exp_s = np.exp(scores)
+    log_probs = scores - np.log(exp_s.sum(axis=1, keepdims=True) + 1e-300)
+    return log_probs
+
+
 def decode_token(D: np.ndarray, concept_vec: np.ndarray) -> int:
     """Predict token: argmax over D.T @ concept_vec, shape (V_TOK,).
 
@@ -324,8 +378,46 @@ def _instrumentation_selftest() -> None:
     assert result["substrate_bpc"] > 0.0, "substrate_bpc is zero (sentinel)"
     assert result["unigram_bpc"] > 0.0, "unigram_bpc is zero (sentinel)"
 
+    # --- test 7: batched recall == per-query recall (CORRECTNESS GATE) ---
+    # Reuse P_src/P_dst and C from test 2 above.
+    # Query all concepts and compare batched path vs per-query path.
+    W_test = build_W(P_src, P_dst)
+    assert W_test.shape == (n, n), "build_W shape FAIL: %s" % str(W_test.shape)
+
+    # Per-query results (old path)
+    perq_concepts = np.array([sparse_recall_next(P_src, P_dst, C[i], C)
+                               for i in range(vc)], dtype=np.int64)
+    # Batched results (new path)
+    Q_all = C.copy()  # (vc, n) -- query all codebook rows
+    batch_concepts = batched_concept_recall(W_test, Q_all, C)
+    assert perq_concepts.shape == batch_concepts.shape, "shape mismatch"
+    mismatches = int((perq_concepts != batch_concepts).sum())
+    assert mismatches == 0, (
+        "batched_concept_recall != per-query: %d/%d mismatches. "
+        "per-query=%s batched=%s" % (mismatches, vc, perq_concepts, batch_concepts)
+    )
+
+    # Token log-prob: per-query vs batched for a few concept vectors
+    D_check = D_test  # (n, vt) from test 4 above
+    for i in range(min(vc, 5)):
+        lp_perq = token_logprob(D_check, C[i])              # (vt,) per-query
+        lp_batch = batched_token_logprob(D_check, C[i:i+1]) # (1, vt) batched
+        max_diff = float(np.abs(lp_perq - lp_batch[0]).max())
+        assert max_diff < 1e-5, (
+            "batched_token_logprob row %d max_diff=%.2e > 1e-5" % (i, max_diff)
+        )
+
+    # substrate_concept_top1, substrate_top1, substrate_bpc must match between
+    # per-query (result from test 6 via _run_seed_synthetic) and batched path.
+    # _run_seed_synthetic uses per-query path; compare to batched via a direct check
+    # on the first test transition (concept 0 -> concept 1 was stored, check batched predicts 1).
+    batch_single = batched_concept_recall(W_test, C[0:1], C)
+    assert int(batch_single[0]) == 1, (
+        "batched single-row check FAIL: expected 1, got %d" % int(batch_single[0])
+    )
+
     print("[selftest] PASS: sparse-codebook k-of-N, W-free recall, decode-D-argmax, "
-          "BPC formula, boundaries, instrumentation", flush=True)
+          "BPC formula, boundaries, instrumentation, batched==per-query", flush=True)
 
 
 def _run_seed_synthetic(rng_seed: int, n_dim: int = 128, f: float = 0.05,
@@ -601,6 +693,14 @@ def run_seed(seed: int) -> Dict[str, Any]:
     print("[seed=%d] transition store: %d pairs (alpha=n_trans/N_DIM=%.3f)" % (
         seed, n_trans, n_trans / max(n_dim, 1)), flush=True)
 
+    # VECTORIZATION: build W = P_src.T @ P_dst ONCE (N x N, ~67 MB at N=4096).
+    # Then free P_src/P_dst to reclaim ~655 MB each before the batched eval matmuls.
+    # Identity: (q @ P_src.T) @ P_dst == q @ W for any query q.
+    print("[seed=%d] building W = P_src.T @ P_dst (%dx%d)..." % (
+        seed, n_dim, n_dim), flush=True)
+    W = build_W(P_src, P_dst)  # (N, N)
+    del P_src, P_dst            # free ~655 MB each; W is ~67 MB at N=4096
+
     # SATURATION GUARD: alpha = unique transition pairs / N_DIM
     n_unique_pairs = len(set(zip(train_cids_flat[:-1].tolist(), train_cids_flat[1:].tolist())))
     alpha = n_unique_pairs / n_dim
@@ -664,74 +764,148 @@ def run_seed(seed: int) -> Dict[str, Any]:
                 concept_tok_counts[c][tok] += 1
     ceiling_pred = {c: int(np.argmax(v)) for c, v in concept_tok_counts.items()}
 
-    # --- Evaluate on TEST ---
-    tot_c = 0; sub_c_ok = 0; uni_c_ok = 0; big_c_ok = 0
-    tot_t = 0
-    sub_t_ok = uni_t_ok = big_t_ok = ceil_t_ok = 0
-    sub_nll = uni_nll = big_nll = ceil_nll = 0.0
-    log2 = math.log(2)
+    # --- Evaluate on TEST (VECTORIZED PATH) ---
+    # Step 1: flatten all test (c_src, c_tgt, t_src_tok, true_tok) across docs into arrays.
+    # doc_end_idx[i] = cumulative n_pos after doc i, used for plateau sampling.
+    _c_src_list: List[int] = []
+    _c_tgt_list: List[int] = []
+    _t_src_tok_list: List[int] = []
+    _true_tok_list: List[int] = []
+    _doc_end_idx: List[int] = []   # cumulative concept-pair count after each doc
 
-    # Concept recall plateau tracker (saturation guard)
-    recall_plateau_checks: List[float] = []
-
+    _running_tot_c = 0
     for (cids, tids_doc) in test_seqs:
         n_pos = len(cids) - 1
         if n_pos < 1:
+            _doc_end_idx.append(_running_tot_c)
             continue
         for t in range(n_pos):
-            # concept-level eval
-            c_src = int(cids[t]); c_tgt = int(cids[t + 1])
-            pred_c = sparse_recall_next(P_src, P_dst, C[c_src], C)
-            sub_c_ok += (pred_c == c_tgt)
-            uni_c_ok += (uni_c_pred == c_tgt)
-            big_c_ok += (big_c_pred.get(c_src, uni_c_pred) == c_tgt)
-            tot_c += 1
+            _c_src_list.append(int(cids[t]))
+            _c_tgt_list.append(int(cids[t + 1]))
+            _t_src_tok_list.append(int(tids_doc[t]))
+            _true_tok_list.append(int(tids_doc[t + 1]))
+        _running_tot_c += n_pos
+        _doc_end_idx.append(_running_tot_c)
 
-            # token-level eval
-            true_tok = int(tids_doc[t + 1])
-            if true_tok >= V_TOK:
-                continue  # OOV token; skip
+    log2 = math.log(2)
 
-            pred_tok_sub = decode_token(D, C[pred_c])
-            log_probs_sub = token_logprob(D, C[pred_c])
-            sub_t_ok += (pred_tok_sub == true_tok)
-            sub_nll += -log_probs_sub[true_tok]
+    if _running_tot_c == 0:
+        # No test positions at all -- return zero counts (handled below by max(tot,1))
+        tot_c = 0; sub_c_ok = 0; uni_c_ok = 0; big_c_ok = 0
+        tot_t = 0
+        sub_t_ok = uni_t_ok = big_t_ok = ceil_t_ok = 0
+        sub_nll = uni_nll = big_nll = ceil_nll = 0.0
+        plateau_saturated = False
+    else:
+        c_src_all = np.array(_c_src_list, dtype=np.int64)   # (tot_c,)
+        c_tgt_all = np.array(_c_tgt_list, dtype=np.int64)
+        t_src_tok_all = np.array(_t_src_tok_list, dtype=np.int64)
+        true_tok_all = np.array(_true_tok_list, dtype=np.int64)
 
-            uni_t_ok += (uni_tok_pred == true_tok)
-            uni_nll += -uni_log[true_tok]
+        # Step 2: BATCH concept recall -- one (tot_c, N) @ (N, N) matmul instead of tot_c x (M, N) pairs
+        print("[seed=%d] batched concept recall: %d queries..." % (seed, len(c_src_all)), flush=True)
+        Q_batch = C[c_src_all]                              # (tot_c, N) -- source concept codes
+        pred_concept_all = batched_concept_recall(W, Q_batch, C)  # (tot_c,) int64
+        del Q_batch                                         # free (tot_c, N) intermediate
 
-            t_src = int(tids_doc[t])
-            bp_tok = big_tok.get(t_src)
-            if bp_tok is not None and bp_tok.sum() > 0:
-                bfd_d = bp_tok.astype(np.float32) / (bp_tok.sum() + 1e-6)
-                big_t_ok += (int(np.argmax(bp_tok)) == true_tok)
-                big_nll += -math.log(float(bfd_d[true_tok]) + 1e-300)
-            else:
-                big_t_ok += (uni_tok_pred == true_tok)
-                big_nll += -uni_log[true_tok]
+        # Concept-level accuracy bookkeeping (cheap; no matmul)
+        tot_c = int(len(c_src_all))
+        sub_c_ok = int((pred_concept_all == c_tgt_all).sum())
+        uni_c_ok = int((uni_c_pred == c_tgt_all).sum())
+        big_c_pred_arr = np.array([big_c_pred.get(int(cs), uni_c_pred) for cs in c_src_all],
+                                  dtype=np.int64)
+        big_c_ok = int((big_c_pred_arr == c_tgt_all).sum())
 
-            # ceiling (oracle concept -> best token)
-            ceil_pred_tok = ceiling_pred.get(c_tgt, uni_tok_pred)
-            ceil_t_ok += (ceil_pred_tok == true_tok)
-            ctd = concept_tok_counts.get(c_tgt)
-            if ctd is not None and ctd.sum() > 0:
-                ctd_d = ctd.astype(np.float32) / (ctd.sum() + 1e-6)
-                ceil_nll += -math.log(float(ctd_d[true_tok]) + 1e-300)
-            else:
-                ceil_nll += -uni_log[true_tok]
+        # Step 3: OOV mask -- skip positions where true_tok >= V_TOK
+        oov_mask = true_tok_all >= V_TOK                    # (tot_c,) bool; True = skip
+        valid_mask = ~oov_mask                              # (tot_c,) bool; True = keep
+        valid_idx = np.where(valid_mask)[0]                 # indices into tot_c arrays
 
-            tot_t += 1
+        tot_t = int(valid_mask.sum())
+        if tot_t == 0:
+            sub_t_ok = uni_t_ok = big_t_ok = ceil_t_ok = 0
+            sub_nll = uni_nll = big_nll = ceil_nll = 0.0
+        else:
+            pred_c_valid = pred_concept_all[valid_idx]      # (tot_t,)
+            true_tok_valid = true_tok_all[valid_idx]        # (tot_t,)
+            c_tgt_valid = c_tgt_all[valid_idx]              # (tot_t,)
+            t_src_tok_valid = t_src_tok_all[valid_idx]      # (tot_t,)
 
-        # Recall plateau sample (every 100 test positions)
-        if tot_c % 100 == 50 and tot_c > 0:
-            recall_plateau_checks.append(sub_c_ok / max(tot_c, 1))
+            # Step 4: BATCH token decode -- (tot_t, N) @ (N, V_TOK) -> (tot_t, V_TOK)
+            # Memory note: tot_t ~10k, V_TOK ~50k -> 10k*50k*4 bytes = ~2 GB peak.
+            # To control RAM, process in chunks of BATCH_TOK_CHUNK rows.
+            BATCH_TOK_CHUNK = 2000   # ~400 MB per chunk at V_TOK=50257, N=4096
+            n_valid = tot_t
+            pred_tok_valid = np.empty(n_valid, dtype=np.int64)
+            # log_prob of true token per valid position
+            true_tok_logprob = np.empty(n_valid, dtype=np.float64)
 
-    # Saturation guard: recall plateau across test positions
-    plateau_saturated = False
-    if recall_plateau_checks and len(recall_plateau_checks) >= 3:
-        recent = recall_plateau_checks[-3:]
-        if min(recent) >= 0.5:
-            plateau_saturated = True
+            print("[seed=%d] batched token decode: %d positions (chunk=%d)..." % (
+                seed, n_valid, BATCH_TOK_CHUNK), flush=True)
+            for _ck_s in range(0, n_valid, BATCH_TOK_CHUNK):
+                _ck_e = min(_ck_s + BATCH_TOK_CHUNK, n_valid)
+                _cvecs = C[pred_c_valid[_ck_s:_ck_e]]      # (chunk, N)
+                _lp = batched_token_logprob(D, _cvecs)      # (chunk, V_TOK)
+                pred_tok_valid[_ck_s:_ck_e] = np.argmax(_lp, axis=1)
+                # log-prob of the TRUE token at each position
+                _tt = true_tok_valid[_ck_s:_ck_e]
+                true_tok_logprob[_ck_s:_ck_e] = _lp[np.arange(_ck_e - _ck_s), _tt]
+
+            # Substrate top-1 and NLL
+            sub_t_ok = int((pred_tok_valid == true_tok_valid).sum())
+            sub_nll = float(-true_tok_logprob.sum())
+
+            # Unigram (cheap: all positions same pred and same log-prob lookup)
+            uni_t_ok = int((uni_tok_pred == true_tok_valid).sum())
+            uni_nll = float(-uni_log[true_tok_valid].sum())
+
+            # Bigram (per-position dict lookup -- cheap Python loop over valid positions)
+            big_t_ok = 0; big_nll = 0.0
+            for _i in range(n_valid):
+                _ts = int(t_src_tok_valid[_i]); _tt = int(true_tok_valid[_i])
+                _bp = big_tok.get(_ts)
+                if _bp is not None and _bp.sum() > 0:
+                    big_t_ok += (int(np.argmax(_bp)) == _tt)
+                    _bfd = _bp.astype(np.float32) / (_bp.sum() + 1e-6)
+                    big_nll += -math.log(float(_bfd[_tt]) + 1e-300)
+                else:
+                    big_t_ok += (uni_tok_pred == _tt)
+                    big_nll += float(-uni_log[_tt])
+
+            # Ceiling (oracle concept -> best token; per-position dict lookup -- cheap)
+            ceil_t_ok = 0; ceil_nll = 0.0
+            for _i in range(n_valid):
+                _ctgt = int(c_tgt_valid[_i]); _tt = int(true_tok_valid[_i])
+                _ceil_t = ceiling_pred.get(_ctgt, uni_tok_pred)
+                ceil_t_ok += (_ceil_t == _tt)
+                _ctd = concept_tok_counts.get(_ctgt)
+                if _ctd is not None and _ctd.sum() > 0:
+                    _ctd_d = _ctd.astype(np.float32) / (_ctd.sum() + 1e-6)
+                    ceil_nll += -math.log(float(_ctd_d[_tt]) + 1e-300)
+                else:
+                    ceil_nll += float(-uni_log[_tt])
+
+        # Recall plateau tracker: sample sub_c_ok/tot_c at doc boundaries (every 100 positions)
+        recall_plateau_checks: List[float] = []
+        _cum_ok = 0; _cum_tot = 0
+        _prev_end = 0
+        for _di, _end in enumerate(_doc_end_idx):
+            if _end == _prev_end:
+                continue
+            _seg_pred = pred_concept_all[_prev_end:_end]
+            _seg_tgt = c_tgt_all[_prev_end:_end]
+            _cum_ok += int((_seg_pred == _seg_tgt).sum())
+            _cum_tot = _end
+            if _cum_tot % 100 == 50 and _cum_tot > 0:
+                recall_plateau_checks.append(_cum_ok / max(_cum_tot, 1))
+            _prev_end = _end
+
+        # Saturation guard: recall plateau across test positions
+        plateau_saturated = False
+        if recall_plateau_checks and len(recall_plateau_checks) >= 3:
+            recent = recall_plateau_checks[-3:]
+            if min(recent) >= 0.5:
+                plateau_saturated = True
     any_saturated = saturated or plateau_saturated
 
     tc = max(tot_c, 1); tt = max(tot_t, 1)
