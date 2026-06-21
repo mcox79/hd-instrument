@@ -1,0 +1,16 @@
+{
+  "//": "Disables VSCode's auto-git-status polling that spawned git.exe (CONSOLE-subsystem) every few seconds. Each git.exe spawn under VSCode's GUI process allocated a fresh console window = popup flash. With 5 active Claude Code sessions making changes, this was the highest-frequency popup source. (USER 2026-06-21 popup audit; Testbed.)",
+  "git.autorefresh": false,
+  "git.autofetch": false,
+  "git.autofetchPeriod": 0,
+  "git.fetchOnPull": false,
+  "git.pullBeforeCheckout": false,
+  "git.showActionButton": {
+    "commit": false,
+    "publish": false,
+    "sync": false
+  },
+  "git.scanRepositories": [],
+  "scm.diffDecorations": "none",
+  "scm.diffDecorationsGutterAction": "none"
+}

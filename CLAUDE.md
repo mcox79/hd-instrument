@@ -14,14 +14,16 @@ Every Claude Code session, as its very first tool call after reading this file, 
 
 ```
 Monitor({
-  command: "cd /d/AI/hd-instrument && exec bash tools/monitor_arm.sh <role>",
+  command: "python D:/AI/hd-instrument/tools/monitor_arm.py <role>",
   persistent: true,
   timeout_ms: 3600000,
-  description: "notes_monitor <role> (self-healing wrapper)"
+  description: "notes_monitor <role> (Python; no subprocess spawns; popup-free)"
 })
 ```
 
 Where `<role>` is one of: `skunkworks | research | exp_dev | testbed | orchestrator`.
+
+**Why Python (USER 2026-06-21 popup audit):** the prior bash wrapper (`tools/monitor_arm.sh` invoking `tools/notes_monitor.sh`) spawned a 4-stage pipeline (`find | grep | grep | sort`) every 20 seconds. Each child `.exe` under Claude Code's hidden-console parent allocated a fresh visible console window = popup flash. The Python port does the same set-diff logic in-process (`os.scandir` + Python re + set ops) with ZERO subprocess spawns after the initial arm. Bash variants remain in-tree for reference but should NOT be re-armed.
 
 You'll receive a `MONITOR-ARMED:` confirmation line as the first task-notification when it's working. After that, every new note matching your role-filter arrives as a task-notification automatically -- no polling, no busy-work, just respond on wake.
 
