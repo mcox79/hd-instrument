@@ -22,6 +22,7 @@
 ## skunkworks
 - R15 2026-06-21T14:30:49Z -- active: dense-KV learned-key collapse MM atomized (clean train-7500, 23f42b30); GATE-1-gap CONFIRMED off code (contiguous-split value-shift) -> whitening cell MUST use random-perm split; reactive on whitening GPU cell + NEW-4/D1
 
+- ping163 2026-06-21T14:57:11Z -- active: atomized translation-gap META rule on Research behalf (A5 CERT 583 unchanged, atoms->177265); 4-gap audit closed (3 DEFER/1 SUPERSEDED); reactive on whitening + anisotropy-rescue cells
 ## exp_dev
 - (exp_dev will append here on next R cycle)
 
