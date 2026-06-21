@@ -37,9 +37,11 @@ RANDOM_REF_10k = 0.824                                       # random-core ARM1@
 _P = argparse.ArgumentParser(); _P.add_argument("--self-test", action="store_true", dest="self_test"); _P.add_argument("--smoke", action="store_true"); _ARGS, _ = _P.parse_known_args()
 RUN_MODE = "smoke" if (_ARGS.smoke or _ARGS.self_test) else os.environ.get("HDLAB_RUN_MODE", "full")
 if RUN_MODE == "full":
-    ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23]; M_CAL = 10000; M_LK = [3000, 10000]; TRAIN_M = 4000; TRAIN_STEPS = 600
+    # GATE-1 FIX (my candidate-pool bug): CERT591's 0.827 @ M_total=10k = recall over its HELD-OUT (0.25*10k = 2500 candidates),
+    # trained on 7500. Match BOTH: TRAIN_M=7500 (CERT591's train@M=10k) + CAL_POOL=2500 (its held-out pool) -> reproduces 0.827.
+    ENCODER = "EleutherAI/pythia-2.8b"; SEEDS = [7, 17, 23]; M_LK = [3000, 10000]; TRAIN_M = 7500; CAL_POOL = 2500; TRAIN_STEPS = 600
 else:
-    ENCODER = "EleutherAI/pythia-160m"; SEEDS = [0]; M_CAL = 400; M_LK = [200, 400]; TRAIN_M = 300; TRAIN_STEPS = 200
+    ENCODER = "EleutherAI/pythia-160m"; SEEDS = [0]; M_LK = [200, 400]; TRAIN_M = 600; CAL_POOL = 100; TRAIN_STEPS = 200
 CONFIG_VERSION = "pythia-proj%d + GATE1-calibration(repro CERT591 %.3f) + GATE2-learned-key ARM1/ARM2 @M%s vs random-ref %.3f; C=%d; FP16(CERT591-referent-match, Skunkworks precision-fix)" % (PROJ_DIM, CERT591_MEAN, M_LK, RANDOM_REF_10k, C)
 
 
@@ -61,16 +63,16 @@ def _arm1_arm2_learned(K_proj, y, codebook, sigma, seed):
 
 def run_unit(seed):
     g = np.random.default_rng(seed)
-    M_max = max(M_CAL, max(M_LK)); n_total = M_max + TRAIN_M
+    M_max = max(M_LK); n_total = M_max + TRAIN_M           # 7500 train (CERT591@M=10k) + up to 10k held-out for GATE-2
     keys, cues = make_facts(n_total)
     print("  [seed=%d] encoding %d facts on %s (fp16=CERT591-referent)..." % (seed, n_total, ENCODER), flush=True)
     K = encode(keys); Q = encode(cues)
     Ktr, Qtr = K[:TRAIN_M], Q[:TRAIN_M]; Kho, Qho = K[TRAIN_M:], Q[TRAIN_M:]
-    print("  [seed=%d] training CERT591 proj D=%d -> %d..." % (seed, K.shape[1], PROJ_DIM), flush=True)
+    print("  [seed=%d] training CERT591 proj D=%d -> %d (train=%d)..." % (seed, K.shape[1], PROJ_DIM, TRAIN_M), flush=True)
     W = train_contrastive(Ktr, Qtr, PROJ_DIM, TRAIN_STEPS, seed)
     Kp = Kho @ W; Qp = Qho @ W                              # projected held-out
-    # GATE-1 calibration: CERT591 cue->key recall @M_CAL (the meter-check; must reproduce ~0.827)
-    cal = recall_at(_np_norm(Qp[:M_CAL]), _np_norm(Kp[:M_CAL]))
+    # GATE-1 calibration: CERT591 cue->key recall over CERT591's HELD-OUT POOL (2500 @ M_total=10k) -> meter-check, must reproduce ~0.827
+    cal = recall_at(_np_norm(Qp[:CAL_POOL]), _np_norm(Kp[:CAL_POOL]))
     # GATE-2 learned-key ARM1/ARM2 @ M in M_LK (C-codebook, apples-to-apples w/ random-core)
     codebook = _np_norm(g.standard_normal((C, PROJ_DIM)).astype(np.float32))
     lk = {}
@@ -78,8 +80,8 @@ def run_unit(seed):
         y = g.integers(0, C, M)
         a1, a2 = _arm1_arm2_learned(Kp[:M], y, codebook, SIGMA_LK, seed)
         lk["M%d" % M] = {"arm1_superpos_learned": a1, "arm2_softmax_learned": a2}
-    print("  [seed=%d] GATE1 cal(cue->key @M%d)=%.3f (CERT591 %.3f) | GATE2 ARM1-learned %s" % (
-        seed, M_CAL, cal, CERT591_MEAN, {k: v["arm1_superpos_learned"] for k, v in lk.items()}), flush=True)
+    print("  [seed=%d] GATE1 cal(cue->key over CERT591-pool %d)=%.3f (CERT591 %.3f) | GATE2 ARM1-learned %s" % (
+        seed, CAL_POOL, cal, CERT591_MEAN, {k: v["arm1_superpos_learned"] for k, v in lk.items()}), flush=True)
     return {"seed": seed, "calibration_recall": round(float(cal), 4), "learned_key": lk}
 
 
@@ -125,7 +127,7 @@ if __name__ == "__main__":
     _selftest()
     if _ARGS.self_test:
         raise SystemExit(0)
-    print("[config] %s mode=%s ENCODER=%s proj=%d C=%d M_CAL=%d M_LK=%s seeds=%s | %s" % (ANCHOR_NAME, RUN_MODE, ENCODER, PROJ_DIM, C, M_CAL, M_LK, SEEDS, CONFIG_VERSION), flush=True)
+    print("[config] %s mode=%s ENCODER=%s proj=%d C=%d CAL_POOL=%d M_LK=%s seeds=%s | %s" % (ANCHOR_NAME, RUN_MODE, ENCODER, PROJ_DIM, C, CAL_POOL, M_LK, SEEDS, CONFIG_VERSION), flush=True)
     out_dir = get_output_dir(ANCHOR_NAME); run_cfg = {"run_mode": RUN_MODE, "proj": PROJ_DIM, "schema": "gate1-cal+gate2-learned"}; t0 = time.time()
     for seed in SEEDS:
         key = "s%d" % seed
@@ -136,7 +138,7 @@ if __name__ == "__main__":
     verdict, msg, detail = compute_verdict(units)
     print("\n[VERDICT] " + msg, flush=True)
     metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": msg, "run_mode": RUN_MODE, "model": ENCODER, "proj_dim": PROJ_DIM,
-               "C": C, "M_CAL": M_CAL, "M_LK": M_LK, "n_seeds": len(SEEDS), "detail": detail,
+               "C": C, "CAL_POOL": CAL_POOL, "M_LK": M_LK, "n_seeds": len(SEEDS), "detail": detail,
                "metrics_source": "measured_gpu_dense_kv_learned_key_calibration", "per_unit": units, "elapsed_s": time.time() - t0}
     write_metrics(out_dir, metrics, units)
     print("[metrics] written to %s" % (out_dir / "metrics.json"), flush=True)
