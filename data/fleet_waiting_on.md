@@ -88,11 +88,11 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 3. Closure-audit any new substrate-native atoms as they land.
 
 ### Recently cleared (rolling; <=5)
-- 5afb8133 M2 pre-stage SCHEMA-VET (caught task-coupled ablations: depth-gov inherently multi-hop; EARLY M2=2-of-4 MM, chain-grade=multi-hop)
-- bab6f9b7 N3 canonical BPC cert-bands (the eval foundation) + 503aeee3 M2 ruling=B + concept-LM CPU PoC
-- fbfccc99 N1 SCHEMA-VET (token-decode bands + substrate-only gate) + 5da82e45 item-#4 re-scope (N4-memory)
-- 9a41c60e D1 rulings (both KEEP; CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
-- 1250a2d3 translation-gap META atomized
+- b9e4485f U1 INGEST-eval bands + M1 architecture-core bands -> UNBLOCKS exp_dev U1 author (owned: had conflated N3/N1 LM-eval w/ the KB-ingest-eval; distinct -- refuse-gate + inference-transfer vs frozen-encoder + heldout_in_compose_graph==0)
+- 5afb8133 M2 pre-stage SCHEMA-VET (task-coupled ablations: depth-gov inherently multi-hop; EARLY M2=2-of-4 MM, chain-grade=multi-hop)
+- bab6f9b7 N3 canonical BPC cert-bands + 503aeee3 M2 ruling=B + concept-LM CPU PoC
+- fbfccc99 N1 SCHEMA-VET (token-decode + substrate-only gate) + 5da82e45 item-#4 re-scope (N4-memory)
+- 9a41c60e D1 rulings (CERT 583 verified-precise) + 5f7d04d4 substrate-native plan + 835d15d5 U0 correction
 
 ## exp_dev
 **Last-updated:** 2026-06-21T16:15:01Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
