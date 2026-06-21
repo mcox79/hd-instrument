@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 # monitor_arm.sh -- standardized, self-healing wrapper around notes_monitor.sh
 #
-# WHY: the inner notes_monitor.sh runs forever but CAN crash (set -u undefined var on
-# unexpected input, find/sort errors on weird filenames, FS hiccup). Without a wrapper
-# a single crash silently stops monitor delivery for the session -- sessions go dark
-# without realizing it. This wrapper re-runs the inner script on any non-zero exit,
-# emitting a CRASH line as a wake-up signal so the session knows it happened.
+# WHY: the inner notes_monitor.sh runs forever but CAN crash. This wrapper re-runs
+# the inner script on any non-zero exit, emitting a CRASH line as a wake-up signal.
 #
-# 2026-06-21 LEAK FIX (Orchestrator caught): every Monitor-tool re-arm spawned a NEW
-# wrapper without killing prior ones. 5 sessions x several re-arms today = 36 orphaned
-# bash processes each polling notes/ every 20s = thermal load (same class as the
-# 2026-06-12 incident). Now kill priors on arm + SIGTERM-trap for clean child shutdown.
+# 2026-06-21 LEAK FIX (Orchestrator): kill priors on re-arm so re-arming doesn't leak.
+# 2026-06-21 WINDOWLESS FIX (Orchestrator + USER): DON'T background the inner script
+# (the prior `&` spawned a new bash subprocess that got its own console). Run inline
+# instead -- the wrapper IS the only bash process; no new console.
 #
 # CANONICAL invocation pattern (every session, first action of session lifetime):
 #   Monitor({
@@ -28,49 +25,47 @@ ROOT="/d/AI/hd-instrument"
 cd "$ROOT" || { echo "MONITOR-ARM-FATAL: cannot cd $ROOT"; exit 1; }
 
 SELF=$$
+PARENT=$PPID
 
-# === LEAK FIX: kill any prior monitor_arm/notes_monitor processes for THIS role ===
-# Match by command-line pattern (role-scoped); exclude self ($SELF) + own parent shell.
-# Best-effort: silent if ps unavailable or no matches.
+# === LEAK FIX: kill any prior monitor_arm + notes_monitor processes for THIS role ===
+# Use pgrep -f which excludes itself by design (vs ps|grep which can match the grep itself).
+# Match both wrappers AND inner scripts for this specific role.
 killed=0
-if command -v ps >/dev/null 2>&1; then
-  for pid in $(ps -ef 2>/dev/null \
-        | grep -E "(monitor_arm\.sh ${ROLE}|notes_monitor\.sh ${ROLE})( |\$)" \
-        | grep -v "grep -E" \
-        | awk -v self="$SELF" -v parent="$PPID" '$2 != self && $2 != parent {print $2}'); do
-    kill -TERM "$pid" 2>/dev/null && killed=$((killed + 1))
+if command -v pgrep >/dev/null 2>&1; then
+  for pid in $(pgrep -f "monitor_arm\.sh ${ROLE}\b" 2>/dev/null) \
+             $(pgrep -f "notes_monitor\.sh ${ROLE}\b" 2>/dev/null); do
+    # Exclude self + parent (don't kill ourselves or whoever launched us)
+    if [ "$pid" != "$SELF" ] && [ "$pid" != "$PARENT" ] && [ -n "$pid" ]; then
+      kill -TERM "$pid" 2>/dev/null && killed=$((killed + 1))
+    fi
   done
 fi
 if [ "$killed" -gt 0 ]; then
   echo "MONITOR-ARM: killed ${killed} prior ${ROLE} bash process(es) before re-arm (leak fix)"
-  sleep 1  # give them time to exit cleanly
+  sleep 1  # give SIGTERMs time to land
 fi
 
-# === SIGTERM trap: propagate to inner script + its children so TaskStop kills the tree ===
+# === SIGTERM trap: kill all children before exiting ===
+# Children inherit our process group on bash; pkill -P $$ kills direct descendants.
 cleanup() {
-  echo "MONITOR-ARM: SIGTERM received; shutting down ${ROLE} monitor tree (pid $SELF)"
-  # Kill our process group (negative pid). On Git Bash, $$ is the bash PID + we may
-  # not have setsid; fall back to killing direct children.
-  if [ -n "${INNER_PID:-}" ]; then
-    kill -TERM "$INNER_PID" 2>/dev/null
-  fi
+  echo "MONITOR-ARM: SIGTERM received; killing ${ROLE} monitor tree (parent pid $SELF)"
   pkill -TERM -P "$SELF" 2>/dev/null
   exit 0
 }
 trap cleanup TERM INT
 
-# Emit a startup line so the session sees the monitor armed (test signal it works).
-echo "MONITOR-ARMED: notes_monitor for ${ROLE} (self-healing wrapper; sleep-20s; v5; leak-fix 2026-06-21)"
+# Emit a startup line so the session sees the monitor armed.
+echo "MONITOR-ARMED: notes_monitor for ${ROLE} (self-healing wrapper; sleep-20s; v5; leak+windowless-fix 2026-06-21)"
 
+# === MAIN LOOP: run inner script INLINE (no `&`) so we don't spawn a new bash subprocess ===
+# The inner script runs in OUR process (via direct bash invocation, same shell tree).
+# No console window is allocated because we're already in one (the Monitor-tool's).
+# When the inner script exits, control returns here + we restart.
 restart_count=0
 while true; do
-  bash tools/notes_monitor.sh "$ROLE" &
-  INNER_PID=$!
-  wait "$INNER_PID"
+  bash tools/notes_monitor.sh "$ROLE"
   rc=$?
-  unset INNER_PID
   restart_count=$((restart_count + 1))
-  # Emit a CRASH line as a wake-up signal so the session realizes + can investigate.
   echo "MONITOR-CRASH: notes_monitor ${ROLE} exited rc=${rc} (restart #${restart_count}); reloading in 5s"
   sleep 5
 done
