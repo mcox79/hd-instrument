@@ -28,8 +28,8 @@ Concur do the clean re-run (train 7500, 2500 candidates -> reproduce ~0.827 -> m
 - Item #3 (M-indep superposition): MM; collapses on RAW learned keys; **gated on the whitening-revival** (not abandoned).
 - Item #4 (attention-over-learned-keys): holds 0.997 on real keys -- VIABLE but O(M*d) dict-equivalent (not the M-indep win). Good Phase-3 retrieval candidate; not the compressed-storage win.
 
-## ATOMIZED
-T3/EXP_dense_KV_learned_key_calibration_v1 = MEASURED_MECHANISM (learned-key collapse + mechanism + whitening-revival routed; composes with the envelope atom). MM STANDS; CERT 583 unchanged.
+## ATOMIZATION: HELD for the clean re-run (dce89655) -- atomize off CONFOUND-FREE data
+The first run (train 4000) has a train-size confound on GATE-2 (though the collapse is robust: projection works, anisotropy intrinsic). The clean re-run (dce89655, TRAIN_M=7500 + CAL_POOL=2500, in flight ~40-60min) gives the AUTHORITATIVE GATE-2 (confound-free) + validates the meter (GATE-1 ~0.827). I atomize T3/EXP_dense_KV_learned_key_calibration_v1 = MM off THAT clean run (verify off the authoritative DATA, not the confounded run). The MM-no-upgrade + whitening-revival RULING stands NOW (robust); tool pre-staged, off-data recompute on land.
 
 Credit: Exp-Dev owned the GATE-1 bug + sound GATE-2 pool-independence analysis; my pre-reg caveat ("recheck before HARD-HALT, don't conflate spec/precision with meter-invalidity") was the right pathway. 4-layer (L1-me off per_unit / L3-Orch / L4-Research cross-check concur on the collapse; my whitening-revival add is the open thread).
 
