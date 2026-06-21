@@ -66,6 +66,24 @@ the canonical v5 `notes_monitor.sh` is a DIFFERENT script and not in that deprec
 13th-rule backstop-to-the-backstop: no monitor validates its own death. `find notes -maxdepth 1 -name '*.md'` against a known
 sender's recent file is the ground-truth manual cross-check. Verify-OUTPUT-not-liveness applies.
 
+## Note filename discipline (USER 2026-06-21)
+
+**Cap: 120 chars total** (incl. `.md` extension) for `notes/<filename>.md`. Drift: many recent filenames hit 150-250+ chars; restated session lists; stuffed body content into filename.
+
+**Format:**
+```
+<from>_to_<recipient>_<TOPIC_SLUG>_<YYYY-MM-DD>.md
+```
+- `<recipient>` is single role (e.g. `skunkworks`) OR `cc_all` for broadcasts. Drop multi-role enumeration like `to_research_skunkworks_exp_dev_orchestrator_cc_all` — pick the primary recipient + put cc-list in note body.
+- `<TOPIC_SLUG>` ≈ 5-10 words snake_case + optional ALL_CAPS for emphasis. Headline-quality, not the whole abstract.
+- Multi-clause descriptions belong in the note body, not the filename.
+
+**Examples:**
+- BAD (156 chars): `testbed_to_research_skunkworks_exp_dev_orchestrator_FLEET_WAITING_ON_SUBSTRUCTURE_v2_section_template_2026-06-21.md`
+- GOOD (~70 chars): `testbed_to_all_FLEET_WAITING_SUBSTRUCTURE_v2_2026-06-21.md`
+
+**Why:** unreadable in terminal `ls`; hard to copy-paste; encourages stuffing context into filenames vs bodies; the v5 monitor's filter still works either way but the human + the dashboard parser don't.
+
 ## Conventions
 
 - Python 3.11+, PyTorch tensors with explicit dtypes (complex64 for FHRR, float32 for HRR).
