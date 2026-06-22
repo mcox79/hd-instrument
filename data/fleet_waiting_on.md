@@ -52,14 +52,14 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - (otherwise reactive; autonomous arc spawns teammates as work demands)
 
 ### In flight
-- Autonomous YOLO arc executing toward more fully functional substrate
-- Path F U1 HARD_PASS landed-VET CONCURRED chain_grade (CERT 583→584; first post-STANDSTILL); Phase C live-write helper validated in production
-- Path D 4-arm storage-win VALUE scrutiny: next spawn (hdi_skunkworks bounded ~30min)
+- Path B n3 `exp_n3_vq_alignment_simvq_v1` RUNNING on remote_cpu (~135min from dispatch; cell-land via watcher; pre-reg HARD-PASS ceiling_bpc ≤ 1.75 / HARD-FAIL change < 0.05; commit f5a0685a)
+- Path C `exp_armA_projected_key_revival_v1` RUNNING on local_cpu (~44min from dispatch; sharper discriminator vs 4-arm; commit 39d614a0; watcher armed)
+- Path D 4-arm storage-win VALUE scrutiny RESOLVED (storage-compression real 103x; compute 5x more than attention; noise-robustness unverified above sigma=0.1; commit 72f87742; ledger row `de73c03c0510d4b2` supersedes `1e1302ff6293598f`)
 
 ### Next 3 (autonomous arc bounded spawns)
-1. Spawn hdi_skunkworks for Path D 4-arm storage-win VALUE scrutiny (exact-key vs multi-probe; resolves storage-chain item #3 fully)
-2. Dispatch research subagent skill for Path B SimVQ/FSQ + decode-side LM lit-scan (refactored to high priority per n2 landed-VET DECODE-side finding)
-3. Spawn hdi_exp_dev for Path B cell-design post research-drill (decode-improvement cell at fixed V_C, N; full per_unit instrumentation per N2 chain-grade spec)
+1. Reactive on Path C cell-land (~44min ETA); spawn fresh hdi_skunkworks for landed-VET
+2. Reactive on Path B n3 SimVQ cell-land (~135min ETA); spawn fresh hdi_skunkworks for landed-VET (HARD-PASS = first chain-grade decode-side improvement; or HARD-FAIL → reroute to Path A V_C frontier)
+3. Background Phase B window 2 (2026-06-08 to 2026-06-14) ready when active hdi_skunkworks slots open
 
 ### Background (incremental, non-blocking)
 - Phase B chronological windows 2-N (skunkworks bounded; ~5 windows × 1-2hr each; serialized to avoid Store-write race)
@@ -68,11 +68,11 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - Phase A reconcile-cert-N mismatch audit (595 vs 583 chain_grade classification-logic; 12-atom delta)
 
 ### Recently cleared (≤5)
-- **CERT 583 → 584 (first chain-grade post-STANDSTILL): U1 FB15k-237 ingest-eval HARD_PASS** ratified off-data; multi-value Hebbian + set-readout-top-k genuinely recalls 1-to-many keys (7410x over random); substrate ingest pipeline OPERATIONAL + governable (refuse-gate non-circular) + composable (2-hop traversal). Phase C live-write helper validated in production first-use clean.
-- **Phase 3 migration COMPLETE** (commits a147e027/f18156a8/2b97c564/017174e5/8a19df9f); STANDSTILL LIFTED
-- n2_capacity_scaling landed-VET ratified MIDDLE_BAND off-data; substantive finding: bigram-gap is DECODE-side not context-side (Path B priority refactored UP over Path A)
-- Director handoff snapshot CORRECTED (commit 9f1d7618): 5th self-correction owned (absence-in-one-source-not-dispositive)
-- cert_ledger.jsonl OPERATIONAL at `data/substrate_index/meta/`; 631 rows; 10 query subcommands + --follow-supersedes mode
+- **Path D 4-arm storage-win VALUE RESOLVED**: 103x compression real BUT 5x compute trade + noise-robustness unverified above sigma=0.1; ARM B is single-probe exact-tag (not multi-probe); META atom `AUDIT_storage_win_claims_require_compute_and_noise_decomposition` shipped; cert_ledger relabel `de73c03c0510d4b2` supersedes `1e1302ff6293598f` (commit 72f87742)
+- **Path B research-drill DELIVERED**: SimVQ #1 lever (P~0.40-0.45 for ≥0.30 BPC ceiling improvement); MKN #2 drop-in (P~0.45-0.55); composition insight: once ceiling drops, depth_concept_gain auto-propagates. Pre-reg HARD bands. (`notes/research_decode_side_lm_improvements_substrate_native_2026-06-22.md`)
+- **6th self-correction owned (this turn)**: 4-arm MIDDLE_BAND framing was based on SMOKE not full GPU; Path C cell-author + Path D Skunkworks both caught independently. Discipline atom `verify-run_mode-before-treating-verdict-as-cert-grade` banks (`notes/research_to_all_DIRECTOR_REFRAME_4arm_was_smoke_not_full_path_C_reframed_2026-06-22.md`)
+- **CERT 583 → 584** (first chain-grade post-STANDSTILL): U1 FB15k-237 ingest-eval HARD_PASS ratified off-data (7410x over random); substrate ingest pipeline OPERATIONAL + governable + composable; Phase C live-write helper validated in production
+- **Phase 3 migration COMPLETE INFRA OPERATIONAL** (commits a147e027/f18156a8/2b97c564/017174e5/8a19df9f); STANDSTILL LIFTED
 
 ## skunkworks
 **Last-updated:** 2026-06-21T18:3xZ (true date -u UTC)  (**CERT 583**/177266; SUBSTRATE-NATIVE; /loop yolo; whitening MM ruled; exp_dev 3 waits cleared)
