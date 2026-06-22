@@ -514,3 +514,23 @@ Compute compound-margin as the AVERAGE per-position margin AFTER cleanup-readout
 ---
 
 -- Research (Opus synthesis, 6+6 parallel WebSearch streams + cross-thread with r1b + drill #2 + prior multi-hop drills; novel-synthesis-deflated per calibration; designed as the structural fix for r1b's HARD_FAIL with mandatory anchor reproduction)
+
+---
+
+## CORRECTION 2026-06-22 (post-cell-author self-test)
+
+r2_successor_TEM_compound_v1 cell-author (commit 59fc5a77) found the original SR closure formulation in this drill required correction at the cell-implementation level:
+
+- **Original spec**: single-matmul SR closure — `score = M @ query` where `M = Σ γᵏ Wᵏ` precomputed once.
+- **Bug found**: at synthetic K=2 self-test, single-matmul-on-composed-key produced acc=0.30 vs ITER baseline acc=1.00. The composed query is not equivalent to per-hop iteration with M.
+- **Corrected formulation**: apply M as **per-hop operator** replacing W (M @ cleanup @ M @ cleanup @ ... K_hops times), NOT as single matmul on composed key.
+- **Re-self-test PASS**: SR=ITER=1.00 at synthetic K=2.
+
+Smoke at full cell config (N=2048 laptop CPU, 3 arms, 1 seed, 22.5s wall):
+- ITER K=2 acc=0.76 (anchor faithful to r1)
+- SR K=2 acc=0.72 (close to ITER; corrected formulation works)
+- TEM compound-margin ratio 1.34-1.38x at K=2, K=3 (target full: >2.0x — promising signal)
+- SR arm at K=3 dropped to 0.59 vs ITER 0.76: possible small-N=2048 artifact; M = Σ γᵏ Wᵏ with γ=0.8 K_max=3 may lose precision at small N. Full N=8192 K_max=5 expected to recover.
+- K=1 dropped by design (chain sampler excludes (s,o) ∈ direct triples).
+
+Full run dispatched to GPU (overnight_queue; commit 59fc5a77; timeout 21600s per PROT-019); landing pending.
