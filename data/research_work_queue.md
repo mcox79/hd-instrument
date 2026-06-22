@@ -60,8 +60,13 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
-- 2026-06-22 SVAMP-A weight sweep HARD_FAIL (max acc=0.3611 across 5 weights; control valid; selector-bias is deeper than scalar-prior can fix; Candidate D next per drill)
-- 2026-06-22 Fix #12 freeze-pattern-harden infrastructure (durable work queue + discipline atom + memory pointer; commits be8850d0 + 17bea59)
+- 2026-06-22 Brain-drill #3 multi-hop LANDED: iterative Hopfield cleanup per hop; r1 cell dispatched (~45min); K=3 HARD_PASS bar 0.20 + ratio ≥3x; P=0.45 deflated
+- 2026-06-22 HumanEval Anchor-1 DISPATCHED full local_cpu (~3hr; smoke n=10 zero pass-flips; reclassifier tool shipped for broad n_A=35 vs narrow n=13 bucketing; substrate-retrieval hitting plausible snippets)
+- 2026-06-22 Brain-drill #2 CLS LANDED: substrate has CLS stores latent (U1=hippocampus; W=cortex); c1 cell dispatched in flight; substrate's MOAT vs LLMs identified
+- 2026-06-22 Phase B window 2 LANDED thin (9 enrichments; pre-CERT-NNN era cert events in portfolio_state; Phase D extension queued)
+- 2026-06-22 MEMORY.md CURRENT STATE curated (13→5 lines; role-agnostic; commit 64f0f53)
+- 2026-06-22 SVAMP-A HARD_FAIL (selector-bias deeper than scalar prior; Candidate D queued)
+- 2026-06-22 Fix #12 freeze-pattern-harden infrastructure (durable work queue + discipline atom + memory pointer)
 - 2026-06-22 Fix #6 zero-D-overlap audit (10 cells; new cells fixed; old N1/N2 family epsilon-floor smoke-vulnerable; commit 10790983)
 - 2026-06-22 SMH cell dispatched via Fix #11 pipeline-template first field-test (Path C revival #1)
 - 2026-06-22 HumanEval Anchor-1 cell-author bounded ~3hr (Qwen-1.5B integration)
