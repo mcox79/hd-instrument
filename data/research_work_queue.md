@@ -48,6 +48,7 @@
 ### Substrate-code-update queue (per capability-gap audit 2026-06-22; one hdlab/ module per cycle)
 - ✅ [SHIPPED 2026-06-22 commit 03f42ffc] `hdlab/kg_traversal.py` — KGStore with two-hop / n-hop substrate-native KG traversal + ingest_triples + refuse_gate_calibrate; smoke green (multi-value retrieval + 2-hop chain + n-hop generalization + refuse-gate)
 - ✅ [SHIPPED 2026-06-22] `hdlab/multi_hop.py` — naive_chain + iter_cleanup_chain (Modern-Hopfield) + random_cleanup_chain discriminator; smoke green (cleanup picks chain-correct entity 21; random_cleanup picks junk 33 — discriminator works)
+- ✅ [SHIPPED 2026-06-22 commit d834dbc3] `hdlab/whitening.py` — ZCA + PCA encoder-residual primitive (4 chain-grade atoms); fit/transform/effective_rank; smoke eigenvalue-ratio 2.3e4 → 1.16
 - [QUEUE] `hdlab/refuse_gate.py` standalone — OOD rejection primitive extracted from KGStore.refuse_gate_calibrate; would make refuse-gate callable on any (E, R, W) trio outside the KGStore class
 - [QUEUE] `hdlab/whitening.py` — encoder-residual whitening (4 chain-grade atoms); MEDIUM-HIGH leverage
 - [QUEUE] `hdlab/learned_projection.py` — KV learned projection (HARD_PASS anchor); MEDIUM
