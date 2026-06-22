@@ -69,17 +69,25 @@
 - **#14-19:** spawn-budget-per-cycle / ferry-execution / smoke-VET nuance / runtime measurement strict / Director cross-check strict / MEMORY.md curation cadence
 
 **Brain-drill cadence:**
-- #1 within-concept floor LANDED (k-WTA-VQ)
-- #2 CLS continual learning LANDED (U1=hippocampus + W=cortex)
-- #3 multi-hop reasoning LANDED (iterative-cleanup; r1 MM)
-- #4 cerebellar forward-prediction / generation IN FLIGHT
-- #5 hippocampal SWR + sleep replay QUEUED (firing this cycle per USER)
-- #6 cortical microcircuit / W-matrix architecture QUEUED (firing this cycle per USER)
+- #1 within-concept floor LANDED (k-WTA-VQ); n4 HARD_FAIL post-VET — revival route pending
+- #2 CLS continual learning: c1 LANDED partial then HARD_FAIL; **5x DEEPER drill delivered 2026-06-22** (cascade-synapse + STC tag-and-capture + SWR-gated selective replay on expanding intervals); c2_cascade_stc_swr_continual_v1 DISPATCHED to remote_cpu (~90min; P_deflated=0.40)
+- #3 multi-hop reasoning: r1 MM LANDED chain-grade; r1b chain-grade promotion HARD_FAIL post-VET; **5x DEEPER drill delivered 2026-06-22** (successor-W closure M=Σγᵏ Wᵏ + TEM structural-sensory factorization + theta-gamma compound margin); r2_successor_TEM_compound_v1 designed (~10-12hr remote_cpu; P_deflated=0.45)
+- #4 cerebellar forward-prediction / generation: g1 substrate-native generation LANDED (CERT 587 chain-grade via g1b capacity-sweep)
+- #5 hippocampal SWR + sleep replay: composed into #2 c2 design (SWR-gated selective replay arm)
+- #6 cortical microcircuit / W-matrix architecture: m1 modular macrocolumn smoke MIDDLE_BAND — full needed
 - #7+: materials science (memristive devices); information theory bounds; embodied cognition (TBD)
 
-## Active cycle (2026-06-22 autonomous arc)
+## Active cycle (2026-06-22 autonomous arc — post-CERT-590)
 
-15+ background spawns in flight; 2 remote cells running; queue saturated at TIER 1. Multiple landings expected over next 1-7hr (HumanEval / c1 full / Path A / r1b / n10 / n4 / n6 / n7 / n8 / brain-drills #4/#5/#6 / Phase D).
+4 background cells in flight:
+- p1 v3 capacity-sweep cell-author (GPU pre-dispatch; Skunkworks-recommended follow-up — sweep K across α=0.14·N=9175 to discriminate near saturation at LLM-class N=65536)
+- HumanEval Anchor-1 revival cell-author (GPU pre-dispatch; substrate-augmented Qwen vs bare)
+- c2 cascade-STC-SWR continual learning (remote_cpu; brain-drill #2 5x DEEPER mechanism)
+- substrate_self_map_v2c full-Store ingest (remote_cpu; USER strategic vision Phase 1 — full ~28k atoms + ~200k relations ingest; cluster only chain-grade anchors but let them traverse the full substrate graph)
+
+Recently LANDED (this cycle): CERT 589 p1 phase-diagram + CERT 590 p1 v2 LLM-class implicit-W (algorithmic precondition: at N=65536, explicit (N,N)=17GB exceeds 4060 Ti 8GB VRAM) + 8/8 hdlab/ primitives (closed with refuse_gate + conformal) + v2b MIDDLE_BAND + modern_hopfield_xl HARD_FAIL (LLM-class no-cliff finding; revival at N=2048 OR Sparse Modern Hopfield queued).
+
+Revival queue (route-negatives discipline): r2 successor-W + modern_hopfield N=2048 + Path A revival + n10 whitening revival + MedQA v2 (learned projection) + n5 V_C=4096 frontier revival.
 
 ## Decision-point cadence
 
@@ -100,10 +108,11 @@ N1 substrate-LM (V_C codebook + Hebbian)
 
 U1 KG ingest (multi-value Hebbian + set-readout-top-k)
   + r1 iterative-cleanup (multi-hop chain-of-thought; brain-drill #3)
-  + c1 CLS-replay (continual learning; brain-drill #2)
-  + ConceptNet n8 (OPEN-C unlock)
-  + r1b chain-grade promotion (margin-refuse calibration)
-  → L3 reasoning: substrate composes multi-hop refusal-bounded continual-learnable inference
+  + r2 successor-W TEM compound-margin (r1b revival; brain-drill #3 5x DEEPER mechanism)
+  + c1 CLS-replay → c2 cascade-STC-SWR (continual learning; brain-drill #2 5x DEEPER mechanism)
+  + ConceptNet n8 (OPEN-C unlock) + HotpotQA (multi-domain KG #3)
+  + p1 v2 LLM-class phase-action portability (operating-point shifts preserved)
+  → L3 reasoning: substrate composes multi-hop refusal-bounded continual-learnable inference at LLM-class scale
 
 CERT 591 contrastive projection
   + n10 whitening OR encoder-upgrade pythia-1B/2.8B
