@@ -1,0 +1,96 @@
+{
+  "anchor_name": "n6_wikitext103_ingest_cert_v1",
+  "config_version": "N=512,LAYERS=2,ALPHA=0.100,STEPS=2,CORPUS=wikitext103,CORPUS_VER=hf_wikitext_103_raw_v1,TRAIN=10000,TEST=1000,SEEDS=7,SYNTH=False,BANDS=HP<=2.50/MB<=4.00",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: per_unit contains run_mode=smoke; refusing to call chain-grade verdict on smoke results (Fix #4 pre-flight gate).",
+  "summary": "n6_wikitext103: substrate_bpc_mean=6.405 cv=0.000 n_seeds=1 bigram_baseline=4.171 bigram_ceiling=3.981 mode=smoke verdict=HARD_FAIL",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "N_DIM": 512,
+  "N_LAYERS": 2,
+  "ALPHA_MAX": 0.1,
+  "N_STEPS_PER_LAYER": 2,
+  "MAX_CHARS_TRAIN": 10000,
+  "MAX_CHARS_TEST": 1000,
+  "corpus_name": "wikitext103",
+  "corpus_version": "hf_wikitext_103_raw_v1",
+  "allow_synthetic": false,
+  "corpus_provenance_real": true,
+  "zero_llm_calls_at_inference": true,
+  "total_llm_forward_calls_observed": 0,
+  "substrate_bpc_mean": 6.405398656964129,
+  "substrate_bpc_cv": 0.0,
+  "bigram_baseline_bpc_mean": 4.170514428882298,
+  "bigram_ceiling_bpc_mean": 3.9814818155690204,
+  "HARD_PASS_BPC": 2.5,
+  "MIDDLE_BAND_UPPER_BPC": 4.0,
+  "CV_MAX_HP": 0.05,
+  "by_construction_guards": {
+    "vq_floor_methodology": "char-LM analog: bigram_ceiling_bpc = bigram-MLE FIT ON TEST itself; substrate < bigram_ceiling by >=0.05 required for HARD_PASS.",
+    "real_data_asserted": true,
+    "allow_synthetic": false,
+    "zero_llm_call_at_inference": true,
+    "substrate_only_code_trace": "this cell imports NO transformers/torch; SubstrateCharLM imports no transformers; _LLM_CALL_COUNTER asserted == 0 before metrics write."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "per_unit": [
+        {
+          "seed": 7,
+          "substrate_bpc": 6.405398656964129,
+          "bigram_baseline_bpc": 4.170514428882298,
+          "bigram_ceiling_bpc": 3.9814818155690204,
+          "uniform_bpc": 6.409390936137702,
+          "gain_above_bigram_ceiling": -2.423916841395109,
+          "gain_above_bigram_baseline": -2.234884228081831,
+          "n_scored": 999,
+          "n_train_chars": 10000,
+          "n_test_chars": 1000,
+          "vocab_size": 85,
+          "corpus_provenance_real": true,
+          "max_alpha_final": 0.1015625,
+          "any_primitive_collapse": false,
+          "llm_forward_calls_at_inference": 0,
+          "train_wall_s": 1.3539423942565918,
+          "score_wall_s": 4.252955436706543,
+          "bigram_wall_s": 0.012175321578979492,
+          "wall_s": 6.7127814292907715,
+          "N": 512,
+          "run_mode": "smoke",
+          "health_summary": {
+            "n_layers": 2,
+            "N": 512,
+            "alpha_max_observed": 0.1016,
+            "alpha_max_threshold": 0.1,
+            "alpha_c_hopfield": 0.138,
+            "any_primitive_collapse": false,
+            "per_layer": [
+              {
+                "layer": 0,
+                "alpha": 0.1015625,
+                "writes": 52,
+                "fro_norm": 9.961938858032227,
+                "max_abs_eig": 4.225141174238836,
+                "collapsed": false
+              },
+              {
+                "layer": 1,
+                "alpha": 0.1015625,
+                "writes": 52,
+                "fro_norm": 17.205793380737305,
+                "max_abs_eig": 7.825917949300518,
+                "collapsed": false
+              }
+            ]
+          }
+        }
+      ],
+      "elapsed_s": 6.7127814292907715,
+      "llm_forward_calls_at_inference": 0,
+      "N": 512,
+      "run_mode": "smoke"
+    }
+  ],
+  "elapsed_s": 7.126148462295532
+}

@@ -126,7 +126,7 @@ else:
     SEEDS = [int(s) for s in os.environ.get("HDLAB_SEEDS", "7,17,23").split(",")]
 
 CORPUS_NAME = "arxiv_abstracts"
-CORPUS_VERSION = "hf_multi_fallback_v1"  # tries ccdv/arxiv-classification first
+CORPUS_VERSION = "hf_ccdv_arxiv_classification_text_field_v2"  # 2026-06-22 loader fix
 ALLOW_SYNTHETIC = False
 
 HARD_PASS_BPC = 2.80
