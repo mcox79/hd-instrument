@@ -2098,6 +2098,37 @@ def _fmt_when(mtime: float) -> str:
     return datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
 
 
+@app.get("/api/dashboard/v2/local_resources")
+def dashboard_v2_local_resources():
+    """Top python processes on laptop — exposes Claude spawn-author + scheduled-task load that
+    queue-based /api/runs doesn't show. USER 2026-06-22: 'laptop is hot but dashboard shows
+    only remote_cpu running' — fills the visibility gap.
+    """
+    try:
+        import subprocess as _sp
+        # PowerShell: top 10 python processes by working set
+        cp = _sp.run(
+            ["powershell", "-NoProfile", "-Command",
+             "Get-Process | Where-Object { $_.ProcessName -like 'python*' } | "
+             "Sort-Object WorkingSet64 -Descending | Select-Object -First 10 "
+             "@{Name='pid';Expression={$_.Id}}, ProcessName, "
+             "@{Name='ws_mb';Expression={[math]::Round($_.WorkingSet64/1MB,1)}}, "
+             "@{Name='cpu_s';Expression={[math]::Round($_.CPU,1)}} | ConvertTo-Json"],
+            capture_output=True, text=True, timeout=10, creationflags=_CREATE_NO_WINDOW,
+        )
+        if cp.returncode != 0:
+            return JSONResponse({"processes": [], "error": "powershell exit nonzero"})
+        raw = cp.stdout.strip()
+        if not raw:
+            return JSONResponse({"processes": []})
+        data = json.loads(raw)
+        if isinstance(data, dict):
+            data = [data]
+        return JSONResponse({"processes": data})
+    except Exception as e:
+        return JSONResponse({"processes": [], "error": f"{type(e).__name__}: {e}"})
+
+
 @app.get("/api/dashboard/v2/ingest")
 def dashboard_v2_ingest():
     """Substrate ingest status: ingested corpora + active ingest in queue + planned.
