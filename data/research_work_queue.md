@@ -37,6 +37,16 @@
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
+### Substrate-code-update queue (per capability-gap audit 2026-06-22; one hdlab/ module per cycle)
+- [QUEUE-NEXT-CYCLE] `hdlab/kg_traversal.py` — two-hop / n-hop substrate-native KG traversal (n8 CERT 585 mechanism made callable); HIGH leverage
+- [QUEUE] `hdlab/refuse_gate.py` — OOD rejection primitive; HIGH leverage (load-bearing for every ingest cell)
+- [QUEUE] `hdlab/iterative_cleanup.py` — r1 multi-hop chain-of-thought; HIGH leverage (substrate-native CoT)
+- [QUEUE] `hdlab/whitening.py` — encoder-residual whitening (4 chain-grade atoms); MEDIUM-HIGH leverage
+- [QUEUE] `hdlab/learned_projection.py` — KV learned projection (HARD_PASS anchor); MEDIUM
+- [QUEUE] `hdlab/continual_ingest.py` — a8 α=0.5 NEVER-FORGETS pattern; MEDIUM
+- [QUEUE] `hdlab/conformal.py` — split-CP calibration; LOWER
+
+
 - [QUEUE-NEXT-CYCLE-FIRST] **c3 compressed sequence replay cell** — brain-drill #5 recommendation; substrate's missing sequence-binding primitive (S matrix via offline ordered-pair Hebbian k_{t-1}⊗k_t); 4 arms NONE/COMPRESSED/UNORDERED/ONLINE_NO_GAP; ~5min remote_cpu; **P=0.55 (NOT novel-synthesis-capped)** — direct extension of validated outer-product Hebbian; HARD_PASS depth-5 sequence_recall ≥0.80 + delta ≥0.50; SHIPS THE S MATRIX needed by g1 generation
 - [QUEUE-NEXT-CYCLE-SECOND] **g1 substrate sequence generation cell** — brain-drill #4 recommendation; uses c3's S matrix as autoregressive engine; Karuvally-Sejnowski temporally-asymmetric Hebbian + Langevin sampling + HVC clock-binding; pre-reg HARD_PASS trajectory_coherence(T=8) ≥0.60 + novelty ≥1.5x + refuse_OOD ≥0.90; ~90min remote_cpu; P=0.45; gated on c3 land (c3 ships the substrate; g1 USES it)
 - [QUEUE-NEXT-CYCLE-THIRD] **m1 modular K-macrocolumn W cell** — brain-drill #6 recommendation; replace single 4096x4096 W with K=8 OR K=32 modular W_k routed via Top-m k-WTA; HARD_PASS at α=0.3 recall ≥0.90 modular vs ≤0.5 K=1 anchor (capacity-cliff lift) + K=1 reproduces baseline ~327 substrate Hebbian-superposition; sqrt(K) capacity scaling at fixed parameter budget (analytic ~2.83x at K=8, ~5.66x at K=32); composes natively with k-WTA-VQ from drill #1 (k-WTA IS the router) + CLS-replay drill #2 + iterative-cleanup drill #3; P=0.45 novel-synthesis-capped; ~30-60min CPU
@@ -75,6 +85,7 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 **Capability-gap audit v1 SHIPPED** (`notes/capability_gap_audit_hdlab_primitives_2026-06-22.md`): 7 chain-grade-validated mechanisms NOT in hdlab/ (two-hop KG inference, refuse-gate, iterative-cleanup r1, whitening-projection [4 atoms!], KV learned-projection, continual-writes a8, conformal). Backlog promoted to TIER-2 7-cycle substrate-code-update queue (one hdlab/ module per cycle). Underperforming inventory: N1 v3.1 / n3 MKN / r1 K=3,4 MM / HumanEval / SVAMP / n10 whitening / capacity_sweet_spot_v2. First instance of the gap-evaluation discipline per the new results-to-application cadence (USER 2026-06-22)
 - 2026-06-22 **CERT 584→585 RATIFIED + PHASE_PORTRAIT v3 INVENTORY_NON_CERT WRITTEN** (commit 29b7aff6 hdi_skunkworks atomization bundle): n8 ConceptNet `math::T3/EXP_n8_conceptnet_ingest_eval_v1` PASS / WRITTEN; cert_ledger row hash `d87e41e3e33833b1`; substrate 177277 atoms / 647 cert_ledger rows; A5 invariants preserved (axiom_term 206); independent recompute verified all 6 headline numbers including ratio 36.49x + cv 0.027 across seeds. PHASE_PORTRAIT v3 atom `meta::PHASE_PORTRAIT_v3_2026-06-22` co-exists with v1 (different scour queries — not supersedes); all 11 transform-survival atoms verified present + CERT_CHAIN_GRADE in Store; HARD_PASS anchor `EXP_kv_learned_projection_v1` confirmed; untested regions explicit. c3 META atom DEFERRED to post-3-seed-cell-land (full metrics not yet pulled back from remote — sync lag suspected)
 - 2026-06-22 **SUBSTRATE-CODE UPDATE: `hdlab/sequence_memory.py` SHIPPED** (commit d5117f30): SequenceMatrix callable substrate primitive validated by c3 cell; first hdlab/ module update from this autonomous arc; smoke-tested with codebook cleanup → cos-sim 1.0 at every depth matching c3's chain_recall_nn pattern. Operationalizes the new results-to-application cadence (USER 2026-06-22 directive)
 - 2026-06-22 TIER 1 AUDIT (Director cross-check; queue_status 0/0/0 trigger): **n8 ConceptNet ingest_eval_v1 LANDED HARD_PASS at full** (3 seeds; 36.5x vs frozen-encoder; scale-curve 1.000 at every M; CERT 584→585 candidate; OPEN-C UNLOCKED — chain-grade ConceptNet KG #2 per L3 master plan); **Path A V_C=4096 LANDED HARD_FAIL** (route to revival; decode-side scope re-open); **HumanEval Anchor-1 stdlib-Qwen LANDED HARD_FAIL**; **r1b LANDED HARD_FAIL**; SVAMP role-asymmetry 3 variants MIDDLE_BAND. Work queue TIER 1 reconciled to landed-VET-pending status; never-dispatched audit lane added for n4/n6/n7/text8-retry
