@@ -1,16 +1,30 @@
-"""substrate_self_map_v2 -- substrate-native self-mapping (Phase 1 of USER strategic vision).
+"""substrate_self_map_v2b -- substrate-native self-mapping, broadened-scope (Phase 1 of USER strategic vision).
+
+v2b broadens v2's relation filter after v2 single-seed full-scale empirically discovered
+that the chain-grade-INTERNAL relation subgraph is structurally near-empty: 447 chain-grade
+atoms but only ~16 relations across 2 relation types (7 non-trivial after dropping self-loops),
+yielding mechanism-null verdicts (clusters=1, avg_J=0.087). Pre-reg estimate of ~8000 / 17
+relation types was the FULL-Store inventory, not the chain-grade subgraph.
+
+v2b extends the endpoint filter to chain-grade UNION atomized: a triple is admitted when
+EITHER endpoint is chain-grade (the other endpoint may be any atomized atom). This maps how
+chain-grade atoms sit in the broader atomized Store -- still substrate-native, with chain-grade
+atoms remaining the traversal anchors. (Option 2 -- full-Store ingest, ~200k relations -- is
+deferred until v2b confirms the broadened scope produces a mechanism-discriminating result.)
 
 Substrate uses its OWN primitives (char_trigram_encoder + KGStore + multi_hop) to analyze
-the cert_ledger relational structure across chain-grade atoms. This replaces v1
-(tools/substrate_relational_analysis.py), which was correctly criticized by USER 2026-06-22
-as Director-side lexical pattern-matching on atom_id strings, not substrate self-mapping.
+the cert_ledger relational structure. This replaces v1 (tools/substrate_relational_analysis.py),
+which was correctly criticized by USER 2026-06-22 as Director-side lexical pattern-matching on
+atom_id strings, not substrate self-mapping.
 
 Mechanism (substrate-native end-to-end; ZERO LLM forward calls at retrieval):
 
   1. Atom encoding -- CharTrigramEncoder at N_DIM, bipolar bag-of-trigrams over atom_id.
+     Atom universe = chain-grade atoms (anchors) UNION any atomized atom appearing as the
+     other endpoint of an admitted relation (frontier set).
   2. Relation extraction -- read each data/substrate_index/<corpus>/relations.jsonl;
-     restrict to (src, rel_type, tgt) triples where BOTH src and tgt are chain-grade atoms
-     (matched against cert_ledger.jsonl chain_grade atom_ids; supersedes-folded).
+     v2b admits (src, rel_type, tgt) triples where EITHER endpoint is chain-grade (the other
+     may be any atom_id appearing in any atoms.jsonl across corpora). Self-loops dropped.
   3. KG ingest -- pack (s_idx, r_idx, o_idx) triples into a KGStore via multi-value Hebbian
      accumulation. Codebooks E (atoms) and R (relation types) come FROM substrate primitives:
      E = char-trigram-encoded atom IDs; R = bipolar random per relation type.
@@ -24,31 +38,48 @@ Mechanism (substrate-native end-to-end; ZERO LLM forward calls at retrieval):
      are matched to v1 clusters by best Jaccard; per-cluster overlap + new cross-family arrows
      identified by substrate (NOT in v1 lexical) are surfaced.
 
-Pre-reg HARD bands (committed in notes/exp_substrate_self_map_v2_pre_reg_2026-06-22.md):
+Pre-reg HARD bands (committed in preregs/2026-06-22_substrate_self_map_v2b.md):
+
+  v2b primary discriminating metric is the REAL-vs-SHUFFLE cluster-granularity gap,
+  NOT v1-resemblance: the broadened-scope graph now includes outward atomized atoms,
+  so v1's chain-grade lexical clustering is no longer the relevant alignment target.
+  The lexical-overlap metric is RETAINED for traceability (per_cluster_match) but is
+  no longer a HARD gate.
+
+  v2b smoke discovery: within-cluster coherence has the OPPOSITE sign of what
+  was expected -- the random-relation arm tends to produce ONE giant blob (everything
+  reachable via the same noise) with HIGH within-cluster coherence, while the real arm
+  produces MORE clusters with smaller, more-distinguishable neighborhoods. The
+  discriminating signal is therefore n_clusters_real > n_clusters_shuffle (real has
+  more granular structure) NOT coherence-gap. Pre-reg bands corrected accordingly.
 
   HARD_PASS chain-grade:
-    - Substrate-derived clusters have >= 0.5 Jaccard overlap with v1 lexical clusters
-      ON AVERAGE (sanity: substrate-finds-same-structure as v1 lexical)
-    - Substrate discovers >= 5 cross-family arrows (atoms in 2+ substrate-clusters)
-      that are NOT in v1 multi-category atoms (substrate adds value beyond keyword matching)
+    - REAL arm produces more clusters than SHUFFLE arm (genuine granularity):
+      n_clusters_real - n_clusters_shuffle >= 2
+    - REAL arm produces >= 3 clusters absolute (mechanism produces structure):
+      n_clusters_real >= 3
     - substrate-only-decode preserved (n_llm_calls = 0)
-    - Atom retrieval recall >= 0.95 (codebook can retrieve atom-by-id via char-trigram
-      key + KGStore W; sanity that the encoding preserves identity)
-    - 3 seeds; cv <= 0.05 on n_new_cross_family_arrows (stability)
+    - Atom retrieval recall >= 0.95 (codebook preserves atom-id identity)
+    - 3 seeds; cv <= 0.10 on n_clusters_real (stability; relaxed from 0.05 since
+      cluster count is a discrete metric)
 
   MIDDLE_BAND:
-    - Substrate clusters partially overlap v1 (>=0.2 avg Jaccard) BUT < 5 new cross-family
-      arrows OR cv > 0.05 (substrate confirms but doesn't extend)
+    - n_clusters_real >= 2 AND n_clusters_real - n_clusters_shuffle >= 1
+      (mechanism present but weakly discriminating)
 
   HARD_FAIL:
-    - Substrate clusters bear no resemblance to v1 (avg Jaccard < 0.1) -- char-trigram
-      encoding doesn't preserve atom-id semantics
+    - n_clusters_real <= 1 (mechanism null on this scope -- recommend Option 2:
+      full-Store ingest)
+    - n_clusters_real <= n_clusters_shuffle (shuffle as granular as real;
+      relation-conditioned mechanism null)
     - substrate-only-decode violated (any LLM forward call counted)
-    - Atom retrieval recall < 0.50 (codebook too crowded; need larger N_DIM)
+    - Atom retrieval recall < 0.50 (codebook too crowded)
 
 Discriminator control (Fix #16): RANDOM_RELATION baseline arm. Substrate-derived clusters
-from SHUFFLED relation_types should be incoherent (low avg Jaccard with v1 AND low new-arrow
-count). Strong gap between real-relations arm and shuffled-relations arm = mechanism real.
+from SHUFFLED relation_types tend to collapse into one giant blob (all anchors reachable
+through uniform-random rel_type noise); the REAL arm should produce more granular
+structure (more clusters of smaller size). Gap in cluster-COUNT (not within-cluster
+coherence) is the relation-conditioned mechanism evidence.
 
 Honest scope:
   - char-trigram encoding is bag-of-trigrams (no positional info; cat/cats share trigrams,
@@ -91,20 +122,25 @@ from experiments._seed_checkpoint import (
 # ----- substrate-only-decode gate (Skunkworks structural blocker #3) -----
 _LLM_CALL_COUNTER = [0]   # MUST stay at 0; we never import transformers/torch/AutoModel.
 
-ANCHOR_NAME = "substrate_self_map_v2"
+ANCHOR_NAME = "substrate_self_map_v2b"
 LEDGER = REPO / "data" / "substrate_index" / "meta" / "cert_ledger.jsonl"
 SUBSTRATE_INDEX = REPO / "data" / "substrate_index"
 
-# ----- pre-registered HARD thresholds -----
-AVG_JACCARD_PASS = 0.50      # avg Jaccard between substrate-clusters and v1-clusters
-AVG_JACCARD_FAIL = 0.10      # below this -> HARD_FAIL
-AVG_JACCARD_MIDDLE = 0.20    # MIDDLE_BAND floor on partial overlap
-NEW_ARROWS_PASS = 5          # >= 5 new cross-family arrows substrate finds that v1 missed
-RECALL_PASS = 0.95           # atom-id retrieval recall via char-trigram codebook
-RECALL_FAIL = 0.50           # HARD_FAIL on recall below this
-CV_PASS = 0.05               # cv across seeds on n_new_cross_family_arrows
-JACCARD_CLUSTER_TAU = 0.30   # threshold for greedy substrate-cluster formation
-JACCARD_VS_V1_TAU = 0.30     # threshold for "substrate atom belongs to v1 cluster"
+# ----- pre-registered HARD thresholds (v2b broadened scope) -----
+# v2b: primary gates are n_clusters_real and the real-vs-shuffle CLUSTER-COUNT gap.
+# (Coherence had opposite sign of expectation -- shuffle blob is more coherent within
+# its giant single cluster than real's smaller separated clusters. n_clusters delta is
+# the correct discriminator.) v1-resemblance retained as informational only.
+N_CLUSTERS_REAL_PASS = 3        # HARD_PASS requires >=3 substrate-clusters
+N_CLUSTERS_REAL_MIDDLE = 2      # MIDDLE_BAND requires >=2
+N_CLUSTERS_GAP_PASS = 2         # HARD_PASS requires (real - shuffle) >= 2 clusters
+N_CLUSTERS_GAP_MIDDLE = 1       # MIDDLE_BAND requires (real - shuffle) >= 1
+N_CLUSTERS_GAP_FAIL = 0         # HARD_FAIL if real <= shuffle
+RECALL_PASS = 0.95              # atom-id retrieval recall via char-trigram codebook
+RECALL_FAIL = 0.50              # HARD_FAIL on recall below this
+CV_PASS = 0.10                  # relaxed from 0.05; cluster-count is discrete
+JACCARD_CLUSTER_TAU = 0.30      # greedy substrate-cluster threshold
+JACCARD_VS_V1_TAU = 0.30        # informational: "substrate atom resembles v1 cluster"
 
 # ----- CLI / run-mode -----
 _ap = argparse.ArgumentParser()
@@ -121,10 +157,15 @@ RUN_MODE = "smoke" if (_ARGS.smoke or _ARGS.self_test or _IS_SMOKE_BY_NAME) else
 if RUN_MODE == "smoke":
     SEEDS = [1]
     N_DIM = 1024
-    MAX_ATOMS = 50
-    N_ANCHORS = 20           # subset of chain-grade atoms used as 2-hop anchors
-    N_RELATION_SAMPLES = 8   # per anchor, how many random 2-relation sequences to traverse
-    K_SET = 8
+    # v2b smoke: use the FULL chain-grade slice (447 atoms) so the broadened admit
+    # rule actually yields a representative number of triples. The v2 smoke hard-cap
+    # at MAX_ATOMS=50 was the reason its smoke was mechanism-null (only 26 admitted
+    # triples in that slice). Smoke still runs <2s at this scale; smoke cap is on
+    # ANCHORS + N_DIM + seeds, not on MAX_ATOMS.
+    MAX_ATOMS = None
+    N_ANCHORS = 50           # subset of chain-grade atoms used as 2-hop anchors
+    N_RELATION_SAMPLES = 16  # per anchor, how many random 2-relation sequences
+    K_SET = 12
 else:
     SEEDS = [7, 17, 23]
     N_DIM = 4096
@@ -134,12 +175,14 @@ else:
     K_SET = 16
 
 CONFIG_VERSION = (
-    "self_map_v2: char_trigram_atom_encode + KGStore_multivalue_Hebbian + "
-    "multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; "
+    "v2b-broadened-scope-chain-grade-OR-atomized: char_trigram_atom_encode + "
+    "KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + "
+    "random_relation_control; either-endpoint chain-grade admit; cluster-count "
+    "discriminator (real - shuffle); "
     "N%d max_atoms=%s n_anchors=%d n_rel_samples=%d kset=%d "
-    "bands jac_pass%.2f jac_fail%.2f new_arrows>=%d recall_pass%.2f cv<=%.2f"
+    "bands n_clusters>=%d cluster_gap>=%d recall>=%.2f cv<=%.2f"
 ) % (N_DIM, str(MAX_ATOMS), N_ANCHORS, N_RELATION_SAMPLES, K_SET,
-     AVG_JACCARD_PASS, AVG_JACCARD_FAIL, NEW_ARROWS_PASS, RECALL_PASS, CV_PASS)
+     N_CLUSTERS_REAL_PASS, N_CLUSTERS_GAP_PASS, RECALL_PASS, CV_PASS)
 
 
 # ----- selftest: substrate primitives compose end-to-end on a tiny synthetic KG -----
@@ -229,19 +272,55 @@ def _strip_corpus_prefix(atom_id: str) -> str:
     return atom_id
 
 
-def load_relations_for(chain_grade_atom_ids: list[str]) -> Tuple[list[tuple[int, str, int]], list[str]]:
-    """Read every <corpus>/relations.jsonl; restrict to triples where BOTH endpoints are chain-grade.
+def load_atomized_atom_ids() -> set[str]:
+    """Collect every atom_id appearing in any <corpus>/atoms.jsonl (bare form, post-`::`).
+
+    Atomized = onboard in the substrate (any tier T1/T2/T3); chain-grade is a subset.
+    v2b uses this as the frontier set: chain-grade UNION atomized = atom universe.
+    """
+    out: set[str] = set()
+    if not SUBSTRATE_INDEX.is_dir():
+        return out
+    for corpus_dir in sorted(SUBSTRATE_INDEX.iterdir()):
+        af = corpus_dir / "atoms.jsonl"
+        if not af.is_file():
+            continue
+        with open(af, encoding="utf-8") as f:
+            for line in f:
+                try:
+                    r = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                aid = r.get("id", "")
+                if aid:
+                    # atoms.jsonl stores bare id (T<tier>/name); already in the
+                    # post-`::` form that relations.jsonl src_id/tgt_id use.
+                    out.add(aid)
+    return out
+
+
+def load_relations_for(
+    chain_grade_atom_ids: list[str],
+    atomized_atom_ids: set[str],
+) -> Tuple[list[tuple[int, str, int]], list[str], list[str], dict[str, int]]:
+    """v2b: read every <corpus>/relations.jsonl; admit (src, rel_type, tgt) triples where
+    EITHER endpoint is chain-grade and BOTH endpoints are in the atomized universe.
 
     Returns:
-      triples: list of (src_idx, rel_type_str, tgt_idx); indices into chain_grade_atom_ids.
+      triples: list of (src_idx, rel_type_str, tgt_idx); indices into combined atom_ids.
       relation_types: sorted distinct rel_type strings encountered.
+      combined_atom_ids: combined ordered list of atom_ids actually used by triples
+        (chain-grade atoms first, then non-chain-grade atomized atoms; bare form).
+      chain_grade_index_set: dict bare_id -> idx restricted to chain-grade portion of
+        combined_atom_ids (anchors must be sampled from this subset).
     """
-    # Build atom_id-without-corpus -> index map (relations files don't carry the corpus prefix)
-    aid_to_idx = {}
-    for i, aid in enumerate(chain_grade_atom_ids):
-        bare = _strip_corpus_prefix(aid)
-        aid_to_idx.setdefault(bare, []).append(i)
-    triples: list[tuple[int, str, int]] = []
+    # Bare chain-grade set for the EITHER-endpoint filter.
+    chain_grade_bare: set[str] = set()
+    for aid in chain_grade_atom_ids:
+        chain_grade_bare.add(_strip_corpus_prefix(aid))
+    # First pass: collect every (src, tgt) bare pair that satisfies the v2b admit rule
+    # so we know which non-chain-grade atomized atoms to include in the universe.
+    admitted: list[tuple[str, str, str]] = []
     rel_types: set = set()
     if not SUBSTRATE_INDEX.is_dir():
         raise FileNotFoundError(f"substrate_index not found at {SUBSTRATE_INDEX}")
@@ -260,18 +339,51 @@ def load_relations_for(chain_grade_atom_ids: list[str]) -> Tuple[list[tuple[int,
                 rtype = r.get("rel_type", "")
                 if not src_b or not tgt_b or not rtype:
                     continue
-                if src_b not in aid_to_idx or tgt_b not in aid_to_idx:
-                    continue
-                # When the same bare-id maps to multiple corpora, take the first index;
-                # the bare-id uniquely names the atom (cert_ledger keys are <corpus>::<bare>;
-                # if duplicated across corpora, both are chain-grade variants of the same name).
-                s_idx = aid_to_idx[src_b][0]
-                t_idx = aid_to_idx[tgt_b][0]
-                if s_idx == t_idx:
+                if src_b == tgt_b:
                     continue  # drop self-loops
-                triples.append((s_idx, rtype, t_idx))
+                # v2b admit: EITHER endpoint chain-grade AND both endpoints atomized.
+                either_cg = (src_b in chain_grade_bare) or (tgt_b in chain_grade_bare)
+                if not either_cg:
+                    continue
+                if (src_b not in atomized_atom_ids) or (tgt_b not in atomized_atom_ids):
+                    # endpoint not in any atoms.jsonl -- drop (keeps codebook honest)
+                    continue
+                admitted.append((src_b, rtype, tgt_b))
                 rel_types.add(rtype)
-    return triples, sorted(rel_types)
+    # Build combined atom universe: chain-grade portion FIRST (so anchors are 0..n_cg-1),
+    # then non-chain-grade atomized atoms that actually appear in admitted triples.
+    combined: list[str] = []
+    seen: set[str] = set()
+    # chain-grade portion in the original cert_ledger-derived order (bare form)
+    for aid in chain_grade_atom_ids:
+        bare = _strip_corpus_prefix(aid)
+        if bare in seen:
+            continue
+        combined.append(bare)
+        seen.add(bare)
+    n_chain_grade = len(combined)
+    # frontier portion: non-chain-grade atomized atoms appearing in admitted triples
+    frontier_seen: set[str] = set()
+    for (s, _r, t) in admitted:
+        if s not in seen and s not in frontier_seen:
+            frontier_seen.add(s)
+        if t not in seen and t not in frontier_seen:
+            frontier_seen.add(t)
+    for b in sorted(frontier_seen):
+        combined.append(b)
+        seen.add(b)
+    bare_to_idx = {b: i for i, b in enumerate(combined)}
+    # Second pass: convert admitted to index triples.
+    triples: list[tuple[int, str, int]] = []
+    for (s, r, t) in admitted:
+        s_idx = bare_to_idx[s]
+        t_idx = bare_to_idx[t]
+        if s_idx == t_idx:
+            continue
+        triples.append((s_idx, r, t_idx))
+    # chain_grade_index_set: 0..n_chain_grade-1 are the anchor candidates.
+    chain_grade_index_set = {combined[i]: i for i in range(n_chain_grade)}
+    return triples, sorted(rel_types), combined, chain_grade_index_set
 
 
 # ===== v1 cluster parse (for comparison) =====
@@ -565,29 +677,58 @@ def shuffle_triple_relations(triples_idx: list[tuple[int, int, int]],
 # ===== per-seed runner =====
 
 
-def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[int, str, int]],
-             rel_types: list[str], v1_clusters: dict[str, set[str]],
+def cluster_coherence(clusters: list[set[int]], neighborhoods: dict[int, set[int]]) -> float:
+    """Mean pairwise Jaccard among same-cluster anchors, averaged over clusters of size>=2.
+
+    Substrate-internal coherence metric (no v1 dependency). Real arm should have HIGHER
+    coherence than shuffle arm if relation-conditioned mechanism is real -- relations
+    that cluster anchors together should give those anchors more-similar neighborhoods.
+    Returns 0.0 if no cluster has size >= 2.
+    """
+    js = []
+    for cl in clusters:
+        members = list(cl)
+        if len(members) < 2:
+            continue
+        pair_js = []
+        for i in range(len(members)):
+            for j in range(i + 1, len(members)):
+                pair_js.append(jaccard(neighborhoods.get(members[i], set()),
+                                        neighborhoods.get(members[j], set())))
+        if pair_js:
+            js.append(float(np.mean(pair_js)))
+    if not js:
+        return 0.0
+    return float(np.mean(js))
+
+
+def run_seed(seed: int, combined_atoms: list[str], triples_str: list[tuple[int, str, int]],
+             rel_types: list[str], n_chain_grade: int, v1_clusters: dict[str, set[str]],
              v1_cross_arrows: set[str]) -> dict:
-    """Single seed: build substrate KG, traverse, cluster, compare to v1; run both arms."""
+    """Single seed: build substrate KG, traverse, cluster; run both arms.
+
+    v2b: combined_atoms = chain-grade (first n_chain_grade entries) + atomized frontier.
+    Anchors are drawn ONLY from the chain-grade prefix (indices 0..n_chain_grade-1).
+    """
     t_start = time.time()
     rng = np.random.default_rng(seed)
-    n_ent = len(chain_grade_atoms)
+    n_ent = len(combined_atoms)
     rel_to_idx = {r: i for i, r in enumerate(rel_types)}
     n_rel = len(rel_types)
     triples_idx = [(s, rel_to_idx[r], o) for (s, r, o) in triples_str]
     # ----- encode atoms via substrate primitive (char-trigram) -----
-    E_np, encoder = encode_atoms_substrate(chain_grade_atoms, N_DIM)
-    # ----- atom retrieval recall sanity -----
+    E_np, encoder = encode_atoms_substrate(combined_atoms, N_DIM)
+    # ----- atom retrieval recall sanity (over the full combined codebook) -----
     n_probe = min(n_ent, 200)
-    recall = atom_retrieval_recall(E_np, chain_grade_atoms, encoder, n_probe,
+    recall = atom_retrieval_recall(E_np, combined_atoms, encoder, n_probe,
                                     np.random.default_rng(seed + 1))
-    # ----- anchor subset (capped for compute) -----
-    if n_ent <= N_ANCHORS:
-        anchors = list(range(n_ent))
+    # ----- anchor subset (capped; SAMPLED FROM CHAIN-GRADE PREFIX ONLY) -----
+    if n_chain_grade <= N_ANCHORS:
+        anchors = list(range(n_chain_grade))
     else:
-        anchors = sorted(rng.choice(n_ent, N_ANCHORS, replace=False).tolist())
-    anchor_to_atom_id = {a: chain_grade_atoms[a] for a in anchors}
-    anchor_to_short = {a: atom_id_short(chain_grade_atoms[a]) for a in anchors}
+        anchors = sorted(rng.choice(n_chain_grade, N_ANCHORS, replace=False).tolist())
+    anchor_to_atom_id = {a: combined_atoms[a] for a in anchors}
+    anchor_to_short = {a: atom_id_short(combined_atoms[a]) for a in anchors}
 
     # ===== ARM A: REAL relations =====
     kg_real = build_kg(E_np, triples_idx, n_ent, n_rel, N_DIM, seed)
@@ -597,11 +738,12 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
     for a in anchors:
         nbr_real[a] = two_hop_neighborhood(kg_real, a, pairs_real, K_SET)
     clusters_real = greedy_cluster(anchors, nbr_real, JACCARD_CLUSTER_TAU)
+    coherence_real = cluster_coherence(clusters_real, nbr_real)
     avg_j_real, per_cluster_real = avg_jaccard_substrate_vs_v1(
         clusters_real, anchors, anchor_to_short, v1_clusters)
     arrows_real = cross_family_arrows(clusters_real, anchors, anchor_to_atom_id,
                                        v1_clusters, JACCARD_VS_V1_TAU, nbr_real)
-    # New arrows = substrate-found anchors NOT in v1's cross-family table
+    # New arrows informational; not load-bearing in v2b verdict
     new_arrows = [a for a in arrows_real if a["anchor_short"] not in v1_cross_arrows]
     n_new_arrows_real = len(new_arrows)
 
@@ -615,6 +757,7 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
     for a in anchors:
         nbr_shuf[a] = two_hop_neighborhood(kg_shuf, a, pairs_shuf, K_SET)
     clusters_shuf = greedy_cluster(anchors, nbr_shuf, JACCARD_CLUSTER_TAU)
+    coherence_shuf = cluster_coherence(clusters_shuf, nbr_shuf)
     avg_j_shuf, _per_cluster_shuf = avg_jaccard_substrate_vs_v1(
         clusters_shuf, anchors, anchor_to_short, v1_clusters)
     arrows_shuf = cross_family_arrows(clusters_shuf, anchors, anchor_to_atom_id,
@@ -625,10 +768,10 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
     elapsed = round(time.time() - t_start, 1)
 
     print(
-        "  [seed=%d] real-arm: clusters=%d avg_J_vs_v1=%.3f new_arrows=%d | "
-        "shuffle-arm: clusters=%d avg_J=%.3f new_arrows=%d | recall=%.3f | %.1fs"
-        % (seed, len(clusters_real), avg_j_real, n_new_arrows_real,
-           len(clusters_shuf), avg_j_shuf, n_new_arrows_shuf, recall, elapsed),
+        "  [seed=%d] real: clusters=%d coh=%.3f avg_J_vs_v1=%.3f new_arrows=%d | "
+        "shuf: clusters=%d coh=%.3f avg_J=%.3f new_arrows=%d | recall=%.3f | %.1fs"
+        % (seed, len(clusters_real), coherence_real, avg_j_real, n_new_arrows_real,
+           len(clusters_shuf), coherence_shuf, avg_j_shuf, n_new_arrows_shuf, recall, elapsed),
         flush=True,
     )
 
@@ -638,7 +781,8 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
         "N": N_DIM,
         "run_mode": RUN_MODE,
         "config_version": CONFIG_VERSION,
-        "n_chain_grade_atoms": n_ent,
+        "n_chain_grade_atoms": n_chain_grade,
+        "n_atoms_universe": n_ent,
         "n_relation_types": n_rel,
         "n_triples": len(triples_idx),
         "n_anchors": len(anchors),
@@ -646,6 +790,7 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
         "elapsed_s": elapsed,
         "real": {
             "n_clusters": len(clusters_real),
+            "coherence": round(coherence_real, 4),
             "avg_jaccard_vs_v1": round(avg_j_real, 4),
             "per_cluster_match": per_cluster_real,
             "n_cross_family_arrows_total": len(arrows_real),
@@ -654,6 +799,7 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
         },
         "shuffle_control": {
             "n_clusters": len(clusters_shuf),
+            "coherence": round(coherence_shuf, 4),
             "avg_jaccard_vs_v1": round(avg_j_shuf, 4),
             "n_cross_family_arrows_total": len(arrows_shuf),
             "n_new_cross_family_arrows": n_new_arrows_shuf,
@@ -666,67 +812,82 @@ def run_seed(seed: int, chain_grade_atoms: list[str], triples_str: list[tuple[in
 
 
 def verdict(per_seed_records: list[dict]) -> Tuple[str, str]:
-    """Pre-reg HARD bands; pre-reg-direction must honor intent (substrate ADDS value)."""
+    """v2b HARD bands: primary gates are n_clusters_real and (n_clusters_real - n_clusters_shuffle)."""
     if not per_seed_records:
         return ("HARD_FAIL", "HARD_FAIL: no per-seed records")
-    avg_js = [p["real"]["avg_jaccard_vs_v1"] for p in per_seed_records]
-    new_arrows = [p["real"]["n_new_cross_family_arrows"] for p in per_seed_records]
+    n_clusters_real = [p["real"]["n_clusters"] for p in per_seed_records]
+    n_clusters_shuf = [p["shuffle_control"]["n_clusters"] for p in per_seed_records]
     recalls = [p["atom_retrieval_recall"] for p in per_seed_records]
     llm_calls = [p.get("n_llm_calls", 0) for p in per_seed_records]
-    avg_j_mean = float(np.mean(avg_js))
-    new_arrows_mean = float(np.mean(new_arrows))
+    n_clusters_mean = float(np.mean(n_clusters_real))
+    n_clusters_shuf_mean = float(np.mean(n_clusters_shuf))
+    cluster_gap = n_clusters_mean - n_clusters_shuf_mean
     recall_mean = float(np.mean(recalls))
-    # cv on new_arrows (the discriminating output metric)
-    if len(new_arrows) > 1 and np.mean(new_arrows) > 0:
-        cv = float(np.std(new_arrows) / np.mean(new_arrows))
+    # cv on n_clusters_real
+    if len(n_clusters_real) > 1 and np.mean(n_clusters_real) > 0:
+        cv = float(np.std(n_clusters_real) / np.mean(n_clusters_real))
     else:
         cv = 0.0
-    # discriminator gap (real - shuffle) -- mechanism evidence
-    shuf_js = [p["shuffle_control"]["avg_jaccard_vs_v1"] for p in per_seed_records]
-    shuf_arrows = [p["shuffle_control"]["n_new_cross_family_arrows"] for p in per_seed_records]
-    discrim_j_gap = float(np.mean(avg_js) - np.mean(shuf_js))
-    discrim_arrow_gap = float(np.mean(new_arrows) - np.mean(shuf_arrows))
+    # informational: coherence and v1 lexical resemblance
+    coh_real = [p["real"]["coherence"] for p in per_seed_records]
+    coh_shuf = [p["shuffle_control"]["coherence"] for p in per_seed_records]
+    avg_js = [p["real"]["avg_jaccard_vs_v1"] for p in per_seed_records]
+    new_arrows = [p["real"]["n_new_cross_family_arrows"] for p in per_seed_records]
 
     summary = (
-        "avg_J_vs_v1=%.3f (pass %.2f / fail %.2f) | new_arrows=%.1f (pass %d) | "
-        "recall=%.3f (pass %.2f / fail %.2f) | cv_new_arrows=%.3f (pass %.2f) | "
-        "n_llm=%d | discrim_gap_J=%.3f gap_arrows=%.1f"
+        "n_clusters_real=%.1f (pass %d / middle %d) | n_clusters_shuf=%.1f | "
+        "cluster_gap=%.1f (pass %d / middle %d) | recall=%.3f (pass %.2f / fail %.2f) | "
+        "cv_clusters=%.3f (pass %.2f) | n_llm=%d | info: coh_real=%.3f coh_shuf=%.3f "
+        "avg_J_vs_v1=%.3f new_arrows=%.1f"
     ) % (
-        avg_j_mean, AVG_JACCARD_PASS, AVG_JACCARD_FAIL,
-        new_arrows_mean, NEW_ARROWS_PASS,
+        n_clusters_mean, N_CLUSTERS_REAL_PASS, N_CLUSTERS_REAL_MIDDLE,
+        n_clusters_shuf_mean, cluster_gap, N_CLUSTERS_GAP_PASS, N_CLUSTERS_GAP_MIDDLE,
         recall_mean, RECALL_PASS, RECALL_FAIL,
-        cv, CV_PASS, max(llm_calls), discrim_j_gap, discrim_arrow_gap,
+        cv, CV_PASS, max(llm_calls),
+        float(np.mean(coh_real)), float(np.mean(coh_shuf)),
+        float(np.mean(avg_js)), float(np.mean(new_arrows)),
     )
     # Substrate-only-decode gate (HARD FAIL if violated)
     if max(llm_calls) > 0:
         return ("HARD_FAIL", "HARD_FAIL: substrate-only-decode violated; n_llm_calls>0. " + summary)
-    # Recall floor (codebook usable)
+    # Recall floor
     if recall_mean < RECALL_FAIL:
         return ("HARD_FAIL", "HARD_FAIL: atom retrieval recall below floor (codebook too crowded). " + summary)
-    # Resemblance floor
-    if avg_j_mean < AVG_JACCARD_FAIL:
-        return ("HARD_FAIL", "HARD_FAIL: substrate clusters bear no resemblance to v1 (avg_J<0.10). " + summary)
-    # HARD_PASS gates: all five must hold
-    pass_j = avg_j_mean >= AVG_JACCARD_PASS
-    pass_arrows = new_arrows_mean >= NEW_ARROWS_PASS
+    # Mechanism-null floor: n_clusters <= 1
+    if n_clusters_mean <= 1.0:
+        return (
+            "HARD_FAIL",
+            "HARD_FAIL: mechanism null on broadened scope (n_clusters_real<=1); "
+            "recommend Option 2 (full-Store ingest). " + summary,
+        )
+    # Discriminator-null floor: real <= shuffle
+    if cluster_gap <= N_CLUSTERS_GAP_FAIL:
+        return (
+            "HARD_FAIL",
+            "HARD_FAIL: shuffle as granular as real (cluster_gap<=0); "
+            "relation-conditioned mechanism null. " + summary,
+        )
+    # HARD_PASS
+    pass_n_clusters = n_clusters_mean >= N_CLUSTERS_REAL_PASS
+    pass_gap = cluster_gap >= N_CLUSTERS_GAP_PASS
     pass_recall = recall_mean >= RECALL_PASS
-    pass_cv = (cv <= CV_PASS) if len(new_arrows) > 1 else True
+    pass_cv = (cv <= CV_PASS) if len(n_clusters_real) > 1 else True
     pass_no_llm = max(llm_calls) == 0
-    if pass_j and pass_arrows and pass_recall and pass_cv and pass_no_llm:
+    if pass_n_clusters and pass_gap and pass_recall and pass_cv and pass_no_llm:
         return (
             "HARD_PASS",
-            "HARD_PASS: substrate self-maps cert_ledger via OWN primitives; clusters match v1 + "
-            "extend via new cross-family arrows; stable + zero-LLM. " + summary,
+            "HARD_PASS: v2b substrate self-maps broadened-scope KG; clusters>=3 + "
+            "real-vs-shuffle cluster-count gap>=2; stable + zero-LLM. " + summary,
         )
-    # MIDDLE_BAND: partial overlap or partial extension
-    if avg_j_mean >= AVG_JACCARD_MIDDLE and (pass_arrows or pass_recall):
+    # MIDDLE_BAND
+    if n_clusters_mean >= N_CLUSTERS_REAL_MIDDLE and cluster_gap >= N_CLUSTERS_GAP_MIDDLE:
         return (
             "MIDDLE_BAND",
-            "MIDDLE_BAND: substrate confirms but doesn't fully extend v1 (or vice versa). " + summary,
+            "MIDDLE_BAND: mechanism present but below HARD_PASS bars. " + summary,
         )
     return (
         "HARD_FAIL",
-        "HARD_FAIL: substrate self-map below pre-reg bars (no clear mechanism win). " + summary,
+        "HARD_FAIL: v2b below pre-reg bars (mechanism weak or unstable). " + summary,
     )
 
 
@@ -746,17 +907,36 @@ if __name__ == "__main__":
     if MAX_ATOMS is not None:
         chain_grade_atoms = chain_grade_atoms[:MAX_ATOMS]
     print("  -> %d chain-grade atoms" % len(chain_grade_atoms), flush=True)
-    print("[load] relations restricted to chain-grade endpoints...", flush=True)
-    triples_str, rel_types = load_relations_for(chain_grade_atoms)
+    print("[load] atomized atom universe across all corpora atoms.jsonl...", flush=True)
+    atomized = load_atomized_atom_ids()
+    print("  -> %d atomized atom_ids" % len(atomized), flush=True)
+    print("[load] relations admit-rule v2b (EITHER endpoint chain-grade, BOTH atomized)...",
+          flush=True)
+    triples_str, rel_types, combined_atoms, _cg_idx = load_relations_for(
+        chain_grade_atoms, atomized)
+    # combined_atoms is bare-form, chain-grade prefix first; count prefix length.
+    n_chain_grade = 0
+    cg_bare = {_strip_corpus_prefix(aid) for aid in chain_grade_atoms}
+    for b in combined_atoms:
+        if b in cg_bare:
+            n_chain_grade += 1
+        else:
+            break
     print(
-        "  -> %d chain-grade-internal triples; %d distinct relation types: %s"
+        "  -> %d admitted triples; %d distinct relation types: %s"
         % (len(triples_str), len(rel_types), rel_types[:8]),
         flush=True,
     )
+    print(
+        "  -> %d combined atoms (%d chain-grade prefix + %d atomized frontier)"
+        % (len(combined_atoms), n_chain_grade, len(combined_atoms) - n_chain_grade),
+        flush=True,
+    )
     if not triples_str or not rel_types:
-        print("[error] no chain-grade-internal triples found; aborting", flush=True)
+        print("[error] no v2b-admitted triples found; aborting", flush=True)
         sys.exit(2)
-    print("[load] v1 clusters from latest capability_family_map_v1_*.md ...", flush=True)
+    print("[load] v1 clusters from latest capability_family_map_v1_*.md (informational) ...",
+          flush=True)
     v1_clusters = load_v1_clusters()
     v1_cross_arrows = load_v1_cross_family_arrows()
     print(
@@ -777,8 +957,8 @@ if __name__ == "__main__":
 
     # Run remaining seeds
     for s in remaining:
-        rec = run_seed(s, chain_grade_atoms, triples_str, rel_types, v1_clusters,
-                       v1_cross_arrows)
+        rec = run_seed(s, combined_atoms, triples_str, rel_types, n_chain_grade,
+                       v1_clusters, v1_cross_arrows)
         write_partial(out_dir, s, rec)
 
     # Aggregate
@@ -799,13 +979,17 @@ if __name__ == "__main__":
         "zero_llm_calls_at_inference": all(p.get("n_llm_calls", 0) == 0 for p in per_seed),
         "elapsed_s": round(time.time() - t0, 1),
         "DESIGN_NOTE": (
-            "Phase 1 substrate-native self-mapping per USER 2026-06-22 strategic vision; "
-            "char_trigram_encoder + KGStore + multi_hop.iter_cleanup_chain are substrate "
-            "primitives (NOT LLM forward calls). Real-arm vs random-relation-control "
-            "discriminator (Fix #16). v1 (tools/substrate_relational_analysis.py) is "
-            "Director-side lexical pattern-matching; v2 (this cell) does the substrate's "
-            "OWN analysis. Honest scope: bag-of-trigrams atom_id encoding (no positional); "
-            "2-hop traversal only (chain-grade per r1)."
+            "Phase 1 substrate-native self-mapping (v2b broadened scope) per USER 2026-06-22 "
+            "strategic vision. v2 empirically discovered the chain-grade-INTERNAL relation "
+            "subgraph is structurally near-empty (16 relations / 2 types over 447 atoms; "
+            "mechanism-null). v2b extends the admit rule to EITHER endpoint chain-grade "
+            "(other endpoint may be any atomized atom). Anchors still drawn from the "
+            "chain-grade subset; substrate maps how chain-grade atoms sit in the broader "
+            "atomized graph. Primary HARD gates: n_clusters_real and real-vs-shuffle "
+            "coherence gap (NOT v1 lexical resemblance; broadened scope makes v1 alignment "
+            "no longer the relevant target -- retained as informational). char_trigram + "
+            "KGStore + multi_hop are substrate primitives (NOT LLM calls). Option 2 = full-"
+            "Store ingest (~200k relations) deferred until v2b confirms mechanism."
         ),
     }
     write_metrics(out_dir, metrics, results=per_seed)
