@@ -1968,6 +1968,22 @@ def dashboard_v2_history(limit: int = 20):
                 n_seeds = m.get("n_seeds")
                 # Format short verdict (strip long suffixes)
                 short_verdict = (verdict[:30] + "…") if verdict and len(verdict) > 30 else verdict
+                import datetime
+                abs_ts = datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d %H:%M")
+                # Intuitive implication tooltip per verdict category
+                v = (verdict or "").upper()
+                if v.startswith("HARD_PASS"):
+                    intuit = "Chain-grade ratified — mechanism works at full config with seed reproducibility."
+                elif v.startswith("HARD_FAIL"):
+                    intuit = "Mechanism failed pre-reg HARD bands — route to revival drill."
+                elif v.startswith("MIDDLE_BAND") or "MIDDLE" in v:
+                    intuit = "Partial / discriminator characterized; not yet chain-grade. Promotion path = knob-tweak revival."
+                elif v.startswith("MEASURED_MECHANISM"):
+                    intuit = "Special verdict — mechanism characterized but not chain-grade-PASS; banked as audit-lesson."
+                elif v.startswith("HONEST_NEGATIVE"):
+                    intuit = "Honest negative finding — mechanism doesn't work in this regime. Information-positive: rules out a hypothesis."
+                else:
+                    intuit = f"Verdict: {verdict}. See cell metrics for detail."
                 out_rows.append({
                     "name": name.replace("exp_", "").replace("_v1", "").replace("_cpu", ""),
                     "verdict": short_verdict,
@@ -1976,6 +1992,8 @@ def dashboard_v2_history(limit: int = 20):
                     "n_seeds": n_seeds,
                     "mtime": mtime,
                     "when": _fmt_when(mtime),
+                    "timestamp": abs_ts,
+                    "tooltip": intuit,
                 })
             except Exception:
                 continue
@@ -1998,6 +2016,88 @@ def _fmt_when(mtime: float) -> str:
     if delta < 604800:  # 7 days
         return f"{int(delta/86400)}d ago"
     return datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
+
+
+@app.get("/api/dashboard/v2/ingest")
+def dashboard_v2_ingest():
+    """Substrate ingest status: ingested corpora + active ingest in queue + planned.
+
+    Pulls from cert_ledger (corpora with chain-grade ingest atoms) + queue.json
+    (active running/pending). No new sources required.
+    """
+    out = {"ingested": [], "active": [], "planned": []}
+    try:
+        # Ingested corpora: scan cert_ledger for chain_grade atoms with `ingest` in atom_id
+        ledger_path = _REPO / "data" / "substrate_index" / "meta" / "cert_ledger.jsonl"
+        if ledger_path.exists():
+            seen_corpora = set()
+            with open(ledger_path, encoding="utf-8") as f:
+                for line in f:
+                    try:
+                        r = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    aid = r.get("atom_id", "")
+                    if r.get("cert_status") != "chain_grade":
+                        continue
+                    # Identify ingest-class atoms by atom_id keywords
+                    aid_lower = aid.lower()
+                    label = None
+                    if "conceptnet" in aid_lower:
+                        label = "ConceptNet (general English KG)"
+                    elif "fb15k" in aid_lower or "u1_fb15k" in aid_lower:
+                        label = "FB15k-237 (structured KG)"
+                    elif "wikitext" in aid_lower:
+                        label = "WikiText-103 (Wikipedia text)"
+                    elif "arxiv" in aid_lower:
+                        label = "arxiv abstracts (scientific text)"
+                    elif "text8" in aid_lower:
+                        label = "text8 (Wikipedia chars)"
+                    elif "pubmed" in aid_lower:
+                        label = "PubMed abstracts (medical text)"
+                    elif "medqa" in aid_lower:
+                        label = "MedQA (medical USMLE QA)"
+                    elif "hotpot" in aid_lower:
+                        label = "HotpotQA (multi-hop QA)"
+                    elif "_ingest" in aid_lower or "_kg_" in aid_lower:
+                        label = aid.split("/")[-1][:48]
+                    if label and label not in seen_corpora:
+                        seen_corpora.add(label)
+                        out["ingested"].append({
+                            "corpus": label,
+                            "atom_id": aid.split("/")[-1][:60],
+                            "verdict": r.get("verdict", "?"),
+                        })
+        # Active ingest: scan queue.json
+        for q_name, q_path in [("local_cpu", "data/local_cpu_queue/queue.json"),
+                                ("remote_cpu", "data/remote_cpu_queue/queue.json")]:
+            qp = _REPO / q_path
+            if not qp.exists():
+                continue
+            try:
+                qd = json.loads(qp.read_text(encoding="utf-8"))
+                entries = qd.get("experiments") or qd.get("entries") or qd if isinstance(qd, list) else []
+                for e in entries:
+                    if not isinstance(e, dict):
+                        continue
+                    status = e.get("status", "?")
+                    name = e.get("name", "?")
+                    if status not in ("running", "pending"):
+                        continue
+                    if "ingest" in name.lower() or "_kg" in name.lower() or any(c in name.lower() for c in ["conceptnet","wikitext","arxiv","fb15k","pubmed","medqa","hotpot","text8","_m_"]):
+                        out["active"].append({"name": name, "queue": q_name, "status": status})
+            except Exception:
+                continue
+        # Planned: pull from work-queue TIER-1c (never-dispatched)
+        out["planned"] = [
+            {"name": "n6 WikiText-103 (substrate-CHAR-LM)", "status": "smoke HARD_FAIL; full deferred pending bigram-gap revival"},
+            {"name": "n7 arxiv abstracts (substrate-CHAR-LM)", "status": "smoke HARD_FAIL; full deferred"},
+            {"name": "PubMed abstracts (10k)", "status": "available locally; not yet authored"},
+            {"name": "HotpotQA (1k dev)", "status": "available locally; queued"},
+        ]
+    except Exception as e:
+        out["error"] = f"{type(e).__name__}: {e}"
+    return JSONResponse(out)
 
 
 @app.get("/api/dashboard/v2/capability")

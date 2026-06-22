@@ -73,7 +73,10 @@
   .runs-grid { grid-template-columns: 1fr 120px 120px 100px; }
   .tier-grid { grid-template-columns: 2fr 80px 1.5fr; }
   .commit-grid { grid-template-columns: 90px 1fr; }
-  .history-grid { grid-template-columns: 1.6fr 1fr 60px 80px 80px; }
+  .history-grid { grid-template-columns: 1.6fr 1fr 60px 80px 130px; }
+  .ingest-grid { grid-template-columns: 2fr 1fr 1.3fr; }
+  .ingest-grid .status { font-weight: 400; }
+  .row-grid[title] { cursor: help; }
   .history-grid .verdict { font-weight: 500; }
   .history-grid .verdict.HARD_PASS { color: var(--success); }
   .history-grid .verdict.MIDDLE_BAND { color: var(--warn); }
@@ -159,6 +162,11 @@
 <section>
   <h2>Recent experimental landings <span id="history-count" class="muted" style="font-size: 11px; font-weight: 400;"></span></h2>
   <div class="table" id="history-table"><div class="loading">loading…</div></div>
+</section>
+
+<section>
+  <h2>Substrate ingest status</h2>
+  <div class="table" id="ingest-table"><div class="loading">loading…</div></div>
 </section>
 
 <section>
@@ -279,20 +287,68 @@ async function loadHistory() {
       return;
     }
     container.innerHTML = `
-      <div class="row-grid history-grid head"><span>cell</span><span>verdict</span><span>mode</span><span>wall</span><span>when</span></div>
+      <div class="row-grid history-grid head"><span>cell</span><span>verdict</span><span>mode</span><span>wall</span><span>when (UTC-local)</span></div>
       ${rows.map(r => {
         const verdictClass = (r.verdict || "").split(/[\s:]/, 1)[0] || "";
+        const tooltip = (r.tooltip || r.verdict || "") + (r.timestamp ? `  ·  ${r.timestamp}` : "");
         return `
-        <div class="row-grid history-grid">
+        <div class="row-grid history-grid" title="${escapeHtml(tooltip)}">
           <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span>
-          <span class="verdict ${escapeHtml(verdictClass.replace(/[^a-zA-Z_]/g, ""))}" title="${escapeHtml(r.verdict || "")}">${escapeHtml(r.verdict || "?")}</span>
+          <span class="verdict ${escapeHtml(verdictClass.replace(/[^a-zA-Z_]/g, ""))}" title="${escapeHtml(r.tooltip || r.verdict || "")}">${escapeHtml(r.verdict || "?")}</span>
           <span class="mode">${escapeHtml(r.run_mode || "?")}</span>
           <span class="when">${formatWall(r.elapsed_s)}</span>
-          <span class="when">${escapeHtml(r.when || "")}</span>
+          <span class="when" title="${escapeHtml(r.timestamp || "")}">${escapeHtml(r.when || "")}  ·  ${escapeHtml((r.timestamp || "").slice(11))}</span>
         </div>`;
       }).join("")}`;
   } catch (e) {
     document.getElementById("history-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function loadIngest() {
+  try {
+    const data = await fetchJSON("/api/dashboard/v2/ingest");
+    const container = document.getElementById("ingest-table");
+    const ingested = data.ingested || [];
+    const active = data.active || [];
+    const planned = data.planned || [];
+
+    const sections = [];
+    if (active.length) {
+      sections.push(`
+        <div class="row-grid ingest-grid head"><span>actively ingesting</span><span>queue</span><span>status</span></div>
+        ${active.map(a => `
+          <div class="row-grid ingest-grid" title="Currently dispatched ingest cell — substrate is actively growing">
+            <span class="name">${escapeHtml(a.name)}</span>
+            <span>${escapeHtml(a.queue)}</span>
+            <span class="status running">${escapeHtml(a.status)}</span>
+          </div>`).join("")}`);
+    } else {
+      sections.push(`<div class="row-grid ingest-grid head" title="No ingest cell currently dispatched"><span>actively ingesting</span><span></span><span class="status">(none — queues clear)</span></div>`);
+    }
+    sections.push(`<div class="row-grid ingest-grid head"><span>ingested corpora (chain-grade in Store)</span><span>atom-id</span><span>verdict</span></div>`);
+    if (ingested.length) {
+      sections.push(ingested.map(c => `
+        <div class="row-grid ingest-grid" title="Substrate has this corpus ingested at chain-grade. Atom-ID ${escapeHtml(c.atom_id)}">
+          <span class="name">${escapeHtml(c.corpus)}</span>
+          <span class="muted">${escapeHtml(c.atom_id)}</span>
+          <span class="status ${escapeHtml((c.verdict || '').replace(/[^a-zA-Z_]/g, '_').substring(0,30))}">${escapeHtml(c.verdict || '?')}</span>
+        </div>`).join(""));
+    } else {
+      sections.push(`<div class="empty">no chain-grade ingest atoms found</div>`);
+    }
+    if (planned.length) {
+      sections.push(`<div class="row-grid ingest-grid head"><span>planned / deferred ingest</span><span></span><span></span></div>`);
+      sections.push(planned.map(p => `
+        <div class="row-grid ingest-grid" title="Planned or deferred ingest stream">
+          <span class="name">${escapeHtml(p.name)}</span>
+          <span></span>
+          <span class="muted">${escapeHtml(p.status)}</span>
+        </div>`).join(""));
+    }
+    container.innerHTML = sections.join("");
+  } catch (e) {
+    document.getElementById("ingest-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
   }
 }
 
@@ -410,7 +466,7 @@ function setRefreshTime() {
 async function refreshAll() {
   setRefreshTime();
   const headlines = await loadHeadlines();
-  await Promise.all([loadRuns(), loadHistory(), loadCapability(), loadCommits(headlines)]);
+  await Promise.all([loadRuns(), loadHistory(), loadIngest(), loadCapability(), loadCommits(headlines)]);
 }
 
 let autoTimer = null;
