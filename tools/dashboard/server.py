@@ -1680,6 +1680,7 @@ _REPO = Path(__file__).resolve().parent.parent.parent
 _CHAT_CACHE_DIR = _REPO / "data" / "substrate_repl_cache"
 _chat_kg_state = {"kg": None, "ent2idx": None, "rel2idx": None, "idx2ent": None, "idx2rel": None, "m": 0}
 _chat_semantic_state = {"loaded": False, "model": None, "ent_embs": None, "rel_embs": None, "ent_names": None, "rel_names": None}
+_chat_substrate_state = {"loaded": False, "encoder": None, "ent_codebook": None}
 _chat_lock = threading.Lock()
 
 
@@ -1715,6 +1716,63 @@ def _ensure_chat_kg_loaded() -> dict | None:
 
 class ChatBody(BaseModel):
     message: str
+
+
+def _ensure_substrate_native_codebook_loaded() -> dict | None:
+    """Lazy-build the substrate-native char-trigram codebook (zero external model)."""
+    with _chat_lock:
+        if _chat_substrate_state["loaded"]:
+            return _chat_substrate_state
+        kg_state = _chat_kg_state
+        if kg_state["kg"] is None:
+            return None
+        try:
+            if str(_REPO) not in sys.path:
+                sys.path.insert(0, str(_REPO))
+            from hdlab.char_trigram_encoder import CharTrigramEncoder
+            import numpy as np
+            ent_names = kg_state["idx2ent"]
+            # Use KGStore's N_DIM so codebook + KGStore W are compatible if we ever want to
+            # use these as substrate-internal keys; for chat-time matching n_dim=4096 is fine.
+            encoder = CharTrigramEncoder(n_dim=kg_state["kg"].n_dim)
+            ent_codebook = encoder.encode_batch(ent_names)
+            _chat_substrate_state["encoder"] = encoder
+            _chat_substrate_state["ent_codebook"] = ent_codebook
+            _chat_substrate_state["loaded"] = True
+            return _chat_substrate_state
+        except Exception as e:
+            print(f"[substrate_chat] substrate-native codebook build failed: {type(e).__name__}: {e}", flush=True)
+            return None
+
+
+def _substrate_native_query_response(state, query_text: str):
+    """Char-trigram encoder → nearest entity → substrate retrieval. Zero external model."""
+    sub = _ensure_substrate_native_codebook_loaded()
+    if sub is None:
+        return JSONResponse({"ok": False, "error": "substrate-native codebook unavailable"})
+    try:
+        import numpy as np
+        kg = state["kg"]
+        idx2ent = state["idx2ent"]
+        ent2idx = state["ent2idx"]
+        rel2idx = state["rel2idx"]
+        ent_names = state["idx2ent"]
+        nearest = sub["encoder"].nearest(query_text, sub["ent_codebook"], ent_names, k=5)
+        anchor = nearest[0]["entity"]
+        anchor_idx = ent2idx.get(anchor)
+        anchor_rels = []
+        if anchor_idx is not None:
+            for r_name in state["idx2rel"]:
+                r_idx = rel2idx[r_name]
+                ti, ts = kg.predict_one_hop_topk(anchor_idx, r_idx, k=1)
+                anchor_rels.append({"relation": r_name, "object": idx2ent[int(ti[0])], "score": float(ts[0])})
+            anchor_rels.sort(key=lambda r: r["score"], reverse=True)
+        return JSONResponse({"ok": True, "kind": "substrate_native",
+            "payload": {"query": query_text, "anchor": anchor, "top_matches": nearest,
+                        "anchor_relations": anchor_rels[:6],
+                        "note": "char-trigram Hebbian encoder (zero external model). Pure substrate at every stage."}})
+    except Exception as e:
+        return JSONResponse({"ok": False, "error": f"substrate-native query failed: {type(e).__name__}: {e}"})
 
 
 def _ensure_semantic_codebook_loaded() -> dict | None:
@@ -1795,9 +1853,18 @@ def substrate_chat(body: ChatBody):
 
     # Route: structured if ends with '?' AND parses cleanly; else English/semantic.
     # Explicit prefix `english:` forces semantic regardless.
+    # Explicit prefix `/substrate ` or `substrate:` forces substrate-native char-trigram encoder
+    # (zero external model; pure hdlab primitives at every stage).
     ent2idx = state["ent2idx"]; rel2idx = state["rel2idx"]
     idx2ent = state["idx2ent"]
     kg = state["kg"]
+
+    if msg.lower().startswith("/substrate ") or msg.lower().startswith("substrate:"):
+        if msg.lower().startswith("/substrate "):
+            query_text = msg[len("/substrate "):].strip()
+        else:
+            query_text = msg.split(":", 1)[1].strip()
+        return _substrate_native_query_response(state, query_text)
 
     force_english = msg.lower().startswith("english:") or msg.lower().startswith("nl:")
     if force_english:

@@ -139,13 +139,15 @@
       </div>
     </div>
     <form class="chat-form" onsubmit="sendChat(event)">
-      <input type="text" id="chat-input" placeholder="ask in English  |  <subject> <predicate> ?  |  <s> <p1> <p2> ?  |  stats  |  rels" autocomplete="off">
+      <input type="text" id="chat-input" placeholder="ask in English  |  /substrate <text>  |  <s> <p> ?  |  stats" autocomplete="off">
       <button type="submit" class="primary">→</button>
     </form>
   </div>
   <div class="chat-hint">
-    English mode: MiniLM encodes user text → nearest entity in substrate's codebook → substrate W matrix matmul retrieval across all relations. MiniLM is ingest-stage (one-shot per query, no generation). Zero LLM forward calls at retrieval — the substrate's W matrix is doing 100% of the reasoning.
-    <br>Structured mode (ends with <code>?</code>) bypasses MiniLM entirely — pure substrate. Chain-grade at K=2 hops; K≥3 is MIDDLE_BAND per r1 LANDED-VET.
+    Three modes:
+    <br><b>English</b> — MiniLM ingest-stage encodes input → nearest entity → substrate W matrix retrieval. MiniLM is ingest-only (no generation). Substrate does 100% of reasoning.
+    <br><b>Structured</b> (ends with <code>?</code>) — bypasses any encoder. Pure substrate KGStore + multi_hop primitives. Chain-grade at K=2; K≥3 is MIDDLE_BAND per r1.
+    <br><b>Substrate-native</b> (<code>/substrate &lt;text&gt;</code>) — char-trigram Hebbian encoder; <em>zero external model at any stage</em>. Pure hdlab primitives all the way. Trade-off: narrower semantics (matches char-overlap only); demonstrates substrate can encode English without MiniLM.
   </div>
 </section>
 
@@ -357,6 +359,15 @@ function renderSubstrateResponse(data) {
     body += `  final: <span class="entity">${escapeHtml(p.final)}</span>\n`;
     body += `  per-hop top-1: ${p.per_hop_top1.join(", ")}\n`;
     body += `  <span class="score">${escapeHtml(p.note)}</span>`;
+  } else if (kind === "substrate_native") {
+    body = `"${escapeHtml(p.query)}" (substrate-native char-trigram encoder; zero external model) →\n`;
+    body += `  anchor: <span class="entity">${escapeHtml(p.anchor)}</span>  (cos=${p.top_matches[0].cosine.toFixed(3)})\n`;
+    if (p.top_matches.length > 1) {
+      body += `  also matches: ${p.top_matches.slice(1, 4).map(m => `${escapeHtml(m.entity)} (${m.cosine.toFixed(2)})`).join(', ')}\n`;
+    }
+    body += `\nsubstrate retrievals from anchor:\n`;
+    body += p.anchor_relations.map(r => `  ${escapeHtml(r.relation)}: <span class="entity">${escapeHtml(r.object)}</span><span class="score">score=${r.score.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>`).join('\n');
+    body += `\n\n<span class="score">${escapeHtml(p.note)}</span>`;
   } else if (kind === "english") {
     body = `"${escapeHtml(p.query)}" →\n`;
     body += `  anchor: <span class="entity">${escapeHtml(p.anchor)}</span>  (cos=${p.top_matches[0].cosine.toFixed(3)})\n`;
