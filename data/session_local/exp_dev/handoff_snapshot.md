@@ -344,4 +344,39 @@ def verdict(per_seed_by_config):
 
 ---
 
-**End of handoff. Migration-ready. The next exp_dev teammate will spawn fresh with CLAUDE.md + MEMORY.md + this snapshot. Sections 7-9 are the load-bearing additions; sections 1-6 are tactical-continuation.**
+---
+
+## 10. POST-HANDOFF DELTAS (from `fleet_waiting_on.md` Research section, read this LAST)
+
+The original 9 sections were written DURING the STANDSTILL. Several things changed afterward — read this section before acting on anything else in the handoff, then revisit the older sections with these corrections in mind.
+
+### What's now DONE / RATIFIED (supersede older sections)
+- **U1 FB15k-237 ingest-eval landed-VET = HARD_PASS ratified → CERT 583 → 584.** First chain-grade post-STANDSTILL. Research line: *"U1 FB15k-237 ingest-eval HARD_PASS ratified off-data (7410x over random); substrate ingest pipeline OPERATIONAL + governable + composable."* → **Section 8 is now historical.** Skunkworks VET is closed; the "remaining work I'd queue" list (U1 v2 frozen-encoder / refuse-gate robustness probe / Store atomization) is still valid IF prioritized over the active Paths, but the atomization itself appears done (CERT 584 = Store atom written).
+- **Phase 3 migration COMPLETE; STANDSTILL LIFTED** (Research commits a147e027 / f18156a8 / 2b97c564 / 017174e5 / 8a19df9f). The autonomous Agent-Teams arc is live; Research is team lead spawning `hdi_<role>` teammates as work demands. → **Section 5 open loop "Phase-0 USER actions + per-phase migration auth" is CLOSED.** This handoff is now a live continuation seed, not a window-close artifact.
+- **Path D 4-arm storage-win VALUE scrutiny RESOLVED** (commit 72f87742): 103× compression IS real, BUT comes with 5× compute trade + noise-robustness UNVERIFIED above σ=0.1; ARM B is single-probe exact-tag (NOT multi-probe). cert_ledger relabel `de73c03c0510d4b2` supersedes `1e1302ff6293598f`. → **My pre-reg fc3b8771 (A-fails / B-wins) held directionally, but the B-class "wins" is nuanced: tag-retrieval IS rank-agnostic + compression-real, but compute-expensive + noise-brittle.** The "fly-LSH is the high-M path" framing in my section 2 working-assumptions needs the compute+noise caveat. M1 design should not assume fly-LSH is a clean replacement for attention without weighing compute.
+
+### What's NEW in flight (NOT mine — Research's autonomous spawns)
+- **Path B `exp_n3_vq_alignment_simvq_v1`** RUNNING on remote_cpu (~135min ETA from dispatch; commit f5a0685a). Pre-reg HARD-PASS ceiling_bpc ≤ 1.75 / HARD-FAIL Δ < 0.05. **This is the decode-side improvement Path** — SimVQ tightens the VQ-codebook alignment, lowering the VQ-floor (and per Research, "once ceiling drops, depth_concept_gain auto-propagates"). If HARD-PASS, it's the first chain-grade decode-side win; if HARD-FAIL, Research reroutes to Path A (V_C frontier).
+- **Path C `exp_armA_projected_key_revival_v1`** RUNNING on local_cpu (~44min ETA; commit 39d614a0). Sharper discriminator vs the 4-arm — revives ARM A (the sparse-superposition I pre-reg'd as FAIL) with a projected-key variant. The 2x-revival drill on my own negative.
+- Both lands will be VET'd by freshly-spawned `hdi_skunkworks` instances. NOT my work; reactive only when a new exp_dev spawn is needed.
+
+### NEW discipline atom (Research banked it; absorb into my section 7b)
+- **`verify-run_mode-before-treating-verdict-as-cert-grade`** (Research's 6th self-correction this turn). The 4-arm MIDDLE_BAND framing was based on SMOKE results, not full GPU — Path C cell-author + Path D Skunkworks both caught it independently. This is the SAME class as my own catch on the whitening cell (reading stale local smoke metrics.json as if it were the full verdict). **Add to section 7b mistake patterns: always check `run_mode` BEFORE drawing a cert-grade conclusion from a metrics.json. The discipline is now atomized in the Store; reference it.**
+
+### Updates to my N2 cell-design plan (section 9)
+- **The SimVQ lever (Path B) is the LEAD decode-side improvement** Research has prioritized. If Path B HARD-PASSes, the N2 chain-grade cell's "codebook-granularity" lever should ABSORB SimVQ as the codebook variant (not naive K-means VQ). The VQ-floor decomposition in section 9 becomes more meaningful with SimVQ (lower floor; bigger gap above floor available for the substrate to capture).
+- **Research has reframed Path B as the priority over Path A** ("Path B over Path A per n2 landed-VET DECODE-side bottleneck"). The N2 capacity lever (Path A V_C frontier) is now QUEUED behind decode-side work. The fresh exp_dev teammate's N2 cell should reflect this: codebook-granularity (with SimVQ) leads; capacity follows.
+- The per-unit + cv ≤ 0.05 + LLM-call-counter + VQ-floor instrumentation requirements are UNCHANGED — those are structural; Skunkworks's blocker stands regardless of which lever leads.
+
+### What the fresh exp_dev teammate should do FIRST on spawn
+1. Read `data/fleet_waiting_on.md` Research section for the current autonomous-arc state (NOT this handoff for state-of-fleet; this handoff is continuation context, not source-of-truth).
+2. Read Research's most recent `notes/research_*` for the active Path-status.
+3. If a new cell-author task arrives via SendMessage from Research: section 9 (N2 cell-design plan) + sections 7a/7b/7e (workflow / mistakes / tooling) are the operative content. U1 (section 8) is historical except for the post-VET work queue if it's been re-prioritized.
+4. If asked to author Path B SimVQ-style follow-ups OR Path C revival follow-ups: absorb the Path B/C result patterns + apply the same `verify-run_mode + per_unit + cv + LLM-counter + floor-decomposition` discipline from section 9.
+
+### What I'm asking USER to confirm/override (Research is also waiting on this)
+- Research's `Waiting on` line: *"USER: return from few-hours absence; check the priority-refactor finding (Path B over Path A per n2 landed-VET DECODE-side bottleneck) + ratify or override."* I have nothing to add to that ask beyond noting that my N2 design plan in section 9 is consistent with the Path-B-leads framing.
+
+---
+
+**End of handoff (now post-STANDSTILL post-migration current). The fresh exp_dev teammate should treat this as a continuation seed; the live fleet state is in `fleet_waiting_on.md` + recent `notes/research_*`. Sections 7-9 remain the load-bearing role-knowledge / cell-design content; section 10 is the post-migration delta layer.**
