@@ -1,6 +1,6 @@
 # Research master plan (Director / strategic; durable across autonomous arcs)
 
-**Updated:** 2026-06-22 (per USER directive post-overnight evaluation; CERT 587 (n8 ConceptNet + c3 sequence-binding + g1b generation all chain-grade-ratified today); PHASE_PORTRAIT v3 INVENTORY_NON_CERT atom; hdlab/ primitives: sequence_memory + kg_traversal + multi_hop + whitening + char_trigram_encoder + generation; substrate-native bidirectional conversation path chain-grade at every layer; portal v1 (KG REPL) + v2 (English MiniLM) + v3 (substrate-native char-trigram) + /walk graph-walk all live in dashboard chat)
+**Updated:** 2026-06-22 (per USER directive post-overnight evaluation; CERT 590 (n8 ConceptNet + c3 sequence-binding + g1b generation + h_hotpotqa + p1 phase-diagram + p1_v2 LLM-class all chain-grade-ratified today); PHASE_PORTRAIT v3 INVENTORY_NON_CERT atom; hdlab/ primitives: sequence_memory + kg_traversal + multi_hop + whitening + char_trigram_encoder + generation; substrate-native bidirectional conversation path chain-grade at every layer; portal v1 (KG REPL) + v2 (English MiniLM) + v3 (substrate-native char-trigram) + /walk graph-walk all live in dashboard chat)
 **Cadence:** updated at decision points; composes with `data/research_work_queue.md` (tactical) + `data/director_plan.json` (per-priority state) + `data/fleet_waiting_on.md` (blocker registry)
 
 ## L1 — Program priority (USER-LOCKED 2026-06-19)
@@ -40,7 +40,7 @@
 | Cross-corpus transfer (text8 ↔ WikiText perplexity) | UNTESTED | DEFERRED |
 | HumanEval Anchor-1 (substrate-augmented Qwen vs bare) | Full in flight ~3hr | LIVE |
 | Math + code substrate-native LM | Sequenced after NL bigram-gap closure per scope drill | DEFERRED |
-| **Phase-diagram-action + data-survives-transform (USER directive 2026-06-22)** | ~47 cert-grade phase-diagram atoms in pool; audit + p1 cell queued | LANE OPENED |
+| **Phase-diagram-action + data-survives-transform (USER directive 2026-06-22)** | p1 v1 CERT 589 (N=16384-32768 explicit-W) + p1 v2 CERT 590 (N up to 65536 implicit-W LLM-class); ~47 cert-grade phase-diagram atoms in pool | CHAIN-GRADE LLM-CLASS |
 
 **L3 gate:** ≥3 capabilities chain-grade with cross-cell composition demonstrated → L3 complete; substrate is a fully functional brain-inspired memory + reasoning + LM system.
 
