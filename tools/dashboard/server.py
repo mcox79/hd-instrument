@@ -1813,6 +1813,130 @@ def substrate_chat(body: ChatBody):
             return JSONResponse({"ok": False, "error": f"n-hop failed: {type(e).__name__}: {e}"})
 
 
+@app.get("/api/dashboard/v2/history")
+def dashboard_v2_history(limit: int = 20):
+    """Recent experimental cell-lands with verdict + when. Bounded to `limit` most-recent.
+
+    Scans data/exp_*/metrics.json (skipping _smoke variants); sorts by mtime desc.
+    """
+    out_rows = []
+    try:
+        data_dir = _REPO / "data"
+        candidates = []
+        for d in data_dir.iterdir():
+            if not d.is_dir(): continue
+            name = d.name
+            if not name.startswith("exp_"): continue
+            # Skip smoke directories (they overshadow the full runs; keep only full)
+            if name.endswith("_smoke") or name.endswith("_smoke2") or name.endswith("_dryrun") or name.endswith("_dryrun_full"):
+                continue
+            mp = d / "metrics.json"
+            if not mp.exists(): continue
+            candidates.append((mp.stat().st_mtime, name, mp))
+        candidates.sort(reverse=True)
+        for mtime, name, mp in candidates[:limit]:
+            try:
+                with open(mp, encoding="utf-8") as f:
+                    m = json.load(f)
+                verdict = m.get("verdict", "?")
+                run_mode = m.get("run_mode", "?")
+                elapsed = m.get("elapsed_s") or m.get("wall_s") or m.get("total_wall_s")
+                n_seeds = m.get("n_seeds")
+                # Format short verdict (strip long suffixes)
+                short_verdict = (verdict[:30] + "…") if verdict and len(verdict) > 30 else verdict
+                out_rows.append({
+                    "name": name.replace("exp_", "").replace("_v1", "").replace("_cpu", ""),
+                    "verdict": short_verdict,
+                    "run_mode": run_mode,
+                    "elapsed_s": elapsed,
+                    "n_seeds": n_seeds,
+                    "mtime": mtime,
+                    "when": _fmt_when(mtime),
+                })
+            except Exception:
+                continue
+    except Exception as e:
+        return JSONResponse({"rows": [], "error": str(e)})
+    return JSONResponse({"rows": out_rows, "total_scanned": len(candidates) if 'candidates' in dir() else 0})
+
+
+def _fmt_when(mtime: float) -> str:
+    """Format a unix timestamp as a relative 'when' string (2h ago / 3d ago / 2026-06-15)."""
+    import datetime
+    now = time.time()
+    delta = now - mtime
+    if delta < 60:
+        return f"{int(delta)}s ago"
+    if delta < 3600:
+        return f"{int(delta/60)}m ago"
+    if delta < 86400:
+        return f"{int(delta/3600)}h ago"
+    if delta < 604800:  # 7 days
+        return f"{int(delta/86400)}d ago"
+    return datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
+
+
+@app.get("/api/dashboard/v2/capability")
+def dashboard_v2_capability():
+    """L3 capability tier table — parsed from master plan + cert_ledger evidence."""
+    capabilities = []
+    try:
+        plan_path = _REPO / "data" / "research_master_plan.md"
+        if plan_path.exists():
+            text = plan_path.read_text(encoding="utf-8")
+            # Find the L3 capabilities table
+            in_l3_table = False
+            for line in text.split("\n"):
+                if "## L3" in line:
+                    in_l3_table = True
+                    continue
+                if in_l3_table and line.startswith("## "):
+                    break
+                if in_l3_table and line.startswith("|") and "---" not in line and "Capability" not in line:
+                    cells = [c.strip() for c in line.split("|") if c.strip()]
+                    if len(cells) >= 3:
+                        # cells = [name, status, path]
+                        capabilities.append({
+                            "name": cells[0].replace("**", "").strip(),
+                            "tier": "L3",
+                            "status": cells[2].strip() if len(cells) > 2 else "?",
+                            "detail": cells[1][:80] if len(cells) > 1 else "",
+                        })
+    except Exception as e:
+        return JSONResponse({"rows": [], "error": str(e)})
+    return JSONResponse({"rows": capabilities})
+
+
+@app.get("/api/dashboard/v2/activity")
+def dashboard_v2_activity(limit: int = 12):
+    """Recent activity feed: commits + cert-grade events + disciplines banked. Bounded by `limit`."""
+    rows = []
+    # Commits
+    try:
+        import subprocess
+        cp = subprocess.run(
+            ["git", "log", f"--pretty=format:%H|%at|%s", f"-{limit}"],
+            cwd=str(_REPO), capture_output=True, text=True, timeout=10,
+            creationflags=_CREATE_NO_WINDOW,
+        )
+        for line in cp.stdout.strip().split("\n"):
+            parts = line.split("|", 2)
+            if len(parts) == 3:
+                sha, ts, msg = parts
+                rows.append({
+                    "type": "commit",
+                    "label": sha[:8],
+                    "title": msg[:100],
+                    "ts": float(ts),
+                    "when": _fmt_when(float(ts)),
+                })
+    except Exception:
+        pass
+    # Sort by ts desc; bound
+    rows.sort(key=lambda r: r.get("ts", 0), reverse=True)
+    return JSONResponse({"rows": rows[:limit]})
+
+
 @app.get("/api/dashboard/v2/headlines")
 def dashboard_v2_headlines():
     """Aggregated headline cards for the lean dashboard. Pulls from:

@@ -71,8 +71,18 @@
   .row-grid { display: grid; gap: 12px; padding: 10px 14px; font-family: var(--mono); font-size: 12px; border-top: 1px solid var(--card-border); align-items: center; }
   .row-grid.head { border-top: none; background: var(--bg); color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 14px; }
   .runs-grid { grid-template-columns: 1fr 120px 120px 100px; }
-  .tier-grid { grid-template-columns: 2fr 80px 130px; }
+  .tier-grid { grid-template-columns: 2fr 80px 1.5fr; }
   .commit-grid { grid-template-columns: 90px 1fr; }
+  .history-grid { grid-template-columns: 1.6fr 1fr 60px 80px 80px; }
+  .history-grid .verdict { font-weight: 500; }
+  .history-grid .verdict.HARD_PASS { color: var(--success); }
+  .history-grid .verdict.MIDDLE_BAND { color: var(--warn); }
+  .history-grid .verdict.HARD_FAIL { color: var(--error); }
+  .history-grid .verdict.MEASURED_MECHANISM { color: var(--accent); }
+  .history-grid .verdict.HONEST_NEGATIVE { color: var(--text-dim); }
+  .history-grid .when { color: var(--text-dim); font-size: 11px; }
+  .history-grid .mode { color: var(--text-dim); font-size: 11px; }
+  .muted { color: var(--text-dim); }
   .row-grid .name { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .row-grid .status { font-weight: 500; }
   .row-grid .status.running, .row-grid .status.LIVE { color: var(--accent); }
@@ -145,7 +155,12 @@
 </section>
 
 <section>
-  <h2>Substrate state + L3 capability tier</h2>
+  <h2>Recent experimental landings <span id="history-count" class="muted" style="font-size: 11px; font-weight: 400;"></span></h2>
+  <div class="table" id="history-table"><div class="loading">loading…</div></div>
+</section>
+
+<section>
+  <h2>L3 capability tier</h2>
   <div class="table" id="capability-table"><div class="loading">loading…</div></div>
 </section>
 
@@ -230,8 +245,8 @@ async function loadRuns() {
 
 async function loadCapability() {
   try {
-    const data = await fetchJSON("/api/capability");
-    const rows = (data.rows || data.capabilities || []).slice(0, 12);
+    const data = await fetchJSON("/api/dashboard/v2/capability");
+    const rows = (data.rows || []).slice(0, 15);
     const container = document.getElementById("capability-table");
     if (!rows.length) {
       container.innerHTML = '<div class="empty">no capability rows</div>';
@@ -243,10 +258,39 @@ async function loadCapability() {
         <div class="row-grid tier-grid">
           <span class="name" title="${escapeHtml(r.name || r.capability || "")}">${escapeHtml(r.name || r.capability || "?")}</span>
           <span>${escapeHtml(r.tier || r.layer || "—")}</span>
-          <span class="status ${escapeHtml((r.status || "").replace(/[^a-zA-Z_-]/g, ""))}">${escapeHtml(r.status || "?")}</span>
+          <span class="status ${escapeHtml((r.status || "").replace(/[^a-zA-Z_-]/g, "_").substring(0,30))}" title="${escapeHtml(r.detail || "")}">${escapeHtml(r.status || "?")}</span>
         </div>`).join("")}`;
   } catch (e) {
     document.getElementById("capability-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function loadHistory() {
+  try {
+    const data = await fetchJSON("/api/dashboard/v2/history?limit=15");
+    const rows = data.rows || [];
+    const container = document.getElementById("history-table");
+    const countSpan = document.getElementById("history-count");
+    if (countSpan) countSpan.textContent = rows.length ? `· last ${rows.length}` : "";
+    if (!rows.length) {
+      container.innerHTML = '<div class="empty">no recent landings</div>';
+      return;
+    }
+    container.innerHTML = `
+      <div class="row-grid history-grid head"><span>cell</span><span>verdict</span><span>mode</span><span>wall</span><span>when</span></div>
+      ${rows.map(r => {
+        const verdictClass = (r.verdict || "").split(/[\s:]/, 1)[0] || "";
+        return `
+        <div class="row-grid history-grid">
+          <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span>
+          <span class="verdict ${escapeHtml(verdictClass.replace(/[^a-zA-Z_]/g, ""))}" title="${escapeHtml(r.verdict || "")}">${escapeHtml(r.verdict || "?")}</span>
+          <span class="mode">${escapeHtml(r.run_mode || "?")}</span>
+          <span class="when">${formatWall(r.elapsed_s)}</span>
+          <span class="when">${escapeHtml(r.when || "")}</span>
+        </div>`;
+      }).join("")}`;
+  } catch (e) {
+    document.getElementById("history-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
   }
 }
 
@@ -346,7 +390,7 @@ function setRefreshTime() {
 async function refreshAll() {
   setRefreshTime();
   const headlines = await loadHeadlines();
-  await Promise.all([loadRuns(), loadCapability(), loadCommits(headlines)]);
+  await Promise.all([loadRuns(), loadHistory(), loadCapability(), loadCommits(headlines)]);
 }
 
 let autoTimer = null;
