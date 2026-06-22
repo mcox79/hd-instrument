@@ -101,7 +101,25 @@ _LLM_CALL_COUNTER = [0]
 # isolating the replay mechanism from KG-specific encoding effects; mirrors a8 + saad_solla).
 CORPUS_PROVENANCE = "synthetic_bipolar_keys"
 
-RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
+def _detect_run_mode():
+    """Detect smoke vs full. Priority:
+      1. --smoke CLI flag
+      2. HDLAB_RUN_MODE env var
+      3. HDLAB_EXP_NAME ending in _smoke (runner queue-name convention)
+      4. default "full"
+    """
+    if "--smoke" in sys.argv:
+        return "smoke"
+    env_mode = os.environ.get("HDLAB_RUN_MODE", "").lower()
+    if env_mode in ("smoke", "full"):
+        return env_mode
+    exp_name = os.environ.get("HDLAB_EXP_NAME", "")
+    if exp_name.endswith("_smoke"):
+        return "smoke"
+    return "full"
+
+
+RUN_MODE = _detect_run_mode()
 
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--smoke", action="store_true")
