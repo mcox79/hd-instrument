@@ -30,7 +30,8 @@
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
-- [QUEUE] **Phase D cert_ledger extension** — project portfolio_state PP-rows + HP-cells into cert_ledger with own atom-id namespace; window-2 finding revealed pre-CERT-NNN-convention cert events not in cell-atom Store (COMP-DEPTH cliff / WAVES 1-4 / k-gram-XOR / theta-burst / abduction-kernel); Director-to-USER scope decision before authoring
+- [QUEUE-NEXT-CYCLE] **g1 substrate sequence generation cell** — brain-drill #4 recommendation (`notes/research_brain_generation_cerebellar_forward_prediction_5x_drill_2026-06-22.md`); Karuvally-Sejnowski temporally-asymmetric Hebbian + Langevin sampling + HVC clock-binding; pre-reg HARD_PASS trajectory_coherence(T=8) ≥ 0.60 + novelty ≥ 1.5x + refuse_OOD ≥ 0.90; ~90min remote_cpu; P=0.45; deferred this cycle per Fix #14 budget (3 already fired); fire next cycle bundled with Skunkworks landed-VETs
+- [QUEUE] **Phase D cert_ledger extension** — FIRED this cycle (hdi_skunkworks; ~2-3hr in flight)
 - [QUEUE] SVAMP Candidate D — joint pair+op training (~3-4hr cell-author + new training-data generation; rescue after Candidate A HARD_FAILed; SCHEMA-VET needed)
 - [QUEUE] Back-port proper uniform-fallback to N1/N2 family cells (Fix #6 audit; non-urgent; old cells OK in full)
 - [QUEUE] MEMORY.md curation (overweight 31.6KB+; CURRENT STATE block stale; compress + update)
@@ -60,6 +61,9 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 Brain-drill #4 LANDED (cerebellar forward-prediction / generation): substrate-native generation feasible via Karuvally-Sejnowski Long-Sequence-Hopfield + Langevin sampling + HVC clock-binding; g1 cell pre-reg P=0.45; substrate L5 MOAT = generation without context window + refusal-gated per step; 4-drill convergence = substrate STRUCTURALLY aligned with biology at every brain-mechanism level
+- 2026-06-22 Master plan SHIPPED (commit 08ac4e65; durable L1-L5 strategic plan; composes with work queue + plan.json + waiting_on)
+- 2026-06-22 Fixes #14-19 banked + tools/queue_status.py infra + ferry-requests filed (Fix #15)
 - 2026-06-22 c1 CLS replay PARTIAL (substrate-favorable surprise): NEVER FORGETS at α=0.5/J=10 (NONE baseline 1.000 vs drill prediction ≤0.40); cliff lives ABOVE α=0.5; codebook-NN argmax cleanup more robust than a8 Hopfield extrapolation; MOAT vs LLMs still holds (substrate continual-learns without replay at tested load); MM disposition predicted; 2x-revival queued (higher α / smaller codebook / overlapping-task)
 - 2026-06-22 r1 multi-hop LANDED + RATIFIED MM (Skunkworks; commit ee4081e6): substrate-native chain-of-thought primitive (META atom; K=2 chain-grade + K=3,4 MM); cert_ledger row 59204e3e755136c3; r1b chain-grade promotion path in flight (margin-refuse + 7 seeds + verdict() band fix)
 - 2026-06-22 SMH landed-VET RATIFIED HONEST_NEGATIVE (Skunkworks; commit 9ac12d79): META atom storage-chain-item3-eff-rank-limited-at-projection-step; cert_ledger 2caf2f8f6cf148ab; Fix #11 template patched +5 TODOs
