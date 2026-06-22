@@ -122,15 +122,18 @@ _ap.add_argument("--max-chars-test", dest="max_chars_test", type=int, default=No
 _ARGS, _ = _ap.parse_known_args()
 
 # RUN_MODE detection (in priority order):
-#   1. --smoke CLI flag                                  -> smoke
-#   2. HDLAB_RUN_MODE=smoke env                          -> smoke
-#   3. HDLAB_EXP_NAME ends in "_smoke" (runner-driven)   -> smoke
-#   4. else                                              -> full
+#   1. --smoke CLI flag                                       -> smoke
+#   2. HDLAB_RUN_MODE=smoke env                               -> smoke
+#   3. HDLAB_EXP_NAME contains "_smoke" segment (runner-set)  -> smoke
+#   4. else                                                   -> full
 # The 3rd hook lets a runner that always sets HDLAB_RUN_MODE=full (e.g.
 # runner_v2_prod.py) still execute the cell in smoke-config via the entry name.
+# We match a "_smoke" segment (anywhere in the entry name) to tolerate
+# queue_add --rerun-as suffixes like "n3_text8_..._smoke_retry1".
 _exp_name = os.environ.get("HDLAB_EXP_NAME", "").lower()
 _runmode_env = os.environ.get("HDLAB_RUN_MODE", "full").lower()
-if _ARGS.smoke or _runmode_env == "smoke" or _exp_name.endswith("_smoke"):
+_name_indicates_smoke = ("_smoke" in _exp_name and not _exp_name.endswith("_no_smoke"))
+if _ARGS.smoke or _runmode_env == "smoke" or _name_indicates_smoke:
     RUN_MODE = "smoke"
 else:
     RUN_MODE = _runmode_env
