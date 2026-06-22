@@ -42,3 +42,4 @@ Research opens first → spawns teammates by name as Phase 3 progresses. Example
 ## Architectural reality (post-migration)
 With Agent Teams + TeammateIdle hook live, "every session stopped" is structurally impossible — the hook keeps teammates working until the shared task list drains. Files no longer need to wake sessions; the hook does.
 - exp_dev handoff snapshot LANDED (00:32Z)
+- skunkworks handoff snapshot LANDED (feae9500, 28.9KB, sections 1-6 tactical + section 7 knowledge dump)
