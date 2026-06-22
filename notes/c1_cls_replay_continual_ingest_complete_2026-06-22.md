@@ -2,8 +2,8 @@
 
 **Date:** 2026-06-22 (UTC)
 **Author:** Exp-Dev (pipeline-agent spawn for brain-drill #2 CLS test)
-**Status:** DISPATCHED — full + smoke queued on remote_cpu_queue; pending behind n8_conceptnet_ingest_eval_v1
-**Cell commit:** ed9228c8
+**Status:** FULL RUN IN FLIGHT — alpha=0.1 + alpha=0.3 seed=7 partials complete; cliff regime alpha=0.5 + overload alpha=1.5 still pending (seed=7 mid-run)
+**Cell commit:** 5059f360 (initial ed9228c8 + run-mode auto-detect fix 5059f360)
 
 ## Plain English (Fix #13)
 
@@ -140,11 +140,51 @@ row = build_chain_grade_ruling_row(
 
 ## Honest Limit on This Pipeline Spawn
 
-This spawn was bounded ~60-90min. The remote queue had n5_vc_4096_frontier_v1 running + n8_conceptnet_ingest_eval_v1 queued ahead. By dispatch time, n5 had completed and n8 was running with unknown wall (ConceptNet ingest at full scale may take 30-90min). My smoke + full are queued behind n8. ETA for c1 full to complete is uncertain (likely 1-3 hours total wall depending on n8's actual finish time). I cannot stay open polling indefinitely.
+This spawn was bounded ~60-90min. The remote queue had n5_vc_4096_frontier_v1 running + n8_conceptnet_ingest_eval_v1 queued ahead at dispatch time. Both finished and full is now running BUT remote wall is much slower than the local probe extrapolation suggested: seed=7 took ~25 min just for alpha=0.1 + alpha=0.3 arms. Full ETA is now ~3-5 hours total (3 seeds × 4 alphas × 4 arms × forgetting_curve overhead).
 
-**Next-step routing:**
-- The queue will execute smoke + full in order; metrics.json will land at `data/exp_c1_cls_replay_continual_ingest_v1/metrics.json` on remote (rsync'd to local via hd_metrics_sync).
-- A follow-up exp_dev spawn OR Skunkworks landed-VET spawn can pick up this note + the landed metrics, compute the verdict re-derivation (per template Section 7), and build the cert ledger row.
+## PARTIAL DATA (seed=7, alpha=0.1 + alpha=0.3 complete)
+
+From `data/remote_cpu_queue/c1_cls_replay_continual_ingest_v1.log` on marsh@home:
+
+```
+[selftest] PASS: NONE_task1=1.000 ONLINE_task1=1.000 LLM=0
+[run] mode=full N_DIM=4096 J=10 alphas=[0.1, 0.3, 0.5, 1.5] arms=['NONE','ONLINE_1to1','ONLINE_3to1','RANDOM_1to1'] seeds_done=[] seeds_todo=[7, 17, 23]
+  [seed=7] arm=NONE alpha=0.100 M/task=41 task_A=1.000 task_J=1.000 wall=50.2s
+  [seed=7] arm=ONLINE_1to1 alpha=0.100 M/task=41 task_A=1.000 task_J=1.000 wall=95.2s
+  [seed=7] arm=ONLINE_3to1 alpha=0.100 M/task=41 task_A=1.000 task_J=1.000 wall=188.4s
+  [seed=7] arm=RANDOM_1to1 alpha=0.100 M/task=41 task_A=1.000 task_J=1.000 wall=92.3s
+  [seed=7] arm=NONE alpha=0.300 M/task=123 task_A=1.000 task_J=1.000 wall=142.8s
+  [seed=7] arm=ONLINE_1to1 alpha=0.300 M/task=123 task_A=1.000 task_J=1.000 wall=278.3s
+  [seed=7] arm=ONLINE_3to1 alpha=0.300 M/task=123 task_A=1.000 task_J=1.000 wall=524.5s
+  [seed=7] arm=RANDOM_1to1 alpha=0.300 M/task=123 task_A=1.000 task_J=1.000 wall=258.6s
+```
+
+**Key partial-data observations (NOT YET CERT-GRADE; full needs all 4 alphas × 3 seeds):**
+
+1. **Null bracket alpha=0.1 confirms (all arms ~1.0).** All four arms recall task-A perfectly at low load -- consistent with PRED 4 (replay adds nothing below cliff).
+2. **a8 anchor at alpha=0.3 NONE = 1.000** -- reproduces the a8 cert HARD_PASS baseline exactly (anchor check PASS).
+3. **At alpha=0.3 ALL arms still 1.000** -- codebook-NN cleanup is robust below cliff (good).
+4. **The forgetting-cliff DECISIVE measurements (alpha=0.5 + alpha=1.5) are still pending** -- this is where the science of the cell lives. Wait for completion.
+5. **task_J_recall = task_A_recall = 1.000** at alphas tested so far -- no task-asymmetry below cliff.
+6. **Substrate-only-decode gate logged at selftest** (LLM=0). No LLM calls in any arm logged so far.
+
+**Implication for HARD_PASS bands:** the cell will likely give a HARD_PASS verdict OR a "substrate doesn't even forget at α=0.5 with NN cleanup" measured-mechanism finding, depending on whether NONE collapses at α=0.5. The decisive cell is honest: pre-reg was written before knowing if NN cleanup ceilings.
+
+**Honest skeptic angle:** if NONE@α=0.5 is also 1.000, then NONE@α=1.5 (where item count is way past Hopfield capacity) MUST collapse, OR my N_PROBE = 60 sample size is missing the variance. Either way, the alpha=1.5 NONE arm is the discriminator.
+
+## Wall-Time Surprise
+
+Remote wall ~10x my local probe estimate. Causes I haven't ruled out:
+- The forgetting_curve helper runs the FULL ingest J times for 2 arms × 3 seeds at alpha=0.5 only -- could be the dominant overhead (estimated 2 hours additional)
+- N=4096 outer-product on float64 is ~16M ops × ~205 items × ~10 tasks × ~2 (with replay) = ~65G ops per arm = ~5-10 min wall at 10 GFLOPs CPU -- matches the observed log per arm
+- ONLINE_3to1 wall at alpha=0.3 = 524s confirms the linear scale with replay multiplier (3x of base + the new write)
+
+**Next-step:** the run continues; this note's timing data (per-arm wall_s) is preserved in the remote log for retro-analysis.
+
+**Next-step routing for follow-up:**
+- Wait for full to complete (ETA ~03:00 UTC +5h from start time; check after 06:00 UTC).
+- A follow-up exp_dev spawn OR Skunkworks landed-VET spawn picks up the landed `data/exp_c1_cls_replay_continual_ingest_v1/metrics.json`, computes the verdict re-derivation (per template Section 7), and builds the cert ledger row.
+- If full saturates everywhere (all arms ~1.0): the finding is "substrate is more robust to forgetting than a8 cliff suggested under codebook-NN cleanup" = MEASURED_MECHANISM characterization (NOT a HARD_PASS of the drill's replay-rescue hypothesis, because rescue requires a baseline forgetting). Route a follow-on cell with a STRICTER metric (raw cosine threshold; or shrink the codebook so argmax is harder; or push α to 2.0+).
 
 ## 2x-Revival Angle (PENDING; required if not HARD_PASS)
 
