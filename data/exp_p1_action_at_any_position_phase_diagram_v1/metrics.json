@@ -1,0 +1,175 @@
+{
+  "anchor": "p1_action_at_any_position_phase_diagram_v1",
+  "anchor_name": "p1_action_at_any_position_phase_diagram_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: operating-point-shift portability on ALL 3 pairs. ALL ratios >= 0.80 AND blank-sanity OK AND cv across seeds <= 0.05 AND substrate-only-gate preserved. A_VC_lift_smoke[w=1.000 r=1.000 f=1.000 b=0.033 rat=1.000 cv=0.000] | B_NDIM_lift_smoke[w=1.000 r=1.000 f=1.000 b=0.000 rat=1.000 cv=0.000] | C_joint_lift_smoke[w=1.000 r=1.000 f=1.000 b=0.000 rat=1.000 cv=0.000] | llm=0",
+  "n_seeds": 1,
+  "K_atoms": 50,
+  "pairs": [
+    {
+      "name": "A_VC_lift_smoke",
+      "v_c_0": 128,
+      "n_dim_0": 1024,
+      "v_c_1": 256,
+      "n_dim_1": 1024
+    },
+    {
+      "name": "B_NDIM_lift_smoke",
+      "v_c_0": 128,
+      "n_dim_0": 1024,
+      "v_c_1": 128,
+      "n_dim_1": 2048
+    },
+    {
+      "name": "C_joint_lift_smoke",
+      "v_c_0": 128,
+      "n_dim_0": 1024,
+      "v_c_1": 256,
+      "n_dim_1": 2048
+    }
+  ],
+  "arms": [
+    "WITHIN_P_0",
+    "P_0_TO_P_1_REPLAYED",
+    "P_1_FRESH_INGEST",
+    "P_1_BLANK_RECALL"
+  ],
+  "run_mode": "smoke",
+  "config_version": "p1-phase-diagram-v1: K=50 arms=WITHIN_P_0,P_0_TO_P_1_REPLAYED,P_1_FRESH_INGEST,P_1_BLANK_RECALL pairs=A_VC_lift_smoke(VC128->256,N1024->1024);B_NDIM_lift_smoke(VC128->128,N1024->2048);C_joint_lift_smoke(VC128->256,N1024->2048) noise=0.050 recall_steps=3 run_mode=smoke",
+  "corpus_provenance": "synthetic_bipolar_keys_with_VQ_codebook",
+  "allow_synthetic": true,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "pair_summary": {
+      "A_VC_lift_smoke": {
+        "within_mean": 1.0,
+        "within_std": 0.0,
+        "within_cv": 0.0,
+        "replayed_mean": 1.0,
+        "replayed_std": 0.0,
+        "replayed_cv": 0.0,
+        "fresh_mean": 1.0,
+        "fresh_std": 0.0,
+        "fresh_cv": 0.0,
+        "blank_mean": 0.03333333333333333,
+        "blank_std": 0.0,
+        "blank_cv": 0.0,
+        "ratio_mean": 1.0,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0
+      },
+      "B_NDIM_lift_smoke": {
+        "within_mean": 1.0,
+        "within_std": 0.0,
+        "within_cv": 0.0,
+        "replayed_mean": 1.0,
+        "replayed_std": 0.0,
+        "replayed_cv": 0.0,
+        "fresh_mean": 1.0,
+        "fresh_std": 0.0,
+        "fresh_cv": 0.0,
+        "blank_mean": 0.0,
+        "blank_std": 0.0,
+        "blank_cv": Infinity,
+        "ratio_mean": 1.0,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0
+      },
+      "C_joint_lift_smoke": {
+        "within_mean": 1.0,
+        "within_std": 0.0,
+        "within_cv": 0.0,
+        "replayed_mean": 1.0,
+        "replayed_std": 0.0,
+        "replayed_cv": 0.0,
+        "fresh_mean": 1.0,
+        "fresh_std": 0.0,
+        "fresh_cv": 0.0,
+        "blank_mean": 0.0,
+        "blank_std": 0.0,
+        "blank_cv": Infinity,
+        "ratio_mean": 1.0,
+        "ratio_std": 0.0,
+        "ratio_cv": 0.0
+      }
+    },
+    "all_ratios_>=_0.80": true,
+    "any_ratio_<=_0.20": false,
+    "all_within_>=_0.50": true,
+    "all_blank_<=_0.10": true,
+    "cv_within+replayed_<=_0.05_all_pairs": true,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "honest_scope": "Operating-point-shift portability on synthetic-bipolar HD substrate with VQ codebook + Hebbian outer-product W. K=50 atoms; 3 (P_0,P_1) pairs spanning V_C / N_DIM / joint lifts. Substrate-only-decode gate enforced (n_llm=0). Primitive-isolation: no LLM encoder; key-snap = KNN over bipolar codebook."
+  },
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "M": 50,
+      "run_mode": "smoke",
+      "config_version": "p1-phase-diagram-v1: K=50 arms=WITHIN_P_0,P_0_TO_P_1_REPLAYED,P_1_FRESH_INGEST,P_1_BLANK_RECALL pairs=A_VC_lift_smoke(VC128->256,N1024->1024);B_NDIM_lift_smoke(VC128->128,N1024->2048);C_joint_lift_smoke(VC128->256,N1024->2048) noise=0.050 recall_steps=3 run_mode=smoke",
+      "elapsed_s": 9.665839433670044,
+      "n_llm_calls": 0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782154034.8941905,
+      "per_unit": [
+        {
+          "pair": "A_VC_lift_smoke",
+          "seed": 1,
+          "v_c_0": 128,
+          "n_dim_0": 1024,
+          "v_c_1": 256,
+          "n_dim_1": 1024,
+          "alpha_0": 0.048828125,
+          "alpha_1": 0.048828125,
+          "recall_WITHIN_P_0": 1.0,
+          "recall_P_0_TO_P_1_REPLAYED": 1.0,
+          "recall_P_1_FRESH_INGEST": 1.0,
+          "recall_P_1_BLANK_RECALL": 0.03333333333333333,
+          "ratio_replayed_over_within": 1.0,
+          "n_probe": 30,
+          "wall_s": 2.4098825454711914
+        },
+        {
+          "pair": "B_NDIM_lift_smoke",
+          "seed": 1,
+          "v_c_0": 128,
+          "n_dim_0": 1024,
+          "v_c_1": 128,
+          "n_dim_1": 2048,
+          "alpha_0": 0.048828125,
+          "alpha_1": 0.0244140625,
+          "recall_WITHIN_P_0": 1.0,
+          "recall_P_0_TO_P_1_REPLAYED": 1.0,
+          "recall_P_1_FRESH_INGEST": 1.0,
+          "recall_P_1_BLANK_RECALL": 0.0,
+          "ratio_replayed_over_within": 1.0,
+          "n_probe": 30,
+          "wall_s": 2.211366891860962
+        },
+        {
+          "pair": "C_joint_lift_smoke",
+          "seed": 1,
+          "v_c_0": 128,
+          "n_dim_0": 1024,
+          "v_c_1": 256,
+          "n_dim_1": 2048,
+          "alpha_0": 0.048828125,
+          "alpha_1": 0.0244140625,
+          "recall_WITHIN_P_0": 1.0,
+          "recall_P_0_TO_P_1_REPLAYED": 1.0,
+          "recall_P_1_FRESH_INGEST": 1.0,
+          "recall_P_1_BLANK_RECALL": 0.0,
+          "ratio_replayed_over_within": 1.0,
+          "n_probe": 30,
+          "wall_s": 5.0269715785980225
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_cpu_synthetic_bipolar_VQ_codebook_hebbian_phase_diagram",
+  "elapsed_s": 10.859776020050049,
+  "summary": "HARD_PASS: operating-point-shift portability on ALL 3 pairs. ALL ratios >= 0.80 AND blank-sanity OK AND cv across seeds <= 0.05 AND substrate-only-gate preserved. A_VC_lift_smoke[w=1.000 r=1.000 f=1.0"
+}
