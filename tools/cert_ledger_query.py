@@ -16,12 +16,21 @@ Subcommands:
   count-by-verdict             Group-by underlying cell verdict
   show-mm-partners             Print MEASURED_MECHANISM rows (CERT-neutral mechanism characterizations)
 
+Modes:
+  --follow-supersedes  When set, count-by-status / audit-debt-queue / count-by-class / count-by-verdict
+                       fold supersedes chains: for each atom_qualified_id, only the LATEST row
+                       (the one not superseded by anything else) is counted. This makes Phase-B
+                       relabel rows correctly mask their seeded predecessors. Without this flag,
+                       all rows count (the historical append-only view). Phase B window-1's
+                       Section 5a flagged this as the load-bearing tooling refinement.
+
 Usage:
     python tools/cert_ledger_query.py count-by-status
+    python tools/cert_ledger_query.py count-by-status --follow-supersedes
     python tools/cert_ledger_query.py list-under-classified --json
     python tools/cert_ledger_query.py find-by-atom-id EXP_kv_learned
     python tools/cert_ledger_query.py find-by-cell-commit fbd7078f
-    python tools/cert_ledger_query.py audit-debt-queue | wc -l
+    python tools/cert_ledger_query.py audit-debt-queue --follow-supersedes | wc -l
 """
 from __future__ import annotations
 import argparse
@@ -47,6 +56,61 @@ def load_ledger(path):
         except json.JSONDecodeError as e:
             print(f'WARNING: line {i} not JSON: {e}', file=sys.stderr)
     return rows
+
+
+def _row_hash(row):
+    """Stable 16-char hash of a row (matches Phase B / cert_ledger_writer convention)."""
+    import hashlib
+    canonical = json.dumps(row, sort_keys=True, ensure_ascii=True)
+    return hashlib.sha256(canonical.encode('ascii')).hexdigest()[:16]
+
+
+def fold_supersedes(rows):
+    """Return only the LATEST row per atom_qualified_id, following supersedes chains forward.
+
+    Algorithm:
+    - Compute the hash of every row.
+    - Build the set of hashes that are SUPERSEDED (i.e. appear as some other row's supersedes).
+    - For each atom_id, keep ONLY rows whose own hash is NOT in the superseded set
+      (i.e. they are the latest in their chain).
+    - If an atom has multiple non-superseded rows (e.g. it was never relabeled but has 2 rulings
+      for some reason, or it has two parallel chains), keep the one with the LATEST ts.
+
+    This makes count-by-status semantically correct after Phase B relabels: a Phase-A seeded
+    row that has a Phase-B `cert_relabel` row pointing at its hash is masked, and the relabel
+    row's `verified_off_data: true` is the queryable truth.
+    """
+    if not rows:
+        return rows
+
+    # Index rows by their own hash + collect the set of superseded hashes
+    row_hashes = [(_row_hash(r), r) for r in rows]
+    superseded = set()
+    for _, r in row_hashes:
+        sup = r.get('supersedes')
+        if sup:
+            superseded.add(sup)
+
+    # Bucket by atom_id, keep only non-superseded latest
+    by_atom = defaultdict(list)
+    for h, r in row_hashes:
+        if h in superseded:
+            continue
+        by_atom[r.get('atom_id')].append(r)
+
+    folded = []
+    for atom_id, candidates in by_atom.items():
+        if len(candidates) == 1:
+            folded.append(candidates[0])
+            continue
+        # Multiple non-superseded rows for one atom: pick latest ts (None ts sorts last)
+        def key(r):
+            ts = r.get('ts')
+            return (ts is None, ts if ts is not None else 0.0)
+        candidates.sort(key=key)
+        folded.append(candidates[-1])
+
+    return folded
 
 
 def fmt_row(row, mode='line'):
@@ -228,6 +292,13 @@ def main():
     p = argparse.ArgumentParser(prog='cert_ledger_query', description=__doc__.split('\n')[0])
     p.add_argument('--ledger', type=Path, default=DEFAULT_LEDGER, help='ledger JSONL path')
     p.add_argument('--json', action='store_true', help='emit structured JSON instead of plain text')
+    p.add_argument(
+        '--follow-supersedes', action='store_true',
+        help=('fold supersedes chains: for each atom_id, only the LATEST row '
+              '(not superseded by any other) is counted. Affects count-by-status, '
+              'audit-debt-queue, count-by-class, count-by-verdict, show-mm-partners, '
+              'list-under-classified, list-chain-grade-chronological.')
+    )
     sub = p.add_subparsers(dest='cmd', required=True)
     sub.add_parser('count-by-status')
     sub.add_parser('list-under-classified')
@@ -244,6 +315,19 @@ def main():
 
     args = p.parse_args()
     rows = load_ledger(args.ledger)
+
+    # find-by-atom-id / find-by-cell-commit / reconcile-cert-N do NOT fold (they want
+    # the full historical view including the supersedes chain for a specific atom).
+    # Everything else respects --follow-supersedes.
+    folding_commands = {
+        'count-by-status', 'list-under-classified', 'list-chain-grade-chronological',
+        'audit-debt-queue', 'count-by-class', 'count-by-verdict', 'show-mm-partners',
+    }
+    if args.follow_supersedes and args.cmd in folding_commands:
+        pre_n = len(rows)
+        rows = fold_supersedes(rows)
+        print(f'# --follow-supersedes folded {pre_n} rows -> {len(rows)} latest-per-atom',
+              file=sys.stderr)
 
     if args.cmd == 'count-by-status':
         cmd_count_by_status(rows, args.json)

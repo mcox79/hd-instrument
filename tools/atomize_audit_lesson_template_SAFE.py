@@ -63,6 +63,31 @@ NEVER USE (deprecated; caused inst-239/240 incident):
 EXAMPLE (the protection-layer AUDIT_LESSON Skunkworks has queued at-bandwidth):
 - See `_example_protection_layer_audit_lesson()` below for the concrete pattern
   applied to the corruption-protection lesson from 2026-06-19.
+
+PHASE-C LIVE-WRITE EXTENSION (2026-06-22):
+  AUDIT_LESSONs are NOT cert-grade events (no provenance_quality flag), so they do NOT
+  append a cert_ledger row. BUT this template-form is the canonical extension target for
+  any atomize tool that DOES write a cert-grade atom. Pattern:
+
+      from tools.cert_ledger_writer import build_chain_grade_ruling_row
+
+      ledger_row = build_chain_grade_ruling_row(
+          atom_id=qid, cell_commit=..., verdict='HARD_PASS',
+          notes_path='notes/<VET-note>.md', metrics_path='data/<cell>/metrics.json',
+          cv=..., note='<one_line_discipline_tag>',
+      )
+      add_audit_lesson_safely(
+          atom, source, note,
+          cert_ledger_row=ledger_row,
+          expected_cert_n_pre=583,
+          expected_cert_n_post=584,
+      )
+
+  The Store add_atom runs first (the actual cert increment); then the ledger append
+  records the audit-grade decision. If the ledger append fails, the function returns
+  False -- the Store mutation persists (single-writer was honored) but the cert decision
+  is FLAGGED for replay. The expected_cert_n_pre/_post args are the A5 gate from the
+  caller's perspective.
 """
 
 from __future__ import annotations
@@ -73,13 +98,35 @@ sys.path.insert(0, str(Path(".").resolve()))
 from backend.substrate_index.partition import PartitionedStore
 from backend.substrate_index.schema import Atom, AtomKind, Corpus, Tier
 
+# Phase C live-write integration: every NEW cert event (chain-grade / MM / honest-negative /
+# demote / retract) appends a row to data/substrate_index/meta/cert_ledger.jsonl in the SAME
+# A5 PRE/POST window as the Store write. See tools/cert_ledger_writer.py for the helper.
+from tools.cert_ledger_writer import (
+    append_cert_ledger_row,
+    build_chain_grade_ruling_row,
+    build_measured_mechanism_row,
+    build_honest_negative_row,
+    build_demote_row,
+)
+
 
 def add_audit_lesson_safely(atom: Atom, source: str, note: str,
-                            store_root: Path = Path("data/substrate_index")) -> bool:
+                            store_root: Path = Path("data/substrate_index"),
+                            cert_ledger_row: dict | None = None,
+                            expected_cert_n_pre: int | None = None,
+                            expected_cert_n_post: int | None = None) -> bool:
     """Add an AUDIT_LESSON atom via the safe pattern.
 
     Returns True on success (added + round-trip survives), False on failure.
     Idempotent: if atom.id already exists, returns True without re-adding.
+
+    Phase C live-write integration (optional):
+    - If `cert_ledger_row` is provided, an A5-gated append to cert_ledger.jsonl is performed
+      after the Store add_atom + round-trip verify succeeds. The row dict is passed straight
+      to tools.cert_ledger_writer.append_cert_ledger_row(). For an AUDIT_LESSON (no cert-grade
+      change), pass None (the default) and no ledger row is written.
+    - `expected_cert_n_pre`/`expected_cert_n_post` if set are asserted by the ledger writer
+      against the live Store CERT count.
     """
     ps = PartitionedStore(store_root)
     qid = f"{atom.corpus.value}::{atom.id}"
@@ -115,6 +162,23 @@ def add_audit_lesson_safely(atom: Atom, source: str, note: str,
         print(f"  FAIL: pq mismatch")
         return False
     print(f"  PASS: round-trip survival OK (Atom.from_dict clean)")
+
+    # Phase C live-write: append cert-ledger row if caller requested
+    if cert_ledger_row is not None:
+        print(f"  PHASE-C: appending cert-ledger row "
+              f"(op={cert_ledger_row.get('op')} status={cert_ledger_row.get('cert_status')} "
+              f"delta={cert_ledger_row.get('cert_increment_delta')})")
+        try:
+            row_h = append_cert_ledger_row(
+                cert_ledger_row,
+                expected_cert_n_pre=expected_cert_n_pre,
+                expected_cert_n_post=expected_cert_n_post,
+            )
+            print(f"  PHASE-C: ledger row appended; row_hash = {row_h}")
+        except Exception as e:
+            print(f"  FAIL: cert-ledger append errored: {e}")
+            return False
+
     return True
 
 
