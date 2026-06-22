@@ -1679,6 +1679,7 @@ import pickle  # noqa: E402
 _REPO = Path(__file__).resolve().parent.parent.parent
 _CHAT_CACHE_DIR = _REPO / "data" / "substrate_repl_cache"
 _chat_kg_state = {"kg": None, "ent2idx": None, "rel2idx": None, "idx2ent": None, "idx2rel": None, "m": 0}
+_chat_semantic_state = {"loaded": False, "model": None, "ent_embs": None, "rel_embs": None, "ent_names": None, "rel_names": None}
 _chat_lock = threading.Lock()
 
 
@@ -1709,6 +1710,34 @@ def _ensure_chat_kg_loaded() -> dict | None:
 
 class ChatBody(BaseModel):
     message: str
+
+
+def _ensure_semantic_codebook_loaded() -> dict | None:
+    """Lazy-load the MiniLM model + semantic codebook (entity_name → embedding map)."""
+    with _chat_lock:
+        if _chat_semantic_state["loaded"]:
+            return _chat_semantic_state
+        # Find semantic codebook file
+        if not _CHAT_CACHE_DIR.exists():
+            return None
+        sem_caches = sorted(_CHAT_CACHE_DIR.glob("semantic_m*.pkl"), key=lambda p: p.stat().st_size, reverse=True)
+        if not sem_caches:
+            return None
+        try:
+            with open(sem_caches[0], "rb") as f:
+                payload = pickle.load(f)
+            # Lazy-load MiniLM model (only on first English query)
+            from sentence_transformers import SentenceTransformer
+            model = SentenceTransformer(payload["encoder_name"], device="cpu")
+            _chat_semantic_state["model"] = model
+            _chat_semantic_state["ent_embs"] = payload["ent_embs"]
+            _chat_semantic_state["rel_embs"] = payload["rel_embs"]
+            _chat_semantic_state["ent_names"] = payload["ent_names"]
+            _chat_semantic_state["rel_names"] = payload["rel_names"]
+            _chat_semantic_state["loaded"] = True
+            return _chat_semantic_state
+        except Exception:
+            return None
 
 
 def _fuzzy_ent(query: str, ent2idx: dict) -> tuple[str | None, int | None]:
@@ -1759,58 +1788,81 @@ def substrate_chat(body: ChatBody):
     if msg in ("rels", "/rels"):
         return JSONResponse({"ok": True, "kind": "rels", "payload": {"relations": state["idx2rel"]}})
 
-    tokens = msg.replace("?", "").split()
-    if len(tokens) < 2:
-        return JSONResponse({"ok": False, "error": "syntax: <subject> <predicate> ?  OR  <s> <p1> <p2> ?  OR  stats / rels"})
-
+    # Route: structured if ends with '?' AND parses cleanly; else English/semantic.
+    # Explicit prefix `english:` forces semantic regardless.
     ent2idx = state["ent2idx"]; rel2idx = state["rel2idx"]
-    s_name, s_idx = _fuzzy_ent(tokens[0], ent2idx)
-    if s_idx is None:
-        return JSONResponse({"ok": False, "error": f"entity not found: '{tokens[0]}'"})
+    idx2ent = state["idx2ent"]
+    kg = state["kg"]
 
-    rel_idxs = []; rel_names = []
-    for rt in tokens[1:]:
-        r_name, r_idx = _fuzzy_rel(rt, rel2idx)
-        if r_idx is None:
-            return JSONResponse({"ok": False, "error": f"relation not found: '{rt}' (try /rels)"})
-        rel_idxs.append(r_idx); rel_names.append(r_name)
+    force_english = msg.lower().startswith("english:") or msg.lower().startswith("nl:")
+    if force_english:
+        msg = msg.split(":", 1)[1].strip()
+    has_question = msg.rstrip().endswith("?")
+    tokens = msg.replace("?", "").split() if not force_english else []
 
-    kg = state["kg"]; idx2ent = state["idx2ent"]
-    if len(rel_idxs) == 1:
-        top_idx, top_scores = kg.predict_one_hop_topk(s_idx, rel_idxs[0], k=5)
-        results = [{"entity": idx2ent[int(i)], "score": float(s)} for i, s in zip(top_idx.tolist(), top_scores.tolist())]
-        return JSONResponse({
-            "ok": True, "kind": "single_hop",
-            "payload": {"subject": s_name, "relation": rel_names[0], "top_5": results, "fuzzy_match": s_name != tokens[0].lower().replace(" ", "_")},
-        })
-    elif len(rel_idxs) == 2:
-        x_hat, o_hat = kg.predict_two_hop(s_idx, rel_idxs[0], rel_idxs[1])
-        return JSONResponse({
-            "ok": True, "kind": "two_hop",
-            "payload": {
-                "subject": s_name, "relations": rel_names,
-                "intermediate": idx2ent[x_hat], "final": idx2ent[o_hat],
-                "note": "chain-grade primitive per n8 CERT 585 (36.49x ratio over frozen-encoder)",
-            },
-        })
-    else:
-        # Lazy import to avoid top-level dep coupling
-        try:
-            sys.path.insert(0, str(_REPO))
-            from hdlab.multi_hop import iter_cleanup_chain
-            final, per_hop, term = iter_cleanup_chain(kg, s_idx, rel_idxs, k_set=20, k_inner=1)
-            if final is None:
-                return JSONResponse({"ok": True, "kind": "refused", "payload": {"refused_at_hop": term}})
-            return JSONResponse({
-                "ok": True, "kind": "n_hop_iter_cleanup",
-                "payload": {
-                    "subject": s_name, "relations": rel_names, "final": idx2ent[final],
-                    "per_hop_top1": [round(c, 3) for c in per_hop],
-                    "note": "honest scope: chain-grade only at K=2; K>=3 is MIDDLE_BAND per r1",
-                },
-            })
-        except Exception as e:
-            return JSONResponse({"ok": False, "error": f"n-hop failed: {type(e).__name__}: {e}"})
+    # Try structured path when message ends with '?' (and not forced English)
+    if not force_english and has_question and len(tokens) >= 2:
+        s_name, s_idx = _fuzzy_ent(tokens[0], ent2idx)
+        if s_idx is not None:
+            rel_idxs = []; rel_names = []; parse_ok = True
+            for rt in tokens[1:]:
+                r_name, r_idx = _fuzzy_rel(rt, rel2idx)
+                if r_idx is None:
+                    parse_ok = False; break
+                rel_idxs.append(r_idx); rel_names.append(r_name)
+            if parse_ok:
+                if len(rel_idxs) == 1:
+                    top_idx, top_scores = kg.predict_one_hop_topk(s_idx, rel_idxs[0], k=5)
+                    results = [{"entity": idx2ent[int(i)], "score": float(s)} for i, s in zip(top_idx.tolist(), top_scores.tolist())]
+                    return JSONResponse({"ok": True, "kind": "single_hop",
+                        "payload": {"subject": s_name, "relation": rel_names[0], "top_5": results,
+                                    "fuzzy_match": s_name != tokens[0].lower().replace(" ", "_")}})
+                elif len(rel_idxs) == 2:
+                    x_hat, o_hat = kg.predict_two_hop(s_idx, rel_idxs[0], rel_idxs[1])
+                    return JSONResponse({"ok": True, "kind": "two_hop",
+                        "payload": {"subject": s_name, "relations": rel_names,
+                                    "intermediate": idx2ent[x_hat], "final": idx2ent[o_hat],
+                                    "note": "chain-grade primitive per n8 CERT 585 (36.49x ratio)"}})
+                else:
+                    try:
+                        sys.path.insert(0, str(_REPO))
+                        from hdlab.multi_hop import iter_cleanup_chain
+                        final, per_hop, term = iter_cleanup_chain(kg, s_idx, rel_idxs, k_set=20, k_inner=1)
+                        if final is None:
+                            return JSONResponse({"ok": True, "kind": "refused", "payload": {"refused_at_hop": term}})
+                        return JSONResponse({"ok": True, "kind": "n_hop_iter_cleanup",
+                            "payload": {"subject": s_name, "relations": rel_names, "final": idx2ent[final],
+                                        "per_hop_top1": [round(c, 3) for c in per_hop],
+                                        "note": "honest scope: chain-grade only at K=2"}})
+                    except Exception as e:
+                        return JSONResponse({"ok": False, "error": f"n-hop failed: {type(e).__name__}: {e}"})
+
+    # Semantic / English path — MiniLM encodes user text, finds nearest entity, shows substrate
+    # retrievals across all relations for that entity.
+    sem = _ensure_semantic_codebook_loaded()
+    if sem is None:
+        return JSONResponse({"ok": False, "error": "semantic codebook missing — run: python tools/build_substrate_semantic_codebook.py"})
+    try:
+        import numpy as np
+        q_emb = sem["model"].encode([msg], normalize_embeddings=True)[0]
+        sims = sem["ent_embs"] @ q_emb
+        top5_idx = np.argsort(sims)[-5:][::-1]
+        top5 = [{"entity": sem["ent_names"][int(i)], "cosine": float(sims[int(i)])} for i in top5_idx]
+        anchor = top5[0]["entity"]
+        anchor_idx = ent2idx.get(anchor)
+        anchor_rels = []
+        if anchor_idx is not None:
+            for r_name in state["idx2rel"]:
+                r_idx = rel2idx[r_name]
+                ti, ts = kg.predict_one_hop_topk(anchor_idx, r_idx, k=1)
+                anchor_rels.append({"relation": r_name, "object": idx2ent[int(ti[0])], "score": float(ts[0])})
+            anchor_rels.sort(key=lambda r: r["score"], reverse=True)
+        return JSONResponse({"ok": True, "kind": "english",
+            "payload": {"query": msg, "anchor": anchor, "top_matches": top5,
+                        "anchor_relations": anchor_rels[:6],
+                        "note": "MiniLM ingest-stage encode → nearest entity → substrate W retrieval. Zero LLM at retrieval."}})
+    except Exception as e:
+        return JSONResponse({"ok": False, "error": f"semantic search failed: {type(e).__name__}: {e}"})
 
 
 @app.get("/api/dashboard/v2/history")

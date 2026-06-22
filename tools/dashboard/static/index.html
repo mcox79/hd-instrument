@@ -135,17 +135,17 @@
     <div class="chat-history" id="chat-history">
       <div class="chat-msg substrate">
         <div class="who">substrate</div>
-        <div class="body">Ready. Try <code>cat IsA ?</code> · <code>driving Causes ?</code> · <code>computer RelatedTo Synonym ?</code> · <code>stats</code> · <code>rels</code></div>
+        <div class="body">Ready. Try natural English (<code>what is a cat</code> · <code>objects in a kitchen</code> · <code>drive a vehicle</code>) or structured (<code>cat AtLocation ?</code> · <code>driving Causes ?</code> · <code>computer DerivedFrom Antonym ?</code>) · <code>stats</code> · <code>rels</code></div>
       </div>
     </div>
     <form class="chat-form" onsubmit="sendChat(event)">
-      <input type="text" id="chat-input" placeholder="<subject> <predicate> ?  |  <s> <p1> <p2> ?  |  stats  |  rels" autocomplete="off">
+      <input type="text" id="chat-input" placeholder="ask in English  |  <subject> <predicate> ?  |  <s> <p1> <p2> ?  |  stats  |  rels" autocomplete="off">
       <button type="submit" class="primary">→</button>
     </form>
   </div>
   <div class="chat-hint">
-    n8 ConceptNet (CERT 585; 36.49× ratio vs frozen-encoder MiniLM). Substrate-only-decode: zero LLM at retrieval.
-    Chain-grade at K=2 hops; K≥3 is MIDDLE_BAND per r1 LANDED-VET (honest scope).
+    English mode: MiniLM encodes user text → nearest entity in substrate's codebook → substrate W matrix matmul retrieval across all relations. MiniLM is ingest-stage (one-shot per query, no generation). Zero LLM forward calls at retrieval — the substrate's W matrix is doing 100% of the reasoning.
+    <br>Structured mode (ends with <code>?</code>) bypasses MiniLM entirely — pure substrate. Chain-grade at K=2 hops; K≥3 is MIDDLE_BAND per r1 LANDED-VET.
   </div>
 </section>
 
@@ -357,6 +357,15 @@ function renderSubstrateResponse(data) {
     body += `  final: <span class="entity">${escapeHtml(p.final)}</span>\n`;
     body += `  per-hop top-1: ${p.per_hop_top1.join(", ")}\n`;
     body += `  <span class="score">${escapeHtml(p.note)}</span>`;
+  } else if (kind === "english") {
+    body = `"${escapeHtml(p.query)}" →\n`;
+    body += `  anchor: <span class="entity">${escapeHtml(p.anchor)}</span>  (cos=${p.top_matches[0].cosine.toFixed(3)})\n`;
+    if (p.top_matches.length > 1) {
+      body += `  also matches: ${p.top_matches.slice(1, 4).map(m => `${escapeHtml(m.entity)} (${m.cosine.toFixed(2)})`).join(', ')}\n`;
+    }
+    body += `\nsubstrate retrievals from anchor:\n`;
+    body += p.anchor_relations.map(r => `  ${escapeHtml(r.relation)}: <span class="entity">${escapeHtml(r.object)}</span><span class="score">score=${r.score.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>`).join('\n');
+    body += `\n\n<span class="score">${escapeHtml(p.note)}</span>`;
   } else if (kind === "refused") {
     body = `substrate refused at hop ${p.refused_at_hop} (top-1 below tau)`;
   } else if (kind === "stats") {
