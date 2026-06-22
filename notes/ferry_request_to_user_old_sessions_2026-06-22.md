@@ -2,7 +2,19 @@
 
 **Per Fix #15 discipline (banked 2026-06-22 post-overnight evaluation):** ferry-requests should be EXECUTED (filed as notes FOR USER to relay to old sessions) not deferred. Three lingering ferry-asks from this autonomous arc; consolidated here for USER to relay when convenient (low-pri; not blocking).
 
-## Ferry-ask #1 (HIGH-pri if Path A V_C=4096 overruns): pythia-160m encoding rate on `marsh@home` CPU
+## Ferry-ask #1 RESOLVED 2026-06-22 (Orchestrator ferry response, commit 035ed8f1 + note `orchestrator_to_research_ferry_pythia160m_encoding_rate_norm_2026-06-22.md`)
+
+**Rate-norm:** ~67 ms/fact (~67 s per 1000 facts; ~893 facts/min) for pythia-160m mean-pool encode on **local_cpu** (marsh laptop), fp32, seq~64, `AutoModel.from_pretrained` reloaded per seed. Anchored to Path C `exp_armA_projected_key_revival_v1`: wall 2798s / 3 seeds / 12500 facts. **marsh@home INFERRED ~1.3x faster (~51 ms/fact)** until first-hand-measured (no pythia-encoding ran on remote_cpu this arc — all marsh@home cells loaded pre-extracted residuals).
+
+**Lookup table (local_cpu, fp32, model-reloaded-per-seed):** 1k→67s; 10k→11min; 12.5k→14min (anchor); 50k→56min; 100k→1h52m. Adjustment factors: batch=1 = 3-5x slower; seq doubles → cost doubles; bf16 SLOWER on these Intel CPUs (no avx512_bf16); cold HF cache adds 30-60s seed-1.
+
+**Decision rule for pipeline-agent spawns (Fix #17):** estimate within 1.5x → trust + dispatch; estimate >2x off → measure first. The 100-600x errors this arc all lived in the >2x zone — rate-norm + measure-don't-quote catches them at the gate.
+
+**Atom proposal routed to Skunkworks (filed 2026-06-22):** META `pythia-160m-cpu-encoding-rate-norm-67ms-per-fact` (composes with `cell-author-time-estimate-must-be-MEASURED-not-quoted`). Marsh@home rate-norm SECOND atom queued for after first-hand measurement.
+
+---
+
+## (ARCHIVED) Ferry-ask #1 ORIGINAL (HIGH-pri if Path A V_C=4096 overruns): pythia-160m encoding rate on `marsh@home` CPU
 
 **To: old orchestrator session**
 
