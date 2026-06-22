@@ -15,19 +15,25 @@
 
 ---
 
-## TIER 1: In-flight (do not re-spawn; reactive on landing)
+## TIER 1: ACTIVELY RUNNING (verified via queue_status)
 
-- [BG] **c3 compressed sequence replay cell** RUNNING on cpu_runner_0 remote_cpu (~4.5min wall; ~252s full-grid 3 seeds); cell commit a27939c5; cert-trail c6a2ac5e; **smoke + full-config single-seed timing-run BOTH HARD_PASS** at every depth [1,3,5,7,10] with B=1.0 / A=0.0 / C=0.125→0.0 / D=1.0 / delta=1.0 / order_delta=1.0 / W_unchanged_by_sleep=True / n_llm=0; **Director cross-check (Fix #18) VERIFIED** independently from metrics.json; **honest-scope MAJOR finding: D≈B because software has NO Hebbian temporal window** → META atom proposal drafted (`notes/c3_honest_scope_software_has_no_hebbian_window_META_proposal_2026-06-22.md`); cert-grade verdict locks on 3-seed mean (in flight)
-- [BG] n4 k-WTA-VQ cell (biological sparsity; brain-drill recommendation) — remote_cpu smoke + full
-- [BG] Path A V_C=4096 frontier cell — remote_cpu full (~7.5h projected)
-- [BG] WikiText-103 ingest cell (n6) — remote_cpu smoke
-- [BG] arxiv abstracts ingest cell (n7) — remote_cpu smoke
-- [BG] ConceptNet ingest cell (n8) — remote_cpu queued (OPEN-C unlock if 75x holds at full)
-- [BG] text8 retry1 — accidental full on remote (~4.5h ETA)
-- [BG] SMH (Sparse Modern Hopfield) cell — Path C revival #1; using pipeline-template first field-test
-- [BG] HumanEval Anchor-1 cell — Qwen-1.5B stdlib-class split (substrate-as-LLM-tool pattern)
-- [BG] SVAMP mechanism redesign research drill (selector-bias / multi-hop / synthetic WK training)
-- [BG] Phase B chronological window 2 cert-trail enrichment (skunkworks Store-write; serialize-after)
+- [BG] **c3 compressed sequence replay cell** RUNNING on cpu_runner_0 remote_cpu (~4.5min wall; ~252s full-grid 3 seeds); cell commit a27939c5; cert-trail c6a2ac5e; **smoke + full-config single-seed timing-run BOTH HARD_PASS** at every depth [1,3,5,7,10]; Director cross-check (Fix #18) VERIFIED; honest-scope META proposal drafted; cert-grade verdict locks on 3-seed land (~08:25)
+
+## TIER 1b: LANDED — landed-VET pending (Director cross-check 2026-06-22 audit; queue_status says 0/0/0 — cells already completed)
+
+- [LANDED HARD_PASS] **n8 ConceptNet ingest_eval_v1** verified at full (3 seeds): setrecall@M=100000 all=1.000 / refuse-OOD=0.999 / 2-hop inference=0.426 vs 1-hop=0.000 vs frozen-encoder=0.012 → **36.5x ratio vs frozen-encoder baseline** (required ≥2.0x; CRUSHED); scale-curve 1.000 at every M (5k/10k/25k/50k/100k); OPEN-C UNLOCKED; **CERT 584→585 candidate** (atomization gated on hdi_skunkworks SCHEMA-VET spawn next cycle)
+- [LANDED HARD_FAIL] **Path A V_C=4096 (n5_vc_4096_frontier_v1)** — V_C frontier scaling does NOT close bigram-gap; route-negatives-to-research per USER STANDING → revival drill candidate (5x DEEPER decode-side scope refresh or compose with n10 whitening + MKN)
+- [LANDED HARD_FAIL] **HumanEval Anchor-1 stdlib-Qwen split** (`exp_humaneval_stdlib_split_qwen_v1`) — substrate-as-LLM-tool pattern HARD_FAIL on coding; revival drill candidate (rescope to non-coding OR different anchor-augmentation strategy)
+- [LANDED HARD_FAIL] **r1b multi-hop refuse-calibration** — r1 chain-grade promotion path FAILED (smoke MIDDLE_BAND → full HARD_FAIL); r1 K=2 anchor + K=3,4 MM intact; chain-grade promotion needs different angle
+- [LANDED MIDDLE_BAND] n3 SimVQ (alignment) + n3 MKN smoothing (decode-side leverage) — partial wins; already in cert-trail history
+- [LANDED HARD_PASS] SMH (Sparse Modern Hopfield) honest-negative + a8 continual_writes (revival) + csp_first_ship + n8 ConceptNet (above)
+- [LANDED MIDDLE_BAND] capacity_sweet_spot_v2 (MEASURED_MECHANISM) + svamp_role_asymmetry (3 variants all MIDDLE_BAND) + humaneval_full_coverage / humaneval_real_parse / humaneval_structural_lite
+
+## TIER 1c: Never-dispatched OR dispatched-without-trace (audit)
+- n4 k-WTA-VQ — no metrics.json; either never dispatched OR dispatched and cell-author crash
+- n6 WikiText-103 ingest, n7 arxiv abstracts ingest — same status as n4 (queue_status clear; no metrics directory)
+- text8 retry1 — same; no metrics
+- Phase B window 2 / Phase D cert_ledger extension — Skunkworks-authored; no exp_* directory expected for these
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
@@ -69,6 +75,7 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 TIER 1 AUDIT (Director cross-check; queue_status 0/0/0 trigger): **n8 ConceptNet ingest_eval_v1 LANDED HARD_PASS at full** (3 seeds; 36.5x vs frozen-encoder; scale-curve 1.000 at every M; CERT 584→585 candidate; OPEN-C UNLOCKED — chain-grade ConceptNet KG #2 per L3 master plan); **Path A V_C=4096 LANDED HARD_FAIL** (route to revival; decode-side scope re-open); **HumanEval Anchor-1 stdlib-Qwen LANDED HARD_FAIL**; **r1b LANDED HARD_FAIL**; SVAMP role-asymmetry 3 variants MIDDLE_BAND. Work queue TIER 1 reconciled to landed-VET-pending status; never-dispatched audit lane added for n4/n6/n7/text8-retry
 - 2026-06-22 c3 cell DISPATCHED + smoke/timing HARD_PASS + Director cross-check (Fix #18) VERIFIED + honest-scope META proposal drafted: A=0.0/B=1.0/C=0.0/D=1.0 across all depths; delta=1.0, order_delta=1.0, W_unchanged_by_sleep=True, n_llm=0; the substrate-side architectural win is the SEPARATE S MATRIX (offline-pass + ordered-pair + W-vs-S separation); biological-compression-arm discriminator is NULL in software (D=B at full precision); META atom proposal `META_software_substrate_no_hebbian_window_sequence_binding_is_architecture_not_timing` queued for next-cycle SCHEMA-VET. Cell commit a27939c5; cert-trail c6a2ac5e; 3-seed full-land in flight on cpu_runner_0 (~4.5min wall)
 - 2026-06-22 p1 action-at-any-position phase-diagram cell pre-reg DRAFT SHIPPED (USER-directed lane sub-item (c)): 3 (P_0, P_1) pairs × 4 arms; HARD_PASS ratio ≥0.80 ALL pairs + blank-floor ≤0.10 + substrate-only-decode; K=200 / 3 seeds / ~6-10min remote_cpu; P=0.45; SCHEMA-VET + dispatch deferred to next cycle (Fix #14 budget already at 1 spawn this cycle)
 - 2026-06-22 MEMORY.md curated mid-session (Fix #19): 29.4KB → 18.9KB (-36%); 58 → 15 lines over 250-char ceiling; CURRENT STATE block refreshed to 2026-06-22; Fix #15 marked DEPRECATED; phase-diagram lane pointer added under ACTIVE PROGRAM

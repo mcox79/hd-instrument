@@ -33,7 +33,7 @@
 | Substrate-native chain-of-thought (multi-hop reasoning) | r1 MM LANDED (K=2 anchor + K=3,4 MM); META atom shipped | LIVE r1b chain-grade promotion |
 | Continual learning without retraining | c1 partial (NEVER FORGETS at α=0.5; substrate-favorable); α=1.5 overload pending | LIVE c1 full + revival cell post-VET |
 | Multi-value KG ingest + refuse-gate | U1 chain-grade (CERT 584) | LANDED |
-| ConceptNet KG chain-grade #2 (OPEN-C unlock) | Smoke 75x substrate vs frozen-encoder | In flight |
+| ConceptNet KG chain-grade #2 (OPEN-C unlock) | **LANDED HARD_PASS at full** (3 seeds; 36.5x vs frozen-encoder; setrecall=1.000 at every M 5k-100k; CERT 584→585 atomization pending) | CHAIN-GRADE |
 | Substrate generation / sampling | UNKNOWN mechanism; brain-drill #4 in flight | DRILL → cell TBD |
 | Cross-corpus transfer (text8 ↔ WikiText perplexity) | UNTESTED | DEFERRED |
 | HumanEval Anchor-1 (substrate-augmented Qwen vs bare) | Full in flight ~3hr | LIVE |
