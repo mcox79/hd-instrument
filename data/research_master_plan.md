@@ -1,6 +1,6 @@
 # Research master plan (Director / strategic; durable across autonomous arcs)
 
-**Updated:** 2026-06-22 (per USER directive post-overnight evaluation)
+**Updated:** 2026-06-22 (per USER directive post-overnight evaluation; CERT 584→585 ratified n8 ConceptNet HARD_PASS; PHASE_PORTRAIT v3 INVENTORY_NON_CERT atom written; SequenceMatrix substrate primitive shipped to hdlab/)
 **Cadence:** updated at decision points; composes with `data/research_work_queue.md` (tactical) + `data/director_plan.json` (per-priority state) + `data/fleet_waiting_on.md` (blocker registry)
 
 ## L1 — Program priority (USER-LOCKED 2026-06-19)
