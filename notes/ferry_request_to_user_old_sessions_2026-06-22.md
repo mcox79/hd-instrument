@@ -1,5 +1,7 @@
 # FERRY-REQUEST (Director → USER): old-session ferry asks per Fix #15
 
+> **DEPRECATED 2026-06-22 by USER correction:** the whole ferry-request mechanism is the obsolete imperative. Under Agent Teams there are no other sessions to relay to — `hdi_<role>` teammates are spawned for bounded tasks. Fix #15 retired; see `feedback_no_inter_session_routing_notes_deprecate_ferry_mechanism_USER_2026-06-22.md`. Note retained as cert-trail history; do not file new ferry-requests.
+
 **Per Fix #15 discipline (banked 2026-06-22 post-overnight evaluation):** ferry-requests should be EXECUTED (filed as notes FOR USER to relay to old sessions) not deferred. Three lingering ferry-asks from this autonomous arc; consolidated here for USER to relay when convenient (low-pri; not blocking).
 
 ## Ferry-ask #1 RESOLVED 2026-06-22 (Orchestrator ferry response, commit 035ed8f1 + note `orchestrator_to_research_ferry_pythia160m_encoding_rate_norm_2026-06-22.md`)
