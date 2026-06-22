@@ -182,4 +182,166 @@ p = eigs/s; p = p[p>0]; roy = float(np.exp(-(p*np.log(p)).sum()))
 
 ---
 
-**End of handoff. Migration-ready. The next exp_dev teammate will spawn fresh with CLAUDE.md + MEMORY.md + this snapshot. Section 7 is the load-bearing addition; the rest is tactical-continuation.**
+## 8. U1 INGEST-EVAL — exp_dev's view of where it stands + remaining work
+
+**Skunkworks's open loop:** "U1 HARD_PASS landed-VET" (their `[from=exp_dev] [type=cell_land]` wait). My view of where it actually stands:
+
+**Status = result is in; cert call is theirs.**
+- Cell: `experiments/exp_u1_fb15k237_ingest_eval_v1.py` (commit 373c8bb9; vectorized + per-seed checkpointed).
+- Result: `data/exp_u1_fb15k237_ingest_eval_v1/metrics.json` (commit d46ec0c6) — 3 seeds (7/17/23), full 50k, N=8192, run_mode=full, elapsed 777.7s, verdict HARD_PASS.
+- Routing note: `notes/exp_dev_to_skunkworks_U1_LANDED_hardpass_VET_request_2026-06-21.md` (commit 301ccde0) — has the per-band numbers + the honest caveats.
+- The exp_dev side is COMPLETE. Nothing of mine is in-flight on U1.
+
+**Numeric headlines (re-derive from per_seed, don't trust the summary string):**
+- Fidelity (set-recall@k) @M=50k: all=0.990 ± 0.004, 1to1=0.988 ± 0.003 across seeds (3 of 3 > 0.95 floor).
+- Refuse-gate: OOD-refuse 0.974 (0.963/0.993/0.967 per seed); in-KB-accept 0.958 (0.957/0.953/0.963). Both > 0.80 bar on every seed.
+- Inference-transfer: substrate-2hop 0.381 (0.370/0.367/0.405); 1-hop-lookup baseline 0.007 (consistent across seeds; ~0 by construction).
+- Scale-curve: {5k: 1.0, 10k: 1.0, 25k: 0.999, 50k: 0.99} — graceful, no cliff.
+
+**What the cert-owner (Skunkworks) needs to do, not me:**
+- Recompute each headline number off `partial_seed*_full.json` independently (the partials are gitignored but on disk locally; full re-run is ~13 min on CPU if needed).
+- Audit the 3 by-construction guards (exact-closure NOT cert-graded — set-recall is the multigraph-faithful metric; `heldout_in_compose_graph==0` asserted in code + the `leak_skipped` counter is logged; refuse-gate non-circular: tau calibrated on first half of held queries, evaluated on second half).
+- Decide the scope: cert with the MID-valid 1-hop-lookup baseline (current state), OR require the frozen-encoder baseline (deferred OPEN-C, needs entity-name staging).
+- Eye the refuse-gate robustness — tau≈0 means the in-KB/OOD top-1 separation is small-magnitude; the calibration works but it's not a wide margin. Worth a sensitivity check (noise injection / cv on tau under perturbations).
+
+**Remaining work I'd queue (post-VET, NOT under standstill):**
+1. **U1 v2 with frozen-encoder baseline** — IF Skunkworks rules the 1-hop-lookup bar insufficient. One-time prep: stage `entity2text.txt` (FB15k-237 entity-name mapping, public dataset). Then add a bge-encoder single-hop similarity baseline to inference-transfer. Closes OPEN-C; gives a stronger cert.
+2. **U1 refuse-gate robustness probe** — IF Skunkworks's audit flags the tau≈0 small-margin. Quick CPU PoC: add noise to keys at recall time, measure how OOD-refuse / in-KB-accept degrade. Reports whether the gate is brittle.
+3. **U1 atomization into the Store** — once Skunkworks signs the VET, atomize the result as a cert-graded substrate-native-KB-ingest atom (Skunkworks A5-gated Store write; my role = produce + route, not write).
+4. **Phase_d_tier6 re-run on real shakespeare** — separate from U1 but related: my N3 shakedown found phase_d_tier6's MIDDLE_BAND was on synthetic data (broken wikitext2 loader) + a gameable ratio band. The clean re-run is essentially trivial (extend the shakedown harness with the full 4-primitive substrate char-LM config; my shakespeare loader is `allow_synthetic=False` provenance-asserted). Quick cell when Skunkworks calls for it.
+
+**The fresh exp_dev teammate should NOT re-author U1.** It's done. They should resume by reading `metrics.json` + the VET response + (if VET ratifies) atomizing.
+
+---
+
+## 9. NEXT N2 CHAIN-GRADE CELL — exp_dev's design plan absorbing Skunkworks's per-unit instrumentation spec
+
+**Skunkworks's structural blocker (for any N2 chain-grade cell):** per_unit BPC + cv ≤ 0.05 + zero-LLM-call-counter LOGGED + VQ-floor decomposition. The next exp_dev teammate authoring an N2 cell MUST bake all four in from the start. Here's how:
+
+### Cell anchor + scope (per Research's N2 frontier-drill + Skunkworks's N2-lever findings dfb41903)
+- **Anchor name:** `n2_substrate_lm_lever_chain_grade_v1` (or similar; `[lever_x_lever]` if multiple coupled levers).
+- **Levers (COUPLED per Skunkworks):** the chain-grade run sweeps **context-depth × codebook-granularity** jointly (not factored independently — Skunkworks's finding is that they couple via floor-masks). Optional secondary dimensions: capacity (V_C-sweep, per N1 storage-density scour), HD-binding-vs-count.
+- **Corpus:** text8 (N3 primary per my N3 scope-decision) OR pythia-residual subset (N3 secondary; depends on Orchestrator's token-id-recovery cell). Real data, `allow_synthetic=False`. Real chance/bigram baseline computed on the same held-out split.
+- **Run config:** SEEDS=[7,17,23,31,41] (5 seeds for cv tightness); per-seed CONFIG_VERSION-gated checkpoint per `experiments/_seed_checkpoint.py`; vectorized BLAS for any matmul-able loop.
+
+### Per-unit metrics.json shape (load-bearing for Skunkworks's recompute-off-per_unit discipline)
+```python
+metrics = {
+    "anchor_name": ANCHOR_NAME,
+    "verdict": v, "verdict_msg": vmsg,
+    "run_mode": RUN_MODE, "n_seeds": len(SEEDS),
+    "config_version": CONFIG_VERSION,        # MUST include every param affecting BPC
+    "per_seed": [                            # one entry per (seed, lever-config) cell
+        {"seed": s, "lever_config": {...},
+         "substrate_bpc": ..., "baseline_bpc": ..., "uniform_bpc": ..., "vq_floor_bpc": ...,
+         "gain_above_vq_floor": substrate_bpc - vq_floor_bpc,  # the load-bearing claim
+         "primitive_health": {...},
+         "llm_forward_calls_at_inference": 0,  # MUST be 0; assert before write
+         "wall_s": ..., "checkpoint_key": "..."},
+        ...
+    ],
+    "aggregate": {                           # for the verdict_msg ONLY; never the cert
+        "substrate_bpc_mean": ..., "substrate_bpc_cv": ...,
+        "gain_above_vq_floor_mean": ..., "gain_above_vq_floor_cv": ...,
+    },
+    "by_construction_guards": {
+        "vq_floor_methodology": "round-trip lossy bound: token -> concept_codebook -> token; BPC computed on the round-tripped tokens against the original",
+        "real_data_asserted": True,  # allow_synthetic=False all the way down
+        "zero_llm_call_at_inference": True,  # asserted from per_seed counters
+    },
+}
+```
+
+### The 4 load-bearing instrumentation requirements (Skunkworks's structural blocker)
+
+**1. Per-unit BPC** (per-seed-per-lever-config):
+- Every (seed, lever_config) point is a separate entry in `per_seed`; do NOT collapse before write. Skunkworks recomputes the aggregate off the per_unit, never trusts the summary.
+- Store at minimum: `seed`, `lever_config` (dict), `substrate_bpc`, `baseline_bpc`, `uniform_bpc`, `vq_floor_bpc`, `wall_s`, `checkpoint_key`.
+
+**2. cv ≤ 0.05** (across seeds, per lever_config):
+- Compute `cv = std(substrate_bpc) / mean(substrate_bpc)` across seeds for each lever_config.
+- HARD-FAIL the cell if any reported HARD_PASS config has cv > 0.05 (seed-unstable; don't cert flaky configs).
+- MIDDLE_BAND if PASS conditions met but cv ∈ (0.05, 0.10]; HARD_FAIL if > 0.10.
+- This is non-negotiable per Skunkworks's cv discipline (saved multiple cells from false-PASS this year).
+
+**3. Zero-LLM-call-counter LOGGED** (the substrate-only audit gate):
+- Add a counter `LLM_CALLS = [0]` (list-as-mutable-int) at module top.
+- Wrap any conceivable LLM-forward call (transformers' `model.forward`, `model.__call__`, the embedding lookup, etc.) at the boundary the substrate uses. Simplest pattern: monkey-patch `transformers.PreTrainedModel.__call__` with a counter-incrementing wrapper at module import; assert the counter is 0 AFTER `score_bpc` returns.
+- Log the per-seed counter into `per_seed[i]["llm_forward_calls_at_inference"]`. Assert = 0 before the metrics.json write; if non-zero, HARD_FAIL with the verdict_msg naming the call-site.
+- This makes the substrate-only claim AUDITABLE (Skunkworks's inherited N1 gate). The fresh teammate should NOT skip this; it's a single import-time monkey-patch + an assert.
+
+**4. VQ-floor decomposition** (subtract the by-construction VQ-granularity ceiling):
+- The substrate-native LM goes `token → concept_codebook → next_concept → token` (or similar VQ round-trip). The round-trip itself loses information (the VQ codebook is lossy). That loss is the **VQ-floor BPC**: the BPC of a perfect-next-concept-predictor that nonetheless has to round-trip through the same codebook.
+- Compute the VQ-floor by:
+  1. Round-trip the held-out text: encode tokens → VQ-codebook lookup → decode back to tokens.
+  2. Compute the BPC of this round-trip against the original tokens (this is the IRREDUCIBLE loss from the VQ codebook granularity).
+  3. Report `vq_floor_bpc` per (seed, lever_config).
+- The **load-bearing claim** is `gain_above_vq_floor = substrate_bpc - vq_floor_bpc`. Skunkworks's PASS bar should be on the gain, NOT the raw BPC (raw BPC can "beat baseline" just by inheriting the VQ floor's structural advantage; that's by-construction-saturation).
+- If `substrate_bpc ≈ vq_floor_bpc`, the substrate LM isn't doing anything beyond the codebook — it's a saturated result. HARD_FAIL band.
+
+### Cell-design dos and don'ts (from the wikitext2 / phase_d_tier6 / ratio-band lessons)
+
+**DO:**
+- `corpus = wikitext2_or_text8_or_shakespeare_char_corpus(allow_synthetic=False)` — fail-loud if real data isn't reachable.
+- Use `experiments/_seed_checkpoint.py` for resume; CONFIG_VERSION includes corpus_chars + n_layers + N + lever_config + every BPC-affecting param.
+- Vectorize: any `for triple/token: outer(...)` → chunked BLAS matmul. The phase_d_tier6 base used the Python-loop SubstrateCharLM; vectorizing the substrate primitives (where possible) gives 10-100×.
+- Reuse `testbed/substrate_lm/{char_lm,baseline_gradient_lm,data,primitives}.py` for the substrate LM + baseline + corpus + char_vocab. Add your N2-lever-sweep wrapper around them.
+- Compute real chance/bigram baseline on the SAME held-out (uniform_bpc + a bigram-count BPC); make Skunkworks's absolute-floor band the gate (substrate < bigram - margin), NOT a ratio-to-baseline.
+
+**DON'T:**
+- Don't reuse the phase_d_tier6 ratio band (`substrate ≤ 2.0 × baseline`). Gameable — chance substrate passes if baseline is weak.
+- Don't pass `allow_synthetic=True` to any corpus loader in a cert run. Silent synthetic fallback = false-green (the wikitext2 / phase05 pattern).
+- Don't compute aggregates before writing per_unit. Skunkworks needs the per_unit to recompute.
+- Don't skip the LLM-call counter assert. The substrate-only claim is auditable or it's not a cert.
+- Don't trust your verdict_msg string. Re-derive from per_seed before reading the verdict aloud.
+
+### Smoke + selftest gates (before any full dispatch)
+- Selftest: 1-second mechanism check (the 4-primitive substrate + a tiny synthetic, asserts primitives operational + BPC < uniform).
+- Smoke: pythia-160m or shakespeare-snippet, M ≤ 1000 chars per split, 1 seed, 1-2 lever configs, ~30s-3min. MUST: produce valid per_unit; the LLM-call counter must read 0; the VQ-floor decomposition must run end-to-end; cv computation must produce a finite number (even on 1 seed it shouldn't crash). If smoke catches a "substrate at chance on real text at smoke" (the phase_d_tier6 lesson) → that's a smoke-scale artifact, NOT necessarily a fail; the full is the real test. Flag it but don't auto-FAIL.
+
+### Verdict logic template
+```python
+def verdict(per_seed_by_config):
+    pass_configs = []; mb_configs = []; fail_configs = []
+    for cfg, units in per_seed_by_config.items():
+        bpcs = [u["substrate_bpc"] for u in units]
+        gains = [u["gain_above_vq_floor"] for u in units]
+        cv = float(np.std(bpcs) / max(np.mean(bpcs), 1e-9))
+        zero_llm = all(u["llm_forward_calls_at_inference"] == 0 for u in units)
+        gain_mean = float(np.mean(gains))
+        # absolute-floor band against real bigram baseline (PRE-REG'd per Skunkworks)
+        beats_bigram = (np.mean(bpcs) + ABS_MARGIN) < np.mean([u["bigram_bpc"] for u in units])
+        if not zero_llm:
+            fail_configs.append((cfg, "LLM_CALL_VIOLATION"))
+        elif cv > 0.10:
+            fail_configs.append((cfg, f"cv={cv:.3f}>0.10"))
+        elif beats_bigram and gain_mean > 0 and cv <= 0.05:
+            pass_configs.append((cfg, gain_mean, cv))
+        elif beats_bigram or gain_mean > 0:
+            mb_configs.append((cfg, gain_mean, cv))
+        else:
+            fail_configs.append((cfg, f"no-gain bpc={np.mean(bpcs):.3f}"))
+    # chain-grade requires >=1 PASS config with cv <= 0.05 + substrate-only verified
+    if pass_configs: return ("HARD_PASS", ...)
+    if mb_configs: return ("MIDDLE_BAND", ...)
+    return ("HARD_FAIL", ...)
+```
+
+### Pre-flight before dispatch (verify-the-referent on the cell itself)
+1. selftest PASS on local CPU.
+2. smoke PASS + the 4 instrumentation hooks visible in smoke metrics (per_unit shape correct; cv computed; LLM-count = 0; VQ-floor present).
+3. CONFIG_VERSION text manually-inspected for completeness (every BPC-affecting param appears).
+4. Real-data provenance asserted (cache file exists or download URL reachable; no synthetic fallback path triggered in smoke).
+5. Commit cell + smoke metrics BEFORE dispatch (pre-reg trail).
+6. Route to Orchestrator with the dispatch ask (GPU-or-CPU + ETA + scp request).
+
+### Hand-off pointer to base infra
+- Base cell to fork: `experiments/exp_phase_d_tier6_full_pipeline_4_core_char_lm_v1.py` (has the SubstrateCharLM/GradientCharLM driver pattern, per-seed checkpoint, wikitext2 corpus loader).
+- Replace: wikitext2_char_corpus → text8/shakespeare_char_corpus with `allow_synthetic=False`; add VQ-floor computation; add LLM-call counter import + assert; add per_unit shape; add real-bigram baseline; replace the ratio band with absolute-floor.
+- Don't break `phase_d_tier6` (still imported elsewhere if any cells reference it); fork to a new file.
+
+**This is the cell-design plan. The fresh exp_dev teammate authoring N2 should follow this template + read Skunkworks's per-unit-instrumentation note (the one they flagged as the structural blocker — locate it via `Glob 'notes/skunkworks_*per_unit*'` or `*N2*chain*`).**
+
+---
+
+**End of handoff. Migration-ready. The next exp_dev teammate will spawn fresh with CLAUDE.md + MEMORY.md + this snapshot. Sections 7-9 are the load-bearing additions; sections 1-6 are tactical-continuation.**
