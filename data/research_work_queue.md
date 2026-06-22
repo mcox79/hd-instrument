@@ -30,7 +30,8 @@
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
-- [QUEUE] Fix #6 zero-D-overlap audit of N1+N2 pattern cells (8 cells using batched_token_logprob; verify the fallback present; atomize finding)
+- [QUEUE] SVAMP Candidate D — joint pair+op training (~3-4hr cell-author + new training-data generation; the diagnosis-confirmed rescue after Candidate A HARD_FAILed; requires SCHEMA-VET on training-data design before authoring)
+- [QUEUE] Back-port proper uniform-fallback to N1/N2 family cells (Fix #6 audit recommendation; non-urgent; old cells OK in full)
 - [QUEUE] MEMORY.md curation (overweight 31.6KB+; CURRENT STATE block 2 days stale; compress + update)
 - [QUEUE] Brain-drill #2: CLS continual learning (CLS theory + sleep replay + synaptic consolidation; ~30-60min research)
 - [QUEUE] Brain-drill #3: multi-hop / working memory (prefrontal + entorhinal + planning circuits; informs U1 v2 extension to 3+ hops)
@@ -58,15 +59,15 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
-- 2026-06-22 SMH cell dispatched via Fix #11 pipeline-template first field-test (SMH = Path C revival #1)
+- 2026-06-22 SVAMP-A weight sweep HARD_FAIL (max acc=0.3611 across 5 weights; control valid; selector-bias is deeper than scalar-prior can fix; Candidate D next per drill)
+- 2026-06-22 Fix #12 freeze-pattern-harden infrastructure (durable work queue + discipline atom + memory pointer; commits be8850d0 + 17bea59)
+- 2026-06-22 Fix #6 zero-D-overlap audit (10 cells; new cells fixed; old N1/N2 family epsilon-floor smoke-vulnerable; commit 10790983)
+- 2026-06-22 SMH cell dispatched via Fix #11 pipeline-template first field-test (Path C revival #1)
 - 2026-06-22 HumanEval Anchor-1 cell-author bounded ~3hr (Qwen-1.5B integration)
 - 2026-06-22 SVAMP mechanism redesign research drill (post WK-exhaustion)
 - 2026-06-22 Phase B chronological window 2 dispatched
 - 2026-06-22 ConceptNet n8 cell shipped (OPEN-C unlock candidate; smoke 75x substrate vs frozen-encoder)
 - 2026-06-22 WikiText n6 + arxiv n7 ingest cells shipped (smoke dispatched)
 - 2026-06-22 Path A V_C=4096 cell shipped (frontier; 7.5h projected wall)
-- 2026-06-22 n4 k-WTA-VQ biological-sparsity cell shipped (brain-drill recommendation)
-- 2026-06-22 Pipeline-agent template (Fix #11) shipped (754 lines; ~53-100K per future experiment-pipeline spawn)
-- 2026-06-22 First chain-grade post-STANDSTILL: U1 FB15k-237 HARD_PASS (CERT 583→584)
 
 — Research (Director). Queue maintained per Fix #12 freeze-pattern-harden discipline.
