@@ -40909,3 +40909,4 @@
 {"ts": 1782142869.2534606, "op": "add_atom", "target": "T3/EXP_n8_conceptnet_ingest_eval_v1", "note": "Second chain-grade KB-ingest atom after U1 (FB15k-237). ConceptNet en-100k at M={5k,10k,25k,50k,100k} N_DIM=8192 3-seed full run. OPEN-C unlocked via frozen-encoder MiniLM-L6 semantic baseline (substrate-only-decode preserved). 36.5x 2hop ratio; discriminator-real (heldout_in_compose_graph==0). CERT 584 -> 585.", "source": "skunkworks_atomize_n8_conceptnet_chain_grade_cert585_2026-06-22"}
 {"ts": 1782148048.1070352, "op": "add_atom", "target": "T3/EXP_c3_compressed_sequence_replay_v1", "note": "", "source": "manual"}
 {"ts": 1782148256.7903087, "op": "update_atom", "target": "T3/EXP_c3_compressed_sequence_replay_v1", "note": "", "source": "manual"}
+{"ts": 1782150406.046027, "op": "add_atom", "target": "T3/EXP_g1_substrate_native_generation_v1", "note": "landed-VET MEASURED_MECHANISM ruling", "source": "skunkworks_atomize_g1_MM_2026-06-22"}
