@@ -248,6 +248,85 @@ def shakespeare_char_corpus(
     return text
 
 
+_TEXT8_CACHE = _REPO / "data" / "text8_cache"
+# text8 = field-standard char-level benchmark: first ~100MB of cleaned Wikipedia
+# (lowercase a-z + space, 27-char vocab). Established baselines:
+# bigram ~3.0 / 5-gram-KN ~1.7-1.9 / PPM ~1.4-1.55 / Shannon ~0.6-1.3 BPC.
+# Mirror: matt mahoney's canonical .zip; we keep a plain .txt cache after unzip.
+_TEXT8_URL = "http://mattmahoney.net/dc/text8.zip"
+
+
+def _try_download_text8() -> Optional[str]:
+    """Fetch + unzip text8 (~100MB compressed, ~100MB raw). None on any failure."""
+    try:
+        import io
+        import urllib.request
+        import zipfile
+
+        with urllib.request.urlopen(_TEXT8_URL, timeout=300) as r:
+            raw = r.read()
+        with zipfile.ZipFile(io.BytesIO(raw)) as z:
+            # Archive contains a single member named "text8".
+            with z.open("text8") as fh:
+                # text8 is pure ASCII (a-z + space); decode liberally for safety.
+                return fh.read().decode("ascii", errors="replace")
+    except Exception as e:
+        print(f"[data] text8 download failed ({type(e).__name__}: {e}); "
+              f"will try cache or synthetic.", flush=True)
+        return None
+
+
+def text8_char_corpus(
+    split: str = "train",
+    max_chars: Optional[int] = None,
+    allow_synthetic: bool = True,
+) -> str:
+    """Return a text8 character corpus for the requested split.
+
+    Resolution order (same contract as shakespeare_char_corpus):
+      1. Local cache under data/text8_cache/text8.txt
+      2. urllib download from mattmahoney.net (~100MB; then cache)
+      3. Synthetic fallback (deterministic) iff allow_synthetic.
+
+    Split = deterministic 90/5/5 char-position slice of the single file (standard
+    text8 convention is 90/5/5 train/val/test on a single-file corpus).
+
+    USE AS N3 CERT CORPUS (per Exp-Dev N3 corpus scope-DECISION 2026-06-21):
+      Established absolute-floor BPC baselines for cert bands:
+        bigram ~3.0 / 5-gram-KN ~1.7-1.9 / PPM ~1.4-1.55 / Shannon ~0.6-1.3.
+    """
+    cache = _TEXT8_CACHE / "text8.txt"
+    full = None
+    if cache.exists():
+        try:
+            full = cache.read_text(encoding="ascii", errors="replace")
+        except Exception:
+            full = None
+    if not full:
+        full = _try_download_text8()
+        if full:
+            try:
+                _TEXT8_CACHE.mkdir(parents=True, exist_ok=True)
+                cache.write_text(full, encoding="ascii", errors="replace")
+            except Exception:
+                pass  # cache opportunistic
+    if full is not None and len(full) >= 10000:
+        text = _split_single_file(full, split)
+        return text[:max_chars] if max_chars is not None else text
+
+    if not allow_synthetic:
+        raise RuntimeError(
+            f"text8 not reachable via cache ({_TEXT8_CACHE}) or download "
+            f"({_TEXT8_URL}); set allow_synthetic=True or stage the cache."
+        )
+    target = max_chars if max_chars is not None else 500_000
+    seed = {"train": 3729, "validation": 3733, "test": 3741}.get(split, 3729)
+    text = _synthetic_corpus(target, seed=seed)
+    print(f"[data] using synthetic fallback for text8 split={split}: "
+          f"{len(text)} chars (seed={seed})", flush=True)
+    return text
+
+
 def char_vocab_from_corpus(text: str) -> list:
     """Return sorted list of unique chars in `text` (canonical vocab order)."""
     return sorted(set(text))
