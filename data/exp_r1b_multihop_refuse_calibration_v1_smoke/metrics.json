@@ -1,0 +1,93 @@
+{
+  "anchor_name": "r1b_multihop_refuse_calibration_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial chain-grade path -- gate1 (cv) only; means reproduce r1. by-K: {\"2\": {\"iter\": 0.74, \"cv_iter\": 0.0, \"ood_refuse_margin\": 0.86, \"inkb_accept_margin\": 0.62, \"margin_ratio\": 3.5899, \"ood_refuse_abs\": 0.96, \"n_seeds\": 1}, \"3\": {\"iter\": 0.77, \"cv_iter\": 0.0, \"ood_refuse_margin\": 0.82, \"inkb_accept_margin\": 0.5, \"margin_ratio\": 2.4885, \"ood_refuse_abs\": 0.74, \"n_seeds\": 1}} | mean-repro: K2=0.740 vs r1=0.395 diff=0.345 SKIPPED-SMOKE ; K3=0.770 vs r1=0.240 diff=0.530 SKIPPED-SMOKE | gate1(K3 cv<=0.06): PASS (cv=0.0000) | gate2(OOD-refuse(margin) mean>=0.90 at K=2,3,4): FAIL (min=0.820) | c2(margin-ratio>2.0x): PASS (min=2.489)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "n_seeds_target": 1,
+  "config_version": "r1b-multihop-refuse-cal: r1 iterative-cleanup mechanism (Modern-Hopfield beta=2048); MARGIN-based refuse (top1-top2) calibrated per-K via held_split_balanced_accrefuse; N2048 M5000 K_hops=[2, 3] K_set=8 K_inner=1 n_seeds=1 n_chains=100; bands mean-repro+/-0.02 K3cv<=0.06 OOD-refuse-mean>=0.90 margin-ratio>2.0x",
+  "per_seed": [
+    {
+      "seed": 1,
+      "_ckpt_key": "1",
+      "config_version": "r1b-multihop-refuse-cal: r1 iterative-cleanup mechanism (Modern-Hopfield beta=2048); MARGIN-based refuse (top1-top2) calibrated per-K via held_split_balanced_accrefuse; N2048 M5000 K_hops=[2, 3] K_set=8 K_inner=1 n_seeds=1 n_chains=100; bands mean-repro+/-0.02 K3cv<=0.06 OOD-refuse-mean>=0.90 margin-ratio>2.0x",
+      "run_mode": "smoke",
+      "N": 2048,
+      "M": 5000,
+      "per_unit": [
+        {
+          "seed": 1,
+          "K_hops": 2,
+          "n_chains_actual": 100,
+          "leak_skipped": 1,
+          "n_ood_chains": 100,
+          "iterative_cleanup_acc": 0.74,
+          "tau_margin_per_K": 0.00011305222869850695,
+          "refuse_ood_rate_margin_test": 0.86,
+          "inkb_accept_rate_margin_test": 0.62,
+          "best_cal_bal_margin": 0.81,
+          "inkb_margin_mean": 0.000142,
+          "ood_margin_mean": 4e-05,
+          "margin_ratio": 3.5899,
+          "tau_abs_per_K": 0.0002789426362141967,
+          "refuse_ood_rate_abs_test": 0.96,
+          "inkb_accept_rate_abs_test": 0.94,
+          "iter_wall_s": 1.32,
+          "ood_wall_s": 1.29
+        },
+        {
+          "seed": 1,
+          "K_hops": 3,
+          "n_chains_actual": 100,
+          "leak_skipped": 7,
+          "n_ood_chains": 100,
+          "iterative_cleanup_acc": 0.77,
+          "tau_margin_per_K": 8.57898558024317e-05,
+          "refuse_ood_rate_margin_test": 0.82,
+          "inkb_accept_rate_margin_test": 0.5,
+          "best_cal_bal_margin": 0.73,
+          "inkb_margin_mean": 8.9e-05,
+          "ood_margin_mean": 3.6e-05,
+          "margin_ratio": 2.4885,
+          "tau_abs_per_K": 0.00017828730051405728,
+          "refuse_ood_rate_abs_test": 0.74,
+          "inkb_accept_rate_abs_test": 0.98,
+          "iter_wall_s": 1.84,
+          "ood_wall_s": 1.8
+        }
+      ],
+      "ingest_s": 0.6,
+      "seed_wall_s": 7.1,
+      "_partial_written_at": 1782114515.8520968
+    }
+  ],
+  "elapsed_s": 0.0,
+  "summary": "MIDDLE_BAND: partial chain-grade path -- gate1 (cv) only; means reproduce r1. by-K: {\"2\": {\"iter\": 0.74, \"cv_iter\": 0.0, \"ood_refuse_margin\": 0.86, \"inkb_accept_margin\": 0.62, \"margin_ratio\": 3.5899, \"ood_refuse_abs\": 0.96, \"n_seeds\": 1}, \"3\": {\"iter\": 0.77, \"cv_iter\": 0.0, \"ood_refuse_margin\": 0.82, \"inkb_accept_margin\": 0.5, \"margin_ratio\": 2.4885, \"ood_refuse_abs\": 0.74, \"n_seeds\": 1}} | mean-repro: K2=0.740 vs r1=0.395 diff=0.345 SKIPPED-SMOKE ; K3=0.770 vs r1=0.240 diff=0.530 SKIPPED-SMOKE ",
+  "cv_by_K": {
+    "2": 0.0,
+    "3": 0.0
+  },
+  "max_cv_across_K": 0.0,
+  "K_hops_list": [
+    2,
+    3
+  ],
+  "K_set": 8,
+  "K_inner": 1,
+  "N_DIM": 2048,
+  "M_TRIPLES": 5000,
+  "n_chains": 100,
+  "tau_margin_method": "held_split_balanced_accrefuse",
+  "zero_llm_calls_at_inference": true,
+  "llm_forward_calls_at_inference": 0,
+  "substrate_native": true,
+  "substrate_role": "native_inference",
+  "r1_reference_means": {
+    "K2": 0.395,
+    "K3": 0.24,
+    "K4": 0.172
+  },
+  "DESIGN_NOTE": "r1b r1-chain-grade-promotion path. Inherits r1 mechanism (iterative-cleanup) verbatim; lifts the two strict-missed pre-reg gates via (a) 7 seeds + 500 chains for cv reduction; (b) MARGIN-based refuse-signal (top1-top2) calibrated per-K on held CAL+TEST split. Pre-reg: HARD_PASS iff mean-reproduction within +/- 0.02 at K=2,3,4 AND K3 cv <= 0.06 AND OOD-refuse(margin) mean >= 0.90 at K=2,3,4. Discriminating control c2: margin-ratio > 2x (margin must SEPARATE in-KB from OOD or refuse-signal redesign itself failed).",
+  "incremental": false,
+  "n_seeds_completed": 1
+}
