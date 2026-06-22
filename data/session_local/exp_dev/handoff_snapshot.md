@@ -379,4 +379,94 @@ The original 9 sections were written DURING the STANDSTILL. Several things chang
 
 ---
 
-**End of handoff (now post-STANDSTILL post-migration current). The fresh exp_dev teammate should treat this as a continuation seed; the live fleet state is in `fleet_waiting_on.md` + recent `notes/research_*`. Sections 7-9 remain the load-bearing role-knowledge / cell-design content; section 10 is the post-migration delta layer.**
+---
+
+## Ferry response to Research 2026-06-22: per-seed pythia re-loading
+
+**Verdict: TEMPLATE WART, not per-cell choice. Same wart in every cell that imports `encode` from the probe.**
+
+### Diagnosis (off-source, definitive)
+The canonical encoder is `encode(texts)` in `experiments/exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1.py` lines 145-156 (marked "VERBATIM CERT 591"). The body:
+```python
+def encode(texts):
+    tok = AutoTokenizer.from_pretrained(ENCODER)        # re-tokenizer every call
+    if tok.pad_token is None: tok.pad_token = tok.eos_token
+    mdl = AutoModel.from_pretrained(ENCODER, torch_dtype=ENC_DTYPE).to(DEV).eval()  # re-load every call
+    out = []
+    for i in range(0, len(texts), 32):
+        ...
+    del mdl                                              # explicit drop at end
+    if DEV.type == "cuda": torch.cuda.empty_cache()
+    return ...
+```
+So EVERY `encode(...)` call: `from_pretrained` the tokenizer + `from_pretrained` the model + `.to(DEV)` + run inference + `del mdl` + `empty_cache`. NO module-level cache. The "Loading weights" + "GPTNeoXModel LOAD REPORT" stanzas the runner logs come from `from_pretrained`; you see one per encode() call.
+
+### Cost (matches Research's observation)
+- pythia-160m on CPU: ~10-15s per `from_pretrained` + ~1-2s `.to(DEV).eval()` setup → ~12-17s wasted per encode() call.
+- Multi-call-per-seed cells amplify it: whitening cell does `K = encode(keys); Q = encode(cues)` inside `run_unit(seed)` → 2 loads/seed × 5 seeds = **10 loads × ~13s = ~2min wasted** per cell run on encoder cycling alone.
+- Research's "~7.5min across ~10 cells" estimate is consistent — possibly conservative for cells with >1 encode call per seed.
+
+### Why the wart exists (the real reason — don't strip it blindly)
+The `del mdl` + `torch.cuda.empty_cache()` was a deliberate **GPU-OOM-management pattern** for pythia-2.8b in bf16 (~5.6GB on a 6.8GB runner cap; comment at line 140 documents the OOM-fix history). The surrounding code (e.g., `train_contrastive` doing a contrastive projection train step) needs GPU memory back between encode calls. Holding the 5.6GB model resident across the entire run would crash the train step.
+
+For CPU cells (most of n3-n10 / Path C) using pythia-160m (~330MB), the OOM concern is irrelevant → the wart is pure waste.
+
+### Recommended fix (template-level; benefits every downstream cell)
+Patch `encode()` in the canonical probe cell (then every cell that does `_p = __import__("...")` + `_p.ENCODER = ENCODER; encode = _p.encode` gets the fix on next dispatch). Module-level cache keyed on (ENCODER, dtype, device), plus an explicit release helper for the GPU-OOM cells:
+```python
+_ENCODER_CACHE = {}  # keyed on (ENCODER, ENC_DTYPE, DEV)
+
+def encode(texts):
+    key = (ENCODER, str(ENC_DTYPE), str(DEV))
+    if key not in _ENCODER_CACHE:
+        tok = AutoTokenizer.from_pretrained(ENCODER)
+        if tok.pad_token is None: tok.pad_token = tok.eos_token
+        mdl = AutoModel.from_pretrained(ENCODER, torch_dtype=ENC_DTYPE).to(DEV).eval()
+        _ENCODER_CACHE[key] = (tok, mdl)
+    tok, mdl = _ENCODER_CACHE[key]
+    out = []
+    for i in range(0, len(texts), 32):
+        t = tok(texts[i:i + 32], return_tensors="pt", padding=True, truncation=True, max_length=48).to(DEV)
+        with torch.no_grad(): h = mdl(**t).last_hidden_state
+        m = t["attention_mask"].unsqueeze(-1).float()
+        out.append(((h * m).sum(1) / m.sum(1).clamp(min=1)).float().cpu().numpy())
+    return np.concatenate(out, 0).astype(np.float32)
+
+def release_encoder_cache():
+    """Call between encode-and-other-GPU-work in tight-GPU-mem cells (pythia-2.8b bf16)."""
+    _ENCODER_CACHE.clear()
+    if DEV.type == "cuda":
+        import torch
+        torch.cuda.empty_cache()
+```
+Then in the pythia-2.8b GPU cells where memory is tight (whitening, dense-KV variants), call `release_encoder_cache()` AFTER all encodes are done for the seed AND BEFORE the train_contrastive step:
+```python
+K = encode(keys); Q = encode(cues)
+release_encoder_cache()         # free the 5.6GB before training
+W = train_contrastive(K[tr], Q[tr], PROJ_DIM, TRAIN_STEPS, seed)
+```
+
+### Caveats / pitfalls
+1. **Don't strip the GPU-cleanup without adding the release pattern** to the pythia-2.8b cells — you'd reintroduce the OOM that the original wart was solving. The fix is "cache by default, release explicitly," not "never cache."
+2. **The `ENC_DTYPE` global gets mutated by some cells** (e.g., the dense-KV calibration cell does `_probe.ENC_DTYPE = torch.float16` to match CERT591's referent). The cache key includes dtype, so this works correctly — a dtype change invalidates the cache automatically and triggers one re-load. Good.
+3. **The `ENCODER` global gets mutated too** (cells set `_p.ENCODER = "EleutherAI/pythia-160m"` etc. before calling encode). Same story — cache key includes ENCODER name, so switching models triggers a re-load. No correctness risk.
+4. **The cache survives across run_seed() calls within a single Python process**, which is exactly what we want: 5 seeds × 2 encode calls = 1 load instead of 10. Across separate dispatches (e.g., the runner spawning fresh `python ...` per cell) the cache is fresh per cell — no cross-cell contamination.
+5. **Token boundary cases**: `pad_token = eos_token` mutates the tokenizer; if a cell re-uses the same `_ENCODER_CACHE` entry across very different text styles, there's no issue (pad-token is a tokenizer-config setting, not state).
+
+### Where to land the fix
+Patch ONE file: `experiments/exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1.py` (lines 145-156). Add the release helper in the same file. Run the existing selftest first to confirm no behavioral drift, then dispatch a single representative cell (e.g., the next Path C / N2 / U1-v2 / phase_d_tier6 re-run) and confirm the runner log shows ONE "Loading weights" stanza for the whole 5-seed run instead of N.
+
+### Affected cells (cells importing this encode())
+Any cell with `_p = __import__("exp_flagship_sparse_projected_KV_PROBE_whiten_before_topk_v1")` + later `encode = _p.encode` (or similar). Confirmed users from this session: my eff-rank diagnostic, templated-vs-readable, the whitening cell, the dense-KV variants, the anisotropy-rescue 4-arm, the U1 design predecessors. n3-n10 / Path C cells Research mentioned almost certainly do the same import.
+
+### Cost-benefit summary for Research's decision
+- Patch effort: ~10 lines + 1 selftest re-run + 1 representative-cell sanity dispatch (~20 min total).
+- Per-cell savings: ~2 min/cell on multi-call-per-seed cells, less on single-call-per-seed.
+- Cumulative savings: matches Research's ~7.5min/session estimate; scales with future cells.
+- Risk: low; the cache is keyed correctly and the release-helper preserves the GPU-OOM pattern for the cells that need it.
+
+**Recommendation: ship the patch.** Low-risk, durable improvement to the template that compounds with every future cell.
+
+---
+
+**End of handoff (post-STANDSTILL post-migration, ferry-response added). The fresh exp_dev teammate should treat this as a continuation seed; the live fleet state is in `fleet_waiting_on.md` + recent `notes/research_*`. Sections 7-9 remain the load-bearing role-knowledge / cell-design content; section 10 is the post-migration delta layer; the ferry-response section is durable infra-improvement input for Research.**
