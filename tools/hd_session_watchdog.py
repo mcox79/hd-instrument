@@ -33,6 +33,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -45,6 +46,23 @@ DEFAULT_POLL_SEC = 60       # check cadence
 DEFAULT_STALE_THRESHOLD_SEC = 1200  # 20 min stale -> ping (2026-06-20: bumped 10->20min)
 DEFAULT_DEAD_THRESHOLD_SEC = 3000  # 50 min stale -> mark dead + alert
 PING_COOLDOWN_SEC = 600     # don't re-ping the same session more often than every 10 min
+
+# Inbox-seed filtering (Testbed infra-fix 2026-06-22; per USER no-inter-session-routing rule).
+# `_recent_inbox_for` used to surface stale 3-day-old ferry/dashboard/landed-vet notes as
+# "pending work" -- noise under the no-ferry rule (feedback memory
+# feedback_no_inter_session_routing_notes_deprecate_ferry_mechanism_USER_2026-06-22).
+# Filter applies to the inbox-seed block ONLY; the heartbeat-stale ping itself still fires
+# (the genuinely-silent signal is load-bearing per session-hardening Phase 1+2).
+INBOX_MAX_AGE_SEC = 24 * 3600   # drop notes older than 24h
+INBOX_DEPRECATED_PATTERNS = (
+    re.compile(r'_to_[a-z_]+_ferry_', re.I),       # _to_<session>_ferry_* (deprecated routing)
+    re.compile(r'^ferry_request_', re.I),           # ferry_request_* (deprecated mechanism)
+    re.compile(r'_landed_vet_', re.I),              # LANDED_VET cert-trail (not action)
+    re.compile(r'_dashboard_', re.I),               # DASHBOARD historical (not action)
+    re.compile(r'_blocker_ping_\d+_clear', re.I),   # blocker_ping_<N>_CLEAR (already resolved)
+    re.compile(r'_resolved_', re.I),                # explicit resolution marker
+    re.compile(r'_processed_', re.I),               # explicit processed marker
+)
 
 # Per-session stale-threshold overrides (P2 streamline; 2026-06-21).
 # Skunkworks requested 60min: legit-reactive cert-owner waits multi-hour on cell-lands;
@@ -123,16 +141,30 @@ def session_last_activity(session: str) -> Optional[float]:
     return latest if latest > 0 else None
 
 
-def _recent_inbox_for(session: str, max_items: int = 5) -> list:
+def _recent_inbox_for(session: str, max_items: int = 5,
+                      max_age_sec: int = INBOX_MAX_AGE_SEC,
+                      now: Optional[float] = None) -> list:
     """Return up to max_items recent note filenames addressed to this session.
 
-    Match criteria: filename contains '_to_<session>_' OR starts with anything-and-ends in
-    '_to_all_*.md' OR contains '_<session>_' (excluding own outgoing). Used to seed the ping
-    body with concrete pending work so the session has something specific to do on wake.
+    Match criteria: filename contains '_to_<session>_' OR contains '_to_all_' / '_cc_all_'
+    broadcast tokens (excluding own outgoing). Used to seed the ping body with concrete
+    pending work so the session has something specific to do on wake.
+
+    Filters (Testbed 2026-06-22):
+      1. Drop notes older than max_age_sec (default 24h) -- if unprocessed in 24h+,
+         the note has aged out of "actionable inbox" definitionally.
+      2. Drop notes matching INBOX_DEPRECATED_PATTERNS (ferry/LANDED_VET/DASHBOARD/etc.)
+         per the no-inter-session-routing rule
+         (feedback_no_inter_session_routing_notes_deprecate_ferry_mechanism_USER_2026-06-22).
+      3. Drop the loose '_<session>_' substring-match (was catching legacy multi-target
+         notes like `testbed_to_research_skunkworks_*` for ALL three sessions); narrow
+         to explicit `_to_<session>_` or broadcast tokens.
     """
     candidates = []
     sess_lower = session.lower()
     own_prefix = f'{sess_lower}_'
+    now_ts = time.time() if now is None else now
+    age_floor = now_ts - max_age_sec
     try:
         with os.scandir(NOTES_DIR) as it:
             for entry in it:
@@ -144,15 +176,23 @@ def _recent_inbox_for(session: str, max_items: int = 5) -> list:
                 # Skip watchdog own-broadcasts to keep the list signal-y
                 if name_lower.startswith('watchdog_ping_to_'):
                     continue
+                # Drop deprecated patterns (ferry/LANDED_VET/DASHBOARD/resolved/processed).
+                if any(p.search(name_lower) for p in INBOX_DEPRECATED_PATTERNS):
+                    continue
+                # Narrow addressed-match: explicit _to_<session>_ or broadcast token only.
+                # The prior loose `_{sess_lower}_` substring caught multi-target legacy
+                # notes for every named session simultaneously.
                 addressed = (f'_to_{sess_lower}_' in name_lower
-                             or f'_{sess_lower}_' in name_lower
                              or '_to_all_' in name_lower
-                             or '_all_' in name_lower)
+                             or '_cc_all_' in name_lower)
                 if not addressed:
                     continue
                 try:
                     mtime = entry.stat().st_mtime
                 except OSError:
+                    continue
+                # Drop notes older than the 24h freshness floor.
+                if mtime < age_floor:
                     continue
                 candidates.append((mtime, entry.name))
     except OSError:
