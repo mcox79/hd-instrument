@@ -17,7 +17,7 @@
 
 ## TIER 1: In-flight (do not re-spawn; reactive on landing)
 
-- [BG] **c3 compressed sequence replay cell** (just fired 2026-06-22; agent a39b1a8c; ~5min remote_cpu wall; P=0.55; HARD_PASS depth-5 recall ≥0.80 + delta ≥0.50; substrate-only-decode gate; 4 arms NONE/COMPRESSED/UNORDERED/ONLINE_NO_GAP)
+- [BG] **c3 compressed sequence replay cell** RUNNING on cpu_runner_0 remote_cpu (~4.5min wall; ~252s full-grid 3 seeds); cell commit a27939c5; cert-trail c6a2ac5e; **smoke + full-config single-seed timing-run BOTH HARD_PASS** at every depth [1,3,5,7,10] with B=1.0 / A=0.0 / C=0.125→0.0 / D=1.0 / delta=1.0 / order_delta=1.0 / W_unchanged_by_sleep=True / n_llm=0; **Director cross-check (Fix #18) VERIFIED** independently from metrics.json; **honest-scope MAJOR finding: D≈B because software has NO Hebbian temporal window** → META atom proposal drafted (`notes/c3_honest_scope_software_has_no_hebbian_window_META_proposal_2026-06-22.md`); cert-grade verdict locks on 3-seed mean (in flight)
 - [BG] n4 k-WTA-VQ cell (biological sparsity; brain-drill recommendation) — remote_cpu smoke + full
 - [BG] Path A V_C=4096 frontier cell — remote_cpu full (~7.5h projected)
 - [BG] WikiText-103 ingest cell (n6) — remote_cpu smoke
@@ -69,6 +69,7 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 c3 cell DISPATCHED + smoke/timing HARD_PASS + Director cross-check (Fix #18) VERIFIED + honest-scope META proposal drafted: A=0.0/B=1.0/C=0.0/D=1.0 across all depths; delta=1.0, order_delta=1.0, W_unchanged_by_sleep=True, n_llm=0; the substrate-side architectural win is the SEPARATE S MATRIX (offline-pass + ordered-pair + W-vs-S separation); biological-compression-arm discriminator is NULL in software (D=B at full precision); META atom proposal `META_software_substrate_no_hebbian_window_sequence_binding_is_architecture_not_timing` queued for next-cycle SCHEMA-VET. Cell commit a27939c5; cert-trail c6a2ac5e; 3-seed full-land in flight on cpu_runner_0 (~4.5min wall)
 - 2026-06-22 p1 action-at-any-position phase-diagram cell pre-reg DRAFT SHIPPED (USER-directed lane sub-item (c)): 3 (P_0, P_1) pairs × 4 arms; HARD_PASS ratio ≥0.80 ALL pairs + blank-floor ≤0.10 + substrate-only-decode; K=200 / 3 seeds / ~6-10min remote_cpu; P=0.45; SCHEMA-VET + dispatch deferred to next cycle (Fix #14 budget already at 1 spawn this cycle)
 - 2026-06-22 MEMORY.md curated mid-session (Fix #19): 29.4KB → 18.9KB (-36%); 58 → 15 lines over 250-char ceiling; CURRENT STATE block refreshed to 2026-06-22; Fix #15 marked DEPRECATED; phase-diagram lane pointer added under ACTIVE PROGRAM
 - 2026-06-22 c3 cell-author spawn FIRED (Fix #14 spawn #1 of continuation cycle; brain-drill #5 recommendation; hdi_exp_dev agent a39b1a8c background; P=0.55, ~5min remote_cpu projected; pre-reg HARD_PASS depth-5 sequence_recall ≥0.80 + delta ≥0.50)
