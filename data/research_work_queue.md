@@ -30,7 +30,8 @@
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
-- [QUEUE-NEXT-CYCLE] **g1 substrate sequence generation cell** — brain-drill #4 recommendation (`notes/research_brain_generation_cerebellar_forward_prediction_5x_drill_2026-06-22.md`); Karuvally-Sejnowski temporally-asymmetric Hebbian + Langevin sampling + HVC clock-binding; pre-reg HARD_PASS trajectory_coherence(T=8) ≥ 0.60 + novelty ≥ 1.5x + refuse_OOD ≥ 0.90; ~90min remote_cpu; P=0.45; deferred this cycle per Fix #14 budget (3 already fired); fire next cycle bundled with Skunkworks landed-VETs
+- [QUEUE-NEXT-CYCLE-FIRST] **c3 compressed sequence replay cell** — brain-drill #5 recommendation; substrate's missing sequence-binding primitive (S matrix via offline ordered-pair Hebbian k_{t-1}⊗k_t); 4 arms NONE/COMPRESSED/UNORDERED/ONLINE_NO_GAP; ~5min remote_cpu; **P=0.55 (NOT novel-synthesis-capped)** — direct extension of validated outer-product Hebbian; HARD_PASS depth-5 sequence_recall ≥0.80 + delta ≥0.50; SHIPS THE S MATRIX needed by g1 generation
+- [QUEUE-NEXT-CYCLE-SECOND] **g1 substrate sequence generation cell** — brain-drill #4 recommendation; uses c3's S matrix as autoregressive engine; Karuvally-Sejnowski temporally-asymmetric Hebbian + Langevin sampling + HVC clock-binding; pre-reg HARD_PASS trajectory_coherence(T=8) ≥0.60 + novelty ≥1.5x + refuse_OOD ≥0.90; ~90min remote_cpu; P=0.45; gated on c3 land (c3 ships the substrate; g1 USES it)
 - [QUEUE] **Phase D cert_ledger extension** — FIRED this cycle (hdi_skunkworks; ~2-3hr in flight)
 - [QUEUE] SVAMP Candidate D — joint pair+op training (~3-4hr cell-author + new training-data generation; rescue after Candidate A HARD_FAILed; SCHEMA-VET needed)
 - [QUEUE] Back-port proper uniform-fallback to N1/N2 family cells (Fix #6 audit; non-urgent; old cells OK in full)
@@ -61,6 +62,7 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 Brain-drill #5 LANDED (hippocampal SWR + sleep replay): substrate's MISSING primitive is SEQUENCE-BINDING (not capacity); c3 cell pre-reg P=0.55 (~5min remote_cpu); compressed-time replay ~20x is the load-bearing novel finding; c3 ships S matrix needed by g1; c3+drill #1 kWTA may jointly close bigram gap
 - 2026-06-22 Brain-drill #4 LANDED (cerebellar forward-prediction / generation): substrate-native generation feasible via Karuvally-Sejnowski Long-Sequence-Hopfield + Langevin sampling + HVC clock-binding; g1 cell pre-reg P=0.45; substrate L5 MOAT = generation without context window + refusal-gated per step; 4-drill convergence = substrate STRUCTURALLY aligned with biology at every brain-mechanism level
 - 2026-06-22 Master plan SHIPPED (commit 08ac4e65; durable L1-L5 strategic plan; composes with work queue + plan.json + waiting_on)
 - 2026-06-22 Fixes #14-19 banked + tools/queue_status.py infra + ferry-requests filed (Fix #15)
