@@ -38,9 +38,9 @@
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
 ### Substrate-code-update queue (per capability-gap audit 2026-06-22; one hdlab/ module per cycle)
-- [QUEUE-NEXT-CYCLE] `hdlab/kg_traversal.py` — two-hop / n-hop substrate-native KG traversal (n8 CERT 585 mechanism made callable); HIGH leverage
-- [QUEUE] `hdlab/refuse_gate.py` — OOD rejection primitive; HIGH leverage (load-bearing for every ingest cell)
-- [QUEUE] `hdlab/iterative_cleanup.py` — r1 multi-hop chain-of-thought; HIGH leverage (substrate-native CoT)
+- ✅ [SHIPPED 2026-06-22 commit 03f42ffc] `hdlab/kg_traversal.py` — KGStore with two-hop / n-hop substrate-native KG traversal + ingest_triples + refuse_gate_calibrate; smoke green (multi-value retrieval + 2-hop chain + n-hop generalization + refuse-gate)
+- ✅ [SHIPPED 2026-06-22] `hdlab/multi_hop.py` — naive_chain + iter_cleanup_chain (Modern-Hopfield) + random_cleanup_chain discriminator; smoke green (cleanup picks chain-correct entity 21; random_cleanup picks junk 33 — discriminator works)
+- [QUEUE] `hdlab/refuse_gate.py` standalone — OOD rejection primitive extracted from KGStore.refuse_gate_calibrate; would make refuse-gate callable on any (E, R, W) trio outside the KGStore class
 - [QUEUE] `hdlab/whitening.py` — encoder-residual whitening (4 chain-grade atoms); MEDIUM-HIGH leverage
 - [QUEUE] `hdlab/learned_projection.py` — KV learned projection (HARD_PASS anchor); MEDIUM
 - [QUEUE] `hdlab/continual_ingest.py` — a8 α=0.5 NEVER-FORGETS pattern; MEDIUM
