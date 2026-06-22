@@ -30,9 +30,10 @@
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
-- [QUEUE] SVAMP Candidate D — joint pair+op training (~3-4hr cell-author + new training-data generation; the diagnosis-confirmed rescue after Candidate A HARD_FAILed; requires SCHEMA-VET on training-data design before authoring)
-- [QUEUE] Back-port proper uniform-fallback to N1/N2 family cells (Fix #6 audit recommendation; non-urgent; old cells OK in full)
-- [QUEUE] MEMORY.md curation (overweight 31.6KB+; CURRENT STATE block 2 days stale; compress + update)
+- [QUEUE] **Phase D cert_ledger extension** — project portfolio_state PP-rows + HP-cells into cert_ledger with own atom-id namespace; window-2 finding revealed pre-CERT-NNN-convention cert events not in cell-atom Store (COMP-DEPTH cliff / WAVES 1-4 / k-gram-XOR / theta-burst / abduction-kernel); Director-to-USER scope decision before authoring
+- [QUEUE] SVAMP Candidate D — joint pair+op training (~3-4hr cell-author + new training-data generation; rescue after Candidate A HARD_FAILed; SCHEMA-VET needed)
+- [QUEUE] Back-port proper uniform-fallback to N1/N2 family cells (Fix #6 audit; non-urgent; old cells OK in full)
+- [QUEUE] MEMORY.md curation (overweight 31.6KB+; CURRENT STATE block stale; compress + update)
 - [QUEUE] Brain-drill #2: CLS continual learning (CLS theory + sleep replay + synaptic consolidation; ~30-60min research)
 - [QUEUE] Brain-drill #3: multi-hop / working memory (prefrontal + entorhinal + planning circuits; informs U1 v2 extension to 3+ hops)
 - [QUEUE] Phase A reconcile-cert-N mismatch audit (595 vs 583 chain_grade classification-logic; 12-atom delta)
