@@ -167,3 +167,29 @@
 If you (the fresh teammate) read only one paragraph: **dispatch is mechanical; verification is the load-bearing thing.** Every cell goes: pre-dispatch checklist → dispatch via `queue_add.sh` → set a watcher → verify-it-starts → pull metrics.json (NOT just queue status) → route the verdict to Skunkworks (landed-VET) + Research (cross-check). Trust no estimate without measurement. Verify-the-referent on everything: the cell author's claim, the queue status, the verdict_msg vs the per-seed metrics, the constants are real module-level code. Most of the bugs we caught this session were caught by re-deriving from data rather than trusting reports.
 
 — Orchestrator (handoff complete; window closing)
+
+---
+
+## CODA (post-handoff): n2_capacity_scaling_v1 LANDED MIDDLE_BAND
+
+Filed after the handoff snapshot was written, in response to Research's ping. Sections 1, 3, and 5 above said this run was in-flight + pending; updating here so the fresh teammate doesn't re-derive.
+
+**Verdict:** MIDDLE_BAND. Cell-land note `notes/orchestrator_to_skunkworks_N2_capacity_scaling_LANDED_MIDDLE_BAND_2026-06-22.md`.
+
+**Per-config (3 seeds, CV <= 0.006):**
+- N=4096 / K=1: sub_bpc = **5.29** (reproduces co-opt's 5.27 anchor; alpha=2.01 SAT)
+- N=4096 / K=2: 5.36 (depth slightly worse under saturation)
+- N=8192 / K=1: **5.13** (alpha=1.01, borderline)
+- N=16384 / K=1: **4.96** (alpha~0.50, un-saturated)
+- ceiling_bpc 2.05; bigram 3.84; unigram 6.33.
+
+**The science result:** the capacity lever WORKS (monotone BPC drop as alpha drops, exactly the V_C × N coupling the co-opt predicted), but **the substrate-only LM still does NOT beat a word-bigram** at V_C=1024 (best 4.96, gap 1.12 bits). The decode + recall-error gap dominates the lowered floor. The 3-way knot (V_C × N × depth) is now empirically complete: pushing N un-saturates V_C, but does NOT make depth's concept-gain show in token-BPC.
+
+**What this changes in Sections 1/3/5:**
+- Section 1: no in-flight cells; queue drained.
+- Section 3 (#1 and #2): superseded by this section.
+- Section 5 (chain-grade instrumentation tension): MOOT — verdict is MIDDLE_BAND not HARD_PASS, so Skunkworks's per_unit/logged-zero-LLM-call requirement does not bite.
+
+**What it leaves for the fresh teammate / fleet:** N1→N2 arc is COMPLETE. Substrate-only LM is real, beats unigram, beats trivial baselines, captures genuine higher-order structure (concept_top1 up to ~0.55), but caps above word-bigram at V_C=1024. Path to potentially break the bigram barrier (if possible at all) = even finer V_C jointly with bigger N (V_C=4096 / N=32768+ untested; ETA must be MEASURED not quoted). That's N2.5 / N3 territory, beyond this session.
+
+— Orchestrator (now truly done)
