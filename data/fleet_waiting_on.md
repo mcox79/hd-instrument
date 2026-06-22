@@ -100,16 +100,18 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
-**Last-updated:** 2026-06-22T06:26:00Z (HumanEval Anchor-1 stdlib-class split: smoke done; FULL running on local_cpu_queue)
+**Last-updated:** 2026-06-22T07:10:00Z (n10 whitening-projection revival cell-author in-flight; 2nd field-test of Fix #11 pipeline-template)
 
 ### Waiting on
+- [from=runner] [type=cell_land] [filed=2026-06-22T07:10Z] : exp_n10_whitening_projection_revival_v1 (smoke->FULL; 3x revival of Path C ARM A; ZCA-whiten contrastive-projected keys; pre-reg HARD_PASS arm B>=0.35 at M=10k sig=0.1 AND proj_recall_sanity>=0.15; 4-arm A/B/C/D; pythia-160m; 3 seeds; wall 7200-10800s per TODO #8)
 - [from=runner] [type=cell_land] [filed=2026-06-22T06:26Z] : humaneval_stdlib_split_qwen_v1 (FULL 164 problems x 2 arms on local_cpu_queue, ~3.0h ETA, timeout 14400s) -> verify Class A gain_A vs +15/+5 pre-reg bands + discriminating-regime Class B gain
 - [from=runner] [type=cell_land] [filed=2026-06-22T05:35Z] : n8_conceptnet_ingest_eval_v1 (FULL 3-seed at remote_cpu_queue, timeout 3600s) -> verify HARD_PASS bands incl. OPEN-C frozen-encoder >=2x ratio
 - [from=runner] [type=cell_land] [filed=2026-06-22T05:28Z] : n6_wikitext103 + n7_arxiv_abstracts SMOKE lands on remote_cpu_queue -> verify provenance-real + bigram baselines + walls; gate FULL dispatch on smoke-clean
 - [from=skunkworks] [type=schema_vet] : prior open VETs (U1 OPEN A-E etc.) -- still routed/ratified per arc; no NEW wait from this turn
 
 ### In flight
-- HumanEval Anchor-1 stdlib-class split (Research scope-drill 2026-06-22): authored exp_humaneval_stdlib_split_qwen_v1.py (commits efee2da3 + 47505370 + b9e4cdf0); pre-reg gain_A >= +15 (scope-drill hardened over 2026-06-07 +10); substrate-as-tool-for-LLM pattern (substrate_native=False; substrate_role=prompt_augmentation); 39-snippet stdlib doc index via MiniLM cosine; Qwen-1.5B-Instruct CPU fp32. Smoke (n=10) finished 657s (gain_A=0; tiny-sample artifact + caught typing-import extract bug; FIXED). FULL 164*2 ETA ~3.0h on local_cpu_queue (status=running).
+- n10 whitening-projection revival (Skunkworks #1 revival from n9 landed-VET 2026-06-22; eff-rank raising at projection step BEFORE encoder upgrade): authoring exp_n10_whitening_projection_revival_v1.py from n9 base + ZCA-whitening over CERT591-style contrastive projection. 4 arms: A=un-white argmax anchor, B=ZCA-white argmax rescue, C=un-white SMH cross-cell anchor, D=ZCA-white-then-random-rotation control. Pre-reg HARD_PASS B>=0.35 AND sanity>=0.15; HARD_FAIL <0.10 OR sanity<0.05. eff_rank BEFORE/AFTER whitening logged as load-bearing diagnostic. Applies Fix #11 TODO #6 (in-cell smoke detect), #8 (conservative wall), #9 (atexit synthesize). Second field-test of patched template.
+- HumanEval Anchor-1 stdlib-class split (Research scope-drill 2026-06-22): authored exp_humaneval_stdlib_split_qwen_v1.py; FULL 164*2 ETA ~3.0h on local_cpu_queue (status=running).
 - N8 ConceptNet ingest-eval prior dispatch on remote_cpu_queue (still pending).
 - Tier-2 n6 WikiText-103 + n7 arxiv-abstracts smokes on remote_cpu_queue.
 
