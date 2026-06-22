@@ -708,6 +708,22 @@ The pipeline agent does NOT call ScheduleWakeup under any circumstances.
   overnight_queue (GPU) depending on cell wall-time.
 - Template currently uses the same {{QUEUE_TARGET}} for both. Consider splitting into
   {{SMOKE_QUEUE}} + {{FULL_QUEUE}} params on the next revision.
+- **FIELD-TEST FINDING #1 (n9_smh, 2026-06-22; CONFIRMED FAILURE MODE):** The
+  `queue_add.sh ... -- HDLAB_RUN_MODE=smoke` env-after-separator pattern does NOT
+  honor the smoke flag through to the runner -- the queue entry's name carried the
+  `_smoke` suffix but the runner ignored it and ran full mode. n9's metrics.json
+  top-level `run_mode = "full"` AND per_seed `run_mode = "full"` confirm full-scale
+  config_version executed despite the `_smoke` queue entry name.
+- WORKAROUND (until fixed): bake smoke detection into the cell itself (e.g., parse
+  the queue entry name from an env var the runner sets, or read the `_smoke` substring
+  from `os.environ.get("HDLAB_QUEUE_ENTRY_NAME","")` and override at module top).
+- Until the env-passthrough is fixed, the Section 4 Fix #5 `run_mode == "smoke"` gate
+  will fire as a FAIL on smokes that quietly ran full -- which (a) IS what the gate
+  is supposed to catch and (b) means the smoke results are USABLE as proven-bound
+  data IF the disposition is clearly HARD_FAIL or HARD_PASS by a wide margin (the
+  n9 case: 0.0194 vs HARD_FAIL bar 0.35; gap so wide that smoke-vs-full distinction
+  is moot). When near-band, the next dispatch must re-run with explicit cell-side
+  smoke detection.
 
 ### TODO #7: per-seed checkpoint timing for the near-full-scale measurement (Fix #3)
 - Current Section 1e uses smoke (--smoke flag) as a proxy for near-full-scale.
@@ -716,6 +732,63 @@ The pipeline agent does NOT call ScheduleWakeup under any circumstances.
 - Better: run a SINGLE SEED at full N_DIM but only 1 config arm (not the full k-grid).
   This requires a new CLI flag (--single-seed-timing) or a manual env override.
   First use of this template should validate the measurement approach.
+- **FIELD-TEST FINDING #2 (n9_smh, 2026-06-22; UNRELIABLE DRILL ESTIMATE):** Drill
+  pre-reg estimated 5-15 min per seed; actual was ~22 min/seed (encoding-dominant
+  with pythia-160m on local CPU). Drill-estimated runtimes derived from
+  pre-cell-authorship modeling are NOT a substitute for measurement. REQUIREMENT for
+  cells with encoder forward-pass dominated walls: cell-author MUST measure per-seed
+  wall at near-full-scale (the Section 1e instruction) BEFORE the drill estimate is
+  treated as the budget. Drill estimate is the FLOOR; measured timing is the cap.
+
+### TODO #8: Conservative wall-budget for encoding-dominant cells
+- **FIELD-TEST FINDING #3 (n9_smh, 2026-06-22; WALL OVERRUN):** 3600s wall budget
+  (the queue_add.sh default for cells expected at ~5-15 min/seed * 3 seeds) was
+  insufficient: 2 of 3 seeds completed (s7+s17 at ~22min each = 44min total) and
+  seed 23 timed out mid-encoding at 3600s. The per-seed checkpoint discipline
+  (`experiments/_seed_checkpoint.py`) PRESERVED s7+s17 partials so the verdict was
+  derivable from 2 seeds (cv=0.0979 at discriminator), but a less wide-margin
+  disposition would have been unsalvageable.
+- RECOMMENDATION (for encoding-dominant cells; pythia-160m+ encoder, M>=10k):
+  set wall budget to 7200-10800s (2-3x the 3600s default), or compute it as
+  `n_seeds * max(measured_per_seed_wall, 1500s) * 1.5` (with a 50% safety margin).
+- Section 1e MUST measure per-seed wall before Section 2 dispatch; the measurement
+  feeds Section 5 wall-budget directly.
+
+### TODO #9: write_metrics() must fire on timeout (synthesize from partials)
+- **FIELD-TEST FINDING #4 (n9_smh, 2026-06-22; PARTIAL-METRICS-RECOVERY GAP):** The
+  cell's write_metrics() did NOT fire on the 3600s wall timeout -- partials s7+s17
+  were saved by per-seed checkpoint but the main metrics.json was NOT written by
+  the cell's normal exit path (the runner timeout SIGKILLed before write_metrics
+  could synthesize the aggregate). The n9 metrics.json that landed WAS synthesized
+  from partials by an external recovery step (cell-author manual or runner cleanup),
+  but the cell itself did NOT have a "if timeout-imminent: synthesize metrics.json
+  from per_seed inline before exit" pattern.
+- RECOMMENDATION (BAKE INTO cell-authorship Section 1a): every cell with per-seed
+  checkpoint should also have a timeout-guard pattern:
+  ```python
+  import signal, atexit
+  def _synthesize_on_exit():
+      if not _METRICS_WRITTEN[0]:
+          # Read all per_seed partials from data/exp_<name>/_partial_s*.json
+          # Synthesize the aggregate + write metrics.json
+          # Mark verdict = "TIMEOUT_PARTIAL" or "FULL_PARTIAL_NSEEDS_<N>"
+          ...
+  atexit.register(_synthesize_on_exit)
+  signal.signal(signal.SIGTERM, lambda *a: (_synthesize_on_exit(), sys.exit(143)))
+  ```
+- This pattern ensures the cert-owner has a valid metrics.json to verify-off-DATA
+  even when the runner timeout SIGKILLs the cell.
+
+### TODO #10: Push harness-DENIED handoff (sibling of TODO #4)
+- **FIELD-TEST FINDING #5 (n9_smh, 2026-06-22; KNOWN + HANDLED):** Push to origin/main
+  was harness-DENIED to the pipeline-agent (exp_dev flavor). Cell-author routed the
+  commit hash to Orchestrator who pushed + dispatched. Round-trip was acceptable;
+  the agent flavors that CAN push (orchestrator, hd_metrics_sync) are clearly
+  scoped. The template's "route to Orchestrator" instruction is correct and
+  already-handled in production. No template patch needed here; FINDING IS A
+  CONFIRMATION that the template's existing instruction works as designed. Keep
+  TODO #4 open as a separate concern (the protocol-level question of WHO can push
+  in the multi-agent fleet is independent of the template).
 
 ---
 
@@ -752,3 +825,44 @@ Estimated savings: 50-70% token reduction + eliminates main-thread tie-up for 4-
 *Template v1.0 — first 2-3 uses will discover edge cases (see TODOs above). After each
 use, append a brief post-mortem section to this file documenting what worked, what failed,
 and which TODO items need addressing. Treat the TODOs as the template's open-loop backlog.*
+
+---
+
+## POST-MORTEM: First Use (n9_smh_sparsemax_decode_v1, 2026-06-22)
+
+**Cell:** exp_n9_smh_sparsemax_decode_v1 (commit 2f765150); Path C ARM A 2x-revival #1
+**Disposition:** HONEST_NEGATIVE (HARD_FAIL by wide margin; pre_reg_miss_proven_bound)
+**Outcome:** SUCCESSFUL pipeline-agent run despite a 2-of-3-seed timeout; cert-owner
+ratified HONEST_NEGATIVE off DATA; META storage-chain atom #3 landed CERT-neutral.
+
+### What worked
+- Section 1a baked-in patterns (per-seed checkpoint, zero_llm_calls_at_inference,
+  CONFIG_VERSION) all fired correctly — s23 timeout was salvaged via per_unit
+  checkpoint preservation
+- Section 4 + 7 Fix #5 run_mode check caught the queue-entry-name-vs-runner-mode
+  mismatch (this WAS the catch; finding #1 promoted to TODO #6 patch)
+- Section 7 verify-off-DATA re-derivation discipline reproduced every cited number
+  exactly (no miscites; SMH/dense Hopfield identical to 4 decimals on all cells)
+- Section 9 completion note format (no `to_<role>_` prefix, ≤120 chars) honored
+- Section 10 plain-English-first reply contract honored
+- A5-gate atomize handoff to Skunkworks worked cleanly (cell-author built the row
+  payload; Skunkworks ran the A5 window via skunkworks_atomize_*.py pattern;
+  PRE/POST CERT 584 unchanged; +2 atoms — n9 cell record + META storage-chain item)
+
+### What failed (now patched as TODO updates)
+1. queue_add.sh `--` env-after-separator `HDLAB_RUN_MODE=smoke` ignored by runner
+   (TODO #6 finding #1)
+2. Drill per-seed estimate (5-15min) underestimated actual (~22min/seed) (TODO #7
+   finding #2)
+3. 3600s wall budget too tight for 3 seeds at ~22min each (TODO #8 finding #3)
+4. write_metrics() did NOT fire on SIGKILL timeout — partials saved, aggregate
+   recovered externally (TODO #9 finding #4)
+5. Push harness-DENIED handled correctly via Orchestrator route (TODO #10 finding
+   #5; CONFIRMATION not failure)
+
+### TODOs added for next revision
+- TODO #6: smoke-flag passthrough workaround (in-cell name-detection)
+- TODO #7: drill estimate is FLOOR, measured timing is CAP
+- TODO #8: conservative wall budget for encoding-dominant cells (2-3x default)
+- TODO #9: atexit/SIGTERM synthesize-metrics-from-partials pattern
+- TODO #10: confirmation of push-harness-DENIED handoff working as designed
