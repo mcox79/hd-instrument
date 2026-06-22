@@ -31,7 +31,7 @@
 | Capability | Status | Path |
 |---|---|---|
 | Substrate-native chain-of-thought (multi-hop reasoning) | r1 MM LANDED chain-grade; r1b HARD_FAIL post-VET; **r2 successor-W + TEM compound HARD_FAIL 2026-06-22 with partial-positive**: TEM compound-margin = 1.13-1.17× per-hop refuse-gate consistent K=2,3,4,10 (target 2.0×); SR closure WORSE than anchor (noise compounds through W^k in 50k-triple KG); MEASURED_MECHANISM atom candidate. 2x revival drill in flight. | LIVE 2x REVIVAL — multi-hop chain-grade-promotion structurally hard |
-| Continual learning without retraining | c1 partial (NEVER FORGETS at α=0.5; substrate-favorable); c1 full HARD_FAIL post-VET; c2 cascade-STC-SWR running on remote_cpu (brain-drill #2 5x DEEPER mechanism; landing pending) | LIVE c2 landing |
+| Continual learning without retraining | c1 partial chain-grade (NEVER FORGETS at α=0.5; substrate-favorable); c1 full HARD_FAIL post-VET; **c2 cascade-STC-SWR HARNESS_TIMEOUT 2026-06-22** (wall=9000s 2.5hr; mechanism too slow at N=4096 J=12 α=3.0; post-mortem + Option A+C re-author spec at `notes/c2_cascade_stc_swr_timeout_postmortem_and_reauthor_spec_2026-06-22.md`) | NEEDS c2-v2 re-author (N=2048 + drop NO_REPLAY arm; ~60-75min remote_cpu) |
 | Multi-value KG ingest + refuse-gate | U1 chain-grade (CERT 584) | LANDED |
 | ConceptNet KG chain-grade #2 (OPEN-C unlock) | **CERT 585 chain-grade** (n8; 36.5x vs frozen-encoder; setrecall=1.000) | CHAIN-GRADE |
 | HotpotQA multi-hop Wikipedia KG chain-grade #3 | **CERT 588 chain-grade** (h_hotpotqa; 892× vs 1-hop, 24× vs frozen-encoder; cross-domain) | CHAIN-GRADE |
@@ -85,9 +85,15 @@
 - c2 cascade-STC-SWR continual learning (remote_cpu; brain-drill #2 5x DEEPER mechanism)
 - substrate_self_map_v2c full-Store ingest (remote_cpu; USER strategic vision Phase 1 — full ~28k atoms + ~200k relations ingest; cluster only chain-grade anchors but let them traverse the full substrate graph)
 
-Recently LANDED (this cycle): CERT 589 p1 phase-diagram + CERT 590 p1 v2 LLM-class implicit-W (algorithmic precondition: at N=65536, explicit (N,N)=17GB exceeds 4060 Ti 8GB VRAM) + 8/8 hdlab/ primitives (closed with refuse_gate + conformal) + v2b MIDDLE_BAND + modern_hopfield_xl HARD_FAIL (LLM-class no-cliff finding; revival at N=2048 OR Sparse Modern Hopfield queued).
+Recently LANDED (this cycle): CERT 589 p1 phase-diagram + CERT 590 p1 v2 LLM-class implicit-W + 8/8 hdlab/ primitives + v2b MIDDLE_BAND + modern_hopfield_xl HARD_FAIL (no-cliff finding; Skunkworks REJECTED Director's atomization framing — per-arm metrics show modern collapsed, classical didn't; 0.14·N wrong referent for high-SNR cleanup) + r2 HARD_FAIL with TEM compound partial-positive 1.13-1.17× (revival drill delivered + r2c conformal-Fisher cell dispatched) + c2 HARNESS_TIMEOUT (re-author spec ready).
 
-Revival queue (route-negatives discipline): r2 successor-W + modern_hopfield N=2048 + Path A revival + n10 whitening revival + MedQA v2 (learned projection) + n5 V_C=4096 frontier revival.
+Revival queue (route-negatives discipline; designed + ready to dispatch when capacity opens):
+- **r2c conformal-Fisher LLR aggregator** (in flight remote_cpu; ~20-30min) — addresses calibration-stack gap from r2 1.13× → 2.0× target
+- **c2-v2** (Option A+C: N=2048 + drop NO_REPLAY; ~60-75min remote_cpu) — re-author of timed-out c2
+- **substrate_native_qa_hotpotqa_v1** (designed `notes/substrate_native_qa_hotpotqa_generation_v1_design_2026-06-22.md`; ~30-60min GPU) — composes g1b generation × h_hotpotqa KG into substrate-native QA on real benchmark
+- **substrate_as_llm_scaling_million_facts_v1** (designed `notes/substrate_as_llm_scaling_million_facts_v1_design_2026-06-22.md`; ~20-30min GPU) — 10× lift over 600K @ N=2048 baseline toward USER 100M-facts target
+- **Phase 2 autoatom** (designed `notes/substrate_self_improvement_phase_2_autoatom_design_2026-06-22.md`; gated on v2c HARD_PASS or MIDDLE_BAND)
+- modern_hopfield N=2048 revival, Path A revival, n10 whitening revival, MedQA v2 — deferred per L1 capability-dev priority
 
 ## Decision-point cadence
 
