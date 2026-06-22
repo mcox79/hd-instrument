@@ -1,0 +1,141 @@
+{
+  "anchor_name": "c_composition_storage_density_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: compound mechanism lift L=1.00 <= 1.5x; mechanisms do NOT compose (simple-compounding hypothesis ruled out). M_fail per arm: {'baseline': 2001, 'modular': 2001, 'whitening': 2001, 'kwta': 2001, 'combined': 2001} | L=1.00 (combined/baseline) | cv@combined,M2000=0.000",
+  "summary": "HARD_FAIL: compound mechanism lift L=1.00 <= 1.5x; mechanisms do NOT compose (simple-compounding hypothesis ruled out). M_fail per arm: {'baseline': 2001, 'modular': 2001, 'whitening': 2001, 'kwta': 2001, 'combined': 2001} | L=1.00 (combined/baseline) | cv@combined,M2000=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "c_compose_v1: N_DIM=4096 V_C=1024 N_REL=8 M_grid=[500, 2000] K_MOD=8 KWTA_K=20 ZCA_EPS=0.0010 MAX_OBJ=5 N_EVAL=60 ENT_POOL_MULT=1.5 MIN_POOL=1000 MAX_POOL=25000 seeds=[1] arms=['baseline', 'modular', 'whitening', 'kwta', 'combined'] SR_FLOOR=0.95 LIFT_PASS=5.0 LIFT_FAIL=1.5",
+  "per_seed": [
+    {
+      "seed": 1,
+      "run_mode": "smoke",
+      "N": 4096,
+      "config_version": "c_compose_v1: N_DIM=4096 V_C=1024 N_REL=8 M_grid=[500, 2000] K_MOD=8 KWTA_K=20 ZCA_EPS=0.0010 MAX_OBJ=5 N_EVAL=60 ENT_POOL_MULT=1.5 MIN_POOL=1000 MAX_POOL=25000 seeds=[1] arms=['baseline', 'modular', 'whitening', 'kwta', 'combined'] SR_FLOOR=0.95 LIFT_PASS=5.0 LIFT_FAIL=1.5",
+      "by_M": {
+        "M500": {
+          "M": 500,
+          "n_triples": 500,
+          "n_keys": 176,
+          "n_ent_used": 493,
+          "n_rel_used": 8,
+          "n_ent_pool": 1000,
+          "arms": {
+            "baseline": {
+              "arm": "baseline",
+              "ingest_s": 0.23,
+              "score_s": 0.02,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 0.27,
+              "n_ent_pool": 1000
+            },
+            "modular": {
+              "arm": "modular",
+              "ingest_s": 9.03,
+              "n_per_shard": 1448,
+              "score_s": 1.21,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 10.26,
+              "n_ent_pool": 1000
+            },
+            "whitening": {
+              "arm": "whitening",
+              "zca_fit_s": 99.0,
+              "ingest_s": 0.53,
+              "score_s": 0.07,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 99.64,
+              "n_ent_pool": 1000
+            },
+            "kwta": {
+              "arm": "kwta",
+              "ingest_s": 0.3,
+              "score_s": 0.04,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 0.36,
+              "n_ent_pool": 1000
+            },
+            "combined": {
+              "arm": "combined",
+              "zca_fit_s": 99.37,
+              "ingest_s": 2.47,
+              "n_per_shard": 1448,
+              "score_s": 1.54,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 103.44,
+              "n_ent_pool": 1000
+            }
+          }
+        },
+        "M2000": {
+          "M": 2000,
+          "n_triples": 2000,
+          "n_keys": 658,
+          "n_ent_used": 1741,
+          "n_rel_used": 8,
+          "n_ent_pool": 3000,
+          "arms": {
+            "baseline": {
+              "arm": "baseline",
+              "ingest_s": 0.49,
+              "score_s": 0.02,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 0.52,
+              "n_ent_pool": 3000
+            },
+            "modular": {
+              "arm": "modular",
+              "ingest_s": 2.72,
+              "n_per_shard": 1448,
+              "score_s": 2.29,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 5.04,
+              "n_ent_pool": 3000
+            },
+            "whitening": {
+              "arm": "whitening",
+              "zca_fit_s": 84.0,
+              "ingest_s": 0.62,
+              "score_s": 0.15,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 84.91,
+              "n_ent_pool": 3000
+            },
+            "kwta": {
+              "arm": "kwta",
+              "ingest_s": 0.33,
+              "score_s": 0.02,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 0.36,
+              "n_ent_pool": 3000
+            },
+            "combined": {
+              "arm": "combined",
+              "zca_fit_s": 46.79,
+              "ingest_s": 1.66,
+              "n_per_shard": 1448,
+              "score_s": 1.69,
+              "setrecall_all": 1.0,
+              "n_eval": 60,
+              "wall_s": 50.2,
+              "n_ent_pool": 3000
+            }
+          }
+        }
+      }
+    }
+  ],
+  "elapsed_s": 355.7,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "DESIGN_NOTE": "Compound storage-density test: 5 arms (baseline / +modular / +whitening / +kwta / combined) x M_grid sweep. Synthetic-bipolar KG (no encoder). HARD_PASS = M_fail(combined) >= 5.0x M_fail(baseline). Fix #16 discriminator regime: baseline at M=10k must reproduce n8 chain-grade pattern (setrecall >= 0.90)."
+}
