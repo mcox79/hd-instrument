@@ -60,6 +60,7 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 c1 CLS replay PARTIAL (substrate-favorable surprise): NEVER FORGETS at α=0.5/J=10 (NONE baseline 1.000 vs drill prediction ≤0.40); cliff lives ABOVE α=0.5; codebook-NN argmax cleanup more robust than a8 Hopfield extrapolation; MOAT vs LLMs still holds (substrate continual-learns without replay at tested load); MM disposition predicted; 2x-revival queued (higher α / smaller codebook / overlapping-task)
 - 2026-06-22 r1 multi-hop LANDED + RATIFIED MM (Skunkworks; commit ee4081e6): substrate-native chain-of-thought primitive (META atom; K=2 chain-grade + K=3,4 MM); cert_ledger row 59204e3e755136c3; r1b chain-grade promotion path in flight (margin-refuse + 7 seeds + verdict() band fix)
 - 2026-06-22 SMH landed-VET RATIFIED HONEST_NEGATIVE (Skunkworks; commit 9ac12d79): META atom storage-chain-item3-eff-rank-limited-at-projection-step; cert_ledger 2caf2f8f6cf148ab; Fix #11 template patched +5 TODOs
 - 2026-06-22 Whitening n10 DISPATCHED (3x route-negatives revival; smoke diagnostic FIRES eff_rank 16.7→230.3 = 13.8x; full ETA ~11:05Z; LOAD-BEARING for sparse-superposition family RE-OPEN)
