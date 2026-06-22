@@ -724,6 +724,17 @@ The pipeline agent does NOT call ScheduleWakeup under any circumstances.
   n9 case: 0.0194 vs HARD_FAIL bar 0.35; gap so wide that smoke-vs-full distinction
   is moot). When near-band, the next dispatch must re-run with explicit cell-side
   smoke detection.
+- **TODO #6 RESOLUTION (r1b 3rd field-test, 2026-06-22):** the in-cell entry-name
+  suffix pattern WORKS. Adopted pattern (from `exp_c1_cls_replay_continual_ingest_v1.py`
+  commit `5059f360` + `exp_r1b_multihop_refuse_calibration_v1.py`):
+  ```python
+  _NAME_SAYS_SMOKE = "_smoke" in os.environ.get("HDLAB_EXP_NAME","").lower()
+  RUN_MODE = "smoke" if _NAME_SAYS_SMOKE else os.environ.get("HDLAB_RUN_MODE","full")
+  ```
+  Verified live in r1b: runner log showed `[smoke-detect] HDLAB_EXP_NAME='..._smoke'
+  ends_with_smoke=True -> RUN_MODE=smoke`. The runner overrides `HDLAB_RUN_MODE=full`
+  unconditionally; only the entry-name suffix is a usable smoke signal. ALL future
+  cell-author spawns must include this pattern at module top.
 
 ### TODO #7: per-seed checkpoint timing for the near-full-scale measurement (Fix #3)
 - Current Section 1e uses smoke (--smoke flag) as a proxy for near-full-scale.
@@ -789,6 +800,40 @@ The pipeline agent does NOT call ScheduleWakeup under any circumstances.
   CONFIRMATION that the template's existing instruction works as designed. Keep
   TODO #4 open as a separate concern (the protocol-level question of WHO can push
   in the multi-agent fleet is independent of the template).
+
+### TODO #11: Queue-position visibility + ETA-to-start pre-check
+- **FIELD-TEST FINDING #6 (n10_whitening, 2026-06-22; OPS COST EXPOSED):** n10 was
+  dispatched and sat queued at position 3 behind a running c1_cls_replay full (~1h45m
+  remaining) + a pending c1 smoke. Template Section 5c "verify-it-starts within 5min"
+  assumes minimal queue contention; with contention the cell sits idle while the
+  pipeline-agent's poll loop is awake but useless.
+- RECOMMENDATION: at end of Section 4 (smoke-dispatch) AND Section 7 (full-dispatch),
+  add a pre-dispatch queue-depth check:
+  ```python
+  q = json.loads((root / "data/{{QUEUE_TARGET}}/queue.json").read_text())
+  pending = [e for e in q if e.get("status") in ("pending","running")]
+  eta_to_start = sum(e.get("estimated_wall_s", 1800) for e in pending)
+  if eta_to_start > 3600:
+      # Surface to Director: "queued behind <N> jobs; ETA-to-start ~<X>min;
+      # consider routing to alternative queue OR waiting for queue drain"
+      log_to_completion_note(f"queue contention: position={len(pending)+1}, eta_to_start={eta_to_start}s")
+  ```
+- This lets the Director make an informed routing call BEFORE polling burns cycles
+  waiting for a contended queue. Also surfaces "queue starvation" as a fleet-health
+  signal to Testbed.
+
+### TODO #11b: SMOKE+FULL split locally-vs-remote (optional optimization)
+- **FIELD-TEST FINDING #6b (n10_whitening, 2026-06-22; VALID OPTIMIZATION):** n10
+  ran smoke LOCALLY (242s wall on laptop) + dispatched ONLY the full to
+  remote_cpu_queue. Saved an SSH round-trip + 4-min remote-side --self-test;
+  validates that local-smoke + remote-full split is viable when wall is
+  well-understood. Less appropriate when smoke might surface infra issues only
+  visible on the remote runner.
+- RECOMMENDATION: template Section 4 should offer an explicit `{{SMOKE_LOCATION}}`
+  param (local | remote) defaulting to remote (the safe default) but allowing
+  cell-authors to opt into local-smoke when (a) the cell is wall-understood AND
+  (b) the laptop has CPU budget. Pairs naturally with TODO #11 queue-contention
+  detection (route smoke local when remote queue is contended).
 
 ---
 
