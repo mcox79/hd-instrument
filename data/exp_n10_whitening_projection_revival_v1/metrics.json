@@ -1,0 +1,96 @@
+{
+  "anchor_name": "n10_whitening_projection_revival_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: ZCA-whitening does NOT rescue sparse-superpos at high-M; Arm B=0.000 at M=1000 sig=0.1 (bar=0.10) OR proj_recall_sanity_after=0.130 below 0.05 minimum-substantial-lift threshold. Whitening alone insufficient; route to encoder upgrade (pythia-1B -> 2.8B; CERT 591 precedent). M=1000 sig=0.1: B=0.000 (cv=0.000) | A=0.000 C=0.000 D=0.000 | sanity_before=0.145 after=0.130 rot=0.145 | eff_rank before=16.71 after=230.29 rot=16.71",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 256,
+  "zca_epsilon": 0.001,
+  "M_SWEEP": [
+    1000
+  ],
+  "SIGMA_SWEEP": [
+    0.0
+  ],
+  "n_seeds": 1,
+  "train_M": 600,
+  "train_steps": 150,
+  "detail": {
+    "by_cell_agg": {
+      "M1000_sig0.00": {
+        "M": 1000,
+        "sigma": 0.0,
+        "armA_unwhite_argmax_mean": 0.0225,
+        "armB_zca_argmax_mean": 0.02,
+        "armB_zca_argmax_std": 0.0,
+        "armB_zca_argmax_cv": 0.0,
+        "armC_unwhite_smh_mean": 0.04,
+        "armD_random_rot_argmax_mean": 0.02,
+        "lift_B_over_A": -0.0025,
+        "lift_B_over_D": 0.0
+      }
+    },
+    "M_top": 1000,
+    "armB_at_M10k_sig0.1_mean": 0.0,
+    "armB_at_M10k_sig0.1_cv": 0.0,
+    "armA_anchor_n9_reproduces": false,
+    "armA_at_M10k_sig0.1_mean": null,
+    "armC_anchor_n9_smh_reproduces": false,
+    "armC_at_M10k_sig0.1_mean": null,
+    "armD_random_rot_at_M10k_sig0.1_mean": null,
+    "proj_recall_sanity_before_mean": 0.145,
+    "proj_recall_sanity_after_whitening_mean": 0.13,
+    "proj_recall_sanity_random_rotation_mean": 0.145,
+    "eff_rank_before_mean": 16.71,
+    "eff_rank_after_whitening_mean": 230.295,
+    "eff_rank_random_rotation_mean": 16.71,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "n10_whitening_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 beta=8.00 zca_eps=0.0010 M=[1000] sigma=[0.0] seeds=[0] train_M=600 steps=150",
+    "honest_scope": "encoder=EleutherAI/pythia-160m; CPU-only; ZCA-whitening on TRAIN-fit Sigma over CERT591-style contrastive projection; 4 arms per cell (A=unwhite-argmax, B=zca-argmax, C=unwhite-smh, D=random-rot-argmax)",
+    "cites": [
+      "n9_smh_sparsemax_decode_v1_HONEST_NEGATIVE_2caf2f8f6cf148ab",
+      "exp_armA_projected_key_revival_v1_HARD_FAIL_f2a658ddda005c98",
+      "CERT591_kv_learned_projection_v1",
+      "Bell_Sejnowski_1997_ZCA",
+      "skunkworks_to_research_cc_all_LANDED_VET_path_c_armA_projected_HARD_FAIL_and_path_b_mkn_MIDDLE_BAND_MM_2026-06-22",
+      "n9_smh_landed_vet_skunkworks_2026-06-22"
+    ]
+  },
+  "metrics_source": "measured_cpu_n10_whitening_projection_revival_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_armA_unwhite_argmax": 0.0225,
+          "recall_armB_zca_argmax": 0.02,
+          "recall_armC_unwhite_smh": 0.04,
+          "recall_armD_random_rot_argmax": 0.02,
+          "lift_B_over_A": -0.0025,
+          "lift_B_over_D": 0.0,
+          "B_storage_bits_per_mem_armA": 52428.8,
+          "B_storage_bits_per_mem_armB": 52428.8,
+          "wall_s_unit": 0.37
+        }
+      },
+      "eff_rank_before_whitening": 16.71,
+      "eff_rank_after_whitening": 230.295,
+      "eff_rank_random_rotation": 16.71,
+      "proj_recall_sanity_before": 0.145,
+      "proj_recall_sanity_after_whitening": 0.13,
+      "proj_recall_sanity_random_rotation": 0.145,
+      "run_mode": "smoke",
+      "config_version": "n10_whitening_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 beta=8.00 zca_eps=0.0010 M=[1000] sigma=[0.0] seeds=[0] train_M=600 steps=150",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782114378.84814
+    }
+  ],
+  "elapsed_s": 242.45678734779358,
+  "summary": "DISCRIMINATOR HARD_FAIL: ZCA-whitening does NOT rescue sparse-superpos at high-M; Arm B=0.000 at M=1000 sig=0.1 (bar=0.10) OR proj_recall_sanity_after=0.130 below 0.05 minimum-substantial-lift threshold. Whitening alone insufficient; route to encoder upgrade (pythia-1B -> 2.8B; CERT 591 precedent). M=1000 sig=0.1: B=0.000 (cv=0.000) | A=0.000 C=0.000 D=0.000 | sanity_before=0.145 after=0.130 rot=0.145 | eff_rank before=16.71 after=230.29 rot=16.71",
+  "substrate_only_decode_gate": "N/A (KV-storage cell, not LM cell; per Path C revival framing)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": false
+}
