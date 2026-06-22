@@ -212,6 +212,40 @@ Pick the FIRST rule that matches:
 
 4. **overnight_queue (fallback)** — when in doubt, route here. The runner machine has both GPU and CPU and runs persistently; it can always execute CPU-only scripts and is faster than the desktop for longer work.
 
+### GPU vs CPU routing — empirical update (Fixes #22 / #23 / #24, 2026-06-22)
+
+The CUDA-import-detection rule (Rule 1) is necessary but INSUFFICIENT. Fixes #22-24 close three observed failure modes:
+
+**Fix #22 — Route by SHAPE not just import-pattern.** A cell can `import torch` (or use only numpy) and still need GPU on the basis of its matmul shape. Route to `overnight_queue` independent of CUDA imports when ANY:
+- `N_DIM >= 8192` (matmul cost dominates at this scale)
+- Multi-seed encoder ingest (encoder forward-pass × N_seeds bound)
+- M >= 100k capacity-sweep (W matrix at M ≥ 100k × N >= 4096 = 9GB+ float32; saturates laptop RAM)
+- Anticipated wall ≥ 30 min with matmul-bound primary cost
+- Empirical wins this arc: n4 / p1 / m1 / HotpotQA / c_composition v1 all should have routed GPU; were instead routed remote_cpu costing ~4-6hr wall.
+
+**Fix #23 — Heavy-cell smoke + Fix #17 timing measurement runs on REMOTE (not laptop).** For any cell that will dispatch to remote (CPU or GPU), the cell-author's smoke + single-seed full-scale timing should also run on the same remote (via SSH), NOT on laptop CPU. Reason: laptop matmul at N≥8192 is the slowest compute available; running smoke locally wastes 30-90min per heavy cell. p1 v2 cell-author this arc proved the right pattern: remote smoke + remote single-seed-full-scale timing first, dispatch only after that passes.
+
+**Fix #24 — GPU dispatch must ACTUALLY use GPU.** Routing to `overnight_queue` does NOT make the cell use the GPU. Historical anti-pattern: numpy-only cells dispatched to GPU machine running at ~1% GPU util because they used the GPU machine's CPU. Mandate (verify in smoke gate):
+- Cell MUST use `torch.cuda` + `.to('cuda')` + batched ops (no per-element python loops over tensors)
+- Encoder must be hoisted out of the seed loop (load once; reuse) — otherwise 3-seeds × encoder-load swamps actual compute
+- Concurrent seeds via parallel CUDA streams or batched outer-dimension
+- **Smoke gate must verify GPU util ≥ 50% steady-state** via nvidia-smi sampling during the smoke. Reject the cell back to cell-author if smoke shows <50% util.
+- Empirical evidence this arc: p1 v2 at N_DIM=65536 hit 89.3% util steady-state (correct dispatch); n4 / c_composition v1 numpy-only on GPU machine = 1% util (wrong dispatch, GPU-wasted).
+
+### Routing decision tree (post-Fix-#22 incorporation)
+
+Apply IN ORDER; first match wins:
+
+1. **N_DIM ≥ 8192 OR M ≥ 100k OR multi-seed encoder ingest OR wall ≥ 30min matmul-bound** → `overnight_queue` (GPU), Fix #24 mandate applies.
+2. **CUDA imports / `.cuda()` / `device='cuda'`** → `overnight_queue` (GPU), Fix #24 mandate applies.
+3. **Pure CPU, wall 60s–30min** → `remote_cpu_queue`.
+4. **Pure CPU, wall < 30s, JSON/arithmetic re-analysis ONLY, runner verified alive, user opted in** → `local_cpu_queue` (Tier C; near-deprecated).
+5. **Doubt** → `overnight_queue` (default).
+
+### Smoke + timing should run where dispatch will run
+
+For any cell routed to overnight_queue / remote_cpu_queue: SSH the smoke + single-seed full-scale timing to that same remote rather than running on laptop. Laptop CPU at N≥8192 takes 5-10× the wall of remote_cpu and 50-100× the wall of GPU. Smoke wall on laptop ≠ smoke wall on remote — and Fix #17 (per-seed full-scale timing for timeout-estimation) is meaningless if measured on the wrong machine.
+
 Include the `queue=` field as the first token on the entry line:
 
 ```
