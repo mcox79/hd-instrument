@@ -847,6 +847,20 @@ def _compute_discipline_and_drift() -> dict:
     if plan_p.is_file():
         try:
             plan = json.loads(plan_p.read_text(encoding="utf-8", errors="replace"))
+            # Cache the recent-commits git log ONCE outside the per-priority loop
+            # (fixed-output call doesn't depend on priority; previously redundantly
+            # invoked N times → up to N*5s timeout → Health endpoint hang).
+            _reframe_log_cached = ""
+            try:
+                import subprocess as _sp
+                _reframe_log_cached = _sp.check_output(
+                    ["git", "-C", str(_REPO_ROOT), "log", "--since=6.hours.ago",
+                     "--pretty=format:%s"],
+                    timeout=5, text=True, errors="replace",
+                    creationflags=_CREATE_NO_WINDOW,
+                )
+            except Exception:
+                _reframe_log_cached = ""
             for pr in plan.get("priorities", []) if isinstance(plan, dict) else []:
                 if pr.get("status") != "in-progress":
                     continue
@@ -857,27 +871,18 @@ def _compute_discipline_and_drift() -> dict:
                 # the priority id (e.g., "phase4b") OR matches reframe/relabel/redesign
                 # patterns. If yes, skip the stall flag (priority is functionally active).
                 pid_keyword = (pr.get("id") or "").split("_")[0].lower()  # e.g. "phase4b"
-                try:
-                    import subprocess as _sp
-                    out = _sp.check_output(
-                        ["git", "-C", str(_REPO_ROOT), "log", "--since=6.hours.ago",
-                         "--pretty=format:%s"],
-                        timeout=5, text=True, errors="replace",
-                        creationflags=_CREATE_NO_WINDOW,
-                    )
-                    reframe_found = False
-                    if pid_keyword and len(pid_keyword) >= 4:
-                        for ln in out.splitlines():
-                            ll = ln.lower()
-                            if pid_keyword in ll and any(k in ll for k in
-                                ("reframe", "relabel", "redesign", "amendment", "demote",
-                                 "atomize", "retract", "schemavet", "schema_vet")):
-                                reframe_found = True
-                                break
-                    if reframe_found:
-                        continue  # priority is functionally active via reframe; skip
-                except Exception:
-                    pass
+                out = _reframe_log_cached  # use cached result
+                reframe_found = False
+                if pid_keyword and len(pid_keyword) >= 4:
+                    for ln in out.splitlines():
+                        ll = ln.lower()
+                        if pid_keyword in ll and any(k in ll for k in
+                            ("reframe", "relabel", "redesign", "amendment", "demote",
+                             "atomize", "retract", "schemavet", "schema_vet")):
+                            reframe_found = True
+                            break
+                if reframe_found:
+                    continue  # priority is functionally active via reframe; skip
                 # Get last commit touching this path
                 try:
                     import subprocess as _sp
@@ -984,7 +989,7 @@ def _compute_discipline_and_drift() -> dict:
                     if current_role in ("research", "exp_dev", "skunkworks", "orchestrator", "testbed"):
                         role_data.setdefault(current_role, {"last_updated_ts": None,
                                                              "in_flight_lines": [],
-                                                             "waiting_lines": []})
+                                                             "waiting_on_lines": []})
                     current_sub = None
                 elif current_role and current_role in role_data and ls.startswith("**Last-updated:**"):
                     import re as _re2
@@ -1005,7 +1010,7 @@ def _compute_discipline_and_drift() -> dict:
                     role_data[current_role][f"{current_sub}_lines"].append(ls[2:].strip())
             for role, d in role_data.items():
                 in_flight = d["in_flight_lines"]
-                waiting = d["waiting_lines"]
+                waiting = d["waiting_on_lines"]
                 last_ts = d["last_updated_ts"]
                 # Treat placeholders as empty
                 def _is_placeholder(line):
