@@ -38,8 +38,11 @@
 | Cross-corpus transfer (text8 ↔ WikiText perplexity) | UNTESTED | DEFERRED |
 | HumanEval Anchor-1 (substrate-augmented Qwen vs bare) | Full in flight ~3hr | LIVE |
 | Math + code substrate-native LM | Sequenced after NL bigram-gap closure per scope drill | DEFERRED |
+| **Phase-diagram-action + data-survives-transform (USER directive 2026-06-22)** | ~47 cert-grade phase-diagram atoms in pool; audit + p1 cell queued | LANE OPENED |
 
 **L3 gate:** ≥3 capabilities chain-grade with cross-cell composition demonstrated → L3 complete; substrate is a fully functional brain-inspired memory + reasoning + LM system.
+
+**USER-flagged latent-capability lane (2026-06-22):** substrate acts at ANY position in phase diagram + data SURVIVES phase transformations. Distinctive vs LLMs (LLM = single frozen operating-point + can't transfer config without retraining). 3 sub-items in work queue Tier 2: phase-portrait v1 inventory atom + data-survives evidence audit + p1 action-at-any-position cell pre-reg. Composes with the L2 closure stack (multi-α LM operation) + L3 continual-learning + modular K-macrocolumn W from drill #6 (modular stores = data-routing-invariance). Periodic visible progress beat to USER per "I haven't seen any work on that" flag.
 
 ## L4 — Infrastructure (background; non-blocking)
 
