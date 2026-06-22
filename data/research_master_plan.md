@@ -30,15 +30,15 @@
 
 | Capability | Status | Path |
 |---|---|---|
-| Substrate-native chain-of-thought (multi-hop reasoning) | r1 MM LANDED (K=2 anchor + K=3,4 MM); META atom shipped | LIVE r1b chain-grade promotion |
-| Continual learning without retraining | c1 partial (NEVER FORGETS at α=0.5; substrate-favorable); α=1.5 overload pending | LIVE c1 full + revival cell post-VET |
+| Substrate-native chain-of-thought (multi-hop reasoning) | r1 MM LANDED chain-grade; r1b HARD_FAIL post-VET; **r2 successor-W + TEM compound HARD_FAIL 2026-06-22 with partial-positive**: TEM compound-margin = 1.13-1.17× per-hop refuse-gate consistent K=2,3,4,10 (target 2.0×); SR closure WORSE than anchor (noise compounds through W^k in 50k-triple KG); MEASURED_MECHANISM atom candidate. 2x revival drill in flight. | LIVE 2x REVIVAL — multi-hop chain-grade-promotion structurally hard |
+| Continual learning without retraining | c1 partial (NEVER FORGETS at α=0.5; substrate-favorable); c1 full HARD_FAIL post-VET; c2 cascade-STC-SWR running on remote_cpu (brain-drill #2 5x DEEPER mechanism; landing pending) | LIVE c2 landing |
 | Multi-value KG ingest + refuse-gate | U1 chain-grade (CERT 584) | LANDED |
 | ConceptNet KG chain-grade #2 (OPEN-C unlock) | **CERT 585 chain-grade** (n8; 36.5x vs frozen-encoder; setrecall=1.000) | CHAIN-GRADE |
 | HotpotQA multi-hop Wikipedia KG chain-grade #3 | **CERT 588 chain-grade** (h_hotpotqa; 892× vs 1-hop, 24× vs frozen-encoder; cross-domain) | CHAIN-GRADE |
 | Multi-domain KG portfolio (FB15k + ConceptNet + HotpotQA = 3 KG shapes at chain-grade) | **LANDED** | PORTFOLIO |
 | Substrate generation / sampling | UNKNOWN mechanism; brain-drill #4 in flight | DRILL → cell TBD |
 | Cross-corpus transfer (text8 ↔ WikiText perplexity) | UNTESTED | DEFERRED |
-| HumanEval Anchor-1 (substrate-augmented Qwen vs bare) | Full in flight ~3hr | LIVE |
+| HumanEval Anchor-1 (substrate-augmented Qwen vs bare) | HOLD per Research drill 2026-06-22: smoke gain=0 at 1.5B Qwen; CodeRAG-Bench lit shows library docs flat on HumanEval, canonical solutions +12.2pt only at 7B; redirect to substrate-native arc | DEFERRED — substrate-augmented LM at 1.5B has no path |
 | Math + code substrate-native LM | Sequenced after NL bigram-gap closure per scope drill | DEFERRED |
 | **Phase-diagram-action + data-survives-transform (USER directive 2026-06-22)** | p1 v1 CERT 589 (N=16384-32768 explicit-W) + p1 v2 CERT 590 (N up to 65536 implicit-W LLM-class); ~47 cert-grade phase-diagram atoms in pool | CHAIN-GRADE LLM-CLASS |
 
