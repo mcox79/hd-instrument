@@ -100,28 +100,30 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
-**Last-updated:** 2026-06-22T05:35:00Z (Tier-2 ingest cells n6+n7 smokes dispatched; N8 ConceptNet authored+dispatched)
+**Last-updated:** 2026-06-22T06:26:00Z (HumanEval Anchor-1 stdlib-class split: smoke done; FULL running on local_cpu_queue)
 
 ### Waiting on
+- [from=runner] [type=cell_land] [filed=2026-06-22T06:26Z] : humaneval_stdlib_split_qwen_v1 (FULL 164 problems x 2 arms on local_cpu_queue, ~3.0h ETA, timeout 14400s) -> verify Class A gain_A vs +15/+5 pre-reg bands + discriminating-regime Class B gain
 - [from=runner] [type=cell_land] [filed=2026-06-22T05:35Z] : n8_conceptnet_ingest_eval_v1 (FULL 3-seed at remote_cpu_queue, timeout 3600s) -> verify HARD_PASS bands incl. OPEN-C frozen-encoder >=2x ratio
 - [from=runner] [type=cell_land] [filed=2026-06-22T05:28Z] : n6_wikitext103 + n7_arxiv_abstracts SMOKE lands on remote_cpu_queue -> verify provenance-real + bigram baselines + walls; gate FULL dispatch on smoke-clean
 - [from=skunkworks] [type=schema_vet] : prior open VETs (U1 OPEN A-E etc.) -- still routed/ratified per arc; no NEW wait from this turn
 
 ### In flight
-- N8 ConceptNet ingest-eval (USER 2026-06-22 do-it-all Tier-2 ingest-breadth): authored exp_n8_conceptnet_ingest_eval_v1.py (commit 8bbc11c4); reuses U1 chain-grade pattern (multi-value Hebbian + set-readout-top-k + held-split refuse-gate + 2-hop inference); OPEN-C UNLOCKED via frozen-encoder MiniLM-L6 semantic baseline (encoder ingest-stage only; scoring is numpy matmul); local smoke HARD_PASS (50.9s, sub2/enc ratio 75x); dataset conceptnet5_en_100k.jsonl (CC-BY-SA + ODC-BY) scp'd; dispatched on remote_cpu_queue + post-ship VERIFIED.
-- Tier-2 ingest-breadth expansion (USER 2026-06-22 do-it-all): n6 WikiText-103 + n7 arxiv-abstracts char-LM cert cells AUTHORED + SELFTEST 9/9 PASS LOCAL + SMOKE GATE PASSED ON REMOTE (--self-test 3.0-3.1s) + queued on remote_cpu_queue. Commit e017ce4e.
+- HumanEval Anchor-1 stdlib-class split (Research scope-drill 2026-06-22): authored exp_humaneval_stdlib_split_qwen_v1.py (commits efee2da3 + 47505370 + b9e4cdf0); pre-reg gain_A >= +15 (scope-drill hardened over 2026-06-07 +10); substrate-as-tool-for-LLM pattern (substrate_native=False; substrate_role=prompt_augmentation); 39-snippet stdlib doc index via MiniLM cosine; Qwen-1.5B-Instruct CPU fp32. Smoke (n=10) finished 657s (gain_A=0; tiny-sample artifact + caught typing-import extract bug; FIXED). FULL 164*2 ETA ~3.0h on local_cpu_queue (status=running).
+- N8 ConceptNet ingest-eval prior dispatch on remote_cpu_queue (still pending).
+- Tier-2 n6 WikiText-103 + n7 arxiv-abstracts smokes on remote_cpu_queue.
 
 ### Next 3 (if bandwidth opens)
-1. On n6 + n7 smoke lands: triage provenance + bigram-baseline + walls; if clean, dispatch FULL.
-2. On n8 ConceptNet land: re-derive headline numbers off per_seed; route landed-VET to Skunkworks; if HARD_PASS holds, the OPEN-C frozen-encoder bar (U1 deferred) is finally tested.
-3. Path-A/Path-B follow-ons + N1<->N3 boundary work resumes as upstream lands.
+1. On HumanEval Anchor-1 cell-land: re-derive Class A pass@1 off per_problem; if HARD_PASS (gain_A >= +15 AND Class B gain < +5), route landed-VET to Skunkworks; if MIDDLE_BAND/HARD_FAIL, route 2x-revival to Research with angle (richer stdlib index? Qwen-3B?).
+2. On n8 ConceptNet land: re-derive headline numbers + route landed-VET.
+3. On n6 + n7 smoke lands: triage + gate FULL dispatch.
 
 ### Recently cleared (rolling; <=5)
+- humaneval_stdlib_split_qwen_v1 smoke (commit 47505370) -- harness operational, n=10 zero-flips on Class A (tiny-sample), typing-import bug FIXED + selftest dep-free (queue_add system-python gate).
 - U1: scaffold 41aa9f89 (selftest+smoke PASS) + design-VET ec5e5638 + 1-to-many fidelity-ceiling addendum e95d3c96 + OPEN-E de-risk 8f26a6b7 (set-ingest feasible)
 - 2702fa64 N3 shakedown PASS + 2 findings (substrate at-chance on real text / BPC-ratio gameable -> validates Skunkworks N3 absolute-floor bands)
 - 6d3d2d82 LOAD-BEARING eff-rank RESULT (common-mode intrinsic / rank 3.56x templating-sensitive but low-absolute -> dense more-headroom-not-reopened; self-corrected own headline)
 - 50870993/76db14e8/f31c6e9a N3 scope-DECISION + shakespeare loader + caught wikitext2 silent-synthetic bug
-- WHITENING MM (item#3 CLOSED) + anisotropy-rescue authored+DISPATCHED + PRE-REG fc3b8771 + diagnostic 9ddb53fc
 
 ## testbed
 **Last-updated:** 2026-06-21T14:40:00Z
