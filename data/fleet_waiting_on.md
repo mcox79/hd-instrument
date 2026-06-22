@@ -100,21 +100,19 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
-**Last-updated:** 2026-06-21T18:50:00Z (true date -u; assembly phase, SUBSTRATE-NATIVE)
+**Last-updated:** 2026-06-22T05:30:00Z (Tier-2 ingest cells n6+n7 smokes dispatched)
 
 ### Waiting on
-- [from=skunkworks] [type=schema_vet] [filed=18:50Z] : U1 OPEN A-E VET (incl. multi-value-ingest) -- Skunkworks RESPONSES note WRITTEN but UNCOMMITTED (their Bash/Python down per their L83) -> arrives on infra-recovery -> unblocks U1 load-bearing build
-- [from=orchestrator] [type=cell_land] [filed=18:50Z] : anisotropy-rescue land -- PAST ETA (152min vs 60-120) + Orchestrator SILENT ~2hr (it scp's the result) -> likely done/running-but-UN-SYNCED; FLEET-STALL surfaced to USER
-- [from=research] [type=research_drill] [filed=17:10Z] : N1<->N3 boundary confirm -> unblocks N3 text8 cert structure
-- [from=runner] [type=cell_land] : NEW-4 land -> Skunkworks reclassify
+- [from=runner] [type=cell_land] [filed=2026-06-22T05:28Z] : n6_wikitext103 + n7_arxiv_abstracts SMOKE lands on remote_cpu_queue -> verify provenance-real + bigram baselines + walls; gate FULL dispatch on smoke-clean
+- [from=skunkworks] [type=schema_vet] : prior open VETs (U1 OPEN A-E etc.) -- still routed/ratified per arc; no NEW wait from this turn
 
 ### In flight
-- Tracker check-in: my 3 flags ALL resolved by Skunkworks (their L91): eff-rank CONCUR (they owned a last-token-conflation behind their 1.15x; my 3-metric reconciliation [PR 3.56x/Roy 4.71x/stable 2.07x, 813990a3] independently confirms more-headroom-not-reopened) + phase_d_tier6 NEEDS-RERUN adopted + N3 absolute-floor ADOPTED. So NO discrepancy note needed (avoided re-litigating). U1 load-bearing build still VET-gated (Skunkworks RESPONSES uncommitted due to their infra).
+- Tier-2 ingest-breadth expansion (USER 2026-06-22 do-it-all): n6 WikiText-103 + n7 arxiv-abstracts char-LM cert cells AUTHORED + SELFTEST 9/9 PASS LOCAL + SMOKE GATE PASSED ON REMOTE (--self-test 3.0-3.1s) + queued on remote_cpu_queue. Commit e017ce4e. Cells reuse n3 text8 harness pattern + plug SubstrateCharLM (char-level absolute-floor BPC bands; substrate-only at inference; all 4 Skunkworks blockers + 10 Fixes baked).
 
 ### Next 3 (if bandwidth opens)
-1. On Skunkworks U1 VET (OPEN A-E): fill refuse-gate + inference-transfer (multi-value set-readout per de-risk) + dispatch U1 full (scale-curve M=50k separating 1-to-many ceiling from capacity crosstalk).
-2. On N1<->N3 confirm: extend the shakedown harness -> N3 text8 cert (GPU) w/ absolute-floor bands + provenance-asserted real data.
-3. On rescue land confirming tag-retrieval: M1 retrieval-core around TAG-RETRIEVAL (Willshaw/fly-LSH), mechanism-independent of U1 knowledge.
+1. On n6 + n7 smoke lands: triage provenance (HF download success/fail) + bigram-baseline sanity + remote per-seed wall measurement; if smoke clean, dispatch FULL (3 seeds, ~20-60min each per estimate).
+2. ConceptNet ingest cell (separate parallel spawn handles it; don't duplicate).
+3. Path-A/Path-B follow-ons + N1<->N3 boundary work resumes as upstream lands.
 
 ### Recently cleared (rolling; <=5)
 - U1: scaffold 41aa9f89 (selftest+smoke PASS) + design-VET ec5e5638 + 1-to-many fidelity-ceiling addendum e95d3c96 + OPEN-E de-risk 8f26a6b7 (set-ingest feasible)
