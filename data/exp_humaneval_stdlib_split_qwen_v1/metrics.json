@@ -1,0 +1,225 @@
+{
+  "anchor_name": "humaneval_stdlib_split_qwen_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ClassA gain +0.000 < +0.05; substrate augmentation does not meaningfully help Qwen on stdlib problems. ClassA bare=0.167 sub=0.167 gain=+0.000; ClassB bare=0.500 sub=0.500 gain=+0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "v1_N1024_K3_T256_snip2382dc28",
+  "substrate_native": false,
+  "substrate_role": "prompt_augmentation",
+  "per_seed": [
+    {
+      "per_problem": [
+        {
+          "task_id": "HumanEval/1",
+          "class": "A",
+          "entry_point": "separate_paren_groups",
+          "bare_pass": false,
+          "bare_wall": 35.25,
+          "bare_ntok": 76,
+          "bare_err": "ine 3, in <module>\n    def separate_paren_groups(paren_string: str) -> List[str]:\n                                      ",
+          "sub_pass": false,
+          "sub_wall": 56.54,
+          "sub_ntok": 124,
+          "sub_err": "ine 3, in <module>\n    def separate_paren_groups(paren_string: str) -> List[str]:\n                                      ",
+          "snippets_top": [
+            "string.split",
+            "re.split",
+            "string.join"
+          ],
+          "snippet_top_sim": 0.6151867508888245
+        },
+        {
+          "task_id": "HumanEval/6",
+          "class": "A",
+          "entry_point": "parse_nested_parens",
+          "bare_pass": false,
+          "bare_wall": 50.32,
+          "bare_ntok": 113,
+          "bare_err": "\", line 3, in <module>\n    def parse_nested_parens(paren_string: str) -> List[int]:\n                                    ",
+          "sub_pass": false,
+          "sub_wall": 64.22,
+          "sub_ntok": 138,
+          "sub_err": "\", line 3, in <module>\n    def parse_nested_parens(paren_string: str) -> List[int]:\n                                    ",
+          "snippets_top": [
+            "string.split",
+            "string.join",
+            "re.split"
+          ],
+          "snippet_top_sim": 0.457785427570343
+        },
+        {
+          "task_id": "HumanEval/16",
+          "class": "A",
+          "entry_point": "count_distinct_characters",
+          "bare_pass": true,
+          "bare_wall": 13.19,
+          "bare_ntok": 27,
+          "bare_err": "",
+          "sub_pass": true,
+          "sub_wall": 13.91,
+          "sub_ntok": 24,
+          "sub_err": "",
+          "snippets_top": [
+            "string.isalpha",
+            "string.isdigit",
+            "string.lower"
+          ],
+          "snippet_top_sim": 0.4735633134841919
+        },
+        {
+          "task_id": "HumanEval/17",
+          "class": "A",
+          "entry_point": "parse_music",
+          "bare_pass": false,
+          "bare_wall": 46.16,
+          "bare_ntok": 99,
+          "bare_err": "p\\tmpvyc8oha0.py\", line 3, in <module>\n    def parse_music(music_string: str) -> List[int]:\n                            ",
+          "sub_pass": false,
+          "sub_wall": 71.97,
+          "sub_ntok": 154,
+          "sub_err": "p\\tmpsop1xpsf.py\", line 3, in <module>\n    def parse_music(music_string: str) -> List[int]:\n                            ",
+          "snippets_top": [
+            "list.enumerate",
+            "string.split",
+            "string.join"
+          ],
+          "snippet_top_sim": 0.3987928330898285
+        },
+        {
+          "task_id": "HumanEval/25",
+          "class": "A",
+          "entry_point": "factorize",
+          "bare_pass": false,
+          "bare_wall": 31.19,
+          "bare_ntok": 65,
+          "bare_err": "rs\\marsh\\AppData\\Local\\Temp\\tmp1vqzsri5.py\", line 1, in <module>\n    def factorize(n: int) -> List[int]:\n               ",
+          "sub_pass": false,
+          "sub_wall": 19.9,
+          "sub_ntok": 36,
+          "sub_err": "ne 27, in <module>\n    check(factorize)\n  File \"C:\\Users\\marsh\\AppData\\Local\\Temp\\tmpxugq7scx.py\", line 18, in check\n   ",
+          "snippets_top": [
+            "itertools.product",
+            "math.factorial",
+            "itertools.combinations"
+          ],
+          "snippet_top_sim": 0.4296920895576477
+        },
+        {
+          "task_id": "HumanEval/26",
+          "class": "A",
+          "entry_point": "remove_duplicates",
+          "bare_pass": false,
+          "bare_wall": 25.74,
+          "bare_ntok": 54,
+          "bare_err": "p\\tmpcvn0srqq.py\", line 5, in <module>\n    def remove_duplicates(numbers: List[int]) -> List[int]:\n                     ",
+          "sub_pass": false,
+          "sub_wall": 25.06,
+          "sub_ntok": 48,
+          "sub_err": "p\\tmpqzsjv6bm.py\", line 3, in <module>\n    def remove_duplicates(numbers: List[int]) -> List[int]:\n                     ",
+          "snippets_top": [
+            "itertools.groupby",
+            "list.zip",
+            "itertools.permutations"
+          ],
+          "snippet_top_sim": 0.45536598563194275
+        },
+        {
+          "task_id": "HumanEval/0",
+          "class": "B",
+          "entry_point": "has_close_elements",
+          "bare_pass": false,
+          "bare_wall": 30.96,
+          "bare_ntok": 66,
+          "bare_err": ", line 5, in <module>\n    def has_close_elements(numbers: List[float], threshold: float) -> bool:\n                      ",
+          "sub_pass": false,
+          "sub_wall": 32.15,
+          "sub_ntok": 65,
+          "sub_err": ", line 3, in <module>\n    def has_close_elements(numbers: List[float], threshold: float) -> bool:\n                      ",
+          "snippets_top": [
+            "math.ceil",
+            "math.floor",
+            "list.enumerate"
+          ],
+          "snippet_top_sim": 0.41360700130462646
+        },
+        {
+          "task_id": "HumanEval/2",
+          "class": "B",
+          "entry_point": "truncate_number",
+          "bare_pass": true,
+          "bare_wall": 12.99,
+          "bare_ntok": 26,
+          "bare_err": "",
+          "sub_pass": true,
+          "sub_wall": 15.44,
+          "sub_ntok": 26,
+          "sub_err": "",
+          "snippets_top": [
+            "math.floor",
+            "math.log",
+            "math.ceil"
+          ],
+          "snippet_top_sim": 0.49396780133247375
+        },
+        {
+          "task_id": "HumanEval/3",
+          "class": "B",
+          "entry_point": "below_zero",
+          "bare_pass": true,
+          "bare_wall": 18.41,
+          "bare_ntok": 37,
+          "bare_err": "",
+          "sub_pass": true,
+          "sub_wall": 27.46,
+          "sub_ntok": 54,
+          "sub_err": "",
+          "snippets_top": [
+            "functools.reduce",
+            "string.isdigit",
+            "math.ceil"
+          ],
+          "snippet_top_sim": 0.3459002673625946
+        },
+        {
+          "task_id": "HumanEval/4",
+          "class": "B",
+          "entry_point": "mean_absolute_deviation",
+          "bare_pass": false,
+          "bare_wall": 35.91,
+          "bare_ntok": 77,
+          "bare_err": "p0e.py\", line 3, in <module>\n    def mean_absolute_deviation(numbers: List[float]) -> float:\n                           ",
+          "sub_pass": false,
+          "sub_wall": 30.48,
+          "sub_ntok": 61,
+          "sub_err": "i20.py\", line 3, in <module>\n    def mean_absolute_deviation(numbers: List[float]) -> float:\n                           ",
+          "snippets_top": [
+            "math.sqrt",
+            "math.floor",
+            "list.zip"
+          ],
+          "snippet_top_sim": 0.3137814998626709
+        }
+      ],
+      "class_label_counts": {
+        "A": 6,
+        "B": 4,
+        "total": 10
+      },
+      "pass1_A_bare": 0.1667,
+      "pass1_A_sub": 0.1667,
+      "pass1_B_bare": 0.5,
+      "pass1_B_sub": 0.5,
+      "gain_A": 0.0,
+      "gain_B": 0.0,
+      "substrate_native": false,
+      "substrate_role": "prompt_augmentation",
+      "llm_calls_at_inference": 20,
+      "n_stdlib_snippets": 39,
+      "top_k_retrieve": 3,
+      "max_new_tokens": 256
+    }
+  ],
+  "elapsed_s": 676.8,
+  "summary": "HARD_FAIL: ClassA gain +0.000 < +0.05; substrate augmentation does not meaningfully help Qwen on stdlib problems. ClassA bare=0.167 sub=0.167 gain=+0.000; ClassB bare=0.500 sub=0.500 gain=+0.000"
+}

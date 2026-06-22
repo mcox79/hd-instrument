@@ -225,15 +225,32 @@ def _augmented_prompt(problem_prompt: str, snippets: List[Tuple[str, str, float]
 # Code extraction + sandbox execution
 # ============================================================================
 _CODE_BLOCK = re.compile(r"```(?:python)?\s*\n(.*?)```", re.DOTALL)
+def _extract_imports_from_prompt(problem_prompt: str) -> str:
+    """Extract import statements + 'from typing import ...' lines from the HumanEval prompt header.
+
+    HumanEval prompts typically begin with imports (e.g., 'from typing import List') BEFORE the def
+    signature. Qwen's generated code block usually omits these even when it uses List/Tuple types,
+    causing NameError at test time. We always prepend the prompt's imports to the executed module."""
+    lines = problem_prompt.split("\n")
+    imports = []
+    for ln in lines:
+        s = ln.strip()
+        if s.startswith("from ") or s.startswith("import "):
+            imports.append(ln)
+        elif s.startswith("def ") or s.startswith("class "):
+            break
+    return "\n".join(imports)
+
 def _extract_code(gen_text: str, problem_prompt: str, entry_point: str) -> str:
     """Extract a runnable Python module given Qwen's generation + the original prompt + entry_point."""
     m = _CODE_BLOCK.search(gen_text)
     code = m.group(1) if m else gen_text
-    # If the extracted code already defines entry_point, use it as-is (Qwen wrote the full def).
+    imports = _extract_imports_from_prompt(problem_prompt)
+    # If the extracted code already defines entry_point, prepend just the imports from the prompt
+    # (Qwen wrote the full def but typically omits 'from typing import List' etc.).
     if re.search(r"def\s+" + re.escape(entry_point) + r"\s*\(", code):
-        return code
-    # Otherwise treat as a body: combine problem_prompt's signature + the body.
-    # Heuristic: if code starts with non-def lines, prepend the problem_prompt (signature + docstring + imports).
+        return (imports + "\n" + code) if imports else code
+    # Otherwise treat as a body: combine the full problem_prompt (signature + docstring + imports) with the body.
     return problem_prompt + "\n" + code
 
 def _run_tests(module_src: str, test_src: str, entry: str) -> Tuple[bool, str]:
@@ -293,6 +310,15 @@ def _selftest():
     test = "def check(c):\n    assert c(1) == 2\n"
     ok, _e = _run_tests(src, test, "foo")
     assert ok, "sandbox should pass trivial test"
+    # typing-import bug fix: Qwen often writes `def foo(x) -> List[int]:` without `from typing import List`.
+    # _extract_code MUST prepend imports from the problem prompt.
+    typing_prompt = "from typing import List\n\n\ndef foo(x: int) -> List[int]:\n    \"\"\"return [x]\"\"\"\n"
+    typing_gen = "```python\ndef foo(x: int) -> List[int]:\n    return [x]\n```"
+    typing_code = _extract_code(typing_gen, typing_prompt, "foo")
+    assert "from typing import List" in typing_code, "must prepend typing import from prompt"
+    typing_test = "def check(c):\n    assert c(3) == [3]\n"
+    ok2, e2 = _run_tests(typing_code, typing_test, "foo")
+    assert ok2, "typing-import sandbox should pass, got: " + e2
     # config version is reproducible
     cv = _config_version()
     assert cv.startswith("v1_") and len(cv) > 10
