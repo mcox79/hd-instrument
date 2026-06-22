@@ -1,0 +1,417 @@
+{
+  "anchor_name": "n9_smh_sparsemax_decode_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "DISCRIMINATOR HARD_FAIL: SMH sparsemax-attractor decode does NOT rescue sparse-superpos at high-M; recall<0.35 (target=0.0194) at M=10000 sig=0.1 mean across 2 seeds (cv=0.098). Diagnosis = eff-rank-limited (not topology-limited); projection sanity = 0.010 (chance) at both seeds confirms keys are too crowded for any decode mechanism to recover. SMH (sparsemax) ~= dense softmax Hopfield (0.0194) -- decode is not the bottleneck. Anchor argmax@M1k_sig0=0.0337 reproduces ARM A baseline (~0.025); shuffled-ctrl 0.0163 ~ chance (control valid). Route to higher-eff-rank key source per 2x drill (eff-rank-NOT-limited would have shown some lift; uniformly NOT did).",
+  "run_mode": "full",
+  "queue_entry_name": "n9_smh_sparsemax_decode_v1_smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 256,
+  "smh_beta": 8.0,
+  "M_SWEEP": [
+    1000,
+    5000,
+    10000
+  ],
+  "SIGMA_SWEEP": [
+    0.0,
+    0.1,
+    0.3
+  ],
+  "n_seeds": 2,
+  "n_seeds_requested": 3,
+  "completed_seeds": [
+    17,
+    7
+  ],
+  "incomplete_seeds": [
+    23
+  ],
+  "train_M": 2500,
+  "train_steps": 600,
+  "detail": {
+    "by_cell_agg": {
+      "M10000_sig0.00": {
+        "M": 10000,
+        "sigma": 0.0,
+        "smh_mean": 0.0194,
+        "smh_std": 0.0019,
+        "smh_cv": 0.0979,
+        "argmax_mean": 0.0081,
+        "dense_mean": 0.0194,
+        "shuffled_mean": 0.005,
+        "lift_smh_vs_argmax": 0.0113
+      },
+      "M10000_sig0.10": {
+        "M": 10000,
+        "sigma": 0.1,
+        "smh_mean": 0.0194,
+        "smh_std": 0.0019,
+        "smh_cv": 0.0979,
+        "argmax_mean": 0.0081,
+        "dense_mean": 0.0194,
+        "shuffled_mean": 0.005,
+        "lift_smh_vs_argmax": 0.0113
+      },
+      "M10000_sig0.30": {
+        "M": 10000,
+        "sigma": 0.3,
+        "smh_mean": 0.02,
+        "smh_std": 0.0,
+        "smh_cv": 0.0,
+        "argmax_mean": 0.0081,
+        "dense_mean": 0.02,
+        "shuffled_mean": 0.005,
+        "lift_smh_vs_argmax": 0.0119
+      },
+      "M1000_sig0.00": {
+        "M": 1000,
+        "sigma": 0.0,
+        "smh_mean": 0.0668,
+        "smh_std": 0.0219,
+        "smh_cv": 0.3269,
+        "argmax_mean": 0.0337,
+        "dense_mean": 0.0668,
+        "shuffled_mean": 0.0151,
+        "lift_smh_vs_argmax": 0.0331
+      },
+      "M1000_sig0.10": {
+        "M": 1000,
+        "sigma": 0.1,
+        "smh_mean": 0.0662,
+        "smh_std": 0.0225,
+        "smh_cv": 0.3399,
+        "argmax_mean": 0.0337,
+        "dense_mean": 0.0662,
+        "shuffled_mean": 0.0163,
+        "lift_smh_vs_argmax": 0.0325
+      },
+      "M1000_sig0.30": {
+        "M": 1000,
+        "sigma": 0.3,
+        "smh_mean": 0.0657,
+        "smh_std": 0.0181,
+        "smh_cv": 0.2765,
+        "argmax_mean": 0.0331,
+        "dense_mean": 0.0657,
+        "shuffled_mean": 0.0151,
+        "lift_smh_vs_argmax": 0.0325
+      },
+      "M5000_sig0.00": {
+        "M": 5000,
+        "sigma": 0.0,
+        "smh_mean": 0.0187,
+        "smh_std": 0.0075,
+        "smh_cv": 0.4011,
+        "argmax_mean": 0.0175,
+        "dense_mean": 0.0187,
+        "shuffled_mean": 0.0037,
+        "lift_smh_vs_argmax": 0.0012
+      },
+      "M5000_sig0.10": {
+        "M": 5000,
+        "sigma": 0.1,
+        "smh_mean": 0.0181,
+        "smh_std": 0.0069,
+        "smh_cv": 0.3812,
+        "argmax_mean": 0.0175,
+        "dense_mean": 0.0181,
+        "shuffled_mean": 0.0044,
+        "lift_smh_vs_argmax": 0.0006
+      },
+      "M5000_sig0.30": {
+        "M": 5000,
+        "sigma": 0.3,
+        "smh_mean": 0.0225,
+        "smh_std": 0.0075,
+        "smh_cv": 0.3333,
+        "argmax_mean": 0.0163,
+        "dense_mean": 0.0225,
+        "shuffled_mean": 0.0044,
+        "lift_smh_vs_argmax": 0.0062
+      }
+    },
+    "M_top": 10000,
+    "smh_at_M10k_sig0.1_mean": 0.0194,
+    "smh_at_M10k_sig0.1_cv": 0.0979,
+    "anchor_M1k_sig0_argmax_mean": 0.0337,
+    "shuffled_smh_max": 0.0163,
+    "proj_recall_sanity_per_seed": {
+      "17": 0.01,
+      "7": 0.01
+    },
+    "n_seeds_completed": 2,
+    "CONFIG_VERSION": "n9_smh_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 beta=8.00 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+    "honest_scope": "CPU pythia-160m; SMH sparsemax-attractor decode on CERT591-projected keys; kWTA superposition write preserved as argmax control; full M_SWEEP+SIGMA_SWEEP per seed; 2 of 3 seeds completed (seed=23 timed out at 3600s wall on local_cpu_queue mid-encoding). cv across 2 seeds is stable (0.098 at discriminator) so missing seed unlikely to change verdict tier.",
+    "cites": [
+      "research_path_c_armA_2x_revival_drill_2026-06-22",
+      "Hu_NeurIPS2023_sparse_modern_hopfield",
+      "Ramsauer2020_modern_hopfield",
+      "Martins_Astudillo_2016_sparsemax",
+      "exp_armA_projected_key_revival_v1_HARD_FAIL_f2a658ddda005c98",
+      "CERT591_kv_learned_projection_v1"
+    ],
+    "timeout_event": "3600s wall hit during seed=23 encode; partials s7+s17 saved + checkpointed"
+  },
+  "metrics_source": "measured_cpu_n9_smh_sparsemax_decode_v1_2of3seeds_timeout",
+  "per_unit": [
+    {
+      "seed": 17,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_argmax_proj": 0.0362,
+          "recall_smh_proj": 0.0887,
+          "recall_dense_hopfield": 0.0887,
+          "recall_smh_shuffled": 0.0213,
+          "lift_smh_over_argmax": 0.0525,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 52428.8,
+          "wall_s_unit": 0.75
+        },
+        "M1000_sig0.10": {
+          "M": 1000,
+          "sigma": 0.1,
+          "recall_argmax_proj": 0.0362,
+          "recall_smh_proj": 0.0887,
+          "recall_dense_hopfield": 0.0887,
+          "recall_smh_shuffled": 0.0238,
+          "lift_smh_over_argmax": 0.0525,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 52428.8,
+          "wall_s_unit": 0.76
+        },
+        "M1000_sig0.30": {
+          "M": 1000,
+          "sigma": 0.3,
+          "recall_argmax_proj": 0.0362,
+          "recall_smh_proj": 0.0838,
+          "recall_dense_hopfield": 0.0838,
+          "recall_smh_shuffled": 0.0213,
+          "lift_smh_over_argmax": 0.0475,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 52428.8,
+          "wall_s_unit": 0.78
+        },
+        "M5000_sig0.00": {
+          "M": 5000,
+          "sigma": 0.0,
+          "recall_argmax_proj": 0.0175,
+          "recall_smh_proj": 0.0262,
+          "recall_dense_hopfield": 0.0262,
+          "recall_smh_shuffled": 0.005,
+          "lift_smh_over_argmax": 0.0087,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 10485.8,
+          "wall_s_unit": 2.76
+        },
+        "M5000_sig0.10": {
+          "M": 5000,
+          "sigma": 0.1,
+          "recall_argmax_proj": 0.0175,
+          "recall_smh_proj": 0.025,
+          "recall_dense_hopfield": 0.025,
+          "recall_smh_shuffled": 0.0063,
+          "lift_smh_over_argmax": 0.0075,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 10485.8,
+          "wall_s_unit": 2.81
+        },
+        "M5000_sig0.30": {
+          "M": 5000,
+          "sigma": 0.3,
+          "recall_argmax_proj": 0.0163,
+          "recall_smh_proj": 0.03,
+          "recall_dense_hopfield": 0.03,
+          "recall_smh_shuffled": 0.0063,
+          "lift_smh_over_argmax": 0.0137,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 10485.8,
+          "wall_s_unit": 2.63
+        },
+        "M10000_sig0.00": {
+          "M": 10000,
+          "sigma": 0.0,
+          "recall_argmax_proj": 0.0037,
+          "recall_smh_proj": 0.0213,
+          "recall_dense_hopfield": 0.0213,
+          "recall_smh_shuffled": 0.0037,
+          "lift_smh_over_argmax": 0.0175,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 5242.9,
+          "wall_s_unit": 4.93
+        },
+        "M10000_sig0.10": {
+          "M": 10000,
+          "sigma": 0.1,
+          "recall_argmax_proj": 0.0037,
+          "recall_smh_proj": 0.0213,
+          "recall_dense_hopfield": 0.0213,
+          "recall_smh_shuffled": 0.0037,
+          "lift_smh_over_argmax": 0.0175,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 5242.9,
+          "wall_s_unit": 4.93
+        },
+        "M10000_sig0.30": {
+          "M": 10000,
+          "sigma": 0.3,
+          "recall_argmax_proj": 0.0037,
+          "recall_smh_proj": 0.02,
+          "recall_dense_hopfield": 0.02,
+          "recall_smh_shuffled": 0.0037,
+          "lift_smh_over_argmax": 0.0163,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 5242.9,
+          "wall_s_unit": 4.95
+        }
+      },
+      "proj_recall_sanity": 0.01,
+      "run_mode": "full",
+      "config_version": "n9_smh_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 beta=8.00 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+      "_ckpt_key": "s17",
+      "_partial_written_at": 1782111027.1720011
+    },
+    {
+      "seed": 7,
+      "by_cell": {
+        "M1000_sig0.00": {
+          "M": 1000,
+          "sigma": 0.0,
+          "recall_argmax_proj": 0.0312,
+          "recall_smh_proj": 0.045,
+          "recall_dense_hopfield": 0.045,
+          "recall_smh_shuffled": 0.0088,
+          "lift_smh_over_argmax": 0.0137,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 52428.8,
+          "wall_s_unit": 0.47
+        },
+        "M1000_sig0.10": {
+          "M": 1000,
+          "sigma": 0.1,
+          "recall_argmax_proj": 0.0312,
+          "recall_smh_proj": 0.0437,
+          "recall_dense_hopfield": 0.0437,
+          "recall_smh_shuffled": 0.0088,
+          "lift_smh_over_argmax": 0.0125,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 52428.8,
+          "wall_s_unit": 0.45
+        },
+        "M1000_sig0.30": {
+          "M": 1000,
+          "sigma": 0.3,
+          "recall_argmax_proj": 0.03,
+          "recall_smh_proj": 0.0475,
+          "recall_dense_hopfield": 0.0475,
+          "recall_smh_shuffled": 0.0088,
+          "lift_smh_over_argmax": 0.0175,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 52428.8,
+          "wall_s_unit": 0.41
+        },
+        "M5000_sig0.00": {
+          "M": 5000,
+          "sigma": 0.0,
+          "recall_argmax_proj": 0.0175,
+          "recall_smh_proj": 0.0112,
+          "recall_dense_hopfield": 0.0112,
+          "recall_smh_shuffled": 0.0025,
+          "lift_smh_over_argmax": -0.0063,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 10485.8,
+          "wall_s_unit": 1.54
+        },
+        "M5000_sig0.10": {
+          "M": 5000,
+          "sigma": 0.1,
+          "recall_argmax_proj": 0.0175,
+          "recall_smh_proj": 0.0112,
+          "recall_dense_hopfield": 0.0112,
+          "recall_smh_shuffled": 0.0025,
+          "lift_smh_over_argmax": -0.0063,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 10485.8,
+          "wall_s_unit": 1.51
+        },
+        "M5000_sig0.30": {
+          "M": 5000,
+          "sigma": 0.3,
+          "recall_argmax_proj": 0.0163,
+          "recall_smh_proj": 0.015,
+          "recall_dense_hopfield": 0.015,
+          "recall_smh_shuffled": 0.0025,
+          "lift_smh_over_argmax": -0.0013,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 10485.8,
+          "wall_s_unit": 1.63
+        },
+        "M10000_sig0.00": {
+          "M": 10000,
+          "sigma": 0.0,
+          "recall_argmax_proj": 0.0125,
+          "recall_smh_proj": 0.0175,
+          "recall_dense_hopfield": 0.0175,
+          "recall_smh_shuffled": 0.0063,
+          "lift_smh_over_argmax": 0.005,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 5242.9,
+          "wall_s_unit": 2.73
+        },
+        "M10000_sig0.10": {
+          "M": 10000,
+          "sigma": 0.1,
+          "recall_argmax_proj": 0.0125,
+          "recall_smh_proj": 0.0175,
+          "recall_dense_hopfield": 0.0175,
+          "recall_smh_shuffled": 0.0063,
+          "lift_smh_over_argmax": 0.005,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 5242.9,
+          "wall_s_unit": 2.99
+        },
+        "M10000_sig0.30": {
+          "M": 10000,
+          "sigma": 0.3,
+          "recall_argmax_proj": 0.0125,
+          "recall_smh_proj": 0.02,
+          "recall_dense_hopfield": 0.02,
+          "recall_smh_shuffled": 0.0063,
+          "lift_smh_over_argmax": 0.0075,
+          "lift_smh_over_dense": 0.0,
+          "B_storage_bits_per_mem_smh": 8192.0,
+          "B_storage_bits_per_mem_argmax_arm_A": 5242.9,
+          "wall_s_unit": 2.72
+        }
+      },
+      "proj_recall_sanity": 0.01,
+      "run_mode": "full",
+      "config_version": "n9_smh_v1; encoder=EleutherAI/pythia-160m proj=256 C=256 expand=5 K=5 kwta=0.10 beta=8.00 M=[1000, 5000, 10000] sigma=[0.0, 0.1, 0.3] seeds=[7, 17, 23] train_M=2500 steps=600",
+      "_ckpt_key": "s7",
+      "_partial_written_at": 1782109563.2784367
+    }
+  ],
+  "elapsed_s": 3600,
+  "summary": "DISCRIMINATOR HARD_FAIL: SMH sparsemax-attractor decode does NOT rescue sparse-superpos at high-M; recall<0.35 (target=0.0194) at M=10000 sig=0.1 mean across 2 seeds (cv=0.098). Diagnosis = eff-rank-limited (not topology-limited); projection sanity = 0.010 (chance) at both seeds confirms keys are too crowded for any decode mechanism to recover. SMH (sparsemax) ~= dense softmax Hopfield (0.0194) -- decode is not the bottleneck. Anchor argmax@M1k_sig0=0.0337 reproduces ARM A baseline (~0.025); shuffled-ctrl 0.0163 ~ chance (control valid). Route to higher-eff-rank key source per 2x drill (eff-rank-NOT-limited would have shown some lift; uniformly NOT did).",
+  "substrate_only_decode_gate": "N/A (KV-storage cell, not LM cell; per Path C revival framing)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0
+}
