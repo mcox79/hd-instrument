@@ -1,0 +1,53 @@
+{
+  "anchor_name": "h_hotpotqa_ingest_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate HotpotQA KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop beats 1-hop direct AND frozen-encoder semantic). setrecall=1.0000 (rand-ctrl=0.0000) | refuse OOD=1.000 acc=0.980 | infer 2hop=1.000 vs 1hop=0.000 (ratio=1000000.00x, need >=2.0x) vs frozen-enc=0.083 (ratio=12.00x, need >=2.0x) | bridge=1.000 n_chains=60 | encoder off-diag=0.1440 | cv=0.000",
+  "summary": "HARD_PASS: substrate HotpotQA KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop beats 1-hop direct AND frozen-encoder semantic). setrecall=1.0000 (rand-ctrl=0.0000) | refuse OOD=1.000 acc=0.980 | infer 2hop=1.000 vs 1hop=0.000 (ratio=1000000.00x, need >=2.0x) vs frozen-enc=0.083 (ratio=12.00x, need >=2.0x) | bridge=1.000 n_chains=60 | encoder off-diag=0.1440 | cv=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "h-hotpotqa-multivalue-hebbian-2hop: title1->title2->answer chain; setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder + discriminator-regime-random-key-control; N1024 M_items=200 eval=100 ood=100 2hop=60; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x fail-floor sr0.50",
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "M_triples": 316,
+      "n_ent": 541,
+      "n_rel": 2,
+      "n_keys": 316,
+      "n_chains_bridge": 131,
+      "run_mode": "smoke",
+      "config_version": "h-hotpotqa-multivalue-hebbian-2hop: title1->title2->answer chain; setreadout-topk + margin-refuse + 2hop-vs-1hop-and-frozen-encoder + discriminator-regime-random-key-control; N1024 M_items=200 eval=100 ood=100 2hop=60; bands sr0.95 ood0.80 acc0.80 inf+0.02 enc2.0x fail-floor sr0.50",
+      "setrecall_all": 1.0,
+      "random_key_control": 0.0,
+      "encoder_geometry": {
+        "off_diag_mean_cos": 0.1439676582813263,
+        "off_diag_max_cos": 0.9999997019767761,
+        "n_sampled": 500,
+        "diag_mean": 1.0
+      },
+      "refuse_gate": {
+        "tau": 0.0009113997220993042,
+        "inkb_accept": 0.98,
+        "ood_refuse": 1.0,
+        "inkb_conf_mean": 0.0009746656287461519,
+        "ood_conf_mean": 0.00010847307567019016,
+        "n_inkb_eval": 50,
+        "n_ood_eval": 50
+      },
+      "inference_transfer": {
+        "n": 60,
+        "substrate_2hop": 1.0,
+        "bridge_recall": 1.0,
+        "baseline_1hop_direct": 0.0,
+        "baseline_frozen_encoder": 0.08333333333333333
+      },
+      "ingest_s": 0.0,
+      "_ckpt_key": "1",
+      "_partial_written_at": 1782150599.0711107
+    }
+  ],
+  "elapsed_s": 13.9,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls_at_inference": 0,
+  "DESIGN_NOTE": "H HotpotQA 1k-dev substrate KB-ingest; mirrors n8 ConceptNet + U1 FB15k-237 chain-grade pattern. Per-item 2-hop chain: (title1, linked_via, title2) + (title2, supplies_answer, answer). Encoder: MiniLM-L6 (n8-proven on short entity names; chosen over pythia-160m mean-pool which collapsed on MedQA long vignettes). Encoder-geometry HALT guard (off-diag cos > 0.95) catches the MedQA signature pre-emptively. Fix #16 discriminator-regime: random-key control + frozen-encoder semantic baseline + 1-hop direct baseline (all <= 2x means HALT)."
+}
