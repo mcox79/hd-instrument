@@ -40910,3 +40910,4 @@
 {"ts": 1782148048.1070352, "op": "add_atom", "target": "T3/EXP_c3_compressed_sequence_replay_v1", "note": "", "source": "manual"}
 {"ts": 1782148256.7903087, "op": "update_atom", "target": "T3/EXP_c3_compressed_sequence_replay_v1", "note": "", "source": "manual"}
 {"ts": 1782150406.046027, "op": "add_atom", "target": "T3/EXP_g1_substrate_native_generation_v1", "note": "landed-VET MEASURED_MECHANISM ruling", "source": "skunkworks_atomize_g1_MM_2026-06-22"}
+{"ts": 1782153866.9327037, "op": "add_atom", "target": "T3/EXP_g1b_capacity_sweep_v1", "note": "landed-VET CERT_CHAIN_GRADE ruling (route B)", "source": "skunkworks_atomize_g1b_chain_grade_2026-06-22"}
