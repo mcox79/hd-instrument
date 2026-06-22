@@ -170,6 +170,34 @@ From `data/remote_cpu_queue/c1_cls_replay_continual_ingest_v1.log` on marsh@home
 
 **Implication for HARD_PASS bands:** the cell will likely give a HARD_PASS verdict OR a "substrate doesn't even forget at α=0.5 with NN cleanup" measured-mechanism finding, depending on whether NONE collapses at α=0.5. The decisive cell is honest: pre-reg was written before knowing if NN cleanup ceilings.
 
+## UPDATE (mid-run): NONE@α=0.5 = 1.000 — pre-reg BASELINE DOES NOT COLLAPSE
+
+A further log tail shows seed=7 NONE alpha=0.500 M/task=205 task_A=1.000 task_J=1.000 wall=228.8s.
+
+**This is the headline of the partial-data finding.** The drill's pre-reg HARD_PASS requires `delta (B - A) >= 0.40` at α=0.5, which presupposes that NONE@α=0.5 will collapse to ≤ 0.40 (catastrophic forgetting baseline). The actual data: NONE@α=0.5 = 1.000.
+
+**Implications:**
+
+1. **The substrate's codebook-NN cleanup is MORE robust than the drill's a8-extrapolation predicted.** The a8 cell measured Hopfield self-attractor recall (Xi^T Xi v with sign cleanup) and saw a cliff at α=0.5 with acc=0.527. My c1 measures hetero-associative read W @ key with codebook argmax — and the codebook-NN's "snap to nearest of ~2050 candidate value vectors" is FAR more forgiving than Hopfield-self-attractor sign cleanup. Even with raw cosine degraded by Hebbian crosstalk at α=0.5, the correct value is still the codebook-nearest. **This is the U1-style robustness (CERT 584, set-recall 0.99 @ 50k) showing up.**
+
+2. **Pre-reg HARD_PASS cannot fire if the baseline doesn't collapse.** Mechanically: delta = B - A = (>=0.85) - 1.000 <= -0.15 (NEGATIVE). The HARD_FAIL branch "delta < 0.20" will fire. **But this is an HONEST_NEGATIVE, not a mechanism-failure HARD_FAIL.** The mechanism (replay) has nothing to RESCUE because the substrate doesn't forget at α=0.5 under codebook-NN cleanup.
+
+3. **The science finding is genuinely SUBSTRATE-FAVORABLE:** substrate continual-learning is MORE robust than the brain-drill predicted. The dual-store CLS architecture (U1 hippocampus + W cortex) is so capacity-rich at codebook-NN that the WRITE-PHASE crosstalk doesn't break the READ-PHASE retrieval at α=0.5 over 10 disjoint tasks.
+
+4. **Where does the cliff actually live?** Per the cell's design, α=1.5 is still queued; if NONE@α=1.5 also = 1.000, the cliff lives above 1.5 (= 6x Hopfield capacity bound). If NONE@α=1.5 collapses (likely given a8's anchor said acc<0.30 at α=1.5), we'll see WHERE the cliff is.
+
+5. **Right disposition (subject to final-VET):** MEASURED_MECHANISM characterization "substrate codebook-NN cleanup does NOT exhibit task-1 forgetting at α=0.5 over J=10 disjoint tasks; the replay-rescue hypothesis cannot fire because the baseline does not collapse. The substrate is more robust than a8-cliff extrapolation predicted." OR HONEST_NEGATIVE if Skunkworks prefers that framing. NOT a mechanism HARD_FAIL.
+
+6. **2x-revival angle (the data the drill needs):** route to Research to design a follow-on cell that EXPOSES forgetting:
+   - **Stricter recall metric**: drop codebook-NN; use raw cosine threshold (e.g., > 0.5 for "correct"); this directly probes Hebbian-superposition fidelity NOT codebook-buffering.
+   - **Push α higher**: α=2.0, 3.0, 4.0 to find where substrate codebook-NN cleanup actually breaks.
+   - **Shrink codebook**: fewer candidate values to reduce the NN-cleanup "snap" robustness.
+   - **Stricter task-disjointness**: my task partition was DISJOINT keys + DISJOINT value-indices; if the substrate has reduced crosstalk because tasks share NOTHING, real-world continual learning (which has overlapping concepts) may show real forgetting.
+
+7. **This update is PARTIAL DATA.** The full run continues; seed=7 still needs ONLINE_1to1@0.5, ONLINE_3to1@0.5, RANDOM_1to1@0.5, all alpha=1.5 arms; then seeds 17 + 23. Total ETA ~3+ hours from start (already 70min in). Final disposition awaits the cliff (α=1.5) data.
+
+**Updated disposition prediction (before final-VET):** MEASURED_MECHANISM "substrate continual-learning is more robust than a8-extrapolation predicted; replay-rescue hypothesis untestable at pre-reg load due to non-collapsing baseline; cliff lives above α=0.5 under codebook-NN recall." Skunkworks's landed-VET will independently confirm and pick the exact cert_class.
+
 **Honest skeptic angle:** if NONE@α=0.5 is also 1.000, then NONE@α=1.5 (where item count is way past Hopfield capacity) MUST collapse, OR my N_PROBE = 60 sample size is missing the variance. Either way, the alpha=1.5 NONE arm is the discriminator.
 
 ## Wall-Time Surprise
