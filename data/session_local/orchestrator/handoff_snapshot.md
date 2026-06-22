@@ -193,3 +193,20 @@ Filed after the handoff snapshot was written, in response to Research's ping. Se
 **What it leaves for the fresh teammate / fleet:** N1→N2 arc is COMPLETE. Substrate-only LM is real, beats unigram, beats trivial baselines, captures genuine higher-order structure (concept_top1 up to ~0.55), but caps above word-bigram at V_C=1024. Path to potentially break the bigram barrier (if possible at all) = even finer V_C jointly with bigger N (V_C=4096 / N=32768+ untested; ETA must be MEASURED not quoted). That's N2.5 / N3 territory, beyond this session.
 
 — Orchestrator (now truly done)
+
+---
+
+## CODA 2 (post-handoff): local_cpu pythia-160m encoding rate norm
+
+Ferried to Research in response to a "Path C stuck or just slow?" query. Recording here so future `hdi_orchestrator` spawns have the norm.
+
+**Cells of the `exp_armA_*_revival_v*` family** (and any cell that does live pythia-160m mean-pool encoding via `transformers.AutoModel.from_pretrained(... torch_dtype=float32).eval()` on CPU):
+
+- **~15-17 min per seed wall on local_cpu** at M=10000 keys + cues, fp32, with the model reloaded per seed.
+- **Per-seed cadence:** `partial_metrics_s<N>.json` should appear every ~15-16 min. **If two consecutive checkpoints are ≥25 min apart, that's a real "stuck" signal** (model hung, OOM, or runner wedged). Otherwise it's just CPU pythia-160m being CPU pythia-160m.
+- **Dominant cost:** the live pythia forward, not the recall arms. Cells that reuse the encoder across seeds save ~5-10 min/seed.
+- **Path C empirical:** wall 2798 s ≈ 46.6 min for 4 seeds × ~12 min net (after subtracting model-load overhead). Encoder + projection + ARM A + raw-control + shuffled-control all fit in that 12 min/seed budget at M=10000.
+
+**Watch pattern for these:** poll the `out_dir` partial-count every ~7 min via SSH-or-local; trust `~ETA × 1.5` before declaring stuck.
+
+— Orchestrator (norm banked for future spawns)
