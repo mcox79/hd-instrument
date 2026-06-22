@@ -205,20 +205,41 @@ def _normalize_rows_t(X: torch.Tensor, eps: float = 1e-12) -> torch.Tensor:
     return X
 
 
-def make_bipolar_keys_t(M: int, n: int, gen: torch.Generator, device, dtype) -> torch.Tensor:
-    """Random +/- 1 vectors, L2-normalized. Shape (M, n) on device."""
+def make_bipolar_keys_raw_t(M: int, n: int, gen: torch.Generator, device, dtype) -> torch.Tensor:
+    """Random +/- 1 vectors, NOT normalized. Shape (M, n) on device. ||row|| = sqrt(n)."""
     X = torch.empty(M, n, device=device, dtype=dtype)
     X.bernoulli_(0.5, generator=gen).mul_(2.0).sub_(1.0)
+    return X
+
+
+def make_bipolar_keys_t(M: int, n: int, gen: torch.Generator, device, dtype) -> torch.Tensor:
+    """Random +/- 1 vectors, L2-normalized. Shape (M, n) on device."""
+    X = make_bipolar_keys_raw_t(M, n, gen, device, dtype)
     return _normalize_rows_t(X)
 
 
-def add_gaussian_noise_and_normalize_t(Q: torch.Tensor, stdev: float,
-                                       gen: torch.Generator) -> torch.Tensor:
-    """Add stdev * N(0,1) to Q (NQ, N) and re-normalize each row. Returns new tensor."""
-    noise = torch.empty_like(Q)
+def noised_normalized_queries_from_raw_t(K_raw: torch.Tensor, truth_idx: torch.Tensor,
+                                         stdev: float, gen: torch.Generator) -> torch.Tensor:
+    """Form noised+normalized queries from RAW bipolar keys (signal stays at per-entry scale ~1).
+
+    Standard practice for Hopfield retrieval probes: noise is added to the BIPOLAR vector
+    (per-entry stdev ~0.1 means signal-to-noise per entry is 10:1). Then we L2-normalize
+    for the cosine-similarity retrieval. Without this, normalizing K BEFORE adding noise
+    inverts the SNR (noise floods signal at high N).
+
+    Args:
+      K_raw: (M, N) raw bipolar (NOT normalized). ||row|| = sqrt(N).
+      truth_idx: (NQ,) indices into K_raw.
+      stdev: per-entry gaussian noise stdev.
+      gen: torch.Generator.
+
+    Returns: (NQ, N) noised + L2-normalized queries.
+    """
+    Q_raw = K_raw[truth_idx].clone()        # (NQ, N) raw bipolar
+    noise = torch.empty_like(Q_raw)
     noise.normal_(mean=0.0, std=stdev, generator=gen)
-    Q_n = Q + noise
-    return _normalize_rows_t(Q_n)
+    Q_n_raw = Q_raw + noise                  # noise commensurate with bipolar per-entry scale
+    return _normalize_rows_t(Q_n_raw)
 
 
 # ----------------------------- retrieval mechanisms -----------------------------
@@ -268,16 +289,15 @@ def classical_hebbian_top1_batch_t(K: torch.Tensor, Q: torch.Tensor) -> torch.Te
     return idx
 
 
-def shuffled_query_modern_top1_t(K: torch.Tensor, Q: torch.Tensor,
+def shuffled_query_modern_top1_t(K: torch.Tensor, K_raw: torch.Tensor,
                                   truth_idx: torch.Tensor, beta: float,
                                   gen: torch.Generator) -> torch.Tensor:
-    """Mechanism-null floor: form Q' from RANDOMLY-SHUFFLED keys (not true keys),
+    """Mechanism-null floor: form Q' from RANDOMLY-PICKED keys (not the truth keys),
     then run MODERN_HOPFIELD retrieval; compare against the ORIGINAL truth indices.
 
     Args:
-      K: (M, N).
-      Q: (NQ, N) -- here, we DON'T use the noised Q; we make new queries from a
-         random permutation of K and the same noise level, then run retrieval.
+      K: (M, N) L2-normalized keys (for retrieval).
+      K_raw: (M, N) raw bipolar keys (for noise + normalize, correct SNR).
       truth_idx: (NQ,) -- the truth labels that the noised Q was supposed to match.
       beta: inverse temperature.
       gen: torch.Generator.
@@ -286,12 +306,10 @@ def shuffled_query_modern_top1_t(K: torch.Tensor, Q: torch.Tensor,
              the ORIGINAL truth_idx (which is uncorrelated with the shuffled queries).
     """
     M = K.shape[0]
-    NQ = Q.shape[0]
-    # Build a random permutation; pick NQ shuffled keys uniformly with replacement so the
-    # distribution of source-keys is decoupled from truth_idx.
-    perm = torch.randint(0, M, (NQ,), generator=gen, device=K.device)
-    base = K[perm]                              # (NQ, N) random source keys (NOT the truth)
-    Q_shuf = add_gaussian_noise_and_normalize_t(base, NOISE_STDEV, gen)
+    NQ = truth_idx.shape[0]
+    # Pick NQ random source-key indices (uniform-with-replacement; uncorrelated with truth).
+    shuf_idx = torch.randint(0, M, (NQ,), generator=gen, device=K.device)
+    Q_shuf = noised_normalized_queries_from_raw_t(K_raw, shuf_idx, NOISE_STDEV, gen)
     idx = modern_hopfield_top1_batch_t(K, Q_shuf, beta)
     return idx
 
@@ -307,14 +325,16 @@ def _run_arms_one_M(M: int, seed: int, gpu_util_samples: List[float]) -> Dict:
     gen_probe = torch.Generator(device=_DEVICE).manual_seed(int(seed * 100003 + M * 37 + 1))
     gen_shuf = torch.Generator(device=_DEVICE).manual_seed(int(seed * 100003 + M * 37 + 2))
 
-    # Hoist K (M, N) -- single allocation per (seed, M)
-    K = make_bipolar_keys_t(M, N_DIM, gen_keys, _DEVICE, _DTYPE)
+    # Hoist K_raw (M, N) raw bipolar + K = normalized -- single allocation per (seed, M).
+    # K_raw stays around for noise generation (correct SNR via raw-then-noise-then-normalize);
+    # K is used for retrieval (cosine-similarity).
+    K_raw = make_bipolar_keys_raw_t(M, N_DIM, gen_keys, _DEVICE, _DTYPE)
+    K = K_raw / K_raw.norm(dim=1, keepdim=True)
 
-    # Hoist Q -- probe NQ true keys (without replacement), noised once
+    # Hoist Q -- probe NQ true keys (without replacement), noised once at correct scale.
     nq = min(NQ, M)
     truth_idx = torch.randperm(M, generator=gen_probe, device=_DEVICE)[:nq]
-    Q_clean = K[truth_idx]
-    Q = add_gaussian_noise_and_normalize_t(Q_clean, NOISE_STDEV, gen_probe)
+    Q = noised_normalized_queries_from_raw_t(K_raw, truth_idx, NOISE_STDEV, gen_probe)
 
     per_beta: Dict[str, Dict] = {}
     # Sample GPU util once at start of arm batch (steady-state under matmul load is measured
@@ -327,7 +347,7 @@ def _run_arms_one_M(M: int, seed: int, gpu_util_samples: List[float]) -> Dict:
         if s1 is not None:
             gpu_util_samples.append(s1)
         # SHUFFLED (uses MODERN mechanism on shuffled queries; demonstrates the arm's null floor)
-        idx_s = shuffled_query_modern_top1_t(K, Q, truth_idx, float(b), gen_shuf)
+        idx_s = shuffled_query_modern_top1_t(K, K_raw, truth_idx, float(b), gen_shuf)
         top1_shuffled = float((idx_s == truth_idx).float().mean().item())
         s2 = _gpu_util_sample()
         if s2 is not None:
@@ -345,7 +365,7 @@ def _run_arms_one_M(M: int, seed: int, gpu_util_samples: List[float]) -> Dict:
         gpu_util_samples.append(s3)
 
     # Free K + Q before next M
-    del K, Q, Q_clean, truth_idx, idx_m, idx_s, idx_c
+    del K, K_raw, Q, truth_idx, idx_m, idx_s, idx_c
     if _CUDA_OK:
         torch.cuda.empty_cache()
 
@@ -419,7 +439,8 @@ def _selftest():
         gen = torch.Generator(device=_DEVICE).manual_seed(0)
         # T1: noiseless modern Hopfield at tiny scale: top-1 == 1.0 expected
         M, n, nq = 20, 256, 20
-        K = make_bipolar_keys_t(M, n, gen, _DEVICE, _DTYPE)
+        K_raw = make_bipolar_keys_raw_t(M, n, gen, _DEVICE, _DTYPE)
+        K = K_raw / K_raw.norm(dim=1, keepdim=True)
         truth = torch.arange(M, device=_DEVICE)[:nq]
         Q_clean = K[truth]  # zero noise
         idx_m = modern_hopfield_top1_batch_t(K, Q_clean, beta=8.0)
@@ -433,9 +454,16 @@ def _selftest():
 
         # T3: shuffled-query floor: ~1/M chance
         gen2 = torch.Generator(device=_DEVICE).manual_seed(1)
-        idx_s = shuffled_query_modern_top1_t(K, Q_clean, truth, beta=8.0, gen=gen2)
+        idx_s = shuffled_query_modern_top1_t(K, K_raw, truth, beta=8.0, gen=gen2)
         top1_s = float((idx_s == truth).float().mean().item())
         assert top1_s <= 0.20, "T3 shuffled-query top-1=%.3f > 0.20 (mechanism-null floor broken)" % top1_s
+
+        # T3b: noise added at correct scale (raw bipolar; per-entry stdev=0.1) -> mostly recoverable
+        gen3 = torch.Generator(device=_DEVICE).manual_seed(2)
+        Q_noised = noised_normalized_queries_from_raw_t(K_raw, truth, 0.1, gen3)
+        idx_n = modern_hopfield_top1_batch_t(K, Q_noised, beta=8.0)
+        top1_n = float((idx_n == truth).float().mean().item())
+        assert top1_n >= 0.80, "T3b noised raw-scale top-1=%.3f < 0.80 (noise scale wrong?)" % top1_n
 
         # T4: LLM counter zero
         assert _LLM_CALL_COUNTER[0] == 0, "T4 LLM counter non-zero (%d)" % _LLM_CALL_COUNTER[0]
@@ -451,8 +479,8 @@ def _selftest():
         assert max_dev < 1e-4, "T5 softmax row-sum deviation %.2e > 1e-4" % max_dev
 
         print(("[selftest] PASS: modern_top1=%.3f classical_top1=%.3f shuffled_top1=%.3f "
-               "softmax_max=%.2f LLM=%d") %
-              (top1_m, top1_c, top1_s, max_b, _LLM_CALL_COUNTER[0]), flush=True)
+               "noised_raw_top1=%.3f softmax_max=%.2f LLM=%d") %
+              (top1_m, top1_c, top1_s, top1_n, max_b, _LLM_CALL_COUNTER[0]), flush=True)
     finally:
         _DEVICE = _save_dev
 
