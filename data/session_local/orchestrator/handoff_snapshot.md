@@ -196,17 +196,58 @@ Filed after the handoff snapshot was written, in response to Research's ping. Se
 
 ---
 
-## CODA 2 (post-handoff): local_cpu pythia-160m encoding rate norm
+## CODA 2 (post-handoff): "is this cell stuck or just slow?" — runtime norms + decision tree
 
-Ferried to Research in response to a "Path C stuck or just slow?" query. Recording here so future `hdi_orchestrator` spawns have the norm.
+Ferried to Research after a "Path C stuck or just slow?" query (the canonical class of question I get when a sibling has dispatched a CPU cell and the watch ETA is uncertain). Banked here so future `hdi_orchestrator` spawns can answer this in one shot without re-deriving each time.
 
-**Cells of the `exp_armA_*_revival_v*` family** (and any cell that does live pythia-160m mean-pool encoding via `transformers.AutoModel.from_pretrained(... torch_dtype=float32).eval()` on CPU):
+### The triage workflow (run in order; stop at first answer)
 
-- **~15-17 min per seed wall on local_cpu** at M=10000 keys + cues, fp32, with the model reloaded per seed.
-- **Per-seed cadence:** `partial_metrics_s<N>.json` should appear every ~15-16 min. **If two consecutive checkpoints are ≥25 min apart, that's a real "stuck" signal** (model hung, OOM, or runner wedged). Otherwise it's just CPU pythia-160m being CPU pythia-160m.
-- **Dominant cost:** the live pythia forward, not the recall arms. Cells that reuse the encoder across seeds save ~5-10 min/seed.
-- **Path C empirical:** wall 2798 s ≈ 46.6 min for 4 seeds × ~12 min net (after subtracting model-load overhead). Encoder + projection + ARM A + raw-control + shuffled-control all fit in that 12 min/seed budget at M=10000.
+1. **Pull the queue entry first** — don't trust ETAs, trust `status` + `wall_s`. The asker's "tracker says running" is often stale.
+   ```
+   python -c "import json; q=json.load(open('data/<queue>/queue.json')); e=[x for x in q['experiments'] if x['name']=='<name>']; print({k:e[0].get(k) for k in ('status','started_at','claimed_by','wall_s','run_index')} if e else 'NOT_FOUND')"
+   ```
+   Local: `data/local_cpu_queue/queue.json`. Remote: SSH-pull from marsh@home `C:/dev/hd-instrument/data/remote_cpu_queue/queue.json`. If `status: completed` → it's done, the asker just hasn't refreshed; pull the metrics and reply with the verdict.
 
-**Watch pattern for these:** poll the `out_dir` partial-count every ~7 min via SSH-or-local; trust `~ETA × 1.5` before declaring stuck.
+2. **List the cell's `out_dir`** — partial-file mtimes are the heartbeat the cell itself emits.
+   ```
+   ls -la data/exp_<anchor>/   # or SSH equivalent for remote
+   ```
+   Pattern: `partial_metrics_s<N>.json` files should appear at the per-seed cadence (see table below). Compute the gap between the two most recent: if it's within ~1.5× the seed norm, it's just slow. If it's > 2× the seed norm with no new file, that's the stuck signal — escalate.
 
-— Orchestrator (norm banked for future spawns)
+3. **If no partials yet** — check elapsed wall vs the encoder-load-overhead floor (see norm below). Under that floor it's still loading the model; do not declare stuck before the floor.
+
+4. **Confirm the runner is alive** (a wedged runner looks identical to a slow cell):
+   ```
+   tasklist | grep python                   # local
+   ssh marsh@home "powershell -NoProfile -Command \"Get-CimInstance Win32_Process -Filter \\\"Name='python.exe'\\\" | Where-Object { \$_.CommandLine -match 'runner_v2_prod' } | Select-Object ProcessId,WorkingSetSize\""   # remote
+   ```
+   Runner-PID alive + heartbeat-fresh + no new partials past the threshold = the cell is wedged inside (likely OOM, infinite loop in a per-seed sub-step, or HuggingFace download hung). Runner-PID absent = runner crashed; cell is stuck because nothing's processing it.
+
+### Runtime norms by encoder × queue × M (the lookup table)
+
+| Cell pattern | Queue | Hardware | Per-seed wall | Stuck threshold (no new partial) | Source |
+|---|---|---|---|---|---|
+| Live pythia-160m fp32 mean-pool encode, M=10k keys+cues, ARM-style recall (`exp_armA_*_revival_v*`) | `local_cpu_queue` | marsh laptop | **~15-17 min** | **>25 min** | Path C `exp_armA_projected_key_revival_v1` empirical: 2798 s / 4 seeds = 12 min/seed net + ~5 min model-load = 17 min total/seed; checkpoints at 19:57 → 20:14 → 20:30 → 20:45 (steady ~15-16 min cadence) |
+| Sparse Willshaw N=4096 W-free recall, no encoder, M~8k transitions, V_C=256 (N1/N2 v3.x family) | `remote_cpu_queue` | marsh@home | **~25-30 s/config** | n/a (configs sub-minute) | co-opt cell empirical: 22-25 s for V_C=256/N=4096/K=1 measured in seed-7 partial |
+| Same harness, V_C=1024/N=4096 (saturated) | `remote_cpu_queue` | marsh@home | ~25 s/config | n/a | same source |
+| Same harness, **V_C=1024/N=8192** | `remote_cpu_queue` | marsh@home | ~70-90 s/config | >5 min/config | n_scaling cell `n2_capacity_scaling_v1` empirical: extrapolated from 1936 s / 18 configs = 107 s average; N=8192 share ~80 s |
+| Same harness, **V_C=1024/N=16384 (un-saturated, W = 16384²)** | `remote_cpu_queue` | marsh@home | ~3-5 min/config | >15 min/config | W-build measured 20.4 s + recall 15.7 s = ~36 s/config compute; adding VQ + decode + baselines = ~3 min observed |
+| Live phase05 extraction (pythia-160m or llama-3.2-1b residual extraction over a dataset) | `overnight_queue` (GPU) or `remote_cpu_queue` | marsh@home | depends on doc count × max_tok_len; ~ms/doc on GPU, ~hundreds of ms/doc on CPU | absence of growth in `residuals*.npz` size over 5 min | Inferred from extraction-cell architecture; no direct measurement this session — flag for empirical confirmation next time |
+
+### Encoding-specific gotchas to call out in the reply
+
+- **Cells that reload the encoder per seed** (the Path C pattern) pay ~3-5 min model-load × N_seeds. If a fresh teammate sees per-seed wall higher than expected, check whether the cell hoists `AutoModel.from_pretrained` outside the seed loop — if not, the load is the culprit and a small refactor saves ~30% wall.
+- **`AutoModel.from_pretrained` on first call** also pays HuggingFace cache resolution; a cold runner that's never seen the model can pay an extra ~30 s just for the cache check. Second seed onward is fast.
+- **CPU pythia-160m fp32** is ~150-250 ms per single-sequence forward at seq=64 tokens. Batched (32+) drops it ~5×. If the cell uses batch=1, expect the slow end; the encoding norm above assumes that.
+- **fp32 vs bf16:** on CPU, bf16 helps only on Sapphire-Rapids+ (avx512_bf16); on the marsh laptop (older Intel) bf16 may be SLOWER than fp32 because of emulation. Assume fp32 unless the cell is explicitly bf16.
+
+### What this answer looked like in practice (Path C concrete)
+
+Research asked at ~00:30Z (≥4h after Path C completed at 20:45Z). Triage step 1 instantly revealed `status: completed` + `wall_s: 2798`. The cell wasn't stuck; the tracker was stale because Research had been deep in Path B + Path D and hadn't refreshed. The full reply needed two SSH-equivalent calls (queue-entry pull + per-seed timing dump from `metrics.json`) and ran in ~30 seconds. **Always start with the queue entry pull — half of "stuck" questions are stale-tracker questions.**
+
+### When to escalate vs handle silently
+
+- **Handle silently:** cell is making progress, asker's tracker is stale, no actionable issue. Just reply with the verdict.
+- **Escalate to USER:** runner crashed AND no other runner exists for that queue; OR cell has been wedged >2× threshold AND there's no per-seed checkpoint to recover from; OR the cell is producing partials but values are clearly garbage (e.g., all NaN). Pure slowness is never an escalation.
+
+— Orchestrator (decision tree + norms banked for future spawns)
