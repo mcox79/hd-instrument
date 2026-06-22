@@ -121,8 +121,19 @@ _ap.add_argument("--max-chars-train", dest="max_chars_train", type=int, default=
 _ap.add_argument("--max-chars-test", dest="max_chars_test", type=int, default=None)
 _ARGS, _ = _ap.parse_known_args()
 
-RUN_MODE = ("smoke" if _ARGS.smoke or os.environ.get("HDLAB_RUN_MODE", "full").lower() == "smoke"
-            else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
+# RUN_MODE detection (in priority order):
+#   1. --smoke CLI flag                                  -> smoke
+#   2. HDLAB_RUN_MODE=smoke env                          -> smoke
+#   3. HDLAB_EXP_NAME ends in "_smoke" (runner-driven)   -> smoke
+#   4. else                                              -> full
+# The 3rd hook lets a runner that always sets HDLAB_RUN_MODE=full (e.g.
+# runner_v2_prod.py) still execute the cell in smoke-config via the entry name.
+_exp_name = os.environ.get("HDLAB_EXP_NAME", "").lower()
+_runmode_env = os.environ.get("HDLAB_RUN_MODE", "full").lower()
+if _ARGS.smoke or _runmode_env == "smoke" or _exp_name.endswith("_smoke"):
+    RUN_MODE = "smoke"
+else:
+    RUN_MODE = _runmode_env
 
 # Substrate config (matches N2 best config compatible scale for char-grain; lower N than
 # Pythia-residual cells since char vocab is 27 not 50k, and bigram context is far smaller).
