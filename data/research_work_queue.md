@@ -37,6 +37,14 @@
 
 ## TIER 2: Queued (next bandwidth; ready to fire)
 
+### USER STRATEGIC VISION queue 2026-06-22 (three load-bearing directives)
+- [HIGH-PRI-NEXT] **Substrate REPL portal v1** (`tools/substrate_repl.py` semantic-search): Pythia-160m encoder (ingest-stage only) + KGStore 2-hop + SequenceMatrix chain + refuse-gate disposition; USER can speak text in and see substrate's nearest atoms + relations + confidence. No text generation (substrate-only-decode gate). 1-2 cycles main-thread; gives USER direct substrate access NOW
+- [QUEUE] **Per-gap research drill cadence**: for each remaining substrate-code backlog primitive (refuse_gate / whitening / learned_projection / continual_ingest / conformal), Sonnet drill: (a) substrate-mine existing chain-grade + MIDDLE_BAND atoms, (b) brain/matsci/info-theory drill on 1-2 specific analog fields. Gap-TARGETED depth drills (extends brain-drill cadence beyond biology-prior surveys)
+- [QUEUE] **`tools/substrate_relational_analysis.py` v1** (5-10 cycles): cluster chain-grade atoms by relation-type + content-similarity + cap_pres signature; surface capability families; pairwise similarity matrix; spectral analysis of atom-relation graph; outputs `notes/capability_family_map_v1_<date>.md`. **Self-improvement Phase 1.**
+- [GATED-on-c3-land] **g1 substrate-native generation cell** (brain-drill #4 payload): uses c3's SequenceMatrix as autoregressive engine; Karuvally-Sejnowski + Langevin + HVC clock-binding; ~90min remote_cpu; P=0.45. Unlocks bidirectional conversational portal v2
+- [LONG-HORIZON] **Brain-drill #7 — category theory + info geometry on cap_map**: atoms = objects, relations = morphisms, capability-families = subcategories; find natural transformations between families = candidate "core underlying mathematics"
+- [PHASE-2 long horizon] **Autoatom proposals** — substrate generates atom-candidates from learned distribution + auto-checks against cap_pres invariants; pass-the-gates = autoatom proposal (USER/Director ratifies)
+
 ### Substrate-code-update queue (per capability-gap audit 2026-06-22; one hdlab/ module per cycle)
 - ✅ [SHIPPED 2026-06-22 commit 03f42ffc] `hdlab/kg_traversal.py` — KGStore with two-hop / n-hop substrate-native KG traversal + ingest_triples + refuse_gate_calibrate; smoke green (multi-value retrieval + 2-hop chain + n-hop generalization + refuse-gate)
 - ✅ [SHIPPED 2026-06-22] `hdlab/multi_hop.py` — naive_chain + iter_cleanup_chain (Modern-Hopfield) + random_cleanup_chain discriminator; smoke green (cleanup picks chain-correct entity 21; random_cleanup picks junk 33 — discriminator works)
