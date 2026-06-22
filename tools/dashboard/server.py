@@ -2311,19 +2311,22 @@ def dashboard_v2_headlines():
     except (AttributeError, KeyError):
         pass
 
-    # In-flight runs
+    # In-flight runs — /api/runs shape is {gpu: {...}, cpu: {...}, local_cpu: {...}}
     try:
         runs_data = snap.get("runs", {}) or {}
-        run_list = runs_data.get("runs") or runs_data.get("experiments") or []
-        running = [r for r in run_list if r.get("status") == "running"]
-        pending = [r for r in run_list if r.get("status") == "pending"]
-        rows = [{"label": (r.get("name") or "?")[:48], "value": r.get("status", "?")}
-                for r in (running + pending)[:6]]
+        running_queues = []
+        for q_key in ["cpu", "gpu", "local_cpu"]:
+            r = runs_data.get(q_key) or {}
+            if r.get("status") == "running" and r.get("current"):
+                running_queues.append((q_key, r))
+        rows = []
+        for q_key, r in running_queues:
+            rows.append({"label": (r.get("current") or "?")[:48], "value": r.get("queue_dir") or q_key})
         out["cards"].append({
             "id": "in_flight",
-            "title": f"{len(running)} running",
-            "subtitle": f"{len(pending)} pending",
-            "rows": rows or [{"label": "(queues clear)", "value": ""}],
+            "title": f"{len(running_queues)} running",
+            "subtitle": "active queues" if running_queues else "queues idle",
+            "rows": rows or [{"label": "(all queues idle)", "value": ""}],
         })
     except Exception as e:
         out["cards"].append({"id": "in_flight", "title": "In-flight", "subtitle": f"err: {type(e).__name__}", "rows": []})

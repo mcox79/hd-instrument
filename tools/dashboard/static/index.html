@@ -234,21 +234,50 @@ async function loadHeadlines() {
 async function loadRuns() {
   try {
     const data = await fetchJSON("/api/runs");
-    const runs = (data.runs || []).slice(0, 12);
+    // API returns {gpu: {...}, cpu: {...}, local_cpu: {...}} - one entry per queue
+    const queues = ["cpu", "gpu", "local_cpu"];
+    const rows = [];
+    for (const q of queues) {
+      const r = data[q];
+      if (!r) continue;
+      // Use absolute elapsed (computed from started_at if elapsed_s is negative due to clock skew)
+      let elapsed = r.elapsed_s;
+      if (r.started_at && (elapsed === null || elapsed < 0)) {
+        const startedMs = Date.parse(r.started_at);
+        if (!isNaN(startedMs)) elapsed = (Date.now() - startedMs) / 1000;
+      }
+      const lastLine = (r.stdout_tail && r.stdout_tail.length) ? r.stdout_tail[r.stdout_tail.length - 1] : "";
+      rows.push({
+        name: r.current || "—",
+        queue: r.queue_dir || q,
+        status: r.status || "?",
+        wall_s: elapsed,
+        lastLine: lastLine,
+      });
+    }
     const container = document.getElementById("runs-table");
-    if (!runs.length) {
-      container.innerHTML = '<div class="empty">no active runs (queues clear)</div>';
+    const runningRows = rows.filter(r => r.status === "running");
+    const idleRows = rows.filter(r => r.status !== "running");
+    if (!runningRows.length) {
+      container.innerHTML = `
+        <div class="row-grid runs-grid head"><span>queue</span><span></span><span>status</span><span></span></div>
+        ${rows.map(r => `<div class="row-grid runs-grid"><span class="name">${escapeHtml(r.queue)}</span><span></span><span class="status">${escapeHtml(r.status)}</span><span></span></div>`).join("")}
+        <div class="empty" style="border-top: 1px solid var(--card-border)">no active runs (all queues idle)</div>`;
       return;
     }
     container.innerHTML = `
-      <div class="row-grid runs-grid head"><span>name</span><span>queue</span><span>status</span><span class="wall">wall</span></div>
-      ${runs.map(r => `
-        <div class="row-grid runs-grid">
-          <span class="name" title="${escapeHtml(r.name || "")}">${escapeHtml(r.name || "?")}</span>
-          <span>${escapeHtml(r.queue || "—")}</span>
-          <span class="status ${escapeHtml((r.status || "").replace(/[^a-zA-Z_-]/g, ""))}">${escapeHtml(r.status || "?")}</span>
+      <div class="row-grid runs-grid head"><span>active run</span><span>queue</span><span>status</span><span class="wall">elapsed</span></div>
+      ${runningRows.map(r => `
+        <div class="row-grid runs-grid" title="${escapeHtml(r.lastLine)}">
+          <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span>
+          <span>${escapeHtml(r.queue)}</span>
+          <span class="status running">${escapeHtml(r.status)}</span>
           <span class="wall">${formatWall(r.wall_s)}</span>
-        </div>`).join("")}`;
+        </div>
+        ${r.lastLine ? `<div class="row-grid runs-grid" style="grid-template-columns: 1fr; padding-left: 28px; color: var(--text-dim); font-size: 11px;"><span class="name" title="${escapeHtml(r.lastLine)}">↳ ${escapeHtml(r.lastLine.slice(0, 120))}</span></div>` : ""}
+      `).join("")}
+      ${idleRows.length ? `<div class="row-grid runs-grid head" style="margin-top: 8px"><span>idle queues</span><span></span><span></span><span></span></div>` : ""}
+      ${idleRows.map(r => `<div class="row-grid runs-grid" style="color: var(--text-dim)"><span>${escapeHtml(r.queue)}</span><span></span><span class="status">${escapeHtml(r.status)}</span><span></span></div>`).join("")}`;
   } catch (e) {
     document.getElementById("runs-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
   }
