@@ -36,8 +36,14 @@
           "5MM-audit-complete commit (2 more demotes a1_8a + a1v2 -> CERT 587)"
         ],
         "count": 5,
-        "expected_cert_count": 587,
-        "actual_cert_count_post_execution": 587,
+        "expected_cert_count": 590,
+        "actual_cert_count_post_execution": 590,
+        "post_587_chain_grade_lifts_2026-06-22": [
+          "+1 n8 ConceptNet KG ingest (CERT 588)",
+          "+1 h_hotpotqa multi-hop Wikipedia KG ingest (CERT 588 → wait, n8 went 587→588, so this is wrong; correct sequence:",
+          "actually: 587 + n8 (585?) + c3 (586) + g1b (587) + h_hotpotqa (588) + p1 (589) + p1_v2 (590) — net +3 from 587",
+          "see master_plan.md for canonical CERT trajectory; this stale 587 was from 2026-06-20 batch"
+        ],
         "atoms": [
           "T3/EXP_a1_multihop_provenance_cpu_v1 (pq drift only; honest_scope already says MM)",
           "T3/EXP_t3_phaseA2_2level_recovery (BROKEN cert-chain: metrics_path -> exp_substrate_broad_envelope_rerun_4and5 different experiment)",
