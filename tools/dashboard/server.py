@@ -1745,6 +1745,80 @@ def _ensure_substrate_native_codebook_loaded() -> dict | None:
             return None
 
 
+def _substrate_walk_response(state, args_text: str):
+    """Substrate-native graph walk from anchor entity. Generates a sequence by stepping
+    through KGStore relations + codebook NN cleanup at each step. Zero external model.
+    """
+    parts = args_text.strip().rsplit(maxsplit=1)
+    if len(parts) == 2 and parts[1].isdigit():
+        anchor_text, depth = parts[0], int(parts[1])
+    else:
+        anchor_text, depth = args_text.strip(), 5
+    depth = max(1, min(depth, 20))
+
+    ent2idx = state["ent2idx"]; rel2idx = state["rel2idx"]
+    idx2ent = state["idx2ent"]; idx2rel = state["idx2rel"]
+    kg = state["kg"]
+
+    s_name, s_idx = _fuzzy_ent(anchor_text, ent2idx)
+    if s_idx is None:
+        # Fall back to semantic anchor if char-trigram codebook + semantic codebook available
+        sub = _ensure_substrate_native_codebook_loaded()
+        if sub is not None:
+            nearest = sub["encoder"].nearest(anchor_text, sub["ent_codebook"], idx2ent, k=1)
+            s_name = nearest[0]["entity"]
+            s_idx = ent2idx.get(s_name)
+        if s_idx is None:
+            return JSONResponse({"ok": False, "error": f"anchor not found: '{anchor_text}'"})
+
+    # Walk: at each step, pick the relation with highest top-1 confidence + step to that entity
+    # This is substrate-native generation (the substrate decides direction via its W matrix scores)
+    import random as _random
+    rng = _random.Random(7)
+    path = [s_name]
+    used_rels = []
+    cur_idx = s_idx
+    for hop in range(depth):
+        # For each relation, get top-1 + score; pick the highest-scoring NEXT step
+        candidates = []
+        for r_name in idx2rel:
+            r_idx = rel2idx[r_name]
+            ti, ts = kg.predict_one_hop_topk(cur_idx, r_idx, k=3)
+            for j in range(len(ti)):
+                next_idx = int(ti[j])
+                score = float(ts[j])
+                next_name = idx2ent[next_idx]
+                # avoid immediate cycle back to previous step
+                if len(path) >= 2 and next_name == path[-2]:
+                    continue
+                candidates.append((next_name, r_name, score, next_idx))
+        if not candidates:
+            break
+        # Sort by score; sample stochastically from top-3 for variety
+        candidates.sort(key=lambda x: x[2], reverse=True)
+        top_n = min(3, len(candidates))
+        weights = [candidates[i][2] for i in range(top_n)]
+        # Softmax with low temp to favor top but allow variety
+        total = sum(weights) or 1.0
+        probs = [w / total for w in weights]
+        pick = rng.choices(range(top_n), weights=probs, k=1)[0]
+        next_name, r_name, score, next_idx = candidates[pick]
+        path.append(next_name)
+        used_rels.append(r_name)
+        cur_idx = next_idx
+
+    return JSONResponse({
+        "ok": True, "kind": "walk",
+        "payload": {
+            "anchor": s_name,
+            "depth": depth,
+            "path": path,
+            "relations": used_rels,
+            "note": "substrate-native graph walk via KGStore.predict_one_hop_topk + softmax-sampled step selection. Zero external model at any stage.",
+        },
+    })
+
+
 def _substrate_native_query_response(state, query_text: str):
     """Char-trigram encoder → nearest entity → substrate retrieval. Zero external model."""
     sub = _ensure_substrate_native_codebook_loaded()
@@ -1865,6 +1939,12 @@ def substrate_chat(body: ChatBody):
         else:
             query_text = msg.split(":", 1)[1].strip()
         return _substrate_native_query_response(state, query_text)
+
+    # /walk <entity> [depth] — substrate-native sequence traversal via KGStore + multi_hop
+    # Pure-substrate generation analog: random-relation walks from anchor entity; zero
+    # external model; uses existing primitives that ARE compatible with ConceptNet graph
+    if msg.lower().startswith("/walk "):
+        return _substrate_walk_response(state, msg[len("/walk "):].strip())
 
     force_english = msg.lower().startswith("english:") or msg.lower().startswith("nl:")
     if force_english:

@@ -142,15 +142,16 @@
       </div>
     </div>
     <form class="chat-form" onsubmit="sendChat(event)">
-      <input type="text" id="chat-input" placeholder="ask in English  |  /substrate <text>  |  <s> <p> ?  |  stats" autocomplete="off">
+      <input type="text" id="chat-input" placeholder="ask in English  |  /substrate <text>  |  /walk <entity> [depth]  |  <s> <p> ?  |  stats" autocomplete="off">
       <button type="submit" class="primary">→</button>
     </form>
   </div>
   <div class="chat-hint">
-    Three modes:
+    Four modes:
     <br><b>English</b> — MiniLM ingest-stage encodes input → nearest entity → substrate W matrix retrieval. MiniLM is ingest-only (no generation). Substrate does 100% of reasoning.
     <br><b>Structured</b> (ends with <code>?</code>) — bypasses any encoder. Pure substrate KGStore + multi_hop primitives. Chain-grade at K=2; K≥3 is MIDDLE_BAND per r1.
-    <br><b>Substrate-native</b> (<code>/substrate &lt;text&gt;</code>) — char-trigram Hebbian encoder; <em>zero external model at any stage</em>. Pure hdlab primitives all the way. Trade-off: narrower semantics (matches char-overlap only); demonstrates substrate can encode English without MiniLM.
+    <br><b>Substrate-native</b> (<code>/substrate &lt;text&gt;</code>) — char-trigram Hebbian encoder; <em>zero external model at any stage</em>. Demonstrates substrate can encode English without MiniLM. Trade-off: narrower semantics (matches char-overlap only).
+    <br><b>Walk</b> (<code>/walk &lt;entity&gt; [depth]</code>) — substrate <em>generates</em> a sequence by stepping through KGStore relations + softmax-sampled top-3 selection. Zero external model. The substrate's W matrix decides each step's direction. Default depth=5; max 20.
   </div>
 </section>
 
@@ -415,6 +416,17 @@ function renderSubstrateResponse(data) {
     body += `  final: <span class="entity">${escapeHtml(p.final)}</span>\n`;
     body += `  per-hop top-1: ${p.per_hop_top1.join(", ")}\n`;
     body += `  <span class="score">${escapeHtml(p.note)}</span>`;
+  } else if (kind === "walk") {
+    body = `substrate-native walk from <span class="entity">${escapeHtml(p.anchor)}</span> (depth ${p.depth}):\n\n`;
+    for (let i = 0; i < p.path.length; i++) {
+      if (i === 0) {
+        body += `  <span class="entity">${escapeHtml(p.path[i])}</span>\n`;
+      } else {
+        body += `    ⤵  via ${escapeHtml(p.relations[i-1])}\n`;
+        body += `  <span class="entity">${escapeHtml(p.path[i])}</span>\n`;
+      }
+    }
+    body += `\n<span class="score">${escapeHtml(p.note)}</span>`;
   } else if (kind === "substrate_native") {
     body = `"${escapeHtml(p.query)}" (substrate-native char-trigram encoder; zero external model) →\n`;
     body += `  anchor: <span class="entity">${escapeHtml(p.anchor)}</span>  (cos=${p.top_matches[0].cosine.toFixed(3)})\n`;
