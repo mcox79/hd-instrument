@@ -208,25 +208,44 @@ def _gpu_util_sample() -> Optional[float]:
 
 
 # ----------------------------- HD primitives (torch on GPU) -----------------------------
+_NORM_ROW_CHUNK = 1024     # rows-per-chunk for fp32 norm path on fp16 storage (VRAM bound)
+
+
 def _normalize_rows_t(X: torch.Tensor, eps: float = 1e-12) -> torch.Tensor:
-    """L2-row-normalize IN-PLACE; computed in fp32 for stability then cast back."""
+    """L2-row-normalize IN-PLACE.
+
+    fp32 needs proper norm path. fp16 storage at LLM scale needs CHUNKED fp32 norm to:
+    (a) avoid fp16 sum-of-squares overflow (N=65536 sum-of-squares = 65536 > fp16 max 65504)
+    (b) avoid materializing a 4 GB X.float() transient at V_C=16384.
+    Chunk fp32 cast of 1024 rows * 65536 cols = 256 MB transient per chunk -- bounded.
+    """
     if X.dtype == torch.float16:
-        norms = X.float().norm(dim=1, keepdim=True).clamp_(min=eps).to(X.dtype)
+        M = X.shape[0]
+        start = 0
+        while start < M:
+            end = min(start + _NORM_ROW_CHUNK, M)
+            row_f32 = X[start:end].float()
+            row_norms = row_f32.norm(dim=1, keepdim=True).clamp_(min=eps)
+            X[start:end] = (row_f32 / row_norms).to(X.dtype)
+            del row_f32, row_norms
+            start = end
     else:
         norms = X.norm(dim=1, keepdim=True).clamp_(min=eps)
-    X.div_(norms)
+        X.div_(norms)
     return X
 
 
 def make_bipolar_t(M: int, n: int, gen: torch.Generator, device, dtype) -> torch.Tensor:
-    """Random +/- 1 vectors, L2-normalized. (M, n) on device. Builds in fp32, casts to dtype."""
-    # Build in fp32 (bernoulli on fp16 is supported but normalization is cleaner in fp32),
-    # then cast to storage dtype.
-    X = torch.empty(M, n, device=device, dtype=torch.float32)
+    """Random +/- 1 vectors, L2-normalized. (M, n) on device, IN storage dtype.
+
+    VRAM discipline: allocate directly in storage dtype. The earlier "build-fp32-then-cast"
+    path doubled peak alloc (e.g., (16384, 65536) fp16 = 2 GB but fp32 transient = 4 GB +
+    fp16 result = 6 GB peak) which OOMed on 8 GB cards at FRESH arm. PyTorch bernoulli_
+    supports fp16 on cuda natively; norms computed in fp32 internally inside _normalize_rows_t.
+    """
+    X = torch.empty(M, n, device=device, dtype=dtype)
     X.bernoulli_(0.5, generator=gen).mul_(2.0).sub_(1.0)
     X = _normalize_rows_t(X)
-    if dtype != torch.float32:
-        X = X.to(dtype)
     return X
 
 
@@ -247,21 +266,16 @@ def project_rows_chunked_t(X: torch.Tensor, n_dst: int, gen: torch.Generator,
     if n_src == n_dst:
         return _normalize_rows_t(X.clone())
     Y = torch.empty(M, n_dst, device=device, dtype=dtype)
-    scale = 1.0 / math.sqrt(n_src)
+    scale_val = 1.0 / math.sqrt(n_src)
     start = 0
     while start < n_dst:
         end = min(start + tile_n_dst, n_dst)
-        # Build tile in fp32 then cast to dtype to keep numerical determinism
-        tile_P = torch.empty(end - start, n_src, device=device, dtype=torch.float32)
-        tile_P.bernoulli_(0.5, generator=gen).mul_(2.0).sub_(1.0).mul_(scale)
-        if dtype != torch.float32:
-            tile_P_use = tile_P.to(dtype)
-            del tile_P
-        else:
-            tile_P_use = tile_P
-        # Y[:, start:end] = X @ tile_P_use.T
-        Y[:, start:end] = X @ tile_P_use.T
-        del tile_P_use
+        # Tile in storage dtype (avoid 4x peak via fp32 then cast at K_max=15000).
+        # bernoulli_ on fp16 cuda is natively supported.
+        tile_P = torch.empty(end - start, n_src, device=device, dtype=dtype)
+        tile_P.bernoulli_(0.5, generator=gen).mul_(2.0).sub_(1.0).mul_(scale_val)
+        Y[:, start:end] = X @ tile_P.T
+        del tile_P
         start = end
     Y = _normalize_rows_t(Y)
     return Y
@@ -274,27 +288,38 @@ def hebbian_retrieve_implicit_t(key_qs_mem: torch.Tensor,
                                 n_steps: int = N_RECALL_STEPS) -> int:
     """Implicit W: W = val_payload.T @ key_qs_mem / N; return cleanup index.
 
-    Inputs may be fp16 storage. matmul accumulates in fp32 via explicit casts on the inner
-    products. Output (idx) is an int.
+    Matmuls execute in STORAGE dtype on GPU (fp16 on cuda; cublas fp16 GEMM uses tensor
+    cores; correctness validated against the fp32 selftest T5). The argmax-cleanup loop
+    operates in storage dtype throughout; bf16/fp16 reductions are stable for V_C <= 32k.
+    No big-tensor .float() casts (those quadruple peak VRAM and OOM at K_max=15000).
+
+    Output (idx) is an int.
     """
     K, N = key_qs_mem.shape
+    storage_dtype = val_codebook.dtype
+    device = val_codebook.device
     if K == 0:
-        # Empty memory case: y = 0; cleanup picks first codebook entry.
-        # Build a zero vector matching the codebook's dtype for matmul.
-        y = torch.zeros(N, device=val_codebook.device, dtype=val_codebook.dtype)
+        # Empty memory: y = 0; cleanup picks the argmax of sims-of-zero = first codebook entry.
+        y = torch.zeros(N, device=device, dtype=storage_dtype)
     else:
-        # scores = key_qs_mem @ q : (K, N) @ (N,) -> (K,)
-        # Cast to fp32 for stability of the rank-K reduction.
-        q32 = q.float()
-        scores = (key_qs_mem.float() @ q32)
-        # y = val_payload.T @ scores / N : (N, K) @ (K,) -> (N,)
-        y = (val_payload.float().T @ scores) / float(N)
+        # Ensure q matches storage dtype for the matmul.
+        if q.dtype != storage_dtype:
+            q_use = q.to(storage_dtype)
+        else:
+            q_use = q
+        # scores = key_qs_mem @ q : (K, N) @ (N,) -> (K,) in storage dtype.
+        scores = key_qs_mem @ q_use
+        # y = val_payload.T @ scores / N : (N, K) @ (K,) -> (N,) in storage dtype.
+        # Divide-by-N: do as multiply to avoid integer-as-fp16 surprises.
+        inv_N = torch.tensor(1.0 / float(N), device=device, dtype=storage_dtype)
+        y = (val_payload.T @ scores) * inv_N
     for _ in range(n_steps):
-        sims = val_codebook.float() @ y
+        sims = val_codebook @ y                  # (V_C, N) @ (N,) -> (V_C,) in storage dtype
         idx = int(torch.argmax(sims).item())
-        y_snap = val_codebook[idx].float()
-        y = 0.5 * y + 0.5 * y_snap
-    sims = val_codebook.float() @ y
+        y_snap = val_codebook[idx]
+        half = torch.tensor(0.5, device=device, dtype=storage_dtype)
+        y = half * y + half * y_snap
+    sims = val_codebook @ y
     idx = int(torch.argmax(sims).item())
     return idx
 
@@ -305,21 +330,29 @@ def eval_recall_implicit_t(key_qs_mem: torch.Tensor,
                            value_idx_truth: torch.Tensor,
                            n_probe: int,
                            gen: torch.Generator) -> float:
-    """Noised-key retrieval. Returns fraction correct."""
+    """Noised-key retrieval. Returns fraction correct.
+
+    Probe construction (noise + normalize) runs in storage dtype to avoid materializing
+    a 4GB fp32 (V_C, N) clone alongside the fp16 storage tensors.
+    """
     K = key_qs_mem.shape[0]
     N = key_qs_mem.shape[1]
     n_q = min(n_probe, K)
     if n_q == 0:
         return 0.0
     perm = torch.randperm(K, generator=gen, device=key_qs_mem.device)[:n_q]
+    storage_dtype = key_qs_mem.dtype
     correct = 0
     for j_idx in range(n_q):
         j = int(perm[j_idx].item())
-        q = key_qs_mem[j].clone().float()
+        q = key_qs_mem[j].clone()                # storage dtype (fp16 on GPU)
         flip_mask = torch.bernoulli(
-            torch.full((N,), NOISE_FRAC, device=q.device, dtype=q.dtype), generator=gen)
-        q = q * (1.0 - 2.0 * flip_mask)
-        q = q / (q.norm() + 1e-12)
+            torch.full((N,), NOISE_FRAC, device=q.device, dtype=torch.float32), generator=gen)
+        # Apply flip in fp32 for numerical determinism of the mask then cast to storage.
+        q32 = q.float() * (1.0 - 2.0 * flip_mask)
+        q32 = q32 / (q32.norm() + 1e-12)
+        q = q32.to(storage_dtype)
+        del q32, flip_mask
         retr_idx = hebbian_retrieve_implicit_t(key_qs_mem, val_payload, val_codebook,
                                                q, n_steps=N_RECALL_STEPS)
         if retr_idx == int(value_idx_truth[j].item()):
@@ -330,23 +363,29 @@ def eval_recall_implicit_t(key_qs_mem: torch.Tensor,
 def _eval_blank_implicit_t(val_codebook: torch.Tensor, value_idx_truth: torch.Tensor,
                            key_qs_for_probes: torch.Tensor,
                            n_probe: int, gen: torch.Generator) -> float:
-    """BLANK: empty memory; probe with same noised keys; recall ~ 1/V_C chance."""
+    """BLANK: empty memory; probe with same noised keys; recall ~ 1/V_C chance.
+
+    Storage-dtype probe construction (same fp16 discipline as eval_recall_implicit_t).
+    """
     K = key_qs_for_probes.shape[0]
     N = key_qs_for_probes.shape[1]
     n_q = min(n_probe, K)
     if n_q == 0:
         return 0.0
     perm = torch.randperm(K, generator=gen, device=key_qs_for_probes.device)[:n_q]
-    empty_keys = torch.zeros(0, N, device=key_qs_for_probes.device, dtype=key_qs_for_probes.dtype)
-    empty_vals = torch.zeros(0, N, device=key_qs_for_probes.device, dtype=key_qs_for_probes.dtype)
+    storage_dtype = val_codebook.dtype
+    empty_keys = torch.zeros(0, N, device=key_qs_for_probes.device, dtype=storage_dtype)
+    empty_vals = torch.zeros(0, N, device=key_qs_for_probes.device, dtype=storage_dtype)
     correct = 0
     for j_idx in range(n_q):
         j = int(perm[j_idx].item())
-        q = key_qs_for_probes[j].clone().float()
+        q = key_qs_for_probes[j].clone()
         flip_mask = torch.bernoulli(
-            torch.full((N,), NOISE_FRAC, device=q.device, dtype=q.dtype), generator=gen)
-        q = q * (1.0 - 2.0 * flip_mask)
-        q = q / (q.norm() + 1e-12)
+            torch.full((N,), NOISE_FRAC, device=q.device, dtype=torch.float32), generator=gen)
+        q32 = q.float() * (1.0 - 2.0 * flip_mask)
+        q32 = q32 / (q32.norm() + 1e-12)
+        q = q32.to(storage_dtype)
+        del q32, flip_mask
         retr_idx = hebbian_retrieve_implicit_t(empty_keys, empty_vals, val_codebook,
                                                 q, n_steps=N_RECALL_STEPS)
         if retr_idx == int(value_idx_truth[j].item()):
