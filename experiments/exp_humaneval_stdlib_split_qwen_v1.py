@@ -288,19 +288,21 @@ CONFIG_VERSION = _config_version()
 # Selftest (mechanism check, no LLM load)
 # ============================================================================
 def _selftest():
+    """Mechanism unit-test (no encoder load; sentence_transformers + torch only required at run() time).
+
+    NOTE: queue_add.py's --self-test gate uses system python, NOT .venv (the runner itself uses .venv).
+    Keep this selftest dependency-free: only stdlib + numpy. Encoder/MiniLM/torch tests live in run()."""
     # classification
     assert _classify("import math\n  return math.floor(x)") == "A"
     assert _classify("    return sum(x)") == "B"
     assert _classify("from collections import Counter\n  return Counter(s)") == "A"
-    # snippet retrieval (substrate role = index; uses MiniLM, requires .venv)
-    snips = _retrieve_snippets("compute the factorial of n using math module")
-    assert len(snips) == TOP_K_RETRIEVE
-    ids = [s[0] for s in snips]
-    # 'math.factorial' should appear in top-3 for this query
-    assert "math.factorial" in ids, "expected math.factorial in top-3 for factorial query; got " + str(ids)
-    # phasor bundle round-trip
+    # phasor bundle round-trip (substrate as index)
     qv = _bundle(_kw("compute factorial of n using math"))
     assert qv.shape == (N_DIM,)
+    # snippet corpus integrity
+    assert len(STDLIB_SNIPPETS) >= 30, "need >=30 stdlib snippets for non-trivial coverage"
+    ids = [s[0] for s in STDLIB_SNIPPETS]
+    assert "math.factorial" in ids and "itertools.combinations" in ids and "collections.Counter" in ids
     # code extraction
     fake_gen = "Sure here's the code:\n```python\ndef foo(x):\n    return x+1\n```"
     code = _extract_code(fake_gen, "def foo(x):\n", "foo")
@@ -319,7 +321,7 @@ def _selftest():
     typing_test = "def check(c):\n    assert c(3) == [3]\n"
     ok2, e2 = _run_tests(typing_code, typing_test, "foo")
     assert ok2, "typing-import sandbox should pass, got: " + e2
-    # config version is reproducible
+    # config version reproducible
     cv = _config_version()
     assert cv.startswith("v1_") and len(cv) > 10
     print("[selftest] PASS: humaneval_stdlib_split_qwen (%d snippets, %d patterns, config=%s)" % (len(STDLIB_SNIPPETS), len(STDLIB_PATTERNS), CONFIG_VERSION), flush=True)
