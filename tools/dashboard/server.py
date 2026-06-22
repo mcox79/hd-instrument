@@ -1694,6 +1694,9 @@ def _ensure_chat_kg_loaded() -> dict | None:
         caches = sorted(_CHAT_CACHE_DIR.glob("kg_m*.pkl"), key=lambda p: p.stat().st_size, reverse=True)
         if not caches:
             return None
+        # Repo root must be on sys.path for pickle.load to find hdlab.kg_traversal.KGStore
+        if str(_REPO) not in sys.path:
+            sys.path.insert(0, str(_REPO))
         try:
             with open(caches[0], "rb") as f:
                 payload = pickle.load(f)
@@ -1704,7 +1707,9 @@ def _ensure_chat_kg_loaded() -> dict | None:
             _chat_kg_state["idx2rel"] = sorted(payload["rel2idx"], key=lambda r: payload["rel2idx"][r])
             _chat_kg_state["m"] = len(payload["triples_raw"])
             return _chat_kg_state
-        except Exception:
+        except Exception as e:
+            # Surface the actual error to logs (was swallowed before, masking pickle import failures)
+            print(f"[substrate_chat] cache load failed: {type(e).__name__}: {e}", flush=True)
             return None
 
 
