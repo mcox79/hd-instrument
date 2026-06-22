@@ -100,18 +100,20 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
-**Last-updated:** 2026-06-22T05:30:00Z (Tier-2 ingest cells n6+n7 smokes dispatched)
+**Last-updated:** 2026-06-22T05:35:00Z (Tier-2 ingest cells n6+n7 smokes dispatched; N8 ConceptNet authored+dispatched)
 
 ### Waiting on
+- [from=runner] [type=cell_land] [filed=2026-06-22T05:35Z] : n8_conceptnet_ingest_eval_v1 (FULL 3-seed at remote_cpu_queue, timeout 3600s) -> verify HARD_PASS bands incl. OPEN-C frozen-encoder >=2x ratio
 - [from=runner] [type=cell_land] [filed=2026-06-22T05:28Z] : n6_wikitext103 + n7_arxiv_abstracts SMOKE lands on remote_cpu_queue -> verify provenance-real + bigram baselines + walls; gate FULL dispatch on smoke-clean
 - [from=skunkworks] [type=schema_vet] : prior open VETs (U1 OPEN A-E etc.) -- still routed/ratified per arc; no NEW wait from this turn
 
 ### In flight
-- Tier-2 ingest-breadth expansion (USER 2026-06-22 do-it-all): n6 WikiText-103 + n7 arxiv-abstracts char-LM cert cells AUTHORED + SELFTEST 9/9 PASS LOCAL + SMOKE GATE PASSED ON REMOTE (--self-test 3.0-3.1s) + queued on remote_cpu_queue. Commit e017ce4e. Cells reuse n3 text8 harness pattern + plug SubstrateCharLM (char-level absolute-floor BPC bands; substrate-only at inference; all 4 Skunkworks blockers + 10 Fixes baked).
+- N8 ConceptNet ingest-eval (USER 2026-06-22 do-it-all Tier-2 ingest-breadth): authored exp_n8_conceptnet_ingest_eval_v1.py (commit 8bbc11c4); reuses U1 chain-grade pattern (multi-value Hebbian + set-readout-top-k + held-split refuse-gate + 2-hop inference); OPEN-C UNLOCKED via frozen-encoder MiniLM-L6 semantic baseline (encoder ingest-stage only; scoring is numpy matmul); local smoke HARD_PASS (50.9s, sub2/enc ratio 75x); dataset conceptnet5_en_100k.jsonl (CC-BY-SA + ODC-BY) scp'd; dispatched on remote_cpu_queue + post-ship VERIFIED.
+- Tier-2 ingest-breadth expansion (USER 2026-06-22 do-it-all): n6 WikiText-103 + n7 arxiv-abstracts char-LM cert cells AUTHORED + SELFTEST 9/9 PASS LOCAL + SMOKE GATE PASSED ON REMOTE (--self-test 3.0-3.1s) + queued on remote_cpu_queue. Commit e017ce4e.
 
 ### Next 3 (if bandwidth opens)
-1. On n6 + n7 smoke lands: triage provenance (HF download success/fail) + bigram-baseline sanity + remote per-seed wall measurement; if smoke clean, dispatch FULL (3 seeds, ~20-60min each per estimate).
-2. ConceptNet ingest cell (separate parallel spawn handles it; don't duplicate).
+1. On n6 + n7 smoke lands: triage provenance + bigram-baseline + walls; if clean, dispatch FULL.
+2. On n8 ConceptNet land: re-derive headline numbers off per_seed; route landed-VET to Skunkworks; if HARD_PASS holds, the OPEN-C frozen-encoder bar (U1 deferred) is finally tested.
 3. Path-A/Path-B follow-ons + N1<->N3 boundary work resumes as upstream lands.
 
 ### Recently cleared (rolling; <=5)
