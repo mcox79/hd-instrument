@@ -45,21 +45,21 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-22T??:??Z (post-Migration; Phase 3 COMPLETE INFRA OPERATIONAL; STANDSTILL LIFTED; L4 paths resuming; team lead under Agent Teams)
+**Last-updated:** 2026-06-22T??:??Z (Phase 3 COMPLETE; STANDSTILL LIFTED; **CERT 584 / 177267 atoms / cert_ledger 631 rows**; first chain-grade post-STANDSTILL landed via Path F; team lead Agent Teams autonomous arc)
 
 ### Waiting on
 - [from=USER] [type=user_check_in] : return from few-hours absence; check the priority-refactor finding (Path B over Path A per n2 landed-VET DECODE-side bottleneck) + ratify or override
 - (otherwise reactive; autonomous arc spawns teammates as work demands)
 
 ### In flight
-- Phase 3 migration INFRA OPERATIONAL (cert_ledger 630 rows; query tool 10 subcommands + --follow-supersedes; live-write helper + atomize-template extension committed 017174e5)
-- STANDSTILL LIFTED filed (this note + commits a147e027 + f18156a8 + 2b97c564 + 017174e5)
-- Path F U1 landed-VET spawn next (hdi_skunkworks bounded ~30min)
+- Autonomous YOLO arc executing toward more fully functional substrate
+- Path F U1 HARD_PASS landed-VET CONCURRED chain_grade (CERT 583→584; first post-STANDSTILL); Phase C live-write helper validated in production
+- Path D 4-arm storage-win VALUE scrutiny: next spawn (hdi_skunkworks bounded ~30min)
 
 ### Next 3 (autonomous arc bounded spawns)
-1. Spawn hdi_skunkworks for Path F U1 HARD_PASS landed-VET (ingest→language pipeline; the first chain-grade candidate post-STANDSTILL)
-2. Spawn hdi_skunkworks for Path D 4-arm storage-win VALUE scrutiny (cert-lane; resolves storage-chain item #3 fully)
-3. Spawn research subagent skill for Path B SimVQ/FSQ + decode-side LM lit-scan (research-lane; refactored to #2 priority per n2 landed-VET DECODE-side finding)
+1. Spawn hdi_skunkworks for Path D 4-arm storage-win VALUE scrutiny (exact-key vs multi-probe; resolves storage-chain item #3 fully)
+2. Dispatch research subagent skill for Path B SimVQ/FSQ + decode-side LM lit-scan (refactored to high priority per n2 landed-VET DECODE-side finding)
+3. Spawn hdi_exp_dev for Path B cell-design post research-drill (decode-improvement cell at fixed V_C, N; full per_unit instrumentation per N2 chain-grade spec)
 
 ### Background (incremental, non-blocking)
 - Phase B chronological windows 2-N (skunkworks bounded; ~5 windows × 1-2hr each; serialized to avoid Store-write race)
@@ -68,11 +68,11 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - Phase A reconcile-cert-N mismatch audit (595 vs 583 chain_grade classification-logic; 12-atom delta)
 
 ### Recently cleared (≤5)
-- **Phase 3 migration COMPLETE INFRA OPERATIONAL** (A + landed-VET + B-window-1 + C; commits a147e027/f18156a8/2b97c564/017174e5)
+- **CERT 583 → 584 (first chain-grade post-STANDSTILL): U1 FB15k-237 ingest-eval HARD_PASS** ratified off-data; multi-value Hebbian + set-readout-top-k genuinely recalls 1-to-many keys (7410x over random); substrate ingest pipeline OPERATIONAL + governable (refuse-gate non-circular) + composable (2-hop traversal). Phase C live-write helper validated in production first-use clean.
+- **Phase 3 migration COMPLETE** (commits a147e027/f18156a8/2b97c564/017174e5/8a19df9f); STANDSTILL LIFTED
 - n2_capacity_scaling landed-VET ratified MIDDLE_BAND off-data; substantive finding: bigram-gap is DECODE-side not context-side (Path B priority refactored UP over Path A)
 - Director handoff snapshot CORRECTED (commit 9f1d7618): 5th self-correction owned (absence-in-one-source-not-dispositive)
-- cert_ledger.jsonl operational at `data/substrate_index/meta/`; query tool `tools/cert_ledger_query.py` with 10 subcommands + --follow-supersedes mode
-- 5 post-seed honest-negatives backfilled into cert_ledger (n2_capacity_scaling / n1_concept_lm / dense_KV_whitening_revival / anisotropy_rescue_4arm / sparse-#2-reframe)
+- cert_ledger.jsonl OPERATIONAL at `data/substrate_index/meta/`; 631 rows; 10 query subcommands + --follow-supersedes mode
 
 ## skunkworks
 **Last-updated:** 2026-06-21T18:3xZ (true date -u UTC)  (**CERT 583**/177266; SUBSTRATE-NATIVE; /loop yolo; whitening MM ruled; exp_dev 3 waits cleared)
