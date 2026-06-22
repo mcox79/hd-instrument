@@ -1658,3 +1658,340 @@ def root():
             "Expires": "0",
         },
     )
+
+
+@app.get("/legacy")
+def root_legacy():
+    """v1 dashboard preserved at /legacy for fallback."""
+    return FileResponse(
+        STATIC_DIR / "index_legacy.html",
+        headers={"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0"},
+    )
+
+
+# ============================================================================
+# Substrate chat backend (USER 2026-06-22 portal directive — dashboard chat tab)
+# Wraps hdlab/kg_traversal.KGStore loaded from substrate_repl cache.
+# ============================================================================
+
+import pickle  # noqa: E402
+
+_REPO = Path(__file__).resolve().parent.parent.parent
+_CHAT_CACHE_DIR = _REPO / "data" / "substrate_repl_cache"
+_chat_kg_state = {"kg": None, "ent2idx": None, "rel2idx": None, "idx2ent": None, "idx2rel": None, "m": 0}
+_chat_lock = threading.Lock()
+
+
+def _ensure_chat_kg_loaded() -> dict | None:
+    """Lazy-load the substrate KG cache on first chat request; returns state dict OR None on error."""
+    with _chat_lock:
+        if _chat_kg_state["kg"] is not None:
+            return _chat_kg_state
+        # Find any cached KG file (prefer largest m)
+        if not _CHAT_CACHE_DIR.exists():
+            return None
+        caches = sorted(_CHAT_CACHE_DIR.glob("kg_m*.pkl"), key=lambda p: p.stat().st_size, reverse=True)
+        if not caches:
+            return None
+        try:
+            with open(caches[0], "rb") as f:
+                payload = pickle.load(f)
+            _chat_kg_state["kg"] = payload["kg"]
+            _chat_kg_state["ent2idx"] = payload["ent2idx"]
+            _chat_kg_state["rel2idx"] = payload["rel2idx"]
+            _chat_kg_state["idx2ent"] = sorted(payload["ent2idx"], key=lambda e: payload["ent2idx"][e])
+            _chat_kg_state["idx2rel"] = sorted(payload["rel2idx"], key=lambda r: payload["rel2idx"][r])
+            _chat_kg_state["m"] = len(payload["triples_raw"])
+            return _chat_kg_state
+        except Exception:
+            return None
+
+
+class ChatBody(BaseModel):
+    message: str
+
+
+def _fuzzy_ent(query: str, ent2idx: dict) -> tuple[str | None, int | None]:
+    q = query.strip().lower().replace(" ", "_")
+    if q in ent2idx:
+        return q, ent2idx[q]
+    for ent in ent2idx:
+        if q in ent.lower():
+            return ent, ent2idx[ent]
+    return None, None
+
+
+def _fuzzy_rel(query: str, rel2idx: dict) -> tuple[str | None, int | None]:
+    if query in rel2idx:
+        return query, rel2idx[query]
+    for r in rel2idx:
+        if r.lower() == query.lower():
+            return r, rel2idx[r]
+    return None, None
+
+
+@app.post("/api/substrate_chat")
+def substrate_chat(body: ChatBody):
+    """Talk to substrate via the cached ConceptNet KGStore.
+
+    Accepts: {"message": "<subject> <predicate> ?  OR  <s> <p1> <p2> ?  OR  stats"}
+    Returns: {ok: bool, kind: "single_hop|two_hop|stats|error", payload: {...}}
+    """
+    state = _ensure_chat_kg_loaded()
+    if state is None:
+        return JSONResponse({"ok": False, "error": "no substrate cache; run `python tools/substrate_repl.py --m 10000` once to build it"})
+    msg = body.message.strip()
+    if not msg:
+        return JSONResponse({"ok": False, "error": "empty message"})
+    if msg in ("stats", "/stats"):
+        kg = state["kg"]
+        return JSONResponse({
+            "ok": True, "kind": "stats",
+            "payload": {
+                "n_entities": len(state["ent2idx"]),
+                "n_relations": len(state["rel2idx"]),
+                "n_triples": len(kg),
+                "W_norm": kg.matrix_norm(),
+                "N_DIM": kg.n_dim,
+                "m_loaded": state["m"],
+            },
+        })
+    if msg in ("rels", "/rels"):
+        return JSONResponse({"ok": True, "kind": "rels", "payload": {"relations": state["idx2rel"]}})
+
+    tokens = msg.replace("?", "").split()
+    if len(tokens) < 2:
+        return JSONResponse({"ok": False, "error": "syntax: <subject> <predicate> ?  OR  <s> <p1> <p2> ?  OR  stats / rels"})
+
+    ent2idx = state["ent2idx"]; rel2idx = state["rel2idx"]
+    s_name, s_idx = _fuzzy_ent(tokens[0], ent2idx)
+    if s_idx is None:
+        return JSONResponse({"ok": False, "error": f"entity not found: '{tokens[0]}'"})
+
+    rel_idxs = []; rel_names = []
+    for rt in tokens[1:]:
+        r_name, r_idx = _fuzzy_rel(rt, rel2idx)
+        if r_idx is None:
+            return JSONResponse({"ok": False, "error": f"relation not found: '{rt}' (try /rels)"})
+        rel_idxs.append(r_idx); rel_names.append(r_name)
+
+    kg = state["kg"]; idx2ent = state["idx2ent"]
+    if len(rel_idxs) == 1:
+        top_idx, top_scores = kg.predict_one_hop_topk(s_idx, rel_idxs[0], k=5)
+        results = [{"entity": idx2ent[int(i)], "score": float(s)} for i, s in zip(top_idx.tolist(), top_scores.tolist())]
+        return JSONResponse({
+            "ok": True, "kind": "single_hop",
+            "payload": {"subject": s_name, "relation": rel_names[0], "top_5": results, "fuzzy_match": s_name != tokens[0].lower().replace(" ", "_")},
+        })
+    elif len(rel_idxs) == 2:
+        x_hat, o_hat = kg.predict_two_hop(s_idx, rel_idxs[0], rel_idxs[1])
+        return JSONResponse({
+            "ok": True, "kind": "two_hop",
+            "payload": {
+                "subject": s_name, "relations": rel_names,
+                "intermediate": idx2ent[x_hat], "final": idx2ent[o_hat],
+                "note": "chain-grade primitive per n8 CERT 585 (36.49x ratio over frozen-encoder)",
+            },
+        })
+    else:
+        # Lazy import to avoid top-level dep coupling
+        try:
+            sys.path.insert(0, str(_REPO))
+            from hdlab.multi_hop import iter_cleanup_chain
+            final, per_hop, term = iter_cleanup_chain(kg, s_idx, rel_idxs, k_set=20, k_inner=1)
+            if final is None:
+                return JSONResponse({"ok": True, "kind": "refused", "payload": {"refused_at_hop": term}})
+            return JSONResponse({
+                "ok": True, "kind": "n_hop_iter_cleanup",
+                "payload": {
+                    "subject": s_name, "relations": rel_names, "final": idx2ent[final],
+                    "per_hop_top1": [round(c, 3) for c in per_hop],
+                    "note": "honest scope: chain-grade only at K=2; K>=3 is MIDDLE_BAND per r1",
+                },
+            })
+        except Exception as e:
+            return JSONResponse({"ok": False, "error": f"n-hop failed: {type(e).__name__}: {e}"})
+
+
+@app.get("/api/dashboard/v2/headlines")
+def dashboard_v2_headlines():
+    """Aggregated headline cards for the lean dashboard. Pulls from:
+      - cert_ledger.jsonl (last chain-grade bumps)
+      - git log (last 5 commits)
+      - work queue (USER-pending decisions; ferry/decision items)
+      - runs + queue (in-flight count)
+    """
+    out = {"cards": []}
+
+    # CERT N + delta from last chain-grade bumps
+    try:
+        ledger_path = _REPO / "data" / "substrate_index" / "meta" / "cert_ledger.jsonl"
+        if ledger_path.exists():
+            n_chain_grade = 0
+            last_3 = []
+            with open(ledger_path, encoding="utf-8") as f:
+                for line in f:
+                    try:
+                        r = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    if r.get("cert_status") == "chain_grade" and r.get("cert_increment_delta", 0) > 0:
+                        n_chain_grade += 1
+                        last_3.append(r)
+            recent = last_3[-3:] if last_3 else []
+            out["cards"].append({
+                "id": "cert",
+                "title": f"CERT {n_chain_grade}",
+                "subtitle": "chain-grade atoms",
+                "rows": [
+                    {"label": r.get("atom_id", "?").split("/")[-1][:48], "value": r.get("verdict", "?")[:24]}
+                    for r in recent
+                ],
+            })
+    except Exception as e:
+        out["cards"].append({"id": "cert", "title": "CERT ?", "subtitle": f"ledger read failed: {type(e).__name__}", "rows": []})
+
+    # Last 5 commits via git
+    try:
+        import subprocess
+        cp = subprocess.run(
+            ["git", "log", "--oneline", "-5", "--no-decorate"],
+            cwd=str(_REPO), capture_output=True, text=True, timeout=10,
+            creationflags=_CREATE_NO_WINDOW,
+        )
+        commits = []
+        for line in cp.stdout.strip().split("\n"):
+            if not line.strip():
+                continue
+            parts = line.split(" ", 1)
+            if len(parts) == 2:
+                sha, msg = parts
+                commits.append({"label": sha, "value": msg[:80]})
+        out["cards"].append({
+            "id": "commits",
+            "title": "Recent commits",
+            "subtitle": f"{len(commits)} latest",
+            "rows": commits,
+        })
+    except Exception as e:
+        out["cards"].append({"id": "commits", "title": "Commits", "subtitle": f"git log failed: {type(e).__name__}", "rows": []})
+
+    # Read poller snapshot (production); gracefully degrade if poller missing (testing)
+    snap = {}
+    try:
+        snap = app.state.poller.get_snapshot()
+    except (AttributeError, KeyError):
+        pass
+
+    # In-flight runs
+    try:
+        runs_data = snap.get("runs", {}) or {}
+        run_list = runs_data.get("runs") or runs_data.get("experiments") or []
+        running = [r for r in run_list if r.get("status") == "running"]
+        pending = [r for r in run_list if r.get("status") == "pending"]
+        rows = [{"label": (r.get("name") or "?")[:48], "value": r.get("status", "?")}
+                for r in (running + pending)[:6]]
+        out["cards"].append({
+            "id": "in_flight",
+            "title": f"{len(running)} running",
+            "subtitle": f"{len(pending)} pending",
+            "rows": rows or [{"label": "(queues clear)", "value": ""}],
+        })
+    except Exception as e:
+        out["cards"].append({"id": "in_flight", "title": "In-flight", "subtitle": f"err: {type(e).__name__}", "rows": []})
+
+    # Substrate state — direct disk reads (authoritative; no poller dep)
+    try:
+        store_dir = _REPO / "data" / "substrate_index"
+        atom_count = 0
+        for atoms_file in store_dir.rglob("atoms.jsonl"):
+            try:
+                with open(atoms_file, encoding="utf-8") as f:
+                    atom_count += sum(1 for _ in f)
+            except Exception:
+                continue
+
+        ledger_path = store_dir / "meta" / "cert_ledger.jsonl"
+        ledger_rows = 0
+        # Compute current CERT N from cert_ledger: count cert_ruling with delta>0,
+        # subtract any retracted/superseded events
+        cert_n = 0
+        if ledger_path.exists():
+            with open(ledger_path, encoding="utf-8") as f:
+                for line in f:
+                    ledger_rows += 1
+                    try:
+                        r = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    if r.get("op") == "cert_ruling" and r.get("cert_status") == "chain_grade":
+                        delta = r.get("cert_increment_delta", 0) or 0
+                        cert_n += delta
+
+        # axiom_term: read from substrate_state.json if available
+        axiom_t = None
+        ss_path = _REPO / "data" / "substrate_state.json"
+        if ss_path.exists():
+            try:
+                with open(ss_path, encoding="utf-8") as f:
+                    ss = json.load(f)
+                axiom_t = ss.get("substrate_state", {}).get("axiom_term_coverage_claim", {}).get("count")
+            except Exception:
+                pass
+
+        # Director-maintained authoritative CERT N (data/director_plan.json); overrides ledger-sum
+        # because the ledger only tracks Phase 3+ migration era; pre-ledger chain-grade atoms exist
+        dp_path = _REPO / "data" / "director_plan.json"
+        if dp_path.exists():
+            try:
+                with open(dp_path, encoding="utf-8") as f:
+                    dp = json.load(f)
+                # Recursively find actual_cert_count_post_execution OR expected_cert_count
+                def find_cert(o):
+                    if isinstance(o, dict):
+                        for k, v in o.items():
+                            if k == "actual_cert_count_post_execution" and isinstance(v, int):
+                                return v
+                            if isinstance(v, (dict, list)):
+                                r = find_cert(v)
+                                if r is not None:
+                                    return r
+                    elif isinstance(o, list):
+                        for item in o:
+                            r = find_cert(item)
+                            if r is not None:
+                                return r
+                    return None
+                authoritative = find_cert(dp)
+                if authoritative is not None and authoritative > cert_n:
+                    cert_n = authoritative
+            except Exception:
+                pass
+
+        out["cards"].append({
+            "id": "substrate",
+            "title": f"{atom_count if atom_count is not None else '?'} atoms",
+            "subtitle": f"CERT {cert_n if cert_n is not None else '?'}",
+            "rows": [
+                {"label": "CERT N", "value": str(cert_n if cert_n is not None else "?")},
+                {"label": "axiom_term", "value": str(axiom_t if axiom_t is not None else "?")},
+                {"label": "cert_ledger rows", "value": str(ledger_rows if ledger_rows is not None else "?")},
+            ],
+        })
+    except Exception as e:
+        out["cards"].append({"id": "substrate", "title": "Substrate", "subtitle": f"err: {type(e).__name__}", "rows": []})
+
+    # Override CERT card with actual CERT N from substrate snapshot (the cert-ledger chain-grade
+    # COUNT is different from current CERT N; CERT N is the substrate state value, which is what
+    # the user wants on the headline)
+    for c in out["cards"]:
+        if c["id"] == "cert":
+            substrate_card = next((x for x in out["cards"] if x["id"] == "substrate"), None)
+            if substrate_card:
+                cert_n_str = substrate_card.get("subtitle", "").replace("CERT ", "").strip()
+                if cert_n_str and cert_n_str != "?":
+                    c["title"] = f"CERT {cert_n_str}"
+                    c["subtitle"] = "current substrate state · last 3 chain-grade events:"
+            break
+
+    return JSONResponse(out)
