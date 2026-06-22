@@ -145,7 +145,7 @@ WITHIN_CAPACITY_PROBE_MAX = 0.90           # WITHIN at K=15000 must be <= this (
 BLANK_RECALL_MAX = 0.05                    # BLANK chance floor at every K
 CV_HARD_FAIL_MAX = 0.10
 N_RECALL_STEPS = 3
-NOISE_FRAC = 0.05
+NOISE_FRAC = float(os.environ.get("HDLAB_NOISE_FRAC", "0.05"))
 JL_TILE_N_DST = 4096                       # JL projection tile rows (VRAM)
 DISCRIM_K_RANGE = (2000, 5000)             # K range where REPLAYED >> FRESH must show
 
