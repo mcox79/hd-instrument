@@ -17,6 +17,7 @@
 
 ## TIER 1: In-flight (do not re-spawn; reactive on landing)
 
+- [BG] **c3 compressed sequence replay cell** (just fired 2026-06-22; agent a39b1a8c; ~5min remote_cpu wall; P=0.55; HARD_PASS depth-5 recall ≥0.80 + delta ≥0.50; substrate-only-decode gate; 4 arms NONE/COMPRESSED/UNORDERED/ONLINE_NO_GAP)
 - [BG] n4 k-WTA-VQ cell (biological sparsity; brain-drill recommendation) — remote_cpu smoke + full
 - [BG] Path A V_C=4096 frontier cell — remote_cpu full (~7.5h projected)
 - [BG] WikiText-103 ingest cell (n6) — remote_cpu smoke
@@ -68,6 +69,9 @@
 
 ## Recently shipped this autonomous arc (rolling; ≤10)
 
+- 2026-06-22 MEMORY.md curated mid-session (Fix #19): 29.4KB → 18.9KB (-36%); 58 → 15 lines over 250-char ceiling; CURRENT STATE block refreshed to 2026-06-22; Fix #15 marked DEPRECATED; phase-diagram lane pointer added under ACTIVE PROGRAM
+- 2026-06-22 c3 cell-author spawn FIRED (Fix #14 spawn #1 of continuation cycle; brain-drill #5 recommendation; hdi_exp_dev agent a39b1a8c background; P=0.55, ~5min remote_cpu projected; pre-reg HARD_PASS depth-5 sequence_recall ≥0.80 + delta ≥0.50)
+- 2026-06-22 tools/queue_status.py bug FIXED: queue.json shape is `{'experiments': [...]}` envelope not top-level list; added _normalize_entries() helper; all 3 queues now report correctly (0/0/0 pending — autonomous arc queues clear; "18+ in-flight" belief was stale)
 - 2026-06-22 Phase-portrait v1 inventory + data-survives-phase-transform audit SHIPPED (USER-directed lane sub-items (a)+(b)): 38-42 chain-grade phase-diagram atoms + 11 chain-grade data-survives-transform atoms inventoried; HARD_PASS evidence anchor = `EXP_kv_learned_projection_v1`; cross-encoder portability evidence = whitened pythia-160m + llama1b PASS pair; untested regions flagged (precision regime / V_C×N joint frontier above (4096,32768) / cross-domain transfer); p1 action-at-any-position cell pre-reg = next-cycle active dispatch
 - 2026-06-22 Ferry-ask #1 RESOLVED (Orchestrator ferry response): pythia-160m local_cpu encoding rate-norm = **~67 ms/fact** (~893 facts/min) anchored to Path C wall=2798s/3seeds/12500facts; marsh@home INFERRED ~51ms/fact (1.3x faster; first-hand-measure pending); lookup table + decision rule (1.5x trust / >2x measure) operationalize Fix #17 wall-budget discipline; atom proposal `META_pythia160m_cpu_encoding_rate_norm_67ms_per_fact_local_cpu_anchor` routed to Skunkworks for SCHEMA-VET + atomization
 - 2026-06-22 USER-DIRECTED PHASE-DIAGRAM lane OPENED: "substrate acts at any position in phase diagram + data survives phase transformations"; 3 sub-items queued (phase-portrait v1 inventory + data-survives audit + p1 action-at-any-position cell); ~47 cert-grade phase-diagram atom pool already in Store per 2026-06-18 phase-portrait note; memory saved (`project_phase_diagram_action_data_survives_phase_transformations_USER_2026-06-22.md`)
