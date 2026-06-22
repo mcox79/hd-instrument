@@ -37,9 +37,18 @@ QUEUES_REMOTE = [
 ]
 
 
+def _normalize_entries(data) -> list:
+    """queue.json may be a top-level list OR {'experiments': [...]} envelope."""
+    if isinstance(data, dict):
+        return data.get("experiments") or data.get("entries") or []
+    if isinstance(data, list):
+        return data
+    return []
+
+
 def read_local_queue(path: Path) -> list:
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return _normalize_entries(json.loads(path.read_text(encoding="utf-8")))
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
@@ -60,7 +69,7 @@ def read_remote_queue(remote_path: str) -> list:
         )]
         if not lines:
             return []
-        return json.loads("\n".join(lines))
+        return _normalize_entries(json.loads("\n".join(lines)))
     except (subprocess.TimeoutExpired, json.JSONDecodeError, OSError):
         return []
 
