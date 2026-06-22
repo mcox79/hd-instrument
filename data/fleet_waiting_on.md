@@ -45,34 +45,34 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 ---
 
 ## research
-**Last-updated:** 2026-06-21T20:15:00Z (true `date -u`)  (**CERT 583** / atoms 177266 / STANDSTILL+MIGRATE compliance; Director-stance flipped NOT-NOW→GO; Phase 2 lead; 23+ disciplines; 4 self-corrections owned)
+**Last-updated:** 2026-06-22T??:??Z (post-Migration; Phase 3 COMPLETE INFRA OPERATIONAL; STANDSTILL LIFTED; L4 paths resuming; team lead under Agent Teams)
 
 ### Waiting on
-- [from=USER] [type=user_decision] [filed=20:15Z] : Phase 0 actions (popup downgrade v2.1.185→v2.1.123 + dashboard restart + 5-session stability verify) + Phase 1 green-light to Testbed
-- [from=testbed] [type=cell_land] : Phase 1 throwaway-prototype validation results (TeammateIdle + shared task list + SendMessage + TaskCreated/Completed hooks on our coordination patterns) → unblocks Phase 2 Director-led detailed migration plan
-- [from=orchestrator] [type=cell_land] : N-scaling BREAKTHROUGH `n2_capacity_scaling_v1` (commit efd3d3e6; ~15min from 23:4xZ; in-flight per standstill rule) → Director cross-check on alpha-vs-BPC monotonicity + does any config beat bigram
-- [from=skunkworks] [type=landed_vet] : N-scaling landed-VET (joint with my cross-check) + fly-LSH 4-arm landed-VET final disposition (MEASURED B/mem + multi-probe-or-exact + sigma sweep recall)
-- [from=skunkworks] [type=meta_atomize] : 4 new disciplines this cycle (tag-CLASS-not-mechanism-specificity / lever-coupling-discovery-changes-ranking-framework / conservative-deflation-with-mechanism-attribution-refinement / NOT-NOW-bias-against-infra-debt-when-current-pain-exceeds-migration-risk) + A5-atomize translation-gap META (carried forward; STANDSTILL bandwidth-permits)
+- [from=USER] [type=user_check_in] : return from few-hours absence; check the priority-refactor finding (Path B over Path A per n2 landed-VET DECODE-side bottleneck) + ratify or override
+- (otherwise reactive; autonomous arc spawns teammates as work demands)
 
 ### In flight
-- STANDSTILL+MIGRATE consolidated ACK filed (Director-stance flipped NOT-NOW→GO; Skunkworks HYBRID architecture endorsed; standstill compliance per role)
-- Phase 2 pre-staging started: role→subagent-def rough mapping + HYBRID architecture detailing + discipline preservation checklist + in-flight state migration audit checklist
+- Phase 3 migration INFRA OPERATIONAL (cert_ledger 630 rows; query tool 10 subcommands + --follow-supersedes; live-write helper + atomize-template extension committed 017174e5)
+- STANDSTILL LIFTED filed (this note + commits a147e027 + f18156a8 + 2b97c564 + 017174e5)
+- Path F U1 landed-VET spawn next (hdi_skunkworks bounded ~30min)
 
-### Next 3 (if bandwidth opens — all migration-coordination, no new substrate strategy under standstill)
-1. Phase 2 pre-staging: role→subagent-def mapping (5 sessions × tools+system-prompt+restrictions; per Skunkworks cert-owner-def template)
-2. Phase 2 pre-staging: HYBRID architecture pattern catalog (notes/ routing patterns → SendMessage vs task-list vs Store+git mapping)
-3. Phase 2 pre-staging: discipline preservation checklist (22+ catalog items must survive migration)
+### Next 3 (autonomous arc bounded spawns)
+1. Spawn hdi_skunkworks for Path F U1 HARD_PASS landed-VET (ingest→language pipeline; the first chain-grade candidate post-STANDSTILL)
+2. Spawn hdi_skunkworks for Path D 4-arm storage-win VALUE scrutiny (cert-lane; resolves storage-chain item #3 fully)
+3. Spawn research subagent skill for Path B SimVQ/FSQ + decode-side LM lit-scan (research-lane; refactored to #2 priority per n2 landed-VET DECODE-side finding)
 
-### Steady-state (until migration complete)
-- Substrate-side new strategy DEFERRED post-migration: SimVQ/FSQ N2 #2 / ARM A FAIL revival drill / N4 governance wrap / pp49 deeper-sweep / new cell dispatches / new cert atomization
-- In-flight obligations CONTINUE: cross-check on N-scaling cell-land; ACK relevant inbound; migration coordination
+### Background (incremental, non-blocking)
+- Phase B chronological windows 2-N (skunkworks bounded; ~5 windows × 1-2hr each; serialized to avoid Store-write race)
+- Path A n2_capacity_scaling_v2 (V_C=4096 frontier; queued behind Path B research)
+- Path C ARM A projected-key revival (cheap CPU; 2x negatives discipline)
+- Phase A reconcile-cert-N mismatch audit (595 vs 583 chain_grade classification-logic; 12-atom delta)
 
 ### Recently cleared (≤5)
-- USER STANDSTILL+MIGRATE directive ACK + Director-stance flipped NOT-NOW→GO (4th self-correction today: NOT-NOW-bias-against-infra-debt-when-current-pain-exceeds-migration-risk discipline atomized)
-- Skunkworks HYBRID architecture refinement ABSORBED (cert-trail Store+git + coordination-only Agent-Teams; cert-owner subagent-def broad-verify-MINUS-dispatch + audit-only prompt; migrate-at-next-phase-boundary)
-- N1 LANDED-VET CONVERGENT (Skunkworks L1 = my L4 cross-check; MIDDLE_BAND substrate-only PASS; FIRST substrate-native LM EXISTS + USER vision FEASIBLE)
-- N-scaling BREAKTHROUGH dispatched in-flight per standstill rule (Orch took my N2 frontier ranking + ran JOINT V_C × N; cell-author-time-estimate-must-be-MEASURED-not-quoted discipline atom worth capture)
-- fly-LSH multi-probe-recovers-recall-but-storage-needs-compressed-rerank de-risk OBSERVATIONAL (Skunkworks cert-lane in-flight; convergence question on GPU 4-arm sigma config flagged for landed-VET)
+- **Phase 3 migration COMPLETE INFRA OPERATIONAL** (A + landed-VET + B-window-1 + C; commits a147e027/f18156a8/2b97c564/017174e5)
+- n2_capacity_scaling landed-VET ratified MIDDLE_BAND off-data; substantive finding: bigram-gap is DECODE-side not context-side (Path B priority refactored UP over Path A)
+- Director handoff snapshot CORRECTED (commit 9f1d7618): 5th self-correction owned (absence-in-one-source-not-dispositive)
+- cert_ledger.jsonl operational at `data/substrate_index/meta/`; query tool `tools/cert_ledger_query.py` with 10 subcommands + --follow-supersedes mode
+- 5 post-seed honest-negatives backfilled into cert_ledger (n2_capacity_scaling / n1_concept_lm / dense_KV_whitening_revival / anisotropy_rescue_4arm / sparse-#2-reframe)
 
 ## skunkworks
 **Last-updated:** 2026-06-21T18:3xZ (true date -u UTC)  (**CERT 583**/177266; SUBSTRATE-NATIVE; /loop yolo; whitening MM ruled; exp_dev 3 waits cleared)
