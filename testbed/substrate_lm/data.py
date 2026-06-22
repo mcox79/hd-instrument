@@ -327,6 +327,204 @@ def text8_char_corpus(
     return text
 
 
+_WIKITEXT103_CACHE = _REPO / "data" / "wikitext103_cache"
+
+
+def _try_load_wikitext103_hf(split: str, max_chars: Optional[int]) -> Optional[str]:
+    """Load WikiText-103 raw via HF datasets. None on failure (offline-safe)."""
+    try:
+        from datasets import load_dataset
+    except Exception:
+        return None
+    try:
+        ds = load_dataset("wikitext", "wikitext-103-raw-v1")
+    except Exception as e:
+        print(f"[data] HF WikiText-103 load failed ({type(e).__name__}: {e}); "
+              f"will try cache or synthetic.", flush=True)
+        return None
+    split_name = {"train": "train", "validation": "validation", "test": "test"}.get(
+        split, "train")
+    parts = []
+    total = 0
+    for row in ds[split_name]:
+        t = row.get("text", "")
+        if not t:
+            continue
+        parts.append(t)
+        total += len(t)
+        if max_chars is not None and total >= max_chars:
+            break
+    full = "".join(parts)
+    if max_chars is not None:
+        full = full[:max_chars]
+    return full
+
+
+def wikitext103_char_corpus(
+    split: str = "train",
+    max_chars: Optional[int] = None,
+    allow_synthetic: bool = True,
+) -> str:
+    """Return a WikiText-103 character corpus for the requested split.
+
+    Resolution order (same contract as other char loaders):
+      1. Local cache under data/wikitext103_cache/wikitext103_<split>.txt
+      2. HuggingFace `datasets.load_dataset('wikitext', 'wikitext-103-raw-v1')`
+      3. Synthetic fallback (deterministic, seed=4729) iff allow_synthetic.
+
+    USE AS Tier-2 INGEST CORPUS (Exp-Dev N6, 2026-06-22):
+      WikiText-103 = ~100M tokens of cleaned Wikipedia (full Good + Featured articles).
+      Standard LM benchmark. Char-level absolute-floor BPC baselines (approx):
+        bigram ~3.5-4.0 / 5-gram-KN ~2.2-2.5 / LSTM ~1.5-1.8 / ceiling ~1.0.
+    """
+    cache = _WIKITEXT103_CACHE / f"wikitext103_{split}.txt"
+    full = None
+    if cache.exists():
+        try:
+            full = cache.read_text(encoding="utf-8")
+            if max_chars is not None:
+                full = full[:max_chars]
+        except Exception:
+            full = None
+    if full is None or len(full) < max(1024, (max_chars or 0) // 2):
+        hf_text = _try_load_wikitext103_hf(split, max_chars)
+        if hf_text is not None and len(hf_text) >= max(1024, (max_chars or 0) // 2):
+            try:
+                _WIKITEXT103_CACHE.mkdir(parents=True, exist_ok=True)
+                cache.write_text(hf_text, encoding="utf-8")
+            except Exception:
+                pass  # cache opportunistic
+            full = hf_text
+    if full is not None and len(full) >= 1024:
+        return full
+
+    if not allow_synthetic:
+        raise RuntimeError(
+            f"WikiText-103 split={split} not reachable via HF or cache "
+            f"({_WIKITEXT103_CACHE}); set allow_synthetic=True or stage the cache."
+        )
+    target = max_chars if max_chars is not None else 1_000_000
+    seed = {"train": 4729, "validation": 4733, "test": 4741}.get(split, 4729)
+    text = _synthetic_corpus(target, seed=seed)
+    print(f"[data] using synthetic fallback for wikitext103 split={split}: "
+          f"{len(text)} chars (seed={seed})", flush=True)
+    return text
+
+
+_ARXIV_ABS_CACHE = _REPO / "data" / "arxiv_abstracts_cache"
+
+
+def _try_load_arxiv_abstracts_hf(split: str, max_chars: Optional[int]) -> Optional[str]:
+    """Load arxiv abstracts via HF datasets. Tries multiple available dataset configs.
+
+    Priority order (most-likely-available first):
+      1. `ccdv/arxiv-classification` -- abstract field
+      2. `armanc/scientific_papers` config=arxiv -- abstract field
+      3. `arxiv_dataset` -- abstract field
+    None on full failure (offline-safe).
+    """
+    try:
+        from datasets import load_dataset
+    except Exception:
+        return None
+    # Try each candidate dataset; concatenate abstracts until max_chars or exhausted.
+    candidates = [
+        ("ccdv/arxiv-classification", None, "abstract"),
+        ("armanc/scientific_papers", "arxiv", "abstract"),
+        ("arxiv_dataset", None, "abstract"),
+    ]
+    split_name = {"train": "train", "validation": "validation", "test": "test"}.get(
+        split, "train")
+    for name, config, field in candidates:
+        try:
+            if config is not None:
+                ds = load_dataset(name, config)
+            else:
+                ds = load_dataset(name)
+        except Exception as e:
+            print(f"[data] HF arxiv-abstracts load attempt failed for {name}"
+                  f" ({type(e).__name__}: {e}); trying next.", flush=True)
+            continue
+        # Pick split (fallback to train if requested split missing)
+        if split_name in ds:
+            sd = ds[split_name]
+        elif "train" in ds:
+            sd = ds["train"]
+        else:
+            continue
+        parts = []
+        total = 0
+        for row in sd:
+            t = row.get(field, "") if isinstance(row, dict) else ""
+            if not t:
+                continue
+            parts.append(str(t))
+            parts.append("\n\n")  # paragraph break between abstracts
+            total += len(t) + 2
+            if max_chars is not None and total >= max_chars:
+                break
+        full = "".join(parts)
+        if max_chars is not None:
+            full = full[:max_chars]
+        if len(full) >= max(1024, (max_chars or 0) // 2):
+            print(f"[data] arxiv abstracts loaded from HF {name} "
+                  f"({len(full)} chars, split={split_name})", flush=True)
+            return full
+    return None
+
+
+def arxiv_abstracts_char_corpus(
+    split: str = "train",
+    max_chars: Optional[int] = None,
+    allow_synthetic: bool = True,
+) -> str:
+    """Return an arxiv-abstracts character corpus for the requested split.
+
+    Resolution order (same contract as other char loaders):
+      1. Local cache under data/arxiv_abstracts_cache/arxiv_abstracts_<split>.txt
+      2. HuggingFace `datasets` (tries ccdv/arxiv-classification,
+         armanc/scientific_papers, arxiv_dataset in that order)
+      3. Synthetic fallback (deterministic, seed=5729) iff allow_synthetic.
+
+    USE AS Tier-2 INGEST CORPUS (Exp-Dev N7, 2026-06-22):
+      Scientific-text small-vocab technical English. Char-level absolute-floor
+      BPC baselines (rough, smaller corpus): bigram ~3.8-4.2 / 5-gram-KN ~2.4-2.8
+      / LSTM ~1.6-2.0.
+    """
+    cache = _ARXIV_ABS_CACHE / f"arxiv_abstracts_{split}.txt"
+    full = None
+    if cache.exists():
+        try:
+            full = cache.read_text(encoding="utf-8")
+            if max_chars is not None:
+                full = full[:max_chars]
+        except Exception:
+            full = None
+    if full is None or len(full) < max(1024, (max_chars or 0) // 2):
+        hf_text = _try_load_arxiv_abstracts_hf(split, max_chars)
+        if hf_text is not None and len(hf_text) >= max(1024, (max_chars or 0) // 2):
+            try:
+                _ARXIV_ABS_CACHE.mkdir(parents=True, exist_ok=True)
+                cache.write_text(hf_text, encoding="utf-8")
+            except Exception:
+                pass
+            full = hf_text
+    if full is not None and len(full) >= 1024:
+        return full
+
+    if not allow_synthetic:
+        raise RuntimeError(
+            f"arxiv-abstracts split={split} not reachable via HF or cache "
+            f"({_ARXIV_ABS_CACHE}); set allow_synthetic=True or stage the cache."
+        )
+    target = max_chars if max_chars is not None else 500_000
+    seed = {"train": 5729, "validation": 5733, "test": 5741}.get(split, 5729)
+    text = _synthetic_corpus(target, seed=seed)
+    print(f"[data] using synthetic fallback for arxiv-abstracts split={split}: "
+          f"{len(text)} chars (seed={seed})", flush=True)
+    return text
+
+
 def char_vocab_from_corpus(text: str) -> list:
     """Return sorted list of unique chars in `text` (canonical vocab order)."""
     return sorted(set(text))
