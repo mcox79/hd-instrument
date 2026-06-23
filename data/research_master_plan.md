@@ -38,7 +38,7 @@
 | Multi-domain KG portfolio (FB15k + ConceptNet + HotpotQA = 3 KG shapes at chain-grade) | **LANDED** | PORTFOLIO |
 | Substrate generation / sampling | UNKNOWN mechanism; brain-drill #4 in flight | DRILL → cell TBD |
 | Cross-corpus transfer (text8 ↔ WikiText perplexity) | UNTESTED | DEFERRED |
-| HumanEval Anchor-1 (substrate-augmented Qwen vs bare) | HOLD per Research drill 2026-06-22: smoke gain=0 at 1.5B Qwen; CodeRAG-Bench lit shows library docs flat on HumanEval, canonical solutions +12.2pt only at 7B; redirect to substrate-native arc | DEFERRED — substrate-augmented LM at 1.5B has no path |
+| Substrate-augmented Qwen vs bare (HumanEval anchor-1 HOLD; redirected to substrate-native composition lane 2026-06-22) | char_trigram + g1b SubstrateGenerator composition on HotpotQA-distractor 1k-dev: GENERATION_ONLY arm = 12.2% ± 0.05% EM (cv=0.004, n_seeds=3, zero LLM at inference; CERT 590 + math::T3/EXP_substrate_native_qa_hotpotqa_v1_MM); cell's pre-reg COMPOSED bar HARD_FAIL'd (composed_em=0.010 vs HP bar 0.20; lift=-0.112). Substrate stays at CERT 590; MEASURED_MECHANISM (delta=0). HumanEval direct route remains DEFERRED (1.5B Qwen lit gap). | MEASURED_MECHANISM — composition v2 fix drill queued in Research designed-revival lane |
 | Math + code substrate-native LM | Sequenced after NL bigram-gap closure per scope drill | DEFERRED |
 | **Phase-diagram-action + data-survives-transform (USER directive 2026-06-22)** | p1 v1 CERT 589 (N=16384-32768 explicit-W) + p1 v2 CERT 590 (N up to 65536 implicit-W LLM-class); ~47 cert-grade phase-diagram atoms in pool | CHAIN-GRADE LLM-CLASS |
 
