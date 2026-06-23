@@ -1700,6 +1700,8 @@ def _list_chat_caches() -> list[tuple[str, Path]]:
         nm = p.name.lower()
         if "hotpotqa" in nm or "hotpot" in nm:
             short = "hotpotqa"
+        elif "fb15k" in nm or "freebase" in nm:
+            short = "fb15k"
         elif "conceptnet" in nm:
             short = "conceptnet"
         else:
