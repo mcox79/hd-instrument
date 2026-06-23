@@ -1,0 +1,785 @@
+{
+  "anchor_name": "substrate_self_map_v2c",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: shuffle as granular as real (cluster_gap<=0); relation-conditioned mechanism null on full Store. n_clusters_real=35.0 (pass 3 / middle 2) | n_clusters_shuf=38.0 | cluster_gap=-3.0 (pass 2 / middle 1) | recall=1.000 (pass 0.95 / fail 0.50) | cv_clusters=0.314 (pass 0.10) | n_llm=0 | info: coh_real=0.329 coh_shuf=0.332 avg_J_vs_v1=0.031 new_arrows=56.7",
+  "summary": "HARD_FAIL: shuffle as granular as real (cluster_gap<=0); relation-conditioned mechanism null on full Store. n_clusters_real=35.0 (pass 3 / middle 2) | n_clusters_shuf=38.0 | cluster_gap=-3.0 (pass 2 / middle 1) | recall=1.000 (pass 0.95 / fail 0.50) | cv_clusters=0.314 (pass 0.10) | n_llm=0 | info: coh_real=0.329 coh_shuf=0.332 avg_J_vs_v1=0.031 new_arrows=56.7",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "v2c-full-store-ingest-chain-grade-anchors: char_trigram_atom_encode + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; FULL-Store admit (every relations.jsonl triple); chain-grade-only anchor sampling; cluster-count discriminator (real - shuffle); N4096 max_ingest_triples=None n_anchors=100 n_rel_samples=20 kset=16 bands n_clusters>=3 cluster_gap>=2 recall>=0.95 cv<=0.10",
+  "per_seed": [
+    {
+      "seed": 7,
+      "_ckpt_key": "7",
+      "N": 4096,
+      "run_mode": "full",
+      "config_version": "v2c-full-store-ingest-chain-grade-anchors: char_trigram_atom_encode + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; FULL-Store admit (every relations.jsonl triple); chain-grade-only anchor sampling; cluster-count discriminator (real - shuffle); N4096 max_ingest_triples=None n_anchors=100 n_rel_samples=20 kset=16 bands n_clusters>=3 cluster_gap>=2 recall>=0.95 cv<=0.10",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177488,
+      "n_relation_types": 47,
+      "n_triples": 202402,
+      "n_anchors": 100,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 1867.5,
+      "t_encoding_s": 15.0,
+      "t_arm_real_s": 924.3,
+      "t_arm_shuf_s": 907.0,
+      "real": {
+        "n_clusters": 50,
+        "coherence": 0.3211,
+        "avg_jaccard_vs_v1": 0.0259,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 4,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.286
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 5,
+            "best_v1_family": "topology",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 6,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.222
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 2,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.167
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 16,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 17,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 18,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 19,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 20,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 21,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 22,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 23,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 24,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 25,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 26,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 27,
+            "size": 2,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.167
+          },
+          {
+            "substrate_cluster": 28,
+            "size": 3,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.143
+          },
+          {
+            "substrate_cluster": 29,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 30,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 31,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 32,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 33,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 34,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 35,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 36,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 37,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 38,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 39,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 40,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 41,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 42,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 43,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 44,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 45,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 46,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 47,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 48,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 49,
+            "size": 1,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.2
+          }
+        ],
+        "n_cross_family_arrows_total": 37,
+        "n_new_cross_family_arrows": 36,
+        "new_arrows_examples": [
+          "EXP_active_inference_dpefe_h2_cpu_v1",
+          "EXP_csp_first_ship_v1",
+          "EXP_deletion_cert_refusal_joint_v1",
+          "EXP_matrix_trace_primitives_full_v3",
+          "EXP_multiagent_coord_full_v3",
+          "EXP_p1_v2_action_at_any_position_LLM_class_v1",
+          "EXP_pb_pinv_llama_l15_keys_v1",
+          "EXP_pp48_nkt_cross_n_depth19_v1_n16384",
+          "EXP_q_a3_l107_cross_layer_composition_v1_n16384",
+          "EXP_q_a3_l107_cross_layer_composition_v1_n8192"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 39,
+        "coherence": 0.3335,
+        "avg_jaccard_vs_v1": 0.0368,
+        "n_cross_family_arrows_total": 55,
+        "n_new_cross_family_arrows": 53
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782169537.1621778
+    },
+    {
+      "seed": 17,
+      "_ckpt_key": "17",
+      "N": 4096,
+      "run_mode": "full",
+      "config_version": "v2c-full-store-ingest-chain-grade-anchors: char_trigram_atom_encode + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; FULL-Store admit (every relations.jsonl triple); chain-grade-only anchor sampling; cluster-count discriminator (real - shuffle); N4096 max_ingest_triples=None n_anchors=100 n_rel_samples=20 kset=16 bands n_clusters>=3 cluster_gap>=2 recall>=0.95 cv<=0.10",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177488,
+      "n_relation_types": 47,
+      "n_triples": 202402,
+      "n_anchors": 100,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 1701.1,
+      "t_encoding_s": 16.2,
+      "t_arm_real_s": 849.1,
+      "t_arm_shuf_s": 815.8,
+      "real": {
+        "n_clusters": 24,
+        "coherence": 0.3463,
+        "avg_jaccard_vs_v1": 0.0435,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 9,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 7,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.091
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 8,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 8,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 8,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.083
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 3,
+            "best_v1_family": "topology",
+            "best_jaccard": 0.143
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 2,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.167
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 5,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 7,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 4,
+            "best_v1_family": "composition",
+            "best_jaccard": 0.125
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 16,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 17,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 18,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 19,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 20,
+            "size": 4,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.125
+          },
+          {
+            "substrate_cluster": 21,
+            "size": 1,
+            "best_v1_family": "capacity",
+            "best_jaccard": 0.2
+          },
+          {
+            "substrate_cluster": 22,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 23,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          }
+        ],
+        "n_cross_family_arrows_total": 70,
+        "n_new_cross_family_arrows": 68,
+        "new_arrows_examples": [
+          "EXP_crt_module_scaling_battery_fixed_v1",
+          "EXP_csp_first_ship_v1",
+          "EXP_deletion_cert_z_ratio_n16384_full_alpha_v1",
+          "EXP_f4_kappa_n_deviation_snr_cpu_v1",
+          "EXP_kb_determinism_sweep_RETRY_gpu_v1",
+          "EXP_pb_e5_vs_bge_pinv_headtohead_v1",
+          "EXP_pb_multilang_paraphrase_chain_kf1_v1",
+          "EXP_pb_pinv_llama_l15_keys_v1",
+          "EXP_planted_csp_viability_full_v3",
+          "EXP_pp52_exact_rollback_n4096_v1"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 42,
+        "coherence": 0.3196,
+        "avg_jaccard_vs_v1": 0.0283,
+        "n_cross_family_arrows_total": 49,
+        "n_new_cross_family_arrows": 45
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782171238.536112
+    },
+    {
+      "seed": 23,
+      "_ckpt_key": "23",
+      "N": 4096,
+      "run_mode": "full",
+      "config_version": "v2c-full-store-ingest-chain-grade-anchors: char_trigram_atom_encode + KGStore_multivalue_Hebbian + multi_hop_2hop_neighborhood_Jaccard_cluster + random_relation_control; FULL-Store admit (every relations.jsonl triple); chain-grade-only anchor sampling; cluster-count discriminator (real - shuffle); N4096 max_ingest_triples=None n_anchors=100 n_rel_samples=20 kset=16 bands n_clusters>=3 cluster_gap>=2 recall>=0.95 cv<=0.10",
+      "n_chain_grade_atoms": 449,
+      "n_atoms_universe": 177488,
+      "n_relation_types": 47,
+      "n_triples": 202402,
+      "n_anchors": 100,
+      "atom_retrieval_recall": 1.0,
+      "elapsed_s": 2136.5,
+      "t_encoding_s": 14.5,
+      "t_arm_real_s": 1010.9,
+      "t_arm_shuf_s": 1092.0,
+      "real": {
+        "n_clusters": 31,
+        "coherence": 0.3187,
+        "avg_jaccard_vs_v1": 0.0244,
+        "per_cluster_match": [
+          {
+            "substrate_cluster": 0,
+            "size": 6,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.1
+          },
+          {
+            "substrate_cluster": 1,
+            "size": 7,
+            "best_v1_family": "composition",
+            "best_jaccard": 0.091
+          },
+          {
+            "substrate_cluster": 2,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 3,
+            "size": 5,
+            "best_v1_family": "uncategorized",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 4,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 5,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 6,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 7,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 8,
+            "size": 5,
+            "best_v1_family": "kg_ingest",
+            "best_jaccard": 0.111
+          },
+          {
+            "substrate_cluster": 9,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 10,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 11,
+            "size": 4,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 12,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 13,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 14,
+            "size": 6,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 15,
+            "size": 5,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 16,
+            "size": 3,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 17,
+            "size": 3,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.143
+          },
+          {
+            "substrate_cluster": 18,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 19,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 20,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 21,
+            "size": 2,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 22,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 23,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 24,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 25,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 26,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 27,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 28,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 29,
+            "size": 1,
+            "best_v1_family": null,
+            "best_jaccard": 0.0
+          },
+          {
+            "substrate_cluster": 30,
+            "size": 1,
+            "best_v1_family": "whitening",
+            "best_jaccard": 0.2
+          }
+        ],
+        "n_cross_family_arrows_total": 68,
+        "n_new_cross_family_arrows": 66,
+        "new_arrows_examples": [
+          "EXP_crt_module_scaling_battery_fixed_v1",
+          "EXP_csp_first_ship_v1",
+          "EXP_csp_memory_warm_start_full_v3",
+          "EXP_deletion_cert_refusal_joint_v1",
+          "EXP_fp16_vs_fp32_parity_v1",
+          "EXP_hp12_v1_demo_scale_10k_facts_v1",
+          "EXP_multiagent_coord_full_v3",
+          "EXP_n8_conceptnet_ingest_eval_v1",
+          "EXP_pb_e5_vs_bge_pinv_headtohead_v1",
+          "EXP_pb_mmr_real_encoder_clustered_v1"
+        ]
+      },
+      "shuffle_control": {
+        "n_clusters": 33,
+        "coherence": 0.3441,
+        "avg_jaccard_vs_v1": 0.0299,
+        "n_cross_family_arrows_total": 50,
+        "n_new_cross_family_arrows": 50
+      },
+      "n_llm_calls": 0,
+      "_partial_written_at": 1782173375.41445
+    }
+  ],
+  "zero_llm_calls_at_inference": true,
+  "elapsed_s": 5709.0,
+  "DESIGN_NOTE": "Phase 1 substrate-native self-mapping (v2c FULL-Store ingest) per USER 2026-06-22 strategic vision. v2c is the Option-2 recovery path from v2b MIDDLE_BAND: ingest EVERY relations.jsonl triple across all corpora (~200k relations / ~177k atoms); anchor sampling still restricted to chain-grade (~447 atoms). Bands match v2b; scope change is the only variable. char_trigram + KGStore + multi_hop are substrate primitives. Mechanism = substrate self-maps how chain-grade atoms sit in the FULL atomized graph; HARD_PASS means substrate finds at least 3 clusters of chain-grade atoms with cluster_gap>=2 over shuffled-relation control."
+}
