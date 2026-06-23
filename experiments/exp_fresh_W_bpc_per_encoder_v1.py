@@ -526,11 +526,32 @@ def run_unit(seed: int) -> Dict:
         print("\n  [seed=%d arm=%s] building fresh E (vocab=%d N_DIM=%d) on %s..." % (
             seed, arm_label, V, N_DIM, str(DEVICE)), flush=True)
         meta = {}
-        if arm_label == "ARM_CHAR_TRIGRAM_FRESH_W":
-            E = build_E_char_trigram_gpu(vocab, N_DIM, seed)
-        else:
-            model_name = GENSIM_MODEL_FOR[arm_label]
-            E, meta = build_E_pretrained_gpu(vocab, N_DIM, seed, model_name)
+        try:
+            if arm_label == "ARM_CHAR_TRIGRAM_FRESH_W":
+                E = build_E_char_trigram_gpu(vocab, N_DIM, seed)
+            else:
+                model_name = GENSIM_MODEL_FOR[arm_label]
+                E, meta = build_E_pretrained_gpu(vocab, N_DIM, seed, model_name)
+        except Exception as e:
+            err = "%s: %s" % (type(e).__name__, str(e)[:200])
+            print("    [seed=%d arm=%s] ENCODER LOAD FAIL: %s" % (seed, arm_label, err), flush=True)
+            by_arm[arm_label] = {
+                "load_failed": True,
+                "load_error": err,
+                "bpc_raw": float("inf"),
+                "bpc_best": float("inf"),
+                "best_lambda": float("nan"),
+                "best_dev_bpc": float("inf"),
+                "bpc_per_lambda_dev": {},
+                "bpc_per_lambda_test": {},
+                "n_dev": 0,
+                "n_test": 0,
+                "wall_encode_s": round(time.time() - t_arm, 2),
+                "wall_ingest_s": 0.0,
+                "wall_recall_s": 0.0,
+                "encoder_meta": meta,
+            }
+            continue
         t_enc = time.time() - t_arm
         if DEVICE.type == "cuda":
             try:
@@ -542,7 +563,31 @@ def run_unit(seed: int) -> Dict:
 
         print("    [seed=%d arm=%s] building FRESH Hebbian W + computing BPC..." % (
             seed, arm_label), flush=True)
-        bpc = bpc_arm(E, idx_train, idx_held, U_log, LAMBDA_GRID)
+        try:
+            bpc = bpc_arm(E, idx_train, idx_held, U_log, LAMBDA_GRID)
+        except Exception as e:
+            err = "%s: %s" % (type(e).__name__, str(e)[:200])
+            print("    [seed=%d arm=%s] BPC COMPUTE FAIL: %s" % (seed, arm_label, err), flush=True)
+            del E
+            if DEVICE.type == "cuda":
+                torch.cuda.empty_cache()
+            by_arm[arm_label] = {
+                "compute_failed": True,
+                "compute_error": err,
+                "bpc_raw": float("inf"),
+                "bpc_best": float("inf"),
+                "best_lambda": float("nan"),
+                "best_dev_bpc": float("inf"),
+                "bpc_per_lambda_dev": {},
+                "bpc_per_lambda_test": {},
+                "n_dev": 0,
+                "n_test": 0,
+                "wall_encode_s": round(t_enc, 2),
+                "wall_ingest_s": 0.0,
+                "wall_recall_s": 0.0,
+                "encoder_meta": meta,
+            }
+            continue
         del E
         if DEVICE.type == "cuda":
             torch.cuda.empty_cache()
@@ -602,9 +647,30 @@ def compute_verdict(units):
     # encoder arms
     encoder_arms = [a for a in ARMS if a != "ARM_UNIGRAM"]
     for arm in encoder_arms:
-        best_vals = [u["by_arm"].get(arm, {}).get("bpc_best", float("nan")) for u in units]
-        raw_vals = [u["by_arm"].get(arm, {}).get("bpc_raw", float("nan")) for u in units]
-        lam_vals = [u["by_arm"].get(arm, {}).get("best_lambda", float("nan")) for u in units]
+        # Filter out load_failed / compute_failed seeds (inf values) before agg
+        seeds_load_failed = [u["by_arm"].get(arm, {}).get("load_failed", False) for u in units]
+        seeds_compute_failed = [u["by_arm"].get(arm, {}).get("compute_failed", False) for u in units]
+        valid = [(not lf) and (not cf) and math.isfinite(u["by_arm"].get(arm, {}).get("bpc_best", float("inf")))
+                 for lf, cf, u in zip(seeds_load_failed, seeds_compute_failed, units)]
+        n_load_failed = int(sum(seeds_load_failed))
+        n_compute_failed = int(sum(seeds_compute_failed))
+        valid_units = [u for ok, u in zip(valid, units) if ok]
+        if not valid_units:
+            by_arm_agg[arm] = {
+                "bpc_best_mean": float("inf"),
+                "bpc_best_std": float("nan"),
+                "bpc_best_cv": float("nan"),
+                "bpc_raw_mean": float("inf"),
+                "best_lambda_mean": float("nan"),
+                "n_valid_seeds": 0,
+                "n_load_failed": n_load_failed,
+                "n_compute_failed": n_compute_failed,
+                "all_seeds_failed": True,
+            }
+            continue
+        best_vals = [u["by_arm"].get(arm, {}).get("bpc_best", float("inf")) for u in valid_units]
+        raw_vals = [u["by_arm"].get(arm, {}).get("bpc_raw", float("inf")) for u in valid_units]
+        lam_vals = [u["by_arm"].get(arm, {}).get("best_lambda", float("nan")) for u in valid_units]
         b_mean = float(np.mean(best_vals))
         b_std = float(np.std(best_vals))
         b_cv = b_std / max(abs(b_mean), 1e-6)
@@ -614,6 +680,10 @@ def compute_verdict(units):
             "bpc_best_cv": round(b_cv, 4),
             "bpc_raw_mean": round(float(np.mean(raw_vals)), 4),
             "best_lambda_mean": round(float(np.mean(lam_vals)), 4),
+            "n_valid_seeds": int(len(valid_units)),
+            "n_load_failed": n_load_failed,
+            "n_compute_failed": n_compute_failed,
+            "all_seeds_failed": False,
         }
 
     # Compute lift over CHAR_TRIGRAM_FRESH_W
