@@ -5,13 +5,17 @@
 $ErrorActionPreference = "Stop"
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$VenvPython = Join-Path $ScriptDir ".venv\Scripts\python.exe"
+# Use the project main venv (has torch+numpy+all deps for substrate chat KGStore pickle.load).
+# Previously used $ScriptDir\.venv which was missing torch+numpy and broke chat with
+# "no substrate cache" (pickle.load raised ModuleNotFoundError silently). Fix 2026-06-22.
+$RepoRoot = Split-Path -Parent (Split-Path -Parent $ScriptDir)
+$VenvPython = Join-Path $RepoRoot ".venv\Scripts\python.exe"
 
 if (-not (Test-Path $VenvPython)) {
-    Write-Host "venv missing at $VenvPython" -ForegroundColor Red
+    Write-Host "project venv missing at $VenvPython" -ForegroundColor Red
     Write-Host "create it with:" -ForegroundColor Yellow
-    Write-Host "  python -m venv `"$ScriptDir\.venv`""
-    Write-Host "  & `"$VenvPython`" -m pip install -r `"$ScriptDir\requirements.txt`""
+    Write-Host "  python -m venv `"$RepoRoot\.venv`""
+    Write-Host "  & `"$VenvPython`" -m pip install -r `"$RepoRoot\requirements.txt`""
     exit 1
 }
 
