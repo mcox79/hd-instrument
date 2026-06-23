@@ -55,7 +55,8 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 from hdlab.char_trigram_encoder import CharTrigramEncoder
 
 ANCHOR_NAME = "cross_corpus_compose_chat_v1_n4096"
-N_DIM = 4096
+N = 4096  # PROT-018 binding: matches _n4096 suffix
+N_DIM = N
 TOPK_PER_BACKEND = 5
 HUB_TOPK = 1
 CACHE_DIR = REPO / "data" / "substrate_repl_cache"
