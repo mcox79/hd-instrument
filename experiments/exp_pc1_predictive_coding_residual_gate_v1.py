@@ -101,10 +101,88 @@ if str(REPO) not in sys.path:
 from experiments._seed_checkpoint import (
     get_output_dir, resumable_seeds, write_partial, aggregate_partials,
 )
-from hdlab.predictive_coding import (
-    predict, residual_magnitude, threshold_gate, proportional_gate,
-    gated_write, vanilla_hebbian_write,
-)
+
+# ---------------------------------------------------------------------------
+# Predictive-coding primitive (inlined to keep the cell self-contained on the
+# remote runner without requiring a separate hdlab/predictive_coding.py SCP).
+# The canonical copy lives at hdlab/predictive_coding.py; this is a verbatim
+# duplicate of the public surface predict / residual_magnitude / threshold_gate
+# / proportional_gate / gated_write / vanilla_hebbian_write.
+# ---------------------------------------------------------------------------
+from dataclasses import dataclass
+
+
+def predict(W: np.ndarray, key: np.ndarray, *, sign_cleanup: bool = True) -> np.ndarray:
+    """Substrate's current bipolar prediction for value bound to key."""
+    if key.ndim == 1:
+        raw = W @ key
+    elif key.ndim == 2:
+        raw = key @ W.T
+    else:
+        raise ValueError(f"key must be 1D or 2D, got ndim={key.ndim}")
+    if not sign_cleanup:
+        return raw
+    out = np.sign(raw)
+    out[out == 0] = 1.0
+    return out
+
+
+def residual_magnitude(observed: np.ndarray, predicted: np.ndarray) -> float:
+    """Normalized mismatch fraction in [0, 1] (0=perfect, 1=opposite)."""
+    obs = observed.ravel()
+    pred = predicted.ravel()
+    n = obs.shape[0]
+    if n == 0:
+        return 0.0
+    obs_n = float(np.linalg.norm(obs))
+    pred_n = float(np.linalg.norm(pred))
+    if obs_n <= 1e-12 or pred_n <= 1e-12:
+        return 1.0
+    cos = float(np.dot(obs, pred)) / (obs_n * pred_n)
+    cos = max(-1.0, min(1.0, cos))
+    return 0.5 * (1.0 - cos)
+
+
+@dataclass(frozen=True)
+class WriteDecision:
+    write_strength: float
+    residual_mag: float
+    skipped: bool
+    reason: str
+
+
+def threshold_gate(observed: np.ndarray, predicted: np.ndarray, *,
+                   threshold: float) -> WriteDecision:
+    if not 0.0 <= threshold <= 1.0:
+        raise ValueError(f"threshold must be in [0, 1]; got {threshold}")
+    mag = residual_magnitude(observed, predicted)
+    if mag >= threshold:
+        return WriteDecision(1.0, mag, False, f"mag>={threshold}")
+    return WriteDecision(0.0, mag, True, f"mag<{threshold}")
+
+
+def proportional_gate(observed: np.ndarray, predicted: np.ndarray, *,
+                      min_strength: float = 0.0,
+                      max_strength: float = 1.0) -> WriteDecision:
+    if min_strength < 0.0 or max_strength <= 0.0 or min_strength > max_strength:
+        raise ValueError(f"invalid bounds: min={min_strength}, max={max_strength}")
+    mag = residual_magnitude(observed, predicted)
+    strength = max(min_strength, min(max_strength, mag))
+    return WriteDecision(float(strength), mag, strength <= 0.0,
+                         f"mag={mag:.3f}->{strength:.3f}")
+
+
+def gated_write(W: np.ndarray, key: np.ndarray, value: np.ndarray,
+                decision: WriteDecision) -> Tuple[np.ndarray, bool]:
+    if decision.skipped or decision.write_strength <= 0.0:
+        return W, False
+    W += decision.write_strength * np.outer(value, key)
+    return W, True
+
+
+def vanilla_hebbian_write(W: np.ndarray, key: np.ndarray, value: np.ndarray) -> np.ndarray:
+    W += np.outer(value, key)
+    return W
 
 ANCHOR_NAME = "pc1_predictive_coding_residual_gate_v1"
 
