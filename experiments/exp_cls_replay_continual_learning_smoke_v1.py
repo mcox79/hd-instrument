@@ -115,20 +115,22 @@ _ARGS, _ = _ap.parse_known_args()
 # Verdict scans for ANY (M_PER_PHASE, arm) point that satisfies the HARD_PASS
 # conditions; HARD_FAIL only if CLS catastrophic forgets at the highest M tested.
 if RUN_MODE == "smoke":
-    SEEDS = [7, 17, 23]
+    # Smoke is gate-level sanity (180s cap). Trim to 2 seeds x 2 M values.
+    # Full run does the proper 3-5 seed x 4 M-value sweep.
+    SEEDS = [7, 17]
     N_DIM = 4096
     J_PHASES = 3
-    M_PER_PHASE_LIST = [200, 400, 600]  # alpha_total = 0.146, 0.293, 0.439
+    M_PER_PHASE_LIST = [200, 400]       # baseline + 1 above-cliff stress
     NOISE_FRAC = 0.20                   # raised from 0.10 to push past clean-recall floor
-    N_PROBE = 30
+    N_PROBE = 20                        # reduced from 30 for smoke speed
     N_RETRIEVE_STEPS = 5
     ALPHA_FAST = 1.0
     ALPHA_SLOW = 0.1
     REPLAY_FRAC = 1.0    # fraction of W_hippo atoms replayed to W_cortex at end of phase
-    N_REPLAY_PASSES = 10 # multi-pass sleep consolidation
+    N_REPLAY_PASSES = 5  # reduced from 10 for smoke speed; full uses 10
     RECENCY_WEIGHT = 2.0 # per-phase weight multiplier for newer phases in replay sampling
     REHEARSAL_FRAC = 1.0 # for ARM_RANDOM_REHEARSAL: fraction of past atoms rehearsed
-    N_REHEARSE_PASSES = 10 # match rehearsal arm to keep comparison fair
+    N_REHEARSE_PASSES = 5  # match CLS arm
 else:
     SEEDS = [7, 17, 23, 31, 41]
     N_DIM = 4096
