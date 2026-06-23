@@ -104,7 +104,7 @@ from experiments._seed_checkpoint import (
 
 ANCHOR_NAME = "substrate_owned_predictive_coding_encoder_v1"
 TEXT8 = REPO / "data" / "text8_cache" / "text8.txt"
-GENSIM_CACHE_DIR = str(REPO / "data" / "gensim_cache")
+GENSIM_CACHE_DIR = str(REPO / "data" / "gensim_cache_v2")
 os.environ.setdefault("GENSIM_DATA_DIR", GENSIM_CACHE_DIR)
 _LLM_CALL_COUNTER = [0]
 
@@ -250,15 +250,14 @@ _GENSIM_KV_CACHE: Dict[str, object] = {}
 
 
 def _load_gensim_kv(model_name: str):
+    """Defensive gensim load. Delegates to tools.gensim_load_helper which
+    handles (a) missing __init__.py shim and (b) Windows file-lock on .gz
+    via direct KeyedVectors.load_word2vec_format fallback. See
+    tools/gensim_load_helper.py for the resolution order."""
     if model_name in _GENSIM_KV_CACHE:
         return _GENSIM_KV_CACHE[model_name]
-    import gensim.downloader as gd
-    try:
-        gd.base_dir = GENSIM_CACHE_DIR
-        gd.BASE_DIR = GENSIM_CACHE_DIR
-    except Exception:
-        pass
-    kv = gd.load(model_name)
+    from tools.gensim_load_helper import load_gensim_kv
+    kv = load_gensim_kv(model_name, cache_dir=GENSIM_CACHE_DIR)
     _GENSIM_KV_CACHE[model_name] = kv
     return kv
 
