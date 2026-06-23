@@ -1,0 +1,58 @@
+{
+  "seed": 7,
+  "N": 16384,
+  "M": 1000000,
+  "run_mode": "full",
+  "config_version": "substrate-as-llm-scaling-million-facts-v1: N_DIM=16384 M=1000000 N_PROBES=1000 noise=0.050 sparsity=0.050 K_anchors=1000 D_relations=1000 ingest_chunk=2048 arms=DENSE_HEBBIAN,SPARSE_VQ_KEYS,MULTIPLICATIVE_COMP run_mode=full device=cuda; bands HP_recall=0.85 HP_lift=0.30 HP_cv=0.05 HF_recall=0.40",
+  "per_unit": [
+    {
+      "arm": "DENSE_HEBBIAN",
+      "seed": 7,
+      "n_dim": 16384,
+      "m_facts": 1000000,
+      "n_probes": 1000,
+      "sparsity": 0.05,
+      "noise_frac": 0.05,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mean_score_correct": 0.11517718434333801,
+      "mean_score_decoy": -0.00035131798358634114,
+      "ingest_wall_s": 321.2683792114258,
+      "recall_wall_s": 373.06680822372437
+    },
+    {
+      "arm": "SPARSE_VQ_KEYS",
+      "seed": 7,
+      "n_dim": 16384,
+      "m_facts": 1000000,
+      "n_probes": 1000,
+      "sparsity": 0.05,
+      "noise_frac": 0.05,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mean_score_correct": 0.11458615958690643,
+      "mean_score_decoy": -0.00029215001268312335,
+      "ingest_wall_s": 600.2383260726929,
+      "recall_wall_s": 652.2107474803925
+    },
+    {
+      "arm": "MULTIPLICATIVE_COMP",
+      "seed": 7,
+      "n_dim": 16384,
+      "m_facts": 1000000,
+      "n_probes": 1000,
+      "sparsity": 0.05,
+      "noise_frac": 0.05,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "mean_score_correct": 0.11489071696996689,
+      "mean_score_decoy": 6.364082219079137e-05,
+      "ingest_wall_s": 160.8639783859253,
+      "recall_wall_s": 166.45539331436157
+    }
+  ],
+  "elapsed_s": 2274.655753850937,
+  "n_llm_calls": 0,
+  "_ckpt_key": "7",
+  "_partial_written_at": 1782181277.6917517
+}
