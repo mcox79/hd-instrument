@@ -289,7 +289,15 @@ def sparsify_bipolar_gpu(E: torch.Tensor, f: float, seed: int) -> torch.Tensor:
 # ============================================================================
 
 def hrr_bind_batch(A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
-    """HRR bind: circular convolution via FFT. A,B: [..., N]; out: [..., N]."""
+    """HRR bind: circular convolution via FFT. A,B: [..., N]; out: [..., N].
+
+    Inputs forced contiguous: MKL FFT (Windows oneMKL) errors on expand()'d
+    strided views with "Inconsistent configuration parameters".
+    """
+    if not A.is_contiguous():
+        A = A.contiguous()
+    if not B.is_contiguous():
+        B = B.contiguous()
     Fa = torch.fft.rfft(A, dim=-1)
     Fb = torch.fft.rfft(B, dim=-1)
     return torch.fft.irfft(Fa * Fb, n=A.shape[-1], dim=-1)
@@ -381,7 +389,9 @@ def build_context_keys_gpu(idx: torch.Tensor, E: torch.Tensor, context_window: i
             # roll wraps -- replace with the natural starting context)
             shifted[:offset] = idx[0]
             src = E[shifted]
-        bound = hrr_bind_batch(src, pos_vecs[offset].unsqueeze(0).expand(n, -1))
+        # Contiguous-clone required: MKL FFT rejects expand()'d strided views
+        pos_b = pos_vecs[offset].unsqueeze(0).expand(n, -1).contiguous()
+        bound = hrr_bind_batch(src, pos_b)
         keys.add_(bound)
     keys = _l2_normalize_t(keys)
     return keys
