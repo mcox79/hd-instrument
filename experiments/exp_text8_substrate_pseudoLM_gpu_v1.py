@@ -112,8 +112,11 @@ else:
     N_TRAIN = 5_000_000   # 5M tokens
     N_HELD = 100_000
     VOCAB_CAP = 20000     # 20k cap fits 8GB GPU (E = 20k * 16384 * 4 = 1.3GB)
-    INGEST_CHUNK = 32768  # 32k token pairs per chunk (batched outer-product)
-    RECALL_BATCH = 2048
+    # INGEST_CHUNK sized to 8GB GPU: W=1.07GB + E=1.31GB + 2*(chunk*N*4) activations
+    # At chunk=8192: activations=1.07GB; total=3.5GB. Safe headroom on 8GB GPU.
+    # At chunk=32768: activations=4.3GB; OOM observed on RTX 4060 Ti during bench.
+    INGEST_CHUNK = 8192
+    RECALL_BATCH = 1024   # vocab logits per recall batch (E [V,N] @ pred [b,N].T -> [V,b])
     BACKOFF_THRESH = 0.05
 
 CONFIG_VERSION = (
