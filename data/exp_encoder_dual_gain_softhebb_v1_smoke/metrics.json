@@ -1,0 +1,217 @@
+{
+  "anchor_name": "encoder_dual_gain_softhebb_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "DUAL_GAIN MIDDLE_BAND: at least one arm clears Metric A only OR Metric B only but NO arm clears BOTH on same seed-mean; partial mechanism characterization; route to second-tier follow-up. bpc HARD_PASS arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE']. DUAL_GAIN @ sigma=1.50: ARM_CHAR_TRIGRAM=disc0.020(HARD_FAIL)/bpc6.938(HARD_PASS) | ARM_SOFTHEBB_FORWARD=disc0.020(HARD_FAIL)/bpc6.938(HARD_PASS) | ARM_FOLDIAK_ANTI_HEBB=disc0.020(HARD_FAIL)/bpc6.931(HARD_PASS) | ARM_FPE_CONTRASTIVE=disc0.000(HARD_FAIL)/bpc6.938(HARD_PASS) | sanity_ok=True",
+  "run_mode": "smoke",
+  "N_DIM": 4096,
+  "M": 200,
+  "N_EVAL": 50,
+  "N_TRAIN": 10000,
+  "N_HELD": 2000,
+  "VOCAB_CAP": 1000,
+  "n_seeds": 1,
+  "detail": {
+    "by_arm_agg": {
+      "ARM_CHAR_TRIGRAM": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "bpc_best_calibrated_mean": 6.938,
+        "bpc_best_calibrated_std": 0.0,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.18,
+          "1.0": 0.06,
+          "1.5": 0.02,
+          "2.0": 0.02
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_PASS",
+        "dual_gain_HARD_PASS": false
+      },
+      "ARM_SOFTHEBB_FORWARD": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "bpc_best_calibrated_mean": 6.9379,
+        "bpc_best_calibrated_std": 0.0,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.2,
+          "1.0": 0.06,
+          "1.5": 0.02,
+          "2.0": 0.02
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_PASS",
+        "dual_gain_HARD_PASS": false
+      },
+      "ARM_FOLDIAK_ANTI_HEBB": {
+        "recall_discriminator_mean": 0.02,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "bpc_best_calibrated_mean": 6.9306,
+        "bpc_best_calibrated_std": 0.0,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.26,
+          "1.0": 0.06,
+          "1.5": 0.02,
+          "2.0": 0.02
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_PASS",
+        "dual_gain_HARD_PASS": false
+      },
+      "ARM_FPE_CONTRASTIVE": {
+        "recall_discriminator_mean": 0.0,
+        "recall_discriminator_std": 0.0,
+        "recall_discriminator_cv": 0.0,
+        "bpc_best_calibrated_mean": 6.9379,
+        "bpc_best_calibrated_std": 0.0,
+        "bpc_best_calibrated_cv": 0.0,
+        "basin_robustness_mean": {
+          "0.0": 1.0,
+          "0.5": 0.18,
+          "1.0": 0.06,
+          "1.5": 0.0,
+          "2.0": 0.02
+        },
+        "cleanup_classification": "HARD_FAIL",
+        "bpc_classification": "HARD_PASS",
+        "dual_gain_HARD_PASS": false
+      }
+    },
+    "any_dual_gain_pass": [],
+    "cleanup_pass_arms": [],
+    "bpc_pass_arms": [
+      "ARM_CHAR_TRIGRAM",
+      "ARM_SOFTHEBB_FORWARD",
+      "ARM_FOLDIAK_ANTI_HEBB",
+      "ARM_FPE_CONTRASTIVE"
+    ],
+    "cleanup_all_fail": true,
+    "bpc_all_fail": false,
+    "sanity_sigma0_ok": true,
+    "sanity_sigma0_failures": [],
+    "discriminator_sigma": 1.5,
+    "unigram_bpc_ref": 7.738,
+    "path_a_current_bpc_ref": 7.864,
+    "cleanup_baseline_recall_ref": 0.022,
+    "n_seeds": 1,
+    "CONFIG_VERSION": "encoder_dual_gain_softhebb_v1; N_DIM=4096 M=200 N_EVAL=50 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=1000 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE'] seeds=[0] mode=smoke K_WTA=5 INGEST_CHUNK=8192 lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_recall>=0.20 HF_recall<=0.05 HP_bpc<7.738 HF_bpc>=7.864",
+    "honest_scope": "HD-substrate-native encoder-side dual-gain drill; 4 arms x cleanup-sigma-sweep + Path-A BPC at N_DIM=4096 M=200 N_TRAIN=10000 N_HELD=2000 V=1000 K_WTA=5; 1 seeds; dual-gain HARD_PASS = ANY arm clears BOTH metric A (cleanup recall>=0.20 @ sigma=1.5) AND metric B (BPC<7.738); HARD_FAIL = NO arm clears EITHER metric.",
+    "cites": [
+      "notes/research_5x_deeper_encoder_upgrade_dual_gain_2026-06-23.md (source-of-truth)",
+      "notes/research_encoder_side_cleanup_ceiling_break_2026-06-23.md (parent ENC1 HARD_FAIL)",
+      "experiments/exp_text8_substrate_pseudoLM_v2_temperature_calibrated_v1.py (BPC ref 7.864)",
+      "Moraitis_2107_05747_SoftHebb",
+      "Foldiak_1990_anti_Hebbian_decorrelation",
+      "Hinton_2022_Forward_Forward",
+      "hdlab/char_trigram_encoder.py",
+      "Shannon_floor_META_cert_row_675"
+    ]
+  },
+  "metrics_source": "measured_cpu_encoder_dual_gain_softhebb_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_CHAR_TRIGRAM": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.18,
+            "1.0": 0.06,
+            "1.5": 0.02,
+            "2.0": 0.02
+          },
+          "recall_discriminator": 0.02,
+          "bpc_raw": 9.6769,
+          "bpc_best_calibrated": 6.938,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 6.9226,
+          "bpc_n_eval": 731,
+          "wall_encode_s": 0.28,
+          "wall_cleanup_s": 0.14,
+          "wall_bpc_s": 1.26
+        },
+        "ARM_SOFTHEBB_FORWARD": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.2,
+            "1.0": 0.06,
+            "1.5": 0.02,
+            "2.0": 0.02
+          },
+          "recall_discriminator": 0.02,
+          "bpc_raw": 9.6761,
+          "bpc_best_calibrated": 6.9379,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 6.9226,
+          "bpc_n_eval": 731,
+          "wall_encode_s": 3.66,
+          "wall_cleanup_s": 0.36,
+          "wall_bpc_s": 1.79
+        },
+        "ARM_FOLDIAK_ANTI_HEBB": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.26,
+            "1.0": 0.06,
+            "1.5": 0.02,
+            "2.0": 0.02
+          },
+          "recall_discriminator": 0.02,
+          "bpc_raw": 9.6301,
+          "bpc_best_calibrated": 6.9306,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 6.915,
+          "bpc_n_eval": 731,
+          "wall_encode_s": 0.51,
+          "wall_cleanup_s": 0.68,
+          "wall_bpc_s": 1.95
+        },
+        "ARM_FPE_CONTRASTIVE": {
+          "cleanup": {
+            "0.0": 1.0,
+            "0.5": 0.18,
+            "1.0": 0.06,
+            "1.5": 0.0,
+            "2.0": 0.02
+          },
+          "recall_discriminator": 0.0,
+          "bpc_raw": 9.6767,
+          "bpc_best_calibrated": 6.9379,
+          "best_lambda": 0.1,
+          "best_dev_bpc": 6.9226,
+          "bpc_n_eval": 731,
+          "wall_encode_s": 2.4,
+          "wall_cleanup_s": 0.12,
+          "wall_bpc_s": 1.35
+        }
+      },
+      "N": 4096,
+      "N_DIM": 4096,
+      "M": 200,
+      "N_EVAL": 50,
+      "N_TRAIN": 10000,
+      "N_HELD": 2000,
+      "VOCAB_CAP": 1000,
+      "K_WTA": 5,
+      "run_mode": "smoke",
+      "config_version": "encoder_dual_gain_softhebb_v1; N_DIM=4096 M=200 N_EVAL=50 N_TRAIN=10000 N_HELD=2000 VOCAB_CAP=1000 sigmas=[0.0, 0.5, 1.0, 1.5, 2.0] arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE'] seeds=[0] mode=smoke K_WTA=5 INGEST_CHUNK=8192 lambda_grid=[0.1, 0.3, 0.5, 0.7, 1.0]; bands HP_recall>=0.20 HF_recall<=0.05 HP_bpc<7.738 HF_bpc>=7.864",
+      "elapsed_s_seed": 14.63,
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782233705.7572608
+    }
+  ],
+  "elapsed_s": 14.725152015686035,
+  "summary": "DUAL_GAIN MIDDLE_BAND: at least one arm clears Metric A only OR Metric B only but NO arm clears BOTH on same seed-mean; partial mechanism characterization; route to second-tier follow-up. bpc HARD_PASS arms=['ARM_CHAR_TRIGRAM', 'ARM_SOFTHEBB_FORWARD', 'ARM_FOLDIAK_ANTI_HEBB', 'ARM_FPE_CONTRASTIVE']. DUAL_GAIN @ sigma=1.50: ARM_CHAR_TRIGRAM=disc0.020(HARD_FAIL)/bpc6.938(HARD_PASS) | ARM_SOFTHEBB_FORWARD=disc0.020(HARD_FAIL)/bpc6.938(HARD_PASS) | ARM_FOLDIAK_ANTI_HEBB=disc0.020(HARD_FAIL)/bpc6.931(HARD_PASS) | ARM_FPE_CONTRASTIVE=disc0.000(HARD_FAIL)/bpc6.938(HARD_PASS) | sanity_ok=True",
+  "substrate_only_decode_gate": "TRUE (HD substrate-native encoder-side dual-gain; no LLM at inference)",
+  "zero_llm_calls_at_inference": true,
+  "_llm_call_counter_final": 0,
+  "_name_says_smoke_workaround": true
+}
