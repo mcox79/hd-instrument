@@ -495,8 +495,12 @@ function renderSubstrateResponse(data) {
     if (p.top_matches.length > 1) {
       body += `  also matches: ${p.top_matches.slice(1, 4).map(m => `${escapeHtml(m.entity)} (${m.cosine.toFixed(2)})`).join(', ')}\n`;
     }
-    body += `\nsubstrate retrievals from anchor:\n`;
+    body += `\nsubstrate retrievals from anchor (1-hop):\n`;
     body += p.anchor_relations.map(r => `  ${escapeHtml(r.relation)}: <span class="entity">${escapeHtml(r.object)}</span><span class="score">score=${r.score.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>`).join('\n');
+    if (p.two_hop_chains && p.two_hop_chains.length > 0) {
+      body += `\n\n2-hop chains (substrate-native reasoning):\n`;
+      body += p.two_hop_chains.map(c => `  ${escapeHtml(c.chain)}<span class="score">chain-score=${c.score_chain.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>`).join('\n');
+    }
     body += `\n\n<span class="score">${escapeHtml(p.note)}</span>`;
   } else if (kind === "english") {
     body = `"${escapeHtml(p.query)}" →\n`;

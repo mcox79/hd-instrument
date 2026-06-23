@@ -1820,7 +1820,8 @@ def _substrate_walk_response(state, args_text: str):
 
 
 def _substrate_native_query_response(state, query_text: str):
-    """Char-trigram encoder → nearest entity → substrate retrieval. Zero external model."""
+    """Char-trigram encoder → nearest entity → substrate retrieval + 2-hop traversal context.
+    Zero external model. Default chat mode per USER 2026-06-22 directive (replace MiniLM)."""
     sub = _ensure_substrate_native_codebook_loaded()
     if sub is None:
         return JSONResponse({"ok": False, "error": "substrate-native codebook unavailable"})
@@ -1835,16 +1836,35 @@ def _substrate_native_query_response(state, query_text: str):
         anchor = nearest[0]["entity"]
         anchor_idx = ent2idx.get(anchor)
         anchor_rels = []
+        two_hop = []
         if anchor_idx is not None:
+            # 1-hop: top-1 over every relation
             for r_name in state["idx2rel"]:
                 r_idx = rel2idx[r_name]
                 ti, ts = kg.predict_one_hop_topk(anchor_idx, r_idx, k=1)
                 anchor_rels.append({"relation": r_name, "object": idx2ent[int(ti[0])], "score": float(ts[0])})
             anchor_rels.sort(key=lambda r: r["score"], reverse=True)
+            # 2-hop: for top-2 relations, follow to intermediate then expand top-2 relations from there
+            # (substrate-native chain reasoning; chain-grade primitive per CERT 585 n8 evidence)
+            for rel_a in anchor_rels[:2]:
+                inter_name = rel_a["object"]
+                inter_idx = ent2idx.get(inter_name)
+                if inter_idx is None:
+                    continue
+                for r_name in state["idx2rel"]:
+                    r_idx = rel2idx[r_name]
+                    ti, ts = kg.predict_one_hop_topk(inter_idx, r_idx, k=1)
+                    two_hop.append({
+                        "chain": f"{anchor} --{rel_a['relation']}--> {inter_name} --{r_name}--> {idx2ent[int(ti[0])]}",
+                        "score_chain": float(rel_a["score"]) * float(ts[0]),
+                    })
+            two_hop.sort(key=lambda x: x["score_chain"], reverse=True)
+            two_hop = two_hop[:5]
         return JSONResponse({"ok": True, "kind": "substrate_native",
             "payload": {"query": query_text, "anchor": anchor, "top_matches": nearest,
                         "anchor_relations": anchor_rels[:6],
-                        "note": "char-trigram Hebbian encoder (zero external model). Pure substrate at every stage."}})
+                        "two_hop_chains": two_hop,
+                        "note": "char-trigram Hebbian encoder + 1-hop + 2-hop chain traversal (zero external model). Pure substrate at every stage. CERT 585 (n8) chain-grade primitives."}})
     except Exception as e:
         return JSONResponse({"ok": False, "error": f"substrate-native query failed: {type(e).__name__}: {e}"})
 
@@ -1989,32 +2009,41 @@ def substrate_chat(body: ChatBody):
                     except Exception as e:
                         return JSONResponse({"ok": False, "error": f"n-hop failed: {type(e).__name__}: {e}"})
 
-    # Semantic / English path — MiniLM encodes user text, finds nearest entity, shows substrate
-    # retrievals across all relations for that entity.
-    sem = _ensure_semantic_codebook_loaded()
-    if sem is None:
-        return JSONResponse({"ok": False, "error": "semantic codebook missing — run: python tools/build_substrate_semantic_codebook.py"})
-    try:
-        import numpy as np
-        q_emb = sem["model"].encode([msg], normalize_embeddings=True)[0]
-        sims = sem["ent_embs"] @ q_emb
-        top5_idx = np.argsort(sims)[-5:][::-1]
-        top5 = [{"entity": sem["ent_names"][int(i)], "cosine": float(sims[int(i)])} for i in top5_idx]
-        anchor = top5[0]["entity"]
-        anchor_idx = ent2idx.get(anchor)
-        anchor_rels = []
-        if anchor_idx is not None:
-            for r_name in state["idx2rel"]:
-                r_idx = rel2idx[r_name]
-                ti, ts = kg.predict_one_hop_topk(anchor_idx, r_idx, k=1)
-                anchor_rels.append({"relation": r_name, "object": idx2ent[int(ti[0])], "score": float(ts[0])})
-            anchor_rels.sort(key=lambda r: r["score"], reverse=True)
-        return JSONResponse({"ok": True, "kind": "english",
-            "payload": {"query": msg, "anchor": anchor, "top_matches": top5,
-                        "anchor_relations": anchor_rels[:6],
-                        "note": "MiniLM ingest-stage encode → nearest entity → substrate W retrieval. Zero LLM at retrieval."}})
-    except Exception as e:
-        return JSONResponse({"ok": False, "error": f"semantic search failed: {type(e).__name__}: {e}"})
+    # DEFAULT free-text path — SUBSTRATE-NATIVE (zero external model, per USER 2026-06-22
+    # directive "I don't want minilm - let's get the substrate capable of this").
+    # Pipeline: char_trigram encode → KGStore nearest entity → 2-hop relation traversal
+    # for context → optional substrate-native generation via SubstrateGenerator.
+    # Previously fell through to MiniLM; that dependency is now removed for default flow.
+    # Explicit `english:` prefix still attempts MiniLM IF semantic codebook is built
+    # (preserved for users who want MiniLM specifically); MiniLM fallback NOT default.
+    if force_english:
+        sem = _ensure_semantic_codebook_loaded()
+        if sem is None:
+            return JSONResponse({"ok": False, "error": "english: prefix requires MiniLM codebook — run `python tools/build_substrate_semantic_codebook.py` OR drop the english: prefix to use substrate-native (default)"})
+        try:
+            import numpy as np
+            q_emb = sem["model"].encode([msg], normalize_embeddings=True)[0]
+            sims = sem["ent_embs"] @ q_emb
+            top5_idx = np.argsort(sims)[-5:][::-1]
+            top5 = [{"entity": sem["ent_names"][int(i)], "cosine": float(sims[int(i)])} for i in top5_idx]
+            anchor = top5[0]["entity"]
+            anchor_idx = ent2idx.get(anchor)
+            anchor_rels = []
+            if anchor_idx is not None:
+                for r_name in state["idx2rel"]:
+                    r_idx = rel2idx[r_name]
+                    ti, ts = kg.predict_one_hop_topk(anchor_idx, r_idx, k=1)
+                    anchor_rels.append({"relation": r_name, "object": idx2ent[int(ti[0])], "score": float(ts[0])})
+                anchor_rels.sort(key=lambda r: r["score"], reverse=True)
+            return JSONResponse({"ok": True, "kind": "english",
+                "payload": {"query": msg, "anchor": anchor, "top_matches": top5,
+                            "anchor_relations": anchor_rels[:6],
+                            "note": "english: prefix — MiniLM encode (external model at ingest). Drop prefix for substrate-native."}})
+        except Exception as e:
+            return JSONResponse({"ok": False, "error": f"english: semantic search failed: {type(e).__name__}: {e}"})
+
+    # DEFAULT (no prefix) — substrate-native char-trigram + multi-hop traversal. Zero external model.
+    return _substrate_native_query_response(state, msg)
 
 
 @app.get("/api/dashboard/v2/history")
