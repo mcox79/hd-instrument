@@ -1,0 +1,206 @@
+{
+  "anchor": "substrate_native_qa_hotpotqa_v1",
+  "anchor_name": "substrate_native_qa_hotpotqa_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: composed_em 0.010 < HARD_FAIL bar 0.10. composed_em=0.010 retrieval_em=0.010 generation_em=0.122 lift=-0.112 cv_composed=0.091 n_llm=0",
+  "n_seeds": 3,
+  "N": 8192,
+  "N_DIM": 8192,
+  "N_Q": 1000,
+  "TOP_K": 5,
+  "GEN_DEPTH": 4,
+  "arms": [
+    "SUBSTRATE_COMPOSED",
+    "RETRIEVAL_ONLY",
+    "GENERATION_ONLY"
+  ],
+  "run_mode": "full",
+  "device": "cuda",
+  "config_version": "substrate-native-qa-hotpotqa-v1: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 arms=SUBSTRATE_COMPOSED,RETRIEVAL_ONLY,GENERATION_ONLY sigma=0.100 run_mode=full device=cuda; bands HP_composed_em=0.20 HP_lift=0.05 HF_composed_em=0.10 cv_max=0.10",
+  "corpus_provenance": "hotpotqa_distractor_dev_1k_jsonl",
+  "allow_synthetic": false,
+  "zero_llm_calls_at_inference": true,
+  "n_llm_calls": 0,
+  "detail": {
+    "mean_em": {
+      "SUBSTRATE_COMPOSED": 0.010333333333333332,
+      "RETRIEVAL_ONLY": 0.010333333333333332,
+      "GENERATION_ONLY": 0.12233333333333334
+    },
+    "cv_em": {
+      "SUBSTRATE_COMPOSED": 0.09123958466923196,
+      "RETRIEVAL_ONLY": 0.09123958466923196,
+      "GENERATION_ONLY": 0.0038534429492454937
+    },
+    "mean_retrieval_recall_at_5": {
+      "SUBSTRATE_COMPOSED": 0.019000000000000003,
+      "RETRIEVAL_ONLY": 0.019000000000000003
+    },
+    "mean_generation_n_distinct": {
+      "SUBSTRATE_COMPOSED": 3.9939999999999998,
+      "RETRIEVAL_ONLY": 1.0,
+      "GENERATION_ONLY": 3.9879999999999995
+    },
+    "composed_em": 0.010333333333333332,
+    "retrieval_only_em": 0.010333333333333332,
+    "generation_only_em": 0.12233333333333334,
+    "lift_composed_vs_best_primitive": -0.112,
+    "cv_composed_em": 0.09123958466923196,
+    "substrate_only_ok": true,
+    "zero_llm_calls_at_inference": true,
+    "n_llm_calls": 0,
+    "honest_scope": "Substrate-native QA on HotpotQA-distractor 1k-dev (N_Q=1000 subsample), N_DIM=8192, GEN_DEPTH=4, TOP_K=5. 3-arm discriminator (Fix #16): SUBSTRATE_COMPOSED vs RETRIEVAL_ONLY vs GENERATION_ONLY. Substrate-only-decode gate enforced (n_llm=0). Encoder: char-trigram (no MiniLM); accepts semantic-loss tradeoff for full substrate-only-decode. Composes CERT 587 (g1b generation) + CERT 588 (h_hotpotqa KG family) + char_trigram_encoder."
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 8192,
+      "M": 1000,
+      "run_mode": "full",
+      "config_version": "substrate-native-qa-hotpotqa-v1: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 arms=SUBSTRATE_COMPOSED,RETRIEVAL_ONLY,GENERATION_ONLY sigma=0.100 run_mode=full device=cuda; bands HP_composed_em=0.20 HP_lift=0.05 HF_composed_em=0.10 cv_max=0.10",
+      "elapsed_s": 271.83035612106323,
+      "n_llm_calls": 0,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782177193.7870073,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_COMPOSED",
+          "seed": 7,
+          "n_q": 1000,
+          "em": 0.009,
+          "retrieval_recall_at_5": 0.019,
+          "generation_n_distinct_mean": 4.0,
+          "arm_wall_s": 133.06318521499634,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        },
+        {
+          "arm": "RETRIEVAL_ONLY",
+          "seed": 7,
+          "n_q": 1000,
+          "em": 0.009,
+          "retrieval_recall_at_5": 0.019,
+          "generation_n_distinct_mean": 1.0,
+          "arm_wall_s": 0.34711408615112305,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        },
+        {
+          "arm": "GENERATION_ONLY",
+          "seed": 7,
+          "n_q": 1000,
+          "em": 0.123,
+          "retrieval_recall_at_5": null,
+          "generation_n_distinct_mean": 3.992,
+          "arm_wall_s": 134.45042371749878,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        }
+      ]
+    },
+    {
+      "seed": 17,
+      "N": 8192,
+      "M": 1000,
+      "run_mode": "full",
+      "config_version": "substrate-native-qa-hotpotqa-v1: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 arms=SUBSTRATE_COMPOSED,RETRIEVAL_ONLY,GENERATION_ONLY sigma=0.100 run_mode=full device=cuda; bands HP_composed_em=0.20 HP_lift=0.05 HF_composed_em=0.10 cv_max=0.10",
+      "elapsed_s": 360.39921855926514,
+      "n_llm_calls": 0,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1782177554.4871168,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_COMPOSED",
+          "seed": 17,
+          "n_q": 1000,
+          "em": 0.011,
+          "retrieval_recall_at_5": 0.017,
+          "generation_n_distinct_mean": 3.988,
+          "arm_wall_s": 130.83918619155884,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        },
+        {
+          "arm": "RETRIEVAL_ONLY",
+          "seed": 17,
+          "n_q": 1000,
+          "em": 0.011,
+          "retrieval_recall_at_5": 0.017,
+          "generation_n_distinct_mean": 1.0,
+          "arm_wall_s": 0.18694424629211426,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        },
+        {
+          "arm": "GENERATION_ONLY",
+          "seed": 17,
+          "n_q": 1000,
+          "em": 0.122,
+          "retrieval_recall_at_5": null,
+          "generation_n_distinct_mean": 3.98,
+          "arm_wall_s": 224.1900806427002,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "N": 8192,
+      "M": 1000,
+      "run_mode": "full",
+      "config_version": "substrate-native-qa-hotpotqa-v1: N_DIM=8192 N_Q=1000 TOP_K=5 GEN_DEPTH=4 arms=SUBSTRATE_COMPOSED,RETRIEVAL_ONLY,GENERATION_ONLY sigma=0.100 run_mode=full device=cuda; bands HP_composed_em=0.20 HP_lift=0.05 HF_composed_em=0.10 cv_max=0.10",
+      "elapsed_s": 497.84356808662415,
+      "n_llm_calls": 0,
+      "_ckpt_key": "23",
+      "_partial_written_at": 1782178052.577984,
+      "per_unit": [
+        {
+          "arm": "SUBSTRATE_COMPOSED",
+          "seed": 23,
+          "n_q": 1000,
+          "em": 0.011,
+          "retrieval_recall_at_5": 0.021,
+          "generation_n_distinct_mean": 3.994,
+          "arm_wall_s": 248.013592004776,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        },
+        {
+          "arm": "RETRIEVAL_ONLY",
+          "seed": 23,
+          "n_q": 1000,
+          "em": 0.011,
+          "retrieval_recall_at_5": 0.021,
+          "generation_n_distinct_mean": 1.0,
+          "arm_wall_s": 0.5505907535552979,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        },
+        {
+          "arm": "GENERATION_ONLY",
+          "seed": 23,
+          "n_q": 1000,
+          "em": 0.122,
+          "retrieval_recall_at_5": null,
+          "generation_n_distinct_mean": 3.992,
+          "arm_wall_s": 239.79113626480103,
+          "n_dim": 8192,
+          "gen_depth": 4,
+          "top_k": 5
+        }
+      ]
+    }
+  ],
+  "metrics_source": "measured_substrate_native_qa_hotpotqa_3arm",
+  "elapsed_s": 1130.8284657001495,
+  "summary": "HARD_FAIL: composed_em 0.010 < HARD_FAIL bar 0.10. composed_em=0.010 retrieval_em=0.010 generation_em=0.122 lift=-0.112 cv_composed=0.091 n_llm=0"
+}
