@@ -501,6 +501,18 @@ function renderSubstrateResponse(data) {
       body += `\n\n2-hop chains (substrate-native reasoning):\n`;
       body += p.two_hop_chains.map(c => `  ${escapeHtml(c.chain)}<span class="score">chain-score=${c.score_chain.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>`).join('\n');
     }
+    if (p.generated_path && p.generated_path.length > 1) {
+      body += `\n\nsubstrate-generated continuation (4-step walk; softmax-sampled):\n  `;
+      const parts = [];
+      for (let i = 0; i < p.generated_path.length; i++) {
+        if (i === 0) {
+          parts.push(`<span class="entity">${escapeHtml(p.generated_path[i])}</span>`);
+        } else {
+          parts.push(`--${escapeHtml(p.generated_relations[i-1])}--> <span class="entity">${escapeHtml(p.generated_path[i])}</span>`);
+        }
+      }
+      body += parts.join(' ');
+    }
     body += `\n\n<span class="score">${escapeHtml(p.note)}</span>`;
   } else if (kind === "english") {
     body = `"${escapeHtml(p.query)}" →\n`;

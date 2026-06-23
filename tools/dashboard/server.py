@@ -1860,11 +1860,47 @@ def _substrate_native_query_response(state, query_text: str):
                     })
             two_hop.sort(key=lambda x: x["score_chain"], reverse=True)
             two_hop = two_hop[:5]
+        # Substrate-native GENERATION: walk 4 steps from anchor via KGStore (the substrate decides
+        # direction via its W matrix scores at each step). This is the "what the substrate generates
+        # in response" view — substrate-native autoregressive-like generation over its own KG.
+        # Zero external model at any step. Composes with g1b CERT 587 generation mechanism.
+        generated_path = [anchor]
+        generated_rels = []
+        if anchor_idx is not None:
+            import random as _rand
+            rng = _rand.Random(7)
+            cur_idx = anchor_idx
+            for hop in range(4):
+                candidates = []
+                for r_name in state["idx2rel"]:
+                    r_idx = rel2idx[r_name]
+                    ti, ts = kg.predict_one_hop_topk(cur_idx, r_idx, k=2)
+                    for j in range(len(ti)):
+                        next_idx = int(ti[j])
+                        score = float(ts[j])
+                        next_name = idx2ent[next_idx]
+                        if len(generated_path) >= 2 and next_name == generated_path[-2]:
+                            continue
+                        candidates.append((next_name, r_name, score, next_idx))
+                if not candidates:
+                    break
+                candidates.sort(key=lambda x: x[2], reverse=True)
+                top_n = min(3, len(candidates))
+                weights = [candidates[i][2] for i in range(top_n)]
+                total = sum(weights) or 1.0
+                probs = [w / total for w in weights]
+                pick = rng.choices(range(top_n), weights=probs, k=1)[0]
+                next_name, r_name, _, next_idx = candidates[pick]
+                generated_path.append(next_name)
+                generated_rels.append(r_name)
+                cur_idx = next_idx
         return JSONResponse({"ok": True, "kind": "substrate_native",
             "payload": {"query": query_text, "anchor": anchor, "top_matches": nearest,
                         "anchor_relations": anchor_rels[:6],
                         "two_hop_chains": two_hop,
-                        "note": "char-trigram Hebbian encoder + 1-hop + 2-hop chain traversal (zero external model). Pure substrate at every stage. CERT 585 (n8) chain-grade primitives."}})
+                        "generated_path": generated_path,
+                        "generated_relations": generated_rels,
+                        "note": "char-trigram encoder (input) + KGStore retrieval (1-hop + 2-hop chains; CERT 585 n8) + substrate-native generation walk (4-step, softmax-sampled relation-traversal; composes g1b CERT 587 mechanism). Zero external model anywhere."}})
     except Exception as e:
         return JSONResponse({"ok": False, "error": f"substrate-native query failed: {type(e).__name__}: {e}"})
 
