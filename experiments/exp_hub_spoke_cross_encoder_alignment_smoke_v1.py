@@ -116,7 +116,10 @@ _P.add_argument("--smoke", action="store_true")
 _ARGS, _ = _P.parse_known_args()
 
 _HDLAB_EXP_NAME = os.environ.get("HDLAB_EXP_NAME", "")
-_NAME_SAYS_SMOKE = "_smoke" in _HDLAB_EXP_NAME.lower()
+# Runner appends "_smoke" SUFFIX (not substring) when launching smoke mode.
+# Tier-label "_smoke_v1" in the anchor name does NOT trigger smoke mode --
+# only an actual trailing "_smoke" appended by the runner does.
+_NAME_SAYS_SMOKE = _HDLAB_EXP_NAME.endswith("_smoke")
 RUN_MODE = "smoke" if (_ARGS.smoke or _ARGS.self_test or _NAME_SAYS_SMOKE) else os.environ.get("HDLAB_RUN_MODE", "full")
 
 # Config
