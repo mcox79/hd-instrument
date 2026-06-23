@@ -1678,40 +1678,96 @@ import pickle  # noqa: E402
 
 _REPO = Path(__file__).resolve().parent.parent.parent
 _CHAT_CACHE_DIR = _REPO / "data" / "substrate_repl_cache"
-_chat_kg_state = {"kg": None, "ent2idx": None, "rel2idx": None, "idx2ent": None, "idx2rel": None, "m": 0}
+_chat_kg_state = {"kg": None, "ent2idx": None, "rel2idx": None, "idx2ent": None, "idx2rel": None, "m": 0, "cache_name": None}
+# Per-KG-backend cache: lets users switch via `/kg hotpotqa` / `/kg conceptnet` chat commands.
+# Maps cache short-name → loaded payload dict (same shape as _chat_kg_state). Lazy-populated.
+_chat_kg_backends: dict[str, dict] = {}
 _chat_semantic_state = {"loaded": False, "model": None, "ent_embs": None, "rel_embs": None, "ent_names": None, "rel_names": None}
 _chat_substrate_state = {"loaded": False, "encoder": None, "ent_codebook": None}
 _chat_lock = threading.Lock()
 
 
-def _ensure_chat_kg_loaded() -> dict | None:
-    """Lazy-load the substrate KG cache on first chat request; returns state dict OR None on error."""
+def _list_chat_caches() -> list[tuple[str, Path]]:
+    """Return [(short_name, path)] for every kg_*.pkl in the cache dir.
+
+    short_name: 'hotpotqa' if filename contains 'hotpotqa'; 'conceptnet' otherwise (default).
+    Used by `/kg <name>` switch command + by default-loader to enumerate options.
+    """
+    if not _CHAT_CACHE_DIR.exists():
+        return []
+    out = []
+    for p in sorted(_CHAT_CACHE_DIR.glob("kg_m*.pkl"), key=lambda p: p.stat().st_size, reverse=True):
+        nm = p.name.lower()
+        if "hotpotqa" in nm or "hotpot" in nm:
+            short = "hotpotqa"
+        elif "conceptnet" in nm:
+            short = "conceptnet"
+        else:
+            short = "conceptnet"  # default vocabulary if no hint in filename
+        out.append((short, p))
+    return out
+
+
+def _load_kg_payload(path: Path) -> dict | None:
+    """Pickle-load a kg cache file into a chat-state-shaped dict; None on failure."""
+    if str(_REPO) not in sys.path:
+        sys.path.insert(0, str(_REPO))
+    try:
+        with open(path, "rb") as f:
+            payload = pickle.load(f)
+        return {
+            "kg": payload["kg"],
+            "ent2idx": payload["ent2idx"],
+            "rel2idx": payload["rel2idx"],
+            "idx2ent": sorted(payload["ent2idx"], key=lambda e: payload["ent2idx"][e]),
+            "idx2rel": sorted(payload["rel2idx"], key=lambda r: payload["rel2idx"][r]),
+            "m": len(payload["triples_raw"]),
+            "cache_name": path.name,
+        }
+    except Exception as e:
+        print(f"[substrate_chat] cache load failed {path.name}: {type(e).__name__}: {e}", flush=True)
+        return None
+
+
+def _ensure_chat_kg_loaded(backend: str | None = None) -> dict | None:
+    """Lazy-load substrate KG cache. If backend specified (e.g. 'hotpotqa'), load that specific
+    backend; otherwise return the currently-loaded default (largest cache file).
+
+    Switching backends evicts the substrate-native codebook (it's per-KG, so it must rebuild
+    against the new entity vocabulary on next /substrate / default query)."""
     with _chat_lock:
-        if _chat_kg_state["kg"] is not None:
-            return _chat_kg_state
-        # Find any cached KG file (prefer largest m)
-        if not _CHAT_CACHE_DIR.exists():
-            return None
-        caches = sorted(_CHAT_CACHE_DIR.glob("kg_m*.pkl"), key=lambda p: p.stat().st_size, reverse=True)
+        caches = _list_chat_caches()
         if not caches:
             return None
-        # Repo root must be on sys.path for pickle.load to find hdlab.kg_traversal.KGStore
-        if str(_REPO) not in sys.path:
-            sys.path.insert(0, str(_REPO))
-        try:
-            with open(caches[0], "rb") as f:
-                payload = pickle.load(f)
-            _chat_kg_state["kg"] = payload["kg"]
-            _chat_kg_state["ent2idx"] = payload["ent2idx"]
-            _chat_kg_state["rel2idx"] = payload["rel2idx"]
-            _chat_kg_state["idx2ent"] = sorted(payload["ent2idx"], key=lambda e: payload["ent2idx"][e])
-            _chat_kg_state["idx2rel"] = sorted(payload["rel2idx"], key=lambda r: payload["rel2idx"][r])
-            _chat_kg_state["m"] = len(payload["triples_raw"])
-            return _chat_kg_state
-        except Exception as e:
-            # Surface the actual error to logs (was swallowed before, masking pickle import failures)
-            print(f"[substrate_chat] cache load failed: {type(e).__name__}: {e}", flush=True)
-            return None
+        # Resolve which backend to load
+        if backend is not None:
+            target = next(((short, path) for (short, path) in caches if short == backend), None)
+            if target is None:
+                print(f"[substrate_chat] backend '{backend}' not found; available={[s for s,_ in caches]}", flush=True)
+                return None
+            short, path = target
+        else:
+            # Default: if state already loaded, return it; else pick largest
+            if _chat_kg_state["kg"] is not None:
+                return _chat_kg_state
+            short, path = caches[0]
+        # Use per-backend cache if already loaded
+        if short in _chat_kg_backends and _chat_kg_backends[short] is not None:
+            payload = _chat_kg_backends[short]
+        else:
+            payload = _load_kg_payload(path)
+            if payload is None:
+                return None
+            _chat_kg_backends[short] = payload
+        # Make this the active state
+        for k, v in payload.items():
+            _chat_kg_state[k] = v
+        _chat_kg_state["backend"] = short
+        # Evict per-KG substrate-native codebook so it rebuilds against new vocabulary
+        _chat_substrate_state["loaded"] = False
+        _chat_substrate_state["encoder"] = None
+        _chat_substrate_state["ent_codebook"] = None
+        return _chat_kg_state
 
 
 class ChatBody(BaseModel):
@@ -1980,6 +2036,25 @@ def substrate_chat(body: ChatBody):
         })
     if msg in ("rels", "/rels"):
         return JSONResponse({"ok": True, "kind": "rels", "payload": {"relations": state["idx2rel"]}})
+
+    # `/kg` or `/kg <name>` — list available backends or switch active KG backend
+    if msg.lower().startswith("/kg"):
+        rest = msg[3:].strip()
+        caches = _list_chat_caches()
+        available = [{"backend": short, "file": path.name, "size_mb": round(path.stat().st_size / (1024*1024), 1)} for (short, path) in caches]
+        if not rest:
+            current = _chat_kg_state.get("backend", "?")
+            return JSONResponse({"ok": True, "kind": "kg_list",
+                "payload": {"current": current, "available": available,
+                            "note": "Usage: `/kg hotpotqa` (Wikipedia multi-hop KG, CERT 588) or `/kg conceptnet` (commonsense KG, CERT 585). The substrate's vocabulary changes with the backend."}})
+        target = rest.lower()
+        new_state = _ensure_chat_kg_loaded(backend=target)
+        if new_state is None:
+            return JSONResponse({"ok": False, "error": f"backend '{target}' not found; available: {[a['backend'] for a in available]}"})
+        return JSONResponse({"ok": True, "kind": "kg_switched",
+            "payload": {"new_backend": target, "n_entities": len(new_state["ent2idx"]),
+                        "n_relations": len(new_state["rel2idx"]), "n_triples": new_state["m"],
+                        "note": f"Switched to {target}. Next query will use this backend's vocabulary."}})
 
     # Route: structured if ends with '?' AND parses cleanly; else English/semantic.
     # Explicit prefix `english:` forces semantic regardless.

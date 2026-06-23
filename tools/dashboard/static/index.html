@@ -527,6 +527,14 @@ function renderSubstrateResponse(data) {
     body = `substrate refused at hop ${p.refused_at_hop} (top-1 below tau)`;
   } else if (kind === "stats") {
     body = `n_entities: ${p.n_entities}\nn_relations: ${p.n_relations}\nn_triples: ${p.n_triples}\nW_norm: ${p.W_norm.toFixed(2)}\nN_DIM: ${p.N_DIM}`;
+  } else if (kind === "kg_list") {
+    body = `current KG backend: <span class="entity">${escapeHtml(p.current)}</span>\n\navailable:\n`;
+    body += p.available.map(a => `  ${escapeHtml(a.backend).padEnd(12)} ${a.size_mb} MB (${escapeHtml(a.file)})`).join('\n');
+    body += `\n\n<span class="score">${escapeHtml(p.note)}</span>`;
+  } else if (kind === "kg_switched") {
+    body = `switched to KG backend: <span class="entity">${escapeHtml(p.new_backend)}</span>\n`;
+    body += `  entities: ${p.n_entities}\n  relations: ${p.n_relations}\n  triples: ${p.n_triples}\n\n`;
+    body += `<span class="score">${escapeHtml(p.note)}</span>`;
   } else if (kind === "rels") {
     body = "relations:\n  " + p.relations.join(", ");
   } else {
