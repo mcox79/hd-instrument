@@ -326,6 +326,28 @@ def encode_arm(arm: str, atom_ids: list[str], n_dim: int, seed: int):
 # Sanity self-test: planted 3-block partition with distinct keyword sets
 # ============================================================================
 
+class _MockKV:
+    """Mock gensim KeyedVectors for self-test: gives each keyword a deterministic
+    block-structured 300d vector so we don't need to load the 1.5GB real model
+    just to check the integration pipeline. Real w2v is exercised in --smoke."""
+    def __init__(self, block_kws):
+        self.vector_size = 300
+        rng = np.random.default_rng(42)
+        # Each block gets a base vector; each keyword adds noise around its block base.
+        self._vecs = {}
+        for bi, (blk, kws) in enumerate(block_kws.items()):
+            base = rng.standard_normal(300).astype(np.float32) * 3.0
+            for kw in kws:
+                self._vecs[kw] = (base + rng.standard_normal(300).astype(np.float32) * 0.3)
+        self.key_to_index = {k: i for i, k in enumerate(self._vecs)}
+
+    def __getitem__(self, k):
+        return self._vecs[k]
+
+    def __contains__(self, k):
+        return k in self._vecs
+
+
 def _selftest():
     """Endpoint: planted 3-block community via DISTINCT keyword sets per block.
 
@@ -336,6 +358,11 @@ def _selftest():
     ARM_WORD2VEC_KEYWORDS should produce vectors that cluster intra-block (semantic
     coherence); ARM_CHAR_TRIGRAM_STRIPPED has no semantic signal so should not
     cluster. We check mod_Z(W2V) > mod_Z(STRIPPED) on the resulting adjacency.
+
+    Selftest uses a MOCK gensim KV (block-structured deterministic vectors) to
+    avoid the 1.5GB real model load (gate's 180s self-test timeout). Real w2v is
+    exercised in --smoke / runtime; this validates the integration pipeline +
+    keyword extraction + projection + modularity_Z primitive composition.
     """
     print("[selftest] building planted 3-block atom_ids...", flush=True)
     np.random.seed(42)
@@ -355,7 +382,7 @@ def _selftest():
             aid = "math::T3/EXP_" + "_".join(picked) + "_v1_n4096"
             atoms_test.append(aid)
             truth.append(bi)
-    print("[selftest] %d atoms across 3 blocks; encoding via stripped + w2v..."
+    print("[selftest] %d atoms across 3 blocks; encoding via stripped + mock-w2v..."
           % len(atoms_test), flush=True)
 
     # Quick test: ensure key extraction works
@@ -363,6 +390,9 @@ def _selftest():
     print("[selftest] sample atom_id=%s -> keywords=%s"
           % (atoms_test[0], sample_kws), flush=True)
     assert len(sample_kws) >= 2, "keyword extraction returned <2 keywords"
+
+    # Inject mock KV (avoids the 1.5GB load)
+    _W2V_KV[0] = _MockKV(block_kws)
 
     # Encode each arm; build small KG-less synthetic adjacency from atom-vec cosine
     # (we don't need full KG; verify the ENCODER produces block-structured similarity)
@@ -389,7 +419,9 @@ def _selftest():
     )
     assert z_w2v["Z"] >= 1.5, "planted 3-block selftest FAIL: Z_W2V=%.2f < 1.5" % z_w2v["Z"]
     assert _LLM_CALL_COUNTER[0] == 0, "substrate-only-decode violated in selftest"
-    print("[selftest] PASS: w2v encoder discriminates planted 3-block; n_llm_calls=0",
+    # Clear mock so real w2v loads at runtime
+    _W2V_KV[0] = None
+    print("[selftest] PASS: w2v encoder discriminates planted 3-block (mock-KV); n_llm_calls=0",
           flush=True)
 
 
