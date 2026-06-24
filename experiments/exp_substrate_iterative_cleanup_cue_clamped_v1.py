@@ -70,13 +70,85 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from hdlab.iterative_attractor import iterative_cleanup, argmax_cleanup
+# Import iterative_attractor from hdlab if alpha-param version is available;
+# fall back to inline implementation so remote machines with older hdlab still work.
+try:
+    import hdlab.iterative_attractor as _ia_mod
+    import inspect as _inspect
+    if "alpha" not in _inspect.signature(_ia_mod.iterative_cleanup).parameters:
+        raise ImportError("hdlab.iterative_attractor.iterative_cleanup lacks alpha param")
+    from hdlab.iterative_attractor import iterative_cleanup, argmax_cleanup
+    _HDLAB_IMPORT = True
+except (ImportError, AttributeError):
+    _HDLAB_IMPORT = False
+    # Inline implementation of cue-clamped iterative_cleanup (self-contained fallback)
+    def _l2_norm_inline(X, eps=1e-12):
+        if X.ndim == 1:
+            n = float(np.linalg.norm(X) + eps)
+            return (X / n).astype(np.float32)
+        n = np.linalg.norm(X, axis=1, keepdims=True) + eps
+        return (X / n).astype(np.float32)
+
+    def _softmax_inline(z, axis=-1):
+        z = z - z.max(axis=axis, keepdims=True)
+        ez = np.exp(z.astype(np.float64))
+        return (ez / (ez.sum(axis=axis, keepdims=True) + 1e-30)).astype(np.float32)
+
+    def iterative_cleanup(query, codebook, *, temp=1.0, max_steps=8, tol=1e-3,
+                          return_trace=False, scale_by_sqrt_d=True, alpha=0.0):
+        """Cue-clamped soft-attractor cleanup (inline; brain-canonical alpha re-injection)."""
+        squeeze = query.ndim == 1
+        if squeeze:
+            query = query[None, :]
+        query = query.astype(np.float32)
+        codebook = codebook.astype(np.float32)
+        cb_norm = _l2_norm_inline(codebook)
+        state = _l2_norm_inline(query)
+        q0 = state.copy()
+        D = state.shape[1]
+        eff_beta = temp * float(np.sqrt(D)) if scale_by_sqrt_d else temp
+        step_thr = tol * float(np.sqrt(D))
+        trace = []
+        converged = False
+        steps_taken = 0
+        for _t in range(max_steps):
+            scores = eff_beta * (state @ cb_norm.T)
+            weights = _softmax_inline(scores, axis=1)
+            attractor_est = weights @ cb_norm
+            new_state = _l2_norm_inline(alpha * q0 + (1.0 - alpha) * attractor_est)
+            step_dist = float(np.mean(np.linalg.norm(new_state - state, axis=1)))
+            trace.append(step_dist)
+            state = new_state
+            steps_taken = _t + 1
+            if step_dist < step_thr:
+                converged = True
+                break
+        final_scores = state @ cb_norm.T
+        argmax_idx = np.argmax(final_scores, axis=1).astype(np.int64)
+        if squeeze:
+            state = state[0]
+            argmax_idx = int(argmax_idx[0])
+        result = {"state": state, "argmax_idx": argmax_idx,
+                  "n_iterations": steps_taken, "converged": converged}
+        if return_trace:
+            result["trace"] = trace
+        return result
+
+    def argmax_cleanup(query, codebook):
+        """Single-step argmax cleanup reference."""
+        query = _l2_norm_inline(query.astype(np.float32))
+        cb_norm = _l2_norm_inline(codebook.astype(np.float32))
+        if query.ndim == 1:
+            return int(np.argmax(query @ cb_norm.T))
+        return np.argmax(query @ cb_norm.T, axis=1).astype(np.int64)
+
 from experiments._seed_checkpoint import (
     get_output_dir, write_partial, aggregate_partials, write_metrics,
     resumable_seeds,
 )
 
 ANCHOR_NAME = "substrate_iterative_cleanup_cue_clamped_v1"
+print(f"[init] hdlab.iterative_attractor import path: {'hdlab' if _HDLAB_IMPORT else 'inline-fallback'}", flush=True)
 
 # ============================================================================
 # CLI + run-mode
