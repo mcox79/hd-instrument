@@ -61,6 +61,7 @@ def iterative_cleanup(
     tol: float = 1e-3,
     return_trace: bool = False,
     scale_by_sqrt_d: bool = True,
+    alpha: float = 0.0,
 ):
     """Iterative soft-attractor cleanup of query against codebook.
 
@@ -77,6 +78,11 @@ def iterative_cleanup(
         tol: per-D convergence threshold. Stop when ||x_t+1 - x_t|| < tol * sqrt(D).
         return_trace: if True, also return per-iteration L2 step sizes.
         scale_by_sqrt_d: scale effective inverse-temperature by sqrt(D) (default True).
+        alpha: cue re-injection weight (default 0.0 = self-consistent; brain-canonical = 0.5).
+            At each step: state = normalize(alpha * q0 + (1-alpha) * softmax_weighted_cb).
+            Models CA3 perforant-path drive (Hasselmo 2002) + Attractor LM (arXiv:2605.12466).
+            alpha=0.0 recovers original self-consistent dynamics (HARD_FAIL baseline).
+            alpha=0.5 is the recommended brain-canonical value.
 
     Returns:
         dict with keys:
@@ -93,6 +99,7 @@ def iterative_cleanup(
     codebook = codebook.astype(np.float32)
     cb_norm = _l2_normalize(codebook)
     state = _l2_normalize(query)
+    q0 = state.copy()  # capture initial query for cue re-injection
     D = state.shape[1]
     effective_beta = temp * float(np.sqrt(D)) if scale_by_sqrt_d else temp
     step_threshold = tol * float(np.sqrt(D))
@@ -102,7 +109,11 @@ def iterative_cleanup(
     for t in range(max_steps):
         scores = effective_beta * (state @ cb_norm.T)
         weights = _softmax(scores, axis=1)  # (B, M) soft attractor weights
-        new_state = _l2_normalize(weights @ cb_norm)
+        attractor_est = weights @ cb_norm    # (B, D) soft codebook blend
+        # Cue-clamped update: blend original query with attractor estimate
+        # alpha=0.0 -> pure attractor (original self-consistent dynamics)
+        # alpha=0.5 -> balanced cue+attractor (brain-canonical CA3)
+        new_state = _l2_normalize(alpha * q0 + (1.0 - alpha) * attractor_est)
         step_dist = float(np.mean(np.linalg.norm(new_state - state, axis=1)))
         trace.append(step_dist)
         state = new_state
