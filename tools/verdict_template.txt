@@ -1,0 +1,37 @@
+VERDICT: <PASS|FAIL|PARTIAL|HARD_PASS|HARD_FAIL|MIDDLE_BAND>
+SUMMARY: <one-line description of what was measured and the outcome>
+WHAT_THIS_DOES_NOT_SHOW:
+- <does not compare to X baseline because Y -- e.g. does not compare to fair_harness chain-grade baseline because this cell uses a different mechanism class>
+- <does not generalize beyond Z corpus -- e.g. does not generalize beyond text8-100k-tokens; result is corpus-specific>
+- <does not establish W mechanism is responsible -- e.g. does not establish dual-trace mechanism is responsible; could be the f=0.02 setup giving lift to anything at this sparsity>
+
+# Instructions for filling in WHAT_THIS_DOES_NOT_SHOW:
+#
+# Write 1-3 bullets that honestly limit the scope of the verdict.
+# The bullets should answer: "what would a skeptic want to know this result does NOT prove?"
+#
+# Common categories:
+#   - Baseline scope: "does not compare to [X] because [Y]"
+#     (Use this when your baseline is not the chain-grade / external ground truth)
+#   - Generalization: "does not generalize beyond [Z corpus/N/config]"
+#     (Use this when the result is N-limited, corpus-specific, or config-specific)
+#   - Mechanism attribution: "does not establish [W] mechanism is responsible"
+#     (Use this when the result could be explained by setup/amplitude/tokenizer artifacts)
+#   - Metric scope: "does not evaluate [quality X] -- only measures [quality Y]"
+#     (Use this when the metric class does not cover the full capability claim)
+#
+# WRONG (cargo-cult):
+#   WHAT_THIS_DOES_NOT_SHOW:
+#   - Does not show X
+#
+#   (too vague -- "X" must be a specific baseline, corpus, or mechanism)
+#
+# RIGHT:
+#   WHAT_THIS_DOES_NOT_SHOW:
+#   - Does NOT compare to fair_harness chain-grade baseline (different sparsity f=0.02 vs f=0.04)
+#   - Does NOT generalize to sequences longer than 100 tokens (all eval at seq_len=20)
+#   - Does NOT establish dual-trace is the causal mechanism -- RPE alone could account for the lift
+#
+# Enforcement: tools/verdict_lint.py checks for this clause on every metrics.json.
+# Missing or empty clause = lint_error. Pre-commit hook rejects commits without it.
+# Source: substrate-LM drill L3.2 (Fix #30); neuroscience drill A3 (Kriegeskorte blinding)
