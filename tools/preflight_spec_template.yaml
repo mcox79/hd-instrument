@@ -1,0 +1,123 @@
+# preflight_spec.yaml -- MANDATORY for every dispatched cell (Fix #29)
+#
+# Copy to <cell_dir>/preflight_spec.yaml and fill in all REQUIRED fields.
+# tools/preflight_check.py <cell_dir> validates this file before dispatch.
+# Missing or empty required field = HARD_BLOCK dispatch.
+#
+# Sources: substrate-LM drill L3.1 (5-field spec) + neuroscience drill A1 (6 viability gates)
+# Filed: 2026-06-23
+#
+# METRIC CLASSES (metric_scope.metric_class must be one of):
+#   rank_based          -- top-1/top-K accuracy, recall@K, retrieval ranking
+#   calibration_based   -- BPC, perplexity, cross-entropy, NLL
+#   embedding_geometry  -- cosine similarity, isotropy, isotropy index
+#   classification      -- precision/recall/F1 on classification task
+#   generation_quality  -- BLEU, ROUGE, exact-match on generation
+#   information_theoretic -- mutual information, entropy, KL divergence
+#   other               -- must justify in appropriateness_justification
+
+anchor_name: REPLACE_ME  # e.g. substrate_as_lm_revised_harness_v1
+
+metric_scope:
+  primary_metric: REPLACE_ME  # e.g. top_1_accuracy, recall_at_1, bpc, em
+  metric_class: REPLACE_ME    # one of the METRIC CLASSES above
+  # Justify why this metric class is appropriate for the mechanism class being tested.
+  # For sparse/associative/VSA mechanisms: rank_based is the within-class standard
+  # (Frady-Kleyko 2018). Using calibration_based on a rank-based mechanism is a
+  # CONSTRUCT-VALIDITY-MISMATCH (the rigged-harness failure category).
+  appropriateness_justification: |
+    REPLACE_ME: e.g.
+    Substrate is a sparse top-1 mechanism (Frady-Kleyko 2018 VSA evaluation convention).
+    Rank-based metric (top-1, top-5, top-20) is the within-class standard.
+    BPC (calibration_based) is reported as SECONDARY only; cannot fail-gate on BPC alone.
+  # Optional: describes what metric class mismatch to guard against
+  metric_class_mismatch_protection: |
+    REPLACE_ME: e.g.
+    If primary_metric is calibration_based but mechanism is rank_based:
+    SCHEMA-VET must flag CONSTRUCT-VALIDITY-MISMATCH unless explicit justification given.
+
+baseline_provenance:
+  baseline_name: REPLACE_ME       # e.g. unigram_text8_word_level, bigram_char_level
+  same_harness_as_arm: true       # MUST be true -- same code path as experimental arm
+  rerun_in_this_cell: true        # MUST be true -- do NOT quote baseline from another cell
+  same_corpus: true               # same data split, same preprocessing
+  same_tokenizer: true            # same vocab / tokenization
+  # Specify which seeds baseline is run under (must match experimental arms)
+  same_seed_set: [7, 17, 23]      # REPLACE_ME: list the actual seeds used
+  baseline_hyperparams_tuned_same_protocol: true  # per REFORMS item 5.1
+  # The honest-comparison clause: state what "vs_baseline lift" means in this cell.
+  honest_comparison_clause: |
+    REPLACE_ME: e.g.
+    "vs_baseline lift" is computed as (arm_metric - baseline_metric) on the SAME seeds
+    of the SAME run. Cross-cell quoting is forbidden without explicit COMPARABILITY clause.
+    Different sparsity, different mechanism, or different corpus = incomparable baseline.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: REPLACE_ME        # e.g. 8 (OOMs above this; declares the boundary)
+    cpu_cores: REPLACE_ME         # e.g. 4
+    wall_time_max_s: REPLACE_ME   # e.g. 1800 (estimated peak wall time in seconds)
+  # How to handle OOM or timeout: MUST declare "NOT_RUN" not "FAIL"
+  oom_handling: |
+    REPLACE_ME: e.g.
+    Any config that OOMs is reported as "NOT_RUN" not "FAIL".
+    Per-config exit_status MUST be in {SUCCESS, OOM, TIMEOUT, NUMERICAL_ERROR}.
+    Envelope claims ("N_DIM=X all fail") REQUIRE >= 1 SUCCESS at adjacent config.
+    (Failure to follow this = Hennessy-Patterson Ch 1.10 benchmarking pitfall #2)
+  per_config_exit_logging: true   # enforced by harness wrapper
+
+# Optional: declare execution substrate for PROT-020 routing sanity
+# execution_substrate: remote_gpu  # one of: local_cpu, remote_cpu, remote_gpu
+
+discriminator_ratio:
+  # Minimum absolute lift in primary metric for the cell to count as discriminating
+  expected_arm_separation: REPLACE_ME   # e.g. 0.10 (10 percentage points)
+  # Below this threshold = MIDDLE_BAND / saturation (not a discriminating result)
+  null_arm_separation: REPLACE_ME       # e.g. 0.02; MUST be < expected_arm_separation
+  # By-construction saturation check: if any arm reaches ceiling, cap tier at MM
+  by_construction_saturation_check: |
+    REPLACE_ME: e.g.
+    If max(arm_metric) >= 0.99 OR cv < 0.005 across seeds:
+    flag BY-CONSTRUCTION-SATURATION; tier capped at MEASURED_MECHANISM
+    regardless of vs_baseline lift. (Prevents false chain-grade claims on trivial tasks.)
+
+harm_prediction:
+  # What range does the SETUP itself imply for the metric?
+  # Derive this BEFORE dispatch from first principles (e.g. matched-filter SNR formula).
+  # If observed value is in this range, setup is the explanation, mechanism is innocent.
+  setup_implies_metric_floor: |
+    REPLACE_ME: e.g.
+    Sparse codebook f=0.02 at N=4096 implies matched-filter SNR = sqrt(f*N)/sigma.
+    At sigma=16, predicted recall@1 ~= 0.20 (Q-function on margin 2.26).
+    If observed recall is in [0.15, 0.30]: setup explains result; mechanism is innocent.
+    If observed recall is <0.15 or >0.30: mechanism contributes additional effect.
+  # What experimental pattern would distinguish "setup is wrong" from "mechanism is wrong"?
+  what_would_falsify_setup_vs_mechanism: |
+    REPLACE_ME: e.g.
+    Run BOTH the focal arm AND a setup-matched control (same f, sigma, but null mechanism).
+    If control matches focal within 2 sigma: setup explains; mechanism is null.
+    If control < focal - 2 sigma: mechanism contributes.
+    Without this control, a HARD_FAIL cannot distinguish "mechanism is broken"
+    from "setup predicts this range anyway" (the sparse-codebook-amplitude failure).
+  # Document the fidelity gap between smoke and full N
+  fidelity_gap_documentation: |
+    REPLACE_ME: e.g.
+    Smoke at N=512 tests load-bearing infrastructure only (active-dim-count regime).
+    The structural regime at full N=4096 may differ (receiver-SNR regime).
+    Smoke PASS is necessary but NOT sufficient: the failure mode may not exist at N=512.
+    (Henderson 2018 hyperparameter-variance finding: small-N results don't predict large-N.)
+
+# ---------------------------------------------------------------------------
+# VIABILITY GATES (used by preflight_check.py --smoke-metrics)
+# These fields are optional but improve the machine-checkable pre-flight gate.
+# Emitted by the cell's smoke run and checked by preflight_check.py.
+#
+# viability_gate_fields:
+#   arm_unigram_entropy: float    -- entropy of ARM_UNIGRAM output (bits)
+#   arm_random_w_entropy: float   -- entropy of ARM_RANDOM_W output (bits)
+#   arm_baseline_entropy: float   -- entropy of ARM_BASELINE output (bits)
+#   vocab_size: int               -- vocabulary size V (for log2(V) reference)
+#   smoke_n: int                  -- N used in smoke run
+#   full_n: int                   -- N planned for full run
+#   per_arm_elapsed_s: dict       -- {arm_name: elapsed_s} for runtime variance check
+#   per_arm_output_l2: dict       -- {arm_name: l2_norm} for amplitude check

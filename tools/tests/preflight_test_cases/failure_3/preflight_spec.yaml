@@ -1,0 +1,47 @@
+# Test case: Failure 3 -- SPARSE UN-AMPLITUDE-SCALED
+# harm_prediction.setup_implies_metric_floor is present but generic.
+# The critical missing element: no quantitative range derived from sqrt(f)*N/sigma.
+# Deliberately leave setup_implies_metric_floor as vague to test empty-content detection.
+# Also: fidelity_gap_documentation is empty.
+anchor_name: test_sparse_amplitude_v1
+
+metric_scope:
+  primary_metric: recall_at_1
+  metric_class: rank_based
+  appropriateness_justification: |
+    Rank-based metric for VSA sparse retrieval.
+  metric_class_mismatch_protection: |
+    none
+
+baseline_provenance:
+  baseline_name: unigram_text8
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    vs_baseline on same run.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 8
+    cpu_cores: 4
+    wall_time_max_s: 1800
+  oom_handling: |
+    NOT_RUN for OOM configs.
+  per_config_exit_logging: true
+
+discriminator_ratio:
+  expected_arm_separation: 0.10
+  null_arm_separation: 0.02
+  by_construction_saturation_check: |
+    Flag if max >= 0.99.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    The sparse codebook should produce reasonable recall.
+  what_would_falsify_setup_vs_mechanism: |
+    Run a null control.
+  fidelity_gap_documentation:

@@ -1,0 +1,47 @@
+# Test case: Failure 1 -- RIGGED HARNESS
+# BPC (calibration_based) used as gating metric on a sparse top-1 mechanism.
+# This should trigger CLASS_MISMATCH_WARN in preflight_check.py.
+anchor_name: test_rigged_harness_v1
+
+metric_scope:
+  primary_metric: bpc
+  metric_class: calibration_based
+  appropriateness_justification: |
+    BPC measures how well the sparse retrieval model predicts next tokens.
+    Used as primary gate metric. sparse mechanism with top_1 recall evaluation.
+  metric_class_mismatch_protection: |
+    none declared
+
+baseline_provenance:
+  baseline_name: unigram_text8
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    vs_baseline computed on same run.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 8
+    cpu_cores: 4
+    wall_time_max_s: 1800
+  oom_handling: |
+    OOMs reported as NOT_RUN.
+  per_config_exit_logging: true
+
+discriminator_ratio:
+  expected_arm_separation: 0.10
+  null_arm_separation: 0.02
+  by_construction_saturation_check: |
+    If max >= 0.99 flag saturation.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    BPC of sparse retrieval is approximately log2(V) at random (uninformative).
+  what_would_falsify_setup_vs_mechanism: |
+    Random-W baseline should have BPC near log2(V).
+  fidelity_gap_documentation: |
+    Smoke at N=512; full at N=4096.

@@ -1,0 +1,55 @@
+# Test case: VALID -- should PASS all checks
+anchor_name: test_valid_cell_v1
+
+metric_scope:
+  primary_metric: recall_at_1
+  metric_class: rank_based
+  appropriateness_justification: |
+    Substrate is a sparse top-1 mechanism (Frady-Kleyko 2018 VSA convention).
+    Rank-based metric (recall@1) is within-class standard.
+    BPC reported as secondary only.
+  metric_class_mismatch_protection: |
+    If primary metric is calibration_based on rank-based mechanism, flag CONSTRUCT-VALIDITY-MISMATCH.
+
+baseline_provenance:
+  baseline_name: unigram_text8_word_level
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    vs_baseline lift computed as (arm_metric - baseline_metric) on SAME seeds of SAME run.
+    Cross-cell quoting forbidden without explicit COMPARABILITY clause.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 8
+    cpu_cores: 4
+    wall_time_max_s: 1800
+  oom_handling: |
+    Any config that OOMs is reported as NOT_RUN not FAIL.
+    Per-config exit_status in {SUCCESS, OOM, TIMEOUT, NUMERICAL_ERROR}.
+    Envelope claims require >= 1 SUCCESS at adjacent config.
+  per_config_exit_logging: true
+
+discriminator_ratio:
+  expected_arm_separation: 0.10
+  null_arm_separation: 0.02
+  by_construction_saturation_check: |
+    If max(arm_metric) >= 0.99 OR cv < 0.005: flag BY-CONSTRUCTION-SATURATION;
+    tier capped at MEASURED_MECHANISM regardless of vs_baseline lift.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    Sparse codebook f=0.02 at N=4096: matched-filter SNR = sqrt(f*N)/sigma = sqrt(82)/16 = 0.566.
+    Q-function margin prediction: recall@1 ~= 0.20.
+    If observed recall in [0.15, 0.30]: setup explains; mechanism is innocent.
+  what_would_falsify_setup_vs_mechanism: |
+    Run focal arm AND setup-matched control (same f, sigma, null compose).
+    If control matches focal within 2 sigma: setup explains.
+    If control < focal - 2 sigma: mechanism contributes.
+  fidelity_gap_documentation: |
+    Smoke at N=512 tests infrastructure only (active-dim-count regime).
+    Full at N=4096 may differ (receiver-SNR regime). Smoke PASS is necessary not sufficient.

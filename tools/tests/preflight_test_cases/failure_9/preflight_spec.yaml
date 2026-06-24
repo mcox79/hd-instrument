@@ -1,0 +1,49 @@
+# Test case: Failure 9 -- PROT-020 ROUTING MISMATCH
+# Cell has torch import but config_validity declares cpu_cores only (no gpu_mem_gb).
+# The missing gpu_mem_gb should trigger MISSING_SUBFIELD.
+# Separately: discriminator_ratio has null_arm_separation > expected_arm_separation
+# (definitional inversion).
+anchor_name: test_prot020_routing_v1
+
+metric_scope:
+  primary_metric: recall_at_1
+  metric_class: rank_based
+  appropriateness_justification: |
+    Rank-based metric for retrieval.
+  metric_class_mismatch_protection: |
+    none
+
+baseline_provenance:
+  baseline_name: unigram_text8
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    vs_baseline on same run.
+
+config_validity:
+  required_resources:
+    cpu_cores: 4
+    wall_time_max_s: 3600
+    # gpu_mem_gb INTENTIONALLY MISSING -- triggers MISSING_SUBFIELD
+  oom_handling: |
+    NOT_RUN for OOM.
+  per_config_exit_logging: true
+
+discriminator_ratio:
+  # INTENTIONALLY INVERTED: null > expected (definitional inversion)
+  expected_arm_separation: 0.05
+  null_arm_separation: 0.10
+  by_construction_saturation_check: |
+    Flag if max >= 0.99.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    Recall floor at random-W is 1/V.
+  what_would_falsify_setup_vs_mechanism: |
+    Random-W arm should produce 1/V recall.
+  fidelity_gap_documentation: |
+    Smoke at N=512; full at N=4096.

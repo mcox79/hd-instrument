@@ -1,0 +1,46 @@
+# Test case: Failure 5 -- BASELINE MISMATCH
+# baseline_provenance.rerun_in_this_cell is FALSE -- this cell quotes a baseline
+# from a different cell (the fair_harness chain-grade baseline with different f).
+anchor_name: test_baseline_mismatch_v1
+
+metric_scope:
+  primary_metric: recall_at_1
+  metric_class: rank_based
+  appropriateness_justification: |
+    Rank-based metric is correct for VSA retrieval.
+  metric_class_mismatch_protection: |
+    none
+
+baseline_provenance:
+  baseline_name: fair_harness_chain_grade_baseline
+  same_harness_as_arm: false
+  rerun_in_this_cell: false
+  same_corpus: false
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: false
+  honest_comparison_clause: |
+    Baseline is quoted from fair_harness cell (different sparsity f=0.04 vs f=0.02 here).
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 8
+    cpu_cores: 4
+    wall_time_max_s: 1800
+  oom_handling: |
+    NOT_RUN for OOM configs.
+  per_config_exit_logging: true
+
+discriminator_ratio:
+  expected_arm_separation: 0.10
+  null_arm_separation: 0.02
+  by_construction_saturation_check: |
+    Flag if max >= 0.99.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    At f=0.02, N=4096: predicted recall ~0.20.
+  what_would_falsify_setup_vs_mechanism: |
+    Run null-mechanism control with same f.
+  fidelity_gap_documentation: |
+    Smoke at N=512; full at N=4096.
