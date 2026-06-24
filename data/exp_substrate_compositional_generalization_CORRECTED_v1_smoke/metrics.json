@@ -1,0 +1,166 @@
+{
+  "anchor_name": "substrate_compositional_generalization_CORRECTED_v1",
+  "verdict": "HARD_FAIL_DEEPER_ISSUE",
+  "verdict_msg": "HARD_FAIL_DEEPER_ISSUE: NO normalized arm clears in_dist > 0.70 sanity floor. Substrate's HRR-family fundamentally broken at N_DIM=1024 / M=32. Per-arm in_dist means: DENSE=0.250 FHRR=0.250 SPARSE_NORM=0.250; broken=0.250 (chance 0.125). | WARN: ARM_BROKEN_SPARSE_NO_NORM in_dist=0.250 >= 0.20; broken-arm provenance check FAILED -- diagnosis may need revisit.",
+  "run_mode": "smoke",
+  "N_DIM": 1024,
+  "SPARSE_F": 0.05,
+  "N_SUBJ": 8,
+  "N_OBJ": 8,
+  "COVERAGE": 0.5,
+  "n_seeds": 1,
+  "detail": {
+    "n_seeds": 1,
+    "N_DIM": 1024,
+    "SPARSE_F": 0.05,
+    "N_SUBJ": 8,
+    "N_OBJ": 8,
+    "COVERAGE": 0.5,
+    "per_arm": {
+      "ARM_BROKEN_SPARSE_NO_NORM": {
+        "in_distribution_top1_mean": 0.25,
+        "holdout_top1_mean": 0.0,
+        "in_distribution_top1_per_seed": [
+          0.25
+        ],
+        "holdout_top1_per_seed": [
+          0.0
+        ],
+        "in_distribution_top1_cv": 0.0,
+        "holdout_top1_cv": 0.0,
+        "in_dist_clears_sanity_floor": false
+      },
+      "ARM_DENSE_HRR_NORMALIZED": {
+        "in_distribution_top1_mean": 0.25,
+        "holdout_top1_mean": 0.0,
+        "in_distribution_top1_per_seed": [
+          0.25
+        ],
+        "holdout_top1_per_seed": [
+          0.0
+        ],
+        "in_distribution_top1_cv": 0.0,
+        "holdout_top1_cv": 0.0,
+        "in_dist_clears_sanity_floor": false
+      },
+      "ARM_FHRR_NORMALIZED": {
+        "in_distribution_top1_mean": 0.25,
+        "holdout_top1_mean": 0.0,
+        "in_distribution_top1_per_seed": [
+          0.25
+        ],
+        "holdout_top1_per_seed": [
+          0.0
+        ],
+        "in_distribution_top1_cv": 0.0,
+        "holdout_top1_cv": 0.0,
+        "in_dist_clears_sanity_floor": false
+      },
+      "ARM_SPARSE_HRR_NORMALIZED": {
+        "in_distribution_top1_mean": 0.25,
+        "holdout_top1_mean": 0.0,
+        "in_distribution_top1_per_seed": [
+          0.25
+        ],
+        "holdout_top1_per_seed": [
+          0.0
+        ],
+        "in_distribution_top1_cv": 0.0,
+        "holdout_top1_cv": 0.0,
+        "in_dist_clears_sanity_floor": false
+      }
+    },
+    "normalized_arms_clearing_sanity": [],
+    "broken_arm_provenance_in_dist": 0.25,
+    "broken_arm_provenance_check_passed": false,
+    "bands": {
+      "HP_IN_DIST_FLOOR": 0.7,
+      "HP_HOLDOUT_FLOOR": 0.5,
+      "MIDDLE_HOLDOUT_LO": 0.2,
+      "HARD_FAIL_RETEST_HI": 0.2,
+      "BROKEN_EXPECTED_HI": 0.2
+    },
+    "chance_top1": 0.125,
+    "CONFIG_VERSION": "substrate_compositional_generalization_CORRECTED_v1; N_DIM=1024 sparse_f=0.050 n_subj=8 n_obj=8 coverage=0.50 arms=['ARM_BROKEN_SPARSE_NO_NORM', 'ARM_DENSE_HRR_NORMALIZED', 'ARM_FHRR_NORMALIZED', 'ARM_SPARSE_HRR_NORMALIZED'] seeds=[0] mode=smoke; bands HP_in_dist>0.70 HP_holdout>0.50 MIDDLE_lo>0.20 HF_retest<0.20",
+    "what_this_does_not_show": "This cell tests COMPOSITIONAL GENERALIZATION on subject-object role-binding under SUPERPOSITION at a single (N_DIM, M) point. It does NOT show: (1) language-task performance (no text corpus); (2) learning / plasticity (no cf-RPE, no gradient updates); (3) downstream task benefit; (4) capacity scaling (single M value); (5) noise / sparse-key robustness. By-construction: TRAIN-pair 'recall' is reported as in_distribution_top1 (sanity floor); HELDOUT is the real test. ARM_BROKEN is a CONTROL meant to reproduce the broken-mechanism failure for provenance.",
+    "honest_scope": "Pure substrate primitives (HRR bind/unbind + per-arm codebook + normalization); NO learning. NumPy CPU. Per USER 2026-06-24 compositional reasoner product story; replaces broken ARM 2 of brain-aligned shotgun.",
+    "cites": [
+      "USER_compositional_reasoner_product_story_2026-06-24",
+      "fact_finder_director_compositional_failure_USER_test_wrong_VSA_modality_inventory_2026-06-24",
+      "exp_substrate_brain_aligned_aliveness_shotgun_v1__partial_metrics_s7__in_distribution_top1_0.10",
+      "exp_contextual_encoding_hrr_PRODUCTION_held_out_v1__ARM_BIND_RECENT_5_lift_0.212",
+      "exp_fhrr_rs_parity_cpu_v1__HARD_PASS",
+      "exp_hrr_depth_budget_sparse_bipolar_v2__HARD_PASS_autoassociative",
+      "Plate_1995_HRR_canonical_dense_unit_norm"
+    ]
+  },
+  "metrics_source": "measured_cpu_substrate_compositional_generalization_CORRECTED_v1",
+  "per_unit": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_BROKEN_SPARSE_NO_NORM": {
+          "n_subj": 8,
+          "n_obj": 8,
+          "coverage": 0.5,
+          "n_train": 32,
+          "n_held": 32,
+          "in_distribution_top1": 0.25,
+          "holdout_top1": 0.0,
+          "chance_top1": 0.125,
+          "mean_cosine_correct_in_dist": 0.1672780462540686,
+          "mean_cosine_correct_holdout": -0.001436389924492687
+        },
+        "ARM_DENSE_HRR_NORMALIZED": {
+          "n_subj": 8,
+          "n_obj": 8,
+          "coverage": 0.5,
+          "n_train": 32,
+          "n_held": 32,
+          "in_distribution_top1": 0.25,
+          "holdout_top1": 0.0,
+          "chance_top1": 0.125,
+          "mean_cosine_correct_in_dist": 0.17425794759765267,
+          "mean_cosine_correct_holdout": -0.005870166147360578
+        },
+        "ARM_FHRR_NORMALIZED": {
+          "n_subj": 8,
+          "n_obj": 8,
+          "coverage": 0.5,
+          "n_train": 32,
+          "n_held": 32,
+          "in_distribution_top1": 0.25,
+          "holdout_top1": 0.0,
+          "chance_top1": 0.125,
+          "mean_cosine_correct_in_dist": 0.17459800885990262,
+          "mean_cosine_correct_holdout": -0.004311766453611199
+        },
+        "ARM_SPARSE_HRR_NORMALIZED": {
+          "n_subj": 8,
+          "n_obj": 8,
+          "coverage": 0.5,
+          "n_train": 32,
+          "n_held": 32,
+          "in_distribution_top1": 0.25,
+          "holdout_top1": 0.0,
+          "chance_top1": 0.125,
+          "mean_cosine_correct_in_dist": 0.1669354795012623,
+          "mean_cosine_correct_holdout": -0.010114964621607214
+        }
+      },
+      "N_DIM": 1024,
+      "SPARSE_F": 0.05,
+      "N_SUBJ": 8,
+      "N_OBJ": 8,
+      "COVERAGE": 0.5,
+      "wall_s": 0.060864925384521484,
+      "run_mode": "smoke",
+      "config_version": "substrate_compositional_generalization_CORRECTED_v1; N_DIM=1024 sparse_f=0.050 n_subj=8 n_obj=8 coverage=0.50 arms=['ARM_BROKEN_SPARSE_NO_NORM', 'ARM_DENSE_HRR_NORMALIZED', 'ARM_FHRR_NORMALIZED', 'ARM_SPARSE_HRR_NORMALIZED'] seeds=[0] mode=smoke; bands HP_in_dist>0.70 HP_holdout>0.50 MIDDLE_lo>0.20 HF_retest<0.20",
+      "_ckpt_key": "s0",
+      "_partial_written_at": 1782314609.0328982
+    }
+  ],
+  "elapsed_s": 0.16001486778259277,
+  "summary": "HARD_FAIL_DEEPER_ISSUE: NO normalized arm clears in_dist > 0.70 sanity floor. Substrate's HRR-family fundamentally broken at N_DIM=1024 / M=32. Per-arm in_dist means: DENSE=0.250 FHRR=0.250 SPARSE_NORM=0.250; broken=0.250 (chance 0.125). | WARN: ARM_BROKEN_SPARSE_NO_NORM in_dist=0.250 >= 0.20; broken-arm provenance check FAILED -- diagnosis may need revisit.",
+  "substrate_only_decode_gate": "N/A (mechanism-characterization cell, not LM cell)"
+}
