@@ -1,0 +1,89 @@
+anchor_name: substrate_multi_iter_cleanup_continuous_codebook_LM_v1
+
+metric_scope:
+  primary_metric: bpc
+  metric_class: calibration_based
+  appropriateness_justification: |
+    Substrate-as-LM test; primary outcome is next-word prediction quality.
+    BPC (bits-per-character equivalent over held-out word sequence) is the
+    standard calibration metric. Arm comparison = lift in BPC (lower is better).
+    Secondary rank-based metrics (top-1, MRR@10) reported as validation.
+    Primary comparison is within-cell ARM_MULTI_ITER_3 vs ARM_SINGLE_STEP on
+    continuous codebook; sign-binarized arm is reproduction sanity-rail (not the
+    comparison axis).
+  metric_class_mismatch_protection: |
+    All arms use identical evaluation harness (joint T/lambda calibration on the
+    same dev/test split). Each seed runs all 4 arms in the same Python process
+    against the same text8 N_TRAIN=100k split. Cross-cell BPC comparisons
+    (vs. v1 7.226 / vs. unigram 7.738) are INFORMATIONAL ONLY for sanity-rail;
+    primary verdict uses within-cell lift_3_vs_1 = bpc_c1 - bpc_c3.
+
+baseline_provenance:
+  baseline_name: ARM_SINGLE_STEP_CONTINUOUS_CODEBOOK
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    vs_baseline lift = ARM_SINGLE_STEP_CONTINUOUS bpc - ARM_MULTI_ITER_3_CONTINUOUS bpc
+    on SAME seeds of SAME run. Encoder (word2vec L2-normalized projected) and
+    Hebbian W are SHARED across the 3 continuous arms in one seed. This is a
+    controlled ablation: only iteration count differs. ARM_BASELINE_NO_CLEANUP_
+    SIGN_BINARIZED uses a DIFFERENT encoder + DIFFERENT primitive; it is the
+    REPRODUCTION-of-v1 sanity-rail only, not a multi-iter comparison arm.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 0
+    cpu_cores: 2
+    cpu_ram_gb: 4
+    wall_time_max_s: 3600
+  oom_handling: |
+    Two W matrices at N_DIM=8192 each = (8192 x 8192) x float32 = 268MB each;
+    536MB total. word2vec-google-news-300 ~3.6GB resident once loaded. Total
+    ~4-5GB; remote_cpu_queue host has > 8GB. Recall logits per batch =
+    RECALL_BATCH * V_CAP * 4 = 512 * 4000 * 4 = 8MB; safe.
+  per_config_exit_logging: true
+
+execution_substrate: remote_cpu
+
+discriminator_ratio:
+  expected_arm_separation: 0.05
+  null_arm_separation: 0.005
+  by_construction_saturation_check: |
+    If ARM_MULTI_ITER_3_CONTINUOUS bpc <= unigram_bpc - 1.0 with cv < 0.005:
+    flag potential by-construction-saturation; the modern-Hopfield softmax
+    at beta=8.0 onto a continuous codebook may collapse to argmax-codebook-
+    nearest-neighbor at high beta, in which case all iterations >= 1 produce
+    identical outputs (sign-step wart re-emerging through a different mechanism).
+    Cell self-test asserts |logits_c1 - logits_c3| > 1e-5 to catch this.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    ARM_BASELINE_NO_CLEANUP_SIGN_BINARIZED replicates v1's setup; expected bpc
+    ~ 7.226 (sanity-rail).
+    ARM_SINGLE_STEP_CONTINUOUS_CODEBOOK: word2vec semantic codebook + 1 softmax
+    cleanup. Word2vec produces ANISOTROPIC dense vectors; rank-1 Hebbian on
+    these may have different SNR than on sign-binarized states. Expected bpc
+    could be HIGHER or LOWER than 7.226 depending on whether semantic structure
+    helps or anisotropy hurts. Range: 7.0 - 7.7.
+    ARM_MULTI_ITER_3/10: iterations on a continuous codebook either (a) sharpen
+    the prediction toward codebook attractor (helps -> lower bpc) or (b) collapse
+    to nearest-neighbor argmax (no change beyond 1 iter -> reproduces v1 wart).
+  what_would_falsify_setup_vs_mechanism: |
+    Sanity-rail ARM_BASELINE_NO_CLEANUP_SIGN_BINARIZED bpc << 7.18 or >> 7.28
+    -> setup-drift (PROVENANCE_FLAG). Multi-iter primary comparison still
+    issued, but with caveat. If bpc_c1 == bpc_c3 == bpc_c10 to 4 decimals
+    despite continuous codebook -> beta=8.0 is too high; softmax has collapsed
+    to argmax; iterations are degenerate. This would be a HARD_FAIL with a
+    diagnostic note about beta tuning, NOT a generic multi-iter rejection.
+  fidelity_gap_documentation: |
+    Smoke at N_DIM=512 + N_TRAIN=2000 + VOCAB_CAP=300 tests infrastructure
+    (gensim load, projection, modern-Hopfield iterations, BPC machinery) only.
+    Smoke may NOT exhibit the iteration-evolution at meaningful magnitude
+    because word2vec coverage at smoke vocab is high (300 most-frequent words)
+    and Gaussian projection to N=512 leaves less codebook-attractor structure
+    than N=8192. Smoke PASS = harness ok; smoke HARD_FAIL prediction = primitive
+    bug. The primary verdict requires the full N_DIM=8192 run.
