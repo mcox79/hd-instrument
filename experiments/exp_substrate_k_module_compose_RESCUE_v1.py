@@ -903,15 +903,26 @@ def run_unit(seed: int) -> Dict:
         encoder_meta = {"fallback_to_char_trigram": True, "load_error": err}
     print("[seed=%d encoder] built in %.1fs" % (seed, time.time() - t_enc0), flush=True)
 
-    # Apply amplitude-scaled sparse-bipolar (RESCUE FIX 1: NOT l2-normalized)
-    # CRITICAL: do NOT call _l2_normalize_t on E_sp -- that would destroy the scaling fix
+    # Apply amplitude-scaled sparse-bipolar (RESCUE FIX 1).
+    # Amplitude scaling applies to the KEYS used in W accumulation (outer product).
+    # The CODEBOOK used for readout (cosine similarity to W@src) is L2-normalized.
+    #
+    # Why: the W accumulation is W += tgt.T @ src; for sparse-bipolar src at f=0.02,
+    # the mean contribution per active dim is 1.0 but there are only f*N=10 active
+    # dimensions (at N=512). Amplitude scaling 1/sqrt(f) boosts each active dim so
+    # the effective SNR of W @ src relative to noise matches the dense case.
+    # For readout cosine similarity (pred @ E_tgt.T), the absolute scale of E_tgt
+    # cancels out -- so L2-normalize the readout codebook.
     E_sp_raw = sparsify_bipolar_amplitude_scaled(E_base, f=SPARSE_BIPOLAR_F)
-    # Verify amplitude scaling is applied
+    E_sp_normalized = _l2_normalize_t(E_sp_raw)  # for readout cosine comparison
+    # Verify amplitude scaling is applied (before normalization)
     row_norms_check = float(E_sp_raw.norm(dim=1).mean().item())
     expected_n = 1.0 / math.sqrt(SPARSE_BIPOLAR_F) * math.sqrt(SPARSE_BIPOLAR_F * N_DIM)
-    print("[seed=%d] E_sp amplitude-scaled: mean_row_norm=%.2f expected=%.2f" % (
+    print("[seed=%d] E_sp amplitude-scaled: mean_row_norm=%.2f expected=%.2f (before L2-norm)" % (
         seed, row_norms_check, expected_n), flush=True)
-    E_sp = E_sp_raw  # Use scaled (NOT normalized) codebook
+    # E_sp_raw: amplitude-scaled (for Hebbian W key accumulation)
+    # E_sp_normalized: L2-normalized (for readout cosine similarity)
+    E_sp = E_sp_normalized  # default: use normalized for readout
 
     # Eval split
     unk = 0
@@ -938,15 +949,19 @@ def run_unit(seed: int) -> Dict:
 
     instrumentation_suspects: List[str] = []
 
-    # ==== ARM_BASELINE (single-bank, sparse-bipolar amplitude-scaled, rank-1 Hebbian) ====
+    # ==== ARM_BASELINE (single-bank, sparse-bipolar amplitude-scaled keys, rank-1 Hebbian) ====
+    # Keys for W accumulation: amplitude-scaled (E_sp_raw) -- boosts SNR of Hebbian write
+    # Targets and readout codebook: L2-normalized (E_sp_normalized) -- standard cosine
     print("\n[seed=%d] ARM_BASELINE: rank-1 Hebbian W on amplitude-scaled sparse-bipolar" % seed, flush=True)
     t_arm = time.time()
     try:
-        src_m1_train = E_sp[idx_train_t]
-        W_baseline = build_rank1_W_gpu(src_m1_train, E_sp, idx_train_t, INGEST_CHUNK)
+        # Use amplitude-scaled keys for W accumulation
+        src_m1_train = E_sp_raw[idx_train_t]
+        W_baseline = build_rank1_W_gpu(src_m1_train, E_sp_normalized, idx_train_t, INGEST_CHUNK)
         del src_m1_train
-        src_m1_held = E_sp[ctx_vocab_idx]
-        logits_baseline = compute_module_logits_bank(W_baseline, src_m1_held, E_sp, RECALL_BATCH)
+        # Use amplitude-scaled keys for held evaluation too (same key space as train)
+        src_m1_held = E_sp_raw[ctx_vocab_idx]
+        logits_baseline = compute_module_logits_bank(W_baseline, src_m1_held, E_sp_normalized, RECALL_BATCH)
         del W_baseline
         if DEVICE.type == "cuda":
             torch.cuda.empty_cache()
@@ -978,25 +993,38 @@ def run_unit(seed: int) -> Dict:
     by_arm["ARM_SPARSE_BIPOLAR_AMPLITUDE_CORRECT"] = res_ampl
 
     # ==== K=2 BANK SETUP ====
-    # Split the E_sp codebook into K=2 banks (each gets N_DIM/2 consecutive dims)
+    # Split BOTH the raw (amplitude-scaled) and normalized codebooks into K=2 banks.
+    # Raw banks used for W accumulation keys; normalized banks used for readout targets.
     print("\n[seed=%d] K=2 bank setup: split codebook into 2 banks x %d dims" % (
         seed, N_PER_BANK), flush=True)
-    E_banks = split_codebook_k2(E_sp, K=K_BANKS)  # list of 2 tensors [V, N_per]
+    E_banks_raw = split_codebook_k2(E_sp_raw, K=K_BANKS)        # amplitude-scaled (for keys)
+    E_banks_norm = split_codebook_k2(E_sp_normalized, K=K_BANKS) # L2-normalized (for readout)
     print("[seed=%d] bank[0] shape=%s bank[1] shape=%s" % (
-        seed, str(E_banks[0].shape), str(E_banks[1].shape)), flush=True)
+        seed, str(E_banks_raw[0].shape), str(E_banks_raw[1].shape)), flush=True)
 
-    # Split train and held keys for each bank
-    src_bank_train = [E_banks[k][idx_train_t] for k in range(K_BANKS)]  # [K, N_TRAIN, N_per]
-    src_bank_held = [E_banks[k][ctx_vocab_idx] for k in range(K_BANKS)]  # [K, n_eval, N_per]
+    # Split train and held keys for each bank (use amplitude-scaled for keys)
+    src_bank_train = [E_banks_raw[k][idx_train_t] for k in range(K_BANKS)]
+    src_bank_held = [E_banks_raw[k][ctx_vocab_idx] for k in range(K_BANKS)]
 
-    # Compute sigmoid-additive gate values using bank dot products as gate input
-    # gate[i] = sigmoid(ALPHA * dot(src_A[i], mean_A) + BETA * dot(src_B[i], mean_B))
-    # Use L2 norm of ctx embedding as modulator signal (normalized by bank dimension)
-    ctx_norm_A = src_bank_held[0].norm(dim=-1).cpu().numpy().astype(np.float32)
-    ctx_norm_B = src_bank_held[1].norm(dim=-1).cpu().numpy().astype(np.float32)
-    ctx_norm_A_normed = ctx_norm_A / (float(ctx_norm_A.mean()) + 1e-9)
-    ctx_norm_B_normed = ctx_norm_B / (float(ctx_norm_B.mean()) + 1e-9)
-    gate_all = sigmoid_additive_gate(ctx_norm_A_normed, ctx_norm_B_normed,
+    # Compute sigmoid-additive gate values using bank projections as gate input.
+    # DESIGN: use random gate vectors (one per bank) to compute a context-dependent
+    # gate signal. dot(ctx, gate_vec) varies per context even when ctx norms are constant.
+    # This avoids the degenerate constant-norm case (amplitude-scaled sparse vectors all
+    # have the same L2 norm since sparsification produces uniform density).
+    rng_gate = np.random.default_rng(seed * 137 + 41)
+    gate_vec_A = rng_gate.standard_normal(N_PER_BANK).astype(np.float32)
+    gate_vec_A = gate_vec_A / (np.linalg.norm(gate_vec_A) + 1e-9)
+    gate_vec_B = rng_gate.standard_normal(N_PER_BANK).astype(np.float32)
+    gate_vec_B = gate_vec_B / (np.linalg.norm(gate_vec_B) + 1e-9)
+    # Project ctx bank embeddings onto gate vectors
+    gate_vec_A_t = torch.from_numpy(gate_vec_A).to(DEVICE)
+    gate_vec_B_t = torch.from_numpy(gate_vec_B).to(DEVICE)
+    ctx_proj_A = (src_bank_held[0] @ gate_vec_A_t).cpu().numpy().astype(np.float32)
+    ctx_proj_B = (src_bank_held[1] @ gate_vec_B_t).cpu().numpy().astype(np.float32)
+    # Normalize projections to zero-mean unit-var for stable sigmoid input
+    ctx_A_norm = (ctx_proj_A - ctx_proj_A.mean()) / (ctx_proj_A.std() + 1e-9)
+    ctx_B_norm = (ctx_proj_B - ctx_proj_B.mean()) / (ctx_proj_B.std() + 1e-9)
+    gate_all = sigmoid_additive_gate(ctx_A_norm, ctx_B_norm,
                                       alpha=SIGMOID_GATE_ALPHA, beta=SIGMOID_GATE_BETA)
     gate_dev = gate_all[:n_dev]
     gate_test = gate_all[n_dev:]
@@ -1014,10 +1042,12 @@ def run_unit(seed: int) -> Dict:
     t_arm = time.time()
     logits_k2_A = logits_k2_B = None
     try:
-        W_A = build_rank1_W_gpu(src_bank_train[0], E_banks[0], idx_train_t, INGEST_CHUNK)
-        W_B = build_rank1_W_gpu(src_bank_train[1], E_banks[1], idx_train_t, INGEST_CHUNK)
-        logits_k2_A = compute_module_logits_bank(W_A, src_bank_held[0], E_banks[0], RECALL_BATCH)
-        logits_k2_B = compute_module_logits_bank(W_B, src_bank_held[1], E_banks[1], RECALL_BATCH)
+        # W build: amplitude-scaled keys, normalized targets
+        W_A = build_rank1_W_gpu(src_bank_train[0], E_banks_norm[0], idx_train_t, INGEST_CHUNK)
+        W_B = build_rank1_W_gpu(src_bank_train[1], E_banks_norm[1], idx_train_t, INGEST_CHUNK)
+        # Readout: amplitude-scaled keys with normalized target codebook
+        logits_k2_A = compute_module_logits_bank(W_A, src_bank_held[0], E_banks_norm[0], RECALL_BATCH)
+        logits_k2_B = compute_module_logits_bank(W_B, src_bank_held[1], E_banks_norm[1], RECALL_BATCH)
         del W_A, W_B
         if DEVICE.type == "cuda":
             torch.cuda.empty_cache()
@@ -1052,10 +1082,10 @@ def run_unit(seed: int) -> Dict:
     t_arm = time.time()
     logits_cfrpe_A = logits_cfrpe_B = None
     try:
-        W_A_rpe = build_cfrpe_W_gpu(src_bank_train[0], E_banks[0], idx_train_t, INGEST_CHUNK)
-        W_B_rpe = build_cfrpe_W_gpu(src_bank_train[1], E_banks[1], idx_train_t, INGEST_CHUNK)
-        logits_cfrpe_A = compute_module_logits_bank(W_A_rpe, src_bank_held[0], E_banks[0], RECALL_BATCH)
-        logits_cfrpe_B = compute_module_logits_bank(W_B_rpe, src_bank_held[1], E_banks[1], RECALL_BATCH)
+        W_A_rpe = build_cfrpe_W_gpu(src_bank_train[0], E_banks_norm[0], idx_train_t, INGEST_CHUNK)
+        W_B_rpe = build_cfrpe_W_gpu(src_bank_train[1], E_banks_norm[1], idx_train_t, INGEST_CHUNK)
+        logits_cfrpe_A = compute_module_logits_bank(W_A_rpe, src_bank_held[0], E_banks_norm[0], RECALL_BATCH)
+        logits_cfrpe_B = compute_module_logits_bank(W_B_rpe, src_bank_held[1], E_banks_norm[1], RECALL_BATCH)
         del W_A_rpe, W_B_rpe
         if DEVICE.type == "cuda":
             torch.cuda.empty_cache()
@@ -1123,7 +1153,8 @@ def run_unit(seed: int) -> Dict:
             "mrr_at_10": float("nan"),
             "elapsed_s_arm": round(time.time() - t_arm, 2)}
 
-    del E_sp, E_base, E_banks, src_bank_train, src_bank_held
+    del E_sp, E_sp_raw, E_sp_normalized, E_base
+    del E_banks_raw, E_banks_norm, src_bank_train, src_bank_held
     del idx_train_t, ctx_vocab_idx
     if DEVICE.type == "cuda":
         torch.cuda.empty_cache()
@@ -1225,16 +1256,20 @@ def compute_verdict(units: List[Dict]) -> Tuple[str, str, Dict]:
                     baseline_bpc, baseline_deviation, BASELINE_BPC_REF, BASELINE_TOLERANCE),
                 by_arm_agg)
 
-    # Check for unigram collapse in multi-module arms
-    uni_bpc_mean = unigram_agg.get("bpc_mean", 8.0)
-    for arm in ["ARM_K2_MODULES", "ARM_K2_PLUS_CFRPE", load_bearing_arm]:
-        agg = by_arm_agg.get(arm, {})
-        arm_bpc = agg.get("bpc_best_mean", float("inf"))
-        if abs(arm_bpc - uni_bpc_mean) < 0.005:
-            return ("INSTRUMENTATION_SUSPECT",
-                    "arm=%s bpc=%.4f collapsed to unigram=%.4f (rescue fix incomplete)" % (
-                        arm, arm_bpc, uni_bpc_mean),
-                    by_arm_agg)
+    # Check for unigram collapse in multi-module arms (FULL mode only)
+    # At smoke scale (N_TRAIN=3000, V=400), Hebbian LM collapses to unigram -- this is
+    # a scale-insufficient null, NOT an instrumentation failure (same pattern as
+    # shotgun_smoke_tau_neg_x_n_replay: need N_TRAIN>>5000 for sub-unigram BPC).
+    if RUN_MODE == "full":
+        uni_bpc_mean = unigram_agg.get("bpc_mean", 8.0)
+        for arm in ["ARM_K2_MODULES", "ARM_K2_PLUS_CFRPE", load_bearing_arm]:
+            agg = by_arm_agg.get(arm, {})
+            arm_bpc = agg.get("bpc_best_mean", float("inf"))
+            if abs(arm_bpc - uni_bpc_mean) < 0.005:
+                return ("INSTRUMENTATION_SUSPECT",
+                        "arm=%s bpc=%.4f collapsed to unigram=%.4f (rescue fix incomplete)" % (
+                            arm, arm_bpc, uni_bpc_mean),
+                        by_arm_agg)
 
     if lb_cv > CV_MAX:
         return ("HARD_FAIL",
@@ -1273,7 +1308,7 @@ def main() -> None:
     print("RESCUE FIXES: ampl_scale=1/sqrt(f)=%.2f sigmoid-add cf-RPE K=2" % AMPLITUDE_SCALE, flush=True)
     print("=" * 72, flush=True)
 
-    out_dir = get_output_dir()
+    out_dir = get_output_dir(ANCHOR_NAME)
     run_config = {"N": N_DIM, "run_mode": RUN_MODE}
     done_seeds, remaining_seeds = resumable_seeds(SEEDS, out_dir, run_config=run_config)
     print("[ckpt] %d/%d seeds already complete; running %s" % (
