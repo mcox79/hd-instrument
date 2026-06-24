@@ -1,0 +1,79 @@
+anchor_name: substrate_multi_iteration_cleanup_LM_v1
+
+metric_scope:
+  primary_metric: bpc
+  metric_class: calibration_based
+  appropriateness_justification: |
+    Substrate-as-LM test; primary outcome is next-word prediction quality.
+    BPC (bits-per-character equivalent, computed over held-out word sequence) is the
+    standard calibration metric for language modeling. Arm comparison is lift in BPC
+    (lower is better). Secondary rank_based metrics (top-1, MRR@10) reported as validation.
+    BPC is appropriate here because the hypothesis tests QUANTITATIVE improvement in
+    prediction accuracy, not just rank ordering.
+  metric_class_mismatch_protection: |
+    All arms use identical evaluation harness (joint T/lambda sweep on same dev/test split).
+    Baseline arm (ARM_BASELINE_NO_CLEANUP) is run fresh in THIS cell, not quoted from
+    another cell, to prevent baseline-provenance mismatch (Fix #28).
+
+baseline_provenance:
+  baseline_name: ARM_SINGLE_STEP_CLEANUP_same_W
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    vs_baseline lift = ARM_SINGLE_STEP bpc - ARM_10_ITER bpc on SAME seeds of SAME run.
+    Encoder (char-trigram) and Hebbian W are SHARED across all arms in one seed.
+    This is a controlled ablation: only the iteration count differs.
+    ARM_BASELINE_NO_CLEANUP (0 iters) also included to confirm single-step adds anything.
+    Cross-cell BPC comparisons (vs. fair_harness 7.3065) are INFORMATIONAL ONLY;
+    primary verdict uses within-cell lift.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 0
+    cpu_cores: 2
+    wall_time_max_s: 2400
+  oom_handling: |
+    W matrix at N_DIM=8192 is (8192 x 8192) x float32 = 268MB; fits on remote_cpu RAM.
+    RECALL_BATCH=512 means logit matrix per batch = 512 x 4000 x 4 bytes = 8MB; safe.
+    OOM is not expected; if hit, config is reported as NOT_RUN with oom_flag=true.
+  per_config_exit_logging: true
+
+execution_substrate: remote_cpu
+
+discriminator_ratio:
+  expected_arm_separation: 0.10
+  null_arm_separation: 0.03
+  by_construction_saturation_check: |
+    If ARM_10_ITER bpc <= 7.00 (well below fair_harness 7.30 baseline) with cv < 0.005:
+    flag BY-CONSTRUCTION-SATURATION; check whether amplitude scaling inflated all arms.
+    Saturation is unlikely here (iteration count is a mild intervention).
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    ARM_BASELINE_NO_CLEANUP (no Hopfield cleanup) = pure linear matched-filter recall.
+    At N_DIM=8192, f=0.05, matched-filter SNR = sqrt(f*N)/sigma with sigma from W noise.
+    Expected ARM_BASELINE BPC should be near fair_harness (~7.30) since amplitude scaling
+    partially compensates for matched-filter loss.
+    ARM_SINGLE_STEP should be close to or slightly better than BASELINE: 1 sign() step
+    is a mild projection operation. Large improvements at 1 iter would suggest Hopfield
+    dynamics are powerful at this scale, which is consistent with Treves-Rolls attractor
+    theory.
+    If all arms cluster within 0.02 BPC: the word-bigram regime is insensitive to cleanup
+    iteration count (likely for a rank-1 Hebbian W where convergence is trivially fast).
+  what_would_falsify_setup_vs_mechanism: |
+    Run ARM_BASELINE_NO_CLEANUP alongside ARM_SINGLE_STEP.
+    If baseline ~= single_step within 0.03 BPC: single-step is adding near-nothing;
+    iteration count axis may be irrelevant to word-bigram LM.
+    If baseline >> single_step: cleanup adds real signal; more iterations could compound.
+    The gradient (baseline -> 1-iter -> 3-iter -> 10-iter) is the discriminating pattern.
+  fidelity_gap_documentation: |
+    Smoke at N_DIM=512 tests infrastructure only (module imports, shapes, BPC finite).
+    At N=512 the Hopfield W is near full-rank; convergence behavior at smoke scale
+    may differ from N_DIM=8192 attractor landscape (Hopfield theory: capacity ~ 0.14*N;
+    at N=512 capacity ~72 patterns; at N=8192 capacity ~1147 patterns).
+    Smoke PASS is necessary but NOT sufficient: the iteration-count effect may only
+    manifest at N >= 1024 where attractor basins are deep.

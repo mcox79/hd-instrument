@@ -1,0 +1,73 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "ARM_10_ITER bpc=5.0364; ARM_SINGLE_STEP bpc=5.0364; lift=-0.0000 < 0.03 (or negative). Multi-iteration Hopfield convergence does NOT improve substrate-LM BPC. Tier-3 RECALL gap is NOT empirically confirmed by this test.; DIMINISH_RETURNS: 3-iter captures 100% of 10-iter lift (mean_iters_3=3.0 mean_iters_10=3.0); WHAT_THIS_DOES_NOT_SHOW: (1) whether multi-iteration helps with DIFFERENT encoders (char-trigram specific); (2) whether cleanup iteration count interacts with sparsity f; (3) whether the result generalizes beyond word-bigram BPC metric.",
+  "arm_summary": {
+    "ARM_BASELINE_NO_CLEANUP": {
+      "bpc_mean": 4.994808197021484,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.405,
+      "mrr_mean": 0.425625,
+      "mean_iters_mean": 0.0,
+      "n_seeds": 1
+    },
+    "ARM_SINGLE_STEP_CLEANUP": {
+      "bpc_mean": 5.036377429962158,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.4,
+      "mrr_mean": 0.40404761904761904,
+      "mean_iters_mean": 1.0,
+      "n_seeds": 1
+    },
+    "ARM_3_ITER_CLEANUP": {
+      "bpc_mean": 5.036412239074707,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.4,
+      "mrr_mean": 0.406,
+      "mean_iters_mean": 3.0,
+      "n_seeds": 1
+    },
+    "ARM_10_ITER_CLEANUP_UNTIL_CONVERGE": {
+      "bpc_mean": 5.036412239074707,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.4,
+      "mrr_mean": 0.406,
+      "mean_iters_mean": 3.0,
+      "n_seeds": 1
+    },
+    "ARM_UNIGRAM": {
+      "bpc_mean": 5.013299942016602,
+      "bpc_std": 0.0,
+      "bpc_cv": 0.0,
+      "top1_mean": 0.455,
+      "mrr_mean": NaN,
+      "mean_iters_mean": NaN,
+      "n_seeds": 1
+    }
+  },
+  "lift_10iter_vs_1iter_bpc": -3.4809112548828125e-05,
+  "lift_3iter_vs_1iter_bpc": -3.4809112548828125e-05,
+  "lift_1iter_vs_baseline_bpc": -0.04156923294067383,
+  "bpc_baseline_mean": 4.994808197021484,
+  "bpc_1iter_mean": 5.036377429962158,
+  "bpc_3iter_mean": 5.036412239074707,
+  "bpc_10iter_mean": 5.036412239074707,
+  "unigram_bpc_mean": 5.013299942016602,
+  "mean_iters_10iter": 3.0,
+  "mean_iters_3iter": 3.0,
+  "n_seeds": 1,
+  "config_version": "substrate_multi_iteration_cleanup_LM_v1; N_DIM=512 N_TRAIN=2000 N_HELD=400 VOCAB_CAP=300 arms=['ARM_BASELINE_NO_CLEANUP', 'ARM_SINGLE_STEP_CLEANUP', 'ARM_3_ITER_CLEANUP', 'ARM_10_ITER_CLEANUP_UNTIL_CONVERGE'] seeds=[0] mode=smoke f=0.050 amplitude_scale=4.472 max_iter=10 convergence_delta=0.0010 bands HP=0.10 chain=0.20 mid=[0.03,0.10] cv_max=0.05",
+  "pre_reg": {
+    "HARD_PASS": "ARM_10_ITER beats ARM_SINGLE_STEP by >=0.1 bits BPC",
+    "CHAIN_GRADE_BONUS": "lift >= 0.2 bits",
+    "MIDDLE_BAND": "lift in [0.03,0.1]",
+    "HARD_FAIL": "lift < 0.03",
+    "DIMINISH_RETURNS_BONUS": "3-iter captures >= 90% of 10-iter lift",
+    "CV_MAX": 0.05
+  },
+  "elapsed_s": 0.0,
+  "summary": "ARM_10_ITER bpc=5.0364; ARM_SINGLE_STEP bpc=5.0364; lift=-0.0000 < 0.03 (or negative). Multi-iteration Hopfield convergence does NOT improve substrate-LM BPC. Tier-3 RECALL gap is NOT empirically confirmed by this test.; DIMINISH_RETURNS: 3-iter captures 100% of 10-iter lift (mean_iters_3=3.0 mean_iters_10=3.0); WHAT_THIS_DOES_NOT_SHOW: (1) whether multi-iteration helps with DIFFERENT encoders (char-trigram specific); (2) whether cleanup iteration count interacts with sparsity f; (3) whether the result generalizes beyond word-bigram BPC metric."
+}
