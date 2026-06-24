@@ -33,4 +33,4 @@ Shipped 5 CPU anchors to remote_cpu_queue, all remote-verified:
 
 Blocked: pb2_corr_len_bsc_v1 -- INSTRUMENTATION_SUSPECT. xi=0.0 everywhere because argmax-cascade cannot detect BSC capacity boundary under rank-1 edit perturbation. Routed to Strategy via notes/exp_dev_to_strategy_instrumentation_suspect_pb2_corr_bsc_2026-05-28.md (3 redesign options: basin-radius, q-overlap, Hessian curvature).
 
-Aggregate CPU budget approx 7.5h. Queue pending=4 at close of batch.
+Aggregate CPU budget approx 7.5h. Queue pending=4 at close of batch.2026-06-23 exp_dev: shipped substrate_neuromodulator_3axis_gated_compose_LM_v1 to overnight_queue (Gap A, P=0.65); smoke PASS delta=0.209 bits; timeout=6300s; REMOTE VERIFY PASS (1 pending)
