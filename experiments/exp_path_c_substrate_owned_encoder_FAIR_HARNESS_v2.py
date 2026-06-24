@@ -1529,7 +1529,8 @@ def _selftest():
     # very most (modulo zeros set to +1). All entries should have abs(x) == 1/sqrt(32)
     # (since sign produces +/-1 and norm divides by sqrt(32)). Check L2 norm = 1.
     norms = E_pc.norm(dim=1)
-    assert torch.allclose(norms, torch.ones(4), atol=1e-5), "T11 L2 norms: %s" % norms.tolist()
+    assert torch.allclose(norms, torch.ones(4, device=norms.device), atol=1e-5), \
+        "T11 L2 norms: %s" % norms.tolist()
 
     # T12: PC encoder Tonegawa: excitability evolves (std/mean > 0 after pass-1)
     e_np = E_excit.detach().cpu().numpy()
