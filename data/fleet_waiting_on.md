@@ -100,9 +100,10 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 5afb8133 M2 pre-stage SCHEMA-VET + bab6f9b7 N3 cert-bands + fbfccc99 N1 SCHEMA-VET + 9a41c60e D1 (CERT verified-precise)
 
 ## exp_dev
-**Last-updated:** 2026-06-22T07:10:00Z (n10 whitening-projection revival cell-author in-flight; 2nd field-test of Fix #11 pipeline-template)
+**Last-updated:** 2026-06-24T10:24:38Z (substrate_n1v3_readout_x_cfrpe_plasticity_compose_v1 dispatched to overnight_queue; load-bearing per Skunkworks VET)
 
 ### Waiting on
+- [from=runner] [type=cell_land] [filed=2026-06-24T10:24Z] : substrate_n1v3_readout_x_cfrpe_plasticity_compose_v1 on overnight_queue (timeout 5400s; 4 arms x 3 seeds at N_DIM=8192 text8 V=4000 N_TRAIN=100k; tests n1_v3 readout x cf-RPE plasticity composition; ARM 4 HARD_PASS top1>=0.50 / CHAIN_GRADE_BONUS top1>=0.55 with cv<0.05; sanity rails ARM 2 reproduce 0.4455 +/-0.03 + ARM 3 reproduce 0.2438 +/-0.03; PROVENANCE_FAIL deflate if rails fail)
 - [from=runner] [type=cell_land] [filed=2026-06-22T07:10Z] : exp_n10_whitening_projection_revival_v1 (smoke->FULL; 3x revival of Path C ARM A; ZCA-whiten contrastive-projected keys; pre-reg HARD_PASS arm B>=0.35 at M=10k sig=0.1 AND proj_recall_sanity>=0.15; 4-arm A/B/C/D; pythia-160m; 3 seeds; wall 7200-10800s per TODO #8)
 - [from=runner] [type=cell_land] [filed=2026-06-22T06:26Z] : humaneval_stdlib_split_qwen_v1 (FULL 164 problems x 2 arms on local_cpu_queue, ~3.0h ETA, timeout 14400s) -> verify Class A gain_A vs +15/+5 pre-reg bands + discriminating-regime Class B gain
 - [from=runner] [type=cell_land] [filed=2026-06-22T05:35Z] : n8_conceptnet_ingest_eval_v1 (FULL 3-seed at remote_cpu_queue, timeout 3600s) -> verify HARD_PASS bands incl. OPEN-C frozen-encoder >=2x ratio
