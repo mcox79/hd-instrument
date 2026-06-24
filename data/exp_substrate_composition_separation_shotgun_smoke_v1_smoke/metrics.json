@@ -1,0 +1,398 @@
+{
+  "anchor_name": "substrate_composition_separation_shotgun_smoke_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_SMOKE_TOO_SMALL: NAIVE-BASELINE delta=0.0442 < 0.0500 (collapse did not reproduce at smoke; n=3 seeds). top3 rescue rank: ARM_ORTHOGONAL_PROJECTION lift_vs_naive=0.0211 vs_base=-0.0231; ARM_TIME_SEPARATION lift_vs_naive=0.0120 vs_base=-0.0322; ARM_FREQ_SEPARATION lift_vs_naive=-0.0067 vs_base=-0.0509. baseline_bpc=2.9310 naive_bpc=2.9752\nWHAT_THIS_DOES_NOT_SHOW:\n- does not demonstrate any rescue arm is useless (collapse not reproduced means no signal to discriminate)\n- does not validate or refute the composition collapse thesis; smoke insufficient to test\n- recommend production-scale NAIVE-only re-test to confirm collapse before reauthoring shotgun\n",
+  "summary": "MIDDLE_BAND_SMOKE_TOO_SMALL: NAIVE-BASELINE delta=0.0442 < 0.0500 (collapse did not reproduce at smoke; n=3 seeds). top3 rescue rank: ARM_ORTHOGONAL_PROJECTION lift_vs_naive=0.0211 vs_base=-0.0231; ARM_TIME_SEPARATION lift_vs_naive=0.0120 vs_base=-0.0322; ARM_FREQ_SEPARATION lift_vs_naive=-0.0067 vs_base=-0.0509. baseline_bpc=2.9310 naive_bpc=2.9752\nWHAT_THIS_DOES_NOT_SHOW:\n- does not demonstrate any rescue arm is useless (collapse not reproduced means no signal to discriminate)\n- does not validate or refute the composition collapse thesis; smoke insufficient to test\n- recommend production-scale NAIVE-only re-test to confirm collapse before reauthoring shotgun\n",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "V": 300,
+  "N_DIM": 2048,
+  "N_TRAIN": 20000,
+  "N_HELD": 4000,
+  "N_STEPS": 300,
+  "BATCH": 32,
+  "LR": 0.5,
+  "STDP_W": 0.5,
+  "arms": [
+    "ARM_BASELINE_CFRPE_ALONE",
+    "ARM_NAIVE_CFRPE_PLUS_STDP",
+    "ARM_TIME_SEPARATION",
+    "ARM_BANK_SEPARATION",
+    "ARM_SUBSPACE_SEPARATION",
+    "ARM_FREQ_SEPARATION",
+    "ARM_SEQUENTIAL_CONSOLIDATION",
+    "ARM_REPLAY_BASED",
+    "ARM_ORTHOGONAL_PROJECTION"
+  ],
+  "config_version": "substrate_composition_separation_shotgun_smoke_v1; mode=smoke V=300 N_DIM=2048 N_TRAIN=20000 N_HELD=4000 N_STEPS=300 BATCH=32 LR=0.500 STDP_W=0.500 K_ACTIVE=8 REPLAY_BUF=256 REPLAY_BATCH=16 temps=[0.05, 0.1, 0.2, 0.5, 1.0] lambdas=[0.1, 0.3, 0.5, 0.7, 1.0] arms=9 seeds=[7, 17, 23]",
+  "elapsed_s": 0.004709959030151367,
+  "info": {
+    "arm_means": {
+      "ARM_BASELINE_CFRPE_ALONE": {
+        "bpc_mean": 2.931,
+        "bpc_std": 0.0405,
+        "bpc_cv": 0.0138,
+        "top1_mean": 0.579
+      },
+      "ARM_NAIVE_CFRPE_PLUS_STDP": {
+        "bpc_mean": 2.9752,
+        "bpc_std": 0.0209,
+        "bpc_cv": 0.007,
+        "top1_mean": 0.5765
+      },
+      "ARM_TIME_SEPARATION": {
+        "bpc_mean": 2.9632,
+        "bpc_std": 0.0505,
+        "bpc_cv": 0.017,
+        "top1_mean": 0.5763
+      },
+      "ARM_BANK_SEPARATION": {
+        "bpc_mean": 3.0071,
+        "bpc_std": 0.0746,
+        "bpc_cv": 0.0248,
+        "top1_mean": 0.5728
+      },
+      "ARM_SUBSPACE_SEPARATION": {
+        "bpc_mean": 3.2887,
+        "bpc_std": 0.0761,
+        "bpc_cv": 0.0231,
+        "top1_mean": 0.5265
+      },
+      "ARM_FREQ_SEPARATION": {
+        "bpc_mean": 2.9819,
+        "bpc_std": 0.0185,
+        "bpc_cv": 0.0062,
+        "top1_mean": 0.5723
+      },
+      "ARM_SEQUENTIAL_CONSOLIDATION": {
+        "bpc_mean": 3.1724,
+        "bpc_std": 0.1267,
+        "bpc_cv": 0.0399,
+        "top1_mean": 0.5063
+      },
+      "ARM_REPLAY_BASED": {
+        "bpc_mean": 2.9908,
+        "bpc_std": 0.035,
+        "bpc_cv": 0.0117,
+        "top1_mean": 0.576
+      },
+      "ARM_ORTHOGONAL_PROJECTION": {
+        "bpc_mean": 2.9541,
+        "bpc_std": 0.0358,
+        "bpc_cv": 0.0121,
+        "top1_mean": 0.5757
+      }
+    },
+    "baseline_bpc": 2.931,
+    "naive_bpc": 2.9752,
+    "naive_collapse_delta": 0.0442,
+    "smoke_collapse_reproduced": false,
+    "rescue_ranking": [
+      {
+        "arm": "ARM_ORTHOGONAL_PROJECTION",
+        "lift_vs_naive": 0.0211,
+        "lift_vs_baseline": -0.0231
+      },
+      {
+        "arm": "ARM_TIME_SEPARATION",
+        "lift_vs_naive": 0.012,
+        "lift_vs_baseline": -0.0322
+      },
+      {
+        "arm": "ARM_FREQ_SEPARATION",
+        "lift_vs_naive": -0.0067,
+        "lift_vs_baseline": -0.0509
+      },
+      {
+        "arm": "ARM_REPLAY_BASED",
+        "lift_vs_naive": -0.0156,
+        "lift_vs_baseline": -0.0598
+      },
+      {
+        "arm": "ARM_BANK_SEPARATION",
+        "lift_vs_naive": -0.0319,
+        "lift_vs_baseline": -0.0761
+      },
+      {
+        "arm": "ARM_SEQUENTIAL_CONSOLIDATION",
+        "lift_vs_naive": -0.1972,
+        "lift_vs_baseline": -0.2414
+      },
+      {
+        "arm": "ARM_SUBSPACE_SEPARATION",
+        "lift_vs_naive": -0.3135,
+        "lift_vs_baseline": -0.3577
+      }
+    ],
+    "uniform_bpc": 8.228818690495881
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_bpc": 8.228818690495881,
+      "cond_ent_nats": 1.1751725231865755,
+      "arms": {
+        "ARM_BASELINE_CFRPE_ALONE": {
+          "bpc": 2.9513,
+          "top1": 0.598,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.7972,
+          "wall_train_s": 20.65,
+          "wall_eval_s": 0.55
+        },
+        "ARM_NAIVE_CFRPE_PLUS_STDP": {
+          "bpc": 3.0034,
+          "top1": 0.594,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.8642,
+          "wall_train_s": 31.92,
+          "wall_eval_s": 0.56
+        },
+        "ARM_TIME_SEPARATION": {
+          "bpc": 3.0288,
+          "top1": 0.5965,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.8929,
+          "wall_train_s": 20.51,
+          "wall_eval_s": 0.83
+        },
+        "ARM_BANK_SEPARATION": {
+          "bpc": 3.1099,
+          "top1": 0.584,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.9823,
+          "wall_train_s": 41.25,
+          "wall_eval_s": 0.84
+        },
+        "ARM_SUBSPACE_SEPARATION": {
+          "bpc": 3.356,
+          "top1": 0.5375,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.1677,
+          "wall_train_s": 13.5,
+          "wall_eval_s": 0.62
+        },
+        "ARM_FREQ_SEPARATION": {
+          "bpc": 3.0058,
+          "top1": 0.594,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.8394,
+          "wall_train_s": 22.51,
+          "wall_eval_s": 0.52
+        },
+        "ARM_SEQUENTIAL_CONSOLIDATION": {
+          "bpc": 3.3469,
+          "top1": 0.4335,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.2062,
+          "wall_train_s": 19.96,
+          "wall_eval_s": 0.63
+        },
+        "ARM_REPLAY_BASED": {
+          "bpc": 3.0397,
+          "top1": 0.603,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.8882,
+          "wall_train_s": 35.94,
+          "wall_eval_s": 0.6
+        },
+        "ARM_ORTHOGONAL_PROJECTION": {
+          "bpc": 3.0045,
+          "top1": 0.5965,
+          "best_T": 0.1,
+          "best_lambda": 0.5,
+          "best_dev_bpc": 2.8854,
+          "wall_train_s": 36.71,
+          "wall_eval_s": 0.67
+        }
+      },
+      "elapsed_s": 248.98145699501038
+    },
+    {
+      "seed": 17,
+      "uniform_bpc": 8.228818690495881,
+      "cond_ent_nats": 1.1760477780085195,
+      "arms": {
+        "ARM_BASELINE_CFRPE_ALONE": {
+          "bpc": 2.8745,
+          "top1": 0.5725,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.8313,
+          "wall_train_s": 26.22,
+          "wall_eval_s": 0.59
+        },
+        "ARM_NAIVE_CFRPE_PLUS_STDP": {
+          "bpc": 2.9534,
+          "top1": 0.568,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.9075,
+          "wall_train_s": 30.76,
+          "wall_eval_s": 0.59
+        },
+        "ARM_TIME_SEPARATION": {
+          "bpc": 2.9059,
+          "top1": 0.563,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.8665,
+          "wall_train_s": 20.85,
+          "wall_eval_s": 0.57
+        },
+        "ARM_BANK_SEPARATION": {
+          "bpc": 2.9762,
+          "top1": 0.561,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.9064,
+          "wall_train_s": 41.43,
+          "wall_eval_s": 0.72
+        },
+        "ARM_SUBSPACE_SEPARATION": {
+          "bpc": 3.1823,
+          "top1": 0.533,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.1177,
+          "wall_train_s": 15.02,
+          "wall_eval_s": 0.72
+        },
+        "ARM_FREQ_SEPARATION": {
+          "bpc": 2.9607,
+          "top1": 0.557,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.9272,
+          "wall_train_s": 17.42,
+          "wall_eval_s": 0.62
+        },
+        "ARM_SEQUENTIAL_CONSOLIDATION": {
+          "bpc": 3.0498,
+          "top1": 0.54,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.9541,
+          "wall_train_s": 15.85,
+          "wall_eval_s": 0.57
+        },
+        "ARM_REPLAY_BASED": {
+          "bpc": 2.9731,
+          "top1": 0.5585,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.9361,
+          "wall_train_s": 28.55,
+          "wall_eval_s": 0.61
+        },
+        "ARM_ORTHOGONAL_PROJECTION": {
+          "bpc": 2.9247,
+          "top1": 0.5605,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.89,
+          "wall_train_s": 32.16,
+          "wall_eval_s": 0.58
+        }
+      },
+      "elapsed_s": 234.13326334953308
+    },
+    {
+      "seed": 23,
+      "uniform_bpc": 8.228818690495881,
+      "cond_ent_nats": 1.1842117464594428,
+      "arms": {
+        "ARM_BASELINE_CFRPE_ALONE": {
+          "bpc": 2.9672,
+          "top1": 0.5665,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.0339,
+          "wall_train_s": 16.42,
+          "wall_eval_s": 0.65
+        },
+        "ARM_NAIVE_CFRPE_PLUS_STDP": {
+          "bpc": 2.9687,
+          "top1": 0.5675,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.0137,
+          "wall_train_s": 29.01,
+          "wall_eval_s": 0.57
+        },
+        "ARM_TIME_SEPARATION": {
+          "bpc": 2.955,
+          "top1": 0.5695,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.0191,
+          "wall_train_s": 17.57,
+          "wall_eval_s": 0.57
+        },
+        "ARM_BANK_SEPARATION": {
+          "bpc": 2.9352,
+          "top1": 0.5735,
+          "best_T": 0.1,
+          "best_lambda": 0.7,
+          "best_dev_bpc": 3.0518,
+          "wall_train_s": 37.1,
+          "wall_eval_s": 0.82
+        },
+        "ARM_SUBSPACE_SEPARATION": {
+          "bpc": 3.3277,
+          "top1": 0.509,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.393,
+          "wall_train_s": 11.32,
+          "wall_eval_s": 0.6
+        },
+        "ARM_FREQ_SEPARATION": {
+          "bpc": 2.9791,
+          "top1": 0.566,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.0351,
+          "wall_train_s": 19.07,
+          "wall_eval_s": 0.62
+        },
+        "ARM_SEQUENTIAL_CONSOLIDATION": {
+          "bpc": 3.1205,
+          "top1": 0.5455,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.1897,
+          "wall_train_s": 14.45,
+          "wall_eval_s": 0.59
+        },
+        "ARM_REPLAY_BASED": {
+          "bpc": 2.9595,
+          "top1": 0.5665,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 3.0407,
+          "wall_train_s": 30.33,
+          "wall_eval_s": 0.7
+        },
+        "ARM_ORTHOGONAL_PROJECTION": {
+          "bpc": 2.9332,
+          "top1": 0.57,
+          "best_T": 0.05,
+          "best_lambda": 0.3,
+          "best_dev_bpc": 2.9776,
+          "wall_train_s": 36.62,
+          "wall_eval_s": 0.54
+        }
+      },
+      "elapsed_s": 217.7995855808258
+    }
+  ]
+}
