@@ -1,0 +1,67 @@
+anchor_name: substrate_amplitude_x_f_grid_v1
+
+metric_scope:
+  primary_metric: recall_at_1
+  metric_class: rank_based
+  appropriateness_justification: |
+    Substrate is a sparse top-1 associative mechanism (Frady-Kleyko 2018 VSA convention).
+    recall@1 is the within-class standard for associative/VSA recall experiments.
+    BPC (calibration_based) is NOT appropriate here -- this cell tests isolated
+    Hopfield retrieval, not language-model perplexity.
+  metric_class_mismatch_protection: |
+    If verdict is framed as BPC or perplexity: FLAG CONSTRUCT-VALIDITY-MISMATCH.
+    This cell measures rank-based recall; BPC cannot serve as the gate metric.
+
+baseline_provenance:
+  baseline_name: arm_raw_pm1_amplitude_1
+  same_harness_as_arm: true
+  rerun_in_this_cell: true
+  same_corpus: true
+  same_tokenizer: true
+  same_seed_set: [7, 17, 23]
+  baseline_hyperparams_tuned_same_protocol: true
+  honest_comparison_clause: |
+    ARM_A (raw_pm1, amplitude=1.0) is the baseline arm. ARM_B (inv_sqrt_f) and
+    ARM_C (inv_f) are experimental arms. All arms are run under the same seeds,
+    same pattern draw, same W construction, same retrieval dynamics.
+    Cross-cell baseline quoting is forbidden. Lift = ARM_B - ARM_A on same seeds.
+
+config_validity:
+  required_resources:
+    gpu_mem_gb: 0
+    cpu_cores: 2
+    wall_time_max_s: 3900
+  oom_handling: |
+    Pure numpy; no GPU. OOM not expected at N=4096, M=500. If numpy OOM (unlikely):
+    report as NOT_RUN per config. No envelope claims from single OOM.
+  per_config_exit_logging: true
+
+execution_substrate: remote_cpu
+
+discriminator_ratio:
+  expected_arm_separation: 0.30
+  null_arm_separation: 0.05
+  by_construction_saturation_check: |
+    If ARM_B recall >= 0.99 at ALL (f, sigma) cells:
+    flag BY-CONSTRUCTION-SATURATION; tier capped at MEASURED_MECHANISM.
+    ARM_B is expected near 1.0 at (f=0.01, sigma=16) -- that single cell saturating
+    is expected; ALL cells saturating would indicate harness is too easy.
+
+harm_prediction:
+  setup_implies_metric_floor: |
+    ARM_A at (f=0.02, N=4096, sigma=16): SNR = sqrt(f*N)/sigma = sqrt(81.92)/16 = 0.567.
+    Phi(0.567) ~ 0.71 -> setup predicts ARM_A recall ~ 0.60-0.75 in this range.
+    If ARM_A recall is ABOVE 0.80 at (f=0.02, sigma=16): either N is too small for
+    M=500 patterns (capacity saturation) or sigma is effectively lower than claimed.
+    If ARM_A recall is BELOW 0.30: harness may be inverted or amplitude is applied wrong.
+  what_would_falsify_setup_vs_mechanism: |
+    Control: ARM_A at f=1.0 (dense) should achieve recall near 1.0 at sigma=16
+    (dense + raw amplitude is correctly matched). If it does not: harness is broken.
+    ARM_B at f=0.02 should match ARM_A at f=1.0 if amplitude-correction is complete.
+    If ARM_B(f=0.02) != ARM_A(f=1.0) within 0.10: additional mechanism (WTA, noise shape)
+    is modulating recovery beyond pure amplitude.
+  fidelity_gap_documentation: |
+    Smoke at N=512: active dims = f * 512; M=500 >> capacity at N=512 (M/N=0.97 >> 0.14).
+    Smoke PRIMARILY tests that instrumentation runs and metrics are non-null.
+    The STRUCTURAL regime at N=4096 (M/N=0.122 < capacity ~0.14) is different.
+    HARD_PASS from smoke alone is NOT sufficient; smoke is a harness-integrity gate only.
