@@ -1,0 +1,1 @@
+2026-06-24 research: baseline 7.22 vs 7.30 -> METHODOLOGY CONFOUND (encoder + filter + alpha); cf-RPE +0.30 tier INTACT; cheap encoder-ablation cell handed off -> notes/research_surprise_baseline_7p22_vs_7p30_2x_drill_2026-06-24.md
