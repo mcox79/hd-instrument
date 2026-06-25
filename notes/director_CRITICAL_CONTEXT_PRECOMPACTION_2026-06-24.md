@@ -6,6 +6,164 @@ Read this FIRST after compaction to recover session state.
 
 Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical LM competitor. Brain is the existence proof. Stages: 1 base → 2 optimize → 3 higher functions → 4 LM equivalence. Don't skip.
 
+## 2026-06-25 12:45 POST-COMPACT SNAPSHOT — Barrier 1 DOUBLE-NEGATIVE + CERT 591
+
+### CERT 591 (+1 from Cell 2 v5 atomization just landed)
+- math::T3/EXP_substrate_compose_freq_routing_v5_DEFINITIVE — chain_grade (FREQ_ROUTED_DEEPER 1st Stage 2 architectural win; 5 seeds + cross-N replication + n_steps plateau)
+- meta::META/CROSS_N_REPLICATION_AS_DEFINITIVE_UPGRADE_CRITERION — cert-neutral meta
+- Cert-ladder 3-rule discipline now codified: PROSPECTIVE_BANDS_FRESH_SEEDS + M2_tight_rail_from_different_config + CROSS_N_REPLICATION
+
+### IN-FLIGHT (verified via remote logs 12:40)
+- Cell 2 v6 SEGREGATED_DUAL_W: GPU runner, started 12:08 PDT, ~30min in (no DONE yet)
+- Cell 6 v3 lock_in: remote CPU runner, started 11:44 PDT, ~55min in, partials at seeds 7+17 (last update 12:20)
+- Cell H' v2b NO_FOLDIAK: queued behind Cell 6; will dispatch when runner frees
+- Skunkworks NEXT batch: pointer-chain v2 + META_M6 + smoke-vs-full META (need fresh spawn; prior agent terminated after ack)
+
+### POST-COMPACT LANDINGS PROCESSED
+1. **Pointer-chain v2 BASELINE_RAIL_FIXED → HARD_FAIL** (smoke +52% misled). Full: BASELINE=0.650 ✓ (rail fixed) but POINTER_2HOP=0.4250 (HURTS by -22 pts), depth-retention BREAKS (5hop=0.122, 10hop=0.035). cv=0.107 fails HP_cv. **Barrier 1 multi-hop FAILED via consolidation AND pointer-chain — both substrate-native multi-hop mechanisms refuted.** Awaiting Skunkworks tier-rule.
+2. **2x drill on Consolidation v3 landed** — 3 load-bearing findings: (a) NAIVE-rail drift fully decoded (different V_P/n_chains regimes; pre-reg copied band without re-deriving = META_M6); (b) consolidation HURTS heldout EXPECTEDLY (compound atoms add crosstalk; same channel for both NAIVE+CONSOL → strictly degrades heldout); (c) brain analog mis-applied (substrate tests episodic consolidation; brain "always helps" requires SEMANTIC consolidation under feature-share + separate W matrices). Recommendation: **abandon compound-predicate consolidation as Barrier 1 closer; pivot to encoder-side / Wave D anisotropic; hold semantic-consolidation for future feature-share cell**.
+3. **Cell 2 v5 atomization complete** (Skunkworks; CERT 590→591; META cert-ladder codified)
+
+### STRATEGIC SYNTHESIS FILED
+`notes/research_barrier1_double_negative_substrate_product_definition_2026-06-25.md` — what substrate-product IS post-double-negative (3 options: A=2-hop ceiling final; B=Wave D encoder; C=semantic consolidation). Pre-committed interpretation rules for Cell H' v2b + Cell 2 v6 landings. Next-cell triage matrix.
+
+### NEXT-UP SKUNKWORKS WORK (queue after Cell 2 v5 atomization lands)
+- **HARD_FAIL atom** for pointer-chain v2 (Barrier 1 negative; substrate cannot escape multi-hop via either consolidation OR pointer-chain hybrid; load-bearing for L2 pivot to encoder)
+- **META_M6 atomization**: NAIVE-baseline-must-be-derived-from-current-regime-not-copied-from-prior-cell (recurring rail-mis-spec across consolidation v3 + pointer-chain v2 + freq-routing v2)
+- **+1 HARD_FAIL atom** for the smoke-vs-full Director Fix #28 violation: smoke at small chain count showed POINTER=0.98 +52% lift; full at production count showed POINTER=0.425 -22% loss. Smoke methodology insufficient for chain-count-sensitive mechanisms. Add discriminator to smoke harness: any mechanism whose lift depends on n_chains MUST smoke at chain_count >= 100 not 10-20.
+
+### Strategic implication (post double-negative)
+Barrier 1 multi-hop closure is OPEN as a substrate-native problem and NEITHER substrate primitive (compound-predicate consolidation, pointer-chain hybrid) can close it at production scale. Pivot lanes:
+- **(A) Wave D anisotropic encoder** — does the codebook need geometric structure (NOT label-based per Principle O, but emergent like DeepWalk/Olshausen)? Cell H' v2b in flight tests this at production V scan {200, 1000, 4000, 10000}.
+- **(B) Semantic consolidation via separate W matrices** — different cell entirely; needs feature-share extraction primitive. Defer.
+- **(C) Accept Barrier 1 as permanent ceiling** — substrate-product is 2-hop chain-grade and multi-hop requires external scaffold. This is the brain analog: hippocampus is single-step lookup; multi-hop reasoning requires PFC working-memory scaffold which the substrate doesn't have. May be the right answer.
+
+Cell 2 v6 SEGREGATED_DUAL_W (GPU; in flight) is testing whether theta-WHEN/gamma-WHAT brain analog avoids FDM intermod. If PASS this becomes a 3rd-pivot option (segregated W could host multi-hop without crosstalk).
+
+## 2026-06-25 12:17 SNAPSHOT — TWO CHAIN_GRADE_DEFINITIVE WINS + multi-blitz in flight (pre-compaction)
+
+### Today's DEFINITIVE wins (cert-locked or pending)
+
+1. **Cell I v4 PROSPECTIVE-BANDS → CHAIN_GRADE_DEFINITIVE (ATOMIZED at commit `992e4958`)**
+   - Principle O (USER's basis-vs-use-case + Mu-Viswanath cone-collapse + BIAS-13) is now CHAIN_GRADE_DEFINITIVE in cert
+   - Fresh seeds [42, 47, 51]; prospective bands locked via `ASSERT_PROSPECTIVE_BANDS_MATCH_V3()` at module import
+   - within_cat_cos=0.199-0.200 across 3 fresh seeds (mechanism diagnostic firing at designed value)
+   - V phase-diagram envelope sub-atom (V∈{200,300,500}; LABEL damage monotonic)
+   - DEEPWALK composition lift ruled MEASURED_MECHANISM (regime-dependent; pooled v2+v4 null)
+   - 4 atoms written (math chain-grade + math sub-atom + math MM + meta methodology)
+   - CERT N: 588 → 590 (+2)
+   
+2. **Cell 2 v5 DEFINITIVE → HARD_PASS_CHAIN_GRADE_DEFINITIVE (Skunkworks ruling in flight)**
+   - FREQ_ROUTED_DEEPER converts CHAIN_GRADE_PARTIAL → DEFINITIVE
+   - ARM_FREQ_DEEPER_N8192=7.1647 (lift +0.1477; cv=0.0009 across 5 seeds)
+   - Cross-N replication: ARM_FREQ_DEEPER_N4096 lift +0.1435 (rules out N=8192-specific)
+   - n_steps=3000 plateaued (rules out knob-cranking)
+   - Both sanity rails PASS
+   - Expected CERT +1 once Skunkworks atomizes (a49a954fd786e0f0a in flight)
+
+### In-flight cells (lands next 30min-3h)
+
+| Cell | Lane | Status | Notes |
+|---|---|---|---|
+| Cell 2 v6 SEGREGATED_DUAL_W | GPU | RUNNING ~10min in | tests theta-WHEN/gamma-WHAT brain analog avoids FDM intermod |
+| Cell 6 v3 lock-in | remote CPU | RUNNING ~22min in (run_index=4 clean) | tests CPU-routed temporal separation |
+| Cell H' v2b NO_FOLDIAK | dispatching | orchestrator pushing | 4 arms × 4 V values (200/1000/4000/10000); FOLDIAK dropped per axis-flip bug |
+| Consolidation v3 HELDOUT_FIX | local CPU | RUNNING | 3 chain classes [100,10,2] × K_GRID [1,3,10,50]; smoke showed K_THRESH gate works |
+| Pointer-chain v2 BASELINE_RAIL_FIXED | local CPU | pending | smoke: BASELINE=0.645 in band; POINTER=0.98 (+52%); HARD_PASS_BREAK_CEILING |
+
+### Active Claude agents (2)
+- Orchestrator dispatch Cell H' v2b NO_FOLDIAK (aa931f67e8a4d5a89)
+- Skunkworks Cell 2 v5 DEFINITIVE ruling (a49a954fd786e0f0a)
+
+### Bias categories MEMORY (A-S; 8 added today)
+A-L (original 12) + M (production-scale instrument calibration M1+M2+M3) + N (verify-referent + Cramer-Rao N1+N2) + O (basis-vs-use-case = USER principle) + P (anisotropy-hurts-retrieval Mu-Viswanath) + Q (suspect 1.000 results) + R (BIAS-13/14/15 engineered-vs-emergent contamination/regime/mismatch) + S (band-calibration: top1-vs-top5 + capacity-feasible + relative-bands)
+
+### Director Fix #28 over-claims caught today: 8
+Pattern: Director sees striking single-arm/single-seed numbers + frames as findings. Skunkworks/drill reads per-arm + pooled and shows noise or by-construction. Q discipline catches it.
+
+### Key persistent learnings
+- Principle O proven DEFINITIVELY (labels at basis = wrong; labels at use-case OK)
+- Substrate-product wants LESS imposed structure (Mu-Viswanath + 5-field convergence)
+- text8 is wrong corpus for substrate-product validation; concept-KG is right (labeled-text for Stage 3+ LM)
+- Phase-diagram navigation: each cell should scan operating envelope; not just one point
+- Cron unreliable; don't depend on it firing me; check proactively when USER away
+
+### Experimental archaeology (delivered earlier today)
+`notes/research_experimental_archaeology_comprehensive_inventory_2026-06-25.md` (755 lines / 5795 words)
+Capability × experiment + barrier × experiment matrices; 5 cross-cell relationships; gap analysis; substrate-product roadmap evidence map (per-claim STRONG/WEAK/REFUTED).
+Re-runnable tools: `data/_archaeology_*.py` (re-runs in 10s)
+Major finding: 65% of recent HARD_PASS results NOT in cert ledger; many "Store-proven" claims actually MIDDLE_BAND per their own verdict field.
+
+### Substrate-product evidence map (from archaeology)
+- **Memory**: STRONGLY SUPPORTED
+- **Composition**: STRONG at 2-hop; CONFOUND at compound depth
+- **Retrieval**: STRONG with learned projection; REFUTED with raw encoder at scale
+- **Audit**: STRONG for deletion/hallucination/paraphrase; REFUTED for medqa refuse
+- **Glass-box LM**: PARTIAL proof-of-life only
+
+### Agent baseline updates (today)
+- `MEMORY.md` index entry now lists bias categories M-S (was only M+N)
+- `.claude/agents/exp_dev.md` adds RECENT-DISCIPLINE section with 8 specific load-bearing failure modes from today (SoftHebb NaN, CUDA OOM despite --device cpu, by-construction K_THRESH=1, label-driven cone-collapse, unphysical bands, JL-oversatisfaction, timestamp-check, provenance rail config match, sigma0 cleanup integrity)
+
+### Push lane state
+HEALTHY at HEAD `992e4958` (post filter-repo + force-push earlier today). All Wave F + blitz commits pushed cleanly.
+
+### Consolidation v3 HARD_FAILed (12:22) — third consecutive failure
+
+Per-arm HELDOUT: NAIVE=0.85 (rail FAIL; expected 0.65), CONSOL_K1=0.007, K3=0.107, K10=0.107, K50=0.400, HYBRID=0.107. Consolidation HURTS not helps at this regime. Training arms all saturated 1.0.
+
+**Multi-hop consolidation primitive has failed 3 times (v1 by-construction, v2 collapsed gate + NaN, v3 mechanism-refuted).** 
+
+**Skunkworks SMOKING GUN finding (v3 per-class heldout breakdown)**: consolidator DESTROYS generalization on consolidated classes (→ 0%); untouched classes hit 100% via NAIVE 2hop path. K=50's "best" 0.40 is just arithmetic (1 destroyed × 30/50 + 2 untouched × 20/50). **The consolidation OPERATOR is actively breaking the chain, not failing to add lift.** Sustained HARD_FAIL ruling; +1 HARD_FAIL atom (Barrier 1 negative; load-bearing for L2 pivot). NAIVE rail miss is invalid-rail not bad-test (v3 changed V_C+V_P from beta-sweep regime). META rule atomized: per_class_consolidation_breakdown_discriminator.
+
+Barrier 1 remains OPEN; pivot recommendation = pointer-chain hybrid (in flight) + cleanup-every-step. Consolidation as substrate-product primitive is REFUTED for multi-hop closure.
+
+Skunkworks ruling on v3 + Research 2x drill both in flight at 12:24.
+
+**Pointer-chain v2 is now the primary Barrier 1 closer test.** Smoke showed BASELINE=0.645 ✓ + POINTER=0.98 = +52% lift. Currently RUNNING on local CPU.
+
+### NEXT STEPS FOR POST-COMPACTION-ME (priority order)
+
+**Immediate (when waking after compaction):**
+1. Read THIS critical context note FIRST
+2. Read `MEMORY.md` index (auto-loaded)
+3. Touch heartbeat: `touch d:/AI/hd-instrument/data/heartbeats/research.timestamp`
+4. Check landings:
+   ```
+   find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -90
+   scp -q "marsh@home:C:/dev/hd-instrument/data/remote_state_cache.json" "d:/AI/hd-instrument/data/remote_state_cache.json"
+   ```
+
+**Process landings (in expected order):**
+1. **Consolidation v3 HELDOUT_FIX** (local CPU; should land ~12:25-12:35) — read per-arm metrics; check heldout NOT NaN; check K_THRESH gating differentiates train across K values
+2. **Pointer-chain v2 BASELINE_RAIL_FIXED** (local CPU; ~12:45-13:00) — smoke showed BASELINE=0.645 ✓ + POINTER=0.98; if full reproduces → Barrier 1 closer
+3. **Cell 2 v6 SEGREGATED_DUAL_W** (GPU; ~13:00-13:30) — does theta-WHEN/gamma-WHAT brain analog avoid FDM intermod that v4 COMBINE created?
+4. **Cell 6 v3 lock-in** (remote CPU; ~13:30-14:00) — CPU-routed temporal separation; first clean test
+5. **Cell H' v2b NO_FOLDIAK** (remote CPU after Cell 6; ~17:00) — 4 arms × 4 V values phase-diagram; tests biology-native at production V; Stage 1.5 encoder closure question
+
+**Route each HARD_PASS landing to Skunkworks for tier ruling** (default UNDER-claim per Q discipline).
+
+**If pointer-chain v2 confirms HARD_PASS_BREAK_CEILING at full**: Barrier 1 is CHAIN_GRADE_DEFINITIVE via non-compositional pointer-chain hybrid → 3rd DEFINITIVE win today
+
+**If Cell 2 v6 SEGREGATED works**: theta-WHEN/gamma-WHAT brain analog avoids FDM intermod → first multiplicative architectural composition
+
+**If Cell H' v2b shows biology-native arms tied with random across all V**: Mu-Viswanath confirmed empirically; substrate doesn't need encoder upgrade (anisotropy hurts retrieval)
+
+**Standing user authorization:**
+- Auto mode active
+- Local CPU smoke gates re-enabled
+- Use remote resources when appropriate
+- USER will brief between sessions; can intervene at any time
+
+**Outstanding research (deferred):**
+- FOLDIAK v3 redesign (Research drill request filed at `notes/exp_dev_to_research_FOLDIAK_v3_redesign_request_2026-06-25.md`) — per-output-dim theta + bounded W_lat + scale-matched self-test
+
+**CERT trajectory today**: 588 → 590 (Cell I v4 atomized) → 591 expected (Cell 2 v5 pending Skunkworks) → +N more from in-flight cells.
+
+**The substrate-product principle is now in cert.** Principle O is the first definitive architectural commitment for substrate-product. Build forward from this.
+
+---
+
 ## 2026-06-25 11:10 SNAPSHOT — 7-cell blitz + archaeology in flight; pre-compaction state
 
 ### Cert gains from today
