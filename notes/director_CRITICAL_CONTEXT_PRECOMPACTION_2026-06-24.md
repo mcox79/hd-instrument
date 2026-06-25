@@ -6,6 +6,44 @@ Read this FIRST after compaction to recover session state.
 
 Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical LM competitor. Brain is the existence proof. Stages: 1 base → 2 optimize → 3 higher functions → 4 LM equivalence. Don't skip.
 
+## 2026-06-25 13:25 BASIS-FINALIZATION SNAPSHOT — 4 capabilities CLOSED today
+
+### Today's chain-grade-definitive closures (4)
+1. **Principle O** (Cell I v4; basis-vs-use-case labels): CHAIN_GRADE_DEFINITIVE — atomized
+2. **Stage 2 FREQ_ROUTED_DEEPER** (Cell 2 v5; +0.148 BPC over baseline): CHAIN_GRADE_DEFINITIVE — atomized
+3. **Barrier 1 multi-hop**: CLOSED — 3-for-3 REFUTED (consolidation v3 + pointer-chain v2 + WM-scaffolded v1). 2-hop ceiling now substrate-product permanent. Pointer-chain v2 + META_M6 atomized; WM-scaffolded pending Skunkworks; consolidation v3 awaiting back-fill atomize.
+4. **Refuse-gate audit-design** (Cell 2 v2; AUDIT_RELATION_CHECK 1.000 refuse on NEAR_DOMAIN_MIXED): HARD_PASS_BOTH_WORK — smarter-audit-alone fixes it; no composition needed. Awaiting Skunkworks tier-rule.
+
+### IN-FLIGHT (will close 2 more)
+- **Cell 2 v6 SEGREGATED_DUAL_W** (GPU): 4 seeds done (7, 13, 17, 23); ~17min/seed; likely landing within 20min. Closes Stage 2 robustness question.
+- **Cell H' v2b NO_FOLDIAK** (remote CPU): V200 + V1000 phase scan done; V4000 + V10000 remaining; ETA 90-120min. Closes encoder upgrade question.
+
+### Substrate basis after these land (PRE-COMMITTED)
+
+**What the substrate IS (final):**
+- Memory + composition + retrieval + audit device
+- 2-hop ceiling for declarative facts (permanent; per-hop cleanup fidelity is the constraint)
+- Working memory primitive (32 slots; PFC analog beats brain's 7±2)
+- Stage 2 frequency-routed depth architecture (cross-N replicated + n_steps plateau verified)
+- Random-bipolar codebook at basis (per Principle O + Mu-Viswanath)
+- Audit via subject + relation library-presence check (chain-grade)
+- Intent classification + templated response Stage 3 primitives (chain-grade)
+
+**What the substrate ISN'T (final):**
+- NOT a multi-hop reasoner beyond 2 hops
+- NOT a statistical LM competitor (per USER directive; Tier 4 deferred)
+- NOT a compound-query composer (subsumed by Barrier 1 closure)
+
+### Remaining open items (post-finalization)
+1. Long-depth sequence binding (chain-grade for short; only matters for sequence-using Stage 3+ apps)
+2. Generation capacity sweep (informational; deferred per USER)
+3. Heterogeneous-routing v2 with segregated stores (CONDITIONAL on Cell 2 v6 PASS)
+4. Foldiak v3 redesign (CONDITIONAL on Cell H' v2b biology arms)
+
+### Cert-trail back-fill (filed; non-urgent)
+1. Consolidation v3 HARD_FAIL atomize (ruling exists; atom missing)
+2. META_M4 + META_M5 atomize (ledger rows exist; atoms.jsonl entries missing)
+
 ## 2026-06-25 12:45 POST-COMPACT SNAPSHOT — Barrier 1 DOUBLE-NEGATIVE + CERT 591
 
 ### CERT 594 (Cell 2 v5 atomization + pointer-chain v2 HARD_FAIL + META_M6 landed)
