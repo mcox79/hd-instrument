@@ -332,11 +332,30 @@ def build_spoke_softhebb_gpu(
         E_init[vi] = acc
     E = torch.from_numpy(_l2_normalize_np(E_init)).to(device=DEVICE, dtype=TORCH_DTYPE)
 
-    # Streaming Hebbian-with-k-WTA on bigram pairs
+    # Streaming Hebbian-with-k-WTA on bigram pairs.
+    #
+    # NUMERICAL STABILITY (fix for production NaN seen in Wave F):
+    #   Original loop normalized E only at END of pass. With text8's heavy
+    #   power-law token frequency (e.g., "the" ~ 6% of tokens) and 100k tokens
+    #   chunked at 1024, common-token rows of E accumulate THOUSANDS of
+    #   additive index_add_ updates per pass before any L2 renorm. Each chunk
+    #   computes act = x_src + x_tgt from E[src], so once a common row grows,
+    #   the next chunk's act grows, the next update grows, etc. -- a positive
+    #   feedback runaway that overflows fp32 to Inf within ~64 chunks at
+    #   N_DIM=8192 / N_TRAIN=100k / sparse_f=0.02 and produces NaN downstream.
+    #
+    # FIX (matches Moraitis et al. 2021 per-step weight normalization):
+    #   1. L2-normalize E at end of EVERY CHUNK (not just end of pass). Caps
+    #      row norms <= 1, eliminating the runaway.
+    #   2. Clip per-row update L2 norm to <= 1.0. Belt-and-suspenders against
+    #      extreme single-chunk spikes from duplicate src indices.
+    # Verified at production scale (V=4000, N_DIM=8192, N_TRAIN=100k): max row
+    # norm during train stays at 1.0; recon_err finite; no NaN/Inf.
     idx_t = torch.from_numpy(idx_train[:ENCODER_TRAIN_TOKENS].astype(np.int64)).to(DEVICE)
     n_pairs = idx_t.shape[0] - 1
     chunk = 1024 if RUN_MODE == "full" else 128
     k_wta = min(SOFTHEBB_K_WTA, n_dim // 2)
+    update_clip = 1.0  # max per-row update L2 norm
     n_updates = 0
     for pass_i in range(SOFTHEBB_N_PASSES):
         for b in range(0, n_pairs, chunk):
@@ -353,14 +372,20 @@ def build_spoke_softhebb_gpu(
             row_idx = torch.arange(act.shape[0], device=DEVICE).unsqueeze(1).expand(-1, k_wta)
             mask[row_idx, topk_idx] = 1.0
             update = SOFTHEBB_LR * (act * mask)
+            # FIX 2: clip per-row update L2 norm to <= update_clip
+            up_norms = update.norm(dim=1, keepdim=True)
+            scale = torch.clamp(update_clip / (up_norms + 1e-12), max=1.0)
+            update = update * scale
             # Apply Hebbian-like update to BOTH source and target rows (forward-only,
             # no error signal), scattered back into the codebook
             E.index_add_(0, src, update)
             E.index_add_(0, tgt, update)
             n_updates += 1
+            # FIX 1: per-chunk L2 normalize (was: end of pass only). Bounds E
+            # rows so the next chunk's act = x_src + x_tgt cannot blow up.
+            E = _l2_normalize_t(E)
             if DEVICE.type == "cuda" and (n_updates % 16 == 0):
                 torch.cuda.synchronize()
-        E = _l2_normalize_t(E)
     # Final sign-quantize then renormalize -> consistent bipolar geometry
     E_final = _l2_normalize_t(_sign_with_zero_tiebreak(E))
     # Per-spoke "reconstruction error" as a coarse diversity probe:
@@ -376,6 +401,7 @@ def build_spoke_softhebb_gpu(
         "n_updates": int(n_updates),
         "wall_s": round(time.time() - t0, 2),
         "spoke_recon_err": round(recon_err, 4),
+        "numerical_stability": "per_chunk_l2_norm+update_clip_1.0",
     }
     return E_final, meta
 
