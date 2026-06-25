@@ -1,0 +1,131 @@
+{
+  "anchor_name": "substrate_basis_layer_label_contamination_proof_v3_band_corrected",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_BAND_CORRECTED_PRINCIPLE_REFUTED: RAND retr_top1=0.6850 top5=1.0000 comp_top5=0.8333 wc=-0.000 | LABEL_BASIS retr_top1=0.6550 top5=0.9750 comp_top5=0.8542 wc=0.197 | DW retr_top1=0.6633 top5=0.9767 comp_top5=0.7917 | OLS retr_top1=0.6833 top5=1.0000 comp_top5=0.7708 | LABEL_vs_RAND top1 delta=0.0300 (>=0.05?) comp_top5 delta=-0.0209 (>=0.10?) | PROVEN: top5={label<=False,rand>=True,emergent>=True} top1_rel={label_hurts=False,emergent_within=True} comp_rel={label_hurts=False,emergent_beats=False} mechanism_fired=True | REFUTE: label_top5_high=True label_not_below_rand=False | q=[] confound=[]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "basisLabelContamProof-v3_band_corrected: N_DIM=2048 V_C=100 V_cat=10 V_per_cat=10 V_P=6 M=600 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7] mode=smoke; PROVEN_TOP5 (primary): LABEL_TOP5<=0.90 RANDOM_TOP5>=0.95 EMERGENT_TOP5>=0.95; PROVEN_TOP1 (relative): LABEL_vs_RAND<=-0.05 EMERGENT_vs_RAND_tol=0.05; PROVEN_COMP (relative top5): LABEL_vs_RAND<=-0.10 EMERGENT_vs_LABEL>=0.10; DIAGNOSTIC: LABEL_within_cat_cos>=0.15; REFUTE: LABEL_TOP5>=0.95",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "M": 600,
+      "V_C": 100,
+      "V_cat": 10,
+      "V_P": 6,
+      "config_version": "basisLabelContamProof-v3_band_corrected: N_DIM=2048 V_C=100 V_cat=10 V_per_cat=10 V_P=6 M=600 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7] mode=smoke; PROVEN_TOP5 (primary): LABEL_TOP5<=0.90 RANDOM_TOP5>=0.95 EMERGENT_TOP5>=0.95; PROVEN_TOP1 (relative): LABEL_vs_RAND<=-0.05 EMERGENT_vs_RAND_tol=0.05; PROVEN_COMP (relative top5): LABEL_vs_RAND<=-0.10 EMERGENT_vs_LABEL>=0.10; DIAGNOSTIC: LABEL_within_cat_cos>=0.15; REFUTE: LABEL_TOP5>=0.95",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.685,
+            "top5": 1.0,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.6875,
+            "top5": 0.8333,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -0.000444444507593289,
+            "cross_cat_cos_mean": 0.00017222220776602626,
+            "within_cat_cos_std": 0.022294050082564354,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.11
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.655,
+            "top5": 0.975,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.625,
+            "top5": 0.8542,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19733333587646484,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.05692198500037193,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.1
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6633,
+            "top5": 0.9767,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.625,
+            "top5": 0.7917,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.13929809629917145,
+            "cross_cat_cos_mean": 0.021129019558429718,
+            "within_cat_cos_std": 0.09068519622087479,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.11
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6833,
+            "top5": 1.0,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.5,
+            "top5": 0.7708,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.00027777778450399637,
+            "cross_cat_cos_mean": 0.00011666668433463201,
+            "within_cat_cos_std": 0.02348002977669239,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.29
+        }
+      },
+      "elapsed_s": 0.6,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782404424.9975667
+    }
+  ],
+  "elapsed_s": 0.7,
+  "summary": "HARD_FAIL_BAND_CORRECTED_PRINCIPLE_REFUTED: RAND retr_top1=0.6850 top5=1.0000 comp_top5=0.8333 wc=-0.000 | LABEL_BASIS retr_top1=0.6550 top5=0.9750 comp_top5=0.8542 wc=0.197 | DW retr_top1=0.6633 top5=0.9767 comp_top5=0.7917 | OLS retr_top1=0.6833 top5=1.0000 comp_top5=0.7708 | LABEL_vs_RAND top1 delta=0.0300 (>=0.05?) comp_top5 delta=-0.0209 (>=0.10?) | PROVEN: top5={label<=False,rand>=True,emergent>=True} top1_rel={label_hurts=False,emergent_within=True} comp_rel={label_hurts=False,emergent_beats=False} mechanism_fired=True | REFUTE: label_top5_high=True label_not_below_rand=False | q=[] confound=[]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "V3 BAND-CORRECTED revival of v2 (substrate_basis_layer_label_contamination_proof_v1). Same code; only verdict bands corrected per Skunkworks Atom 2 (RULE_4arm_principle_band_must_be_capacity_feasible_at_chosen_M) and 3x deep drill. Primary metric: top5 retrieval (5x more headroom than top1). Secondary metric: relative top1 (the band the BIAS-13 principle actually makes). Composition: relative top5. Diagnostic: LABEL within_cat_cos >= 0.15 (mechanism fired).",
+  "BIAS_CHECKLIST": {
+    "BIAS_13_basis_label_contamination": "TESTED (LABEL_BASIS arm; primary)",
+    "BIAS_14_JL_oversatisfaction": "MITIGATED (N/V=27 in productive regime)",
+    "BIAS_15_prior_data_mismatch": "MITIGATED (10 cats / 300 concepts aligned)",
+    "BIAS_Q_suspect_1.000": "GUARDED (Q_SUSPECT_RETR_TOP1_MAX=0.995 flag)",
+    "META_RULE_BAND_CALIBRATION_TOP1_VS_TOP5_REGIME_CHECK": "ADOPTED v3: top1 ceiling estimated from cleanup-argmax noise floor (sqrt(M/N) crosstalk through V distractors) -> top5 chosen as primary discriminator; absolute top1 bands replaced with relative differential per Skunkworks Atom 2 RULE_4arm_principle_band_must_be_capacity_feasible."
+  },
+  "CONFOUND_AUDIT": {
+    "C1_axis_projection_bug": "MITIGATED: noise_scale=0.05 matches v2 (same code)",
+    "C2_degenerate_codes": "GUARDED via within_cat_cos diagnostic (flag if >= 0.95)",
+    "C3_capacity_saturation": "MITIGATED: M=600 / V=100 / N=2048 well below ~25k capacity",
+    "C3_retrofit_risk_band_tuning": "MITIGATED: (a) top5 discriminator was visible in v2 raw data BEFORE band tuning (LABEL_BASIS top5=0.806 vs RAND/DW/OF >= 0.995; 0.19 absolute gap); (b) relative-top1 gate is the literal statement of BIAS-13 (label contamination should HURT relative to no-label baseline; absolute baseline level is irrelevant); (c) Cell 7 drill confirmed cone-collapse mechanism on independent corpus BEFORE v2; (d) Skunkworks Atom 2 methodology rule PRE-DATES v3 author choice."
+  }
+}
