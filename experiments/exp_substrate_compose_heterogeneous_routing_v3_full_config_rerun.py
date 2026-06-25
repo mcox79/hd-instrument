@@ -1270,13 +1270,16 @@ def _instrumentation_selftest():
     _atexit_flush_partial()  # no-op (current_seed=None)
     print("[selftest] ST15 D2 atexit handler registered OK", flush=True)
 
-    # ST16 (NEW for v2_RESCUE): scope-reduction sanity -- N_DIM is even (orthog split safe)
+    # ST16 (v3 full-config rerun): config-coherence sanity -- N_DIM is even
+    # (orthog subspace split safe) and matches the documented v3 contract
+    # (N_DIM=8192, N_TRAIN=100k, 3 seeds). The earlier v2_RESCUE-pinned
+    # assertion (N_DIM==4096, N_TRAIN==50k, 2 seeds) is stale and removed.
     if RUN_MODE == "full":
         assert N_DIM % 2 == 0, "ST16 N_DIM must be even (orthog subspace split); got %d" % N_DIM
-        assert N_DIM == 4096, "ST16 v2_RESCUE expects N_DIM=4096 in full mode; got %d" % N_DIM
-        assert N_TRAIN == 50_000, "ST16 v2_RESCUE expects N_TRAIN=50000 in full mode; got %d" % N_TRAIN
-        assert len(SEEDS) == 2, "ST16 v2_RESCUE expects 2 seeds; got %d" % len(SEEDS)
-    print("[selftest] ST16 scope-reduction sanity OK (N_DIM=%d N_TRAIN=%d seeds=%d)" % (
+        assert N_DIM == 8192, "ST16 v3 expects N_DIM=8192 in full mode; got %d" % N_DIM
+        assert N_TRAIN == 100_000, "ST16 v3 expects N_TRAIN=100000 in full mode; got %d" % N_TRAIN
+        assert len(SEEDS) == 3, "ST16 v3 expects 3 seeds; got %d" % len(SEEDS)
+    print("[selftest] ST16 config-coherence sanity OK (N_DIM=%d N_TRAIN=%d seeds=%d)" % (
         N_DIM, N_TRAIN, len(SEEDS)), flush=True)
 
     print("[selftest] ALL PASS", flush=True)
