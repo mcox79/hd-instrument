@@ -110,3 +110,4 @@ data_remote_pull_staging/
 
 # filter-branch leftover (accidentally committed during the 2026-06-19 history-rewrite; never re-commit)
 .git-rewrite/
+data/substrate_repl_cache/*.pkl
