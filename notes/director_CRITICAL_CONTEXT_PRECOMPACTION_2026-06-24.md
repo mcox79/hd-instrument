@@ -8,6 +8,19 @@ Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical 
 
 ## MORNING 2026-06-25 STATUS UPDATE (post-Skunkworks tier ruling 07:40)
 
+### Engineered-vs-emergent drill landed (post 08:23) — 5-field convergence
+
+Pattern resolves to (d) conditional refined: engineered hurts at BASIS, helps at USE-CASE READOUT. Math (JL-oversatisfaction) + Brain (V1→IT→PFC) + ML (Sutton's bitter lesson) + Stats (bias-variance) + MatSci (spontaneous symmetry breaking) all converge. USER basis-vs-use-case principle vindicated.
+
+Number correction: Cell 5 NO_ROLES was 0.167 across 3 seeds NOT 0.250 single-seed. GRAMMATICAL-vs-NO_ROLES lift = −0.084 (still negative; pattern intact).
+
+**Cell H' interpretation rule (pre-committed)**:
+- HARD_PASS → stratification validated, Stage 1.5 closes
+- MIDDLE_BAND → scrutinize V-scale first (likely BIAS-14 again); do NOT conclude biology-native lost
+- HARD_FAIL → revive with different biology mechanism (7+ candidates) before declaring biology doesn't help
+
+Memory updated with bias category R (BIAS-13 basis-layer label contamination + BIAS-14 JL-oversatisfaction regime + BIAS-15 prior-data mismatch).
+
 ### Wave F Cell 5 ALSO ruled MM by Skunkworks (post 08:00)
 
 `substrate_role_tagged_compositional_generalization_on_concept_KG_v1`: HYBRID arm heldout=1.000 was by-construction. Label-driven encoder writes `E[i] = L2_norm(B[cat_of(i)] + 0.5*noise)` → same-category instances share dominant basis vector at cos≈0.894 → category-collapse → argmax trivially correct. Role-binding contributed NOTHING; `is_a` atoms written to W but never accessed at retrieval. Mechanism = same-category lookup, not compositional generalization.
