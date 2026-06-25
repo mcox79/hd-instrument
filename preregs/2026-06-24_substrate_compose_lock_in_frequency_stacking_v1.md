@@ -86,7 +86,25 @@ Initial GPU dispatch HARD_FAILed with CUDA OOM on 8GiB GPU: tried to allocate
 holds 3 separate W matrices simultaneously (3 * N_DIM^2 * 4 bytes = 768MB at
 N=8192 fp32) plus encoder state plus per-batch matmul intermediates (tgt @ src
 broadcast at INGEST_CHUNK=4096). At v1 full config this exceeds 8GiB ceiling.
-CPU has 64GB RAM (8x headroom); cell auto-detects via DEVICE = cuda if available
-else cpu, so no code change required. Mechanism (lock-in frequency stacking)
-is matmul-bound but not GPU-bound; CPU is correct fallback. Discriminators
-and HARD bands UNCHANGED -- only wall-time and routing changed.
+CPU has 64GB RAM (8x headroom); mechanism (lock-in frequency stacking) is
+matmul-bound but not GPU-bound; CPU is correct fallback. Discriminators and
+HARD bands UNCHANGED -- only wall-time and routing changed.
+
+## Wave F v2 device-override fix (2026-06-26)
+Wave F initial reroute relied on `DEVICE = cuda if available else cpu` to
+auto-fall-back. This was INCORRECT: the remote_cpu_queue consumer machine
+DOES have CUDA visible, so the cell ran on CUDA -> OOM at 8GiB anyway. Queue
+routing alone does not enforce in-process device choice.
+
+v2 fix: added `--device {auto,cpu,cuda}` argparse flag plus `HDLAB_DEVICE`
+env var; default `auto` preserves backward compatibility. With `--device
+cpu` (or `HDLAB_DEVICE=cpu`), DEVICE is forced to torch.device("cpu")
+regardless of torch.cuda.is_available().
+
+Dispatch invocation for v2 MUST include `--device cpu` in the cell argv
+when routing to remote_cpu_queue. Self-test PASS on all three modes:
+  - default (auto): DEVICE = cpu on laptop (no CUDA) -- PASS
+  - --device cpu:   DEVICE = cpu explicit -- PASS
+  - HDLAB_DEVICE=cpu env: DEVICE = cpu via env -- PASS
+
+Code change only; HARD bands, discriminators, arms, and config UNCHANGED.

@@ -84,6 +84,17 @@ F_MOD_STDP = 5.0
 _P = argparse.ArgumentParser()
 _P.add_argument("--self-test", action="store_true", dest="self_test")
 _P.add_argument("--smoke", action="store_true")
+# --device override: queue routing (remote_cpu vs overnight) does NOT enforce
+# the in-process DEVICE choice. The consumer machine has CUDA, so a CPU-routed
+# cell without explicit --device cpu still ran on CUDA -> OOM at 8GiB
+# (Wave F, 2026-06-25). Default "auto" preserves backward compatibility;
+# "cpu"/"cuda" force the device regardless of cuda.is_available().
+_P.add_argument(
+    "--device", choices=["auto", "cpu", "cuda"], default="auto",
+    help="Override DEVICE: 'auto' (current behavior: cuda if available else cpu), "
+         "'cpu' or 'cuda' (force). Use 'cpu' for remote_cpu_queue dispatch on "
+         "consumer machines that have CUDA visible but where the cell must run CPU."
+)
 _ARGS, _ = _P.parse_known_args()
 
 _HDLAB_EXP_NAME = os.environ.get("HDLAB_EXP_NAME", "")
@@ -92,7 +103,18 @@ RUN_MODE = "smoke" if (_ARGS.smoke or _ARGS.self_test or _NAME_SAYS_SMOKE) else 
     "HDLAB_RUN_MODE", "full"
 ).lower()
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# --device honors order: (1) explicit CLI flag, (2) HDLAB_DEVICE env, (3) auto
+_DEVICE_OVERRIDE = _ARGS.device if _ARGS.device != "auto" else os.environ.get(
+    "HDLAB_DEVICE", "auto"
+).lower()
+if _DEVICE_OVERRIDE == "cpu":
+    DEVICE = torch.device("cpu")
+elif _DEVICE_OVERRIDE == "cuda":
+    if not torch.cuda.is_available():
+        raise RuntimeError("--device cuda requested but torch.cuda.is_available() is False")
+    DEVICE = torch.device("cuda")
+else:
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 TORCH_DTYPE = torch.float32
 
 # Config
