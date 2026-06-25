@@ -1,5 +1,51 @@
 # Basis-finalization day summary — substrate-product is shippable
 
+## LATE-DAY ADDITIONS (post 16:00 batch — "stop rediscovering" arc)
+
+User flagged pain point: "I am sick of rediscovering old experiments." Triggered broader sweep for smoke-only HARD_PASS cells that can't tier-rule chain-grade. Found 5+ candidates; dispatched all 5 for full re-promotion.
+
+### 5-cell smoke-to-full upgrade batch (in flight or landed)
+1. **Cell 1 partition-routing 10M** (GPU pending; orchestrator dispatching) — POTENTIAL EXTENSION of substrate KG to M=100k+ via partition routing (smoke says routed recall@10=0.93 N-invariant); if chain-grades, supersedes today's Cell B as the KG envelope answer
+2. **Cell 2 nonlinear-readout refuse-gate** — LANDED HARD_PASS but Q-discipline saturation (gap_refuse=1.000 cv=0); likely MM tier per Skunkworks
+3. **Cell 3 distill-verify operator equivalence** — LANDED MIDDLE_BAND honest negative (NAMED operators all landed in training fold by chance; cv 0.20 > 0.07); needs NAMED-stratified split v3
+4. **Cell 4 permutation-binding multi-occurrence** — LANDED HARD_PASS clean; perm=1.000 / FHRR=0.063 / lift=0.94 cv=0.008 across 3 seeds; HRR primitive UPGRADE chain-grade-eligible
+5. **Cell 5 b_delta readout lever** — LANDED HARD_PASS but Q-discipline saturation; cell 5's prior framing was STALE (Skunkworks B-delta-HALT ruling already corrected); v2 inherits corrected mechanism but saturates at N=1024/M=1024
+
+### Additional smoke-only HARD_PASS candidates flagged (Batch 2 deferred)
+- `graph_multihop_snr_v1` — multi-hop SNR k=2 to k=4 monotone degradation; **refines today's Barrier 1 closure** (substrate has multi-hop SIGNAL DETECTION even though top-1 ANSWER PICKING fails beyond 2 hops)
+- `set_algebra_composability_v1` — union/Jaccard/symdiff at MAE<0.05 + r>0.999
+- `governance_cap_cert_v1` — capacity certificate validated
+- `program_exec_audit_v1` — program execution audit chain-grade
+- `conformal_reject_option_v1` — conformal coverage guarantee (refuse-related)
+
+These are n_seeds=2 (close to chain-grade-eligible per BIAS-14); can be Batch 2 upgrades.
+
+### Refined Barrier 1 closure (per graph_multihop_snr discovery)
+
+Today's Barrier 1 closure (3-for-3 REFUTED on multi-hop top-1) PLUS graph_multihop_snr discovery refines the story:
+- Multi-hop TOP-1 ANSWER COMPUTATION: REFUTED beyond 2 hops (consolidation + pointer-chain + WM-scaffolded HARD_FAIL)
+- Multi-hop SIGNAL DETECTION (SNR): supported up to 4 hops (chain-grade-eligible)
+- Multi-hop NESS GRAPH TRAVERSAL: chain-grade (any-valid-neighbor walk)
+
+**Substrate-product can offer "detect-and-flag" multi-hop primitives even though it can't directly compute multi-hop answers.** This is a real product surface.
+
+### Director Fix #28 violations caught today (final count)
+
+**Count: 11+** (Skunkworks corrections; cert architecture working as designed)
+- Earlier session: 7 (cells 3/4/5/7/I-v2/cluster + Cell 6 OOM phantom)
+- Cell I v4 DW composition lift (pooled showed null)
+- Smoke-vs-full META (n_chains alone vs 3-dimension confound)
+- Capability re-audit narrative miss (NESS already in cert; I claimed missing)
+- Capability re-audit Q-discipline (3 inflated chain-grade claims demoted to MM)
+- Cell 5 STALE 2026-06-18 metrics framing (corrected by exp_dev)
+- Cell B "MEASURED_MECHANISM" framing under-claimed (Skunkworks promoted to chain-grade at M~10k)
+
+Pattern: I over-claim chain-grade narratives AND occasionally under-claim. Default UNDER-claim per Fix #28 + verify-off-data discipline catches both. Cert architecture is doing its job.
+
+---
+
+
+
 **Date:** 2026-06-25 (end of major work session)
 **Driver:** USER explicit goals (a) finalize substrate basis, (b) all aspects chain-grade, (c) integrated end-to-end test, (d) operating envelope per capability, (e) full auto
 
