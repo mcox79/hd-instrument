@@ -1,0 +1,129 @@
+{
+  "anchor_name": "substrate_basis_layer_label_contamination_proof_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: RAND retr=0.685 comp=0.688 wc=-0.000 | LABEL_BASIS retr=0.655 comp=0.625 wc=0.197 cc=0.000 | DW retr=0.663 comp=0.625 | OLS retr=0.683 comp=0.500 | proven_label_retr=False proven_random_retr=False proven_emergent=True proven_label_comp=False proven_random_comp=False | refute=False | q=[] confound=[]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "basisLabelContamProof-v1: N_DIM=2048 V_C=100 V_cat=10 V_per_cat=10 V_P=6 M=600 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7] mode=smoke; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 2048,
+      "M": 600,
+      "V_C": 100,
+      "V_cat": 10,
+      "V_P": 6,
+      "config_version": "basisLabelContamProof-v1: N_DIM=2048 V_C=100 V_cat=10 V_per_cat=10 V_P=6 M=600 retr=recall_stored comp_held=0.20 sparse_f=0.020 K_WTA=5 arms=['ARM_RANDOM_BIPOLAR', 'ARM_LABEL_BASIS_AXIS_PROJECTION', 'ARM_EMERGENT_DEEPWALK', 'ARM_EMERGENT_OLSHAUSEN_FIELD'] seeds=[7] mode=smoke; PROVEN: LABEL_BASIS_RETR<=0.65 RANDOM_RETR>=0.80 EMERGENT_TOL=0.05 LABEL_COMP<=0.55 RANDOM_COMP>=0.70; REFUTE LABEL_RETR>=0.80 OR RANDOM_RETR<=0.65",
+      "_llm_forward_calls_at_inference": 0,
+      "arms": {
+        "ARM_RANDOM_BIPOLAR": {
+          "arm": "ARM_RANDOM_BIPOLAR",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.685,
+            "top5": 1.0,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.6875,
+            "top5": 0.8333,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": -0.000444444507593289,
+            "cross_cat_cos_mean": 0.00017222220776602626,
+            "within_cat_cos_std": 0.022294050082564354,
+            "arm": "ARM_RANDOM_BIPOLAR"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.1
+        },
+        "ARM_LABEL_BASIS_AXIS_PROJECTION": {
+          "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.655,
+            "top5": 0.975,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.625,
+            "top5": 0.8542,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.19733333587646484,
+            "cross_cat_cos_mean": 0.0,
+            "within_cat_cos_std": 0.05692198500037193,
+            "arm": "ARM_LABEL_BASIS_AXIS_PROJECTION"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.09
+        },
+        "ARM_EMERGENT_DEEPWALK": {
+          "arm": "ARM_EMERGENT_DEEPWALK",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6633,
+            "top5": 0.9767,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.625,
+            "top5": 0.7917,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.13929809629917145,
+            "cross_cat_cos_mean": 0.021129019558429718,
+            "within_cat_cos_std": 0.09068519622087479,
+            "arm": "ARM_EMERGENT_DEEPWALK"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.11
+        },
+        "ARM_EMERGENT_OLSHAUSEN_FIELD": {
+          "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD",
+          "seed": 7,
+          "retrieval": {
+            "top1": 0.6833,
+            "top5": 1.0,
+            "n": 600
+          },
+          "composition": {
+            "top1": 0.5,
+            "top5": 0.7708,
+            "n": 48
+          },
+          "diagnostics": {
+            "within_cat_cos_mean": 0.00027777778450399637,
+            "cross_cat_cos_mean": 0.00011666668433463201,
+            "within_cat_cos_std": 0.02348002977669239,
+            "arm": "ARM_EMERGENT_OLSHAUSEN_FIELD"
+          },
+          "n_ingested": 600,
+          "elapsed_s_arm": 0.3
+        }
+      },
+      "elapsed_s": 0.6,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782402379.5680232
+    }
+  ],
+  "elapsed_s": 0.6,
+  "summary": "MIDDLE_BAND: RAND retr=0.685 comp=0.688 wc=-0.000 | LABEL_BASIS retr=0.655 comp=0.625 wc=0.197 cc=0.000 | DW retr=0.663 comp=0.625 | OLS retr=0.683 comp=0.500 | proven_label_retr=False proven_random_retr=False proven_emergent=True proven_label_comp=False proven_random_comp=False | refute=False | q=[] confound=[]",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "USER directive 2026-06-25: 4-arm BIAS-13 + Principle O proof. Labels at basis layer (ARM_LABEL_BASIS only) HURT retrieval vs random + emergent; 3 of 4 arms ZERO LABELS. Substrate-native concept-KG; retrieval+composition; JL-discriminating regime V=300 N=8192 N/V=27.",
+  "BIAS_CHECKLIST": {
+    "BIAS_13_basis_label_contamination": "TESTED (LABEL_BASIS arm directly)",
+    "BIAS_14_JL_oversatisfaction": "MITIGATED (N/V=27 in productive regime)",
+    "BIAS_15_prior_data_mismatch": "MITIGATED (10 cats / 300 concepts aligned)",
+    "BIAS_Q_suspect_1.000": "GUARDED (Q_SUSPECT_RETR_MAX=0.995 flag)"
+  },
+  "CONFOUND_AUDIT": {
+    "C1_axis_projection_bug": "MITIGATED: noise_scale=0.05 matches cell_v1 reference",
+    "C2_degenerate_codes": "GUARDED via within_cat_cos diagnostic (flag if >= 0.95)",
+    "C3_capacity_saturation": "MITIGATED: M=600 / V=100 / N=2048 well below ~25k capacity"
+  }
+}
