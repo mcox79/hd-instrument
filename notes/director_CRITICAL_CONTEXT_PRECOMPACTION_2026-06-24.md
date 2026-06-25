@@ -6,6 +6,65 @@ Read this FIRST after compaction to recover session state.
 
 Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical LM competitor. Brain is the existence proof. Stages: 1 base → 2 optimize → 3 higher functions → 4 LM equivalence. Don't skip.
 
+## 2026-06-25 11:10 SNAPSHOT — 7-cell blitz + archaeology in flight; pre-compaction state
+
+### Cert gains from today
+- **Cell I v3 → CHAIN_GRADE_PARTIAL** (basis-vs-use-case principle proven; Skunkworks ruled MM→partial at 10:43)
+- **Cell 2 v4 ARM_FREQ_DEEPER_TRAIN → CHAIN_GRADE_PARTIAL** (first Stage 2 architectural win; +0.148 BPC over baseline)
+- **Cell 2 v4 ARM_FREQ_COMBINE_W_THETA → HARD_FAIL atom** (honest negative; FDM intermodulation per drill)
+- **Cell H' OLSHAUSEN-tied-with-random → NEGATIVE-IN-REGIME atom** (biology-native at V=4000 doesn't help; informative null)
+- **Net CERT N: +3 to +4 from today**
+- 2 new META atoms: `RULE_retrospective_band_correction_max_one_tier_lift` + `RULE_sigma0_cleanup_integrity_gate_per_arm`
+
+### Cell 6 OOM was a PHANTOM (drill finding)
+The CUDA OOM I reported was from metrics written 58min BEFORE the b522c755 fix. Fix structurally correct (verified). Cell 6 just needs redispatch — no code change. **7th Director Fix #28 over-claim caught today (timestamp-check bias).**
+
+### Cell H' Stage 1.5 encoder verdict (per drill correction)
+- RANDOM_BIPOLAR: control
+- OLSHAUSEN_FIELD: tied with random (legitimate negative-in-regime; no lift at V=4000)
+- DEEPWALK: sigma0=0.94 STRUCTURAL not bug (tail-node degree-1; brain-aligned partial recall)
+- FOLDIAK: REAL bug (anti-Hebbian without homeostatic threshold → rank-1 collapse)
+- KOHONEN: sigma0=1.0 pristine; **genuine HARD_FAIL null** (Kohonen SOM doesn't help substrate)
+
+**Substrate-product implication**: 3 of 5 biology-native arms gave clean negative findings at production V; substrate may genuinely NOT need anisotropic encoder upgrade (Mu-Viswanath confirmed empirically).
+
+### 7-cell blitz in flight (authoring; will dispatch when done)
+1. Cell I v4 PROSPECTIVE-BANDS (Agent 1; local CPU; CHAIN_GRADE_PARTIAL → DEFINITIVE)
+2. Consolidation v2 PROPER TEST (Agent 1; CPU; K_THRESH>1 + held-out; tests memory primitive cleanly)
+3. Pointer-chain hybrid (Agent 1; CPU; non-compositional escape hatch)
+4. Cell H' v2 SURGICAL FOLDIAK + V phase-diagram scan (Agent 2; remote CPU; ~3h)
+5. Cell 2 v5 DEFINITIVE (Agent 3; GPU; 5 seeds + N=4096 replication; converts CHAIN_GRADE_PARTIAL → DEFINITIVE)
+6. Cell 2 v6 SEGREGATED_DUAL_W (Agent 3; GPU; theta-gamma brain analog; tests segregation avoids FDM intermod)
+7. Cell 6 v3 REDISPATCH (orchestrator; no authoring; just rerun per phantom finding)
+
+### Experimental archaeology (Agent 4) in flight
+USER directive: properly catalog ALL experiments + capability × experiment matrix + cross-cell relationships + gap analysis. Addresses recurring referent-mislabel pain. Wall budget up to 90min. Output: `notes/research_experimental_archaeology_comprehensive_inventory_2026-06-25.md`.
+
+### Bias master checklist current (memory)
+Categories A-L (original 12) + M (production-scale instrument calibration M1+M2+M3) + N (verify-referent + Cramer-Rao N1+N2) + O (basis-vs-use-case USER principle) + P (anisotropy-hurts-retrieval Mu-Viswanath) + Q (suspect 1.000 results) + R (BIAS-13/14/15 contamination/regime/mismatch) + S (band-calibration regime checks S1+S2+S3). 8 new categories today.
+
+### Director Fix #28 violations caught: 7 (today's run)
+1. Cell 3 SEMANTIC v3 (yesterday morning saturation)
+2. Cell 4 consolidation by-construction (yesterday morning)
+3. Cell 5 HYBRID category-collapse (yesterday afternoon)
+4. Cell 7 framing (encoder)
+5. Cell I v2 "emergent lift" framing (per-seed flipped sign)
+6. (counted as part of cluster)
+7. Cell 6 OOM phantom (timestamp-check bias; this morning)
+Pattern: I see striking single-seed/single-point numbers and frame as findings; Skunkworks reads per-seed and shows noise OR drill reads timestamps and finds artifact.
+
+### Standing strategic principles
+- USER directive: NO LABELS at basis layer; labels OK at use-case readout (Principle O)
+- Engineered structure HURTS at basis; helps at use-case readout with data-overridable form (5-field convergence)
+- text8 is wrong corpus for substrate-product validation; concept-KG is right; labeled-text needed for Stage 3+ LM
+- Substrate-product = memory + composition + retrieval + audit device; NOT statistical LM competitor
+- Phase-diagram navigation discipline: each new cell should scan operating envelope, not just one point
+
+### Cron failure mode noted
+Session-only cron + ScheduleWakeup did NOT reliably fire during USER's hour away. I went silent at 09:22 and stayed silent until USER returned at 10:36. **For overnight reliability, can't depend on cron alone — must be proactive at any opportunity.**
+
+---
+
 ## MORNING 2026-06-25 STATUS UPDATE (post-Skunkworks tier ruling 07:40)
 
 ### Engineered-vs-emergent drill landed (post 08:23) — 5-field convergence
