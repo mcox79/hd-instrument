@@ -8,6 +8,18 @@ Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical 
 
 ## MORNING 2026-06-25 STATUS UPDATE (post-Skunkworks tier ruling 07:40)
 
+### Wave F Cell 5 ALSO ruled MM by Skunkworks (post 08:00)
+
+`substrate_role_tagged_compositional_generalization_on_concept_KG_v1`: HYBRID arm heldout=1.000 was by-construction. Label-driven encoder writes `E[i] = L2_norm(B[cat_of(i)] + 0.5*noise)` → same-category instances share dominant basis vector at cos≈0.894 → category-collapse → argmax trivially correct. Role-binding contributed NOTHING; `is_a` atoms written to W but never accessed at retrieval. Mechanism = same-category lookup, not compositional generalization.
+
+META_M6 + META_M7 atomized: label-driven encoder writes category-equivalence-class (pre-fuses heldout with trained); role-binding lift attribution requires encoder-factor controlled.
+
+USER's "roles cluster" insight: direction-correct (+0.167 mean across seeds, all positive, paired-t p≈0.03) but small magnitude; needs follow-up cell with encoder confound CONTROLLED.
+
+**Strengthens Principle O**: labels at basis layer cause category-collapse. Cell H' biology-native unsupervised encoder is now the ONLY remaining encoder path.
+
+**Director Fix #28 recurring count: 3 of 3 this morning** (Cell 3 saturation, Cell 4 K_THRESH=1, Cell 5 category-collapse). Bias category Q added to memory: "suspect 1.000 results until Skunkworks rules."
+
 ### Wave E HARD_PASSes BOTH RULED MEASURED_MECHANISM by Skunkworks
 
 **Cell 3 (SEMANTIC v3 cv-tightening) MM**: A3 already at metric ceiling in v2; cv-tightening can't upgrade what's at cv=0.000. A4 actually DEGRADED v2→v3 (0.708→0.533, -25% rel); max_cv WORSENED 0.083→0.125. By-construction saturation; cert delta=0.
