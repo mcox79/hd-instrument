@@ -6,6 +6,31 @@ Read this FIRST after compaction to recover session state.
 
 Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical LM competitor. Brain is the existence proof. Stages: 1 base → 2 optimize → 3 higher functions → 4 LM equivalence. Don't skip.
 
+## MORNING 2026-06-25 STATUS — substrate INTACT, three instrument bugs identified
+
+### Wins overnight
+- **SEMANTIC battery v2 FULL: HARD_PASS 6/6 arms at production N=8192** (A3 generalization top1=1.000 PRIMARY). cv=0.083 above 0.05 chain-grade-DEFINITIVE threshold; needs cv-tightening (v3 dispatched).
+- **Calibration ECE-PRIMARY: HARD_PASS_CHAIN_GRADE** — ECE 0.017 = 26.9x reduction over raw 0.4576. Audit was right: pearson_r at 9% accuracy was Cramer-Rao-capped at ~0.13.
+- **Stage 1 definitive algebra battery: STAGE_1_CHAIN_GRADE_ALIVE 5/8 PASS** — CORE / CAP 25000+ / CL forget=0.0000 / NOISE sigma_cliff=8.0 all PASS.
+- **hdlab beta-convention bug fix shipped** — verification test green.
+- **Encoder-leakage MIDDLE_BAND**: real leakage=0.13 BPC (NOT v1's 0.44); B/C/D all at bigram floor.
+
+### Negative — multi-hop ceiling CONFIRMED upstream of decoder
+- **Soft-chain beta-sweep HARD_FAIL** — at ALL betas {0.5, 2, 10, 50, 500, 8192} top1 ≤ baseline 0.65. Sanity rail OK (beta=8192 reproduces baseline). META prediction validated: multi-hop limit is encoder/W-capacity, NOT decoder weakness.
+- **Audit-trail v2 at proper power HARD_FAIL_DECISIVE** — V3 prov=0.16 vs NAIVE=0.22 (V3 WORSE). Mechanism doesn't transfer to random-bipolar HRR.
+
+### Three production-scale "failures" — ALL instrument bugs, NOT mechanism refutations (5x drill verified)
+- **Cell 7 (cross-layer FULL READOUT_DEGENERATE)**: verdict-classifier bug. Triggered on raw_bpc_at_T1=11.55 near vocab-entropy 11.97 — but at V=4000 T=1.0 CE_floor formula MATHEMATICALLY FORCES near-uniform. TUNED metric: best_indep BPC=7.17 BEATS unigram by 0.57 AND independent BEATS shared by **+0.376** (architectural prediction HOLDS). **Revival: reclassify existing data → SOFT_HARD_PASS predicted (P=0.75). NO new cell needed.**
+- **Cell 8 (hub-spoke v2 MIDDLE_BAND)**: REAL bug (broken SoftHebb spoke NaN + cf-RPE gates collapsed to broken spoke + sign-sum bundle loses 0.5·log(K) MI vs MRC). Diversity_cv=0.911 (1000x v1) is real. **Revival: v3 with per-spoke health check + MRC bundle + LR-trained gates (P=0.55).**
+- **Cell 9 (heterog routing HARD_FAIL_PROVENANCE)**: rail-config mismatch. Rail 7.3065 measured at N=8192/N_TRAIN=100k/3seed/f=0.05; v2 ran at N=4096/N_TRAIN=50k/2seed. Half-N predicts +0.15-0.30 BPC drift; observed +0.35 fits. Tolerance 0.05 INSIDE cross-config noise floor 0.20-0.45. Underneath: ARM_FREQ_ROUTED_K2 still beats baseline by +0.22 BPC. **Revival: v3 full-config rerun (P=0.65).**
+
+**Net:** substrate mechanisms ALL INTACT across cells 7-9. Wave B/C cell-author template added new verdict classifiers without calibrating for production-regime math. Memory updated with bias category M (M1+M2+M3) + N (N1+N2).
+
+### Wave D in flight (remote-only per USER embargo on local smokes)
+- Cell 8 v3 MRC + health-check + LR gates → GPU (via orchestrator handoff)
+- Cell 9 v3 full-config rerun → GPU (via orchestrator handoff)
+- SEMANTIC v3 cv-tightening (5 seeds, V_cats=12) → remote CPU
+
 ## ENCODER-LEAKAGE FAIR-REGIME RETEST LANDED — MIDDLE_BAND (22:42 UTC)
 
 Decisive cell for substrate-as-LM picture. 4 arms, 3 seeds, V=20000, properly-converged clean w2v.
