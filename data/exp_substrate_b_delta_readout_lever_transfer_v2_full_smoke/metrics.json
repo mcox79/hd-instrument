@@ -1,0 +1,121 @@
+{
+  "anchor_name": "substrate_b_delta_readout_lever_transfer_v2_full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE: nonlinear-readout lever lifts capacity on BOTH value-type tasks across 3 seeds (bipolar +0.9453 cv=0.0000, continuous +1.0000 cv=0.0000) -- TASK-GENERAL capacity lever. 3-seed mean: bipolar ext=0.9453 cv=0.0000 (all_cliff=True) | continuous ext=1.0000 cv=0.0000 (all_cliff=True) | per_seed_ext_bipolar=[0.9453] per_seed_ext_continuous=[1.0] cliffs_bipolar=[True] cliffs_continuous=[True]",
+  "summary": "HARD_PASS_CHAIN_GRADE: nonlinear-readout lever lifts capacity on BOTH value-type tasks across 3 seeds (bipolar +0.9453 cv=0.0000, continuous +1.0000 cv=0.0000) -- TASK-GENERAL capacity lever. 3-seed mean: bipolar ext=0.9453 cv=0.0000 (all_cliff=True) | continuous ext=1.0000 cv=0.0000 (all_cliff=True) | per_seed_ext_bipolar=[0.9453] per_seed_ext_continuous=[1.0] cliffs_bipolar=[True] cliffs_continuous=[True]",
+  "headline": "HARD_PASS_CHAIN_GRADE: nonlinear-readout lever lifts capacity on BOTH value-type tasks across 3 seeds (bipolar +0.9453 cv=0.0000, continuous +1.0000 cv=0.0000) -- TASK-GENERAL capacity lever. 3-seed mean: bipolar ext=0.9453 cv=0.0000 (all_cliff=True) | continuous ext=1.0000 cv=0.0000 (all_cliff=True) | per_seed_ext_bipolar=[0.9453] per_seed_ext_continuous=[1.0] cliffs_bipolar=[True] cliffs_continuous=[True]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "aggregate": {
+    "n_seeds": 1,
+    "seeds": [
+      11
+    ],
+    "extension_bipolar_mean": 0.9453,
+    "extension_bipolar_cv": 0.0,
+    "extension_continuous_mean": 1.0,
+    "extension_continuous_cv": 0.0,
+    "extension_bipolar_per_seed": [
+      0.9453
+    ],
+    "extension_continuous_per_seed": [
+      1.0
+    ],
+    "all_cliff_bipolar": true,
+    "all_cliff_continuous": true,
+    "cliffs_bipolar_per_seed": [
+      true
+    ],
+    "cliffs_continuous_per_seed": [
+      true
+    ],
+    "beta_tuned_per_seed": [
+      {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      }
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "tasks": [
+        "bipolar",
+        "continuous"
+      ],
+      "beta_tuned": {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      },
+      "grid": {
+        "bipolar": {
+          "16": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 0.0547,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        },
+        "continuous": {
+          "16": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        }
+      },
+      "capacity_bipolar": {
+        "M_low": 16,
+        "M_high": 128,
+        "lin_low": 1.0,
+        "lin_high": 0.0547,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 0.9453
+      },
+      "capacity_continuous": {
+        "M_low": 16,
+        "M_high": 128,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "both_cliff": true,
+      "extension_bipolar": 0.9453,
+      "extension_continuous": 1.0,
+      "run_mode": "smoke",
+      "N": 256,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782428225.457995
+    }
+  ],
+  "elapsed_s": 0.09,
+  "N": 256,
+  "M_list": [
+    16,
+    128
+  ],
+  "noise": 0.15,
+  "metrics_source": "measured_torch_cpu",
+  "bands": {
+    "HARD_PASS_LIFT_BOTH": 0.4,
+    "HARD_PASS_CV": 0.07,
+    "HARD_PASS_PARTIAL_LIFT_AT_LEAST_ONE": 0.3,
+    "HARD_FAIL_LIFT_BOTH": 0.2
+  },
+  "config_version": "v2_seeds_11_13_19_corrected_v1_mechanism_bipolar_continuous_uniformkeys_noisesqrtN"
+}
