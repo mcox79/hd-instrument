@@ -1,0 +1,101 @@
+{
+  "anchor_name": "substrate_partition_routing_10M_full_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE_PARTITION_ROUTING_AT_M_100k: routed @100k=0.9667 cv=0.0000 route_acc=1.0000 passes primary band -- substrate KG chain-grade at M=100k via partition routing. 1M: not in sweep. PER-N (1 seeds [11]): N=10000: routed=1.0 (cv=0.0; seeds=[1.0]) routeacc=1.0 flat=0.875; N=100000: routed=0.9667 (cv=0.0; seeds=[0.9667]) routeacc=1.0 flat=0.65; part_size=2000; flat_mono_dec=True",
+  "summary": "HARD_PASS_CHAIN_GRADE_PARTITION_ROUTING_AT_M_100k: routed @100k=0.9667 cv=0.0000 route_acc=1.0000 passes primary band -- substrate KG chain-grade at M=100k via partition routing. 1M: not in sweep. PER-N (1 seeds [11]): N=10000: routed=1.0 (cv=0.0; seeds=[1.0]) routeacc=1.0 flat=0.875; N=100000: routed=0.9667 (cv=0.0; seeds=[0.9667]) routeacc=1.0 flat=0.65; part_size=2000; flat_mono_dec=True",
+  "headline": "HARD_PASS_CHAIN_GRADE_PARTITION_ROUTING_AT_M_100k: routed @100k=0.9667 cv=0.0000 route_acc=1.0000 passes primary band -- substrate KG chain-grade at M=100k via partition routing. 1M: not in sweep. PER-N (1 seeds [11]): N=10000: routed=1.0 (cv=0.0; seeds=[1.0]) routeacc=1.0 flat=0.875; N=100000: routed=0.9667 (cv=0.0; seeds=[0.9667]) routeacc=1.0 flat=0.65; part_size=2000; flat_mono_dec=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "aggregate": {
+    "n_seeds": 1,
+    "seeds": [
+      11
+    ],
+    "routed_per_N_mean": {
+      "10000": 1.0,
+      "100000": 0.9667
+    },
+    "routed_per_N_cv": {
+      "10000": 0.0,
+      "100000": 0.0
+    },
+    "routed_per_N_per_seed": {
+      "10000": [
+        1.0
+      ],
+      "100000": [
+        0.9667
+      ]
+    },
+    "routing_acc_per_N_mean": {
+      "10000": 1.0,
+      "100000": 1.0
+    },
+    "routing_acc_per_N_cv": {
+      "10000": 0.0,
+      "100000": 0.0
+    },
+    "flat_per_N_mean": {
+      "10000": 0.875,
+      "100000": 0.65
+    },
+    "flat_strictly_decreasing": true,
+    "part_size": 2000,
+    "n_sweep": [
+      10000,
+      100000
+    ],
+    "target_cos": 0.133,
+    "cat_cos": 0.7
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_sweep": [
+        10000,
+        100000
+      ],
+      "part_size": 2000,
+      "max_part_le_cap": true,
+      "P_max": 50,
+      "target_cos": 0.133,
+      "retrieval_noise": 7.452,
+      "cat_cos": 0.7,
+      "routed_recall_at_Nmax": 0.9667,
+      "routing_acc_at_Nmax": 1.0,
+      "routed_per_N": {
+        "10000": 1.0,
+        "100000": 0.9667
+      },
+      "routing_acc_per_N": {
+        "10000": 1.0,
+        "100000": 1.0
+      },
+      "flat_curve": {
+        "10000": 0.875,
+        "100000": 0.65
+      },
+      "flat_strictly_decreasing": true,
+      "max_partition": 2000,
+      "run_mode": "smoke",
+      "N": 1024,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782428204.2515438
+    }
+  ],
+  "elapsed_s": 3.506354331970215,
+  "gpu_available": false,
+  "gpu_name": "cpu",
+  "bands": {
+    "HARD_PASS_M100K_ROUTED": 0.85,
+    "HARD_PASS_M100K_CV": 0.05,
+    "HARD_PASS_M100K_ROUTE_ACC": 0.95,
+    "HARD_PASS_M1M_ROUTED": 0.5,
+    "HARD_FAIL_M100K_ROUTED": 0.5,
+    "Q_SUSPECT_SATURATION": 0.995
+  },
+  "config_version": "v2_seeds_11_13_19_partsize_2000_nsweep_10k_100k_1M"
+}
