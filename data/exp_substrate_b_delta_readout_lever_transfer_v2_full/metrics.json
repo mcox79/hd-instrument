@@ -1,0 +1,358 @@
+{
+  "anchor_name": "substrate_b_delta_readout_lever_transfer_v2_full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE: nonlinear-readout lever lifts capacity on BOTH value-type tasks across 3 seeds (bipolar +1.0000 cv=0.0000, continuous +1.0000 cv=0.0000) -- TASK-GENERAL capacity lever. 3-seed mean: bipolar ext=1.0000 cv=0.0000 (all_cliff=True) | continuous ext=1.0000 cv=0.0000 (all_cliff=True) | per_seed_ext_bipolar=[1.0, 1.0, 1.0] per_seed_ext_continuous=[1.0, 1.0, 1.0] cliffs_bipolar=[True, True, True] cliffs_continuous=[True, True, True]",
+  "summary": "HARD_PASS_CHAIN_GRADE: nonlinear-readout lever lifts capacity on BOTH value-type tasks across 3 seeds (bipolar +1.0000 cv=0.0000, continuous +1.0000 cv=0.0000) -- TASK-GENERAL capacity lever. 3-seed mean: bipolar ext=1.0000 cv=0.0000 (all_cliff=True) | continuous ext=1.0000 cv=0.0000 (all_cliff=True) | per_seed_ext_bipolar=[1.0, 1.0, 1.0] per_seed_ext_continuous=[1.0, 1.0, 1.0] cliffs_bipolar=[True, True, True] cliffs_continuous=[True, True, True]",
+  "headline": "HARD_PASS_CHAIN_GRADE: nonlinear-readout lever lifts capacity on BOTH value-type tasks across 3 seeds (bipolar +1.0000 cv=0.0000, continuous +1.0000 cv=0.0000) -- TASK-GENERAL capacity lever. 3-seed mean: bipolar ext=1.0000 cv=0.0000 (all_cliff=True) | continuous ext=1.0000 cv=0.0000 (all_cliff=True) | per_seed_ext_bipolar=[1.0, 1.0, 1.0] per_seed_ext_continuous=[1.0, 1.0, 1.0] cliffs_bipolar=[True, True, True] cliffs_continuous=[True, True, True]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "aggregate": {
+    "n_seeds": 3,
+    "seeds": [
+      11,
+      13,
+      19
+    ],
+    "extension_bipolar_mean": 1.0,
+    "extension_bipolar_cv": 0.0,
+    "extension_continuous_mean": 1.0,
+    "extension_continuous_cv": 0.0,
+    "extension_bipolar_per_seed": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "extension_continuous_per_seed": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "all_cliff_bipolar": true,
+    "all_cliff_continuous": true,
+    "cliffs_bipolar_per_seed": [
+      true,
+      true,
+      true
+    ],
+    "cliffs_continuous_per_seed": [
+      true,
+      true,
+      true
+    ],
+    "beta_tuned_per_seed": [
+      {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      },
+      {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      },
+      {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      }
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "tasks": [
+        "bipolar",
+        "continuous"
+      ],
+      "beta_tuned": {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      },
+      "grid": {
+        "bipolar": {
+          "64": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "256": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "512": {
+            "lin": 0.002,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "1024": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        },
+        "continuous": {
+          "64": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "256": {
+            "lin": 0.1953,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "512": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "1024": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        }
+      },
+      "capacity_bipolar": {
+        "M_low": 64,
+        "M_high": 1024,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "capacity_continuous": {
+        "M_low": 64,
+        "M_high": 1024,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "both_cliff": true,
+      "extension_bipolar": 1.0,
+      "extension_continuous": 1.0,
+      "run_mode": "full",
+      "N": 1024,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782428354.1075249
+    },
+    {
+      "seed": 13,
+      "tasks": [
+        "bipolar",
+        "continuous"
+      ],
+      "beta_tuned": {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      },
+      "grid": {
+        "bipolar": {
+          "64": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "256": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "512": {
+            "lin": 0.002,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "1024": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        },
+        "continuous": {
+          "64": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "256": {
+            "lin": 0.2578,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "512": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "1024": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        }
+      },
+      "capacity_bipolar": {
+        "M_low": 64,
+        "M_high": 1024,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "capacity_continuous": {
+        "M_low": 64,
+        "M_high": 1024,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "both_cliff": true,
+      "extension_bipolar": 1.0,
+      "extension_continuous": 1.0,
+      "run_mode": "full",
+      "N": 1024,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782428354.6889374
+    },
+    {
+      "seed": 19,
+      "tasks": [
+        "bipolar",
+        "continuous"
+      ],
+      "beta_tuned": {
+        "bipolar": 40.0,
+        "continuous": 40.0
+      },
+      "grid": {
+        "bipolar": {
+          "64": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "256": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "512": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "1024": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        },
+        "continuous": {
+          "64": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "128": {
+            "lin": 1.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "256": {
+            "lin": 0.1992,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "512": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          },
+          "1024": {
+            "lin": 0.0,
+            "nl": 1.0,
+            "nz": 1.0
+          }
+        }
+      },
+      "capacity_bipolar": {
+        "M_low": 64,
+        "M_high": 1024,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "capacity_continuous": {
+        "M_low": 64,
+        "M_high": 1024,
+        "lin_low": 1.0,
+        "lin_high": 0.0,
+        "nl_high": 1.0,
+        "cliff": true,
+        "extension": 1.0
+      },
+      "both_cliff": true,
+      "extension_bipolar": 1.0,
+      "extension_continuous": 1.0,
+      "run_mode": "full",
+      "N": 1024,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782428356.8696282
+    }
+  ],
+  "elapsed_s": 3.48,
+  "N": 1024,
+  "M_list": [
+    64,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "noise": 0.15,
+  "metrics_source": "measured_torch_cpu",
+  "bands": {
+    "HARD_PASS_LIFT_BOTH": 0.4,
+    "HARD_PASS_CV": 0.07,
+    "HARD_PASS_PARTIAL_LIFT_AT_LEAST_ONE": 0.3,
+    "HARD_FAIL_LIFT_BOTH": 0.2
+  },
+  "config_version": "v2_seeds_11_13_19_corrected_v1_mechanism_bipolar_continuous_uniformkeys_noisesqrtN"
+}
