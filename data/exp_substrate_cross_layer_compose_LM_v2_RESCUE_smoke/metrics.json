@@ -1,0 +1,275 @@
+{
+  "anchor_name": "substrate_cross_layer_compose_LM_v2_RESCUE",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS CHAIN_GRADE_BONUS: best_indep BPC=5.030 <= 6.70. Cross-layer architecture substantially breaks composition collapse at REDUCED LM scale (rescue). Sanity rails: single_ok=False shared_ok=True. uni=bpc5.523 | single=bpc4.893 | indep2=bpc5.030 cv=0.000 | indep3=bpc5.058 cv=0.000 | shared2=bpc5.296 cv=0.000 | best_indep=ARM_2_LAYER_INDEPENDENT_CFRPE bpc5.030 cv0.000",
+  "summary": {
+    "best_indep_bpc": 5.0302,
+    "best_indep_arm": "ARM_2_LAYER_INDEPENDENT_CFRPE",
+    "single_bpc": 4.8934,
+    "shared_W_bpc": 5.2963,
+    "indep_vs_single_lift": -0.1368,
+    "indep_vs_shared_gap": 0.2661,
+    "n_seeds": 1
+  },
+  "run_mode": "smoke",
+  "N_DIM": 512,
+  "N_TRAIN": 2000,
+  "N_HELD": 400,
+  "VOCAB_CAP": 300,
+  "SEEDS": [
+    0
+  ],
+  "ARMS": [
+    "ARM_UNIGRAM",
+    "ARM_SINGLE_LAYER_CFRPE",
+    "ARM_2_LAYER_INDEPENDENT_CFRPE",
+    "ARM_3_LAYER_INDEPENDENT_CFRPE",
+    "ARM_2_LAYER_SHARED_W_CFRPE"
+  ],
+  "ARM_CONFIG": {
+    "ARM_SINGLE_LAYER_CFRPE": {
+      "n_layers": 1,
+      "shared_W": false
+    },
+    "ARM_2_LAYER_INDEPENDENT_CFRPE": {
+      "n_layers": 2,
+      "shared_W": false
+    },
+    "ARM_3_LAYER_INDEPENDENT_CFRPE": {
+      "n_layers": 3,
+      "shared_W": false
+    },
+    "ARM_2_LAYER_SHARED_W_CFRPE": {
+      "n_layers": 2,
+      "shared_W": true
+    }
+  },
+  "SPARSE_BIPOLAR_F": 0.05,
+  "CFRPE_LR": 0.5,
+  "N_STEPS": 80,
+  "LAMBDA_GRID": [
+    0.1,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "TEMP_GRID": [
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "detail": {
+    "by_arm_agg": {
+      "ARM_UNIGRAM": {
+        "bpc_mean": 5.5226,
+        "bpc_std": 0.0
+      },
+      "ARM_SINGLE_LAYER_CFRPE": {
+        "bpc_best_mean": 4.8934,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.2975,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.3841,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7033,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_2_LAYER_INDEPENDENT_CFRPE": {
+        "bpc_best_mean": 5.0302,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.314,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4011,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.6924,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_3_LAYER_INDEPENDENT_CFRPE": {
+        "bpc_best_mean": 5.058,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3058,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4006,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7179,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      },
+      "ARM_2_LAYER_SHARED_W_CFRPE": {
+        "bpc_best_mean": 5.2963,
+        "bpc_best_std": 0.0,
+        "bpc_best_cv": 0.0,
+        "top1_acc_mean": 0.3306,
+        "top1_acc_std": 0.0,
+        "mrr_at_10_mean": 0.4021,
+        "mrr_at_10_std": 0.0,
+        "raw_bpc_at_T1_L1_mean": 7.7505,
+        "n_valid_seeds": 1,
+        "n_compute_failed": 0,
+        "all_seeds_failed": false
+      }
+    },
+    "best_indep_arm": "ARM_2_LAYER_INDEPENDENT_CFRPE",
+    "best_indep_bpc": 5.0302,
+    "best_indep_cv": 0.0,
+    "single_bpc": 4.8934,
+    "shared_W_bpc": 5.2963,
+    "indep_vs_single_lift": -0.1368,
+    "indep_vs_shared_gap": 0.2661,
+    "sanity_single_ok": false,
+    "sanity_shared_ok": true,
+    "degen_flag": false,
+    "vocab_entropy_uniform_bits": 8.2288,
+    "n_seeds": 1,
+    "thresholds": {
+      "CHAIN_GRADE_BONUS_BPC": 6.7,
+      "HARD_PASS_BPC": 6.9,
+      "MIDDLE_BAND_BPC_UPPER": 7.05,
+      "HP_BPC_CV_MAX": 0.05,
+      "SANITY_SINGLE_LAYER_REF_BPC": 7.04,
+      "SANITY_SINGLE_LAYER_TOL": 0.4
+    },
+    "rescue_scope_reductions": {
+      "N_DIM": "8192 -> 4096",
+      "N_TRAIN": "100k -> 50k",
+      "N_STEPS": "1000 -> 2000",
+      "SEEDS": "[7,17,23] -> [7,17]",
+      "rationale": "v1 TIMEOUT at 3600s with 0 partials; D1+D2 disciplines added"
+    },
+    "honest_scope": "cross-layer compose at REDUCED LM scale (text8 N_TRAIN=50k N_DIM=4096 V=4000). RESCUE: v1 timed out at 3600s; scope reduced + D1 roofline probe + D2 atexit. Pre-reg bands inherited from v1 (not loosened). HARD_PASS = best_indep BPC <= 6.90 AND beats shared-W control AND cv<=0.05.",
+    "cites": [
+      "preregs/2026-06-24_substrate_cross_layer_compose_LM_v2_RESCUE.md",
+      "experiments/exp_substrate_cross_layer_compose_LM_v1.py (timed-out predecessor)",
+      "notes/exp_dev_handoff_research_timeout_class_revival_2026-06-24.md",
+      "notes/research_timeout_class_revival_disparate_fields_2026-06-24.md"
+    ],
+    "by_construction_guards": {
+      "real_data_asserted": true,
+      "zero_llm_call_at_inference": true,
+      "lambda_grid_excludes_zero": true,
+      "per_arm_per_seed_logged": true,
+      "atexit_partial_flush_registered": true,
+      "per_seed_checkpoint_registered": true,
+      "roofline_probe_available": true
+    },
+    "chain_grade_bonus": true
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "by_arm": {
+        "ARM_UNIGRAM": {
+          "bpc_unigram": 5.5226,
+          "top1_unigram": 0.3306,
+          "mrr_unigram": 0.4001,
+          "n_test": 121
+        },
+        "ARM_SINGLE_LAYER_CFRPE": {
+          "bpc_best": 4.8934,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.5,
+          "best_dev_bpc": 4.8061,
+          "top1_acc": 0.2975,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.3,
+          "mrr_at_10": 0.3841,
+          "best_T_for_mrr": 0.01,
+          "best_lambda_for_mrr": 0.5,
+          "raw_bpc_at_T1_L1": 7.7033,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.4,
+          "wall_ingest_s": 0.27,
+          "wall_recall_s": 0.0,
+          "n_layers": 1,
+          "shared_W": false
+        },
+        "ARM_2_LAYER_INDEPENDENT_CFRPE": {
+          "bpc_best": 5.0302,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 4.9864,
+          "top1_acc": 0.314,
+          "best_T_for_top1": 0.02,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.4011,
+          "best_T_for_mrr": 0.02,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 7.6924,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.2,
+          "wall_ingest_s": 0.13,
+          "wall_recall_s": 0.0,
+          "n_layers": 2,
+          "shared_W": false
+        },
+        "ARM_3_LAYER_INDEPENDENT_CFRPE": {
+          "bpc_best": 5.058,
+          "best_T_for_bpc": 0.1,
+          "best_lambda_for_bpc": 0.3,
+          "best_dev_bpc": 4.9961,
+          "top1_acc": 0.3058,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.1,
+          "mrr_at_10": 0.4006,
+          "best_T_for_mrr": 0.1,
+          "best_lambda_for_mrr": 0.3,
+          "raw_bpc_at_T1_L1": 7.7179,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 1.15,
+          "wall_ingest_s": 1.04,
+          "wall_recall_s": 0.01,
+          "n_layers": 3,
+          "shared_W": false
+        },
+        "ARM_2_LAYER_SHARED_W_CFRPE": {
+          "bpc_best": 5.2963,
+          "best_T_for_bpc": 0.05,
+          "best_lambda_for_bpc": 0.1,
+          "best_dev_bpc": 5.1306,
+          "top1_acc": 0.3306,
+          "best_T_for_top1": 0.01,
+          "best_lambda_for_top1": 0.5,
+          "mrr_at_10": 0.4021,
+          "best_T_for_mrr": 0.2,
+          "best_lambda_for_mrr": 0.1,
+          "raw_bpc_at_T1_L1": 7.7505,
+          "n_dev": 121,
+          "n_test": 121,
+          "elapsed_s_arm": 0.18,
+          "wall_ingest_s": 0.06,
+          "wall_recall_s": 0.0,
+          "n_layers": 2,
+          "shared_W": true
+        }
+      },
+      "V": 300,
+      "N_DIM": 512,
+      "N_TRAIN": 2000,
+      "elapsed_s_seed": 69.15,
+      "device": "cpu",
+      "encoder_meta": {
+        "n_hit": 282,
+        "n_miss": 18,
+        "n_vocab": 300,
+        "pretrain_dim": 300
+      }
+    }
+  ],
+  "elapsed_s": 69.15
+}
