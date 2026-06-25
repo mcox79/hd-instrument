@@ -284,7 +284,7 @@ def build_training_graph(g: np.random.Generator, heldout_instances: List[int]
 # Substrate: ingest + query
 # ============================================================================
 
-def ingest_no_roles(role_triples, isa_pairs, E_inst, R_action, E_category, n_dim):
+def ingest_no_roles(role_triples, isa_pairs, E_inst, E_action, E_category, n_dim):
     """ARM_NO_ROLES: store role-triples as raw (s, p, o) Hebbian without role-binding.
 
     src = E_inst[s] * E_action[p] (rank-1 Hebb)
