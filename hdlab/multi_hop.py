@@ -83,6 +83,17 @@ def iter_cleanup_chain(
         k_set: number of top entities to bundle per hop (default 20).
         beta: Modern-Hopfield inverse-temperature; if None, uses n_dim (the Ramsauer 2021
               substrate-appropriate scale; sharpens near-argmax cleanup).
+
+              **BETA-REGIME WARNING (research_5cell_cross_HARDFAIL_synthesis_2026-06-24):**
+              `beta=N_DIM` is correct for SINGLE-HOP saturated cleanup ONLY (where you want a
+              confident argmax pick on a saturated codebook). For INTER-HOP soft mechanisms
+              (DFE/turbo-style, multi-hop chains where the soft posterior must carry information
+              across hops), use beta in {2, 10, 50} range. At beta >= N_DIM/2 the softmax
+              becomes a Dirac delta and the "soft" mechanism degenerates to hard argmax
+              (= naive_chain). Empirical witness: in exp_substrate_soft_chain_dfe_multihop_v1
+              + exp_substrate_resonator_multihop_integration_v1, per-seed top1 were BIT-IDENTICAL
+              between RESONATOR_HARD and SOFT_CHAIN arms (0.61/0.61, 0.645/0.645, 0.64/0.64)
+              because both ran at beta=8192=N_DIM. A runtime warning fires below.
         tau_terminate: refuse-gate threshold on top-1 conf per hop; if None, no terminate.
         k_inner: cleanup iterations within each hop (default 1 = standard one-step Hopfield).
         shuffle_top: discriminator control (RANDOM_CLEANUP).
@@ -93,6 +104,20 @@ def iter_cleanup_chain(
     t0 = time.perf_counter_ns()
     if beta is None:
         beta = float(kg.n_dim)
+    # Beta-regime guard (research_5cell_cross_HARDFAIL_synthesis_2026-06-24):
+    # multi-hop chains (len(relations) >= 2) with beta >= n_dim/2 collapse to hard argmax;
+    # the "soft" mechanism is never exercised. Emit a one-shot warning so the bug surfaces.
+    if len(relations) >= 2 and beta >= (kg.n_dim / 2.0):
+        import warnings as _warnings
+        _warnings.warn(
+            "iter_cleanup_chain: beta=%.1f >= n_dim/2=%.1f on a K=%d-hop chain. "
+            "At this regime softmax(beta * top_conf) is a Dirac delta and the soft "
+            "Modern-Hopfield bundle degenerates to hard argmax (= naive_chain). "
+            "For genuine inter-hop soft mechanism, use beta in {2, 10, 50}. See "
+            "notes/research_5cell_cross_HARDFAIL_synthesis_2026-06-24.md."
+            % (float(beta), kg.n_dim / 2.0, len(relations)),
+            stacklevel=2,
+        )
     state = kg.E[start].clone()
     per_hop_conf: list[float] = []
     terminated_at = -1
