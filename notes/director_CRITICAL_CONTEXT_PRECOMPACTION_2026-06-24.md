@@ -8,10 +8,19 @@ Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical 
 
 ## 2026-06-25 12:45 POST-COMPACT SNAPSHOT — Barrier 1 DOUBLE-NEGATIVE + CERT 591
 
-### CERT 591 (+1 from Cell 2 v5 atomization just landed)
+### CERT 594 (Cell 2 v5 atomization + pointer-chain v2 HARD_FAIL + META_M6 landed)
 - math::T3/EXP_substrate_compose_freq_routing_v5_DEFINITIVE — chain_grade (FREQ_ROUTED_DEEPER 1st Stage 2 architectural win; 5 seeds + cross-N replication + n_steps plateau)
 - meta::META/CROSS_N_REPLICATION_AS_DEFINITIVE_UPGRADE_CRITERION — cert-neutral meta
-- Cert-ladder 3-rule discipline now codified: PROSPECTIVE_BANDS_FRESH_SEEDS + M2_tight_rail_from_different_config + CROSS_N_REPLICATION
+- math::T3/EXP_substrate_multihop_pointer_chain_hybrid_v2_baseline_rail_fixed_HARD_FAIL — honest_negative cert-neutral
+- meta::T3/META_M6_NAIVE_baseline_must_be_derived_not_copied_from_prior_cells — cert-neutral meta
+- Cert-ladder rule sets now codified:
+  - DEFINITIVE upgrade criteria: PROSPECTIVE_BANDS_FRESH_SEEDS + CROSS_N_REPLICATION
+  - Rail-discipline 3-rule set: M2_referent_match + M5_chain_match + M6_derivation_provenance
+- Director Fix #28 violation #9 caught by Skunkworks: smoke-vs-full META mis-attributed to n_chains alone; actual 3-dimension regime confound (N + n_chains + n_seeds). DEFERRED, not atomized.
+
+### Cert-trail back-fill tasks (next Skunkworks cycle)
+1. Consolidation v3 HARD_FAIL — ruling note exists `notes/skunkworks_tier_ruling_consolidation_v3_HARD_FAIL_2026-06-25.md` but never atomized
+2. META_M4 + META_M5 — ledger rows exist but atoms.jsonl entries missing (atom-write step skipped in prior cycle)
 
 ### IN-FLIGHT (verified via remote logs 12:40)
 - Cell 2 v6 SEGREGATED_DUAL_W: GPU runner, started 12:08 PDT, ~30min in (no DONE yet)
