@@ -1,0 +1,264 @@
+{
+  "anchor_name": "substrate_distill_verify_operator_equivalence_v2_full",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PARTIAL: held distillation 0.6667 in partial band [0.60, 0.80) -- mechanism generalizes partially across folds. 3-fold held-out CV across seeds [11]: held_distill mean=0.6667 cv=0.0000 (any NOT_EQUIVALENT=False) | named-only-held mean=0.0000 cv=inf | per_seed_held=[0.6667]; per_seed_named_held=[0.0]; not_equiv_per_seed=[0]",
+  "summary": "MIDDLE_BAND_PARTIAL: held distillation 0.6667 in partial band [0.60, 0.80) -- mechanism generalizes partially across folds. 3-fold held-out CV across seeds [11]: held_distill mean=0.6667 cv=0.0000 (any NOT_EQUIVALENT=False) | named-only-held mean=0.0000 cv=inf | per_seed_held=[0.6667]; per_seed_named_held=[0.0]; not_equiv_per_seed=[0]",
+  "headline": "MIDDLE_BAND_PARTIAL: held distillation 0.6667 in partial band [0.60, 0.80) -- mechanism generalizes partially across folds. 3-fold held-out CV across seeds [11]: held_distill mean=0.6667 cv=0.0000 (any NOT_EQUIVALENT=False) | named-only-held mean=0.0000 cv=inf | per_seed_held=[0.6667]; per_seed_named_held=[0.0]; not_equiv_per_seed=[0]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "aggregate": {
+    "n_seeds": 1,
+    "seeds": [
+      11
+    ],
+    "held_distill_ratio_mean": 0.6667,
+    "held_distill_ratio_cv": 0.0,
+    "named_held_distill_ratio_mean": 0.0,
+    "named_held_distill_ratio_cv": Infinity,
+    "held_distill_per_seed": [
+      0.6667
+    ],
+    "named_held_per_seed": [
+      0.0
+    ],
+    "not_equiv_per_seed": [
+      0
+    ],
+    "any_not_equiv": false,
+    "fold_overlap_pairs": []
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_held_out": 6,
+      "n_training": 14,
+      "held_distill_ratio": 0.6667,
+      "named_in_held_out": 0,
+      "named_in_training": 1,
+      "named_held_distill_ratio": 0.0,
+      "held_provable": 4,
+      "held_not_equiv": 0,
+      "held_out_results": [
+        {
+          "name": "astar",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "bayesian_inference",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "dynamic_programming",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "gradient",
+          "n": 2,
+          "tiers": [
+            "T1",
+            "T2"
+          ],
+          "verdict": "UNDECIDABLE_BY_PROVER",
+          "has_signature": false
+        },
+        {
+          "name": "pca_whitening",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "research_to_exp_dev_1bit_depth_verification_2026-06-10",
+          "n": 2,
+          "tiers": [
+            "NA",
+            "NA"
+          ],
+          "verdict": "UNDECIDABLE_BY_PROVER",
+          "has_signature": false
+        }
+      ],
+      "training_results": [
+        {
+          "name": "answer_consistency_weak_labels",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "beam_search",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "cosine_similarity",
+          "n": 2,
+          "tiers": [
+            "T1",
+            "T3"
+          ],
+          "verdict": "NOT_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "default_mode_network",
+          "n": 2,
+          "tiers": [
+            "T1",
+            "T1"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "dijkstra",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "discriminative_perceptron",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "hmm_emission",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "EQUIVALENT_BY_CAPABILITY",
+          "has_signature": false
+        },
+        {
+          "name": "hmm_transition",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "hungarian_algorithm",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "EQUIVALENT_BY_CAPABILITY",
+          "has_signature": false
+        },
+        {
+          "name": "hungarian_assignment",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "mp_bulk_kl",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "EQUIVALENT_BY_CAPABILITY",
+          "has_signature": false
+        },
+        {
+          "name": "perceptron_update",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "quantum_entanglement",
+          "n": 2,
+          "tiers": [
+            "T1",
+            "T1"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        },
+        {
+          "name": "zca_whitening",
+          "n": 2,
+          "tiers": [
+            "T3",
+            "T2"
+          ],
+          "verdict": "PROVABLY_EQUIVALENT",
+          "has_signature": true
+        }
+      ],
+      "run_mode": "smoke",
+      "N": 0,
+      "n_folds": 3,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782428216.1047237
+    }
+  ],
+  "elapsed_s": 0.16,
+  "n_total_groups": 20,
+  "bands": {
+    "HARD_PASS_DISTILL": 0.8,
+    "HARD_PASS_CV": 0.07,
+    "HARD_PASS_PARTIAL_LOW": 0.6,
+    "HARD_FAIL": 0.6
+  },
+  "config_version": "v2_seeds_11_13_19_3fold_heldout_capability_fallback_DISABLED"
+}
