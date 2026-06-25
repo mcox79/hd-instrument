@@ -1,0 +1,58 @@
+{
+  "anchor_name": "substrate_permutation_binding_multiocc_v2_full",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_CHAIN_GRADE: permutation-indexed binding resolves same-role collision across 3 seeds. 3-seed mean perm=1.0000 cv=0.0000 | FHRR=0.0119 | lift=0.9881 cv=0.0000 | perm_per_seed=[1.0] fhrr_per_seed=[0.0119] lift_per_seed=[0.9881] n_subset=[84]",
+  "summary": "HARD_PASS_CHAIN_GRADE: permutation-indexed binding resolves same-role collision across 3 seeds. 3-seed mean perm=1.0000 cv=0.0000 | FHRR=0.0119 | lift=0.9881 cv=0.0000 | perm_per_seed=[1.0] fhrr_per_seed=[0.0119] lift_per_seed=[0.9881] n_subset=[84]",
+  "headline": "HARD_PASS_CHAIN_GRADE: permutation-indexed binding resolves same-role collision across 3 seeds. 3-seed mean perm=1.0000 cv=0.0000 | FHRR=0.0119 | lift=0.9881 cv=0.0000 | perm_per_seed=[1.0] fhrr_per_seed=[0.0119] lift_per_seed=[0.9881] n_subset=[84]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "aggregate": {
+    "n_seeds": 1,
+    "seeds": [
+      11
+    ],
+    "perm_acc_mean": 1.0,
+    "perm_acc_cv": 0.0,
+    "fhrr_acc_mean": 0.0119,
+    "lift_mean": 0.9881,
+    "lift_cv": 0.0,
+    "perm_per_seed": [
+      1.0
+    ],
+    "fhrr_per_seed": [
+      0.0119
+    ],
+    "lift_per_seed": [
+      0.9881
+    ],
+    "n_subset_per_seed": [
+      84
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "fhrr_acc": 0.0119,
+      "perm_acc": 1.0,
+      "lift": 0.9881,
+      "n_subset": 84,
+      "run_mode": "smoke",
+      "N": 512,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782428220.581818
+    }
+  ],
+  "elapsed_s": 0.13,
+  "D": 512,
+  "bands": {
+    "HARD_PASS_PERM": 0.95,
+    "HARD_PASS_FHRR_MAX": 0.1,
+    "HARD_PASS_LIFT": 0.85,
+    "HARD_PASS_CV": 0.05,
+    "HARD_FAIL_PERM": 0.7
+  },
+  "config_version": "v2_seeds_11_13_19_per_seed_FHRR_perturbed"
+}
