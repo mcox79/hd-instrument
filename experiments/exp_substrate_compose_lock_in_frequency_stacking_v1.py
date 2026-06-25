@@ -90,10 +90,12 @@ _P.add_argument("--smoke", action="store_true")
 # (Wave F, 2026-06-25). Default "auto" preserves backward compatibility;
 # "cpu"/"cuda" force the device regardless of cuda.is_available().
 _P.add_argument(
-    "--device", choices=["auto", "cpu", "cuda"], default="auto",
-    help="Override DEVICE: 'auto' (current behavior: cuda if available else cpu), "
-         "'cpu' or 'cuda' (force). Use 'cpu' for remote_cpu_queue dispatch on "
-         "consumer machines that have CUDA visible but where the cell must run CPU."
+    "--device", choices=["auto", "cpu", "cuda"], default="cpu",
+    help="Override DEVICE: 'auto' (cuda if available else cpu), "
+         "'cpu' or 'cuda' (force). Default 'cpu' enforced after Wave F v2 "
+         "(2026-06-26): cell OOMs at 8GiB on CUDA in this _n8192 regime, and "
+         "the runner (runner_v2_prod) does not pass argv flags from queue.json. "
+         "Anyone wanting GPU explicitly: pass --device cuda or HDLAB_DEVICE=cuda."
 )
 _ARGS, _ = _P.parse_known_args()
 
