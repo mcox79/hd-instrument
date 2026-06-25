@@ -1,0 +1,63 @@
+{
+  "anchor_name": "substrate_multihop_pointer_chain_hybrid_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_POINTER_PARTIAL: BASELINE=0.8000 POINTER_2HOP=0.8000 (cv=nan) HYBRID=0.8000 (cv=nan) POINTER_2HOP=0.8000 POINTER_5HOP=0.4667 | rails=['BASELINE_OUT_OF_BAND(0.800 not in [0.62,0.68])'] | bands: HP_break=False cv_ok=True depth_ret=False (deep_results=[(2, 0.8), (5, 0.4667)])",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "pointerChainHybrid-v1: N=1024 V_C=50 V_P=10 K_SET=5 n_chains=30 seeds=[7] mode=smoke hop_depths=[2, 5] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 naive_sanity=[0.62,0.68]",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 1024,
+      "V_C": 50,
+      "V_P": 10,
+      "K_SET": 5,
+      "n_chains": 30,
+      "config_version": "pointerChainHybrid-v1: N=1024 V_C=50 V_P=10 K_SET=5 n_chains=30 seeds=[7] mode=smoke hop_depths=[2, 5] HP_pointer_2hop_top1>=0.95 HP_hybrid_top1>=0.85 HP_cv<=0.05 HP_depth_retention_top1>=0.80 HF_top1<=0.75 naive_sanity=[0.62,0.68]",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.8,
+        "n_queries": 30,
+        "depth": 2,
+        "elapsed_s_arm": 0.05
+      },
+      "arm_pointer_chain_2hop": {
+        "top1": 0.8,
+        "per_step_acc": [
+          0.8667,
+          0.8
+        ],
+        "n_queries": 30,
+        "depth": 2,
+        "elapsed_s_arm": 0.06
+      },
+      "arm_pointer_chain_5hop": {
+        "top1": 0.4667,
+        "per_step_acc": [
+          0.8667,
+          0.8,
+          0.6333,
+          0.5333,
+          0.4667
+        ],
+        "n_queries": 30,
+        "depth": 5,
+        "elapsed_s_arm": 0.15
+      },
+      "arm_pointer_hrr_hybrid": {
+        "top1": 0.8,
+        "n_queries": 30,
+        "depth": 2,
+        "elapsed_s_arm": 0.08
+      },
+      "elapsed_s": 0.4,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782411069.2044077
+    }
+  ],
+  "elapsed_s": 0.5,
+  "summary": "MIDDLE_BAND_POINTER_PARTIAL: BASELINE=0.8000 POINTER_2HOP=0.8000 (cv=nan) HYBRID=0.8000 (cv=nan) POINTER_2HOP=0.8000 POINTER_5HOP=0.4667 | rails=['BASELINE_OUT_OF_BAND(0.800 not in [0.62,0.68])'] | bands: HP_break=False cv_ok=True depth_ret=False (deep_results=[(2, 0.8), (5, 0.4667)])",
+  "_llm_forward_calls_at_inference": 0,
+  "DESIGN_NOTE": "Director Barrier-1 cell: pointer-chain hybrid as non-compositional escape hatch for multi-hop. Substrate-native: pointer index = single W matrix + HRR cleanup at each step (not Python dict). ARM_POINTER_CHAIN_*HOP arms test depth retention; ARM_POINTER_HRR_HYBRID adds per-step nearest-atom cleanup for substrate-product mode. Apples-to-apples baseline = ARM_BASELINE_HRR_2HOP must reproduce ~0.65."
+}
