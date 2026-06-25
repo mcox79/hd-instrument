@@ -1,7 +1,7 @@
 # Pre-reg: substrate_compose_lock_in_frequency_stacking_v1
 Date: 2026-06-24
 Author: exp_dev (Wave E retry)
-Routing: GPU overnight_queue via orchestrator handoff
+Routing: remote_cpu_queue via orchestrator handoff (was GPU; OOM-reroute -- see below)
 Lane: 1 (substrate-native; controls + intra-arm ablations)
 
 ## Barrier addressed
@@ -73,8 +73,20 @@ recover that mechanism. Brain: theta-gamma nested oscillations. Engineering: FDM
 - If ARM_LOCK_IN <= ARM_BASELINE + 0.05 AND ARM_CROSS_LAYER passes: spatial-only is the lever (negative lock-in result).
 
 ## Timeout budget
-- 7200s per queue spec; GPU; 4 arms x 3 seeds; demod is the heavy step.
+- 10800s (3h) on remote_cpu_queue; 4 arms x 3 seeds; demod is the heavy step.
+- (Was 7200s GPU; CPU is ~3-5x slower for matmul; 1.5x safety margin baked in.)
 
 ## Routing
-- GPU overnight_queue via orchestrator handoff.
+- remote_cpu_queue via orchestrator handoff (Wave F reroute).
 - Anchor: substrate_compose_lock_in_frequency_stacking_v1 (no _n suffix).
+
+## Wave F reroute justification (2026-06-25)
+Initial GPU dispatch HARD_FAILed with CUDA OOM on 8GiB GPU: tried to allocate
+3.05GiB on top of 4.22GiB already pinned. Root cause: ARM_LOCK_IN_PLUS_CROSS_LAYER
+holds 3 separate W matrices simultaneously (3 * N_DIM^2 * 4 bytes = 768MB at
+N=8192 fp32) plus encoder state plus per-batch matmul intermediates (tgt @ src
+broadcast at INGEST_CHUNK=4096). At v1 full config this exceeds 8GiB ceiling.
+CPU has 64GB RAM (8x headroom); cell auto-detects via DEVICE = cuda if available
+else cpu, so no code change required. Mechanism (lock-in frequency stacking)
+is matmul-bound but not GPU-bound; CPU is correct fallback. Discriminators
+and HARD bands UNCHANGED -- only wall-time and routing changed.
