@@ -1,0 +1,198 @@
+{
+  "anchor_name": "substrate_partition_routing_10M_full_v2",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_PARTIAL_AT_M_1M (+ chain-grade @ M=100k): routed recall@10 @100k=0.9697 cv=0.0442 route_acc=1.0000 passes primary band AND @1M=0.9500 >= 0.50 stretch band -- partition-routing substrate scales to 1M atoms. PER-N (3 seeds [11, 13, 19]): N=10000: routed=0.9167 (cv=0.1286; seeds=[0.75, 1.0, 1.0]) routeacc=1.0 flat=0.9; N=100000: routed=0.9697 (cv=0.0442; seeds=[0.9091, 1.0, 1.0]) routeacc=1.0 flat=0.7305; N=1000000: routed=0.95 (cv=0.0114; seeds=[0.945, 0.94, 0.965]) routeacc=1.0 flat=0.5139; part_size=2000; flat_mono_dec=True",
+  "summary": "HARD_PASS_PARTIAL_AT_M_1M (+ chain-grade @ M=100k): routed recall@10 @100k=0.9697 cv=0.0442 route_acc=1.0000 passes primary band AND @1M=0.9500 >= 0.50 stretch band -- partition-routing substrate scales to 1M atoms. PER-N (3 seeds [11, 13, 19]): N=10000: routed=0.9167 (cv=0.1286; seeds=[0.75, 1.0, 1.0]) routeacc=1.0 flat=0.9; N=100000: routed=0.9697 (cv=0.0442; seeds=[0.9091, 1.0, 1.0]) routeacc=1.0 flat=0.7305; N=1000000: routed=0.95 (cv=0.0114; seeds=[0.945, 0.94, 0.965]) routeacc=1.0 flat=0.5139; part_size=2000; flat_mono_dec=True",
+  "headline": "HARD_PASS_PARTIAL_AT_M_1M (+ chain-grade @ M=100k): routed recall@10 @100k=0.9697 cv=0.0442 route_acc=1.0000 passes primary band AND @1M=0.9500 >= 0.50 stretch band -- partition-routing substrate scales to 1M atoms. PER-N (3 seeds [11, 13, 19]): N=10000: routed=0.9167 (cv=0.1286; seeds=[0.75, 1.0, 1.0]) routeacc=1.0 flat=0.9; N=100000: routed=0.9697 (cv=0.0442; seeds=[0.9091, 1.0, 1.0]) routeacc=1.0 flat=0.7305; N=1000000: routed=0.95 (cv=0.0114; seeds=[0.945, 0.94, 0.965]) routeacc=1.0 flat=0.5139; part_size=2000; flat_mono_dec=True",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    13,
+    19
+  ],
+  "aggregate": {
+    "n_seeds": 3,
+    "seeds": [
+      11,
+      13,
+      19
+    ],
+    "routed_per_N_mean": {
+      "10000": 0.9167,
+      "100000": 0.9697,
+      "1000000": 0.95
+    },
+    "routed_per_N_cv": {
+      "10000": 0.1286,
+      "100000": 0.0442,
+      "1000000": 0.0114
+    },
+    "routed_per_N_per_seed": {
+      "10000": [
+        0.75,
+        1.0,
+        1.0
+      ],
+      "100000": [
+        0.9091,
+        1.0,
+        1.0
+      ],
+      "1000000": [
+        0.945,
+        0.94,
+        0.965
+      ]
+    },
+    "routing_acc_per_N_mean": {
+      "10000": 1.0,
+      "100000": 1.0,
+      "1000000": 1.0
+    },
+    "routing_acc_per_N_cv": {
+      "10000": 0.0,
+      "100000": 0.0,
+      "1000000": 0.0
+    },
+    "flat_per_N_mean": {
+      "10000": 0.9,
+      "100000": 0.7305,
+      "1000000": 0.5139
+    },
+    "flat_strictly_decreasing": true,
+    "part_size": 2000,
+    "n_sweep": [
+      10000,
+      100000,
+      1000000
+    ],
+    "target_cos": 0.133,
+    "cat_cos": 0.7
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_sweep": [
+        10000,
+        100000,
+        1000000
+      ],
+      "part_size": 2000,
+      "max_part_le_cap": true,
+      "P_max": 500,
+      "target_cos": 0.133,
+      "retrieval_noise": 7.452,
+      "cat_cos": 0.7,
+      "routed_recall_at_Nmax": 0.945,
+      "routing_acc_at_Nmax": 1.0,
+      "routed_per_N": {
+        "10000": 0.75,
+        "100000": 0.9091,
+        "1000000": 0.945
+      },
+      "routing_acc_per_N": {
+        "10000": 1.0,
+        "100000": 1.0,
+        "1000000": 1.0
+      },
+      "flat_curve": {
+        "10000": 0.8917,
+        "100000": 0.7333,
+        "1000000": 0.4667
+      },
+      "flat_strictly_decreasing": true,
+      "max_partition": 2000,
+      "run_mode": "full",
+      "N": 1024,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782428572.7660186
+    },
+    {
+      "seed": 13,
+      "n_sweep": [
+        10000,
+        100000,
+        1000000
+      ],
+      "part_size": 2000,
+      "max_part_le_cap": true,
+      "P_max": 500,
+      "target_cos": 0.133,
+      "retrieval_noise": 7.452,
+      "cat_cos": 0.7,
+      "routed_recall_at_Nmax": 0.94,
+      "routing_acc_at_Nmax": 1.0,
+      "routed_per_N": {
+        "10000": 1.0,
+        "100000": 1.0,
+        "1000000": 0.94
+      },
+      "routing_acc_per_N": {
+        "10000": 1.0,
+        "100000": 1.0,
+        "1000000": 1.0
+      },
+      "flat_curve": {
+        "10000": 0.9083,
+        "100000": 0.7833,
+        "1000000": 0.5583
+      },
+      "flat_strictly_decreasing": true,
+      "max_partition": 2000,
+      "run_mode": "full",
+      "N": 1024,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782428573.1488874
+    },
+    {
+      "seed": 19,
+      "n_sweep": [
+        10000,
+        100000,
+        1000000
+      ],
+      "part_size": 2000,
+      "max_part_le_cap": true,
+      "P_max": 500,
+      "target_cos": 0.133,
+      "retrieval_noise": 7.452,
+      "cat_cos": 0.7,
+      "routed_recall_at_Nmax": 0.965,
+      "routing_acc_at_Nmax": 1.0,
+      "routed_per_N": {
+        "10000": 1.0,
+        "100000": 1.0,
+        "1000000": 0.965
+      },
+      "routing_acc_per_N": {
+        "10000": 1.0,
+        "100000": 1.0,
+        "1000000": 1.0
+      },
+      "flat_curve": {
+        "10000": 0.9,
+        "100000": 0.675,
+        "1000000": 0.5167
+      },
+      "flat_strictly_decreasing": true,
+      "max_partition": 2000,
+      "run_mode": "full",
+      "N": 1024,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782428573.54046
+    }
+  ],
+  "elapsed_s": 1.5508277416229248,
+  "gpu_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 4060 Ti",
+  "bands": {
+    "HARD_PASS_M100K_ROUTED": 0.85,
+    "HARD_PASS_M100K_CV": 0.05,
+    "HARD_PASS_M100K_ROUTE_ACC": 0.95,
+    "HARD_PASS_M1M_ROUTED": 0.5,
+    "HARD_FAIL_M100K_ROUTED": 0.5,
+    "Q_SUSPECT_SATURATION": 0.995
+  },
+  "config_version": "v2_seeds_11_13_19_partsize_2000_nsweep_10k_100k_1M"
+}
