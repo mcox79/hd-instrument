@@ -6,6 +6,38 @@ Read this FIRST after compaction to recover session state.
 
 Substrate is MEMORY + COMPOSITION + RETRIEVAL + AUDIT device. NOT a statistical LM competitor. Brain is the existence proof. Stages: 1 base → 2 optimize → 3 higher functions → 4 LM equivalence. Don't skip.
 
+## MORNING 2026-06-25 STATUS UPDATE (post-Skunkworks tier ruling 07:40)
+
+### Wave E HARD_PASSes BOTH RULED MEASURED_MECHANISM by Skunkworks
+
+**Cell 3 (SEMANTIC v3 cv-tightening) MM**: A3 already at metric ceiling in v2; cv-tightening can't upgrade what's at cv=0.000. A4 actually DEGRADED v2→v3 (0.708→0.533, -25% rel); max_cv WORSENED 0.083→0.125. By-construction saturation; cert delta=0.
+
+**Cell 4 (multihop consolidation) MM, NOT chain-grade breakthrough**: K_THRESH=1 wrote answer-tuple directly into W as 1-hop atom; retrieval was recall not chain. Smoking gun: hop2_oracle_min=0.880 < 0.95 but CONS_IMMEDIATE=1.000 — gap proves stored answers, not composition. Plus HYBRID (0.900) < CONS_IMMEDIATE (1.000) violates prereg discriminator. Plus NAIVE=0.847 vs beta-sweep 0.65 is chain-construction mismatch (make_two_hop_chains fixed-pair vs make_chains uniform) — NOT apples-to-apples; Cell 4 didn't test the regime Barrier 1 was diagnosed in.
+
+### Director over-claim caught (Fix #28 recurring)
+
+Director called Cell 4 the Barrier 1 breakthrough; Skunkworks correctly under-claimed. Anisotropic drill's "Lane A: Cell 4 P=0.55" estimate invalidated. Cell 4 does NOT close Barrier 1.
+
+### New META atoms (M4 + M5 from this audit)
+
+- META_M4: K_THRESH=1 consolidation = by-construction-saturated
+- META_M5: cross-cell baseline comparisons require chain-construction match (make_chains signature), not just V/N/K_SET
+
+### Right Barrier 1 cells (revised path)
+
+- **Pointer-chain hybrid** (`substrate_multihop_pointer_chain_hybrid_v1`; Director spec at `notes/director_barrier1_pointer_chain_multihop_cell_spec_2026-06-25.md`): non-compositional escape hatch; Store has exp_pointer_chain depth=100 (verify-referent pending Skunkworks)
+- **Proper consolidation cell** (revise Cell H spec): K_THRESH > 1 (only consolidate after seeing chain K times) + held-out chains whose (R1, R2) frequencies are not visible at consolidation time + apples-to-apples baseline matching beta-sweep chain-construction
+
+### Strategic Stage 1.5 reread
+
+Lane A (Barrier 1 via consolidation) is NOT closed; needs proper test cell (K_THRESH>1, held-out chains, matched baseline). Pointer-chain hybrid spec is alternate path.
+
+Lane B (Barrier 4 via unsupervised anisotropic encoder per USER's basis-vs-use-case principle) is the right encoder direction. Cell H' (post-drill update): 5-arm shotgun random/Olshausen-Field/DeepWalk-on-graph/Foldiak/Kohonen-SOM at V=4000 text8 scale. Any-arm HARD_PASS P=0.45.
+
+### Anisotropy may HURT retrieval (new finding from Cell 7 deepened drill)
+
+Per Mu-Viswanath 2018 + Ethayarajh 2019 cone-collapse literature: word embeddings cluster in narrow cones in HD space (anisotropy). Good for downstream classification, BAD for retrieval — similar items become indistinguishable in dominant directions. Substrate's primary task IS retrieval. **This means label-driven encoder cone-collapse may be a red flag at ANY V, not just Cell 7's V=12.** Reinforces USER's basis-vs-use-case principle: keep base unsupervised; let labels ride on top for tasks that need them. Materials-science analog: field-cooled crystallization commits to imposed structure; spontaneous symmetry-breaking matches input statistics. Brain chose spontaneous; substrate should too.
+
 ## MORNING 2026-06-25 STATUS — substrate INTACT, three instrument bugs identified
 
 ### Wins overnight
