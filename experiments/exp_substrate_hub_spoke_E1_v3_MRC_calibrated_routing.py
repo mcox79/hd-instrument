@@ -607,6 +607,10 @@ def hub_aggregate_cfrpe_weighted(spoke_outputs: List[torch.Tensor],
     n_spokes = len(spoke_outputs)
     if gates.shape[0] != n_spokes:
         raise ValueError("gates len %d != n_spokes %d" % (gates.shape[0], n_spokes))
+    # v3.1 device-fix: co-locate gates with spoke_outputs (defensive).
+    target_device = spoke_outputs[0].device
+    if gates.device != target_device:
+        gates = gates.to(target_device)
     stacked = torch.stack(spoke_outputs, dim=0)
     w = gates.view(n_spokes, 1, 1)
     weighted = (stacked * w).sum(dim=0)
@@ -632,6 +636,13 @@ def hub_aggregate_mrc(spoke_outputs: List[torch.Tensor],
             gate_logits.shape[0], n_spokes))
     if t_gate <= 0.0:
         raise ValueError("t_gate must be > 0; got %.4f" % t_gate)
+    # v3.1 device-fix: caller may pass CPU-built gate_logits (e.g. in self-test
+    # constructing torch.tensor([...]) without explicit device). Co-locate with
+    # spoke_outputs so the bundle reduction succeeds on cuda. Spoke outputs are
+    # always on DEVICE, so use the first one as device reference.
+    target_device = spoke_outputs[0].device
+    if gate_logits.device != target_device:
+        gate_logits = gate_logits.to(target_device)
     gates = torch.softmax(gate_logits / max(t_gate, 1e-9), dim=0)
     stacked = torch.stack(spoke_outputs, dim=0)
     w = gates.view(n_spokes, 1, 1)
@@ -1713,7 +1724,8 @@ def _selftest():
     assert not healthy_recon, "T11c NaN recon_err not detected"
 
     # T12: v3 FIX 2 -- hub_aggregate_mrc produces L2-normalized bipolar
-    gl_test = torch.tensor([2.0, 0.0, -1.0], dtype=TORCH_DTYPE)
+    # v3.1: explicit device= so test exercises the same path as real arms
+    gl_test = torch.tensor([2.0, 0.0, -1.0], dtype=TORCH_DTYPE, device=DEVICE)
     bundle_mrc, gates_mrc = hub_aggregate_mrc([E_s1, E_s2, E_s3], gl_test, t_gate=1.0)
     assert bundle_mrc.shape == (V_t, ndim_t), "T12a MRC shape"
     assert abs(float(gates_mrc.sum().item()) - 1.0) < 1e-5, "T12b MRC gates softmax"
@@ -1734,10 +1746,11 @@ def _selftest():
         "T13b gate_logits has NaN/Inf"
 
     # T14: gate_entropy computation -- uniform = log(3) ~ 1.0986, peaked ~ 0
-    gates_uni = torch.tensor([1.0/3, 1.0/3, 1.0/3], dtype=TORCH_DTYPE)
+    # v3.1: explicit device= for tensor-creation hygiene
+    gates_uni = torch.tensor([1.0/3, 1.0/3, 1.0/3], dtype=TORCH_DTYPE, device=DEVICE)
     ent_uni = gate_entropy(gates_uni)
     assert abs(ent_uni - math.log(3.0)) < 1e-4, "T14a uniform entropy: %.4f" % ent_uni
-    gates_peak = torch.tensor([0.99, 0.005, 0.005], dtype=TORCH_DTYPE)
+    gates_peak = torch.tensor([0.99, 0.005, 0.005], dtype=TORCH_DTYPE, device=DEVICE)
     ent_peak = gate_entropy(gates_peak)
     assert ent_peak < 0.2, "T14b peaked entropy: %.4f" % ent_peak
 
