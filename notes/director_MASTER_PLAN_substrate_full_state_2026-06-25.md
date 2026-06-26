@@ -1,3 +1,128 @@
+# DIRECTOR MASTER PLAN — substrate full state at end of 2026-06-25 (LATE UPDATE 23:30 PDT)
+
+## LATE-UPDATE SECTION — major findings since master plan first written
+
+### NEW CHAIN-GRADE WINS (late session)
+
+1. **META-reasoning v4 self-discovered: CHAIN_GRADE_CONFIRMED** — substrate's "absolutely KEY" self-evaluation primitive operational. ARM_TP_MERGE=1.000, FP=0.000, FN=0.000, BOUNDARY_F1=1.000 across 3 seeds on substrate-self-discovered corpus (28 groups extracted from atoms.jsonl). Promotes v3 from MM-expected to chain-grade-confirmed. **Stage 4 self-improvement scaffold is now ready.** Substrate can examine its own atoms, find equivalences, validate them.
+
+2. **Refuse-gate V_REL extension: CHAIN_GRADE up to V_REL=256** — substrate refuse-gate envelope extends 32× (from V_REL=8 → 256) at perfect cv=0.000 across 3 seeds. RELATION_CHECK arm robust; INTENT_CLASSIFIER arm degrades at scale (informative but not load-bearing).
+
+### NEW MM-TIER + IMPORTANT NEGATIVES
+
+3. **KV learned projection at scale M=100k: MIDDLE_BAND** — recall=0.58 at M=100k (substantial but doesn't beat analytic baseline 0.66). Both arms chain-grade-eligible via partition routing — substrate-product has 2 KG paths at M=100k.
+
+4. **Anisotropy v2 batched VERIFIED at M=10k + M=50k: fly-LSH IS NOT THE RESCUE** — at adversarial-similarity keys, generic random hash (AB_CONTROL) BEATS both LSH arms at both M values. Skunkworks's MM demotion was correct. The "55× rescue" at v2 random keys was capacity-headroom letting any mechanism saturate.
+
+5. **Anisotropy GPU memory crisis: 3 OOMs in a row** — v1 (sim matmul), v2 batched (kWTA mask), v3 expansion sweep (64x+ arms all OOM). Honest finding: the 8GB GPU is too small to test brain-scale expansion. Projection matrix at 4096× expansion = 9.7GB just sitting there before any computation. CPU path (v4) dispatched to remote_cpu to test brain-scale expansion hypothesis.
+
+### MAJOR USER INSIGHTS LATE SESSION
+
+**USER insight on hardware-incompatibility:**
+> "are we trying to recreate how the brain does it, and as a result trying to do it in a way that is very incompatible with existing hardware?"
+
+CORRECT. The brain has 50 billion parallel processors with local storage=compute. We have 1 GPU with 8GB separate RAM. Brain-scale mechanisms (cerebellar 7M× expansion, 50B granule cells) assume hardware we don't have.
+
+**USER insight on materials-science / optics analogy:**
+> "How do materials scientists figure out how magnetic islands are oriented in complex disordered materials? Or optical element orientation?"
+
+Materials scientists use POLARIMETRIC PROBES — multiple small probe inputs that interact differently with cone-aligned items, then INFER structure from response pattern. X-ray diffraction, polarized light, Lorentz electron microscopy. Hardware-friendly because probes + responses are small.
+
+**Cell substrate_anisotropy_polarimetric_multi_probe_retrieval_v1 dispatched** per this insight — K=10 probe vectors per retrieval; fair-test design includes:
+- ARM_SINGLE_PROBE_AVERAGED_K10 (catches "polarimetric just averages noise")
+- ARM_AB_CONTROL_RANDOM_K_PROBES (catches "any K probes work")
+- ARM_POLARIMETRIC_K10_PCA_AXES (brain-aligned cortical attention)
+- ARM_POLARIMETRIC_K10_LEARNED (strongest version)
+
+### CRITICAL PARTIAL DATA — POTENTIAL BARRIER 1 REVIVAL
+
+Cells B + C of multi-hop revival batch TIMED OUT at 3600s, but seed 7 partials saved striking results:
+
+**Cell B (compose fly-LSH + multi-bank + partition routing per-hop):**
+- BASELINE_2HOP: 0.605
+- SINGLE_CHAIN_5HOP: 0.275 (vs pointer-chain v2 rail 0.122 — META_M7 risk)
+- COMPOSE_FLY_LSH_5HOP: 0.330 (marginal)
+- **COMPOSE_MULTI_BANK_5HOP: 0.865** (+0.59)
+- **COMPOSE_PARTITION_5HOP: 0.95** (+0.675 — potential Barrier 1 closure)
+
+**Cell C (bidirectional meet-in-middle):**
+- BIDIRECTIONAL_MEET_MID_5HOP: 0.67 (+0.395)
+
+**Cells B + C v2 with META_M7 sanity arm dispatched** to verify whether the 0.275 single-chain rail is implementation-difference or regime-mismatch. If META_M7 OK → partition-routing-per-hop is BARRIER 1 REVIVAL. If regime mismatch → within-cell lifts honest but cross-cell comparison needs reconciliation.
+
+### v2c V=10000 Wave D closure: NEGATIVE (Mu-Viswanath confirmed)
+
+All biology arms HURT at production V=10000:
+- OLSHAUSEN: -0.016
+- DEEPWALK: -0.047 (worst)
+- KOHONEN: -0.000 (ties)
+
+Capacity-dependent phase transition fully characterized: structure HELPS at V=200 (capacity-rich), HURTS at V=10000 (capacity-tight). No encoder upgrade needed for substrate-product.
+
+### META_M7 atomized (cross-cell smoke-vs-full sign-flip discipline)
+
+3 cells (pointer-chain v2, WM-scaffold, CSP-gated) showed identical smoke-to-full sign-flip pattern. META_M7 says smoke must match full along EVERY capacity-sensitive dimension. Rail-discipline 4-rule set now codified: M2 + M5 + M6 + M7.
+
+### 2nd substrate layer (cortex hierarchical decorrelation) — USER-confirmed in plan
+
+Cell C cortical schema extraction (in flight on local CPU) = CONTENT side of cortex.
+2nd substrate layer (W1 → W2 hierarchical) = ARCHITECTURE side; NOT yet a discrete cell. Added to plan; dispatch contingent on Cell Z + Cell C outcomes.
+
+## CERT state (late)
+- CERT 600 (was 588 at start of day; +12 today)
+- META v4 chain-grade-confirmed pending Skunkworks atomization (will likely +1)
+- Refuse-gate V_REL=256 chain-grade pending atomization (+1 likely)
+- 12+ Fix #28 violations caught today; META_M7 + META_BARRIER_1_QUADRUPLE_NEGATIVE atomized
+
+## 18+ exp_dev/research/skunkworks spawn cycles today
+Including: 3 separate research drills (anisotropy barriers, anisotropy solutions, multi-hop 5x revival, base-primitive envelopes, MM-tier promotion paths, META multi-drill), 6+ exp_dev batches (Tier A+B, smoke-to-full upgrade, novel ideas, anisotropy fix attempts, META corpus + cell, brain consolidation), 2 Skunkworks tier-rule batches (5-artifact each).
+
+## In-flight cells/agents (end of session)
+
+**Authoring (exp_dev spawns, will dispatch in ~5-15min):**
+- Anisotropy v4 CPU path (remote_cpu_queue) — tests brain-scale expansion at no-memory-cap
+- Cell B + C v2 META_M7 redispatch (local_cpu_queue) — verifies partition-routing-per-hop revival
+- Polarimetric multi-probe retrieval (remote_cpu_queue) — USER materials-science insight
+
+**Already dispatched + queued/running:**
+- Cell X beam-search multi-hop (local CPU queue)
+- Cell X v2 META_M6 rail (local CPU)
+- 3 brain-consolidation cells (NREM replay + REM homeostasis + cortex schema; local CPU queue 6-8)
+- Multi-bank K-extension adversarial (local CPU queue)
+- NESS alpha-high extension (local CPU queue)
+- Cell B intent classifier (local CPU; lower-leverage)
+
+## DECISION POINTS PENDING
+
+1. **Cell B + C v2 META_M7 verification** — does partition-routing-per-hop ACTUALLY revive Barrier 1, or is it regime artifact?
+2. **Anisotropy v4 CPU path at brain-scale expansion** — does 4096× expansion actually rescue, or does cerebellar mechanism not transport to substrate?
+3. **Polarimetric multi-probe** — does materials-science cross-domain approach work?
+4. **Brain consolidation cells (NREM/REM/cortex)** — do they chain-grade?
+5. **Skunkworks tier-rule** — META v4 + refuse-gate V_REL + KV learned projection + multi-bank K-ext (when ready)
+
+## STANDING USER AUTHORIZATIONS
+
+- Full auto active (continuous autonomous execution)
+- Spawn budget Fix #14 flexible per direct USER instruction
+- Default UNDER-claim per Fix #28 (Skunkworks catches over-claims)
+- Skunkworks tier-rule when batch ready
+
+## NEXT-STEP TRIAGE (for post-compaction-self / next session)
+
+1. Read this master plan FIRST
+2. Touch heartbeat: `touch d:/AI/hd-instrument/data/heartbeats/research.timestamp`
+3. Check landings: `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -120`
+4. Check remote queues: `ssh marsh@home 'powershell -Command "Get-Content C:/dev/hd-instrument/data/overnight_queue/queue.log -Tail 5; Get-Content C:/dev/hd-instrument/data/remote_cpu_queue/queue.log -Tail 5"'`
+5. Read priority landings in this order:
+   a. Cell B + C v2 META_M7 (potential Barrier 1 revival)
+   b. Anisotropy v4 CPU + polarimetric multi-probe
+   c. Brain-consolidation 3-cell batch
+   d. Other queued cells
+6. Spawn Skunkworks for tier-rule when ≥3 cells have landed
+7. Update this master plan with the post-compaction-state-snapshot
+
+---
+
 # DIRECTOR MASTER PLAN — substrate full state at end of 2026-06-25
 
 **Purpose:** record full understanding of the substrate-product plan + current state + open questions so context survives compaction. USER explicit ask: "make sure that our current understanding of the plan is fully baked, planned, and recorded."
