@@ -1,5 +1,11 @@
 # DIRECTOR MASTER PLAN — substrate full state at end of 2026-06-25 (LATE UPDATE 23:30 PDT)
 
+## POST-COMPACTION CHECK (2026-06-26 ~01:00 PDT) — NO NEW LANDINGS
+
+Verified via filesystem mtime: nothing has completed since the late-update was written. All "new" cells I peeked (PFC chunked HARD_FAIL, compose/bidirectional TIMEOUT, anisotropy expansion v1 OOM) were already documented in the late-update section below. Currently in flight per master plan: NESS (local, running), anisotropy v4 CPU (remote, running), polarimetric (remote, queued), Cell B+C v2 + brain-consolidation + others (local, queued behind NESS). Heartbeat touched; Monitor armed (research). Holding.
+
+---
+
 ## LATE-UPDATE SECTION — major findings since master plan first written
 
 ### NEW CHAIN-GRADE WINS (late session)
