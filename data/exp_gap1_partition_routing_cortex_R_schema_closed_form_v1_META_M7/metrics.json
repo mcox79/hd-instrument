@@ -1,0 +1,411 @@
+{
+  "anchor_name": "gap1_partition_routing_cortex_R_schema_closed_form_v1_META_M7",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: BASELINE=0.6250 (sanity_breach=1/3) REPRODUCE_PV2=0.1217 (META_M7_breach=0/3) SINGLE=0.3233 PART_ORACLE=0.9550 (cross_cell_drift_oracle=0/3 vs 0.9550) PART_BIDIR_COLLIDE=0.6683 (cross_cell_drift_bidir=1/3 vs 0.6583) PART_R_SCHEMA=0.0000 (cv=0.000 lift_over_bidir=-0.6683) overfit_flags=3/3 cone_rotation=3/3 | BIAS_P_STANDS_R_SCHEMA_HARD_FAIL | Closed-form linear R_schema is NOT a viable router; partition information NOT linearly extractable from query embedding; pivot to nonlinear (Modern Hopfield) or replay-extracted (CLS) routing | rails=['SANITY_BREACH(1/3; baseline_mean=0.6250)', 'CROSS_CELL_DRIFT_BIDIR(1/3; bidir_mean=0.6683 vs 0.6583 tol=0.03)', 'R_SCHEMA_OVERFIT(3/3; train >> test by >0.10)', 'CONE_ROTATION_RISK(3/3; mean_cone_cos<0.90)']",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "config_version": "gap1PartitionRoutingCortexRSchemaClosedFormV1MetaM7: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_PARTS=20 PART_SIZE=10 R_RIDGE=0.0100 R_TRAIN_FRAC=0.80 seeds=[11, 13, 19] mode=full depth=5 midhop=2 HP_router>=0.80 HP_partial=[0.70,0.80) MIDDLE=[0.50,0.70) HF<=0.50 HP_cv<=0.07 HP_lift_over_bidir>=0.10 META_M7=[0.08,0.25] cross_cell_part_oracle=0.9550+/-0.02 cross_cell_bidir=0.6583+/-0.03 baseline_sanity=[0.62,0.68] encoder_provenance=SUBSTRATE_NATIVE",
+  "per_seed": [
+    {
+      "seed": 11,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_partitions": 20,
+      "part_size": 10,
+      "pointer_n_chains": 200,
+      "pointer_v2_n_chains": 200,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "midpoint_hop": 2,
+      "ridge_lambda": 0.01,
+      "train_fraction": 0.8,
+      "config_version": "gap1PartitionRoutingCortexRSchemaClosedFormV1MetaM7: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_PARTS=20 PART_SIZE=10 R_RIDGE=0.0100 R_TRAIN_FRAC=0.80 seeds=[11, 13, 19] mode=full depth=5 midhop=2 HP_router>=0.80 HP_partial=[0.70,0.80) MIDDLE=[0.50,0.70) HF<=0.50 HP_cv<=0.07 HP_lift_over_bidir>=0.10 META_M7=[0.08,0.25] cross_cell_part_oracle=0.9550+/-0.02 cross_cell_bidir=0.6583+/-0.03 baseline_sanity=[0.62,0.68] encoder_provenance=SUBSTRATE_NATIVE",
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.655,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 4.78
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.135,
+        "per_step_acc": [
+          0.68,
+          0.405,
+          0.245,
+          0.16,
+          0.135
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 10.69,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 2000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_top1_5hop": {
+        "top1": 0.315,
+        "per_step_acc": [
+          0.855,
+          0.635,
+          0.455,
+          0.35,
+          0.315
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 11.49,
+        "W_n_bindings": 1000
+      },
+      "arm_part_oracle_5hop": {
+        "top1": 0.965,
+        "per_step_acc": [
+          0.995,
+          0.99,
+          0.965,
+          0.965,
+          0.965
+        ],
+        "routing_acc_per_hop": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed_cross_cell_sanity",
+        "W_n_bindings": 1000,
+        "elapsed_s_arm": 11.46
+      },
+      "cross_cell_part_oracle_drift": false,
+      "arm_part_bidir_collide_5hop": {
+        "top1": 0.69,
+        "endpoint_routing_acc": 0.705,
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "midpoint_hop": 2,
+        "mechanism": "partition_meet_in_middle_bidirectional_collide_cross_cell_rail",
+        "elapsed_s_arm": 135.95
+      },
+      "cross_cell_bidir_drift": true,
+      "arm_part_r_schema_closed_form_5hop": {
+        "top1": 0.0,
+        "train_top1": 0.2188,
+        "overfit_gap": 0.2188,
+        "overfit_flag": true,
+        "per_step_acc": [
+          0.175,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "routing_acc_per_hop": [
+          0.175,
+          0.075,
+          0.05,
+          0.05,
+          0.025
+        ],
+        "cone_cos_per_hop": [
+          0.3317,
+          0.3389,
+          0.3912,
+          0.3754,
+          0.3716
+        ],
+        "mean_cone_cos": 0.3618,
+        "cone_rotation_risk": true,
+        "n_queries_train": 160,
+        "n_queries_eval": 40,
+        "depth": 5,
+        "n_partitions": 20,
+        "R_schema_fit_s": 36.195,
+        "ridge_lambda": 0.01,
+        "train_fraction": 0.8,
+        "mechanism": "partition_routing_closed_form_R_schema_query_to_partition_brain_mPFC_analog",
+        "elapsed_s_arm": 47.01
+      },
+      "elapsed_s": 223.6,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782507305.2692478
+    },
+    {
+      "seed": 13,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_partitions": 20,
+      "part_size": 10,
+      "pointer_n_chains": 200,
+      "pointer_v2_n_chains": 200,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "midpoint_hop": 2,
+      "ridge_lambda": 0.01,
+      "train_fraction": 0.8,
+      "config_version": "gap1PartitionRoutingCortexRSchemaClosedFormV1MetaM7: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_PARTS=20 PART_SIZE=10 R_RIDGE=0.0100 R_TRAIN_FRAC=0.80 seeds=[11, 13, 19] mode=full depth=5 midhop=2 HP_router>=0.80 HP_partial=[0.70,0.80) MIDDLE=[0.50,0.70) HF<=0.50 HP_cv<=0.07 HP_lift_over_bidir>=0.10 META_M7=[0.08,0.25] cross_cell_part_oracle=0.9550+/-0.02 cross_cell_bidir=0.6583+/-0.03 baseline_sanity=[0.62,0.68] encoder_provenance=SUBSTRATE_NATIVE",
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.62,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 4.85
+      },
+      "baseline_sanity_ok": true,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.105,
+        "per_step_acc": [
+          0.675,
+          0.365,
+          0.23,
+          0.14,
+          0.105
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 10.99,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 2000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_top1_5hop": {
+        "top1": 0.305,
+        "per_step_acc": [
+          0.835,
+          0.65,
+          0.49,
+          0.365,
+          0.305
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 11.21,
+        "W_n_bindings": 1000
+      },
+      "arm_part_oracle_5hop": {
+        "top1": 0.945,
+        "per_step_acc": [
+          0.995,
+          0.99,
+          0.965,
+          0.955,
+          0.945
+        ],
+        "routing_acc_per_hop": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed_cross_cell_sanity",
+        "W_n_bindings": 1000,
+        "elapsed_s_arm": 11.93
+      },
+      "cross_cell_part_oracle_drift": false,
+      "arm_part_bidir_collide_5hop": {
+        "top1": 0.635,
+        "endpoint_routing_acc": 0.65,
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "midpoint_hop": 2,
+        "mechanism": "partition_meet_in_middle_bidirectional_collide_cross_cell_rail",
+        "elapsed_s_arm": 139.54
+      },
+      "cross_cell_bidir_drift": false,
+      "arm_part_r_schema_closed_form_5hop": {
+        "top1": 0.0,
+        "train_top1": 0.2125,
+        "overfit_gap": 0.2125,
+        "overfit_flag": true,
+        "per_step_acc": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "routing_acc_per_hop": [
+          0.0,
+          0.075,
+          0.1,
+          0.0,
+          0.075
+        ],
+        "cone_cos_per_hop": [
+          0.3431,
+          0.367,
+          0.3457,
+          0.3578,
+          0.3644
+        ],
+        "mean_cone_cos": 0.3556,
+        "cone_rotation_risk": true,
+        "n_queries_train": 160,
+        "n_queries_eval": 40,
+        "depth": 5,
+        "n_partitions": 20,
+        "R_schema_fit_s": 37.074,
+        "ridge_lambda": 0.01,
+        "train_fraction": 0.8,
+        "mechanism": "partition_routing_closed_form_R_schema_query_to_partition_brain_mPFC_analog",
+        "elapsed_s_arm": 47.83
+      },
+      "elapsed_s": 228.7,
+      "_ckpt_key": "13",
+      "_partial_written_at": 1782507534.037189
+    },
+    {
+      "seed": 19,
+      "run_mode": "full",
+      "N": 8192,
+      "V_C": 200,
+      "n_predicates": 10,
+      "n_partitions": 20,
+      "part_size": 10,
+      "pointer_n_chains": 200,
+      "pointer_v2_n_chains": 200,
+      "pointer_v2_max_depth": 10,
+      "depth": 5,
+      "midpoint_hop": 2,
+      "ridge_lambda": 0.01,
+      "train_fraction": 0.8,
+      "config_version": "gap1PartitionRoutingCortexRSchemaClosedFormV1MetaM7: N=8192 V_C=200 BASELINE_V_P=2 BASELINE_N=200 POINTER_V_P=10 POINTER_N=200 K_SET=20 POINTER_V2_N=200 POINTER_V2_DEPTH=10 N_PARTS=20 PART_SIZE=10 R_RIDGE=0.0100 R_TRAIN_FRAC=0.80 seeds=[11, 13, 19] mode=full depth=5 midhop=2 HP_router>=0.80 HP_partial=[0.70,0.80) MIDDLE=[0.50,0.70) HF<=0.50 HP_cv<=0.07 HP_lift_over_bidir>=0.10 META_M7=[0.08,0.25] cross_cell_part_oracle=0.9550+/-0.02 cross_cell_bidir=0.6583+/-0.03 baseline_sanity=[0.62,0.68] encoder_provenance=SUBSTRATE_NATIVE",
+      "encoder_provenance": "SUBSTRATE_NATIVE",
+      "_llm_forward_calls_at_inference": 0,
+      "arm_baseline_hrr_2hop": {
+        "top1": 0.6,
+        "n_queries": 200,
+        "mechanism": "beta_sweep_naive_hard",
+        "elapsed_s_arm": 4.46
+      },
+      "baseline_sanity_ok": false,
+      "arm_reproduce_pointer_chain_v2_5hop": {
+        "top1": 0.125,
+        "per_step_acc": [
+          0.64,
+          0.42,
+          0.26,
+          0.165,
+          0.125
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 10.18,
+        "mechanism": "verbatim_pointer_chain_v2_at_2000_bindings",
+        "W_n_bindings": 2000
+      },
+      "meta_m7_rail_ok": true,
+      "arm_single_top1_5hop": {
+        "top1": 0.35,
+        "per_step_acc": [
+          0.805,
+          0.64,
+          0.565,
+          0.44,
+          0.35
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "elapsed_s_arm": 10.9,
+        "W_n_bindings": 1000
+      },
+      "arm_part_oracle_5hop": {
+        "top1": 0.955,
+        "per_step_acc": [
+          0.995,
+          0.985,
+          0.98,
+          0.975,
+          0.955
+        ],
+        "routing_acc_per_hop": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "mechanism": "partition_per_hop_oracle_routed_cross_cell_sanity",
+        "W_n_bindings": 1000,
+        "elapsed_s_arm": 11.69
+      },
+      "cross_cell_part_oracle_drift": false,
+      "arm_part_bidir_collide_5hop": {
+        "top1": 0.68,
+        "endpoint_routing_acc": 0.735,
+        "n_queries": 200,
+        "depth": 5,
+        "n_partitions": 20,
+        "midpoint_hop": 2,
+        "mechanism": "partition_meet_in_middle_bidirectional_collide_cross_cell_rail",
+        "elapsed_s_arm": 138.94
+      },
+      "cross_cell_bidir_drift": false,
+      "arm_part_r_schema_closed_form_5hop": {
+        "top1": 0.0,
+        "train_top1": 0.2875,
+        "overfit_gap": 0.2875,
+        "overfit_flag": true,
+        "per_step_acc": [
+          0.05,
+          0.025,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "routing_acc_per_hop": [
+          0.05,
+          0.075,
+          0.075,
+          0.05,
+          0.025
+        ],
+        "cone_cos_per_hop": [
+          0.356,
+          0.3827,
+          0.4098,
+          0.3718,
+          0.3851
+        ],
+        "mean_cone_cos": 0.3811,
+        "cone_rotation_risk": true,
+        "n_queries_train": 160,
+        "n_queries_eval": 40,
+        "depth": 5,
+        "n_partitions": 20,
+        "R_schema_fit_s": 36.176,
+        "ridge_lambda": 0.01,
+        "train_fraction": 0.8,
+        "mechanism": "partition_routing_closed_form_R_schema_query_to_partition_brain_mPFC_analog",
+        "elapsed_s_arm": 46.46
+      },
+      "elapsed_s": 224.8,
+      "_ckpt_key": "19",
+      "_partial_written_at": 1782507758.9201143
+    }
+  ],
+  "elapsed_s": 677.3,
+  "summary": "HARD_FAIL: BASELINE=0.6250 (sanity_breach=1/3) REPRODUCE_PV2=0.1217 (META_M7_breach=0/3) SINGLE=0.3233 PART_ORACLE=0.9550 (cross_cell_drift_oracle=0/3 vs 0.9550) PART_BIDIR_COLLIDE=0.6683 (cross_cell_drift_bidir=1/3 vs 0.6583) PART_R_SCHEMA=0.0000 (cv=0.000 lift_over_bidir=-0.6683) overfit_flags=3/3 cone_rotation=3/3 | BIAS_P_STANDS_R_SCHEMA_HARD_FAIL | Closed-form linear R_schema is NOT a viable router; partition information NOT linearly extractable from query embedding; pivot to nonlinear (Modern Hopfield) or replay-extracted (CLS) routing | rails=['SANITY_BREACH(1/3; baseline_mean=0.6250)', 'CROSS_CELL_DRIFT_BIDIR(1/3; bidir_mean=0.6683 vs 0.6583 tol=0.03)', 'R_SCHEMA_OVERFIT(3/3; train >> test by >0.10)', 'CONE_ROTATION_RISK(3/3; mean_cone_cos<0.90)']",
+  "_llm_forward_calls_at_inference": 0,
+  "encoder_provenance": "SUBSTRATE_NATIVE",
+  "DESIGN_NOTE": "Gap 1 cortex-as-router R_schema closed-form: Research drill on brain mechanism for destination-hint routing (mPFC schema-bias via theta-gamma phase coupling). Closed-form pseudoinverse from QUERY (clean signal) to partition one-hot; reads SEPARATE pathway from noise-collapsed forward state. Substrate-precedent: kv_learned_projection (chain-grade 0.827; 2026-06-20) same capability class. HP_CHAIN_GRADE_BIDIR_ROUTER_REMOVED: R_SCHEMA >= 0.80 AND lift over BIDIR_COLLIDE >= 0.10 AND META_M7 PASS. Cross-cell rails: PART_ORACLE = 0.9550 +/- 0.02; PART_BIDIR_COLLIDE = 0.6583 +/- 0.03. Train/test split: 80/20; overfit flag >0.10 gap."
+}

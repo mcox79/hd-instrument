@@ -172,18 +172,22 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 6fd4988a Stop hook import-time bug fix (both hint helpers had been silently broken)
 
 ## orchestrator
-**Last-updated:** 2026-06-26T14:10Z (phase-diagram K-extension to 16384 SHIPPED + LANDED in 16.6s; MIDDLE_BAND_PARTIAL_K_EXTENDS verdict; K=16384 GPU-OOM 8GB ceiling)
+**Last-updated:** 2026-06-26T17:30Z (USER-traveling 2h burst: 3 pushes + 2 metrics SCPs + MH revival queue_add; GPU HELD per USER directive)
 
 ### Waiting on
 - (nothing blocking; reactive)
 
 ### In flight
-- (idle; just completed GPU dispatch + REMOTE VERIFY for phase_diagram_working_memory_multibank_K_extension_to_16384_v1)
+- (idle; 3-task burst complete: pushed origin/main ef30e713->57bb1965 (MH revival cell+prereg+text8_sentence); SCP'd metrics for gap4_two_tier (HARD_PASS) + gap1_partition_routing_cortex_R_schema (HARD_FAIL); queue_add'd mh_revival_feature_regime_diagnostic_v1 to remote_cpu_queue verified pending)
 
 ### Next 3 (if bandwidth opens)
-1. Notify exp_dev + Skunkworks of MIDDLE_BAND verdict (chain-grade at K=4096 + K=8192 MULTI_128x; K=16384 GPU-OOM ALL arms on 8GB 4060Ti; rail OK 1.0000 vs 0.9927 target; KNN sentinel OK)
-2. Route to exp_dev: K=16384 cell needs fp16+chunked-bank-write rewrite OR drop K=16384 from sweep + reframe as "K=8192 chain-grade ceiling within 8GB GPU envelope"
-3. Status_log entry for verdict event
+1. Reactive on MH revival cell-land (~30-90s expected on remote_cpu after text8_sentence finishes ahead in queue)
+2. Reactive on gap4 + gap1 verdict-handler dispatch (HARD_PASS gap4 + HARD_FAIL gap1 routes to Skunkworks landed-VET + Director ratify cap_map bumps)
+3. If GPU still idle next turn + exp_dev's lang_ingest_OOM_fix_v2 hasn't landed: route ask to exp_dev for V_C-extension follow-up (depth-extension just HARD_PASSED CHAIN_GRADE at 7HOP=0.88/10HOP=0.86/15HOP=0.81 — V_C=2000 follow-up is natural next-step)
+
+### Recently cleared (rolling; <=5)
+- 3-task USER-traveling burst (this turn): pushed 2 pending commits (ef30e713->57bb1965 = MH revival 7db1b4a6 + af19b566 + text8_sentence 57bb1965); SCP'd metrics for gap4_two_tier (HARD_PASS partial 0.30 drift reduction) + gap1_partition_routing (HARD_FAIL closed-form linear R_schema not viable); dispatched mh_revival_feature_regime_diagnostic_v1 to remote_cpu_queue (timeout 3600s; queue pos 2; --self-test PASS 3.5s remote); GPU HELD (no clear high-impact cell + depth-extension just landed CHAIN_GRADE so V_C-extension is natural but requires exp_dev authoring; lang_ingest_OOM_fix_v2 in flight is natural next GPU work)
+- phase_diagram_working_memory_multibank_K_extension_to_16384_v1: pushed 78f4af4e..c2d9436b to origin/main + dispatched overnight_queue via queue_add.sh (--skip-smoke; --self-test PASS 4.7s on remote .venv); REMOTE VERIFY md5=ABD9BF92DB991A9F3ACE799C5B55DD1B MATCH; cell ran 16.6s wall; verdict MIDDLE_BAND_PARTIAL_K_EXTENDS
 
 ### Recently cleared (rolling; <=5)
 - phase_diagram_working_memory_multibank_K_extension_to_16384_v1: pushed 78f4af4e..c2d9436b to origin/main + dispatched overnight_queue via queue_add.sh (--skip-smoke; --self-test PASS 4.7s on remote .venv); REMOTE VERIFY md5=ABD9BF92DB991A9F3ACE799C5B55DD1B MATCH local abd9bf92db991a9f3ace799c5b55dd1b; cell ran in 16.6s wall (21 units done; 21 units OOM at K=16384); verdict MIDDLE_BAND_PARTIAL_K_EXTENDS (chain_grade_set={4096:MULTI_64x, 8192:MULTI_128x}); rail 1.0000 OK; knn_sentinel 1.0000 OK; Q-DISCIPLINE flagged saturation at K=4096 + K=8192 RANDOM MULTI_128x.
