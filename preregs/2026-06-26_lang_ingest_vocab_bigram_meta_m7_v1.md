@@ -87,7 +87,20 @@ MIDDLE_BAND_UPPER         = 0.40
   top1 / top5 / BPC / cv / regime_check_passed / saturation_flag.
 - **PROT-021 checkpoint hygiene:** run_config = {"N": 8192, "run_mode": "full"}
   prevents smoke partials contaminating full.
-- **PROT-022 formula self-tests:** T1-T6 at module init AND under `--self-test`.
+- **PROT-022 formula self-tests:** T1-T7 at module init AND under `--self-test`.
+  T7 (added 2026-06-25 OOM-fix): closed-form GPU peak projection at FULL
+  N_DIM x V_TOK x N_PARTITIONS x GPU_BATCH x N_EVAL; hard-asserts projected
+  peak <= 6144 MB safety margin under 8 GB total. Pre-fix would have been
+  16384 MB (the OOM root cause); post-fix peak 2688 MB. Runtime gate in
+  `_device_for_run` also queries torch.cuda.mem_get_info and refuses to
+  start a seed if projected peak > free GPU memory.
+- **OOM-fix architecture (2026-06-25; commit 1ea55da9):** S_parts kept
+  CPU-resident; only ONE partition transferred to GPU at a time for matmul;
+  Hebbian outer-product accumulation on GPU then back to CPU. Eval-time
+  scoring partition-major (each S_part transferred once across batches that
+  need it). predicted_full + cues_full GPU buffers ~1 GB each. S_parts +
+  cb_t freed between ARM_C and S_parts_d build to bound CPU RAM peak at
+  one S_parts set (16.4 GB).
 - **ASCII-only:** no emojis; no em-dashes.
 
 ## Failure-class revival paths (pre-registered)
