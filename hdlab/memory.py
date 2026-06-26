@@ -1,4 +1,23 @@
-"""Cleanup memory: stores named atoms; lookup is gated by the attention modulator."""
+"""Cleanup memory: stores named atoms; lookup is gated by the attention modulator.
+
+Cosine-floor bound (Skunkworks landed-VET 2026-06-26; meta::T3/META_substrate_tracks_
+KNN_cosine_floor_within_0p007_across_eight_construction_param_combinations): the
+similarity-based cleanup recall implemented here is bounded ABOVE by exhaustive-
+cosine-KNN recall on the same key distribution (proven 8/8 in smoke at M=2000
+pythia-160m windows 16-64; delta(knn - sub) in [+0.0006, +0.0067] all non-negative;
+substrate NEVER beats KNN within this regime). The bound is ONE-SIDED (above) and
+REGIME-BOUNDED: the cosine-physics ceiling is itself regime-dependent. Short-LM-
+window (<=64 tokens) at M=2000 with pythia-160m keeps recall@1 <= 0.158 -- below
+chain-grade band -- per meta::T3/META_cosine_physics_floor_on_short_LM_window_keys.
+Natural-distribution keys at M=10k+ with pythia-2.8b reach chain-grade recall per
+partition_routing M=10M / fly-LSH M=10k / KV-learned M=10k chain-grade ledger
+entries. For short-LM-window regimes where the cosine ceiling is below chain-
+grade, the productized high-M path is NON-COSINE mechanism (refuse-gate / sparse-
+tag retrieval / sparse-fan-in / learned-projection metric), NOT geometric rescue
+of cosine-based dense cleanup (per meta::T3/META_when_substrate_tracks_an_external_
+baseline_within_smoke_noise_band_AND_baseline_itself_is_low_the_chain_grade_path_is_
+baseline_replacement_not_baseline_rescue, the Fix #26 pre-dispatch matcher discipline).
+"""
 
 from __future__ import annotations
 

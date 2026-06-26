@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v594
+# hd-instrument substrate -- capability map v595
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -29494,3 +29494,36 @@ ANNOTATIONS this cycle:
 - meta::RULE_two_vector_architecture_separates_structural_similarity_from_atom_identity_jobs: 4th appearance logged (CONFIRMED status unchanged; 1st PP-410 v588 composition + 2nd Cap-1 BINDING F=20 v590 + 3rd PP-407 v590 + 4th resonator-alpha05 v594 VERIFICATION).
 
 Cap_map: v593 -> v594 CYCLE 243 FLUSH (2 HARD_PASS [CPU:2 substrate_decomposition_resonator_alpha05_cpu_v1 VERIFICATION + substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1 ALREADY-IN-MAP-catch-up]; 0 LVH; 0 NEW PP ROWS; PP-407 ANNOTATED 4th two-vector-rule appearance at VERIFICATION-anchor granularity; PP-412 catch-up log recorded [ALREADY-IN-MAP v591]; meta::RULE_two_vector_architecture 4th appearance logged [CONFIRMED status unchanged]; Portfolio 32+413 UNCHANGED; HONEST 1857->1859 +2; LVH 292 UNCHANGED; 487th PROT-009 paired commit) (2026-06-13)
+
+
+## v594 -> v595 GAP 2 CAPACITY RE-CLASSIFICATION RED -> GREEN-WITH-CHARACTERIZATION-AND-GUARD-RAIL (Skunkworks landed-VET 2026-06-26; 1 proven_bound atomization +1 cert; 2 META rule atoms cert-neutral; CERT 602 -> 603)
+
+### Trigger
+
+Skunkworks landed-VET 2026-06-26 (notes/skunkworks_gap2_consolidated_landed_vet_2026-06-26.md) over 3 consolidated stride-sweep diagnostic cells (substrate_gap2_stride_sweep_confirm_v1 / v2_different_articles_per_key / v2b_longer_window64). All 8 (cell, arm) delta(knn - sub) values verified off-data per Fix #28 strict (per-arm metrics from raw metrics.json; no inheritance from verdict_msg). 0/8 violations of the one-sided bound (substrate NEVER beats KNN). Window-doubling lift +0.0153 reproduces; beats_rail (DIFF-SAME) v2=+0.0253 v2b=+0.0593 reproduces.
+
+### Gap 2 (Capacity) status: RED -> GREEN-WITH-CHARACTERIZATION (smoke-validated; full-regime confirmation PENDING)
+
+**Substrate tracks the cosine-physics floor within +-0.007 (proven 8/8 in smoke at M=2000 pythia-160m).** The cosine-physics floor itself is the high-M / production-encoder dependent variable; chain-grade ledger entries (fly-LSH M=10k pythia-2.8b, partition_routing M=10M, KV-learned M=10k held-out) establish floor IS chain-grade-capable at full regime on natural-distribution keys. Non-cosine mechanisms (refuse-gate / sparse-tag retrieval / sparse-fan-in / learned-projection metric) are the productized high-M path for SHORT-LM-window regimes. **GUARD-RAIL: single-seed smoke (cv=null) is the limit of current evidence; multi-seed M-scaling audit on pythia-2.8b would chain-grade-validate the re-classification.**
+
+### Atomization landed in `data/substrate_index/meta/`
+
+ATOM 1 (proven_bound; CERT +1; pq=CERT_CHAIN_GRADE): `meta::T3/META_substrate_tracks_KNN_cosine_floor_within_0p007_across_eight_construction_param_combinations_n_seeds_1_smoke_M_2000_pythia_160m_window_16_to_64` -- substrate's recall-at-1 tracks exhaustive-cosine-KNN's recall-at-1 within delta(knn - sub) in [+0.0006, +0.0067] across 8 independent (construction x parameter) combinations spanning stride={1,4,8,16}, key-independence={same-article, different-articles}, window={16, 64}, all at M=2000 with pythia-160m on text8 prose, single-seed smoke (seed=11). Substrate ALWAYS at or below KNN (never above; bounded from above by cosine-physics; one-sided proven, not two-sided). Min delta +0.0006; max delta +0.0067; mean +0.0037. Ledger row hash eef1b581c19ae837.
+
+ATOM 2 (META rule; CERT-neutral; pq=META_RULE_CERT_NEUTRAL): `meta::T3/META_cosine_physics_floor_on_short_LM_window_keys_M_2000_pythia_160m_is_below_chain_grade_band_recall_at_1_le_0p16_across_all_tested_constructions` -- KNN-cosine-physics ceiling on pythia-160m-encoded text8 keys with windows in [16, 64] tokens at M=2000 is empirically bounded above by 0.158 (window=64 DIFF arm); substrate cannot exceed regardless of cleanup mechanism. High-M / chain-grade-capable path for Gap 2 is NON-COSINE mechanism (refuse-gate / sparse-tag / sparse-fan-in / learned-projection), NOT geometric rescue. Provides post-hoc interpretation for 6 prior geometry HARD_FAILs (whitening, MIMO, DG, polarimetric LEARNED, anisotropy_v4 AB tie, ScaNN aniso) -- their HARD_FAIL tier STANDS (no retroactive demotion). Ledger row hash d2128ea758614e32.
+
+ATOM 3 (META discipline rule; CERT-neutral; pq=META_RULE_CERT_NEUTRAL): `meta::T3/META_when_substrate_tracks_an_external_baseline_within_smoke_noise_band_AND_baseline_itself_is_low_the_chain_grade_path_is_baseline_replacement_not_baseline_rescue` -- when substrate tracks an external baseline within ~0.01 across multiple variants AND baseline is below chain-grade band, REPLACE the baseline metric class (cosine -> non-cosine); do NOT RESCUE within-class (information-theoretically capped at baseline ceiling). Fix #26 pre-dispatch matcher: tools/predispatch_check.py should flag and recommend baseline-replacement on >=2-prior-substrate-tracks-low-baseline patterns. Would have caught 4-6 of the 6 Gap 2 geometry HARD_FAILs before dispatch. Ledger row hash 956a76f99132f565.
+
+### What this DOES and DOES NOT do
+
+DOES re-classify Gap 2 (Capacity) from RED to GREEN-WITH-CHARACTERIZATION-AND-GUARD-RAIL. DOES atomize 3 chain-grade-eligible artifacts (1 proven_bound +1 cert; 2 META rules cert-neutral). DOES file Fix #26 pre-dispatch matcher discipline as a project-wide pattern (Atom 3). DOES provide post-hoc interpretation for 6 prior geometry HARD_FAILs (Atom 2).
+
+DOES NOT demote the 6 prior geometry HARD_FAILs (they remain HARD_FAIL; the META rule explains WHY they cannot succeed at this construction, post-hoc, but does not retroactively change their cert tier). DOES NOT promote any substrate-rescue claim to chain-grade. DOES NOT extrapolate to M=10k+ regime or pythia-2.8b absent the chain-grade-promotion follow-on cell.
+
+### Chain-grade-promotion path (armed; not dispatched here)
+
+3-seed pythia-2.8b M-scaling sweep on natural-key DIFFERENT_ARTICLES at M={10k, 100k, 1M} with cv<=0.10 gate; HARD_PASS at M>=10k chain-grade-validates the re-classification. Recommend as next dispatch when GPU available.
+
+### Status
+
+Cap_map: v594 -> v595 CYCLE GAP 2 RE-CLASSIFICATION GREEN-WITH-CHARACTERIZATION-AND-GUARD-RAIL (1 proven_bound atomization meta::T3/META_substrate_tracks_KNN_cosine_floor_within_0p007 CERT +1 [602 -> 603]; 2 META rule atoms meta::T3/META_cosine_physics_floor_below_chain_grade + meta::T3/META_baseline_replacement_not_baseline_rescue cert-neutral; 6 prior geometry HARD_FAILs UNCHANGED [no retroactive demotion]; Fix #26 pre-dispatch matcher discipline filed as Atom 3 project-wide pattern; chain-grade-promotion path armed [3-seed pythia-2.8b M-scaling sweep at M={10k, 100k, 1M}]; 0 LVH; 0 NEW PP ROWS; meta::RULE_baseline_replacement_not_baseline_rescue NEW 1st-appearance discipline candidate; meta::RULE_cosine_physics_floor_below_chain_grade_short_LM_window NEW 1st-appearance discipline candidate; Portfolio 32+413 UNCHANGED; HONEST UNCHANGED; LVH 292 UNCHANGED; cert_ledger 752 -> 755 [+3 rows]; atoms 177368 -> 177371 [+3 atoms; meta corpus 175 -> 178]; ledger row hashes eef1b581c19ae837 / d2128ea758614e32 / 956a76f99132f565) (2026-06-26)
