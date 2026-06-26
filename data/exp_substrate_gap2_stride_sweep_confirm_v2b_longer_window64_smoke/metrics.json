@@ -1,0 +1,124 @@
+{
+  "anchor_name": "substrate_gap2_stride_sweep_confirm_v2b_longer_window64",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_GAP2_REAL: DIFF_ARTICLES recall_at_1=0.153 < 0.50 even with proper key independence. Gap 2 is a REAL capacity gap at M=2000; need new mechanism (Anchor 3 natural-keys M-scaling audit). DIFF_ART: knn=0.158 route=0.935 r1=0.153 r10=0.443 delta=0.001 | SAME_ART: knn=0.097 route=0.908 r1=0.094 r10=0.321 delta=0.001 | beats_rail=0.059 sub_vs_knn(diff)=0.005 sub_vs_knn(same)=0.003 cv(diff)=nan",
+  "summary": "HARD_FAIL_GAP2_REAL: DIFF_ARTICLES recall_at_1=0.153 < 0.50 even with proper key independence. Gap 2 is a REAL capacity gap at M=2000; need new mechanism (Anchor 3 natural-keys M-scaling audit). DIFF_ART: knn=0.158 route=0.935 r1=0.153 r10=0.443 delta=0.001 | SAME_ART: knn=0.097 route=0.908 r1=0.094 r10=0.321 delta=0.001 | beats_rail=0.059 sub_vs_knn(diff)=0.005 sub_vs_knn(same)=0.003 cv(diff)=nan",
+  "headline": "HARD_FAIL_GAP2_REAL: DIFF_ARTICLES recall_at_1=0.153 < 0.50 even with proper key independence. Gap 2 is a REAL capacity gap at M=2000; need new mechanism (Anchor 3 natural-keys M-scaling audit). DIFF_ART: knn=0.158 route=0.935 r1=0.153 r10=0.443 delta=0.001 | SAME_ART: knn=0.097 route=0.908 r1=0.094 r10=0.321 delta=0.001 | beats_rail=0.059 sub_vs_knn(diff)=0.005 sub_vs_knn(same)=0.003 cv(diff)=nan",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "M": 2000,
+  "ARM_NAMES": [
+    "DIFFERENT_ARTICLES",
+    "SAME_ARTICLE_STRIDE_16"
+  ],
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "window_tokens": 64,
+  "cue_shift": 4,
+  "detail": {
+    "ARM_NAMES": [
+      "DIFFERENT_ARTICLES",
+      "SAME_ARTICLE_STRIDE_16"
+    ],
+    "per_arm_recall_at_1_median": {
+      "DIFFERENT_ARTICLES": 0.1533,
+      "SAME_ARTICLE_STRIDE_16": 0.094
+    },
+    "per_arm_recall_at_10_median": {
+      "DIFFERENT_ARTICLES": 0.4427,
+      "SAME_ARTICLE_STRIDE_16": 0.3213
+    },
+    "per_arm_knn_recall_at_1_median": {
+      "DIFFERENT_ARTICLES": 0.158,
+      "SAME_ARTICLE_STRIDE_16": 0.0967
+    },
+    "per_arm_route_acc_median": {
+      "DIFFERENT_ARTICLES": 0.9353,
+      "SAME_ARTICLE_STRIDE_16": 0.908
+    },
+    "per_arm_top1_top2_delta_median": {
+      "DIFFERENT_ARTICLES": 0.0011,
+      "SAME_ARTICLE_STRIDE_16": 0.0008
+    },
+    "per_arm_recall_at_1_cv": {
+      "DIFFERENT_ARTICLES": null
+    },
+    "beats_rail_delta": 0.0593,
+    "substrate_vs_knn_delta_diffart": 0.0047,
+    "substrate_vs_knn_delta_samearticle": 0.0027,
+    "n_seeds": 1,
+    "M": 2000,
+    "bands": {
+      "HP_DIFFART_RECALL": 0.9,
+      "HP_BEATS_RAIL_DELTA": 0.5,
+      "HP_PARTIAL_RECALL_LO": 0.7,
+      "MIDDLE_RECALL_LO": 0.5,
+      "HF_REAL_RECALL": 0.5,
+      "SUBSTRATE_KNN_DELTA": 0.05,
+      "CV_HP": 0.05,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "gap2_v2_different_articles_per_key (arms=['DIFFERENT_ARTICLES', 'SAME_ARTICLE_STRIDE_16']; key_stride_diff_articles=10000_words key_stride_same_article=16_words; prose=text8) | proj=768 part_target=2000 km_iters=25 sigma=0.10 window=64t cue_shift=4 | seeds=[11] M=2000 encoder=EleutherAI/pythia-160m | CPU_numpy",
+    "cites": [
+      "exp_dev_to_research_gap2_stride_sweep_SMOKE_GATED_nonmonotonic_2026-06-26",
+      "research_gap2_capacity_side_analysis_NOT_geometry_2026-06-26",
+      "exp_dev_handoff_research_gap2_capacity_side_analysis_2026-06-26",
+      "substrate_partition_routing_hierarchical_2level_v1",
+      "Geifman_El-Yaniv_2017_selective_classification"
+    ]
+  },
+  "metrics_source": "measured_cpu_v2_different_articles_per_key_iso_kmeans_partition_routing_v1",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_arm": {
+        "DIFFERENT_ARTICLES": {
+          "arm": "DIFFERENT_ARTICLES",
+          "M_eff": 2000,
+          "n_parts": 2,
+          "knn_recall_at_1": 0.158,
+          "route_acc": 0.9353,
+          "recall_at_1": 0.1533,
+          "recall_at_10": 0.4427,
+          "quant_err_l2": 0.149977,
+          "top1_top2_delta_median": 0.0011,
+          "top1_top2_delta_p25": 0.0004,
+          "top1_top2_delta_p75": 0.0023,
+          "elapsed_s": 5.53,
+          "encode_elapsed_s": 158.0
+        },
+        "SAME_ARTICLE_STRIDE_16": {
+          "arm": "SAME_ARTICLE_STRIDE_16",
+          "M_eff": 2000,
+          "n_parts": 2,
+          "knn_recall_at_1": 0.0967,
+          "route_acc": 0.908,
+          "recall_at_1": 0.094,
+          "recall_at_10": 0.3213,
+          "quant_err_l2": 0.115885,
+          "top1_top2_delta_median": 0.0008,
+          "top1_top2_delta_p25": 0.0003,
+          "top1_top2_delta_p75": 0.0016,
+          "elapsed_s": 5.35,
+          "encode_elapsed_s": 134.79
+        }
+      },
+      "train_W_elapsed_s": 103.99,
+      "total_encoder_elapsed_s": 292.79,
+      "run_mode": "smoke",
+      "ARM_NAMES": [
+        "DIFFERENT_ARTICLES",
+        "SAME_ARTICLE_STRIDE_16"
+      ],
+      "N": 768,
+      "M": 2000,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782467162.9064212
+    }
+  ],
+  "elapsed_s": 415.6537563800812,
+  "config_version": "gap2_v2_different_articles_per_key (arms=['DIFFERENT_ARTICLES', 'SAME_ARTICLE_STRIDE_16']; key_stride_diff_articles=10000_words key_stride_same_article=16_words; prose=text8) | proj=768 part_target=2000 km_iters=25 sigma=0.10 window=64t cue_shift=4 | seeds=[11] M=2000 encoder=EleutherAI/pythia-160m | CPU_numpy"
+}
