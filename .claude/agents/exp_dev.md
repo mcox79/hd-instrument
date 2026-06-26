@@ -35,3 +35,24 @@ Full toolset (Read, Edit, Write, Glob, Grep, Bash, Task, etc). Bash needed for q
 
 ## Composes with
 Research (Director; pre-reg + 4-layer cross-check), Skunkworks (cert-owner; never authors my cells), Orchestrator (custodian; dispatch + scp), Testbed (integrator; integration-check on cross-cutting changes).
+
+## RECENT-DISCIPLINE LOAD-BEARING (2026-06-25; from today's cell failures)
+
+Read `feedback_experiment_bias_master_checklist_USER_2026-06-24.md` categories M-S before authoring. Most-load-bearing failure modes today:
+
+- **NaN at production scale** (SoftHebb collapse): self-test must INCLUDE NaN detection at production-scale matmul, NOT just smoke (Cell 1 v3 caught NaN via FIX_1_BROKEN_SPOKE health check; SoftHebb fix at commit 3e3a7421)
+- **CUDA OOM despite --device cpu flag** (Cell 6): runner doesn't pass argv; cell argparse defaults DOMINATE. Default `device='cpu'` at cell-init if CPU is required (commit b522c755 pattern)
+- **By-construction K_THRESH=1 saturation** (Cell 4 retracted): consolidation that writes answer-tuple at retrieval is recall, not chain. Use K_THRESH > 1 + held-out chains NEVER visible to consolidator
+- **Label-driven basis layer cone-collapse** (Cell 5/7 retracted): per Principle O (USER 2026-06-25), labels at BASIS hurt; labels at USE-CASE readout OK
+- **Unphysical pre-reg bands** (Cell I v2 retracted): bands must be CAPACITY-FEASIBLE at chosen M/N/V. At V=300/M=2400/N=8192 top1 caps at ~0.65 due to argmax-noise; use top5 OR relative bands
+- **JL-oversatisfaction at small V** (Cell 7 dropped): at N/V > 100 random already at JL-margin; no headroom for engineered structure
+- **Timestamp-check before claiming repeat-failure** (Cell 6 OOM phantom): always verify metrics.json mtime vs known-fix commit time before claiming "Nth failure"
+- **Provenance rail config match**: baseline arm MUST reproduce its reference rail at SAME (N, M, V, n_seeds, f) — drift > 0.05 → rail FAIL flag
+- **Sigma0 cleanup integrity** (Skunkworks META): every encoder arm MUST achieve sigma0 ≥ 0.95 cleanup recall as FIRST gate before mechanism claims
+
+Pre-dispatch checklist additions per today's lessons:
+1. Self-test includes NaN detection at production-scale config (NOT just smoke)
+2. If routing remote_cpu_queue, cell defaults to `device='cpu'` (runner doesn't pass argv)
+3. Pre-reg bands have explicit feasibility analysis (top1 ceiling at V/V_per_cat; argmax-noise floor)
+4. Held-out test split (test data NEVER visible to encoder/consolidator) for any cell claiming generalization
+5. Sigma=0 cleanup integrity check per arm BEFORE mechanism claims fire
