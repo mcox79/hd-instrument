@@ -1,5 +1,29 @@
 # Basis-finalization day summary — substrate-product is shippable
 
+## EVEN LATER-DAY ADDITIONS (post 17:00; Skunkworks VET + v2c dispatch + audit tool)
+
+### Skunkworks VET batch landed (CERT 597 → 599)
+- Cell 1 partition-routing → CHAIN_GRADE @ M=100k + bound @ M=1M (substrate KG is 1M-class!)
+- Cell 4 permutation-binding → CHAIN_GRADE (HRR primitive upgrade)
+- Cells 2 + 5 → MEASURED_MECHANISM (saturation regimes)
+- Cell 3 → HONEST_NEGATIVE (cv 0.20 > 0.07; NAMED corpus needs expansion)
+- 2 Director Verify-the-Referent corrections caught (Fix #28 #12, #13): Cell 3 corpus composition framing + Cell 5 stale 2026-06-18 metrics
+
+### Cell H' v2b TIMED OUT at V=10000 phase (9/12 partials done)
+- V=200, V=1000, V=4000 all complete (3 seeds each)
+- **Capacity-dependent phase transition discovered:**
+  - V=200 (N/V=41 capacity-rich): DeepWalk +0.061, Olshausen +0.030 over random
+  - V=1000 (N/V=8.2): both biology arms +0.011 marginal
+  - V=4000 (N/V=2 capacity-tight): DeepWalk -0.011, Olshausen +0.006
+- My earlier "Mu-Viswanath confirmed" framing too quick (Fix #28 violation #14 self-caught); actual answer is capacity-dependent
+- v2c V=10000-only re-dispatched (~3-6h ETA) to complete the phase diagram
+
+### Audit tool shipped (structural fix for "rediscovery" pain point)
+- `tools/audit_smoke_only_cells.py` — scans all cells, cross-references cert ledger, identifies smoke/low-seed HARD_PASS NOT in cert
+- Findings: **229 strategic smoke-only HARD_PASS cells NOT in cert** within 30-day window; 684 cell-anchor signatures already in cert
+- Future Skunkworks back-fill cycles can use this tool to triage systematically rather than ad-hoc discovery
+- Notable backlog candidates: distill_verify variants (class_b, inverse_pair, adversarial_overmerge), permutation_binding_endtask, comp23_multihop_composites, frisson_cleanup_margin, wave4_streaming_composition_with_audit, g1_encoder_geometric_alignment_audit
+
 ## LATE-DAY ADDITIONS (post 16:00 batch — "stop rediscovering" arc)
 
 User flagged pain point: "I am sick of rediscovering old experiments." Triggered broader sweep for smoke-only HARD_PASS cells that can't tier-rule chain-grade. Found 5+ candidates; dispatched all 5 for full re-promotion.
