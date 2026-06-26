@@ -6,6 +6,22 @@ score arrays; tau maximizes 0.5*(accept_rate + refuse_rate) on the calibration s
 Extracted from KGStore.refuse_gate_calibrate (which exercised this on n8/U1; CERT 584/585)
 so any cell that produces confidence scores (KG retrieval, sequence-memory prediction,
 multi-hop chain, generation step) can apply the same margin-discipline.
+
+V_REL envelope (the audit library size of relations the gate can discriminate over)
+is chain-grade-confirmed at V_REL=256 (32x extension over the v2 chain-grade baseline
+at V_REL=8). At V_REL=256 with N_DIM=8192 and 600 in/out concept atoms, the
+relation_check arm holds 1.0 cv=0.0 refuse on NEAR_DOMAIN_MIXED queries across 3 seeds;
+the naive_plus_intent arm degrades monotonically 0.99 -> 0.18 across V_REL=8..512,
+providing genuine discriminator headroom (NOT by-construction-saturated). Validated by
+exp_substrate_refuse_gate_v_rel_extension_v1 cell-land 2026-06-26 (commit 6e2ff698;
+HARD_PASS chain-grade per Skunkworks landed-VET; ledger row 6479edf0b1db245a).
+
+Above V_REL=256: the relation_check arm REMAINS at 1.0 refuse through V_REL=512 in the
+v1 cell; envelope extension to V_REL>=512 is plausible but not yet chain-grade-ratified
+(would need a separate cell with appropriately scaled negative-control fan-out).
+
+Composes-with: KV learned projection (M=1M chain-grade) for refuse-gated KG retrieval
+product positioning.
 """
 
 from __future__ import annotations
@@ -90,3 +106,25 @@ def calibrate_refuse_threshold(
 def apply_refuse(score: float, tau: float) -> bool:
     """Return True iff score should be ACCEPTED (score >= tau); False = REFUSE."""
     return score >= tau
+
+
+# Chain-grade-confirmed envelope; see module docstring for cell-land provenance.
+V_REL_CHAIN_GRADE_ENVELOPE = 256
+V_REL_PRIOR_BASELINE_v2 = 8
+
+
+def assert_v_rel_within_chain_grade_envelope(v_rel: int) -> None:
+    """Raise ValueError if v_rel exceeds the chain-grade-confirmed envelope.
+
+    Callers building refuse-gated retrievers over a relation library should call
+    this before claiming the gate's NEAR_DOMAIN_MIXED refusal property holds for
+    their config. v_rel <= 256 is chain-grade-ratified; v_rel > 256 is plausible
+    but un-ratified per the exp_substrate_refuse_gate_v_rel_extension_v1 cell.
+    """
+    if v_rel > V_REL_CHAIN_GRADE_ENVELOPE:
+        raise ValueError(
+            f"v_rel={v_rel} exceeds chain-grade envelope V_REL_CHAIN_GRADE_ENVELOPE="
+            f"{V_REL_CHAIN_GRADE_ENVELOPE} (32x extension over v2 baseline V_REL={V_REL_PRIOR_BASELINE_v2}); "
+            f"refuse-gate NEAR_DOMAIN_MIXED refuse property NOT chain-grade-ratified at this size. "
+            f"Either reduce v_rel or dispatch a new chain-grade-extension cell for your regime."
+        )
