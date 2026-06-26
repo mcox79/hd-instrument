@@ -557,11 +557,15 @@ def run_seed(seed: int) -> Dict[str, Any]:
              pv2_w_build_s), flush=True)
 
     # ===== Build W_v1_regime (EASIER: n=200 max_depth=5 -> 1000 bindings) =====
+    # FIX 2026-06-26: disallow_s=set() (NOT pv2_chains starts). The two Ws are
+    # SEPARATE Hebbian matrices; chain-start overlap across Ws is irrelevant.
+    # Propagating pv2's 200 disallow into V1 with V=200 made the v1 construction
+    # mathematically impossible (V - disallow = 0 valid starts). Same pattern as
+    # Cell B v2 + Cell C v2 (both use disallow_s=set() for the v1-regime build).
     t_arm = time.time()
-    v1_disallow = set(int(c[0][0]) for c in pv2_chains)
     v1_triples, v1_chains = make_deep_chains(
         V1_N_CHAINS_LOCAL, V_CONCEPTS, V1_V_P,
-        max_depth=V1_MAX_DEPTH, g=g, disallow_s=v1_disallow)
+        max_depth=V1_MAX_DEPTH, g=g, disallow_s=set())
     W_v1 = ingest_hebbian(v1_triples, E, R, sq, N_DIM)
     v1_w_build_s = round(time.time() - t_arm, 2)
     print("  [seed=%d] W_v1_regime built (%d triples, %d chains, max_depth=%d) t=%.1fs"
