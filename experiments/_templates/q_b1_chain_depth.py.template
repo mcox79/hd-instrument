@@ -20,6 +20,13 @@ FORMULA SELF-TESTS:
 
 PROT-018: anchor has _n{{N}}; N MUST = {{N}}.
 PROT-021: seed checkpoints keyed with run_mode + chain_depth.
+
+ENCODER DISCIPLINE (Path C; META_substrate_product_inference_uses_substrate_native_encoder_only):
+  This template uses substrate-native bipolar BSC random codebook (Bernoulli +/-1) end-to-end;
+  no LLM features touch the inference path. Path C-compliant by construction. If a forked
+  variant adds an LLM encoder (Pythia / MiniLM / BGE / Llama / word2vec / sentence-transformers
+  / etc.), declare ENCODER_PROVENANCE != "SUBSTRATE_NATIVE" and document the diagnostic or
+  deployment-context justification here (cf. testbed encoder-provenance audit 2026-06-26).
 """
 import sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -53,6 +60,11 @@ print(f"[GPU] device={DEVICE} name={torch.cuda.get_device_name(0)} "
 from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials
 
 ANCHOR_NAME = "{{ANCHOR_NAME}}"
+# Path C: substrate-native BSC bipolar codebook; no LLM features at inference.
+# Forks introducing LLM features must change this to one of:
+#   DEPLOYMENT_CONTEXT_LLM_KEYS | DEPLOYMENT_CONTEXT_LLM_RESIDUALS | LLM_AUGMENTATION |
+#   LLM_DIAGNOSTIC_PROBE | MIXED_LLM_AND_SUBSTRATE | LLM_INGEST_ONLY_SUBSTRATE_AT_INFERENCE
+ENCODER_PROVENANCE = "SUBSTRATE_NATIVE"
 
 _N_SUFFIX = {{N}}
 N = {{N}}
@@ -240,6 +252,7 @@ metrics = {
     "verdict": verdict, "verdict_msg": verdict_msg,
     "N": N, "chain_depth": CHAIN_DEPTH, "run_mode": RUN_MODE,
     "n_seeds": len(SEEDS), "elapsed_s": elapsed_total,
+    "encoder_provenance": ENCODER_PROVENANCE,
     "per_seed": [
         {"seed": r.get("seed"),
          **{f"mean_cos_d{d}": r.get(f"mean_cos_d{d}") for d in SNAPSHOT_DEPTHS},

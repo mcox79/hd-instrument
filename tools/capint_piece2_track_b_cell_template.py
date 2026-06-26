@@ -77,6 +77,19 @@ PRIORITY ORDER (from Piece-1 enumerator):
 DOMAIN-VALUE-first per USER default: reasoning_multihop first, then
 cognitive_capacity, then retrieval, then NLP_language + math + architecture +
 refuse_gate (with closest-to-cert tiebreaker within domain).
+
+ENCODER DISCIPLINE (Path C; META_substrate_product_inference_uses_substrate_native_encoder_only):
+- DEFAULT encoder for substrate-product inference = substrate-native (random sparse-bipolar
+  codebook, FPE phasor, random codebook, k-WTA, char-trigram). NEVER labels-at-basis.
+- LLM encoders (Pythia, MiniLM, BGE, Llama, word2vec, sentence-transformers, etc.) are
+  DIAGNOSTIC PROBES ONLY at setup time and MUST NOT sit in the substrate-product
+  inference path.
+- Track-B pull-up cells inherit the encoder family of the ORIGINAL_ATOM_ID; if the
+  original used an LLM encoder, the pull-up must EITHER stay scoped as
+  DEPLOYMENT_CONTEXT / LLM_AUGMENTATION (subordinate cert-tier) OR commission a
+  parallel substrate-native re-validation cell (cf. testbed encoder-provenance audit
+  2026-06-26 Section 2B).
+- Set ENCODER_PROVENANCE constant below; emit in metrics; default = SUBSTRATE_NATIVE.
 """
 
 # Template constants -- each cell-build sets these
@@ -100,6 +113,13 @@ PREREG_BANDS = {
 
 N_SEEDS = 5  # >= 5 per substrate convention
 RUN_MODE_DEFAULT = "full"  # NEVER smoke for a cert-grade cell
+
+# Encoder provenance: default substrate-native. If using LLM-derived features at
+# inference, set to one of: DEPLOYMENT_CONTEXT_LLM_KEYS | DEPLOYMENT_CONTEXT_LLM_RESIDUALS
+# | LLM_AUGMENTATION | LLM_DIAGNOSTIC_PROBE | MIXED_LLM_AND_SUBSTRATE |
+# LLM_INGEST_ONLY_SUBSTRATE_AT_INFERENCE -- and document the justification in the
+# cell docstring per the Path C discipline (testbed encoder-provenance audit 2026-06-26).
+ENCODER_PROVENANCE = "SUBSTRATE_NATIVE"
 
 
 def hypothesis_card():
@@ -215,6 +235,7 @@ def emit_verdict_atom(verdict, key_metrics, gate0, discrimination,
             "n_seeds": n_seeds,
             "run_mode": RUN_MODE_DEFAULT,
             "metrics_source": "measured",
+            "encoder_provenance": ENCODER_PROVENANCE,
             "capint_track_b_pull_up": True,
             "original_experiment": ORIGINAL_ATOM_ID,
             "capability_candidate": CAPABILITY_CANDIDATE,

@@ -111,6 +111,21 @@ d. Read fleet_waiting_on.md to confirm no single-writer Store window is open:
 
 Fork {{BASE_CELL}} to {{CELL_FILE}}. Required baked-in patterns (every N-series cell):
 
+  # ENCODER DISCIPLINE (Path C; META_substrate_product_inference_uses_substrate_native_encoder_only):
+  # - DEFAULT encoder for substrate-product inference = substrate-native (random sparse-bipolar
+  #   codebook, FPE phasor, random codebook, k-WTA, char-trigram). NEVER labels-at-basis.
+  # - LLM encoders (Pythia, MiniLM, BGE, Llama, word2vec, sentence-transformers, etc.) are
+  #   DIAGNOSTIC PROBES ONLY at setup time. They MUST NOT sit in the substrate-product
+  #   inference path.
+  # - If your cell uses an LLM encoder: (a) document the diagnostic / deployment-context
+  #   justification in the cell docstring, (b) flag in verdict_msg + metrics.json with
+  #   `encoder_provenance` key (one of: SUBSTRATE_NATIVE | DEPLOYMENT_CONTEXT_LLM_KEYS |
+  #   DEPLOYMENT_CONTEXT_LLM_RESIDUALS | LLM_AUGMENTATION | LLM_DIAGNOSTIC_PROBE), and
+  #   (c) understand the chain-grade tier will be subordinated to DEPLOYMENT_CONTEXT /
+  #   LLM_AUGMENTATION sub-tier per the 2026-06-26 testbed encoder-provenance audit.
+  # - Pre-dispatch check: run `tools/check_encoder_discipline.py {{CELL_FILE}}` to verify
+  #   the cell either is substrate-native or carries an explicit opt-in justification.
+  #
   - `_LLM_CALL_COUNTER = [0]` at module top (Skunkworks structural blocker #3)
   - `zero-D-overlap fallback` in batched_token_logprob (Fix #6 pattern from
     exp_n4_kwta_soft_decode_v1.py / exp_n3_mkn_smoothing_v1.py)
@@ -145,10 +160,15 @@ Fork {{BASE_CELL}} to {{CELL_FILE}}. Required baked-in patterns (every N-series 
 
   Verify cell code writes at minimum:
     anchor_name, run_mode, n_seeds, config_version, per_seed, verdict,
-    verdict_msg, zero_llm_calls_at_inference
+    verdict_msg, zero_llm_calls_at_inference, encoder_provenance
 
-  Do a grep: grep -n "zero_llm_calls_at_inference\|per_seed\|config_version" {{CELL_FILE}}
+  Do a grep: grep -n "zero_llm_calls_at_inference\|per_seed\|config_version\|encoder_provenance" {{CELL_FILE}}
   If missing: add them before smoke dispatch.
+
+  encoder_provenance value MUST be one of: SUBSTRATE_NATIVE | DEPLOYMENT_CONTEXT_LLM_KEYS |
+    DEPLOYMENT_CONTEXT_LLM_RESIDUALS | LLM_AUGMENTATION | LLM_DIAGNOSTIC_PROBE |
+    MIXED_LLM_AND_SUBSTRATE | LLM_INGEST_ONLY_SUBSTRATE_AT_INFERENCE.
+  Default for new cells = SUBSTRATE_NATIVE. Anything else requires justification in docstring.
 
 ### 1d. Self-test:
 
@@ -280,6 +300,9 @@ check = fix cell + re-smoke before proceeding to full dispatch.
   b. `n_seeds` matches smoke config (expected: 1 or as configured in {{SMOKE_CONFIG}})
   c. `per_seed` is a non-empty list with at least one entry per (seed, arm_config)
   d. `zero_llm_calls_at_inference` == True (or 0) in metrics — substrate-only gate logged
+  d2. `encoder_provenance` present in metrics; default expectation = SUBSTRATE_NATIVE.
+      Any other value (DEPLOYMENT_CONTEXT_*, LLM_AUGMENTATION, MIXED_*) must match the
+      cell docstring justification. If `encoder_provenance` is missing entirely: FAIL.
   e. `ceiling_bpc` (or VQ-floor equivalent) is present per arm
   f. `cv` is finite (not NaN) — even on 1 smoke seed, the computation must not crash
   g. verdict + verdict_msg present (doesn't matter if smoke is HARD_FAIL — we test harness)
@@ -406,6 +429,10 @@ Pull and verify metrics.json for the FULL run. This is the cert-candidate verdic
   b. `n_seeds` matches {{SEEDS}} (e.g., 3 for seeds=[7,17,23])
   c. `per_seed` has N_seeds × N_arm_configs entries (full grid coverage)
   d. `zero_llm_calls_at_inference` == True / 0 in metrics (substrate-only gate logged)
+  d2. `encoder_provenance` present + matches cell-docstring justification (Path C check).
+      If SUBSTRATE_NATIVE: full chain-grade tier available. If DEPLOYMENT_CONTEXT_LLM_KEYS
+      / LLM_RESIDUALS / LLM_AUGMENTATION: subordinate cert-tier per the 2026-06-26 audit;
+      Skunkworks ratification cannot promote past the sub-tier.
   e. `cv` <= 0.10 for any config claiming PASS (cv > 0.10 = seed-unstable; demote)
   f. Anchor config (k=1 or ARM A equivalent) reproduces the expected baseline BPC within 0.05
      (verify by re-deriving from per_seed)
