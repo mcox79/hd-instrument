@@ -1,0 +1,453 @@
+{
+  "anchor": "gap4_cold_storage_no_combine_v1",
+  "anchor_name": "gap4_cold_storage_no_combine_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_COLD_STORAGE_DOESNT_HELP: best cold-storage arm matches baseline within 0.05. best_cold=ARM_COLD_STORAGE_NO_COMBINE drift_reduction=-1.0000. Cold-storage architecture not effective at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=ff=0.0000+/-0.0000/int=1.000 | ARM_GLOBAL_DOWNSCALE_99_100=ff=1.0000+/-0.0000/int=1.000 | ARM_COLD_STORAGE_NO_COMBINE=ff=1.0000+/-0.0000/int=1.000 | ARM_COLD_STORAGE_TAU_500=ff=1.0000+/-0.0000/int=1.000",
+  "headline": "HARD_FAIL_COLD_STORAGE_DOESNT_HELP: best cold-storage arm matches baseline within 0.05. best_cold=ARM_COLD_STORAGE_NO_COMBINE drift_reduction=-1.0000. Cold-storage architecture not effective at this regime. arms: ARM_BASELINE_NO_DOWNSCALE=ff=0.0000+/-0.0000/int=1.000 | ARM_GLOBAL_DOWNSCALE_99_100=ff=1.0000+/-0.0000/int=1.000 | ARM_COLD_STORAGE_NO_COMBINE=ff=1.0000+/-0.0000/int=1.000 | ARM_COLD_STORAGE_TAU_500=ff=1.0000+/-0.0000/int=1.000",
+  "n_seeds": 1,
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_cycles": 500,
+  "arms_tested": [
+    "ARM_BASELINE_NO_DOWNSCALE",
+    "ARM_GLOBAL_DOWNSCALE_99_100",
+    "ARM_COLD_STORAGE_NO_COMBINE",
+    "ARM_COLD_STORAGE_TAU_500"
+  ],
+  "arms_config": {
+    "ARM_BASELINE_NO_DOWNSCALE": {
+      "mode": "baseline_no_downscale",
+      "K_migrate": null,
+      "K_threshold": null,
+      "downscale": null
+    },
+    "ARM_GLOBAL_DOWNSCALE_99_100": {
+      "mode": "global_downscale",
+      "K_migrate": null,
+      "K_threshold": null,
+      "downscale": 0.99
+    },
+    "ARM_COLD_STORAGE_NO_COMBINE": {
+      "mode": "cold_storage",
+      "K_migrate": 200,
+      "K_threshold": 100,
+      "downscale": null
+    },
+    "ARM_COLD_STORAGE_TAU_500": {
+      "mode": "cold_storage",
+      "K_migrate": 200,
+      "K_threshold": 50,
+      "downscale": null
+    }
+  },
+  "detail": {
+    "arms_aggregate": {
+      "ARM_BASELINE_NO_DOWNSCALE": {
+        "mean_final_forget": 0.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "mean_integrity": 1.0,
+        "per_seed_forget": [
+          0.0
+        ],
+        "per_seed_integrity": [
+          1.0
+        ]
+      },
+      "ARM_GLOBAL_DOWNSCALE_99_100": {
+        "mean_final_forget": 1.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "mean_integrity": 1.0,
+        "per_seed_forget": [
+          1.0
+        ],
+        "per_seed_integrity": [
+          1.0
+        ]
+      },
+      "ARM_COLD_STORAGE_NO_COMBINE": {
+        "mean_final_forget": 1.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "mean_integrity": 0.9999999999999998,
+        "per_seed_forget": [
+          1.0
+        ],
+        "per_seed_integrity": [
+          0.9999999999999998
+        ]
+      },
+      "ARM_COLD_STORAGE_TAU_500": {
+        "mean_final_forget": 1.0,
+        "std": 0.0,
+        "cv": 0.0,
+        "mean_integrity": 1.0,
+        "per_seed_forget": [
+          1.0
+        ],
+        "per_seed_integrity": [
+          1.0
+        ]
+      }
+    },
+    "best_cold_arm": "ARM_COLD_STORAGE_NO_COMBINE",
+    "drift_reduction_vs_baseline": -1.0,
+    "drift_reduction_vs_cellB_pattern": 0.0,
+    "honest_scope": "COLD_STORAGE no-combine over 500 cycles N=4096; 4 arms: baseline + cellB-pattern + 2 cold-storage configs; forget metric on first 30 atoms; combined-read W_active+W_cold for cold arms",
+    "encoder_provenance": "SUBSTRATE_NATIVE"
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "N": 4096,
+      "run_mode": "smoke",
+      "n_cycles": 500,
+      "arms": {
+        "ARM_BASELINE_NO_DOWNSCALE": {
+          "arm": "ARM_BASELINE_NO_DOWNSCALE",
+          "arm_cfg": {
+            "mode": "baseline_no_downscale",
+            "K_migrate": null,
+            "K_threshold": null,
+            "downscale": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            }
+          ],
+          "migrations_log": [],
+          "norm_log": [
+            {
+              "cycle": 100,
+              "W_active_norm": 41464.63312269867,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 200,
+              "W_active_norm": 59345.20651240503,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 300,
+              "W_active_norm": 73513.5128258744,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 400,
+              "W_active_norm": 85824.71084716803,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 500,
+              "W_active_norm": 97010.10636011075,
+              "W_cold_norm": 0.0
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 1.0,
+          "final_forget": 0.0,
+          "integrity": 1.0,
+          "W_active_norm_final": 97010.10636011075,
+          "W_cold_norm_final": 0.0,
+          "W_cold_utilization": 0.0,
+          "n_cold_atoms": 0,
+          "target_norm": null,
+          "elapsed_s": 95.9126832485199
+        },
+        "ARM_GLOBAL_DOWNSCALE_99_100": {
+          "arm": "ARM_GLOBAL_DOWNSCALE_99_100",
+          "arm_cfg": {
+            "mode": "global_downscale",
+            "K_migrate": null,
+            "K_threshold": null,
+            "downscale": 0.99
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            }
+          ],
+          "migrations_log": [],
+          "norm_log": [
+            {
+              "cycle": 100,
+              "W_active_norm": 27059.469879450735,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 200,
+              "W_active_norm": 29012.205747269327,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 300,
+              "W_active_norm": 29332.37969402062,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 400,
+              "W_active_norm": 29394.510641623732,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 500,
+              "W_active_norm": 29426.557793908087,
+              "W_cold_norm": 0.0
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "integrity": 1.0,
+          "W_active_norm_final": 29426.557793908087,
+          "W_cold_norm_final": 0.0,
+          "W_cold_utilization": 0.0,
+          "n_cold_atoms": 0,
+          "target_norm": null,
+          "elapsed_s": 85.31798958778381
+        },
+        "ARM_COLD_STORAGE_NO_COMBINE": {
+          "arm": "ARM_COLD_STORAGE_NO_COMBINE",
+          "arm_cfg": {
+            "mode": "cold_storage",
+            "K_migrate": 200,
+            "K_threshold": 100,
+            "downscale": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 0.06666666666666667,
+              "forget": 0.9333333333333333
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            }
+          ],
+          "migrations_log": [
+            {
+              "cycle": 200,
+              "n_migrated_this_step": 0,
+              "n_cold_total": 0,
+              "W_active_norm": 41464.63312269867,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 400,
+              "n_migrated_this_step": 0,
+              "n_cold_total": 0,
+              "W_active_norm": 41464.63312269867,
+              "W_cold_norm": 0.0
+            }
+          ],
+          "norm_log": [
+            {
+              "cycle": 100,
+              "W_active_norm": 41464.63312269867,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 200,
+              "W_active_norm": 41464.633122698666,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 300,
+              "W_active_norm": 41464.63312269868,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 400,
+              "W_active_norm": 41464.63312269871,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 500,
+              "W_active_norm": 41464.633122698666,
+              "W_cold_norm": 0.0
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "integrity": 0.9999999999999998,
+          "W_active_norm_final": 41464.633122698666,
+          "W_cold_norm_final": 0.0,
+          "W_cold_utilization": 0.0,
+          "n_cold_atoms": 0,
+          "target_norm": 41464.63312269867,
+          "elapsed_s": 91.78218984603882
+        },
+        "ARM_COLD_STORAGE_TAU_500": {
+          "arm": "ARM_COLD_STORAGE_TAU_500",
+          "arm_cfg": {
+            "mode": "cold_storage",
+            "K_migrate": 200,
+            "K_threshold": 50,
+            "downscale": null
+          },
+          "curve": [
+            {
+              "cycle": 100,
+              "recall_acc": 1.0,
+              "forget": 0.0
+            },
+            {
+              "cycle": 200,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 300,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 400,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            },
+            {
+              "cycle": 500,
+              "recall_acc": 0.0,
+              "forget": 1.0
+            }
+          ],
+          "migrations_log": [
+            {
+              "cycle": 200,
+              "n_migrated_this_step": 0,
+              "n_cold_total": 0,
+              "W_active_norm": 29131.8537686842,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 400,
+              "n_migrated_this_step": 69,
+              "n_cold_total": 69,
+              "W_active_norm": 29131.853768684203,
+              "W_cold_norm": 34309.80711108706
+            }
+          ],
+          "norm_log": [
+            {
+              "cycle": 100,
+              "W_active_norm": 29131.853768684203,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 200,
+              "W_active_norm": 29131.853768684206,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 300,
+              "W_active_norm": 29131.853768684196,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 400,
+              "W_active_norm": 29131.853768684196,
+              "W_cold_norm": 0.0
+            },
+            {
+              "cycle": 500,
+              "W_active_norm": 29131.853768684203,
+              "W_cold_norm": 34309.80711108706
+            }
+          ],
+          "final_cycle": 500,
+          "final_acc": 0.0,
+          "final_forget": 1.0,
+          "integrity": 1.0,
+          "W_active_norm_final": 29131.853768684203,
+          "W_cold_norm_final": 34309.80711108706,
+          "W_cold_utilization": 0.5408087782586244,
+          "n_cold_atoms": 69,
+          "target_norm": 29131.853768684203,
+          "elapsed_s": 107.26994395256042
+        }
+      },
+      "elapsed_s": 380.94693422317505,
+      "_ckpt_key": "11",
+      "_partial_written_at": 1782509629.7375383
+    }
+  ],
+  "metrics_source": "measured_cpu_substrate_cold_storage_no_combine",
+  "elapsed_s": 381.1376566886902,
+  "summary": "HARD_FAIL_COLD_STORAGE_DOESNT_HELP: best cold-storage arm matches baseline within 0.05. best_cold=ARM_COLD_STORAGE_NO_COMBINE drift_reduction=-1.0000. Cold-storage architecture not effective at this r",
+  "honest_scope": "COLD_STORAGE no-combine over 500 cycles N=4096; 4 arms: baseline + cellB-pattern + 2 cold-storage configs; forget metric on first 30 atoms; combined-read W_active+W_cold for cold arms",
+  "encoder_provenance": "SUBSTRATE_NATIVE",
+  "substrate_only_decode_gate": "N/A (continual-writes cold-storage cell; zero LLM forward calls; numpy + Hopfield sign() only)",
+  "pre_reg_bands": {
+    "HARD_PASS_FORGET_CEILING": 0.1,
+    "HARD_PASS_INTEGRITY_FLOOR": 0.9,
+    "HARD_PASS_DRIFT_REDUCTION": 0.3,
+    "HARD_PASS_CV_CEILING": 0.07,
+    "HARD_PASS_PARTIAL_DRIFT_REDUCTION": 0.2,
+    "HARD_FAIL_DRIFT_TOL": 0.05
+  }
+}
