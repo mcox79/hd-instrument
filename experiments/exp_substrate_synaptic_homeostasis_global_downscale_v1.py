@@ -82,10 +82,14 @@ if RUN_MODE == "smoke":
     CHECKPOINT_INTERVAL = 100
 else:
     SEEDS = [11, 13, 19]
-    N = 8192
-    N_CYCLES = 5000
+    N = 4096
+    N_CYCLES = 2500
     RECALL_PROBE_M = 100
-    CHECKPOINT_INTERVAL = 500
+    CHECKPOINT_INTERVAL = 250
+    # alpha at end = 2500/4096 = 0.61; reduced from N=8192/5000 per Fix #17
+    # timing extrapolation (full-scale Hopfield write/retrieve is O(N^2);
+    # 8192/5000 = 9h wall exceeds local_cpu_queue cap). Scientific
+    # discrimination preserved at 4.4x past capacity.
 
 NOISE_FRAC = 0.10
 N_RETRIEVE_STEPS = 5

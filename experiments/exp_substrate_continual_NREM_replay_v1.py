@@ -86,12 +86,19 @@ if RUN_MODE == "smoke":
     REPLAY_FRAC = 0.20
 else:
     SEEDS = [11, 13, 19]
-    N = 8192
-    N_CYCLES = 5000
+    N = 4096
+    N_CYCLES = 2500
     M_INIT_NEW_PER_CYCLE = 1
     RECALL_PROBE_M = 100
-    CHECKPOINT_INTERVAL = 500
+    CHECKPOINT_INTERVAL = 250
     REPLAY_FRAC = 0.20
+    # alpha at end = 2500/4096 = 0.61 (4.4x Hopfield capacity alpha_c=0.138);
+    # well past cliff so baseline is expected to forget; replay arms have
+    # discriminating regime to show lift. Reduced from N=8192/5000 cycles per
+    # Fix #17 timing measurement: full-scale extrapolation showed 9h wall
+    # which exceeds local_cpu_queue 14400s cap. N=4096/2500 keeps the
+    # scientific question (does replay extend horizon past cliff?) intact at
+    # ~1h wall per arm-batch.
 
 NOISE_FRAC = 0.10
 N_RETRIEVE_STEPS = 5

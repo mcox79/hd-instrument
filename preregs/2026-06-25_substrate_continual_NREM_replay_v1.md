@@ -43,14 +43,18 @@ Sacrosanct both ways (cannot loosen post-hoc).
 
 ## Config (FULL)
 
-- N = 8192
-- N_CYCLES = 5000 (alpha = 0.61 at end; well past Hopfield capacity alpha_c=0.138)
+- N = 4096 (reduced from 8192 per Fix #17 timing measurement; O(N^2) Hopfield write/retrieve)
+- N_CYCLES = 2500 (alpha = 0.61 at end; 4.4x Hopfield capacity alpha_c=0.138)
 - M_INIT_NEW_PER_CYCLE = 1
 - RECALL_PROBE_M = 100 (first 100 atoms; forget-prone)
-- CHECKPOINT_INTERVAL = 500
+- CHECKPOINT_INTERVAL = 250
 - REPLAY_FRAC = 0.20
 - 3 seeds [11, 13, 19]
 - Substrate-only (numpy + sign() Hopfield iterative cleanup). Zero LLM forward calls.
+
+Timing: smoke wall ~25s (N=1024, 500 cyc, 1 seed, 4 arms). Full extrapolated wall
+~1-2h (N=4096^2/1024^2 = 16x, 2500/500 = 5x, 3 seeds; partial offset by per-cycle
+overhead). Fits well inside local_cpu_queue 4h-default cap.
 
 ## Self-tests (3 formula + bands lock)
 

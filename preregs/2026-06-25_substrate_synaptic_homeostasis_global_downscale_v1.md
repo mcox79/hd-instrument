@@ -45,13 +45,15 @@ Sacrosanct both ways.
 
 ## Config (FULL)
 
-- N = 8192
-- N_CYCLES = 5000
+- N = 4096 (reduced from 8192 per Fix #17 timing; O(N^2) Hopfield)
+- N_CYCLES = 2500 (alpha = 0.61; 4.4x Hopfield capacity)
 - RECALL_PROBE_M = 100
-- CHECKPOINT_INTERVAL = 500
+- CHECKPOINT_INTERVAL = 250
 - 3 seeds [11, 13, 19]
 - Substrate-only (numpy + Hopfield sign() cleanup; W is outer-product accumulator;
   downscale = multiplicative on W). Zero LLM forward calls.
+
+Timing: smoke wall ~20s. Full extrapolated ~1-2h. Fits local_cpu_queue 4h cap.
 
 ## Self-tests (4 formula + bands lock)
 
