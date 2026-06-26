@@ -171,25 +171,25 @@ Rules: per-item length cap ≤140 chars (long content goes in routing notes; poi
 - 6fd4988a Stop hook import-time bug fix (both hint helpers had been silently broken)
 
 ## orchestrator
-**Last-updated:** 2026-06-21T18:49:00Z (driving N1 substrate-native LM end-to-end; background subagents keep dying on process-restarts -> building v3 IN-THREAD)
+**Last-updated:** 2026-06-26T14:10Z (phase-diagram K-extension to 16384 SHIPPED + LANDED in 16.6s; MIDDLE_BAND_PARTIAL_K_EXTENDS verdict; K=16384 GPU-OOM 8GB ceiling)
 
 ### Waiting on
-- (nothing blocking -- building N1 v3 in-thread; token_ids + density-params + optimized-recall all satisfied)
+- (nothing blocking; reactive)
 
 ### In flight
-- Building N1 v3 IN-THREAD: calibrated decode (temperature + unigram back-off) + Laplace-smoothed bigram/ceiling + ceiling<=log2(V) correctness gate -> dispatch remote_cpu + watcher for the FAIR token-BPC answer
+- (idle; just completed GPU dispatch + REMOTE VERIFY for phase_diagram_working_memory_multibank_K_extension_to_16384_v1)
 
 ### Next 3 (if bandwidth opens)
-1. On v3 land: relay FAIR BPC to Research ([from=orchestrator] N1 cell-land 4-layer cross-check -- they wait) + Skunkworks (landed-VET: recompute BPC off per_unit + AUDIT zero-LLM-calls)
-2. Route anisotropy 4-arm MIDDLE_BAND -> Skunkworks landed-VET + Research revival (fly-LSH B=0.998 vs raw-collapse 0.013 BUT Charikar control B'=1.000 -> WTA-tag NOT load-bearing; sparse-projection rescues recall generally; ARM A sparse-superpos FAILS 0.048)
-3. N2 sweep dispatch (V_C {64,256,1024} + N_DIM) once v3 calibrated-BPC validated -- cell is sweep-ready (batched recall)
+1. Notify exp_dev + Skunkworks of MIDDLE_BAND verdict (chain-grade at K=4096 + K=8192 MULTI_128x; K=16384 GPU-OOM ALL arms on 8GB 4060Ti; rail OK 1.0000 vs 0.9927 target; KNN sentinel OK)
+2. Route to exp_dev: K=16384 cell needs fp16+chunked-bank-write rewrite OR drop K=16384 from sweep + reframe as "K=8192 chain-grade ceiling within 8GB GPU envelope"
+3. Status_log entry for verdict event
 
 ### Recently cleared (rolling; <=5)
+- phase_diagram_working_memory_multibank_K_extension_to_16384_v1: pushed 78f4af4e..c2d9436b to origin/main + dispatched overnight_queue via queue_add.sh (--skip-smoke; --self-test PASS 4.7s on remote .venv); REMOTE VERIFY md5=ABD9BF92DB991A9F3ACE799C5B55DD1B MATCH local abd9bf92db991a9f3ace799c5b55dd1b; cell ran in 16.6s wall (21 units done; 21 units OOM at K=16384); verdict MIDDLE_BAND_PARTIAL_K_EXTENDS (chain_grade_set={4096:MULTI_64x, 8192:MULTI_128x}); rail 1.0000 OK; knn_sentinel 1.0000 OK; Q-DISCIPLINE flagged saturation at K=4096 + K=8192 RANDOM MULTI_128x.
 - N1 v2 FIRST substrate-native token-LM run (off recovered token_ids): top-1=0.445 BEATS unigram 0.276, ~bigram 0.473; BPC=HARD_FAIL but METRIC-BROKEN (no smoothing; ceiling 18.16 > log2(V) 15.62 = impossible) -> v3 fixes calibration (7697c99b)
 - token_ids recovery PASS after 3 Windows-bug fixes (savez .npz auto-append + 2x open-handle os.replace lock); npz now has aligned tokens (49634)
 - N1 re-authored v2 substrate-optimal per Research density scour (sparse Willshaw N=4096 f=0.006, NOT under-capacity dense N=1024) + batch-optimized recall 6h->min (66544cb4)
 - anisotropy 4-arm DISPATCHED + LANDED MIDDLE_BAND (b9e4485f); whitening MIDDLE_BAND routed (747430fd; isotropization does NOT rescue dense superposition)
-- USER storage-density directive fully threaded into N1 (Research scour -> sparse params -> v2 -> v3)
 
 ## USER-pending
 **Last-updated:** 2026-06-20T22:55:00Z (Director-maintained per the priorities list)
