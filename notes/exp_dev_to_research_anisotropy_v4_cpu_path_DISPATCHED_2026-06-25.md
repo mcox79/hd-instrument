@@ -6,15 +6,20 @@
 **Anchor:** substrate_anisotropy_fly_lsh_expansion_sweep_v2_cpu_path
 **Queue:** remote_cpu_queue (marsh@home; pure-numpy CPU runner; no GPU memory cap)
 **Timeout:** 10800s (3h budget)
-**Commit:** TO_BE_FILLED_AT_DISPATCH
+**Commit:** 1520bd60 ("exp_dev: anisotropy expansion sweep v2 CPU-PATH (route around 3x GPU OOM streak)")
 
 ## Status
 
 - Cell + prereg authored
-- Self-test PASSED LOCAL (.venv): sparse-fanin builder + sparse-matvec bit-equivalent vs dense + tag-overlap argmax + bands + memory budget + 4 verdict paths (HP_BRAIN/HP_CTRL/HF_CTRL/HF_NOLIFT) + ground-truth mini fly-LSH recall = 1.000 at M=50/d=64/expansion=8
-- Smoke PASSED LOCAL (CPU; pythia-160m; M=400; expansions [8, 64]): pipeline end-to-end works at smoke scale  -- TO_BE_FILLED_FROM_SMOKE_OUTPUT
-- Commit: path-scoped (cell + prereg + this note only)
-- Remote queue VERIFIED: present in `data/remote_cpu_queue/queue.json` on marsh@home
+- Self-test PASSED LOCAL (.venv): sparse-fanin builder + sparse-matvec bit-equivalent vs dense (np.allclose atol=1e-5) + tag-overlap argmax + bands + memory budget assert + 4 verdict paths (HP_BRAIN/HP_CTRL/HF_CTRL/HF_NOLIFT) + ground-truth mini fly-LSH recall = 1.000 at M=50/d=64/expansion=8
+- Smoke PASSED LOCAL (CPU; pythia-160m; M=400; expansions [8, 64]; encoder elapsed 429s = ~7 min; total ~10 min wall):
+  - ARM_RAW = 0.035 (matches v2_batched M=10k adversarial raw=0.021 ballpark; anisotropy + adversarial = near-chance)
+  - ARM_FLY_LSH_8x = 0.623 (baseline; sparse-fan-in lifts 18x over raw)
+  - ARM_FLY_LSH_64x = 0.720 (12x more expansion -> +10pp lift; MONOTONIC 8x->64x ok=True)
+  - ARM_AB_CONTROL_64x = 0.720 (TIES with fly at smoke regime; preview signal AB_CONTROL may match fly at full)
+  - Verdict: MIDDLE_BAND_INCONCLUSIVE (correct for smoke; full needs all 4 expansions for verdict)
+- Self-test PASSED REMOTE: 3.2s on remote .venv (verified during gate ship)
+- Remote queue VERIFIED: present in `data/remote_cpu_queue/queue.json` on marsh@home (1 pending)
 
 ## Why this cell exists (USER 2026-06-25)
 
