@@ -1,0 +1,103 @@
+{
+  "anchor_name": "substrate_anisotropy_mimo_waterfill_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_WATERFILL_DOESNT_HELP: lift_over_uniform=-0.027 <= 0.03 OR effrank_lift=186.57x <= 1.05x at M=1000 -> per-direction cleanup-weight allocation is NOT a chain-grade rescue for cone-collapsed anisotropy on real Pythia keys. uniform=0.386 waterfill_svd=0.359. Tier A Anchor #1 falsified; consider Tier A Anchor #2 (DG pattern separation). knn@M=400=1.000 | uniform=0.386 whiten=0.017 waterfill_svd=0.359 waterfill_learned=0.029 | lift_svd_over_uniform=-0.027 lift_learned_over_uniform=-0.357 lift_whiten=-0.369 | eff_rank raw=0.006 whiten=0.309 waterfill=1.213 | effrank_lift_wf=186.569x",
+  "summary": "HARD_FAIL_WATERFILL_DOESNT_HELP: lift_over_uniform=-0.027 <= 0.03 OR effrank_lift=186.57x <= 1.05x at M=1000 -> per-direction cleanup-weight allocation is NOT a chain-grade rescue for cone-collapsed anisotropy on real Pythia keys. uniform=0.386 waterfill_svd=0.359. Tier A Anchor #1 falsified; consider Tier A Anchor #2 (DG pattern separation). knn@M=400=1.000 | uniform=0.386 whiten=0.017 waterfill_svd=0.359 waterfill_learned=0.029 | lift_svd_over_uniform=-0.027 lift_learned_over_uniform=-0.357 lift_whiten=-0.369 | eff_rank raw=0.006 whiten=0.309 waterfill=1.213 | effrank_lift_wf=186.569x",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "M_SWEEP": [
+    400,
+    1000
+  ],
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "detail": {
+    "M_eval": 1000,
+    "M_sentinel": 400,
+    "arm_knn_baseline_at_M_sentinel": 1.0,
+    "arm_uniform_cleanup": 0.386,
+    "arm_whitening": 0.017,
+    "arm_mimo_waterfill_svd": 0.359,
+    "arm_mimo_waterfill_learned": 0.029,
+    "std_uniform": 0.0,
+    "std_whitening": 0.0,
+    "std_waterfill_svd": 0.0,
+    "std_waterfill_learned": 0.0,
+    "eff_rank_raw": 0.0065,
+    "eff_rank_whiten": 0.3094,
+    "eff_rank_waterfill": 1.2127,
+    "effrank_lift_waterfill_over_raw": 186.5692,
+    "effrank_lift_whiten_over_raw": 47.6,
+    "lift_waterfill_svd_over_uniform": -0.027,
+    "lift_waterfill_learned_over_uniform": -0.357,
+    "lift_whiten_over_uniform": -0.369,
+    "knn_sentinel_pass": true,
+    "n_seeds": 1,
+    "bands": {
+      "HP_ABS": 0.5,
+      "HP_LIFT": 0.2,
+      "HP_PARTIAL_LIFT": 0.15,
+      "MIDDLE_LIFT": 0.05,
+      "HF_LIFT": 0.03,
+      "HP_EFFRANK_LIFT": 1.3,
+      "HF_EFFRANK_LIFT": 1.05,
+      "KNN_SENTINEL": 0.9,
+      "STD_HP": 0.05,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "mimo_waterfill_v1 (knn_baseline / uniform_cleanup / whitening / waterfill_svd / waterfill_learned) | proj=768 C=256 reg=1.00 whiten_eps=1e-03 lr=0.01 steps=200 sigma=0.10 | seeds=[11] M=[400, 1000] | CPU_numpy | bands locked",
+    "cites": [
+      "research_gap2_anisotropy_5x_drill_2026-06-26",
+      "exp_dev_handoff_research_gap2_anisotropy_5x_drill_2026-06-26",
+      "substrate_anisotropy_rescue_4arm_sweep_v2_calibrated_meter_full",
+      "Stanford_EE359_MIMO_water_filling",
+      "Mu_Viswanath_anisotropy_word_embeddings"
+    ]
+  },
+  "metrics_source": "measured_cpu_anisotropy_mimo_waterfill_v1",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_M": {
+        "M400": {
+          "arm_knn_baseline": 1.0,
+          "arm_uniform_cleanup": 0.79,
+          "arm_whitening": 0.02,
+          "arm_mimo_waterfill_svd": 0.7725,
+          "arm_mimo_waterfill_learned": 0.0575,
+          "eff_rank_raw": 0.0065,
+          "eff_rank_whiten": 0.2568,
+          "eff_rank_waterfill": 0.46,
+          "waterfill_mu": 1.399843,
+          "waterfill_active_modes": 328,
+          "lift_waterfill_over_uniform": -0.0175,
+          "lift_learned_over_uniform": -0.7325,
+          "lift_whiten_over_uniform": -0.77,
+          "storage_bytes_per_mem": 3080.0
+        },
+        "M1000": {
+          "arm_knn_baseline": 1.0,
+          "arm_uniform_cleanup": 0.386,
+          "arm_whitening": 0.017,
+          "arm_mimo_waterfill_svd": 0.359,
+          "arm_mimo_waterfill_learned": 0.029,
+          "eff_rank_raw": 0.0065,
+          "eff_rank_whiten": 0.3094,
+          "eff_rank_waterfill": 1.2127,
+          "waterfill_mu": 1.229385,
+          "waterfill_active_modes": 882,
+          "lift_waterfill_over_uniform": -0.027,
+          "lift_learned_over_uniform": -0.357,
+          "lift_whiten_over_uniform": -0.369,
+          "storage_bytes_per_mem": 3080.0
+        }
+      },
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782452992.6332023
+    }
+  ],
+  "elapsed_s": 176.9319727420807
+}
