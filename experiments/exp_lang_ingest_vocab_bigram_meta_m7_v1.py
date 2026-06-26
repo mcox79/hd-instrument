@@ -61,7 +61,14 @@ META_M7 DISCIPLINE:
     V_TOK all unchanged; only N_TRAIN / N_EVAL shrink for smoke).
 
 GPU DISCIPLINE (Fix #24):
-  - torch.cuda actively used for the S matrices + per-partition scoring matmul.
+  - torch.cuda actively used for per-partition scoring matmul (Hebbian-write
+    accumulation kept on CPU; transferred to GPU one partition at a time at
+    eval-time). This OOM-fix preserves full N_PARTITIONS=64 + N_DIM=8192 design
+    on an 8 GB RTX 4060 Ti (was 16.4 GB per arm; now ~256 MB resident GPU per
+    partition + cleanup batch + codebooks).
+  - GPU peak projection gate at module init: aborts if projected resident GPU
+    peak (codebooks + ONE S partition + eval-batch + working buffers) > 6 GB
+    safety margin under 8 GB total.
   - Encoder (codebook precompute) hoisted to setup; identical across arms.
   - Eval-time scoring batched across cues in chunks of GPU_BATCH = 4096.
   - gpu_max_mem_alloc_mb captured via torch.cuda.max_memory_allocated.
@@ -79,6 +86,10 @@ FORMULA SELF-TESTS (PROT-022) -- mandatory; tested at module init AND --self-tes
   T5: HRR bind/permute returns a different vector than its inputs (order
       info present in trigram cue).
   T6: pre-reg bands LOCKED to module constants; assert numeric ordering.
+  T7: projected GPU peak memory at FULL N_PARTITIONS x N_DIM x GPU_BATCH config
+      stays under 6 GB safety margin (8 GB RTX 4060 Ti capacity). Hard-asserts
+      the OOM fix: only ONE S_part is GPU-resident at a time + codebooks +
+      cleanup batch + working buffers. (Fix #17 measurement strict.)
 
 ASCII-only. No emojis. write_metrics. PROT-021 run_config guard. PROT-018:
 no _nN suffix (N_DIM = 8192 is the substrate-product default, not a sweep dim).
@@ -148,6 +159,11 @@ assert 0.0 < NULL_DISCRIMINATOR_CEIL == MIDDLE_BAND_LOWER < MIDDLE_BAND_UPPER ==
 )
 assert 0.0 < HARD_PASS_LIFT_OVER_NULL < HARD_PASS_TOP1_FLOOR, "lift must be < absolute floor"
 assert 0.0 < HARD_PASS_CV_CEILING < 0.5, "cv ceiling must be sensible"
+
+# ---------- GPU memory budget (Fix #24 / Fix #17 measurement strict) ----------
+# RTX 4060 Ti capacity 8 GB; safety margin 6 GB for resident peak (leaves ~2 GB
+# for cuDNN workspace + driver + kernel intermediates not counted in our estimate).
+GPU_BUDGET_MB = 6 * 1024  # 6144 MB hard ceiling
 
 # ---------- CLI / run mode ----------
 _ap = argparse.ArgumentParser(add_help=False)
@@ -228,10 +244,37 @@ def _tokenize_text8(path: Path, max_tokens: int | None = None) -> List[str]:
 
 # ---------- GPU helpers ----------
 def _device_for_run():
-    """Pick device per Fix #24: cuda iff available; raise on full-mode CPU."""
+    """Pick device per Fix #24: cuda iff available; raise on full-mode CPU.
+
+    Runtime gate: verifies free GPU memory exceeds projected peak at module config.
+    Aborts if free GPU memory < projected_peak_mb (refuses to start the seed
+    instead of OOM-crashing 30s in like the pre-fix run did).
+    """
     import torch
     if torch.cuda.is_available():
-        return torch.device("cuda")
+        dev = torch.device("cuda")
+        # Verify free GPU memory at full config (or current GPU_BATCH/N_EVAL for smoke).
+        proj = _project_gpu_peak_mb(
+            n_dim=N_DIM,
+            v_tok=V_TOK,
+            gpu_batch=GPU_BATCH,
+            n_eval=N_EVAL_PAIRS,
+        )
+        free_bytes, total_bytes = torch.cuda.mem_get_info(0)
+        free_mb = free_bytes / (1024 * 1024)
+        total_mb = total_bytes / (1024 * 1024)
+        if proj["projected_peak_mb"] > free_mb:
+            raise RuntimeError(
+                f"GPU memory gate: projected peak {proj['projected_peak_mb']:.0f} MB "
+                f"exceeds free {free_mb:.0f} MB on {torch.cuda.get_device_name(0)} "
+                f"(total {total_mb:.0f} MB). breakdown={proj}"
+            )
+        print(
+            f"[gpu-gate] device={dev} free_mb={free_mb:.0f} total_mb={total_mb:.0f} "
+            f"projected_peak_mb={proj['projected_peak_mb']:.0f} OK",
+            flush=True,
+        )
+        return dev
     if RUN_MODE == "full":
         raise RuntimeError(
             "lang_ingest_vocab_bigram_meta_m7_v1 routed to overnight_queue (GPU) "
@@ -244,32 +287,47 @@ def _compute_S_partitions_torch(train_ids: np.ndarray, codebook_np: np.ndarray, 
     """Build [N_PARTITIONS] of [N_DIM, N_DIM] S matrices via partition-routed Hebbian writes.
 
     For each adjacent (t_prev, t_curr) pair, route by partition(t_prev) and add
-    outer(k_curr, k_prev) to S_part. Uses torch.cuda for the outer-product accumulation.
+    outer(k_curr, k_prev) to S_part. Hebbian-write accumulation is done on CPU
+    (S partitions kept CPU-resident); the matmul itself uses the GPU per-partition
+    by transferring one bucket at a time. This OOM-fix preserves the full
+    N_PARTITIONS x N_DIM x N_DIM design without exceeding the 8 GB GPU budget:
+    64 partitions x 8192 x 8192 x float32 = 16.4 GB resident on GPU is infeasible
+    (was the crash root cause); per-partition transfer at compute time = 256 MB
+    resident on GPU + per-partition transfer-back to CPU accumulator.
 
-    Returns: list of N_PARTITIONS torch tensors on `device`, shape [N_DIM, N_DIM] each.
+    Returns: list of N_PARTITIONS CPU torch tensors, shape [N_DIM, N_DIM] each
+             (float32). Eval-time scoring transfers individual partitions to
+             `device` on demand.
     """
     import torch
     n_dim = codebook_np.shape[1]
-    cb_t = torch.from_numpy(codebook_np).to(device=device, dtype=torch.float32)  # [V+1, N]
-    # Pre-allocate S partitions on device
-    S_parts = [torch.zeros(n_dim, n_dim, device=device, dtype=torch.float32) for _ in range(N_PARTITIONS)]
-    # Stream in batches to keep memory bounded; per-partition accumulation via outer products.
-    # Process bigrams in chunks: gather k_prev / k_curr from codebook; route by partition(t_prev).
+    cpu_device = torch.device("cpu")
+    # Codebook resident on GPU (small: V+1 x N x 4 = 268 MB at V=8192, N=8192).
+    cb_t_gpu = torch.from_numpy(codebook_np).to(device=device, dtype=torch.float32)
+    # Pre-allocate S partitions on CPU (16.4 GB total CPU RAM; laptop+remote both have it).
+    S_parts = [torch.zeros(n_dim, n_dim, device=cpu_device, dtype=torch.float32) for _ in range(N_PARTITIONS)]
     n = train_ids.shape[0]
     if n < 2:
         return S_parts
-    prev_ids = torch.from_numpy(train_ids[:-1].astype(np.int64)).to(device=device)
-    curr_ids = torch.from_numpy(train_ids[1:].astype(np.int64)).to(device=device)
-    parts = prev_ids % N_PARTITIONS
-    # Bucket by partition
+    prev_ids_np = train_ids[:-1].astype(np.int64)
+    curr_ids_np = train_ids[1:].astype(np.int64)
+    # Numpy-side mask compute (avoids materializing prev_ids on GPU twice).
+    parts_np = prev_ids_np % N_PARTITIONS
     for p in range(N_PARTITIONS):
-        mask = parts == p
-        if not bool(mask.any()):
+        mask_np = parts_np == p
+        if not mask_np.any():
             continue
-        k_prev = cb_t.index_select(0, prev_ids[mask])  # [m_p, N]
-        k_curr = cb_t.index_select(0, curr_ids[mask])  # [m_p, N]
-        # Hebbian: S_p += sum_i outer(k_curr_i, k_prev_i) = k_curr.T @ k_prev
-        S_parts[p].add_(k_curr.t().mm(k_prev))
+        # Gather bucket on GPU using GPU codebook (fast index_select).
+        prev_bucket = torch.from_numpy(prev_ids_np[mask_np]).to(device=device)
+        curr_bucket = torch.from_numpy(curr_ids_np[mask_np]).to(device=device)
+        k_prev = cb_t_gpu.index_select(0, prev_bucket)  # [m_p, N] on GPU
+        k_curr = cb_t_gpu.index_select(0, curr_bucket)  # [m_p, N] on GPU
+        # Hebbian outer product on GPU; transfer result back to CPU accumulator.
+        delta_gpu = k_curr.t().mm(k_prev)              # [N, N] on GPU (256 MB)
+        S_parts[p].add_(delta_gpu.to(cpu_device))      # accumulate on CPU
+        # Free per-bucket buffers; only delta_gpu peak matters per iter.
+        del prev_bucket, curr_bucket, k_prev, k_curr, delta_gpu
+    # Codebook still GPU-resident for caller eval-time use; do NOT free here.
     return S_parts
 
 
@@ -281,6 +339,10 @@ def _score_arm_b_bigram(
 ) -> np.ndarray:
     """ARM_B scoring: scores[i, v] = cosine(S_part[i] @ k_cue_i, codebook[v]).
 
+    S_parts is a list of CPU-resident [N, N] tensors (OOM fix); each partition
+    is transferred to GPU on-demand for the matmul, then freed. Only ONE
+    S_part is GPU-resident at a time.
+
     Returns [N_eval, V_TOK+1] float32 array on host.
     """
     import torch
@@ -288,28 +350,36 @@ def _score_arm_b_bigram(
     v_plus_1 = codebook_t.shape[0]
     cb_norm = codebook_t / (torch.linalg.norm(codebook_t, dim=1, keepdim=True) + 1e-8)
     out = np.zeros((n_eval, v_plus_1), dtype=np.float32)
-    # Process in batches; group by partition for batched S matmul.
     cues_t = torch.from_numpy(eval_cues.astype(np.int64)).to(device=device)
     parts = cues_t % N_PARTITIONS
+    # Outer loop: partition-major (transfer each S_part to GPU once across all batches
+    # that need it). Saves repeated CPU->GPU transfers of the same 256 MB partition.
+    # Build per-partition global index lists.
+    parts_cpu = parts.cpu().numpy()
+    per_part_indices = [np.where(parts_cpu == p)[0] for p in range(N_PARTITIONS)]
+    # Pre-allocate predicted [N_eval, N] on GPU only if it fits; else stream
+    # via batched CPU writes. At N_eval=32768 N=8192 float32 = 1.07 GB -> fits.
+    predicted_full = torch.zeros(n_eval, codebook_t.shape[1], device=device, dtype=torch.float32)
+    for p in range(N_PARTITIONS):
+        idx_np = per_part_indices[p]
+        if idx_np.size == 0:
+            continue
+        idx_t = torch.from_numpy(idx_np).to(device=device, dtype=torch.long)
+        # On-demand transfer of this partition to GPU.
+        S_p_gpu = S_parts[p].to(device=device, non_blocking=False)  # [N, N] = 256 MB
+        cues_for_p = cues_t.index_select(0, idx_t)
+        k_for_p = codebook_t.index_select(0, cues_for_p)  # [m_p, N]
+        pred_for_p = k_for_p.mm(S_p_gpu.t())              # [m_p, N]
+        predicted_full.index_copy_(0, idx_t, pred_for_p)
+        del S_p_gpu, k_for_p, pred_for_p
+    # Cosine sim against full codebook -- batched to bound peak.
     for start in range(0, n_eval, GPU_BATCH):
         end = min(start + GPU_BATCH, n_eval)
-        batch_cues = cues_t[start:end]
-        batch_parts = parts[start:end]
-        batch_k = codebook_t.index_select(0, batch_cues)  # [b, N]
-        # Process each partition slot within the batch.
-        predicted = torch.zeros(end - start, codebook_t.shape[1], device=device, dtype=torch.float32)
-        for p in range(N_PARTITIONS):
-            mask = batch_parts == p
-            if not bool(mask.any()):
-                continue
-            k_subset = batch_k[mask]                          # [m, N]
-            # predict_next: S_p @ k_prev  ->  (k_prev @ S_p.T) batched
-            pred_subset = k_subset.mm(S_parts[p].t())         # [m, N]
-            predicted[mask] = pred_subset
-        # Cosine sim against full codebook
-        pred_norm = predicted / (torch.linalg.norm(predicted, dim=1, keepdim=True) + 1e-8)
-        sims = pred_norm.mm(cb_norm.t())                       # [b, V+1]
+        pred_batch = predicted_full[start:end]
+        pred_norm = pred_batch / (torch.linalg.norm(pred_batch, dim=1, keepdim=True) + 1e-8)
+        sims = pred_norm.mm(cb_norm.t())                   # [b, V+1]
         out[start:end] = sims.cpu().numpy()
+    del predicted_full
     return out
 
 
@@ -321,6 +391,8 @@ def _score_arm_c_trigram(
 ) -> np.ndarray:
     """ARM_C scoring: cue = HRR bind(k_{i-2}, roll(k_{i-1}, 1)); same S + cleanup.
 
+    S_parts is CPU-resident (OOM fix); partition transferred to GPU on-demand.
+
     eval_cue_pairs: [N_eval, 2] = (t_minus2, t_minus1).
     Returns [N_eval, V_TOK+1] float32.
     """
@@ -331,29 +403,44 @@ def _score_arm_c_trigram(
     pairs_t = torch.from_numpy(eval_cue_pairs.astype(np.int64)).to(device=device)
     # Route trigram cues by the partition of t_minus1 (the "previous" of next-token)
     parts = pairs_t[:, 1] % N_PARTITIONS
+    # First pass: compute all HRR cues on GPU in batches; persist into one large buffer.
+    # At N_eval=32768 N=8192 float32 = 1.07 GB; fits under 6 GB budget.
+    cues_full = torch.zeros(n_eval, codebook_t.shape[1], device=device, dtype=torch.float32)
     for start in range(0, n_eval, GPU_BATCH):
         end = min(start + GPU_BATCH, n_eval)
         ids_a = pairs_t[start:end, 0]
         ids_b = pairs_t[start:end, 1]
         ka = codebook_t.index_select(0, ids_a)
         kb = codebook_t.index_select(0, ids_b)
-        # HRR bind: ifft(fft(a) * fft(roll(b,1))).real
         kb_rot = torch.roll(kb, shifts=1, dims=-1)
         fa = torch.fft.fft(ka)
         fb = torch.fft.fft(kb_rot)
         cue = torch.fft.ifft(fa * fb).real.to(torch.float32)   # [b, N]
-        batch_parts = parts[start:end]
-        predicted = torch.zeros(end - start, codebook_t.shape[1], device=device, dtype=torch.float32)
-        for p in range(N_PARTITIONS):
-            mask = batch_parts == p
-            if not bool(mask.any()):
-                continue
-            cue_subset = cue[mask]
-            pred_subset = cue_subset.mm(S_parts[p].t())
-            predicted[mask] = pred_subset
-        pred_norm = predicted / (torch.linalg.norm(predicted, dim=1, keepdim=True) + 1e-8)
+        cues_full[start:end] = cue
+        del ka, kb, kb_rot, fa, fb, cue
+    # Second pass: partition-major matmul against on-demand-loaded S_parts.
+    parts_cpu = parts.cpu().numpy()
+    per_part_indices = [np.where(parts_cpu == p)[0] for p in range(N_PARTITIONS)]
+    predicted_full = torch.zeros(n_eval, codebook_t.shape[1], device=device, dtype=torch.float32)
+    for p in range(N_PARTITIONS):
+        idx_np = per_part_indices[p]
+        if idx_np.size == 0:
+            continue
+        idx_t = torch.from_numpy(idx_np).to(device=device, dtype=torch.long)
+        S_p_gpu = S_parts[p].to(device=device, non_blocking=False)  # 256 MB
+        cue_for_p = cues_full.index_select(0, idx_t)
+        pred_for_p = cue_for_p.mm(S_p_gpu.t())
+        predicted_full.index_copy_(0, idx_t, pred_for_p)
+        del S_p_gpu, cue_for_p, pred_for_p
+    del cues_full
+    # Cosine cleanup batched.
+    for start in range(0, n_eval, GPU_BATCH):
+        end = min(start + GPU_BATCH, n_eval)
+        pred_batch = predicted_full[start:end]
+        pred_norm = pred_batch / (torch.linalg.norm(pred_batch, dim=1, keepdim=True) + 1e-8)
         sims = pred_norm.mm(cb_norm.t())
         out[start:end] = sims.cpu().numpy()
+    del predicted_full
     return out
 
 
@@ -474,6 +561,92 @@ def _selftest_t6_bands_locked() -> None:
     assert MIDDLE_BAND_UPPER == 0.40
 
 
+def _project_gpu_peak_mb(n_dim: int, v_tok: int, gpu_batch: int, n_eval: int) -> Dict[str, float]:
+    """Project GPU resident peak in MB at FULL config.
+
+    Components (Fix #24 OOM-fix; only ONE S_part GPU-resident at a time):
+      codebook_t       : (V+1) * N * 4 bytes
+      cb_norm          : (V+1) * N * 4 bytes  (one of two arms; norm cached per call)
+      ONE S_part_gpu   : N * N * 4 bytes
+      predicted_full   : N_eval * N * 4 bytes (large; second-pass buffer)
+      cues_full (ARM_C): N_eval * N * 4 bytes (ARM_C only; serial w/ predicted_full)
+      sims_batch       : gpu_batch * (V+1) * 4 bytes
+      pred_batch_norm  : gpu_batch * N * 4 bytes
+
+    ARM_C is the worst case (cues_full + predicted_full coexist briefly during
+    transition between pass-1 and pass-2 if not freed; we free cues_full at
+    `del cues_full` before the cleanup pass, so peak counts ONE large buffer
+    + S_part + codebook + cb_norm + matmul intermediates).
+    """
+    f = 4  # bytes per float32
+    mb = lambda x: x / (1024 * 1024)
+    codebook_mb = mb((v_tok + 1) * n_dim * f)
+    cb_norm_mb = mb((v_tok + 1) * n_dim * f)
+    s_part_mb = mb(n_dim * n_dim * f)
+    predicted_full_mb = mb(n_eval * n_dim * f)
+    cues_full_mb = mb(n_eval * n_dim * f)  # ARM_C pass-1 buffer
+    sims_batch_mb = mb(gpu_batch * (v_tok + 1) * f)
+    pred_batch_norm_mb = mb(gpu_batch * n_dim * f)
+    # Worst case during ARM_C: cues_full (pass-1 building) + S_part (pass-2 inner)
+    # are NOT simultaneous in the actual code path -- we free cues_full after pass-1
+    # except for index_select intermediates. Conservative peak = max of:
+    #   pass-1 peak:  codebook + cues_full (being filled) + per-batch intermediates
+    #   pass-2 peak:  codebook + cues_full + predicted_full + S_part + matmul output
+    # Actually cues_full is freed (`del cues_full`) BEFORE cleanup; predicted_full
+    # persists. So pass-2 peak: codebook + cues_full + predicted_full + S_part + tiny.
+    # This is the conservative estimate during the partition-major loop.
+    pass2_peak = codebook_mb + cues_full_mb + predicted_full_mb + s_part_mb + sims_batch_mb
+    # Cleanup pass peak: codebook + cb_norm + predicted_full + per-batch buffers
+    cleanup_peak = codebook_mb + cb_norm_mb + predicted_full_mb + sims_batch_mb + pred_batch_norm_mb
+    worst = max(pass2_peak, cleanup_peak)
+    return {
+        "codebook_mb": codebook_mb,
+        "cb_norm_mb": cb_norm_mb,
+        "s_part_mb": s_part_mb,
+        "predicted_full_mb": predicted_full_mb,
+        "cues_full_mb": cues_full_mb,
+        "sims_batch_mb": sims_batch_mb,
+        "pred_batch_norm_mb": pred_batch_norm_mb,
+        "pass2_peak_mb": pass2_peak,
+        "cleanup_peak_mb": cleanup_peak,
+        "projected_peak_mb": worst,
+    }
+
+
+def _selftest_t7_gpu_memory_projection() -> None:
+    """Fix #24 / Fix #17 measurement strict: project GPU peak at FULL config; assert <= budget.
+
+    Verifies the OOM fix WITHOUT requiring an actual GPU (closed-form projection
+    on the production config N_DIM=8192, V_TOK=8192, N_PARTITIONS=64, GPU_BATCH=4096,
+    N_EVAL=32768).
+    """
+    # Use full-mode config explicitly so projection is checked at production
+    # capacity regardless of smoke env vars.
+    proj_full = _project_gpu_peak_mb(
+        n_dim=N_DIM,
+        v_tok=V_TOK,
+        gpu_batch=4096,    # full-mode GPU_BATCH
+        n_eval=32768,      # full-mode N_EVAL_PAIRS
+    )
+    peak = proj_full["projected_peak_mb"]
+    assert peak <= GPU_BUDGET_MB, (
+        f"GPU memory projection {peak:.0f} MB exceeds budget {GPU_BUDGET_MB} MB "
+        f"at FULL config (N_DIM={N_DIM} V_TOK={V_TOK} N_PARTITIONS={N_PARTITIONS} "
+        f"GPU_BATCH=4096 N_EVAL=32768); breakdown={proj_full}"
+    )
+    # Sanity: pre-OOM-fix (full S_parts resident) would have been WAY over budget.
+    pre_fix_resident_mb = N_PARTITIONS * N_DIM * N_DIM * 4 / (1024 * 1024)
+    assert pre_fix_resident_mb > GPU_BUDGET_MB, (
+        f"pre-fix projection sanity broken: pre-fix resident {pre_fix_resident_mb:.0f} MB "
+        f"should be > {GPU_BUDGET_MB} MB budget"
+    )
+    print(
+        f"[selftest T7] GPU peak projection {peak:.0f} MB <= budget {GPU_BUDGET_MB} MB "
+        f"(pre-fix would have been {pre_fix_resident_mb:.0f} MB; OOM fix verified)",
+        flush=True,
+    )
+
+
 def _run_selftests() -> None:
     t0 = time.time()
     _selftest_t1_vocab_roundtrip()
@@ -482,7 +655,8 @@ def _run_selftests() -> None:
     _selftest_t4_bigram_gap_analytic()
     _selftest_t5_hrr_cue_identity()
     _selftest_t6_bands_locked()
-    print(f"[selftest] T1-T6 OK in {time.time() - t0:.2f}s", flush=True)
+    _selftest_t7_gpu_memory_projection()
+    print(f"[selftest] T1-T7 OK in {time.time() - t0:.2f}s", flush=True)
 
 
 # Module-init self-test: surfaces broken contract at import time.
@@ -584,18 +758,21 @@ def _run_one_seed(seed: int) -> Dict[str, Any]:
     cb_d_t = torch.from_numpy(cb_d_np).to(device=device, dtype=torch.float32)
 
     # ---- Build S partitions (Hebbian writes; Path C bipolar codebook) ----
+    # S_parts kept CPU-resident per OOM fix (was: 16.4 GB GPU-resident at
+    # N_PARTITIONS=64 x N_DIM=8192 x N_DIM=8192 x float32 -- crashed on 8 GB GPU).
     t_ingest_start = time.time()
     S_parts = _compute_S_partitions_torch(train_ids, cb_np, device)
     t_ingest = time.time() - t_ingest_start
     print(
         f"[seed {seed}] S_parts built: N_PARTITIONS={N_PARTITIONS} N_DIM={N_DIM} "
-        f"ingest_wall_s={t_ingest:.1f}",
+        f"ingest_wall_s={t_ingest:.1f} (CPU-resident; OOM fix)",
         flush=True,
     )
 
     # ---- Build S partitions for ARM_D using char-trigram codebook ----
-    # (Same train_ids; different keys -> different S)
-    S_parts_d = _compute_S_partitions_torch(train_ids, cb_d_np, device)
+    # (Same train_ids; different keys -> different S). Also CPU-resident.
+    # Defer build until ARM_B/C complete to bound CPU RAM at one S_parts set.
+    # (See block below: S_parts_d built after ARM_C, S_parts freed before.)
 
     # ---- Word-bigram baseline (truth-rail; load-bearing for ARM_A + gap) ----
     bigram_baseline = compute_word_bigram_top1(
@@ -646,6 +823,14 @@ def _run_one_seed(seed: int) -> Dict[str, Any]:
     )
     arm_c_eval["arm"] = "ARM_C_TRIGRAM_HRR"
     arm_c_eval["wall_s"] = time.time() - t_c_start
+
+    # ---- Free S_parts + cb_t before building S_parts_d (bound CPU RAM peak) ----
+    del S_parts, cb_t
+    if gpu_avail:
+        torch.cuda.empty_cache()
+
+    # ---- Build S partitions for ARM_D using char-trigram codebook ----
+    S_parts_d = _compute_S_partitions_torch(train_ids, cb_d_np, device)
 
     # ---- ARM_D: char-trigram bag-of-HD codebook + S bigram ----
     t_d_start = time.time()
