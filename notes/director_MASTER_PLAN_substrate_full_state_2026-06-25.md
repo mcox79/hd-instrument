@@ -200,8 +200,30 @@
 | NREM sharp-wave ripple replay | **MISSING** — periodic random-subset rewrite being built | 🔨 IN FLIGHT (Cell A) |
 | REM synaptic homeostasis | **MISSING** — global W downscaling being built | 🔨 IN FLIGHT (Cell B) |
 | DMN consolidation | **MISSING** | ⏳ NOT YET |
+| **Hierarchical decorrelation (V1→V2→V4→IT)** | **MISSING — 2ND SUBSTRATE LAYER NOT YET BUILT** | ⏳ NEXT-WAVE CANDIDATE (contingent on Cell Z + Cell C outcomes) |
 | Basal ganglia (reward weighting) | NOT IN SCOPE | — |
 | Thalamus (relay) | NOT IN SCOPE | — |
+
+## 2ND SUBSTRATE LAYER (cortex hierarchical decorrelation) — planned, not yet dispatched
+
+USER 2026-06-25 explicit confirmation we want this in the plan.
+
+**What it is:** a second W matrix (W2) that takes W1 outputs as input and re-encodes them into a more isotropic representation. Brain analog: V1 → V2 → V4 → IT → PFC pipeline; each layer learns to remove predictable structure from the previous layer's output. By the top of the hierarchy, representations are much more isotropic than raw input.
+
+**Why it might matter:**
+- Direct anisotropy fix (re-encodes raw cone into more isotropic 2nd-layer space)
+- Enables vocabulary-scale generation (Tier 4) by isotropizing the layer where dense comparisons happen
+- Composes with schema extraction (Cell C) — if cortex content needs decorrelated inputs, 2nd layer provides them
+
+**Dispatch contingency (dependencies):**
+- IF Cell Z (expansion sweep) succeeds at brain-scale expansion: 2nd layer less urgent for anisotropy (sparse expansion alone handles it)
+- IF Cell Z fails: 2nd layer becomes CRITICAL PATH for Tier 4 anisotropy fix
+- IF Cell C succeeds: schemas extracted cleanly; 2nd layer adds vocabulary-scale isotropy on top
+- IF Cell C fails on raw representations: 2nd layer could rescue Cell C by providing isotropic inputs to extract schemas FROM
+
+**Cost:** 2× storage (W1 + W2); 2-stage inference; ~moderate engineering investment (substantially more than Cell C; less than full Tier 4 pursuit)
+
+**When to dispatch:** after Cell Z + Cell C land (~2-4h from now). Decision criteria above.
 
 ---
 
