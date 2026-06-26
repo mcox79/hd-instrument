@@ -130,3 +130,69 @@ on Wikipedia / Pythia is reproduced on text8 / Path C substrate-native.
 - Pre-reg bands: cell-author per envelope-fail-band ownership.
 - Infrastructure: testbed (commit df8511e8; 37 verification tests pass).
 - Routing decision: USER directive (overnight_queue GPU per drill 3 prompt).
+
+---
+
+## OOM-FIX #2 AMENDMENT (2026-06-25 second crash)
+
+**Crash:** After OOM-fix #1 (commit 1ea55da9) shipped CPU-resident S_parts, the
+cell ran for 30s and crashed with a DIFFERENT OOM in `_compute_S_partitions_torch`
+line 323:
+
+```
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 91.54 GiB.
+  k_prev = cb_t_gpu.index_select(0, prev_bucket)  # [m_p, N] on GPU
+```
+
+**Root cause:** Per-partition `index_select(0, prev_bucket)` materialized the
+entire `[m_p, N]` bucket on GPU. At 16M tokens / 64 partitions = ~250K avg,
+skew makes individual partitions much larger; 250K * 8192 * 4 = 8 GB per
+matrix, two matrices co-resident (k_prev + k_curr) blows past 8 GB. The
+observed 91.5 GB request implies a single dominant partition holding ~2.8M
+tokens after a co-occurrence with other persistent buffers.
+
+**Fix (OOM-fix #2; this commit):** Chunked accumulation.
+
+```
+for cstart in range(0, m_p, INDEX_SELECT_M_BATCH=4096):
+    prev_chunk = prev_ids_p[cstart:cend].to(device)
+    curr_chunk = curr_ids_p[cstart:cend].to(device)
+    k_prev_chunk = cb_t_gpu.index_select(0, prev_chunk)
+    k_curr_chunk = cb_t_gpu.index_select(0, curr_chunk)
+    delta_accum_gpu.addmm_(k_curr_chunk.t(), k_prev_chunk)
+S_parts[p].add_(delta_accum_gpu.to(cpu))
+```
+
+**Peak GPU memory under fix #2:**
+
+```
+codebook                = 268 MB  (persistent)
+delta_accum_gpu [N, N]  = 256 MB  (per-partition; phase_ingest)
+k_prev_chunk            = 128 MB  (per-chunk; freed each iter)
+k_curr_chunk            = 128 MB  (per-chunk; freed each iter)
+S build phase peak      = ~780 MB
+```
+
+vs pre-fix-2 89-91 GB. Projection cross-validated via two paths:
+- `_project_gpu_peak_mb` (closed-form; in-file): 2688 MB worst-of-three phases
+- `hdlab.gpu_memory_budget.project_peak_mb` (lifetime-aware; shipped 9f59365e):
+  2560 MB. Agree within 5%; both < 6144 MB budget.
+
+**T8 self-test added:** Cross-validates the two projection paths AND replays
+`_compute_S_partitions_torch` on a synthetic 80k-token sequence (multiple
+M_BATCH chunks per partition) asserting (a) numerical Hebbian correctness
+(no silent token dropout), (b) actual GPU peak < 4 GB when CUDA available,
+(c) ingest-phase projection < 4 GB ceiling. Catches the OOM that slipped
+past T7.
+
+**Smoke verdict (2026-06-25 with OOM-fix #2 on CPU laptop):**
+HARD_FAIL top1=0.1885 (expected at 200k tokens; methodology smoke not
+science gate). Chunked path completed in 210s ingest wall on CPU; full 4-arm
+metrics written; verdict structure intact. Validates code path end-to-end
+without OOM.
+
+**Disciplines preserved:**
+- T7 GPU memory projection self-test
+- mem_get_info runtime gate in `_device_for_run`
+- 4 ARM design + bands UNCHANGED
+- All other config UNCHANGED
