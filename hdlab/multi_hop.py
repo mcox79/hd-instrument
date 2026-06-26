@@ -184,3 +184,80 @@ def random_cleanup_chain(
         k_set=k_set, beta=beta, tau_terminate=None, k_inner=1,
         shuffle_top=True, shuffle_generator=shuffle_generator,
     )
+
+
+def partition_routed_chain(
+    kg: KGStore,
+    start: int,
+    relations: list[int],
+    partitions: list[torch.Tensor],
+    router,
+    *,
+    oracle_routing: bool = True,
+) -> tuple[int, list[int]]:
+    """K-hop chain with per-hop PARTITION routing (Cell B v2 META_M7 chain-grade mechanism).
+
+    Per hop: (a) call router(state_hv, relation_idx) -> partition_index;
+    (b) transit state via W;
+    (c) score ONLY against entities in partitions[partition_index];
+    (d) argmax over the partition; result becomes next hop state.
+
+    `partitions`: list of LongTensors; partitions[i] = entity indices in partition i.
+    `router`: callable taking (state_hv, relation_idx) -> int (the partition index for this
+              hop).
+    `oracle_routing`: HONEST-SCOPE FLAG. If True (default), the caller is responsible for
+                      providing a router that returns the GROUND-TRUTH partition for each hop
+                      (i.e. the partition containing the true target of the hop). This is the
+                      mechanism that achieves chain-grade at K=5. If False, the router is
+                      assumed to be substrate-native (relation-typed, HRR-bind-based, or
+                      learned). substrate-native routing is OPEN-FOLLOW-UP (cells RC1/RC2/RC3
+                      per META_BARRIER_1_QUINTUPLE_RECONCILIATION); chain-grade not yet
+                      certified for substrate-native routing.
+
+    Returns (pred_entity, intermediate_chain).
+
+    Chain-grade-validated at K=5: ARM_COMPOSE_PARTITION_5HOP mean=0.9550 cv=0.0074 across
+    3 seeds (7, 17, 23) at N=8192, V_C=200, n_partitions=20, part_size=10; META_M7 REPRODUCE
+    rail PASS 0/3 breach; per-step decay [0.99, 0.98, 0.975, 0.97, 0.965] = gradual (not
+    by-construction saturation). See:
+      - math::T3/EXP_substrate_multihop_compose_fly_lsh_multibank_partition_v2_META_M7_rail
+        _chain_grade_partition_per_hop_5hop_0p955_cv_0p007_meta_M7_pass_oracle_routing_scope_flag
+      - math::T3/EXP_..._measured_mechanism_oracle_routing_required_for_5hop_chain_grade
+        _substrate_native_routing_open  (production-claim scope bound)
+      - meta::T3/META_BARRIER_1_QUINTUPLE_RECONCILIATION  (narrowing not breaking)
+    Atomized 2026-06-26 batch 2 per skunkworks_tier_rule_batch2_4artifact_2026-06-26.md.
+
+    HONEST-SCOPE: chain-grade-certified ONLY with oracle_routing=True. The production-claim
+    "substrate can do 5-hop reasoning without oracle routing" is NOT certified; substrate-
+    native router cells RC1 (relation-typed), RC2 (HRR-bind), RC3 (learned no-LLM) are
+    open follow-ups. Use this primitive with explicit honest-scope flag in your application.
+    """
+    state = kg.E[start].clone()
+    chain: list[int] = []
+    for hop_idx, p in enumerate(relations):
+        part_idx = router(state, p)
+        if part_idx < 0 or part_idx >= len(partitions):
+            raise ValueError(
+                f"partition_routed_chain: router returned out-of-range partition index "
+                f"{part_idx} at hop {hop_idx} (n_partitions={len(partitions)})"
+            )
+        ent_idxs_in_part = partitions[part_idx]
+        state = kg.W @ (state * kg.R[p] * kg.sq)
+        # Score only the partition's entities; argmax within partition.
+        part_scores = kg.E[ent_idxs_in_part] @ state
+        local_argmax = int(part_scores.argmax())
+        pred = int(ent_idxs_in_part[local_argmax])
+        chain.append(pred)
+        state = kg.E[pred].clone()
+    final = chain[-1] if chain else start
+    tracing.emit(
+        "multi_hop.partition_routed.done",
+        {
+            "n_hops": len(relations),
+            "n_partitions": len(partitions),
+            "oracle_routing": oracle_routing,
+        },
+        {"chain": chain, "final": final},
+        elapsed_ns=0,
+    )
+    return final, chain

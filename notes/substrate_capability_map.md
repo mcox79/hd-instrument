@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v595
+# hd-instrument substrate -- capability map v596
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -29527,3 +29527,54 @@ DOES NOT demote the 6 prior geometry HARD_FAILs (they remain HARD_FAIL; the META
 ### Status
 
 Cap_map: v594 -> v595 CYCLE GAP 2 RE-CLASSIFICATION GREEN-WITH-CHARACTERIZATION-AND-GUARD-RAIL (1 proven_bound atomization meta::T3/META_substrate_tracks_KNN_cosine_floor_within_0p007 CERT +1 [602 -> 603]; 2 META rule atoms meta::T3/META_cosine_physics_floor_below_chain_grade + meta::T3/META_baseline_replacement_not_baseline_rescue cert-neutral; 6 prior geometry HARD_FAILs UNCHANGED [no retroactive demotion]; Fix #26 pre-dispatch matcher discipline filed as Atom 3 project-wide pattern; chain-grade-promotion path armed [3-seed pythia-2.8b M-scaling sweep at M={10k, 100k, 1M}]; 0 LVH; 0 NEW PP ROWS; meta::RULE_baseline_replacement_not_baseline_rescue NEW 1st-appearance discipline candidate; meta::RULE_cosine_physics_floor_below_chain_grade_short_LM_window NEW 1st-appearance discipline candidate; Portfolio 32+413 UNCHANGED; HONEST UNCHANGED; LVH 292 UNCHANGED; cert_ledger 752 -> 755 [+3 rows]; atoms 177368 -> 177371 [+3 atoms; meta corpus 175 -> 178]; ledger row hashes eef1b581c19ae837 / d2128ea758614e32 / 956a76f99132f565) (2026-06-26)
+
+## v595 -> v596 BATCH 2 (4-ARTIFACT) RATIFIED RULINGS (Director ratify AUTO + USER full-auto; Skunkworks atomize 2026-06-26; +3 CERT; +6 ledger; +6 atoms)
+
+### Trigger
+
+Skunkworks tier-rule batch 2 over 4 artifacts (`notes/skunkworks_tier_rule_batch2_4artifact_2026-06-26.md`) ratified by Director under AUTO mode. Per-arm off-data recompute via .venv Python on raw metrics.json (Fix #28 strict; no verdict_msg inheritance). All 4 artifact-level rulings stand. Cap_map state-transitions:
+
+### Gap 1 (multi-hop) status: RED -> AMBER (Cell B v2 chain-grade routing-provided regime; substrate-native routing open)
+
+**Cell B v2 PARTITION-routed-per-hop multi-hop at depth=5 achieves 0.9550 cv=0.0074** across 3 seeds (7, 17, 23); META_M7 REPRODUCE rail PASS 0/3 breach (per-seed [0.145, 0.110, 0.110] all in band [0.08, 0.25]); per-step decay gradual [0.99, 0.98, 0.975, 0.97, 0.965] = no by-construction saturation; 7.85x lift over naive 5-hop. **HONEST-SCOPE**: oracle per-hop routing (target_part known a priori) is load-bearing. The substrate-native-routing production-claim NOT certified; companion MM atom files the production-claim scope bound. **BARRIER_1 QUINTUPLE_RECONCILIATION** (META rule): the prior quadruple-negative on substrate-native multi-hop is NARROWED (not broken) to the routing-not-provided regime. Substrate-native router follow-up cells RC1 (relation-typed routing), RC2 (HRR-bind-routing), RC3 (learned-router no LLM) are Director-queued backlog.
+
+### Gap 4 (continual-learning consolidation) status: RED -> AMBER (NREM proven-bound; REM-global HARD_FAIL; selective REM + composition path armed)
+
+**NREM replay v1**: proven-bound MEASURED_MECHANISM (Director HARD_PASS honest-downgraded per Fix #28 under-claim default). Best arm REPLAY_EVERY_100 final_forget=0.31 vs baseline=0.88 across 3 seeds (drift_reduction=+0.5733); strict_better all 3 replay arms; monotone in replay frequency. Chain-grade bar forget<=0.05 NOT met. Partial mitigator characterized; brain-grounded scope. **REM synaptic homeostasis v1 (global downscale)**: proven negative HARD_FAIL. 3-of-3 downscale arms forget=1.000 (two arms) or 0.973 (third) vs baseline 0.883; worst overage +0.117; clean smoke-prediction-confirmed. Revival angle = selective-not-global downscale (RC7 composition with NREM replay).
+
+### Gap 3 (compositional generalization / schema extraction) status: UNKNOWN -> AMBER (feature-axis partial signal; capability-axis negative; micro-scale)
+
+**Cortical schema v1**: MIDDLE_BAND partial. ARM_FEATURE_BASED_SCHEMA +0.10 lift over no-schema baseline (0.473 vs 0.373); ARM_CAPABILITY_BASED -0.08 (HURTS vs no-schema); ARM_COMBINED -0.013 (capability noise drowns feature signal). Honest-scope: micro-scale regime (elapsed=0.43s total; n_heldout=50/seed). 10x scale discriminator RC8 (n_heldout_per_cat>=100) queued.
+
+### Atomization landed in `data/substrate_index/` (6 atoms; cert_ledger 755 -> 761)
+
+ATOM 1 (chain_grade; CERT +1; pq=CERT_CHAIN_GRADE): `math::T3/EXP_substrate_multihop_compose_fly_lsh_multibank_partition_v2_META_M7_rail_chain_grade_partition_per_hop_5hop_0p955_cv_0p007_meta_M7_pass_oracle_routing_scope_flag` -- PARTITION-routed-per-hop 5-hop achieves 0.9550 cv=0.0074 across 3 seeds; META_M7 REPRODUCE rail 0/3 breach; gradual per-step decay; 7.85x lift over naive 5-hop. Ledger row hash 65fe10172a09655a.
+
+ATOM 2 (measured_mechanism; CERT-neutral; pq=RESEARCH_FINDING): `math::T3/EXP_..._measured_mechanism_oracle_routing_required_for_5hop_chain_grade_substrate_native_routing_open` -- production-claim scope bound: oracle routing is load-bearing capability assumption. Real-router follow-ups RC1/RC2/RC3 open. Ledger row hash 434ba5e77e8f0f94.
+
+ATOM 3 (custom/discipline_meta; CERT-neutral; pq=META_RULE_CERT_NEUTRAL): `meta::T3/META_BARRIER_1_QUINTUPLE_RECONCILIATION_substrate_5hop_partition_per_hop_routed_chain_grade_at_0p955_cv_0p007_meta_M7_pass_narrows_quadruple_negative_to_routing_required_5hop` -- BARRIER_1 narrowing (not breaking). QN stands for routing-not-provided; new chain-grade on routing-provided. Composes-with META_M7, META_multi_bank_per_bank_capacity_governs, META_typed_sig_equality_byconstruction. Ledger row hash 44f5a935a10d74d0.
+
+ATOM 4 (proven_bound; CERT +1; pq=CERT_CHAIN_GRADE): `math::T3/EXP_substrate_continual_NREM_replay_v1_proven_bound_replay_reduces_drift_0p57_abs_best_arm_0p31_final_forget_chain_grade_bar_0p05_not_met_monotone_in_replay_frequency_director_honest_downgrade` -- replay reduces drift +0.5733 abs; best 0.31 final_forget; chain-grade bar NOT met; partial mitigator; honest brain-grounded scope. Ledger row hash 05578a221fb552d7.
+
+ATOM 5 (honest_negative; CERT +1; pq=CERT_CHAIN_GRADE): `math::T3/EXP_substrate_synaptic_homeostasis_global_downscale_v1_HARD_FAIL_proven_negative_global_multiplicative_downscale_destroys_older_traces_uniformly_3of3_arms_all_seeds_clean` -- 3/3 downscale arms worse than baseline; two arms forget=1.000 (deterministic destruction); proven negative; revival angle queued. Ledger row hash 8df72f13565ad573.
+
+ATOM 6 (custom MIDDLE_BAND; CERT-neutral; pq=RESEARCH_FINDING): `math::T3/EXP_substrate_cortical_schema_extraction_compositional_generalization_v1_MIDDLE_BAND_feature_based_schema_lift_0p10_over_no_schema_capability_based_hurts_combined_hurts_micro_scale_regime_n_heldout_50_per_seed` -- feature schema +0.10 lift; capability -0.08; combined -0.013; honest-scope micro-scale (elapsed 0.43s; n=50/seed; SE=0.158). Ledger row hash 9036304faf807148.
+
+### hdlab/ primitive updates
+
+- `hdlab/multi_hop.py`: added `partition_routed_chain(kg, start, relations, partitions, router, oracle_routing=True)` -- per-hop PARTITION routing primitive (Cell B v2 mechanism). Honest-scope docstring documents oracle-routing scope + real-router follow-up requirement; references chain-grade atom + MM scope atom + META_BARRIER_1_QUINTUPLE_RECONCILIATION.
+- `hdlab/continual.py` (NEW MODULE): added `replay_cycle(W, replay_indices, keys, values, replay_frac=0.2, lr=1.0)` and `nrem_replay_decorator(write_fn, replay_every=100, replay_frac=0.2, replay_lr=1.0)`. Honest-scope docstring states partial-mitigator bound (final_forget=0.31; chain-grade bar 0.05 NOT met); references NREM proven-bound atom + RC4/RC5/RC6 open follow-ups. `global_downscale_decorator` INTENTIONALLY NOT EXPOSED (proven negative); selective-not-global variant only added after RC7 chain-grade.
+
+### Follow-up cells (DIRECTOR-OWNED backlog; queued not dispatched)
+
+- RC1 / RC2 / RC3: substrate-native router cells (relation-typed / HRR-bind / learned no LLM); resolves Cell B v2 oracle scope; closes BARRIER_1 if chain-grade.
+- RC4: finer NREM replay schedule (every-25 / every-50 / every-100); tests cliff prevention at cycle 250-500.
+- RC5: replay-fraction sweep (0.1, 0.2, 0.4, 0.6, 0.8); tests brain-analog 30-40% rates.
+- RC6: cleanup-aided replay (Modern-Hopfield over replayed subset); tests chain-grade gap closure.
+- RC7: selective-not-global REM downscale + NREM replay composition; tests final_forget<0.20.
+- RC8: 10x scale feature-schema discriminator (n_heldout_per_cat>=100; n_cats=10); tests chain-grade promotion of feature-schema partial signal.
+- RC9: capability-schema scale sweep; tests whether capability arm's hurt reverses at larger n.
+
+### Status
+
+Cap_map: v595 -> v596 BATCH 2 4-ARTIFACT RATIFIED RULINGS (Director AUTO ratify + USER full-auto; Skunkworks A5 atomize 2026-06-26; 1 chain_grade + 1 proven_bound + 1 honest_negative = +3 CERT [603 -> 606]; 1 MM + 1 META cert-neutral; 1 MIDDLE_BAND cert-neutral; cert_ledger 755 -> 761 [+6 rows]; atoms 177371 -> 177377 [+6 atoms; math corpus +5, meta corpus +1]; CERT_CHAIN_GRADE_provenance count 603 -> 606; ledger CERT N sum delta 465 -> 468; axiom_term=206 INVARIANT; cap_pres=6/6 INVARIANT; Gap 1 RED -> AMBER [Cell B v2 chain-grade routing-provided; substrate-native open]; Gap 4 RED -> AMBER [NREM proven-bound + REM global HARD_FAIL]; Gap 3 UNKNOWN -> AMBER [feature partial + capability negative micro-scale]; hdlab/multi_hop.py partition_routed_chain ADDED; hdlab/continual.py NEW MODULE with replay_cycle + nrem_replay_decorator; META_BARRIER_1_QUINTUPLE_RECONCILIATION NEW META RULE [substrate-native routing remains open follow-up]; RC1-RC9 backlog queued not dispatched [Director-routable]; ledger row hashes 65fe10172a09655a / 434ba5e77e8f0f94 / 44f5a935a10d74d0 / 05578a221fb552d7 / 8df72f13565ad573 / 9036304faf807148) (2026-06-26)
