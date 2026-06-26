@@ -1,0 +1,146 @@
+{
+  "anchor_name": "substrate_partition_routing_anisotropic_scann_quantizer_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_KNN_SENTINEL: KNN@M=400 = 0.300 < 0.90 -> keys themselves are corrupted; any routing-arm lift is artifact. knn@M=400=0.300 | iso_km: route=0.974 recall=0.092 cone=1.000 | scann: route=0.973 recall=0.093 qerr_red=0.247 cone=1.000 | learned: route=0.973 recall=0.093 | lift_scann_recall=0.001 lift_scann_route=-0.001 lift_learned_recall=0.001 | scann_cv=nan",
+  "summary": "HARD_FAIL_KNN_SENTINEL: KNN@M=400 = 0.300 < 0.90 -> keys themselves are corrupted; any routing-arm lift is artifact. knn@M=400=0.300 | iso_km: route=0.974 recall=0.092 cone=1.000 | scann: route=0.973 recall=0.093 qerr_red=0.247 cone=1.000 | learned: route=0.973 recall=0.093 | lift_scann_recall=0.001 lift_scann_route=-0.001 lift_learned_recall=0.001 | scann_cv=nan",
+  "headline": "HARD_FAIL_KNN_SENTINEL: KNN@M=400 = 0.300 < 0.90 -> keys themselves are corrupted; any routing-arm lift is artifact. knn@M=400=0.300 | iso_km: route=0.974 recall=0.092 cone=1.000 | scann: route=0.973 recall=0.093 qerr_red=0.247 cone=1.000 | learned: route=0.973 recall=0.093 | lift_scann_recall=0.001 lift_scann_route=-0.001 lift_learned_recall=0.001 | scann_cv=nan",
+  "run_mode": "smoke",
+  "model": "EleutherAI/pythia-160m",
+  "proj_dim": 768,
+  "M_SWEEP": [
+    400,
+    2000
+  ],
+  "n_seeds": 1,
+  "seeds": [
+    11
+  ],
+  "window_tokens": 16,
+  "cue_shift": 1,
+  "detail": {
+    "M_eval": 2000,
+    "M_sentinel": 400,
+    "knn_at_sentinel": 0.3,
+    "iso_kmeans_recall": 0.092,
+    "iso_kmeans_route_acc": 0.974,
+    "iso_kmeans_cone_alignment": 1.0,
+    "scann_anisotropic_recall": 0.0933,
+    "scann_anisotropic_route_acc": 0.9727,
+    "scann_anisotropic_quant_err_reduction": 0.2466,
+    "scann_anisotropic_cone_alignment": 0.9997,
+    "scann_anisotropic_std": 0.0,
+    "scann_anisotropic_cv": NaN,
+    "learned_recall": 0.0933,
+    "learned_route_acc": 0.9727,
+    "lift_scann_recall_over_iso": 0.0013,
+    "lift_scann_route_over_iso": -0.0013,
+    "lift_learned_recall_over_iso": 0.0013,
+    "knn_sentinel_pass": false,
+    "n_seeds": 1,
+    "bands": {
+      "HP_CHAIN_GRADE": 0.7,
+      "HP_LIFT": 0.1,
+      "HP_ROUTE_ACC": 0.95,
+      "HP_PARTIAL_LIFT": 0.05,
+      "MIDDLE_LIFT": 0.02,
+      "HF_LIFT": 0.015,
+      "HF_GEOMETRIC_LIFT": 0.2,
+      "KNN_SENTINEL": 0.9,
+      "CV_HP": 0.05,
+      "Q_SATURATION": 0.995
+    },
+    "CONFIG_VERSION": "scann_aniso_vq_v1 (knn / iso_kmeans / scann_aniso / learned_aniso) | proj=768 part_target=2000 km_iters=25 scann_iters=25 scann_T=2.00 lr=0.050 steps=150 sigma=0.10 window=16t shift=1 | seeds=[11] M=[400, 2000] encoder=EleutherAI/pythia-160m | CPU_numpy",
+    "cites": [
+      "research_gap2_REFRAME_anisotropy_is_feature_2026-06-26",
+      "exp_dev_handoff_research_gap2_REFRAME_anisotropy_is_feature_2026-06-26",
+      "Guo_et_al_2020_ScaNN_arXiv_1908.10396",
+      "substrate_partition_routing_hierarchical_2level_v1",
+      "substrate_partition_routing_10M_full_v2"
+    ]
+  },
+  "metrics_source": "measured_cpu_scann_anisotropic_vq_v1",
+  "per_unit": [
+    {
+      "seed": 11,
+      "by_M": {
+        "M400": {
+          "M": 400,
+          "n_parts": 2,
+          "arm_knn_baseline": 0.3,
+          "arm_isotropic_kmeans": {
+            "route_acc": 0.975,
+            "recall_at_1": 0.2825,
+            "quant_err_l2": 0.206634,
+            "cone_alignment": 1.0,
+            "elapsed_s": 0.1
+          },
+          "arm_scann_anisotropic_vq": {
+            "route_acc": 0.9775,
+            "recall_at_1": 0.2825,
+            "quant_err_l2": 0.232439,
+            "quant_err_aniso": 0.264649,
+            "quant_err_aniso_reduction_vs_iso": 0.244,
+            "cone_alignment": 0.9996,
+            "elapsed_s": 0.48
+          },
+          "arm_learned_aniso_loss": {
+            "route_acc": 0.9775,
+            "recall_at_1": 0.2825,
+            "quant_err_l2": 0.232439,
+            "cone_alignment": 0.9996,
+            "T_per_cluster_mean": 2.198,
+            "T_per_cluster_std": 0.0,
+            "elapsed_s": 0.49
+          },
+          "lift_scann_over_iso": 0.0,
+          "lift_learned_over_iso": 0.0,
+          "lift_route_scann_over_iso": 0.0025
+        },
+        "M2000": {
+          "M": 2000,
+          "n_parts": 2,
+          "arm_knn_baseline": 0.102,
+          "arm_isotropic_kmeans": {
+            "route_acc": 0.974,
+            "recall_at_1": 0.092,
+            "quant_err_l2": 0.211202,
+            "cone_alignment": 1.0,
+            "elapsed_s": 3.24
+          },
+          "arm_scann_anisotropic_vq": {
+            "route_acc": 0.9727,
+            "recall_at_1": 0.0933,
+            "quant_err_l2": 0.237939,
+            "quant_err_aniso": 0.271372,
+            "quant_err_aniso_reduction_vs_iso": 0.2466,
+            "cone_alignment": 0.9997,
+            "elapsed_s": 3.24
+          },
+          "arm_learned_aniso_loss": {
+            "route_acc": 0.9727,
+            "recall_at_1": 0.0933,
+            "quant_err_l2": 0.23793,
+            "cone_alignment": 0.9997,
+            "T_per_cluster_mean": 2.198,
+            "T_per_cluster_std": 0.0,
+            "elapsed_s": 3.09
+          },
+          "lift_scann_over_iso": 0.0013,
+          "lift_learned_over_iso": 0.0013,
+          "lift_route_scann_over_iso": -0.0013
+        }
+      },
+      "encoder_elapsed_s": 156.23,
+      "run_mode": "smoke",
+      "M_SWEEP": [
+        400,
+        2000
+      ],
+      "N": 768,
+      "_ckpt_key": "s11",
+      "_partial_written_at": 1782463191.4326024
+    }
+  ],
+  "elapsed_s": 167.06844568252563,
+  "config_version": "scann_aniso_vq_v1 (knn / iso_kmeans / scann_aniso / learned_aniso) | proj=768 part_target=2000 km_iters=25 scann_iters=25 scann_T=2.00 lr=0.050 steps=150 sigma=0.10 window=16t shift=1 | seeds=[11] M=[400, 2000] encoder=EleutherAI/pythia-160m | CPU_numpy"
+}
