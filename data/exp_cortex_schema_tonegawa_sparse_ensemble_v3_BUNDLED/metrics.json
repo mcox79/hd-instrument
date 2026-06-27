@@ -1,0 +1,53 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | DIAG_FALSE_ACCEPT: random_sparse_capacity=0.0 >= tonegawa_capacity=0.0 (structure not load-bearing) | tone_cap=0.0 proto_cap=0.0 diag_cap=0.0 ratio_tone/proto=inf diag/tone=0.00 cv_tone=0.000 recall@1_at_K25=tone:0.040,proto:0.836,diag:0.044 | n_seeds=1 K_sweep=[25, 100]",
+  "summary": "HARD_FAIL | DIAG_FALSE_ACCEPT: random_sparse_capacity=0.0 >= tonegawa_capacity=0.0 (structure not load-bearing) | tone_cap=0.0 proto_cap=0.0 diag_cap=0.0 ratio_tone/proto=inf diag/tone=0.00 cv_tone=0.000 recall@1_at_K25=tone:0.040,proto:0.836,diag:0.044 | n_seeds=1 K_sweep=[25, 100]",
+  "verdict_reason": "DIAG_FALSE_ACCEPT: random_sparse_capacity=0.0 >= tonegawa_capacity=0.0 (structure not load-bearing)",
+  "per_arm_capacity_summary": {
+    "ARM_PROTOTYPE_CENTROID_BUNDLED": {
+      "mean_capacity": 0.0,
+      "std": 0.0,
+      "cv": 0.0,
+      "per_seed": [
+        0.0
+      ]
+    },
+    "ARM_TONEGAWA_SPARSE_K20_BUNDLED": {
+      "mean_capacity": 0.0,
+      "std": 0.0,
+      "cv": 0.0,
+      "per_seed": [
+        0.0
+      ]
+    },
+    "ARM_DIAG_RANDOM_SPARSE_BUNDLED": {
+      "mean_capacity": 0.0,
+      "std": 0.0,
+      "cv": 0.0,
+      "per_seed": [
+        0.0
+      ]
+    }
+  },
+  "per_arm_recall_at_smallest_K": {
+    "ARM_PROTOTYPE_CENTROID_BUNDLED": 0.836,
+    "ARM_TONEGAWA_SPARSE_K20_BUNDLED": 0.04,
+    "ARM_DIAG_RANDOM_SPARSE_BUNDLED": 0.044
+  },
+  "ratio_tonegawa_over_prototype": Infinity,
+  "ratio_diag_over_tonegawa": 0.0,
+  "tonegawa_capacity": 0.0,
+  "prototype_capacity": 0.0,
+  "diag_capacity": 0.0,
+  "n_seeds_complete": 1,
+  "expected_n_units": 6,
+  "completed_units": 6,
+  "cardinality_ok": true,
+  "anchor_name": "cortex_schema_tonegawa_sparse_ensemble_v3_BUNDLED",
+  "elapsed_s": 8.6,
+  "ts_iso": "2026-06-27T21:07:01Z",
+  "pid": 8440,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cortex_schema_tonegawa_sparse_ensemble_v3_BUNDLED,N=1024,NSCH=1024,KSP=20,NPC=8,BCC=0.30,WCN=0.60,K_SWEEP=[25, 100],SEEDS=[7],NQPC=10,target_recall=0.95,HP_tonegawa_over_proto>=1.50,HP_diag_under_tonegawa<=0.50,HP_cv<0.10,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+SMOKE_FIRES_DISCRIMINATOR",
+  "_hardening_marker": "v3_bundled_capacity"
+}
