@@ -544,3 +544,126 @@ Discriminators FIRED per META_RULE_K = saved ~42 CPU-hr wasted compute. Document
 **M-CFU HONEST-BOUND CLAIM STILL PAUSED** — multi-readout Fisher v1 per-arm wins +0.144/+0.300 verified by Skunkworks (Fix #28 catch correct); ceiling claim premature; lock_in_amp_pca revival needed.
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~15:20 PDT (UPDATE #4)
+
+---
+
+## FIFTH-WAVE UPDATE 2026-06-27 ~15:50 PDT — IMPORTANCE CEILING OVERTURNED
+
+**MAJOR REVERSAL of M-CFU ceiling claim** via 5x progressive drill (`notes/research_drill_5x_progressive_importance_ceiling_load_bearing_2026-06-27.md`):
+
+1. **Phenomenon check (drill 1)**: individual seeds ROUTINELY exceed +0.10. PCA-basis seed 17 = +0.144; diag-k seed 17 = +0.300; TRACE arms = +0.30-0.42 universal. "Ceiling" was between-seed variance + saturated regime, NOT a structural wall.
+2. **Cramér-Rao check (drill 2)**: V5/V6 cells ran N=512 M=400-600 → CRLB floor 0.88 (zero resolving power for non-TRACE arms!). All "ceiling" cells were measurement-impossible by physics, not substrate-impossible.
+3. **Best bound (drill 3)**: d=16384, k=8, M=400 → CRLB floor 0.055 → 3x headroom over +0.15 chain-grade bar. Tractable.
+4. **Falsification cell**: `exp_importance_ceiling_falsification_multi_readout_d16384_n8seeds_v1` (6 arms × 8 seeds × ~50s = <1 CPU-hr); discriminator PCA-basis cell-mean >= +0.12 with cv<0.25.
+5. **META candidate**: MEASURED_MECHANISM tier; substrate-as-KG story has TWO channels (TRACE side-channel ALREADY CHAIN-GRADE at +0.30+ universal; bundle-readout pending falsification verdict).
+
+**Falsification cell author SPAWNED** (a99b9b0a; agent in flight).
+
+## 3-TIER-W 2X DRILL CORRECTION
+
+Drill (`notes/research_drill_2x_hierarchical_3_tier_W_revival_2026-06-27.md`) caught my framing error: lift was **-0.020 (negative)** not +0.020. 3tier_stab collapses to exact same accuracy (0.600) as 2-tier. Mechanism UNDER-BUDGETED at smoke 10-pulse budget (needs ~26,500 pulses to reach read-noise floor at fixed eta=1e-3). NOT falsified — adaptive eta + N_PULSES sweep needed.
+
+**Recommendation**: ship `hierarchical_3_tier_W_v2_adaptive_eta` (P=0.35; 2-3 CPU-hr; ship FIRST). Fairness flag: re-tune proto_noise to land baseline at 0.45-0.55 (away from 0.65 boundary).
+
+## CURRENT IN-FLIGHT AGENTS (4)
+
+- a99b9b0a: importance-ceiling falsification cell author
+- afc9a2eb: Wave 2H 4 fix-redesigns (BTSP v3 line 326 + engram_dropout density-matched + cortex_schema v3 BUNDLED + STC v2 two-phase)
+- 4 full dispatches running (pfc_controller v2 + btsp v2 + parietal v1 + hippo_handoff)
+- Cycle 1 v3 redispatch (Barrier 1 break test)
+
+## OPEN NEGATIVE STATUS (after 5x progressive drill)
+
+**SUBSTANTIATED substrate-negatives (verified honest-neg):**
+- Hopfield family (regime-bounded; Skunkworks closed)
+
+**LIKELY-FALSIFIABLE (drill recommendations queued):**
+- Substrate importance ceiling (drill says falsification feasible at d=16384/k=8/M=400/n=8; cell author in flight)
+- 3-tier-W (under-budgeted at 10 pulses; v2 adaptive-eta drill recommended)
+
+**INDETERMINATE pending redesign:**
+- engram_dropout (density confound; Wave 2H fix in flight)
+- BTSP v3 (line 326 baseline collapse; Wave 2H fix in flight)
+- cortex_schema Tonegawa (bank-config issue; Wave 2H v3 BUNDLED in flight)
+- STC (single-phase saturates; Wave 2H v2 2-phase in flight)
+
+**LOAD-BEARING POSITIVE TRACK (TRACE side-channel)**: already chain-grade-adequate per drill 1 (sel_unretr +0.30-0.42 universal). Substrate-as-KG has importance signal TODAY via TRACE; bundle-readout is the SECOND channel pending falsification cell.
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~15:50 PDT (UPDATE #5)
+
+---
+
+## SIXTH-WAVE UPDATE 2026-06-27 ~17:05 PDT — IMPORTANCE-CEILING REVERSAL WALKED BACK
+
+The falsification cell `exp_importance_ceiling_falsification_multi_readout_d16384_n8seeds_v1` smoke returned MIDDLE_BAND_INDETERMINATE with the cell's OWN sanity-check firing:
+- TRACE arm sel=0.024 (FAR below drill's claimed +0.30+ universal; only +0.024 here)
+- All 6 arms below +0.10 with cv=2.004 (statistically meaningless at n=2 seeds)
+- trace_sane=False; cv_resolved=False; sem_separated=False
+
+**Walking back Wave 5 claims:**
+- "Substrate importance ceiling overturned" → UNCERTAIN (not confirmed, not falsified)
+- "TRACE side-channel already chain-grade-adequate +0.30-0.42 universal" → REFUTED at d=16384/M=400; works at specific M/d regime only (drill's source cells had M/d≈0.78-1.17; falsification cell M/d=0.024)
+- "Substrate-as-KG two-channel story unblocked" → PARTIALLY RESCINDED; importance signal is REGIME-SENSITIVE; no quick falsification path
+
+**Root analysis:** drill's CRLB calculation said "increase d to escape ceiling" — but didn't account for M needing to scale proportionally to preserve M/d≈1 (the regime where TRACE actually counts). Falsifying ceiling at d=16384 would require M=16384 (~16x larger compute) to match the regime drill's TRACE numbers came from.
+
+**Implication:** the ceiling claim and the TRACE-universal claim are BOTH unresolved. Probably won't break via incremental drilling. Path forward likely requires:
+- Either commit to encoder upgrade arc (Path C substrate-owned predictive coding; would reshape regime entirely)
+- OR accept TRACE-side-channel works in M/d≈1 regime + ship cells that explicitly use that regime
+- OR ship the M=16384 expensive falsification test (~16 CPU-hr)
+
+**M-CFU honest-bound atomization REMAINS PAUSED** — still no fair-test evidence to support OR refute ceiling claim.
+
+**Pattern noted for substrate-as-canonical discipline:** every claim layer today has been walked back by the next vetting layer. Three layers deep: original "ceiling at +0.08" → "ceiling overturned via TRACE-universal" → "TRACE-universal is regime-bounded too." Need to be CAUTIOUS with future framings; default to "regime-bounded" rather than "universal" without explicit power calculation.
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~17:05 PDT (UPDATE #6)
+
+---
+
+## SEVENTH-WAVE UPDATE 2026-06-27 ~17:30 PDT — META-FINDING: TASK-CLASS MISMATCH
+
+**Wave 2H cell author surfaced META PATTERN that recontextualizes today's W-rule-mechanism failures:**
+
+> "Not just test design bugs but FUNDAMENTAL TASK-CLASS LIMITATIONS — Wave 2 mechanism tests in our substrate's prototype-classification task are subject to deeper saturation issues that 4 separate cell-author fixes can't resolve at the cell level. Pattern recommendation: pivot to non-classification readouts (capacity@retrieval, interference-fraction-measured, signal-to-crosstalk ratio) before further mechanism revival attempts."
+
+**Diagnosis:** prototype-classification (the Skunkworks anti-saturation recipe's default task class) has CONTINUOUS HEBBIAN BASELINE that nails it under many regimes, leaving no headroom for mechanisms to lift over. Today's W-rule "negatives" (engram_dropout, 3-tier-W, Tonegawa, STC, BTSP-binary, etc.) are TASK-CLASS-MISMATCH, not necessarily substrate-physics issues.
+
+**Strategic implication:**
+- Many of today's mechanism "nulls" may be retestable on different task classes
+- Task classes to try: capacity@retrieval / interference-fraction-measured / signal-to-crosstalk ratio
+- These are MECHANISM-INDEPENDENT measurements (don't depend on non-saturating baseline)
+- Pivot consolidation/importance program AWAY from prototype-classification testbed
+
+**USER directive 2026-06-27 ~17:15 PDT — multi-channel brain-analog importance:**
+USER proposed: instead of single-channel importance, compute 5-6 PARALLEL channels (novelty/attention/coreness/success/consensus/effort) and fuse. Mapped each to substrate primitives:
+- NOVELTY = `1 - max_cosine_to_other_atoms` (refuse-gate primitive; chain-grade)
+- ATTENTION = bound-during-goal-directed-chain (PFC-controller route-log)
+- CORENESS = ultrametric centrality (CHAIN_GRADE today)
+- SUCCESS = atom-in-HARD_PASS-chain-fraction (track outcomes)
+- CONSENSUS = agreement-across-k-parallel-cleanup (Fisher-fusion territory)
+- EFFORT = 1/cleanup_iterations (compute cost)
+
+**Cell `exp_importance_6channel_brain_analog_v1` SPAWNED** (aa569dd1; in flight): equal-weight + learned-weight + Fisher-weighted fusion at N_DIM=16384, M=4096, n=8 seeds.
+
+## Wave 2H final scorecard
+
+- BTSP v3p1 baseline-fixed: HARD_FAIL (sparse-input + sign-W trivially classifies)
+- engram_dropout v2 density-matched: SMOKE_MIDDLE_BAND (+0.015 honest lift) + DISPATCHED to full
+- cortex Tonegawa v3 BUNDLED: HARD_FAIL (HRR-bundled sparse uncompetitive vs dense centroid at K=25)
+- STC v2 two-phase: HARD_FAIL (baseline doesn't forget; needs ETA_CAPTURE=1.0)
+
+## CURRENT IN-FLIGHT (5 agents + 5 cells)
+
+- a99b9b0a: importance falsification cell queued (3rd in remote_cpu)
+- aa569dd1: 6-channel brain-analog importance cell author
+- 4 full dispatches running (pfc_controller v2 + btsp v2 + parietal v1 + hippo_handoff)
+- Cycle 1 v3 redispatch (Barrier 1 break test)
+- engram_dropout v2 full dispatched (now in queue)
+
+## OPEN STRATEGIC QUESTIONS
+
+1. Should we PIVOT entire consolidation program from prototype-classification to capacity@retrieval testbed?
+2. 6-channel brain-analog importance is the THEORETICALLY CORRECT approach per USER design — does it actually work?
+3. Cycle 1 v3 Barrier 1 break test still load-bearing (verdict pending)
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~17:30 PDT (UPDATE #7)
