@@ -145,16 +145,75 @@ If edge-importance HARD_PASSes → use it as TWO_TIER promotion criterion → Wa
 
 ---
 
-## IN-FLIGHT WHEN THIS WAS WRITTEN (~2026-06-26 20:15 PDT)
+## IN-FLIGHT WHEN THIS WAS WRITTEN (~2026-06-26 20:15 PDT) — STALE; see UPDATE BELOW
 
-- Wave 1.5 fulls queued/running on local CPU (cortex E-tensor HARDER_REGIME currently; top-K + PC cleanup next)
-- Cortex alternatives queued on remote_cpu (edge-importance pos 7, ultrametric pos 8)
-- Phase-diagram GPU cells ALL LANDED:
-  - multi-hop depth-ceiling-30: **CHAIN_GRADE_DEPTH_CEILING_30** (15=0.81 / 20=0.71 / 25=0.67 / 30=0.64; pending Skunkworks tier)
-  - WM K-ceiling 32768: K_4096_IS_CEILING (K>4096 doesn't pass — REVISES prior MULTI_128x@K=8192 claim; director_plan needs update)
-  - capacity_sweep VC: SANITY_BREACH (knn_breach + saturation; phantom-completion bug suspected per orchestrator audit)
-- KB query source-class filter (Option A): SHIPPED (commit 5cf5baed; pushed to origin/main)
-- 1M+ KB facts; continuous-ingest scheduled task active
+- Wave 1.5 fulls queued/running on local CPU
+- Cortex alternatives queued on remote_cpu
+- Phase-diagram GPU cells landed
+- KB query source-class filter (Option A) SHIPPED (commit 5cf5baed)
+
+## UPDATE 2026-06-26 ~21:30 PDT (most recent state)
+
+**Cortex content-extraction has its FIRST CHAIN-GRADE WIN:**
+- **`exp_cortex_ultrametric_clustering_coarse_grain_v1` FULL HARD_PASS** — cap_drop=0.212, rec_clustered=rec_unclustered=rec_all=1.000, d_ULTRA_vs_RND=+0.104, cv=0.000. After 6 mechanism attempts that failed across the E-tensor family. Compositional-abstraction primitive operational. Pending Skunkworks chain-grade tier (in flight batch 3).
+- `exp_edge_importance_bound_pair_consolidation_v1` FULL MIDDLE_BAND — cor(E,|W|)=0.010 (USER fairness gate PASSED massively; structurally orthogonal as designed) but all arms saturated at 1.000 at full-N (mechanism not exercised; needs v2 at higher-alpha regime).
+
+**Wave 3 bounded-capacity KB build DISPATCHED (4 of 5 anchors):**
+- ANCHOR 5 dual-store audit (ships FIRST per USER vetting)
+- ANCHOR 1 partition-by-source
+- ANCHOR 3 coarse-grain-at-promotion (uses chain-grade ULTRAMETRIC)
+- ANCHOR 4 time-decay eviction (AUDIT-ONLY first 3 weeks per USER vetting)
+- ANCHOR 2 TWO_TIER promotion DEFERRED (gated on edge-importance v2)
+- Spawned exp_dev agent: a4cc19985adc93c05 (in flight as of this update)
+
+**K-sweep saga (substrate WM ceiling):**
+- v1 phantom-completion: DEMOTED by Skunkworks (only K=4096 ran, OOM hidden)
+- v2 added META_RULE_H cardinality guard: HARD_FAIL CORRECTLY caught phantom (K=8192 also ran cleanly; K=16384/32768 silently dropped via non-OOM path)
+- v3 removed silent-continue + per-K VRAM probe + chunked write: DISPATCHED to overnight_queue position 1 (in flight as of this update; pickup ETA 30-60s; may run 30min-2hr depending on whether it pushes past K=16384)
+- **Substrate WM CONFIRMED to K=8192** (new info from v2; revises prior K=4096 ceiling). K=16384+ pending v3.
+
+**Phase-diagram results (Skunkworks batch 2 tiered):**
+- multi-hop depth-extension v1: **CHAIN_GRADE_DEPTH_CEILING_30** (15=0.81 / 20=0.71 / 25=0.67 / 30=0.64; CERT +1)
+- WM K-ceiling v1: DEMOTE (phantom-completion); v3 in flight
+- capacity sweep VC: MEASURED_MECHANISM (alpha=0.37 by-construction-saturated; needs higher-alpha re-dispatch)
+- Wave 1.5 fulls (cortex E-tensor HARDER + top-K engineered + PC cleanup deeper): all MEASURED_MECHANISM by-construction-saturation; mechanisms not exercised at full-N (validates new discriminator-must-survive-scale discipline)
+
+**META rules atomized today (3 new):**
+- META_RULE_F: retrieval-success-driven importance signals are magnitude-coupled by construction
+- META_RULE_G: smoke discriminator preview ≠ full landed verdict
+- META_RULE_H: K-sweep/sweep-axis verdicts require per_unit cardinality verification before ceiling tier
+
+**Substrate-KB Option A+ SHIPPED (filename-contains filter; commit 1d6bf789):** ranks all 3 sanity tests at rank-1 confidence 1.0. Substrate-KB now RELIABLE for retrieving specific known-filename docs. Cosine queries remain unreliable for specific retrieval (use filename-contains instead).
+
+**KNOWN BUG (in flight debug):**
+- Continuous-ingest scheduled task does NOT pick up new MEMORY files written after ~17:30 today. Newer memory files (`feedback_stage_progression`, `feedback_agent_spawn_model_only`, `project_M3_M4_milestones`, `feedback_discriminator_must_survive_scale`) are in FILESYSTEM but NOT in substrate-KB.
+- Workaround for post-compaction-me: use filesystem grep (`ls 'C:/Users/marsh/.claude/projects/d--AI/memory/' | grep <slug>`) for these specific files
+- Fix in flight via spawned exp_dev agent acdb4fda2a9d1b873 (investigating root cause in continuous-ingest's external-dir scanning)
+
+**Agent definitions updated today (5 files):**
+- All 5 `.claude/agents/*.md` rewritten to drop the 4-session dead pattern + drop inter-role routing-note instructions + add lean reporting protocol
+- exp_dev.md ALSO has new DISCRIMINATOR-MUST-SURVIVE-SCALE section (3 acceptable pre-flight checks)
+
+**Tools shipped today (commits 5cf5baed + 1d6bf789):**
+- `--source-class` filter on KB query (filters by atom source_class tag; required to avoid language-ingest swamp)
+- `--filename-contains` filter on KB query (bypasses cosine; recency-sorted; LOAD-BEARING for specific-doc retrieval)
+- Windows scheduled task `hd_director_kb_continuous_ingest` (every 5 min, pythonw windowless)
+- New primitive `hdlab/ultrametric_clustering.py` (chain-grade today)
+- New primitive `hdlab/edge_importance.py` (MIDDLE_BAND today; needs v2)
+- 3 new post-compaction docs: BACKUP / DIGEST / COMMANDS
+
+**CERT count:** ~614 (was 612 at session start; +1 from cortex E-tensor honest_negatives + Fix B refutation batch; +1 pending from ultrametric chain-grade in Skunkworks batch 3)
+
+**Spawn budget consumed today:** ~10+ spawns (Fix #14 cap exceeded per USER authorization 2026-06-26)
+
+## RECOVERY-PRIORITY ORDER FOR POST-COMPACTION ME
+
+1. Read this BACKUP (you just did)
+2. `python tools/director_kb_query.py --filename-contains POST_COMPACTION --source-class=notes` → returns digest + commands + this backup
+3. `python tools/director_kb_query.py --filename-contains feedback_substrate_doesnt --source-class=memory` → confirms USER pivot (proves substrate-KB-memory works for files written before ~17:30)
+4. `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -120` → recent landings
+5. **Filesystem grep for newer memory files** (ingest bug — until fix lands): `ls 'C:/Users/marsh/.claude/projects/d--AI/memory/' | grep "2026-06-26"`
+6. Check on in-flight agents/cells via dashboards or PowerShell `schtasks /query`
 
 ---
 
