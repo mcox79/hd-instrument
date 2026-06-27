@@ -1,0 +1,314 @@
+{
+  "schema_version": "v1",
+  "schema_date": "2026-06-26",
+  "description": "Director-KB triple schema. Externalized config so adding a new relation or entity type or atom tag is a config edit, not a code change. Principle 4 of the no-lock-in architecture.",
+
+  "_principles_anchor": "See docs/director_kb_arch.md for the 12 no-lock-in principles this schema preserves.",
+
+  "source_classes": {
+    "note": {
+      "root_dir": "notes",
+      "glob": "*.md",
+      "max_files": null,
+      "filename_pattern_optional": "^(?P<sender>[a-z_]+)_to_(?P<recipient>[a-z_]+)_(?P<topic>[^.]+)_(?P<date>\\d{4}-\\d{2}-\\d{2})\\.md$",
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "text"
+    },
+    "memory": {
+      "root_dir_external": "C:/Users/marsh/.claude/projects/d--AI/memory",
+      "root_dir_external_alt": ["/c/Users/marsh/.claude/projects/d--AI/memory"],
+      "glob": "*.md",
+      "max_files": null,
+      "encoding": "utf-8",
+      "priority_tag": "USER_DIRECTIVE",
+      "rejects_log_field": "skip_reason",
+      "mode": "text",
+      "comment": "USER memory directory lives OUTSIDE the repo; ingest reads, never writes, this directory."
+    },
+    "metrics": {
+      "root_dir": "data",
+      "glob": "exp_*/metrics.json",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "text"
+    },
+    "prereg": {
+      "root_dir": "preregs",
+      "glob": "*.md",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "text"
+    },
+    "cert_ledger": {
+      "root_dir": "data/substrate_index/meta",
+      "glob": "cert_ledger.jsonl",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "jsonl",
+      "jsonl_entity_key": "atom_id",
+      "jsonl_relations": [
+        {"key": "verdict", "rel": "VERDICT_OF"},
+        {"key": "cert_class", "rel": "CERT_CLASS"},
+        {"key": "cert_status", "rel": "CERT_STATUS"},
+        {"key": "cell_commit", "rel": "CELL_COMMIT"},
+        {"key": "op", "rel": "LEDGER_OP"}
+      ],
+      "comment": "Each line = ledger row. Yields (atom_id, VERDICT_OF, <verdict>) + (atom_id, CERT_CLASS, <class>) + etc per row."
+    },
+    "atoms": {
+      "root_dir": "data/substrate_index",
+      "glob": "**/atoms.jsonl",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "jsonl",
+      "jsonl_entity_key": "id",
+      "jsonl_relations": [
+        {"key": "name", "rel": "NAMED"},
+        {"key": "tier", "rel": "TIER_OF"},
+        {"key": "kind", "rel": "KIND_OF"},
+        {"key": "corpus", "rel": "IN_CORPUS"}
+      ],
+      "jsonl_max_lines_per_file": 5000,
+      "comment": "Each line = one atom. Entity = atom id; relations from atom fields. Capped at 5000 lines/file to bound ingest time on math/concept atoms (large files)."
+    },
+    "director_plan": {
+      "root_dir": "data",
+      "glob": "director_plan.json",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "text",
+      "always_priority_tag": "DIRECTOR_STATE",
+      "comment": "Single file; current strategic state. Carries body via standard text extractors."
+    },
+    "fleet_state": {
+      "root_dir": "data",
+      "glob": "fleet_waiting_on.md",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "text",
+      "always_priority_tag": "FLEET_STATE"
+    },
+    "wordnet": {
+      "mode": "api",
+      "api_source": "wordnet",
+      "cache_dir": "data/wordnet_cache",
+      "max_files": null,
+      "rejects_log_field": "skip_reason",
+      "comment": "Princeton WordNet 3.1 via NLTK. Entities: SYNSET, WORD_SENSE, LEMMA. Relations: HYPERNYM_OF, HYPONYM_OF, MEMBER_HOLONYM_OF, PART_HOLONYM_OF, SIMILAR_TO, ANTONYM_OF, GLOSS, EXAMPLE, POS_TAG, LEMMA_OF. ~117k synsets at full ingest; api_max_items caps sample sizes for smoke."
+    },
+    "verbnet": {
+      "mode": "api",
+      "api_source": "verbnet",
+      "cache_dir": "data/verbnet_cache",
+      "max_files": null,
+      "rejects_log_field": "skip_reason",
+      "comment": "Levin-class predicate-argument templates via NLTK. Entities: VERB_CLASS, MEMBER_VERB, THEMATIC_ROLE, SELECTIONAL_RESTRICTION. Relations: CLASS_OF, ROLE_OF, RESTRICTS_TO, FRAME_OF_CLASS, SYNTAX_PATTERN. ~429 classes."
+    },
+    "framenet": {
+      "mode": "api",
+      "api_source": "framenet",
+      "cache_dir": "data/framenet_cache",
+      "max_files": null,
+      "rejects_log_field": "skip_reason",
+      "comment": "Berkeley FrameNet via NLTK. Entities: FRAME, FRAME_ELEMENT, LEXICAL_UNIT. Relations: HAS_FE, EVOKED_BY, INHERITS_FROM, USES_FRAME, PRECEDES_FRAME, FRAME_OF. ~1221 frames."
+    },
+    "gene_ontology": {
+      "root_dir": "data/bio_kb_cache/go",
+      "glob": "go-basic.obo",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "obo_go",
+      "max_terms": null,
+      "hard_cap_atoms": 500000,
+      "comment": "Gene Ontology .obo file fetched to data/bio_kb_cache/go/go-basic.obo from https://current.geneontology.org/ontology/go-basic.obo. Parser yields per-term: (term_id, IS_A_NAMESPACE, <namespace>), (term_id, NAMED, <name>), (name, ALIAS_OF, term_id), and IS_A + PART_OF + REGULATES + POSITIVELY_REGULATES + NEGATIVELY_REGULATES + OCCURS_IN triples. Skips obsolete terms. USER 2026-06-26 bio_trio."
+    },
+    "kegg_pathway": {
+      "root_dir": "data/bio_kb_cache/kegg",
+      "glob": "hsa*.kgml",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "kegg_kgml",
+      "hard_cap_atoms": 50000,
+      "comment": "KEGG pathway KGML XML fetched via REST (rest.kegg.jp). Default focus: hsa04* signaling + neural pathways. Parser yields PATHWAY/REACTION/COMPOUND/ENZYME/GENE entities + STEP_OF/CATALYZES/REACTANT_OF/PRODUCT_OF/REGULATES_PATHWAY relations. Throttle: 1.0s between fetches at fetch time (not ingest time). USER 2026-06-26 bio_trio."
+    },
+    "neurolex": {
+      "root_dir": "data/bio_kb_cache/neurolex",
+      "glob": "*",
+      "max_files": null,
+      "encoding": "utf-8",
+      "rejects_log_field": "skip_reason",
+      "mode": "nif_ttl",
+      "hard_cap_atoms": 200000,
+      "comment": "NeuroLex / NIF-Ontology TTL subset (SciCrunch GitHub raw) + curated fallback TSV. Files: NIF-Cell.ttl, NIF-Neuron-NT-Bridge.ttl, NIF-GrossAnatomy.ttl, NIF-Molecule.ttl, _curated_fallback.tsv. Conservative TTL parsing (single-line triple statements + rdfs:label + subClassOf only). Curated fallback ensures basic brain-region / cell-type / neurotransmitter queries work even if SciCrunch URLs unavailable. USER 2026-06-26 bio_trio."
+    }
+  },
+
+  "entity_types": [
+    "FILE",
+    "EXPERIMENT_ANCHOR",
+    "VERDICT",
+    "USER",
+    "AGENT_ROLE",
+    "DATE",
+    "RELATION_TYPE",
+    "CONCEPT",
+    "MECHANISM",
+    "CERT_TIER",
+    "TOPIC",
+    "SYNSET",
+    "WORD_SENSE",
+    "LEMMA",
+    "POS",
+    "VERB_CLASS",
+    "MEMBER_VERB",
+    "THEMATIC_ROLE",
+    "SELECTIONAL_RESTRICTION",
+    "SYNTAX_PATTERN_REPR",
+    "FRAME",
+    "FRAME_ELEMENT",
+    "LEXICAL_UNIT",
+    "GO_TERM",
+    "GO_BIOLOGICAL_PROCESS",
+    "GO_MOLECULAR_FUNCTION",
+    "GO_CELLULAR_COMPONENT",
+    "KEGG_PATHWAY",
+    "KEGG_REACTION",
+    "KEGG_COMPOUND",
+    "KEGG_ENZYME",
+    "KEGG_GENE",
+    "BRAIN_REGION",
+    "CELL_TYPE",
+    "NEUROTRANSMITTER",
+    "RECEPTOR",
+    "NEURAL_CIRCUIT"
+  ],
+
+  "relation_types": [
+    "VERDICT_OF",
+    "AUTHOR_OF",
+    "USER_DIRECTIVE",
+    "SUPERSEDES",
+    "REFERENCES",
+    "MECHANISM_OF",
+    "ANCHOR_FOR",
+    "HARD_PASS",
+    "HARD_FAIL",
+    "MIDDLE_BAND",
+    "CHAIN_GRADE",
+    "DATE_FILED",
+    "COMPOSES_WITH",
+    "DESCRIBES",
+    "CERT_CLASS",
+    "CERT_STATUS",
+    "CELL_COMMIT",
+    "LEDGER_OP",
+    "NAMED",
+    "TIER_OF",
+    "KIND_OF",
+    "IN_CORPUS",
+    "DIRECTOR_STATE",
+    "FLEET_STATE",
+    "MENTIONS",
+    "HYPERNYM_OF",
+    "HYPONYM_OF",
+    "MEMBER_HOLONYM_OF",
+    "PART_HOLONYM_OF",
+    "SIMILAR_TO",
+    "ANTONYM_OF",
+    "GLOSS",
+    "EXAMPLE",
+    "POS_TAG",
+    "LEMMA_OF",
+    "CLASS_OF",
+    "ROLE_OF",
+    "RESTRICTS_TO",
+    "FRAME_OF_CLASS",
+    "SYNTAX_PATTERN",
+    "HAS_FE",
+    "EVOKED_BY",
+    "INHERITS_FROM",
+    "USES_FRAME",
+    "PRECEDES_FRAME",
+    "FRAME_OF",
+    "IS_A",
+    "IS_A_NAMESPACE",
+    "PART_OF",
+    "REGULATES",
+    "POSITIVELY_REGULATES",
+    "NEGATIVELY_REGULATES",
+    "OCCURS_IN",
+    "ALIAS_OF",
+    "STEP_OF",
+    "CATALYZES",
+    "REACTANT_OF",
+    "PRODUCT_OF",
+    "REGULATES_PATHWAY",
+    "PROJECTS_TO",
+    "RECEIVES_FROM",
+    "CONTAINS_CELL_TYPE",
+    "EXPRESSES_NEUROTRANSMITTER",
+    "BINDS_TO"
+  ],
+
+  "atom_tags_required": [
+    "source_path",
+    "ingest_version",
+    "encoder",
+    "schema_version",
+    "ingest_timestamp_ns",
+    "source_class",
+    "kb_version"
+  ],
+
+  "atom_tags_optional": [
+    "superseded_by",
+    "orphan",
+    "priority",
+    "sender",
+    "recipient",
+    "topic",
+    "date_filed",
+    "verdict_value"
+  ],
+
+  "encoder_default": "char_trigram_v1",
+  "encoders_supported": [
+    "char_trigram_v1"
+  ],
+
+  "kb_version": "v1",
+  "kb_path": "data/substrate_director_kb_v1",
+
+  "extraction_patterns_v1": {
+    "verdict_from_metrics_json_key": "verdict",
+    "verdict_msg_from_metrics_json_key": "verdict_msg",
+    "anchor_from_metrics_dirname_re": "^exp_(.+)$",
+    "user_directive_filename_re": "(?i)(USER|feedback|directive|rule)",
+    "supersedes_in_body_re": "(?im)^\\s*supersed(?:es|ed by):\\s+(\\S+)",
+    "references_in_body_re": "\\[\\[([a-z0-9_\\-]+)\\]\\]|`([a-z0-9_\\-./]+\\.(?:md|py|json))`",
+    "date_filed_from_filename_re": "(\\d{4}-\\d{2}-\\d{2})\\.md$",
+    "cert_tier_from_body_re": "(?i)\\b(HARD_PASS|HARD_FAIL|MIDDLE_BAND|CHAIN_GRADE|MM)\\b",
+    "mechanism_anchor_in_body_re": "(?i)`(exp_[a-z0-9_]+)`"
+  },
+
+  "limits": {
+    "max_atoms_per_file": 64,
+    "max_body_bytes_per_file": 524288,
+    "max_total_files_warn": 50000
+  },
+
+  "reingest_determinism": {
+    "guarantee": "Given identical source files (byte-for-byte) and identical schema version + encoder, two ingests produce identical atom sets (same indices, same tag values, same W matrix mod numerical noise tolerance).",
+    "tolerance_w_l2": 1e-6,
+    "tolerance_atom_set": "exact"
+  }
+}
