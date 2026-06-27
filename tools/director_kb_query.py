@@ -6,6 +6,7 @@ Usage:
   python tools/director_kb_query.py --json "..."
   python tools/director_kb_query.py --source-class=notes,memory "post-compaction digest"
   python tools/director_kb_query.py --filename-contains POST_COMPACTION_BACKUP --source-class=notes
+  python tools/director_kb_query.py --chunk-content "USER pivot today"   # v2 content KB
 
 ASCII-only. No emojis. No em-dashes.
 """
@@ -23,7 +24,7 @@ sys.path.insert(0, str(REPO))
 from hdlab.director_kb_query import DirectorKBQuery, load_default_kb  # noqa: E402
 
 
-def _print_human(result: dict) -> None:
+def _print_human(result: dict, show_chunk_content: bool = False) -> None:
     print(f"Q: {result['question']}")
     print(f"  kb_version={result['kb_version']} schema={result['schema_version']} "
           f"encoder={result['encoder']} confidence={result['confidence']} "
@@ -51,6 +52,17 @@ def _print_human(result: dict) -> None:
             rel_strs = [f"{r}->{o}" for r, o in a["relations"][:4]]
             print(f"       edges: {' | '.join(rel_strs)}"
                   + ("..." if len(a["relations"]) > 4 else ""))
+        # --chunk-content mode: surface the CHUNK_CONTENT edge as inline snippet
+        if show_chunk_content:
+            snippet = None
+            for r, o in a.get("relations", []):
+                if r == "CHUNK_CONTENT":
+                    snippet = o
+                    break
+            if snippet:
+                # Truncate long snippets for readable terminal output
+                preview = snippet if len(snippet) <= 400 else snippet[:400] + "..."
+                print(f"       snippet: {preview}")
     print(f"  paths_consulted={len(result['paths_consulted'])} files")
 
 
@@ -78,6 +90,13 @@ def main() -> int:
                          "embedded date (YYYY-MM-DD) descending, ties alphabetical. Use when "
                          "atom entities are filenames (notes/, memory/) and cosine is too noisy "
                          "to surface a known doc. Composes with --source-class.")
+    ap.add_argument("--chunk-content", action="store_true",
+                    help="Use the CONTENT-CHUNK KB (substrate_director_kb_content_chunk_ingest_v1) "
+                         "instead of the v1 filename-index KB. Entities are chunk_ids and the "
+                         "human-readable output surfaces inline content snippets from the "
+                         "CHUNK_CONTENT edge. Falls back to arm-full path if the canonical "
+                         "data/substrate_director_kb_chunk_v1/ is not yet built (during arc "
+                         "between cell-author smoke and the full re-ingest).")
     ap.add_argument("--json", action="store_true", help="Emit raw JSON instead of human-readable")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
@@ -100,6 +119,22 @@ def main() -> int:
 
     if args.kb_dir:
         kb = DirectorKBQuery(kb_dir=Path(args.kb_dir))
+    elif args.chunk_content:
+        # Prefer canonical chunk KB; fall back to arm-full path during the arc
+        # between cell-author smoke and full re-ingest landing.
+        chunk_canon = REPO / "data" / "substrate_director_kb_chunk_v1"
+        chunk_arm_full = (REPO / "data"
+                          / "exp_substrate_director_kb_content_chunk_ingest_v1"
+                          / "_arm_full" / "kb")
+        if (chunk_canon / "manifest.json").exists():
+            kb = DirectorKBQuery(kb_dir=chunk_canon)
+        elif (chunk_arm_full / "manifest.json").exists():
+            kb = DirectorKBQuery(kb_dir=chunk_arm_full)
+        else:
+            print("ERROR: --chunk-content requested but no chunk KB built yet. "
+                  "Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.",
+                  file=sys.stderr)
+            return 3
     else:
         kb = load_default_kb(REPO)
 
@@ -123,7 +158,7 @@ def main() -> int:
     if args.json:
         print(json.dumps(result, indent=2, sort_keys=True))
     else:
-        _print_human(result)
+        _print_human(result, show_chunk_content=args.chunk_content)
     return 0
 
 
