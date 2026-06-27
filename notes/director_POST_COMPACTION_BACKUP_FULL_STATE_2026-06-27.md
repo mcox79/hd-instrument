@@ -220,6 +220,22 @@ USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous
 - (pending in batch 10): RULE_HARD_FAIL_FIX_MUST_ADDRESS_ROOT_CAUSE_NOT_SYMPTOM
 - (pending in batch 10): META_RULE_W: pre-dispatch alpha-in-[0.03, 0.20] gate for associative-memory cells
 
+## VERY LAST STATE BEFORE COMPACTION (2026-06-27 ~10:22 PDT)
+
+**One cell running on remote_cpu_queue**: `substrate_multihop_brain_pushback_composition_v3_chain_gen_fix` (commit 5ae7a219; 8h timeout; THE Barrier 1 break test with chain-gen fix V_C 200→1000 + max_depth 8→5 + v2 hardening preserved). Will land within 8h.
+
+**Both queues otherwise empty.** No agents in flight on Director side. Sync working as of last check.
+
+**Hardening discipline proved its value**: v1 silent-died → v2 hardened CRASHED VISIBLY with traceback → v3 chain-gen-fix should produce real verdict. Cycle 1 will give honest answer on Barrier 1 within 8h.
+
+**Cell-author template improvement (META_RULE_X X_MAIN_GUARD + L1-L4 hardening) is the load-bearing discipline win today** — silent death is the worst kind of fail because it leaves no diagnostic. Hardening makes future cells unable to silently die.
+
+**Today's CERT trajectory**: 616 (session start) → 622 (mid) → 623 (final after batch 11) = +7 over the session. Includes K=8192 chain-grade (capacity) + ANCHOR 1 v4 partition-routing chain-grade + 4 META rules + many honest_negative atoms.
+
+**M-CFU finding is the substrate-product insight of today**: importance signal extraction CAPPED at ~+0.04-0.08 sel_unretr regardless of mechanism (TRACE, CFU, REPLAY all converge here). To break beyond this needs encoder upgrade (Path C substrate-owned predictive coding). Either ship honest-bound OR commit to encoder upgrade arc.
+
+**META_BARRIER_1 retraction is the other big insight**: 0 of 5 prior multi-hop refutations were clean. Substrate's compositional reasoning ceiling is NOT proven permanent. Cycle 1 v3 will test brain-correct mechanisms properly.
+
 ## POST-COMPACTION ME — DO THESE THINGS IN ORDER
 
 1. Read this BACKUP file end-to-end (you're doing that)
