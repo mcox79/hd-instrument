@@ -111,3 +111,9 @@ data_remote_pull_staging/
 # filter-branch leftover (accidentally committed during the 2026-06-19 history-rewrite; never re-commit)
 .git-rewrite/
 data/substrate_repl_cache/*.pkl
+
+# Director-KB continuous-ingest atomic-swap staging dirs (transient; auto-cleaned)
+data/substrate_director_kb_*.staging.*
+data/substrate_director_kb_*.old.*
+data/director_kb_continuous.lock
+data/director_kb_continuous.log
