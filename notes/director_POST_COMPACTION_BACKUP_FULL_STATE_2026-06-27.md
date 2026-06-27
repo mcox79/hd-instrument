@@ -470,3 +470,40 @@ The filesystem is always canonical. If everything else fails:
 6. Spawn Skunkworks for M-CFU honest-bound atomization (substrate physics ceiling +0.04-0.08 should bank as MEASURED_MECHANISM)
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~14:10 PDT (UPDATE #2)
+
+---
+
+## THIRD-WAVE UPDATE 2026-06-27 ~15:05 PDT — FAIRNESS DISCIPLINE LANDED + REVIVAL IN FLIGHT
+
+**ALL 4 Wave 1 cells SMOKE_HARD_FAILED.** All 4 had TEST DESIGN bugs that prevented fair evaluation of the mechanism:
+- pfc_controller: SINGLE_BASELINE = avg of 4 ops = implicit routing (rigged against mechanism)
+- multi_readout_fisher: smoke n=2 cv=1.23 (statistical undersample; status UNKNOWN)
+- btsp: regime saturated baseline despite alpha-in-band (Skunkworks recipe insufficient)
+- sub_atom_encoder: synthetic tokens too short → trigram baseline saturated (discriminator never fired)
+
+Discriminators FIRED per META_RULE_K = saved ~42 CPU-hr wasted compute. Documented in `notes/META_FAIRNESS_PATTERN_wave1_test_design_failures_2026-06-27.md` with META_RULE_AA atomization request.
+
+**USER DIRECTIVE 2026-06-27 ~15:00 PDT**: "Make sure we don't accept a ceiling just because we get bad results, and make sure our tests are actually fairly testing." NONE of the 4 Wave 1 cells produced ceiling-evidence — all 4 are TEST_DESIGN_FAILURE not HONEST_NEGATIVE.
+
+**ALL 19 Battery 2 PREREGS NOW FILED** (across 4 Barriers) + 2 cortex-closure preregs = **21 total preregs**.
+
+**CORTEX 2x DRILLS LANDED** (3 of 3):
+- Cortex #1 (schema-integration): TOP-1 Posner-Keele prototype+variance (P=0.48); TOP-2 Tonegawa sparse-ensemble (P=0.42). CRITICAL FAIRNESS FLAG: smoke must use cosine 0.30-0.45 overlap regime (NOT ultrametric default 0.076 = saturation).
+- Cortex #2 (hippo→cortex handoff): TOP-1 Sparse-DG hippo + dense cortex (P=0.50); TOP-2 LSM-tree compaction (P=0.50). Both with ANATOMICALLY-different shapes by construction.
+- Cortex #4 (cortex-as-router): TOP-1 PFC-context multiplicative gating Mante-2013 (P=0.45); TOP-2 biased-competition argmax Miller-Cohen (P=0.35). 10-point fairness discipline.
+
+**5 NEGATIVES 2x DRILLS IN FLIGHT** (for: pfc revival / Fisher revival / Hopfield revival / BCM+HRR+STUBE triple).
+
+**1 ORCHESTRATOR IN FLIGHT** routing GPU-eligible cells (multi-readout Fisher full / sub_atom encoder / Lean+MatProj+OEIS ingest / tensor-network / cortex-schema-integration) to overnight_queue.
+
+**ZERO chain-grade cells dispatched today's wave** (4 smokes HARD_FAIL = no full dispatch). CERT still 623 from this morning.
+
+**CYCLE 1 V3 RE-DISPATCH RUNNING** on remote_cpu since 14:31 PDT (Barrier 1 break test).
+
+**NEXT STEPS**:
+1. Revival drills land → design 6+ fair-test revival cells (PFC fair-baseline / Fisher with n>=3/M>=300 / BTSP with regime-probe / encoder with real Mathlib + 3 cortex TOP-2 pairs + 5 negatives revivals)
+2. Author + smoke fair revivals (route GPU-eligible to overnight_queue)
+3. Atomize META_RULE_AA fairness-before-tier in next Skunkworks batch
+4. Continue full-auto until USER signals stop
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~15:05 PDT (UPDATE #3)
