@@ -413,3 +413,60 @@ The filesystem is always canonical. If everything else fails:
 ---
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~04:55 PDT
+
+---
+
+## SECOND-WAVE UPDATE 2026-06-27 ~14:10 PDT (after compaction; USER home; remote-restart imminent)
+
+**REMOTE STATE AT THIS WRITE:**
+- All runners + Cycle 1 v3 KILLED (user is restarting remote desktop)
+- PAUSED files placed in both queue dirs (`<queue>/PAUSED`) → runners come back at logon but stay idle until I delete PAUSED files
+- 2 zombie bge_index_refresh cells from 8:38/11:38 AM also killed (~29 CPU-hr wasted; 0-byte metrics; orphan launchers)
+- NO LOCAL constraint is LIFTED (was reconfirmed by USER on return)
+
+**CYCLE 1 V3 FINAL STATE (Barrier 1 break test):**
+- Killed at 7/45 units, seed 7 arm r2_pfc_scratchpad depth 2 (process was alive but metrics-write stalled 4h+)
+- Partial seed checkpoints SHOULD remain on disk for re-dispatch (untested code path with this cell)
+- Verdict UNKNOWN — re-dispatch when remote returns
+
+**FOUR 5X DRILLS LANDED (filed in `notes/research_drill_5x_*_2026-06-27.md`):**
+1. Multi-hop Barrier 1: **diagnosis is ROUTING-bound NOT BINDING-bound.** TOP cell = `comp_router_moe_v1` (E=4 experts + cosine-argmax gate); but USER pushed back correctly — we should frame as `pfc_controller_per_step_operator_select_v1`. Backups: PFC schema replay + orthogonal role-basis.
+2. Importance ceiling: 3 root causes (Cramér-Rao scalar bound + encoder channel cap + multi-channel collapse). TOP cell = `multi_readout_fisher_importance_v1` (k=8 parallel readouts at orthogonal bases). Honest fallback IF all 3 land MIDDLE_BAND = encoder-bound is confirmed.
+3. Consolidation: convergent diagnosis = need SELECTIVE-SUBSET consolidation (not global Hebbian). TOP cell = `BTSP_binary_synapse_one_shot_v1` (Wu-Maass 2025 has explicit HD-VSA mapping). Backups: STC tag-and-capture + engram-dropout-via-inhibitory-plasticity. ALL must run at N_DIM=2048 N_CAT=100 N_TRAIN=10 (Skunkworks' recipe).
+4. Math/science ingest: ProofWiki was wrong anchor. TOP-3 = Lean4 Mathlib (P=0.70 highest M3-utility) + Materials Project API (P=0.65) + OEIS (P=0.55). **Prereq cell: sub-atom token-stream encoder (1 GPU-day, 2-3 cells) BEFORE any ingest** — char-trigram fails on formal math.
+
+**SCOUR FINDINGS (prior atoms I didn't know about):**
+- `substrate_hyp5_depth_ceiling` CHAIN_GRADE: multi-hop ceiling is COVERAGE-bound not algorithm. Recall K2..K5=[0.94,0.89,0.86,0.85] smooth.
+- `substrate_hypernym/partof_heldout_falsifiable` HONEST_NEG: BFS doesn't infer held-out 2-hop from training compositions.
+- `substrate_max_for_reasoning_tasks_not_lm` HARD_PASS: substrate-MAX cleanup helps REASONING >=2x baseline (banked reasoning primitive).
+- `substrate_sparse_competitive_readout` MIDDLE_BAND: brain K-WTA partially lifts over rank-1 readout (relevant to Barrier 2).
+- `substrate_theta_gamma_nested_oscillation` HARD_FAIL: nested oscillation adds nothing over single lock-in.
+- `EXP_pfc_attractor_charlm` exists with bpc=2.784 (LM era; not multi-hop reasoning).
+- `EXP_grid_positions_charlm` exists with bpc=2.509 (parietal seed; never built out).
+- 7+ prior MoE/router cells exist (capacity-routing + task-routing + cascade); NONE tested per-hop OPERATOR routing. Drill 1 cell is still novel for the problem.
+- K-scaling collapse known risk: `exp_moe_gradient_router_v1` HARD_FAILED with entropy@K=16=3.995b > 3.0b. PFC controller cell must design around K-scaling.
+
+**USER REPLIES ON BARRIER PLANS (2026-06-27 ~14:00 PDT):**
+- Barrier 1: USER pushback CORRECT — we have NEVER built end-to-end PFC+hippocampus+per-step routing. Have pieces, never composed. Re-frame MoE-router cell as PFC-controller (same mechanism, brain-correct framing).
+- Barrier 2: knowledge sufficient; approved.
+- Barrier 3: cortex maturity IS gating; BTSP→cortex consolidation is the integration test. Cortex content-extraction (ultrametric clustering CHAIN_GRADE today) is the destination.
+- Barrier 4: parietal-cortex analog seed exists (`EXP_grid_positions_charlm`) but never built out for symbol manipulation. Build sub-atom encoder first, then parietal-analog as next compound.
+- Cortex specifically: 4 chain-grade primitives banked (ultrametric clustering, TWO_TIER, NREM replay, Partition routing); MISSING: schema-integration cell + hippocampus→cortex handoff cell + schema-driven inference cell + cortex-as-router. Roughly 1-2 cycles each.
+
+**15-MIN CRON RE-ARMED 2026-06-27 ~14:08 PDT:** id `3a20be75` at :03/:18/:33/:48 (autonomous-loop sentinel; background no-popup; survives compactions in-session; does NOT survive Claude Code restart per runtime limitation).
+
+**FOUR CELLS QUEUED FOR AUTHORING WHILE USER RESTARTS (priority order):**
+1. `pfc_controller_per_step_operator_select_v1` (Barrier 1; design around K-scaling; E=4 operators; cosine-argmax gate; 3-hop heterogeneous query; discriminator = lift >= 0.10 cv < 0.10)
+2. `multi_readout_fisher_importance_v1` (Barrier 2; k=8 parallel readouts at orthogonal bases; Fisher-info fusion; discriminator = sel_unretr >= 0.15)
+3. `BTSP_binary_synapse_one_shot_v1` (Barrier 3; binary synapses + eligibility trace; N_DIM=2048 N_CAT=100 N_TRAIN=10; discriminator = new-mem acc >= floor AND old-mem acc >= 0.9 * floor; baseline NOT in [0.95, 1.00])
+4. `sub_atom_token_stream_encoder_v1` (Barrier 4 prereq; ~2000-symbol math codebook + variable-renaming + role-filler bind; discriminator = formal-math token sequences encode without collapsing to char-trigram noise)
+
+**POST-RESTART PROTOCOL:**
+1. Verify runners came back (`Get-Process python | Where-Object {$_.StartTime -gt today_logon}`)
+2. Verify `hd_director_kb_continuous_ingest` scheduled task alive
+3. Delete both PAUSED files
+4. Dispatch the 4 new cells via orchestrator (queue_add with prereg)
+5. Re-dispatch Cycle 1 v3 if USER wants Barrier 1 retest immediately
+6. Spawn Skunkworks for M-CFU honest-bound atomization (substrate physics ceiling +0.04-0.08 should bank as MEASURED_MECHANISM)
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~14:10 PDT (UPDATE #2)
