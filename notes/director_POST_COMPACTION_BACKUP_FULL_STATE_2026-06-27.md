@@ -251,6 +251,14 @@ USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous
 
 **STUB E typed-routing falsification = HARD_FAIL by_construction_saturation** (baseline=0.9991). Bijective routing regime too easy; mechanism never exercised. Can't close typed-routing branch cleanly — needs v2 at harder regime.
 
+🎉 **ANCHOR 1 v4 calibrated = HARD_PASS** (landed local ~16:01Z 2026-06-27). routing_acc=1.0, leak=0.0, ratio_resolved=0.9643, ud_ret=0.9286, non_ud=1.0, tau=0.15. Drill predictions VALIDATED (predicted BASELINE 0.18→0.85, PARTITIONED 0.14→0.80; observed 0.96/0.93). **Substrate partition-routing for content-chunk KB WORKS at scale.** CERT +1 candidate. Substrate-Director-KB story unblocked at the routing layer.
+
+🚨 **Hopfield v2 regime fix STILL HARD_FAIL** (baseline=1.0 at "harder" N_DIM=2048/N_CAT=100). Drill thought alpha=0.049 would discriminate; observed baseline-saturation. Needs EVEN harder regime (try N_DIM=1024 + noise) OR mechanism may genuinely not lift in any sub-saturated regime.
+
+🚨 **Stratified-replay v2 + v2_proper BOTH HARD_FAIL identically** (TRACE cor=+0.060 SURPRISE_NEGATIVE). Drill's premise "TRACE > RAND in cor" appears CONTRADICTED — Cauchy-Schwarz math needs audit before re-dispatch. Same numerics under different code paths confirms it's not a code bug.
+
+🚨 **Cycle 1 brain-pushback SILENT DEATH** — remote dir exists (created 07:55Z) but EMPTY (0 files, 0 bytes). Process died before writing anything. THE Barrier 1 break test verdict = UNKNOWN. Re-dispatch required with try/except + traceback dump at entry. Cell-author hardening recommendation: any cell starts by writing minimal metrics.json with PID/timestamp so silent death is visible.
+
 🚨 **M-CFU v6 = HARD_FAIL** (landed local at 15:33 PDT). Stronger regime did NOT help — best v6 sel=+0.027 ≤ v5_baseline=+0.037. Fairness STILL HELD across most CFU arms (cor mostly < 0.10). TRACE alone @ high-alpha=3.0 reaches sel=+0.088 cor=0.072 (more signal but borderline fairness). **Interpretation**: M-CFU + TRACE share a ~+0.04-0.08 SUBSTRATE-PHYSICS CEILING. Orthogonal-axis path WORKS (passes fairness) but doesn't unlock more signal than retrieval-trace. Substrate importance signal-extraction may simply be CAPPED at this regime/encoder. Path forward: either accept honest-bound at this ceiling + ship anyway, OR pursue encoder upgrade (Path C substrate-owned predictive coding) to break the bound.
 
 **CERT 622 UNCHANGED post-batch-10** (no atoms written to avoid mid-compaction risk; ruling note + verify scripts at `data/session_local/skunkworks/_batch10_*.py` give next-spawn everything needed to atomize 8 ledger rows + 4 META rules).
