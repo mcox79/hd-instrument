@@ -33,7 +33,20 @@ Supersedes prior "local CPU for smoke" pattern. Smoke AND full both route to `re
 
 ## SUBSTRATE STATE (cert + capabilities; as of 2026-06-27 ~04:55 PDT)
 
-**CERT 618** (post-Skunkworks batch 6 re-spawn 2026-06-27 commit 87f293c2; +1 honest-bound proven_bound atom for edge-importance ceiling at sel_unretr=+0.083 per USER Path B 2026-06-27). Earlier states: 616 post-batch4, 617 post-batch5 (3 cells MEASURED_MECHANISM), 618 post-batch6.
+**CERT 622** (latest after Skunkworks batches 7+8+9). Trajectory today: 616 post-batch4 → 617 post-batch5 → 618 post-batch6 → 619 post-batch7 (K=8192 3-seed chain-grade) → 619 post-batch8 (5 atoms: 1 MM + 4 HONEST_NEG; capacity envelope exceeded predicted band) → 622 post-batch9 (+3: capacity v2c GPU chain-grade + Hopfield by-construction-honest-neg + HRR involutive null-honest-neg).
+
+**MAJOR FINDING 2026-06-27 (USER pushback drill)**: META_BARRIER_1_QUADRUPLE_NEGATIVE atom was prematurely declared. Per-arm audit of 5 prior "refutations" = ZERO clean negatives:
+- consolidation v3: NAIVE OUT_OF_BAND, tested SHARED-W (brain uses SEPARATE W)
+- pointer-chain v1: BASELINE OUT_OF_BAND, never in claimed regime
+- WM-scaffold v1: likely shared-W bug (brain uses anatomically separate PFC)
+- CSP-gated: binary abort (brain uses graded confidence)
+- parallel-vote v2: K-scaling lift 0.40→0.50 is REAL (was framed as regime-artifact)
+
+Re-labeled via META_BARRIER_1_QUADRUPLE_NEGATIVE_RELABEL atom (commit e30925f3). Plus 3 new META rules atomized: per-arm-metrics required before META atomization, brain-mechanism-vs-caricature discipline, USER-pushback triggers verify-the-referent audit.
+
+**BURIED POSITIVE**: bidirectional meet-in-middle v2 ALREADY PASSED CHAIN_GRADE at depth-5 (BIDIR_MEET_MID=0.620 cv=0.064 lift +0.297 over forward). Got lost in narrative; surfaced today.
+
+**M-CFU breakthrough**: FIRST mechanism in edge-importance family to PASS fairness gate (cor=-0.015 vs +0.83 for trace-family). Tonegawa engram-silencing analog; structurally orthogonal to magnitude by construction. Signal strength weak (sel_unretr=+0.048 below 0.15 bar) but conceptually proves the orthogonal-axis path works. M-CFU v6 stronger regime dispatched 2026-06-27 (in queue at offline-window start).
 
 **META rules now atomized** (durable across sessions):
 - META_RULE_F: retrieval-success importance signals are magnitude-coupled by construction
@@ -146,6 +159,126 @@ USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous
 - Edge-importance v2 high-alpha → MIDDLE_BAND confirmed = effectively HONEST-NEGATIVE for PageRank variant per math+brain drill. v3 pivot validated by cert-owner.
 - Wave 4 content-chunk smoke → MEASURED_MECHANISM (infra HARD_PASS only). **Banana/elephant content-vs-filename tripwire NOT in metrics.json** — Skunkworks searched all 3 arm dirs; no banana/elephant strings surfaced. v2-content-KB-not-just-index claim is UNVERIFIED OFF DATA until tripwire is reproducibly logged. **Holds substrate-first ritual flip even longer.**
 - CERT delta +0; 3 atoms added; 3 ledger rows; commit 6895100e
+
+## FINAL COMPACTION-PREP STATE 2026-06-27 ~10:55 PDT (USER returned; compaction imminent)
+
+**USER directives reconfirmed**:
+- FULL AUTO on LOCAL and REMOTE (NO LOCAL constraint LIFTED)
+- Prepare for compaction (imminent)
+- Keep working until compaction
+- Post-compaction me MUST know everything in flight + goals
+
+**ZERO LANDINGS in last 3h** (suspicious — see Open Issues below). Either queue stalled, hd_metrics_sync stopped, or remote runners died. Spawning orchestrator to verify.
+
+## ALL CELLS DISPATCHED TODAY (status uncertain post-3h-silence)
+
+**On remote_cpu_queue (9 pending + 1 running at offline-window start)**:
+1. STUB E typed-routing falsification (P=0.80 close-typed-routing-branch)
+2. ProofWiki v2 retry+cache (after v1 fetch returned 0 bytes)
+3. v3.2 trace-only arm-count fix (workaround for import-bug)
+4. **Cycle 1 brain-pushback 5-arm** (R1+R2+R3+COMBINED; 8h; THE Barrier 1 break test)
+5. **M-CFU v6 stronger regime** (4 levers; first-fairness-pass mechanism scaling)
+6. M5 reverse-replay self-contained (Mattar-Daw + Foster-Wilson reverse-replay; brain-grounded)
+7. Stratified-replay v2 arm-count fix (inline-helpers workaround)
+8. **Hopfield v2 regime fix** (alpha 6e-4 sub-critical → 0.049 discriminating regime; M-RULE_W alpha-gate)
+9. **ANCHOR 1 v4 calibration+schema fix** (TAU 0.30→0.15 + max files 800 + cardinality split + schema_version fix; P=0.55 HARD_PASS)
+
+**On overnight_queue GPU**:
+1. M3 v3 GPU bidirectional depth-scaling (torch.cuda port; 50-200x speedup vs CPU; tests sqrt-scaling beyond d=5)
+
+**In-flight orchestrator agent at compaction time**: aadf48146446cbddc — SCP'ing 12 patched edge_importance cells from systemic import-bug fix (commit fb8ddb1a) so cells in queue work correctly. Stratified-replay v2_proper retry queued behind that.
+
+**Possibly running locally (USER lifted NO LOCAL just now)**: nothing actively, but option opened.
+
+## TODAY'S MAJOR FINDINGS (load-bearing for post-compaction me)
+
+1. **META_BARRIER_1_QUADRUPLE_NEGATIVE was prematurely declared** — per-arm audit (drill 2026-06-27) found ZERO of 5 prior multi-hop "refutations" were clean negatives. All tested caricatures (shared-W instead of separate, binary instead of graded, etc.). Re-labeled atom; 3 new META rules atomized. Multi-hop story is OPEN.
+
+2. **Bidirectional meet-in-middle ALREADY chain-grade** at depth-5 (BIDIR_MEET_MID=0.620 cv=0.064 lift +0.297). Buried in prior session; surfaced today.
+
+3. **M-CFU first fairness-passing mechanism** in edge-importance family (cor=-0.015 vs +0.83 for trace-family). Tonegawa engram-silencing brain analog. Signal weak at +0.048 but conceptually proves orthogonal-axis path works. v6 stronger regime in queue.
+
+4. **Capacity v2c GPU CHAIN_GRADE** at multi-bank K=4 N=8192 alpha=4 headroom=10x. Substrate beats baseline under K-sharding (CERT +1).
+
+5. **Hopfield v1 HARD_FAIL was REGIME error not mechanism** — at alpha=6e-4 (230x sub-critical), every associative-memory rule converges by Hopfield theory. v2 fix at alpha=0.049 discriminating regime in queue.
+
+6. **ANCHOR 1 v3 HARD_FAIL = refuse-gate miscalibration** (TAU 0.30 inherited from filename-index v2 regime; content-chunk regime has cosines 0.14-0.30 — most queries refused on calibration alone). v4 fix in queue.
+
+7. **Systemic import-bug** (load-bearing): v3 edge_importance cell had unguarded module-scope main; importing cells triggered v3's full main loop at import, writing alien partials into IMPORTING cell's output dir. Fixed via __main__ guards on 11 cells + anchor-name check in _seed_checkpoint.py.
+
+8. **Substrate-vs-MD A/B = UNKNOWN** (META_RULE_J halt; substrate-KB not on remote). USER directive then: "keep MD path canonical for now"; now (10:55 PDT): LOCAL constraint lifted so substrate v2 build LOCALLY + A/B locally is now possible.
+
+## NEW META RULES ATOMIZED TODAY (Skunkworks batches 7-9)
+
+- META_RULE_T: per-arm metric verification required BEFORE META atomization (Fix #28 at META layer)
+- META_RULE_U: cell-author must show implementation honors brain mechanism's load-bearing feature; caricature-refutations are NOT real refutations
+- META_RULE_V: USER pushback triggers verify-the-referent audit by default
+- (pending in batch 10): RULE_EXPERIMENT_CELLS_MUST_GUARD_MAIN_WITH___NAME___DUNDER
+- (pending in batch 10): RULE_PARTIAL_LOAD_MUST_CHECK_ANCHOR_NAME
+- (pending in batch 10): RULE_HARD_FAIL_FIX_MUST_ADDRESS_ROOT_CAUSE_NOT_SYMPTOM
+- (pending in batch 10): META_RULE_W: pre-dispatch alpha-in-[0.03, 0.20] gate for associative-memory cells
+
+## POST-COMPACTION ME — DO THESE THINGS IN ORDER
+
+1. Read this BACKUP file end-to-end (you're doing that)
+2. Touch heartbeat: `touch d:/AI/hd-instrument/data/heartbeats/research.timestamp`
+3. Check landings since 10:55 PDT 2026-06-27: `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -300`
+4. SPAWN ORCHESTRATOR FIRST — check remote runner status; runners may have died during 3h-silence window. Verify and revive if needed.
+5. If anything landed, SPAWN SKUNKWORKS for batch 10 VET. Include PC_cleanup_attractor_v1 HARD_PASS (CHAIN_GRADE candidate from earlier today).
+6. Triage the key results:
+   - Cycle 1 brain-pushback (THE Barrier 1 break test; COMBINED≥0.65 at depth-5 → BARRIER BROKEN)
+   - M-CFU v6 (sel_unretr≥0.15 → first chain-grade importance signal)
+   - M3 v3 GPU (depth-9≥0.45 → sqrt-scaling confirmed)
+   - ANCHOR 1 v4 (BASELINE≥0.85 PARTITIONED≥0.80 → routing chain-grade)
+   - Hopfield v2 regime fix (lift_over_hebbian≥0.10 → consolidation chain-grade)
+   - Substrate-vs-MD A/B (now LOCAL OK; could build v2 + test for real)
+7. Spawn next-wave cells per landed-drill recommendations (Cycle 2 conditional on Cycle 1 outcome; ANCHOR 1 v5 if v4 needs further; etc.)
+
+## OPEN ISSUES AT COMPACTION TIME
+
+- **3h zero-landings silence** — need to verify remote runner state
+- **hd_metrics_sync RPC error 267009** has been recurring; manual SCP-direct working but should investigate
+- **8 cells queued with import-bug-affected v3 imports** — they may all silently fail until patched v3 is on remote (orchestrator aadf48146446cbddc was SCPing those when last invoked)
+- **Substrate-vs-MD A/B can now run locally** (NO LOCAL lifted) — high-value test
+- **PC_cleanup_attractor_v1 HARD_PASS** still not atomized — pending Skunkworks batch 10
+
+## OFFLINE WINDOW STATE 2026-06-27 ~07:25 PDT (USER going dormant)
+
+**USER directive**: keep using normal docs (BACKUP path canonical); do NOT build substrate v2 at scale on laptop; defer substrate ritual flip.
+
+**Pipeline saturated for offline window** — both queues full:
+
+**overnight_queue (GPU)**: 1 pending
+- M3 v3 bidirectional depth-scaling (commit 7cce0550; 14400s; tests depth-scaling beyond d=5 where bidirectional already chain-grade)
+
+**remote_cpu_queue (CPU)**: 1 running + 7 pending (~30+ CPU-hr nominal)
+- RUNNING: K-beam path-sum (M4 alternative to refuted soft-passing; full-N preview showed +0.225 lift)
+- Pending: STUB E typed-routing falsification (P=0.80 fix-test) / ProofWiki v2 with retry+cache / v3.2 arm-count fix / multi-hop v2 (chain-gen still constrained at V=500 disallow=320) / BCM v2 init-fix (numerical-stability concern; theta may overflow) / Cycle 1 brain-pushback 5-arm composition (R1+R2+R3+COMBINED; 8h Barrier 1 break test) / M-CFU v6 stronger regime / M5 reverse-replay self-contained (no hdlab/ overwrite)
+
+**4 agents still in flight when USER went dormant** (will return during offline; results in design docs):
+- ac3585730ddf8cc58: stratified-replay HARD_FAIL 3x drill
+- adbf42cdfa3371216: ANCHOR 1 v3 ratio_resolved 3x drill
+- ac7f3006d15a0747b: Hopfield by-construction 3x drill
+- a7d830ca09ae2941d: stratified-replay v2 arm-count fix (exp_dev)
+
+**Today's UNKNOWN landings (not failures, but blocked)**:
+- substrate-vs-MD A/B = UNKNOWN (META_RULE_J halt; substrate-KB not provisioned on remote — only local). Different from cell quality issue. Path to fix: provision substrate-KB chunk corpus on marsh@home OR run A/B test locally (latter conflicts with NO LOCAL directive; treat substrate-build as INFRA not experiment for the exception).
+
+**CRITICAL FRAMING CORRECTION FOR POST-COMPACTION ME**:
+1. "Substrate is canonical post-compaction source" - DEFERRED PER USER 2026-06-27. Read this BACKUP file directly. Local substrate v1 (filename-index) is up + 5-min-fresh — useful as supplementary search (`--filename-contains`) but NOT primary path.
+2. Multi-hop compositional reasoning beyond 2 hops - NOT confirmed permanent ceiling. 5 prior "refutations" were caricatures. 7+ brain-correct mechanisms designed; multiple cells queued for tonight. Cycle 1 composition cell is the load-bearing test.
+3. CERT 622 includes M-CFU MM as breakthrough atom (first fairness-pass); next promotion candidates = M-CFU v6 (if signal lifts above 0.15) + PC_cleanup_attractor v1 (HARD_PASS discovered but not yet atomized).
+
+## NEXT-SESSION PRIORITY ORDER (for post-compaction me)
+
+1. Read this BACKUP (you just did)
+2. Check landings: `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -360`
+3. Spawn Skunkworks batch 10 for whatever landed (PC_cleanup_attractor + offline cells)
+4. Triage Cycle 1 brain-pushback verdict — if COMBINED >= 0.65 at depth-5 → BARRIER 1 BROKEN (huge)
+5. Triage M-CFU v6 verdict — if sel_unretr >= 0.15 → first chain-grade importance signal
+6. Triage M3 v3 GPU verdict — if depth-9 >= 0.45 → sqrt-scaling confirmed
+7. Process the 3 drill design docs that will land during offline
+8. Continue authoring next-wave cells per landed-drill recommendations
 
 ## IN FLIGHT (3 agents as of 2026-06-27 ~05:15 PDT)
 
