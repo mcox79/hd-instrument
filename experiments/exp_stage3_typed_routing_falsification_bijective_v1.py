@@ -539,8 +539,10 @@ def compute_verdict(per_unit: Dict[str, Dict],
                 f"{Q_SUSPECT_SATURATION}; lift requirement structurally unachievable",
                 detail)
 
-    # HARD_PASS conditions (drill: KEEP typed-routing as concept)
-    bij_lift_meets = (not math.isnan(bij_lift)) and (bij_lift >= HP_BIJECTIVE_LIFT_MIN)
+    # HARD_PASS conditions (drill: KEEP typed-routing as concept).
+    # FIX 2026-06-27: 1e-9 epsilon on lift comparison to absorb float arithmetic
+    # (e.g. 1.0 - 0.90 == 0.09999...; structurally identical to 0.10 lift).
+    bij_lift_meets = (not math.isnan(bij_lift)) and (bij_lift >= HP_BIJECTIVE_LIFT_MIN - 1e-9)
     if bij_lift_meets and baseline_ok and collision_in_hp_band and cv_ok:
         return ("HARD_PASS",
                 f"bijective_typed_adds_value: lift={bij_lift:.4f} >= {HP_BIJECTIVE_LIFT_MIN}; "
@@ -627,12 +629,17 @@ def _selftest():
           f"in [0.35, 0.55] (drill predicts ~0.44)", flush=True)
 
     # T6: verdict-machinery synthetic cases
-    # T6 HP synthetic: baseline ~0.88 + bijective 1.0 -> lift 0.12 >= 0.10 HP_min.
-    # MIDDLE_BAND test (T6b) flips bij to 0.89 -> lift 0.01 within +/-0.05 null window.
+    # T6 HP synthetic: baseline ~0.92 (>= HP_BASELINE_FLOOR=0.90) + bijective 1.0
+    # -> lift 0.08 ... no wait, we need lift >= HP_BIJECTIVE_LIFT_MIN=0.10 too.
+    # Use baseline=0.90 (== floor) + bijective=1.0 -> lift=0.10 (>= min).
+    # MIDDLE_BAND test (T6b) flips bij to 0.91 -> lift 0.01 within +/-0.05 null window.
+    # FIX 2026-06-27: prior synthetic baseline=0.88 was BELOW HP_BASELINE_FLOOR=0.90,
+    # causing baseline_ok=False which dropped T6a HARD_PASS to MIDDLE_BAND
+    # (caught when remote runner ran self-test; cell never dispatched).
     fake_hp = {
-        "11_ARM_BASELINE": {"arm": "ARM_BASELINE", "recall": 0.88},
-        "13_ARM_BASELINE": {"arm": "ARM_BASELINE", "recall": 0.88},
-        "19_ARM_BASELINE": {"arm": "ARM_BASELINE", "recall": 0.88},
+        "11_ARM_BASELINE": {"arm": "ARM_BASELINE", "recall": 0.90},
+        "13_ARM_BASELINE": {"arm": "ARM_BASELINE", "recall": 0.90},
+        "19_ARM_BASELINE": {"arm": "ARM_BASELINE", "recall": 0.90},
         "11_ARM_BIJECTIVE_TYPED": {"arm": "ARM_BIJECTIVE_TYPED", "recall": 1.0},
         "13_ARM_BIJECTIVE_TYPED": {"arm": "ARM_BIJECTIVE_TYPED", "recall": 1.0},
         "19_ARM_BIJECTIVE_TYPED": {"arm": "ARM_BIJECTIVE_TYPED", "recall": 1.0},
@@ -649,11 +656,13 @@ def _selftest():
         print(f"[selftest] T6a PASS: synthetic HARD_PASS path -> {v}", flush=True)
 
         # T6b: MIDDLE_BAND (typed adds no value within null window)
+        # FIX 2026-06-27: baseline now 0.90, so set bij=0.91 to keep lift=0.01
+        # within the +/-0.05 null window.
         fake_mb = dict(fake_hp)
         for k in list(fake_mb.keys()):
             if "BIJECTIVE_TYPED" in k:
                 fake_mb[k] = dict(fake_mb[k])
-                fake_mb[k]["recall"] = 0.89  # ~baseline (lift 0.01, within null window)
+                fake_mb[k]["recall"] = 0.91  # ~baseline (lift 0.01, within null window)
         v, msg, det = compute_verdict(fake_mb)
         assert v == "MIDDLE_BAND", f"T6b MB expected, got {v}: {msg}"
         print(f"[selftest] T6b PASS: bijective_redundant -> MIDDLE_BAND", flush=True)
