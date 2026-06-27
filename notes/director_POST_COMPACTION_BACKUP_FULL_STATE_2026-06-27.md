@@ -244,10 +244,12 @@ USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous
 
 🚨 **Bidirectional v2 chain-grade is REGIME-SPECIFIC** (not universal). v3 GPU at depth-scaled regime shows bidirectional INDISTINGUISHABLE from forward-half (HARD_FAIL_NO_MEETING_PREMIUM). v2 atom stays valid at v2's regime; needs regime-narrowing annotation. Bidirectional is NOT a general multi-hop solution.
 
-**3 cells STILL with NO local metrics** (sync gap):
-- exp_n8_proofwiki_smoke_ingest_chunk_kb_v2_retry
-- exp_stage3_typed_routing_falsification_bijective_v1
+**1 cell STILL with NO local metrics** (sync gap):
 - exp_substrate_multihop_brain_pushback_composition_v1 (THE Barrier 1 break test — VERDICT UNKNOWN; cell reportedly "failed" at 07:55Z but no metrics local)
+
+**ProofWiki v2 retry = HARD_FAIL** (n_chunks=0 even with retry+cache). Fetch returns 0 chunks; website may be persistently down OR fetch logic deeper bug. Math/science extractor track blocked until investigated.
+
+**STUB E typed-routing falsification = HARD_FAIL by_construction_saturation** (baseline=0.9991). Bijective routing regime too easy; mechanism never exercised. Can't close typed-routing branch cleanly — needs v2 at harder regime.
 
 🚨 **M-CFU v6 = HARD_FAIL** (landed local at 15:33 PDT). Stronger regime did NOT help — best v6 sel=+0.027 ≤ v5_baseline=+0.037. Fairness STILL HELD across most CFU arms (cor mostly < 0.10). TRACE alone @ high-alpha=3.0 reaches sel=+0.088 cor=0.072 (more signal but borderline fairness). **Interpretation**: M-CFU + TRACE share a ~+0.04-0.08 SUBSTRATE-PHYSICS CEILING. Orthogonal-axis path WORKS (passes fairness) but doesn't unlock more signal than retrieval-trace. Substrate importance signal-extraction may simply be CAPPED at this regime/encoder. Path forward: either accept honest-bound at this ceiling + ship anyway, OR pursue encoder upgrade (Path C substrate-owned predictive coding) to break the bound.
 
