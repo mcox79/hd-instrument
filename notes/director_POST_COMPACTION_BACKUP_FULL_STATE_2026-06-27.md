@@ -507,3 +507,40 @@ Discriminators FIRED per META_RULE_K = saved ~42 CPU-hr wasted compute. Document
 4. Continue full-auto until USER signals stop
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~15:05 PDT (UPDATE #3)
+
+---
+
+## FOURTH-WAVE UPDATE 2026-06-27 ~15:20 PDT — SKUNKWORKS VERDICTS + HALLUCINATION CORRECTION
+
+**3 CHAIN-GRADE CANDIDATES BANKED TODAY (Skunkworks vet pending):**
+1. **pfc_controller_softmax_margin_abstain_v2** — heterogeneous routing at depth=6 lift +0.378 over true SINGLE_FIXED baseline
+2. **cortex_hippo_handoff_sparse_DG_dense_cortex_v1** — fast→slow store consolidation, FULL=1.000 vs NO_REPLAY=0.003 (lift +0.998), anatomically separate by construction
+3. **parietal_cortex_spatial_reasoning_v1** (MIDDLE_BAND positive) — symbol-as-movable-object lift +0.755
+
+**HOPFIELD FAMILY CLOSED + ATOMIZED** by Skunkworks (a8aa3f03; commit + 3 atoms): HONEST_NEGATIVE_VERIFIED bounded to regime alpha~0.05/100-inst-per-cat/60%-noise. NOT substrate-wide claim. 2 new META candidates filed (by-construction-arm-equivalence-under-L2 / n1-fair-diagnostic-can-close-family-if-discriminator-structural).
+
+**SKUNKWORKS WAVE 1 VET COMPLETE** (aa9af9d6; commits ff601896 + ad2bedbf; 5 atoms added):
+- PFC v1 / multi-readout Fisher v1 / sub_atom encoder v1: ALL TEST_DESIGN_FAILURES verified (Research framing correct)
+- **BTSP v1: OVERRIDE — Research HALLUCINATED numbers (Fix #28 worst form)**; cell never completed, framing fabricated; corrected to INCONCLUSIVE_CELL_DID_NOT_COMPLETE; v2 regime-probed design still appropriate
+- META_RULE_AA fairness-before-tier ATOMIZED (inst 248)
+- 4 audit atoms + 1 META_RULE atom
+- **STORE-REPAIR side-finding**: 3 corrupt rows in meta/atoms.jsonl from deprecated atom_id schema made Store UNLOADABLE for hours; quarantined + repaired; Store now loads 177454 atoms (+5 from this batch)
+- No 2x drills needed (no genuine substrate-negatives surfaced)
+
+**FULL DISPATCHES IN FLIGHT (4 cells; mixed CPU local/remote):**
+- pfc_controller_softmax_margin_abstain_v2 (remote_cpu, 10800s, depth sweep [3,5,8,12], 5 seeds)
+- btsp_binary_synapse_one_shot_v2_regime_probed (remote_cpu, 10800s, 54-cfg probe + arms)
+- parietal_cortex_spatial_reasoning_v1 (remote_cpu, 7200s, 5x5 grid + 25 symbols + 10 MOVE ops + 200 scenes + 5 seeds)
+- cortex_hippo_handoff_sparse_DG_dense_cortex_v1 (LOCAL_CPU_QUEUE, 14400s, N_h=4096 N_c=8192 M=200 N_replay=50)
+- Cycle 1 v3 redispatch (remote_cpu, Barrier 1 break test, 14400s)
+
+**HARD_FAIL WAVE 2 CELLS NEEDING REDESIGN:**
+- cortex_schema_posner_keele_prototype_variance_v1: fairness regime saturation; HALTED; redesign with Tonegawa sparse-ensemble (drill TOP-2)
+- cortex_as_router_mante_multiplicative_gating_v1: DEPENDS_ON pfc_controller v2 FULL; baseline saturates at 1.000 (fairness violation); harder regime needed
+- lock_in_amp_pca_readout_fisher_v1 + tensor_network_contraction_ordering_v1 (Wave 2C SMOKE_FAIL; NOT dispatched): need USER override OR redesign heuristic
+
+**META RULES ATOMIZED TODAY:** META_RULE_AA fairness-before-tier (inst 248) + 2 candidates from Hopfield Skunkworks (arm-equivalence-under-L2-norm + n1-diagnostic-can-close-family)
+
+**M-CFU HONEST-BOUND CLAIM STILL PAUSED** — multi-readout Fisher v1 per-arm wins +0.144/+0.300 verified by Skunkworks (Fix #28 catch correct); ceiling claim premature; lock_in_amp_pca revival needed.
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~15:20 PDT (UPDATE #4)

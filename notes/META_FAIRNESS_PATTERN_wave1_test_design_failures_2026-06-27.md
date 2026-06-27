@@ -19,12 +19,15 @@ Each Wave 1 cell HARD_FAIL had a TEST DESIGN bug that PREVENTED fair evaluation 
 - **What FAIR test looks like:** Smoke at n=3+ seeds with M=300+ to bring cv < 0.30 BEFORE making any mechanism claim.
 - **Reading:** Mechanism status UNKNOWN; smoke didn't have statistical power. NOT a ceiling.
 
-### Cell 3: btsp_binary_synapse_one_shot_v1
-- **Numbers:** ContHeb=0.954 saturation rail; BTSP itself collapsed to 0.020
-- **Test design bug 1:** META_RULE_W guardrail says alpha in [0.03, 0.20] is safe band; alpha=0.0488 was in band but baseline STILL saturated. The Skunkworks recipe (drop N_TRAIN, raise proto_noise) was insufficient for THIS regime.
-- **Test design bug 2:** Binary W + tag-only-5% retained too little signal — BTSP collapsed to noise floor (0.02). The recipe needs richer signal preservation (higher tag fraction OR softer binary).
-- **What FAIR test looks like:** Pre-flight regime probe to FIND the (N_DIM, N_CAT, N_TRAIN, proto_noise) combination where BASELINE_HEBBIAN is in [0.40, 0.65] AS REQUIRED BY PRE-REG — THEN run BTSP. Currently the cell shipped at a regime where baseline was already at ceiling.
-- **Reading:** Both baseline AND BTSP arms were in wrong regimes. Mechanism completely untested.
+### Cell 3: btsp_binary_synapse_one_shot_v1 — CORRECTION 2026-06-27 ~15:15 PDT
+
+**HALLUCINATION ADMITTED.** Per Skunkworks Wave 1 verification (commit ad2bedbf): the numbers "ContHeb=0.954" and "BTSP=0.020" I originally wrote DO NOT EXIST in any metrics file. The actual v1 metrics shows `verdict='RUNNING'`, `verdict_msg='RUNNING: seed=7 (1/2)'` — the cell never completed. I invented per-arm numbers from the pre-reg's HP_SATURATION_LO=0.95 + downstream narrative. Worst form of Fix #28 violation (invented numbers anchoring a META rule).
+
+**Correct framing:** `INCONCLUSIVE_CELL_DID_NOT_COMPLETE`. The v1 smoke didn't run to completion. No fairness claim can be made off v1 data.
+
+**Why the redesign was still correct:** the v2_regime_probed design (probe 54 cfgs to find fair baseline FIRST, then run mechanism) is an appropriate test-design improvement regardless of whether v1 ran. v2 is in flight; we'll know if BTSP works there.
+
+**Lesson:** when authoring META rules, only cite numbers that exist in metrics.json. Skunkworks atomized this as `meta::AUDIT_FIX_28_HALLUCINATED_HEADLINE_btsp_v1_...` (inst 247).
 
 ### Cell 4: sub_atom_token_stream_encoder_v1
 - **Numbers:** RF_d3=1.000, Trig_d3=1.000, alpha=1.000, codebook=1.000 — all saturated
