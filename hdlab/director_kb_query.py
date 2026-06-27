@@ -11,7 +11,8 @@ Public API (versioned; Principle 4 + Principle 7):
   query(question: str, schema_version: str = "v1", encoder: str = "default",
         k: int = 5, confidence_floor: float = 0.5,
         debug_include_superseded: bool = False,
-        source_classes: Iterable[str] | None = None) -> QueryResult
+        source_classes: Iterable[str] | None = None,
+        filename_contains: str | None = None) -> QueryResult
 
 QueryResult schema (load-bearing for Director consumer):
   {
@@ -47,6 +48,7 @@ This module is OFFLINE (loads on disk KB once; query is pure tensor op).
 from __future__ import annotations
 
 import json
+import re
 import time
 from collections import defaultdict
 from pathlib import Path
@@ -73,6 +75,19 @@ def _canonicalize_source_class(name: str) -> str:
     """Normalize a user-provided source_class token to the schema canonical form."""
     n = name.strip().lower()
     return _SOURCE_CLASS_ALIASES.get(n, n)
+
+
+_DATE_RE = re.compile(r"(\d{4})[-_](\d{2})[-_](\d{2})")
+
+
+def _entity_date_key(entity_name: str) -> tuple[int, int, int]:
+    """Extract (YYYY, MM, DD) tuple from entity name for sort; (0,0,0) if absent.
+    Recency-sort uses the MAX (most recent) date found in the string.
+    """
+    matches = _DATE_RE.findall(entity_name)
+    if not matches:
+        return (0, 0, 0)
+    return max((int(y), int(m), int(d)) for (y, m, d) in matches)
 
 
 def _load_jsonl(path: Path) -> list[dict]:
@@ -222,6 +237,7 @@ class DirectorKBQuery:
         confidence_floor: float = 0.5,
         debug_include_superseded: bool = False,
         source_classes: Iterable[str] | None = None,
+        filename_contains: str | None = None,
     ) -> dict[str, Any]:
         """Substrate-native query. Returns QueryResult dict.
 
@@ -234,6 +250,13 @@ class DirectorKBQuery:
           Non-breaking additive (Principle: 12 no-lock-in); default None preserves
           prior unfiltered behavior. Common plurals (notes/preregs) are aliased to
           schema singulars (note/prereg) for caller convenience.
+        - filename_contains: optional case-insensitive substring matched against
+          entity strings. When set, BYPASSES cosine ranking entirely; returns all
+          entities whose name contains the substring, sorted by most-recent
+          embedded date (YYYY-MM-DD or YYYY_MM_DD), descending; ties broken
+          alphabetically. Use when atom entity strings ARE filenames (notes/,
+          memory/) and char-trigram cosine is too noisy to surface a specific
+          known doc. Composes with source_classes. Non-breaking additive.
         """
         t0 = time.perf_counter()
         if schema_version != self.schema_version:
@@ -264,20 +287,42 @@ class DirectorKBQuery:
                 if sc_set & filter_set
             }
 
-        q_unit = self._encode_query(question)
-        # Get more candidates than k so we can filter superseded.
-        # Filter-aware: _topk_entities masks non-allowed entities pre-ranking,
-        # avoiding the wordnet-swamp problem (709k lexical atoms drown 34k notes).
-        topk_raw = self._topk_entities(q_unit, k=k * 3, allowed_ent_indices=allowed_idx)
+        # filename_contains bypass: substring-match on entity strings; recency-sort.
+        # No cosine; no refuse-gate (confidence reported as 1.0 if any hit).
+        fname_substr = filename_contains.strip() if filename_contains else None
+        if fname_substr:
+            needle = fname_substr.lower()
+            hits: list[int] = []
+            for ent_idx, name in enumerate(self.entity_names):
+                if needle in name.lower():
+                    if allowed_idx is not None and ent_idx not in allowed_idx:
+                        continue
+                    if not debug_include_superseded and ent_idx in self._superseded_entity_indices:
+                        continue
+                    hits.append(ent_idx)
+            # Sort: most-recent embedded date DESC, then entity name ASC (stable)
+            hits.sort(key=lambda i: (
+                tuple(-x for x in _entity_date_key(self.entity_names[i])),
+                self.entity_names[i],
+            ))
+            topk = [(i, 1.0) for i in hits[:k]]
+            max_cos = 1.0 if topk else 0.0
+            refused = not topk
+        else:
+            q_unit = self._encode_query(question)
+            # Get more candidates than k so we can filter superseded.
+            # Filter-aware: _topk_entities masks non-allowed entities pre-ranking,
+            # avoiding the wordnet-swamp problem (709k lexical atoms drown 34k notes).
+            topk_raw = self._topk_entities(q_unit, k=k * 3, allowed_ent_indices=allowed_idx)
 
-        # Filter superseded entities by default (Principle 10)
-        if not debug_include_superseded:
-            topk_raw = [(i, s) for (i, s) in topk_raw if i not in self._superseded_entity_indices]
+            # Filter superseded entities by default (Principle 10)
+            if not debug_include_superseded:
+                topk_raw = [(i, s) for (i, s) in topk_raw if i not in self._superseded_entity_indices]
 
-        topk = topk_raw[:k]
+            topk = topk_raw[:k]
 
-        max_cos = topk[0][1] if topk else 0.0
-        refused = max_cos < confidence_floor
+            max_cos = topk[0][1] if topk else 0.0
+            refused = max_cos < confidence_floor
 
         atom_records: list[dict] = []
         paths_consulted_set: set[str] = set()
@@ -296,6 +341,23 @@ class DirectorKBQuery:
                 "superseded": ent_idx in self._superseded_entity_indices,
             })
 
+        if fname_substr:
+            refusal_reason = (
+                f"filename_contains='{fname_substr}' matched zero entities"
+                if refused else None
+            )
+            fallback = (
+                f"grep -rli '{fname_substr}' notes/ memory/" if refused else None
+            )
+        else:
+            refusal_reason = (
+                f"max_cosine={max_cos:.4f} < confidence_floor={confidence_floor}"
+                if refused else None
+            )
+            fallback = (
+                f"grep -ri '{question}' notes/ memory/" if refused else None
+            )
+
         result = {
             "question": question,
             "kb_version": self.kb_version,
@@ -304,17 +366,13 @@ class DirectorKBQuery:
             "k": k,
             "confidence_floor": confidence_floor,
             "refused": refused,
-            "refusal_reason": (
-                f"max_cosine={max_cos:.4f} < confidence_floor={confidence_floor}"
-                if refused else None
-            ),
+            "refusal_reason": refusal_reason,
             "confidence": round(max_cos, 4),
             "source_classes_filter": sorted(filter_set) if filter_set else None,
+            "filename_contains_filter": fname_substr,
             "top_k_atoms": atom_records,
             "paths_consulted": sorted(paths_consulted_set),
-            "fallback_recommendation": (
-                f"grep -ri '{question}' notes/ memory/" if refused else None
-            ),
+            "fallback_recommendation": fallback,
             "elapsed_s": round(time.perf_counter() - t0, 4),
             "debug_include_superseded": debug_include_superseded,
         }

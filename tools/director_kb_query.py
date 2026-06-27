@@ -5,6 +5,7 @@ Usage:
   python tools/director_kb_query.py --k 10 --tau 0.3 "what cells addressed cortex selectivity?"
   python tools/director_kb_query.py --json "..."
   python tools/director_kb_query.py --source-class=notes,memory "post-compaction digest"
+  python tools/director_kb_query.py --filename-contains POST_COMPACTION_BACKUP --source-class=notes
 
 ASCII-only. No emojis. No em-dashes.
 """
@@ -30,6 +31,9 @@ def _print_human(result: dict) -> None:
     scf = result.get("source_classes_filter")
     if scf:
         print(f"  source_class_filter={','.join(scf)}")
+    fnf = result.get("filename_contains_filter")
+    if fnf:
+        print(f"  filename_contains_filter='{fnf}' (cosine bypass; recency-sorted)")
     if result.get("refused"):
         print(f"  REFUSAL: {result.get('refusal_reason')}")
         print(f"  fallback: {result.get('fallback_recommendation')}")
@@ -68,6 +72,12 @@ def main() -> int:
                          "metrics, prereg, cert_ledger, atoms, director_plan, fleet_state, "
                          "wordnet, verbnet, framenet, gene_ontology, kegg_pathway, neurolex. "
                          "Common plurals (notes, preregs, kegg) auto-aliased to singulars.")
+    ap.add_argument("--filename-contains", default=None,
+                    help="Case-insensitive substring matched against entity strings; "
+                         "BYPASSES cosine ranking and returns all hits sorted by most-recent "
+                         "embedded date (YYYY-MM-DD) descending, ties alphabetical. Use when "
+                         "atom entities are filenames (notes/, memory/) and cosine is too noisy "
+                         "to surface a known doc. Composes with --source-class.")
     ap.add_argument("--json", action="store_true", help="Emit raw JSON instead of human-readable")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
@@ -82,8 +92,10 @@ def main() -> int:
               f"n_rel={len(kb.relation_names)}")
         return 0
 
-    if not args.question:
-        print("ERROR: question is required (or use --self-test)", file=sys.stderr)
+    # filename_contains bypass: question becomes optional when filter is the entry point
+    if not args.question and not args.filename_contains:
+        print("ERROR: question is required (or use --self-test, or --filename-contains)",
+              file=sys.stderr)
         return 2
 
     if args.kb_dir:
@@ -95,14 +107,18 @@ def main() -> int:
     if args.source_class:
         src_class_filter = [s.strip() for s in args.source_class.split(",") if s.strip()]
 
+    # When using filename-contains-only mode, supply empty question (cosine path skipped)
+    effective_question = args.question if args.question else ""
+
     result = kb.query(
-        question=args.question,
+        question=effective_question,
         schema_version=args.schema_version,
         encoder=args.encoder,
         k=args.k,
         confidence_floor=args.tau,
         debug_include_superseded=args.debug_include_superseded,
         source_classes=src_class_filter,
+        filename_contains=args.filename_contains,
     )
     if args.json:
         print(json.dumps(result, indent=2, sort_keys=True))
