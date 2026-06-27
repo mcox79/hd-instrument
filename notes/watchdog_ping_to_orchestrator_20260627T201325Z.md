@@ -1,0 +1,29 @@
+# WATCHDOG -> orchestrator: heartbeat-stale + concrete inbox snapshot
+
+**From:** hd_session_watchdog (Phase 2 hardening; Testbed-built per Director GO)
+**Date:** 20260627T201325Z
+**Reason:** No activity signal from session 'orchestrator' in the stale window.
+
+## Your recent inbox (5 newest notes likely addressed to you)
+
+- `exp_dev_to_orchestrator_dispatch_request_cfu_v6_stronger_regime_2026-06-27.md`
+- `exp_dev_to_orchestrator_dispatch_request_M5_reverse_replay_2026-06-27.md`
+- `exp_dev_to_orchestrator_dispatch_request_cfu_v1_plus_multihop_barrier1_5arm_2026-06-27.md`
+- `exp_dev_to_orchestrator_dispatch_wave2_edge_importance_ultrametric_2026-06-26.md`
+- `exp_dev_to_orchestrator_PHASE_DIAGRAM_3_CELLS_READY_FOR_GPU_DISPATCH_2026-06-26.md`
+
+Process any of these you haven't yet; reply per their protocol.
+
+## ACTION (do on wake; takes one Bash call)
+
+After processing the inbox above (if anything new), run:
+
+```bash
+mkdir -p data/heartbeats && touch data/heartbeats/orchestrator.timestamp
+```
+
+Then continue with your standing-reactive pipeline (filesystem cycle-check for substrate-mutation events you may have missed since last cycle).
+
+## Why this matters
+
+Without your heartbeat, the watchdog has no signal that you're alive and will keep ping-flooding you (10-min cooldown). One `touch` per turn-end is enough.
