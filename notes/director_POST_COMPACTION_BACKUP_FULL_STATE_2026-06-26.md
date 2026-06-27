@@ -152,6 +152,76 @@ If edge-importance HARD_PASSes → use it as TWO_TIER promotion criterion → Wa
 - Phase-diagram GPU cells landed
 - KB query source-class filter (Option A) SHIPPED (commit 5cf5baed)
 
+## FINAL UPDATE 2026-06-26 ~21:55 PDT (compaction-prep snapshot)
+
+**Wave 3 FULL landings (since 21:30 update):**
+- **ANCHOR 4 time-decay eviction FULL HARD_PASS** — eviction_frac=0.515, reingest 30/30, USER_DIRECTIVE retention 1.0, AUDIT_ONLY mode. Chain-grade-eligible. (path: `data/exp_exp_kb_time_decay_eviction_with_reingest_v1/metrics.json`)
+- **ANCHOR 1 partition-by-source FULL HARD_FAIL** — two arms failed (PARTITIONED_W_EQUAL_CAPACITY + PARTITIONED_W_MEMORY_OVERSIZED). Smoke passed at routing_acc=1.0 but didn't predict full failure. Needs investigation. (path: `data/exp_exp_kb_partition_by_source_class_v1/metrics.json`)
+- **Edge-importance v2 FULL MIDDLE_BAND** — fairness held (cor=-0.032 << 0.30), mechanism fired (gap +0.210 over random), sel_unretr asymmetry below HARD_PASS floor; still useful as cortex importance candidate; awaits regime adjustment or composition with ultrametric. (path: `data/exp_edge_importance_bound_pair_consolidation_v2/metrics.json`)
+- **ANCHOR 3 coarse-grain FULL: pending** (queued; smoke HARD_PASS with adaptive p5-percentile threshold)
+- **K-sweep v3 FULL: HARD_FAIL with new chain-grade evidence** (K=8192 + K=16384 both saturate single-seed; cardinality breach 7/27; per Skunkworks batch 4 corrected tier = MEASURED_MECHANISM)
+
+**Wave 4 substrate-KB content-chunk rebuild IN FLIGHT (agent a38d457eada23b1ae):**
+- Addresses honest finding that v1 substrate-KB is a metadata index, not content KB
+- Will ingest paragraph/section CHUNKS as atoms (entities = chunk text, not filenames)
+- Query returns content snippets directly
+- 3-5 hr CPU; will land in next session
+- If landed: substrate becomes viable post-compaction source; check `ls notes/exp_dev_*content_chunk*` AND query for it
+
+**Skunkworks batch 4 A5-gated atom commit IN FLIGHT (agent a2c412ecd864be3ca):**
+- Commits batch 4 verdicts (5 cells; 3 META rules J/K/L); ANCHOR 3 retier to MEASURED_MECHANISM_WITH_HONEST_CALIBRATION
+- CERT expected unchanged at 588-589 range
+- Will land in next session if doesn't complete this one
+
+**Honest CERT count:** Skunkworks batches 3+4 collectively net **+1 (588 → 589)** via ultrametric clustering chain-grade. Other cells all MEASURED_MECHANISM or below.
+
+**New disciplines atomized today (5 META + 1 codification):**
+- META_RULE_F: retrieval-success importance signals are magnitude-coupled by construction
+- META_RULE_G: smoke discriminator preview ≠ full landed verdict
+- META_RULE_H: K-sweep verdicts require per_unit cardinality verification
+- META_RULE_J: no silent except in unit loops (record-with-context+halt OR re-raise)
+- META_RULE_K: smoke must FIRE discriminator, not just verify cell runs
+- META_RULE_L: band-floor results are MIDDLE_BAND not HARD_PASS
+- META_RULE_M (proposed): primitive calibration to real-substrate distribution may differ from chain-grade benchmark regime
+- cardinality_ok mandatory pre-reg field for sweep-axis cells
+- Discriminator-must-survive-scale (3 acceptable checks: smoke at full-N / analytical / preview arm)
+
+**Agent definitions updated (all 5):** `.claude/agents/{research,exp_dev,skunkworks,orchestrator,testbed}.md` — dropped 4-session dead pattern; added lean reporting protocol; exp_dev got new DISCRIMINATOR-MUST-SURVIVE-SCALE section + THREE DISCIPLINE PATTERNS section.
+
+**KB tools shipped today:**
+- `--source-class` filter (Option A; commit 5cf5baed)
+- `--filename-contains` filter (Option A+; commit 1d6bf789)
+- Continuous-ingest atomic-swap + cardinality-guard fix (commit 5de28ea1)
+- Scheduled task `hd_director_kb_continuous_ingest` (pythonw windowless every 5 min)
+
+**Active TODOs at compaction (14 items in research session):**
+1. [IN-FLIGHT] Monitor: Wave 4 content-chunk rebuild + Skunkworks batch 4 atom commit + ANCHOR 3 FULL pending
+2. [DONE] Substrate-KB Wave 1-3 ingest/query/continuous infrastructure shipped
+3. [DONE] Skunkworks batches 1-4 VET
+4. [PENDING] Edge-importance v2 result analysis (MIDDLE_BAND — needs research call on whether to v3 or compose with ultrametric)
+5. [PENDING] ANCHOR 1 partition-by-source FULL HARD_FAIL investigation (smoke→full sign-flip)
+6. [PENDING] Capacity_sweep re-dispatch (Skunkworks flag-back #3)
+7. [PENDING] Wave 2 cortex reserve mechanisms (held; ultrametric won)
+8. [PENDING] Wave 3 ANCHOR 2 TWO_TIER promotion (gated on edge-importance v2; now MIDDLE_BAND — likely still defer)
+9. [PENDING] K=8192 1-seed cheap-harvest cell (Skunkworks flag-back #4)
+10. [PENDING] director_plan.json cleanup
+11. [PENDING] Math + science ingest extractors
+12. [PENDING] Wave 2 compositional understanding cells (audit vs Stage 2)
+13. [PENDING] Fix #26 tooling-gap
+14. [PENDING] 13 RC items from prior Skunkworks batch 3
+
+**Next-session priority order:**
+1. Read this BACKUP file end-to-end
+2. Check Wave 4 content-chunk rebuild landed (changes recovery strategy if yes)
+3. Check Skunkworks batch 4 atom commit landed
+4. Check ANCHOR 3 coarse-grain FULL verdict
+5. Address ANCHOR 1 partition HARD_FAIL (smoke→full sign-flip; may be vacuous-UD smoke or fundamental scaling issue)
+6. Decide on edge-importance v2 MIDDLE_BAND: v3 or compose with ultrametric
+7. Continue Wave 3 cleanup (eviction full PASSED; coarse-grain pending; partition needs debug)
+8. Resume on the 14-item todo list as resources allow
+
+---
+
 ## UPDATE 2026-06-26 ~21:30 PDT (most recent state)
 
 **Cortex content-extraction has its FIRST CHAIN-GRADE WIN:**
@@ -301,6 +371,35 @@ If `tools/director_kb_query.py` fails or returns garbage:
 5. If KB W matrix is corrupted: wipe-and-rebuild per Principle 2 → `rm -rf data/substrate_director_kb_v1; python experiments/exp_substrate_director_kb_ingest_v1.py --force`
 
 The filesystem is always canonical (Principle 1 of the no-lock-in KB architecture). Worst case: re-ingest from scratch in ~15 seconds.
+
+## HONEST FINDING (added 2026-06-26 ~21:50 PDT — load-bearing correction)
+
+**The substrate-KB v1 is currently a METADATA INDEX, not a real KB.**
+
+It stores tuples like `(filename, DATE_FILED, date)` + `(filename, REFERENCES, other-file)` — entities are FILENAMES, not content. When you query, it returns "this file might have your answer" — you still must Read the file to get content.
+
+**Empirical recovery time comparison (verified 2026-06-26):**
+- DOCUMENT recovery via direct Read of this BACKUP file: **1 second** (reliable, complete)
+- SUBSTRATE query for the same file: **38 seconds** (mostly KB load) — returns the same filename pointer
+- Substrate adds 37 seconds of overhead WITHOUT giving content
+
+**Implication:** for POST-COMPACTION RECOVERY, read this BACKUP file DIRECTLY via `Read` tool. Don't route through substrate-KB query — it's slower and gives no extra value.
+
+**Substrate-KB v1 is still useful for:**
+- Topic exploration where you don't know the filename (`--filename-contains` substring is faster than recursive grep)
+- Cross-domain queries (bio + experiment atoms together)
+- General-purpose state index (not load-bearing)
+
+**Wave 4 content-chunk rebuild IN FLIGHT** (agent a38d457eada23b1ae spawned 2026-06-26 ~21:55): rebuilds substrate as a REAL content-KB (ingest paragraph/section chunks as atoms; query returns content snippets directly). When Wave 4 lands, substrate becomes a viable post-compaction source. Until then, DOCUMENT recovery is the load-bearing path.
+
+**Updated POST-COMPACTION RECOVERY for next-session-me (interim until Wave 4):**
+1. Touch heartbeat
+2. **Read this file directly:** `Read d:/AI/hd-instrument/notes/director_POST_COMPACTION_BACKUP_FULL_STATE_<latest>.md` — 1 second, reliable
+3. Find latest companion docs: `ls notes/director_POST_COMPACTION_*.md` for DIGEST + COMMANDS
+4. Catch up on landings since BACKUP was written: `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -120`
+5. Verify scheduled task: `schtasks /query /tn hd_director_kb_continuous_ingest /fo LIST` (PowerShell only)
+6. Re-arm notes_monitor per CLAUDE.md ritual
+7. (Optional) check Wave 4 content-chunk landing: `ls notes/exp_dev_handoff*content_chunk* notes/exp_dev_*content_chunk*` or query substrate; if landed and tested OK, can switch to substrate-first workflow
 
 ---
 
