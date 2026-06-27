@@ -1,6 +1,6 @@
 {
-  "schema_version": "v1",
-  "schema_date": "2026-06-26",
+  "schema_version": "v2",
+  "schema_date": "2026-06-27",
   "description": "Director-KB triple schema. Externalized config so adding a new relation or entity type or atom tag is a config edit, not a code change. Principle 4 of the no-lock-in architecture.",
 
   "_principles_anchor": "See docs/director_kb_arch.md for the 12 no-lock-in principles this schema preserves.",
@@ -149,6 +149,17 @@
       "mode": "nif_ttl",
       "hard_cap_atoms": 200000,
       "comment": "NeuroLex / NIF-Ontology TTL subset (SciCrunch GitHub raw) + curated fallback TSV. Files: NIF-Cell.ttl, NIF-Neuron-NT-Bridge.ttl, NIF-GrossAnatomy.ttl, NIF-Molecule.ttl, _curated_fallback.tsv. Conservative TTL parsing (single-line triple statements + rdfs:label + subClassOf only). Curated fallback ensures basic brain-region / cell-type / neurotransmitter queries work even if SciCrunch URLs unavailable. USER 2026-06-26 bio_trio."
+    },
+    "proofwiki": {
+      "root_dir": "data/math_kb_cache/proofwiki",
+      "glob": "**/*.md",
+      "max_files": null,
+      "encoding": "utf-8",
+      "license_tag": "CC-BY-SA-3.0",
+      "provenance_url_field": "proofwiki_url",
+      "rejects_log_field": "skip_reason",
+      "mode": "text",
+      "comment": "ProofWiki Featured pages (~500 in smoke; ~35k full) materialized as .md with YAML front-matter (license, source_url, entity_type, mathematical_field). Picked up by chain-grade chunk-ingest pipeline via glob. Provenance + attribution required per CC-BY-SA-3.0. USER 2026-06-27 math/science extractor design rank-1; strategic prerequisite for vision Phase 3 (substrate proposes new mathematics)."
     }
   },
 
@@ -189,7 +200,13 @@
     "CELL_TYPE",
     "NEUROTRANSMITTER",
     "RECEPTOR",
-    "NEURAL_CIRCUIT"
+    "NEURAL_CIRCUIT",
+    "THEOREM",
+    "DEFINITION",
+    "AXIOM",
+    "PROOF",
+    "MATHEMATICAL_FIELD",
+    "MATHEMATICAL_OBJECT"
   ],
 
   "relation_types": [
@@ -256,7 +273,15 @@
     "RECEIVES_FROM",
     "CONTAINS_CELL_TYPE",
     "EXPRESSES_NEUROTRANSMITTER",
-    "BINDS_TO"
+    "BINDS_TO",
+    "STATES_THEOREM",
+    "DEFINES",
+    "ASSUMES_AXIOM",
+    "PROOF_OF",
+    "CITES_THEOREM",
+    "IN_FIELD",
+    "GENERALIZES",
+    "SPECIAL_CASE_OF"
   ],
 
   "atom_tags_required": [
