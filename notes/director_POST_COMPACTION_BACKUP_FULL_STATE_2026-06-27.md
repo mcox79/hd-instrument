@@ -244,11 +244,12 @@ USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous
 
 🚨 **Bidirectional v2 chain-grade is REGIME-SPECIFIC** (not universal). v3 GPU at depth-scaled regime shows bidirectional INDISTINGUISHABLE from forward-half (HARD_FAIL_NO_MEETING_PREMIUM). v2 atom stays valid at v2's regime; needs regime-narrowing annotation. Bidirectional is NOT a general multi-hop solution.
 
-**4 cells with NO local metrics yet** (sync may bring them eventually OR they never landed):
-- exp_edge_importance_v6_CFU_stronger_regime
+**3 cells STILL with NO local metrics** (sync gap):
 - exp_n8_proofwiki_smoke_ingest_chunk_kb_v2_retry
 - exp_stage3_typed_routing_falsification_bijective_v1
 - exp_substrate_multihop_brain_pushback_composition_v1 (THE Barrier 1 break test — VERDICT UNKNOWN; cell reportedly "failed" at 07:55Z but no metrics local)
+
+🚨 **M-CFU v6 = HARD_FAIL** (landed local at 15:33 PDT). Stronger regime did NOT help — best v6 sel=+0.027 ≤ v5_baseline=+0.037. Fairness STILL HELD across most CFU arms (cor mostly < 0.10). TRACE alone @ high-alpha=3.0 reaches sel=+0.088 cor=0.072 (more signal but borderline fairness). **Interpretation**: M-CFU + TRACE share a ~+0.04-0.08 SUBSTRATE-PHYSICS CEILING. Orthogonal-axis path WORKS (passes fairness) but doesn't unlock more signal than retrieval-trace. Substrate importance signal-extraction may simply be CAPPED at this regime/encoder. Path forward: either accept honest-bound at this ceiling + ship anyway, OR pursue encoder upgrade (Path C substrate-owned predictive coding) to break the bound.
 
 **CERT 622 UNCHANGED post-batch-10** (no atoms written to avoid mid-compaction risk; ruling note + verify scripts at `data/session_local/skunkworks/_batch10_*.py` give next-spawn everything needed to atomize 8 ledger rows + 4 META rules).
 
