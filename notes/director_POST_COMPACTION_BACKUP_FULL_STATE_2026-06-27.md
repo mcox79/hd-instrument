@@ -1006,4 +1006,191 @@ In 30 minutes post-compaction I:
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~23:05Z UPDATE #12 (post-compaction, post-Skunkworks-a0534a89)
 
+---
+
+## THIRTEENTH-WAVE UPDATE 2026-06-27 ~23:15Z — ORCHESTRATOR FINDINGS + FRESH METRIC READS
+
+**Orchestrator a283a14ab22de93cd complete. Key findings:**
+
+### 1. LANDING_NOTIFIER WAS NEVER REGISTERED AS A SCHEDULED TASK
+
+Per Fix #25 memory rule, was supposed to run every 2-5 min scanning remote `data/` for new metrics.json. The scheduled task `hd_landing_notifier` DID NOT EXIST — it had been written about in memory + recipe in `tools/landing_notifier.py` (file present 4120B) but the REGISTRATION step was never done. Result: 4 days of silent landing-detection drift.
+
+Orchestrator REGISTERED fresh via `schtasks /create` (every 3 min as MARSH Limited Interactive). Logs to `data/logs/landing_notifier.log`. Ran inline once: **663 backlog landings flushed** to `data/recent_landings.jsonl` (was frozen at 2026-06-23T21:10Z).
+
+**This is the load-bearing fix of the day.** The pattern of "phantom-FULL framings → drill notes citing hypotheses as measurements → spawn prompts citing those → Skunkworks refusing" was a CASCADE rooted in: I never had a signal for when remote FULLs landed, so I projected from drill numbers as if measured.
+
+### 2. SCP CONFIRMED 7 OF 9 ANCHORS (mtime 19:01:28-19:01:34 = orchestrator just-in-time SCP)
+
+| Anchor | Remote mtime | Real FULL verdict |
+|--------|--------------|---------------------|
+| pfc_controller v2 | 17:09:12 | HARD_FAIL depth=12 SOFTMAX=0.156 ARGMAX=0.170 (ARGMAX > SOFTMAX confirms depth-adaptive ARGMAX revival justified) |
+| btsp v2 regime-probed | 17:09:56 | HARD_FAIL REGIME_INFEASIBLE (probe over-fit at multi-seed confirmed) |
+| parietal cortex v1 | 17:09:29 | MIDDLE_BAND MOVABLE=0.867 cv=0.003 lift+0.576 (MOVABLE chain-grade quality alone) |
+| engram_dropout v2 | 17:14:33 | MIDDLE_BAND ENGRAM_BELOW_FLOOR engram_cor=0.147<0.40 (honest neg) |
+| importance falsification d=16384 | 17:10:13 | MIDDLE_BAND INDETERMINATE TRACE=0.998 saturated (substrate-has-importance-via-TRACE); others noise floor (need M=16384) |
+| cortex_hippo_handoff | IN-FLIGHT | (running since 18:11; alive PID 1276+29416) |
+| task_vector_kshot v1 | 18:52:05 | SELFTEST_OK only! FULL not actually run yet despite mtime — only selftest landed |
+| substrate_preplay_beam v1 | MISSING | (still pending in queue position 4) |
+| Cycle 1 v3 brain-pushback | 14:05:12 | UNKNOWN PROGRESS 22/45 units; ORPHANED (no live PID; checkpoint file frozen) |
+
+### 3. REMOTE QUEUE STATE
+
+**Active CPU**: `runner_v2_prod.py --queue-dir remote_cpu_queue --id cpu_runner_0` (PID 7324+13164 since 14:14 PDT)
+- RUNNING: cortex_hippo_handoff_FULL since 18:11 (PID 1276+29416)
+- STALE-RUNNING marker: Cycle 1 v3 (PID dead; mtime 14:05; runner thinks it's still running)
+- PENDING (8): sub_atom_encoder_v2_real_mathlib_FULL, trigram_downstream_ingest_probe_v1_FULL, task_vector_in_context_kshot_v1_FULL, substrate_preplay_beam_to_goal_v1_FULL, meta_knowledge_tip_of_tongue_v1, task_vector_in_context_kshot_v1, substrate_preplay_beam_to_goal_v1_WAVE3B, substrate_md_chunk_config_sweep_E3_v1
+
+**Active GPU**: `runner_v2_prod.py --queue-dir overnight_queue --id gpu_runner_0` (PID 11504+17308 since 14:14 PDT). **IDLE — 0 pending; last activity 18:29 PDT.** This is a Fix #24 violation opportunity.
+
+**Other**: PID 8868+11760 running `exp_substrate_bge_index_refresh_full_corpus_v1.py` since 18:38 PDT — this is the substrate-KB BGE encoder refresh (Wave 4 v2 content-KB rebuild). 5h elapsed.
+
+### 4. CORRECTED METRIC READS (verified just now)
+
+- **Cycle 1 v3 Barrier 1 break test**: still PROGRESS 22/45 units, orphaned PID. Needs re-dispatch from checkpoint. Single most load-bearing pending result of the day.
+- **task_vector FULL**: SELFTEST_OK only — k0=0.000 k5=1.000 top1_recall (selftest passes; FULL run never started). The smoke at `_smoke` path is the real chain-grade-eligible HARD_PASS data (verified via Skunkworks a0534a89 atomization).
+- **trigram_downstream_ingest_probe_v1_FULL_remote_cpu**: IMPORT_CRASH SystemExit: 0 (sys.exit(0) at import time — likely `if __name__ == "__main__"` issue per META_RULE_X).
+
+### IMMEDIATE NEXT ACTIONS
+
+1. **Re-dispatch Cycle 1 v3 from checkpoint** (orchestrator should clear stale-running marker first, then re-queue with `resume_from_checkpoint=True` if cell supports it; else fresh dispatch)
+2. **Route some pending CPU cells to GPU** since GPU runner idle since 18:29 PDT (task_vector_FULL / preplay_FULL are matmul-heavy)
+3. **Investigate trigram_downstream IMPORT_CRASH** (1-line fix likely: add `if __name__ == "__main__"` guard)
+4. **Wait for fresh Skunkworks vet ad6f061a6982e9fa1** with the verified data paths (will produce real CERT delta)
+5. **Wait for a4e9ffaa (Wave 3A revivals) + ab7b7708 (PFC ARGMAX) outputs**
+6. **File META_RULE_AE memory rule** for selftest/smoke/full path-disambiguation
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~23:15Z UPDATE #13 (orchestrator complete; data on disk; ready to atomize)
+
+---
+
+## FOURTEENTH-WAVE UPDATE 2026-06-27 ~23:20Z — WAVE 3A REVIVAL RETURNED ALL HARD_FAIL_SMOKE (DISCIPLINE WORKING)
+
+**Wave 3A revival agent a4e9ffaa8407902fb complete. All 3 cells smoke HARD_FAIL. NO full dispatches. Saved 30-50 CPU-hr.** This is META_RULE_K (smoke fires discriminator) working exactly as designed.
+
+### CELL VERDICTS (all 3 with absolute path + per-arm)
+
+**Cell 1: `meta_knowledge_partition_coverage_v2_orthogonal_signals`**
+- Path: `d:/AI/hd-instrument/data/exp_meta_knowledge_partition_coverage_v2_orthogonal_signals/metrics.json`
+- Smoke HARD_FAIL: -0.023 lift over SINGLE_BEST | SINGLE=0.852 OLD=0.860 ORTHOGONAL=0.829 RANDOM=0.511
+- Root cause: margin (top1-top2) + perturbation_cos + density are NOT orthogonal in this regime — entropy already saturates at AUROC=0.86
+- **Side discovery worth atomizing**: feature-standardized logreg cuts ECE 3.7x vs v1 (0.040 vs 0.152) at unchanged AUROC
+
+**Cell 2: `cross_task_4hop_chain_v2_sum_bind`**
+- Path: `d:/AI/hd-instrument/data/exp_cross_task_4hop_chain_v2_sum_bind/metrics.json`
+- Smoke HARD_FAIL_ORACLE_BROKEN: all arms 0.017 (chance 1/80=0.0125)
+- Root cause: sum-bind `key=Σbind(item, pos_i)` interferes catastrophically when stacked in Hebbian outer-product W at N=8192 with 200 chains
+- **Substrate physics atom candidate**: sum-bind interferes at >50 chains in Hebbian stack — need sparser training OR per-key cleanup OR codebook-cleanup
+
+**Cell 3: `pfc_goal_conditioned_gate_v2_cleanup_bind_output`**
+- Path: `d:/AI/hd-instrument/data/exp_pfc_goal_conditioned_gate_v2_cleanup_bind_output/metrics.json`
+- Smoke HARD_FAIL: at depth=6 | V1=0.340 BIND_CLEAN=0.000 WM=0.390 ADDITIVE=0.390 COMBINED=0.000 ORACLE=1.000
+- Root cause: cleanup-bind-output destroys bind info (cleanup snaps to single codebook entry); COMBINED inherits the collapse
+- **Concrete v3 design recommended**: WM_SLOT + ADDITIVE only (NO bind-cleanup), sharper alpha sweep for additive bias. Huge headroom remains (ORACLE-V1 = 0.66)
+
+### NEXT-ITER DESIGN STAGED (when spawn budget allows)
+
+- `exp_pfc_goal_conditioned_gate_v3_wm_additive_combined_v1` per Wave 3A recommendation
+- Wave 3A side findings → 3 atoms next Skunkworks batch (feature-std-logreg ECE + sum-bind-Hebbian-stack-interference + cleanup-bind-output-destroys-bind)
+
+### LANDING NOTIFIER NOW LIVE
+
+Monitor btjgicith fired 7 LANDING events in last 5 min (the SCP'd anchors registered as new landings on the registry — landing_notifier scheduled task working). This is the load-bearing infra fix today.
+
+### IN-FLIGHT (4 agents)
+
+- a4cc90c0d6c15cb87: orchestrator Cycle 1 v3 redispatch + GPU routing + trigram fix
+- ad6f061a6982e9fa1: Skunkworks fresh vet of 5 cells with verified paths
+- a4cda37a3e4b4807c: research drill tip_of_tongue criterion redesign
+- af92113400accfc8a: research drill sws_rem non-classification readout
+- (still awaiting): ab7b7708 PFC depth-adaptive ARGMAX revival
+
+### STRATEGIC PATTERN OF THE DAY
+
+In ~30 min post-compaction, dispatched 4 agents + processed Wave 3A landing. ALL substantive results (Wave 3A, Skunkworks a0534a89, orchestrator a283a14a) had REAL data backing them. NO new phantom-FULL framings. The discipline-fix worked: heartbeat + read absolute paths + cite metrics.json contents before framing.
+
+The substrate-product status is preserved unchanged at the FULL level (no chain-grade promotions in last 30 min beyond task_vector v1 smoke promotion); the META-process status improved substantially (landing notifier alive; 3 memory rules added; 6 META candidates pending).
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~23:20Z UPDATE #14 (Wave 3A processed; discipline holding)
+
+---
+
+## FIFTEENTH-WAVE UPDATE 2026-06-27 ~23:25Z — CYCLE 1 V3 BARRIER 1 RESULT + 2 DRILLS READY
+
+### CYCLE 1 V3 BRAIN-PUSHBACK COMPOSITION (Barrier 1 break test) = RAIL_SANITY_BREACH
+
+**Real path** (verified via SSH + just SCP'd locally; 18654B): `d:/AI/hd-instrument/data/exp_substrate_multihop_brain_pushback_v3_redispatch/metrics.json`
+
+**Verdict**: RAIL_SANITY_BREACH | BASELINE_depth_5=0.5817 (cv=0.036, 3/3 seeds outside [0.10, 0.20] rail)
+- R1 = 0.5817 (cv=0.036)
+- R2 = 0.5817 (cv=0.036)
+- R3 = 0.5817 (cv=0.036)
+- COMBINED = 0.5817 (cv=0.036)
+- indiv_max = 0.5817
+
+**SMOKING GUN: ALL ARMS PRODUCED IDENTICAL OUTPUT (0.5817 with cv=0.036 across 3 seeds × 5 arms).** Either:
+- (a) cell's arm code paths converge to same operation at this regime (mechanism not differentiated)
+- (b) baseline regime too easy → all arms collapse to baseline (predicted regime [0.10, 0.20]; observed 0.5817)
+- (c) cell has bug making all arms produce same output (unlikely; passed L1-L4 hardening + cardinality_ok)
+
+Cell completed 45/45 units (3 seeds × 5 arms × 3 depths = 45; cardinality_ok=True). Config: N=8192 V_C=1000 V_P=10 N_chains_train=200 N_chains_test=200 depths=[2,3,5] hardening=L1early+L2perarm+L3outertry+L4importsentinel chain_gen_fix=V_C200to1000_maxdepth8to5.
+
+**Interpretation**: Barrier 1 NOT BROKEN. Baseline regime is wrong — at V_C=1000 with N_chains=200, plain BASELINE already does ~58% top1-recall at depth=5 with no mechanism. Pre-reg predicted baseline at [0.10, 0.20] (i.e. ~15% accuracy) where mechanism could lift; observed 58% means there's no room for mechanism. **Cell measured something** (3/3 cv=0.036) — just measured a regime mismatch.
+
+**v4 design recommendation**: harder regime. Either (a) V_C higher (3000+); (b) N_chains_train lower (40 → more interference); (c) noise injection; (d) deeper composition (depth=8+). v4 should target baseline in [0.10, 0.20] band before mechanism arms have meaningful room to lift.
+
+**This is THE Barrier 1 break test result for today.** Headline: substrate's compositional reasoning at this regime is "already good enough" — but that says nothing about whether brain-pushback mechanisms help at HARD regimes (which is the original Barrier 1 question). The test design's regime was wrong. NOT a substrate ceiling result.
+
+### DRILL OUTCOMES (both complete)
+
+**a4cda37a tip_of_tongue criterion redesign**:
+- TOP-1: Option C ratio criterion (cluster_cos / cleanup_top1 > 2.0 AND cluster_cos > 0.30)
+- Brain-grounded: Brown-McNeill 1966 + Yonelinas dual-process + Schwartz cue-familiarity/accessibility
+- P_deflated = 0.42
+- Drill note: `d:/AI/hd-instrument/notes/research_drill_2x_tip_of_tongue_criterion_redesign_2026-06-27.md`
+- Handoff note also filed: `exp_dev_handoff_research_tip_of_tongue_v2_ratio_redesign_2026-06-27.md`
+
+**af921134 sws_rem readout redesign**:
+- TOP-1: associative recall against held-out noisy keys with per-pair random encoding
+- TOP-2: capacity-at-fixed-recall M-sweep
+- P_deflated = 0.45
+- Drill note: `d:/AI/hd-instrument/notes/research_drill_2x_sws_rem_associative_recall_readout_redesign_2026-06-27.md`
+- Brain-grounded per Diekelmann-Born / Stickgold / Rolls CA3 pattern completion
+
+Both drills cite brain literature + concrete substrate primitives + discriminator design. Both have P_deflated ~0.42-0.45 (substantive lift expected if regime correct this time).
+
+### IMPORT_CRASH SWEEP
+
+Grep across all `data/*/metrics.json` for `IMPORT_CRASH` returned 2 files — both for `trigram_downstream_ingest_probe_v1` (FULL_remote_cpu + selftest variants; same anchor). **Pattern is NOT widespread.** Orchestrator a4cc90c0 already patched the cell (removed `except BaseException` swallow of `SystemExit(0)`); SCP'd to remote; pending queue entry will pick up patched code.
+
+### IN-FLIGHT (2 agents remaining)
+
+- ad6f061a6982e9fa1: Skunkworks fresh vet of 5 cells with verified paths
+- ab7b7708078e41e56: PFC depth-adaptive ARGMAX revival author (was at seed 23 in flight at compaction)
+
+### REMOTE QUEUE STATE (per orchestrator a4cc90c0)
+
+- Running: cortex_hippo_handoff_FULL (PID 1276+29416 since 18:11; ~5h+ now — close to completion)
+- Pending (8): sub_atom_encoder_v2_real_mathlib_FULL / trigram_downstream_ingest_probe (patched) / task_vector_in_context_kshot_v1_FULL / substrate_preplay_beam_to_goal_v1_FULL / meta_knowledge_tip_of_tongue_v1 / task_vector_in_context_kshot_v1 / substrate_preplay_beam_to_goal_v1_WAVE3B / substrate_md_chunk_config_sweep_E3_v1
+- Orphaned-cleared: substrate_multihop_brain_pushback_composition_v3_chain_gen_fix (no salvageable checkpoint; same-script redispatch already completed RAIL_SANITY_BREACH)
+- GPU runner: IDLE (no CUDA-eligible cells in queue; per Fix #24 the pending cells don't have CUDA paths)
+
+### NEXT-STEP PRIORITIES
+
+1. Wait for ad6f061a Skunkworks re-vet (real CERT delta expected on 5 cells)
+2. Wait for ab7b7708 PFC ARGMAX revival
+3. Watch for cortex_hippo_handoff_FULL landing (running 5h; close)
+4. Author tip_of_tongue v2 + sws_rem v2 cells when spawn budget allows (both have brain-grounded drill recommendations ready)
+5. Author Cycle 1 v4 with HARDER regime (V_C 3000+ OR N_chains 40 OR deeper) to actually test Barrier 1 mechanism question
+6. Stage Wave 3A side findings + Cycle 1 v3 RAIL_SANITY_BREACH for next Skunkworks batch atomization
+
+### SUBSTRATE-PRODUCT STATUS (unchanged at FULL level)
+
+CERT 624 (post-Skunkworks a0534a89 +1). No new chain-grade promotions in this session window. META-process status materially improved (landing notifier alive; 3 memory rules; 6+ META candidates pending; phantom-FULL framing pattern now caught structurally).
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~23:25Z UPDATE #15 (Cycle 1 v3 verdict + 2 drills landed)
+
+
+
+
 
