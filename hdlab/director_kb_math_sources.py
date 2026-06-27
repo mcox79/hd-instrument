@@ -57,6 +57,80 @@ def _http_post(url: str, data: bytes, timeout_s: int = 60,
         return r.read()
 
 
+# ---------- v2_retry helpers (exp_dev 2026-06-27 cell 2) ----------
+# ProofWiki v1 HARD_FAILed because the website returned 0 bytes (network
+# transient). v2 adds exponential-backoff retry + optional local-cache
+# fallback so the cell is robust to single-fetch network blips.
+
+DEFAULT_RETRY_DELAYS_S = (1.0, 5.0, 25.0)
+
+
+def _http_get_with_retry(url: str, timeout_s: int = 60,
+                          retry_delays_s: tuple = DEFAULT_RETRY_DELAYS_S,
+                          min_bytes: int = 1) -> tuple[bytes | None, list[str]]:
+    """HTTP GET with exponential-backoff retry. Returns (bytes_or_None, errors).
+
+    Tries len(retry_delays_s) + 1 times total (1 initial + N retries).
+    Each retry sleeps retry_delays_s[i] seconds before next attempt.
+    Returns (data, []) on first success; (None, [err_msgs]) on all-fail.
+    Treats responses smaller than min_bytes as a failure (catches the
+    v1 ProofWiki 0-byte bug).
+    """
+    errors: list[str] = []
+    n_attempts = len(retry_delays_s) + 1
+    for attempt in range(n_attempts):
+        try:
+            data = _http_get(url, timeout_s=timeout_s)
+            if len(data) < min_bytes:
+                errors.append(
+                    f"attempt {attempt + 1}/{n_attempts}: "
+                    f"undersize ({len(data)} bytes < {min_bytes} min)"
+                )
+                if attempt < n_attempts - 1:
+                    time.sleep(retry_delays_s[attempt])
+                continue
+            return data, errors
+        except (urllib.error.URLError, urllib.error.HTTPError, OSError) as e:
+            errors.append(
+                f"attempt {attempt + 1}/{n_attempts}: "
+                f"{type(e).__name__}: {e}"
+            )
+            if attempt < n_attempts - 1:
+                time.sleep(retry_delays_s[attempt])
+    return None, errors
+
+
+def _http_post_with_retry(url: str, data: bytes, timeout_s: int = 120,
+                           retry_delays_s: tuple = DEFAULT_RETRY_DELAYS_S,
+                           min_bytes: int = 1) -> tuple[bytes | None, list[str]]:
+    """HTTP POST with exponential-backoff retry. Returns (bytes_or_None, errors).
+
+    Same retry-loop semantics as _http_get_with_retry.
+    """
+    errors: list[str] = []
+    n_attempts = len(retry_delays_s) + 1
+    for attempt in range(n_attempts):
+        try:
+            resp = _http_post(url, data, timeout_s=timeout_s)
+            if len(resp) < min_bytes:
+                errors.append(
+                    f"attempt {attempt + 1}/{n_attempts}: "
+                    f"undersize ({len(resp)} bytes < {min_bytes} min)"
+                )
+                if attempt < n_attempts - 1:
+                    time.sleep(retry_delays_s[attempt])
+                continue
+            return resp, errors
+        except (urllib.error.URLError, urllib.error.HTTPError, OSError) as e:
+            errors.append(
+                f"attempt {attempt + 1}/{n_attempts}: "
+                f"{type(e).__name__}: {e}"
+            )
+            if attempt < n_attempts - 1:
+                time.sleep(retry_delays_s[attempt])
+    return None, errors
+
+
 def _atomic_write_bytes(path: Path, data: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
@@ -384,6 +458,175 @@ def materialize_proofwiki(parsed: list[dict], out_dir: Path) -> int:
         _atomic_write_text(path, front)
         n_written += 1
     return n_written
+
+
+def fetch_proofwiki_featured_v2_retry(repo_root: Path, max_pages: int = 500,
+                                       force: bool = False) -> tuple[Path | None, list[str]]:
+    """v2 retry-aware fetch (exp_dev 2026-06-27 cell 2).
+
+    Same semantics as fetch_proofwiki_featured but:
+      - uses _http_get_with_retry / _http_post_with_retry (3 retries with
+        exp-backoff 1s, 5s, 25s; treats < 1000 byte response as failure)
+      - returns (path_or_None, error_messages) instead of raising
+      - on all-retry-fail: returns (None, errors) so caller can fall
+        back to local cache if available
+
+    Returns:
+      (path, errors) where path is the cached XML path or None on failure;
+      errors is a list of error message strings (empty on full success).
+    """
+    out = _cache_root(repo_root) / "proofwiki" / "_export.xml"
+    errors: list[str] = []
+    if out.exists() and not force:
+        print(f"[math_sources_v2] ProofWiki export cached at {out}", flush=True)
+        return out, errors
+    print(f"[math_sources_v2] fetching ProofWiki Featured (max_pages={max_pages}, retry-aware)",
+          flush=True)
+
+    # Enumerate category members (best-effort; falls back to probes-only)
+    cat_titles: list[str] = []
+    try:
+        cat_titles = _proofwiki_category_members(
+            PROOFWIKI_FEATURED_CAT, limit=max_pages,
+        )
+    except Exception as e:  # noqa: BLE001
+        errors.append(f"featured-cat enum failed: {type(e).__name__}: {e}")
+        print(f"[math_sources_v2] WARN: featured-cat enum failed ({e}); probe titles only",
+              flush=True)
+
+    probe_list = list(PROOFWIKI_PROBE_TITLES)
+    combined = probe_list + [t for t in cat_titles if t not in set(probe_list)]
+    combined = combined[:max_pages]
+    if not combined:
+        errors.append("zero_titles_after_enum_and_probes")
+        return None, errors
+
+    print(f"[math_sources_v2] ProofWiki: exporting {len(combined)} pages (retry-aware)",
+          flush=True)
+
+    # v2 retry-aware export: chunk + post each with retries
+    all_xml: list[bytes] = []
+    chunk = 50
+    for i in range(0, len(combined), chunk):
+        sub = combined[i:i + chunk]
+        body = urllib.parse.urlencode({
+            "pages": "\n".join(sub),
+            "curonly": "1",
+            "wpDownload": "1",
+        }).encode("utf-8")
+        time.sleep(PROOFWIKI_THROTTLE_S)
+        data, retry_errs = _http_post_with_retry(
+            PROOFWIKI_EXPORT_URL, body, timeout_s=120, min_bytes=500,
+        )
+        if data is None:
+            errors.extend([f"chunk_{i // chunk}: {e}" for e in retry_errs])
+            print(f"[math_sources_v2] chunk {i // chunk} ALL retries failed: {retry_errs}",
+                  flush=True)
+            continue
+        if retry_errs:
+            # Recovered after retries; log but don't fail
+            print(f"[math_sources_v2] chunk {i // chunk} recovered after retries: {retry_errs}",
+                  flush=True)
+        all_xml.append(data)
+
+    if not all_xml:
+        errors.append("all_chunks_failed_after_retries")
+        return None, errors
+
+    xml_data = b"\n".join(all_xml)
+    if len(xml_data) < 1000:
+        errors.append(f"combined_export_undersize_{len(xml_data)}_bytes")
+        return None, errors
+
+    _atomic_write_bytes(out, xml_data)
+    print(f"[math_sources_v2] ProofWiki cached at {out} ({len(xml_data)} bytes)",
+          flush=True)
+    return out, errors
+
+
+def _local_cache_fallback_proofwiki(repo_root: Path) -> Path | None:
+    """If remote fetch failed, look for a pre-populated local cache.
+
+    Returns path to local cache XML if it exists, else None. Local cache
+    layout matches the live cache (data/math_kb_cache/proofwiki/_export.xml);
+    the v2 cell pre-populates this from a successful 10-page test before
+    relying on the fallback.
+    """
+    out = _cache_root(repo_root) / "proofwiki" / "_export.xml"
+    if out.exists() and out.stat().st_size >= 1000:
+        print(f"[math_sources_v2] FALLBACK: using local cache at {out} "
+              f"({out.stat().st_size} bytes)", flush=True)
+        return out
+    return None
+
+
+def fetch_and_materialize_proofwiki_v2_retry(
+    repo_root: Path,
+    max_pages: int = 500,
+    force: bool = False,
+) -> dict:
+    """v2 retry-aware end-to-end ProofWiki fetch + materialize.
+
+    Returns same dict shape as v1 fetch_and_materialize_proofwiki:
+      {ok, elapsed_s, n_files, out_dir, errors, [fallback_used]}
+
+    Adds:
+      - exponential-backoff retry on transient HTTP failures
+      - local-cache fallback if all retries fail (cell pre-populates cache)
+    """
+    t0 = time.perf_counter()
+    out_dir = _cache_root(repo_root) / "proofwiki"
+    errors: list[str] = []
+    n_files = 0
+    fallback_used = False
+
+    xml_path, fetch_errors = fetch_proofwiki_featured_v2_retry(
+        repo_root, max_pages=max_pages, force=force,
+    )
+    errors.extend(fetch_errors)
+
+    if xml_path is None:
+        # All retries failed; try local-cache fallback
+        xml_path = _local_cache_fallback_proofwiki(repo_root)
+        if xml_path is None:
+            return {
+                "ok": False,
+                "elapsed_s": round(time.perf_counter() - t0, 3),
+                "n_files": 0,
+                "out_dir": str(out_dir),
+                "errors": errors + ["no_local_cache_fallback_available"],
+                "fallback_used": False,
+            }
+        fallback_used = True
+        errors.append("used_local_cache_fallback_after_retry_exhaustion")
+
+    try:
+        parsed = parse_proofwiki_xml(xml_path, max_pages=max_pages)
+    except Exception as e:  # noqa: BLE001
+        errors.append(f"parse: {type(e).__name__}: {e}")
+        return {
+            "ok": False,
+            "elapsed_s": round(time.perf_counter() - t0, 3),
+            "n_files": 0,
+            "out_dir": str(out_dir),
+            "errors": errors,
+            "fallback_used": fallback_used,
+        }
+
+    try:
+        n_files = materialize_proofwiki(parsed, out_dir)
+    except Exception as e:  # noqa: BLE001
+        errors.append(f"materialize: {type(e).__name__}: {e}")
+
+    elapsed = round(time.perf_counter() - t0, 3)
+    return {
+        "ok": n_files > 0,  # success criterion: at least 1 file materialized
+        "elapsed_s": elapsed,
+        "n_files": n_files,
+        "out_dir": str(out_dir),
+        "errors": errors,
+        "fallback_used": fallback_used,
+    }
 
 
 def fetch_and_materialize_proofwiki(
