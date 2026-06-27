@@ -360,6 +360,126 @@ def check_gpu_queue_uses_torch(queue_name: str, script_path: Path, allow_overrid
     sys.exit(8)
 
 
+PROT022_DECLARED_REFERENTS_RE = re.compile(
+    r'^\s*#\s*KB_REFERENT\s*:\s*(\S+)\s*$',
+    re.MULTILINE,
+)
+PROT022_REMOTE_HOST = "marsh@home"
+PROT022_REMOTE_REPO = "C:/dev/hd-instrument"
+PROT022_REMOTE_QUEUES = {"overnight_queue", "remote_cpu_queue"}
+
+
+def check_declared_referents(
+    script_path: Path,
+    queue_name: str,
+    allow_override: bool,
+) -> None:
+    """PROT-022: scripts must declare their data referents; gate verifies
+    each declared path either (a) exists on the dispatch host, or (b) is
+    overridden via --allow-missing-referent for cells whose first arm
+    BUILDS the referent before use.
+
+    Mechanism: a script that needs a specific data file declares a top-of-
+    file comment:
+
+        # KB_REFERENT: data/substrate_director_kb_v1/manifest.json
+        # KB_REFERENT: data/exp_substrate_director_kb_ingest_v1/_arm_full/kb/manifest.json
+
+    For LOCAL queues (local_cpu_queue), each referent must exist on the
+    local filesystem.
+    For REMOTE queues (overnight_queue, remote_cpu_queue), the gate runs
+    `ssh marsh@home test -f <path>` for each referent and rejects on
+    missing.
+
+    Override: --allow-missing-referent (rare; only for cells whose first
+    arm BUILDS the referent before use, such as the Tier-1
+    substrate_director_kb_remote_provision cell).
+
+    Exits with code 10 on violation.
+
+    Rationale: three cells on 2026-06-27 wasted compute hitting
+    KB_REFERENT_MISSING (anchor_1_v2 partition, anchor_5_dual_store,
+    anchor_3_coarse_grain_v2). A 1-second SSH existence check at gate time
+    catches the entire class. See
+    notes/research_drill_kb_referent_missing_systemic_3x_2026-06-27.md
+    Section "Concrete artifact 2".
+
+    No-op for scripts without any KB_REFERENT declarations (gate is opt-in
+    via declaration; existing cells without declarations are unaffected).
+    """
+    try:
+        source = script_path.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        print(f"[gate] PROT-022 WARN: could not read script for referent-check: {e}",
+              file=sys.stderr)
+        return
+
+    referents = PROT022_DECLARED_REFERENTS_RE.findall(source)
+    if not referents:
+        return  # opt-in: cells without declarations skip the gate
+
+    print(f"[gate] PROT-022: script declares {len(referents)} KB referent(s)")
+
+    is_remote = queue_name in PROT022_REMOTE_QUEUES
+    missing: list[str] = []
+
+    for ref in referents:
+        if is_remote:
+            remote_path = f"{PROT022_REMOTE_REPO}/{ref}"
+            try:
+                rc = subprocess.run(
+                    ["ssh", "-o", "ConnectTimeout=10", "-o", "BatchMode=yes",
+                     PROT022_REMOTE_HOST, f"test -f \"{remote_path}\""],
+                    timeout=15, capture_output=True,
+                ).returncode
+                exists = (rc == 0)
+            except subprocess.TimeoutExpired:
+                print(f"[gate] PROT-022 WARN: ssh TIMEOUT checking {ref}; "
+                      f"treating as MISSING", file=sys.stderr)
+                exists = False
+            except OSError as e:
+                print(f"[gate] PROT-022 WARN: ssh error checking {ref}: {e}; "
+                      f"treating as MISSING", file=sys.stderr)
+                exists = False
+        else:
+            exists = (REPO / ref).exists()
+
+        status = "OK" if exists else "MISSING"
+        print(f"  PROT-022 {status} ({queue_name}): {ref}")
+        if not exists:
+            missing.append(ref)
+
+    if not missing:
+        print(f"[gate] PROT-022 OK: all {len(referents)} referent(s) resolved "
+              f"on {'remote' if is_remote else 'local'} host")
+        return
+
+    if allow_override:
+        print(f"[gate] PROT-022 WARN: {len(missing)} declared referent(s) "
+              f"missing but --allow-missing-referent set; proceeding")
+        return
+
+    print(
+        f"\n[gate] PROT-022 REJECT: {len(missing)} declared KB referent(s) "
+        f"missing on {'remote' if is_remote else 'local'} host:\n"
+        + "\n".join(f"    {m}" for m in missing) +
+        f"\n\n  Three cells on 2026-06-27 (anchor_1_v2_partition, "
+        f"anchor_5_dual_store, anchor_3_coarse_grain_v2) wasted GPU/CPU "
+        f"compute hitting this exact failure mode. PROT-022 catches it at "
+        f"the gate.\n"
+        f"\n  Fix options:\n"
+        f"    1. Build the referent on the target host (e.g. run "
+        f"tools/sync_canonical_kb_to_remote.sh for the canonical KB).\n"
+        f"    2. Make the cell self-contained (build its own KB IN-CELL like "
+        f"exp_kb_partition_by_source_class_v3_self_contained does via "
+        f"hdlab.director_kb_chunk_ingest.run_chunk_ingest).\n"
+        f"    3. Pass --allow-missing-referent if the cell's first arm "
+        f"BUILDS the referent before use.\n",
+        file=sys.stderr,
+    )
+    sys.exit(10)
+
+
 def check_n_suffix_binding(entry_name: str, script_path: Path) -> None:
     """PROT-018: if anchor name has _n<NUMBER>, the script's production N must match.
 
@@ -500,6 +620,15 @@ def main() -> int:
             "cannot be cell-decomposed."
         ),
     )
+    ap.add_argument(
+        "--allow-missing-referent",
+        action="store_true",
+        help=(
+            "Override PROT-022: allow declared `# KB_REFERENT:` paths that do "
+            "not exist on the dispatch host. Rare; only for cells whose first "
+            "arm BUILDS the referent before use (e.g. provisioning cells)."
+        ),
+    )
     args = ap.parse_args()
 
     # ── Host guard ──────────────────────────────────────────────────────────────
@@ -549,6 +678,13 @@ def main() -> int:
     # --allow-no-checkpoint overrides.
     check_long_timeout_has_checkpoint(
         args.entry_name, script_path, args.timeout, args.allow_no_checkpoint
+    )
+
+    # 1f. PROT-022: declared `# KB_REFERENT:` paths must resolve on the dispatch
+    # host. Exit 10 on violation; --allow-missing-referent overrides for cells
+    # whose first arm BUILDS the referent. Opt-in via in-script declaration.
+    check_declared_referents(
+        script_path, args.queue_name, args.allow_missing_referent
     )
 
     # 2. Prereg exists
