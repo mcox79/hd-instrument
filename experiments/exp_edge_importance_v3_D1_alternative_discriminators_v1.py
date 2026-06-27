@@ -475,29 +475,55 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
                     f"entries, got {got}")
 
     # Aggregate D1 AUC per arm across seeds.
+    # Defensive .get() access: if a stale partial / silently-dropped arm lacks
+    # the D1_partition_AUC key (e.g., resumed from old-schema partial), record
+    # nan + flag rather than KeyError. The verdict path detects nan via the
+    # non-finite guard below and converts to HARD_FAIL with a clear message.
+    # Fix (exp_dev 2026-06-27): remote queue_add gate-failed with KeyError
+    # here despite local self-test passing -- root cause was stale partials
+    # from a prior schema. Per-arm exception arms are already caught upstream
+    # at lines 460-465; this only catches the schema-drift / silent-skip case.
     def _agg_auc(arm_name: str, lam: float = None) -> Dict:
         per = []
+        missing_key_arms = []
         for r in results:
             for a in _arms_by_name(r["arms"], arm_name):
                 if lam is None or a.get("lambda") == lam:
                     per.append(a)
         if not per:
             return {}
-        aucs = [a["D1_partition_AUC"] for a in per]
-        topks = [a["D2_topK_precision_at_N_USE"] for a in per]
-        top50s = [a["D2_topK_precision_at_50"] for a in per]
-        kms = [a["D3_KM_quantile_gap_top10_bot10"] for a in per]
-        mean_auc = float(np.mean(aucs))
-        return {
+        # Defensive access; any arm missing D1_partition_AUC contributes nan.
+        aucs = []
+        for a in per:
+            v = a.get("D1_partition_AUC")
+            if v is None:
+                missing_key_arms.append(
+                    f"seed={a.get('seed', '?')} arm={arm_name} "
+                    f"lam={a.get('lambda')}"
+                )
+                aucs.append(float("nan"))
+            else:
+                aucs.append(float(v))
+        topks = [float(a.get("D2_topK_precision_at_N_USE", float("nan")))
+                 for a in per]
+        top50s = [float(a.get("D2_topK_precision_at_50", float("nan")))
+                  for a in per]
+        kms = [float(a.get("D3_KM_quantile_gap_top10_bot10", float("nan")))
+               for a in per]
+        mean_auc = float(np.nanmean(aucs)) if aucs else float("nan")
+        result = {
             "mean_D1_AUC": mean_auc,
-            "std_D1_AUC": float(np.std(aucs)),
+            "std_D1_AUC": float(np.nanstd(aucs)) if aucs else float("nan"),
             "cv_D1_AUC": float(
-                np.std(aucs) / max(abs(mean_auc), 1e-9)
-            ),
-            "mean_D2_topK_at_N_USE": float(np.mean(topks)),
-            "mean_D2_topK_at_50": float(np.mean(top50s)),
-            "mean_D3_KM_gap": float(np.mean(kms)),
+                np.nanstd(aucs) / max(abs(mean_auc), 1e-9)
+            ) if np.isfinite(mean_auc) else float("nan"),
+            "mean_D2_topK_at_N_USE": float(np.nanmean(topks)) if topks else float("nan"),
+            "mean_D2_topK_at_50": float(np.nanmean(top50s)) if top50s else float("nan"),
+            "mean_D3_KM_gap": float(np.nanmean(kms)) if kms else float("nan"),
         }
+        if missing_key_arms:
+            result["missing_D1_partition_AUC_arms"] = missing_key_arms
+        return result
 
     agg_rand = _agg_auc("ARM_BASELINE_RANDOM_IMPORTANCE")
     agg_trace = _agg_auc("ARM_TRACE_ONLY")

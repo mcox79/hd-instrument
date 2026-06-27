@@ -617,10 +617,17 @@ def _selftest():
     print(f"[selftest] T6 PASS: verify-the-referent content_match", flush=True)
 
     # T7: verdict-machinery
+    # FIX (exp_dev 2026-06-27): use currently-active chunks band so this
+    # synthetic test works in BOTH smoke and full RUN_MODE. Previously hard-
+    # coded n=100, which is in smoke band [60, 1000] but NOT in full band
+    # [1500, 4000] -- caused silent module-import crash when remote queue
+    # runner invoked cell in FULL mode (no --smoke flag, name doesn't end in
+    # _smoke). Now n is picked mid-band for whichever mode is active.
+    _fake_n_chunks = (EXPECTED_N_CHUNKS_MIN + EXPECTED_N_CHUNKS_MAX) // 2
     fake_hp_arms = [
         {"arm": "ARM_BASELINE_FILENAME_QUERY", "ok": True, "per_probe": []},
         {"arm": "ARM_SMOKE_INGEST_500", "ok": True,
-         "n_chunks_observed": 100, "fetch_errors": [],
+         "n_chunks_observed": _fake_n_chunks, "fetch_errors": [],
          "per_probe": [
              {"probe": p, "top1_cosine": 0.90, "content_match": True}
              for p in THEOREM_PROBES
@@ -632,12 +639,14 @@ def _selftest():
          "contamination_max_cosine": 0.30,
          "per_probe": []},
     ]
-    # For tau_smoke=0.90, n=100, n_full=35000: tau_full = 0.90 * sqrt(350) ~ 16.8 >> 0.85
-    # so analytical_scaling_passes = True
-    # n_chunks_observed=100 is in smoke band [60, 1000]
+    # tau_smoke=0.90, mid-band n, n_full=35000: tau_full = 0.90 * sqrt(35000/n);
+    # for any n <= 35000 this scales tau_smoke UP, so analytical_scaling_passes
+    # always True. (At full band n=2750, tau_full = 0.90 * sqrt(35000/2750) =
+    # 0.90 * 3.57 = 3.2 >> 0.85.) Chunks-in-band True by construction.
     v, msg, det = compute_verdict(fake_hp_arms, cardinality_ok=True)
     assert v == "HARD_PASS", f"T7 HP expected HARD_PASS, got {v}: {msg}"
-    print(f"[selftest] T7 PASS: synthetic HARD_PASS path", flush=True)
+    print(f"[selftest] T7 PASS: synthetic HARD_PASS path "
+          f"(fake_n_chunks={_fake_n_chunks} mode={RUN_MODE})", flush=True)
 
     # T8: contamination -> HARD_FAIL
     fake_contam = [dict(a) for a in fake_hp_arms]
