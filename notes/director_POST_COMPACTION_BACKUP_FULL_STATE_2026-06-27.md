@@ -234,6 +234,30 @@ USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous
    - Substrate-vs-MD A/B (now LOCAL OK; could build v2 + test for real)
 7. Spawn next-wave cells per landed-drill recommendations (Cycle 2 conditional on Cycle 1 outcome; ANCHOR 1 v5 if v4 needs further; etc.)
 
+## SKUNKWORKS BATCH 10 CORRECTIONS (2026-06-27 ~11:30 PDT)
+
+🚨 **PC_cleanup_attractor v1 is NOT chain-grade** — RE-TIERED to HONEST_NEGATIVE_PC_NO_OP_AT_SATURATED_REGIME by Skunkworks batch 10. Smoking-guns:
+- All 3 arms produce BIT-IDENTICAL fe_per_hop arrays across seeds × depths (PC mechanism is operationally a no-op at this regime)
+- `fe_monotone_non_increasing=False` in per_seed data BUT verdict_msg claimed "monotone FE" — direct miscite I propagated
+- All arms saturate at rec=1.000 (BIAS-Q suspect-1.000)
+- PC may help at noisier/higher-V regime; this cell didn't exercise it. Future drill recommends V≥4096, M≥200, HOP_NOISE sweep.
+
+🚨 **Bidirectional v2 chain-grade is REGIME-SPECIFIC** (not universal). v3 GPU at depth-scaled regime shows bidirectional INDISTINGUISHABLE from forward-half (HARD_FAIL_NO_MEETING_PREMIUM). v2 atom stays valid at v2's regime; needs regime-narrowing annotation. Bidirectional is NOT a general multi-hop solution.
+
+**4 cells with NO local metrics yet** (sync may bring them eventually OR they never landed):
+- exp_edge_importance_v6_CFU_stronger_regime
+- exp_n8_proofwiki_smoke_ingest_chunk_kb_v2_retry
+- exp_stage3_typed_routing_falsification_bijective_v1
+- exp_substrate_multihop_brain_pushback_composition_v1 (THE Barrier 1 break test — VERDICT UNKNOWN; cell reportedly "failed" at 07:55Z but no metrics local)
+
+**CERT 622 UNCHANGED post-batch-10** (no atoms written to avoid mid-compaction risk; ruling note + verify scripts at `data/session_local/skunkworks/_batch10_*.py` give next-spawn everything needed to atomize 8 ledger rows + 4 META rules).
+
+**META RULE candidates for next-spawn Skunkworks atomization** (drafted in batch-10 ruling note):
+- META_RULE_W: pre-dispatch alpha-in-[0.03, 0.20] gate for associative-memory cells
+- META_RULE_X_MAIN_GUARD: experiment cells must wrap main in `__name__ == "__main__"` guard
+- META_RULE_Y_PARTIAL_LOAD_ANCHOR: partial-load must check anchor-name match (already shipped in _seed_checkpoint.py via systemic import-bug fix)
+- META_RULE_Z_FIX_ADDRESSES_ROOT_CAUSE: HARD_FAIL fix must address root cause, not symptom
+
 ## OPEN ISSUES AT COMPACTION TIME
 
 - **3h zero-landings silence** — need to verify remote runner state
