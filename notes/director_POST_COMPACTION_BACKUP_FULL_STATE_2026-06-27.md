@@ -33,7 +33,7 @@ Supersedes prior "local CPU for smoke" pattern. Smoke AND full both route to `re
 
 ## SUBSTRATE STATE (cert + capabilities; as of 2026-06-27 ~04:55 PDT)
 
-**CERT 616** (per Skunkworks batch 4 A5 POST verification; batches 3+4 net +0 chain-grade; +9 atoms total of which 1 chain-grade ultrametric clustering + various MM/META; A5 PRE repaired 9 malformed atoms from prior batches 2+3 = preserved cert-intent without count change).
+**CERT 618** (post-Skunkworks batch 6 re-spawn 2026-06-27 commit 87f293c2; +1 honest-bound proven_bound atom for edge-importance ceiling at sel_unretr=+0.083 per USER Path B 2026-06-27). Earlier states: 616 post-batch4, 617 post-batch5 (3 cells MEASURED_MECHANISM), 618 post-batch6.
 
 **META rules now atomized** (durable across sessions):
 - META_RULE_F: retrieval-success importance signals are magnitude-coupled by construction
