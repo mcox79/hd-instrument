@@ -186,6 +186,104 @@ def random_cleanup_chain(
     )
 
 
+def bidirectional_chain(
+    kg: KGStore,
+    start: int,
+    end_candidates: torch.Tensor,
+    relations: list[int],
+    *,
+    midpoint_hop: int | None = None,
+) -> tuple[int, float, dict[str, float]]:
+    """Bidirectional meet-in-middle K-hop traversal; chain-grade-validated mechanism.
+
+    Per query: (a) walk forward MID hops from `start` via W @ (state * R[p] * sq);
+    (b) for each candidate Z in `end_candidates`, walk backward (DEPTH-MID) hops
+    from E[Z] via W.T @ state * R[p] * sq (in reverse-predicate-order); (c) rank
+    candidates by cosine(state_fwd, state_bwd_Z) at the midpoint.
+
+    Returns (best_Z_index, best_cosine, diagnostics_dict). The diagnostics dict
+    carries `mean_cosine`, `cos_top1_minus_top2` (margin), and `midpoint_hop`.
+
+    `midpoint_hop`: defaults to len(relations) // 2. The meet-point is where the
+    bidirectional split happens; mid=DEPTH//2 is the BFS-balanced choice.
+
+    Chain-grade-validated at K=5, V_C=200, N=8192, 3 seeds [7,17,23] per
+    `substrate_multihop_bidirectional_meet_middle_v2_META_M7_rail` (commit ee4081e6+;
+    BIDIR_MEET_MID top1=0.620 cv=0.064 lift +0.297 over forward-only 1000-binding
+    rail; META_M7 rail PASS at REPRODUCE 0.122 in [0.08, 0.25]; chain-grade
+    verdict `HARD_PASS_CHAIN_GRADE_BIDIRECTIONAL_REVIVAL`).
+
+    Honest scope: validated for KG-style triples in (E, R) basis with Hebbian
+    associative W; the `W.T` reverse-walk is correct for rank-1 outer-product W
+    where each (s, p, o) triple writes `E[o] outer (E[s] * R[p] * sq)`. For other
+    W constructions (predicate-specific W, learned W, etc.) the reverse-walk
+    semantics differ and validation must be re-done.
+
+    Args:
+        kg: KGStore with ingested triples.
+        start: entity index to start traversal (forward source).
+        end_candidates: LongTensor of candidate end-entity indices to rank.
+        relations: list of relation indices (one per hop).
+        midpoint_hop: where to meet (default: len(relations) // 2).
+
+    Returns:
+        (best_Z_index, best_cosine, diagnostics_dict)
+
+    Hoisted into hdlab/ per results-to-application same-cycle discipline 2026-06-27
+    (cell-author M5 reverse-replay drill; chain-grade verdict from META_M7 cell).
+    """
+    t0 = time.perf_counter_ns()
+    depth = len(relations)
+    if midpoint_hop is None:
+        midpoint_hop = depth // 2
+    if not (0 <= midpoint_hop <= depth):
+        raise ValueError(f"midpoint_hop={midpoint_hop} not in [0, {depth}]")
+
+    state_fwd = kg.E[start].clone()
+    for i in range(midpoint_hop):
+        p = relations[i]
+        state_fwd = kg.W @ (state_fwd * kg.R[p] * kg.sq)
+    fnorm = torch.linalg.norm(state_fwd) + 1e-8
+
+    best_cos = -2.0
+    best_Z = int(end_candidates[0])
+    second_cos = -2.0
+    cos_all = []
+    for Z_t in end_candidates:
+        Z = int(Z_t)
+        state_bwd = kg.E[Z].clone()
+        for i in range(depth - 1, midpoint_hop - 1, -1):
+            p = relations[i]
+            state_bwd = kg.W.T @ state_bwd
+            state_bwd = state_bwd * kg.R[p] * kg.sq
+        bnorm = torch.linalg.norm(state_bwd) + 1e-8
+        cos = float(torch.dot(state_fwd, state_bwd) / (fnorm * bnorm))
+        cos_all.append(cos)
+        if cos > best_cos:
+            second_cos = best_cos
+            best_cos = cos
+            best_Z = Z
+        elif cos > second_cos:
+            second_cos = cos
+
+    mean_cos = float(sum(cos_all) / max(len(cos_all), 1))
+    margin = best_cos - second_cos
+    diagnostics = {
+        "mean_cosine": mean_cos,
+        "best_cosine": best_cos,
+        "cos_top1_minus_top2": margin,
+        "midpoint_hop": midpoint_hop,
+        "n_candidates": int(end_candidates.numel()),
+    }
+    tracing.emit(
+        "multi_hop.bidirectional_chain",
+        {"depth": depth, "midpoint_hop": midpoint_hop, "n_candidates": int(end_candidates.numel())},
+        {"best_Z": best_Z, "best_cosine": best_cos, "margin": margin},
+        elapsed_ns=time.perf_counter_ns() - t0,
+    )
+    return best_Z, best_cos, diagnostics
+
+
 def partition_routed_chain(
     kg: KGStore,
     start: int,

@@ -44,13 +44,24 @@ class SequenceMatrix:
         self.n_dim = n_dim
         self.dtype = dtype
         self.S = torch.zeros(n_dim, n_dim, dtype=dtype)
+        # S_back: REVERSE-temporal-order pair store; populated by bind_pair_reverse.
+        # Forward S holds (k_prev -> k_next); S_back holds (k_next -> k_prev) so
+        # `predict_prev(k_next) = S_back @ k_next` recovers the temporal predecessor.
+        # Brain grounding: hippocampal reverse-replay during sharp-wave ripples
+        # (Foster-Wilson 2006; Diba-Buzsaki 2007); cell-author M5 drill 2026-06-27.
+        # Honest scope: forward + reverse stores are SEPARATE matrices; reverse is
+        # NOT W.T but its own Hebbian-bound ordered-pair store. (The W.T proxy used
+        # by META_M7 bidirectional cell is for an associative Hebbian W, not for
+        # a sequence-binding S.)
+        self.S_back = torch.zeros(n_dim, n_dim, dtype=dtype)
         self._n_pairs_bound = 0
+        self._n_pairs_bound_reverse = 0
 
     def __len__(self) -> int:
         return self._n_pairs_bound
 
     def bind_pair(self, k_prev: torch.Tensor, k_next: torch.Tensor) -> None:
-        """Hebbian outer-product write of one ordered pair: S += k_next ⊗ k_prev."""
+        """Hebbian outer-product write of one ordered pair: S += k_next outer k_prev."""
         t0 = time.perf_counter_ns()
         if k_prev.shape != (self.n_dim,) or k_next.shape != (self.n_dim,):
             raise ValueError(
@@ -64,6 +75,57 @@ class SequenceMatrix:
             {"n_pairs": self._n_pairs_bound},
             elapsed_ns=time.perf_counter_ns() - t0,
         )
+
+    def bind_pair_reverse(self, k_prev: torch.Tensor, k_next: torch.Tensor) -> None:
+        """Reverse-temporal-order Hebbian write: S_back += k_prev outer k_next.
+
+        Symmetric to bind_pair but writes into S_back so that S_back @ k_next
+        approximates k_prev (i.e. retrieving the temporal predecessor of k_next).
+        Caller passes pairs in the SAME (k_prev, k_next) order used by bind_pair;
+        the reverse-binding orientation is internal to this method.
+
+        Brain analog: reverse-replay during SWRs propagates reward signal back to
+        upstream states (TD credit assignment; Foster-Wilson 2006). Substrate
+        implementation: a SEPARATE matrix, not W.T, so forward and reverse stores
+        decouple and can be selectively gated (e.g. reward-gated reverse-replay
+        per Ambrose-Pfeiffer-Foster 2016).
+        """
+        t0 = time.perf_counter_ns()
+        if k_prev.shape != (self.n_dim,) or k_next.shape != (self.n_dim,):
+            raise ValueError(
+                f"Expected key shape ({self.n_dim},); got prev={tuple(k_prev.shape)}, next={tuple(k_next.shape)}"
+            )
+        self.S_back.add_(torch.outer(k_prev.to(self.dtype), k_next.to(self.dtype)))
+        self._n_pairs_bound_reverse += 1
+        tracing.emit(
+            "sequence_memory.bind_pair_reverse",
+            {"n_dim": self.n_dim},
+            {"n_pairs_reverse": self._n_pairs_bound_reverse},
+            elapsed_ns=time.perf_counter_ns() - t0,
+        )
+
+    def predict_prev(self, k_next: torch.Tensor) -> torch.Tensor:
+        """Retrieve predicted PREVIOUS key as S_back @ k_next. Substrate-only; no LLM call.
+
+        Inverse of predict_next; requires bind_pair_reverse to have been called for
+        the trajectory. Returns the raw (uncleaned) reverse prediction; the caller
+        applies codebook cleanup if needed (same pattern as predict_next).
+        """
+        if k_next.shape != (self.n_dim,):
+            raise ValueError(f"Expected query shape ({self.n_dim},); got {tuple(k_next.shape)}")
+        return self.S_back @ k_next.to(self.dtype)
+
+    def bind_sequence_reverse(self, keys: torch.Tensor) -> None:
+        """Bind all adjacent ordered pairs in keys into S_back (reverse-direction).
+
+        Equivalent to calling bind_pair_reverse for each (keys[t-1], keys[t]) with
+        t in [1, T). Convenience for ingesting a full trajectory into the reverse
+        store in one call.
+        """
+        if keys.ndim != 2 or keys.shape[1] != self.n_dim:
+            raise ValueError(f"Expected keys shape [T, {self.n_dim}]; got {tuple(keys.shape)}")
+        for t in range(1, keys.shape[0]):
+            self.bind_pair_reverse(keys[t - 1], keys[t])
 
     def bind_sequence(self, keys: torch.Tensor) -> None:
         """Bind all adjacent ordered pairs in keys (shape [T, n_dim]).
@@ -109,6 +171,8 @@ class SequenceMatrix:
         return float(torch.linalg.norm(self.S))
 
     def reset(self) -> None:
-        """Zero out S (use sparingly; sequence-binding is a long-lived store)."""
+        """Zero out S AND S_back (use sparingly; sequence-binding is a long-lived store)."""
         self.S.zero_()
+        self.S_back.zero_()
         self._n_pairs_bound = 0
+        self._n_pairs_bound_reverse = 0

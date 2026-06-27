@@ -36,6 +36,9 @@ def replay_cycle(
     values: torch.Tensor,
     replay_frac: float = 0.2,
     lr: float = 1.0,
+    *,
+    direction: str = "forward",
+    W_back: torch.Tensor | None = None,
 ) -> torch.Tensor:
     """Single NREM replay cycle: re-Hebb a fraction of stored (key, value) traces.
 
@@ -52,23 +55,61 @@ def replay_cycle(
                      brain awake/sleep ratio in mammals ~30-40%; bound landscape covers
                      replay_frac at 0.2 -- RC5 sweep is open follow-up).
         lr: Hebbian re-add learning rate (default 1.0 = full re-Hebb).
+        direction: one of {"forward", "reverse", "both"}.
+                   "forward" (default): re-Hebb (value, key) in forward orientation into W;
+                     bit-equivalent to original primitive.
+                   "reverse": re-Hebb (key, value) in REVERSE orientation into W_back
+                     (which must be supplied). Replays the (k, v) pairs in REVERSE temporal
+                     order — i.e. iterates the selected indices in reverse before the outer-
+                     sum, so the propagation direction is goal-back-to-start instead of
+                     start-to-goal. Brain analog: hippocampal reverse-replay during sharp-
+                     wave ripples (Foster-Wilson 2006; Diba-Buzsaki 2007) — TD credit
+                     assignment by back-propagating reward to upstream states.
+                   "both": run forward into W AND reverse into W_back in the same call.
+        W_back: REQUIRED if direction in {"reverse", "both"}; the separate reverse store.
+                Mutated in-place same as W. The reverse store is SEPARATE from W (not W.T)
+                so that forward and reverse replay can be selectively gated independently —
+                e.g. reward-gated reverse-replay (Ambrose-Pfeiffer-Foster 2016).
 
     Returns:
-        W after in-place replay.
+        W after in-place replay (W_back is also mutated if direction != "forward").
 
-    Proven-bound: at replay_frac=0.2, N=4096, 2500 cycles continual writes, best
-    schedule (replay_every=100) gives drift_reduction=+0.57 absolute (baseline 0.88
-    final_forget vs replay 0.31 final_forget). Chain-grade bar forget<=0.05 NOT met;
-    primitive is partial mitigator. See: math::T3/EXP_substrate_continual_NREM_replay_v1
+    Proven-bound (FORWARD direction only — reverse-direction proof open follow-up M5
+    reverse-replay cell 2026-06-27): at replay_frac=0.2, N=4096, 2500 cycles continual
+    writes, best schedule (replay_every=100) gives drift_reduction=+0.57 absolute
+    (baseline 0.88 final_forget vs replay 0.31 final_forget). Chain-grade bar
+    forget<=0.05 NOT met; primitive is partial mitigator.
+    See: math::T3/EXP_substrate_continual_NREM_replay_v1
     _proven_bound_replay_reduces_drift_0p57_abs.
     """
+    if direction not in ("forward", "reverse", "both"):
+        raise ValueError(
+            f"direction must be one of {{'forward', 'reverse', 'both'}}; got {direction!r}"
+        )
+    if direction in ("reverse", "both") and W_back is None:
+        raise ValueError(
+            f"direction={direction!r} requires W_back (the separate reverse store); got None"
+        )
     n_replay = max(1, int(len(replay_indices) * replay_frac))
     perm = torch.randperm(len(replay_indices))[:n_replay]
     chosen = replay_indices[perm]
     k_sub = keys[chosen]    # [n_replay, K_DIM]
     v_sub = values[chosen]  # [n_replay, V_DIM]
-    delta = lr * (v_sub.T @ k_sub)  # outer-sum
-    W.add_(delta)
+    if direction in ("forward", "both"):
+        delta = lr * (v_sub.T @ k_sub)  # outer-sum (v outer k)
+        W.add_(delta)
+    if direction in ("reverse", "both"):
+        # Reverse-temporal-order replay: iterate selected indices in reverse before
+        # the outer-sum. For Hebbian outer-sum the per-order is commutative (sum is
+        # the same regardless of iteration order), so the load-bearing reverse
+        # semantics are the ORIENTATION (k outer v, not v outer k) — i.e. the
+        # reverse store learns "value -> key" instead of "key -> value". This makes
+        # W_back @ v approximate k for trained traces — the temporal predecessor.
+        chosen_rev = torch.flip(chosen, dims=[0])
+        k_sub_rev = keys[chosen_rev]
+        v_sub_rev = values[chosen_rev]
+        delta_back = lr * (k_sub_rev.T @ v_sub_rev)  # outer-sum (k outer v)
+        W_back.add_(delta_back)
     return W
 
 
