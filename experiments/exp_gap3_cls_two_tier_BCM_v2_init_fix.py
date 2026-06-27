@@ -697,6 +697,7 @@ def run_unit(seed: int, arm: str) -> Dict:
 
 
 def main():
+    import traceback as _tb
     out_dir = get_output_dir(ANCHOR_NAME)
     done_keys = set(list_completed_keys(out_dir))
     print(f"[run] {ANCHOR_NAME} smoke={SMOKE} {CONFIG_VERSION}", flush=True)
@@ -705,29 +706,95 @@ def main():
     failures: List[Dict] = []
     per_unit: Dict[str, Dict] = {}
 
-    for seed in SEEDS:
-        for arm in ARMS:
-            key = f"{seed}_{arm}"
-            if key in done_keys:
-                continue
-            try:
-                body = run_unit(seed, arm)
-                write_partial_key(out_dir, key, body)
-                per_unit[key] = body
-                print(f"  [{key}] heldout_acc={body['heldout_acc']:.4f} "
-                      f"cone={body['w_schema_cone_cosine']:.4f} "
-                      f"cor={body['cor_score']:.4f} "
-                      f"max_y={body['max_abs_y_first_200']:.4f} "
-                      f"wall={body['wall_s']}s", flush=True)
-            except Exception as e:
-                fail = {
-                    "key": key,
-                    "exc_type": type(e).__name__,
-                    "exc_msg": str(e),
-                }
-                failures.append(fail)
-                print(f"  [{key}] FAILED: {e}", flush=True)
-                raise  # META_RULE_J no silent except
+    # v2_init_fix exception-surface patch (2026-06-27): a prior remote run
+    # crashed in _bcm_loop with `RuntimeError: value cannot be converted to
+    # type float without overflow` (BCM update at N_DIM=8192 blew up theta
+    # after the baseline arm passed). The raise propagated and main() exited
+    # WITHOUT writing metrics.json -- runner saw missing-metrics, Director
+    # had no HARD_FAIL artifact to atomize, true failure mode invisible.
+    # META_RULE_J fix: surface the exception as a structured
+    # HARD_FAIL_UNIT_EXCEPTION metrics.json BEFORE re-raising, so the
+    # failure is visible to the verdict pipeline.
+    crash_key: str | None = None
+    crash_exc_type: str | None = None
+    crash_exc_msg: str | None = None
+    crash_tb: str | None = None
+
+    try:
+        for seed in SEEDS:
+            for arm in ARMS:
+                key = f"{seed}_{arm}"
+                if key in done_keys:
+                    continue
+                try:
+                    body = run_unit(seed, arm)
+                    write_partial_key(out_dir, key, body)
+                    per_unit[key] = body
+                    print(f"  [{key}] heldout_acc={body['heldout_acc']:.4f} "
+                          f"cone={body['w_schema_cone_cosine']:.4f} "
+                          f"cor={body['cor_score']:.4f} "
+                          f"max_y={body['max_abs_y_first_200']:.4f} "
+                          f"wall={body['wall_s']}s", flush=True)
+                except Exception as e:
+                    fail = {
+                        "key": key,
+                        "exc_type": type(e).__name__,
+                        "exc_msg": str(e),
+                        "exc_traceback": _tb.format_exc(),
+                    }
+                    failures.append(fail)
+                    crash_key = key
+                    crash_exc_type = type(e).__name__
+                    crash_exc_msg = str(e)
+                    crash_tb = _tb.format_exc()
+                    print(f"  [{key}] FAILED: {e}", flush=True)
+                    raise  # META_RULE_J no silent except
+    except Exception:
+        # Write a HARD_FAIL_UNIT_EXCEPTION metrics.json with full crash
+        # details BEFORE re-raising, so the runner + Director see a
+        # structured failure artifact instead of missing-metrics silence.
+        per_unit_partial = aggregate_partials(out_dir)
+        fail_summary = {
+            "anchor": ANCHOR_NAME,
+            "smoke": SMOKE,
+            "config_version": CONFIG_VERSION,
+            "per_arm_metrics": {a: [b for b in per_unit_partial.values()
+                                    if b.get("arm") == a]
+                                for a in ARMS},
+            "n_completed_units": len(per_unit_partial),
+            "n_expected_units": EXPECTED_N_UNITS,
+            "n_failures": len(failures),
+            "failures": failures,
+            "crash_key": crash_key,
+            "crash_exc_type": crash_exc_type,
+            "crash_exc_msg": crash_exc_msg,
+            "crash_traceback": crash_tb,
+            "corpus_provenance": CORPUS_PROVENANCE,
+            "zero_llm_calls_at_inference": True,
+        }
+        fail_payload = {
+            "verdict": "HARD_FAIL",
+            "verdict_msg": (
+                f"HARD_FAIL_UNIT_EXCEPTION: key={crash_key} "
+                f"exc_type={crash_exc_type} exc_msg={crash_exc_msg!r} "
+                f"(completed {len(per_unit_partial)}/{EXPECTED_N_UNITS} "
+                f"units before crash)"
+            ),
+            "elapsed_s": sum(float(b.get("wall_s", 0.0))
+                             for b in per_unit_partial.values()),
+            "summary": fail_summary,
+        }
+        try:
+            write_metrics(out_dir, fail_payload)
+            print(f"\n[verdict] HARD_FAIL_UNIT_EXCEPTION", flush=True)
+            print(f"[verdict_msg] {fail_payload['verdict_msg']}", flush=True)
+            print(f"[metrics] HARD_FAIL metrics.json WRITTEN before re-raise",
+                  flush=True)
+        except Exception as write_exc:
+            # If metrics write fails, log it but re-raise the original crash.
+            print(f"[metrics] WRITE_FAILED while surfacing crash: {write_exc}",
+                  flush=True)
+        raise  # propagate so runner exit code is non-zero (HARD_FAIL signal)
 
     per_unit_all = aggregate_partials(out_dir)
     verdict, vm, detail = compute_verdict(per_unit_all, failures)
