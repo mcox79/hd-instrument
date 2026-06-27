@@ -94,13 +94,29 @@ python d:/AI/hd-instrument/tools/director_kb_continuous_ingest.py --once --quiet
 python -c "import json; d=json.load(open('d:/AI/hd-instrument/config/director_kb_schema.json')); print('source classes:', list(d.get('source_classes', {}).keys()))"
 ```
 
-## KNOWN GOTCHAS
+## KNOWN GOTCHAS (verified by dry-run 2026-06-26 ~20:50 PDT)
 
 1. **schtasks /query mangled in bash** — Git Bash expands `/query` as a path. Use PowerShell or `//query`.
-2. **Char-trigram confidence is low** (~0.20-0.50 even for strong matches). The RANKING is reliable; absolute confidence is muted. Don't refuse on cosine alone; check if top-1 entity name matches what you're looking for.
-3. **Substrate is degraded by language ingest** — without `--source-class` filter, WordNet entries swamp Director queries. The filter is the workaround until Wave 3 partition lands.
-4. **Query phrasing matters** — use words that appear in the actual filename/content, not synonyms. "doesnt" not "does not"; "anything" not "language" if the filename uses "anything."
-5. **Filesystem grep is still fallback** — if substrate query confidence is <0.30 OR top-1 entity isn't what you're looking for, fall back to `grep -r "<term>" d:/AI/hd-instrument/notes/`.
+2. **Char-trigram confidence is low** (~0.20-0.50 even for strong matches). The RANKING is NOT always reliable; common words dominate. Don't trust cosine ranking for SPECIFIC document retrieval at 1M+ atoms.
+3. **Substrate is degraded by language ingest** — without `--source-class` filter, WordNet entries swamp Director queries. The filter is necessary.
+4. **Cosine queries are UNRELIABLE for finding specific known-filename docs** — dry-run 2026-06-26 showed that even queries containing the exact filename slug (e.g., "director POST_COMPACTION BACKUP FULL_STATE") returned the wrong file at rank 1 because common trigrams ("director", "post-compaction") matched many atoms.
+5. **For specific known-filename docs: use `--filename-contains` flag** (Option A+ shipped 2026-06-26 ~20:50). Bypass cosine entirely:
+   ```bash
+   python tools/director_kb_query.py --filename-contains "POST_COMPACTION_BACKUP" --source-class=notes
+   python tools/director_kb_query.py --filename-contains "feedback_discriminator_must_survive" --source-class=memory
+   ```
+6. **Cosine queries work for TOPIC EXPLORATION** ("what cells addressed cortex selectivity?") — substrate returns related atoms across the topic. Just don't trust it for "give me THIS specific doc."
+7. **Filesystem grep is reliable fallback** — when in doubt: `grep -r "<term>" d:/AI/hd-instrument/notes/`.
+
+## RECOMMENDED QUERY PATTERNS (verified working)
+
+| Goal | Use |
+|---|---|
+| Find a specific known-filename doc | `--filename-contains "<slug>"` |
+| Find recent USER directive memories | `--filename-contains "USER_LOCKED_2026-06-26" --source-class=memory` |
+| Topic exploration (what cells / what work?) | cosine query + `--source-class=notes,metrics` |
+| Find chain-grade primitives | `--filename-contains "chain_grade" --source-class=memory,notes` |
+| Find post-compaction docs | `--filename-contains "POST_COMPACTION" --source-class=notes` |
 
 ## REMINDER OF WHAT YOU CAN'T DO
 
