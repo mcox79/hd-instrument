@@ -33,7 +33,9 @@ Supersedes prior "local CPU for smoke" pattern. Smoke AND full both route to `re
 
 ## SUBSTRATE STATE (cert + capabilities; as of 2026-06-27 ~04:55 PDT)
 
-**CERT 622** (latest after Skunkworks batches 7+8+9). Trajectory today: 616 post-batch4 → 617 post-batch5 → 618 post-batch6 → 619 post-batch7 (K=8192 3-seed chain-grade) → 619 post-batch8 (5 atoms: 1 MM + 4 HONEST_NEG; capacity envelope exceeded predicted band) → 622 post-batch9 (+3: capacity v2c GPU chain-grade + Hopfield by-construction-honest-neg + HRR involutive null-honest-neg).
+**CERT 623** (latest after Skunkworks batch 11 commit b7283952; +1 from ANCHOR 1 v4 partition-routing CHAIN_GRADE; 4 META rules W/X/Y/Z atomized; PC_cleanup correctly re-tiered HONEST_NEG; bidirectional v3 regime-narrowed).
+
+**CERT 622** (post-Skunkworks batches 7+8+9). Trajectory today: 616 post-batch4 → 617 post-batch5 → 618 post-batch6 → 619 post-batch7 (K=8192 3-seed chain-grade) → 619 post-batch8 (5 atoms: 1 MM + 4 HONEST_NEG; capacity envelope exceeded predicted band) → 622 post-batch9 (+3: capacity v2c GPU chain-grade + Hopfield by-construction-honest-neg + HRR involutive null-honest-neg).
 
 **MAJOR FINDING 2026-06-27 (USER pushback drill)**: META_BARRIER_1_QUADRUPLE_NEGATIVE atom was prematurely declared. Per-arm audit of 5 prior "refutations" = ZERO clean negatives:
 - consolidation v3: NAIVE OUT_OF_BAND, tested SHARED-W (brain uses SEPARATE W)
