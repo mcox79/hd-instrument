@@ -131,6 +131,11 @@ def _check_run_config(body: Dict[str, Any],
       "N"        -- int: rejects partials where body["N"] != N
       "M"        -- int: rejects partials where body["M"] != M
       "run_mode" -- str ("smoke"|"full"): rejects mode-mismatched partials
+      "anchor"   -- str: rejects partials where body["config_version"] ANCHOR=
+                   string does not match (META_RULE_H_ANCHOR defense; PROT-021
+                   extension catching cross-cell partial contamination from
+                   import-time side effects -- see
+                   notes/research_drill_stratified_replay_HARD_FAIL_3x_2026-06-27.md)
 
     When a mismatch is found, a REJECTED warning is printed to stdout and
     False is returned.  The caller must treat the partial as not-done and
@@ -139,6 +144,13 @@ def _check_run_config(body: Dict[str, Any],
     This is the PROT-021 smoke-checkpoint contamination guard: smoke partials
     (N=small, M=smoke-M) must NOT be silently consumed by FULL runs that share
     the same out_dir but use different N/M/run_mode.
+
+    RULE_PARTIAL_LOAD_MUST_CHECK_ANCHOR_NAME (added 2026-06-27): the anchor
+    check defends against alien partials written by a different cell whose
+    main-driver code ran at import time and wrote to the importing cell's
+    HDLAB_EXP_NAME output dir.  Cell convention: pass run_config["anchor"]=
+    ANCHOR_NAME and stamp body["config_version"] with "ANCHOR=<name>,..." so
+    cross-cell contamination is caught at PARTIAL-LOAD time.
     """
     if not run_config:
         return True
@@ -182,6 +194,37 @@ def _check_run_config(body: Dict[str, Any],
             print(
                 f"[ckpt] REJECTED {filename}: stored run_mode={actual_mode!r} != "
                 f"expected={expected_mode!r}; ignoring mismatched partial",
+                flush=True,
+            )
+            return False
+
+    # Check anchor name (META_RULE_H_ANCHOR defense; added 2026-06-27)
+    # config_version is conventionally "ANCHOR=<name>,N=...,M=...".  When the
+    # caller passes run_config["anchor"], reject partials whose stamped ANCHOR
+    # string does not match -- this catches alien partials written by a
+    # different cell that ran at import time into the importing cell's dir.
+    if "anchor" in run_config:
+        expected_anchor = str(run_config["anchor"])
+        cv = body.get("config_version", "")
+        if cv:
+            m = re.match(r"ANCHOR=([^,]+)", str(cv))
+            if m and m.group(1) != expected_anchor:
+                print(
+                    f"[ckpt] REJECTED {filename}: stored ANCHOR={m.group(1)!r} "
+                    f"!= expected={expected_anchor!r}; ignoring alien partial "
+                    f"(import-time-side-effect contamination per "
+                    f"META_RULE_H_ANCHOR)",
+                    flush=True,
+                )
+                return False
+        # Also check explicit anchor_name field if present (alternate stamping)
+        stored_anchor_field = body.get("anchor_name")
+        if stored_anchor_field is not None and \
+                str(stored_anchor_field) != expected_anchor:
+            print(
+                f"[ckpt] REJECTED {filename}: stored anchor_name="
+                f"{stored_anchor_field!r} != expected={expected_anchor!r}; "
+                f"ignoring alien partial (META_RULE_H_ANCHOR)",
                 flush=True,
             )
             return False
@@ -576,4 +619,61 @@ if __name__ == "__main__":
         assert agg["M2048_seed17"]["acc_gated"] == 0.97, "agg data mismatch"
         print("[selftest] T6 PASS: aggregate_partials filters smoke with run_config")
 
-    print("[selftest] ALL 6 TESTS PASS -- PROT-021 loader guard operational")
+        # --- Test 7: anchor-name guard rejects alien partials (added 2026-06-27)
+        # META_RULE_H_ANCHOR: partial whose config_version ANCHOR= mismatches
+        # the caller's anchor must be rejected.  Catches cross-cell partial
+        # contamination from import-time-side-effect bugs.
+        alien_payload = {
+            "seed": "seed42",
+            "N": 16384,
+            "M": 2048,
+            "run_mode": "full",
+            "config_version": "ANCHOR=other_cell_v9,N=16384,M=2048,alpha=1.5",
+            "anchor_name": "other_cell_v9",
+            "ok": True,
+            "acc_gated": 0.88,
+        }
+        write_partial_key(td, "seed42", alien_payload)
+        # Without anchor check: accepted (legacy)
+        cfg_no_anchor = {"N": 16384, "M": 2048, "run_mode": "full"}
+        keys_no_anchor = list_completed_keys(td, run_config=cfg_no_anchor)
+        assert "seed42" in keys_no_anchor, "legacy w/o anchor should accept"
+        # With anchor check: rejected (alien cell wrote this partial)
+        cfg_with_anchor = {"N": 16384, "M": 2048, "run_mode": "full",
+                           "anchor": "my_real_cell_v1"}
+        keys_with_anchor = list_completed_keys(td, run_config=cfg_with_anchor)
+        assert "seed42" not in keys_with_anchor, (
+            f"FAIL: alien partial NOT rejected by anchor check: "
+            f"{keys_with_anchor}")
+        # Matching anchor: accepted
+        cfg_match = {"N": 16384, "M": 2048, "run_mode": "full",
+                     "anchor": "other_cell_v9"}
+        keys_match = list_completed_keys(td, run_config=cfg_match)
+        assert "seed42" in keys_match, (
+            f"FAIL: matching-anchor partial incorrectly rejected: {keys_match}")
+        print("[selftest] T7 PASS: META_RULE_H_ANCHOR rejects alien partial; "
+              "accepts matching anchor")
+
+        # --- Test 8: config_version ANCHOR=<name>,... pattern parsing ---
+        cv_payload = {
+            "seed": "seed99",
+            "N": 16384,
+            "M": 2048,
+            "run_mode": "full",
+            "config_version": "ANCHOR=alien_v2,N=16384,M=2048,alpha=2.0",
+            "ok": True,
+        }
+        write_partial_key(td, "seed99", cv_payload)
+        cfg_anchor_a = {"N": 16384, "M": 2048, "run_mode": "full",
+                        "anchor": "expected_cell"}
+        keys_a = list_completed_keys(td, run_config=cfg_anchor_a)
+        assert "seed99" not in keys_a, (
+            "FAIL: config_version-only ANCHOR mismatch not caught")
+        cfg_anchor_b = {"N": 16384, "M": 2048, "run_mode": "full",
+                        "anchor": "alien_v2"}
+        keys_b = list_completed_keys(td, run_config=cfg_anchor_b)
+        assert "seed99" in keys_b, "matching ANCHOR via config_version rejected"
+        print("[selftest] T8 PASS: ANCHOR= regex parses config_version field")
+
+    print("[selftest] ALL 8 TESTS PASS -- PROT-021 + META_RULE_H_ANCHOR "
+          "loader guard operational")

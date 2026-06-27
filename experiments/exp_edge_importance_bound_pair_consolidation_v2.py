@@ -1,46 +1,50 @@
-"""edge_importance_bound_pair_consolidation_v1 -- Cortex E_tensor alternative.
+"""edge_importance_bound_pair_consolidation_v2 -- HIGH-ALPHA regime.
 
-Wave 2 ANCHOR 5 from `notes/research_cortex_E_tensor_wrong_direction_2x_revival_drill_2026-06-26.md`.
+Wave 2 ANCHOR 5 v2: v1 saturated at alpha=0.977 (M_OLD+M_RECENT=1000, N=1024;
+ALL arms hit rec=1.000; discriminator never fired). v2 stresses capacity at
+alpha=1.953 (N=512, same M_OLD=600, M_RECENT=400 -> alpha=1000/512=1.953)
+per Skunkworks recommendation. This is the regime where Hopfield-style outer-
+product memories begin to crosstalk-saturate, so any selectivity gain by
+EDGE_GATED vs RANDOM is mechanism-driven, not capacity-driven.
 
-PIVOT: per-ATOM scalar importance was triple-falsified (cor(E,|W|)=0.984 on
-Wave 1.6 RETEST v2). This cell moves importance to per-EDGE space H[i,j] on
-bound-pair graph; derived per-atom E = row-sum or PageRank lives on a DIFFERENT
-observability axis than |W|. Load-bearing test: cor(E_derived, |W|) < 0.30.
+NEW DISCIPLINES APPLIED (added today 2026-06-26):
+  D1 -- Discriminator-must-survive-scale: smoke runs at FULL-N parameters
+        (not reduced N). EDGE rec_old must differ from RANDOM rec_old by
+        >= 0.05 at smoke, else regime still saturates -- STOP and route back.
+  D2 -- Smoke-must-FIRE-discriminator: assert n_downscaled > 0 AND
+        H_n_edges > 50 at smoke. Mechanism must actually trigger; cell not
+        merely "runs without crashing".
+  D3 -- No-silent-except: setup_substrate_and_populate_H + run_arm wrap their
+        bodies; any exception is RECORDED to seed result with traceback and
+        halts the seed (does not silently fall through).
 
-KEY METHODOLOGICAL ADDITION: composite-query workload. Prior cortex cells used
-single-atom queries only; the H graph requires MULTI-ATOM bound queries to
-populate. This cell generates synthetic composite queries (3-atom bundles) and
-runs them as the retrieval workload during J cycles.
+PRE-REG BANDS (load-bearing):
+  HARD_PASS:
+    EDGE rec_RETRIEVED >= 0.85
+    AND (RANDOM rec_UNRETRIEVED - EDGE rec_UNRETRIEVED) >= 0.10
+        (EDGE_GATED selectively spares UNRETRIEVED less than RANDOM does,
+         meaning EDGE_GATED is more aggressively pruning the unimportant)
+        NOTE: equivalent expression with same direction-of-effect is
+        EDGE rec_UNRETRIEVED < RANDOM rec_UNRETRIEVED by >= 0.10
+    AND cor(E_derived, |W|) < 0.30
 
-ARMS (3 mandatory minimum):
-  ARM_BASELINE_NO_DOWNSCALE   -- rail; no pruning at all.
-  ARM_EDGE_GATED_DOWNSCALE    -- prune atoms with E_derived<e_thresh AND
-                                  max_edge<h_thresh.
-  ARM_RANDOM_GATED            -- control; random pruning of same count
-                                  (tests SELECTIVITY vs CAPACITY-REDUCTION).
+  HARD_FAIL:
+    arms within 0.05 of each other on rec_RETRIEVED (saturation; regime
+      still too easy -- bump alpha further next iteration)
+    OR cor(E_derived, |W|) > 0.30 (fairness regression)
+    OR n_downscaled == 0 (mechanism inert)
+    OR H_n_edges < 50 (composite workload did not populate H)
+    OR non-finite W_norm or rec values
+    OR any caught exception from D3
 
-INSTRUMENTATION (per arm):
-  recall_old_RETRIEVED, recall_old_UNRETRIEVED, recall_recent (Fix A
-    partition: RETRIEVED = atoms appearing in >=1 composite query during J).
-  cor_E_derived_magnitude, n_downscaled, downscale_frac_actual,
-  H_n_edges, H_total_mass, E_derived_min/max/mean,
-  per-arm W_norm_pre/post.
+  MIDDLE_BAND: in between PASS and FAIL bands.
 
-LOAD-BEARING FAIRNESS CHECK:
-  cor(E_derived_rowsum, |W @ key|) < 0.30 -- USER pre-reg gate.
-  If cor >= 0.30, EDGE-derived importance has ALSO inherited the magnitude
-  correlation; mechanism class structurally indistinguishable from per-atom-
-  scalar and DIFFERENT structural pivot is required. STOP at smoke; route
-  back to research.
+ARMS (unchanged from v1):
+  ARM_BASELINE_NO_DOWNSCALE -- rail; no pruning
+  ARM_EDGE_GATED_DOWNSCALE  -- E+max_edge gate
+  ARM_RANDOM_GATED          -- count-matched random pruning (selectivity ctrl)
 
-SUBSTRATE-ONLY DECODE GATE:
-  n_llm_calls = 0 by structural-guarantee. Decode is sign(W @ key) cosine
-  cleanup against value matrix.
-
-PROT-018: N=1024 (no _n suffix in anchor; capability-test cell).
-PROT-019: no _n>=4096 suffix -> no PROT-019 floor.
-
-ASCII-only; no unicode; no emojis; no em-dashes.
+ASCII-only; no unicode; no em-dashes; no emojis.
 """
 from __future__ import annotations
 
@@ -56,6 +60,7 @@ import argparse
 import json
 import os
 import time
+import traceback
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -74,7 +79,7 @@ from experiments._seed_checkpoint import (
 from hdlab.edge_importance import EdgeImportance, HConfig, correlation_E_vs_magnitude
 
 
-ANCHOR_NAME = "edge_importance_bound_pair_consolidation_v1"
+ANCHOR_NAME = "edge_importance_bound_pair_consolidation_v2"
 _LLM_CALL_COUNTER = [0]
 
 _ap = argparse.ArgumentParser(add_help=False)
@@ -88,28 +93,29 @@ RUN_MODE = (
     else os.environ.get("HDLAB_RUN_MODE", "full").lower()
 )
 
-# Production constants (mirror cortex_E_tensor_HARDER_REGIME / RETEST scale).
-N_FULL = 1024
+# HIGH-ALPHA regime: N=512, M_OLD+M_RECENT=1000 -> alpha=1.953.
+N_FULL = 512
 M_OLD_FULL = 600
 M_RECENT_FULL = 400
-N_COMPOSITE_QUERIES_FULL = 3000   # J cycles of composite-query workload
-COMPOSITE_ARITY = 3                # atoms-per-composite-query
-USE_FRAC_FULL = 0.40               # 40% of M_OLD seeded into composite-query
-                                    # workload (RETRIEVED partition)
+N_COMPOSITE_QUERIES_FULL = 3000
+COMPOSITE_ARITY = 3
+USE_FRAC_FULL = 0.40
 DOWNSCALE_SCALE = 0.20
-E_THRESH = 2.0                     # atoms with E_derived < 2.0 candidate for prune
-H_THRESH = 3.0                     # atoms with any edge >= 3.0 PROTECTED
+E_THRESH = 2.0
+H_THRESH = 3.0
 SEEDS_FULL = [7, 17, 23]
 N_QUERIES_FULL = 200
 
+# D1 discipline: smoke runs at FULL-N parameters (same N, M_OLD, M_RECENT),
+# only seed/J/N_QUERIES count reduced. Discriminator must survive at scale.
 if RUN_MODE == "smoke":
-    N = 256
-    M_OLD = 200
-    M_RECENT = 150
-    N_COMPOSITE_QUERIES = 1000
-    USE_FRAC = 0.40
+    N = N_FULL
+    M_OLD = M_OLD_FULL
+    M_RECENT = M_RECENT_FULL
+    N_COMPOSITE_QUERIES = 1500   # half the J cycles
+    USE_FRAC = USE_FRAC_FULL
     SEEDS = [7]
-    N_QUERIES = 50
+    N_QUERIES = 100
 else:
     N = N_FULL
     M_OLD = M_OLD_FULL
@@ -125,11 +131,11 @@ N_USE = max(COMPOSITE_ARITY, int(round(USE_FRAC * M_OLD)))
 
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},N={N},M_OLD={M_OLD},M_RECENT={M_RECENT},"
-    f"J_composite={N_COMPOSITE_QUERIES},arity={COMPOSITE_ARITY},"
-    f"USE_FRAC={USE_FRAC},DOWNSCALE_SCALE={DOWNSCALE_SCALE},"
-    f"E_THRESH={E_THRESH},H_THRESH={H_THRESH},"
-    f"SEEDS={'-'.join(str(s) for s in SEEDS)},N_QUERIES={N_QUERIES},"
-    f"RUN_MODE={RUN_MODE}"
+    f"alpha={ALPHA:.3f},J_composite={N_COMPOSITE_QUERIES},"
+    f"arity={COMPOSITE_ARITY},USE_FRAC={USE_FRAC},"
+    f"DOWNSCALE_SCALE={DOWNSCALE_SCALE},E_THRESH={E_THRESH},"
+    f"H_THRESH={H_THRESH},SEEDS={'-'.join(str(s) for s in SEEDS)},"
+    f"N_QUERIES={N_QUERIES},RUN_MODE={RUN_MODE}"
 )
 
 
@@ -170,14 +176,9 @@ def recall_subset(W: np.ndarray, keys: np.ndarray,
 
 
 # ---------------------------------------------------------------------------
-# Composite-query workload: substrate runs HRR-style bundles of atoms
+# Composite-query workload
 # ---------------------------------------------------------------------------
 def composite_query_bundle(keys: np.ndarray, indices: np.ndarray) -> np.ndarray:
-    """Bundle the given atoms' KEYS via bipolar sum + sign (substrate-native
-    bundling, matches hdlab/bundling.py majority-vote bundle).
-
-    Returns shape (N,) bipolar vector.
-    """
     bundle = np.sum(keys[indices], axis=0)
     out = np.sign(bundle)
     out[out == 0] = 1.0
@@ -188,12 +189,6 @@ def setup_substrate_and_populate_H(
     seed: int,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, EdgeImportance,
            np.ndarray, np.ndarray]:
-    """Build keys/values, ingest old, run J composite queries (populating H),
-    then ingest recent.
-
-    Returns:
-      W, all_keys, all_values, edge_graph, retrieved_idx, unretrieved_idx.
-    """
     keys_old, values_old = generate_pairs(M_OLD, N, seed)
     keys_rec, values_rec = generate_pairs(M_RECENT, N, seed + 999)
     all_keys = np.concatenate([keys_old, keys_rec], axis=0)
@@ -205,10 +200,8 @@ def setup_substrate_and_populate_H(
     )
     edge_graph = EdgeImportance(n_atoms=M_TOTAL, cfg=cfg)
 
-    # Ingest OLD via Hebbian.
     W = build_W_from_pairs(keys_old, values_old)
 
-    # Fix A: deterministic partition of OLD into RETRIEVED vs UNRETRIEVED.
     rng = np.random.RandomState(seed + 401)
     retrieved_idx = rng.choice(M_OLD, size=N_USE, replace=False)
     retrieved_idx.sort()
@@ -216,24 +209,14 @@ def setup_substrate_and_populate_H(
     unretrieved_mask[retrieved_idx] = False
     unretrieved_idx = np.where(unretrieved_mask)[0]
 
-    # J cycles of composite queries: draw uniform triples from RETRIEVED pool,
-    # bundle keys, decode against W, increment H on success-pair atoms.
     rng_q = np.random.RandomState(seed + 1117)
     for _q in range(N_COMPOSITE_QUERIES):
-        # Sample COMPOSITE_ARITY atoms from RETRIEVED.
         triple = rng_q.choice(retrieved_idx, size=COMPOSITE_ARITY, replace=False)
-        # Bundle their keys -> composite query.
         bundled_key = composite_query_bundle(all_keys, triple)
-        # Decode -> get composite read. We just need that the substrate is
-        # ACTIVELY operating on these atoms; the H-increment is per the
-        # BIND structure of the composite (which atoms participated).
         _read = predict(W, bundled_key)
-        # Increment H for ALL unordered pairs in the composite.
         edge_graph.increment_query(triple)
-        # Apply decay (no-op in default cfg, decay_step=0).
         edge_graph.decay_all()
 
-    # Ingest RECENT into W (post composite workload).
     W = W + build_W_from_pairs(keys_rec, values_rec)
 
     return W, all_keys, all_values, edge_graph, retrieved_idx, unretrieved_idx
@@ -250,7 +233,6 @@ def run_arm(arm_name: str, seed: int,
     W_norm_pre = float(np.linalg.norm(W))
 
     E_derived = edge_graph.derive_E_rowsum()
-    # Substrate-readback magnitude per atom (post-write, PRE-prune).
     atom_norms = np.linalg.norm(all_keys @ W.T, axis=1) / float(N)
     cor_E_W = correlation_E_vs_magnitude(E_derived, atom_norms)
 
@@ -258,7 +240,6 @@ def run_arm(arm_name: str, seed: int,
     if arm_name == "ARM_BASELINE_NO_DOWNSCALE":
         n_downscaled = 0
     elif arm_name == "ARM_EDGE_GATED_DOWNSCALE":
-        # Prune atoms with low E_derived AND no load-bearing edge.
         mask = edge_graph.downscale_mask(E_derived)
         prune_idx = np.where(mask)[0]
         n_downscaled = int(len(prune_idx))
@@ -267,11 +248,9 @@ def run_arm(arm_name: str, seed: int,
                 all_values[idx], all_keys[idx],
             )
     elif arm_name == "ARM_RANDOM_GATED":
-        # Match count to what EDGE_GATED would prune.
         mask = edge_graph.downscale_mask(E_derived)
         n_target = int(np.sum(mask))
         if n_target <= 0:
-            # Fallback: random 30% if EDGE mechanism finds nothing.
             n_target = max(1, int(round(0.30 * M_TOTAL)))
         rng = np.random.RandomState(seed + 7777)
         rand_idx = rng.choice(M_TOTAL, size=n_target, replace=False)
@@ -285,7 +264,6 @@ def run_arm(arm_name: str, seed: int,
 
     W_norm_post = float(np.linalg.norm(W))
 
-    # Recall measurement: RETRIEVED-old vs UNRETRIEVED-old + RECENT.
     rng_eval = np.random.RandomState(seed + 503)
     n_q_ret = min(N_QUERIES, len(retrieved_idx))
     n_q_unret = min(N_QUERIES, len(unretrieved_idx))
@@ -322,10 +300,9 @@ def run_arm(arm_name: str, seed: int,
 
 
 # ---------------------------------------------------------------------------
-# Self-tests (mechanism unit-tests; mandatory per Fix #28 + formula-selftests)
+# Self-tests
 # ---------------------------------------------------------------------------
 def _selftest_composite_query_increments_H() -> bool:
-    """A single composite query of 3 atoms must produce 3 edges in H."""
     cfg = HConfig()
     eg = EdgeImportance(n_atoms=10, cfg=cfg)
     triple = np.array([0, 3, 7])
@@ -336,8 +313,6 @@ def _selftest_composite_query_increments_H() -> bool:
 
 
 def _selftest_derived_E_separates_active_from_idle() -> bool:
-    """After J composite queries on a subset, E_derived for active atoms >>
-    E_derived for idle atoms."""
     cfg = HConfig()
     eg = EdgeImportance(n_atoms=20, cfg=cfg)
     active_pool = np.arange(0, 10)
@@ -346,14 +321,12 @@ def _selftest_derived_E_separates_active_from_idle() -> bool:
         triple = rng.choice(active_pool, size=3, replace=False)
         eg.increment_query(triple)
     E = eg.derive_E_rowsum()
-    # Active atoms (0-9) should have high E; idle (10-19) should be 0.
     assert np.mean(E[:10]) > 10.0, f"active E mean {np.mean(E[:10])} should be >> 10"
     assert np.all(E[10:] == 0.0), f"idle E should be 0; got {E[10:]}"
     return True
 
 
 def _selftest_composite_bundle_decoding() -> bool:
-    """Bundled key produces a deterministic bipolar output of correct shape."""
     keys = np.random.RandomState(0).choice([-1.0, 1.0], size=(10, 32)).astype(np.float64)
     out = composite_query_bundle(keys, np.array([0, 3, 7]))
     assert out.shape == (32,)
@@ -362,19 +335,26 @@ def _selftest_composite_bundle_decoding() -> bool:
 
 
 def _selftest_fairness_orthogonality_synthetic() -> bool:
-    """STRUCTURAL test: derived E (from edge graph) should be uncorrelated
-    with random independent atom_norms."""
     rng = np.random.RandomState(0)
     cfg = HConfig()
     eg = EdgeImportance(n_atoms=50, cfg=cfg)
-    # Edge structure: clique on first 10 atoms only.
     for i in range(10):
         for j in range(i + 1, 10):
             eg.increment_pair(i, j)
     E = eg.derive_E_rowsum()
-    atom_norms = rng.rand(50)  # INDEPENDENT random magnitudes
+    atom_norms = rng.rand(50)
     cor = correlation_E_vs_magnitude(E, atom_norms)
     assert abs(cor) < 0.30, f"orthogonality: |cor|={abs(cor):.3f} should be < 0.30"
+    return True
+
+
+def _selftest_alpha_regime_is_high() -> bool:
+    """v2-specific: assert alpha is in the high-load regime where saturation
+    should NOT occur trivially. v1 lesson: alpha=0.977 saturated."""
+    assert ALPHA >= 1.5, (
+        f"v2 must run at HIGH-alpha regime; got alpha={ALPHA:.3f} < 1.5. "
+        f"N={N}, M_TOTAL={M_TOTAL}."
+    )
     return True
 
 
@@ -383,6 +363,7 @@ def _instrumentation_selftest():
     _selftest_derived_E_separates_active_from_idle()
     _selftest_composite_bundle_decoding()
     _selftest_fairness_orthogonality_synthetic()
+    _selftest_alpha_regime_is_high()
     print(
         f"[selftest] PASS  N={N}  M_OLD={M_OLD}  M_RECENT={M_RECENT}  "
         f"alpha={ALPHA:.3f}  J_comp={N_COMPOSITE_QUERIES}  "
@@ -397,7 +378,7 @@ if _ARGS.self_test:
 
 
 # ---------------------------------------------------------------------------
-# Per-seed runner
+# Per-seed runner (D3 no-silent-except: any failure recorded with traceback)
 # ---------------------------------------------------------------------------
 def run_seed(seed: int) -> Dict:
     t0 = time.time()
@@ -406,48 +387,68 @@ def run_seed(seed: int) -> Dict:
         f"arity={COMPOSITE_ARITY}, N_USE={N_USE} of M_OLD={M_OLD})...",
         flush=True,
     )
-    t_setup = time.time()
-    shared = setup_substrate_and_populate_H(seed)
-    print(
-        f"  [seed={seed}] setup done in {time.time()-t_setup:.1f}s  "
-        f"H_edges={shared[3].n_edges()}  H_mass={shared[3].total_mass():.0f}",
-        flush=True,
-    )
+    try:
+        t_setup = time.time()
+        shared = setup_substrate_and_populate_H(seed)
+        print(
+            f"  [seed={seed}] setup done in {time.time()-t_setup:.1f}s  "
+            f"H_edges={shared[3].n_edges()}  H_mass={shared[3].total_mass():.0f}",
+            flush=True,
+        )
+    except Exception as exc:
+        tb = traceback.format_exc()
+        print(f"  [seed={seed}] SETUP_EXCEPTION: {exc}\n{tb}", flush=True)
+        return {
+            "seed": seed,
+            "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+            "alpha": float(ALPHA), "run_mode": RUN_MODE,
+            "config_version": CONFIG_VERSION,
+            "exception_phase": "setup",
+            "exception_msg": str(exc),
+            "exception_traceback": tb,
+            "arms": [],
+            "elapsed_s": float(time.time() - t0),
+        }
+
     arms = []
     for arm_name in [
         "ARM_BASELINE_NO_DOWNSCALE",
         "ARM_EDGE_GATED_DOWNSCALE",
         "ARM_RANDOM_GATED",
     ]:
-        out = run_arm(arm_name, seed, shared=shared)
-        arms.append(out)
-        print(
-            f"  [seed={seed} {arm_name}] "
-            f"rec_RETR={out['recall_old_RETRIEVED']:.3f} "
-            f"rec_UNRETR={out['recall_old_UNRETRIEVED']:.3f} "
-            f"rec_rec={out['recall_recent']:.3f} "
-            f"cor_E_W={out['cor_E_derived_magnitude']:.3f} "
-            f"n_down={out['n_downscaled']} ({out['downscale_frac_actual']:.2f}) "
-            f"H_edges={out['H_n_edges']} "
-            f"E_mean={out['E_derived_mean']:.2f} "
-            f"wall={out['wall_s']:.1f}s",
-            flush=True,
-        )
+        try:
+            out = run_arm(arm_name, seed, shared=shared)
+            arms.append(out)
+            print(
+                f"  [seed={seed} {arm_name}] "
+                f"rec_RETR={out['recall_old_RETRIEVED']:.3f} "
+                f"rec_UNRETR={out['recall_old_UNRETRIEVED']:.3f} "
+                f"rec_rec={out['recall_recent']:.3f} "
+                f"cor_E_W={out['cor_E_derived_magnitude']:.3f} "
+                f"n_down={out['n_downscaled']} ({out['downscale_frac_actual']:.2f}) "
+                f"H_edges={out['H_n_edges']} "
+                f"E_mean={out['E_derived_mean']:.2f} "
+                f"wall={out['wall_s']:.1f}s",
+                flush=True,
+            )
+        except Exception as exc:
+            tb = traceback.format_exc()
+            print(f"  [seed={seed} {arm_name}] ARM_EXCEPTION: {exc}\n{tb}", flush=True)
+            arms.append({
+                "arm_name": arm_name,
+                "exception_msg": str(exc),
+                "exception_traceback": tb,
+            })
+
     elapsed = time.time() - t0
     return {
-        "seed": seed,
-        "N": N,
-        "M_OLD": M_OLD,
-        "M_RECENT": M_RECENT,
-        "alpha": float(ALPHA),
-        "run_mode": RUN_MODE,
+        "seed": seed, "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+        "alpha": float(ALPHA), "run_mode": RUN_MODE,
         "config_version": CONFIG_VERSION,
         "n_llm_calls": int(_LLM_CALL_COUNTER[0]),
-        "n_queries": int(N_QUERIES),
-        "n_use": int(N_USE),
+        "n_queries": int(N_QUERIES), "n_use": int(N_USE),
         "downscale_scale": DOWNSCALE_SCALE,
-        "e_thresh": E_THRESH,
-        "h_thresh": H_THRESH,
+        "e_thresh": E_THRESH, "h_thresh": H_THRESH,
         "n_composite_queries": N_COMPOSITE_QUERIES,
         "composite_arity": COMPOSITE_ARITY,
         "arms": arms,
@@ -469,6 +470,18 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
     if not results:
         return ("HARD_FAIL", "No valid seed results.")
 
+    # D3: any seed-level or arm-level exception is HARD_FAIL.
+    for r in results:
+        if "exception_phase" in r:
+            return ("HARD_FAIL",
+                    f"HARD_FAIL: D3 caught {r['exception_phase']} exception "
+                    f"seed={r['seed']}: {r['exception_msg']}")
+        for a in r.get("arms", []):
+            if "exception_msg" in a:
+                return ("HARD_FAIL",
+                        f"HARD_FAIL: D3 caught arm exception seed={r['seed']} "
+                        f"arm={a['arm_name']}: {a['exception_msg']}")
+
     arm_names = ["ARM_BASELINE_NO_DOWNSCALE", "ARM_EDGE_GATED_DOWNSCALE",
                  "ARM_RANDOM_GATED"]
     agg: Dict[str, Dict[str, float]] = {}
@@ -480,6 +493,7 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
         cor = [a["cor_E_derived_magnitude"] for a in per]
         wnorm = [a["W_norm_post"] for a in per]
         ndown = [a["n_downscaled"] for a in per]
+        h_edges = [a["H_n_edges"] for a in per]
         agg[name] = {
             "mean_rec_RETRIEVED": float(np.mean(rec_retr)),
             "std_rec_RETRIEVED": float(np.std(rec_retr)),
@@ -489,6 +503,7 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
             "mean_cor_E_W": float(np.mean(cor)),
             "mean_W_norm": float(np.mean(wnorm)),
             "mean_n_downscaled": float(np.mean(ndown)),
+            "mean_H_n_edges": float(np.mean(h_edges)),
         }
 
     any_llm = any(r.get("n_llm_calls", 0) > 0 for r in results)
@@ -500,83 +515,90 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
     base = agg["ARM_BASELINE_NO_DOWNSCALE"]
 
     delta_retrieved = e["mean_rec_RETRIEVED"] - rnd["mean_rec_RETRIEVED"]
+    delta_unretrieved_random_minus_edge = (
+        rnd["mean_rec_UNRETRIEVED"] - e["mean_rec_UNRETRIEVED"]
+    )
     e_vs_base_retr = e["mean_rec_RETRIEVED"] - base["mean_rec_RETRIEVED"]
 
     summary = (
+        f"alpha={ALPHA:.3f} "
         f"EDGE(retr={e['mean_rec_RETRIEVED']:.3f},"
         f"unretr={e['mean_rec_UNRETRIEVED']:.3f},"
         f"rec={e['mean_rec_recent']:.3f},"
         f"cor={e['mean_cor_E_W']:.3f},"
         f"cv={e['cv_rec_RETRIEVED']:.3f},"
         f"n_down={e['mean_n_downscaled']:.0f}); "
-        f"RANDOM(retr={rnd['mean_rec_RETRIEVED']:.3f}); "
-        f"NO_DOWNSCALE(retr={base['mean_rec_RETRIEVED']:.3f}); "
-        f"d_E_vs_RND={delta_retrieved:+.3f} "
-        f"d_E_vs_BASE={e_vs_base_retr:+.3f}"
+        f"RANDOM(retr={rnd['mean_rec_RETRIEVED']:.3f},"
+        f"unretr={rnd['mean_rec_UNRETRIEVED']:.3f}); "
+        f"BASE(retr={base['mean_rec_RETRIEVED']:.3f}); "
+        f"d_E_vs_RND_retr={delta_retrieved:+.3f} "
+        f"d_RND_minus_E_unretr={delta_unretrieved_random_minus_edge:+.3f} "
+        f"d_E_vs_BASE_retr={e_vs_base_retr:+.3f}"
     )
 
-    if not np.isfinite(e["mean_W_norm"]):
-        return ("HARD_FAIL", f"HARD_FAIL: EDGE W_norm non-finite. {summary}")
+    # ---- HARD_FAIL non-finite check ----
+    for arm_name, a in agg.items():
+        if not (np.isfinite(a["mean_W_norm"]) and
+                np.isfinite(a["mean_rec_RETRIEVED"])):
+            return ("HARD_FAIL",
+                    f"HARD_FAIL: non-finite metrics in {arm_name}. {summary}")
 
-    # ---- HARD_FAIL fairness gate (USER pre-reg; load-bearing) ----
-    # If edge-derived E ALSO inherits magnitude correlation, mechanism class
-    # is structurally same as per-atom-scalar -- pivot needed.
+    # ---- D2 mechanism-must-FIRE gate ----
+    if e["mean_n_downscaled"] <= 0:
+        return ("HARD_FAIL",
+                f"HARD_FAIL: D2 EDGE_GATED mechanism inert (n_downscaled=0). "
+                f"{summary}")
+    if e["mean_H_n_edges"] < 50:
+        return ("HARD_FAIL",
+                f"HARD_FAIL: D2 H graph too sparse (n_edges={e['mean_H_n_edges']:.0f} "
+                f"< 50). Composite-query workload did not populate H. {summary}")
+
+    # ---- HARD_FAIL fairness gate (USER pre-reg) ----
     if e["mean_cor_E_W"] >= 0.30:
         return ("HARD_FAIL",
-                f"HARD_FAIL: USER fairness gate fired. "
-                f"cor(E_derived,|W|)={e['mean_cor_E_W']:.3f} >= 0.30. "
-                f"Edge-derived importance has inherited magnitude correlation. "
-                f"Mechanism structurally indistinguishable from per-atom-scalar "
-                f"failure mode (Wave 1.6 cor=0.984). Route back to research for "
-                f"structural alternative. {summary}")
+                f"HARD_FAIL: fairness gate cor(E,|W|)={e['mean_cor_E_W']:.3f} "
+                f">= 0.30. Edge-derived importance inherited magnitude "
+                f"correlation. {summary}")
 
-    # H-graph must actually populate (mechanism must fire, not no-op).
-    h_edges_seen = int(np.mean([
-        _arm_by_name(r["arms"], "ARM_EDGE_GATED_DOWNSCALE")["H_n_edges"]
-        for r in results
-    ]))
-    if h_edges_seen < 50:
+    # ---- HARD_FAIL saturation gate (arms within 0.05 on RETRIEVED) ----
+    max_retr = max(base["mean_rec_RETRIEVED"], e["mean_rec_RETRIEVED"],
+                   rnd["mean_rec_RETRIEVED"])
+    min_retr = min(base["mean_rec_RETRIEVED"], e["mean_rec_RETRIEVED"],
+                   rnd["mean_rec_RETRIEVED"])
+    if (max_retr - min_retr) < 0.05:
         return ("HARD_FAIL",
-                f"HARD_FAIL: H graph too sparse. n_edges={h_edges_seen} < 50. "
-                f"Composite-query workload did not populate H meaningfully -- "
-                f"mechanism is structurally inapplicable to substrate's "
-                f"workload. {summary}")
+                f"HARD_FAIL: arms within 0.05 on rec_RETRIEVED "
+                f"(spread={max_retr-min_retr:.3f}). Regime still too easy at "
+                f"alpha={ALPHA:.3f}; bump alpha further. {summary}")
 
     # ---- HARD_PASS bands ----
-    # USER fairness PASS: cor < 0.30.
     hp_cor = e["mean_cor_E_W"] < 0.30
-    # Preserve old at >=0.85 (Research handoff: "recall_old preservation >0.85
-    # on RETRIEVED-old subset"). Use 0.85 as the user-specified floor.
     hp_recall_old = e["mean_rec_RETRIEVED"] >= 0.85
-    # Recent ingest >=0.85 (USER handoff spec).
-    hp_recall_recent = e["mean_rec_recent"] >= 0.85
-    # Selectivity vs random: EDGE must beat RANDOM by >= 0.05 on RETRIEVED.
-    hp_beats_rnd = delta_retrieved >= 0.05
-    hp_cv = e["cv_rec_RETRIEVED"] <= 0.10
+    # USER spec: EDGE rec_UNRETRIEVED < RANDOM rec_UNRETRIEVED by 0.10+
+    # (EDGE selectively prunes the unimportant; UNRETRIEVED takes a deliberate hit)
+    hp_selective_unretr = delta_unretrieved_random_minus_edge >= 0.10
+    hp_mechanism_fired = (e["mean_n_downscaled"] > 0 and e["mean_H_n_edges"] >= 50)
 
-    if all([hp_cor, hp_recall_old, hp_recall_recent, hp_beats_rnd, hp_cv]):
+    if all([hp_cor, hp_recall_old, hp_selective_unretr, hp_mechanism_fired]):
         return ("HARD_PASS",
-                f"HARD_PASS: edge-importance mechanism structurally orthogonal "
-                f"(cor<0.30), preserves RETRIEVED old (>=0.85), preserves "
-                f"recent (>=0.85), beats RANDOM by {delta_retrieved:+.3f}, "
-                f"cv<=0.10. Cortex content-extraction unblocked via per-EDGE "
-                f"importance. {summary}")
+                f"HARD_PASS: at alpha={ALPHA:.3f} EDGE_GATED preserves "
+                f"RETRIEVED >= 0.85, selectively suppresses UNRETRIEVED by "
+                f">= 0.10 vs RANDOM, cor<0.30, mechanism fired. {summary}")
 
-    # MIDDLE_BAND: USER fairness PASS (cor<0.50) AND some recall preservation
-    # but full PASS not cleared.
-    if e["mean_cor_E_W"] < 0.50 and e["mean_rec_RETRIEVED"] >= 0.65:
+    # MIDDLE_BAND: fairness held + RETRIEVED >= 0.65 + some selectivity signal
+    if e["mean_cor_E_W"] < 0.50 and e["mean_rec_RETRIEVED"] >= 0.65 and \
+       hp_mechanism_fired:
         return ("MIDDLE_BAND",
-                f"MIDDLE_BAND: edge-importance is structurally distinct from "
-                f"per-atom-scalar (cor={e['mean_cor_E_W']:.3f}<0.50) but full "
-                f"PASS band not cleared. hp_checks=[cor={hp_cor},"
-                f"rec_old={hp_recall_old},rec_recent={hp_recall_recent},"
-                f"beats_rnd={hp_beats_rnd},cv={hp_cv}]. {summary}")
+                f"MIDDLE_BAND: fairness held + mechanism fired but PASS not "
+                f"cleared. hp_checks=[cor={hp_cor},rec_old={hp_recall_old},"
+                f"sel_unretr={hp_selective_unretr},fired={hp_mechanism_fired}]. "
+                f"{summary}")
 
     return ("HARD_FAIL",
-            f"HARD_FAIL: edge-importance does not clear PASS or MIDDLE. "
+            f"HARD_FAIL: did not clear PASS or MIDDLE. "
             f"hp_checks=[cor={hp_cor},rec_old={hp_recall_old},"
-            f"rec_recent={hp_recall_recent},beats_rnd={hp_beats_rnd},"
-            f"cv={hp_cv}]. {summary}")
+            f"sel_unretr={hp_selective_unretr},fired={hp_mechanism_fired}]. "
+            f"{summary}")
 
 
 # ---------------------------------------------------------------------------
@@ -586,7 +608,8 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
 if __name__ == "__main__":
     out_dir = get_output_dir(ANCHOR_NAME)
     run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-                  "J": N_COMPOSITE_QUERIES, "run_mode": RUN_MODE}
+                  "alpha": float(ALPHA), "J": N_COMPOSITE_QUERIES,
+                  "run_mode": RUN_MODE}
     done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
     print(
         f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; running {remaining}",
@@ -596,7 +619,7 @@ if __name__ == "__main__":
     t_sweep_start = time.time()
     for seed in remaining:
         print(
-            f"[seed={seed}] edge_importance v1 N={N} alpha={ALPHA:.3f} "
+            f"[seed={seed}] edge_importance v2 N={N} alpha={ALPHA:.3f} "
             f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
             f"N_USE={N_USE} mode={RUN_MODE}...",
             flush=True,
@@ -632,18 +655,13 @@ if __name__ == "__main__":
         ),
         "elapsed_s": float(elapsed_s),
         "config_version": CONFIG_VERSION,
-        "N": N,
-        "M_OLD": M_OLD,
-        "M_RECENT": M_RECENT,
+        "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
         "alpha": float(ALPHA),
-        "n_seeds": len(SEEDS),
-        "n_queries": N_QUERIES,
-        "n_use": int(N_USE),
+        "n_seeds": len(SEEDS), "n_queries": N_QUERIES, "n_use": int(N_USE),
         "n_composite_queries": N_COMPOSITE_QUERIES,
         "composite_arity": COMPOSITE_ARITY,
         "downscale_scale": float(DOWNSCALE_SCALE),
-        "e_thresh": float(E_THRESH),
-        "h_thresh": float(H_THRESH),
+        "e_thresh": float(E_THRESH), "h_thresh": float(H_THRESH),
         "run_mode": RUN_MODE,
         "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in all_results)),
         "per_seed": [

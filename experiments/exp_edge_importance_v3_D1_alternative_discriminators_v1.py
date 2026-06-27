@@ -601,64 +601,66 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
 # ---------------------------------------------------------------------------
 # Main driver
 # ---------------------------------------------------------------------------
-out_dir = get_output_dir(ANCHOR_NAME)
-run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-              "n_use": N_USE, "run_mode": RUN_MODE,
-              "lambda_list": list(LAMBDA_LIST),
-              "source": str(V3_SOURCE_METRICS)}
-done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
-print(
-    f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
-    f"running {remaining}", flush=True,
-)
-
-t_sweep_start = time.time()
-for seed in remaining:
+# RULE_EXPERIMENT_CELLS_MUST_GUARD_MAIN_WITH___NAME___DUNDER (added 2026-06-27)
+if __name__ == "__main__":
+    out_dir = get_output_dir(ANCHOR_NAME)
+    run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+                  "n_use": N_USE, "run_mode": RUN_MODE,
+                  "lambda_list": list(LAMBDA_LIST),
+                  "source": str(V3_SOURCE_METRICS)}
+    done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
     print(
-        f"[seed={seed}] D1 re-analysis (replay v3 setup; compute "
-        f"D1/D2/D3 from importance vectors)...",
-        flush=True,
+        f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
+        f"running {remaining}", flush=True,
     )
-    result = reanalyze_seed(seed)
-    write_partial(out_dir, seed, result)
 
-per_seed = aggregate_partials(out_dir, SEEDS, run_config=run_config)
-all_results = list(per_seed.values())
-verdict, verdict_msg = compute_verdict(all_results)
+    t_sweep_start = time.time()
+    for seed in remaining:
+        print(
+            f"[seed={seed}] D1 re-analysis (replay v3 setup; compute "
+            f"D1/D2/D3 from importance vectors)...",
+            flush=True,
+        )
+        result = reanalyze_seed(seed)
+        write_partial(out_dir, seed, result)
 
-elapsed_s = time.time() - t_sweep_start
-print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
-print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
+    per_seed = aggregate_partials(out_dir, SEEDS, run_config=run_config)
+    all_results = list(per_seed.values())
+    verdict, verdict_msg = compute_verdict(all_results)
 
-metrics = {
-    "anchor_name": ANCHOR_NAME,
-    "verdict": verdict,
-    "verdict_msg": verdict_msg,
-    "summary": (
-        f"n_seeds={len(all_results)} N={N} M_OLD={M_OLD} N_USE={N_USE} "
-        f"LAMBDA={LAMBDA_LIST} mode={RUN_MODE} "
-        f"source={V3_SOURCE_METRICS.name}"
-    ),
-    "elapsed_s": float(elapsed_s),
-    "config_version": CONFIG_VERSION,
-    "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-    "n_seeds": len(SEEDS), "n_use": int(N_USE),
-    "lambda_list": list(LAMBDA_LIST),
-    "source_metrics_path": str(V3_SOURCE_METRICS),
-    "run_mode": RUN_MODE,
-    "per_seed": [
-        {
-            "seed": r.get("seed"),
-            "elapsed_s": r.get("elapsed_s"),
-            "trace_total": r.get("trace_total"),
-            "coreness_atoms": r.get("coreness_atoms"),
-            "n_retrieved": r.get("n_retrieved"),
-            "n_unretrieved": r.get("n_unretrieved"),
-            "arms": r.get("arms"),
-        }
-        for r in all_results
-    ],
-}
-metrics_path = out_dir / "metrics.json"
-metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
-print(f"[metrics] written to {metrics_path}", flush=True)
+    elapsed_s = time.time() - t_sweep_start
+    print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
+    print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
+
+    metrics = {
+        "anchor_name": ANCHOR_NAME,
+        "verdict": verdict,
+        "verdict_msg": verdict_msg,
+        "summary": (
+            f"n_seeds={len(all_results)} N={N} M_OLD={M_OLD} N_USE={N_USE} "
+            f"LAMBDA={LAMBDA_LIST} mode={RUN_MODE} "
+            f"source={V3_SOURCE_METRICS.name}"
+        ),
+        "elapsed_s": float(elapsed_s),
+        "config_version": CONFIG_VERSION,
+        "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+        "n_seeds": len(SEEDS), "n_use": int(N_USE),
+        "lambda_list": list(LAMBDA_LIST),
+        "source_metrics_path": str(V3_SOURCE_METRICS),
+        "run_mode": RUN_MODE,
+        "per_seed": [
+            {
+                "seed": r.get("seed"),
+                "elapsed_s": r.get("elapsed_s"),
+                "trace_total": r.get("trace_total"),
+                "coreness_atoms": r.get("coreness_atoms"),
+                "n_retrieved": r.get("n_retrieved"),
+                "n_unretrieved": r.get("n_unretrieved"),
+                "arms": r.get("arms"),
+            }
+            for r in all_results
+        ],
+    }
+    metrics_path = out_dir / "metrics.json"
+    metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    print(f"[metrics] written to {metrics_path}", flush=True)

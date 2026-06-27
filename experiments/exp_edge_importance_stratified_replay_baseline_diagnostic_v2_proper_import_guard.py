@@ -1,64 +1,69 @@
-"""edge_importance stratified-replay baseline diagnostic v2 (arm-count fix).
+"""edge_importance stratified-replay baseline diagnostic v2_proper_import_guard.
 
 USER 2026-06-27 NO LOCAL + GPU+CPU idle. exp_dev cell-author 2026-06-27.
 
-v2 FIX (root cause): v1 imported setup_substrate_with_trace_and_clusters
-from exp_edge_importance_retrieval_trace_x_ultrametric_coreness_v3, but
-v3 has an UNGUARDED top-level main driver. The import ran the v3 driver,
-which called get_output_dir(v3_anchor); because the runner sets
-HDLAB_EXP_NAME=v1_anchor, get_output_dir resolved to v1's dir and v3 wrote
-its 6-arm partials (ARM_BASELINE_RANDOM_IMPORTANCE / ARM_TRACE_ONLY /
-ARM_ULTRAMETRIC_ONLY / 3x ARM_TRACE_X_CORENESS) into v1's out_dir. v1's
-aggregator then loaded the foreign partials, breaching META_RULE_H
-cardinality_ok (got 6 expected 4).
+v2_proper FIX (root-cause; NOT v2_arm_count_fix's workaround):
+  v1 failed because exp_edge_importance_retrieval_trace_x_ultrametric_coreness_v3
+  had an UNGUARDED top-level main driver. Importing setup_substrate_with_trace_and_clusters
+  from v3 triggered v3's entire 6-arm sweep at IMPORT time, contaminating
+  v1's output dir with alien partials (6 arms vs declared 4) -> META_RULE_H
+  cardinality breach.
 
-v2 inlines the substrate-setup function + its 7 helpers (~120 lines)
-verbatim from v3, eliminating the v3-module import entirely. ARM_NAMES
-remains 4 (same as v1; per stub 3). Pre-reg bands unchanged.
+  v2_arm_count_fix (sibling cell shipped earlier today) used a WORKAROUND:
+  inline v3's substrate-setup helpers into the cell so no v3 import was needed.
 
-Pre-reg: preregs/2026-06-27_edge_importance_stratified_replay_baseline_diagnostic_v2.md
+  v2_proper applies the ROOT-CAUSE fix instead:
+    Path A: v3 (and all edge_importance_* family) now have
+            `if __name__ == "__main__":` guards around their main drivers.
+            Importing from v3 no longer triggers any side effect.
+    Path B: _seed_checkpoint._check_run_config now supports
+            run_config["anchor"]=ANCHOR_NAME and rejects any partial whose
+            config_version ANCHOR= string mismatches (META_RULE_H_ANCHOR).
+
+  This cell:
+    - Is a near-verbatim clone of v1 (same arms, same bands, same mechanism)
+    - Re-imports setup_substrate_with_trace_and_clusters from v3 (now SAFE)
+    - Passes run_config["anchor"]=ANCHOR_NAME so any alien partials would be
+      rejected at PARTIAL-LOAD time before cardinality check fires
+    - Adds startup deviation_log scan: prints + halts if any pre-existing
+      partial in out_dir has a mismatched ANCHOR (visibility)
+    - Adds META_RULE_H_NAMESET sibling check at verdict (declared arm-name set
+      must exactly match observed arm-name set, not just count)
+
+Pre-reg: preregs/2026-06-27_edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard.md
 
 Drill provenance:
-  notes/research_drill_v4_nrem_replay_fairness_violation_3x_2026-06-27.md
-  Section "3 actionable cell stubs" stub 3 -- cheap verify-the-referent on
-  the fairness-math conjecture. Drill ANGLE 1 hypothesis: Cauchy-Schwarz
-  says any sampling-count signal over substrate retrieval correlates with
-  |W|; stratified sampling by |W|-quantile should BREAK that correlation if
-  the hypothesis holds.
+  notes/research_drill_stratified_replay_HARD_FAIL_3x_2026-06-27.md
+  Section "RECOMMENDED CELL FIX" Path C: re-dispatch after Path A+B land.
 
-Mechanism (THE diagnostic):
+Mechanism (THE diagnostic; unchanged from v1):
   STRATIFIED_REPLAY -- bin atoms by |W|-decile (10 bins); sample equal
                        replay-count per bin; importance = stratified-count.
-                       If cor(importance, |W|) drops below ~0.30 (vs v4
-                       trace/replay cor of 0.83/0.98), the math is right
-                       and fairness violation is a sampling-bias artifact.
 
-ARMS (4 mandatory; per stub 3):
-  ARM_RAND_IMPORTANCE        -- random importance baseline (control rail)
-  ARM_TRACE_ONLY             -- v3.2 lineage; raw retrieval_trace_count
-                                (reproduce drill's cor=0.83 claim)
-  ARM_STRATIFIED_REPLAY      -- THE diagnostic; bin by |W|-decile, count
-                                replays per bin, importance = bin-uniform
-  ARM_INVERSE_WEIGHTED_REPLAY -- Liu IS: count / ||a||^2
+ARMS (4 mandatory; per stub 3; unchanged from v1):
+  ARM_RAND_IMPORTANCE
+  ARM_TRACE_ONLY
+  ARM_STRATIFIED_REPLAY
+  ARM_INVERSE_WEIGHTED_REPLAY
 
-PRE-REG BANDS (LOCKED):
+PRE-REG BANDS (LOCKED; unchanged from v1):
   DIAGNOSTIC_PASS_A: cor(STRATIFIED_REPLAY, |W|) < 0.30
-                     (proves math holds; fairness is sampling artifact)
   DIAGNOSTIC_PASS_B: cor(INVERSE_WEIGHTED, |W|) < 0.30
-                     (Liu IS correction also valid in HD substrate)
   REPRODUCE_V4_TRACE_BIAS: cor(TRACE_ONLY, |W|) >= 0.70
-                          (confirms drill's measurement; SC predicts >=0.7)
 
   HARD_PASS: EITHER DIAGNOSTIC_PASS_A OR DIAGNOSTIC_PASS_B holds AND
              REPRODUCE_V4_TRACE_BIAS holds AND mechanism fires.
   MIDDLE_BAND: TRACE bias reproduced but neither STRATIFIED nor INVERSE
-               clears the 0.30 gate; partial diagnostic value.
+               clears the 0.30 gate.
   HARD_FAIL: TRACE_ONLY cor < 0.30 (drill claim contradicted; surprise
-             negative -- means the math is wrong OR test rigging wrong)
-             OR cardinality breach OR caught exception.
+             negative) OR cardinality breach OR ANCHOR mismatch OR
+             NAMESET mismatch OR caught exception.
 
 DISCIPLINES:
   META_RULE_H cardinality_ok: per-seed expected arm count = 4.
+  META_RULE_H_NAMESET: observed arm-name set must equal declared set.
+  META_RULE_H_ANCHOR: partials with mismatched config_version ANCHOR are
+                     REJECTED at load time (enforced by _seed_checkpoint).
   META_RULE_J no-silent-except: setup + each arm wrapped.
   META_RULE_K smoke fires discriminator: smoke must reproduce TRACE-bias
     (cor >= 0.5 at smoke; full-N predicted >= 0.7).
@@ -79,6 +84,7 @@ except Exception:
 import argparse
 import json
 import os
+import re
 import time
 import traceback
 from pathlib import Path
@@ -90,22 +96,25 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
+# Strip flags before importing v3 source (it consumes --self-test at module
+# level and sys.exit(0)s). With v3's main driver now guarded by __name__ ==
+# "__main__", this import is SAFE -- it only fetches helper functions, not
+# the main sweep. See research_drill_stratified_replay_HARD_FAIL_3x_2026-06-27.md.
+_SAVED_ARGV = list(sys.argv)
+sys.argv = [a for a in sys.argv if a not in ("--self-test", "--smoke")]
+
 from experiments._seed_checkpoint import (  # noqa: E402
     aggregate_partials, get_output_dir, resumable_seeds, write_partial,
 )
-from hdlab.edge_importance import (  # noqa: E402
-    EdgeImportance, HConfig, correlation_E_vs_magnitude,
-)
-from hdlab.ultrametric_clustering import (  # noqa: E402
-    UltrametricConfig,
-    cosine_distance_matrix,
-    cluster_atom_lookup,
-    filter_qualifying_clusters,
-    single_linkage_clusters,
+from hdlab.edge_importance import correlation_E_vs_magnitude  # noqa: E402
+from experiments.exp_edge_importance_retrieval_trace_x_ultrametric_coreness_v3 import (  # noqa: E402,E501
+    setup_substrate_with_trace_and_clusters,
 )
 
+sys.argv = _SAVED_ARGV
 
-ANCHOR_NAME = "edge_importance_stratified_replay_baseline_diagnostic_v2_arm_count_fix"
+
+ANCHOR_NAME = "edge_importance_stratified_replay_baseline_diagnostic_v2_proper_import_guard"
 
 _ap = argparse.ArgumentParser(add_help=False)
 _ap.add_argument("--smoke", action="store_true")
@@ -124,37 +133,22 @@ M_OLD_FULL = 600
 M_RECENT_FULL = 400
 SEEDS_FULL = [7, 17, 23]
 
-# v3 substrate-setup constants (copied verbatim; required by inlined setup):
-N_COMPOSITE_QUERIES_FULL = 3000
-COMPOSITE_ARITY = 3
-USE_FRAC_FULL = 0.40
-ULTRAMETRIC_COSINE_THRESH = 0.85
-ULTRAMETRIC_MIN_CLUSTER_SIZE = 5
-
 # Smoke discipline per META_RULE_K + USER 2026-06-26 D1: smoke at FULL-N.
 # Only SEEDS reduced.
 if RUN_MODE == "smoke":
     N = N_FULL
     M_OLD = M_OLD_FULL
     M_RECENT = M_RECENT_FULL
-    N_COMPOSITE_QUERIES = 1500   # half J cycles (matches v3 smoke pattern)
-    USE_FRAC = USE_FRAC_FULL
     SEEDS = [7]
 else:
     N = N_FULL
     M_OLD = M_OLD_FULL
     M_RECENT = M_RECENT_FULL
-    N_COMPOSITE_QUERIES = N_COMPOSITE_QUERIES_FULL
-    USE_FRAC = USE_FRAC_FULL
     SEEDS = SEEDS_FULL
 
 M_TOTAL = M_OLD + M_RECENT
 ALPHA = M_TOTAL / N
-N_USE = max(COMPOSITE_ARITY, int(round(USE_FRAC * M_OLD)))
 N_BINS_STRATIFIED = 10
-# Replay budget: replay K_PER_BIN atoms PER bin (so STRATIFIED has uniform
-# coverage across |W|-deciles; total replays = K_PER_BIN * N_BINS_STRATIFIED).
-# Default 8 per bin * 10 bins = 80 replay events total per arm.
 K_PER_BIN = 8
 TOTAL_REPLAY_EVENTS = K_PER_BIN * N_BINS_STRATIFIED
 
@@ -169,114 +163,14 @@ ARM_NAMES = [
     "ARM_STRATIFIED_REPLAY",
     "ARM_INVERSE_WEIGHTED_REPLAY",
 ]
+DECLARED_ARM_NAMESET = set(ARM_NAMES)
 
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},N={N},M_OLD={M_OLD},M_RECENT={M_RECENT},"
     f"alpha={ALPHA:.3f},N_BINS={N_BINS_STRATIFIED},"
     f"K_PER_BIN={K_PER_BIN},TOTAL_REPLAY_EVENTS={TOTAL_REPLAY_EVENTS},"
-    f"J_composite={N_COMPOSITE_QUERIES},arity={COMPOSITE_ARITY},"
-    f"USE_FRAC={USE_FRAC},N_USE={N_USE},"
     f"SEEDS={'-'.join(str(s) for s in SEEDS)},RUN_MODE={RUN_MODE}"
 )
-
-
-# ---------------------------------------------------------------------------
-# Substrate-setup helpers (inlined from
-# experiments/exp_edge_importance_retrieval_trace_x_ultrametric_coreness_v3.py
-# lines 212-341, VERBATIM minus docstring trims, to avoid v3's unguarded
-# module-level main driver running on import and writing foreign partials
-# into v2's out_dir).
-# ---------------------------------------------------------------------------
-def generate_pairs(M_count: int, N_dim: int,
-                   seed: int) -> Tuple[np.ndarray, np.ndarray]:
-    rng = np.random.RandomState(seed)
-    keys = rng.choice([-1.0, 1.0], size=(M_count, N_dim)).astype(np.float64)
-    values = rng.choice([-1.0, 1.0], size=(M_count, N_dim)).astype(np.float64)
-    return keys, values
-
-
-def build_W_from_pairs(keys: np.ndarray, values: np.ndarray) -> np.ndarray:
-    return values.T @ keys
-
-
-def predict(W: np.ndarray, key: np.ndarray) -> np.ndarray:
-    raw = W @ key
-    out = np.sign(raw)
-    out[out == 0] = 1.0
-    return out
-
-
-def composite_query_bundle(keys: np.ndarray,
-                           indices: np.ndarray) -> np.ndarray:
-    bundle = np.sum(keys[indices], axis=0)
-    out = np.sign(bundle)
-    out[out == 0] = 1.0
-    return out
-
-
-def cleanup_argmax(all_values: np.ndarray, pred: np.ndarray,
-                   N_dim: int) -> int:
-    sims = all_values @ pred / float(N_dim)
-    return int(np.argmax(sims))
-
-
-def setup_substrate_with_trace_and_clusters(
-    seed: int,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, EdgeImportance,
-           np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Build W + populate edge graph + populate retrieval_trace_score +
-    compute ultrametric clusters. INLINED from v3 to avoid import-time
-    driver (see module docstring root-cause note).
-    """
-    keys_old, values_old = generate_pairs(M_OLD, N, seed)
-    keys_rec, values_rec = generate_pairs(M_RECENT, N, seed + 999)
-    all_keys = np.concatenate([keys_old, keys_rec], axis=0)
-    all_values = np.concatenate([values_old, values_rec], axis=0)
-
-    cfg = HConfig(
-        increment=1.0, decay_step=0.0, floor=0.0,
-        e_thresh=2.0, h_thresh=3.0,
-    )
-    edge_graph = EdgeImportance(n_atoms=M_TOTAL, cfg=cfg)
-
-    W = build_W_from_pairs(keys_old, values_old)
-
-    rng = np.random.RandomState(seed + 401)
-    retrieved_idx = rng.choice(M_OLD, size=N_USE, replace=False)
-    retrieved_idx.sort()
-    unretrieved_mask = np.ones(M_OLD, dtype=bool)
-    unretrieved_mask[retrieved_idx] = False
-    unretrieved_idx = np.where(unretrieved_mask)[0]
-
-    retrieval_trace_score = np.zeros(M_TOTAL, dtype=np.float64)
-
-    rng_q = np.random.RandomState(seed + 1117)
-    for _q in range(N_COMPOSITE_QUERIES):
-        triple = rng_q.choice(retrieved_idx, size=COMPOSITE_ARITY,
-                              replace=False)
-        bundled_key = composite_query_bundle(all_keys, triple)
-        pred = predict(W, bundled_key)
-        winner = cleanup_argmax(all_values, pred, N)
-        retrieval_trace_score[winner] += 1.0
-        edge_graph.increment_query(triple)
-        edge_graph.decay_all()
-
-    W = W + build_W_from_pairs(keys_rec, values_rec)
-
-    ultra_cfg = UltrametricConfig(
-        cosine_thresh=ULTRAMETRIC_COSINE_THRESH,
-        min_cluster_size=ULTRAMETRIC_MIN_CLUSTER_SIZE,
-    )
-    D = cosine_distance_matrix(all_keys)
-    max_dist = 1.0 - ULTRAMETRIC_COSINE_THRESH
-    raw_clusters = single_linkage_clusters(D, max_distance=max_dist)
-    qual_clusters = filter_qualifying_clusters(raw_clusters, all_keys,
-                                               ultra_cfg)
-    cluster_lookup = cluster_atom_lookup(qual_clusters, M_TOTAL)
-    ultrametric_coreness = (cluster_lookup >= 0).astype(np.float64)
-
-    return (W, all_keys, all_values, edge_graph, retrieved_idx,
-            unretrieved_idx, retrieval_trace_score, ultrametric_coreness)
 
 
 # ---------------------------------------------------------------------------
@@ -306,9 +200,6 @@ def importance_stratified_replay(
 ) -> np.ndarray:
     """Bin atoms by |W|-decile; sample k_per_bin atoms per bin proportional
     to within-bin retrieval_trace_score; importance = replay-event count.
-
-    Per drill ANGLE 1: if math holds, this distribution is uniform within
-    bins so cor(importance, |W|) approaches 0.
     """
     rng = np.random.RandomState(seed + 22227)
     quantiles = np.quantile(atom_norms, np.linspace(0, 1, n_bins + 1))
@@ -398,7 +289,7 @@ def run_arm(arm_name: str, seed: int, shared: Tuple) -> Dict:
 
 def run_seed(seed: int) -> Dict:
     t0 = time.time()
-    print(f"  [seed={seed}] setup substrate (inlined v3 setup)...",
+    print(f"  [seed={seed}] setup substrate (reusing v3 substrate state)...",
           flush=True)
     try:
         shared = setup_substrate_with_trace_and_clusters(seed)
@@ -412,6 +303,7 @@ def run_seed(seed: int) -> Dict:
             "seed": seed, "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
             "alpha": float(ALPHA), "run_mode": RUN_MODE,
             "config_version": CONFIG_VERSION,
+            "anchor_name": ANCHOR_NAME,
             "exception_phase": "setup",
             "exception_msg": str(exc),
             "exception_traceback": tb,
@@ -446,6 +338,7 @@ def run_seed(seed: int) -> Dict:
         "seed": seed, "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
         "alpha": float(ALPHA), "run_mode": RUN_MODE,
         "config_version": CONFIG_VERSION,
+        "anchor_name": ANCHOR_NAME,
         "n_llm_calls": 0,
         "trace_total": float(np.sum(shared[6])),
         "n_retrieved": int(shared[4].shape[0]),
@@ -523,15 +416,50 @@ def _selftest_4_arms_required() -> bool:
     return True
 
 
+def _selftest_v3_import_is_side_effect_free() -> bool:
+    """META_RULE for THIS cell: importing v3 must NOT have written any
+    partials into the current process's HDLAB_EXP_NAME dir. We assert by
+    checking that no partial_metrics_*.json files exist in our expected
+    out_dir before we've called run_seed."""
+    out_dir = get_output_dir(ANCHOR_NAME)
+    if not out_dir.exists():
+        return True
+    pre_existing = list(out_dir.glob("partial_metrics_*.json"))
+    # Some pre-existing partials may legitimately exist from a prior interrupted
+    # run of THIS cell -- check ANCHOR in each.
+    for p in pre_existing:
+        try:
+            body = json.loads(p.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        cv = body.get("config_version", "")
+        m = re.match(r"ANCHOR=([^,]+)", str(cv))
+        if m and m.group(1) != ANCHOR_NAME:
+            raise AssertionError(
+                f"META_RULE_H_ANCHOR violation at startup: "
+                f"{p.name} has ANCHOR={m.group(1)!r} != {ANCHOR_NAME!r}. "
+                f"v3 import-time side effect did NOT get fixed -- HALT."
+            )
+        stored_anchor = body.get("anchor_name")
+        if stored_anchor is not None and str(stored_anchor) != ANCHOR_NAME:
+            raise AssertionError(
+                f"META_RULE_H_ANCHOR violation at startup: "
+                f"{p.name} has anchor_name={stored_anchor!r} != {ANCHOR_NAME!r}. "
+                f"v3 import-time side effect did NOT get fixed -- HALT."
+            )
+    return True
+
+
 def _instrumentation_selftest():
     _selftest_4_arms_required()
     _selftest_alpha_regime_is_high()
     _selftest_stratified_breaks_correlation_synthetic()
     _selftest_inverse_weighted_correction_synthetic()
+    _selftest_v3_import_is_side_effect_free()
     print(
         f"[selftest] PASS N={N} M_TOTAL={M_TOTAL} alpha={ALPHA:.3f} "
         f"n_bins={N_BINS_STRATIFIED} k_per_bin={K_PER_BIN} mode={RUN_MODE} "
-        f"arms={ARM_NAMES}",
+        f"arms={ARM_NAMES} v3_import_side_effect_free=True",
         flush=True,
     )
 
@@ -543,7 +471,7 @@ if _ARGS.self_test:
 
 
 # ---------------------------------------------------------------------------
-# Verdict (drill stub 3 bands)
+# Verdict (drill stub 3 bands + NAMESET sibling)
 # ---------------------------------------------------------------------------
 def _arms_by_name(arms: List[Dict], name: str) -> List[Dict]:
     return [a for a in arms if a.get("arm_name") == name]
@@ -552,6 +480,16 @@ def _arms_by_name(arms: List[Dict], name: str) -> List[Dict]:
 def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
     if not results:
         return ("HARD_FAIL", "No valid seed results.")
+
+    # ANCHOR check (META_RULE_H_ANCHOR at verdict layer in addition to
+    # _seed_checkpoint's load-time check; defense in depth).
+    for r in results:
+        stored_anchor = r.get("anchor_name")
+        if stored_anchor is not None and str(stored_anchor) != ANCHOR_NAME:
+            return ("HARD_FAIL",
+                    f"HARD_FAIL: META_RULE_H_ANCHOR breach at verdict: "
+                    f"seed={r.get('seed')} stored_anchor={stored_anchor!r} "
+                    f"!= expected={ANCHOR_NAME!r}")
 
     for r in results:
         if "exception_phase" in r:
@@ -573,6 +511,12 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
                     f"HARD_FAIL: META_RULE_H cardinality_ok breach "
                     f"seed={r['seed']}: expected {expected_per_seed} arms, "
                     f"got {got}")
+        observed_nameset = {a.get("arm_name") for a in r.get("arms", [])}
+        if observed_nameset != DECLARED_ARM_NAMESET:
+            return ("HARD_FAIL",
+                    f"HARD_FAIL: META_RULE_H_NAMESET breach "
+                    f"seed={r['seed']}: observed={sorted(observed_nameset)} "
+                    f"!= declared={sorted(DECLARED_ARM_NAMESET)}")
 
     def _agg_cor(arm_name: str) -> float:
         per = []
@@ -646,15 +590,51 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
 # RULE_EXPERIMENT_CELLS_MUST_GUARD_MAIN_WITH___NAME___DUNDER (added 2026-06-27)
 if __name__ == "__main__":
     out_dir = get_output_dir(ANCHOR_NAME)
+
+    # Startup deviation-log scan (visibility for any pre-existing partials
+    # whose ANCHOR mismatches this cell -- would be alien partials)
+    if out_dir.exists():
+        pre_existing = sorted(out_dir.glob("partial_metrics_*.json"))
+        alien_found = 0
+        for p in pre_existing:
+            try:
+                body = json.loads(p.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            cv = body.get("config_version", "")
+            m = re.match(r"ANCHOR=([^,]+)", str(cv))
+            stored_anchor = body.get("anchor_name")
+            mismatch = False
+            if m and m.group(1) != ANCHOR_NAME:
+                mismatch = True
+                stored = m.group(1)
+            elif stored_anchor is not None and \
+                    str(stored_anchor) != ANCHOR_NAME:
+                mismatch = True
+                stored = stored_anchor
+            if mismatch:
+                print(f"[deviation-log] ALIEN partial detected at {p.name}: "
+                      f"ANCHOR={stored!r} != expected={ANCHOR_NAME!r}; will "
+                      f"be REJECTED by META_RULE_H_ANCHOR at partial-load.",
+                      flush=True)
+                alien_found += 1
+        if alien_found > 0:
+            print(f"[deviation-log] {alien_found} alien partial(s) present; "
+                  f"_seed_checkpoint will filter them via run_config['anchor'].",
+                  flush=True)
+
+    # run_config includes "anchor"=ANCHOR_NAME so any partial with mismatched
+    # config_version ANCHOR= is REJECTED at load by META_RULE_H_ANCHOR.
     run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-                  "alpha": float(ALPHA), "run_mode": RUN_MODE}
+                  "alpha": float(ALPHA), "run_mode": RUN_MODE,
+                  "anchor": ANCHOR_NAME}
     done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
     print(f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
           f"running {remaining}", flush=True)
 
     t_sweep_start = time.time()
     for seed in remaining:
-        print(f"[seed={seed}] stratified-replay diagnostic v2 N={N} "
+        print(f"[seed={seed}] stratified-replay diagnostic v2_proper N={N} "
               f"alpha={ALPHA:.3f} mode={RUN_MODE} arms={ARM_NAMES}...",
               flush=True)
         result = run_seed(seed)
@@ -684,7 +664,8 @@ if __name__ == "__main__":
             f"n_seeds={len(all_results)} N={N} M_TOTAL={M_TOTAL} "
             f"alpha={ALPHA:.3f} n_bins={N_BINS_STRATIFIED} "
             f"k_per_bin={K_PER_BIN} mode={RUN_MODE} arms={ARM_NAMES} "
-            f"DIAGNOSTIC_COR_GATE={DIAGNOSTIC_COR_GATE}"
+            f"DIAGNOSTIC_COR_GATE={DIAGNOSTIC_COR_GATE} "
+            f"v2_proper_import_guard=true"
         ),
         "elapsed_s": float(elapsed_s),
         "config_version": CONFIG_VERSION,
@@ -697,9 +678,12 @@ if __name__ == "__main__":
         "diagnostic_cor_gate": DIAGNOSTIC_COR_GATE,
         "run_mode": RUN_MODE,
         "n_llm_calls_total": 0,
+        "expected_arm_nameset": sorted(DECLARED_ARM_NAMESET),
+        "v2_proper_import_guard": True,
         "per_seed": [
             {
                 "seed": r.get("seed"),
+                "anchor_name": r.get("anchor_name"),
                 "elapsed_s": r.get("elapsed_s"),
                 "trace_total": r.get("trace_total"),
                 "n_retrieved": r.get("n_retrieved"),

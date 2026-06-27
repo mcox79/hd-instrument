@@ -663,108 +663,110 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
 # ---------------------------------------------------------------------------
 # Main driver (v2: defensive partial-cleanup at startup)
 # ---------------------------------------------------------------------------
-out_dir = get_output_dir(ANCHOR_NAME)
+# RULE_EXPERIMENT_CELLS_MUST_GUARD_MAIN_WITH___NAME___DUNDER (added 2026-06-27)
+if __name__ == "__main__":
+    out_dir = get_output_dir(ANCHOR_NAME)
 
-# v2 ARM-COUNT FIX: defensively scan existing partials for arm-count
-# mismatches before resumable_seeds loads them. Any partial whose arms
-# field has != 2 entries is stale and would re-trigger the v1 bug.
-if out_dir.exists():
-    stale_count = 0
-    for partial_path in out_dir.glob("partial_metrics_*.json"):
-        try:
-            partial_data = json.loads(partial_path.read_text(encoding="utf-8"))
-            body = partial_data.get("body", partial_data)
-            n_arms_in_partial = len(body.get("arms", []))
-            if n_arms_in_partial != 2:
-                print(f"[v2-defensive] STALE partial detected at {partial_path.name}: "
-                      f"n_arms={n_arms_in_partial} != 2; deleting", flush=True)
-                partial_path.unlink()
-                stale_count += 1
-        except (json.JSONDecodeError, OSError) as e:
-            print(f"[v2-defensive] partial {partial_path.name} unreadable: {e}; "
-                  f"deleting", flush=True)
+    # v2 ARM-COUNT FIX: defensively scan existing partials for arm-count
+    # mismatches before resumable_seeds loads them. Any partial whose arms
+    # field has != 2 entries is stale and would re-trigger the v1 bug.
+    if out_dir.exists():
+        stale_count = 0
+        for partial_path in out_dir.glob("partial_metrics_*.json"):
             try:
-                partial_path.unlink()
-            except OSError:
-                pass
-            stale_count += 1
-    if stale_count > 0:
-        print(f"[v2-defensive] removed {stale_count} stale partials; "
-              f"clean start", flush=True)
+                partial_data = json.loads(partial_path.read_text(encoding="utf-8"))
+                body = partial_data.get("body", partial_data)
+                n_arms_in_partial = len(body.get("arms", []))
+                if n_arms_in_partial != 2:
+                    print(f"[v2-defensive] STALE partial detected at {partial_path.name}: "
+                          f"n_arms={n_arms_in_partial} != 2; deleting", flush=True)
+                    partial_path.unlink()
+                    stale_count += 1
+            except (json.JSONDecodeError, OSError) as e:
+                print(f"[v2-defensive] partial {partial_path.name} unreadable: {e}; "
+                      f"deleting", flush=True)
+                try:
+                    partial_path.unlink()
+                except OSError:
+                    pass
+                stale_count += 1
+        if stale_count > 0:
+            print(f"[v2-defensive] removed {stale_count} stale partials; "
+                  f"clean start", flush=True)
 
-run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-              "alpha": float(ALPHA), "J": N_COMPOSITE_QUERIES,
-              "run_mode": RUN_MODE}
-done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
-print(
-    f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
-    f"running {remaining}", flush=True,
-)
-
-t_sweep_start = time.time()
-for seed in remaining:
+    run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+                  "alpha": float(ALPHA), "J": N_COMPOSITE_QUERIES,
+                  "run_mode": RUN_MODE}
+    done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
     print(
-        f"[seed={seed}] v3.2-v2 N={N} alpha={ALPHA:.3f} "
-        f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
-        f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only-v2 "
-        f"(EXACTLY 2 arms enforced)...", flush=True,
-    )
-    result = run_seed(seed)
-    write_partial(out_dir, seed, result)
-
-per_seed = aggregate_partials(out_dir, SEEDS, run_config=run_config)
-all_results = list(per_seed.values())
-verdict, verdict_msg = compute_verdict(all_results)
-
-elapsed_s = time.time() - t_sweep_start
-print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
-print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
-
-mode_in_results = {r.get("run_mode", "?") for r in all_results}
-if RUN_MODE == "full" and "smoke" in mode_in_results:
-    verdict = "HARD_FAIL"
-    verdict_msg = (
-        f"HARD_FAIL: stale smoke partials in FULL run. "
-        f"mode_in_results={mode_in_results}. " + verdict_msg
+        f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
+        f"running {remaining}", flush=True,
     )
 
-metrics = {
-    "anchor_name": ANCHOR_NAME,
-    "verdict": verdict,
-    "verdict_msg": verdict_msg,
-    "summary": (
-        f"n_seeds={len(all_results)} N={N} M_OLD={M_OLD} "
-        f"M_RECENT={M_RECENT} alpha={ALPHA:.3f} "
-        f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
-        f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only-v2 "
-        f"N_PRUNE_FRAC={N_PRUNE_FRAC} v2_arm_count_fix=true"
-    ),
-    "elapsed_s": float(elapsed_s),
-    "config_version": CONFIG_VERSION,
-    "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-    "alpha": float(ALPHA),
-    "n_seeds": len(SEEDS), "n_queries": N_QUERIES, "n_use": int(N_USE),
-    "n_composite_queries": N_COMPOSITE_QUERIES,
-    "composite_arity": COMPOSITE_ARITY,
-    "downscale_scale": float(DOWNSCALE_SCALE),
-    "n_prune_frac": float(N_PRUNE_FRAC),
-    "run_mode": RUN_MODE,
-    "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in all_results)),
-    "expected_arms_per_seed": len(ARM_NAMES),
-    "v2_arm_count_fix": True,
-    "per_seed": [
-        {
-            "seed": r.get("seed"),
-            "elapsed_s": r.get("elapsed_s"),
-            "trace_total": r.get("trace_total"),
-            "n_edges_H": r.get("n_edges_H"),
-            "n_retrieved": r.get("n_retrieved"),
-            "n_unretrieved": r.get("n_unretrieved"),
-            "arms": r.get("arms"),
-        }
-        for r in all_results
-    ],
-}
-metrics_path = out_dir / "metrics.json"
-metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
-print(f"[metrics] written to {metrics_path}", flush=True)
+    t_sweep_start = time.time()
+    for seed in remaining:
+        print(
+            f"[seed={seed}] v3.2-v2 N={N} alpha={ALPHA:.3f} "
+            f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
+            f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only-v2 "
+            f"(EXACTLY 2 arms enforced)...", flush=True,
+        )
+        result = run_seed(seed)
+        write_partial(out_dir, seed, result)
+
+    per_seed = aggregate_partials(out_dir, SEEDS, run_config=run_config)
+    all_results = list(per_seed.values())
+    verdict, verdict_msg = compute_verdict(all_results)
+
+    elapsed_s = time.time() - t_sweep_start
+    print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
+    print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
+
+    mode_in_results = {r.get("run_mode", "?") for r in all_results}
+    if RUN_MODE == "full" and "smoke" in mode_in_results:
+        verdict = "HARD_FAIL"
+        verdict_msg = (
+            f"HARD_FAIL: stale smoke partials in FULL run. "
+            f"mode_in_results={mode_in_results}. " + verdict_msg
+        )
+
+    metrics = {
+        "anchor_name": ANCHOR_NAME,
+        "verdict": verdict,
+        "verdict_msg": verdict_msg,
+        "summary": (
+            f"n_seeds={len(all_results)} N={N} M_OLD={M_OLD} "
+            f"M_RECENT={M_RECENT} alpha={ALPHA:.3f} "
+            f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
+            f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only-v2 "
+            f"N_PRUNE_FRAC={N_PRUNE_FRAC} v2_arm_count_fix=true"
+        ),
+        "elapsed_s": float(elapsed_s),
+        "config_version": CONFIG_VERSION,
+        "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+        "alpha": float(ALPHA),
+        "n_seeds": len(SEEDS), "n_queries": N_QUERIES, "n_use": int(N_USE),
+        "n_composite_queries": N_COMPOSITE_QUERIES,
+        "composite_arity": COMPOSITE_ARITY,
+        "downscale_scale": float(DOWNSCALE_SCALE),
+        "n_prune_frac": float(N_PRUNE_FRAC),
+        "run_mode": RUN_MODE,
+        "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in all_results)),
+        "expected_arms_per_seed": len(ARM_NAMES),
+        "v2_arm_count_fix": True,
+        "per_seed": [
+            {
+                "seed": r.get("seed"),
+                "elapsed_s": r.get("elapsed_s"),
+                "trace_total": r.get("trace_total"),
+                "n_edges_H": r.get("n_edges_H"),
+                "n_retrieved": r.get("n_retrieved"),
+                "n_unretrieved": r.get("n_unretrieved"),
+                "arms": r.get("arms"),
+            }
+            for r in all_results
+        ],
+    }
+    metrics_path = out_dir / "metrics.json"
+    metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    print(f"[metrics] written to {metrics_path}", flush=True)

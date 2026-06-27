@@ -1214,108 +1214,110 @@ def compute_verdict(per_alpha_seed: List[Dict]) -> Tuple[str, str]:
 # ---------------------------------------------------------------------------
 # Main driver: alpha-sweep x seed-sweep with per-(alpha, seed) partials
 # ---------------------------------------------------------------------------
-out_dir = get_output_dir(ANCHOR_NAME)
-run_config = {"N": N, "run_mode": RUN_MODE}
+# RULE_EXPERIMENT_CELLS_MUST_GUARD_MAIN_WITH___NAME___DUNDER (added 2026-06-27)
+if __name__ == "__main__":
+    out_dir = get_output_dir(ANCHOR_NAME)
+    run_config = {"N": N, "run_mode": RUN_MODE}
 
-# Build expected (alpha, seed) keys.
-all_keys = [(alpha, seed) for alpha in ALPHA_GRID for seed in SEEDS]
-done_keys_str = set(list_completed_keys(out_dir, run_config=run_config))
+    # Build expected (alpha, seed) keys.
+    all_keys = [(alpha, seed) for alpha in ALPHA_GRID for seed in SEEDS]
+    done_keys_str = set(list_completed_keys(out_dir, run_config=run_config))
 
-remaining_keys = []
-done_keys_loaded = []
-for (alpha, seed) in all_keys:
-    key_str = f"alpha{alpha}_seed{seed}"
-    if key_str in done_keys_str:
-        done_keys_loaded.append((alpha, seed))
-    else:
-        remaining_keys.append((alpha, seed))
+    remaining_keys = []
+    done_keys_loaded = []
+    for (alpha, seed) in all_keys:
+        key_str = f"alpha{alpha}_seed{seed}"
+        if key_str in done_keys_str:
+            done_keys_loaded.append((alpha, seed))
+        else:
+            remaining_keys.append((alpha, seed))
 
-print(
-    f"[ckpt] {len(done_keys_loaded)} of {len(all_keys)} (alpha, seed) "
-    f"already complete; running {remaining_keys}", flush=True,
-)
-
-t_sweep_start = time.time()
-for (alpha, seed) in remaining_keys:
     print(
-        f"[run] v6 alpha={alpha} seed={seed} N={N} "
-        f"J_comp={N_COMPOSITE_QUERIES} N_PROBE={N_PROBE_BATCH} "
-        f"K_LKO={K_LEAVE_K_OUT_ARM} grad={len(GRADIENT_LEVELS)}lvls "
-        f"mode={RUN_MODE}...",
-        flush=True,
-    )
-    result = run_alpha_seed(alpha, seed)
-    key_str = f"alpha{alpha}_seed{seed}"
-    write_partial_key(out_dir, key_str, result)
-
-# Reload all partials
-per_alpha_seed = []
-for (alpha, seed) in all_keys:
-    key_str = f"alpha{alpha}_seed{seed}"
-    partial = load_partial_key(out_dir, key_str)
-    if partial is not None:
-        per_alpha_seed.append(partial)
-    else:
-        print(f"[WARN] partial missing for {key_str}", flush=True)
-
-verdict, verdict_msg = compute_verdict(per_alpha_seed)
-
-elapsed_s = time.time() - t_sweep_start
-print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
-print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
-
-mode_in_results = {r.get("run_mode", "?") for r in per_alpha_seed}
-if RUN_MODE == "full" and "smoke" in mode_in_results:
-    verdict = "HARD_FAIL"
-    verdict_msg = (
-        f"HARD_FAIL: stale smoke partials in FULL run. "
-        f"mode_in_results={mode_in_results}. " + verdict_msg
+        f"[ckpt] {len(done_keys_loaded)} of {len(all_keys)} (alpha, seed) "
+        f"already complete; running {remaining_keys}", flush=True,
     )
 
-# Cardinality summary
-total_arm_entries = sum(len(r.get("arms", [])) for r in per_alpha_seed)
-cardinality_ok = (total_arm_entries == EXPECTED_N_UNITS)
-print(
-    f"[cardinality] expected={EXPECTED_N_UNITS} observed={total_arm_entries} "
-    f"OK={cardinality_ok}", flush=True,
-)
+    t_sweep_start = time.time()
+    for (alpha, seed) in remaining_keys:
+        print(
+            f"[run] v6 alpha={alpha} seed={seed} N={N} "
+            f"J_comp={N_COMPOSITE_QUERIES} N_PROBE={N_PROBE_BATCH} "
+            f"K_LKO={K_LEAVE_K_OUT_ARM} grad={len(GRADIENT_LEVELS)}lvls "
+            f"mode={RUN_MODE}...",
+            flush=True,
+        )
+        result = run_alpha_seed(alpha, seed)
+        key_str = f"alpha{alpha}_seed{seed}"
+        write_partial_key(out_dir, key_str, result)
 
-metrics = {
-    "anchor_name": ANCHOR_NAME,
-    "verdict": verdict,
-    "verdict_msg": verdict_msg,
-    "summary": (
-        f"n_alpha_seed={len(per_alpha_seed)} N={N} M_RECENT={M_RECENT} "
-        f"M_HELDOUT={M_HELDOUT} J_comp={N_COMPOSITE_QUERIES} "
-        f"ALPHA_GRID={ALPHA_GRID} K_LEAVE_K_OUT_ARM={K_LEAVE_K_OUT_ARM} "
-        f"COHORT_K_DEFAULT={COHORT_K_DEFAULT} "
-        f"N_PROBE={N_PROBE_BATCH} GRADIENT_LEVELS={GRADIENT_LEVELS} "
-        f"arity={COMPOSITE_ARITY} mode={RUN_MODE} "
-        f"V5_BASELINE_SEL={V5_BASELINE_SEL_CFU}"
-    ),
-    "elapsed_s": float(elapsed_s),
-    "config_version": CONFIG_VERSION,
-    "N": N, "M_RECENT": M_RECENT, "M_HELDOUT": M_HELDOUT,
-    "alpha_grid": list(ALPHA_GRID),
-    "n_seeds": len(SEEDS), "seeds": list(SEEDS),
-    "n_queries": N_QUERIES,
-    "n_composite_queries": N_COMPOSITE_QUERIES,
-    "cohort_k_default": int(COHORT_K_DEFAULT),
-    "k_leave_k_out_arm": int(K_LEAVE_K_OUT_ARM),
-    "n_probe_batch": int(N_PROBE_BATCH),
-    "cfu_eval_frac": float(CFU_EVAL_FRAC),
-    "gradient_levels": list(GRADIENT_LEVELS),
-    "composite_arity": COMPOSITE_ARITY,
-    "downscale_scale": float(DOWNSCALE_SCALE),
-    "n_prune_frac": float(N_PRUNE_FRAC),
-    "v5_baseline_sel_cfu": float(V5_BASELINE_SEL_CFU),
-    "run_mode": RUN_MODE,
-    "expected_n_units": EXPECTED_N_UNITS,
-    "observed_n_units": total_arm_entries,
-    "cardinality_ok": bool(cardinality_ok),
-    "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in per_alpha_seed)),
-    "per_alpha_seed": per_alpha_seed,
-}
-metrics_path = out_dir / "metrics.json"
-metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
-print(f"[metrics] written to {metrics_path}", flush=True)
+    # Reload all partials
+    per_alpha_seed = []
+    for (alpha, seed) in all_keys:
+        key_str = f"alpha{alpha}_seed{seed}"
+        partial = load_partial_key(out_dir, key_str)
+        if partial is not None:
+            per_alpha_seed.append(partial)
+        else:
+            print(f"[WARN] partial missing for {key_str}", flush=True)
+
+    verdict, verdict_msg = compute_verdict(per_alpha_seed)
+
+    elapsed_s = time.time() - t_sweep_start
+    print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
+    print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
+
+    mode_in_results = {r.get("run_mode", "?") for r in per_alpha_seed}
+    if RUN_MODE == "full" and "smoke" in mode_in_results:
+        verdict = "HARD_FAIL"
+        verdict_msg = (
+            f"HARD_FAIL: stale smoke partials in FULL run. "
+            f"mode_in_results={mode_in_results}. " + verdict_msg
+        )
+
+    # Cardinality summary
+    total_arm_entries = sum(len(r.get("arms", [])) for r in per_alpha_seed)
+    cardinality_ok = (total_arm_entries == EXPECTED_N_UNITS)
+    print(
+        f"[cardinality] expected={EXPECTED_N_UNITS} observed={total_arm_entries} "
+        f"OK={cardinality_ok}", flush=True,
+    )
+
+    metrics = {
+        "anchor_name": ANCHOR_NAME,
+        "verdict": verdict,
+        "verdict_msg": verdict_msg,
+        "summary": (
+            f"n_alpha_seed={len(per_alpha_seed)} N={N} M_RECENT={M_RECENT} "
+            f"M_HELDOUT={M_HELDOUT} J_comp={N_COMPOSITE_QUERIES} "
+            f"ALPHA_GRID={ALPHA_GRID} K_LEAVE_K_OUT_ARM={K_LEAVE_K_OUT_ARM} "
+            f"COHORT_K_DEFAULT={COHORT_K_DEFAULT} "
+            f"N_PROBE={N_PROBE_BATCH} GRADIENT_LEVELS={GRADIENT_LEVELS} "
+            f"arity={COMPOSITE_ARITY} mode={RUN_MODE} "
+            f"V5_BASELINE_SEL={V5_BASELINE_SEL_CFU}"
+        ),
+        "elapsed_s": float(elapsed_s),
+        "config_version": CONFIG_VERSION,
+        "N": N, "M_RECENT": M_RECENT, "M_HELDOUT": M_HELDOUT,
+        "alpha_grid": list(ALPHA_GRID),
+        "n_seeds": len(SEEDS), "seeds": list(SEEDS),
+        "n_queries": N_QUERIES,
+        "n_composite_queries": N_COMPOSITE_QUERIES,
+        "cohort_k_default": int(COHORT_K_DEFAULT),
+        "k_leave_k_out_arm": int(K_LEAVE_K_OUT_ARM),
+        "n_probe_batch": int(N_PROBE_BATCH),
+        "cfu_eval_frac": float(CFU_EVAL_FRAC),
+        "gradient_levels": list(GRADIENT_LEVELS),
+        "composite_arity": COMPOSITE_ARITY,
+        "downscale_scale": float(DOWNSCALE_SCALE),
+        "n_prune_frac": float(N_PRUNE_FRAC),
+        "v5_baseline_sel_cfu": float(V5_BASELINE_SEL_CFU),
+        "run_mode": RUN_MODE,
+        "expected_n_units": EXPECTED_N_UNITS,
+        "observed_n_units": total_arm_entries,
+        "cardinality_ok": bool(cardinality_ok),
+        "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in per_alpha_seed)),
+        "per_alpha_seed": per_alpha_seed,
+    }
+    metrics_path = out_dir / "metrics.json"
+    metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    print(f"[metrics] written to {metrics_path}", flush=True)

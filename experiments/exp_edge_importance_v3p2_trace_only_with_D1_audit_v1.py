@@ -661,77 +661,79 @@ def compute_verdict(results: List[Dict]) -> Tuple[str, str]:
 # ---------------------------------------------------------------------------
 # Main driver
 # ---------------------------------------------------------------------------
-out_dir = get_output_dir(ANCHOR_NAME)
-run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-              "alpha": float(ALPHA), "J": N_COMPOSITE_QUERIES,
-              "run_mode": RUN_MODE}
-done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
-print(
-    f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
-    f"running {remaining}", flush=True,
-)
-
-t_sweep_start = time.time()
-for seed in remaining:
+# RULE_EXPERIMENT_CELLS_MUST_GUARD_MAIN_WITH___NAME___DUNDER (added 2026-06-27)
+if __name__ == "__main__":
+    out_dir = get_output_dir(ANCHOR_NAME)
+    run_config = {"N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+                  "alpha": float(ALPHA), "J": N_COMPOSITE_QUERIES,
+                  "run_mode": RUN_MODE}
+    done, remaining = resumable_seeds(SEEDS, out_dir, run_config=run_config)
     print(
-        f"[seed={seed}] v3.2 N={N} alpha={ALPHA:.3f} "
-        f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
-        f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only...", flush=True,
-    )
-    result = run_seed(seed)
-    write_partial(out_dir, seed, result)
-
-per_seed = aggregate_partials(out_dir, SEEDS, run_config=run_config)
-all_results = list(per_seed.values())
-verdict, verdict_msg = compute_verdict(all_results)
-
-elapsed_s = time.time() - t_sweep_start
-print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
-print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
-
-mode_in_results = {r.get("run_mode", "?") for r in all_results}
-if RUN_MODE == "full" and "smoke" in mode_in_results:
-    verdict = "HARD_FAIL"
-    verdict_msg = (
-        f"HARD_FAIL: stale smoke partials in FULL run. "
-        f"mode_in_results={mode_in_results}. " + verdict_msg
+        f"[ckpt] {len(done)} of {len(SEEDS)} seeds already complete; "
+        f"running {remaining}", flush=True,
     )
 
-metrics = {
-    "anchor_name": ANCHOR_NAME,
-    "verdict": verdict,
-    "verdict_msg": verdict_msg,
-    "summary": (
-        f"n_seeds={len(all_results)} N={N} M_OLD={M_OLD} "
-        f"M_RECENT={M_RECENT} alpha={ALPHA:.3f} "
-        f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
-        f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only "
-        f"N_PRUNE_FRAC={N_PRUNE_FRAC}"
-    ),
-    "elapsed_s": float(elapsed_s),
-    "config_version": CONFIG_VERSION,
-    "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
-    "alpha": float(ALPHA),
-    "n_seeds": len(SEEDS), "n_queries": N_QUERIES, "n_use": int(N_USE),
-    "n_composite_queries": N_COMPOSITE_QUERIES,
-    "composite_arity": COMPOSITE_ARITY,
-    "downscale_scale": float(DOWNSCALE_SCALE),
-    "n_prune_frac": float(N_PRUNE_FRAC),
-    "run_mode": RUN_MODE,
-    "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in all_results)),
-    "per_seed": [
-        {
-            "seed": r.get("seed"),
-            "elapsed_s": r.get("elapsed_s"),
-            "trace_total": r.get("trace_total"),
-            "n_edges_H": r.get("n_edges_H"),
-            "n_retrieved": r.get("n_retrieved"),
-            "n_unretrieved": r.get("n_unretrieved"),
-            "arms": r.get("arms"),
-        }
-        for r in all_results
-    ],
-}
-metrics_path = out_dir / "metrics.json"
-metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
-print(f"[metrics] written to {metrics_path}", flush=True)
+    t_sweep_start = time.time()
+    for seed in remaining:
+        print(
+            f"[seed={seed}] v3.2 N={N} alpha={ALPHA:.3f} "
+            f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
+            f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only...", flush=True,
+        )
+        result = run_seed(seed)
+        write_partial(out_dir, seed, result)
+
+    per_seed = aggregate_partials(out_dir, SEEDS, run_config=run_config)
+    all_results = list(per_seed.values())
+    verdict, verdict_msg = compute_verdict(all_results)
+
+    elapsed_s = time.time() - t_sweep_start
+    print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
+    print(f"[elapsed] {elapsed_s:.1f}s", flush=True)
+
+    mode_in_results = {r.get("run_mode", "?") for r in all_results}
+    if RUN_MODE == "full" and "smoke" in mode_in_results:
+        verdict = "HARD_FAIL"
+        verdict_msg = (
+            f"HARD_FAIL: stale smoke partials in FULL run. "
+            f"mode_in_results={mode_in_results}. " + verdict_msg
+        )
+
+    metrics = {
+        "anchor_name": ANCHOR_NAME,
+        "verdict": verdict,
+        "verdict_msg": verdict_msg,
+        "summary": (
+            f"n_seeds={len(all_results)} N={N} M_OLD={M_OLD} "
+            f"M_RECENT={M_RECENT} alpha={ALPHA:.3f} "
+            f"J_comp={N_COMPOSITE_QUERIES} arity={COMPOSITE_ARITY} "
+            f"N_USE={N_USE} mode={RUN_MODE} arms=TRACE-only "
+            f"N_PRUNE_FRAC={N_PRUNE_FRAC}"
+        ),
+        "elapsed_s": float(elapsed_s),
+        "config_version": CONFIG_VERSION,
+        "N": N, "M_OLD": M_OLD, "M_RECENT": M_RECENT,
+        "alpha": float(ALPHA),
+        "n_seeds": len(SEEDS), "n_queries": N_QUERIES, "n_use": int(N_USE),
+        "n_composite_queries": N_COMPOSITE_QUERIES,
+        "composite_arity": COMPOSITE_ARITY,
+        "downscale_scale": float(DOWNSCALE_SCALE),
+        "n_prune_frac": float(N_PRUNE_FRAC),
+        "run_mode": RUN_MODE,
+        "n_llm_calls_total": int(sum(r.get("n_llm_calls", 0) for r in all_results)),
+        "per_seed": [
+            {
+                "seed": r.get("seed"),
+                "elapsed_s": r.get("elapsed_s"),
+                "trace_total": r.get("trace_total"),
+                "n_edges_H": r.get("n_edges_H"),
+                "n_retrieved": r.get("n_retrieved"),
+                "n_unretrieved": r.get("n_unretrieved"),
+                "arms": r.get("arms"),
+            }
+            for r in all_results
+        ],
+    }
+    metrics_path = out_dir / "metrics.json"
+    metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    print(f"[metrics] written to {metrics_path}", flush=True)
