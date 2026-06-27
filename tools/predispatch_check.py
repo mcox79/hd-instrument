@@ -55,6 +55,48 @@ def _matches(text: str, kws: list[str]) -> bool:
     return any(kw.lower() in t for kw in kws)
 
 
+def _scan_filesystem_landings(keywords: list[str], cutoff: float) -> list[dict]:
+    """Filesystem-scan fallback when recent_landings.jsonl is stale or incomplete.
+
+    Walks d:/AI/hd-instrument/data/exp_*/metrics.json directly and emits landing-shaped
+    dicts for any cell matching keywords whose mtime is within the cutoff. This is the
+    Fix #26 robustness layer: if hd_landing_notifier scheduled task is dead, this still
+    works.
+    """
+    out = []
+    data_dir = REPO / "data"
+    if not data_dir.exists():
+        return out
+    for exp_dir in data_dir.glob("exp_*"):
+        if not exp_dir.is_dir():
+            continue
+        metrics_path = exp_dir / "metrics.json"
+        if not metrics_path.exists():
+            continue
+        try:
+            mtime = metrics_path.stat().st_mtime
+        except OSError:
+            continue
+        if mtime < cutoff:
+            continue
+        cell_name = exp_dir.name
+        if not _matches(cell_name, keywords):
+            continue
+        try:
+            d = json.loads(metrics_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        out.append({
+            "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mtime)),
+            "cell": cell_name,
+            "verdict": str(d.get("verdict", "?")),
+            "run_mode": str(d.get("run_mode", "?")),
+            "elapsed_s": d.get("elapsed_s", 0),
+            "_source": "filesystem_scan",
+        })
+    return out
+
+
 def check(keywords: list[str], lookback_days: int = LOOKBACK_DAYS) -> dict:
     """Return dict with matching landings, atoms, and a recommendation."""
     cutoff = time.time() - lookback_days * 86400
@@ -73,6 +115,12 @@ def check(keywords: list[str], lookback_days: int = LOOKBACK_DAYS) -> dict:
         except (ValueError, TypeError):
             pass
         matching_landings.append(L)
+
+    fs_landings = _scan_filesystem_landings(keywords, cutoff)
+    seen_cells = {L.get("cell", "") for L in matching_landings}
+    for fs in fs_landings:
+        if fs["cell"] not in seen_cells:
+            matching_landings.append(fs)
 
     matching_atoms = []
     if ATOMS.exists():

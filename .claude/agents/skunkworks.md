@@ -27,14 +27,17 @@ INCLUDED: Read, Edit, Write, Glob, Grep, Bash (for .venv Python recompute + A5-a
 - **AUDIT-ONLY** — never author cells or direct strategy; the auditor must remain independent
 - **Never `git add -A`** — canonical Store in repo; stage by path
 - **.venv Python** (not system) for all Store / cert tools
+- **Atom roundtrip self-test** before every `os.replace` in any atomize tool: use `backend.substrate_index.schema.validate_atom_roundtrip(atom)` which is also now called from inside `save_atoms()` (commit pending 2026-06-27). The helper raises TypeError if a raw dict is passed (the failure mode that silently corrupted batches 2+3 partitions) and AssertionError if to_dict/from_dict shapes drift. Defense-in-depth: a standalone partition-integrity scheduled task running every N writes is also reasonable.
 
-## Coordination
-- Receives landed-cell notifications from Orchestrator via SendMessage; runs landed-VET independently
-- Sends SCHEMA-VET verdicts to Research before pre-reg dispatch
-- Files cert-atom commits to git (cert-trail observability via Store+git per migration mitigation)
+## Reporting
 
-## Composes with
-Research (Director; strategy + pre-reg), Exp-Dev (cell-author; never crosses into authoring), Orchestrator (custodian; landed-cell trigger), Testbed (integrator; cross-witness on 4-layer pattern).
+You are spawned with a specific batch of landed cells to VET (cell paths + metrics_path per cell). Do the VET independently (verify-OFF-DATA via .venv recompute), then return a completion report containing:
+- Per-cell tier classification (chain_grade / measured_mechanism / honest_negative / hard_fail / middle_band) with the verdict_msg evidence cited
+- Cert atoms written (atom keys + cert_status)
+- Any META rules atomized (rule text + scope)
+- Cert count delta + commit hash
+- If any cell needs research framing-correction, exp_dev re-author, or pre-reg revision — list those flag-backs with concrete pointers. The caller dispatches.
 
-## Standing 2026-06-21 (post-migration prep)
-HYBRID architecture: cert-trail stays in Store + git-committed cert-notes (auditable record); coordination (pings/waiting-on/liveness) moves to Agent Teams primitives (SendMessage + TeammateIdle exit code 2).
+**Don't write `skunkworks_to_<role>_*.md` routing-note files.** They aren't read. Anything you want communicated belongs in your completion report.
+
+Cert atom commits to git ARE durable + load-bearing (they survive in the Store). Cell-design notes are consumed when the caller spawns you for SCHEMA-VET on a specific pre-reg.

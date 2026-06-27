@@ -658,15 +658,46 @@ def _atomic_replace(tmp: Path, path: Path) -> None:
             time.sleep(0.02 * (attempt + 1))
 
 
+def validate_atom_roundtrip(atom: Atom) -> None:
+    """Schema-VET self-test: serialize -> parse -> compare must hold.
+
+    Per Skunkworks batch 4 flag-back #1 (2026-06-26): atomize tools that wrote raw dicts
+    (instead of proper Atom dataclass via to_dict) silently corrupted partitions; A5 PRE
+    caught 9 malformed atoms across batches 2+3 only when next tool tried to load. This
+    helper provides the defensive check any atomize tool should call before os.replace.
+
+    Raises AssertionError with diff hint if roundtrip fails.
+    """
+    if not isinstance(atom, Atom):
+        raise TypeError(f"validate_atom_roundtrip: expected Atom, got {type(atom).__name__}")
+    try:
+        roundtripped = Atom.from_dict(json.loads(json.dumps(atom.to_dict(), ensure_ascii=False)))
+    except Exception as e:
+        raise AssertionError(
+            f"Atom roundtrip failed during serialize/parse: {atom.id} ({type(e).__name__}: {e})"
+        ) from e
+    if roundtripped != atom:
+        raise AssertionError(
+            f"Atom roundtrip mismatch: {atom.id} parsed back unequal to original"
+        )
+
+
 def save_atoms(atoms: list[Atom], path: Path) -> None:
     """Atomic write via UNIQUE-temp + fsync + os.replace per Research Pattern 1
     (write-tmp + fsync + os.replace; production-database standard).
     Solves recurring JSONDecodeError race in concurrent readers during ingest
     bursts. Original fix commit 56ff427e (lost across worktree split);
     re-applied a5acfc36; fsync added per atomic-write-shard-swap routing
-    2026-06-13; UNIQUE per-write tmp added 2026-06-19 (concurrent-save tmp-collision root-cause fix)."""
+    2026-06-13; UNIQUE per-write tmp added 2026-06-19 (concurrent-save tmp-collision root-cause fix).
+
+    2026-06-27 hardening (Skunkworks batch 4 flag-back #1): each atom is roundtrip-validated
+    BEFORE write. TypeError surfaces tools passing raw dicts instead of Atom instances;
+    AssertionError surfaces shape drift between to_dict / from_dict (the failure mode that
+    silently corrupted batches 2+3 partitions until A5 PRE caught it)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    for a in atoms:
+        validate_atom_roundtrip(a)
     tmp = _unique_tmp(path)
     try:
         with open(tmp, "w", encoding="utf-8") as f:

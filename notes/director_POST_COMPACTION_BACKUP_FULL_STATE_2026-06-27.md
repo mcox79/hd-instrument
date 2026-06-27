@@ -114,6 +114,32 @@ Supersedes prior "local CPU for smoke" pattern. Smoke AND full both route to `re
 
 ---
 
+## USER OFFLINE WINDOW 2026-06-27 ~06:25 PDT (flight; low-bandwidth mode)
+
+USER going on flight. Low-bandwidth mode. All ongoing work routes via autonomous remote runners (cpu_runner_0 + gpu_runner_0 at `marsh@home:C:/dev/hd-instrument/`) — they pick up queue.json entries independently of my/USER connection.
+
+**Pre-offline queued (8 cells; orchestrator confirmed enqueued before USER offline)**:
+- overnight_queue (GPU): K=8192 3-seed harvest + capacity_sweep higher-alpha (commit 1b851af7)
+- remote_cpu_queue: ANCHOR 5 dual-store FULL + ANCHOR 3 v2 chain-grade + Wave 4 v2 tripwire-surfaced (commits 1b851af7 + 5ca8e322)
+- (in-flight authoring; will queue when exp_dev a8c94b76e24f6424e returns): edge-imp v4 NREM-replay-modulated trace + ANCHOR 1 v3 self-contained
+
+**Already landed pre-offline**:
+- ANCHOR 1 v2 (commit de13ec5b): HARD_FAIL infra-dep (KB_REFERENT_MISSING — upstream `exp_substrate_director_kb_ingest_v1/_arm_full/kb` not provisioned on remote)
+- edge-imp v3 (commit de13ec5b): MIDDLE_BAND composition-collapse (TRACE +0.083 only; ULTRA contribution lost in top-K)
+
+**Director's autonomous-overnight setup verified**: remote runners are the load-bearing mechanism per memory `reference_hd_remote_path_and_wake_system_fragility_2026-06-23.md`. They continue independently. Orchestrator spawn ac893205600e9c211 in flight to verify runners alive + restart if dead.
+
+**Edge-importance decision approved (USER 2026-06-27 ~06:18 PDT)**: combined A+B.
+- (A) v4 NREM-replay-modulated trace authoring in flight (compose retrieval-trace + replay-consolidation-count; brain STC analog of multi-event accumulation)
+- (B) honest-bound atom for v3 at sel_unretr=+0.083 (substrate importance-signal ceiling at this regime) — spawn Skunkworks batch 7 after batch 6 returns
+
+**Director main-thread infra edits NOT YET COMMITTED** (need orchestrator push when alive):
+- `tools/predispatch_check.py` — added filesystem-scan fallback for dead landing_notifier
+- `backend/substrate_index/schema.py` — added validate_atom_roundtrip() + integrated into save_atoms() (Skunkworks batch 4 flag-back #1 code-level fix)
+- `.claude/agents/skunkworks.md` + `.claude/agents/exp_dev.md` — codified disciplines (cardinality_ok + META_RULE_J/K/L/M + Atom roundtrip + NO LOCAL directive)
+- `C:/Users/marsh/.claude/projects/d--AI/memory/feedback_no_experiments_local_all_remote_USER_LOCKED_2026-06-27.md` + MEMORY.md index update
+- `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-27.md` + `notes/director_LIVE_STATE_2026-06-27.md`
+
 ## SKUNKWORKS BATCH 5 OUTCOMES (landed 2026-06-27 ~05:10 PDT; commit 6895100e)
 
 - ANCHOR 3 FULL → **PROVEN_BOUND** (not chain-grade): rec_clst=rec_unclst=1.000 saturates metric cap; USER_DIRECTIVE vacuously satisfied (n_UD=0). RC paths: (1) re-run with n_UD>0 mix; (2) scale n_atoms≥10k to break 1.000 cap. Direct chain-grade promotion path identified.
