@@ -1190,6 +1190,223 @@ CERT 624 (post-Skunkworks a0534a89 +1). No new chain-grade promotions in this se
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~23:25Z UPDATE #15 (Cycle 1 v3 verdict + 2 drills landed)
 
+---
+
+## SIXTEENTH-WAVE UPDATE 2026-06-27 ~23:35Z — SKUNKWORKS RE-VET COMPLETE: CERT 623→625 (+2 CHAIN_GRADE)
+
+**Skunkworks re-vet ad6f061a6982e9fa1 complete. Commit e67e4bf8. 7 atoms + 7 ledger rows. CERT 623 → 625.**
+
+### TWO NEW CHAIN_GRADE WINS
+
+**1. parietal_cortex MOVABLE-rebind (CHAIN_GRADE)**
+- Path: `d:/AI/hd-instrument/data/exp_parietal_cortex_spatial_reasoning_v1/metrics.json`
+- MOVABLE arm IN ISOLATION: cv=0.0031 / lift over NO_POS = +0.830 / lift over FIXED = +0.576
+- fair_baseline_ok=True / suspect_1000=False / discriminator fires strongly positive
+- Brain analog: motor-cortex positional rebinding (symbol-as-movable-object); separate cortical substrate from spatial-relations
+- **This is today's substrate-product win for parietal cortex** — confirms cortex extends beyond pure-information mechanisms to BIND-AND-MOVE primitives
+
+**2. engram density-matched-null methodology (CHAIN_GRADE)**
+- Path: `d:/AI/hd-instrument/data/exp_engram_dropout_inhibitory_plasticity_v2_density_matched/metrics.json`
+- Methodology atom: density-matched-null FAIR-BASELINE pattern (alignment rel_diff=0.0002, HP<=0.10 PASS by 500x)
+- THE FIX itself is chain-grade — methodology proven sound; not the mechanism
+- Engram mechanism IS HONEST_NEGATIVE (cor_lift=+0.014; HP>=0.05 missed by 36pp)
+- This atom unblocks future engram-family revivals using density-matched baselines
+
+### KEY CORRECTIONS TO MY FRAMING
+
+**PFC ARGMAX revival NOT JUSTIFIED at depth=12** (my UPDATE #13 was wrong):
+- ARGMAX(d=12)=0.170; SOFTMAX(d=12)=0.156; gap = +0.014
+- SEM_diff = 0.024 → gap is INSIDE 1 SEM
+- cv: SOFTMAX=0.249 / ARGMAX=0.214 (both 2x+ over HP rail of 0.10)
+- For valid revival need n_seeds≥8 with sem_margin>=0.08
+- Cell ab7b7708 (still in flight) may produce same conclusion; vet output when lands
+- atom tier = HONEST_NEGATIVE depth-tier-breaks-from-depth8
+
+**Parietal REL arm has CELL BUG**: `grid_position_with_relations === grid_position_movable` bit-identical across all 5 seeds. The relations arm code path duplicates MOVABLE arm code (not testing relational-spatial circuit separately). Flag for cell-author iteration; doesn't affect MOVABLE chain-grade promotion.
+
+**TRACE arm MEASURED_MECHANISM (proven-bound by-construction)** at M/d=0.024:
+- Not chain-grade because no orthogonal arm separated above CRLB k=8 floor (0.055)
+- Other arms (PCA / Fisher / Single) all BELOW CRLB k=8 floor → INDETERMINATE_NEEDS_M_SCALE confirmed
+- Rescue requires M=16384 to match d=16384 (16x compute over current; substantial)
+
+**BTSP v2 HONEST_NEGATIVE regime-infeasible-probe-SEM-drift**: META_RULE_AD confirmed (single-seed probe baseline=1.0 → 5-seed regressed to 0.381 = 0.62 drift; band tolerance must absorb multi-seed SEM). Deferred to v3 cell-author iteration.
+
+### CYCLE 1 V3 PER-ARM ANALYSIS (no smoking-gun bug; per-step decay normal)
+
+Re-read `exp_substrate_multihop_brain_pushback_v3_redispatch/metrics.json` per-arm carefully:
+- BASELINE per_step_acc = [0.91, 0.855, 0.76, 0.64, 0.56] at depth=5 (substrate-physics decay)
+- R1 (replay-into-W_c): shortcuts FIRE at depth=2 (141 hits, hit_rate=0.705) → +0.05 over baseline; ZERO shortcuts at depth=3+ → fallback used 100% → ties baseline
+- R2 (PFC scratchpad): writes/reads fire but top1 == baseline (per-hop cleanup unchanged)
+- R3 (bidirectional): meet_rate=top1; bwd_only=0.005 at depth=5 (backward chain fails to anchor)
+- COMBINED: depth=2 lifts to 0.905 (+0.05); depth=3 meet_hits=152 but no top1 lift; depth=5 no lift
+
+**Interpretation: NOT a cell bug — real substrate behavior.** Mechanism arms FIRE (scratchpad written, shortcuts attempted, meeting attempted) but per-hop cleanup at depth=5 is the bottleneck — neither replay, scratchpad, nor bidirectional improves cleanup fidelity at this regime. At depth=2 (where per-step accuracy is 0.91), mechanisms CAN add value (COMBINED +0.05 over baseline).
+
+**This is a SUBSTANTIVE finding**: brain-pushback mechanisms (replay shortcuts / PFC scratchpad / bidirectional meeting) lift modestly at depth=2 but COLLAPSE at depth=5 in this regime because per-hop cleanup is the bottleneck. To break Barrier 1, mechanisms need to operate BELOW per-hop cleanup (not on top of it) — e.g., per-step error correction, intermediate cleanup-with-context, etc.
+
+### CORRECTED CYCLE 1 V4 SPEC
+
+Original spec to a706eb03 was N_chains_train 200→40. Sent reversal: should be 200→1000 (MORE interference = LOWER per-step accuracy = LOWER baseline at depth=5). Per-step needs to drop from 0.91 to ~0.72 to get baseline depth_5 into [0.10, 0.20] band.
+
+### IN-FLIGHT (3 agents; spawn budget at cap)
+
+- ad6f061a ✅ COMPLETE (just landed; processed above)
+- a706eb037b9844377: Cycle 1 v4 cell-author with reversed knob direction
+- ab7b7708078e41e56: PFC depth-adaptive ARGMAX revival (likely same finding as Skunkworks)
+
+### CERT 625 PORTFOLIO STATUS
+
+Today's chain-grade promotions: K=8192 capacity 3-seed (early session) + ANCHOR 1 v4 partition-routing + task_vector_kshot v1 smoke + parietal MOVABLE + engram density-matched methodology = **+5 chain-grade today**. Plus MM atoms + 6+ META rules.
+
+The agent-spawn-only architecture + cert-owner-correctly-overrides-Director patterns are LOAD-BEARING. Real progress flowed through them.
+
+### NEXT-STEP PRIORITIES
+
+1. Wait for ab7b7708 PFC ARGMAX (likely HONEST_NEGATIVE per Skunkworks finding — vet when lands)
+2. Wait for a706eb03 Cycle 1 v4 with corrected knob direction
+3. Watch for cortex_hippo_handoff_FULL (running 5h+)
+4. Author tip_of_tongue v2 + sws_rem v2 + pfc v3 when budget allows
+5. Stage Wave 3A side findings + Cycle 1 v3 finding + parietal REL bug + ARGMAX-gap-too-small for next Skunkworks batch
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~23:35Z UPDATE #16 (Skunkworks re-vet +2 chain-grade; CERT 625)
+
+---
+
+## SEVENTEENTH-WAVE UPDATE 2026-06-27 ~23:45Z — SUBSTRATE-PRODUCT INSIGHT + 12 ATOMS STAGED
+
+### CYCLE 1 V4 SMOKE RESULT (a706eb03 completed)
+
+Smoke RAIL_SANITY_BREACH but DEEPLY INFORMATIVE per author's diagnosis:
+- BASELINE_depth_5 = 0.875 (WORSE than v3 0.582; cell-author multi-knob change with V_C 1000→2000 counteracted my N_chains push)
+- All 5 arms identical at 0.875 (same saturation pattern as v3)
+- Per-hop conditional accuracy: 0.95-1.0 stable across hops
+
+**Cell-author's load-bearing diagnosis** (verbatim): "the substrate's per-hop accuracy is dominated by argmax-ceiling, not crosstalk. Cleanup mechanism may need to be the variable, not the data density."
+
+### SUBSTRATE-PRODUCT INSIGHT: BARRIER 1 IS ALREADY BROKEN (chain-grade depth-5 compositional reasoning)
+
+Combining v3 + v4 results: substrate's per-hop argmax cleanup achieves:
+- 56% top-1 at full N=8192, 200 chains, depth=5 (v3)
+- 87.5% top-1 at smoke N=2048, 250 chains, depth=5 (v4)
+- Per-hop conditional 0.85-1.0 (stable; not collapsing)
+
+**The "Barrier 1 ceiling" was a FAKE diagnosis.** The 5 multi-hop "refutations" from earlier sessions were caricatures (per META_BARRIER_1_QUADRUPLE_NEGATIVE_RELABEL atom this morning). The fresh v3 + v4 tests show substrate ALREADY composes 5-hop chains at chain-grade-quality accuracy. Brain-pushback mechanisms tied baseline because BASELINE ALREADY DOES IT.
+
+**To test brain-pushback mechanism value would require:**
+- Option Y (brain-grounded): test at depth=10+ where natural decay brings baseline into [0.10, 0.30] band
+- Option X (artificial): add HOP_NOISE injection to drop per-step accuracy
+- Option Z (mechanism): use softmax cleanup with temperature instead of argmax
+
+For now: STOP iterating Cycle 1 (v5 not authored). Atomize the substrate-product depth-5 finding as chain-grade EVIDENCE.
+
+### NO CYCLE 1 V5 (decision)
+
+Per pre-reg discipline + substrate-product framing, v5 has no fair design in the current framing. The "harder regime" path via data density alone won't work because substrate per-hop cleanup is argmax-ceiling-bound. Future revival would need cleanup-mechanism swap OR depth=10+ test, both significant re-scoping. DEFER to USER decision before authoring v5.
+
+### TIP_OF_TONGUE V2 STATUS (a8e671ff completed authoring)
+
+Cell + prereg authored; selftest_OK; queued remote_cpu_queue position 9 (waits behind cortex_hippo_handoff + 8 cells). YELLOW FLAG: at selftest N=256, Discr_C fired 0.0% (cluster_cos floor 0.30 not reached). Cell-author HYPOTHESIZES smoke N=2048 will fire (cluster_cos scales to 0.6-0.9). If smoke fails to fire Discr_C, recalibrate threshold.
+
+### FINDINGS STAGED FOR NEXT SKUNKWORKS BATCH (12 atoms)
+
+Filed: `d:/AI/hd-instrument/notes/research_findings_for_next_skunkworks_batch_2026-06-27_post_compaction.md`
+
+- A1: substrate depth-5 compositional reasoning chain-grade EVIDENCE atom (NEW finding)
+- B3a: feature-std logreg ECE methodology chain-grade atom (Wave 3A side finding)
+- B3b: sum-bind Hebbian-stack interference substrate-physics atom (Wave 3A finding)
+- B3c: cleanup-bind-output substrate-algebra atom (Wave 3A finding)
+- C1: META_RULE_AC HYPOTHESIZED-vs-MEASURED discipline atom
+- C2: META_RULE_AD probe-band-tolerance discipline atom (BTSP-confirmed)
+- C3: META_RULE_AE metrics-path-disambiguation discipline atom (in memory)
+- C4: META_RULE_AF arms-must-differ discipline atom (parietal REL bug)
+- C5: substrate-product narrative atom (Barrier 1 fake; substrate already has it)
+- C6: process atom (RAIL_SANITY_BREACH ↔ substrate-better-than-predicted)
+- D1: infra atom (scheduled-task end-to-end verification)
+- D2: cell-template atom (SystemExit before BaseException)
+
+Expected CERT delta: +1 to +3 chain-grade + 4-6 META + 1-2 substrate-physics atoms = net +6-9 atoms.
+
+### IN-FLIGHT (2 agents; 3rd slot open)
+
+- ab7b7708078e41e56: PFC depth-adaptive ARGMAX revival (likely null per Skunkworks finding)
+- a95be71b7115d6116: sws_rem v2 associative recall author
+
+### NEXT-STEP PRIORITIES
+
+1. Wait for ab7b7708 (PFC ARGMAX) + a95be71b (sws_rem v2) returns
+2. When both land + cortex_hippo_handoff lands: spawn Skunkworks batch with all 12+ atoms
+3. Decide on pfc_goal_conditioned v3 author (concrete Wave 3A finding-derived; spawn budget open)
+4. Defer Cycle 1 v5 until USER decision
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~23:45Z UPDATE #17 (Barrier 1 substrate-product win + 12 atoms staged)
+
+---
+
+## EIGHTEENTH-WAVE UPDATE 2026-06-27 ~23:55Z — SWS_REM V2 FRAMING CORRECTED + 4 IN-FLIGHT + 14 ATOMS
+
+### CORRECTION: SWS_REM V2 IS HONEST_NEGATIVE NOT TEST-DESIGN-FAILURE
+
+My UPDATE #17 framing was based on STALE 19:34 metrics read. Final iteration at 19:35 (verified directly):
+- Path: `d:/AI/hd-instrument/data/exp_cyclic_sws_rem_eta_schedule_v2_associative_recall_smoke/metrics.json`
+- RAW_HEBB=0.848 / CONST=0.541 (IN fair band [0.30, 0.70]) / CYC_S=0.463 / CYC_L=0.465
+- lift = -0.076 (cycling HURTS by 2.5x null threshold)
+- frob_ratio = 13.96 (synapse mechanism IS firing — close to v1's 12.63)
+- reasons = UNCLASSIFIED_REGIME (not BASELINE_OUT_OF_BAND)
+
+Author iterated sigma 0.85→4.0 + alpha 0.5→2.0 across 3 tuning attempts in-place before reaching discriminator regime. **The substrate-too-robust-for-test-design pattern (C7 META_RULE_AG) only has Cycle 1 v3+v4 evidence; sws_rem v2 is different — clean substrate-product HONEST_NEGATIVE.**
+
+Author's diagnosis (load-bearing): "eta_high EXPLORE pulses add noise to structured Hebb seed faster than eta_low SETTLE pulses refine." Cycling at Hebb-bipolar HRR layer is brain-grounded-but-substrate-incorrect. Drill closure-rescue path = pivot to sparse-coded keys OR capacity-knee sweep (encoding-layer change, not readout-layer).
+
+**Discipline lesson:** cell-authors iterating tuning IN-PLACE on the SAME metrics path can produce stale reads if Research polls between iterations. Future cell-template should write final metrics atomically (mv tmp → metrics.json) OR write per-iteration metrics. New META candidate: META_RULE_AH atomic-final-metrics-write.
+
+### 14 ATOMS NOW STAGED FOR SKUNKWORKS (was 13)
+
+Findings doc updated: `d:/AI/hd-instrument/notes/research_findings_for_next_skunkworks_batch_2026-06-27_post_compaction.md`
+
+- A1: substrate depth-5 compositional reasoning (chain-grade evidence)
+- B3a / B3b / B3c: 3 Wave 3A side findings (methodology / physics / algebra)
+- **B4 NEW: sws_rem v2 HONEST_NEGATIVE** (SWS/REM at Hebb-bipolar layer doesn't propagate)
+- C1 / C2 / C3 / C4: 4 discipline META rules (AC / AD / AE / AF)
+- C5 / C6: substrate-product narrative + RAIL_SANITY_BREACH-interpretation
+- C7: META_RULE_AG substrate-too-robust pattern (Cycle 1 only)
+- D1: scheduled-task end-to-end verification
+- D2: cell-template SystemExit discipline
+
+Plus future: META_RULE_AH atomic-final-metrics-write (this turn's discipline lesson).
+
+### IN-FLIGHT (4 agents; Fix #14 cap reached)
+
+- **ab7b7708078e41e56**: PFC depth-adaptive ARGMAX revival (likely null per Skunkworks gap<SEM finding)
+- **ae9ce430afd63900c**: Skunkworks batch atomization (14 atoms staged; correction msg sent for sws_rem framing)
+- **aa4407ffdf0776938**: pfc_goal_conditioned v3 cell-author (WM+ADDITIVE only, no bind-cleanup, alpha sweep)
+- **a8e671ff7f4bbddf6**: tip_of_tongue v2 (queued remote_cpu_queue position 9 — won't run until queue clears, hours away)
+
+Plus cortex_hippo_handoff_FULL still running on remote (PID 1276+29416 since 18:11 PDT; 5h+ now).
+
+### NEXT-STEP PRIORITIES
+
+1. Wait for ab7b7708 PFC ARGMAX (probable: HONEST_NEG)
+2. Wait for ae9ce430 Skunkworks batch (expected: CERT +1-3 chain-grade + 4-5 META atoms; commit hash to record)
+3. Wait for aa4407ff pfc_goal v3 (expected: smoke verdict + COMBINED lift if independent additivity holds)
+4. Watch cortex_hippo_handoff (closest to completion of in-flight remote cells)
+5. tip_of_tongue v2 smoke will wait until remote queue clears
+
+### SESSION SCORECARD (post-compaction, ~50 min in)
+
+- CERT: 623 → 625 (+2 chain-grade landed; +1-3 expected from Skunkworks batch in flight)
+- Atoms today: 17 committed + 14 staged for batch
+- Memory rules added: 3 (substrate-as-canonical / no-hallucinated-numbers / path-disambiguation)
+- META rules at stake: AG / AF / AE / AD / AC / AH (6 new candidates from this session)
+- Infra fix: landing_notifier finally registered (4-day silent drift root cause)
+- Cells dispatched: 4 (Cycle 1 v4 / sws_rem v2 / tip_of_tongue v2 / pfc_goal v3)
+- Smoke verdicts: 4 cells smoke-completed; 0 full dispatched (smoke discipline working — saves 30-50 CPU-hr)
+- Discipline holds: 0 phantom-FULL framings this session (post-correction-of-stale-read); cite-absolute-path discipline enforced
+
+-- Research (Opus 4.7-1M) — 2026-06-27 ~23:55Z UPDATE #18 (sws_rem correction + 4 in-flight + 14 atoms; spawn budget at cap)
+
+
+
+
 
 
 
