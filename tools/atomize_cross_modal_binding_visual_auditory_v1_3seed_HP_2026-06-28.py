@@ -246,7 +246,7 @@ atom_agg = {
     ),
     "corpus": "math",
     "tier": "T3",
-    "kind": "substrate_property_characterization",
+    "kind": "capability_map",  # PATCHED 2026-06-28 (skunkworks): was 'substrate_property_characterization' (NOT a valid AtomKind enum value -> broke PartitionedStore.all_atoms() load). Use valid AtomKind.CAPABILITY_MAP enum value; original semantic descriptor preserved in metadata.cert_class.
     "description": (
         "Stage 3 cross-modal binding (TPJ-analog) CHARACTERIZATION via 3-seed cross-validation "
         "(seeds 7, 13, 19). Each seed independently lands HARD_PASS on the same phase-diagram sweep: "
