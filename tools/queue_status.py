@@ -55,12 +55,15 @@ def read_local_queue(path: Path) -> list:
 
 def read_remote_queue(remote_path: str) -> list:
     """Read remote queue.json via SSH; returns [] on any error (best-effort)."""
+    # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28: prevents
+    # remote conhost.exe spawn on each poll).
     cmd = [
-        "ssh", "-o", "ConnectTimeout=10", "marsh@home",
+        "ssh", "-T", "-o", "ConnectTimeout=10", "marsh@home",
         f'.venv\\Scripts\\python.exe -c "import json; print(open(r\'C:/dev/hd-instrument/{remote_path}\').read())"',
     ]
     try:
-        out = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+        out = subprocess.run(cmd, capture_output=True, text=True, timeout=15, creationflags=_no_window)
         if out.returncode != 0:
             return []
         # strip noise (quantum warnings; OpenSSH banners)

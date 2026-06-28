@@ -68,18 +68,29 @@ def _is_remote(queue_name: str) -> bool:
 
 
 def _read_remote(queue_name: str) -> dict:
-    """SCP the queue.json from marsh@home into a tmp file and parse it."""
+    """SCP the queue.json from marsh@home into a tmp file and parse it.
+
+    Popup-fix per testbed 2026-06-28: `-O` legacy mode (avoids new SFTP-subsystem
+    fork on remote), `timeout=30` (prevents stuck-forever ssh.exe / sshd worker /
+    conhost leak), CREATE_NO_WINDOW on Windows.
+    """
     remote_path = f"{SSH_TARGET}:{REPO_REMOTE}/data/{queue_name}/queue.json"
     tmp = REPO / "data" / f"_remote_queue_tmp_{queue_name}.json"
     tmp.parent.mkdir(parents=True, exist_ok=True)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
     try:
         subprocess.run(
-            ["scp", "-o", "ConnectTimeout=10", remote_path, str(tmp)],
+            ["scp", "-O", "-o", "ConnectTimeout=10", remote_path, str(tmp)],
             check=True,
             capture_output=True,
+            timeout=30,
+            creationflags=_no_window,
         )
     except subprocess.CalledProcessError as e:
         print(f"[queue-clean] ERROR: SCP failed: {e.stderr.decode().strip()}", file=sys.stderr)
+        sys.exit(1)
+    except subprocess.TimeoutExpired:
+        print(f"[queue-clean] ERROR: SCP timed out after 30s reading {remote_path}", file=sys.stderr)
         sys.exit(1)
     with open(tmp, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -97,23 +108,35 @@ def _write_remote(queue_name: str, queue: dict) -> None:
         os.fsync(f.fileno())
     remote_tmp = f"{REPO_REMOTE}/data/{queue_name}/queue.json.tmp"
     remote_final = f"{REPO_REMOTE}/data/{queue_name}/queue.json"
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
     try:
+        # scp -O legacy mode + timeout=30 (popup-fix per testbed 2026-06-28).
         subprocess.run(
-            ["scp", "-o", "ConnectTimeout=10", str(tmp),
+            ["scp", "-O", "-o", "ConnectTimeout=10", str(tmp),
              f"{SSH_TARGET}:{remote_tmp}"],
             check=True,
             capture_output=True,
+            timeout=30,
+            creationflags=_no_window,
         )
         # Atomic replace on remote via SSH + PowerShell Move-Item.
+        # ssh -T disables pseudo-tty (prevents remote conhost.exe allocation).
         ps_cmd = f"Move-Item -Force '{remote_tmp}' '{remote_final}'"
         subprocess.run(
-            ["ssh", "-o", "ConnectTimeout=10", SSH_TARGET,
+            ["ssh", "-T", "-o", "ConnectTimeout=10", SSH_TARGET,
              f"powershell -Command \"{ps_cmd}\""],
             check=True,
             capture_output=True,
+            timeout=30,
+            creationflags=_no_window,
         )
     except subprocess.CalledProcessError as e:
         print(f"[queue-clean] ERROR: remote write failed: {e.stderr.decode().strip()}",
+              file=sys.stderr)
+        tmp.unlink(missing_ok=True)
+        sys.exit(1)
+    except subprocess.TimeoutExpired:
+        print(f"[queue-clean] ERROR: remote write timed out after 30s",
               file=sys.stderr)
         tmp.unlink(missing_ok=True)
         sys.exit(1)

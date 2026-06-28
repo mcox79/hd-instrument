@@ -157,13 +157,17 @@ def scan_remote() -> int:
     for q in queues:
         remote_path = f"C:\\dev\\hd-instrument\\data\\{q}\\queue.json"
         try:
+            _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+            # ssh -T disables pseudo-tty (prevents remote conhost.exe allocation
+            # per testbed 2026-06-28 popup-fix).
             out = subprocess.check_output(
-                ["ssh", "marsh@home", f"type {remote_path}"],
+                ["ssh", "-T", "marsh@home", f"type {remote_path}"],
                 stderr=subprocess.DEVNULL,
                 timeout=20,
                 text=True,
                 encoding="utf-8",
                 errors="replace",
+                creationflags=_no_window,
             )
         except Exception as e:
             print(f"WARN: SSH fetch failed for {q}: {e}", file=sys.stderr)

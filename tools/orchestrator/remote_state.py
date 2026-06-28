@@ -208,7 +208,12 @@ def _ssh_type_remote_metrics(name: str, timeout_s: float = 12.0) -> str | None:
     if not _NAME_RE.match(name):
         return None
     remote_path = _REMOTE_METRICS_PATH_TPL.format(name=name)
-    cmd = ["ssh", _SSH_TARGET, f"type {remote_path}"]
+    # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28: prevents
+    # remote conhost.exe allocation per call; daemon polls frequently).
+    cmd = ["ssh", "-T", _SSH_TARGET, f"type {remote_path}"]
+    # CREATE_NO_WINDOW prevents ssh from popping a console window per call
+    # (USER 2026-06-28 popup-audit: any daemon calling this would flash a window)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
     try:
         out = subprocess.check_output(
             cmd,
@@ -217,6 +222,7 @@ def _ssh_type_remote_metrics(name: str, timeout_s: float = 12.0) -> str | None:
             text=True,
             encoding="utf-8",
             errors="replace",
+            creationflags=_no_window,
         )
     except Exception:
         return None

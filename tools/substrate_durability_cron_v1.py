@@ -36,6 +36,10 @@ FLOOR_PATH = REPO / "data" / "durability_expected_floor.json"
 INVARIANT_TOOL = REPO / "tools" / "skunkworks_substrate_invariant_check_v1.py"
 VENV_PY = REPO / ".venv" / "Scripts" / "python.exe"
 
+# Windows: prevent console popups from child subprocess calls (git/tar/ssh)
+# when this cron runs under Task Scheduler / pythonw. (USER 2026-06-28 audit.)
+_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+
 
 def _utc_date() -> str:
     return time.strftime("%Y-%m-%dT%H%M%SZ", time.gmtime())   # runtime (live cron; not the workflow sandbox)
@@ -66,7 +70,8 @@ def run_invariant_check(expect: dict | None):
         cmd += ["--expect-cert", str(expect["cert"]), "--expect-atoms", str(expect["atoms"]),
                 "--expect-axiom", str(expect["axiom_term"])]
     try:
-        p = subprocess.run(cmd, cwd=str(REPO), capture_output=True, text=True, timeout=600)
+        p = subprocess.run(cmd, cwd=str(REPO), capture_output=True, text=True, timeout=600,
+                            creationflags=_NO_WINDOW)
         tail = "\n".join(p.stdout.strip().splitlines()[-6:])
         return {"ran": True, "exit": p.returncode, "hard_pass": p.returncode == 0, "tail": tail}
     except Exception as e:
@@ -125,7 +130,8 @@ def run_snapshot(date: str, offmachine: bool, keep_n: int):
                             "--exclude=data/substrate_index/cached_indices",
                             "--exclude=data/substrate_index/bench_reports",
                             "data/substrate_index"],
-                           capture_output=True, text=True, timeout=600)
+                           capture_output=True, text=True, timeout=600,
+                           creationflags=_NO_WINDOW)
         ok = (p.returncode == 0 and snap.exists())
         size_mb = round(snap.stat().st_size / 1e6, 1) if snap.exists() else 0
         out = {"snapshot_ok": ok, "path": str(snap.relative_to(REPO)), "size_mb": size_mb,
@@ -187,7 +193,8 @@ def remote_reconcile_state(check_remote: bool, host: str, path: str):
         return {"checked": False, "note": "remote-reconcile-state NOT checked (--check-remote off; runner step needs ssh access)"}
     # origin/main HEAD (GitHub) -- the reference the remote consumer should match
     try:
-        ls = subprocess.run(["git", "ls-remote", "origin", "main"], cwd=str(REPO), capture_output=True, text=True, timeout=60)
+        ls = subprocess.run(["git", "ls-remote", "origin", "main"], cwd=str(REPO), capture_output=True, text=True, timeout=60,
+                            creationflags=_NO_WINDOW)
         origin_head = ls.stdout.split()[0] if ls.returncode == 0 and ls.stdout.split() else None
     except Exception as e:
         return {"checked": False, "note": f"origin ls-remote error: {str(e)[:100]}"}
@@ -197,7 +204,9 @@ def remote_reconcile_state(check_remote: bool, host: str, path: str):
         ps = (f"cd '{path}'; git rev-parse HEAD; (git status --porcelain | Measure-Object -Line).Lines; "
               f"git rev-list --count origin/main..HEAD 2>$null; git rev-list --count HEAD..origin/main 2>$null")
         remote_cmd = f'powershell -NoProfile -Command "{ps}"'
-        rc = subprocess.run(["ssh", host, remote_cmd], capture_output=True, text=True, timeout=120)
+        # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28).
+        rc = subprocess.run(["ssh", "-T", host, remote_cmd], capture_output=True, text=True, timeout=120,
+                             creationflags=_NO_WINDOW)
         if rc.returncode != 0:
             return {"checked": False, "origin_head": origin_head, "note": f"ssh failed (rc={rc.returncode}): {rc.stderr.strip()[:120]}"}
         lines = rc.stdout.strip().splitlines()

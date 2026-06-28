@@ -17,12 +17,17 @@ TARGET_NAME = "pp58_bbp_discrete_fallback_v1_n16384"
 # Position 2 = 0-indexed pending slot 2 = after pp49_discriminator(0) + pp33_mfpt(1)
 TARGET_PENDING_POSITION = 2
 
+# Popup-fix per testbed 2026-06-28: CREATE_NO_WINDOW on Windows prevents visible
+# console flash; ssh -T / scp -O prevent remote conhost.exe allocation.
+_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+
 
 def ssh_read_queue_raw():
     result = subprocess.run(
-        ["ssh", REMOTE_HOST,
+        ["ssh", "-T", REMOTE_HOST,
          f'powershell -Command "Get-Content {REMOTE_QUEUE_PATH} -Raw"'],
-        capture_output=True, text=True, timeout=30
+        capture_output=True, text=True, timeout=30,
+        creationflags=_NO_WINDOW,
     )
     if result.returncode != 0:
         print(f"[error] SSH read failed: {result.stderr}", flush=True)
@@ -115,10 +120,11 @@ def main():
         tmp_local = f.name
     print(f"[reorder] Local temp: {tmp_local} ({len(new_json)} chars)", flush=True)
 
-    # SCP to remote .tmp path
+    # SCP to remote .tmp path (scp -O legacy mode; popup-fix testbed 2026-06-28).
     scp_result = subprocess.run(
-        ["scp", tmp_local, f"{REMOTE_HOST}:{REMOTE_TMP_PATH}"],
-        capture_output=True, text=True, timeout=30
+        ["scp", "-O", tmp_local, f"{REMOTE_HOST}:{REMOTE_TMP_PATH}"],
+        capture_output=True, text=True, timeout=30,
+        creationflags=_NO_WINDOW,
     )
     os.unlink(tmp_local)
     if scp_result.returncode != 0:
@@ -126,13 +132,14 @@ def main():
         sys.exit(1)
     print(f"[reorder] SCP OK: .tmp written to remote", flush=True)
 
-    # Atomic rename on remote (Move-Item -Force)
+    # Atomic rename on remote (Move-Item -Force); ssh -T per testbed 2026-06-28.
     rename_result = subprocess.run(
-        ["ssh", REMOTE_HOST,
+        ["ssh", "-T", REMOTE_HOST,
          'powershell -Command "Move-Item -Force '
          '\'C:/dev/hd-instrument/data/remote_cpu_queue/queue.json.tmp\' '
          '\'C:/dev/hd-instrument/data/remote_cpu_queue/queue.json\'; Write-Output OK"'],
-        capture_output=True, text=True, timeout=30
+        capture_output=True, text=True, timeout=30,
+        creationflags=_NO_WINDOW,
     )
     out = rename_result.stdout.strip()
     err = rename_result.stderr.strip()

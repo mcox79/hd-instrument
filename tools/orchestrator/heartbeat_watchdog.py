@@ -222,9 +222,12 @@ def pull_remote_state_cache(now: float) -> None:
     try:
         REMOTE_STATE_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
         tmp = REMOTE_STATE_CACHE_PATH.with_suffix(".pull.tmp")
+        # scp -O legacy mode (popup-fix per testbed 2026-06-28: prevents remote
+        # SFTP-subsystem fork that allocates visible conhost on OpenSSH-for-Win).
         result = subprocess.run(
             [
                 "scp",
+                "-O",
                 "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
                 "-o", "BatchMode=yes",
                 "-o", "StrictHostKeyChecking=no",
@@ -291,8 +294,9 @@ def _ssh_count_queue(queue_json_path: str) -> int | None:
         f" | Measure-Object | Select-Object -ExpandProperty Count"
     )
     try:
+        # ssh -T disables pseudo-tty (popup-fix testbed 2026-06-28).
         result = subprocess.run(
-            ["ssh", "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
+            ["ssh", "-T", "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
              "-o", "BatchMode=yes",
              SSH_TARGET, f"powershell -Command \"{ps}\""],
             capture_output=True,
@@ -334,8 +338,9 @@ def _fetch_remote_queue_counts() -> tuple[int | None, int | None, bool, bool]:
         f"'CPU_RUN:' + (($c | Where-Object {{ $_.status -eq 'running' }} | Measure-Object).Count)"
     )
     try:
+        # ssh -T disables pseudo-tty (popup-fix testbed 2026-06-28).
         result = subprocess.run(
-            ["ssh", "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
+            ["ssh", "-T", "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
              "-o", "BatchMode=yes",
              SSH_TARGET, f"powershell -Command \"{ps}\""],
             capture_output=True,
@@ -1271,9 +1276,11 @@ def evaluate_duplicate_runner(now: float) -> list[dict[str, Any]]:
         " get ProcessId,CommandLine,WorkingSetSize /format:list"
     )
     try:
+        # ssh -T disables pseudo-tty (popup-fix testbed 2026-06-28).
         result = subprocess.run(
             [
                 "ssh",
+                "-T",
                 "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
                 "-o", "BatchMode=yes",
                 "-o", "StrictHostKeyChecking=no",

@@ -101,6 +101,7 @@ def run_with_flag(script: Path, flag: str, env_extra: dict) -> tuple[int, str]:
             )
     log_path = REPO / "data" / f"gate_log_{script.stem}_{flag.lstrip('-')}.txt"
     log_path.parent.mkdir(parents=True, exist_ok=True)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
     try:
         with log_path.open("w", encoding="utf-8") as logf:
             result = subprocess.run(
@@ -110,6 +111,7 @@ def run_with_flag(script: Path, flag: str, env_extra: dict) -> tuple[int, str]:
                 stdout=logf,
                 stderr=subprocess.STDOUT,
                 timeout=timeout_s,
+                creationflags=_no_window,
             )
     except subprocess.TimeoutExpired:
         return 124, f"TIMEOUT after {timeout_s}s (log: {log_path})"
@@ -427,10 +429,13 @@ def check_declared_referents(
         if is_remote:
             remote_path = f"{PROT022_REMOTE_REPO}/{ref}"
             try:
+                _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+                # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28).
                 rc = subprocess.run(
-                    ["ssh", "-o", "ConnectTimeout=10", "-o", "BatchMode=yes",
+                    ["ssh", "-T", "-o", "ConnectTimeout=10", "-o", "BatchMode=yes",
                      PROT022_REMOTE_HOST, f"test -f \"{remote_path}\""],
                     timeout=15, capture_output=True,
+                    creationflags=_no_window,
                 ).returncode
                 exists = (rc == 0)
             except subprocess.TimeoutExpired:
