@@ -1,0 +1,129 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL | THIRD_FAILURE_GATE (options=0.000 <= 0.20; 3rd consecutive HARD_FAIL on hierarchical-planning mechanism class; close capability box) | OPTS=0.000 POLICY=0.000 INIT=0.050 TERM=0.000 CF=0.100 RAND=0.000 | OPTS-POLICY=0.000 OPTS-CF=-0.100 OPTS-RAND=0.000 cv=inf arms_distinct=True chance_floor=2.143e-05",
+  "summary": "HARD_FAIL | THIRD_FAILURE_GATE (options=0.000 <= 0.20; 3rd consecutive HARD_FAIL on hierarchical-planning mechanism class; close capability box) | OPTS=0.000 POLICY=0.000 INIT=0.050 TERM=0.000 CF=0.100 RAND=0.000 | OPTS-POLICY=0.000 OPTS-CF=-0.100 OPTS-RAND=0.000 cv=inf arms_distinct=True chance_floor=2.143e-05",
+  "per_arm": {
+    "options_full": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "844c39be87e482be"
+      }
+    },
+    "policy_only": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "5af55a8ce229a3cd"
+      }
+    },
+    "init_only": {
+      "7": {
+        "solve_rate": 0.05,
+        "n_solved": 1,
+        "n_goals": 20,
+        "median_plan_len": 11.0,
+        "median_plan_ratio_vs_optimal": 2.2,
+        "_seq_hash": "4fb8e25dd1736b12"
+      }
+    },
+    "term_only": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "2c12489aebaa53d3"
+      }
+    },
+    "closed_form_baseline": {
+      "7": {
+        "solve_rate": 0.1,
+        "n_solved": 2,
+        "n_goals": 20,
+        "median_plan_len": 14.5,
+        "median_plan_ratio_vs_optimal": 3.275,
+        "_seq_hash": "8a4191653c4588b0"
+      }
+    },
+    "random": {
+      "7": {
+        "solve_rate": 0.0,
+        "n_solved": 0,
+        "n_goals": 20,
+        "median_plan_len": 6.0,
+        "median_plan_ratio_vs_optimal": Infinity,
+        "_seq_hash": "63216b3711925ef1"
+      }
+    }
+  },
+  "per_arm_summary": {
+    "options_full": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    },
+    "policy_only": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    },
+    "init_only": {
+      "solve_rate_mean": 0.05,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 2.2,
+      "n": 1
+    },
+    "term_only": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    },
+    "closed_form_baseline": {
+      "solve_rate_mean": 0.1,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": 0.0,
+      "median_plan_ratio_mean": 3.275,
+      "n": 1
+    },
+    "random": {
+      "solve_rate_mean": 0.0,
+      "solve_rate_std": 0.0,
+      "solve_rate_cv": Infinity,
+      "median_plan_ratio_mean": Infinity,
+      "n": 1
+    }
+  },
+  "lift_options_minus_policy": 0.0,
+  "lift_options_minus_closed_form": -0.1,
+  "lift_options_minus_random": 0.0,
+  "arms_distinct": true,
+  "n_seeds_complete": 1,
+  "expected_n_units": 120,
+  "completed_units": 120,
+  "cardinality_ok": true,
+  "chance_random_floor": 2.143347050754458e-05,
+  "chance_random_rerank_ub": 0.04137174211248285,
+  "_third_failure_gate_triggered": true,
+  "anchor_name": "substrate_hierarchical_options_v1",
+  "elapsed_s": 7.8,
+  "ts_iso": "2026-06-28T14:34:06Z",
+  "pid": 7204,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hierarchical_options_v1,N=8192,blocks=4,pos=3,actions=6,options=3,K_anchor=32,goals=20,depth=6,K_replan=8,max_total=24,seeds=[7],mode=smoke,HP_opts>=0.55,HP_lift_policy>=0.10,HP_lift_cf>=0.30,HP_lift_rand>=0.40,HP_unsat=[0.30,0.95],expected_n=120,hardening=L1early+L2perarm+L3outertry+L4importsentinel+META_AC+META_AF+META_AG+META_AH+META_AL+META_AN+CARDINALITY",
+  "_hardening_marker": "v1_substrate_hierarchical_options"
+}
