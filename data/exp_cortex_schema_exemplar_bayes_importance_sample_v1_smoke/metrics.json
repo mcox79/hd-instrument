@@ -1,0 +1,89 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | EXEMPLAR_BAYES_SUPPORTED: primary=0.728 (>=0.50) | lift_over_base=+0.472 (>=0.30) | lift_over_rand=+0.493 (>=0.30) | primary[ARM_K_NEAREST_K20]=0.728 base=0.256 rand=0.235 oracle=0.809 K5=0.636 K20=0.728 K50=0.727 cv_primary=0.015 arms_distinct=True n_seeds=3",
+  "summary": "HARD_PASS | EXEMPLAR_BAYES_SUPPORTED: primary=0.728 (>=0.50) | lift_over_base=+0.472 (>=0.30) | lift_over_rand=+0.493 (>=0.30) | primary[ARM_K_NEAREST_K20]=0.728 base=0.256 rand=0.235 oracle=0.809 K5=0.636 K20=0.728 K50=0.727 cv_primary=0.015 arms_distinct=True n_seeds=3",
+  "verdict_reason": "EXEMPLAR_BAYES_SUPPORTED: primary=0.728 (>=0.50) | lift_over_base=+0.472 (>=0.30) | lift_over_rand=+0.493 (>=0.30)",
+  "per_arm_recall_summary": {
+    "ARM_NO_SCHEMA_BASELINE": {
+      "mean": 0.2560185185185185,
+      "std": 0.02330502397898744,
+      "cv": 0.09102866508971588,
+      "per_seed": [
+        0.2263888888888889,
+        0.2833333333333333,
+        0.25833333333333336
+      ]
+    },
+    "ARM_RANDOM_K_EXEMPLARS": {
+      "mean": 0.2347222222222222,
+      "std": 0.007081971546656642,
+      "cv": 0.03017171309818215,
+      "per_seed": [
+        0.22777777777777777,
+        0.24444444444444444,
+        0.23194444444444445
+      ]
+    },
+    "ARM_K_NEAREST_K5": {
+      "mean": 0.6356481481481482,
+      "std": 0.009777181519418011,
+      "cv": 0.015381436330621197,
+      "per_seed": [
+        0.6486111111111111,
+        0.6333333333333333,
+        0.625
+      ]
+    },
+    "ARM_K_NEAREST_K20": {
+      "mean": 0.7277777777777779,
+      "std": 0.011168831557235954,
+      "cv": 0.015346486109179172,
+      "per_seed": [
+        0.7166666666666667,
+        0.7236111111111111,
+        0.7430555555555556
+      ]
+    },
+    "ARM_K_NEAREST_K50": {
+      "mean": 0.7268518518518517,
+      "std": 0.011583329632589644,
+      "cv": 0.015936300641015054,
+      "per_seed": [
+        0.7166666666666667,
+        0.7208333333333333,
+        0.7430555555555556
+      ]
+    },
+    "ARM_ORACLE_TRUE_SCHEMA": {
+      "mean": 0.8092592592592593,
+      "std": 0.007965115988002404,
+      "cv": 0.009842477422245532,
+      "per_seed": [
+        0.8083333333333333,
+        0.8,
+        0.8194444444444444
+      ]
+    }
+  },
+  "primary_arm": "ARM_K_NEAREST_K20",
+  "primary_recall": 0.7277777777777779,
+  "baseline_recall": 0.2560185185185185,
+  "random_k_recall": 0.2347222222222222,
+  "oracle_recall": 0.8092592592592593,
+  "lift_over_baseline": 0.4717592592592594,
+  "lift_over_random_k": 0.4930555555555557,
+  "primary_cv": 0.015346486109179172,
+  "arms_differ_verified": true,
+  "cardinality_ok": true,
+  "events_per_arm_total": 2160,
+  "expected_events_per_arm": 2160,
+  "n_seeds_complete": 3,
+  "expected_n_units": 12960,
+  "anchor_name": "cortex_schema_exemplar_bayes_importance_sample_v1",
+  "elapsed_s": 0.4,
+  "ts_iso": "2026-06-28T00:26:20Z",
+  "pid": 38272,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=cortex_schema_exemplar_bayes_importance_sample_v1,N=2048,VSLOT=8,MSLOTS=6,KSCH=8,NEX=20,FN=0.20,MF=0.50,NQPS=30,SEEDS=[7, 17, 23],K_VARIANTS=(5, 20, 50),BETA=8.0,N_MASKED=3,HP_floor=0.50,HP_lift_base>=0.30,HP_lift_rand>=0.30,HP_cv<0.15,RUN_MODE=smoke,hardening=L1early+L2perarm+L4importsentinel+CARDINALITY_OK+ARMS_DIFFER_SHA256+ATOMIC_REPLACE+SMOKE_FIRES_DISCRIMINATOR",
+  "_hardening_marker": "v1_exemplar_bayes_cheap_falsifier"
+}
