@@ -70,7 +70,28 @@ if str(REPO) not in sys.path:
 from experiments._seed_checkpoint import (
     get_output_dir, resumable_seeds, write_partial, aggregate_partials,
 )
-from experiments._cell_heartbeat import emit_heartbeat
+
+# Inlined heartbeat helper (avoid dependency on uncommitted _cell_heartbeat.py).
+# Schema matches experiments/_cell_heartbeat.py @ 2026-06-28 so runner_status.py
+# can read both shapes interchangeably.
+from datetime import datetime as _dt_mod, timezone as _tz_mod
+def emit_heartbeat(output_dir, unit_idx, elapsed_s, total_units=None, extra=None):
+    """Append one heartbeat row to {output_dir}/_heartbeat.jsonl. Best-effort."""
+    row = {
+        "ts_iso": _dt_mod.now(_tz_mod.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "unit_idx": int(unit_idx),
+        "total_units": int(total_units) if total_units is not None else None,
+        "elapsed_s": round(float(elapsed_s), 2),
+    }
+    if extra:
+        row["extra"] = extra
+    try:
+        out = Path(output_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        with (out / "_heartbeat.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps(row) + "\n")
+    except OSError:
+        pass
 
 
 ANCHOR_NAME = "substrate_cortex_hippo_handoff_chain_grade_M_8192_GPU_v1_seed_13"
