@@ -116,34 +116,36 @@ Not pursuing. Substrate is memory + composition + retrieval + audit device; buil
 
 These should be the FIRST hdi_skunkworks spawns after compaction:
 
-1. **Pattern_completion v2.2 GPU 3-seed × HARD_PASS_PHASE_DIAGRAM_LOCALIZED_CLIFF** (commit ac706494 dispatch)
+1. **Pattern_completion v2.2 GPU 3-seed × HARD_PASS_PHASE_DIAGRAM_LOCALIZED_CLIFF** (commit ac706494)
    - 180/180 grid pts; cliff at N-scaled corruption (0.47/0.48/0.485/0.49)
    - CRLB-consistent (0.005-0.01 below CRLB predictions)
    - gpu_util=0.95; torch.cuda confirmed
-   - **Chain-grade-eligible:** would promote Stage 1 cleanup attractor + pattern_completion coverage MID/MID → HIGH; CERT +1
+   - Chain-grade-eligible: Stage 1 pattern_completion phase coverage MID → HIGH; CERT +1 candidate
    - Paths: `marsh@home:C:/dev/hd-instrument/data/exp_substrate_pattern_completion_corruption_cliff_v2p2_dense_cliff_grid_seed_{7,13,19}_GPU/metrics.json`
 
 2. **Lock_in_amp phase diagram v1 3-seed × MIDDLE_BAND**
-   - seed_7 + seed_13 + seed_19 all MB landed
+   - seed_7 + seed_13 + seed_19 all MB
    - Discriminator FIRES at SNR×√(t/2) physics regime
    - Paths: `d:/AI/hd-instrument/data/exp_substrate_lock_in_amp_phase_diagram_v1_seed_{7,13,19}/metrics.json`
 
 3. **Capacity multi-bank α-K GPU 3-seed × MIDDLE_BAND**
-   - All 3 seeds MB
-   - K_per_bank × num_banks × N grid
+   - All 3 seeds MB; K_per_bank × num_banks × N grid
    - Composes with WM K-cliff v3 chain-grade primitive
    - Paths: `marsh@home:C:/dev/hd-instrument/data/exp_substrate_capacity_multibank_alpha_K_phase_diagram_v1_GPU_seed_{7,13,19}/metrics.json`
 
-4. **TASK_VECTOR HRR ICL K-cliff v1 — seed_13 FULL HARD_PASS just landed; seed_7 + seed_19 FULL queued on local CPU**
-   - Wait for 3-seed before VET unless USER wants partial
+4. **TASK_VECTOR HRR ICL K-cliff v1 3-seed × HARD_PASS FULL**
+   - All 3 seeds (7, 13, 19) FULL HARD_PASS landed
+   - Chain-grade-eligible phase-characterization
    - Paths: `d:/AI/hd-instrument/data/exp_substrate_task_vector_K_cliff_phase_diagram_v1_seed_{7,13,19}/metrics.json`
+
+5. **Schema exemplar-Bayes capacity-stress v2** — seed_7 HARD_PASS landed; seed_13 MIDDLE_BAND landed; seed_19 pending. VET when 3-seed complete or take partial.
+   - Paths: `d:/AI/hd-instrument/data/exp_substrate_schema_exemplar_bayes_capacity_stress_v2_seed_{7,13,19}/metrics.json`
 
 ---
 
 ## IN FLIGHT
 
-- **TASK_VECTOR v1 FULL** seed_7 + seed_19 on local CPU (behind queue drain)
-- **Schema exemplar-Bayes capacity-stress v2** 3 seeds queued on local CPU
+- **Schema_bayes capacity-stress v2 seed_19** on local CPU
 - **Cortex_hippo seed_23** + queue tail on remote CPU
 - **10 cells** still pending on remote_cpu queue (hypothesis_gen × 3 + parietal MOVABLE FULL × 3 + multihop v4 smoke + others)
 
@@ -153,13 +155,24 @@ GPU is idle and available for new work.
 
 ## INFRA STATE
 
-- **Substrate-index Store** loads clean (177583 atoms across 11 partitions); 6 poison atoms patched this session; source script for cross-modal atomize patched to use AtomKind enum
-- **runner_v2_prod.py** has META RULE patch (commit 9f9c74fe): exports HDLAB_QUEUE env var to child env
+- **Substrate-index Store** loads clean (177583 atoms across 11 partitions); 6 poison atoms patched this session; cross-modal atomize source script patched to use AtomKind enum
+- **runner_v2_prod.py** META RULE patch (commit 9f9c74fe): exports HDLAB_QUEUE env var to child env
 - **runner_status.py** is canonical "what's running" observability tool
-- **GPU runner** (`hd_gpu_runner_0` schtasks lineage) alive; SSH-disconnect-immune
+- **GPU runner** (`hd_gpu_runner_0` schtasks lineage) alive
 - **Local cpu_runner_local** PID 5776 zombie (SYSTEM-elevated; unkillable from session); USER admin needed to clear for local_cpu dispatch
 - **hd_metrics_sync** scheduled task pushing to origin/main on cadence
 - **Substrate-Director-KB v1** (filename-metadata index) operational; `--filename-contains` reliable rank-1 at cosine 1.0
+
+## DOC HYGIENE STATE
+
+Startup docs (CLAUDE.md, .claude/agents/*.md) cleaned of archaeology; rules stated as forward fact. Latest additions to CLAUDE.md STEP 2 + research.md Coordination:
+- Director-vs-rote separation (main thread = judgment + 1-offs; agents = cell authoring / smoke / VET / atomization / dispatch)
+- Lean spawn prompts (no pre-baked analysis)
+- 3-criterion pre-spawn check (independent / bounded / returnable)
+- Spot-check discipline (verify without re-doing)
+- ≤3 in-flight spawn budget
+
+8 deprecated memory entries removed from MEMORY.md index. `NO EXPERIMENTS LOCAL` rule softened to `PREFER REMOTE` (judgment call routing).
 
 ---
 
