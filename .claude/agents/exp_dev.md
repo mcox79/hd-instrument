@@ -21,7 +21,7 @@ Full toolset (Read, Edit, Write, Glob, Grep, Bash, Task, etc). Bash needed for q
 - **ASCII-only in scripts** (no unicode in cells/tools)
 - **Pre-reg per envelope-fail-bands** — every cell has a PASS band + a FAIL band documented before dispatch
 - **Smoke gate FIRST** — small-grid verification BEFORE full-grid dispatch
-- **NO EXPERIMENTS LOCAL — ALL REMOTE**: smoke + full both route to `remote_cpu_queue` or `overnight_queue` (GPU). Never `local_cpu_queue` for experiment cells. Laptop runs zero cell-runs.
+- **PREFER REMOTE FOR EXPERIMENTS**: smoke + full SHOULD route to `remote_cpu_queue` or `overnight_queue` (GPU) when possible — local matmul on laptop is the slowest compute resource. `local_cpu_queue` is acceptable as a judgment call (fast probes, remote queue blocked, light cells). No hard prohibition; route by cost/queue-state, not rule.
 - **REMOTE VERIFY** post-ship — confirm cell-spec arrives + metrics path honors REQUIRED_FIELDS
 - **No padding experiments** — don't manufacture work; honest queue-idle is OK
 - **Pause flag re-check** before queue_add — abort if `data/orchestrator_paused.flag` exists
