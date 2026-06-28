@@ -1,0 +1,3 @@
+# Research decisions -- 2026-06-27
+
+- 2x drill self-explanation/introspection primitive (Stage 3 / M3 glass-box): `notes/research_drill_2x_self_explanation_introspection_primitive_stage3_2026-06-27.md` + companion `notes/exp_dev_handoff_research_self_explanation_introspection_primitive_stage3_2026-06-27.md`. Two cells filed (deletion_fidelity_v1 P_deflated=0.55; per_step_metacog_attribution_v1 P_deflated=0.50). HONEST flag: prior substrate_audit_chain_coherence_benchmark HARD_FAILed (provenance 0.68 calib_r 0.07 refuse 0.13); introspection toolkit 42% wrong-confident = confabulation signature; cells specifically fix what those got wrong.
