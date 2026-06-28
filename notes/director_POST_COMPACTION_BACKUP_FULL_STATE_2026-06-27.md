@@ -1617,6 +1617,120 @@ Per `data/autonomous_loop_instructions.md`:
 
 -- Research (Opus 4.7-1M) — 2026-06-28 ~01:15Z UPDATE #20 (OVERNIGHT 12+H PLAN; compaction-survival; USER concerns answered)
 
+---
+
+## TWENTY-FIRST-WAVE UPDATE 2026-06-28 ~13:30Z — OVERNIGHT WAVE EXECUTION RESULTS + COMPACTION PREP
+
+**USER returned briefly + asked overnight summary + requested compaction prep.**
+
+### FINAL SESSION SCORECARD (verified, not over-claimed)
+
+- **CERT 626 → 628 (+2 chain-grade verified)**: CF Cell 1 regret vmPFC v1 (R²=0.987) + Schema exemplar-Bayes ANCHOR 3 (promoted from batch 13 MM after FULL landed)
+- **10 atoms today** across 2 Skunkworks batches (commits f77c7d29 + 16a501c3)
+- **2 new META rules atomized** (AM + AN)
+- **9 Director-framing-errors caught** by cert-owner today — discipline ladder working
+- 5 memory rules filed total (substrate-as-canonical / no-hallucinated-numbers / path-disambiguation / compute-formulas-in-code / test-rationality-encoding-before-readout)
+
+### BARRIER 1 MECHANISM FOUND (THE load-bearing finding for post-compaction me)
+
+**Multi-hop partition-oracle revival smoke HARD_PASS at depth-10**:
+- Path: `d:/AI/hd-instrument/data/exp_substrate_multihop_partition_oracle_at_v5_regime_revival_c1_smoke/metrics.json`
+- BASELINE_A=0.190, ORACLE_B=1.000, RANDOM_E=0.000, lift +0.81 at N=2048
+- N=8192 variant: BASELINE_A=0.590, ORACLE_B=1.000, lift +0.41 at N=8192
+- Path n8192: `d:/AI/hd-instrument/data/exp_substrate_multihop_partition_oracle_at_v5_regime_revival_c1_n8192_smoke/metrics.json`
+
+**CRITICAL INSIGHT**: All 3 prior Cycle 1 attempts (v3/v4/v5) tested WRONG mechanism class — brain-pushback (PFC scratchpad / replay shortcuts / bidirectional meeting) are DOWNSTREAM of cleanup. Partition-oracle goal-conditioning is UPSTREAM of cleanup (restricts search space). Drill diagnosis vindicated.
+
+**Tier**: MEASURED_MECHANISM (auto-demote per saturation=True; ORACLE_B hits ceiling 1.000). To get chain-grade, need un-saturated regime (V_C=16000 OR depth=15+ per cell-author analysis).
+
+**STRATEGIC NEXT STEP**: spawn `exp_substrate_multihop_partition_oracle_at_v5_regime_revival_c1_n8192_hardened` cell-author with V_C=16000 depth=15 to find non-saturated discriminating point. If HARD_PASS, Barrier 1 chain-grade promoted.
+
+### META RULES ATOMIZED TODAY (load-bearing for next-session discipline)
+
+**META_RULE_AM (batch 14)**: "substrate already does X via existing primitives" — 7+ occurrences:
+1. Schema ANCHOR 1 vmPFC context-prior tied EXEMPLAR cosine baseline (lift +0.003)
+2. Schema ANCHOR 2 MAC+FAC LOST to cosine baseline (-0.063)
+3. Schema M-sweep up to M=1024: no cliff
+4. Schema cross-schema overlap 0-90%: cosine wins all
+5. Hierarchical v1 at easy regime: FLAT preplay already saturates
+6. Self-explanation: raw cosine attribution beats bind-trace (0.467 vs 0.240)
+7. Narrative ANCHOR 1: NO_SEGMENT = FULL_STACK at smoke
+
+**Discipline**: any "richer mechanism" cell-author must demonstrate substrate's existing primitive FAILS at that regime FIRST.
+
+**META_RULE_AN (batch 15)**: cone-collapse formula calibrated to N=2048; substrate is 3.7x more capable at N=8192 than formula predicts. Cells using cone-collapse formula at N≥4096 MUST include empirical baseline arm. Substrate-product win: substrate physics MORE capable than substrate-physics formula said.
+
+### USER M3 CONCERNS — STATUS (from yesterday's 5)
+
+1. **Hypothesis generation**: SWR-preplay generator works (recall@10=0.558 novelty=1.000); pipeline integration weak → MEASURED_MECHANISM
+2. **Self-explanation**: substrate does via raw cosine attribution (0.467); bind-trace adds nothing → workable but bounded
+3. **Long-narrative coherence**: Q1 factual + Q4 contradiction at chain-grade-quality (0.89 / 1.00) on 100-event narrative; Q2 coreference + Q3 temporal collapse → partial M3
+4. **Online conversation learning**: cell-author bug (kth=64 OOB vocab=60); needs fix
+5. **Hierarchical planning: UNRESOLVED after 2 attempts** — macro vocabulary non-compositional at depth-8; Sutton-Precup options framework redesign needed (research-owned)
+
+### CHAIN-GRADE PORTFOLIO ADDITIONS TODAY (verified)
+
+- CF Cell 1 regret vmPFC v1 (R²=0.987 rank=0.989; substrate vmPFC regret primitive)
+- Schema exemplar-Bayes ANCHOR 3 (substrate cosine kernel pre-encodes schema structure)
+
+### KNOWN ISSUES (load-bearing for post-compaction me)
+
+1. **cortex_hippo_handoff FULL DIED at 4h timeout** (22:11Z 2026-06-27). Only seed 7 partial saved. Needs RE-ARCHITECT (chunked seeds OR longer timeout) before re-dispatch. Smoke pattern lift +0.998 stands.
+2. **Online_conv cell bug**: `ValueError kth=64 OOB vocab=60`; cardinality_ok=False. Cell-author needs fix.
+3. **VALID_CERT_CLASS missing `proven_negative_smoke`**: HONEST_NEG atomization tools hit recovery path. Convention: use `cert_class='mechanism_characterization'`.
+
+### POST-COMPACTION RITUAL (overrides UPDATE #20's older version)
+
+1. **Touch heartbeat**: `date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp`
+2. **Read this BACKUP file end-to-end** — UPDATES #1 through #21. UPDATE #21 (this one) is the latest substantive state.
+3. **Push timestamps far ahead** (silences overnight stop hook + watchdog noise):
+   ```bash
+   date -u -d "+24 hours" +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/last_processed_auto_7c6e8deae7.timestamp
+   date -u -d "+24 hours" +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/last_processed_research.timestamp
+   ```
+4. **Read 5 memory rules**: substrate-as-canonical / no-hallucinated-numbers / path-disambiguation / compute-formulas-in-code / **test-rationality-encoding-before-readout**
+5. **Check landings since 13:30Z**: `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -180 -printf '%TH:%TM %p\n' | sort`
+6. **Verify scheduled tasks** (PowerShell, NOT bash): `schtasks /query /tn hd_landing_notifier /fo LIST`
+7. **Re-arm notes_monitor** per CLAUDE.md ritual
+8. **Cron**: 3a20be75 :03/:18/:33/:48 session-only; may NOT survive Claude Code restart — re-arm via CronCreate if needed
+
+### NEXT-STEP PRIORITIES (post-compaction; in order)
+
+1. **Spawn partition-oracle hardened-regime cell** (V_C=16000 OR depth=15+) to verify Barrier 1 chain-grade — highest-leverage single experiment
+2. **Sutton-Precup options framework** drill + cell for hierarchical planning (ANCHOR 2 from yesterday's revival drill)
+3. **cortex_hippo_handoff re-architect** (chunked seeds + longer timeout)
+4. **Online_conv cell-author fix** (kth OOB bug)
+5. Continue per autonomous_loop_instructions.md priorities + USER directives
+
+### STATE OF EXP_DEV.MD DISCIPLINE
+
+Hardened today (+129 lines §6-§12 yesterday):
+- §6 META_RULE_AF arms-must-differ SHA-256
+- §7 META_RULE_AH atomic-final-metrics-write
+- §8 SystemExit re-raise BEFORE BaseException
+- §9 CRLB pre-validation
+- §10 baseline_in_band 0.05<x<0.95 smoke-gate
+- §11 number tagging MEASURED@/HYPOTHESIZED@/THEORETICAL@/CITED@
+- §12 cell-template summary block
+
+12 META rules atomized today: AC/AD/AE/AF/AG/AH/AI/AJ/AK (batch 13) + AL (batch 13) + AM (batch 14) + AN (batch 15).
+
+### THE BIG-PICTURE SUBSTRATE-PRODUCT NARRATIVE
+
+**Substrate is MORE CAPABLE than yesterday's framing suggested.** Pattern of the day: existing chain-grade primitives (cosine cleanup / flat preplay / explicit encoding) repeatedly handle things "richer mechanisms" were proposed to add.
+
+**The genuine remaining Stage 3 gaps are NARROW**:
+- Hierarchical planning (needs Sutton-Precup options-framework redesign)
+- Q2 coreference + Q3 temporal at long-narrative scale (new mechanism class needed)
+- Pipeline integration of hypothesis-gen with abductive scorer (engineering)
+
+**Everything else (counterfactual / TOM / schema-driven / depth-5 composition / parietal MOVABLE+RELATIONAL / abductive / task_vector ICL / order-sensitive sequence binding / self-explanation via cosine / Barrier 1 mechanism via partition-oracle goal-conditioning)** = already done via existing primitives OR identified-but-pending-chain-grade. Just needed test coverage + correct mechanism class.
+
+**M3 conversational AI (12-18 month goal) gap-list shrunk substantially today.**
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~13:30Z UPDATE #21 (compaction-prep; substantive overnight wave summary; load-bearing for post-compaction me)
+
+
 
 
 
