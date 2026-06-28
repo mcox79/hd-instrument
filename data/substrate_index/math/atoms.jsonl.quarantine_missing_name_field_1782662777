@@ -1,0 +1,98 @@
+{
+  "atom_hash": "8f63759472b4bae7b5f74b0e2c1d3954a02cf9f4e92933c90f647ec932e03b88",
+  "audit_ts_iso": "2026-06-28T15:50:57Z",
+  "audited_by": "skunkworks",
+  "author": "skunkworks",
+  "cell_path": "d:/AI/hd-instrument/experiments/exp_substrate_hierarchical_block_sparse_v1.py",
+  "cert_class": "mechanism_characterization",
+  "cert_delta": 0,
+  "cert_integrity_audit": {
+    "cited_number_reproduces_from_cell": true,
+    "symmetric_anti_negativity": "honest_negative_filed_with_same_rigor_as_positive",
+    "verify_off_data": true,
+    "verify_referent": true
+  },
+  "cert_status": "HARD_FAIL",
+  "closure_context": {
+    "capability_closed_atom": "NOT_FILED_premature",
+    "closure_policy_ref": "feedback_2x_drill_negatives_before_capability_closure_USER_2026-06-28.md",
+    "companion_drill": "Drill_A_option_critic_Cell_A_OUTSTANDING",
+    "preliminary_closure_atom_eda3d108": "NOT_MODIFIED_pending_Cell_A_return",
+    "role": "one_half_of_2x_drill_evidence_for_capability_closure"
+  },
+  "corpus": "math",
+  "date_filed": "2026-06-28",
+  "discriminator_detail": "random_blocks (0.200) BEAT mechanism (block_sparse_options_full 0.100) by 0.100; disjoint-block per-option assignment HURT planning readout vs random per-query block assignment; per-option block restriction (16/64 blocks) lost state-information faster than it gained cross-talk-free readout for 4-block BlocksWorld task",
+  "discriminator_status": "INVERTED",
+  "drill_source": "d:/AI/hd-instrument/notes/research_drill_B_hersche_block_sparse_hierarchical_2026-06-28.md",
+  "gates_fired": {
+    "hf_discriminator_inverted_vs_random_blocks": true,
+    "hf_opts_le_0.10": true
+  },
+  "id": "hierarchical_planning_block_sparse_encoding_axis_HARD_FAIL_2026-06-28",
+  "lifts": {
+    "opts_minus_dense_baseline": 0.1,
+    "opts_minus_no_block_assignment": 0.05,
+    "opts_minus_random": 0.05,
+    "opts_minus_random_blocks": -0.1
+  },
+  "mechanism": "block_sparse_hierarchical_planning_encoding_axis",
+  "mechanism_class_diagnosis": "block_sparse_encoding_axis_orthogonal_to_3_prior_dense_HRR_attempts; restricting each option to disjoint 16/64-block subset destroys state-information needed for goal-relevance cosine scoring; random_blocks arm preserves block density without per-option locality and outperforms; encoding-axis HARD_FAIL on planning task despite block-sparse primitives chain-grade in isolation (sparse_resonator_blocklocal_K26 / partition_routing_hierarchical_2level)",
+  "meta_rules_applied": [
+    "META_RULE_AC",
+    "META_RULE_AF",
+    "META_RULE_AG",
+    "META_RULE_AH",
+    "META_RULE_AL",
+    "META_RULE_AN",
+    "META_RULE_J",
+    "META_RULE_T",
+    "META_RULE_AE"
+  ],
+  "metrics_path": "d:/AI/hd-instrument/data/exp_substrate_hierarchical_block_sparse_v1_smoke/metrics.json",
+  "per_arm_seq_hash": {
+    "block_sparse_options_full": "c02d9940e99e71ff",
+    "dense_baseline": "a8026aa0beb09995",
+    "no_block_assignment": "8824524fcc027717",
+    "policy_only": "41bb56b17ba419e5",
+    "random": "696fbfb74877fc0f",
+    "random_blocks": "3869a29406bb875c"
+  },
+  "per_arm_solve_rate": {
+    "block_sparse_options_full": 0.1,
+    "dense_baseline": 0.0,
+    "no_block_assignment": 0.05,
+    "policy_only": 0.05,
+    "random": 0.05,
+    "random_blocks": 0.2
+  },
+  "prereg_path": "d:/AI/hd-instrument/preregs/2026-06-28_substrate_hierarchical_block_sparse_v1.md",
+  "regime": {
+    "B_per_block": 128,
+    "L_blocks": 64,
+    "N_DIM": 8192,
+    "actions": 6,
+    "blocks_per_option": 16,
+    "composite_depth": 6,
+    "domain_blocks": 4,
+    "goals": 20,
+    "max_total_steps": 24,
+    "mode": "smoke",
+    "options": 3,
+    "positions": 3,
+    "seeds": [
+      7
+    ],
+    "state_blocks": 16
+  },
+  "sanity_checks": {
+    "arms_distinct": true,
+    "cardinality_ok": true,
+    "chance_floor_recomputed": "6^-6 = 2.143e-5 (verified)",
+    "completed_units": 120,
+    "dense_baseline_replicates_prior_hf": true,
+    "expected_n_units": 120,
+    "random_at_floor": true
+  },
+  "verdict": "HARD_FAIL"
+}
