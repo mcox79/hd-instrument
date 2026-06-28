@@ -1,0 +1,232 @@
+{
+  "anchor_name": "substrate_barrier1_hint_learned_linear_planner_drill2_v1_seed_7",
+  "verdict": "HARD_FAIL_POSITIVE_CONTROL_FAIL",
+  "verdict_msg": "HARD_FAIL_POSITIVE_CONTROL_FAIL_MECHANISM_BROKEN_OR_NO_SIGNAL: BASELINE_A=0.4000 (rail_breach=0/1; target=0.449 band=[0.30,0.70]) LEARNED_PLANNER_B=0.0000 (cv=nan route_acc=0.1980 route_ok=False in_band=False) ORACLE_C=0.8400 NOISY_D=0.0000 RANDOM_E=0.0000 lift_B_A=-0.4000 lift_B_E=0.0000 gap_C_B=0.8400 (ok=False) noisy_sanity=0.4000 (ok=False) PC_route_acc=0.1040 pc_pass=False disjoint=True cardinality_ok=True expected_units=5 observed_units=5 arms_distinct=True saturation=False HP_band=[0.50,0.95] HP_lift_base=0.30 HP_route=0.50 PC_thresh=0.50 depth=15 xtalk=0.3123",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "config_version": "ANCHOR=substrate_barrier1_hint_learned_linear_planner_drill2_v1_seed_7,learnedLinearPlannerDrill2V1: N=8192 V_C=4000 V_P=10 depth=15 n_chains_train=200 n_chains_test=100 seed=7 mode=smoke encoder=SUBSTRATE_NATIVE_BIPOLAR n_parts=5 psz=800 xtalk=0.3123 baseline_xtalk=0.6987 PC_depth=5 PC_n_part=10 PC_V_C=2000 PC_psz=200 PC_train=500 PC_test=100 RAIL=[0.300,0.700] target=0.449 HP_B_band=[0.50,0.95] HP_lift_base=0.30 HP_lift_rand=0.30 HP_gap_oracle=0.30 HP_noisy_band=0.10 HP_cv_max=0.15 HP_sat_ceil=0.95 HF_B_abs=0.30 HF_lift_min_signal=0.10 HF_lift_min_if_sat=0.20 MM_lift_min=0.15 expected_units=5 arms=5 HP_planner_route_min=0.50 HF_planner_route_min=0.30 PC_route_min=0.50",
+  "per_seed": [
+    {
+      "seed": 7,
+      "run_mode": "smoke",
+      "N": 8192,
+      "V_C": 4000,
+      "V_P": 10,
+      "depth": 15,
+      "n_chains_train": 200,
+      "n_chains_test": 100,
+      "n_partitions": 5,
+      "part_size": 800,
+      "crosstalk_baseline": 0.6986838911034804,
+      "crosstalk_part": 0.31230462642666695,
+      "encoder_provenance": "SUBSTRATE_NATIVE_BIPOLAR",
+      "config_version": "ANCHOR=substrate_barrier1_hint_learned_linear_planner_drill2_v1_seed_7,learnedLinearPlannerDrill2V1: N=8192 V_C=4000 V_P=10 depth=15 n_chains_train=200 n_chains_test=100 seed=7 mode=smoke encoder=SUBSTRATE_NATIVE_BIPOLAR n_parts=5 psz=800 xtalk=0.3123 baseline_xtalk=0.6987 PC_depth=5 PC_n_part=10 PC_V_C=2000 PC_psz=200 PC_train=500 PC_test=100 RAIL=[0.300,0.700] target=0.449 HP_B_band=[0.50,0.95] HP_lift_base=0.30 HP_lift_rand=0.30 HP_gap_oracle=0.30 HP_noisy_band=0.10 HP_cv_max=0.15 HP_sat_ceil=0.95 HF_B_abs=0.30 HF_lift_min_signal=0.10 HF_lift_min_if_sat=0.20 MM_lift_min=0.15 expected_units=5 arms=5 HP_planner_route_min=0.50 HF_planner_route_min=0.30 PC_route_min=0.50",
+      "anchor_name": "substrate_barrier1_hint_learned_linear_planner_drill2_v1_seed_7",
+      "_llm_forward_calls_at_inference": 0,
+      "positive_control": {
+        "pc_route_acc": 0.104,
+        "pc_route_hits": 52,
+        "pc_route_total": 500,
+        "pc_pass": false,
+        "pc_chance": 0.1,
+        "pc_threshold": 0.5,
+        "pc_config": {
+          "depth": 5,
+          "n_part": 10,
+          "V_C": 2000,
+          "psz": 200,
+          "n_train": 500,
+          "n_test": 100
+        },
+        "pc_planner_diag": {
+          "train_acc": 0.1124,
+          "n_train_pairs": 2500,
+          "weight_checksum_W": -0.0,
+          "weight_checksum_b": 0.0,
+          "W_shape": [
+            10,
+            8192
+          ],
+          "b_shape": [
+            10
+          ],
+          "n_iter": 2
+        }
+      },
+      "planner_diag": {
+        "train_acc": 0.2087,
+        "n_train_pairs": 3000,
+        "weight_checksum_W": -0.0,
+        "weight_checksum_b": -8e-06,
+        "W_shape": [
+          5,
+          8192
+        ],
+        "b_shape": [
+          5
+        ],
+        "n_iter": 2
+      },
+      "train_test_disjoint": true,
+      "train_test_disjoint_n_collisions": 0,
+      "arm_a_baseline": {
+        "top1": 0.4,
+        "per_step_acc": [
+          0.94,
+          0.86,
+          0.85,
+          0.8,
+          0.72,
+          0.67,
+          0.65,
+          0.62,
+          0.58,
+          0.56,
+          0.52,
+          0.48,
+          0.47,
+          0.44,
+          0.4
+        ],
+        "n_queries": 100,
+        "depth": 15,
+        "mechanism": "baseline_per_hop_cleanup_full_V_C",
+        "elapsed_s_arm": 35.55
+      },
+      "baseline_rail_ok": true,
+      "arm_b_learned_planner": {
+        "top1": 0.0,
+        "per_step_acc": [
+          0.19,
+          0.03,
+          0.02,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_queries": 100,
+        "depth": 15,
+        "n_partitions": 5,
+        "part_size": 800,
+        "route_acc": 0.198,
+        "route_hits": 297,
+        "route_total": 1500,
+        "mechanism": "learned_linear_planner_softmax_logreg",
+        "elapsed_s_arm": 25.7
+      },
+      "arm_c_oracle": {
+        "top1": 0.84,
+        "per_step_acc": [
+          1.0,
+          0.95,
+          0.95,
+          0.95,
+          0.94,
+          0.94,
+          0.93,
+          0.92,
+          0.92,
+          0.92,
+          0.91,
+          0.9,
+          0.88,
+          0.87,
+          0.84
+        ],
+        "n_queries": 100,
+        "depth": 15,
+        "n_partitions": 5,
+        "part_size": 800,
+        "mechanism": "oracle_ground_truth_partition_upper_bound",
+        "elapsed_s_arm": 23.49
+      },
+      "arm_d_noisy_hint": {
+        "top1": 0.0,
+        "per_step_acc": [
+          0.14,
+          0.03,
+          0.01,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_queries": 100,
+        "depth": 15,
+        "n_partitions": 5,
+        "part_size": 800,
+        "mechanism": "noisy_permuted_partition_label_negative_control",
+        "elapsed_s_arm": 26.39
+      },
+      "arm_e_random": {
+        "top1": 0.0,
+        "per_step_acc": [
+          0.15,
+          0.04,
+          0.01,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_queries": 100,
+        "depth": 15,
+        "n_partitions": 5,
+        "part_size": 800,
+        "mechanism": "random_partition_per_hop_floor",
+        "elapsed_s_arm": 23.7
+      },
+      "lift_b_over_a": -0.4,
+      "lift_b_over_e": 0.0,
+      "gap_c_over_b": 0.84,
+      "noisy_sanity_abs": 0.4,
+      "elapsed_s": 233.9,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1782674283.4669197
+    }
+  ],
+  "elapsed_s": 234.1,
+  "summary": "HARD_FAIL_POSITIVE_CONTROL_FAIL_MECHANISM_BROKEN_OR_NO_SIGNAL: BASELINE_A=0.4000 (rail_breach=0/1; target=0.449 band=[0.30,0.70]) LEARNED_PLANNER_B=0.0000 (cv=nan route_acc=0.1980 route_ok=False in_band=False) ORACLE_C=0.8400 NOISY_D=0.0000 RANDOM_E=0.0000 lift_B_A=-0.4000 lift_B_E=0.0000 gap_C_B=0.8400 (ok=False) noisy_sanity=0.4000 (ok=False) PC_route_acc=0.1040 pc_pass=False disjoint=True cardinality_ok=True expected_units=5 observed_units=5 arms_distinct=True saturation=False HP_band=[0.50,0.95] HP_lift_base=0.30 HP_route=0.50 PC_thresh=0.50 depth=15 xtalk=0.3123",
+  "_llm_forward_calls_at_inference": 0,
+  "expected_n_units": 5,
+  "expected_arms": [
+    "baseline_full_V_C",
+    "learned_linear_planner",
+    "oracle_ground_truth",
+    "noisy_permuted_hint",
+    "random_partition_floor"
+  ],
+  "arms_must_differ_sha256": {
+    "arm_a_baseline": "a5d3c04e17f38855",
+    "arm_b_learned_planner": "1410085272150a20",
+    "arm_c_oracle": "bd0c50a94606ef95",
+    "arm_d_noisy_hint": "e778bfc3e669c7e4",
+    "arm_e_random": "2b1605bbc510ca97"
+  },
+  "DESIGN_NOTE": "DRILL 2 of 2x-drill-before-closure for Barrier 1 hint-derivation. Mechanism class = SUPERVISED LEARNED LINEAR PROJECTOR (sklearn LogisticRegression multinomial lbfgs C=1.0); genuinely different from Drill 1 cosine centroid + Drills 1.5/A/B handcrafted brain composition. Trains W_planner: R^N -> R^N_PART on (state, true_partition) pairs from chains_train; tests pred_part = argmax(W_planner @ state + b_planner) on disjoint chains_test. META_RULE_AP_v3 signal-shape audit: state at training MUST match state at test (W @ key; SAME geometry oracle B receives). POSITIVE CONTROL at d=5 / N_part=10 / 500 train / 100 test pairs MUST yield planner_route_acc >= 0.50 (chance=0.10); if fails, mechanism broken OR no signal at any regime; HARD_FAIL immediately. ARMS (5; all psz=800 / 5 partitions matching parent regime): A=BASELINE, B=LEARNED_PLANNER, C=ORACLE (upper bound), D=NOISY_HINT (negative control), E=RANDOM (floor). HP requires B in [0.50, 0.95] AND lift_B_A >= 0.30 AND lift_B_E >= 0.30 AND gap_C_B <= 0.30 AND |D-A| <= 0.10 AND planner_route_acc >= 0.50 AND positive_control_pass AND train_test_disjoint AND saturation == False AND arms_distinct. META_RULE_AC/AE/AF/AG/AH/AL/AN/AP_v3/H all enforced; BIAS-Q/N/S; DISCRIMINATOR-MUST-SURVIVE-SCALE (smoke at FULL N + FULL depth + positive control); 2x-drill-before-closure (USER standing). Drill 1 reference: d:/AI/hd-instrument/data/exp_substrate_partition_oracle_substrate_derived_hint_v1_seed_7_smoke/metrics.json (BASELINE=0.40 ARM_B=0.00 ORACLE=0.84 route_acc=0.217 = chance). CHUNKED single-seed; siblings: seed_13 + seed_19. cv enforced post-hoc cross-cell at chain-grade VET tier."
+}
