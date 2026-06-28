@@ -123,6 +123,20 @@ class AtomKind(enum.Enum):
                                                  # related lessons; confirmed_or_candidate +
                                                  # witnesses_count fields enforce CANDIDATE !=
                                                  # CONFIRMED discipline (Skunkworks condition 1)
+    EXPERIMENT_AGGREGATION_RECORD = "experiment_aggregation_record"  # Tier-B cross-seed/cross-cell
+                                                 # aggregation snapshot atom (added 2026-06-28 by skunkworks
+                                                 # to unblock Store load; prior atomization tools used these
+                                                 # kind values without first adding to enum; integrity-recovery
+                                                 # add. Same structural guards as EXPERIMENT_RECORD.)
+    CHAIN_GRADE_CAPABILITY_BREAK = "chain_grade_capability_break"  # Result-class atom for a chain-grade
+                                                 # capability barrier break (e.g. Barrier 1 multi-hop break);
+                                                 # added 2026-06-28 by skunkworks (orphan-kind recovery).
+    DISCIPLINE_RULE = "discipline_rule"          # META rule atomization (parallel to METHODOLOGY_RULE);
+                                                 # added 2026-06-28 by skunkworks (orphan-kind recovery).
+    DISCIPLINE_RULE_AMENDMENT = "discipline_rule_amendment"  # Amendment patch to an existing DISCIPLINE_RULE;
+                                                 # added 2026-06-28 by skunkworks (orphan-kind recovery).
+    SUPERSESSION_RECORD = "supersession_record"  # Atom-supersession audit record (which atom replaced which);
+                                                 # added 2026-06-28 by skunkworks (orphan-kind recovery).
     EXPERIMENT_RECORD = "experiment_record"     # Tier-B experiment records (for Tier-3
                                                  # atomizer); relevance_tier-filtered
                                                  # HIGH/MEDIUM/LOW/ARCHIVE
