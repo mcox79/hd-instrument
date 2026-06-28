@@ -39,6 +39,8 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
+import torch  # noqa: F401 — PROT-020 top-level GPU-routing gate; core uses torch.cuda
+
 from experiments._seed_checkpoint import (
     resumable_seeds, write_partial_key, aggregate_partials,
 )
