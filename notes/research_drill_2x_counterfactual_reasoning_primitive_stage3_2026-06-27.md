@@ -1,275 +1,329 @@
 # research_drill_2x_counterfactual_reasoning_primitive_stage3_2026-06-27
 
 **Filed-by:** research (Opus 4.7, 1M ctx)
-**Topic:** Brain-grounded counterfactual reasoning primitive for substrate Stage 3
-**Trigger:** USER 2026-06-27 — Stage 3 compositional understanding gap for M3 glass-box conversational AI (12-18mo target). TOM drill done; counterfactual is next foundational gap (causal attribution, hypothesis evaluation, planning, regret).
-**Cert-trail status:** RESEARCH_DESIGN_NOTE — TOP-3 cell candidates with HARD_PASS/HARD_FAIL bands; ready for cell-author hand-off.
-**Adjacency confirmed (MEASURED via substrate-KB):** Prior counterfactual portfolio at `notes/research_drill_substrate_gap_causal_counterfactual_3x_2026-06-07.md` (do-calculus + Mechanism A/B/C) + `notes/research_drill_counterfactual_capability_extension_2026-06-07.md` (Types A-E on bitemporal stack) + `notes/exp_dev_to_research_ccc1v2_counterfactual_HP_4of7_2026-06-05.md` (cf-RPE delta-rule overwrite HARD_PASS substrate updated-fact = 1.00 vs Pythia-160M 0.00) + `notes/skunkworks_to_testbed_exp_dev_FORM_A_SPEC_4_rescued_counterfactual_audit_preserving_deletion_cert_composition_type_correct_2026-06-16.md` (MIDDLE_BAND audit-preserving deletion).
+**Topic:** Brain-grounded counterfactual reasoning primitive for substrate Stage 3 — GAP-FOCUSED (basics banked)
+**Trigger:** USER 2026-06-27 — Stage 3 compositional understanding gap for M3 glass-box conversational AI. TOM drill done; this drill addresses counterfactual GAPS beyond the 4 chain-grade + 1 MIDDLE_BAND atoms already on disk.
+**Cert-trail status:** RESEARCH_DESIGN_NOTE — TOP-3 GAP cells with HARD_PASS/HARD_FAIL bands; ready for cell-author hand-off.
 **Calibration penalty applied:** raw P deflated 0.20 per [[feedback-lit-scan-calibration-penalty]]; novel-synthesis cap at 0.50.
 **Number tagging (§11):** MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ / CITED@ throughout.
 
 ---
 
+## 0. MEASURED@ existing counterfactual portfolio (verified on disk 2026-06-27)
+
+Substrate ALREADY has substantial counterfactual capability. Cell designs below address GAPS, not duplicates.
+
+| Atom | Path | Verdict | Headline |
+|---|---|---|---|
+| `exp_causal_intervention_isolation_v1` | `d:/AI/hd-instrument/data/exp_causal_intervention_isolation_v1/metrics.json` | MEASURED@ HARD_PASS | Single intervention is LOCAL — non-target recall degradation = 0.0000, non-target recall after intervention = 1.000. Counterfactual replay does not corrupt the rest of memory. |
+| `exp_causal_counterfactual_replay_v1` | `d:/AI/hd-instrument/data/exp_causal_counterfactual_replay_v1/metrics.json` | MEASURED@ MIDDLE_BAND | counterfactual_accuracy = 1.000; mean_intervention = 16.864ms (>10ms latency bar). Mechanism works perfectly; only latency holds it out of chain-grade. |
+| `exp_causal_audit_chain_depth_v1` | `d:/AI/hd-instrument/data/exp_causal_audit_chain_depth_v1/metrics.json` | MEASURED@ HARD_PASS | 100% causal-chain proofs valid up to depth 50 (O(1) per-hop verify); chain-valid by depth d5=1.0, d20=1.0. |
+| `exp_causal_bitemporal_composition_v1` | `d:/AI/hd-instrument/data/exp_causal_bitemporal_composition_v1/metrics.json` | MEASURED@ HARD_PASS | counterfactual-as-of accuracy = 1.000. Causal + bitemporal time-travel composition works. |
+| `exp_causal_correlational_disambig_v1` | `d:/AI/hd-instrument/data/exp_causal_correlational_disambig_v1/metrics.json` | MEASURED@ HARD_PASS | Causal precision = 1.000, recall = 1.000 (CAUSE_OF vs CORRELATED_WITH role disambig, N=4096). Mechanism A viable. |
+
+**Substrate counterfactual story (MEASURED@):** intervention isolation + counterfactual replay (accuracy=1.000) + audit chain depth-50 + bitemporal composition + role disambig — ALL WORK. Pearl rungs 2 (intervention) + 3 (counterfactual) covered for SINGLE-STEP, SINGLE-FACT, STORED-INTERVENTION case.
+
+**What's NOT banked (the GAPS this drill targets):**
+- **GAP A — Regret/comparison primitive:** factual-vs-CF outcome cosine diff with magnitude encoding (vmPFC analog). No existing atom.
+- **GAP B — Chain-of-counterfactual / nested CF:** "what if X had been Y, then GIVEN THAT, what if Z had been W?" — depth-2+ counterfactual nesting. No existing atom.
+- **GAP C — Counterfactual SIMULATION with NOVEL antecedents:** the existing replay uses STORED interventions (hetero-assoc target swap on known atoms). Generating CF for an antecedent NOT in the corpus = unsolved.
+- **GAP D — Latency optimization:** replay at 16.864ms; target <10ms for chain-grade and <1ms for real-time conversational use. Delta-stack / lazy-eval / batched-surgery candidate mechanisms.
+- **GAP E — Counterfactual GENERATION:** substrate PROPOSES "what if X had been Y?" rather than executing user-specified CF. Requires identifying salient perturbation candidates + ranking. No existing atom.
+
+---
+
 ## (a) HEADLINE
 
-**Counterfactual reasoning decomposes into Pearl's THREE-STEP procedure (abduction → action → prediction) that maps cleanly onto substrate primitives we ALREADY have. The novel piece is NOT do-calculus identification (proven hard 2026-06-07; requires symbolic DAG) but the SCRATCHPAD-W primitive — a query-scoped transient W_cf forked from factual W_f, perturbed at one bound atom, then K-hop replayed. Cell 1 (TWO_TIER-style F vs CF banks + rank-1 surgery + cosine-comparison regret signal) is the cheapest discriminator. Brain literature converges on hippocampus + vmPFC + rTPJ as the "constructive episodic simulation + regret encoding + alternate-perspective" triad — substrate equivalents = hippocampal-trace bank (TWO_TIER episodic tier) + comparison-readout (cosine diff in mPFC-analog) + agent-indexed perspective bank (carries over from TOM Cell 1).**
+**Counterfactual basics are banked; today's TOP-3 targets the highest-value un-atomized GAPS for Stage 3 M3 conversational AI. Rank-1 cell = REGRET COMPARISON PRIMITIVE (GAP A) — the vmPFC analog signal that turns counterfactual REPLAY into counterfactual REASONING. Brain literature converges on Coricelli vmPFC + Camille OFC regret encoding as the scalar magnitude-difference readout that downstream decision-making depends on. Substrate has all the upstream primitives (intervention isolation MEASURED@ 1.000, counterfactual_replay MEASURED@ 1.000) but NO comparison readout primitive — this is the missing piece for "the substrate KNOWS the counterfactual differs and BY HOW MUCH."**
 
-**The gold non-obvious finding:** the prior 2026-06-07 drill identified rank-1 downdate as Pearl's do(X=x) operator. The MISSING discipline-level insight is that **the F-vs-CF DISTINCTION is exactly the TWO_TIER generational architecture the substrate already ships** (`continual.replay_cycle` proven-bound +0.57 drift-reduction). The factual W is the "long-tier" (stable, persistent); the counterfactual W_cf is the "scratch-tier" (transient, query-scoped, discarded after compare). This is not new code — it's a re-purposing of the generational architecture for query-time forking.
+**The gold non-obvious finding:** the existing replay primitive achieves accuracy=1.000 but is MIDDLE_BAND only on latency (16.864ms). GAP D latency optimization (delta-stack lazy-eval; HYPOTHESIZED@ 4-8ms achievable) would auto-promote the existing atom to chain-grade WITHOUT new mechanism risk. This is a CHEAP COMPOSITION cell: the substrate already won on accuracy; engineering one Sherman-Morrison delta-stack reorg reaches chain-grade.
 
-**HYPOTHESIZED@ P_deflated rank:**
-1. Twin-W scratchpad counterfactual via TWO_TIER fork + rank-1 surgery + regret cosine: **P=0.50** (cap; lowest novelty risk; reuses 4 chain-grade primitives; discriminator-feasible at edge-of-capacity)
-2. Sally-choice regret simulator via agent-bank + outcome-bind + counterfactual outcome lookup: **P=0.42** (composes TOM Cell 1 with cf primitive; level-2 dependency)
-3. Pearl rung-3 via abduction-action-prediction with noise-fingerprint binding: **P=0.32** (novel-synthesis territory; abduction is the load-bearing piece per 2026-06-07 P=0.30 limit)
+**HYPOTHESIZED@ P_deflated rank (GAP-targeted, not basics-duplicating):**
+1. **GAP A: Regret-magnitude comparison primitive (vmPFC analog)** — P=0.50 (cap; composes 5 chain-grade atoms; lowest novelty risk; M3-load-bearing)
+2. **GAP D: Latency optimization via delta-stack lazy surgery** — P=0.50 (cap; engineering, not science; auto-promotes existing MIDDLE_BAND atom)
+3. **GAP B: Nested chain-of-counterfactual (depth-2+ CF composition)** — P=0.38 (novel composition; depth-of-nesting is the load-bearing risk; brain-existence-proof from Roese mental-simulation literature)
+
+GAPs C and E discussed in §5 below as Tier-2 candidates (deferred until GAPs A/D/B chain-grade).
 
 ---
 
 ## (b) Cheap decisive test
 
-**Rank-1 cell (twin-W scratchpad counterfactual) — full spec is the cheap decisive test:**
+**Rank-1 cell (GAP A — regret-magnitude comparison primitive) — full spec is the cheap decisive test:**
 
-- N=8192, V_REL=256 (matches chain-grade portfolio), 4 seeds (smoke=1, full=4)
-- Synthetic causal chain: 10 entities × 5-fact causal chains × 3 perturbation sites per chain = 150 counterfactual trials
-- Smoke: ~30 min CPU (numpy; comparable to engram_v3 smoke timing class)
-- **Single bit of evidence:** can the substrate take a stored 5-fact causal chain `A → B → C → D → E`, fork a scratch-W with `B` replaced by `B'`, K-hop replay from `A` through W_cf, and recover modified outcome `E'` that differs from factual `E` while preserving original `E` in W_f?
+- N=8192, V_REL=256 (matches chain-grade portfolio), 4 seeds (smoke=1, full=4).
+- Composes existing chain-grade atoms: counterfactual_replay (factual + CF outcomes) → NEW comparison readout → scalar regret signal.
+- Test: 5 decision scenarios × 4 magnitude levels (small/medium/large/extreme outcome differences) × 100 trials × 3 arms = 6000 evaluations.
+- Smoke: ~30 min CPU (composes existing primitives; only new code is the comparison readout).
+- **Single bit of evidence:** can the substrate output a scalar regret signal that has Pearson correlation ≥ 0.60 with the ground-truth outcome magnitude difference, while NOT correlating with the outcome magnitude itself (regret is about DIFFERENCE not value)?
 
-If this bit FIRES at HP threshold (Cell 1 §c HP-1), the counterfactual primitive class opens for Stage 3 compositional understanding. If it FAILS at HF, the substrate's rank-1 surgery confounds the factual chain (contamination per Pearl's "no-contamination" requirement) and we need a different mechanism (likely physical-copy W_cf at O(N²) cost — much more expensive).
-
-**Pre-flight CRLB feasibility check (HYPOTHESIZED@):** With N=8192 bipolar HRR, V_REL=256, depth-5 chain composition reliably per portfolio (depth-15 ceiling at 0.808 multi-hop chain-grade). Rank-1 downdate on `B`'s binding affects W by ~1/N relative perturbation in non-targeted entries (THEORETICAL@ Sherman-Morrison bound). Cosine separation of E vs E' across W_f vs W_cf needs to be ≥ 0.30 above noise floor of 1/√N = 0.011 — HP threshold of 0.65 separation is at 30σ above noise, comfortable margin. **MEASURED@ check required:** smoke must verify single-step rank-1 surgery does not perturb non-targeted retrieval by > 0.10 cosine (cleanliness gate per CRLB).
+If this bit FIRES at HP threshold, GAP A closes and substrate has the M3-load-bearing vmPFC primitive. If it FAILS, the cosine-readout is too coarse for magnitude encoding and we need a different scalar readout (likely L2-norm-difference in unbinding residuals).
 
 ---
 
 ## (c) Falsifiable predictions — HARD_PASS / HARD_FAIL / MIDDLE_BAND
 
-### CELL 1 — Twin-W scratchpad counterfactual via TWO_TIER fork + rank-1 surgery + regret cosine
+### CELL 1 — GAP A: Regret-magnitude comparison primitive (vmPFC analog)
 
 **Brain grounding (CITED@):**
-- Hippocampus + mPFC constructive episodic simulation: Schacter DL, Addis DR. 2007. The cognitive neuroscience of constructive memory: remembering the past and imagining the future. *Phil Trans R Soc B* 362:773-786. https://doi.org/10.1098/rstb.2007.2087 — establishes hippocampus as the engine for re-combining stored episodes into NOVEL counterfactual simulations; mPFC integrates and evaluates.
-- vmPFC for regret/comparison: Coricelli G, Critchley HD, Joffily M, O'Doherty JP, Sirigu A, Dolan RJ. 2005. Regret and its avoidance: a neuroimaging study of choice behavior. *Nat Neurosci* 8(9):1255-1262. https://doi.org/10.1038/nn1514 — vmPFC activation tracks the COMPARISON between obtained outcome and counterfactual alternative.
-- Hassabis D, Maguire EA. 2007. Deconstructing episodic memory with construction. *Trends Cogn Sci* 11(7):299-306. https://doi.org/10.1016/j.tics.2007.05.001 — hippocampal patient HC1 cannot construct novel scene imagination; supports the "scratchpad-from-stored-traces" model.
+- Coricelli G, Critchley HD, Joffily M, O'Doherty JP, Sirigu A, Dolan RJ. 2005. Regret and its avoidance: a neuroimaging study of choice behavior. *Nat Neurosci* 8(9):1255-1262. https://doi.org/10.1038/nn1514 — vmPFC activation tracks the MAGNITUDE of comparison between obtained and counterfactual outcomes. Critically, the signal is the DIFFERENCE not the absolute value.
+- Camille N, Coricelli G, Sallet J, Pradat-Diehl P, Duhamel JR, Sirigu A. 2004. The involvement of the orbitofrontal cortex in the experience of regret. *Science* 304(5674):1167-1170. https://doi.org/10.1126/science.1094550 — OFC patients FAIL to experience regret in choice tasks; supports OFC-as-regret-encoder; patients can still compute counterfactual replay but cannot compare.
+- Boorman ED, Behrens TEJ, Woolrich MW, Rushworth MFS. 2009. How green is the grass on the other side? Frontopolar cortex and the evidence in favor of alternative courses of action. *Neuron* 62(5):733-743. https://doi.org/10.1016/j.neuron.2009.05.014 — frontopolar cortex encodes the value of UN-CHOSEN alternatives; converges with vmPFC for the comparison signal.
 
-**Substrate primitive map (MEASURED@ chain-grade references):**
-- TWO_TIER generational architecture (`continual.replay_cycle` chain-grade per portfolio) → fork W_cf from W_f at query-time; W_cf is the "scratch tier", discarded after query.
-- Rank-1 surgery (`exp_capacity_substrate_rank1_pinv_downdate_v1` chain-grade; per 2026-06-07 drill §2.2) → the do(X=x) intervention operator; deletes B from W_cf and writes B' atomically.
-- Multi-hop composition (chain-grade per portfolio: depth-15 at 0.808) → K-hop replay from A through W_cf to recover E'.
-- Cosine-readout primitive → regret = 1 - cos(E, E'), a scalar signal computable in O(N).
-- Refuse-gate (V_REL=256, chain-grade) → "no counterfactual reachable" (the perturbation severed the chain) returns refuse not hallucination.
+**Substrate primitive map (MEASURED@ + 1 NEW):**
+- MEASURED@ `exp_causal_counterfactual_replay_v1` — provides the CF outcome (accuracy=1.000).
+- MEASURED@ `exp_causal_intervention_isolation_v1` — guarantees the factual outcome is preserved during CF (non-target recall=1.000).
+- MEASURED@ multi-bank partition primitive — factual outcome in bank-F, CF outcome in bank-CF; comparison reads both.
+- **NEW: comparison readout primitive** — scalar regret = magnitude-encoded cosine difference between factual outcome HRR and CF outcome HRR, calibrated to correlate with ground-truth value difference.
 
 **Test design (3-arm discriminator at EDGE OF CAPACITY per META_RULE_AG):**
 
-- **Arm A (baseline / shared-W contamination control):** single W, apply rank-1 surgery PERSISTENTLY (no fork), measure both E and E' from same W. Predicts: E contaminated by surgery (factual recall degrades after counterfactual query). **This is the META_RULE_AA fairness gate**: if baseline already recovers E' without contaminating E, the twin-W primitive is unnecessary — substrate's noise envelope absorbs the perturbation.
-- **Arm B (twin-W, surgery only, no replay):** fork W_cf, do rank-1 surgery, but query E from W_cf at the FORK ROOT (no K-hop replay). Tests if fork alone gives the answer (it shouldn't — chain hasn't been re-traversed).
-- **Arm C (FULL: twin-W + rank-1 surgery + K-hop replay through W_cf):** the full twin-network construction per Pearl 2009 Ch.7. Recovers E' correctly while W_f preserves E.
+- **Arm A (baseline / value-only readout):** read out factual outcome magnitude only; predicts "regret" = factual outcome value (NOT the difference). **META_RULE_AA fairness gate:** if Arm A correlates with ground-truth magnitude difference ≥ 0.30, the test design is leaky (something in the readout is encoding the difference accidentally).
+- **Arm B (raw cosine diff, no magnitude calibration):** compute cos(F_outcome, CF_outcome); use 1-cos as regret signal. Tests if uncalibrated cosine has correct correlation structure.
+- **Arm C (FULL: magnitude-calibrated comparison readout):** outcomes encoded as α · value_unit_vector where α encodes magnitude continuously; regret = ||α_F · v_F - α_CF · v_CF||₂ / (||α_F · v_F|| + ||α_CF · v_CF||) — normalized magnitude difference. The vmPFC analog.
 
-**META_RULE_AF arms-must-differ check:** Arms A, B, C have STRUCTURALLY distinct mechanisms (persistent vs forked vs replay-after-fork). HYPOTHESIZED@ Arm A's E-recovery degrades by ≥ 0.15 cosine after surgery (contamination); Arm B's E' is at random (no replay); Arm C's E preserved AND E' recovered. Three distinct measurable signatures.
+**META_RULE_AF arms-must-differ:** Arm A returns ONE scalar (value), Arm B returns scalar in [0,1] (cosine diff), Arm C returns scalar in [0,1] (normalized magnitude diff). Structurally distinct outputs and underlying computations.
 
 **Pre-reg bands (MEASURED@ on smoke before declaring HP eligible):**
-- **HARD_PASS:** Arm C achieves cos(retrieved_E', target_E') ≥ 0.70 AND cos(retrieved_E_from_W_f, target_E) ≥ 0.85 (factual preserved); regret signal |cos(E, E')| ≥ 0.30 (clear discrimination); Arm A factual-degradation ≥ 0.15 cosine (contamination control fires).
-- **MIDDLE_BAND:** Arm C E' in [0.50, 0.70] OR factual preservation in [0.70, 0.85].
-- **HARD_FAIL:** Arm C E' < 0.50 (replay fails after surgery) OR Arm A factual preserved ≥ 0.85 (no contamination — twin-W isn't necessary, by-construction-saturation per Fix #28) OR rank-1 surgery perturbs non-targeted entries by > 0.20 cosine (substrate too noisy for surgery).
+- **HARD_PASS:**
+  - Arm C regret-Pearson(true magnitude difference) ≥ 0.60
+  - AND Arm C regret-Pearson(absolute outcome value) ≤ 0.20 (regret is about difference, not value — vmPFC discipline)
+  - AND Arm A regret-Pearson(true magnitude difference) ≤ 0.30 (baseline does NOT encode regret)
+  - AND gap (Arm C - Arm A) ≥ 0.30 on the difference-correlation
+  - AND factual recall preserved ≥ 0.95 (no contamination from comparison readout)
+- **MIDDLE_BAND:** Arm C in [0.40, 0.60] OR Arm B beats Arm C (uncalibrated wins; calibration unnecessary).
+- **HARD_FAIL:** Arm C < 0.40 OR baseline > 0.50 on difference-correlation (by-construction-saturation) OR Arm C value-correlation > 0.50 (regret signal leaks absolute value — not a clean comparison primitive).
 
-**CRLB pre-validation (§9 — MEASURED@ check required pre-full-dispatch):** Smoke must verify (a) rank-1 surgery cleanliness: non-targeted entry cosine stable to ≤ 0.10 drift; (b) twin-W independence: K-hop on W_f after fork+surgery on W_cf gives IDENTICAL result to K-hop on W_f before fork (no leak across fork). These are the load-bearing assumptions; if either fails, the cell HARD_FAILs by construction.
+**CRLB feasibility (HYPOTHESIZED@ — MEASURED@ check required pre-full-dispatch):** continuous-α encoding requires bipolar HRR to faithfully preserve magnitude. Bipolar quantization may lose ~20% magnitude information per [[feedback-experiment-bias-master-checklist]] BIAS-13 contamination concerns. Smoke MUST verify: (a) magnitude-encoding round-trip fidelity ≥ 0.90 cosine before testing in comparison context; (b) factual + CF banks remain separable under comparison readout (no cross-bank leak). If (a) fails, fall back to discrete magnitude levels (5-bin quantization) for the smoke.
 
-**Baseline-in-band gate (§10):** Arm A baseline must be IN [0.20, 0.85] band on E' recovery — too low (baseline can't recover E' at all → surgery isn't doing anything in either condition) or too high (baseline already does it → no need for twin-W) auto-demotes verdict.
+**Baseline-in-band gate (§10):** Arm A baseline correlation must be IN [0.05, 0.30] band — exactly zero means the test design is too trivial (any noise gives 0); above 0.30 means the design leaks.
 
-**META_RULE_AH atomic-write:** Smoke and full both run with `.tmp + rename` write discipline on metrics.json; cell author must use `state.log_event` for kind='cell_landing'.
+**META_RULE_AH atomic-write:** standard cell discipline applies; `.tmp + rename` on metrics.json; `state.log_event` for kind='cell_landing'.
 
-**Compute cost:** ~30 min smoke / ~6 hr full (CPU; comparable to engram_v3 timing class). Memory: 2× W_f size during query scope (forking has O(N²) one-time cost per query = 256MB at N=8192 float32). For HP threshold this is acceptable; production would use delta-stack per 2026-06-07 §2.2 option (b).
+**Compute cost:** ~30 min smoke / ~3 hr full (CPU; lightweight composition on existing primitives).
 
-**CARDINALITY_OK:** EXPECTED_N_UNITS = 10 entities × 5-fact chains × 3 perturbation sites × 4 seeds × 3 arms = 1800 evaluations; HARD_FAIL_CARDINALITY_BREACH < 1620 (10% slack).
+**CARDINALITY_OK:** EXPECTED_N_UNITS = 5 scenarios × 4 magnitude levels × 100 trials × 4 seeds × 3 arms = 24000 evaluations; HARD_FAIL_CARDINALITY_BREACH < 21600.
 
-**P_raw=0.70 → P_deflated=0.50** (cap at novel-synthesis ceiling per calibration rule).
-
----
-
-### CELL 2 — Sally-choice regret simulator via agent-bank + outcome-bind + counterfactual outcome lookup
-
-**Brain grounding (CITED@):**
-- Coricelli et al. 2005 (cited above) — vmPFC regret encoding scales with magnitude of "would-have-been" outcome difference; this is a SCALAR comparison signal, not full simulation.
-- Camille N, Coricelli G, Sallet J, Pradat-Diehl P, Duhamel JR, Sirigu A. 2004. The involvement of the orbitofrontal cortex in the experience of regret. *Science* 304(5674):1167-1170. https://doi.org/10.1126/science.1094550 — OFC patients FAIL to experience regret in choice tasks; supports OFC-as-regret-encoder.
-- Van Hoeck N, Watson PD, Barbey AK. 2015. Cognitive neuroscience of human counterfactual reasoning. *Front Hum Neurosci* 9:420. https://doi.org/10.3389/fnhum.2015.00420 — rTPJ + temporal pole for "would have happened" perspective-shift; integrates TOM-mechanism with counterfactual reasoning.
-- Kahneman D, Tversky A. 1982. The simulation heuristic. In *Judgment under uncertainty* (Cambridge UP), pp.201-208. — establishes that humans evaluate decisions by mental simulation of alternative outcomes.
-
-**Substrate primitive map (MEASURED@):**
-- Agent-bank from TOM Cell 1 design (today's drill) — Sally's choice + outcome stored in Sally's bank.
-- Counterfactual primitive from Cell 1 above — fork W_cf, replace Sally's choice with alternative, replay.
-- task_vector HRR ICL (chain-grade per `exp_task_vector_in_context_kshot_v1_FULL`) — the choice-as-action is a task vector; counterfactual = swap task vector.
-- Cosine readout — regret signal.
-
-**Concrete test scenario (Pearl rung-3 — counterfactual):**
-> Setup: "Sally was offered two boxes: A (which she opened) and B (unopened). Box A contained $10. Box B was revealed afterward to contain $100. Would Sally have won more with B?"
->
-> Substrate operation:
-> 1. Store factual: bind(Sally_bank, bind(chose, A)), bind(Sally_bank, bind(outcome, $10)), bind(B, $100) in W_f.
-> 2. Fork W_cf. Apply rank-1 surgery: replace Sally's choice from A to B.
-> 3. K-hop in W_cf: Sally_bank → chose(B) → outcome(B's content = $100).
-> 4. Compute regret = $100 - $10 = $90 (cosine-encoded magnitude difference).
-
-**Test design (4-arm discriminator):**
-- **Arm A (baseline / no counterfactual):** query "what did Sally win?" — returns $10. Cannot answer the counterfactual question.
-- **Arm B (counterfactual without agent-bank):** Cell 1 mechanism but with single global bank; predicts contamination (factual Sally-choice corrupted).
-- **Arm C (counterfactual + agent-bank, no regret comparison):** Cell 1 + TOM agent-bank; recovers counterfactual outcome but no regret scalar.
-- **Arm D (FULL: counterfactual + agent-bank + cosine-encoded regret readout):** delivers magnitude comparison signal.
-
-**META_RULE_AA fairness gate:** baseline Arm A's regret-output MUST be ungrounded (random); if Arm A scores > 0.30 on regret-magnitude correlation with ground-truth-difference, the encoding leaks information.
-
-**META_RULE_AF arms-must-differ:** Arms A/B/C/D differ structurally in (i) presence of forking, (ii) presence of agent-bank, (iii) presence of comparison readout. Each gives distinct measurable signature.
-
-**Pre-reg bands:**
-- **HARD_PASS:** Arm D counterfactual outcome accuracy ≥ 0.75 AND regret-magnitude Pearson correlation with true-difference ≥ 0.60 AND factual Sally-recall preserved ≥ 0.85 AND Arm A regret-correlation ≤ 0.30 (gap ≥ 0.30).
-- **MIDDLE_BAND:** Arm D in [0.55, 0.75] OR regret-correlation in [0.35, 0.60].
-- **HARD_FAIL:** Arm D counterfactual accuracy < 0.55 OR regret-correlation < 0.35 OR baseline > 0.50 on regret.
-
-**CRLB feasibility (HYPOTHESIZED@):** Cell 2 is depth-4 binding `bind(Sally_bank, bind(chose, bind(option, outcome)))` after counterfactual surgery. Depth-4 < depth-15 portfolio ceiling. Regret-as-magnitude requires the OUTCOME field to be magnitude-encoded (not just symbolic); HYPOTHESIZED@ this works via outcome = α · value_unit_vector where α encodes magnitude as continuous scalar. **MEASURED@ check required:** smoke must verify continuous-α encoding survives binding (it may not — bipolar HRR may quantize α).
-
-**Compute cost:** ~1 hr smoke / ~12 hr full (depends on Cell 1 landing first).
-
-**CARDINALITY_OK:** EXPECTED_N_UNITS = 5 scenarios × 4 magnitude levels × 50 trials × 4 arms = 4000 evaluations; HARD_FAIL_CARDINALITY_BREACH < 3600.
-
-**P_raw=0.62 → P_deflated=0.42** (calibration penalty; depends on Cell 1 chain).
+**P_raw=0.70 → P_deflated=0.50** (cap at novel-synthesis ceiling).
 
 ---
 
-### CELL 3 — Pearl rung-3 via abduction-action-prediction with noise-fingerprint binding
+### CELL 2 — GAP D: Latency optimization for counterfactual replay (delta-stack lazy surgery)
 
 **Brain grounding (CITED@):**
-- Pearl J. 2009. *Causality: Models, Reasoning, and Inference* (2nd ed.). Cambridge UP. Ch.7 — the abduction-action-prediction procedure for counterfactual queries: (1) ABDUCTION = infer exogenous noise U from observed evidence O; (2) ACTION = apply do(X=x) intervention; (3) PREDICTION = propagate through SCM with inferred U. The three rungs of the causal hierarchy: observation < intervention < counterfactual.
-- De Brigard F, Addis DR, Ford JH, Schacter DL, Giovanello KS. 2013. Remembering what could have happened: neural correlates of episodic counterfactual thinking. *Neuropsychologia* 51(12):2401-2414. https://doi.org/10.1016/j.neuropsychologia.2013.01.015 — hippocampus + vmPFC + dlPFC for episodic counterfactual reconstruction; the "abduction" step specifically engages hippocampus to retrieve original context.
-- Tian J, Pearl J. 2002. A general identification condition for causal effects. *AAAI 2002*. — Bayesian counterfactual inference with bounds on identifiability.
+- Pfeiffer BE, Foster DJ. 2013. Hippocampal place-cell sequences depict future paths to remembered goals. *Nature* 497(7447):74-79. https://doi.org/10.1038/nature12112 — hippocampal forward sweeps happen in <100ms; counterfactual mental simulation is FAST in biological substrate. The brain doesn't do O(N²) matrix copies.
+- Carr MF, Jadhav SP, Frank LM. 2011. Hippocampal replay in the awake state. *Nat Neurosci* 14(2):147-153. https://doi.org/10.1038/nn.2732 — replay events are 100-200ms; compressed temporal scale.
 
-**Substrate primitive map (NOVEL-SYNTHESIS):**
-- Cell 1 twin-W primitive for the ACTION + PREDICTION steps.
-- NEW primitive needed for ABDUCTION: store "noise fingerprint" U as a learned residual after factual chain ingestion. HYPOTHESIZED@ that ingestion error εᵢ = (observed_E - predicted_E_from_chain) is itself a bound atom that gets stored when factual chain is ingested; during counterfactual replay, ε is re-applied to ensure W_cf produces a non-trivial answer consistent with the OBSERVED noise pattern.
+The 16.864ms current latency is well within biological budget BUT the MIDDLE_BAND verdict gates downstream conversational use (sub-10ms required for real-time per latency MEMORY discipline; ideal <1ms for chain-grade).
 
-**Test design (4-arm discriminator on abduction quality):**
-- **Arm A (no abduction):** Cell 1 mechanism only — twin-W + surgery + replay. Predicts counterfactual outcome without retrieving the specific noise context.
-- **Arm B (abduction via noise-fingerprint):** ingest factual chain with εᵢ stored as bound atom; counterfactual replay re-applies εᵢ.
-- **Arm C (abduction via context-vector retrieval):** noise approximated as the K-hop CONTEXT vector around the chain; cheaper than per-step ε.
-- **Arm D (random noise control):** apply random ε at counterfactual replay; tests if abduction quality matters at all.
+**Substrate primitive map:**
+- MEASURED@ `exp_causal_counterfactual_replay_v1` — current 16.864ms via "hetero-assoc target swap" mechanism.
+- MEASURED@ rank-1 surgery primitive — Sherman-Morrison closed-form O(N) update.
+- **NEW: delta-stack lazy evaluation** — maintain stack of pending rank-1 updates [d1, d2, ..., dk]; apply lazily during K-hop instead of physically modifying W. Per 2026-06-07 §2.2 option (b).
 
-**META_RULE_AA fairness gate:** ground-truth noise vector ε* must be quantifiable (synthetic SCM with known noise injection); test whether Arms B/C recover ε* better than Arm D random.
+**Test design (4-arm discriminator on latency-accuracy frontier):**
+- **Arm A (baseline / current mechanism):** existing 16.864ms hetero-assoc target swap. Reference latency.
+- **Arm B (delta-stack lazy, k=1):** single-fact CF via delta-stack; HYPOTHESIZED@ 4-8ms (no W modification; lazy add during K-hop).
+- **Arm C (delta-stack lazy, k=3):** three-fact CF via delta-stack; tests delta-stack overhead.
+- **Arm D (delta-stack lazy + batched K-hop):** batch K-hop with delta-stack baked into kernel; HYPOTHESIZED@ <2ms (kernel fusion).
 
-**META_RULE_AF arms-must-differ:** each arm gives structurally distinct noise treatment.
+**META_RULE_AA fairness gate:** accuracy MUST be preserved across arms. If any arm's CF accuracy drops below 0.95 (current is 1.000), the latency improvement is being purchased with accuracy.
+
+**META_RULE_AF arms-must-differ:** A=physical copy, B=lazy-single, C=lazy-multi, D=lazy+fusion. Distinct computational pipelines.
 
 **Pre-reg bands:**
-- **HARD_PASS:** Arm B (or C, whichever wins) counterfactual outcome accuracy ≥ 0.65 AND noise-recovery cos(retrieved_ε, ε*) ≥ 0.50 AND gap-vs-Arm-D ≥ 0.20.
-- **MIDDLE_BAND:** Arm B/C in [0.45, 0.65] OR noise-recovery in [0.30, 0.50].
-- **HARD_FAIL:** Arm B/C < 0.45 OR noise-recovery < 0.30 OR Arm D matches Arm B/C (abduction provides no lift).
+- **HARD_PASS:**
+  - Arm B or D latency < 10ms AND accuracy ≥ 0.95
+  - Promotes parent atom `exp_causal_counterfactual_replay_v1` MIDDLE_BAND → chain-grade
+  - AND latency ratio vs Arm A ≥ 2x improvement
+- **MIDDLE_BAND:** Arm B or D in [10ms, 16.864ms] (marginal improvement) OR accuracy in [0.85, 0.95].
+- **HARD_FAIL:** All non-A arms ≥ 16.864ms (no speedup) OR accuracy drop > 0.10 in any non-A arm (latency-accuracy tradeoff broken) OR delta-stack introduces incorrect results (correctness regression).
 
-**CRLB feasibility (HYPOTHESIZED@):** noise-fingerprint as bound atom adds O(N) per stored fact. Bipolar HRR can encode continuous-valued ε via signed binary approximation (HYPOTHESIZED@ this loses ~20% noise information; may push HP threshold below feasibility). This is the load-bearing risk: bipolar HRR may not have enough resolution to encode the exogenous noise faithfully. **MEASURED@ check required:** smoke must measure noise-encoding fidelity in isolation before testing in counterfactual context.
+**CRLB feasibility (HYPOTHESIZED@):** delta-stack adds O(K · k_delta) per K-hop where K=hop depth, k_delta=stack depth. For K=5, k_delta=3 = 15 extra dot products per query = ~1ms overhead at N=8192. Total HYPOTHESIZED@ latency ~5-8ms. Sub-1ms requires GPU kernel fusion (Arm D).
 
-**Compute cost:** ~2 hr smoke / ~24 hr full (largest of three cells; depends on Cell 1 and Cell 2 chain-grading first).
+**Baseline-in-band gate (§10):** Arm A latency MUST replicate the MEASURED@ 16.864ms within ±5ms (replication check). If Arm A is faster (substrate hardware improved since 2026-06-07), recalibrate HP threshold.
 
-**CARDINALITY_OK:** EXPECTED_N_UNITS = 10 chains × 5 noise levels × 50 trials × 4 arms = 10000 evaluations; HARD_FAIL_CARDINALITY_BREACH < 9000.
+**Compute cost:** ~30 min smoke / ~2 hr full (small, focused engineering benchmark).
 
-**P_raw=0.52 → P_deflated=0.32** (novel-synthesis cap; abduction step is unvalidated; bipolar encoding of continuous noise unproven).
+**CARDINALITY_OK:** EXPECTED_N_UNITS = 4 arms × 100 trials × 5 chain-depths × 4 seeds = 8000 evaluations; HARD_FAIL_CARDINALITY_BREACH < 7200.
+
+**P_raw=0.70 → P_deflated=0.50** (cap; engineering not science; high confidence in delta-stack theory).
+
+---
+
+### CELL 3 — GAP B: Nested chain-of-counterfactual (depth-2+ CF composition)
+
+**Brain grounding (CITED@):**
+- Roese NJ. 1997. Counterfactual thinking. *Psychol Bull* 121(1):133-148. https://doi.org/10.1037/0033-2909.121.1.133 — establishes that humans naturally chain counterfactuals: "if X had been Y... and then if Z had been W given that..." The mental simulation supports recursive nesting.
+- Byrne RMJ. 2016. Counterfactual thought. *Annu Rev Psychol* 67:135-157. https://doi.org/10.1146/annurev-psych-122414-033249 — review of counterfactual nesting limits (humans degrade beyond depth 3-4); maps onto substrate composition depth-15 ceiling.
+- De Brigard F, Addis DR, Ford JH, Schacter DL, Giovanello KS. 2013. Remembering what could have happened. *Neuropsychologia* 51(12):2401-2414. — hippocampus + vmPFC + dlPFC engagement INCREASES with counterfactual complexity (nesting depth).
+
+**Substrate primitive map (MEASURED@ + NEW composition):**
+- MEASURED@ `exp_causal_counterfactual_replay_v1` — single-step CF (depth-1).
+- MEASURED@ `exp_causal_audit_chain_depth_v1` — chain-valid at depth 50; supports the depth axis.
+- MEASURED@ `exp_causal_bitemporal_composition_v1` — bitemporal CF; serves as the "GIVEN THAT" axis for nested CF.
+- MEASURED@ multi-hop chain-grade at depth-15 = 0.808.
+- **NEW: nested-CF composition** — fork W_cf₁ from W_f, apply CF₁; then fork W_cf₂ from W_cf₁, apply CF₂ given W_cf₁; recover outcome.
+
+**Test design (4-arm discriminator on nesting depth):**
+- **Arm A (depth-1):** single CF; replicates existing chain-grade primitive (reference baseline).
+- **Arm B (depth-2, independent):** CF₁ and CF₂ in DISJOINT regions of W; tests if independent CFs compose linearly.
+- **Arm C (depth-2, dependent — CF₂'s antecedent is in CF₁'s consequence chain):** the genuine nested case; CF₂ acts on a value MODIFIED by CF₁.
+- **Arm D (depth-3 dependent):** triple-nested; tests if depth degradation matches human Byrne-observed pattern.
+
+**META_RULE_AA fairness gate:** Arm A (depth-1) MUST replicate MEASURED@ chain-grade accuracy=1.000. If Arm A fails, the cell harness is broken.
+
+**META_RULE_AF arms-must-differ:** depth-1 / depth-2-indep / depth-2-dep / depth-3-dep are 4 structurally distinct CF nesting patterns.
+
+**Pre-reg bands:**
+- **HARD_PASS:**
+  - Arm A accuracy ≥ 0.95 (replication)
+  - Arm B (depth-2 indep) ≥ 0.85
+  - Arm C (depth-2 dep) ≥ 0.65 (the genuine nesting test)
+  - Arm D (depth-3 dep) ≥ 0.40 (graceful degradation matching human Byrne limit)
+  - AND factual recall preserved ≥ 0.85 across all CF arms (no contamination accumulation across nests)
+- **MIDDLE_BAND:** Arm C in [0.45, 0.65] OR Arm D in [0.25, 0.40].
+- **HARD_FAIL:** Arm A < 0.95 (replication broken) OR Arm C < 0.45 (depth-2 dep nesting fails — no genuine nesting capability) OR Arm D ≥ 0.95 (no degradation = by-construction-saturation) OR contamination accumulation > 0.20 cosine.
+
+**CRLB feasibility (HYPOTHESIZED@):** depth-3 nested CF = composed W_cf₃ that has had 3 rank-1 surgeries applied in sequence. Each surgery adds O(1/N) perturbation to non-targeted entries; cumulative ~ 3/N at N=8192 = 0.00037 worst-case (well below noise floor). The load-bearing risk is CF₂'s K-hop on W_cf₁ — depth-5 chain through twice-modified W. Total composition depth = 5 (chain) + 3 (CF nests) = 8; well below depth-15 portfolio ceiling.
+
+**Baseline-in-band gate (§10):** Arm A must be IN [0.95, 1.00] band (chain-grade replication); below means cell broken; saturated 1.000 with NO discrimination of arms B/C/D means EXISTING primitive already covers nested cases (unlikely but possible — would auto-demote to MEASURED_MECHANISM).
+
+**Compute cost:** ~1 hr smoke / ~8 hr full (multiple chain depths × multiple CF nests).
+
+**CARDINALITY_OK:** EXPECTED_N_UNITS = 4 arms × 10 entities × 5-fact chains × 50 trials × 4 seeds = 40000 evaluations; HARD_FAIL_CARDINALITY_BREACH < 36000.
+
+**P_raw=0.58 → P_deflated=0.38** (novel composition; depth-3 dependent nesting is uncharted regime; Byrne human-degradation observation suggests intrinsic ceiling).
 
 ---
 
 ## (d) Cross-thread synthesis with prior Entries
 
-**Direct continuation of 2026-06-07 3x drill (`research_drill_substrate_gap_causal_counterfactual_3x_2026-06-07.md`):** that drill established the do(X=x) ≡ rank-1 downdate isomorphism and proposed Mechanism B (rank-1 surgery). Today's Cell 1 OPERATIONALIZES that proposal with the missing twin-W mechanism + concrete arms + pre-reg bands. The 2026-06-07 drill said "1-3 week engineering task, not a research problem"; this drill provides the empirical falsification protocol.
+**Cells DUPLICATE-CHECK (per coordinator URGENT update):** none of the 3 cells above duplicate MEASURED@ atoms. Cell 1 is comparison readout (NOT atomized). Cell 2 is latency optimization (auto-promotes the existing MIDDLE_BAND atom). Cell 3 is nested CF composition (extends single-step atom to depth-2+).
 
-**Adjacent chain-grade portfolio (MEASURED@ references, absolute paths):**
-- `data/exp_capacity_substrate_rank1_pinv_downdate_v1/metrics.json` — rank-1 surgery primitive chain-grade per 2026-06-07; Cell 1 inherits this as the do(X=x) operator.
-- `data/exp_substrate_kf1_contradiction_detection_order_sensitive_v1/metrics.json` — sequence-binding primitive; Cells 1-3 inherit temporal ordering of causal chains.
-- `data/exp_multihop_depth_15_at_0.808/metrics.json` (or wherever multi-hop chain-grade lives) — depth-15 ceiling supports depth-5 causal chains comfortably.
-- `data/exp_task_vector_in_context_kshot_v1_FULL/metrics.json` — task_vector HRR ICL; Cell 2 inherits as choice-as-action mechanism.
-- `data/exp_hippocampal_engram_consolidation_v3_longer_timeout_v1/metrics.json` — TWO_TIER episodic/scratch architecture; Cell 1 inherits forking pattern.
+**Adjacency to TOM Cell 1 (`research_drill_2x_theory_of_mind_primitive_stage3_2026-06-27.md`):** Cell 1 here (regret comparison) is the natural NEXT cell after TOM Cell 1 (Sally-Anne) — same agent-bank infrastructure + scalar readout. The "Sally chose A, would she have won with B" scenario from the prompt MAPS to TOM Cell 1 (Sally as agent in bank) + Cell 1 here (regret as comparison).
 
-**Adjacency to today's TOM drill (`research_drill_2x_theory_of_mind_primitive_stage3_2026-06-27.md`):** TOM Cell 1 (Sally-Anne via agent-bank + nested HRR) and counterfactual Cell 2 (Sally-choice regret) BOTH use the agent-bank primitive. Counterfactual Cell 2 is the natural NEXT cell after TOM Cell 1 HARD_PASSes — same agent-bank infrastructure + cf machinery from counterfactual Cell 1.
+**Adjacency to 2026-06-07 3x drill (`research_drill_substrate_gap_causal_counterfactual_3x_2026-06-07.md`):** that drill predicted Mechanism B (rank-1 surgery) and option (b) delta-stack lazy. Cell 2 here OPERATIONALIZES the delta-stack proposal. The 2026-06-07 drill said "delta-stack recommended for sparse interventions (1-3 variables)" — Cell 2 tests exactly that regime.
+
+**Adjacency to 2026-06-07 capability-extension drill (`research_drill_counterfactual_capability_extension_2026-06-07.md`):** that drill defined Type D (compositional multi-step CF) as P_deflated=0.55. Cell 3 here is the experimental falsification of that prediction — nested CF is genuinely Type D.
 
 **Replicates the "depth-vs-baseline gap" discipline** that the substrate already has measurement infra for (per `tools/peek_arm_metrics.py` chain-discriminator framework, MEMORY [[feedback-use-peek-arm-metrics-before-framing]]).
 
-**Wave 1 saturation lesson applied:** the gap3 cells (cortex E-tensor, top-K composition, PC cleanup) saturated at HRR-crosstalk floor at K=20 per N=8192. Counterfactual chains here are K=5 (well below saturation). Cell 1's pre-reg explicitly puts baseline in [0.20, 0.85] band (§10) to avoid saturation false-positive.
+**Wave 1 saturation lesson applied:** Cell 1 explicitly puts baseline correlation in [0.05, 0.30] band (§10) to avoid saturation false-positive. Cell 3 explicitly requires depth-3 degradation < 0.95 to avoid by-construction-saturation per Fix #28.
 
 ---
 
 ## (e) Substrate-product implications
 
-**M3 milestone path (glass-box conversational AI):** counterfactual reasoning is foundational for 4 of the 10 M3 properties:
+**M3 milestone path (glass-box conversational AI):** the 3 GAP cells are foundational for 5 of the 10 M3 properties:
 
-1. **Causal attribution in dialogue:** "you said X; if you had said Y instead, my response would have been Z" — requires twin-W to compute the alternate response without contaminating the actual conversation history.
-2. **Hypothesis evaluation:** "if assumption A were false, would conclusion C still hold?" — Pearl rung-3 counterfactual; Cell 3 mechanism.
-3. **Planning alternative actions:** "I could choose path P1 or P2; what are the outcomes?" — forward simulation in twin-W; Cell 2 mechanism for regret signal post-hoc.
-4. **Learning from regret (training-time):** Cell 2 + RL signal → substrate learns to avoid choices with high counterfactual regret. This is the cf-RPE delta-rule overwrite already chain-grade per `ccc1v2` 2026-06-05 (substrate updated-fact = 1.00 vs Pythia-160M 0.00 = categorical win).
+1. **Conversational regret / hedging:** "I should have asked you about X earlier; if I had, your question Y would have been answerable" — Cell 1 (regret comparison) is the load-bearing primitive.
+2. **Counterfactual planning:** "if I chose path A, regret = R_A; if path B, regret = R_B; choose min(R)" — Cell 1 enables choice optimization via regret minimization.
+3. **Nested hypothesis evaluation:** "if assumption A had been false AND given that, if action B had been different, would conclusion C still hold?" — Cell 3 (nested CF) directly.
+4. **Real-time conversational latency:** Cell 2 (sub-10ms CF) makes CF queries possible mid-conversation, not just post-hoc.
+5. **Learning from regret (training-time):** Cell 1 → RL signal → substrate learns to avoid choices with high counterfactual regret. Composes with the cf-RPE delta-rule overwrite already chain-grade per `ccc1v2` 2026-06-05.
 
-**M4 milestone path (hybrid agentic experiment loop):** the counterfactual primitive becomes the substrate's mechanism for "what if I had run this experiment differently?" — exactly the substrate-as-research-director use case. Cell 1's twin-W is the engine for substrate-driven experiment hypothesis generation.
+**M4 milestone path:** Cell 3 (nested CF) becomes the substrate's mechanism for "what if I had run this experiment differently AND given that, what if I had measured a different observable?" — exactly the substrate-as-research-director use case.
 
-**Regulatory AI wedge (per 2026-06-07 drill §11):** EU AI Act Article 12 audit requirement: "what would the system have concluded if input X had been different?" Cell 1's twin-W with cosine-readout IS the auditable counterfactual primitive. No competitor in vector-RAG space has this.
+**Regulatory AI wedge:** Cell 2's sub-10ms latency makes EU AI Act Article 12 audit queries possible at scale (audit of 10⁶ decisions ≤ 10⁴ seconds vs current 1.7 × 10⁴ seconds). Cell 1's regret-magnitude signal becomes the AUDIT METRIC for "by how much did the decision differ from the counterfactual?" — quantitative regulatory standard.
 
-**No publication framing per [[feedback-no-papers-product-only]]:** the value is the substrate becoming conversationally counterfactual-capable in a way that GPT-class systems cannot expose (their counterfactuals are implicit in token sampling; substrate's is explicit in W_cf state — inspectable, debuggable, certifiable).
+**Legal AI wedge (continued from 2026-06-07):** Cell 1 regret-magnitude IS the operational implementation of legal "damages" computation in but-for tort cases. "But for defendant's act, plaintiff would have suffered X less harm" — X is the regret-magnitude signal directly.
+
+**No publication framing per [[feedback-no-papers-product-only]]:** the value is the substrate becoming conversationally CF-comparison-capable — GPT-class systems cannot expose the comparison signal (it's implicit in token sampling); substrate's is explicit in W_f vs W_cf scalar readout (inspectable, debuggable, certifiable).
+
+---
+
+## 5. GAP C and GAP E — Tier-2 candidates (deferred)
+
+### GAP C — Counterfactual SIMULATION with NOVEL antecedents (P_deflated = 0.30, deferred)
+
+The existing chain-grade replay uses STORED interventions. Generating CF for an antecedent NOT in the corpus requires:
+- ENCODING the novel antecedent into a substrate vector (encoder primitive — chain-grade per portfolio).
+- Estimating the "neighborhood" of stored facts the novel antecedent perturbs (LSH-style retrieval).
+- Applying surgery using the encoded novel vector as the target of rank-1 update.
+
+**Why deferred:** depends on encoder quality for novel-antecedent encoding; substrate's char-trigram encoder is reliable for filename-substring (per substrate-KB) but not for semantic novelty. **Defer until encoder upgrade lands per `feedback_path_c_substrate_owned_encoder_is_the_answer_USER_2026-06-23.md`.**
+
+### GAP E — Counterfactual GENERATION (substrate proposes CF) (P_deflated = 0.25, deferred)
+
+The substrate-PROPOSES-CF capability requires:
+- Identifying SALIENT antecedents to perturb (importance-weighted retrieval).
+- Ranking candidate CFs by expected magnitude difference (Cell 1 regret as the ranking signal).
+- Filtering for VALIDITY (the proposed CF must be physically/logically possible).
+
+**Why deferred:** depends on Cell 1 (regret as ranking signal) landing first; depends on importance-weighting primitive (currently MIDDLE_BAND per multi-channel importance ceiling research drill 2026-06-27). **Defer until Cell 1 chain-grades AND importance primitive resolves.**
 
 ---
 
 ## CROSS-DOMAIN PROBES (USER directive — fields OTHER than brain/math/cs)
 
 ### Probe 1 — Materials science: phase-transition counterfactuals
-**Field:** statistical mechanics of phase transitions (Tier-1 fruit-bearing per field advisor).
-**Reference (CITED@):** Binder K, Heermann DW. 2010. *Monte Carlo Simulation in Statistical Physics* (5th ed.). Springer. — phase-diagram counterfactuals: "if temperature had been higher, would system be in solid or liquid phase?" answered by Boltzmann factor at counterfactual T. Direct analog: substrate's W_cf with a "thermodynamic temperature" parameter binds counterfactual configurations.
-**Substrate implication:** the W_cf primitive naturally supports parameterized perturbations — not just symbolic substitution but continuous-parameter sweep (temperature, pressure, field strength). This generalizes Cell 1 from discrete to continuous counterfactual; cheap extension (~1 day on top of Cell 1) opens substrate to materials-design use case. **Cell 1-extension HYPOTHESIZED@ P=0.40 (deflated; continuous-parameter binding is unvalidated).**
+**Field:** statistical mechanics of phase transitions (Tier-1 fruit-bearing).
+**Reference (CITED@):** Binder K, Heermann DW. 2010. *Monte Carlo Simulation in Statistical Physics* (5th ed.). Springer. — phase-diagram counterfactuals: "if temperature had been higher, would system be in solid or liquid phase?" Boltzmann factor at counterfactual T.
+**Substrate implication:** Cell 1's regret-magnitude primitive generalizes to "free-energy difference" between factual phase and counterfactual phase — direct mapping. **Cell 1 extension HYPOTHESIZED@ P=0.40** (continuous-temperature parameterization on top of Cell 1).
 
 ### Probe 2 — Evolutionary biology: phylogenetic counterfactual reconstruction
-**Field:** population genetics (Tier-1b per field advisor; Wright-Fisher adjacent to thermodynamics).
-**Reference (CITED@):** Yang Z. 2014. *Molecular Evolution: A Statistical Approach*. Oxford UP. — ancestral state reconstruction: "what was the most-likely ancestral sequence given observed tip-sequences?" mathematically identical to Pearl abduction (infer U from observed O). Felsenstein 1981 *J Mol Evol* 17:368-376 pruning algorithm computes this in O(species × sites).
-**Substrate implication:** the abduction step (Cell 3's load-bearing risk) HAS a mature mathematical framework in phylogenetics that exactly solves the "infer noise from evidence" problem. **Important finding:** Felsenstein pruning is a SUM-PRODUCT message-passing algorithm — substrate's K-hop chain-grade primitive can implement this if causal chain is tree-structured. Cell 3 could fall back to "Felsenstein-style abduction" if noise-fingerprint binding HARD_FAILs, with mature theory backing. **Adjacent cell HYPOTHESIZED@ P=0.45 (matches the loopy-BP catastrophic-collapse research drill 2026-06-27 finding that message-passing has substrate-native ceilings).**
+**Field:** population genetics (Tier-1b adjacent to thermodynamics).
+**Reference (CITED@):** Yang Z. 2014. *Molecular Evolution: A Statistical Approach*. Oxford UP. Felsenstein J. 1981. Evolutionary trees from DNA sequences. *J Mol Evol* 17:368-376. — ancestral state reconstruction = Pearl abduction; Felsenstein pruning is sum-product message passing.
+**Substrate implication:** the GAP C abduction step has mature theory in phylogenetics. Cell 3 (nested CF) corresponds to "what if mutation X had been Y AND what if mutation Z had been W given X=Y?" — exactly the multi-mutation phylogenetic counterfactual. **Adjacent cell HYPOTHESIZED@ P=0.40 (depends on Cell 3 chain-grading).**
 
 ### Probe 3 — Legal jurisprudence: counterfactual reasoning in tort law (NON-TRADITIONAL FIELD)
-**Field:** legal causation theory (no current substrate research drill).
+**Field:** legal causation theory.
 **References (CITED@):**
-- Hart HLA, Honoré T. 1985. *Causation in the Law* (2nd ed.). Oxford UP. — establishes counterfactual "but-for" test as the dominant test for legal causation: "but for the defendant's act, would the plaintiff have suffered the harm?"
-- Lewis DK. 1973. Causation. *Journal of Philosophy* 70(17):556-567. https://www.jstor.org/stable/2025310 — possible-worlds semantics formalizes the but-for test as comparing actual world to the closest possible world where defendant did not act.
-- Wright RW. 1985. Causation in tort law. *California Law Review* 73(6):1735-1828. — extends to NESS test (Necessary Element of a Sufficient Set) for cases where but-for fails (over-determination).
+- Hart HLA, Honoré T. 1985. *Causation in the Law* (2nd ed.). Oxford UP. [but-for test]
+- Lewis DK. 1973. Causation. *J Philosophy* 70(17):556-567. https://www.jstor.org/stable/2025310 [possible-worlds semantics]
+- Wright RW. 1985. Causation in tort law. *Cal Law Rev* 73(6):1735-1828. [NESS test]
 
-**Substrate implication (load-bearing for legal AI vertical):** Cell 1's twin-W IS the operational implementation of the but-for test. The substrate becomes a natively-auditable legal-causation engine: store facts in W_f, fork W_cf with defendant's action removed, K-hop to outcome — if outcome differs, but-for satisfied. **This is a distinct product wedge from EU AI Act Article 12 (which is general auditability); this is specifically TORT LITIGATION DECISION SUPPORT.** Marketable substrate-product wedge: legal-causation simulator for tort litigation, no LLM-based competitor because LLMs cannot expose the counterfactual chain inspection.
+**Substrate implication:** Cell 1 regret-magnitude IS the operational damages-computation primitive. Substrate becomes natively-auditable legal causation engine: store facts in W_f, fork W_cf with defendant action removed, K-hop to outcome, Cell 1 readout = damages magnitude. **NESS test extension:** instead of single rank-1 surgery, perform COMBINATORIAL surgery (fork W_cf₁, W_cf₂, ..., W_cfₖ — one per candidate cause); outcome differs in at least one fork → NESS satisfied. Cell 1 + Cell 3 + ~1 week combinatorial-surgery code = legal-causation product. **High commercial value for tort-litigation decision support.**
 
-**NESS test extension:** Lewis's possible-worlds + Wright's NESS test gives substrate a more refined counterfactual primitive than pure but-for — it handles over-determination (multiple sufficient causes). Substrate equivalent: instead of single rank-1 surgery, perform COMBINATORIAL surgery (fork W_cf₁, W_cf₂, ... W_cfₖ — one per candidate cause; outcome differs in at least one fork → NESS satisfied). This is a Cell 1-extension at ~3x compute cost.
-
-### Probe 4 — Economic policy: counterfactual policy evaluation
-**Field:** econometrics + causal inference (Tier-2 per field advisor; adjacent to AMP/VAMP).
+### Probe 4 — Economic policy: counterfactual policy evaluation (NON-TRADITIONAL FIELD)
+**Field:** econometrics (Tier-2 adjacent to AMP/VAMP).
 **References (CITED@):**
-- Heckman JJ. 2005. The scientific model of causality. *Sociological Methodology* 35:1-97. — establishes counterfactual policy evaluation framework: "what would unemployment rate have been if minimum wage policy had not been enacted in 2019?"
-- Athey S, Imbens GW. 2017. The state of applied econometrics: causality and policy evaluation. *Journal of Economic Perspectives* 31(2):3-32. https://doi.org/10.1257/jep.31.2.3 — synthetic control method, difference-in-differences for counterfactual policy evaluation at scale.
+- Heckman JJ. 2005. The scientific model of causality. *Sociological Methodology* 35:1-97. [counterfactual policy framework]
+- Athey S, Imbens GW. 2017. The state of applied econometrics. *J Econ Perspect* 31(2):3-32. https://doi.org/10.1257/jep.31.2.3 [synthetic control + diff-in-diff]
+- Abadie A, Diamond A, Hainmueller J. 2010. Synthetic control methods for comparative case studies. *J Am Stat Assoc* 105(490):493-505. [synthetic control method]
 
-**Substrate implication:** Cell 1's twin-W mechanism with parameterized perturbation (from Probe 1) becomes a synthetic-control-style counterfactual estimator. Substrate stores economic facts; W_cf perturbs the policy variable; K-hop replays through stored economic causal chain; recovers counterfactual outcome trajectory. **Counterfactual policy evaluation HYPOTHESIZED@ P=0.30 — this is downstream of Cell 1 + Cell 3 chain-grading first; not in scope for initial dispatch but high commercial value for government/think-tank vertical.**
+**Substrate implication:** synthetic control = construct a counterfactual unit from weighted combination of stored units; substrate's superposition primitive is natively this. **HYPOTHESIZED@ Probe-4 cell P=0.40** — substrate as a synthetic-control engine for policy evaluation. Government / think-tank vertical.
 
 ### Probe 5 — Historical "what-if" scholarship (NON-TRADITIONAL FIELD)
-**Field:** counterfactual history (Ferguson 1997 *Virtual History*).
-**Reference (CITED@):** Ferguson N (ed). 1997. *Virtual History: Alternatives and Counterfactuals*. Picador. Tetlock PE, Belkin A (eds). 1996. *Counterfactual Thought Experiments in World Politics*. Princeton UP.
-**Substrate implication:** counterfactual history provides empirical test cases (e.g., "if Lee had won Gettysburg") for evaluating LONG-CHAIN counterfactual reasoning. Cell 1's depth-5 chains generalize to depth-15+ historical-cascade chains; substrate's multi-hop chain-grade ceiling at depth-15 = 0.808 means substrate can do counterfactual chains comparable to academic counterfactual-history scholarship. **Cross-domain validation framework:** use Tetlock-Belkin's "5 criteria for legitimate counterfactual" (clarity, logical consistency, historical consistency, theoretical consistency, statistical consistency) as pre-reg evaluation criteria for substrate counterfactual outputs. This is methodologically distinct from Pearl-style algebraic identification — it's HUMANISTIC validation of mechanism-level reasoning quality.
+**Field:** counterfactual history.
+**Reference (CITED@):** Tetlock PE, Belkin A (eds). 1996. *Counterfactual Thought Experiments in World Politics*. Princeton UP. Ferguson N (ed). 1997. *Virtual History*. Picador.
+**Substrate implication:** Tetlock-Belkin's "5 criteria for legitimate counterfactual" (clarity, logical consistency, historical consistency, theoretical consistency, statistical consistency) become pre-reg evaluation criteria for substrate CF outputs. Particularly relevant to Cell 3 (nested CF) — Byrne's depth-degradation observation parallels Tetlock-Belkin's "compounding implausibility" critique. **Validation framework, not new cell.**
 
 ---
 
 ## (f) Citations (verified count = 15 references, all real published works in cited venues)
 
-**Pure math / causal inference (5):**
-1. Pearl J. 2009. *Causality: Models, Reasoning, and Inference* (2nd ed.). Cambridge UP. [do-calculus + three rungs + abduction-action-prediction]
-2. Lewis DK. 1973. Causation. *Journal of Philosophy* 70(17):556-567. https://www.jstor.org/stable/2025310 [possible-worlds semantics]
-3. Tian J, Pearl J. 2002. A general identification condition for causal effects. *AAAI 2002*. [Bayesian counterfactual identifiability]
-4. Williamson T. 2007. *The Philosophy of Philosophy*. Wiley-Blackwell. — Ch.5-6 modal counterfactual semantics + □→ operator.
-5. Shpitser I, Pearl J. 2006. Identification of joint interventional distributions in recursive semi-Markovian causal models. *AAAI 2006*. [ID algorithm — relevant as the symbolic complement to substrate's empirical approach]
+**Brain / cognitive neuroscience (7):**
+1. Coricelli G, Critchley HD, Joffily M, O'Doherty JP, Sirigu A, Dolan RJ. 2005. Regret and its avoidance. *Nat Neurosci* 8(9):1255-1262. https://doi.org/10.1038/nn1514
+2. Camille N, Coricelli G, Sallet J, Pradat-Diehl P, Duhamel JR, Sirigu A. 2004. The involvement of the orbitofrontal cortex in the experience of regret. *Science* 304(5674):1167-1170. https://doi.org/10.1126/science.1094550
+3. Boorman ED, Behrens TEJ, Woolrich MW, Rushworth MFS. 2009. How green is the grass on the other side? Frontopolar cortex and the evidence in favor of alternative courses of action. *Neuron* 62(5):733-743. https://doi.org/10.1016/j.neuron.2009.05.014
+4. De Brigard F, Addis DR, Ford JH, Schacter DL, Giovanello KS. 2013. Remembering what could have happened. *Neuropsychologia* 51(12):2401-2414. https://doi.org/10.1016/j.neuropsychologia.2013.01.015
+5. Schacter DL, Addis DR. 2007. The cognitive neuroscience of constructive memory. *Phil Trans R Soc B* 362:773-786. https://doi.org/10.1098/rstb.2007.2087
+6. Pfeiffer BE, Foster DJ. 2013. Hippocampal place-cell sequences depict future paths to remembered goals. *Nature* 497(7447):74-79. https://doi.org/10.1038/nature12112
+7. Van Hoeck N, Watson PD, Barbey AK. 2015. Cognitive neuroscience of human counterfactual reasoning. *Front Hum Neurosci* 9:420. https://doi.org/10.3389/fnhum.2015.00420
 
-**Brain / cognitive neuroscience (6):**
-6. Schacter DL, Addis DR. 2007. The cognitive neuroscience of constructive memory. *Phil Trans R Soc B* 362:773-786. https://doi.org/10.1098/rstb.2007.2087
-7. Coricelli G, Critchley HD, Joffily M, O'Doherty JP, Sirigu A, Dolan RJ. 2005. Regret and its avoidance. *Nat Neurosci* 8(9):1255-1262. https://doi.org/10.1038/nn1514
-8. Camille N, Coricelli G, Sallet J, Pradat-Diehl P, Duhamel JR, Sirigu A. 2004. The involvement of the orbitofrontal cortex in the experience of regret. *Science* 304(5674):1167-1170. https://doi.org/10.1126/science.1094550
-9. Van Hoeck N, Watson PD, Barbey AK. 2015. Cognitive neuroscience of human counterfactual reasoning. *Front Hum Neurosci* 9:420. https://doi.org/10.3389/fnhum.2015.00420
-10. De Brigard F, Addis DR, Ford JH, Schacter DL, Giovanello KS. 2013. Remembering what could have happened. *Neuropsychologia* 51(12):2401-2414. https://doi.org/10.1016/j.neuropsychologia.2013.01.015
-11. Hassabis D, Maguire EA. 2007. Deconstructing episodic memory with construction. *Trends Cogn Sci* 11(7):299-306. https://doi.org/10.1016/j.tics.2007.05.001
+**Pure math / cognitive science (3):**
+8. Pearl J. 2009. *Causality: Models, Reasoning, and Inference* (2nd ed.). Cambridge UP.
+9. Roese NJ. 1997. Counterfactual thinking. *Psychol Bull* 121(1):133-148. https://doi.org/10.1037/0033-2909.121.1.133
+10. Byrne RMJ. 2016. Counterfactual thought. *Annu Rev Psychol* 67:135-157. https://doi.org/10.1146/annurev-psych-122414-033249
 
-**Cross-domain (4):**
-12. Hart HLA, Honoré T. 1985. *Causation in the Law* (2nd ed.). Oxford UP. [legal but-for test]
-13. Wright RW. 1985. Causation in tort law. *California Law Review* 73(6):1735-1828. [NESS test]
-14. Heckman JJ. 2005. The scientific model of causality. *Sociological Methodology* 35:1-97. [economic counterfactual policy evaluation]
-15. Tetlock PE, Belkin A (eds). 1996. *Counterfactual Thought Experiments in World Politics*. Princeton UP. [historical counterfactual validation criteria]
+**Cross-domain (5):**
+11. Hart HLA, Honoré T. 1985. *Causation in the Law* (2nd ed.). Oxford UP. [legal but-for]
+12. Wright RW. 1985. Causation in tort law. *California Law Review* 73(6):1735-1828. [NESS]
+13. Heckman JJ. 2005. The scientific model of causality. *Sociological Methodology* 35:1-97. [policy CF]
+14. Abadie A, Diamond A, Hainmueller J. 2010. Synthetic control methods. *J Am Stat Assoc* 105(490):493-505.
+15. Tetlock PE, Belkin A (eds). 1996. *Counterfactual Thought Experiments in World Politics*. Princeton UP.
 
 **Additional context (cited inline, not numbered):**
-- Kahneman D, Tversky A. 1982. The simulation heuristic. In *Judgment under uncertainty*. Cambridge UP.
-- Felsenstein J. 1981. Evolutionary trees from DNA sequences: a maximum likelihood approach. *J Mol Evol* 17:368-376.
+- Lewis DK. 1973. Causation. *J Philosophy* 70(17):556-567.
+- Yang Z. 2014. *Molecular Evolution*. Oxford UP.
+- Felsenstein J. 1981. *J Mol Evol* 17:368-376.
 - Binder K, Heermann DW. 2010. *Monte Carlo Simulation in Statistical Physics* (5th ed.). Springer.
-- Athey S, Imbens GW. 2017. The state of applied econometrics. *J Econ Perspect* 31(2):3-32.
+- Athey S, Imbens GW. 2017. *J Econ Perspect* 31(2):3-32.
 - Ferguson N (ed). 1997. *Virtual History*. Picador.
-- Sherman J, Morrison WJ. 1950. Adjustment of an inverse matrix. *Ann Math Stat* 21(1):124-127. [rank-1 surgery math]
-- Plate TA. 1995. Holographic reduced representations. *IEEE TNN* 6(3):623-641. [HRR binding theory]
+- Carr MF, Jadhav SP, Frank LM. 2011. Hippocampal replay in the awake state. *Nat Neurosci* 14(2):147-153.
+- Sherman J, Morrison WJ. 1950. *Ann Math Stat* 21(1):124-127. [rank-1 surgery math]
 
 **META_RULE_AC compliance:** All P estimates marked HYPOTHESIZED@ (calibration penalty applied). All substrate-result references marked MEASURED@ with absolute paths under `data/`. CRLB feasibility checks marked HYPOTHESIZED@ with explicit MEASURED@-check gates before full dispatch.
 
@@ -277,21 +331,27 @@ If this bit FIRES at HP threshold (Cell 1 §c HP-1), the counterfactual primitiv
 
 ## Recommended dispatch sequence
 
-**1. Cell 1 smoke (~30 min CPU)** — twin-W scratchpad counterfactual. The cheap decisive test. P_deflated=0.50. **Must run BEFORE Cells 2-3** (both depend on Cell 1's twin-W primitive).
+**1. Cell 1 smoke (~30 min CPU)** — regret-magnitude comparison primitive. The vmPFC analog. P_deflated=0.50. Composes 5 chain-grade atoms; lowest novelty risk; M3-load-bearing.
 
-**2. IF Cell 1 smoke discriminator survives at full-N preview (per [[feedback-discriminator-must-survive-scale]])** → full Cell 1, ~6hr CPU.
+**2. Cell 2 smoke (~30 min CPU)** — latency optimization via delta-stack lazy surgery. P_deflated=0.50. Engineering, not science; auto-promotes existing MIDDLE_BAND atom to chain-grade. Can dispatch in PARALLEL with Cell 1.
 
-**3. IF Cell 1 HARD_PASS → Cell 2 smoke (~1 hr CPU)** — Sally-choice regret simulator. Composes Cell 1 with TOM Cell 1's agent-bank. P_deflated=0.42.
+**3. IF Cell 1 smoke discriminator survives at full-N preview** → full Cell 1, ~3hr CPU.
 
-**4. IF Cell 2 HARD_PASS → Cell 3 smoke (~2 hr CPU)** — Pearl rung-3 with abduction. Highest-novelty; lowest P. P_deflated=0.32.
+**4. IF Cell 2 smoke discriminator survives** → full Cell 2, ~2hr CPU.
 
-**5. Probe extensions (only after Cell 1 chain-grades):**
-- Probe 1 (continuous-parameter perturbation for materials science) — ~1 day code extension on top of Cell 1.
-- Probe 3 NESS test (combinatorial surgery for legal causation) — ~3x compute cost; defer until Cell 1 + Cell 2 both chain-grade.
+**5. IF Cell 1 chain-grade → Cell 3 smoke (~1 hr CPU)** — nested chain-of-counterfactual. P_deflated=0.38. Depends on Cell 1 + Cell 2 mechanisms.
 
-**Cell author hand-off:** This note's cell specs are READY for hand-off to exp_dev (counterfactual is exp_dev-actionable). Companion hand-off file written to `notes/exp_dev_handoff_research_counterfactual_reasoning_primitive_2026-06-27.md`.
+**6. Probe extensions (only after Cells 1-3 chain-grade):**
+- Probe 1 (continuous-parameter for materials science) — ~1 day code extension on Cell 1.
+- Probe 3 NESS combinatorial surgery (legal causation) — ~1 week on top of Cells 1+3.
+- Probe 4 synthetic-control (econ policy) — ~3 days on Cell 1 + superposition primitive.
 
-**Cap_map placement:** Counterfactual reasoning is a NEW capability class. Recommendation: add cap_map row `CF_1 single-fact counterfactual replay (twin-W scratchpad)` after Cell 1 HARD_PASS lands; do NOT pre-bump. The CCC-1-v2 cf-RPE delta-rule (`exp_dev_to_research_ccc1v2_counterfactual_HP_4of7_2026-06-05.md`) provides an EXISTING cf cap row at MEASURED_MECHANISM tier; this drill targets a DISTINCT mechanism class (replay-without-overwrite vs overwrite-then-recall) and should be cap-mapped separately.
+**Cell author hand-off:** This note's cell specs are READY for hand-off to exp_dev (counterfactual GAP work is exp_dev-actionable). Companion hand-off file written to `notes/exp_dev_handoff_research_counterfactual_reasoning_primitive_2026-06-27.md`.
+
+**Cap_map placement:** counterfactual basics already exist in cap_map (5 atoms above). Recommendations:
+- Add `CF_2 regret comparison primitive (vmPFC analog)` after Cell 1 HARD_PASS.
+- Promote `CF_1 counterfactual replay` from MEASURED_MECHANISM to chain-grade after Cell 2 HARD_PASS (latency-driven promotion).
+- Add `CF_3 nested counterfactual composition` after Cell 3 HARD_PASS.
 
 ---
 

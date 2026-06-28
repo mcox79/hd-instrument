@@ -1404,6 +1404,64 @@ Plus cortex_hippo_handoff_FULL still running on remote (PID 1276+29416 since 18:
 
 -- Research (Opus 4.7-1M) — 2026-06-27 ~23:55Z UPDATE #18 (sws_rem correction + 4 in-flight + 14 atoms; spawn budget at cap)
 
+---
+
+## NINETEENTH-WAVE UPDATE 2026-06-28 ~00:30Z — STAGE 3 GAP-FILLING WAVE 2 IN FULL FLIGHT
+
+**Session scorecard (CERT 626 banked):**
+- 3 chain-grade today: parietal MOVABLE-rebind + engram density-matched-null methodology + substrate depth-5 compositional reasoning
+- 9 META rules atomized (AC/AD/AE/AF/AG/AH/AI/AJ/AK; commit 5e78b4c1)
+- 4 memory rules added (substrate-as-canonical / no-hallucinated-numbers / path-disambiguation / compute-formulas-in-code)
+- exp_dev.md +129 lines hardened (§6-§12 mandatory rules)
+- Landing notifier ROOT-CAUSE FIXED (was never registered as scheduled task; 4-day silent drift)
+- Monitor popups FIXED (hd_landing_notifier + hd_kb_ingest now Hidden=true pythonw)
+- Discipline ladder caught 6 Director framing errors (cert-owner overrides working as designed)
+
+**Active in-flight (Wave 2 Stage 3 gap-filling):**
+- ab7b7708 PFC ARGMAX v3 smoke RUNNING seed 3/3
+- abb7688cc Temporal reasoning drill (Wave 3 anchor)
+- a8c195af CF Cell 1 regret-comparison (vmPFC analog; P=0.50)
+- aeb00963 CF Cell 2 latency delta-stack (auto-promotes MB→CG; P=0.50)
+- ac110631 Schema ANCHOR 1 context-prior cell (vmPFC instantiation; P=0.50; green-light from ANCHOR 3)
+- a8545fa1 Orchestrator: push ANCHOR 3 + queue full
+- TOM v1 queued remote pos 14 (HARD_PASS smoke Q2=0.900 Q3=0.875 gap+0.725; full preview survives scale)
+- M-CFU v7B on GPU queue pos 0 (--device cuda; awaiting consumer)
+
+**SUBSTRATE-PRODUCT WINS THIS WAVE (chain-grade-quality smokes pending atomization):**
+- **TOM Sally-Anne v1 SMOKE HARD_PASS** (Q2 false-belief=0.900; Q3 2nd-order=0.875; gap+0.725; cv=0.056) — Foundational M3 TOM primitive
+- **Schema ANCHOR 3 HARD_PASS at full N** (K_NEAREST_K20=0.728 cv=0.015; lift+0.472 over baseline; substrate cosine kernel supports schema inference) — Green-lights ANCHOR 1 + ANCHOR 2 schema-driven mechanism family
+- **Parietal RELATIONAL HARD_PASS smoke** (HRR=0.920 cv=0.019 lift+0.675; full queued) — Completes parietal cortex story (MOVABLE already CG)
+
+**Sub_atom encoder v2 FULL Mathlib MIDDLE_BAND** — RF=0.997 (mechanism works) but Trig baseline too strong on Mathlib (gap=0.204 < 0.30 HP); encoder primitive solid; corpus-specific honest-neg.
+
+**Cycle 1 v3+v4 substrate-product framing**: depth-5 composition is already chain-grade (just atomized in batch 12); Cycle 1 v5 depth=10 queued for natural-decay regime test (will run when queue clears).
+
+**Schema-driven new finding**: ANCHOR 3 falsifier proves substrate cosine kernel supports posterior-style schema inference. The 4 earlier extraction-HARD_FAILs (BCM/Tonegawa-K100/Tonegawa-K500/Hopfield-consolidation) targeted the WRONG layer; schema-INFERENCE works. ANCHOR 1 (richer Gilboa-Moscovitch vmPFC mechanism) should pass at higher accuracy than 0.728.
+
+**Counterfactual reasoning state (post-correction)**: substrate already has 5 atoms (4 CG + 1 MB):
+- intervention_isolation HARD_PASS
+- counterfactual_replay MIDDLE_BAND (only latency-bound)
+- audit_chain_depth HARD_PASS (depth 50)
+- bitemporal_composition HARD_PASS (CF-as-of=1.000)
+- correlational_disambig HARD_PASS
+
+CF Cell 1 (regret) + CF Cell 2 (latency) target 2 of 5 un-atomized gaps. If both HP, importance of CF reasoning capability fully banked.
+
+**Queue state:**
+- Remote CPU: 14 pending behind cortex_hippo_handoff (still running 6h+)
+- Remote GPU: 1 pending (M-CFU v7B at pos 0)
+- Cron alive (3a20be75 :03/:18/:33/:48 + eb2de25d daily 9:45pm one-shot)
+- Autonomous-loop instructions at `data/autonomous_loop_instructions.md`
+
+**Next-wave priorities (when current 7 in-flight return):**
+1. Atomize TOM v1 + Schema ANCHOR 3 + (if HP) Schema ANCHOR 1 + CF Cells via next Skunkworks batch
+2. Spawn phase-diagram cells for chain-grade primitives (USER strategic directive; multi-hop depth-sensitivity = highest leverage)
+3. Continue Stage 3 gap-filling: causal-chain extraction, abductive reasoning, hypothesis generation drills
+4. Cortex_hippo_handoff full when it lands (will free queue)
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~00:30Z UPDATE #19 (Stage 3 Wave 2 in flight; 7 agents; multiple chain-grade-quality smokes staged)
+
+
 
 
 
