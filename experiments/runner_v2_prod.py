@@ -28,11 +28,12 @@ import argparse
 import json
 import os
 import re
+import socket
 import subprocess
 import sys
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -44,7 +45,9 @@ from safe_queue import claim_next_pending, mark_outcome, QueueLock, lock_backend
 # ---------- Constants (feature-parity with live runner) ----------
 POLL_INTERVAL_S = 5
 IDLE_EXIT_S = 3600  # 1 hour idle -> exit
-HEARTBEAT_INTERVAL_S = 30
+# Heartbeat cadence: 15s per testbed observability spec (2026-06-28) so a
+# 60s-stale heartbeat is a reliable zombie signal (>=4 missed beats).
+HEARTBEAT_INTERVAL_S = 15
 DEFAULT_TIMEOUT_S = 14400  # 4 hours
 METRICS_MIN_BYTES = 100  # below this -> mark inconclusive even if exit=0
 
@@ -54,13 +57,45 @@ CASCADE_SLEEP_S = 300
 
 
 # ---------- Module-level state ----------
-_HB_STATE = {"status": "starting", "current": None, "stop": False, "runner_id": "runner_0"}
+# Enriched per testbed observability deliverable 1 (2026-06-28). Old shape
+# (ts/runner_id/pid/status/current) is preserved as a subset so legacy
+# dashboard panels still parse; new fields enable runner_status.py to compute
+# uptime + per-cell elapsed + zombie detection without re-deriving from logs.
+_HB_STATE = {
+    "status": "starting",          # idle | claiming | running_cell | finishing | paused | cascade_recovery | stopped | exited
+    "current": None,                # current cell anchor name (legacy alias of current_cell)
+    "stop": False,
+    "runner_id": "runner_0",
+    "runner_started_at": None,      # ISO8601 UTC; set in main()
+    "current_cell_started_at": None, # ISO8601 UTC; set when a cell starts
+    "cells_completed_since_start": 0,
+}
 _CASCADE = {"consecutive_fails": 0, "last_exit": None}
 _PATHS: dict = {}  # populated in main()
 
 
 def _now_iso() -> str:
     return datetime.now().isoformat(timespec="seconds")
+
+
+def _now_iso_utc() -> str:
+    """UTC ISO8601 with trailing Z. Used for heartbeat ts_iso fields where
+    cross-host comparison + zombie-age calc needs an unambiguous timestamp."""
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _elapsed_s(start_iso_utc: str | None) -> float | None:
+    """Return seconds since the given ISO8601-UTC timestamp; None on failure."""
+    if not start_iso_utc:
+        return None
+    try:
+        # Accept both Z suffix and +00:00 forms
+        s = start_iso_utc.rstrip("Z")
+        dt = datetime.fromisoformat(s).replace(tzinfo=timezone.utc) \
+            if "+" not in s and "T" in s else datetime.fromisoformat(start_iso_utc.replace("Z", "+00:00"))
+        return (datetime.now(timezone.utc) - dt).total_seconds()
+    except (ValueError, TypeError):
+        return None
 
 
 def log(msg: str) -> None:
@@ -78,32 +113,70 @@ def log(msg: str) -> None:
 # ---------- Heartbeat ----------
 
 def _write_heartbeat() -> None:
+    # Enriched heartbeat per testbed observability deliverable 1 (2026-06-28).
+    # Legacy fields (ts/runner_id/pid/status/current) are preserved so existing
+    # dashboard panels keep working unchanged; new fields enable
+    # runner_status.py to compute zombie-vs-alive + per-cell progress without
+    # re-deriving from runner.out + ps output.
+    ts_utc = _now_iso_utc()
+    current_cell = _HB_STATE["current"]
+    current_started = _HB_STATE["current_cell_started_at"] if current_cell else None
+    current_elapsed = _elapsed_s(current_started) if current_started else None
+    runner_uptime = _elapsed_s(_HB_STATE["runner_started_at"])
     payload = {
-        "ts": _now_iso(),
+        # Legacy fields (DO NOT REMOVE — existing parsers depend on them):
+        "ts": _now_iso(),                       # local time, no offset (legacy)
         "runner_id": _HB_STATE["runner_id"],
-        "pid": str(os.getpid()),
+        "pid": str(os.getpid()),                # legacy str-typed
         "status": _HB_STATE["status"],
-        "current": _HB_STATE["current"],
+        "current": current_cell,
+        # New fields (testbed observability 2026-06-28; runner_status.py reads):
+        "ts_iso": ts_utc,                       # UTC; load-bearing for zombie age
+        "host": _HB_STATE.get("host") or socket.gethostname(),
+        "queue_dir": str(_PATHS.get("queue_dir", "")),
+        "state": _HB_STATE["status"],           # alias of status; explicit per spec
+        "current_cell": current_cell,
+        "current_cell_started_at": current_started,
+        "current_cell_elapsed_s": round(current_elapsed, 2) if current_elapsed is not None else None,
+        "cells_completed_since_start": _HB_STATE["cells_completed_since_start"],
+        "runner_started_at": _HB_STATE["runner_started_at"],
+        "runner_uptime_s": round(runner_uptime, 2) if runner_uptime is not None else None,
+        "hb_interval_s": HEARTBEAT_INTERVAL_S,
     }
     payload_text = json.dumps(payload, indent=2)
     try:
         # Atomic write: write to .tmp then rename so readers never see partial JSON.
-        p_runner = _PATHS["heartbeat_runner"]
-        tmp_runner = p_runner.with_suffix(".tmp")
-        tmp_runner.write_text(payload_text, encoding="utf-8")
-        os.replace(tmp_runner, p_runner)
-        # Also update legacy heartbeat.json so existing dashboard panels keep working
-        p_legacy = _PATHS["heartbeat_legacy"]
-        tmp_legacy = p_legacy.with_suffix(".tmp")
-        tmp_legacy.write_text(payload_text, encoding="utf-8")
-        os.replace(tmp_legacy, p_legacy)
+        # Three write targets so legacy dashboards + per-queue panels + the new
+        # data/logs/<runner_id>_heartbeat.json (runner_status.py canonical
+        # location) all see fresh data without any cross-runner contention.
+        for key in ("heartbeat_runner", "heartbeat_legacy", "heartbeat_logs"):
+            p = _PATHS.get(key)
+            if p is None:
+                continue
+            tmp = p.with_suffix(p.suffix + ".tmp")
+            tmp.write_text(payload_text, encoding="utf-8")
+            os.replace(tmp, p)
     except OSError:
         pass
 
 
 def heartbeat(status: str, current: str | None = None) -> None:
+    """Update runner state + atomically write the heartbeat snapshot.
+
+    Side effect: when status transitions INTO 'running' the current_cell_started_at
+    timestamp is stamped (UTC ISO8601 with Z). Any other status clears it so
+    elapsed_s does not bleed across cells.
+    """
+    prev_status = _HB_STATE["status"]
+    prev_current = _HB_STATE["current"]
     _HB_STATE["status"] = status
     _HB_STATE["current"] = current
+    # Stamp / clear current_cell_started_at on cell transitions.
+    if status == "running" and current is not None:
+        if prev_status != "running" or prev_current != current:
+            _HB_STATE["current_cell_started_at"] = _now_iso_utc()
+    else:
+        _HB_STATE["current_cell_started_at"] = None
     _write_heartbeat()
 
 
@@ -345,8 +418,15 @@ def run_one(entry: dict) -> str:
     # now always see "full" regardless of their fallback default. Belt-and-suspenders
     # for the class of bug where default="smoke" caused silent smoke-scope runs on
     # the production runner (Round 6 batch 2026-06-01, anchors E/F/J/K).
+    # HDLAB_QUEUE=<queue_dir.name>: cells can refuse FULL on CPU unless explicitly
+    # routed via local_cpu_queue (Fix #24 gpu_mandate gate, PC v2.2 pattern_completion
+    # 2026-06-28). Without this injection, the cell's gpu_mandate_check sees empty
+    # HDLAB_QUEUE and HARD_FAILs even when the runner IS local_cpu_queue. Skunkworks
+    # META RULE: env_var_contract_must_survive_runner_dispatch.
+    queue_dir = _PATHS.get("queue_dir")
+    queue_name = queue_dir.name if queue_dir is not None else ""
     child_env = {**os.environ, "HDLAB_EXP_NAME": name, "PYTHONIOENCODING": "utf-8",
-                 "HDLAB_RUN_MODE": "full"}
+                 "HDLAB_RUN_MODE": "full", "HDLAB_QUEUE": queue_name}
 
     # On Windows: spawn child at BELOW_NORMAL priority so the desktop stays
     # usable during long CPU-bound runs. This is DEFAULT-ON for all remote_cpu
@@ -407,6 +487,7 @@ def run_one(entry: dict) -> str:
                          completed_by=_HB_STATE["runner_id"],
                          completed_at=_now_iso())
             record_outcome(0)
+            _HB_STATE["cells_completed_since_start"] += 1
             return "completed"
         else:
             log(f"FAIL {name} exit={result.returncode} after {dt:.1f}s")
@@ -519,6 +600,17 @@ def main() -> int:
     _PATHS["runner_log"] = queue_dir / f"queue.{runner_id}.log"
     _PATHS["heartbeat_runner"] = queue_dir / f"heartbeat.{runner_id}.json"
     _PATHS["heartbeat_legacy"] = queue_dir / "heartbeat.json"
+    # Canonical heartbeat location per testbed observability deliverable 1
+    # (2026-06-28). runner_status.py reads from data/logs/<runner_id>_heartbeat.json
+    # so the tool works without knowing which queue each runner is bound to.
+    logs_dir = REPO / "data" / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    _PATHS["heartbeat_logs"] = logs_dir / f"{runner_id}_heartbeat.json"
+
+    # Stamp runner_started_at + host once at startup so every heartbeat write
+    # carries the same uptime baseline.
+    _HB_STATE["runner_started_at"] = _now_iso_utc()
+    _HB_STATE["host"] = socket.gethostname()
 
     # Initial queue.json (if missing)
     if not queue_file.exists():
@@ -572,5 +664,60 @@ def main() -> int:
                 pass
 
 
+def _main_with_diagnostics() -> int:
+    """Wrap main() with top-level exception capture so silent runner deaths leave
+    forensic evidence. Without this, a SystemExit / SIGSEGV / uncaught exception
+    after `Runner v2 started` but before the heartbeat thread fires leaves no
+    trace beyond the queue-state-running zombie (the 2026-06-28 episode pattern).
+
+    Captures to data/logs/<runner_id>_runner_fatal.log via runner_id env var
+    fallback ('runner_0' if unset).
+    """
+    import faulthandler
+    import traceback
+    # faulthandler dumps Python traceback on SIGSEGV / Ctrl-Close / abort.
+    # Write to a per-runner fatal log alongside the .pid + .out files.
+    runner_id = (os.environ.get("RUNNER_ID")
+                 or next((a.split("=", 1)[1] if "=" in a else
+                          (sys.argv[i + 1] if i + 1 < len(sys.argv) else "runner_0")
+                          for i, a in enumerate(sys.argv) if a == "--id" or a.startswith("--id=")), "runner_0"))
+    fatal_log = REPO / "data" / "logs" / f"{runner_id}_runner_fatal.log"
+    try:
+        fatal_log.parent.mkdir(parents=True, exist_ok=True)
+        # Open in append mode so multiple runner restarts accumulate evidence.
+        _fatal_fp = open(fatal_log, "a", encoding="utf-8")
+        faulthandler.enable(file=_fatal_fp, all_threads=True)
+        # On Windows, ALSO register handlers for Ctrl-Close / console-detach events
+        # so the orphan-on-parent-cmd-exit scenario leaves a dump (the 2026-06-28
+        # episode where ssh-launched cmd.exe died and took the runner with it).
+        if sys.platform == "win32":
+            try:
+                # SIGBREAK fires on Ctrl-Break and (via Windows) on console close.
+                import signal
+                faulthandler.register(signal.SIGBREAK, file=_fatal_fp, all_threads=True, chain=False)
+            except (ImportError, AttributeError, ValueError):
+                pass
+    except OSError:
+        _fatal_fp = None  # best-effort; don't block startup on log-file failure
+
+    try:
+        return main()
+    except SystemExit:
+        raise  # normal exit
+    except BaseException as e:
+        # Any uncaught exception (including KeyboardInterrupt) -- record before
+        # the process dies. The earlier silent-death pattern (queue-state shows
+        # `running` forever; no log line beyond START) had ZERO evidence here.
+        try:
+            tb = traceback.format_exc()
+            with open(fatal_log, "a", encoding="utf-8") as f:
+                f.write(f"\n[{datetime.now().isoformat(timespec='seconds')}] "
+                        f"FATAL: runner_id={runner_id} pid={os.getpid()} "
+                        f"exc={type(e).__name__}: {e}\n{tb}\n")
+        except OSError:
+            pass
+        raise
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(_main_with_diagnostics())
