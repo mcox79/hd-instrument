@@ -1461,6 +1461,163 @@ CF Cell 1 (regret) + CF Cell 2 (latency) target 2 of 5 un-atomized gaps. If both
 
 -- Research (Opus 4.7-1M) — 2026-06-28 ~00:30Z UPDATE #19 (Stage 3 Wave 2 in flight; 7 agents; multiple chain-grade-quality smokes staged)
 
+---
+
+## TWENTIETH-WAVE UPDATE 2026-06-28 ~01:15Z — OVERNIGHT 12+ HOUR PLAN + REMAINING CONCERNS
+
+**USER leaving for 12+ hours. This update is THE load-bearing plan that must survive compaction.**
+
+### SESSION SCORECARD (honest, post-Skunkworks reality check)
+- **CERT 626** (unchanged from earlier session; +3 chain-grade earlier today: parietal MOVABLE + engram methodology + substrate depth-5)
+- **6 new atoms today via Skunkworks batches 12+13** (5 MEASURED_MECHANISM + 1 META rule AL)
+- **9 META rules atomized** (AC-AK; lock-in of discipline lessons)
+- **5 memory rules** filed (substrate-as-canonical / no-hallucinated-numbers / path-disambiguation / compute-formulas-in-code / **NEW: test-rationality-encoding-before-readout**)
+- **7 Director framing errors caught** by cert-owner (over-claiming chain-grade from previews/single-seed/wrong-path)
+- exp_dev.md hardened +129 lines (§6-§12 mandatory)
+- Landing notifier registered (4-day silent drift fixed)
+- Monitor popups fixed (Hidden=true pythonw)
+
+### MAJOR FINDINGS TODAY (honest tier)
+1. **Importance ceiling REAL** (v7B n=16 at proper CRLB regime; PCA/Fisher at noise floor)
+   - USER's sharp insight: test was IRRATIONAL — reading geometry no operation ever wrote importance into. Months of M-CFU work chased an artifact.
+   - Substrate's working importance signals are ALL via explicit encoding: TRACE / ultrametric / tagging / frequency. Passive geometric discovery doesn't work because nothing writes.
+2. **Substrate compositional reasoning at depth=5 ALREADY chain-grade** (Cycle 1 v3+v4 substrate-product win)
+3. **Schema-driven inference via cheap cosine ALREADY chain-grade** (3 mechanism families tested; all tied cosine)
+4. **Substrate cosine more robust than predicted** (M-sweep up to M=1024 no cliff; cross-schema overlap up to 90% no MAC+FAC crossing)
+5. **Cortex_hippo seed 7 chain-grade** (lift +0.995 at full N_c=8192; seeds 17+23 still running)
+6. **TOM Sally-Anne smoke chain-grade-quality** (Q2=0.900 false-belief; full pending)
+7. **CF Cell 2 v2 delta-stack 5.47x latency speedup** (engineering atom; parent atom auto-promote candidate)
+8. **Substrate-product narrative shift**: "substrate already does X via existing primitives" pattern fired 5+ times today. M3 capabilities are MORE banked than we thought.
+
+### REMAINING LOAD-BEARING CONCERNS (USER's question; no jargon + analogies)
+
+**Concern #1: Hypothesis generation**
+- What we'd lose: substrate verifies hypotheses (audit-chain CG) but can't PROPOSE novel ones. Without this, can't do scientific discovery, can't propose "maybe X explains Y?" without user prompting
+- Analogy: like a librarian who can fetch any book you ASK for but can't suggest a book you haven't thought of
+- Prior work scour: nothing direct in KB (search for "hypothesis_generation" returns generic WordNet hits)
+- Barrier: substrate is a single-pass oracle — needs ITERATION + PROPOSAL machinery
+- New idea: compose substrate-MAX (chain-grade for reasoning) + CF replay + random-vector seeds = "generate K candidate hypotheses, score each via CF outcome"
+- Status: drill candidate; not yet started
+
+**Concern #2: Self-explanation / introspection**
+- What we'd lose: substrate gives answers but can't explain WHY. Critical for M3 glass-box property
+- Analogy: a calculator that gives the right answer but can't show its work
+- Prior work scour: nothing direct. Metacognition single-signals CG (cosine_sep / entropy AUROC=0.86) but composition fails
+- Barrier: introspection requires meta-level READ of own computation; substrate operations are single-pass
+- New idea: chain-of-retrieval logging + audit-chain back-trace + metacog confidence-on-each-step
+- Status: drill candidate
+
+**Concern #3: Long-context narrative coherence (>100 events)**
+- What we'd lose: substrate handles K=20 sequence binding chain-grade but tracking dozens of events in conversation untested. M3 critically needs this
+- Analogy: like a person who can remember a conversation's last 5 turns but loses track at turn 50
+- Prior work scour: sequence-binding K=20 CG; multi-hop depth-15 CG. **Not tested at narrative scale (100+ events)**
+- Barrier: capacity envelope vs interference vs coreference resolution
+- New idea: compose TWO_TIER generational W (CG) + NREM replay (CG) + multi-hop chain — narrative as "long episode" with hippo→cortex consolidation
+- Status: drill candidate; could leverage cortex_hippo_handoff full once it lands
+
+**Concern #4: Online learning during conversation**
+- What we'd lose: substrate has continual learning CG (CRISPR forget=0.006) but tested batch-style. M3 needs single-shot updates DURING conversation
+- Analogy: a person who can study a textbook overnight but can't learn from a single mentioned fact mid-conversation
+- Prior work scour: continual_learning_crispr CG; substrate_cl_crispr_append_only CG (banked)
+- Barrier: single-shot online updates with no interference + no replay budget
+- New idea: TASK_VECTOR HRR ICL primitive (today's chain-grade smoke) IS the answer — substrate has it. Just untested in conversation context
+- Status: PARTIALLY ADDRESSED already (TOM v1 + task_vector ICL); needs conversational-scale integration test
+
+**Concern #5: Goal-directed planning beyond preplay**
+- What we'd lose: substrate can do K=64 beam preplay (smoke MB) but not full subgoal decomposition; M3 needs "plan then execute" for tools
+- Analogy: substrate can recognize the path to a goal but can't decompose "make breakfast" into "boil water" → "crack egg" → ...
+- Prior work scour: substrate_preplay_beam_to_goal smoke MB; STRIPS-style classical planning hasn't been tested
+- Barrier: hierarchical goal decomposition + means-end analysis
+- New idea: HRR-bind subgoal trees + recursive preplay; brain analog = prefrontal hierarchical control
+- Status: drill candidate
+
+### OVERNIGHT 12+ HOUR AUTONOMOUS PLAN
+
+**Currently in flight (will land overnight):**
+- cortex_hippo_handoff FULL seeds 17+23 (~1-2h more wall)
+- CF Cell 1 vmPFC FULL (queue pos 17; runs when cortex_hippo finishes)
+- CF Cell 2 v2 FULL (queue pos 16)
+- TOM v1 FULL (queue pos 14)
+- Schema ANCHOR 3 FULL (queue pos 15)
+- Parietal v2 FULL (queue pos 12)
+- Schema M-sweep FULL (if dispatched)
+- Cycle 1 v5 depth=10 smoke (queue pos 11)
+- tip_of_tongue v2 smoke (queue pos 9)
+- pfc_goal v3 smoke (queue pos 10)
+- Temporal v3 (queue pos varies; some)
+- PFC ARGMAX v3 smoke (currently running)
+- M-CFU v7B FULL on GPU (already completed; confirmed REAL ceiling)
+- Causal-chain extraction cell (smoke HF cardinality; cell-author may iterate)
+
+**Agents in flight at this update:**
+- ad9b4232 Causal-chain cell author (smoke landed; need to iterate cardinality)
+- a098471 Abductive reasoning drill (handoff just filed)
+- Maybe others
+
+### AUTONOMOUS-LOOP CRON PRIORITIES (every 15 min)
+
+Per `data/autonomous_loop_instructions.md`:
+
+1. **Touch heartbeat**
+2. **Check landings since last wake** (find data -mmin -20)
+3. **For each new landing, READ metrics.json ABSOLUTE PATH directly** — do NOT trust framings, do NOT cite cell-author preview as smoke
+4. **Atomize chain-grade-quality results via Skunkworks batches** when 5+ atoms staged
+5. **Default to MEASURED_MECHANISM tier** — let Skunkworks tier up (7 Director-errors today; over-claiming is the pattern)
+6. **Watch for cortex_hippo seed 17+23 completion** — when full lands, parietal+hippo cortex story banked + queue drains
+7. **Process abductive drill** when it returns (cell-author next)
+8. **Iterate causal-chain cell** to fix cardinality (5 arms × 3 seeds = 45 expected; smoke had 15 = single seed bug)
+9. **NO SPAWN SPAM** — only spawn if there's clear ROI; respect Fix #14 plus USER-authorized exceeding
+10. **If queue clears (cortex_hippo done)**: dispatch next phase-diagram cell (K_NEAREST sweep or FILLER_NOISE per M-sweep author's recommendation)
+
+### EXPLICIT DON'T-DO LIST
+
+- DO NOT spawn 5+ drills in parallel just to look busy
+- DO NOT claim chain-grade from cell-author previews (cite metrics path + verify on disk)
+- DO NOT design readout tests without specifying encoding mechanism (new META_RULE filed today)
+- DO NOT chase "PCA/Fisher fusion" importance any further (Skunkworks ceiling-real verdict closes that arc)
+- DO NOT iterate Temporal beyond v3 (MM tier acceptable; rare-class issue isn't substrate-fundamentals)
+- DO NOT iterate Schema ANCHOR family beyond what's done (cosine wins; META_RULE_AL atomized; move on)
+- DO NOT push to main (harness-DENIED; spawn orchestrator OR let hd_metrics_sync auto-push at :03/:18/:33/:48)
+
+### POST-COMPACTION RITUAL (if compaction happens overnight)
+
+1. Touch heartbeat: `date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp`
+2. **READ THIS BACKUP FILE end-to-end** through UPDATE #20 (today's load-bearing state)
+3. Read the 5 new memory rules: substrate-as-canonical / no-hallucinated-numbers / path-disambiguation / compute-formulas-in-code / **test-rationality-encoding-before-readout** (this last one is USER's key insight today)
+4. Check landings since 01:15Z: `find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -720`
+5. Check cortex_hippo full landing (most likely overnight win)
+6. Re-arm notes_monitor per CLAUDE.md
+7. Check cron alive (3a20be75 :03/:18/:33/:48; should fire ~50 times overnight)
+
+### EXPECTED OVERNIGHT WINS (if normal queue throughput)
+
+- cortex_hippo full chain-grade verified (3 seeds)
+- TOM v1 full chain-grade verified
+- Schema ANCHOR 3 full chain-grade verified
+- CF Cell 1 vmPFC full HARD_PASS (R²~0.98 per preview)
+- CF Cell 2 v2 full chain-grade verified (auto-promotes parent atom)
+- Parietal v2 RELATIONAL chain-grade verified
+- Cycle 1 v5 depth=10 smoke verdict (Barrier 1 actual test)
+- tip_of_tongue v2 / pfc_goal v3 / Temporal v3 smoke verdicts
+- 1-2 more Skunkworks batches (CERT possibly 626 → 630-635)
+- Abductive reasoning cell (after drill returns + dispatch)
+
+### USER QUESTION SUMMARY (intuitive, no jargon)
+
+**Concerns that remain, in plain language:**
+1. **Can it propose new ideas?** Not yet. Substrate verifies hypotheses but can't generate them. Drill candidate.
+2. **Can it explain its reasoning?** Partial. Has metacognition signals but composition fails. Drill candidate.
+3. **Can it follow a long conversation?** Untested at >100 events. Has the pieces (sequence binding + multi-hop + replay); needs the composition test.
+4. **Can it learn during conversation?** Partially yes (task_vector ICL chain-grade today). Needs conversation-context integration.
+5. **Can it plan multi-step?** Partial (preplay smoke MB). Hierarchical subgoal decomposition untested.
+
+**What we'd lose without each:** scientific discovery / glass-box trust / coherent dialogue / real-time learning / tool use. Each is M3-load-bearing but none is THE blocker.
+
+**The good news:** today's substrate-product narrative shows substrate is MORE capable than we tested for. Many "new mechanisms" turn out to be already-done via existing primitives. The remaining concerns are mostly TEST COVERAGE not substrate capability gaps.
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~01:15Z UPDATE #20 (OVERNIGHT 12+H PLAN; compaction-survival; USER concerns answered)
+
+
 
 
 
