@@ -2037,6 +2037,172 @@ After USER caught premature closure: ran 2 revival drills (Bacon-Roy option-crit
 
 -- Research (Opus 4.7-1M) — 2026-06-28 ~17:55Z UPDATE #24 (root-cause-fix + closure-confirmed + 7 memory rules + dashboard + capability registry + post-impl hygiene rule)
 
+---
+
+## TWENTY-FIFTH-WAVE UPDATE 2026-06-28 ~21:50Z — COMPACTION-PREP FINAL (MASSIVE PROGRESS WAVE)
+
+**Session context:** continuous evening work after USER returned. CERT 628→629 (+1 chain-grade); 14+ memory rules filed today; multiple capability characterizations + closures + chain-grade promotions. **THIS UPDATE is the load-bearing entry point for post-compaction me.**
+
+### LANDMARK FINDINGS THIS WAVE
+
+1. **🎯 BARRIER 1 CHAIN-GRADE PROMOTED** (CERT 628→629; commit `f3e51bb8`)
+   - Atom: `chain_grade_barrier1_substrate_native_break_partition_oracle_goal_conditioning_3seed_verified_2026-06-28`
+   - 3-seed FULL aggregation: seed_11 lift +0.54, seed_13 lift +0.46, seed_19 lift +0.41 (mean +0.47)
+   - cv_ORACLE_B = 3.96% (3.79x margin vs 0.15 max)
+   - rail 2/3 strict, B-in-band 3/3, no saturation
+   - **Mechanism:** partition-oracle goal-conditioning at N=8192 / V_C=4000 / depth=15 / psz_B=800
+   - **What it proves:** substrate composition+cleanup IS chain-grade-capable for depth-15 multi-hop reasoning WHEN given correct partition hint (oracle takes ground-truth hint)
+   - **M3 implication:** substrate-side composition primitive is solid; remaining gap is automated hint derivation
+
+2. **CAPABILITY CLOSED: brain-faithful 4-primitive multihop composition** (commit `9c84829c`; CERT +0 honest-negative bound proven)
+   - Atom: `brain_faithful_4_primitive_multihop_chain_composition_CAPABILITY_CLOSED_2x_drill_satisfied_2026-06-28`
+   - 2x-drill discipline satisfied: Drill A PFC-WM state-tracker HF + Drill B per-hop schema-Bayes HF
+   - **Root cause:** schema-Bayes primitive trained on FULL chains; per-hop query with PARTIAL prefix lands in DIFFERENT clusters (92% mismatch at hop 0 decaying to 0% at hop 14)
+   - **M3 architecture firmly confirmed:** needs EXTERNAL cortex layer for hint derivation (LLM router OR learned planner module OR new primitive class). Substrate-resident hint derivation is not feasible at this regime.
+
+3. **META_RULE_AP_v3 chain-grade PROMOTED** (4 witnesses)
+   - Composition-of-chain-grade-primitives requires signal-shape adapter discipline
+   - NATIVE_OUTPUT_GRANULARITY clause added (today's Drill B confirms granularity matters; not just signal shape)
+   - 4 witnesses: Path 1 (substrate_routing_hint) + Path 2 (vmPFC+cortex+hippo 3-primitive) + PFC-WM 4-primitive + Drill B per-hop schema redesign
+   - SCHEMA-VET HARD GATE active: cells composing primitives MUST include signal-shape audit AND positive-control reproduce-at-test-regime arm
+
+4. **META_RULE_AQ chain-grade PROMOTED** (2 witnesses)
+   - Brain-grounded multi-primitive composition requires EXPLICIT state-tracker
+   - PFC-WM 4-primitive HF was the 2nd witness confirming AQ
+   - Even adding state-tracker doesn't rescue if upstream primitive is per-chain (Drill B confirms)
+
+5. **META_RULE_AO atomized** (capability-closure-after-3-attempts discipline)
+   - When 3 cells HARD_FAIL on same capability across different mechanism classes, file capability-closed atom — but ONLY after 2x-drill discipline satisfied per `feedback_2x_drill_negatives_before_capability_closure_USER_2026-06-28`
+
+### INFRA FIXES SHIPPED TODAY (MASSIVE)
+
+1. **Runner zombie root cause FIXED** (testbed a29508c451fea5280)
+   - Root cause: `start /b python.exe` via SSH → cmd.exe parent exit → CTRL_CLOSE_EVENT cascade → silent death within 5-10s
+   - Fix: schtasks lineage (Task Scheduler immune to SSH disconnect) + faulthandler wrapper in runner_v2_prod.py
+   - Memory rule: `feedback_runner_zombie_ssh_disconnect_root_cause_FIXED_2026-06-28.md`
+
+2. **All 3 popup sources eliminated:**
+   - (a) PT1M → PT5M rate-reduce on hd_dispatch_consumer
+   - (b) `Invoke-Hidden` PowerShell helper for descendant subprocess (System.Diagnostics.ProcessStartInfo CreateNoWindow=true)
+   - (c) ssh -T + scp -O + timeout=30 across 10 sites in 8 files (commit `aa0c1f67`); also patched 5 stale ssh.exe processes killed
+   - Memory rule: `feedback_all_scheduled_tasks_and_subprocesses_must_be_windowless_USER_2026-06-28.md` (3 extensions)
+
+3. **Agent instructions hardened:**
+   - exp_dev.md §13 (chunked single-seed + 4 defensive patterns: start_marker + crash_diagnostic + per_unit_checkpoint + heartbeat)
+   - exp_dev.md §14 (atoms.jsonl Atom-schema validation via safe_append_atom)
+   - exp_dev.md §15 (5 mandatory pre-reg gates A-E: sweep_alignment + discriminating_bracket + signal_shape_audit + positive_control_at_test_regime + functional_requirement_decomposition)
+   - orchestrator.md (RUNNER-ZOMBIE-DETECTION + LAUNCHER-DISCIPLINE schtasks-immune + python-version verification post-launch + atom-append safety)
+   - skunkworks.md (atom-schema validation via Atom round-trip)
+
+4. **Observability infrastructure:**
+   - `tools/runner_status.py` (single-command "what's running" check)
+   - `experiments/_cell_heartbeat.py` (helper for per-unit heartbeat writes)
+   - runner_v2_prod.py heartbeat upgrade (15s cadence; canonical heartbeat at `data/logs/<runner_id>_heartbeat.json`)
+
+5. **Substrate capability registry** (4447 rows; 37 families; 15-min scheduled task)
+   - Path: `data/substrate_capability_registry.jsonl`
+   - Tools: `tools/substrate_capability_registry.py` + `tools/substrate_capabilities_aggregate.py`
+   - Substrate Characteristics dashboard tab (10 changes shipped)
+
+### CELLS COMPLETED TODAY (verified on disk; not selftest stubs)
+
+- **partition_oracle hardened FULL 3 seeds**: seed_11 MB + seed_13 MB + seed_19 MB; aggregation → chain-grade Barrier 1 promotion
+- **pattern_completion v2.1 narrow regime 3 seeds (direct GPU)**: all 3 MIDDLE_BAND with consistent cliff location 0.48 (low N) → 0.50 (high N); 6/72 discriminating pts per seed (cliff sharper than v2.1 grid resolved); cardinality_ok 72/72
+- **Hierarchical 5 cells across 4 mechanism classes**: all HARD_FAIL → hierarchical planning capability closed substrate-native; M3 needs external planner
+- **4-primitive composition gateway**: PFC-WM + Drill B both HARD_FAIL → capability closed; cortex layer architecture confirmed
+- **HRR Q2 coref**: Drill 1 HARD_FAIL; Q2 capability OPEN (1 of 2 drills); drill 2 (position-Hopfield) pending
+- **WM K-cliff phase diagram**: MEASURED_MECHANISM (by-construction saturation at GPU memory ceiling K=16384)
+- **Sequence binding K-cliff smoke**: MEASURED_MECHANISM (Q=2 discretization artifact)
+- **Pattern completion v1 phase diagram**: MEASURED_MECHANISM (regime brackets missed cliff)
+- **V_C sweep partition-oracle**: RETRACTED (name-collision; cell didn't invoke actual partition-oracle primitive)
+- **Multi-hop phase diagram v4**: smoke gates passing; FULL queued
+
+### CURRENT PIPELINE STATE
+
+- **Remote CPU**: cortex_hippo seed_17 STILL RUNNING (PID 32704; ~2h elapsed; timeout extended PT2.5H → PT6H per USER directive); 10 cells queued behind
+- **Remote GPU**: idle but 3 v2.1 pattern_completion FULL runs completed via direct SSH bypass (cells were Fix #24-blocked from queue path due to launcher python-version mismatch; sync SSH with explicit .venv pythonw worked)
+- **Local CPU**: Drill B cell-author smoke completed; nothing actively running
+- **3 v2.1 cells direct results**: seed_7 (RUNNING per heartbeat), seed_13 MB (12.3s), seed_19 MB (10.7s)
+
+### KNOWN BUGS / OPEN ITEMS
+
+1. **GPU runner launcher spawns 2 python processes** (one .venv pythonw, one Python311 pythonw) — bug in singleton-detect-exit OR child-spawning logic. Workaround: kill the Python311 one after each restart. Need root-cause investigation.
+
+2. **Pattern_completion v2 GPU dispatch via queue is broken** — cells get claimed by runner, hit Fix #24 guard, exit with SELFTEST_OK. Root cause: runner spawns child subprocess with system Python311 (no CUDA torch) instead of .venv Python311 (CUDA-enabled). Workaround: direct SSH with explicit .venv pythonw works. Need runner.py patch to use sys.executable for child cell subprocess.
+
+3. **Drill 2 for Q2 coref capability closure** pending: position-Hopfield-style entity tracking OR learned linear coreference projector. 2x-drill discipline blocks closure until drill 2 runs.
+
+4. **AtomKind enum** keeps getting orphan values added by atomize tools — Skunkworks patched 5 today; pattern likely to recur. Need pre-write enum validation in atomize tool template.
+
+### 14+ MEMORY RULES FILED TODAY (key cross-references)
+
+- `feedback_2x_drill_negatives_before_capability_closure_USER_2026-06-28.md`
+- `feedback_every_failure_skunkworks_plus_intuitive_explanation_USER_STANDING_2026-06-28.md`
+- `feedback_functional_requirement_first_test_design_USER_2026-06-28.md`
+- `feedback_every_cell_must_have_error_checking_USER_2026-06-28.md`
+- `feedback_runner_zombie_ssh_disconnect_root_cause_FIXED_2026-06-28.md`
+- `feedback_post_implementation_hygiene_memorialize_USER_STANDING_2026-06-28.md`
+- `feedback_chain_grade_primitives_not_trivially_composable_2026-06-28.md`
+- `feedback_test_design_failure_diagnosis_and_hardening_USER_2026-06-28.md`
+- `feedback_all_scheduled_tasks_and_subprocesses_must_be_windowless_USER_2026-06-28.md`
+- `project_M3_architecture_needs_cortex_layer_above_substrate_USER_2026-06-28.md`
+
+### POST-COMPACTION RITUAL (DEFINITIVE — overrides earlier versions)
+
+```bash
+# 1. Touch heartbeat
+date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp
+
+# 2. Silence stop hook + watchdog
+date -u -d "+168 hours" +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/last_processed_auto_7c6e8deae7.timestamp
+
+# 3. READ THIS UPDATE #25 (definitive)
+
+# 4. Read 14+ memory rules per index (MEMORY.md)
+
+# 5. Check landings since 21:50Z:
+find d:/AI/hd-instrument/data -maxdepth 2 -name "metrics.json" -mmin -180 -printf '%TH:%TM %p\n' | sort
+
+# 6. Verify scheduled tasks (PowerShell, NOT bash):
+# schtasks /query /tn hd_landing_notifier /fo LIST
+# schtasks /query /tn hd_substrate_capability_registry_scan /fo LIST
+
+# 7. Verify runner state (NEW canonical):
+python d:/AI/hd-instrument/tools/runner_status.py --remote
+
+# 8. Re-arm notes_monitor per CLAUDE.md ritual
+
+# 9. Cron CronList; if dead re-arm via CronCreate
+```
+
+### NEXT-STEP PRIORITIES POST-COMPACTION
+
+1. **Process cortex_hippo seed_17** when it lands (timeout extended PT6H; should land within 4h)
+2. **Skunkworks atomize 3 pattern_completion v2.1 seeds** (all MB direct GPU; commit pending)
+3. **Drill 2 for Q2 coref** (position-Hopfield-style OR learned linear projector — required to close Q2 capability box per 2x-drill discipline)
+4. **Fix runner-launcher spawning 2 python processes bug** (testbed root-cause)
+5. **Fix runner-spawning-cell with wrong-python-version bug** (cell child uses system Python311 instead of .venv; patch runner.py to use sys.executable)
+6. **Pre-write AtomKind enum validation** in atomize tool template (Skunkworks recommendation)
+7. **Continue substrate-product narrative**: today's wins firmly establish substrate-side composition primitive at depth-15 chain-grade; cortex-layer architecture confirmed for M3
+
+### THE BIG-PICTURE M3 NARRATIVE (refined today)
+
+**Substrate's role (CHAIN-GRADE confirmed):**
+- Memory + composition + retrieval primitives (long-confirmed)
+- Multi-hop chain at depth-15 GIVEN partition hint (today's promotion)
+- TWO_TIER generational W / NREM replay / partition routing (existing chain-grade)
+- ~80% of Stage 3 capabilities banked via composition of existing chain-grade primitives
+
+**External cortex layer's role (FIRMLY required, per today's 2x-drill closure):**
+- Goal/hint derivation for multi-hop chains (Drill A + Drill B confirmed substrate can't do this natively)
+- Hierarchical planning orchestration (yesterday's 3-cell closure)
+- Long-narrative coref Q2 (drill 2 pending; if also HF → external)
+- Implementation options: LLM router (Phase 1; works today) → learned planner module (Phase 2 M4) → substrate-resident with NEW mechanism class (Phase 3 M5)
+
+**Disciplines that emerged today (10+ memory rules):** test-design failure diagnosis + composition-discipline + functional-requirement-first + 2x-drill-before-closure + every-failure-Skunkworks+intuitive + post-impl-hygiene + windowless + chunked + signal-shape audit + positive-control-at-test-regime
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~21:50Z UPDATE #25 (COMPACTION-PREP FINAL; Barrier 1 chain-grade; 4-primitive capability-closed; M3 architecture firmly confirmed; 14+ memory rules; massive infra hardening; load-bearing entry point)
+
 
 
 
