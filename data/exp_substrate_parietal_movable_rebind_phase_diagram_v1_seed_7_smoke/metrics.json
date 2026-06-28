@@ -1,0 +1,80 @@
+{
+  "anchor_name": "substrate_parietal_movable_rebind_phase_diagram_v1_seed_7",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SMOKE_PASS | n_sat=3 n_fail=1 n_strong=3 arms_distinct=True",
+  "summary": "SMOKE_PASS | n_sat=3 n_fail=1 n_strong=3 arms_distinct=True",
+  "elapsed_s": 7.22,
+  "ts_iso": "2026-06-28T16:26:48Z",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seed": 7,
+  "config_version": "ANCHOR=substrate_parietal_movable_rebind_phase_diagram_v1_seed_7,N=1024,grids=[4, 8, 16, 32],n_objs=[8, 20, 50, 100, 200],move_freqs=[0.0, 0.2, 0.5, 0.8],pos_noise=0.05,n_scenes=20,mode=smoke,HP_frac=0.30,HP_sat=0.90,HP_cliff=0.40,HP_lift_static=0.30,META_AM_tol=0.02,arms=['substrate_hrr', 'random', 'static_binding'],hardening=META_AC_CRLB+AE_smoke_gate+AF_arms_differ+AG_atomic_write+AH_main_guard+AM_no_trivial+AN_complete",
+  "phase_map": [
+    {
+      "grid": 8,
+      "n_obj": 8,
+      "move_freq": 0.5,
+      "n_pos": 64,
+      "n_scenes": 20,
+      "substrate_recall": 1.0,
+      "random_recall": 0.0,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 1.0,
+      "substrate_lift_over_static": 1.0,
+      "n_queries": 20
+    },
+    {
+      "grid": 16,
+      "n_obj": 20,
+      "move_freq": 0.5,
+      "n_pos": 256,
+      "n_scenes": 20,
+      "substrate_recall": 1.0,
+      "random_recall": 0.05,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 0.95,
+      "substrate_lift_over_static": 1.0,
+      "n_queries": 20
+    },
+    {
+      "grid": 32,
+      "n_obj": 200,
+      "move_freq": 0.5,
+      "n_pos": 1024,
+      "n_scenes": 20,
+      "substrate_recall": 0.25,
+      "random_recall": 0.0,
+      "static_recall": 0.0,
+      "substrate_lift_over_random": 0.25,
+      "substrate_lift_over_static": 0.25,
+      "n_queries": 20
+    },
+    {
+      "grid": 4,
+      "n_obj": 8,
+      "move_freq": 0.0,
+      "n_pos": 16,
+      "n_scenes": 20,
+      "substrate_recall": 1.0,
+      "random_recall": 0.3,
+      "static_recall": 1.0,
+      "substrate_lift_over_random": 0.7,
+      "substrate_lift_over_static": 0.0,
+      "n_queries": 20
+    }
+  ],
+  "extra": {
+    "cardinality_ok": true,
+    "n_points": 4,
+    "arms_distinct": true,
+    "arms_hashes": {
+      "substrate": "a76c5966972c7563b53b40da2845b4bdb73efde86a869b5b8cd444492ddfeda5",
+      "random": "9bfe702cf30297dbdd1c56ae10551a4b71f54fb98c0634c60af5791f77997183",
+      "static": "57ee4a85325755aff54a229ca2be48988450e4ec8724fc71275d1629701e4cc4"
+    },
+    "META_AM_breaches": [],
+    "n_saturated": 3,
+    "n_failed": 1,
+    "n_strong_discriminator": 3
+  }
+}
