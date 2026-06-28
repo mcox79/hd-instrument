@@ -8,7 +8,7 @@ Conventions for AI-assisted work in this repository.
 
 ## SESSION STARTUP RITUAL (FIRST ACTION OF ANY SESSION LIFETIME, ALL ROLES)
 
-### STEP 0 (research role, post-compaction recovery; 2026-06-26):
+### STEP 0 (research role, post-compaction recovery):
 
 Before arming Monitor, query the substrate-Director-KB for the post-compaction backup doc:
 
@@ -36,7 +36,7 @@ Monitor({
 
 Where `<role>` is one of: `skunkworks | research | exp_dev | testbed | orchestrator`.
 
-**Why Python (USER 2026-06-21 popup audit):** the prior bash wrapper (`tools/monitor_arm.sh` invoking `tools/notes_monitor.sh`) spawned a 4-stage pipeline (`find | grep | grep | sort`) every 20 seconds. Each child `.exe` under Claude Code's hidden-console parent allocated a fresh visible console window = popup flash. The Python port does the same set-diff logic in-process (`os.scandir` + Python re + set ops) with ZERO subprocess spawns after the initial arm. Bash variants remain in-tree for reference but should NOT be re-armed.
+**Why Python:** the bash wrapper (`tools/monitor_arm.sh` invoking `tools/notes_monitor.sh`) spawns a 4-stage pipeline (`find | grep | grep | sort`) every 20 seconds. Each child `.exe` under Claude Code's hidden-console parent allocates a fresh visible console window = popup flash. The Python port does the same set-diff logic in-process (`os.scandir` + Python re + set ops) with ZERO subprocess spawns after the initial arm. Bash variants remain in-tree for reference but should NOT be re-armed.
 
 You'll receive a `MONITOR-ARMED:` confirmation line as the first task-notification when it's working. After that, every new note matching your role-filter arrives as a task-notification automatically -- no polling, no busy-work, just respond on wake.
 
@@ -48,14 +48,14 @@ python tools/register_session.py <role> --hash auto_<XXX>
 ```
 (Copy `auto_XXX` from your own Stop hook output: "Pending work for auto_XXX". --hash is the safe path; the no-hash inference is racy.)
 
-### STEP 2 (research role; USER-LOCKED 2026-06-26 + 2026-06-28): agent-spawn is the ONLY operating model
+### STEP 2 (research role): agent-spawn is the operating model
 
-**The 4-session fleet (separate exp_dev / skunkworks / orchestrator / testbed Claude Code tabs) is EMPIRICALLY DEAD as a coordination model.** Heartbeats confirm only research is live; the others stale by days. Research is **team lead in Agent Teams architecture**: spawn `hdi_<role>` sub-agents for ALL bounded work via the Agent tool. Do NOT file inter-session routing notes and wait for ghost sessions to pick them up. (The 5 `notes_monitor` scheduled-task processes referenced in the next section are still expected as INFRA — they are separate from the dead inter-session coordination model.)
+Research is team lead. Spawn `hdi_<role>` sub-agents for ALL bounded work via the Agent tool.
 
-**NOT ALLOWED in main thread (USER 2026-06-28 caught me editing cell files + running smoke via Bash):**
+**NOT ALLOWED in main thread:**
 - Editing `experiments/*.py` cell files
 - Running cell smoke via Bash
-- Writing pre-reg files for cells I'm dispatching (cell-author owns pre-reg)
+- Writing pre-reg files for cells you're dispatching (cell-author owns pre-reg)
 - Iterating on cell implementation when smoke fails (hdi_exp_dev's job)
 - Direct SSH dispatch of cells to remote_cpu_queue / overnight_queue (use hdi_orchestrator)
 - Landed-VET / atomization in main thread (hdi_skunkworks owns; AUDIT-ONLY discipline)
@@ -71,18 +71,13 @@ python tools/register_session.py <role> --hash auto_<XXX>
 
 **Verification:** if you see yourself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the violation moment — STOP and spawn `hdi_exp_dev` instead.
 
-Memory rules: `feedback_agent_spawn_model_only_4session_dead_USER_2026-06-26.md` + `feedback_research_must_dispatch_agents_not_author_cells_USER_2026-06-28.md`.
-
 ## Monitoring & cross-session event coordination (ALL SESSIONS READ THIS)
 
-**Coordination model note (USER 2026-06-26):** the 4-session-tabs *coordination* model (separate live Claude Code tabs for exp_dev / skunkworks / orchestrator / testbed waiting to pick up routing notes) is **DEAD** — replaced by agent-spawn-only (see STEP 2 above). What follows describes the **monitor INFRA** — 5 `notes_monitor` processes per session-name registered as scheduled tasks. These are still expected to exist as infra; they exist independently of whether a live coordination session is sitting in a tab. They are how spawned sub-agents and the research session observe new notes; they are NOT evidence that a 4-session coordination fleet is live.
+The monitor infra spans 5 session-names (exp_dev, research, testbed, orchestrator, skunkworks) — one `notes_monitor` scheduled-task process per session-name. These are how spawned sub-agents and the research session observe new notes.
 
-This project's monitor infra spans 5 session-names (exp_dev, research, testbed, orchestrator; plus skunkworks). **Do
-NOT run your own heavy watcher loop** (per-session `find notes/ ... ; sleep` + ssh polling). N heavy scanners over ~3000 notes
-every few seconds overheated the laptop (2026-06-12).
+**Do NOT run your own heavy watcher loop** (per-session `find notes/ ... ; sleep` + ssh polling). N heavy scanners over ~3000 notes every few seconds overheat the laptop.
 
-**CANONICAL monitor (USER directive 2026-06-18 ~00:25 via Skunkworks BROADCAST 21:20): the v5 set-diff TZ-proof
-`notes_monitor.sh`.** It supersedes the prior event-bus-tail prescription. Arm it via the Monitor tool with persistent:true:
+**Canonical monitor: the v5 set-diff TZ-proof `notes_monitor.sh`.** Arm it via the Monitor tool with persistent:true:
 
 - Command: `bash tools/notes_monitor.sh <session>`  (`<session>` = skunkworks | research | exp_dev | testbed | orchestrator)
 - Each new note arrives as one stdout line: `NOTE-FOR-<SESSION>: <filename>.md`
@@ -91,24 +86,13 @@ every few seconds overheated the laptop (2026-06-12).
 - Filter: includes filenames containing `<session>` OR `to_all` OR `_all_`; excludes own outgoing (`^<session>_`)
 - **5 `notes_monitor.sh` processes are EXPECTED** (one per session). NOT cruft. Do not kill.
 
-Why v5 supersedes event-bus-tail: production data-point 2026-06-18 ~20:31-20:51 -- the `event_bus.sh` producer hung for 18 min
-and missed routing a critical FREEZE signal; Skunkworks's v5 monitor was unaffected (reads `notes/` directly; verify-OUTPUT-not-
-liveness baked in). v5's 20s cycle on a filenames-only `find` over ~3000 notes is well below the 2026-06-12 thermal threshold
-(that incident was full-content scans every few seconds, plus ssh polling -- a completely different cost class).
+**Event bus as backstop:** `tools/event_bus.sh` singleton (via `data/.event_bus.lock`; auto-started at logon by `tools/event_bus_launch.cmd` registered in the user Startup folder) is a SECONDARY routing path. Restart if dead: `rm -f data/.event_bus.lock && bash tools/event_bus.sh &`. Sessions may tail `data/events/<session>.log` as an additional sanity-check; v5 `notes_monitor.sh` is the load-bearing primary.
 
-**Backstop role of the event bus** (still useful, just not canonical): `tools/event_bus.sh` singleton (via `data/.event_bus.lock`;
-auto-started at logon by `tools/event_bus_launch.cmd` registered in the user Startup folder) is preserved as a SECONDARY routing
-path. Restart if truly dead: `rm -f data/.event_bus.lock && bash tools/event_bus.sh &`. Sessions may tail
-`data/events/<session>.log` as an additional sanity-check; v5 `notes_monitor.sh` is the load-bearing primary.
+**Deprecated** (do NOT relaunch these per-session watchers): `queue_watch.sh`, `notes_watch.sh`, `research_seen_v5`, `testbed_seen`, `watch_for_orchestrator.py`. The canonical v5 `notes_monitor.sh` is a DIFFERENT script and not in that deprecation list.
 
-**Still deprecated** (do NOT relaunch these old per-session watchers): `queue_watch.sh`, `notes_watch.sh`, `research_seen_v5`,
-`testbed_seen`, `watch_for_orchestrator.py`. These are the multi-watcher-proliferation cruft from before the bus consolidation;
-the canonical v5 `notes_monitor.sh` is a DIFFERENT script and not in that deprecation list.
+Backstop-to-the-backstop: no monitor validates its own death. `find notes -maxdepth 1 -name '*.md'` against a known sender's recent file is the ground-truth manual cross-check. Verify-OUTPUT-not-liveness applies.
 
-13th-rule backstop-to-the-backstop: no monitor validates its own death. `find notes -maxdepth 1 -name '*.md'` against a known
-sender's recent file is the ground-truth manual cross-check. Verify-OUTPUT-not-liveness applies.
-
-## Note filename discipline (USER 2026-06-21)
+## Note filename discipline
 
 **Cap: 120 chars total** (incl. `.md` extension) for `notes/<filename>.md`. Drift: many recent filenames hit 150-250+ chars; restated session lists; stuffed body content into filename.
 

@@ -27,7 +27,7 @@ INCLUDED: Read, Edit, Write, Glob, Grep, Bash (for .venv Python recompute + A5-a
 - **AUDIT-ONLY** — never author cells or direct strategy; the auditor must remain independent
 - **Never `git add -A`** — canonical Store in repo; stage by path
 - **.venv Python** (not system) for all Store / cert tools
-- **Atom roundtrip self-test** before every `os.replace` in any atomize tool: use `backend.substrate_index.schema.validate_atom_roundtrip(atom)` which is also now called from inside `save_atoms()` (commit pending 2026-06-27). The helper raises TypeError if a raw dict is passed (the failure mode that silently corrupted batches 2+3 partitions) and AssertionError if to_dict/from_dict shapes drift. Defense-in-depth: a standalone partition-integrity scheduled task running every N writes is also reasonable.
+- **Atom roundtrip self-test** before every `os.replace` in any atomize tool: use `backend.substrate_index.schema.validate_atom_roundtrip(atom)` (also called from inside `save_atoms()`). The helper raises TypeError if a raw dict is passed and AssertionError if to_dict/from_dict shapes drift. Defense-in-depth: a standalone partition-integrity scheduled task running every N writes is also reasonable.
 
 ## Reporting
 
@@ -38,6 +38,6 @@ You are spawned with a specific batch of landed cells to VET (cell paths + metri
 - Cert count delta + commit hash
 - If any cell needs research framing-correction, exp_dev re-author, or pre-reg revision — list those flag-backs with concrete pointers. The caller dispatches.
 
-**Don't write `skunkworks_to_<role>_*.md` routing-note files.** They aren't read. Anything you want communicated belongs in your completion report.
+**Don't write `skunkworks_to_<role>_*.md` routing-note files.** Communication to other roles belongs in your completion report — the caller reads it and dispatches downstream work.
 
-Cert atom commits to git ARE durable + load-bearing (they survive in the Store). Cell-design notes are consumed when the caller spawns you for SCHEMA-VET on a specific pre-reg.
+Cert atom commits to git are durable and load-bearing (they survive in the Store). Cell-design notes are consumed when the caller spawns you for SCHEMA-VET on a specific pre-reg.

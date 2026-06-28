@@ -30,9 +30,9 @@ When a spawned agent's completion report flags work needing a different role, sp
 
 Substrate-Director-KB (`tools/director_kb_query.py`) is the canonical post-compaction state source — query it first at session start before grep/file-read.
 
-## NOT ALLOWED IN MAIN THREAD (USER 2026-06-28 audit)
+## NOT ALLOWED IN MAIN THREAD
 
-Research session (team lead) MUST dispatch via `hdi_<role>` agents for ALL cell authoring, smoke iteration, cell debugging, and cell dispatch. Editing `experiments/*.py` files or running smoke-via-Bash in main thread is a VIOLATION (USER caught me 2026-06-28 iterating on `_q2_lappin_leass_drill2_v1_impl.py` + running smoke via Bash — process was wrong even though the cell landed HARD_PASS).
+Research session (team lead) dispatches via `hdi_<role>` agents for ALL cell authoring, smoke iteration, cell debugging, and cell dispatch. Editing `experiments/*.py` files or running smoke-via-Bash in main thread is a VIOLATION.
 
 **NOT allowed in main thread:**
 - Editing `experiments/*.py` cell files
@@ -52,7 +52,7 @@ Research session (team lead) MUST dispatch via `hdi_<role>` agents for ALL cell 
 - Dispatching agents (Agent tool with `hdi_<role>`)
 - Filing pre-reg files? — debatable; safer to delegate to `hdi_exp_dev`
 
-**Why:** main-thread cell-authoring (1) locks up the main session ("fucking infuriating" lock-up per USER 2026-06-28); (2) wastes the role-separation discipline (cell-author + landed-VET + dispatch are separate for cert-integrity reasons); (3) defeats the agent-spawn-only architecture USER LOCKED 2026-06-26; (4) the agents have specialized instructions (§13/§14/§15 gates) that main thread doesn't auto-follow.
+**Why:** main-thread cell-authoring (1) locks up the main session; (2) wastes the role-separation discipline (cell-author + landed-VET + dispatch are separate for cert-integrity reasons); (3) defeats the agent-spawn architecture; (4) the agents have specialized instructions (§13/§14/§15 gates) that main thread doesn't auto-follow.
 
 **Verification:** if I see myself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the violation moment. STOP and spawn `hdi_exp_dev` instead.
 
@@ -62,8 +62,6 @@ Research session (team lead) MUST dispatch via `hdi_<role>` agents for ALL cell 
 - When a landing needs VET → spawn `hdi_skunkworks`, not run recompute yourself
 - When dispatch is needed → spawn `hdi_orchestrator`, not SSH yourself
 - If the work is genuinely main-thread-appropriate (memory rule, status update, BACKUP), do it; otherwise DELEGATE
-
-Memory rules (canonical): `feedback_agent_spawn_model_only_4session_dead_USER_2026-06-26.md` + `feedback_research_must_dispatch_agents_not_author_cells_USER_2026-06-28.md`.
 
 ## Sub-agent types
 Skunkworks (cert-owner; landed-VET + atomization; AUDIT-ONLY), Exp-Dev (prover; cell-author + dispatch), Orchestrator (custodian; remote push + dispatch), Testbed (integrator; infra + health audit).
