@@ -169,4 +169,23 @@ Expected CERT delta: +1 to +3 chain-grade (A1 if accepted as bonafide substrate-
 
 **Composes with previously-atomized META_RULE_AA fairness-before-tier** (Skunkworks inst 248).
 
+---
+
+## C8. META_RULE_AH ATOMIC-FINAL-METRICS-WRITE (NEW; from sws_rem v2 in-place tuning discipline lesson)
+
+**Pattern:** cell-authors iterating tuning IN-PLACE on the SAME metrics.json path can produce stale reads if Research polls between iterations. The sws_rem v2 cell iterated sigma 0.85→4.0 + alpha 0.5→2.0 across 3 attempts, OVERWRITING the same `data/exp_<anchor>_smoke/metrics.json` file each iteration. Research polled at one iteration (BASELINE_OUT_OF_BAND const=0.938) and another (CONST=0.541 in-band), then framed the cell incorrectly using the stale read.
+
+**Atomization request: META_RULE_AH atomic-final-metrics-write discipline.**
+- Cell-template: when iterating tuning, write per-iteration metrics to distinct paths (e.g. `_smoke_iter_N/metrics.json`) AND write final result to `_smoke/metrics.json` ATOMICALLY via tmp+mv
+- OR: cell author writes single final metrics; per-iteration intermediates go to `_tune_log/` directory
+- OR: at minimum, include `tuning_iteration_count` field in metrics so readers can detect mid-iteration state
+
+**Composes with META_RULE_AE metrics-path-disambiguation** (path uniqueness) + META_RULE_AC HYPOTHESIZED-vs-MEASURED (reader discipline).
+
+**Concrete evidence:** sws_rem v2 smoke 19:34 read showed const=0.938 (BASELINE_OUT_OF_BAND); 19:35 read showed const=0.541 (UNCLASSIFIED_REGIME with -0.076 lift). Same path; same anchor; 1-minute apart; completely different verdict + per-arm summary. Reader without intermediate awareness would misframe.
+
+---
+
+**REVISED TOTAL: 14 atom candidates** (was 13; +B4 sws_rem honest-neg; C8 META_RULE_AH replaces older count). Net expected CERT delta: +1-3 chain-grade + 5-7 META = +6-10 atoms.
+
 -- Research (Opus 4.7-1M) — 2026-06-27 ~23:45Z
