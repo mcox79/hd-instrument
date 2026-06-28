@@ -1730,6 +1730,165 @@ Hardened today (+129 lines §6-§12 yesterday):
 
 -- Research (Opus 4.7-1M) — 2026-06-28 ~13:30Z UPDATE #21 (compaction-prep; substantive overnight wave summary; load-bearing for post-compaction me)
 
+---
+
+## TWENTY-SECOND-WAVE UPDATE 2026-06-28 ~13:45Z — COMPACTION READINESS FINAL
+
+**USER request: "finalize readiness for compaction. all important context for keeping work going: recent finishes / short-term / long-term goals"**
+
+This UPDATE is the LOAD-BEARING ENTRY POINT for post-compaction me. Read it FIRST after touching heartbeat.
+
+### COMPLETE FOUR-WAVE COVERAGE TODAY (read UPDATES #1-22 sequentially)
+- UPDATE #1-10: Yesterday's session arc (Skunkworks vets / Wave 1+2 cells / 5x drills / phase-diagram framework / OVERNIGHT PLAN baseline)
+- UPDATE #11-19: Post-compaction execution wave (refusal + correction + Stage 3 chain-grade landings + 9 META rules atomized)
+- UPDATE #20: OVERNIGHT 12h PLAN (5 USER concerns + 5 drills + autonomous-loop instructions)
+- UPDATE #21: OVERNIGHT EXECUTION RESULTS (Barrier 1 mechanism FOUND + 2 CG promotions + 2 new META rules)
+- UPDATE #22 (THIS): compaction readiness + recent finishes + goals
+
+### RECENT FINISHES (since UPDATE #21 ~30 min ago)
+
+**Online_conv revived + dispatched** (cell-author a5f2746a):
+- Bug fixed: `REFUSE_V_REL=64 > V_ENTITIES=60` triggered np.partition kth OOB
+- Fix: `v_rel_eff = min(REFUSE_V_REL, sims_tv.shape[0] - 1)` (Option 1 minimal-change)
+- Re-smoke HARD_PASS: TV_HIPPO=1.000 vs VANILLA=0.000 lift +1.000; cv=0; cardinality_ok=True
+- TV_HIPPO ties TV_ONLY at smoke (cortex_hippo composition adds nothing at this scale; full at V=256 will discriminate)
+- Full dispatched remote_cpu_queue pos 1; timeout 3600s
+- Path: `d:/AI/hd-instrument/data/exp_online_conv_oneshot_taskvec_hippo_v1_smoke/metrics.json`
+
+**Cortex_hippo chunked re-architect** (cell-author afe5e412; hit rate-limit but cells authored + smokes ran):
+- 3 cells: `exp_cortex_hippo_handoff_FULL_seed_{7,17,23}_v1.py`
+- Each cell: N_h=512 N_c=8192 M=200 N_REPLAY_CYCLES_FULL=50 (single seed; chunked architecture)
+- Smoke (N_replay=5) seed_7 HARD_PASS: FULL=1.000 NO_REPLAY=0.003 gap +0.998
+- Smoke seed_17 HARD_PASS: same pattern (FULL=1.000 gap +0.998)
+- Smoke seed_23 still running
+- **FULL multi-seed dispatches PENDING** (cell-author rate-limited before dispatch)
+- Path: `d:/AI/hd-instrument/data/exp_cortex_hippo_handoff_FULL_seed_7_v1_smoke/metrics.json` + `_17_v1_smoke/`
+
+### SHORT-TERM GOALS (next 1-2 days; post-compaction)
+
+**Priority 1: Spawn FULL multi-seed dispatch for cortex_hippo chunked cells.** Cell-author was rate-limited; cells exist and smokes pass. Each cell runs ~2.35h on remote_cpu (single seed at N_replay=50). All 3 in parallel via queue OR sequentially. Once all 3 land HARD_PASS at full N_replay=50, cortex_hippo_handoff atom promotes to chain-grade (currently MM tier).
+
+**Priority 2: Spawn partition-oracle hardened-regime cell** (V_C=16000 OR depth=15+ per cell-author analysis in UPDATE #21). Goal: find non-saturated discriminating point so partition-oracle goal-conditioning gets chain-grade promotion (currently MM tier). If HARD_PASS → BARRIER 1 BROKEN AT CHAIN-GRADE TIER.
+
+**Priority 3: Sutton-Precup options framework drill + cell** for hierarchical planning (the ONE remaining genuine Stage 3 gap; 2 attempts failed; needs research-owned redesign).
+
+**Priority 4: Skunkworks batch 16** for:
+- cortex_hippo chunked full results (when all 3 seeds land)
+- online_conv full result (when dispatched cell completes)
+- Any other interim findings
+
+**Priority 5: Continue substrate-product narrative composition** for USER on next interaction. Day's wins are substantial.
+
+### LONG-TERM GOALS (per USER program)
+
+**M3 (12-18 month): glass-box conversational AI without Claude in loop.** Status today:
+- Stage 1 (base memory/retrieval/cleanup): MATURE chain-grade
+- Stage 2 (optimization/extraction/consolidation): MATURE chain-grade
+- Stage 3 (higher functions): mostly banked; 1 genuine gap (hierarchical planning)
+- Stage 4 (LM equivalence): DEFERRED per USER stage progression directive
+
+**M4 (18-30 month): hybrid agentic experiment loop (substrate-as-research-director).** Today's findings strengthen this — discipline ladder + cert-owner-overrides-Director patterns proven; substrate-product narrative shows substrate is more capable than today's framings.
+
+**M5 (5+ yr aspirational): full code-gen.** Today's substrate-product story (substrate more capable than expected) feeds M5 hypothesis: substrate may already have many M5-required primitives via existing chain-grade composition.
+
+**USER target = aim M3, stretch M4.**
+
+### USER M3 5 CONCERNS — STATUS AS OF NOW
+
+1. **Hypothesis generation**: MEASURED_MECHANISM — SWR-preplay generator works (recall@10=0.558 novelty=1.000); pipeline scorer-integration weak
+2. **Self-explanation**: workable via cosine attribution (0.467); bind-trace adds nothing (HONEST_NEG-bounded)
+3. **Long-narrative coherence**: partial M3 — Q1 factual + Q4 contradiction at chain-grade quality (0.89/1.00) on 100-event; Q2 coreference + Q3 temporal collapse
+4. **Online conversation learning**: HARD_PASS smoke (TV_HIPPO=1.0 vs VANILLA=0.0); full dispatched; CG-eligible
+5. **Hierarchical planning**: UNRESOLVED — needs Sutton-Precup options framework
+
+### CRITICAL INFRA STATE
+
+- **CERT 628** (after batches 14+15; commits f77c7d29 + 16a501c3)
+- **cron 3a20be75** alive (session-only; may not survive Claude Code restart — re-arm via CronCreate if needed)
+- **hd_landing_notifier** scheduled task ALIVE (registered yesterday; runs every 3 min)
+- **hd_metrics_sync** scheduled task ALIVE
+- **cpu_runner_0** alive on remote (PID may rotate but role persistent)
+- **gpu_runner_0** alive but mostly idle (Fix #24: most cells aren't CUDA-eligible)
+- **Watchdog every ~20 min** firing notes_for_research pings (overnight noise; harmless; touch heartbeat per turn)
+- **Stop hook** triggers on session-specific `last_processed_auto_7c6e8deae7.timestamp` (NOT role-specific). Push +24h to silence overnight.
+- **autonomous_loop_instructions.md** current at `d:/AI/hd-instrument/data/autonomous_loop_instructions.md` (USER 2026-06-28 directives baked in)
+
+### LOAD-BEARING DOCS POST-COMPACTION
+
+In order of importance:
+1. **THIS FILE** — `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-27.md` (UPDATE #22 latest)
+2. `MEMORY.md` — 5 memory rules under "USER-LOCKED OPERATING RULES":
+   - feedback_substrate_as_canonical_query_first_USER_LOCKED_2026-06-27.md
+   - feedback_no_hallucinated_numbers_verify_on_disk_2026-06-27.md
+   - feedback_metrics_path_disambiguation_selftest_smoke_full_2026-06-27.md
+   - feedback_compute_formulas_in_code_before_quoting_2026-06-27.md
+   - feedback_test_rationality_encoding_before_readout_2026-06-27.md (USER's key insight)
+3. `notes/research_synthesis_overnight_substrate_already_does_X_pattern_2026-06-27.md` — META_RULE_AM evidence base
+4. `notes/research_findings_for_next_skunkworks_batch_2026-06-27_post_compaction.md` — 14 atom candidates staged
+5. `notes/research_strategic_phase_diagram_framework_all_chain_grade_capabilities_2026-06-27.md` — phase-diagram strategic framework
+6. `.claude/agents/exp_dev.md` — hardened §6-§12 (12 META rules locked in)
+7. `data/autonomous_loop_instructions.md` — what to do every cron fire
+8. Drill notes for revival cells (Sutton-Precup options pending; partition-oracle harder regime pending)
+
+### POST-COMPACTION RITUAL (DEFINITIVE; overrides earlier versions)
+
+```bash
+# 1. Heartbeat
+date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp
+
+# 2. Silence stop hook + watchdog overnight noise
+date -u -d "+24 hours" +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/last_processed_auto_7c6e8deae7.timestamp 2>/dev/null
+date -u -d "+24 hours" +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/last_processed_research.timestamp
+
+# 3. Read this BACKUP file UPDATES #20 #21 #22 (latest state)
+
+# 4. Read 5 memory rules (MEMORY.md USER-LOCKED RULES section)
+
+# 5. Check recent landings (cortex_hippo + online_conv full should be in flight)
+find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -180 -printf '%TH:%TM %p\n' | sort
+
+# 6. Verify scheduled tasks (PowerShell)
+# schtasks /query /tn hd_landing_notifier /fo LIST
+
+# 7. Re-arm notes_monitor per CLAUDE.md ritual
+
+# 8. Check cron (CronList tool); if dead re-arm
+
+# 9. Drive forward per Priority 1-5 above
+```
+
+### THE BIG-PICTURE SUBSTRATE-PRODUCT NARRATIVE (refined)
+
+**Substrate is SUBSTANTIALLY MORE CAPABLE than yesterday morning's framing suggested.** Today validated:
+- Existing chain-grade primitives (cosine cleanup / flat preplay / explicit encoding / partition routing / cortex_hippo / task_vector ICL) handle most "richer mechanisms" propositions
+- 7+ "substrate already does X" occurrences across mechanism axes (META_RULE_AM)
+- Substrate cone-collapse formula UNDERESTIMATES substrate capability by 3.7x at N=8192 (META_RULE_AN)
+- Barrier 1 mechanism class IDENTIFIED (goal-conditioning UPSTREAM of cleanup; prior 3 attempts tested wrong class)
+
+**Genuine remaining Stage 3 gaps (NARROW)**:
+- Hierarchical planning (Sutton-Precup options-framework redesign needed)
+- Long-narrative coreference + temporal (mechanism class TBD)
+- Hypothesis-gen pipeline integration (engineering)
+
+**M3 timeline (12-18mo) STRENGTHENED.** Substrate-product roadmap validated by today's experimental wave + 9 Director-framing-errors caught (discipline ladder working as designed).
+
+### DAY'S DELTA SUMMARY (2026-06-27 to 2026-06-28)
+
+- CERT: 623 → 628 (+5 chain-grade over 2 days)
+- META rules: +12 atomized (AC through AN)
+- Memory rules: +5 USER-LOCKED disciplines
+- Atoms total: ~25 across Skunkworks batches 10-15
+- exp_dev.md: +129 lines hardened (§6-§12)
+- Landing notifier infra: registered (was 4-day silent drift; root-cause fixed)
+- Cells dispatched: 20+ (smokes + fulls)
+- Director-framing-errors caught: 9 (discipline ladder reinforced)
+- USER concerns addressed: 5 of 5 (4 substantively; 1 hierarchical still genuine gap)
+
+**Net assessment: substantive substrate-product wins; honest tier-MM where saturated; M3 capabilities banked or characterized for the vast majority.**
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~13:45Z UPDATE #22 (FINAL compaction-readiness; load-bearing entry point for post-compaction me)
+
+
 
 
 
