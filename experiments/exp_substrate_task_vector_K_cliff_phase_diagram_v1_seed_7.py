@@ -1,3 +1,4 @@
+# PRESERVE_ENV_VARS: HDLAB_QUEUE
 """substrate_task_vector_K_cliff_phase_diagram_v1 sibling seed=7.
 
 Phase-diagram sweep of HRR TASK_VECTOR ICL over (K, N_tasks, task_overlap).
