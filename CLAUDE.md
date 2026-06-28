@@ -8,6 +8,19 @@ Conventions for AI-assisted work in this repository.
 
 ## SESSION STARTUP RITUAL (FIRST ACTION OF ANY SESSION LIFETIME, ALL ROLES)
 
+### STEP 0 (research role, post-compaction recovery; 2026-06-26):
+
+Before arming Monitor, query the substrate-Director-KB for the post-compaction backup doc:
+
+```bash
+date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp
+python d:/AI/hd-instrument/tools/director_kb_query.py --filename-contains POST_COMPACTION_BACKUP --source-class=notes
+```
+
+The query returns the BACKUP file at rank 1 (cosine=1.0). READ the source file end-to-end — it's self-contained with all USER directives, cortex state, in-flight work, milestones, recovery procedure for the active session. This is the load-bearing first action for any research session that's been compacted; skip only if `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_<date>.md` doesn't exist (in which case grep filesystem for whatever's most recent). See MEMORY.md "READ FIRST AFTER COMPACTION" callout for the full sequence.
+
+### STEP 1 (all roles): arm Monitor
+
 Every Claude Code session, as its very first tool call after reading this file, must arm its own notes Monitor via the Monitor tool with the self-healing wrapper. Without this, the session goes dark the moment its previous Monitor crashes (set-u undefined-var on weird input, FS hiccup, etc) and silently stops receiving cross-session events. The wrapper `tools/monitor_arm.sh` re-runs `notes_monitor.sh` on any non-zero exit and emits a `MONITOR-CRASH` line so you know it recovered.
 
 **The canonical Monitor invocation (substitute your role name; verbatim otherwise):**
@@ -35,9 +48,36 @@ python tools/register_session.py <role> --hash auto_<XXX>
 ```
 (Copy `auto_XXX` from your own Stop hook output: "Pending work for auto_XXX". --hash is the safe path; the no-hash inference is racy.)
 
+### STEP 2 (research role; USER-LOCKED 2026-06-26 + 2026-06-28): agent-spawn is the ONLY operating model
+
+**The 4-session fleet (separate exp_dev / skunkworks / orchestrator / testbed Claude Code tabs) is EMPIRICALLY DEAD as a coordination model.** Heartbeats confirm only research is live; the others stale by days. Research is **team lead in Agent Teams architecture**: spawn `hdi_<role>` sub-agents for ALL bounded work via the Agent tool. Do NOT file inter-session routing notes and wait for ghost sessions to pick them up. (The 5 `notes_monitor` scheduled-task processes referenced in the next section are still expected as INFRA — they are separate from the dead inter-session coordination model.)
+
+**NOT ALLOWED in main thread (USER 2026-06-28 caught me editing cell files + running smoke via Bash):**
+- Editing `experiments/*.py` cell files
+- Running cell smoke via Bash
+- Writing pre-reg files for cells I'm dispatching (cell-author owns pre-reg)
+- Iterating on cell implementation when smoke fails (hdi_exp_dev's job)
+- Direct SSH dispatch of cells to remote_cpu_queue / overnight_queue (use hdi_orchestrator)
+- Landed-VET / atomization in main thread (hdi_skunkworks owns; AUDIT-ONLY discipline)
+- Capacity-stress drills / cell debugging in main thread
+
+**ALLOWED in main thread:**
+- Reading metrics.json / verdict_msg (verification)
+- Running observability tools (`tools/runner_status.py`, `tools/peek_arm_metrics.py`, dashboard reads)
+- Reading queue state
+- Authoring memory rules / BACKUP doc updates
+- Pulling/pushing git commits via Bash (status_log, BACKUP)
+- Dispatching agents (Agent tool with `hdi_<role>`)
+
+**Verification:** if you see yourself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the violation moment — STOP and spawn `hdi_exp_dev` instead.
+
+Memory rules: `feedback_agent_spawn_model_only_4session_dead_USER_2026-06-26.md` + `feedback_research_must_dispatch_agents_not_author_cells_USER_2026-06-28.md`.
+
 ## Monitoring & cross-session event coordination (ALL SESSIONS READ THIS)
 
-This project runs as a 4-session architecture (exp_dev, research, testbed, orchestrator; plus skunkworks) on one laptop. **Do
+**Coordination model note (USER 2026-06-26):** the 4-session-tabs *coordination* model (separate live Claude Code tabs for exp_dev / skunkworks / orchestrator / testbed waiting to pick up routing notes) is **DEAD** — replaced by agent-spawn-only (see STEP 2 above). What follows describes the **monitor INFRA** — 5 `notes_monitor` processes per session-name registered as scheduled tasks. These are still expected to exist as infra; they exist independently of whether a live coordination session is sitting in a tab. They are how spawned sub-agents and the research session observe new notes; they are NOT evidence that a 4-session coordination fleet is live.
+
+This project's monitor infra spans 5 session-names (exp_dev, research, testbed, orchestrator; plus skunkworks). **Do
 NOT run your own heavy watcher loop** (per-session `find notes/ ... ; sleep` + ssh polling). N heavy scanners over ~3000 notes
 every few seconds overheated the laptop (2026-06-12).
 

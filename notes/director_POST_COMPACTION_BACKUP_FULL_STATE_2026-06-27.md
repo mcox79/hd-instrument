@@ -20,10 +20,14 @@ USER returned, asked me to catch up after compaction. Reviewed all context docs 
 Supersedes prior "local CPU for smoke" pattern. Smoke AND full both route to `remote_cpu_queue` or `overnight_queue` (GPU). Laptop runs zero cell-runs. Memory file: `feedback_no_experiments_local_all_remote_USER_LOCKED_2026-06-27.md`. Codified in `exp_dev.md` core disciplines.
 
 ### Standing directives (re-confirmed from 2026-06-26):
-- D1: substrate doesn't know language; stop testing against language (Stage 4 deferred)
-- D2: stage progression 1→2→3→4, don't skip
-- D3: agent-spawn-only architecture (4-session fleet dead; spawn hdi_<role> per task)
-- D4: lean spawn prompts (agents have disciplines built in)
+
+**META-RULES (govern how to apply all others; PROMOTED to top 2026-06-28 per USER audit — applying ALL other directives correctly REQUIRES these first):**
+- **D1 (formerly D3) — AGENT-SPAWN-ONLY ARCHITECTURE.** 4-session fleet is DEAD. Research = team lead in Agent Teams; spawn `hdi_<role>` sub-agents for ALL bounded work via Agent tool. Do NOT file inter-session routing notes and wait for ghost sessions. **NOT ALLOWED in main thread:** editing `experiments/*.py`, running smoke via Bash, writing pre-reg files for cells I'm dispatching, iterating on cell impl when smoke fails, direct SSH dispatch to remote queues, landed-VET / atomization, capacity-stress drills, cell debugging. **ALLOWED in main thread:** reading metrics.json, observability tools, queue state inspection, memory rule writes, BACKUP doc updates, git status_log push, dispatching agents. Memory rules: `feedback_agent_spawn_model_only_4session_dead_USER_2026-06-26.md` + `feedback_research_must_dispatch_agents_not_author_cells_USER_2026-06-28.md`.
+- **D2 (formerly D4) — LEAN SPAWN PROMPTS.** Agents have disciplines built into their role files (`.claude/agents/<role>.md`) + auto-load relevant memory. Spawn prompts = bounded task + payload pointers + explicit do/don't for the specific task. Do NOT duplicate boilerplate disciplines in every spawn prompt.
+
+**SUBSTANTIVE-RULES (the work itself):**
+- D3 (formerly D1): substrate doesn't know language; stop testing against language (Stage 4 deferred)
+- D4 (formerly D2): stage progression 1→2→3→4, don't skip
 - D5: confirm plan-affecting decisions before action
 - D6: substrate is the definitive source for post-compaction (LONG-TERM GOAL; not yet — Wave 4 KB v2 in progress)
 - D7: aim M3 (glass-box conversational AI 12-18mo); M4 stretch (hybrid agentic experiment loop 18-30mo)
