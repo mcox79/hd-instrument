@@ -1888,6 +1888,155 @@ find d:/AI/hd-instrument/data -maxdepth 2 -name metrics.json -mmin -180 -printf 
 
 -- Research (Opus 4.7-1M) — 2026-06-28 ~13:45Z UPDATE #22 (FINAL compaction-readiness; load-bearing entry point for post-compaction me)
 
+---
+
+## TWENTY-THIRD-WAVE UPDATE 2026-06-28 ~15:45Z — POST-COMPACTION RECOVERY + AGGRESSIVE BUILD-OUT WAVE
+
+**Session context:** Resumed post-compaction at ~13:55Z. USER active throughout afternoon. Heavy ship cycle.
+
+### MAJOR FINDINGS THIS WAVE
+
+1. **Barrier 1 mechanism HARDENED-REGIME SMOKE PASS** — partition-oracle goal-conditioning at N=8192 / V_C=4000 / depth=15 / psz_B=800: BASELINE_A=0.39 (un-saturated), ORACLE_B=0.90, lift_B_A=+0.51, lift_B_E=+0.90. arms-distinct verified. **FULL queued + RUNNING on remote_cpu since 11:44:26Z (~2.5h budget).** Path: `data/exp_substrate_multihop_partition_oracle_v5_hardened_v1_smoke/metrics.json`. If FULL HARD_PASS → Barrier 1 chain-grade promotion.
+
+2. **Hierarchical planning capability — closure REVERSED then RE-TESTED via 2 revival cells:**
+   - I prematurely atomized closure after the 3rd HARD_FAIL (Sutton-Precup options; commit `eda3d108`).
+   - USER caught: "we need to verify the test before we close a capability, and I always want to drill 2x on those negatives before closed"
+   - Memory rule filed: `feedback_2x_drill_negatives_before_capability_closure_USER_2026-06-28.md`
+   - **Drill A (Bacon-Roy option-critic):** CLOSURE_PREMATURE_ITERATE — REINFORCE-learned π+β is 4th mechanism class; HDPG existence proof (Ni-Imani 2022 DAC); cell `exp_substrate_hierarchical_option_critic_v1` dispatched (still running smoke ~20-40min; ~15min elapsed at this update).
+   - **Drill B (Hersche block-sparse):** CLOSURE_PREMATURE_ITERATE — encoding axis untested; cell `exp_substrate_hierarchical_block_sparse_v1_smoke` landed HARD_FAIL (BS_OPTS=0.100 LOSES to RANDOM_BLOCKS=0.200; encoding-axis rescue REFUTED). Dense baseline replicates prior failure cleanly.
+   - **Closure status: PRELIMINARY pending Cell A.** If Cell A HARD_FAILS → 5-cell evidence base supports closure. If Cell A HARD_PASSES → policy-learning axis is the genuine rescue; iterate.
+
+3. **Substrate capability registry BUILT (centralization fix):**
+   - USER 2026-06-28 asked "is substrate performance data centralized so it's hard to forget something?" — honest answer was "partially; real forget-risk; 9 Director-framing errors yesterday partly came from incomplete memory."
+   - Tool: `tools/substrate_capability_registry.py` + family regex `tools/substrate_capability_families.json` + view `data/substrate_capability_registry.jsonl`
+   - First-run: 4447 metrics.json scanned, 0 malformed; 37 capability families; verdict spread HP=1422/HF=665/MB=553; **80 forgotten high-tier findings surfaced** (un-atomized HARD_PASS / cross-cell wins)
+   - Scheduled task registered: `hd_substrate_capability_registry_scan` 15-min cadence
+   - 80-finding atomization batch DEFERRED (USER rejected the broader batch earlier; offer to do narrow-scope batches later)
+
+4. **Dashboard "Substrate Characteristics" tab BUILT (and optimized):**
+   - First build: testbed dispatched per USER ask — one row per capability_family; mouseover descriptions; tier/peak/phase-coverage columns; sortable/filterable; aggregation tool `tools/substrate_capabilities_aggregate.py`; view `data/substrate_capabilities_view.json`; scheduled task `hd_substrate_capabilities_aggregate` 15-min
+   - Then dashboard optimization drill (general-purpose agent + web research): 5 changes SHIPPED (`index.html` +184 lines):
+     - (1) Health banner OK/WARN/ERROR from `/api/dashboard/v2/health`
+     - (2) Per-section freshness badges (fresh/2m/4h)
+     - (3) ZOMBIE badge when pid_alive=false + queue_marks_running=true
+     - (4) Verdict-distribution sparkline (stacked SVG) per row — Tufte data-ink
+     - (5) Tier glyphs (CG/MM/HN/EX) — WCAG color-not-alone
+   - 5 more deferred: localStorage "new since last visit" / URL-hash deep-links / Page Visibility pause-polling / CERT 7d motion sparkline / keyboard shortcuts
+   - **Critical finding from agent's live probe: aggregate health = ERROR right now (43 hygiene flags + 3 stale sessions + 1 drift-red) — UI previously hid this.** Investigation deferred.
+
+5. **Recurring GPU runner zombie pattern (real infra bug):**
+   - GPU runner died 3 times today (09:50, 10:02, 10:58, 11:41) after START log line; survived 4th attempt 11:44:22Z
+   - Root cause partial: stale `queue.json.lock` from 5/20/2026 + stale pid files; cleaned + restarted; runner picked up multi-hop smoke
+   - **Still unresolved:** runner death between START and DONE has no error log line; needs deeper investigation (maybe lock contention / GPU init race / cuda kernel hang). Defer until current cells complete.
+   - CPU runner had same pattern earlier; restart pattern works but not root-cause fix
+   - **3 cortex_hippo seed FULL zombies reset to pending** (claimed_by stale; never finished). Will run sequentially after partition-oracle FULL.
+
+6. **Online_conv FULL = HARD_FAIL at 2.1s** — cell bug at full regime (smoke worked yesterday TV_HIPPO=1.0). Same kth=OOB pattern returned. Deferred; back to cell-author when bandwidth allows.
+
+### IN FLIGHT AT TIME OF UPDATE #23
+
+- **Cell A option-critic** (background spawn) — smoke ~15 min elapsed of 20-40 min budget
+- **partition-oracle hardened FULL** — RUNNING on remote_cpu since 11:44:26Z (~2.5h)
+- **multi-hop phase diagram smoke** — RUNNING on GPU since 11:44:22Z (~10 min elapsed)
+- **pattern completion FULL** — queued on GPU behind multi-hop smoke (18000s budget for 72 points)
+- **3 cortex_hippo seed FULL** — queued on remote_cpu behind partition-oracle (chunked architecture)
+
+### MEMORY RULES ADDED THIS WAVE
+- `feedback_2x_drill_negatives_before_capability_closure_USER_2026-06-28.md` (USER caught premature hierarchical closure)
+
+### TOOLS BUILT THIS WAVE
+- `tools/substrate_capability_registry.py` + `data/substrate_capability_registry.jsonl` (4447 rows)
+- `tools/substrate_capabilities_aggregate.py` + `data/substrate_capabilities_view.json` (37 families)
+- Dashboard `index.html` substantial enhancement (+184 lines; 5 of 10 changes shipped)
+- Scheduled tasks: `hd_substrate_capability_registry_scan` + `hd_substrate_capabilities_aggregate` (both 15-min)
+
+### NEXT-STEP PRIORITIES (post-compaction)
+1. Process Cell A option-critic smoke when it lands (~5-25 min from now)
+2. Process partition-oracle hardened FULL when it lands (~2.5h from now) — if HARD_PASS → Barrier 1 CG promotion via Skunkworks
+3. Process multi-hop phase diagram smoke when it lands → if pass, dispatch full to GPU
+4. Process pattern completion FULL when it lands (~5h on GPU)
+5. Process 3 cortex_hippo seed FULL when they land (~2.35h each on CPU, sequential)
+6. Skunkworks: retract preliminary closure atom OR upgrade to confirmed-closure depending on Cell A
+7. Investigate 43 hygiene flags + 3 stale sessions + 1 drift-red (dashboard ERROR aggregate)
+8. Resolve GPU runner zombie pattern at infrastructure level (lock backend? GPU init race?)
+
+### CERT TRAJECTORY
+- Start of UPDATE #23 wave: CERT 628 (per UPDATE #22)
+- Atoms added: 2 hierarchical-closure atoms (commit eda3d108; preliminary)
+- Net: CERT 628 + 0 chain-grade (closure preliminary, awaits Cell A)
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~15:45Z UPDATE #23 (post-compaction recovery + aggressive build-out + closure reversal)
+
+---
+
+## TWENTY-FOURTH-WAVE UPDATE 2026-06-28 ~17:55Z — ROOT-CAUSE FIX + HIERARCHICAL CLOSURE CONFIRMED + NEW DISCIPLINES
+
+**Major events since UPDATE #23:**
+
+### RUNNER ZOMBIE ROOT-CAUSE FIXED (load-bearing infra win)
+After 5+ zombie episodes today, testbed root-caused: `start /b python.exe` via SSH causes cmd.exe parent exit → CTRL_CLOSE_EVENT cascade → silent death within 5-10s. Fix shipped:
+1. `tools/start_desktop_runners.cmd` → delegates to `schtasks /run /tn "\hd_{gpu,cpu}_runner_0"` (Task Scheduler lineage SSH-disconnect-immune)
+2. `experiments/runner_v2_prod.py` → wrapped with `_main_with_diagnostics()` + `faulthandler.enable()` + SIGBREAK handler; future silent deaths leave `data/logs/<runner_id>_runner_fatal.log`
+End-to-end verified: 12:42:45 schtasks-launched CPU runner claimed seed_17; 12:43:08 cell completed cleanly exit=0. Memory rule: `feedback_runner_zombie_ssh_disconnect_root_cause_FIXED_2026-06-28.md`.
+
+### HIERARCHICAL PLANNING CAPABILITY CONFIRMED-CLOSED (5-cell evidence)
+After USER caught premature closure: ran 2 revival drills (Bacon-Roy option-critic + Hersche block-sparse). BOTH HARD_FAIL at smoke. Closure CONFIRMED (commit 684bf0c2; 4 atoms: 2 cell HFs + 5-cell capability-closed + META_RULE_AO_v2). 5 cells across 4 mechanism classes proved substrate cannot do hierarchical planning natively. M3 architecture decision: needs cortex/planner layer ABOVE substrate (LLM router Phase 1 / learned module Phase 2 / substrate-resident Phase 3). Memory rule: `project_M3_architecture_needs_cortex_layer_above_substrate_USER_2026-06-28.md`.
+
+### M3 CONCERNS SCORECARD (refined today)
+- #1 hypothesis-gen: ✅ pipeline composition smoke HARD_PASS PIPELINE=0.680 lift +0.56; FULL queued
+- #2 self-explanation: ⚠️ workable via cosine attribution (bounded; not improved)
+- #3 long-narrative coref+temporal: 🔧 ANCHOR 1 composition cell-author in flight (drill diagnosed naive readouts bypassed chain-grade primitives)
+- #4 online learning: ✅ TASK_VECTOR genuine CG (cliff at K=100; not by-construction)
+- #5 hierarchical planning: ❌ CLOSED at substrate-native (cortex layer required)
+
+**Pattern recurring**: Stage-3 gaps keep dissolving into composition of EXISTING chain-grade primitives (META_RULE_AM firing 9+ times today). Functional-requirement-first discipline is high-leverage. Memory rule: `feedback_functional_requirement_first_test_design_USER_2026-06-28.md`.
+
+### NEW DISCIPLINES + MEMORY RULES FILED TODAY (7 total)
+1. `feedback_2x_drill_negatives_before_capability_closure_USER_2026-06-28.md` — verify-test + 2 drills before closure
+2. `feedback_every_failure_skunkworks_plus_intuitive_explanation_USER_STANDING_2026-06-28.md` — every HF auto-Skunkworks + intuitive
+3. `feedback_functional_requirement_first_test_design_USER_2026-06-28.md` — decompose to functional requirements; primitive map first
+4. `feedback_every_cell_must_have_error_checking_USER_2026-06-28.md` — chunked + start-marker + crash-diag + heartbeat
+5. `feedback_runner_zombie_ssh_disconnect_root_cause_FIXED_2026-06-28.md` — root cause + fix
+6. `feedback_post_implementation_hygiene_memorialize_USER_STANDING_2026-06-28.md` — 3-step hygiene after major events
+7. `project_M3_architecture_needs_cortex_layer_above_substrate_USER_2026-06-28.md` — architecture decision
+
+### NEW INFRA SHIPPED TODAY
+- **Substrate capability registry** — `tools/substrate_capability_registry.py` + `data/substrate_capability_registry.jsonl` (4447 rows; 37 families; auto-updated every 15min via `hd_substrate_capability_registry_scan` scheduled task). Surfaced 80 forgotten high-tier findings.
+- **Substrate characteristics dashboard tab** — new section in `tools/dashboard/static/index.html` + aggregator `tools/substrate_capabilities_aggregate.py` + view `data/substrate_capabilities_view.json` + scheduled task `hd_substrate_capabilities_aggregate` 15-min. 10 dashboard changes shipped: health banner / freshness badges / ZOMBIE badge / verdict sparklines / tier glyphs / localStorage new-since markers / URL-hash deep-links / Page Visibility pause / CERT 7d sparkline / keyboard shortcuts.
+- **Runner observability** — testbed agent ab17f62e71a910f56 in flight: heartbeat + `tools/runner_status.py` CLI (single-command "what's running").
+- **Runner observability LANDED 2026-06-28** — three deliverables shipped: (1) `experiments/runner_v2_prod.py` heartbeat enriched (15s cadence; UTC `ts_iso`; `host`/`queue_dir`/`current_cell_started_at`/`current_cell_elapsed_s`/`cells_completed_since_start`/`runner_started_at`/`runner_uptime_s`; canonical `data/logs/<runner_id>_heartbeat.json` write site added alongside legacy two paths); (2) `experiments/_cell_heartbeat.py` helper (`emit_heartbeat` + `CellHeartbeat` context-manager; throttled cadence; boot+exit markers) — referenced from exp_dev.md §13.D; (3) `tools/runner_status.py` CLI with `--remote`/`--verbose`/`--json` modes + exit codes (0=healthy / 1=zombies / 2=missing). Live-tested 2026-06-28T16:55Z — correctly classified all 3 stale runners (cpu_runner_0 + cpu_runner_local + gpu_runner_0) as ZOMBIE via heartbeat-age + flagged the 2 corresponding orphan queue.json `running` entries. Has legacy-heartbeat fallback so pre-patch runners stay visible during rollout. orchestrator.md §RUNNER-ZOMBIE DETECTION updated: `python tools/runner_status.py --remote` is now CANONICAL check. Suggested scheduled task: every 5min, pythonw + CREATE_NO_WINDOW, write stdout to `data/logs/runner_status_scan.log` for trend analysis.
+- **Agent instructions hardened** — exp_dev.md §13 (chunked + 4 defensive patterns; LIVE-TESTED 5 patterns PASS) + §14 (atoms.jsonl schema validation; today's atoms.jsonl-blocking bug). orchestrator.md updated with schtasks discipline + faulthandler evidence + runner_status.py canonical check.
+- **Skunkworks atoms.jsonl bug repaired** — sibling spawn had appended non-Atom-schema dict (missing `name` field) that BLOCKED ALL PartitionedStore reads. Quarantined + repaired.
+
+### LANDED CELLS TODAY (significant)
+- 3 phase-diagram smokes HARD_PASS: hypothesis-gen pipeline composition (PIPELINE=0.680 lift +0.56) / TASK_VECTOR K-cliff (cliff at K=1 V=200 + K=100 V=10) / parietal MOVABLE phase (cliff at n_obj=200; Plate analytic underestimates substrate ~2x)
+- Hierarchical option-critic HF + block-sparse HF (both confirm closure)
+- Online_conv FULL HARD_FAIL atomized (M3 concern #4 solved by TASK_VECTOR alone)
+- Pattern_completion corruption-cliff smoke HARD_PASS (CPU fallback)
+- Partition-oracle hardened FULL still pending land (re-dispatched after zombie)
+
+### PIPELINE STATE (post-fix; runners now schtasks-immune)
+- **remote_cpu_queue (11 pending):** cortex_hippo seed_17/23 + hypothesis_gen ×3 + parietal ×3 + taskvec ×3 (~28.3h serial worst-case)
+- **overnight_queue (1 running + 1 pending):** pattern_completion + multihop smoke
+- **local_cpu_queue (1 pending):** partition-oracle seed_11 (backup; direct background also running)
+- 5 cell-authors still in flight: long-narrative composition / WM K-cliff / partition-oracle chunked re-author
+
+### CRITICAL POST-COMPACTION POINTERS
+- This UPDATE #24 is the load-bearing entry point (was #22; superseded twice today)
+- 7 new memory rules filed today (see "NEW DISCIPLINES" above)
+- `exp_dev.md` §13 + §14 + `orchestrator.md` §RUNNER-ZOMBIE-DETECTION + §LAUNCHER-DISCIPLINE all updated
+- Substrate capability registry replaces 9+ Director-framing-errors-per-day pattern (query before claim)
+- CERT 628 + 4 closure atoms (preliminary) + revival HFs; net CERT 628 with capability_closed adds (deltas pending Skunkworks confirmation)
+
+### NEXT-STEP PRIORITIES POST-COMPACTION
+1. Process partition-oracle hardened FULL when it lands (Barrier 1 CG promotion candidate)
+2. Skunkworks batch on any HARD_PASS landings (parietal/TASK_VECTOR/hypothesis-gen 3-seed FULL)
+3. Process WM K-cliff cell-author when returns
+4. Process long-narrative ANCHOR 1 composition cell-author when returns
+5. Spawn next phase-diagram cells (sequence binding / capacity-α upper / bidirectional / etc) once queue drains
+
+-- Research (Opus 4.7-1M) — 2026-06-28 ~17:55Z UPDATE #24 (root-cause-fix + closure-confirmed + 7 memory rules + dashboard + capability registry + post-impl hygiene rule)
+
 
 
 

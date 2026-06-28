@@ -119,4 +119,60 @@ Ranked by `(value × low-effort) / risk`. **Bold** rows ship in Phase 4 of this 
 
 ---
 
+## Round 2: parse-difficulty fix + deferred ship (2026-06-28)
+
+USER feedback after Round 1: "pretty hard to parse right now". Diagnosed independently — no specific offender called out. Shipped 5 deferred items + 3 parse-difficulty fixes + applied Q1/Q2/Q3 defaults.
+
+### Parse-difficulty diagnosis (top 3 offenders)
+
+1. **Substrate Characteristics table = wall of 36 rows with no overview-first summary.** 30 chain-grade + 6 MM + 1 HN, 4450 tests aggregated — but reader sees 8-column grid only. No high-level scanability. *Tufte: "data-intense, design simple"; Shneiderman info-seeking-mantra: overview FIRST.*
+2. **Verdict sparklines colored without legend.** Rows show stacked-bar of pass/mid/fail/other — color encoded only; hover-title required to disambiguate. *WCAG 1.4.1 color-not-alone.*
+3. **Chat window dominates above-the-fold** (~400px tall) AND CERT card lacks 7d motion context. New users see chat box before they see what substrate is doing.
+
+### Round 2 changes shipped
+
+**Parse-difficulty fixes (3):**
+- **A. Charcap summary strip (Shneiderman overview-first).** New 1-line strip above the 8-column table: "CG 30 · MM 6 · HN 1 · 37 families · 4,450 tests" + inline legend swatches mapping sparkline colors to verdict names. Computed over UNFILTERED rows (so it stays as global context even when filters narrow the table).
+- **B. Inactive-rows fold.** Rows with `n_tests_24h==0 AND phase_pct<10` move under an expander ("▸ show N inactive"). Active rows sorted by phase desc, then 24h-activity desc, then n_tests desc. Brings useful work to the top.
+- **C. Sticky table headers + tighter cards.** `.row-grid.head { position: sticky; top: 0 }` so column meaning stays visible during long scrolls. Card padding `16→14px` + title `22→20px` + subtitle font shrink — reduces visual weight per card.
+
+**Deferred items shipped (5):**
+1. **localStorage "new since last visit" markers.** Captures `lastVisitEpoch` in `hd_dashboard_prefs_v1`; rows in Recent Landings + Substrate Characteristics whose mtime exceeds prior boundary get a green NEW badge + left-edge accent. First-ever visit doesn't flag everything (boundary=0 short-circuit).
+2. **URL-hash deep-links for charcap filters.** `#caps?stage=3&tier=chain-grade&search=foo&peak=blue&gaps=1&other=1` — bidirectional: control changes write hash via `history.replaceState`; `hashchange` event reads hash back. Lets users bookmark filtered views + use browser back/forward.
+3. **Page Visibility API pause.** `document.hidden` short-circuits the 15s poll tick + adds "paused (tab hidden)" badge to every section. On visibility return → forced immediate `refreshAll()`.
+4. **CERT-card 7d motion sparkline.** Source: `/api/dashboard/v2/health → substrate_trust.motion_7d.{passes_added, demotes}`. Renders as ±centered dual-bar SVG (green-up = passes, red-down = demotes) with totals. Graceful when substrate_trust returns `{error: ...}` (currently the case due to Store load error — sparkline simply absent, no broken UI).
+5. **Keyboard shortcuts.** `/` focus charcap search + scroll-into-view, `r` manual refresh, `f` toggle filter panel, `?` toggle help overlay, `esc` close help. Ignored when typing in inputs/textareas or with modifier keys. Help overlay docked bottom-right.
+
+**Q1/Q2/Q3 defaults applied (no USER bother):**
+- **Q1 color scheme:** kept GitHub-dark accent; only ADDED a tier-glyph color for badge-since (green) — no churn elsewhere.
+- **Q2 chat placement:** wrapped in `<details>` collapsible **default-CLOSED**. Reasoning: USER previously emphasized minimize-interruptions pattern. Visual footprint went from ~400px to ~30px summary line. User opens on demand; browser remembers per-session via native details state.
+- **Q3 prefs storage:** localStorage (`hd_dashboard_prefs_v1`); no server-side. Try/catch around storage to avoid Safari private-mode crashes.
+
+### Regression test
+All 8 endpoints return 200 with non-empty payloads after edit (verified via curl matrix):
+- `/api/runs` 200 (3.6KB)
+- `/api/dashboard/v2/headlines` 200 (1.3KB)
+- `/api/dashboard/v2/history?limit=15` 200 (4.2KB)
+- `/api/dashboard/v2/ingest` 200 (1.1KB)
+- `/api/dashboard/v2/local_resources` 200 (0.6KB)
+- `/api/dashboard/v2/capability` 200 (2.1KB)
+- `/api/dashboard/v2/capabilities_view` 200 (394KB)
+- `/api/dashboard/v2/health` 200 (3.9KB)
+
+JS sanity: 448 `{` ↔ 448 `}`, 851 `(` ↔ 851 `)`, all 11 new helpers (`getPrefs`, `setPrefs`, `isNewSinceVisit`, `parseCapHash`, `writeCapHash`, `applyCapHashToControls`, `syncControlsToCapHash`, `markTabPausedUI`, `renderMotionSparkline`, `renderCharcapSummaryStrip`, `isTypingInField`) defined. 10/10 round-2 HTML markers served correctly. No process spawning required.
+
+### Constraints honored
+- No popups: zero new processes; pure frontend edit. `pythonw.exe`/`-WindowStyle Hidden` rule N/A.
+- No silent excepts: try/catch around `localStorage` operations logs to `console.warn` with explicit "storage full / blocked?" message; never bare except.
+- Atomic write: used Write tool (writes to temp then renames per OS semantics).
+- No framework deps: vanilla JS / no build step.
+- Backward-compatible: every Round 1 element retained (no rename, no removal).
+
+### Sources added in Round 2
+- [Page Visibility API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) — battery-savings pattern
+- [URLSearchParams + history.replaceState patterns (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) — hash-as-state for SPAs
+- [Web Storage API safe-use patterns (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API) — Safari private-mode + quota-exceeded handling
+
+---
+
 **End of proposal. See git diff for implementation.**
