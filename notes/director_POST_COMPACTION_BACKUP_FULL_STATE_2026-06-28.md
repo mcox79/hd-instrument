@@ -8,11 +8,21 @@
 
 ## OPERATING MODEL (read first)
 
-Research is team lead. For ALL bounded work — cell authoring, smoke iteration, dispatch, push, landed-VET, atomization, capacity-stress drills — spawn `hdi_<role>` agents via the Agent tool. Main thread is for: reading metrics.json, observability tools, queue state inspection, memory rule writes, BACKUP doc updates, and dispatching agents.
+Research is the director. Main session does judgment, strategy, direction, and 1-off important work. Sub-agents do the rote and heavy work — cell authoring, smoke iteration, landed-VET, atomization, dispatch, infra refinements.
 
-Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_skunkworks` (landed-VET + atomization; AUDIT-ONLY), `hdi_orchestrator` (push + remote queue_add + state sync), `hdi_testbed` (infra + instructions + 2nd-witness on cross-cutting changes). Spawn budget ≤3 in flight by default; USER may authorize exceeding.
+Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_skunkworks` (landed-VET + atomization; AUDIT-ONLY), `hdi_orchestrator` (push + remote queue_add + state sync), `hdi_testbed` (infra + 2nd-witness on cross-cutting changes).
 
-Lean spawn prompts: pass paths + raw context. Don't pre-bake numbers, predicted analysis, or prescribed conclusions — agents have their own verification disciplines.
+**Lean spawn prompts:** pass paths + raw context. Do NOT pre-bake numbers, predicted analysis, or prescribed conclusions — that turns sub-agents into rubber-stamps.
+
+**Pre-spawn check (three criteria):** (1) independent from in-flight work, (2) bounded scope, (3) returns as a summary you can act on.
+
+**Spot-check, don't re-do:** verify sub-agent outputs by reading 1-2 metrics; escalate via SendMessage with delta if wrong; don't restart with a fuller prompt.
+
+**Spawn budget:** ≤3 in flight by default; USER may authorize exceeding.
+
+**Main thread is for:** strategy + thinking + 1-off important docs (BACKUP, memory rules, plan), reading metrics.json, observability tools, queue state, git commits, dispatching agents.
+
+**NOT in main thread:** cell editing, smoke via Bash, pre-reg writing, landed-VET, atomization, capacity-stress drills, SSH dispatch.
 
 ---
 
