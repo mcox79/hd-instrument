@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_pc_encoder_family_phase_diagram_v1_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=80 SMOKE=12; crlb N=2048 cliff=0.4627; N=8192 cliff=0.4813; cal binary_bipolar@c=0.1: cos=0.8023 target=0.8000 OK; cal binary_bipolar@c=0.3: cos=0.4024 target=0.4000 OK; cal binary_bipolar@c=0.5: cos=-0.0007 target=0.0000 OK; cal hrr_real@c=0.1: cos=0.7989 target=0.8000 OK; cal hrr_real@c=0.3: cos=0.3955 target=0.4000 OK; cal hrr_real@c=0.5: cos=-0.0013 target=0.0000 OK; cal fhrr@c=0.1: cos=0.8068 target=0.8000 OK; cal fhrr@c=0.3: cos=0.4041 target=0.4000 OK; cal fhrr@c=0.5: cos=0.0036 target=0.0000 OK; cal sparse_bipolar@c=0.1: cos=0.8039 target=0.8000 OK; cal sparse_bipolar@c=0.3: cos=0.3922 target=0.4000 OK; cal sparse_bipolar@c=0.5: cos=0.0000 target=0.0000 OK; sanity binary_bipolar: c=0.10 N=512 M=20 T=1 recovered 20/20; sanity hrr_real: c=0.10 N=512 M=20 T=1 recovered 20/20; sanity fhrr: c=0.10 N=512 M=20 T=1 recovered 20/20; sanity sparse_bipolar: c=0.10 N=512 M=20 T=1 recovered 20/20; encoder hashes distinct: {'binary_bipolar': '65cb0c0b90f77ab7', 'hrr_real': '1cf525b4e16df2cf', 'fhrr': 'dbf1dcde7de81e59', 'sparse_bipolar': '057a09810364ac94'}",
+  "summary": "cardinality FULL=80 SMOKE=12; crlb N=2048 cliff=0.4627; N=8192 cliff=0.4813; cal binary_bipolar@c=0.1: cos=0.8023 target=0.8000 OK; cal binary_bipolar@c=0.3: cos=0.4024 target=0.4000 OK; cal binary_bipolar@c=0.5: cos=-0.0007 target=0.0000 OK; cal hrr_real@c=0.1: cos=0.7989 target=0.8000 OK; cal hrr_real@c=0.3: cos=0.3955 target=0.4000 OK; cal hrr_real@c=0.5: cos=-0.0013 target=0.0000 OK; cal fhrr@c=0.1: cos=0.8068 target=0.8000 OK; cal fhrr@c=0.3: cos=0.4041 target=0.4000 OK; cal fhrr@c=0.5: cos=0.0036 target=0.0000 OK; cal sparse_bipolar@c=0.1: cos=0.8039 target=0.8000 OK; cal sparse_bipolar@c=0.3: cos=0.3922 target=0.4000 OK; cal sparse_bipolar@c=0.5: cos=0.0000 target=0.0000 OK; sanity binary_bipolar: c=0.10 N=512 M=20 T=1 recovered 20/20; sanity hrr_real: c=0.10 N=512 M=20 T=1 recovered 20/20; sanity fhrr: c=0.10 N=512 M=20 T=1 recovered 20/20; sanity sparse_bipolar: c=0.10 N=512 M=20 T=1 recovered 20/20; encoder hashes distinct: {'binary_bipolar': '65cb0c0b90f77ab7', 'hrr_real': '1cf525b4e16df2cf', 'fhrr': 'dbf1dcde7de81e59', 'sparse_bipolar': '057a09810364ac94'}",
+  "elapsed_s": 0.79,
+  "ts_iso": "2026-06-29T01:31:18Z",
+  "pid": 32752,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_pc_encoder_family_phase_diagram_v1_seed_7,encoders=[binary_bipolar,hrr_real,fhrr,sparse_bipolar],N=[2048,8192],SEED=7,mode=selftest,corruption=[0.20,0.35,0.45,0.475,0.50],iters=[1,5],M=300,beta=8.0,sparse_density=0.05,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=80,expected_n_smoke=12,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_pc_encoder_family_phase_diagram_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}

@@ -1,0 +1,373 @@
+{
+  "phase_map": [
+    {
+      "encoder_family": "binary_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.2,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 1.0,
+      "top1_random": 0.005,
+      "discriminator": 0.995,
+      "calibration_cos_q0_x": 0.5954,
+      "calibration_target_cos": 0.6,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.093,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "binary_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.45,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.955,
+      "top1_random": 0.005,
+      "discriminator": 0.95,
+      "calibration_cos_q0_x": 0.0953,
+      "calibration_target_cos": 0.1,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.047,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "binary_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.5,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.01,
+      "top1_random": 0.0,
+      "discriminator": 0.01,
+      "calibration_cos_q0_x": -0.0023,
+      "calibration_target_cos": 0.0,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.038,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "hrr_real",
+      "N": 2048,
+      "corruption_frac": 0.2,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "calibration_cos_q0_x": 0.5969,
+      "calibration_target_cos": 0.6,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.036,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "hrr_real",
+      "N": 2048,
+      "corruption_frac": 0.45,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.69,
+      "top1_random": 0.0,
+      "discriminator": 0.69,
+      "calibration_cos_q0_x": 0.1044,
+      "calibration_target_cos": 0.1,
+      "verdict_tier_per_point": "MIDDLE_BAND",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.032,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "hrr_real",
+      "N": 2048,
+      "corruption_frac": 0.5,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.01,
+      "top1_random": 0.005,
+      "discriminator": 0.005,
+      "calibration_cos_q0_x": 0.0012,
+      "calibration_target_cos": 0.0,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.034,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "fhrr",
+      "N": 2048,
+      "corruption_frac": 0.2,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 1.0,
+      "top1_random": 0.005,
+      "discriminator": 0.995,
+      "calibration_cos_q0_x": 0.5988,
+      "calibration_target_cos": 0.6,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.037,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "complex64"
+    },
+    {
+      "encoder_family": "fhrr",
+      "N": 2048,
+      "corruption_frac": 0.45,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.93,
+      "top1_random": 0.0,
+      "discriminator": 0.93,
+      "calibration_cos_q0_x": 0.0955,
+      "calibration_target_cos": 0.1,
+      "verdict_tier_per_point": "HARD_PASS",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.073,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "complex64"
+    },
+    {
+      "encoder_family": "fhrr",
+      "N": 2048,
+      "corruption_frac": 0.5,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.005,
+      "top1_random": 0.005,
+      "discriminator": 0.0,
+      "calibration_cos_q0_x": 0.0005,
+      "calibration_target_cos": 0.0,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.049,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "complex64"
+    },
+    {
+      "encoder_family": "sparse_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.2,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 1.0,
+      "top1_random": 0.0,
+      "discriminator": 1.0,
+      "calibration_cos_q0_x": 0.6078,
+      "calibration_target_cos": 0.6,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.066,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "sparse_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.45,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.995,
+      "top1_random": 0.005,
+      "discriminator": 0.99,
+      "calibration_cos_q0_x": 0.098,
+      "calibration_target_cos": 0.1,
+      "verdict_tier_per_point": "SATURATED",
+      "saturation_flag": true,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.169,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    },
+    {
+      "encoder_family": "sparse_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.5,
+      "cleanup_iters": 1,
+      "M_items": 200,
+      "seed": 7,
+      "top1_mechanism": 0.0,
+      "top1_random": 0.005,
+      "discriminator": -0.005,
+      "calibration_cos_q0_x": 0.0,
+      "calibration_target_cos": 0.0,
+      "verdict_tier_per_point": "FLOOR",
+      "saturation_flag": false,
+      "peak_mem_mb": -1.0,
+      "elapsed_per_point_s": 0.063,
+      "crlb_1step_cliff_prediction": 0.464,
+      "dtype_label": "float32"
+    }
+  ],
+  "per_encoder_summary": {
+    "binary_bipolar": {
+      "top1_mean": 0.655,
+      "tier_counts": {
+        "SATURATED": 2,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      },
+      "cliff_locator": {
+        "N2048_T1": 0.5
+      }
+    },
+    "hrr_real": {
+      "top1_mean": 0.5667,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 1,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      },
+      "cliff_locator": {
+        "N2048_T1": 0.5
+      }
+    },
+    "fhrr": {
+      "top1_mean": 0.645,
+      "tier_counts": {
+        "SATURATED": 1,
+        "HARD_PASS": 1,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      },
+      "cliff_locator": {
+        "N2048_T1": 0.5
+      }
+    },
+    "sparse_bipolar": {
+      "top1_mean": 0.665,
+      "tier_counts": {
+        "SATURATED": 2,
+        "HARD_PASS": 0,
+        "MIDDLE_BAND": 0,
+        "FLOOR": 1,
+        "HARD_FAIL": 0
+      },
+      "cliff_locator": {
+        "N2048_T1": 0.5
+      }
+    }
+  },
+  "encoder_tiers": {
+    "binary_bipolar": "COMPETITIVE_ENCODER",
+    "hrr_real": "DOMINATED_ENCODER",
+    "fhrr": "COMPETITIVE_ENCODER",
+    "sparse_bipolar": "COMPETITIVE_ENCODER"
+  },
+  "encoder_pair_distinctness": {
+    "binary_bipolar_vs_hrr_real": true,
+    "binary_bipolar_vs_fhrr": true,
+    "binary_bipolar_vs_sparse_bipolar": true,
+    "hrr_real_vs_fhrr": true,
+    "hrr_real_vs_sparse_bipolar": true,
+    "fhrr_vs_sparse_bipolar": true
+  },
+  "n_pairs_differ": 6,
+  "arms_differ_per_encoder": {
+    "binary_bipolar": {
+      "mechanism_hash": "cb97acdab51648ae2434ff96b2fca004a9f2f85d70b9c746d78000842d080cd7",
+      "random_hash": "4dcde7c090594190ffc14e931f89e80e64839e7a75d4d23a0cb99e107fe54035",
+      "differ": true
+    },
+    "hrr_real": {
+      "mechanism_hash": "a0444c781ef0fa4a0bf474ca67faa1da58c63eb0f9e78387c77be931eb5aeba0",
+      "random_hash": "f6d021013c0689afc712c6356ea8f518ca36658046f6210708a796e839a9b431",
+      "differ": true
+    },
+    "fhrr": {
+      "mechanism_hash": "9d1a526be0b1e5c14a0d108aec2e4d9fd5eda7615748e1189ccae4b9496e9bd6",
+      "random_hash": "c1a3ffa3446308e2b7d0dbd0a8f62d35009b86a14441c184bfc0daa0d8b04de0",
+      "differ": true
+    },
+    "sparse_bipolar": {
+      "mechanism_hash": "ebe15bc9d46315d4bde6543d6b619cc95f6456b7cc8fb06c817840c31d05b1a1",
+      "random_hash": "a3c02a69f77739faa5d181a65056dcf980d6a49368b710bb0fba109805828fb3",
+      "differ": true
+    }
+  },
+  "positive_control_result": {
+    "target": {
+      "encoder_family": "binary_bipolar",
+      "N": 2048,
+      "corruption_frac": 0.2,
+      "cleanup_iters": 1,
+      "top1_floor": 0.8
+    },
+    "measured_top1": 1.0,
+    "pass": true
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 12,
+  "observed_n_units": 12,
+  "tier_counts": {
+    "SATURATED": 6,
+    "HARD_PASS": 1,
+    "MIDDLE_BAND": 1,
+    "FLOOR": 4,
+    "HARD_FAIL": 0
+  },
+  "n_discriminating": 2,
+  "crlb_predictions_1step": {
+    "binary_bipolar_N2048": 0.464,
+    "hrr_real_N2048": 0.464,
+    "fhrr_N2048": 0.464,
+    "sparse_bipolar_N2048": 0.464
+  },
+  "gpu_util_estimate": 0.0,
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "beta": 8.0,
+  "sparse_density": 0.05,
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 12/12 pts; sat=6 hp=1 mb=1 floor=4 fail=0; 4-encoder-distinct; positive_control@binary_bipolar top1=1.000; encoder_tiers={'binary_bipolar': 'COMPETITIVE_ENCODER', 'hrr_real': 'DOMINATED_ENCODER', 'fhrr': 'COMPETITIVE_ENCODER', 'sparse_bipolar': 'COMPETITIVE_ENCODER'}; gpu_util~0.00",
+  "summary": "HARD_PASS_SMOKE: 12/12 pts; sat=6 hp=1 mb=1 floor=4 fail=0; 4-encoder-distinct; positive_control@binary_bipolar top1=1.000; encoder_tiers={'binary_bipolar': 'COMPETITIVE_ENCODER', 'hrr_real': 'DOMINATED_ENCODER', 'fhrr': 'COMPETITIVE_ENCODER', 'sparse_bipolar': 'COMPETITIVE_ENCODER'}; gpu_util~0.00",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + arms_differ(4 encs) + 4-distinct-encoders + positive_control_pass + cliff_observable",
+  "anchor_name": "substrate_pc_encoder_family_phase_diagram_v1_seed_7",
+  "elapsed_s": 0.84,
+  "ts_iso": "2026-06-29T01:31:30Z",
+  "pid": 26184,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_pc_encoder_family_phase_diagram_v1_seed_7,encoders=[binary_bipolar,hrr_real,fhrr,sparse_bipolar],N=[2048,8192],SEED=7,mode=smoke,corruption=[0.20,0.35,0.45,0.475,0.50],iters=[1,5],M=300,beta=8.0,sparse_density=0.05,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=80,expected_n_smoke=12,hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v1_pc_encoder_family_phase_diagram_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_substrate_4_encoder_family_pc",
+  "n_llm_calls": 0
+}
