@@ -839,7 +839,20 @@ def run_one_seed(seed: int, smoke: bool = False, self_test: bool = False) -> int
     started = time.time()
     anchor = "%s_seed_%d" % (ANCHOR_NAME_PREFIX, seed)
     env_name = os.environ.get("HDLAB_EXP_NAME", anchor)
-    out_dir = REPO / "data" / ("exp_" + env_name)
+
+    # METRICS-PATH-DISAMBIGUATION (selftest/smoke/full siblings; per
+    # feedback_metrics_path_disambiguation_selftest_smoke_full_2026-06-27):
+    # self_test MUST write to a sibling _selftest dir, NOT the FULL anchor's
+    # dir. Otherwise queue_add.py's gate (which runs --self-test with
+    # HDLAB_EXP_NAME=<full_anchor>) overwrites the FULL anchor's metrics.json
+    # with a 668-byte SELFTEST_PASS payload, which downstream auditors then
+    # mistake for "the cell ran and produced selftest results" (Skunkworks
+    # caught this 2026-06-28). The smoke path is already disambiguated via
+    # the _smoke suffix injected by queue_add.py; self_test needs the same.
+    if self_test:
+        out_dir = REPO / "data" / ("exp_" + env_name + "_selftest")
+    else:
+        out_dir = REPO / "data" / ("exp_" + env_name)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Reset per-seed instrumentation
@@ -851,7 +864,7 @@ def run_one_seed(seed: int, smoke: bool = False, self_test: bool = False) -> int
     if self_test:
         # _selftest already ran at import; we got here -> PASS
         res = {
-            "anchor_name": anchor,
+            "anchor_name": anchor + "_selftest",
             "verdict": "HARD_PASS",
             "verdict_msg": "SELFTEST_PASS (module-import self-test ran successfully)",
             "summary": "selftest seed=%d PASS" % seed,
@@ -865,7 +878,8 @@ def run_one_seed(seed: int, smoke: bool = False, self_test: bool = False) -> int
         tmp = out_dir / "metrics.json.tmp"
         tmp.write_text(json.dumps(res, indent=2), encoding="utf-8")
         os.replace(str(tmp), str(out_dir / "metrics.json"))
-        print("[selftest seed=%d] PASS" % seed, flush=True)
+        print("[selftest seed=%d] PASS -> %s" % (seed, out_dir / "metrics.json"),
+              flush=True)
         return 0
 
     if smoke:
