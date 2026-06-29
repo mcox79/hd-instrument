@@ -88,7 +88,7 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 | Hypothesis-gen pipeline composition | MM (smoke HP+0.56) | PARTIAL | DMN + SWR-preplay | FULL queued |
 | Parietal MOVABLE-rebind | MM | PARTIAL (FULL re-dispatched) | Parietal cortex | Cliff at n_obj=200 |
 | Parietal RELATIONAL-spatial | MM | PARTIAL | Parietal cortex | Smoke promising |
-| Higher-order TOM 3rd+ | CLOSED-INSTRUMENT-BOUND (v1 MB + v2 HF flat-depth; both witness same 4-location cleanup-attractor ceiling per 2x-drill) | N/A | TPJ recursive | Bound is on TEST INSTRUMENT (4-location ceiling), not substrate capability. v3 with larger N_LOCATIONS + per-level distractor scaling + higher-rank tensor encoder needed for true substrate-capability characterization |
+| Higher-order TOM 3rd+ | MM | PARTIAL (v3 at N_LOCATIONS=32 SURFACES depth signal: TENSOR_RANK2 cliff 0.833→0.400→0.167 across d={1,3,5}; HRR also depth-aware; BOW control FLAT confirms recursion-driven not artifact) | TPJ recursive | Substrate IS depth-aware. v1/v2 flat-depth bound was INSTRUMENT-DRIVEN (4-loc ceiling) and is RESOLVED. MM not chain-grade because pre-reg threshold 0.10 too aggressive vs measured mechanism SNR 0.076; honest STOP at smoke per pre-reg discipline |
 | Self-explanation richness | MM bounded 0.467 | PARTIAL | ACC + lateral PFC | Workable bounded |
 | Long-narrative Q2 coref | CLOSED-negative | N/A | Hippocampal pattern completion | HRR-recency drill 1 + substrate-faithful Lappin-Leass drill 2 both HF; cortex layer with surface-form access required |
 | Barrier 1 hint derivation | CLOSED-negative-mechanism-class-2 | N/A | PFC + cortex | 5 drills HF (cosine + 3 brain-comp + supervised linear); M3 cortex layer load-bearing |
