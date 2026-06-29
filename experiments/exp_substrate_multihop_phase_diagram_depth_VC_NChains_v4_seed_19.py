@@ -19,6 +19,13 @@ import sys
 import traceback
 from pathlib import Path
 
+# PROT-020 routing-gate visibility: the base module (_multihop_phase_diagram_v4_base)
+# imports torch + uses cuda branches (E codebook ~2.1GB on GPU at eff_V_C=16000,
+# torch.Tensor allocations on DEVICE, torch.cuda.utilization sampling per META_RULE_J).
+# Re-state the import here so the wrapper-grep gate (shell + queue_add.py PROT-020)
+# sees torch and correctly permits overnight_queue routing.
+import torch  # noqa: F401  -- load-bearing for routing-gate; actually used in base module
+
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
