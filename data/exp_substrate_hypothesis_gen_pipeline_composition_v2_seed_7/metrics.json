@@ -1,0 +1,12 @@
+{
+  "anchor_name": "substrate_hypothesis_gen_pipeline_composition_v2_seed_7",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "SELFTEST_OK substrate_hypothesis_gen_pipeline_composition_v2_seed_7 (N=256 V=64 N_PROB=4 phase=4)",
+  "summary": "SELFTEST_OK substrate_hypothesis_gen_pipeline_composition_v2_seed_7 (N=256 V=64 N_PROB=4 phase=4)",
+  "elapsed_s": 0.1,
+  "ts_iso": "2026-06-29T08:45:21Z",
+  "pid": 38616,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_hypothesis_gen_pipeline_composition_v2_seed_7,N=256,V=64,problems=4,seed=7,mode=smoke,M_GRID=3,5,K_GRID=5,10,phase_points=4,HP_v2_lift>=0.05,HP_comp_lift>=0.15,HP_pipe_lo=0.30,HP_pipe_hi=0.95,HP_random_max=0.05,HP_oracle_min=0.85,cos_hit=0.70,attr_temp=2.0,attr_steps=4,expected_n=96",
+  "_hardening_marker": "v2_hypgen_pipeline_phase_fill_seed_chunk"
+}
