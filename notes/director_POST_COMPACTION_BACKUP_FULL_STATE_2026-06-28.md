@@ -109,8 +109,44 @@ Not pursuing. Substrate is memory + composition + retrieval + audit device; buil
 3. **WM K-cliff v3 GPU phase diagram** — K_cliff(B)=256·B perfect cross-seed scaling; commit 7274bafb (+1 CERT)
 4. **Ultrametric clustering phase diagram** — 3-seed phase regime structure; honest-downward; commit 7274bafb (+1 CERT)
 5. **Cross-modal binding visual+auditory** — Stage 3 UNTESTED → HIGH characterized; commit 09c40db3 (+1 CERT)
+6. **ANCHOR 4 Pareto-AUC v2 (LATE SESSION 2026-06-28 ~21:45)** — Stage 2 time-decay-eviction chain-grade phase-characterization; 2x-drill mechanism-class diversion (binary threshold → continuous Pareto-dominance); 3/3 HP all seeds; 0 RD wins / 70 strict TD wins; commits 1e8c7d94 + atomize script; cert_ledger +1 → **631 total**. **First 2x-drill chain-grade revival from Skunkworks 5-cell recommendation batch.**
 
-**CERT trajectory this session:** 490 → 492 per ledger (+2 confirmed atomizations; +1-3 more pending Skunkworks VETs below).
+**CERT trajectory:** 490 → 492 (BACKUP mid-session) → 631 actual (canonical Store provenance_quality count; cert_ledger.jsonl is transaction log not count). Late-session +1 from ANCHOR 4 Pareto v2.
+
+## LATE-SESSION FINDINGS (2026-06-28 EVENING → 2026-06-29 OVERNIGHT)
+
+- **TOM 3rd+ resolved instrument-bound:** v3 at N_LOCATIONS=32 SURFACES depth signal (TENSOR_RANK2 cliff 0.833→0.400→0.167 across d={1,3,5}; HRR also depth-aware; BOW control FLAT confirms recursion-driven). Substrate IS depth-aware; v1/v2 flat-depth was test-instrument ceiling. Pre-reg threshold 0.10 too aggressive vs measured 0.076 → MM (not chain-grade) but capability genuine.
+- **Spaced-rep NREM brain-reality variant CLOSED-negative:** smoke 3-way collapse at matched-alpha. All schedule variants (brain-spaced / all-at-once / uniform-repeat) produce identical noisy recall. Cell-author identified hippo readout fidelity as the floor.
+- **HIPPO CAPACITY RESCUE FINDING (reframes Stage 2 NREM closure):** at N_h=8192/M=2048 substrate runs at α_h=0.014 — well sub-capacity — yet STANDARD readout still 0.226 vs DIRECT 0.989. **The bottleneck is NOT capacity (Hopfield/Willshaw); it's structural to sparse-DG + sign-readout.** Cortex Hebbian writer HEALTHY at chain-grade scale. Rescue must target READ path. 2-step Hopfield cleanup CLOSED-negative (collapses to zero-signal fixed point). Bottleneck-class diagnostic dispatched to discriminate H1 (sparse-overlap) vs H2 (sign-quantization) vs H3 (L2-magnitude-loss).
+- **Schema v4 mechanism-class diversion (4/5 smoke CHAIN_GRADE_MULTI):** primitive substitution (HARDMAX = cosine-nearest-MEAN centroid) shows centroid pooling is noise-SUPPRESSING at FLOOR (not noise-amplifying as Skunkworks predicted). 5-seed FULL blocked on `_core.py` module remote-pull; hd_metrics_sync auto-pull pending.
+- **Encoder family PC smoke 3/3 HP — HRR-real DOMINATED** at cliff edge (~25pp behind bipolar/FHRR/sparse). FULL queued on GPU behind multihop v4 chain (positions 4-5-6).
+- **Encoder family seqbind PHANTOM-FULL caught:** "completed" landings were selftest-only (run_mode=selftest leaking into runner env); seed_19 META_RULE_AF violation (HRR hash = FHRR hash). Needs re-dispatch with HDLAB_RUN_MODE=full enforced.
+- **TASK_VECTOR v3 (n_trials=50 + pooled cliff):** smoke MB; cell-author still in flight; mechanism-class diversion (precision densification, not metric change) being tested.
+- **ANCHOR 3 v2 FAMILY_OVERLAP:** smoke HP at full N=1024 (d_v2=0.470 vs 0.15 threshold). **Caught load-bearing v1 metric-bias bug:** v1's `recall_via_lookup` counted argmax-in-COLLAPSED-cluster as hit — metric was MASKING failure. v2 introduces `recall_truth_family` (planted-family-aligned). FULL dispatch via Orchestrator.
+
+## OVERNIGHT AUTONOMOUS PROGRAM (USER away until morning)
+
+**Two crons armed:**
+- `3855c94d` 10-min cadence per-queue idle tracker via `tools/runner_status.py --remote`; dispatches when queue empty
+- `20dff7b1` 15-min backup cadence: landings check + atomization + BACKUP edits
+
+**Spawn fleet (13+ in flight as of 02:13 UTC):**
+- Cell-authors: hippo bottleneck diagnostic / Schema v4 / TASK_VECTOR v3 / Lock-in v3 / cleanup family PC / routing family WM / schema family / binding operation family
+- Orchestrators: Schema v4 dispatch (blocked on _core push) / ANCHOR 3 v2 dispatch / encoder PC FULL dispatch
+- Skunkworks: Capacity_multibank v2 atomization (likely +1 cert on return)
+- Multihop v4 GPU 3-seed running on overnight_queue
+
+**Queue depths (as of 02:13 UTC):**
+- overnight_queue: 1 running + 4 pending (6h backlog; includes encoder family PC + multihop v4)
+- remote_cpu_queue: 1 running + 1 pending (1h)
+- local_cpu_queue: 1 zombie + 8 pending (12h; cpu_runner_local PID 5776 stuck on lock_in_amp_v2_seed_7; queue blocked until USER admin clear OR Orchestrator orphan-entry cleanup)
+
+**24hr expected outcomes:**
+- 6+ chain-grade promotion candidates land (Capacity_multibank v2 + ANCHOR 3 v2 FAMILY_OVERLAP + Schema v4 + ANCHOR 4 Pareto v2 already promoted)
+- Component sweeps complete with comparative encoder/cleanup/routing/schema/binding-op data
+- Stage 2 NREM bottleneck-class diagnostic returns; informs whether sparse-DG / sign-readout / L2-magnitude is the structural blocker
+- 5-6 mechanism-class 2x-drill cells return with revival paths
+- CERT trajectory likely +3 to +6 (current 631 → 634-637 by morning)
 
 ---
 
