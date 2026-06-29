@@ -1,0 +1,12 @@
+{
+  "anchor_name": "substrate_multihop_phase_diagram_depth_VC_NChains_v5_seed_7_selftest",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (module-import self-test ran successfully)",
+  "summary": "selftest seed=7 PASS",
+  "elapsed_s": 0.02,
+  "ts_iso": "2026-06-29T07:08:10Z",
+  "run_mode": "self_test",
+  "config_version": "ANCHOR=substrate_multihop_phase_diagram_depth_VC_NChains_v5_seed_7,N=8192,V_C=4000,densities=[0.05, 0.2, 0.5, 1.0, 2.0],depths=[5, 10, 15],arms=['HEBBIAN_W', 'DIRECT_ATTENTION', 'CHANCE'],V_PRED=10,max_W_depth=15,N_TEST_CHAINS=200,mode=self_test,gpu_floor=50.0,n_full=15,n_smoke=4,pareto_thresh=0.050",
+  "seed": 7,
+  "n_seeds": 1
+}
