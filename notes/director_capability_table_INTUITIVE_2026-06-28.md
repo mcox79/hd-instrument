@@ -2,6 +2,7 @@
 **Date:** 2026-06-28 EOD
 **Audience:** Director, USER
 **Goal:** What the substrate can and can't do today, what would improve each capability, and for each load-bearing gap — what the brain does, what we've tried, why it failed. Stages 1-3 only (Stage 4 = language equivalence, deferred).
+**Cert count:** **630** chain-grade atoms (authoritative source: Store `provenance_quality == CERT_CHAIN_GRADE`).
 
 The substrate is an **observable memory + composition + retrieval + audit device**. Think of it as a very large, structured filing cabinet with built-in indexing, error-correction, and fuzzy-search — not as a language model.
 
@@ -203,4 +204,4 @@ Five things the substrate genuinely cannot do (positive characterization closure
 | LOW | Continual CRISPR HIGH-coverage | Slab-partition variant queued |
 | LOW | Intent classifier n=1000 | Phase fill |
 
-**Cert count: 494 chain-grade certifications today.**
+**Cert count: 630 chain-grade atoms today** (Store provenance_quality canonical).

@@ -32,7 +32,7 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 
 **Stage progression (load-bearing; do not skip):** Stage 1 (foundational primitives) → Stage 2 (meta-primitives + optimization) → Stage 3 (capability primitives) → Stage 4 (LM equivalence; deferred).
 
-**Substrate state:** chain-grade portfolio across all stages; cert_ledger at **494** chain-grade certifications (positive-delta-summed from cert_ledger.jsonl; the authoritative count). The +2 this cycle came from WM K-cliff v3 + ultrametric clustering chain-grade promotions. Pending atomizations could push 495+ on next Skunkworks batch.
+**Substrate state:** chain-grade portfolio across all stages; **CERT count = 630** chain-grade atoms (authoritative source: PartitionedStore atoms with `metadata.provenance_quality == 'CERT_CHAIN_GRADE'`, via `tools/cert_ledger_writer.py::_cert_count`). Note: cert_ledger.jsonl is a transaction log, not the canonical count — sum of cert_increment_delta>0 = 494, but many chain-grade atoms predate delta-tracking or are promoted via cert_relabel with delta=0. The +2 this cycle is real; absolute count moved 628 → 630.
 
 ---
 
