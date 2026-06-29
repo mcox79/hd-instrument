@@ -1,0 +1,174 @@
+{
+  "anchor_name": "substrate_time_decay_eviction_phase_diagram_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: phase diagram discriminating at >= 50% but not all 3 regimes populated at >= 20%. hp_checks=[healthy=False,too_agg=True,too_perm=True,discr=True]. n_points=4 td_ws_ret_mean=0.797 (min=0.548, max=1.000); td_clut_mean=0.165; td_comp_mean=+0.631; d_comp_mean=+0.436; n_healthy(ws>=0.95 & clut<=0.20 & d>=0.10)=0/4 (need >= 1); n_too_aggressive(ws<=0.80)=2/4 (need >= 1); n_too_permissive(clut>=0.30)=1/4 (need >= 1); n_discriminating(|d_comp|>0.05)=4/4 (need >= 2)",
+  "summary": "n_seeds=1 axes(decay,load)=[15, 90]x[1.0, 5.0] expected_n_units=4 mode=smoke n_atoms=200 n_days=180",
+  "elapsed_s": 0.05186295509338379,
+  "config_version": "ANCHOR=substrate_time_decay_eviction_phase_diagram_v1,DECAY_AXIS=15-90,LOAD_AXIS=1.0-5.0,N_ATOMS=200,N_DAYS=180,RECENT_DAYS=30,SEEDS=13,RUN_MODE=smoke,EXPECTED_N_UNITS=4",
+  "DECAY_RATE_DAYS_AXIS": [
+    15,
+    90
+  ],
+  "CAPACITY_LOAD_RATIO_AXIS": [
+    1.0,
+    5.0
+  ],
+  "expected_n_units": 4,
+  "n_seeds": 1,
+  "seeds": [
+    13
+  ],
+  "recent_query_days": 30,
+  "query_decay_tau": 60.0,
+  "run_mode": "smoke",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 13,
+      "elapsed_s": 0.001745462417602539,
+      "n_grid_points": 4,
+      "grid_points": [
+        {
+          "decay_rate_days": 15,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 200,
+          "n_days": 180,
+          "n_working_set_atoms": 138,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.6376811594202898,
+            "clutter_fraction": 0.0,
+            "composite": 0.6376811594202898,
+            "n_alive": 88,
+            "n_evicted": 112,
+            "eviction_fraction": 0.56
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.4420289855072464,
+            "clutter_fraction": 0.3068181818181818,
+            "composite": 0.13521080368906457,
+            "n_alive": 88,
+            "n_evicted": 112,
+            "eviction_fraction": 0.56
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.31,
+            "composite": 0.69,
+            "n_alive": 200,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.1956521739130434,
+          "td_minus_random_clutter_fraction": -0.3068181818181818,
+          "td_minus_random_composite": 0.5024703557312252,
+          "wall_s": 0.001745462417602539
+        },
+        {
+          "decay_rate_days": 15,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 200,
+          "n_days": 180,
+          "n_working_set_atoms": 93,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.5483870967741935,
+            "clutter_fraction": 0.0,
+            "composite": 0.5483870967741935,
+            "n_alive": 51,
+            "n_evicted": 149,
+            "eviction_fraction": 0.745
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.26881720430107525,
+            "clutter_fraction": 0.5098039215686274,
+            "composite": -0.24098671726755216,
+            "n_alive": 51,
+            "n_evicted": 149,
+            "eviction_fraction": 0.745
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.535,
+            "composite": 0.46499999999999997,
+            "n_alive": 200,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.27956989247311825,
+          "td_minus_random_clutter_fraction": -0.5098039215686274,
+          "td_minus_random_composite": 0.7893738140417457,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 90,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 200,
+          "n_days": 180,
+          "n_working_set_atoms": 138,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.2774869109947644,
+            "composite": 0.7225130890052356,
+            "n_alive": 191,
+            "n_evicted": 9,
+            "eviction_fraction": 0.045
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.9492753623188406,
+            "clutter_fraction": 0.31413612565445026,
+            "composite": 0.6351392366643903,
+            "n_alive": 191,
+            "n_evicted": 9,
+            "eviction_fraction": 0.045
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.31,
+            "composite": 0.69,
+            "n_alive": 200,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.050724637681159424,
+          "td_minus_random_clutter_fraction": -0.03664921465968585,
+          "td_minus_random_composite": 0.08737385234084527,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 90,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 200,
+          "n_days": 180,
+          "n_working_set_atoms": 93,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.3841059602649007,
+            "composite": 0.6158940397350994,
+            "n_alive": 151,
+            "n_evicted": 49,
+            "eviction_fraction": 0.245
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.7741935483870968,
+            "clutter_fraction": 0.5231788079470199,
+            "composite": 0.2510147404400769,
+            "n_alive": 151,
+            "n_evicted": 49,
+            "eviction_fraction": 0.245
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.535,
+            "composite": 0.46499999999999997,
+            "n_alive": 200,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.22580645161290325,
+          "td_minus_random_clutter_fraction": -0.1390728476821192,
+          "td_minus_random_composite": 0.3648792992950225,
+          "wall_s": 0.0
+        }
+      ]
+    }
+  ]
+}

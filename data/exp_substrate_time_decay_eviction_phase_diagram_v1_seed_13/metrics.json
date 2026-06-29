@@ -1,0 +1,1021 @@
+{
+  "anchor_name": "substrate_time_decay_eviction_phase_diagram_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS phase-map: TIME_DECAY_EVICTION phase diagram populated in all 3 regimes (healthy / too-aggressive / too-permissive) at >= 20% of grid points each AND discriminating vs RANDOM at >= 50% overall. Phase coverage MID -> HIGH achieved. n_points=28 td_ws_ret_mean=0.829 (min=0.238, max=1.000); td_clut_mean=0.182; td_comp_mean=+0.648; d_comp_mean=+0.428; n_healthy(ws>=0.95 & clut<=0.20 & d>=0.10)=6/28 (need >= 6); n_too_aggressive(ws<=0.80)=8/28 (need >= 6); n_too_permissive(clut>=0.30)=8/28 (need >= 6); n_discriminating(|d_comp|>0.05)=21/28 (need >= 14)",
+  "summary": "n_seeds=1 axes(decay,load)=[7, 15, 30, 60, 90, 180, 365]x[0.5, 1.0, 2.0, 5.0] expected_n_units=28 mode=full n_atoms=1000 n_days=365",
+  "elapsed_s": 0.2057948112487793,
+  "config_version": "ANCHOR=substrate_time_decay_eviction_phase_diagram_v1,DECAY_AXIS=7-15-30-60-90-180-365,LOAD_AXIS=0.5-1.0-2.0-5.0,N_ATOMS=1000,N_DAYS=365,RECENT_DAYS=30,SEEDS=13,RUN_MODE=full,EXPECTED_N_UNITS=28",
+  "DECAY_RATE_DAYS_AXIS": [
+    7,
+    15,
+    30,
+    60,
+    90,
+    180,
+    365
+  ],
+  "CAPACITY_LOAD_RATIO_AXIS": [
+    0.5,
+    1.0,
+    2.0,
+    5.0
+  ],
+  "expected_n_units": 28,
+  "n_seeds": 1,
+  "seeds": [
+    13
+  ],
+  "recent_query_days": 30,
+  "query_decay_tau": 60.0,
+  "run_mode": "full",
+  "n_llm_calls_total": 0,
+  "per_seed": [
+    {
+      "seed": 13,
+      "elapsed_s": 0.146989107131958,
+      "n_grid_points": 28,
+      "grid_points": [
+        {
+          "decay_rate_days": 7,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.3032258064516129,
+            "clutter_fraction": 0.0,
+            "composite": 0.3032258064516129,
+            "n_alive": 235,
+            "n_evicted": 765,
+            "eviction_fraction": 0.765
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.23483870967741935,
+            "clutter_fraction": 0.225531914893617,
+            "composite": 0.009306794783802336,
+            "n_alive": 235,
+            "n_evicted": 765,
+            "eviction_fraction": 0.765
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.06838709677419355,
+          "td_minus_random_clutter_fraction": -0.225531914893617,
+          "td_minus_random_composite": 0.29391901166781054,
+          "wall_s": 0.00599980354309082
+        },
+        {
+          "decay_rate_days": 7,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.26375404530744334,
+            "clutter_fraction": 0.0,
+            "composite": 0.26375404530744334,
+            "n_alive": 163,
+            "n_evicted": 837,
+            "eviction_fraction": 0.837
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.15857605177993528,
+            "clutter_fraction": 0.3987730061349693,
+            "composite": -0.24019695435503402,
+            "n_alive": 163,
+            "n_evicted": 837,
+            "eviction_fraction": 0.837
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.10517799352750806,
+          "td_minus_random_clutter_fraction": -0.3987730061349693,
+          "td_minus_random_composite": 0.5039509996624774,
+          "wall_s": 0.0066890716552734375
+        },
+        {
+          "decay_rate_days": 7,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.25769230769230766,
+            "clutter_fraction": 0.0,
+            "composite": 0.25769230769230766,
+            "n_alive": 134,
+            "n_evicted": 866,
+            "eviction_fraction": 0.866
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.11730769230769231,
+            "clutter_fraction": 0.5447761194029851,
+            "composite": -0.42746842709529276,
+            "n_alive": 134,
+            "n_evicted": 866,
+            "eviction_fraction": 0.866
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.14038461538461536,
+          "td_minus_random_clutter_fraction": -0.5447761194029851,
+          "td_minus_random_composite": 0.6851607347876004,
+          "wall_s": 0.005001544952392578
+        },
+        {
+          "decay_rate_days": 7,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.23787528868360278,
+            "clutter_fraction": 0.0,
+            "composite": 0.23787528868360278,
+            "n_alive": 103,
+            "n_evicted": 897,
+            "eviction_fraction": 0.897
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.09237875288683603,
+            "clutter_fraction": 0.6116504854368932,
+            "composite": -0.5192717325500571,
+            "n_alive": 103,
+            "n_evicted": 897,
+            "eviction_fraction": 0.897
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.14549653579676675,
+          "td_minus_random_clutter_fraction": -0.6116504854368932,
+          "td_minus_random_composite": 0.7571470212336598,
+          "wall_s": 0.004000425338745117
+        },
+        {
+          "decay_rate_days": 15,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.5935483870967742,
+            "clutter_fraction": 0.0,
+            "composite": 0.5935483870967742,
+            "n_alive": 460,
+            "n_evicted": 540,
+            "eviction_fraction": 0.54
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.45161290322580644,
+            "clutter_fraction": 0.2391304347826087,
+            "composite": 0.21248246844319774,
+            "n_alive": 460,
+            "n_evicted": 540,
+            "eviction_fraction": 0.54
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.14193548387096772,
+          "td_minus_random_clutter_fraction": -0.2391304347826087,
+          "td_minus_random_composite": 0.3810659186535764,
+          "wall_s": 0.0050640106201171875
+        },
+        {
+          "decay_rate_days": 15,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.5388349514563107,
+            "clutter_fraction": 0.0,
+            "composite": 0.5388349514563107,
+            "n_alive": 333,
+            "n_evicted": 667,
+            "eviction_fraction": 0.667
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.33495145631067963,
+            "clutter_fraction": 0.3783783783783784,
+            "composite": -0.04342692206769877,
+            "n_alive": 333,
+            "n_evicted": 667,
+            "eviction_fraction": 0.667
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.20388349514563103,
+          "td_minus_random_clutter_fraction": -0.3783783783783784,
+          "td_minus_random_composite": 0.5822618735240095,
+          "wall_s": 0.005752086639404297
+        },
+        {
+          "decay_rate_days": 15,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.5269230769230769,
+            "clutter_fraction": 0.0,
+            "composite": 0.5269230769230769,
+            "n_alive": 274,
+            "n_evicted": 726,
+            "eviction_fraction": 0.726
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.25769230769230766,
+            "clutter_fraction": 0.5109489051094891,
+            "composite": -0.25325659741718143,
+            "n_alive": 274,
+            "n_evicted": 726,
+            "eviction_fraction": 0.726
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.2692307692307693,
+          "td_minus_random_clutter_fraction": -0.5109489051094891,
+          "td_minus_random_composite": 0.7801796743402584,
+          "wall_s": 0.004006862640380859
+        },
+        {
+          "decay_rate_days": 15,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 0.5034642032332564,
+            "clutter_fraction": 0.0,
+            "composite": 0.5034642032332564,
+            "n_alive": 218,
+            "n_evicted": 782,
+            "eviction_fraction": 0.782
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.21016166281755197,
+            "clutter_fraction": 0.5825688073394495,
+            "composite": -0.3724071445218975,
+            "n_alive": 218,
+            "n_evicted": 782,
+            "eviction_fraction": 0.782
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.29330254041570436,
+          "td_minus_random_clutter_fraction": -0.5825688073394495,
+          "td_minus_random_composite": 0.8758713477551539,
+          "wall_s": 0.0040073394775390625
+        },
+        {
+          "decay_rate_days": 30,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.0,
+            "composite": 1.0,
+            "n_alive": 775,
+            "n_evicted": 225,
+            "eviction_fraction": 0.225
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.7767741935483871,
+            "clutter_fraction": 0.2232258064516129,
+            "composite": 0.5535483870967741,
+            "n_alive": 775,
+            "n_evicted": 225,
+            "eviction_fraction": 0.225
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.22322580645161294,
+          "td_minus_random_clutter_fraction": -0.2232258064516129,
+          "td_minus_random_composite": 0.4464516129032259,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 30,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.0,
+            "composite": 1.0,
+            "n_alive": 618,
+            "n_evicted": 382,
+            "eviction_fraction": 0.382
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.616504854368932,
+            "clutter_fraction": 0.38349514563106796,
+            "composite": 0.23300970873786403,
+            "n_alive": 618,
+            "n_evicted": 382,
+            "eviction_fraction": 0.382
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.383495145631068,
+          "td_minus_random_clutter_fraction": -0.38349514563106796,
+          "td_minus_random_composite": 0.766990291262136,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 30,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.0,
+            "composite": 1.0,
+            "n_alive": 520,
+            "n_evicted": 480,
+            "eviction_fraction": 0.48
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.49038461538461536,
+            "clutter_fraction": 0.5096153846153846,
+            "composite": -0.019230769230769218,
+            "n_alive": 520,
+            "n_evicted": 480,
+            "eviction_fraction": 0.48
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.5096153846153846,
+          "td_minus_random_clutter_fraction": -0.5096153846153846,
+          "td_minus_random_composite": 1.0192307692307692,
+          "wall_s": 0.01610541343688965
+        },
+        {
+          "decay_rate_days": 30,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.0,
+            "composite": 1.0,
+            "n_alive": 433,
+            "n_evicted": 567,
+            "eviction_fraction": 0.567
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.42725173210161665,
+            "clutter_fraction": 0.5727482678983834,
+            "composite": -0.14549653579676675,
+            "n_alive": 433,
+            "n_evicted": 567,
+            "eviction_fraction": 0.567
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.5727482678983833,
+          "td_minus_random_clutter_fraction": -0.5727482678983834,
+          "td_minus_random_composite": 1.1454965357967668,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 60,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.16576964477933262,
+            "composite": 0.8342303552206674,
+            "n_alive": 929,
+            "n_evicted": 71,
+            "eviction_fraction": 0.071
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.9354838709677419,
+            "clutter_fraction": 0.21959095801937567,
+            "composite": 0.7158929129483662,
+            "n_alive": 929,
+            "n_evicted": 71,
+            "eviction_fraction": 0.071
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.06451612903225812,
+          "td_minus_random_clutter_fraction": -0.05382131324004305,
+          "td_minus_random_composite": 0.11833744227230114,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 60,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.20667522464698332,
+            "composite": 0.7933247753530167,
+            "n_alive": 779,
+            "n_evicted": 221,
+            "eviction_fraction": 0.221
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.7766990291262136,
+            "clutter_fraction": 0.38382541720154045,
+            "composite": 0.3928736119246731,
+            "n_alive": 779,
+            "n_evicted": 221,
+            "eviction_fraction": 0.221
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.22330097087378642,
+          "td_minus_random_clutter_fraction": -0.17715019255455713,
+          "td_minus_random_composite": 0.4004511634283436,
+          "wall_s": 0.016679048538208008
+        },
+        {
+          "decay_rate_days": 60,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.2085235920852359,
+            "composite": 0.791476407914764,
+            "n_alive": 657,
+            "n_evicted": 343,
+            "eviction_fraction": 0.343
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.6384615384615384,
+            "clutter_fraction": 0.4946727549467275,
+            "composite": 0.1437887835148109,
+            "n_alive": 657,
+            "n_evicted": 343,
+            "eviction_fraction": 0.343
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.3615384615384616,
+          "td_minus_random_clutter_fraction": -0.2861491628614916,
+          "td_minus_random_composite": 0.6476876243999532,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 60,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.19516728624535315,
+            "composite": 0.8048327137546468,
+            "n_alive": 538,
+            "n_evicted": 462,
+            "eviction_fraction": 0.462
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.5080831408775982,
+            "clutter_fraction": 0.5910780669144982,
+            "composite": -0.08299492603689995,
+            "n_alive": 538,
+            "n_evicted": 462,
+            "eviction_fraction": 0.462
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.4919168591224018,
+          "td_minus_random_clutter_fraction": -0.395910780669145,
+          "td_minus_random_composite": 0.8878276397915468,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 90,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.2131979695431472,
+            "composite": 0.7868020304568528,
+            "n_alive": 985,
+            "n_evicted": 15,
+            "eviction_fraction": 0.015
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.9858064516129033,
+            "clutter_fraction": 0.22436548223350253,
+            "composite": 0.7614409693794008,
+            "n_alive": 985,
+            "n_evicted": 15,
+            "eviction_fraction": 0.015
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.014193548387096744,
+          "td_minus_random_clutter_fraction": -0.011167512690355319,
+          "td_minus_random_composite": 0.025361061077452063,
+          "wall_s": 0.014711141586303711
+        },
+        {
+          "decay_rate_days": 90,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.2929061784897025,
+            "composite": 0.7070938215102975,
+            "n_alive": 874,
+            "n_evicted": 126,
+            "eviction_fraction": 0.126
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.8754045307443366,
+            "clutter_fraction": 0.38100686498855835,
+            "composite": 0.4943976657557782,
+            "n_alive": 874,
+            "n_evicted": 126,
+            "eviction_fraction": 0.126
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.12459546925566345,
+          "td_minus_random_clutter_fraction": -0.08810068649885583,
+          "td_minus_random_composite": 0.21269615575451933,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 90,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.32903225806451614,
+            "composite": 0.6709677419354838,
+            "n_alive": 775,
+            "n_evicted": 225,
+            "eviction_fraction": 0.225
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.7692307692307693,
+            "clutter_fraction": 0.4838709677419355,
+            "composite": 0.2853598014888338,
+            "n_alive": 775,
+            "n_evicted": 225,
+            "eviction_fraction": 0.225
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.23076923076923073,
+          "td_minus_random_clutter_fraction": -0.15483870967741936,
+          "td_minus_random_composite": 0.38560794044665003,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 90,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.3213166144200627,
+            "composite": 0.6786833855799372,
+            "n_alive": 638,
+            "n_evicted": 362,
+            "eviction_fraction": 0.362
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.6235565819861432,
+            "clutter_fraction": 0.5768025078369906,
+            "composite": 0.04675407414915256,
+            "n_alive": 638,
+            "n_evicted": 362,
+            "eviction_fraction": 0.362
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.37644341801385683,
+          "td_minus_random_clutter_fraction": -0.2554858934169279,
+          "td_minus_random_composite": 0.6319293114307847,
+          "wall_s": 0.01575636863708496
+        },
+        {
+          "decay_rate_days": 180,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.0,
+          "td_minus_random_clutter_fraction": 0.0,
+          "td_minus_random_composite": 0.0,
+          "wall_s": 0.005020856857299805
+        },
+        {
+          "decay_rate_days": 180,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.37003058103975534,
+            "composite": 0.6299694189602447,
+            "n_alive": 981,
+            "n_evicted": 19,
+            "eviction_fraction": 0.019
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.9805825242718447,
+            "clutter_fraction": 0.382262996941896,
+            "composite": 0.5983195273299486,
+            "n_alive": 981,
+            "n_evicted": 19,
+            "eviction_fraction": 0.019
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.01941747572815533,
+          "td_minus_random_clutter_fraction": -0.012232415902140692,
+          "td_minus_random_composite": 0.03164989163029608,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 180,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.4402583423035522,
+            "composite": 0.5597416576964478,
+            "n_alive": 929,
+            "n_evicted": 71,
+            "eviction_fraction": 0.071
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.926923076923077,
+            "clutter_fraction": 0.48116254036598494,
+            "composite": 0.445760536557092,
+            "n_alive": 929,
+            "n_evicted": 71,
+            "eviction_fraction": 0.071
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.07307692307692304,
+          "td_minus_random_clutter_fraction": -0.04090419806243273,
+          "td_minus_random_composite": 0.11398112113935577,
+          "wall_s": 0.0
+        },
+        {
+          "decay_rate_days": 180,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.4634448574969021,
+            "composite": 0.5365551425030979,
+            "n_alive": 807,
+            "n_evicted": 193,
+            "eviction_fraction": 0.193
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 0.8036951501154734,
+            "clutter_fraction": 0.5687732342007435,
+            "composite": 0.23492191591472988,
+            "n_alive": 807,
+            "n_evicted": 193,
+            "eviction_fraction": 0.193
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.19630484988452657,
+          "td_minus_random_clutter_fraction": -0.10532837670384143,
+          "td_minus_random_composite": 0.301633226588368,
+          "wall_s": 0.016439199447631836
+        },
+        {
+          "decay_rate_days": 365,
+          "capacity_load_ratio": 0.5,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 775,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.225,
+            "composite": 0.775,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.0,
+          "td_minus_random_clutter_fraction": 0.0,
+          "td_minus_random_composite": 0.0,
+          "wall_s": 0.006102800369262695
+        },
+        {
+          "decay_rate_days": 365,
+          "capacity_load_ratio": 1.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 618,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.382,
+            "composite": 0.618,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.0,
+          "td_minus_random_clutter_fraction": 0.0,
+          "td_minus_random_composite": 0.0,
+          "wall_s": 0.004996538162231445
+        },
+        {
+          "decay_rate_days": 365,
+          "capacity_load_ratio": 2.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 520,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.48,
+            "composite": 0.52,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.0,
+          "td_minus_random_clutter_fraction": 0.0,
+          "td_minus_random_composite": 0.0,
+          "wall_s": 0.006556987762451172
+        },
+        {
+          "decay_rate_days": 365,
+          "capacity_load_ratio": 5.0,
+          "n_atoms": 1000,
+          "n_days": 365,
+          "n_working_set_atoms": 433,
+          "ARM_TIME_DECAY_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_RANDOM_EVICTION": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "ARM_NO_EVICTION_BASELINE": {
+            "working_set_retention": 1.0,
+            "clutter_fraction": 0.567,
+            "composite": 0.43300000000000005,
+            "n_alive": 1000,
+            "n_evicted": 0,
+            "eviction_fraction": 0.0
+          },
+          "td_minus_random_ws_retention": 0.0,
+          "td_minus_random_clutter_fraction": 0.0,
+          "td_minus_random_composite": 0.0,
+          "wall_s": 0.004099607467651367
+        }
+      ]
+    }
+  ]
+}
