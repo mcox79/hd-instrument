@@ -131,6 +131,16 @@ class AtomKind(enum.Enum):
     CHAIN_GRADE_CAPABILITY_BREAK = "chain_grade_capability_break"  # Result-class atom for a chain-grade
                                                  # capability barrier break (e.g. Barrier 1 multi-hop break);
                                                  # added 2026-06-28 by skunkworks (orphan-kind recovery).
+    CHAIN_GRADE_PHASE_CHARACTERIZATION = "chain_grade_phase_characterization"  # Chain-grade phase-characterization
+                                                 # atom (e.g. ANCHOR 4 Pareto v2 / ANCHOR 3 v2 / Lock-in v2 /
+                                                 # Schema family / Capacity_multibank v2 chain-grade phase
+                                                 # characterizations); added 2026-06-29 by skunkworks (Store-load
+                                                 # gate fail-closed recovery; 7 commits queued behind it).
+    PHASE_CHARACTERIZATION_CHAIN_GRADE = "phase_characterization_chain_grade"  # Naming variant of
+                                                 # CHAIN_GRADE_PHASE_CHARACTERIZATION (1 atom written with reversed
+                                                 # word order); registered for Store-load compatibility. New writers
+                                                 # should prefer CHAIN_GRADE_PHASE_CHARACTERIZATION; added 2026-06-29
+                                                 # by skunkworks (orphan-kind recovery).
     DISCIPLINE_RULE = "discipline_rule"          # META rule atomization (parallel to METHODOLOGY_RULE);
                                                  # added 2026-06-28 by skunkworks (orphan-kind recovery).
     DISCIPLINE_RULE_AMENDMENT = "discipline_rule_amendment"  # Amendment patch to an existing DISCIPLINE_RULE;
