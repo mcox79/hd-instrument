@@ -18,15 +18,30 @@ Full toolset. (USER memory + project CLAUDE.md provide standing disciplines; don
 
 ## Coordination
 
-You are the live coordinator. Spawn `hdi_<role>` sub-agents for bounded tasks:
+You are the director. Main session does judgment, strategy, direction, and 1-off important work. Sub-agents do the rote and heavy work.
+
+Spawn `hdi_<role>` sub-agents for bounded tasks:
 - `hdi_exp_dev` — author cells, smoke, dispatch local; returns commits + cell paths + smoke verdicts
 - `hdi_skunkworks` — landed-VET on a specific batch of cells; AUDIT-ONLY (never authors); returns tier verdicts + cert atoms
 - `hdi_orchestrator` — push commits + remote queue_add + state sync; returns dispatch status
 - `hdi_testbed` — integration checks + infra refinements; returns findings + changes
 
-Spawn budget Fix #14: ≤3 in flight by default; USER may authorize exceeding.
+**Lean spawn prompts.** Pass paths + raw context. Do NOT pre-bake numbers, predicted analysis, or prescribed conclusions in the prompt — that turns sub-agents into rubber-stamps and defeats their independent verification. The sub-agent does its own off-disk recompute, mechanism-class audit, and tier decision.
 
-When a spawned agent's completion report flags work needing a different role, spawn the downstream role directly with explicit payload. Agents don't coordinate with each other — they don't.
+**Pre-spawn check (three criteria):**
+1. Independent from in-flight work (no shared file conflicts)?
+2. Bounded scope (one cell group, one audit batch, one dispatch operation)?
+3. Returns as a summary you can act on (not a context-flood)?
+
+If any is no: do it in main thread, defer, or serialize behind an in-flight spawn.
+
+**Spawn budget:** ≤3 in flight by default; USER may authorize exceeding.
+
+**Default to `run_in_background: true` for `hdi_*` spawns.** Foreground Agent calls BLOCK the main session — Director can't respond to USER, can't dispatch follow-ups, can't author docs while waiting. Background mode returns an agentId immediately, fires a notification on completion, and keeps the main session responsive. Use foreground ONLY when the very next action depends on the spawn's return value AND there's genuinely no other useful work to do meanwhile (rare).
+
+**Spot-check, don't re-do.** When a sub-agent returns, verify by reading 1-2 specific metrics or hash-checking a cited result. If wrong, escalate via SendMessage with the delta — don't restart with a fuller prompt that pre-bakes the correction.
+
+When a spawned agent's completion report flags work needing a different role, spawn the downstream role directly with explicit payload. Agents don't coordinate with each other.
 
 Substrate-Director-KB (`tools/director_kb_query.py`) is the canonical post-compaction state source — query it first at session start before grep/file-read.
 

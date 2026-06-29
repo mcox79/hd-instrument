@@ -50,26 +50,44 @@ python tools/register_session.py <role> --hash auto_<XXX>
 
 ### STEP 2 (research role): agent-spawn is the operating model
 
-Research is team lead. Spawn `hdi_<role>` sub-agents for ALL bounded work via the Agent tool.
+Research is the director. Main session does judgment, strategy, direction, and 1-off important work. Sub-agents do the rote and heavy work — cell authoring, smoke iteration, landed-VET, atomization, dispatch, infra refinements.
 
-**NOT ALLOWED in main thread:**
-- Editing `experiments/*.py` cell files
-- Running cell smoke via Bash
-- Writing pre-reg files for cells you're dispatching (cell-author owns pre-reg)
-- Iterating on cell implementation when smoke fails (hdi_exp_dev's job)
-- Direct SSH dispatch of cells to remote_cpu_queue / overnight_queue (use hdi_orchestrator)
-- Landed-VET / atomization in main thread (hdi_skunkworks owns; AUDIT-ONLY discipline)
-- Capacity-stress drills / cell debugging in main thread
+Spawn `hdi_<role>` sub-agents via the Agent tool. Available roles: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_skunkworks` (landed-VET + atomization; AUDIT-ONLY), `hdi_orchestrator` (push + remote queue_add + state sync), `hdi_testbed` (infra refinements + 2nd-witness on cross-cutting changes).
 
-**ALLOWED in main thread:**
+**Main thread (director's work):**
+- Strategy + goal direction + thinking through the process
+- 1-off important docs (BACKUP, memory rules, plan updates)
 - Reading metrics.json / verdict_msg (verification)
 - Running observability tools (`tools/runner_status.py`, `tools/peek_arm_metrics.py`, dashboard reads)
 - Reading queue state
-- Authoring memory rules / BACKUP doc updates
 - Pulling/pushing git commits via Bash (status_log, BACKUP)
 - Dispatching agents (Agent tool with `hdi_<role>`)
 
-**Verification:** if you see yourself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the violation moment — STOP and spawn `hdi_exp_dev` instead.
+**Sub-agent work (delegate, don't do in main thread):**
+- Editing `experiments/*.py` cell files
+- Running cell smoke via Bash
+- Writing pre-reg files for cells being dispatched (cell-author owns)
+- Iterating on cell implementation when smoke fails (`hdi_exp_dev`)
+- SSH dispatch of cells to `remote_cpu_queue` / `overnight_queue` (`hdi_orchestrator`)
+- Landed-VET / atomization (`hdi_skunkworks` AUDIT-ONLY)
+- Capacity-stress drills / cell debugging
+
+**Lean spawn prompts:** pass paths + raw context. Do NOT pre-bake numbers, predicted analysis, or prescribed conclusions in the prompt — that turns sub-agents into rubber-stamps and defeats independent verification. The sub-agent does its own off-disk recompute, mechanism-class audit, and tier decision.
+
+**Pre-spawn check (before every spawn, three criteria):**
+1. Is this task independent from work already in flight (no shared file conflicts)?
+2. Is the scope bounded (one cell group, one audit batch, one dispatch operation)?
+3. Will the result come back as a summary the director can act on (not a context-flood)?
+
+If any answer is no: do it in main thread, defer, or serialize behind an in-flight spawn.
+
+**Spawn budget:** ≤3 agents in flight by default. USER may authorize exceeding.
+
+**Default to `run_in_background: true` for `hdi_*` spawns.** Foreground Agent calls BLOCK the main session — Director can't respond to USER, can't dispatch follow-up work, can't author docs. Background mode (`run_in_background: true`) returns an agentId, fires a notification on completion, and keeps the main session responsive throughout. Use foreground only when the very next action depends on the spawn's return value AND there's no other useful work to do meanwhile (rare).
+
+**Spot-check, don't re-do:** when a sub-agent returns, verify by reading 1-2 specific metrics or hash-checking a cited result. If wrong, escalate via SendMessage with the delta — don't restart with a fuller prompt.
+
+**Violation tripwire:** if you see yourself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the moment — STOP and spawn `hdi_exp_dev` instead.
 
 ## Monitoring & cross-session event coordination (ALL SESSIONS READ THIS)
 
