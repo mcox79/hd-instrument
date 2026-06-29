@@ -32,7 +32,7 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 
 **Stage progression (load-bearing; do not skip):** Stage 1 (foundational primitives) → Stage 2 (meta-primitives + optimization) → Stage 3 (capability primitives) → Stage 4 (LM equivalence; deferred).
 
-**Substrate state:** chain-grade portfolio across all stages; cert_ledger at 492 chain-grade certifications as of this BACKUP (was 490 at session start; +2 this cycle from WM K-cliff v3 + ultrametric clustering chain-grade promotions). Pending atomizations could push 493+ on next Skunkworks batch.
+**Substrate state:** chain-grade portfolio across all stages; cert_ledger at **494** chain-grade certifications (positive-delta-summed from cert_ledger.jsonl; the authoritative count). The +2 this cycle came from WM K-cliff v3 + ultrametric clustering chain-grade promotions. Pending atomizations could push 495+ on next Skunkworks batch.
 
 ---
 
@@ -55,6 +55,7 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 | Partition routing M=10M | CG ✓ | HIGH (routing_acc=0.97) | Cortex + thalamus context-gating | Workhorse |
 | Intent classifier n=100 | CG ✓ | MID | Sensory cortex categorization | Stable |
 | Capacity multi-bank α-K | CG ✓ | MID (GPU 3-seed MB; cliff observable but phase fill incomplete) | None direct | Just landed this session |
+| Action-at-any-position lever (p1_v2) | CG ✓ | MID | None direct | p1_action_at_any_position_phase_diagram_v1 + p1_v2_LLM_class_v1 (2 CG entries 2026-06-22) |
 
 ### Stage 2 — Meta-Primitives + Optimization (~78% mature)
 
@@ -69,6 +70,7 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 | ANCHOR 3 coarse-grain | CG ✓ | MID | Cortex chunking | Stable |
 | ANCHOR 4 time-decay eviction | CG ✓ | MID | Synaptic decay | Stable |
 | Schema exemplar-Bayes | CG ✓ | MID → HIGH-eligible (3-seed MM + capacity-stress v2 smoke MB; FULL queued) | vmPFC schema | Capacity-stress promotion path filed this session |
+| Compose-freq routing v5 | CG ✓ | MID (DEFINITIVE) | None direct | substrate_compose_freq_routing_v5 DEFINITIVE (CG 2026-06-25); first Stage 2 architectural definitive |
 
 ### Stage 3 — Capability Primitives (~55% banked; mixed outcomes)
 
@@ -78,15 +80,15 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 | Compositional generation lift +0.724 | CG ✓ | MID | Cortex hierarchical | Stable |
 | Schema exemplar-Bayes (ANCHOR 3) | CG ✓ | MID | vmPFC schema | Stable |
 | TASK_VECTOR HRR ICL K-cliff | CG ✓ | MID (3 seeds in flight; seed_13 FULL just HP) | None direct | K-cliff at K=100; promotion path live |
-| TOM Sally-Anne 2nd-order | CG ✓ | PARTIAL | TPJ + mPFC | Higher-order MB |
+| TOM Sally-Anne 2nd-order | MM | PARTIAL | TPJ + mPFC | Single MM smoke (nested_hrr_v1); cert_class=mechanism_characterization; no chain-grade evidence |
 | CF regret vmPFC (Cell 1) | CG ✓ | PARTIAL | vmPFC | R²=0.987 |
-| CF latency delta-stack (Cell 2) | CG ✓ | PARTIAL | None direct | 5.47x speedup |
+| CF latency delta-stack (Cell 2) | MM | PARTIAL | None direct | Single MM smoke; 5.47x speedup observed but only mechanism-characterization (CF regret vmPFC Cell 1 separately CG) |
 | Cross-modal binding visual+auditory | CG ✓ | HIGH (3-seed HP; TPJ-analog characterized) | TPJ multisensory | Stage 3 UNTESTED → HIGH this session |
-| Sequence binding for narrative Q3 | CG ✓ | PARTIAL | Hippocampal time cells | Stable |
+| Sequence binding for narrative Q3 | MM | PARTIAL | Hippocampal time cells | Single MM single-seed (narrative_Q3 temporal-via-sequence-replay); Stage 1 sequence binding K-cliff primitive separately CG |
 | Hypothesis-gen pipeline composition | MM (smoke HP+0.56) | PARTIAL | DMN + SWR-preplay | FULL queued |
 | Parietal MOVABLE-rebind | MM | PARTIAL (FULL re-dispatched) | Parietal cortex | Cliff at n_obj=200 |
 | Parietal RELATIONAL-spatial | MM | PARTIAL | Parietal cortex | Smoke promising |
-| Higher-order TOM 3rd+ | CLOSED-negative (v2 reframe smoke HF; flat-depth-profile persistent) | N/A | TPJ recursive | Substrate doesn't surface depth dynamics with current encoding |
+| Higher-order TOM 3rd+ | CLOSED-INSTRUMENT-BOUND (v1 MB + v2 HF flat-depth; both witness same 4-location cleanup-attractor ceiling per 2x-drill) | N/A | TPJ recursive | Bound is on TEST INSTRUMENT (4-location ceiling), not substrate capability. v3 with larger N_LOCATIONS + per-level distractor scaling + higher-rank tensor encoder needed for true substrate-capability characterization |
 | Self-explanation richness | MM bounded 0.467 | PARTIAL | ACC + lateral PFC | Workable bounded |
 | Long-narrative Q2 coref | CLOSED-negative | N/A | Hippocampal pattern completion | HRR-recency drill 1 + substrate-faithful Lappin-Leass drill 2 both HF; cortex layer with surface-form access required |
 | Barrier 1 hint derivation | CLOSED-negative-mechanism-class-2 | N/A | PFC + cortex | 5 drills HF (cosine + 3 brain-comp + supervised linear); M3 cortex layer load-bearing |
