@@ -369,23 +369,30 @@ def eval_geometry_arm(geometry_family: str, M: int, P: int, n_dim: int,
         torch.cuda.empty_cache()
         torch.cuda.reset_peak_memory_stats()
 
-    # GROUND-TRUTH WORLD: random_uniform anchors define partition layout
-    # (every geometry has the SAME GT layout; the discriminator measures
-    # how WELL each geometry's routing function recovers this layout from
-    # noisy cues).
-    builder_gt = _GEOMETRY_REGISTRY["random_uniform"]
-    gt_anchors, gt_assign_fn, _ = builder_gt(seed_offset + 9999, M, P, n_dim)
+    # Build THIS geometry's anchors + assigner FIRST
+    builder = _GEOMETRY_REGISTRY[geometry_family]
+    anchors, assign_fn, extra = builder(seed_offset, M, P, n_dim)
 
-    # Sample N_PROBE item partition-IDs uniformly across M (storage-free)
-    g_probe = _make_gen(seed_offset + 31)
-    # Each probe-item's "true partition" is drawn uniformly in [0, P).
+    # Sample N_PROBE item partition-IDs uniformly across [0, P)
     # (This simulates 'M items, each assigned to a random partition'.)
+    g_probe = _make_gen(seed_offset + 31)
     item_true_partition = torch.randint(0, P, (n_probe,),
                                           generator=g_probe, device=DEVICE)
 
-    # Derive noisy CUE from each item's true-partition anchor.
-    # cue = CUE_COS * anchor + sqrt(1 - CUE_COS**2) * noise_bipolar
-    cue_base = gt_anchors[item_true_partition].float()  # (n_probe, N)
+    # 2026-06-30 fix (exp_dev outer-axis spawn): the v1 implementation derived
+    # cue_base from a GT-WORLD anchor table (independent random_uniform with
+    # different seed), causing every geometry's routing to be measured against
+    # a layout it never built. Random_uniform itself collapsed to ~chance because
+    # its anchors differ from GT-world anchors (different seed). The semantically
+    # correct discriminator is "noise-robustness of routing": does the geometry
+    # recover its OWN clean routing on a noisy cue derived from ITS own anchors?
+    # This is fair across geometries because each is judged on its own structure.
+    #
+    # For hash_based_LSH (no anchor-based notion of "the cue for partition k"):
+    # use the geometry's own anchors as the cue source. LSH's anchors are random,
+    # so its routing is by construction noise-brittle (the discriminator IS the
+    # noise-robustness; that's the question we want to answer).
+    cue_base = anchors[item_true_partition].float()  # (n_probe, N) -- THIS geometry's anchors
     cue_noise_scale = math.sqrt(max(0.0, 1.0 - CUE_COS * CUE_COS))
     g_noise = _make_gen(seed_offset + 37)
     noise_raw = torch.empty((n_probe, n_dim), device=DEVICE, dtype=torch.float32)
@@ -393,21 +400,10 @@ def eval_geometry_arm(geometry_family: str, M: int, P: int, n_dim: int,
     noise_bp = bipolar_quantize_t(noise_raw)
     cues = CUE_COS * cue_base + cue_noise_scale * noise_bp
 
-    # Build THIS geometry's anchors + assigner
-    builder = _GEOMETRY_REGISTRY[geometry_family]
-    anchors, assign_fn, extra = builder(seed_offset, M, P, n_dim)
-
-    # For learned_supervised and hash_based_LSH, the GEOMETRY's anchors
-    # differ from GT anchors. We need a FAIR ground truth: the GT is what
-    # the GEOMETRY's OWN assign_fn would say for a NOISE-FREE cue at the
-    # true-partition anchor. (I.e. ground-truth is the geometry's own
-    # behavior on noiseless inputs.)
-    # This is the standard 'routing-recovery under noise' discriminator:
-    #   accuracy = how often geometry's routing on NOISY cue matches
-    #              geometry's routing on CLEAN cue.
-    # Equivalent to 'noise robustness of the routing function'.
-    clean_cues = cue_base  # (n_probe, N) -- noiseless anchor-aligned cue
-    # The GT under THIS geometry: what does THIS assign_fn say at clean?
+    # GT under THIS geometry: what does THIS assign_fn say at clean (noise-free)?
+    # For most geometries clean routing recovers item_true_partition exactly,
+    # but we don't assume it -- we let the geometry's own clean-cue decision be GT.
+    clean_cues = cue_base  # (n_probe, N) -- noiseless THIS-geometry anchor cue
     geom_true = assign_fn(clean_cues)
 
     # WARM-UP (timing fairness): one call before the timed call
@@ -423,17 +419,19 @@ def eval_geometry_arm(geometry_family: str, M: int, P: int, n_dim: int,
     latency_total_s = time.time() - t_lat
     latency_us_per_query = (latency_total_s / max(n_probe, 1)) * 1e6
 
-    # Accuracy: pred matches geometry's own GT (clean-cue routing)
-    route_acc = float((pred == geom_true).float().mean().item())
+    # Load-bearing accuracy (2026-06-30 fix): pred matches geometry's clean-cue routing.
+    # This is the NOISE-ROBUSTNESS-OF-ROUTING discriminator -- fair across geometries
+    # because each is judged on its OWN clean decision (not a foreign GT-world).
+    route_acc_self = float((pred == geom_true).float().mean().item())
+
+    # Clean-cue sanity (must be ~1.0 for anchor-based geometries; lower for LSH
+    # because LSH's clean-cue argmax over independently-built anchors is noise-y by
+    # construction -- LSH routes via planes, not via anchor-argmax).
+    clean_sanity = float((geom_true == item_true_partition).float().mean().item())
 
     # Anchor-distinctness fingerprint (META_RULE_AF)
     anchors_hash = hashlib.sha256(
         anchors.cpu().numpy().tobytes()).hexdigest()[:16]
-
-    # Also compute "absolute" accuracy: pred matches the GT-world partition
-    # (i.e. the random_uniform GT layout). This tells us if the geometry can
-    # RECOVER an external ground truth, not just its own internal one.
-    abs_route_acc = float((pred == item_true_partition).float().mean().item())
 
     if _CUDA_OK:
         peak_mem_mb = torch.cuda.max_memory_allocated() / 1e6
@@ -442,22 +440,21 @@ def eval_geometry_arm(geometry_family: str, M: int, P: int, n_dim: int,
 
     elapsed = time.time() - t0
 
-    # Per-point tier (use absolute route_acc -- the harder metric;
-    # geometry-self route_acc would be near-1.0 for ALL geometries by design)
+    # Per-point tier on route_acc_self (noise-robustness; load-bearing)
     floor_thr = HP_FLOOR_ROUTE_ACC_FACTOR / max(P, 1)
-    if abs_route_acc >= Q_SUSPECT_SATURATION:
+    if route_acc_self >= Q_SUSPECT_SATURATION:
         tier = "SATURATED"
-    elif abs_route_acc >= HP_HARD_PASS_ROUTE_ACC:
+    elif route_acc_self >= HP_HARD_PASS_ROUTE_ACC:
         tier = "HARD_PASS"
-    elif abs_route_acc >= HP_MIDDLE_BAND_ROUTE_ACC:
+    elif route_acc_self >= HP_MIDDLE_BAND_ROUTE_ACC:
         tier = "MIDDLE_BAND"
-    elif abs_route_acc <= floor_thr:
+    elif route_acc_self <= floor_thr:
         tier = "FLOOR"
     else:
         tier = "HARD_FAIL"
 
     # Memory cleanup
-    del gt_anchors, anchors, cue_base, noise_raw, noise_bp, cues, clean_cues
+    del anchors, cue_base, noise_raw, noise_bp, cues, clean_cues
     del item_true_partition, geom_true, pred
     if _CUDA_OK:
         torch.cuda.empty_cache()
@@ -468,12 +465,13 @@ def eval_geometry_arm(geometry_family: str, M: int, P: int, n_dim: int,
         "P": P,
         "N": n_dim,
         "n_probe": n_probe,
-        "route_acc": round(abs_route_acc, 5),          # vs GT-world (load-bearing)
-        "route_acc_self": round(route_acc, 5),         # vs own clean (sanity)
+        "route_acc": round(route_acc_self, 5),         # noise-robustness (load-bearing)
+        "route_acc_self": round(route_acc_self, 5),    # alias kept for backwards compat
+        "clean_sanity": round(clean_sanity, 5),        # ~1.0 anchor-based; ~chance for LSH
         "latency_us_per_query": round(latency_us_per_query, 3),
         "latency_total_s": round(latency_total_s, 4),
         "verdict_tier_per_point": tier,
-        "saturation_flag": abs_route_acc >= Q_SUSPECT_SATURATION,
+        "saturation_flag": route_acc_self >= Q_SUSPECT_SATURATION,
         "anchors_hash": anchors_hash,
         "peak_mem_mb": round(peak_mem_mb, 1),
         "elapsed_per_point_s": round(elapsed, 3),
