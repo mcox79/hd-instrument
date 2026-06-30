@@ -170,6 +170,22 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
       echo "[queue-add] AUTO-SCP _base helper -> ${BASE_HELPER}"
       scp -o ConnectTimeout=10 "${BASE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
     fi
+    # Pattern 4: strip leading exp_ from base when looking up helpers (5th recurrence fix; 2026-06-30).
+    # Convention seen in cleanup_family_wm_kcliff_v1: wrapper exp_substrate_X_seed_N.py imports
+    # _substrate_X_core (no exp_ prefix on helper). Try the stripped-exp_ variant of patterns 2+3.
+    if [[ "${CORE_BASE}" =~ ^exp_(.+)$ ]]; then
+      STRIPPED_BASE="${BASH_REMATCH[1]}"
+      CORE_HELPER_STRIPPED="${SCRIPT_DIR_LOCAL}/_${STRIPPED_BASE}_core.py"
+      if [[ -f "${CORE_HELPER_STRIPPED}" ]]; then
+        echo "[queue-add] AUTO-SCP _core helper (exp_-stripped) -> ${CORE_HELPER_STRIPPED}"
+        scp -o ConnectTimeout=10 "${CORE_HELPER_STRIPPED}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      fi
+      BASE_HELPER_STRIPPED="${SCRIPT_DIR_LOCAL}/_${STRIPPED_BASE}_base.py"
+      if [[ -f "${BASE_HELPER_STRIPPED}" ]]; then
+        echo "[queue-add] AUTO-SCP _base helper (exp_-stripped) -> ${BASE_HELPER_STRIPPED}"
+        scp -o ConnectTimeout=10 "${BASE_HELPER_STRIPPED}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      fi
+    fi
   fi
 
   # SSH+PowerShell payload. Single-quote bash outer per [[feedback-ssh-powershell-quoting]].
