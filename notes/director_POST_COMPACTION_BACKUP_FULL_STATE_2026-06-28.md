@@ -32,7 +32,20 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 
 **Stage progression (load-bearing; do not skip):** Stage 1 (foundational primitives) → Stage 2 (meta-primitives + optimization) → Stage 3 (capability primitives) → Stage 4 (LM equivalence; deferred).
 
-**Substrate state:** chain-grade portfolio across all stages; **CERT count = 630** chain-grade atoms (authoritative source: PartitionedStore atoms with `metadata.provenance_quality == 'CERT_CHAIN_GRADE'`, via `tools/cert_ledger_writer.py::_cert_count`). Note: cert_ledger.jsonl is a transaction log, not the canonical count — sum of cert_increment_delta>0 = 494, but many chain-grade atoms predate delta-tracking or are promoted via cert_relabel with delta=0. The +2 this cycle is real; absolute count moved 628 → 630.
+**Substrate state (CANONICAL, 2026-06-30 ~09:45 UTC):**
+- Live Store CERT count: **632** (provenance_quality == CERT_CHAIN_GRADE via cert_ledger_writer self-test)
+- cert_increment_delta sum: **499** (ledger transaction log; 132 atoms predate delta-tracking)
+- Session-start baseline: 625 / 492
+- **7 chain-grade promotions tonight** (2026-06-28 23:00 → 2026-06-29 05:24 UTC):
+  1. 23:07 — PC v2.2 corruption cliff dense grid 3-seed GPU phase-characterization
+  2. 23:09 — PC corruption cliff N-scaling law FINDING (cliff_N=0.40+0.0065·log2(N); R²=0.97)
+  3. 02:01 — ANCHOR 4 Pareto-AUC v2 (TD dominates RD 70/70; Stage 2 time-decay)
+  4. 02:14 — Capacity multi-bank v2 (cliff_per_B identical cross-seed; Stage 1)
+  5. 03:28 — ANCHOR 3 v2 FAMILY_OVERLAP (over-compression boundary visible; caught v1 metric-bias bug)
+  6. 05:09 — Lock-in v2 (physics band confirmed; Stage 2)
+  7. 05:24 — Schema family (regime mapping; HYBRID dominates EB default in 10/12 regimes)
+
+ANCHOR 4 encoder family attempt was honestly REJECTED by Skunkworks re-VET (raw-float encoder collision at FULL; only seed_7 actually re-ran; not a chain-grade promotion). Earlier Director framings of "630→635 (+5)" were WRONG — actual is 625→632 (+7).
 
 ---
 
@@ -229,9 +242,98 @@ Startup docs (CLAUDE.md, .claude/agents/*.md) cleaned of archaeology; rules stat
 
 ---
 
-## GOING FORWARD
+## FORWARD PLAN (2026-06-30 ~09:50 UTC; updated for compaction survival)
 
-**Immediate post-compaction priorities:**
+### CORTEX (M3 Phase 1) STATUS
+- `substrate_router/` module exists on branch `m3-phase1-router-scaffolding`: api.py (20KB) + router.py (7.6KB) + smoke test (8KB). Last touched 2026-06-28 21:11.
+- M1.1 milestone landed: `SubstrateRouterAPI` class wrapping intent classifier + KG lookup + refuse-gate; `route()` function with `RouterDecision`/`RouteOutcome` dataclasses; 20/20 smoke against hand-crafted 21-entity KG + 42-example corpus.
+- **NOT advanced past M1.1.** No M1.2 (full corpus + ingested FB15k-237), no M1.3 (multi-hop), no M1.4 (schema), no M1.5 (refuse-gate integration), no M1.6 (200-query cert benchmark).
+- **Cortex is NOT serving anything.** Pure stub on a feature branch.
+- **M3 milestone target:** glass-box conversational AI 12-18mo. Critical-path for M3 success.
+
+### NEXT-WAVE ACTIONS (priority order)
+
+**(1) Process in-flight Skunkworks** (just dispatched fresh after earlier batches lost):
+- a686b057 — Schema v4 5-seed VET (potential +1 chain-grade → 8 total this session)
+- a009a44a — Backlog 6-cell VET (Multihop v4 HN + TASK_VECTOR v3 MM + Binding op HN + Lock-in v3 MM + Cleanup family PC MM + Refuse-gate adaptivity MM)
+- Expected: ~24 atom rows added (mostly delta=0; potentially 1-2 chain-grade)
+
+**(2) Queue cells to fill remote runners (NOW READY — restarted with auto-restart schtasks)**
+- ANCHOR 4 encoder family v2 (Skunkworks rec: N≥4096 + n_atoms≥1000 + 5th distinct encoder + recency-decode floor)
+- TASK_VECTOR v4 cell-author shipped earlier but had no wrapper — needs cell wrapper + re-dispatch (was attempted; bounced at pre-dispatch gate)
+- Routing geometry family v1 (smoke caught at SELFTEST_FAIL; cell-author needs to fix learned_supervised geometry)
+- Hypothesis-gen v2 (smoke HF; cell-author iteration needed)
+- Parietal MOVABLE v2 (only seed_7 + seed_13 done; need seed_19)
+- Multihop v5 STORAGE_DENSITY (smoke ran via Orchestrator's SCP fix; full not yet)
+
+**(3) Stage 2 NREM rescue chain** (load-bearing for cortex_hippo CLOSED-neg):
+- Hippo bottleneck-class v2 with H_OTHER candidates:
+  - ARM_NO_HEBBIAN_CROSSTERM (eliminates outer-product cross-term contribution)
+  - ARM_NO_L2_NORM (skip L2-normalize on read-back)
+  - ARM_CLEAN_VALS_TO_CORTEX (clean vals written to W_c; tests cortex write-saturation)
+- If any candidate fires (closeFrac >= 0.40), it IS the rescue path
+- If all 3 fail: deeper rescue (BCM-gain / non-Hopfield substitution / etc.)
+
+**(4) Schema family follow-up** (HYBRID dominates EB default; methodology-load-bearing):
+- Cell to operationalize H2 regime-mapping finding
+- Substrate runtime picks family from regime hint via cross-seed lookup table
+- OR switch default to HYBRID + retire EXEMPLAR_BAYES as default
+
+**(5) Continue systematic component-sweep program** (~50% done):
+- Encoder family ✓ (PC + seqbind + WM + ANCHOR4; one phantom-FULL each; sparse-bipolar regime-conditional per META_RULE_AO)
+- Cleanup family ✓ for PC (MB convergent); needs sequence binding + WM
+- Routing family ✓ for WM (smoke HP cross-seed; FULL VET pending); needs routing for KG/multihop
+- Schema family ✓ (chain-grade promotion)
+- Binding op family ✓ for PC (3/3 HF; HRR-conv + FHRR competitive)
+- Refuse-gate adaptivity ✓ (low_disc expected MM)
+- Time-decay family (ANCHOR 4) ✓ (Pareto v2 chain-grade)
+- **Missing:** SEQUENCE encoding family (positional shift vs time-cells vs gated) / Order-binding (cyclic shift vs permutation) / Storage update rules (Hebbian vs SoftHebb vs Willshaw vs autoassociative)
+
+**(6) M3 cortex layer advancement** (BIG: this is the M3 critical path):
+- M1.2: extract `hdlab/intent_classifier.py` primitive (Hebbian `(cat_codebook).T @ question_hds / N_DIM` from cell `exp_a1_substrate_intent_classifier_v1.py`)
+- M1.2: extract `hdlab/kg_traversal.load_from_fb15k237_dump(path)` convenience
+- M1.3: real chain-grade corpus (5000 examples) routing test
+- M1.4: multi-hop integration
+- M1.5: schema retrieve integration
+- M1.6: 200-query end-to-end cert benchmark with substrate-vs-LLM fallback breakdown
+
+**(7) Infrastructure cleanup queue:**
+- Fix queue_add.sh helper-module SCP bug (3rd recurrence; _core.py / _base.py modules not auto-shipped with cells)
+- Fix `revive_cpu_runner_via_schtasks.ps1` (wrong launcher path)
+- Ship `register_runner_schtasks.ps1` canonical idempotent registrar
+- Prune watchdog ping scope (research session only; not all 5)
+- Phase-3 cert_ledger.jsonl canonical-count tool (resolve live=632 vs ledger-sum=499 drift)
+- Dashboard relative-time fix ("1h ago" was showing for 5.5h-old landings)
+- Patch exp_dev.md §16 enforcement (3 phantom-FULL recurrences despite §16 existing)
+
+### STRATEGIC DIRECTION
+
+**Substrate is memory + composition + retrieval + audit device.** Cortex layer required for M3 milestone (glass-box conversational AI). 4 of 5 Stage 3 architectural gaps need external cortex (long-narrative coref / Barrier 1 hint / hierarchical planning / 4-primitive composition). Stage 2 NREM closure is structural (H_OTHER class; not capacity bound).
+
+**Current substrate maturity (by stage):**
+- Stage 1 ~88% (PC + cleanup + sequence binding + WM all chain-grade; capacity multibank + action-at-any-position chain-grade)
+- Stage 2 ~80% (TWO_TIER + ULTRA + ANCHOR 1-4 + Schema family + Lock-in v2 all chain-grade; NREM replay BLOCKED at chain-grade scale; cortex_hippo handoff CLOSED-negative at M=8192)
+- Stage 3 ~55% (multihop chain-grade; CF regret + cross-modal chain-grade; many primitives MM; 5 CLOSED-negative requiring cortex layer)
+- Stage 4 DEFERRED
+
+**24-hour expected outcomes:**
+- +1-2 more chain-grade promotions when in-flight Skunkworks return (Schema v4 likely)
+- ~3-4 more component sweeps to land
+- Hippo bottleneck-class v2 (H_OTHER candidate testing)
+- Schema family Stage 2 follow-up cell
+- Cortex M1.2 first step (extract intent_classifier as hdlab/ primitive) — main-thread work
+
+### KNOWN INFRA WATCH-LIST
+
+- Runners auto-restart every 5 min via schtasks — survives idle-exit + SSH disconnect
+- queue_idle_watch Monitor (bm7gnvqhu) emits QUEUE_IDLE on threshold-cross (5/15/30/60/120 min escalation)
+- hd_metrics_sync silent-crash pattern — manual mitigation: `rm data/.metrics_sync/.lock` + `schtasks /run /tn hd_metrics_sync`
+- AtomKind enum: must register new `kind` values in schema.py BEFORE writing atoms (commit fdf4c714 fixed 3 known unregistered kinds; future writers must check)
+- Phantom-FULL pattern (cells write run_mode=selftest to FULL anchor dir): 3 recurrences; cell-author §16 verification rule exists but not consistently applied; consider hard-fail at Skunkworks input
+
+---
+
+## ORIGINAL POST-COMPACTION PRIORITIES (kept for reference)
 
 1. **Spawn Skunkworks for 3 pending VETs** (PC v2.2 + lock_in_amp + capacity_multibank) — likely +2-3 CERT
 2. **Process TASK_VECTOR v1 FULL** when 3 seeds land
