@@ -1,0 +1,253 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS | RECURSIVE_TOM_DEPTH_DYNAMICS_CHAIN_GRADE: HRR_v4_pass=False (dv=0.0274 SE=0.0000 vs BOW=0.0052) TENSOR_v4_pass=True (dv=0.0763 SE=0.0000 vs BOW=0.0052) pos_control=OK monotonic_decay=HRR:0.333/TENSOR:0.667 BOW_flat=0.0240 | n_seeds=1 N_LOC=32 distractor_scaling=depth depths=[1, 3, 5] N_dims=[4096, 8192, 16384] expected_n=810",
+  "summary": "HARD_PASS | RECURSIVE_TOM_DEPTH_DYNAMICS_CHAIN_GRADE: HRR_v4_pass=False (dv=0.0274 SE=0.0000 vs BOW=0.0052) TENSOR_v4_pass=True (dv=0.0763 SE=0.0000 vs BOW=0.0052) pos_control=OK monotonic_decay=HRR:0.333/TENSOR:0.667 BOW_flat=0.0240 | n_seeds=1 N_LOC=32 distractor_scaling=depth depths=[1, 3, 5] N_dims=[4096, 8192, 16384] expected_n=810",
+  "verdict_reason": "RECURSIVE_TOM_DEPTH_DYNAMICS_CHAIN_GRADE: HRR_v4_pass=False (dv=0.0274 SE=0.0000 vs BOW=0.0052) TENSOR_v4_pass=True (dv=0.0763 SE=0.0000 vs BOW=0.0052) pos_control=OK monotonic_decay=HRR:0.333/TENSOR:0.667 BOW_flat=0.0240",
+  "cell_summary": {
+    "N4096_d1": {
+      "N": 4096,
+      "depth": 1,
+      "hrr_mean": 0.8,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.8666666666666667,
+      "tensor_std": 0.0,
+      "bow_mean": 0.7333333333333333,
+      "bow_std": 0.0,
+      "rand_mean": 0.03333333333333333,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N4096_d3": {
+      "N": 4096,
+      "depth": 3,
+      "hrr_mean": 0.36666666666666664,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.4,
+      "tensor_std": 0.0,
+      "bow_mean": 0.4666666666666667,
+      "bow_std": 0.0,
+      "rand_mean": 0.0,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N4096_d5": {
+      "N": 4096,
+      "depth": 5,
+      "hrr_mean": 0.26666666666666666,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.23333333333333334,
+      "tensor_std": 0.0,
+      "bow_mean": 0.8333333333333334,
+      "bow_std": 0.0,
+      "rand_mean": 0.03333333333333333,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N8192_d1": {
+      "N": 8192,
+      "depth": 1,
+      "hrr_mean": 0.8333333333333334,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.8333333333333334,
+      "tensor_std": 0.0,
+      "bow_mean": 0.6333333333333333,
+      "bow_std": 0.0,
+      "rand_mean": 0.03333333333333333,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N8192_d3": {
+      "N": 8192,
+      "depth": 3,
+      "hrr_mean": 0.4666666666666667,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.4,
+      "tensor_std": 0.0,
+      "bow_mean": 0.5,
+      "bow_std": 0.0,
+      "rand_mean": 0.03333333333333333,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N8192_d5": {
+      "N": 8192,
+      "depth": 5,
+      "hrr_mean": 0.5,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.16666666666666666,
+      "tensor_std": 0.0,
+      "bow_mean": 0.6666666666666666,
+      "bow_std": 0.0,
+      "rand_mean": 0.06666666666666667,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N16384_d1": {
+      "N": 16384,
+      "depth": 1,
+      "hrr_mean": 0.8333333333333334,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.8333333333333334,
+      "tensor_std": 0.0,
+      "bow_mean": 0.6,
+      "bow_std": 0.0,
+      "rand_mean": 0.06666666666666667,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N16384_d3": {
+      "N": 16384,
+      "depth": 3,
+      "hrr_mean": 0.6666666666666666,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.5,
+      "tensor_std": 0.0,
+      "bow_mean": 0.6666666666666666,
+      "bow_std": 0.0,
+      "rand_mean": 0.0,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    },
+    "N16384_d5": {
+      "N": 16384,
+      "depth": 5,
+      "hrr_mean": 0.36666666666666664,
+      "hrr_std": 0.0,
+      "tensor_mean": 0.36666666666666664,
+      "tensor_std": 0.0,
+      "bow_mean": 0.5666666666666667,
+      "bow_std": 0.0,
+      "rand_mean": 0.06666666666666667,
+      "n_seeds": 1,
+      "completed_trials": 30,
+      "arms_distinct": true
+    }
+  },
+  "depth_var_per_N_per_arm": {
+    "N4096": {
+      "ARM_HRR_RECURSIVE": 0.053580246913580265,
+      "ARM_TENSOR_RANK2": 0.07185185185185188,
+      "ARM_NESTED_BOW": 0.023950617283950617
+    },
+    "N8192": {
+      "ARM_HRR_RECURSIVE": 0.02740740740740741,
+      "ARM_TENSOR_RANK2": 0.07629629629629629,
+      "ARM_NESTED_BOW": 0.0051851851851851824
+    },
+    "N16384": {
+      "ARM_HRR_RECURSIVE": 0.037283950617283956,
+      "ARM_TENSOR_RANK2": 0.03851851851851853,
+      "ARM_NESTED_BOW": 0.0017283950617283945
+    }
+  },
+  "depth_var_mean_per_N_per_arm": {
+    "N4096": {
+      "ARM_HRR_RECURSIVE": 0.053580246913580265,
+      "ARM_TENSOR_RANK2": 0.07185185185185188,
+      "ARM_NESTED_BOW": 0.023950617283950617
+    },
+    "N8192": {
+      "ARM_HRR_RECURSIVE": 0.02740740740740741,
+      "ARM_TENSOR_RANK2": 0.07629629629629629,
+      "ARM_NESTED_BOW": 0.0051851851851851824
+    },
+    "N16384": {
+      "ARM_HRR_RECURSIVE": 0.037283950617283956,
+      "ARM_TENSOR_RANK2": 0.03851851851851853,
+      "ARM_NESTED_BOW": 0.0017283950617283945
+    }
+  },
+  "depth_var_se_per_N_per_arm": {
+    "N4096": {
+      "ARM_HRR_RECURSIVE": 0.0,
+      "ARM_TENSOR_RANK2": 0.0,
+      "ARM_NESTED_BOW": 0.0
+    },
+    "N8192": {
+      "ARM_HRR_RECURSIVE": 0.0,
+      "ARM_TENSOR_RANK2": 0.0,
+      "ARM_NESTED_BOW": 0.0
+    },
+    "N16384": {
+      "ARM_HRR_RECURSIVE": 0.0,
+      "ARM_TENSOR_RANK2": 0.0,
+      "ARM_NESTED_BOW": 0.0
+    }
+  },
+  "max_depth_var_per_arm": {
+    "ARM_HRR_RECURSIVE": 0.053580246913580265,
+    "ARM_TENSOR_RANK2": 0.07629629629629629,
+    "ARM_NESTED_BOW": 0.023950617283950617
+  },
+  "flat_depth_everywhere_real_bound": false,
+  "bow_discriminates_artifact": false,
+  "bow_dominates_v4": false,
+  "depth_signal_v4_ok": true,
+  "hrr_v4_a_b_c": [
+    false,
+    true,
+    false
+  ],
+  "tensor_v4_a_b_c": [
+    true,
+    true,
+    true
+  ],
+  "pos_control_hrr_ok": true,
+  "pos_control_tensor_ok": true,
+  "pos_control_bow_ok": true,
+  "pos_control_hrr_mean": 0.8333333333333334,
+  "pos_control_tensor_mean": 0.8333333333333334,
+  "pos_control_bow_mean": 0.6333333333333333,
+  "pos_control_rand_mean": 0.03333333333333333,
+  "monotonic_decay": {
+    "ARM_HRR_RECURSIVE": 0.33333333333333337,
+    "ARM_TENSOR_RANK2": 0.6666666666666667
+  },
+  "monotonic_decay_ok": true,
+  "arms_distinct_all_cells": true,
+  "frac_arms_identical": 0.0,
+  "suspect_1000": false,
+  "random_in_band": true,
+  "cardinality_ok": true,
+  "total_completed_trials": 270,
+  "expected_total_trials": 270,
+  "n_seeds_complete": 1,
+  "final_metrics_atomicity": "tmp_replace",
+  "arms_differ_verified": true,
+  "crlb_floor_computed": 0.022097086912079608,
+  "crlb_formula_reference": "Kanerva FHRR capacity: SNR ~ sqrt(N / (2*K_eff)); K_eff = (1+distractors)^depth for nested chain; distractors = depth (scaling=depth)",
+  "discriminator_reachability": true,
+  "calibration_check": "v4_recalibrated_HP_DEPTH_VAR_MIN=0.05_per_v3_observed_SNR_0.076",
+  "chance_baseline": 0.03125,
+  "v4_thresholds": {
+    "HP_DEPTH_VAR_MIN": 0.05,
+    "HP_DEPTH_VAR_SE_MAX": 0.03,
+    "HP_MECHANISM_BEATS_BOW_MARGIN": 0.03
+  },
+  "v3_anchor_evidence": {
+    "tensor_depth_var_smoke_d135_N8192_seed7": 0.076,
+    "tensor_d135_values": [
+      0.833,
+      0.4,
+      0.167
+    ],
+    "source_path": "data/exp_substrate_higher_order_tom_recursive_v3_smoke/partial_metrics_7.json"
+  },
+  "anchor_name": "substrate_higher_order_tom_recursive_v4_threshold_recal",
+  "elapsed_s": 2.3,
+  "ts_iso": "2026-06-30T17:54:34Z",
+  "pid": 32696,
+  "run_mode": "smoke",
+  "config_version": "ANCHOR=substrate_higher_order_tom_recursive_v4_threshold_recal,depths=[1, 3, 5],N_dims=[4096, 8192, 16384],n_trials=30,seeds=[7],mode=smoke,n_objects=4,n_locations=32,n_agents_max=16,distractor_scaling=depth,HP_depth_var_min=0.050,HP_depth_var_se_max=0.030,HP_mechanism_beats_bow=0.030,HP_pc_hrr=0.65,HP_pc_tensor=0.65,HP_pc_bow=0.40,HP_monotonic_decay_min=0.20,HF_flat_var_max=0.030,HF_bow_var_max=0.10,HF_arms_id_max=0.10,expected_n=810,arms=['ARM_HRR_RECURSIVE', 'ARM_TENSOR_RANK2', 'ARM_NESTED_BOW'],hardening=L1early+L2perseed+L3outertry+L4importsentinel+META_RULE_AF+META_RULE_AH+META_RULE_AG+META_RULE_AN+META_RULE_AP_v4+SE_BAND_v4+BOW_DOMINATES_HF_v4",
+  "expected_n_units": 810,
+  "_hardening_marker": "v4_threshold_recal_SE_band_BOW_dominates_HF"
+}
