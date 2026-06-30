@@ -83,6 +83,18 @@
 - Hc cortex compartmentalization: ~55% of gap (Cell C v1 MB; v2 push for HARD_PASS in flight)
 - **Stage 2 NREM rescue path: Ha + Hc complementary = ~100% potential closure** if both atomize chain-grade
 
+**Additional brain-mechanism finding (a24de6ad Cell A v2; 2026-06-30 ~18:20 UTC):**
+- **SWR multipass clean replay v2 LANDED HARD_PASS** ("SWR_MULTIPASS_CEILING_CONFIRMED")
+- All N_REPLAY arms = 0.985 — matches v2 CLEAN_VALS baseline
+- 3 seeds, gpu_runner_0, run_mode=full
+- **CAVEAT:** 0.985 looks like Hc by-construction ceiling (bypassing hippo write path = DIRECT identity). Skunkworks VET will tier this — possibly MM_BC_CEILING per Fix #28, not chain-grade. Cell-author honest-frame: "single-pass already at ceiling at this regime; multi-pass doesn't lift the clean-vals ceiling."
+- IF Skunkworks tiers as MM_BC: doesn't change Stage 2 NREM picture. IF Skunkworks finds SWR multipass uses hippo write path + adds value: another route to Stage 2 NREM CG.
+
+**Cells aborted at smoke (honest discipline; saved compute):**
+- Cell A v1 SWR bundled outer product: K² cross-terms broke recall (led to v2 multipass redesign)
+- Cell B theta-gamma phase binding: cyclic-shift baseline saturates 1.000; needs FHRR all-complex redesign
+- Cell E synaptic homeostasis: global downscale rescales signal+noise equally; cannot discriminate
+
 **In flight (as of 17:58 UTC):**
 - **Skunkworks a4ce VET batch** (just dispatched): hippo v2 HP + binding-op MB + refuse-gate MB; potential +1 CERT
 - **hdi_exp_dev a43243de273d75489**: 4 untouched-axis cells (sequence encoding family / order binding family / storage update rule family / routing geometry family)
