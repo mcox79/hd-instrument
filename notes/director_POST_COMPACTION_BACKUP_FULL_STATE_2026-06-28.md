@@ -32,11 +32,11 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
 
 **Stage progression (load-bearing; do not skip):** Stage 1 (foundational primitives) → Stage 2 (meta-primitives + optimization) → Stage 3 (capability primitives) → Stage 4 (LM equivalence; deferred).
 
-**Substrate state (CANONICAL, 2026-06-30 ~09:45 UTC):**
-- Live Store CERT count: **632** (provenance_quality == CERT_CHAIN_GRADE via cert_ledger_writer self-test)
-- cert_increment_delta sum: **499** (ledger transaction log; 132 atoms predate delta-tracking)
+**Substrate state (CANONICAL, 2026-06-30 ~10:30 UTC):**
+- Live Store CERT count: **633** (provenance_quality == CERT_CHAIN_GRADE via cert_ledger_writer self-test)
+- cert_increment_delta sum: **500** (ledger transaction log; 132 atoms predate delta-tracking)
 - Session-start baseline: 625 / 492
-- **7 chain-grade promotions tonight** (2026-06-28 23:00 → 2026-06-29 05:24 UTC):
+- **8 chain-grade promotions this session** (2026-06-28 23:00 → 2026-06-30 10:25 UTC):
   1. 23:07 — PC v2.2 corruption cliff dense grid 3-seed GPU phase-characterization
   2. 23:09 — PC corruption cliff N-scaling law FINDING (cliff_N=0.40+0.0065·log2(N); R²=0.97)
   3. 02:01 — ANCHOR 4 Pareto-AUC v2 (TD dominates RD 70/70; Stage 2 time-decay)
@@ -44,8 +44,63 @@ Available agents: `hdi_exp_dev` (cell author + smoke + local dispatch), `hdi_sku
   5. 03:28 — ANCHOR 3 v2 FAMILY_OVERLAP (over-compression boundary visible; caught v1 metric-bias bug)
   6. 05:09 — Lock-in v2 (physics band confirmed; Stage 2)
   7. 05:24 — Schema family (regime mapping; HYBRID dominates EB default in 10/12 regimes)
+  8. 10:25 — Schema v4 capacity-stress (HARDMAX centroid pooling; 4-effective-seed AGG 3/3 gates; Stage 2)
 
-ANCHOR 4 encoder family attempt was honestly REJECTED by Skunkworks re-VET (raw-float encoder collision at FULL; only seed_7 actually re-ran; not a chain-grade promotion). Earlier Director framings of "630→635 (+5)" were WRONG — actual is 625→632 (+7).
+**META_RULE_AR (load-bearing, this session):** centroid argmax is noise-suppressing prototype primitive under CAPACITY STRESS (1/√K lower-variance estimator vs per-exemplar Bayes-LSE). Skunkworks corrected cell-author framing — HM advantage GROWS monotonically with alpha; "FLOOR" is mechanism-stress regime not storage-floor.
+
+ANCHOR 4 encoder family attempt was honestly REJECTED by Skunkworks re-VET (raw-float encoder collision at FULL; only seed_7 actually re-ran; not a chain-grade promotion). Earlier Director framings of "630→635 (+5)" were WRONG — actual is 625→633 (+8).
+
+## RECOVERY-CRITICAL CONTEXT (POST-COMPACTION READ FIRST)
+
+**Session ID for hash references:** This BACKUP is the load-bearing recovery doc. New post-compaction session: read this file end-to-end before any other action. The 4-session fleet is dead per BACKUP rule 16; Director (research role) runs everything via hdi_<role> sub-agent spawns.
+
+**Cortex layer (M3 Phase 1) state:**
+- `substrate_router/` module on branch `m3-phase1-router-scaffolding`
+- 3 files: api.py (20KB SubstrateRouterAPI) + router.py (7.6KB route()) + test_router_smoke.py (8KB)
+- M1.1 done: 20/20 hand-crafted-bank smoke; intent_classifier wired
+- NOT advanced past M1.1; not serving anything
+- M3 milestone = glass-box conversational AI 12-18mo; cortex critical-path
+
+**Infrastructure state (2026-06-30 ~10:30 UTC):**
+- gpu_runner_0 PID 9752 ALIVE (RTX 4060 Ti; SSH-immune via SYSTEM-account schtasks)
+- cpu_runner_0 PID 16096 ALIVE
+- Both auto-restart via 5-min repetition schtasks trigger (idle-exit recovery automatic)
+- cpu_runner_local PID 5776 partially wedged (USER admin needed; legacy lineage; not blocking remote work)
+- queue_idle_watch.py Monitor armed (task bm7gnvqhu) — emits QUEUE_IDLE on threshold-cross
+- AtomKind enum fix (commit fdf4c714) registered chain_grade_phase_characterization + variant
+- hd_metrics_sync has silent-crash pattern; if push backed up: `rm data/.metrics_sync/.lock` + `schtasks /run /tn hd_metrics_sync`
+
+**In flight (when this BACKUP was written ~10:30 UTC):**
+- Skunkworks a009a44a — Backlog 6-cell VET (Multihop v4 HN / TASK_VECTOR v3 MM / Binding op HN / Lock-in v3 MM / Cleanup family PC MM / Refuse-gate adaptivity MM); expected ~24 atom rows, mostly delta=0
+- Testbed a1929198 — Dashboard alarm panel + stop-hook escalation (queue_idle_alarm endpoint partially shipped)
+- Multiple cell-authors potentially still iterating: a170cd16 (hippo bottleneck v2) / a77f6a2b (cleanup family seqbind) / af5018b3 (TASK_VECTOR v4) / a59adea5 (routing geometry) / a7d28840 (parietal MOVABLE v2) / aab588ad (hypothesis-gen v2) / ade04884 (Schema v4 dispatcher) / a8586bd0 (ANCHOR 4 encoder) / a12aae8f (multihop v5)
+- 6 cells refused at pre-dispatch gate (cell-authors need iteration): routing_geometry / seqbind_cleanup / hypothesis_gen / task_vector v4 (no wrapper) / hippo bottleneck v2 (no smoke) / parietal_movable_v2 seed_19 (no smoke)
+
+**Critical disciplines from this session (USER-locked):**
+- NO LOCAL dispatches (USER directive 2026-06-30; all-remote)
+- Verify run_mode=full BEFORE celebrating chain-grade (3 phantom-FULL recurrences caught; §16 exists but not always applied)
+- Trust ledger-sum + Store provenance_quality count over prose memory counts
+- Skunkworks honest-downward correctly REJECTS inflated chain-grade claims (ANCHOR 4 encoder rejection this session is the canonical case)
+- 2x-drill mechanism-class diversion discipline produces real revivals (5 of 8 promotions tonight came from 2x-drill paths)
+- AtomKind writers MUST register new kind values in schema.py BEFORE writing atoms (3rd recurrence this session)
+- Cell-author helper modules (_core.py / _base.py) MUST be on remote before queue_add (Schema v4 / multihop v5 / WM encoder all hit this; queue_add.sh ships script+prereg only)
+
+**Forward plan summary (full plan further down in this doc):**
+1. Process Skunkworks a009a44a backlog return
+2. Spawn ANCHOR 4 encoder family v2 (per Skunkworks rec; N≥4096 + 5th encoder + recency floor)
+3. Schema family regime-aware dispatcher (operationalize HYBRID-wins-10/12 + META_RULE_AR HARDMAX centroid pooling)
+4. Sequence encoding / order-binding / storage-update-rule component sweeps (3 untouched dimensions)
+5. M3 cortex M1.2 work — extract `hdlab/intent_classifier.py` + `hdlab/kg_traversal.load_from_fb15k237_dump`
+6. Hippo bottleneck v2 — probe H_OTHER candidates (Hebbian cross-term / L2-norm collapse / cortex write-saturation)
+
+**Methodology cumulative (META rules captured this session):**
+- recall_via_lookup metric-bias (compression cells must use truth-family-aligned recall)
+- FLOOR_THRESH must be stat-valid for sample regime
+- Component-class choice regime-dependent
+- Stage 2 NREM bottleneck H_OTHER class (H1+H2+H3 refuted)
+- META_RULE_AO sparse-bipolar bundle-lift regime-conditional
+- META_RULE_AP chain-grade Pareto gates need recency-decode floor
+- META_RULE_AR centroid argmax noise-suppressing prototype under capacity stress
 
 ---
 
