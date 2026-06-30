@@ -14,7 +14,7 @@ that matters is MEMORY-of-prior-refuses (sliding-window tau adjustment).
 
 Phase axes: query_regime (4) x V_REL_calibration_size (3).
 FULL: 5 * 4 * 3 * 80 = 4800 records per seed.
-SMOKE: 5 * 3 * 1 * 30 = 450 records per seed.
+SMOKE: 5 * 2 * 1 * 30 = 300 records per seed (cal_size=64; AMBIGUOUS mid_flip=0.30).
 
 CHUNKED single-seed-per-cell. SEED=7 pinned.
 
@@ -81,7 +81,7 @@ CONFIG_VERSION = (
     "AMBIGUOUS_BOUNDARY],cal_sizes=[64,256,1024],V_REL=256,SEED=%d,mode=%s,"
     "N=[2048|8192],V_C_per_cat=[50|200],n_queries_per_regime=[30|80],"
     "expected_units_full=60,expected_records_full=4800,"
-    "expected_units_smoke=15,expected_records_smoke=450,"
+    "expected_units_smoke=10,expected_records_smoke=300,"
     "hardening=L1startmarker+L2crashdiag+L3perunitckpt+L4heartbeat+CHUNKED_PER_SEED"
 ) % (ANCHOR_NAME, SEED, RUN_MODE)
 

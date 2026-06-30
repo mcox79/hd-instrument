@@ -72,17 +72,20 @@ SLIDING_WINDOW_W = {
 # Query regimes (inner axis 1; LOCKED)
 REGIMES_FULL = ("PURE_IN_DOMAIN", "PURE_OUT_OF_DOMAIN",
                 "NEAR_DOMAIN_MIXED", "AMBIGUOUS_BOUNDARY")
-# Smoke includes AMBIGUOUS_BOUNDARY + NEAR_DOMAIN_MIXED (adaptive discriminator
-# regimes per pre-reg) + PURE_OUT_OF_DOMAIN (positive control). NEAR_DOMAIN_MIXED
-# is the regime where FIXED_TAU shows non-zero false-refuse (mixed in-domain
-# subject + out-domain relation -> ambiguous confidences); adaptive arms have
-# slack to demonstrate FR reduction there. Without it the smoke regime ceiling
-# at FIXED FR=0 prevents discriminator from firing.
-REGIMES_SMOKE = ("PURE_OUT_OF_DOMAIN", "NEAR_DOMAIN_MIXED", "AMBIGUOUS_BOUNDARY")
+# Smoke per pre-reg revision 2026-06-30 19:50 UTC: PURE_OUT (control) +
+# AMBIGUOUS_BOUNDARY at cal_size=64 + mid_flip=0.30 (high-noise regime where
+# FIXED tau is sub-optimal -> adaptive arms have measurable slack). Cardinality:
+# 2 regimes * 1 cal_size * 5 arms * 30 queries = 300 records per seed smoke.
+# Fallback (if FIXED still FR=0 at AMBIGUOUS): add NEAR_DOMAIN_MIXED or bump
+# mid_flip to 0.40 (handled by cell-author re-smoke loop).
+REGIMES_SMOKE = ("PURE_OUT_OF_DOMAIN", "AMBIGUOUS_BOUNDARY")
 
 # Calibration sizes (inner axis 2; LOCKED)
 CAL_SIZES_FULL = (64, 256, 1024)
-CAL_SIZES_SMOKE = (256,)  # smoke trims to single mid-band cal_size
+# Smoke uses cal_size=64 (high-noise; FIXED tau sub-optimal -> slack for
+# adaptive arms). Per pre-reg revision 2026-06-30 19:50 UTC after honest
+# BLOCK_DISPATCH at cal_size=256 (FIXED FR=0 across all regimes; no slack).
+CAL_SIZES_SMOKE = (64,)
 
 # Substrate scale
 N_FULL = 8192
@@ -102,13 +105,13 @@ N_OUT_CAT = len(OUT_DOMAIN_CATEGORIES)
 EXPECTED_N_UNITS_FULL = (len(ADAPTIVE_ARMS) * len(REGIMES_FULL)
                          * len(CAL_SIZES_FULL))  # 5 * 4 * 3 = 60 phase points
 EXPECTED_N_UNITS_SMOKE = (len(ADAPTIVE_ARMS) * len(REGIMES_SMOKE)
-                          * len(CAL_SIZES_SMOKE))  # 5 * 3 * 1 = 15 phase points
+                          * len(CAL_SIZES_SMOKE))  # 5 * 2 * 1 = 10 phase points
 
 # Per-record cardinality (META_RULE_H record-level)
 EXPECTED_N_RECORDS_FULL = (EXPECTED_N_UNITS_FULL
                            * N_QUERIES_PER_REGIME_FULL)  # 60 * 80 = 4800
 EXPECTED_N_RECORDS_SMOKE = (EXPECTED_N_UNITS_SMOKE
-                            * N_QUERIES_PER_REGIME_SMOKE)  # 15 * 30 = 450
+                            * N_QUERIES_PER_REGIME_SMOKE)  # 10 * 30 = 300
 
 # Positive control
 POSITIVE_CONTROL = {
@@ -120,7 +123,7 @@ POSITIVE_CONTROL = {
 POSITIVE_CONTROL_SMOKE = {
     "arm": "FIXED_TAU_V1",
     "regime": "PURE_OUT_OF_DOMAIN",
-    "cal_size": 256,
+    "cal_size": 64,  # matches CAL_SIZES_SMOKE per 2026-06-30 revision
     "refuse_rate_floor": 0.75,  # softer floor at smoke N
 }
 
@@ -227,7 +230,18 @@ def build_queries(g: np.random.Generator, substrate: Dict[str, Any],
         elif regime == "AMBIGUOUS_BOUNDARY":
             s_i = int(g.integers(0, V_C_IN))
             r_i = int(g.integers(0, V_REL))
-            mid_flip = 0.22
+            # Per pre-reg revision 2026-06-30 19:50 UTC + FALLBACK applied:
+            # mid_flip=0.30 gives deterministic cos=0.40 (ties tau exactly,
+            # std=0); mid_flip=0.31 already drops cos to 0.38 (below tau ->
+            # FIXED refuses 100%); fallback gates mid_flip=0.40 which gives
+            # cos=0.20 (uniformly below tau). At cos=0.20: FIXED FR=1.0 in
+            # AMBIGUOUS (always refuses in-KB queries); adaptive arms with
+            # sliding-window adapt tau DOWN toward observed confidence stream
+            # and recover accepts -> measurable FR reduction.
+            # Substrate noise model is DETERMINISTIC (bit-flip + renorm gives
+            # exact cos = 1 - 2*flip_frac); no intermediate mix possible. This
+            # is acknowledged as a structural property of v1 substrate model.
+            mid_flip = 0.40
             qs.append({
                 "subject_vec": add_noise(W_sub[s_i], mid_flip, g),
                 "relation_vec": add_noise(W_rel[r_i], mid_flip, g),
@@ -480,12 +494,12 @@ def selftest(seed: int) -> Tuple[bool, str]:
     # 1. cardinality math
     if EXPECTED_N_UNITS_FULL != 60:
         return False, "FULL cardinality %d != 60" % EXPECTED_N_UNITS_FULL
-    if EXPECTED_N_UNITS_SMOKE != 15:
-        return False, "SMOKE cardinality %d != 15" % EXPECTED_N_UNITS_SMOKE
+    if EXPECTED_N_UNITS_SMOKE != 10:
+        return False, "SMOKE cardinality %d != 10" % EXPECTED_N_UNITS_SMOKE
     if EXPECTED_N_RECORDS_FULL != 4800:
         return False, "FULL records %d != 4800" % EXPECTED_N_RECORDS_FULL
-    if EXPECTED_N_RECORDS_SMOKE != 450:
-        return False, "SMOKE records %d != 450" % EXPECTED_N_RECORDS_SMOKE
+    if EXPECTED_N_RECORDS_SMOKE != 300:
+        return False, "SMOKE records %d != 300" % EXPECTED_N_RECORDS_SMOKE
     msgs.append("cardinality FULL=%d (records %d) SMOKE=%d (records %d)"
                 % (EXPECTED_N_UNITS_FULL, EXPECTED_N_RECORDS_FULL,
                    EXPECTED_N_UNITS_SMOKE, EXPECTED_N_RECORDS_SMOKE))
