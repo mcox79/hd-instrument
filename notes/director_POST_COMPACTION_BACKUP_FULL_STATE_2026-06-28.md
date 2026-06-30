@@ -47,7 +47,41 @@
 
 **Cumulative META rules atomized this arc: ~12 (AT centroid pooling / AU GPU-mandate-breach signature / AV selftest-not-FULL signature / AW seed-config-identical / AX arms-differ-across-family-axis + earlier prior rules).**
 
-**Director Fix #28 violation streak (2026-06-30 17:30-18:15 UTC):** 3 framings corrected by Skunkworks in this batch. Need to ALWAYS peek_arm_metrics BEFORE propagating tier/framing claims from sub-agents. Internalizing.
+**Director Fix #28 violation streak (2026-06-30 17:30-18:15 UTC):** Initially counted as 3 framings corrected by Skunkworks; after a5818cf5 SSH verification, REVISED to 2 (not 3). The "ae648cad hallucinated" framing was RETRACTED — Orchestrator was reading FRESH remote metrics; Skunkworks read STALE local metrics; the discrepancy was `hd_metrics_sync` lag (last ran 17:38 UTC, BEFORE cells landed at 17:43-17:44 UTC).
+
+**Operational lesson 2026-06-30 ~18:30 UTC:** check `data/.metrics_sync/status.json last_run_utc` BEFORE concluding local metrics are authoritative. peek_arm_metrics tool needs sync-aware mode that warns if mtime < sync_time. Also: SSH-based verification (Orchestrator's path) is authoritative; local-file-based verification (Skunkworks's path) needs sync-currency check.
+
+**Corrected state 2026-06-30 ~18:30 UTC:**
+- Binding-op v1 + Refuse-gate v1 (3 seeds each): ACTUALLY ran FULL at 17:43-17:44 UTC on remote; verdicts MIDDLE_BAND (genuine; per a5818cf5 SSH off-disk). Awaiting Skunkworks RE-VET with fresh local data after next sync. Will atomize as 6 MM atoms (delta=0 each).
+- Storage_update_rule_family v1 (3 seeds): seed_7 RUNNING on remote_cpu_queue + cpu_runner_0; seeds 13/19 pending. ~7475s/seed projected. Tests Hebbian / SoftHebb / Willshaw / BCM-gain at K=64 B=16 N=8192.
+- Hippo v2 → MM (Ha=51% genuine; Hc=by-construction identity).
+- Cell 8 cortex_hippo M_8192 → HARD_FAIL CG + META_RULE_AW (config-drift forensic stands).
+- Cell 9 ANCHOR 4 encoder rerun → HARD_FAIL_PHANTOM_FULL + META_RULE_AX (bit-identical-hashes forensic stands).
+
+**Skunkworks a6f2cf45 atomization complete 2026-06-30 ~18:15 UTC: 13 atoms written (+1 MM hippo v2 → CERT 634; +6 MM binding-op/refuse-gate; +2 HF cell 8/9; +2 META rules AW/AX). All A5 invariants held.**
+
+**Forensic find (a6f2cf45):** `hd_metrics_sync` merger has a `preserve-existing` rule that silently blocked 7+ fresh remote files since 17:43 UTC. This was the root cause of the "ae648cad hallucination" confusion. Should atomize as infra discipline + fix the merger.
+
+**Compartmentalized cortex K-banks LANDED MIDDLE_BAND (a24de6ad Cell C; 2026-06-30 ~18:10 UTC) — POTENTIAL 9TH CHAIN-GRADE via K-extension:**
+- ARM_STANDARD_K1=0.220 → COMPARTMENT_K20=0.643 (best_lift=+0.423; HARD_PASS floor=+0.50)
+- 3 seeds, gpu_runner_0, run_mode=full, cardinality_ok=true
+- **Genuine Hc rescue:** covers ~55% of the hippo v2 0.766 gap
+- **Composes additively with Ha (hippo v2 cross-term fix; 51% of gap)** — Stage 2 NREM rescue path emerging
+- Cell C v2 (K=50/100/200 push) dispatched via a2e6c3b4 → if K=50 HARD_PASS, CERT 634 → 635 + Stage 2 NREM closure path
+
+**Other brain-mechanism cells (a24de6ad return):**
+- Cell D sleep-spindle: DISPATCHED pending on remote_cpu_queue (RIPPLE_THEN_SPINDLE +0.21 lift in smoke; brain-biological order best)
+- Cell A SWR compressed bundling: HONEST_ABORT at smoke. **Mechanism formulation wrong:** bundling K items into 1 outer product creates K² cross-terms; recall DROPS with K (0.554 → 0.001). Cell-author insight: "true SWR = iterative clean replay, not bundled outer product" — needs redesign for v2.
+- Cell E synaptic homeostasis: HONEST_ABORT. Global downscale rescales signal+noise proportionally; cannot discriminate.
+- Cell B theta-gamma phase binding: DEFERRED to next cycle (different test infrastructure; sequence binding not cortex recall).
+
+**Cumulative Stage 2 NREM picture (2026-06-30 ~18:25 UTC):**
+- H1 sparse-overlap: REFUTED
+- H2 sign-quantization: REFUTED
+- H3 L2-magnitude: REFUTED
+- Ha Hebbian cross-term: ~51% of gap (hippo v2 MM)
+- Hc cortex compartmentalization: ~55% of gap (Cell C v1 MB; v2 push for HARD_PASS in flight)
+- **Stage 2 NREM rescue path: Ha + Hc complementary = ~100% potential closure** if both atomize chain-grade
 
 **In flight (as of 17:58 UTC):**
 - **Skunkworks a4ce VET batch** (just dispatched): hippo v2 HP + binding-op MB + refuse-gate MB; potential +1 CERT
