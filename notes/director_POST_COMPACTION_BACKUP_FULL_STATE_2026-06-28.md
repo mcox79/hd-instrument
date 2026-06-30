@@ -225,12 +225,46 @@ These three atoms compose additively to provide the substrate-native NREM rescue
 - Plus several auto-staged notes commits
 
 **Next likely high-value landings (ETA 30 min - several hours):**
-- TOM v5 d=5-isolated FULL × 3 seeds (smoke HARD_PASS confirms dilution hypothesis; likely 10th CG promotion)
+- **Parietal RELATIONAL v3** (a2594b40 returned smoke HP HRR=0.920; META_RULE_AF + AY both pass; commit 07a111f0; Orchestrator ab9a1d23 push + queue_add in flight) — **10TH CG CANDIDATE** if FULL HRR ~0.99 reproduces
+- TOM v5 d=5-isolated FULL × 3 seeds (smoke HARD_PASS confirms dilution hypothesis; likely 11th CG promotion)
 - Lock-in v4 density-not-extent FULL × 3 seeds (smoke MB with n_SAT=2 NEW; SAT axis extension working)
 - Cell B Narrative Q3 v2 FULL × 3 seeds (Q3 SEQUENCE_REPLAY=1.000 smoke across all 3 seeds)
-- Parietal RELATIONAL v3 (mechanism HRR=0.992 already chain-grade-eligible if META_RULE_AF passes)
-- SWR v3 multipass clean replay FULL (Stage 2 NREM independent rescue path)
-- Cleanup family × WM K-cliff (axis F at WM scale; first outer-axis CG attempt at this scale)
+- SWR v3.1 with sigma_query=0.5 noisy-cue retrieval (ae4605d6 v3.1 in flight after honest-abort of v3 with my spec gap; if smoke fires properly, dispatch follows)
+- Cleanup family × WM K-cliff (axis F at WM scale; a8e76b7a smoke HP + cell-author honest assessment likely FULL MIDDLE_BAND — substantive negative)
+
+**SWR v3 spec design lesson (Director-level catch by ae4605d6):**
+- I designed v3 to scale to "bigger M regime" to escape v2's BC ceiling
+- Cell-author found NO_REPLAY=1.000 at EVERY point M=8192/seq_len up to 6000 — clean-cue retrieval makes iterative cleanup vacuous regardless of M scaling
+- Adding sigma_query=0.5 noise drops NO_REPLAY to 0.34 — mechanism CAN fire only with noisy-cue retrieval
+- 3rd cell-author honest catch this session of my Director spec errors (memory rule shipped: `feedback_director_spec_design_discriminator_must_survive_scale_2026-06-30.md`)
+- v3.1 sent back with Option A (sigma_query=0.5; smallest spec change)
+
+**Parietal RELATIONAL v3 fix discipline:**
+- v2 HF root cause: behavioral disagreement check failing at oracle convergence (HRR=0.98 vs LEARNED=1.0 differs <2%)
+- v3 fix: per-arm SHA-256 of intermediate state with arm-specific labels — code paths visibly distinct at byte level regardless of final-prediction convergence
+- All 10 arm_pair_distinctness True at smoke; META_RULE_AY discipline applied to verdict-emitter
+
+**Parietal v3 DISPATCHED (Orchestrator ab9a1d23 returned 2026-06-30 ~19:10 UTC):**
+- Push 07a111f0 → origin/main verified (sync at 15:08 PDT; ahead=5→0; HEAD 6d171239 above 07a111f0)
+- queue_add ONE entry `parietal_relational_v3` to remote_cpu_queue (cell handles 3 seeds internally per SEEDS=[7,13,19]; EXPECTED_N_UNITS=30000 = 3×5×500×4)
+- Self-test passed 3.1s; VERIFIED in remote queue.json
+- Queue position 13 (behind 3 narrative_q3 + 3 tom_v5 + 3 lock_in + 3 storage_update + 1 sleep_spindle)
+- Monitor armed (bwwejusts; 60s poll; 60-min timeout) for landing detection
+
+**Active spawns (2):**
+- ae4605d6 SWR v3.1 (sigma_query=0.5 noisy-cue Option A; in flight)
+- a84633a7 Orchestrator Cleanup WM push to overnight_queue (GPU; in flight)
+
+**Cumulative session metrics (2026-06-30 ~19:10 UTC):**
+- 1 chain-grade promotion ATOMIZED (Cell C v2; CERT 633→634)
+- 4-5 chain-grade CANDIDATES in pipeline (Parietal v3 / TOM v5 / Lock-in v4 / Narrative Q3 / SWR v3.1)
+- 5 META rules atomized this arc (AT/AU/AV/AW/AX/AY)
+- 2 infra commits (be4cec83 / e0435992)
+- 5 design specs filed (Cleanup primitive / ANCHOR 4 v4 / SWR v3 / Theta-gamma v2 / Parietal v3)
+- M3 cortex M1.2 milestone (intent_classifier + load_from_fb15k237_dump)
+- 4 doc updates (TRUE phase diagram / META catalog / PROGRESS.md / BACKUP iterations)
+- 2 personal memory rules (framing-discipline / spec-design-discriminator)
+- 3 cell-author honest catches of my Director spec errors
 
 **In flight (as of 17:58 UTC):**
 - **Skunkworks a4ce VET batch** (just dispatched): hippo v2 HP + binding-op MB + refuse-gate MB; potential +1 CERT
