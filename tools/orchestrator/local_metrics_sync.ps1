@@ -188,15 +188,27 @@ try {
             exit 0
         }
 
+        # MERGE: mtime-newer-wins (2026-06-30 fix — preserve-existing rule blocked fresh
+        # remote metrics 2x today: 17:43 UTC Orchestrator "hallucination" + 18:33 UTC Cell C v2
+        # sync miss. Skunkworks caught both via SCP side-pull. Root cause: this merge step
+        # used `if (Test-Path $target) { skip }` which skipped any existing local file
+        # without checking remote mtime. Fix: overwrite when remote is newer.
         $copied = 0
         $skipped = 0
+        $overwritten = 0
         $stagingData = Join-Path $stagingDir "data"
         if (Test-Path $stagingData) {
             Get-ChildItem -Path $stagingData -Recurse -File | ForEach-Object {
                 $relPath = $_.FullName.Substring($stagingData.Length).TrimStart('\','/')
                 $target = Join-Path $dataDir $relPath
                 if (Test-Path $target) {
-                    $skipped += 1
+                    $localItem = Get-Item $target
+                    if ($_.LastWriteTimeUtc -gt $localItem.LastWriteTimeUtc) {
+                        Copy-Item $_.FullName $target -Force
+                        $overwritten += 1
+                    } else {
+                        $skipped += 1
+                    }
                 } else {
                     $targetDir = Split-Path $target -Parent
                     if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Path $targetDir -Force | Out-Null }
@@ -205,7 +217,7 @@ try {
                 }
             }
         }
-        Write-Log ("MERGE copied={0} skipped={1}" -f $copied, $skipped)
+        Write-Log ("MERGE copied={0} overwritten={1} skipped={2}" -f $copied, $overwritten, $skipped)
         Cleanup-Staging
 
         # Re-count after merge
