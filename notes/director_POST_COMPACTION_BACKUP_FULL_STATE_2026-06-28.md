@@ -1,8 +1,39 @@
 # Post-compaction BACKUP — hd-instrument substrate program
 
-**Last updated:** 2026-06-28 EOD
+**Last updated:** 2026-06-30 17:30 UTC (post-compaction; Skunkworks a009a44a return processed)
 **Audience:** fresh post-compaction session
 **How to use:** read this file end-to-end. Self-contained snapshot of program state, in-flight work, pending VETs, and forward direction.
+
+## TODAY'S DELTAS (2026-06-30 ~17:30 UTC — post-compaction update)
+
+**Skunkworks a009a44a backlog 6-cell VET returned ~17:15 UTC:** +26 atoms (24 math + 2 meta); cert_ledger +26 rows; **CERT N stays 633 (delta=0)**. Tier mix: 11 MM + 13 HN + 2 META.
+
+**Two phantom-FULL Director-framings CORRECTED by Skunkworks off-disk recompute:**
+- **Cell 3 binding-op family PC** — was framed "3-seed FULL all HF; hadamard/tensor DOMINATED substantive negative." Actual: all 3 seeds hit HARD-FAIL_GPU_MANDATE_BREACH at pre-flight 0.1s (routed_queue=''). **Zero mechanism arms ran.** Framing "hadamard/tensor DOMINATED" not substantiated on disk. Re-tier: HN_INFRA_DEP not substantive negative.
+- **Cell 6 refuse-gate adaptivity** — was framed "dispatched; smoke MB; 4/6 family pairs differ; cal_size_sensitivity=0.0." Actual: 3/3 seeds verdict=SELFTEST_OK; run_mode='selftest'; _phase='selftest_done'; elapsed_s 0.14–0.17s. **FULL never landed.** "4/6 family pairs differ" came from selftest sanity-check only.
+
+**Phantom-FULL count grows from 3 to 5** (multihop v4 + seqbind encoder + ANCHOR 4 encoder + binding-op + refuse-gate). §16 RUN_MODE VERIFICATION discipline exists in exp_dev.md but not consistently enforced.
+
+**Two NEW META rules atomized (cumulative META rule count: 7 → 9):**
+- **META_RULE_AU** — pre-dispatch GPU mandate routing check. When verdict_msg=HARD_FAIL_GPU_MANDATE_BREACH + elapsed_s<1s + routed_queue='' + _phase=gpu_mandate_check → cell never ran any mechanism. Tier as HN_INFRA_DEP. Composes with META_RULE_I (verify-the-referent).
+- **META_RULE_AV** — selftest run_mode is NOT full run_mode. When run_mode='selftest' + _phase='selftest_done' + elapsed_s<<expected_full_runtime → FULL did NOT land. Director must not derive MM/HN/CG framings from selftest sanity-check data. Tier as HN_INFRA_DEP.
+
+**Current state (2026-06-30 17:30 UTC):**
+- Live Store CERT count: **633** (unchanged from BACKUP write at 10:30 UTC)
+- Queues: local_cpu 0/0, remote_cpu 0/0, overnight 0/0 (all idle; tripwire fired; dispatch initiated)
+- Runners: gpu_runner_0 PID 9752 ALIVE (heartbeat 3s old; up 22m), cpu_runner_0 PID 16096 ALIVE (heartbeat 5s old; up 22m); cpu_runner_local PID 5776 ZOMBIE (legacy; USER admin)
+- queue_idle_watch.py Monitor armed (bm7gnvqhu); notes_monitor research armed (bch93srn8)
+
+**Dispatched at 17:30 UTC (in flight as of this BACKUP update):**
+- **hdi_exp_dev a09120b3a0f175133** (queue refill, background): authoring + smoke + dispatching (1) Binding-op family v3 RE-DISPATCH with HDLAB_QUEUE set + routed_queue verification (closes META_RULE_AU); (2) Refuse-gate adaptivity v2 RE-DISPATCH with §16 run_mode=full verification (closes META_RULE_AV); (3) Hippo bottleneck v2 H_OTHER candidate probe (Hebbian cross-term / L2-norm collapse / cortex write-saturation arms)
+
+**Next queue (when a09120b3 returns; queued for next dispatch batch):**
+- Encoder family PC FULL re-dispatch (FULL didn't run overnight per USER phase-diagram audit; HRR-real DOMINATED at cliff edge needs full chain-grade evidence)
+- Routing geometry 2nd family (only one routing family done; weakest dimension per USER audit)
+- Schema family 3-of-4 unswept dimensions
+- M3 cortex M1.2 — extract `hdlab/intent_classifier.py` + `hdlab/kg_traversal.load_from_fb15k237_dump`
+
+---
 
 ---
 
