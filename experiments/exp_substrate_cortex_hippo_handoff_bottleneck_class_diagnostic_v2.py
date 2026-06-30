@@ -226,7 +226,7 @@ ARM_NAMES: Tuple[str, ...] = (
     "ARM_STANDARD",
     "ARM_NO_HEBBIAN_CROSSTERM",
     "ARM_NO_L2_NORM",
-    "ARM_PER_ITEM_CORTEX_WRITE",
+    "ARM_CLEAN_VALS_TO_CORTEX",
 )
 EXPECTED_N_UNITS = len(ARM_NAMES) * len(SEEDS)
 
@@ -356,16 +356,27 @@ def run_arm_numpy(arm_name: str, seed: int,
                 vals_c_react = _l2_normalize_batch(vals_c_react_raw)
 
             elif arm_name == "ARM_NO_HEBBIAN_CROSSTERM":
-                # Per-item explicit lookup: for each cue, find nearest stored
-                # key in sparse-DG space, return its stored vals_h.  This
-                # eliminates the Hebbian superposition write entirely; tests
-                # whether the cross-term sum is the killer.
-                # cues_h: (M, N_h) vs keys_h: (M, N_h); cosine (sparse so dot)
-                # peaks at the matching index (perm[i] -> argmax should equal
-                # perm[i] for any properly-discriminating key code).
+                # Single-item W_hippo per query (no cross-term superposition).
+                # For each query cue, build a RANK-1 W_hippo from only the
+                # matching item's outer product (vals_h[i] @ keys_h[i].T),
+                # then apply STANDARD's sign+L2 noise pipeline. Distinct from
+                # CLEAN_VALS_TO_CORTEX (which feeds vals_c[perm] directly to
+                # cortex, bypassing the sign/L2 readout entirely): this arm
+                # keeps the sign+L2 noise but removes ONLY the Hebbian sum.
+                # cues_h: (M, N_h); for each cue i, find which item it matches
+                # (perm[i] for a well-formed sparse-DG code).
                 sim_kk = cues_h @ keys_h.T          # (M, M)
                 lookup_idx = np.argmax(sim_kk, axis=1)
-                vals_react_h = vals_h[lookup_idx]   # (M, N_h)
+                # Per-query single-item W_hippo: W_i = vals_h[lookup_idx[i]] outer keys_h[lookup_idx[i]]
+                # vals_react_h[i] = sign(cues_h[i] @ W_i.T)
+                #                 = sign(keys_h[lookup_idx[i]] dot cues_h[i] * vals_h[lookup_idx[i]])
+                # Compute scalar match factor per query, then scale stored vals_h.
+                matched_keys = keys_h[lookup_idx]   # (M, N_h)
+                matched_vals = vals_h[lookup_idx]   # (M, N_h)
+                scalar_match = np.sum(cues_h * matched_keys, axis=1, keepdims=True)  # (M, 1)
+                vals_react_h_raw = scalar_match * matched_vals  # (M, N_h)
+                vals_react_h = np.sign(vals_react_h_raw)
+                vals_react_h[vals_react_h == 0] = 1.0
                 vals_c_react_raw = vals_react_h @ P_hc.T
                 vals_c_react = _l2_normalize_batch(vals_c_react_raw)
 
@@ -700,10 +711,14 @@ def _selftest_arm_hash_diverges() -> None:
     vrh = np.sign(cues_h @ W_hippo.T); vrh[vrh == 0] = 1.0
     vc_std = _l2_normalize_batch(vrh @ P_hc.T)
 
-    # ARM_NO_HEBBIAN_CROSSTERM
+    # ARM_NO_HEBBIAN_CROSSTERM (single-item W_hippo per query; sign+L2 noise)
     sim_kk = cues_h @ keys_h.T
     lookup_idx = np.argmax(sim_kk, axis=1)
-    vrh2 = vals_h[lookup_idx]
+    matched_keys_st = keys_h[lookup_idx]
+    matched_vals_st = vals_h[lookup_idx]
+    scalar_match_st = np.sum(cues_h * matched_keys_st, axis=1, keepdims=True)
+    vrh2_raw = scalar_match_st * matched_vals_st
+    vrh2 = np.sign(vrh2_raw); vrh2[vrh2 == 0] = 1.0
     vc_hebb = _l2_normalize_batch(vrh2 @ P_hc.T)
 
     # ARM_NO_L2_NORM
