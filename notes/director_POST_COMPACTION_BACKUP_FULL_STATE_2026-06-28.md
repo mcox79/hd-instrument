@@ -314,6 +314,37 @@ These three atoms compose additively to provide the substrate-native NREM rescue
 - 7 cell-author/auditor honest catches of my Director spec/framing errors
 - 4 more CG candidates still in pipeline (Parietal v3 + Lock-in v4 + Cell B Q3 + TOM v5 redo)
 
+## 🎯 PHANTOM-FULL ROOT CAUSE FIXED 2026-06-30 ~20:55 UTC (commit d4eb2805)
+
+**Major systemic infra finding by Orchestrator a1937032 + fix shipped:**
+
+**Root cause:** `tools/queue_add.py` line 705 ran `--self-test` with `HDLAB_EXP_NAME=<entry_name>` (no `_selftest` suffix). Cell RUN_MODE logic sets `RUN_MODE=smoke` when `--self-test` flag present + writes metrics.json to `data/exp_<HDLAB_EXP_NAME>/metrics.json` — same path FULL would use.
+
+**Result:** selftest pre-flight pollutes FULL output dir with `run_mode=smoke / _phase=selftest_done / elapsed=0.0-0.1s / n_cells=2`. When FULL later runs, it overwrites the selftest. But if FULL never runs (queue timeout, runner error, dispatch confusion), the selftest output remains AS IF IT WERE FULL — triggering META_RULE_AV signature and Director phantom-FULL framing errors.
+
+**Fix shipped commit d4eb2805:** mirror smoke pattern at line 714 (`smoke_name = f"{entry_name}_smoke"`); selftest now uses `f"{entry_name}_selftest"` and writes to `data/exp_<entry>_selftest/metrics.json` — isolated from FULL path.
+
+**Caught 6+ phantom-FULL recurrences this session attributable to this single root cause:**
+- multihop v4 phase diagram (a009a44a tier-corrected)
+- seqbind encoder family
+- ANCHOR 4 v1 encoder collision
+- Binding-op v1 first attempt (Cell 3 a009a44a)
+- Refuse-gate v1 first attempt (Cell 6 a009a44a)
+- TOM v5 d=5-isolated (caught a1937032 just now)
+
+**Canonical source of META_RULE_AV signature CLOSED at infrastructure level.** Future dispatches will not exhibit this pattern. Cell-author cells will continue to function correctly; the gate-time selftest output is now isolated to a separate dir.
+
+**TOM v5 cells still correctly queued + waiting for cpu_runner_0 free:** per a1937032 diagnostic, cells will execute FULL naturally when Lock-in v4 seed_7 (currently running) finishes ~17:44 UTC. Phantom artifacts preserved as `metrics.phantom_smoke.json` evidence at local + remote.
+
+**META_RULE_BB candidate (gate-time output dir isolation discipline):** queue_add must use isolated dir for selftest output to prevent FULL path pollution. Queued for Skunkworks atomization next batch.
+
+**Infrastructure commits this session (cumulative):**
+- be4cec83: hd_metrics_sync merger preserve-existing → mtime-newer-wins
+- e0435992: queue_add.sh auto-SCP sibling helpers (4 patterns)
+- 343004a4: queue_add.sh Pattern 4 stripped-exp variant (5th-recurrence fix)
+- e194e161: atomize script commit (cert-trail)
+- **d4eb2805: queue_add.py selftest output dir isolation (phantom-FULL root cause)**
+
 **SWR v3.1 honest-abort (2026-06-30 ~19:20 UTC):**
 - v3.1 added sigma_query=0.5 noisy-cue per Option A; NO_REPLAY hit predicted 0.380 (regime works)
 - BUT N_REPLAY_1 = N_REPLAY_5 = N_REPLAY_20 = DIRECT_UPPER = 0.380 bit-identical
