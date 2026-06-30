@@ -147,6 +147,11 @@ class AtomKind(enum.Enum):
                                                  # added 2026-06-28 by skunkworks (orphan-kind recovery).
     SUPERSESSION_RECORD = "supersession_record"  # Atom-supersession audit record (which atom replaced which);
                                                  # added 2026-06-28 by skunkworks (orphan-kind recovery).
+    MEASURED_MECHANISM_PARTIAL_RESCUE = "measured_mechanism_partial_rescue"  # Landed-VET result-class for partial
+                                                 # rescue MEASURED_MECHANISM (e.g. sleep spindles v1 NREM2 spindle
+                                                 # partial rescue lift +0.239 over ripple-only); added 2026-06-30 by
+                                                 # orchestrator (Store-load gate fail-closed recovery; e6fd4c26+ queued
+                                                 # behind it). Atomized by skunkworks 3b29b6a6 prior to enum extension.
     EXPERIMENT_RECORD = "experiment_record"     # Tier-B experiment records (for Tier-3
                                                  # atomizer); relevance_tier-filtered
                                                  # HIGH/MEDIUM/LOW/ARCHIVE
