@@ -206,12 +206,31 @@ These three atoms compose additively to provide the substrate-native NREM rescue
 - 2 infra fixes shipped (merger be4cec83 / queue_add e0435992)
 - M3 cortex M1.2 milestone advanced (intent_classifier + load_from_fb15k237_dump)
 
-**Live in flight (3 active spawns + 9 cells in queue):**
-- ae4605d6 hdi_exp_dev: SWR v3 implementation
+**Live in flight (3 active spawns + 12 cells in queue):**
+- ae4605d6 hdi_exp_dev: SWR v3 iterative clean replay implementation
 - a8e76b7a hdi_exp_dev: Cleanup family × WM K-cliff implementation
-- a3c393e2 hdi_orchestrator: push a272598c + queue_add Cell B Narrative Q3 v2
-- remote_cpu_queue: 9 pending (Lock-in v4 + TOM v5 + storage_update + Parietal + spindles + others)
-- cpu_runner_0: CF latency v2 still running
+- a2594b40 hdi_exp_dev: Parietal RELATIONAL v3 (arms code-path distinguishing fix; mechanism HRR=0.992 already chain-grade-eligible)
+- remote_cpu_queue: 12 pending (Lock-in v4 × 3 + TOM v5 × 3 + storage_update seeds 13/19 + Parietal RELATIONAL v2 + sleep spindles + Narrative Q3 v2 × 3 just queued by Orchestrator a3c393e2)
+- cpu_runner_0: CF latency v2 still running (~50 min/90 min timeout)
+- GPU idle awaiting SWR v3 + Cleanup family WM dispatches once authored
+
+**Commits pushed to origin/main this session:**
+- 4c170d1c (3 RIPE 2x-drill cells: Lock-in v4 + TOM v5 + cortex_hippo v3)
+- 6c96d310 (Cell C v2 compartmentalized cortex)
+- adf1a6a2 (ANCHOR 4 v3)
+- c374d74f (hippo bottleneck v2)
+- a272598c (Cell B Narrative Q3 v2)
+- be4cec83 (hd_metrics_sync merger fix)
+- e0435992 (queue_add.sh helper-SCP fix)
+- Plus several auto-staged notes commits
+
+**Next likely high-value landings (ETA 30 min - several hours):**
+- TOM v5 d=5-isolated FULL × 3 seeds (smoke HARD_PASS confirms dilution hypothesis; likely 10th CG promotion)
+- Lock-in v4 density-not-extent FULL × 3 seeds (smoke MB with n_SAT=2 NEW; SAT axis extension working)
+- Cell B Narrative Q3 v2 FULL × 3 seeds (Q3 SEQUENCE_REPLAY=1.000 smoke across all 3 seeds)
+- Parietal RELATIONAL v3 (mechanism HRR=0.992 already chain-grade-eligible if META_RULE_AF passes)
+- SWR v3 multipass clean replay FULL (Stage 2 NREM independent rescue path)
+- Cleanup family × WM K-cliff (axis F at WM scale; first outer-axis CG attempt at this scale)
 
 **In flight (as of 17:58 UTC):**
 - **Skunkworks a4ce VET batch** (just dispatched): hippo v2 HP + binding-op MB + refuse-gate MB; potential +1 CERT
