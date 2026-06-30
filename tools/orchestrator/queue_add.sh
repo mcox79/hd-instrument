@@ -142,6 +142,36 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   echo "[queue-add] SCP prereg -> ${SSH_TARGET}:${PREREG_REMOTE_DIR}/"
   scp -o ConnectTimeout=10 "${PREREG_LOCAL}" "${SSH_TARGET}:${PREREG_REMOTE_DIR}/"
 
+  # Auto-detect + SCP sibling helpers (4th recurrence fix; 2026-06-30).
+  # Cell convention: exp_<base>_seed_<N>.py wrappers exec exp_<base>.py core +
+  # may use _<base>_core.py / _<base>_base.py helpers in same experiments/ dir.
+  # SCP'ing only the wrapper without sibling helpers = remote ImportError / exec
+  # FileNotFoundError. Caught 4× this session (Schema v4 / multihop v5 / WM enc /
+  # Lock-in v4 + TOM v5). Fix: detect convention + auto-SCP siblings if present.
+  SCRIPT_BASE=$(basename "${SCRIPT_LOCAL}" .py)
+  SCRIPT_DIR_LOCAL=$(dirname "${SCRIPT_LOCAL}")
+  if [[ "${SCRIPT_BASE}" =~ _seed_[0-9]+$ ]]; then
+    CORE_BASE=$(echo "${SCRIPT_BASE}" | sed -E 's/_seed_[0-9]+$//')
+    # Pattern 1: exp_<base>.py (core file with same prefix as wrappers; ships with v4/v5 cells)
+    CORE_LOCAL="${SCRIPT_DIR_LOCAL}/${CORE_BASE}.py"
+    if [[ -f "${CORE_LOCAL}" ]]; then
+      echo "[queue-add] AUTO-SCP core sibling -> ${CORE_LOCAL}"
+      scp -o ConnectTimeout=10 "${CORE_LOCAL}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+    fi
+    # Pattern 2: _<base>_core.py (helper module convention; older cells)
+    CORE_HELPER="${SCRIPT_DIR_LOCAL}/_${CORE_BASE}_core.py"
+    if [[ -f "${CORE_HELPER}" ]]; then
+      echo "[queue-add] AUTO-SCP _core helper -> ${CORE_HELPER}"
+      scp -o ConnectTimeout=10 "${CORE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+    fi
+    # Pattern 3: _<base>_base.py (alternative helper convention)
+    BASE_HELPER="${SCRIPT_DIR_LOCAL}/_${CORE_BASE}_base.py"
+    if [[ -f "${BASE_HELPER}" ]]; then
+      echo "[queue-add] AUTO-SCP _base helper -> ${BASE_HELPER}"
+      scp -o ConnectTimeout=10 "${BASE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+    fi
+  fi
+
   # SSH+PowerShell payload. Single-quote bash outer per [[feedback-ssh-powershell-quoting]].
   # Extra flags (e.g. --rerun-as, --allow-duplicate) are appended verbatim.
   # HDLAB_QUEUE_ADD_ON_REMOTE=1 satisfies the host-guard in queue_add.py that
