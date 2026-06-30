@@ -264,7 +264,55 @@ These three atoms compose additively to provide the substrate-native NREM rescue
 - M3 cortex M1.2 milestone (intent_classifier + load_from_fb15k237_dump)
 - 4 doc updates (TRUE phase diagram / META catalog / PROGRESS.md / BACKUP iterations)
 - 2 personal memory rules (framing-discipline / spec-design-discriminator)
-- 4 cell-author honest catches of my Director spec errors (SWR v3 clean-cue / Cleanup WM eff_beta / SWR v3.1 clean-keys / earlier)
+- 7 cell-author/auditor honest catches of my Director spec/framing errors (SWR v3 clean-cue / Cleanup WM eff_beta / SWR v3.1 clean-keys / ANCHOR 4 v4 bundled-memory beyond spec / queue_add Pattern 4 / refuse-gate v2 deterministic noise / Skunkworks size-swap + slug + TOM v5 phantom-FULL framing)
+
+## 🎯 11TH + 12TH CHAIN-GRADE PROMOTIONS ATOMIZED 2026-06-30 ~20:15 UTC
+
+**Skunkworks ab2cd6ee VET batch (with 4 framing-error corrections):**
+
+| Cell | Tier | Δ |
+|---|---|---|
+| **ANCHOR 4 encoder family v4** | **CHAIN_GRADE_PHASE_CHARACTERIZATION** | **+1** |
+| **Theta-gamma v2 FHRR all-complex** | **CHAIN_GRADE_PHASE_CHARACTERIZATION** | **+1** |
+| META_RULE_AZ (Director off-disk verification) | discipline_meta | 0 |
+| META_RULE_BA (double exp_ prefix slug bug) | discipline_meta | 0 |
+
+**CERT 634 → 636 (+2 CG promotions).** Sessions cumulative: 11 CG promotions (9 overnight + Cell C v2 + ANCHOR 4 v4 + theta-gamma v2).
+
+**ANCHOR 4 v4 verification:**
+- 5/5 encoders chain-grade per Pareto-AUC across all 3 seeds
+- 10/10 arm pairs differ; 8-9/10 metric-distinct; 0% saturation
+- Preflight SHA-256 gate passes (META_RULE_AX strict)
+- v3 dense-triplet bit-identical trap CLOSED via bundled-memory mechanism (cell-author's index_add_ fix beyond my spec)
+- All v4 enforcement layers wired (pre-flight gate + META_RULE_AY verdict auto-demote + META_RULE_Q saturation + arms-must-differ)
+- cv ≤ 0.07 on top metrics across 3 seeds
+
+**Theta-gamma v2 verification:**
+- 5-arm cliff ordering identical across 3 seeds: NO_POSITION=0, FLAT_8=0, FLAT_32=50, NESTED=100, CYCLIC=200
+- max_fhrr_vs_cyclic_log2_delta=2.000 (HP floor 0.3); nested_vs_flat32_log2_delta=1.000
+- cliff_log2_K cv=0.000 (perfect cross-seed agreement on primary discriminator)
+- 15/15 per-arm raw-data signatures distinct (no bit-identical recurrence)
+- **Closes substrate axes I (Sequence encoding) + J (Order binding) at chain-grade scale** — first outer-axis CG on both axes; major TRUE phase diagram coverage gain
+
+**Director framing errors Skunkworks caught (4 in this batch):**
+1. Size swap: I said ANCHOR 4 v4 ~11KB / theta-gamma v2 ~230KB; actually ~230KB / ~11.6KB respectively
+2. Slug error: I cited ANCHOR 4 v4 slug `_phase_diagram_v4_*`; actual is `_encoder_family_v4_*` (no `_phase_diagram_` token)
+3. Double exp_ prefix discovered: theta-gamma v2 actual remote slug is `exp_exp_substrate_theta_gamma_v2_FHRR_all_complex_seed_*` — cell harness or queue_add bug
+4. **TOM v5 d=5-isolated NOT landed FULL** — selftest only (verdict=SELFTEST_OK; n_cells=2/60); phantom-FULL framing recurrence on my part (Fix #28). The smoke depth_var=0.1111 was real but FULL never ran. Director recommendation: defer atomization until ACTUAL FULL lands; investigate queue dispatch state.
+
+**META_RULE_AZ atomized:** Director spawn prompts citing file sizes/slugs/arm-counts MUST verify off-disk first (use os.path.getsize + glob before citing). Composes with framing-discipline memory + META_RULE_I.
+
+**META_RULE_BA atomized:** remote runner produces double `exp_` prefix `exp_exp_substrate_theta_gamma_v2_*` — cell harness or queue_add slug-construction bug. Follow-up: audit queue_add slug normalization + HDLAB_EXP_NAME harness handling.
+
+**Cumulative session metrics (2026-06-30 ~20:20 UTC):**
+- **11 chain-grade promotions atomized** (9 overnight 2026-06-29/30 + Cell C v2 + ANCHOR 4 v4 + theta-gamma v2 today)
+- CERT 633 → 636 (+3 today: Cell C v2 + ANCHOR 4 v4 + theta-gamma v2)
+- 7 META rules atomized (AT/AU/AV/AW/AX/AY/AZ/BA — that's 8 actually if counting separately)
+- 3 infra commits/patches (be4cec83 / e0435992 / 343004a4)
+- 5 design specs filed
+- M3 cortex M1.2 milestone
+- 7 cell-author/auditor honest catches of my Director spec/framing errors
+- 4 more CG candidates still in pipeline (Parietal v3 + Lock-in v4 + Cell B Q3 + TOM v5 redo)
 
 **SWR v3.1 honest-abort (2026-06-30 ~19:20 UTC):**
 - v3.1 added sigma_query=0.5 noisy-cue per Option A; NO_REPLAY hit predicted 0.380 (regime works)
