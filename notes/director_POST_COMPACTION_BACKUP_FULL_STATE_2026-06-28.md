@@ -95,6 +95,50 @@
 - Cell B theta-gamma phase binding: cyclic-shift baseline saturates 1.000; needs FHRR all-complex redesign
 - Cell E synaptic homeostasis: global downscale rescales signal+noise equally; cannot discriminate
 
+**🎯 CELL C v2 COMPARTMENTALIZED CORTEX K-BANKS LANDED HARD_PASS 2026-06-30 ~18:35 UTC (9TH CHAIN-GRADE CANDIDATE; STAGE 2 NREM CLOSURE PATH):**
+- Path: `data/exp_substrate_compartmentalized_cortex_K_banks_v2_GPU/metrics.fresh_2026-06-30.json` (Orchestrator a3bafe51 SCP-pulled fresh; preserve-existing rule blocked standard sync — same root cause as 17:43 UTC)
+- 3 seeds [7,13,19]; gpu_runner_0; elapsed_s=6.99; run_mode=full; cardinality_ok=true; _phase empty
+- ARM_STANDARD_K1=0.228 ± 0.016 → ARM_COMPARTMENT_K200=0.933 ± 0.005
+- ARM_DIRECT_UPPER=0.986 ± 0.001 (K=200 is **0.053 BELOW DIRECT — NOT a by-construction identity**, unlike Hc which was identical to DIRECT)
+- **best_lift = +0.705 (vs HP floor +0.50). Monotonic across K. cv=0.006 << 0.10.**
+- **Closes ~92% of hippo→cortex bottleneck gap (0.766 measured).**
+- Composes additively with hippo v2 Ha (51% Hebbian cross-term fix) → **Stage 2 NREM rescue path empirically established at chain-grade scale**
+- Skunkworks a4bfdc71 VET in flight: critical question is whether per-K bank routing retains hippo write path (not by-construction bypass like Hc).
+
+**Two simultaneous CG candidates in Skunkworks VET (a4bfdc71):**
+- ANCHOR 4 encoder family v3 (5 encoders × 12-pt grid; HARD_PASS all 3 seeds; META_RULE_AX verification critical)
+- Cell C v2 compartmentalized cortex K-banks (3 seeds HARD_PASS; +0.705 best_lift; non-by-construction)
+
+**If BOTH promote: CERT 634 → 636 (9th + 10th chain-grade promotions this session). Stage 2 NREM bottleneck CLOSED via Ha + Hc-compartmentalization complementary rescue.**
+
+**UPDATE 2026-06-30 ~19:00 UTC — Skunkworks a4bfdc71 returned ANCHOR 4 v3 honest-downward:**
+- **ANCHOR 4 v3: MM_PARTIAL_DISCRIMINATION (NOT chain-grade)** — 6th phantom-FULL recurrence (partial).
+- Dense triplet (binary_bipolar / hrr_real / fhrr) BIT-IDENTICAL to 6 decimal places across all phase cells; mechanism_hash collision per seed.
+- Sparse encoders (sparse_bipolar / sparse_real) genuinely distinct (2 of 5 wiring).
+- **Cell SELF-REPORTS** `encoder_pair_distinctness: binary_bipolar_vs_hrr_real: False` — yet verdict logic STILL tiers HARD_PASS. **Verdict logic over-permissive.**
+- META_RULE_Q (suspect 1.000) TRIPPED: 13/18 phase cells saturate to bit-identical 1.000 at higher capacity.
+- v4 fix needed: dense binding ops must invoke encoder-specific code paths (HRR FFT, FHRR complex element-wise, binary XOR/sign); verdict-emitter must HARD_FAIL on any False in encoder_pair_distinctness.
+
+**META_RULE_AY proposed by Skunkworks (atomization pending):** verdict logic must HARD_FAIL if cell self-reports distinctness=False on any encoder/family-axis pair. Cell-author HARD_PASS framings must be auto-demoted by the verdict-emitter when self-reported distinctness fails. This complements META_RULE_AX (forensic-side verification).
+
+**Cell C v2 VET in flight (a4bfdc71 resumed with Cell C v2 task)** — the bigger 9th CG candidate. Critical questions: per-K mechanism_hash distinct; hippo write-path retained; not by-construction identity to DIRECT (which trapped Hc earlier).
+
+**Forensic confirmation (Orchestrator a3bafe51):** `hd_metrics_sync` preserve-existing rule confirmed again — sync ran AT cell-landing time, didn't merge fresh remote files. Orchestrator did proactive SCP side-pull as `metrics.fresh_2026-06-30.json`. **MERGER FIX SHIPPED commit be4cec83** (`local_metrics_sync.ps1`): preserve-existing → mtime-newer-wins. Future syncs will overwrite stale local files when remote is newer.
+
+**Cleanup primitive library spec shipped (`notes/director_cleanup_family_primitive_library_spec_2026-06-30.md`)** — for the deferred Cell B Cleanup family × WM K-cliff. 5 primitives (classical_hopfield / modern_hopfield_continuous / iterative_attractor / k_NN_lookup / no_cleanup) common signature; cell-author can implement ~600 LoC (down from a2e6c3b4's 800-1200 estimate).
+
+**Current active spawns (3, within USER-authorized budget):**
+- a4bfdc71 Skunkworks (just resumed): ACK ANCHOR 4 v3 MM atom write + VET Cell C v2 (POTENTIAL 9TH CG)
+- aa0a4dc9 hdi_exp_dev: 3 RIPE 2x-drill cells (Lock-in v4 + TOM d=5-isolated + cortex_hippo v3 capacity-compliant)
+- aa68f8647 hdi_exp_dev: 3 next-batch RIPE 2x-drill cells (TASK_VECTOR adaptive-K + Narrative Q3 Q15 + refuse-gate adaptive-tau)
+
+**Cells running on remote:**
+- cpu_runner_0: CF latency v2 (~24min elapsed)
+- remote_cpu_queue pending: storage_update_rule_family seeds 13/19 + Parietal RELATIONAL v2
+- overnight_queue (GPU): idle (filling soon from aa0a4dc9 cortex_hippo v3 + aa68f8647 maybe)
+
+**Cumulative META rules atomized this arc (~12-13):** centroid pooling (AT) / GPU-mandate-breach signature (AU) / selftest-not-FULL (AV) / seed-config-identical (AW) / arms-distinct-across-family-axis (AX) / verdict-HARD_FAIL-on-self-reported-distinctness-False (AY proposed; pending Skunkworks atomization). Plus older AO/AP/AR + the 6 from BACKUP top.
+
 **In flight (as of 17:58 UTC):**
 - **Skunkworks a4ce VET batch** (just dispatched): hippo v2 HP + binding-op MB + refuse-gate MB; potential +1 CERT
 - **hdi_exp_dev a43243de273d75489**: 4 untouched-axis cells (sequence encoding family / order binding family / storage update rule family / routing geometry family)
