@@ -264,7 +264,18 @@ These three atoms compose additively to provide the substrate-native NREM rescue
 - M3 cortex M1.2 milestone (intent_classifier + load_from_fb15k237_dump)
 - 4 doc updates (TRUE phase diagram / META catalog / PROGRESS.md / BACKUP iterations)
 - 2 personal memory rules (framing-discipline / spec-design-discriminator)
-- 3 cell-author honest catches of my Director spec errors
+- 4 cell-author honest catches of my Director spec errors (SWR v3 clean-cue / Cleanup WM eff_beta / SWR v3.1 clean-keys / earlier)
+
+**SWR v3.1 honest-abort (2026-06-30 ~19:20 UTC):**
+- v3.1 added sigma_query=0.5 noisy-cue per Option A; NO_REPLAY hit predicted 0.380 (regime works)
+- BUT N_REPLAY_1 = N_REPLAY_5 = N_REPLAY_20 = DIRECT_UPPER = 0.380 bit-identical
+- Second structural cause: encoded keys are CLEAN codebook entries → iterative cleanup is self-consistent fixed point on clean keys → cleanup is identity → mechanism still vacuous
+- Ceiling set by retrieval noise on clean linear Hebbian write (a 10× write strength can't escape it)
+- For iterative cleanup at WRITE time to be load-bearing: encoded keys must be sparse/noisy (Option B sparse-DG burst encoding)
+- Per Director earlier directive (deferred to next cycle): SWR v3.2 sparse-DG TBD
+- 4th cell-author honest catch this session; system catching design issues correctly
+
+**Strategic note on SWR:** Cell C v2 K-banks already provides load-bearing Stage 2 NREM rescue (Hc=93% gap closure CG; atomized 2026-06-30 ~19:00 UTC). SWR is independent/complementary mechanism class — not strictly required for the Stage 2 NREM closure picture. SWR cumulative scaffolding (~3000 LoC v3 + v3.1) reusable for v3.2 sparse-DG variant in next cycle.
 
 **In flight (as of 17:58 UTC):**
 - **Skunkworks a4ce VET batch** (just dispatched): hippo v2 HP + binding-op MB + refuse-gate MB; potential +1 CERT
