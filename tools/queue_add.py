@@ -699,10 +699,17 @@ def main() -> int:
     print(f"[gate] OK: prereg exists at {prereg_path}")
 
     # 3. Self-test passes
-    print(f"[gate] running --self-test...")
+    # 2026-06-30 fix: selftest HDLAB_EXP_NAME must include _selftest suffix to isolate
+    # output dir from FULL run path. Without this, selftest writes metrics.json to the
+    # SAME path FULL would use (data/exp_<entry_name>/metrics.json), polluting the FULL
+    # output dir with run_mode=smoke + _phase=selftest_done. Caught 6+ phantom-FULL
+    # recurrences this session (META_RULE_AV signature). Mirrors smoke pattern at line
+    # below where smoke_name = f"{args.entry_name}_smoke". META_RULE_BB candidate.
+    selftest_name = f"{args.entry_name}_selftest"
+    print(f"[gate] running --self-test under HDLAB_EXP_NAME={selftest_name}...")
     t0 = time.monotonic()
     rc, tail = run_with_flag(script_path, "--self-test",
-                             env_extra={"HDLAB_EXP_NAME": args.entry_name})
+                             env_extra={"HDLAB_EXP_NAME": selftest_name})
     if rc != 0:
         print(tail, file=sys.stderr)
         fail(f"--self-test exit={rc} (after {time.monotonic()-t0:.1f}s)")
