@@ -65,13 +65,9 @@ import torch  # PROT-020: overnight_queue routing-gate requires `import torch`
 ARMS = ("SUBSTRATE", "RANDOM")
 
 # N dimensionality sweep (axis B; LOCKED)
-# v1.4 fallback: N=32768 dropped for 8 GiB GPU (v1.3 env var lands too late — wrapper
-# imports torch BEFORE core module runs os.environ.setdefault, so expandable_segments
-# never reaches CUDA runtime; documented in orchestrator turn 9 report 2026-07-01).
-# Discriminator confirmed to fire at N=16384 K=1000-2000 (v1.2/v1.3 partial-run evidence).
-N_DIM_SWEEP_FULL = (2048, 4096, 8192, 16384)
+N_DIM_SWEEP_FULL = (2048, 4096, 8192, 16384, 32768)
 # smoke uses 3 lower N + 1 preview at max N (discriminator-must-survive-scale pattern C)
-N_DIM_SWEEP_SMOKE = (2048, 4096, 8192, 16384)
+N_DIM_SWEEP_SMOKE = (2048, 4096, 8192, 32768)
 
 # K_SEQ sweep (needed to LOCATE cliff; LOCKED)
 K_SEQ_SWEEP_FULL = (50, 100, 200, 500, 1000, 2000, 4000)
