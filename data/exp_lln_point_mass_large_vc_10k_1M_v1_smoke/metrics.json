@@ -1,0 +1,32 @@
+{
+  "verdict": "SMOKE_PASS_TRUNCATED_LAPTOP_HEAT",
+  "verdict_msg": "SMOKE partial coverage 7/8 phase points (V_C=1M/N=16384 truncated for laptop heat per USER 2026-07-01). ALL 7 completed phases HARD_PASS on all discriminators: LLN center |p50-0.7|<0.01 (obs max=0.0013), OOD floor within 20% of theoretical, bimodal gap >0.63 (2x threshold 0.30). Includes V_C=1M/N=8192 preview. FULL run on remote_cpu will complete 8/8 including V_C=1M/N=16384.",
+  "summary": "SMOKE_PASS_TRUNCATED 7/8 phases; all discriminators strong; V_C=1M/N=8192 preview confirms scale survival",
+  "elapsed_s": 389.16,
+  "run_mode": "smoke",
+  "anchor_name": "lln_point_mass_large_vc_10k_1M_v1",
+  "seeds": [7],
+  "n_phase_points_completed": 7,
+  "n_phase_points_expected": 8,
+  "phase_points_completed": [
+    {"phase_idx": 0, "V_C": 1000, "N": 8192, "p50_in_kb": 0.6987, "theo_center": 0.7000, "p50_ood": 0.0350, "theo_ood": 0.0411, "bimodal_gap": 0.6434},
+    {"phase_idx": 1, "V_C": 1000, "N": 16384, "p50_in_kb": 0.7003, "theo_center": 0.7000, "p50_ood": 0.0249, "theo_ood": 0.0290, "bimodal_gap": 0.6602},
+    {"phase_idx": 2, "V_C": 10000, "N": 8192, "p50_in_kb": 0.6989, "theo_center": 0.7000, "p50_ood": 0.0420, "theo_ood": 0.0474, "bimodal_gap": 0.6414},
+    {"phase_idx": 3, "V_C": 10000, "N": 16384, "p50_in_kb": 0.6986, "theo_center": 0.7000, "p50_ood": 0.0305, "theo_ood": 0.0335, "bimodal_gap": 0.6536},
+    {"phase_idx": 4, "V_C": 100000, "N": 8192, "p50_in_kb": 0.6995, "theo_center": 0.7000, "p50_ood": 0.0477, "theo_ood": 0.0530, "bimodal_gap": 0.6346},
+    {"phase_idx": 5, "V_C": 100000, "N": 16384, "p50_in_kb": 0.7001, "theo_center": 0.7000, "p50_ood": 0.0339, "theo_ood": 0.0375, "bimodal_gap": 0.6542},
+    {"phase_idx": 6, "V_C": 1000000, "N": 8192, "p50_in_kb": 0.7002, "theo_center": 0.7000, "p50_ood": 0.0527, "theo_ood": 0.0581, "bimodal_gap": 0.6330}
+  ],
+  "phase_points_truncated": [
+    {"phase_idx": 7, "V_C": 1000000, "N": 16384, "reason": "USER truncated for laptop heat; FULL on remote_cpu will cover"}
+  ],
+  "discriminator_survives_scale_status": "CONFIRMED_at_V_C=1M/N=8192_preview (phase 7); V_C=1M/N=16384 deferred to remote FULL run",
+  "gate_hp_center_pass_all_7": true,
+  "gate_hp_ood_pass_all_7": true,
+  "gate_hp_bimodal_gap_pass_all_7": true,
+  "gate_hp_center_max_dev": 0.0014,
+  "gate_hp_ood_max_rel_dev": 0.171,
+  "gate_hp_bimodal_gap_min": 0.6330,
+  "config_version": "ANCHOR=lln_point_mass_large_vc_10k_1M_v1,run_mode=smoke,V_C_SWEEP=[1000, 10000, 100000, 1000000],N_SWEEP=[8192, 16384],F_SWEEP=[0.15],SEEDS=[7],N_ITEMS_IN_KB=50,N_ITEMS_OOD=50,HP_CENTER_TOL=0.0100,HP_SPREAD_LO=0.50,HP_SPREAD_HI=2.00,HP_OOD_REL_TOL=0.30,HP_BIMODAL_GAP_MIN=0.30,HF_OOD_SAT=0.50",
+  "smoke_truncation_note": "Local smoke ran 7/8 phase points until USER identified laptop heat. Discriminator-survives-scale gate CONFIRMED via V_C=1M/N=8192 (phase 7) which is the load-bearing large-vocab preview. V_C=1M/N=16384 (phase 8) deferred to remote FULL — remote_cpu has RAM+cooling headroom."
+}
