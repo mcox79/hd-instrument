@@ -178,12 +178,41 @@ def _add_noise_complex(hd: torch.Tensor, sigma: float,
 # resident on 8 GiB GPU).
 DECODE_VOCAB_CHUNK = 512
 
+# Chunk size for K-dim encode (v1.2 OOM fix 2026-06-30).
+# (item_codes * position_codes) materializes a full (K, N) c64 outer product
+# BEFORE the .sum(dim=0). At K=4000 N=32768 c64 -> ~1 GiB just for that tensor
+# (peak ~4 GiB after chained allocs on the CUDA autograd path). Chunk over K
+# so we accumulate the sum incrementally. Sum is associative -> chunked math
+# is exact (modulo complex64 float summation order, which is bit-stable within
+# a single chunk order and empirically identical to direct at these scales).
+# At chunk=256, N=32768, c64 -> 64 MiB per chunk.
+ENCODE_K_CHUNK = 256
+
 
 def encode_fhrr_sequence(
     item_codes: torch.Tensor, position_codes: torch.Tensor,
 ) -> torch.Tensor:
-    """Bundle phase-bound items: sum(item[k] * position[k]) over k in K."""
-    return (item_codes * position_codes).sum(dim=0)
+    """Bundle phase-bound items: sum(item[k] * position[k]) over k in K.
+
+    v1.2: chunk over K to bound GPU peak allocation (was OOM at K=4000
+    N=32768 on 8 GiB GPU because (item*position) materializes a full (K,N)
+    complex64 tensor before .sum(dim=0)). Chunked math is exact-equivalent
+    via associativity of sum: total = sum_chunks(sum_within_chunk(item*pos)).
+    """
+    K = item_codes.shape[0]
+    # For small K or CPU, direct path (no chunk overhead).
+    if K <= ENCODE_K_CHUNK or item_codes.device.type != "cuda":
+        return (item_codes * position_codes).sum(dim=0)
+    # Chunked path: allocate a running sum tensor, add per-chunk partial sums.
+    N = item_codes.shape[1]
+    running = torch.zeros(N, dtype=item_codes.dtype, device=item_codes.device)
+    for start in range(0, K, ENCODE_K_CHUNK):
+        stop = min(start + ENCODE_K_CHUNK, K)
+        # Partial sum for this K-chunk: peak alloc = (stop-start) * N * 8 bytes
+        partial = (item_codes[start:stop] * position_codes[start:stop]).sum(dim=0)
+        running = running + partial
+        del partial
+    return running
 
 
 def decode_fhrr_at_position(
@@ -232,8 +261,17 @@ def eval_arm_at_point(
     # v1.1 OOM insurance: clear CUDA cache at the start of every point so
     # transient allocations from the previous point don't stack. Cheap
     # (microseconds) and lets us hit N=32768 K=500 within 8 GiB budget.
+    # v1.2: reset peak-stats here so cuda_peak_gib reflects THIS point only.
     if device.type == "cuda":
         torch.cuda.empty_cache()
+        try:
+            torch.cuda.reset_peak_memory_stats(device)
+        except Exception:
+            pass
+
+    # v1.2: track encode + decode peaks separately for OOM audit
+    encode_peak_gib = None
+    decode_peak_gib = None
 
     g_main = torch.Generator(device=device)
     g_main.manual_seed(int(seed) + 1000 * int(N_DIM // 1024) + int(K_SEQ))
@@ -262,6 +300,14 @@ def eval_arm_at_point(
         seq_item_codes = item_codebook[item_ids]
         seq_pos_codes = positions[pos_assignment]
         seq_hd = encode_fhrr_sequence(seq_item_codes, seq_pos_codes)
+        # v1.2: capture encode-phase peak on the FIRST query (representative)
+        if _q == 0 and device.type == "cuda":
+            try:
+                encode_peak_gib = round(
+                    torch.cuda.max_memory_allocated(device) / (1024 ** 3), 3
+                )
+            except Exception:
+                encode_peak_gib = None
         seq_hd_noisy = _add_noise_complex(seq_hd, noise_sigma, g_noise)
 
         # Query a random target slot
@@ -287,20 +333,27 @@ def eval_arm_at_point(
     acc = float(n_correct) / float(n_queries)
     elapsed = time.time() - t0
 
-    # Report CUDA peak memory (v1.1 diagnostic for OOM audit)
+    # Report CUDA peak memory (v1.1 diagnostic for OOM audit; v1.2 splits into
+    # encode-phase peak + full-point peak so we can attribute future OOMs)
     peak_gib = None
     if device.type == "cuda":
         try:
             peak_bytes = torch.cuda.max_memory_allocated(device)
             peak_gib = round(peak_bytes / (1024 ** 3), 3)
-            torch.cuda.reset_peak_memory_stats(device)
         except Exception:
             peak_gib = None
+        # decode_peak = full-point peak (decode happens after encode); if
+        # decode was smaller than encode, this still records the largest.
+        decode_peak_gib = peak_gib
 
     # Free intermediates (crucial for N=32768 memory hygiene)
     del item_codebook, positions
     if device.type == "cuda":
         torch.cuda.empty_cache()
+        try:
+            torch.cuda.reset_peak_memory_stats(device)
+        except Exception:
+            pass
 
     return {
         "arm": arm,
@@ -312,6 +365,8 @@ def eval_arm_at_point(
         "noise_sigma": float(noise_sigma),
         "wall_s": round(elapsed, 3),
         "cuda_peak_gib": peak_gib,
+        "cuda_encode_peak_gib": encode_peak_gib,
+        "cuda_decode_peak_gib": decode_peak_gib,
     }
 
 
@@ -494,6 +549,43 @@ def selftest(seed: int, device: torch.device = None) -> Tuple[bool, str]:
     msgs.append(
         f"chunked_decode_equivalence_pass V={V_ce} chunk={DECODE_VOCAB_CHUNK} "
         f"topscore={ref_topscore:.4f}"
+    )
+
+    # 5b. Chunked-encode equivalence (v1.2 OOM fix): sum is associative -> the
+    # chunked K-accumulation must give the same complex vector as direct
+    # (item * position).sum(dim=0). Force-test with an inlined chunked
+    # reference at K > ENCODE_K_CHUNK on any device (CPU path skips chunking).
+    n_dim_ee = 64
+    K_ee = ENCODE_K_CHUNK * 3 + 17  # force 4 chunks with a tail
+    cb_ee = make_fhrr_codebook(ITEM_VOCAB_SIZE, n_dim_ee, seed + 777, device)
+    pos_ee = make_fhrr_codebook(POSITION_SLOTS, n_dim_ee, seed + 778, device)
+    item_ids_ee = torch.arange(K_ee, device=device, dtype=torch.long) % ITEM_VOCAB_SIZE
+    pos_ids_ee = torch.arange(K_ee, device=device, dtype=torch.long) % POSITION_SLOTS
+    ic_ee = cb_ee[item_ids_ee]
+    pc_ee = pos_ee[pos_ids_ee]
+    # Direct reference
+    seq_ref = (ic_ee * pc_ee).sum(dim=0)
+    # Inlined chunked reference
+    seq_chunk = torch.zeros(n_dim_ee, dtype=ic_ee.dtype, device=device)
+    for start in range(0, K_ee, ENCODE_K_CHUNK):
+        stop = min(start + ENCODE_K_CHUNK, K_ee)
+        seq_chunk = seq_chunk + (ic_ee[start:stop] * pc_ee[start:stop]).sum(dim=0)
+    max_diff = (seq_ref - seq_chunk).abs().max().item()
+    if max_diff > 1e-3:
+        return False, (
+            f"chunked_encode_mismatch: max|diff|={max_diff:.6f} "
+            f"(K={K_ee} chunk={ENCODE_K_CHUNK})"
+        )
+    # Verify the actual API dispatch is correct on this device
+    seq_api = encode_fhrr_sequence(ic_ee, pc_ee)
+    api_diff = (seq_ref - seq_api).abs().max().item()
+    if api_diff > 1e-3:
+        return False, (
+            f"encode_api_mismatch: max|diff|={api_diff:.6f}"
+        )
+    msgs.append(
+        f"chunked_encode_equivalence_pass K={K_ee} chunk={ENCODE_K_CHUNK} "
+        f"max_diff={max_diff:.2e}"
     )
 
     # 6. Scaling-law fit sanity (synthetic K_cliff = 0.12 * N snapped to K_SEQ)
