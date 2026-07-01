@@ -61,7 +61,7 @@ from experiments._seed_checkpoint import (
 )
 
 SEED = 19
-ANCHOR_NAME = f"substrate_three_tier_generational_v1_seed_{SEED}"
+ANCHOR_NAME = f"substrate_three_tier_generational_v1p1_seed_{SEED}"
 
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--smoke", action="store_true")
@@ -181,15 +181,84 @@ def _run_selftest_and_return(out_dir: Path) -> int:
         return 1
 
 
-def _invoke_core_run(out_dir: Path) -> int:
-    """Invoke core module as subprocess so its main loop runs to completion,
-    then copy metrics.json into per-seed out_dir.
+def _heartbeat_metrics_from_arm_partials(out_dir: Path, elapsed: float,
+                                         subprocess_pid: int) -> None:
+    """v1.1 FULL-PATH FIX: periodic wrapper heartbeat rebuilds metrics.json
+    from arm partials on disk while core subprocess is running.
 
-    The core module writes metrics to data/exp_substrate_three_tier_generational_v1/.
-    We copy those metrics into this seed's data dir so the queue runner sees
-    the per-seed metrics.json where it expects.
+    Prior bug: wrapper wrote RUNNING marker ONCE at start, then blocked on
+    subprocess.run() for hours. If runner killed the process-tree at 4hr
+    timeout, the elapsed=0.07s RUNNING marker was all that remained. No
+    heartbeat = no visibility = catastrophic silent-timeout failure mode.
+
+    This function scans out_dir for partial_metrics_arm_seed<SEED>_*.json,
+    aggregates completed arm results into a progress-tier metrics.json, and
+    writes atomically. Called from a background thread every 60s during
+    subprocess.run().
+    """
+    import glob as _glob
+    try:
+        arm_glob = str(out_dir / f"partial_metrics_arm_seed{SEED}_*.json")
+        arm_files = _glob.glob(arm_glob)
+        arms_completed = {}
+        for af in arm_files:
+            try:
+                with open(af, "r", encoding="utf-8") as f:
+                    body = json.load(f)
+                arm_label = body.get("arm_label")
+                result = body.get("result", {})
+                if arm_label:
+                    arms_completed[arm_label] = {
+                        "final_forget": result.get("final_forget"),
+                        "final_acc": result.get("final_acc"),
+                        "W_itm_utilization": result.get("W_itm_utilization"),
+                        "W_ltm_utilization": result.get("W_ltm_utilization"),
+                        "stm_hash": result.get("stm_hash"),
+                        "itm_hash": result.get("itm_hash"),
+                        "ltm_hash": result.get("ltm_hash"),
+                        "elapsed_s": result.get("elapsed_s"),
+                        "n_cycles_run": result.get("n_cycles_run"),
+                    }
+            except Exception:
+                continue
+        n_arms = len(arms_completed)
+        m = {
+            "anchor_name": ANCHOR_NAME,
+            "verdict": "RUNNING" if n_arms == 0 else "PROGRESS",
+            "verdict_msg": (f"PROGRESS: {n_arms} arms complete for seed={SEED} "
+                            f"mode={RUN_MODE} elapsed={elapsed:.1f}s"),
+            "summary": f"PROGRESS {n_arms} arms elapsed={elapsed:.1f}s",
+            "elapsed_s": round(elapsed, 2),
+            "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "pid": os.getpid(),
+            "subprocess_pid": subprocess_pid,
+            "run_mode": RUN_MODE,
+            "config_version": CONFIG_VERSION,
+            "_hardening_marker": "v1p1_heartbeat_from_arm_partials",
+            "_phase": "core_running_heartbeat",
+            "arms_completed_count": n_arms,
+            "arms_completed": arms_completed,
+            "seed": SEED,
+        }
+        tmp = out_dir / "metrics.json.tmp"
+        final = out_dir / "metrics.json"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(m, f, indent=2, default=str)
+        os.replace(tmp, final)
+    except Exception as e:
+        print(f"[heartbeat] FAIL: {e}", file=sys.stderr, flush=True)
+
+
+def _invoke_core_run(out_dir: Path) -> int:
+    """Invoke core module as subprocess with periodic heartbeat writes.
+
+    v1.1 FULL-PATH FIX: wraps subprocess.Popen (not subprocess.run) so we can
+    write heartbeats every HEARTBEAT_INTERVAL_S while core is running. If the
+    runner kills the process tree at timeout, metrics.json contains the last
+    heartbeat with N arms completed (not just an empty RUNNING marker).
     """
     import subprocess
+    import threading
 
     core_path = REPO / "experiments" / "_substrate_three_tier_generational_v1_core.py"
     args = [sys.executable, str(core_path)]
@@ -197,13 +266,39 @@ def _invoke_core_run(out_dir: Path) -> int:
         args.append("--smoke")
 
     env = os.environ.copy()
-    # Force core to write into THIS seed's out_dir so runner sees it directly.
     env["HDLAB_EXP_NAME"] = os.environ.get("HDLAB_EXP_NAME", ANCHOR_NAME)
 
     t0 = time.time()
     print(f"[{ANCHOR_NAME}] invoking core: {' '.join(args)} "
           f"HDLAB_EXP_NAME={env['HDLAB_EXP_NAME']}", flush=True)
-    result = subprocess.run(args, env=env, capture_output=False, text=True)
+
+    # Popen so we can heartbeat while it runs
+    proc = subprocess.Popen(args, env=env, text=True)
+    HEARTBEAT_INTERVAL_S = 60
+    _stop_hb = threading.Event()
+
+    def _hb_loop():
+        while not _stop_hb.is_set():
+            if _stop_hb.wait(HEARTBEAT_INTERVAL_S):
+                break
+            _heartbeat_metrics_from_arm_partials(
+                out_dir, time.time() - t0, proc.pid)
+
+    hb_thread = threading.Thread(target=_hb_loop, daemon=True)
+    hb_thread.start()
+
+    try:
+        rc = proc.wait()
+    finally:
+        _stop_hb.set()
+        hb_thread.join(timeout=2)
+
+    # Final heartbeat (also updates arms_completed count if core finished last arm)
+    _heartbeat_metrics_from_arm_partials(out_dir, time.time() - t0, proc.pid)
+
+    class _R:
+        returncode = rc
+    result = _R()
     elapsed = time.time() - t0
 
     # BUGFIX 2026-07-01: core.get_output_dir(ANCHOR_NAME) uses HDLAB_EXP_NAME
