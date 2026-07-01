@@ -369,19 +369,38 @@ def _run_one_arm(
     arm_name: str, triples: torch.Tensor, queries: torch.Tensor,
     n_ent: int, n_rel: int, n_dim: int, seed: int, device: torch.device,
 ) -> Dict[str, Any]:
-    """Run one arm: build codebooks, ingest, query, measure bytes+recall."""
+    """Run one arm: build codebooks, ingest, query, measure bytes+recall.
+
+    v1.1 fix (2026-06-30): per-arm device routing. SPARSE_BIPOLAR at N=32768
+    allocates a 4 GiB fp32 W matrix which OOMs on 8 GiB cards after 4 dense
+    arms have retained ~2 GiB of cached allocator segments. Route sparse arm
+    to CPU (mechanism unchanged; ~30s slower); force cache empty between
+    arms so GPU arms don't accumulate cached segments across the loop.
+    """
+    # v1.1: per-arm device override for OOM-prone sparse arm.
+    if arm_name == "SPARSE_BIPOLAR_0p05" and device.type == "cuda":
+        arm_device = torch.device("cpu")
+    else:
+        arm_device = device
     g = torch.Generator(device="cpu")  # keep RNG on cpu for reproducibility
     g.manual_seed(seed)
     E_cpu = _bipolar(n_ent, n_dim, g, torch.device("cpu"))
     R_cpu = _bipolar(n_rel, n_dim, g, torch.device("cpu"))
-    E = E_cpu.to(device)
-    R = R_cpu.to(device)
-    triples_dev = triples.to(device)
-    queries_dev = queries.to(device)
+    E = E_cpu.to(arm_device)
+    R = R_cpu.to(arm_device)
+    triples_dev = triples.to(arm_device)
+    queries_dev = queries.to(arm_device)
     t0 = time.perf_counter()
     fn = ARM_FNS[arm_name]
-    recall_k, extra_nnz = fn(triples_dev, E, R, queries_dev, queries_dev[:, 2], n_dim, device)
+    recall_k, extra_nnz = fn(triples_dev, E, R, queries_dev, queries_dev[:, 2], n_dim, arm_device)
     elapsed = time.perf_counter() - t0
+    # v1.1: explicit teardown so cached CUDA segments don't accumulate across arms.
+    del E, R, triples_dev, queries_dev, E_cpu, R_cpu
+    if device.type == "cuda":
+        try:
+            torch.cuda.empty_cache()
+        except Exception:
+            pass
     # Bytes per fact.
     n_facts = triples.shape[0]
     if arm_name == "FP32_DENSE":

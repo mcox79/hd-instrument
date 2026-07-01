@@ -101,7 +101,7 @@ def _write_minimal_metrics(out_dir: Path, verdict: str, verdict_msg: str,
             "pid": os.getpid(),
             "run_mode": RUN_MODE,
             "config_version": CONFIG_VERSION,
-            "_hardening_marker": "v1_bytes_per_fact_pareto_chunked",
+            "_hardening_marker": "v1.1_bytes_per_fact_pareto_chunked_perarm_device_routing",
         }
         if extra:
             m.update(extra)
@@ -210,7 +210,7 @@ def main() -> int:
     final["pid"] = os.getpid()
     final["run_mode"] = RUN_MODE
     final["config_version"] = CONFIG_VERSION
-    final["_hardening_marker"] = "v1_bytes_per_fact_pareto_chunked"
+    final["_hardening_marker"] = "v1.1_bytes_per_fact_pareto_chunked_perarm_device_routing"
     final["backend"] = backend
     final["seed"] = SEED
     final["n_seeds"] = 1
