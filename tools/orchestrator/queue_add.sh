@@ -188,6 +188,50 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     fi
   fi
 
+  # Pattern 5: shared framework modules that ANY cell may import (SH-2 fix; 2026-07-01).
+  # Cells commonly import cross-cutting helpers like `from experiments._cell_heartbeat`,
+  # `from experiments._seed_checkpoint`, `from experiments._multi_hop_mechanisms`, etc.
+  # Patterns 1-4 only match sibling wrappers/helpers by name convention; they miss
+  # these shared modules. Fix: hardcoded allow-list of shared framework modules; if
+  # the local script imports any of them, scp explicitly. Surfaced 2026-07-01 03:00 UTC
+  # when seqbind N-scaling silently failed on remote (import worked locally but the
+  # module was never SCPed).
+  #
+  # NOTE: kept intentionally SHORT — only true cross-cell shared framework modules
+  # that CI/dispatch has repeatedly missed. Cell-specific `_core`/`_base` are handled
+  # by patterns 1-4. Do NOT expand into a general-purpose transitive dep resolver
+  # (that's a rabbit hole; stick to the known-recurrence set).
+  SHARED_FRAMEWORK_MODULES=(
+    "_cell_heartbeat"
+    "_seed_checkpoint"
+    "_multi_hop_mechanisms"
+    "_metric_battery"
+    "_relation_graph"
+    "_gpu_cap"
+    "_stream"
+    "_cell_provenance"
+    "_bit_precision"
+    "_atomic_write"
+    "_common_gates"
+  )
+  for MODULE in "${SHARED_FRAMEWORK_MODULES[@]}"; do
+    # grep for either `from experiments._MODULE ` or `import experiments._MODULE` in the local script
+    if grep -qE "(from experiments\.${MODULE}[[:space:]]|import experiments\.${MODULE})" "${SCRIPT_LOCAL}"; then
+      SHARED_LOCAL="${REPO_LOCAL}/experiments/${MODULE}.py"
+      if [[ -f "${SHARED_LOCAL}" ]]; then
+        # Ship shared framework modules to REPO_REMOTE/experiments/ (the actual import
+        # target), NOT SCRIPT_REMOTE_DIR (which is the wrapper's own dir). If they're
+        # the same dir (script is in experiments/), this is idempotent; if the script
+        # lives elsewhere, this places the module where python's import resolves it.
+        SHARED_REMOTE_DIR="${REPO_REMOTE}/experiments"
+        echo "[queue-add] AUTO-SCP shared framework module (Pattern 5) -> ${SHARED_LOCAL} -> ${SHARED_REMOTE_DIR}/"
+        scp -o ConnectTimeout=10 "${SHARED_LOCAL}" "${SSH_TARGET}:${SHARED_REMOTE_DIR}/"
+      else
+        echo "[queue-add] WARN: script imports experiments.${MODULE} but ${SHARED_LOCAL} not found locally" >&2
+      fi
+    fi
+  done
+
   # SSH+PowerShell payload. Single-quote bash outer per [[feedback-ssh-powershell-quoting]].
   # Extra flags (e.g. --rerun-as, --allow-duplicate) are appended verbatim.
   # HDLAB_QUEUE_ADD_ON_REMOTE=1 satisfies the host-guard in queue_add.py that
@@ -207,7 +251,38 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     echo "FAIL: post-ship verification — ${NAME} NOT found in remote ${QUEUE}/queue.json" >&2
     exit 5
   fi
-  echo "[queue-add] VERIFIED: ${NAME} present in remote ${QUEUE}/queue.json"
+
+  # Status-field grep-back (Fix #28-adjacent; 2026-07-01). Presence alone is insufficient:
+  # the entry may be present but in a terminal state (completed / failed / canceled / killed)
+  # from a prior run, making "VERIFIED present" a stale-claim (USER caught 2026-07-01 02:30 UTC).
+  # Emit both status AND run_index so downstream watchers/USER can spot terminal-state ships.
+  STATUS_PS="\$q = Get-Content ${REPO_REMOTE}/data/${QUEUE}/queue.json | ConvertFrom-Json; \$e = \$q.experiments | Where-Object { \$_.name -eq '${NAME}' }; if (\$e) { \"status=\" + \$e.status + \" run_index=\" + \$e.run_index }"
+  STATUS_LINE=$(ssh -o ConnectTimeout=10 "${SSH_TARGET}" "powershell -Command \"${STATUS_PS}\"" 2>/dev/null | tr -d '\r' | head -1 || true)
+  if [[ -z "${STATUS_LINE}" ]]; then
+    # Fallback: entry present per REMOTE_HIT but status field unreadable (schema drift?).
+    # Don't fail here — the presence-verify already passed. Just flag.
+    echo "[queue-add] VERIFIED: ${NAME} present in remote ${QUEUE}/queue.json (status field unreadable)"
+  else
+    # Parse status; warn if terminal.
+    ENTRY_STATUS=$(echo "${STATUS_LINE}" | grep -oE "status=[a-z_]+" | cut -d= -f2 || true)
+    case "${ENTRY_STATUS}" in
+      pending|running|"")
+        echo "[queue-add] VERIFIED: ${NAME} present in remote ${QUEUE}/queue.json (${STATUS_LINE})"
+        ;;
+      done|completed|failed|canceled|killed)
+        echo "[queue-add] WARN: ${NAME} present in remote queue.json BUT status is terminal (${STATUS_LINE})" >&2
+        echo "[queue-add] WARN: this ship is a NO-OP for the runner unless --allow-duplicate reset the entry to pending" >&2
+        echo "[queue-add] WARN: check queue_add.py output above — did it emit 'already in queue' or 'reset to pending'?" >&2
+        # Still record + return success; the DIRECTOR needs to see this warn and act.
+        # Exit-fail here would break --allow-duplicate flows that legitimately land on terminal entries.
+        echo "[queue-add] VERIFIED: ${NAME} present in remote ${QUEUE}/queue.json (${STATUS_LINE})"
+        ;;
+      *)
+        echo "[queue-add] VERIFIED: ${NAME} present in remote ${QUEUE}/queue.json (${STATUS_LINE}; unknown status)"
+        ;;
+    esac
+  fi
+
   record_ship_attempt
   echo "[queue-add] OK: ${NAME} queued to ${QUEUE}"
 
