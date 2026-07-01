@@ -169,6 +169,16 @@ def _add_noise_complex(hd: torch.Tensor, sigma: float,
 # ---------------------------------------------------------------------------
 # FHRR sequence bind ops
 # ---------------------------------------------------------------------------
+# Chunk size for vocab-dim decode (v1.1 OOM fix 2026-06-30).
+# item_codebook has shape (ITEM_VOCAB_SIZE=10000, N_DIM up to 32768) complex64.
+# Full matmul item_codebook.conj() @ candidate materializes a full
+# ITEM_VOCAB_SIZE x N_DIM conjugate tensor (~2.44 GiB at N=32768 c64).
+# Chunk over vocab rows (dim 0) so peak alloc = DECODE_VOCAB_CHUNK * N_DIM.
+# At chunk=512, N=32768, c64 -> 128 MiB per chunk (fits with codebook + positions
+# resident on 8 GiB GPU).
+DECODE_VOCAB_CHUNK = 512
+
+
 def encode_fhrr_sequence(
     item_codes: torch.Tensor, position_codes: torch.Tensor,
 ) -> torch.Tensor:
@@ -180,10 +190,33 @@ def decode_fhrr_at_position(
     seq_hd: torch.Tensor, position_hd: torch.Tensor,
     item_codebook: torch.Tensor,
 ) -> int:
-    """Recover argmax item index at a given position."""
+    """Recover argmax item index at a given position.
+
+    v1.1: chunk over vocab rows to bound GPU peak allocation (was OOM at
+    N=32768 on 8 GiB GPU because item_codebook.conj() @ candidate materializes
+    a full (V, N) conjugate). Chunked math is exact-equivalent: score of item i
+    is |<conj(codebook[i]), candidate>| regardless of chunking.
+    """
     candidate = seq_hd * position_hd.conj()
-    scores = (item_codebook.conj() @ candidate).abs()
-    return int(scores.argmax().item())
+    V = item_codebook.shape[0]
+    # For small V or CPU, take the direct path (no chunk overhead).
+    if V <= DECODE_VOCAB_CHUNK or item_codebook.device.type != "cuda":
+        scores = (item_codebook.conj() @ candidate).abs()
+        return int(scores.argmax().item())
+    # Chunked path: iterate vocab rows, keep only per-chunk argmax + score.
+    best_score = None
+    best_idx = -1
+    for start in range(0, V, DECODE_VOCAB_CHUNK):
+        stop = min(start + DECODE_VOCAB_CHUNK, V)
+        chunk = item_codebook[start:stop]  # view; (chunk, N)
+        chunk_scores = (chunk.conj() @ candidate).abs()  # (chunk,) float32
+        chunk_max_val, chunk_max_idx = chunk_scores.max(dim=0)
+        cmv = float(chunk_max_val.item())
+        if best_score is None or cmv > best_score:
+            best_score = cmv
+            best_idx = start + int(chunk_max_idx.item())
+        del chunk_scores
+    return best_idx
 
 
 # ---------------------------------------------------------------------------
@@ -195,6 +228,12 @@ def eval_arm_at_point(
 ) -> Dict[str, Any]:
     """Evaluate one (arm, N, K) grid point. Returns metrics dict."""
     t0 = time.time()
+
+    # v1.1 OOM insurance: clear CUDA cache at the start of every point so
+    # transient allocations from the previous point don't stack. Cheap
+    # (microseconds) and lets us hit N=32768 K=500 within 8 GiB budget.
+    if device.type == "cuda":
+        torch.cuda.empty_cache()
 
     g_main = torch.Generator(device=device)
     g_main.manual_seed(int(seed) + 1000 * int(N_DIM // 1024) + int(K_SEQ))
@@ -248,6 +287,16 @@ def eval_arm_at_point(
     acc = float(n_correct) / float(n_queries)
     elapsed = time.time() - t0
 
+    # Report CUDA peak memory (v1.1 diagnostic for OOM audit)
+    peak_gib = None
+    if device.type == "cuda":
+        try:
+            peak_bytes = torch.cuda.max_memory_allocated(device)
+            peak_gib = round(peak_bytes / (1024 ** 3), 3)
+            torch.cuda.reset_peak_memory_stats(device)
+        except Exception:
+            peak_gib = None
+
     # Free intermediates (crucial for N=32768 memory hygiene)
     del item_codebook, positions
     if device.type == "cuda":
@@ -262,6 +311,7 @@ def eval_arm_at_point(
         "retrieval_acc": round(acc, 4),
         "noise_sigma": float(noise_sigma),
         "wall_s": round(elapsed, 3),
+        "cuda_peak_gib": peak_gib,
     }
 
 
@@ -396,7 +446,57 @@ def selftest(seed: int, device: torch.device = None) -> Tuple[bool, str]:
         f"rnd_acc={pt_rnd['retrieval_acc']}"
     )
 
-    # 5. Scaling-law fit sanity (synthetic K_cliff = 0.12 * N snapped to K_SEQ)
+    # 5. Chunked-decode equivalence (v1.1 OOM fix): assert chunked path returns
+    # SAME argmax as full matmul. Force-test both on CPU (chunking is only
+    # auto-applied on CUDA; here we drive an inlined chunked reference).
+    n_dim_ce = 128
+    V_ce = DECODE_VOCAB_CHUNK * 2 + 37  # force >=3 chunks with a tail
+    cb_ce = make_fhrr_codebook(V_ce, n_dim_ce, seed + 555, device)
+    pos_ce = make_fhrr_codebook(POSITION_SLOTS, n_dim_ce, seed + 556, device)
+    tgt_id = 1234 % V_ce
+    seq_ce = encode_fhrr_sequence(
+        cb_ce[torch.tensor([tgt_id], device=device, dtype=torch.long)],
+        pos_ce[torch.tensor([0], device=device, dtype=torch.long)],
+    )
+    # Direct reference (full matmul)
+    candidate_ref = seq_ce * pos_ce[0].conj()
+    scores_ref = (cb_ce.conj() @ candidate_ref).abs()
+    ref_argmax = int(scores_ref.argmax().item())
+    ref_topscore = float(scores_ref.max().item())
+    # Inlined chunked reference (validates the chunked math independent of
+    # the device-type dispatch inside decode_fhrr_at_position)
+    best_score_c = None
+    best_idx_c = -1
+    for start in range(0, V_ce, DECODE_VOCAB_CHUNK):
+        stop = min(start + DECODE_VOCAB_CHUNK, V_ce)
+        chunk = cb_ce[start:stop]
+        chunk_scores = (chunk.conj() @ candidate_ref).abs()
+        cmv, cmi = chunk_scores.max(dim=0)
+        if best_score_c is None or float(cmv.item()) > best_score_c:
+            best_score_c = float(cmv.item())
+            best_idx_c = start + int(cmi.item())
+    if best_idx_c != ref_argmax:
+        return False, (
+            f"chunked_decode_mismatch: chunked={best_idx_c} "
+            f"direct={ref_argmax} (V={V_ce} chunk={DECODE_VOCAB_CHUNK})"
+        )
+    if abs(best_score_c - ref_topscore) > 1e-4:
+        return False, (
+            f"chunked_decode_score_drift: chunked={best_score_c:.6f} "
+            f"direct={ref_topscore:.6f}"
+        )
+    # Also verify the actual API dispatch is correct on this device
+    got_argmax = decode_fhrr_at_position(seq_ce, pos_ce[0], cb_ce)
+    if got_argmax != ref_argmax:
+        return False, (
+            f"decode_api_mismatch: got={got_argmax} direct={ref_argmax}"
+        )
+    msgs.append(
+        f"chunked_decode_equivalence_pass V={V_ce} chunk={DECODE_VOCAB_CHUNK} "
+        f"topscore={ref_topscore:.4f}"
+    )
+
+    # 6. Scaling-law fit sanity (synthetic K_cliff = 0.12 * N snapped to K_SEQ)
     N_test = list(N_DIM_SWEEP_FULL)
     K_synth = []
     for N in N_test:
