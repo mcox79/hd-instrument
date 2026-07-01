@@ -1,14 +1,15 @@
 """substrate_seqbind_N_dim_scaling_law_v1 sibling seed=7.
 
 USER 2026-07-01 overnight priority: N dimensionality free-axis chain-grade
-attempt (axis B). Sweep K-cliff at N in {2048, 4096, 8192, 16384, 32768};
+attempt (axis B). Sweep K-cliff at N in {2048, 4096, 8192, 16384};
 verify linear scaling law K_cliff(N) = alpha * N.
 
 CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
   - arms_differ_verified at smoke gate (META_RULE_AF)
   - final_metrics_atomicity = tmp_replace (META_RULE_AH)
   - except SystemExit: raise BEFORE except Exception (no BaseException; §8)
-  - discriminator survives scale (smoke includes N=32768 preview; pattern C)
+  - discriminator survives scale (smoke includes N=16384 preview; pattern C;
+    v1.6 capped from N=32768 due to Windows-PyTorch allocator limit)
   - HARD_PASS strictly above floor (R2>=0.95 slope in [0.85,1.15]; META_RULE_L)
   - cardinality_ok for sweep-axis cell (META_RULE_H; N*K*arms)
   - per-unit failure-class via specific exception classes (META_RULE_J)
@@ -49,13 +50,12 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-# v1.5 CUDA fragmentation fix: MUST be set in the WRAPPER before `import torch`
-# (not in _core.py, which is imported AFTER torch here -> too late; env var must
-# precede first CUDA allocator init). Replicates Batch D v3 (commit f344f2e9)
-# pattern -- v1.3 put this in _core.py only and failed for exactly this reason.
-os.environ.setdefault(
-    "PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True"
-)
+# v1.6: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is INERT on Windows
+# (runtime UserWarning: expandable_segments not supported on this platform;
+# our GPU host is RTX 4060 Ti / Windows). v1.3/1.5 chased a Linux fix on a
+# Windows target. v1.6 caps N at 16384 in _core.py instead. Keeping this line
+# commented for historical trail; do not re-enable without platform check.
+# os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 import torch  # PROT-020 GPU-queue routing gate
 
@@ -83,13 +83,13 @@ SMOKE_MODE = (RUN_MODE == "smoke")
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},"
     f"arms=[SUBSTRATE,RANDOM],"
-    f"N_sweep_full=[2048,4096,8192,16384,32768],"
-    f"N_sweep_smoke=[2048,4096,8192,32768],"
+    f"N_sweep_full=[2048,4096,8192,16384],"
+    f"N_sweep_smoke=[2048,8192,16384],"
     f"K_SEQ_full=[50,100,200,500,1000,2000,4000],"
     f"K_SEQ_smoke=[200,1000,4000],"
     f"ITEM_VOCAB=10000,POSITION_SLOTS=4096,NOISE_SIGMA=0.05,"
     f"SEED={SEED},mode={RUN_MODE},"
-    f"expected_n_full=70,expected_n_smoke=24,"
+    f"expected_n_full=56,expected_n_smoke=18,"
     f"discriminator=log2_K_cliff_vs_log2_N_linear_fit,"
     f"HP_R2_FLOOR=0.95,HP_SLOPE=[0.85,1.15],MB_R2=0.80,MB_SLOPE=[0.70,1.30],"
     f"posctrl_N=8192,posctrl_log2_K_center=log2(1000),posctrl_tol=0.5,"
@@ -121,7 +121,7 @@ def _write_minimal_metrics(out_dir: Path, verdict: str, verdict_msg: str,
             "pid": os.getpid(),
             "run_mode": RUN_MODE,
             "config_version": CONFIG_VERSION,
-            "_hardening_marker": "v1_seqbind_N_dim_scaling_law_chunked",
+            "_hardening_marker": "v1_6_seqbind_N_dim_scaling_law_chunked_Ncap16384",
         }
         if extra:
             m.update(extra)
@@ -177,11 +177,13 @@ def _write_start_marker(out_dir: Path, expected_n_units: int) -> None:
 
 def main() -> int:
     _RESULTS_HOLDER["started_at"] = time.time()
-    # v1.5 diagnostic: verify PYTORCH_CUDA_ALLOC_CONF is set (should be
-    # "expandable_segments:True" from the pre-torch env-var block above)
+    # v1.6 diagnostic: PYTORCH_CUDA_ALLOC_CONF is now expected UNSET (Windows
+    # does not support expandable_segments; v1.6 caps N at 16384 instead).
+    # Keep the print so any future re-enable is visible in the log.
     print(
-        f"[v1.5] PYTORCH_CUDA_ALLOC_CONF="
-        f"{os.environ.get('PYTORCH_CUDA_ALLOC_CONF', '<unset>')}",
+        f"[v1.6] PYTORCH_CUDA_ALLOC_CONF="
+        f"{os.environ.get('PYTORCH_CUDA_ALLOC_CONF', '<unset>')} "
+        f"(expected <unset> on Windows; v1.6 caps N at 16384)",
         flush=True,
     )
     env_name = os.environ.get("HDLAB_EXP_NAME", ANCHOR_NAME)
@@ -260,7 +262,7 @@ def main() -> int:
     final["pid"] = os.getpid()
     final["run_mode"] = RUN_MODE
     final["config_version"] = CONFIG_VERSION
-    final["_hardening_marker"] = "v1_seqbind_N_dim_scaling_law_chunked"
+    final["_hardening_marker"] = "v1_6_seqbind_N_dim_scaling_law_chunked_Ncap16384"
     final["backend"] = backend
     final["seed"] = SEED
     final["n_seeds"] = 1

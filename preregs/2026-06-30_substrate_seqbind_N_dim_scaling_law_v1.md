@@ -3,6 +3,34 @@
 Filed 2026-06-30. USER 2026-07-01 overnight priority (first free-axis chain-grade
 attempt at axis B: N dimensionality).
 
+## v1.6 amendment (2026-06-30, exp_dev)
+
+**Platform limitation discovered:** v1.0/1.1/1.2/1.3/1.5 all failed on the GPU
+host (RTX 4060 Ti / Windows / 8 GiB) at N=32768 despite chunked-encode +
+chunked-decode + `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`. Root cause:
+PyTorch on Windows does NOT support `expandable_segments` (runtime UserWarning:
+"expandable_segments not supported on this platform"). Without allocator defrag
+between (N,K) points, chronic fragmentation (~800 MB reserved-not-allocated) OOMs
+at N=32768 gather.
+
+**v1.6 pivot:** cap `N_DIM_SWEEP_FULL` at 16384 (was 32768). Drop top scaling
+anchor. Rationale: 4 anchors N in {2048, 4096, 8192, 16384} still gives 3 log2
+doublings -- sufficient statistical power for linear fit K_cliff(N) = alpha * N
+with slope and R^2 identifiable. Extrapolation from 4-anchor fit predicts K_cliff
+at N=32768 without requiring the measured point.
+
+Updated cardinality:
+- `EXPECTED_N_UNITS_FULL` = 2 arms x 4 N x 7 K = **56** (was 70)
+- `EXPECTED_N_UNITS_SMOKE` = 2 arms x 3 N x 3 K = **18** (was 24)
+- Smoke N sweep now (2048, 8192, 16384) -- includes POSCTRL_N=8192 anchor +
+  N=16384 discriminator-must-survive-scale preview
+- All other pre-reg fields (HP bands, MB bands, POSCTRL, tolerance, K_SEQ sweep,
+  ITEM_VOCAB, NOISE_SIGMA, POSITION_SLOTS) UNCHANGED
+
+If N=32768 becomes required for chain-grade tier: chunk the `item_codebook[item_ids]`
+gather (Option B; v1.7+) OR migrate GPU host to Linux (expandable_segments
+supported). Not pursued now -- 4-anchor fit is chain-grade-eligible.
+
 ## Hypothesis
 
 Sequence-binding K-cliff scales linearly with substrate dimensionality N.

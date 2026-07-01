@@ -45,14 +45,13 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-# v1.3 CUDA fragmentation fix (Batch D v3 pattern; commit f344f2e9):
-# Enable PyTorch expandable-segments allocator so the runtime can defrag
-# reserved-but-unallocated blocks between (N,K) points. MUST be set BEFORE
-# `import torch` to take effect. Traceback showed 799 MB reserved-not-
-# allocated on OOM at item_codebook[item_ids] gather -> classic fragmentation.
-os.environ.setdefault(
-    "PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True"
-)
+# v1.6: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True was tried in v1.3/1.5
+# but PyTorch on Windows does NOT support that flag (UserWarning: expandable
+# _segments not supported on this platform; RTX 4060 Ti / Windows target). We
+# now cap N_DIM_SWEEP_FULL at 16384 instead (see below). Keeping the env-var
+# line commented for historical trail; do not re-enable without confirming
+# platform support.
+# os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 import numpy as np
 import torch  # PROT-020: overnight_queue routing-gate requires `import torch`
@@ -64,10 +63,17 @@ import torch  # PROT-020: overnight_queue routing-gate requires `import torch`
 # 2 arms (META_RULE_AX outer axis; LOCKED)
 ARMS = ("SUBSTRATE", "RANDOM")
 
-# N dimensionality sweep (axis B; LOCKED)
-N_DIM_SWEEP_FULL = (2048, 4096, 8192, 16384, 32768)
-# smoke uses 3 lower N + 1 preview at max N (discriminator-must-survive-scale pattern C)
-N_DIM_SWEEP_SMOKE = (2048, 4096, 8192, 32768)
+# N dimensionality sweep (axis B; v1.6 CAPPED at 16384).
+# v1.6 platform pivot: N=32768 was the target scaling-curve top-point, but
+# RTX 4060 Ti / Windows / PyTorch does NOT support expandable_segments
+# allocator (runtime UserWarning); v1.0/1.1/1.2/1.3/1.5 all OOMed at N=32768
+# regardless of chunked encode + chunked decode fixes. Scaling law K_cliff(N)
+# is still identifiable at 4 anchors N in {2048, 4096, 8192, 16384} (3
+# doublings; sufficient log2-log2 fit; pre-reg v1.6 amended).
+N_DIM_SWEEP_FULL = (2048, 4096, 8192, 16384)
+# smoke uses 3 N points including POSCTRL_N=8192 (Gate D anchor) + preview
+# at max N=16384 (discriminator-must-survive-scale pattern C)
+N_DIM_SWEEP_SMOKE = (2048, 8192, 16384)
 
 # K_SEQ sweep (needed to LOCATE cliff; LOCKED)
 K_SEQ_SWEEP_FULL = (50, 100, 200, 500, 1000, 2000, 4000)
@@ -105,9 +111,9 @@ POSCTRL_N = 8192
 POSCTRL_LOG2_K_CENTER = math.log2(1000.0)  # CG cited K_cliff at N=8192
 POSCTRL_LOG2_TOL = 0.5  # +/- factor of 1.41 (K in {500, 1000, 2000})
 
-# Cardinality (per seed; LOCKED)
-EXPECTED_N_UNITS_FULL = len(ARMS) * len(N_DIM_SWEEP_FULL) * len(K_SEQ_SWEEP_FULL)  # 2*5*7=70
-EXPECTED_N_UNITS_SMOKE = len(ARMS) * len(N_DIM_SWEEP_SMOKE) * len(K_SEQ_SWEEP_SMOKE)  # 2*4*3=24
+# Cardinality (per seed; v1.6 updated for N-cap at 16384)
+EXPECTED_N_UNITS_FULL = len(ARMS) * len(N_DIM_SWEEP_FULL) * len(K_SEQ_SWEEP_FULL)  # 2*4*7=56
+EXPECTED_N_UNITS_SMOKE = len(ARMS) * len(N_DIM_SWEEP_SMOKE) * len(K_SEQ_SWEEP_SMOKE)  # 2*3*3=18
 
 REQUIRED_FIELDS = ("verdict", "verdict_msg", "elapsed_s", "summary")
 
@@ -453,11 +459,11 @@ def selftest(seed: int, device: torch.device = None) -> Tuple[bool, str]:
         device = _get_device(strict_gpu=False)
     msgs: List[str] = []
 
-    # 1. Cardinality math
-    if EXPECTED_N_UNITS_FULL != 70:
-        return False, f"FULL cardinality {EXPECTED_N_UNITS_FULL} != 70"
-    if EXPECTED_N_UNITS_SMOKE != 24:
-        return False, f"SMOKE cardinality {EXPECTED_N_UNITS_SMOKE} != 24"
+    # 1. Cardinality math (v1.6: N capped at 16384 -> full=56, smoke=18)
+    if EXPECTED_N_UNITS_FULL != 56:
+        return False, f"FULL cardinality {EXPECTED_N_UNITS_FULL} != 56"
+    if EXPECTED_N_UNITS_SMOKE != 18:
+        return False, f"SMOKE cardinality {EXPECTED_N_UNITS_SMOKE} != 18"
     msgs.append(
         f"cardinality FULL={EXPECTED_N_UNITS_FULL} SMOKE={EXPECTED_N_UNITS_SMOKE}"
     )
