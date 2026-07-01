@@ -68,7 +68,7 @@ SMOKE_MODE = (RUN_MODE == "smoke")
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},"
     f"geometries=[random_partition,learned_supervised,lsh_hash,hierarchical_tree,knn_softmax],"
-    f"M_smoke=10000,N_smoke=2048,M_full=100000,N_full=8192,P=64,"
+    f"M_smoke=10000,N_smoke=512,M_full=100000,N_full=2048,P_smoke=256,P_full=128,"
     f"n_eval_smoke=200,n_eval_full=1024,"
     f"SEED={SEED},mode={RUN_MODE},"
     f"expected_n_arms=5,"

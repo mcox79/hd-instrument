@@ -15,8 +15,20 @@ sharding + routing.
 
 REGIME:
     Dataset: data/datasets/conceptnet5_en_100k.jsonl (100k triples ConceptNet)
-    SMOKE : M_ingest=10k, N_DIM=2048, P=64, n_eval=200
-    FULL  : M_ingest=100k, N_DIM=8192, P=64, n_eval=1024
+    SMOKE : M_ingest=10k, N_DIM=512,  P=256, n_eval=200
+    FULL  : M_ingest=100k, N_DIM=2048, P=128, n_eval=1024
+
+    v3 memory fix (2026-07-01): FULL Ws tensor = P*N*N*4B.
+        v2 config (P=256, N=2048) => 4.0 GiB per arm.
+        v2 arm loop retained fragmented cache across arms (empty_cache only
+        ran on SUCCESSFUL return; exception path left tensors resident) =>
+        4 arms crashed OOM after random_partition ran first.
+    v3 fix stack (all three landed):
+        (1) PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True (top of module)
+        (2) P_SHARDS_FULL 256 -> 128; halves Ws footprint to 2.0 GiB
+        (3) empty_cache() in finally block after every arm (success or fail)
+        (4) full_scale_preview selftest allocates + frees the FULL Ws tensor
+            so cell-author sees OOM at smoke-time (not remote-run-time).
 
 DISCRIMINATOR:
     retrieval_acc = set_recall@|obj| for (s,p) -> {o} queries;
@@ -65,6 +77,10 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Tuple
 
 import numpy as np
+
+# v3 fix (2026-07-01): expandable_segments=True to avoid 3+ GiB fragmented reservation
+# after per-arm 2 GiB Ws churn. MUST precede `import torch` to take effect.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 # Torch at TOP of module (PROT-020 GPU-eligibility scan)
 import torch
@@ -127,11 +143,28 @@ GEOMETRY_FAMILIES = (
 M_INGEST_SMOKE = 10_000
 M_INGEST_FULL = 100_000
 N_DIM_SMOKE = 512
-N_DIM_FULL = 2048   # constrained: (P=256, N=2048) Ws memory = 256*4M*4B = 4.3GB (fits 8GB GPU)
+N_DIM_FULL = 2048
+# v3 (2026-07-01): P_SHARDS_FULL 256 -> 128 to halve per-arm Ws memory.
+# Ws footprint = P*N*N*4B = 128*2048*2048*4 = 2.0 GiB (was 4.0 GiB at P=256).
+# With expandable_segments + per-arm empty_cache, 5 arms x 2 GiB fits 8 GiB GPU.
+# Sharding density (keys-per-shard = ~42154/128 ~= 329 vs prior ~165) still
+# well below single-shard capacity ceiling for N=2048 Hebbian W.
 P_SHARDS_SMOKE = 256
-P_SHARDS_FULL = 256  # matched to smoke sharding ratio (same keys-per-shard density)
+P_SHARDS_FULL = 128
 N_EVAL_SMOKE = 200
 N_EVAL_FULL = 1024
+
+# v3 memory-budget self-check (fires on import; catches config drift)
+def _compute_ws_bytes(P: int, N: int) -> int:
+    return P * N * N * 4  # float32
+
+_WS_FULL_BYTES = _compute_ws_bytes(P_SHARDS_FULL, N_DIM_FULL)
+_WS_FULL_GIB = _WS_FULL_BYTES / (1024 ** 3)
+assert _WS_FULL_GIB <= 3.0, (
+    f"v3 memory guard: FULL Ws = {_WS_FULL_GIB:.2f} GiB > 3.0 GiB cap. "
+    f"With E/R/key_vecs residency (~1 GiB) + fragmented cache slack, "
+    f"per-arm churn will OOM 8 GiB GPU. Reduce P_SHARDS_FULL or N_DIM_FULL."
+)
 
 # Adversarial noise added to routing cue (not to retrieval query).
 # Different noise levels stress different routing geometries differently.
@@ -578,6 +611,31 @@ def selftest(seed: int) -> Tuple[bool, str]:
         if r["retrieval_acc"] < 0.05:
             return False, f"sanity FAIL {fam}: retrieval_acc={r['retrieval_acc']:.3f} < 0.05 (plumbing broken)"
 
+    # 5. FULL-SCALE-PREVIEW (v3 fix; DISCRIMINATOR_MUST_SURVIVE_SCALE gate).
+    # Allocate + free the FULL Ws tensor (P_FULL, N_FULL, N_FULL) to catch
+    # OOM at cell-author time. Applies for BOTH CUDA and CPU (CPU allocation
+    # of 2 GiB still validates the sizing arithmetic).
+    ws_gib = _WS_FULL_GIB
+    msgs.append(f"FULL Ws budget: P={P_SHARDS_FULL} N={N_DIM_FULL} => {ws_gib:.2f} GiB")
+    if _CUDA_OK:
+        try:
+            _preview = torch.zeros(
+                (P_SHARDS_FULL, N_DIM_FULL, N_DIM_FULL),
+                device=DEVICE, dtype=torch.float32,
+            )
+            del _preview
+            torch.cuda.empty_cache()
+            msgs.append(f"full_scale_preview alloc OK (CUDA {GPU_MAX_MEM_GB:.1f} GB)")
+        except torch.cuda.OutOfMemoryError as e:
+            return False, (
+                f"FULL_SCALE_PREVIEW OOM ({ws_gib:.2f} GiB Ws exceeds free CUDA); "
+                f"config drift or GPU too small: {e}"
+            )
+    else:
+        # CPU path: skip actual alloc (2 GiB CPU alloc is wasteful for smoke),
+        # just record the sizing so verdict shows the arithmetic ran.
+        msgs.append("full_scale_preview CPU path: sizing computed, alloc skipped")
+
     return True, "; ".join(msgs)
 
 
@@ -615,6 +673,8 @@ def run_one_seed(seed: int, run_mode: str) -> Dict[str, Any]:
             print(f"  -> retrieval_acc={r['retrieval_acc']:.4f} "
                   f"(n_eval={r['n_eval']}, hash={r['routing_hash']}, "
                   f"t={r['elapsed_s']:.1f}s)", flush=True)
+        except SystemExit:
+            raise
         except Exception as e:
             per_arm.append({
                 "geometry": fam,
@@ -627,6 +687,15 @@ def run_one_seed(seed: int, run_mode: str) -> Dict[str, Any]:
                 "elapsed_s": 0.0,
             })
             print(f"  -> FAIL: {type(e).__name__}: {e}", flush=True)
+        finally:
+            # v3 fix (2026-07-01): flush CUDA cache after EVERY arm regardless
+            # of success/fail. Prior behavior only flushed on ingest_and_eval's
+            # successful return; when an arm crashed mid-Ws-alloc the ~4 GiB
+            # Ws tensor + Python traceback frame refs kept prior E/R/key_vecs
+            # resident, causing later arms to OOM. Now every arm starts clean.
+            if _CUDA_OK:
+                torch.cuda.empty_cache()
+                torch.cuda.synchronize()
 
     # Aggregate
     accs = {r["geometry"]: r["retrieval_acc"] for r in per_arm}

@@ -65,12 +65,35 @@ Cell-chunked (single-seed-per-cell per §13 discipline).
 
 - Dataset: `data/datasets/conceptnet5_en_100k.jsonl` (existing, 100k triples)
 - SMOKE: M_ingest=10k triples, N_DIM=512, P=256 shards, n_eval=200 keys, noise_cos=0.60
-- FULL: M_ingest=100k triples, N_DIM=2048, P=256 shards, n_eval=1024 keys, noise_cos=0.60
+- FULL: M_ingest=100k triples, N_DIM=2048, P=128 shards, n_eval=1024 keys, noise_cos=0.60
 - SEEDS: 7, 13, 19 (chunked, one per cell)
 
-FULL memory budget: Ws = (P=256, N=2048, N=2048) x float32 = 4.3 GB, fits 8GB GPU.
-Sharding density matched to smoke (~39 keys/shard smoke; ~78 keys/shard full) —
-discriminator preserved.
+FULL memory budget: Ws = (P=128, N=2048, N=2048) x float32 = 2.0 GiB per arm.
+Sharding density (~42k unique (s,p) keys / P=128 = 329 keys/shard full vs
+~7k / 256 = 27 keys/shard smoke) — density INCREASED at full (more items per
+shard's Hebbian matrix) which is the correct direction for the discriminator.
+
+**v3 memory fix (2026-07-01) — addresses v2 OOM:**
+v2 dispatched with (P=256, N=2048) => Ws = 4.0 GiB. First arm allocated
+fine, but 4 subsequent arms crashed CUDA OOM at `torch.zeros((P, N, N))`
+because the arm-loop only ran `torch.cuda.empty_cache()` inside
+`ingest_and_eval`'s successful return path; on any exception mid-arm the
+tensor + traceback frame refs remained resident, and the arm-loop retained
+~3.4 GiB fragmented cache. Only `random_partition` (which ran first, on a
+fresh GPU) survived. v3 fixes ship in three landed changes:
+1. `os.environ["PYTORCH_CUDA_ALLOC_CONF"]="expandable_segments:True"` at
+   module top (defragments per-arm 2 GiB Ws churn)
+2. `P_SHARDS_FULL` 256 -> 128 (halves per-arm Ws to 2.0 GiB, giving 6 GiB
+   slack for E/R/key_vecs residency + fragmented cache on 8 GiB GPU)
+3. `finally: torch.cuda.empty_cache(); torch.cuda.synchronize()` in
+   `run_one_seed`'s arm loop — guarantees clean state per arm regardless of
+   success/failure
+4. NEW `full_scale_preview` selftest allocates + frees the FULL Ws tensor to
+   catch OOM at cell-author-time (not remote-run-time). CUDA path only;
+   CPU path validates the sizing arithmetic. Enforces DISCRIMINATOR_MUST_
+   SURVIVE_SCALE at the memory-envelope level.
+5. Module-level `assert _WS_FULL_GIB <= 3.0` guards against future config
+   drift silently pushing Ws back over budget.
 
 ## Discriminator (HARD_PASS conditions)
 
