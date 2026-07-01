@@ -51,6 +51,65 @@ function Cleanup-Staging() {
     if (Test-Path $tarballPath) { Remove-Item $tarballPath -Force -ErrorAction SilentlyContinue }
 }
 
+# Bounded-execution wrapper for SSH/SCP calls (2026-07-01 phantom-FULL fix).
+# `-o ConnectTimeout=N` only bounds the TCP connect; once ssh is connected and
+# the remote powershell hangs (auth-agent, ExecutionPolicy prompt, network
+# drop mid-payload, etc.), ssh will wait indefinitely. Result: the scheduled
+# task's ssh child persists as a SYSTEM-owned process the user cannot kill,
+# and the .lock stays "held" until the age>=12min bypass kicks in. Meanwhile
+# every sync-cycle firing produces a new hung ssh, and 10+ hours of remote
+# metrics never sync back -> Director framings become phantom-FULL because
+# local metrics.json is stale from an earlier smoke run.
+#
+# Fix: wrap ssh/scp in Start-Job + Wait-Job -Timeout. If the wall-timeout
+# fires, Stop-Job forcibly kills the invocation chain. Returns @{ok, stdout, exit_code}.
+function Invoke-BoundedSsh {
+    param(
+        [Parameter(Mandatory=$true)][string]$Command,
+        [int]$TimeoutSeconds = 60,
+        [string]$Label = "ssh"
+    )
+    $job = Start-Job -ScriptBlock {
+        param($cmd)
+        $out = & ssh -o ConnectTimeout=15 -o BatchMode=yes -o ServerAliveInterval=10 -o ServerAliveCountMax=3 marsh@home $cmd 2>&1
+        @{ stdout = ($out | Out-String); exit_code = $LASTEXITCODE }
+    } -ArgumentList $Command
+    $finished = Wait-Job -Job $job -Timeout $TimeoutSeconds
+    if (-not $finished) {
+        Write-Log ("BOUNDED_SSH TIMEOUT label={0} timeout={1}s command={2}" -f $Label, $TimeoutSeconds, ($Command.Substring(0, [math]::Min(80, $Command.Length))))
+        Stop-Job -Job $job -ErrorAction SilentlyContinue
+        Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
+        return @{ ok = $false; stdout = ""; exit_code = -1; timed_out = $true }
+    }
+    $result = Receive-Job -Job $job
+    Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
+    return @{ ok = ($result.exit_code -eq 0); stdout = $result.stdout; exit_code = $result.exit_code; timed_out = $false }
+}
+
+function Invoke-BoundedScp {
+    param(
+        [Parameter(Mandatory=$true)][string]$SourceSpec,
+        [Parameter(Mandatory=$true)][string]$DestPath,
+        [int]$TimeoutSeconds = 180,
+        [string]$Label = "scp"
+    )
+    $job = Start-Job -ScriptBlock {
+        param($src, $dst)
+        $out = & scp -o ConnectTimeout=15 -o BatchMode=yes -o ServerAliveInterval=10 -o ServerAliveCountMax=3 $src $dst 2>&1
+        @{ stdout = ($out | Out-String); exit_code = $LASTEXITCODE }
+    } -ArgumentList $SourceSpec, $DestPath
+    $finished = Wait-Job -Job $job -Timeout $TimeoutSeconds
+    if (-not $finished) {
+        Write-Log ("BOUNDED_SCP TIMEOUT label={0} timeout={1}s src={2}" -f $Label, $TimeoutSeconds, $SourceSpec)
+        Stop-Job -Job $job -ErrorAction SilentlyContinue
+        Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
+        return @{ ok = $false; stdout = ""; exit_code = -1; timed_out = $true }
+    }
+    $result = Receive-Job -Job $job
+    Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
+    return @{ ok = ($result.exit_code -eq 0); stdout = $result.stdout; exit_code = $result.exit_code; timed_out = $false }
+}
+
 # Strong lock (PID + age)
 if (Test-Path $lockPath) {
     $content = Get-Content $lockPath -Raw -ErrorAction SilentlyContinue
@@ -88,14 +147,17 @@ try {
 
     Set-Location $repo
 
-    # Step 1: ask remote to count its load-bearing files (cheap one-liner)
+    # Step 1: ask remote to count its load-bearing files (cheap one-liner).
+    # Bounded to 60s to survive remote-side hangs (2026-07-01 phantom-FULL fix;
+    # was raw ssh, which hung 10+ hours holding the sync lock).
     $remoteCount = 0
-    try {
-        $cnt = & ssh -o ConnectTimeout=15 -o BatchMode=yes marsh@home "powershell -NoProfile -Command `"(Get-ChildItem -Path 'C:/dev/hd-instrument/data' -Recurse -Filter metrics.json).Count`"" 2>$null
-        if ($cnt) { [int]::TryParse(($cnt | Out-String).Trim(), [ref]$remoteCount) | Out-Null }
-    } catch {}
+    $countResult = Invoke-BoundedSsh -Command "powershell -NoProfile -Command `"(Get-ChildItem -Path 'C:/dev/hd-instrument/data' -Recurse -Filter metrics.json).Count`"" -TimeoutSeconds 60 -Label "count-probe"
+    if ($countResult.ok -and $countResult.stdout) {
+        [int]::TryParse($countResult.stdout.Trim(), [ref]$remoteCount) | Out-Null
+    }
     if ($remoteCount -le 0) {
-        Write-Log "SSH count probe failed; will retry next run"
+        if ($countResult.timed_out) { Write-Log "SSH count probe TIMED OUT (60s); will retry next run" }
+        else { Write-Log "SSH count probe failed; will retry next run" }
         exit 0
     }
 
@@ -151,29 +213,20 @@ try {
     # repo copy, pointed-to above) -> tar ~108MB -> SCP-able. Merge re-enabled. (Further hardening
     # TODO: ssh-runtime-timeout + push-before-merge so a future pull-hang can NEVER block the push.)
     if ($true) {
-        # Step 3: trigger remote tar build
-        try {
-            & ssh -o ConnectTimeout=20 -o BatchMode=yes marsh@home "python $remoteScript" 2>$null | Out-Null
-            if ($LASTEXITCODE -ne 0) {
-                Write-Log "remote tar build failed; will retry next run"
-                exit 0
-            }
-        } catch {
-            Write-Log ("remote tar build threw: " + $_.Exception.Message)
+        # Step 3: trigger remote tar build (bounded 300s — remote tar takes ~60-120s typically)
+        $tarResult = Invoke-BoundedSsh -Command "python $remoteScript" -TimeoutSeconds 300 -Label "tar-build"
+        if (-not $tarResult.ok) {
+            if ($tarResult.timed_out) { Write-Log "remote tar build TIMED OUT (300s); will retry next run" }
+            else { Write-Log "remote tar build failed; will retry next run" }
             exit 0
         }
 
-        # Step 4: SCP tarball back
+        # Step 4: SCP tarball back (bounded 300s — ~124MB / typical 10-30s over LAN)
         Cleanup-Staging
-        try {
-            & scp -o ConnectTimeout=20 -o BatchMode=yes ("marsh@home:" + $remoteTarball) $tarballPath 2>$null
-            if ($LASTEXITCODE -ne 0 -or -not (Test-Path $tarballPath)) {
-                Write-Log "SCP tarball back failed; will retry next run"
-                Cleanup-Staging
-                exit 0
-            }
-        } catch {
-            Write-Log ("SCP threw: " + $_.Exception.Message)
+        $scpResult = Invoke-BoundedScp -SourceSpec ("marsh@home:" + $remoteTarball) -DestPath $tarballPath -TimeoutSeconds 300 -Label "tar-pull"
+        if (-not $scpResult.ok -or -not (Test-Path $tarballPath)) {
+            if ($scpResult.timed_out) { Write-Log "SCP tarball back TIMED OUT (300s); will retry next run" }
+            else { Write-Log "SCP tarball back failed; will retry next run" }
             Cleanup-Staging
             exit 0
         }
