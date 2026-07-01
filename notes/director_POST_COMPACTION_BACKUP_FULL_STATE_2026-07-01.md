@@ -161,4 +161,62 @@ M1.4 refuse-gate remains the sharpest current blocker for M3 milestone closure; 
 
 ---
 
+## 🆕 SESSION PROGRESS AFTER MID-DAY COMPACTION (updated 2026-07-01 ~13:05 UTC)
+
+**CERT trajectory: 645 → 648 → 651 (12 CG day; 6 more CG post-compaction)**
+
+### Post-compaction CGs (Skunkworks-VET'd)
+| # | Cell | Substantive finding |
+|---|---|---|
+| 7 | cortex_hippo dense M-sweep v3 3-seed | Cross-M validation; M3 architecture criterion (c) satisfied |
+| 8 | population coding lift | N≥10 sufficient; N=100 over-provisioning (honest scope-correction) |
+| 9 | TASK_VECTOR K-extended 3-seed | Cliff at K=1000; cv<0.10 CG-tight |
+| 10 | multihop d20-40 GPU 3-seed | Depth 40 STILL_ABOVE_HALF at 0.533; USER 0.50-crossing question answered |
+| 11 | refuse_gate V_REL sweep FULL | Physics law sqrt(2·log V_REL / N) verified 83-87% theoretical; 2-axis calibration |
+| 12 | cortex_hippo N-sweep AMEND-SCOPE | 2-axis capacity-invariance for M3 architecture (caught via substrate-KB-first discipline) |
+
+**Meta amendment:** M3 architecture meta-atom **MM_STANDARD → CHAIN-GRADE** (all 3 expansion criteria satisfied). Load-bearing insight for M3 cortex-layer development.
+
+**MM +2:** cortex_hippo beta_sweep single-seed (META_RULE_L saturation) + theta_gamma v3 3-seed cross-seed unanimity broken (seed 7 FLAT_32 K=200 vs seeds 13/19 K=100; MAIN mechanism rock-solid cv=0.000 but SECONDARY discriminator seed-dependent).
+
+**HF +1:** sparsity_free_axis v1 TEST_DESIGN_FAILURE (PC overshoot 1.000 vs [0.30, 0.90] band; auditor discipline).
+
+### M1.4 refuse-gate closure attempt (5 iterations post-compaction)
+- v3/v4/v5 → HF (first research drill closed the mechanism-class ranking)
+- v6 → smoke HF cardinality (in-KB score cluster tight; predicted d'=5.1 CONFIRMED empirically)
+- v7 → smoke HF cardinality SAME failure despite widened alphas + larger cal + borderline HP band
+- **v6+v7 2x-drill root cause identified: in-KB max_sim at N=8192 bipolar is a LLN POINT MASS** (std=0.0; all quantiles collapse to same tau). Prior research drill's Gaussian assumption was right for OOD but wrong for in-KB at high dim.
+- v8 → **smoke HP** (surgical fix: vary cal SOURCE not alpha; 4/4 distinct arm decisions; commit d9959d35)
+- v8 3-seed FULL dispatched Wave 5 → **CG #13 candidate + M1.4 milestone closure**
+
+**Novel substrate insight (not yet atomized):** in-KB max_sim at high-dim bipolar is BIMODAL — LLN point-mass on best-match atom (1-2f exactly, variance→0) + N(0, 1/sqrt(N)) noise floor on non-matches. Prior Gaussian model incorrect. This is a substrate physics finding worth atomization at Skunkworks natural context after v8 lands.
+
+### Multihop depth extension (Stage 3)
+- d20-40 CG (10th of day) — depth 40 at 0.533; per-step ~0.985
+- d45-60 GPU cell smoke HP; FULL dispatched Wave 4 → running on gpu_runner_0 (commit 7297bb70); answers USER 0.50 crossing depth with 15-hop resolution
+
+### Stage 1 revival (2x drill negatives per USER directive)
+- sparsity_free_axis v2 revival: smoke HP all 3 seeds; broken-PC gate PASSED (PC=0.51 in-band via N=4096 + c=0.60 + M∈{1000,1500,2000} + T=1); FULL dispatched Wave 6 → commit 8b928bc0
+- theta_gamma v3 revival v4: cell-author in flight; 7 seeds + finer K-sweep K∈{125,150,175} per Skunkworks revival criteria
+
+### Infra findings
+- **Harness push-block was TRANSIENT** (Wave 1 direct-push denial resolved by Wave 4/5; two consecutive successful pushes confirm); Pattern SH-2 SCP workaround still available if it recurs
+- SH-1 fires cleanly (PROT-019 timeout floor auto-lift 3600s → 14400s for `_n4096` anchor per policy)
+- SH-3 fires cleanly (numpy-only cells auto-reroute GPU→CPU)
+- Substrate-KB-first discipline validated (caught cortex_hippo N-sweep rediscovery; enabled CG #12 amend-scope)
+
+### Queue state (~13:05 UTC)
+- **remote_cpu_queue: 12 pending** — Wave 2 tail (crispr/refuse_V_REL FULL/kg_ingest 13/19), Wave 3 (beta_sweep 13/19), Wave 5 v8 conformal (7/13/19), Wave 6 v2 sparsity (7/13/19); kg_ingest_seed_7 currently RUNNING (35+ min)
+- **overnight_queue:** multihop d45-60 running on gpu_runner_0
+- Landing time estimate: v8 conformal ~1-2h; v2 sparsity ~2-4h (queue FIFO behind crispr's 10800s worst-case)
+
+### Sub-agents in flight (~13:05 UTC)
+- Cell-author: theta_gamma v4 extended-seeds revival GPU cell (spawned ~16:53 UTC session-time)
+- GPU: multihop d45-60 running
+
+### Session narrative
+Post-compaction session extended the 6-CG day pre-compaction to 12-CG day (CERT 645 → 651). M3 architecture meta atom promoted to CG (dense-Hopfield READ-REPLACE scale-independent across M and N axes at 4-16k). M1.4 refuse-gate cortex milestone likely closing this session pending v8 3-seed FULL land. Substrate insight (LLN bipolar point-mass) discovered via mechanism-class drilling — worth substrate-physics atomization. Sparsity_free and theta_gamma negatives being 2x-drilled per USER standing revival directive.
+
+---
+
 *(Historical BACKUPs from prior days retained below for reference; SNAPSHOT above is self-contained.)*
