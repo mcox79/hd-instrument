@@ -83,6 +83,21 @@
 - Design-spec calibration (moderate cosine ~0.85 target; landed at 0.20) deferred to M1.6 empirical re-tune as designed
 - **Significance:** unblocks deferred adaptive cell family (refuse-gate v3 / SWR v3+) that was structurally excluded from substrate per 5x drill 2026-06-30. Cortex layer now has the stochastic-noise-at-boundary mechanism.
 
+### 🎯🎯 DAY FINAL TALLY (updated 2026-07-01 08:00 UTC)
+
+**Session cumulative: CG +2 / MM +9 / HF +8 = 19 atoms + 19 ledger rows in 9 commits**
+
+Additional atoms since 07:00 update:
+- Axis H hierarchical_bank v1 HF closure (310e1880) — router SNR sqrt(N/M) collapse at M>>N; revival criterion S≥32 sub-banks
+
+Substrate design findings today:
+1. **INT8_DENSE Pareto-optimal at capacity crack M∈{40k,80k}** (E v5 CG; hdlab primitive shipped c3ca7dab)
+2. **Binding-family capacity-axis invariance META** (D×O + J synthesis; MM_TENTATIVE f878c151)
+3. **Hierarchical bank 2-workspace router SNR bound** (Axis H HF; needs S≥32 for M>>N)
+
+Cell-authors landed today (session totals):
+- E v3 (FP16 fix) / E v4 (M-extended) / E v5 (INT8 specialization) / B v1.5-v1.6 (env-var + N cap) / B v2 (formula) / Axis F WM (HF closure) / Axis H (HF closure) / P 3-tier (running) / Axis J (HF 2-seed) / D×O (HF 3-seed) / Batch A v2 (CG) / K-cliff v3 (MM) / Routing G v3 (unclear) / Storage v2 (MM)
+
 ### 🎯🎯 TWO CG PROMOTIONS TODAY — CERT 639→640→641 (updated 2026-07-01 07:00 UTC)
 
 **Session final: CG +2 / MM +9 / HF +7 = 18 atoms + 18 ledger rows in 8 commits.**
