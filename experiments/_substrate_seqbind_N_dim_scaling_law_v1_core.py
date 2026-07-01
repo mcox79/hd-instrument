@@ -40,9 +40,19 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
+
+# v1.3 CUDA fragmentation fix (Batch D v3 pattern; commit f344f2e9):
+# Enable PyTorch expandable-segments allocator so the runtime can defrag
+# reserved-but-unallocated blocks between (N,K) points. MUST be set BEFORE
+# `import torch` to take effect. Traceback showed 799 MB reserved-not-
+# allocated on OOM at item_codebook[item_ids] gather -> classic fragmentation.
+os.environ.setdefault(
+    "PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True"
+)
 
 import numpy as np
 import torch  # PROT-020: overnight_queue routing-gate requires `import torch`
