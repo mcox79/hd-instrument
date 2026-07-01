@@ -1,0 +1,181 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL_ARMS_IDENTICAL_META_RULE_AF (META_RULE_AF VIOLATION: arms 'ARM_FULL_STACK_D10' and 'ARM_FULL_STACK_D50' bit-identical (hash=c914e8188e43fff1c96e25283e15b252af0d9f39b469f2d1518915802c756d18)) | cardinality_ok=True observed=8/8 | arms_differ_verified=False | baseline_in_band=True | FS_D10=1.0 FS_D50=1.0 FS_D100=None SUB_ONLY=0.75 NO_REF=1.0",
+  "summary": "HARD_FAIL: 3/4 HP fired at depths [10, 50]",
+  "elapsed_s": 52.594,
+  "run_mode": "smoke",
+  "anchor_name": "cortex_full_stack_deep_composition_v2_seed_7",
+  "ts_iso": "2026-07-01T23:33:20.467481+00:00",
+  "config_version": "ANCHOR=cortex_full_stack_deep_composition_v2_seed_7,N_DIM=8192,V_CB=1024,N_BANKS=8,STM_K=100,LTM_K=1200,N_TRAIN_PER_CLASS=20,REFUSE_TAU=0.7,depths=[10, 50],regimes=['RETRIEVE_CHAIN', 'REFUSE_TERMINATED'],n_trials=4,expected_n_units=8,mode=smoke,chunk_seed=7,backend=numpy,chance_floor=0.000977,bernoulli_sigma_p05_d50=0.0354,HP_D10=0.85,HP_D50=0.6,HP_D100=0.3,HP_lift_noref=0.15,HP_lift_subonly=0.2,hardening=v2_faithful_M16_class_hv_training_per_regime",
+  "cardinality_ok": true,
+  "expected_n_units": 8,
+  "observed_n_units": 8,
+  "arms_differ_verified": false,
+  "af_digests": {},
+  "baseline_in_band": true,
+  "hp_gates": {
+    "HP_D10_HOLDS": true,
+    "HP_D50_HOLDS": true,
+    "HP_LIFT_OVER_NO_REFUSE": false,
+    "HP_LIFT_OVER_SUBSTRATE_ONLY": true
+  },
+  "aggregate_scores": {
+    "ARM_FULL_STACK_D10": 1.0,
+    "ARM_FULL_STACK_D50": 1.0,
+    "ARM_FULL_STACK_D100": null,
+    "ARM_SUBSTRATE_ONLY_D50": 0.75,
+    "ARM_NO_REFUSE_D50": 1.0
+  },
+  "per_unit": [
+    {
+      "arm": "ARM_FULL_STACK_D10",
+      "regime": "RETRIEVE_CHAIN",
+      "depth": 10,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 1.744,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_FULL_STACK_D10",
+      "regime": "REFUSE_TERMINATED",
+      "depth": 10,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 0.841,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_FULL_STACK_D50",
+      "regime": "RETRIEVE_CHAIN",
+      "depth": 50,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 7.891,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_FULL_STACK_D50",
+      "regime": "REFUSE_TERMINATED",
+      "depth": 50,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 3.962,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_SUBSTRATE_ONLY_D50",
+      "regime": "RETRIEVE_CHAIN",
+      "depth": 50,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 8.374,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_SUBSTRATE_ONLY_D50",
+      "regime": "REFUSE_TERMINATED",
+      "depth": 50,
+      "score_mean": 0.5,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "elapsed_s": 11.53,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_NO_REFUSE_D50",
+      "regime": "RETRIEVE_CHAIN",
+      "depth": 50,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 11.749,
+      "seed": 7,
+      "failure_class": null
+    },
+    {
+      "arm": "ARM_NO_REFUSE_D50",
+      "regime": "REFUSE_TERMINATED",
+      "depth": 50,
+      "score_mean": 1.0,
+      "score_std": 0.0,
+      "n_trials": 4,
+      "trial_scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "elapsed_s": 6.366,
+      "seed": 7,
+      "failure_class": null
+    }
+  ],
+  "chance_floor": 0.0009765625,
+  "meta_rules_applied": [
+    "AC",
+    "AF",
+    "AG",
+    "AH",
+    "AT",
+    "H",
+    "J",
+    "K",
+    "L",
+    "M"
+  ],
+  "seed": 7
+}

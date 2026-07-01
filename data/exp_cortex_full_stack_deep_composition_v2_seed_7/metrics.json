@@ -1,0 +1,11 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS (M1.6 class-HV training + STM + primitives OK; train_acc=1.000)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.183,
+  "run_mode": "self_test",
+  "anchor_name": "cortex_full_stack_deep_composition_v2_seed_7",
+  "ts_iso": "2026-07-01T23:29:58.342200+00:00",
+  "config_version": "ANCHOR=cortex_full_stack_deep_composition_v2_seed_7,N_DIM=8192,V_CB=1024,N_BANKS=8,STM_K=100,LTM_K=1200,N_TRAIN_PER_CLASS=20,REFUSE_TAU=0.7,depths=[10, 50],regimes=['RETRIEVE_CHAIN', 'REFUSE_TERMINATED'],n_trials=4,expected_n_units=8,mode=self_test,chunk_seed=7,backend=numpy,chance_floor=0.000977,bernoulli_sigma_p05_d50=0.0354,HP_D10=0.85,HP_D50=0.6,HP_D100=0.3,HP_lift_noref=0.15,HP_lift_subonly=0.2,hardening=v2_faithful_M16_class_hv_training_per_regime",
+  "train_acc_sample": 1.0
+}

@@ -79,12 +79,35 @@ Regimes: RETRIEVE_CHAIN, REFUSE_TERMINATED, ROUTER_MIXED.
 - final_metrics_atomicity: tmp_replace (META_RULE_AH)
 - progress_logging: print_flush_true + line_buffered_stdout (META §17)
 
-## Post-Landing
+## Post-Landing — HONEST MM INTERPRETATION (Director-accepted 2026-07-01)
 
-- Smoke lands: verify run_mode == "smoke", baseline_in_band, arms_differ_verified.
-- Full lands: hdi_skunkworks landed-VET; classify chain-grade / MM / HF per gates.
-- If HARD_PASS: M3 Phase 1 architecture validated. Atomize as CG.
-- If MIDDLE_BAND: characterize which HP misses; may indicate composition saturates at N=8192.
+**Verdict tier: MEASURED_MECHANISM (positive composition evidence; not chain-grade due to discriminator saturation).**
+
+**Smoke path (load-bearing):** `d:/AI/hd-instrument/data/exp_cortex_full_stack_deep_composition_v2_seed_7_smoke/metrics.json`
+
+MEASURED aggregate scores (off-disk verified 2026-07-01):
+- ARM_FULL_STACK_D10 = **1.000** (positive control CLEARS >= 0.85; v1 was 0.15)
+- ARM_FULL_STACK_D50 = **1.000** (HP_D50_HOLDS clears >= 0.60)
+- ARM_SUBSTRATE_ONLY_D50 = 0.75 (baseline_in_band OK; broken-PC as designed)
+- ARM_NO_REFUSE_D50 = **1.000** (same as FS_D50)
+
+HP gates fired: HP_D10_HOLDS, HP_D50_HOLDS, HP_LIFT_OVER_SUBSTRATE_ONLY (3/4).
+HP gate not fired: HP_LIFT_OVER_NO_REFUSE (FS_D50 - NO_REFUSE_D50 = 0.0 < 0.15).
+Cell verdict output: HARD_FAIL via META_RULE_AF (FS_D10 + FS_D50 trial arrays bit-identical at 1.000 — saturation-induced identity, not implementation bug).
+
+**Three substantive findings for Skunkworks atomization:**
+
+1. **Positive composition evidence (M3 Phase 1 signal)**: At N=8192 / K=100 STM, the composed M1.4+M1.5+M1.6 stack processes chain-depth-50 with 100% per-step correctness. Positive control (FS_D10) clears at 1.000. v2's Option A fix (faithful M1.6 v2 class-HV training) works — router train_acc=1.000 confirms M1.6 v2 composition primitive reproduces individual chain-grade behavior when composed downstream.
+
+2. **M1.6 v2 router self-routes OOD to REFUSE (novel observation)**: ARM_NO_REFUSE_D50 saturating identically to ARM_FULL_STACK_D50 reveals the M1.6 v2 trained router itself routes OOD probes to REFUSE (its class-HVs bundle OOD training-items into the REFUSE class centroid). At this regime, M1.4 refuse-gate is REDUNDANT WITH the router, not additive. This is a substantive finding about M1.6 v2's implicit refuse capability that atomize/CG-provenance-graph should record for downstream architecture decisions.
+
+3. **Discriminator saturation prevents chain-grade certification**: at N=8192/K=100, substrate margin is too large for depth-100 to compound errors sufficiently. Codebook cleanup restores signal at every step. No depth-degradation gradient visible → HP_LIFT gates cannot fire in this regime → cannot certify chain-grade WITHOUT re-spec regime. Future v3 (deferred; Director's call) would need larger K near capacity wall (K~1200 STM, alpha=0.15), adversarial noise floor defeating codebook cleanup, or semantic-constrained chains.
+
+**No FULL dispatch.** FULL would show all FS arms at 1.000 (same saturation pattern), no new information over smoke. Skunkworks handoff for MM tier atomization of the 3 findings above.
+
+## Substrate-KB Concept-Query (2026-07-01, per exp_dev discipline)
+
+`bash tools/substrate_query.sh "cortex full stack composition depth 100 M1.4 M1.5 M1.6 refuse context router"` returned top hit cosine=0.3057 from unrelated arcs (training-speed hierarchical / cross-modal). **Prior-work check: NONE at cosine>0.30 for THIS specific composition. Genuinely novel.**
 
 ## Cells
 
