@@ -382,6 +382,114 @@ def _log_n_mismatch_status_event(name: str, error_msg: str, metrics_path: Path) 
         pass
 
 
+# ---------- Wall-clock timeout enforcement (BUG-FIX 2026-07-01) ----------
+#
+# HISTORY: Prior implementation relied on subprocess.run(timeout=N) which uses
+# Popen.wait(timeout=...) internally. Empirically, this failed to enforce the
+# timeout for kg_ingest_encoder_family_v1_seed_7 on 2026-07-01: cell ran for
+# 19857s (2.76x its 7200s timeout) before Orchestrator manually killed the PID.
+# Suspected root cause: subprocess.run's TimeoutExpired handler calls
+# process.kill() (Windows: TerminateProcess) which does NOT kill grandchildren
+# (multiprocessing workers, BLAS threads spawning subprocesses). When the
+# immediate child is blocked on a syscall waiting for a stuck grandchild, the
+# process handle stays alive and subprocess.run's internal wait() hangs
+# indefinitely without re-raising TimeoutExpired.
+#
+# FIX: replace subprocess.run with subprocess.Popen + explicit wall-clock poll,
+# and use taskkill /F /T (Windows) or killpg (Unix) to kill the WHOLE process
+# tree on timeout. Emit HIGH-importance status_log event on kill.
+
+# Poll cadence for the Popen wait loop. Small enough to react quickly on cell
+# exit; large enough to keep CPU overhead negligible. 5s aligns with the
+# existing runner POLL_INTERVAL_S.
+CHILD_POLL_INTERVAL_S = 5.0
+
+# Grace period: after timeout fires, we call the graceful terminate signal,
+# wait GRACE_S for the child to exit, then force-kill the tree. 60s matches
+# task-spec ("timeout + grace = 60s").
+TIMEOUT_GRACE_S = 60.0
+
+# Warn threshold: emit a status_log WARN when the cell has been running for
+# WARN_FACTOR * timeout_s. Catches impending timeout kills before the fact.
+TIMEOUT_WARN_FACTOR = 1.5
+
+
+def _kill_process_tree(pid: int, force: bool = False) -> None:
+    """Kill a process and all its descendants. Portable, no psutil dependency.
+
+    Windows: `taskkill /F /T /PID <pid>` walks the tree via the Task Manager
+    process-lineage table. `/T` = tree; `/F` = force. Handles the case where
+    Python's Popen.kill() can't reach grandchildren.
+
+    Unix: send SIGKILL to the process group (assumes child was started with
+    a new process group, which happens by default for our cwd=REPO spawns
+    when we later add start_new_session=True).
+
+    Best-effort — never raises. Silent-fail preserves the runner loop.
+    """
+    if pid is None or pid <= 0:
+        return
+    try:
+        if os.name == "nt":
+            # taskkill returns non-zero if PID already dead; that's fine
+            subprocess.run(
+                ["taskkill", "/F" if force else "/T", "/T", "/PID", str(pid)],
+                capture_output=True,
+                timeout=15,
+                creationflags=0x08000000,  # CREATE_NO_WINDOW; suppress console flash
+            )
+            if force:
+                # Second pass with explicit /F to guarantee immediate termination
+                subprocess.run(
+                    ["taskkill", "/F", "/T", "/PID", str(pid)],
+                    capture_output=True,
+                    timeout=15,
+                    creationflags=0x08000000,
+                )
+        else:
+            import signal
+            try:
+                os.killpg(os.getpgid(pid), signal.SIGTERM if not force else signal.SIGKILL)
+            except (OSError, AttributeError):
+                # Fall back to plain kill if process-group not set up
+                try:
+                    os.kill(pid, signal.SIGTERM if not force else signal.SIGKILL)
+                except OSError:
+                    pass
+    except (OSError, subprocess.TimeoutExpired, Exception):
+        pass
+
+
+def _log_timeout_kill_status_event(name: str, timeout_s: float, wall_s: float,
+                                    stage: str) -> None:
+    """Append an importance=HIGH status_log entry for a runner-enforced timeout kill.
+
+    stage: "graceful_terminate" | "force_kill_after_grace" | "warn_1_5x"
+    Failure to log is silent; queue.json entry still carries the outcome.
+    """
+    try:
+        sys.path.insert(0, str(REPO / "tools"))
+        from orchestrator.state import log_event  # type: ignore
+        importance = "HIGH" if stage != "warn_1_5x" else "MEDIUM"
+        log_event(
+            "runner_timeout_enforcement",
+            f"Runner {stage} for {name}: wall={wall_s:.1f}s vs timeout={timeout_s:.1f}s",
+            plain_language=(
+                f"Runner {_HB_STATE['runner_id']} {stage} for cell '{name}': "
+                f"cell has been running for {wall_s:.1f}s (limit was {timeout_s:.1f}s). "
+                f"{'Killing process tree via taskkill /F /T.' if stage != 'warn_1_5x' else 'Approaching timeout ceiling; will kill at 1x.'}"
+            ),
+            importance=importance,
+            anchor=name,
+            wall_s=wall_s,
+            timeout_s=timeout_s,
+            runner_id=_HB_STATE["runner_id"],
+            stage=stage,
+        )
+    except Exception:
+        pass
+
+
 # ---------- Run a single experiment ----------
 
 def run_one(entry: dict) -> str:
@@ -438,19 +546,82 @@ def run_one(entry: dict) -> str:
     _no_window_flag = 0x08000000 if os.name == "nt" else 0
     _spawn_flags = _below_normal_flag | _no_window_flag
 
+    # BUG-FIX 2026-07-01: wall-clock timeout enforcement via Popen + poll.
+    # See "Wall-clock timeout enforcement" block above for history.
+    timeout_s = float(entry.get("timeout_s", DEFAULT_TIMEOUT_S))
+    warn_threshold_s = timeout_s * TIMEOUT_WARN_FACTOR
+    warned = False
     t0 = time.perf_counter()
+    proc = None
+    timed_out = False
     try:
-        with log_path.open("w", encoding="utf-8") as logf:
-            result = subprocess.run(
+        logf = log_path.open("w", encoding="utf-8")
+        try:
+            proc = subprocess.Popen(
                 [sys.executable, "-u", str(script_path)],
                 cwd=str(REPO),
                 env=child_env,
                 stdout=logf,
                 stderr=subprocess.STDOUT,
-                timeout=entry.get("timeout_s", DEFAULT_TIMEOUT_S),
                 creationflags=_spawn_flags,
             )
+            # Poll loop: check every CHILD_POLL_INTERVAL_S. On timeout, kill
+            # process TREE (not just immediate child) via taskkill /F /T.
+            while True:
+                rc = proc.poll()
+                if rc is not None:
+                    break
+                dt_now = time.perf_counter() - t0
+                if dt_now >= timeout_s:
+                    timed_out = True
+                    log(f"TIMEOUT-KILL {name}: wall={dt_now:.1f}s >= timeout={timeout_s:.0f}s; killing process tree")
+                    _log_timeout_kill_status_event(name, timeout_s, dt_now, "graceful_terminate")
+                    _kill_process_tree(proc.pid, force=False)
+                    # Grace period: give child up to TIMEOUT_GRACE_S to clean up
+                    grace_deadline = time.perf_counter() + TIMEOUT_GRACE_S
+                    while time.perf_counter() < grace_deadline:
+                        if proc.poll() is not None:
+                            break
+                        time.sleep(1.0)
+                    if proc.poll() is None:
+                        # Grace expired; force-kill
+                        log(f"FORCE-KILL {name}: process tree still alive after {TIMEOUT_GRACE_S}s grace")
+                        _log_timeout_kill_status_event(name, timeout_s, time.perf_counter() - t0, "force_kill_after_grace")
+                        _kill_process_tree(proc.pid, force=True)
+                        # Give one more moment for handles to drop
+                        try:
+                            proc.wait(timeout=15)
+                        except subprocess.TimeoutExpired:
+                            pass
+                    break
+                if not warned and dt_now >= warn_threshold_s:
+                    warned = True
+                    log(f"WARN {name}: wall={dt_now:.1f}s >= {TIMEOUT_WARN_FACTOR}x timeout={timeout_s:.0f}s; kill imminent at {timeout_s:.0f}s")
+                    _log_timeout_kill_status_event(name, timeout_s, dt_now, "warn_1_5x")
+                time.sleep(CHILD_POLL_INTERVAL_S)
+        finally:
+            try:
+                logf.close()
+            except OSError:
+                pass
+
         dt = time.perf_counter() - t0
+
+        if timed_out:
+            log(f"TIMEOUT {name} after {dt:.1f}s (killed by runner; timeout_s={timeout_s:.0f})")
+            mark_outcome(queue_path, name, "failed",
+                         ended_at=_now_iso(), wall_s=dt,
+                         error="timeout_killed_by_runner",
+                         completed_by=_HB_STATE["runner_id"],
+                         failed_at=_now_iso())
+            record_outcome(124)  # bash timeout convention
+            return "failed"
+
+        # Build a shim `result` object so downstream code path unchanged
+        class _R:
+            pass
+        result = _R()
+        result.returncode = proc.returncode if proc is not None else 1
 
         if result.returncode == 0:
             # Validate metrics.json: exists, non-trivial, has required fields.
@@ -499,20 +670,19 @@ def run_one(entry: dict) -> str:
             record_outcome(result.returncode)
             return "failed"
 
-    except subprocess.TimeoutExpired:
-        dt = time.perf_counter() - t0
-        log(f"TIMEOUT {name} after {dt:.1f}s")
-        mark_outcome(queue_path, name, "failed",
-                     ended_at=_now_iso(), wall_s=dt,
-                     error="timeout",
-                     completed_by=_HB_STATE["runner_id"],
-                     failed_at=_now_iso())
-        record_outcome(124)  # bash timeout convention
-        return "failed"
+    # Note: subprocess.TimeoutExpired handler removed 2026-07-01 — timeout is now
+    # enforced by the Popen + poll loop above, not by subprocess.run(timeout=...).
+    # The old handler could not fire because we no longer call subprocess.run.
 
     except Exception as e:
         dt = time.perf_counter() - t0
         log(f"ERROR {name}: {e}")
+        # If a child is still alive at this point (unusual — Popen was constructed
+        # but our loop didn't finish), kill its tree so it doesn't become an orphan
+        # zombie holding the runner slot forever.
+        if proc is not None and proc.poll() is None:
+            log(f"ERROR {name}: killing lingering child pid={proc.pid} after exception")
+            _kill_process_tree(proc.pid, force=True)
         mark_outcome(queue_path, name, "failed",
                      ended_at=_now_iso(), wall_s=dt,
                      error=str(e),

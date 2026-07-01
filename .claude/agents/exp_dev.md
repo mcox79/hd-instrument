@@ -520,3 +520,94 @@ functional_requirements: [...]  # gate E (decomposed + primitive-mapped)
 - Result: orchestrator framed HARD_PASS (3 seeds passed) but Skunkworks RE-TIERED to MEASURED_MECHANISM (by-construction saturation; CERT +0)
 
 These 4 examples are why §15 exists. Apply ALL 5 gates to EVERY composition or sweep cell.
+
+### 16. RUN_MODE VERIFICATION POST-DISPATCH (MANDATORY)
+
+Catches the selftest-only landing pattern: cell dispatches via queue_add, runner invokes Python module without explicit `--full` flag, cell defaults to `run_mode=self_test` on import, writes a 668-byte metrics.json with `verdict: HARD_PASS` and `verdict_msg: "SELFTEST_PASS (module-import self-test ran successfully)"`. Caller frames it as "FULL landed HARD_PASS" — phantom-completion.
+
+**Caught example:** `exp_substrate_multihop_phase_diagram_depth_VC_NChains_v4_seed_{7,13,19}` — 3 metrics files each 668 bytes, `run_mode: self_test`, `elapsed_s: 0.01`, `verdict: HARD_PASS`. The cell agent re-dispatched and the bug repeated; only a Skunkworks audit caught it 2 cycles later.
+
+**Rule:** After every dispatch, BEFORE reporting "FULL landed" or "smoke landed," verify the landed metrics.json:
+
+```python
+import json, os
+def verify_run_mode(metrics_path, expected_mode):
+    """
+    expected_mode: "full" | "smoke" | "self_test"
+    Raises if landed file doesn't match expectation.
+    """
+    if not os.path.exists(metrics_path):
+        raise FileNotFoundError(f"{metrics_path} not yet landed")
+    size = os.path.getsize(metrics_path)
+    with open(metrics_path) as f:
+        d = json.load(f)
+    landed_mode = d.get("run_mode", "MISSING")
+    elapsed = d.get("elapsed_s", -1)
+    if landed_mode != expected_mode:
+        raise ValueError(
+            f"RUN_MODE_MISMATCH: dispatched expecting {expected_mode!r} but landed metrics show {landed_mode!r} "
+            f"(size={size}B, elapsed={elapsed}s). Likely cell-default-selftest bug. "
+            f"Check cell argparse defaults + queue_add args + runner invocation."
+        )
+    # Sanity: FULL runs are typically >10KB and elapsed > 1s; tiny FULL is suspect
+    if expected_mode == "full" and size < 5000:
+        raise ValueError(
+            f"FULL_LANDING_SUSPECTLY_SMALL: {metrics_path} is {size}B (< 5KB). "
+            f"Real FULL runs typically write per-arm/per-unit data (~10-500KB). "
+            f"Possibly the cell hit a fast-fail path; investigate before claiming FULL success."
+        )
+    return {"run_mode": landed_mode, "elapsed_s": elapsed, "size_bytes": size}
+```
+
+**Mandatory in completion reports:** for every FULL dispatch, include in the per-cell smoke verdict section:
+```
+seed_X FULL: <verdict> | run_mode=<full|smoke|self_test> | size=<N>B | elapsed=<T>s
+```
+If `run_mode != full` for a cell you dispatched as FULL, flag it as `DISPATCH_BUG_SELFTEST_LANDED` and do NOT claim FULL success. Investigate before completing.
+
+**Common dispatch-bug root causes:**
+- Cell's argparse defaults `run_mode='self_test'` and queue_add doesn't pass `--run-mode full`
+- Cell's `main()` checks `if __name__ == '__main__'` and falls through to selftest-only path when invoked as module
+- Runner invokes via `python -m experiments.cell_name` which may differ from `python experiments/cell_name.py`
+- Pre-reg specifies full but cell-author forgot to wire run_mode to the FULL code path
+
+**Fix patterns (cell-author chooses appropriate one):**
+- Cell defaults to `run_mode='full'` (most defensive; explicit `--self-test` for selftest)
+- queue_add explicitly passes `--run-mode full` for every FULL dispatch (per cell convention)
+- Cell raises at import if no run_mode specified (no silent default)
+
+This is **a paired discipline with §13 start-marker / crash-diagnostic** (existence of metrics.json alone doesn't certify success; content must match expected mode).
+
+### 17. PRINT-PROGRESS FLUSHING (numpy-heavy + long-running cells; MANDATORY)
+
+**Problem:** without explicit `flush=True` or `python -u` unbuffered invocation, print() output on numpy-heavy cells sits in Python's buffered stdout and is only written to the runner log at process-exit — often hours later, or never (on crash / timeout-kill). This makes multi-hour progress un-diagnosable in real time and hides live-progress evidence during Testbed / Director audits.
+
+**Historical incident (2026-07-01):** `kg_ingest_encoder_family_v1_seed_7` produced ZERO log output for 5h30min despite running on CPU the entire time. Log LastWriteTime never advanced past t+1s (the runner's own START line). Orchestrator manual audit couldn't distinguish "silently hanging" from "silently computing" until PID-level CPU-time inspection showed ~24% util = suspicious (not busy compute, not fully idle). Runner-timeout fix (Bug 1, 2026-07-01) will now catch the hang, but the underlying "no diagnosable progress" pattern still applies to any cell that goes an hour+ without log output.
+
+**Mandatory patterns (any ONE is sufficient):**
+
+**A) `print(..., flush=True)` on every progress line (preferred for fine-grained control):**
+```python
+for i, batch in enumerate(iter_batches()):
+    result = process_batch(batch)
+    if i % 100 == 0:
+        print(f"[progress] batch={i}/{n_batches} elapsed={time.time()-t0:.1f}s", flush=True)
+```
+
+**B) `sys.stdout.reconfigure(line_buffering=True)` at cell start (preferred for many print sites):**
+```python
+import sys
+if sys.stdout.reconfigure is not None:
+    sys.stdout.reconfigure(line_buffering=True)  # each \n triggers flush
+# now all subsequent print() calls flush on newline
+```
+
+**C) Runner already uses `python -u` (unbuffered) — but this is defense-in-depth:**
+The runner already invokes cells via `[sys.executable, "-u", str(script_path)]` (see runner_v2_prod.py `run_one`). That gives you unbuffered stdout at the process level. BUT: numpy / torch / other C-extensions may bypass Python's stdout buffer entirely and write to their own C-level buffers. `flush=True` on print() is still the reliable fallback.
+
+**Pre-reg field (MANDATORY for cells with `timeout_s >= 1800` — i.e. 30min+):**
+`progress_logging: "print_flush_true" | "line_buffered_stdout" | "runner_python_u_only"`
+
+If `runner_python_u_only` is claimed, the cell must additionally document a `progress_cadence_expected_s: int` (e.g. 60) so Testbed / Director can audit "log LastWriteTime should advance every N seconds; if not, cell is silently hung."
+
+**Rule of thumb:** any cell running longer than ~15 minutes MUST emit a heartbeat-style log line at least every 60s. This is not just for humans reading logs — it's the evidence base Testbed uses to distinguish "cell is making progress" from "cell is silently hung" during audits.
