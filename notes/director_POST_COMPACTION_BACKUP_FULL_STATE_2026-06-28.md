@@ -1,8 +1,269 @@
 # Post-compaction BACKUP — hd-instrument substrate program
 
-**Last updated:** 2026-06-30 17:30 UTC (post-compaction; Skunkworks a009a44a return processed)
-**Audience:** fresh post-compaction session
-**How to use:** read this file end-to-end. Self-contained snapshot of program state, in-flight work, pending VETs, and forward direction.
+**Last updated:** 2026-07-01 02:50 UTC (post-compaction pickup done; Orchestrator retrying + Skunkworks VETting in parallel)
+**Audience:** post-compaction session
+**How to use:** read this section (SNAPSHOT 2026-07-01 02:50 UTC) end-to-end first. Historical below.
+
+---
+
+## 🎯 SNAPSHOT 2026-07-01 02:50 UTC — POST-COMPACTION PICKUP IN PROGRESS
+
+### Pickup context (what happened this arc, cumulative)
+- USER compacted at ~02:35 UTC. Fresh session picked up at 02:36 UTC.
+- USER directive on pickup: read all recovery material → done (BACKUP + MEMORY.md + M3 memory + CLAUDE.md all loaded).
+- USER directive: fix Orchestrator so it self-heals → hdi_orchestrator.md updated with 4 self-heal patterns (SH-1 timeout floor / SH-2 shared framework SCP / SH-3 numpy-to-CPU re-route / SH-4 double-exp cosmetic).
+- USER directive: VET recent completions + 2x-drill negatives → Skunkworks dispatched twice (ab52f134 + a7708cb2).
+- USER caught Orchestrator VERIFIED hallucination — Fix #28 recurrence at Orchestrator level; memory rule filed + grep-verify discipline reinforced.
+
+### Corrected state (03:10 UTC) — Batches A+C completed, NOT missing
+Earlier snapshot said "only 3 pending" and worried Batches A+B were silently missing. Correction: queue drained faster than realized — A completed, B failed CUDA OOM (cell bug), C completed, D pending, E pending.
+
+| Batch | Anchor | Queue | Status |
+|---|---|---|---|
+| A | pc_sparsity_x_encoder_crossproduct_v1 | overnight_queue | **COMPLETED** (3 seeds; sync in progress) |
+| B | seqbind_N_dim_scaling_law_v1 | overnight_queue | **FAILED CUDA OOM** at N=32768 K=500; cell-author ae1020f3 fixing v1.1 |
+| C | compression_pareto_v1 | remote_cpu_queue | **COMPLETED** (3 seeds; sync in progress) |
+| D | routing_geometry_family_kg_ingest_v2 | overnight_queue | 3 seeds pending |
+| E | bytes_per_fact_pareto_v1 | overnight_queue | 3 seeds pending |
+
+### Skunkworks findings this arc
+
+**Skunkworks ab52f134 (VET first pass; 03:05 UTC):**
+- **PC Sparsity × Encoder seed_7 FULL:** MM tier (single-seed 3/6 interaction pairs + hrr_real flat + 10/16 SAT); wait 3-seed for CG evaluation
+- **PC v2p2 local seeds 13/19 HF:** HN_INFRA_DEP (Fix #24 gate working as designed; no 2x-drill needed)
+- **Sequence binding K-cliff phase-diagram full v2 seed_7:** MM (12 TRANSITION + 10 MB + 7 FLOOR of 72; per_seed_K_cliff_phase_characterization); **2x-drill = dispatch seeds 13/19 (Orchestrator dispatched)**
+- **Historical batch (Q3 v2, TOM v5, TASK_VECTOR, Parietal v3):** CONFIRMED present in atoms.jsonl per ac8eb015; do not re-atomize
+
+**Skunkworks a7708cb2 (VET second pass; in flight):** VET Batches A + C landings once metrics.json sync completes; write atoms.jsonl + cert_ledger.jsonl BOTH per revised discipline.
+
+### 🚨 LEDGER / ATOM DIVERGENCE FLAGGED (needs Director attention)
+- `data/substrate_index/math/atoms.jsonl` = **28821 rows** (independent verify)
+- `data/substrate_index/meta/cert_ledger.jsonl` = **1071 rows**, sum-delta = **504** (independent verify)
+- Skunkworks ac8eb015 wrote 5 atoms to atoms.jsonl in commit a8dfb00b but did NOT append cert_ledger.jsonl entries → discipline breach
+- The 639 CERT-N number I've been citing came from ac8eb015's own report (may or may not be canonical Store provenance_quality count)
+- **Path forward:** Skunkworks a7708cb2 has been instructed to write BOTH files atomically this pass (setting new discipline). If systematic reconciliation needed, Testbed candidate to ship a back-fill script.
+- **Do NOT propagate 639 as canonical until reconciled**
+
+### 3 spawns in flight (03:10 UTC)
+| Agent | Task | Notes |
+|---|---|---|
+| Orchestrator **a1126f7a** (3rd resume) | 2x-drill dispatch seqbind K-cliff v2 seeds 13/19 to overnight_queue | Sibling cells exist locally |
+| Cell-author **ae1020f3** | Fix Batch B seqbind_N_dim CUDA OOM with chunked decode over candidate dim | Ship v1.1 |
+| Skunkworks **a7708cb2** | VET Batches A + C (6 seeds); write atoms + ledger atomically | Waiting on sync |
+
+### CERT trajectory (unchanged since compaction)
+- Session-start: 625 → Overnight promotions: 633 → 2026-06-30 daytime: 637 → **CONFIRMED atomized commit a8dfb00b: 639 (+2 CG: Parietal v3 CG + Narrative Q3 CG + 2 MM + 1 HF)**
+
+### 3 spawns in flight (as of 02:50 UTC)
+| Agent | Task | Notes |
+|---|---|---|
+| Orchestrator **a1126f7a** | Retry Batches A/B/C via self-heal + Batch D queue | First attempt hit 3 blockers; SH-1/2/3 applied via followup |
+| Skunkworks **ab52f134** | VET recent completions (Sparsity×Encoder seed_7 HP + PC v2p2 local HF-INFRA); flag 2x-drill negatives | Independent of Orchestrator |
+| Cell-author **a343686e** | Bytes-per-fact storage efficiency Pareto | Still authoring; last remaining spawn from overnight batch |
+
+### 4 cell-author outputs landed since compaction (all commits on origin/main)
+| Commit | Cell | Axis | Status |
+|---|---|---|---|
+| `7072e847` | PC Sparsity × Encoder cross-product v1 (a8adfcb1) | A×C first outer × outer cross | Seed_7 preview HARD_PASS 3/6 interaction pairs; seeds 13/19 queue-blocked (SH-1 retry) |
+| `0c851546` | Sequence-binding N-dim scaling law v1 (a684615d) | B free axis | 3 seeds queue-blocked on missing `_cell_heartbeat.py` (SH-2 retry) |
+| `a875d832` | Compression Pareto v1 (aaffb977) | NEW compression efficiency | Numpy-only; SH-3 re-route to remote_cpu_queue |
+| `3f0c3b7d` | Routing geometry family v2 KG-ingest (a57c8c2d) | G first outer-axis | Smoke HP with knn_softmax + learned_supervised as HP; others HF (real substrate finding); queuing Batch D |
+
+### Queue-add self-heal patterns added to Orchestrator instructions (2026-07-01)
+- **SH-1:** PROT-019 timeout floor for size-token slugs → auto-lift timeout
+- **SH-2:** shared framework module ImportError (e.g. `_cell_heartbeat`) → explicit SCP + retry
+- **SH-3:** numpy-only cell → GPU refuse → auto-route to remote_cpu_queue
+- **SH-4:** double `exp_` prefix cosmetic → note but don't retry (Testbed candidate)
+
+### Fresh design spec (main-thread work while spawns run)
+- `notes/director_M3_M1_3_stochastic_noise_injection_design_spec_2026-07-01.md` — full M3 M1.3 stochastic noise injection design (5 modes; regime→sigma table; test plan; sequencing). Unblocks refuse-gate v3 + SWR v3+ deferred families. Load-bearing per 5x drill.
+
+### Load-bearing 2026-06-30 discoveries (persistent context)
+
+**🔥 Substrate determinism is STRUCTURAL** (5x research drill aad9fbb9 confirms across pure math + matsci + bio + neuro + meta):
+- Bipolar bit-flip + L2-renorm gives EXACT cos = 1 - 2*flip_frac (std=0)
+- EXCLUDES intermediate-confidence-band adaptive cells (refuse-gate adaptivity, sliding-window tau, adaptive gating)
+- M3 cortex layer MUST inject Gaussian noise at boundary — design spec now filed at `notes/director_M3_M1_3_stochastic_noise_injection_design_spec_2026-07-01.md`
+- Substrate-internal stochastic redesign would break determinism guarantees
+- Memory: `project_M3_cortex_layer_must_inject_stochastic_noise_at_boundary_2026-06-30.md`
+
+**Stage 2 NREM rescue picture (empirically established):**
+- Ha (Hebbian cross-term) = 51% of gap (MM atom)
+- Hc (compartmentalized cortex K=200) = 93% of gap (CG atom; Cell C v2)
+- Sleep spindles = 24% additional partial rescue (MM atom)
+- cortex_hippo replay-fixed at sub-capacity = 31% of gap (MM atom)
+
+**Substrate axes I + J both CG via theta-gamma v2** — sequence encoding + order binding closed at chain-grade using FHRR complex phase multiplication.
+
+### USER-locked directives (2026-06-30 → 2026-07-01)
+- **USER unblocked local CPU 2026-07-01 02:20 UTC** — use when enabling until told to stop
+- USER wants 2x-drill on ALL negatives + 5x-drill on load-bearing structural findings
+- USER wants intuitive language + absolute implementation impact in reports
+- USER wants storage/compression efficiency as first-class Pareto axes (2 new cells in flight)
+- USER wants TRUE phase diagram exploration expanded (current coverage ~55-60%)
+- USER wants Orchestrator self-healing on queue_add refusals (SH-1/2/3/4 shipped)
+
+### 8 INFRA COMMITS THIS ARC (persistent)
+- `be4cec83` hd_metrics_sync merger preserve-existing → mtime-newer-wins
+- `e0435992` queue_add.sh auto-SCP sibling helpers (4 patterns)
+- `343004a4` queue_add.sh Pattern 4 stripped-exp variant
+- `e194e161` atomize script commit (cert-trail)
+- **`d4eb2805` queue_add.py phantom-FULL root cause fix**
+- `3b29b6a6` sleep spindles MM + META_RULE_BC atoms
+- `adab8e8d` MEASURED_MECHANISM_PARTIAL_RESCUE enum registered
+- `7604e154` storage_update_rule v1.1 recalibrated
+
+### Known issues for next session
+- **queue_add.sh Pattern 5 (shared framework auto-SCP):** SH-2 fix is manual per-invocation; durable fix = Testbed adds Pattern 5 to sh script + testbed pre-write enum-check tool
+- **Skunkworks enum-registration bypass:** ~8th recurrence; testbed task pending (META_RULE_BE candidate)
+- **cpu_runner_local heartbeat format:** legacy; needs runner patch (not blocking)
+- **Double `exp_` prefix slug bug (META_RULE_BA):** cosmetic (SH-4); Testbed candidate for permanent slug-normalization
+
+### Fresh landings needing VET (Skunkworks ab52f134 processing)
+- PC Sparsity × Encoder seed_7 FULL HARD_PASS (single-seed; seeds 13/19 selftest-only pending queue land)
+- PC v2p2 local seeds 13/19 HARD_FAIL_GPU_MANDATE_BREACH (Fix #24 discipline; classify as HN_INFRA_DEP)
+- Sequence binding K-cliff local test MIDDLE_BAND (verify mtime; may be stale)
+
+### Historical (pre-compaction snapshot preserved below)
+
+---
+
+## 🎯 PREVIOUS SNAPSHOT 2026-07-01 02:30 UTC — pre-compaction final state
+
+### CERT trajectory
+- **Session-start:** 625 (pre-2026-06-28 overnight)
+- **Overnight promotions:** 625 → 633 (+8 CG)
+- **2026-06-30 daytime promotions:** 633 → 637 (+3 CG + 1 MM; Cell C v2 K-banks / ANCHOR 4 v4 / theta-gamma v2 CG; Sleep spindles MM)
+- **2026-07-01 02:35 UTC ATOMIZED (Skunkworks ac8eb015 commit a8dfb00b):** CERT **637 → 639 (+2 CG confirmed)**: Parietal RELATIONAL v3 CG + Narrative Q3 SEQUENCE_REPLAY CG. Plus 2 MM (TOM v5 + TASK_VECTOR adaptive-K) + 1 HF (Narrative Q2 partition_oracle) proven-boundary atoms
+- **Overnight new dispatches (5 cell-authors still authoring):** potential +2-4 CG by morning → 641-643 expected
+
+### 🎯 CUMULATIVE SESSION FINAL: 13 CG PROMOTIONS + 4+ MM + 3+ HF proven-boundary + 9 META rules (AT-BC) + 8 infra commits + 11 honest catches of Director errors + M3 cortex M1.2 milestone + M1.3 stochastic-injection design constraint LOCKED per 5x research drill
+
+### Immediate action on pickup (read in order)
+1. `touch d:/AI/hd-instrument/data/heartbeats/research.timestamp`
+2. `python tools/runner_status.py --remote` — verify runners alive
+3. Check `data/exp_*/metrics.json` for landings since 02:30 UTC
+4. SendMessage to any in-flight agents (see IDs below) to catch up on their status
+
+### 6 CELL-AUTHOR SPAWNS IN FLIGHT (overnight authoring)
+| Agent ID | Task | Axis | Status |
+|---|---|---|---|
+| **ac8eb015** | Skunkworks: atomize 5 atoms (2 CG + 2 MM + 1 HF) per Director ACK | atomization | Writing atoms |
+| **a57c8c2d** | Routing geometry family v1 (random/learned/LSH/hierarchical/k-NN-softmax) | G untouched | Authoring |
+| **a684615d** | N-dimensionality scaling law for sequence binding (N=2048-32768) | B untouched | Authoring |
+| **a8adfcb1** | Sparsity × Encoder cross-product for PC | A × C cross | Authoring |
+| **a343686e** | Bytes-per-fact storage efficiency Pareto (FP32/FP16/INT8/BINARY/SPARSE) | NEW efficiency | Authoring |
+| **aaffb977** | Compression efficiency Pareto (facts per schema-centroid) | NEW efficiency | Authoring |
+
+Cell-authors will finish smoke + commit in next 30-90 min; Director must direct-queue_add OR spawn Orchestrator when they return.
+
+### CURRENTLY RUNNING (queues actively cooking as of 02:30 UTC)
+- **cpu_runner_0** (remote): substrate_storage_update_rule_v1_1_seed_7 (started 2m46s ago; ~2h/seed; 2 more pending)
+- **cpu_runner_local** (LOCAL — USER unblocked 2026-07-01 02:20 UTC): substrate_pattern_completion_v2p2_local_13 (1 more pending)
+- **gpu_runner_0** (remote): idle awaiting next dispatch (ANCHOR 4 v4 reruns + theta-gamma v2 reruns should have already run; verify landings)
+
+### Queue depths right now
+- local_cpu_queue: 1 running + 1 pending (~2h serial)
+- remote_cpu_queue: 1 running + 2 pending (~6h serial; storage update × 3)
+- overnight_queue: 0/0 (drained)
+
+### USER-locked directives (2026-06-30 → 2026-07-01)
+- **USER unblocked local CPU 2026-07-01 02:20 UTC** — use when enabling until told to stop (was previously banned)
+- USER wants 2x-drill on ALL negatives + 5x-drill on load-bearing structural findings
+- USER wants intuitive language + absolute implementation impact in reports
+- USER wants storage/compression efficiency as first-class Pareto axes
+- USER wants TRUE phase diagram exploration expanded (current coverage ~55-60%; targeting axes B/C/G untouched)
+
+### Load-bearing 2026-06-30 discoveries (for design going forward)
+
+**🔥 Substrate determinism is STRUCTURAL** (5x research drill aad9fbb9 confirms across pure math + matsci + bio + neuro + meta):
+- Bipolar bit-flip + L2-renorm gives EXACT cos = 1 - 2*flip_frac (std=0)
+- EXCLUDES intermediate-confidence-band adaptive cells (refuse-gate adaptivity, sliding-window tau, adaptive gating)
+- M3 cortex layer MUST inject Gaussian noise at boundary
+- Substrate-internal stochastic redesign would break determinism guarantees
+- P_deflated: 0.42 exclusion / 0.58 cortex-boundary-injection rescue
+- Memory: `project_M3_cortex_layer_must_inject_stochastic_noise_at_boundary_2026-06-30.md`
+- Refuse-gate v3 + SWR family PERMANENTLY DEFERRED per this finding
+
+**Stage 2 NREM rescue picture (empirically established today):**
+- Ha (Hebbian cross-term) = 51% of gap (MM atom)
+- Hc (compartmentalized cortex K=200) = 93% of gap (CG atom; Cell C v2)
+- Sleep spindles = 24% additional partial rescue (MM atom)
+- cortex_hippo replay-fixed at sub-capacity = 31% of gap (MM atom)
+- SWR family DEFERRED (3 honest-aborts; not needed given other mechanisms)
+
+**Substrate axes I + J both CG via theta-gamma v2** (first outer-axis CG on both) — sequence encoding + order binding closed at chain-grade using FHRR complex phase multiplication with theta(8) × gamma(8) nesting.
+
+### 5 INFRA COMMITS THIS SESSION (all critical fixes)
+- `be4cec83` hd_metrics_sync merger preserve-existing → mtime-newer-wins
+- `e0435992` queue_add.sh auto-SCP sibling helpers (4 patterns)
+- `343004a4` queue_add.sh Pattern 4 stripped-exp variant
+- `e194e161` atomize script commit (cert-trail)
+- **`d4eb2805` queue_add.py phantom-FULL root cause fix** (6+ recurrences all traced to this)
+- `3b29b6a6` sleep spindles MM + META_RULE_BC atoms
+- `adab8e8d` MEASURED_MECHANISM_PARTIAL_RESCUE enum registered (schema fix)
+- `7604e154` storage_update_rule v1.1 recalibrated
+
+### 9 META RULES atomized this arc (AT through BC + candidates)
+- AT: cleanup-tier-composing (methodology)
+- AU: pre-dispatch GPU mandate signature (HN_INFRA_DEP not substantive negative)
+- AV: selftest run_mode ≠ FULL (phantom-FULL detection)
+- AW: seed_config_must_be_identical_for_cross_seed_aggregation
+- AX: arm_distinctness must compare metrics ACROSS family axis, not just hashes within arm
+- AY: verdict_emitter must HARD_FAIL if self-reported distinctness contains False (auto-demote HARD_PASS → MM if ≥10% False)
+- AZ: Director spawn prompts must verify sizes/slugs/arm-counts off-disk before publishing
+- BA: remote runner double `exp_` prefix slug bug (queue_add slug normalization broken)
+- BC: positive_control_must_precede_sweep_interpretation
+- BD candidate: verdict_msg must enumerate ALL gate conditions (Cleanup WM v1.1 disclosure bug)
+- BE candidate: pre-write enum-check for AtomKind (~8th recurrence of registration-bypass)
+
+### 11 cell-author/auditor honest catches of Director spec/framing errors (system is robust)
+- SWR v3 clean-cue vacuous (a19a733e)
+- SWR v3.1 clean-keys fixed-point (a19a733e)
+- SWR v3.2 codebook-identity (a19a733e)
+- Cleanup WM eff_beta scaling missing (a8e76b7a)
+- ANCHOR 4 v4 bundled-memory beyond spec (a1be2051)
+- queue_add Pattern 4 (a84633a7)
+- Refuse-gate v2 deterministic-noise structural (a8592547)
+- Skunkworks size/slug swap forensic (a4bfdc71)
+- TOM v5 phantom-FULL selftest residue (a1937032)
+- Storage update v1 calibration error (a19a733e)
+- 9th BIAS-N framing hit on TOM v5 "HP all 3" (was 2 HP + 1 MB) + Narrative Q3 (was 1 MB + 2 HF)
+- Personal memory saved: `feedback_director_framing_discipline_timezone_and_arm_counts_2026-06-30.md` + `feedback_director_spec_design_discriminator_must_survive_scale_2026-06-30.md`
+
+### TRUE phase diagram progress (16-axis taxonomy; see `notes/director_TRUE_PHASE_DIAGRAM_COVERAGE_2026-06-30.md`)
+- Coverage estimate: ~55-60% (up from ~25% pre-session)
+- Axes closed at CG today: A (encoder v4) / H (K-banks) / I (sequence encoding) / J (order binding)
+- Axes with MB substantive findings today: F (cleanup family regime-conditional) / K (storage update deferred; v1.1 running) / M (refuse-gate PERMANENTLY EXCLUDED per determinism finding)
+- Axes targeted for overnight: B (N as free axis) / C (sparsity cross-product) / G (routing geometry) + 2 NEW efficiency axes (bytes/fact + facts/schema)
+
+### M3 cortex layer status
+- M1.1 done: `substrate_router/` module + route() + 20/20 smoke
+- M1.2 advanced 2026-06-30: `hdlab/intent_classifier.py` extracted + `hdlab.kg_traversal.load_from_fb15k237_dump` shipped
+- **M1.3+ NEW CONSTRAINT (2026-06-30):** cortex must inject Gaussian stochastic noise at boundary where adaptive cells need it (per 5x drill)
+- M3 milestone: glass-box conversational AI 12-18mo
+
+### RESOURCES + PROCESSES (verified running as of 02:30 UTC)
+- Local Python (Claude Code): d:/AI/hd-instrument working dir; heartbeat + last_processed just refreshed
+- Remote SSH: marsh@home (Windows PowerShell; C:/dev/hd-instrument); double `exp_` slug bug still active
+- Both remote runners alive via SSH-immune schtasks (gpu_runner_0 PID 32896; cpu_runner_0 PID 16096)
+- cpu_runner_local heartbeat broken (25000s stale) but RUNS cells correctly (verified by execution log)
+- hd_metrics_sync scheduled task: canonical git pusher
+
+### 🔧 Known issues for next session
+- **hd_metrics_sync push:** may be lagging behind local commits (~10 commits pending push; sync task blocked earlier by enum bypass; adab8e8d fix should unblock next cycle)
+- **cpu_runner_local heartbeat format:** legacy; needs runner patch (not blocking)
+- **Double `exp_` prefix slug bug (META_RULE_BA):** queue_add slug normalization; recurred 3× today (theta-gamma v2 + Cleanup WM v1.1 + Storage update); low priority
+- **Skunkworks enum-registration bypass:** ~8th recurrence; testbed task pending (META_RULE_BE candidate)
+
+### CELL-AUTHOR OUTPUTS PENDING DIRECT DISPATCH (when they return)
+When each cell-author returns, Director must direct-queue_add via:
+```bash
+bash tools/orchestrator/queue_add.sh <queue> <name> <script> <prereg> <timeout>
+```
+No Orchestrator spawn needed for simple queue_add. Use overnight_queue for GPU cells (`import torch` required per Fix #24) or remote_cpu_queue / local_cpu_queue for numpy cells.
+
+---
 
 ## TODAY'S DELTAS (2026-06-30 ~17:30 UTC — post-compaction update)
 
