@@ -215,7 +215,32 @@ M1.4 refuse-gate remains the sharpest current blocker for M3 milestone closure; 
 - GPU: multihop d45-60 running
 
 ### Session narrative
-Post-compaction session extended the 6-CG day pre-compaction to 12-CG day (CERT 645 → 651). M3 architecture meta atom promoted to CG (dense-Hopfield READ-REPLACE scale-independent across M and N axes at 4-16k). M1.4 refuse-gate cortex milestone likely closing this session pending v8 3-seed FULL land. Substrate insight (LLN bipolar point-mass) discovered via mechanism-class drilling — worth substrate-physics atomization. Sparsity_free and theta_gamma negatives being 2x-drilled per USER standing revival directive.
+Post-compaction session extended the 6-CG day pre-compaction to 13-CG day (CERT 645 → 652). M3 architecture meta atom promoted to CG (dense-Hopfield READ-REPLACE scale-independent across M and N axes at 4-16k). M1.4 refuse-gate cortex milestone closing pending v8 3-seed FULL land. Substrate insight (LLN bipolar point-mass) atomized as substrate physics (Atom 12 MM). Sparsity_free and theta_gamma negatives 2x-drilled per USER standing revival directive.
+
+### 🆕 Late-session updates (2026-07-01 ~18:00 UTC)
+
+**CG #13 landed (Skunkworks-VET'd):** multihop d45-60 CG — USER 0.50-crossing question answered (bracket (45, 60]; predicted d*=46.9 per Atom 11 formula).
+
+**Two new MM atoms (Skunkworks meta-synthesis wave):**
+- **Atom 11 MM_STANDARD — per-step accuracy scale-invariance:** 0.9853 ± 0.0016 across d=15-60 at fixed N=8192 PART_SIZE=10 (partition-oracle multi-hop primitive). Composes over Landings 6+10. Predicted d* crossing = 46.9. Expansion criteria to CG: different N OR different PART_SIZE OR extended depth. In-flight cell-author for N-axis expansion.
+- **Atom 12 MEASURED_MECHANISM — LLN point-mass on in-KB max_sim:** at high-dim bipolar FHRR, in-KB max_sim is a POINT MASS at 1-2f (LLN concentration; std=0.0 fp32); OOD is Gaussian at sqrt(2·log V_C / N) floor; combined bimodal d'≈18.5. Prior Gaussian in-KB model WRONG; substrate physics correction. Expansion to CG via seeds 13/19 verification (v8 FULL will validate on land).
+
+**M1.5 research return:** M1.5 = Multi-Turn Context Retention (cortex WM buffer using CG'd substrate WM multi-bank K=4096 + INT8 Pareto + Dense-Hopfield replace + TWO_TIER). P_deflated=0.42. Cell-author authoring now. Enables M3 properties #2 (pronoun resolution) / #6 (fact ingest) / #7 (fact recall). First cortex-integration cell in M3 stack.
+
+**Wave dispatches this arc:**
+- Wave 5: M1.4 v8 conformal 3-seed FULL → remote_cpu (behind kg_ingest chain; ETA 1-2h)
+- Wave 6: sparsity_free v2 revival 3-seed FULL → remote_cpu (14400s timeout after SH-1 lift)
+- Wave 7: theta_gamma v4 revival 7-seed → overnight_queue GPU (chain-dispatching; seeds 13/19 = 95s each; seed_7's 880s was JIT anomaly; seeds 23/29/31/37 completing by ~18:05Z)
+- Wave 8: multihop d50/55 finer crossing bracket → overnight_queue GPU (predicted CROSSING_BRACKET_50_55; interpolated d*≈52.77)
+
+**Infra bugs found + Testbed dispatched:**
+- HIGH: runner-timeout-enforcement broken (kg_ingest_seed_7 ran 5h30m = 2.76x 7200s timeout without runner kill; Orchestrator manually killed)
+- MED: SH-4 landing-path bug (chain-dispatch used script name not anchor name; caused 4h silent GPU-idle)
+- MED: SSH poll pipeline fragility (Windows CRLF breaks tr | grep)
+- MED: chain-dispatch task self-verification (max-stalled-polls counter needed)
+- LOW: cell-author print-progress buffering discipline (python -u or flush=True)
+
+**Substrate insight (from Atom 12 downstream):** cortex-external calibrator design must use MULTI-REGIME calibration (single-regime cal is degenerate under LLN point-mass). Foundational for Rank 2 of first M1.4 drill (cortex-external calibrator = M3 production architecture).
 
 ---
 
