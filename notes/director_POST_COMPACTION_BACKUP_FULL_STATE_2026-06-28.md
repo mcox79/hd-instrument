@@ -1,8 +1,124 @@
 # Post-compaction BACKUP — hd-instrument substrate program
 
-**Last updated:** 2026-07-01 02:50 UTC (post-compaction pickup done; Orchestrator retrying + Skunkworks VETting in parallel)
+**Last updated:** 2026-07-01 03:35 UTC (mid-overnight; USER Full Auto authorized; cron autonomy live; 6-cell overnight fleet dispatched)
 **Audience:** post-compaction session
-**How to use:** read this section (SNAPSHOT 2026-07-01 02:50 UTC) end-to-end first. Historical below.
+**How to use:** read this section (SNAPSHOT 2026-07-01 03:35 UTC) end-to-end first. Historical below.
+
+---
+
+## 🎯 SNAPSHOT 2026-07-01 03:35 UTC — OVERNIGHT FULL AUTO IN FLIGHT
+
+### USER directives received this arc (2026-07-01 02:36 → 03:30 UTC)
+1. Read all recovery material → done
+2. Update Orchestrator so it self-heals → hdi_orchestrator.md now has SH-1 through SH-6 self-heal patterns
+3. VET recent completions + 2x-drill negatives → done via Skunkworks ab52f134 + a7708cb2 (+ 2x-drill dispatched)
+4. Cover storage/compression efficiency as first-class Pareto axes → Batches C + E landed + Storage v2 extended precisions dispatched
+5. Explore phase diagram space for all characteristics → Research a36917be delivered top-5 gap analysis; top-3 cells authored in flight
+6. **Full Auto authorized + fill all queues + spawn cap lifted** → 6-cell overnight fleet + cron self-wake live
+7. Verify research drills use Sonnet → confirmed `research.md` = sonnet; `hdi_research.md` = director role (parent inheritance = Opus, correct)
+
+### Autonomy mechanism live
+- **CronCreate c5ed1c8e** — self-wake at :17/:37/:57 each hour (17-min cadence). Session-only (dies at Claude exit); auto-expires 7 days. Prompt does: heartbeat / landing check / queue check / dispatch fill work / VET pending / update BACKUP / 2x-drill negatives / respect discipline.
+
+### CERT trajectory + atoms this arc (2026-07-01 02:36 → 03:35 UTC)
+- Session-start: CERT 637 (previous BACKUP)
+- Skunkworks ac8eb015 (batch a8dfb00b): 5 atoms +2 CG → **639** (atoms.jsonl only; ledger discipline broken)
+- Skunkworks 7cef91b3 (Batches A + C + D): 3 atoms all MM/HF → **639** (delta=0; ledger discipline restored — writes atoms + ledger atomically)
+- Skunkworks e5f50e02 (K-cliff v2 3-seed 2x-drill): 1 atom MM → **639** (delta=0)
+- **Net CERT change this arc: +2 (639 canonical Store count). No CG promotions today; 4 MM + 1 HF atoms added.**
+
+### 6-cell overnight fleet dispatched (Full Auto)
+| # | Agent | Cell | Axis | Expected CG |
+|---|---|---|---|---|
+| 1 | ae37f48a (RETURNED) | Batch A capacity-lift v2 (M=600) | A×C 2x-drill | 0.50 |
+| 2 | a16065ea (in flight) | K-cliff v3 extended range | Axis I CG-lift | 0.45 |
+| 3 | a197237d (in flight) | Storage Pareto v2 BF16+INT4 | NEW compression extension | 0.35 |
+| 4 | a6dbf419 (in flight) | cleanup_family_WM_K_cliff v1 | Axis F outer (5x-drill-eligible if HP) | 0.55 |
+| 5 | a8a6918f (in flight) | order_binding_family v1 | Axis J outer | 0.50 |
+| 6 | a6cc6b7a (in flight) | hierarchical_bank v1 | Axis H outer (5x-drill-eligible if HP) | 0.45 |
+
+### GPU queue live state (03:35 UTC)
+- overnight_queue: pending=9 (Batch A v2 ×3 + Batch D v3 ×3 + Batch E v1.1 ×3)
+- **Batch B v1.3 (seqbind_N_dim) FAILED (4th failure)** — 0.4-0.6s selftest residue in FULL anchor path suggests FULL crashed after selftest. Orchestrator diagnosing → v1.4 fallback = cap N at 16384 OR chunk to 128
+- **Batch D v3 (routing_geometry_v2)** — expandable_segments + P_SHARDS 256→128; expected to survive OOM
+- **Batch E v1.1 (bytes_per_fact)** — sparse arm CPU routing; expected to survive OOM
+- **Batch A v2 (pc_sparsity × encoder)** — capacity-lift M=600; expected HP (smoke HP; 4/6 pairs visible per seed)
+
+### Landings today (session)
+| Batch | Tier | CERT delta | Note |
+|---|---|---|---|
+| Batch A v1 3-seed | **MM** (auditor override HP) | 0 | fhrr sensitive to sparsity; other encoders saturate at M=300 (META_RULE_Q); 2x-drill v2 M=600 in flight |
+| Batch C v1 3-seed | **MM** | 0 | H2 refuted at N=8192; 100x HARDMAX loses 96% recall; 10x EXEMPLAR_BAYES loses only 10% (Pareto sweet-spot) |
+| Batch D v2 3-seed | **HARD_FAIL** (auditor override MB) | 0 | 4/5 arms crash at M_ingest=100k (Ws=4GB on 8GB GPU); v3 dispatched with expandable_segments + P_SHARDS 256→128 |
+| K-cliff v2 3-seed | **MM** (2x-drill) | 0 | Cross-seed cv=0.16% on avg_arms_diff; strongest MM below CG per Skunkworks e5f50e02; CG-lift v3 in flight |
+
+### Discipline improvements shipped this arc
+- Orchestrator `~/.claude/agents/hdi_orchestrator.md`: SH-1 (PROT-019 timeout floor) / SH-2 (shared framework SCP) / SH-3 (numpy → CPU re-route) / SH-4 (double-exp cosmetic) / SH-5 (CUDA OOM escalation) / SH-6 (--allow-duplicate for re-dispatch)
+- Memory rule filed: `feedback_orchestrator_verified_hallucination_fix28_recurrence_2026-07-01.md` (Director sanity-check VERIFIED claims off-disk)
+- **Testbed a57b9f19 shipped 4 durable improvements:**
+  - commit **4395b7e7**: queue_add.sh Pattern 5 shared framework auto-SCP (11-module list; verified via mock-file test) + post-write status-field grep-back verify (WARN on terminal-state entries)
+  - commit **f7996d68** (bundled with hdlab primitive via auto-stage): `tools/back_fill_cert_ledger.py` — ledger reconciliation script; single-atom + audit-mode
+  - commit **c12b4955**: `tools/verify_atom_kind_registered.py` — enum pre-write check tool (META_RULE_BE)
+  - Item 5 (--follow-log flag) skipped: no runner log-path convention in-tree
+- **🎯 LEDGER RECONCILIATION COMPLETE (2026-07-01 03:40 UTC):** Testbed ran back_fill against the a8dfb00b orphan batch — **6 atoms back-filled** (5 in original commit + 1 sleep spindles caught by grep). Ledger 1075 → 1081. Post-audit reports "0 orphans". CERT 639 now has authoritative ledger backing.
+- Surprise: `ac8eb015` was AGENT ID; commit was `a8dfb00b`. Batch was 6 atoms (not 5 as commit msg said — sleep spindles also included).
+- hdlab: `hdlab/schema_exemplar_bayes.py` — SchemaExemplarBayesIndex primitive extracted from Batch C MM (10x compression sweet-spot per Skunkworks recommendation results-to-application cadence) — commit f7996d68
+
+### Fresh design specs + docs filed
+- `notes/director_M3_M1_3_stochastic_noise_injection_design_spec_2026-07-01.md` — 5 injection modes + regime→sigma calibration + integration path
+- `notes/research_phase_diagram_gap_analysis_next_cells_2026-07-01.md` (Research a36917be, Sonnet) — ranked top-5 next axes: F cleanup×WM / J order-binding-family / H hierarchical-bank / P 3-tier generational / D×O cross-product
+
+### 🎯 SYNC-HANG DIAGNOSIS (2026-07-01 ~04:10 UTC — Testbed a57b9f19)
+**Root cause:** `local_metrics_sync.ps1` used raw ssh; remote-side hangs left SYSTEM-owned ssh zombies. Sync FROZEN since 2026-06-30 17:28 EDT (10+ hours). All "phantom-FULL" framings were SYNC-VISIBILITY, not runner behavior. Cells DID run FULL on remote.
+- **Fix commit 22e848d2:** Invoke-BoundedSsh/Scp wrappers with Start-Job + Wait-Job + Stop-Job timeouts + ServerAliveInterval=10
+- **USER action needed:** kill 3 SYSTEM-owned zombie ssh/scp PIDs (6276/30272/19636) via elevated shell; not user-context killable
+- When zombies cleared: Batch D v3 + E v1.1 + A v2 will show TRUE FULL state (all likely HP per remote SSH read)
+- Director's phantom-FULL narrative retracted; Skunkworks correctly held GPU VETs pending diagnosis
+
+### 🎯 M3 M1.3 MILESTONE — NoiseChannel shipped (2026-07-01 ~04:00 UTC)
+- Cell-author afd15e8a shipped commit **`c5e5e66a`** (local main; Orchestrator push pending)
+- `substrate_router/noise_channel.py` + `substrate_router/test_noise_channel_smoke.py`
+- 5 injection modes (additive_gaussian / additive_complex_gaussian / bernoulli_flip_stochastic / dropout_mask / temperature_softmax)
+- 5/5 smoke tests PASS (determinism / pdf_spread / l2_preservation / encoder_specialization / regime_monotonicity)
+- Design-spec calibration (moderate cosine ~0.85 target; landed at 0.20) deferred to M1.6 empirical re-tune as designed
+- **Significance:** unblocks deferred adaptive cell family (refuse-gate v3 / SWR v3+) that was structurally excluded from substrate per 5x drill 2026-06-30. Cortex layer now has the stochastic-noise-at-boundary mechanism.
+
+### CERT trajectory today (cumulative — updated 04:35 UTC)
+- Morning wave (7cef91b3): 3 rulings (Batch A v1 MM / Batch C MM / Batch D HF); CERT +0
+- Midday atomization (e5f50e02): K-cliff v2 3-seed 2x-drill MM; CERT +0
+- Midday (84fe4aa1): Axis F cleanup family HF closure; CERT +0
+- **🎯 Evening wave (c7feb0c4) SIX BATCHES SSH-VET'd via Testbed diagnosis:**
+  - **Batch A v2 pc_sparsity × encoder CAPACITY-LIFT → CHAIN_GRADE +1** (SAT_frac 62.5%→43.75%; 4/4 encoders range≥0.15; cv<<0.15) — first CG of the day; 2x-drill recommendation from Skunkworks worked
+  - K-cliff v3 extended range → MM (SAT-escape but FLOOR-dominant 60%)
+  - Batch E v2 bytes_per_fact_pareto → MM (auditor override HP→MM; META_RULE_Q + FP16 broken arm)
+  - Batch B v1.6 seqbind → HARD_FAIL (Gate D fail; K_cliff prediction wrong at N=8192)
+  - Axis J order_binding_family → HARD_FAIL 2-seed (K*=500 all 3 ops; seed_7 stuck due to runner-hang)
+  - Axis D×O binding_op_x_capacity → HARD_FAIL single-seed (K_cliff=750 all 3 ops; capacity-axis invariant)
+- **CERT: 639 → 640 today (atoms.jsonl 28825→28832; ledger 1075→1088)**
+- Session today: **CG +1 / MM +5 / HF +6**
+
+### Wave-VET corrections vs Director framing (Fix #28 recurrences caught by Skunkworks)
+- Batch D_v3 slug doesn't exist — cell-author kept _v2 anchor; only v2 landing exists (already atomized HF in 7cef91b3). No D_v3 atom fabricated.
+- Batch E slug was v2 not v1p1
+- Batch B slug was v1 not v1p6
+- Axis J seed_7 stuck 0.15s (runner-hang per Testbed a57b9f19 sync-hang diagnosis)
+
+### 2x-drill queue (dispatched 04:30 UTC)
+- **E v3 FP16 fix + M-extended** (a51f288a) — highest priority; MM→CG lift plausible if FP16 range-safe Hebbian + M=40000 discrimination
+- **B v2 K_cliff formula recalibration** (aa9e4d0a) — mechanism real (cross-seed consistent) but analytical formula wrong; fit observed K_cliff(N) power law + amend Gate D
+- **D×O 3-seed replication** — dispatch when seed_13/19 needed for MM promotion (deferred)
+- **Axis J revive** — K* identical across 3 ops = capacity-invariant finding; needs different discriminator to escape identical K*
+
+### Axis F cleanup_family_WM 2x-drill closure (2026-07-01 ~03:55 UTC)
+- Skunkworks 84fe4aa1 ruled HARD_FAIL honest_negative capability_orthogonal_across_scales
+- Composes with a009a44a as 2x-drill closure across PC + WM scales
+- **Capability closure:** cleanup-family axis orthogonal to WM lift. No revival without structurally different cleanup class OR K<K_cliff regime with different discriminator OR N-scaling to shift K_cliff.
+
+### Historical (pre-Full-Auto snapshot preserved below)
+
+---
+
+## 🎯 PREVIOUS SNAPSHOT 2026-07-01 02:50 UTC
 
 ---
 

@@ -1,8 +1,43 @@
 # TRUE phase diagram coverage — substrate operating space
 
-**Last updated:** 2026-06-30 18:50 UTC
+**Last updated:** 2026-07-01 04:05 UTC (mid-overnight; Full Auto fleet cooking)
 **Audience:** Director (post-compaction) + Skunkworks (audit reference) + USER (progress framing)
 **Purpose:** Honest accounting of substrate operating space coverage. The "TRUE phase diagram" = component-axis substitution (outer) × parameter sweep within component (inner).
+
+---
+
+## 🎯 2026-07-01 progress (Full Auto overnight; USER 03:20 UTC)
+
+### Axis status changes this arc (session-cumulative)
+| Axis | Cell | Status | CERT Δ | Note |
+|---|---|---|---|---|
+| A×C | pc_sparsity_x_encoder_v1 3-seed | **MM** (7cef91b3) | 0 | fhrr sparse-sensitive; others saturate; capacity-bound |
+| A×C v2 | pc_sparsity_x_encoder_v2 M=600 | pending FULL | ? | 2x-drill capacity-lift; smoke HP; blocked on runner-bug |
+| C | compression_pareto_v1 3-seed | **MM** (7cef91b3) | 0 | H2 REFUTED at N=8192; EXEMPLAR_BAYES-10x sweet-spot (hdlab primitive extracted f7996d68) |
+| G | routing_geometry_v2 3-seed | **HF** (7cef91b3) | 0 | 4/5 arms crash at 100k scale; v3 fix dispatched |
+| I | K-cliff v2 3-seed 2x-drill | **MM strongest-below-CG** (e5f50e02) | 0 | avg_arms_diff cv=0.16% (extraordinary); v3 CG-lift dispatched |
+| I | K-cliff v3 extended range | landed remote (sync lag) | ? | seeds 7 + 13 completed; K∈{200,500,1000,2000,4000,8000} escape SAT |
+| J | order_binding_family v1 | dispatched local_cpu | ? | 3 ops (cyclic/perm/phase); K iterated {50,500,2000} per META_RULE_AG; hashes distinct |
+| F (outer WM) | cleanup_family_WM_K_cliff v2 | **HF closure** (84fe4aa1) | 0 | family-orthogonal at WM; composes with a009a44a PC finding as 2x-drill closure across scales |
+| E storage | bytes_per_fact_pareto v1.1 3-seed | pending FULL | ? | BINARY_DENSE 32x compression no recall loss; blocked runner-bug |
+| E storage v2 | bytes_per_fact_pareto v2 (7 arms + M sweep) | remote_cpu_queue pending | ? | BFLOAT16 doesn't collapse (validates FP16 dynamic range hypothesis); chain-grade-eligible |
+| B N-scaling | seqbind_N_dim_scaling_law v1.5 | pending GPU (v1.5 env fix) | ? | 4 iterations of OOM fixes (decode chunk / encode chunk / expandable_segments env / wrapper-scope env) |
+| H hierarchical | hierarchical_bank v1 | cell-author in flight | ? | 2-level bank vs flat vs partition-by-source; 5x-drill-eligible if HP |
+| P 3-tier | three_tier_generational v1 | cell-author in flight | ? | Extends TWO_TIER CG to STM→ITM→LTM |
+| D×O cross | binding_op_x_capacity v1 | cell-author in flight | ? | 3 binding-ops × 3 α; tests op × capacity interaction |
+| **M3 M1.3** | **noise_channel** (cortex layer) | **c5e5e66a SHIPPED** | N/A | **MILESTONE — unblocks refuse-gate v3 + SWR v3+ deferred families per 5x drill** |
+
+### Axis-family closure findings today
+- **Axis F cleanup:** family-orthogonal at both PC + WM scales. Two-drill closure. No revival without structurally different cleanup class OR K<K_cliff regime OR N-scaling to shift K_cliff.
+- **Axis A×C:** fhrr encoder is the sensitivity outlier; other encoders saturate. Genuine finding at capacity limit.
+
+### Coverage estimate 2026-07-01 (mid-overnight)
+- Outer-axis CG this session: E, H, L, N, O (5 from BACKUP) + no new CG today (5 rulings all MM/HF)
+- Outer-axis with active discriminating findings: A×C (interaction confirmed) / C (H2 refuted) / F (closure) / G (crashes; v3 fix pending) / I (3-seed MM cross-check) / J (in flight) / K (in flight remote_cpu)
+- Outer-axis untouched: reduced from 5 → **2** (Storage v2 covering E; Axis H in flight; P in flight; D×O in flight)
+- **Overall estimate: ~55-60% → 60-65%** if 4 in-flight land discriminating results
+
+---
 
 ---
 
