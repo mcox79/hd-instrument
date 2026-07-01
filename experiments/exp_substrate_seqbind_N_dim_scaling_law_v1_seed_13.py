@@ -49,6 +49,14 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
+# v1.5 CUDA fragmentation fix: MUST be set in the WRAPPER before `import torch`
+# (not in _core.py, which is imported AFTER torch here -> too late; env var must
+# precede first CUDA allocator init). Replicates Batch D v3 (commit f344f2e9)
+# pattern -- v1.3 put this in _core.py only and failed for exactly this reason.
+os.environ.setdefault(
+    "PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True"
+)
+
 import torch  # PROT-020 GPU-queue routing gate
 
 from experiments._seed_checkpoint import (
@@ -169,6 +177,13 @@ def _write_start_marker(out_dir: Path, expected_n_units: int) -> None:
 
 def main() -> int:
     _RESULTS_HOLDER["started_at"] = time.time()
+    # v1.5 diagnostic: verify PYTORCH_CUDA_ALLOC_CONF is set (should be
+    # "expandable_segments:True" from the pre-torch env-var block above)
+    print(
+        f"[v1.5] PYTORCH_CUDA_ALLOC_CONF="
+        f"{os.environ.get('PYTORCH_CUDA_ALLOC_CONF', '<unset>')}",
+        flush=True,
+    )
     env_name = os.environ.get("HDLAB_EXP_NAME", ANCHOR_NAME)
     out_dir = REPO / "data" / ("exp_" + env_name)
     out_dir.mkdir(parents=True, exist_ok=True)
