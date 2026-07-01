@@ -83,7 +83,22 @@
 - Design-spec calibration (moderate cosine ~0.85 target; landed at 0.20) deferred to M1.6 empirical re-tune as designed
 - **Significance:** unblocks deferred adaptive cell family (refuse-gate v3 / SWR v3+) that was structurally excluded from substrate per 5x drill 2026-06-30. Cortex layer now has the stochastic-noise-at-boundary mechanism.
 
-### CERT trajectory today (cumulative — updated 04:35 UTC)
+### 🎯🎯 TWO CG PROMOTIONS TODAY — CERT 639→640→641 (updated 2026-07-01 07:00 UTC)
+
+**Session final: CG +2 / MM +9 / HF +7 = 18 atoms + 18 ledger rows in 8 commits.**
+
+**CG #1: Batch A v2 pc_sparsity × encoder capacity-lift (7cef91b3 → CG in c7feb0c4)**
+- 3-seed cross-seed HP; SAT_frac 62.5%→43.75%; 4/4 encoders range≥0.15; cv 0.009-0.064 all <<0.15
+- Skunkworks-recommended 2x-drill (M=300→M=600) worked; escaped META_RULE_Q
+
+**CG #2: Batch E v5 INT8-Pareto-optimal specialization (0c5f4287 → CG in 716174a7)**
+- 3-seed cross-seed HP; all 5 gates 2-3x margin
+- INT8 recall matches FP32 within 0.0015 at 0.25x memory (max gap seed_19 M=40k)
+- Cross-seed cv max 0.045 (2.2x below 0.10 gate)
+- **Substrate design implication:** INT8_DENSE is Pareto-optimal for WM at N=8192 in capacity crack M∈{40k,80k}. hdlab primitives should default INT8_DENSE for this regime.
+- Discipline loop worked: E v4 MM → Skunkworks recommended dedicated pre-reg → E v5 CG. USER 2x-drill discipline validated across mechanism specialization.
+
+### CERT trajectory today (waves)
 - Morning wave (7cef91b3): 3 rulings (Batch A v1 MM / Batch C MM / Batch D HF); CERT +0
 - Midday atomization (e5f50e02): K-cliff v2 3-seed 2x-drill MM; CERT +0
 - Midday (84fe4aa1): Axis F cleanup family HF closure; CERT +0
