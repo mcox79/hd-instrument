@@ -1,0 +1,364 @@
+{
+  "anchor_name": "dim_t_joint_surface_alpha_sigma_interaction_v1_seed_7",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "JOINT_SURFACE_INTERACTION_CONFIRMED: sigma_crit(a=0.10)=0.185 - sigma_crit(a=0.45)=0.116 = 0.069 >= 0.03; monotonic@s0.10: r(a=0.10)=0.999 > r(a=0.45)=0.765. M3 refuse-gate joint-controller upgrade justified.",
+  "summary": "chunk_seed=7 n_seeds=1 N_c=8192 BETA=13.0 alphas={0.1,0.45} sigmas=[0.02, 0.05, 0.08, 0.1, 0.13, 0.15, 0.2, 0.3] mode=smoke backend=numpy",
+  "elapsed_s": 78.82085132598877,
+  "config_version": "ANCHOR=dim_t_joint_surface_alpha_sigma_interaction_v1_seed_7,N_c=8192,BETA=13.0,alpha={0.1,0.45},sigma={0.02,0.05,0.08,0.10,0.13,0.15,0.20,0.30},SEED=7,RUN_MODE=smoke,backend=numpy,parent_v3_CG=cortex_hippo_dense_beta_sweep_v3_query_noise_seed_7",
+  "N_c": 8192,
+  "M_LOW": 819,
+  "M_HIGH": 3686,
+  "BETA": 13.0,
+  "ALPHA_LOW": 0.1,
+  "ALPHA_HIGH": 0.45,
+  "SIGMA_SWEEP": [
+    0.02,
+    0.05,
+    0.08,
+    0.1,
+    0.13,
+    0.15,
+    0.2,
+    0.3
+  ],
+  "backend": "numpy",
+  "n_seeds": 1,
+  "expected_n_units": 16,
+  "cardinality_ok": true,
+  "chunk_seed": 7,
+  "run_mode": "smoke",
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed_M_low": 0.017471413945365305,
+  "crlb_floor_computed_M_high": 0.008235544892382278,
+  "crlb_formula_reference": "sigma_min = sqrt(0.25/M) binomial-CLT",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "discriminator_survives_scale": true,
+  "hp_interaction_delta": 0.03,
+  "mb_interaction_delta": 0.01,
+  "hf_interaction_tol": 0.02,
+  "broken_pc_floor": 0.95,
+  "regime_match_tol": 0.1,
+  "v3_cg_reference_recall": 0.785,
+  "parent_v3_cg": "cortex_hippo_dense_beta_sweep_v3_query_noise_seed_7",
+  "parent_drill": "notes/research_dim_t_regime_transitions_composition_2026-07-02.md",
+  "hypothesis_being_tested": "joint_surface_interaction_alpha_sigma",
+  "cell_chunked": true,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "headline": {
+    "sigma_crit_alpha_10": 0.18518306636155607,
+    "sigma_crit_alpha_45": 0.11573426573426573,
+    "delta_sigma_crit": 0.06944880062729034,
+    "recall_a10_by_sigma": [
+      [
+        0.02,
+        1.0
+      ],
+      [
+        0.05,
+        1.0
+      ],
+      [
+        0.08,
+        1.0
+      ],
+      [
+        0.1,
+        0.9987789987789988
+      ],
+      [
+        0.13,
+        0.9743589743589743
+      ],
+      [
+        0.15,
+        0.8754578754578755
+      ],
+      [
+        0.2,
+        0.3418803418803419
+      ],
+      [
+        0.3,
+        0.0927960927960928
+      ]
+    ],
+    "recall_a45_by_sigma": [
+      [
+        0.02,
+        1.0
+      ],
+      [
+        0.05,
+        1.0
+      ],
+      [
+        0.08,
+        0.9913185024416712
+      ],
+      [
+        0.1,
+        0.764514378730331
+      ],
+      [
+        0.13,
+        0.26017362995116655
+      ],
+      [
+        0.15,
+        0.18583830710797614
+      ],
+      [
+        0.2,
+        0.04340748779164406
+      ],
+      [
+        0.3,
+        0.0048833423765599565
+      ]
+    ],
+    "hp_interaction_confirmed": true,
+    "hp_monotonic_alpha_at_s10": true,
+    "recall_a10_s10": 0.9987789987789988,
+    "recall_a45_s10": 0.764514378730331,
+    "recall_a10_s02_pc": 1.0,
+    "recall_a45_s02_pc": 1.0,
+    "regime_match_a45_s10_dev_from_v3": 0.02048562126966902
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "elapsed_s": 78.70541167259216,
+      "arms": [
+        {
+          "arm_name": "ARM_A10_S02",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.02,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 1.0,
+          "cosine_margin_used": 0.9911584510409356,
+          "arm_digest": "3a2e66527d5a117d",
+          "wall_s": 0.9651057720184326,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S05",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.05,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 1.0,
+          "cosine_margin_used": 0.9911616287888277,
+          "arm_digest": "ef2f24946fb04171",
+          "wall_s": 1.0298786163330078,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S08",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.08,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 1.0,
+          "cosine_margin_used": 0.9911651090276038,
+          "arm_digest": "ed200fcdc10a5071",
+          "wall_s": 0.9414052963256836,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S10",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.1,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.9987789987789988,
+          "cosine_margin_used": 0.9911548972517368,
+          "arm_digest": "f76b40a14f18c563",
+          "wall_s": 0.9464709758758545,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S13",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.13,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.9743589743589743,
+          "cosine_margin_used": 0.9911581647584635,
+          "arm_digest": "413582b4e8b2c278",
+          "wall_s": 0.8852400779724121,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S15",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.15,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.8754578754578755,
+          "cosine_margin_used": 0.9912339121953726,
+          "arm_digest": "c4ad9dbf29d718d1",
+          "wall_s": 0.9659395217895508,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S20",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.2,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.3418803418803419,
+          "cosine_margin_used": 0.9912038739233406,
+          "arm_digest": "27b2e386db07906f",
+          "wall_s": 0.975640058517456,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A10_S30",
+          "alpha_used": 0.1,
+          "m_items": 819,
+          "sigma_used": 0.3,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.0927960927960928,
+          "cosine_margin_used": 0.9912260078663597,
+          "arm_digest": "748ca2881e094dba",
+          "wall_s": 0.9833953380584717,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S02",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.02,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 1.0,
+          "cosine_margin_used": 0.9911755961729287,
+          "arm_digest": "3ae239981a745f6d",
+          "wall_s": 8.061718225479126,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S05",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.05,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 1.0,
+          "cosine_margin_used": 0.9911597863719201,
+          "arm_digest": "40bbbf1434be3479",
+          "wall_s": 8.586400747299194,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S08",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.08,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.9913185024416712,
+          "cosine_margin_used": 0.9911249203044153,
+          "arm_digest": "43654b54768e8ca2",
+          "wall_s": 9.161985397338867,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S10",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.1,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.764514378730331,
+          "cosine_margin_used": 0.9911345430972363,
+          "arm_digest": "93fed95a97d7b9dd",
+          "wall_s": 9.138623476028442,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S13",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.13,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.26017362995116655,
+          "cosine_margin_used": 0.9911838630833933,
+          "arm_digest": "8e77ba46e1f8b401",
+          "wall_s": 8.948320865631104,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S15",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.15,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.18583830710797614,
+          "cosine_margin_used": 0.9911641395976434,
+          "arm_digest": "da0f121adb1ca1b8",
+          "wall_s": 8.820560693740845,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S20",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.2,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.04340748779164406,
+          "cosine_margin_used": 0.9911988616626553,
+          "arm_digest": "1f537b3d1cdefb3f",
+          "wall_s": 8.763500690460205,
+          "backend": "numpy",
+          "arm_status": "OK"
+        },
+        {
+          "arm_name": "ARM_A45_S30",
+          "alpha_used": 0.45,
+          "m_items": 3686,
+          "sigma_used": 0.3,
+          "beta_used": 13.0,
+          "N_c": 8192,
+          "recall_cortex": 0.0048833423765599565,
+          "cosine_margin_used": 0.9911005919288776,
+          "arm_digest": "b66e88d7c37ee27f",
+          "wall_s": 8.877570629119873,
+          "backend": "numpy",
+          "arm_status": "OK"
+        }
+      ]
+    }
+  ]
+}
