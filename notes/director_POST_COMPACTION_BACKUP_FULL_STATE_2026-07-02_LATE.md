@@ -28,9 +28,13 @@ python d:/AI/hd-instrument/tools/runner_status.py --remote
 ## SESSION SNAPSHOT
 
 ### CERT (Testbed-audited today, load-bearing)
-- **CERT actual: 662 → ~699** (Testbed ledger audit today: 42 session atoms; **17 CG + 15 MM + 2 DEMOTE + 2 DISCIPLINE + 1 MB**)
-- My prior narrative said "26 CG" — WRONG. Correct is 17 CG per disk.
-- Session synthesis note (see below) needs revision to reflect audited numbers.
+- **CERT actual: 662 → ~702** (Testbed audit + post-compaction Skunkworks batch VET: 45 session atoms; **20 CG + 15 MM + 2 DEMOTE + 2 DISCIPLINE + 1 MB**)
+- **UPDATE (post-BACKUP-filing during compaction window): +3 CG landed via Skunkworks batch VET (agent a095abb427a2a0565):**
+  - M1.8 CLARIFY 5-primitive stack 3-seed FULL — CG (5th cortex primitive closes)
+  - M1.4 v9 joint-alpha-sigma-surface-controller 3-seed FULL — CG (v9 lifts low-load useful_recall 0.0→0.72-0.82; cv=0.066 marginal but honest)
+  - Dim T joint-surface interaction 3-seed — CG (delta_sigma_crit cv=0.015 excellent; note seed_7 ran as smoke-mode per config, transparently characterized in atom audit_notes)
+- My prior narrative said "26 CG" — WRONG. Testbed audit corrected to 17; post-VET now 20.
+- Session synthesis note (see below) needs revision to reflect audited numbers (17 → 20 now).
 
 ### Strategic drills this session (9/9 done + 1 paradigm drill)
 All filed to `notes/`:
