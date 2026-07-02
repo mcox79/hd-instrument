@@ -1,6 +1,31 @@
 # Progress
 
-## Current phase
+## Current phase (2026-06-30 EOD)
+
+Substrate program is on the M3-milestone path: glass-box conversational AI 12-18mo via substrate as memory+composition+retrieval+audit layer + external cortex layer for hint derivation / planning / coref / surface-form access.
+
+**Live Store CERT count: 634** (provenance_quality == CERT_CHAIN_GRADE; verified off-disk).
+
+**Stage progression** (load-bearing; do not skip):
+- **Stage 1 — Foundational primitives:** ~88% mature. 12 chain-grade primitives (HRR/FHRR/BSC bind+unbind; cleanup attractor; pattern completion; sequence binding K-cliff; WM multi-bank; refuse-gate V_REL=256; KG ingest FB15k/CN/HotpotQA; partition routing M=10M; intent classifier; capacity multi-bank α-K; action-at-any-position).
+- **Stage 2 — Meta-primitives + optimization:** ~85% mature. Schema family CG, ANCHOR 4 time-decay CG, Lock-in amp CG, ANCHOR 3 coarse-grain CG, ULTRAMETRIC CG, Compose-freq routing v5 CG. **NREM replay bottleneck partially characterized 2026-06-30:** Ha (Hebbian cross-term) = 51% of gap (MM atomized); Cell C v2 compartmentalized cortex K-banks LANDED HARD_PASS at K=200 covering 92% of bottleneck gap (Skunkworks VET in flight for 9th CG promotion).
+- **Stage 3 — Capability primitives:** ~60% banked. Multi-hop reasoning depth-15 CG; compositional generation lift CG; cross-modal binding CG; CF regret vmPFC CG; TASK_VECTOR HRR ICL K-cliff CG. Within-structure substrate-only gaps in flight 2026-06-30: TOM 3rd+ v5 d=5-isolated (smoke HP confirms dilution hypothesis; FULL pending), CF latency v2 (running), Parietal RELATIONAL v2 (pending), Narrative Q3 v2 Q_per_type=15 (in flight). Multi-structure-bio gaps deferred to M3 cortex layer.
+- **Stage 4 — LM equivalence:** DEFERRED per stage-progression rule.
+
+**M3 cortex layer (Phase 1):** `substrate_router/` module on `m3-phase1-router-scaffolding` branch. M1.1 done (SubstrateRouterAPI + route()). M1.2 advanced 2026-06-30: `hdlab/intent_classifier.py` extracted from production-scale v2 cell + `hdlab.kg_traversal.load_from_fb15k237_dump` helper shipped.
+
+**Methodology META rules atomized this arc (~12-13):** centroid pooling (AT), GPU-mandate-breach signature (AU), selftest-not-FULL (AV), seed-config-identical (AW), arms-distinct-across-family-axis (AX), verdict-HARD_FAIL-on-self-reported-distinctness-False (AY proposed 2026-06-30).
+
+**Infrastructure 2026-06-30 fixes:**
+- `hd_metrics_sync` merger: preserve-existing → mtime-newer-wins (commit be4cec83); first sync after fix overwrote 3873 stale local files
+- `queue_add.sh`: auto-SCP sibling helper modules (commit e0435992)
+- SSH-immune schtasks runner lineage; gpu_runner_0 + cpu_runner_0 with 5-min auto-restart
+
+For session state see `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-28.md` + `notes/director_TRUE_PHASE_DIAGRAM_COVERAGE_2026-06-30.md`.
+
+---
+
+## Historical (Week 8) phase
 
 **Week 8 complete + depth-mechanism follow-up done:**
 
