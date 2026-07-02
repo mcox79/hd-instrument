@@ -1,0 +1,223 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 4 primitives reproduce within |delta|<=0.05 across 3 seeds; all 4 ABLATED arms below floor 0.1. Cortex facade composition integrity verified.",
+  "summary": "HARD_PASS: all 4 primitives reproduce within |delta|<=0.05 across 3 seeds; all 4 ABLATED arms below floor 0.1. Cortex facade composition integrity verified.",
+  "cardinality_ok": true,
+  "n_units": 12,
+  "expected_n_units": 12,
+  "per_primitive_reproduces": {
+    "m14": true,
+    "m15": true,
+    "m17": true,
+    "m18": true
+  },
+  "per_primitive_ablation_fires": {
+    "m14": true,
+    "m15": true,
+    "m17": true,
+    "m18": true
+  },
+  "delta_summary": {
+    "m14": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m15": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m17": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m18": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0
+      ],
+      "composed_mean": 0.675,
+      "individual_mean": 0.675
+    }
+  },
+  "cv_summary": {
+    "m14": 0.0,
+    "m15": 0.0,
+    "m17": 0.0,
+    "m18": 0.0
+  },
+  "ablation_summary": {
+    "m14": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0
+      ]
+    },
+    "m15": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0
+      ]
+    },
+    "m17": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0
+      ]
+    },
+    "m18": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0
+      ]
+    }
+  },
+  "n_reproduces": 4,
+  "n_ablation_fires": 4,
+  "elapsed_s": 1.5214268999989145,
+  "run_mode": "smoke",
+  "anchor_name": "exp_cortex_integration_end_to_end_v1",
+  "ts_iso": "2026-07-02T18:13:14.003973+00:00",
+  "seeds": [
+    7
+  ],
+  "sizes": {
+    "m14_n_queries": 20,
+    "m14_m_tape": 16,
+    "m15_k_writes": 3,
+    "m17_k_items": 8,
+    "m18_n_per_class": 10
+  },
+  "arm_code_path_fingerprints": {
+    "m14_composed": "c5f4ecbe79b7fb27",
+    "m14_individual": "735d44a3e4ac688f",
+    "m14_ablated": "d338830011ad5a7b",
+    "m15_composed": "7e2acf91d35edf5b",
+    "m15_individual": "fbe75da0474ba09e",
+    "m15_ablated": "4176948da82b5b95",
+    "m17_composed": "02a5a57cc62c2021",
+    "m17_individual": "d59a250b22496729",
+    "m17_ablated": "4e06600bfbb496ee",
+    "m18_composed": "52dff730e525ecac",
+    "m18_individual": "fdd451d5aa701600",
+    "m18_ablated": "405f3a4d01b4a4f0"
+  },
+  "arms_differ_verified": true,
+  "storage_strategy": "MIXED_inherited_per_primitive_no_facade_storage",
+  "compute_architecture": "mixed_cpu_numpy_torch",
+  "per_seed": {
+    "7": {
+      "m14": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m15": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m17": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m18": {
+        "composed": 0.675,
+        "individual": 0.675,
+        "ablated": 0.0
+      }
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "composed",
+      "metric": 0.675
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "individual",
+      "metric": 0.675
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "ablated",
+      "metric": 0.0
+    }
+  ],
+  "primitives_tested": [
+    "m14_refuse_gate",
+    "m15_two_tier_context",
+    "m17_role_slot_summarizer",
+    "m18_clarify_gate"
+  ]
+}
