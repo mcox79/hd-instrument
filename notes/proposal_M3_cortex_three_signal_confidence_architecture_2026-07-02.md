@@ -1,8 +1,68 @@
 # Proposal — M3 cortex three-signal confidence architecture
 
 **Filed:** 2026-07-02 mid-afternoon (post-restart session)
-**Status:** strategic proposal; USER go/no-go on scope + sequencing
+**Status:** EMPIRICALLY DOWNGRADED after 3 confidence-mechanism FULL HFs — proposal needs rewrite; USER strategic decision needed on continuation vs pivot
 **Emerged from:** research 2x drill on h4 HF revival (a66bd7d45ff1f408d) + skunkworks h4 audit (a135cce573fd8410c)
+
+## 🚨 FINAL VERDICT — added 2026-07-02 ~16:50 UTC after Skunkworks bundle VET (ad1023703f2ed5ca6)
+
+**The 4-signal architecture DOES NOT hold up empirically as originally proposed.**
+
+**Final results (all FULL 3-seed, atomized):**
+
+| Signal | Mechanism | h4-harness | Relaxed regime | Verdict |
+|---|---|---|---|---|
+| Density (h4) | global cluster density | HARD_FAIL CG | not tested | Dead |
+| Spatial (h4b) | top-1 vs top-2 margin | HARD_FAIL CG | HARD_FAIL CG (Arm D FULL 0.495) | Dead across regimes |
+| Stochastic (lane_x_prime) | multi-sample predictive entropy | HARD_FAIL CG | not tested | Dead |
+| Post-hoc (lap3_12) | isotonic-calibrated cleanup margin | MIDDLE_BAND (Cramer-Rao ceiling) | not applicable | Partial |
+| Dynamical | first-step ΔE + σ_max(J) | not built | not built | Untested |
+
+**3 of 4 mechanism classes now empirically dead at 3-seed FULL.** The regime-hostility META atom promoted to CG (h4-harness) + amended to SCOPE-EXPAND (relaxed regime) — the observable-class limit is the fundamental bound, not just the h4-harness. The abe94cac drill's REGIME_CONFOUND verdict is empirically wrong per h4b_regime_redesign_probe FULL.
+
+**Novel discipline CG'd this session:** `META_RULE_smoke_single_seed_inflates_AUC` — 3 concurrent same-direction data points (h4b Δ=0.126, lane_x_prime Δ=0.048, h4b_regime_redesign Δ=0.247). Root cause: regression-to-mean on high-side single-seed draws. Rule baked into exp_dev.md commit `f07d607c4`: confidence/contamination cells henceforth require multi-seed variance-probe smoke before FULL dispatch.
+
+## Empirical downgrade — what actually landed vs original proposal
+
+**Original proposal:** 3-signal (post-hoc + spatial + dynamical) confidence combiner, later upgraded to 4-signal (add stochastic) after abe94cac drill.
+
+**What actually landed:**
+- 4 chain-grade HFs on 3 of 4 signal classes (each a genuine substrate-physics limit finding, not a bug)
+- 1 MB (post-hoc calibration works structurally but bounded by Cramer-Rao)
+- 1 CG META (regime-hostility, scope-expanded beyond h4-harness)
+- 1 CG META (novel discipline for confidence-cell smoke gating)
+- Dynamical corner never built (paused pending USER decision)
+
+**Sum-of-parts:** 4 CG on the confidence-signal work (3 HF closures + 2 META CGs shared credit; -1 for double-count). Even the negative-results are chain-grade wins — but the M3 cortex confidence-routing architecture as proposed does NOT have working signals to combine.
+
+## USER strategic decision needed
+
+**Option A: Reframe the task, keep the architecture.**
+Abandon per-query contamination-detection at ≤5% base rate + INTRA_COS≥0.6 (empirically below-floor for geometric observable class). Re-derive all 4 signals on a different task: OOD-detection at contam=40%, INTRA_COS=0.35 (per abe94cac drill's Phase 3 skeleton). Individual signals may work there; joint combiner comes later.
+
+Cost: ~4 days sub-agent work; risk: same wall reappears at higher contam if the abe94cac drill's Bayes-floor argument extends.
+
+**Option B: Accept the negative, pivot to external-signal confidence for M3.**
+The substrate cannot self-detect uncertainty at practical scales. For M3 cortex confidence-routing, feed in external signals (LLM router judgment, human labels, downstream reward). Keep lap3_12's post-hoc calibration (MB, structural) as ONE input; drop the 3 dead corners.
+
+Cost: minimal (lap3_12 is the only cell needed); risk: violates USER 2026-07-01 substrate-native-language lock; violates USER 2026-06-28 M3 architecture "cortex above substrate" (implies external signal source we're not otherwise building).
+
+**Option C: Deep pivot — new observable class entirely.**
+Everything we've tried is a static or dynamic observation of substrate STATE. Try instead observations of substrate ACTIVITY — during retrieval, how much energy does the substrate expend? What's the entropy of the query-to-retrieval mapping? Consider: substrate energy consumption / dissipation / cleanup-work as a confidence proxy (a "how hard did I have to work" signal, brain analog: prefrontal effort tracking per Kool et al 2018). Novel class; unclear P_CG.
+
+Cost: 1 research drill + ~1 week; risk: might land as 4th empirical HF.
+
+**Option D: Move on. Substrate-physics wins are compounding; the confidence problem is one hard corner. Ship the CG negatives as durable knowledge, come back after Stage 2 optimizations mature.**
+
+Cost: near-zero; benefit: focus session budget on stronger-P_CG work (Stage 1 sharded_capacity + Stage 3 compositional understanding). Risk: M3 conversational cortex still needs a confidence signal eventually.
+
+## Skunkworks recommendation (from their VET note)
+
+*"3 orthogonal probes finding the same nothing = the regime is the barrier."* The negative-result META atoms are load-bearing scientific findings. The 4-signal proposal per se should be shelved pending USER strategic decision on which path (A/B/C/D). Do NOT continue authoring individual signal cells without task reframe.
+
+---
+
+## ⚡ UPDATED — SECOND DRILL LANDED 2026-07-02 ~16:20 UTC — REBRAND TO 4-SIGNAL (superseded by FINAL VERDICT above)
 
 ## ⚡ UPDATED — SECOND DRILL LANDED 2026-07-02 ~16:20 UTC — REBRAND TO 4-SIGNAL
 
