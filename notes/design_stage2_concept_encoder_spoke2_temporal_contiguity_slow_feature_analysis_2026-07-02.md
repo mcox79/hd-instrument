@@ -3,7 +3,30 @@
 **Filed:** 2026-07-02 evening (post-brain-best-in-class strategic pivot)
 **Anchor:** `substrate_concept_encoder_spoke2_temporal_contiguity_foldiak_trace_v1`
 **USER anchor 2026-07-02:** brain function is best-in-class reference standard
-**Composes with:** Stage 2 Spoke 1 (predictive coding + competitive allocation + char+positional) — see design_stage2_concept_encoder_spoke1_predictive_coding_competitive_allocation_2026-07-02.md.
+**Composes with:** Stage 2 Spoke 1 v3-D — competitive-Hebbian sparse coding ONLY (see [design v3-D](design_stage2_concept_encoder_spoke1_v3_WTA_base_PC_multiplicative_top_down_gain_2026-07-02.md) + [reference 5x drill convergence](../../../.claude/projects/d--AI/memory/reference_5x_drill_convergence_PC_redundant_with_WTA_for_concept_encoding_Spoke1_2026-07-02.md)).
+
+## 🔬 AMENDMENT 2026-07-02 late evening — Spoke 2 is now the primary home for PC in Stage 2
+
+Original Spoke 2 design (below) assumed Spoke 1 was PC + competitive allocation composed. 5x drill (6 of 6 convergent) + empirical drill (a51e4c) DECISIVELY FALSIFIED PC in Spoke 1 flat-composition. **Spoke 1 v3-D dropped PC entirely.** Consequences for Spoke 2:
+
+1. **Spoke 2 becomes the load-bearing home for PC in the Stage 2 concept encoder.** Temporal contiguity is where 6 of 6 domain drills agree PC clearly wins its complexity:
+   - Neuroscience: PC drives top-down invariance signals (DiCarlo IT, Friston active inference)
+   - Math + info theory: PC earns complexity conditional on temporal input structure (Nessler 2013 conditional P_deflated=0.40 vs 0.22 generic)
+   - ML/AI lit: I-JEPA-style latent predictive is one of two recommended v3 patterns (competitive base + temporal predictive)
+
+2. **Foldiak trace rule design (below) STILL VALID as the primary Spoke 2 mechanism.** Foldiak IS a PC-like temporal predictive mechanism (post-synaptic factor = temporal trace = "predicted" future activity from current + past). It's the correct home for PC-style predictive dynamics.
+
+3. **Optional stretch arm to add:** ARM_TRACE_PC_HIERARCHICAL — hierarchical PC modification of Foldiak trace, per Salvatori 2021 hierarchical PC. This would be the honest test of PC-in-correct-role: does hierarchical predictive stacking on top of competitive-Hebbian sparse base earn measurable complexity gain? P_CG conservative ≈ 0.30 (up from Spoke 2 baseline P_CG=0.35 due to composition risk with Spoke 1 v3-D bareness).
+
+4. **Spoke 2 timeline expands slightly** to accommodate:
+   - Base Foldiak trace on Spoke 1 v3-D (competitive-Hebbian) — 3-5 days (unchanged)
+   - Optional hierarchical PC stretch arm — +2-3 days
+   - Total: 5-8 days (up from 3-5)
+
+**No content below is invalidated.** The Foldiak trace mechanism is exactly right for Spoke 2 regardless of Spoke 1 being PC + WTA or WTA alone — the trace operates on Spoke 1's post-synaptic activity, which is competitive-Hebbian winner activation in v3-D.
+
+---
+
 **Motivation:** Spoke 1 makes concepts EMERGE from co-occurrence but concepts do NOT yet know about INVARIANCE — a cat sentence and a paraphrased cat sentence get similar-but-different HDs. Spoke 2 adds temporal contiguity as a free-supervisor: adjacent-in-stream inputs get pulled together in HD space, non-adjacent stay apart. Brain analog: complex-cell learning in V1 (Foldiak 1991), invariant IT face-selective cell learning (DiCarlo & Cox 2007), Slow Feature Analysis (Wiskott & Sejnowski 2002).
 
 ## Substrate-KB concept-query result (mandatory pre-design)
