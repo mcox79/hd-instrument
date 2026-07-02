@@ -70,11 +70,34 @@ Tier breakdown (my running count, may drift from disk):
 - **"Finish Stage 1 fully, then load onto substrate"** — multi-F DAG in flight; substrate-KB load pending
 - **"Option 1" from priority list** = M1.11 Confidence Header first (in flight via Option C extension)
 
-## IN-FLIGHT SUB-AGENTS
+## IN-FLIGHT SUB-AGENTS (updated post-smoke returns)
 
-- **a66e5ea088fe728cc** (hdi_exp_dev) — Option C extension `substrate_activity_energy_confidence_signal_v2_extended` — M1.11 Confidence Header candidate. Adds temp entropy + multi-sample vote + reconstruction error to combined-5 combiner. Target combined AUC ≥ 0.65 HP.
-- **a8aacaef5ef8db21a** (hdi_exp_dev) — Multi-F DAG `sharded_fhrr_topology_free_multi_f_dag_v1`. Tests F∈{1,2,4,8,mixed} for TOPOLOGY_FREE_PHYSICS_LAW promotion.
-- **a9f3b068cdc886d07** (hdi_research) — M1.9 Semantic Parser primitive design drill. Deliverable: `notes/research_M1_9_semantic_parser_primitive_design_2026-07-02.md`.
+**Original 3 spawns all RETURNED with strong smoke results — now in FULL dispatch:**
+
+- **a66e5ea Option C extension** — smoke returned: COMBINED_5 AUC=**0.663** at 3-seed smoke (right at HP threshold 0.65; +0.082 orthogonality lift over best individual, 4× stronger than v1's +0.021). Commit `0a456c030`. **FULL DISPATCHED** to remote_cpu_queue via orchestrator a3c30f4a. Post-compaction expects Skunkworks VET; HP → M1.11 Confidence Header CG-eligible; MB → +1 MB honest orthogonality-lift.
+- **a8aacaef multi-F DAG** — smoke returned + **3-seed FULL LANDED HP** (walls 6.55/8.58/9.31s). All 3 seeds report: "SHARDED discriminates across ALL DAG variants at NPROP=5000 N=8192: F=2=1.000, F=4=1.000, F=8=1.000, F=MIXED=..." — commit `b42e9c8ab` on origin. Metrics at `data/exp_sharded_fhrr_topology_free_multi_f_dag_v1_seed_{7,13,19}/metrics.json` (SH-9 recovered by orchestrator a145eb55). **4 distinct DAG variants × 3-seed HP = meets ≥3-variant criterion for full TOPOLOGY_FREE_SUBSTRATE_PHYSICS_LAW META promotion.** **Post-compaction priority: spawn Skunkworks VET immediately with explicit promotion framing.**
+- **a9f3b068 M1.9 research drill** — returned: Stage 3 first (NOT Stage 4); IntentClassifier ALREADY CG'd (n=50 acc=0.754); prior Wernicke/Broca dual-substrate arc 2026-06-11 exists; M1.9 is EXTENSION not from-scratch; P_CG=0.55. Deliverable at `notes/research_M1_9_semantic_parser_primitive_design_2026-07-02.md`. **M1.9 exp_dev spawn fired (a2dc3684)** — authoring Stage 3 v1 cell.
+
+**4 orchestrator/exp_dev in flight during compaction:**
+- **ad3a73df20c99f0ce** orchestrator — pushing BACKUP + notes updates to origin
+- **a3c30f4acb0fd39fa** orchestrator — pushing Option C ext commit + dispatching FULL
+- **a145eb55daae0534d** orchestrator — pushing multi-F DAG commit + wrappers + dispatching 3-seed FULL
+- **a2dc3684f94cb26a9** exp_dev — authoring M1.9 Semantic Parser Stage 3 v1
+
+## POST-COMPACTION IMMEDIATE PRIORITIES (updated)
+
+1. **Check task-notifications** for above 4 in-flight returns; commits + FULL dispatches should be complete
+2. **Fire orchestrator SH-9 pull** for Option C ext FULL landing (`exp_substrate_activity_energy_confidence_signal_v2_extended`) — if landed, spawn Skunkworks VET; HP → **spawn exp_dev to extract `hdlab/confidence_header.py` (M1.11 formal extraction)**; MB → tier as honest MB
+3. **Fire orchestrator SH-9 pull** for multi-F DAG 3-seed FULL landing (`sharded_fhrr_topology_free_multi_f_dag_v1_seed_{7,13,19}`) — if all HP, spawn Skunkworks with explicit TOPOLOGY_FREE promotion framing (Skunkworks earlier held off at F=4 only; now F=1/F=8/F=MIXED + prior F=4 = 4 distinct variants, meets criterion)
+4. **Review M1.9 cell-author return** (a2dc3684); if smoke HP → orchestrator push + FULL dispatch → Skunkworks VET
+5. **Verify substrate-KB ingested today's atoms** — query returned cosine 0.34 top hit earlier (may be sync-lag); check `hd_director_kb_continuous_ingest` scheduled task; may need to kick manual re-ingest
+
+## KEY FINDINGS TO REMEMBER (session-end)
+
+- **Confidence signal MOMENTUM**: Option C extension's COMBINED_5 AUC=0.663 with strong orthogonality lift (+0.082) is 4× stronger evidence than v1's +0.021 lift. Post-compaction FULL landing decides M1.11 CG-eligibility.
+- **STORAGE-STRATEGY LAW almost topology-free**: F=1/F=8/F=MIXED all HP at smoke; 3-seed FULL confirms → META promotes to TOPOLOGY_FREE_PHYSICS_LAW tier (physics law verified across 3 orthogonal axes)
+- **M1.9 SAVES WEEKS**: IntentClassifier already CG'd; M1.9 is extension not from-scratch — big time savings for conversational-eval path
+- **All 4 today's post-compaction VET-pending landings** could push session-end tally to **~37-38 CG + 3-4 CG_META** depending on Skunkworks tier decisions
 
 ## POST-COMPACTION IMMEDIATE PRIORITIES
 
