@@ -28,13 +28,20 @@ python d:/AI/hd-instrument/tools/runner_status.py --remote
 ## SESSION SNAPSHOT
 
 ### CERT (Testbed-audited today, load-bearing)
-- **CERT actual: 662 → ~702** (Testbed audit + post-compaction Skunkworks batch VET: 45 session atoms; **20 CG + 15 MM + 2 DEMOTE + 2 DISCIPLINE + 1 MB**)
-- **UPDATE (post-BACKUP-filing during compaction window): +3 CG landed via Skunkworks batch VET (agent a095abb427a2a0565):**
-  - M1.8 CLARIFY 5-primitive stack 3-seed FULL — CG (5th cortex primitive closes)
-  - M1.4 v9 joint-alpha-sigma-surface-controller 3-seed FULL — CG (v9 lifts low-load useful_recall 0.0→0.72-0.82; cv=0.066 marginal but honest)
-  - Dim T joint-surface interaction 3-seed — CG (delta_sigma_crit cv=0.015 excellent; note seed_7 ran as smoke-mode per config, transparently characterized in atom audit_notes)
-- My prior narrative said "26 CG" — WRONG. Testbed audit corrected to 17; post-VET now 20.
-- Session synthesis note (see below) needs revision to reflect audited numbers (17 → 20 now).
+- **CERT actual: 662 → ~703** (Testbed audit + post-compaction Skunkworks batch VET + VRC paradigm CG + h4 HF: 47 session atoms; **21 CG + 15 MM + 2 DEMOTE + 2 DISCIPLINE + 1 MB + 1 HF**)
+- **UPDATE (post-BACKUP-filing during compaction window): +4 tier changes:**
+  - M1.8 CLARIFY 5-primitive stack 3-seed FULL — **CG** (5th cortex primitive closes)
+  - M1.4 v9 joint-alpha-sigma-surface-controller 3-seed FULL — **CG** (v9 lifts low-load useful_recall 0.0→0.72-0.82; cv=0.066 marginal but honest)
+  - Dim T joint-surface interaction 3-seed — **CG** (delta_sigma_crit cv=0.015 excellent; seed_7 ran as smoke-mode per config, transparently characterized)
+  - VRC paradigm validation PCRA/MHCA/SRR 3-seed FULL — **CG paradigm_launch** (first substrate-native LM eval primitive; PCRA gap 0.996 / MHCA gap 1.000 / SRR clean; τ cv=0.0022; opens Cells 2-5 of substrate-native LM roadmap)
+  - h4 cluster_density_confidence_calibration 3-seed FULL — **HF_STRUCTURAL_BOUND** (AUC=0.528 chance at commercial-scale; global mean-clipped-cosine density drowns in noise floor at M=3600; smoke was band-floor adjacent 0.757 vs 0.7575 strict-floor — should have blocked full dispatch per USER 2026-06-26 discriminator-must-survive-scale)
+- **h4 revival drill returned** (a66bd7): top pick was h4b top-1/top-2 gap (P_CG=0.42); also surfaced 8-month-old un-shipped anchor `bio-calibrated-confidence-B1` (2026-06-08); 3-signal cortex confidence architecture proposal filed at `notes/proposal_M3_cortex_three_signal_confidence_architecture_2026-07-02.md`.
+- **h4b landed smoke-HF at scale-preview** (commit 8c84c673a unpushed; agent a8b8): AUC=0.545 at N=8192/items=3600 (below 0.55 reject); cell-author correctly REFUSED FULL dispatch. Empirical closure of bio-calibrated-confidence-B1 (Ma et al 2006 population-code analog does NOT transfer to substrate at commercial N in h4-harness).
+- **REGIME CAVEAT surfaced**: 2 mechanism classes now HF at same h4-harness regime (INTRA_COS=0.6, PER=60, M=3600, contam ~4.6%). Cell-author (h4b) hypothesized regime-not-mechanism confound. Regime-vs-mechanism research drill in flight (ac7fa91; reissued after first agent a743 no-op'd). If REGIME_CONFOUND: reframe confidence task at higher contam fraction OR different discriminator BEFORE Lane X + lap3_12.
+- **Sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1** cell-author in flight (a13877) — Stage 1 substrate-physics probe; hidden CG candidate from math4 smoke NPROP sweep (perfect cleanup at NPROP=16000 at N=8192 = 15× beyond classical 0.14×N bundle-capacity bound).
+- **math4_proof_chains** upgraded (commit 615e0c73f pushed) — pre-reg envelope shipped; FULL correctly REFUSED (SATURATION); redesign needed to v2 global-bundle per cell-author. math4_rung3 has same per-antecedent-sharded template = same trap.
+- **Testbed state-cache fix** shipped (commit a759e38f5 pushed) — 3-day-stale remote_state_cache.json now current; heartbeat_watchdog symptom root-caused to remote_state_emitter.py dying + ONLOGON-only trigger not surviving reboot; runner_status.py now WARN-banners staleness. Any prior BACKUP claim of "13 pending / 27h serial worst-case" was cache-staleness artifact.
+- My prior narrative said "26 CG" — WRONG. Testbed audit corrected to 17; post-VET+VRC 21; +1 HF (h4); +1 HF pending (h4b smoke-HF closure atomization).
 
 ### Strategic drills this session (9/9 done + 1 paradigm drill)
 All filed to `notes/`:
@@ -82,8 +89,9 @@ Standing durable rules (from MEMORY.md still in force):
 - CLARIFY 3 seeds show `run_mode: self_test` on disk (NOT full — same META_RULE_U pattern as INT2 v1 today). Full runs are still pending.
 
 ### overnight_queue
-- Running: Dim L v1 seed_19 (started ~1h ago; likely CPU-bottleneck; will hit 7200s timeout if pattern from seed_7+13 holds)
-- Pending (12 cells): Dim L v2 × 3 (incremental checkpoint fix), cross-axis β=5 × 3, commercial_M v2 timeout-fixed × 3, Dim F batched QPS × 3
+- **Live state (SSH-verified 2026-07-02T14:42Z per orchestrator a9ea253a63ffc27f1):** 1 running + 11 pending. Running: `cross_axis_m_n_k_factorization_beta_5_bridging_v2_seed_13` (started 14:41:44Z). Head of pending: cross_axis seed_19, commercial_M_latency_percentiles v2 (3 seeds), dim_f_batched_qps v1 (3 seeds), learned_encoder v2 (3 seeds), hrr_depth_budget_curve v2.
+- **NOTE:** `data/remote_state_cache.json` is STALE (snapshot_ts=2026-06-29T10:06Z; 3 days old; 137 landings missed). Session heartbeat file (`data/heartbeats/*.timestamp`) is FRESH but that's Director/session heartbeat NOT runner-process heartbeat — do NOT conflate. Live queue truth: SSH pull `remote:C:\dev\hd-instrument\data\overnight_queue\queue.json` and `remote:...\heartbeat.gpu_runner_0.json`. Local `data/remote_state_cache.json` refresher (heartbeat_watchdog / state-cache-pull task) is BROKEN; needs Testbed fix. Any prior-BACKUP claim of "13 pending" or "27h serial worst-case" comes from this stale cache.
+- **Dim L v1 seed_19 correction:** NOT in overnight_queue (grep returns 0). Prior claim it was running on GPU is wrong — must have been remote_cpu_queue or never dispatched. BACKUP earlier said "Dim L v1 seed_19 running ~1h ago" — that came from the stale-cache misread.
 
 ### local_cpu_queue
 - SMOKE ONLY per USER 2026-07-01 lock. Empty otherwise.
