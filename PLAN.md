@@ -2,6 +2,20 @@
 
 Observable hyperdimensional computing substrate with neuromodulator-style control and reward-modulated Hebbian learning. Released as a standalone, MIT-licensed Python package after Week 5 go/no-go.
 
+## Current phase (2026-06-30 EOD)
+
+Program is on the M3-milestone path: glass-box conversational AI 12-18mo via substrate as memory+composition+retrieval+audit layer + external cortex layer for hint derivation / planning / coref / surface-form access. Live Store CERT count = 634 (Cell C v2 compartmentalized cortex K-banks atomized as 9th CG promotion of session 2026-06-29/30; Stage 2 NREM Hc-rescue 93% closure empirically established).
+
+Stage progression (load-bearing): Stage 1 (~88% mature; 12 chain-grade primitives) → Stage 2 (~85% mature; NREM rescue path established via Cell C v2 K-banks Hc=93% + hippo v2 Ha=51% complementary) → Stage 3 (~60% banked; multi-hop depth-15 CG; multiple within-structure substrate-only gaps in flight) → Stage 4 (DEFERRED).
+
+M3 cortex layer M1.2 advanced 2026-06-30: `hdlab/intent_classifier.py` extracted + `hdlab.kg_traversal.load_from_fb15k237_dump` shipped. M1.3-M1.6 remaining.
+
+For session state see `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-28.md` (post-compaction recovery) + `PROGRESS.md` (live progress) + `notes/director_TRUE_PHASE_DIAGRAM_COVERAGE_2026-06-30.md` (16-axis taxonomy).
+
+The historical Week 0-8 plan below describes the Week 5 go/no-go era (May 2026) and remains for reference, but the current program is on the M3 milestone path described above.
+
+---
+
 ## Software stack (all open source)
 
 | Layer | Tool | License | Role |
