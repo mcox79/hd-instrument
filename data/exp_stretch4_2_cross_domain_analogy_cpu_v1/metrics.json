@@ -1,16 +1,16 @@
 {
   "anchor_name": "stretch4_2_cross_domain_analogy_cpu_v1",
-  "verdict": "HARD_PASS",
-  "verdict_msg": "HARD_PASS: learned entity space supports NEW (held-out) relation transforms few-shot, Hits@1>=0.40 -- cross-domain analogy generalizes beyond trained relations (the embedding geometry, not memorized relations). cross-domain-Hits@1=0.405 (held-rels=11, test=2078)",
-  "run_mode": "full",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: cross-domain Hits@1 <0.25. cross-domain-Hits@1=0.244 (held-rels=11, test=2078)",
+  "run_mode": "smoke",
   "n_seeds": 1,
   "per_seed": [
     {
-      "hits1": 0.405,
+      "hits1": 0.244,
       "n_held_rels": 11,
       "n_test": 2078
     }
   ],
-  "elapsed_s": 23.229288816452026,
-  "summary": "HARD_PASS: learned entity space supports NEW (held-out) relation transforms few-shot, Hits@1>=0.40 -- cross-domain analogy generalizes beyond trained relations (the embedding geometry, not memorized relations). cross-domain-Hits@1=0.405 (held-rels=11, test=2078)"
+  "elapsed_s": 18.11128807067871,
+  "summary": "HARD_FAIL: cross-domain Hits@1 <0.25. cross-domain-Hits@1=0.244 (held-rels=11, test=2078)"
 }
