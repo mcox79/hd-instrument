@@ -14,6 +14,7 @@ from __future__ import annotations
 import os
 os.environ["HDLAB_SEED"] = "19"
 
+import torch  # PROT-020 GPU-queue routing gate marker; core cell also imports torch
 import runpy
 from pathlib import Path
 
