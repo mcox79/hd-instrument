@@ -15,6 +15,12 @@ def bind(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
     if a.is_complex():
         out = a * b
     else:
+        # Windows MKL FFT is strict about strides; expand_as/broadcast views crash with
+        # "Inconsistent configuration parameters" on non-contiguous input. Guard at primitive.
+        if not a.is_contiguous():
+            a = a.contiguous()
+        if not b.is_contiguous():
+            b = b.contiguous()
         fa = torch.fft.fft(a)
         fb = torch.fft.fft(b)
         out = torch.fft.ifft(fa * fb).real.to(a.dtype)
@@ -33,6 +39,12 @@ def unbind(c: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
     if c.is_complex():
         out = c * b.conj()
     else:
+        # Windows MKL FFT is strict about strides; expand_as/broadcast views crash with
+        # "Inconsistent configuration parameters" on non-contiguous input. Guard at primitive.
+        if not c.is_contiguous():
+            c = c.contiguous()
+        if not b.is_contiguous():
+            b = b.contiguous()
         fc = torch.fft.fft(c)
         fb = torch.fft.fft(b)
         out = torch.fft.ifft(fc * fb.conj()).real.to(c.dtype)
