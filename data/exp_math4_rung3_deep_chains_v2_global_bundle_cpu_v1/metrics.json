@@ -1,0 +1,162 @@
+{
+  "anchor_name": "math4_rung3_deep_chains_v2_global_bundle_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: STORAGE-STRATEGY chain-composition survives at DEEP L. (I) SHARDED L=20 NPROP=100 = 1.000 (matched-filter chain-independent at deep L); (II) SHARDED-BUNDLED storage gap at DEEP L = 1.000 at L=20 NPROP=100; (III) BUNDLED_L1 - BUNDLED_L=20 chain-degradation = 0.433 at NPROP=100 (single-hop bundle nonzero; deep multi-hop bundle collapses). Extends math4_proof_chains_v2 (L<=10) to DEEP L=20. matrix={\"BUNDLED\": {\"20\": {\"4\": 0.1333, \"20\": 0.2667}, \"100\": {\"4\": 0.0, \"20\": 0.0}}, \"BUNDLED_L1\": {\"20\": {\"4\": 0.6, \"20\": 0.6}, \"100\": {\"4\": 0.4333, \"20\": 0.5333}}, \"SHARDED\": {\"20\": {\"4\": 1.0, \"20\": 1.0}, \"100\": {\"4\": 1.0, \"20\": 1.0}}}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "seed": 7,
+  "device": "cpu",
+  "N": 8192,
+  "L_grid": [
+    4,
+    20
+  ],
+  "NPROP_grid": [
+    20,
+    100
+  ],
+  "TR": 30,
+  "arms": [
+    "SHARDED",
+    "BUNDLED",
+    "BUNDLED_L1"
+  ],
+  "expected_n_units": 12,
+  "n_units_observed": 12,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "meta_arm_hashes_by_nprop": {
+    "20": {
+      "sharded_hash": "ca2d4da8e334f366",
+      "bundle_hash": "7f4d4a0bc628853b"
+    },
+    "100": {
+      "sharded_hash": "7d186780871e1a43",
+      "bundle_hash": "758174dab6305d01"
+    }
+  },
+  "criteria": {
+    "sharded_at_L_max_NPROP_max": 1.0,
+    "L_max": 20,
+    "NPROP_max": 100,
+    "max_storage_gap_at_L_max": 1.0,
+    "max_storage_gap_at_NPROP": 100,
+    "max_chain_degradation_gap": 0.433,
+    "max_chain_degradation_gap_at_NPROP": 100,
+    "crit_I_sharded_matched_filter_robust_at_deep_L": true,
+    "crit_II_storage_strategy_gap_at_deep_L": true,
+    "crit_III_chain_degradation_signature_at_deep_L": true
+  },
+  "per_unit": [
+    {
+      "L": 4,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 4,
+      "elapsed_s": 0.004
+    },
+    {
+      "L": 4,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.1333,
+      "TR": 30,
+      "L_eff": 4,
+      "elapsed_s": 0.003
+    },
+    {
+      "L": 4,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.6,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 20,
+      "NPROP": 20,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 20,
+      "elapsed_s": 0.017
+    },
+    {
+      "L": 20,
+      "NPROP": 20,
+      "arm": "BUNDLED",
+      "acc": 0.2667,
+      "TR": 30,
+      "L_eff": 20,
+      "elapsed_s": 0.013
+    },
+    {
+      "L": 20,
+      "NPROP": 20,
+      "arm": "BUNDLED_L1",
+      "acc": 0.6,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 4,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 4,
+      "elapsed_s": 0.006
+    },
+    {
+      "L": 4,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.0,
+      "TR": 30,
+      "L_eff": 4,
+      "elapsed_s": 0.005
+    },
+    {
+      "L": 4,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.4333,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    },
+    {
+      "L": 20,
+      "NPROP": 100,
+      "arm": "SHARDED",
+      "acc": 1.0,
+      "TR": 30,
+      "L_eff": 20,
+      "elapsed_s": 0.031
+    },
+    {
+      "L": 20,
+      "NPROP": 100,
+      "arm": "BUNDLED",
+      "acc": 0.0,
+      "TR": 30,
+      "L_eff": 20,
+      "elapsed_s": 0.021
+    },
+    {
+      "L": 20,
+      "NPROP": 100,
+      "arm": "BUNDLED_L1",
+      "acc": 0.5333,
+      "TR": 30,
+      "L_eff": 1,
+      "elapsed_s": 0.001
+    }
+  ],
+  "elapsed_s": 0.13167071342468262,
+  "summary": "HARD_PASS: STORAGE-STRATEGY chain-composition survives at DEEP L. (I) SHARDED L=20 NPROP=100 = 1.000 (matched-filter chain-independent at deep L); (II) SHARDED-BUNDLED storage gap at DEEP L = 1.000 at L=20 NPROP=100; (III) BUNDLED_L1 - BUNDLED_L=20 chain-degradation = 0.433 at NPROP=100 (single-hop bundle nonzero; deep multi-hop bundle collapses). Extends math4_proof_chains_v2 (L<=10) to DEEP L=20. matrix={\"BUNDLED\": {\"20\": {\"4\": 0.1333, \"20\": 0.2667}, \"100\": {\"4\": 0.0, \"20\": 0.0}}, \"BUNDLED_L1\": {\"20\": {\"4\": 0.6, \"20\": 0.6}, \"100\": {\"4\": 0.4333, \"20\": 0.5333}}, \"SHARDED\": {\"20\": {\"4\": 1.0, \"20\": 1.0}, \"100\": {\"4\": 1.0, \"20\": 1.0}}}"
+}
