@@ -28,7 +28,9 @@ python d:/AI/hd-instrument/tools/runner_status.py --remote
 ## SESSION SNAPSHOT
 
 ### CERT (Testbed-audited today, load-bearing)
-- **CERT actual: 662 → ~703** (Testbed audit + post-compaction Skunkworks batch VET + VRC paradigm CG + h4 HF: 47 session atoms; **21 CG + 15 MM + 2 DEMOTE + 2 DISCIPLINE + 1 MB + 1 HF**)
+- **CERT actual: 662 → ~730+** (Testbed audit + multiple Skunkworks batch VETs; session-end estimate: 30 CG + 2 CG_META + 19 MM + 3 HF + 3 MB + 2 AMEND = 59 total chain-grade session atoms)
+- **CORTEX INTEGRATION DEBT CLOSED 2026-07-02**: M1.3-M1.8 primitives all extracted to hdlab modules + composed via `hdlab/cortex.py` + end-to-end validated at 3-seed FULL HARD_PASS bit-identical (max_delta=0.0 exact across all 4 discriminators; all ablations collapsed). Full stack: M1.3 noise_channel + M1.4 refuse_gate + M1.5 context_retention + M1.6 attention (chunked/streaming/gpu_generated) + M1.7 role_slot_summarizer + M1.8 clarify_gate. USER-locked 2026-06-30 stochastic-noise-at-boundary directive UNBLOCKED. CG_META `cortex_M1_stack_integration_proposal_complete` filed by Skunkworks 2026-07-02.
+- **STORAGE-STRATEGY SUBSTRATE-PHYSICS LAW CG_META 2026-07-02**: 3-cell composition (sharded_capacity single-hop + math4_v2 moderate-chain L=2-6 + math4_rung3_v2 deep-chain L=4-20) proves SHARDED holds at 13.9× beyond classical Plate 1995 bundle bound + survives compositional chains at L=20+ while BUNDLED collapses at L=2. Scale-free extension probe at N=16384 in flight (rerun after CUDA OOM fix; smoke HP telegraphed scale-invariance).
 - **UPDATE (post-BACKUP-filing during compaction window): +4 tier changes:**
   - M1.8 CLARIFY 5-primitive stack 3-seed FULL — **CG** (5th cortex primitive closes)
   - M1.4 v9 joint-alpha-sigma-surface-controller 3-seed FULL — **CG** (v9 lifts low-load useful_recall 0.0→0.72-0.82; cv=0.066 marginal but honest)
