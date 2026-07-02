@@ -2,17 +2,54 @@
 
 Observable hyperdimensional computing substrate with neuromodulator-style control and reward-modulated Hebbian learning. Released as a standalone, MIT-licensed Python package after Week 5 go/no-go.
 
-## Current phase (2026-06-30 EOD)
+## Current phase (2026-07-02 late evening) — Stage 2 concept encoder arc LAUNCHED under brain-best-in-class discipline
 
-Program is on the M3-milestone path: glass-box conversational AI 12-18mo via substrate as memory+composition+retrieval+audit layer + external cortex layer for hint derivation / planning / coref / surface-form access. Live Store CERT count = 634 (Cell C v2 compartmentalized cortex K-banks atomized as 9th CG promotion of session 2026-06-29/30; Stage 2 NREM Hc-rescue 93% closure empirically established).
+**USER strategic anchor 2026-07-02 (LOCKED):** brain function is best-in-class reference standard. See `~/.claude/projects/d--AI/memory/project_brain_function_is_best_in_class_reference_standard_USER_LOCKED_2026-07-02.md`. Substrate design defaults brain-faithful; deviations require justification.
 
-Stage progression (load-bearing): Stage 1 (~88% mature; 12 chain-grade primitives) → Stage 2 (~85% mature; NREM rescue path established via Cell C v2 K-banks Hc=93% + hippo v2 Ha=51% complementary) → Stage 3 (~60% banked; multi-hop depth-15 CG; multiple within-structure substrate-only gaps in flight) → Stage 4 (DEFERRED).
+**Stage 1 CLOSED (2026-07-02):**
+- Physics-law META covers 3 verified axes: storage-strategy (SHARDED vs BUNDLED) + scale-free (N=8192→16384) + composition-depth (L=1→L=20) + topology-free (F=1/2/4/8/MIXED DAG variants)
+- Two CG_META atoms today: TOPOLOGY_FREE_PHYSICS_LAW + composed SCALE_FREE_AND_TOPOLOGY_FREE
+- Substrate-KB critical bugs fixed (512KB body limit dropping atoms; wrapper routing to atoms-blind chunk KB); unified into one KB 970K entities + 1.6M triples
+- OOM fix (fp16 chunked mmap); 22GB peak → 4.5GB steady
+- All Stage 1 substrate physics + KB infrastructure closed
 
-M3 cortex layer M1.2 advanced 2026-06-30: `hdlab/intent_classifier.py` extracted + `hdlab.kg_traversal.load_from_fb15k237_dump` shipped. M1.3-M1.6 remaining.
+**Stage 2 concept encoder arc LAUNCHED (2026-07-02 late evening):**
+- Under brain-best-in-class, cortex primitives require concept-vector inputs from substrate-owned encoder; NOT random codebooks. Substrate-product encoder = 6 brain-property criteria.
+- Design: Spokes 1+2+3 compose to 6/6 brain properties. Spoke 4 reframed as optional.
+- Spoke 1 (competitive-Hebbian sparse coding, Foldiak/Kohonen/SoftHebb-analog) — smoke HP 7/7 clean; FULL dispatched. **First substrate-owned brain-analog concept encoder mechanism.**
+- Spoke 2 (Foldiak trace / temporal contiguity — PC's confirmed correct home per 5x drill) — designed
+- Spoke 3 (DG-expansion + Marr-CA3 + CLS replay-consolidation) — designed
+- Estimated total Stage 2 arc: **4-8 weeks** from Spoke 1 CG to concept-encoded substrate-KB
 
-For session state see `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-06-28.md` (post-compaction recovery) + `PROGRESS.md` (live progress) + `notes/director_TRUE_PHASE_DIAGRAM_COVERAGE_2026-06-30.md` (16-axis taxonomy).
+**Diagnostic probe track (M1.9/M1.10/M1.11) — algebraic composition safety evidence:**
+- M1.9 SemanticParser CG + extracted to hdlab
+- M1.10 Response Planner CG + M1.9↔M1.10 roundtrip META (MM_TENTATIVE_SYNTHESIS)
+- M1.11 v3 Confidence Header smoke HP + local FULL HP; remote FULL in flight
+- If M1.11 remote confirms: 3-primitive chain → META `SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS` MM → CG_META
+- **NOTE:** these are mechanism proofs on random codebooks. Under brain-best-in-class, NOT substrate-product primitives. Provides algebraic-safety evidence for post-Stage-2 concept-vector composition.
 
-The historical Week 0-8 plan below describes the Week 5 go/no-go era (May 2026) and remains for reference, but the current program is on the M3 milestone path described above.
+**5x drill on PC-earning-complexity (2026-07-02 evening):** 6 of 6 domain checks all convergent that PC is redundant with competitive-Hebbian for concept encoding at Spoke 1 flat regime. PC deferred to Spoke 2 (temporal contiguity) where drills agree it clearly wins.
+
+**Program shape (revised under brain-best-in-class):**
+```
+Stage 1 (substrate algebra + physics + KB) ✅ CLOSED
+    ↓
+Stage 2 (substrate-owned concept encoder) — LAUNCHED
+   ├─ Spoke 1: competitive-Hebbian sparse coding (v3-D FULL in flight)
+   ├─ Spoke 2: Foldiak trace / temporal contiguity (PC in correct role)
+   ├─ Spoke 3: DG + Marr CA3 + CLS replay-consolidation
+   └─ Optional Spoke 4: grounding via query-answering
+    ↓
+Stage 3 (cortex primitives operating on concept vectors) — M1.9/M1.10/M1.11 re-validated
+    ↓
+Stage 4 (language ingest at real corpus scale)
+    ↓
+Stage 5 (M3 glass-box conversational)
+```
+
+For session state see `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_EVENING.md` + `PROGRESS.md` + `notes/design_stage2_concept_encoder_spoke{1v3d,2,3}_*.md`.
+
+The historical Week 0-8 plan below describes the Week 5 go/no-go era (May 2026) and remains for reference, but the current program is now on the Stage 2 concept encoder arc described above.
 
 ---
 
