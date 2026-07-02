@@ -288,7 +288,11 @@ class SemanticParser:
             role_key_t = torch.from_numpy(self.role_keys[r])
             # Broadcast unbind across batch: hd_unbind supports batch via
             # torch elementwise op when inputs share final dim.
-            unbound_t = hd_unbind(input_t, role_key_t.unsqueeze(0).expand_as(input_t))
+            # .contiguous() required: expand_as produces a non-contiguous view
+            # and Windows MKL FFT rejects it with "Inconsistent configuration
+            # parameters". Mirror of the fix at cell line 758 (M1.10 v1).
+            role_key_expanded = role_key_t.unsqueeze(0).expand_as(input_t).contiguous()
+            unbound_t = hd_unbind(input_t, role_key_expanded)
             unbound = unbound_t.numpy().astype(np.float32)
             idx, conf = _cosine_row_maxes(unbound, self.slot_dicts[r])
             slot_ids[:, r] = idx
