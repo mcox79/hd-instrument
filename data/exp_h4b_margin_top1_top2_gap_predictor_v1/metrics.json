@@ -1,0 +1,30 @@
+{
+  "anchor_name": "h4b_margin_top1_top2_gap_predictor_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: gap AUC in [0.60, 0.70) -- partially predictive; investigate composition with lap3_12 isotonic. h4b top-1/top-2 margin gap: contamination-pred AUC_mean=0.671 (std=0.000 cv=0.000) brier=0.308 contam_rate=0.144 n_seeds=1 n_queries_per_seed=90",
+  "summary": "MIDDLE_BAND: gap AUC in [0.60, 0.70) -- partially predictive; investigate composition with lap3_12 isotonic. h4b top-1/top-2 margin gap: contamination-pred AUC_mean=0.671 (std=0.000 cv=0.000) brier=0.308 contam_rate=0.144 n_seeds=1 n_queries_per_seed=90",
+  "N": 2048,
+  "n_clusters": 20,
+  "per_cluster": 30,
+  "n_items": 600,
+  "n_queries_per_seed": 120,
+  "topk": 10,
+  "intra_cos": 0.6,
+  "run_mode": "smoke",
+  "smoke_preview_arm": false,
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "gap_auc": 0.6713286713286714,
+      "brier": 0.3082569764169068,
+      "contamination_rate": 0.14444444444444443,
+      "gap_mean": 0.6106135249137878,
+      "gap_std": 0.010267573408782482,
+      "n_queries": 90
+    }
+  ],
+  "elapsed_s": 0.03811502456665039,
+  "cardinality_ok": true,
+  "expected_n_units": 1
+}
