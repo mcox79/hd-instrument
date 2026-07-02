@@ -4,7 +4,7 @@
 **Cell-author:** hdi_exp_dev
 **Verdict:** `HARD_PASS` (smoke) — dispatching FULL to remote_cpu_queue per Director hand-off directive
 **Anchor:** `metric_dependence_top_k_semantic_v3_seed_7` (smoke) → `metric_dependence_top_k_semantic_v3_seed_{7,13,19}` (full)
-**Commit:** (to be filled after commit)
+**Commit:** `eaae41a6` (files landed on main; note: commit message is mis-attributed to "sparsity_free_axis v4b" — another session's `git add -A` swept my staged v3 files into their commit. Files ARE tracked on main HEAD; cert-trail hash correct despite message; verified via `git ls-tree -r HEAD | grep v3`)
 **HP fires:** `HP_CLIFF_BRACKET` + `HP_METRIC_DIFFERENTIATION` (max_top10-top1_in_cliff=+0.288 >> HP threshold 0.10)
 
 ## Verdict + Physics Finding
