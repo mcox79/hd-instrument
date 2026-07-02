@@ -20,6 +20,8 @@
 
 **Corrected session tally:** 36 CG + 4 CG_META + 20 MM + 3 HF + 3 MB + 3 AMEND (math=54, meta=24 on disk).
 
+**⚠️ Session-tally correction 2 (main-thread disk-audit late evening):** Disk-truth via python-filter on ts/ts_added/atom_id fields returns **26 math + 15 meta = 41 unique atoms filed today** — substantially below the running Skunkworks "math=55, meta=25" tally. Skunkworks tally likely uses `grep -c '2026-07-02'` which counts LINES (atoms reference today's date in multiple body fields), or a running atomize-script counter not matched to disk truth. Tier breakdown (disk): ~19 CG-family + 11 MM + 3 HF + 3 MB + 2 DISCIPLINE + 1 DEMOTE_PARTIAL + T3/T4 tags. Real session productivity was strong but the 36 CG framing above is likely 1.5-2x inflated. Fix #28 recurrence — I've been propagating Skunkworks counts without disk verification. Filed durable audit method.
+
 ## POST-M1.9 UPDATES
 
 **M1.9 SemanticParser FULL landed CG** (Skunkworks a508452e, commit not yet by Skunkworks). Intent=0.898 (cv 0.026), slot=1.000. Ablation collapses: M16-router-no-unbind slot=0.021, shuffled-role slot=0.017, Hebbian-intent-only=0.023 (chance for 50-way). META candidate `HEBBIAN_CLASSIFIER_REGIME_NARROW_FOR_COMPOSITIONAL_BUNDLE_INPUTS` = MM_TENTATIVE (not CG).
