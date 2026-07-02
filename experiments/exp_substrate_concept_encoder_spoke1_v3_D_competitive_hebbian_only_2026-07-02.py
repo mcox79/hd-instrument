@@ -115,6 +115,20 @@ CELL-TEMPLATE MANDATORY compliance:
   * all numbers in this docstring tagged MEASURED / HYPOTHESIZED / CITED per
     META_RULE_AC
 
+ENV VAR CONTRACT (runner_v2_prod dispatch, MANDATORY per META_RULE
+env_var_contract_must_survive_runner_dispatch):
+  * HDLAB_RUN_MODE: production runner injects "full" into child env
+    (runner_v2_prod.py line 536-537). Cell's argparser MUST read this via
+    os.environ.get("HDLAB_RUN_MODE", "smoke") as its --run-mode default
+    (belt-and-suspenders per runner_v2_prod line 524-528). Hardcoded
+    default="smoke" caused silent smoke-scope runs on the production
+    runner (Round 6 batch 2026-06-01 anchors E/F/J/K; recurred for this
+    cell 2026-07-02 pre-fix).
+  * HDLAB_EXP_NAME: informational; not consumed here.
+  * HDLAB_QUEUE: informational (gpu_mandate gate uses this in other cells);
+    not consumed here.
+  * Verified by _run_selftest env_contract inline check (2026-07-02 fix).
+
 ASCII-only. NumPy for math; no torch.
 Storage strategy: SHARDED (per-concept HD; not bundled) per META_RULE_STORAGE.
 """
@@ -944,6 +958,41 @@ def run_one_seed(
 
 def _run_selftest() -> None:
     """Import + tiny + scale-sentinel probe at N=8192 for NaN detection."""
+    # Env-var contract check: verify argparser default reads HDLAB_RUN_MODE.
+    # META durable pattern (bias-checklist 2026-07-02): smoke code path must
+    # exercise same env-var-reading branches as FULL. Round 6 batch 2026-06-01
+    # anchors E/F/J/K + Spoke 1 v3-D 2026-07-02 failure mode: hardcoded
+    # default="smoke" bypasses runner_v2_prod HDLAB_RUN_MODE=full injection.
+    _test_env_val = "full"
+    _saved_env = os.environ.get("HDLAB_RUN_MODE")
+    os.environ["HDLAB_RUN_MODE"] = _test_env_val
+    try:
+        _probe = argparse.ArgumentParser(add_help=False)
+        _probe.add_argument(
+            "--run-mode",
+            default=os.environ.get("HDLAB_RUN_MODE", "smoke"),
+            choices=["self_test", "smoke", "full"],
+        )
+        _probe_args = _probe.parse_args([])  # no CLI args -> default resolved
+        assert _probe_args.run_mode == _test_env_val, (
+            f"ENV_VAR_CONTRACT_VIOLATION: HDLAB_RUN_MODE={_test_env_val} "
+            f"not honored by argparser default (got {_probe_args.run_mode!r}). "
+            f"This class of bug caused silent smoke-scope runs on production "
+            f"runner (Round 6 batch 2026-06-01 anchors E/F/J/K; Spoke 1 v3-D "
+            f"2026-07-02). Fix: default=os.environ.get('HDLAB_RUN_MODE', 'smoke')."
+        )
+    finally:
+        if _saved_env is None:
+            os.environ.pop("HDLAB_RUN_MODE", None)
+        else:
+            os.environ["HDLAB_RUN_MODE"] = _saved_env
+    print(
+        f"[selftest env_contract PASS] HDLAB_RUN_MODE={_test_env_val!r} "
+        f"honored by argparser default; runner FULL dispatch will not "
+        f"silently downgrade to smoke.",
+        flush=True,
+    )
+
     # Tiny functional selftest at N=256.
     sentences, concept_ids, _ = build_corpus(0, 2)
     assert len(sentences) == N_CONCEPTS * 2
@@ -1010,12 +1059,16 @@ def _run_selftest() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=ANCHOR_NAME)
+    # HDLAB_RUN_MODE env-var read per runner_v2_prod contract (line 524-528,
+    # 536-537). runner injects HDLAB_RUN_MODE=full into child env; hardcoded
+    # default="smoke" would silently downgrade FULL dispatches to smoke scope.
     parser.add_argument(
         "--run-mode",
-        default="smoke",
+        default=os.environ.get("HDLAB_RUN_MODE", "smoke"),
         choices=["self_test", "smoke", "full"],
         help="self_test = import + tiny + scale-sentinel N=8192; "
-             "smoke = 3 seeds N=2048; full = 3 seeds N=4096",
+             "smoke = 3 seeds N=2048; full = 3 seeds N=4096. "
+             "Default reads HDLAB_RUN_MODE env if set.",
     )
     parser.add_argument("--self-test", action="store_true",
                         help="Alias for --run-mode self_test (queue_add convention).")
@@ -1171,10 +1224,15 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    _output_dir_for_crash = _output_dir("smoke")
+    # Pre-parse-time fallback: honor HDLAB_RUN_MODE env so crash-metrics
+    # land in the correct output_dir even if early-parser itself explodes.
+    _output_dir_for_crash = _output_dir(
+        os.environ.get("HDLAB_RUN_MODE", "smoke")
+    )
     try:
         _early = argparse.ArgumentParser(add_help=False)
-        _early.add_argument("--run-mode", default="smoke",
+        _early.add_argument("--run-mode",
+                            default=os.environ.get("HDLAB_RUN_MODE", "smoke"),
                             choices=["self_test", "smoke", "full"])
         _early.add_argument("--self-test", action="store_true")
         _early.add_argument("--smoke", action="store_true")
