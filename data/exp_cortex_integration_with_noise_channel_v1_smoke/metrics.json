@@ -1,0 +1,286 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: NOISE_OFF matches INDIVIDUAL (backwards-compat with Phase 3 CG) within 0.05 across all 4 primitives x 3 seeds; NOISE_LIGHT (sigma=0.05) bounded within 0.05; NOISE_MODERATE (sigma=0.15) bounded within 0.2; noise-effect probe fires (max moderate cos_shift=0.0051 >= 0.001). Phase 2b NoiseChannel wiring VERIFIED: backwards-compat + composition-stable + wiring-live.",
+  "summary": "HARD_PASS: NOISE_OFF matches INDIVIDUAL (backwards-compat with Phase 3 CG) within 0.05 across all 4 primitives x 3 seeds; NOISE_LIGHT (sigma=0.05) bounded within 0.05; NOISE_MODERATE (sigma=0.15) boun",
+  "cardinality_ok": true,
+  "n_units": 16,
+  "expected_n_units": 16,
+  "reproduces_off_vs_ind": {
+    "m14": true,
+    "m15": true,
+    "m17": true,
+    "m18": true
+  },
+  "bounded_light": {
+    "m14": true,
+    "m15": true,
+    "m17": true,
+    "m18": true
+  },
+  "bounded_moderate": {
+    "m14": true,
+    "m15": true,
+    "m17": true,
+    "m18": true
+  },
+  "n_reproduces_off_vs_ind": 4,
+  "n_bounded_light": 4,
+  "n_bounded_moderate": 4,
+  "delta_summary": {
+    "m14": {
+      "max_delta_off_vs_individual": 0.0,
+      "max_delta_light_vs_off": 0.0,
+      "max_delta_moderate_vs_off": 0.0,
+      "off_mean": 1.0,
+      "light_mean": 1.0,
+      "moderate_mean": 1.0,
+      "individual_mean": 1.0,
+      "per_seed_off_vs_individual": [
+        0.0
+      ],
+      "per_seed_light_vs_off": [
+        0.0
+      ],
+      "per_seed_moderate_vs_off": [
+        0.0
+      ]
+    },
+    "m15": {
+      "max_delta_off_vs_individual": 0.0,
+      "max_delta_light_vs_off": 0.0,
+      "max_delta_moderate_vs_off": 0.0,
+      "off_mean": 1.0,
+      "light_mean": 1.0,
+      "moderate_mean": 1.0,
+      "individual_mean": 1.0,
+      "per_seed_off_vs_individual": [
+        0.0
+      ],
+      "per_seed_light_vs_off": [
+        0.0
+      ],
+      "per_seed_moderate_vs_off": [
+        0.0
+      ]
+    },
+    "m17": {
+      "max_delta_off_vs_individual": 0.0,
+      "max_delta_light_vs_off": 0.0,
+      "max_delta_moderate_vs_off": 0.0,
+      "off_mean": 1.0,
+      "light_mean": 1.0,
+      "moderate_mean": 1.0,
+      "individual_mean": 1.0,
+      "per_seed_off_vs_individual": [
+        0.0
+      ],
+      "per_seed_light_vs_off": [
+        0.0
+      ],
+      "per_seed_moderate_vs_off": [
+        0.0
+      ]
+    },
+    "m18": {
+      "max_delta_off_vs_individual": 0.0,
+      "max_delta_light_vs_off": 0.0,
+      "max_delta_moderate_vs_off": 0.0,
+      "off_mean": 0.675,
+      "light_mean": 0.675,
+      "moderate_mean": 0.675,
+      "individual_mean": 0.675,
+      "per_seed_off_vs_individual": [
+        0.0
+      ],
+      "per_seed_light_vs_off": [
+        0.0
+      ],
+      "per_seed_moderate_vs_off": [
+        0.0
+      ]
+    }
+  },
+  "noise_probe_shifts": {
+    "7": {
+      "light_cos_shift": 0.005144742736592889,
+      "moderate_cos_shift": 0.005055449809879065
+    }
+  },
+  "noise_probe_wiring_live": true,
+  "max_probe_moderate_cos_shift": 0.005055449809879065,
+  "elapsed_s": 3.574106500003836,
+  "run_mode": "smoke",
+  "anchor_name": "exp_cortex_integration_with_noise_channel_v1",
+  "ts_iso": "2026-07-02T18:43:37.896114+00:00",
+  "seeds": [
+    7
+  ],
+  "sizes": {
+    "m14_n_queries": 20,
+    "m14_m_tape": 16,
+    "m15_k_writes": 3,
+    "m17_k_items": 8,
+    "m18_n_per_class": 10
+  },
+  "sigma_light": 0.05,
+  "sigma_moderate": 0.15,
+  "backwards_compat_tol": 0.05,
+  "noise_light_tol": 0.05,
+  "noise_moderate_tol": 0.2,
+  "probe_min_cos_shift": 0.001,
+  "arm_code_path_fingerprints": {
+    "m14_noise_off": "fc5d9377d47e9a73",
+    "m14_noise_light": "1aecb8181c1f5fde",
+    "m14_noise_moderate": "8da57037812f8e41",
+    "m14_individual": "1263b99e9dca9f7b",
+    "m15_noise_off": "4f88d69ee6677ef7",
+    "m15_noise_light": "8d48d06b1a15a2a8",
+    "m15_noise_moderate": "99e103d563b26e29",
+    "m15_individual": "64053c06c6e15b11",
+    "m17_noise_off": "1f450f65001feb24",
+    "m17_noise_light": "88f522ecd96b5aff",
+    "m17_noise_moderate": "3b964e6cc6a69416",
+    "m17_individual": "f77d7a621c9b791b",
+    "m18_noise_off": "4d7cc0f16c6964ed",
+    "m18_noise_light": "17884aea47907e41",
+    "m18_noise_moderate": "ba9da104b9007394",
+    "m18_individual": "6cc4b553f7067244"
+  },
+  "arms_differ_verified": true,
+  "storage_strategy": "MIXED_inherited_per_primitive_no_facade_storage_plus_NO_STORAGE_noise_channel",
+  "compute_architecture": "mixed_cpu_numpy_torch",
+  "per_seed": {
+    "7": {
+      "m14": {
+        "noise_off": 1.0,
+        "noise_light": 1.0,
+        "noise_moderate": 1.0,
+        "individual": 1.0
+      },
+      "m15": {
+        "noise_off": 1.0,
+        "noise_light": 1.0,
+        "noise_moderate": 1.0,
+        "individual": 1.0
+      },
+      "m17": {
+        "noise_off": 1.0,
+        "noise_light": 1.0,
+        "noise_moderate": 1.0,
+        "individual": 1.0
+      },
+      "m18": {
+        "noise_off": 0.675,
+        "noise_light": 0.675,
+        "noise_moderate": 0.675,
+        "individual": 0.675
+      }
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "noise_off",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "noise_light",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "noise_moderate",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "noise_off",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "noise_light",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "noise_moderate",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "noise_off",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "noise_light",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "noise_moderate",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "noise_off",
+      "metric": 0.675
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "noise_light",
+      "metric": 0.675
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "noise_moderate",
+      "metric": 0.675
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "individual",
+      "metric": 0.675
+    }
+  ],
+  "primitives_tested": [
+    "m14_refuse_gate",
+    "m15_two_tier_context",
+    "m17_role_slot_summarizer",
+    "m18_clarify_gate"
+  ],
+  "phase": "3b_noise_enabled_variant",
+  "phase_3_reference_metrics_path": "data/exp_cortex_integration_end_to_end_v1/metrics.json"
+}
