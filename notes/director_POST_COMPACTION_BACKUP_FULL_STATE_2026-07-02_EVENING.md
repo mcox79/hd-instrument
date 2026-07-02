@@ -3,6 +3,23 @@
 **Filed:** 2026-07-02 ~19:15 UTC (context at 12% per USER)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🚨 POST-COMPACTION CORRECTIONS + LANDINGS
+
+**Fix #28 catches (pre-compaction framing errors):**
+
+1. **Option C ext v2 = MM_TENTATIVE, NOT CG** (Skunkworks VET a8f265a). Orthogonality-dividend claim FALSE off-disk. The v1→v2 +0.183 AUC lift is from adding `reconstruction_err` feature, NOT from 5-way combiner. cv=0.159 above <0.15 CG threshold.
+   - M1.11 Confidence Header extraction **DEFERRED**. Path forward: reconstruction_err-only arm at 5+ seeds cv<0.15, 2+ contamination regimes with fixed p.
+
+2. **Multi-F DAG pre-compaction claim was WRONG** — pre-existing local metrics.json were LOCAL-DIRECT runs (`host: None runner_id: None`), not runner-provenanced FULL. Orchestrator a06e784b dispatched fresh 3-seed FULL to remote_cpu_queue → all 3 HARD_PASS runner-provenanced (walls 6.10/7.09/7.18s).
+
+**Post-VET landings:**
+
+3. **TOPOLOGY_FREE_PHYSICS_LAW META PROMOTED CG_META** (Skunkworks a95aba8b, commit 0e2a4943e). Gate D verified off-disk: SHARDED=1.000 all {F=1,2,4,8,MIXED} × {NPROP 200,1000,5000} 45 units; F=8 BUNDLE<0.10; F=1 PC=1.000 all seeds; cv=0.000. Multi-F sweep (4 DAG variants × 3 seeds) meets >=3-variant promotion criterion. META supersedes SCALE_FREE-only.
+   - **Stage 1 physics-law META now covers 3 verified axes: storage-strategy (SHARDED vs BUNDLED) + scale-free (N=8192→16384) + composition-depth (L=1→L=20) + topology-free (F=1/2/4/8/MIXED DAG variants).**
+   - Next promotion axis (future arc): cross-domain generalization off-FHRR to check law transfers beyond algebraic-substrate class.
+
+**Corrected session tally:** 36 CG + 4 CG_META + 20 MM + 3 HF + 3 MB + 3 AMEND (math=54, meta=24 on disk).
+
 ## 🚨 READ FIRST AFTER COMPACTION
 
 ```bash
