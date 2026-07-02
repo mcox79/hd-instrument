@@ -47,6 +47,13 @@ PRESERVE_ENV_VARS: HDLAB_QUEUE
 from __future__ import annotations
 import sys
 import argparse
+# Routing gate (Fix #24): expose torch import at top level so overnight_queue
+# gate finds it. Cell uses torch via core module behind try/except; this
+# import is defensive (may fail on CPU-only machines but that's fine).
+try:
+    import torch  # noqa: F401  -- routing gate marker
+except ImportError:
+    torch = None  # type: ignore
 import json
 import os
 import time
