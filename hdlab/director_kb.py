@@ -37,6 +37,17 @@ import torch
 from .char_trigram_encoder import CharTrigramEncoder
 from .kg_traversal import KGStore
 
+# UNIFIED-KB fold-in 2026-07-02: chunk-emission for text-mode classes is now
+# performed inline by run_ingest below. `chunk_text` + related constants are
+# lazy-imported inside run_ingest to avoid a circular import with
+# `director_kb_chunk_ingest` (which imports `_read_file_text` and other
+# helpers from this module). Prior architecture had two KBs (primary
+# filename-index + separate chunk KB); the chunk KB went stale (last built
+# 2026-06-27) while primary stays fresh via continuous-ingest. Folding
+# chunk-emission into run_ingest gives ONE unified KB covering atoms /
+# cert_ledger JSONL entities AND text-body content chunks. Chunk primitive is
+# retained for backward compat of any legacy call site but is deprecated.
+
 
 SCHEMA_PATH_DEFAULT = "config/director_kb_schema.json"
 
@@ -703,6 +714,15 @@ def run_ingest(
     """
     t0 = time.perf_counter()
 
+    # Lazy import to break circular dep (director_kb_chunk_ingest imports from
+    # this module for _read_file_text / _glob_files / _resolve_source_root).
+    from .director_kb_chunk_ingest import (  # noqa: PLC0415
+        CHUNK_RELATIONS_REQUIRED,
+        CONTENT_TAG_MAX_CHARS,
+        DEFAULT_CHUNK_CLASSES,
+        chunk_text,
+    )
+
     out_dir = Path(out_dir)
     if wipe and out_dir.exists():
         for child in sorted(out_dir.iterdir()):
@@ -728,11 +748,20 @@ def run_ingest(
     # corpus differs slightly).
     for rname in schema.get("relation_types", []):
         _intern(rname, relation_lookup, relation_order)
+    # UNIFIED-KB: chunk relations required for content-chunk atoms
+    for rname in CHUNK_RELATIONS_REQUIRED:
+        _intern(rname, relation_lookup, relation_order)
+
+    # UNIFIED-KB: side-map of entity_idx -> chunk content string. Any entity in
+    # this map is encoded via CONTENT (not entity NAME) in the codebook build
+    # below, so cosine retrieval matches on chunk semantics.
+    chunk_content_by_entity_idx: dict[int, str] = {}
 
     # Per-triple records (the atoms.jsonl content)
     atoms: list[dict] = []
     skipped: list[dict] = []
     n_discovered = 0
+    n_chunks_total = 0
 
     # Deterministic class iteration order: sorted by class name
     class_names = sorted(plan.keys())
@@ -831,6 +860,78 @@ def run_ingest(
                     rec[k] = v
                 atoms.append(rec)
 
+            # UNIFIED-KB 2026-07-02: for text-mode chunkable classes, ALSO
+            # emit content-chunk triples so text-body semantic-content is
+            # queryable in the same KB. Excluded classes (atoms/cert_ledger
+            # JSONL, api/bio modes, and metrics.json which is machine JSON not
+            # narrative prose) get filename+metadata triples only.
+            if cname in DEFAULT_CHUNK_CLASSES and mode in (None, "text"):
+                chunks = chunk_text(text)
+                if chunks:
+                    n_chunks_total += len(chunks)
+                    for ch in chunks:
+                        chunk_id = f"{rel_path}::chunk{ch['chunk_idx']:03d}"
+                        content = ch["content"]
+                        content_tag = content[:CONTENT_TAG_MAX_CHARS]
+                        header = ch["header"]
+
+                        chunk_ent_idx = _intern(chunk_id, entity_lookup, entity_order)
+                        # Register content override for encoding (below).
+                        chunk_content_by_entity_idx[chunk_ent_idx] = content
+                        file_ent_idx = _intern(rel_path, entity_lookup, entity_order)
+                        content_ent_idx = _intern(content_tag, entity_lookup, entity_order)
+
+                        # 1. (chunk_id, IS_CHUNK_OF, source_file)
+                        is_chunk_p = _intern("IS_CHUNK_OF", relation_lookup, relation_order)
+                        chunk_rec = {
+                            "triple_idx": len(atoms),
+                            "s": chunk_ent_idx, "p": is_chunk_p, "o": file_ent_idx,
+                            "s_name": chunk_id, "p_name": "IS_CHUNK_OF", "o_name": rel_path,
+                            "source_path": rel_path, "source_class": cname,
+                            "schema_version": schema_ver, "encoder": encoder_name,
+                            "ingest_version": ingest_version, "kb_version": kb_ver,
+                            "chunk_idx": ch["chunk_idx"], "n_chars": len(content),
+                        }
+                        if not redact_timestamps_in_atoms:
+                            chunk_rec["ingest_timestamp_ns"] = int(time.time_ns())
+                        atoms.append(chunk_rec)
+
+                        # 2. (chunk_id, SECTION_HEADER, header)  [iff header present]
+                        if header:
+                            header_ent_idx = _intern(header, entity_lookup, entity_order)
+                            sh_p = _intern("SECTION_HEADER", relation_lookup, relation_order)
+                            hdr_rec = {
+                                "triple_idx": len(atoms),
+                                "s": chunk_ent_idx, "p": sh_p, "o": header_ent_idx,
+                                "s_name": chunk_id, "p_name": "SECTION_HEADER",
+                                "o_name": header,
+                                "source_path": rel_path, "source_class": cname,
+                                "schema_version": schema_ver, "encoder": encoder_name,
+                                "ingest_version": ingest_version, "kb_version": kb_ver,
+                                "chunk_idx": ch["chunk_idx"],
+                            }
+                            if not redact_timestamps_in_atoms:
+                                hdr_rec["ingest_timestamp_ns"] = int(time.time_ns())
+                            atoms.append(hdr_rec)
+
+                        # 3. (chunk_id, CHUNK_CONTENT, content_tag)  -- content
+                        #    text lives on the o_name so query can return snippet
+                        cc_p = _intern("CHUNK_CONTENT", relation_lookup, relation_order)
+                        cc_rec = {
+                            "triple_idx": len(atoms),
+                            "s": chunk_ent_idx, "p": cc_p, "o": content_ent_idx,
+                            "s_name": chunk_id, "p_name": "CHUNK_CONTENT",
+                            "o_name": content_tag,
+                            "source_path": rel_path, "source_class": cname,
+                            "schema_version": schema_ver, "encoder": encoder_name,
+                            "ingest_version": ingest_version, "kb_version": kb_ver,
+                            "chunk_idx": ch["chunk_idx"],
+                            "content_full_n_chars": len(content),
+                        }
+                        if not redact_timestamps_in_atoms:
+                            cc_rec["ingest_timestamp_ns"] = int(time.time_ns())
+                        atoms.append(cc_rec)
+
     n_entities = len(entity_order)
     n_relations = len(relation_order)
     n_triples = len(atoms)
@@ -844,10 +945,20 @@ def run_ingest(
     # Override entity codebook with content-deterministic char-trigram encoding
     # (Principle 5: the encoder is the substrate-native one). For entities whose
     # name is empty, fall back to KGStore's random bipolar.
+    # UNIFIED-KB 2026-07-02: CHUNK entities (in chunk_content_by_entity_idx) are
+    # encoded by CHUNK CONTENT rather than entity NAME (chunk_id like
+    # "notes/foo.md::chunk003" carries no semantic signal). This matches the
+    # design of the retired chunk KB primitive: cosine query hits chunk atoms
+    # by content semantics; non-chunk entities (filenames, headers, atoms,
+    # cert_ledger row ids, and the content-tag entities themselves) keep
+    # name-encoding.
     if n_entities > 0:
         for ent_name in entity_order:
             idx = entity_lookup[ent_name]
-            hv_np = encoder.encode(ent_name)
+            if idx in chunk_content_by_entity_idx:
+                hv_np = encoder.encode(chunk_content_by_entity_idx[idx])
+            else:
+                hv_np = encoder.encode(ent_name)
             # Convert numpy bipolar to torch float32 [n_dim]
             kg.E[idx] = torch.from_numpy(hv_np.astype("float32"))
     # Relations stay as KGStore's bipolar (deterministic from generator + seed)
@@ -911,6 +1022,7 @@ def run_ingest(
         "per_class": per_class,
         "elapsed_s": elapsed_s,
         "redact_timestamps_in_atoms": redact_timestamps_in_atoms,
+        "n_chunks_total": n_chunks_total,  # UNIFIED-KB 2026-07-02
     }
     with (out_dir / "manifest.json").open("w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2, sort_keys=True)

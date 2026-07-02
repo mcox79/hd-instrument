@@ -1,5 +1,13 @@
 """Substrate-native Director-KB CONTENT-CHUNK ingest module (ANCHOR 1 v2; 2026-06-26).
 
+DEPRECATED 2026-07-02 (UNIFIED-KB): chunk emission has been folded into
+`hdlab/director_kb.py::run_ingest` so the primary KB now carries both filename-
+index entities AND content-chunk entities. This module remains loadable
+(exports `chunk_text`, `CONTENT_TAG_MAX_CHARS`, `CHUNK_RELATIONS_REQUIRED`,
+`DEFAULT_CHUNK_CLASSES` which run_ingest imports lazily), but `run_chunk_ingest`
+and the separate chunk KB path should not be invoked by new code. Retained for
+backward compat until any legacy callers are cleaned up.
+
 Architectural fix for Option A USER 2026-06-26: the v1 KB is a filename-metadata
 INDEX (entities are filepaths; cosine query returns "this file has stuff about
 your query" -- user still must Read the file). This v2 module ingests CONTENT

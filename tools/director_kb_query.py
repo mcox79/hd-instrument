@@ -67,6 +67,17 @@ def _print_human(result: dict, show_chunk_content: bool = False) -> None:
 
 
 def main() -> int:
+    # 2026-07-02 UNIFIED-KB: entity names occasionally contain emoji or other
+    # non-cp1252 chars (e.g. note chunks that quote user-facing headers). The
+    # default Windows console is cp1252 and crashes _print_human with
+    # UnicodeEncodeError. Reconfigure stdout/stderr to replace unencodable
+    # chars rather than crash the query.
+    try:
+        sys.stdout.reconfigure(errors="replace")
+        sys.stderr.reconfigure(errors="replace")
+    except AttributeError:
+        pass  # Non-TextIOWrapper stdout (e.g. redirected); leave as-is.
+
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("question", nargs="?", default=None, help="Natural-language question")
     ap.add_argument("--kb-dir", default=None, help="KB dir (default: ANCHOR 1.5 full-arm path)")
@@ -119,23 +130,15 @@ def main() -> int:
 
     if args.kb_dir:
         kb = DirectorKBQuery(kb_dir=Path(args.kb_dir))
-    elif args.chunk_content:
-        # Prefer canonical chunk KB; fall back to arm-full path during the arc
-        # between cell-author smoke and full re-ingest landing.
-        chunk_canon = REPO / "data" / "substrate_director_kb_chunk_v1"
-        chunk_arm_full = (REPO / "data"
-                          / "exp_substrate_director_kb_content_chunk_ingest_v1"
-                          / "_arm_full" / "kb")
-        if (chunk_canon / "manifest.json").exists():
-            kb = DirectorKBQuery(kb_dir=chunk_canon)
-        elif (chunk_arm_full / "manifest.json").exists():
-            kb = DirectorKBQuery(kb_dir=chunk_arm_full)
-        else:
-            print("ERROR: --chunk-content requested but no chunk KB built yet. "
-                  "Run experiments/exp_substrate_director_kb_content_chunk_ingest_v1.py first.",
-                  file=sys.stderr)
-            return 3
     else:
+        # UNIFIED-KB 2026-07-02: primary KB now contains chunk atoms too;
+        # --chunk-content is a no-op flag retained for backward compat. If
+        # explicitly requested we still print a deprecation notice; the primary
+        # KB serves both filename-index and content-chunk queries.
+        if args.chunk_content:
+            print("[deprecation] --chunk-content is a no-op post UNIFIED-KB "
+                  "(2026-07-02); primary KB now contains chunk atoms.",
+                  file=sys.stderr)
         kb = load_default_kb(REPO)
 
     src_class_filter = None

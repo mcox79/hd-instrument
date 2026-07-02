@@ -209,6 +209,7 @@
     "MATHEMATICAL_OBJECT"
   ],
 
+  "_relation_types_note": "IS_CHUNK_OF / SECTION_HEADER / CHUNK_CONTENT are the chunk-emission relations added by UNIFIED-KB (2026-07-02). They are pre-populated by run_ingest AFTER the schema-declared list even if absent here (see hdlab/director_kb.py::CHUNK_RELATIONS_REQUIRED intern), so ordering stays deterministic across ingests.",
   "relation_types": [
     "VERDICT_OF",
     "AUTHOR_OF",
@@ -327,8 +328,9 @@
 
   "limits": {
     "max_atoms_per_file": 64,
-    "max_body_bytes_per_file": 524288,
-    "max_total_files_warn": 50000
+    "max_body_bytes_per_file": 134217728,
+    "max_total_files_warn": 50000,
+    "max_body_bytes_per_file_history": "Bumped 512KB -> 128MB on 2026-07-02 (testbed). Root cause: stage-1 CG_META atoms in data/substrate_index/{math,meta,concept,science,research_history,decision_history}/atoms.jsonl exceed 512KB (math=36MB, concept=52MB, meta=995KB); silently skipped with body_exceeds_max_bytes; USER-critical stage-1 SCALE_FREE + TOPOLOGY_FREE physics-law atoms never ingested into director-KB. 128MB gives 2.5x headroom over largest known file."
   },
 
   "reingest_determinism": {
