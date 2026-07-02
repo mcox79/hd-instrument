@@ -755,7 +755,7 @@ def _self_test() -> None:
     input_t = torch.from_numpy(response_hds)
     for r in range(n_roles):
         role_key_t = torch.from_numpy(resp_role_keys[r])
-        unbound = hd_unbind(input_t, role_key_t.unsqueeze(0).expand_as(input_t)).numpy().astype(np.float32)
+        unbound = hd_unbind(input_t, role_key_t.unsqueeze(0).expand_as(input_t).contiguous()).numpy().astype(np.float32)
         _, d = k_NN_lookup(unbound, slot_dicts[r], k=1)
         slot_pred[:, r] = d["final_argmax_idx"].astype(np.int64)
     slot_acc = float(np.mean(slot_pred == slot_labels))
