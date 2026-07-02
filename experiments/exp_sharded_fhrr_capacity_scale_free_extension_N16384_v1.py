@@ -40,21 +40,34 @@ Pre-registered bands:
                FALSIFIED (physics law is N-dependent, would DEMOTE).
 
 Compute: torch complex64; auto CUDA if available, else CPU.
-  Peak GPU VRAM at NPROP=32000 (chunked design; targets 8GB GPU):
-    - props (32000, 16384) complex64 = 4.19 GB (persistent)
-    - BUILD chunk (C=2000 rules, N=16384): ~1.2 GB peak transient
-      (A_c + B_c + product + cnorm intermediates including fp32 angle)
-    - CLEANUP chunk (CV=4000, N=16384): ~0.5 GB peak transient
-    - SHARDED sample: rule vecs at M query indices (M x N = 26 MB)
-    - BUNDLE: single (N,) vector accumulated across chunks (128 KB)
-    -> peak ~ 5.5 GB. Fits on 8GB GPU with ~2.5 GB headroom.
-  v1 first-attempt (unchunked) OOM'd on 8GB target (CUDA report:
-  cnorm intermediate ~2 GiB alone + props already 4.2 GB = >6 GB peak,
-  no headroom). Chunked build (never materializes full sharded_codebook)
-  + on-demand SHARDED query shards + chunked cleanup matmul (avoids
-  props.conj() full-copy transient) resolves.
+  v3: CPU-hosted props + streamed chunks design (fix for 8GB GPU OOM):
+    - props (NPROP, N) complex64 BUILT + HELD on CPU RAM.
+      At NPROP=32000, N=16384: 4.19 GB CPU. Never allocated as a
+      single-shot GPU tensor (which was v1+v2's 4.19 GB OOM point).
+    - BUILD phase: per NPROP-chunk (build_chunk=4000), transfer chunk
+      CPU -> GPU, compute rule_c = cnorm(A_c * IMPL * B_c), sum into
+      bundle_vec, free chunk. Peak GPU per BUILD chunk ~ 1.2 GB.
+    - SHARDED cleanup: transfer only M query shards to GPU
+      (M x N complex64 = 26 MB at M=200/N=16384).
+    - CLEANUP: stream props chunks CPU->GPU per cleanup_chunk=4000;
+      argmax over V codewords accumulated as running-max.
+      Peak GPU per CLEANUP chunk ~ 0.5 GB.
+    -> Total peak GPU ~ 1.2-1.5 GB. Fits 8GB target with 5.87 GB
+       runner baseline (~1 GB headroom minimum).
+  Peak GPU MB measured empirically per phase point via
+  torch.cuda.max_memory_allocated() and logged in metrics.
+
+  History:
+    v1 (single-tensor): full-size cnorm intermediate + props both on
+      GPU -> ~10 GB peak. OOM at line 189 on 8GB target.
+    v2 (chunk-in-GPU): downstream ops chunked but props still allocated
+      as 4.19 GB GPU tensor; OOM at line 165 (cphasor construction)
+      on 8GB target with only 2.94 GB free (5.87 GB runner baseline).
+    v3 (this): props on CPU RAM; only per-chunk transfers to GPU.
+      Peak GPU well under 2 GB.
   Batched cleanup matmul across all M queries at each phase point
-  (per GPU-batching-mandatory USER 2026-07-02).
+  (per GPU-batching-mandatory USER 2026-07-02); "batched" preserved
+  via M queries batched intra-chunk on the V axis.
 
 ASCII-only. Single-seed-per-cell per META_RULE_H CHUNKED §13.
 
@@ -171,100 +184,137 @@ def cnorm_torch(v: torch.Tensor) -> torch.Tensor:
     return torch.polar(torch.ones_like(ang), ang).to(torch.complex64)
 
 
-def cleanup_argmax_chunked(queries: torch.Tensor, codebook: torch.Tensor,
-                            chunk_size: int = 4000) -> torch.Tensor:
-    """queries: (M, N) complex64; codebook: (V, N) complex64.
-    Returns (M,) LongTensor of argmax indices under Re(queries @ conj(codebook).T).
-    Chunks over V to bound peak transient (avoids full codebook.conj() copy at
-    once; each chunk copies at most ~chunk_size*N*8 bytes = 0.5 GB at 4000/16384).
+def cphasor_torch_chunked_cpu(m: int, d: int, gen_cpu: torch.Generator,
+                                chunk_size: int = 8000) -> torch.Tensor:
+    """Build (m, d) complex64 unit-modulus phasors on CPU in chunks.
+
+    Chunked construction avoids a single-shot allocation of large intermediates
+    (m x d fp32 angle tensor + torch.polar output).  For m=32000, d=16384 the
+    full-size angle tensor alone is 2.0 GB.  Chunking to 8000 caps intermediate
+    peak at ~1.0 GB CPU RAM per chunk, then only the final (m, d) complex64
+    tensor (~4.19 GB) is persistent.
+    """
+    out = torch.empty((m, d), dtype=torch.complex64, device="cpu")
+    for cs in range(0, m, chunk_size):
+        ce = min(cs + chunk_size, m)
+        ang = (torch.rand((ce - cs, d), generator=gen_cpu, device="cpu",
+                           dtype=torch.float32) * 2.0 - 1.0) * math.pi
+        out[cs:ce] = torch.polar(torch.ones_like(ang), ang).to(torch.complex64)
+        del ang
+    return out
+
+
+def cleanup_argmax_streamed(queries: torch.Tensor, codebook_cpu: torch.Tensor,
+                             device: str, chunk_size: int = 4000) -> torch.Tensor:
+    """queries: (M, N) complex64 ON DEVICE; codebook_cpu: (V, N) complex64 on CPU.
+    Streams V-chunks CPU -> device and computes argmax over Re(queries @ conj(chunk).T).
+    Peak device transient per chunk = chunk_size * N * 8 bytes = 0.5 GB at 4000/16384.
     """
     M = queries.shape[0]
-    V = codebook.shape[0]
-    device = queries.device
+    V = codebook_cpu.shape[0]
     best_val = torch.full((M,), float("-inf"), device=device, dtype=torch.float32)
     best_idx = torch.zeros((M,), device=device, dtype=torch.long)
     for cs in range(0, V, chunk_size):
         ce = min(cs + chunk_size, V)
-        # codebook[cs:ce] is a view; .conj().T is a conjugated view (no copy in
-        # eager mode). matmul may resolve the conjugation into a fused kernel or
-        # a bounded chunk-sized copy; either way peak is O(chunk_size*N) not O(V*N).
-        sim_c = torch.matmul(queries, codebook[cs:ce].conj().T).real  # (M, CV) fp32
+        cb_c = codebook_cpu[cs:ce].to(device, non_blocking=False)  # (CV, N)
+        sim_c = torch.matmul(queries, cb_c.conj().T).real  # (M, CV) fp32
         vals_c, idxs_c = sim_c.max(dim=1)
         mask = vals_c > best_val
         best_val = torch.where(mask, vals_c, best_val)
         best_idx = torch.where(mask, idxs_c + cs, best_idx)
-        del sim_c, vals_c, idxs_c, mask
+        del cb_c, sim_c, vals_c, idxs_c, mask
+        if device == "cuda":
+            torch.cuda.empty_cache()
     return best_idx
 
 
 def run_phase_point(NPROP: int, M_queries: int, gen: torch.Generator,
                      device: str, build_chunk: int = 2000,
-                     cleanup_chunk: int = 4000) -> Dict[str, float]:
+                     cleanup_chunk: int = 2000) -> Dict[str, float]:
     """One (NPROP, seed) phase point; compute both SHARDED and BUNDLE
     accuracies + arm-differ hash. Substrate primitives invoked: bind
     (elementwise mul), bundle (sum), cleanup (matmul + argmax) -- >= 2
     per META_STORAGE_STRATEGY_COMPOSITION_DEPTH_PHYSICS_LAW_v1 primitive
     invocation gate.
 
-    Chunked design (never materializes full (NPROP, N) sharded_codebook):
-      1. BUILD bundle_vec by iterating chunks of size build_chunk over NPROP.
-         For each chunk: form (C, N) rule_vec_c = cnorm(A_c * IMPL * B_c),
-         accumulate sum into bundle_vec, free chunk.
-      2. SHARDED cleanup: build rule vecs ON DEMAND only at M query indices
-         (M x N complex64 = 26 MB at M=200/N=16384). Never stores full codebook.
-      3. Cleanup argmax chunked over V (cleanup_argmax_chunked) so peak
-         transient during matmul is O(cleanup_chunk * N) not O(V * N).
-    """
-    IMPL = cphasor_torch(1, N, gen, device)[0]                    # (N,)
-    props = cphasor_torch(NPROP, N, gen, device)                  # (NPROP, N) persistent
-    perm = torch.randperm(NPROP, generator=gen, device=device)    # (NPROP,)
-    IMPL_bcast = IMPL.unsqueeze(0)                                # (1, N) view
+    CPU-HOSTED props design (v3 fix for 8GB GPU OOM):
+      - props (NPROP, N) complex64 is built + held on CPU RAM (~4.19 GB
+        at max NPROP=32000/N=16384). Never allocated on GPU as a single
+        tensor (which was the 4.19 GB OOM in v1+v2 attempts).
+      - BUILD phase: per NPROP-chunk, transfer chunk to GPU, compute
+        rule_c = cnorm(A_c * IMPL * B_c), accumulate sum into bundle_vec,
+        free chunk. Peak GPU transient per BUILD chunk ~ 1.2 GB.
+      - SHARDED cleanup: transfer only M query shards to GPU
+        (M x N complex64 = 26 MB at M=200/N=16384).
+      - CLEANUP: stream props chunks CPU->GPU for argmax over V codewords.
+        Peak GPU transient per CLEANUP chunk ~ 0.5 GB.
+      Total GPU peak: ~1.2-1.5 GB (fits 8GB target with 5.87GB baseline).
 
-    # STEP 1: BUILD bundle_vec in chunks (never materialize full sharded_codebook).
+    The `gen` parameter is a device-Generator; a matching CPU generator is
+    created here with the same seed to keep props construction reproducible
+    across CPU and device seeds.  For SEED=7/13/19 tests: props draws use
+    a CPU generator seeded from SEED + phase_offset so each phase point is
+    reproducible.  perm/q_idx also use CPU generator (all small tensors).
+    """
+    # Derive a CPU generator seeded from the passed device generator's state
+    # via a stable per-NPROP salt so we get reproducible phase-point results.
+    cpu_gen = torch.Generator(device="cpu")
+    # Salt with NPROP + SEED so different phase points get different random
+    # draws (as they would with a device-side stateful gen), but reproducible.
+    cpu_gen.manual_seed(int(SEED) * 100003 + int(NPROP))
+
+    IMPL = cphasor_torch(1, N, cpu_gen, "cpu")[0].to(device)      # (N,) on device
+    # props built on CPU in chunks (never a single big GPU tensor).
+    props_cpu = cphasor_torch_chunked_cpu(NPROP, N, cpu_gen,
+                                          chunk_size=build_chunk)  # (NPROP, N) CPU
+    perm_cpu = torch.randperm(NPROP, generator=cpu_gen)             # (NPROP,) CPU
+    IMPL_bcast = IMPL.unsqueeze(0)                                  # (1, N) on device
+
+    # STEP 1: BUILD bundle_vec by streaming chunks CPU -> GPU.
     # -- substrate primitives: BIND (elementwise mul) + BUNDLE (sum).
     bundle_vec = torch.zeros(N, dtype=torch.complex64, device=device)
     first_chunk_rules_bytes = None  # for arms-differ hash
     for cs in range(0, NPROP, build_chunk):
         ce = min(cs + build_chunk, NPROP)
-        A_c = props[cs:ce]                                        # (C, N) view
-        B_c = props[perm[cs:ce]]                                  # (C, N) indexed copy
-        rule_c = cnorm_torch(A_c * IMPL_bcast * B_c)              # (C, N) complex64
-        bundle_vec = bundle_vec + rule_c.sum(dim=0)               # (N,)
+        A_c = props_cpu[cs:ce].to(device, non_blocking=False)         # (C, N) on device
+        B_idx = perm_cpu[cs:ce]                                        # CPU int64
+        B_c = props_cpu[B_idx].to(device, non_blocking=False)          # (C, N) on device
+        rule_c = cnorm_torch(A_c * IMPL_bcast * B_c)                   # (C, N) on device
+        bundle_vec = bundle_vec + rule_c.sum(dim=0)                    # (N,)
         if cs == 0:
-            # Save first chunk bytes for arms-differ hash before it's freed.
             first_chunk_rules_bytes = rule_c.detach().cpu().numpy().tobytes()
-        del A_c, B_c, rule_c
+        del A_c, B_c, rule_c, B_idx
         if device == "cuda":
             torch.cuda.empty_cache()
 
-    # STEP 2: query indices + on-demand SHARDED rule vecs (M x N only).
-    q_idx = torch.randint(0, NPROP, (M_queries,), generator=gen, device=device)
-    A_q = props[q_idx]                                            # (M, N)
-    B_q = props[perm[q_idx]]                                      # (M, N)
-    gold_indices = perm[q_idx]                                    # (M,)
-    # SHARDED per-antecedent rule vecs at query positions (on demand, small).
-    rule_q = cnorm_torch(A_q * IMPL_bcast * B_q)                  # (M, N)
-    # Unbind: rule_q * conj(A_q) * conj(IMPL). -- BIND primitive (elementwise).
-    unbind_sharded = rule_q * A_q.conj() * IMPL.conj().unsqueeze(0)  # (M, N)
-    # CLEANUP against props (chunked over V) -- CLEANUP primitive.
-    pred_sharded = cleanup_argmax_chunked(unbind_sharded, props, cleanup_chunk)
-    acc_sharded = (pred_sharded == gold_indices).float().mean().item()
-    del rule_q, unbind_sharded
+    # STEP 2: query indices (CPU) + SHARDED query shards (transferred to device).
+    q_idx_cpu = torch.randint(0, NPROP, (M_queries,), generator=cpu_gen)  # CPU
+    A_q_cpu = props_cpu[q_idx_cpu]                                      # (M, N) CPU
+    B_q_idx_cpu = perm_cpu[q_idx_cpu]                                   # (M,) CPU
+    B_q_cpu = props_cpu[B_q_idx_cpu]                                    # (M, N) CPU
+    gold_indices = B_q_idx_cpu.to(device)                               # (M,) on device
 
-    # STEP 3: BUNDLE arm. Unbind single bundle vector; CLEANUP against props.
-    bundle_bcast = bundle_vec.unsqueeze(0).expand(M_queries, -1)  # (M, N) broadcast
+    A_q = A_q_cpu.to(device, non_blocking=False)                        # (M, N)
+    B_q = B_q_cpu.to(device, non_blocking=False)                        # (M, N)
+    del A_q_cpu, B_q_cpu, B_q_idx_cpu
+    rule_q = cnorm_torch(A_q * IMPL_bcast * B_q)                        # (M, N) on device
+    unbind_sharded = rule_q * A_q.conj() * IMPL.conj().unsqueeze(0)     # (M, N)
+    # CLEANUP against props (streamed from CPU per chunk) -- CLEANUP primitive.
+    pred_sharded = cleanup_argmax_streamed(unbind_sharded, props_cpu, device, cleanup_chunk)
+    acc_sharded = (pred_sharded == gold_indices).float().mean().item()
+    del rule_q, unbind_sharded, B_q
+
+    # STEP 3: BUNDLE arm. Unbind single bundle vector; streamed CLEANUP.
+    bundle_bcast = bundle_vec.unsqueeze(0).expand(M_queries, -1)        # (M, N) broadcast
     unbind_bundle = bundle_bcast * A_q.conj() * IMPL.conj().unsqueeze(0)  # (M, N)
-    pred_bundle = cleanup_argmax_chunked(unbind_bundle, props, cleanup_chunk)
+    pred_bundle = cleanup_argmax_streamed(unbind_bundle, props_cpu, device, cleanup_chunk)
     acc_bundle = (pred_bundle == gold_indices).float().mean().item()
     del unbind_bundle
 
     # META_RULE_AF: arms must differ. Hash first chunk of SHARDED rule vectors
     # vs BUNDLE vec. Both are legitimate storage representations of the same
-    # underlying (A, IMPL, B) triples; they MUST differ bit-wise by design
-    # (BUNDLE is superposition; SHARDED is per-antecedent).
+    # underlying (A, IMPL, B) triples; they MUST differ bit-wise by design.
     if first_chunk_rules_bytes is None:
-        # Extremely small NPROP < build_chunk; recompute over full range for hash
-        # (already covered by BUILD loop -- this branch shouldn't fire).
         raise RuntimeError("first_chunk_rules_bytes not captured; build_chunk logic bug")
     bundle_bytes = bundle_vec.detach().cpu().numpy().tobytes()
     shard_hash = hashlib.sha256(first_chunk_rules_bytes).hexdigest()[:16]
@@ -272,8 +322,14 @@ def run_phase_point(NPROP: int, M_queries: int, gen: torch.Generator,
     assert shard_hash != bundle_hash, \
         f"META_RULE_AF violation: sharded first-chunk and bundle bit-identical at NPROP={NPROP}"
 
-    # Free large tensors before next phase point (VRAM discipline).
-    del props, perm, IMPL, IMPL_bcast, bundle_vec, A_q, B_q, bundle_bcast
+    # Peak GPU memory (best-effort; only meaningful on CUDA).
+    peak_gpu_mb = None
+    if device == "cuda":
+        peak_gpu_mb = round(torch.cuda.max_memory_allocated() / (1024 * 1024), 1)
+        torch.cuda.reset_peak_memory_stats()
+
+    # Free large tensors before next phase point.
+    del props_cpu, perm_cpu, IMPL, IMPL_bcast, bundle_vec, A_q, bundle_bcast, q_idx_cpu
     if device == "cuda":
         torch.cuda.empty_cache()
 
@@ -286,6 +342,7 @@ def run_phase_point(NPROP: int, M_queries: int, gen: torch.Generator,
         "bundle_hash": bundle_hash,
         "build_chunk": int(build_chunk),
         "cleanup_chunk": int(cleanup_chunk),
+        "peak_gpu_mb": peak_gpu_mb,
     }
 
 
@@ -330,34 +387,36 @@ def _selftest() -> None:
 def _selftest_point(NPROP: int, M_queries: int, N_test: int,
                      gen: torch.Generator) -> Dict[str, float]:
     """Reduced-N variant of run_phase_point for fast formula validation.
-    Uses the SAME chunked codepath as the FULL run (build+cleanup chunked)
-    so selftest verifies the actual mechanism that will run in FULL. Overrides
-    the module-global N by temporarily aliasing local IMPL/props at N_test."""
-    IMPL = cphasor_torch(1, N_test, gen, DEVICE)[0]
-    props = cphasor_torch(NPROP, N_test, gen, DEVICE)
-    perm = torch.randperm(NPROP, generator=gen, device=DEVICE)
+    Uses the SAME CPU-hosted+streamed codepath as the FULL run (props on
+    CPU, chunks streamed to device) so selftest verifies the actual
+    mechanism that will run in FULL at 2x N."""
+    cpu_gen = torch.Generator(device="cpu")
+    cpu_gen.manual_seed(999 * 100003 + int(NPROP))
+    IMPL = cphasor_torch(1, N_test, cpu_gen, "cpu")[0].to(DEVICE)
+    props_cpu = cphasor_torch_chunked_cpu(NPROP, N_test, cpu_gen, chunk_size=1000)
+    perm_cpu = torch.randperm(NPROP, generator=cpu_gen)
     IMPL_bcast = IMPL.unsqueeze(0)
-    # BUILD bundle_vec chunked
+    # BUILD bundle_vec streamed CPU -> device.
     build_chunk = 1000
     bundle_vec = torch.zeros(N_test, dtype=torch.complex64, device=DEVICE)
     for cs in range(0, NPROP, build_chunk):
         ce = min(cs + build_chunk, NPROP)
-        A_c = props[cs:ce]
-        B_c = props[perm[cs:ce]]
+        A_c = props_cpu[cs:ce].to(DEVICE)
+        B_c = props_cpu[perm_cpu[cs:ce]].to(DEVICE)
         rule_c = cnorm_torch(A_c * IMPL_bcast * B_c)
         bundle_vec = bundle_vec + rule_c.sum(dim=0)
         del A_c, B_c, rule_c
-    q_idx = torch.randint(0, NPROP, (M_queries,), generator=gen, device=DEVICE)
-    A_q = props[q_idx]
-    B_q = props[perm[q_idx]]
-    gold = perm[q_idx]
+    q_idx_cpu = torch.randint(0, NPROP, (M_queries,), generator=cpu_gen)
+    A_q = props_cpu[q_idx_cpu].to(DEVICE)
+    B_q = props_cpu[perm_cpu[q_idx_cpu]].to(DEVICE)
+    gold = perm_cpu[q_idx_cpu].to(DEVICE)
     rule_q = cnorm_torch(A_q * IMPL_bcast * B_q)
     us = rule_q * A_q.conj() * IMPL.conj().unsqueeze(0)
-    ps = cleanup_argmax_chunked(us, props, chunk_size=2000)
+    ps = cleanup_argmax_streamed(us, props_cpu, DEVICE, chunk_size=2000)
     acc_s = (ps == gold).float().mean().item()
     bb = bundle_vec.unsqueeze(0).expand(M_queries, -1)
     ub = bb * A_q.conj() * IMPL.conj().unsqueeze(0)
-    pb = cleanup_argmax_chunked(ub, props, chunk_size=2000)
+    pb = cleanup_argmax_streamed(ub, props_cpu, DEVICE, chunk_size=2000)
     acc_b = (pb == gold).float().mean().item()
     if DEVICE == "cuda":
         torch.cuda.empty_cache()
@@ -379,8 +438,11 @@ def run(out_dir: Path) -> Dict:
         dt = time.perf_counter() - t_pt
         r["elapsed_s"] = round(dt, 3)
         per_unit.append(r)
-        print("  [%d/%d] N=%d NPROP=%5d sharded=%.4f bundle=%.4f dt=%.2fs"
-              % (i + 1, n_units, N, NPROP, r["acc_sharded"], r["acc_bundle"], dt), flush=True)
+        pk = r.get("peak_gpu_mb")
+        pk_str = f" peak_gpu={pk}MB" if pk is not None else ""
+        print("  [%d/%d] N=%d NPROP=%5d sharded=%.4f bundle=%.4f dt=%.2fs%s"
+              % (i + 1, n_units, N, NPROP, r["acc_sharded"], r["acc_bundle"], dt, pk_str),
+              flush=True)
     total_s = time.perf_counter() - t0
 
     by_nprop = {r["NPROP"]: r for r in per_unit}

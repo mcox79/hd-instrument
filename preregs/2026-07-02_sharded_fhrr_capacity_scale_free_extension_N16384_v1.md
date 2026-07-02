@@ -101,19 +101,29 @@ If smoke fires (SHARDED >= 0.95 AND BUNDLE < 0.10 at NPROP=32000; gap >= 0.85), 
 
 **Rationale:** cleanup at (M=200, N=16384, V=32000) is a matmul ~1.05e11 complex ops per phase point; on CPU numpy would be ~1-2 min per matmul (sequential-CPU untenable), on GPU torch ~1-3s. Total FULL wall (5 points x 2 arms x 200 queries): ~15-40s on CUDA (extrapolating from CG cell's 4.7s at N=8192 x ~4x memory/compute for 2x N + reduced grid), CPU-torch ~5-15 min. Per-phase-point wall > 10s on CPU triggers batching-candidate rule; GPU-batched design chosen (USER-locked 2026-07-02).
 
-**Peak GPU VRAM (chunked design; targets 8GB GPU):** at NPROP=32000, N=16384:
-  - `props` (32000, 16384) complex64 = 4.19 GB (persistent throughout phase point)
-  - BUILD chunk (C=2000 rules, N=16384): peak transient ~1.2 GB
-    (A_c + B_c copies + product + cnorm intermediates including fp32 angle)
-    -- Full (NPROP=32000, N) sharded_codebook is NEVER materialized.
-  - SHARDED query shards on demand (M=200, N): 26 MB
-  - CLEANUP chunk (CV=4000, N): peak transient ~0.5 GB (avoids props.conj() full-copy)
-  - BUNDLE: single (N,) vector accumulated across chunks (128 KB)
-  - **Peak ~ 5.5 GB. Fits on 8GB GPU with ~2.5 GB headroom.**
-  Cell issues `torch.cuda.empty_cache()` after each BUILD chunk + after phase point + `del` of large tensors between chunks.
+**Peak GPU VRAM (v3 CPU-hosted design; targets 8GB GPU with 5.87 GB runner baseline):** at NPROP=32000, N=16384:
+  - `props_cpu` (32000, 16384) complex64 = 4.19 GB on **CPU RAM** (never a single GPU tensor).
+  - BUILD chunk (C=2000, N=16384): peak GPU transient ~1.0-1.5 GB
+    (A_c + B_c CPU->GPU copies, product, cnorm intermediates: fp32 angle + fp32 ones + complex64 polar output + rule_c). PyTorch releases intermediates progressively; concurrent peak is ~7 x complex64(2000, 16384) worth during cnorm.
+  - SHARDED query shards on demand (M=200, N): 26 MB.
+  - CLEANUP chunk (CV=2000, N=16384): peak GPU transient ~300 MB (cb_chunk 262 MB + queries 26 MB + sim(M, CV) fp32 3 MB).
+  - BUNDLE: single (N,) vector accumulated across chunks (128 KB).
+  - **Peak GPU ~ 1.5 GB. Fits 8GB target with ~1.4 GB headroom over the 2.94 GB free measured at v2 OOM.**
+  Cell issues `torch.cuda.empty_cache()` after each BUILD chunk + each CLEANUP chunk + after phase point + `del` of large tensors between chunks. `torch.cuda.max_memory_allocated()` logged per phase point as `peak_gpu_mb` in per_unit metrics.
 
-**v1 first-attempt (unchunked) OOM history (2026-07-02):**
-  All 3 seeds CELL_CRASHED on 8GB target GPU: full-size `cnorm_torch(A * IMPL * B)` at NPROP=32000 created intermediate fp32 angle tensor (~2 GiB) simultaneously with existing 4.2 GB props allocation -> peak >6 GiB alongside runner baseline -> OOM at line 189 (`sharded_codebook = ...`). Fix: chunked BUILD (never materialize full codebook) + on-demand SHARDED query shards + chunked cleanup matmul (`cleanup_argmax_chunked`). Selftest and smoke reproduce v1 discriminator numbers bit-shape: SHARDED=1.0 at all points; BUNDLE=0.5/0.067/0.0 at NPROP=2000/8000/32000. Chunked matmul is also 2x faster on CPU (17s vs 36s smoke) due to reduced memory pressure. Requires 3-seed FULL re-dispatch with `--allow-duplicate` per SH-6.
+**Peak CPU RAM:** ~4.5 GB (props_cpu + small overhead). marsh@home has ample CPU RAM.
+
+**v1/v2 OOM history (2026-07-02):**
+  - **v1 unchunked** (commit `6d43ea571`): full-size `cnorm_torch(A * IMPL * B)` created intermediate fp32 angle tensor (~2 GiB) simultaneously with 4.2 GB props on GPU -> peak >6 GiB -> OOM at line 189.
+  - **v2 chunk-in-GPU** (commit `349e75383`): downstream ops chunked, but `props = cphasor_torch(NPROP, N, gen, device)` at line 165 still allocated a 4.19 GB single GPU tensor -> OOM at cphasor construction on 8GB target (2.94 GB free after 5.87 GB runner baseline).
+  - **v3 CPU-hosted** (this commit): `props_cpu` built + held on CPU RAM in chunks; per-chunk transfers to GPU during BUILD + streamed CLEANUP. `props` is NEVER a single GPU tensor. Peak GPU well under 2 GB.
+
+**Verification (2026-07-02):**
+  - Selftest N=4096 PASS: SHARDED=1.000 across NPROP; BUNDLE=0.400/0.067/0.000 at NPROP=200/2000/8000. (v3 numbers marginally differ from v1/v2 CPU output because v3 re-seeds per-NPROP for reproducibility; mechanism-equivalent — collapse pattern identical.)
+  - Smoke at full N=16384 CPU HARD_PASS (17.9s wall): SHARDED=1.0000 across NPROP=2000/8000/32000; BUNDLE=0.4667/0.0000/0.0000. Discriminator shape identical to v1/v2. HP conditions satisfied.
+  - CPU device on laptop (peak_gpu_mb=None on CPU); GPU device peak measured at overnight_queue dispatch via `torch.cuda.max_memory_allocated()`.
+
+Requires 3-seed FULL re-dispatch with `--allow-duplicate` per SH-6 (prior entries now `status=failed` on both v1 and v2).
 
 **Fallback:** if `torch.cuda.is_available() == False`, cell runs on CPU-torch (still batched matmul). Cell will not fail; will simply run slower.
 
