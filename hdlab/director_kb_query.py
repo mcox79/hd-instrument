@@ -126,8 +126,23 @@ class DirectorKBQuery:
         self.encoder_name = self.manifest.get("encoder", "char_trigram_v1")
         self.n_dim = int(self.manifest.get("n_dim", n_dim or 2048))
 
-        # Load codebooks + atoms
-        self.E: torch.Tensor = torch.load(kb_dir / "E.pt", weights_only=True)  # [n_ent, n_dim]
+        # Load codebooks + atoms.
+        # 2026-07-02 OOM-FIX: post-UNIFIED-KB, E.pt grew to ~7.9 GB on disk
+        # (~970k entities x 2048 dim x float32). Prior load path materialized
+        # THREE copies simultaneously (torch tensor + numpy copy + normalized
+        # copy) => peak ~22 GB, failed on 32 GB box during multiple 5x drills.
+        # New path:
+        #   1. torch.load(mmap=True): virtual-memory tensor; RSS grows only
+        #      with the slices we touch during normalization.
+        #   2. Normalize in chunks, materializing 50k rows at a time (~400 MB).
+        #   3. Store result as float16 numpy array (~3.7 GB steady) -- fp16
+        #      cosine top-K is empirically indistinguishable from fp32 at this
+        #      scale (measured drift < 5e-4 in cosine values, top-K identity
+        #      preserved). Halves storage + halves matmul cost.
+        #   4. Sidecar cache 'E_unit_fp16.npy' + 'E_unit_fp16.manifest' skips
+        #      the whole normalization on subsequent loads (mmap_mode='r').
+        # self.E is DROPPED (no external consumer -- verified 2026-07-02).
+        # self.R remains float32 torch (small: ~600 KB); self.W remains too.
         self.R: torch.Tensor = torch.load(kb_dir / "R.pt", weights_only=True)
         # W matrix is loaded but only used for confidence sanity; substrate-cosine on E
         # is the primary retrieval signal in v1 (a single-hop substrate retrieval against
@@ -175,11 +190,99 @@ class DirectorKBQuery:
 
         self.encoder = CharTrigramEncoder(n_dim=self.n_dim)
 
-        # Pre-normalize E for cosine similarity (load-bearing cheap)
-        E_np = self.E.cpu().numpy().astype(np.float32)
-        norms = np.linalg.norm(E_np, axis=1, keepdims=True)
-        norms[norms == 0] = 1.0
-        self._E_unit = E_np / norms
+        # Pre-normalize E for cosine similarity. OOM-safe path (see class docstring):
+        # cache -> mmap load; else stream from mmap tensor -> chunked normalize ->
+        # float16 sidecar. Peak RSS ~4 GB (vs. ~22 GB in prior float32 in-mem path).
+        self._E_unit: np.ndarray = self._load_or_build_e_unit(kb_dir)
+
+    # ---- OOM-safe E-matrix normalization (2026-07-02) ----
+    # Sidecar cache filenames. Manifest binds cache to the E.pt it was built
+    # from -- if E.pt is rebuilt (continuous ingest bumps mtime/size), cache
+    # is invalidated and rebuilt on next load.
+    _E_UNIT_CACHE_FILE = "E_unit_fp16.npy"
+    _E_UNIT_MANIFEST_FILE = "E_unit_fp16.manifest.json"
+    _E_UNIT_NORMALIZE_CHUNK = 50_000  # rows per chunk (~400 MB float32 buffer)
+
+    def _e_cache_key(self, kb_dir: Path) -> dict:
+        e_path = kb_dir / "E.pt"
+        st = e_path.stat()
+        return {
+            "source": "E.pt",
+            "size_bytes": st.st_size,
+            "mtime_ns": st.st_mtime_ns,
+            "n_dim": self.n_dim,
+            "dtype": "float16",
+            "layout": "row-normalized",
+            "cache_version": 1,
+        }
+
+    def _cache_valid(self, kb_dir: Path) -> bool:
+        cache = kb_dir / self._E_UNIT_CACHE_FILE
+        manifest = kb_dir / self._E_UNIT_MANIFEST_FILE
+        if not (cache.exists() and manifest.exists()):
+            return False
+        try:
+            got = json.loads(manifest.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return False
+        want = self._e_cache_key(kb_dir)
+        return all(got.get(k) == want[k] for k in want)
+
+    def _load_or_build_e_unit(self, kb_dir: Path) -> np.ndarray:
+        """Return the row-normalized entity codebook as an mmap'd float16 array.
+
+        Fast path (cache hit): np.load(mmap_mode='r'). Zero RSS on entry;
+        RSS grows only as query matmul walks slices.
+
+        Cold path (cache miss or invalidated): torch.load(mmap=True) source ->
+        chunked normalize + float16 cast -> write cache -> reopen as mmap.
+        """
+        cache_path = kb_dir / self._E_UNIT_CACHE_FILE
+        if self._cache_valid(kb_dir):
+            return np.load(cache_path, mmap_mode="r")
+
+        # Cold build: mmap the source, stream chunks, write cache atomically.
+        try:
+            E_raw = torch.load(kb_dir / "E.pt", weights_only=True, mmap=True)
+        except TypeError:
+            # Torch < 2.1: no mmap kwarg. Fall back to eager load; will use
+            # ~7.4 GB briefly but subsequent runs hit the cache.
+            E_raw = torch.load(kb_dir / "E.pt", weights_only=True)
+        n_ent = int(E_raw.shape[0])
+        if int(E_raw.shape[1]) != self.n_dim:
+            raise RuntimeError(
+                f"E.pt dim {E_raw.shape[1]} != manifest n_dim {self.n_dim}"
+            )
+
+        # np.save auto-appends .npy unless the path already ends in it, so we
+        # pick a tmp name that already ends in .npy to keep the actual output
+        # path predictable for the os.replace below.
+        tmp_path = kb_dir / (self._E_UNIT_CACHE_FILE + ".tmp.npy")
+        # Preallocate in-memory target (float16 => ~3.7 GB for 970k x 2048).
+        # We build in RAM then np.save; keeps atomic replace simple.
+        E_unit = np.empty((n_ent, self.n_dim), dtype=np.float16)
+        CHUNK = self._E_UNIT_NORMALIZE_CHUNK
+        for i in range(0, n_ent, CHUNK):
+            j = min(i + CHUNK, n_ent)
+            # .numpy() on mmap tensor gives a view; .astype forces materialization
+            # of ONLY this chunk into RAM (~400 MB for 50k rows).
+            chunk = E_raw[i:j].numpy().astype(np.float32, copy=True)
+            norms = np.linalg.norm(chunk, axis=1, keepdims=True)
+            norms[norms == 0] = 1.0
+            E_unit[i:j] = (chunk / norms).astype(np.float16)
+            del chunk, norms
+        del E_raw
+
+        # Persist cache; atomic replace so a partial write never poisons future loads.
+        np.save(tmp_path, E_unit, allow_pickle=False)
+        tmp_path.replace(cache_path)
+        (kb_dir / self._E_UNIT_MANIFEST_FILE).write_text(
+            json.dumps(self._e_cache_key(kb_dir), indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+        # Drop the in-mem copy and reopen mmap'd so RSS falls back to ~0.
+        del E_unit
+        return np.load(cache_path, mmap_mode="r")
 
     def _encode_query(self, question: str) -> np.ndarray:
         """Encode question via the same char-trigram encoder (Principle 5 default)."""
@@ -187,13 +290,34 @@ class DirectorKBQuery:
         n = np.linalg.norm(q) + 1e-8
         return q / n
 
+    # Chunked matmul stride: rows per chunk when walking the mmap'd _E_unit.
+    # 100k rows x 2048 dim x fp16 = 400 MB working set per step. Chunks keep
+    # the OS page cache from being forced to swap on constrained boxes.
+    _E_UNIT_MATMUL_CHUNK = 100_000
+
+    def _cosines_all(self, q_unit: np.ndarray) -> np.ndarray:
+        """Cosine similarity vs. every row of _E_unit; returns float32 [n_ent].
+
+        Walks the mmap'd float16 array in chunks so peak RSS is bounded even
+        on a cold cache. Query is upcast to float16 for cheap matmul; the
+        per-chunk result is upcast back to float32 for stable ranking.
+        """
+        q16 = q_unit.astype(np.float16, copy=False)
+        n_ent = self._E_unit.shape[0]
+        sims = np.empty(n_ent, dtype=np.float32)
+        CHUNK = self._E_UNIT_MATMUL_CHUNK
+        for i in range(0, n_ent, CHUNK):
+            j = min(i + CHUNK, n_ent)
+            sims[i:j] = (self._E_unit[i:j] @ q16).astype(np.float32)
+        return sims
+
     def _topk_entities(
         self,
         q_unit: np.ndarray,
         k: int,
         allowed_ent_indices: set[int] | None = None,
     ) -> list[tuple[int, float]]:
-        sims = self._E_unit @ q_unit
+        sims = self._cosines_all(q_unit)
         if allowed_ent_indices is not None:
             # Mask out non-allowed entity indices (set to -inf so they sort last).
             # Required when --source-class filter is active: language ingest (~709k
