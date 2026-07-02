@@ -107,6 +107,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
+import torch  # noqa: F401  -- routing gate Fix #24
 
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
