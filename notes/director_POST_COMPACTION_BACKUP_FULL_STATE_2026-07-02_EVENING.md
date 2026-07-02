@@ -20,6 +20,15 @@
 
 **Corrected session tally:** 36 CG + 4 CG_META + 20 MM + 3 HF + 3 MB + 3 AMEND (math=54, meta=24 on disk).
 
+## POST-M1.9 UPDATES
+
+**M1.9 SemanticParser FULL landed CG** (Skunkworks a508452e, commit not yet by Skunkworks). Intent=0.898 (cv 0.026), slot=1.000. Ablation collapses: M16-router-no-unbind slot=0.021, shuffled-role slot=0.017, Hebbian-intent-only=0.023 (chance for 50-way). META candidate `HEBBIAN_CLASSIFIER_REGIME_NARROW_FOR_COMPOSITIONAL_BUNDLE_INPUTS` = MM_TENTATIVE (not CG).
+
+**USER-caught framing correction 2026-07-02:** M1.9 is a MECHANISM PROOF, not English understanding. Test inputs are synthetic HD bundles: `input_hd = intent_hd + Σ_r bind(role_key[r], slot_dict[r][slot_labels[i, r]])`. Integer indices into codebooks, NO text/tokens/characters. Substrate has NOT ingested language. USER: "doesn't the semantic parser require the substrate to understand english? Do we understand english yet? I assumed not?" — correct. English → HD encoding is Stage 4 upstream, DEFERRED, UNBUILT.
+- Filed discipline `feedback_never_narrate_synthetic_HD_bundles_as_english_language_capability_USER_2026-07-02.md`
+- M1.9 as cortex primitive = substrate-side half of a two-part pipeline. Useful for mechanism composition, NOT for language capability claims.
+- Session tally on disk: math=55, meta=25.
+
 ## 🚨 READ FIRST AFTER COMPACTION
 
 ```bash
