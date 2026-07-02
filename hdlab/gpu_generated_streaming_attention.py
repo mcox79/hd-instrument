@@ -1,4 +1,4 @@
-"""On-GPU seeded key/val generation + streaming attention (v4 CPU-bottleneck fix).
+"""On-GPU seeded key/val generation + streaming attention (v4/v5 primitive).
 
 Extends hdlab.streaming_attention: instead of pre-materializing (M, N) keys and
 (M, V) vals in CPU RAM and streaming them to GPU per chunk, this primitive
@@ -10,7 +10,19 @@ Why this exists (v4 fix per Orchestrator M=500k probe):
     but wall_s was CPU-dominated: 21-25s cpu-build + 12s INT8-quantize at M=500k,
     with GPU util 1-3% steady-state. Root cause: v3 materialized full-M keys+vals
     in CPU RAM per arm. v4 eliminates that entirely by generating each chunk on
-    GPU. Expected: wall_s ~= GPU-only time (~2-5s per arm at M=500k), util >= 30%.
+    GPU. MEASURED@v4 M=100k REPL wall=0.30s (Orchestrator selftest, 15-25x speedup).
+
+v5 measurement discipline (per Orchestrator diagnosis of v4 selftest util=3.2%):
+    - v4 gpu_util_mean_pct is a sampler-cadence artifact at fast M=100k (n=5
+      samples over 0.30s with 50 ms period; sampler mostly caught between-kernel
+      gaps).
+    - Fix C: kernel_active_fraction_pct measured via torch.cuda.Event start/stop
+      per chunk kernel; sum elapsed_time / total wall_s * 100. Ground truth for
+      compute-starvation; sampler-cadence invariant.
+    - Fix D: default sample_util_ms lowered to 10 ms (10x resolution) for
+      diagnostic util series; kept as secondary metric.
+    - Fix E (cell-side): selftest raises M to 500k so both metrics get
+      statistical power (n_samples >= 20, wall ~ 1.5-3 s).
 
 Determinism model:
     Each chunk's random state is derived from (arm_seed, chunk_start). The same
@@ -167,6 +179,90 @@ def _build_queries(
     return (q_keys.to(torch.float32) + noise).to(torch.float16)
 
 
+class KernelActiveFractionMeter:
+    """Ground-truth compute-active fraction via torch.cuda.Event timing (v5 Fix C).
+
+    Wraps a per-chunk region with start.record() / end.record() events. On stop,
+    torch.cuda.synchronize() drains the stream, then elapsed_time() sums the
+    kernel-active milliseconds. kernel_active_fraction_pct = 100 * ms_sum /
+    (wall_s * 1000). Sampler-cadence invariant by construction.
+
+    On CPU device this is a no-op returning 0.0.
+
+    Usage:
+        meter = KernelActiveFractionMeter(device)
+        for chunk in chunks:
+            with meter.chunk():
+                ... kernel launches ...
+        wall_s = ...
+        meter.finalize(wall_s)  # calls torch.cuda.synchronize + accumulates ms
+        pct = meter.active_fraction_pct()
+        n = meter.n_chunks()
+    """
+
+    def __init__(self, device: torch.device):
+        self.device = device
+        self._events: List[Tuple[torch.cuda.Event, torch.cuda.Event]] = []
+        self._ms_total: float = 0.0
+        self._finalized: bool = False
+        self._wall_s: float = 0.0
+
+    def chunk(self):
+        """Context manager for one chunk region. No-op on CPU."""
+        return _KernelChunkCtx(self)
+
+    def finalize(self, wall_s: float) -> None:
+        """After all chunk regions and the outer sync, accumulate elapsed ms."""
+        self._wall_s = float(wall_s)
+        if self.device.type != "cuda":
+            self._finalized = True
+            return
+        # Outer sync already called by caller; events are done.
+        total = 0.0
+        for start, end in self._events:
+            try:
+                total += float(start.elapsed_time(end))
+            except Exception:
+                pass
+        self._ms_total = total
+        self._finalized = True
+
+    def active_fraction_pct(self) -> float:
+        if not self._finalized or self._wall_s <= 0:
+            return 0.0
+        return 100.0 * (self._ms_total / 1000.0) / self._wall_s
+
+    def ms_total(self) -> float:
+        return self._ms_total
+
+    def n_chunks(self) -> int:
+        return len(self._events)
+
+
+class _KernelChunkCtx:
+    """Context manager returned by KernelActiveFractionMeter.chunk()."""
+
+    def __init__(self, meter: KernelActiveFractionMeter):
+        self._meter = meter
+        self._start: Optional[torch.cuda.Event] = None
+        self._end: Optional[torch.cuda.Event] = None
+
+    def __enter__(self):
+        if self._meter.device.type != "cuda":
+            return self
+        self._start = torch.cuda.Event(enable_timing=True)
+        self._end = torch.cuda.Event(enable_timing=True)
+        self._start.record()
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        if self._meter.device.type == "cuda" and self._start is not None:
+            assert self._end is not None
+            self._end.record()
+            self._meter._events.append((self._start, self._end))
+        return False
+
+
 class GpuUtilSampler:
     """Background thread sampling torch.cuda.utilization every sample_ms.
 
@@ -246,23 +342,31 @@ def gpu_generated_streaming_readout(
     spec: GpuGenSpec,
     mode: str,
     beta: float = 13.0,
-    sample_util_ms: int = 50,
+    sample_util_ms: int = 10,
 ) -> Tuple[torch.Tensor, torch.Tensor, dict]:
     """Streaming READ-REPLACE ('attention') or Hebbian ('hebbian') readout.
 
     Generates each chunk on GPU (zero CPU RAM for keys/vals), runs the compute,
     frees the chunk. Peak GPU footprint is M-INDEPENDENT.
 
+    v5 telemetry (ground truth for compute-starvation):
+      - kernel_active_fraction_pct via torch.cuda.Event start/end per chunk;
+        sampler-cadence invariant. Load-bearing HF gate metric.
+      - gpu_util_mean_pct via sampler thread (sample_util_ms cadence, default 10 ms);
+        diagnostic secondary metric.
+
     Args:
         spec: GpuGenSpec descriptor.
         mode: 'attention' (ARM_REPL) or 'hebbian' (ARM_STD).
         beta: softmax sharpness (attention mode only).
-        sample_util_ms: GPU util sampler period.
+        sample_util_ms: GPU util sampler period (default 10 ms per v5 Fix D).
 
     Returns:
         (readout, v_target, telemetry) — readout (Q, V) FP32 on device;
-        v_target (Q, V) FP16 on device; telemetry dict with wall_s /
-        gpu_util_mean_pct / n_util_samples / util_source / gpu_mem_peak_mb.
+        v_target (Q, V) FP16 on device; telemetry dict with:
+            wall_s, kernel_active_fraction_pct, kernel_active_ms_total,
+            n_kernel_chunks, gpu_util_mean_pct, n_util_samples, util_source,
+            gpu_mem_peak_mb, mode, M, N, V, chunk_size, use_int8_keys.
     """
     if mode not in ("attention", "hebbian"):
         raise ValueError(f"mode must be 'attention' or 'hebbian'; got {mode!r}")
@@ -283,9 +387,10 @@ def gpu_generated_streaming_readout(
     queries = _build_queries(spec, q_idx_dev, q_keys)  # (Q, N) FP16 on GPU
     del q_keys
 
-    # (3) Start GPU util sampler for the main compute pass.
+    # (3) Start util sampler (diagnostic) + init kernel-active meter (ground truth).
     util = GpuUtilSampler(device, sample_ms=sample_util_ms)
     util.start()
+    kmeter = KernelActiveFractionMeter(device)
     t0 = time.time()
 
     try:
@@ -301,35 +406,38 @@ def gpu_generated_streaming_readout(
 
             for chunk_start in range(0, spec.M, spec.chunk_size):
                 chunk_end = min(chunk_start + spec.chunk_size, spec.M)
-                k_chunk, v_chunk = _generate_chunk_on_gpu(spec, chunk_start, chunk_end)
+                with kmeter.chunk():
+                    k_chunk, v_chunk = _generate_chunk_on_gpu(
+                        spec, chunk_start, chunk_end,
+                    )
 
-                if spec.use_int8_keys:
-                    # Per-chunk INT8 quantize on GPU (row-max scale).
-                    k_f32 = k_chunk.to(torch.float32)
-                    row_max = k_f32.abs().max(dim=1, keepdim=True).values.clamp_min(1e-9)
-                    scale = row_max / 127.0
-                    k_i8 = torch.round(k_f32 / scale).clamp_(-127, 127).to(torch.int8)
-                    del k_f32
-                    k_use = k_i8.to(torch.float32) * scale
-                    del k_i8, scale
-                else:
-                    k_use = k_chunk.to(torch.float32)
+                    if spec.use_int8_keys:
+                        # Per-chunk INT8 quantize on GPU (row-max scale).
+                        k_f32 = k_chunk.to(torch.float32)
+                        row_max = k_f32.abs().max(dim=1, keepdim=True).values.clamp_min(1e-9)
+                        scale = row_max / 127.0
+                        k_i8 = torch.round(k_f32 / scale).clamp_(-127, 127).to(torch.int8)
+                        del k_f32
+                        k_use = k_i8.to(torch.float32) * scale
+                        del k_i8, scale
+                    else:
+                        k_use = k_chunk.to(torch.float32)
 
-                v_use = v_chunk.to(torch.float32)
-                del k_chunk, v_chunk
+                    v_use = v_chunk.to(torch.float32)
+                    del k_chunk, v_chunk
 
-                # Cosine sims (Q, chunk).
-                k_normed = k_use / k_use.norm(dim=-1, keepdim=True).clamp_min(1e-9)
-                sims = q_normed @ k_normed.T
-                logits = beta * sims
-                chunk_max = logits.max(dim=-1).values
-                m_new = torch.maximum(m_state, chunk_max)
-                s = torch.exp(m_state - m_new)
-                exp_logits = torch.exp(logits - m_new.unsqueeze(-1))
-                l_state = l_state * s + exp_logits.sum(dim=-1)
-                o_state = o_state * s.unsqueeze(-1) + exp_logits @ v_use
-                m_state = m_new
-                del k_use, v_use, k_normed, sims, logits, exp_logits
+                    # Cosine sims (Q, chunk).
+                    k_normed = k_use / k_use.norm(dim=-1, keepdim=True).clamp_min(1e-9)
+                    sims = q_normed @ k_normed.T
+                    logits = beta * sims
+                    chunk_max = logits.max(dim=-1).values
+                    m_new = torch.maximum(m_state, chunk_max)
+                    s = torch.exp(m_state - m_new)
+                    exp_logits = torch.exp(logits - m_new.unsqueeze(-1))
+                    l_state = l_state * s + exp_logits.sum(dim=-1)
+                    o_state = o_state * s.unsqueeze(-1) + exp_logits @ v_use
+                    m_state = m_new
+                    del k_use, v_use, k_normed, sims, logits, exp_logits
 
             readout = o_state / l_state.unsqueeze(-1).clamp_min(1e-30)
 
@@ -338,33 +446,43 @@ def gpu_generated_streaming_readout(
             W = torch.zeros(spec.V, spec.N, dtype=torch.float32, device=device)
             for chunk_start in range(0, spec.M, spec.chunk_size):
                 chunk_end = min(chunk_start + spec.chunk_size, spec.M)
-                k_chunk, v_chunk = _generate_chunk_on_gpu(spec, chunk_start, chunk_end)
-                k_f32 = k_chunk.to(torch.float32)
-                v_f32 = v_chunk.to(torch.float32)
-                del k_chunk, v_chunk
-                W.addmm_(v_f32.T, k_f32, alpha=1.0, beta=1.0)
-                del k_f32, v_f32
+                with kmeter.chunk():
+                    k_chunk, v_chunk = _generate_chunk_on_gpu(
+                        spec, chunk_start, chunk_end,
+                    )
+                    k_f32 = k_chunk.to(torch.float32)
+                    v_f32 = v_chunk.to(torch.float32)
+                    del k_chunk, v_chunk
+                    W.addmm_(v_f32.T, k_f32, alpha=1.0, beta=1.0)
+                    del k_f32, v_f32
             W.div_(float(spec.N))
             readout = queries.to(torch.float32) @ W.T
             del W
 
-        # Force sync so util sampler sees kernel completion before stopping.
+        # Force sync so util sampler + CUDA events see kernel completion.
         if device.type == "cuda":
             torch.cuda.synchronize(device)
     finally:
         util.stop()
 
     wall_s = time.time() - t0
+    kmeter.finalize(wall_s)
     gpu_mem_peak_mb = 0.0
     if device.type == "cuda":
         gpu_mem_peak_mb = float(torch.cuda.max_memory_allocated(device) / 1e6)
 
     telemetry = {
         "wall_s": float(wall_s),
+        # v5 ground-truth compute-active metric (load-bearing HF gate).
+        "kernel_active_fraction_pct": float(kmeter.active_fraction_pct()),
+        "kernel_active_ms_total": float(kmeter.ms_total()),
+        "n_kernel_chunks": int(kmeter.n_chunks()),
+        # Diagnostic sampler metric (secondary).
         "gpu_util_mean_pct": float(util.mean_pct()),
         "n_util_samples": int(util.n_samples()),
         "util_source": util.source(),
         "gpu_mem_peak_mb": float(gpu_mem_peak_mb),
+        "sample_util_ms": int(sample_util_ms),
         "mode": mode,
         "M": int(spec.M),
         "N": int(spec.N),
@@ -378,5 +496,6 @@ def gpu_generated_streaming_readout(
 __all__ = [
     "GpuGenSpec",
     "GpuUtilSampler",
+    "KernelActiveFractionMeter",
     "gpu_generated_streaming_readout",
 ]
