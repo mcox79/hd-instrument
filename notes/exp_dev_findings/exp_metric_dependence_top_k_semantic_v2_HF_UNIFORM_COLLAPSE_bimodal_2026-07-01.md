@@ -4,7 +4,7 @@
 **Cell-author:** hdi_exp_dev
 **Director decision (recommended):** HALT_ATOMIZE_AT_SMOKE + v3 RESPEC (do NOT dispatch full)
 **Anchor:** `metric_dependence_top_k_semantic_v2_seed_7` (smoke)
-**Commit:** (to be filled after commit)
+**Commit:** `1c1cd8ae` (cell files + prereg + hand-off landed)
 **Discipline halt reason:** META_RULE_AG (baseline-in-band) — smoke reveals sigma=0.7 is a CLIFF not a gradient; dispatching full at chosen sigma grid would burn CPU-hr producing 16 more zeros/ones with no metric-differentiation. Preview at (1.5, 0.7) at floor (0.000) — discriminator DID survive scale (not saturating), but resolved into a UNIFORM COLLAPSE rather than metric-family opening.
 
 ## Verdict + Physics Finding
