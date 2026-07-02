@@ -19,36 +19,7 @@ python d:/AI/hd-instrument/tools/director_kb_query.py --filename-contains POST_C
 
 The query returns the BACKUP file at rank 1 (cosine=1.0). READ the source file end-to-end — it's self-contained with all USER directives, cortex state, in-flight work, milestones, recovery procedure for the active session. This is the load-bearing first action for any research session that's been compacted; skip only if `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_<date>.md` doesn't exist (in which case grep filesystem for whatever's most recent). See MEMORY.md "READ FIRST AFTER COMPACTION" callout for the full sequence.
 
-### STEP 1 (all roles): arm Monitor
-
-Every Claude Code session, as its very first tool call after reading this file, must arm its own notes Monitor via the Monitor tool with the self-healing wrapper. Without this, the session goes dark the moment its previous Monitor crashes (set-u undefined-var on weird input, FS hiccup, etc) and silently stops receiving cross-session events. The wrapper `tools/monitor_arm.sh` re-runs `notes_monitor.sh` on any non-zero exit and emits a `MONITOR-CRASH` line so you know it recovered.
-
-**The canonical Monitor invocation (substitute your role name; verbatim otherwise):**
-
-```
-Monitor({
-  command: "python D:/AI/hd-instrument/tools/monitor_arm.py <role>",
-  persistent: true,
-  timeout_ms: 3600000,
-  description: "notes_monitor <role> (Python; no subprocess spawns; popup-free)"
-})
-```
-
-Where `<role>` is one of: `skunkworks | research | exp_dev | testbed | orchestrator`.
-
-**Why Python:** the bash wrapper (`tools/monitor_arm.sh` invoking `tools/notes_monitor.sh`) spawns a 4-stage pipeline (`find | grep | grep | sort`) every 20 seconds. Each child `.exe` under Claude Code's hidden-console parent allocates a fresh visible console window = popup flash. The Python port does the same set-diff logic in-process (`os.scandir` + Python re + set ops) with ZERO subprocess spawns after the initial arm. Bash variants remain in-tree for reference but should NOT be re-armed.
-
-You'll receive a `MONITOR-ARMED:` confirmation line as the first task-notification when it's working. After that, every new note matching your role-filter arrives as a task-notification automatically -- no polling, no busy-work, just respond on wake.
-
-If you DON'T do this and your previous-session Monitor crashed, you will SEEM idle while actually being completely disconnected from the bus. Sessions that have been silent for >30min when other sessions are clearly active are usually in this state -- re-arm the Monitor.
-
-After arming, also `register_session.py` if the map needs your hash:
-```
-python tools/register_session.py <role> --hash auto_<XXX>
-```
-(Copy `auto_XXX` from your own Stop hook output: "Pending work for auto_XXX". --hash is the safe path; the no-hash inference is racy.)
-
-### STEP 2 (research role): agent-spawn is the operating model
+### STEP 1 (research role): agent-spawn is the operating model
 
 Research is the director. Main session does judgment, strategy, direction, and 1-off important work. Sub-agents do the rote and heavy work — cell authoring, smoke iteration, landed-VET, atomization, dispatch, infra refinements.
 
@@ -81,7 +52,7 @@ Spawn `hdi_<role>` sub-agents via the Agent tool. Available roles: `hdi_exp_dev`
 
 If any answer is no: do it in main thread, defer, or serialize behind an in-flight spawn.
 
-**Spawn budget:** ≤3 agents in flight by default. USER may authorize exceeding.
+**Spawn budget:** ≤5 agents in flight by default (raised from 3 by USER 2026-07-02 based on session evidence of persistent bottlenecking with mature sub-agent instrumentation). USER may authorize further exceeding. Watch signals to tighten back: multiple agents on same file, race conditions on git commits, main-thread losing track of who's doing what.
 
 **Default to `run_in_background: true` for `hdi_*` spawns.** Foreground Agent calls BLOCK the main session — Director can't respond to USER, can't dispatch follow-up work, can't author docs. Background mode (`run_in_background: true`) returns an agentId, fires a notification on completion, and keeps the main session responsive throughout. Use foreground only when the very next action depends on the spawn's return value AND there's no other useful work to do meanwhile (rare).
 
@@ -89,44 +60,11 @@ If any answer is no: do it in main thread, defer, or serialize behind an in-flig
 
 **Violation tripwire:** if you see yourself typing `experiments/*.py` in an Edit tool or running smoke via Bash, that's the moment — STOP and spawn `hdi_exp_dev` instead.
 
-## Monitoring & cross-session event coordination (ALL SESSIONS READ THIS)
+## Notes directory (single-session model)
 
-The monitor infra spans 5 session-names (exp_dev, research, testbed, orchestrator, skunkworks) — one `notes_monitor` scheduled-task process per session-name. These are how spawned sub-agents and the research session observe new notes.
+`notes/` is for Director's session-internal artifacts (BACKUP doc, research decisions log, status digests). It is NOT a cross-session mailbox — the 4-session fleet model is dead. Sub-agents communicate via SendMessage (in-conversation), not via `notes/` files. Do NOT use `<from>_to_<recipient>_*.md` filenames; those came from the legacy ferry mechanism. Pick a topic-slug name that describes what the doc IS, not who it's TO.
 
-**Do NOT run your own heavy watcher loop** (per-session `find notes/ ... ; sleep` + ssh polling). N heavy scanners over ~3000 notes every few seconds overheat the laptop.
-
-**Canonical monitor: the v5 set-diff TZ-proof `notes_monitor.sh`.** Arm it via the Monitor tool with persistent:true:
-
-- Command: `bash tools/notes_monitor.sh <session>`  (`<session>` = skunkworks | research | exp_dev | testbed | orchestrator)
-- Each new note arrives as one stdout line: `NOTE-FOR-<SESSION>: <filename>.md`
-- 20-second poll cycle; uses `find notes -maxdepth 1 -name '*.md' -printf '%f\n'` (filenames-only -- cheap) + `comm -13` set-diff
-  (never reads the clock, so TZ change / DST jump / mtime granularity boundary CANNOT break it; each new note reported exactly once)
-- Filter: includes filenames containing `<session>` OR `to_all` OR `_all_`; excludes own outgoing (`^<session>_`)
-- **5 `notes_monitor.sh` processes are EXPECTED** (one per session). NOT cruft. Do not kill.
-
-**Event bus as backstop:** `tools/event_bus.sh` singleton (via `data/.event_bus.lock`; auto-started at logon by `tools/event_bus_launch.cmd` registered in the user Startup folder) is a SECONDARY routing path. Restart if dead: `rm -f data/.event_bus.lock && bash tools/event_bus.sh &`. Sessions may tail `data/events/<session>.log` as an additional sanity-check; v5 `notes_monitor.sh` is the load-bearing primary.
-
-**Deprecated** (do NOT relaunch these per-session watchers): `queue_watch.sh`, `notes_watch.sh`, `research_seen_v5`, `testbed_seen`, `watch_for_orchestrator.py`. The canonical v5 `notes_monitor.sh` is a DIFFERENT script and not in that deprecation list.
-
-Backstop-to-the-backstop: no monitor validates its own death. `find notes -maxdepth 1 -name '*.md'` against a known sender's recent file is the ground-truth manual cross-check. Verify-OUTPUT-not-liveness applies.
-
-## Note filename discipline
-
-**Cap: 120 chars total** (incl. `.md` extension) for `notes/<filename>.md`. Drift: many recent filenames hit 150-250+ chars; restated session lists; stuffed body content into filename.
-
-**Format:**
-```
-<from>_to_<recipient>_<TOPIC_SLUG>_<YYYY-MM-DD>.md
-```
-- `<recipient>` is single role (e.g. `skunkworks`) OR `cc_all` for broadcasts. Drop multi-role enumeration like `to_research_skunkworks_exp_dev_orchestrator_cc_all` — pick the primary recipient + put cc-list in note body.
-- `<TOPIC_SLUG>` ≈ 5-10 words snake_case + optional ALL_CAPS for emphasis. Headline-quality, not the whole abstract.
-- Multi-clause descriptions belong in the note body, not the filename.
-
-**Examples:**
-- BAD (156 chars): `testbed_to_research_skunkworks_exp_dev_orchestrator_FLEET_WAITING_ON_SUBSTRUCTURE_v2_section_template_2026-06-21.md`
-- GOOD (~70 chars): `testbed_to_all_FLEET_WAITING_SUBSTRUCTURE_v2_2026-06-21.md`
-
-**Why:** unreadable in terminal `ls`; hard to copy-paste; encourages stuffing context into filenames vs bodies; the v5 monitor's filter still works either way but the human + the dashboard parser don't.
+Filename cap: 120 chars (incl. `.md`). Topic-slug 5-10 words snake_case; optional ALL_CAPS for emphasis.
 
 ## Conventions
 
