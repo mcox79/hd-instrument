@@ -40,10 +40,19 @@ Pre-registered bands:
                FALSIFIED (physics law is N-dependent, would DEMOTE).
 
 Compute: torch complex64; auto CUDA if available, else CPU.
-  Peak GPU VRAM at NPROP=32000: props (32000, 16384) complex64 ~ 4.19GB
-    + sharded_codebook (32000, 16384) complex64 ~ 4.19GB
-    + smaller tensors ~ 100MB
-    -> ~ 8.5GB. Needs 10GB+ VRAM GPU.
+  Peak GPU VRAM at NPROP=32000 (chunked design; targets 8GB GPU):
+    - props (32000, 16384) complex64 = 4.19 GB (persistent)
+    - BUILD chunk (C=2000 rules, N=16384): ~1.2 GB peak transient
+      (A_c + B_c + product + cnorm intermediates including fp32 angle)
+    - CLEANUP chunk (CV=4000, N=16384): ~0.5 GB peak transient
+    - SHARDED sample: rule vecs at M query indices (M x N = 26 MB)
+    - BUNDLE: single (N,) vector accumulated across chunks (128 KB)
+    -> peak ~ 5.5 GB. Fits on 8GB GPU with ~2.5 GB headroom.
+  v1 first-attempt (unchunked) OOM'd on 8GB target (CUDA report:
+  cnorm intermediate ~2 GiB alone + props already 4.2 GB = >6 GB peak,
+  no headroom). Chunked build (never materializes full sharded_codebook)
+  + on-demand SHARDED query shards + chunked cleanup matmul (avoids
+  props.conj() full-copy transient) resolves.
   Batched cleanup matmul across all M queries at each phase point
   (per GPU-batching-mandatory USER 2026-07-02).
 
@@ -162,62 +171,109 @@ def cnorm_torch(v: torch.Tensor) -> torch.Tensor:
     return torch.polar(torch.ones_like(ang), ang).to(torch.complex64)
 
 
-def cleanup_argmax(queries: torch.Tensor, codebook: torch.Tensor) -> torch.Tensor:
+def cleanup_argmax_chunked(queries: torch.Tensor, codebook: torch.Tensor,
+                            chunk_size: int = 4000) -> torch.Tensor:
     """queries: (M, N) complex64; codebook: (V, N) complex64.
     Returns (M,) LongTensor of argmax indices under Re(queries @ conj(codebook).T).
+    Chunks over V to bound peak transient (avoids full codebook.conj() copy at
+    once; each chunk copies at most ~chunk_size*N*8 bytes = 0.5 GB at 4000/16384).
     """
-    sim = torch.matmul(queries, codebook.conj().T).real
-    return torch.argmax(sim, dim=1)
+    M = queries.shape[0]
+    V = codebook.shape[0]
+    device = queries.device
+    best_val = torch.full((M,), float("-inf"), device=device, dtype=torch.float32)
+    best_idx = torch.zeros((M,), device=device, dtype=torch.long)
+    for cs in range(0, V, chunk_size):
+        ce = min(cs + chunk_size, V)
+        # codebook[cs:ce] is a view; .conj().T is a conjugated view (no copy in
+        # eager mode). matmul may resolve the conjugation into a fused kernel or
+        # a bounded chunk-sized copy; either way peak is O(chunk_size*N) not O(V*N).
+        sim_c = torch.matmul(queries, codebook[cs:ce].conj().T).real  # (M, CV) fp32
+        vals_c, idxs_c = sim_c.max(dim=1)
+        mask = vals_c > best_val
+        best_val = torch.where(mask, vals_c, best_val)
+        best_idx = torch.where(mask, idxs_c + cs, best_idx)
+        del sim_c, vals_c, idxs_c, mask
+    return best_idx
 
 
 def run_phase_point(NPROP: int, M_queries: int, gen: torch.Generator,
-                     device: str) -> Dict[str, float]:
+                     device: str, build_chunk: int = 2000,
+                     cleanup_chunk: int = 4000) -> Dict[str, float]:
     """One (NPROP, seed) phase point; compute both SHARDED and BUNDLE
     accuracies + arm-differ hash. Substrate primitives invoked: bind
     (elementwise mul), bundle (sum), cleanup (matmul + argmax) -- >= 2
     per META_STORAGE_STRATEGY_COMPOSITION_DEPTH_PHYSICS_LAW_v1 primitive
-    invocation gate."""
+    invocation gate.
+
+    Chunked design (never materializes full (NPROP, N) sharded_codebook):
+      1. BUILD bundle_vec by iterating chunks of size build_chunk over NPROP.
+         For each chunk: form (C, N) rule_vec_c = cnorm(A_c * IMPL * B_c),
+         accumulate sum into bundle_vec, free chunk.
+      2. SHARDED cleanup: build rule vecs ON DEMAND only at M query indices
+         (M x N complex64 = 26 MB at M=200/N=16384). Never stores full codebook.
+      3. Cleanup argmax chunked over V (cleanup_argmax_chunked) so peak
+         transient during matmul is O(cleanup_chunk * N) not O(V * N).
+    """
     IMPL = cphasor_torch(1, N, gen, device)[0]                    # (N,)
-    props = cphasor_torch(NPROP, N, gen, device)                  # (NPROP, N)
+    props = cphasor_torch(NPROP, N, gen, device)                  # (NPROP, N) persistent
     perm = torch.randperm(NPROP, generator=gen, device=device)    # (NPROP,)
+    IMPL_bcast = IMPL.unsqueeze(0)                                # (1, N) view
 
-    # SHARDED codebook: rule_vec[a] = cnorm(props[a] * IMPL * props[nxt[a]])
-    # -- substrate primitive: BIND (elementwise mul)
-    A_vecs = props
-    B_vecs = props[perm]
-    IMPL_bcast = IMPL.unsqueeze(0)
-    sharded_codebook = cnorm_torch(A_vecs * IMPL_bcast * B_vecs)  # (NPROP, N)
+    # STEP 1: BUILD bundle_vec in chunks (never materialize full sharded_codebook).
+    # -- substrate primitives: BIND (elementwise mul) + BUNDLE (sum).
+    bundle_vec = torch.zeros(N, dtype=torch.complex64, device=device)
+    first_chunk_rules_bytes = None  # for arms-differ hash
+    for cs in range(0, NPROP, build_chunk):
+        ce = min(cs + build_chunk, NPROP)
+        A_c = props[cs:ce]                                        # (C, N) view
+        B_c = props[perm[cs:ce]]                                  # (C, N) indexed copy
+        rule_c = cnorm_torch(A_c * IMPL_bcast * B_c)              # (C, N) complex64
+        bundle_vec = bundle_vec + rule_c.sum(dim=0)               # (N,)
+        if cs == 0:
+            # Save first chunk bytes for arms-differ hash before it's freed.
+            first_chunk_rules_bytes = rule_c.detach().cpu().numpy().tobytes()
+        del A_c, B_c, rule_c
+        if device == "cuda":
+            torch.cuda.empty_cache()
 
-    # BUNDLE arm: sum of NPROP normalized phasors, single vector (N,).
-    # -- substrate primitive: BUNDLE (sum)
-    bundle_vec = sharded_codebook.sum(dim=0)                      # (N,)
-
+    # STEP 2: query indices + on-demand SHARDED rule vecs (M x N only).
     q_idx = torch.randint(0, NPROP, (M_queries,), generator=gen, device=device)
-    A_q = props[q_idx]
-    gold_indices = perm[q_idx]
-
-    # SHARDED arm: index shard, unbind (conjugate mul = BIND primitive),
-    # then CLEANUP (matmul + argmax).
-    unbind_sharded = sharded_codebook[q_idx] * A_q.conj() * IMPL.conj().unsqueeze(0)
-    pred_sharded = cleanup_argmax(unbind_sharded, props)
+    A_q = props[q_idx]                                            # (M, N)
+    B_q = props[perm[q_idx]]                                      # (M, N)
+    gold_indices = perm[q_idx]                                    # (M,)
+    # SHARDED per-antecedent rule vecs at query positions (on demand, small).
+    rule_q = cnorm_torch(A_q * IMPL_bcast * B_q)                  # (M, N)
+    # Unbind: rule_q * conj(A_q) * conj(IMPL). -- BIND primitive (elementwise).
+    unbind_sharded = rule_q * A_q.conj() * IMPL.conj().unsqueeze(0)  # (M, N)
+    # CLEANUP against props (chunked over V) -- CLEANUP primitive.
+    pred_sharded = cleanup_argmax_chunked(unbind_sharded, props, cleanup_chunk)
     acc_sharded = (pred_sharded == gold_indices).float().mean().item()
+    del rule_q, unbind_sharded
 
-    # BUNDLE arm: unbind bundle vector; CLEANUP against props.
-    bundle_bcast = bundle_vec.unsqueeze(0).expand(M_queries, -1)
-    unbind_bundle = bundle_bcast * A_q.conj() * IMPL.conj().unsqueeze(0)
-    pred_bundle = cleanup_argmax(unbind_bundle, props)
+    # STEP 3: BUNDLE arm. Unbind single bundle vector; CLEANUP against props.
+    bundle_bcast = bundle_vec.unsqueeze(0).expand(M_queries, -1)  # (M, N) broadcast
+    unbind_bundle = bundle_bcast * A_q.conj() * IMPL.conj().unsqueeze(0)  # (M, N)
+    pred_bundle = cleanup_argmax_chunked(unbind_bundle, props, cleanup_chunk)
     acc_bundle = (pred_bundle == gold_indices).float().mean().item()
+    del unbind_bundle
 
-    # META_RULE_AF: arms must differ. Hash sharded_codebook vs bundle_vec.
-    shard_bytes = sharded_codebook.detach().cpu().numpy().tobytes()
+    # META_RULE_AF: arms must differ. Hash first chunk of SHARDED rule vectors
+    # vs BUNDLE vec. Both are legitimate storage representations of the same
+    # underlying (A, IMPL, B) triples; they MUST differ bit-wise by design
+    # (BUNDLE is superposition; SHARDED is per-antecedent).
+    if first_chunk_rules_bytes is None:
+        # Extremely small NPROP < build_chunk; recompute over full range for hash
+        # (already covered by BUILD loop -- this branch shouldn't fire).
+        raise RuntimeError("first_chunk_rules_bytes not captured; build_chunk logic bug")
     bundle_bytes = bundle_vec.detach().cpu().numpy().tobytes()
-    shard_hash = hashlib.sha256(shard_bytes).hexdigest()[:16]
+    shard_hash = hashlib.sha256(first_chunk_rules_bytes).hexdigest()[:16]
     bundle_hash = hashlib.sha256(bundle_bytes).hexdigest()[:16]
     assert shard_hash != bundle_hash, \
-        f"META_RULE_AF violation: sharded and bundle storage bit-identical at NPROP={NPROP}"
+        f"META_RULE_AF violation: sharded first-chunk and bundle bit-identical at NPROP={NPROP}"
 
-    # Free large intermediate tensors before next phase point (VRAM discipline).
-    del sharded_codebook, bundle_vec, props, A_vecs, B_vecs, IMPL_bcast
+    # Free large tensors before next phase point (VRAM discipline).
+    del props, perm, IMPL, IMPL_bcast, bundle_vec, A_q, B_q, bundle_bcast
     if device == "cuda":
         torch.cuda.empty_cache()
 
@@ -228,6 +284,8 @@ def run_phase_point(NPROP: int, M_queries: int, gen: torch.Generator,
         "acc_bundle": round(float(acc_bundle), 4),
         "sharded_hash": shard_hash,
         "bundle_hash": bundle_hash,
+        "build_chunk": int(build_chunk),
+        "cleanup_chunk": int(cleanup_chunk),
     }
 
 
@@ -271,24 +329,35 @@ def _selftest() -> None:
 
 def _selftest_point(NPROP: int, M_queries: int, N_test: int,
                      gen: torch.Generator) -> Dict[str, float]:
-    """Reduced-N variant of run_phase_point for fast formula validation."""
+    """Reduced-N variant of run_phase_point for fast formula validation.
+    Uses the SAME chunked codepath as the FULL run (build+cleanup chunked)
+    so selftest verifies the actual mechanism that will run in FULL. Overrides
+    the module-global N by temporarily aliasing local IMPL/props at N_test."""
     IMPL = cphasor_torch(1, N_test, gen, DEVICE)[0]
     props = cphasor_torch(NPROP, N_test, gen, DEVICE)
     perm = torch.randperm(NPROP, generator=gen, device=DEVICE)
-    A_vecs = props
-    B_vecs = props[perm]
     IMPL_bcast = IMPL.unsqueeze(0)
-    sharded_codebook = cnorm_torch(A_vecs * IMPL_bcast * B_vecs)
-    bundle_vec = sharded_codebook.sum(dim=0)
+    # BUILD bundle_vec chunked
+    build_chunk = 1000
+    bundle_vec = torch.zeros(N_test, dtype=torch.complex64, device=DEVICE)
+    for cs in range(0, NPROP, build_chunk):
+        ce = min(cs + build_chunk, NPROP)
+        A_c = props[cs:ce]
+        B_c = props[perm[cs:ce]]
+        rule_c = cnorm_torch(A_c * IMPL_bcast * B_c)
+        bundle_vec = bundle_vec + rule_c.sum(dim=0)
+        del A_c, B_c, rule_c
     q_idx = torch.randint(0, NPROP, (M_queries,), generator=gen, device=DEVICE)
     A_q = props[q_idx]
+    B_q = props[perm[q_idx]]
     gold = perm[q_idx]
-    us = sharded_codebook[q_idx] * A_q.conj() * IMPL.conj().unsqueeze(0)
-    ps = cleanup_argmax(us, props)
+    rule_q = cnorm_torch(A_q * IMPL_bcast * B_q)
+    us = rule_q * A_q.conj() * IMPL.conj().unsqueeze(0)
+    ps = cleanup_argmax_chunked(us, props, chunk_size=2000)
     acc_s = (ps == gold).float().mean().item()
     bb = bundle_vec.unsqueeze(0).expand(M_queries, -1)
     ub = bb * A_q.conj() * IMPL.conj().unsqueeze(0)
-    pb = cleanup_argmax(ub, props)
+    pb = cleanup_argmax_chunked(ub, props, chunk_size=2000)
     acc_b = (pb == gold).float().mean().item()
     if DEVICE == "cuda":
         torch.cuda.empty_cache()

@@ -101,12 +101,19 @@ If smoke fires (SHARDED >= 0.95 AND BUNDLE < 0.10 at NPROP=32000; gap >= 0.85), 
 
 **Rationale:** cleanup at (M=200, N=16384, V=32000) is a matmul ~1.05e11 complex ops per phase point; on CPU numpy would be ~1-2 min per matmul (sequential-CPU untenable), on GPU torch ~1-3s. Total FULL wall (5 points x 2 arms x 200 queries): ~15-40s on CUDA (extrapolating from CG cell's 4.7s at N=8192 x ~4x memory/compute for 2x N + reduced grid), CPU-torch ~5-15 min. Per-phase-point wall > 10s on CPU triggers batching-candidate rule; GPU-batched design chosen (USER-locked 2026-07-02).
 
-**Peak GPU VRAM:** at NPROP=32000, N=16384:
-  - `props` (32000, 16384) complex64 = 4.19GB
-  - `sharded_codebook` (32000, 16384) complex64 = 4.19GB
-  - overhead (query/unbind/cleanup intermediates): ~200MB
-  - **Peak ~8.5GB; needs 10GB+ VRAM GPU.**
-  Cell issues `torch.cuda.empty_cache()` after each phase point + `del` of large tensors before next phase to reduce peak.
+**Peak GPU VRAM (chunked design; targets 8GB GPU):** at NPROP=32000, N=16384:
+  - `props` (32000, 16384) complex64 = 4.19 GB (persistent throughout phase point)
+  - BUILD chunk (C=2000 rules, N=16384): peak transient ~1.2 GB
+    (A_c + B_c copies + product + cnorm intermediates including fp32 angle)
+    -- Full (NPROP=32000, N) sharded_codebook is NEVER materialized.
+  - SHARDED query shards on demand (M=200, N): 26 MB
+  - CLEANUP chunk (CV=4000, N): peak transient ~0.5 GB (avoids props.conj() full-copy)
+  - BUNDLE: single (N,) vector accumulated across chunks (128 KB)
+  - **Peak ~ 5.5 GB. Fits on 8GB GPU with ~2.5 GB headroom.**
+  Cell issues `torch.cuda.empty_cache()` after each BUILD chunk + after phase point + `del` of large tensors between chunks.
+
+**v1 first-attempt (unchunked) OOM history (2026-07-02):**
+  All 3 seeds CELL_CRASHED on 8GB target GPU: full-size `cnorm_torch(A * IMPL * B)` at NPROP=32000 created intermediate fp32 angle tensor (~2 GiB) simultaneously with existing 4.2 GB props allocation -> peak >6 GiB alongside runner baseline -> OOM at line 189 (`sharded_codebook = ...`). Fix: chunked BUILD (never materialize full codebook) + on-demand SHARDED query shards + chunked cleanup matmul (`cleanup_argmax_chunked`). Selftest and smoke reproduce v1 discriminator numbers bit-shape: SHARDED=1.0 at all points; BUNDLE=0.5/0.067/0.0 at NPROP=2000/8000/32000. Chunked matmul is also 2x faster on CPU (17s vs 36s smoke) due to reduced memory pressure. Requires 3-seed FULL re-dispatch with `--allow-duplicate` per SH-6.
 
 **Fallback:** if `torch.cuda.is_available() == False`, cell runs on CPU-torch (still batched matmul). Cell will not fail; will simply run slower.
 
