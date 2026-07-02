@@ -38,6 +38,66 @@
 
 **⚠️ Session-tally correction 2 (main-thread disk-audit late evening):** Disk-truth via python-filter on ts/ts_added/atom_id fields returns **26 math + 15 meta = 41 unique atoms filed today** — substantially below the running Skunkworks "math=55, meta=25" tally. Skunkworks tally likely uses `grep -c '2026-07-02'` which counts LINES (atoms reference today's date in multiple body fields), or a running atomize-script counter not matched to disk truth. Tier breakdown (disk): ~19 CG-family + 11 MM + 3 HF + 3 MB + 2 DISCIPLINE + 1 DEMOTE_PARTIAL + T3/T4 tags. Real session productivity was strong but the 36 CG framing above is likely 1.5-2x inflated. Fix #28 recurrence — I've been propagating Skunkworks counts without disk verification. Filed durable audit method.
 
+## LATE-EVENING UPDATES (post-brain-best-in-class + 5x drill + Stage 2 launch)
+
+**USER strategic pivot 2026-07-02 late evening:**
+- Filed durable: `project_brain_function_is_best_in_class_reference_standard_USER_LOCKED_2026-07-02.md` — brain is reference standard for substrate design
+- M1.9/M1.10/M1.11 reframed as diagnostic probes; substrate-product primitives require concept vectors from brain-analog encoder (Stage 2)
+
+**Diagnostic algebra chain (M1.9 + M1.10 + M1.11):**
+- M1.9 CG'd + extracted to hdlab/semantic_parser.py (c0ef97b5b)
+- M1.10 CG'd (HYBRID frame 0.912 slot 1.000; M1.9↔M1.10 roundtrip intent 0.893 slot 1.000) — Skunkworks a22195d5 landed
+- M1.9↔M1.10 roundtrip META atom filed MM_TENTATIVE_SYNTHESIS with expansion path to CG_META
+- hdlab/binding.py primitive-level .contiguous() guard added (c42e1ac4b) — prevents future MKL FFT crashes on expand_as views
+- M1.11 v3 smoke HP spectacular; FULL crashed on dtype; fixed with scale-sentinel selftest; LOCAL FULL HARD_PASS (REC LOW=0.972 HIGH=0.919 cv 0.007/0.025); orchestrator remote redispatch af097183 in flight
+- **If M1.11 remote FULL confirms local: 3-primitive chain → META `SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS` MM_TENTATIVE → CG_META**
+
+**Stage 2 concept encoder arc LAUNCHED:**
+- Spoke 1 v1 designed + smoke MB
+- Spoke 1 v2 with reframed HP + naive-WTA control + 5 seeds — smoke HP but HYBRID ≈ COMPETITIVE_ONLY (delta 0.010 within cv 0.377)
+- Spoke 2 (Foldiak trace / temporal contiguity) designed
+- Spoke 3 (DG-expansion + Marr-CA3 + CLS replay-consolidation) designed
+- Spokes 1+2+3 cover 6/6 brain properties → Spoke 4 reframed as optional refinement
+
+**5x drill on PC-earning-complexity (6 of 6 convergent):**
+1. Neuroscience + biology: WTA base + PC top-down modulation (P=0.30 flat; compound 0.85 inverted)
+2. Physics + spin-glass: no α_c gain from PC term in Hamiltonian; capacity axis is interaction-order
+3. Physics + non-eq thermo: no thermodynamic advantage for iterative PC over single-shot WTA
+4. Math + info theory: PC ≈ WTA under precision→uniform (Nessler 2013); P_deflated=0.22 generic / 0.40 conditional (correlated/heteroscedastic/temporal)
+5. ML/AI literature: PC doesn't earn complexity; SoftHebb (Journe 2023) competitive-only recommended; P_deflated=0.22
+6. **Empirical drill on our code (a51e4c): DECISIVE FALSIFICATION.** PC does NOT earn complexity in ANY tested config (Variant A W_ALPHA sweep {0.10, 0.5, 1.0} → Δintra = {-0.038, -0.173, -0.238}; Variant B post-mask null). Seed 29 pathology root-caused (intrinsic PC failure mode; asymmetric W amplification hijacks top-K). Recommended V3-D drop PC.
+
+**Filed:** `reference_5x_drill_convergence_PC_redundant_with_WTA_for_concept_encoding_Spoke1_2026-07-02.md` (durable)
+
+**Spoke 1 v3-D authoring FIRED (a9167ee4):** competitive-Hebbian sparse coding ALONE (Foldiak/Kohonen/SoftHebb-analog); 5 arms × 3 seeds. Cell-author will HOLD before FULL dispatch for USER approval.
+
+**Spoke 2 design amended (7218d6cba):** Foldiak trace confirmed as correct home for PC in Stage 2. Optional hierarchical PC stretch arm added per Salvatori 2021.
+
+**Session-tally correction (Fix #28 recurrence, main-thread disk audit):** was quoting 69 atoms; disk truth 41 unique (26 math + 15 meta) via ts/ts_added/atom_id filter. Skunkworks running counters may inflate. Filed durable audit method: `feedback_session_tally_disk_audit_method_ts_ts_added_atom_id_filter_USER_2026-07-02.md`
+
+**Substrate-KB critical fix (testbed af1356222 + afe02f78):**
+- Root-caused: 512KB body-size limit silently rejecting Stage 1 atoms (meta atoms.jsonl was 995KB; math 36MB)
+- Fixed to 128MB; ingest ran +87K triples ingested
+- Then unified two KBs (option b): 970K entities + 1.6M triples in single index
+- Deprecated redundant chunk KB
+- Continuous ingest daemon hardened with retry + stale-staging sweep
+- Verification query on USER's original phrase "storage strategy sharded bundled scale free topology physics law" → cosine 0.5381 on target (bag-word encoder ceiling)
+
+**Infra flag:** director_kb_query.py OOMs on 7.4GB embed matrix post-unify; multiple drills hit this; testbed aeaf906c firing now to fix (chunked/mmap/quantized load)
+
+**Bias-checklist META candidates filed:**
+- `feedback_smoke_code_path_must_exercise_same_branches_as_FULL_META_RULE_candidate_USER_2026-07-02.md`
+- `feedback_session_tally_disk_audit_method_ts_ts_added_atom_id_filter_USER_2026-07-02.md`
+
+**In flight end-of-session (3):**
+- af097183 orchestrator waiting for M1.11 v3 remote FULL landing
+- a9167ee4 exp_dev authoring Spoke 1 v3-D competitive-Hebbian-only cell
+- aeaf906c testbed fixing KB query OOM
+
+**Two decisions pending USER:**
+1. Spoke 1 v3-D smoke result → approve FULL dispatch (author will hold)
+2. Delete 3GB substrate_director_kb_chunk_v1/ stale dir
+
 ## POST-M1.9 UPDATES
 
 **M1.9 SemanticParser FULL landed CG** (Skunkworks a508452e, commit not yet by Skunkworks). Intent=0.898 (cv 0.026), slot=1.000. Ablation collapses: M16-router-no-unbind slot=0.021, shuffled-role slot=0.017, Hebbian-intent-only=0.023 (chance for 50-way). META candidate `HEBBIAN_CLASSIFIER_REGIME_NARROW_FOR_COMPOSITIONAL_BUNDLE_INPUTS` = MM_TENTATIVE (not CG).
