@@ -401,8 +401,12 @@ def _measure_slot_fill(
     input_t = torch.from_numpy(response_hds.astype(np.float32))
     for r in range(N_ROLES):
         # SUBSTRATE PRIMITIVE: HRR unbind (batched via broadcast)
+        # .contiguous() required: expand_as produces a non-contiguous view and
+        # Windows MKL FFT rejects it with "Inconsistent configuration parameters".
+        # Mirror of the fix at line 758 (self-test path).
         role_key_t = torch.from_numpy(response_role_keys[r].astype(np.float32))
-        unbound_t = hd_unbind(input_t, role_key_t.unsqueeze(0).expand_as(input_t))
+        role_key_expanded = role_key_t.unsqueeze(0).expand_as(input_t).contiguous()
+        unbound_t = hd_unbind(input_t, role_key_expanded)
         unbound = unbound_t.numpy().astype(np.float32)
         # SUBSTRATE PRIMITIVE: k_NN_lookup on per-role SHARDED slot dict
         _, diag = k_NN_lookup(unbound, slot_dicts[r], k=1)
