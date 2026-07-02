@@ -1,0 +1,63 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: delta=0.00e+00 <= 0.05; composed_min=1.0000 >= 0.95; ablated_max=0.0933 <= 0.2 (uniform floor 1/sqrt(M=128)=0.0884)",
+  "summary": "HARD_PASS: delta_ci=0.00e+00, composed=1.0000, ablated=0.0933",
+  "cardinality_ok": true,
+  "n_units": 3,
+  "expected_n_units": 3,
+  "max_delta_composed_individual": 0.0,
+  "per_seed_delta": [
+    0.0
+  ],
+  "composed_mean": 1.000000011920929,
+  "composed_min": 1.000000011920929,
+  "individual_mean": 1.000000011920929,
+  "ablated_mean": 0.0933098112543424,
+  "ablated_max": 0.0933098112543424,
+  "uniform_floor_theoretical": 0.08838834764831843,
+  "m_tape": 128,
+  "elapsed_s": 0.3330759000091348,
+  "run_mode": "smoke",
+  "anchor_name": "exp_cortex_integration_m16_attention_router_v1",
+  "ts_iso": "2026-07-02T19:31:18.410394+00:00",
+  "seeds": [
+    7
+  ],
+  "q_queries": 15,
+  "arm_code_path_fingerprints": {
+    "composed": "0ec5d229be52ebe0",
+    "individual": "796b59f761dbc404",
+    "ablated": "8f33a750383240a6"
+  },
+  "arms_differ_verified": true,
+  "storage_strategy": "SHARDED_M_distinct_keys_vals_single_hop",
+  "compute_architecture": "mixed_cpu_torch_sequential_forward",
+  "per_seed": {
+    "7": {
+      "composed": 1.000000011920929,
+      "individual": 1.000000011920929,
+      "ablated": 0.0933098112543424
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "arm": "composed",
+      "metric": 1.000000011920929,
+      "failure_class": null
+    },
+    {
+      "seed": 7,
+      "arm": "individual",
+      "metric": 1.000000011920929,
+      "failure_class": null
+    },
+    {
+      "seed": 7,
+      "arm": "ablated",
+      "metric": 0.0933098112543424,
+      "failure_class": null
+    }
+  ],
+  "primitive_tested": "m16_chunked_attention_readout_via_cortex_forward"
+}
