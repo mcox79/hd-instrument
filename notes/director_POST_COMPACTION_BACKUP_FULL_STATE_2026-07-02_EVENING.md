@@ -20,6 +20,22 @@
 
 **Corrected session tally:** 36 CG + 4 CG_META + 20 MM + 3 HF + 3 MB + 3 AMEND (math=54, meta=24 on disk).
 
+## STAGE 2 STRATEGIC PIVOT (post-brain-best-in-class USER-lock)
+
+**USER 2026-07-02:** brain function is best-in-class reference standard (LOCKED). See `~/.claude/projects/d--AI/memory/project_brain_function_is_best_in_class_reference_standard_USER_LOCKED_2026-07-02.md`. M1.9/M1.10/M1.11 mechanism proofs reframed as diagnostic probes (Path A/B analog); NOT substrate-product primitives. Substrate-product primitives require concept-vector inputs from a brain-analog encoder — NONE currently exists.
+
+**Stage 2 arc (concept encoder) LAUNCHED 2026-07-02 evening:**
+- **Spoke 1 (predictive coding + competitive allocation + char+positional):** cell-author a443868c in flight; design at `notes/design_stage2_concept_encoder_spoke1_predictive_coding_competitive_allocation_2026-07-02.md`. Uses `hdlab/{predictive_coding,excitability,binding}.py` + new `char_positional_encoder.py` + new `concept_encoder.py`. HP targets: cat/kitten cos ≥0.4, cat/airplane cos ≤0.1, sparse-rate 1-3%, cv<0.15. Est 3-5 days.
+- **Spoke 2 (Foldiak trace / temporal contiguity):** DESIGN LANDED. `notes/design_stage2_concept_encoder_spoke2_temporal_contiguity_slow_feature_analysis_2026-07-02.md`. Recommends Option A Foldiak trace — one-line Spoke 1 Hebbian modification + `hdlab/temporal_trace.py` ~50 lines. P_CG=0.35 conditional. Est 3-5 days post-Spoke-1.
+- **Spoke 3 (sparse hippocampal DG+CA3 + CLS replay):** DESIGN LANDED. `notes/design_stage2_concept_encoder_spoke3_sparse_hippocampal_pattern_separation_one_shot_2026-07-02.md`. Parallel path: DG-expansion + Marr-CA3 + `continual.py::replay_cycle` consolidation. 3 explicit differences from falsified 2026-06-23 sparse_engram HF. P_CG=0.10 conditional on Spokes 1+2 (P_MM=0.30). Est 5-7 days post-Spokes-1+2.
+- **Spoke 4 REFRAMED as optional:** Spokes 1+2+3 composed cover 6/6 brain-property criteria per Spoke 3 research drill. Grounding property is covered by Spoke 3 CLS replay + Spoke 1 prediction-error gate. Spoke 4 → refinement only if empirical evidence shows 6/6 insufficient.
+
+**Revised total arc:** Spokes 1+2+3 = ~3-6 weeks (down from original 6-10). Then KB migration to concept-encoder encoding (~1 week). Then M1.9/M1.10/M1.11 re-validation on concept vectors (~1 week). Total: **4-8 weeks to brain-best-in-class substrate-owned concept encoder + downstream re-grounding**.
+
+**Prior-work HF surfaced:** `reference_sparse_engram_allocation_v1_FULL_HF_naive_WTA_falsified_2026-06-23.md` — pure sparse-competitive-allocation-via-collision-sampling FALSIFIED at N=4096 M=10K (competitive-K10: noise=0.065 vs dense 1.000). Both Spoke 1 and Spoke 3 designs explicitly reference + avoid this mechanism.
+
+**Session extras:** M1.9 CG (0.898/1.000); M1.9 hdlab extraction (c0ef97b5b); M1.10 v1 diagnostic cell-author a9750e9d in flight (uses idle remote CPU); Substrate-KB primary fixed (+87K triples ingested; TOPOLOGY_FREE at cosine 0.79); Canonical query wrapper being unified via testbed afe02f78 (path (b)).
+
 **⚠️ Session-tally correction 2 (main-thread disk-audit late evening):** Disk-truth via python-filter on ts/ts_added/atom_id fields returns **26 math + 15 meta = 41 unique atoms filed today** — substantially below the running Skunkworks "math=55, meta=25" tally. Skunkworks tally likely uses `grep -c '2026-07-02'` which counts LINES (atoms reference today's date in multiple body fields), or a running atomize-script counter not matched to disk truth. Tier breakdown (disk): ~19 CG-family + 11 MM + 3 HF + 3 MB + 2 DISCIPLINE + 1 DEMOTE_PARTIAL + T3/T4 tags. Real session productivity was strong but the 36 CG framing above is likely 1.5-2x inflated. Fix #28 recurrence — I've been propagating Skunkworks counts without disk verification. Filed durable audit method.
 
 ## POST-M1.9 UPDATES
