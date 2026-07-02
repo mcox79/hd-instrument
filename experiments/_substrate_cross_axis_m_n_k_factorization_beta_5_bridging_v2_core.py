@@ -220,7 +220,13 @@ K_GRID_FULL = [100, 4000]        # 40x K-spread (USER-specified)
 # crashed numpy.choice(replace=False); smoke grid at M in {512, 2048},
 # K in {20, 100} NEVER hit K > M so bug escaped smoke. NEW smoke K=1000
 # > smoke M=512 exercises the fixed replace=True path.
-M_GRID_SMOKE = [512, 2048]
+M_GRID_SMOKE = [512, 16384]  # v2 iteration 2026-07-02: widened smoke M spread
+# to fire discriminator at smoke. v1 beta=8 smoke used [512, 2048] which was
+# too narrow — DIS_beta5 M-axis range at [512, 2048] = 0.038 (below smoke
+# 0.15 floor). Iter1 [512, 8192] at beta=5: MEASURED range 0.142 (STILL below
+# 0.15 smoke floor by 0.008). Iter2 [512, 16384]: MEASURED preview_corner
+# recall at (M=16384, N=8192, K=500, beta=5) = 0.7564, so M=16384 in smoke
+# grid should produce recall ~0.65-0.85 depending on N/K, giving range ~0.15-0.35.
 N_GRID_SMOKE = [1024, 2048]
 K_GRID_SMOKE = [20, 1000]
 
