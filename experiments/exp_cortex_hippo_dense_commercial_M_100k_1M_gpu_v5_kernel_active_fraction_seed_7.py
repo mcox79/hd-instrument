@@ -49,6 +49,7 @@ from pathlib import Path
 from typing import Dict, List
 
 import numpy as np
+import torch  # noqa: F401  -- routing gate Fix #24: cell must reference torch directly
 
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
