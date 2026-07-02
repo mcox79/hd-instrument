@@ -234,8 +234,9 @@ def build_kb_queries_deterministic(seed: int, regime_name: str, p_target: float,
         pool[i] = q
 
     # --- v2-semantic labeling: label = (top-K contains a false-fact idx) ---
-    K_aug_t = torch.from_numpy(kb_aug).to(DEVICE)
-    pool_t = torch.from_numpy(pool).to(DEVICE)
+    # Pin float32 explicitly (guards against env-dependent numpy->torch upcast).
+    K_aug_t = torch.from_numpy(kb_aug.astype(np.float32, copy=False)).to(DEVICE, dtype=torch.float32)
+    pool_t = torch.from_numpy(pool.astype(np.float32, copy=False)).to(DEVICE, dtype=torch.float32)
     with torch.no_grad():
         sims_pool = pool_t @ K_aug_t.T
         topk_idx = torch.topk(sims_pool, k=topk, dim=1).indices.detach().cpu().numpy()
@@ -298,6 +299,13 @@ def auc_of(risk, lab):
 
 
 def _batched_cleanup(Q_t, K_t):
+    # Defensive dtype pin: prevent env-dependent numpy->torch float64 drift
+    # (v3 remote FULL crash 2026-07-02: RuntimeError expected same dtype, got
+    # float != double; caller path had K_aug promoted via numpy operation).
+    if Q_t.dtype != torch.float32:
+        Q_t = Q_t.to(dtype=torch.float32)
+    if K_t.dtype != torch.float32:
+        K_t = K_t.to(dtype=torch.float32)
     sims = Q_t @ K_t.T
     logits = BETA * sims
     p = torch.softmax(logits, dim=1)
@@ -389,8 +397,33 @@ def _selftest():
         assert abs(observed - expected) < 1e-9, \
             f"determinism selftest: observed={observed} expected={expected}"
 
+    # SCALE SENTINEL (2026-07-02 bias-checklist fix): exercise the FULL-N
+    # K_aug augmentation code path in selftest so any env-dependent dtype
+    # drift is caught before dispatch (not after 30min FULL run). Small
+    # n_test/n_clust keep wall <5s but N_dim=8192 matches FULL.
+    for regime_name_s, p_s in [("REGIME_LOW", 0.20), ("REGIME_HIGH", 0.50)]:
+        bundle_s = build_kb_queries_deterministic(
+            seed=42, regime_name=regime_name_s, p_target=p_s,
+            n_dim=8192, n_clust=10, per=10, intra_cos=0.35,
+            n_test=20, topk=5,
+        )
+        K_aug_t_s = torch.from_numpy(
+            bundle_s["kb_aug"].astype(np.float32, copy=False)
+        ).to(DEVICE, dtype=torch.float32)
+        Q_t_s = torch.from_numpy(
+            bundle_s["queries"].astype(np.float32, copy=False)
+        ).to(DEVICE, dtype=torch.float32)
+        assert K_aug_t_s.dtype == torch.float32, \
+            "scale-sentinel K_aug dtype drift: %s" % K_aug_t_s.dtype
+        assert Q_t_s.dtype == torch.float32, \
+            "scale-sentinel Q dtype drift: %s" % Q_t_s.dtype
+        cleaned_s, p_s_t, _ = _batched_cleanup(Q_t_s, K_aug_t_s)
+        _ = _batched_reconstruction_err(cleaned_s, K_aug_t_s)
+        _ = _batched_sigma_max_J(Q_t_s, K_aug_t_s, cleaned_s, p_s_t, n_iters=2)
+        assert bundle_s["n_false"] > 0, "scale-sentinel augmentation branch not exercised"
+
     print("[selftest] PASS: dE=%.4f sJ=%.3f REC=%.4f arms-differ-OK "
-          "AUC-bounds-OK determinism-OK (device=%s)"
+          "AUC-bounds-OK determinism-OK scale-sentinel-OK (device=%s)"
           % (float(r_dE.mean()), float(r_sJ.mean()), float(r_REC.mean()), DEVICE), flush=True)
 
 
@@ -453,8 +486,12 @@ def run_seed_regime(seed: int, regime_name: str, p_target: float) -> Dict:
     queries = bundle["queries"]
     labels = bundle["labels"]
 
-    K_aug_t = torch.from_numpy(kb_aug).to(DEVICE)
-    Q_t = torch.from_numpy(queries).to(DEVICE)
+    # Pin float32 explicitly (defensive: guards against numpy path upcasting
+    # to float64 in some env configurations; see _batched_cleanup comment).
+    K_aug_t = torch.from_numpy(kb_aug.astype(np.float32, copy=False)).to(DEVICE, dtype=torch.float32)
+    Q_t = torch.from_numpy(queries.astype(np.float32, copy=False)).to(DEVICE, dtype=torch.float32)
+    assert K_aug_t.dtype == torch.float32 and Q_t.dtype == torch.float32, \
+        "dtype pin failed: K_aug=%s Q=%s" % (K_aug_t.dtype, Q_t.dtype)
 
     cleaned, p, _ = _batched_cleanup(Q_t, K_aug_t)
     delta_E = ((cleaned - Q_t) ** 2).sum(dim=1).detach().cpu().numpy()
