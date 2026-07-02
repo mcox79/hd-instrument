@@ -5,9 +5,12 @@ M1.7 RoleSlotSummarizer + M1.8 ClarifyGate into a single Cortex facade with a
 uniform forward() API. Phase 2 of cortex integration; Phase 1 (primitive
 extraction) landed as separate modules 2026-07-02.
 
-M1.3 NoiseChannel is OUT OF SCOPE this phase (see project_M3_cortex_layer_must_
-inject_stochastic_noise_at_boundary_2026-06-30.md); Phase 2b will add it as a
-CortexConfig hook if the Phase 3 integration test requires stochastic coupling.
+M1.3 NoiseChannel: Phase 2b landed 2026-07-02 -- extracted to
+hdlab/noise_channel.py and wired into this facade via
+CortexConfig.noise_channel_enabled + noise_channel_sigma_boundary. When
+enabled, NoiseChannel.inject() runs on the (normalized) query BEFORE the
+retrieval path (M1.6 router OR M1.5 context read), so downstream primitives
+see the stochastic-coupled boundary per USER-locked 2026-06-30 directive.
 
 ============================================================================
 COMPUTE ARCHITECTURE (mandatory per USER-locked storage-strategy substrate
@@ -19,6 +22,7 @@ The Cortex facade owns NO first-class compositional storage of its own; it
 holds only references to sub-primitives and per-call provenance scratch. Each
 sub-primitive preserves its own declared storage strategy verbatim:
 
+  - M1.3 NoiseChannel:       NO_STORAGE (stateless additive-Gaussian boundary injector)
   - M1.5 TwoTierContext:    MIXED (STM sharded across banks + LTM dense-Hopfield tape)
   - M1.7 RoleSlotSummarizer: SHARDED (S-way per-role slot buffers; NESTED for RECURSIVE)
   - M1.8 ClarifyGate:        NO_STORAGE (stateless read-only two-threshold gate)
@@ -54,6 +58,7 @@ import torch
 from hdlab.chunked_attention import chunked_attention_readout
 from hdlab.clarify_gate import ClarifyGate, GateOutcome
 from hdlab.context_retention import TwoTierContext
+from hdlab.noise_channel import NoiseChannel
 from hdlab.refuse_gate import apply_refuse
 from hdlab.role_slot_summarizer import RoleSlotSummarizer
 
@@ -81,7 +86,13 @@ class CortexConfig:
         attention_chunk_size: M1.6 chunk size for streaming attention.
         attention_beta: M1.6 softmax sharpness.
         enable_role_slot_summary: whether to invoke M1.7 for provenance.
-        noise_channel_enabled: Phase 2b placeholder; must be False here.
+        noise_channel_enabled: whether to inject M1.3 boundary noise on query
+            BEFORE the retrieval path (Phase 2b landed 2026-07-02). Default
+            False preserves Phase 2 backwards-compat (no noise injection).
+        noise_channel_sigma_boundary: sigma for M1.3 NoiseChannel injection
+            when noise_channel_enabled=True. Typical 0.05-0.15 per USER
+            2026-06-30 M3 cortex directive; 0.05 default ('light' regime).
+            Ignored when noise_channel_enabled=False.
         seed: torch.Generator seed for sub-primitive codebook builds.
     """
     n_dim: int = 8192
@@ -96,13 +107,14 @@ class CortexConfig:
     attention_beta: float = 13.0
     enable_role_slot_summary: bool = True
     noise_channel_enabled: bool = False
+    noise_channel_sigma_boundary: float = 0.05
     seed: int = 0
 
     def __post_init__(self):
-        if self.noise_channel_enabled:
-            raise NotImplementedError(
-                "noise_channel_enabled=True reserved for Phase 2b M1.3 "
-                "NoiseChannel extraction; not implemented in Phase 2 facade.")
+        if self.noise_channel_sigma_boundary < 0.0:
+            raise ValueError(
+                f"noise_channel_sigma_boundary must be >= 0; got "
+                f"{self.noise_channel_sigma_boundary}")
 
 
 @dataclass
@@ -173,6 +185,20 @@ class Cortex:
             clarify_tau=config.clarify_gate_lower_tau,
             refuse_tau=config.clarify_gate_upper_tau,
         )
+        # M1.3 NoiseChannel (Phase 2b): stochastic coupling at substrate-cortex
+        # boundary when enabled. Cortex-scoped torch.Generator distinct from
+        # substrate rng per M1.3 design risk #2 (preserve substrate cross-seed
+        # determinism). Disabled by default -> None (backwards-compat with
+        # Phase 2 selftests that construct the facade without noise).
+        if config.noise_channel_enabled:
+            noise_rng = torch.Generator()
+            noise_rng.manual_seed(config.seed * 10007 + 42)
+            self._noise_channel: Optional[NoiseChannel] = NoiseChannel(
+                sigma_boundary=config.noise_channel_sigma_boundary,
+                generator=noise_rng,
+            )
+        else:
+            self._noise_channel = None
 
     # --- context accessors --------------------------------------------------
 
@@ -235,6 +261,19 @@ class Cortex:
         else:
             raise ValueError(
                 f"query must be 1-D or 2-D; got shape {tuple(query.shape)}")
+
+        # (1.5) M1.3 boundary-noise injection (Phase 2b) --------------------
+        # Substrate stays deterministic; cortex injects stochastic coupling
+        # here so downstream M1.6 router / M1.5 context read receives noisy
+        # queries and adaptive primitives can operate. L2 preserved by
+        # NoiseChannel.inject; role_key_for_memory_write is NOT perturbed
+        # (write path uses the caller's clean key so subsequent reads with
+        # the same clean key still hit).
+        if self._noise_channel is not None:
+            q_2d = self._noise_channel.inject(q_2d.to(torch.float32))
+            provenance["m13_noise_injected"] = True
+            provenance["m13_sigma_boundary"] = (
+                self.config.noise_channel_sigma_boundary)
 
         # (2) Retrieval path -----------------------------------------------
         tier_used: str
@@ -496,13 +535,79 @@ def _selftest_m15_write_then_read_updates_context_lens() -> None:
             f"{resp.tier_used!r}")
 
 
-def _selftest_noise_channel_flag_is_reserved() -> None:
-    """noise_channel_enabled=True must raise NotImplementedError (Phase 2b)."""
+def _selftest_noise_channel_disabled_is_backwards_compat() -> None:
+    """Phase 2 backwards-compat: noise_channel_enabled=False (default) leaves
+    the query un-perturbed and provenance does NOT contain m13_* keys."""
+    cx = Cortex(CortexConfig())  # default disabled
+    if cx._noise_channel is not None:
+        raise AssertionError(
+            "default CortexConfig should leave _noise_channel=None")
+    gen = torch.Generator()
+    gen.manual_seed(101)
+    M = 32
+    N = 8192
+    context_keys = _bipolar_random((M, N), gen)
+    context_vals = _bipolar_random((M, N), gen)
+    query = context_keys[3].clone()
+    resp = cx.forward(query, context_keys=context_keys, context_vals=context_vals)
+    if "m13_noise_injected" in resp.provenance:
+        raise AssertionError(
+            "disabled NoiseChannel must not emit m13_* provenance")
+    if resp.predicted_val_idx != 3:
+        raise AssertionError(
+            f"backwards-compat exact-match should argmax key 3; "
+            f"got {resp.predicted_val_idx}")
+
+
+def _selftest_noise_channel_enabled_injects_and_reports_provenance() -> None:
+    """Phase 2b enabled path: noise_channel_enabled=True constructs NoiseChannel
+    with the configured sigma_boundary; forward() reports m13_noise_injected +
+    m13_sigma_boundary in provenance; retrieval still succeeds at exact-match
+    (light sigma; L2-preserving noise shouldn't destroy the argmax)."""
+    cfg = CortexConfig(
+        noise_channel_enabled=True,
+        noise_channel_sigma_boundary=0.05,  # 'light' regime
+        seed=17,
+    )
+    cx = Cortex(cfg)
+    if cx._noise_channel is None:
+        raise AssertionError(
+            "noise_channel_enabled=True should construct NoiseChannel")
+    if abs(cx._noise_channel.sigma_boundary - 0.05) > 1e-9:
+        raise AssertionError(
+            f"NoiseChannel sigma mismatch: expected 0.05, got "
+            f"{cx._noise_channel.sigma_boundary}")
+    gen = torch.Generator()
+    gen.manual_seed(103)
+    M = 32
+    N = 8192
+    context_keys = _bipolar_random((M, N), gen)
+    context_vals = _bipolar_random((M, N), gen)
+    query = context_keys[5].clone()
+    resp = cx.forward(query, context_keys=context_keys, context_vals=context_vals)
+    if not resp.provenance.get("m13_noise_injected"):
+        raise AssertionError(
+            "enabled NoiseChannel must emit m13_noise_injected=True")
+    if abs(resp.provenance.get("m13_sigma_boundary", -1.0) - 0.05) > 1e-9:
+        raise AssertionError(
+            f"m13_sigma_boundary provenance mismatch: "
+            f"{resp.provenance.get('m13_sigma_boundary')}")
+    # At light sigma=0.05 the argmax should still land on key 5 (exact-match
+    # cosine falls from 1.0 to ~1/sqrt(1 + N*sigma^2) ~ 0.10 but stays above
+    # noise-floor since other keys are bipolar-random uncorrelated).
+    if resp.predicted_val_idx != 5:
+        raise AssertionError(
+            f"enabled-noise exact-match should still argmax key 5; "
+            f"got {resp.predicted_val_idx}")
+
+
+def _selftest_noise_channel_negative_sigma_raises() -> None:
+    """CortexConfig guards against negative sigma."""
     try:
-        CortexConfig(noise_channel_enabled=True)
-    except NotImplementedError:
+        CortexConfig(noise_channel_sigma_boundary=-0.01)
+    except ValueError:
         return
-    raise AssertionError("expected NotImplementedError for noise_channel_enabled=True")
+    raise AssertionError("expected ValueError on negative sigma")
 
 
 def _run_all_selftests() -> dict:
@@ -512,18 +617,23 @@ def _run_all_selftests() -> dict:
     _selftest_low_confidence_query_refuses()
     _selftest_role_slot_summary_produced_when_requested()
     _selftest_m15_write_then_read_updates_context_lens()
-    _selftest_noise_channel_flag_is_reserved()
+    _selftest_noise_channel_disabled_is_backwards_compat()
+    _selftest_noise_channel_enabled_injects_and_reports_provenance()
+    _selftest_noise_channel_negative_sigma_raises()
     return {
         "primitives_composed": [
+            "M1.3_NoiseChannel",
             "M1.4_refuse_gate",
             "M1.5_TwoTierContext",
             "M1.6_chunked_attention_readout",
             "M1.7_RoleSlotSummarizer",
             "M1.8_ClarifyGate",
         ],
-        "noise_channel_phase_2b_stub": True,
+        "noise_channel_phase_2b_landed": True,
         "storage_strategy": "MIXED_inherited_per_primitive_no_facade_storage",
-        "cg_source": "Phase 2 composition; Phase 1 CG sub-primitives 2026-07-01/02",
+        "cg_source": (
+            "Phase 2 composition + Phase 2b M1.3 wiring 2026-07-02; Phase 1 "
+            "CG sub-primitives 2026-07-01/02"),
     }
 
 
