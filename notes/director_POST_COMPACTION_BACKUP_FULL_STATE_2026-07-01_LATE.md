@@ -243,4 +243,78 @@ For M3 Phase 1: architecture is validated as composed stack. For M3 Phase 2 (lea
 
 ---
 
-*(This file supersedes `director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-01.md` for the late-session state.)*
+## 🚨 LATE-LATE SESSION ADDITIONS (~23:45 UTC 2026-07-01)
+
+### New CG/MM landings since 23:25 UTC snapshot
+- **Deep-composition v2 → MM (Atom 76 approx); CERT 662** — positive composition evidence at N=8192/K=100; discriminator saturation blocks CG; 3 findings preserved (composition works + M1.6 v2 router self-routes OOD to REFUSE (M1.4 redundant at this regime) + saturation)
+- **M1.7 v1 SMOKE HP ×2 seeds** — role-slot address-space partition (S=4 slot buffers; RECURSIVE arm 1.000 at K=1600 both seeds; ROLE arm 0.75/0.875 mean); FULL dispatch pending Wave 28
+
+### Waves 25-28 status
+- **Wave 25 commercial-M v2 (5c765e61)** — RUNNING GPU (M=100k/500k/1M chunked FP16/INT8 fix; v1 CUDA OOM resolved)
+- **Wave 26 cross-axis M×N×K (23e8a8da)** — pending GPU behind Wave 25 (81 units; 3 seeds; 27 phase points)
+- **Wave 27 encoder cocktail (b13aeed7)** — running remote_cpu (substantive HF_CROSS_ENCODER_ZERO + HP_FHRR+BINARY compose)
+- **Wave 28 M1.7 v1 (fc759ebf)** — pending Orchestrator dispatch to remote_cpu (potential 4th cortex CG)
+
+### Cell-authors STILL cooking (need post-compaction task-notification processing)
+1. **Sparsity v5 WM architectural fix** (started ~1h ago; long-running)
+2. **HRR depth_budget_curve v1 (Option A per 2026-06-23 drill)** — k × M_bundle × bind-variant × cleanup grid; supersedes naive hierarchical-nesting cell (caught rediscovery)
+3. **Correlated-key rho sweep** — tests Löwe α_c(ρ) ≈ 0.138(1-ρ²) prediction
+4. **Dim H Zipfian distributional shape** — extends prior 2026-06-04 k3 zipf falsifier
+5. **Dim S metric-dependence sweep** — top-1/top-K/semantic
+
+### Research drills cooking
+6. **Sparse-coding / compressed-sensing** — Donoho-Tanner L1-recovery phase-transitions mapping
+
+### PRIOR DATA POINTERS FOUND (for post-compaction cell-authors to check)
+
+**Dim H (Zipfian):**
+- `preregs/2026-06-04_substrate_k3_synthetic_uniform_zipf_falsifier_v1_n4096.md` — 2-arm uniform vs Zipf at N=4096
+- Also relevant: `preregs/2026-06-04_substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048.md`
+
+**Dim S (semantic-similarity):**
+- `data/exp_g6_semantic_similar_fabrication_khop_v1/`
+- `data/exp_gap4v2_semantic_A_eval_280atoms_gpu_v1/`
+- `data/exp_gap4v2_semantic_A_eval_gpu_v1/`
+
+**Dim I (hierarchical / nesting):**
+- `data/exp_m4_nested/` — d1-d5 at N=1024 → 100/100/100/100/97%
+- `data/exp_nesting_depth_cpu_v1/` — smoke HP at d4/d8; full unmeasured (d12/d16)
+- `data/exp_hrr_depth_budget_sparse_bipolar_v2/` — chain-grade at N=4096
+- `data/exp_hierarchical_2level_cpu_v1/`
+- `data/exp_hierarchical_3_tier_W_v1/`
+- `data/exp_hierarchical_3level_cpu_v1/`
+- `data/exp_hierarchical_concept_binding_smoke_v1/`
+- Note: `notes/research_drill_hrr_capacity_vs_depth_2026-06-23.md` — proposed load-bearing cell design (this session's Option A)
+
+### Immediate Priorities Post-Compaction (in order)
+
+1. **Read this BACKUP file end-to-end** — self-contained snapshot
+2. **Check task-notifications inbox** — 6+ sub-agents will fire returns
+3. **Verify Wave 25-28 landing status** via `python d:/AI/hd-instrument/tools/verify_landing.py <anchor>` (Fix #28 discipline)
+4. **If any Wave shows sync-lag** — run `python d:/AI/hd-instrument/tools/orchestrator/scp_recover_landing.py <anchor>` (SH-9 pattern; Testbed shipped today)
+5. **Fresh-spawn Skunkworks** for each landed wave (compact discipline: use STANDARD_COMPACT_VET; ~150 tok/landing not 500-1000)
+6. **Process 5 cell-author returns + 1 research return** as they come in; SendMessage Orchestrator for FULL dispatches per each hand-off
+7. **Watch for M1.6 v2 router routing OOD** — likely to recur in future compositions (Deep-composition v2 finding)
+8. **Wave 22 partition-oracle correction** — Skunkworks already atomized; extreme-depth claims must be framed as partition-oracle-specific NOT semantic reasoning
+
+### Discipline Reinforcements Locked In This Session
+
+**verify_landing.py-first (2026-07-01):** before framing any landing, verify_landing.py must OK it. If FAIL, either sync-lag (SH-9 SCP-recover) or genuine failure.
+
+**Skunkworks fresh-spawn every ~5 landings (2026-07-01):** SendMessage-continue accumulates context; fresh-spawn at 300k tokens or 5 landings.
+
+**Substrate-KB-first (from prior sessions):** cell-authors this session caught rediscovery THREE times (Cell D N-sweep earlier; hierarchical-nesting; Zipfian). Discipline critical.
+
+**Discriminator-Must-Survive-Scale + Honest-Halt (2026-07-01 reinforced):** deep-composition v1 caught bug + honest-halt; encoder cocktail caught HF + honest-halt; hrr_depth_budget caught rediscovery + halt. Discipline saves compute + generates substantive findings.
+
+### Corrections Filed (Read + Apply Going Forward)
+
+1. **Partition-oracle recovery mechanism** (`notes/partition_oracle_recovery_mechanism_G_correction_2026-07-01.md`) — extreme-depth is oracle-specific, NOT semantic; Markov floor r=0.006
+2. **hd_metrics_sync data/ gap** (SH-9 pattern in hdi_orchestrator.md; use scp_recover_landing.py)
+3. **M1.6 v2 router self-routes OOD** — additive with M1.4 redundant at K=100/N=8192 regime; future stack compositions design around this
+
+---
+
+*(File complete — this update at ~23:45 UTC 2026-07-01. Self-contained handoff. Post-compaction session has everything needed to continue.)*
+
+*(Prior BACKUP file `director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-01.md` retained for historical reference; this file supersedes for late-session state.)*
