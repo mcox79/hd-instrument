@@ -96,7 +96,7 @@ Standing durable rules (from MEMORY.md still in force):
 2. **Dim L v1 seed_19 kill decision** (pending GPU util diagnostic). Same CPU-bottleneck pattern as Dim I A2 today likely.
 3. **h4_cluster_density_confidence_calibration_v1 dispatch** — pre-reg exists un-dispatched; failure taxonomy identified as highest-leverage cheap cell.
 4. **`hdlab/cortex.py` composed module + integration test cell** — cortex integration debt; USER proposed authoring; awaiting go/no-go.
-5. **Language ingest infrastructure (per drill 3):** 3 blocking hdlab modules needed (~2.5 days) before language cells can run: `lm_eval_harness.py` (META_M7), `token_vocab.py`, `bigram_gap_measurement.py`. Dispatch as USER direction.
+5. **Language ingest infrastructure — CORRECTION (post-BACKUP audit):** ALL 3 blocking hdlab modules already exist on disk (`hdlab/lm_eval_harness.py` 248 lines, `hdlab/token_vocab.py` 301 lines, `hdlab/bigram_gap_measurement.py` 214 lines) — shipped via commit `df8511e82` by testbed as INFRA_1/2/3 for drill 3. The "~2.5-day blocking build" narrative in this BACKUP is STALE. Stage 4 LM-equivalence work is infra-unblocked; blocked only on Stage 3 maturity per USER-locked stage progression rule + USER "substrate doesn't know anything" until concept-oriented vectors + ingested language. Next language cell should be authored on top of these modules (post-VRC-CG opens the paradigm).
 6. **Cortex integration architecture:** substrate-native only (no LLM). Drills that assumed LLM router in the loop (Hybrid runtime, OOD Phase 1 fallback claim, M4 director) need reframing under substrate-native constraint.
 
 ---
