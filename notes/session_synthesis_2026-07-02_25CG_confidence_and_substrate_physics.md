@@ -1,4 +1,37 @@
-# Session synthesis 2026-07-02 (afternoon → evening arc)
+# Session synthesis 2026-07-02 (full-day arc)
+
+**Latest tally: 32 CG + 2 CG_META + 19 MM + 3 HF + 3 MB + 3 AMEND (34 total chain-grade atoms this session).**
+
+## Late-session addendum (evening arc — USER full-auto)
+
+After the initial 25 CG synthesis below, the session extended significantly:
+
+### Cortex integration debt CLOSED (M3 architecture bottleneck)
+- Phase 1: extracted M1.5/M1.7/M1.8 primitives to hdlab modules (context_retention + role_slot_summarizer + clarify_gate)
+- Phase 2: authored `hdlab/cortex.py` composed pipeline (532 lines)
+- Phase 2b: extracted M1.3 NoiseChannel + wired into cortex.py (USER-locked 2026-06-30 stochastic-noise-at-boundary directive unblocked)
+- Phase 3: end-to-end integration test at 3-seed FULL HARD_PASS bit-identical (max_delta=0.0 exact across 4 discriminators)
+- Phase 3b: noise-enabled variant CG (wiring live via probe cos-shift 0.005-0.007; backwards-compat with Phase 3 baseline exact; substrate noise-tolerance at σ=0.05-0.15 confirmed)
+- Skunkworks filed `META_cortex_M1_stack_integration_proposal_complete` CG_META
+
+### Additional session wins
+- stretch2_3 v2 rescue CG (substrate hosts non-temporal STRIPS planning); v1 AMEND-DEMOTE (numpy-costume + oracle-goal)
+- Analogy #6 CG_HONEST_NEGATIVE (Level-4 pivot mechanism #6; frozen random codebook + K=10 mean-unbind fails; M3 constraint atom filed)
+- Option C activity/energy MB (first confidence signal above chance at 3-seed FULL; brain-analog Kool 2018 EVC theory)
+- Scale-free extension probe at N=16384 (smoke HP; FULL blocked by 8GB GPU VRAM — 3 fix iterations; fallback to 1×N ratio in progress)
+
+### USER strategic decisions this session
+- **D on confidence architecture** (move on; keep C for later — cortex layer as consumer of confidence signals). Strengthened by Phase 3b CG proving the wiring path works.
+- **APPROVED cortex integration proposal** with sharded-storage discipline. Delivered all 3 phases + Phase 2b + Phase 3b.
+- **Level-4 analogy pivot #6 authorized** — closed as CG_HONEST_NEGATIVE; M3 cortex-layer design constraint filed.
+- **Option C drill authorized** — MB partial evidence with orthogonality lift; brain-analog grounded.
+
+### Pipeline still active at session close
+- Scale-free extension fallback fix (option 3: drop NPROP=32000, test at 1×N ratio) in cell-author (a7c4d75 resumed 3rd time)
+
+---
+
+## Original synthesis (afternoon 25-CG arc; kept for history)
 
 **Session tally locked at start of GPU queue drain: 25 CG + 19 MM + 2 HF + 1 MB + 1 AMEND.**
 
