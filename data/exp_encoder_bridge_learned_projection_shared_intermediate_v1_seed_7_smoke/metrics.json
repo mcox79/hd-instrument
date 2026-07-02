@@ -1,0 +1,89 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: max true bridge=0.0104 in [0.1, 0.315). Partial signal; not decisive. proj=0.0000 inter=0.0104 tag=0.7396 within=0.7708 ctrl=0.0000",
+  "elapsed_s": 673.7081980705261,
+  "summary": {
+    "seed": 7,
+    "mode": "smoke",
+    "N_DIM": 8192,
+    "M_items": 512,
+    "N_QUERY": 96,
+    "M_TRAIN_PROCRUSTES": 512,
+    "per_arm_recall": {
+      "ARM_WITHIN_FHRR": 0.7708333333333334,
+      "ARM_CTRL_NO_BRIDGE": 0.0,
+      "ARM_LEARNED_PROJECTION": 0.0,
+      "ARM_SHARED_INTERMEDIATE": 0.010416666666666666,
+      "ARM_FAMILY_TAG_ROUTING": 0.7395833333333334
+    },
+    "per_arm_stats": {
+      "ARM_WITHIN_FHRR": {
+        "n_query": 96,
+        "correct": 74,
+        "arm": "ARM_WITHIN_FHRR"
+      },
+      "ARM_CTRL_NO_BRIDGE": {
+        "n_query": 96,
+        "correct": 0,
+        "arm": "ARM_CTRL_NO_BRIDGE"
+      },
+      "ARM_LEARNED_PROJECTION": {
+        "n_query": 96,
+        "correct": 0,
+        "arm": "ARM_LEARNED_PROJECTION",
+        "m_train": 512,
+        "procrustes_R_frobenius": 90.44640350341797
+      },
+      "ARM_SHARED_INTERMEDIATE": {
+        "n_query": 96,
+        "correct": 1,
+        "arm": "ARM_SHARED_INTERMEDIATE"
+      },
+      "ARM_FAMILY_TAG_ROUTING": {
+        "n_query": 96,
+        "correct": 71,
+        "arm": "ARM_FAMILY_TAG_ROUTING"
+      }
+    },
+    "per_arm_failure": {},
+    "within_recall": 0.7708333333333334,
+    "ctrl_recall": 0.0,
+    "learned_projection_recall": 0.0,
+    "shared_intermediate_recall": 0.010416666666666666,
+    "family_tag_routing_recall": 0.7395833333333334,
+    "max_true_bridge": 0.010416666666666666,
+    "preflight_msg": "preflight_distinct(dim=512): {'fhrr': 'bf0d2951af5e2181', 'sparse': '3c1efc321d0a598c', 'binary_intermediate': '914c395f443ef1ad'}",
+    "positive_sentinel_ok": true,
+    "negative_sentinel_ok": true,
+    "cardinality_ok": true
+  },
+  "per_arm_recall": {
+    "ARM_WITHIN_FHRR": 0.7708333333333334,
+    "ARM_CTRL_NO_BRIDGE": 0.0,
+    "ARM_LEARNED_PROJECTION": 0.0,
+    "ARM_SHARED_INTERMEDIATE": 0.010416666666666666,
+    "ARM_FAMILY_TAG_ROUTING": 0.7395833333333334
+  },
+  "arms_expected": [
+    "ARM_WITHIN_FHRR",
+    "ARM_CTRL_NO_BRIDGE",
+    "ARM_LEARNED_PROJECTION",
+    "ARM_SHARED_INTERMEDIATE",
+    "ARM_FAMILY_TAG_ROUTING"
+  ],
+  "arms_observed": [
+    "ARM_WITHIN_FHRR",
+    "ARM_CTRL_NO_BRIDGE",
+    "ARM_LEARNED_PROJECTION",
+    "ARM_SHARED_INTERMEDIATE",
+    "ARM_FAMILY_TAG_ROUTING"
+  ],
+  "cardinality_observed": 5,
+  "cardinality_expected": 5,
+  "mechanism_hashes": {
+    "fhrr": "bf0d2951af5e2181",
+    "sparse": "3c1efc321d0a598c",
+    "binary_intermediate": "914c395f443ef1ad"
+  },
+  "run_mode": "smoke"
+}

@@ -1,0 +1,22 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "SELFTEST_PASS: within_fhrr=0.938 ctrl=0.000 SELFTEST_PROCRUSTES_IDENTITY_OK: ||R-I||_F=0.000 recall=0.875 preflight=preflight_distinct(dim=256): {'fhrr': '9c6cda999d85da0d', 'sparse': '5243245e9f40614e', 'binary_intermediate': '7e94cc0fe21deb44'}",
+  "elapsed_s": 0.0,
+  "summary": {
+    "mode": "self_test",
+    "seed": 13
+  },
+  "per_arm_recall": {},
+  "arms_expected": [
+    "ARM_WITHIN_FHRR",
+    "ARM_CTRL_NO_BRIDGE",
+    "ARM_LEARNED_PROJECTION",
+    "ARM_SHARED_INTERMEDIATE",
+    "ARM_FAMILY_TAG_ROUTING"
+  ],
+  "arms_observed": [],
+  "cardinality_observed": 0,
+  "cardinality_expected": 5,
+  "mechanism_hashes": {},
+  "run_mode": "self_test"
+}
