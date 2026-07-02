@@ -180,9 +180,16 @@ N_GRID_FULL = [2048, 8192]       # 4x N-spread
 K_GRID_FULL = [100, 4000]        # 40x K-spread (USER-specified)
 
 # Smoke: smaller M/K to fit CPU; keep the same 2x2x2 shape for factorial
+# Smoke: smaller M/K to fit CPU; keep the same 2x2x2 shape for factorial.
+# CRITICAL DISCIPLINE: at least one smoke K MUST be > smallest smoke M so
+# the K > M code path (sample-with-replacement) executes at smoke time.
+# Bug fix 2026-07-02: production grid has (M=1000, K=4000) which previously
+# crashed numpy.choice(replace=False); smoke grid at M in {512, 2048},
+# K in {20, 100} NEVER hit K > M so bug escaped smoke. NEW smoke K=1000
+# > smoke M=512 exercises the fixed replace=True path.
 M_GRID_SMOKE = [512, 2048]
 N_GRID_SMOKE = [1024, 2048]
-K_GRID_SMOKE = [20, 100]
+K_GRID_SMOKE = [20, 1000]
 
 # Preview corner (Method C DISCRIMINATOR-SURVIVES-SCALE): DIS arm at large-M
 # to verify mechanism still discriminates at larger scale (INVERTED gate:
@@ -335,7 +342,10 @@ def _run_phase_point_numpy(
 
     keys = rng.choice([-1.0, 1.0], size=(M, N)).astype(np.float32)
     vals = rng.choice([-1.0, 1.0], size=(M, V)).astype(np.float32)
-    q_idx = rng.choice(M, size=K, replace=False)
+    # When K > M we must sample with replacement (some queries repeat, each
+    # gets independent noise so readouts still differ per row). Fixes
+    # ValueError at production point (M=1000, K=4000) discovered 2026-07-02.
+    q_idx = rng.choice(M, size=K, replace=(K > M))
     noise = rng.randn(K, N).astype(np.float32) * 0.05
     queries = keys[q_idx] + noise
     v_target = vals[q_idx]
@@ -401,7 +411,14 @@ def _run_phase_point_torch(
                 .to(torch.float32))
     vals_f32 = ((torch.randint(0, 2, (M, V), generator=g, dtype=torch.int32) * 2 - 1)
                 .to(torch.float32))
-    q_idx = torch.randperm(M, generator=g)[:K]
+    # When K > M sample with replacement (repeating some indices; each row
+    # still gets independent noise). torch.randperm(M)[:K] silently truncates
+    # to size min(M, K), causing broadcasting mismatch downstream. Fixed
+    # 2026-07-02 to match numpy path replace=(K > M) semantics.
+    if K > M:
+        q_idx = torch.randint(0, M, (K,), generator=g, dtype=torch.long)
+    else:
+        q_idx = torch.randperm(M, generator=g)[:K]
     noise = torch.randn(K, N, generator=g, dtype=torch.float32) * 0.05
     queries_f32 = keys_f32[q_idx] + noise
     v_target = vals_f32[q_idx].clone()
