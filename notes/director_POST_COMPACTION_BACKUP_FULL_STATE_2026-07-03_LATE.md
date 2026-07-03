@@ -653,3 +653,33 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Retrieval architecture arc: maintained marginal closure (Exp 3E FULL from prior session)
 - K-parameter arc: RESOLVED (K is derived/coupled, not 6th axis)
 - Blocker: Tailscale on marsh@home; entire FULL dispatch bundle spec'd and queued awaiting
+
+## AMENDMENT 2026-07-03 22:20Z (FULL dispatch bundle COMPLETE + 2 L-cross-term probes in flight)
+
+**Post-USER "you should never stand" correction, fired 3 spawns:**
+
+**FULL dispatch bundle authoring (task aa61d01b3f00fc3c5) COMPLETE at commit `aa56f7716` (PUSHED):**
+- **14 sibling wrapper files** (s13 + s19 for all 7 FULL-bound probes): P4, P5, P6v2, P7v2, P8, P9v2, P12
+- All 14 SELFTEST_OK verified via `.venv` Python invocation
+- **Design doc** `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md` with:
+  - 21 total FULL cells (7 probes × 3 seeds); serial GPU wall estimate ~13-21h on overnight_queue
+  - **Priority 1 (LOAD-BEARING):** P6v2 + P8 F×CLEANUP ranking crossover confirmation
+  - **Priority 2:** P4 + P5 (STORAGE × N / STORAGE × F extensions of `sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1`)
+  - **Priority 3:** P7v2 N × CLEANUP
+  - **Priority 4:** P9v2 N × L (bracket_verify cited EXPLICITLY per Fix#28 hit #15)
+  - **Priority 5:** P12 L-marginal (framed REGIME_EXTENSION of atom #3 per Fix#28 hit #16, NOT axis discovery)
+  - **P10 v2 SKIP** per HONEST_NO_MATCHED_CLIFF discipline
+  - Non-goals section blocks premature CG_META filing, axis-aliasing re-labeling, and L-as-5th-axis atom-filing
+  - Handoff sequence: (1) push, (2) queue_add per cell in priority order, (3) Skunkworks landed-VET per-completion
+
+**Also in flight (2 spawns):**
+- Probe 13 L × CLEANUP cross-term at cliff-adjacent SHARDED (a235747b1154f066a) — extends atom #3 into mechanism × chain-depth interaction; L∈{1,2,4}
+- Probe 14 L × F cross-term at cliff-adjacent SHARDED (ae1f2816a91d9e6f9) — tests L/F independence assumed by prior L=2-fixed probes; L∈{1,2,4} × F∈{1,2,4,8,16}
+
+**Bundle-execution readiness POST-Tailscale:**
+1. Push already DONE
+2. Orchestrator: 21 `tools/queue_add.sh` invocations in Priority 1..5 order
+3. Skunkworks landed-VET per-completion using per-probe atom-candidate framing from design doc
+4. Total est. wall: ~15-25h GPU across bundle + Skunkworks lag
+
+**Post-USER cron correction (22:15Z):** cron replaced with action-biased 88472eb7. New prompt: VERIFY → ACT → REPORT ≤8 lines; "all clean" branch forces reflective "what can you be doing right now to further the project?" question before allowing quiet-report. NEVER STAND rule preserved without menu-of-options bias.
