@@ -1,0 +1,1 @@
+2026-07-03T01:24:23Z -- Component-C Hopfield readout HF, 5x drill 3/5, empirical prior-arc mining: -> notes/research_component_c_hopfield_readout_prior_arc_2026-07-03.md (verdict IV: beta/sqrt(N) temperature-scaling bug candidate, cheap decisive test before Option A/2)
