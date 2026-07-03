@@ -1,0 +1,276 @@
+{
+  "anchor_name": "substrate_wikipedia_ppmi_svd_baseline_smoke_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-native ATL-hub-analog PPMI/SVD encoder reaches r@5=0.9060 >= 0.8840 = char_trigram_ref (0.854) + 0.03 on N=500 real Wikipedia articles at N_DIM=2048. HONEST SCOPE: MECHANISM_LIFT on SUPERVISED corpus-as-labeled-partition regime; does NOT grant substrate general-knowledge of Wikipedia content. PPMI mechanism (Levy/Goldberg 2015 co-occurrence + SVD) adds signal ABOVE surface trigram bag on multi-token real-corpus retrieval. trigram r@5=0.8540 (regression OK). random r@5=0.0073 (chance=0.0100). PPMI - trigram delta = +0.0520",
+  "summary": "HARD_PASS: substrate-native ATL-hub-analog PPMI/SVD encoder reaches r@5=0.9060 >= 0.8840 = char_trigram_ref (0.854) + 0.03 on N=500 real Wikipedia articles at N_DIM=2048. HONEST SCOPE: MECHANISM_LIFT on SUPERVISED corpus-as-labeled-partition regime; does NOT grant substrate general-knowledge of Wikipedia content. PPMI mechanism (Levy/Goldberg 2015 co-occurrence + SVD) adds signal ABOVE surface trigram bag on multi-token real-corpus retrieval. trigram r@5=0.8540 (regression OK). random r@5=0.0073 (chance=0.0100). PPMI - trigram delta = +0.0520",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_articles": 500,
+  "n_articles_configured": 500,
+  "n_dim": 2048,
+  "body_char_cap": 800,
+  "expected_n_units": 9,
+  "actual_n_units": 9,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "char_trigram_reference_r5_MEASURED": 0.854,
+  "hp_margin": 0.03,
+  "hp_ppmi_r5_floor": 0.884,
+  "hf_ppmi_r5_hard_floor": 0.824,
+  "reg_trigram_band": [
+    0.8039999999999999,
+    0.904
+  ],
+  "baseline_in_band_check": {
+    "arm": "ARM_RANDOM_BASELINE",
+    "chance_r5": 0.01,
+    "band_max_r5": 0.05,
+    "observed_r5_mean": 0.007333333333333333,
+    "in_band": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "hp_scope": {
+    "HP1_LOAD_BEARING": [
+      "ARM_PPMI_SVD_WIKIPEDIA"
+    ],
+    "HPreg_REGRESSION": [
+      "ARM_CHAR_TRIGRAM_WIKIPEDIA"
+    ],
+    "HF1_LOAD_BEARING": [
+      "ARM_PPMI_SVD_WIKIPEDIA"
+    ],
+    "HF2_baseline_in_band": [
+      "ARM_RANDOM_BASELINE"
+    ],
+    "HFreg_regression": [
+      "ARM_CHAR_TRIGRAM_WIKIPEDIA"
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_PPMI_SVD_WIKIPEDIA": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286557674408,
+          "inter_article_title_body_cos": 0.3246246576309204,
+          "signal_to_noise_ratio": 1.720536757261538,
+          "arm_name": "ARM_PPMI_SVD_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.6485639000020456,
+          "fit_wall_s": 8.24011800000153,
+          "throughput_articles_per_sec": 770.9340590779459,
+          "ppmi_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500,
+            "title_oov_count": 0,
+            "title_oov_frac": 0.0
+          }
+        },
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.03407031297683716,
+          "signal_to_noise_ratio": 6.138958746451876,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 1.038772700005211,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 481.33725501015937
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.002,
+          "recall_at_10": 0.018,
+          "mean_reciprocal_rank": 0.0110849784194068,
+          "intra_article_body_title_cos": -0.001515624908148311,
+          "inter_article_title_body_cos": -0.00019921862985938787,
+          "signal_to_noise_ratio": -7.607847264174373,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.021631399999023415,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 23114.546447413173
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_PPMI_SVD_WIKIPEDIA": "63bb04f149d4b0a1",
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE": "e2ecc070467df3fb"
+      },
+      "seed_elapsed_s": 41.01132640001015
+    },
+    {
+      "seed": 17,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_PPMI_SVD_WIKIPEDIA": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286557674408,
+          "inter_article_title_body_cos": 0.32378914952278137,
+          "signal_to_noise_ratio": 1.7249764440551256,
+          "arm_name": "ARM_PPMI_SVD_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.620216099996469,
+          "fit_wall_s": 6.944179300000542,
+          "throughput_articles_per_sec": 806.1706234372932,
+          "ppmi_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500,
+            "title_oov_count": 0,
+            "title_oov_frac": 0.0
+          }
+        },
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.034535154700279236,
+          "signal_to_noise_ratio": 6.0563286210446945,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 1.3724208999919938,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 364.31972145200996
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.014,
+          "recall_at_10": 0.02,
+          "mean_reciprocal_rank": 0.012482012653221273,
+          "intra_article_body_title_cos": -0.0006269531382713467,
+          "inter_article_title_body_cos": 0.0008144530584104359,
+          "signal_to_noise_ratio": -0.7697842518941093,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.021549600001890212,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 23202.286815353546
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_PPMI_SVD_WIKIPEDIA": "63bb04f149d4b0a1",
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE": "4fc1ff0c71481e0e"
+      },
+      "seed_elapsed_s": 9.145954899999197
+    },
+    {
+      "seed": 23,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_PPMI_SVD_WIKIPEDIA": {
+          "recall_at_1": 0.77,
+          "recall_at_5": 0.906,
+          "recall_at_10": 0.936,
+          "mean_reciprocal_rank": 0.8321112109171724,
+          "intra_article_body_title_cos": 0.5585286557674408,
+          "inter_article_title_body_cos": 0.32313281297683716,
+          "signal_to_noise_ratio": 1.7284801584278515,
+          "arm_name": "ARM_PPMI_SVD_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.5122372000041651,
+          "fit_wall_s": 6.300278299997444,
+          "throughput_articles_per_sec": 976.1102863984389,
+          "ppmi_diag": {
+            "vocab_size": 7782,
+            "effective_n_dim": 500,
+            "title_oov_count": 0,
+            "title_oov_frac": 0.0
+          }
+        },
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.033589839935302734,
+          "signal_to_noise_ratio": 6.226771138128743,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.9890142999938689,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 505.5538630767013
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.006,
+          "recall_at_10": 0.014,
+          "mean_reciprocal_rank": 0.011949832473476604,
+          "intra_article_body_title_cos": 0.00012695299610345734,
+          "inter_article_title_body_cos": -0.00016210951434914023,
+          "signal_to_noise_ratio": 0.783131061820559,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.024423099996056408,
+          "fit_wall_s": 0.0,
+          "throughput_articles_per_sec": 20472.421604167157
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_PPMI_SVD_WIKIPEDIA": "63bb04f149d4b0a1",
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE": "4508efcf6fd37b18"
+      },
+      "seed_elapsed_s": 8.022184700006619
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_PPMI_SVD_WIKIPEDIA": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.77,
+      "recall_at_5_mean": 0.906,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.936,
+      "encoding_wall_s_mean": 0.5936724000008932,
+      "fit_wall_s_mean": 7.161525199999839,
+      "throughput_articles_per_sec_mean": 851.0716563045594
+    },
+    "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.676,
+      "recall_at_5_mean": 0.854,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.902,
+      "encoding_wall_s_mean": 1.133402633330358,
+      "fit_wall_s_mean": 0.0,
+      "throughput_articles_per_sec_mean": 450.4036131796235
+    },
+    "ARM_RANDOM_BASELINE": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0013333333333333333,
+      "recall_at_5_mean": 0.007333333333333333,
+      "recall_at_5_std": 0.004988876515698589,
+      "recall_at_10_mean": 0.017333333333333333,
+      "encoding_wall_s_mean": 0.02253469999899001,
+      "fit_wall_s_mean": 0.0,
+      "throughput_articles_per_sec_mean": 22263.084955644623
+    }
+  },
+  "elapsed_s": 58.191915799994604,
+  "ts_iso_end": "2026-07-03T01:54:06.911652+00:00"
+}
