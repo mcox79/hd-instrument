@@ -466,3 +466,35 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - **P10:** FULL 3 seeds w/ BUNDLED cliff re-bracket or scope-narrowed arm
 - Bundle overnight_queue GPU; sequential or batched
 - Recovery: Probes 4+5 FULL + BGE 178K cache build + 170K unified re-test
+
+## AMENDMENT 2026-07-03 21:15Z (Skunkworks VET Probe 10 — FIRST ATOM FILINGS of pickup session)
+
+**Skunkworks VET Probe 10 (task ad6b2b43cb9d4ef08) COMPLETE at commit `26d0f99ea`:**
+
+**2 atoms filed via A5-gated PartitionedStore write:**
+1. **Math atom #47:** `T3/EXP_stage1_regime_probe_10_storage_x_algebra_smoke_v1` → **MM_TENTATIVE_MIDDLE_BAND**
+   - Composes: sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1, Probe 1 CG_META, META_saturation_floor_masks_null_variance_probe3
+2. **Meta atom #43:** `META_cross_term_measurement_requires_both_arms_in_band_probe10_v1` → **MM_STANDARD**
+   - Extends floor-vacuity rule to cross-term measurement generally: "BUNDLED_BRACKET M∈{100,400,800}={0.20,0.025,0.025} — NO in-band point exists at (N=2048, corr=0.20) tested grid"
+
+**Session cumulative: math=47, meta=43 = 90 atoms today** (up from 88; first filings this pickup session).
+
+**Fix#28 hits #12-#14 (14 total today):**
+- **#12:** Cross-term=0.075 is NOISE-INDISTINGUISHABLE at 1 seed (z=0.63 vs binom SD 0.12); "leans H2 (independence)" tea-leaf reading NOT SUPPORTED at SMOKE — only 3-seed FULL can discriminate.
+- **#13:** STORAGE main effect (0.575, 0.65) is REAL (z >5) but partly **FLOOR-vacuous** — measures SHARDED-in-band vs BUNDLED-at-floor. Not pure cross-term. Substantially RESTATES prior `sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1`. My "huge STORAGE main effect" framing over-inflated novelty.
+- **#14:** "Non-superimposable STORAGE regimes" is real observation but a RESTATEMENT of storage capacity gap, not a new discovery warranting its own atom. Folded into existing atom's `framing` field.
+
+**Scientifically correct FULL dispatch design (Skunkworks-authoritative):**
+- **BUNDLED re-bracket at LOWER corruption** (corr=0.05-0.10) to bring BUNDLED cliff in-band, then re-run SMOKE before FULL
+- **DO NOT dispatch FULL against floored BUNDLED arm** — "cross-term" would be uninterpretable (this is EXACTLY the floor-vacuity META rule just filed)
+- If no (N, corr, M) combo brings BUNDLED cliff in-band without invalidating matched-cliff comparison: MECHANISM SWITCH or **SKIP Probe 10 FULL entirely** — STORAGE column already covered by prior atoms + Probes 4+5 FULL
+
+**Novelty:** substrate_query cosine=0.254 (< 0.30 novelty threshold passes) but semantically composition-adjacent to prior work. Cross-arc overlap: Bundle_storage 0.254, set_algebra_bundle_cpu_v1 0.225, sharded_fhrr_cleanup_capacity family adjacent.
+
+**Updated post-Tailscale queue (Skunkworks-corrected):**
+- P6+P7 v2 FULL: dispatch as planned (multi-seed)
+- P8 FULL: dispatch as planned (5 seeds; confirm ranking crossover; load-bearing novel claim)
+- P9 FULL: dispatch with in-band N ∈ {512, 1024} (SMOKE grid unusable)
+- **P10 FULL: DEFER + re-SMOKE with BUNDLED corr=0.05-0.10 first, OR skip entirely** (Skunkworks flagged both as scientifically valid)
+
+**Discipline pattern this session:** 14 Fix#28 catches; 2 atom filings. High correction-to-filing ratio (7:1) reflects that today's landings are directionally interesting but not yet arc-closing. Skunkworks working exactly as designed.
