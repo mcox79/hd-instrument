@@ -87,13 +87,22 @@ def write_queue(queue_name: str, q: dict) -> bool:
 
 
 def metrics_exists_with_content(name: str) -> bool:
-    p = REPO / "data" / f"exp_{name}" / "metrics.json"
-    if not p.exists():
-        return False
-    try:
-        return p.stat().st_size > 100
-    except OSError:
-        return False
+    # SH-4 fallback: try canonical exp_<name>/, then double-prefix exp_exp_<name>/
+    # (root cause: _seed_checkpoint.get_output_dir when queue entry begins with exp_).
+    # Testbed 2026-07-03 fleet audit.
+    candidates = [
+        REPO / "data" / f"exp_{name}" / "metrics.json",
+        REPO / "data" / f"exp_exp_{name}" / "metrics.json",
+    ]
+    for p in candidates:
+        if not p.exists():
+            continue
+        try:
+            if p.stat().st_size > 100:
+                return True
+        except OSError:
+            continue
+    return False
 
 
 def heal_misflagged_failures(q: dict) -> int:

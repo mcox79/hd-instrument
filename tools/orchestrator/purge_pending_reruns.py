@@ -15,8 +15,12 @@ exps = data.get("experiments", [])
 keep, dropped = [], []
 for e in exps:
     if e.get("status") == "pending":
+        # SH-4 fallback: check canonical exp_<name>/ then double-prefix
+        # exp_exp_<name>/ (Testbed 2026-07-03 fleet audit; root cause in
+        # experiments/_seed_checkpoint.get_output_dir).
         mpath = os.path.join(data_root, "exp_" + e["name"], "metrics.json")
-        if os.path.exists(mpath):
+        mpath_dbl = os.path.join(data_root, "exp_exp_" + e["name"], "metrics.json")
+        if os.path.exists(mpath) or os.path.exists(mpath_dbl):
             dropped.append(e["name"]); continue
     keep.append(e)
 print("queue=%s total=%d pending_reruns_dropped=%d kept=%d" % (os.path.basename(path), len(exps), len(dropped), len(keep)))

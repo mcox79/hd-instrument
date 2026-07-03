@@ -204,10 +204,27 @@ def _ssh_type_remote_metrics(name: str, timeout_s: float = 12.0) -> str | None:
 
     Returns None on any failure (timeout, non-zero exit, parse error, missing
     file). Callers fall back to local on None.
+
+    SH-4 note: remote runner may write to data/exp_exp_<name>/ when the queue
+    entry name begins with 'exp_' (see _seed_checkpoint.get_output_dir).
+    Handled here by trying canonical first, then double-prefix. Testbed
+    2026-07-03 fleet audit.
     """
     if not _NAME_RE.match(name):
         return None
-    remote_path = _REMOTE_METRICS_PATH_TPL.format(name=name)
+    remote_paths = [
+        _REMOTE_METRICS_PATH_TPL.format(name=name),
+        _REMOTE_METRICS_PATH_TPL.format(name="exp_" + name),
+    ]
+    for candidate in remote_paths:
+        raw = _ssh_type_remote_metrics_one(candidate, timeout_s)
+        if raw is not None:
+            return raw
+    return None
+
+
+def _ssh_type_remote_metrics_one(remote_path: str, timeout_s: float) -> str | None:
+    """Single-path SSH type; returns raw JSON body or None."""
     # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28: prevents
     # remote conhost.exe allocation per call; daemon polls frequently).
     cmd = ["ssh", "-T", _SSH_TARGET, f"type {remote_path}"]
@@ -256,18 +273,27 @@ def get_remote_metrics(name: str) -> dict[str, Any] | None:
 
 def get_local_metrics(name: str) -> dict[str, Any] | None:
     """Read data/exp_<name>/metrics.json from the local repo. Returns None
-    if the file is missing, unreadable, or not a JSON object."""
+    if the file is missing, unreadable, or not a JSON object.
+
+    SH-4 fallback: also tries data/exp_exp_<name>/metrics.json when canonical
+    is missing (root cause: _seed_checkpoint.get_output_dir when queue entry
+    begins with 'exp_'). Testbed 2026-07-03 fleet audit."""
     if not _NAME_RE.match(name):
         return None
-    path = _REPO / "data" / f"exp_{name}" / "metrics.json"
-    try:
-        doc = json.loads(path.read_text(encoding="utf-8", errors="replace"))
-    except Exception:
-        return None
-    if not isinstance(doc, dict):
-        return None
-    doc["_source"] = "local"
-    return doc
+    candidates = [
+        _REPO / "data" / f"exp_{name}" / "metrics.json",
+        _REPO / "data" / f"exp_exp_{name}" / "metrics.json",
+    ]
+    for path in candidates:
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            continue
+        if not isinstance(doc, dict):
+            continue
+        doc["_source"] = "local"
+        return doc
+    return None
 
 
 def get_metrics(name: str, *, prefer_remote: bool = True) -> dict[str, Any] | None:

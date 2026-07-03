@@ -270,10 +270,21 @@ def queue_stats(entries: list) -> dict:
 # --- Per-cell heartbeat (from _heartbeat.jsonl) ------------------------------
 
 def read_cell_heartbeat(anchor: str) -> dict | None:
-    """Returns the LAST _heartbeat.jsonl row for a given anchor, with age."""
+    """Returns the LAST _heartbeat.jsonl row for a given anchor, with age.
+
+    SH-4 fallback: also try `data/exp_exp_<anchor>/_heartbeat.jsonl` when the
+    canonical single-prefix dir is empty; runner sometimes writes double-prefix
+    when the queue entry name already begins with 'exp_' (root cause in
+    experiments/_seed_checkpoint.get_output_dir). Testbed 2026-07-03 fleet audit.
+    """
     p = REPO / "data" / f"exp_{anchor}" / "_heartbeat.jsonl"
     if not p.exists():
-        return None
+        # SH-4 double-prefix fallback
+        p_dbl = REPO / "data" / f"exp_exp_{anchor}" / "_heartbeat.jsonl"
+        if p_dbl.exists():
+            p = p_dbl
+        else:
+            return None
     try:
         # Tail-only read so we don't load megabytes of history.
         with p.open("rb") as f:

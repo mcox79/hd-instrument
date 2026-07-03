@@ -433,10 +433,20 @@ def get_output_dir(anchor_name: str) -> Path:
     expected path and will cause a metrics-not-found failure (the root cause
     of the Round 5 batch failure, 2026-06-01).
 
+    SH-4 normalization (Testbed 2026-07-03): if HDLAB_EXP_NAME or anchor_name
+    already begins with "exp_", strip it before prefixing so the on-disk dir
+    is single-prefix `data/exp_<stem>/` rather than double-prefix
+    `data/exp_exp_<stem>/`. Historical data at double-prefix dirs remains
+    readable via the SH-4 fallback in verify_landing.py, runner_status.py,
+    healer.py, purge_pending_reruns.py, remote_state.py, poller.py, and
+    scp_recover_landing.py. Emits a stderr warning on normalization so
+    process-health audits can trend residual double-prefix queue entries.
+
     Self-test (called at module import):
         get_output_dir("foo")  -> Path("...data/exp_foo")
         get_output_dir("foo_smoke")  -> Path("...data/exp_foo_smoke")
         HDLAB_EXP_NAME="bar_smoke" with anchor_name="foo" -> Path("...data/exp_bar_smoke")
+        get_output_dir("exp_foo") -> Path("...data/exp_foo")  (SH-4 normalized)
 
     Args:
         anchor_name: fallback name to use when HDLAB_EXP_NAME is unset.
@@ -447,6 +457,21 @@ def get_output_dir(anchor_name: str) -> Path:
     """
     _REPO = Path(__file__).resolve().parent.parent
     name = os.environ.get("HDLAB_EXP_NAME", anchor_name)
+    if name.startswith("exp_"):
+        stripped = name[len("exp_"):]
+        # Guard: don't strip when stripping empties the stem or when the raw
+        # dir already exists (means a prior run wrote here; keep consistency).
+        if stripped:
+            legacy_dir = _REPO / "data" / f"exp_{name}"
+            if not legacy_dir.exists():
+                import sys as _sys
+                _sys.stderr.write(
+                    f"[SH-4-normalize] HDLAB_EXP_NAME={name!r} begins with 'exp_'; "
+                    f"writing to data/exp_{stripped}/ (canonical) instead of "
+                    f"data/exp_{name}/ (double-prefix). See "
+                    f"experiments/_seed_checkpoint.get_output_dir docstring.\n"
+                )
+                name = stripped
     return _REPO / "data" / f"exp_{name}"
 
 
@@ -508,6 +533,16 @@ def _selftest_get_output_dir() -> None:
         parts = p4.parts
         assert "exp_ne1_mct_aging_signature_v1" in parts, f"T4 FAIL: parts={parts}"
         assert "results" not in parts, f"T4 FAIL: 'results' found in path: {p4}"
+
+        # Test 5 (SH-4 normalization): env var already begins with 'exp_' -> strip.
+        # Only fires when data/exp_exp_<stem>/ does NOT exist on disk (avoids
+        # breaking cells with existing checkpoints at the double-prefix dir).
+        # Uses a very-unlikely stem so the legacy-dir guard never fires here.
+        _os.environ["HDLAB_EXP_NAME"] = "exp_sh4_normalize_selftest_zzz_v1"
+        p5 = get_output_dir("fallback_anchor_unused")
+        assert p5.name == "exp_sh4_normalize_selftest_zzz_v1", (
+            f"T5 (SH-4) FAIL: got {p5.name} (expected single-prefix)"
+        )
     finally:
         # Restore original env state (set or absent) so subsequent imports
         # and tests see the same env the caller had.

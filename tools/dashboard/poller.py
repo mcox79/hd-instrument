@@ -314,9 +314,17 @@ class Poller:
                     f'powershell -Command "Get-Content {qdir}\\{current}.log -Tail {EXP_TAIL_LINES}"',
                 ))
                 # progress.json: optional convention; absent files just yield empty.
+                # SH-4 note: runner sometimes writes double-prefix
+                # (data/exp_exp_<name>/) when the queue entry name already
+                # begins with 'exp_'. Both candidates polled; caller uses the
+                # non-empty response. Testbed 2026-07-03 fleet audit.
                 cmds.append((
                     f"{label}_progress_json",
                     f"type C:\\dev\\hd-instrument\\data\\exp_{current}\\progress.json",
+                ))
+                cmds.append((
+                    f"{label}_progress_json_dbl",
+                    f"type C:\\dev\\hd-instrument\\data\\exp_exp_{current}\\progress.json",
                 ))
         # Tail enough lines to cover the full event history for the registry.
         # ~50 experiments × ~5 events each = ~250 lines today; 1500 gives headroom.
@@ -496,7 +504,13 @@ class Poller:
             # progress.json (optional): if the experiment writes one, prefer cell-based
             # progress over the wall-time heuristic. Schema:
             #   {phase: str, cell: int, total_cells: int, eta_sec: int, updated_at: iso}
+            # SH-4: prefer canonical progress.json; fall back to double-prefix
+            # sibling when canonical is empty (runner writes double-prefix when
+            # queue entry begins with 'exp_'; see _seed_checkpoint.get_output_dir).
+            # Testbed 2026-07-03 fleet audit.
             prog_raw = by_key.get(f"{label}_progress_json")
+            if not prog_raw:
+                prog_raw = by_key.get(f"{label}_progress_json_dbl")
             if prog_raw:
                 prog = parsers.safe_json(prog_raw)
                 if isinstance(prog, dict):
@@ -1184,7 +1198,13 @@ class Poller:
         return text
 
     def fetch_exp_metrics(self, name: str) -> str:
-        """On-demand fetch of data/exp_<name>/metrics.json. Cached for 60s."""
+        """On-demand fetch of data/exp_<name>/metrics.json. Cached for 60s.
+
+        SH-4 fallback: also tries data/exp_exp_<name>/metrics.json when the
+        canonical path returns empty (runner writes double-prefix when queue
+        entry name begins with 'exp_'; see _seed_checkpoint.get_output_dir).
+        Testbed 2026-07-03 fleet audit.
+        """
         if not _NAME_RE.match(name):
             return ""
         cache_key = f"metrics:{name}"
@@ -1193,13 +1213,21 @@ class Poller:
             cached = self._exp_log_cache.get(cache_key)
             if cached and now - cached[0] < 60.0:
                 return cached[1]
-        path = rf"C:\dev\hd-instrument\data\exp_{name}\metrics.json"
-        cmd = f"type {path}"
-        try:
-            results = self._ssh.run_parallel([cmd], tolerate_errors=True)
-            text = results[0] if results and results[0] else ""
-        except Exception:
-            text = ""
+        candidates = [
+            rf"C:\dev\hd-instrument\data\exp_{name}\metrics.json",
+            rf"C:\dev\hd-instrument\data\exp_exp_{name}\metrics.json",
+        ]
+        text = ""
+        for path in candidates:
+            cmd = f"type {path}"
+            try:
+                results = self._ssh.run_parallel([cmd], tolerate_errors=True)
+                candidate_text = results[0] if results and results[0] else ""
+            except Exception:
+                candidate_text = ""
+            if candidate_text:
+                text = candidate_text
+                break
         with self._exp_log_cache_lock:
             self._exp_log_cache[cache_key] = (now, text)
         return text
