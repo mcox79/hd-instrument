@@ -47,8 +47,37 @@ def save_state(state: dict) -> None:
     STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
+def _canonical_anchor(dirname: str) -> tuple[str, bool]:
+    """Return (canonical_anchor, sh4_double_prefix).
+
+    Landing dirs come in two shapes:
+      canonical:   data/exp_<anchor>/          (dirname="exp_<anchor>")
+      SH-4 double: data/exp_exp_<anchor>/      (dirname="exp_exp_<anchor>")
+    SH-4 fires when a cell was registered with an entry_name that already began
+    with 'exp_' — the runner (runner_v2_prod.py::HDLAB_EXP_NAME=name) then
+    passes that through to _seed_checkpoint.get_output_dir which does
+    f"exp_{name}", producing a double-prefixed landing dir. Cosmetic; the
+    metrics.json is still there. Skunkworks caught 2 back-to-back landings
+    on 2026-07-03 (M-sweep FULL, Exp 3E FULL). Landing pane must handle both.
+    """
+    if dirname.startswith("exp_exp_"):
+        return dirname[len("exp_exp_"):], True
+    if dirname.startswith("exp_"):
+        return dirname[len("exp_"):], False
+    return dirname, False
+
+
 def scan() -> list[dict]:
-    """Scan all data/exp_*/metrics.json for arrivals since last check; append to landings file."""
+    """Scan all data/exp_*/metrics.json (canonical AND SH-4 double-prefix) for
+    arrivals since last check; append to landings file.
+
+    Both `data/exp_<anchor>/metrics.json` and `data/exp_exp_<anchor>/metrics.json`
+    are picked up (the startswith("exp_") gate matches both — kept explicit here
+    so future refactors don't accidentally drop double-prefix coverage). Each
+    arrival records `sh4_double_prefix: True` when the on-disk dir is
+    double-prefixed so process-health audits can trend the cosmetic bug's
+    recurrence rate without inspecting every dir.
+    """
     state = load_state()
     seen = state.get("seen", {})  # path → mtime
     now = time.time()
@@ -71,9 +100,12 @@ def scan() -> list[dict]:
             m = json.loads(mp.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             continue
+        anchor, sh4 = _canonical_anchor(d.name)
         arrivals.append({
             "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mtime)),
             "cell": d.name,
+            "anchor": anchor,
+            "sh4_double_prefix": sh4,
             "verdict": (m.get("verdict") or "?")[:80],
             "run_mode": m.get("run_mode"),
             "n_seeds": m.get("n_seeds"),
@@ -110,16 +142,23 @@ def _refresh_pane() -> None:
         except json.JSONDecodeError:
             continue
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    sh4_hits = sum(1 for r in tail if r.get("sh4_double_prefix"))
+    sh4_note = (f"  |  **SH-4 double-prefix hits in tail:** {sh4_hits}"
+                if sh4_hits else "")
     out = [
         "# Latest landings (auto-refreshed by tools/landing_notifier.py)",
         "",
-        f"**Pane refreshed:** {now_iso} (UTC)  |  **Tail depth:** {PANE_N}  |  **Full log:** `data/recent_landings.jsonl`",
+        f"**Pane refreshed:** {now_iso} (UTC)  |  **Tail depth:** {PANE_N}"
+        f"  |  **Full log:** `data/recent_landings.jsonl`{sh4_note}",
         "",
         "| ts (UTC) | cell | verdict | run_mode | seeds | elapsed_s |",
         "|---|---|---|---|---|---|",
     ]
     for r in tail:
-        cell = (r.get("cell") or "").replace("|", "/")
+        cell_raw = (r.get("cell") or "").replace("|", "/")
+        # Flag SH-4 double-prefix landings inline so operators see the cosmetic
+        # bug rather than silently displaying the double-prefixed dir name.
+        cell = f"[SH-4] {cell_raw}" if r.get("sh4_double_prefix") else cell_raw
         verdict = (r.get("verdict") or "").replace("|", "/")
         rm = r.get("run_mode") or ""
         seeds = r.get("n_seeds")
