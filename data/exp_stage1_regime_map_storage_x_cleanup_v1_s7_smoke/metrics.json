@@ -1,0 +1,182 @@
+{
+  "phase_map": [
+    {
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 200,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "45d8f3bc9698b4d1",
+      "bundle_hash": "243f75d8b658474f",
+      "output_hash": "dcb4e754e3cdf089",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.094
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 200,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "a40a390623254be6",
+      "bundle_hash": "e0bd665f0a81f1cd",
+      "output_hash": "9acf7c4143a43c1d",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.02
+    },
+    {
+      "cleanup_mechanism": "soft_energy_attractor",
+      "M": 200,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "SHARDED",
+      "TR": 40,
+      "acc": 1.0,
+      "shard_hash": "96fc74d0105ac5c9",
+      "bundle_hash": "256db321cdf4b4d7",
+      "output_hash": "b5d52aef690644c6",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.03
+    },
+    {
+      "cleanup_mechanism": "modern_hopfield",
+      "M": 200,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "BUNDLED",
+      "TR": 40,
+      "acc": 0.125,
+      "shard_hash": "d420cabebaa2e634",
+      "bundle_hash": "42c8a03dfe7e0118",
+      "output_hash": "8601e44af976cbbd",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.027
+    },
+    {
+      "cleanup_mechanism": "iterative_cosine",
+      "M": 200,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "BUNDLED",
+      "TR": 40,
+      "acc": 0.225,
+      "shard_hash": "e948f7be0d316c76",
+      "bundle_hash": "dca4b2b11251ce80",
+      "output_hash": "3c9b8084251a0a57",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.027
+    },
+    {
+      "cleanup_mechanism": "soft_energy_attractor",
+      "M": 200,
+      "N": 2048,
+      "F": 1,
+      "L": 2,
+      "corruption": 0.2,
+      "storage": "BUNDLED",
+      "TR": 40,
+      "acc": 0.125,
+      "shard_hash": "5cd55dc2987fef4b",
+      "bundle_hash": "917df0dc1c3bd873",
+      "output_hash": "523928ab0a02ae43",
+      "peak_mem_mb": -1.0,
+      "elapsed_s": 0.025
+    }
+  ],
+  "expected_n_units": 6,
+  "observed_n_units": 6,
+  "cardinality_ok": true,
+  "mech_output_hash_agg": {
+    "modern_hopfield": "561e7e1760a5dce4",
+    "iterative_cosine": "f5d8ee96192c5d11",
+    "soft_energy_attractor": "ddbdc42385c315fa"
+  },
+  "n_distinct_mechanisms": 3,
+  "arms_differ_verified": true,
+  "pc_reproduce_iterative_cosine_regime": {
+    "M": 200,
+    "N": 2048,
+    "F": 1,
+    "L": 2,
+    "corruption": 0.2,
+    "acc": 1.0,
+    "threshold": 0.75,
+    "pass": true
+  },
+  "storage_gaps_sharded_minus_bundled": {
+    "modern_hopfield_M200_N2048_c0.20": 0.875,
+    "iterative_cosine_M200_N2048_c0.20": 0.775,
+    "soft_energy_attractor_M200_N2048_c0.20": 0.875
+  },
+  "max_storage_gap": 0.875,
+  "median_storage_gap": 0.875,
+  "mechanism_variance_at_SHARDED": {
+    "M200_N2048_c0.20": 0.0
+  },
+  "mechanism_variance_at_BUNDLED": {
+    "M200_N2048_c0.20": 0.1
+  },
+  "max_mechanism_variance_at_SHARDED": 0.0,
+  "max_mechanism_variance_at_BUNDLED": 0.1,
+  "storage_marginal_means": {
+    "SHARDED": 1.0,
+    "BUNDLED": 0.1583
+  },
+  "mech_marginal_means": {
+    "modern_hopfield": 0.5625,
+    "iterative_cosine": 0.6125,
+    "soft_energy_attractor": 0.5625
+  },
+  "grand_mean": 0.5792,
+  "storage_x_cleanup_interaction_map": {
+    "SHARDED_modern_hopfield": 0.0167,
+    "SHARDED_iterative_cosine": -0.0333,
+    "SHARDED_soft_energy_attractor": 0.0167,
+    "BUNDLED_modern_hopfield": -0.0167,
+    "BUNDLED_iterative_cosine": 0.0333,
+    "BUNDLED_soft_energy_attractor": -0.0167
+  },
+  "max_abs_dev_storage_x_cleanup": 0.0333,
+  "bundled_arm_stats": {
+    "mean": 0.1583,
+    "min": 0.125,
+    "max": 0.225,
+    "not_universal_floor": true,
+    "not_universal_ceiling": true
+  },
+  "device": "cpu",
+  "gpu_name": "cpu_fallback",
+  "avg_peak_mem_mb": -1.0,
+  "elapsed_seed_s": 0.22,
+  "run_mode": "smoke",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_SMOKE: 6/6 pts; smoke_gate_pass: cardinality_ok + arms_differ + pc_reproduce_acc=1.000 + max_storage_gap=0.875; mech_var_at_BUNDLED=0.100 mech_var_at_SHARDED=0.000",
+  "summary": "HARD_PASS_SMOKE: 6/6 pts; smoke_gate_pass: cardinality_ok + arms_differ + pc_reproduce_acc=1.000 + max_storage_gap=0.875; mech_var_at_BUNDLED=0.100 mech_var_at_SHARDED=0.000",
+  "smoke_gate_pass": true,
+  "smoke_gate_reason": "smoke_gate_pass: cardinality_ok + arms_differ + pc_reproduce_acc=1.000 + max_storage_gap=0.875; mech_var_at_BUNDLED=0.100 mech_var_at_SHARDED=0.000",
+  "anchor_name": "stage1_regime_map_storage_x_cleanup_v1_s7",
+  "elapsed_s": 0.44,
+  "ts_iso": "2026-07-03T17:56:03Z",
+  "pid": 11152,
+  "config_version": "ANCHOR=stage1_regime_map_storage_x_cleanup_v1_s7,regime=fhrr_chain_composition_storage_x_cleanup_pairwise_probe,storage=[SHARDED,BUNDLED],cleanup=[modern_hopfield,iterative_cosine,soft_energy_attractor],M_full=[200,800,3200],N_full=[2048,8192],corr_full=[0.20,0.45],M_smoke=[200],N_smoke=[2048],corr_smoke=[0.20],F=1,L=2,SEED=7,mode=smoke,beta=8.0,alpha_soft=0.5,expected_n_full=72,expected_n_smoke=6,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "stage1_regime_map_storage_x_cleanup_v1_chunked",
+  "backend": "torch.cpu",
+  "seed": 7,
+  "n_seeds": 1,
+  "corpus_provenance": "synthetic_fhrr_chain_composition_storage_x_cleanup_pairwise_v1",
+  "n_llm_calls": 0
+}
