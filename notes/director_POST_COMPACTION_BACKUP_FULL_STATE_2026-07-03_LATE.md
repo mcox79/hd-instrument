@@ -212,13 +212,19 @@ Depending on outcomes, the composite atom is either:
 
 ---
 
-## STEP 9: 5 STAGE 1 CG_META PHYSICS-LAW AXES (regime-scoped)
+## STEP 9: 5 STAGE 1 CG_META PHYSICS-LAW ATOMS ABOUT 4 SUBSTRATE SWEEP AXES
+
+**FRAMING CORRECTION (Skunkworks structural VET 2026-07-03T21:35Z):** Prior heading "5 CG_META PHYSICS-LAW AXES" conflated two distinct concepts. Corrected: **5 abstract physical-law atoms** describe emergent substrate behavior; **4 concrete sweep axes** are the independently-controllable primitives in `build_rules` + `run_chain`: {STORAGE ∈ {SHARDED, BUNDLED}, N, F fan-out, mechanism}. Prior TOPOLOGY_FREE and ALGEBRA_SCALES_depth both alias to `F` (single param controlling perms/POS/sharded_codebook cardinality; verified off-disk at `_stage1_physics_law_joint_composition_factorial_v1_core.py:164`). Regime matrix therefore has C(4,2)=6 cross-terms, not C(5,2)=10. L (chain length) is a genuine 5th potential sweep axis but is FIXED at 2 across all Probes 1-11. See `math::META_regime_matrix_axis_aliasing_finding_v1_...2026_07_03` and `meta::META_axis_labels_map_to_substrate_primitives_..._discipline_v1_2026_07_03`.
+
+**5 abstract physical-law atoms (each remains individually valid as claims about substrate behavior):**
 
 1. **STORAGE_STRATEGY_SCALE_FREE_AND_TOPOLOGY_FREE_PHYSICS_LAW_v1** (2026-07-02) — sharded rule-storage FHRR chain regime
 2. **STORAGE_STRATEGY_COMPOSITION_DEPTH_PHYSICS_LAW_v1** (2026-07-02) — sharded vs bundled chain-depth
-3. **SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS_CG_META_v1** (2026-07-02)
+3. **SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS_CG_META_v1** (2026-07-02) — NOTE: "algebra" here = end-to-end M1.9/M1.10 roundtrip K=5, NOT the F fan-out that Probes 8/10 call "algebra"
 4. **PHYSICS_LAW_cleanup_mechanism_M_scaling_non_Hebbian** (M-sweep FULL 2026-07-03) — bipolar-codebook cleanup regime; **CG_META CONFIRMED via Probe 1 evidence**
 5. **META_CLEANUP_MECHANISM_AXIS_IS_REGIME_NARROW_PROMOTION_MM_TENTATIVE_to_CG_META_CONFIRMED** (2026-07-03) — extends #4 with regime-scope annotation
+
+**Redundancy consequence (verified):** Probes 3, 6, 8 are regime-stratified replicates at F×mechanism cross-term (saturated vs non-sat vs cliff regime slices). Probes 5, 10 are regime-stratified replicates at STORAGE×F. Convergent-evidence framing "3 probes show mech-axis moderation" should be read as "F×mechanism replicated 3× across regime slices" — arguably STRONGER at that single cross-term, but NOT breadth across cross-terms.
 
 Plus math CG atom:
 - **MATH_STAGE1_REGIME_MAP_PROBE1_STORAGE_x_CLEANUP...** (2026-07-03) — first empirical measurement of regime-conditional cross-term
