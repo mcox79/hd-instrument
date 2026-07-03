@@ -160,6 +160,78 @@
 - If v2 rescues: fire phase-diagram Cells 1-2-3 for CG_META `SPOKE1_COMPETITIVE_HEBBIAN_CONCEPT_ENCODER_LAW` on the composed architecture
 - If v2 fails: concept_encoder honest scope is SYNTHETIC-SUPERVISED-REGIME-ONLY; Stage 4 language path requires fundamentally different architecture (probably external LLM despite USER-locked no-external-LLM discipline; needs revisit)
 
+## 🎉 V2-A SMOKE HARD_PASS RESCUE (LATE-NIGHT — LOAD-BEARING FOR POST-COMPACTION)
+
+**Session tally: math=64, meta=36, 100+ atoms today.** 4 CG_META tier atoms (TOPOLOGY_FREE, SCALE_FREE_composed, SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS, GAP-methodology).
+
+**V2-A PPMI/SVD sparse encoder SMOKE HARD_PASS on real WordNet content:**
+- ARM_V2A_PPMI_SVD recall@5 = **0.340** (LOAD-BEARING; +0.18 over v1 0.16; +0.06 BEATS char-trigram bag 0.28)
+- ARM_RANDOM_INDEXING bonus = 0.320 (near-parity; simpler mechanism; co-occurrence accumulation is the load-bearing lever, NOT SVD)
+- ARM_V1_CONCEPT_ENCODER = 0.160 exact Gate D reproduction
+- ARM_RANDOM_BASELINE = 0.067 chance floor
+- 5/5 HP gates PASS, cardinality 15/15
+- **This is the FIRST real-content substrate-mechanism rescue** — proves v1 substrate-content HF was config/architecture, not fundamental
+
+**V2-A FULL orchestrator FIRED (aa9269f4):** push commit + dispatch remote_cpu_queue 1800s; N=500 atoms 3 seeds. Expected HARD_PASS. If confirmed at FULL: **first real-content CG on the same task where v1 was CG_HONEST_NEGATIVE.**
+
+**v2 P1 VWFA + late-combine SMOKE (partial):**
+- ARM_V2_VWFA_ALONE = 0.253 (subsumes char-trigram bag within 0.03 tolerance — VWFA-analog works as brain-emulation predicted)
+- ARM_V2_SEM_ALONE = 0.167 (v1 baseline reproduced)
+- ARM_V2_LATE_COMBINE (fit-α) = 0.200 (HF2 — fit-α unstable across seeds 0.20/0.70/0.00; overfits 50-query split)
+- ARM_V2_LATE_COMBINE_EQUAL = 0.227 (equal α=γ=0.5, sits between individual arms)
+- Cell-author HOLD before FULL; files uncommitted in working tree
+
+**Component C (modern-Hopfield softmax retrieval) authoring in flight:** agent a87dcad5. Physics drill said readout geometry is biggest lever. Modern Hopfield enables interpolation between stored patterns unlike classical Hopfield's quadratic energy.
+
+**6-drill convergent architectural diagnosis (empirical + math + physics + neuroscience + ML/AI + brain-emulation):**
+- Substrate's sparse-competitive-Hebbian at k=2% is DG-CA3 HIPPOCAMPAL regime
+- WordNet held-out-synonym task is NEOCORTEX (VWFA + ATL + pMTG-IFG)
+- **Architectural error caught: we built hippocampus and tried to use it as neocortex**
+- All 3 missing components are NEOCORTEX:
+  - **A: VWFA-analog** (ventral fusiform gyrus) — v2 P1 covers, matches trigram
+  - **B: ATL-hub-analog** (anterior temporal lobe) — V2-A covers, HP'd smoke
+  - **C: Semantic control** (pMTG-IFG) — a87dcad5 in flight
+- USER authorized development of all 3
+
+**Wikipedia FULL 10K running remotely (overnight_queue, 2-4hr wall):** first empirical FULL of v1 concept_encoder at real-corpus scale. SMOKE HF2 preview showed mechanism 0.544 vs char-trigram 0.872. FULL will land regardless of v2 developments — v1 baseline empirical at scale.
+
+**Wikipedia dataset exists remotely (per orchestrator SH-2 auto-recover):** `data/datasets/wikipedia_100k.jsonl` — 10K articles.
+
+**All in flight (3 spawns at time of BACKUP update):**
+- a87dcad5 Component C (modern-Hopfield softmax retrieval) authoring
+- aa9269f4 orchestrator V2-A FULL dispatch
+- Wikipedia FULL running remotely (no agent to notify; expected 2-4hr wall)
+
+**Critical files to preserve (all in working tree, some uncommitted):**
+- `hdlab/ppmi_sparse_encoder.py` (322 LOC) — V2-A B-component; PPMISparseEncoder + RandomIndexingEncoder
+- `hdlab/vwfa.py` (360 LOC) — v2 P1 A-component; multi-scale char-with-position
+- `hdlab/late_combine.py` (280 LOC) — parallel-stream late-composition (N400 analog)
+- `hdlab/modern_hopfield_readout.py` — Component C (a87dcad5 authoring)
+- `hdlab/concept_encoder.py` (9d30d3d30, committed) — Spoke 1 v3-D CG'd
+- `hdlab/temporal_trace.py` (97b4753b3, committed) — Spoke 2 Foldiak CG'd
+- 5 drill notes (empirical, math, physics, neuroscience, ML/AI) + brain-emulation drill note in `notes/`
+
+**Load-bearing intuition to preserve:**
+> USER's directive: "if we need to develop those brain analogs we can. are they part of neocortex?"
+> Answer: YES — all 3 (VWFA + ATL + pMTG-IFG) are neocortex. Currently missing from substrate; being developed as A/B/C brain-analog components.
+> "We built the hippocampus by accident" — Spoke 1 v3-D is DG-CA3 regime, not neocortex.
+
+**Post-compaction next steps (queued):**
+- Wait for V2-A FULL landing (Skunkworks VET expected CG)
+- Wait for Component C SMOKE (a87dcad5)
+- Wait for Wikipedia FULL landing (~2-4hr)
+- Compose v3 = A (VWFA) + B (V2-A PPMI/SVD or Random Indexing) + C (modern-Hopfield readout) on same task
+- If v3 rescues meaningfully: FIRST TRUE substrate-native brain-neocortical mechanism for real-content retrieval
+- If v3 fails: Stage 4 language ingest needs fundamentally different architecture
+
+**USER-locked disciplines added or reinforced this session:**
+- substrate-knows-almost-nothing (READ FIRST tier)
+- mechanism-analog ≠ task-analog
+- concept-query-before-dispatch (2026-06-08 note predicted substrate-content HF; case study filed)
+- brain-function-best-in-class reference standard
+- 4-element intuitive summaries (what/importance/implications/position)
+- MEMORY.md compacted to fit read limit
+
 ## POST-M1.9 UPDATES
 
 **M1.9 SemanticParser FULL landed CG** (Skunkworks a508452e, commit not yet by Skunkworks). Intent=0.898 (cv 0.026), slot=1.000. Ablation collapses: M16-router-no-unbind slot=0.021, shuffled-role slot=0.017, Hebbian-intent-only=0.023 (chance for 50-way). META candidate `HEBBIAN_CLASSIFIER_REGIME_NARROW_FOR_COMPOSITIONAL_BUNDLE_INPUTS` = MM_TENTATIVE (not CG).
