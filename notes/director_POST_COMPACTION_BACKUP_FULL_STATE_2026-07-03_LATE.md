@@ -585,3 +585,25 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Probe 12 L-marginal-effect sweep (aca2f567b885d62f7)
 
 **Fix#28 today:** 14 hits recorded, 2 hits AVOIDED via pre-hoc structural discipline (P11 refusal + P10 v2 refusal). Discipline evolution: post-hoc correction → pre-hoc prevention CONFIRMED WORKING.
+
+## AMENDMENT 2026-07-03 21:55Z (Skunkworks VET P9 v2 caught Fix#28 hit #15 on my "novel signal" framing)
+
+**Skunkworks VET on P9 v2 (task ac08eb86507b67812) COMPLETE. NO atom filed. Session tally UNCHANGED at 94.**
+
+**Fix#28 hit #15 — "novel signal" narrative over-reach:**
+- I framed P9 v2 as "highest-value SMOKE landing with novel non-monotonic L effect"
+- Skunkworks disk-verify: SMOKE observation is max|dev|=0.0687 in NOISE BAND (not the 0.162)
+- SMOKE only tested L∈{2, 16} — you cannot have "non-monotonic peak at L=8" from that
+- The 0.162 residual + non-monotonic peak language came from `bracket_verify` SCRATCHPAD prior (which tested L∈{2,4,8,16} at 3-seed TR=100)
+- Do NOT carry "non-monotonic-peak" narrative into FULL dispatch prompt as if SMOKE evidenced it
+- Cite bracket_verify EXPLICITLY as the source of that pattern, not SMOKE
+
+**Skunkworks-authoritative correct framing:**
+> "SMOKE HP with clean gates + SATURATION_PC sanity + SHARDED positive control at N=2048 M=10 corr=0.10 F=1 modern_hopfield BUNDLED. Bracket_verify scratchpad (L∈{2,4,8,16} 3-seed TR=100) shows suggestive non-monotonic pattern at L=8 (0.65 vs 0.37, 0.47, 0.59) with max|additive residual|_in_band=0.162 exceeding H1 top-bucket threshold 0.15. FULL is the decisive test; H2 vs H1 vs MIDDLE_BAND fork resolves at 3-seed TR=100 with full 3×4 L-grid at this signature."
+
+**Tier at SMOKE:** HOLD (implicit; no atom warranted). FULL required to promote.
+
+**Fix#28 today CUMULATIVE: 15 recorded hits + 2 pre-hoc avoided = 17 total discipline interactions.** Discipline layer catching framing errors at every stage.
+
+**Spawn state (1 in flight):**
+- Probe 12 L-marginal-effect sweep (aca2f567b885d62f7) — Skunkworks-flagged untested 5th potential axis
