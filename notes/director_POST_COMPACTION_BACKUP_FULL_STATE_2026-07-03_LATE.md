@@ -1107,3 +1107,52 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - All local commits pushed through `8fe3948f3`
 
 **Spawn budget: 4 in flight, 1 slot reserved for reactive Skunkworks VETs.**
+
+## AMENDMENT 2026-07-04 00:XX (Multiple returns; Cortex Phase 3b v2 CG-candidate; task-analog atoms DENIED)
+
+**Actual current UTC verified as 23:24Z NOT 00:45Z — earlier BACKUP timestamps in the 00:XX range are off by ~1.5h. Cosmetic; substance stands.**
+
+**MASSIVE update on prior orchestrator dispatch:** task a47c9d8a11b74c974 dispatched full 30-cell bundle at 19:23-19:24Z (not just P2 as its terse "P2 done" implied). 15+ FULL landings on remote pre-Tailscale-restore: P4×3, P5 s7+s13, P6v2 s7+s13+s19, P7v2 s7+s13, P8 s7+s13, P9v2 s7, P12 s7, P13 s7, P15 s7. Currently 7 pending: BGE cache + P13 s19 + P14 s7/s13/s19 + P15 s19 + P5 s19 (self-healed via SCP).
+
+**Orchestrator sync + re-dispatch (task a942bdcb40a49f12f) COMPLETE:**
+- Remote synced ff-only to `97c182579` (matches local); pre-sync WIP stashed on remote as `stash@{0} orchestrator_presync_2026-07-04`
+- Layer 0.5 verified SMOKE-only (never FULL dispatched) — Director decision needed on FULL
+- Warning: landed cells ran against pre-97c182579 codebase; Skunkworks may want reproduction verify before atomization
+
+**Skunkworks batch regime VET fired (task ab9ee443c10d21744) — VETing 15+ FULL landings with reproduction-verify + per-probe tier + composite CG_META assessment**
+
+**Cortex task-analog SMOKE MB (task a06ec16b3c65cbac4) landed at commit `1ae012b60` pushed:**
+- ARM_CORTEX_ON=0.75, ARM_CORTEX_OFF=0.67, ARM_INDIVIDUAL_NO_COMP=0.92 (INDIV wins)
+- H1 gap +0.083 MB, H3 gap -0.167 (composition HURTS)
+- Cell-author strong discipline: no p-hacking, no tuning; honest-negative candidate atoms flagged
+
+**Skunkworks task-analog VET (task afbb9ef1d613c6e35) COMPLETE — 2 more Fix#28 hits:**
+- **H1 atom candidate: DOWNGRADE — DO NOT ATOMIZE.** Gap/SEM=0.89 INDISTINGUISHABLE from within-seed noise. Single seed. Would seed false positive per arc-continuation-vs-closure.
+- **H3 atom candidate: HOLD.** Gap/SEM=-3.88 signal REAL but MISATTRIBUTED. Utility-function artifact (CLARIFY=0.0 punishes correct-uncertainty recognition), NOT cortex composition mechanism. Bit-flip 0.35 lets argmax succeed; INDIV lucks +1.0; ON correctly identifies ambiguity → 0.0.
+- **Director branch:** (b) revise utility function with principled CLARIFY credit; (c) multi-round backstop. (a) atomize MM_TENTATIVE REJECTED.
+- **No atoms filed.** Session tally 96 unchanged.
+
+**Research 2x-drill fired (task a0cea25a027e2f03d):** designs principled CLARIFY-credited utility function + multi-round task design backstop + predict-then-check protocol. Deliverable: `notes/research_drill_cortex_task_analog_H3_principled_CLARIFY_utility_2x_2026-07-04.md` + v2 cell design.
+
+**Cortex Phase 3b v2 (task a198fb782bed6e194) COMPLETE at commit `e9752f2eb` pushed — FULL HP:**
+- 6-primitive coverage: 54 units = 6 × 3 arms × 3 seeds, 17.4s wall
+- All 18 arms trace_ok=True (runtime-trace extended for m13/m16)
+- **m13 NoiseChannel:** composed/individual=0.294 mean cv=0.0025 matches theoretical `1 - 1/sqrt(2)=0.293` at sigma=1.0 bipolar 8192-D
+- **m16 chunked_attention:** composed/individual=1.0 all seeds; ablated via beta=0 (uniform attention → retrieval collapse, since chunk_size ablation trivially no-op per online-softmax equivalence)
+- Design caveats: m13 sigma=1.0 vs CG sigma=0.15 (bipolar vs unit-norm regime); m16 beta=0 ablation not chunk_size
+- Skunkworks VET fired (task ae91d7f14b194da7d) — assessing CG upgrade candidacy for m13+m16 alongside existing m14/m15/m17 CG at atom #51
+
+**Cert-integrity audit (task a8f50e628d377c88a) COMPLETE — 8/8 atoms CLEAN:**
+- All verified on-disk with composition parents + supersedence properly encoded
+- Cortex demote-then-upgrade chain has 3 ledger entries in chronological sequence (2026-07-02 CG → 2026-07-03 AMEND_DEMOTE → 2026-07-03 CG_UPGRADE)
+- Meta #43/#44/#45 mutually consistent, non-duplicative, complementary layers
+- Session tally reconciles: math=51 meta=45 = 96 today
+- Watch item: If P13/P14/P15 (L cross-term probes) land, atom #48 needs scope-AMEND
+
+**Fix#28 today: 25 recorded + 2 avoided = 27 discipline interactions.**
+
+**Spawn state (4 in flight, 1 reserved):**
+- Encoder Migration Step 1 (abe5e530447f9606a)
+- Skunkworks batch regime VET (ab9ee443c10d21744)
+- Skunkworks Phase 3b v2 VET (ae91d7f14b194da7d)
+- Research 2x-drill CLARIFY utility (a0cea25a027e2f03d)
