@@ -1,0 +1,1896 @@
+{
+  "anchor_name": "substrate_stage1_apply_exp2_ppr_walk_bridge_recovery_smoke_2026_07_03",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND_PPR_BRIDGE_RECOVERY: ppr_recovery_rate=0.170 in [0.15, 0.50); real but narrow lift (matches BridgeRAG selective-effect pattern); worth shipping with modest expectations. baseline=0.036 | main=0.182 | pos_ctl=1.000 | neg_ctl=0.000 | ppr_recovery_rate=0.170 (9/53 missed-by-hop1) | cardinality_ok=True arms_differ_ok=True mass_ok=True SCALE_CAVEAT: synthetic 20-entity KG (dense by construction); PPR is a global-flow op whose scale-transfer to Wikipedia-KB is SEPARATE future test.",
+  "summary": "MIDDLE_BAND_PPR_BRIDGE_RECOVERY: ppr_recovery_rate=0.170 in [0.15, 0.50); real but narrow lift (matches BridgeRAG selective-effect pattern); worth shipping with modest expectations. baseline=0.036 | main=0.182 | pos_ctl=1.000 | neg_ctl=0.000 | ppr_recovery_rate=0.170 (9/53 missed-by-hop1) | cardinality_ok=True arms_differ_ok=True mass_ok=True SCALE_CAVEAT: synthetic 20-entity KG (dense by construction); PPR is a global-flow op whose scale-transfer to Wikipedia-KB is SEPARATE future test.",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "ppr_alpha": 0.15,
+  "ppr_iters": 5,
+  "ppr_top_k": 5,
+  "cosine_thresh": 0.5,
+  "mass_conservation_tol": 0.005,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_failed": 19,
+      "n_queries_total": 20,
+      "n_missed_by_hop1": 19,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": {
+          "recall_at_k": 0.0,
+          "n_hits": 0,
+          "n": 19
+        },
+        "ARM_MAIN_PPR_RECOVERED": {
+          "recall_at_k": 0.21052631578947367,
+          "n_hits": 4,
+          "n": 19
+        },
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": {
+          "recall_at_k": 1.0,
+          "n_hits": 19,
+          "n": 19
+        },
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": {
+          "recall_at_k": 0.0,
+          "n_hits": 0,
+          "n": 19
+        }
+      },
+      "ppr_recovery_rate": 0.21052631578947367,
+      "n_ppr_recovered_on_missed_subset": 4,
+      "arm_digests": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": "a84a9d38add9f9f3",
+        "ARM_MAIN_PPR_RECOVERED": "9fe79915560ed007",
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": "150a8366d4ef70f0",
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": "a84a9d38add9f9f3"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [
+        [
+          "ARM_HOP1_DENSE_ALONE_BASELINE",
+          "ARM_NEG_CTL_PPR_FROM_RANDOM",
+          "both all-zero hit vectors (adverse regime)"
+        ]
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "bridge_entity": "Bexley",
+          "bridge_chunk_idx": 8,
+          "hop1_top_k": [
+            83,
+            58,
+            18,
+            19,
+            15
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Delft",
+            "Erie",
+            "Loam",
+            "Quill",
+            "Tern"
+          ],
+          "neg_seed_entity": "Kelm",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            99,
+            98,
+            97,
+            96,
+            95
+          ]
+        },
+        {
+          "qi": 1,
+          "bridge_entity": "Tern",
+          "bridge_chunk_idx": 95,
+          "hop1_top_k": [
+            30,
+            75,
+            32,
+            34,
+            6
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Gulch",
+            "Osek",
+            "Pome",
+            "Tern"
+          ],
+          "neg_seed_entity": "Alton",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            31,
+            32,
+            33,
+            34,
+            30
+          ]
+        },
+        {
+          "qi": 2,
+          "bridge_entity": "Pome",
+          "bridge_chunk_idx": 77,
+          "hop1_top_k": [
+            90,
+            5,
+            92,
+            57,
+            37
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Hara",
+            "Loam",
+            "Pome",
+            "Riva",
+            "Solt"
+          ],
+          "neg_seed_entity": "Loam",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 3,
+          "bridge_entity": "Alton",
+          "bridge_chunk_idx": 1,
+          "hop1_top_k": [
+            93,
+            31,
+            38,
+            6,
+            33
+          ],
+          "matched_entities": [
+            "Alton",
+            "Bexley",
+            "Gulch",
+            "Hara",
+            "Solt"
+          ],
+          "neg_seed_entity": "Loam",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            31,
+            32,
+            33,
+            34,
+            30
+          ]
+        },
+        {
+          "qi": 4,
+          "bridge_entity": "Quill",
+          "bridge_chunk_idx": 84,
+          "hop1_top_k": [
+            95,
+            10,
+            99,
+            24,
+            19
+          ],
+          "matched_entities": [
+            "Coral",
+            "Delft",
+            "Erie",
+            "Mesa",
+            "Quill",
+            "Tern"
+          ],
+          "neg_seed_entity": "Mesa",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            99,
+            98,
+            97,
+            96,
+            95
+          ]
+        },
+        {
+          "qi": 5,
+          "bridge_entity": "Gulch",
+          "bridge_chunk_idx": 31,
+          "hop1_top_k": [
+            6,
+            9,
+            18,
+            5,
+            29
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Delft",
+            "Fjord",
+            "Gulch",
+            "Pome",
+            "Solt"
+          ],
+          "neg_seed_entity": "Juno",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            9,
+            6,
+            8,
+            5,
+            7
+          ]
+        },
+        {
+          "qi": 6,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 62,
+          "hop1_top_k": [
+            70,
+            0,
+            72,
+            2,
+            45
+          ],
+          "matched_entities": [
+            "Alton",
+            "Juno",
+            "Mesa",
+            "Nord",
+            "Osek"
+          ],
+          "neg_seed_entity": "Quill",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            70,
+            72,
+            74,
+            71,
+            73
+          ]
+        },
+        {
+          "qi": 8,
+          "bridge_entity": "Delft",
+          "bridge_chunk_idx": 15,
+          "hop1_top_k": [
+            60,
+            70,
+            20,
+            62,
+            59
+          ],
+          "matched_entities": [
+            "Delft",
+            "Erie",
+            "Loam",
+            "Mesa",
+            "Osek"
+          ],
+          "neg_seed_entity": "Juno",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            70,
+            72,
+            74,
+            71,
+            73
+          ]
+        },
+        {
+          "qi": 9,
+          "bridge_entity": "Juno",
+          "bridge_chunk_idx": 46,
+          "hop1_top_k": [
+            14,
+            49,
+            16,
+            56,
+            44
+          ],
+          "matched_entities": [
+            "Coral",
+            "Delft",
+            "Iona",
+            "Juno",
+            "Loam"
+          ],
+          "neg_seed_entity": "Bexley",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            14,
+            12,
+            13,
+            10,
+            11
+          ]
+        },
+        {
+          "qi": 10,
+          "bridge_entity": "Quill",
+          "bridge_chunk_idx": 80,
+          "hop1_top_k": [
+            35,
+            85,
+            39,
+            40,
+            31
+          ],
+          "matched_entities": [
+            "Gulch",
+            "Hara",
+            "Iona",
+            "Kelm",
+            "Quill",
+            "Riva"
+          ],
+          "neg_seed_entity": "Alton",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            39,
+            37,
+            38,
+            35,
+            36
+          ]
+        },
+        {
+          "qi": 11,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 62,
+          "hop1_top_k": [
+            57,
+            59,
+            56,
+            58,
+            55
+          ],
+          "matched_entities": [
+            "Alton",
+            "Coral",
+            "Delft",
+            "Loam",
+            "Mesa",
+            "Solt"
+          ],
+          "neg_seed_entity": "Pome",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            14,
+            12,
+            13,
+            10,
+            11
+          ]
+        },
+        {
+          "qi": 12,
+          "bridge_entity": "Solt",
+          "bridge_chunk_idx": 91,
+          "hop1_top_k": [
+            74,
+            94,
+            34,
+            89,
+            71
+          ],
+          "matched_entities": [
+            "Gulch",
+            "Mesa",
+            "Osek",
+            "Riva",
+            "Solt"
+          ],
+          "neg_seed_entity": "Coral",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            70,
+            72,
+            74,
+            71,
+            73
+          ]
+        },
+        {
+          "qi": 13,
+          "bridge_entity": "Iona",
+          "bridge_chunk_idx": 44,
+          "hop1_top_k": [
+            69,
+            79,
+            9,
+            76,
+            90
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Iona",
+            "Juno",
+            "Nord",
+            "Pome",
+            "Solt"
+          ],
+          "neg_seed_entity": "Osek",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            75,
+            78,
+            77,
+            76,
+            79
+          ]
+        },
+        {
+          "qi": 14,
+          "bridge_entity": "Juno",
+          "bridge_chunk_idx": 46,
+          "hop1_top_k": [
+            61,
+            71,
+            62,
+            60,
+            70
+          ],
+          "matched_entities": [
+            "Delft",
+            "Juno",
+            "Mesa",
+            "Osek"
+          ],
+          "neg_seed_entity": "Kelm",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            70,
+            72,
+            74,
+            71,
+            73
+          ]
+        },
+        {
+          "qi": 15,
+          "bridge_entity": "Coral",
+          "bridge_chunk_idx": 11,
+          "hop1_top_k": [
+            54,
+            49,
+            14,
+            79,
+            61
+          ],
+          "matched_entities": [
+            "Coral",
+            "Juno",
+            "Kelm",
+            "Mesa",
+            "Pome"
+          ],
+          "neg_seed_entity": "Gulch",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            14,
+            12,
+            13,
+            10,
+            11
+          ]
+        },
+        {
+          "qi": 16,
+          "bridge_entity": "Osek",
+          "bridge_chunk_idx": 71,
+          "hop1_top_k": [
+            31,
+            36,
+            35,
+            52,
+            37
+          ],
+          "matched_entities": [
+            "Gulch",
+            "Hara",
+            "Kelm",
+            "Osek",
+            "Solt"
+          ],
+          "neg_seed_entity": "Gulch",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            70,
+            72,
+            74,
+            71,
+            73
+          ]
+        },
+        {
+          "qi": 17,
+          "bridge_entity": "Bexley",
+          "bridge_chunk_idx": 6,
+          "hop1_top_k": [
+            48,
+            88,
+            1,
+            86,
+            92
+          ],
+          "matched_entities": [
+            "Alton",
+            "Bexley",
+            "Delft",
+            "Juno",
+            "Riva",
+            "Solt"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            3,
+            1,
+            2,
+            4,
+            0
+          ]
+        },
+        {
+          "qi": 18,
+          "bridge_entity": "Gulch",
+          "bridge_chunk_idx": 34,
+          "hop1_top_k": [
+            90,
+            75,
+            79,
+            9,
+            69
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Gulch",
+            "Juno",
+            "Nord",
+            "Pome",
+            "Solt"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            31,
+            32,
+            33,
+            34,
+            30
+          ]
+        },
+        {
+          "qi": 19,
+          "bridge_entity": "Alton",
+          "bridge_chunk_idx": 0,
+          "hop1_top_k": [
+            65,
+            69,
+            50,
+            98,
+            25
+          ],
+          "matched_entities": [
+            "Alton",
+            "Fjord",
+            "Iona",
+            "Kelm",
+            "Nord",
+            "Pome",
+            "Tern"
+          ],
+          "neg_seed_entity": "Kelm",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            3,
+            1,
+            2,
+            4,
+            0
+          ]
+        }
+      ],
+      "ppr_mass_max_deviation_from_1": 2.220446049250313e-16,
+      "ppr_mass_conservation_ok": true,
+      "elapsed_s": 23.883544200012693
+    },
+    {
+      "seed": 17,
+      "n_failed": 19,
+      "n_queries_total": 20,
+      "n_missed_by_hop1": 18,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": {
+          "recall_at_k": 0.05263157894736842,
+          "n_hits": 1,
+          "n": 19
+        },
+        "ARM_MAIN_PPR_RECOVERED": {
+          "recall_at_k": 0.10526315789473684,
+          "n_hits": 2,
+          "n": 19
+        },
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": {
+          "recall_at_k": 1.0,
+          "n_hits": 19,
+          "n": 19
+        },
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": {
+          "recall_at_k": 0.0,
+          "n_hits": 0,
+          "n": 19
+        }
+      },
+      "ppr_recovery_rate": 0.05555555555555555,
+      "n_ppr_recovered_on_missed_subset": 1,
+      "arm_digests": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": "10242618b2086d62",
+        "ARM_MAIN_PPR_RECOVERED": "48126cb5344ea507",
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": "150a8366d4ef70f0",
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": "a84a9d38add9f9f3"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "bridge_entity": "Coral",
+          "bridge_chunk_idx": 13,
+          "hop1_top_k": [
+            43,
+            76,
+            91,
+            93,
+            90
+          ],
+          "matched_entities": [
+            "Alton",
+            "Coral",
+            "Iona",
+            "Pome",
+            "Solt"
+          ],
+          "neg_seed_entity": "Quill",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            40,
+            41,
+            42,
+            43,
+            44
+          ]
+        },
+        {
+          "qi": 1,
+          "bridge_entity": "Nord",
+          "bridge_chunk_idx": 67,
+          "hop1_top_k": [
+            21,
+            31,
+            32,
+            34,
+            55
+          ],
+          "matched_entities": [
+            "Coral",
+            "Erie",
+            "Gulch",
+            "Loam",
+            "Nord",
+            "Pome"
+          ],
+          "neg_seed_entity": "Loam",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            31,
+            32,
+            33,
+            34,
+            30
+          ]
+        },
+        {
+          "qi": 2,
+          "bridge_entity": "Kelm",
+          "bridge_chunk_idx": 51,
+          "hop1_top_k": [
+            15,
+            75,
+            16,
+            53,
+            19
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Delft",
+            "Kelm",
+            "Mesa",
+            "Pome"
+          ],
+          "neg_seed_entity": "Bexley",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            50,
+            53,
+            52,
+            51,
+            54
+          ]
+        },
+        {
+          "qi": 3,
+          "bridge_entity": "Bexley",
+          "bridge_chunk_idx": 7,
+          "hop1_top_k": [
+            67,
+            27,
+            87,
+            66,
+            86
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Fjord",
+            "Nord",
+            "Pome",
+            "Riva"
+          ],
+          "neg_seed_entity": "Coral",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 4,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 60,
+          "hop1_top_k": [
+            50,
+            15,
+            26,
+            79,
+            51
+          ],
+          "matched_entities": [
+            "Alton",
+            "Delft",
+            "Fjord",
+            "Kelm",
+            "Mesa",
+            "Pome"
+          ],
+          "neg_seed_entity": "Fjord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            50,
+            53,
+            52,
+            51,
+            54
+          ]
+        },
+        {
+          "qi": 5,
+          "bridge_entity": "Riva",
+          "bridge_chunk_idx": 85,
+          "hop1_top_k": [
+            65,
+            67,
+            69,
+            85,
+            90
+          ],
+          "matched_entities": [
+            "Iona",
+            "Nord",
+            "Riva",
+            "Solt"
+          ],
+          "neg_seed_entity": "Loam",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 6,
+          "bridge_entity": "Solt",
+          "bridge_chunk_idx": 93,
+          "hop1_top_k": [
+            43,
+            78,
+            13,
+            69,
+            41
+          ],
+          "matched_entities": [
+            "Coral",
+            "Iona",
+            "Nord",
+            "Pome",
+            "Solt"
+          ],
+          "neg_seed_entity": "Kelm",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            40,
+            41,
+            42,
+            43,
+            44
+          ]
+        },
+        {
+          "qi": 7,
+          "bridge_entity": "Hara",
+          "bridge_chunk_idx": 39,
+          "hop1_top_k": [
+            10,
+            29,
+            14,
+            91,
+            61
+          ],
+          "matched_entities": [
+            "Coral",
+            "Fjord",
+            "Hara",
+            "Mesa",
+            "Quill",
+            "Solt"
+          ],
+          "neg_seed_entity": "Fjord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            14,
+            12,
+            13,
+            10,
+            11
+          ]
+        },
+        {
+          "qi": 8,
+          "bridge_entity": "Pome",
+          "bridge_chunk_idx": 76,
+          "hop1_top_k": [
+            66,
+            86,
+            6,
+            67,
+            65
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Nord",
+            "Pome",
+            "Riva"
+          ],
+          "neg_seed_entity": "Erie",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 9,
+          "bridge_entity": "Juno",
+          "bridge_chunk_idx": 47,
+          "hop1_top_k": [
+            24,
+            27,
+            67,
+            89,
+            54
+          ],
+          "matched_entities": [
+            "Erie",
+            "Fjord",
+            "Juno",
+            "Kelm",
+            "Nord",
+            "Riva"
+          ],
+          "neg_seed_entity": "Coral",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 10,
+          "bridge_entity": "Gulch",
+          "bridge_chunk_idx": 32,
+          "hop1_top_k": [
+            5,
+            25,
+            27,
+            73,
+            26
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Fjord",
+            "Gulch",
+            "Kelm",
+            "Osek",
+            "Riva"
+          ],
+          "neg_seed_entity": "Erie",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 11,
+          "bridge_entity": "Iona",
+          "bridge_chunk_idx": 44,
+          "hop1_top_k": [
+            79,
+            34,
+            78,
+            99,
+            76
+          ],
+          "matched_entities": [
+            "Gulch",
+            "Iona",
+            "Kelm",
+            "Pome",
+            "Solt",
+            "Tern"
+          ],
+          "neg_seed_entity": "Juno",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 12,
+          "bridge_entity": "Kelm",
+          "bridge_chunk_idx": 51,
+          "hop1_top_k": [
+            79,
+            76,
+            34,
+            86,
+            99
+          ],
+          "matched_entities": [
+            "Gulch",
+            "Kelm",
+            "Pome",
+            "Riva",
+            "Solt",
+            "Tern"
+          ],
+          "neg_seed_entity": "Solt",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 13,
+          "bridge_entity": "Erie",
+          "bridge_chunk_idx": 24,
+          "hop1_top_k": [
+            69,
+            68,
+            41,
+            65,
+            73
+          ],
+          "matched_entities": [
+            "Erie",
+            "Fjord",
+            "Iona",
+            "Nord",
+            "Osek",
+            "Riva"
+          ],
+          "neg_seed_entity": "Pome",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 14,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 63,
+          "hop1_top_k": [
+            91,
+            61,
+            11,
+            13,
+            29
+          ],
+          "matched_entities": [
+            "Coral",
+            "Fjord",
+            "Iona",
+            "Mesa",
+            "Solt"
+          ],
+          "neg_seed_entity": "Osek",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            40,
+            41,
+            42,
+            43,
+            44
+          ]
+        },
+        {
+          "qi": 15,
+          "bridge_entity": "Nord",
+          "bridge_chunk_idx": 68,
+          "hop1_top_k": [
+            37,
+            52,
+            38,
+            56,
+            35
+          ],
+          "matched_entities": [
+            "Hara",
+            "Kelm",
+            "Loam",
+            "Nord",
+            "Quill",
+            "Tern"
+          ],
+          "neg_seed_entity": "Solt",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            80,
+            81,
+            82,
+            83,
+            84
+          ]
+        },
+        {
+          "qi": 17,
+          "bridge_entity": "Juno",
+          "bridge_chunk_idx": 49,
+          "hop1_top_k": [
+            4,
+            9,
+            93,
+            50,
+            1
+          ],
+          "matched_entities": [
+            "Alton",
+            "Bexley",
+            "Juno",
+            "Kelm",
+            "Nord",
+            "Solt"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            3,
+            1,
+            2,
+            4,
+            0
+          ]
+        },
+        {
+          "qi": 18,
+          "bridge_entity": "Alton",
+          "bridge_chunk_idx": 3,
+          "hop1_top_k": [
+            38,
+            80,
+            0,
+            83,
+            33
+          ],
+          "matched_entities": [
+            "Alton",
+            "Gulch",
+            "Hara",
+            "Quill"
+          ],
+          "neg_seed_entity": "Gulch",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            80,
+            81,
+            82,
+            83,
+            84
+          ]
+        },
+        {
+          "qi": 19,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 64,
+          "hop1_top_k": [
+            74,
+            54,
+            79,
+            39,
+            26
+          ],
+          "matched_entities": [
+            "Fjord",
+            "Hara",
+            "Kelm",
+            "Osek",
+            "Pome",
+            "Riva"
+          ],
+          "neg_seed_entity": "Gulch",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            50,
+            53,
+            52,
+            51,
+            54
+          ]
+        }
+      ],
+      "ppr_mass_max_deviation_from_1": 3.3306690738754696e-16,
+      "ppr_mass_conservation_ok": true,
+      "elapsed_s": 0.9499758000019938
+    },
+    {
+      "seed": 23,
+      "n_failed": 17,
+      "n_queries_total": 20,
+      "n_missed_by_hop1": 16,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": {
+          "recall_at_k": 0.058823529411764705,
+          "n_hits": 1,
+          "n": 17
+        },
+        "ARM_MAIN_PPR_RECOVERED": {
+          "recall_at_k": 0.23529411764705882,
+          "n_hits": 4,
+          "n": 17
+        },
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": {
+          "recall_at_k": 1.0,
+          "n_hits": 17,
+          "n": 17
+        },
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": {
+          "recall_at_k": 0.0,
+          "n_hits": 0,
+          "n": 17
+        }
+      },
+      "ppr_recovery_rate": 0.25,
+      "n_ppr_recovered_on_missed_subset": 4,
+      "arm_digests": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": "a5c510d60804b160",
+        "ARM_MAIN_PPR_RECOVERED": "1f4a823f22989fa1",
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": "3da7527d9ad68697",
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": "dd862ab2cdb58b6e"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "bridge_entity": "Riva",
+          "bridge_chunk_idx": 85,
+          "hop1_top_k": [
+            70,
+            72,
+            71,
+            12,
+            88
+          ],
+          "matched_entities": [
+            "Coral",
+            "Juno",
+            "Osek",
+            "Riva"
+          ],
+          "neg_seed_entity": "Quill",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            70,
+            72,
+            74,
+            71,
+            73
+          ]
+        },
+        {
+          "qi": 2,
+          "bridge_entity": "Loam",
+          "bridge_chunk_idx": 55,
+          "hop1_top_k": [
+            30,
+            10,
+            34,
+            33,
+            73
+          ],
+          "matched_entities": [
+            "Coral",
+            "Gulch",
+            "Loam",
+            "Osek"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            59,
+            58,
+            57,
+            56,
+            55
+          ]
+        },
+        {
+          "qi": 3,
+          "bridge_entity": "Pome",
+          "bridge_chunk_idx": 78,
+          "hop1_top_k": [
+            63,
+            74,
+            44,
+            43,
+            61
+          ],
+          "matched_entities": [
+            "Fjord",
+            "Iona",
+            "Mesa",
+            "Osek",
+            "Pome"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            40,
+            41,
+            42,
+            43,
+            44
+          ]
+        },
+        {
+          "qi": 4,
+          "bridge_entity": "Tern",
+          "bridge_chunk_idx": 98,
+          "hop1_top_k": [
+            33,
+            73,
+            32,
+            53,
+            27
+          ],
+          "matched_entities": [
+            "Fjord",
+            "Gulch",
+            "Kelm",
+            "Osek",
+            "Tern"
+          ],
+          "neg_seed_entity": "Kelm",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            31,
+            32,
+            33,
+            34,
+            30
+          ]
+        },
+        {
+          "qi": 5,
+          "bridge_entity": "Loam",
+          "bridge_chunk_idx": 55,
+          "hop1_top_k": [
+            30,
+            10,
+            34,
+            33,
+            73
+          ],
+          "matched_entities": [
+            "Coral",
+            "Gulch",
+            "Loam",
+            "Osek"
+          ],
+          "neg_seed_entity": "Bexley",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            59,
+            58,
+            57,
+            56,
+            55
+          ]
+        },
+        {
+          "qi": 6,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 64,
+          "hop1_top_k": [
+            69,
+            89,
+            99,
+            86,
+            50
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Kelm",
+            "Mesa",
+            "Nord",
+            "Riva",
+            "Tern"
+          ],
+          "neg_seed_entity": "Iona",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 7,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 64,
+          "hop1_top_k": [
+            69,
+            89,
+            99,
+            86,
+            50
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Kelm",
+            "Mesa",
+            "Nord",
+            "Riva",
+            "Tern"
+          ],
+          "neg_seed_entity": "Gulch",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 8,
+          "bridge_entity": "Fjord",
+          "bridge_chunk_idx": 25,
+          "hop1_top_k": [
+            40,
+            63,
+            43,
+            44,
+            61
+          ],
+          "matched_entities": [
+            "Fjord",
+            "Iona",
+            "Mesa",
+            "Pome",
+            "Solt"
+          ],
+          "neg_seed_entity": "Juno",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 9,
+          "bridge_entity": "Bexley",
+          "bridge_chunk_idx": 5,
+          "hop1_top_k": [
+            28,
+            25,
+            43,
+            48,
+            29
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Fjord",
+            "Iona",
+            "Juno",
+            "Loam",
+            "Solt"
+          ],
+          "neg_seed_entity": "Osek",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 11,
+          "bridge_entity": "Hara",
+          "bridge_chunk_idx": 38,
+          "hop1_top_k": [
+            95,
+            98,
+            15,
+            99,
+            97
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Delft",
+            "Hara",
+            "Riva",
+            "Tern"
+          ],
+          "neg_seed_entity": "Fjord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            15,
+            18,
+            17,
+            16,
+            19
+          ]
+        },
+        {
+          "qi": 12,
+          "bridge_entity": "Solt",
+          "bridge_chunk_idx": 94,
+          "hop1_top_k": [
+            39,
+            14,
+            37,
+            97,
+            35
+          ],
+          "matched_entities": [
+            "Coral",
+            "Hara",
+            "Kelm",
+            "Solt",
+            "Tern"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 14,
+          "bridge_entity": "Bexley",
+          "bridge_chunk_idx": 9,
+          "hop1_top_k": [
+            69,
+            99,
+            89,
+            88,
+            50
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Kelm",
+            "Nord",
+            "Osek",
+            "Riva",
+            "Tern"
+          ],
+          "neg_seed_entity": "Coral",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 15,
+          "bridge_entity": "Nord",
+          "bridge_chunk_idx": 67,
+          "hop1_top_k": [
+            90,
+            5,
+            7,
+            9,
+            8
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Erie",
+            "Loam",
+            "Nord",
+            "Quill",
+            "Solt"
+          ],
+          "neg_seed_entity": "Riva",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 16,
+          "bridge_entity": "Alton",
+          "bridge_chunk_idx": 1,
+          "hop1_top_k": [
+            2,
+            17,
+            96,
+            22,
+            1
+          ],
+          "matched_entities": [
+            "Alton",
+            "Coral",
+            "Delft",
+            "Erie",
+            "Tern"
+          ],
+          "neg_seed_entity": "Hara",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            15,
+            18,
+            17,
+            16,
+            19
+          ]
+        },
+        {
+          "qi": 17,
+          "bridge_entity": "Mesa",
+          "bridge_chunk_idx": 63,
+          "hop1_top_k": [
+            88,
+            86,
+            50,
+            69,
+            72
+          ],
+          "matched_entities": [
+            "Kelm",
+            "Mesa",
+            "Nord",
+            "Osek",
+            "Riva"
+          ],
+          "neg_seed_entity": "Kelm",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            87,
+            86,
+            88,
+            89,
+            85
+          ]
+        },
+        {
+          "qi": 18,
+          "bridge_entity": "Gulch",
+          "bridge_chunk_idx": 30,
+          "hop1_top_k": [
+            25,
+            29,
+            94,
+            27,
+            87
+          ],
+          "matched_entities": [
+            "Fjord",
+            "Gulch",
+            "Loam",
+            "Riva",
+            "Solt"
+          ],
+          "neg_seed_entity": "Nord",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            91,
+            92,
+            93,
+            94,
+            90
+          ]
+        },
+        {
+          "qi": 19,
+          "bridge_entity": "Delft",
+          "bridge_chunk_idx": 19,
+          "hop1_top_k": [
+            69,
+            50,
+            89,
+            99,
+            85
+          ],
+          "matched_entities": [
+            "Bexley",
+            "Delft",
+            "Kelm",
+            "Nord",
+            "Riva",
+            "Tern"
+          ],
+          "neg_seed_entity": "Bexley",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            15,
+            18,
+            17,
+            16,
+            19
+          ]
+        }
+      ],
+      "ppr_mass_max_deviation_from_1": 4.440892098500626e-16,
+      "ppr_mass_conservation_ok": true,
+      "elapsed_s": 0.9569623999996111
+    }
+  ],
+  "per_arm_mean_recall_at_k": {
+    "ARM_HOP1_DENSE_ALONE_BASELINE": 0.03636363636363636,
+    "ARM_MAIN_PPR_RECOVERED": 0.18181818181818182,
+    "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": 1.0,
+    "ARM_NEG_CTL_PPR_FROM_RANDOM": 0.0
+  },
+  "expected_n_units": 12,
+  "actual_n_units": 12,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "ppr_mass_conservation_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "PPR recall@k is a rate, not a shift-noise measurement; discriminator reachability via POS_CTL >= 0.95 / NEG_CTL <= 0.10 span instead.",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "elapsed_s": 25.791338699986227,
+  "ts_iso": "2026-07-03T13:56:20.366315+00:00"
+}
