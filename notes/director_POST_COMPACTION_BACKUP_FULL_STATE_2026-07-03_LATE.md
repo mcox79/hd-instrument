@@ -1031,3 +1031,48 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 2. **Encoder Migration Step 1 GO/NO-GO** — parallel fill-in ready
 3. **Cortex Phase 3b GO/NO-GO** — add M1.3 + M1.6 arms for full 6-primitive coverage
 4. **Cortex task-analog cell** — end-to-end downstream task validation (distinct from integration-fidelity)
+
+## AMENDMENT 2026-07-04 00:35Z (CG UPGRADE — cortex arc closed; 96 atoms today)
+
+**Skunkworks VET on FRESH FULL (task af706721e48e0dcb1) COMPLETE. CG UPGRADE.**
+
+**Off-disk verified:**
+- Metrics ts_iso 2026-07-03T23:10:36Z (fresh FULL), elapsed 9.24s, cardinality 36/36
+- verdict_msg says "across 3 seeds" (post-fix parametrization confirmed)
+- arms_differ_discriminator = "runtime_call_trace_meta_rule_AF_v2"
+- ALL 12 arms trace_ok=True
+- m18 cv 0.021427 (matches to 1e-9)
+
+**Runtime-trace per-arm (all match _ARM_TRACE_EXPECTED at FULL scale):**
+- m14: composed=50 (n_queries), individual=0, ablated=50 (facade config ablation)
+- m15: composed=10 (2×k_writes=5 with write-through), individual=0, ablated=0
+- m17: composed=1, individual=0, ablated=1
+- m18: composed=0, individual=0, ablated=0 (bypasses cx.forward by design; declared)
+
+**Revival criterion of prior amendment atom: all 4 gates MET.** CG upgrade filed via A5-gated write.
+
+**Cert delta this landing:** CG +1, MM −1 (amendment atom superseded)
+
+**Session tally: math=51, meta=45 = 96 atoms today (+8 from 88 at pickup start).**
+
+**CG-promoted primitives:** m14 RefuseGate + m15 TwoTierContext + m17 RoleSlotSummarizer via `hdlab/cortex.py` facade with runtime-trace-verified integration.
+
+**Residual caveats carried forward in atom:**
+- m14/m15/m17 composed metric at 1.0 ceiling at K=5/16/32 (runtime-trace upgrades arms_differ, not stress-scale composition equivalence)
+- m18 stays MM_STANDARD (declared bypass; runtime-trace confirms declaration but cannot upgrade substantive-composition claim)
+- ablation-at-zero-by-design remains floor-anchored-by-design
+- 4-of-6-primitive coverage caveat stands (M1.3 + M1.6 external CG atoms exist but not composed here)
+
+**Fix#28 hits #22 + #23 (Skunkworks caught on my prompt):**
+- SMOKE-scale expected numbers cited in FULL VET prompt (m14=20 vs actual 50; m15=6 vs actual 10) — meta-rule pattern-based so works at both scales; minor inherit
+- Timestamp discrepancy "00:20Z" prompt vs actual 23:10:36Z ~70min discrepancy
+
+**Fix#28 today: 23 recorded + 2 avoided = 25 discipline interactions.**
+
+**Spawn state: 0 in flight.** All cortex arc work COMPLETE at CG. Wave14 SH-4 complete. Regime map SMOKE arc complete (7 probes + 4 L cross-terms all HOLD_PENDING_FULL or CG/MM). Encoder migration Step 1 pending USER approval.
+
+**USER strategic decisions still pending:**
+1. **Tailscale** key-expiry fix path (admin console / alternate remote / physical)
+2. **Encoder Migration Step 1 GO/NO-GO** — parallel fill-in during regime-map FULL wait
+3. **Cortex Phase 3b** — add M1.3 NoiseChannel + M1.6 chunked_attention explicit arms for full 6-primitive coverage (external CG atoms exist but not composed via facade here)
+4. **Cortex task-analog cell** — downstream task validation is distinct from integration-fidelity CG just landed
