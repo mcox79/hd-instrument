@@ -1076,3 +1076,34 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 2. **Encoder Migration Step 1 GO/NO-GO** — parallel fill-in during regime-map FULL wait
 3. **Cortex Phase 3b** — add M1.3 NoiseChannel + M1.6 chunked_attention explicit arms for full 6-primitive coverage (external CG atoms exist but not composed via facade here)
 4. **Cortex task-analog cell** — downstream task validation is distinct from integration-fidelity CG just landed
+
+## AMENDMENT 2026-07-04 00:50Z (TAILSCALE RESTORED + USER FULL AUTO — 4 spawns firing)
+
+**Tailscale RESTORED** at 00:45Z UTC per `tailscale status`: home peer active with direct connection at 216.49.130.54:63415 (tx 1.5MB rx 15MB). SSH echo test PASS. USER confirmed "OK get going full speed ahead full auto" at 00:47Z UTC.
+
+**USER FULL AUTO authorizes ALL 4 pending strategic decisions.**
+
+**4 spawns fired in parallel (00:47-00:50Z UTC):**
+
+| agentId | role | scope |
+|---|---|---|
+| `a47c9d8a11b74c974` | Orchestrator | 27-cell FULL bundle → remote GPU per priority order + BGE 178K cache + Layer 0.5 FULL landing check + P15 sibling wrappers |
+| `abe5e530447f9606a` | exp_dev | Encoder Migration Step 1: train concept encoder on 970K KB corpus (2-3d CPU-local); prereq: Spoke 1 v3-D at 9d30d3d30; output: `data/substrate_concept_encoder_v1/` |
+| `a198fb782bed6e194` | exp_dev | Cortex Phase 3b: add M1.3 NoiseChannel + M1.6 chunked_attention explicit discriminator arms to `exp_cortex_integration_end_to_end_v1.py`; extends 4→6 primitive coverage; runtime-trace expected pattern extended |
+| `a06ec16b3c65cbac4` | exp_dev | Cortex task-analog cell: distinct claim "cortex layer helps on downstream task"; ARM_CORTEX_ON vs ARM_CORTEX_OFF vs ARM_INDIVIDUAL_NO_COMPOSITION; H1/H2/H3 discriminators |
+
+**Post-landing routing plan:**
+- Each Orchestrator FULL landing → Skunkworks landed-VET with per-probe framing from design doc
+- Encoder Step 1 SMOKE → then FULL 970K → Skunkworks VET → Step 2 re-encode as parallel follow-up
+- Cortex Phase 3b SMOKE HP → FULL → Skunkworks VET for CG re-promotion inclusion of m13+m16
+- Task-analog cell SMOKE → outcome-gated: HP/HF/MB all valuable per pre-committed framing
+
+**Session state entering full-auto push:**
+- Atoms 96 today (math=51, meta=45)
+- Fix#28 discipline: 25 interactions
+- SH-4 pattern closed at 5 layers
+- Cortex integration CG-closed (m14/m15/m17)
+- Regime map SMOKE arc complete (15 probes SMOKE + 4 L cross-terms all HOLD_PENDING_FULL or CG/MM)
+- All local commits pushed through `8fe3948f3`
+
+**Spawn budget: 4 in flight, 1 slot reserved for reactive Skunkworks VETs.**
