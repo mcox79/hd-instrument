@@ -322,3 +322,35 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 5. Recovery orchestrator for Probes 4+5 FULL, BGE 178K cache build, 170K unified re-test
 
 **Fix#28 cumulative today: 8 hits.** Discipline layer working — Skunkworks caught these before FULL dispatch. Both my initial magnitude framing AND cliff geometry claim were over-narrow. Directional intuition correct; magnitude precision needs FULL evidence.
+
+## AMENDMENT 2026-07-03 20:36Z (Testbed SH-4 fix landed; Probes 8+9 SMOKE metrics on disk)
+
+**Testbed SH-4 double-prefix verify tooling fix (task a364bfa159e50a1f4) COMPLETE:**
+- Commit `70c9f6a5d` pushed to origin/main (Testbed pre-authorized per USER-locked rule)
+- **Root-cause fix at `experiments/_seed_checkpoint.get_output_dir`** — normalizes `HDLAB_EXP_NAME` by stripping leading `exp_`, emits `[SH-4-normalize]` stderr warning, preserves legacy checkpoint continuity when `data/exp_exp_<anchor>/` already exists on disk
+- **7 verify-tooling files patched** for double-prefix fallback: runner_status.py, healer.py, purge_pending_reruns.py, remote_state.py, dashboard/poller.py, scp_recover_landing.py (untracked; now added), + test_sh4_double_prefix_fallback.py (new smoke-test harness)
+- verify_landing.py + landing_notifier.py + predispatch_check.py + audit_n_mismatch.py already handled double-prefix — no changes needed
+- **46 legacy `data/exp_exp_*/` dirs on disk stay put; all verify tools now fall back**
+- **Follow-on candidate:** `tools/queue_add.py` normalize at ship time → would eliminate runner-side normalization but requires queue-owner sign-off
+- **3 pending queue entries begin with `exp_`** — will trigger `[SH-4-normalize]` warning on next dispatch (expected/informational)
+- Fleet-process-health: 46 double-prefix dirs / 5469 total data/exp_* = **0.8% recurrence rate**
+- Tests: SH-4 fallback 5/5, verify_landing 17/17, seed_checkpoint self-test PASS
+- **The recurring Fix#28 SH-4 pattern is CLOSED AT ROOT CAUSE.** Future landings will be single-prefix; existing double-prefix landings verified via fallback.
+
+**Probes 8+9 SMOKE data landed on disk (20:34-20:35Z; agents finishing reports):**
+- Probe 8 ALGEBRA × MECH cliff-adjacent: `data/exp_stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_s7_smoke/metrics.json` (9300 bytes)
+- Probe 9 N × TOPOLOGY cliff-adjacent: `data/exp_stage1_regime_probe_9_N_x_topology_non_saturated_v1_s7_smoke/metrics.json` (7298 bytes)
+- Probe 9 cell committed at `0c5761c87` (before notification fired)
+- Probe 10 STORAGE × ALGEBRA: still authoring
+- Waiting for exp_dev notifications with structured verdicts + verdict/HP status
+
+**Spawn state (updated):**
+
+| agentId | role | status |
+|---|---|---|
+| `a364bfa159e50a1f4` | Testbed SH-4 fix | **COMPLETE** `70c9f6a5d` pushed |
+| `a39a4c7aa07620699` | Probe 8 ALGEBRA × MECH | data on disk; awaiting exp_dev report |
+| `a416f584633f92db0` | Probe 9 N × TOPOLOGY | data on disk; cell committed `0c5761c87`; awaiting exp_dev report |
+| `a20d62a8213d64873` | Probe 10 STORAGE × ALGEBRA | authoring in flight |
+
+**Session cumulative unchanged: math=46, meta=42** (Testbed infra work does not atomize; Probes 8+9 pending exp_dev reports before any atom filings).
