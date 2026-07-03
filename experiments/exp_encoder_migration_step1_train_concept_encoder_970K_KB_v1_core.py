@@ -76,7 +76,12 @@ MAX_ATOMS_PER_ENTITY = 32          # HYPOTHESIZED cap; tuned to keep wall time
                                     # KB idx range has many-atom hubs).
 
 # Run-mode discovery.
-_SMOKE_N_ENTITIES = 10_000
+# SMOKE reduced from 10K -> 1K entities so queue_add.py's 180s smoke gate
+# cap is comfortably met (avg per_ent ~15-30ms at N_DIM=4096 -> ~15-30s wall
+# for 1K entities). Full-pipeline branches identical (per META_RULE
+# smoke_code_path_must_exercise_same_branches_as_FULL). Semantic-quality
+# claim belongs to Step 3 not to smoke scale.
+_SMOKE_N_ENTITIES = 1_000
 _FULL_N_ENTITIES_LIMIT = None      # None = all entities in file (~970069)
 
 # Artifact output paths.
