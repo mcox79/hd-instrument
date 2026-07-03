@@ -14,8 +14,13 @@ Bands:
         OR any ablation shows no degradation OR cardinality != 36
 
 CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
-- arms_differ_verified at smoke gate (COMPOSED vs INDIVIDUAL code-paths
-  distinct; NUMERIC equality of outputs is the discriminator not a bug)
+- arms_differ_verified at smoke gate via RUNTIME-CALL-TRACE
+  (_arms_differ_runtime_call_trace: Cortex.forward monkey-patched to count
+  invocations; per-arm delta must match _ARM_TRACE_EXPECTED. Replaces the
+  earlier decorative source-fingerprint discriminator per Skunkworks landed-VET
+  task a9c698659626b3521, 2026-07-03. NUMERIC equality of outputs remains
+  the composition-fidelity discriminator; runtime-trace proves distinct
+  facade-vs-primitive call paths at runtime.)
 - final_metrics_atomicity: tmp_replace
 - except SystemExit: raise BEFORE except Exception (no BaseException)
 - crlb_n/a: "integration-fidelity test; no capacity noise floor"
@@ -39,8 +44,6 @@ GPU-batching candidate (see prereg Compute architecture section).
 from __future__ import annotations
 
 import argparse
-import hashlib
-import inspect
 import json
 import os
 import platform
@@ -447,39 +450,143 @@ def _m18_ablated(seed: int, n_per_class: int) -> float:
     return float(np.mean(outs == GateOutcome.CLARIFY.value))
 
 
-# ------------------ arms_differ code-path fingerprint ------------------------
+# ------------------ arms_differ runtime call trace ---------------------------
 
 
-def _arms_differ_code_path_fingerprint() -> Dict[str, str]:
-    """META_RULE_AF: hash source of COMPOSED / INDIVIDUAL / ABLATED functions
-    so the smoke gate can prove call-sites are distinct even when NUMERIC
-    outputs match (bit-identity of stateful primitives at matched seeds is
-    the POSITIVE proof, not a bug)."""
-    fns = {
-        "m14_composed": _m14_composed, "m14_individual": _m14_individual,
-        "m14_ablated": _m14_ablated,
-        "m15_composed": _m15_composed, "m15_individual": _m15_individual,
-        "m15_ablated": _m15_ablated,
-        "m17_composed": _m17_composed, "m17_individual": _m17_individual,
-        "m17_ablated": _m17_ablated,
-        "m18_composed": _m18_composed, "m18_individual": _m18_individual,
-        "m18_ablated": _m18_ablated,
-    }
-    digests = {}
-    for name, fn in fns.items():
-        src = inspect.getsource(fn)
-        digests[name] = hashlib.sha256(src.encode("utf-8")).hexdigest()[:16]
-    # Assert COMPOSED and INDIVIDUAL differ per primitive
-    for p in ["m14", "m15", "m17", "m18"]:
-        if digests[f"{p}_composed"] == digests[f"{p}_individual"]:
-            raise AssertionError(
-                f"META_RULE_AF VIOLATION: {p}_composed and {p}_individual "
-                f"have identical source hash; distinct call-sites required.")
-        if digests[f"{p}_composed"] == digests[f"{p}_ablated"]:
-            raise AssertionError(
-                f"META_RULE_AF VIOLATION: {p}_composed and {p}_ablated "
-                f"have identical source hash; distinct call-sites required.")
-    return digests
+class _CortexForwardTrace:
+    """Class-level runtime-trace instrumenter for Cortex.forward.
+
+    Replaces the earlier source-fingerprint discriminator (which merely proved
+    author-written function bodies differed textually -- decorative). This
+    context manager monkey-patches Cortex.forward with a counting wrapper so
+    the smoke/selftest can verify SEMANTIC distinction: COMPOSED arms actually
+    invoke the facade; INDIVIDUAL arms bypass it and touch primitives directly.
+    Class-level patch shares counter across all Cortex instances constructed
+    inside the `with` block (each arm builds its own instance via
+    `_cortex_for`)."""
+
+    def __init__(self) -> None:
+        self._orig_forward = None
+        self.count = 0
+
+    def __enter__(self) -> "_CortexForwardTrace":
+        self._orig_forward = Cortex.forward
+        trace = self
+
+        def _counted(inst, *a, **k):
+            trace.count += 1
+            return trace._orig_forward(inst, *a, **k)
+
+        Cortex.forward = _counted
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        Cortex.forward = self._orig_forward
+
+
+# Expected per-arm runtime-call pattern. "forward_ge_1" = facade.forward is
+# invoked at least once (COMPOSED / facade-config-ablated path). "forward_eq_0"
+# = facade.forward NOT invoked (INDIVIDUAL primitive-direct path, OR arms that
+# legitimately use a facade sub-instance like cx._clarify_gate / cx._context
+# without going through forward). Ablations are declared honestly per arm's
+# real implementation (see cell docstrings above).
+_ARM_TRACE_EXPECTED = {
+    # M1.4: composed invokes cx.forward per query; ablated invokes forward
+    # with refuse_tau=-1 (facade-config ablation); individual is apply_refuse.
+    "m14_composed":  "forward_ge_1",
+    "m14_individual": "forward_eq_0",
+    "m14_ablated":    "forward_ge_1",
+    # M1.5: composed invokes cx.forward for write + subsequent write-through;
+    # individual uses TwoTierContext directly; ablated instantiates cx but
+    # uses cx._context.read only (bypasses forward -- documented in docstring).
+    "m15_composed":  "forward_ge_1",
+    "m15_individual": "forward_eq_0",
+    "m15_ablated":    "forward_eq_0",
+    # M1.7: composed invokes cx.forward with role_slot_context; individual
+    # uses RoleSlotSummarizer directly; ablated invokes cx.forward without
+    # role_slot_context (config-omit ablation).
+    "m17_composed":  "forward_ge_1",
+    "m17_individual": "forward_eq_0",
+    "m17_ablated":    "forward_ge_1",
+    # M1.8: ALL three arms bypass cx.forward by design -- composed uses
+    # cx._clarify_gate (facade-owned instance via CortexConfig thresholds);
+    # individual uses standalone ClarifyGate(); ablated uses cx._clarify_gate
+    # with tau-collapsed config. Runtime-trace does NOT discriminate m18 arms;
+    # discrimination comes from numeric agreement (composed ~ individual) plus
+    # ablation floor (ablated << 0.10). Declared honestly here.
+    "m18_composed":  "forward_eq_0",
+    "m18_individual": "forward_eq_0",
+    "m18_ablated":    "forward_eq_0",
+}
+
+
+def _check_arm_trace(arm_key: str, delta: int) -> Tuple[bool, str]:
+    expected = _ARM_TRACE_EXPECTED[arm_key]
+    if expected == "forward_ge_1":
+        return (delta >= 1), expected
+    if expected == "forward_eq_0":
+        return (delta == 0), expected
+    return False, f"unknown_expected_{expected}"
+
+
+def _arms_differ_runtime_call_trace(primitive_sizes: dict, seed: int = 7
+                                    ) -> Dict[str, dict]:
+    """META_RULE_AF (runtime-trace variant, replaces source-fingerprint):
+    monkey-patch Cortex.forward via _CortexForwardTrace; run each arm at the
+    supplied primitive sizes; verify per-arm forward-call delta matches
+    _ARM_TRACE_EXPECTED. Proves RUNTIME EXECUTION differs (facade invoked vs
+    bypassed) not just that authors wrote different function bodies.
+
+    Returns dict {arm_key: {forward_call_delta, expected_pattern, trace_ok}}
+    for persistence in metrics.json. Raises AssertionError on pattern breach."""
+    arms = [
+        ("m14", "composed", _m14_composed,
+         (primitive_sizes["m14_n_queries"], primitive_sizes["m14_m_tape"])),
+        ("m14", "individual", _m14_individual,
+         (primitive_sizes["m14_n_queries"], primitive_sizes["m14_m_tape"])),
+        ("m14", "ablated", _m14_ablated,
+         (primitive_sizes["m14_n_queries"], primitive_sizes["m14_m_tape"])),
+        ("m15", "composed", _m15_composed,
+         (primitive_sizes["m15_k_writes"],)),
+        ("m15", "individual", _m15_individual,
+         (primitive_sizes["m15_k_writes"],)),
+        ("m15", "ablated", _m15_ablated,
+         (primitive_sizes["m15_k_writes"],)),
+        ("m17", "composed", _m17_composed,
+         (primitive_sizes["m17_k_items"],)),
+        ("m17", "individual", _m17_individual,
+         (primitive_sizes["m17_k_items"],)),
+        ("m17", "ablated", _m17_ablated,
+         (primitive_sizes["m17_k_items"],)),
+        ("m18", "composed", _m18_composed,
+         (primitive_sizes["m18_n_per_class"],)),
+        ("m18", "individual", _m18_individual,
+         (primitive_sizes["m18_n_per_class"],)),
+        ("m18", "ablated", _m18_ablated,
+         (primitive_sizes["m18_n_per_class"],)),
+    ]
+    results: Dict[str, dict] = {}
+    all_ok = True
+    with _CortexForwardTrace() as trace:
+        for prim, arm, fn, args in arms:
+            key = f"{prim}_{arm}"
+            before = trace.count
+            fn(seed, *args)
+            delta = trace.count - before
+            ok, expected = _check_arm_trace(key, delta)
+            results[key] = {
+                "forward_call_delta": int(delta),
+                "expected_pattern": expected,
+                "trace_ok": bool(ok),
+            }
+            if not ok:
+                all_ok = False
+    if not all_ok:
+        breaches = {k: v for k, v in results.items() if not v["trace_ok"]}
+        raise AssertionError(
+            f"META_RULE_AF RUNTIME-TRACE VIOLATION: arms did not match "
+            f"expected forward-call pattern. Breaches: {breaches}")
+    return results
 
 
 # ---------------------------- driver + verdict -------------------------------
@@ -627,10 +734,12 @@ def _compute_verdict(results: dict, expected_n_units: int) -> dict:
     n_ablation_fires = sum(per_primitive_ablation_fires.values())
 
     # Verdict
+    n_seeds = len(per_seed)
+    seed_str = f"{n_seeds} seed" + ("s" if n_seeds > 1 else "")
     if n_reproduces == 4 and n_ablation_fires == 4:
         verdict = "HARD_PASS"
         verdict_msg = (f"HARD_PASS: all 4 primitives reproduce within "
-                       f"|delta|<={COMPOSED_INDIV_TOL} across 3 seeds; all "
+                       f"|delta|<={COMPOSED_INDIV_TOL} across {seed_str}; all "
                        f"4 ABLATED arms below floor {ABLATION_FLOOR}. "
                        f"Cortex facade composition integrity verified.")
     elif n_reproduces == 3 and n_ablation_fires == 4:
@@ -677,11 +786,22 @@ def _compute_verdict(results: dict, expected_n_units: int) -> dict:
 # --------------------------- formula selftests -------------------------------
 
 
-def _selftest_arms_differ_code_paths() -> None:
-    """META_RULE_AF fingerprint: COMPOSED/INDIVIDUAL/ABLATED source hashes differ
-    per primitive."""
-    digests = _arms_differ_code_path_fingerprint()
-    assert len(digests) == 12
+def _selftest_arms_differ_runtime_trace() -> None:
+    """META_RULE_AF runtime-trace: COMPOSED/INDIVIDUAL/ABLATED forward-call
+    deltas match _ARM_TRACE_EXPECTED per primitive (runtime discriminator,
+    not decorative source-fingerprint)."""
+    # Use smoke sizes for fast selftest probe.
+    sizes = {
+        "m14_n_queries": 5,
+        "m14_m_tape": 4,
+        "m15_k_writes": 2,
+        "m17_k_items": 4,
+        "m18_n_per_class": 4,
+    }
+    results = _arms_differ_runtime_call_trace(sizes, seed=7)
+    assert len(results) == 12, f"expected 12 arms, got {len(results)}"
+    assert all(r["trace_ok"] for r in results.values()), (
+        f"runtime-trace breach: {results}")
 
 
 def _selftest_m14_composed_matches_individual_one_seed() -> None:
@@ -738,7 +858,7 @@ def _selftest_m18_ablation_kills_clarify() -> None:
 
 
 def _run_all_selftests() -> dict:
-    _selftest_arms_differ_code_paths()
+    _selftest_arms_differ_runtime_trace()
     _selftest_m14_composed_matches_individual_one_seed()
     _selftest_m14_ablation_kills_refuse()
     _selftest_m15_composed_matches_individual_one_seed()
@@ -804,8 +924,9 @@ def main(run_mode: str) -> None:
     t0 = time.perf_counter()
     _write_start_marker(output_dir, run_mode, expected_n_units)
 
-    # META_RULE_AF fingerprint before running (fail-fast)
-    arm_fingerprints = _arms_differ_code_path_fingerprint()
+    # META_RULE_AF runtime-trace before running (fail-fast). Uses the same
+    # sizes as the actual run so trace assertions reflect real invocation.
+    arm_runtime_trace = _arms_differ_runtime_call_trace(sizes, seed=seeds[0])
 
     results = _run_all_seeds(seeds, sizes, output_dir, run_mode, t0)
 
@@ -820,8 +941,9 @@ def main(run_mode: str) -> None:
         "ts_iso": datetime.now(timezone.utc).isoformat(),
         "seeds": seeds,
         "sizes": sizes,
-        "arm_code_path_fingerprints": arm_fingerprints,
+        "arm_runtime_call_trace": arm_runtime_trace,
         "arms_differ_verified": True,
+        "arms_differ_discriminator": "runtime_call_trace_meta_rule_AF_v2",
         "storage_strategy": "MIXED_inherited_per_primitive_no_facade_storage",
         "compute_architecture": "mixed_cpu_numpy_torch",
         "per_seed": {str(k): v for k, v in results["per_seed"].items()},
