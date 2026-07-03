@@ -146,12 +146,16 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   # Cell convention: exp_<base>_seed_<N>.py wrappers exec exp_<base>.py core +
   # may use _<base>_core.py / _<base>_base.py helpers in same experiments/ dir.
   # SCP'ing only the wrapper without sibling helpers = remote ImportError / exec
-  # FileNotFoundError. Caught 4× this session (Schema v4 / multihop v5 / WM enc /
+  # FileNotFoundError. Caught 4x this session (Schema v4 / multihop v5 / WM enc /
   # Lock-in v4 + TOM v5). Fix: detect convention + auto-SCP siblings if present.
+  # 2026-07-03: broadened suffix regex to also match newer _s<N> convention
+  # (e.g. _s11/_s17/_s23 M-sweep cells). Prior regex matched only _seed_<N>,
+  # so _s<N> wrappers were treated as non-seed cells and shared cores were not
+  # auto-SCPed -> remote ModuleNotFoundError (orchestrator workaround 2026-07-03).
   SCRIPT_BASE=$(basename "${SCRIPT_LOCAL}" .py)
   SCRIPT_DIR_LOCAL=$(dirname "${SCRIPT_LOCAL}")
-  if [[ "${SCRIPT_BASE}" =~ _seed_[0-9]+$ ]]; then
-    CORE_BASE=$(echo "${SCRIPT_BASE}" | sed -E 's/_seed_[0-9]+$//')
+  if [[ "${SCRIPT_BASE}" =~ (_seed_[0-9]+|_s[0-9]+)$ ]]; then
+    CORE_BASE=$(echo "${SCRIPT_BASE}" | sed -E 's/(_seed_[0-9]+|_s[0-9]+)$//')
     # Pattern 1: exp_<base>.py (core file with same prefix as wrappers; ships with v4/v5 cells)
     CORE_LOCAL="${SCRIPT_DIR_LOCAL}/${CORE_BASE}.py"
     if [[ -f "${CORE_LOCAL}" ]]; then
