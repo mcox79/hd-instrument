@@ -951,3 +951,36 @@ Cell-author + Skunkworks BOTH independently endorsed detour: run PPR on real Wik
 - Exp 1: did NOT propagate HARD_PASS framing without scale caveat → Skunkworks scope-corrected to MM_SCALE_BOUNDED
 - Exp 2: did NOT propagate MIDDLE_BAND without structural-limit distinction → Skunkworks tier-refined to MB_STRUCTURAL_LIMIT
 - "Convergent methods" trigger word AVOIDED when reporting cell-author + Skunkworks endorsement (both agents applied same reasoning to same data with role separation — not two independent methods)
+
+## 2026-07-03 14:23Z AMENDMENT 2 (Exp 2B HF landing + policy)
+
+### Exp 2B landed HARD_FAIL (14:16Z)
+Semantic-KB PPR-walk detour on HotpotQA distractor 10-title mini-KG → `HF_HALT_KG_SIGNAL_FLOOR_BREACH`. Per-arm confirmed off-disk (Skunkworks Fix#28): BASELINE 0.85-0.95, MAIN 0.75-0.85, POS_CTL 0.90-1.00, NEG_CTL 0.60-0.80. mean_edges_per_node 0.46-0.98 (all seeds below 1.0 floor). Only 5 missed-by-hop1 queries across 60. Cell landed at 145.2s per-seed, HALT triggered as pre-registered.
+
+### Skunkworks mechanism-attribution VERDICT: INFRASTRUCTURE + SCOPE (verified 14:20Z)
+- POS_CTL 0.933 mean → mechanism NOT broken
+- KG too sparse for PPR discrimination (structural inability given data)
+- BGE-small baseline 0.85-0.95 strong → encoder not implicated
+- Encoder-swap pivot NOT warranted per Skunkworks
+- Atom: `exp2b_ppr_walk_hotpotqa_semantic_kb_smoke_HF_INFRASTRUCTURE_SCOPE_2026_07_03` (math:33 meta:33 session tally)
+- Revival: mean_edges/node ≥1.5 across ≥80% of queries AND ≥30% genuine hop2 in query set
+
+### Policy applied (USER-locked 2026-07-03)
+Per [[feedback_architecture_decision_HF_deep_dive_before_pivot_USER_2026-07-03]]: deep-dive Skunkworks-verified diagnosis = INFRASTRUCTURE/SCOPE → iterate PPR with richer KG, NOT pivot to encoder-swap.
+
+### Awaiting USER decision on iteration path:
+- (a) HotpotQA fullwiki (larger passage corpus) + Wikidata edges layered
+- (b) Synthesized 2-hop Wikidata bridge queries from existing 5510-relation triples
+- (c) Different direction entirely
+
+### New USER-locked rule filed today (2026-07-03 afternoon):
+**"Director" = ME (main-thread assistant); stop third-person self-reference.** [[feedback_director_is_self_reference_stop_third_person_USER_2026-07-03]]. Legacy from dead 4-session-fleet architecture. Preserve artifact names (Director-KB, director_plan.json) but use "I" for my own actions.
+
+### Session cumulative today:
+Landings: Foldiak HF, Exp 1 MM, Exp 2 MB, Exp 2B HF (all VETed + atomized)
+Rules filed today: drill=internet-research, compliance-test 5-layer protocol, architecture-decision HF deep-dive, Director-self-reference
+BACKUPs committed: 56f6f8127 (afternoon amendment 1), amendment 2 (this file after commit)
+Design revised: M3 cortex Layer 0.5 KG-walk at 9971774d9
+
+### In-flight at time of this amendment:
+NONE — Exp 2B chain closed pending USER decision on iteration path
