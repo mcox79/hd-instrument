@@ -73,7 +73,7 @@ CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},"
     f"regime=sharded_FHRR_chain_composition_NON_SATURATED_probe_3_revival,"
     f"cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],"
-    f"F=[1,4,8,16],M=[800,3200,6400],N=[2048,8192],L=2(fixed),corr=[0.45,0.60,0.70],"
+    f"F=[1,4,8,16],M=[800,3200,6400],N=[512,2048],L=2(fixed),corr=[0.70,0.85,0.90],"
     f"SEED={SEED},mode={RUN_MODE},"
     f"SATURATION_PC_regime=fixed_SHARDED_F1_M800_N2048_L2_corr0.20_iterative_cosine,"
     f"non_saturated_band=[0.30,0.95],"

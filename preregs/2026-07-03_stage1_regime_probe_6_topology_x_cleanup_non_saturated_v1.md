@@ -50,26 +50,37 @@ The non-saturated cross-term revival with N-sweep + higher-M + higher-corruption
 - Progress logging: `print_flush_true` (per-phase-point + per-seed prints all use `flush=True`; PROT-024 compliant).
 - Timeout budget: SMOKE ~30-60s local CPU (7 pts at N=2048 M=3200); FULL ~10-20 min per seed on remote GPU (217 pts, mostly N=8192 M=6400).
 
-## Design
+## Design (v2 revised 2026-07-03 after v1 SMOKE HONEST_FAIL bracketing)
 
-### Sweep axes (FULL)
+### v2 revision note
+
+v1 SMOKE (M=3200 N=2048 corr=0.60) landed HARD_FAIL_SMOKE escapes_saturation_ceiling
+(all 7 pts at acc=1.0000). Exp_dev's bracketing probe found the actual
+non-saturated boundary in SHARDED-rule-storage FHRR chain composition sits at
+SMALLER N (not larger N as v1 assumed) and higher corruption. Plate 0.14*N bound
+was 5-10x too pessimistic. See memory rule `feedback_plate_bound_too_pessimistic_
+for_sharded_fhrr_chain_composition_2026-07-03.md`. v2 grid uses EMPIRICAL rather
+than theoretical cliff. Cardinality preserved: still 217/7.
+
+### Sweep axes (FULL, v2)
 
 - CLEANUP_MECHANISM ∈ {modern_hopfield, iterative_cosine, soft_energy_attractor}
 - F ∈ {1, 4, 8, 16}  (revival criterion F >= 16 satisfied)
-- M ∈ {800, 3200, 6400}  (M=6400 at N=8192 → M/N = 0.78 >> Plate 0.14; sharded_pc expected below 0.95)
-- N ∈ {2048, 8192}  (2 levels of scale)
-- corruption ∈ {0.45, 0.60, 0.70}  (revival criterion corr >= 0.6 satisfied; corr=0.70 forces high-noise regime)
+- M ∈ {800, 3200, 6400}  (unchanged from v1)
+- N ∈ {512, 2048}  (v2: smaller N is where non-saturation happens; v1 [2048, 8192] never left ceiling)
+- corruption ∈ {0.70, 0.85, 0.90}  (v2: empirical brackets non-saturated band)
 - Fixed: L = 2
 - Fixed: STORAGE = SHARDED
 
-### Sweep axes (SMOKE)
+### Sweep axes (SMOKE, v2)
 
 - CLEANUP_MECHANISM ∈ {modern_hopfield, iterative_cosine, soft_energy_attractor}
 - F ∈ {1, 16}  (min + max of F axis; exercises TOPOLOGY axis endpoints)
-- M ∈ {3200}
-- N ∈ {2048}
-- corruption ∈ {0.60}
-- Deliberately in NON-SATURATED regime (M=3200 at N=2048 → M/N=1.56 >> Plate bound; corr=0.60 mid-high).
+- M ∈ {6400}
+- N ∈ {512}
+- corruption ∈ {0.85}
+- Empirical bracket at v1-SMOKE-time (F=16 mech=iterative_cosine): N=512 M=3200 corr=0.85 -> acc=0.867 (in-band).
+  At M=6400, expect mid-band ~[0.3, 0.9] across F=[1, 16] x 3 mechs.
 
 ### Cardinality
 

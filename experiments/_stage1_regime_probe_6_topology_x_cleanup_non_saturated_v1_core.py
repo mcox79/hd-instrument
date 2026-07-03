@@ -94,17 +94,21 @@ ANCHOR_NAME = "stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1"
 F_GRID_FULL = [1, 4, 8, 16]
 F_GRID_SMOKE = [1, 16]
 
-# M sweep extended to 6400 (revival criterion: sharded_pc drops below 0.95 at N=8192).
+# M sweep extended to 6400 (revival criterion: sharded_pc drops below 0.95 at high corr).
 M_GRID_FULL = [800, 3200, 6400]
-M_GRID_SMOKE = [3200]
+M_GRID_SMOKE = [6400]
 
-# N SWEEP (new axis; Probe 3 fixed N=4096).
-N_GRID_FULL = [2048, 8192]
-N_GRID_SMOKE = [2048]
+# N SWEEP (v2 revision 2026-07-03: prereg's [2048, 8192] misprediction — larger N
+# makes SHARDED MORE robust to corruption via more voting dims. Empirical cliff
+# sits at smaller N. See feedback_plate_bound_too_pessimistic_for_sharded_fhrr_
+# chain_composition_2026-07-03 memory rule).
+N_GRID_FULL = [512, 2048]
+N_GRID_SMOKE = [512]
 
-# corruption raised to force non-saturated regime (revival criterion corr >= 0.6).
-CORRUPTION_GRID_FULL = [0.45, 0.60, 0.70]
-CORRUPTION_GRID_SMOKE = [0.60]
+# corruption raised (v2: prereg's [0.45, 0.60, 0.70] was too low — empirical cliff
+# at N=2048 sits above corr=0.90; v2 grid samples both sides of the N=512 cliff).
+CORRUPTION_GRID_FULL = [0.70, 0.85, 0.90]
+CORRUPTION_GRID_SMOKE = [0.85]
 
 L_FIXED = 2
 
