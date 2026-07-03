@@ -5,7 +5,8 @@
 Pre-authored FULL dispatch spec for the Stage 1 CG_META regime matrix. Fires
 after USER restores Tailscale on `marsh@home` (currently DOWN, blocking remote
 GPU dispatch). Wrappers s7+s13+s19 already exist for every probe below; SELFTEST_OK
-verified 2026-07-03 (14/14 s13+s19 pass, s7 was pre-existing).
+verified 2026-07-03 (14/14 s13+s19 pass first pass; +4/4 s13+s19 for P13/P14
+added 2026-07-03 post-SMOKE-HP; s7 was pre-existing).
 
 **Composition rule:** 3 seeds per probe (arc-continuation-vs-arc-closure
 discipline; `feedback_arc_continuation_vs_arc_closure_isolated_smoke_not_enough_2026-06-27` +
@@ -30,9 +31,11 @@ Amendments 21:15Z / 21:30Z / 21:45Z / 21:55Z / 22:05Z.
 | P8 | `exp_stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_s{7,13,19}` | 25 pts | 3 | 100 | 3600 | ~20-30 min GPU | overnight_queue |
 | P9v2 | `exp_stage1_regime_probe_9_v2_N_x_algebra_in_band_L_over_Ncliff_v1_s{7,13,19}` | 17 pts | 3 | 100 | 2700 | ~15-25 min GPU | overnight_queue |
 | P12 | `exp_stage1_regime_probe_12_L_marginal_effect_sweep_v1_s{7,13,19}` | 25 pts | 3 | 100 | 3600 | ~20-30 min GPU | overnight_queue |
+| P13 | `exp_stage1_regime_probe_13_L_x_cleanup_non_saturated_v1_s{7,13,19}` | 19 pts | 3 | 100 | 3600 | ~20-30 min GPU | overnight_queue |
+| P14 | `exp_stage1_regime_probe_14_L_x_F_non_saturated_v1_s{7,13,19}` | 20 pts | 3 | 100 | 3600 | ~20-30 min GPU | overnight_queue |
 | P10 v2 | (SKIP; see §Skip decision) | -- | -- | -- | -- | -- | -- |
 
-**Total: 21 cell dispatches (7 probes x 3 seeds); ~4.5-7.5h serial GPU wall on
+**Total: 27 cell dispatches (9 probes x 3 seeds); ~17-27h serial GPU wall on
 `marsh@home` overnight_queue.** Timeouts padded ~1.5x expected wall as
 runner-death safety per §13 CHUNKED discipline.
 
@@ -129,6 +132,42 @@ field `expected_n_full=...` for each cell.
 - Post-FULL atom candidate (only fileable if 3-seed FULL confirms):
   `EMPIRICAL_L_MODERATES_CAPACITY_AT_SHARDED_CLIFF_ADJACENT_v1` -> MM_STANDARD,
   COMPOSES atom #3, classification = REGIME_EXTENSION.
+
+### P13 L x CLEANUP cross-term at cliff-adjacent SHARDED
+- Question: does today's F x CLEANUP mech-moderation pattern (P6v2 + P8) hold
+  across L in {1, 2, 4}, or is it L=2-specific?
+- Source signature: **REGIME_EXTENSION of atom #3** into the L x CLEANUP
+  interaction; extends F x CLEANUP finding (P6v2 + P8) with the L axis at
+  cliff-adjacent SHARDED F=1.
+- SMOKE HP verdict landed 2026-07-03; Skunkworks VET a6730405b2b50c6c0
+  `HOLD_PENDING_FULL`. MM_TENTATIVE at SMOKE.
+- Skunkworks-authoritative framing (VERBATIM from VET a6730405b2b50c6c0):
+  > "L x CLEANUP cross-term at cliff-adjacent SHARDED. mech_spread trajectory
+  > noise-artifact at SMOKE; 3-seed FULL TR=100 to distinguish 'mech
+  > convergence with L' physics from single-seed noise."
+- Post-FULL atom candidate (only fileable if 3-seed FULL confirms cv<0.15):
+  `EMPIRICAL_L_x_CLEANUP_CROSS_TERM_SHARDED_CLIFF_ADJACENT_v1` -> MM_STANDARD,
+  REGIME_EXTENSION of atom #3.
+
+### P14 L x F cross-term at cliff-adjacent SHARDED
+- Question: are L (chain-depth) and F (fan-out) truly independent axes, or do
+  they interact at cliff-adjacent SHARDED FHRR?
+- Source signature: theory-consistent Frady/Sommer near-capacity coupling
+  (per Skunkworks VET abd4d2af06f49f6bb); NOT novel-mechanism. Skunkworks atom
+  #48 addendum flagged "L cross-terms unmapped."
+- SMOKE HP verdict landed 2026-07-03; Skunkworks VET abd4d2af06f49f6bb
+  `HOLD_PENDING_FULL`. Fix#28 hit #17: SMOKE reported interaction=0.20 but
+  noise-corrected (L=1 ceiling-confounded row excluded) drops to 0.05 which is
+  BELOW H1 threshold. MM_TENTATIVE at SMOKE.
+- Skunkworks-authoritative framing (VERBATIM from VET abd4d2af06f49f6bb):
+  > "L x F cross-term theory-consistent Frady/Sommer; L=1 ceiling-confounded at
+  > SMOKE inflating interaction_metric to 0.20 (noise-corrected 0.05); FULL
+  > 3-seed TR=100 essential; consider raising L=1 corruption OR re-report on
+  > {L=2,L=4} only."
+- Post-FULL atom candidate (only fileable if 3-seed FULL confirms surviving
+  interaction and cv<0.15): `EMPIRICAL_L_x_F_CROSS_TERM_CLIFF_ADJACENT_SHARDED_v1`
+  -> MM_STANDARD + Skunkworks atom #48 amendment. If noise-corrected metric
+  fails to survive at FULL: NULL, no atom, Fix#28 hit #17 stands.
 
 ## FULL dispatch ORDER
 
