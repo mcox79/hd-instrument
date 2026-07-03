@@ -1,0 +1,187 @@
+{
+  "anchor_name": "substrate_concept_encoder_substrate_content_v1_2026_07_02",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HF2 ARM_CONCEPT_ENCODER recall@5_mean=0.1600 < max(baseline)=0.2800 (cp=0.2100, ct=0.2800); mechanism has NO advantage; MAJOR REFRAME. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "summary": "HF2 ARM_CONCEPT_ENCODER recall@5_mean=0.1600 < max(baseline)=0.2800 (cp=0.2100, ct=0.2800); mechanism has NO advantage; MAJOR REFRAME. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "elapsed_s": 7.866,
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-03T00:25:41.550307+00:00",
+  "config": {
+    "n_dim": 2048,
+    "k_sparsity": 0.02,
+    "max_pos": 24,
+    "smoke_n_atoms": 100,
+    "full_n_atoms": 500,
+    "smoke_seeds": [
+      11,
+      17,
+      23
+    ],
+    "full_seeds": [
+      11,
+      17,
+      23
+    ],
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\substrate_index\\concept\\atoms.jsonl",
+    "corpus_filter": "kind=lexicon AND pos in {n,v,a,r} AND len(desc)>=20 AND len(synonyms)>=3",
+    "hp_bands": {
+      "HP1_mechanism_recall5_floor": 0.2,
+      "HP2_gap_cp": 0.08,
+      "HP3_gap_ct": 0.08,
+      "HF1_mechanism_ceiling": 0.05,
+      "baseline_in_band_lo": 0.05,
+      "baseline_in_band_hi": 0.8
+    }
+  },
+  "aggregate": {
+    "arm_concept_encoder_recall_at_1_mean": 0.10333333333333333,
+    "arm_concept_encoder_recall_at_5_mean": 0.16,
+    "arm_concept_encoder_recall_at_10_mean": 0.23666666666666666,
+    "arm_char_positional_recall_at_1_mean": 0.10333333333333333,
+    "arm_char_positional_recall_at_5_mean": 0.21,
+    "arm_char_positional_recall_at_10_mean": 0.3033333333333333,
+    "arm_char_trigram_recall_at_1_mean": 0.18000000000000002,
+    "arm_char_trigram_recall_at_5_mean": 0.28,
+    "arm_char_trigram_recall_at_10_mean": 0.34
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_concept_encoder": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.12,
+        "recall_at_10": 0.21
+      },
+      "arm_char_positional_only": {
+        "recall_at_1": 0.1,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.3
+      },
+      "arm_char_trigram_unsup": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_walls_s": {
+        "concept_encoder": 1.11,
+        "char_positional": 0.984,
+        "char_trigram": 0.294
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_CONCEPT_ENCODER": "665b31fc32afe16f17b100decc622e4c89148d5c1be9f3c24df99791c50e96df",
+        "ARM_CHAR_POSITIONAL_ONLY": "cb5a2ed41e9a83a1fe992c32ffbaf87fffcded3b7a59d3c33b12c5f46a7db2fe",
+        "ARM_CHAR_TRIGRAM_UNSUP": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827"
+      },
+      "wall_s": 2.42
+    },
+    {
+      "seed": 17,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_concept_encoder": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.15,
+        "recall_at_10": 0.19
+      },
+      "arm_char_positional_only": {
+        "recall_at_1": 0.1,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.31
+      },
+      "arm_char_trigram_unsup": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_walls_s": {
+        "concept_encoder": 1.138,
+        "char_positional": 1.017,
+        "char_trigram": 0.18
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_CONCEPT_ENCODER": "08f8ec7911463e470e41bae9e43472ac6495770eab7637eb4736b93914ad645c",
+        "ARM_CHAR_POSITIONAL_ONLY": "5c0c88ddc5f1fad1768a9af07e5cbb38bc403c6a2ccdd039cf94fd393b0a685b",
+        "ARM_CHAR_TRIGRAM_UNSUP": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827"
+      },
+      "wall_s": 2.376
+    },
+    {
+      "seed": 23,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_concept_encoder": {
+        "recall_at_1": 0.13,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.31
+      },
+      "arm_char_positional_only": {
+        "recall_at_1": 0.11,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.3
+      },
+      "arm_char_trigram_unsup": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_walls_s": {
+        "concept_encoder": 1.068,
+        "char_positional": 1.023,
+        "char_trigram": 0.17
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_CONCEPT_ENCODER": "013128a2a1d93bb4bc12449ebcb61897b7c80b93f971cb1287922e36d543673c",
+        "ARM_CHAR_POSITIONAL_ONLY": "2a86abf8c275143381baebe943ec84527da7c9dfcdea9880c6362859456f1774",
+        "ARM_CHAR_TRIGRAM_UNSUP": "376e40d0da4da159a36f3e7253dee626137ea54b79392b6374c6805722bc5827"
+      },
+      "wall_s": 2.324
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 9,
+  "landed_n_units": 9,
+  "baseline_in_band": true,
+  "discriminator_fires_at_smoke": false,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "storage_strategy": "sharded_per_atom_prototype_hds",
+  "compute_arch": "sequential_cpu_numpy",
+  "baseline_probe_notes": "baseline_in_band=True cp_r5_mean=0.2100 ct_r5_mean=0.2800 mechanism_r5_mean=0.1600 gap_vs_maxbaseline=-0.1200 discriminator_fires_at_0.05=False",
+  "prereg_path": "preregs/2026-07-02_substrate_concept_encoder_substrate_content_v1.md",
+  "meta_rules_touched": [
+    "AF_arms_differ",
+    "AG_baseline_in_band",
+    "AH_atomic_final_metrics",
+    "K_discriminator_fires",
+    "L_strict_above_floor",
+    "M_calibration_default_ok",
+    "H_cardinality_ok",
+    "run_mode_verification_16"
+  ],
+  "hp_scope": {
+    "ARM_CONCEPT_ENCODER": [
+      "HP1",
+      "HP2",
+      "HP3",
+      "HP4"
+    ],
+    "ARM_CHAR_POSITIONAL_ONLY": [
+      "HP4"
+    ],
+    "ARM_CHAR_TRIGRAM_UNSUP": [
+      "HP4"
+    ]
+  }
+}
