@@ -51,16 +51,20 @@ Earlier in session got 4 API `ConnectionRefused` crashes across orchestrator/exp
 
 ---
 
-## STEP 2: IN-FLIGHT SPAWNS AT COMPACTION TIME
+## STEP 2: SPAWNS COMPLETE AT COMPACTION TIME (updated 19:57Z)
 
-| agentId | role | what | expected |
-|---|---|---|---|
-| `a4f83923fa23b6b28` | hdi_exp_dev | Probe 6 non-saturated TOPOLOGY × MECH revival — SMOKE local | HP with confirmation grid is non-saturated (mean_acc in [0.30, 0.95]) |
-| `a9ac5b62777c16c18` | hdi_exp_dev | Probe 7 non-saturated N × MECH revival — SMOKE local | HP with confirmation grid is non-saturated |
+**All in-flight spawns have RETURNED. Files committed locally; push blocked pending Tailscale.**
 
-Both use higher M (up to 6400) + higher corruption (up to 0.70) + wider F/N ranges to force accuracy off the ceiling that made Probes 2+3 saturation-vacuous.
+| agentId | role | result |
+|---|---|---|
+| `a4f83923fa23b6b28` | Probe 6 v2 TOPOLOGY × MECH revival | **SMOKE HP** commit `9d1995f81`; mech_var=0.20 at F=1 AND F=16; ranking CROSSOVER (modern wins F=1, soft_energy wins F=16) |
+| `a9ac5b62777c16c18` | Probe 7 v2 N × MECH revival | **SMOKE HP** commit `20d72dba6`; mech_var=0.100 at N=2048 (H1 threshold); cliff N-dependent |
 
-Task-notifications will arrive automatically. Landing pane at `data/latest_landings.md` will auto-refresh.
+**Both required grid revision (Plate 0.14×N was 5-10× too pessimistic).** Empirically corrected: L≥4, corr≈0.90 for SHARDED FHRR.
+
+**⚠️ KEY FRAMING CORRECTION:** the "STORAGE UNIQUELY MODERATES" thesis I was pushing toward is FALSE. Convergent evidence from Probes 6 v2 + 7 v2 shows ALL AXES moderate CLEANUP_MECHANISM at cliff-adjacent regime; NONE at deep-saturation. See AMENDMENTS at bottom of this file for full analysis.
+
+**Post-Tailscale action:** push commits `9d1995f81` + `20d72dba6` + dispatch Probes 6+7 v2 FULL to overnight_queue GPU (3 seeds each, ~15s per seed).
 
 ---
 
