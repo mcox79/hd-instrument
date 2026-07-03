@@ -781,3 +781,23 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 **Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.**
 
 **All commits pushed through `996d35f0c` (Testbed) and `d8276d331` (prior BACKUP).**
+
+## AMENDMENT 2026-07-03 23:10Z (SH-4 closed at 4 layers; wave14 migration in flight)
+
+**Testbed template audit (task a8570cfa1e9874982) COMPLETE at commit `e7eece429` pushed:**
+- 1 template audited (`experiments/_templates/q_b1_chain_depth.py.template`) — already clean
+- Test extended with tier [D] template static-grep + tier [E] template-clone runtime; 5/5 tests pass
+- **Fix#28 SH-4 pattern now CLOSED at 4 layers:** runner + verify tooling + wrappers + template
+- **Side finding surfaced:** 20+ `experiments/exp_wave14_*.py` standalone cells carry LOCAL `get_output_dir` with double-prefix bug (`REPO / "data" / f"exp_{env_name}"`) — not blocking but bites on any wave14 re-dispatch
+
+**Wave14 SH-4 migration fired (task a05ea6235f1a069c6):**
+- Migrates ~20+ wave14 legacy cells from LOCAL get_output_dir to import from `_seed_checkpoint`
+- Extends test with tier [F] wave14-legacy-cell-audit
+- Preserves semantic distinctness of any cell with non-standard output-dir logic
+- Testbed pre-authorized commit + push
+
+**Spawn state (2 in flight):**
+- Probe 15 L × M cross-term SMOKE (a524914a58ddfc2d2)
+- Wave14 SH-4 migration (a05ea6235f1a069c6)
+
+**Session tally 94 atoms unchanged; Fix#28 discipline 20 interactions.**
