@@ -801,3 +801,31 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Wave14 SH-4 migration (a05ea6235f1a069c6)
 
 **Session tally 94 atoms unchanged; Fix#28 discipline 20 interactions.**
+
+## AMENDMENT 2026-07-03 23:30Z (Wave14 migration COMPLETE — 441 cells; Probe 15 landed)
+
+**Wave14 SH-4 migration (task a05ea6235f1a069c6) COMPLETE at commit `f495644d6` pushed:**
+- **441 wave14 cells migrated** (Testbed estimated "20+" — actual was WAY LARGER: entire wave14 subtree had the bug)
+- Bucketed patterns: 425 std local def + 4 HDLAB_OUTDIR variant (preserved) + 12 inline construction + 5 hand-fixed edge cases (zero-arg + name=None defaults)
+- Test tier [F] wave14-legacy-cell-audit added; full suite [A][B][C][D][E][F] all PASS
+- **SH-4 pattern now closed at 5 effective layers:** runner + verify tooling + sibling wrappers + template + wave14 legacy
+- Side finding NOT patched (out of scope): dead-code `CHECKPOINT_FILE` module-scope construction in `exp_wave14_1rsb_hysteresis_v3.py:104` — 0 usages, safe to leave
+
+**Probe 15 L × M cross-term SMOKE HP** — commit `e3fa490d6` pushed:
+- Fills last unmapped L cross-term per Skunkworks atom #48 addendum
+- interaction_metric=0.225 above 2SE noise floor by 0.07 (TIGHT margin)
+- Ceiling-confounded check: passed (max acc=0.875 < 0.90; cell-author explicitly verified per Fix#28 hit #17 lesson)
+- Bracket verified 9/9 CLIFF cells in-band
+- Framed MM_TENTATIVE + HOLD_PENDING_FULL per Skunkworks pattern
+- Post-FULL atom candidate: `EMPIRICAL_L_x_M_CROSS_TERM_SHARDED_CLIFF_ADJACENT_v1` REGIME-EXTENSION of M-sweep CG_META
+- Skunkworks VET fired (task afb66acbe8313547b)
+
+**Spawn state (1 in flight):**
+- Skunkworks VET P15 (afb66acbe8313547b) — noise-floor scrutiny + tier decision
+
+**Session tally 94 atoms unchanged.** Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.
+
+**USER strategic decisions PENDING:**
+1. **Tailscale re-auth** on marsh@home (30-sec action) + optional durable auth key setup (5-min action for long-term protection)
+2. **Cortex integration GO** — `cortex_integration_hdlab_module_2026-07-02` proposal awaiting go-ahead; Phase 1 (extract M1.3/M1.5/M1.7/M1.8 primitives to hdlab/ modules) can start immediately, INDEPENDENT of Tailscale. Recommended: GO tonight.
+3. Substrate encoder issue clarification — most likely refers to Substrate-KB bag-word-to-concept-encoder migration plan (`design_substrate_KB_bag_word_to_concept_encoder_migration_plan_2026-07-02.md`); Spoke 1 v3 competitive-Hebbian was in flight from prior session
