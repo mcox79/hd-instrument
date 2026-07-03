@@ -1054,3 +1054,41 @@ math=35, meta=35 (2026-07-03) — this landing +1 MB math, +1 MM meta
 ### New USER-locked rule filed today (mid-session):
 "Full-auto = make the call, don't stack questions" [[feedback_full_auto_means_make_the_call_not_stack_questions_USER_2026-07-03]]
 Filed after USER caught me presenting 3-question decision matrix when all 3 were decidable under long-term-substrate-success criterion. "Stacking questions" is a form of standing.
+
+## 2026-07-03 15:35Z AMENDMENT 5 (Exp 3B Layer 0.75 HF + Skunkworks VET + Exp 3C dispatched + M-sweep in flight + Director-lesson)
+
+### Exp 3B Layer 0.75 candidate-refinement SMOKE landed HARD_FAIL (~15:20Z) → Skunkworks HF_IMPLEMENTATION (~15:30Z)
+Per-arm Fix#28 confirmed: ORACLE 0.853 / EXP3_BASE 0.413 / MAIN 0.027 (below RANDOM) / S1 0.393 / S2 0.407 / S3 0.013. GT-coverage diagnostic (51/60 → 15/60 through Stage 3) verified. Root cause: query-only rescore blind to multi-hop bridges. Committed cell + prereg at HEAD. Skunkworks-filed atoms: math=36, meta=37 (session 2026-07-03).
+
+### Director-lesson filed 2026-07-03 (MM_TENTATIVE + memory)
+**Mechanism-abstraction-lossy META rule** [[feedback_mechanism_abstraction_lossy_cite_source_signature_2026-07-03]]: I abstracted BridgeRAG s(q,b,c) → s(q,c) silently dropping bridge-conditioning. 3 downstream implementations (MMR, softmax-cosine, modern-Hopfield-topK) all inherited bridge-blindness. Failure indicator: 3+ implementations share source-absent limitation. Cite source argument signature exactly going forward.
+
+### Exp 3C dispatched: iterative query-augmentation Stage 3 (Skunkworks path b)
+`hdi_exp_dev` in flight. Cheapest architectural fix (no new extraction primitive, reuses BGE+FHRR). Same Stages 1+2 as Exp 3B; Stage 3 replaced with hop-1 rescore → extract bridge → augmented query → hop-2 rescore. Dual HP bar: 0.74 full closure OR 0.413 non-destructive interface. If Exp 3C ALSO HFs, escalate to path (a) BridgeRAG tripartite s(q,b,c).
+
+### M-sweep phase diagram v2 in flight (Stage 1 5th physics-law axis)
+`hdi_exp_dev` authoring. Sweep M ∈ {100, 200, 400, 800, 1600, 3200} × 4 mechanisms × 2 N × 3 corruption × 2 iters = 288 phase points/seed × 3 seeds FULL. Local SMOKE first per USER-locked. On SMOKE HP, `hdi_orchestrator` dispatches remote GPU FULL. USER-authorized full-auto for 2hrs + remote GPU is unused.
+
+### M-scaling literature drill returned:
+- No universal law; regime-specific crossovers expected
+- Classical Hopfield: sharp cliff at α_c ≈ 0.14; at N=2048 should break at M~400 with noise
+- Modern Hopfield: exponential capacity but brittle on real data
+- Cosine argmax: linear-in-M error growth, graceful
+- Softmax cleanup: sigmoid, tunable
+- Key prediction: at N=2048, ε=0.35, M ∈ {100..3200} → only classical Hopfield should cliff; others stay flat. Higher N needed to test modern-Hopfield exponential regime.
+
+### Explore agent deep-read of 2026-06-10 codebook capacity drill in flight
+Bounded read of research_drill_codebook_capacity_structural_3x + related notes + exp_n2_capacity_scaling_v1 metrics. Purpose: harvest prior substrate-side theoretical framework for CG_META atom eligibility on M-sweep FULL.
+
+### Agents in flight (3 of 5 budget):
+- a1afd106aac780cc7 = M-sweep author (SMOKE first)
+- ad75c98b4262ef567 = Explore 2026-06-10 capacity drill deep-read
+- a8be0e465ad421468 = Exp 3C iterative-query-augmentation author + SMOKE
+
+### Post-compaction sequencing (USER out for 2hrs; full auto):
+1. Exp 3C SMOKE lands → Skunkworks VET → if HP arc CLOSES; if HF dispatch path (a) BridgeRAG tripartite
+2. M-sweep SMOKE lands → if HP, hdi_orchestrator SSH dispatches remote GPU FULL
+3. Explore 2026-06-10 deep-read returns → integrate theoretical predictions into M-sweep FULL expectations
+4. M-sweep FULL lands remote → Skunkworks VET → potential CG_META atom (5th Stage 1 axis) if physics-law claim survives
+
+### Session tally per Skunkworks-authoritative: math=36, meta=37 (2026-07-03)
