@@ -1,6 +1,14 @@
-# Layer 0.75 candidate-refinement primitive — design synthesis (drill A + C, 2026-07-03)
+# Layer 0.75 candidate-refinement primitive — design synthesis (drills A + B + C, 2026-07-03)
 
-**Status:** synthesis note; Drill B (VSA noise scaling) still in flight and will add parametric detail. Primitive dispatch HELD until Drill B lands.
+**Status:** all 3 drills landed 2026-07-03. Design finalized. Ready for hdi_exp_dev dispatch.
+
+## Drill B critical update: noise-at-K=30 was a RED HERRING for our regime
+
+Drill B computed Frady-Sommer SNR = √(N/M) = √(4096/30) ≈ 11.7 for our regime. Argmax error probability ~10^-15 under i.i.d. codes. Empirical loses factor 1.5-3× with correlated codes; still safe. Empirical breakdown at K ≈ N/(2·log D) — for our regime that's ~200 items, NOT 30.
+
+**Corrected diagnosis:** Exp 3 failure is NOT information-theoretic vector noise. It's **semantic candidate contamination at the graph level** — 28 wrong chunks are semantically-adjacent distractors (hub-adjacent facts), not i.i.d. random. Composition can't distinguish query-relevant from query-irrelevant when 28/30 candidates are all plausible.
+
+**Confirms Skunkworks direction:** don't escalate FULL N_DIM=8192 (path c); build Layer 0.75 primitive to filter semantic contamination (path a). Drill B closes the argmax-noise question.
 
 **Purpose:** operationalize the candidate-refinement primitive between Layer 0.5 (PPR-walk output ~30 chunks) and Layer 1 (FHRR composition input needs ~2-5 clean chunks) discovered as a load-bearing gap by Exp 3 MB_INTERFACE_BOUND landing.
 
@@ -72,15 +80,17 @@ Additional ablations for CG-tier eligibility:
 - **Director-KB is already a KGStore (drill KEY REFRAME):** Layer 0.75 operates on existing KGStore, no new graph construction needed
 - **Encoder-swap DEFERRED (2026-07-03 pivot):** Layer 0.75 primitive uses existing bge/char-trigram frontend; encoder choice orthogonal to primitive design
 
-## What's still open pending Drill B
+## Drill B answers (FINAL, 2026-07-03)
 
-Drill B is specifically about VSA/HRR argmax noise vs N_DIM × K scaling. Answers:
-- IS argmax noise at (K=30, N=4096) actually the primary problem or is candidate contamination the primary problem?
-- Would larger N (8192 / 16384) alone solve it without new primitive? (Skunkworks-blocked path (c))
-- Are there better cleanup mechanisms than cosine argmax at K=30 that would be worth adding to Stage 3?
-- What K target does Stage 3 need to hit for FHRR composition to reliably work at N_DIM=4096?
+- IS argmax noise at (K=30, N=4096) the primary problem? **NO.** SNR ≈ 11.7 in Frady-Sommer terms; argmax error probability ~10^-15. Deep in safe zone.
+- Would larger N alone solve it? **NO.** Doesn't address root cause (semantic contamination); wastes compute.
+- Better cleanup mechanisms? Softmax/modern-Hopfield marginal at K=30; iterative resonator overkill for our case. **Not needed at K=30.**
+- What K target for Stage 3? **≤5** (matches HippoRAG/BridgeRAG/PropRAG primary K; well within FHRR-argmax safe zone at N=4096).
 
-Pending Drill B, Stage 3's target K is estimated as ≤5 (matching HippoRAG/BridgeRAG/PropRAG published primary-metric K). Drill B may tighten or loosen this bound.
+**Additional Drill B mitigations noted for future use (but not needed for v1):**
+- Softmax/modern-Hopfield cleanup — for future scale-up (K approaching 100+)
+- FHRR/GHRR encoding — already using FHRR
+- Well-separation regularization at code-generation time — relevant for encoder work, not this primitive
 
 ## Next steps post-Drill-B
 
