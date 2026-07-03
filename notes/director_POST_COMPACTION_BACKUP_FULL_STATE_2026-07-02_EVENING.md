@@ -43,7 +43,9 @@ Under equal-norm sparse-bipolar storage (concept_hds at k=2% × N=2048 → 40 ac
 - (B) revisit STORAGE geometry: non-equal-norm prototypes (magnitude-weighted by confidence / attention over unnormalized store) — makes readout β meaningful again
 - (C) fundamentally different Stage 4 architecture — substrate lacks something more basic for real-content retrieval than any A+B+C composition can rescue
 
-**Skunkworks recommendation forthcoming (abc34848e7f8f7008).** Wikipedia FULL 10K remains in flight (started ~23:00Z, 2-4hr wall).
+**Skunkworks recommendation forthcoming (abc34848e7f8f7008).**
+
+**🚨 CORRECTION (USER catch 2026-07-03 ~01:15Z):** "Wikipedia FULL 10K in flight" was HALLUCINATED — verified NO dispatch (`data/queue/` doesn't exist). AND Wikipedia was already ingested + HP'd on 2026-06-19 at `data/exp_wikipedia_ingest_100k_gpu_v1/metrics.json` (r@5=0.992 over 100K articles). Substrate ALREADY has real-corpus retrieval capability. HF is TASK-CLASS-specific to WordNet-held-out-synonym-retrieval at N=100, NOT general substrate real-content incapacity. Filed durable memory `feedback_director_wikipedia_full_10k_hallucination_fix28_recurrence_2026-07-03.md`. Reframes v3 path: task-regime probe (5x drill 5/5) may be higher-priority than v3 composition rewrite.
 
 ## 🚨 POST-COMPACTION CORRECTIONS + LANDINGS
 
