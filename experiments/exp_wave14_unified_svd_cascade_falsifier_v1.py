@@ -76,6 +76,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
@@ -103,8 +104,8 @@ MIN_DETACHED = 2   # minimum K_detached to avoid INSTRUMENTATION_FAIL
 
 
 def get_output_dir() -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", "wave14_unified_svd_cascade_falsifier_v1")
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir("wave14_unified_svd_cascade_falsifier_v1")
     out.mkdir(parents=True, exist_ok=True)
     return out
 

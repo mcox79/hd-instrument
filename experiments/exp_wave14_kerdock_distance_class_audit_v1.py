@@ -57,6 +57,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Load Kerdock codebook generator from v3
 _v3_path = REPO / "experiments" / "exp_wave14y_erase_kerdock_v3.py"
 _v3_spec = importlib.util.spec_from_file_location("kerdock_v3", _v3_path)
@@ -76,13 +77,11 @@ AGS_ALPHA = 0.153   # substrate loading alpha = M/N at v206 operating point
 AGS_ALPHA_C = 0.5625  # empirical capacity boundary (from v206/v209 hysteresis)
 
 
-def get_output_dir(default_name: str = "wave14_kerdock_distance_class_audit_v1") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 # ─── AGS self-consistent fixed-point solver ────────────────────────────────
 
 def ags_retrieval_overlap(r: float, tol: float = 1e-9, max_iter: int = 1000) -> float:

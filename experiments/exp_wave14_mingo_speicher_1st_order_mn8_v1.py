@@ -34,6 +34,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 _kp_path = REPO / "experiments" / "exp_wave14_kappa_profile_cross_codebook_v1.py"
 _spec = importlib.util.spec_from_file_location("kp_v1", _kp_path)
 _kp = importlib.util.module_from_spec(_spec)
@@ -179,12 +180,10 @@ def run_experiment(smoke: bool):
 
 
 def get_output_dir(name: str) -> Path:
-    n = os.environ.get("HDLAB_EXP_NAME", name)
-    out = REPO / "data" / f"exp_{n}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d: dict) -> None:
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     if not required.issubset(d.keys()):

@@ -64,6 +64,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 # Load base modules via chain: hysteresis_v3 -> betB_4stage_continual -> kovacs_v1 -> cl_phase_a
@@ -103,9 +104,9 @@ CELL_TIMEOUT_S = 300
 CHECKPOINT_FILE = REPO / "data" / f"exp_{os.environ.get('HDLAB_EXP_NAME','wave14_1rsb_hysteresis_v3')}" / "checkpoint.json"
 
 
-def get_output_dir():
-    name = os.environ.get("HDLAB_EXP_NAME", "wave14_1rsb_hysteresis_v3")
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir() -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir("wave14_1rsb_hysteresis_v3")
     out.mkdir(parents=True, exist_ok=True)
     return out
 

@@ -61,6 +61,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Design parameters
 N_SWEEP_FULL = [1024, 4096, 16384]
 N_SWEEP_SMOKE = [512, 1024]
@@ -84,12 +85,10 @@ TOP_EDGE_HARD_FAIL = 1.5
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def get_corpus_text(n_bytes: int) -> bytes:
     """Return a text corpus of approximately n_bytes.
     Uses enwiki text from local cache if available; falls back to repo Python files.

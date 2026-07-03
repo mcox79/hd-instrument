@@ -80,6 +80,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Production config
 N_FULL = 4096
 N_SMOKE = 512
@@ -100,13 +101,11 @@ HF_ENTROPY_UNIFORM = 3.8
 HF_RETENTION_DELTA = -0.05
 
 
-def get_output_dir(default_name: str = "wave14_moe_attention_routing_v1") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def softmax_with_temp(scores: torch.Tensor, temp: float) -> torch.Tensor:
     """Softmax with temperature scaling."""
     return torch.softmax(scores / max(temp, 1e-6), dim=-1)

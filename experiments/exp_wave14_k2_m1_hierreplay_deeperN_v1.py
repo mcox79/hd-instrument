@@ -48,6 +48,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 # Load 4-stage baseline to reuse infrastructure (train_w_with_replay, evaluate_bpc,
@@ -90,13 +91,11 @@ BASELINE_RET_A = 0.74   # v193 ceiling from prior tuning axes
 FAIL_DELTA = 0.03       # delta < FAIL_DELTA = no meaningful improvement
 
 
-def get_output_dir(default_name):
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d):
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     missing = required - set(d.keys())

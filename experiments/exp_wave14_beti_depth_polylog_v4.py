@@ -59,6 +59,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 K_GRAM = 10                      # same as v3
 ALPHA_LOAD = 0.40                # same as v3
 ACC_THRESHOLD = 0.50             # threshold for successful hop
@@ -82,13 +83,11 @@ HF_R2_MAX = 0.50
 HF_FLAT_MAX = 3.0
 
 
-def get_output_dir(default_name: str = "wave14_beti_depth_polylog_v4") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def polylog_d_c_prediction(N: int, K: int) -> float:
     """d_c = sqrt(N * ln(N) / K)."""
     return math.sqrt(N * math.log(N) / K)

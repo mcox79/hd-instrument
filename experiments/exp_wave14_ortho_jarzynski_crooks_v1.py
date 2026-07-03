@@ -78,6 +78,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Design parameters
 N_FULL  = 256
 N_SMOKE = 128
@@ -95,13 +96,11 @@ HF_AGREEMENT_MIN = 2.0    # > 200% disagreement = hard fail
 HP_VARIANCE_MAX  = 5.0    # Jarzynski variance < 5.0
 
 
-def get_output_dir(default_name: str = "wave14_ortho_jarzynski_crooks_v1") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def build_patterns(N: int, M: int, seed: int) -> np.ndarray:
     """M random {-1,+1} patterns. Shape: (M, N)."""
     rng = np.random.default_rng(seed)

@@ -56,6 +56,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Source model parameters
 K_CONTEXT_BITS = 4     # context bits per pattern
 N_TASKS_SWEEP  = [3, 5, 10]   # v2: sweep N_tasks (was fixed 3 in v1)
@@ -69,13 +70,11 @@ BA_TOL = 1e-7
 SUBSTRATE_N_OPERATING = 4096  # typical Bet B operating N
 
 
-def get_output_dir(default_name: str = "wave14_ortho_blahut_arimoto_v2") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def build_source_distribution(n_tasks: int, m_per_task: int,
                                k_bits: int, rng: np.random.Generator) -> Tuple:
     """Build joint source distribution p(x, x_hat) for multi-task retention problem.

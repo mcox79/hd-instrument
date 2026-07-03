@@ -25,6 +25,7 @@ import torch
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 
@@ -34,11 +35,11 @@ HARD_PASS_ECE_MAX = 0.10
 HARD_FAIL_MIN_ACC = 0.70  # no improvement from 0.689
 
 
-def get_output_dir(name):
-    n = os.environ.get("HDLAB_EXP_NAME", name)
-    out = REPO / "data" / f"exp_{n}"; out.mkdir(parents=True, exist_ok=True); return out
-
-
+def get_output_dir(name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name)
+    out.mkdir(parents=True, exist_ok=True)
+    return out
 def validate_metrics(d):
     if not {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}.issubset(d.keys()):
         raise ValueError("missing keys in metrics")

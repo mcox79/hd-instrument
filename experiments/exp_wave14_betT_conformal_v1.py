@@ -46,6 +46,7 @@ import torch
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 # Pre-reg thresholds (Research sketch #3 hard pass/fail)
@@ -57,13 +58,11 @@ ALPHA = 0.10      # target error rate -> target coverage = 0.90
 SET_SIZE_LIMIT_FACTOR = 0.5  # max mean set size = K_hyp * factor
 
 
-def get_output_dir(name):
-    n = os.environ.get("HDLAB_EXP_NAME", name)
-    out = REPO / "data" / f"exp_{n}"
+def get_output_dir(name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d):
     if not {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}.issubset(d.keys()):
         raise ValueError(f"missing metrics keys: {set(d.keys())}")

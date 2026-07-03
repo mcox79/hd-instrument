@@ -37,6 +37,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 # Load M1 hierreplay for thin_pool_to_chunks
@@ -80,9 +81,9 @@ SMOOTH_VAR = 0.003         # variance of per-step deltas for physics-smooth verd
 NONMONOTONE_INVERT = 0.05  # N+(k+1) beats N+k by this much = inversion evidence
 
 
-def get_output_dir(name=None):
-    n = name or os.environ.get("HDLAB_EXP_NAME", "wave14_swr_cascade_depth_full_v1")
-    out = REPO / "data" / f"exp_{n}"
+def get_output_dir(name=None) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name or "wave14_swr_cascade_depth_full_v1")
     out.mkdir(parents=True, exist_ok=True)
     return out
 

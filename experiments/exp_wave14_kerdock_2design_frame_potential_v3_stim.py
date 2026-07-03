@@ -88,6 +88,8 @@ except ImportError as e:
 REPO = Path(__file__).resolve().parent.parent
 
 
+sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # ---------------------------------------------------------------------------
 # F_2 rank via Gaussian elimination (kept from v2; passes unit tests)
 # ---------------------------------------------------------------------------
@@ -381,16 +383,14 @@ def compute_verdict(F: float, F_se: float, selftest_d8: dict) -> tuple[str, str]
 # ---------------------------------------------------------------------------
 
 def get_output_dir(name: str) -> Path:
-    env_name = os.environ.get("HDLAB_EXP_NAME", name)
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir; HDLAB_OUTDIR preserved."""
     env_outdir = os.environ.get("HDLAB_OUTDIR")
     if env_outdir:
         out = Path(env_outdir)
     else:
-        out = REPO / "data" / f"exp_{env_name}"
+        out = _canonical_get_output_dir(name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def write_metrics(out_dir: Path, summary: dict, verdict: str, msg: str,
                   elapsed: float, config: dict) -> None:
     metrics = {

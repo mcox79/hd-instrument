@@ -46,6 +46,8 @@ import torch
 
 REPO = Path(__file__).resolve().parent.parent
 
+sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Full-scale params
 N_FULL = 4096
 N_SMOKE = 512
@@ -72,12 +74,10 @@ ALPHA_C = 0.5625   # empirical alpha_c for N=2048; conservative at N=4096
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def make_bsc(M: int, N: int, gen: torch.Generator, device) -> torch.Tensor:
     return 2.0 * torch.randint(0, 2, (M, N), generator=gen, device=device).float() - 1.0
 

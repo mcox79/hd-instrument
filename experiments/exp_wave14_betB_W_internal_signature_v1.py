@@ -52,6 +52,7 @@ import torch
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 # Load Kovacs base (train_w_with_replay, evaluate_bpc, bytes_to_idx_tensors, etc.)
@@ -82,12 +83,10 @@ FAIL_R2 = 0.20
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 # ───── corpus loaders ─────
 def load_corpus_pair(pair_id: int, n_bytes: int, seed: int, smoke: bool) -> bytes:
     """Return corpus for Phase-B training based on pair_id."""

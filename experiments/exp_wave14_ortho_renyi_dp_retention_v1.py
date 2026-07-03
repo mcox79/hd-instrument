@@ -67,6 +67,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # ─── design parameters ───
 N_FULL = [1024, 2048]
 N_SMOKE = [256]
@@ -80,12 +81,10 @@ RETRIEVAL_THRESHOLD = 0.5  # cosine similarity threshold for "correct retrieval"
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def renyi_dp_budget_hebbian(v_norm_sq: float, N: int, sigma: float = 1.0,
                              alpha: float = 2.0) -> float:
     """

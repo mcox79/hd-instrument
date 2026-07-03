@@ -40,6 +40,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 _v1_path = REPO / "experiments" / "exp_wave14_betB_4stage_continual_v1.py"
@@ -99,7 +100,7 @@ def main():
     name = os.environ.get("HDLAB_EXP_NAME",
                           "wave14_betB_4stage_continual_v2_rehab_phaseA_consolidation_v1_smoke" if args.smoke
                           else "wave14_betB_4stage_continual_v2_rehab_phaseA_consolidation_v1")
-    out_dir = REPO / "data" / f"exp_{name}"
+    out_dir = _canonical_get_output_dir(name)
     out_dir.mkdir(parents=True, exist_ok=True)
     summary, verdict, msg, elapsed, config = run_experiment(smoke=args.smoke)
     if args.smoke:

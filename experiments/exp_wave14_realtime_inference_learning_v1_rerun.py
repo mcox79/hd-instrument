@@ -44,6 +44,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 # Load v1 module to reuse run_inference_stream, compute_verdict, write_metrics.
@@ -188,7 +189,7 @@ def main():
     name = os.environ.get("HDLAB_EXP_NAME",
                           "wave14_realtime_inference_learning_v1_rerun_smoke" if args.smoke
                           else "wave14_realtime_inference_learning_v1_rerun")
-    out_dir = REPO / "data" / f"exp_{name}"
+    out_dir = _canonical_get_output_dir(name)
     out_dir.mkdir(parents=True, exist_ok=True)
     summary, verdict, msg, elapsed, config = run_experiment(smoke=args.smoke)
     k5base.write_metrics(out_dir, summary, verdict, msg, elapsed, config)

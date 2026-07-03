@@ -49,6 +49,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Reuse the GPU empirical-margin routine + verdict + Kerdock builder
 _v1_path = REPO / "experiments" / "exp_wave14_tropical_kerdock_N4096_emp_margin_v1.py"
 _spec = importlib.util.spec_from_file_location("trop_v1", _v1_path)
@@ -62,12 +63,10 @@ self_test = _v1.self_test  # already includes 5 cells
 
 
 def get_output_dir(name: str) -> Path:
-    env_name = os.environ.get("HDLAB_EXP_NAME", name)
-    out = REPO / "data" / f"exp_{env_name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d: dict) -> None:
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     missing = required - set(d.keys())

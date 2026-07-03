@@ -71,6 +71,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Load hysteresis v3 infrastructure
 _hv3_path = REPO / "experiments" / "exp_wave14_1rsb_hysteresis_v3.py"
 _hv3_spec = importlib.util.spec_from_file_location("hv3", _hv3_path)
@@ -98,13 +99,11 @@ CELL_TIMEOUT_S = 600
 ALPHA_C = 0.5625  # empirical alpha_c for N=1024
 
 
-def get_output_dir(default_name: str = "wave14_1rsb_rate_dep_hysteresis_v2") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def pearson_r(xs: List[float], ys: List[float]) -> float:
     n = len(xs)
     if n < 2:

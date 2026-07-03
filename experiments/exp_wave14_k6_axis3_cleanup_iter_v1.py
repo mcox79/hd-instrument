@@ -56,6 +56,8 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parent.parent
 
+sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # ───── design parameters (exp_dev autonomy) ─────
 N_OBJECTS = 16
 N_ATTRS = 16
@@ -74,13 +76,11 @@ FAIL_HOLDOUT_ACC = 0.09   # <=1.44x chance
 CHANCE = 1.0 / N_ATTRS   # = 0.0625
 
 
-def get_output_dir(default_name):
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d):
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     missing = required - set(d.keys())

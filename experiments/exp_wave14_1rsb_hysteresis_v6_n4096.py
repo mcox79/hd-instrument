@@ -67,6 +67,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Import v3 to reuse train_W, evaluate_W_only
 _v3_path = REPO / "experiments" / "exp_wave14_1rsb_hysteresis_v3.py"
 _v3_spec = importlib.util.spec_from_file_location("v3_hyst_v6", _v3_path)
@@ -96,14 +97,11 @@ GAP_RS_THRESHOLD = 0.03
 GAP_V3_N1024 = 1.84
 
 
-def get_output_dir(default_name: str = "wave14_1rsb_hysteresis_v6_n4096") -> Path:
-    # HDLAB_EXP_NAME env-var honored (n-mismatch eradication 2026-05-27).
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    d = REPO / "data" / f"exp_{name}"
-    d.mkdir(parents=True, exist_ok=True)
-    return d
-
-
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
+    out.mkdir(parents=True, exist_ok=True)
+    return out
 def _instrumentation_selftest() -> None:
     """Assert all claimed metrics are non-null/non-sentinel at small scale."""
     # PROT-018: N must be 4096

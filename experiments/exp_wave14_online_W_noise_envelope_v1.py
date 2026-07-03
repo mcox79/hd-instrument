@@ -28,18 +28,17 @@ import torch
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 NOISE_LEVELS = [0.0, 0.05, 0.10, 0.20, 0.30, 0.40]
 
 
-def get_output_dir(name):
-    n = os.environ.get("HDLAB_EXP_NAME", name)
-    out = REPO / "data" / f"exp_{n}"
+def get_output_dir(name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d):
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     if not required.issubset(d.keys()):

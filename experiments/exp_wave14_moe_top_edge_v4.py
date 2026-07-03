@@ -69,6 +69,8 @@ import torch
 
 REPO = Path(__file__).resolve().parent.parent
 
+sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 N_SWEEP_FULL = [4096, 8192, 16384, 32768]
 N_SWEEP_SMOKE = [512, 1024]
 K_SWEEP_FULL = [2, 4]
@@ -89,12 +91,10 @@ HF_OFFSET_AT_LARGE_N = 0.75   # offset_ratio < 0.75 at max N -> HARD_FAIL
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d: dict) -> None:
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     missing = required - set(d.keys())

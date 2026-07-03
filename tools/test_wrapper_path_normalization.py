@@ -222,10 +222,50 @@ def test_template_clone_selftest_single_prefix() -> None:
             os.environ["HDLAB_EXP_NAME"] = _orig
 
 
+def test_wave14_legacy_cell_audit() -> None:
+    """Test F: wave14 legacy cell audit — no `experiments/exp_wave14_*.py` file
+    may retain the LOCAL double-prefix construction pattern. Follow-up to the
+    2026-07-03 SH-4 wave14 migration (429 cells with LOCAL `get_output_dir`
+    or inline path construction were routed through
+    `experiments._seed_checkpoint.get_output_dir`).
+
+    Anti-patterns caught (any of these in a wave14 cell is a regression):
+      1. `REPO / "data" / f"exp_{X}"` where X is populated from HDLAB_EXP_NAME
+         (either via a local `def get_output_dir(...)` or inline in `main()`).
+      2. Any local `def get_output_dir(...)` whose body does the env-var lookup
+         AND the "exp_" prefix concat manually.
+
+    Cells that legitimately need a distinct-shape override (HDLAB_OUTDIR
+    honor, custom subdir) may route through `_canonical_get_output_dir`
+    imported from `_seed_checkpoint` (that helper is SH-4-safe).
+    """
+    wave14 = sorted(REPO.glob("experiments/exp_wave14_*.py"))
+    _assert(len(wave14) > 0, "no wave14 cells found (regression?)")
+
+    env_lookup_re = re.compile(r'os\.environ\.get\([\'"]HDLAB_EXP_NAME[\'"]')
+    prefix_concat_re = re.compile(
+        r'REPO\s*/\s*[\'"]data[\'"]\s*/\s*f[\'"]exp_\{[A-Za-z_][A-Za-z0-9_]*\}[\'"]'
+    )
+
+    bug_offenders = []
+    for p in wave14:
+        text = p.read_bytes().replace(b"\r\n", b"\n").decode("utf-8", errors="replace")
+        if env_lookup_re.search(text) and prefix_concat_re.search(text):
+            bug_offenders.append(p.name)
+
+    _assert(
+        not bug_offenders,
+        f"wave14 cells with LOCAL double-prefix construction ({len(bug_offenders)} found): "
+        f"{bug_offenders[:10]}{' ...' if len(bug_offenders) > 10 else ''}"
+    )
+    print(f"[F] wave14 audit OK: {len(wave14)} cells, 0 double-prefix offenders")
+
+
 if __name__ == "__main__":
     test_static_source_no_manual_construction()
     test_runtime_double_prefix_normalization()
     test_wrapper_module_import_side_effects()
     test_template_files_no_anti_pattern()
     test_template_clone_selftest_single_prefix()
+    test_wave14_legacy_cell_audit()
     print("PASS: all wrapper-path-normalization tests OK")

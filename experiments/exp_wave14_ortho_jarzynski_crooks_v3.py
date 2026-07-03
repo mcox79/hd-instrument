@@ -70,6 +70,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Import v1 module for shared functions (work_per_step, jarzynski_estimator, etc.)
 _v1_path = REPO / "experiments" / "exp_wave14_ortho_jarzynski_crooks_v1.py"
 _v1_spec = importlib.util.spec_from_file_location("jarzynski_v1", _v1_path)
@@ -93,13 +94,11 @@ HF_FRAC_THRESH   = 0.20   # < 20% at ALL betas = hard fail
 HP_VARIANCE_MAX  = 0.50   # jarz_var < 0.50 (softer than v2's 5.0; at lower beta variance should be much lower)
 
 
-def get_output_dir(default_name: str = "wave14_ortho_jarzynski_crooks_v3") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def run_one_cell(N: int, M: int, seed: int, beta: float) -> Dict:
     """Run one cell: substrate write sweep at given beta."""
     patterns = _v1_mod.build_patterns(N, M, seed)

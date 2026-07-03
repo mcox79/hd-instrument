@@ -67,6 +67,7 @@ DATA = REPO / "data"
 TMP = DATA / "tmp_betb_analysis"
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 
 try:
@@ -130,12 +131,10 @@ FAIL_MIN_NONOVERLAPPING = 5   # HARD-FAIL if <6 non-overlapping (any CI collapse
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = DATA / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 # ────────────── training loop (inline from base; no circular import) ──────────────
 def train_w_with_replay(W_init, pool_vecs, pool_labels, pool_used,
                         byte_atoms, pos_atoms, train_bytes, target_bytes,

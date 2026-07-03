@@ -39,6 +39,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Import 2-coset Kerdock codebook builder (works at any N=2^k, k>=2).
 def _import_module(module_name: str, rel_path: str):
     p = REPO / rel_path
@@ -310,12 +311,10 @@ def run_all_self_tests() -> None:
 # ---------------------------------------------------------------------------
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def run_experiment(N_list, n_orders, seeds, default_name: str) -> dict:
     """For each N in N_list, build Kerdock 2-coset codebook, compute:
       - v169 Schur-Weyl mass_n at each n in n_orders (with timing)

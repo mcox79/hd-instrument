@@ -37,6 +37,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 _base_path = REPO / "experiments" / "exp_wave14d_betB_kovacs_v1.py"
 _spec = importlib.util.spec_from_file_location("base", _base_path)
 base = importlib.util.module_from_spec(_spec)
@@ -80,13 +81,11 @@ CI95_WIDTH_HARD_PASS = 0.4     # tight CI required for HARD-PASS
 MIN_SEEDS_PER_N = 3            # INSTRUMENTATION-FAIL if < 3 seeds per N
 
 
-def get_output_dir(default_name):
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def validate_metrics(d):
     required = {"verdict", "verdict_msg", "elapsed_s", "summary", "config"}
     missing = required - set(d.keys())

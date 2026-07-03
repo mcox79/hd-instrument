@@ -47,6 +47,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Reuse v3 Kerdock codebook builder (proven)
 _v3_path = REPO / "experiments" / "exp_wave14y_erase_kerdock_v3.py"
 _spec = importlib.util.spec_from_file_location("kerdock_v3", _v3_path)
@@ -226,12 +227,10 @@ def run_experiment(smoke: bool) -> tuple[dict, str, str, float, dict]:
 
 
 def get_output_dir(default_name: str) -> Path:
-    env_name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{env_name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def write_metrics(out_dir: Path, summary: dict, verdict: str, msg: str,
                   elapsed: float, config: dict) -> None:
     metrics = {

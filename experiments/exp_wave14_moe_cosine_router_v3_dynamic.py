@@ -78,6 +78,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Parameters
 N_SMOKE  = 512
 N_FULL   = 4096
@@ -94,13 +95,11 @@ HP_RETENTION_DELTA_MIN = -0.010
 ALPHA_HEBBIAN = 0.1
 
 
-def get_output_dir(default_name: str = "wave14_moe_cosine_router_v3_dynamic") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def make_bsc_patterns(M: int, N: int, seed: int) -> torch.Tensor:
     """M random {-1,+1} patterns. Shape: (M, N)."""
     gen = torch.Generator().manual_seed(seed)

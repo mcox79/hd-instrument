@@ -54,6 +54,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # Palassini-Ritort threshold: phase transition at work_std > 4 k_B T
 PR_THRESHOLD = 4.0   # k_B T units
 KBT = 1.0            # substrate temperature in units where k_B T = 1
@@ -61,12 +62,10 @@ N_SYNTHETIC_SAMPLES = 10_000
 
 
 def get_output_dir(default_name: str) -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def vanilla_jarzynski(work_trajectories: np.ndarray, kBT: float = KBT) -> Dict:
     """
     Vanilla Jarzynski estimator: delta_F = -kBT * log(<exp(-W/kBT)>).

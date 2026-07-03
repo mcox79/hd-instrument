@@ -66,6 +66,7 @@ import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 # PRODUCTION CONFIG -- PROT-018: _n4096 suffix binds to N = 4096
 N_FULL = 4096      # PROT-018 binding contract
 assert N_FULL == 4096, f"PROT-018: N_FULL must be 4096; got {N_FULL}"
@@ -91,13 +92,11 @@ HARD_PASS_RETENTION_DELTA = -0.005
 HARD_FAIL_RETENTION_DELTA = -0.015
 
 
-def get_output_dir(default_name: str = "wave14_moe_hebbian_anchor_router_v2_n4096") -> Path:
-    name = os.environ.get("HDLAB_EXP_NAME", default_name)
-    out = REPO / "data" / f"exp_{name}"
+def get_output_dir(default_name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(default_name)
     out.mkdir(parents=True, exist_ok=True)
     return out
-
-
 def random_bsc_anchors(N: int, K: int, seed: int) -> torch.Tensor:
     """K random BSC anchor vectors, shape (K, N), values in {-1, +1}."""
     gen = torch.Generator().manual_seed(seed)

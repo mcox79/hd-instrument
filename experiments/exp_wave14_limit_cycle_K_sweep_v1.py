@@ -5,6 +5,7 @@ from pathlib import Path
 import torch
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir as _canonical_get_output_dir  # noqa: E402  # SH-4 canonical helper
 from verification import oracle  # noqa: E402
 _lc = importlib.util.spec_from_file_location("lc", REPO / "experiments" / "exp_wave14_substrate_limit_cycle_period_v1.py")
 lc = importlib.util.module_from_spec(_lc); _lc.loader.exec_module(lc)
@@ -12,11 +13,11 @@ _mh = importlib.util.spec_from_file_location("mh", REPO / "experiments" / "exp_w
 mh = importlib.util.module_from_spec(_mh); _mh.loader.exec_module(mh)
 
 
-def get_output_dir(name):
-    n = os.environ.get("HDLAB_EXP_NAME", name)
-    out = REPO / "data" / f"exp_{n}"; out.mkdir(parents=True, exist_ok=True); return out
-
-
+def get_output_dir(name: str) -> Path:
+    """SH-4 delegates to canonical _seed_checkpoint.get_output_dir (single-prefix)."""
+    out = _canonical_get_output_dir(name)
+    out.mkdir(parents=True, exist_ok=True)
+    return out
 def validate_metrics(d):
     if not {"verdict","verdict_msg","elapsed_s","summary","config"}.issubset(d.keys()): raise ValueError("missing")
 
