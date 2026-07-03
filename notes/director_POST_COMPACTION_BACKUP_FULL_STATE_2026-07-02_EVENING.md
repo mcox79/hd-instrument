@@ -1,5 +1,45 @@
 # POST-COMPACTION BACKUP — 2026-07-02 evening (session 2 of day)
 
+## 🚨🚨🚨 POST-COMPACTION PICKUP INSTRUCTIONS (2026-07-03 evening; READ THESE FIRST)
+
+**Session at 12% context; USER-directed final compaction. New session must:**
+
+**STEP 1 — Read these documents IN ORDER (all on origin):**
+1. This BACKUP tail (lines 3-90 below) — full state summary + composite ruling
+2. `notes/design_m3_cortex_layer_substrate_operates_off_stage1_findings_2026-07-03.md` — cortex layer design (NEEDS REVISION per composite ruling below)
+3. `notes/research_best_retrieval_encoder_evaluation_2026-07-03.md` — encoder evaluation matrix
+4. `notes/research_substrate_as_selector_vs_llm_reranker_theoretical_empirical_2026-07-03.md` — HEADLINE: verify_v1 never tested VSA binding; substrate wins narrower regime
+5. `notes/research_optimal_retrieval_architecture_for_substrate_director_kb_2026-07-03.md` — LAUNCHED at compaction; will be on disk by session start (agent a580312f82ecf39b5)
+6. `notes/director_user_decision_memo_bge_scope_refinement_A_B_C_evidence_summary_2026-07-03.md` — historical §6 memo (RESOLVED: USER clarified "have both")
+
+**STEP 2 — Check in-flight spawns from this session:**
+- `a580312f82ecf39b5` — optimal-retrieval-architecture drill (launched at compaction; likely landed by session start)
+- `a00691ec67e4e7c73` — Foldiak DG probe (implementation collapse pre-flagged; expected HF)
+
+**STEP 3 — USER's ACTIVE STRATEGIC DIRECTION (verbatim):**
+- "we need to get the encoder as optimized as possible before building out the rest of substrate"
+- Rerank architecture NOT validated tonight — need iterative retrieval or query decomposition
+- Substrate composition WORKS on ORACLE (0.783) — bottleneck is retrieval feeding it correct chunks
+- Cortex layer design filed but NEEDS REVISION to reflect iterative-not-rerank architecture
+- USER §6 clarification: "have both" (dense frontend + substrate reasoning); "bge NEVER in substrate" scoped to substrate ITSELF
+- Also USER-locked: encoder decision comes FIRST before cortex build
+
+**STEP 4 — Next-session priority order:**
+1. Read optimal-retrieval-architecture drill result when it lands
+2. Get USER decision on: iterative retrieval vs query decomposition vs hybrid retrieval
+3. If fine-tune bge or swap to stella needed — plan bake-off
+4. Revise M3 cortex design to reflect iterative retrieval architecture
+5. Fire empirical test cell for chosen architecture (post-USER-approval)
+6. Once encoder+architecture locked: re-index Director-KB; build cortex middleware
+
+**STEP 5 — Discipline reminders (10 Fix#28 hits Director tonight; internalized):**
+- Cell-author self-correction pattern is CG_META tier with 10+ witnesses
+- Skunkworks audits Director framing; expect corrections; embrace them
+- Concept-query-before-dispatch has caught 3+ rediscoveries tonight; ALWAYS run it
+- Verify-referent on disk (Fix#28); trust local metrics only after SH-9 SCP-recover for remote FULLs
+- No σ propagation without formula verification (bit me twice today)
+- No "first" / "novel" without precedent grep
+
 ## 🚨🚨 2026-07-03 EVENING COMPACTION PREP TAIL (at 12% context, USER-flagged)
 
 **Latest state after all-night arc (post-USER §6 clarification + tandem architecture reframe):**
