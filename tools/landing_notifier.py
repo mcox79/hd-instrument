@@ -28,6 +28,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 LANDINGS = REPO / "data" / "recent_landings.jsonl"
 STATE_FILE = REPO / "data" / ".landing_notifier_state.json"
+# Director-visible surface — small human-readable pane refreshed every cron tick.
+# Turn-start ritual: `Read data/latest_landings.md` (cheaper than tailing JSONL).
+LATEST_PANE = REPO / "data" / "latest_landings.md"
+PANE_N = 12  # tail depth
 
 
 def load_state() -> dict:
@@ -83,7 +87,50 @@ def scan() -> list[dict]:
     state["last_check_ts"] = now
     state["seen"] = seen
     save_state(state)
+    _refresh_pane()
     return arrivals
+
+
+def _refresh_pane() -> None:
+    """Write last PANE_N landings to LATEST_PANE (Director turn-start surface).
+
+    Called every scan tick. Overwrite semantics — no history retained here; full history
+    stays in recent_landings.jsonl. Purpose: give Director a one-Read landing digest.
+    """
+    if not LANDINGS.exists():
+        return
+    try:
+        lines = LANDINGS.read_text(encoding="utf-8").strip().split("\n")
+    except OSError:
+        return
+    tail = []
+    for line in lines[-PANE_N:]:
+        try:
+            tail.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    out = [
+        "# Latest landings (auto-refreshed by tools/landing_notifier.py)",
+        "",
+        f"**Pane refreshed:** {now_iso} (UTC)  |  **Tail depth:** {PANE_N}  |  **Full log:** `data/recent_landings.jsonl`",
+        "",
+        "| ts (UTC) | cell | verdict | run_mode | seeds | elapsed_s |",
+        "|---|---|---|---|---|---|",
+    ]
+    for r in tail:
+        cell = (r.get("cell") or "").replace("|", "/")
+        verdict = (r.get("verdict") or "").replace("|", "/")
+        rm = r.get("run_mode") or ""
+        seeds = r.get("n_seeds")
+        seeds_s = "" if seeds is None else str(seeds)
+        el = r.get("elapsed_s")
+        el_s = "" if el is None else f"{el:.1f}"
+        out.append(f"| {r.get('ts','')} | {cell} | {verdict} | {rm} | {seeds_s} | {el_s} |")
+    try:
+        LATEST_PANE.write_text("\n".join(out) + "\n", encoding="utf-8")
+    except OSError:
+        pass
 
 
 def main():
