@@ -497,6 +497,28 @@ def run_one_seed(seed: int, run_mode: str) -> Dict[str, Any]:
     max_N_var_in_band = max(
         (v["spread"] for v in N_var_at_F_in_band.values()), default=0.0)
 
+    # CROSS-TERM metrics: if the axes interact, F effect varies across N
+    # (topology_var_range_across_N > 0) or N effect varies across F
+    # (N_var_range_across_F > 0). Pure MARGINAL effects (large max_N_var
+    # from N-axis dominance with F-axis independence) do NOT indicate
+    # cross-term. The additive-model residual is the cleanest interaction
+    # measure. All three are logged; H1/H2 gate on cross-term-specific.
+    all_topology_var = [v["spread"] for v in topology_var_at_N.values()]
+    all_topology_var_ib = [v["spread"] for v in topology_var_at_N_in_band.values()]
+    all_N_var = [v["spread"] for v in N_var_at_F.values()]
+    all_N_var_ib = [v["spread"] for v in N_var_at_F_in_band.values()]
+    topology_var_range_across_N = (float(max(all_topology_var)
+                                         - min(all_topology_var))
+                                    if len(all_topology_var) >= 2 else 0.0)
+    topology_var_range_across_N_in_band = (
+        float(max(all_topology_var_ib) - min(all_topology_var_ib))
+        if len(all_topology_var_ib) >= 2 else 0.0)
+    N_var_range_across_F = (float(max(all_N_var) - min(all_N_var))
+                            if len(all_N_var) >= 2 else 0.0)
+    N_var_range_across_F_in_band = (
+        float(max(all_N_var_ib) - min(all_N_var_ib))
+        if len(all_N_var_ib) >= 2 else 0.0)
+
     # ---- Additive model deviation: cell_mean(N,F) - (marg_N(N) + marg_F(F) - grand) ----
     grand_mean = float(np.mean(main_accs)) if main_accs else 0.0
     marg_N = {N: (per_N_mean_acc.get(str(N), grand_mean)) for N in N_grid}
@@ -539,32 +561,45 @@ def run_one_seed(seed: int, run_mode: str) -> Dict[str, Any]:
         hyp_verdict = "H_UNKNOWN_NO_BAND_SLICES"
         hyp_reason = ("no phase-slices had mean(acc) in "
                       f"[{NON_SATURATED_BAND_LO}, {NON_SATURATED_BAND_HI}]")
-    elif (max_topology_var_in_band >= TOPOLOGY_VAR_H1_THRESHOLD
-          or max_N_var_in_band >= N_VAR_H1_THRESHOLD
+    # CROSS-TERM-ONLY hypothesis routing: H1 requires interaction (not just
+    # marginal effects). Uses topology_var_range_across_N (F effect varies
+    # with N), N_var_range_across_F (N effect varies with F), and the
+    # additive-model residual (max_N_x_F_dev). Marginal max_N_var and
+    # max_topology_var are logged but NOT gated on.
+    elif (topology_var_range_across_N_in_band >= TOPOLOGY_VAR_H1_THRESHOLD
+          or N_var_range_across_F_in_band >= N_VAR_H1_THRESHOLD
           or max_N_x_F_dev_in_band >= N_X_F_DEV_H1_THRESHOLD):
         hyp_verdict = "H1_N_x_TOPOLOGY_CROSS_TERM_AT_CLIFF"
         hyp_reason = (f"in {n_band_slices} band-slices: "
-                      f"max_topology_var_in_band={max_topology_var_in_band:.4f} "
-                      f"OR max_N_var_in_band={max_N_var_in_band:.4f} "
+                      f"topology_var_range_across_N_in_band="
+                      f"{topology_var_range_across_N_in_band:.4f} "
+                      f"OR N_var_range_across_F_in_band="
+                      f"{N_var_range_across_F_in_band:.4f} "
                       f"OR max_N_x_F_dev_in_band={max_N_x_F_dev_in_band:.4f}; "
-                      f"H1 threshold (any >= 0.10) satisfied; N and TOPOLOGY "
-                      f"have joint effect at cliff-adjacent regime")
-    elif (max_topology_var_in_band < TOPOLOGY_VAR_H2_THRESHOLD
-          and max_N_var_in_band < N_VAR_H2_THRESHOLD
+                      f"H1 cross-term threshold (>=0.10) satisfied; N and "
+                      f"TOPOLOGY have joint effect at cliff-adjacent regime")
+    elif (topology_var_range_across_N_in_band < TOPOLOGY_VAR_H2_THRESHOLD
+          and N_var_range_across_F_in_band < N_VAR_H2_THRESHOLD
           and max_N_x_F_dev_in_band < N_X_F_DEV_H2_THRESHOLD):
         hyp_verdict = "H2_N_AND_TOPOLOGY_INDEPENDENT"
         hyp_reason = (f"in {n_band_slices} band-slices: "
-                      f"topology_var<0.05 AND N_var<0.05 AND dev<0.05; "
-                      f"topology_var_in_band={max_topology_var_in_band:.4f} "
-                      f"N_var_in_band={max_N_var_in_band:.4f} "
-                      f"N_x_F_dev_in_band={max_N_x_F_dev_in_band:.4f}; "
-                      f"axes are independent at cliff-adjacent regime; "
-                      f"strengthens regime map ORTHOGONAL_AXES thesis")
+                      f"topology_var_range<0.05 AND N_var_range<0.05 AND "
+                      f"dev<0.05; topology_var_range_in_band="
+                      f"{topology_var_range_across_N_in_band:.4f} "
+                      f"N_var_range_in_band={N_var_range_across_F_in_band:.4f} "
+                      f"N_x_F_dev_in_band={max_N_x_F_dev_in_band:.4f} "
+                      f"(marginal max_topology_var_in_band="
+                      f"{max_topology_var_in_band:.4f} "
+                      f"max_N_var_in_band={max_N_var_in_band:.4f} "
+                      f"logged for context); axes are independent at "
+                      f"cliff-adjacent; strengthens regime map "
+                      f"ORTHOGONAL_AXES thesis")
     else:
         hyp_verdict = "MIDDLE_BAND_WEAK_N_x_TOPOLOGY_MODERATION"
         hyp_reason = (f"in {n_band_slices} band-slices: "
-                      f"topology_var_in_band={max_topology_var_in_band:.4f} "
-                      f"N_var_in_band={max_N_var_in_band:.4f} "
+                      f"topology_var_range_in_band="
+                      f"{topology_var_range_across_N_in_band:.4f} "
+                      f"N_var_range_in_band={N_var_range_across_F_in_band:.4f} "
                       f"N_x_F_dev_in_band={max_N_x_F_dev_in_band:.4f}; "
                       f"between H2 null and H1 threshold; MM_TENTATIVE weak "
                       f"N x TOPOLOGY moderation")
@@ -621,6 +656,11 @@ def run_one_seed(seed: int, run_mode: str) -> Dict[str, Any]:
         "N_var_at_F_in_band": N_var_at_F_in_band,
         "max_N_var": round(max_N_var, 4),
         "max_N_var_in_band": round(max_N_var_in_band, 4),
+        "topology_var_range_across_N": round(topology_var_range_across_N, 4),
+        "topology_var_range_across_N_in_band": round(
+            topology_var_range_across_N_in_band, 4),
+        "N_var_range_across_F": round(N_var_range_across_F, 4),
+        "N_var_range_across_F_in_band": round(N_var_range_across_F_in_band, 4),
         "N_x_F_deviation_map": N_x_F_deviation_map,
         "N_x_F_deviation_map_in_band": N_x_F_deviation_map_in_band,
         "max_N_x_F_deviation": round(max_N_x_F_dev, 4),
@@ -668,18 +708,22 @@ def smoke_gate_predicate(body: Dict[str, Any]) -> Tuple[bool, str]:
         if pt.get("acc") != pt.get("acc"):
             return False, f"NAN_in_phase_map at {pt}"
     # Discriminator variance INFORMATIONAL only (null-hypothesis SMOKE discipline).
-    max_top = body.get("max_topology_var_in_band", 0.0)
-    max_nvar = body.get("max_N_var_in_band", 0.0)
+    top_range = body.get("topology_var_range_across_N_in_band", 0.0)
+    nvar_range = body.get("N_var_range_across_F_in_band", 0.0)
     max_dev = body.get("max_N_x_F_deviation_in_band", 0.0)
+    max_nmarg = body.get("max_N_var_in_band", 0.0)
+    max_topmarg = body.get("max_topology_var_in_band", 0.0)
     frac = body.get("main_grid_fraction_in_non_saturated_band", 0.0)
     hyp = body.get("hypothesis_assessment")
     return True, (f"smoke_gate_pass: cardinality_ok + F-endpoint-hash-distinct + "
                   f"pc_acc={pc.get('acc')} (>={pc.get('threshold')}) + "
                   f"escapes_saturation (some slice mean<{NON_SATURATED_BAND_HI}) + "
-                  f"frac_in_band={frac}; informational: "
-                  f"max_topology_var_in_band={max_top} "
-                  f"max_N_var_in_band={max_nvar} "
-                  f"max_N_x_F_dev_in_band={max_dev} hyp_preview={hyp}")
+                  f"frac_in_band={frac}; informational cross-term: "
+                  f"topology_var_range_in_band={top_range} "
+                  f"N_var_range_in_band={nvar_range} "
+                  f"max_N_x_F_dev_in_band={max_dev}; informational marginal: "
+                  f"max_topology_var_in_band={max_topmarg} "
+                  f"max_N_var_in_band={max_nmarg}; hyp_preview={hyp}")
 
 
 # ---------------------------------------------------------------------------
@@ -728,6 +772,12 @@ def aggregate_and_verdict(per_seed: Dict[str, Dict[str, Any]], run_mode: str
         "N_var_at_F_in_band": body.get("N_var_at_F_in_band"),
         "max_N_var": body.get("max_N_var"),
         "max_N_var_in_band": body.get("max_N_var_in_band"),
+        "topology_var_range_across_N": body.get("topology_var_range_across_N"),
+        "topology_var_range_across_N_in_band":
+            body.get("topology_var_range_across_N_in_band"),
+        "N_var_range_across_F": body.get("N_var_range_across_F"),
+        "N_var_range_across_F_in_band":
+            body.get("N_var_range_across_F_in_band"),
         "N_x_F_deviation_map": body.get("N_x_F_deviation_map"),
         "N_x_F_deviation_map_in_band": body.get("N_x_F_deviation_map_in_band"),
         "max_N_x_F_deviation": body.get("max_N_x_F_deviation"),
@@ -809,10 +859,11 @@ def aggregate_and_verdict(per_seed: Dict[str, Dict[str, Any]], run_mode: str
             verdict = "HARD_PASS"
             vmsg = (f"HARD_PASS_H2_N_AND_TOPOLOGY_INDEPENDENT_AT_CLIFF: "
                     f"n_band_slices={body.get('n_band_slices')}; "
-                    f"max_topology_var_in_band="
-                    f"{body.get('max_topology_var_in_band')} < 0.05 AND "
-                    f"max_N_var_in_band={body.get('max_N_var_in_band')} < 0.05 "
-                    f"AND max_N_x_F_dev_in_band="
+                    f"topology_var_range_in_band="
+                    f"{body.get('topology_var_range_across_N_in_band')} < 0.05 "
+                    f"AND N_var_range_in_band="
+                    f"{body.get('N_var_range_across_F_in_band')} < 0.05 AND "
+                    f"max_N_x_F_dev_in_band="
                     f"{body.get('max_N_x_F_deviation_in_band')} < 0.05; "
                     f"axes are orthogonal at cliff-adjacent regime; "
                     f"strengthens regime map ORTHOGONAL_AXES thesis; "
@@ -823,9 +874,10 @@ def aggregate_and_verdict(per_seed: Dict[str, Dict[str, Any]], run_mode: str
             verdict = "HARD_PASS"
             vmsg = (f"HARD_PASS_H1_N_x_TOPOLOGY_CROSS_TERM_AT_CLIFF: "
                     f"n_band_slices={body.get('n_band_slices')}; "
-                    f"max_topology_var_in_band="
-                    f"{body.get('max_topology_var_in_band')} "
-                    f"max_N_var_in_band={body.get('max_N_var_in_band')} "
+                    f"topology_var_range_in_band="
+                    f"{body.get('topology_var_range_across_N_in_band')} "
+                    f"N_var_range_in_band="
+                    f"{body.get('N_var_range_across_F_in_band')} "
                     f"max_N_x_F_dev_in_band="
                     f"{body.get('max_N_x_F_deviation_in_band')}; N and "
                     f"TOPOLOGY have joint effect at cliff-adjacent regime; "
