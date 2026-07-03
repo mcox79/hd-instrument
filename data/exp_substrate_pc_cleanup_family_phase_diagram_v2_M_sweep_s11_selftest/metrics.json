@@ -1,0 +1,14 @@
+{
+  "anchor_name": "substrate_pc_cleanup_family_phase_diagram_v2_M_sweep_s11",
+  "verdict": "SELFTEST_OK",
+  "verdict_msg": "cardinality FULL=288 SMOKE=24; crlb shifts OK: M100vsM3200@N2048=0.4665>0.4556; N2048vsN8192@M800=0.4596<0.4798; classical cap: N=2048->286 N=8192->1146; M_crit N=2048: iter=134.30 (Plate); cls=286.72 (AGS); mod=inf (Ramsauer); sanity modern_hopfield: id=20/20 easy=20/20; sanity classical_hopfield: id=20/20 easy=20/20; sanity iterative_cosine: id=20/20 easy=20/20; sanity soft_energy_attractor: id=20/20 easy=20/20; cleanup byte-hashes distinct at M=100 c=0.475; cleanup byte-hashes distinct at M=3200 c=0.475",
+  "summary": "cardinality FULL=288 SMOKE=24; crlb shifts OK: M100vsM3200@N2048=0.4665>0.4556; N2048vsN8192@M800=0.4596<0.4798; classical cap: N=2048->286 N=8192->1146; M_crit N=2048: iter=134.30 (Plate); cls=286.72 (AGS); mod=inf (Ramsauer); sanity modern_hopfield: id=20/20 easy=20/20; sanity classical_hopfield: id=20/20 easy=20/20; sanity iterative_cosine: id=20/20 easy=20/20; sanity soft_energy_attractor: id=20/20 easy=20/20; cleanup byte-hashes distinct at M=100 c=0.475; cleanup byte-hashes distinct at M=3200 c=0.475",
+  "elapsed_s": 1.36,
+  "ts_iso": "2026-07-03T15:53:48Z",
+  "pid": 1552,
+  "run_mode": "selftest",
+  "config_version": "ANCHOR=substrate_pc_cleanup_family_phase_diagram_v2_M_sweep_s11,cleanups=[modern_hopfield,classical_hopfield,iterative_cosine,soft_energy_attractor],encoder=binary_bipolar,M_sweep=[100,200,400,800,1600,3200],N_sweep=[2048,8192],SEED=11,mode=selftest,corruption=[0.20,0.35,0.50],iters=[1,5],beta=8.0,alpha_soft=0.5,arms=[MECHANISM,RANDOM_FLOOR],expected_n_full=288,expected_n_smoke=24,hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED",
+  "_hardening_marker": "v2_pc_cleanup_family_M_sweep_chunked",
+  "_phase": "selftest_done",
+  "backend": "torch.cpu"
+}
