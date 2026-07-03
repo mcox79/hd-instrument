@@ -5,6 +5,63 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🔥 SPOKE 3 HIPPOCAMPAL SMOKE HF — 5TH WITNESS + TASK-CLASS-REFRAME HYPOTHESIS (2026-07-03 ~03:20Z)
+
+**Spoke 3 hippocampal encoder Wikipedia SMOKE HARD_FAIL.** Commit `1cd8e3757` pushed.
+
+**Per-arm r@5 (3 seeds N=500, wall 17.5s, deterministic):**
+- ARM_SPOKE3_HIPPOCAMPAL = **0.145** (loses to char-trigram 0.854 by 0.709)
+- ARM_SPOKE3_ONE_SHOT (DG-only) = 0.455 (DG-expansion alone drops signal)
+- ARM_PPMI_ALONE = 0.906 (EXACT regression sanity)
+- ARM_CHAR_TRIGRAM = 0.854 (EXACT regression sanity)
+- ARM_RANDOM = 0.007
+- DG sparse rate observed 0.0203 in [0.008, 0.040] band; architectural constraint SATISFIED
+- 15/15 cardinality; arms_differ False (architectural exemption — ARM_SPOKE3_HIPPOCAMPAL + ARM_SPOKE3_ONE_SHOT bit-identical BODY DG codes; differ only on TITLE processing; legitimate collision per META_RULE_AF exemption clause)
+
+**Cell-author load-bearing mechanism diagnosis:**
+1. DG expansion (8192-dim, 2% sparse ~164 nonzeros) is noisier than 2048-dim char-trigram on small-N retrieval
+2. **CA3 hits Tsodyks-Feigelman capacity:** k=164/dg_dim=8192 → ~1.8 patterns before interference; 500 body attractors = **270× OVER capacity** → noise-dominated
+3. NOT discriminator-narrows-at-scale (this is straight mechanism-scope-limited HF)
+4. **HONEST SCOPE (LOAD-BEARING):** Marr-CA3+DG is DESIGNED for episodic one-shot binding + pattern completion, NOT open-domain many-to-many surface retrieval. **TASK CLASS FUNDAMENTALLY MISMATCHED.**
+
+**Primitive `hdlab/hippocampal_encoder.py` retained CG:**
+- 13/13 selftests PASS
+- Explicit anti-2026-06-23-WTA-collision-sampling verification (jaccard=0.033; MECHANISM-LEVEL PROOF this is not the falsified pattern)
+- DG pattern separation: two similar inputs cos>0.9 → DG codes cos<0.3 verified
+- CA3 one-shot binding: recall=1.000 on novel patterns
+- Primitive is CORRECT; test task class is WRONG
+
+## 🔥 META CG_META PROMOTION CANDIDATE — 5 WITNESSES
+
+**Parent META** `META_SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE` (MM_TENTATIVE_SYNTHESIS earlier today) now has **5 witnesses**:
+1. v1 concept_encoder WordNet HF (Spoke 1 primitive)
+2. Component C modern-Hopfield readout Wikipedia HF
+3. VWFA multi-scale Wikipedia SMOKE HF (Spoke 1 P1 primitive)
+4. PPMI/SVD Wikipedia FULL PRELIMINARY_CG_HN (Spoke 2 / V2-A)
+5. **Spoke 3 hippocampal Wikipedia SMOKE HF (Spoke 3)** — this landing
+
+**Heterogeneous mechanism classes ALL LOSE on the same task class (open-domain title→body retrieval).** Skunkworks judging CG_META promotion now.
+
+## 🔥 STRATEGIC REFRAME — TASK CLASS ITSELF MAY BE WRONG PROBE
+
+**The 5-witness pattern reveals:** open-domain title→body retrieval FAVORS bag-of-features encoders inherently. Substrate's REAL strengths — VSA algebra, compositional binding, one-shot episodic memory, structured semantic parsing — are NOT what retrieval measures. **We've been chasing a wrong probe all night.**
+
+**Cell-author strategic assessment:** decision fork (B) closed as **negative-tested**. All 3 substrate-native mechanism classes HF'd. Path forward requires strategic pivot, not more rescue mechanisms:
+
+**Option (i)** — test Spoke 3 on its INTENDED task class (existing `exp_substrate_concept_encoder_spoke3_dg_ca3_marr_cls_replay_v1.py` synthetic-episodic task) to confirm mechanism works when task matches. Second-witness for task-class hypothesis.
+
+**Option (ii) — REFRAME Stage 2 benchmark** from retrieval to VSA-native tasks:
+- Analogy completion (a:b :: c:? — VSA-native)
+- Compositional generalization (novel combinations of seen concepts)
+- Multi-hop reasoning (fact-chain over knowledge triples)
+- One-shot episodic binding (Spoke 3's designed home)
+- Generation quality (no bag-of-words baseline exists)
+- Brain-analog task classes for brain-analog mechanisms
+
+**Option (iii)** — **Pragmatic scope refinement:** bge stays in KB retrieval task class (surface open-domain), substrate builds cortex-layer for M3 conversational per USER 2026-06-28 project note. The "bge NEVER in substrate" directive may need scope-refinement given empirical task-class evidence: bge stays for CONTENT INDEXING (open-domain retrieval); substrate is brain-analog for M3/M4 CORTICAL/EPISODIC/COMPOSITIONAL tasks (its natural home).
+
+**Filing candidate META atom:** `TASK_CLASS_MISMATCH_HIPPOCAMPAL_MECHANISM_DESIGNED_FOR_EPISODIC_NOT_OPEN_DOMAIN_RETRIEVAL` — Skunkworks-decision on tier.
+
 ## 🎯 PPMI WIKIPEDIA FULL 10K PRELIMINARY HARD_NEGATIVE — DECISION FORK (B) CONFIRMED (2026-07-03 ~02:57Z)
 
 **Cell TIMED OUT** at 1200s ceiling (cell-author underestimated PPMI wall 3×; needed ~1320s). Metrics.json NEVER WRITTEN. **Heartbeat has 2/3 seeds' worth of clean data** (deterministic PPMI/SVD encoder + same corpus subsample → identical values across seeds is EXPECTED not bug):
