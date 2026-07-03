@@ -1,0 +1,247 @@
+{
+  "anchor_name": "substrate_concept_encoder_component_C_modern_hopfield_readout_2026_07_03",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HF2_NO_BAG_BEAT: best HOPFIELD r5=0.0533 < TRIGRAM r5=0.2800 (HOPFIELD_lo=0.0500 HOPFIELD_hi=0.0533 COSINE=0.1600); readout geometry didn't reach bag-word floor. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "summary": "HF2_NO_BAG_BEAT: best HOPFIELD r5=0.0533 < TRIGRAM r5=0.2800 (HOPFIELD_lo=0.0500 HOPFIELD_hi=0.0533 COSINE=0.1600); readout geometry didn't reach bag-word floor. [smoke N=100 n_dim=2048 seeds=[11, 17, 23]]",
+  "elapsed_s": 3.563,
+  "run_mode": "smoke",
+  "ts_iso": "2026-07-03T01:02:08.441743+00:00",
+  "config": {
+    "n_dim": 2048,
+    "k_sparsity": 0.02,
+    "max_pos": 24,
+    "hopfield_beta_default": 4.0,
+    "hopfield_beta_high": 8.0,
+    "smoke_n_atoms": 100,
+    "full_n_atoms": 500,
+    "smoke_seeds": [
+      11,
+      17,
+      23
+    ],
+    "full_seeds": [
+      11,
+      17,
+      23
+    ],
+    "corpus_path": "D:\\AI\\hd-instrument\\data\\substrate_index\\concept\\atoms.jsonl",
+    "corpus_filter": "kind=lexicon AND pos in {n,v,a,r} AND len(desc)>=20 AND len(synonyms)>=3",
+    "hp_bands": {
+      "HP1_rescue_lift": 0.1,
+      "HP2_beats_bag": 0.05,
+      "HP3_cosine_measured": 0.16,
+      "HP3_cosine_tol": 0.03,
+      "HP4_random_ceiling": 0.1,
+      "HF1_no_lift_gap": 0.03,
+      "baseline_in_band_lo": 0.05,
+      "baseline_in_band_hi": 0.8
+    }
+  },
+  "aggregate": {
+    "arm_v1_concept_encoder_cosine_recall_at_1_mean": 0.10333333333333333,
+    "arm_v1_concept_encoder_cosine_recall_at_5_mean": 0.16,
+    "arm_v1_concept_encoder_cosine_recall_at_10_mean": 0.23666666666666666,
+    "arm_v1_concept_encoder_modern_hopfield_recall_at_1_mean": 0.01,
+    "arm_v1_concept_encoder_modern_hopfield_recall_at_5_mean": 0.05000000000000001,
+    "arm_v1_concept_encoder_modern_hopfield_recall_at_10_mean": 0.10000000000000002,
+    "arm_v1_concept_encoder_modern_hopfield_high_beta_recall_at_1_mean": 0.01,
+    "arm_v1_concept_encoder_modern_hopfield_high_beta_recall_at_5_mean": 0.05333333333333334,
+    "arm_v1_concept_encoder_modern_hopfield_high_beta_recall_at_10_mean": 0.10333333333333335,
+    "arm_char_trigram_unsup_reference_recall_at_1_mean": 0.18000000000000002,
+    "arm_char_trigram_unsup_reference_recall_at_5_mean": 0.28,
+    "arm_char_trigram_unsup_reference_recall_at_10_mean": 0.34,
+    "arm_random_baseline_recall_at_1_mean": 0.01,
+    "arm_random_baseline_recall_at_5_mean": 0.04,
+    "arm_random_baseline_recall_at_10_mean": 0.07666666666666667
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v1_concept_encoder_cosine": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.12,
+        "recall_at_10": 0.21
+      },
+      "arm_v1_concept_encoder_modern_hopfield": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.1
+      },
+      "arm_v1_concept_encoder_modern_hopfield_high_beta": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.1
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_random_baseline": {
+        "recall_at_1": 0.0,
+        "recall_at_5": 0.03,
+        "recall_at_10": 0.06
+      },
+      "arm_walls_s": {
+        "cosine": 0.026,
+        "hopfield_beta_default": 0.088,
+        "hopfield_beta_high": 0.087,
+        "trigram": 0.105,
+        "random": 0.001,
+        "concept_encoder_fit": 0.672
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V1_CONCEPT_ENCODER_COSINE": "69f3eebb0b0b7da28f4c99776017770b1674d6b5ffcbb6055834d7adf54e1baa",
+        "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD": "00138fe53e3b1c1425733d9547108184fac12eb9638e021aaed0913b68595451",
+        "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD_HIGH_BETA": "aeba1b07108fda9a6b57e6fa6a5bab296e37372b4851c11ff4e99d212600abaa",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "77a36a7482e671300fdb0e7db4c60650876f1c4e36f05ee3a2b5d8c69dc83d5c",
+        "ARM_RANDOM_BASELINE": "0d6629ee7352587d4de1255329fb9c6b6d7f6275fa3d2d8c4dc4ece5ff073208"
+      },
+      "wall_s": 1.081
+    },
+    {
+      "seed": 17,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v1_concept_encoder_cosine": {
+        "recall_at_1": 0.09,
+        "recall_at_5": 0.15,
+        "recall_at_10": 0.19
+      },
+      "arm_v1_concept_encoder_modern_hopfield": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.1
+      },
+      "arm_v1_concept_encoder_modern_hopfield_high_beta": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.11
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_random_baseline": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.08
+      },
+      "arm_walls_s": {
+        "cosine": 0.024,
+        "hopfield_beta_default": 0.082,
+        "hopfield_beta_high": 0.079,
+        "trigram": 0.094,
+        "random": 0.001,
+        "concept_encoder_fit": 0.592
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V1_CONCEPT_ENCODER_COSINE": "9026c4c5564180d8570a2c9a89dbb2907afe591e2900b69e98672406a9d2c5e8",
+        "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD": "35daf8026d2e5bc7b90f3458de979ffece75bef1bf10928700b2c1d6d9d262b5",
+        "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD_HIGH_BETA": "d417ddbb00704104eaf3e9f708040386c2773f65dd15dbd58ccbad63f875def5",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "77a36a7482e671300fdb0e7db4c60650876f1c4e36f05ee3a2b5d8c69dc83d5c",
+        "ARM_RANDOM_BASELINE": "21cb84a97bab889e2f3fdab33fbb51d5e17b67ca13f2b004ab568a6ebb8be7cf"
+      },
+      "wall_s": 0.971
+    },
+    {
+      "seed": 23,
+      "n_atoms": 100,
+      "n_dim": 2048,
+      "n_train_sentences": 397,
+      "n_queries": 100,
+      "arm_v1_concept_encoder_cosine": {
+        "recall_at_1": 0.13,
+        "recall_at_5": 0.21,
+        "recall_at_10": 0.31
+      },
+      "arm_v1_concept_encoder_modern_hopfield": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.05,
+        "recall_at_10": 0.1
+      },
+      "arm_v1_concept_encoder_modern_hopfield_high_beta": {
+        "recall_at_1": 0.01,
+        "recall_at_5": 0.06,
+        "recall_at_10": 0.1
+      },
+      "arm_char_trigram_unsup_reference": {
+        "recall_at_1": 0.18,
+        "recall_at_5": 0.28,
+        "recall_at_10": 0.34
+      },
+      "arm_random_baseline": {
+        "recall_at_1": 0.02,
+        "recall_at_5": 0.04,
+        "recall_at_10": 0.09
+      },
+      "arm_walls_s": {
+        "cosine": 0.024,
+        "hopfield_beta_default": 0.087,
+        "hopfield_beta_high": 0.092,
+        "trigram": 0.117,
+        "random": 0.001,
+        "concept_encoder_fit": 0.65
+      },
+      "arms_differ_verified": true,
+      "arm_hashes": {
+        "ARM_V1_CONCEPT_ENCODER_COSINE": "b8b699579d1814d75d5c42510fc5d0987ab2ea8bffe7707390c598ab26f51b28",
+        "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD": "72707ef5da7496b462915187b20980e271e58905c57fd955a29601e760e4108e",
+        "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD_HIGH_BETA": "dfdd1876669750bb79fdff9f8147d7c0bef594d416c75293118996e8f0fc68ff",
+        "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": "77a36a7482e671300fdb0e7db4c60650876f1c4e36f05ee3a2b5d8c69dc83d5c",
+        "ARM_RANDOM_BASELINE": "8223ceb28b7a143a982a594e24bbf492227b923d34f1a5dc9b04b07ae698453d"
+      },
+      "wall_s": 1.092
+    }
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 15,
+  "landed_n_units": 15,
+  "baseline_in_band": true,
+  "discriminator_fires_at_smoke": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "storage_strategy": "sharded_per_atom_concept_hds_reused_from_ConceptEncoder",
+  "compute_arch": "sequential_cpu_numpy",
+  "baseline_probe_notes": "baseline_in_band=True cos_r5=0.1600 tri_r5=0.2800 hop_r5=0.0533 lift_hop_minus_cos=-0.1067 discriminator_fires=True",
+  "prereg_path": "preregs/2026-07-03_substrate_concept_encoder_component_C_modern_hopfield_readout.md",
+  "meta_rules_touched": [
+    "AF_arms_differ",
+    "AG_baseline_in_band",
+    "AH_atomic_final_metrics",
+    "K_discriminator_fires",
+    "L_strict_above_floor",
+    "M_calibration_default_ok",
+    "H_cardinality_ok",
+    "run_mode_verification_16"
+  ],
+  "hp_scope": {
+    "ARM_V1_CONCEPT_ENCODER_COSINE": [
+      "HP3"
+    ],
+    "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD": [
+      "HP1",
+      "HP2"
+    ],
+    "ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD_HIGH_BETA": [
+      "HP1",
+      "HP2"
+    ],
+    "ARM_CHAR_TRIGRAM_UNSUP_REFERENCE": [
+      "HP2_ref"
+    ],
+    "ARM_RANDOM_BASELINE": [
+      "HP4"
+    ]
+  }
+}
