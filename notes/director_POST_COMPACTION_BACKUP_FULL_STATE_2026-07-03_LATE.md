@@ -683,3 +683,42 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 4. Total est. wall: ~15-25h GPU across bundle + Skunkworks lag
 
 **Post-USER cron correction (22:15Z):** cron replaced with action-biased 88472eb7. New prompt: VERIFY → ACT → REPORT ≤8 lines; "all clean" branch forces reflective "what can you be doing right now to further the project?" question before allowing quiet-report. NEVER STAND rule preserved without menu-of-options bias.
+
+## AMENDMENT 2026-07-03 22:35Z (Probes 13+14 SMOKE HP; P14 Skunkworks VET Fix#28 hit #17)
+
+**Probe 13 L × CLEANUP cross-term SMOKE HP** (commit `318fa3f6e` PUSHED):
+- cross_term_signal=0.125 at SMOKE (above H1 threshold 0.10 but only ~1.6× 2SD)
+- Interesting pattern: mech_spread SHRINKS with L (0.100→0.050→0.025) — cell-author framed as "mechanism identity matters most at L=1, converges by L=4"
+- soft_energy_attractor less L-sensitive than mh/ic
+- H3-NULL fires at DEEP_SAT
+- Cell-author flagged SH-4 wrapper-vs-get_output_dir gap (wrappers manually construct `data/exp_<HDLAB_EXP_NAME>` bypassing runner normalization)
+- Skunkworks VET in flight (task a6730405b2b50c6c0)
+
+**Probe 14 L × F cross-term SMOKE HP → Skunkworks VET COMPLETE (task abd4d2af06f49f6bb):**
+- Cell-author reported interaction_metric=0.20 (2× H1 threshold), F "inert" at L=1
+
+**Fix#28 hit #17 (Skunkworks-caught):**
+- **Noise-floor breaks the story:** at TR=40 single seed, F_effect_range=0.20 collapses to **0.05 when noise-floored L=1 row excluded** (F_effect on {L=2, L=4}={0.225, 0.175}, range=0.050) — **BELOW H1 threshold**
+- "F inert at L=1" claim = 0.025 spread = 0.32 SD = pure noise, NOT real inertness (L=1 all cells at 0.85-0.875 = ceiling-confounded; F cannot help what's at 0.87 with TR=40)
+- The reported 0.20 was INFLATED by treating "0.025 ± 0.05 noise" at L=1 as a real "F-inert" measurement
+- Cell-author's "2× H1 threshold" framing UNSUPPORTED at SMOKE
+- **Concept-overlap catch:** top cosine=0.332 (`cross_shard_chain_extraction_cpu_v1`) ABOVE 0.30 threshold — cell-author MISSTATED as "0.32 unrelated wordnet"
+
+**Skunkworks corrected framing (adopt as canonical):**
+> L × F cross-term at cliff-adjacent SHARDED is theory-consistent with Frady/Sommer near-capacity coupling. NOT novel physics. NOT a "strong H1 signal" at SMOKE. Properly framed as "SMOKE hint of L-conditional F non-monotonicity in cliff-adjacent SHARDED; single-seed residual 2SD is marginal; requires 3-seed FULL for confirmation."
+
+**Tier: HOLD.** No atom filed. Session tally 94 unchanged.
+
+**FULL dispatch recommendations (Skunkworks-authoritative):**
+- 3 seeds essential; TR=100 sufficient but TR=200 preferred
+- At TR=100: cell SD drops to 0.047; residual SD ~0.031 → current 0.097 residual would be ~3.1 SD (clean signal IF replicates)
+- Consider raising corruption at L=1 to break ceiling, OR accept L=1 boundary and re-report interaction on {L=2, L=4} only
+- If FULL survives 3-seed cv<0.15: MM_STANDARD atom `EMPIRICAL_L_x_F_CROSS_TERM_CLIFF_ADJACENT_SHARDED_v1` + Skunkworks atom #48 amendment BOTH warranted in same landing
+- **Do NOT demote prior 6-pair matrix findings yet** — SMOKE insufficient basis per arc-continuation-vs-closure
+
+**Fix#28 today cumulative: 17 recorded + 2 pre-hoc avoided = 19 total discipline interactions.**
+
+**Spawn state (1 in flight):**
+- Skunkworks VET P13 L × CLEANUP (a6730405b2b50c6c0) — assessing 0.125 cross_term signal above noise floor
+
+**FULL dispatch bundle bookkeeping:** P13 and P14 should be added to bundle IF their VETs support FULL (both currently indicate FULL warranted per Skunkworks). Sibling wrappers for P13/P14 s13+s19 needed pre-dispatch (design doc `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md` covers Probes 4-12 but not 13/14).
