@@ -1,0 +1,695 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 6 primitives (m13/m14/m15/m16/m17/m18) reproduce within |delta|<=0.05 across 3 seeds; all 6 ABLATED arms below floor 0.1. Cortex facade composition integrity verified across FULL 6-primitive stack.",
+  "summary": "HARD_PASS: all 6 primitives (m13/m14/m15/m16/m17/m18) reproduce within |delta|<=0.05 across 3 seeds; all 6 ABLATED arms below floor 0.1. Cortex facade composition integrity verified across FULL 6-prim",
+  "cardinality_ok": true,
+  "n_units": 54,
+  "expected_n_units": 54,
+  "per_primitive_reproduces": {
+    "m13": true,
+    "m14": true,
+    "m15": true,
+    "m16": true,
+    "m17": true,
+    "m18": true
+  },
+  "per_primitive_ablation_fires": {
+    "m13": true,
+    "m14": true,
+    "m15": true,
+    "m16": true,
+    "m17": true,
+    "m18": true
+  },
+  "delta_summary": {
+    "m13": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composed_mean": 0.29409102102120716,
+      "individual_mean": 0.29409102102120716
+    },
+    "m14": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m15": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m16": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m17": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composed_mean": 1.0,
+      "individual_mean": 1.0
+    },
+    "m18": {
+      "max_delta": 0.0,
+      "per_seed_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composed_mean": 0.66,
+      "individual_mean": 0.66
+    }
+  },
+  "cv_summary": {
+    "m13": 0.002470636307775019,
+    "m14": 0.0,
+    "m15": 0.0,
+    "m16": 0.0,
+    "m17": 0.0,
+    "m18": 0.021427478217774184
+  },
+  "ablation_summary": {
+    "m13": {
+      "max_ablated": 5.960464477539063e-08,
+      "per_seed_ablated": [
+        5.960464477539063e-08,
+        5.960464477539063e-08,
+        5.960464477539063e-08
+      ]
+    },
+    "m14": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "m15": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "m16": {
+      "max_ablated": 0.05,
+      "per_seed_ablated": [
+        0.0,
+        0.05,
+        0.0
+      ]
+    },
+    "m17": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "m18": {
+      "max_ablated": 0.0,
+      "per_seed_ablated": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "n_reproduces": 6,
+  "n_ablation_fires": 6,
+  "elapsed_s": 17.361328500002855,
+  "run_mode": "full",
+  "anchor_name": "exp_cortex_integration_end_to_end_v2",
+  "ts_iso": "2026-07-03T23:34:31.153662+00:00",
+  "seeds": [
+    7,
+    13,
+    19
+  ],
+  "sizes": {
+    "m13_n_queries": 20,
+    "m13_m_tape": 16,
+    "m14_n_queries": 50,
+    "m14_m_tape": 32,
+    "m15_k_writes": 5,
+    "m16_n_queries": 20,
+    "m16_m_tape": 32,
+    "m17_k_items": 16,
+    "m18_n_per_class": 25
+  },
+  "arm_runtime_call_trace": {
+    "m13_composed": {
+      "forward_call_delta": 20,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m13_individual": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m13_ablated": {
+      "forward_call_delta": 20,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m14_composed": {
+      "forward_call_delta": 50,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m14_individual": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m14_ablated": {
+      "forward_call_delta": 50,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m15_composed": {
+      "forward_call_delta": 10,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m15_individual": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m15_ablated": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m16_composed": {
+      "forward_call_delta": 20,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m16_individual": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m16_ablated": {
+      "forward_call_delta": 20,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m17_composed": {
+      "forward_call_delta": 1,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m17_individual": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m17_ablated": {
+      "forward_call_delta": 1,
+      "expected_pattern": "forward_ge_1",
+      "trace_ok": true
+    },
+    "m18_composed": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m18_individual": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    },
+    "m18_ablated": {
+      "forward_call_delta": 0,
+      "expected_pattern": "forward_eq_0",
+      "trace_ok": true
+    }
+  },
+  "arms_differ_verified": true,
+  "arms_differ_discriminator": "runtime_call_trace_meta_rule_AF_v2",
+  "storage_strategy": "MIXED_inherited_per_primitive_no_facade_storage",
+  "compute_architecture": "mixed_cpu_numpy_torch",
+  "per_seed": {
+    "7": {
+      "m13": {
+        "composed": 0.2946531504392624,
+        "individual": 0.2946531504392624,
+        "ablated": 5.960464477539063e-08
+      },
+      "m14": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m15": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m16": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m17": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m18": {
+        "composed": 0.68,
+        "individual": 0.68,
+        "ablated": 0.0
+      }
+    },
+    "13": {
+      "m13": {
+        "composed": 0.2945548802614212,
+        "individual": 0.2945548802614212,
+        "ablated": 5.960464477539063e-08
+      },
+      "m14": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m15": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m16": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.05
+      },
+      "m17": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m18": {
+        "composed": 0.65,
+        "individual": 0.65,
+        "ablated": 0.0
+      }
+    },
+    "19": {
+      "m13": {
+        "composed": 0.2930650323629379,
+        "individual": 0.2930650323629379,
+        "ablated": 5.960464477539063e-08
+      },
+      "m14": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m15": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m16": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m17": {
+        "composed": 1.0,
+        "individual": 1.0,
+        "ablated": 0.0
+      },
+      "m18": {
+        "composed": 0.65,
+        "individual": 0.65,
+        "ablated": 0.0
+      }
+    }
+  },
+  "per_unit": [
+    {
+      "seed": 7,
+      "primitive": "m13",
+      "arm": "composed",
+      "metric": 0.2946531504392624
+    },
+    {
+      "seed": 7,
+      "primitive": "m13",
+      "arm": "individual",
+      "metric": 0.2946531504392624
+    },
+    {
+      "seed": 7,
+      "primitive": "m13",
+      "arm": "ablated",
+      "metric": 5.960464477539063e-08
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m14",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m15",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m16",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m16",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m16",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m17",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "composed",
+      "metric": 0.68
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "individual",
+      "metric": 0.68
+    },
+    {
+      "seed": 7,
+      "primitive": "m18",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m13",
+      "arm": "composed",
+      "metric": 0.2945548802614212
+    },
+    {
+      "seed": 13,
+      "primitive": "m13",
+      "arm": "individual",
+      "metric": 0.2945548802614212
+    },
+    {
+      "seed": 13,
+      "primitive": "m13",
+      "arm": "ablated",
+      "metric": 5.960464477539063e-08
+    },
+    {
+      "seed": 13,
+      "primitive": "m14",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m14",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m14",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m15",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m15",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m15",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m16",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m16",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m16",
+      "arm": "ablated",
+      "metric": 0.05
+    },
+    {
+      "seed": 13,
+      "primitive": "m17",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m17",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m17",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 13,
+      "primitive": "m18",
+      "arm": "composed",
+      "metric": 0.65
+    },
+    {
+      "seed": 13,
+      "primitive": "m18",
+      "arm": "individual",
+      "metric": 0.65
+    },
+    {
+      "seed": 13,
+      "primitive": "m18",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m13",
+      "arm": "composed",
+      "metric": 0.2930650323629379
+    },
+    {
+      "seed": 19,
+      "primitive": "m13",
+      "arm": "individual",
+      "metric": 0.2930650323629379
+    },
+    {
+      "seed": 19,
+      "primitive": "m13",
+      "arm": "ablated",
+      "metric": 5.960464477539063e-08
+    },
+    {
+      "seed": 19,
+      "primitive": "m14",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m14",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m14",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m15",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m15",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m15",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m16",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m16",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m16",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m17",
+      "arm": "composed",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m17",
+      "arm": "individual",
+      "metric": 1.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m17",
+      "arm": "ablated",
+      "metric": 0.0
+    },
+    {
+      "seed": 19,
+      "primitive": "m18",
+      "arm": "composed",
+      "metric": 0.65
+    },
+    {
+      "seed": 19,
+      "primitive": "m18",
+      "arm": "individual",
+      "metric": 0.65
+    },
+    {
+      "seed": 19,
+      "primitive": "m18",
+      "arm": "ablated",
+      "metric": 0.0
+    }
+  ],
+  "primitives_tested": [
+    "m13_noise_channel",
+    "m14_refuse_gate",
+    "m15_two_tier_context",
+    "m16_chunked_attention_readout",
+    "m17_role_slot_summarizer",
+    "m18_clarify_gate"
+  ],
+  "expected_primitives": 6
+}
