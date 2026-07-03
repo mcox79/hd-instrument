@@ -24,13 +24,27 @@
 - USER §6 clarification: "have both" (dense frontend + substrate reasoning); "bge NEVER in substrate" scoped to substrate ITSELF
 - Also USER-locked: encoder decision comes FIRST before cortex build
 
-**STEP 4 — Next-session priority order:**
-1. Read optimal-retrieval-architecture drill result when it lands
-2. Get USER decision on: iterative retrieval vs query decomposition vs hybrid retrieval
-3. If fine-tune bge or swap to stella needed — plan bake-off
-4. Revise M3 cortex design to reflect iterative retrieval architecture
-5. Fire empirical test cell for chosen architecture (post-USER-approval)
-6. Once encoder+architecture locked: re-index Director-KB; build cortex middleware
+**STEP 4 — Next-session priority order (UPDATED after optimal-arch drill landed commit `b9bb898aa`):**
+
+**KEY REFRAME:** encoder swap/fine-tune does NOT fix multi-hop bridge failure mode. `hdlab/director_kb.py` already composes KGStore + CharTrigramEncoder — substrate KB is ALREADY a knowledge graph, sitting UNUSED for bridge-chunk traversal. Half the machinery for graph-walk retrieval is already built.
+
+**Recommended architecture (P_deflated 0.45-0.55, drill-derived):**
+- Dense-seeded PPR graph-walk over EXISTING KGStore
+- MDR-style iterative dense re-query as fallback
+- Union hop-1 + hop-2 candidates feed into unchanged substrate composition primitives
+- Precedent: MDR / Beam Retrieval / GoldEn Retriever / STAGG / GraftNet / PullNet / HippoRAG / BridgeRAG
+
+**Caveat (2x-corroborated):** graph-walk lift is NARROW — fixes structurally-disconnected bridge-entity failure mode; does ~nothing where dense retrieval already works. Not universal fix.
+
+**Priority order:**
+1. Present drill recommendation to USER (this is done in session tail before compaction)
+2. Get USER approval to fire 3 pre-registered CPU-only experiments (~1-2 days total):
+   - (a) Bridge-entity coverage check via existing char-trigram fuzzy match
+   - (b) PPR-walk bridge-recovery test on substrate's own KG
+   - (c) End-to-end composition-recovery vs ORACLE 0.783 reference
+3. If experiments validate: wire up KGStore graph-walk in production; encoder decision deferred (bge/current fine)
+4. Revise M3 cortex design (`notes/design_m3_cortex_layer_...md`) to reflect graph-walk-driven retrieval, not naive rerank
+5. Post-architecture-validation: build cortex middleware; re-index atom store as needed
 
 **STEP 5 — Discipline reminders (10 Fix#28 hits Director tonight; internalized):**
 - Cell-author self-correction pattern is CG_META tier with 10+ witnesses
