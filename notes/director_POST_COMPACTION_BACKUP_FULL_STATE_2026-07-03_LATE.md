@@ -607,3 +607,49 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 
 **Spawn state (1 in flight):**
 - Probe 12 L-marginal-effect sweep (aca2f567b885d62f7) — Skunkworks-flagged untested 5th potential axis
+
+## AMENDMENT 2026-07-03 22:05Z (P12 Skunkworks VET → Fix#28 hit #16; ALL SPAWNS COMPLETE)
+
+**Skunkworks VET P12 (task a5ad6545eb12c11f0) COMPLETE. HOLD. No atom filed. Session tally unchanged at 94.**
+
+**Fix#28 hit #16 — "L is 5th CG_META axis" framing:**
+- Skunkworks disk-verify + concept-query: **chain-depth L is ALREADY atomized as CG_META at atom #3** `SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS_CG_META_v1` (M1.9/M1.10 K=5 roundtrip)
+- P12 is REGIME-EXTENSION of atom #3 to (sharded FHRR, cliff-adjacent, F=1, TR=40); NOT discovery of new axis
+- Cell-author's "L is genuinely distinct 5th CG_META axis" framing DOWNGRADED
+
+**Additional catches:**
+- L=1→L=16 spread of 0.875 is **theory-trivial** (SNR decays geometrically with chain hops per Amit-Gutfreund-Sompolinsky + Plate). Band-only spread 0.45 (L=1→L=4) is the SUBSTANTIVE signal
+- SMOKE-vs-scratchpad bracket DIVERGENCE (mh L=1 shifts 0.950→0.875 SMOKE) — seed-sensitivity real, not point-wise reproducing
+- Concept-overlap flagged at cosine 0.31-0.36 with `T3/EXP_q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048` (2026-06-04 α × L sweep MIDDLE_BAND; chain_depth_max(alpha)=22/(0.302-alpha)) — prior chain-depth work exists
+
+**Corrected framing (Skunkworks-authoritative):**
+> P12 SMOKE HP is a REGIME-EXTENSION test of atom #3 to sharded FHRR cliff-adjacent regime. L moderates capacity at MM_TENTATIVE strength. Theory-consistent (AGS + Plate). NOT a new axis discovery.
+
+**Regime matrix atom #48 REMAINS VALID with addendum:** "matrix is L=2 slice; L cross-terms (L×N, L×F, L×M, L×corr) unmapped."
+
+**Tier: HOLD.** Do NOT file atom at SMOKE per arc_continuation_vs_arc_closure discipline.
+
+**Post-FULL atom candidate (only fileable after 3-seed FULL confirms):** `EMPIRICAL_L_MODERATES_CAPACITY_AT_SHARDED_CLIFF_ADJACENT_v1` → MM_STANDARD, COMPOSES atom #3, REGIME_EXTENSION classification.
+
+**FULL dispatch spec (Skunkworks-authoritative):**
+- 3 seeds essential (SMOKE-vs-bracket divergence proves seed-sensitivity)
+- Full L-grid {1,2,4,8,16}: L=2, L=8 gap-fill needed
+- BUNDLED arm NOT needed for this question; L cross-terms are FOLLOW-ON
+- TR=100 (2SD drops to ~0.10 at p=0.5 → band-only spread 0.45 = 4.5× 2SD)
+- Frame as REGIME_EXTENSION of atom #3, NOT axis discovery
+
+**ALL SPAWNS COMPLETE. 0 in flight.**
+
+**Fix#28 today CUMULATIVE: 16 recorded + 2 pre-hoc avoided = 18 total discipline interactions.**
+
+**Final session tally: math=49, meta=45 = 94 atoms today (+6 this pickup).**
+
+**Pickup session summary (18:55Z → 22:05Z, ~3.2 hours wall):**
+- Spawns fired: 12+ (Testbed SH-4 + 3 Skunkworks VETs on Probes 6+7 v2 / P8+P9 / P10 / P11 structural / BUNDLED / P9v2 / P12 + Research 2x-drill + team lead + Probes 8-12 authoring + P10 v2 + P9 v2)
+- Atoms filed: 6 (all via Skunkworks A5-gated writes on VET landings)
+- Fix#28 discipline: 16 recorded + 2 avoided = 18 interactions
+- Structural discoveries: axis-aliasing (TOPOLOGY/ALGEBRA = F fan-out); L is real substrate primitive orthogonal to F but already CG_META-covered
+- Regime matrix status: 6-pair matrix all SMOKE-covered; 1 CG_META, 5 HOLD-pending-FULL, 1 (P10 v2) SKIP HONEST_NO_MATCHED_CLIFF
+- Retrieval architecture arc: maintained marginal closure (Exp 3E FULL from prior session)
+- K-parameter arc: RESOLVED (K is derived/coupled, not 6th axis)
+- Blocker: Tailscale on marsh@home; entire FULL dispatch bundle spec'd and queued awaiting
