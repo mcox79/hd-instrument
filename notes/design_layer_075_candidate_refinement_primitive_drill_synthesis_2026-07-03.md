@@ -80,6 +80,31 @@ Additional ablations for CG-tier eligibility:
 - **Director-KB is already a KGStore (drill KEY REFRAME):** Layer 0.75 operates on existing KGStore, no new graph construction needed
 - **Encoder-swap DEFERRED (2026-07-03 pivot):** Layer 0.75 primitive uses existing bge/char-trigram frontend; encoder choice orthogonal to primitive design
 
+## Substrate-mine findings (2026-07-03; via Explore agent) — REUSE not REINVENT
+
+Substrate-mine sweep found significant in-house prior work informing Layer 0.75:
+
+**Reuse (do NOT rewrite):**
+- **MMR canonical impl:** `experiments/exp_h1_mmr_diversified_retrieval_rescue_v1.py:52-61` — `mmr_select(q, items, k, lam)`, HP-verified (propagation 0.433 → 0.067)
+- **Inverse-density reweighting** for hub-dampen: `experiments/exp_h3_inverse_density_reweighting_rescue_v1.py` — down-weight by local density; direct precedent for stage 2
+- **Query-conditioned rescore:** `hdlab/modern_hopfield_readout.py::top_k_by_retrieved` — ready-made softmax-cosine over candidate set
+- **Composable primitives:** `hdlab/multi_hop.py::partition_routed_chain` (adjacent to hub-dampening), `hdlab/cleanup_family.py::k_NN_lookup(k=…)` (top-k averaging)
+
+**Parameter corrections:**
+- **λ_MMR = 0.3 (NOT 0.5)** — prior `exp_h2_mmr_lambda_rho_envelope_v1.py` showed λ=0.7 fails at ρ=0.8; λ=0.3 is safe general default
+
+**Design adjustments:**
+- **K-sweep as novel axis:** substrate has NEVER run K-sweep as load-bearing axis; Layer 0.75 first cell to do so — K_in ∈ {10, 15, 20, 30} × K_out ∈ {2, 3, 5}
+- **DISTINCT_HASHES pre-check** per CSLS+MMR 2026-06-12 HARDFAIL: rerank cannot fix exact encoding collisions; halt if top-30 candidates have collisions
+- **Dual HP bar:** (a) MAIN ≥ 0.74 = full arc closure vs ORACLE_0.822; (b) MAIN ≥ Exp 3 baseline 0.411 = non-negative interface. Original prereg used (a) only.
+
+**Precedent for pattern (interface between working components fails):**
+- 2026-06-22 `experiments/exp_substrate_native_qa_hotpotqa_v2_composition_drill.py` — HotpotQA cell HARD_FAILed 0.010 EM vs GENERATION_ONLY 0.122 EM (retrieval sabotaged composition). Same shape today.
+- 2026-06-10 `research_drill_biological_overcome_compositional_depth_3x_2026-06-10.md` — Rank-1 anchor "ATTRACTOR-AT-EACH-LEVEL" between shard boundaries; Rank-2 anchor "LATERAL-INHIBITION-CLEANUP" winner-take-K'=3; Rank-7 "BOUNDED-K-PER-LEVEL" K ≤ 4-6 per Cowan chunking
+- 2026-06-12 `research_drill_network_science_graph_theory_C_axis_PPR_informing_2x_2026-06-12.md` line 146 explicitly noted "hub atoms dominate adjacency-spectrum → PPR mass concentrates on hubs regardless of query → mitigation: PPR with degree-normalization"
+
+**Assessment:** Layer 0.75 is standing-on-shoulders, not novel. Genuinely novel primitive = node-specificity IDF (Stage 1). Everything else exists in-house.
+
 ## Drill B answers (FINAL, 2026-07-03)
 
 - IS argmax noise at (K=30, N=4096) the primary problem? **NO.** SNR ≈ 11.7 in Frady-Sommer terms; argmax error probability ~10^-15. Deep in safe zone.
