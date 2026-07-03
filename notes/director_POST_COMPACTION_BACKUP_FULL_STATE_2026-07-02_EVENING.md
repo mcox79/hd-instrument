@@ -1,5 +1,60 @@
 # POST-COMPACTION BACKUP — 2026-07-02 evening (session 2 of day)
 
+## 🚨🚨 2026-07-03 EVENING COMPACTION PREP TAIL (at 12% context, USER-flagged)
+
+**Latest state after all-night arc (post-USER §6 clarification + tandem architecture reframe):**
+
+**USER §6 clarification (LOAD-BEARING):** "bge NEVER in substrate" scoped to substrate ITSELF; non-brain-analog encoder at sensory-input layer OK. Have BOTH: dense retrieval frontend + substrate reasoning backend.
+
+**KEY DISCOVERY:** Two KB pipelines coexist:
+1. `backend/kb/wikipedia_ingest.py` — bge; deliberately keeps only 2 short sentences per article (~200K facts total, not full Wikipedia)
+2. **`hdlab/director_kb.py` (substrate's OWN atom store)** — uses `CharTrigramEncoder` (substrate-native)
+
+**Substrate KB (Director-KB) currently uses char-trigram. Bottleneck.** For substrate to "operate off Stage 1 findings" reliably requires better encoding of atoms.
+
+**USER-approved architecture ("have both" + "correct encoding first"):**
+- Dense retrieval frontend (bge or stella_en_1.5B_v5) for atom-content semantic queries
+- Char-trigram for exact entity-name lookup
+- Substrate VSA compositional layer for structured queries
+
+**Cortex layer design filed:** `notes/design_m3_cortex_layer_substrate_operates_off_stage1_findings_2026-07-03.md` — 4-layer architecture (sensory input, VSA compositional query, cortex control, constraint application) + closed-loop atomization feedback.
+
+**Encoder research drill landed** (`notes/research_best_retrieval_encoder_evaluation_2026-07-03.md`, commit `145d56db6`):
+- bge-large already r@5=0.992 on Wikipedia 100K → near-ceiling on base retrieval
+- Real headroom in compositional/multi-hop retrieval (encoders plateau ~0.55-0.65)
+- **Substrate compositional-rerank value-add STRUCTURALLY PRESERVED** (encoders plateau on compositional; substrate lives above the plateau)
+- Top 3: (1) stella_en_1.5B_v5 MIT best overall; (2) snowflake-arctic-embed-l-v2.0; (3) Qwen3-Embedding-4B best for compositional lane
+- NV-Embed-v2 + jina-embeddings-v3 flagged NON-COMMERCIAL license traps
+- Wikipedia bge truncation concern EMPTY (ingest keeps only 2 sentences)
+
+**4 Skunkworks-flagged spawns in flight at compaction:**
+- Foldiak DG probe (a00691ec67e4e7c73) — cell-author caught implementation collapse; HF expected
+- Tandem v2 explicit-compositional rerank (ae88f4634610572bc) — tests differentiator vs verify_v1 natural queries
+- **RAG-with-substrate-composition** (aee9ea879e4ce6698) — LOAD_BEARING: bge retrieves + substrate multi-hop composes answer (not rerank)
+- Substrate-as-selector theoretical drill (ae9ebf4e23d026088) — literature review
+
+**Also:** HIPPO-arm cluster_cos boundary probe LANDED clean — CG_HN_ARCHITECTURAL CA3-anti-signal scope-corrected to cluster_cos ≳0.8-0.9 (research drill's Cycle 178 inverted-U hypothesis validated).
+
+**8 Fix#28 hits caught on Director today** (cell-authors + Skunkworks). Full-pipeline audit-of-audit epistemic hygiene functioning at CG_META tier. Cell-author self-correction pattern CG_META (9+ witnesses).
+
+**Parent 5-witness META `SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE`:** MM_STANDARD_5_WITNESS_GATE_1_SATISFIED (3/5 FULL: concept_encoder + v3-composed + PPMI). cap_map v596→v597 via verdict_handler. CG_META still needs 2nd FULL-scale mechanism-class witness.
+
+**Task-class-fit sibling META:** MM_STANDARD_5_WITNESS_GATE_1_SATISFIED annotation. WIN side (Cells 1-4 VSA-native) + LOSE side (5-mechanism retrieval). CG_META still needs WIN-side regime caveat resolution.
+
+**Post-compaction pickup priority ORDER:**
+1. Check 4 in-flight spawns landed + results
+2. If RAG-composition (aee9ea879e4ce6698) validates: decide Director-KB encoder (Option 1 pure-substrate vs Option 2 tandem)
+3. Answer chunking question for Wikipedia ingest — ALREADY DONE: keeps only 2 sentences per article, not truncation
+4. Author cortex middleware skeleton (`hdlab/cortex_middleware.py`)
+5. Re-index Director-KB with locked encoder
+6. Build cortex integration test cell
+
+**USER strategic vision (long-term):** self-improvement portal + core mathematics work + M3 conversational + M4/M5 agentic loops. Cortex layer is the load-bearing enabler.
+
+**All commits on origin. Latest: `e196e32d5` BACKUP + `145d56db6` encoder research drill.**
+
+---
+
 **Filed:** 2026-07-02 ~19:15 UTC (context at 12% per USER)
 **Amended:** 2026-07-03 ~01:05 UTC — Component C HF landing appended
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
