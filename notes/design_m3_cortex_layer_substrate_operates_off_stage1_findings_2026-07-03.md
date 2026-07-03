@@ -29,7 +29,7 @@ Original design assumed rerank-tandem was the retrieval-fix. Composite ruling 20
 
 **Revised architecture inserts a NEW Layer 0.5 (KG-walk retrieval) between Layer 0 (dense frontend) and Layer 1 (VSA compositional).** Layer 0.5 outcome-gated on Wikipedia semantic-KB detour (in flight):
 - HARD_PASS → Layer 0.5 is graph-walk-primary as described below
-- HARD_FAIL → Layer 0.5 falls back to encoder-swap path (stella_en_1.5B_v5 from prior drill); this design's Layer 0.5 becomes optional-augmentation-only
+- **HARD_FAIL → NO AUTO-PIVOT (USER-locked 2026-07-03 [[feedback_architecture_decision_HF_deep_dive_before_pivot_USER_2026-07-03]]).** Sequence: (1) deep-dive mechanism-attribution — structural vs implementation vs infrastructure vs scope; (2) Skunkworks-verify diagnosis; (3) THEN decide pivot vs iterate vs halt. Do not treat all HFs as equivalent. Encoder-swap is candidate fallback only if STRUCTURAL diagnosis confirmed; implementation/scope failures get iteration, not abandonment.
 - MIDDLE → hybrid: graph-walk for detected-bridge-query subclass, dense-only for lexical-overlap subclass
 
 ## Architecture (staged)
@@ -191,7 +191,7 @@ Currently documented in atom store; would become ACTIVE constraints:
 1. **Wikipedia semantic-KB PPR detour** (in flight) — decision-point experiment for whole Layer 0.5 path
 2. **If detour HP:** dispatch Exp 3 composition-recovery vs ORACLE — confirms composition wasn't the bottleneck
 3. **If detour + Exp 3 both HP:** 170K-atom scale re-test (revival criterion) before production wiring
-4. **If detour HF:** pivot to encoder-swap path (stella_en_1.5B_v5 or arctic-embed-l-v2.0 from prior 2026-07-03 encoder drill); Layer 0.5 becomes optional-augmentation-only
+4. **If detour HF:** **NO AUTO-PIVOT.** Deep-dive mechanism-attribution FIRST — was HF structural (PPR mechanism dead at real-KB scale), implementation (α, iteration count, seeding wrong), infrastructure (Wikidata triples too sparse / typed relations wrong shape for target query class), or scope (test set didn't cover intended regime). Skunkworks-verify diagnosis. Only if STRUCTURAL is confirmed → consider encoder-swap fallback. Implementation/scope failures → iterate PPR with fix, do NOT abandon.
 5. **Regardless of detour outcome:** author cortex middleware skeleton (`hdlab/cortex_middleware.py`) — decision-independent; enables Layers 2-4 in parallel with retrieval-layer decision
 6. **Post-Layer-0.5 lock:** author cortex integration test cell exercising all 5 (or 6 including 0.5) layers end-to-end
 7. **Stage 1 findings active-verification cell** — measure cortex actually retrieves and applies the law; final gate before this design is buildable
