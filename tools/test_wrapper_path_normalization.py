@@ -46,6 +46,15 @@ BAD_MANUAL = re.compile(
     r'out_dir\s*=\s*REPO\s*/\s*"data"\s*/\s*\(\s*"exp_"\s*\+\s*env_name\s*\)'
 )
 
+# Template anti-pattern: any of the double-prefix-producing forms.
+#   (A) REPO / "data" / ("exp_" + env_name)      -- Stage 1 wrapper form
+#   (B) REPO / "data" / f"exp_{env_name}"        -- f-string form
+#   (C) os.environ.get("HDLAB_EXP_NAME", ...) followed by manual "exp_" prefix
+BAD_TEMPLATE_PATTERNS = [
+    re.compile(r'REPO\s*/\s*"data"\s*/\s*\(\s*"exp_"\s*\+\s*env_name\s*\)'),
+    re.compile(r'REPO\s*/\s*"data"\s*/\s*f"exp_\{env_name\}"'),
+]
+
 
 def test_static_source_no_manual_construction() -> None:
     """Test A: no wrapper contains the manual construction anti-pattern."""
@@ -146,8 +155,77 @@ def test_wrapper_module_import_side_effects() -> None:
     print(f"[C] AST check OK: {calls_get} out_dir = get_output_dir(...) sites in sample")
 
 
+def test_template_files_no_anti_pattern() -> None:
+    """Test D: template files under experiments/_templates/*.template must not
+    contain the double-prefix anti-pattern. Templates are the authoring seed for
+    new wrappers; a re-introduction here would leak into every cell forked from
+    them (SH-4 preventive layer, follow-up to commit 996d35f0c)."""
+    templates_dir = REPO / "experiments" / "_templates"
+    if not templates_dir.exists():
+        print("[D] SKIP: experiments/_templates/ missing")
+        return
+    templates = sorted(templates_dir.glob("*.template"))
+    _assert(len(templates) > 0, "no templates found under experiments/_templates/")
+    offenders = []
+    missing_get_output_dir = []
+    for p in templates:
+        text = p.read_bytes().replace(b"\r\n", b"\n").decode("utf-8", errors="replace")
+        for pat in BAD_TEMPLATE_PATTERNS:
+            if pat.search(text):
+                offenders.append((p.name, pat.pattern))
+                break
+        # If the template references HDLAB_EXP_NAME at all, it MUST route
+        # through get_output_dir; otherwise it's manually constructing paths.
+        if "HDLAB_EXP_NAME" in text and "get_output_dir" not in text:
+            missing_get_output_dir.append(p.name)
+    _assert(
+        not offenders,
+        f"templates with double-prefix anti-pattern: {offenders}"
+    )
+    _assert(
+        not missing_get_output_dir,
+        f"templates that reference HDLAB_EXP_NAME but do not import "
+        f"get_output_dir: {missing_get_output_dir}"
+    )
+    print(f"[D] template guard OK: {len(templates)} templates, 0 offenders")
+
+
+def test_template_clone_selftest_single_prefix() -> None:
+    """Test E: simulate cloning a template + running selftest -> canonical
+    single-prefix path. We do not execute the template (needs GPU), but we
+    render its output-path resolution logic in isolation using the same
+    get_output_dir(ANCHOR_NAME) call site the template uses."""
+    from experiments._seed_checkpoint import get_output_dir  # noqa: E402
+    _orig = os.environ.get("HDLAB_EXP_NAME")
+    try:
+        # Mimic what a wrapper cloned from the template would do at runtime:
+        # ANCHOR_NAME baked in unprefixed, HDLAB_EXP_NAME set to exp_<anchor>.
+        anchor = "template_clone_selftest_zzz_v1"
+        os.environ["HDLAB_EXP_NAME"] = "exp_" + anchor
+        out = get_output_dir(anchor)  # template uses get_output_dir(ANCHOR_NAME)
+        _assert(
+            out.name == "exp_" + anchor,
+            f"template-clone Case1 leaked double-prefix: {out.name}"
+        )
+        # No env var set (SELFTEST path when wrapper falls through).
+        os.environ.pop("HDLAB_EXP_NAME", None)
+        out2 = get_output_dir(anchor)
+        _assert(
+            out2.name == "exp_" + anchor,
+            f"template-clone Case2 fallback failed: {out2.name}"
+        )
+        print("[E] template-clone selftest OK: single-prefix in both cases")
+    finally:
+        if _orig is None:
+            os.environ.pop("HDLAB_EXP_NAME", None)
+        else:
+            os.environ["HDLAB_EXP_NAME"] = _orig
+
+
 if __name__ == "__main__":
     test_static_source_no_manual_construction()
     test_runtime_double_prefix_normalization()
     test_wrapper_module_import_side_effects()
+    test_template_files_no_anti_pattern()
+    test_template_clone_selftest_single_prefix()
     print("PASS: all wrapper-path-normalization tests OK")
