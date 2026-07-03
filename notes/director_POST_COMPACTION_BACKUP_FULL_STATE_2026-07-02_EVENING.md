@@ -1,7 +1,51 @@
 # POST-COMPACTION BACKUP — 2026-07-02 evening (session 2 of day)
 
 **Filed:** 2026-07-02 ~19:15 UTC (context at 12% per USER)
+**Amended:** 2026-07-03 ~01:05 UTC — Component C HF landing appended below (post-compaction late landing)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
+
+## 🚨🚨 POST-COMPACTION LATE LANDING (2026-07-03 ~01:05 UTC) — Component C HARD_FAIL
+
+**Component C modern-Hopfield softmax readout — HARD_FAIL at smoke (commit 4cd1d30ba pushed).**
+
+Cell: `experiments/exp_substrate_concept_encoder_component_C_modern_hopfield_readout_2026-07-03.py`
+Module: `hdlab/modern_hopfield_readout.py` (new, 10/10 selftests PASS)
+Prereg: `preregs/2026-07-03_substrate_concept_encoder_component_C_modern_hopfield_readout.md`
+Metrics: `data/exp_substrate_concept_encoder_component_C_modern_hopfield_readout_2026_07_03/metrics.json`
+
+**Verdict:** HF2_NO_BAG_BEAT — best HOPFIELD r@5=0.0533 < TRIGRAM r@5=0.2800. Lift HOPFIELD − COSINE = **−0.1067 (wrong direction).**
+
+Per-arm r@5 (3-seed N=100 n_dim=2048, wall 3.56s, arms_differ_verified=True across all 3 seeds):
+- ARM_V1_CONCEPT_ENCODER_COSINE r@5 = **0.1600** (reproduces prior substrate_content_v1 exactly — confirms bit-identical encoder invocation, NOT plumbing bug)
+- ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD (β=4) r@5 = **0.0500**
+- ARM_V1_CONCEPT_ENCODER_MODERN_HOPFIELD_HIGH_BETA (β=8) r@5 = **0.0533**
+- ARM_CHAR_TRIGRAM_UNSUP_REFERENCE r@5 = **0.2800** (reproduces prior exact)
+- ARM_RANDOM_BASELINE r@5 = **0.0400** (chance in-band)
+
+Cardinality 15/15, baseline_in_band=True, discriminator_fires=True. HF classification correct per prereg HP1/HP2 bands.
+
+**Load-bearing physics interpretation (drill-4 physics falsified, drill-3 neuroscience upheld):**
+
+Under equal-norm sparse-bipolar storage (concept_hds at k=2% × N=2048 → 40 active per prototype, IDENTICAL L2 norms), Ramsauer 2020's `/sqrt(N)`-scaled softmax attention at β→∞ REDUCES to cosine argmax. It cannot exceed cosine — the retrieval ranking is upper-bounded by the cosine ranking under equal-norm. At finite β, softmax attention produces a near-mean blend across many prototypes → the retrieved `y = softmax @ K` smears the query signal → cosine-to-retrieved is worse than cosine-to-store. This is derivable from Ramsauer identity, not a hyperparameter issue.
+
+**Drill-4 "readout geometry is THE single load-bearing lever" is FALSIFIED under equal-norm storage.**
+**Drill-3 "A+B+C composition needed" is UPHELD** — encoder AND storage geometry AND readout all need work, not readout alone.
+
+**Chain-atomization candidates (Skunkworks judging):**
+- `META_readout_geometry_alone_insufficient_under_equal_norm_storage` — mechanism claim
+- `PHYSICS_LAW_softmax_over_equal_norm_bipolar_cannot_exceed_cosine_argmax` — theoretical bound (derivable from Ramsauer identity)
+- `CG_HONEST_NEGATIVE` for Component C smoke HF (parallel structure to substrate-content v1 HF 2026-07-02)
+
+**HOLD BEFORE FULL confirmed as pre-registered.** No FULL dispatched — HARD_FAIL at smoke pre-empts remote burn.
+
+**Post-HF strategic options (Skunkworks VET requested abc34848 in flight):**
+- (A) v3 composed: VWFA (A) + PPMI/SVD (B) + cosine readout on same task — encoder + storage rewrite, keep proven cosine readout
+- (B) revisit STORAGE geometry: non-equal-norm prototypes (magnitude-weighted by confidence / attention over unnormalized store) — makes readout β meaningful again
+- (C) fundamentally different Stage 4 architecture — substrate lacks something more basic for real-content retrieval than any A+B+C composition can rescue
+
+**Skunkworks recommendation forthcoming (abc34848e7f8f7008).** Wikipedia FULL 10K remains in flight (started ~23:00Z, 2-4hr wall).
+
+## 🚨 POST-COMPACTION CORRECTIONS + LANDINGS
 
 ## 🚨 POST-COMPACTION CORRECTIONS + LANDINGS
 
