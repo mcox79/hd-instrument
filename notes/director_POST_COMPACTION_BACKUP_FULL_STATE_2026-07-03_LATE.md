@@ -284,3 +284,41 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 6. Continue original queue: Layer 0.5 FULL landing check, BGE 178K build, 170K scale re-test
 
 **Composite CG_META atom candidate:** `PHYSICS_LAW_ALL_STAGE1_AXES_MODERATE_CLEANUP_MECHANISM_AT_CLIFF_ADJACENT_REGIME_v1` — pending Probes 6+7 FULL replication + STORAGE-pair-probes at cliff-adjacent regime.
+
+## AMENDMENT 2026-07-03 20:29Z (Skunkworks VET corrections + 4 spawns in flight)
+
+**Skunkworks landed-VET on Probes 6+7 v2 SMOKE (task ae76cfb6e241c7050) returned with 3 FIX#28 corrections:**
+
+1. **"Plate 0.14×N 5-10× too pessimistic" was UNDERSTATED.** Actual gap is **20-90× at L∈{2,8}**. P6 (L=2 corr=0.85 N=512 M=6400) = 89× plate bound and still in-band mean_acc=0.73. Memory rule `feedback_plate_bound_too_pessimistic_for_sharded_fhrr_chain_composition_2026-07-03.md` amended with corrected magnitude.
+
+2. **"Cliff at corr≈0.90 AND L≥4" is NOT SUPPORTED.** Probe 6 v2 achieves non-saturated in-band at L=2, corr=0.85. My prior "L≥4 required" narrowing was over-specified. Memory rule amended. Cliff geometry undetermined without cross-L/cross-corr FULL sweep.
+
+3. **P7 evidence THINNER than framed.** n_band_slices=1, single in-band cell (M=6400, corr=0.9, N=2048), single seed=7. The `H1_N_MODERATES_WHEN_NON_SATURATED` label reads as a general claim but rests on 1 cell only. Downstream cites MUST qualify.
+
+**Tier verdicts (Skunkworks-authoritative):**
+- Probe 6 v2 SMOKE → **HOLD (MM_TENTATIVE at best)** — SMOKE HP + crossover real signal, but n_seeds=1, no cv. FULL multi-seed required to promote.
+- Probe 7 v2 SMOKE → **HOLD (MM_TENTATIVE_WEAK)** — n_band_slices=1. FULL multi-seed + ≥3 in-band N values required.
+- Composite CG_META v1 → **NOT_READY** — requires FULL landings + cv on ≥2 axes.
+- META saturation-floor v2 amendment → **NOT_WARRANTED** — current rule stands; no filing.
+
+**Session cumulative unchanged: math=46, meta=42 (VET was audit-only, no substrate writes).**
+
+**4 spawns FIRED in this pickup session (all within 5-agent budget):**
+
+| agentId | role | task | status |
+|---|---|---|---|
+| `ae76cfb6e241c7050` | Skunkworks VET | Probes 6+7 v2 SMOKE landed-VET | **COMPLETE 20:29Z** (see above) |
+| `a39a4c7aa07620699` | exp_dev | Probe 8 ALGEBRA × MECH at cliff-adjacent authoring | in flight |
+| `a416f584633f92db0` | exp_dev | Probe 9 N × TOPOLOGY at cliff-adjacent authoring (first non-mechanism pair) | in flight |
+| `a364bfa159e50a1f4` | Testbed | SH-4 double-prefix verify tooling fix | in flight |
+
+**Framing correction to propagate:** ALL post-VET tier framings in my prior BACKUP amendments should defer to Skunkworks HOLD tier. The revised regime hypothesis "ALL axes moderate CLEANUP_MECHANISM at cliff-adjacent" remains DIRECTIONALLY plausible but is NOT SMOKE-promotable — awaits FULL multi-seed replication.
+
+**Post-Tailscale action items (post-VET-updated):**
+1. Push all local commits (9d1995f81, 20d72dba6, + Probe 8 + Probe 9 + Testbed SH-4 fix commits as they land)
+2. Dispatch Probes 6+7 v2 FULL multi-seed (≥3 seeds) to overnight_queue GPU — needed for HOLD → promotion
+3. Dispatch Probes 8+9 SMOKE outcomes (if HP local): each to FULL multi-seed
+4. Do NOT propose composite CG_META atom until at least Probes 6+7 v2 FULL land with cv <0.15 and P7 has ≥3 in-band N values
+5. Recovery orchestrator for Probes 4+5 FULL, BGE 178K cache build, 170K unified re-test
+
+**Fix#28 cumulative today: 8 hits.** Discipline layer working — Skunkworks caught these before FULL dispatch. Both my initial magnitude framing AND cliff geometry claim were over-narrow. Directional intuition correct; magnitude precision needs FULL evidence.
