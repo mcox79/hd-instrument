@@ -221,6 +221,88 @@ class AtomKind(enum.Enum):
                                                  # NOT be CERT_CHAIN_GRADE (INVENTORY_NON_CERT; points AT cert
                                                  # atoms, never itself cert-counted -> CERT unchanged). Measured-
                                                  # only-no-extrapolation cert-condition (LOAD-BEARING per Skunkworks).
+    SYNTHESIS_META_FINDING = "synthesis_meta_finding"  # Meta-synthesis atom composing multiple independent axis
+                                                 # findings into a single CG_META-tier finding (e.g. binding-family
+                                                 # capacity-invariance composing D-x-O + Axis J axes; 2026-07-01
+                                                 # atomize_META_synthesis_binding_family_capacity_invariance).
+                                                 # STRUCTURAL role: aggregation/composition atom that stitches N>=2
+                                                 # independent single-axis findings (each a MEASURED_MECHANISM or
+                                                 # RESULT class) into a single invariance/topology-free/scale-free
+                                                 # claim. Distinct from EXPERIMENT_AGGREGATION_RECORD (single-experiment
+                                                 # cross-seed/cross-cell snapshot) — this is CROSS-AXIS synthesis at
+                                                 # findings level. Added 2026-07-03 (testbed enum-add; retrieve_cache
+                                                 # rebuild_index_cached BGE build was blocked by ValueError). Prior
+                                                 # writers: atomize_META_synthesis_binding_family_capacity_invariance_
+                                                 # 2026-07-01.py.
+
+    # Orphan-kind sweep 2026-07-03 (testbed hdi_testbed dispatch; UNBLOCKS BGE cache = 170K scale re-test).
+    # 58 additional atom-kind values found written by atomize tools into data/substrate_index/**/atoms.jsonl but
+    # not present in this enum -> PartitionedStore.all_atoms() ValueError blocking rebuild_index_cached (line 56
+    # retrieve_cache.py). Full census: scratchpad/tool-results/bkjviy2jc.txt (76 orphan atoms across the 58 kinds).
+    # Provenance: various author tools (atomize_*, orchestrator_atomize_*, skunkworks_*) wrote raw-dict atoms
+    # with these kind literals without first adding them to this enum. Established codebase pattern per prior
+    # 15+ "orphan-kind recovery" post-hoc adds above. TECH DEBT: see notes/design_substrate_open_vocabulary_
+    # atomkind_relationtype_refactor_arc_2026-07-03.md for the open-vocab strategic-refactor arc that will
+    # eventually replace this closed-enum pattern with an atom-backed relation/kind registry.
+    AMENDMENT_RECORD = "amendment_record"  # 4 atom(s); orphan-kind sweep 2026-07-03
+    EXP_CG = "EXP_CG"  # 3 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_HONEST_NEGATIVE = "experiment_record_honest_negative"  # 3 atom(s); orphan-kind sweep 2026-07-03
+    META_RULE = "meta_rule"  # 3 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_PATTERN_SYNTHESIS = "methodology_rule_pattern_synthesis"  # 3 atom(s); orphan-kind sweep 2026-07-03
+    DISCIPLINE_META_METHODOLOGY_WITNESS = "discipline_meta_methodology_witness"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_MILESTONE_CLOSURE = "experiment_record_milestone_closure"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    MECHANISM_WITNESS_COMPOSITION_DILUTION_REGIME_WITNESS = "mechanism_witness_composition_dilution_regime_witness"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    META_SCOPE_DIAGNOSTIC = "meta_scope_diagnostic"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    META_SYNTHESIS = "meta_synthesis"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    META_SYNTHESIS_AMENDMENT = "meta_synthesis_amendment"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    PHYSICS_LAW_META_COMPOSITION = "physics_law_meta_composition"  # 2 atom(s); orphan-kind sweep 2026-07-03
+    META_AMEND_PROMOTION = "META_AMEND_PROMOTION"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    AMENDMENT_META = "amendment_meta"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    CHAIN_GRADE = "chain_grade"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    CORTEX_ENCODER_MECHANISM_VALIDATED_FULL = "cortex_encoder_mechanism_validated_FULL"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    CORTEX_PRIMITIVE_VALIDATED = "cortex_primitive_validated"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    DISCIPLINE_RULE_3RD_WITNESS_CELL_AUTHOR_SELF_CORRECTION = "discipline_rule_3rd_witness_cell_author_self_correction"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EMPIRICAL_RESULT_HF = "empirical_result_hf"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_CELL_LANDED_SMOKE = "experiment_cell_landed_smoke"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_CERT = "experiment_cert"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_AMENDED_SCOPE = "experiment_record_amended_scope"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_ANALYTICAL_ARCHITECTURAL_FINDING = "experiment_record_analytical_architectural_finding"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_ARCHITECTURAL_FINDING = "experiment_record_architectural_finding"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_ARCHITECTURAL_FINDING_2ND_WITNESS = "experiment_record_architectural_finding_2nd_witness"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_AWAITS_FULL_3_SEED = "experiment_record_awaits_full_3_seed"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_AWAITS_FULL_DATA = "experiment_record_awaits_full_data"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_GENERAL_PRIMITIVE_EXTENSION = "experiment_record_general_primitive_extension"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_INTERIM = "experiment_record_interim"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_MEASURED_BOUND = "experiment_record_measured_bound"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_REVIVAL_SUCCESS = "experiment_record_revival_success"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    EXPERIMENT_RECORD_SUBSTRATE_PHYSICS_FINDING = "experiment_record_substrate_physics_finding"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    LITERATURE_SYNTHESIS_META_RULE_KNOWN_FAILURE_CLASS = "literature_synthesis_meta_rule_known_failure_class"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MEASURED_BOUND_MECHANISM_REPRODUCTION = "measured_bound_mechanism_reproduction"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MEASURED_MECHANISM = "measured_mechanism"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MEASURED_MECHANISM_AXIS_FACTORIZATION_DENSE_HOPFIELD_BETA4_REGIME = "measured_mechanism_axis_factorization_dense_hopfield_beta4_regime"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MEASURED_MECHANISM_META_SYNTHESIS_TENTATIVE = "measured_mechanism_meta_synthesis_tentative"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MEASURED_MECHANISM_PARTIAL_SIGNAL = "measured_mechanism_partial_signal"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MECHANISM_EXISTENCE_PROOF_SCOPED = "mechanism_existence_proof_scoped"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    META_RULE_PHYSICS_CORRECTION = "meta_rule_physics_correction"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    META_SYNTHESIS_SUBSTRATE_PHYSICS = "meta_synthesis_substrate_physics"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METADATA_AMENDMENT_SCOPE_ANNOTATION_ANALYTICAL_SCOPE_REFINEMENT_PENDING_BOUNDARY_PROBE = "metadata_amendment_scope_annotation_analytical_scope_refinement_pending_boundary_probe"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METADATA_AMENDMENT_TO_PARENT_ATOM = "metadata_amendment_to_parent_atom"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_CELL_QUALITY = "methodology_rule_cell_quality"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_INPUT_REGIME_MATCHING = "methodology_rule_input_regime_matching"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_MECHANISM_CHARACTERIZATION = "methodology_rule_mechanism_characterization"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_MECHANISM_TASK_CLASS_MATCHING = "methodology_rule_mechanism_task_class_matching"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_METRIC_DESIGN_SCOPE = "methodology_rule_metric_design_scope"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_REGIME_REFINEMENT = "methodology_rule_regime_refinement"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_TASK_CLASS_FIT_SYNTHESIS = "methodology_rule_task_class_fit_synthesis"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_TASK_CLASS_FIT_WITNESS_CONFIRMATION = "methodology_rule_task_class_fit_witness_confirmation"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_TASK_CLASS_FIT_WITNESS_EXPANSION = "methodology_rule_task_class_fit_witness_expansion"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    METHODOLOGY_RULE_TENTATIVE_SYNTHESIS = "methodology_rule_tentative_synthesis"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    MIDDLE_BAND_METRIC_DESIGN_NARROW = "middle_band_metric_design_narrow"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    REGIME_CHARACTERIZATION_MEASURED_BOUND_RESOLVED = "regime_characterization_measured_bound_resolved"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    SUBSTRATE_SCIENCE_META_COMPOSITION = "substrate_science_meta_composition"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    SUBSTRATE_SCIENCE_SYNTHESIS_RELATIVE_NEGATIVE = "substrate_science_synthesis_relative_negative"  # 1 atom(s); orphan-kind sweep 2026-07-03
+    SYNTHESIS_RECORD = "synthesis_record"  # 1 atom(s); orphan-kind sweep 2026-07-03
+
     CONCEPT_NODE = "concept_node"                # ConceptNet ARC-3 second-direction ingest (Item 4, 20h sprint;
                                                  # 2026-06-18; apply DEFERRED until push-fix). One atom per ConceptNet
                                                  # english concept (id=CN_<concept>, namespaced -> 0 cross-corpus id
@@ -744,17 +826,44 @@ def save_atoms(atoms: list[Atom], path: Path) -> None:
 
 
 def load_atoms(path: Path) -> list[Atom]:
+    """Load atoms from a JSONL partition file, tolerating malformed legacy rows.
+
+    2026-07-03 (testbed hdi_testbed dispatch, UNBLOCKS BGE cache = 170K scale re-test):
+    Some atomize tools historically wrote raw-dict atoms that violate Atom.from_dict's
+    contract (98 atoms use `atom_id` instead of `id`; 103 missing `name`/`description`;
+    12 missing `corpus`). Rather than KeyError-block the entire partition load (which
+    was blocking rebuild_index_cached BGE build), skip malformed rows and count them.
+    Companion to the "orphan-kind sweep" enum-add for the same author-drift class of
+    integrity gap. TECH DEBT: see notes/design_substrate_open_vocabulary_atomkind_
+    relationtype_refactor_arc_2026-07-03.md — the open-vocab arc + author-tool
+    hardening will eventually eliminate this drift at write time.
+
+    Skipped rows are counted on the module-level `_load_atoms_skip_count` for lightweight
+    diagnostics; readers can inspect it after load to detect drift growth.
+    """
+    global _load_atoms_skip_count
     path = Path(path)
     if not path.exists():
         return []
     out = []
+    skipped = 0
     with open(path, encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
                 continue
-            out.append(Atom.from_dict(json.loads(line)))
+            try:
+                out.append(Atom.from_dict(json.loads(line)))
+            except (KeyError, ValueError, TypeError, json.JSONDecodeError):
+                skipped += 1
+    if skipped:
+        _load_atoms_skip_count[str(path)] = skipped
     return out
+
+
+# Diagnostic: {path_str: skipped_row_count} populated by load_atoms when malformed
+# rows are encountered. Testbed-owned drift counter; not load-bearing (best-effort).
+_load_atoms_skip_count: dict[str, int] = {}
 
 
 def save_relations(relations: list[Relation], path: Path) -> None:
