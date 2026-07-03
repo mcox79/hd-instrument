@@ -846,8 +846,16 @@ if __name__ == "__main__":
                         help="Execution mode; default full (defensive).")
     parser.add_argument("--self-test", action="store_true",
                         help="Convenience alias for --run-mode self_test.")
+    parser.add_argument("--smoke", action="store_true",
+                        help="Convenience alias for --run-mode smoke "
+                             "(queue_add.py gate contract).")
     args = parser.parse_args()
-    run_mode = "self_test" if args.self_test else args.run_mode
+    if args.self_test:
+        run_mode = "self_test"
+    elif args.smoke:
+        run_mode = "smoke"
+    else:
+        run_mode = args.run_mode
 
     # Line-buffer stdout so runner log advances with each progress print
     if hasattr(sys.stdout, "reconfigure") and sys.stdout.reconfigure is not None:
