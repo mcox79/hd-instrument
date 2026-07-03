@@ -354,3 +354,38 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 | `a20d62a8213d64873` | Probe 10 STORAGE × ALGEBRA | authoring in flight |
 
 **Session cumulative unchanged: math=46, meta=42** (Testbed infra work does not atomize; Probes 8+9 pending exp_dev reports before any atom filings).
+
+## AMENDMENT 2026-07-03 20:48Z (Probes 8+9 exp_dev reports LANDED; all pushed to origin)
+
+**Probe 8 ALGEBRA × MECH cliff-adjacent SMOKE HP** — commit `79fe2758d` pushed:
+- `cliff_max_per_F_var_in_band = 0.20` (2× H1 threshold; well above)
+- `mech_ranking_crossover = True` (F=1: mh>sea>ic; F=16: sea>ic>mh — MH↔SEA swap)
+- `h3_null_fires = True` (deep_max_var=0.0 <0.05; mechanism DEGENERACY at DEEP_SAT confirmed)
+- Empirical cliff-bracket BEFORE prereg: corr=0.85, L=2 validated (contradicts my earlier "L≥4 required" narrowing)
+- Design refinement: added F=2 interstitial (Probe 6 v2 missed it), cardinality 25 FULL / 10 SMOKE
+- Novel per substrate-KB query (top hit cosine ≤0.41)
+
+**Probe 9 N × TOPOLOGY (F) cliff-adjacent SMOKE HP** — commits `0c5761c87` + `8f63ac421` pushed:
+- 5/5 SMOKE HP; cardinality OK; SATURATION_PC pass; escapes_saturation_ceiling_smoke=True
+- **hyp_preview = H2 (NULL — structurally separable at endpoints):** per-F mean 0.5125 at F=1 AND F=16; N × F cross-term = 0.0 at SMOKE endpoints (N=256 floor + N=2048 ceiling only)
+- **Cell-author self-caught discriminator flaw mid-SMOKE:** original H1 gated on `max_N_var_in_band` (marginal), corrected to gate on `topology_var_range_across_N` / `N_var_range_across_F` / `max_N_x_F_deviation` (proper interaction metrics). Commit `8f63ac421`.
+- **Skunkworks caveat flagged by cell-author:** `n_band_slices=2` is fluke — comes from per-F mean=0.5125 (average of floor+ceiling), NOT any individual (N,F) cell in-band. FULL grid provides real in-band cells at intermediate N ∈ {512, 1024}.
+- Novel per substrate-KB (cosine=0.2715 < 0.30 threshold)
+
+**Convergent-evidence framing (SMOKE-level; NOT arc-closure per Skunkworks discipline):**
+- 3 probes (P6 TOPOLOGY×MECH, P7 N×MECH, P8 ALGEBRA×MECH) at cliff-adjacent all show mech_var ≥ 0.10 (0.20, 0.10, 0.20) + ranking dynamics
+- 1 probe (P9 N×TOPOLOGY non-mechanism pair) at SMOKE endpoints shows H2-null preview (structurally separable) — CONSISTENT with "moderation is on mechanism axis, not on non-mechanism pair"
+- Composite CG_META candidate remains NOT_READY per Skunkworks — FULL multi-seed cv <0.15 required
+- **Directional signal is now 4-probe strong at SMOKE.** Awaits Probe 10 STORAGE × ALGEBRA + FULL replication before atom filing.
+
+**Push state (all local commits now on origin/main):**
+- `70c9f6a5d` Testbed SH-4 fix
+- `79fe2758d` Probe 8 cell + prereg
+- `0c5761c87` + `8f63ac421` Probe 9 cell + discriminator-fix
+- `9d1995f81` + `20d72dba6` Probe 6 v2 + 7 v2 (already pushed pre-session)
+- `111a24a5a` + `11682c3df` + earlier BACKUP amendments
+- HEAD at `8f63ac421` (as of 20:48Z)
+
+**Spawn state:**
+- Only Probe 10 still authoring (`a20d62a8213d64873`)
+- Will fire Skunkworks composite VET on 6+7+8+9 SMOKE ensemble once Probe 10 lands
