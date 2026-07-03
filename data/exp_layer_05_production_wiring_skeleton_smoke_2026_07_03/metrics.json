@@ -1,0 +1,721 @@
+{
+  "anchor_name": "layer_05_production_wiring_skeleton_smoke_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS_PRODUCTION_WIRING_VALIDATED: ARM_INTEGRATION_END_TO_END=0.833 >= 0.60 AND ORACLE drift 0.084 <= 0.10 (composition primitive intact) AND S1S2=0.583 < LAYER_075=0.833 (S1+S2-SUBTRACT preserved at production seam). Substrate-native production wiring path validated end-to-end: char-trigram Layer 0 -> PPR uniform union -> v3 structural filter -> FHRR unbind-and-cleanup composition. Encoder-substitution seam intact. Next: propose remote FULL at N=8192 100q x 3 seeds. ORACLE=0.917 (drift=0.084 vs 0.833) LAYER0=0.000 LAYER_05=0.000 LAYER_075=0.833 (drift=0.000 vs 0.833) S1S2=0.583 (drift=0.072 vs 0.511) INTEGRATION=0.833 | cardinality_ok=True arms_differ_ok=True | S1S2_SUBTRACT_holds=True (s1s2<l075)",
+  "summary": "HARD_PASS_PRODUCTION_WIRING_VALIDATED: ARM_INTEGRATION_END_TO_END=0.833 >= 0.60 AND ORACLE drift 0.084 <= 0.10 (composition primitive intact) AND S1S2=0.583 < LAYER_075=0.833 (S1+S2-SUBTRACT preserved at production seam). Substrate-native production wiring path validated end-to-end: char-trigram Layer 0 -> PPR uniform union -> v3 structural filter -> FHRR unbind-and-cleanup composition. Encoder-substitution seam intact. Next: propose remote FULL at N=8192 100q x 3 seeds. ORACLE=0.917 (drift=0.084 vs 0.833) LAYER0=0.000 LAYER_05=0.000 LAYER_075=0.833 (drift=0.000 vs 0.833) S1S2=0.583 (drift=0.072 vs 0.511) INTEGRATION=0.833 | cardinality_ok=True arms_differ_ok=True | S1S2_SUBTRACT_holds=True (s1s2<l075)",
+  "run_mode": "smoke",
+  "n_dim": 4096,
+  "target_queries": 24,
+  "n_seeds": 1,
+  "top_k": 5,
+  "ppr_alpha": 0.15,
+  "ppr_iters": 5,
+  "ppr_top_k": 5,
+  "union_max": 30,
+  "hub_deg_thresh": 8,
+  "hub_dampen_factor": 0.3,
+  "k_final": 5,
+  "b_bridges": 5,
+  "bridge_min_cooccur": 2,
+  "hub_indices": [
+    0,
+    1,
+    2
+  ],
+  "hub_over_sample": 3.0,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_queries": 24,
+      "n_facts": 200,
+      "n_dim": 4096,
+      "top_k": 5,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_ORACLE_INTEGRATION": {
+          "accuracy": 0.9166666666666666,
+          "n_correct": 22,
+          "n": 24
+        },
+        "ARM_LAYER0_ONLY": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 24
+        },
+        "ARM_LAYER_05_ONLY": {
+          "accuracy": 0.0,
+          "n_correct": 0,
+          "n": 24
+        },
+        "ARM_LAYER_075_INSERTED": {
+          "accuracy": 0.8333333333333334,
+          "n_correct": 20,
+          "n": 24
+        },
+        "ARM_S1S2_INSERTED_REGRESSION": {
+          "accuracy": 0.5833333333333334,
+          "n_correct": 14,
+          "n": 24
+        },
+        "ARM_INTEGRATION_END_TO_END": {
+          "accuracy": 0.8333333333333334,
+          "n_correct": 20,
+          "n": 24
+        }
+      },
+      "arm_digests": {
+        "ARM_ORACLE_INTEGRATION": "c3dd1881e5d5a94d",
+        "ARM_LAYER0_ONLY": "71be02ed067c964b",
+        "ARM_LAYER_05_ONLY": "71be02ed067c964b",
+        "ARM_LAYER_075_INSERTED": "97339cba26581619",
+        "ARM_S1S2_INSERTED_REGRESSION": "0ca9e4fbf17f77b6",
+        "ARM_INTEGRATION_END_TO_END": "97339cba26581619"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted_pairs": [
+        [
+          "ARM_INTEGRATION_END_TO_END",
+          "ARM_LAYER_075_INSERTED"
+        ],
+        [
+          "ARM_LAYER0_ONLY",
+          "ARM_LAYER_05_ONLY"
+        ]
+      ],
+      "hub_empirical_top3": [
+        0,
+        1,
+        2
+      ],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "text": "What is the neighbor of the river of Gulch?",
+          "e0": "Gulch",
+          "r1": "neighbor",
+          "r2": "river",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Larn",
+          "gt_chunks": [
+            32,
+            8
+          ],
+          "layer0_top5": [
+            33,
+            13,
+            163,
+            93,
+            133
+          ],
+          "layer0_gt_hits": [],
+          "p_oracle": "Larn",
+          "p_layer0": "Dune",
+          "p_layer05": "Dune",
+          "p_layer075": "Dune",
+          "p_s1s2": "Pome",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [],
+          "l075_bridges": [
+            "Coral",
+            "Tern",
+            "Jarl",
+            "Glim",
+            "Solt"
+          ],
+          "mid_in_l075_bridges": false,
+          "l075_diag": {
+            "n_hop_1_cands": 0,
+            "n_hop_2_cands": 4,
+            "n_distractors": 20,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [],
+          "s1s2_diag": {
+            "n_hop_1_cands": 0,
+            "n_hop_2_cands": 4,
+            "n_distractors": 17,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 1,
+          "text": "What is the mayor of the neighbor of Kord?",
+          "e0": "Kord",
+          "r1": "mayor",
+          "r2": "neighbor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Kelm",
+          "gt_chunks": [
+            183,
+            10
+          ],
+          "layer0_top5": [
+            183,
+            180,
+            93,
+            133,
+            103
+          ],
+          "layer0_gt_hits": [
+            183
+          ],
+          "p_oracle": "Kelm",
+          "p_layer0": "Hara",
+          "p_layer05": "Hara",
+          "p_layer075": "Kelm",
+          "p_s1s2": "Kelm",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            10,
+            183
+          ],
+          "l075_bridges": [
+            "Coral",
+            "Bexley",
+            "Tern",
+            "Jarl",
+            "Juno"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 20,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            10,
+            183
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 16,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 2,
+          "text": "What is the neighbor of the mayor of Alton?",
+          "e0": "Alton",
+          "r1": "neighbor",
+          "r2": "mayor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Larn",
+          "gt_chunks": [
+            0,
+            8
+          ],
+          "layer0_top5": [
+            3,
+            53,
+            73,
+            40,
+            133
+          ],
+          "layer0_gt_hits": [],
+          "p_oracle": "Larn",
+          "p_layer0": "Riva",
+          "p_layer05": "Riva",
+          "p_layer075": "Tern",
+          "p_s1s2": "Larn",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            0
+          ],
+          "l075_bridges": [
+            "Iona",
+            "Kelm",
+            "Tern",
+            "Juno",
+            "Pome"
+          ],
+          "mid_in_l075_bridges": false,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 12,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            0,
+            8
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 11,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 3,
+          "text": "What is the capital of the mayor of Iona?",
+          "e0": "Iona",
+          "r1": "capital",
+          "r2": "mayor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Quill",
+          "gt_chunks": [
+            40,
+            1
+          ],
+          "layer0_top5": [
+            41,
+            40,
+            56,
+            85,
+            96
+          ],
+          "layer0_gt_hits": [
+            40
+          ],
+          "p_oracle": "Quill",
+          "p_layer0": "Larn",
+          "p_layer05": "Larn",
+          "p_layer075": "Quill",
+          "p_s1s2": "Larn",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            1,
+            40
+          ],
+          "l075_bridges": [
+            "Delft",
+            "Coral",
+            "Alton",
+            "Riva",
+            "Tern"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 13,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            40
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 4,
+            "n_distractors": 9,
+            "n_union_pre_cap": 5,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 4,
+          "text": "What is the capital of the neighbor of Mesa?",
+          "e0": "Mesa",
+          "r1": "capital",
+          "r2": "neighbor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Bexley",
+          "gt_chunks": [
+            63,
+            6
+          ],
+          "layer0_top5": [
+            61,
+            63,
+            133,
+            103,
+            96
+          ],
+          "layer0_gt_hits": [
+            63
+          ],
+          "p_oracle": "Bexley",
+          "p_layer0": "Ebon",
+          "p_layer05": "Ebon",
+          "p_layer075": "Bexley",
+          "p_s1s2": "Bexley",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            6,
+            63
+          ],
+          "l075_bridges": [
+            "Bexley",
+            "Coral",
+            "Jarl",
+            "Tern",
+            "Gulch"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 20,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            6,
+            63
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 18,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 5,
+          "text": "What is the founder of the river of Riva?",
+          "e0": "Riva",
+          "r1": "founder",
+          "r2": "river",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Coral",
+          "gt_chunks": [
+            87,
+            4
+          ],
+          "layer0_top5": [
+            89,
+            87,
+            17,
+            167,
+            97
+          ],
+          "layer0_gt_hits": [
+            87
+          ],
+          "p_oracle": "Coral",
+          "p_layer0": "Xylo",
+          "p_layer05": "Xylo",
+          "p_layer075": "Coral",
+          "p_s1s2": "Coral",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            4,
+            87
+          ],
+          "l075_bridges": [
+            "Alton",
+            "Delft",
+            "Bexley",
+            "Tern",
+            "Kord"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 17,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            4,
+            87
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 17,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 6,
+          "text": "What is the neighbor of the neighbor of Riva?",
+          "e0": "Riva",
+          "r1": "neighbor",
+          "r2": "neighbor",
+          "mid": "Bexley",
+          "mid_idx": 1,
+          "answer": "Larn",
+          "gt_chunks": [
+            88,
+            8
+          ],
+          "layer0_top5": [
+            88,
+            93,
+            133,
+            163,
+            103
+          ],
+          "layer0_gt_hits": [
+            88
+          ],
+          "p_oracle": "Riva",
+          "p_layer0": "Riva",
+          "p_layer05": "Riva",
+          "p_layer075": "Riva",
+          "p_s1s2": "Riva",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            8,
+            88
+          ],
+          "l075_bridges": [
+            "Bexley",
+            "Coral",
+            "Tern",
+            "Jarl",
+            "Gulch"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 22,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            8,
+            88
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 21,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 7,
+          "text": "What is the capital of the mayor of Umbra?",
+          "e0": "Umbra",
+          "r1": "capital",
+          "r2": "mayor",
+          "mid": "Coral",
+          "mid_idx": 2,
+          "answer": "Riva",
+          "gt_chunks": [
+            100,
+            11
+          ],
+          "layer0_top5": [
+            101,
+            100,
+            190,
+            96,
+            91
+          ],
+          "layer0_gt_hits": [
+            100
+          ],
+          "p_oracle": "Riva",
+          "p_layer0": "Glim",
+          "p_layer05": "Glim",
+          "p_layer075": "Riva",
+          "p_s1s2": "Glim",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            11,
+            100
+          ],
+          "l075_bridges": [
+            "Alton",
+            "Coral",
+            "Kelm",
+            "Tern",
+            "Glim"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 19,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            100
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 14,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 8,
+          "text": "What is the founder of the mayor of Yara?",
+          "e0": "Yara",
+          "r1": "founder",
+          "r2": "mayor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Coral",
+          "gt_chunks": [
+            120,
+            4
+          ],
+          "layer0_top5": [
+            124,
+            94,
+            120,
+            164,
+            169
+          ],
+          "layer0_gt_hits": [
+            120
+          ],
+          "p_oracle": "Coral",
+          "p_layer0": "Ashe",
+          "p_layer05": "Ashe",
+          "p_layer075": "Coral",
+          "p_s1s2": "Ashe",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            4,
+            120
+          ],
+          "l075_bridges": [
+            "Alton",
+            "Iona",
+            "Glim",
+            "Kelm",
+            "Holt"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 5,
+            "n_distractors": 15,
+            "n_union_pre_cap": 6,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            120
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 5,
+            "n_distractors": 12,
+            "n_union_pre_cap": 6,
+            "fallback_to_p1": false
+          }
+        },
+        {
+          "qi": 9,
+          "text": "What is the river of the neighbor of Kelm?",
+          "e0": "Kelm",
+          "r1": "river",
+          "r2": "neighbor",
+          "mid": "Alton",
+          "mid_idx": 0,
+          "answer": "Vail",
+          "gt_chunks": [
+            53,
+            2
+          ],
+          "layer0_top5": [
+            53,
+            158,
+            93,
+            163,
+            88
+          ],
+          "layer0_gt_hits": [
+            53
+          ],
+          "p_oracle": "Vail",
+          "p_layer0": "Hara",
+          "p_layer05": "Hara",
+          "p_layer075": "Vail",
+          "p_s1s2": "Vail",
+          "l075_pool_size": 30,
+          "gt_in_l075_pool": [
+            2,
+            53
+          ],
+          "l075_bridges": [
+            "Alton",
+            "Bexley",
+            "Tern",
+            "Glim",
+            "Coral"
+          ],
+          "mid_in_l075_bridges": true,
+          "l075_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 2,
+            "n_distractors": 17,
+            "n_union_pre_cap": 3,
+            "fallback_to_p1": false
+          },
+          "s1s2_pool_size": 30,
+          "gt_in_s1s2_pool": [
+            2,
+            53
+          ],
+          "s1s2_diag": {
+            "n_hop_1_cands": 1,
+            "n_hop_2_cands": 3,
+            "n_distractors": 14,
+            "n_union_pre_cap": 4,
+            "fallback_to_p1": false
+          }
+        }
+      ],
+      "v3_fire_summary": {
+        "l075_slot_fire_count": 24,
+        "l075_fallback_count": 0,
+        "s1s2_slot_fire_count": 24,
+        "s1s2_fallback_count": 0,
+        "n_queries": 24
+      },
+      "elapsed_s": 4.6324806999764405
+    }
+  ],
+  "per_arm_mean_accuracy": {
+    "ARM_ORACLE_INTEGRATION": 0.9166666666666666,
+    "ARM_LAYER0_ONLY": 0.0,
+    "ARM_LAYER_05_ONLY": 0.0,
+    "ARM_LAYER_075_INSERTED": 0.8333333333333334,
+    "ARM_S1S2_INSERTED_REGRESSION": 0.5833333333333334,
+    "ARM_INTEGRATION_END_TO_END": 0.8333333333333334
+  },
+  "expected_n_units": 6,
+  "actual_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_floor_computed": 0.025,
+  "crlb_formula_reference": "sqrt(K_final/N_dim) = sqrt(5/8192) per Plate 1995",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "scope": "hub_concept_bridge_only",
+  "oracle_precedent": 0.833,
+  "layer_075_precedent": 0.833,
+  "s1s2_stacked_precedent": 0.511,
+  "elapsed_s": 4.6345139000040945,
+  "ts_iso": "2026-07-03T17:37:03.330230+00:00"
+}
