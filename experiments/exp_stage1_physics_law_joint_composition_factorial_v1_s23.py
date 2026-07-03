@@ -1,31 +1,23 @@
-"""stage1_regime_probe_10_storage_x_algebra_non_saturated_v1 sibling seed=7.
+"""stage1_physics_law_joint_composition_factorial_v1 sibling seed=23.
 
-STORAGE (SHARDED vs BUNDLED) x ALGEBRA (F fan-out) at cliff-adjacent regime;
-mechanism FIXED at modern_hopfield. Closes the STORAGE column of the pairwise
-regime matrix alongside Probes 4 (STORAGE x N) and 5 (STORAGE x TOPOLOGY).
+Joint composition factorial test of 4 established Stage 1 CG_META axes:
+  STORAGE_STRATEGY, SCALE_FREE, TOPOLOGY_FREE, ALGEBRA_SCALES + M_SCALING.
+Regime: sharded-rule-storage FHRR chain composition (Option Y).
 
-Sweep FULL: 5 CLIFF_SHARDED + 5 CLIFF_BUNDLED + 3 DEEP_SAT_SHARDED
-            + 3 DEEP_SAT_BUNDLED + 1 SATURATION_PC = 17 pts/seed.
-Sweep SMOKE: 2 CLIFF_SHARDED + 2 CLIFF_BUNDLED + 3 BUNDLED_BRACKET
-             + 2 DEEP_SAT + 1 SATURATION_PC = 10 pts.
+Sweep FULL: 3 cleanup x 3 M x 2 N x 2 F x 2 L x 2 corruption = 144 + 1 BUNDLED PC = 145.
+Sweep SMOKE: 3 cleanup x 1 M x 1 N x 1 F x 1 L x 2 corr = 6 + 1 BUNDLED PC = 7.
 
-Hypotheses (band-restricted, [0.30, 0.95] non-saturated slice on CLIFF arms):
-  H1: cliff_cross_term >= 0.10 -> STORAGE x ALGEBRA interact at cliff-adjacent.
-  H2: cliff_cross_term < 0.05 -> STORAGE and ALGEBRA independent at cliff.
-  H3-NULL: DEEP_SAT max cross-term < 0.05 -> cross-term vanishes at saturation.
+CHUNKED architecture: one seed per sibling file. Siblings: s11, s17.
 
-CHUNKED architecture: one seed per sibling file. Siblings: s13, s19 (authored
-post-Tailscale for 3-seed FULL replication).
-
-PRE-REG: preregs/2026-07-03_stage1_regime_probe_10_storage_x_algebra_non_saturated_v1.md
-CARDINALITY_OK_FULL: 17 phase points per seed
-CARDINALITY_OK_SMOKE: 10 phase points per seed
+PRE-REG: preregs/2026-07-03_stage1_physics_law_joint_composition_factorial_test.md
+CARDINALITY_OK_FULL: 145 phase points per seed
+CARDINALITY_OK_SMOKE: 7 phase points per seed
 
 Defensive patterns (USER 2026-06-28):
   1. start_marker
   2. crash-diag import-crash sentinel
   3. per-seed checkpoint via _seed_checkpoint
-  4. heartbeat: per-phase-point flushed print
+  4. heartbeat: per-phase-point flush print
 
 ASCII-only. No unicode. No em-dashes. No emojis.
 Author: exp_dev 2026-07-03 (Opus 4.7, agent-spawn)
@@ -61,8 +53,8 @@ from experiments._seed_checkpoint import (
     get_output_dir,
 )
 
-SEED = 7
-ANCHOR_NAME = f"stage1_regime_probe_10_storage_x_algebra_non_saturated_v1_s{SEED}"
+SEED = 23
+ANCHOR_NAME = f"stage1_physics_law_joint_composition_factorial_v1_s{SEED}"
 
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--smoke", action="store_true")
@@ -79,22 +71,13 @@ SMOKE_MODE = (RUN_MODE == "smoke")
 
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},"
-    f"regime=storage_x_algebra_cross_term_at_cliff_adjacent,"
-    f"mech_fixed=modern_hopfield,"
-    f"storage=[SHARDED,BUNDLED],"
-    f"F_cliff=[1,2,4,8,16],F_deep=[1,4,16],"
-    f"SHARDED_CLIFF=(N=512,M=6400,corr=0.85),"
-    f"BUNDLED_CLIFF=(N=2048,M=200,corr=0.20),"
-    f"DEEP_SAT=(N=8192,M=800,corr=0.60),"
-    f"SATURATION_PC=(F=1,M=800,N=2048,corr=0.20,iterative_cosine),"
-    f"BUNDLED_BRACKET_M=[100,400,800],"
+    f"regime=sharded_FHRR_chain_composition_option_Y,"
+    f"cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],"
+    f"M=[200,800,3200],N=[2048,8192],F=[1,4],L=[2,5],corr=[0.20,0.45],"
     f"SEED={SEED},mode={RUN_MODE},"
-    f"beta=8.0,alpha_soft=0.5,L=2,"
-    f"non_saturated_band=[0.30,0.95],"
-    f"H1_thresh=(cliff_cross_term>=0.10),"
-    f"H2_thresh=(cliff_cross_term<0.05),"
-    f"H3_null_thresh=(deep_cross_term<0.05),"
-    f"expected_n_full=17,expected_n_smoke=10,"
+    f"BUNDLED_PC_regime=fixed_M800_N8192_F1_L2_corr0.20_iterative_cosine,"
+    f"beta=8.0,alpha_soft=0.5,"
+    f"expected_n_full=145,expected_n_smoke=7,"
     f"hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED"
 )
 
@@ -116,14 +99,14 @@ def _write_minimal_metrics(out_dir: Path, verdict: str, verdict_msg: str,
             "pid": os.getpid(),
             "run_mode": RUN_MODE,
             "config_version": CONFIG_VERSION,
-            "_hardening_marker": "stage1_regime_probe_10_storage_x_algebra_non_saturated_v1_chunked",
+            "_hardening_marker": "stage1_physics_law_joint_composition_factorial_v1_chunked",
         }
         if extra:
             m.update(extra)
         tmp = out_dir / "metrics.json.tmp"
         final = out_dir / "metrics.json"
         tmp.write_text(json.dumps(m, indent=2, default=str), encoding="utf-8")
-        os.replace(tmp, final)
+        os.replace(tmp, final)  # atomic per META_RULE_AH
     except Exception as e:
         print(f"[_write_minimal_metrics] FAIL: {e}", file=sys.stderr, flush=True)
 
@@ -141,7 +124,7 @@ def _write_import_crash_sentinel(exc: Exception) -> None:
             "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "pid": os.getpid(),
             "_traceback": traceback.format_exc(),
-            "_hardening_marker": "stage1_regime_probe_10_storage_x_algebra_non_saturated_v1_import_crash",
+            "_hardening_marker": "stage1_physics_law_joint_composition_factorial_v1_import_crash",
         }
         tmp = out_dir / "metrics.json.tmp"
         final = out_dir / "metrics.json"
@@ -163,9 +146,9 @@ def main() -> int:
                            f"STARTED: pid={os.getpid()} mode={RUN_MODE} seed={SEED}",
                            extra={"_phase": "init"})
 
-    from experiments._stage1_regime_probe_10_storage_x_algebra_non_saturated_v1_core import (
+    from experiments._stage1_physics_law_joint_composition_factorial_v1_core import (
         run_one_seed, aggregate_and_verdict, selftest,
-        DEVICE, GPU_NAME, SHARDED_CLIFF, BUNDLED_CLIFF, DEEP_SAT,
+        N_GRID_FULL, N_GRID_SMOKE, DEVICE, GPU_NAME,
     )
 
     backend = "torch.cuda" if DEVICE == "cuda" else "torch.cpu"
@@ -189,7 +172,7 @@ def main() -> int:
             return 1
 
     seeds_list = [SEED]
-    N_max = max(SHARDED_CLIFF["N"], BUNDLED_CLIFF["N"], DEEP_SAT["N"])
+    N_max = max(N_GRID_SMOKE if SMOKE_MODE else N_GRID_FULL)
     run_config = {"N": N_max, "run_mode": RUN_MODE, "anchor": ANCHOR_NAME}
     done, remaining = resumable_seeds(seeds_list, out_dir, run_config=run_config)
     print(f"[ckpt] {len(done)}/{len(seeds_list)} done; running {remaining}",
@@ -218,11 +201,11 @@ def main() -> int:
     final["pid"] = os.getpid()
     final["run_mode"] = RUN_MODE
     final["config_version"] = CONFIG_VERSION
-    final["_hardening_marker"] = "stage1_regime_probe_10_storage_x_algebra_non_saturated_v1_chunked"
+    final["_hardening_marker"] = "stage1_physics_law_joint_composition_factorial_v1_chunked"
     final["backend"] = backend
     final["seed"] = SEED
     final["n_seeds"] = 1
-    final["corpus_provenance"] = "synthetic_sharded_fhrr_chain_composition_storage_x_algebra_cliff_v1"
+    final["corpus_provenance"] = "synthetic_sharded_fhrr_chain_composition_factorial_v1"
     final["n_llm_calls"] = _LLM_CALL_COUNTER[0]
 
     assert _LLM_CALL_COUNTER[0] == 0, \
@@ -231,7 +214,7 @@ def main() -> int:
     tmp = out_dir / "metrics.json.tmp"
     final_path = out_dir / "metrics.json"
     tmp.write_text(json.dumps(final, indent=2, default=str), encoding="utf-8")
-    os.replace(tmp, final_path)
+    os.replace(tmp, final_path)  # atomic per META_RULE_AH
     print(f"[{ANCHOR_NAME}] DONE: {final['verdict_msg']}", flush=True)
     print(f"[{ANCHOR_NAME}] cardinality observed={final.get('observed_n_units')} "
           f"expected={final.get('expected_n_units')} "
@@ -246,7 +229,7 @@ if __name__ == "__main__":
         raise
     except KeyboardInterrupt:
         raise
-    except Exception as e:  # NOT BaseException (META_RULE section 8)
+    except Exception as e:  # NOT BaseException (META_RULE §8)
         _write_import_crash_sentinel(e)
         print(f"[main] OUTER_EXCEPTION: {e}", file=sys.stderr, flush=True)
         traceback.print_exc()

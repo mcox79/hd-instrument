@@ -56,6 +56,7 @@ if str(REPO) not in sys.path:
 
 from experiments._seed_checkpoint import (
     resumable_seeds, write_partial_key, aggregate_partials,
+    get_output_dir,
 )
 
 SEED = 7
@@ -125,8 +126,7 @@ def _write_minimal_metrics(out_dir: Path, verdict: str, verdict_msg: str,
 
 def _write_import_crash_sentinel(exc: Exception) -> None:
     try:
-        env_name = os.environ.get("HDLAB_EXP_NAME", ANCHOR_NAME)
-        out_dir = REPO / "data" / ("exp_" + env_name)
+        out_dir = get_output_dir(ANCHOR_NAME)
         out_dir.mkdir(parents=True, exist_ok=True)
         s = {
             "anchor_name": ANCHOR_NAME,
@@ -152,8 +152,7 @@ def _write_import_crash_sentinel(exc: Exception) -> None:
 
 def main() -> int:
     _RESULTS_HOLDER["started_at"] = time.time()
-    env_name = os.environ.get("HDLAB_EXP_NAME", ANCHOR_NAME)
-    out_dir = REPO / "data" / ("exp_" + env_name)
+    out_dir = get_output_dir(ANCHOR_NAME)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     _write_minimal_metrics(out_dir, "STARTED",
