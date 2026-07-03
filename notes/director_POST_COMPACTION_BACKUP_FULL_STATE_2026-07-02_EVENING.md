@@ -18,11 +18,13 @@
 - DG sparse rate observed 0.0203 in [0.008, 0.040] band; architectural constraint SATISFIED
 - 15/15 cardinality; arms_differ False (architectural exemption — ARM_SPOKE3_HIPPOCAMPAL + ARM_SPOKE3_ONE_SHOT bit-identical BODY DG codes; differ only on TITLE processing; legitimate collision per META_RULE_AF exemption clause)
 
-**Cell-author load-bearing mechanism diagnosis:**
-1. DG expansion (8192-dim, 2% sparse ~164 nonzeros) is noisier than 2048-dim char-trigram on small-N retrieval
-2. **CA3 hits Tsodyks-Feigelman capacity:** k=164/dg_dim=8192 → ~1.8 patterns before interference; 500 body attractors = **270× OVER capacity** → noise-dominated
-3. NOT discriminator-narrows-at-scale (this is straight mechanism-scope-limited HF)
-4. **HONEST SCOPE (LOAD-BEARING):** Marr-CA3+DG is DESIGNED for episodic one-shot binding + pattern completion, NOT open-domain many-to-many surface retrieval. **TASK CLASS FUNDAMENTALLY MISMATCHED.**
+**Cell-author load-bearing mechanism diagnosis (2 of 4 points WRONG — Skunkworks caught):**
+1. DG expansion (8192-dim, 2% sparse ~164 nonzeros) is noisier than 2048-dim char-trigram on small-N retrieval — plausible; not verified
+2. **~~CA3 hits Tsodyks-Feigelman capacity: 270× OVER capacity~~ — INCORRECT.** Canonical TF: C = N/(2·ln(1/p)) = 8192/(2·ln(50)) ≈ **1047 patterns**; 500 stored is **0.48× UNDER capacity, NOT 270× over**. HF verdict itself is bulletproof (r@5=0.145 vs 0.854 unambiguous), but capacity-overload mechanism attribution is quantitatively wrong. Real HF causes (Skunkworks-flagged): (a) title cue semantically weak to trigger correct CA3 basin, (b) content-correlation interference between semantically similar bodies (NOT sparsity capacity), (c) CA3 iteration/cleanup parameters
+3. NOT discriminator-narrows-at-scale (this is straight mechanism-scope-limited HF) — verified
+4. **HONEST SCOPE (LOAD-BEARING and STANDS):** Marr-CA3+DG is DESIGNED for episodic one-shot binding + pattern completion, NOT open-domain many-to-many surface retrieval. **TASK CLASS FUNDAMENTALLY MISMATCHED.** — Skunkworks endorsed as the load-bearing insight
+
+**Director Fix#28 hit #4 today:** propagated cell-author's TF capacity claim (270× overload) without formula verification. Cell-author quantitative diagnoses are at-risk framings. Trigger-word discipline updated: any spawn framing with information-theoretic quantitative claims → verify formula before propagating.
 
 **Primitive `hdlab/hippocampal_encoder.py` retained CG:**
 - 13/13 selftests PASS
