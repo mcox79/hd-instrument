@@ -254,3 +254,29 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Informal MM_TENTATIVE atom at `notes/informal_diagnostic_H2_mechanism_degeneracy_non_saturated_sharded_fhrr_MM_TENTATIVE_2026-07-03.md`
 - Probe 6 v2 needs FULL dispatch when Tailscale restored (73 pts × 3 seeds; expect ~15s each on GPU)
 - Probe 7 v2 pattern (once landing): apply same cliff-adjacent regime discovery (N=512, corr=0.85, M=6400) not the original prereg's saturated regime
+
+## AMENDMENT 2026-07-03 19:52Z (Probe 7 v2 CONVERGENT confirmation)
+
+**Probe 7 v2 SMOKE HP with SAME empirical wall + finding as Probe 6 v2.** Committed `20d72dba6`.
+
+**Two independent probes now converge on revised regime hypothesis:**
+- Probe 6 v2 (TOPOLOGY × MECH at cliff-adjacent): mech_var = 0.20; ranking CROSSES OVER (modern wins F=1, soft wins F=16)
+- Probe 7 v2 (N × MECH at cliff-adjacent): mech_var = 0.100 at N=2048; cliff N-dependent (smaller N cliffs first)
+
+**Empirical convergence:** BOTH revival probes had to correct grids from the Plate-based prereg to (L≥4, corr≈0.90) — SHARDED FHRR chain composition is empirically 5-10× more robust than the Plate 0.14·N bound predicts. `META_saturation_floor_masks_null_variance_probe3_lesson`'s "corr≥0.6" revival criterion NEEDS AMENDMENT to "(corr near cliff ~0.90) AND (L≥4)" for SHARDED FHRR regime.
+
+**Revised regime map hypothesis DOUBLY CONFIRMED (from 2 independent probes):**
+- FAR from cliff (deep saturation): mechanism DEGENERACY holds
+- NEAR cliff (mid-band mean_acc 0.30-0.95): mechanism DIVERGES
+
+**The "STORAGE UNIQUELY moderates" thesis is FALSE.** Real pattern: **ALL axes moderate CLEANUP_MECHANISM at cliff-adjacent regime; NONE at deep-saturation.** Probe 1 (STORAGE × MECH at BUNDLED) still stands as CG_META but its scope-annotation must correct: it's a cross-term in the cliff-adjacent regime, not a universal STORAGE-specialness.
+
+**Next session post-Tailscale-restore priority order (revised):**
+1. Orchestrator push commits `20d72dba6` + `9d1995f81` (Probe 6+7 v2)
+2. Dispatch Probe 6 v2 FULL + Probe 7 v2 FULL to overnight_queue GPU (3 seeds each, ~15s each on GPU per earlier probe wall)
+3. Skunkworks landed-VET both — assess (a) does cliff-adjacent moderation reproduce at FULL 3-seed variance, (b) does mech ranking crossover reproduce, (c) file amended CG_META atom for regime-hypothesis "all-axes-moderate-at-cliff"
+4. Amend `META_saturation_floor_masks_null_variance_probe3_lesson` per cell-author flag: cliff position is at corr≈0.90 AND L≥4 for SHARDED FHRR (not corr≥0.6 as originally filed)
+5. Consider dispatching STORAGE × N (Probe 4) and STORAGE × TOPOLOGY (Probe 5) at cliff-adjacent regime too (previous SMOKEs were at ceiling+floor; need mid-band)
+6. Continue original queue: Layer 0.5 FULL landing check, BGE 178K build, 170K scale re-test
+
+**Composite CG_META atom candidate:** `PHYSICS_LAW_ALL_STAGE1_AXES_MODERATE_CLEANUP_MECHANISM_AT_CLIFF_ADJACENT_REGIME_v1` — pending Probes 6+7 FULL replication + STORAGE-pair-probes at cliff-adjacent regime.
