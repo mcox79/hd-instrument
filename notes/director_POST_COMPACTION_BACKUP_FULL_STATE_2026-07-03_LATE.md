@@ -554,3 +554,34 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - P10 v2 re-SMOKE with BUNDLED corr=0.05-0.10 (a7808cd4d2fe53f16)
 - NEG1 follow-up P9 v2 with L/N_cliff sweep, research-recommended (a65fbcfda40db8b24)
 - Skunkworks structural VET on axis-aliasing (afadd5dbd43055cf1)
+
+## AMENDMENT 2026-07-03 21:45Z (Skunkworks BUNDLED VET filed 2 more atoms; tally 94)
+
+**Skunkworks VET on P10 v2 BUNDLED bimodal physics finding (task a15d50b89be3f7b5f) COMPLETE.**
+
+**2 atoms filed (A5-gated):**
+- **Math (MM_STANDARD):** `EMPIRICAL_BUNDLED_FHRR_CHAIN_COMPOSITION_L2_F1_FIRST_ORDER_TRANSITION_NO_MIDBAND_v1` — theory-confirmed via AGS 1985 + Krotov-Hopfield 2016 + Ramsauer 2020
+- **Meta (MM_TENTATIVE):** `META_when_cross_term_bracket_search_exhausts_design_space_file_HONEST_NO_MATCHED_CLIFF_and_SKIP_FULL_v1` — extends atom #43
+
+**Session cumulative: math=49, meta=45 = 94 atoms today (+6 this pickup, +2 from this VET alone).**
+
+**New meta rule (discipline extension):** when re-bracket search PROVES no in-band arm exists across reasonable design space (100+ phase points × multi-seed × multi-TR), the disciplined action is:
+1. File HONEST_NO_MATCHED_CLIFF
+2. SKIP FULL
+3. Atomize bracket-exhaustion as boundary observation
+4. Verify complement-arm sanity
+**Do NOT dispatch confounded FULL to "recover spent compute."**
+
+**Composition:** EXTENDS `META_STORAGE_STRATEGY_COMPOSITION_DEPTH_PHYSICS_LAW_v1` — parent claims BUNDLED collapses at L≥2; new atom adds "no mid-band even at L=2 F=1" characterization. Parent + extension together characterize BUNDLED capacity boundary geometry.
+
+**CERT delta this VET:** CG +0, MM_STANDARD +1, MM_TENTATIVE +1. No demotions.
+
+**Director SKIP decision on P10 v2 FULL: CONFIRMED SCIENTIFICALLY CORRECT.** STORAGE column covered by P1 CG_META + Probes 4+5 FULL when Tailscale restores. Option R3 (SHARDED-only F sweep) would be partial single-arm measurement, not cross-term. Route attention to Probes 4/5 FULL VETs when they land + Probe 1 CG_META regime-cross-term promotion arc.
+
+**Also fired (main-thread action while VET returning):** Probe 12 L-marginal effect sweep at SHARDED cliff-adjacent (aca2f567b885d62f7) — tests the newly-identified 5th untested axis. L∈{1,2,4,8,16} at N=512 M=6400 corr=0.85 F=1. If HP: L IS a real 5th sweep axis; today's "matrix complete at 6" gets revised. If HF: L is inert atomizable negative.
+
+**Spawn state UPDATED (2 in flight):**
+- NEG1 follow-up P9 v2 L/N_cliff sweep (a65fbcfda40db8b24)
+- Probe 12 L-marginal-effect sweep (aca2f567b885d62f7)
+
+**Fix#28 today:** 14 hits recorded, 2 hits AVOIDED via pre-hoc structural discipline (P11 refusal + P10 v2 refusal). Discipline evolution: post-hoc correction → pre-hoc prevention CONFIRMED WORKING.
