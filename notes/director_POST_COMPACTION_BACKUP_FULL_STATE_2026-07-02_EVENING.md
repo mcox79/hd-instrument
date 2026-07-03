@@ -5,6 +5,50 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯🎯🎯 GATE 1 LANDED — PPMI WIKIPEDIA FULL 10K FORMAL 3-SEED COMPLETE (2026-07-03 ~03:30Z; SH-9 SYNC-LAG DELAYED VISIBILITY UNTIL ~06:10Z)
+
+**Cell landed successfully at 03:30:48Z; hd_metrics_sync tarball had 3h sync-lag; SH-9 explicit-SCP recovery ran cleanly. Local metrics.json REFRESHED and CURRENT.**
+
+**Verdict: MEASURED_BOUND_LOW_DELTA (terminal HP for mechanism arc)**
+
+**Per-arm r@5 at N=10K (3 seeds; run_mode=full VERIFIED):**
+- ARM_PPMI_SVD_WIKIPEDIA_N10K = **0.6791** (std=0, deterministic; matches preliminary heartbeat EXACT bit-identical)
+- ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K = 0.7030 (matches prior FULL landing)
+- ARM_RANDOM_BASELINE_N10K = 0.0003 (chance in-band)
+- **PPMI LOSES to char-trigram by −0.0239 at scale**
+- Smoke lift did NOT survive 20× scale (PPMI −0.2269 from smoke; trigram −0.1510)
+
+**Gate 1 SATISFIED for parent 5-witness META:**
+- Requirement: "Wikipedia FULL 10K formal 3-seed within ±0.02 of preliminary"
+- Preliminary: PPMI 0.6791 vs char-trigram 0.7030, delta −0.0239
+- Formal: EXACT bit-identical
+- **Gate 1 CLOSED cleanly**
+- Parent META `META_SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE` PRELIMINARY_CG_HN atom can be LIFTED to formal CG_HN
+- **Gate 2 (discriminative-regime WIN witness) still open** per L6 chain closure (regime-scoped: unachievable via filler-geometry axis; may unlock at lower cluster or continuous-noise or hypothesis C Foldiak DG preprocessing)
+
+**CG_META promotion path for parent META:**
+- If Gate 1 alone sufficient → CG_META promotion
+- If both gates required → parent stays MM_STANDARD_5_WITNESS with Gate 1 SATISFIED annotation
+- **Skunkworks judging (a4812f2ac5342de93)**
+
+**Load-bearing PPMI mechanism arc TERMINATES in supervised regime** per verdict — no re-dispatch needed on this anchor. Cell verdict text: "Route to research for v3-composed / Spoke 3 pathway analysis."
+
+**Skunkworks corpus-completeness gotcha CAUGHT:** local metrics.json was STALE (held earlier smoke-gate output) until SH-9 SCP-recovery refreshed. Discipline reinforced: SSH-pull required for FULL landings; local path NOT authoritative until refreshed.
+
+**Substantive substrate progress SUMMARY at Gate 1 landing:**
+
+Parent 5-witness retrieval-loss META now has 1 FORMAL CG-tier witness:
+- Witness 1: PPMI/SVD Wikipedia FULL 10K (formal CG_HN; PPMI 0.6791 < char-trigram 0.7030)
+- Witnesses 2-5 (v1 concept_encoder / Component C / VWFA / Spoke 3) various tiers
+
+Sibling task-class-fit META has 4 VSA-native task-class CG_MB witnesses:
+- Cell 1 analogy (K=3 + K_DIST sweep CG_REGIME_CHARACTERIZATION)
+- Cell 2 compositional generalization
+- Cell 3 multi-hop reasoning
+- Cell 4 episodic-formal (HF at discriminative; regime-scoped)
+
+**Session-day tally per Skunkworks disk-audit:** math=28, meta=30 today (pre-Gate-1-VET; will grow).
+
 ## 🎯 L6 JL SCOPE-REFINEMENT CHAIN CLOSED + VSA-SUITE PROGRESS + CA3 RESEARCH DRILL (2026-07-03 ~07:30Z)
 
 **Skunkworks L6 VET landed 3 atoms + CG_META promotion + chain closure decision:**
