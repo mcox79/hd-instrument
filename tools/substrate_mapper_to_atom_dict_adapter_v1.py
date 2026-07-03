@@ -50,6 +50,39 @@ PARTITION_TO_CORPUS = {
 }
 
 
+# Wikidata property -> substrate RelationType seed vocabulary. Preserves P31/P279/P361
+# distinction that was previously collapsed to universal DEPENDS_ON (regression fixed
+# 2026-07-03 hdi_testbed dispatch). Source: substrate_facts_jsonl_to_atoms_v2.py
+# INSTANCE_OF_PIDS + wikidata_action_api_fetcher_v1.py fetch. Rationale: mapper preserves
+# the predicate inside algebra_dict.predicate; prior adapter default-fallthrough dropped it.
+# This map REUSES existing RelationType seed-vocab entries (INSTANCE_OF, IS_A, PART_OF)
+# already present in schema.py for WordNet + GO edge-materialization; does NOT add new
+# enum entries. Full property expansion (Wikidata's ~35 core properties) is TECH DEBT
+# for the open-vocab strategic-refactor arc — see notes/design_substrate_open_
+# vocabulary_atomkind_relationtype_refactor_arc_2026-07-03.md.
+WIKIDATA_PID_TO_REL_TYPE = {
+    "P31":  "INSTANCE_OF",  # instance of
+    "P279": "IS_A",         # subclass of (ontological subsumption)
+    "P361": "PART_OF",      # part of
+}
+
+
+def rel_type_for_dep(mapper_rec: dict) -> str:
+    """Resolve rel_type for a mapper-record dependency.
+
+    Preference order:
+      1. If algebra_dict.predicate is a known Wikidata PID, use the mapped rel_type
+         (P31 -> INSTANCE_OF, P279 -> IS_A, P361 -> PART_OF).
+      2. Fallback: DEPENDS_ON (prior default; safe for non-wikidata mapper records
+         where algebra_dict has no predicate).
+    """
+    algebra = mapper_rec.get("algebra_dict") or {}
+    pred = algebra.get("predicate")
+    if isinstance(pred, str) and pred in WIKIDATA_PID_TO_REL_TYPE:
+        return WIKIDATA_PID_TO_REL_TYPE[pred]
+    return "DEPENDS_ON"
+
+
 def partition_to_corpus(partition: str) -> str:
     """Map mapper partition (e.g. 'wikidata::truthy') to substrate corpus enum value."""
     if not partition:
@@ -121,7 +154,15 @@ def adapt_atom(mapper_rec: dict) -> tuple:
         "serves_capability": list(mapper_rec.get("serves_capability", [])),
     }
 
-    # Build DEPENDS_ON edges (separate file)
+    # Build dependency edges (separate file). Rel-type is derived from
+    # algebra_dict.predicate when available (Wikidata PID -> seed-vocab rel_type
+    # via WIKIDATA_PID_TO_REL_TYPE); falls back to DEPENDS_ON for non-wikidata
+    # mapper records. Fixed 2026-07-03 (testbed hdi_testbed dispatch); prior
+    # default-fallthrough collapsed P31/P279/P361 to universal DEPENDS_ON
+    # (semantic-density failure per Wikontic drill 2026-07-03).
+    rel_type_str = rel_type_for_dep(mapper_rec)
+    algebra = mapper_rec.get("algebra_dict") or {}
+    src_pid = algebra.get("predicate", "")
     deps_edges = []
     src_qid = f"{corpus}::{atom_id}"
     for dep_name in mapper_rec.get("depends_on", []):
@@ -134,12 +175,15 @@ def adapt_atom(mapper_rec: dict) -> tuple:
             else:
                 tgt_local = dep_name
             tgt_qid = f"{corpus}::{tgt_local}"
+        note_parts = [f"mapped from {partition or 'unknown_partition'}"]
+        if src_pid:
+            note_parts.append(f"pid={src_pid}")
         deps_edges.append({
             "src": src_qid,
-            "rel_type": "DEPENDS_ON",
+            "rel_type": rel_type_str,
             "tgt": tgt_qid,
             "source": "mapper_v2_adapter",
-            "note": f"mapped from {partition or 'unknown_partition'}",
+            "note": "; ".join(note_parts),
         })
     return atom_dict, deps_edges
 
