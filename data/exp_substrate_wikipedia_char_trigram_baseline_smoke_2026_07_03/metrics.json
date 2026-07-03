@@ -1,0 +1,182 @@
+{
+  "anchor_name": "substrate_wikipedia_char_trigram_baseline_smoke_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-native char-trigram surface encoder reaches r@5=0.8540 >= 0.60 on N=500 real Wikipedia articles at N_DIM=2048. HONEST SCOPE: title-body char-trigram overlap dominates; does NOT grant substrate general-knowledge of Wikipedia content. bge reference r@5=0.992 (100K MEASURED); gap-to-bge=+0.1380 indicates the residual capability headroom that brain-analog composition (VWFA + ATL + Spoke 3) must close. random r@5=0.0073 (chance=0.0100)",
+  "summary": "HARD_PASS: substrate-native char-trigram surface encoder reaches r@5=0.8540 >= 0.60 on N=500 real Wikipedia articles at N_DIM=2048. HONEST SCOPE: title-body char-trigram overlap dominates; does NOT grant substrate general-knowledge of Wikipedia content. bge reference r@5=0.992 (100K MEASURED); gap-to-bge=+0.1380 indicates the residual capability headroom that brain-analog composition (VWFA + ATL + Spoke 3) must close. random r@5=0.0073 (chance=0.0100)",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_articles": 500,
+  "n_articles_configured": 500,
+  "n_dim": 2048,
+  "body_char_cap": 800,
+  "expected_n_units": 6,
+  "actual_n_units": 6,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "baseline_in_band_check": {
+    "arm": "ARM_RANDOM_BASELINE",
+    "chance_r5": 0.01,
+    "band_max_r5": 0.05,
+    "observed_r5_mean": 0.007333333333333333,
+    "in_band": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "hp_scope": {
+    "HP1": [
+      "ARM_CHAR_TRIGRAM_WIKIPEDIA"
+    ],
+    "HF1": [
+      "ARM_CHAR_TRIGRAM_WIKIPEDIA"
+    ],
+    "HF2_baseline_in_band": [
+      "ARM_RANDOM_BASELINE"
+    ]
+  },
+  "bge_reference_r5_at_100k_MEASURED": 0.992,
+  "bge_reference_source": "data/exp_wikipedia_ingest_100k_gpu_v1/metrics.json (2026-06-19)",
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.03407031297683716,
+          "signal_to_noise_ratio": 6.138958746451876,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 1.607186699999147,
+          "throughput_articles_per_sec": 311.1026242316872
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.002,
+          "recall_at_10": 0.018,
+          "mean_reciprocal_rank": 0.0110849784194068,
+          "intra_article_body_title_cos": -0.001515624908148311,
+          "inter_article_title_body_cos": -0.00019921862985938787,
+          "signal_to_noise_ratio": -7.607847264174373,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.039753499993821606,
+          "throughput_articles_per_sec": 12577.508900542312
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE": "e2ecc070467df3fb"
+      },
+      "seed_elapsed_s": 17.184204999997746
+    },
+    {
+      "seed": 17,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.034535154700279236,
+          "signal_to_noise_ratio": 6.0563286210446945,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 1.3528176999971038,
+          "throughput_articles_per_sec": 369.59894892051636
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.014,
+          "recall_at_10": 0.02,
+          "mean_reciprocal_rank": 0.012482012653221273,
+          "intra_article_body_title_cos": -0.0006269531382713467,
+          "inter_article_title_body_cos": 0.0008144530584104359,
+          "signal_to_noise_ratio": -0.7697842518941093,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.023067700007231906,
+          "throughput_articles_per_sec": 21675.329566590775
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE": "4fc1ff0c71481e0e"
+      },
+      "seed_elapsed_s": 1.4817810999957146
+    },
+    {
+      "seed": 23,
+      "n_articles": 500,
+      "per_arm": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+          "recall_at_1": 0.676,
+          "recall_at_5": 0.854,
+          "recall_at_10": 0.902,
+          "mean_reciprocal_rank": 0.7582498581736087,
+          "intra_article_body_title_cos": 0.20915624584350734,
+          "inter_article_title_body_cos": 0.033589839935302734,
+          "signal_to_noise_ratio": 6.226771138128743,
+          "arm_name": "ARM_CHAR_TRIGRAM_WIKIPEDIA",
+          "n_dim": 2048,
+          "encoding_wall_s": 1.357438600010937,
+          "throughput_articles_per_sec": 368.3407853555744
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.002,
+          "recall_at_5": 0.006,
+          "recall_at_10": 0.014,
+          "mean_reciprocal_rank": 0.011949832473476604,
+          "intra_article_body_title_cos": 0.00012695299610345734,
+          "inter_article_title_body_cos": -0.00016210951434914023,
+          "signal_to_noise_ratio": 0.783131061820559,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "n_dim": 2048,
+          "encoding_wall_s": 0.027015999992727302,
+          "throughput_articles_per_sec": 18507.55108582321
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_CHAR_TRIGRAM_WIKIPEDIA": "591c3a5be65600cf",
+        "ARM_RANDOM_BASELINE": "4508efcf6fd37b18"
+      },
+      "seed_elapsed_s": 1.5421399000042584
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_CHAR_TRIGRAM_WIKIPEDIA": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.676,
+      "recall_at_5_mean": 0.854,
+      "recall_at_5_std": 0.0,
+      "recall_at_10_mean": 0.902,
+      "encoding_wall_s_mean": 1.4391476666690626,
+      "throughput_articles_per_sec_mean": 349.6807861692593
+    },
+    "ARM_RANDOM_BASELINE": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.0013333333333333333,
+      "recall_at_5_mean": 0.007333333333333333,
+      "recall_at_5_std": 0.004988876515698589,
+      "recall_at_10_mean": 0.017333333333333333,
+      "encoding_wall_s_mean": 0.02994573333126027,
+      "throughput_articles_per_sec_mean": 17586.7965176521
+    }
+  },
+  "elapsed_s": 20.24698389999685,
+  "ts_iso_end": "2026-07-03T01:37:33.414343+00:00"
+}
