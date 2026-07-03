@@ -1178,3 +1178,36 @@ math=38, meta=38 = 76 atoms today. Delta this landing: CG +1, CG_META +1.
 ### Post-compaction sequencing (USER out ~30-40min more):
 - Exp 3D lands → Skunkworks VET → if HP arc CLOSES; if HF escalate to path (a) BridgeRAG tripartite s(q,b,c) OR halt-and-reassess to USER for substrate-native constraint reconsideration
 - Testbed lands → landing-notifier durable fix
+
+## 2026-07-03 17:12Z AMENDMENT 8 (Exp 3E cycle + cumulative session state + open breaches)
+
+### Exp 3E v3-clean arc-closure test in flight
+- SMOKE landed 17:04:48Z HARD_PASS_MEASURED_MECHANISM (MAIN_V3_CLEAN=0.833 exceeds Exp 3D 0.767 target; downgraded per arc-continuation-vs-arc-closure discipline)
+- FULL dispatched to remote GPU ~16:50Z via hdi_orchestrator; running immediately per orchestrator poll
+- Nominal ETA passed ~12min ago; orchestrator re-polling now for status (M-sweep-style sync-lag suspected)
+- Landing path: `data/exp_substrate_stage1_apply_exp3e_layer075_v3_clean_arc_closure_2026_07_03/metrics.json` (overwrites SMOKE when FULL lands; anchor has no smoke/full suffix in name)
+
+### 4 arc-closure gates for FULL VET when it lands:
+1. MAIN_V3_CLEAN ≥ 0.74
+2. cv < 0.10 across 3 seeds
+3. All seeds > 0.60
+4. v3_stacked_s1s2 drift < 0.05 vs Exp 3D 0.511
+
+### Session cumulative totals 2026-07-03 (single session):
+- 11 landings (10 VETed + Exp 3E FULL pending): Foldiak HF, Exp 1 MM, Exp 2 MB, Exp 2B HF, Exp 2C MEASURED_MECHANISM, Exp 3 MB_INTERFACE_BOUND, Exp 3B HF_IMPLEMENTATION, Exp 3C HF_STRUCTURAL, M-sweep FULL CG_META, Exp 3D HP_INTERFACE_POSITIVE, Exp 3E SMOKE HP_MEASURED_MECHANISM
+- 5th Stage 1 CG_META physics-law axis: `PHYSICS_LAW_cleanup_mechanism_M_scaling_non_Hebbian`
+- 79 atoms filed (math=40, meta=39) — Skunkworks-authoritative disk audit
+- 9 memory rules filed today (Director-lessons + USER-locked disciplines + Skunkworks disciplines + session-start ritual)
+- Testbed infrastructure fixes: queue_add.sh regex + landing_notifier pane
+- Design docs revised: M3 cortex Layer 0.75 spec × 5 revisions
+
+### Open project breaches (from substrate ingest integrity principle 2026-07-03):
+1. atoms.jsonl label-placeholder — RESOLVED at e28a4f474
+2. **5000-line KB cap** — LIVE: math atoms.jsonl at 28,993 lines; today's 40 atoms all past line 5,000 → UNREACHABLE via `director_kb_query.py`. This means today's atomization work IS in the store but INVISIBLE to KB queries. Affects Layer 0.5 production wiring plan.
+3. Wikipedia atoms in math lane = 17 — OPEN, unresolved
+
+### Landing pane operational (Testbed 2026-07-03 fix):
+`data/latest_landings.md` auto-refreshes every 3 min per `tools/landing_notifier.py::_refresh_pane()`. Session-start ritual should Read this file. Rule filed to memory as [[feedback_session_start_ritual_read_latest_landings_pane_2026-07-03]].
+
+### Commits pushed to origin today:
+be6edc73b (M-sweep author) → b3e1d0d85 (queue_add regex) → 71bf08142 (BACKUP amend 7) → b880f7ce1 (landing_notifier pane) → 01f41fc20 (Exp 3E cell) → 4c17c7b09 (Exp 3D)
