@@ -5,6 +5,29 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯 SPOKE 3 GATE 2 CLOSE PROBE + SKUNKWORKS 2 CG_META ATOMS (2026-07-03 ~04:20Z)
+
+**Skunkworks VET landed 3 atoms + Gate 2 REFRAME insight.**
+
+**2 NEW CG_META atoms filed:**
+1. `META_DG_EXPANSION_AMPLIFIES_NOISE_MORE_THAN_SEPARATES_SIGNAL_AT_EXTREME_SPARSE_CUE` — PROMOTED from CG to **CG_META** (2 witnesses: mild-neg at 90% + −0.594 at 95%; monotonic worsening). Architectural law: DG+CA3 with 2% sparsity + 40× expansion ACTIVELY DESTROYS signal at capacity+corruption edge; distinct root cause from Wikipedia retrieval HF.
+2. `META_DISCIPLINE_CELL_AUTHOR_SELF_CORRECTION_3RD_WITNESS` — PROMOTED to **CG_META**. Documented cross-cell pattern: cell-authors self-correct own verdict_msg overclaims in interpretation section. Discipline propagates through fleet.
+
+**1 MM_STANDARD architectural novel finding:**
+- `MATH_COSINE_ARGMAX_ROBUST_AT_EXTREME_SPARSE_CUE_JL_ORTHOGONALITY` — cosine argmax survives 95% cue-zero because deterministic signal (0.224) beats random_max (~0.08) at **6.6σ margin** (Skunkworks corrected cell-author's "~3σ"). Novel analytical + empirical finding; 5 arm-configs empirical + closed-form JL derivation.
+
+**Skunkworks strategic REFRAME (load-bearing):**
+- Do NOT dispatch 3rd Gate 2 close probe as originally planned
+- Cosine-JL-robustness analytically explains why cluster_cos tightening won't degrade cosine — load-bearing quantity is deterministic_signal_vs_random_max (6.6σ), NOT sibling-channel (4.74σ)
+- **Gate 2 REFRAME: change discriminator from "cosine degrades" to cue_zero=0.99 regime where JL margin vanishes analytically** — this probes atomized cosine-robustness bound AND gives DG+CA3 its designed regime (biologically-plausible extreme partial retrieval where sparse-attractor cleanup should dominate)
+- Accept "mechanism-actively-hurts" as its own atomized CG_META claim (already filed)
+- Defer parent 5-witness META Gate 2 promotion to Gate 1 outcome (PPMI FULL 10K)
+- Continue VSA Cell 1 arc in parallel
+
+**Session-day disk-audit per Skunkworks (2026-07-03):** math=20, meta=16. **2 new CG_META atoms this VET; total CG_META today: 3+ (including earlier `FULL_CELL_TIMEOUT_BUDGET_3X_SAFETY_MARGIN_AND_PER_SEED_CHECKPOINT`).**
+
+**Note:** substrate index (data/substrate_index/) is gitignored per repo convention. Atoms live on-disk in canonical Store; no commit needed for atomization writes.
+
 ## 🔥 SPOKE 3 HIPPOCAMPAL SMOKE HF — 5TH WITNESS + TASK-CLASS-REFRAME HYPOTHESIS (2026-07-03 ~03:20Z)
 
 **Spoke 3 hippocampal encoder Wikipedia SMOKE HARD_FAIL.** Commit `1cd8e3757` pushed.
