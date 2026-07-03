@@ -5,6 +5,34 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯 CHAR-TRIGRAM WIKIPEDIA FULL 10K LANDED MB (2026-07-03 ~02:25Z)
+
+**Anchor:** `substrate_wikipedia_char_trigram_scale_up_full_2026_07_03`
+**Metrics:** `data/exp_substrate_wikipedia_char_trigram_scale_up_full_2026_07_03/metrics.json` (run_mode=full verified)
+**Landed by:** cpu_runner_0 remote (Wikipedia 100K corpus @ marsh@home)
+
+**Result:**
+- ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K r@5 = **0.7030** (3-seed FULL N=10K)
+- ARM_RANDOM_BASELINE_N10K r@5 = 0.0003 (chance=0.0005; in-band)
+- delta_from_smoke_r5 = **−0.1510** (smoke was 0.854 at N=500)
+- gap_to_bge_100k_ref_r5 = **+0.289** (bge 0.992 at N=100K)
+- In expected MB band [0.60, 0.90] → MB verdict CORRECT
+
+**Interpretation (scope-tight per USER-locked substrate-knows-nothing):**
+- Substrate-native char-trigram surface encoder alone degrades from 0.854 → 0.703 at 20× scale (Zipf saturation + hash collision channel)
+- **Not sufficient to retire bge** on its own (gap +0.289) BUT well above 0.50 threshold — Spoke 3 hippocampal not strictly load-bearing per drill diagnostic
+- **The +0.289 gap is what brain-analog compositional mechanisms need to close** (PPMI/V3 candidates)
+- MECHANISM CHARACTERIZATION on SUPERVISED Wikipedia regime; NOT capability claim
+
+**In flight after this landing:**
+- PPMI Wikipedia FULL 10K cell HELD at commit `383e73af6` awaiting Director green-light
+- v3-composed Wikipedia multi-arm SMOKE (a53210abcd) — cell authored but smoke didn't complete; SendMessage-resumed to check status
+- Skunkworks VET char-trigram FULL MB (a60e91eb46aacce3d)
+
+**Strategic decision pending Skunkworks + v3-composed SMOKE:**
+- If PPMI at N=10K holds +0.05 lift → v3-composed A+B path viable to close bge gap
+- If PPMI narrows to +0.01-0.03 (V2-A precedent) → Spoke 3 hippocampal becomes load-bearing OR bge stays for KB while brain-analog substrate builds cortex-layer separately
+
 ## 🎯 SUBSTRATE-NATIVE PPMI/SVD WIKIPEDIA SMOKE HP — +0.052 OVER CHAR-TRIGRAM FLOOR (2026-07-03 ~02:15Z)
 
 **Commit `b655b9fd3` pushed.** Cell: `experiments/exp_substrate_wikipedia_ppmi_svd_baseline_smoke_2026-07-03.py`.
