@@ -32,9 +32,13 @@ Outputs:
 from __future__ import annotations
 import sys
 import json
+import re
 import argparse
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+
+_BARE_QID_RE = re.compile(r"^Q\d+$")
 
 
 PARTITION_TO_CORPUS = {
@@ -54,8 +58,18 @@ def partition_to_corpus(partition: str) -> str:
     return PARTITION_TO_CORPUS.get(head, "math")
 
 
-def humanize_name(canonical_name: str) -> str:
-    """Humanize a canonical_name for atom.name field."""
+def humanize_name(canonical_name: str, aliases: list | None = None) -> str:
+    """Humanize a canonical_name for atom.name field.
+
+    Prefers aliases[0] when present and not a bare Q-id (e.g. 'Q182505') — the
+    wikidata mapper leaves canonical_name as 'wikidata_Q182505' but stores the
+    real English label at aliases[0] ('Bayes\\' theorem'). Falls back to the
+    underscore-humanized canonical_name (backward-compatible).
+    """
+    if aliases:
+        first = aliases[0]
+        if isinstance(first, str) and first and not _BARE_QID_RE.match(first):
+            return first[:120]
     raw = canonical_name.replace("_", " ")
     return raw[:120]
 
@@ -96,7 +110,7 @@ def adapt_atom(mapper_rec: dict) -> tuple:
 
     atom_dict = {
         "id": atom_id,
-        "name": humanize_name(cn),
+        "name": humanize_name(cn, mapper_rec.get("aliases")),
         "corpus": corpus,
         "tier": tier,
         "kind": "PRIMITIVE",
