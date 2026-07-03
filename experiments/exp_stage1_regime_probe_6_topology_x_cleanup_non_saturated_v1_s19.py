@@ -1,4 +1,4 @@
-"""stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1 sibling seed=7.
+"""stage1_regime_probe_6_topology_x_cleanup_non_saturated_v1 sibling seed=19.
 
 Non-saturated revival of Probe 3 (USER 2026-07-03). SHARDED-only TOPOLOGY (F)
 x CLEANUP_MECHANISM cross-term at NON-SATURATED regime (higher corr, extended M,

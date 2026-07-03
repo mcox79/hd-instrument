@@ -1,4 +1,4 @@
-"""stage1_regime_probe_5_storage_x_topology_v1 sibling seed=7.
+"""stage1_regime_probe_5_storage_x_topology_v1 sibling seed=13.
 
 Fifth probe in the Stage 1 Regime Map arc (USER 2026-07-03). STORAGE x
 TOPOLOGY (F fan-in) cross-term; CLEANUP_MECHANISM fixed = iterative_cosine.

@@ -1,16 +1,20 @@
-"""stage1_regime_probe_5_storage_x_topology_v1 sibling seed=19.
+"""stage1_regime_probe_9_v2_N_x_algebra_in_band_L_over_Ncliff_v1 sibling seed=19.
 
-Fifth probe in the Stage 1 Regime Map arc (USER 2026-07-03). STORAGE x
-TOPOLOGY (F fan-in) cross-term; CLEANUP_MECHANISM fixed = iterative_cosine.
+Research-authority-directed cheap decisive test (2x-drill NEG1 2026-07-03).
+Tests N x ALGEBRA (chain-depth L) cross-term at BUNDLED modern_hopfield
+near-capacity regime. This is the theoretically-interesting crossover zone
+that Probe 9 v1 (SMOKE HP) did NOT test — v1 only tested pinned endpoints.
 
-Sweep FULL:  2 storage x 4 F x 3 M x 2 corr = 48 pts / seed.
-Sweep SMOKE: 2 storage x 2 F x 1 M x 1 corr + 1 SHARDED_PC_easy = 5 pts / seed.
-N fixed = 4096. L fixed = 2. Mechanism fixed = iterative_cosine.
+Sweep FULL:  3 N x 4 L = 12 BUNDLED_main + 1 SATURATION_PC + 4 DEEP_SAT = 17 pts/seed.
+Sweep SMOKE: 2 N x 2 L =  4 BUNDLED_main + 1 SATURATION_PC              =  5 pts/seed.
 
-CHUNKED architecture: one seed per sibling file. Siblings: s13, s19.
+Fixed: STORAGE=BUNDLED, MECH=modern_hopfield, M=10, F=1, corr=0.10.
+N grid: {1024, 2048, 4096} = {0.5x, 1x, 2x} N_cliff (MEASURED@bracket_scout2).
 
-PRE-REG: preregs/2026-07-03_stage1_regime_probe_5_storage_x_topology_v1.md
-CARDINALITY_OK_FULL: 48 phase points per seed
+CHUNKED architecture: one seed per sibling file. Siblings: s13, s19 pending FULL.
+
+PRE-REG: preregs/2026-07-03_stage1_regime_probe_9_v2_N_x_algebra_in_band_L_over_Ncliff_v1.md
+CARDINALITY_OK_FULL: 17 phase points per seed
 CARDINALITY_OK_SMOKE: 5 phase points per seed
 
 Defensive patterns (USER 2026-06-28):
@@ -20,7 +24,7 @@ Defensive patterns (USER 2026-06-28):
   4. heartbeat: per-phase-point flush print
 
 ASCII-only. No unicode. No em-dashes. No emojis.
-Author: exp_dev 2026-07-03 (Opus 4.7, agent-spawn)
+Author: exp_dev 2026-07-03 (Opus 4.7, agent-spawn). Research-authority-directed.
 """
 from __future__ import annotations
 
@@ -32,7 +36,6 @@ except Exception:
     pass
 
 import os
-# CUDA env before torch import (USER-LOCKED)
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 import argparse
@@ -53,7 +56,7 @@ from experiments._seed_checkpoint import (
 )
 
 SEED = 19
-ANCHOR_NAME = f"stage1_regime_probe_5_storage_x_topology_v1_s{SEED}"
+ANCHOR_NAME = f"stage1_regime_probe_9_v2_N_x_algebra_in_band_L_over_Ncliff_v1_s{SEED}"
 
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--smoke", action="store_true")
@@ -70,14 +73,19 @@ SMOKE_MODE = (RUN_MODE == "smoke")
 
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},"
-    f"regime=FHRR_chain_composition_storage_x_topology_probe,"
-    f"cleanup_mechanism=iterative_cosine(fixed),"
-    f"storage=[SHARDED,BUNDLED],F=[1,2,4,8],"
-    f"M=[200,800,3200],N=4096(fixed),L=2(fixed),corr=[0.20,0.45],"
+    f"regime=bundled_FHRR_chain_composition_near_capacity_N_x_L_CROSS_TERM_v2,"
+    f"mech=modern_hopfield(fixed),storage=BUNDLED(fixed),"
+    f"N=[1024,2048,4096](0.5x1x2x_Ncliff),L=[2,4,8,16],"
+    f"M=10(fixed_near_capacity),F=1(fixed),corr=0.10(fixed),"
+    f"N_cliff=2048(MEASURED@bracket_scout2),"
     f"SEED={SEED},mode={RUN_MODE},"
-    f"SHARDED_PC_easy_regime=fixed_M200_N4096_F1_L2_corr0.20_iterative_cosine,"
+    f"SATURATION_PC_regime=fixed_SHARDED_F1_M800_N2048_L4_corr0.20_modern_hopfield,"
+    f"DEEP_SAT_regime=fixed_BUNDLED_N8192_M100_corr0.60_modern_hopfield_across_L,"
+    f"non_saturated_band=[0.30,0.95],"
     f"beta=8.0,alpha_soft=0.5,"
-    f"expected_n_full=48,expected_n_smoke=5,"
+    f"expected_n_full=17,expected_n_smoke=5,"
+    f"H1_high_bucket_threshold=0.15,H1_low_bucket_threshold=0.05,"
+    f"H1_ALT_overall_threshold=0.10,H2_null_threshold=0.05,"
     f"hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED"
 )
 
@@ -99,7 +107,7 @@ def _write_minimal_metrics(out_dir: Path, verdict: str, verdict_msg: str,
             "pid": os.getpid(),
             "run_mode": RUN_MODE,
             "config_version": CONFIG_VERSION,
-            "_hardening_marker": "stage1_regime_probe_5_storage_x_topology_v1_chunked",
+            "_hardening_marker": "stage1_regime_probe_9_v2_N_x_algebra_in_band_chunked",
         }
         if extra:
             m.update(extra)
@@ -125,7 +133,7 @@ def _write_import_crash_sentinel(exc: Exception) -> None:
             "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "pid": os.getpid(),
             "_traceback": traceback.format_exc(),
-            "_hardening_marker": "stage1_regime_probe_5_storage_x_topology_v1_import_crash",
+            "_hardening_marker": "stage1_regime_probe_9_v2_N_x_algebra_in_band_import_crash",
         }
         tmp = out_dir / "metrics.json.tmp"
         final = out_dir / "metrics.json"
@@ -148,9 +156,9 @@ def main() -> int:
                            f"STARTED: pid={os.getpid()} mode={RUN_MODE} seed={SEED}",
                            extra={"_phase": "init"})
 
-    from experiments._stage1_regime_probe_5_storage_x_topology_v1_core import (
+    from experiments._stage1_regime_probe_9_v2_N_x_algebra_in_band_L_over_Ncliff_v1_core import (
         run_one_seed, aggregate_and_verdict, selftest,
-        DEVICE, GPU_NAME, N_FIXED,
+        DEVICE, GPU_NAME,
     )
 
     backend = "torch.cuda" if DEVICE == "cuda" else "torch.cpu"
@@ -174,7 +182,7 @@ def main() -> int:
             return 1
 
     seeds_list = [SEED]
-    run_config = {"N": N_FIXED, "run_mode": RUN_MODE, "anchor": ANCHOR_NAME}
+    run_config = {"run_mode": RUN_MODE, "anchor": ANCHOR_NAME}
     done, remaining = resumable_seeds(seeds_list, out_dir, run_config=run_config)
     print(f"[ckpt] {len(done)}/{len(seeds_list)} done; running {remaining}",
           flush=True)
@@ -187,7 +195,6 @@ def main() -> int:
                                       "backend": backend})
         t0 = time.time()
         result = run_one_seed(seed, run_mode=RUN_MODE)
-        result["N"] = N_FIXED
         result["anchor_name"] = ANCHOR_NAME
         result["config_version"] = CONFIG_VERSION
         write_partial_key(out_dir, seed, result)
@@ -202,12 +209,12 @@ def main() -> int:
     final["pid"] = os.getpid()
     final["run_mode"] = RUN_MODE
     final["config_version"] = CONFIG_VERSION
-    final["_hardening_marker"] = "stage1_regime_probe_5_storage_x_topology_v1_chunked"
+    final["_hardening_marker"] = "stage1_regime_probe_9_v2_N_x_algebra_in_band_chunked"
     final["backend"] = backend
     final["seed"] = SEED
     final["n_seeds"] = 1
-    final["corpus_provenance"] = ("synthetic_fhrr_chain_composition_"
-                                   "storage_x_topology_probe_v1")
+    final["corpus_provenance"] = ("synthetic_bundled_fhrr_chain_composition_"
+                                   "near_capacity_N_x_L_CROSS_TERM_probe9_v2")
     final["n_llm_calls"] = _LLM_CALL_COUNTER[0]
 
     assert _LLM_CALL_COUNTER[0] == 0, \
@@ -231,7 +238,7 @@ if __name__ == "__main__":
         raise
     except KeyboardInterrupt:
         raise
-    except Exception as e:  # NOT BaseException (META_RULE section 8)
+    except Exception as e:  # NOT BaseException (META_RULE section 8; SystemExit ordered first)
         _write_import_crash_sentinel(e)
         print(f"[main] OUTER_EXCEPTION: {e}", file=sys.stderr, flush=True)
         traceback.print_exc()

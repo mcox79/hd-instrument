@@ -1,17 +1,25 @@
-"""stage1_regime_probe_5_storage_x_topology_v1 sibling seed=19.
+"""stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1 sibling seed=13.
 
-Fifth probe in the Stage 1 Regime Map arc (USER 2026-07-03). STORAGE x
-TOPOLOGY (F fan-in) cross-term; CLEANUP_MECHANISM fixed = iterative_cosine.
+ALGEBRA (F fan-out) x CLEANUP_MECHANISM at cliff-adjacent regime.
+Fills the 4th data point on revised regime hypothesis "ALL Stage 1 axes moderate
+CLEANUP_MECHANISM at cliff-adjacent; NONE at deep-saturation."
+Companion to Probes 6 v2 (TOPOLOGY) and 7 v2 (N/SCALE_FREE); Probe 1 covers STORAGE.
 
-Sweep FULL:  2 storage x 4 F x 3 M x 2 corr = 48 pts / seed.
-Sweep SMOKE: 2 storage x 2 F x 1 M x 1 corr + 1 SHARDED_PC_easy = 5 pts / seed.
-N fixed = 4096. L fixed = 2. Mechanism fixed = iterative_cosine.
+Sweep FULL: 5 F x 3 mech (CLIFF) + 3 F x 3 mech (DEEP_SAT) + 1 PC = 25 pts/seed.
+Sweep SMOKE: 2 F x 3 mech (CLIFF) + 1 F x 3 mech (DEEP_SAT) + 1 PC = 10 pts.
 
-CHUNKED architecture: one seed per sibling file. Siblings: s13, s19.
+Hypotheses (band-restricted, [0.30, 0.95] non-saturated slice on CLIFF arm):
+  H1: cliff_max_per_F_mech_variance_in_band >= 0.10 -> F IS a moderator at cliff.
+  H2: cliff_max_per_F_mech_variance_in_band < 0.05 -> F degeneracy at cliff.
+  H3: mech ranking changes across F within band on CLIFF (MM_TENTATIVE).
+  H3-NULL: DEEP_SAT max_mech_variance < 0.05 -> mechanism DEGENERACY at saturation.
 
-PRE-REG: preregs/2026-07-03_stage1_regime_probe_5_storage_x_topology_v1.md
-CARDINALITY_OK_FULL: 48 phase points per seed
-CARDINALITY_OK_SMOKE: 5 phase points per seed
+CHUNKED architecture: one seed per sibling file. Siblings: s13, s19 (to be authored by Orchestrator
+after Tailscale restore for 3-seed FULL replication).
+
+PRE-REG: preregs/2026-07-03_stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1.md
+CARDINALITY_OK_FULL: 25 phase points per seed
+CARDINALITY_OK_SMOKE: 10 phase points per seed
 
 Defensive patterns (USER 2026-06-28):
   1. start_marker
@@ -52,8 +60,8 @@ from experiments._seed_checkpoint import (
     resumable_seeds, write_partial_key, aggregate_partials,
 )
 
-SEED = 19
-ANCHOR_NAME = f"stage1_regime_probe_5_storage_x_topology_v1_s{SEED}"
+SEED = 13
+ANCHOR_NAME = f"stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_s{SEED}"
 
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--smoke", action="store_true")
@@ -70,14 +78,19 @@ SMOKE_MODE = (RUN_MODE == "smoke")
 
 CONFIG_VERSION = (
     f"ANCHOR={ANCHOR_NAME},"
-    f"regime=FHRR_chain_composition_storage_x_topology_probe,"
-    f"cleanup_mechanism=iterative_cosine(fixed),"
-    f"storage=[SHARDED,BUNDLED],F=[1,2,4,8],"
-    f"M=[200,800,3200],N=4096(fixed),L=2(fixed),corr=[0.20,0.45],"
+    f"regime=sharded_FHRR_chain_composition_algebra_x_cleanup_cliff_plus_deep_sat_null,"
+    f"cleanup_mechanisms=[modern_hopfield,iterative_cosine,soft_energy_attractor],"
+    f"F_cliff=[1,2,4,8,16],F_deep=[1,4,16],"
+    f"CLIFF=(N=512,M=6400,corr=0.85,L=2,SHARDED),"
+    f"DEEP_SAT=(N=8192,M=800,corr=0.60,L=2,SHARDED),"
+    f"SATURATION_PC=(F=1,M=800,N=2048,corr=0.20,iterative_cosine),"
     f"SEED={SEED},mode={RUN_MODE},"
-    f"SHARDED_PC_easy_regime=fixed_M200_N4096_F1_L2_corr0.20_iterative_cosine,"
     f"beta=8.0,alpha_soft=0.5,"
-    f"expected_n_full=48,expected_n_smoke=5,"
+    f"non_saturated_band=[0.30,0.95],"
+    f"H1_thresh=(cliff_max_per_F_var_in_band>=0.10),"
+    f"H2_thresh=(cliff_max_per_F_var_in_band<0.05),"
+    f"H3_null_thresh=(deep_max_var<0.05),"
+    f"expected_n_full=25,expected_n_smoke=10,"
     f"hardening=L1startmarker+L2crashdiag+L3perseedckpt+L4heartbeat+CHUNKED_PER_SEED"
 )
 
@@ -99,14 +112,14 @@ def _write_minimal_metrics(out_dir: Path, verdict: str, verdict_msg: str,
             "pid": os.getpid(),
             "run_mode": RUN_MODE,
             "config_version": CONFIG_VERSION,
-            "_hardening_marker": "stage1_regime_probe_5_storage_x_topology_v1_chunked",
+            "_hardening_marker": "stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_chunked",
         }
         if extra:
             m.update(extra)
         tmp = out_dir / "metrics.json.tmp"
         final = out_dir / "metrics.json"
         tmp.write_text(json.dumps(m, indent=2, default=str), encoding="utf-8")
-        os.replace(tmp, final)  # atomic per META_RULE_AH
+        os.replace(tmp, final)
     except Exception as e:
         print(f"[_write_minimal_metrics] FAIL: {e}", file=sys.stderr, flush=True)
 
@@ -125,7 +138,7 @@ def _write_import_crash_sentinel(exc: Exception) -> None:
             "ts_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "pid": os.getpid(),
             "_traceback": traceback.format_exc(),
-            "_hardening_marker": "stage1_regime_probe_5_storage_x_topology_v1_import_crash",
+            "_hardening_marker": "stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_import_crash",
         }
         tmp = out_dir / "metrics.json.tmp"
         final = out_dir / "metrics.json"
@@ -148,14 +161,14 @@ def main() -> int:
                            f"STARTED: pid={os.getpid()} mode={RUN_MODE} seed={SEED}",
                            extra={"_phase": "init"})
 
-    from experiments._stage1_regime_probe_5_storage_x_topology_v1_core import (
+    from experiments._stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_core import (
         run_one_seed, aggregate_and_verdict, selftest,
-        DEVICE, GPU_NAME, N_FIXED,
+        DEVICE, GPU_NAME, CLIFF_N, DEEP_SAT_N,
     )
 
     backend = "torch.cuda" if DEVICE == "cuda" else "torch.cpu"
-    print(f"[{ANCHOR_NAME}] mode={RUN_MODE} seed={SEED} backend={backend} "
-          f"gpu={GPU_NAME}", flush=True)
+    print(f"[{ANCHOR_NAME}] mode={RUN_MODE} seed={SEED} backend={backend} gpu={GPU_NAME}",
+          flush=True)
 
     if SELF_TEST_MODE:
         try:
@@ -174,7 +187,8 @@ def main() -> int:
             return 1
 
     seeds_list = [SEED]
-    run_config = {"N": N_FIXED, "run_mode": RUN_MODE, "anchor": ANCHOR_NAME}
+    N_max = max(CLIFF_N, DEEP_SAT_N)
+    run_config = {"N": N_max, "run_mode": RUN_MODE, "anchor": ANCHOR_NAME}
     done, remaining = resumable_seeds(seeds_list, out_dir, run_config=run_config)
     print(f"[ckpt] {len(done)}/{len(seeds_list)} done; running {remaining}",
           flush=True)
@@ -187,7 +201,7 @@ def main() -> int:
                                       "backend": backend})
         t0 = time.time()
         result = run_one_seed(seed, run_mode=RUN_MODE)
-        result["N"] = N_FIXED
+        result["N"] = N_max
         result["anchor_name"] = ANCHOR_NAME
         result["config_version"] = CONFIG_VERSION
         write_partial_key(out_dir, seed, result)
@@ -202,12 +216,11 @@ def main() -> int:
     final["pid"] = os.getpid()
     final["run_mode"] = RUN_MODE
     final["config_version"] = CONFIG_VERSION
-    final["_hardening_marker"] = "stage1_regime_probe_5_storage_x_topology_v1_chunked"
+    final["_hardening_marker"] = "stage1_regime_probe_8_algebra_x_cleanup_non_saturated_v1_chunked"
     final["backend"] = backend
     final["seed"] = SEED
     final["n_seeds"] = 1
-    final["corpus_provenance"] = ("synthetic_fhrr_chain_composition_"
-                                   "storage_x_topology_probe_v1")
+    final["corpus_provenance"] = "synthetic_sharded_fhrr_chain_composition_algebra_cliff_v1"
     final["n_llm_calls"] = _LLM_CALL_COUNTER[0]
 
     assert _LLM_CALL_COUNTER[0] == 0, \
@@ -216,7 +229,7 @@ def main() -> int:
     tmp = out_dir / "metrics.json.tmp"
     final_path = out_dir / "metrics.json"
     tmp.write_text(json.dumps(final, indent=2, default=str), encoding="utf-8")
-    os.replace(tmp, final_path)  # atomic per META_RULE_AH
+    os.replace(tmp, final_path)
     print(f"[{ANCHOR_NAME}] DONE: {final['verdict_msg']}", flush=True)
     print(f"[{ANCHOR_NAME}] cardinality observed={final.get('observed_n_units')} "
           f"expected={final.get('expected_n_units')} "
@@ -231,7 +244,7 @@ if __name__ == "__main__":
         raise
     except KeyboardInterrupt:
         raise
-    except Exception as e:  # NOT BaseException (META_RULE section 8)
+    except Exception as e:  # NOT BaseException (META_RULE §8)
         _write_import_crash_sentinel(e)
         print(f"[main] OUTER_EXCEPTION: {e}", file=sys.stderr, flush=True)
         traceback.print_exc()

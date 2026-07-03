@@ -1,4 +1,4 @@
-"""stage1_regime_probe_7_N_x_cleanup_non_saturated_v1 sibling seed=7.
+"""stage1_regime_probe_7_N_x_cleanup_non_saturated_v1 sibling seed=19.
 
 Non-saturated regime revival of Probe 2 (N x CLEANUP_MECHANISM).
 Companion to Probe 6 (F x CLEANUP TOPOLOGY revival, same day).
