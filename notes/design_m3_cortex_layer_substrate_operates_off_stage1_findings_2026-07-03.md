@@ -45,7 +45,7 @@ Original design assumed rerank-tandem was the retrieval-fix. Composite ruling 20
 
 ### Layer 0.5: KG-walk retrieval (NEW; drill-informed 2026-07-03)
 
-**Purpose:** surface bridge chunks that Layer 0 dense retrieval structurally cannot reach (validated regime per Exp 1 MM_SCALE_BOUNDED bridge-entity coverage 0.982 on synthetic + Exp 2 MB_STRUCTURAL_LIMIT PPR recovery 0.170 on random-KG floor; Wikipedia semantic-KB detour gates final promotion).
+**Purpose:** surface bridge chunks that Layer 0 dense retrieval structurally cannot reach (validated regime per Exp 1 MM_SCALE_BOUNDED bridge-entity coverage 0.982 on synthetic + Exp 2 MB_STRUCTURAL_LIMIT PPR recovery 0.170 on random-KG floor + Exp 2C MEASURED_MECHANISM PPR recovery 0.993 on real semantic KG within hub-concept-bridge scope).
 
 **Composition of existing primitives (per drill KEY REFRAME: Director-KB is already a knowledge graph):**
 - `hdlab/kg_traversal.py::KGStore` — already the graph; Wikidata triples (5,510 relations from 2026-06-14 ingest at `data/substrate_state/wikidata_action_api_v2_relabeled_adapted_relations.jsonl`) directly usable as production-scale semantic KG
@@ -56,7 +56,31 @@ Original design assumed rerank-tandem was the retrieval-fix. Composite ruling 20
 
 **Fallback (MDR-style, only if PPR mass degenerate/empty):** re-encode query ⊕ hop-1-passage-text with the dense frontend and re-query the flat index directly. This is the incomplete-KB fallback (PullNet rationale) since the substrate's KG is not Freebase-complete.
 
-**Output:** UNION of {hop-1 dense candidates, hop-2 PPR candidates, MDR-fallback candidates} → fed into Layer 1 (VSA compositional query) or Layer 2 (cortex control) as appropriate.
+**Output:** UNION of {hop-1 dense candidates, hop-2 PPR candidates, MDR-fallback candidates} → **FEEDS INTO NEW LAYER 0.75, not directly into Layer 1** (per Exp 3 MB_INTERFACE_BOUND finding 2026-07-03).
+
+### Layer 0.75: Query-aware candidate-set refinement (NEW REQUIREMENT; Exp 3 discovered 2026-07-03)
+
+**Purpose:** reduce ~30 candidates from Layer 0.5 union down to ~2-5 clean candidates that composition (Layer 1) can consume without argmax noise cascade failure.
+
+**Discovered because:** Exp 3 SMOKE 2026-07-03 measured:
+- ORACLE (correct 2 chunks → composition): 0.822 F1
+- MAIN (PPR union ~30 chunks → composition): 0.411 F1
+- Composition primitive INTACT (ORACLE reproduces); PPR mechanism INTACT (Exp 2C 0.993 recovery replicates); INTERFACE between them fails.
+
+**Skunkworks-verified mechanism attribution:** IMPLEMENTATION primary (missing primitive), STRUCTURAL secondary (FHRR CRLB rises 2.5× from K=5 to K=30 but doesn't explain full gap alone). Load-bearing gap = missing query-aware candidate-scoring primitive.
+
+**Design candidates (external drills A/B/C in flight informing choice):**
+- Reranker layer (cross-encoder, cosine-only for substrate-native)
+- Hierarchical FHRR cleanup (per substrate's own 2026-06-10 research drill; never operationalized)
+- Query-conditioned PPR-mass rescoring
+- Diversity-aware MMR-style selection
+- Learned candidate scoring (small primitive, no external LLM)
+
+**Prereg gate for the primitive:** must lift Layer 0.5+0.75 composed pipeline MAIN to ≥0.90×ORACLE (~0.74) at same N_DIM=4096 regime. Deliverable = single primitive (Principle 11 compositional discipline) not full retrieval-pipeline rewrite.
+
+**Related atoms filed 2026-07-03:**
+- `substrate_exp3_composition_recovery_hub_bridge_INTERFACE_BOUND_MB_2026_07_03` (math)
+- `META_RULE_composition_primitive_input_shape_contract_2026_07_03` MM_TENTATIVE_SYNTHESIS (meta) — FHRR composition input-shape contract
 
 ### Layer 1: Substrate VSA compositional query layer
 
