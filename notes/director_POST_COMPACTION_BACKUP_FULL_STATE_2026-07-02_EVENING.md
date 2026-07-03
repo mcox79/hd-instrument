@@ -31,12 +31,21 @@
 - No per-seed metrics.json checkpoint (2/3 seeds' worth of results LOST from formal record)
 - Both to be filed as DISCIPLINE_META atoms via Skunkworks
 
-**3-witness pattern for meta-synthesis (per Skunkworks-consideration):**
+**4-witness pattern for meta-synthesis (Skunkworks CORRECTED my count):**
 - Witness 1: 2026-07-02 v1 concept_encoder substrate-content HF (WordNet N=100)
-- Witness 2: V2-A PPMI/SVD WordNet FULL MB (+0.012 narrowed but positive at N=500)
-- Witness 3: PPMI/SVD Wikipedia FULL 10K preliminary HF (−0.024 REVERSAL at N=10K)
-- Pattern: substrate-native concept mechanisms narrow → reverse as N scales; more extreme reversal at more extreme scale
-- Candidate META synthesis atom: `SUBSTRATE_NATIVE_CONCEPT_MECHANISMS_NARROW_TO_REVERSAL_VS_SURFACE_AT_SCALE_ON_REAL_CORPUS`
+- Witness 2: Component C modern-Hopfield readout Wikipedia HF (2026-07-03)
+- Witness 3: VWFA multi-scale Wikipedia SMOKE HF (2026-07-03 v3-composed multi-arm)
+- Witness 4: PPMI/SVD Wikipedia FULL 10K preliminary HF (2026-07-03 −0.024 REVERSAL at N=10K)
+
+**Skunkworks filed META MM_TENTATIVE_SYNTHESIS:** `SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE` — broader than my "concept mechanisms" framing; includes concept + readout + composed + multi-scale surface. Heterogeneous mechanism classes → MM tier (not CG_META).
+
+**Skunkworks framing correction on me:** the pattern is at a HIGHER level than "concept mechanisms fail." Spoke 3 hippocampal is the DISCRIMINATING test:
+- **If Spoke 3 also loses:** pattern → CG_META promotion; **retrieval task class itself may be the wrong lens for Stage 2** — need to reframe substrate benchmarks (analogy? multi-hop? generation? — not held-out retrieval)
+- **If Spoke 3 wins:** refutes pattern; carves scope back to "structural mechanisms lacking episodic binding"
+
+**Skunkworks filed CG_META DISCIPLINE_META atom:** `FULL_CELL_TIMEOUT_BUDGET_3X_SAFETY_MARGIN_AND_PER_SEED_CHECKPOINT` — cell-quality two-part rule for all future FULL cells.
+
+**Fix#28-family gotcha caught:** local `metrics.json` at PPMI FULL path had STALE LOCAL SMOKE (02:18Z, N=500, r@5=0.906) that would have misled verification if trusted. Skunkworks SSH-pull to remote heartbeat was authoritative. **Corpus-completeness remote-vs-local half-data gotcha applies.** Director must SSH-pull remote heartbeat/metrics for FULL landings; do NOT trust local metrics.json path for FULL cells.
 
 ## 🎯 v3-COMPOSED WIKIPEDIA MULTI-ARM SMOKE LANDED MB + POST-PPMI-FULL DECISION FORK (2026-07-03 ~02:40Z)
 
