@@ -1211,3 +1211,44 @@ math=38, meta=38 = 76 atoms today. Delta this landing: CG +1, CG_META +1.
 
 ### Commits pushed to origin today:
 be6edc73b (M-sweep author) → b3e1d0d85 (queue_add regex) → 71bf08142 (BACKUP amend 7) → b880f7ce1 (landing_notifier pane) → 01f41fc20 (Exp 3E cell) → 4c17c7b09 (Exp 3D)
+
+## 2026-07-03 17:20Z AMENDMENT 9 (Exp 3E FULL ARC CLOSURE + 3hr autonomy queue firing)
+
+### Exp 3E FULL landed HARD_PASS_FULL_ARC_CLOSURE_V3_CLEAN (17:11Z)
+Retrieval-architecture arc CLOSES on hub-concept-bridge scope at N=8192, 100q × 3 seeds. All 4 arc-closure gates PASS: MAIN 0.737 ≥ 0.735 threshold; cv=0.082<0.10; all seeds ≥ 0.68 > 0.60; v3_stacked_s1s2 drift 0.004 vs Exp 3D 0.511 (S1+S2-subtract validated at FULL). Wall 154s on GPU. Landing at cosmetic double-prefix path `data/exp_exp_substrate_.../metrics.json` (SH-4 known; Testbed candidate).
+
+### USER back after 1hr; critique: "basically nothing in 1hr" — CORRECTED
+Was serially waiting on landings vs running 3-5 spawns in parallel. Corrected: 5 spawns now in flight, cap maintained.
+
+### 3hr autonomy queue (rails in place for USER-out-3hrs car window):
+Currently in flight (as of 17:20Z):
+1. Skunkworks Exp 3E FULL VET (CG-tier arc closure atomization)
+2. Explore 170K-atom scale re-test precedents mine
+3. hdi_exp_dev physics-law joint composition test cell (potential 6th CG_META axis)
+4. hdi_exp_dev hdlab Layer 0.75 v3 primitive promotion (arc-closed mechanism → hdlab first-class)
+5. hdi_exp_dev Layer 0.5 production wiring skeleton (end-to-end integration seam test)
+
+Testbed KB cap fix: returned "Reingest running" (background task)
+
+### Rails for autonomy:
+- Cron nudge active (auto-expires 2026-07-10; 20-min interval)
+- Landing pane at data/latest_landings.md auto-refreshes every 3 min per Testbed 2026-07-03 fix
+- Post-landing pattern: HP → Skunkworks VET → next dispatch; HF → deep-dive per USER-locked HF policy
+- Arc-continuation-vs-arc-closure discipline (isolated SMOKE ≠ closure)
+- Full-auto = make the call, don't stack questions
+- Spawn budget 5 maintained at cap
+- Next queue lined up: 170K-atom scale re-test cell (post Explore return); Layer 0.5 production wiring FULL (post SMOKE HP)
+
+### Drills landed while USER out (synthesized, filed as reference):
+- Physics-law composition methodology: RG crossover + multicritical points expected; tensor-product WRONG assumption; factorial grid + ANOVA discipline standard
+- BridgeRAG tripartite: `s(q,b,c)` is LLM prompt not math object; LLM-free Condition A (SVO cosine) captures 97-98% of peak; concrete substrate implementation provided; filed as contingency for post-arc-closure work
+
+### Session cumulative (post Exp 3E FULL, pre Skunkworks VET):
+- 12 landings today (11 VETed + Exp 3E FULL pending VET)
+- 5th Stage 1 CG_META physics-law axis awarded (M-sweep FULL)
+- **Retrieval-architecture arc CLOSED** at FULL scale on hub-concept-bridge scope
+- 79 atoms filed (math=40, meta=39) — pending +2-3 from Exp 3E VET
+- 10 memory rules filed today
+- 2 durable infrastructure fixes (queue_add regex + landing pane)
+- 5-layer compliance-test protocol filed (arc-continuation-vs-arc-closure discipline included)
+- KB cap fix reingest running (unblocks Layer 0.5 production wiring)
