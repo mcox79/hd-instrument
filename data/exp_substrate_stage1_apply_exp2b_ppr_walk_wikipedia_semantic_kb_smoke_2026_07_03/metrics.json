@@ -1,0 +1,2547 @@
+{
+  "anchor_name": "substrate_stage1_apply_exp2b_ppr_walk_wikipedia_semantic_kb_smoke_2026_07_03",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HALT_KG_DATA_AVAILABILITY_FLOOR_BREACH: KG mean_edges_per_node < 1.0 across >= 50% of queries in at least one seed. Stats [(11, 0.3, 0.8), (17, 0.4, 0.98), (23, 0.15, 0.46)]. Data problem (HotpotQA titles don't cross-reference enough for a graph-walk KG); NOT a mechanism failure. Escalate to Director to revisit KG construction (LLM-based OpenIE / bigger KG scope).",
+  "summary": "HALT_KG_DATA_AVAILABILITY_FLOOR_BREACH: KG mean_edges_per_node < 1.0 across >= 50% of queries in at least one seed. Stats [(11, 0.3, 0.8), (17, 0.4, 0.98), (23, 0.15, 0.46)]. Data problem (HotpotQA titles don't cross-reference enough for a graph-walk KG); NOT a mechanism failure. Escalate to Director to revisit KG construction (LLM-based OpenIE / bigger KG scope).",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "n_queries_per_seed": 20,
+  "bge_model": "BAAI/bge-small-en-v1.5",
+  "ppr_alpha": 0.15,
+  "ppr_iters": 5,
+  "ppr_top_k": 5,
+  "cosine_thresh": 0.5,
+  "mass_conservation_tol": 0.005,
+  "kg_signal_floor": 1.0,
+  "kg_signal_query_frac_min": 0.5,
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_queries": 20,
+      "n_missed_by_hop1": 1,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": {
+          "recall_at_k": 0.95,
+          "n_hits": 19,
+          "n": 20
+        },
+        "ARM_MAIN_PPR_RECOVERED": {
+          "recall_at_k": 0.75,
+          "n_hits": 15,
+          "n": 20
+        },
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": {
+          "recall_at_k": 0.9,
+          "n_hits": 18,
+          "n": 20
+        },
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": {
+          "recall_at_k": 0.6,
+          "n_hits": 12,
+          "n": 20
+        }
+      },
+      "ppr_recovery_rate": 0.0,
+      "n_ppr_recovered_on_missed_subset": 0,
+      "arm_digests": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": "bf6bf58bc213575e",
+        "ARM_MAIN_PPR_RECOVERED": "2cbbed8faa3f3fc4",
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": "527f5f7ee076f65c",
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": "dd9b7d3f8b3ea5e0"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "n_sents": 37,
+          "n_titles_distinct": 10,
+          "n_edges": 6,
+          "mean_deg": 1.2,
+          "target_flat_idx": [
+            23,
+            30
+          ],
+          "hop1_top_k": [
+            23,
+            20,
+            8,
+            27,
+            2
+          ],
+          "matched_entities": [
+            "IK Start"
+          ],
+          "pos_seed_entity": "2011 La Manga Cup",
+          "neg_seed_entity": "2015 La Manga Cup",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            23,
+            25,
+            24,
+            26,
+            20
+          ],
+          "sf_titles": [
+            "2011 La Manga Cup",
+            "IK Start"
+          ]
+        },
+        {
+          "qi": 1,
+          "n_sents": 49,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            8,
+            31
+          ],
+          "hop1_top_k": [
+            31,
+            38,
+            2,
+            25,
+            44
+          ],
+          "matched_entities": [
+            "Roosevelt Franklin"
+          ],
+          "pos_seed_entity": "Robert Digges Wimberly Connor",
+          "neg_seed_entity": "Wendell Willkie",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            14,
+            12,
+            15,
+            13,
+            31
+          ],
+          "sf_titles": [
+            "Robert Digges Wimberly Connor",
+            "National Archives and Records Administration"
+          ]
+        },
+        {
+          "qi": 2,
+          "n_sents": 44,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            0,
+            31
+          ],
+          "hop1_top_k": [
+            0,
+            2,
+            31,
+            4,
+            9
+          ],
+          "matched_entities": [
+            "A Bad Goodbye",
+            "Show Her"
+          ],
+          "pos_seed_entity": "Show Her",
+          "neg_seed_entity": "Say Forever You'll Be Mine (song)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            0,
+            2,
+            4,
+            7,
+            5
+          ],
+          "sf_titles": [
+            "Show Her",
+            "Mike Reid (singer)"
+          ]
+        },
+        {
+          "qi": 3,
+          "n_sents": 38,
+          "n_titles_distinct": 10,
+          "n_edges": 3,
+          "mean_deg": 0.6,
+          "target_flat_idx": [
+            14,
+            15,
+            23,
+            24
+          ],
+          "hop1_top_k": [
+            24,
+            23,
+            14,
+            15,
+            29
+          ],
+          "matched_entities": [
+            "Chad"
+          ],
+          "pos_seed_entity": "Geography of the Central African Republic",
+          "neg_seed_entity": "MISCA",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            24,
+            23,
+            25,
+            14,
+            15
+          ],
+          "sf_titles": [
+            "Geography of the Central African Republic",
+            "Geography of the Central African Republic",
+            "Chad",
+            "Chad"
+          ]
+        },
+        {
+          "qi": 4,
+          "n_sents": 61,
+          "n_titles_distinct": 10,
+          "n_edges": 8,
+          "mean_deg": 1.6,
+          "target_flat_idx": [
+            33,
+            38
+          ],
+          "hop1_top_k": [
+            35,
+            39,
+            33,
+            2,
+            54
+          ],
+          "matched_entities": [
+            "Giotto",
+            "Giovanni dal Ponte",
+            "Lorenzo Monaco"
+          ],
+          "pos_seed_entity": "Lorenzo Monaco",
+          "neg_seed_entity": "Francesco d'Antonio",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            35,
+            38,
+            36,
+            37,
+            20
+          ],
+          "sf_titles": [
+            "Lorenzo Monaco",
+            "Giotto"
+          ]
+        },
+        {
+          "qi": 5,
+          "n_sents": 24,
+          "n_titles_distinct": 10,
+          "n_edges": 2,
+          "mean_deg": 0.4,
+          "target_flat_idx": [
+            5,
+            10
+          ],
+          "hop1_top_k": [
+            10,
+            13,
+            2,
+            5,
+            23
+          ],
+          "matched_entities": [
+            "Dan Clark",
+            "Michael Crawford",
+            "Robin Chalk"
+          ],
+          "pos_seed_entity": "Chalk and Cheese",
+          "neg_seed_entity": "Mark Benton",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            10,
+            5,
+            6,
+            12,
+            11
+          ],
+          "sf_titles": [
+            "Chalk and Cheese",
+            "Michael Crawford"
+          ]
+        },
+        {
+          "qi": 6,
+          "n_sents": 47,
+          "n_titles_distinct": 10,
+          "n_edges": 4,
+          "mean_deg": 0.8,
+          "target_flat_idx": [
+            23,
+            24,
+            45
+          ],
+          "hop1_top_k": [
+            45,
+            38,
+            10,
+            5,
+            36
+          ],
+          "matched_entities": [
+            "Boggle",
+            "WordCrex"
+          ],
+          "pos_seed_entity": "Boggle",
+          "neg_seed_entity": "Camouflage (2007 game show)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            45,
+            46,
+            38,
+            10,
+            5
+          ],
+          "sf_titles": [
+            "Boggle",
+            "Parker Brothers",
+            "Parker Brothers"
+          ]
+        },
+        {
+          "qi": 7,
+          "n_sents": 35,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            3,
+            7,
+            10
+          ],
+          "hop1_top_k": [
+            7,
+            28,
+            31,
+            18,
+            14
+          ],
+          "matched_entities": [
+            "CommunityAmerica Ballpark"
+          ],
+          "pos_seed_entity": "Children's Mercy Park",
+          "neg_seed_entity": "MLS Cup 2004",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            7,
+            3,
+            4,
+            8,
+            6
+          ],
+          "sf_titles": [
+            "Children's Mercy Park",
+            "Children's Mercy Park",
+            "CommunityAmerica Ballpark"
+          ]
+        },
+        {
+          "qi": 8,
+          "n_sents": 62,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            17,
+            18,
+            20,
+            23
+          ],
+          "hop1_top_k": [
+            20,
+            23,
+            18,
+            44,
+            42
+          ],
+          "matched_entities": [
+            "Clint Eastwood",
+            "Kyle Craig",
+            "Pat Hingle"
+          ],
+          "pos_seed_entity": "Pat Hingle",
+          "neg_seed_entity": "Longhorn Ballroom",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            20,
+            23,
+            18,
+            17,
+            19
+          ],
+          "sf_titles": [
+            "Pat Hingle",
+            "Pat Hingle",
+            "Clint Eastwood",
+            "Clint Eastwood"
+          ]
+        },
+        {
+          "qi": 9,
+          "n_sents": 36,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            0,
+            1,
+            7
+          ],
+          "hop1_top_k": [
+            0,
+            7,
+            27,
+            19,
+            16
+          ],
+          "matched_entities": [
+            "Marty Belafsky",
+            "Shaheed Woods",
+            "Tim Bedore"
+          ],
+          "pos_seed_entity": "Sleepless in Seattle",
+          "neg_seed_entity": "Bokuzen Hidari",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            27,
+            19,
+            16,
+            17,
+            21
+          ],
+          "sf_titles": [
+            "Sleepless in Seattle",
+            "Sleepless in Seattle",
+            "Rosie O'Donnell"
+          ]
+        },
+        {
+          "qi": 10,
+          "n_sents": 30,
+          "n_titles_distinct": 10,
+          "n_edges": 12,
+          "mean_deg": 2.4,
+          "target_flat_idx": [
+            5,
+            12
+          ],
+          "hop1_top_k": [
+            24,
+            10,
+            1,
+            5,
+            12
+          ],
+          "matched_entities": [
+            "Sam Raimi",
+            "Stephen Susco",
+            "The Grudge"
+          ],
+          "pos_seed_entity": "The Grudge 2",
+          "neg_seed_entity": "The Grudge 3",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            1,
+            0,
+            3,
+            2,
+            24
+          ],
+          "sf_titles": [
+            "The Grudge 2",
+            "Sam Raimi"
+          ]
+        },
+        {
+          "qi": 11,
+          "n_sents": 41,
+          "n_titles_distinct": 10,
+          "n_edges": 7,
+          "mean_deg": 1.4,
+          "target_flat_idx": [
+            12,
+            15,
+            32
+          ],
+          "hop1_top_k": [
+            28,
+            15,
+            31,
+            9,
+            32
+          ],
+          "matched_entities": [
+            "Cartoon Cartoons",
+            "Kyle Carrozza",
+            "Pepper Ann",
+            "Tom Warburton"
+          ],
+          "pos_seed_entity": "Codename: Kids Next Door",
+          "neg_seed_entity": "Sheep in the Big City",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 0,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            15,
+            13,
+            12,
+            17,
+            14
+          ],
+          "sf_titles": [
+            "Codename: Kids Next Door",
+            "Tom Warburton",
+            "Tom Warburton"
+          ]
+        },
+        {
+          "qi": 12,
+          "n_sents": 35,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            9,
+            33
+          ],
+          "hop1_top_k": [
+            9,
+            12,
+            33,
+            30,
+            0
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Charlize Theron filmography",
+          "neg_seed_entity": "74th Academy Awards",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            9,
+            12,
+            33,
+            30,
+            0
+          ],
+          "sf_titles": [
+            "Charlize Theron filmography",
+            "Monster (2003 film)"
+          ]
+        },
+        {
+          "qi": 13,
+          "n_sents": 38,
+          "n_titles_distinct": 10,
+          "n_edges": 2,
+          "mean_deg": 0.4,
+          "target_flat_idx": [
+            21,
+            22,
+            23,
+            36,
+            37
+          ],
+          "hop1_top_k": [
+            11,
+            37,
+            6,
+            23,
+            22
+          ],
+          "matched_entities": [
+            "Accession Council"
+          ],
+          "pos_seed_entity": "Mark Masons' Hall, London",
+          "neg_seed_entity": "Grange Hall (Murphysboro, Illinois)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            37,
+            36,
+            11,
+            13,
+            12
+          ],
+          "sf_titles": [
+            "Mark Masons' Hall, London",
+            "Mark Masons' Hall, London",
+            "Mark Masons' Hall, London",
+            "St James's Palace",
+            "St James's Palace"
+          ]
+        },
+        {
+          "qi": 14,
+          "n_sents": 46,
+          "n_titles_distinct": 10,
+          "n_edges": 2,
+          "mean_deg": 0.4,
+          "target_flat_idx": [
+            7,
+            44
+          ],
+          "hop1_top_k": [
+            5,
+            7,
+            43,
+            36,
+            44
+          ],
+          "matched_entities": [
+            "A41 road",
+            "Backford Cross"
+          ],
+          "pos_seed_entity": "Backford Cross",
+          "neg_seed_entity": "Param, Rampur",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            43,
+            29,
+            24,
+            27,
+            32
+          ],
+          "sf_titles": [
+            "Backford Cross",
+            "A41 road"
+          ]
+        },
+        {
+          "qi": 15,
+          "n_sents": 52,
+          "n_titles_distinct": 10,
+          "n_edges": 3,
+          "mean_deg": 0.6,
+          "target_flat_idx": [
+            16,
+            17,
+            26,
+            27
+          ],
+          "hop1_top_k": [
+            26,
+            16,
+            28,
+            13,
+            4
+          ],
+          "matched_entities": [
+            "Graham Schweig"
+          ],
+          "pos_seed_entity": "The Company They Keep",
+          "neg_seed_entity": "Peter L. Berger",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            4,
+            6,
+            7,
+            8,
+            5
+          ],
+          "sf_titles": [
+            "The Company They Keep",
+            "The Company They Keep",
+            "Azusa Pacific University",
+            "Azusa Pacific University"
+          ]
+        },
+        {
+          "qi": 16,
+          "n_sents": 46,
+          "n_titles_distinct": 10,
+          "n_edges": 19,
+          "mean_deg": 3.8,
+          "target_flat_idx": [
+            12,
+            29
+          ],
+          "hop1_top_k": [
+            30,
+            5,
+            40,
+            0,
+            42
+          ],
+          "matched_entities": [
+            "Blue",
+            "YCoCg"
+          ],
+          "pos_seed_entity": "Innocent Records",
+          "neg_seed_entity": "Brown",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            16,
+            13,
+            15,
+            18,
+            17
+          ],
+          "sf_titles": [
+            "Innocent Records",
+            "Blue"
+          ]
+        },
+        {
+          "qi": 17,
+          "n_sents": 19,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            1,
+            4
+          ],
+          "hop1_top_k": [
+            1,
+            4,
+            13,
+            6,
+            2
+          ],
+          "matched_entities": [
+            "Alistair Grant",
+            "British people"
+          ],
+          "pos_seed_entity": "Alistair Grant",
+          "neg_seed_entity": "Australian referendum, 1937",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            1,
+            4,
+            2,
+            3,
+            13
+          ],
+          "sf_titles": [
+            "Alistair Grant",
+            "British people"
+          ]
+        },
+        {
+          "qi": 18,
+          "n_sents": 39,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            9,
+            33,
+            37
+          ],
+          "hop1_top_k": [
+            33,
+            27,
+            22,
+            9,
+            12
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Shellite (explosive)",
+          "neg_seed_entity": "1-Pentanol",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            33,
+            9,
+            34,
+            36,
+            10
+          ],
+          "sf_titles": [
+            "Shellite (explosive)",
+            "Picric acid",
+            "Picric acid"
+          ]
+        },
+        {
+          "qi": 19,
+          "n_sents": 87,
+          "n_titles_distinct": 10,
+          "n_edges": 7,
+          "mean_deg": 1.4,
+          "target_flat_idx": [
+            0,
+            1,
+            79
+          ],
+          "hop1_top_k": [
+            79,
+            0,
+            1,
+            71,
+            64
+          ],
+          "matched_entities": [
+            "Animal Wall",
+            "Cardiff Castle",
+            "Gate Lodge"
+          ],
+          "pos_seed_entity": "West Lodge, Cardiff Castle",
+          "neg_seed_entity": "Ames Gate Lodge",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 0,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            0,
+            1,
+            76,
+            78,
+            77
+          ],
+          "sf_titles": [
+            "West Lodge, Cardiff Castle",
+            "West Lodge, Cardiff Castle",
+            "Animal Wall"
+          ]
+        }
+      ],
+      "ppr_mass_max_deviation_from_1": 0.85,
+      "ppr_mass_conservation_ok": false,
+      "mean_edges_per_node_across_queries": 0.8,
+      "kg_signal_query_frac_ok": 0.3,
+      "kg_signal_ok": false,
+      "elapsed_s": 119.78311160000158
+    },
+    {
+      "seed": 17,
+      "n_queries": 20,
+      "n_missed_by_hop1": 3,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": {
+          "recall_at_k": 0.85,
+          "n_hits": 17,
+          "n": 20
+        },
+        "ARM_MAIN_PPR_RECOVERED": {
+          "recall_at_k": 0.85,
+          "n_hits": 17,
+          "n": 20
+        },
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": {
+          "recall_at_k": 1.0,
+          "n_hits": 20,
+          "n": 20
+        },
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": {
+          "recall_at_k": 0.8,
+          "n_hits": 16,
+          "n": 20
+        }
+      },
+      "ppr_recovery_rate": 0.6666666666666666,
+      "n_ppr_recovered_on_missed_subset": 2,
+      "arm_digests": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": "b35de6d2b2405f60",
+        "ARM_MAIN_PPR_RECOVERED": "fc06365ec6cb776d",
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": "0a5a6b8477cfb389",
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": "82d353c066e0d5c8"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "n_sents": 43,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            1,
+            14
+          ],
+          "hop1_top_k": [
+            14,
+            0,
+            39,
+            35,
+            38
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Beauty and the Beast (franchise)",
+          "neg_seed_entity": "Hercules (1997 film)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            14,
+            0,
+            39,
+            35,
+            38
+          ],
+          "sf_titles": [
+            "Beauty and the Beast (franchise)",
+            "Beauty and the Beast (1991 film)"
+          ]
+        },
+        {
+          "qi": 1,
+          "n_sents": 36,
+          "n_titles_distinct": 10,
+          "n_edges": 9,
+          "mean_deg": 1.8,
+          "target_flat_idx": [
+            33,
+            35
+          ],
+          "hop1_top_k": [
+            30,
+            6,
+            35,
+            10,
+            20
+          ],
+          "matched_entities": [
+            "Conrad Anker",
+            "Ernest Shackleton",
+            "George Mallory",
+            "Mount Epperly"
+          ],
+          "pos_seed_entity": "Conrad Anker",
+          "neg_seed_entity": "Mallory and Irvine Research Expedition",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            30,
+            33,
+            31,
+            34,
+            32
+          ],
+          "sf_titles": [
+            "Conrad Anker",
+            "George Mallory"
+          ]
+        },
+        {
+          "qi": 2,
+          "n_sents": 46,
+          "n_titles_distinct": 10,
+          "n_edges": 19,
+          "mean_deg": 3.8,
+          "target_flat_idx": [
+            12,
+            29
+          ],
+          "hop1_top_k": [
+            30,
+            5,
+            40,
+            0,
+            42
+          ],
+          "matched_entities": [
+            "Blue",
+            "YCoCg"
+          ],
+          "pos_seed_entity": "Innocent Records",
+          "neg_seed_entity": "ProPhoto RGB color space",
+          "r_baseline": 0,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            16,
+            13,
+            15,
+            18,
+            17
+          ],
+          "sf_titles": [
+            "Innocent Records",
+            "Blue"
+          ]
+        },
+        {
+          "qi": 3,
+          "n_sents": 42,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            11,
+            22
+          ],
+          "hop1_top_k": [
+            22,
+            24,
+            8,
+            7,
+            19
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "2008 Summer Olympics",
+          "neg_seed_entity": "Memorabilia (event)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            22,
+            19,
+            11,
+            21,
+            14
+          ],
+          "sf_titles": [
+            "2008 Summer Olympics",
+            "Summer Olympic Games"
+          ]
+        },
+        {
+          "qi": 4,
+          "n_sents": 29,
+          "n_titles_distinct": 10,
+          "n_edges": 9,
+          "mean_deg": 1.8,
+          "target_flat_idx": [
+            5,
+            19
+          ],
+          "hop1_top_k": [
+            2,
+            13,
+            7,
+            23,
+            0
+          ],
+          "matched_entities": [
+            "Radio Amor",
+            "Tim Hecker"
+          ],
+          "pos_seed_entity": "Ravedeath, 1972",
+          "neg_seed_entity": "Mirages (album)",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            2,
+            3,
+            5,
+            4,
+            23
+          ],
+          "sf_titles": [
+            "Ravedeath, 1972",
+            "Tim Hecker"
+          ]
+        },
+        {
+          "qi": 5,
+          "n_sents": 33,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            4,
+            20
+          ],
+          "hop1_top_k": [
+            3,
+            20,
+            10,
+            8,
+            19
+          ],
+          "matched_entities": [
+            "Ernest Foot"
+          ],
+          "pos_seed_entity": "Ernest Foot",
+          "neg_seed_entity": "Ashley Rolfe",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            20,
+            19,
+            3,
+            4,
+            10
+          ],
+          "sf_titles": [
+            "Ernest Foot",
+            "Albert Ball"
+          ]
+        },
+        {
+          "qi": 6,
+          "n_sents": 35,
+          "n_titles_distinct": 10,
+          "n_edges": 9,
+          "mean_deg": 1.8,
+          "target_flat_idx": [
+            8,
+            21
+          ],
+          "hop1_top_k": [
+            21,
+            8,
+            0,
+            2,
+            10
+          ],
+          "matched_entities": [
+            "Ed Grimley",
+            "Jiminy Glick",
+            "Martin Short",
+            "Primetime Glick"
+          ],
+          "pos_seed_entity": "Jennifer Paige Chambers",
+          "neg_seed_entity": "Crush (Jennifer Paige song)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            21,
+            18,
+            20,
+            22,
+            19
+          ],
+          "sf_titles": [
+            "Jennifer Paige Chambers",
+            "Martin Short"
+          ]
+        },
+        {
+          "qi": 7,
+          "n_sents": 44,
+          "n_titles_distinct": 10,
+          "n_edges": 8,
+          "mean_deg": 1.6,
+          "target_flat_idx": [
+            9,
+            18
+          ],
+          "hop1_top_k": [
+            18,
+            9,
+            0,
+            33,
+            24
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Robert M. Fomon",
+          "neg_seed_entity": "Pier 11/Wall Street",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            18,
+            21,
+            23,
+            19,
+            20
+          ],
+          "sf_titles": [
+            "Robert M. Fomon",
+            "New York Stock Exchange"
+          ]
+        },
+        {
+          "qi": 8,
+          "n_sents": 14,
+          "n_titles_distinct": 4,
+          "n_edges": 1,
+          "mean_deg": 0.5,
+          "target_flat_idx": [
+            2,
+            3
+          ],
+          "hop1_top_k": [
+            3,
+            2,
+            11,
+            13,
+            7
+          ],
+          "matched_entities": [
+            "Insubres",
+            "Policoro",
+            "Slinzega"
+          ],
+          "pos_seed_entity": "Slinzega",
+          "neg_seed_entity": "Policoro",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            2,
+            0,
+            1,
+            3,
+            4
+          ],
+          "sf_titles": [
+            "Slinzega",
+            "Bresaola"
+          ]
+        },
+        {
+          "qi": 9,
+          "n_sents": 44,
+          "n_titles_distinct": 10,
+          "n_edges": 3,
+          "mean_deg": 0.6,
+          "target_flat_idx": [
+            3,
+            4,
+            12
+          ],
+          "hop1_top_k": [
+            12,
+            36,
+            38,
+            18,
+            16
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Mountain Valley High School",
+          "neg_seed_entity": "Thomas R. Proctor High School",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            16,
+            0,
+            9,
+            1,
+            11
+          ],
+          "sf_titles": [
+            "Mountain Valley High School",
+            "Mexico, Maine",
+            "Mexico, Maine"
+          ]
+        },
+        {
+          "qi": 10,
+          "n_sents": 58,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            1,
+            23
+          ],
+          "hop1_top_k": [
+            0,
+            6,
+            1,
+            31,
+            22
+          ],
+          "matched_entities": [
+            "Bo Brady",
+            "Johnny Pemberton",
+            "Lea Thompson"
+          ],
+          "pos_seed_entity": "Johnny Pemberton",
+          "neg_seed_entity": "Fred G. Sanford",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            55,
+            57,
+            56,
+            0,
+            1
+          ],
+          "sf_titles": [
+            "Johnny Pemberton",
+            "Superstore (TV series)"
+          ]
+        },
+        {
+          "qi": 11,
+          "n_sents": 40,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            6,
+            8
+          ],
+          "hop1_top_k": [
+            8,
+            30,
+            0,
+            34,
+            6
+          ],
+          "matched_entities": [
+            "Salad bar",
+            "Tomato",
+            "Wheat salad"
+          ],
+          "pos_seed_entity": "Wheat salad",
+          "neg_seed_entity": "Crataegus pinnatifida",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            8,
+            6,
+            4,
+            5,
+            3
+          ],
+          "sf_titles": [
+            "Wheat salad",
+            "Tomato"
+          ]
+        },
+        {
+          "qi": 12,
+          "n_sents": 57,
+          "n_titles_distinct": 10,
+          "n_edges": 4,
+          "mean_deg": 0.8,
+          "target_flat_idx": [
+            17,
+            26
+          ],
+          "hop1_top_k": [
+            26,
+            55,
+            29,
+            6,
+            20
+          ],
+          "matched_entities": [
+            "Rankin/Bass Productions"
+          ],
+          "pos_seed_entity": "The Year Without a Santa Claus",
+          "neg_seed_entity": "The Year Without a Santa Claus (2006 film)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            26,
+            28,
+            27,
+            17,
+            18
+          ],
+          "sf_titles": [
+            "The Year Without a Santa Claus",
+            "Rankin/Bass Productions"
+          ]
+        },
+        {
+          "qi": 13,
+          "n_sents": 39,
+          "n_titles_distinct": 10,
+          "n_edges": 2,
+          "mean_deg": 0.4,
+          "target_flat_idx": [
+            32,
+            38
+          ],
+          "hop1_top_k": [
+            32,
+            38,
+            5,
+            33,
+            7
+          ],
+          "matched_entities": [
+            "Abraham Maslow",
+            "Ralph Hefferline",
+            "Stanley Coren"
+          ],
+          "pos_seed_entity": "Ralph Hefferline",
+          "neg_seed_entity": "Frank L. Schmidt",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            38,
+            32,
+            7,
+            8,
+            10
+          ],
+          "sf_titles": [
+            "Ralph Hefferline",
+            "Columbia University"
+          ]
+        },
+        {
+          "qi": 14,
+          "n_sents": 31,
+          "n_titles_distinct": 10,
+          "n_edges": 8,
+          "mean_deg": 1.6,
+          "target_flat_idx": [
+            6,
+            18
+          ],
+          "hop1_top_k": [
+            18,
+            6,
+            5,
+            26,
+            7
+          ],
+          "matched_entities": [
+            "Hot air engine"
+          ],
+          "pos_seed_entity": "Hot air engine",
+          "neg_seed_entity": "Daboll trumpet",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            6,
+            5,
+            7,
+            1,
+            16
+          ],
+          "sf_titles": [
+            "Hot air engine",
+            "George Cayley"
+          ]
+        },
+        {
+          "qi": 15,
+          "n_sents": 43,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            4,
+            5,
+            16
+          ],
+          "hop1_top_k": [
+            16,
+            32,
+            37,
+            10,
+            29
+          ],
+          "matched_entities": [
+            "Portal 2",
+            "Team Fortress 2"
+          ],
+          "pos_seed_entity": "Gateways (video game)",
+          "neg_seed_entity": "Portal (series)",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            37,
+            38,
+            40,
+            39,
+            42
+          ],
+          "sf_titles": [
+            "Gateways (video game)",
+            "Gateways (video game)",
+            "Portal (video game)"
+          ]
+        },
+        {
+          "qi": 16,
+          "n_sents": 37,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            15,
+            18,
+            31,
+            32
+          ],
+          "hop1_top_k": [
+            31,
+            18,
+            15,
+            32,
+            26
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Northern Chamber Orchestra",
+          "neg_seed_entity": "Mozarteum Orchestra Salzburg",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            31,
+            18,
+            15,
+            32,
+            33
+          ],
+          "sf_titles": [
+            "Northern Chamber Orchestra",
+            "Northern Chamber Orchestra",
+            "Tatton Park",
+            "Tatton Park"
+          ]
+        },
+        {
+          "qi": 17,
+          "n_sents": 47,
+          "n_titles_distinct": 10,
+          "n_edges": 11,
+          "mean_deg": 2.2,
+          "target_flat_idx": [
+            16,
+            17,
+            18
+          ],
+          "hop1_top_k": [
+            6,
+            11,
+            8,
+            24,
+            19
+          ],
+          "matched_entities": [
+            "Charlie Puth",
+            "Lucky, Lucky Me",
+            "Marvin Gaye"
+          ],
+          "pos_seed_entity": "Julie Frost",
+          "neg_seed_entity": "Marvin Gaye (song)",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            6,
+            7,
+            11,
+            16,
+            15
+          ],
+          "sf_titles": [
+            "Julie Frost",
+            "Charlie Puth",
+            "Charlie Puth"
+          ]
+        },
+        {
+          "qi": 18,
+          "n_sents": 38,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            22,
+            23,
+            25,
+            27
+          ],
+          "hop1_top_k": [
+            23,
+            22,
+            25,
+            3,
+            13
+          ],
+          "matched_entities": [
+            "Jimmy Fallon",
+            "Susan Stafford",
+            "Zhu Xun"
+          ],
+          "pos_seed_entity": "Ew!",
+          "neg_seed_entity": "Erika Moulet",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            23,
+            22,
+            24,
+            25,
+            26
+          ],
+          "sf_titles": [
+            "Ew!",
+            "Ew!",
+            "Jimmy Fallon",
+            "Jimmy Fallon"
+          ]
+        },
+        {
+          "qi": 19,
+          "n_sents": 29,
+          "n_titles_distinct": 10,
+          "n_edges": 7,
+          "mean_deg": 1.4,
+          "target_flat_idx": [
+            1,
+            16
+          ],
+          "hop1_top_k": [
+            15,
+            3,
+            2,
+            1,
+            5
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "The Worst Journey in the World",
+          "neg_seed_entity": "The First Men in the Moon (2010 film)",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            15,
+            16,
+            2,
+            1,
+            0
+          ],
+          "sf_titles": [
+            "The Worst Journey in the World",
+            "Apsley Cherry-Garrard"
+          ]
+        }
+      ],
+      "ppr_mass_max_deviation_from_1": 0.85,
+      "ppr_mass_conservation_ok": false,
+      "mean_edges_per_node_across_queries": 0.98,
+      "kg_signal_query_frac_ok": 0.4,
+      "kg_signal_ok": false,
+      "elapsed_s": 12.348643100005575
+    },
+    {
+      "seed": 23,
+      "n_queries": 20,
+      "n_missed_by_hop1": 1,
+      "vacuous": false,
+      "per_arm": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": {
+          "recall_at_k": 0.95,
+          "n_hits": 19,
+          "n": 20
+        },
+        "ARM_MAIN_PPR_RECOVERED": {
+          "recall_at_k": 0.75,
+          "n_hits": 15,
+          "n": 20
+        },
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": {
+          "recall_at_k": 0.9,
+          "n_hits": 18,
+          "n": 20
+        },
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": {
+          "recall_at_k": 0.75,
+          "n_hits": 15,
+          "n": 20
+        }
+      },
+      "ppr_recovery_rate": 1.0,
+      "n_ppr_recovered_on_missed_subset": 1,
+      "arm_digests": {
+        "ARM_HOP1_DENSE_ALONE_BASELINE": "a3fedcc0385b034c",
+        "ARM_MAIN_PPR_RECOVERED": "66874690965e47a6",
+        "ARM_POS_CTL_PPR_FROM_TRUE_BRIDGE": "a36319006bee6e49",
+        "ARM_NEG_CTL_PPR_FROM_RANDOM": "5071d46cce4f12af"
+      },
+      "arms_differ_violations": [],
+      "arms_differ_exempted": [],
+      "per_query_diag": [
+        {
+          "qi": 0,
+          "n_sents": 43,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            20,
+            21,
+            41,
+            42
+          ],
+          "hop1_top_k": [
+            41,
+            30,
+            0,
+            1,
+            21
+          ],
+          "matched_entities": [
+            "Bob Iger",
+            "Christine McCarthy"
+          ],
+          "pos_seed_entity": "Christine McCarthy",
+          "neg_seed_entity": "N\u00f3ra K\u00f6ves",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            30,
+            29,
+            31,
+            32,
+            41
+          ],
+          "sf_titles": [
+            "Christine McCarthy",
+            "Christine McCarthy",
+            "Bob Iger",
+            "Bob Iger"
+          ]
+        },
+        {
+          "qi": 1,
+          "n_sents": 29,
+          "n_titles_distinct": 10,
+          "n_edges": 9,
+          "mean_deg": 1.8,
+          "target_flat_idx": [
+            5,
+            19
+          ],
+          "hop1_top_k": [
+            2,
+            13,
+            7,
+            23,
+            0
+          ],
+          "matched_entities": [
+            "Radio Amor",
+            "Tim Hecker"
+          ],
+          "pos_seed_entity": "Ravedeath, 1972",
+          "neg_seed_entity": "Radio Amor",
+          "r_baseline": 0,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            2,
+            3,
+            5,
+            4,
+            23
+          ],
+          "sf_titles": [
+            "Ravedeath, 1972",
+            "Tim Hecker"
+          ]
+        },
+        {
+          "qi": 2,
+          "n_sents": 44,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            17,
+            43
+          ],
+          "hop1_top_k": [
+            17,
+            4,
+            21,
+            23,
+            11
+          ],
+          "matched_entities": [
+            "Jeffrey Stanley"
+          ],
+          "pos_seed_entity": "Three Men on a Horse",
+          "neg_seed_entity": "Jeffrey Stanley",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            23,
+            26,
+            25,
+            24,
+            17
+          ],
+          "sf_titles": [
+            "Three Men on a Horse",
+            "George Abbott"
+          ]
+        },
+        {
+          "qi": 3,
+          "n_sents": 35,
+          "n_titles_distinct": 10,
+          "n_edges": 2,
+          "mean_deg": 0.4,
+          "target_flat_idx": [
+            6,
+            26,
+            27
+          ],
+          "hop1_top_k": [
+            6,
+            26,
+            27,
+            18,
+            21
+          ],
+          "matched_entities": [
+            "Kasper Hvidt",
+            "Peter Schmeichel"
+          ],
+          "pos_seed_entity": "Kasper Schmeichel",
+          "neg_seed_entity": "IFFHS World's Best Club Coach",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            26,
+            27,
+            6,
+            7,
+            21
+          ],
+          "sf_titles": [
+            "Kasper Schmeichel",
+            "Kasper Schmeichel",
+            "Peter Schmeichel"
+          ]
+        },
+        {
+          "qi": 4,
+          "n_sents": 30,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            16,
+            17
+          ],
+          "hop1_top_k": [
+            1,
+            17,
+            13,
+            9,
+            0
+          ],
+          "matched_entities": [
+            "Sunset Pass"
+          ],
+          "pos_seed_entity": "Last of the Duanes (1941 film)",
+          "neg_seed_entity": "Sunset Pass",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            0,
+            1,
+            17,
+            13,
+            9
+          ],
+          "sf_titles": [
+            "Last of the Duanes (1941 film)",
+            "George Montgomery (actor)"
+          ]
+        },
+        {
+          "qi": 5,
+          "n_sents": 45,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            20,
+            23
+          ],
+          "hop1_top_k": [
+            23,
+            20,
+            9,
+            12,
+            28
+          ],
+          "matched_entities": [
+            "WWF Invasion"
+          ],
+          "pos_seed_entity": "Francisco Jose Hernandez",
+          "neg_seed_entity": "Frank Martin (basketball)",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            9,
+            12,
+            11,
+            10,
+            13
+          ],
+          "sf_titles": [
+            "Francisco Jose Hernandez",
+            "Bay of Pigs Invasion"
+          ]
+        },
+        {
+          "qi": 6,
+          "n_sents": 37,
+          "n_titles_distinct": 10,
+          "n_edges": 9,
+          "mean_deg": 1.8,
+          "target_flat_idx": [
+            11,
+            34
+          ],
+          "hop1_top_k": [
+            33,
+            11,
+            34,
+            8,
+            0
+          ],
+          "matched_entities": [
+            "Mount Hornsby",
+            "Oil engine",
+            "Richard Hornsby",
+            "Timothy Hornsby"
+          ],
+          "pos_seed_entity": "Richard Hornsby &amp; Sons",
+          "neg_seed_entity": "St Vincents Hall",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 0,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            12,
+            13,
+            15,
+            14,
+            31
+          ],
+          "sf_titles": [
+            "Richard Hornsby &amp; Sons",
+            "Herbert Akroyd Stuart"
+          ]
+        },
+        {
+          "qi": 7,
+          "n_sents": 41,
+          "n_titles_distinct": 10,
+          "n_edges": 7,
+          "mean_deg": 1.4,
+          "target_flat_idx": [
+            0,
+            30
+          ],
+          "hop1_top_k": [
+            0,
+            29,
+            35,
+            39,
+            3
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "I've Been Working",
+          "neg_seed_entity": "No Prima Donna: The Songs of Van Morrison",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 0,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            29,
+            34,
+            32,
+            31,
+            33
+          ],
+          "sf_titles": [
+            "I've Been Working",
+            "His Band and the Street Choir"
+          ]
+        },
+        {
+          "qi": 8,
+          "n_sents": 49,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            5,
+            47
+          ],
+          "hop1_top_k": [
+            46,
+            5,
+            29,
+            44,
+            20
+          ],
+          "matched_entities": [
+            "Rachelle Lefevre",
+            "Rogue One"
+          ],
+          "pos_seed_entity": "Rachelle Beinart",
+          "neg_seed_entity": "Rachelle Henry",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            46,
+            47,
+            48,
+            5,
+            4
+          ],
+          "sf_titles": [
+            "Rachelle Beinart",
+            "Rogue One"
+          ]
+        },
+        {
+          "qi": 9,
+          "n_sents": 38,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            13,
+            36,
+            37
+          ],
+          "hop1_top_k": [
+            36,
+            0,
+            13,
+            18,
+            5
+          ],
+          "matched_entities": [
+            "Amar despu\u00e9s de amar",
+            "Graduados",
+            "Patricia Longo"
+          ],
+          "pos_seed_entity": "Patricia Longo",
+          "neg_seed_entity": "Amar despu\u00e9s de amar",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            36,
+            13,
+            37,
+            15,
+            14
+          ],
+          "sf_titles": [
+            "Patricia Longo",
+            "Patricia Longo",
+            "Graduados"
+          ]
+        },
+        {
+          "qi": 10,
+          "n_sents": 52,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            15,
+            50
+          ],
+          "hop1_top_k": [
+            15,
+            50,
+            17,
+            22,
+            0
+          ],
+          "matched_entities": [
+            "Rodney Slatford",
+            "Sean Yseult"
+          ],
+          "pos_seed_entity": "Supagroup",
+          "neg_seed_entity": "Winnebago Deal",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            50,
+            51,
+            48,
+            49,
+            15
+          ],
+          "sf_titles": [
+            "Supagroup",
+            "Sean Yseult"
+          ]
+        },
+        {
+          "qi": 11,
+          "n_sents": 49,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            12,
+            15
+          ],
+          "hop1_top_k": [
+            11,
+            12,
+            20,
+            35,
+            17
+          ],
+          "matched_entities": [
+            "Normandy landings",
+            "Operation Dragoon",
+            "Sword Beach"
+          ],
+          "pos_seed_entity": "Landing Barge, Kitchen",
+          "neg_seed_entity": "Operation Dragoon",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            35,
+            15,
+            0,
+            37,
+            36
+          ],
+          "sf_titles": [
+            "Landing Barge, Kitchen",
+            "Normandy landings"
+          ]
+        },
+        {
+          "qi": 12,
+          "n_sents": 51,
+          "n_titles_distinct": 10,
+          "n_edges": 0,
+          "mean_deg": 0.0,
+          "target_flat_idx": [
+            0,
+            2,
+            5,
+            6
+          ],
+          "hop1_top_k": [
+            2,
+            1,
+            5,
+            4,
+            40
+          ],
+          "matched_entities": [
+            "A&amp;W Restaurants"
+          ],
+          "pos_seed_entity": "Compliance (film)",
+          "neg_seed_entity": "Body cavity search",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            13,
+            15,
+            17,
+            16,
+            14
+          ],
+          "sf_titles": [
+            "Compliance (film)",
+            "Compliance (film)",
+            "Strip search phone call scam",
+            "Strip search phone call scam"
+          ]
+        },
+        {
+          "qi": 13,
+          "n_sents": 37,
+          "n_titles_distinct": 10,
+          "n_edges": 3,
+          "mean_deg": 0.6,
+          "target_flat_idx": [
+            10,
+            26,
+            27
+          ],
+          "hop1_top_k": [
+            10,
+            27,
+            0,
+            7,
+            18
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Mattel, Inc. v. MCA Records, Inc.",
+          "neg_seed_entity": "S\u00f8ren Rasted",
+          "r_baseline": 1,
+          "r_main": 0,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            29,
+            30,
+            31,
+            17,
+            16
+          ],
+          "sf_titles": [
+            "Mattel, Inc. v. MCA Records, Inc.",
+            "Mattel, Inc. v. MCA Records, Inc.",
+            "Aqua (band)"
+          ]
+        },
+        {
+          "qi": 14,
+          "n_sents": 49,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            4,
+            17
+          ],
+          "hop1_top_k": [
+            17,
+            19,
+            4,
+            5,
+            31
+          ],
+          "matched_entities": [],
+          "pos_seed_entity": "Cotai Arena",
+          "neg_seed_entity": "Choice Hotels",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            17,
+            19,
+            4,
+            5,
+            7
+          ],
+          "sf_titles": [
+            "Cotai Arena",
+            "The Venetian Macao"
+          ]
+        },
+        {
+          "qi": 15,
+          "n_sents": 40,
+          "n_titles_distinct": 10,
+          "n_edges": 2,
+          "mean_deg": 0.4,
+          "target_flat_idx": [
+            17,
+            33,
+            34
+          ],
+          "hop1_top_k": [
+            17,
+            34,
+            33,
+            19,
+            32
+          ],
+          "matched_entities": [
+            "Sergio P\u00e9rez"
+          ],
+          "pos_seed_entity": "Formula One drivers from Mexico",
+          "neg_seed_entity": "Force India VJM04",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            17,
+            34,
+            33,
+            32,
+            38
+          ],
+          "sf_titles": [
+            "Formula One drivers from Mexico",
+            "Formula One drivers from Mexico",
+            "Sergio P\u00e9rez"
+          ]
+        },
+        {
+          "qi": 16,
+          "n_sents": 45,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            12,
+            13,
+            41
+          ],
+          "hop1_top_k": [
+            39,
+            14,
+            28,
+            12,
+            25
+          ],
+          "matched_entities": [
+            "Laura Osnes"
+          ],
+          "pos_seed_entity": "Grease: The New Broadway Cast Recording",
+          "neg_seed_entity": "Open Admissions",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            39,
+            41,
+            40,
+            14,
+            12
+          ],
+          "sf_titles": [
+            "Grease: The New Broadway Cast Recording",
+            "Laura Osnes",
+            "Laura Osnes"
+          ]
+        },
+        {
+          "qi": 17,
+          "n_sents": 29,
+          "n_titles_distinct": 10,
+          "n_edges": 4,
+          "mean_deg": 0.8,
+          "target_flat_idx": [
+            6,
+            8
+          ],
+          "hop1_top_k": [
+            22,
+            6,
+            8,
+            7,
+            25
+          ],
+          "matched_entities": [
+            "Christian Poulsen",
+            "Pierre Wom\u00e9"
+          ],
+          "pos_seed_entity": "Pierre Wom\u00e9",
+          "neg_seed_entity": "Wale Adebanwi",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            8,
+            9,
+            6,
+            7,
+            22
+          ],
+          "sf_titles": [
+            "Pierre Wom\u00e9",
+            "Christian Poulsen"
+          ]
+        },
+        {
+          "qi": 18,
+          "n_sents": 49,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            5,
+            45
+          ],
+          "hop1_top_k": [
+            42,
+            4,
+            44,
+            45,
+            35
+          ],
+          "matched_entities": [
+            "Thomas Szasz"
+          ],
+          "pos_seed_entity": "Chicago Institute for Psychoanalysis",
+          "neg_seed_entity": "Willard Gaylin",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 0,
+          "ranked_main_top5": [
+            42,
+            44,
+            45,
+            43,
+            4
+          ],
+          "sf_titles": [
+            "Chicago Institute for Psychoanalysis",
+            "Thomas Szasz"
+          ]
+        },
+        {
+          "qi": 19,
+          "n_sents": 34,
+          "n_titles_distinct": 10,
+          "n_edges": 1,
+          "mean_deg": 0.2,
+          "target_flat_idx": [
+            18,
+            31
+          ],
+          "hop1_top_k": [
+            31,
+            18,
+            2,
+            24,
+            11
+          ],
+          "matched_entities": [
+            "Aldo Pontremoli",
+            "Carlo Rovelli",
+            "Claudio Pellegrini",
+            "Sergio Ferrara"
+          ],
+          "pos_seed_entity": "Seven Brief Lessons on Physics",
+          "neg_seed_entity": "Antonino Lo Surdo",
+          "r_baseline": 1,
+          "r_main": 1,
+          "r_pos": 1,
+          "r_neg": 1,
+          "ranked_main_top5": [
+            31,
+            32,
+            33,
+            18,
+            19
+          ],
+          "sf_titles": [
+            "Seven Brief Lessons on Physics",
+            "Carlo Rovelli"
+          ]
+        }
+      ],
+      "ppr_mass_max_deviation_from_1": 0.85,
+      "ppr_mass_conservation_ok": false,
+      "mean_edges_per_node_across_queries": 0.46,
+      "kg_signal_query_frac_ok": 0.15,
+      "kg_signal_ok": false,
+      "elapsed_s": 13.067755899974145
+    }
+  ],
+  "per_arm_mean_recall_at_k": {},
+  "expected_n_units": 12,
+  "actual_n_units": 12,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "ppr_mass_conservation_verified": false,
+  "kg_signal_ok_all_seeds": false,
+  "final_metrics_atomicity": "tmp_replace",
+  "crlb_n_a": "PPR recall@k is a rate, not a shift-noise measurement; discriminator reachability via POS_CTL >= 0.95 / NEG_CTL <= 0.10 span + KG mean_edges_per_node >= 1.0 availability floor.",
+  "discriminator_reachability": true,
+  "calibration_check": "default_ok_for_this_regime",
+  "elapsed_s": 145.20026360001066,
+  "ts_iso": "2026-07-03T14:16:53.157118+00:00"
+}
