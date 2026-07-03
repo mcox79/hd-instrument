@@ -829,3 +829,68 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 1. **Tailscale re-auth** on marsh@home (30-sec action) + optional durable auth key setup (5-min action for long-term protection)
 2. **Cortex integration GO** — `cortex_integration_hdlab_module_2026-07-02` proposal awaiting go-ahead; Phase 1 (extract M1.3/M1.5/M1.7/M1.8 primitives to hdlab/ modules) can start immediately, INDEPENDENT of Tailscale. Recommended: GO tonight.
 3. Substrate encoder issue clarification — most likely refers to Substrate-KB bag-word-to-concept-encoder migration plan (`design_substrate_KB_bag_word_to_concept_encoder_migration_plan_2026-07-02.md`); Spoke 1 v3 competitive-Hebbian was in flight from prior session
+
+## AMENDMENT 2026-07-03 23:40Z (Skunkworks P15 VET COMPLETE; ALL SPAWNS DONE; awaiting USER strategic decisions)
+
+**Skunkworks VET P15 (task afb66acbe8313547b) COMPLETE. HOLD_PENDING_FULL. No atom. Session tally 94 unchanged.**
+
+**Detailed VET analysis:**
+- Off-disk numbers verify byte-for-byte (max_abs_residual 0.075, max_noise_2se 0.155, ceiling-check clean)
+- **L-cliff row-means (0.85 → 0.69 → 0.46) ARE robust** — differences 0.16-0.23 exceed 2SE (L-effect strong)
+- **M-effect and interaction TENTATIVE at single seed** — margin 0.07 above noise floor is TIGHT
+- Non-monotonic M at L=1 (0.85→0.875→0.825): span 0.05 well within 2SE 0.11 = pure noise wobble
+- Inverse M at L=4 (0.60→0.40→0.375): physics-plausible interference-dominated regime; magnitude not single-seed-resolvable
+- Novel per KB (top cosine 0.372 wordnet)
+
+**FULL dispatch spec (Skunkworks-authoritative):**
+- 3 seeds essential; TR=100 minimum, TR=200 preferred
+- Promotion rules: 3-seed FULL interaction ≥0.20 with cv<0.20 → CG_META; ≥0.15 with cv<0.25 → MM_TENTATIVE_SYNTHESIS; <0.10 → DEMOTE this arc
+- **Composition target: REGIME-EXTENSION of M-sweep CG_META atom** — M-sweep may be L-dependent (sign-flip candidate at L≥4 in interference-dominated regime); NOT a new standalone physical law until 3-seed FULL confirms
+
+**ALL L cross-terms complete at SMOKE level (all HOLD_PENDING_FULL):**
+- L × N (P9 v2 commit a75dccdd5)
+- L × F (P14 commit 0dab3bf05)
+- L × CLEANUP (P13 commit 318fa3f6e)
+- L × M (P15 commit e3fa490d6)
+
+**L cross-terms convergent finding at SMOKE:** L-effect on capacity is ROBUST across all 4 pairs (2SE-clear); L × X interactions are TENTATIVE at single seed (2SE-marginal). This is consistent with L being a genuine capacity axis (already CG_META atom #3) whose cross-term interactions with other axes require 3-seed FULL to establish.
+
+**Fix#28 today final: 18 recorded + 2 avoided = 20 discipline interactions.**
+
+**ALL SPAWNS COMPLETE. 0 in flight.** Session end-state (23:40Z): 94 atoms; 16 probes SMOKE-authored (P4/5/6/6v2/7/7v2/8/9/9v2/10/10v2/12/13/14/15) + 4 revival probes + P1 CG_META confirmed; 27-cell FULL dispatch bundle instant-fire ready; SH-4 pattern closed at 5 layers.
+
+**Awaiting USER strategic decisions:**
+1. Tailscale up (30-sec unblock) + optional durable auth key (5-min long-term)
+2. Cortex integration GO — Phase 1 fires immediately IF GO, independent of Tailscale
+3. Substrate encoder issue clarification (Spoke 1 v3 concept encoder migration prep)
+
+## AMENDMENT 2026-07-03 23:45Z (USER GO'd cortex; Tailscale home box confirmed offline peer)
+
+**USER 2026-07-03 23:40Z:** "Auth on cortex 2" = GO. "tailscale is already running on home. I'm not there right now."
+
+**Tailscale reality checked via `tailscale status`:**
+- THIS laptop: `100.124.176.29 frameworkmpc` (Windows, online)
+- Home box: `100.91.12.42 home` (Windows, **OFFLINE, last seen 2h ago**)
+- Home box Tailscale peer is DOWN despite local `tailscale up` state — needs physical re-auth
+- No alternate SSH path visible; remote GPU dispatch remains blocked until USER can access home box physically
+
+**Cortex Phase 1 FIRED (task `af45f3537dbf8b83d`):**
+- Extract 4 primitives to `hdlab/` composable modules per proposal `notes/proposal_cortex_integration_hdlab_module_2026-07-02.md`:
+  - M1.3 NoiseChannel → `hdlab/noise_channel.py`
+  - M1.5 TwoTierContext → `hdlab/context_retention.py`
+  - M1.7 RoleSlotSummarizer → `hdlab/role_slot_summarizer.py`
+  - M1.8 ClarifyGate → `hdlab/clarify_gate.py`
+- Each module ships with formula-selftest reproducing prior CG numbers (cv<0.05)
+- verification/ tests per CLAUDE.md discipline
+- Est. wall: ~1-2 days sub-agent work per proposal
+- Phase 2 (`hdlab/cortex.py` composed pipeline) + Phase 3 (integration test cell) will follow as sequential spawns
+
+**Discipline note (self-caught):** USER's "do not ever tell me to read a doc" — surface content DIRECTLY in every response going forward; no "read X" pointers.
+
+**Spawn state (1 in flight):**
+- Cortex Phase 1 primitive extraction (af45f3537dbf8b83d)
+
+**Post-Phase-1 next actions (queued):**
+- Phase 2: author `hdlab/cortex.py` composed pipeline module
+- Phase 3: author `experiments/exp_cortex_integration_end_to_end_v1.py` integration test cell
+- If Tailscale restores: dispatch 27-cell FULL bundle + BGE cache + 170K re-test
