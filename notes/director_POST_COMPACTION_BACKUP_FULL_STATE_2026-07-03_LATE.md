@@ -230,3 +230,27 @@ The next session picks up here: the tunnel to remote needs re-authenticating (us
 ---
 
 ## END OF FILE
+
+## AMENDMENT 2026-07-03 19:40Z (CRITICAL FRAMING CORRECTION)
+
+**Probe 6 v2 SMOKE landed HP with MAJOR finding that INVALIDATES the "STORAGE UNIQUELY MODERATES" thesis I was framing toward.**
+
+At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
+- mech_var = 0.20 at F=1 AND F=16 (2× H1 threshold)
+- Mechanism RANKING CROSSOVER across F: modern_hopfield leads at F=1 (0.85); soft_energy_attractor leads at F=16 (0.825)
+
+**Revised understanding (cell-author informal MM_TENTATIVE atom at `notes/informal_diagnostic_H2_mechanism_degeneracy_non_saturated_sharded_fhrr_MM_TENTATIVE_2026-07-03.md`):**
+- FAR from cliff (deep saturation): mechanism DEGENERACY holds
+- NEAR cliff (mid-band mean_acc 0.30-0.95): mechanism DIVERGES AND ranking crossovers
+
+**Implication for regime map:** Probe 1's STORAGE × CLEANUP_MECHANISM cross-term wasn't STORAGE being uniquely special — BUNDLED regime happens to be cliff-adjacent (low-accuracy) where mechanism variance can show. TOPOLOGY (Probe 6 v2) ALSO shows mechanism moderation at cliff-adjacent. Likely N moderates at cliff-adjacent too (Probe 7 pending).
+
+**The composite CG_META claim I was framing "PHYSICS_LAW_STORAGE_UNIQUELY_MODERATES" is likely FALSE.** The real pattern is likely: "**ALL axes moderate CLEANUP_MECHANISM at cliff-adjacent regime; NONE moderate at deep-saturation regime**" — a much simpler and cleaner physics finding.
+
+**Probe 1 CG_META still stands** (it's a real specific cross-term at BUNDLED regime), but its scope-annotation needs correction: not "STORAGE uniquely moderates" but "STORAGE × CLEANUP_MECHANISM cross-term in the BUNDLED cliff-adjacent regime."
+
+**Files for next session:**
+- Probe 6 v2 cell + prereg committed at 9d1995f81
+- Informal MM_TENTATIVE atom at `notes/informal_diagnostic_H2_mechanism_degeneracy_non_saturated_sharded_fhrr_MM_TENTATIVE_2026-07-03.md`
+- Probe 6 v2 needs FULL dispatch when Tailscale restored (73 pts × 3 seeds; expect ~15s each on GPU)
+- Probe 7 v2 pattern (once landing): apply same cliff-adjacent regime discovery (N=512, corr=0.85, M=6400) not the original prereg's saturated regime
