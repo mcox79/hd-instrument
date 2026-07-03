@@ -1252,3 +1252,59 @@ Testbed KB cap fix: returned "Reingest running" (background task)
 - 2 durable infrastructure fixes (queue_add regex + landing pane)
 - 5-layer compliance-test protocol filed (arc-continuation-vs-arc-closure discipline included)
 - KB cap fix reingest running (unblocks Layer 0.5 production wiring)
+
+## 2026-07-03 17:45Z AMENDMENT 10 (Layer 0.5 SMOKE HP + FULL dispatched + Wikidata drill returned + honest correction on arc closure)
+
+### Layer 0.5 production wiring skeleton SMOKE HP
+- Committed d697c7f43, pushed to origin
+- MAIN INTEGRATION_END_TO_END 0.833 >> 0.60 target
+- ORACLE 0.917 drift 0.084 (composition intact at production seam)
+- LAYER_075 0.833 matches ORACLE (v3 recovers full arc when Layer 0 substituted to char-trigram)
+- S1S2 0.583 preserves subtract-improves discipline (< LAYER_075 0.833 as expected)
+- v3 slot-fire 24/24 no fallback
+- Cell composes ONLY existing chain-grade primitives (Principle 11); zero new abstractions
+- FULL dispatch in flight via hdi_orchestrator (a766b8c6d722fd56b)
+
+### Exp 3E FULL Skunkworks-CORRECTED tier (7th Fix#28 hit on me today)
+Aggregate: MM_TENTATIVE_ARC_CLOSURE_MARGINAL_GATES (downgrade from cell-author HARD_PASS)
+- MAIN passes threshold by +0.0017 (1 query per 300 — WITHIN measurement noise)
+- cv=0.082 pop-sd PASS; sample-sd 0.1001 BORDER-FAIL
+- Revival: 5-seed OR 300q/seed for CG aggregate
+Sub-claim: CG_HARD_PASS on S1+S2-subtract diagnosis (drift 0.004; monotone per-seed)
+Session tally: math=42, meta=39
+
+### Physics-law composition cell REFUSED then RESUMED with Option Y
+Cell-author caught regime-mismatch: 5 axes live in 3 DISJOINT REGIMES; only 2 of 5 (SCALE_FREE + M_scaling) native to v2 M-sweep. Option Y: canonical sharded-rule-storage FHRR chain composition regime; 144 phase points × 3 seeds FULL. Cell-author working now.
+
+### 170K scale re-test REFUSED for structural blockers
+Cell-author caught 2 blockers pre-authoring:
+1. Wikidata KG mono-typed (only DEPENDS_ON) → v3-clean discriminator degenerate → phantom-VET risk
+2. AtomKind enum missing `synthesis_meta_finding` → BGE cache rebuild blocked
+
+Recommendation: Option A ships 4-arm cell (drop Exp 3E arm); Option B fixes Wikidata typing first (recommended); Option C research drill
+
+### Wikidata drill returned:
+- ~11,000 native Wikidata properties, top 5 = 68.8% of edges (P31/P279/P361/P527/P1889)
+- Standard benchmarks preserve 200-800 relation types (FB15k-237=237, Wikidata5M=822)
+- "DEPENDS_ON as universal" = diagnostic signature of schema-mapping enum with default fallthrough
+- Named failure mode: "semantic density failure" — downstream degrades silently to co-occurrence
+- Repair path: WDumper-style targeted re-fetch with ~35 property set; NOT full re-ingest
+- SendMessage sent to Testbed for BLOCKER B investigation guidance
+
+### Regime-mismatch memory rule extension (3rd witness same day)
+Abstraction-lossy MM_STANDARD extended to include REGIME conflation across natively-certified regimes. Different from argument-signature drop; same underlying pattern.
+
+### Session cumulative (as of 17:45Z):
+- 12+ landings today (Exp 3E FULL + Layer 0.5 SMOKE + M-sweep FULL 3 seeds + 8 prior)
+- 5th Stage 1 CG_META axis awarded
+- Retrieval-architecture arc: MARGINALLY closes on hub-concept-bridge scope synthetic corpus; scale re-test blocked on Wikidata typing regression
+- Layer 0.5 production wiring SMOKE HP; FULL in flight
+- 79-42 math atoms + 39 meta (pending +3 from Exp 3E VET, +2 from Layer 0.5)
+- 10+ memory rules filed today
+- hdlab/layer_075_structural_slot_filter.py committed (03008c72e); 6 verification tests PASS
+
+### In-flight (4 spawns):
+1. hdi_testbed AtomKind enum + Wikidata typing (SendMessage'd with drill diagnostic)
+2. SH-4 landing pane double-prefix fix
+3. Physics-law composition Option Y (resumed with regime-honest sharded-rule-storage chain design)
+4. hdi_orchestrator FULL Layer 0.5 production wiring dispatch
