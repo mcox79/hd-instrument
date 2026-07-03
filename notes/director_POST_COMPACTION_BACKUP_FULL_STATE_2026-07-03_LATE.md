@@ -987,3 +987,47 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 4. **Cortex task-analog cell** — end-to-end downstream task validation is distinct from integration-fidelity. Author?
 
 **Session tally 94 atoms unchanged. All commits pushed through `b847e023e`.**
+
+## AMENDMENT 2026-07-04 00:15Z (Skunkworks cortex VET: HOLD; 3 new Fix#28 hits; discipline-fix spawn)
+
+**Skunkworks landed-VET cortex SMOKE HP (task a9c698659626b3521) COMPLETE. HOLD tier. No atom. Session tally 94 unchanged.**
+
+**Off-disk verification passed;** all cited numbers reproduce (12/12 units, seeds=[7], per-primitive delta=0.0, ablation-at-zero legitimate).
+
+**Per-primitive integration-test genuineness (Skunkworks-authoritative):**
+- **m14 RefuseGate: GENUINE** — COMPOSED reads provenance via facade; INDIVIDUAL computes directly
+- **m15 TwoTierContext: GENUINE** — COMPOSED writes/reads via facade; INDIVIDUAL fresh instance
+- **m17 RoleSlotSummarizer: MIXED** — half-integration (facade path then sub-primitive access)
+- **m18 ClarifyGate: TAUTOLOGICAL** — cell-author admits "can't easily force max_sim exactly from geometry" so calls facade-owned instance directly; this is a CONFIG-check not integration test
+
+**Ablation-at-zero: LEGITIMATE** — floor-anchored by design; real degradation (1.0 or 0.675 → 0.0). My earlier flag was incorrect.
+
+**Coverage: 4-of-6 primitives is HONEST arc-continuation, NOT arc closure** — cell-author framing correct. M1.3 NoiseChannel + M1.6 chunked_attention need explicit arms before "cortex layer end-to-end" claim.
+
+**3 new Fix#28 hits recorded (bringing today's cumulative to 21 recorded + 2 avoided = 23):**
+- **#19: verdict_msg "3 seeds" but seeds=[7] on disk** — factual inaccuracy in SMOKE mode
+- **#20: META_RULE_AF fingerprint is WEAK** — hashes function source not runtime call path; proves "different bodies" not "distinct execution paths"
+- **#21: m18 COMPOSED tautological** — bypasses facade in a way that only checks configuration
+
+**Post-FULL atom candidate spec (Skunkworks-authoritative if FULL cv<0.05):**
+> **MM_STANDARD**, NOT CG: "cortex facade composes 3 primitives with bit-identity to standalone at matched seed" — REGIME_EXTENSION of M1.4/M1.5/M1.7 with explicit m18-tautology-caveat + M1.3/M1.6-uncovered caveat.
+
+**Discipline-fix spawn fired (task acb84868ccd321463):**
+- Fix #1: verdict_msg parameterize seed count (`across {len(SEEDS)} seed{'s' if len>1 else ''}`)
+- Fix #2: replace `_arms_differ_code_path_fingerprint` (source hash) → `_arms_differ_runtime_call_trace` (Cortex.forward call counter; ARM_COMPOSED delta≥1, ARM_INDIVIDUAL delta==0)
+- Preserves discriminator thresholds, HP gate, per-primitive arm implementations, ablation semantics
+- Re-runs SMOKE post-fix; preserves HP or reports honestly if breaks
+- Testbed-analog pre-authorized for discipline-hardening
+- Cortex FULL: coordinate with running queue task
+
+**Spawn state (1 in flight):**
+- Cortex discipline fixes (acb84868ccd321463)
+- Cortex FULL in local_cpu_queue (runner-owned, not agent)
+
+**Fix#28 today: 21 recorded + 2 avoided = 23 discipline interactions.**
+
+**USER strategic decisions still pending:**
+1. Tailscale key-expiry fix path chosen (admin console / alternate remote / physical)
+2. **Encoder Migration Step 1 GO/NO-GO** — parallel fill-in ready
+3. **Cortex Phase 3b GO/NO-GO** — add M1.3 + M1.6 arms for full 6-primitive coverage
+4. **Cortex task-analog cell** — end-to-end downstream task validation (distinct from integration-fidelity)
