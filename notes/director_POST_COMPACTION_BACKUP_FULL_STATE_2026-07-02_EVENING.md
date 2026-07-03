@@ -5,6 +5,43 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯 L6 JL SCOPE-REFINEMENT CHAIN CLOSED + VSA-SUITE PROGRESS + CA3 RESEARCH DRILL (2026-07-03 ~07:30Z)
+
+**Skunkworks L6 VET landed 3 atoms + CG_META promotion + chain closure decision:**
+- MM_STANDARD atom: `META_JL_SCOPE_REFINEMENT_CHAIN_CLOSURE_L6` — L1 JL atom retained ONLY at revival scope (>90% zeroed OR continuous-noise; untested)
+- **CG_MEASURED_BOUND atom**: `MATH_COSINE_ARGMAX_ROBUST_UNIVERSAL_AT_50PCT_PLUS_DIM_ZERO_CORRUPTION_N500_NDIM2048` — novel positive analytical scope; correct mechanism attribution is EXACT-CARRIER information content (57-114× margin), NOT JL-orthogonality
+- **CG_META PROMOTION**: `META_DISCIPLINE_ANALYTICAL_SCOPE_REFINEMENT_CHAINS_REQUIRE_MM_TENTATIVE_UNTIL_BOUNDARY_PROBE_CLOSURE` — 3-witness operational rule (L2, L4, L6)
+
+**Chain closure: PATH (a) selected** — 3 successive scope-amendments falsified by empirical probes = SYMPTOM of misattributed L1 analytical mechanism, not convergent refinement. Cell-author's exact-carrier-bit-budget derivation is correct positive analytical closure.
+
+**Cross-arc symmetric-verify:** 6-layer refinement was HEALTHY empirical hygiene (each catch = direct data). CG_META promoted rule ensures future single-axis refinements pre-declare MM_TENTATIVE + empirical-closure requirement.
+
+## VSA-suite Cells 1-4 Skunkworks-verified status:
+
+**Cell 1 analogy completion:** CG_MEASURED_BOUND (Plate 1995 canonical) + K_DIST sweep CG_REGIME_CHARACTERIZATION (K_HP3_FIRES=20; 21σ at K=20)
+
+**Cell 2 compositional generalization:** CG_MEASURED_BOUND at r@1=0.410; HP1 regime-insufficient caveat; STORED_BUNDLE=0.000 held-out isolation VERIFIED (mechanism DEMONSTRABLY generalizes to novel role-filler pairs)
+
+**Cell 3 multi-hop reasoning:** CG_MEASURED_BOUND at r@1=1.000 saturated all 3 hops; regime-too-easy caveat; discriminator vacuously fires; empirical witness for prior CG_META `META_STORAGE_STRATEGY_COMPOSITION_DEPTH_PHYSICS_LAW`
+
+**Cell 4 episodic-formal discriminative:** CG_HONEST_NEGATIVE — HIPPO fails at discriminative regime; W2 caveat scope-tightened to `W2_DISCRIMINATIVE_UNACHIEVABLE_AT_HIGH_CLUSTER_COS_HIGH_MASKING_REGARDLESS_OF_FILLER_GEOMETRY`
+
+**Task-class-fit META `MM_STANDARD_5_WITNESS_MIXED_CAVEATS`** — CG_META promotion still blocked on Gate 1 (PPMI FULL 10K formal) + NO WIN witness at discriminative regime (regime-scoped closure; may unlock at lower cluster or continuous-noise)
+
+## CA3 architectural constraints atoms:
+
+- **`META_DG_EXPANSION_AMPLIFIES_NOISE_MORE_THAN_SEPARATES_SIGNAL_AT_EXTREME_SPARSE_CUE`** CG_META (2 witnesses; DG side)
+- **`MATH_CA3_AUTO_ASSOCIATOR_ANTI_SIGNAL_CROSS_GEOMETRY_2ND_WITNESS`** CG_HN_ARCHITECTURAL (2 cross-geometry witnesses at cluster_cos~0.90; scope-correction pending per research drill: should scope to cluster_cos ≳0.8-0.9 not extrapolated)
+
+## Research 2x-drill on CA3 anti-signal landed:
+
+`notes/research_2x_drill_ca3_anti_signal_at_cluster_codebook_mechanism_analysis_2026-07-03.md`
+
+- 4-axis literature convergence: CA3 anti-signal is KNOWN structure-blind-decoder attractor-network failure class (Rolls / Amit / Ramsauer / Foldiak)
+- Substrate's own Cycle 178 shows inverted-U: cluster_cos~0.5 BONUS + cluster_cos~0.9 collapse → scope-correction on CG_HN_ARCHITECTURAL
+- Hypothesis C (Foldiak DG competitive-Hebbian preprocessing) P=0.55 = most literature-favored fix
+- 3 ready-to-dispatch SMOKE probes specified
+
 ## 🎯 SPOKE 3 GATE 2 CLOSE PROBE + SKUNKWORKS 2 CG_META ATOMS (2026-07-03 ~04:20Z)
 
 **Skunkworks VET landed 3 atoms + Gate 2 REFRAME insight.**
