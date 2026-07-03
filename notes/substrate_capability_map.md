@@ -29578,3 +29578,41 @@ ATOM 6 (custom MIDDLE_BAND; CERT-neutral; pq=RESEARCH_FINDING): `math::T3/EXP_su
 ### Status
 
 Cap_map: v595 -> v596 BATCH 2 4-ARTIFACT RATIFIED RULINGS (Director AUTO ratify + USER full-auto; Skunkworks A5 atomize 2026-06-26; 1 chain_grade + 1 proven_bound + 1 honest_negative = +3 CERT [603 -> 606]; 1 MM + 1 META cert-neutral; 1 MIDDLE_BAND cert-neutral; cert_ledger 755 -> 761 [+6 rows]; atoms 177371 -> 177377 [+6 atoms; math corpus +5, meta corpus +1]; CERT_CHAIN_GRADE_provenance count 603 -> 606; ledger CERT N sum delta 465 -> 468; axiom_term=206 INVARIANT; cap_pres=6/6 INVARIANT; Gap 1 RED -> AMBER [Cell B v2 chain-grade routing-provided; substrate-native open]; Gap 4 RED -> AMBER [NREM proven-bound + REM global HARD_FAIL]; Gap 3 UNKNOWN -> AMBER [feature partial + capability negative micro-scale]; hdlab/multi_hop.py partition_routed_chain ADDED; hdlab/continual.py NEW MODULE with replay_cycle + nrem_replay_decorator; META_BARRIER_1_QUINTUPLE_RECONCILIATION NEW META RULE [substrate-native routing remains open follow-up]; RC1-RC9 backlog queued not dispatched [Director-routable]; ledger row hashes 65fe10172a09655a / 434ba5e77e8f0f94 / 44f5a935a10d74d0 / 05578a221fb552d7 / 8df72f13565ad573 / 9036304faf807148) (2026-06-26)
+
+
+## v596 -> v597 PPMI WIKIPEDIA FULL 10K FORMAL 3-SEED MB_LOW_DELTA ARC CLOSURE (verdict_handler 2026-07-03; Skunkworks Gate 1 VET at 68ba93670; supervised-regime PPMI mechanism arc terminates)
+
+### Trigger
+
+FULL 3-seed formal atomization landed for anchor `substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03` at commit 68ba93670 (Skunkworks Gate 1 VET). Verdict MEASURED_BOUND_LOW_DELTA: PPMI/SVD r@5=0.6791 vs char_trigram r@5=0.7030 across 3 seeds (11, 17, 23) at N=10000 Wikipedia articles, delta=-0.0239 < 0.03 MB floor. All 3 seeds bit-identical (std=0.0; deterministic encoder). Baseline random r@5=0.0003 in band [0, 0.0025]; cardinality 9/9; arms_differ_verified true.
+
+### Honest re-read (Step 0)
+
+Label MEASURED_BOUND_LOW_DELTA matches per-cell metrics EXACTLY. Delta -0.0239 < 0.03 MB floor by construction. Bit-identical to preliminary (0.6791 formal = 0.6791 preliminary, delta 0.00). No label-vs-honest catch — verdict text is honest.
+
+### PPMI mechanism arc closure — supervised regime terminates here
+
+MB_LOW_DELTA is a terminal HP verdict for the PPMI mechanism arc per Skunkworks-directed cell verdict text. PPMI/SVD does NOT beat char-trigram surface bag at 10K real Wikipedia scale despite +0.052 smoke lift at N=500; smoke-to-FULL delta_from_smoke_r5_ppmi=-0.2269 vs char_trigram delta_from_smoke_r5=-0.1510. PPMI's ATL-hub-analog signal collapses to surface bag under scale. NOT a capability failure — SUPERVISED-regime mechanism-lift bound characterization only.
+
+Route to research for v3-composed / Spoke 3 pathway analysis. NO re-dispatch on this anchor.
+
+### Three-mechanism-class negative pattern empirically confirmed at FULL
+
+Parent META `META_SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE` advanced to MM_STANDARD_5_WITNESS_GATE_1_SATISFIED (Skunkworks 68ba93670). Empirical witness count 3/5 FULL:
+- concept_encoder (WTA competitive-Hebbian) — CG_HONEST_NEGATIVE FULL
+- v3-composed (VWFA+late-combine) — CG_HONEST_NEGATIVE FULL
+- PPMI/SVD (ATL-hub analog) — CG_MEASURED_BOUND_LOW_DELTA FULL (this arc)
+
+Sibling META `META_TASK_CLASS_FIT_STRUCTURAL_MECHANISMS_WIN_VSA_NATIVE_LOSE_OPEN_DOMAIN_RETRIEVAL` advanced MIXED_CAVEATS -> GATE_1_SATISFIED annotation.
+
+### Strategic implication PRESERVED
+
+bge-retire path load-bearing via HIPPO-arm boundary probe as next-post-USER-§6 dispatch. Skunkworks-directed restraint mode continues: NO new experiment dispatch until USER §6 decision.
+
+### 4-session architecture constraint
+
+verdict_handler does NOT dispatch /exp_dev under any circumstance. Skunkworks-directed restraint reinforces. Queue state note only.
+
+### Status
+
+Cap_map: v596 -> v597 PPMI WIKIPEDIA FULL 10K FORMAL 3-SEED MB_LOW_DELTA ARC CLOSURE (verdict_handler 2026-07-03; Skunkworks Gate 1 VET at 68ba93670; PPMI/SVD r@5=0.6791 vs char_trigram r@5=0.7030 delta=-0.0239 < 0.03 MB floor; 3-seed bit-identical std=0.0 deterministic encoder; baseline_in_band true; cardinality 9/9; arms_differ_verified true; MB_LOW_DELTA terminal HP verdict for PPMI supervised-regime mechanism arc; NO re-dispatch this anchor; parent META `META_SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE` MM_STANDARD_5_WITNESS_GATE_1_SATISFIED [3/5 FULL: concept_encoder CG_HN + v3-composed CG_HN + PPMI CG_MB_LOW_DELTA]; sibling META `META_TASK_CLASS_FIT_STRUCTURAL_MECHANISMS_WIN_VSA_NATIVE_LOSE_OPEN_DOMAIN_RETRIEVAL` GATE_1_SATISFIED annotation PRESERVED; SUPERSEDED PRELIMINARY atom `EXP_substrate_wikipedia_ppmi_svd_scale_up_FULL_N10K_PRELIMINARY_CG_HONEST_NEGATIVE` by formal atom at 68ba93670; strategic_implication PRESERVED bge-retire path load-bearing via HIPPO-arm boundary probe next-post-USER-§6 dispatch; Skunkworks-directed restraint mode CONTINUES no new experiment dispatch until USER §6 decision; Portfolio UNCHANGED; HONEST UNCHANGED; LVH UNCHANGED; cert_ledger UNCHANGED [atomization already landed at 68ba93670]; atoms UNCHANGED [already landed]; 0 label-vs-honest catches; verdict_handler role-compliance: no /exp_dev dispatch per 4-session architecture) (2026-07-03)
