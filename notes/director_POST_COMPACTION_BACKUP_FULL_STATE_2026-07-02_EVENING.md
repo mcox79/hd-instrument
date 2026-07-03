@@ -1130,3 +1130,51 @@ Prior: math=36, meta=37. M-sweep FULL VET will likely add +1 math CG_META (if ph
 ### In-flight agents (2):
 - Skunkworks Exp 3C VET (mechanism-class attribution + Director-lesson recurrence)
 - Skunkworks M-sweep FULL VET (CG_META tier decision)
+
+## 2026-07-03 16:37Z AMENDMENT 7 (M-sweep FULL CG_META AWARDED — 5th Stage 1 physics-law axis)
+
+### 5th Stage 1 CG_META atom FILED
+**`PHYSICS_LAW_cleanup_mechanism_M_scaling_non_Hebbian_v1_5th_STAGE1_CG_META_axis`** (meta T4). Joins prior 4 Stage 1 CG_META axes: STORAGE_STRATEGY / SCALE_FREE_in_N / TOPOLOGY_FREE_encoder / ALGEBRA_SCALES_depth. Substrate now has 5 orthogonal physics-law atoms.
+
+### Skunkworks per-criterion off-disk audit:
+- **P1 mechanism ordering high M: STRONG PASS** (modern−classical gap 0.71-0.74 vs 0.40 threshold)
+- **P2 AGS cliff classical: WEAKENED PASS** (cliff wider than naive AGS M_crit=286; framing correction filed)
+- **P3 Plate bound iterative_cosine: FAIL** (empirical ROBUST than theory: 0.83 at M=3200 vs Plate predicted 0.20; framing correction filed)
+- **P4 scale invariance modern: PARTIAL** (perfect at low c; breaks at c=0.475; framing correction filed)
+- P5 META_RULE_W exemption declared ✓
+- P6 capacity-relative gate applied ✓
+
+Primary H1 (physics-law core) survives: 12/12 regimes × 3 non-Hebbian mechanisms pass monotone+smoothness+scale-free, all 3 seeds. Max cross-seed std 0.0175. Cardinality 288/288 × 3 seeds = 864/864.
+
+### Framing corrections filed (my Director-side predictions were partially lossy)
+- Plate bound M~135 was too pessimistic — literature worst-case; empirical is more robust
+- Scale-invariance always ±0.05 was too optimistic — breaks at high corruption
+- Not the abstraction-lossy pattern per Skunkworks (source lit was accurate; passed through verbatim). Empirical-beats-worst-case-theory pattern instead.
+
+### Landing-notifier ROUTING GAP flagged for Testbed
+Notifier did NOT fire for M-sweep FULL landings; discovered via orchestrator poll at 16:24Z. Timing/path/timestamp diagnosis in-flight (Testbed dispatched).
+
+### Exp 3D LLM-free structural KG-slot filtering dispatched (Skunkworks path a')
+Exp 3B (v1 query-only) + Exp 3C (v2 iterative-augmentation) BOTH HF_STRUCTURAL. Path a' uses graph structure directly (subject=e0 hop-1, subject=bridge hop-2) instead of learning role from BGE cosines that failed twice. Fallback: path (a) BridgeRAG tripartite s(q,b,c).
+
+### Session tally per Skunkworks-authoritative disk audit:
+math=38, meta=38 = 76 atoms today. Delta this landing: CG +1, CG_META +1.
+
+### 9 landings today:
+1. Foldiak HF_IMPLEMENTATION_COLLAPSE
+2. Exp 1 MM_SCALE_BOUNDED
+3. Exp 2 MB_STRUCTURAL_LIMIT
+4. Exp 2B HF_INFRASTRUCTURE_SCOPE
+5. Exp 2C MEASURED_MECHANISM
+6. Exp 3 MB_INTERFACE_BOUND
+7. Exp 3B HF_IMPLEMENTATION (Director-lesson filed)
+8. Exp 3C HF_STRUCTURAL (Director-lesson promoted MM_STANDARD)
+9. **M-sweep FULL HP + CG_META awarded (5th Stage 1 physics-law axis)**
+
+### In-flight (2 agents):
+- Exp 3D LLM-free structural KG-slot filtering (SMOKE)
+- Testbed landing-notifier routing gap fix
+
+### Post-compaction sequencing (USER out ~30-40min more):
+- Exp 3D lands → Skunkworks VET → if HP arc CLOSES; if HF escalate to path (a) BridgeRAG tripartite s(q,b,c) OR halt-and-reassess to USER for substrate-native constraint reconsideration
+- Testbed lands → landing-notifier durable fix
