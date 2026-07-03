@@ -389,3 +389,44 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 **Spawn state:**
 - Only Probe 10 still authoring (`a20d62a8213d64873`)
 - Will fire Skunkworks composite VET on 6+7+8+9 SMOKE ensemble once Probe 10 lands
+
+## AMENDMENT 2026-07-03 20:55Z (Skunkworks composite VET — Fix#28 hits #9-#11)
+
+**Skunkworks composite VET on Probes 8+9 SMOKE + 4-probe convergent framing (task aabcdafc7f1431a55) COMPLETE.**
+
+**Off-disk verify OK:** All Probe 8 + Probe 9 cell-author claims reproduced via independent .venv Python. SH-4 root-cause normalization working (single-prefix only, no double-prefix dups).
+
+**HOLD verdicts (both):**
+- Probe 8 → HOLD. Cardinality/machinery pass. Ranking crossover directionally novel. But n_seeds=1 at TR=40, binom SD≈0.072 → 0.20 spread is only **~2.8σ from 1 seed**. Cross-seed cv unavailable. Arc-continuation ≠ arc-closure. **NO atom filed.**
+- Probe 9 → HOLD_SATURATION_VACUOUS_PREVIEW. `main_grid_n_in_non_saturated_band = 0/4` (N=256 floor, N=2048 ceiling; neither individual cell in [0.30, 0.95] band). "cross-term=0.0" is TRIVIALLY TRUE because both endpoints pinned. `n_band_slices=2` is per-F-mean averaging artifact (fluke, as cell-author self-caught). SMOKE grid unusable for hyp assessment. **NO atom filed.**
+
+**Fix#28 hits #9-#11 on my Director framing:**
+
+**#9 — "cliff-adjacent regime" is LOSSY abstraction** (per `feedback_mechanism_abstraction_lossy_cite_source_signature_2026-07-03`):
+- P6+P8 share CLIFF signature (N=512, M=6400, corr=0.85)
+- P7 lives at DIFFERENT signature (N=2048, corr=0.9, L=8)
+- P9 lives at ANOTHER signature (N∈{256,2048}, F∈{1,16}, L=4, corr=0.85; endpoint-only)
+- Composite label `PHYSICS_LAW_ALL_STAGE1_AXES_MODERATE_CLEANUP_MECHANISM_AT_CLIFF_ADJACENT_REGIME_v1` **DENIED** — over-abstracts across regime-mismatched configs
+
+**#10 — "4-probe convergent" INFLATES:**
+- P9 is saturation-vacuous SMOKE, therefore SILENT (neither confirmatory nor denying) about the mech-axis moderation hypothesis
+- My "H2-null preview CONSISTENT with moderation on mech axis only" was INFLATION — P9 provides ZERO signal at SMOKE
+- Corrected count: at SMOKE, P6+P7+P8 give directional signal on mech-axis moderation at their OWN signatures; P9 is silent
+
+**#11 — Composite promotion UNSUPPORTED at any tier at SMOKE:**
+- All 4 probes single-seed SMOKE (no cv, no FULL)
+- Best case honest framing: narrow MM_TENTATIVE for P6+P8 SHARED-signature (both at N=512 M=6400 corr=0.85) — even that requires cross-seed cv before promotion
+
+**Skunkworks-provided BEST HONEST FRAMING (adopt as canonical):**
+
+> "P6+P8 (shared CLIFF-N512-M6400-corr0.85 regime) both show mech-axis spread ≥0.10 at SMOKE with intriguing single-seed ranking-crossover in P8. P7 (different regime N=2048, corr=0.9, L=8) shows mech-axis moderation at ITS OWN signature. P9 (non-mech pair, saturation-vacuous SMOKE grid) HOLD pending in-band FULL. Each cited by source signature; no cross-regime collapse."
+
+**FULL dispatch readiness (post-Tailscale — Skunkworks-authoritative):**
+- **P8:** MULTI-SEED FULL essential — 5 seeds {7,11,13,17,19}, ~125s/seed, 15-min timeout. Must confirm ranking crossover holds across seeds (load-bearing novel claim).
+- **P9:** MULTI-SEED FULL with in-band N ∈ {512, 1024} essential (SMOKE grid unusable). 5 seeds, ~100s/seed, 15-min timeout.
+- **P6+P7:** also need multi-seed FULL (prior VET filed MM_TENTATIVE).
+- Bundle all 4 in overnight_queue; sequential or batched (memory footprint small).
+
+**Session cumulative unchanged: math=46, meta=42.** Cert delta this VET: ZERO. Two HOLDs recorded. No commit.
+
+**Fix#28 cumulative today: 11 hits.** Directional intuition on mech-axis moderation at cliff-adjacent remains plausible; magnitude/scope/composability precision requires FULL evidence + source-signature discipline.
