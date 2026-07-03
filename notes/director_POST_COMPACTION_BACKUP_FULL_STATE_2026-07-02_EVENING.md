@@ -35,11 +35,16 @@
 
 **Skunkworks corpus-completeness gotcha CAUGHT:** local metrics.json was STALE (held earlier smoke-gate output) until SH-9 SCP-recovery refreshed. Discipline reinforced: SSH-pull required for FULL landings; local path NOT authoritative until refreshed.
 
-**Substantive substrate progress SUMMARY at Gate 1 landing:**
+**Substantive substrate progress SUMMARY at Gate 1 landing (CORRECTED per verdict_handler `26b800af5`):**
 
-Parent 5-witness retrieval-loss META now has 1 FORMAL CG-tier witness:
-- Witness 1: PPMI/SVD Wikipedia FULL 10K (formal CG_HN; PPMI 0.6791 < char-trigram 0.7030)
-- Witnesses 2-5 (v1 concept_encoder / Component C / VWFA / Spoke 3) various tiers
+Parent 5-witness retrieval-loss META has **3/5 FULL-scale witnesses**:
+- concept_encoder v1 CG_HN (WordNet FULL)
+- v3-composed CG_HN (WordNet FULL)
+- PPMI CG_MB_LOW_DELTA (Wikipedia FULL 10K formal 3-seed — this landing)
+- + Witnesses 4-5 (Component C / VWFA / Spoke 3 SMOKE-tier variants) at various sub-FULL tiers
+- **CG_META promotion needs 2nd FULL-scale mechanism-class witness at RETRIEVAL task class specifically** (concept_encoder + v3-composed were WordNet; PPMI is Wikipedia at 10K; heterogeneous distinct-mechanism-class witness at Wikipedia FULL scale is what CG_META promotion requires per Skunkworks Gate 1 VET criterion)
+
+**cap_map bumped v596 → v597** per verdict_handler PPMI arc closure. Skunkworks-directed restraint mode CONTINUES; no new experiment dispatch until USER §6 decision.
 
 Sibling task-class-fit META has 4 VSA-native task-class CG_MB witnesses:
 - Cell 1 analogy (K=3 + K_DIST sweep CG_REGIME_CHARACTERIZATION)
