@@ -1092,3 +1092,41 @@ Bounded read of research_drill_codebook_capacity_structural_3x + related notes +
 4. M-sweep FULL lands remote → Skunkworks VET → potential CG_META atom (5th Stage 1 axis) if physics-law claim survives
 
 ### Session tally per Skunkworks-authoritative: math=36, meta=37 (2026-07-03)
+
+## 2026-07-03 16:27Z AMENDMENT 6 (M-sweep FULL HP + Exp 3C HF architectural + 8 landings today)
+
+### M-sweep phase diagram v2 FULL landed HARD_PASS all 3 seeds (16:22-16:25Z)
+Verdict_msg: "HARD_PASS_M_SCALING_LAW: 288/288 pts; 3 non-Hebbian cleanups pass monotone+smoothness+scale-free across all regimes". Wall 72s/seed on GPU (3.6min compute; 34min queue latency + sync-lag masked as delay). Landing-notifier scheduled task DID NOT FIRE (Testbed candidate; files did land + verify via verify_landing.py).
+
+### Skunkworks M-sweep FULL VET dispatched
+Potential 5th Stage 1 CG_META physics-law axis: `PHYSICS_LAW_cleanup_mechanism_M_scaling_non_Hebbian`. Assessing 6 pre-registered criteria (mechanism ordering, AGS cliff localization, Plate bound, scale invariance, META_RULE_W exemption, capacity-relative gate).
+
+### Exp 3C iterative-query-augmentation landed HARD_FAIL (15:54Z)
+Confirms bridge-blindness is ARCHITECTURAL, not v1 implementation defect. Two Stage 3 designs (query-only + iterative-augmentation) both factor as s(q⊕b, c) — pre-fused, cannot express "c is answer given q ANCHORED at b". Skunkworks Exp 3C VET in flight; expected to confirm and file 2nd-witness for Director-lesson MM_TENTATIVE→MM_STANDARD promotion.
+
+### Path (a) BridgeRAG tripartite s(q, b, c) becomes load-bearing next test
+True 3-variable scoring not pre-fused. If (a) also fails, mechanism-class ruling for whole retrieval-arch arc — may need LLM-based query reformulation OR structural KG-slot filtering (both violate substrate-native discipline).
+
+### Testbed infrastructure fix landed at b3e1d0d85 + pushed to origin
+`queue_add.sh:153-154` regex broadened `_seed_[0-9]+$` → `(_seed_[0-9]+|_s[0-9]+)$`. Backward-compatible; future `_s<N>` cells auto-SCP correctly.
+
+### Runner-default-mismatch flagged by Exp 3C author (not blocking)
+`local_cpu_queue` default appears to be --full not --smoke; if preregs assume smoke-regime N_DIM, this is a runner-side default-mismatch. Cell ran at N_DIM=8192 (FULL) not 4096 (SMOKE). Precedents still reproduced within tolerance. Testbed candidate for later.
+
+### Session tally (per Skunkworks-authoritative, pending M-sweep VET landing):
+Prior: math=36, meta=37. M-sweep FULL VET will likely add +1 math CG_META (if physics-law survives) + +1 meta CG_META (if 5th axis atomization holds).
+
+### 8 landings today (all VETed except M-sweep still pending):
+1. Foldiak DG SMOKE HF_IMPLEMENTATION_COLLAPSE
+2. Exp 1 bridge-entity coverage MM_SCALE_BOUNDED
+3. Exp 2 PPR-walk MB_STRUCTURAL_LIMIT
+4. Exp 2B semantic-KB detour HF_INFRASTRUCTURE_SCOPE
+5. Exp 2C Wikidata bridge PPR MEASURED_MECHANISM
+6. Exp 3 composition-recovery MB_INTERFACE_BOUND
+7. Exp 3B Layer 0.75 candidate-refinement HF_IMPLEMENTATION (Director-lesson filed)
+8. Exp 3C iterative-query-augmentation HF (2nd Stage 3 mechanism-class failure)
+9. **M-sweep FULL HP** (Skunkworks VET in flight for CG_META tier)
+
+### In-flight agents (2):
+- Skunkworks Exp 3C VET (mechanism-class attribution + Director-lesson recurrence)
+- Skunkworks M-sweep FULL VET (CG_META tier decision)
