@@ -894,3 +894,55 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Phase 2: author `hdlab/cortex.py` composed pipeline module
 - Phase 3: author `experiments/exp_cortex_integration_end_to_end_v1.py` integration test cell
 - If Tailscale restores: dispatch 27-cell FULL bundle + BGE cache + 170K re-test
+
+## AMENDMENT 2026-07-03 23:55Z (HUGE DISCOVERY: Cortex Phase 1 was already done; Phases 2+3 pre-exist)
+
+**Cortex Phase 1 (task af45f3537dbf8b83d) COMPLETE — but MASSIVELY AHEAD of proposal estimate.**
+
+**All 4 primitives were ALREADY extracted by prior spawns:**
+- M1.3 NoiseChannel at commit `356d99e73`, `hdlab/noise_channel.py` (356 lines)
+- M1.5 TwoTierContext at commit `54fd109b3`, `hdlab/context_retention.py` (415 lines)
+- M1.7 RoleSlotSummarizer at commit `5df2fd592`, `hdlab/role_slot_summarizer.py` (420 lines)
+- M1.8 ClarifyGate at commit `dd6383ee2`, `hdlab/clarify_gate.py` (285 lines)
+
+**Phase 1 this-session work:** closed the missing `verification/` test gap per CLAUDE.md discipline "every framework feature ships with at least one scaffold-free witness":
+- 4 new verification tests: `verification/test_{noise_channel,context_retention,role_slot_summarizer,clarify_gate}.py`
+- 29 tests all PASS (7+7+7+8)
+- All 4 modules import cleanly on `.venv` Python 3.12.10
+- Prior-CG numbers reproduced per primitive within tolerance
+- Commit `d1f8210de` pushed
+
+**Documented drifts (as-extracted, preserved; NOT Phase 1 scope to fix):**
+1. NoiseChannel docstring claims cos~0.85 at moderate sigma=0.15 but L2-renorm math gives cos~0.20; source test only verifies monotonicity so drift not caught by original — re-cert level fix
+2. TwoTierContext STM intentionally in-capacity trivial (n_banks=1, k_per_bank_target unused); multi-bank K-extension applies only to LTM via dense-Hopfield above Amit-Gutfreund wall
+
+**Phase 2+3 artifacts pre-exist on disk:**
+- `hdlab/cortex.py` — 642 lines already on disk (Phase 2 pre-existing)
+- `experiments/exp_cortex_integration_end_to_end_v1.py` — already exists (Phase 3 pre-existing)
+
+**Phase 2+3 audit spawn fired (task aeda42e7f2a9fdb54):**
+- Determines currency vs Phase 1 verified modules
+- Reports drift/broken/current for each artifact
+- Runs SMOKE if both current
+- Fixes trivial drifts inline; reports substantive updates back to Director
+
+**Original proposal estimated 2.5 days sub-agent work; actual remaining work = AUDIT + potential drift fixes + SMOKE landing (potentially ~1 day sub-agent).** Cortex integration is FAR closer to done than proposal implied.
+
+**Encoder migration research brief (task aa251636252392635) COMPLETE:**
+- Spoke 1 v3-D competitive-Hebbian: FULL HP landed at `596a8de03`; `hdlab/concept_encoder.py` extracted at `9d30d3d30`
+- Spoke 2 (Foldiak trace / temporal contiguity): FULL HP landed at `093ad1f31`; CG math + CG_META candidate + MM math variant filed
+- Spoke 3 (DG/CA3/Marr CLS): SMOKE HP; no FULL landed; NOT blocking migration
+- Migration plan 5 steps; Step 1 (train encoder on 970K KB, ~2-3 days CPU-local) ready to fire
+- **All technical prereqs SATISFIED:** Spoke 1+2 FULL HP, hdlab extraction landed, KB OOM mitigation landed (`f906ff737`)
+- **Critical pivot context:** encoder-swap ALONE does NOT fix multi-hop bridge retrieval (that's Cortex Layer 0.5 KG-walk). Encoder migration is ORTHOGONAL — value is (a) query quality lift 0.54→0.85, (b) killing 7.4GB OOM.
+- **Recommended scheduling:** Encoder Migration Step 1 ideal parallel fill-in during Cortex Phase 2/3 audit. Steps 2-5 wait for Cortex land.
+
+**Spawn state (1 in flight):**
+- Cortex Phase 2+3 audit (aeda42e7f2a9fdb54)
+
+**USER strategic decisions PENDING:**
+1. Tailscale home box physical re-auth (still blocked; home peer offline 2h+)
+2. **Encoder Migration Step 1 GO/NO-GO** — start now as parallel fill-in with cortex audit?
+3. Post-cortex-audit: is cortex ready for USER-facing demo, or needs re-authoring?
+
+**Session tally 94 atoms unchanged. Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.**
