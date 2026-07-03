@@ -5,6 +5,31 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯 SUBSTRATE-NATIVE PPMI/SVD WIKIPEDIA SMOKE HP — +0.052 OVER CHAR-TRIGRAM FLOOR (2026-07-03 ~02:15Z)
+
+**Commit `b655b9fd3` pushed.** Cell: `experiments/exp_substrate_wikipedia_ppmi_svd_baseline_smoke_2026-07-03.py`.
+
+**Landed off-disk (VET pending Skunkworks a6740b4c84a3731aa):**
+- ARM_PPMI_SVD_WIKIPEDIA r@5 = **0.906** (std=0.000; PPMI+SVD deterministic on corpus)
+- ARM_CHAR_TRIGRAM_WIKIPEDIA r@5 = 0.854 (EXACT regression of prior char-trigram HP; commit 43ec44a50)
+- ARM_RANDOM_BASELINE r@5 = 0.0073 (chance in-band)
+- Lift = +0.052 over char-trigram floor; HP1 threshold ≥0.884 cleared
+- N=500 smoke, n_dim=2048, wall 58s total 3-seed, 5/5 selftests PASS
+- Precedent grep: NO prior PPMI-on-Wikipedia experiments on disk (V2-A never Wikipedia); genuinely first-of-its-kind probe
+
+**Load-bearing framing (scope-tight per USER-locked):**
+- MECHANISM CG on SUPERVISED regime (concept_label = article index; designer-supplied partition)
+- NOT "substrate understands Wikipedia"
+- FIRST substrate-native ATL-hub-analog semantic encoder to beat surface char-trigram floor on real Wikipedia
+- **Task-class match:** multi-token Wikipedia titles/bodies match ATL-hub-analog co-occurrence regime (drill 5 finding + Skunkworks cross-drill validation); single-word WordNet-synonym-retrieval was position-encoder-defect-confounded
+
+**Discriminator-narrows-at-scale risk:** V2-A WordNet precedent smoke +0.06 → FULL +0.012 (MB at N=500). Wikipedia is different task class (multi-token, mechanism-regime match) — narrowing may be less severe. FULL N=10K is the confirmation. In flight via orchestrator aed7735a5bc7f0561 (char-trigram FULL 10K); PPMI FULL 10K dispatch decision pending Skunkworks VET + strategic decision.
+
+**Path to retire bge from `backend/kb/wikipedia_ingest.py`:**
+- IF PPMI Wikipedia FULL 10K lift holds ≥ +0.03: PPMI/SVD is a viable brain-analog substrate-native encoder candidate to replace bge in KB ingest
+- IF char-trigram alone scales gracefully to ≥0.75 at 10K: even simpler substrate-native replacement possible
+- IF both mechanisms degrade sharply: Spoke 3 hippocampal consolidation becomes load-bearing
+
 ## 🎯 SUBSTRATE-NATIVE WIKIPEDIA FLOOR-CHECK HARD_PASS (2026-07-03 ~01:33Z)
 
 **FIRST substrate-native (non-bge) mechanism retrieval on real Wikipedia corpus.** Commit `a71920bbf` pushed.
