@@ -1,8 +1,40 @@
 # POST-COMPACTION BACKUP — 2026-07-02 evening (session 2 of day)
 
 **Filed:** 2026-07-02 ~19:15 UTC (context at 12% per USER)
-**Amended:** 2026-07-03 ~01:05 UTC — Component C HF landing appended below (post-compaction late landing)
+**Amended:** 2026-07-03 ~01:05 UTC — Component C HF landing appended
+**Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
+
+## 🎯 SUBSTRATE-NATIVE WIKIPEDIA FLOOR-CHECK HARD_PASS (2026-07-03 ~01:33Z)
+
+**FIRST substrate-native (non-bge) mechanism retrieval on real Wikipedia corpus.** Commit `a71920bbf` pushed.
+
+Cell: `experiments/exp_substrate_wikipedia_char_trigram_baseline_smoke_2026-07-03.py`
+Prereg: `preregs/2026-07-03_substrate_wikipedia_char_trigram_baseline_smoke.md`
+Metrics: `data/exp_substrate_wikipedia_char_trigram_baseline_smoke_2026_07_03/metrics.json`
+
+**Smoke result (3 seeds, N=500 Wikipedia articles, n_dim=2048, wall 1.44s/seed, 349 art/sec):**
+- ARM_CHAR_TRIGRAM_WIKIPEDIA r@5 = **0.854** (std=0.000; encoder-deterministic via blake2b(trigram) codebook)
+- ARM_RANDOM_BASELINE r@5 = 0.007 (chance in-band)
+- HP band r@5 ≥ 0.60 passed with 0.254 headroom; cardinality_ok 6/6; arms_differ; selftests 4/4
+
+**Reference:** 2026-06-19 bge Wikipedia ingest r@5=0.992 at N=100K. Char-trigram at 200× smaller scale falls short by +0.138 — NOT a fair contest (scale + encoder complexity both different), but establishes substrate-native FLOOR.
+
+**Strategic reframe:** the WordNet-synonym-retrieval-at-N=100 task (r@5=0.28 for char-trigram) that dominated prior analysis was TASK-SHAPE CONFOUNDED (5x drill 5/5 finding). On the real-corpus retrieval task class (Wikipedia title→article), substrate-native char-trigram already hits 0.854. This validates:
+- 5x drill 5 task-regime reframe (WordNet task probes unfairly)
+- Skunkworks recommendation to build v3-composed for real-corpus retrieval, NOT WordNet-synonym rescue
+- USER's implicit reframe: Wikipedia was already in substrate (via bge); substrate-native retrieval on real corpus is TRACTABLE without exotic mechanisms
+
+**New bar for v3-composed (aa45ff96 in flight):** must beat char-trigram r@5=0.854 at N=500 AND hold up as N scales. Not "beat char-trigram on WordNet synonyms."
+
+**Path to retire bge from `backend/kb/wikipedia_ingest.py`:**
+1. Char-trigram FULL 10K + 100K sweep — characterize scaling curve; if graceful, char-trigram alone may retire bge
+2. v3-composed A+B+cosine (VWFA + PPMI/SVD) — if beats char-trigram at scale, brain-analog composition justified
+3. Spoke 3 hippocampal consolidation — if both surface mechanisms degrade sharply at scale, episodic binding becomes load-bearing
+
+**Skunkworks VET dispatched.**
+
+## 🚨🚨 POST-COMPACTION LATE LANDING (2026-07-03 ~01:05 UTC) — Component C HARD_FAIL
 
 ## 🚨🚨 POST-COMPACTION LATE LANDING (2026-07-03 ~01:05 UTC) — Component C HARD_FAIL
 
