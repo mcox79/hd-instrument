@@ -430,3 +430,39 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 **Session cumulative unchanged: math=46, meta=42.** Cert delta this VET: ZERO. Two HOLDs recorded. No commit.
 
 **Fix#28 cumulative today: 11 hits.** Directional intuition on mech-axis moderation at cliff-adjacent remains plausible; magnitude/scope/composability precision requires FULL evidence + source-signature discipline.
+
+## AMENDMENT 2026-07-03 21:00Z (Probe 10 SMOKE HP landed; last spawn complete)
+
+**Probe 10 STORAGE × ALGEBRA cliff-adjacent SMOKE HP** — commit `51b787ba7` pushed:
+
+**3 empirical findings (all MM_TENTATIVE per cell-author's own discipline):**
+1. **STORAGE main effect is HUGE at cliff:** SHARDED-vs-BUNDLED gap = **0.575 (F=1) to 0.655 (F=16)**, MECH-independent. Storage physics dominates.
+2. **STORAGE × ALGEBRA cross-term is WEAK (~0.075)** — MIDDLE_BAND between H2=0.05 and H1=0.10; leans toward H2 (independence). F fan-out has similar (small) amplification at both storages.
+3. **STORAGE regimes are NON-SUPERIMPOSABLE** — no single (N, M, corr) config saturates BOTH storages simultaneously. BUNDLED at DEEP_SAT (N=8192, M=800, corr=0.60) floors at 0.075 while SHARDED saturates at 1.0. DEEP_SAT gate was relaxed to SHARDED-only during SMOKE iteration; BUNDLED reported informationally.
+
+**Design flags for FULL (cell-author-caught):**
+- BUNDLED cliff at modern_hopfield may not have an in-band single-cell point at any tested (N, M, corr)
+- Consider (a) BUNDLED FULL re-bracket to lower M or different N/corr axis, OR (b) accept CLIFF_BUNDLED as informational-only floor-arm, OR (c) switch BUNDLED arm to iterative_cosine mechanism (which does saturate at PC regime)
+- s13/s19 sibling wrappers needed for 3-seed FULL
+
+**Prior-work check (cell-author):** top substrate_query cosine=0.285 ("Bundle storage") — BELOW 0.30 novelty threshold. Genuinely novel arc-continuation (closes STORAGE column of pairwise regime matrix alongside Probes 4+5).
+
+**Skunkworks VET queued** — will assess (a) STORAGE main effect claim (0.575-0.655 gap at cliff) via independent recompute, (b) cross-term=0.075 middle-band interpretation, (c) non-superimposable regime finding, (d) FULL dispatch design constraints.
+
+**Spawn state: ALL COMPLETE at 21:00Z.** 5 spawns fired this pickup, all returned:
+- Testbed SH-4 fix (COMPLETE 20:24Z; pushed `70c9f6a5d`)
+- Skunkworks VET 1 (Probes 6+7 v2) (COMPLETE 20:29Z; 3 Fix#28 hits filed)
+- Probe 8 ALGEBRA × MECH (COMPLETE 20:48Z; pushed `79fe2758d`)
+- Probe 9 N × TOPOLOGY (COMPLETE 20:48Z; pushed `0c5761c87` + `8f63ac421`)
+- Skunkworks VET 2 composite (COMPLETE 20:55Z; 3 more Fix#28 hits filed)
+- Probe 10 STORAGE × ALGEBRA (COMPLETE 21:00Z; pushed `51b787ba7`)
+
+**Session cumulative unchanged: math=46, meta=42** (all probes at HOLD tier; no atom filings from any of the SMOKE landings).
+
+**Ready-to-fire post-Tailscale queue (updated with Probe 10):**
+- **P8:** FULL 5 seeds ~125s/seed (confirm ranking crossover across seeds)
+- **P9:** FULL 5 seeds ~100s/seed (in-band N ∈ {512, 1024})
+- **P6+P7 v2:** FULL 3+ seeds (prior VET filed MM_TENTATIVE)
+- **P10:** FULL 3 seeds w/ BUNDLED cliff re-bracket or scope-narrowed arm
+- Bundle overnight_queue GPU; sequential or batched
+- Recovery: Probes 4+5 FULL + BGE 178K cache build + 170K unified re-test
