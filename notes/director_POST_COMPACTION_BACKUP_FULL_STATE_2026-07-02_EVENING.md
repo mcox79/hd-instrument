@@ -902,3 +902,52 @@ Session tally in my narrative (35 CG + 3 CG_META) may drift from disk-truth (52 
 grep -c "$(date -u +%Y-%m-%d)" d:/AI/hd-instrument/data/substrate_index/math/atoms.jsonl
 grep -c "$(date -u +%Y-%m-%d)" d:/AI/hd-instrument/data/substrate_index/meta/atoms.jsonl
 ```
+
+---
+
+## 2026-07-03 EARLY AFTERNOON AMENDMENT (session continuation post-compaction)
+
+### Session-tally disk (2026-07-03, grep -c today):
+- math=32, meta=33 = 65 atoms filed today (of which ~3 today-fresh + rest carry-forward from 2026-07-02 tail)
+- Skunkworks-authoritative "atoms filed today" count: math=2, meta=1 (3 fresh landings today's arc)
+
+### Today's landings (chronological):
+
+1. **Foldiak DG competitive-Hebbian preprocessing SMOKE** → HARD_FAIL_IMPLEMENTATION_COLLAPSE (13:16Z). Skunkworks-VETed; atom `HF_FOLDIAK_DG_PREPROCESSING_REPRESENTATION_COLLAPSE_AT_DEFAULT_HYPERPARAMS_2026_07_03` at meta:347. Revival criterion: HP sweep + longer training + anti-collapse regularization. Cell-author overclaimed on CA3-anti-signal mechanism-invariance broadening + Hypothesis C P_deflation — NOT propagated. Auditor rule: flag broken PC before structural framing.
+
+2. **Exp 1 bridge-entity coverage** → MM_SCALE_BOUNDED_PIPELINE_SHAPE_OK (from cell-author HARD_PASS 0.982; downgraded by Skunkworks per scale caveat). Commit `bb28a62c6`. Per-arm confirmed Fix#28: MAIN 0.9818, POS_CTL 1.000, NEG_CTL 0.000. Scale caveat: 20-entity synthetic KG with 4-5 char names → char-trigram cosine near-exact-match by construction. Revival criterion: confirm at 170K-atom Director-KB scale.
+
+3. **Exp 2 PPR-walk bridge-recovery** → MB_STRUCTURAL_LIMIT (recovery_rate=0.170, MIDDLE_BAND barely above HF floor 0.15). Commit `f4163cf76`. Per-arm confirmed Fix#28: BASELINE 0.0364, MAIN 0.1818, POS_CTL 1.000, NEG_CTL 0.000. Mass conservation 4.44e-16. Mid-smoke self-correction (ppr[s]+ppr[o]→ppr[s]-only per HippoRAG authorship-mass) LEGIT (11+ witness cell-author pattern). Scale caveat applies MORE forcefully: PPR is global-flow qualitatively dependent on semantic edge signal; synthetic random-UUID KG has none. 17% is LOWER-BOUND floor, not real assessment.
+
+### Strategic pivot decided this session:
+
+Cell-author + Skunkworks BOTH independently endorsed detour: run PPR on real Wikipedia FULL 10K semantic subgraph BEFORE chaining Exp 3, because Exp 3 on 18% retrieval floor caps F1 at ~0.15-0.20 (vs ORACLE 0.783) — non-discriminative. USER directed Option B ("do it"). **Wikipedia semantic-KB PPR-walk detour dispatched** as `hdi_exp_dev` agent — this is the decision-point experiment for the whole retrieval-architecture arc:
+- HARD_PASS (≥0.50 recovery) → graph-walk viable; chain Exp 3 with confidence
+- HARD_FAIL (<0.15) → graph-walk approach is dead; revive encoder-swap path as primary
+- MIDDLE (0.15-0.50) → partial signal; USER decision
+
+### Concept-query-before-dispatch discipline hits:
+- Exp 1 prior-arc: cosine 0.2881 (below 0.30 threshold — no rediscovery)
+- Exp 2 prior-arc: clean per Skunkworks cross-check
+- Foldiak prior-arc: NOVEL top cosine 0.343
+
+### Universal-rule additions this session (USER-locked):
+- **"Drill X" = internet research (safe search, no project-internal specifics off-platform)** — NOT main-thread reasoning; NOT code analysis. [ref](feedback_drill_means_internet_research_safe_search_no_tech_specifics_USER_2026-07-03.md)
+- **Intuitive summary at end of substantive result** elevated to UNIVERSAL RULE. Placement: at END of message. [ref](feedback_intuitive_summaries_with_importance_implications_progress_position_USER_STANDING_2026-07-02.md)
+- **5-layer compliance-test protocol** synthesized from external drill (Cochrane PLEACS, IFEval, MT-Bench LLM-as-judge, Yale blind-grading, Cohen's κ ≥ 0.6). [ref](reference_compliance_test_protocol_intuitive_summary_rule_5_layer_2026-07-03.md)
+
+### In-flight at time of this amendment:
+- `hdi_exp_dev` Wikipedia semantic-KB PPR-walk detour (~1 day CPU expected; discriminative for entire retrieval-arch arc)
+
+### Post-compaction next-step priority order:
+1. Check Wikipedia semantic-KB detour result (in flight now)
+2. If HARD_PASS → dispatch Exp 3 (composition-recovery vs ORACLE 0.783)
+3. If HARD_FAIL → revive encoder-swap path (stella_en_1.5B_v5 evaluation from prior drill)
+4. If MIDDLE → present to USER
+5. Revise M3 cortex design (`design_m3_cortex_layer_substrate_operates_off_stage1_findings_2026-07-03.md`) to reflect actual outcome of graph-walk viability
+
+### Fix#28 discipline internalized this session:
+- Foldiak: did NOT propagate cell-author's CA3-broadening overclaim → Skunkworks-corrected inline
+- Exp 1: did NOT propagate HARD_PASS framing without scale caveat → Skunkworks scope-corrected to MM_SCALE_BOUNDED
+- Exp 2: did NOT propagate MIDDLE_BAND without structural-limit distinction → Skunkworks tier-refined to MB_STRUCTURAL_LIMIT
+- "Convergent methods" trigger word AVOIDED when reporting cell-author + Skunkworks endorsement (both agents applied same reasoning to same data with role separation — not two independent methods)
