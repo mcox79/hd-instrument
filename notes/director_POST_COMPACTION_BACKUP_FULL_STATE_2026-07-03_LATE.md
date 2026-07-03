@@ -946,3 +946,44 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 3. Post-cortex-audit: is cortex ready for USER-facing demo, or needs re-authoring?
 
 **Session tally 94 atoms unchanged. Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.**
+
+## AMENDMENT 2026-07-04 00:05Z (Cortex Phase 2+3 audit CURRENT + SMOKE HP + FULL running)
+
+**Phase 2+3 audit (task aeda42e7f2a9fdb54) COMPLETE:**
+- **Phase 2** `hdlab/cortex.py` (642 lines, commit `50f44b7cf`): CURRENT. Imports resolve, `class Cortex.__init__/.forward()` matches proposal, `CortexConfig` dataclass present, `CortexResponse` typed with retrieval/predicted_val_idx/tier_used/confidence/route/provenance/role_slots, 9 formula selftests PASS
+- **Phase 3** `experiments/exp_cortex_integration_end_to_end_v1.py` (877 lines): CURRENT after 1 trivial fix — `--smoke` alias added for `tools/queue_add.py` gate contract (commit `b847e023e`)
+
+**SMOKE HP landed:**
+- Path: `data/exp_cortex_integration_end_to_end_v1_smoke/metrics.json`
+- 4/4 primitives reproduce (M1.4/M1.5/M1.7/M1.8, max_delta=0.0000 all)
+- 4/4 ablations fire (max_ablated=0.0000)
+- 12/12 units HP
+- META_RULE_AF fingerprint proves code-paths differ per arm
+
+**FULL is RUNNING in local_cpu_queue** — will produce 3-seed × 12-unit metrics at `data/exp_cortex_integration_end_to_end_v1/metrics.json`
+
+**Coverage note (design decision, not bug):**
+- 4 primitives active discriminator (M1.4/M1.5/M1.7/M1.8)
+- M1.3 NoiseChannel wired to facade but discriminator arm DISABLED by default (`noise_channel_enabled=False`)
+- M1.6 chunked_attention runs as infrastructure inside M1.4 COMPOSED (not standalone arm)
+- Optional Phase 3b: add M1.3 + M1.6 explicit arms for full 6-primitive coverage
+
+**Skunkworks landed-VET fired (task a9c698659626b3521):**
+- Key skepticism: "bit-identity by construction" — is this a genuine INTEGRATION-FIDELITY test or a tautology? If COMPOSED calls same instances at same seeds as INDIVIDUAL, they match. What is the discriminator actually testing?
+- "Ablation-fires-at-zero" — ablation should show DEGRADATION, not match. Is max_ablated=0.0000 actually a HP signal or a failure to discriminate?
+- Coverage: 4-of-6 primitives — adequate arc closure or needs Phase 3b?
+- Awaiting VET verdict + tier decision (PROMOTE / HOLD / DOWNGRADE)
+
+**Framing discipline (adopted from cell-author):** SMOKE HP is INTEGRATION-FIDELITY confirmation (composed pipeline reproduces individual primitives), NOT arc closure for "cortex layer works end-to-end on downstream task." That's a distinct claim requiring a task-analog cell.
+
+**Spawn state (1 in flight):**
+- Skunkworks cortex SMOKE HP landed-VET (a9c698659626b3521)
+- Cortex FULL running in local_cpu_queue (not agent-owned; runner-owned)
+
+**USER strategic decisions still pending:**
+1. Tailscale home box key-expiry fix path chosen (admin console / alternate remote / physical)
+2. **Encoder Migration Step 1 GO/NO-GO** — cortex effectively-done means encoder Step 1 has more parallel bandwidth
+3. **Cortex Phase 3b GO/NO-GO** — add M1.3 + M1.6 explicit discriminator arms for full 6-primitive coverage? Or accept 4-of-6 as arc-closure?
+4. **Cortex task-analog cell** — end-to-end downstream task validation is distinct from integration-fidelity. Author?
+
+**Session tally 94 atoms unchanged. All commits pushed through `b847e023e`.**
