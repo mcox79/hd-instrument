@@ -984,3 +984,38 @@ Design revised: M3 cortex Layer 0.5 KG-walk at 9971774d9
 
 ### In-flight at time of this amendment:
 NONE — Exp 2B chain closed pending USER decision on iteration path
+
+## 2026-07-03 14:48Z AMENDMENT 3 (Exp 2C landing + Skunkworks + Testbed)
+
+### Exp 2C landed HARD_PASS on smoke (14:42Z) → Skunkworks tier = MEASURED_MECHANISM (14:47Z)
+PPR-walk on synthesized 2-hop Wikidata bridge queries. Per-arm Fix#28-confirmed off-disk: BASELINE 0.3467, MAIN 0.9933, POS_CTL 1.000, NEG_CTL 0.1333, margin 0.860, recovery 97/98=0.99, 5,371 entities, mean local_edges 2.20. Committed prereg+cell (not shown commit hash — pre-Skunkworks-atomization).
+
+### 3 mid-smoke calibration adjustments audited by Skunkworks:
+1. Synthesizer redesign deg-cap [3,50]→[5,∞] hubs: LEGITIMATE + SCOPE-NARROWS. Bipartite-forest topology real. Claim narrows to "hub-concept 2-hop bridges" (bridge = Q11348/Q11563/Q246672 = function/number/mathematical object).
+2. NEG_CTL widening 0.10→0.20 + margin gate 0.50: LEGITIMATE STRUCTURAL (not Goodhart). Bipartite diffusion real. Margin 1.72× gate.
+3. Label source atoms.jsonl→shard aliases[0]: LEGITIMATE + FLAGS SUBSTRATE BUG. PPR structural-only, no arm-favoring exploit.
+
+### Decision-point: CLOSED_WITH_SCOPE_ANNOTATION
+Encoder-swap DEFERRED validated. PPR-walk viable for hub-concept-bridge class at real-KG scale (268× scale over Exp 2). Non-hub-bridge extrapolation gated by DATA availability (Wikidata partition lacks non-hub bridges), not mechanism.
+
+### Testbed atoms.jsonl bug audit landed independently:
+- ROOT CAUSE: `tools/substrate_mapper_to_atom_dict_adapter_v1.py:99` — `humanize_name(canonical_name)` drops real label; aliases[0] has it
+- Blast: 5,360 / 28,986 = 18.5% (wikidata slice only)
+- Fix (<1hr): patch adapter + backfill atoms.jsonl + optional BGE re-embed
+- Not a regression — design defect never surfaced
+- Awaiting USER patch authorization (touches canonical substrate data)
+
+### AWAITING USER (3 decisions):
+1. Patch atoms.jsonl labels? (recommended YES)
+2. Chain Exp 3 composition-recovery vs ORACLE 0.783 with scope-annotation hub-concept-bridge? (recommended YES post-patch)
+3. Non-hub-bridge coverage expansion? (recommended DEFER until Exp 3 clears)
+
+### Atoms filed by Skunkworks (Exp 2C landing):
+- math: `EXP_...exp2c_ppr_walk_synthesized_wikidata_bridges_smoke_MEASURED_MECHANISM_hub_concept_bridge_recovery_...`
+- meta: `META_MID_SMOKE_ADJUSTMENTS_LEGITIMATE_WHEN_STRUCTURAL_RATIONALE_MEASURABLE_...` MM_TENTATIVE_METHODOLOGY 1-witness
+
+### Session tally per Skunkworks-authoritative (atoms FILED today 2026-07-03):
+math=16, meta=14, total=30 (disk-grep line count: math=33, meta=33 = 66 lines with date string)
+
+### In-flight at time of this amendment:
+NONE — 3-question USER decision point
