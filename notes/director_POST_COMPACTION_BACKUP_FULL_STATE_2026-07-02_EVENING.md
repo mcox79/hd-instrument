@@ -1308,3 +1308,89 @@ Abstraction-lossy MM_STANDARD extended to include REGIME conflation across nativ
 2. SH-4 landing pane double-prefix fix
 3. Physics-law composition Option Y (resumed with regime-honest sharded-rule-storage chain design)
 4. hdi_orchestrator FULL Layer 0.5 production wiring dispatch
+
+## 2026-07-03 18:55Z AMENDMENT 11 (END OF SESSION - MAJOR)
+
+### DUAL INFRA BLOCKERS (USER action needed on 1):
+1. **Tailscale peer key expired on marsh@home** — SSH DOWN → no remote dispatch. USER must run `tailscale up` on home box.
+2. **Safety classifier unavailable** — can't spawn agents right now (transient Claude infra); read-only work OK.
+
+### Session tally at real disk truth:
+- **88 atoms filed today** (math=46, meta=42)
+- **1 CG_META CONFIRMED at CG threshold:** Probe 1 STORAGE × CLEANUP_MECHANISM (cv=0.148 just under 0.15 threshold; 24/36 BUND vs 0/36 SHARD categorical)
+- **1 CG_META promotion:** M-sweep CLEANUP_MECHANISM regime-narrow claim MM_TENTATIVE→CG_META CONFIRMED via Probe 1 evidence
+- **2 MM_STANDARD/BOUNDED_NULL:** Probes 2 (N × MECH) + 3 (TOPOLOGY × MECH) — both saturation-vacuous per Skunkworks
+- **1 new physics-of-experimental-methodology CG_META:** `META_saturation_floor_masks_null_variance` — null-result is vacuous if grid saturated
+
+### Regime map status (REAL disk truth, all Fix#28 verified):
+- **CONFIRMED cross-term:** STORAGE × CLEANUP_MECHANISM (Probe 1 CG_META)
+- **Saturation-vacuous nulls (revival needed):** N × MECH (Probe 2), TOPOLOGY × MECH (Probe 3)
+- **SMOKE-only-so-far (FULL crashed):** STORAGE × N (Probe 4 - showed cross-term emerging), STORAGE × TOPOLOGY (Probe 5)
+- **Pending author (prereg done):** Non-saturated TOPOLOGY × MECH (Probe 6)
+
+### Composite CG_META "STORAGE UNIQUELY MODERATES" NOT YET VALID
+Needs non-saturated evidence for N and TOPOLOGY (Probe 6 addresses TOPOLOGY; new Probe 7 needed for N revival).
+
+### 5 Stage 1 CG_META physics-law axes (with regime-scope annotations):
+1. STORAGE_STRATEGY_SCALE_FREE_AND_TOPOLOGY_FREE (2026-07-02)
+2. STORAGE_STRATEGY_COMPOSITION_DEPTH (2026-07-02)
+3. SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS (2026-07-02)
+4. PHYSICS_LAW_cleanup_mechanism_M_scaling_non_Hebbian (2026-07-03 M-sweep) — regime-scope: bipolar-codebook cleanup regime; CG_META CONFIRMED via Probe 1 evidence
+5. **NEW:** `META_CLEANUP_MECHANISM_AXIS_IS_REGIME_NARROW_PROMOTION_MM_TENTATIVE_to_CG_META_CONFIRMED` (Probe 1 VET)
+6. **CG math atom:** `MATH_STAGE1_REGIME_MAP_PROBE1_STORAGE_x_CLEANUP...` — first empirical measurement of regime-conditional cross-term
+
+### 10+ discipline memory rules filed today:
+- Full-auto = make the call
+- Mechanism-abstraction-lossy MM_STANDARD (with regime-mismatch extension MM_STANDARD)
+- Arc-continuation vs arc-closure
+- Orchestrator-hallucination-pattern verify-both-prefixes (refined with SH-4 nuance)
+- Null-hypothesis SMOKE gates
+- Saturation-vacuous null lesson (new today)
+- Drill = internet research (safe search, no project internals)
+- Intuitive summary at end of substantive report (UNIVERSAL)
+- HF deep-dive before pivot
+- Director-is-self-reference (stop 3rd-person)
+- 5-layer compliance-test protocol
+- Session-start ritual read latest_landings pane
+- Open relation vocabulary NO closed enum (project principle)
+- Substrate ingest integrity (project principle)
+- Substrate open relation vocab (project principle)
+- Stage 1 Regime Map arc (project principle)
+- Legacy 4425-commit branch on remote (project note for triage)
+
+### Infrastructure fixed today:
+- queue_add.sh regex broadened for `_s<N>` naming (Testbed b3e1d0d85)
+- Landing pane `data/latest_landings.md` auto-refresh (Testbed b880f7ce1)
+- atoms.jsonl label-placeholder Wikidata fix (e28a4f474)
+- SH-4 double-prefix landing pane fix (Testbed 5771611e6)
+- Testbed remote-repo reconciliation (remote HEAD=bf40f2008; 328-commit gap closed)
+- AtomKind enum 58 orphan-kinds added (Testbed ac478a53b)
+- Wikidata typing regression fixed (Testbed a2d01b7b3)
+
+### Retrieval-architecture arc CLOSED (marginally) at hub-concept-bridge scope:
+- Exp 3E FULL HARD_PASS_FULL_ARC_CLOSURE at N=8192, 100q × 3 seeds
+- Skunkworks-downgrade: MM_TENTATIVE_ARC_CLOSURE_MARGINAL_GATES (aggregate) + CG_HARD_PASS S1+S2-subtract sub-claim
+- Revival to CG_aggregate: 5-seed OR 300q/seed with sample-sd cv < 0.09
+
+### Layer 0.5 production wiring:
+- SMOKE HP (INTEGRATION_END_TO_END = 0.833, 6-arm cell)
+- FULL dispatched to remote_cpu_queue at 17:41Z; landing not yet checked
+- hdlab/layer_075_structural_slot_filter.py committed 03008c72e (Principle 11 promotion)
+
+### Post-session pickup priorities (when Tailscale + classifier restored):
+1. USER: `tailscale up` on marsh@home
+2. Recovery orchestrator to re-dispatch Probe 4 FULL + Probe 5 FULL + BGE cache 178K (est 5hr)
+3. Author Probe 6 cell (SMOKE only local)
+4. Layer 0.5 FULL landing check (may have landed on remote_cpu_queue pre-Tailscale-expiry)
+5. When BGE cache built: dispatch 170K unified scale re-test cell
+6. When regime probes 4+5 FULL land: Skunkworks VETs
+7. When Probe 6 SMOKE HP: dispatch remote GPU FULL
+
+### Fix#28 hits today (count 5+):
+1. Wikipedia FULL 10K hallucination (recorded earlier)
+2. PHYSICS_LAW over-framing
+3. PPMI-alone-first
+4. Orchestrator Probe 3 fabricated report (actually SH-4 verify tooling bug, refined memory)
+5. Probes 2+3 saturation-vacuous framing (over-claimed nulls)
+6. M-sweep CG_META over-framing (scope-narrow, amended)
+7. Exp 3E FULL over-framing (marginal not full)
