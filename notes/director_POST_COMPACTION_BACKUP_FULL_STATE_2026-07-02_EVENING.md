@@ -35,7 +35,9 @@
 
 **Also:** HIPPO-arm cluster_cos boundary probe LANDED clean — CG_HN_ARCHITECTURAL CA3-anti-signal scope-corrected to cluster_cos ≳0.8-0.9 (research drill's Cycle 178 inverted-U hypothesis validated).
 
-**8 Fix#28 hits caught on Director today** (cell-authors + Skunkworks). Full-pipeline audit-of-audit epistemic hygiene functioning at CG_META tier. Cell-author self-correction pattern CG_META (9+ witnesses).
+**9 Fix#28 hits caught on Director today** (cell-authors + Skunkworks). Full-pipeline audit-of-audit epistemic hygiene functioning at CG_META tier. Cell-author self-correction pattern CG_META (10+ witnesses).
+
+**Tandem v2 SMOKE result CORRECTED (Fix#28 hit #9):** cell-emitted HARD_PASS at +0.778 lift OVER-CLAIMS. Cell-author self-audit flagged 3 smoke-only artifacts inflating the lift: (a) hashed word-bag proxy for bge (real bge deferred to FULL), (b) ground-truth role-filler structure fed both ends (no NER extraction cost paid), (c) H1 regression to verify_v1 FAILED (BGE_ALONE_NATURAL = 0.000). Honest tier: MIDDLE_BAND smoke-tier. Mechanism-runs + arithmetic-checks-out gate, NOT validation of substrate-as-selector production hypothesis. USER's hypothesis ("substrate ideal at selection") remains UNCHANGED empirically — real evidence requires FULL with real bge + real NER on docs.
 
 **Parent 5-witness META `SUBSTRATE_NATIVE_STRUCTURAL_MECHANISMS_LOSE_TO_CHAR_TRIGRAM_BAG_ON_REAL_CONTENT_RETRIEVAL_AT_SCALE`:** MM_STANDARD_5_WITNESS_GATE_1_SATISFIED (3/5 FULL: concept_encoder + v3-composed + PPMI). cap_map v596→v597 via verdict_handler. CG_META still needs 2nd FULL-scale mechanism-class witness.
 
