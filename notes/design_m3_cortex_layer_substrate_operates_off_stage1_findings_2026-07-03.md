@@ -81,6 +81,28 @@ Original design assumed rerank-tandem was the retrieval-fix. Composite ruling 20
 **Related atoms filed 2026-07-03:**
 - `substrate_exp3_composition_recovery_hub_bridge_INTERFACE_BOUND_MB_2026_07_03` (math)
 - `META_RULE_composition_primitive_input_shape_contract_2026_07_03` MM_TENTATIVE_SYNTHESIS (meta) — FHRR composition input-shape contract
+- `substrate_exp3b_layer075_query_only_rescore_bridge_blind_HF_IMPLEMENTATION_2026_07_03` (math)
+- `META_RULE_mechanism_abstraction_lossy_cite_source_signature_2026_07_03` MM_TENTATIVE_METHODOLOGY (meta) — Director-lesson: don't abstract source mechanism argument signatures silently
+
+## Layer 0.75 Stage 3 REDESIGN required per Exp 3B HF (2026-07-03 late afternoon)
+
+**Failure verified by Skunkworks:** query-only rescore (implemented via MMR-hard, softmax-cos, or modern-Hopfield top_k_by_retrieved) is BRIDGE-BLIND for multi-hop queries. Bridge entity by definition is not in query text; query-only rescore drops bridge-containing chunks. GT-coverage tracking pre → post Stage 3: 51/60 → 15/60 (60% GT loss).
+
+**Director-side design abstraction error identified:** in the drill synthesis note (prior version of this file) I abstracted BridgeRAG's `s(q, b, c)` tripartite scorer to "query-conditioned rescore" — silently dropped the bridge-conditioning term `b`. The bridge-conditioning IS the load-bearing innovation from BridgeRAG. Filed as MM_TENTATIVE meta rule; recurrence would promote to MM_STANDARD.
+
+**Stage 3 v2 candidate architectures (Exp 3C in flight):**
+- **Path (b) — iterative query-augmentation** (Skunkworks-recommended, cheapest): hop-1 rescore → extract candidate bridge from top-K → augmented query Q ⊕ b → hop-2 rescore. No new extraction primitive; reuses BGE + FHRR + char_trigram_encoder.
+- **Path (a) — BridgeRAG tripartite `s(q, b, c)`** (fallback if b fails): explicit bridge-entity extraction + tripartite scoring over (query, bridge, candidate). Requires new extraction primitive.
+
+**Decision-tree:**
+- Exp 3C HP → arc CLOSES via path (b); Stage 3 v2 = iterative query-augmentation
+- Exp 3C HF → dispatch path (a) BridgeRAG tripartite as Exp 3D
+- Exp 3D HF → mechanism-level structural failure; halt-and-reassess
+
+**Composes with today's other findings:**
+- Stages 1 (node-spec IDF) and 2 (hub-dampen) verified null-effect in Exp 3B — NOT catastrophic, just not lifting. May prune for v2 or retune with real semantic vocabulary (synthetic opaque tokens like "Alton"/"Bexley" don't admit meaningful IDF signal).
+- ORACLE + Exp 3 baseline reproductions cleanly verify composition primitive + regime intact — no need to revisit those.
+- The interface between Layer 0.5 output and Layer 1 input is the load-bearing failure surface; Stage 3 v2 is the load-bearing fix.
 
 ### Layer 1: Substrate VSA compositional query layer
 
