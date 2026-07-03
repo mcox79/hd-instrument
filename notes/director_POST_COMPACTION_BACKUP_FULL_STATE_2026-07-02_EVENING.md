@@ -5,6 +5,39 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯 PPMI WIKIPEDIA FULL 10K PRELIMINARY HARD_NEGATIVE — DECISION FORK (B) CONFIRMED (2026-07-03 ~02:57Z)
+
+**Cell TIMED OUT** at 1200s ceiling (cell-author underestimated PPMI wall 3×; needed ~1320s). Metrics.json NEVER WRITTEN. **Heartbeat has 2/3 seeds' worth of clean data** (deterministic PPMI/SVD encoder + same corpus subsample → identical values across seeds is EXPECTED not bug):
+
+**Preliminary result (from heartbeat, 2/3 seeds):**
+- ARM_PPMI_SVD_WIKIPEDIA_N10K r@5 = **0.6791** (both seeds identical, expected for deterministic encoder)
+- ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K r@5 = 0.7030 (matches earlier char-trigram FULL 10K exactly)
+- ARM_RANDOM_BASELINE_N10K r@5 = 0.0001-0.0003 (in-band, chance=0.0005)
+
+**PPMI/SVD LOSES to char-trigram by −0.0239 at Wikipedia N=10K.** The +0.052 smoke lift REVERSED at scale — sharper narrowing than V2-A WordNet precedent (+0.06 → +0.012 stayed positive).
+
+**Decision fork (B) CONFIRMED per BACKUP:**
+- Neither substrate-native surface (char-trigram) NOR semantic (PPMI/SVD) mechanism alone can retire bge (gap +0.289 - +0.313 to bge 0.992)
+- Composition/adaptive-α won't rescue (composition-dilutes lemma + PPMI-loses-at-scale)
+- **Spoke 3 hippocampal consolidation is now THE load-bearing brain-analog path** — design ready at `notes/design_stage2_concept_encoder_spoke3_sparse_hippocampal_pattern_separation_one_shot_2026-07-02.md`
+
+**3 parallel actions dispatched:**
+- Skunkworks preliminary VET (a161502a5e299c35f) — atomize preliminary HF at CG_HN or MM_TENTATIVE
+- Cell-fix + prep re-dispatch (a7c329db1d9c371fc) — bump timeout 1800s + per-seed checkpoint (SH-4-adjacent discipline) for clean formal atomization
+- Author Spoke 3 hippocampal cell (ae1cf732ca9855613) — DG-expansion + Marr-CA3 + CLS replay-consolidation; explicitly avoids 2026-06-23 falsified WTA-collision pattern
+
+**Cell-quality gaps flagged for durable memory:**
+- Timeout budget underestimate (cell-author claimed 140s/seed, actual 415s = 3× underestimate)
+- No per-seed metrics.json checkpoint (2/3 seeds' worth of results LOST from formal record)
+- Both to be filed as DISCIPLINE_META atoms via Skunkworks
+
+**3-witness pattern for meta-synthesis (per Skunkworks-consideration):**
+- Witness 1: 2026-07-02 v1 concept_encoder substrate-content HF (WordNet N=100)
+- Witness 2: V2-A PPMI/SVD WordNet FULL MB (+0.012 narrowed but positive at N=500)
+- Witness 3: PPMI/SVD Wikipedia FULL 10K preliminary HF (−0.024 REVERSAL at N=10K)
+- Pattern: substrate-native concept mechanisms narrow → reverse as N scales; more extreme reversal at more extreme scale
+- Candidate META synthesis atom: `SUBSTRATE_NATIVE_CONCEPT_MECHANISMS_NARROW_TO_REVERSAL_VS_SURFACE_AT_SCALE_ON_REAL_CORPUS`
+
 ## 🎯 v3-COMPOSED WIKIPEDIA MULTI-ARM SMOKE LANDED MB + POST-PPMI-FULL DECISION FORK (2026-07-03 ~02:40Z)
 
 **Commit `0331d844d` on origin.** Skunkworks VET landed (`aba1f757b2f9cac11`):
