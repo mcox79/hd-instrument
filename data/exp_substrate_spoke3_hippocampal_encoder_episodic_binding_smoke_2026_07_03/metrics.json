@@ -1,0 +1,371 @@
+{
+  "anchor_name": "substrate_spoke3_hippocampal_encoder_episodic_binding_smoke_2026_07_03",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: brain-analog Marr-CA3 + DG-expansion primitive (hdlab.hippocampal_encoder at dg_dim=8192 sparsity=0.020) achieves recall@1=1.0000 >= 0.8000 on INTENDED task class (episodic one-shot binding + partial-cue pattern completion) at N=50 pairs (4.8% Tsodyks-Feigelman capacity 1047). Task-class-mismatch hypothesis for prior Wikipedia HF (commit 1cd8e3757; ARM_SPOKE3_HIPPOCAMPAL r@5=0.145 vs char-trigram 0.854) is VALIDATED: primitive mechanism is correct; Wikipedia HF is task-class mismatch (open-domain many-to-many surface retrieval != episodic one-shot binding), NOT mechanism failure. HONEST SCOPE: MECHANISM_VALIDATION on SUPERVISED synthetic pair-binding regime; does NOT grant substrate general-knowledge; does NOT claim substrate has language capability. AVOIDS 2026-06-23 falsified WTA-collision mechanism (verified at hippo_ne_naive_wta_collision selftest). HOLD pending USER decision on next steps. hippo_dg_only r@1=1.0 (CA3 contribution = +0.0000); cos_bl r@1=1.0; random r@1=0.0133 dg_rate=0.020358072916666668",
+  "summary": "HARD_PASS: brain-analog Marr-CA3 + DG-expansion primitive (hdlab.hippocampal_encoder at dg_dim=8192 sparsity=0.020) achieves recall@1=1.0000 >= 0.8000 on INTENDED task class (episodic one-shot binding + partial-cue pattern completion) at N=50 pairs (4.8% Tsodyks-Feigelman capacity 1047). Task-class-mismatch hypothesis for prior Wikipedia HF (commit 1cd8e3757; ARM_SPOKE3_HIPPOCAMPAL r@5=0.145 vs char-trigram 0.854) is VALIDATED: primitive mechanism is correct; Wikipedia HF is task-class mismatch (open-domain many-to-many surface retrieval != episodic one-shot binding), NOT mechanism failure. HONEST SCOPE: MECHANISM_VALIDATION on SUPERVISED synthetic pair-binding regime; does NOT grant substrate general-knowledge; does NOT claim substrate has language capability. AVOIDS 2026-06-23 falsified WTA-collision mechanism (verified at hippo_ne_naive_wta_collision selftest). HOLD pending USER decision on next steps. hippo_dg_only r@1=1.0 (CA3 contribution = +0.0000); cos_bl r@1=1.0; random r@1=0.0133 dg_rate=0.020358072916666668",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "n_pairs": 50,
+  "n_dim": 2048,
+  "dg_dim": 8192,
+  "dg_sparsity_target": 0.02,
+  "partial_cue_fraction_zeroed": 0.5,
+  "tf_capacity_theoretical": 1047.0286075303177,
+  "load_fraction": 0.0477541870779803,
+  "expected_n_units": 12,
+  "actual_n_units": 12,
+  "cardinality_ok": true,
+  "arms_differ_verified": true,
+  "baseline_in_band_check": {
+    "arm": "ARM_RANDOM_BASELINE",
+    "chance_r1": 0.02,
+    "band_max_r1": 0.1,
+    "observed_r1_mean": 0.013333333333333334,
+    "in_band": true
+  },
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "cell_chunked": false,
+  "start_marker_written": true,
+  "crash_diagnostic_present": true,
+  "heartbeat_present": true,
+  "defensive_error_checking": "passed_all_4_patterns",
+  "hp_scope": {
+    "HP1": [
+      "ARM_HIPPOCAMPAL_ONE_SHOT"
+    ],
+    "HF1": [
+      "ARM_HIPPOCAMPAL_ONE_SHOT"
+    ],
+    "HF_baseline_in_band": [
+      "ARM_RANDOM_BASELINE"
+    ],
+    "HF_dg_sparse_rate": [
+      "ARM_HIPPOCAMPAL_ONE_SHOT"
+    ]
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "n_pairs": 50,
+      "per_arm": {
+        "ARM_HIPPOCAMPAL_ONE_SHOT": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.9956339228153229,
+          "inter_pair_cos_mean": 1.8899663700722158e-05,
+          "signal_to_noise_ratio": 52679.98090237339,
+          "arm_name": "ARM_HIPPOCAMPAL_ONE_SHOT",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.36159739998402074,
+          "fit_wall_s": 0.06799689997569658,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02029296875,
+            "ca3_n_written": 50,
+            "partial_cue_fraction_zeroed": 0.5,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.0477541870779803
+          }
+        },
+        "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.27538556277751924,
+          "inter_pair_cos_mean": -0.0028502128552645445,
+          "signal_to_noise_ratio": 96.61929714086534,
+          "arm_name": "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.20009279999067076,
+          "fit_wall_s": 0.0898874000122305,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02029296875,
+            "partial_cue_fraction_zeroed": 0.5,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_ARGMAX_BASELINE": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.7071072423458099,
+          "inter_pair_cos_mean": -0.0003590778214856982,
+          "signal_to_noise_ratio": 1969.2311806396915,
+          "arm_name": "ARM_COSINE_ARGMAX_BASELINE",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.0012824000150430948,
+          "arm_diag": {
+            "input_dim": 2048,
+            "encoder": "none",
+            "partial_cue_fraction_zeroed": 0.5
+          }
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.04,
+          "recall_at_5": 0.14,
+          "mean_reciprocal_rank": 0.12599264308630492,
+          "intra_pair_cos_mean": 0.005781249566935003,
+          "inter_pair_cos_mean": -0.001210937974974513,
+          "signal_to_noise_ratio": 4.774191318144666,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.0007794999983161688,
+          "arm_diag": {
+            "input_dim": 2048,
+            "encoder": "random"
+          }
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_HIPPOCAMPAL_ONE_SHOT": "45d1dc5b99cc6463",
+        "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": "427f03f7a5d8125d",
+        "ARM_COSINE_ARGMAX_BASELINE": "43742a325fe09076",
+        "ARM_RANDOM_BASELINE": "0872cfb6e8269fb0"
+      },
+      "seed_elapsed_s": 2.031225300015649
+    },
+    {
+      "seed": 17,
+      "n_pairs": 50,
+      "per_arm": {
+        "ARM_HIPPOCAMPAL_ONE_SHOT": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.9949546587467194,
+          "inter_pair_cos_mean": 0.0031473913695663214,
+          "signal_to_noise_ratio": 316.120412722557,
+          "arm_name": "ARM_HIPPOCAMPAL_ONE_SHOT",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.3897992999991402,
+          "fit_wall_s": 0.4209621000045445,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02035400390625,
+            "ca3_n_written": 50,
+            "partial_cue_fraction_zeroed": 0.5,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.0477541870779803
+          }
+        },
+        "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.27229395270347595,
+          "inter_pair_cos_mean": -0.0004345319466665387,
+          "signal_to_noise_ratio": 626.6373618610722,
+          "arm_name": "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.2272557000105735,
+          "fit_wall_s": 0.014499299984890968,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02035400390625,
+            "partial_cue_fraction_zeroed": 0.5,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_ARGMAX_BASELINE": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.7071072387695313,
+          "inter_pair_cos_mean": 0.0002762135991360992,
+          "signal_to_noise_ratio": 2560.0015385959223,
+          "arm_name": "ARM_COSINE_ARGMAX_BASELINE",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.002034700009971857,
+          "arm_diag": {
+            "input_dim": 2048,
+            "encoder": "none",
+            "partial_cue_fraction_zeroed": 0.5
+          }
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.06,
+          "mean_reciprocal_rank": 0.06060158639986764,
+          "intra_pair_cos_mean": -0.00402343736961484,
+          "inter_pair_cos_mean": 0.002929686801508069,
+          "signal_to_noise_ratio": -1.3733336162567815,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.001340999995591119,
+          "arm_diag": {
+            "input_dim": 2048,
+            "encoder": "random"
+          }
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_HIPPOCAMPAL_ONE_SHOT": "f9e26c96f69125f2",
+        "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": "d922152bb15a203c",
+        "ARM_COSINE_ARGMAX_BASELINE": "a5644f912eb2ed8a",
+        "ARM_RANDOM_BASELINE": "de71f2ae97dafddf"
+      },
+      "seed_elapsed_s": 1.1204100000031758
+    },
+    {
+      "seed": 23,
+      "n_pairs": 50,
+      "per_arm": {
+        "ARM_HIPPOCAMPAL_ONE_SHOT": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.9922889006137848,
+          "inter_pair_cos_mean": 0.0012222588993608952,
+          "signal_to_noise_ratio": 811.8483744586691,
+          "arm_name": "ARM_HIPPOCAMPAL_ONE_SHOT",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.31616730001405813,
+          "fit_wall_s": 0.30363670000224374,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02042724609375,
+            "ca3_n_written": 50,
+            "partial_cue_fraction_zeroed": 0.5,
+            "tf_capacity_theoretical": 1047.0286075303177,
+            "load_fraction": 0.0477541870779803
+          }
+        },
+        "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.2738483929634094,
+          "inter_pair_cos_mean": 0.0014258917653933167,
+          "signal_to_noise_ratio": 192.05412332812745,
+          "arm_name": "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION",
+          "stored_dim": 8192,
+          "encoding_wall_s": 0.24944670000695623,
+          "fit_wall_s": 0.07817409999552183,
+          "arm_diag": {
+            "input_dim": 2048,
+            "dg_dim": 8192,
+            "sparsity_target": 0.02,
+            "dg_sparse_rate_observed": 0.02042724609375,
+            "partial_cue_fraction_zeroed": 0.5,
+            "ca3_used": false
+          }
+        },
+        "ARM_COSINE_ARGMAX_BASELINE": {
+          "recall_at_1": 1.0,
+          "recall_at_5": 1.0,
+          "mean_reciprocal_rank": 1.0,
+          "intra_pair_cos_mean": 0.7071072459220886,
+          "inter_pair_cos_mean": -0.0024306797422468662,
+          "signal_to_noise_ratio": 290.90926033244284,
+          "arm_name": "ARM_COSINE_ARGMAX_BASELINE",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.002837699983501807,
+          "arm_diag": {
+            "input_dim": 2048,
+            "encoder": "none",
+            "partial_cue_fraction_zeroed": 0.5
+          }
+        },
+        "ARM_RANDOM_BASELINE": {
+          "recall_at_1": 0.0,
+          "recall_at_5": 0.08,
+          "mean_reciprocal_rank": 0.08039869069474609,
+          "intra_pair_cos_mean": 0.0009960937267169357,
+          "inter_pair_cos_mean": 0.0021679687779396772,
+          "signal_to_noise_ratio": 0.45945944279860457,
+          "arm_name": "ARM_RANDOM_BASELINE",
+          "stored_dim": 2048,
+          "encoding_wall_s": 0.0,
+          "fit_wall_s": 0.0013513999874703586,
+          "arm_diag": {
+            "input_dim": 2048,
+            "encoder": "random"
+          }
+        }
+      },
+      "arms_differ_verified": true,
+      "arms_differ_digests": {
+        "ARM_HIPPOCAMPAL_ONE_SHOT": "af382a1017ed9733",
+        "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": "4dd639ef0f3b9a03",
+        "ARM_COSINE_ARGMAX_BASELINE": "d0b7aa730a54b6ee",
+        "ARM_RANDOM_BASELINE": "17058edfcb5bb016"
+      },
+      "seed_elapsed_s": 1.0153470000077505
+    }
+  ],
+  "per_arm_aggregate": {
+    "ARM_HIPPOCAMPAL_ONE_SHOT": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 1.0,
+      "recall_at_1_std": 0.0,
+      "recall_at_5_mean": 1.0,
+      "intra_pair_cos_mean": 0.994292494058609,
+      "inter_pair_cos_mean": 0.0014628499775426462,
+      "encoding_wall_s_mean": 0.35585466666573967,
+      "fit_wall_s_mean": 0.26419856666082825,
+      "dg_sparse_rate_mean": 0.020358072916666668
+    },
+    "ARM_HIPPOCAMPAL_DG_ONLY_ABLATION": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 1.0,
+      "recall_at_1_std": 0.0,
+      "recall_at_5_mean": 1.0,
+      "intra_pair_cos_mean": 0.2738426361481349,
+      "inter_pair_cos_mean": -0.0006196176788459221,
+      "encoding_wall_s_mean": 0.22559840000273348,
+      "fit_wall_s_mean": 0.06085359999754777,
+      "dg_sparse_rate_mean": 0.020358072916666668
+    },
+    "ARM_COSINE_ARGMAX_BASELINE": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 1.0,
+      "recall_at_1_std": 0.0,
+      "recall_at_5_mean": 1.0,
+      "intra_pair_cos_mean": 0.7071072423458099,
+      "inter_pair_cos_mean": -0.0008378479881988218,
+      "encoding_wall_s_mean": 0.0,
+      "fit_wall_s_mean": 0.0020516000028389194
+    },
+    "ARM_RANDOM_BASELINE": {
+      "n_seeds_succeeded": 3,
+      "n_seeds_failed": 0,
+      "recall_at_1_mean": 0.013333333333333334,
+      "recall_at_1_std": 0.018856180831641266,
+      "recall_at_5_mean": 0.09333333333333334,
+      "intra_pair_cos_mean": 0.0009179686413456995,
+      "inter_pair_cos_mean": 0.0012955725348244111,
+      "encoding_wall_s_mean": 0.0,
+      "fit_wall_s_mean": 0.0011572999937925488
+    }
+  },
+  "elapsed_s": 4.188113300013356,
+  "ts_iso_end": "2026-07-03T03:28:39.105603+00:00"
+}
