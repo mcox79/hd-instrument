@@ -99,7 +99,13 @@ REPO = _HERE.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from experiments._seed_checkpoint import get_output_dir, write_metrics
+from experiments._seed_checkpoint import (
+    aggregate_partials,
+    get_output_dir,
+    resumable_seeds,
+    write_metrics,
+    write_partial,
+)
 
 ANCHOR_NAME = "substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03"
 
@@ -767,6 +773,60 @@ def _verdict(agg: Dict, expected_n_units: int, actual_n_units: int,
             f"Route to research for v3-composed / Spoke 3 pathway analysis.")
 
 
+# --- Partial-run snapshot (post-per-seed) ---
+def _write_partial_snapshot(output_dir: Path, per_seed: List[Dict],
+                             seeds_completed: int, seeds_total: int,
+                             n_articles: int, n_articles_target: int,
+                             expected_n_units: int) -> None:
+    """Write metrics.json snapshot mid-run so timeout kills leave interpretable state.
+
+    Snapshot has partial_run=true + seeds_completed<seeds_total; downstream
+    consumers gate on this flag. The final atomic write at end of main()
+    overwrites with partial_run=false canonical metrics.
+    """
+    ppmi_arm = "ARM_PPMI_SVD_WIKIPEDIA_N10K"
+    tri_arm = "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K"
+    rnd_arm = "ARM_RANDOM_BASELINE_N10K"
+    agg = _aggregate(per_seed, [ppmi_arm, tri_arm, rnd_arm])
+    ppmi_r5 = agg.get(ppmi_arm, {}).get("recall_at_5_mean")
+    tri_r5 = agg.get(tri_arm, {}).get("recall_at_5_mean")
+    verdict_msg = (
+        f"PARTIAL_RUN_SNAPSHOT: {seeds_completed}/{seeds_total} seeds complete. "
+        f"PPMI r@5={ppmi_r5} trigram r@5={tri_r5} at N={n_articles}. "
+        f"Not yet verdictable; awaits full seed set OR is timeout residue."
+    )
+    snapshot = {
+        "anchor_name": ANCHOR_NAME,
+        "verdict": "PARTIAL_RUN",
+        "verdict_msg": verdict_msg,
+        "summary": verdict_msg,
+        "run_mode": RUN_MODE,
+        "partial_run": True,
+        "seeds_completed": seeds_completed,
+        "seeds_total": seeds_total,
+        "n_seeds": len(SEEDS),
+        "seeds": SEEDS,
+        "n_articles": n_articles,
+        "n_articles_configured": n_articles_target,
+        "n_dim": N_DIM,
+        "expected_n_units": expected_n_units,
+        "actual_n_units_partial": sum(
+            1 for ps in per_seed
+            for arm_m in ps.get("per_arm", {}).values()
+            if "failure_class" not in arm_m
+        ),
+        "per_seed_partial": per_seed,
+        "per_arm_aggregate_partial": agg,
+        "elapsed_s": 0.0,
+        "ts_iso_snapshot": datetime.now(timezone.utc).isoformat(),
+    }
+    tmp = output_dir / "metrics.json.tmp"
+    final = output_dir / "metrics.json"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, indent=2, default=str)
+    os.replace(tmp, final)
+
+
 # --- main ---
 def main() -> int:
     if IS_SELFTEST:
@@ -805,12 +865,56 @@ def main() -> int:
     if len(articles) < n_articles_target:
         _log(f"[warn] loaded fewer articles than requested: {len(articles)} < {n_articles_target}")
 
+    # Per-seed checkpoint discipline (SH-4-adjacent). After each seed completes,
+    # write partial_metrics_<seed>.json so a mid-run timeout kill preserves
+    # completed-seed work. On resume, previously-completed seeds are skipped.
+    # Config-mismatch guard (PROT-021): only accept partials whose stored
+    # n_articles, run_mode, and anchor_name match the current FULL config.
+    run_config = {
+        "N": int(n_articles_target),
+        "run_mode": RUN_MODE,
+        "anchor": ANCHOR_NAME,
+    }
+    done_seeds, remaining_seeds = resumable_seeds(SEEDS, output_dir, run_config=run_config)
+    if done_seeds:
+        _log(f"[ckpt] resuming: {len(done_seeds)}/{len(SEEDS)} seeds already complete "
+             f"(done={done_seeds}); running remaining={remaining_seeds}")
+
     per_seed: List[Dict] = []
+    # Load already-completed partials into per_seed first (preserves SEEDS order).
+    done_map = aggregate_partials(output_dir, seeds=SEEDS, run_config=run_config)
     for seed in SEEDS:
+        if seed in done_seeds:
+            body = done_map.get(str(seed))
+            if body is not None:
+                per_seed.append(body)
+
+    for seed in remaining_seeds:
         seed_t0 = time.perf_counter()
         ps = _run_one_seed(seed, articles, output_dir)
         ps["seed_elapsed_s"] = float(time.perf_counter() - seed_t0)
+        # Stamp partial with config for PROT-021 mismatch guard on resume.
+        ps["N"] = int(n_articles_target)
+        ps["run_mode"] = RUN_MODE
+        ps["anchor_name"] = ANCHOR_NAME
+        ps["config_version"] = f"ANCHOR={ANCHOR_NAME},N={n_articles_target},run_mode={RUN_MODE}"
+        # Per-seed checkpoint write BEFORE continuing to next seed.
+        try:
+            partial_path = write_partial(output_dir, seed, ps)
+            _log(f"[ckpt] wrote partial_metrics_{seed}.json ({partial_path})")
+        except Exception as e:
+            _log(f"[ckpt] WARN failed to write partial for seed={seed}: {type(e).__name__}: {e}")
         per_seed.append(ps)
+        # Also write a snapshot metrics.json after each seed so downstream can
+        # peek/interpret partial-state on timeout kill. Snapshot is flagged
+        # partial_run: true; final atomic write at end clears the flag.
+        try:
+            _write_partial_snapshot(output_dir, per_seed, seeds_completed=len(per_seed),
+                                     seeds_total=len(SEEDS), n_articles=len(articles),
+                                     n_articles_target=n_articles_target,
+                                     expected_n_units=expected_n_units)
+        except Exception as e:
+            _log(f"[snapshot] WARN failed to write partial snapshot: {type(e).__name__}: {e}")
 
     ppmi_arm = "ARM_PPMI_SVD_WIKIPEDIA_N10K"
     tri_arm = "ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K"

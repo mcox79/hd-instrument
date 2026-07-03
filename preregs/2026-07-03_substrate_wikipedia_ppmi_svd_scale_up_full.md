@@ -17,6 +17,22 @@ Cell is authored + smoke-gated on local commit ONLY. Do NOT dispatch to `remote_
 
 Rationale: `cloud_gpu_once_per_stage` discipline extended to expensive `remote_cpu_queue` FULL runs. Dispatching FULL before char-trigram FULL 10K anchors the co-run reference number would burn a cycle on a possibly-mis-scoped arm-set.
 
+## Amendment 2026-07-03 (post-timeout revision)
+
+**Prior FULL run 2026-07-03 evening:** timed out at 1200s ceiling after seeds [11, 17] completed and seed 23 was mid-PPMI-fit. NO metrics.json was written because writes were end-of-run only. Preliminary from `_heartbeat.jsonl` (2/3 seeds; PPMI + trigram deterministic w.r.t. seed):
+- `ARM_PPMI_SVD_WIKIPEDIA_N10K` r@5 = 0.6791 MEASURED@_heartbeat.jsonl (remote landing prior to kill)
+- `ARM_CHAR_TRIGRAM_WIKIPEDIA_N10K` r@5 = 0.7030
+- Preliminary delta = -0.0239 (PPMI LOSES to char-trigram at N=10K real Wikipedia)
+
+**Cell-quality DISCIPLINE_META note (cell-author side of the fence):** original pre-reg estimated ~140s PPMI fit wall (extrapolated 20x smoke ~7s). Actual measured PPMI arm wall ~415s/seed — 3x underestimate. Sparse-SVD fit-wall does not scale linearly in N under real Wikipedia term distributions (vocab grows superlinearly; SVD wall grows superlinearly in V). Estimation methodology error to memorialize.
+
+**Two amendments applied to this cell:**
+
+1. **Timeout bump 1200s -> 1800s.** Justification: measured PPMI arm wall 415s/seed x 3 seeds = 1245s PPMI-only + ~15s x 3 char-trigram + ~7s x 3 random + retrieval + load = ~1330s minimum. 1800s ceiling gives 30% margin.
+2. **Per-seed checkpoint discipline** (SH-4-adjacent). Cell now writes `partial_metrics_<seed>.json` (via `experiments/_seed_checkpoint.write_partial`) after each seed completes, PLUS a partial-run `metrics.json` snapshot with `partial_run: true` flag. If a subsequent timeout kills mid-seed-N, work through seed N-1 is preserved AND a re-dispatch resumes from where killed via `resumable_seeds` PROT-021 config-mismatch guard (N + run_mode + anchor). This mirrors the `partial_seed{N}_full.json` pattern used in prior arcs.
+
+**Preliminary evidence supports MEASURED_BOUND_LOW_DELTA prior for FULL verdict** (subject to seed-23 completion at scale + framing discipline; substrate-content HF pattern from 2026-07-02 predicted this behavior). If 3-seed FULL confirms PPMI < char-trigram delta near -0.02 at N=10K, this is a SUPPORT WITNESS for the substrate-content HF pattern (brain-analog concept_encoder LOSES to char-trigram bag on real content, absent VWFA-analog dense feature layer), NOT a novel-first. Framing discipline USER-locked: HF3 verdict is characterization CG only, not "PPMI fails at Wikipedia."
+
 ## Question
 
 At N=10K (20x smoke scale), what is the substrate-native PPMI/SVD encoder's title -> article recall on real Wikipedia, and does the smoke +0.052 lift over char-trigram (0.854 -> 0.906) survive at scale?
@@ -132,7 +148,13 @@ Rationale: smoke PPMI r@5=0.906 at N=500 (MEASURED); 5-12% degradation from smok
 | HFcard | actual_n_units < 9 (3 arms x 3 seeds) | META_RULE_H cardinality breach; one or more (seed, arm) units failed. |
 | HFmiss | any arm has no r@5 metric | HARD_FAIL_ARM_MISSING; arm-level catastrophic failure. |
 
-Note: scoring is MEASURED_BOUND CHARACTERIZATION + delta tiering, not a pure capability threshold. Verdict tiers rank: `HARD_PASS_MECHANISM_LIFT` > `MEASURED_BOUND` > `MEASURED_BOUND_LOW_DELTA` > `INCONCLUSIVE_SCALE_SHAPE_SHIFT` > `HARD_FAIL_*`.
+### Substrate-content HF gate (post-amendment 2026-07-03)
+
+| # | Condition | Verdict |
+|---|-----------|---------|
+| HF3 | delta_ppmi_vs_char_trigram <= -0.010 at N=10K (PPMI loses to surface char-trigram bag) | MEASURED_BOUND_LOW_DELTA classified as SUPPORT WITNESS for substrate-content HF pattern (`feedback_concept_query_before_dispatch_would_have_predicted_substrate_content_HF_2026-07-02.md`). Verdict `MEASURED_BOUND_LOW_DELTA` covers this case in current cell logic; delta encoded in `delta_from_char_trigram_at_10K` metrics field. Framing: characterization CG (SUPERVISED Wikipedia regime), NOT "PPMI fails" — the encoder is a mechanism-lift probe, not a language-understanding claim. Preliminary 2/3-seed heartbeat evidence: delta = -0.0239 (aligns with predicted PPMI-loses-at-real-corpus behavior). |
+
+Note: scoring is MEASURED_BOUND CHARACTERIZATION + delta tiering, not a pure capability threshold. Verdict tiers rank: `HARD_PASS_MECHANISM_LIFT` > `MEASURED_BOUND` > `MEASURED_BOUND_LOW_DELTA` > `INCONCLUSIVE_SCALE_SHAPE_SHIFT` > `HARD_FAIL_*`. HF3 is a MEASURED_BOUND_LOW_DELTA sub-classification: NOT a HARD_FAIL tier because the cell measured the substrate cleanly; the negative delta IS the load-bearing scientific outcome, not a bug.
 
 ## Compute architecture
 
@@ -153,9 +175,10 @@ Storage strategy: **no_storage / no_composition.** Cell is single-hop retrieval 
 ## Dispatch plan
 
 - **Pre-flight smoke gate (LOCAL):** run cell with `--smoke` flag (uses `wikipedia_smoke_500.jsonl` present on local disk). Verify PPMI r@5 at N=500 matches parent PPMI smoke (0.906 MEASURED) within 0.02 tolerance and delta_vs_char_trigram matches parent smoke (+0.052 MEASURED) within 0.01 tolerance. This certifies cell integrity + code-path equivalence BEFORE FULL dispatch. META rule "smoke code path exercises same branches as FULL" is satisfied by identical arm implementations + retrieval + verdict logic; the FULL/SMOKE branch differs ONLY in `dataset_path` + `n_articles_target` constant.
-- **FULL dispatch:** `remote_cpu_queue` (marsh@home). The 100K wikipedia dataset lives on the remote runner host (not present on local disk); FULL cannot run locally. Estimated wall: (140s fit + 12s encode) x 3 seeds PPMI + ~90s x 3 seeds char-trigram + random ~= 660s + retrieval + overhead. Recommend `timeout_s=1200` (20 min) for comfortable margin.
+- **FULL dispatch:** `remote_cpu_queue` (marsh@home). The 100K wikipedia dataset lives on the remote runner host (not present on local disk); FULL cannot run locally. Measured wall (from prior 2026-07-03 timeout run): PPMI arm ~415s/seed x 3 = 1245s + char-trigram ~15s x 3 = 45s + random ~7s x 3 = 21s + load/retrieval overhead ~50s = ~1360s total. Recommend `timeout_s=1800` (30 min) for 30% margin over measured wall.
 - **HARD HOLD:** cell-author authorized to author + smoke-gate ONLY. Push + queue_add gated on Director explicit green-light after char-trigram FULL 10K lands + v3-composed multi-arm SMOKE lands + landed-VET.
-- **Requires push to origin/main** (harness-denied to exp_dev). Author files locally + commit; caller (Director / Orchestrator) pushes + runs (on green-light): `bash tools/orchestrator/queue_add.sh remote_cpu_queue substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03 experiments/exp_substrate_wikipedia_ppmi_svd_scale_up_full_2026-07-03.py preregs/2026-07-03_substrate_wikipedia_ppmi_svd_scale_up_full.md 1200`.
+- **Requires push to origin/main** (harness-denied to exp_dev). Author files locally + commit; caller (Director / Orchestrator) pushes + runs (on green-light): `bash tools/orchestrator/queue_add.sh remote_cpu_queue substrate_wikipedia_ppmi_svd_scale_up_full_2026_07_03 experiments/exp_substrate_wikipedia_ppmi_svd_scale_up_full_2026-07-03.py preregs/2026-07-03_substrate_wikipedia_ppmi_svd_scale_up_full.md 1800`.
+- **Per-seed checkpoint:** cell writes `partial_metrics_<seed>.json` after each seed + partial-run `metrics.json` snapshot. Timeout kill mid-seed-N preserves completed seeds 0..N-1. Re-dispatch resumes remaining seeds via `resumable_seeds` PROT-021 config-mismatch guard (N + run_mode + anchor stamped in each partial).
 
 ## Cell-template compliance
 
@@ -169,7 +192,7 @@ Storage strategy: **no_storage / no_composition.** Cell is single-hop retrieval 
 - Numbers in cell comments tagged MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ (META_RULE_AC).
 - Default `_parse_args()` mode is `full` (no silent smoke downgrade); explicit `--smoke` or `HDLAB_RUN_MODE=smoke` needed for smoke reproduction. Env-var contract: `os.environ.get("HDLAB_RUN_MODE", None)` with `None` fallback to `full`, NOT hardcoded default `"smoke"`.
 - Selftest: `arg_parse_default_is_full` verifies no-flag/no-env default is `full`.
-- `progress_logging: "print_flush_true"` + line-buffered stdout (Sec 17). Cell timeout <1800s but heartbeat + flushed prints included for defense-in-depth.
+- `progress_logging: "print_flush_true"` + line-buffered stdout (Sec 17). Cell timeout 1800s (30-min bracket); heartbeat + flushed prints per Sec 17 mandate for `timeout_s >= 1800`.
 
 ## Selftests (`--self-test`)
 
@@ -185,7 +208,9 @@ Storage strategy: **no_storage / no_composition.** Cell is single-hop retrieval 
 - `arms_differ_verified: true` (smoke gate; hash-check across 3 arms).
 - `final_metrics_atomicity: "tmp_replace"`.
 - `progress_logging: "print_flush_true"`.
-- `cell_chunked: false` (single-file cell; 3 seeds run in-process; per-seed independence via encoder-instance recreation).
+- `cell_chunked: false` (single-file cell; 3 seeds run in-process; per-seed independence via encoder-instance recreation). Per-seed checkpoint applied via `write_partial` after each seed completes; `resumable_seeds` PROT-021 config-mismatch guard on N/run_mode/anchor at start-of-run.
+- `per_seed_checkpoint: true` (partial_metrics_<seed>.json + partial-run metrics.json snapshot per seed).
+- `resumable: true` (via `_seed_checkpoint.resumable_seeds` with run_config={N, run_mode, anchor}).
 - `start_marker_written: true`.
 - `crash_diagnostic_present: true`.
 - `heartbeat_present: true`.
