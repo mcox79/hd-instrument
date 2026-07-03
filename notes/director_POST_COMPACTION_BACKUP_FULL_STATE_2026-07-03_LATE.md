@@ -1156,3 +1156,63 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Skunkworks batch regime VET (ab9ee443c10d21744)
 - Skunkworks Phase 3b v2 VET (ae91d7f14b194da7d)
 - Research 2x-drill CLARIFY utility (a0cea25a027e2f03d)
+
+## AMENDMENT 2026-07-04 (Skunkworks batch VET regime + Phase 3b v2 CG + research drill + v2 task-analog fired)
+
+**Skunkworks batch regime VET (task ab9ee443c10d21744) COMPLETE — CRITICAL Fix#28 hit #25:**
+- 14 of 15 claimed FULL landings were PHANTOM SELFTEST outputs (SH-4 wrapper bug — SELFTEST metrics.json at FULL path)
+- Only 4 actual FULL: P4 s7+s13 + P5 s7+s13
+- **P4 filed as math atom #52** — MM_STANDARD REGIME_EXTENSION of Probe 1 CG_META STORAGE_column (BUNDLED variation real; SHARDED saturated at 1.000)
+- **P5 held MIDDLE_BAND** — dev below thresholds; SHARDED saturated
+- **Meta atom #46 filed** — `META_orchestrator_full_landing_count_must_be_verified_via_run_mode_full_check_per_anchor_fix28_pattern_hit_25_SH4_wrapper_silent_selftest_output`
+- **Composite CG_META assessment: REJECTED** — per-signature discipline holds; P4 and P5 not composable
+
+**Skunkworks task-analog v1 VET (task afbb9ef1d613c6e35) COMPLETE — 2 more Fix#28 hits:**
+- H1 atom candidate: **DOWNGRADE** (below noise floor; single seed; would seed false positive)
+- H3 atom candidate: **HOLD** (real signal but misattributed — utility-function artifact, NOT composition mechanism)
+- Director branch: **(b) revise utility function with principled CLARIFY credit** — recommended
+- No atoms filed. Route H3 to research 2x-drill per USER standing rule.
+
+**Research 2x-drill (task af140c36af45121b1 after 529 retry) COMPLETE — memo at `notes/research_drill_cortex_task_analog_H3_principled_CLARIFY_utility_2x_2026-07-04.md`:**
+- Lit-scan converged (SpeakRL / ClarEval / BALD/EIG / production dialogue turn-cost) on `U(CLARIFY) = P(correct|retry) × payoff - retry_cost = 0.85 × 1.0 - 0.20 = 0.65`
+- **Predicted H3 gap under principled credit: +0.08 to +0.12** (SIGN FLIP from v1's -0.167)
+- v2 cell: payoff table diff only, predict-then-check binding, PASS ≥ +0.05 AND gap/SEM ≥ +2.0
+- Backstop v2b: multi-round design (CLARIFY triggers hint reveal → Round 2 replay → empirical score)
+
+**Cortex task-analog v2 fired (task ac201f6a6eddba76e):**
+- Predict-then-check protocol with CLARIFY=0.65 principled credit
+- PRE-COMMITTED prediction H3 gap +0.08 to +0.12 locked in prereg
+- Anti-drift: no post-hoc payoff tuning; predict-then-check ONLY
+
+**Skunkworks Phase 3b v2 VET (task ae91d7f14b194da7d → 529 crash → RETRY task ad3b16a5784729120) COMPLETE — CG UPGRADE for m13 + m16:**
+- **1 composite CG_EXTENSION atom filed at math #53:** covers m13 NoiseChannel + m16 chunked_attention at facade-wiring runtime-trace behavior-delta discriminator
+- **m13 physics verified:** grand-mean 0.29409 vs theoretical `1 - 1/sqrt(2) = 0.29289` — delta 0.0012 within n=20 variance; bipolar 8192-D physics honest
+- **m13 sigma=1.0 correctly framed** as INTEGRATION-DISCRIMINATOR (NOT source primitive regime); source CG at sigma=0.15 unchanged
+- **m16 beta=0 ablation STRONGER than v1** — behavior-delta softmax ablation (primitive present + arg changed) > v1 zero-by-design pattern
+- v2 extends the SAME discriminator standard to m13/m16 arms — symmetric application; no composite claim inflation
+
+**Cortex primitive coverage now (5-of-6 CG-verified):**
+- m13 NoiseChannel — **CG** (facade-wiring)
+- m14 RefuseGate — CG (v1 upgrade)
+- m15 TwoTierContext — CG (v1 upgrade)
+- m16 chunked_attention — **CG** (facade-wiring)
+- m17 RoleSlotSummarizer — CG (v1 upgrade)
+- m18 ClarifyGate — MM_STANDARD (declared bypass; runtime-trace can't discriminate)
+
+**Session tally: math=53, meta=46 = 99 atoms today (+11 from 88 at pickup start).**
+
+**Fix#28 today: 26 recorded + 2 avoided = 28 discipline interactions.**
+
+**2 fresh spawns fired in response to landings:**
+- Orchestrator re-dispatch 24 FULL cells (task afd732644530dab79) with `--run-mode full` verification per anchor
+- Testbed SELFTEST-at-FULL-path bug investigation (task ab266da9f70d2e1e2) — trace queue_add → runner → wrapper arg propagation
+
+**Spawn state (4 in flight, 1 reserved):**
+- Encoder Migration Step 1 (abe5e530447f9606a)
+- Orchestrator re-dispatch (afd732644530dab79)
+- Testbed bug hunt (ab266da9f70d2e1e2)
+- Cortex task-analog v2 predict-then-check (ac201f6a6eddba76e)
+
+**USER decisions still pending:**
+1. Tailscale key-expiry disable (5-min admin console action before leaving 2h from home)
+2. Layer 0.5 FULL dispatch decision (was SMOKE-only pre-Tailscale-expiry)
