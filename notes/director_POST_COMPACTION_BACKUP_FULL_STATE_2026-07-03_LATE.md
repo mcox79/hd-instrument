@@ -748,3 +748,36 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 **Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.**
 
 **All commits pushed through `624e91b8d`.** Post-Tailscale dispatch bundle now instant-fire for 27 FULL cells across 9 probes.
+
+## AMENDMENT 2026-07-03 23:00Z (Testbed SH-4 wrapper CLOSED at 3 layers; 2 more spawns fired)
+
+**Testbed SH-4 wrapper gap fix (task a9559e06135e0070a) COMPLETE at commit `996d35f0c` pushed:**
+- **34 wrappers patched** via 7-line surgical transform (add `get_output_dir` import + replace manual path construction at 2 call sites)
+- **Unit test** `tools/test_wrapper_path_normalization.py` with 3 tiers (static grep, runtime env-var, AST)
+- Before/after regression proof on-disk: `HDLAB_EXP_NAME=exp_<anchor>` → `data/exp_<anchor>/` (canonical single-prefix); double-prefix directory verified absent
+- **Fix#28 SH-4 pattern now closed at 3 layers:**
+  1. Runner normalization (`_seed_checkpoint.get_output_dir`) — commit 70c9f6a5d
+  2. Verify tooling fallback (7 files) — commit 70c9f6a5d
+  3. Wrapper path construction (34 wrappers) — commit 996d35f0c
+- **Follow-up flag from Testbed:** `experiments/_templates/*.template` may still have anti-pattern — recommends grep + patch to prevent recurrence at authoring time
+
+**2 spawns fired to continue forward motion (NEVER STAND):**
+
+| agentId | role | task |
+|---|---|---|
+| `a8570cfa1e9874982` | Testbed | Template audit + patch: closes SH-4 recurrence at authoring time |
+| `a524914a58ddfc2d2` | exp_dev | Probe 15 L × M cross-term SMOKE: last unmapped L cross-term per atom #48 addendum; REGIME-EXTENSION of M-sweep CG_META |
+
+**Probe 15 design (adopts today's discipline learnings pre-emptively):**
+- L ∈ {1, 2, 4}, M ∈ {3200, 6400, 12800}, N=512 corr=0.85 F=1 modern_hopfield SHARDED
+- Ceiling-confounded check REQUIRED per Fix#28 hit #17
+- Strict substrate_query.sh (not looser variant) per Fix#28 hit #18
+- MM_TENTATIVE at most; HOLD_PENDING_FULL default per Skunkworks pattern
+- Framed as REGIME-EXTENSION of M-sweep 5th CG_META atom, NOT novel axis
+- Post-FULL atom candidate: `EMPIRICAL_L_x_M_CROSS_TERM_SHARDED_CLIFF_ADJACENT_v1` MM_TENTATIVE
+
+**Session tally 94 atoms unchanged.**
+
+**Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.**
+
+**All commits pushed through `996d35f0c` (Testbed) and `d8276d331` (prior BACKUP).**
