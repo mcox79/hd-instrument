@@ -98,6 +98,68 @@
 1. Spoke 1 v3-D smoke result → approve FULL dispatch (author will hold)
 2. Delete 3GB substrate_director_kb_chunk_v1/ stale dir
 
+## LATE-EVENING → LATE-NIGHT SESSION TAIL (2026-07-02 23:00-25:00Z)
+
+**Session cumulative: math=64, meta=36, TOTAL=100 atoms filed today.** Round-hundred milestone.
+
+**CG_META tier atoms this session (4 total):**
+1. TOPOLOGY_FREE_PHYSICS_LAW (Stage 1)
+2. SCALE_FREE_AND_TOPOLOGY_FREE composed (Stage 1)
+3. SUBSTRATE_ALGEBRA_SCALES_TO_DEEPER_CHAINS (M1.9+M1.10+M1.11 CG chain)
+4. within-cos-weak-GAP-load-bearing methodology (from stress-test Cell 1 metric-design finding)
+
+**NOTE:** drill-convergence-method-6of6-domain-predicts-bidirectional-outcomes was PROMOTED to CG_META then DEMOTED to MM_TENTATIVE_SYNTHESIS by Skunkworks per USER framing correction (methodology CG_META requires multi-arc replication).
+
+**Spoke arc CG milestones (all synthetic supervised regime):**
+- Spoke 1 v3-D FULL HP CG (competitive-Hebbian sparse coding; extracted to hdlab/concept_encoder.py commit 9d30d3d30; Selftest 8 reproduces v3-D 0.4919 vs target 0.4920 delta 0.0001)
+- Stress-test Cell 1 CG on GAP metric (cross-cluster orthogonality 16.3x advantage over softmax)
+- Spoke 2 Foldiak trace FULL HP CG (invariance lift 0.252, shuffle collapse 0.695; 4.2x + 11.6x HP headroom)
+- Spoke 3 smoke HP (DG+CA3+CLS mechanism; FULL held pending Spokes 1+2 hdlab wiring)
+
+**Composed MM_TENTATIVE_SYNTHESIS atoms:**
+- Spoke 1 + Spoke 2 composed → CG_META revival requires ALL THREE: real-corpus + substrate-content + unsupervised pass. Currently 0/3 (both real-content tests HF).
+
+**CRITICAL NEGATIVE FINDINGS (real-content tests both HF/HF-preview):**
+- substrate_concept_encoder_substrate_content_v1 → CG_HONEST_NEGATIVE (mechanism 0.160 r@5 vs char_trigram 0.280 on WordNet held-out-synonym; positive control 5.6x chance)
+- Wikipedia 10K SMOKE HF2 preview (mechanism 0.544 r@5 vs char_trigram 0.872 at N=500; FULL dispatch PENDING USER decision — I recommend ABORT)
+- Both share failure mode: aggressive 2% sparsification DISCARDS surface features that real-corpus retrieval REWARDS
+- META candidate at MM_TENTATIVE_SYNTHESIS: "aggressive-sparsification-loses-surface-signal-on-real-content"; extension criterion 3rd task same mechanism-class HF → CG_META
+
+**USER-locked disciplines added this session (READ FIRST tier):**
+- `feedback_substrate_knows_almost_nothing_no_general_knowledge_ingest_yet_USER_LOCKED_REPEATED_2026-07-02.md` — substrate has ~140K symbolic atoms (ConceptNet + WordNet + FrameNet + GO) but has NEVER seen real narrative Wikipedia via brain-analog encoder
+- `feedback_mechanism_analog_is_not_task_analog_supervised_synthetic_corpus_is_supervised_regime_USER_LOCKED_2026-07-02.md` — mechanism claim ≠ capability claim
+- `feedback_never_narrate_synthetic_HD_bundles_as_english_language_capability_USER_2026-07-02.md`
+- `project_brain_function_is_best_in_class_reference_standard_USER_LOCKED_2026-07-02.md` — strategic anchor
+- `reference_5x_drill_convergence_PC_redundant_with_WTA_for_concept_encoding_Spoke1_2026-07-02.md` — 5x drill 6/6 convergence on PC redundant with WTA in flat regime
+
+**SUBSTRATE CONTENT INVENTORY (disk truth 2026-07-02 late night):**
+- ~133K ConceptNet concept_nodes (CN_ prefix; entity-name-only, description=name-repeat, no usable body text)
+- ~6339 WordNet lexicon atoms (with pos metadata, definitions, synonyms, hypernyms)
+- ~1221 FrameNet semantic frames
+- ~5147 Gene Ontology terms (GO_ prefix)
+- 25 KEGG pathway entries, 4 NeuroLex entries
+- 28,952 math atoms + 315 meta atoms + 449 research_history + 468 decision_history
+- 13,359 note chunks + 3,024 prereg chunks + 478 memory chunks + 5,331 metrics chunks
+- 1.6M triples total in unified KB
+- HD encoding via bge-large (frozen borrowed encoder) — NOT via brain-analog concept_encoder
+
+**MASSIVE DRILL PUSH IN FLIGHT (late-night burst 7 concurrent spawns):**
+- Skunkworks HF VET substrate-content COMPLETED (CG_HONEST_NEGATIVE + methodology MM filed)
+- 5x drill on real-content mechanism failure: empirical (af2d727b), math+info theory (a177bec3), neuroscience (a2ba42bc + emphasis-sent), physics (a654522f), ML/AI lit (a3af0c52)
+- Brain-emulation drill (aaa95d20) — concrete v2 architecture prescription (VWFA + morphological + semantic hub + multi-stream)
+
+**Wikipedia FULL DISPATCH PENDING USER DECISION:**
+- Smoke preview HF2 strong (mechanism 0.544 vs trigram 0.872 = 0.33 gap)
+- 4 hr GPU burn on overnight_queue
+- Recommend ABORT; wait for drill synthesis + v2 architecture; then fire v2 on same corpus for real comparison
+- USER not-yet-answered
+
+**Next steps queued for post-drill synthesis:**
+- Design concept_encoder v2 architecture per brain-emulation prescription
+- Test v2 on substrate-content + Wikipedia (may rescue if brain-analog multi-stream additions work)
+- If v2 rescues: fire phase-diagram Cells 1-2-3 for CG_META `SPOKE1_COMPETITIVE_HEBBIAN_CONCEPT_ENCODER_LAW` on the composed architecture
+- If v2 fails: concept_encoder honest scope is SYNTHETIC-SUPERVISED-REGIME-ONLY; Stage 4 language path requires fundamentally different architecture (probably external LLM despite USER-locked no-external-LLM discipline; needs revisit)
+
 ## POST-M1.9 UPDATES
 
 **M1.9 SemanticParser FULL landed CG** (Skunkworks a508452e, commit not yet by Skunkworks). Intent=0.898 (cv 0.026), slot=1.000. Ablation collapses: M16-router-no-unbind slot=0.021, shuffled-role slot=0.017, Hebbian-intent-only=0.023 (chance for 50-way). META candidate `HEBBIAN_CLASSIFIER_REGIME_NARROW_FOR_COMPOSITIONAL_BUNDLE_INPUTS` = MM_TENTATIVE (not CG).
