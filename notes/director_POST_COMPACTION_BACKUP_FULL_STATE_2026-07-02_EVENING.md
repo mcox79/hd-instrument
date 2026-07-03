@@ -5,6 +5,61 @@
 **Amended:** 2026-07-03 ~01:35 UTC — Wikipedia char-trigram floor-check HARD_PASS landing (see below)
 **Supersedes:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md` (afternoon backup)
 
+## 🎯 v3-COMPOSED WIKIPEDIA MULTI-ARM SMOKE LANDED MB + POST-PPMI-FULL DECISION FORK (2026-07-03 ~02:40Z)
+
+**Commit `0331d844d` on origin.** Skunkworks VET landed (`aba1f757b2f9cac11`):
+
+**Per-arm r@5** (3 seeds N=500 Wikipedia, wall 794s, 15/15 cardinality):
+- ARM_V3_COMPOSED_EQUAL_ALPHA = 0.914 (+0.008 over PPMI; sub-discriminator MB)
+- **ARM_VWFA_ALONE = 0.776** (UNDERPERFORMS char-trigram 0.854 by 0.078)
+- ARM_PPMI_ALONE = 0.906 (EXACT bit-identical reproduction of parent b655b9fd3)
+- ARM_CHAR_TRIGRAM = 0.854 (EXACT bit-identical reproduction of a71920bbf)
+- ARM_RANDOM = 0.0073
+
+**3 atoms A5-atomized:**
+1. Math CG_MEASURED_BOUND (composed-Wikipedia SMOKE MB witness)
+2. Meta MM_TENTATIVE AMENDMENT — parent META `COMPOSITION_DILUTES` NOT promoted (Wikipedia +0.008 above best-single partially contradicts strict-below wording). Refined form: sign REGIME-DEPENDENT; |Δ|<0.03 across both regimes; still needs 2 more independent regime witnesses + adaptive-α at Wikipedia + 1 more for CG_META
+3. Math CG_HONEST_NEGATIVE — VWFA-scale=(1,2,3,4)-position-bind underperforms char-trigram on Wikipedia N=500 title→body; scope-tight; revival criteria specified (longer queries, body_cap≥4000, narrower scales, relative-position topology). Do NOT close VWFA-on-language universally.
+
+**Key digested implications:**
+- VWFA doesn't earn keep on Wikipedia titles (drill 5 multi-token prediction refuted at THIS regime; revival possible on longer queries)
+- PPMI is the workhorse substrate-native encoder (confirmed cross-cell)
+- Equal-α composition dilutes across BOTH task classes (WordNet HF + Wikipedia MB near-neutral)
+- Char-trigram alone at Wikipedia 10K: r@5=0.703 (−0.151); gap-to-bge +0.289 needs composition to close
+
+## 🎯 POST-PPMI-FULL-10K DECISION FORK (landing imminent ~02:44Z)
+
+**PPMI Wikipedia FULL 10K dispatched via orchestrator a89719c0d265feb25 (commit `383e73af6`); running on cpu_runner_0; ETA ~02:44Z.**
+
+**Decision tree:**
+
+**(A) IF PPMI holds > 0.80 at N=10K** (0.906 → ≥0.80; V2-A narrowing of 5-15%):
+- PPMI/SVD IS the substrate-native ATL-hub-analog encoder for bge-retire path
+- Next step: fork `backend/kb/wikipedia_ingest.py` to swap bge → PPMISparseEncoder; re-ingest 100K; measure vs bge 0.992 target
+- Spoke 3 becomes the ORTHOGONAL episodic-memory path (M3/M4 glass-box conversational), NOT the bge-retire path
+- Session lands as a substantial substrate-native encoder win
+
+**(B) IF PPMI narrows to 0.55-0.65** (matches char-trigram's −0.151 delta at 20× scale):
+- Surface-vs-semantic distinction dissolves at scale
+- Neither surface nor semantic alone can retire bge
+- **Spoke 3 hippocampal consolidation becomes THE bge-retire path** — design ready at `notes/design_stage2_concept_encoder_spoke3_sparse_hippocampal_pattern_separation_one_shot_2026-07-02.md` (substrate-KB grounded, brain-mechanism reviewed, explicitly avoids 2026-06-23 falsified WTA-collision pattern)
+- Next step: author Spoke 3 cell (DG-expansion + Marr-CA3 + CLS replay-consolidation)
+- Session lands as a discriminator finding + Spoke 3 dispatched into next phase
+
+**(C) IF PPMI lands 0.70-0.80** (MB territory):
+- PPMI adds signal but not enough to retire bge alone
+- Options:
+  - (c1) v3-composed with adaptive-α (per composition-dilutes lemma, adaptive-α snaps to α=0 = PPMI-alone → won't lift much beyond PPMI)
+  - (c2) Spoke 3 hippocampal consolidation as multiplier
+  - (c3) Longer body caps / different task class probe (analogy-completion per drill 5 recommendation) to test if PPMI advantage scales with corpus depth
+  - (c4) Hybrid: PPMI substrate-native for KB + bge kept temporarily as ceiling reference for verification
+
+**Framing discipline (USER-locked, non-negotiable):**
+- All outcomes are MECHANISM CHARACTERIZATION on SUPERVISED regime
+- SUBSTRATE KNOWS ALMOST NOTHING — none of these outcomes grant capability claims
+- No "physics law" or "first-ever" without precedent grep
+- Real capability arrives at Stage 4 general knowledge ingest (deferred)
+
 ## 🎯 CHAR-TRIGRAM WIKIPEDIA FULL 10K LANDED MB (2026-07-03 ~02:25Z)
 
 **Anchor:** `substrate_wikipedia_char_trigram_scale_up_full_2026_07_03`
