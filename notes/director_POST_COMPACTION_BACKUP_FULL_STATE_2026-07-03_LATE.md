@@ -498,3 +498,53 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - **P10 FULL: DEFER + re-SMOKE with BUNDLED corr=0.05-0.10 first, OR skip entirely** (Skunkworks flagged both as scientifically valid)
 
 **Discipline pattern this session:** 14 Fix#28 catches; 2 atom filings. High correction-to-filing ratio (7:1) reflects that today's landings are directionally interesting but not yet arc-closing. Skunkworks working exactly as designed.
+
+## AMENDMENT 2026-07-03 21:30Z (STRUCTURAL DISCOVERY — axis-aliasing catches Fix#28 hit #15 BEFORE ship)
+
+**Probe 11 TOPOLOGY × ALGEBRA exp_dev (task a0ffe8d16d04174b0) REFUSED TO SHIP with STRUCTURAL BLOCKER.**
+
+**Finding:** TOPOLOGY and ALGEBRA are ALIASED in substrate primitives — both map to the same F parameter (sharded DAG fan-out). Substrate exposes 4 distinct CG_META SWEEP axes {STORAGE, N, F, CLEANUP_MECH}, not 5. Pairwise matrix is C(4,2)=**6, not C(5,2)=10**.
+
+**Aliasing map (grep-verified across 6 cell cores by exp_dev):**
+- Probe 3 (line 91): "TOPOLOGY axis: fan-out F in the sharded DAG"
+- Probe 5 (lines 102-104): "F (fan-in / TOPOLOGY) axis"
+- Probe 6 (line 93): "TOPOLOGY axis: fan-out F"
+- Probe 8 (line 145): "Primary axis: F fan-out (ALGEBRA in this cell)"
+- Probe 9 (line 137): "TOPOLOGY axis (F fan-out). Matches Probe 6 F grid."
+- Probe 10 (line 143): "ALGEBRA (F fan-out) axis"
+
+**Consequence:** Probes 3 ≡ 6 ≡ 8 test the SAME cross-term (F × CLEANUP) up to F-grid resolution; Probes 5 ≡ 10 test SAME cross-term (STORAGE × F). Would have been Fix#28 hit #15 if Probe 11 had shipped (bogus H2-pass via SAME-AXIS-COLLAPSE, not genuine independence).
+
+**Regime matrix ACTUALLY COMPLETE at 6 pairs:**
+
+| Pair | Probes | Status |
+|---|---|---|
+| STORAGE × N | 4 | SMOKE HP |
+| STORAGE × F | 5, 10 | SMOKE HP (replicates) |
+| STORAGE × CLEANUP | 1 | **CG_META CONFIRMED** |
+| N × F | 9, 9v2 (in flight) | SMOKE HP (endpoints); P9v2 tests in-band L/N_cliff sweep per research |
+| N × CLEANUP | 2, 7v2 | SMOKE HP (saturation-vacuous → v2) |
+| F × CLEANUP | 3, 6v2, 8 | SMOKE HP (replicates) |
+
+**Director decision (adjudicated):** PATH 1 — recognize matrix COMPLETE at 6, atomize the axis-aliasing finding. Path 2 (author distinct TOPOLOGY primitive like locality-preserving vs random-uniform IMPL permutation family) is different-arc R&D work; not scheduled.
+
+**Skunkworks structural VET fired (task afadd5dbd43055cf1):** verify aliasing off-disk + reassess whether the "5 CG_META physical-LAW atoms" listed in Step 9 remain valid (they describe abstract laws, not sweep axes — distinct concept). File math atom `META_regime_matrix_complete_at_6_pairs_not_10_axis_aliasing_v1` + meta atom `META_axis_labels_must_map_to_substrate_primitives_not_theoretical_concepts` if warranted.
+
+**Impact on today's convergent-evidence framing:**
+- My earlier "3 probes convergent on mech-axis moderation at cliff-adjacent" (P6+P7+P8) partially collapses to "F×CLEANUP replicated 3× at similar signature (P3+P6+P8) + N×CLEANUP replicated 2× (P2+P7v2)."
+- Skunkworks already flagged in earlier VET: "P6+P8 share CLIFF-N512-M6400-corr0.85 regime" — the reason they share the regime is BECAUSE they're testing the same axis pair (F × CLEANUP).
+- **True 4-axis convergent evidence at cliff-adjacent:** F×CLEANUP replicates (P6v2+P8) both show mech_var ≥0.10; N×CLEANUP (P7v2) shows moderation at own signature. That's 2 pairs, not 3 axes.
+
+**5 CG_META physical-LAW atoms remain valid as ABSTRACT LAWS about substrate behavior:**
+- These describe emergent properties (scale-free, topology-free, algebra-scales, storage-strategy, cleanup-M-scaling)
+- Distinct from concrete SWEEP AXES in build_rules (which are 4: STORAGE, N, F, CLEANUP_MECH)
+- Framing correction: BACKUP Step 9's "5 CG_META axes" should read "5 CG_META physical-LAW atoms about the 4 substrate sweep axes"
+
+**Session cumulative unchanged: math=47, meta=43 = 90 atoms** (Probe 11 refused to ship; no compute wasted; discipline WORKED).
+
+**Fix#28 today: 14 hits recorded + 1 AVOIDED via structural discipline (P11 pre-ship refusal). Discipline layer has evolved from post-hoc correction to pre-hoc prevention.**
+
+**Spawn state (3 in flight):**
+- P10 v2 re-SMOKE with BUNDLED corr=0.05-0.10 (a7808cd4d2fe53f16)
+- NEG1 follow-up P9 v2 with L/N_cliff sweep, research-recommended (a65fbcfda40db8b24)
+- Skunkworks structural VET on axis-aliasing (afadd5dbd43055cf1)
