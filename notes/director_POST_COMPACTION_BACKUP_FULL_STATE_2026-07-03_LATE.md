@@ -722,3 +722,29 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 - Skunkworks VET P13 L × CLEANUP (a6730405b2b50c6c0) — assessing 0.125 cross_term signal above noise floor
 
 **FULL dispatch bundle bookkeeping:** P13 and P14 should be added to bundle IF their VETs support FULL (both currently indicate FULL warranted per Skunkworks). Sibling wrappers for P13/P14 s13+s19 needed pre-dispatch (design doc `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md` covers Probes 4-12 but not 13/14).
+
+## AMENDMENT 2026-07-03 22:50Z (P13/P14 sibling wrappers COMPLETE; bundle now 27 cells; Testbed SH-4 patch landed mid-work)
+
+**P13/P14 sibling authoring (task a6a0011134683cea1) COMPLETE at commit `624e91b8d` (PUSHED):**
+- 4 new sibling wrapper files: P13 s13/s19 + P14 s13/s19
+- Design doc `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md` amended with Priority 6 (P13) + Priority 7 (P14) rows
+- Skunkworks-authoritative framings adopted VERBATIM from VETs a6730405b2b50c6c0 (P13) + abd4d2af06f49f6bb (P14); no re-framing
+- Total FULL cells: 21 → **27** (9 probes × 3 seeds)
+- Serial GPU wall estimate: 13-21h → **17-27h**
+- P13 post-FULL atom candidate: `EMPIRICAL_L_x_CLEANUP_CROSS_TERM_SHARDED_CLIFF_ADJACENT_v1` (MM_STANDARD, REGIME_EXTENSION of atom #3, only if cv<0.15)
+- P14 post-FULL atom candidate: `EMPIRICAL_L_x_F_CROSS_TERM_CLIFF_ADJACENT_SHARDED_v1` + atom #48 amendment, only if noise-corrected metric survives at FULL; else NULL / Fix#28 hit #17 stands
+
+**Testbed SH-4 wrapper patch LANDED mid-work (in flight task a9559e06135e0070a):**
+- Testbed applied conversion `out_dir = REPO/"data"/("exp_"+env_name)` → `get_output_dir(ANCHOR_NAME)` in working tree
+- Applied concurrently by linter, so a6a0011134683cea1's 4 new wrappers auto-adopted corrected pattern before SELFTEST
+- SELFTEST_OK confirmed 4/4 on patched files
+- Testbed will commit its cross-repo working-tree modifications separately (task still in flight)
+
+**Spawn state (1 in flight):**
+- Testbed SH-4 wrapper gap fix (a9559e06135e0070a) — completing commit + push of wrapper-normalization patch across all sibling wrappers
+
+**Session tally 94 atoms unchanged.**
+
+**Fix#28 today: 18 recorded + 2 avoided = 20 discipline interactions.**
+
+**All commits pushed through `624e91b8d`.** Post-Tailscale dispatch bundle now instant-fire for 27 FULL cells across 9 probes.
