@@ -172,7 +172,18 @@
 - 5/5 HP gates PASS, cardinality 15/15
 - **This is the FIRST real-content substrate-mechanism rescue** — proves v1 substrate-content HF was config/architecture, not fundamental
 
-**V2-A FULL orchestrator FIRED (aa9269f4):** push commit + dispatch remote_cpu_queue 1800s; N=500 atoms 3 seeds. Expected HARD_PASS. If confirmed at FULL: **first real-content CG on the same task where v1 was CG_HONEST_NEGATIVE.**
+**V2-A FULL LANDED MIDDLE_BAND (NOT HP — critical update):**
+- ARM_V2A_PPMI_SVD FULL r@5 = 0.272 (smoke was 0.340; DROPPED at 5x N)
+- ARM_CHAR_TRIGRAM FULL r@5 = 0.260 (smoke 0.280; held)
+- HP2 delta (v2A - bag) = **+0.012 at FULL** (needed ≥0.05; smoke was +0.06)
+- HP1 rescue over v1: +0.133 (CLEARED — v2A beats v1 by wide margin)
+- HP3 v1 Gate D recovered
+- **Same discriminator-narrows-at-FULL pattern as stress-test Cell 1** (v3-D vs softmax: smoke +0.07 → FULL +0.031)
+- Cell-author: "char-trigram scaled faster than PPMI/SVD at 5x N. Substrate-content isn't the load-bearing mechanism vs surface trigrams alone"
+
+**Honest read:** V2-A is a real rescue OVER v1 (rescues sparse-CH failure) but does NOT distinctly beat surface trigrams. The mechanism-vs-bag competition is closer than we thought. Under USER-locked scope: still doesn't grant "substrate has better mechanism than trivial bag on real content."
+
+**Component C (softmax readout) becomes the last hope for gap-lift.** Cell-author suggests composed v3 = A + B + C may open the gap. If Component C also MB alone: gap-over-bag on this task class may require deeper mechanism change than any single-lever adjustment.
 
 **v2 P1 VWFA + late-combine SMOKE (partial):**
 - ARM_V2_VWFA_ALONE = 0.253 (subsumes char-trigram bag within 0.03 tolerance — VWFA-analog works as brain-emulation predicted)
