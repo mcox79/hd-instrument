@@ -47,6 +47,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.error
@@ -81,6 +82,24 @@ FEED_STALE_S = 90.0        # dashboard SSH poll age
 CACHE_STALE_S = 300.0      # remote_state_cache file mtime age
 RUNNER_HB_STALE_S = 300.0  # runner heartbeat age while running
 GPU_STALL_UTIL = 5         # util at/below this + runner-running for the window = stall
+
+# Direct-SSH GPU fallback (testbed 2026-07-04). The dashboard's localhost HTTP
+# poll is the ONLY GPU source, so when the web supervisor/poller dies the GPU
+# reading goes dark -- and "is the GPU idle?" is exactly the reading that most
+# matters and that historically misfired via the broken poller. When the feed is
+# DOWN/STALE we fall back to a short one-shot `ssh <alias> nvidia-smi` with a hard
+# subprocess timeout so it can never hang a refresh. This is a SHORT probe (not a
+# long-lived remote child), so raw SSH is fine -- the disconnect-death concern is
+# only about long-running processes.
+#
+# SSH_ALIAS matches tools/dashboard/ssh_client.py ReadOnlySSH's default alias
+# ("home"); `ssh <alias>` and paramiko's SSHConfig.lookup(alias) both resolve the
+# SAME ~/.ssh/config, so this reuses the existing host resolution rather than
+# hardcoding a fresh hostname/IP.
+SSH_ALIAS = "home"
+GPU_SSH_TIMEOUT_S = 5.0     # hard cap on the whole probe; can never hang a refresh
+GPU_SSH_CONNECT_TIMEOUT_S = 4  # ssh -o ConnectTimeout; fail fast, never prompt
+_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)  # popup-free (windowless mandate)
 
 
 # ---------------------------------------------------------------------------
@@ -152,6 +171,53 @@ def _queue_running_pending(entries: list[dict]) -> tuple[list[str], list[str], l
     return running, pending, terminal
 
 
+def probe_gpu_via_ssh() -> dict | None:
+    """One-shot `ssh <SSH_ALIAS> nvidia-smi` GPU probe. None on any failure/timeout.
+
+    Fallback for when the dashboard feed is DOWN/STALE. Returns
+    {util_pct, mem_used_mb, temp_c, source:"ssh", queried_at} on success. Hard
+    subprocess timeout (GPU_SSH_TIMEOUT_S) + ssh ConnectTimeout + BatchMode mean
+    it fails fast rather than hanging. Popup-free via CREATE_NO_WINDOW. Never
+    raises -- callers treat None as "no fallback number available" and keep the
+    graceful stale rendering.
+    """
+    cmd = [
+        "ssh", "-o", "BatchMode=yes",
+        "-o", f"ConnectTimeout={GPU_SSH_CONNECT_TIMEOUT_S}",
+        SSH_ALIAS,
+        "nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu "
+        "--format=csv,noheader,nounits",
+    ]
+    try:
+        proc = subprocess.run(
+            cmd, capture_output=True, text=True,
+            timeout=GPU_SSH_TIMEOUT_S, creationflags=_NO_WINDOW,
+        )
+    except (subprocess.TimeoutExpired, OSError):
+        return None
+    if proc.returncode != 0:
+        return None
+    # First non-empty stdout line = the (first) GPU's "util, mem, temp" (nounits).
+    for line in (proc.stdout or "").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = [p.strip() for p in line.split(",")]
+        if len(parts) < 3:
+            return None
+        try:
+            return {
+                "util_pct": int(float(parts[0])),
+                "mem_used_mb": int(float(parts[1])),
+                "temp_c": int(float(parts[2])),
+                "source": "ssh",
+                "queried_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            }
+        except (ValueError, TypeError):
+            return None
+    return None
+
+
 # ---------------------------------------------------------------------------
 # Snapshot assembly + alert derivation
 # ---------------------------------------------------------------------------
@@ -187,6 +253,21 @@ def build_state() -> dict:
     gpu_util = gpu.get("gpu_util_ema")
     if gpu_util is None:
         gpu_util = gpu.get("gpu_util_pct")
+
+    # --- Direct-SSH GPU fallback when the feed can't be trusted ---
+    # The feed-up path is UNCHANGED (gpu_source="feed"). Only when the dashboard
+    # is DOWN or the SSH poll is STALE do we run the short one-shot ssh nvidia-smi
+    # probe, so "is the GPU idle?" survives the web supervisor dying. On probe
+    # failure/timeout gpu_source stays "stale" and the graceful stale rendering
+    # is preserved.
+    feed_trustworthy = dashboard_up and not feed.get("stale")
+    gpu_source = "feed" if feed_trustworthy else "stale"
+    ssh_gpu = None
+    if not feed_trustworthy:
+        ssh_gpu = probe_gpu_via_ssh()
+        if ssh_gpu is not None:
+            gpu_source = "ssh"
+            gpu_util = ssh_gpu["util_pct"]
 
     # --- Cache view (queues, runners, logical procs) ---
     cache = _load_json(CACHE) if CACHE.is_file() else None
@@ -255,6 +336,17 @@ def build_state() -> dict:
     else:
         cache_note = None
 
+    # GPU display values: prefer the SSH-probe numbers when the feed was untrusted
+    # and the probe succeeded (source="ssh"); otherwise the feed's own values. The
+    # SSH probe carries no EMA, so util_ema is None and downstream util-selection
+    # (util_ema or util_pct) picks the raw util_pct.
+    if gpu_source == "ssh" and ssh_gpu is not None:
+        disp_util_pct, disp_util_ema = ssh_gpu["util_pct"], None
+        disp_mem, disp_temp = ssh_gpu["mem_used_mb"], ssh_gpu["temp_c"]
+    else:
+        disp_util_pct, disp_util_ema = gpu.get("gpu_util_pct"), gpu.get("gpu_util_ema")
+        disp_mem, disp_temp = gpu.get("gpu_mem_used_mb"), gpu.get("gpu_temp_c")
+
     state = {
         "ts": now_iso,
         "dashboard_up": dashboard_up,
@@ -262,8 +354,10 @@ def build_state() -> dict:
                  "last_poll_ok": feed.get("last_poll_ok")},
         "cache_age_s": round(cache_age, 1) if cache_age is not None else None,
         "gpu": {
-            "util_pct": gpu.get("gpu_util_pct"), "util_ema": gpu.get("gpu_util_ema"),
-            "mem_used_mb": gpu.get("gpu_mem_used_mb"), "temp_c": gpu.get("gpu_temp_c"),
+            "util_pct": disp_util_pct, "util_ema": disp_util_ema,
+            "mem_used_mb": disp_mem, "temp_c": disp_temp,
+            "source": gpu_source,  # "feed" | "ssh" | "stale"
+            "source_ts": ssh_gpu["queried_at"] if ssh_gpu else None,
             "queue_status": gpu.get("status"), "current": gpu.get("current"),
             "experiment_on_card": gpu.get("gpu_experiment_on_card"),
             "exp_name": gpu.get("gpu_exp_name"),
@@ -317,8 +411,17 @@ def render_human(st: dict) -> str:
         feed_txt += f" ({feed['age_s']}s)"
     util = g["util_ema"] if g["util_ema"] is not None else g["util_pct"]
     L.append(f"DASHBOARD: {dash} | {feed_txt} | cache {_fmt_dur(st['cache_age_s'])} old")
-    gpu_line = f"GPU: util {util}% | mem {g['mem_used_mb']}MB | {g['temp_c']}C | queue={g['queue_status']}"
+    src = g.get("source")
+    src_txt = {"feed": "via feed", "ssh": "via SSH (feed DOWN)", "stale": "STALE"}.get(src, "?")
+    gpu_line = (f"GPU: util {util}% | mem {g['mem_used_mb']}MB | {g['temp_c']}C | "
+                f"queue={g['queue_status']} | src={src_txt}")
     L.append(gpu_line)
+    # Ownership call-out: distinguish OUR work from external/BOINC on a high util.
+    if src == "feed" and isinstance(util, (int, float)) and util >= 25:
+        if g.get("queue_status") == "running" or g.get("experiment_on_card"):
+            L.append("  -> OUR WORK on GPU")
+        else:
+            L.append("  -> external load (BOINC/other); our queue idle")
     if g["experiment_on_card"] and g["exp_name"]:
         prog = f" {g['progress_pct']}%" if g.get("progress_pct") is not None else ""
         eta = f" eta {_fmt_dur(g['eta_sec'])}" if g.get("eta_sec") else ""
@@ -335,9 +438,15 @@ def render_human(st: dict) -> str:
         for e in lx:
             args = e.get("args") or {}
             atxt = " ".join(f"{k}={v}" for k, v in args.items())
+            prog = ""
+            if e.get("progress_pct") is not None:
+                prog = (f" [{e.get('unit_idx')}/{e.get('total_units')} "
+                        f"{int(e['progress_pct'])}%"
+                        + (f" eta {_fmt_dur(e['eta_s'])}" if e.get("eta_s") else "")
+                        + (f" {e['phase']}" if e.get("phase") else "") + "]")
             L.append(f"  {e.get('name')}  pid={e.get('pid')} "
                      f"elapsed={_fmt_dur(e.get('elapsed_s'))} "
-                     f"mem={int((e.get('mem_kb') or 0) / 1024)}MB {atxt}".rstrip())
+                     f"mem={int((e.get('mem_kb') or 0) / 1024)}MB {atxt}{prog}".rstrip())
         L.append("")
     # Queues
     L.append("QUEUES:")
@@ -376,7 +485,15 @@ def render_pane(st: dict) -> str:
             lines.append(f"- **[{a['level']}] {a['code']}** — {a['msg']}")
         lines.append("")
     lines.append("## GPU")
-    lines.append(f"- util **{util}%** · mem {g['mem_used_mb']}MB · {g['temp_c']}C · queue={g['queue_status']}")
+    src = g.get("source")
+    src_txt = {"feed": "via feed", "ssh": "via SSH (feed DOWN)", "stale": "STALE"}.get(src, "?")
+    lines.append(f"- util **{util}%** · mem {g['mem_used_mb']}MB · {g['temp_c']}C · "
+                 f"queue={g['queue_status']} · src={src_txt}")
+    if src == "feed" and isinstance(util, (int, float)) and util >= 25:
+        if g.get("queue_status") == "running" or g.get("experiment_on_card"):
+            lines.append("- **OUR WORK on GPU**")
+        else:
+            lines.append("- external load (BOINC/other); our queue idle")
     if g["experiment_on_card"] and g["exp_name"]:
         prog = f" · {g['progress_pct']}%" if g.get("progress_pct") is not None else ""
         lines.append(f"- on card: `{g['exp_name']}`{prog} (elapsed {_fmt_dur(g.get('elapsed_s'))})")
@@ -384,12 +501,17 @@ def render_pane(st: dict) -> str:
     lx = st.get("local_experiments") or []
     if lx:
         lines.append("## Local experiments (direct subprocess, off-queue)")
-        lines.append("| cell | pid | elapsed | mem | args |")
-        lines.append("|---|---|---|---|---|")
+        lines.append("| cell | progress | pid | elapsed | mem | args |")
+        lines.append("|---|---|---|---|---|---|")
         for e in lx:
             args = e.get("args") or {}
             atxt = " ".join(f"{k}={v}" for k, v in args.items()) or "-"
-            lines.append(f"| `{e.get('name')}` | {e.get('pid')} | "
+            prog = "-"
+            if e.get("progress_pct") is not None:
+                prog = (f"{e.get('unit_idx')}/{e.get('total_units')} {int(e['progress_pct'])}%"
+                        + (f" eta {_fmt_dur(e['eta_s'])}" if e.get("eta_s") else "")
+                        + (f" {e['phase']}" if e.get("phase") else ""))
+            lines.append(f"| `{e.get('name')}` | {prog} | {e.get('pid')} | "
                          f"{_fmt_dur(e.get('elapsed_s'))} | "
                          f"{int((e.get('mem_kb') or 0) / 1024)}MB | {atxt} |")
         lines.append("")

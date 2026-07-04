@@ -60,6 +60,39 @@ GPU_HOT_C = 85             # cosmetic warn threshold for temp
 
 _LEVEL_BG = {"CRITICAL": "#c0392b", "WARN": "#e67e22"}
 _OK_BG = "#2e7d32"
+_EXTERNAL_FG = "#e67e22"   # orange: external/BOINC load, or stale/uncertain
+_OURS_FG = "#1b8a3d"       # green: our work on the card
+_IDLE_FG = "#607d8b"       # grey: idle
+
+
+def _short_exp_name(name: str) -> str:
+    """Compact anchor label: drop `exp_` prefix + `_core.py`/`.py` suffix (ask #3)."""
+    s = name or "?"
+    if s.lower().endswith(".py"):
+        s = s[:-3]
+    if s.endswith("_core"):
+        s = s[:-5]
+    if s.startswith("exp_"):
+        s = s[4:]
+    return s
+
+
+def _progress_cell(e: dict) -> str:
+    """e.g. '1600/1800 88% eta 13m train_mlp_block_in_batch' (blank if no heartbeat)."""
+    ui, tu = e.get("unit_idx"), e.get("total_units")
+    pct, phase, eta = e.get("progress_pct"), e.get("phase"), e.get("eta_s")
+    if ui is None and pct is None:
+        return ""
+    parts: list[str] = []
+    if ui is not None and tu:
+        parts.append(f"{ui}/{tu}")
+    if pct is not None:
+        parts.append(f"{int(pct)}%")
+    if eta:
+        parts.append(f"eta {_fmt_dur(eta)}")
+    if phase:
+        parts.append(str(phase))
+    return " ".join(parts)
 
 
 class DashGui:
@@ -123,15 +156,19 @@ class DashGui:
         self.gpu_oncard_lbl = tk.Label(gpu_frame, text="", font=("Consolas", 10),
                                         anchor="w", justify="left")
         self.gpu_oncard_lbl.grid(row=0, column=3, rowspan=2, sticky="w", padx=(10, 6))
+        # Ownership banner (ask #2): OUR WORK vs external/BOINC, full-width + loud.
+        self.gpu_owner_lbl = tk.Label(gpu_frame, text="", font=("Consolas", 13, "bold"),
+                                       anchor="w")
+        self.gpu_owner_lbl.grid(row=2, column=0, columnspan=4, sticky="w", padx=10, pady=(2, 4))
 
         # --- Local experiments (row 2) ---
         local_frame = ttk.LabelFrame(root, text="LOCAL EXPERIMENTS (direct subprocess, off-queue)")
         local_frame.grid(row=2, column=0, sticky="nsew", padx=6, pady=3)
         local_frame.columnconfigure(0, weight=1)
         local_frame.rowconfigure(0, weight=1)
-        cols = ("name", "pid", "elapsed", "mem", "device", "seed", "tier")
+        cols = ("name", "progress", "pid", "elapsed", "mem", "device", "seed", "tier")
         self.local_tree = ttk.Treeview(local_frame, columns=cols, show="headings", height=5)
-        for c, w in zip(cols, (260, 70, 80, 80, 80, 60, 70)):
+        for c, w in zip(cols, (230, 210, 60, 75, 70, 65, 50, 55)):
             self.local_tree.heading(c, text=c.upper())
             self.local_tree.column(c, width=w, anchor="w")
         self.local_tree.grid(row=0, column=0, sticky="nsew")
@@ -266,30 +303,63 @@ class DashGui:
         g = st.get("gpu") or {}
         feed = st.get("feed") or {}
         dashboard_up = bool(st.get("dashboard_up"))
-        stale = bool(feed.get("stale")) or not dashboard_up
+        # source: "feed" (dashboard live) | "ssh" (feed down, direct nvidia-smi
+        # fallback succeeded) | "stale" (feed down AND probe failed). build_state
+        # only runs the SSH probe when the feed is untrustworthy, so the feed-up
+        # path is unchanged.
+        source = g.get("source")
         util = g.get("util_ema") if g.get("util_ema") is not None else g.get("util_pct")
+        have_util = isinstance(util, (int, float)) and source in ("feed", "ssh")
 
-        if stale:
+        if have_util:
+            queue_running = g.get("queue_status") == "running"
+            busy = util >= GPU_BUSY_UTIL or queue_running
+            self.gpu_util_lbl.configure(text=f"{util}%", fg=(_OURS_FG if busy else _IDLE_FG))
+        else:
             age = feed.get("age_s")
             age_txt = f"{age}s" if age is not None else "unknown age"
-            self.gpu_util_lbl.configure(text=f"stale ({age_txt})", fg="#e67e22")
-        elif isinstance(util, (int, float)):
-            busy = util >= GPU_BUSY_UTIL or g.get("queue_status") == "running"
-            self.gpu_util_lbl.configure(
-                text=f"{util}%", fg=("#1b8a3d" if busy else "#607d8b"))
-        else:
-            self.gpu_util_lbl.configure(text="unknown", fg="#607d8b")
+            self.gpu_util_lbl.configure(text=f"stale ({age_txt})", fg=_EXTERNAL_FG)
+
+        # Ownership disambiguation (ask #2) -- never let a high util read
+        # ambiguously as "our work" when it is BOINC/external and our queue is idle.
+        owner_text, owner_fg = "", "black"
+        if not have_util:
+            owner_text = "GPU reading unavailable (dashboard feed down, SSH probe failed)"
+            owner_fg = _EXTERNAL_FG
+        elif source == "ssh":
+            # Real util via SSH but the feed is down, so queue/on-card attribution
+            # is unknown -- say so rather than guessing ownership.
+            if util >= GPU_BUSY_UTIL:
+                owner_text = "GPU BUSY (util via SSH; feed DOWN so ownership unknown)"
+                owner_fg = _EXTERNAL_FG
+            else:
+                owner_text = "GPU idle (util via SSH; dashboard feed DOWN)"
+                owner_fg = _IDLE_FG
+        else:  # source == "feed": full attribution available
+            queue_running = g.get("queue_status") == "running"
+            on_card = bool(g.get("experiment_on_card"))
+            if util >= GPU_BUSY_UTIL:
+                if queue_running or on_card:
+                    owner_text, owner_fg = "OUR WORK on GPU", _OURS_FG
+                else:
+                    owner_text = "external load (BOINC/other); our queue idle"
+                    owner_fg = _EXTERNAL_FG
+            else:
+                owner_text, owner_fg = "GPU idle", _IDLE_FG
+        self.gpu_owner_lbl.configure(text=owner_text, fg=owner_fg)
 
         mem = g.get("mem_used_mb")
         self.gpu_mem_lbl.configure(text=f"mem: {mem if mem is not None else '--'} MB")
         temp = g.get("temp_c")
         temp_fg = "#c0392b" if isinstance(temp, (int, float)) and temp >= GPU_HOT_C else "black"
         self.gpu_temp_lbl.configure(text=f"temp: {temp if temp is not None else '--'} C", fg=temp_fg)
+        src_txt = {"feed": "via feed", "ssh": "via SSH", "stale": "stale"}.get(source, "?")
         self.gpu_status_lbl.configure(
-            text=f"queue: {g.get('queue_status') or '-'} | dashboard: {'up' if dashboard_up else 'DOWN'}")
+            text=f"queue: {g.get('queue_status') or '-'} | src: {src_txt}")
         self.gpu_feed_lbl.configure(
             text=f"feed: {'STALE' if feed.get('stale') else 'live'} "
-                 f"({feed.get('age_s')}s) | cache: {_fmt_dur(st.get('cache_age_s'))} old")
+                 f"({feed.get('age_s')}s) | dash: {'up' if dashboard_up else 'DOWN'} "
+                 f"| cache: {_fmt_dur(st.get('cache_age_s'))}")
         oncard = ""
         if g.get("experiment_on_card") and g.get("exp_name"):
             prog = f" {g.get('progress_pct')}%" if g.get("progress_pct") is not None else ""
@@ -306,13 +376,13 @@ class DashGui:
         self.local_tree.delete(*self.local_tree.get_children())
         lx = st.get("local_experiments") or []
         if not lx:
-            self.local_tree.insert("", "end", values=("(none detected)", "", "", "", "", "", ""))
+            self.local_tree.insert("", "end", values=("(none detected)", "", "", "", "", "", "", ""))
         for e in lx:
             args = e.get("args") or {}
             mem_mb = int((e.get("mem_kb") or 0) / 1024)
             self.local_tree.insert("", "end", values=(
-                e.get("name", "?"), e.get("pid", "?"),
-                _fmt_dur(e.get("elapsed_s")), f"{mem_mb}MB",
+                _short_exp_name(e.get("name", "?")), _progress_cell(e),
+                e.get("pid", "?"), _fmt_dur(e.get("elapsed_s")), f"{mem_mb}MB",
                 args.get("device", "-"), args.get("seed", "-"), args.get("tier", "-"),
             ))
 

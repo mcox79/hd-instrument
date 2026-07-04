@@ -29,12 +29,15 @@ Design notes:
 
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 from datetime import datetime
 from pathlib import Path
 
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+_REPO = Path(__file__).resolve().parent.parent
+_DATA = _REPO / "data"
 
 # A direct-launched substrate experiment cell: experiments/exp_*.py
 _EXP_CELL_RE = re.compile(r"experiments[\\/](exp_[\w.\-]+\.py)", re.IGNORECASE)
@@ -153,6 +156,87 @@ def _wmic_python_procs() -> list[dict]:
     return procs
 
 
+def _last_jsonl_obj(path: Path) -> dict | None:
+    """Last complete JSON object in a .jsonl file (tail-read, no full load)."""
+    try:
+        with path.open("rb") as f:
+            f.seek(0, 2)
+            size = f.tell()
+            chunk = min(size, 8192)
+            f.seek(size - chunk)
+            data = f.read().decode("utf-8", errors="replace")
+    except OSError:
+        return None
+    # Iterate newest-first; the last full line is complete even if the leading
+    # line in the tail chunk was cut mid-record.
+    for line in reversed(data.splitlines()):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(obj, dict):
+            return obj
+    return None
+
+
+def _heartbeat_progress(name: str, args: dict) -> dict:
+    """{progress_pct, unit_idx, total_units, phase, eta_s} from the experiment's
+    data/<anchor>_<tier>/_heartbeat.jsonl last line. Empty dict if none/unparseable.
+
+    Anchor dir maps from the cell name the same way the runner names its dir:
+    name minus the `_core.py` (or `.py`) suffix, `exp_` prefix retained, plus the
+    tier suffix (_mid / _smoke / '' for full). We also try the exp_-stripped and
+    other-tier variants so a mislabeled tier still resolves.
+    """
+    stem = name[:-3] if name.lower().endswith(".py") else name
+    if stem.endswith("_core"):
+        stem = stem[:-5]
+    tier = (args or {}).get("tier")
+    tier_suffix = {"mid": "_mid", "smoke": "_smoke"}.get(tier, "")
+    bases = [stem]
+    if stem.startswith("exp_"):
+        bases.append(stem[4:])
+    cands: list[str] = []
+    for b in bases:
+        if tier_suffix:
+            cands.append(b + tier_suffix)
+        cands += [b, b + "_smoke", b + "_mid"]
+    seen: set[str] = set()
+    hb: dict | None = None
+    for c in cands:
+        if c in seen:
+            continue
+        seen.add(c)
+        p = _DATA / c / "_heartbeat.jsonl"
+        if p.is_file():
+            hb = _last_jsonl_obj(p)
+            if hb is not None:
+                break
+    if not isinstance(hb, dict):
+        return {}
+    ui = hb.get("unit_idx")
+    tu = hb.get("total_units")
+    extra = hb.get("extra") if isinstance(hb.get("extra"), dict) else {}
+    phase = extra.get("phase")
+    hb_elapsed = hb.get("elapsed_s")
+    out: dict = {}
+    if isinstance(ui, (int, float)):
+        out["unit_idx"] = int(ui)
+    if isinstance(tu, (int, float)):
+        out["total_units"] = int(tu)
+    if isinstance(ui, (int, float)) and isinstance(tu, (int, float)) and tu:
+        out["progress_pct"] = round(max(0.0, min(100.0, 100.0 * ui / tu)), 1)
+    if phase:
+        out["phase"] = str(phase)
+    if (isinstance(hb_elapsed, (int, float)) and isinstance(ui, (int, float))
+            and isinstance(tu, (int, float)) and ui > 0 and tu > ui):
+        out["eta_s"] = round(hb_elapsed * (tu - ui) / ui, 1)
+    return out
+
+
 def scan_local_experiments() -> list[dict]:
     """Logical local substrate-experiment subprocesses (queue-bypassing direct runs).
 
@@ -190,7 +274,8 @@ def scan_local_experiments() -> list[dict]:
             continue
         name, source = hit
         el = _elapsed_s(real.get("creation", ""))
-        out.append({
+        args = _args_summary(combined)
+        entry = {
             "type": "experiment",
             "source": source,
             "name": name,
@@ -200,9 +285,15 @@ def scan_local_experiments() -> list[dict]:
             "cmdline_short": name,
             "mem_kb": real["mem_kb"],
             "elapsed_s": round(el, 1) if el is not None else None,
-            "args": _args_summary(combined),
+            "args": args,
             "local": True,
-        })
+        }
+        # Progress/phase from the run's heartbeat (blank if no heartbeat file).
+        try:
+            entry.update(_heartbeat_progress(name, args))
+        except Exception:
+            pass
+        out.append(entry)
     return out
 
 
