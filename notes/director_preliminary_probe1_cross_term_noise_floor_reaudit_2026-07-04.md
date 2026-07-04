@@ -106,6 +106,35 @@ original design). A PAIRED test (shared salt across mechanisms per cell) is the 
 sensitive possible and would catch a sub-noise micro-effect. Running it now as belt-and-
 suspenders; if IT also shows nothing, the family is dead beyond doubt.
 
+## PAIRED TR=400 (most-sensitive) -- DEFINITIVE: mechanism range EXACTLY 0.0000
+
+Same grid, TR=400, but SHARED salt across the 3 mechanisms per cell (paired). Script
+`scratchpad/probe1_TR400_PAIRED.py`, result `..._PAIRED_result.json`.
+
+| stat | obs | null mean | z |
+|---|---|---|---|
+| MAX range | **0.0000** | 0.0680 | -5.45 |
+| MEAN range | **0.0000** | 0.0177 | -8.68 |
+| COUNT>0.02 | **0/36** | 13.2 | -6.87 |
+
+**When the 3 cleanup mechanisms see IDENTICAL items+corruptions, they produce BIT-IDENTICAL
+accuracy on all 36 BUNDLED cells (range exactly 0).** The mechanisms are functionally
+DEGENERATE in the BUNDLED regime. 100% of the apparent TR=100 "mechanism variance" was
+sampling noise from the unpaired salts. This is the strongest possible confirmation --
+not "not significant" but "provably identical outputs." Family dead beyond doubt.
+
+## METHODOLOGY META-ATOM (candidate, Skunkworks tier) -- HIGH VALUE
+
+**Unpaired trial designs on max/range mechanism-comparison discriminators MANUFACTURE
+phantom cross-terms.** The entire regime-map cross-term family (P1 CG_META, P6, P7, P8)
+compared mechanisms on INDEPENDENT random draws (per-mechanism salts). At TR=100 the
+sampling-noise range (~0.10-0.13) was mislabeled as mechanism moderation. The PAIRED design
+(shared salts, difference cancels common noise) reveals range = 0. **Rule: any cell
+comparing mechanisms/arms on a max-or-range statistic MUST use paired trials (shared
+items/corruptions across arms) OR gate against a data-driven binomial extreme-value null.
+Retroactively applies to the whole regime-map cross-term family.** Composes with the P8
+extreme-value-null meta-atom (`9825af151`).
+
 ## Status
 - **NO cert ledger mutation performed.** This is a Director estimate, now with TR=400
   confirmation. Skunkworks ratifies + executes the split/demote.
