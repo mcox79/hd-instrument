@@ -1570,3 +1570,70 @@ Next arcs Skunkworks-flagged (2x-drill needed):
 **Encoder Step 1 still unit 5/98**, ETA fluid.
 
 BACKUP FINAL DIR CONTEXT AT COMPACTION: 116 atoms, first CG this pickup, 5 arcs closed cleanly, cortex-2 arc 3 atoms deep (advisory + shadow-applied + dose-response-stable), regime map largely mapped with 8 probes producing atoms, encoder training in flight, task-analog arc DEFINITIVELY closed.
+
+---
+
+# POST-COMPACTION AMENDMENT 2026-07-04 ~02:40Z (fresh session after /compact)
+
+## SCOPE/FRAMING LOCK (USER 2026-07-04, careful-grounding reminder)
+
+**This is a MEMORY SYSTEM modeled after neuroscience** — storage, retrieval, cleanup, composition of stored traces. NOT cognition/reasoning. Neuro analogies are MECHANISM-analogies (how machinery works), NEVER task-analogies (brain-level capability). Composes with `feedback_mechanism_analog_is_not_task_analog` + SUBSTRATE-KNOWS-NOTHING. Keep framing grounded.
+
+## USER STRATEGIC REDIRECT: ENCODER IS PRIMARY FOCUS
+
+USER 2026-07-04: "getting the encoder right ... is the load bearing issue that everything else relies upon." Everything downstream (retrieval, composition, Cortex-2 atom-consultation) inherits encoder quality. USER wants it RIGHT not just FINISHED, and authorizes EXPERIMENTING to find the optimal design ("existing research may not have all the answers ... find the optimal system for substrate"). **M4 consolidation + attention DEFER behind encoder.**
+
+Encoder = substrate's sensory/language cortex: word/concept -> vector frontend. Currently BORROWS BGE-large (0.54 semantic cosine on USER test query); native concept encoder targets 0.85+. Until it lands, every capability above runs on rented perception.
+
+**TWO REAL ENCODER RISKS (beyond "let it finish"):**
+1. **On CPU (~15h).** Tailscale UP; GPU could cut to <1h. Orchestrator dispatching GPU version (task in flight).
+2. **Unaudited selftest fix.** Earlier crash `mean_nnz 616.91 outside [18,22]` (30x sparsity target); a fix was pushed 23:28-23:50Z but NEVER audited whether it FIXED the encoder or WIDENED the band. If widened, encoder is quietly WRONG. Orchestrator auditing the diff pre-dispatch (gates trust in the whole run).
+
+## RECONCILED STATE AT PICKUP (verified off-disk 02:29-02:35Z)
+
+- **Tailscale UP** (`ssh marsh@home` -> "up"). Will re-expire on calendar timer; USER should disable key-expiry at login.tailscale.com/admin/machines.
+- **BGE 178K cache LANDED** 2026-07-03T21:43Z (INFRA PASS) -> unblocks 27 regime cascade + 170K re-test.
+- **Encoder Step 1 still running** on cpu_runner_local, unit ~6/98, ~2h40m in (runner_status mislabels ZOMBIE but heartbeat 14s fresh -> legitimately cranking).
+- **Atoms:** the 116 (math=67 meta=49) figure is the **07-03+07-04 two-day** grep total. Single-day **2026-07-04 = math 9, meta 3** (per Skunkworks off-disk grep). VET `ab456135a` added +2 math (multi-atom primitive + P8 amendment) + 1 meta (pre-landing-atomization discipline).
+
+## NEW LANDINGS DURING COMPACTION (all HARD_PASS; VET in flight)
+
+- **Cortex-2 Phase 2 dose-response s7 SMOKE HP** (02:02Z) = predicted math #63 (already atomized 04:40Z pre-compaction per this file; re-VET confirms).
+- **Probe 8 ALGEBRA x MECH s13 + s19 FULL HP.** CORRECTION (Skunkworks VET `ab456135a`, Fix#28 on my framing): this is **2 FULL seeds (s13+s19) + 1 SMOKE (s7)**, NOT "3-seed FULL convergence" — SMOKE TR-scale cannot mix with FULL for cross-seed cv. Actual **cross-2-FULL-seed cv=0.235** (worse than prior 0.167 claim, which was itself a pre-landing atomization Fix#28 hit — filed BEFORE s13/s19 existed). H1 (F moderates CLEANUP at cliff-adjacent SHARDED) survives 2/2 FULL but s13 sits exactly at threshold 0.10 (fragile). Cited "mh->sea ranking flip" is SMOKE-ONLY; does not reproduce across FULL seeds. **NOT CG-promotable** — needs 3rd FULL seed (s11/s17 dispatch in flight is exactly this).
+- **Probe 15 L x M s13 + s13_v2 FULL HP**; s19 MIDDLE_BAND (mixed).
+- Probes 5/6v2/7/9v2 s13/s19: MIDDLE_BAND (expected — 2x-drill closed these, see below).
+
+## MULTI-ATOM CONFLICT PRIMITIVE LANDED (Cortex-2 Phase 2, SMOKE HP)
+
+Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommendation_priority`, `_PRIORITY_ALPHA=0.10`, two-stage rank, +4 selftests (17/17 pass). **case3 SCALE_FREE flipped 0/10 -> 10/10**; cases 1/2/4/5 preserved 10/10; overall honor 1.000 (was 0.80 v1.1). Wall p95 0.71ms (budget 5ms). This is the prefrontal-arbitration MECHANISM-analog (resolve competing atom recommendations). Atomized by VET `ab456135a` as **MM_TENTATIVE_PRIMITIVE_EXTENSION** (anti-drift verified: prereg precedes run 2m28s; `_PRIORITY_ALPHA=0.10` at `atom_consultation.py:392` matches prereg; case3 cos gap 0.03->0.079 verified).
+
+**GATE (Skunkworks-authoritative):** SHADOW->WARN must NOT proceed on this SMOKE alone. Single-seed SMOKE on a curated **7-atom** corpus. Open question the prereg itself flags: does the +0.05-0.10 priority boost window survive ambient cosine noise at **99 / 970k atoms**? Minimum bar before WARN = FULL multi-seed replicate at 99-atom corpus (stacked-corpus test). This is the concrete next cortex-2 experiment (deferred behind encoder per USER focus).
+
+**SECURITY NOTE:** the b60ee519f push-to-main was flagged by harness classifier; Skunkworks ruled it standard-under-agent-teams but flagged a GAP — no pre-auth rule documents cell-author sub-agents may push atomization-adjacent commits to main before landed-VET. Recommend codifying: cell-author pushes carry `verified_off_data=false` on atomization-relevant claims until Skunkworks landed-VETs. Cortex-2 arc now 4 primitives deep (advisory -> shadow -> dose-response -> multi-atom-conflict).
+
+## 2x-DRILL CLOSED (saturation-vacuous MB triples)
+
+`notes/research_drill_saturation_vacuous_MB_4triples_revival_2026-07-04.md`. 3/4 MB triples (P5, P6v2, P7v2) are grid-saturation-vacuous — cross a proven-degenerate/regime-narrow CG_META axis -> **SKIP** per meta #45. P9v2 (N x L) HOLD/UNDIAGNOSED pending disk-verify. Proposed discipline extension **meta #45b pre-classified-axis short-circuit**: before dispatching any cross-term FULL, check if either axis already carries REGIME_NARROW/ceiling-saturated classification; if so presumptively vacuous. P_deflated=0.28.
+
+## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
+
+| agentId | role | task |
+|---|---|---|
+| a913002bb58298a44 | Skunkworks | VET 3 landings: dose-response HP + P8 3-seed + multi-atom HP (bundle A5 commit) |
+| ab28632884eb33fbf | orchestrator | Encoder Step 1 -> GPU (with fix-audit gate) + P8 s11/s17 dispatch |
+| a73809f3bc960498f | research | Encoder design-correctness drill (sparsity target, objective, algebraic-fidelity, brain-analog) |
+| a361962313ca3a659 | exp_dev | Empirical encoder design ablation (sparsity x [semantic, algebraic] Pareto frontier) |
+
+## NEXT-SESSION PICKUP (updated priorities)
+
+1. **ENCODER (primary):** verify GPU dispatch landed + fix-audit verdict (PROPER vs WIDENED-BAND — gates trust); read ablation Pareto frontier + design-correctness drill; converge on optimal design point; if current [18,22]/objective is dominated, re-spec FULL before letting 970K finish. THEN Step 2 apply + Step 3 gold-verify -> swap native encoder into Layer 0. Target 0.54 -> 0.85.
+2. Route Skunkworks 3-landing VET returns (up to +3 atoms incl. P8 CG candidate).
+3. P8 5-seed cv promotion (s11/s17 landing).
+4. Cortex-2 Phase 3 LIVE-mode ring rollout (DEFERRED behind encoder per USER; still the M3 vision).
+5. M4 seeds (consolidation + attention) DEFERRED behind encoder.
+
+## BLOCKED ON USER
+
+1. **P8 5-seed push to origin/main** + possibly encoder GPU dispatch — harness classifier gates push/scp; orchestrator reporting exact gated command; USER may add a Bash permission rule.
+2. Tailscale key-expiry disable (recurrence prevention).
+3. P4 (#52) reframe; Layer 0.5 FULL dispatch; Probe 17 spatial-coupling HOLD — standing decisions, non-blocking.

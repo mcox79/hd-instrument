@@ -1,5 +1,7 @@
 {
-  "ts": "2026-06-21T17:10:00Z",
+  "ts": "2026-07-04T02:45:00Z",
+  "_current_state_pointer_2026_07_04": "BACKUP: notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-03_LATE.md (read POST-COMPACTION AMENDMENT 2026-07-04 section). PRIMARY FOCUS = concept encoder (USER-designated load-bearing; get it RIGHT via empirical ablation, not just finished). Framing lock: MEMORY system modeled after neuro, mechanism-analog not task-analog. Encoder Step 1 training in flight; 3 encoder work-streams running (GPU-dispatch+sparsity-fix-audit / design-correctness drill / empirical Pareto ablation). Cortex-2 arc 4 primitives deep (advisory->shadow->dose-response->multi-atom-conflict), SHADOW->WARN GATED on 99-atom stacked-corpus test, DEFERRED behind encoder. M4 (consolidation, attention) deferred. Stage1 regime map largely mapped (P12 first CG cv=0.049). Task-analog arc DEFINITIVELY closed. Latest VET commit ab456135a. BLOCKED-ON-USER: P8 push-to-main harness-gated; Tailscale key-expiry disable.",
+  "_current_state_pointer_2026_07_01": "BACKUP: notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-02_LATE.md; session 20 CG (17 pre-VET + 3 post-VET batch); cortex proposal filed awaiting USER; sibling backlog: 7 un-dispatched 2026-07 cells (lap3_12 + math4 x2 + stretch4 x4) pending pre-reg envelope upgrade + queue routing fix",
   "cert_class_breakdown": {
     "_note": "Per Skunkworks 137-decomposition + 15-blank-triage (2026-06-20; off live PartitionedStore.all_atoms()). HONEST phrasing: 'CERT 592 = 592 chain-grade RESULTS (~440 PASSES + ~152 bounds/negatives/characterizations being classified)'. The defensible 'working capabilities' number is ~440 PASSES firm floor. The 15 'blank-verdict' are CUSTOM-verdict (HONEST_BOUNDED/HONEST_NEGATIVE/ATTRIBUTION/etc.) NOT bugs; standard classifier missed them. First declared count-move imminent: a1_multihop_provenance self-contradicts (honest_scope says MEASURED-MECHANISM but pq=chain-grade) -> CERT 592->591 demote candidate.",
     "pass_family": {
@@ -40,8 +42,8 @@
         "actual_cert_count_post_execution": 590,
         "post_587_chain_grade_lifts_2026-06-22": [
           "+1 n8 ConceptNet KG ingest (CERT 588)",
-          "+1 h_hotpotqa multi-hop Wikipedia KG ingest (CERT 588 → wait, n8 went 587→588, so this is wrong; correct sequence:",
-          "actually: 587 + n8 (585?) + c3 (586) + g1b (587) + h_hotpotqa (588) + p1 (589) + p1_v2 (590) — net +3 from 587",
+          "+1 h_hotpotqa multi-hop Wikipedia KG ingest (CERT 588 \u00e2\u2020\u2019 wait, n8 went 587\u00e2\u2020\u2019588, so this is wrong; correct sequence:",
+          "actually: 587 + n8 (585?) + c3 (586) + g1b (587) + h_hotpotqa (588) + p1 (589) + p1_v2 (590) \u00e2\u20ac\u201d net +3 from 587",
           "see master_plan.md for canonical CERT trajectory; this stale 587 was from 2026-06-20 batch"
         ],
         "atoms": [
@@ -59,7 +61,7 @@
     "total_history": "592 -> 589 -> 587 -> 588 (+1 #5b) -> 589 (+1 LEVER #4) -> 588 (-1 phase4b STALE chain-grade DEMOTED commit 0c5c5f6a) -> 585 (-3 Skunkworks landed-VET on 5 hidden-positives commit f97d675f 2026-06-21: NEW-1 continual_learning 27x+zero-forget wrong-bar [1000x ASPIRATION not achieved] -> MM; NEW-3 drosophila_mb_sparsity_sweep wrong-anchor [best-f=0.01 only 2/3; f=0.05 robust 3/3] -> MM-PARTIAL; NEW-5 data_attribution_counterfactual_rpe wrong-bar [HP=0.8 unachievable by either method incl TracIn] -> MM-parity-at-speedup; 3 wrong-bar demotes from headline; MM characterizations preserved + composes-with links preserved). Net substrate at CERT 585 honest: 3 chain-grade earned (#5b + LEVER #4 + ...) + 3 wrong-bar removed. Symmetric guard producing genuine integrity correction both directions. 2 of 5 hidden-positives still HELD: NEW-2 reconciled-from-Store (7 atoms 2P+3M+2F bisection-by-design proposed MM; reframe sound); NEW-4 needs random-control arm RE-RUN (Director routed Exp-Dev). Own-miscite logged: cited 8 atoms NEW-2 from drill recall not Store (cb7e89f1 dominant family). UPDATE 2026-06-21T05:18: Skunkworks self-reconciled NEW-2 commit a0a5f336 (3 transition-MIDDLEs d277/d278/d281 are transition-data-by-design not independent chain-grades -> MM; PASS endpoints d275/d276 + FAIL endpoints d287/d293 STAY chain-grade); CERT 585 -> 582 (-3 more honest); session trajectory 592 -> 582 net -10 (5MM -5, phase4b -1, 3 wrong-bar -3, 3 q_b1-transition -3, +2 earned #5b LEVER4). UPDATE 2026-06-21T06:25: Skunkworks formal landed-VET pythia desat -> CERT 582 -> 583 EARNED upward (first earned upward since audit de-inflation), commit bfcc0af7, atom T3/EXP_pythia_kv_desat_v2 CERT_CHAIN_GRADE, atoms 177255 -> 177256. Verified off canonical 30/30 per_unit independent recompute. CORRECTION to prelim: substrate-minus-random margin = -0.497 NEGATIVE (substrate CROWDS MORE than random = expected discriminating signature per cell honest_scope NOT separation-failure); de-sat genuine; cert scope = discriminating-MEASUREMENT of pythia-2.8b substrate-KV recall 0.90-0.95 at sigma=0.5 with size-crowding NOT clean-capacity-1.4B claim; v1 saturation null REVIVED. UPDATE 2026-06-21T07:28: Skunkworks landed-VET on continual-write commit 7f39f342 -> T3/EXP_continual_write_label_free_importance_v1 = MEASURED_MECHANISM scope-locating (CERT-neutral; CERT 583 unchanged; atoms 177256 -> 177258 +1+ from cell atom + META); verified off per_unit detail.by_workload (A=PASS 3 access-proxies LRU+access_freq+kramers_escape converge to oracle 1.0; B=FAIL all 5 proxies 0.0; cv=0.000); label-free importance via access-recency-correlated proxies confirmed at faithful 3-seed scale; B-fail = info-theoretic limit (principled scope-bound NOT tuning gap); storage-chain item #2 characterized; Kramers-escape proxy CONFIRMED viable validates Kim 2026 cross-domain probe prediction empirically (1 genuine win for cross-domain probe lever); v4 marginal-utility OPTIONAL (Skunkworks predicts fails B too: never-queried silent-important item's removal doesn't increase recall-error on currently-queried set; cheap empirical-confirm if Exp-Dev wants). UPDATE 2026-06-21T10:28: Skunkworks landed-VET on flagship L-build commit c13268e2 -> T3/EXP_flagship_sparse_projected_KV_LBUILD_v1 = MEASURED_MECHANISM HONEST_NEGATIVE (CERT-neutral; CERT 583 unchanged; atoms 177258 -> 177259); 4-layer-witness CONFIRMED (L1 Skunkworks + L3 Orch reciprocal + L4 Director cross-check); capacity_M(recall>=0.80)=0 ALL 5 arms; best A_naive maxrec=0.536 DROPPING with M (0.536@1k -> 0.333@10k -> 0.14@100k = crowding); seed-unstable cv=0.707; bf16-confound RESOLVED by C2 float32_dense=0.828 vs bf16=0.961 -> shortfall GENUINE; STRATEGIC IMPLICATION = PIVOT TO DENSE-projected-KV (CERT 591 already certified at recall 0.83-0.96 NO sparsification) as the real storage foundation; sparse capacity-boost was speculative add-on that doesn't hold recall; revival routing to Research per USER negatives-to-revival-drills standing (4 angles: why-sparsification-costs-recall / recall-holding-sparse-encode / dense-projected-KV-at-scale-validation [highest value] / cv=0.707-genuine-vs-artifact); flagship saga COMPLETE + honest both ways. UPDATE 2026-06-21T12:15: Skunkworks landed-VET on dense-KV-envelope -> T3/EXP_dense_projected_KV_envelope_v1 = MEASURED_MECHANISM (CERT-neutral; CERT 583 unchanged; atoms 177259 -> 177261 +2 cell+META); verified off per_unit + cell code (ARM1 M-indep recall=0.8242 cv=0.0070 at M=10k=13xd; W shape (d,d)=O(d^2) M-independent CONFIRMED off cell line 64; C=256 codebook decode + readout-M-indep CONFIRMED selftest line 127 W.shape==(d,d); C-codebook +0.21 lift over i.i.d. Phi(1/sqrt(13))~0.61 prediction CONFIRMED = substrate-vocab is genuine capacity-extender empirical validation of Skunkworks's info-theoretic insight); Director-lean chain-grade-at-bound SOFT-RETRACTED per Skunkworks's inflation-backstop discipline (2 pre-reg gates UNMET: FLAG-3 calibration UNRUN random-keys ARM0=1.0-BY-CONSTRUCTION not pythia meter-check + Random keys = BEST-CASE UPPER BOUND substrate uses LEARNED keys decreased capacity per HMM arXiv:2503.09518; minting substrate-CERT on best-case + unvalidated meter would be inflation-class de-inflated 592->582 this session); concrete upgrade path = GPU follow-up FLAG-3 calibration ARM0 on CERT591 pythia-2.8b proj256 reproduce 0.827/0.805 + learned-key subset ARM1/ARM2 on pythia keys; ATOM upgradeable to chain-grade-at-bound on re-VET (not new atom); M2 amendment v4 M_TRIPLES<=10000 target 5000 provisional-OK flagged (upper-bound proxy; pending learned-key subset confirms substrate's actual bound). UPDATE 2026-06-21T14:32: Skunkworks atomized clean re-run -> T3/EXP_dense_KV_learned_key_calibration_v1 = MEASURED_MECHANISM (A5 CERT 583 unchanged; atoms 177261 -> 177264 +3 cell+META+...); 2nd HALT cal=0.604 + Director cross-check filed 7b6e8dac ENDORSE ACCEPT-GATE-2 + 2-HALTs-diminishing-returns-route-as-separate; GATE-2 pool-independent finding ROBUST off C-codebook decode (ARM 1 collapses to chance 0.02/0.008 vs random-core 1.0/0.824 across 2 GPU runs); MM ruling on RAW-learned-keys ROBUST; whitening-revival STILL upgrade path (CPU PoC de-risked iso 0.807 / aniso 0.004 / ZCA 0.843 recover); GATE-1-repro-gap elevated to dependency (Skunkworks insight: stronger CERT591-faithful projection -> higher whitened-ARM1 ceiling; fix projection BEFORE whitening cell); routed as cheap code-diff diagnosis (proj_dim / TRAIN_STEPS / temperature / fresh-vs-saved / make_facts / normalization).",
     "source": "notes/skunkworks_to_orch_cc_all_5MM_DEMOTE_DONE_CERT_589_d758d401_reciprocal_check_request_2026-06-20.md (supersedes prior decomposition + custom-verdict notes; CERT 589 is current as of 2026-06-20T22:45Z; 149 to-classify remaining = 152 prior minus the 3 demoted)"
   },
-  "ts_note": "Director-maintained; updated at natural decision points (routings filed, ships landing, SCHEMA-VETs landing). Not 60s-cadence.",
+  "ts_note": "director_plan.json refreshed 2026-06-29T02:07:22Z \u2014 canonical state snapshot of in-flight agents + pending atomizations + next-wave queue. Source of truth for dashboard + post-compaction recovery. Refreshed at decision points + by 15-min cron.",
   "schema_version": "v1_skunkworks_vetted",
   "schema_reference": "notes/skunkworks_to_research_testbed_SCHEMAVET_dashboard_plan_json_engagement_metrics_cert_discipline_verdict_2026-06-20.md",
   "active_program": {
@@ -97,6 +99,69 @@
     ]
   },
   "priorities": [
+    {
+      "id": "cortex_integration_hdlab_module_2026-07-02",
+      "title": "hdlab/cortex.py composed module + integration test cell (M3 integration debt closure per USER 2026-07-02)",
+      "type": "architecture_module_ship",
+      "status": "PROPOSAL_FILED_AWAITING_USER_DECISION",
+      "owner": "director+exp_dev",
+      "owner_asserted": true,
+      "artifact": "notes/proposal_cortex_integration_hdlab_module_2026-07-02.md; on APPROVE: hdlab/{noise_channel,context_retention,role_slot_summarizer,clarify_gate}.py + hdlab/cortex.py + experiments/exp_cortex_integration_end_to_end_v1.py",
+      "cert_class": "TIER_A",
+      "tier_target": "MM_TENTATIVE for module extraction; CG for integration cell if composed matches individual-primitive numbers cv<=0.05",
+      "last_updated_ts": "2026-07-02T14:25:00Z",
+      "dependencies": [
+        "USER go/no-go on proposal_cortex_integration_hdlab_module_2026-07-02.md"
+      ],
+      "blocks": [
+        "M3_architecture_conversational_eval_cells",
+        "M4_substrate_as_experiment_director"
+      ]
+    },
+    {
+      "id": "skunkworks_vet_5_batches_2026-06-28",
+      "title": "Skunkworks VET on 5 landed batches (PC v2.2 GPU 3-seed HP / lock_in_amp 3-seed MB / capacity_multibank GPU 3-seed MB / TASK_VECTOR v1 3-seed FULL HP / schema_bayes capacity-stress v2 3-seed)",
+      "type": "landed_vet",
+      "status": "in-progress",
+      "owner": "skunkworks",
+      "owner_asserted": true,
+      "artifact": "data/store/ atomizations + cert_ledger delta",
+      "cert_class": "AUDIT_ONLY",
+      "tier_target": "chain-grade where discriminator FIRES; default MM",
+      "last_updated_ts": "2026-06-29T00:23:51Z",
+      "dependencies": [],
+      "blocks": [
+        "author_followups_for_promoted_paths"
+      ]
+    },
+    {
+      "id": "anchor4_time_decay_phase_fill_2026-06-28",
+      "title": "ANCHOR 4 time-decay eviction phase diagram fill (MID -> HIGH); 3-seed phase across decay rate x capacity",
+      "type": "phase_diagram_fill",
+      "status": "in-progress",
+      "owner": "exp_dev",
+      "owner_asserted": true,
+      "artifact": "exp_substrate_anchor4_time_decay_phase_diagram_v1 (pending name)",
+      "cert_class": "STAGE_2_META_PRIMITIVE",
+      "tier_target": "chain-grade phase-characterization (HIGH coverage)",
+      "last_updated_ts": "2026-06-29T00:23:51Z",
+      "dependencies": [],
+      "blocks": []
+    },
+    {
+      "id": "anchor3_coarse_grain_phase_fill_2026-06-28",
+      "title": "ANCHOR 3 coarse-grain phase diagram fill (MID -> HIGH); 3-seed phase across granularity x corpus",
+      "type": "phase_diagram_fill",
+      "status": "in-progress",
+      "owner": "exp_dev",
+      "owner_asserted": true,
+      "artifact": "exp_substrate_anchor3_coarse_grain_phase_diagram_v1 (pending name)",
+      "cert_class": "STAGE_2_META_PRIMITIVE",
+      "tier_target": "chain-grade phase-characterization (HIGH coverage)",
+      "last_updated_ts": "2026-06-29T00:23:51Z",
+      "dependencies": [],
+      "blocks": []
+    },
     {
       "id": "rescue_higher_eff_rank_key_source",
       "title": "RESCUE CONTINGENCY: higher-eff-rank KEY-SOURCE cross-cutting lever (earlier-layer / mean-pool pythia reps known LESS anisotropic / higher-eff-rank per lit; raises ceiling for ALL storage mechanisms BOTH sparse AND dense); cheap CPU-sweepable; route to Research/Exp-Dev to measure eff-rank across layers + poolings; pick highest-eff-rank source as substrate-LM keys",
@@ -781,15 +846,158 @@
       "artifact": "data/hooks/staging/PHASE_3_COST_POLICY_BRIEF_FOR_USER.md"
     }
   ],
-  "summary": {
-    "priorities_total": 13,
-    "priorities_done": 3,
-    "priorities_in_progress": 8,
-    "priorities_planned": 2,
-    "priorities_dissolved": 0,
-    "priorities_blocked": 1,
-    "priorities_remaining_non_terminal": 10,
-    "next_horizon": "Skunkworks SCHEMA-VETs in flight (LEVER #1.5 cell + pythia pre-reg + anti-drift items 2+3 = 3+1+3=7 questions across 3 asks). On her ratify cluster: I build self-check tool; Testbed locks owner-asserted commit-cite-only in plan-panel render + builds plan+engagement panels; Exp-Dev cell-author cadence (LEVER #1.5 smoke -> dispatch then refuse-gate #5 Path A). Effrank-SVD clarification from Skunkworks unblocks 3rd pull-up. Phase 3 cost brief USER review unblocks hardening Phase 3. Map v6 mini-refresh on next ship. Anti-drift package PROVES OUT on first non-trivial Director update cycle (this turn IS that test -- I'm updating the plan-JSON because items 2+3 routed + item 1 landed; demonstrating decision-point cadence per the just-locked memory rule)."
-  },
-  "director_narrative": "FLAG: DIRECTOR_JUDGEMENT -- non-load-bearing. This session shipped 3 chain-grade certs (CSP 590 / #7 591 / K_max 592) + 3 atomized MEASURED_MECHANISM characterizations (Hebbian / crosstalk-law / sparse super-capacity) + cleared 1 legacy actionable (a8) + introduced the 16th USER-LOCKED rule (no compaction-state-tracking) + dissolved 4 inflated claims while upgrading 1 understated finding -- discipline producing ALL DIRECTIONS. 15 META disciplines atomized making the audit-catalog the self-cert rulebook. Substrate-KV mechanism architecturally SETTLED = NN-retrieval with #7 learned projection. Phase 3 glass-box-LLM foundation strengthened by depth-beyond-equilibrium (CERT 592) + sparse super-capacity (>=300x@f=0.005). Cascade is in active state with multiple parallel threads; nothing is the load-bearing critical path."
+  "summary": "Plan refreshed 2026-06-29T02:07:22Z. 13 agents in flight (10 cell-author / 2 Orchestrator / 1 Skunkworks). CHAIN-GRADE PROMOTION: ANCHOR 4 Pareto v2 just landed (cert_ledger +1). BACKUP cert count: 494 per BACKUP (under correction); cert_ledger.jsonl shows 631 via Store provenance_quality (authoritative). Systematic component-sweep program in flight: encoder family PC + seqbind + cleanup family PC + routing family WM + schema family + binding operation family. 2x-drill revivals in flight: TASK_VECTOR v3 / Lock-in v3 / Schema v4 / ANCHOR 3 v2 FAMILY_OVERLAP. Stage 2 NREM probe in flight: hippo capacity rescue. 15-min cron a90b50f1 active for re-engagement.",
+  "director_narrative": "Full-auto mode active. User reframed program to systematic component-sweep coverage (one component at a time). 9 substrate-lever categories identified (encoder/binding/storage/cleanup/routing/composition/sequence/temporal/refuse-gate). First 4 component sweeps in flight (encoder PC + seqbind + cleanup PC + routing WM + schema + binding op). 5 2x-drill mechanism-class diversions in flight per Skunkworks recommendation. ANCHOR 4 Pareto-AUC v2 first 2x-drill to land chain-grade promotion. Next major event: Skunkworks Capacity_multibank v2 atomization (likely +1 cert).",
+  "in_flight_agent_fleet": [
+    {
+      "agent": "hippo_capacity_rescue",
+      "id_short": "adce9ad",
+      "type": "hdi_exp_dev",
+      "purpose": "Stage 2 NREM diagnostic: vary N_h while M=8192 fixed; find regime where DIRECT-HIPPO gap closes",
+      "status": "in_flight"
+    },
+    {
+      "agent": "schema_v4_redesign",
+      "id_short": "aed58d8",
+      "type": "hdi_exp_dev",
+      "purpose": "Schema 2x-drill (HARDMAX primitive substitution + REFCLIFF graceful gate); 5 seeds smoke CHAIN_GRADE_MULTI",
+      "status": "cell_author_wrapping"
+    },
+    {
+      "agent": "anchor3_v2_family_overlap",
+      "id_short": "ae8371",
+      "type": "hdi_exp_dev",
+      "purpose": "ANCHOR 3 2x-drill (FAMILY_OVERLAP mechanism-class diversion); smoke HP at full N=1024; caught v1 metric-bias bug",
+      "status": "orchestrator_dispatch_aff2b01"
+    },
+    {
+      "agent": "task_vector_v3_pooled",
+      "id_short": "a99b741",
+      "type": "hdi_exp_dev",
+      "purpose": "TASK_VECTOR 2x-drill (n_trials=50 + pooled-seed cliff detection); seeds 13+19 smoke MB",
+      "status": "in_flight"
+    },
+    {
+      "agent": "lock_in_v3_advantage_band",
+      "id_short": "ac2a991",
+      "type": "hdi_exp_dev",
+      "purpose": "Lock-in 2x-drill (densified ADVANTAGE-band SNR + integration-time co-sweep)",
+      "status": "in_flight"
+    },
+    {
+      "agent": "cleanup_family_pc",
+      "id_short": "a6cd12d",
+      "type": "hdi_exp_dev",
+      "purpose": "Component sweep: cleanup family head-to-head for PC (modern Hopfield vs classical vs iterative cosine vs soft energy)",
+      "status": "in_flight"
+    },
+    {
+      "agent": "routing_family_wm",
+      "id_short": "a3a99d9",
+      "type": "hdi_exp_dev",
+      "purpose": "Component sweep: routing family head-to-head for WM (partition vs k-NN vs softmax-attention vs hierarchical)",
+      "status": "in_flight"
+    },
+    {
+      "agent": "schema_family_head_to_head",
+      "id_short": "a81dc5d",
+      "type": "hdi_exp_dev",
+      "purpose": "Component sweep: schema family (exemplar-Bayes vs prototype vs hybrid vs Bayesian-with-priors)",
+      "status": "in_flight"
+    },
+    {
+      "agent": "binding_operation_family_pc",
+      "id_short": "a4e5971",
+      "type": "hdi_exp_dev",
+      "purpose": "Component sweep: binding operation family (circular conv vs FHRR element-wise vs tensor product vs Hadamard)",
+      "status": "in_flight"
+    },
+    {
+      "agent": "encoder_family_pc_full_dispatch",
+      "id_short": "a67c9eb",
+      "type": "hdi_orchestrator",
+      "purpose": "Encoder family PC FULL dispatch to GPU overnight_queue (positions 4-5-6 behind multihop v4 chain)",
+      "status": "queued_behind_multihop_v4"
+    },
+    {
+      "agent": "anchor3_v2_family_overlap_dispatch",
+      "id_short": "aff2b01",
+      "type": "hdi_orchestrator",
+      "purpose": "ANCHOR 3 v2 FAMILY_OVERLAP push + remote_cpu_queue dispatch via hd_metrics_sync",
+      "status": "in_flight"
+    },
+    {
+      "agent": "capacity_multibank_v2_atomization",
+      "id_short": "aeb8fc0",
+      "type": "hdi_skunkworks",
+      "purpose": "Atomize Capacity_multibank v2 3/3 HP chain-grade promotion candidate",
+      "status": "in_flight"
+    },
+    {
+      "agent": "multihop_v4_full_seeds_7_13_19",
+      "id_short": "n/a",
+      "type": "GPU runner",
+      "purpose": "Multihop phase diagram depth \u00d7 V_C \u00d7 N_chains v4 FULL 3-seed on overnight_queue",
+      "status": "running_on_gpu_runner_0"
+    }
+  ],
+  "recent_chain_grade_promotions": [
+    {
+      "ts": "2026-06-29T01:45+",
+      "atom_id_short": "ANCHOR_4_time_decay_Pareto_AUC_v2_CROSS_SEED_AGG_3_of_3_chain_grade_phase_characterization",
+      "ledger_delta": 1,
+      "scope": "Stage 2 phase-characterization mathematical-model-scope",
+      "source_cell": "1e8c7d94"
+    },
+    {
+      "ts": "2026-06-28T17:09+",
+      "atom_id_short": "EXP_substrate_ultrametric_clustering_phase_diagram_v1_CROSS_SEED_AGG_3_of_3_chain_grade_phase_characterization_HONEST_DOWNWARD",
+      "ledger_delta": 1,
+      "scope": "Stage 2"
+    },
+    {
+      "ts": "2026-06-28T15:56+",
+      "atom_id_short": "EXP_substrate_wm_multibank_K_cliff_phase_diagram_v3_GPU_chunked_CROSS_SEED_AGG_3_of_3_chain_grade_phase_characterization",
+      "ledger_delta": 1,
+      "scope": "Stage 1"
+    },
+    {
+      "ts": "2026-06-28T17:14+",
+      "atom_id_short": "EXP_substrate_pattern_completion_corruption_cliff_v2p2_dense_cliff_grid_CROSS_SEED_AGG_3_of_3_GPU_HARD_PASS_PHASE_CHARACTERIZATION_chain_grade",
+      "ledger_delta": 1,
+      "scope": "Stage 1"
+    },
+    {
+      "ts": "2026-06-28T11:54+",
+      "atom_id_short": "EXP_substrate_cross_modal_binding_visual_auditory_v1_CROSS_SEED_AGG_3_of_3_HARD_PASS_Stage_3_TPJ_analog",
+      "ledger_delta": 1,
+      "scope": "Stage 3"
+    }
+  ],
+  "pending_next_wave": [
+    {
+      "task": "Encoder family seqbind RE-DISPATCH with HDLAB_RUN_MODE=full enforced",
+      "reason": "Previous dispatch was phantom-FULL (Skunkworks caught selftest-injection); cell-author also needs seed_19 hash collision fix"
+    },
+    {
+      "task": "Hippo-rescue \u2192 Spaced-rep NREM retry path",
+      "reason": "If hippo rescue cell finds N_h regime where DIRECT-HIPPO gap closes, spaced-rep NREM v2 becomes meaningful"
+    },
+    {
+      "task": "TOM v3 threshold-recalibrated v4",
+      "reason": "v3 mechanism is depth-aware (TENSOR_RANK2 cliff 0.83\u21920.40\u21920.17) but pre-reg threshold 0.10 too aggressive; v4 with calibrated threshold = chain-grade candidate"
+    },
+    {
+      "task": "Time-decay family head-to-head",
+      "reason": "Now less urgent since ANCHOR 4 Pareto v2 just chain-graded; still worth filling for completeness"
+    },
+    {
+      "task": "Refuse-gate adaptivity variants",
+      "reason": "Point-tested currently at V_REL=256; never compared adaptive Bayesian-CI"
+    },
+    {
+      "task": "BACKUP capability table edits",
+      "reason": "TOM 3rd+ done; pending: ANCHOR 4 Pareto v2 chain-grade status update; cert count 631"
+    }
+  ]
 }

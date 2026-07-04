@@ -1,10 +1,26 @@
 # Progress
 
-## Current phase (2026-06-30 EOD)
+## Current phase (2026-07-04)
+
+**Framing (USER-locked):** this is a MEMORY SYSTEM modeled after neuroscience — storage, retrieval, cleanup, composition of stored traces. Neuro references are MECHANISM analogies, not task/capability claims.
+
+**PRIMARY FOCUS (USER 2026-07-04): the concept encoder.** It is the load-bearing component — the substrate's word/concept -> vector frontend that every downstream layer (retrieval, composition, Cortex-2 atom-consultation) inherits quality from. Currently borrows BGE-large (0.54 semantic cosine on USER test query); native concept encoder targets 0.85+. Getting it RIGHT (optimal sparsity + objective + algebraic fidelity), not just finished, is the current thrust — with empirical ablation because the design space (controllable-sparsity code feeding an algebraic memory) is genuinely new. M4 (consolidation, attention gating) defers behind it.
+
+**Active arcs (2026-07-04):**
+- **Encoder migration** (PRIMARY): Step 1 training in flight; GPU acceleration + sparsity-fix audit + design-correctness drill + empirical Pareto ablation all running.
+- **M3 Cortex-2 atom-consultation** (4 primitives deep): advisory -> SHADOW (nonce + null-arm discriminator) -> dose-response-stable -> multi-atom conflict resolution (case3 revival 0->10/10). Next: LIVE-mode ring rollout (deferred behind encoder).
+- **Stage 1 regime map** (largely mapped): 5 physics-law atoms + regime-conditional cross-terms; first CHAIN_GRADE of the arc = P12 L-marginal (cv=0.049). Probes 1-16 landed; cliff-adjacent vs deep-saturation regime structure established.
+- **Task-analog arc: DEFINITIVELY CLOSED** (v1-v4 orthogonal double-lock; theory-grounded via LDPC sharp-capacity-threshold framework).
+
+**Live Store CERT count: 634** (provenance_quality == CERT_CHAIN_GRADE; verified off-disk 2026-06-30; not re-counted since — treat as a floor).
+
+**Session-state canonical:** `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-03_LATE.md` (read the POST-COMPACTION AMENDMENT 2026-07-04 section at the end first).
+
+---
+
+## Prior phase (2026-06-30 EOD)
 
 Substrate program is on the M3-milestone path: glass-box conversational AI 12-18mo via substrate as memory+composition+retrieval+audit layer + external cortex layer for hint derivation / planning / coref / surface-form access.
-
-**Live Store CERT count: 634** (provenance_quality == CERT_CHAIN_GRADE; verified off-disk).
 
 **Stage progression** (load-bearing; do not skip):
 - **Stage 1 — Foundational primitives:** ~88% mature. 12 chain-grade primitives (HRR/FHRR/BSC bind+unbind; cleanup attractor; pattern completion; sequence binding K-cliff; WM multi-bank; refuse-gate V_REL=256; KG ingest FB15k/CN/HotpotQA; partition routing M=10M; intent classifier; capacity multi-bank α-K; action-at-any-position).
