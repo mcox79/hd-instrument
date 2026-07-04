@@ -154,6 +154,9 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
   # auto-SCPed -> remote ModuleNotFoundError (orchestrator workaround 2026-07-03).
   SCRIPT_BASE=$(basename "${SCRIPT_LOCAL}" .py)
   SCRIPT_DIR_LOCAL=$(dirname "${SCRIPT_LOCAL}")
+  # Tracks basenames (no .py) already SCP'ed by Patterns 1-5 so Pattern 6's
+  # generic import-parse pass below doesn't re-announce/re-scp the same file.
+  SHIPPED_SIBLINGS=()
   if [[ "${SCRIPT_BASE}" =~ (_seed_[0-9]+|_s[0-9]+)$ ]]; then
     CORE_BASE=$(echo "${SCRIPT_BASE}" | sed -E 's/(_seed_[0-9]+|_s[0-9]+)$//')
     # Pattern 1: exp_<base>.py (core file with same prefix as wrappers; ships with v4/v5 cells)
@@ -161,18 +164,21 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     if [[ -f "${CORE_LOCAL}" ]]; then
       echo "[queue-add] AUTO-SCP core sibling -> ${CORE_LOCAL}"
       scp -o ConnectTimeout=10 "${CORE_LOCAL}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      SHIPPED_SIBLINGS+=("${CORE_BASE}")
     fi
     # Pattern 2: _<base>_core.py (helper module convention; older cells)
     CORE_HELPER="${SCRIPT_DIR_LOCAL}/_${CORE_BASE}_core.py"
     if [[ -f "${CORE_HELPER}" ]]; then
       echo "[queue-add] AUTO-SCP _core helper -> ${CORE_HELPER}"
       scp -o ConnectTimeout=10 "${CORE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      SHIPPED_SIBLINGS+=("_${CORE_BASE}_core")
     fi
     # Pattern 3: _<base>_base.py (alternative helper convention)
     BASE_HELPER="${SCRIPT_DIR_LOCAL}/_${CORE_BASE}_base.py"
     if [[ -f "${BASE_HELPER}" ]]; then
       echo "[queue-add] AUTO-SCP _base helper -> ${BASE_HELPER}"
       scp -o ConnectTimeout=10 "${BASE_HELPER}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+      SHIPPED_SIBLINGS+=("_${CORE_BASE}_base")
     fi
     # Pattern 4: strip leading exp_ from base when looking up helpers (5th recurrence fix; 2026-06-30).
     # Convention seen in cleanup_family_wm_kcliff_v1: wrapper exp_substrate_X_seed_N.py imports
@@ -183,11 +189,13 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
       if [[ -f "${CORE_HELPER_STRIPPED}" ]]; then
         echo "[queue-add] AUTO-SCP _core helper (exp_-stripped) -> ${CORE_HELPER_STRIPPED}"
         scp -o ConnectTimeout=10 "${CORE_HELPER_STRIPPED}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+        SHIPPED_SIBLINGS+=("_${STRIPPED_BASE}_core")
       fi
       BASE_HELPER_STRIPPED="${SCRIPT_DIR_LOCAL}/_${STRIPPED_BASE}_base.py"
       if [[ -f "${BASE_HELPER_STRIPPED}" ]]; then
         echo "[queue-add] AUTO-SCP _base helper (exp_-stripped) -> ${BASE_HELPER_STRIPPED}"
         scp -o ConnectTimeout=10 "${BASE_HELPER_STRIPPED}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+        SHIPPED_SIBLINGS+=("_${STRIPPED_BASE}_base")
       fi
     fi
   fi
@@ -230,11 +238,58 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
         SHARED_REMOTE_DIR="${REPO_REMOTE}/experiments"
         echo "[queue-add] AUTO-SCP shared framework module (Pattern 5) -> ${SHARED_LOCAL} -> ${SHARED_REMOTE_DIR}/"
         scp -o ConnectTimeout=10 "${SHARED_LOCAL}" "${SSH_TARGET}:${SHARED_REMOTE_DIR}/"
+        SHIPPED_SIBLINGS+=("${MODULE}")
       else
         echo "[queue-add] WARN: script imports experiments.${MODULE} but ${SHARED_LOCAL} not found locally" >&2
       fi
     fi
   done
+
+  # Pattern 6: generic import-parse fallback (6th recurrence fix; 2026-07-04).
+  # Patterns 1-5 all match siblings by NAME CONVENTION (suffix-strip + fixed
+  # filename shapes, or a hardcoded allow-list). That still misses cells like
+  # exp_encoder_v3e_decline_vs_plateau_v1_seed_7.py -> its core is
+  # exp_encoder_v3e_decline_vs_plateau_v1_core.py (no leading underscore --
+  # Pattern 1 wants "{CORE_BASE}.py" with no _core suffix, Pattern 2 wants a
+  # LEADING-underscore "_{CORE_BASE}_core.py") and
+  # exp_encoder_migration_step1b_v3c_paired_rkd_only_seed_13.py, whose core is
+  # exp_encoder_migration_step1b_v3c_full_paired_rkd_only_dense_recovery_v1_core.py
+  # -- a name that does not derive from the wrapper name by ANY suffix rule.
+  # Both were manually scp'd this session (exp_dev flagged the gap).
+  #
+  # Fix: actually parse the wrapper's `from experiments import <mod>` / `import
+  # experiments.<mod>` statements via Python `ast` (tools/orchestrator/
+  # extract_sibling_imports.py) and auto-SCP whatever local experiments/*.py
+  # sibling it names, regardless of naming convention. This generalizes past
+  # Patterns 1-5's fixed shapes and closes the class, not just this instance.
+  # Best-effort: helper never blocks the ship (parse errors -> empty output).
+  SIBLING_IMPORT_HELPER="${REPO_LOCAL}/tools/orchestrator/extract_sibling_imports.py"
+  if [[ -f "${SIBLING_IMPORT_HELPER}" ]]; then
+    already_shipped() {
+      local needle="$1" hay
+      for hay in "${SHIPPED_SIBLINGS[@]:-}"; do
+        [[ "${hay}" == "${needle}" ]] && return 0
+      done
+      return 1
+    }
+    while IFS= read -r SIB_BASE; do
+      # Strip a trailing CR: native Windows python.exe emits CRLF line endings
+      # even when invoked from git-bash, and bare `read -r` only strips \n --
+      # left in, the \r corrupts both the -f existence check below and the
+      # already_shipped string compare (caught via dry-run harness before commit).
+      SIB_BASE="${SIB_BASE%$'\r'}"
+      [[ -z "${SIB_BASE}" ]] && continue
+      if already_shipped "${SIB_BASE}"; then
+        continue
+      fi
+      SIB_LOCAL="${SCRIPT_DIR_LOCAL}/${SIB_BASE}.py"
+      if [[ -f "${SIB_LOCAL}" ]]; then
+        echo "[queue-add] AUTO-SCP import-parsed sibling (Pattern 6) -> ${SIB_LOCAL}"
+        scp -o ConnectTimeout=10 "${SIB_LOCAL}" "${SSH_TARGET}:${SCRIPT_REMOTE_DIR}/"
+        SHIPPED_SIBLINGS+=("${SIB_BASE}")
+      fi
+    done < <(python "${SIBLING_IMPORT_HELPER}" "${SCRIPT_LOCAL}" 2>/dev/null || true)
+  fi
 
   # SSH+PowerShell payload. Single-quote bash outer per [[feedback-ssh-powershell-quoting]].
   # Extra flags (e.g. --rerun-as, --allow-duplicate) are appended verbatim.
