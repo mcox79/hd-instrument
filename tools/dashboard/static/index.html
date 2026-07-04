@@ -34,24 +34,39 @@
   button:hover { border-color: var(--accent); }
   button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 500; }
   button.primary:hover { opacity: 0.9; }
+  button.ghost { background: transparent; color: var(--text-dim); border-color: var(--card-border); padding: 3px 8px; font-size: 11px; font-family: var(--mono); }
+  button.ghost:hover { color: var(--accent); }
   .toggle { display: flex; align-items: center; gap: 6px; color: var(--text-dim); font-size: 12px; }
   input[type="checkbox"] { accent-color: var(--accent); }
   a.muted { color: var(--text-dim); font-size: 12px; text-decoration: none; }
   a.muted:hover { color: var(--accent); }
+  kbd { background: var(--card-bg); border: 1px solid var(--card-border); border-bottom-width: 2px; border-radius: 3px; padding: 1px 5px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
 
   section { margin-bottom: 36px; }
   section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim); margin: 0 0 12px 0; }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-  .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 16px; }
-  .card .title { font-size: 22px; font-weight: 600; color: var(--text); line-height: 1.2; }
-  .card .subtitle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
-  .card .rows { margin-top: 12px; }
-  .card .row { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; font-size: 12px; font-family: var(--mono); }
+  .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 16px; }
+  .card .title { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.2; display: flex; align-items: baseline; gap: 8px; }
+  .card .subtitle { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .card .rows { margin-top: 10px; }
+  .card .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; font-size: 12px; font-family: var(--mono); }
   .card .row .label { color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
   .card .row .value { color: var(--text); font-weight: 500; flex-shrink: 0; }
+  .card .card-spark { display: block; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--card-border); font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+  .card .card-spark .spark-row { display: flex; align-items: center; gap: 6px; }
+  .card .card-spark .spark-label { flex: 0 0 auto; }
+  .card .card-spark .spark-val { color: var(--text); }
 
-  .chat-window { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; }
+  /* === Q2: chat window default-closed (USER prefers minimize interruptions) === */
+  details.chat-section { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; }
+  details.chat-section summary { padding: 10px 14px; cursor: pointer; color: var(--text); font-size: 13px; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 8px; user-select: none; }
+  details.chat-section summary::-webkit-details-marker { display: none; }
+  details.chat-section summary::before { content: "▸"; color: var(--text-dim); display: inline-block; transition: transform 0.15s; }
+  details.chat-section[open] summary::before { transform: rotate(90deg); }
+  details.chat-section summary .chat-section-sub { color: var(--text-dim); font-weight: 400; font-size: 12px; margin-left: auto; font-family: var(--mono); }
+
+  .chat-window { background: var(--card-bg); border-top: 1px solid var(--card-border); }
   .chat-history { padding: 16px; max-height: 400px; overflow-y: auto; font-family: var(--mono); font-size: 13px; }
   .chat-msg { margin-bottom: 14px; }
   .chat-msg .who { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
@@ -65,17 +80,63 @@
   .chat-form { display: flex; border-top: 1px solid var(--card-border); padding: 12px; gap: 8px; }
   .chat-form input { flex: 1; background: var(--bg); border: 1px solid var(--card-border); color: var(--text); padding: 8px 12px; border-radius: 6px; font-family: var(--mono); font-size: 13px; }
   .chat-form input:focus { outline: none; border-color: var(--accent); }
-  .chat-hint { color: var(--text-dim); font-size: 11px; margin-top: 6px; font-family: var(--mono); line-height: 1.55; }
+  .chat-hint { color: var(--text-dim); font-size: 11px; padding: 6px 14px 12px 14px; font-family: var(--mono); line-height: 1.55; }
 
   .table { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; }
   .row-grid { display: grid; gap: 12px; padding: 10px 14px; font-family: var(--mono); font-size: 12px; border-top: 1px solid var(--card-border); align-items: center; }
-  .row-grid.head { border-top: none; background: var(--bg); color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 14px; }
+  .row-grid.head { border-top: none; background: var(--bg); color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 14px; position: sticky; top: 0; z-index: 1; }
   .runs-grid { grid-template-columns: 1fr 120px 120px 100px; }
   .tier-grid { grid-template-columns: 2fr 80px 1.5fr; }
   .commit-grid { grid-template-columns: 90px 1fr; }
   .history-grid { grid-template-columns: 1.6fr 1fr 60px 80px 130px; }
   .ingest-grid { grid-template-columns: 2fr 1fr 1.3fr; }
   .proc-grid { grid-template-columns: 80px 1fr 100px 100px; }
+  .charcap-grid { grid-template-columns: 1.6fr 90px 150px 60px 90px 110px 60px 80px; }
+  .charcap-grid .peak { font-size: 14px; line-height: 1; text-align: center; }
+  .charcap-grid .tier { font-weight: 500; }
+  .charcap-grid .tier.chain-grade { color: var(--success); }
+  .charcap-grid .tier.measured-mechanism { color: var(--accent); }
+  .charcap-grid .tier.honest-negative { color: var(--text-dim); }
+  .charcap-grid .tier.exploring { color: var(--warn); }
+  .charcap-grid .phase-bar { background: var(--bg); border-radius: 3px; overflow: hidden; height: 6px; position: relative; margin-top: 4px; }
+  .charcap-grid .phase-bar-fill { background: var(--accent); height: 100%; }
+  .charcap-grid .badge-new { background: var(--accent-soft); color: var(--accent); padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
+  /* "new since last visit" marker (deferred #1) */
+  .charcap-grid .badge-since { background: rgba(63, 185, 80, 0.18); color: var(--success); padding: 1px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; font-weight: 600; letter-spacing: 0.02em; }
+  .charcap-controls { display: flex; gap: 10px; flex-wrap: wrap; padding: 10px 14px; background: var(--bg); border-bottom: 1px solid var(--card-border); align-items: center; font-size: 12px; }
+  .charcap-controls select, .charcap-controls input[type="text"] { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text); padding: 4px 8px; border-radius: 4px; font-family: var(--mono); font-size: 12px; }
+  .charcap-controls input[type="text"] { min-width: 180px; }
+  .charcap-controls label { color: var(--text-dim); display: flex; align-items: center; gap: 4px; }
+  .charcap-row { cursor: pointer; }
+  .charcap-row:hover { background: var(--accent-soft); }
+  .charcap-expand { background: var(--bg); padding: 10px 20px 14px 20px; border-top: 1px solid var(--card-border); font-size: 11px; font-family: var(--mono); display: none; }
+  .charcap-expand.open { display: block; }
+  .charcap-expand h4 { margin: 6px 0 6px 0; color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+  .charcap-expand .desc { color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; margin-bottom: 10px; }
+  .charcap-expand .axes { color: var(--text-dim); margin-bottom: 10px; }
+  .charcap-expand .tests-list { display: grid; grid-template-columns: 2fr 100px 60px 1fr 100px; gap: 8px; padding: 4px 0; border-top: 1px dashed var(--card-border); }
+  .charcap-expand .tests-list:first-of-type { border-top: none; }
+  .charcap-expand .verdict.HARD_PASS { color: var(--success); }
+  .charcap-expand .verdict.HARD_FAIL { color: var(--error); }
+  .charcap-expand .verdict.MIDDLE_BAND { color: var(--warn); }
+  .charcap-expand .verdict.SELFTEST_OK, .charcap-expand .verdict.SMOKE_HARD_PASS { color: var(--accent); }
+
+  /* === parse-difficulty fix #1: charcap summary strip (Shneiderman overview-first) === */
+  .charcap-summary { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; padding: 8px 14px; background: var(--bg); border-bottom: 1px solid var(--card-border); font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+  .charcap-summary .chunk { display: inline-flex; align-items: center; gap: 4px; }
+  .charcap-summary .chunk b { color: var(--text); font-weight: 500; }
+  .charcap-summary .legend { margin-left: auto; display: inline-flex; gap: 10px; align-items: center; }
+  .charcap-summary .legend-item { display: inline-flex; align-items: center; gap: 3px; }
+  .charcap-summary .legend-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; vertical-align: middle; }
+  .charcap-summary .legend-swatch.pass { background: var(--success); }
+  .charcap-summary .legend-swatch.mid { background: var(--warn); }
+  .charcap-summary .legend-swatch.fail { background: var(--error); }
+  .charcap-summary .legend-swatch.other { background: var(--text-dim); }
+
+  /* === parse-difficulty fix #2: inactive rows folded under expander === */
+  .charcap-inactive-toggle { display: flex; justify-content: center; padding: 10px 14px; border-top: 1px solid var(--card-border); background: var(--bg); }
+  .charcap-inactive-toggle button { font-family: var(--mono); font-size: 11px; }
+
   .ingest-grid .status { font-weight: 400; }
   .row-grid[title] { cursor: help; }
   .history-grid .verdict { font-weight: 500; }
@@ -86,6 +147,9 @@
   .history-grid .verdict.HONEST_NEGATIVE { color: var(--text-dim); }
   .history-grid .when { color: var(--text-dim); font-size: 11px; }
   .history-grid .mode { color: var(--text-dim); font-size: 11px; }
+  /* "new since last visit" row marker (deferred #1) */
+  .history-grid.row-new-since { box-shadow: inset 3px 0 0 var(--success); }
+  .history-grid .badge-since { background: rgba(63, 185, 80, 0.18); color: var(--success); padding: 1px 4px; border-radius: 3px; font-size: 9px; margin-left: 4px; font-weight: 600; vertical-align: 1px; }
   .muted { color: var(--text-dim); }
   .row-grid .name { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .row-grid .status { font-weight: 500; }
@@ -106,10 +170,96 @@
   ::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 
+  /* === queue-idle alarm panel (testbed 2026-06-29) === */
+  .queue-alarm-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-family: var(--mono); font-size: 12px; transition: border-color 0.3s, box-shadow 0.3s; }
+  .queue-alarm-panel.alarm-red { border-color: var(--error); box-shadow: 0 0 0 1px var(--error); }
+  .queue-alarm-panel.alarm-flash { border-color: var(--error); animation: qap-flash 1.0s steps(2, end) infinite; }
+  @keyframes qap-flash { 0%, 100% { box-shadow: 0 0 0 1px var(--error); background: var(--card-bg); } 50% { box-shadow: 0 0 0 3px var(--error); background: rgba(248, 81, 73, 0.10); } }
+  .qap-header { display: flex; align-items: center; gap: 10px; }
+  .qap-led { width: 12px; height: 12px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; box-shadow: 0 0 6px transparent; }
+  .qap-led.led-green { background: var(--success); box-shadow: 0 0 6px rgba(63, 185, 80, 0.6); }
+  .qap-led.led-yellow { background: var(--warn); box-shadow: 0 0 6px rgba(210, 153, 34, 0.6); }
+  .qap-led.led-red { background: var(--error); box-shadow: 0 0 6px rgba(248, 81, 73, 0.7); }
+  .qap-led.led-flash { background: var(--error); animation: qap-pulse 0.8s ease-in-out infinite; }
+  @keyframes qap-pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(248, 81, 73, 0.7); } 50% { opacity: 0.35; box-shadow: 0 0 14px rgba(248, 81, 73, 1); } }
+  .qap-title { font-weight: 700; letter-spacing: 0.06em; color: var(--text); font-size: 11px; }
+  .qap-status { color: var(--text-dim); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qap-status.status-red { color: var(--error); font-weight: 500; }
+  .qap-status.status-yellow { color: var(--warn); }
+  .qap-status.status-green { color: var(--success); }
+  .qap-mute { color: var(--text-dim); font-size: 11px; }
+  .qap-mute label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+  .qap-queues { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-top: 8px; }
+  .qap-q { background: var(--bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s; }
+  .qap-q.alarm-yellow { border-color: rgba(210, 153, 34, 0.5); }
+  .qap-q.alarm-red { border-color: var(--error); background: rgba(248, 81, 73, 0.06); }
+  .qap-q.alarm-flash { border-color: var(--error); background: rgba(248, 81, 73, 0.10); }
+  .qap-q .qap-q-name { font-weight: 500; color: var(--text); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qap-q .qap-q-counts { color: var(--text-dim); font-size: 11px; }
+  .qap-q .qap-q-idle { color: var(--text-dim); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .qap-q .qap-q-idle.idle-red { color: var(--error); font-weight: 500; }
+  .qap-q .qap-q-idle.idle-yellow { color: var(--warn); }
+  .qap-q .qap-q-idle.idle-flash { color: var(--error); font-weight: 600; }
+  .qap-stale { color: var(--warn); font-size: 11px; }
+
+  /* === health banner (Round 1 change #1: Shneiderman overview-first) === */
+  .health-banner { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 8px; margin-bottom: 24px; border: 1px solid var(--card-border); background: var(--card-bg); font-family: var(--mono); font-size: 13px; }
+  .health-banner .pill { padding: 3px 10px; border-radius: 12px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--sans); }
+  .health-banner.ok { border-color: rgba(63, 185, 80, 0.4); }
+  .health-banner.ok .pill { background: rgba(63, 185, 80, 0.18); color: var(--success); }
+  .health-banner.warn { border-color: rgba(210, 153, 34, 0.5); }
+  .health-banner.warn .pill { background: rgba(210, 153, 34, 0.18); color: var(--warn); }
+  .health-banner.error { border-color: rgba(248, 81, 73, 0.5); }
+  .health-banner.error .pill { background: rgba(248, 81, 73, 0.18); color: var(--error); }
+  .health-banner .summary { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; }
+  .health-banner .detail { color: var(--text-dim); font-size: 11px; }
+  .health-banner.loading { opacity: 0.6; }
+
+  /* === per-section freshness badge (Round 1 change #2) === */
+  section h2 .fresh { display: inline-block; margin-left: 8px; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 500; font-family: var(--mono); letter-spacing: 0; text-transform: none; vertical-align: middle; }
+  section h2 .fresh.fresh-now { background: rgba(63, 185, 80, 0.15); color: var(--success); }
+  section h2 .fresh.fresh-recent { background: var(--accent-soft); color: var(--accent); }
+  section h2 .fresh.fresh-stale { background: rgba(210, 153, 34, 0.15); color: var(--warn); }
+  section h2 .fresh.fresh-old { background: rgba(248, 81, 73, 0.12); color: var(--error); }
+  /* paused indicator (deferred #3: Page Visibility) */
+  section h2 .paused { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 500; font-family: var(--mono); background: var(--card-bg); color: var(--text-dim); border: 1px dashed var(--card-border); }
+
+  /* === ZOMBIE state badge (Round 1 change #3) === */
+  .zombie-badge { display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 10px; font-weight: 600; background: rgba(248, 81, 73, 0.18); color: var(--error); margin-left: 6px; font-family: var(--mono); letter-spacing: 0.04em; }
+
+  /* === sparkline (Round 1 change #4: Tufte) === */
+  .spark { display: inline-block; vertical-align: middle; }
+  .spark rect.pass { fill: var(--success); }
+  .spark rect.mid { fill: var(--warn); }
+  .spark rect.fail { fill: var(--error); }
+  .spark rect.other { fill: var(--text-dim); }
+  .charcap-grid .spark-cell { display: flex; align-items: center; gap: 4px; }
+  .charcap-grid .spark-cell .spark-count { color: var(--text-dim); font-size: 10px; }
+
+  /* === tier glyph (Round 1 change #5: WCAG color-not-alone) === */
+  .tier-glyph { display: inline-block; padding: 1px 4px; border-radius: 3px; font-size: 9px; font-weight: 700; font-family: var(--mono); margin-right: 5px; letter-spacing: 0.04em; vertical-align: 1px; }
+  .tier-glyph.chain-grade { background: rgba(63, 185, 80, 0.18); color: var(--success); }
+  .tier-glyph.measured-mechanism { background: var(--accent-soft); color: var(--accent); }
+  .tier-glyph.honest-negative { background: rgba(139, 148, 158, 0.18); color: var(--text-dim); }
+  .tier-glyph.exploring { background: rgba(210, 153, 34, 0.15); color: var(--warn); }
+
+  /* === keyboard-shortcut help overlay (deferred #5) === */
+  .kbd-help { position: fixed; bottom: 16px; right: 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 10px 14px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); box-shadow: 0 4px 12px rgba(0,0,0,0.4); display: none; z-index: 50; }
+  .kbd-help.show { display: block; }
+  .kbd-help div { margin: 3px 0; }
+
+  /* === motion sparkline in cert card (deferred #4) === */
+  .motion-spark-svg { display: inline-block; vertical-align: middle; }
+  .motion-spark-svg .motion-pass { fill: var(--success); }
+  .motion-spark-svg .motion-demote { fill: var(--error); }
+  .motion-spark-svg .axis { stroke: var(--card-border); stroke-width: 1; }
+
   @media (max-width: 700px) {
     .cards { grid-template-columns: 1fr; }
     .runs-grid { grid-template-columns: 2fr 80px 80px; }
     .runs-grid .wall { display: none; }
+    .health-banner { flex-wrap: wrap; }
+    .kbd-help { display: none !important; }
   }
 </style>
 </head>
@@ -122,69 +272,121 @@
     </div>
   </div>
   <div class="controls">
-    <label class="toggle"><input type="checkbox" id="auto-refresh" checked> auto</label>
-    <button onclick="refreshAll()">⟳ refresh</button>
+    <label class="toggle" title="Pause auto-refresh"><input type="checkbox" id="auto-refresh" checked> auto</label>
+    <button onclick="refreshAll()" title="Manual refresh (r)">⟳ refresh</button>
+    <button class="ghost" id="kbd-help-toggle" title="Toggle keyboard shortcuts (?)">?</button>
     <a href="/legacy" class="muted">legacy ↗</a>
   </div>
 </header>
 
+<!-- Queue-idle alarm panel (testbed 2026-06-29; placed ABOVE health banner so
+     "all 3 queues idle for 5h" can't be missed again. Sticky-top + animated
+     red border at >5min idle; flash + audible bell at >15min). -->
+<div class="queue-alarm-panel" id="queue-alarm-panel">
+  <div class="qap-header">
+    <span class="qap-led" id="qap-led"></span>
+    <span class="qap-title">RESOURCES_IDLE_ALARM</span>
+    <span class="qap-status" id="qap-status">loading…</span>
+    <span class="qap-mute"><label><input type="checkbox" id="qap-mute"> mute audible</label></span>
+  </div>
+  <div class="qap-queues" id="qap-queues"></div>
+</div>
+
+<!-- Health banner (Round 1 change #1: overview-first per Shneiderman; data from /api/dashboard/v2/health) -->
+<div class="health-banner loading" id="health-banner">
+  <span class="pill" id="health-pill">…</span>
+  <span class="summary" id="health-summary">loading aggregate health…</span>
+  <span class="detail" id="health-detail"></span>
+</div>
+
 <section>
-  <h2>Headlines</h2>
+  <h2>Headlines <span class="fresh" id="fresh-headlines"></span></h2>
   <div class="cards" id="cards-container"><div class="loading">loading…</div></div>
 </section>
 
+<!-- Q2 default: chat collapsed (USER prefers minimize-interruptions). User can open + browser remembers state via localStorage. -->
 <section>
   <h2>Talk to substrate</h2>
-  <div class="chat-window">
-    <div class="chat-history" id="chat-history">
-      <div class="chat-msg substrate">
-        <div class="who">substrate</div>
-        <div class="body">Ready. Try natural English (<code>what is a cat</code> · <code>objects in a kitchen</code> · <code>drive a vehicle</code>) or structured (<code>cat AtLocation ?</code> · <code>driving Causes ?</code> · <code>computer DerivedFrom Antonym ?</code>) · <code>stats</code> · <code>rels</code></div>
+  <details class="chat-section" id="chat-section">
+    <summary>
+      open chat
+      <span class="chat-section-sub">4 modes — English / structured / substrate-native / walk</span>
+    </summary>
+    <div class="chat-window">
+      <div class="chat-history" id="chat-history">
+        <div class="chat-msg substrate">
+          <div class="who">substrate</div>
+          <div class="body">Ready. Try natural English (<code>what is a cat</code> · <code>objects in a kitchen</code> · <code>drive a vehicle</code>) or structured (<code>cat AtLocation ?</code> · <code>driving Causes ?</code> · <code>computer DerivedFrom Antonym ?</code>) · <code>stats</code> · <code>rels</code></div>
+        </div>
+      </div>
+      <form class="chat-form" onsubmit="sendChat(event)">
+        <input type="text" id="chat-input" placeholder="ask in English  |  /substrate <text>  |  /walk <entity> [depth]  |  <s> <p> ?  |  stats" autocomplete="off">
+        <button type="submit" class="primary">→</button>
+      </form>
+      <div class="chat-hint">
+        Four modes:
+        <br><b>English</b> — MiniLM ingest-stage encodes input → nearest entity → substrate W matrix retrieval. MiniLM is ingest-only (no generation). Substrate does 100% of reasoning.
+        <br><b>Structured</b> (ends with <code>?</code>) — bypasses any encoder. Pure substrate KGStore + multi_hop primitives. Chain-grade at K=2; K≥3 is MIDDLE_BAND per r1.
+        <br><b>Substrate-native</b> (<code>/substrate &lt;text&gt;</code>) — char-trigram Hebbian encoder; <em>zero external model at any stage</em>. Demonstrates substrate can encode English without MiniLM. Trade-off: narrower semantics (matches char-overlap only).
+        <br><b>Walk</b> (<code>/walk &lt;entity&gt; [depth]</code>) — substrate <em>generates</em> a sequence by stepping through KGStore relations + softmax-sampled top-3 selection. Zero external model. The substrate's W matrix decides each step's direction. Default depth=5; max 20.
       </div>
     </div>
-    <form class="chat-form" onsubmit="sendChat(event)">
-      <input type="text" id="chat-input" placeholder="ask in English  |  /substrate <text>  |  /walk <entity> [depth]  |  <s> <p> ?  |  stats" autocomplete="off">
-      <button type="submit" class="primary">→</button>
-    </form>
-  </div>
-  <div class="chat-hint">
-    Four modes:
-    <br><b>English</b> — MiniLM ingest-stage encodes input → nearest entity → substrate W matrix retrieval. MiniLM is ingest-only (no generation). Substrate does 100% of reasoning.
-    <br><b>Structured</b> (ends with <code>?</code>) — bypasses any encoder. Pure substrate KGStore + multi_hop primitives. Chain-grade at K=2; K≥3 is MIDDLE_BAND per r1.
-    <br><b>Substrate-native</b> (<code>/substrate &lt;text&gt;</code>) — char-trigram Hebbian encoder; <em>zero external model at any stage</em>. Demonstrates substrate can encode English without MiniLM. Trade-off: narrower semantics (matches char-overlap only).
-    <br><b>Walk</b> (<code>/walk &lt;entity&gt; [depth]</code>) — substrate <em>generates</em> a sequence by stepping through KGStore relations + softmax-sampled top-3 selection. Zero external model. The substrate's W matrix decides each step's direction. Default depth=5; max 20.
-  </div>
+  </details>
 </section>
 
 <section>
-  <h2>Live experimental data</h2>
+  <h2>Live experimental data <span class="fresh" id="fresh-runs"></span></h2>
   <div class="table" id="runs-table"><div class="loading">loading…</div></div>
 </section>
 
 <section>
-  <h2>Recent experimental landings <span id="history-count" class="muted" style="font-size: 11px; font-weight: 400;"></span></h2>
+  <h2>Recent experimental landings <span id="history-count" class="muted" style="font-size: 11px; font-weight: 400;"></span> <span class="fresh" id="fresh-history"></span></h2>
   <div class="table" id="history-table"><div class="loading">loading…</div></div>
 </section>
 
 <section>
-  <h2>Substrate ingest status</h2>
+  <h2>Substrate ingest status <span class="fresh" id="fresh-ingest"></span></h2>
   <div class="table" id="ingest-table"><div class="loading">loading…</div></div>
 </section>
 
 <section>
-  <h2>Local processes <span class="muted" style="font-size: 11px; font-weight: 400;">— Claude spawn-authors + scheduled tasks not in queue</span></h2>
+  <h2>Local processes <span class="muted" style="font-size: 11px; font-weight: 400;">— Claude spawn-authors + scheduled tasks not in queue</span> <span class="fresh" id="fresh-procs"></span></h2>
   <div class="table" id="local-resources-table"><div class="loading">loading…</div></div>
 </section>
 
 <section>
-  <h2>L3 capability tier</h2>
+  <h2>L3 capability tier <span class="fresh" id="fresh-capability"></span></h2>
   <div class="table" id="capability-table"><div class="loading">loading…</div></div>
+</section>
+
+<section id="charcap-section">
+  <h2>Substrate characteristics <span id="charcap-count" class="muted" style="font-size: 11px; font-weight: 400;"></span> <span class="fresh" id="fresh-charcap"></span></h2>
+  <div class="table" id="charcap-table">
+    <div class="charcap-controls">
+      <label>stage <select id="charcap-stage"><option value="">all</option><option value="1">1 base</option><option value="2">2 optimize</option><option value="3">3 higher</option><option value="4">4 LM</option></select></label>
+      <label>tier <select id="charcap-tier"><option value="">all</option><option value="chain-grade">chain-grade</option><option value="measured-mechanism">measured-mechanism</option><option value="honest-negative">honest-negative</option><option value="exploring">exploring</option></select></label>
+      <label>peak <select id="charcap-peak"><option value="">all</option><option value="blue">blue (saturated)</option><option value="green">green (mid-range)</option><option value="yellow">yellow (just-above-bar)</option><option value="gray">gray (no metric)</option></select></label>
+      <label>search <input type="text" id="charcap-search" placeholder="capability name…  (press /)" autocomplete="off"></label>
+      <label><input type="checkbox" id="charcap-show-other"> show unclassified (stage=-1)</label>
+      <label><input type="checkbox" id="charcap-gaps-only"> phase &lt; 30% only (gaps)</label>
+    </div>
+    <div class="loading">loading…</div>
+  </div>
 </section>
 
 <section>
   <h2>Recent commits</h2>
   <div class="table" id="commits-table"><div class="loading">loading…</div></div>
 </section>
+
+<!-- Deferred #5: keyboard shortcut help -->
+<div class="kbd-help" id="kbd-help">
+  <div><kbd>/</kbd> focus search</div>
+  <div><kbd>r</kbd> refresh now</div>
+  <div><kbd>f</kbd> toggle filters</div>
+  <div><kbd>?</kbd> toggle this help</div>
+  <div><kbd>esc</kbd> close help</div>
+</div>
 
 <script>
 const API = "";
@@ -208,14 +410,282 @@ function formatWall(s) {
   return (s / 3600).toFixed(1) + "h";
 }
 
-async function loadHeadlines() {
+// ========================================================================
+// Deferred #1: localStorage "new since last visit" markers.
+// We persist the last-render timestamp (epoch seconds) per data class, then
+// mark rows whose `mtime` is newer than that boundary with a "NEW" badge.
+// Persistence is on every successful refresh AFTER all data has rendered
+// (so users see the badge across a single session; reload boundary updates).
+// Spec: rows are "new" if mtime_seconds > prefs.lastVisitEpoch.
+// ========================================================================
+const PREF_KEY = "hd_dashboard_prefs_v1";
+function getPrefs() {
+  try {
+    const raw = localStorage.getItem(PREF_KEY);
+    if (!raw) return {};
+    const o = JSON.parse(raw);
+    return (typeof o === "object" && o) ? o : {};
+  } catch (e) {
+    console.warn("getPrefs failed:", e);
+    return {};
+  }
+}
+function setPrefs(p) {
+  try {
+    localStorage.setItem(PREF_KEY, JSON.stringify(p));
+  } catch (e) {
+    console.warn("setPrefs failed (storage full / blocked?):", e);
+  }
+}
+// Capture the boundary BEFORE any data rendering — that way every row that
+// arrives this session is compared against the previous-session timestamp.
+const _SESSION_START_BOUNDARY = (() => {
+  const prefs = getPrefs();
+  const prev = prefs.lastVisitEpoch || 0;
+  // Mark "now" as the new boundary; the markers in this render compare against `prev`.
+  prefs.lastVisitEpoch = Math.floor(Date.now() / 1000);
+  setPrefs(prefs);
+  return prev;
+})();
+function isNewSinceVisit(mtime_or_ts) {
+  if (!_SESSION_START_BOUNDARY) return false;  // first-ever visit: don't flag everything
+  if (mtime_or_ts === null || mtime_or_ts === undefined) return false;
+  let t = mtime_or_ts;
+  if (typeof t === "string") {
+    const p = Date.parse(t);
+    if (isNaN(p)) return false;
+    t = p / 1000;
+  }
+  return Number(t) > _SESSION_START_BOUNDARY;
+}
+
+// ========================================================================
+// Deferred #2: URL-hash deep-links for Substrate Characteristics filters.
+// Hash format: #caps?stage=3&tier=chain-grade&search=foo&peak=blue&gaps=1&other=1
+// Strategy: serialize current filter state into hash on every filter change;
+// parse hash on page load + on hashchange (so back/forward navigate filters).
+// ========================================================================
+const CAP_HASH_PREFIX = "#caps";
+function parseCapHash() {
+  const h = window.location.hash || "";
+  if (!h.startsWith(CAP_HASH_PREFIX)) return {};
+  const q = h.indexOf("?");
+  if (q < 0) return {};
+  const params = new URLSearchParams(h.slice(q + 1));
+  const out = {};
+  for (const [k, v] of params.entries()) out[k] = v;
+  return out;
+}
+function writeCapHash(state) {
+  const sp = new URLSearchParams();
+  for (const [k, v] of Object.entries(state)) {
+    if (v) sp.set(k, v);
+  }
+  const newHash = sp.toString() ? `${CAP_HASH_PREFIX}?${sp.toString()}` : CAP_HASH_PREFIX;
+  if (window.location.hash !== newHash) {
+    history.replaceState(null, "", newHash);
+  }
+}
+function applyCapHashToControls() {
+  const h = parseCapHash();
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) { if (el.type === "checkbox") el.checked = (val === "1" || val === "true"); else el.value = val; } };
+  set("charcap-stage", h.stage);
+  set("charcap-tier", h.tier);
+  set("charcap-peak", h.peak);
+  set("charcap-search", h.search);
+  set("charcap-show-other", h.other);
+  set("charcap-gaps-only", h.gaps);
+}
+function syncControlsToCapHash() {
+  const get = id => { const el = document.getElementById(id); if (!el) return ""; return el.type === "checkbox" ? (el.checked ? "1" : "") : (el.value || ""); };
+  writeCapHash({
+    stage: get("charcap-stage"),
+    tier: get("charcap-tier"),
+    peak: get("charcap-peak"),
+    search: get("charcap-search"),
+    other: get("charcap-show-other"),
+    gaps: get("charcap-gaps-only"),
+  });
+}
+
+// ========================================================================
+// Deferred #3: Page Visibility API — pause polling when tab is hidden.
+// Saves battery + reduces backend load. On visibility-return, force one
+// immediate refresh so the user sees fresh data when they switch back.
+// ========================================================================
+let _isTabVisible = !document.hidden;
+function markTabPausedUI(paused) {
+  // Add/remove "paused" badges next to every section h2 freshness span
+  document.querySelectorAll("section h2").forEach(h2 => {
+    let badge = h2.querySelector(".paused");
+    if (paused) {
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "paused";
+        badge.textContent = "paused (tab hidden)";
+        h2.appendChild(badge);
+      }
+    } else if (badge) {
+      badge.remove();
+    }
+  });
+}
+document.addEventListener("visibilitychange", () => {
+  _isTabVisible = !document.hidden;
+  if (_isTabVisible) {
+    markTabPausedUI(false);
+    refreshAll();
+  } else {
+    markTabPausedUI(true);
+  }
+});
+
+// Round 1 change #2: freshness badge helper.
+function setFresh(id, ageSeconds) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (ageSeconds === null || ageSeconds === undefined || isNaN(ageSeconds)) {
+    el.textContent = ""; el.className = "fresh";
+    return;
+  }
+  const a = Number(ageSeconds);
+  let label, cls;
+  if (a < 30)    { label = "fresh";              cls = "fresh-now"; }
+  else if (a < 300)   { label = Math.round(a) + "s"; cls = "fresh-recent"; }
+  else if (a < 1800)  { label = Math.round(a/60) + "m"; cls = "fresh-recent"; }
+  else if (a < 7200)  { label = Math.round(a/60) + "m"; cls = "fresh-stale"; }
+  else if (a < 86400) { label = (a/3600).toFixed(1) + "h"; cls = "fresh-stale"; }
+  else                { label = Math.round(a/86400) + "d"; cls = "fresh-old"; }
+  el.textContent = label;
+  el.className = "fresh " + cls;
+  el.title = "data age: " + label + " (auto-refresh = 15s)";
+}
+
+// Round 1 change #1: health banner.
+async function loadHealthBanner() {
+  const banner = document.getElementById("health-banner");
+  try {
+    const data = await fetchJSON("/api/dashboard/v2/health");
+    const agg = data.aggregate || {};
+    const ph = data.project_health || {};
+    const fleet = ph.fleet || {};
+    const fleetTotal = Object.keys(fleet).length;
+    const fleetAlive = Object.values(fleet).filter(f => f.state === "alive" || f.state === "working").length;
+    const nDead = Object.values(fleet).filter(f => f.state === "dead").length;
+    const nStale = Object.values(fleet).filter(f => f.state === "stale").length;
+    const userPending = (ph.user_pending || {}).count || 0;
+    const drift = data.drift_summary || {};
+    const driftRed = drift.n_red || 0;
+    const computed = data._meta && data._meta.compute_time_ms;
+    const status = (agg.status || "ok").toLowerCase();
+    banner.className = "health-banner " + status;
+    document.getElementById("health-pill").textContent = status === "ok" ? "OK" : (status === "warn" ? "WARN" : "ERROR");
+    document.getElementById("health-summary").textContent = agg.summary || "no signals";
+    const detailParts = [];
+    detailParts.push(`fleet ${fleetAlive}/${fleetTotal}`);
+    if (nDead) detailParts.push(`${nDead} dead`);
+    if (nStale) detailParts.push(`${nStale} stale`);
+    if (userPending) detailParts.push(`${userPending} USER-pending`);
+    if (driftRed) detailParts.push(`${driftRed} drift-red`);
+    if (computed) detailParts.push(`(${computed}ms)`);
+    document.getElementById("health-detail").textContent = detailParts.join(" · ");
+    return data;
+  } catch (e) {
+    banner.className = "health-banner warn";
+    document.getElementById("health-pill").textContent = "?";
+    document.getElementById("health-summary").textContent = "health endpoint unavailable: " + e.message;
+    document.getElementById("health-detail").textContent = "";
+    return null;
+  }
+}
+
+// Round 1 change #4: SVG sparkline for verdict-distribution.
+function sparklineVerdict(dist) {
+  if (!dist) return "";
+  const buckets = {pass: 0, mid: 0, fail: 0, other: 0};
+  for (const [v, n] of Object.entries(dist)) {
+    const vu = String(v).toUpperCase();
+    if (vu.startsWith("HARD_PASS")) buckets.pass += n;
+    else if (vu.includes("MIDDLE") || vu.startsWith("MIDDLE_BAND")) buckets.mid += n;
+    else if (vu.startsWith("HARD_FAIL") || vu.includes("FAIL")) buckets.fail += n;
+    else buckets.other += n;
+  }
+  const total = buckets.pass + buckets.mid + buckets.fail + buckets.other;
+  if (!total) return `<span class="spark-count">—</span>`;
+  const w = 70, h = 10;
+  let x = 0;
+  const segs = [];
+  for (const k of ["pass", "mid", "fail", "other"]) {
+    if (!buckets[k]) continue;
+    const sw = Math.max(1, Math.round(w * buckets[k] / total));
+    segs.push(`<rect class="${k}" x="${x}" y="0" width="${sw}" height="${h}"><title>${k}=${buckets[k]}</title></rect>`);
+    x += sw;
+  }
+  const tooltipParts = [];
+  if (buckets.pass) tooltipParts.push(`HARD_PASS=${buckets.pass}`);
+  if (buckets.mid)  tooltipParts.push(`MIDDLE_BAND=${buckets.mid}`);
+  if (buckets.fail) tooltipParts.push(`HARD_FAIL=${buckets.fail}`);
+  if (buckets.other) tooltipParts.push(`other=${buckets.other}`);
+  const tip = escapeHtml(tooltipParts.join(" · "));
+  return `<span class="spark-cell" title="${tip}"><svg class="spark" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">${segs.join("")}</svg><span class="spark-count">${total}</span></span>`;
+}
+
+// Round 1 change #5: tier-glyph (CG / MM / HN / EX).
+const TIER_GLYPHS = {
+  "chain-grade": "CG",
+  "measured-mechanism": "MM",
+  "honest-negative": "HN",
+  "exploring": "EX",
+};
+function tierGlyph(tier) {
+  const g = TIER_GLYPHS[tier];
+  if (!g) return "";
+  const cls = tier.replace(/[^a-zA-Z-]/g, "");
+  return `<span class="tier-glyph ${cls}" title="${escapeHtml(tier)}">${g}</span>`;
+}
+
+// ========================================================================
+// Deferred #4: CERT-card 7d motion sparkline.
+// Source: /api/dashboard/v2/health → substrate_trust.motion_7d.{labels, passes_added, demotes}.
+// Graceful when missing (substrate_trust may be {error: ...} during Store rebuild).
+// Render: tiny dual-bar SVG (pass-bars rise above baseline, demote-bars fall below).
+// ========================================================================
+function renderMotionSparkline(motion) {
+  if (!motion || !motion.labels || !motion.labels.length) return "";
+  const passes = motion.passes_added || [];
+  const demotes = motion.demotes || [];
+  if (passes.every(v => !v) && demotes.every(v => !v)) {
+    return `<span class="muted">no motion last 7d</span>`;
+  }
+  const w = 90, halfH = 14, totalH = halfH * 2 + 1;
+  const maxVal = Math.max(1, ...passes, ...demotes);
+  const barW = Math.max(2, Math.floor(w / passes.length) - 1);
+  const segs = [`<line class="axis" x1="0" y1="${halfH}" x2="${w}" y2="${halfH}" />`];
+  for (let i = 0; i < passes.length; i++) {
+    const x = i * (barW + 1);
+    const ph = Math.round((passes[i] || 0) * halfH / maxVal);
+    const dh = Math.round((demotes[i] || 0) * halfH / maxVal);
+    if (ph) segs.push(`<rect class="motion-pass" x="${x}" y="${halfH - ph}" width="${barW}" height="${ph}"><title>${motion.labels[i]}: +${passes[i]}</title></rect>`);
+    if (dh) segs.push(`<rect class="motion-demote" x="${x}" y="${halfH + 1}" width="${barW}" height="${dh}"><title>${motion.labels[i]}: -${demotes[i]}</title></rect>`);
+  }
+  const tip = `7d motion: +${motion.total_passes_added || 0} passes / -${motion.total_demotes || 0} demotes`;
+  return `<span class="spark-row" title="${escapeHtml(tip)}"><span class="spark-label">7d:</span><svg class="motion-spark-svg" width="${w}" height="${totalH}" xmlns="http://www.w3.org/2000/svg">${segs.join("")}</svg><span class="spark-val">+${motion.total_passes_added || 0}/-${motion.total_demotes || 0}</span></span>`;
+}
+
+async function loadHeadlines(healthData) {
   try {
     const data = await fetchJSON("/api/dashboard/v2/headlines");
     const container = document.getElementById("cards-container");
     container.innerHTML = "";
+    // Deferred #4: extract motion_7d if health-endpoint provided it.
+    let motion = null;
+    if (healthData && healthData.substrate_trust && healthData.substrate_trust.motion_7d) {
+      motion = healthData.substrate_trust.motion_7d;
+    }
     for (const card of data.cards || []) {
       const el = document.createElement("div");
       el.className = "card";
+      const sparkHtml = (card.id === "cert" && motion) ? `<div class="card-spark">${renderMotionSparkline(motion)}</div>` : "";
       el.innerHTML = `
         <div class="title">${escapeHtml(card.title)}</div>
         <div class="subtitle">${escapeHtml(card.subtitle || "")}</div>
@@ -224,68 +694,128 @@ async function loadHeadlines() {
             <span class="label">${escapeHtml(r.label)}</span>
             <span class="value">${escapeHtml(r.value)}</span>
           </div>`).join("")}
-        </div>`;
+        </div>${sparkHtml}`;
       container.appendChild(el);
     }
     const certCard = (data.cards || []).find(c => c.id === "cert");
     if (certCard) document.getElementById("m-cert").textContent = certCard.title.replace("CERT ", "");
     const subCard = (data.cards || []).find(c => c.id === "substrate");
     if (subCard) document.getElementById("m-atoms").textContent = subCard.title.replace(" atoms", "").replace(/,/g, "");
+    setFresh("fresh-headlines", 0);
     return data;
   } catch (e) {
     document.getElementById("cards-container").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-headlines", null);
   }
+}
+
+function _gpuUtilLabel(r) {
+  // Compact "GPU 94%" tag from the reconciled fields on the gpu run row.
+  const u = (r.gpu_util_ema != null) ? r.gpu_util_ema : r.gpu_util_pct;
+  if (u == null) return "";
+  const mem = (r.gpu_mem_used_mb != null) ? ` · ${Math.round(r.gpu_mem_used_mb)}MB` : "";
+  // Surface silent emitter/SCP lag (the remote-state cache went 22min stale during a
+  // resource crunch on 2026-07-04 without any indication) directly on the GPU row.
+  let cacheNote = "";
+  if (r.gpu_logical_age_s != null && r.gpu_logical_age_s > 300) {
+    cacheNote = ` · ⚠cache ${Math.round(r.gpu_logical_age_s / 60)}m old`;
+  }
+  return `GPU ${Math.round(u)}%${mem}${cacheNote}`;
 }
 
 async function loadRuns() {
   try {
     const data = await fetchJSON("/api/runs");
-    // API returns {gpu: {...}, cpu: {...}, local_cpu: {...}} - one entry per queue
+    const feed = data._feed || {};
     const queues = ["cpu", "gpu", "local_cpu"];
     const rows = [];
     for (const q of queues) {
       const r = data[q];
       if (!r) continue;
-      // Use absolute elapsed (computed from started_at if elapsed_s is negative due to clock skew)
       let elapsed = r.elapsed_s;
       if (r.started_at && (elapsed === null || elapsed < 0)) {
         const startedMs = Date.parse(r.started_at);
         if (!isNaN(startedMs)) elapsed = (Date.now() - startedMs) / 1000;
       }
       const lastLine = (r.stdout_tail && r.stdout_tail.length) ? r.stdout_tail[r.stdout_tail.length - 1] : "";
+      const isZombie = (r.pid_alive === false && r.queue_marks_running === true) || r.severity === "error";
       rows.push({
+        q: q,
         name: r.current || "—",
         queue: r.queue_dir || q,
         status: r.status || "?",
         wall_s: elapsed,
         lastLine: lastLine,
+        zombie: isZombie,
+        warning: r.warning || "",
+        // GPU-reality fields (only present on the gpu row)
+        gpu_util_pct: r.gpu_util_pct,
+        gpu_util_ema: r.gpu_util_ema,
+        gpu_mem_used_mb: r.gpu_mem_used_mb,
+        gpu_experiment_on_card: r.gpu_experiment_on_card,
+        gpu_queue_mismatch: r.gpu_queue_mismatch,
+        gpu_exp_name: r.gpu_exp_name,
+        gpu_top_proc: r.gpu_top_proc,
       });
     }
     const container = document.getElementById("runs-table");
+
+    // Staleness banner: a dead SSH feed must read STALE, never idle. This is the
+    // guard that would have surfaced the silent supervisor death (testbed 2026-07-04).
+    let staleBanner = "";
+    if (feed.stale) {
+      const ageTxt = (feed.age_s != null) ? `${Math.round(feed.age_s)}s ago` : "never";
+      const errTxt = feed.last_error ? ` — ${escapeHtml(String(feed.last_error).slice(0,80))}` : "";
+      staleBanner = `<div class="row-grid" style="grid-template-columns:1fr; background:var(--error); color:#fff; font-weight:600; padding:6px 10px; border-radius:4px; margin-bottom:8px;">
+        FEED STALE — remote poll last OK ${ageTxt} (SSH/dashboard-poll dead?)${errTxt}. Status below is FROZEN, not live.</div>`;
+    }
+
+    // GPU untracked-busy banner: queue says the GPU is idle but a real substrate
+    // experiment is on the card (direct dispatch or queue.json lag). This is the
+    // exact "94% but shows idle" case — surface it instead of hiding as idle.
+    const gpuRow = rows.find(r => r.q === "gpu");
+    let gpuMismatchBanner = "";
+    if (gpuRow && gpuRow.gpu_queue_mismatch && !feed.stale) {
+      const who = gpuRow.gpu_exp_name || (gpuRow.gpu_top_proc ? `pid ${gpuRow.gpu_top_proc.pid}` : "unknown proc");
+      gpuMismatchBanner = `<div class="row-grid" style="grid-template-columns:1fr; background:var(--warn); color:#000; font-weight:600; padding:6px 10px; border-radius:4px; margin-bottom:8px;">
+        GPU BUSY (${_gpuUtilLabel(gpuRow) || "active"}) — ${escapeHtml(who)} on the card but NOT tracked by the queue (direct dispatch / queue lag).</div>`;
+    }
+
     const runningRows = rows.filter(r => r.status === "running");
     const idleRows = rows.filter(r => r.status !== "running");
     if (!runningRows.length) {
-      container.innerHTML = `
+      container.innerHTML = staleBanner + gpuMismatchBanner + `
         <div class="row-grid runs-grid head"><span>queue</span><span></span><span>status</span><span></span></div>
-        ${rows.map(r => `<div class="row-grid runs-grid"><span class="name">${escapeHtml(r.queue)}</span><span></span><span class="status">${escapeHtml(r.status)}</span><span></span></div>`).join("")}
-        <div class="empty" style="border-top: 1px solid var(--card-border)">no active runs (all queues idle)</div>`;
+        ${rows.map(r => {
+          const gpuTag = (r.q === "gpu" && r.gpu_util_pct != null) ? ` · ${_gpuUtilLabel(r)}` : "";
+          return `<div class="row-grid runs-grid"><span class="name">${escapeHtml(r.queue)}</span><span></span><span class="status">${escapeHtml(r.status)}${gpuTag}</span><span></span></div>`;
+        }).join("")}
+        <div class="empty" style="border-top: 1px solid var(--card-border)">${feed.stale ? "feed stale — cannot confirm idle" : "no active runs (all queues idle)"}</div>`;
+      setFresh("fresh-runs", feed.stale ? null : 0);
       return;
     }
-    container.innerHTML = `
+    container.innerHTML = staleBanner + gpuMismatchBanner + `
       <div class="row-grid runs-grid head"><span>active run</span><span>queue</span><span>status</span><span class="wall">elapsed</span></div>
-      ${runningRows.map(r => `
-        <div class="row-grid runs-grid" title="${escapeHtml(r.lastLine)}">
-          <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span>
+      ${runningRows.map(r => {
+        const gpuTag = (r.q === "gpu" && r.gpu_util_pct != null) ? ` · ${_gpuUtilLabel(r)}` : "";
+        return `
+        <div class="row-grid runs-grid" title="${escapeHtml(r.warning || r.lastLine)}">
+          <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}${r.zombie ? `<span class="zombie-badge" title="${escapeHtml(r.warning || 'ZOMBIE')}">ZOMBIE</span>` : ""}</span>
           <span>${escapeHtml(r.queue)}</span>
-          <span class="status running">${escapeHtml(r.status)}</span>
+          <span class="status ${r.zombie ? 'failed' : 'running'}">${r.zombie ? 'zombie' : escapeHtml(r.status)}${gpuTag}</span>
           <span class="wall">${formatWall(r.wall_s)}</span>
         </div>
         ${r.lastLine ? `<div class="row-grid runs-grid" style="grid-template-columns: 1fr; padding-left: 28px; color: var(--text-dim); font-size: 11px;"><span class="name" title="${escapeHtml(r.lastLine)}">↳ ${escapeHtml(r.lastLine.slice(0, 120))}</span></div>` : ""}
-      `).join("")}
+      `;}).join("")}
       ${idleRows.length ? `<div class="row-grid runs-grid head" style="margin-top: 8px"><span>idle queues</span><span></span><span></span><span></span></div>` : ""}
-      ${idleRows.map(r => `<div class="row-grid runs-grid" style="color: var(--text-dim)"><span>${escapeHtml(r.queue)}</span><span></span><span class="status">${escapeHtml(r.status)}</span><span></span></div>`).join("")}`;
+      ${idleRows.map(r => {
+        const gpuTag = (r.q === "gpu" && r.gpu_util_pct != null) ? ` · ${_gpuUtilLabel(r)}` : "";
+        return `<div class="row-grid runs-grid" style="color: var(--text-dim)"><span>${escapeHtml(r.queue)}</span><span></span><span class="status">${escapeHtml(r.status)}${gpuTag}</span><span></span></div>`;
+      }).join("")}`;
+    setFresh("fresh-runs", feed.stale ? null : 0);
   } catch (e) {
     document.getElementById("runs-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-runs", null);
   }
 }
 
@@ -296,6 +826,7 @@ async function loadCapability() {
     const container = document.getElementById("capability-table");
     if (!rows.length) {
       container.innerHTML = '<div class="empty">no capability rows</div>';
+      setFresh("fresh-capability", 0);
       return;
     }
     container.innerHTML = `
@@ -306,8 +837,10 @@ async function loadCapability() {
           <span>${escapeHtml(r.tier || r.layer || "—")}</span>
           <span class="status ${escapeHtml((r.status || "").replace(/[^a-zA-Z_-]/g, "_").substring(0,30))}" title="${escapeHtml(r.detail || "")}">${escapeHtml(r.status || "?")}</span>
         </div>`).join("")}`;
+    setFresh("fresh-capability", 0);
   } catch (e) {
     document.getElementById("capability-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-capability", null);
   }
 }
 
@@ -317,9 +850,16 @@ async function loadHistory() {
     const rows = data.rows || [];
     const container = document.getElementById("history-table");
     const countSpan = document.getElementById("history-count");
-    if (countSpan) countSpan.textContent = rows.length ? `· last ${rows.length}` : "";
+    // Deferred #1: count "new since last visit" rows
+    const newCount = rows.filter(r => isNewSinceVisit(r.mtime || r.timestamp)).length;
+    if (countSpan) {
+      let label = rows.length ? `· last ${rows.length}` : "";
+      if (newCount) label += `  ·  <span class="badge-since" style="background: rgba(63, 185, 80, 0.18); color: var(--success); padding: 1px 4px; border-radius: 3px; font-size: 10px;">${newCount} new since last visit</span>`;
+      countSpan.innerHTML = label;
+    }
     if (!rows.length) {
       container.innerHTML = '<div class="empty">no recent landings</div>';
+      setFresh("fresh-history", 0);
       return;
     }
     container.innerHTML = `
@@ -327,17 +867,20 @@ async function loadHistory() {
       ${rows.map(r => {
         const verdictClass = (r.verdict || "").split(/[\s:]/, 1)[0] || "";
         const tooltip = (r.tooltip || r.verdict || "") + (r.timestamp ? `  ·  ${r.timestamp}` : "");
+        const newSince = isNewSinceVisit(r.mtime || r.timestamp);
         return `
-        <div class="row-grid history-grid" title="${escapeHtml(tooltip)}">
-          <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span>
+        <div class="row-grid history-grid ${newSince ? 'row-new-since' : ''}" title="${escapeHtml(tooltip)}">
+          <span class="name" title="${escapeHtml(r.name)}">${escapeHtml(r.name)}${newSince ? '<span class="badge-since" title="landed since your last visit">NEW</span>' : ''}</span>
           <span class="verdict ${escapeHtml(verdictClass.replace(/[^a-zA-Z_]/g, ""))}" title="${escapeHtml(r.tooltip || r.verdict || "")}">${escapeHtml(r.verdict || "?")}</span>
           <span class="mode">${escapeHtml(r.run_mode || "?")}</span>
           <span class="when">${formatWall(r.elapsed_s)}</span>
           <span class="when" title="${escapeHtml(r.timestamp || "")}">${escapeHtml(r.when || "")}  ·  ${escapeHtml((r.timestamp || "").slice(11))}</span>
         </div>`;
       }).join("")}`;
+    setFresh("fresh-history", 0);
   } catch (e) {
     document.getElementById("history-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-history", null);
   }
 }
 
@@ -383,8 +926,10 @@ async function loadIngest() {
         </div>`).join(""));
     }
     container.innerHTML = sections.join("");
+    setFresh("fresh-ingest", 0);
   } catch (e) {
     document.getElementById("ingest-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-ingest", null);
   }
 }
 
@@ -395,6 +940,7 @@ async function loadLocalResources() {
     const container = document.getElementById("local-resources-table");
     if (!procs.length) {
       container.innerHTML = '<div class="empty">no heavy python processes (laptop idle)</div>';
+      setFresh("fresh-procs", 0);
       return;
     }
     const totalMem = procs.reduce((sum, p) => sum + (p.ws_mb || 0), 0);
@@ -410,8 +956,212 @@ async function loadLocalResources() {
       <div class="row-grid proc-grid" style="border-top: 1px solid var(--card-border); color: var(--text-dim); font-size: 11px;">
         <span></span><span>total tracked</span><span>${totalMem.toFixed(0)} MB</span><span></span>
       </div>`;
+    setFresh("fresh-procs", 0);
   } catch (e) {
     document.getElementById("local-resources-table").innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-procs", null);
+  }
+}
+
+// Substrate characteristics tab — per-capability aggregate view
+let _charcapData = null;
+
+const PEAK_GLYPH = {blue: "🔵", green: "🟢", yellow: "🟡", gray: "⚪"};
+const PEAK_LABEL = {blue: "saturated default", green: "mid-range", yellow: "just-above-bar", gray: "no scalar metric"};
+
+// ========================================================================
+// Parse-difficulty fix #1: charcap summary strip (Shneiderman overview-first).
+// Render counts-by-tier + counts-by-stage + verdict-color legend ABOVE the table.
+// User sees "30 chain-grade / 6 measured-mechanism / 1 honest-negative · 4450 tests" at a glance.
+// Parse-difficulty fix #2: fold zero-activity rows under "show inactive (N)" expander.
+// Rows with n_tests_24h == 0 AND phase_pct < 10 are "inactive" by default.
+// ========================================================================
+let _charcapShowInactive = false;
+
+function renderCharcapSummaryStrip(allRows) {
+  const tierCounts = {};
+  const stageCounts = {};
+  let totalTests = 0;
+  for (const r of allRows) {
+    tierCounts[r.tier] = (tierCounts[r.tier] || 0) + 1;
+    const sk = r.stage_label || `stage ${r.stage}`;
+    stageCounts[sk] = (stageCounts[sk] || 0) + 1;
+    totalTests += (r.n_tests || 0);
+  }
+  const tierOrder = ["chain-grade", "measured-mechanism", "honest-negative", "exploring"];
+  const tierBits = tierOrder
+    .filter(t => tierCounts[t])
+    .map(t => `<span class="chunk">${tierGlyph(t)}<b>${tierCounts[t]}</b> ${escapeHtml(t)}</span>`)
+    .join("");
+  const legend = `
+    <span class="legend">
+      <span class="legend-item"><span class="legend-swatch pass"></span>HARD_PASS</span>
+      <span class="legend-item"><span class="legend-swatch mid"></span>MIDDLE_BAND</span>
+      <span class="legend-item"><span class="legend-swatch fail"></span>HARD_FAIL</span>
+      <span class="legend-item"><span class="legend-swatch other"></span>other</span>
+    </span>`;
+  return `<div class="charcap-summary">${tierBits}<span class="chunk">·</span><span class="chunk"><b>${allRows.length}</b> families · <b>${totalTests.toLocaleString()}</b> tests</span>${legend}</div>`;
+}
+
+function renderCharcapRows() {
+  const container = document.getElementById("charcap-table");
+  if (!_charcapData) {
+    container.innerHTML = '<div class="loading">loading…</div>';
+    return;
+  }
+  const controls = container.querySelector(".charcap-controls");
+  const stageFilter = document.getElementById("charcap-stage").value;
+  const tierFilter = document.getElementById("charcap-tier").value;
+  const peakFilter = document.getElementById("charcap-peak").value;
+  const searchStr = (document.getElementById("charcap-search").value || "").toLowerCase().trim();
+  const showOther = document.getElementById("charcap-show-other").checked;
+  const gapsOnly = document.getElementById("charcap-gaps-only").checked;
+
+  // Deferred #2: persist filter state into URL hash
+  syncControlsToCapHash();
+
+  let rows = (_charcapData.rows || []).filter(r => {
+    if (!showOther && r.capability_family === "other") return false;
+    if (stageFilter && String(r.stage) !== stageFilter) return false;
+    if (tierFilter && r.tier !== tierFilter) return false;
+    if (peakFilter && r.peak_assessment !== peakFilter) return false;
+    if (gapsOnly && r.phase_pct >= 30) return false;
+    if (searchStr) {
+      const blob = (r.capability_family + " " + (r.description||"") + " " + (r.tests||[]).map(t=>t.anchor_name||"").join(" ")).toLowerCase();
+      if (!blob.includes(searchStr)) return false;
+    }
+    return true;
+  });
+
+  const countSpan = document.getElementById("charcap-count");
+  // Deferred #1: count rows w/ "new" tests since last visit
+  const newRows = rows.filter(r => (r.tests || []).some(t => isNewSinceVisit(t.mtime))).length;
+  if (countSpan) {
+    let label = `· ${rows.length} of ${(_charcapData.rows||[]).length} capabilities (${_charcapData.n_tests_total||0} tests aggregated)`;
+    if (newRows) label += `  ·  <span class="badge-since" style="background: rgba(63, 185, 80, 0.18); color: var(--success); padding: 1px 4px; border-radius: 3px;">${newRows} families with new tests</span>`;
+    countSpan.innerHTML = label;
+  }
+
+  // Parse-fix #2: split into active vs inactive
+  const isInactive = r => (!r.n_tests_24h || r.n_tests_24h === 0) && (r.phase_pct < 10);
+  const activeRows = rows.filter(r => !isInactive(r));
+  const inactiveRows = rows.filter(r => isInactive(r));
+
+  // Sort active rows: by phase desc, then by n_tests_24h desc, then by n_tests desc
+  activeRows.sort((a, b) => (b.phase_pct - a.phase_pct) || ((b.n_tests_24h || 0) - (a.n_tests_24h || 0)) || ((b.n_tests || 0) - (a.n_tests || 0)));
+  inactiveRows.sort((a, b) => (b.n_tests || 0) - (a.n_tests || 0));
+
+  let html = "";
+  // Parse-fix #1: summary strip (computed over UNFILTERED rows for global context)
+  html += renderCharcapSummaryStrip((_charcapData.rows || []).filter(r => showOther || r.capability_family !== "other"));
+
+  const renderOneRow = (r) => {
+    const phaseFillPct = Math.min(100, r.phase_pct);
+    const latestShort = r.latest_test_ts ? r.latest_test_ts.slice(5, 16).replace("T", " ") : "—";
+    const peakGlyph = PEAK_GLYPH[r.peak_assessment] || "?";
+    const peakTooltip = `${PEAK_LABEL[r.peak_assessment] || r.peak_assessment} — ${r.peak_explanation || ""}`;
+    const rowTooltip = `${r.description}\n\nTypical axes: ${(r.axes_typical||[]).join(", ")}\nTier evidence: ${r.tier_evidence}\nPeak: ${r.peak_explanation}\nClick to expand per-test history.`;
+    // Deferred #1: per-row "new since last visit" badge if any test newer than boundary
+    const hasNew = (r.tests || []).some(t => isNewSinceVisit(t.mtime));
+    return `
+      <div class="row-grid charcap-grid charcap-row" data-fam="${escapeHtml(r.capability_family)}" title="${escapeHtml(rowTooltip)}">
+        <span class="name"><strong>${escapeHtml(r.capability_family)}</strong>${r.n_tests_24h>0 ? `<span class="badge-new">+${r.n_tests_24h} 24h</span>` : ""}${hasNew ? `<span class="badge-since" title="has tests landed since your last visit">NEW</span>` : ""}</span>
+        <span class="muted">${escapeHtml(r.stage_label || String(r.stage))}</span>
+        <span class="tier ${escapeHtml(r.tier.replace(/[^a-zA-Z-]/g,""))}">${tierGlyph(r.tier)}${escapeHtml(r.tier)}</span>
+        <span class="peak" title="${escapeHtml(peakTooltip)}">${peakGlyph}</span>
+        <span>
+          ${r.phase_pct}%
+          <div class="phase-bar"><div class="phase-bar-fill" style="width: ${phaseFillPct}%"></div></div>
+        </span>
+        <span>${sparklineVerdict(r.verdict_distribution)}</span>
+        <span class="muted">${r.n_tests_24h || ""}</span>
+        <span class="muted" title="${escapeHtml(r.latest_test_ts||'')}">${escapeHtml(latestShort)}</span>
+      </div>
+      <div class="charcap-expand" data-fam-expand="${escapeHtml(r.capability_family)}">
+        <div class="desc">${escapeHtml(r.description)}</div>
+        <div class="axes"><strong>Phase axes observed:</strong> ${Object.entries(r.phase_axes_observed||{}).map(([k,vs])=>`${escapeHtml(k)}=[${vs.map(v=>escapeHtml(String(v))).join(", ")}]`).join(" · ") || "(none — single-point only)"}${r.cliff_found?'  ·  <span style="color: var(--error)">cliff observed</span>':''}</div>
+        <h4>Per-test history (newest first; showing ${(r.tests||[]).length}${r.n_tests_truncated?` of ${r.n_tests}; ${r.n_tests_truncated} older truncated`:''})</h4>
+        <div class="tests-list" style="font-weight: 600; color: var(--text-dim); border-top: none;">
+          <span>anchor</span><span>verdict</span><span>mode</span><span>axes</span><span>when</span>
+        </div>
+        ${(r.tests||[]).map(t=>`
+          <div class="tests-list" title="${escapeHtml(t.verdict_msg_head||'')}">
+            <span class="name" title="${escapeHtml(t.anchor_name||'')}">${escapeHtml(t.anchor_name||'?')}</span>
+            <span class="verdict ${escapeHtml((t.verdict||'').replace(/[^a-zA-Z_]/g,''))}">${escapeHtml(t.verdict||'?')}</span>
+            <span class="muted">${escapeHtml(t.run_mode||'?')}</span>
+            <span class="muted">${escapeHtml(Object.entries(t.axes_tested||{}).slice(0,3).map(([k,v])=>`${k}=${v}`).join(" "))}</span>
+            <span class="muted">${escapeHtml((t.mtime||'').slice(5,16).replace('T',' '))}</span>
+          </div>`).join("")}
+      </div>`;
+  };
+
+  html += `<div class="row-grid charcap-grid head"><span>characteristic</span><span>stage</span><span>tier</span><span>peak</span><span>phase</span><span title="verdict distribution sparkline: green=HARD_PASS, yellow=MIDDLE_BAND, red=HARD_FAIL, gray=other">verdicts</span><span>24h</span><span>latest</span></div>`;
+  if (!activeRows.length && !inactiveRows.length) {
+    html += `<div class="empty">no capabilities match filters</div>`;
+  } else if (!activeRows.length) {
+    html += `<div class="empty">no active capabilities match — ${inactiveRows.length} inactive available below</div>`;
+  } else {
+    for (const r of activeRows) html += renderOneRow(r);
+  }
+
+  // Parse-fix #2: inactive rows behind a toggle
+  if (inactiveRows.length) {
+    html += `<div class="charcap-inactive-toggle">
+      <button class="ghost" id="charcap-toggle-inactive">${_charcapShowInactive ? "▾ hide" : "▸ show"} ${inactiveRows.length} inactive (no 24h activity + phase &lt; 10%)</button>
+    </div>`;
+    if (_charcapShowInactive) {
+      for (const r of inactiveRows) html += renderOneRow(r);
+    }
+  }
+
+  const oldControls = controls.outerHTML;
+  container.innerHTML = oldControls + html;
+
+  bindCharcapControls();
+  container.querySelectorAll(".charcap-row").forEach(el => {
+    el.addEventListener("click", () => {
+      const fam = el.getAttribute("data-fam");
+      const expand = container.querySelector(`.charcap-expand[data-fam-expand="${fam}"]`);
+      if (expand) expand.classList.toggle("open");
+    });
+  });
+  const toggleBtn = document.getElementById("charcap-toggle-inactive");
+  if (toggleBtn) toggleBtn.addEventListener("click", () => { _charcapShowInactive = !_charcapShowInactive; renderCharcapRows(); });
+}
+
+function bindCharcapControls() {
+  ["charcap-stage", "charcap-tier", "charcap-peak", "charcap-show-other", "charcap-gaps-only"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("change", renderCharcapRows);
+  });
+  const search = document.getElementById("charcap-search");
+  if (search) {
+    let timer = null;
+    search.addEventListener("input", () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(renderCharcapRows, 150);
+    });
+  }
+}
+
+async function loadCharcap() {
+  try {
+    const data = await fetchJSON("/api/dashboard/v2/capabilities_view");
+    _charcapData = data;
+    // Deferred #2: apply URL-hash filters before first render
+    applyCapHashToControls();
+    renderCharcapRows();
+    let age = 0;
+    if (data.generated_at) {
+      const tMs = Date.parse(data.generated_at);
+      if (!isNaN(tMs)) age = Math.max(0, (Date.now() - tMs) / 1000);
+    }
+    setFresh("fresh-charcap", age);
+  } catch (e) {
+    const container = document.getElementById("charcap-table");
+    const oldControls = container.querySelector(".charcap-controls");
+    container.innerHTML = (oldControls ? oldControls.outerHTML : "") + `<div class="error">${escapeHtml(e.message)}</div>`;
+    setFresh("fresh-charcap", null);
   }
 }
 
@@ -561,20 +1311,241 @@ function setRefreshTime() {
   document.getElementById("m-refresh").textContent = `${hh}:${mm}:${ss}`;
 }
 
+// ========================================================================
+// Queue-idle alarm panel (testbed 2026-06-29). Fetches /api/queue_idle_alarm,
+// renders per-queue LED + count-up timer, beeps at flash level (>15min idle).
+// Mute checkbox persists via localStorage.
+// ========================================================================
+let _qapLastFlashBeepTs = 0;
+function _qapFormatIdle(sec) {
+  if (sec == null || isNaN(sec)) return "—";
+  sec = Math.max(0, Math.floor(sec));
+  if (sec < 60) return sec + "s";
+  if (sec < 3600) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}m${String(s).padStart(2, "0")}s`;
+  }
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  return `${h}h${String(m).padStart(2, "0")}m`;
+}
+
+function _qapBeep() {
+  // Beep at most once per 30s while in flash state. Uses WebAudio so no asset
+  // needed. Respects mute checkbox.
+  const mute = document.getElementById("qap-mute");
+  if (mute && mute.checked) return;
+  const now = Date.now();
+  if (now - _qapLastFlashBeepTs < 30000) return;
+  _qapLastFlashBeepTs = now;
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = 660;
+    gain.gain.value = 0.0001;
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    // Quick attack/release so the beep is short + not jarring
+    const t0 = ctx.currentTime;
+    gain.gain.exponentialRampToValueAtTime(0.18, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.35);
+    osc.stop(t0 + 0.4);
+    setTimeout(() => { try { ctx.close(); } catch (e) {} }, 600);
+  } catch (e) {
+    // Audio blocked (e.g. no user gesture yet); silently ignore.
+  }
+}
+
+async function loadQueueIdleAlarm() {
+  const panel = document.getElementById("queue-alarm-panel");
+  const led = document.getElementById("qap-led");
+  const status = document.getElementById("qap-status");
+  const queuesEl = document.getElementById("qap-queues");
+  let data;
+  try {
+    data = await fetchJSON("/api/queue_idle_alarm");
+  } catch (e) {
+    status.textContent = "alarm endpoint unreachable: " + e.message;
+    status.className = "qap-status status-red";
+    led.className = "qap-led led-red";
+    panel.className = "queue-alarm-panel alarm-red";
+    queuesEl.innerHTML = "";
+    return;
+  }
+
+  // Reset modifier classes
+  panel.classList.remove("alarm-red", "alarm-flash");
+  led.className = "qap-led";
+  status.className = "qap-status";
+
+  if (data.stale) {
+    led.classList.add("led-yellow");
+    status.classList.add("status-yellow");
+    status.textContent = "STALE: " + (data.error || "runner_status unavailable");
+    queuesEl.innerHTML = "";
+    return;
+  }
+
+  if (!data.queues || data.queues.length === 0) {
+    led.classList.add("led-yellow");
+    status.classList.add("status-yellow");
+    status.textContent = "no queues reported (check runner_status.py --remote)";
+    queuesEl.innerHTML = "";
+    return;
+  }
+
+  // Determine worst alarm across queues
+  let worst = "green";
+  const rank = { green: 0, yellow: 1, red: 2, flash: 3 };
+  for (const q of data.queues) {
+    if (rank[q.alarm] > rank[worst]) worst = q.alarm;
+  }
+
+  // Panel-level styling
+  if (worst === "flash") {
+    panel.classList.add("alarm-flash");
+    led.classList.add("led-flash");
+    status.classList.add("status-red");
+  } else if (worst === "red") {
+    panel.classList.add("alarm-red");
+    led.classList.add("led-red");
+    status.classList.add("status-red");
+  } else if (worst === "yellow") {
+    led.classList.add("led-yellow");
+    status.classList.add("status-yellow");
+  } else {
+    led.classList.add("led-green");
+    status.classList.add("status-green");
+  }
+
+  // Status text
+  const maxIdleStr = _qapFormatIdle(data.max_idle_s);
+  const idleCount = data.queues.filter(q => (q.running + q.pending) === 0).length;
+  if (worst === "flash") {
+    status.textContent = `CRITICAL: ${idleCount}/${data.queues.length} queue(s) empty for ${maxIdleStr} — DISPATCH NEEDED`;
+  } else if (worst === "red") {
+    status.textContent = `IDLE: ${idleCount}/${data.queues.length} queue(s) empty for ${maxIdleStr} — dispatch when ready`;
+  } else if (worst === "yellow") {
+    status.textContent = `quiet: ${idleCount}/${data.queues.length} queue(s) empty ${maxIdleStr}`;
+  } else {
+    const busy = data.queues.length - idleCount;
+    status.textContent = `OK: ${busy}/${data.queues.length} queue(s) working`;
+  }
+
+  // Per-queue rows
+  const rows = data.queues.map(q => {
+    const cls = `qap-q alarm-${q.alarm}`;
+    const idleCls = (q.alarm === "green") ? "qap-q-idle" : `qap-q-idle idle-${q.alarm}`;
+    const busy = (q.running + q.pending) > 0;
+    const idleText = busy ? "active" : `idle ${_qapFormatIdle(q.idle_since_s)}`;
+    return `<div class="${cls}">
+      <div class="qap-q-name">${escapeHtml(q.name)}</div>
+      <div class="qap-q-counts">${q.running}R / ${q.pending}P</div>
+      <div class="${idleCls}">${escapeHtml(idleText)}</div>
+    </div>`;
+  });
+  queuesEl.innerHTML = rows.join("");
+
+  // Beep at flash level
+  if (worst === "flash") {
+    _qapBeep();
+  }
+}
+
+// Mute preference persists across reloads
+(function _qapBindMute() {
+  try {
+    const mute = document.getElementById("qap-mute");
+    if (!mute) return;
+    const saved = localStorage.getItem("qap_mute");
+    if (saved === "1") mute.checked = true;
+    mute.addEventListener("change", () => {
+      try { localStorage.setItem("qap_mute", mute.checked ? "1" : "0"); } catch (e) {}
+    });
+  } catch (e) {}
+})();
+
 async function refreshAll() {
   setRefreshTime();
-  const headlines = await loadHeadlines();
-  await Promise.all([loadRuns(), loadHistory(), loadIngest(), loadLocalResources(), loadCapability(), loadCommits(headlines)]);
+  // Queue idle alarm fires first + in parallel with health (sub-second cached)
+  // so the most-important LED paints immediately.
+  const [healthData, headlines] = await Promise.all([loadHealthBanner(), loadHeadlines(), loadQueueIdleAlarm()]);
+  // Re-render headlines with motion data if it became available after first paint
+  if (healthData && healthData.substrate_trust && healthData.substrate_trust.motion_7d) {
+    await loadHeadlines(healthData);
+  }
+  await Promise.all([loadRuns(), loadHistory(), loadIngest(), loadLocalResources(), loadCapability(), loadCharcap(), loadCommits(headlines)]);
 }
 
 let autoTimer = null;
 function startAutoRefresh() {
   if (autoTimer) clearInterval(autoTimer);
-  autoTimer = setInterval(refreshAll, 15000);
+  // Deferred #3: respect Page Visibility — skip refresh tick when tab hidden
+  autoTimer = setInterval(() => {
+    if (_isTabVisible) refreshAll();
+  }, 15000);
 }
 document.getElementById("auto-refresh").addEventListener("change", e => {
   if (e.target.checked) startAutoRefresh();
   else if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+});
+
+// ========================================================================
+// Deferred #5: keyboard shortcuts.
+//   /  → focus charcap search box
+//   r  → manual refresh
+//   f  → toggle filter visibility (charcap controls)
+//   ?  → toggle help overlay
+//   esc → close help
+// Ignored when the user is already typing in an input/textarea.
+// ========================================================================
+function isTypingInField(e) {
+  const t = e.target;
+  if (!t) return false;
+  const tag = (t.tagName || "").toUpperCase();
+  return tag === "INPUT" || tag === "TEXTAREA" || t.isContentEditable;
+}
+const kbdHelpEl = document.getElementById("kbd-help");
+document.getElementById("kbd-help-toggle").addEventListener("click", () => kbdHelpEl.classList.toggle("show"));
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    kbdHelpEl.classList.remove("show");
+    return;
+  }
+  if (isTypingInField(e)) return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "/") {
+    e.preventDefault();
+    const s = document.getElementById("charcap-search");
+    if (s) {
+      // make sure the charcap section is in view
+      document.getElementById("charcap-section").scrollIntoView({block: "start", behavior: "smooth"});
+      setTimeout(() => s.focus(), 80);
+    }
+  } else if (e.key === "r" || e.key === "R") {
+    e.preventDefault();
+    refreshAll();
+  } else if (e.key === "f" || e.key === "F") {
+    e.preventDefault();
+    const ctl = document.querySelector("#charcap-table .charcap-controls");
+    if (ctl) {
+      ctl.style.display = (ctl.style.display === "none") ? "" : "none";
+    }
+  } else if (e.key === "?") {
+    e.preventDefault();
+    kbdHelpEl.classList.toggle("show");
+  }
+});
+
+// Deferred #2: react to back/forward hash navigation
+window.addEventListener("hashchange", () => {
+  applyCapHashToControls();
+  if (_charcapData) renderCharcapRows();
 });
 
 refreshAll();

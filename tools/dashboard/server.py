@@ -158,6 +158,214 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="hd-instrument dashboard", lifespan=lifespan)
 
 
+# ============================================================================
+# Queue-idle alarm panel (testbed 2026-06-29; Director was Standing for ~5h
+# overnight 2026-06-28→29 while all 3 queues sat at 0/0 -- no alarm surfaced).
+#
+# Strategy:
+#   * Cache runner_status.py --remote --json output for 60s (don't re-shell on
+#     every dashboard refresh; SSH is the slow part)
+#   * Track per-queue "last_activity_ts" across cache cycles in a JSON file
+#     under data/ so idle timer survives server restart
+#   * Endpoint returns per-queue idle state + max idle for at-a-glance alarm
+# ============================================================================
+import subprocess as _qs_subprocess  # noqa: E402
+
+_QUEUE_IDLE_CACHE_TTL_S = 60.0
+_QUEUE_IDLE_STATE_PATH = _DATA_DIR / "queue_idle_alarm_state.json"
+_queue_idle_cache: dict = {"ts": 0.0, "data": None}
+_queue_idle_lock = threading.Lock()
+
+
+def _runner_status_runner_path() -> Path:
+    return Path(__file__).resolve().parents[2] / "tools" / "runner_status.py"
+
+
+def _load_queue_idle_state() -> dict:
+    """{queue_name: last_activity_unix_ts}; persists across server restarts."""
+    if not _QUEUE_IDLE_STATE_PATH.is_file():
+        return {}
+    try:
+        return json.loads(_QUEUE_IDLE_STATE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _save_queue_idle_state(state: dict) -> None:
+    try:
+        fd, tmp = tempfile.mkstemp(
+            dir=str(_QUEUE_IDLE_STATE_PATH.parent),
+            prefix=_QUEUE_IDLE_STATE_PATH.name + ".",
+            suffix=".tmp",
+        )
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(state, f)
+        os.replace(tmp, str(_QUEUE_IDLE_STATE_PATH))
+    except OSError:
+        pass
+
+
+def _compute_queue_idle_alarm() -> dict:
+    """Run runner_status.py --remote --json (cached 60s); return alarm payload.
+
+    Schema:
+      {
+        "ts_iso": "...",
+        "queues": [
+          {"name": str, "running": int, "pending": int,
+           "last_activity_ts": float|None, "idle_since_s": float|None,
+           "alarm": "green"|"yellow"|"red"|"flash"}
+        ],
+        "any_alarm": bool,
+        "max_idle_s": float,
+        "stale": bool   # true if subprocess failed; UI should grey out
+      }
+
+    alarm thresholds:
+      green = running+pending > 0
+      yellow = idle <= 300s (5min) AND queue empty
+      red    = idle 300s..900s AND queue empty
+      flash  = idle > 900s (15min) AND queue empty
+    """
+    now = time.time()
+    # Run runner_status.py (already implements 15s SSH timeout per call)
+    runner_path = _runner_status_runner_path()
+    if not runner_path.is_file():
+        return {
+            "ts_iso": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "queues": [],
+            "any_alarm": False,
+            "max_idle_s": 0.0,
+            "stale": True,
+            "error": f"runner_status.py missing at {runner_path}",
+        }
+
+    py = sys.executable or "python"
+    try:
+        proc = _qs_subprocess.run(
+            [py, str(runner_path), "--remote", "--json"],
+            capture_output=True, text=True, timeout=45,
+            creationflags=_CREATE_NO_WINDOW,
+        )
+        raw = proc.stdout
+        report = json.loads(raw)
+    except (_qs_subprocess.TimeoutExpired, OSError,
+            json.JSONDecodeError, ValueError) as e:
+        return {
+            "ts_iso": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "queues": [],
+            "any_alarm": False,
+            "max_idle_s": 0.0,
+            "stale": True,
+            "error": f"runner_status invocation failed: {type(e).__name__}: {e}",
+        }
+
+    # Pull queue stats from report
+    queues_raw = []
+    for label, stats in report.get("local_queues", []):
+        queues_raw.append((label, stats))
+    for label, stats in report.get("remote_queues", []):
+        queues_raw.append((label, stats))
+
+    state = _load_queue_idle_state()
+    out_queues = []
+    any_alarm = False
+    max_idle = 0.0
+    for label, stats in queues_raw:
+        running = int(stats.get("running") or 0)
+        pending = int(stats.get("pending") or 0)
+        busy = (running + pending) > 0
+        if busy:
+            # Update last_activity_ts; reset idle
+            state[label] = now
+            idle_s = 0.0
+            alarm = "green"
+        else:
+            last = float(state.get(label) or now)
+            # If we have no prior record, treat now as last-seen so the timer
+            # starts fresh; subsequent ticks will accumulate idle time.
+            if label not in state:
+                state[label] = now
+            idle_s = max(0.0, now - last)
+            if idle_s > 900.0:
+                alarm = "flash"
+                any_alarm = True
+            elif idle_s > 300.0:
+                alarm = "red"
+                any_alarm = True
+            elif idle_s > 60.0:
+                alarm = "yellow"
+            else:
+                alarm = "green"
+            if idle_s > max_idle:
+                max_idle = idle_s
+        out_queues.append({
+            "name": label,
+            "running": running,
+            "pending": pending,
+            "last_activity_ts": state.get(label),
+            "idle_since_s": idle_s,
+            "alarm": alarm,
+        })
+    _save_queue_idle_state(state)
+
+    return {
+        "ts_iso": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "queues": out_queues,
+        "any_alarm": any_alarm,
+        "max_idle_s": max_idle,
+        "stale": False,
+    }
+
+
+def _get_queue_idle_alarm_cached() -> dict:
+    """60s-cached wrapper around _compute_queue_idle_alarm()."""
+    now = time.time()
+    with _queue_idle_lock:
+        if (_queue_idle_cache["data"] is not None
+                and (now - _queue_idle_cache["ts"]) < _QUEUE_IDLE_CACHE_TTL_S):
+            return _queue_idle_cache["data"]
+        data = _compute_queue_idle_alarm()
+        _queue_idle_cache["ts"] = now
+        _queue_idle_cache["data"] = data
+        # Also write a tiny "summary file" the stop_hook can read cheaply
+        # without re-running runner_status itself.
+        try:
+            summary = {
+                "ts_unix": now,
+                "ts_iso": data.get("ts_iso"),
+                "any_alarm": bool(data.get("any_alarm")),
+                "max_idle_s": float(data.get("max_idle_s") or 0.0),
+                "queues": [
+                    {"name": q["name"], "running": q["running"],
+                     "pending": q["pending"], "idle_since_s": q["idle_since_s"],
+                     "alarm": q["alarm"]}
+                    for q in data.get("queues", [])
+                ],
+                "stale": bool(data.get("stale")),
+            }
+            fd, tmp = tempfile.mkstemp(
+                dir=str(_DATA_DIR), prefix="queue_idle_alarm_summary.",
+                suffix=".tmp",
+            )
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(summary, f)
+            os.replace(tmp, str(_DATA_DIR / "queue_idle_alarm_summary.json"))
+        except OSError:
+            pass
+        return data
+
+
+@app.get("/api/queue_idle_alarm")
+def queue_idle_alarm():
+    """Per-queue idle alarm state for the dashboard top panel.
+
+    Cached 60s server-side (SSH for the remote-queue probe is the slow part).
+    Frontend polls this on the normal 15s refresh; most hits are cache hits.
+    """
+    return _get_queue_idle_alarm_cached()
+
+
 @app.get("/api/health")
 def health():
     return app.state.poller.health()
@@ -169,10 +377,111 @@ def system():
     return snap.get("system", {})
 
 
+# --- GPU-reality + feed-staleness reconciliation (testbed 2026-07-04) ---------
+# Root cause of the recurring "GPU idle when GPU is 94% busy" bug: the v2 runs
+# panel derived GPU busy/idle SOLELY from queue.json's running flag, with (a) no
+# staleness guard (a dead SSH poll froze the snapshot and read as idle forever --
+# the same silent-failure that hid the supervisor death 2 weeks earlier) and
+# (b) no cross-check against actual nvidia-smi util, which /api/system already
+# had. This endpoint now reconciles the queue-derived state against the live GPU
+# util + the on-card experiment process, and stamps feed freshness so a stale
+# feed reads STALE, never idle.
+_FEED_STALE_S = 90.0        # 6x the 15s poll interval; beyond this the feed is dead
+_GPU_BUSY_UTIL = 25         # sustained util at/above this = a real compute load on the card
+# Cache written by the remote emitter + SCP'd back; its FILE mtime is the TZ-proof
+# staleness signal (the in-file snapshot_ts is naive remote-local time and skews age).
+_REMOTE_STATE_CACHE = Path(r"D:\AI\hd-instrument\data\remote_state_cache.json")
+
+
+def _cache_file_age_s() -> float | None:
+    """Seconds since the remote_state_cache was last written locally (SCP mtime)."""
+    try:
+        return max(0.0, time.time() - _REMOTE_STATE_CACHE.stat().st_mtime)
+    except OSError:
+        return None
+
+
+def _runs_feed_age_s(last_poll_ok: str | None) -> float | None:
+    """Seconds since the poller last succeeded (None if never / unparseable)."""
+    if not last_poll_ok:
+        return None
+    from datetime import timezone as _tz
+    try:
+        dt = datetime.fromisoformat(last_poll_ok)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=_tz.utc)
+        return (datetime.now(_tz.utc) - dt).total_seconds()
+    except (ValueError, TypeError):
+        return None
+
+
 @app.get("/api/runs")
 def runs():
-    snap = app.state.poller.get_snapshot()
-    return snap.get("runs", {})
+    poller = app.state.poller
+    snap = poller.get_snapshot()
+    runs_view = dict(snap.get("runs", {}))
+    system = snap.get("system", {}) or {}
+    health = poller.health()
+
+    # Feed staleness — a frozen (dead-SSH / dead-supervisor) snapshot must NOT
+    # read as idle. age is None when the poller has never succeeded.
+    age = _runs_feed_age_s(health.get("last_poll_ok"))
+    stale = (age is None) or (age > _FEED_STALE_S)
+    runs_view["_feed"] = {
+        "stale": bool(stale),
+        "age_s": round(age, 1) if age is not None else None,
+        "last_poll_ok": health.get("last_poll_ok"),
+        "last_error": health.get("last_error"),
+        "threshold_s": _FEED_STALE_S,
+    }
+
+    # GPU reality — reconcile the queue-derived gpu row against live nvidia-smi.
+    util = system.get("util_pct")
+    util_ema = system.get("util_pct_ema")
+    gpu_procs = system.get("gpu_procs") or []
+    # AUTHORITATIVE substrate-experiment signal = the emitter's classified
+    # `experiment_child` (a python proc whose parent is a queue runner). This
+    # deliberately EXCLUDES BOINC / stray pythonw GPU contexts, which peg util
+    # 24/7 on this card and would otherwise false-fire the mismatch alert (caught
+    # live 2026-07-04: encoder finished, BOINC held 100%, must NOT read as an
+    # untracked experiment). Raw util is still surfaced so the card load is honest.
+    logical = system.get("logical_processes") or []
+    exp_child = next((p for p in logical if p.get("type") == "experiment_child"), None)
+    experiment_on_card = exp_child is not None
+    # Informational top process (experiment first, else largest non-runner ctx).
+    top_proc = None
+    if exp_child is not None:
+        top_proc = {"pid": exp_child.get("pid"), "name": exp_child.get("name")}
+    else:
+        _np = [p for p in gpu_procs if not p.get("is_runner")]
+        if _np:
+            top_proc = {"pid": _np[0].get("pid"), "name": _np[0].get("name")}
+
+    # Cache freshness for the classified-process view (the emitter->SCP path lagged
+    # silently during a resource crunch on 2026-07-04; surface it, don't trust blind).
+    # Use the SCP'd FILE mtime — TZ-proof, unlike the naive in-file snapshot_ts.
+    logical_age_s = _cache_file_age_s()
+
+    gpu = runs_view.get("gpu")
+    if isinstance(gpu, dict):
+        gpu["gpu_util_pct"] = util
+        gpu["gpu_util_ema"] = util_ema
+        gpu["gpu_mem_used_mb"] = system.get("mem_used_mb")
+        gpu["gpu_mem_total_mb"] = system.get("mem_total_mb")
+        gpu["gpu_temp_c"] = system.get("temp_c")
+        gpu["gpu_experiment_on_card"] = bool(experiment_on_card)
+        gpu["gpu_top_proc"] = top_proc
+        gpu["gpu_exp_name"] = (exp_child or {}).get("name")
+        gpu["gpu_logical_age_s"] = round(logical_age_s, 1) if logical_age_s is not None else None
+        # A real substrate experiment is on the GPU but the queue says not-running:
+        # direct/manual dispatch or queue.json lag. Surface it, don't hide as idle.
+        gpu["gpu_queue_mismatch"] = bool(
+            experiment_on_card and gpu.get("status") != "running"
+        )
+        # If the feed is stale we cannot trust the frozen status; mark it so the UI
+        # renders STALE rather than the last-seen idle/running.
+        gpu["feed_stale"] = bool(stale)
+    return runs_view
 
 
 @app.get("/api/queue")
@@ -2382,6 +2691,25 @@ def dashboard_v2_capability():
     except Exception as e:
         return JSONResponse({"rows": [], "error": str(e)})
     return JSONResponse({"rows": capabilities})
+
+
+@app.get("/api/dashboard/v2/capabilities_view")
+def dashboard_v2_capabilities_view():
+    """Per-capability view aggregated from substrate_capability_registry.jsonl.
+
+    Reads data/substrate_capabilities_view.json (refreshed every 15 min by
+    `tools/substrate_capabilities_aggregate.py` scheduled task). One row per
+    capability_family with tier / peak / phase-coverage / per-test array.
+    """
+    view_path = _REPO / "data" / "substrate_capabilities_view.json"
+    if not view_path.exists():
+        return JSONResponse({"rows": [], "n_capabilities": 0, "error": "view not yet generated; run tools/substrate_capabilities_aggregate.py"})
+    try:
+        with view_path.open(encoding="utf-8") as f:
+            payload = json.load(f)
+    except json.JSONDecodeError as e:
+        return JSONResponse({"rows": [], "error": f"view JSON parse fail: {e}"})
+    return JSONResponse(payload)
 
 
 @app.get("/api/dashboard/v2/activity")
