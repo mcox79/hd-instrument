@@ -2,6 +2,78 @@
 
 **Filed 2026-07-03 ~19:20Z. Read this file end-to-end before any other action. Replaces prior BACKUP as pickup canonical.**
 
+## FINAL AMENDMENT 04:20Z UTC — 111 ATOMS (session end; compaction imminent 2%)
+
+**SESSION FINAL: math=62, meta=49 = 111 atoms today (+23 from 88 at pickup).** 112 pending Skunkworks VET on dose-response HP.
+
+**Late atoms filed post-first-BACKUP-FINAL:**
+- #59 Pack 1 storage×cleanup MM_STANDARD (BUNDLED opens mech axis, SHARDED collapses)
+- #60 Pack 2 N×cleanup MM_TENTATIVE SATURATION_VACUOUS (universal-extension claim DOWNGRADED)
+- #61 Pack 3 F×cleanup MM_TENTATIVE dual-finding (F sat + bundle_pc replicate)
+- Meta #49 BOTH-PREFIX orchestrator-path-hallucination MM_STANDARD (my paths wrong 2/3 packs)
+- #62 Cortex-2 Phase 2 SHADOW-mode MM_TENTATIVE_ADVISORY_APPLIED (nonce=1.0, mhe=0.80, KS 4/5 pass; Case3 structural retrieval tie-break preserved)
+
+**IN FLIGHT AT COMPACTION:**
+- Encoder Step 1 FULL on local_cpu_queue (~2h in of 5-8h)
+- Cortex-2 Phase 2 dose-response HP just landed at commit `a5122cdfe` PUSHED — gap_sigma 34-42 at n=100 across cases 1/2/4/5 (theory-predicted); Case3 stays structural fail. **Needs Skunkworks landed-VET → likely math #63.**
+
+**GPU STATUS UNCERTAIN AT COMPACTION:** USER reports dashboard shows GPU idle at 04:15Z but orchestrator status at 01:24Z showed BGE 178K cache RUNNING with 5.9h wall. **NEXT SESSION MUST VERIFY:** either (a) BGE landed and 27 pending regime FULLs should be draining now, or (b) BGE crashed and needs re-dispatch. Check `data/exp_prebuild_bge_index_cache_178k_gpu_v1/metrics.json` for landing.
+
+## CORTEX-2 ARC (primary next-session focus — 3 atoms deep):
+
+- #54 Phase 1 v1+v1.1 MM_TENTATIVE_ADVISORY (advisory-only; retrieval discriminator 0.80 clean; perf gate passes post-warmup)
+- #62 Phase 2 SHADOW-mode MM_TENTATIVE_ADVISORY_APPLIED (nonce + null-arm; commit e1685fd49)
+- (pending #63) Dose-response arm SMOKE HP at commit `a5122cdfe` — Skunkworks VET fires it MM_TENTATIVE per drill §7
+
+**Skunkworks-prescribed Phase 2 next-step sequence:**
+1. Fire Skunkworks VET on dose-response arm (immediate)
+2. Multi-atom conflict resolution primitive cell (Case3 revival; new `_AtomRecord.recommendation_priority` field per Phase 3 design)
+3. LIVE-mode transition audit (ring-based rollout, one atom at a time)
+
+## SESSION GOALS FOR NEXT SESSION:
+
+**Primary:** Advance Cortex-2 from ADVISORY_APPLIED (SHADOW) → WARN → LIVE. Dose-response cell atomized → then multi-atom conflict resolution → then LIVE-mode ring rollout. This is the "atoms become active guardrails" arc — THE M3 vision USER locked 2026-06-28.
+
+**Secondary:** Once BGE releases GPU (or after re-dispatch if crashed), 27 regime FULL cells cascade through Skunkworks landed-VET pipeline. Priority order per `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md`: P6v2+P8 F×CLEANUP replicates → P4 s19 + P5 s19 → P7v2 → P9v2 → P12 → P13+P14 → P15. Potentially 5-10 more atoms.
+
+**Tertiary:** Encoder migration Step 1 FULL lands (expected 00:50-03:50Z — may have landed by pickup) → dispatch Step 2 FULL → Step 3 gold-verify FULL. Concept encoder swap into Layer 0 retrieval frontend. Target: USER's test query 0.54 → 0.85+ semantic cosine.
+
+## USER STRATEGIC DECISIONS PENDING:
+
+1. **Tailscale key-expiry disable** at login.tailscale.com/admin/machines (5-min action prevents recurrence)
+2. **Layer 0.5 FULL dispatch** — never queued; needs fresh queue_add if intended
+3. **P4 (#52) reframe** — Skunkworks flagged vacuous-SHARDED-half → theoretically-expected-below-cliff per #56
+4. **Probe 17 spatial-coupling test** — HOLD per audit P_deflated=0.20
+5. **Task-analog arc CLOSED** — v3+v4 double-lock; no revival path
+
+## STEP 0 NEXT SESSION:
+
+```bash
+date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp
+grep -cE "2026-07-0[34]" d:/AI/hd-instrument/data/substrate_index/{math,meta}/atoms.jsonl
+cat d:/AI/hd-instrument/data/latest_landings.md | tail -20
+python d:/AI/hd-instrument/tools/runner_status.py
+# Verify BGE cache:
+ls d:/AI/hd-instrument/data/exp_prebuild_bge_index_cache_178k_gpu_v1/metrics.json 2>&1
+# Verify Encoder Step 1:
+ls d:/AI/hd-instrument/data/exp_encoder_migration_step1_train_concept_encoder_970K_KB_v1/metrics.json 2>&1
+```
+
+## CRITICAL FILES FOR NEXT SESSION:
+
+- **BACKUP (this file)** at HEAD
+- **Cortex-2 Phase 2 v1:** `experiments/exp_cortex_2_phase_2_apply_probe_v1_core.py` (e1685fd49)
+- **Cortex-2 Phase 2 dose-response:** `experiments/exp_cortex_2_phase_2_dose_response_v1_core.py` (a5122cdfe)
+- **Phase 2 primitive:** `hdlab/atom_consultation.py` (nonce + null-arm + SHADOW/WARN/LIVE + EnforcementDecisionLogger)
+- **Regime dispatch bundle:** `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md`
+- **Cortex-2 Phase 2 architecture drill:** `notes/research_drill_cortex_2_phase_2_advisory_to_enforcement_architecture_2026-07-04.md`
+- **7 research drills** at `notes/research_drill_*_2026-07-{03,04}.md`
+
+## Cron `88472eb7` still active (20-min action-biased self-nudge). Auto-expires 7 days.
+
+---
+
+
 ---
 
 ## STEP 0: FIRST ACTIONS (run these in order)
