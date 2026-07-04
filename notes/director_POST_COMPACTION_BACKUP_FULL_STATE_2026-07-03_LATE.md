@@ -1637,6 +1637,21 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 - **VET caveat propagated**: many cells show elapsed_s~0.01 (resume short-circuit) — landed-VET must confirm full-cardinality before atom filing.
 - Gated command remains `git push origin HEAD:main` FROM SUB-AGENTS (Director push is now permitted via settings rule; sub-agent commits reach origin via hd_metrics_sync ~20-min cadence).
 
+### 3. Encoder ablation SMOKE HP (commit `e069ce430`, pushed) — Pareto measured on real KB
+
+`data/exp_encoder_design_ablation_v1_smoke/metrics.json`: 600 real KB concepts, N_DIM=1024, 6 sparsity levels, both fidelity axes, adaptive-M calibration, arms-differ verified.
+
+**Key numbers (reporting_M=24):** dense recall@10 0.334 / cleanup 0.43 (COLLAPSES under superposition); k=32 recall 0.119 / cleanup 0.93; k=20 recall 0.094 / cleanup 0.93 (**[18,22] production target DOMINATED by k=32**); k=16 cleanup 0.94 peak.
+
+**Synthesis with the algebra drill (both true, different domains):**
+- BIND path: random role keys protect unbinding from semantic overlap (drill) -> tension dissolved.
+- BUNDLE path: raw-code superposition cleanup DOES degrade with density/overlap (ablation) -> tension alive. Dense collapse 0.93->0.43 is the measured false-win axis.
+- => Step 1b dual-gate Metric B must test BOTH bind->unbind->cleanup (role-keyed) AND bundle-superposition cleanup at realistic depth K. Routed to Step 1b agent.
+- Sparsity guidance: start ~K=32 blocks (1 active/block), sweep {16,20,32}; param-ize N_DIM (production 4096 vs measured 1024; rate-transfer unproven).
+- Ablation also CONFIRMS objective >> sparsity as the semantic lever (even dense orthographic caps at 0.334 recall — spelling can't buy meaning). Priority: objective first, structure second, sparsity-level third.
+
+**Ablation FULL arm disposition (Director call):** DEFERRED — Step 1b with block codes + dual gates subsumes the unstructured-top-k FULL confirm; the N_DIM=4096 question rides along in Step 1b. Objective-sweep follow-on = Step 1b itself.
+
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
 | agentId | role | task |
