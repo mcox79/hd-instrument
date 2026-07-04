@@ -1698,11 +1698,27 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 **Design fix (next):** the HARD_FAIL gate tests raw-bundle (non-production). Re-aim dual-gate B at the KEYED composition path (BLOCK=1.0). Ablation's "sparse cleanup 0.93>dense 0.43" was fixed-M associative cleanup != bundle recall_at_J on trained codes (metric-mismatch). Candidate atom (Skunkworks tier Monday): MM_TENTATIVE "semantic-correlation degrades raw-bundle; keyed-binding immune."
 
+## PROBE 1 RE-AUDIT DONE (Director-preliminary) — HEADLINE CROSS-TERM IS A NOISE-FLOOR ARTIFACT
+
+`notes/director_preliminary_probe1_cross_term_noise_floor_reaudit_2026-07-04.md` + `scratchpad/probe1_reaudit_mc_null.py`. Reproduce-check PASSED (stored `mechanism_variance_at_BUNDLED` = RANGE of 3 mech accs, matched to 2e-17). Data-driven binomial null (TR=100, per-cell p, 20k draws):
+
+| stat | obs | null mean | z | P(null>=obs) |
+|---|---|---|---|---|
+| MAX range | 0.120 | 0.135 | -0.62 | 0.79 |
+| MEAN range | 0.031 | 0.035 | -1.13 | 0.88 |
+| COUNT>0.02 | 16/36 | 18.0 | -1.30 | 0.94 |
+
+**Observed BELOW null mean on ALL 3 statistics.** The mechanism-moderation "signal" is weaker than TR=100 sampling noise. Same pathology as P8 (z=0.40).
+
+**SPLIT (symmetric verify):** STORAGE MAIN EFFECT SURVIVES (0.93 gap, huge, real). STORAGE x CLEANUP mechanism CROSS-TERM = DEMOTE-CANDIDATE (noise floor; SHARDED 0/36 is ceiling-pinned, no weight). Probe 1 CG_META should split into a firm storage-main-effect atom + a demoted cross-term.
+
+**FAMILY IMPLICATION (HIGH):** P1 + P8 both fall. P6v2/P7v2 near-certain same. The entire "axis moderates CLEANUP_MECHANISM at cliff/BUNDLED" family is likely a TR=100 artifact. Only main effects (storage gap, saturation) are real. **This reframes the regime-map arc.** Skunkworks must ratify (NO cert mutation done).
+
 ## OPEN HIGH-PRIORITY ITEMS (agent-quota-limited until 2026-07-07)
-1. **Step 1b gate re-aim + re-SMOKE** — reframe gate B to keyed path; approach looks SOUND (semantic 0.788 + keyed 1.0).
-2. **Probe 1 CG_META re-audit** — count/mean discriminator (24/36, mean 0.1033, cv 0.148), NOT max-statistic that sank P8 -> likely SURVIVES; Skunkworks authoritative Monday.
-3. **Negatives-2x:** P8 permutation test on existing 5-seed data (no new compute); P9v2 TR>=400 revival.
-4. Encoder Step 1 orthographic baseline grinding CPU (~30h) — now KNOWN to cap ~0.54 (CHARPOS arm confirms); floor artifact, Step 1b is the real path.
+1. **NEGATIVES-2x REVIVAL (the real drill): TR>=400 re-run of P1/P6v2/P7v2/P8 cross-terms.** Cells run in 3-11s FULL -> CHEAP, local-CPU subprocess feasible, NO GPU. If a genuine 0.10 mechanism effect exists it clears at TR>=400; if still noise, the family is confirmed-dead. THIS is the negatives-2x, not a permutation test on underpowered data.
+2. **Step 1b gate re-aim + re-SMOKE** — reframe gate B to keyed path; approach SOUND (semantic 0.788 + keyed 1.0). Step 1b FULL 20k-step running (pid 140458, 39515 concepts) — read semantic-climb toward 0.85.
+3. **Skunkworks family SCHEMA-VET + ratify Probe 1 split** (Monday / when quota returns). Apply extreme-value/binomial-null meta-atom RETROACTIVELY to the whole cross-term family.
+4. Encoder Step 1 orthographic baseline grinding CPU — KNOWN to cap ~0.54 (CHARPOS arm); floor artifact, Step 1b is the real path.
 
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
