@@ -1617,6 +1617,26 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 **P9v2 DISK-VERIFY RESOLVED (Director, 2026-07-04 ~02:50Z): GENUINE, not vacuous.** All 3 FULL seeds have real in-band cells: s7 `main_grid_n_in_non_saturated_band=9`, s13 `=7`, s19 `=8`. First NON-MECHANISM pair probe with genuine in-band multi-seed data. Skunkworks VET dispatched (cross-term verdict + tier + #45b disposition with carve-out proposal: short-circuit applies only when the DESIGN POINT sits in the degenerate regime, not merely when the axis carries a regime-narrow label). Encoder Step 1 baseline liveness confirmed same check: unit 8/98 at 02:41Z, ~935s/unit -> ~23h CPU ETA (baseline-only, acceptable).
 
+## AMENDMENT 2026-07-04 ~03:20Z — TWO MAJOR RETURNS
+
+### 1. Algebra-preserving-distillation drill (LOAD-BEARING for Step 1b design)
+
+`notes/research_drill_algebra_preserving_semantic_distillation_2026-07-04.md`:
+- **Semantic-vs-unbind tension DISSOLVED-BY-BINDING-STRUCTURE**: production composition (`semantic_parser.py` L16-17) binds fillers behind INDEPENDENT RANDOM role keys; unbind crosstalk is governed by role-key orthogonality + bundle depth K, NOT filler-vs-filler semantic overlap. Distilling cat/kitten to 0.85 cosine does not touch unbinding.
+- **REAL risk = sparsity-vs-algebra**: k=20/1024 sparse real code is NOT a valid FHRR atom (FHRR wants unit-modulus ALL dims). Naive top-k + FHRR = category error, silently degrades unbind SNR while cosine gate passes (the actual false-win). **Fix is architectural**: sparse block codes (K blocks, ~1 active/block) + block-local circular convolution = LOSSLESS unbind (Frady/Sommer 2020 SBC).
+- **Objective**: relational similarity-distillation (RKD distance+angle) PRIMARY + InfoNCE semi-hard negatives auxiliary; NO absolute-MSE (false-win trap). Per-block Gumbel-softmax straight-through sparsification.
+- **Dual-gate bands**: A semantic rank-corr >=0.85; B bind->unbind->cleanup@1 >=0.95; reject checkpoint if B<0.90 regardless of A; shuffled-key + sparse-vs-dense controls.
+- P_deflated 0.40 (right path) vs 0.12 (naive). **Design update routed to Step 1b authoring agent BEFORE prereg lock.** Open design decision flagged: composition algebra for sparse path must be EXPLICIT (block-local HRR-family, not literal FHRR).
+
+### 2. Orchestrator return: encoder fix PROPER + P8 5/5 + cascade reconciled
+
+- **Encoder sparsity fix verdict: PROPER** (not band-widening). Crash metrics was PRE-fix; committed cell uses `argpartition(-mag,k)[:k]` -> exactly k nonzeros; bands UNCHANGED (selftest 18<=mean_nnz<=22 at k=20/1024; FULL H4 78<=mean_nnz<=86 at K_EFFECTIVE=82/4096, both +-2 at 2% sparse). Trust restored in baseline run.
+- **Step 1 STAYS CPU (two independent blockers)**: numpy-only cell (no torch/CUDA path; PROT-020 would reject from overnight_queue; GPU zero speedup without rewrite) + corpus ABSENT on remote (entities+atoms ~824MB not on marsh@home). Real ETA ~30h (21 min/chunk). Healthy heartbeat.
+- **P8 NOW 5/5 FULL HARD_PASS**: orchestrator authored s11+s17 (commit `b1b7f1253`, SCP'd via queue_add), landed 02:47Z: s11 band-var 0.16, s17 0.15 (+ s7 0.20 / s13 0.10 / s19 0.14). Crossover + H3-NULL fire in all. **CG promotion attempt routed to Skunkworks (bundled with P9v2 VET).**
+- **27-cell regime cascade was ALREADY COMPLETE on remote** (idempotency scan; no re-queue). P4 3/3 HP, P5 3/3 MB, P6 3/3 MB, P7 3/3 MB, P8 5/5 HP, P9v2 3/3 MB, P12 3/3 HP, P13 2HP+1MB, P14 3/3 HP. Orchestrator re-drove 4 stuck final-writes (P4 s7/s13 + P5 s7/s13 resumed from partials).
+- **VET caveat propagated**: many cells show elapsed_s~0.01 (resume short-circuit) — landed-VET must confirm full-cardinality before atom filing.
+- Gated command remains `git push origin HEAD:main` FROM SUB-AGENTS (Director push is now permitted via settings rule; sub-agent commits reach origin via hd_metrics_sync ~20-min cadence).
+
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
 | agentId | role | task |
