@@ -1,0 +1,334 @@
+{
+  "verdict": "DIAGNOSTIC_COMPLETE",
+  "verdict_msg": "RAW_CONTINUOUS mean ret_agree10=0.1689 across 6 checkpoints (2 seeds x 3 sources); DENSE_SIGN mean=0.1236; native BLOCK per-source={'v3e_seed7': 0.21121188428458665, 'v3e_seed13': 0.21046911649725183, 'v5_K128_seed7': 0.1972062956717085, 'v5_K256_seed7': 0.29017987633501885, 'v5_K128_seed13': 0.1983979763912146, 'v5_K256_seed13': 0.2957785272625059}; DENSE_CLEARS_0.35=False (target was ret_agree10>=0.35). RAW_CONTINUOUS is the maximally-dense readout available from these checkpoints without retraining; it does NOT clear 0.35 and is consistently BELOW every checkpoint's own trained BLOCK code, reversing the hypothesis that a denser readout recovers retrieval for free.",
+  "summary": "RAW_CONTINUOUS mean ret_agree10=0.1689 across 6 checkpoints (2 seeds x 3 sources); DENSE_SIGN mean=0.1236; native BLOCK per-source={'v3e_seed7': 0.21121188428458665, 'v3e_seed13': 0.21046911649725183, 'v5_K128_seed7': 0.1972062956717085, 'v5_K256_seed7': 0.29017987633501885, 'v5_K128_seed13': 0.1983979763912146, 'v5_K256_seed13': 0.2957785272625059}; DENSE_CLEARS_0.35=False (target was ret_agree10>=0.35). RAW_CONTINUOUS is the maximally-dense readout available from these checkpoints without retraining; it does NOT clear 0.35 and is consistently BELOW every checkpoint's own trained BLOCK code, reversing the hypothesis that a denser readout recovers retrieval for free.",
+  "elapsed_s": 224.78791099999216,
+  "run_mode": "diagnostic",
+  "anchor_name": "encoder_retrieval_regime_density_curve_v1",
+  "run_tag": "",
+  "device": "cuda",
+  "torch_version": "2.5.1+cu121",
+  "teacher_cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "teacher_n_concepts": 177899,
+  "test_final_pairs": 400000,
+  "eval_seed_offset": 3,
+  "cross_regime_query_cap": 4000,
+  "results": [
+    {
+      "label": "v3e_seed7",
+      "ckpt_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v3e_plateau_seed7\\_ckpt_INBATCH.pt",
+      "ckpt_step": 6000,
+      "seed": 7,
+      "split_kind": "v3e",
+      "n_test": 12790,
+      "native_kb": 128,
+      "native_blk_l": 32,
+      "semantic": {
+        "RAW_CONTINUOUS": {
+          "spearman_all": 0.7125596849210879,
+          "ret_agree10": 0.1548397185300962,
+          "hi80_cos": 0.9952449798583984,
+          "hi80_calib_err": 0.15753543376922607,
+          "hi80_n": 198
+        },
+        "DENSE_SIGN": {
+          "spearman_all": 0.6571097485548235,
+          "ret_agree10": 0.12326035965597791,
+          "hi80_cos": 0.9489129781723022,
+          "hi80_calib_err": 0.11120343208312988,
+          "hi80_n": 198
+        },
+        "BLOCK_K128_NATIVE": {
+          "spearman_all": 0.9187171766106591,
+          "ret_agree10": 0.21121188428458665,
+          "hi80_cos": 0.8319917321205139,
+          "hi80_calib_err": 0.005717813968658447,
+          "hi80_n": 198
+        },
+        "BLOCK_K256_OFFMANIFOLD": {
+          "spearman_all": 0.8814713916360861,
+          "ret_agree10": 0.1994996090695743,
+          "hi80_cos": 0.8720998764038086,
+          "hi80_calib_err": 0.03439033031463623,
+          "hi80_n": 198
+        },
+        "BLOCK_K512_OFFMANIFOLD": {
+          "spearman_all": 0.8339493123122805,
+          "ret_agree10": 0.1869585613760642,
+          "hi80_cos": 0.8822600245475769,
+          "hi80_calib_err": 0.04455047845840454,
+          "hi80_n": 198
+        }
+      },
+      "cross_regime": {
+        "native_vs_raw": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.3489500000000005,
+          "chance_level": 0.002500625156289072
+        },
+        "native_vs_dense_sign": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.274075000000001,
+          "chance_level": 0.002500625156289072
+        }
+      }
+    },
+    {
+      "label": "v3e_seed13",
+      "ckpt_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v3e_plateau_seed13\\_ckpt_INBATCH.pt",
+      "ckpt_step": 6000,
+      "seed": 13,
+      "split_kind": "v3e",
+      "n_test": 12790,
+      "native_kb": 128,
+      "native_blk_l": 32,
+      "semantic": {
+        "RAW_CONTINUOUS": {
+          "spearman_all": 0.7392143108486575,
+          "ret_agree10": 0.18474589523063917,
+          "hi80_cos": 0.995139479637146,
+          "hi80_calib_err": 0.15671682357788086,
+          "hi80_n": 235
+        },
+        "DENSE_SIGN": {
+          "spearman_all": 0.6603722888054513,
+          "ret_agree10": 0.14397967161844646,
+          "hi80_cos": 0.9637009501457214,
+          "hi80_calib_err": 0.1252782940864563,
+          "hi80_n": 235
+        },
+        "BLOCK_K128_NATIVE": {
+          "spearman_all": 0.9144203586772308,
+          "ret_agree10": 0.21046911649725183,
+          "hi80_cos": 0.8277592658996582,
+          "hi80_calib_err": 0.010663390159606934,
+          "hi80_n": 235
+        },
+        "BLOCK_K256_OFFMANIFOLD": {
+          "spearman_all": 0.8601923076643415,
+          "ret_agree10": 0.19525410476934077,
+          "hi80_cos": 0.8459773659706116,
+          "hi80_calib_err": 0.0075547099113464355,
+          "hi80_n": 235
+        },
+        "BLOCK_K512_OFFMANIFOLD": {
+          "spearman_all": 0.8282307541591648,
+          "ret_agree10": 0.1931118060985042,
+          "hi80_cos": 0.869664192199707,
+          "hi80_calib_err": 0.031241536140441895,
+          "hi80_n": 235
+        }
+      },
+      "cross_regime": {
+        "native_vs_raw": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.4099750000000011,
+          "chance_level": 0.002500625156289072
+        },
+        "native_vs_dense_sign": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.31455,
+          "chance_level": 0.002500625156289072
+        }
+      }
+    },
+    {
+      "label": "v5_K128_seed7",
+      "ckpt_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v5_k256_seed7\\_ckpt_K128.pt",
+      "ckpt_step": 6000,
+      "seed": 7,
+      "split_kind": "v5",
+      "n_test": 17790,
+      "native_kb": 128,
+      "native_blk_l": 32,
+      "semantic": {
+        "RAW_CONTINUOUS": {
+          "spearman_all": 0.7114384145287853,
+          "ret_agree10": 0.14716694772342556,
+          "hi80_cos": 0.9948880672454834,
+          "hi80_calib_err": 0.15090179443359375,
+          "hi80_n": 217
+        },
+        "DENSE_SIGN": {
+          "spearman_all": 0.6574163884281551,
+          "ret_agree10": 0.11459808881393241,
+          "hi80_cos": 0.9470136165618896,
+          "hi80_calib_err": 0.10302734375,
+          "hi80_n": 217
+        },
+        "BLOCK_K128_NATIVE": {
+          "spearman_all": 0.9190172657743544,
+          "ret_agree10": 0.1972062956717085,
+          "hi80_cos": 0.831473171710968,
+          "hi80_calib_err": 0.01251310110092163,
+          "hi80_n": 217
+        }
+      },
+      "cross_regime": {
+        "native_vs_raw": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.36207499999999915,
+          "chance_level": 0.002500625156289072
+        },
+        "native_vs_dense_sign": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.28615000000000035,
+          "chance_level": 0.002500625156289072
+        }
+      }
+    },
+    {
+      "label": "v5_K256_seed7",
+      "ckpt_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v5_k256_seed7\\_ckpt_K256.pt",
+      "ckpt_step": 6000,
+      "seed": 7,
+      "split_kind": "v5",
+      "n_test": 17790,
+      "native_kb": 256,
+      "native_blk_l": 16,
+      "semantic": {
+        "RAW_CONTINUOUS": {
+          "spearman_all": 0.7604972903848694,
+          "ret_agree10": 0.17590781337828482,
+          "hi80_cos": 0.9965610504150391,
+          "hi80_calib_err": 0.15257477760314941,
+          "hi80_n": 217
+        },
+        "DENSE_SIGN": {
+          "spearman_all": 0.6055590988270007,
+          "ret_agree10": 0.11648679033163857,
+          "hi80_cos": 0.9794336557388306,
+          "hi80_calib_err": 0.13544738292694092,
+          "hi80_n": 217
+        },
+        "BLOCK_K256_NATIVE": {
+          "spearman_all": 0.9482190081426722,
+          "ret_agree10": 0.29017987633501885,
+          "hi80_cos": 0.8297631144523621,
+          "hi80_calib_err": 0.014223158359527588,
+          "hi80_n": 217
+        }
+      },
+      "cross_regime": {
+        "native_vs_raw": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.36994999999999967,
+          "chance_level": 0.002500625156289072
+        },
+        "native_vs_dense_sign": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.24650000000000277,
+          "chance_level": 0.002500625156289072
+        }
+      }
+    },
+    {
+      "label": "v5_K128_seed13",
+      "ckpt_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v5_k256_seed13\\_ckpt_K128.pt",
+      "ckpt_step": 6000,
+      "seed": 13,
+      "split_kind": "v5",
+      "n_test": 17790,
+      "native_kb": 128,
+      "native_blk_l": 32,
+      "semantic": {
+        "RAW_CONTINUOUS": {
+          "spearman_all": 0.7386547489499381,
+          "ret_agree10": 0.17814502529509238,
+          "hi80_cos": 0.995476484298706,
+          "hi80_calib_err": 0.15615832805633545,
+          "hi80_n": 242
+        },
+        "DENSE_SIGN": {
+          "spearman_all": 0.6597342011266781,
+          "ret_agree10": 0.13693086003371488,
+          "hi80_cos": 0.9658586382865906,
+          "hi80_calib_err": 0.12654048204421997,
+          "hi80_n": 242
+        },
+        "BLOCK_K128_NATIVE": {
+          "spearman_all": 0.9139114159328625,
+          "ret_agree10": 0.1983979763912146,
+          "hi80_cos": 0.8318374752998352,
+          "hi80_calib_err": 0.0074806809425354,
+          "hi80_n": 242
+        }
+      },
+      "cross_regime": {
+        "native_vs_raw": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.4230000000000002,
+          "chance_level": 0.002500625156289072
+        },
+        "native_vs_dense_sign": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.3256500000000002,
+          "chance_level": 0.002500625156289072
+        }
+      }
+    },
+    {
+      "label": "v5_K256_seed13",
+      "ckpt_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v5_k256_seed13\\_ckpt_K256.pt",
+      "ckpt_step": 6000,
+      "seed": 13,
+      "split_kind": "v5",
+      "n_test": 17790,
+      "native_kb": 256,
+      "native_blk_l": 16,
+      "semantic": {
+        "RAW_CONTINUOUS": {
+          "spearman_all": 0.7417900026837735,
+          "ret_agree10": 0.17280494659919635,
+          "hi80_cos": 0.996503472328186,
+          "hi80_calib_err": 0.15718531608581543,
+          "hi80_n": 242
+        },
+        "DENSE_SIGN": {
+          "spearman_all": 0.6779250542834836,
+          "ret_agree10": 0.10652613827992548,
+          "hi80_cos": 0.9746779799461365,
+          "hi80_calib_err": 0.13535982370376587,
+          "hi80_n": 242
+        },
+        "BLOCK_K256_NATIVE": {
+          "spearman_all": 0.9475245989468315,
+          "ret_agree10": 0.2957785272625059,
+          "hi80_cos": 0.8179880976676941,
+          "hi80_calib_err": 0.021330058574676514,
+          "hi80_n": 242
+        }
+      },
+      "cross_regime": {
+        "native_vs_raw": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.3588750000000003,
+          "chance_level": 0.002500625156289072
+        },
+        "native_vs_dense_sign": {
+          "n_query": 4000,
+          "top10_overlap_frac": 0.2243750000000034,
+          "chance_level": 0.002500625156289072
+        }
+      }
+    }
+  ],
+  "headline": {
+    "raw_continuous_mean_ret_agree10": 0.16893505779278908,
+    "dense_sign_mean_ret_agree10": 0.12363031812227261,
+    "native_block_ret_agree10_by_source": {
+      "v3e_seed7": 0.21121188428458665,
+      "v3e_seed13": 0.21046911649725183,
+      "v5_K128_seed7": 0.1972062956717085,
+      "v5_K256_seed7": 0.29017987633501885,
+      "v5_K128_seed13": 0.1983979763912146,
+      "v5_K256_seed13": 0.2957785272625059
+    },
+    "dense_clears_0p35_target": false
+  },
+  "methodology": "Read-only reload of FINAL-step checkpoints from v3e (K128-native, 2 seeds) and v5 (K128+K256-native paired arms, 2 seeds) -- ZERO gradient steps, ZERO new training. Held-out split reconstructed EXACTLY per each source cell's own RNG sequence (same seed, same permutation, same HELD_FRAC/FULL_HELD_CAP/VAL_CAP arithmetic) so the reload scores the SAME rows the source cell's landed numbers reflect -- DENSE_SIGN and native BLOCK numbers here are a reproduction/consistency check against the landed metrics.json values (MEASURED@data/exp_encoder_v3e_decline_vs_plateau_v1_seed7/metrics.json and MEASURED@data/exp_encoder_v5_k256_capacity_paired_v1_seed7/metrics.json), not a fresh independent claim. RAW_CONTINUOUS is the one genuinely NEW measurement class. BLOCK_K256/K512_OFFMANIFOLD (v3e checkpoints only) are naive post-hoc repartitions of a K128-trained model's output into a block grid it never trained against -- explicitly NOT equivalent to v5's genuinely-trained K256 arm, labeled OFFMANIFOLD throughout to prevent confusion with a trained-for-K result. Cross-regime consistency = fraction of top-10 cosine-neighbours shared between the native trained BLOCK code and RAW_CONTINUOUS/DENSE_SIGN over the SAME held-out rows (not vs teacher gold).",
+  "final_metrics_atomicity": "tmp_replace",
+  "progress_logging": "print_flush_true",
+  "crlb_n_a": "diagnostic read-only reload, no learned-map noise question; see exp_encoder_teacher_sparsifier_bypass_v1 for the CRLB-governed zero-training quantization-ceiling question",
+  "ts_iso": "2026-07-04T21:37:50.843409+00:00"
+}
