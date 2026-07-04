@@ -62,11 +62,29 @@ GPU_HOT_C = 85             # cosmetic warn threshold for temp
 # fresh poll rather than letting the window silently freeze on stale data.
 POLL_WEDGE_S = 20
 
-_LEVEL_BG = {"CRITICAL": "#c0392b", "WARN": "#e67e22"}
-_OK_BG = "#2e7d32"
-_EXTERNAL_FG = "#e67e22"   # orange: external/BOINC load, or stale/uncertain
-_OURS_FG = "#1b8a3d"       # green: our work on the card
-_IDLE_FG = "#607d8b"       # grey: idle
+# --- Dark theme palette (terminal-matched, USER request 2026-07-04; cosmetic only) ---
+_BG = "#1e1e1e"            # root window background
+_PANEL_BG = "#252526"      # LabelFrame/Frame panel background
+_FG = "#e0e0e0"            # primary text
+_BORDER = "#3c3c3c"
+_TREE_BG = "#252526"
+_TREE_ALT_BG = "#2d2d30"   # alternating row stripe
+_TREE_SELECT_BG = "#264f78"
+_TREE_SELECT_FG = "#ffffff"
+_HEADING_BG = "#333333"
+_HEADING_FG = "#d4d4d4"
+_BTN_BG = "#3c3c3c"
+_BTN_ACTIVE_BG = "#4a4a4a"
+
+# Semantic colors, muted/darkened so they read on a dark background instead of
+# blinding (same meanings as before: alerts banner clear/warn/critical, GPU
+# util busy/idle/stale, temp-hot, runner-stale, ownership sublabel).
+_LEVEL_BG = {"CRITICAL": "#7a2e2a", "WARN": "#7a5a1e"}
+_OK_BG = "#255a27"
+_EXTERNAL_FG = "#e0a458"   # muted amber: external/BOINC load, or stale/uncertain
+_OURS_FG = "#5fbf6e"       # muted green: our work on the card
+_IDLE_FG = "#8a8f98"       # muted grey: idle
+_HOT_FG = "#e5726a"        # muted red: temp-hot / runner-stale
 
 
 def _short_exp_name(name: str) -> str:
@@ -113,6 +131,7 @@ class DashGui:
         self._last_poll_ok_ts: float | None = None
         self._last_poll_error: str | None = None
 
+        self._configure_style()
         self._build_widgets()
         root.bind("<F5>", lambda _e: self.refresh_now())
         root.bind("r", lambda _e: self.refresh_now())
@@ -123,6 +142,44 @@ class DashGui:
         self._schedule_poll()
         self._tick()
         self.root.after(200, self._pump_queue)
+
+    # ------------------------------------------------------------------
+    # Dark theme (cosmetic only -- no polling/threading/data logic here)
+    # ------------------------------------------------------------------
+    def _configure_style(self) -> None:
+        self.root.configure(bg=_BG)
+        style = ttk.Style(self.root)
+        try:
+            style.theme_use("clam")   # 'clam' honors background/foreground overrides
+        except tk.TclError:
+            pass
+
+        style.configure(".", background=_PANEL_BG, foreground=_FG,
+                         fieldbackground=_PANEL_BG, bordercolor=_BORDER)
+        style.configure("TFrame", background=_PANEL_BG)
+        style.configure("TLabelframe", background=_PANEL_BG, foreground=_FG,
+                         bordercolor=_BORDER)
+        style.configure("TLabelframe.Label", background=_PANEL_BG, foreground=_FG)
+        style.configure("TLabel", background=_PANEL_BG, foreground=_FG)
+        style.configure("TButton", background=_BTN_BG, foreground=_FG,
+                         bordercolor=_BORDER, focuscolor=_BORDER)
+        style.map("TButton",
+                  background=[("active", _BTN_ACTIVE_BG)],
+                  foreground=[("active", _FG)])
+
+        style.configure("Treeview", background=_TREE_BG, foreground=_FG,
+                         fieldbackground=_TREE_BG, bordercolor=_BORDER, rowheight=20)
+        style.map("Treeview",
+                  background=[("selected", _TREE_SELECT_BG)],
+                  foreground=[("selected", _TREE_SELECT_FG)])
+        style.configure("Treeview.Heading", background=_HEADING_BG, foreground=_HEADING_FG,
+                         bordercolor=_BORDER, relief="flat")
+        style.map("Treeview.Heading", background=[("active", _HEADING_BG)])
+
+        style.configure("Vertical.TScrollbar", background=_BTN_BG, troughcolor=_PANEL_BG,
+                         bordercolor=_BORDER, arrowcolor=_FG,
+                         darkcolor=_PANEL_BG, lightcolor=_PANEL_BG)
+        style.map("Vertical.TScrollbar", background=[("active", _BTN_ACTIVE_BG)])
 
     # ------------------------------------------------------------------
     # Widget construction
@@ -138,8 +195,9 @@ class DashGui:
         # --- Alerts banner (row 0) ---
         self.alerts_text = tk.Text(root, height=4, wrap="word", bd=0,
                                     font=("Consolas", 10, "bold"),
-                                    fg="white", bg=_OK_BG, state="disabled",
-                                    padx=8, pady=6)
+                                    fg=_FG, bg=_OK_BG, state="disabled",
+                                    padx=8, pady=6, highlightthickness=0,
+                                    insertbackground=_FG)
         self.alerts_text.grid(row=0, column=0, sticky="ew")
 
         # --- GPU panel (row 1) ---
@@ -148,22 +206,27 @@ class DashGui:
         for c in range(4):
             gpu_frame.columnconfigure(c, weight=1)
 
-        self.gpu_util_lbl = tk.Label(gpu_frame, text="--%", font=("Consolas", 30, "bold"))
+        self.gpu_util_lbl = tk.Label(gpu_frame, text="--%", font=("Consolas", 30, "bold"),
+                                      bg=_PANEL_BG, fg=_FG)
         self.gpu_util_lbl.grid(row=0, column=0, rowspan=2, sticky="w", padx=10)
-        self.gpu_mem_lbl = tk.Label(gpu_frame, text="mem: --", font=("Consolas", 12))
+        self.gpu_mem_lbl = tk.Label(gpu_frame, text="mem: --", font=("Consolas", 12),
+                                     bg=_PANEL_BG, fg=_FG)
         self.gpu_mem_lbl.grid(row=0, column=1, sticky="w")
-        self.gpu_temp_lbl = tk.Label(gpu_frame, text="temp: --", font=("Consolas", 12))
+        self.gpu_temp_lbl = tk.Label(gpu_frame, text="temp: --", font=("Consolas", 12),
+                                      bg=_PANEL_BG, fg=_FG)
         self.gpu_temp_lbl.grid(row=1, column=1, sticky="w")
-        self.gpu_status_lbl = tk.Label(gpu_frame, text="queue: --", font=("Consolas", 12))
+        self.gpu_status_lbl = tk.Label(gpu_frame, text="queue: --", font=("Consolas", 12),
+                                        bg=_PANEL_BG, fg=_FG)
         self.gpu_status_lbl.grid(row=0, column=2, sticky="w")
-        self.gpu_feed_lbl = tk.Label(gpu_frame, text="feed: --", font=("Consolas", 12))
+        self.gpu_feed_lbl = tk.Label(gpu_frame, text="feed: --", font=("Consolas", 12),
+                                      bg=_PANEL_BG, fg=_FG)
         self.gpu_feed_lbl.grid(row=1, column=2, sticky="w")
         self.gpu_oncard_lbl = tk.Label(gpu_frame, text="", font=("Consolas", 10),
-                                        anchor="w", justify="left")
+                                        anchor="w", justify="left", bg=_PANEL_BG, fg=_FG)
         self.gpu_oncard_lbl.grid(row=0, column=3, rowspan=2, sticky="w", padx=(10, 6))
         # Ownership banner (ask #2): OUR WORK vs external/BOINC, full-width + loud.
         self.gpu_owner_lbl = tk.Label(gpu_frame, text="", font=("Consolas", 13, "bold"),
-                                       anchor="w")
+                                       anchor="w", bg=_PANEL_BG, fg=_FG)
         self.gpu_owner_lbl.grid(row=2, column=0, columnspan=4, sticky="w", padx=10, pady=(2, 4))
 
         # --- Local experiments (row 2) ---
@@ -177,6 +240,8 @@ class DashGui:
             self.local_tree.heading(c, text=c.upper())
             self.local_tree.column(c, width=w, anchor="w")
         self.local_tree.grid(row=0, column=0, sticky="nsew")
+        self.local_tree.tag_configure("evenrow", background=_TREE_BG)
+        self.local_tree.tag_configure("oddrow", background=_TREE_ALT_BG)
         lsb = ttk.Scrollbar(local_frame, orient="vertical", command=self.local_tree.yview)
         self.local_tree.configure(yscrollcommand=lsb.set)
         lsb.grid(row=0, column=1, sticky="ns")
@@ -201,6 +266,8 @@ class DashGui:
         self.q_tree.column("running", width=110, anchor="w")
         self.q_tree.column("pending", width=70, anchor="center")
         self.q_tree.grid(row=0, column=0, sticky="nsew")
+        self.q_tree.tag_configure("evenrow", background=_TREE_BG)
+        self.q_tree.tag_configure("oddrow", background=_TREE_ALT_BG)
         qsb = ttk.Scrollbar(q_frame, orient="vertical", command=self.q_tree.yview)
         self.q_tree.configure(yscrollcommand=qsb.set)
         qsb.grid(row=0, column=1, sticky="ns")
@@ -217,6 +284,8 @@ class DashGui:
             self.r_tree.column(c, width=w, anchor="w")
         self.r_tree.column("#0", width=110, anchor="w")
         self.r_tree.grid(row=0, column=0, sticky="nsew")
+        self.r_tree.tag_configure("evenrow", background=_TREE_BG)
+        self.r_tree.tag_configure("oddrow", background=_TREE_ALT_BG)
         rsb = ttk.Scrollbar(r_frame, orient="vertical", command=self.r_tree.yview)
         self.r_tree.configure(yscrollcommand=rsb.set)
         rsb.grid(row=0, column=1, sticky="ns")
@@ -333,7 +402,7 @@ class DashGui:
 
         # Ownership disambiguation (ask #2) -- never let a high util read
         # ambiguously as "our work" when it is BOINC/external and our queue is idle.
-        owner_text, owner_fg = "", "black"
+        owner_text, owner_fg = "", _FG
         if not have_util:
             owner_text = "GPU reading unavailable (dashboard feed down, SSH probe failed)"
             owner_fg = _EXTERNAL_FG
@@ -362,7 +431,7 @@ class DashGui:
         mem = g.get("mem_used_mb")
         self.gpu_mem_lbl.configure(text=f"mem: {mem if mem is not None else '--'} MB")
         temp = g.get("temp_c")
-        temp_fg = "#c0392b" if isinstance(temp, (int, float)) and temp >= GPU_HOT_C else "black"
+        temp_fg = _HOT_FG if isinstance(temp, (int, float)) and temp >= GPU_HOT_C else _FG
         self.gpu_temp_lbl.configure(text=f"temp: {temp if temp is not None else '--'} C", fg=temp_fg)
         src_txt = {"feed": "via feed", "ssh": "via SSH", "stale": "stale"}.get(source, "?")
         self.gpu_status_lbl.configure(
@@ -387,41 +456,46 @@ class DashGui:
         self.local_tree.delete(*self.local_tree.get_children())
         lx = st.get("local_experiments") or []
         if not lx:
-            self.local_tree.insert("", "end", values=("(none detected)", "", "", "", "", "", "", ""))
-        for e in lx:
+            self.local_tree.insert("", "end", values=("(none detected)", "", "", "", "", "", "", ""),
+                                    tags=("evenrow",))
+        for i, e in enumerate(lx):
             args = e.get("args") or {}
             mem_mb = int((e.get("mem_kb") or 0) / 1024)
+            stripe = "evenrow" if i % 2 == 0 else "oddrow"
             self.local_tree.insert("", "end", values=(
                 _short_exp_name(e.get("name", "?")), _progress_cell(e),
                 e.get("pid", "?"), _fmt_dur(e.get("elapsed_s")), f"{mem_mb}MB",
                 args.get("device", "-"), args.get("seed", "-"), args.get("tier", "-"),
-            ))
+            ), tags=(stripe,))
 
         # --- Queues ---
         self.q_tree.delete(*self.q_tree.get_children())
-        for qname, qd in (st.get("queues") or {}).items():
+        for i, (qname, qd) in enumerate((st.get("queues") or {}).items()):
             run = qd.get("running") or []
             pend = qd.get("pending") or []
+            stripe = "evenrow" if i % 2 == 0 else "oddrow"
             parent = self.q_tree.insert("", "end", text=qname, values=(
-                ",".join(run) or "-", len(pend)))
-            for t in (qd.get("terminal_recent") or [])[:3]:
+                ",".join(run) or "-", len(pend)), tags=(stripe,))
+            for j, t in enumerate((qd.get("terminal_recent") or [])[:3]):
+                child_stripe = "evenrow" if j % 2 == 0 else "oddrow"
                 self.q_tree.insert(parent, "end",
                                     text=f"  {t.get('name', '?')} = {t.get('status', '?')}",
-                                    values=("", ""))
+                                    values=("", ""), tags=(child_stripe,))
             self.q_tree.item(parent, open=True)
 
         # --- Runners ---
         self.r_tree.delete(*self.r_tree.get_children())
-        for rid, r in (st.get("runners") or {}).items():
+        for i, (rid, r) in enumerate((st.get("runners") or {}).items()):
             hb_age = r.get("heartbeat_age_s")
-            tags = ()
+            stripe = "evenrow" if i % 2 == 0 else "oddrow"
+            tags = (stripe,)
             if r.get("status") == "running" and isinstance(hb_age, (int, float)) and hb_age > 300:
-                tags = ("stale",)
+                tags = (stripe, "stale")
             self.r_tree.insert("", "end", text=rid, values=(
                 r.get("status") or "-", r.get("pid") or "-",
                 _fmt_dur(hb_age), r.get("current") or "-",
             ), tags=tags)
-        self.r_tree.tag_configure("stale", foreground="#c0392b")
+        self.r_tree.tag_configure("stale", foreground=_HOT_FG)
 
     def _update_status_bar(self) -> None:
         parts = []
