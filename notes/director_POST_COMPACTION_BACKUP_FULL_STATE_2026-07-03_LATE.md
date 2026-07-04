@@ -1,4 +1,14 @@
-# Director post-compaction BACKUP — 2026-07-03 LATE
+# >>> SUPERSEDED 2026-07-04 <<< USE `notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-04.md`
+
+**This file is a stale amendment-stacked accretion from the 2026-07-03 session + early 2026-07-04.
+It is kept only for historical detail. The CURRENT canonical BACKUP is
+`director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-04.md` — read that instead. Everything below is
+either done, superseded, or corrected (encoder-Step-1, cortex-2-as-primary, Tailscale/BGE blockers,
+the "capacity confirmed" framing, P8-promotion — all obsolete).**
+
+---
+
+# Director post-compaction BACKUP — 2026-07-03 LATE (SUPERSEDED)
 
 **Filed 2026-07-03 ~19:20Z. Read this file end-to-end before any other action. Replaces prior BACKUP as pickup canonical.**
 
