@@ -1,0 +1,87 @@
+{
+  "anchor_name": "encoder_cross_checkpoint_retrieval_compat_v1",
+  "run_mode": "full",
+  "seed": 7,
+  "n_probe": 4390,
+  "n_held_full": 4390,
+  "ckpt_a_path": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v1b_v3global_mid\\_ckpt_block_global.pt",
+  "ckpt_a_step": 1800,
+  "ckpt_b_path": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v1b_v3global_mid\\_ckpt_block_in_batch.pt",
+  "ckpt_b_step": 1800,
+  "per_unit": [
+    {
+      "unit": "SAME_A_DENSE",
+      "top1_retrieval": 1.0,
+      "n": 4390
+    },
+    {
+      "unit": "SAME_A_BLOCK",
+      "top1_retrieval": 1.0,
+      "n": 4390
+    },
+    {
+      "unit": "SAME_B_DENSE",
+      "top1_retrieval": 1.0,
+      "n": 4390
+    },
+    {
+      "unit": "SAME_B_BLOCK",
+      "top1_retrieval": 1.0,
+      "n": 4390
+    },
+    {
+      "unit": "CROSS_INDEX_A_QUERY_B_DENSE",
+      "top1_retrieval": 0.011161731207289294,
+      "n": 4390
+    },
+    {
+      "unit": "CROSS_INDEX_A_QUERY_B_BLOCK",
+      "top1_retrieval": 0.010022779043280182,
+      "n": 4390
+    },
+    {
+      "unit": "CROSS_INDEX_B_QUERY_A_DENSE",
+      "top1_retrieval": 0.015489749430523917,
+      "n": 4390
+    },
+    {
+      "unit": "CROSS_INDEX_B_QUERY_A_BLOCK",
+      "top1_retrieval": 0.011617312072892938,
+      "n": 4390
+    },
+    {
+      "unit": "RANDOM_CONTROL_DENSE",
+      "top1_retrieval": 0.00022779043280182233,
+      "n": 4390
+    },
+    {
+      "unit": "RANDOM_CONTROL_BLOCK",
+      "top1_retrieval": 0.00022779043280182233,
+      "n": 4390
+    }
+  ],
+  "ratios": {
+    "A_index_B_query_dense": 0.011161731207289294,
+    "A_index_B_query_block": 0.010022779043280182,
+    "B_index_A_query_dense": 0.015489749430523917,
+    "B_index_A_query_block": 0.011617312072892938
+  },
+  "min_ratio": 0.010022779043280182,
+  "hard_pass_threshold": 0.9,
+  "hard_fail_threshold": 0.5,
+  "cardinality_ok": true,
+  "expected_n_units": 10,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A_dense": "9b24c91a30aa83f17f265619b163f3743ef9531e2feeb96fd8f44d330e16b10d",
+    "B_dense": "5244fb8a56366438f7fc9cd8c8ab9f5e5e9ba14ddf0444fb7d7297a296785959",
+    "A_block": "ce0daab80b9e846520a20a550a88425d06a26ae2f684ff4653b14e57e1cadeb8",
+    "B_block": "caa6504317ed95ec85ae0c2ff1ba5839bde16f8dc75d6f00a98756a84adcb236"
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "cross-checkpoint retrieval < 50% of same-checkpoint in at least one direction/code combo (min=0.0100); pull the explicit compatibility-loss work FORWARD to NOW, before any periodic re-distillation cadence is adopted [A_index_B_query_dense=0.0112 A_index_B_query_block=0.0100 B_index_A_query_dense=0.0155 B_index_A_query_block=0.0116]",
+  "summary": "cross-checkpoint retrieval < 50% of same-checkpoint in at least one direction/code combo (min=0.0100); pull the explicit compatibility-loss work FORWARD to NOW, before any periodic re-distillation cadence is adopted [A_index_B_query_dense=0.0112 A_index_B_query_block=0.0100 B_index_A_query_dense=0.0155 B_index_A_query_block=0.0116]",
+  "elapsed_s": 10.72932280000532,
+  "ts_iso": "2026-07-04T17:36:52.589046+00:00",
+  "instantiation_caveat": "cross-'version' = GLOBAL-objective vs IN_BATCH-objective final (step 1800) checkpoints of the SAME R1 MID run, not sequential steps of one lineage; see cell docstring CAVEAT section"
+}
