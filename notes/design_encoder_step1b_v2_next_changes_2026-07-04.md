@@ -28,23 +28,39 @@ semantic-correlation-degrades-superposition finding) but NOT as a pass/fail gate
 superposition recall; random-key binding is immune -- decorrelation not sparsity protects
 composition." Composes with the algebra-preserving-distillation drill.
 
-## WATCH ITEM (do NOT conclude until FULL eval lands): linear-student rkd plateau
+## WATCH ITEM (do NOT conclude until FULL eval lands): rkd loss RISING -- code-level diagnosis
 
-FULL run (pid 2800, seed 7) shows RKD loss plateaued ~0.18 by step ~2000/20000 -- 2x the SMOKE's
-0.08 -- while InfoNCE oscillates 0.65-0.74. HYPOTHESIS (unconfirmed): a LINEAR student
-W: R^1024 -> R^4096 saturates on the full 39515-concept set; it fit 3000 concepts to spearman
-0.788 but may cap below that (and below 0.85) at 13x the concepts.
+FULL run (pid 2800, seed 7): RKD loss ROSE 0.14 -> 0.19 over steps 0-3000 while InfoNCE fell
+0.85 -> 0.62. rkd going the WRONG direction (SMOKE reached 0.08). Read the training loop
+(`_core.py` L355-390) -- three concrete suspects, in priority order for exp_dev:
 
-**Do NOT act on this yet.** The end-of-arm semantic spearman is the arbiter. Decision rule:
-- FULL K128 spearman >= 0.82: linear student is fine; scale data/steps, no architecture change.
-- FULL K128 spearman in [0.70, 0.82): linear student caps below goal -> v2 candidate: replace
-  linear W with a SMALL MLP student (1024 -> 2048 -> 4096, GELU) for capacity to preserve
-  pairwise geometry over more concepts. Cheap change; keep block sparsifier on the output.
-- FULL K128 spearman < 0.70 AND below SMOKE: also check LR / warmup (nce oscillation suggests LR
-  may be slightly high); add cosine LR decay before blaming capacity.
+1. **~~Correctness bug: teacher not normalized~~ -- CHECKED, NOT A BUG (Director, off-disk).**
+   Verified the cache `data/substrate_index/cached_indices/bge_large_v2_name_43905_8a40445a.npz`
+   `semantic` array: norm mean=1.0000, std=0.0000 -> teacher IS unit-normalized, so L360
+   `T = x @ x.T` IS a valid cosine target in [-1,1]. The student CAN match it in principle. Do
+   NOT "fix" the normalization -- there is nothing to fix here. (Ruled out so exp_dev doesn't
+   chase a phantom.)
 
-Confirm which case at the eval, THEN pick the v2 change. (Fix#28 discipline: no architecture
-verdict before the number lands.)
+2. **REAL SUSPECT A -- no LR schedule:** L88 `LR=1e-3` fixed, L335 plain Adam, no warmup/decay.
+   L383 `loss = l_rkd + LAM_NCE*l_nce`; the NCE contrastive gradient dominates early and pulls the
+   geometry off the relational target (rkd rises while nce falls -- observed). FIX: linear warmup
+   (~500 steps) + cosine decay; consider gradient-norm balancing of the two terms, or raise the
+   rkd weight / lower LAM_NCE.
+
+3. **REAL SUSPECT B -- batch/block-capacity:** FULL batch 1024 vs SMOKE 192 -> ~28x more
+   off-diagonal pairwise cosine targets for a K=128-block student (128 effective dims) to satisfy.
+   The block-sparse bottleneck genuinely limits pairwise-geometry preservation at large batch.
+   l_rkd 0.19 => student pairwise cosines off teacher by ~0.44 RMS. FIX candidates: smaller batch
+   (512), OR more blocks (K=256), OR a small MLP student (1024 -> 2048 -> 4096 GELU) for capacity;
+   keep the block sparsifier on the output. Most likely the dominant driver given the SMOKE (batch
+   192) hit 0.788 and FULL (batch 1024) is regressing.
+
+**Do NOT act tonight (CLAUDE.md: main thread must not edit experiments/*.py; agents rate-limited
+until Mon).** Let FULL finish for the real spearman. Decision at eval:
+- spearman >= 0.82: fine, scale up.
+- [0.70, 0.82) or < SMOKE 0.788: apply fix (1) then (2), re-SMOKE; MLP student only if still short.
+(Fix#28 discipline: no architecture verdict before the number lands -- but suspect (1) is a
+verifiable bug independent of the eval, so exp_dev should check `Xd.norm` FIRST regardless.)
 
 ## Sequencing when agent quota returns (Monday 2026-07-07)
 1. exp_dev: apply FIX 1 (gate re-aim) + read FULL eval -> apply the matching WATCH-item branch.
