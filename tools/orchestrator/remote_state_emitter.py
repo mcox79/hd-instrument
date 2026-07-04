@@ -26,7 +26,7 @@ import re
 import subprocess
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -132,6 +132,9 @@ def _classify_python_procs() -> list[dict]:
     Returns list of dicts:
       {type, name, pid, shim_pid, parent_pid, cmdline_short, mem_kb}
     """
+    # CREATE_NO_WINDOW prevents wmic from popping a console window every poll
+    # (USER 2026-06-28 caught popups; emitter polls every 30s causing visible flash)
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)  # Windows-only flag
     try:
         out = subprocess.check_output(
             [
@@ -144,6 +147,7 @@ def _classify_python_procs() -> list[dict]:
             text=True,
             encoding="utf-8",
             errors="replace",
+            creationflags=_no_window,
         )
     except Exception:
         return []
@@ -308,6 +312,97 @@ def _short_cmd(cmd: str) -> str:
     return cmd[:60]
 
 
+def _gpu_state() -> dict:
+    """Snapshot GPU util + memory + on-card compute processes via nvidia-smi.
+
+    Runs on the remote where nvidia-smi is a LOCAL call (no SSH). CREATE_NO_WINDOW
+    keeps the 30s poll popup-free (same discipline as _classify_python_procs).
+    Added 2026-07-04 (testbed): the cache previously carried NO GPU util, so any
+    consumer reading the cache (proactive monitor, dashboard cache-read) was blind
+    to whether the GPU was actually busy. This makes the cache a real GPU witness.
+    """
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)  # Windows-only flag
+    out: dict = {
+        "util_pct": None, "mem_used_mb": None, "mem_total_mb": None,
+        "temp_c": None, "compute_apps": [], "error": None,
+    }
+    # 1) card-level utilization + memory + temperature
+    try:
+        res = subprocess.check_output(
+            ["nvidia-smi",
+             "--query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu",
+             "--format=csv,noheader,nounits"],
+            stderr=subprocess.DEVNULL, timeout=10, text=True,
+            encoding="utf-8", errors="replace", creationflags=_no_window,
+        )
+        row = next((ln for ln in res.strip().splitlines() if ln.strip()), "")
+        parts = [p.strip() for p in row.split(",")]
+        if len(parts) >= 4:
+            out["util_pct"] = int(parts[0])
+            out["mem_used_mb"] = int(parts[1])
+            out["mem_total_mb"] = int(parts[2])
+            out["temp_c"] = int(parts[3])
+    except Exception as e:  # nvidia-smi missing / driver hiccup — never crash the loop
+        out["error"] = f"query-gpu:{type(e).__name__}"
+    # 2) per-process compute apps — which pids hold a GPU context. On Windows WDDM
+    #    used_gpu_memory is often N/A; keep the pid+name regardless.
+    try:
+        res = subprocess.check_output(
+            ["nvidia-smi", "--query-compute-apps=pid,process_name,used_gpu_memory",
+             "--format=csv,noheader,nounits"],
+            stderr=subprocess.DEVNULL, timeout=10, text=True,
+            encoding="utf-8", errors="replace", creationflags=_no_window,
+        )
+        for ln in res.strip().splitlines():
+            if not ln.strip():
+                continue
+            parts = [p.strip() for p in ln.split(",")]
+            if len(parts) < 2:
+                continue
+            try:
+                pid = int(parts[0])
+            except ValueError:
+                continue
+            mem = None
+            if len(parts) >= 3:
+                try:
+                    mem = int(parts[2])
+                except ValueError:
+                    mem = None
+            out["compute_apps"].append({
+                "pid": pid, "name": parts[1], "gpu_mem_mib": mem,
+            })
+    except Exception as e:
+        if out["error"] is None:
+            out["error"] = f"compute-apps:{type(e).__name__}"
+    return out
+
+
+def _derive_gpu_experiment(gpu: dict, logical: list[dict]) -> dict | None:
+    """Name the substrate experiment on the GPU by matching compute-app pids
+    against the classified logical processes. Returns {pid,name} or None.
+
+    A python compute-app whose pid is an experiment_child (or a runner that has
+    spawned one) is the substrate job on the card; BOINC/other native apps are
+    ignored for naming (but still counted in gpu util).
+    """
+    by_pid = {p.get("pid"): p for p in logical if isinstance(p, dict)}
+    for app in gpu.get("compute_apps", []):
+        pid = app.get("pid")
+        name = (app.get("name") or "").lower()
+        if "python" not in name:
+            continue
+        lp = by_pid.get(pid)
+        if lp and lp.get("type") in ("experiment_child", "runner"):
+            return {"pid": pid, "name": lp.get("name")}
+    # Fallback: any experiment_child in the logical set (pid may differ from the
+    # compute-app pid under the shim+interpreter split).
+    child = next((p for p in logical if p.get("type") == "experiment_child"), None)
+    if child is not None:
+        return {"pid": child.get("pid"), "name": child.get("name")}
+    return None
+
+
 def _recent_verdicts(n: int = 10) -> list[dict]:
     """Pull the most recent n verdicts from queue.json completed entries.
 
@@ -354,10 +449,17 @@ def _recent_verdicts(n: int = 10) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def build_snapshot() -> dict:
-    now_iso = datetime.now().isoformat(timespec="seconds")
+    # UTC with explicit tz so consumers can compute staleness unambiguously.
+    # (Older builds wrote a naive local-time ISO which made age-since-snapshot
+    # timezone-guessy; snapshot_ts_utc is the authoritative field going forward.)
+    now = datetime.now(timezone.utc)
+    logical = _classify_python_procs()
+    gpu = _gpu_state()
+    gpu["experiment"] = _derive_gpu_experiment(gpu, logical)
 
     snapshot = {
-        "snapshot_ts": now_iso,
+        "snapshot_ts": datetime.now().isoformat(timespec="seconds"),  # legacy (local) field
+        "snapshot_ts_utc": now.isoformat(timespec="seconds"),
         "queues": {
             "overnight_queue": _queue_entries(OVERNIGHT_QUEUE),
             "remote_cpu_queue": _queue_entries(CPU_QUEUE),
@@ -366,9 +468,10 @@ def build_snapshot() -> dict:
             "gpu_runner_0": _runner_state_from_heartbeat("gpu_runner_0"),
             "cpu_runner_0": _runner_state_from_heartbeat("cpu_runner_0"),
         },
+        "gpu": gpu,
         "recent_verdicts": _recent_verdicts(10),
         "recent_runner_log_tail": "",
-        "logical_processes": _classify_python_procs(),
+        "logical_processes": logical,
     }
 
     return snapshot
