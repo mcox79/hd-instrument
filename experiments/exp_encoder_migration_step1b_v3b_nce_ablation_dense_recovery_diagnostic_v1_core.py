@@ -1153,6 +1153,24 @@ def _parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
         args.run_mode = "smoke"
     elif args.mid:
         args.run_mode = "mid"
+    elif args.run_mode == "full":
+        # DISPATCH-CONTRACT FIX (orchestrator self-heal, 2026-07-04): the
+        # standard runner (experiments/runner_v2_prod.py:run_one) invokes
+        # every queued script bare -- `[sys.executable, "-u", script_path]`,
+        # no argv forwarding -- and unconditionally injects
+        # HDLAB_RUN_MODE=full into the child env for production dispatch.
+        # This cell's terminal/production tier is named "mid" (there is no
+        # separate "full" tier -- MID *is* the decisive coverage-ratio-match
+        # scale per this cell's docstring), so choices=["self_test","smoke",
+        # "mid"] never included "full". Without this alias, a runner-driven
+        # ship (as opposed to a direct local `--mid` CLI invocation) would
+        # hit `assert run_mode in ("smoke","mid")` in run_diag() and
+        # CELL_CRASH on launch, since argparse does not validate an unused
+        # default against `choices` (verified empirically) so "full" reaches
+        # here unrejected. Alias runner-injected "full" -> "mid" so standard
+        # queue_add.sh/runner_v2_prod.py dispatch produces the intended
+        # production run.
+        args.run_mode = "mid"
     return args
 
 
