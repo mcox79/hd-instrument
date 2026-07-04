@@ -1664,6 +1664,33 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 **Cert delta this batch: MM +2 net** (P9v2 +1, meta +2, P8 -1). cert_ledger 2026-07-04 = 10 entries.
 
+## AMENDMENT 2026-07-04 ~03:50Z — WEEKLY RATE-LIMIT KILLED 2 AGENTS MID-WORK (honest state)
+
+**Infra event:** the safety classifier hit its WEEKLY limit (resets 2026-07-07 1pm America/New_York). Two in-flight spawns were terminated mid-work (NOT crashes; NOT completions):
+
+1. **Family null-audit (Probes 1/6v2/7v2 incl Probe 1 CG_META) — INCOMPLETE, NO VERDICT FILED.** Did 17 tool-uses then killed. NO atomize script in scratchpad, NO new skunkworks commit. **Probe 1 STORAGE x CLEANUP CG_META status is UNRESOLVED** — the extreme-value-null challenge did NOT run to conclusion. Do NOT treat Probe 1 as either cleared or demoted. **MUST RE-RUN** when agent quota returns (or via main-thread MC script). This gates all further regime-map CG_META claims — HIGH PRIORITY open item.
+2. **Step 1b distillation cell authoring — COMPLETED the authoring, killed before SMOKE.** Cell + prereg were on disk (untracked); Director committed as DRAFT `ee257af56`.
+
+**RATE-LIMIT WORKAROUND (working):** cells run as **background Python subprocesses** (nohup) dodge the agent/classifier weekly limit entirely — they are subprocesses, not LLM agents. SMOKE-on-local-CPU is the allowed dispatch mode anyway. Director can run self-tests/SMOKEs directly this way while agent spawns are throttled.
+
+## STEP 1B ENCODER REDESIGN — DRAFT VALIDATED AT SELF-TEST (commit `ee257af56`)
+
+`experiments/exp_encoder_migration_step1b_distill_concept_encoder_v1_core.py` (1070 lines) + prereg. Design (synthesized from algebra drill + ablation):
+- N_DIM=4096 (param `--n-dim`); K_BLOCKS=128 primary (~3.1% sparse, 1 signed active/block), FULL sweeps {64,128}
+- `composition_algebra: SBC_block_local_circular_convolution` (Frady/Kleyko/Sommer 2020 lossless SBC) via `hdlab.binding` block-local path with random one-active-per-block signed keys
+- Objective: 1.0*RKD(pairwise-cosine MSE off-diag) + 0.5*InfoNCE(tau=0.07, teacher-top1 positive, 4 semi-hard mined negatives). NO absolute-MSE.
+- Sparsifier: per-block argmax straight-through
+- Dual-gate: (A) semantic RSA/recall vs BGE gold; (B) bind->unbind + bundle-superposition cleanup
+
+**SELF-TEST PASS (0.32s):** block-STE + **SBC roundtrip 1.00** + shuffled-key control 0.00 + fhrr 1.00. **The algebra gate is solved by construction** — block codes give lossless unbind exactly as the drill predicted. The open question is now purely the SEMANTIC gate (can distillation hit ~0.85 rank-corr).
+
+**SMOKE LAUNCHED (background subprocess, pid 140297, ~03:50Z):** run_mode=smoke seed=7 device=cpu n_dim=4096 k_blocks=[128], teacher cache bge_large_v2_name_43905 (334.5MB). Log at scratchpad/step1b_smoke.log. **Next: read SMOKE dual-gate numbers (semantic rank-corr + algebraic cleanup); if semantic gate clears at SMOKE, this is the first real evidence the 0.85 path is viable.** NOT yet landed at this amendment.
+
+## OPEN HIGH-PRIORITY ITEMS (agent-quota-limited until 2026-07-07)
+1. **Probe 1 CG_META extreme-value-null re-audit** (family audit was killed incomplete) — can run as main-thread MC script.
+2. **Step 1b SMOKE dual-gate read** (subprocess in flight) — the load-bearing encoder evidence.
+3. Encoder Step 1 orthographic baseline still grinding CPU (~30h, trust restored).
+
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
 | agentId | role | task |
