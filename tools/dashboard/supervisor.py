@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import time
@@ -40,7 +41,96 @@ def log(msg: str) -> None:
         pass
 
 
+_NO_WINDOW = 0x08000000
+_LOCKFILE = HERE / "supervisor.pid"
+
+
+def _tasklist_image(pid: int) -> str | None:
+    """IMAGENAME for a pid via tasklist (reliable ASCII), or None if not running.
+    Guards against PID reuse before we taskkill."""
+    try:
+        out = subprocess.run(
+            ["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"],
+            capture_output=True, text=True, timeout=8, creationflags=_NO_WINDOW,
+        ).stdout
+    except Exception:
+        return None
+    m = re.match(r'"([^"]+)"', out.strip())
+    return m.group(1).lower() if m else None
+
+
+def _kill_pid(pid: int) -> None:
+    try:
+        subprocess.run(["taskkill", "/F", "/PID", str(pid)],
+                       capture_output=True, timeout=8, creationflags=_NO_WINDOW)
+    except Exception:
+        pass
+
+
+def _pids_listening_on(port: int) -> set[int]:
+    """PIDs LISTENING on a TCP port, parsed from netstat (ASCII, reliable)."""
+    pids: set[int] = set()
+    try:
+        out = subprocess.run(["netstat", "-ano", "-p", "TCP"],
+                             capture_output=True, text=True, timeout=8,
+                             creationflags=_NO_WINDOW).stdout
+    except Exception:
+        return pids
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) >= 5 and parts[0].upper() == "TCP" and parts[3].upper() == "LISTENING" \
+                and parts[1].endswith(f":{port}"):
+            try:
+                pids.add(int(parts[-1]))
+            except ValueError:
+                pass
+    return pids
+
+
+def _enforce_singleton(port: int = 8765) -> None:
+    """Exactly one dashboard supervisor + worker on `port`. RELIABLE by design:
+    uses netstat (authoritative port owner) + tasklist + a PID-file, NOT the flaky
+    batch/wmic path (whose `for /f` trailing-CR broke taskkill and whose concurrent
+    invocations failed under load -- the real reason stale duplicates survived).
+
+    Root cause of the churn the USER hit: two divergent launch paths (the hd_dashboard
+    task ran uvicorn directly while a supervisor.py was also started manually) with no
+    working guard, so a duplicate worker whose SSH poller died served BLANK
+    gpu_util/last_poll_ok while holding the port. Windows-only; fail-open.
+    """
+    if sys.platform != "win32":
+        return
+    own = os.getpid()
+    keep = {own}
+    try:
+        keep.add(os.getppid())
+    except OSError:
+        pass
+    # 1. Kill the prior supervisor recorded in the lockfile (pid-reuse guarded).
+    try:
+        old = int(_LOCKFILE.read_text(encoding="utf-8").strip())
+        if old not in keep and _tasklist_image(old) in ("python.exe", "pythonw.exe"):
+            _kill_pid(old)
+            log(f"singleton: killed prior supervisor pid={old}")
+    except Exception:
+        pass
+    # 2. Free the port: kill any process still LISTENING on it (stale/dup worker).
+    #    This is the authoritative dedup -- the port is the real shared resource.
+    for pid in _pids_listening_on(port):
+        if pid in keep:
+            continue
+        if _tasklist_image(pid) in ("python.exe", "pythonw.exe"):
+            _kill_pid(pid)
+            log(f"singleton: killed stale port-{port} holder pid={pid}")
+    # 3. Record ourselves as the live supervisor for the next launch to reconcile.
+    try:
+        _LOCKFILE.write_text(str(own), encoding="utf-8")
+    except OSError:
+        pass
+
+
 def main() -> int:
+    _enforce_singleton()
     p = argparse.ArgumentParser()
     p.add_argument("--host", default="0.0.0.0")
     p.add_argument("--port", default="8765")

@@ -117,3 +117,6 @@ data/substrate_director_kb_*.staging.*
 data/substrate_director_kb_*.old.*
 data/director_kb_continuous.lock
 data/director_kb_continuous.log
+
+# dashboard supervisor singleton runtime pid-file (testbed 2026-07-04)
+tools/dashboard/supervisor.pid

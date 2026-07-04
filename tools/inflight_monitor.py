@@ -47,6 +47,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -54,6 +55,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+
+# Direct-launched local experiment scanner (queue-bypassing agent runs). Imported
+# so this monitor sees the priority experiment even when the dashboard is DOWN --
+# the exact case (supervisor death) where you most need to know what's training.
+_TOOLS_DIR = str(Path(__file__).resolve().parent)
+if _TOOLS_DIR not in sys.path:
+    sys.path.insert(0, _TOOLS_DIR)
+try:
+    from local_exp_scan import scan_local_experiments
+except Exception:  # pragma: no cover - fail-open
+    def scan_local_experiments() -> list[dict]:
+        return []
 DATA = REPO / "data"
 CACHE = DATA / "remote_state_cache.json"
 LOCAL_CPU_QUEUE = DATA / "local_cpu_queue" / "queue.json"
@@ -146,6 +159,14 @@ def _queue_running_pending(entries: list[dict]) -> tuple[list[str], list[str], l
 def build_state() -> dict:
     now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
     alerts: list[dict] = []
+
+    # --- Local direct-launched experiments (queue-bypassing agent subprocesses) ---
+    # Own popup-free WMIC scan (not via the dashboard) so these stay visible even
+    # when the dashboard/supervisor is dead -- the recurring silent-death case.
+    try:
+        local_experiments = scan_local_experiments()
+    except Exception:
+        local_experiments = []
 
     # --- Dashboard live view (GPU truth + feed freshness) ---
     health = _http_json("/api/health")
@@ -253,6 +274,7 @@ def build_state() -> dict:
         },
         "queues": queues,
         "runners": runners,
+        "local_experiments": local_experiments,
         "alerts": alerts,
         "alert_codes": sorted({a["code"] for a in alerts}),
     }
@@ -306,6 +328,17 @@ def render_human(st: dict) -> str:
     elif g["current"]:
         L.append(f"  running (queue): {g['current']}")
     L.append("")
+    # Local direct-launched experiments (queue-bypassing agent subprocesses)
+    lx = st.get("local_experiments") or []
+    if lx:
+        L.append("LOCAL EXPERIMENTS (direct subprocess, off-queue):")
+        for e in lx:
+            args = e.get("args") or {}
+            atxt = " ".join(f"{k}={v}" for k, v in args.items())
+            L.append(f"  {e.get('name')}  pid={e.get('pid')} "
+                     f"elapsed={_fmt_dur(e.get('elapsed_s'))} "
+                     f"mem={int((e.get('mem_kb') or 0) / 1024)}MB {atxt}".rstrip())
+        L.append("")
     # Queues
     L.append("QUEUES:")
     for qname, q in st["queues"].items():
@@ -348,6 +381,18 @@ def render_pane(st: dict) -> str:
         prog = f" · {g['progress_pct']}%" if g.get("progress_pct") is not None else ""
         lines.append(f"- on card: `{g['exp_name']}`{prog} (elapsed {_fmt_dur(g.get('elapsed_s'))})")
     lines.append("")
+    lx = st.get("local_experiments") or []
+    if lx:
+        lines.append("## Local experiments (direct subprocess, off-queue)")
+        lines.append("| cell | pid | elapsed | mem | args |")
+        lines.append("|---|---|---|---|---|")
+        for e in lx:
+            args = e.get("args") or {}
+            atxt = " ".join(f"{k}={v}" for k, v in args.items()) or "-"
+            lines.append(f"| `{e.get('name')}` | {e.get('pid')} | "
+                         f"{_fmt_dur(e.get('elapsed_s'))} | "
+                         f"{int((e.get('mem_kb') or 0) / 1024)}MB | {atxt} |")
+        lines.append("")
     lines.append("## Queues")
     lines.append("| queue | running | pending |")
     lines.append("|---|---|---|")

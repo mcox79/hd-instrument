@@ -18,6 +18,20 @@ from typing import Any
 import parsers
 from ssh_client import ReadOnlySSH
 
+# Local substrate-experiment subprocess scanner lives in tools/ (parent dir).
+# Surfaces direct agent-launched python runs that BYPASS the queue (the R1
+# encoder / Part B sweep case) so the dashboard isn't blind to the priority
+# experiment while it trains. Fail-open: a bad import must never kill the poller.
+import sys as _sys
+_TOOLS_DIR = str(Path(__file__).resolve().parent.parent)
+if _TOOLS_DIR not in _sys.path:
+    _sys.path.insert(0, _TOOLS_DIR)
+try:
+    from local_exp_scan import scan_local_experiments
+except Exception:  # pragma: no cover - defensive
+    def scan_local_experiments() -> list[dict]:
+        return []
+
 
 QUEUES: list[tuple[str, str]] = [
     ("gpu", r"C:\dev\hd-instrument\data\overnight_queue"),
@@ -636,12 +650,25 @@ class Poller:
                     logical_procs_ts = cache_doc.get("snapshot_ts", "")
         except Exception:
             pass
+        # LOCAL direct-launched experiment subprocesses (queue-bypassing agent runs
+        # on THIS laptop -- the remote emitter's logical_processes covers only the
+        # remote box, so without this the dashboard reads "all idle" while R1 /
+        # Part B train locally). Popup-free WMIC scan; fail-open on any error.
+        try:
+            local_exps = scan_local_experiments()
+        except Exception:
+            local_exps = []
+        logical_procs = list(logical_procs) + list(local_exps)
         system["logical_processes"] = logical_procs
         system["logical_processes_ts"] = logical_procs_ts
         # Summary counts for quick rendering
         system["logical_runner_count"] = sum(1 for p in logical_procs if p.get("type") == "runner")
         system["logical_emitter_count"] = sum(1 for p in logical_procs if p.get("type") == "emitter")
-        system["logical_experiment_count"] = sum(1 for p in logical_procs if p.get("type") == "experiment_child")
+        system["local_experiment_count"] = len(local_exps)
+        # experiment count = remote runner-children + local direct runs (both are
+        # active substrate training work the Director must see as RUNNING).
+        system["logical_experiment_count"] = sum(
+            1 for p in logical_procs if p.get("type") in ("experiment_child", "experiment"))
 
         # Cross-reference with active runner PIDs to surface orphan GPU contexts.
         active_runner_pids: set[int] = set()

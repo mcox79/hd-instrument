@@ -1434,7 +1434,79 @@ def evaluate_duplicate_watchdog() -> dict[str, Any] | None:
         return None
 
 
+def _enforce_singleton() -> None:
+    """Kill any OTHER live heartbeat_watchdog.py interpreter so exactly one runs.
+
+    The canonical task hd_orchestrator_watchdog launches this daemon DIRECTLY via
+    pythonw (the proven-survives pattern used by hd_landing_notifier /
+    hd_session_watchdog). The old comment claimed a PID-file lock existed, but none
+    was ever implemented -- the daemon only DETECTED duplicates (an event), never
+    prevented them, so a stale instance surviving a prior trigger/boot plus a new
+    launch accumulated into the duplicate the USER kept hitting. On startup we take
+    over: kill every OTHER real interpreter whose cmdline contains
+    heartbeat_watchdog (venv shims are <10MB and excluded), keeping our own pid.
+    Fresh code wins; exactly one daemon remains. Fail-open on any error.
+    """
+    if sys.platform != "win32":
+        return
+    own_pid = os.getpid()
+    # Use /format:csv (NOT /format:list): wmic's list output uses \r\r\n line
+    # endings, so a blank-line block parser splits every property into its own
+    # phantom block -> ProcessId reads as None and NOTHING is ever killed. That
+    # same latent bug silently defeats evaluate_duplicate_watchdog. The csv +
+    # right-anchored parse below is the proven-reliable path (see local_exp_scan).
+    try:
+        out = subprocess.run(
+            ["wmic", "process",
+             "where", "name='python.exe' or name='pythonw.exe'",
+             "get", "CommandLine,ProcessId,WorkingSetSize", "/format:csv"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=15, creationflags=_CREATE_NO_WINDOW,
+        ).stdout
+    except Exception:
+        return
+    rows = [ln.strip() for ln in out.splitlines() if ln.strip()]
+    if len(rows) < 2:
+        return
+    header = [h.strip().lower() for h in rows[0].split(",")]
+    try:
+        cmd_i = header.index("commandline")
+    except ValueError:
+        return
+    n_trail = len(header) - (cmd_i + 1)  # comma-free cols after CommandLine
+    trail_names = header[cmd_i + 1:]
+    for row in rows[1:]:
+        parts = row.split(",")
+        if len(parts) < cmd_i + 1 + n_trail:
+            continue
+        trailing = parts[-n_trail:] if n_trail else []
+        cmd = ",".join(parts[cmd_i:len(parts) - n_trail])
+        if "heartbeat_watchdog" not in cmd:
+            continue
+        field = dict(zip(trail_names, [t.strip() for t in trailing]))
+        try:
+            wss = int(field.get("workingsetsize", "0") or 0)
+        except ValueError:
+            wss = 0
+        if wss < SHIM_MEMORY_THRESHOLD_BYTES:
+            continue  # venv shim launcher, not a real interpreter
+        try:
+            pid = int(field.get("processid", ""))
+        except ValueError:
+            continue
+        if pid == own_pid:
+            continue
+        try:
+            subprocess.run(["taskkill", "/F", "/PID", str(pid)],
+                           capture_output=True, timeout=5,
+                           creationflags=_CREATE_NO_WINDOW)
+            emit("singleton_killed_stale", {"killed_pid": pid, "own_pid": own_pid})
+        except Exception:
+            pass
+
+
 def main() -> None:
+    _enforce_singleton()
     emit(
         "ready",
         {
