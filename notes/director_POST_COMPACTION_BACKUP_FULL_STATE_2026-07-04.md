@@ -116,15 +116,18 @@ queue_add.sh auto-SCP — Testbed durable-fix candidate.)
 
 ---
 
-## IN-FLIGHT (as of ~2026-07-04 16:30Z; agent IDs are THIS session)
+## IN-FLIGHT (post session-restart ~2026-07-04 ~18:00Z; agent IDs are THIS session)
 
 | agent | doing |
 |---|---|
-| R1 run (pid 29376) | encoder global-objective MID validation; GLOBAL arm DONE, in_batch baseline at ~1400/1800 -> full metrics.json ~10-12 min out |
-| exp_dev (a00368) | R1 EARLY-READ: DENSE+BLOCK spearman off the finished global-arm checkpoint (beats the full run) |
-| testbed (a0fb47) | local GUI monitor (`tools/dash_gui.py`, commit `6d536b154`) -- adding direct nvidia-smi SSH GPU fallback (kill the last web-dashboard dependency) + 3 Director presentation optimizations (progress/phase on local experiments; GPU ours-vs-BOINC disambiguation; short anchor names). Director launches on its return. |
+| orchestrator (a960d6) | dispatching the v3b batch-sweep cell (commit `20b4c6fbb`) to the FREE remote GPU via `queue_add.sh` (SCP, no origin push); SH-2 SCP-verify cell + `_seed_checkpoint.py`; arm landing monitor. **THE decisive encoder run.** |
+| exp_dev (a56336) | cross-checkpoint retrieval-compatibility probe (reuse saved R1 checkpoints; continual-learning Q; HARD-FAIL <50%). Local, light. |
+| research (ab6b80) | RANK the encoder 0.52->0.85 levers (landmark-selection / objective KL-vs-MSE / student-capacity / schedule) -> ordered fallback ladder + single top bet. |
+| testbed (a0fb47) | hard-bound `build_state()`/inflight_monitor (>2min hang after restart -- likely SSH fallback or dead-feed socket w/o timeout); protects Director tool + GUI refresh. |
 
-**probe_18 (phase-diagram) LANDED** 3-seed FULL all HARD_PASS (see SECONDARY section); MM_STANDARD filed. No longer in flight.
+**DONE this session:** R1 paired verdict recovered (underpowered, not a real negative -- see LATEST STATE); BOINC killed (GPU free); local GUI built+launched (`dash_gui.py` commit `7a5ff16f1`); v3b decisive cell built+smoked+committed (`20b4c6fbb`, HARD_PASS). **probe_18** LANDED 3-seed HARD_PASS (MM_STANDARD filed).
+
+**DISPATCH FACT (current setup):** remote GPU/CPU dispatch via `tools/orchestrator/queue_add.sh` is SCP-based -- it SCPs the cell+prereg+siblings to marsh@home and the runner executes the SCP'd file, so a LOCAL commit is sufficient and NO origin/main push is needed (sidesteps the harness default-branch-push gate). `dispatch_request.sh` is the OTHER path that DOES require origin/main. See memory `reference_remote_dispatch_queue_add_is_scp_based_no_origin_push_needed_2026-07-04`.
 
 ---
 
