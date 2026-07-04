@@ -374,7 +374,23 @@ def health():
 @app.get("/api/system")
 def system():
     snap = app.state.poller.get_snapshot()
-    return snap.get("system", {})
+    sysd = dict(snap.get("system", {}))
+    # Expose GPU-util + poll freshness DIRECTLY on /api/system (testbed 2026-07-04).
+    # These live natively on /api/health (last_poll_ok) and /api/runs (_feed), so a
+    # checker greping /api/system for gpu_util/last_poll_ok/poll_age_s saw BLANK even
+    # with a fully-live poller -- a false "poller dead" reading. Alias them here so
+    # the verification surface is unambiguous. Populated => poller is live.
+    try:
+        h = app.state.poller.health() or {}
+        lpo = h.get("last_poll_ok")
+        age = _runs_feed_age_s(lpo)
+        sysd.setdefault("gpu_util", sysd.get("util_pct"))
+        sysd["last_poll_ok"] = lpo
+        sysd["poll_age_s"] = round(age, 1) if age is not None else None
+        sysd["poll_count"] = h.get("poll_count")
+    except Exception:
+        pass
+    return sysd
 
 
 # --- GPU-reality + feed-staleness reconciliation (testbed 2026-07-04) ---------
