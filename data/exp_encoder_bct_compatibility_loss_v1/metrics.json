@@ -7,7 +7,7 @@
   "bct_weight": 0.15,
   "steps": 1200,
   "batch": 256,
-  "ckpt_a_path": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v1b_v3global_mid\\_ckpt_block_global.pt",
+  "ckpt_a_path": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v1b_v3global_mid\\_ckpt_block_global.pt",
   "ckpt_a_step": 1800,
   "teacher_cache": "bge_large_v2_name_43905_8a40445a.npz",
   "per_unit": [
@@ -23,7 +23,7 @@
     },
     {
       "unit": "SAME_B_NO_BCT_BLOCK",
-      "top1_retrieval": 1.0,
+      "top1_retrieval": 0.999,
       "n": 1000
     },
     {
@@ -38,7 +38,7 @@
     },
     {
       "unit": "CROSS_AIDX_BQUERY_NO_BCT_DENSE",
-      "top1_retrieval": 0.002,
+      "top1_retrieval": 0.0,
       "n": 1000
     },
     {
@@ -53,12 +53,12 @@
     },
     {
       "unit": "CROSS_AIDX_BQUERY_WITH_BCT_BLOCK",
-      "top1_retrieval": 0.891,
+      "top1_retrieval": 0.887,
       "n": 1000
     },
     {
       "unit": "CROSS_AIDX_BQUERY_WITH_BCT_DENSE",
-      "top1_retrieval": 0.996,
+      "top1_retrieval": 0.998,
       "n": 1000
     },
     {
@@ -73,28 +73,28 @@
     },
     {
       "unit": "SEMANTIC_SPEARMAN_NO_BCT_DENSE",
-      "spearman": 0.7126949576130638,
+      "spearman": 0.8282158400220667,
       "n_probe": 1000
     },
     {
       "unit": "SEMANTIC_SPEARMAN_WITH_BCT_DENSE",
-      "spearman": 0.70455647270534,
+      "spearman": 0.692550782864785,
       "n_probe": 1000
     }
   ],
   "ratios": {
     "NO_BCT_block": 0.0,
-    "NO_BCT_dense": 0.002,
-    "WITH_BCT_block": 0.891,
-    "WITH_BCT_dense": 0.996
+    "NO_BCT_dense": 0.0,
+    "WITH_BCT_block": 0.887,
+    "WITH_BCT_dense": 0.998
   },
   "min_ratio_no_bct": 0.0,
-  "min_ratio_with_bct": 0.891,
+  "min_ratio_with_bct": 0.887,
   "semantic_spearman": {
-    "NO_BCT": 0.7126949576130638,
-    "WITH_BCT": 0.70455647270534
+    "NO_BCT": 0.8282158400220667,
+    "WITH_BCT": 0.692550782864785
   },
-  "quality_retention_with_bct": 0.9885806896473901,
+  "quality_retention_with_bct": 0.8361960124384157,
   "hard_pass_ratio_threshold": 0.5,
   "baseline_must_collapse_ceiling": 0.5,
   "quality_retention_hard_pass": 0.8,
@@ -102,9 +102,9 @@
   "train_diag_no_bct": {
     "arm": "NO_BCT",
     "bct_weight": 0.0,
-    "loss_last": 0.0014903420815244317,
-    "rkd_last": 0.0014903420815244317,
-    "bct_last": 1.0010886192321777,
+    "loss_last": 0.0015892578521743417,
+    "rkd_last": 0.0015892578521743417,
+    "bct_last": 1.008162260055542,
     "lr_last": 2.6772991517654e-09,
     "steps": 1200,
     "batch": 256
@@ -112,9 +112,9 @@
   "train_diag_with_bct": {
     "arm": "WITH_BCT",
     "bct_weight": 0.15,
-    "loss_last": 0.016574032604694366,
-    "rkd_last": 0.0032382889185100794,
-    "bct_last": 0.08890494704246521,
+    "loss_last": 0.016693996265530586,
+    "rkd_last": 0.00322050997056067,
+    "bct_last": 0.08982323855161667,
     "lr_last": 2.6772991517654e-09,
     "steps": 1200,
     "batch": 256
@@ -125,14 +125,14 @@
   "arm_digests": {
     "A_block": "2f79425857fb4ec7efbeadb87e1dd1e63cc5fc6a2ff89dda09fc8117fe5a6fc4",
     "A_dense": "c391d55bc251ec511798688522e1e4f1b0478c469e89cc373bc49baf4ede5c72",
-    "B_block_NO_BCT": "d0f7b769edd412962c1468c1253d6749299048d154dfcebfca41ba781dab8bab",
-    "B_block_WITH_BCT": "3fe093cba4d5bb297285e28e4ddc561e41937402d18d894c2ac8bfd130b77beb",
-    "B_dense_NO_BCT": "9e22cc70ed175cb2128532b8d39a6c40e8f8d9976321a295a38761708f37efac",
-    "B_dense_WITH_BCT": "49567a52d1065b7a68bf25f5971786066a44435810f3387d83dd64cef6604dcb"
+    "B_block_NO_BCT": "61d5705f1ff6f91b795798d870c62f312f29f54ceaee4cad602e2e78dd41f1a0",
+    "B_block_WITH_BCT": "553897b6e4eb606162a1c0b8078db83691ee607d43b28df2340eae722b224052",
+    "B_dense_NO_BCT": "94f17f1b9a89d90fe2e20e99d8958f90e0f8f5ee8007588ebaad412d05687d27",
+    "B_dense_WITH_BCT": "15667d766fe76605318286712c0b1fb9a39d288fb1d0bec13a277fbd9636b0be"
   },
   "verdict": "HARD_PASS",
-  "verdict_msg": "BCT loss restores cross-version retrieval from collapse (NO_BCT min_ratio=0.0000) to usable (WITH_BCT min_ratio=0.8910 >= 0.5) while retaining 98.9% of NO_BCT's held-out semantic quality [min_ratio_no=0.0000 min_ratio_with=0.8910 quality_no=0.7127 quality_with=0.7046 retention=0.9886]",
-  "summary": "BCT loss restores cross-version retrieval from collapse (NO_BCT min_ratio=0.0000) to usable (WITH_BCT min_ratio=0.8910 >= 0.5) while retaining 98.9% of NO_BCT's held-out semantic quality [min_ratio_no=0.0000 min_ratio_with=0.8910 quality_no=0.7127 quality_with=0.7046 retention=0.9886]",
-  "elapsed_s": 421.6781157000223,
-  "ts_iso": "2026-07-04T18:19:59.624137+00:00"
+  "verdict_msg": "BCT loss restores cross-version retrieval from collapse (NO_BCT min_ratio=0.0000) to usable (WITH_BCT min_ratio=0.8870 >= 0.5) while retaining 83.6% of NO_BCT's held-out semantic quality [min_ratio_no=0.0000 min_ratio_with=0.8870 quality_no=0.8282 quality_with=0.6926 retention=0.8362]",
+  "summary": "BCT loss restores cross-version retrieval from collapse (NO_BCT min_ratio=0.0000) to usable (WITH_BCT min_ratio=0.8870 >= 0.5) while retaining 83.6% of NO_BCT's held-out semantic quality [min_ratio_no=0.0000 min_ratio_with=0.8870 quality_no=0.8282 quality_with=0.6926 retention=0.8362]",
+  "elapsed_s": 211.59134220000124,
+  "ts_iso": "2026-07-04T18:25:33.189868+00:00"
 }
