@@ -163,6 +163,14 @@ class _AtomRecord:
     row_idx: int = -1
     # Phase 2 per-atom graduation flag (SHADOW default; hand-promoted).
     enforcement_mode: str = "SHADOW"
+    # Phase 2 multi-atom conflict resolution (Skunkworks VET Rec #2, 2026-07-04):
+    # per-op_class recommendation priority in [0, 1]. Used as an additive
+    # boost to raw cosine when ranking within an op_class-tag-filtered
+    # candidate set (see AtomConsultant._PRIORITY_ALPHA). Missing key ->
+    # priority 0.0 (neutral). Boost applies ONLY to candidates that already
+    # cleared the raw-cosine RELEVANCE_FLOOR (priority never PROMOTES a
+    # sub-floor atom into ranking; only re-orders ABOVE-floor candidates).
+    recommendation_priority: Dict[str, float] = field(default_factory=dict)
 
 
 # --------------------------- Enforcement decision log -----------------------
@@ -248,6 +256,21 @@ def _default_curated_atoms() -> List[_AtomRecord]:
     the strict-subset tag-filter has non-trivial work to do (proves tag-filter
     isn't a no-op).
     """
+    # Phase 2 multi-atom conflict resolution priorities (Skunkworks VET Rec #2,
+    # 2026-07-04, LOCKED in prereg 2026-07-04_exp_cortex_2_phase_2_multiatom_
+    # conflict_v1.md BEFORE running; NOT tunable post-outcome):
+    #   SHARDED: {COMPOSITION: 0.5}   -- baseline priority for composition
+    #                                    storage-strategy law
+    #   BUNDLED_bimodal: {CAPACITY: 0.5}
+    #   SCALE_FREE: {COMPOSITION: 1.0, CAPACITY: 0.5}  -- SCALE_FREE outranks
+    #                                    SHARDED on COMPOSITION when raw cosine
+    #                                    is close (case3 SCALE_FREE structural
+    #                                    retrieval); no effect on case1 where
+    #                                    SCALE_FREE stays below RELEVANCE_FLOOR
+    #   axis_aliasing:  {FRAMING: 0.5}
+    #   cross_term:     {VERIFY: 0.5}
+    #   sigma0_gate:    {RETRIEVAL: 0.5}
+    #   unbind_sqrtN:   {RETRIEVAL: 0.5}
     return [
         _AtomRecord(
             atom_id="STORAGE_STRATEGY_SHARDED_MASTER_MODERATOR_v1",
@@ -259,6 +282,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "when K exceeds 0.138 times N (Amit-Gutfreund wall); use "
                 "SHARDED for any COMPOSITION operation"),
             recommendation="SHARDED",
+            recommendation_priority={"COMPOSITION": 0.5},
         ),
         _AtomRecord(
             atom_id="BUNDLED_first_order_phase_transition_no_midband_v1",
@@ -270,6 +294,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "no mid-band possible; capacity crosses the wall as step "
                 "function not smooth degradation"),
             recommendation="NO_MID_BAND",
+            recommendation_priority={"CAPACITY": 0.5},
         ),
         _AtomRecord(
             atom_id="SCALE_FREE_law_hippo_v1",
@@ -280,6 +305,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "hippo M-scale-free: cleanup accuracy invariant across N "
                 "when M/N ratio held fixed; scale-free composition primitive"),
             recommendation="SCALE_FREE",
+            recommendation_priority={"COMPOSITION": 1.0, "CAPACITY": 0.5},
         ),
         _AtomRecord(
             atom_id="axis_aliasing_TOPOLOGY_vs_ALGEBRA_Fix28_v1",
@@ -291,6 +317,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "ALGEBRAIC composition depth is aliasing; frame as ALGEBRA "
                 "not TOPOLOGY when depth is the varying dimension"),
             recommendation="ALGEBRA",
+            recommendation_priority={"FRAMING": 0.5},
         ),
         _AtomRecord(
             atom_id="cross_term_both_arms_in_band_META_v1",
@@ -302,6 +329,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "measurable band 0.05 to 0.95; single-arm-saturated is "
                 "vacuous null; verify both arms in-band before trusting"),
             recommendation="BOTH_ARMS_IN_BAND",
+            recommendation_priority={"VERIFY": 0.5},
         ),
         # Distractors tagged to RETRIEVAL only -- exercise strict-subset filter.
         _AtomRecord(
@@ -314,6 +342,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "as first gate before mechanism claims fire; retrieval "
                 "integrity precondition"),
             recommendation="SIGMA0_GATE",
+            recommendation_priority={"RETRIEVAL": 0.5},
         ),
         _AtomRecord(
             atom_id="unbind_noise_tolerance_scales_sqrtN_v1",
@@ -324,6 +353,7 @@ def _default_curated_atoms() -> List[_AtomRecord]:
                 "unbind + cleanup noise tolerance scales as sqrt(N); noise "
                 "sigma target should scale with N^0.5 to hold discriminator"),
             recommendation="SIGMA_SCALES_SQRT_N",
+            recommendation_priority={"RETRIEVAL": 0.5},
         ),
     ]
 
@@ -348,6 +378,18 @@ class AtomConsultant:
     # returned as None). Empirically calibrated to reject uncorrelated noise
     # in char-trigram cosine at N=1024 (unrelated strings ~ 0.05-0.15).
     _RELEVANCE_FLOOR = 0.20
+
+    # Phase 2 multi-atom conflict resolution (Skunkworks VET Rec #2, 2026-07-04):
+    # priority boost weight in `rerank_score = cosine + _PRIORITY_ALPHA *
+    # atom.recommendation_priority[op_class]`. Locked at 0.10 in prereg
+    # 2026-07-04_exp_cortex_2_phase_2_multiatom_conflict_v1.md.
+    # Calibration: case1 SHARDED vs SCALE_FREE raw cosine gap is ~0.27 (SHARDED
+    # 0.40, SCALE_FREE 0.13 below floor); case3 SCALE_FREE vs SHARDED raw cosine
+    # gap is ~0.03 (SCALE_FREE 0.26, SHARDED 0.23). With SHARDED priority=0.5
+    # and SCALE_FREE priority=1.0 on COMPOSITION, alpha=0.10 shifts case3 gap
+    # to ~0.08 (robust SCALE_FREE) while case1 is untouched (SCALE_FREE raw
+    # cosine stays below RELEVANCE_FLOOR; priority never promotes sub-floor).
+    _PRIORITY_ALPHA = 0.10
 
     def __init__(self, atoms: Optional[List[_AtomRecord]] = None) -> None:
         self._atoms: List[_AtomRecord] = list(
@@ -432,23 +474,38 @@ class AtomConsultant:
         sub_matrix = self._tag_vecs[candidate_rows]  # (n_scanned, n_dim)
         sims = sub_matrix @ q  # (n_scanned,)
 
-        # Top-k above relevance floor.
-        order = np.argsort(-sims)
+        # Phase 2 multi-atom conflict resolution (Skunkworks VET Rec #2):
+        # two-stage ranking. Stage 1: filter to above-RELEVANCE_FLOOR
+        # candidates on RAW cosine (priority never promotes sub-floor). Stage
+        # 2: rerank above-floor candidates by (cos + _PRIORITY_ALPHA *
+        # priority[op_class]) descending. matched_atoms.relevance_cosine
+        # continues to expose the RAW cosine (audit-transparent); priority
+        # boost is an internal ranking signal only.
+        above_floor_idx = np.where(sims >= self._RELEVANCE_FLOOR)[0]
         matches: List[AtomMatch] = []
-        for pos in order[:k]:
-            cos = float(sims[pos])
-            if cos < self._RELEVANCE_FLOOR:
-                break
-            row = candidate_rows[pos]
-            a = self._atoms[row]
-            matches.append(AtomMatch(
-                atom_id=a.atom_id,
-                tier=a.tier,
-                source_signature=a.source_signature,
-                relevance_cosine=cos,
-                constraint_text=a.constraint_text,
-                recommendation=a.recommendation,
-            ))
+        if len(above_floor_idx) > 0:
+            priorities = np.zeros(len(above_floor_idx), dtype=np.float32)
+            for i_af, pos in enumerate(above_floor_idx):
+                row = candidate_rows[int(pos)]
+                priorities[i_af] = float(self._atoms[row]
+                                         .recommendation_priority.get(
+                                             operation_class, 0.0))
+            rerank_scores = sims[above_floor_idx] + (
+                self._PRIORITY_ALPHA * priorities)
+            order_in_af = np.argsort(-rerank_scores)
+            for pos_in_af in order_in_af[:k]:
+                orig_pos = int(above_floor_idx[int(pos_in_af)])
+                cos = float(sims[orig_pos])  # RAW cosine reported
+                row = candidate_rows[orig_pos]
+                a = self._atoms[row]
+                matches.append(AtomMatch(
+                    atom_id=a.atom_id,
+                    tier=a.tier,
+                    source_signature=a.source_signature,
+                    relevance_cosine=cos,
+                    constraint_text=a.constraint_text,
+                    recommendation=a.recommendation,
+                ))
         top_rec = matches[0].recommendation if matches else None
         wall_ms = (time.perf_counter() - t0) * 1000.0
         return ConsultationResult(
@@ -814,6 +871,76 @@ def _selftest_enforcement_decision_logger_appends_and_flushes() -> None:
             raise AssertionError("decision_id collision in logger flush")
 
 
+# ----------------- Phase 2 multi-atom conflict selftests --------------------
+
+
+def _selftest_case3_scale_free_promoted_over_sharded() -> None:
+    """Case 3: COMPOSITION with SCALE_FREE cue retrieves SCALE_FREE atom.
+
+    Priority tie-break moves SCALE_FREE (priority=1.0 on COMPOSITION) above
+    SHARDED (priority=0.5 on COMPOSITION) when their raw cosines are close
+    (measured gap ~0.03 in favor of SCALE_FREE). Verifies the case3 revival:
+    SCALE_FREE stably wins case3 without depending on the 0.03 cosine margin
+    that could flip under param variation."""
+    ac = AtomConsultant()
+    r = ac.consult("COMPOSITION",
+                   params={"N": 512, "M_over_N": 5.0},
+                   query_hint="scale free hippo composition M over N invariant")
+    if r.recommendation != "SCALE_FREE":
+        raise AssertionError(
+            f"case 3 expected recommendation SCALE_FREE; got {r.recommendation!r} "
+            f"(top match: "
+            f"{r.matched_atoms[0].atom_id if r.matched_atoms else 'NONE'})")
+
+
+def _selftest_case1_sharded_preserved_under_priority() -> None:
+    """Case 1: SHARDED still wins under priority (large cosine gap dominates).
+
+    SHARDED raw cosine ~0.40, SCALE_FREE raw cosine ~0.13 (below floor).
+    Priority never promotes sub-floor; SHARDED holds regardless of alpha."""
+    ac = AtomConsultant()
+    r = ac.consult("COMPOSITION",
+                   params={"storage": "BUNDLED", "N": 1024, "M": 6400,
+                           "corr": 0.85})
+    if r.recommendation != "SHARDED":
+        raise AssertionError(
+            f"case 1 regressed under priority: expected SHARDED; got "
+            f"{r.recommendation!r} (top match: "
+            f"{r.matched_atoms[0].atom_id if r.matched_atoms else 'NONE'})")
+
+
+def _selftest_priority_never_promotes_subfloor() -> None:
+    """Priority boost must NOT lift a sub-floor cosine into ranking.
+
+    Craft a query with universally low cosine to any atom; verify no
+    matches are returned (priority alone can't overcome RELEVANCE_FLOOR)."""
+    ac = AtomConsultant()
+    r = ac.consult("COMPOSITION", query_hint="zzzz qqqq xxxx unrelated")
+    for m in r.matched_atoms:
+        if m.relevance_cosine < ac._RELEVANCE_FLOOR:
+            raise AssertionError(
+                f"priority promoted sub-floor cosine {m.relevance_cosine:.4f} "
+                f"< floor {ac._RELEVANCE_FLOOR} for atom {m.atom_id!r}")
+
+
+def _selftest_recommendation_priority_dict_populated() -> None:
+    """All curated atoms declare recommendation_priority for their op_classes."""
+    ac = AtomConsultant()
+    for a in ac._atoms:
+        if not a.recommendation_priority:
+            raise AssertionError(
+                f"atom {a.atom_id!r} has empty recommendation_priority dict")
+        for oc in a.op_classes:
+            if oc not in a.recommendation_priority:
+                raise AssertionError(
+                    f"atom {a.atom_id!r} tagged op_class {oc!r} but no "
+                    f"priority declared")
+            p = a.recommendation_priority[oc]
+            if not (0.0 <= p <= 1.0):
+                raise AssertionError(
+                    f"atom {a.atom_id!r} priority[{oc}]={p} out of [0,1]")
+
+
 def _run_all_selftests() -> dict:
     _selftest_op_class_enum_rejects_unknown()
     _selftest_strict_subset_tag_filter()
@@ -830,9 +957,14 @@ def _run_all_selftests() -> dict:
     _selftest_nonce_uniqueness_across_calls()
     _selftest_read_and_ack_nonce_roundtrip()
     _selftest_enforcement_decision_logger_appends_and_flushes()
+    # Phase 2 multi-atom conflict resolution selftests (2026-07-04, Rec #2):
+    _selftest_recommendation_priority_dict_populated()
+    _selftest_case3_scale_free_promoted_over_sharded()
+    _selftest_case1_sharded_preserved_under_priority()
+    _selftest_priority_never_promotes_subfloor()
     return {
         "primitive": "AtomConsultant",
-        "phase": "PHASE_2_APPLY_WITH_NONCE_v1",
+        "phase": "PHASE_2_MULTIATOM_CONFLICT_v1",
         "storage": "NO_STORAGE",
         "op_classes": sorted(VALID_OP_CLASSES),
         "enforcement_modes": sorted(VALID_ENFORCEMENT_MODES),
