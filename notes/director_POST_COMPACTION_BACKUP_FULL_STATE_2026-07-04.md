@@ -4,6 +4,17 @@
 (`director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-03_LATE.md`) is SUPERSEDED — do not use it.**
 Agents are ONLINE (the weekly rate-limit that throttled spawns earlier today has lifted).
 
+## >>> LATEST STATE ~16:00Z (read first) <<<
+
+- **R1 encoder MID validation IN PROGRESS** (pid 29376, local CPU): trains global-objective arm THEN in_batch-baseline arm (2x1800 units) then evals both -> **DENSE-recovery number ~30-40 min out** (does DENSE recover to ~0.8 with the global/landmark objective = objective fix confirmed). THE signal. Do not read the training loss; wait for the eval spearman.
+- **RESEARCH VERDICTS (5 drills done, memos in `notes/research_drill_*_2026-07-04.md`):**
+  - **Sparse-fidelity-frontier (LOAD-BEARING):** ~2%-active is NOT the binding constraint on 0.85. Feasibility is gated on the DENSE OBJECTIVE (R1) reaching ~0.88, NOT the sparsity level (4x-expansion SAE clears 0.85-equiv at 0.78% active). => **focus 100% on R1/the objective; R5 K=256 diagnostic is now LOW priority.** P_deflated 0.55.
+  - **Distillation methods (4 lit-scans):** R1's fixed-teacher-landmark approach VALIDATED on every axis - it IS what SEED/CompRess do (frozen teacher = ZERO drift, the key advantage); landmark-MDS/Nystrom theory says 8k/180k landmarks is likely OVERSAMPLED for global reconstruction (risk = teacher spectral decay, not the L/N ratio); landmark distillation is the LOWEST code-collision risk (proxy losses collapse -> hash collisions; Anti-Collapse Loss confirms); fixed real-item landmarks best for REPRODUCING a teacher's geometry (vs learned proxies = separability). **Fallbacks if R1 falls short: (a) bigger landmark set, (b) k-means/farthest-point landmark SELECTION (not random), (c) KL-distribution objective (CompRess) instead of MSE-RKD, (d) Partial-FC negative-subsample.**
+  - **Teacher-free (R3):** NOT viable now - needs 60-250x corpus density (1.6 -> ~100-400 atoms/entity). D1-now (keep BGE teacher) / R3-later. 2-stage milestone ladder.
+- **USER DIRECTIVE (new, memory-saved):** RUNTIME PHASE-DIAGRAM REGIME-SWITCHING - the substrate can MOVE around the phase diagram during operation (experimentally supported); operate in one optimal regime per operation, shift for others. RELEASES the "one code optimal for everything at once" over-constraint - the encoder need not be globally optimal (semantic-optimal for retrieval, shift for composition). See `feedback_runtime_phase_diagram_regime_switching_per_operation_USER_2026-07-04`.
+- **DASHBOARD FIXED + VERIFIED** (testbed `5b3e6d1b3`): the earlier "dead poller" was a DIRECTOR CHECKER ERROR (grepped `gpu_util` but `/api/system` used `util_pct`; freshness on `/api/health`). Dashboard was live all along; now aliased + verified (gpu 100%, encoder visible, 1 supervisor+1 worker). USER can hard-reload. Durable auto-restart root-cause fixed (broken scheduled-task launch pattern + \r\r\n wmic duplicate-detection no-op bug). ONE elevation-gated follow-up: `schtasks /change /tn hd_dashboard /tr "cmd.exe /c ...dashboard_launcher.bat"` (USER runs once elevated, for reboot-persistence).
+- **RESEARCH-INGESTION (USER q):** we do NOT ingest research into the substrate - deliberately (a) substrate KNOWS NOTHING principle + (b) ingestion quality is gated on the very encoder we're fixing. Once the encoder works, distilling our own research IN is the "substrate as Director-KB dogfood" vision. Research currently lives in notes/ + Director memory.
+
 ---
 
 ## STEP 0 — first actions on pickup
