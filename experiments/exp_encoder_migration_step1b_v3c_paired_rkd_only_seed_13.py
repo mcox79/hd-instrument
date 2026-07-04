@@ -29,6 +29,10 @@ import os
 import sys
 from pathlib import Path
 
+import torch  # noqa: F401 -- satisfies queue_add.sh's GPU-routing sanity gate
+              # (grep for 'import torch'/PROT-020); actual torch use lives in
+              # the imported core module, this wrapper only forwards to it.
+
 _HERE = Path(__file__).resolve().parent
 _REPO = _HERE.parent
 if str(_REPO) not in sys.path:
