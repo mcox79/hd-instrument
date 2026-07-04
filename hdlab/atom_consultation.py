@@ -52,13 +52,21 @@ ASCII-only per feedback_ascii_only_in_scripts.
 """
 from __future__ import annotations
 
+import os
+import secrets
 import time
 from dataclasses import dataclass, field
-from typing import List, Optional
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
 from hdlab.char_trigram_encoder import CharTrigramEncoder
+
+
+# Phase 2 enforcement graduation modes (per-atom flag; OPA/Gatekeeper pattern
+# per research drill 2026-07-04 section 4). Default SHADOW; hand-promoted.
+VALID_ENFORCEMENT_MODES = frozenset({"SHADOW", "WARN", "LIVE"})
 
 
 # Fixed operation-class enum (see research memo section c). Cell-authors
@@ -98,6 +106,10 @@ class AtomMatch:
     relevance_cosine: float
     constraint_text: str
     recommendation: Optional[str] = None
+    # Phase 2 write-nonce (16-byte hex; per drill section 3 Discriminator A).
+    # Fresh per-call; downstream must ack via read_and_ack_nonce() to prove
+    # mechanical read. Empty string in Phase 1 advisory-only consult() calls.
+    nonce: str = ""
 
 
 @dataclass
@@ -124,6 +136,14 @@ class ConsultationResult:
     wall_ms: float
     n_atoms_scanned: int
     n_atoms_total: int
+    # Phase 2 fields (additive; Phase 1 code paths leave these at defaults).
+    applied_flag: str = "SHADOW"         # per-atom effective mode this call
+    null_arm: bool = False               # True for null-arm A/B trials
+    nonce_written: str = ""              # nonce written to target on WARN/LIVE
+    pre_value: Optional[Any] = None      # value in target[param_name] pre-write
+    post_value: Optional[Any] = None     # value written to target[param_name]
+    param_name: Optional[str] = None     # name of target slot written
+    enforcement_wrote: bool = False      # True iff target actually mutated
 
 
 # --------------------------------- consultant -------------------------------
@@ -141,6 +161,78 @@ class _AtomRecord:
     # Per-atom tag-vec (char-trigram encoding of constraint_text + op_classes).
     # Row of the consultant's encoded matrix.
     row_idx: int = -1
+    # Phase 2 per-atom graduation flag (SHADOW default; hand-promoted).
+    enforcement_mode: str = "SHADOW"
+
+
+# --------------------------- Enforcement decision log -----------------------
+
+
+@dataclass
+class EnforcementDecision:
+    """Two-tier record from enforce() (per drill section 4)."""
+    decision_id: str
+    op_class: str
+    atom_id: Optional[str]
+    recommendation: Optional[str]
+    pre_value: Optional[Any]
+    post_value: Optional[Any]
+    enforcement_mode: str
+    nonce: str
+    wall_ms: float
+    ts_iso: str
+    null_arm: bool
+    enforcement_wrote: bool
+    # Rich-tier (populated by downstream ack callback if provided):
+    downstream_nonce_ack: Optional[str] = None
+    downstream_output_snap: Optional[Any] = None
+
+
+class EnforcementDecisionLogger:
+    """JSONL append sink for EnforcementDecisions. Atomic tmp+rename per flush.
+
+    Buffered in memory; flush() writes buffered rows to `out_path` atomically.
+    Cell can call flush() at end of run; individual appends are cheap.
+    """
+
+    def __init__(self, out_path: str) -> None:
+        self._out_path = out_path
+        self._buf: List[dict] = []
+
+    def append(self, decision: EnforcementDecision) -> None:
+        import dataclasses as _dc
+        self._buf.append(_dc.asdict(decision))
+
+    def n_buffered(self) -> int:
+        return len(self._buf)
+
+    def flush(self) -> None:
+        import json as _json
+        if not self._buf:
+            return
+        os.makedirs(os.path.dirname(self._out_path) or ".", exist_ok=True)
+        tmp = self._out_path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            for row in self._buf:
+                f.write(_json.dumps(row, default=str) + "\n")
+        os.replace(tmp, self._out_path)
+
+
+# --------------------------- Downstream nonce ack ---------------------------
+
+
+def read_and_ack_nonce(target: Dict[str, Any],
+                       param_name: str) -> Tuple[Any, str]:
+    """Downstream instrumentation contract: read value + last-written nonce.
+
+    Returns (value, nonce). Nonce empty string if no nonce recorded (i.e.
+    no enforce() ever wrote to this param). Consumer emits `nonce` alongside
+    its output; the audit boundary compares the emitted nonce to the
+    enforcement decision's `nonce_written` to prove mechanical read.
+    """
+    value = target.get(param_name)
+    nonce = target.get(f"{param_name}__nonce", "")
+    return value, nonce
 
 
 def _default_curated_atoms() -> List[_AtomRecord]:
@@ -369,6 +461,126 @@ class AtomConsultant:
             n_atoms_total=len(self._atoms),
         )
 
+    # ----------------------- Phase 2 enforcement ----------------------------
+
+    def set_enforcement_mode(self, atom_id: str, mode: str) -> None:
+        """Promote/demote a single atom's enforcement mode."""
+        if mode not in VALID_ENFORCEMENT_MODES:
+            raise ValueError(
+                f"unknown enforcement_mode {mode!r}; "
+                f"must be one of {sorted(VALID_ENFORCEMENT_MODES)}")
+        for a in self._atoms:
+            if a.atom_id == atom_id:
+                a.enforcement_mode = mode
+                return
+        raise KeyError(f"atom_id {atom_id!r} not in consultant")
+
+    def get_enforcement_mode(self, atom_id: str) -> str:
+        for a in self._atoms:
+            if a.atom_id == atom_id:
+                return a.enforcement_mode
+        raise KeyError(f"atom_id {atom_id!r} not in consultant")
+
+    def enforce(self,
+                operation_class: str,
+                params: Optional[dict],
+                target: Dict[str, Any],
+                param_name: str,
+                *,
+                null_arm: bool = False,
+                query_hint: Optional[str] = None,
+                k: int = 3,
+                logger: Optional[EnforcementDecisionLogger] = None
+                ) -> ConsultationResult:
+        """Phase 2 enforcement wrapper around consult().
+
+        Args:
+            operation_class: one of VALID_OP_CLASSES.
+            params: op params (as in consult()).
+            target: dict-like slot that the enforcement may mutate.
+                target[param_name] = pre_value BEFORE the call; on WARN/LIVE
+                mode of the matched atom, target[param_name] is overwritten
+                to recommendation-derived post_value (or pre_value for
+                null_arm=True) AND target[param_name + '__nonce'] is set to
+                a fresh 16-byte hex nonce.
+            param_name: key to mutate in target.
+            null_arm: if True, post_value = pre_value (identity write) but
+                nonce is still fresh; used for A/B distributional test.
+            query_hint: optional query hint (as in consult()).
+            k: top-k above floor (as in consult()).
+            logger: optional EnforcementDecisionLogger; every call appended.
+
+        Returns:
+            ConsultationResult with Phase 2 fields populated:
+              applied_flag: effective mode (SHADOW/WARN/LIVE)
+              null_arm: passed through
+              nonce_written: nonce (empty if no write)
+              pre_value / post_value / param_name
+              enforcement_wrote: True iff target actually mutated
+        """
+        # Step 1: consult() as in Phase 1 (advisory retrieval).
+        result = self.consult(operation_class, params=params,
+                              query_hint=query_hint, k=k)
+        # Step 2: determine effective enforcement mode from matched top atom.
+        top_match = result.matched_atoms[0] if result.matched_atoms else None
+        if top_match is not None:
+            atom_id = top_match.atom_id
+            mode = self.get_enforcement_mode(atom_id)
+        else:
+            atom_id = None
+            mode = "SHADOW"  # no match -> no write
+
+        # Step 3: apply mode semantics.
+        pre_value = target.get(param_name)
+        nonce_written = ""
+        post_value = pre_value
+        enforcement_wrote = False
+        if mode in {"WARN", "LIVE"} and top_match is not None:
+            nonce_written = secrets.token_hex(16)
+            if null_arm:
+                # Identity write; fresh nonce (per drill section 3
+                # Discriminator B: null-arm control).
+                post_value = pre_value
+            else:
+                post_value = top_match.recommendation
+            target[param_name] = post_value
+            target[f"{param_name}__nonce"] = nonce_written
+            enforcement_wrote = True
+        # (SHADOW: no write; nonce empty; target untouched.)
+
+        # Update the matched atom's nonce field (for downstream ack compare).
+        if top_match is not None:
+            top_match.nonce = nonce_written
+
+        # Step 4: populate Phase 2 fields on the result.
+        result.applied_flag = mode
+        result.null_arm = null_arm
+        result.nonce_written = nonce_written
+        result.pre_value = pre_value
+        result.post_value = post_value
+        result.param_name = param_name
+        result.enforcement_wrote = enforcement_wrote
+
+        # Step 5: log decision if logger provided.
+        if logger is not None:
+            decision = EnforcementDecision(
+                decision_id=secrets.token_hex(16),
+                op_class=operation_class,
+                atom_id=atom_id,
+                recommendation=(top_match.recommendation
+                                if top_match is not None else None),
+                pre_value=pre_value,
+                post_value=post_value,
+                enforcement_mode=mode,
+                nonce=nonce_written,
+                wall_ms=result.wall_ms,
+                ts_iso=datetime.now(timezone.utc).isoformat(),
+                null_arm=null_arm,
+                enforcement_wrote=enforcement_wrote,
+            )
+            logger.append(decision)
+        return result
+
 
 # ------------------------------ formula selftests ---------------------------
 
@@ -474,6 +686,134 @@ def _selftest_applied_always_false_v1() -> None:
                 f"v1 advisory contract violated: applied={r.applied} for {oc}")
 
 
+# ----------------------- Phase 2 selftests ----------------------------------
+
+
+def _selftest_shadow_mode_no_write() -> None:
+    """SHADOW (default): enforce() must NOT write to target."""
+    ac = AtomConsultant()
+    target = {"storage": "BUNDLED"}
+    r = ac.enforce("COMPOSITION",
+                   params={"storage": "BUNDLED", "N": 1024, "M": 6400},
+                   target=target, param_name="storage")
+    if r.applied_flag != "SHADOW":
+        raise AssertionError(
+            f"expected applied_flag=SHADOW; got {r.applied_flag!r}")
+    if r.enforcement_wrote:
+        raise AssertionError("SHADOW mode wrote to target (must not)")
+    if target["storage"] != "BUNDLED":
+        raise AssertionError(
+            f"SHADOW mode mutated target: {target['storage']!r}")
+    if "storage__nonce" in target:
+        raise AssertionError("SHADOW mode wrote a nonce (must not)")
+
+
+def _selftest_warn_mode_writes_value_and_nonce() -> None:
+    """WARN mode: enforce() writes recommendation + fresh nonce to target."""
+    ac = AtomConsultant()
+    ac.set_enforcement_mode("STORAGE_STRATEGY_SHARDED_MASTER_MODERATOR_v1",
+                            "WARN")
+    target = {"storage": "BUNDLED"}
+    r = ac.enforce("COMPOSITION",
+                   params={"storage": "BUNDLED", "N": 1024, "M": 6400},
+                   target=target, param_name="storage")
+    if r.applied_flag != "WARN":
+        raise AssertionError(
+            f"expected applied_flag=WARN; got {r.applied_flag!r}")
+    if not r.enforcement_wrote:
+        raise AssertionError("WARN mode did not write to target")
+    if target["storage"] != "SHARDED":
+        raise AssertionError(
+            f"WARN mode value wrong: {target['storage']!r} != 'SHARDED'")
+    if len(target.get("storage__nonce", "")) != 32:  # 16 bytes hex = 32 chars
+        raise AssertionError(
+            f"WARN mode nonce wrong length: "
+            f"{len(target.get('storage__nonce', ''))!r}")
+
+
+def _selftest_null_arm_writes_identity_with_fresh_nonce() -> None:
+    """Null-arm: post_value == pre_value BUT fresh nonce still written."""
+    ac = AtomConsultant()
+    ac.set_enforcement_mode("STORAGE_STRATEGY_SHARDED_MASTER_MODERATOR_v1",
+                            "WARN")
+    target = {"storage": "BUNDLED"}
+    r = ac.enforce("COMPOSITION",
+                   params={"storage": "BUNDLED", "N": 1024, "M": 6400},
+                   target=target, param_name="storage", null_arm=True)
+    if not r.null_arm:
+        raise AssertionError("null_arm flag not propagated")
+    if not r.enforcement_wrote:
+        raise AssertionError("null-arm should still write (identity + nonce)")
+    if target["storage"] != "BUNDLED":
+        raise AssertionError(
+            f"null-arm should be identity write: {target['storage']!r}")
+    if len(target.get("storage__nonce", "")) != 32:
+        raise AssertionError("null-arm did not write a fresh nonce")
+
+
+def _selftest_nonce_uniqueness_across_calls() -> None:
+    """Nonces must be fresh (16-byte crypto random)."""
+    ac = AtomConsultant()
+    ac.set_enforcement_mode("STORAGE_STRATEGY_SHARDED_MASTER_MODERATOR_v1",
+                            "WARN")
+    nonces = set()
+    for _ in range(50):
+        target = {"storage": "BUNDLED"}
+        r = ac.enforce("COMPOSITION",
+                       params={"storage": "BUNDLED", "N": 1024, "M": 6400},
+                       target=target, param_name="storage")
+        nonces.add(r.nonce_written)
+    if len(nonces) != 50:
+        raise AssertionError(
+            f"nonce collision: {len(nonces)} unique out of 50 calls")
+
+
+def _selftest_read_and_ack_nonce_roundtrip() -> None:
+    """read_and_ack_nonce returns the value + nonce a downstream would ack."""
+    ac = AtomConsultant()
+    ac.set_enforcement_mode("STORAGE_STRATEGY_SHARDED_MASTER_MODERATOR_v1",
+                            "WARN")
+    target = {"storage": "BUNDLED"}
+    r = ac.enforce("COMPOSITION",
+                   params={"storage": "BUNDLED", "N": 1024, "M": 6400},
+                   target=target, param_name="storage")
+    value, nonce_ack = read_and_ack_nonce(target, "storage")
+    if value != "SHARDED":
+        raise AssertionError(f"read value != SHARDED: {value!r}")
+    if nonce_ack != r.nonce_written:
+        raise AssertionError(
+            f"nonce ack mismatch: read={nonce_ack!r} write={r.nonce_written!r}")
+
+
+def _selftest_enforcement_decision_logger_appends_and_flushes() -> None:
+    """Logger buffers decisions and flushes to JSONL atomically."""
+    import json as _json
+    import tempfile
+    ac = AtomConsultant()
+    ac.set_enforcement_mode("STORAGE_STRATEGY_SHARDED_MASTER_MODERATOR_v1",
+                            "WARN")
+    with tempfile.TemporaryDirectory() as td:
+        log_path = os.path.join(td, "decisions.jsonl")
+        logger = EnforcementDecisionLogger(log_path)
+        for i in range(5):
+            target = {"storage": "BUNDLED"}
+            ac.enforce("COMPOSITION",
+                       params={"storage": "BUNDLED", "N": 1024, "M": 6400},
+                       target=target, param_name="storage",
+                       null_arm=(i % 2 == 0), logger=logger)
+        if logger.n_buffered() != 5:
+            raise AssertionError(
+                f"logger buffered {logger.n_buffered()} != 5")
+        logger.flush()
+        rows = [_json.loads(x) for x in open(log_path).read().splitlines()]
+        if len(rows) != 5:
+            raise AssertionError(f"flushed rows != 5: {len(rows)}")
+        # decision_id uniqueness
+        ids = {r["decision_id"] for r in rows}
+        if len(ids) != 5:
+            raise AssertionError("decision_id collision in logger flush")
+
+
 def _run_all_selftests() -> dict:
     _selftest_op_class_enum_rejects_unknown()
     _selftest_strict_subset_tag_filter()
@@ -483,11 +823,19 @@ def _run_all_selftests() -> dict:
     _selftest_case4_framing_axis_aliasing_fires()
     _selftest_case5_verify_cross_term_fires()
     _selftest_applied_always_false_v1()
+    # Phase 2 selftests (added 2026-07-04):
+    _selftest_shadow_mode_no_write()
+    _selftest_warn_mode_writes_value_and_nonce()
+    _selftest_null_arm_writes_identity_with_fresh_nonce()
+    _selftest_nonce_uniqueness_across_calls()
+    _selftest_read_and_ack_nonce_roundtrip()
+    _selftest_enforcement_decision_logger_appends_and_flushes()
     return {
         "primitive": "AtomConsultant",
-        "phase": "ADVISORY_ONLY_v1",
+        "phase": "PHASE_2_APPLY_WITH_NONCE_v1",
         "storage": "NO_STORAGE",
         "op_classes": sorted(VALID_OP_CLASSES),
+        "enforcement_modes": sorted(VALID_ENFORCEMENT_MODES),
         "curated_atoms": AtomConsultant().n_atoms_total(),
         "wall_budget_ms": 5.0,
     }
