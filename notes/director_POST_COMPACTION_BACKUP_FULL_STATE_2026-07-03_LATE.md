@@ -1216,3 +1216,244 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 **USER decisions still pending:**
 1. Tailscale key-expiry disable (5-min admin console action before leaving 2h from home)
 2. Layer 0.5 FULL dispatch decision (was SMOKE-only pre-Tailscale-expiry)
+
+## AMENDMENT (post-100-atoms milestone; ~00:35Z Jul 4)
+
+**SESSION TALLY: math=54, meta=46 = 100 atoms today.** 🎯
+
+**Major landings + atom filings this batch:**
+
+**1. Cortex-2 first probe (task aa3a65d9a961996f1) → Skunkworks VET (ac63eee40ecd0f2d2) → math #54 filed:**
+- Atom: `T3/EXP_cortex2_atom_consultation_smoke_v1_ADVISORY_ONLY_MM_TENTATIVE`
+- Retrieval discriminator HP-clean: match_and_honored=0.80 (above 0.70 floor), 0 silent contradictions, 0 tag_filter_bypass
+- Perf HARD_FAIL_WALL_BUDGET on v1 was OS/JIT cold-start artifact: steady-state calls 25-49 gave p50=0.97ms, p95=2.63ms, max=3.80ms all under budget
+- Case 3 bucket_ii CLEAN: cell-author's ground-truth was wrong (SCALE_FREE correctly outranks SHARDED on lexical); anti-drift discriminator caught it exactly as designed
+- Composition valid REGIME-EXTENSION of Cortex-1 CG atoms (math #51 + #53)
+- **v1.1 warmup-fix fired (task aa88e0ffa287ea517)** — 3 warmup calls before 50 measured; PRE-COMMITTED prediction wall_p95 ≤ 5ms; if PASS, atom #54 gets amendment note
+
+**2. Task-analog v2b (task ae56f372a8c5c6cf6) HARD_FAIL clean:**
+- H3_gap=-0.0333 vs predicted ≥+0.05; gap/SEM=-3.81
+- Round-2 mechanism fires 100% empirically BUT INDIV Round-1 argmax at cos=0.30 also succeeds 100% at M=300 N=8192; cortex 10% retry penalty on CLARIFY unrecoverable
+- Anti-drift honored end-to-end across v1 → v2 → v2b chain (each pre-committed prediction gates locked)
+- Skunkworks landed-VET fired (task a1940529089318a75) to independently verify + decide on honest-negative atom filing
+- Revival criterion locked: NEW task class (M=8192 OR bit-flip P=0.45) not re-tune of this cell
+
+**3. SHARDED-saturation 2x-drill (task a0083d0f878c6e486) → strategic reframing:**
+- Today's P4/P5 SHARDED-saturates-both-axes is NOT vacuous — theoretically-expected below cliff-ratio M/N per Kanerva SDM + Cuckoo hashing per-slot capacity theory
+- Lit-gap identified: no published joint fan-out × dimension regime map for per-slot memory
+- Fired Probe 16 SHARDED-cliff M/N interpolation SMOKE (task a16fbcaa13206a48f) — 12-cell decisive cliff mapping at N=512 F=1 modern_hopfield
+- If HP: `EMPIRICAL_SHARDED_CLIFF_MN_INTERPOLATION_v1_MAPS_CLIFF_SHAPE` candidate + amend `sharded_fhrr_cleanup_capacity_beyond_bundle_bound_v1` scope to "holds for M/N << cliff-ratio"
+
+**4. Encoder Migration Step 2 pre-authoring (task a04bce0a0a5210dc0) COMPLETE:**
+- Cell + prereg + SMOKE HP + SELFTEST_OK at commit `b2cd0a471`
+- SMOKE extrapolation: FULL size ~303 MB (well below 2GB target)
+- Coverage=1.0, round-trip 100/100 bit-identical, query mean=2.5ms max=4.6ms
+- FULL dispatch DEFERRED — waits for Step 1 FULL to land (~5-8h from earlier dispatch)
+
+**5. HUGE BUG SURFACE — root cause of SELFTEST-at-FULL-path found:**
+- Step 2 exp_dev discovered: `experiments/_seed_checkpoint.py` `_selftest_get_output_dir()` at lines ~594, 622 rebinds `_orig_argv` inside NESTED try/finally
+- Outer finally restores sys.argv to NESTED snapshot instead of TRUE caller argv
+- Effect: cells importing `_seed_checkpoint` + using argparse `store_true` flags (`--smoke`, `--self-test`, `--full`) have those flags SILENTLY STRIPPED at module-import time
+- Explains why runner-passed `--run-mode full` was being lost → SELFTEST metrics.json landing at FULL path
+- SendMessage sent to Testbed (task ab266da9f70d2e1e2) with exact location + fix candidates
+- Per-cell workaround: snapshot sys.argv before import, restore after
+
+**6. Cortex-2 strategic pre-drill delivered (task a4ecb40548545edb4 earlier):**
+- Architecture well-precedented (Rete/CLP/Mackworth/PFC-BG/DNC/Self-RAG)
+- Concrete `hdlab/atom_consultation.py` spec
+- Match-and-honored discriminator (0.80 achieved in v1)
+- P_deflated 0.45 validated by SMOKE
+
+**Fix#28 today: 26 recorded + 2 avoided = 28 discipline interactions.**
+
+**Compute lanes running:**
+- Local CPU: Encoder Step 1 FULL (5-8h wall); Cortex-2 v1.1 warmup-fix SMOKE; Probe 16 SHARDED-cliff SMOKE (both quick ~<10min)
+- Remote GPU: 26 regime FULL cells pending on overnight_queue (10-13h wall; first landing ~1200s from dispatch)
+
+## COMPACTION PREP AMENDMENT — 2026-07-04 ~03:00Z UTC (session end state)
+
+**SESSION FINAL TALLY: math=57, meta=47 = 104 atoms today (+16 from 88 at pickup start). Fix#28 discipline ~30 recorded + 2 avoided = ~32 interactions.**
+
+## Atoms filed today (all 16 new)
+
+**Math (5 new since compaction: #52-57):**
+- **#52** — P4 STORAGE×N FULL 2-seed MM_STANDARD REGIME_EXTENSION of STORAGE_column (BUNDLED variation; SHARDED saturated)
+- **#53** — Cortex Phase 3b v2 CG_EXTENSION for m13 NoiseChannel + m16 chunked_attention (5/6 primitives CG)
+- **#54** — Cortex-2 first probe MM_TENTATIVE_ADVISORY (atom-consultation retrieval discriminator 0.80 clean; perf tail=OS/JIT cold-start)
+- **#55** — Task-analog v2b HONEST_NEGATIVE MM_TENTATIVE (INDIV argmax-lucky at SNR 8× structural cap)
+- **#56** — Probe 16 SHARDED-cliff MM_STANDARD (mean cliff_amp=0.907 cv=0.023; fills lit-gap on joint fan-out × dimension × codebook per-slot regime map)
+- **#57** — Task-analog v3 DEFINITIVE_NEGATIVE MM_STANDARD (arc-close; theory-predicted; predict-then-check chain v1/v2/v2b/v3 all HARD_FAIL pre-committed)
+
+**Meta (5 new since compaction: #43-47):**
+- **#43** — META_cross_term_measurement_requires_both_arms_in_band_probe10_v1 MM_STANDARD
+- **#44** — META_axis_labels_map_to_substrate_primitives_not_theoretical_concepts_v1 MM_STANDARD
+- **#45** — META_when_cross_term_bracket_search_exhausts_design_space_file_HONEST_NO_MATCHED_CLIFF_v1 MM_TENTATIVE
+- **#46** — META_orchestrator_full_landing_count_must_be_verified_via_run_mode_full_check_v1 MM_TENTATIVE (Fix#28 hit #25 SH-4 wrapper phantom-SELFTEST)
+- **#47** — META_cortex_refuse_gate_over_rejects_at_high_noise_signal_below_tau MM_STANDARD_TENTATIVE (task-analog v3 substrate-mechanism observation)
+
+## Task-analog arc CLOSED (comprehensive summary — 4 attempts, all HARD_FAIL, all pre-committed predictions)
+
+- **v1** (1ae012b60): synthetic CLARIFY=0 payoff → H3=-0.167 MB; utility-artifact diagnosed
+- **v2** (ac201f6a6eddba76e): CLARIFY=0.65 principled credit; predicted +0.08 to +0.12; actual -0.058 HARD_FAIL
+- **v2b** (7345bbbbe): multi-round empirical DV Round-2 hint reveal; predicted ≥+0.05; actual -0.033 HARD_FAIL → filed HONEST_NEGATIVE atom #55
+- **v3** (7f32677e6): flip=0.45 revival; CLARIFY never fires (cos<REFUSE_TAU); predicted ≥+0.05; actual 0.0000 HARD_FAIL → filed DEFINITIVE_NEGATIVE atom #57 + REFUSE-gate meta atom #47
+- **v4** (4499dedac): LDPC-corridor + soft-evidence Round2 theory-grounded; predicted ≥+0.05; actual **-0.243 HARD_FAIL statistically significant**. Mechanism-mismatch: value-marginalization ≠ theorem's item-level top-K containment; at flip=0.35 argmax succeeds 100% leaving no room for listwise gain. **Chicken-egg problem:** need flip high enough for argmax to fail top-1 (theory prereq) but high flip triggers REFUSE. Skunkworks VET pending (task a47def9f4cb4e1b99) to decide DEFINITIVE_NEGATIVE atom + no-further-revival closure.
+
+**Cortex integration-fidelity CG (math #51/#53) UNCHANGED across all task-analog failures** — composition-fidelity ≠ task-utility. Separate claim classes.
+
+## Research drills delivered today (5 drills)
+
+1. **Concept encoder migration status brief** (task aa251636252392635) — Spoke 1+2 FULL HP landed 2026-07-02; Step 1 training queued and running
+2. **Cortex-2 pre-drill** (task a4ecb40548545edb4) — Architecture well-precedented (Rete/CLP/PFC-BG/DNC/Self-RAG); concrete `hdlab/atom_consultation.py` spec + match-and-honored discriminator
+3. **SHARDED-saturation drill** (task a0083d0f878c6e486) — Kanerva SDM + Cuckoo hashing per-slot theory; today's negatives NOT vacuous; lit-gap flagged → Probe 16 designed
+4. **Multi-round retry theory drill** (task afe09e6a424f68610) — Universal inequality `gap × informativeness ≤ cost`; 7-mode failure ontology; theory-confirmed v2b+v3 negatives
+5. **LDPC-Maxwell drill** (task ab384c5753f1a5a92) — CORRECTED prior drill's flag; Sharp Capacity Thresholds (arxiv 2605.05189) is proper anchor; corridor `n ≲ d² ≲ 2n log n` for listwise dominance; universal inequality is area-theorem dual
+6. **Spatial-coupling analog drill** (task a2c1764a5af901762) — CLEAN NEGATIVE; LDPC threshold saturation intrinsically iterative; no one-shot analog for VSA; do NOT add coupling as Regime Map axis; Skunkworks audit in flight for potential ADD_AXIS discipline meta atom (a9f04a0993fea5312)
+
+## Infrastructure wins today
+
+**SH-4/5 CLOSED AT 6 LAYERS (root cause + defense-in-depth):**
+1. Runner normalization (70c9f6a5d)
+2. Verify tooling fallback (70c9f6a5d)
+3. Wrapper path construction 34 wrappers + unit test (996d35f0c)
+4. Template guard tier [D][E] (e7eece429)
+5. Wave14 legacy 441 cells migration (f495644d6)
+6. **SH-5 caller-discipline defense** (Testbed 8a28cd58b) — root cause of phantom-SELFTEST-at-FULL-path was `get_output_dir` deriving path from `HDLAB_EXP_NAME` alone; ANY caller with `HDLAB_EXP_NAME=<entry>` bare + `--self-test` polluted FULL path. Fix: auto-append `_selftest`/`_smoke` suffix if flag detected. Tier [G] tests all pass.
+
+**Dashboard RESTARTED at 20:42Z UTC** — was down for 2 weeks (supervisor died 2026-06-28T12:00 UTC). Now uvicorn on 8765 LISTENING.
+
+**Testbed self-correction (honest):** the sys.argv shadowing I forwarded from Step 2 exp_dev was a bug Testbed introduced in an intermediate SH-5 T6 draft (renamed to `_t6_saved_argv`). Original pre-SH-5 code didn't touch sys.argv. Real root cause was caller-discipline gap, not sys.argv clobber.
+
+## Cortex arc (v1 + v2 + v2 warmup-fix)
+
+**5-of-6 primitives CG-verified** via `hdlab/cortex.py` facade composition with runtime-trace discriminator:
+- **m13 NoiseChannel — CG** (via v2, sigma=1.0 bipolar 8192-D physics check)
+- **m14 RefuseGate — CG** (via v1 upgrade, runtime-trace behavior-delta)
+- **m15 TwoTierContext — CG** (via v1 upgrade)
+- **m16 chunked_attention — CG** (via v2, beta=0 ablation load-bearing)
+- **m17 RoleSlotSummarizer — CG** (via v1 upgrade)
+- **m18 ClarifyGate — MM_STANDARD** (declared bypass; runtime-trace can't discriminate; documented)
+
+Cortex-2 v1.1 warmup-fix landed HP (wall_p95=2.07ms vs 5ms budget; retrieval preserved). Awaits math #54 amendment note post-runner-landing.
+
+## Encoder migration status
+
+- **Step 1** — FULL running on local_cpu_queue (started ~19:50Z, 5-8h wall, 12h timeout). SMOKE HP verified at 1000 entities; extrapolated 970K works.
+- **Step 2** — Pre-authored + SMOKE HP (extrapolated FULL 303 MB well below 2GB target); waits Step 1 FULL landing to fire Step 2 FULL
+- **Step 3** — Pre-authored with 100-query gold set locked; 10-query SMOKE HP verified; waits Step 1+2 FULL to fire. Flag: 3/10 bag-word gold_names missing (Class 3 memory-rule filenames not ingested as entity_names)
+
+## Regime map arc — 6-pair matrix complete + Probe 16 fills lit-gap
+
+**Matrix (all pairs SMOKE + FULL-attempted):**
+| Pair | SMOKE | FULL status |
+|---|---|---|
+| STORAGE × N | P4 | MM_STANDARD (#52); s7+s13 landed pre-Tailscale; s19 re-dispatched |
+| STORAGE × F | P5, P10 | P5 MB (2-seed); P10 SKIP HONEST_NO_MATCHED_CLIFF |
+| STORAGE × CLEANUP | **P1 CG_META CONFIRMED (from prior sessions)** | |
+| N × F | P9, P9v2 | P9v2 re-dispatched (bracket_verify signal at 3-seed TR=100) |
+| N × CLEANUP | P2, P7v2 | P7v2 re-dispatched |
+| F × CLEANUP | P3, P6v2, P8 | P6v2+P8 re-dispatched (LOAD-BEARING ranking crossover) |
+
+Plus:
+- **Probe 12** L-marginal-effect sweep (REGIME_EXTENSION of atom #3 chain-depth CG_META)
+- **Probe 13** L × CLEANUP cross-term (SMOKE HOLD_PENDING_FULL)
+- **Probe 14** L × F cross-term (SMOKE HOLD_PENDING_FULL; noise-corrected drops interaction 0.20→0.05)
+- **Probe 15** L × M cross-term (SMOKE HOLD_PENDING_FULL; tight 0.07 above 2SE)
+- **Probe 16** SHARDED-cliff M/N interpolation **MM_STANDARD (#56) FULL 3-seed clean** — fills lit-gap
+
+**26 regime FULL cells pending on remote overnight_queue** (Testbed SH-5 fix SCPed to remote for reliable run_mode=full landing).
+
+## USER decisions pending (post-compaction pickup)
+
+1. **Tailscale key-expiry disable** — 5-min admin console action at login.tailscale.com/admin/machines → click `home` → Disable key expiry. Prevents recurrence.
+2. **P4 filing reframe** — math atom #52 was filed as MM_STANDARD REGIME_EXTENSION but Skunkworks flagged opportunity to reframe from "vacuous SHARDED-half" → "theoretically-expected-below-cliff" now that Probe 16 (#56) maps the cliff. Director-owned.
+3. **Layer 0.5 FULL dispatch** — was SMOKE-only pre-Tailscale-expiry. Never dispatched. Awaits Director call.
+4. **Cortex task-analog arc definitively closed?** — v4 Skunkworks VET pending (a47def9f4cb4e1b99). Cell-author diagnoses mechanism-mismatch; chicken-egg on flip choice. Recommended: no further revival attempts unless spatial-coupling probe17 authorized separately.
+5. **Probe 17 spatial-coupling test?** — Research drill P_deflated=0.20 (low); recommendation ONE_PROBE_ONLY (not axis promotion). Skunkworks audit pending.
+
+## Spawn state at compaction (2 in flight)
+
+- Skunkworks spatial-coupling drill audit (a9f04a0993fea5312) — ADD_AXIS discipline meta atom candidate
+- Skunkworks v4 mechanism-mismatch VET (a47def9f4cb4e1b99) — DEFINITIVE_NEGATIVE close-arc decision
+
+## Compute lanes at compaction
+
+- **Local CPU:** Encoder Step 1 FULL still training (started ~19:50Z, 5-8h wall, expect ~00:50-03:50Z UTC landing)
+- **Remote GPU (marsh@home overnight_queue):** 26 regime FULL cells pending (10-13h wall serial; first landing was scheduled ~1200s from re-dispatch time ~03:00Z UTC)
+
+## All commits pushed through `4499dedac` (v4 corridor-test HARD_FAIL).
+
+## Cortex-2 arc (next major direction)
+
+Cortex-2 = turning atoms from documentation → active constraints automatically consulted at operation boundaries. Vision from USER 2026-06-28 memory rule.
+
+- **First probe** landed MM_TENTATIVE_ADVISORY (#54) with retrieval discriminator HP-clean; perf HARD_FAIL was OS/JIT cold-start artifact
+- **v1.1 warmup-fix** HP; perf gate passes post-warmup
+- **Phase 2 (advisory + Skunkworks-audit gate)** is the natural next arc after v1.1 runner-landing VET
+- **Phase 3 (enforcement — applied=True)** is the far-future arc where atoms actively constrain substrate ops
+
+## Non-scheduled items with prior work
+
+- **170K unified scale re-test** (retrieval arc real-scale validation) — blocked on BGE 178K cache build which was queued but status uncertain
+- **BGE 178K cache build** — queued on remote GPU; status not verified since orchestrator dispatch; may be running or dropped
+- **Layer 0.5 FULL** — cell exists, SMOKE HP; FULL never dispatched
+- **Retrieval architecture arc** — marginally closed at prior session (Exp 3E FULL MM_TENTATIVE_ARC_CLOSURE_MARGINAL_GATES)
+
+## Session discipline layer summary
+
+**Fix#28 pattern hits recorded/avoided across pickup session (~30 total interactions):**
+
+Recorded framing corrections caught by disciplined VETs:
+- Plate 0.14×N magnitude framing (5-10× → 20-90×)
+- Cliff at L≥4 over-specified (Probe 6 v2 non-saturated at L=2)
+- P7 evidence thinner than framed (n_band_slices=1 fluke)
+- Cliff-adjacent regime lossy abstraction (P6+P8 shared; P7 different signature)
+- 4-probe convergent framing INFLATED (P9 silent not confirmatory)
+- Composite CG_META unsupported at SMOKE
+- Cross-term=0.075 noise-indistinguishable (1 seed)
+- STORAGE main effect FLOOR-vacuous
+- Non-superimposable RESTATEMENT
+- verdict_msg "3 seeds" but seeds=[7] (v1 cortex integration)
+- Source-fingerprint META_RULE_AF weak discriminator
+- m18 ClarifyGate tautological
+- axis-labels not primitives
+- SMOKE-vs-scratchpad novel-signal narrative overreach
+- L is CG_META atom #3 already (not new axis)
+- Skunkworks framing corrections on Probe 16 v1 (M_variance naming; s19 SPLIT boundary-noise not axis-discovery)
+- v3 REFUSE-gate meta pre-hypothesized in 2026-07-01 prereg (novelty tier held but noted)
+- P4 timestamp discrepancy
+- ...and more filed as memory rules throughout
+
+Pre-hoc avoided (structural discipline caught BEFORE ship):
+- P11 axis-aliasing structural refusal
+- P10 v2 HONEST_NO_MATCHED_CLIFF refusal
+
+## Next session pickup priorities
+
+1. **Verify Encoder Step 1 FULL landing** at `data/exp_encoder_migration_step1_train_concept_encoder_970K_KB_v1/metrics.json` — if HP, dispatch Step 2 FULL then Step 3 FULL
+2. **Verify remote regime FULL landings** — 26 cells expected; run `python tools/verify_landing.py <anchor>` on each per Skunkworks meta #46 discipline
+3. **Fire Skunkworks landed-VETs on regime FULL cascade** — each landing routes to Skunkworks per priority order in `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md`
+4. **Route landings to potential atom filings** — expected MM_STANDARD/CG candidates on P6v2/P8 F×CLEANUP replicates, P7v2 N×CLEANUP, P9v2 N×L novel signal (bracket_verify), P4/P5 s19 cv-fill
+5. **v1.1 warmup-fix runner landing** — amend math #54 with wall-budget-passes note; advance cortex-2 to Phase 2
+6. **Skunkworks v4 VET + spatial-coupling audit outcomes** — resolve task-analog arc closure + spatial-coupling ADD_AXIS meta atom decision
+7. **P4 reframe decision** — Director call whether to reframe #52 given #56 Probe 16 lit-gap fill
+
+## Cron state at compaction
+
+Cron `88472eb7` — 20-min self-nudge at :07/:27/:47 past every hour with action-biased VERIFY→ACT→REPORT ≤8 lines; "all clean" branch forces reflective "what can you be doing right now to further the project?" question. Auto-expires 7 days from install (~ 2026-07-10).
+
+## Critical files for pickup
+
+- **BACKUP (this file)** at commit `4499dedac`
+- Design docs: `notes/design_stage1_regime_matrix_full_dispatch_bundle_2026-07-03.md` (27-cell FULL bundle spec + priority order + P10 v2 SKIP + m13/m16 Phase 3b expansion)
+- Research memos: `notes/research_drill_*_2026-07-03.md` and `notes/research_drill_*_2026-07-04.md` (5 drills delivered)
+- Prereg for cortex-2 Phase 1: `preregs/2026-07-03_exp_cortex2_atom_consultation_smoke_v1.md`
+- Prereg for encoder migration Steps 1/2/3: `preregs/2026-07-04_encoder_migration_step{1,2,3}_*.md`
+- Prereg chain for task-analog v1/v2/v2b/v3/v4: `preregs/2026-07-04_exp_cortex_task_analog_downstream_v{1,2,2b,3,4}.md`
+- SH-5 fix: `experiments/_seed_checkpoint.py` (SH-5 defensive suffix auto-append)
+
+**Spawn state (4 in flight after cortex-2 VET return + v1.1 fire):**
+- Testbed bug hunt with SH-4 root-cause SendMessage tip (ab266da9f70d2e1e2)
+- Probe 16 SHARDED-cliff SMOKE (a16fbcaa13206a48f)
+- Skunkworks v2b VET (a1940529089318a75)
+- Cortex-2 v1.1 warmup-fix (aa88e0ffa287ea517)
