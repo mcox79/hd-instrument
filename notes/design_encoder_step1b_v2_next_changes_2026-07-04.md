@@ -28,7 +28,28 @@ semantic-correlation-degrades-superposition finding) but NOT as a pass/fail gate
 superposition recall; random-key binding is immune -- decorrelation not sparsity protects
 composition." Composes with the algebra-preserving-distillation drill.
 
-## WATCH ITEM (do NOT conclude until FULL eval lands): rkd loss RISING -- code-level diagnosis
+## RESOLVED (early-eval, no longer a watch item): LINEAR STUDENT CAPS ~0.64 -> MLP REQUIRED
+
+**Early semantic read on the running K128 checkpoint at step 9000/20000** (script
+`scratchpad/step1b_early_eval.py`, imports the cell's own encode+spearman, reconstructs only
+the deterministic split): **spearman_all = 0.6428** (pearson 0.711, hi80_cos 0.367). Loss
+plateaued -> final will be ~0.64-0.68. This is BELOW the SMOKE's 0.788 and far from goal 0.85.
+
+**Conclusion (decisive):** the SMOKE's 0.788 was on an EASY 3000-concept subset and did NOT
+scale. On the full 43905 concepts a LINEAR student W:1024->4096 caps at ~0.64. More data + more
+steps made it WORSE, not better -> this is a CAPACITY ceiling, not just optimization.
+**=> the MLP student (1024 -> 2048 -> 4096 GELU) is REQUIRED for 0.85, not optional.** Promote it
+to the #1 v2 change. Batch-size + LR-schedule (below) are SECONDARY tunings that help but will
+not close a ~0.20 gap on their own.
+
+**Priority reorder for v2 (exp_dev, Monday):**
+1. **MLP student (REQUIRED)** -- the capacity fix; the linear map provably cannot reach 0.85.
+2. LR warmup+cosine decay + LAM_NCE rebalance (secondary; helps convergence quality).
+3. Batch 512 (secondary; fewer pairwise constraints per step for the block code).
+Keep everything validated: block codes, SBC algebra (roundtrip 1.0), RKD+InfoNCE objective,
+dual-gate. The algebra side is DONE; only the semantic-capacity side needs the MLP.
+
+## (superseded WATCH ITEM -- kept for the loss-curve diagnosis): rkd loss RISING
 
 FULL run (pid 2800, seed 7): RKD loss ROSE 0.14 -> 0.19 over steps 0-3000 while InfoNCE fell
 0.85 -> 0.62. rkd going the WRONG direction (SMOKE reached 0.08). Read the training loop
