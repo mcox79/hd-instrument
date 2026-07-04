@@ -1553,3 +1553,20 @@ Cron `88472eb7` — 20-min self-nudge at :07/:27/:47 past every hour with action
 - **BGE 178K cache INFRA PASS** at bge_large_v2_name_177861_d1b9dff5.npz (1354.9 MB) — UNBLOCKS 27 regime FULL cascade + 170K unified scale re-test. Not atomizable (infra).
 - **Encoder Step 1 confirmed NOT LANDED** — fresh run at unit 5/98 (23:50Z start; Director's 19:50Z was 4h off). ETA fluid.
 - **SESSION FINAL: 112 atoms today (math=63 meta=49).**
+
+## 04:50Z FINAL BATCH VET — 116 ATOMS + FIRST CG OF PICKUP
+**math=67, meta=49 = 116 atoms today**
+- **P12 L marginal = CHAIN_GRADE #64** (cv=0.049 mean=0.827; 8.27x margin) — first CG this pickup
+- **P8 ALGEBRA(F) x CLEANUP #65** MM_STANDARD (cv=0.167 borderline; promote to CG needs 5-seed)
+- **P4 STORAGE x N #66** MM_STANDARD (null-negation; main-effect restates prior atom)
+- **P14 L x F #67** MM_STANDARD (cv=0.158 borderline)
+
+CERT delta: +1 CG, +3 MM_STANDARD
+
+Next arcs Skunkworks-flagged (2x-drill needed):
+- P5/P6v2/P7v2/P9v2 all 3/3 MB (saturation-vacuous audit BEFORE revival)
+- P13 seed-19 asymmetry (defer)
+
+**Encoder Step 1 still unit 5/98**, ETA fluid.
+
+BACKUP FINAL DIR CONTEXT AT COMPACTION: 116 atoms, first CG this pickup, 5 arcs closed cleanly, cortex-2 arc 3 atoms deep (advisory + shadow-applied + dose-response-stable), regime map largely mapped with 8 probes producing atoms, encoder training in flight, task-analog arc DEFINITIVELY closed.
