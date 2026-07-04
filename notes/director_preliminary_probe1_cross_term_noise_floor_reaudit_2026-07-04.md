@@ -65,6 +65,23 @@ were NEVER gated against a data-driven binomial noise floor at pre-reg — the e
 value-null meta-atom filed at the P8 demote (`9825af151`) must be applied RETROACTIVELY
 to the whole family. Recommend a family SCHEMA-VET sweep + TR>=400 revival bundle.
 
+## P6v2 / P7v2 directional note (NOT a full audit — Skunkworks to do per-probe)
+
+Both have phase_map with per-cell (mechanism, M, N, F, L, corr, storage, TR, acc), so the
+same data-driven binomial null applies. I did NOT run their full audits (each needs its
+own reproduce-check of a different discriminator: P6 `per_F_mech_variance`, P7
+`per_N_mech_variance`, both over an in-band subset — non-trivial to match exactly).
+Directional only:
+- **P6** `max_per_F_mech_variance_in_band = 0.15` — at the SAME scale as Probe 1's noise
+  floor (null max 0.135) and P8's (0.128). Consistent with noise; likely DEMOTE at full
+  audit. (Already MIDDLE_BAND, so low stakes.)
+- **P7** `max_per_N_mech_variance_in_band = 0.07` — WELL BELOW the ~0.13 noise floor.
+  Almost certainly noise. (Already MIDDLE_BAND.)
+
+Both are already MIDDLE_BAND (never promoted), so the consequential finding is Probe 1
+(headline CG_META) + P8. The Monday Skunkworks family SCHEMA-VET should run the exact
+per-probe nulls + reproduce-checks before any tier change.
+
 ## Status
 - **NO cert ledger mutation performed.** This is a Director estimate.
 - Skunkworks must ratify (independent reproduce + confirm unpaired-null assumption +
