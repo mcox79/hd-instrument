@@ -1615,6 +1615,8 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 `notes/research_drill_saturation_vacuous_MB_4triples_revival_2026-07-04.md`. 3/4 MB triples (P5, P6v2, P7v2) are grid-saturation-vacuous — cross a proven-degenerate/regime-narrow CG_META axis -> **SKIP** per meta #45. P9v2 (N x L) HOLD/UNDIAGNOSED pending disk-verify. Proposed discipline extension **meta #45b pre-classified-axis short-circuit**: before dispatching any cross-term FULL, check if either axis already carries REGIME_NARROW/ceiling-saturated classification; if so presumptively vacuous. P_deflated=0.28.
 
+**P9v2 DISK-VERIFY RESOLVED (Director, 2026-07-04 ~02:50Z): GENUINE, not vacuous.** All 3 FULL seeds have real in-band cells: s7 `main_grid_n_in_non_saturated_band=9`, s13 `=7`, s19 `=8`. First NON-MECHANISM pair probe with genuine in-band multi-seed data. Skunkworks VET dispatched (cross-term verdict + tier + #45b disposition with carve-out proposal: short-circuit applies only when the DESIGN POINT sits in the degenerate regime, not merely when the axis carries a regime-narrow label). Encoder Step 1 baseline liveness confirmed same check: unit 8/98 at 02:41Z, ~935s/unit -> ~23h CPU ETA (baseline-only, acceptable).
+
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
 | agentId | role | task |
