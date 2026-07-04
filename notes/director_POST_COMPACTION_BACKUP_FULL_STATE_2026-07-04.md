@@ -71,8 +71,11 @@ the cliff where SHARDED can actually move (its size/scaling were never measured 
 ceiling-pinned). SMOKE HARD_PASS (`b09826cd5`); **3-seed FULL all HARD_PASS**: STORAGE-advantage boundary
 SCALES WITH N (delta_scales_with_N ~0.101 all 3 seeds, cv=1% -> MM_STANDARD by 14x margin; boundary rises
 N512~0.866 -> N2048~0.934 -> N8192~0.967), F-axis scale-free (null). First genuine paired measurement
-replacing the retired mechanism-mirage. -> Skunkworks landed-VET for `EMPIRICAL_STORAGE_ADVANTAGE_BOUNDARY_SCALES_N_v1`
-MM_STANDARD atom (in flight). (Dispatch self-healed an SH-2 naming gap: `exp_<base>_core.py` not matched by
+replacing the retired mechanism-mirage. **MM_STANDARD FILED** (Skunkworks `4a93d3496`, reproduced EXACTLY
+off-disk cv~1% = 14-17x margin, N-axis 18-21x over null). **PRECISION (Skunkworks fix):** BUNDLED = 0.000
+at ALL in-band cells (M=4800 >> Plate bound) -> delta == acc_SHARDED; the finding IS "the SHARDED
+corruption-cliff LOCATION moves to higher tolerable corr as N grows; BUNDLED contributes nothing; the
+storage advantage is TOTAL." Do NOT narrate as a gap between two moving arms. (Dispatch self-healed an SH-2 naming gap: `exp_<base>_core.py` not matched by
 queue_add.sh auto-SCP — Testbed durable-fix candidate.)
 
 ---
