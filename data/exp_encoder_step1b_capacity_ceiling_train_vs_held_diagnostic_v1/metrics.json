@@ -1,0 +1,62 @@
+{
+  "verdict": "DIAGNOSTIC_COMPLETE",
+  "verdict_msg": "regime=CAPACITY_BOUND; max_gap=0.0038; max_held=0.5677",
+  "summary": "TRAIN ~= HELD ~= ~0.52: the student cannot even fit the training set -- capacity/objective IS the ceiling; a bigger/deeper student (Rank 5) is WARRANTED as the next lever.",
+  "elapsed_s": 79.23324760003015,
+  "anchor_name": "encoder_step1b_capacity_ceiling_train_vs_held_diagnostic_v1",
+  "run_mode": "diagnostic",
+  "ts_iso": "2026-07-04T17:51:48.986951+00:00",
+  "pid": 26652,
+  "config": {
+    "n_dim": 4096,
+    "seed": 7,
+    "n_tr_full": 39515,
+    "n_he": 4390,
+    "train_sample_cap": 8000,
+    "train_sample_used": 8000,
+    "n_pairs": 400000
+  },
+  "arms_differ_verified": true,
+  "arm_digests_prefix8": {
+    "global": "9b24c91a",
+    "in_batch": "5244fb8a"
+  },
+  "per_arm": {
+    "global": {
+      "ckpt_step": 1800,
+      "held": {
+        "spearman": 0.5209258688979743,
+        "pearson": 0.6113909581063984,
+        "n_pairs_sampled": 399909,
+        "n_items": 4390
+      },
+      "train": {
+        "spearman": 0.5247688501532273,
+        "pearson": 0.6124954486358007,
+        "n_pairs_sampled": 399959,
+        "n_items": 8000
+      }
+    },
+    "in_batch": {
+      "ckpt_step": 1800,
+      "held": {
+        "spearman": 0.5677351749897982,
+        "pearson": 0.6426153374396538,
+        "n_pairs_sampled": 399909,
+        "n_items": 4390
+      },
+      "train": {
+        "spearman": 0.5659235341685793,
+        "pearson": 0.6388861842028076,
+        "n_pairs_sampled": 399959,
+        "n_items": 8000
+      }
+    }
+  },
+  "gaps": {
+    "global": 0.003842981255252953,
+    "in_batch": -0.001811640821218874
+  },
+  "regime": "CAPACITY_BOUND",
+  "implication": "TRAIN ~= HELD ~= ~0.52: the student cannot even fit the training set -- capacity/objective IS the ceiling; a bigger/deeper student (Rank 5) is WARRANTED as the next lever."
+}
