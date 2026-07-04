@@ -55,6 +55,11 @@ from typing import Optional
 
 import torch
 
+from hdlab.atom_consultation import (
+    VALID_OP_CLASSES,
+    AtomConsultant,
+    ConsultationResult,
+)
 from hdlab.chunked_attention import chunked_attention_readout
 from hdlab.clarify_gate import ClarifyGate, GateOutcome
 from hdlab.context_retention import TwoTierContext
@@ -108,6 +113,17 @@ class CortexConfig:
     enable_role_slot_summary: bool = True
     noise_channel_enabled: bool = False
     noise_channel_sigma_boundary: float = 0.05
+    # Cortex-2 step (0) atom-consultation (default-disabled; ADVISORY-ONLY):
+    #   When True, forward() invokes AtomConsultant.consult(operation_class,
+    #   params) BEFORE step (1) M1.5 write. The ConsultationResult is stored
+    #   in CortexResponse.provenance under key 'cortex2_atom_consultation'.
+    #   Downstream primitives are NOT forced to honor the recommendation in
+    #   v1 (research memo advisory-only phase). Backwards-compat mirrors the
+    #   noise_channel_enabled=False default pattern.
+    atom_consultation_enabled: bool = False
+    # Operation class this Cortex instance tags on every forward() call.
+    # Cell-authors set this explicitly per Cortex; NOT a learned router.
+    atom_consultation_op_class: str = "COMPOSITION"
     seed: int = 0
 
     def __post_init__(self):
@@ -115,6 +131,12 @@ class CortexConfig:
             raise ValueError(
                 f"noise_channel_sigma_boundary must be >= 0; got "
                 f"{self.noise_channel_sigma_boundary}")
+        if self.atom_consultation_enabled:
+            if self.atom_consultation_op_class not in VALID_OP_CLASSES:
+                raise ValueError(
+                    f"atom_consultation_op_class must be in "
+                    f"{sorted(VALID_OP_CLASSES)}; got "
+                    f"{self.atom_consultation_op_class!r}")
 
 
 @dataclass
@@ -199,6 +221,13 @@ class Cortex:
             )
         else:
             self._noise_channel = None
+        # Cortex-2 step (0) AtomConsultant: constructed lazily only when
+        # enabled to preserve Phase 2 backwards-compat + not pay the curated-
+        # atom load cost when the feature is off.
+        if config.atom_consultation_enabled:
+            self._atom_consultant: Optional[AtomConsultant] = AtomConsultant()
+        else:
+            self._atom_consultant = None
 
     # --- context accessors --------------------------------------------------
 
@@ -243,6 +272,33 @@ class Cortex:
             and optional role_slots.
         """
         provenance: dict = {}
+
+        # (0) Cortex-2 atom-consultation (ADVISORY-ONLY; step 0 fires before
+        # any downstream primitive). When enabled, retrieves matched atoms
+        # for the configured operation_class and stores the ConsultationResult
+        # in provenance. Downstream is NOT forced to honor the recommendation
+        # in v1 -- this is a retrieval-correctness probe.
+        if self._atom_consultant is not None:
+            cr = self._atom_consultant.consult(
+                self.config.atom_consultation_op_class,
+                params={"tier_hint": "cortex_forward"},
+            )
+            provenance["cortex2_atom_consultation"] = {
+                "operation_class": cr.operation_class,
+                "recommendation": cr.recommendation,
+                "applied": cr.applied,
+                "wall_ms": cr.wall_ms,
+                "n_atoms_scanned": cr.n_atoms_scanned,
+                "n_atoms_total": cr.n_atoms_total,
+                "top_atom_id": (
+                    cr.matched_atoms[0].atom_id if cr.matched_atoms else None),
+                "top_atom_cos": (
+                    cr.matched_atoms[0].relevance_cosine
+                    if cr.matched_atoms else None),
+                "top_atom_source_signature": (
+                    cr.matched_atoms[0].source_signature
+                    if cr.matched_atoms else None),
+            }
 
         # (1) Optional M1.5 write -------------------------------------------
         if (role_key_for_memory_write is not None
@@ -610,6 +666,65 @@ def _selftest_noise_channel_negative_sigma_raises() -> None:
     raise AssertionError("expected ValueError on negative sigma")
 
 
+def _selftest_atom_consultation_disabled_is_backwards_compat() -> None:
+    """Cortex-2 backwards-compat: atom_consultation_enabled=False (default)
+    leaves _atom_consultant=None and provenance omits cortex2_* keys."""
+    cx = Cortex(CortexConfig())
+    if cx._atom_consultant is not None:
+        raise AssertionError(
+            "default CortexConfig should leave _atom_consultant=None")
+    q = torch.zeros(8192, dtype=torch.float32)
+    resp = cx.forward(q)
+    if "cortex2_atom_consultation" in resp.provenance:
+        raise AssertionError(
+            "disabled AtomConsultant must not emit cortex2_* provenance")
+
+
+def _selftest_atom_consultation_enabled_emits_provenance() -> None:
+    """Cortex-2 enabled path: atom_consultation_enabled=True + op_class=
+    COMPOSITION produces provenance dict with recommendation SHARDED (per
+    curated atom-set) and wall_ms below 5ms budget."""
+    cfg = CortexConfig(
+        atom_consultation_enabled=True,
+        atom_consultation_op_class="COMPOSITION",
+    )
+    cx = Cortex(cfg)
+    if cx._atom_consultant is None:
+        raise AssertionError(
+            "atom_consultation_enabled=True should construct AtomConsultant")
+    q = torch.zeros(8192, dtype=torch.float32)
+    resp = cx.forward(q)
+    p = resp.provenance.get("cortex2_atom_consultation")
+    if p is None:
+        raise AssertionError(
+            "enabled AtomConsultant must emit cortex2_atom_consultation")
+    if p["operation_class"] != "COMPOSITION":
+        raise AssertionError(
+            f"op_class mismatch: {p['operation_class']!r}")
+    if p["applied"] is not False:
+        raise AssertionError(
+            f"v1 advisory-only contract violated: applied={p['applied']}")
+    if p["wall_ms"] > 5.0:
+        raise AssertionError(
+            f"consult() wall {p['wall_ms']:.3f}ms exceeds 5ms budget")
+    if p["n_atoms_scanned"] >= p["n_atoms_total"]:
+        raise AssertionError(
+            f"tag-filter bypassed: scanned={p['n_atoms_scanned']} "
+            f">= total={p['n_atoms_total']}")
+
+
+def _selftest_atom_consultation_invalid_op_class_raises() -> None:
+    """CortexConfig rejects unknown op_class when consultation enabled."""
+    try:
+        CortexConfig(
+            atom_consultation_enabled=True,
+            atom_consultation_op_class="BOGUS_CLASS",
+        )
+    except ValueError:
+        return
+    raise AssertionError("expected ValueError on unknown op_class")
+
+
 def _run_all_selftests() -> dict:
     _selftest_construct_default_cortex()
     _selftest_forward_empty_query_returns_valid_response()
@@ -620,6 +735,9 @@ def _run_all_selftests() -> dict:
     _selftest_noise_channel_disabled_is_backwards_compat()
     _selftest_noise_channel_enabled_injects_and_reports_provenance()
     _selftest_noise_channel_negative_sigma_raises()
+    _selftest_atom_consultation_disabled_is_backwards_compat()
+    _selftest_atom_consultation_enabled_emits_provenance()
+    _selftest_atom_consultation_invalid_op_class_raises()
     return {
         "primitives_composed": [
             "M1.3_NoiseChannel",
@@ -628,12 +746,15 @@ def _run_all_selftests() -> dict:
             "M1.6_chunked_attention_readout",
             "M1.7_RoleSlotSummarizer",
             "M1.8_ClarifyGate",
+            "Cortex2_AtomConsultant_advisory_only",
         ],
         "noise_channel_phase_2b_landed": True,
+        "cortex2_atom_consultation_phase": "ADVISORY_ONLY_v1_smoke_probe",
         "storage_strategy": "MIXED_inherited_per_primitive_no_facade_storage",
         "cg_source": (
             "Phase 2 composition + Phase 2b M1.3 wiring 2026-07-02; Phase 1 "
-            "CG sub-primitives 2026-07-01/02"),
+            "CG sub-primitives 2026-07-01/02; Cortex-2 step (0) advisory "
+            "atom-consultation 2026-07-03"),
     }
 
 
