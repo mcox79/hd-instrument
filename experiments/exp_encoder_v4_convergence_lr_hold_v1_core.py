@@ -615,16 +615,40 @@ def _verdict_convergence(per_unit: List[Dict], arm_diag: Dict[str, Dict],
         calls[mode] = {"call": call, "trend": trend}
 
     def _final(mode: str, key: str) -> float:
+        # VAL-trajectory endpoint (training-time instrumentation only; used
+        # ONLY for the smoke-mode "field populated" completeness check below
+        # -- NOT for the TEST-based Gate-D reproduction check or the final
+        # headline-number comparison, both of which MUST read the TEST-split
+        # per_unit semantic values via _test_final. Bug found+fixed
+        # 2026-07-04 (post-FULL-landing audit): this function's VAL-subset
+        # trajectory endpoint was previously mis-used for the reproduction
+        # check, which compares against a TEST-split reference number --
+        # VAL and TEST are DIFFERENT concept populations, so that comparison
+        # was apples-to-oranges and spuriously reported
+        # COSINE_REPRODUCTION_OUTSIDE_TOLERANCE even when the actual
+        # TEST-based final numbers were a bit-exact match to the v3e
+        # reference. See notes at the call sites below.
         pts = [r for r in arm_diag[mode]["traj"] if r.get("final")]
         return float(pts[-1][key]) if pts else float("nan")
 
-    cos_final_ret = _final("COSINE", "val_ret_agree10")
-    cos_final_hi80 = _final("COSINE", "val_hi80_cos")
-    plat_final_ret = _final("PLATEAU", "val_ret_agree10")
-    plat_final_hi80 = _final("PLATEAU", "val_hi80_cos")
+    def _test_final(mode: str) -> Dict:
+        """TEST-split semantic summary for {mode}_BLOCK_LAST -- the actual
+        'official' reported number (matches recovery[mode]['final'] in the
+        written metrics.json), used for BOTH the Gate-D reproduction check
+        and the PLATEAU-vs-COSINE final-number comparison."""
+        u = v3._by_unit(per_unit, "semantic", f"{mode}_BLOCK_LAST")
+        if u is None:
+            return {"spearman_all": float("nan"), "ret_agree10": float("nan"),
+                   "hi80_cos": float("nan")}
+        return {"spearman_all": u["spearman_all"], "ret_agree10": u["ret_agree10"],
+               "hi80_cos": u["hi80_cos"]}
 
-    repro_block_ok = abs(_final("COSINE", "val_block_spearman")
-                         - V3E_SEED7_FINAL_BLOCK) <= REPRO_TOL_BLOCK
+    cos_test = _test_final("COSINE")
+    plat_test = _test_final("PLATEAU")
+    cos_final_ret, cos_final_hi80 = cos_test["ret_agree10"], cos_test["hi80_cos"]
+    plat_final_ret, plat_final_hi80 = plat_test["ret_agree10"], plat_test["hi80_cos"]
+
+    repro_block_ok = abs(cos_test["spearman_all"] - V3E_SEED7_FINAL_BLOCK) <= REPRO_TOL_BLOCK
     repro_ret_ok = abs(cos_final_ret - V3E_SEED7_FINAL_RET_AGREE10) <= REPRO_TOL_RET
     repro_hi80_ok = abs(cos_final_hi80 - V3E_SEED7_FINAL_HI80_COS) <= REPRO_TOL_HI80
     repro_ok = repro_block_ok and repro_ret_ok and repro_hi80_ok
@@ -1037,15 +1061,29 @@ def run_self_test() -> int:
     trend_flat = _trend_diagnostic(flat_traj, "val_ret_agree10", min_step=10)
     assert abs(trend_flat["early_minus_late"]) < 0.02, "selftest: flat traj must read as plateau"
 
-    # 3. verdict bands: synthetic arm_diag for HARD_PASS / HARD_FAIL / MIDDLE_BAND.
-    def _fake_units():
-        units = [{"unit": f"u{i}", "arm": "x", "kind": "k"} for i in range(10)]
+    # 3. verdict bands: synthetic per_unit (TEST-split semantic + keyed/shuffled)
+    #    + arm_diag (VAL-trajectory) for HARD_PASS / HARD_FAIL / MIDDLE_BAND.
+    #    Bug found+fixed 2026-07-04 (post-FULL-landing audit of the real v4
+    #    seed7 run): the Gate-D reproduction check and the final-number
+    #    comparison MUST read the TEST-split semantic per_unit entries (what
+    #    _test_final does), NOT the VAL-trajectory's last point -- VAL and
+    #    TEST are different concept populations. This self-test now supplies
+    #    BOTH (semantic per_unit entries for the "final" numbers, trajectory
+    #    entries for the trend) so it would have caught that class of bug.
+    def _fake_units(k128_ret=None, mode_finals=None):
+        # mode_finals: {mode: (ret_agree10, hi80_cos, spearman_all)}
+        mode_finals = mode_finals or {}
+        units = [{"unit": f"u{i}", "arm": "x", "kind": "k"} for i in range(8)]
         units += [
             {"unit": "keyed::RANDOM_BLOCK::J5", "arm": "RANDOM_BLOCK", "kind": "keyed",
              "J": 5, "acc_at1": 0.99, "hit_any_member": 0.99},
         ]
         for mode in LR_MODES:
+            ret, hi80, sp = mode_finals.get(mode, (0.20, 0.80, 0.90))
             units += [
+                {"unit": f"semantic::{mode}_BLOCK_LAST", "arm": f"{mode}_BLOCK_LAST",
+                 "kind": "semantic", "spearman_all": sp, "ret_agree10": ret,
+                 "hi80_cos": hi80, "hi80_calib_err": 0.02},
                 {"unit": f"keyed::{mode}_BLOCK_LAST::J5", "arm": f"{mode}_BLOCK_LAST",
                  "kind": "keyed", "J": 5, "acc_at1": 0.96, "hit_any_member": 0.96},
                 {"unit": f"keyed::{mode}_BLOCK_BESTVAL::J5", "arm": f"{mode}_BLOCK_BESTVAL",
@@ -1065,20 +1103,35 @@ def run_self_test() -> int:
                    "dense_full": 0.6, "final": True})
         return pts
 
-    fake_units = _fake_units()
+    # PASS scenario: COSINE's TEST-final numbers match the v3e reference
+    # EXACTLY (repro_ok trivially True); COSINE's VAL-trend shows DECLINE
+    # (eml=0.15); PLATEAU's VAL-trend shows PLATEAU (eml~0) with a final
+    # ret_agree10 that does not lose ground vs COSINE.
+    pass_finals = {
+        "COSINE": (V3E_SEED7_FINAL_RET_AGREE10, V3E_SEED7_FINAL_HI80_COS, V3E_SEED7_FINAL_BLOCK),
+        "PLATEAU": (V3E_SEED7_FINAL_RET_AGREE10 + 0.02, 0.80, 0.90),
+    }
+    fake_units_pass = _fake_units(mode_finals=pass_finals)
     arm_diag_pass = {
         "COSINE": {"traj": _traj_for(V3E_SEED7_FINAL_RET_AGREE10, 0.15,
                                      final_hi80=V3E_SEED7_FINAL_HI80_COS,
                                      final_block=V3E_SEED7_FINAL_BLOCK),
                   "_min_step_for_best": 10},
-        "PLATEAU": {"traj": _traj_for(V3E_SEED7_FINAL_RET_AGREE10 + 0.02, 0.005,
+        "PLATEAU": {"traj": _traj_for(pass_finals["PLATEAU"][0], 0.005,
                                       final_hi80=0.80, final_block=0.90),
                    "_min_step_for_best": 10},
     }
-    v_pass, m_pass = _verdict_convergence(fake_units, arm_diag_pass, 17, "full")
+    v_pass, m_pass = _verdict_convergence(fake_units_pass, arm_diag_pass, 17, "full")
     assert v_pass == "HARD_PASS" and "CONVERGENCE_FIX_CONFIRMED" in m_pass, (
         f"selftest: expected fix-confirmed HARD_PASS got {v_pass} ({m_pass})")
 
+    # FAIL scenario: COSINE reproduces + declines (as above); PLATEAU ALSO
+    # declines (its own VAL-trend eml=0.15) with a collapsed final hi80_cos.
+    fail_finals = {
+        "COSINE": (V3E_SEED7_FINAL_RET_AGREE10, V3E_SEED7_FINAL_HI80_COS, V3E_SEED7_FINAL_BLOCK),
+        "PLATEAU": (0.05, 0.60, 0.90),
+    }
+    fake_units_fail = _fake_units(mode_finals=fail_finals)
     arm_diag_fail = {
         "COSINE": {"traj": _traj_for(V3E_SEED7_FINAL_RET_AGREE10, 0.15,
                                      final_hi80=V3E_SEED7_FINAL_HI80_COS,
@@ -1087,12 +1140,40 @@ def run_self_test() -> int:
         "PLATEAU": {"traj": _traj_for(0.05, 0.15, final_hi80=0.60, final_block=0.90),
                    "_min_step_for_best": 10},
     }
-    v_fail, m_fail = _verdict_convergence(fake_units, arm_diag_fail, 17, "full")
+    v_fail, m_fail = _verdict_convergence(fake_units_fail, arm_diag_fail, 17, "full")
     assert v_fail == "HARD_FAIL" and "LR_SCHEDULE_DOES_NOT_FIX_DECLINE" in m_fail, (
         f"selftest: expected schedule-does-not-fix HARD_FAIL got {v_fail} ({m_fail})")
 
-    v_card, m_card = _verdict_convergence(fake_units[:5], arm_diag_pass, 17, "full")
+    v_card, m_card = _verdict_convergence(fake_units_pass[:5], arm_diag_pass, 17, "full")
     assert v_card == "HARD_FAIL" and "CARDINALITY_BREACH" in m_card
+
+    # Regression-guard for the bug just fixed: if the TEST-based semantic
+    # unit's ret_agree10 EXACTLY matches the v3e reference (as it did in the
+    # real seed7 FULL landing) but the VAL-trajectory's own last point is
+    # DELIBERATELY set to a very different value (simulating the VAL/TEST
+    # population mismatch that triggered the bug), the reproduction check
+    # must still read the TEST-based (per_unit) number and report repro_ok.
+    mismatched_traj_finals = {
+        "COSINE": (V3E_SEED7_FINAL_RET_AGREE10, V3E_SEED7_FINAL_HI80_COS, V3E_SEED7_FINAL_BLOCK),
+        "PLATEAU": (V3E_SEED7_FINAL_RET_AGREE10 + 0.02, 0.80, 0.90),
+    }
+    fake_units_mismatch = _fake_units(mode_finals=mismatched_traj_finals)
+    arm_diag_mismatch = {
+        # VAL-trajectory's own final point is FAR from the TEST-based
+        # reference (0.334 vs 0.211-ish) -- exactly the shape of the real
+        # bug. The reproduction check must NOT be fooled by this.
+        "COSINE": {"traj": _traj_for(0.3347, -0.007,
+                                     final_hi80=0.8363, final_block=0.90),
+                  "_min_step_for_best": 10},
+        "PLATEAU": {"traj": _traj_for(0.3502, -0.012, final_hi80=0.8371,
+                                      final_block=0.90),
+                   "_min_step_for_best": 10},
+    }
+    v_mm, m_mm = _verdict_convergence(fake_units_mismatch, arm_diag_mismatch, 17, "full")
+    assert "COSINE_REPRODUCTION_OUTSIDE_TOLERANCE" not in m_mm, (
+        f"selftest REGRESSION-GUARD: reproduction check used the VAL-"
+        f"trajectory endpoint instead of the TEST-based per_unit semantic "
+        f"value -- got {v_mm} ({m_mm})")
 
     # 4. tiny end-to-end training reuse (proves _train_student_lrmode wiring:
     #    both lr_mode branches, headline-eval closure, best-selection-by-
