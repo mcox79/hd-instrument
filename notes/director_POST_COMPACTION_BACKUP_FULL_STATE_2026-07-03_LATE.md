@@ -1272,7 +1272,11 @@ At non-saturated regime (N=512 M=6400 corr=0.85), Probe 6 v2 shows:
 
 ## COMPACTION PREP AMENDMENT — 2026-07-04 ~03:00Z UTC (session end state)
 
-**SESSION FINAL TALLY: math=57, meta=47 = 104 atoms today (+16 from 88 at pickup start). Fix#28 discipline ~30 recorded + 2 avoided = ~32 interactions.**
+**SESSION FINAL TALLY: math=58, meta=47 = 105 atoms today (+17 from 88 at pickup start). Fix#28 discipline ~30 recorded + 2 avoided = ~32 interactions.**
+
+**Amendment 03:15Z:** v4 Skunkworks VET filed math atom #58 `EXP_cortex_task_analog_downstream_v4_s7_SMOKE_DEFINITIVE_NEGATIVE_MM_STANDARD_arc_CLOSED_REINFORCED` — amends #57 to DOUBLY-closed with orthogonal failure modes (v3=REFUSE-over-suppression, v4=mechanism-mismatch value-marginalization ≠ theorem prescription). NO REMAINING REVIVAL PATH. Cortex-task-analog arc DEFINITIVELY CLOSED. Spatial-coupling escalation BLOCKED per prior drill NEGATIVE.
+
+**Note on atom counting:** disk-grep for `2026-07-04` shows math=6/meta=1 (atoms filed after midnight UTC rollover). "105 atoms today" = the pickup session running window 2026-07-03 18:55Z → 2026-07-04 03:15Z (crosses midnight). Skunkworks reported "grep 2026-07-0[23] math 118 atoms" for pickup-session window per its accounting. If pickup-session tally reconciliation needed at next session, run `grep -c "2026-07-0[34]" data/substrate_index/{math,meta}/atoms.jsonl` for cross-day accurate count.
 
 ## Atoms filed today (all 16 new)
 
