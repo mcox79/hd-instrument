@@ -186,10 +186,20 @@ def _make_random_gaussian(in_dim: int, out_dim: int, seed: int, device: str) -> 
 
 def _verify_isometry(enc: _FrozenLinearEncoder, in_dim: int, tol: float = 1e-4) -> float:
     """Return max |W.T@W - I| off-diagonal-inclusive entrywise error (should
-    be ~0 for a genuine isometry; sanity check, not a gate)."""
+    be ~0 for a genuine isometry; sanity check, not a gate).
+
+    BUGFIX 2026-07-04 (CELL_CRASHED at full scale, commit e5a084fbe): `I` was
+    built with no `device=` kwarg, defaulting to CPU, while `WtW` inherits
+    `enc.weight`'s device (moved to `device_arg` by `_make_ortho_isometric`).
+    On any host where torch.cuda.is_available() is True and device_arg=
+    "auto" resolves to "cuda" (e.g. the remote_cpu_queue runner host, which
+    physically has a GPU even for CPU-queue jobs), `WtW - I` raised
+    `RuntimeError: Expected all tensors to be on the same device, but found
+    at least two devices, cuda:0 and cpu!`. Fix: pin I to WtW's device.
+    """
     W = enc.weight.detach()
     WtW = W.T @ W
-    I = torch.eye(in_dim, dtype=WtW.dtype)
+    I = torch.eye(in_dim, dtype=WtW.dtype, device=WtW.device)
     return float((WtW - I).abs().max())
 
 
@@ -484,7 +494,18 @@ def _parse_args(argv: Optional[List[str]] = None) -> "argparse.Namespace":
     p.add_argument("--smoke", action="store_true")
     p.add_argument("--full", action="store_true")
     p.add_argument("--seed", type=int, default=SEED_DEFAULT)
-    p.add_argument("--device", default="auto", choices=["auto", "cpu", "cuda"])
+    # BUGFIX 2026-07-04: default was "auto". The runner invokes cells with NO
+    # CLI flags (only env vars; see runner_v2_prod.py run_one -- argv is just
+    # [python, -u, script_path]), so this default is what ACTUALLY governs
+    # remote_cpu_queue runs. "auto" resolved to "cuda" on the remote host
+    # (torch.cuda.is_available()==True there even for CPU-queue jobs) and hit
+    # the _verify_isometry device-mismatch crash (commit e5a084fbe). This is
+    # a zero-training linear-algebra diagnostic with no need for a GPU; pin
+    # to "cpu" by default so remote_cpu_queue dispatch stays CPU-only
+    # (deterministic, and does not contend with any concurrently-running GPU
+    # job on the same host). "auto"/"cuda" remain available via explicit flag
+    # for anyone invoking this cell directly.
+    p.add_argument("--device", default="cpu", choices=["auto", "cpu", "cuda"])
     p.add_argument("--teacher-cache", default=None)
     args, _ = p.parse_known_args(argv)
     if args.self_test:

@@ -135,6 +135,82 @@ CPU. FULL (n_test=17790, 400k pairs, K up to 256/N=8192) is estimated well under
 CPU; GPU (per Director/VET instruction to keep the remote saturated) will be faster still.
 Requested `--timeout 900` (15 min), generous margin.
 
+## BUGFIX + RE-DISPATCH ADDENDUM (2026-07-04, post-crash)
+
+FULL dispatch (commit e5a084fbe) CELL_CRASHED at
+`data/exp_encoder_teacher_sparsifier_bypass_v1/metrics.json` (`elapsed_s=0.0`,
+`RuntimeError: Expected all tensors to be on the same device, but found at
+least two devices, cuda:0 and cpu!`, traceback at
+`_verify_isometry` line 193, `WtW - I`).
+
+**Root cause**: `_verify_isometry` built `I = torch.eye(in_dim,
+dtype=WtW.dtype)` with no `device=` kwarg (defaults CPU), while `WtW`
+inherits `enc.weight`'s device. `--device` argparse default was `"auto"`;
+the runner invokes cells with **no CLI flags at all** (only env vars --
+`runner_v2_prod.py:run_one` spawns `[sys.executable, "-u", script_path]`), so
+the cell's own default fully governs device selection. The remote host
+(marsh@home, serving both `overnight_queue` and `remote_cpu_queue`) has
+`torch.cuda.is_available()==True`, so `device_arg="auto"` resolved to
+`"cuda"` there -- a `SCRIPT_PRECONDITION_VIOLATION`-class bug (self-test
+passed locally on a CPU-only laptop; remote has a GPU even for the CPU
+queue).
+
+**Fix** (`experiments/exp_encoder_teacher_sparsifier_bypass_v1_core.py`):
+1. `_verify_isometry`: `I = torch.eye(in_dim, dtype=WtW.dtype,
+   device=WtW.device)` -- correctness fix, device-agnostic regardless of
+   dispatch target.
+2. `--device` default changed `"auto" -> "cpu"` -- this cell is zero-training
+   linear algebra with no GPU need; pinning `cpu` keeps `remote_cpu_queue`
+   dispatch off the host's GPU (determinism + does not contend with any
+   concurrently-running GPU job), per exp_dev's `device='cpu' at cell-init`
+   convention (commit b522c755 pattern, runner-doesn't-pass-argv class).
+
+**Re-verified locally** (`.venv`, CPU-only laptop, no CUDA available so the
+crash could not be literally reproduced, but the fix is structurally
+device-agnostic and cannot recur regardless of host):
+- `--self-test`: PASS, 16.2s, reproduces the exact commit-message smoke
+  numbers bit-for-bit (ORTHO_K128=0.8011, RANDOM_K128=0.8187,
+  ORTHO_K256=0.8925, RANDOM_K256=0.8805) --
+  MEASURED@d:/AI/hd-instrument/data/exp_encoder_teacher_sparsifier_bypass_v1_selftest/metrics.json.
+- Standalone `--smoke`: PASS, 15.7s, `cardinality_ok=true`,
+  `arms_differ_verified=true`, 8/8 units, `unit_failures=[]`, `device="cpu"` --
+  MEASURED@d:/AI/hd-instrument/data/exp_encoder_teacher_sparsifier_bypass_v1_smoke/metrics.json.
+  `ret_agree10` confirmed present for all 4 semantic lift arms + CHARPOS:
+  ORTHO_K128=0.5958, RANDOM_K128=0.5850, ORTHO_K256=0.6689,
+  RANDOM_K256=0.6779, CHARPOS=0.1886 (smoke-scale, n_test=800; NOT the
+  certified FULL answer -- retrieval gets harder as the candidate pool
+  grows, confirmed directly by the timing-probe below).
+
+**Timing-probe (discriminator-preview at FULL n_test, satisfies
+DISCRIMINATOR-MUST-SURVIVE-SCALE option A)**: reused the local
+43905-concept cache (real 177899-concept cache not present locally) but
+forced FULL-scale cost knobs (`n_test=17790`, `final_pairs=400_000`,
+`charpos_cap`/`n_trials` = FULL values) onto the smoke code path -- an
+apples-to-apples wall-clock measurement at the TRUE full n_test, only the
+candidate-pool vocabulary differs (43905 vs 177899, held-set SIZE identical
+at 17790). Result: **524.9s wall** (private scratch run, not a landed
+artifact; output dir deleted after measurement, not committed).
+Sanity-consistent with smoke: `ORTHO_K128 spearman=0.8019` (smoke 0.8011),
+`ORTHO_K256 spearman=0.8886` (smoke 0.8925). `ret_agree10` dropped as
+expected with the larger candidate pool: `ORTHO_K128=0.5291`,
+`ORTHO_K256=0.6284` (vs smoke's 0.5958/0.6689) -- directionally consistent
+with the ~0.48/~0.58 recollection cited in the dispatch instruction; true
+FULL (V_cache=177899, more diverse vocabulary at the SAME held-set size)
+is expected in a similar-to-somewhat-lower band. THEORETICAL@candidate-pool-
+size-invariant-cost: cache-load is the only step that scales with V_cache
+directly (encoding + retrieval cost depend on n_test, which is already
+matched); the true-cache load will add a few seconds at most (1.29GB vs
+334MB local, ~1.2s measured locally -> ~5s scaled), negligible against the
+525s total.
+
+**Revised timeout**: `ceil(1.5 * 525s) = 788s` per the formula in
+`queue_add.sh`; setting `--timeout 1800` (>3.4x the measured full-N-matched
+wall) for margin against remote-CPU-speed uncertainty (never benchmarked
+against this laptop) + the larger real cache load + general safety.
+Supersedes the original `--timeout 900` (which was never actually tested
+against real full-scale wall time -- the original crash fired at
+`elapsed_s=0.0`, before any timeout could bind).
+
 ## Composes with
 
 - `notes/encoder_rescue_plan_converged_diagnosis_2026-07-04.md` / the ranked-levers drill (Rank 5:

@@ -1,0 +1,10 @@
+{
+  "verdict": "CELL_CRASHED",
+  "verdict_msg": "RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!",
+  "summary": "CELL_CRASHED: RuntimeError",
+  "elapsed_s": 0.0,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_teacher_sparsifier_bypass_v1_core.py\", line 513, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_teacher_sparsifier_bypass_v1_core.py\", line 507, in main\n    return run_bypass(args.run_mode, args.seed, args.device, args.teacher_cache)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_teacher_sparsifier_bypass_v1_core.py\", line 278, in run_bypass\n    iso_err_128 = _verify_isometry(enc_ortho_128, in_dim)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\hd-instrument\\experiments\\exp_encoder_teacher_sparsifier_bypass_v1_core.py\", line 193, in _verify_isometry\n    return float((WtW - I).abs().max())\n                  ~~~~^~~\nRuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!\n",
+  "ts_iso": "2026-07-04T19:14:22.903343+00:00",
+  "pid": 20000,
+  "anchor_name": "encoder_teacher_sparsifier_bypass_v1"
+}
