@@ -442,11 +442,26 @@ def get_output_dir(anchor_name: str) -> Path:
     scp_recover_landing.py. Emits a stderr warning on normalization so
     process-health audits can trend residual double-prefix queue entries.
 
+    SH-5 run-mode isolation (Testbed 2026-07-03): if the process was invoked
+    with `--self-test` or `--smoke` in sys.argv, and HDLAB_EXP_NAME lacks the
+    corresponding `_selftest` / `_smoke` suffix, auto-append the suffix so
+    selftest / smoke output is ALWAYS isolated from the FULL output path.
+    Defense-in-depth against Fix #28 hit #25 (phantom-selftest bug 2026-07-03):
+    the queue_add.py 2026-06-30 fix (d4eb28057) isolates selftest_name at the
+    queue_add.py caller, but any OTHER caller (exp_dev spawn manual verify,
+    ship_anchor.py pre-ship smoke, legacy scripts) that runs
+    `python wrapper.py --self-test` with HDLAB_EXP_NAME=<entry_name> (no
+    suffix) writes SELFTEST content to data/exp_<entry>/metrics.json,
+    polluting the FULL path. This centralized guard closes the class at
+    the shared library layer regardless of caller discipline.
+
     Self-test (called at module import):
         get_output_dir("foo")  -> Path("...data/exp_foo")
         get_output_dir("foo_smoke")  -> Path("...data/exp_foo_smoke")
         HDLAB_EXP_NAME="bar_smoke" with anchor_name="foo" -> Path("...data/exp_bar_smoke")
         get_output_dir("exp_foo") -> Path("...data/exp_foo")  (SH-4 normalized)
+        HDLAB_EXP_NAME="foo" with --self-test in argv -> Path("...data/exp_foo_selftest")  (SH-5)
+        HDLAB_EXP_NAME="foo" with --smoke in argv -> Path("...data/exp_foo_smoke")  (SH-5)
 
     Args:
         anchor_name: fallback name to use when HDLAB_EXP_NAME is unset.
@@ -455,8 +470,33 @@ def get_output_dir(anchor_name: str) -> Path:
     Returns:
         Path to the output directory (not yet created; caller must mkdir).
     """
+    import sys as _sys
     _REPO = Path(__file__).resolve().parent.parent
     name = os.environ.get("HDLAB_EXP_NAME", anchor_name)
+
+    # SH-5 run-mode isolation: defensive-in-depth suffix enforcement.
+    # Applied BEFORE SH-4 exp_ strip so both interact cleanly.
+    argv = getattr(_sys, "argv", []) or []
+    if "--self-test" in argv and not name.endswith("_selftest"):
+        _sys.stderr.write(
+            f"[SH-5-selftest-isolate] --self-test in argv but HDLAB_EXP_NAME="
+            f"{name!r} lacks '_selftest' suffix; auto-appending to isolate "
+            f"selftest output from FULL path (data/exp_{name}_selftest/ "
+            f"instead of data/exp_{name}/). Defense-in-depth vs Fix #28 "
+            f"phantom-selftest recurrence. Callers should set "
+            f"HDLAB_EXP_NAME={name}_selftest explicitly.\n"
+        )
+        name = f"{name}_selftest"
+    elif "--smoke" in argv and not name.endswith("_smoke"):
+        _sys.stderr.write(
+            f"[SH-5-smoke-isolate] --smoke in argv but HDLAB_EXP_NAME="
+            f"{name!r} lacks '_smoke' suffix; auto-appending to isolate "
+            f"smoke output from FULL path (data/exp_{name}_smoke/ instead "
+            f"of data/exp_{name}/). Callers should set HDLAB_EXP_NAME="
+            f"{name}_smoke explicitly.\n"
+        )
+        name = f"{name}_smoke"
+
     if name.startswith("exp_"):
         stripped = name[len("exp_"):]
         # Guard: don't strip when stripping empties the stem or when the raw
@@ -464,7 +504,6 @@ def get_output_dir(anchor_name: str) -> Path:
         if stripped:
             legacy_dir = _REPO / "data" / f"exp_{name}"
             if not legacy_dir.exists():
-                import sys as _sys
                 _sys.stderr.write(
                     f"[SH-4-normalize] HDLAB_EXP_NAME={name!r} begins with 'exp_'; "
                     f"writing to data/exp_{stripped}/ (canonical) instead of "
@@ -506,9 +545,14 @@ def write_metrics(out_dir: Path, metrics: Dict[str, Any],
 def _selftest_get_output_dir() -> None:
     """Verify get_output_dir produces correct data/exp_<name> paths."""
     import os as _os
+    import sys as _sys
 
     # Save the original env value so we can restore it after the test.
     _orig = _os.environ.get("HDLAB_EXP_NAME")
+    # SH-5: neutralize sys.argv for T1-T5 (they pre-date SH-5 and assume no
+    # --self-test / --smoke in argv). T6 restores its own argv scope.
+    _orig_argv = list(_sys.argv)
+    _sys.argv = ["_seed_checkpoint_selftest"]
 
     try:
         # Test 1: env var absent -> uses anchor_name
@@ -543,6 +587,40 @@ def _selftest_get_output_dir() -> None:
         assert p5.name == "exp_sh4_normalize_selftest_zzz_v1", (
             f"T5 (SH-4) FAIL: got {p5.name} (expected single-prefix)"
         )
+
+        # Test 6 (SH-5 selftest isolation): --self-test in argv + HDLAB_EXP_NAME
+        # without _selftest suffix -> auto-append. Defense vs Fix #28 hit #25.
+        import sys as _sys_t6
+        _t6_saved_argv = list(_sys_t6.argv)
+        try:
+            _sys_t6.argv = ["wrapper.py", "--self-test"]
+            _os.environ["HDLAB_EXP_NAME"] = "sh5_probe_zzz_v1_s7"
+            p6 = get_output_dir("fallback_unused")
+            assert p6.name == "exp_sh5_probe_zzz_v1_s7_selftest", (
+                f"T6 (SH-5 selftest auto-append) FAIL: got {p6.name}"
+            )
+            # Already-suffixed case: no double-append.
+            _os.environ["HDLAB_EXP_NAME"] = "sh5_probe_zzz_v1_s7_selftest"
+            p6b = get_output_dir("fallback_unused")
+            assert p6b.name == "exp_sh5_probe_zzz_v1_s7_selftest", (
+                f"T6b (SH-5 no double-append) FAIL: got {p6b.name}"
+            )
+            # Smoke branch: --smoke without _smoke suffix -> auto-append.
+            _sys_t6.argv = ["wrapper.py", "--smoke"]
+            _os.environ["HDLAB_EXP_NAME"] = "sh5_probe_zzz_v1_s7"
+            p6c = get_output_dir("fallback_unused")
+            assert p6c.name == "exp_sh5_probe_zzz_v1_s7_smoke", (
+                f"T6c (SH-5 smoke auto-append) FAIL: got {p6c.name}"
+            )
+            # FULL dispatch: no --self-test / --smoke in argv -> no suffix mutation.
+            _sys_t6.argv = ["wrapper.py"]
+            _os.environ["HDLAB_EXP_NAME"] = "sh5_probe_zzz_v1_s7"
+            p6d = get_output_dir("fallback_unused")
+            assert p6d.name == "exp_sh5_probe_zzz_v1_s7", (
+                f"T6d (SH-5 FULL passthrough) FAIL: got {p6d.name}"
+            )
+        finally:
+            _sys_t6.argv = _t6_saved_argv
     finally:
         # Restore original env state (set or absent) so subsequent imports
         # and tests see the same env the caller had.
@@ -550,6 +628,7 @@ def _selftest_get_output_dir() -> None:
             _os.environ.pop("HDLAB_EXP_NAME", None)
         else:
             _os.environ["HDLAB_EXP_NAME"] = _orig
+        _sys.argv = _orig_argv
 
 
 _selftest_get_output_dir()

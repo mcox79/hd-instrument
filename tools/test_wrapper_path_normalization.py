@@ -261,6 +261,98 @@ def test_wave14_legacy_cell_audit() -> None:
     print(f"[F] wave14 audit OK: {len(wave14)} cells, 0 double-prefix offenders")
 
 
+def test_sh5_run_mode_output_isolation() -> None:
+    """Test G: SH-5 run-mode output isolation — --self-test / --smoke in
+    sys.argv force `_selftest` / `_smoke` suffix on HDLAB_EXP_NAME-derived
+    output dir even when the caller forgot to set the suffix.
+
+    Root cause of Fix #28 hit #25 (phantom-selftest 2026-07-03): queue_add.py's
+    2026-06-30 fix (d4eb28057) isolates selftest_name only at that ONE caller.
+    Any OTHER caller (exp_dev spawn manual verify, ship_anchor.py pre-ship
+    smoke, direct manual tests) that invokes
+    `python wrapper.py --self-test` with HDLAB_EXP_NAME=<entry_name> (no
+    _selftest suffix) writes SELFTEST content to data/exp_<entry_name>/
+    metrics.json, polluting the FULL path and triggering the phantom-FULL
+    reader-error class. The SH-5 defense at get_output_dir() catches this at
+    the shared library layer regardless of caller discipline.
+
+    Cases exercised:
+      G1: --self-test + HDLAB_EXP_NAME=<base>  -> out_dir = data/exp_<base>_selftest/
+      G2: --self-test + HDLAB_EXP_NAME=<base>_selftest -> unchanged (no double-append)
+      G3: --smoke + HDLAB_EXP_NAME=<base>      -> out_dir = data/exp_<base>_smoke/
+      G4: --smoke + HDLAB_EXP_NAME=<base>_smoke -> unchanged (no double-append)
+      G5: FULL dispatch (no flag) + HDLAB_EXP_NAME=<base> -> out_dir = data/exp_<base>/
+      G6: --self-test + no HDLAB_EXP_NAME (fallback to anchor_name) -> _selftest suffix applied
+    """
+    from experiments._seed_checkpoint import get_output_dir  # noqa: E402
+    _orig_env = os.environ.get("HDLAB_EXP_NAME")
+    _orig_argv = list(sys.argv)
+    try:
+        base = "sh5_run_mode_isolation_zzz_v1"
+
+        # G1: selftest auto-append
+        sys.argv = ["wrapper.py", "--self-test"]
+        os.environ["HDLAB_EXP_NAME"] = base
+        out = get_output_dir("fallback_unused")
+        _assert(
+            out.name == f"exp_{base}_selftest",
+            f"G1 (selftest auto-append) FAIL: got {out.name}"
+        )
+
+        # G2: already-suffixed selftest -> no double-append
+        sys.argv = ["wrapper.py", "--self-test"]
+        os.environ["HDLAB_EXP_NAME"] = f"{base}_selftest"
+        out = get_output_dir("fallback_unused")
+        _assert(
+            out.name == f"exp_{base}_selftest",
+            f"G2 (no double-append selftest) FAIL: got {out.name}"
+        )
+
+        # G3: smoke auto-append
+        sys.argv = ["wrapper.py", "--smoke"]
+        os.environ["HDLAB_EXP_NAME"] = base
+        out = get_output_dir("fallback_unused")
+        _assert(
+            out.name == f"exp_{base}_smoke",
+            f"G3 (smoke auto-append) FAIL: got {out.name}"
+        )
+
+        # G4: already-suffixed smoke -> no double-append
+        sys.argv = ["wrapper.py", "--smoke"]
+        os.environ["HDLAB_EXP_NAME"] = f"{base}_smoke"
+        out = get_output_dir("fallback_unused")
+        _assert(
+            out.name == f"exp_{base}_smoke",
+            f"G4 (no double-append smoke) FAIL: got {out.name}"
+        )
+
+        # G5: FULL dispatch passthrough
+        sys.argv = ["wrapper.py"]
+        os.environ["HDLAB_EXP_NAME"] = base
+        out = get_output_dir("fallback_unused")
+        _assert(
+            out.name == f"exp_{base}",
+            f"G5 (FULL passthrough) FAIL: got {out.name}"
+        )
+
+        # G6: no env -> fallback anchor + auto-append
+        sys.argv = ["wrapper.py", "--self-test"]
+        os.environ.pop("HDLAB_EXP_NAME", None)
+        out = get_output_dir(base)
+        _assert(
+            out.name == f"exp_{base}_selftest",
+            f"G6 (no-env selftest fallback + append) FAIL: got {out.name}"
+        )
+
+        print("[G] SH-5 run-mode isolation OK: G1-G6 all correct")
+    finally:
+        sys.argv = _orig_argv
+        if _orig_env is None:
+            os.environ.pop("HDLAB_EXP_NAME", None)
+        else:
+            os.environ["HDLAB_EXP_NAME"] = _orig_env
+
+
 if __name__ == "__main__":
     test_static_source_no_manual_construction()
     test_runtime_double_prefix_normalization()
@@ -268,4 +360,5 @@ if __name__ == "__main__":
     test_template_files_no_anti_pattern()
     test_template_clone_selftest_single_prefix()
     test_wave14_legacy_cell_audit()
+    test_sh5_run_mode_output_isolation()
     print("PASS: all wrapper-path-normalization tests OK")
