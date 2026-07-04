@@ -1652,6 +1652,18 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 **Ablation FULL arm disposition (Director call):** DEFERRED — Step 1b with block codes + dual gates subsumes the unstructured-top-k FULL confirm; the N_DIM=4096 question rides along in Step 1b. Objective-sweep follow-on = Step 1b itself.
 
+## AMENDMENT 2026-07-04 ~03:30Z — SKUNKWORKS DOUBLE VET (commit `9825af151`): P8 DEMOTED + SYSTEMIC AUDIT FIRED
+
+**P8 CG promotion DENIED and DEMOTED MM_STANDARD -> MIDDLE_BAND.** The 5-FULL-seed H1 statistic [0.12, 0.16, 0.10, 0.15, 0.14] (cv=0.180 > 0.15) is statistically indistinguishable from a CONSERVATIVE binomial extreme-value null: the max-over-grid discriminator has null mean 0.128 (2.6x the 0.05 floor the prereg assumed); observed mean 0.134 -> **z=0.40**; P(5/5 fire | null)=0.244; "crossover EXISTS" fires under null with p=0.9992 (zero evidential value — explains why the specific ranking never reproduced); H3-NULL zero-variance is ceiling-pinned by construction. Also corrects my miscite: s7 IS FULL-comparable (TR=100); the 0.20 I cited was its SMOKE TR=40 value. Revival paths: TR>=400 (null drops ~0.064), paired-trial redesign (shared salts across mechs), or permutation test.
+
+**P9v2 -> MM_STANDARD BOUNDED_NULL (+1).** Genuine in-band 3/3 (drill HOLD resolved) but cross-seed sign audit overturns per-seed H1: 0/12 cells sign-consistent at |dev|>=0.10; per-cell cross-seed sd ~4x binomial floor = codebook-draw variance. **Regime-map contribution: N and L compose ADDITIVELY in-band to ~0.10-0.12 resolution** at signature (BUNDLED, modern_hopfield, M=10, F=1, corr=0.10, N_cliff=2048, N in {1024,2048,4096}, L in {2,4,8,16}, TR=100). Caveat: H3 deep-sat control was a design failure (floor-pinned arm). FRAMING FIX: P9v2 is N x CHAIN-DEPTH L (F=1 fixed), not "N x ALGEBRA(F)"; v2 core commit is `a75dccdd5`.
+
+**Meta atoms filed:** #45b design-point carve-out MM_TENTATIVE (short-circuit only when DESIGN POINT degenerate, not axis label; P9v2 is the carve-out case). NEW meta: max-statistic discriminators REQUIRE MC/analytic extreme-value null at SCHEMA-VET (prereg floors assumed 0.05; true 0.128); prefer paired trials.
+
+**SYSTEMIC FLAG -> FAMILY SUB-AUDIT DISPATCHED (agent in flight):** same extreme-value null audit now running on Probes 1/6v2/7v2 "axis moderates at cliff" family — **including Probe 1 STORAGE x CLEANUP CG_META** (headline atom; its 0/36 categorical zeros sit on ceiling-pinned arms). Also assessing whether M-sweep CG_META is in-class or structurally immune (paired design). **This gates ALL further CG_META claims in the regime-map family.**
+
+**Cert delta this batch: MM +2 net** (P9v2 +1, meta +2, P8 -1). cert_ledger 2026-07-04 = 10 entries.
+
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
 | agentId | role | task |
