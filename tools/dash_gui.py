@@ -57,6 +57,10 @@ REFRESH_MS = 7000          # auto-refresh cadence
 TICK_MS = 1000             # freshness-clock tick (independent of poll cadence)
 GPU_BUSY_UTIL = 25         # matches dashboard server.py's _GPU_BUSY_UTIL threshold
 GPU_HOT_C = 85             # cosmetic warn threshold for temp
+# build_state() is hard-bounded to ~10s. If a poll worker exceeds this it is
+# WEDGED (should be impossible given the internal caps) -- surface it and allow a
+# fresh poll rather than letting the window silently freeze on stale data.
+POLL_WEDGE_S = 20
 
 _LEVEL_BG = {"CRITICAL": "#c0392b", "WARN": "#e67e22"}
 _OK_BG = "#2e7d32"
@@ -104,6 +108,7 @@ class DashGui:
 
         self._q: _queue.Queue = _queue.Queue()
         self._poll_inflight = False
+        self._poll_started_ts: float | None = None
         self._last_state: dict | None = None
         self._last_poll_ok_ts: float | None = None
         self._last_poll_error: str | None = None
@@ -236,8 +241,14 @@ class DashGui:
 
     def refresh_now(self) -> None:
         if self._poll_inflight:
-            return
+            # A poll is already running. If it has wedged past the cap (should be
+            # impossible -- build_state is hard-bounded), abandon it and start a
+            # fresh one so the window can't freeze permanently on a stuck worker.
+            started = self._poll_started_ts
+            if started is None or (time.time() - started) < POLL_WEDGE_S:
+                return
         self._poll_inflight = True
+        self._poll_started_ts = time.time()
         t = threading.Thread(target=self._poll_worker, daemon=True)
         t.start()
 
@@ -419,8 +430,14 @@ class DashGui:
             parts.append(f"last data: {int(age)}s ago")
         else:
             parts.append("last data: (none yet)")
-        if self._poll_inflight:
-            parts.append("polling...")
+        # Distinguish a normal in-flight poll from a WEDGED one (worker exceeded
+        # build_state's hard bound) so the window never silently freezes.
+        if self._poll_inflight and self._poll_started_ts is not None:
+            in_flight = time.time() - self._poll_started_ts
+            if in_flight > POLL_WEDGE_S:
+                parts.append(f"POLL WEDGED ({int(in_flight)}s) - data may be stale, retrying")
+            else:
+                parts.append("polling...")
         if self._last_poll_error:
             parts.append(f"LAST POLL ERROR: {self._last_poll_error[:150]}")
         parts.append(f"auto-refresh every {REFRESH_MS // 1000}s (F5/r = refresh now)")

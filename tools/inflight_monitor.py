@@ -49,6 +49,7 @@ import json
 import os
 import subprocess
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -97,16 +98,81 @@ GPU_STALL_UTIL = 5         # util at/below this + runner-running for the window 
 # SAME ~/.ssh/config, so this reuses the existing host resolution rather than
 # hardcoding a fresh hostname/IP.
 SSH_ALIAS = "home"
-GPU_SSH_TIMEOUT_S = 5.0     # hard cap on the whole probe; can never hang a refresh
-GPU_SSH_CONNECT_TIMEOUT_S = 4  # ssh -o ConnectTimeout; fail fast, never prompt
+GPU_SSH_TIMEOUT_S = 4.0     # subprocess-internal cap on the probe
+GPU_SSH_CONNECT_TIMEOUT_S = 3  # ssh -o ConnectTimeout; fail fast, never prompt
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)  # popup-free (windowless mandate)
+
+# ---------------------------------------------------------------------------
+# HARD WALL-CLOCK BUDGETS (regression fix 2026-07-04: build_state() hung >2min).
+# build_state() is the Director's primary status tool AND the GUI's 7s refresh
+# source, so it must NEVER block. Each external/blocking data source (dashboard
+# HTTP, WMIC local scan, SSH nvidia-smi) has its OWN subprocess/socket timeout,
+# but those can be defeated by pathologies the internal timeout doesn't cover
+# (DNS getaddrinfo stalls, a half-dead server that accepts but never replies, the
+# subprocess double-communicate-after-kill hang when a grandchild inherits the
+# pipe). So every source ALSO runs under a wall-clock thread-join cap here that
+# CANNOT be defeated by any subprocess/socket internal: if a source exceeds its
+# budget the worker thread is abandoned (daemon; leaks harmlessly, reclaimed at
+# process exit) and that section returns unavailable + an explicit alert. The 3
+# always-run sources run CONCURRENTLY under one shared budget, so worst-case total
+# build_state() wall time is PRIMARY_BUDGET_S + (SSH only when feed is down).
+PRIMARY_BUDGET_S = 5.0     # shared cap for the concurrent {health, runs, local scan} gather
+GPU_SSH_BUDGET_S = 5.0     # wall cap on the SSH fallback (fires only when feed is DOWN/STALE)
+# => worst case ~10s (feed down + ssh pathological); feed-up worst ~5s; clean <1s.
 
 
 # ---------------------------------------------------------------------------
 # Source reads (all popup-free; dashboard = localhost HTTP, rest = local files)
 # ---------------------------------------------------------------------------
 
-def _http_json(path: str, timeout: float = 4.0) -> dict | None:
+def _bounded(fn, timeout_s: float, default=None):
+    """Run fn() in a daemon thread; return (result, completed). On timeout returns
+    (default, False) and ABANDONS the thread so the caller is never blocked longer
+    than timeout_s -- the wall-clock guarantee that no subprocess/socket internal
+    pathology can defeat. The abandoned daemon thread is reclaimed at process exit."""
+    box = {"v": default, "done": False}
+
+    def _run():
+        try:
+            box["v"] = fn()
+        except Exception:
+            box["v"] = default
+        finally:
+            box["done"] = True
+
+    th = threading.Thread(target=_run, daemon=True)
+    th.start()
+    th.join(timeout_s)
+    return box["v"], box["done"]
+
+
+def _gather(jobs: dict, timeout_s: float) -> dict:
+    """Run several callables CONCURRENTLY under one shared wall-clock deadline.
+    jobs: name -> callable. Returns name -> (result, completed). Total wall time is
+    bounded by timeout_s regardless of how many jobs wedge (each runs in its own
+    daemon thread; wedged ones are abandoned)."""
+    boxes = {n: {"v": None, "done": False} for n in jobs}
+    threads = []
+    for n, fn in jobs.items():
+        def _mk(name, f):
+            def _run():
+                try:
+                    boxes[name]["v"] = f()
+                except Exception:
+                    pass
+                finally:
+                    boxes[name]["done"] = True
+            return _run
+        t = threading.Thread(target=_mk(n, fn), daemon=True)
+        t.start()
+        threads.append(t)
+    deadline = time.time() + timeout_s
+    for t in threads:
+        t.join(max(0.0, deadline - time.time()))
+    return {n: (b["v"], b["done"]) for n, b in boxes.items()}
+
+
+def _http_json(path: str, timeout: float = 3.0) -> dict | None:
     try:
         with urllib.request.urlopen(DASHBOARD + path, timeout=timeout) as r:
             return json.loads(r.read().decode("utf-8", errors="replace"))
@@ -175,15 +241,23 @@ def probe_gpu_via_ssh() -> dict | None:
     """One-shot `ssh <SSH_ALIAS> nvidia-smi` GPU probe. None on any failure/timeout.
 
     Fallback for when the dashboard feed is DOWN/STALE. Returns
-    {util_pct, mem_used_mb, temp_c, source:"ssh", queried_at} on success. Hard
-    subprocess timeout (GPU_SSH_TIMEOUT_S) + ssh ConnectTimeout + BatchMode mean
-    it fails fast rather than hanging. Popup-free via CREATE_NO_WINDOW. Never
-    raises -- callers treat None as "no fallback number available" and keep the
-    graceful stale rendering.
+    {util_pct, mem_used_mb, temp_c, source:"ssh", queried_at} on success. Hardened
+    against hangs: ConnectTimeout (connect stall) + ServerAlive (post-connect
+    handshake/read stall) + BatchMode (never prompt) + ControlMaster=no/
+    ControlPath=none (never spawn or reuse a persistent master whose surviving pipe
+    would defeat the subprocess timeout) + stdin=DEVNULL + subprocess timeout.
+    Popup-free via CREATE_NO_WINDOW. Never raises. The caller ALSO runs this under
+    a wall-clock cap (_bounded) as the final backstop, so even a pathology that
+    slips every option above cannot block build_state().
     """
     cmd = [
-        "ssh", "-o", "BatchMode=yes",
+        "ssh",
+        "-o", "BatchMode=yes",
         "-o", f"ConnectTimeout={GPU_SSH_CONNECT_TIMEOUT_S}",
+        "-o", "ServerAliveInterval=2",
+        "-o", "ServerAliveCountMax=2",
+        "-o", "ControlMaster=no",
+        "-o", "ControlPath=none",
         SSH_ALIAS,
         "nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu "
         "--format=csv,noheader,nounits",
@@ -192,6 +266,7 @@ def probe_gpu_via_ssh() -> dict | None:
         proc = subprocess.run(
             cmd, capture_output=True, text=True,
             timeout=GPU_SSH_TIMEOUT_S, creationflags=_NO_WINDOW,
+            stdin=subprocess.DEVNULL,
         )
     except (subprocess.TimeoutExpired, OSError):
         return None
@@ -226,17 +301,32 @@ def build_state() -> dict:
     now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
     alerts: list[dict] = []
 
-    # --- Local direct-launched experiments (queue-bypassing agent subprocesses) ---
-    # Own popup-free WMIC scan (not via the dashboard) so these stay visible even
-    # when the dashboard/supervisor is dead -- the recurring silent-death case.
-    try:
-        local_experiments = scan_local_experiments()
-    except Exception:
+    # --- Primary sources gathered CONCURRENTLY under one shared wall-clock cap ---
+    # dashboard /api/health + /api/runs (localhost HTTP) and the local WMIC
+    # experiment scan are independent and each can block (half-dead server / wedged
+    # WMI). Running them concurrently under PRIMARY_BUDGET_S bounds total wall time
+    # to the budget (not the sum) and guarantees build_state() returns even if any
+    # of them wedges. A wedged source returns unavailable + an explicit alert.
+    gathered = _gather({
+        "health": lambda: _http_json("/api/health"),
+        "runs": lambda: _http_json("/api/runs"),
+        "local": scan_local_experiments,
+    }, PRIMARY_BUDGET_S)
+    health, health_done = gathered["health"]
+    runs, runs_done = gathered["runs"]
+    local_experiments, local_done = gathered["local"]
+    if not isinstance(local_experiments, list):
         local_experiments = []
+    if not local_done:
+        alerts.append({"level": "WARN", "code": "LOCAL_SCAN_TIMEOUT",
+                       "msg": f"local experiment scan (WMIC) exceeded {PRIMARY_BUDGET_S:.0f}s "
+                              f"and was abandoned; off-queue local runs may be hidden this tick"})
+    if not (health_done and runs_done):
+        alerts.append({"level": "WARN", "code": "FEED_TIMEOUT",
+                       "msg": f"dashboard HTTP did not respond within {PRIMARY_BUDGET_S:.0f}s "
+                              f"(half-dead server?); treating GPU feed as unavailable"})
 
     # --- Dashboard live view (GPU truth + feed freshness) ---
-    health = _http_json("/api/health")
-    runs = _http_json("/api/runs")
     dashboard_up = health is not None and runs is not None
     if not dashboard_up:
         alerts.append({"level": "CRITICAL", "code": "DASHBOARD_DOWN",
@@ -257,14 +347,21 @@ def build_state() -> dict:
     # --- Direct-SSH GPU fallback when the feed can't be trusted ---
     # The feed-up path is UNCHANGED (gpu_source="feed"). Only when the dashboard
     # is DOWN or the SSH poll is STALE do we run the short one-shot ssh nvidia-smi
-    # probe, so "is the GPU idle?" survives the web supervisor dying. On probe
-    # failure/timeout gpu_source stays "stale" and the graceful stale rendering
-    # is preserved.
+    # probe, so "is the GPU idle?" survives the web supervisor dying. The probe has
+    # its own subprocess timeout AND runs here under a wall-clock cap (_bounded) so
+    # a pathological SSH (DNS stall, handshake hang, grandchild pipe) can never
+    # block build_state(). On probe failure/timeout gpu_source stays "stale" and
+    # the graceful stale rendering is preserved.
     feed_trustworthy = dashboard_up and not feed.get("stale")
     gpu_source = "feed" if feed_trustworthy else "stale"
     ssh_gpu = None
     if not feed_trustworthy:
-        ssh_gpu = probe_gpu_via_ssh()
+        ssh_gpu, ssh_done = _bounded(probe_gpu_via_ssh, GPU_SSH_BUDGET_S, None)
+        if not ssh_done:
+            alerts.append({"level": "WARN", "code": "GPU_SSH_TIMEOUT",
+                           "msg": f"direct SSH nvidia-smi probe exceeded {GPU_SSH_BUDGET_S:.0f}s "
+                                  f"and was abandoned; GPU reading unavailable this tick"})
+            ssh_gpu = None
         if ssh_gpu is not None:
             gpu_source = "ssh"
             gpu_util = ssh_gpu["util_pct"]

@@ -113,12 +113,14 @@ def _args_summary(cmd: str) -> dict:
 def _wmic_python_procs() -> list[dict]:
     """[{cmd, ppid, pid, mem_kb, creation}] for all local python/pythonw procs."""
     try:
+        # timeout kept below the caller's wall-clock budget so a wedged WMI service
+        # self-cleans within the tick (the caller also caps this via _bounded).
         out = subprocess.check_output(
             ["wmic", "process", "where",
              "name='python.exe' or name='pythonw.exe'",
              "get", "CommandLine,CreationDate,ParentProcessId,ProcessId,WorkingSetSize",
              "/format:csv"],
-            stderr=subprocess.DEVNULL, timeout=10, text=True,
+            stderr=subprocess.DEVNULL, timeout=4, text=True,
             encoding="utf-8", errors="replace", creationflags=_NO_WINDOW,
         )
     except Exception:
