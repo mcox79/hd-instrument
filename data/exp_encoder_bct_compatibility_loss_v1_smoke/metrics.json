@@ -1,0 +1,138 @@
+{
+  "anchor_name": "encoder_bct_compatibility_loss_v1",
+  "run_mode": "smoke",
+  "seed": 7,
+  "n_train_b": 500,
+  "n_probe": 150,
+  "bct_weight": 0.15,
+  "steps": 150,
+  "batch": 64,
+  "ckpt_a_path": "D:\\AI\\hd-instrument\\data\\substrate_concept_encoder_v1b_v3global_mid\\_ckpt_block_global.pt",
+  "ckpt_a_step": 1800,
+  "teacher_cache": "bge_large_v2_name_43905_8a40445a.npz",
+  "per_unit": [
+    {
+      "unit": "SAME_A_BLOCK",
+      "top1_retrieval": 1.0,
+      "n": 150
+    },
+    {
+      "unit": "SAME_A_DENSE",
+      "top1_retrieval": 1.0,
+      "n": 150
+    },
+    {
+      "unit": "SAME_B_NO_BCT_BLOCK",
+      "top1_retrieval": 1.0,
+      "n": 150
+    },
+    {
+      "unit": "SAME_B_NO_BCT_DENSE",
+      "top1_retrieval": 1.0,
+      "n": 150
+    },
+    {
+      "unit": "CROSS_AIDX_BQUERY_NO_BCT_BLOCK",
+      "top1_retrieval": 0.013333333333333334,
+      "n": 150
+    },
+    {
+      "unit": "CROSS_AIDX_BQUERY_NO_BCT_DENSE",
+      "top1_retrieval": 0.013333333333333334,
+      "n": 150
+    },
+    {
+      "unit": "SAME_B_WITH_BCT_BLOCK",
+      "top1_retrieval": 1.0,
+      "n": 150
+    },
+    {
+      "unit": "SAME_B_WITH_BCT_DENSE",
+      "top1_retrieval": 1.0,
+      "n": 150
+    },
+    {
+      "unit": "CROSS_AIDX_BQUERY_WITH_BCT_BLOCK",
+      "top1_retrieval": 0.78,
+      "n": 150
+    },
+    {
+      "unit": "CROSS_AIDX_BQUERY_WITH_BCT_DENSE",
+      "top1_retrieval": 0.96,
+      "n": 150
+    },
+    {
+      "unit": "RANDOM_CONTROL_DENSE",
+      "top1_retrieval": 0.006666666666666667,
+      "n": 150
+    },
+    {
+      "unit": "RANDOM_CONTROL_BLOCK",
+      "top1_retrieval": 0.0,
+      "n": 150
+    },
+    {
+      "unit": "SEMANTIC_SPEARMAN_NO_BCT_DENSE",
+      "spearman": 0.8652025907334044,
+      "n_probe": 150
+    },
+    {
+      "unit": "SEMANTIC_SPEARMAN_WITH_BCT_DENSE",
+      "spearman": 0.6176836146958125,
+      "n_probe": 150
+    }
+  ],
+  "ratios": {
+    "NO_BCT_block": 0.013333333333333334,
+    "NO_BCT_dense": 0.013333333333333334,
+    "WITH_BCT_block": 0.78,
+    "WITH_BCT_dense": 0.96
+  },
+  "min_ratio_no_bct": 0.013333333333333334,
+  "min_ratio_with_bct": 0.78,
+  "semantic_spearman": {
+    "NO_BCT": 0.8652025907334044,
+    "WITH_BCT": 0.6176836146958125
+  },
+  "quality_retention_with_bct": 0.7139178977402528,
+  "hard_pass_ratio_threshold": 0.5,
+  "baseline_must_collapse_ceiling": 0.5,
+  "quality_retention_hard_pass": 0.8,
+  "quality_retention_fail_floor": 0.5,
+  "train_diag_no_bct": {
+    "arm": "NO_BCT",
+    "bct_weight": 0.0,
+    "loss_last": 0.001127797644585371,
+    "rkd_last": 0.001127797644585371,
+    "bct_last": 0.9808024764060974,
+    "lr_last": 1.7133751222137007e-07,
+    "steps": 150,
+    "batch": 64
+  },
+  "train_diag_with_bct": {
+    "arm": "WITH_BCT",
+    "bct_weight": 0.15,
+    "loss_last": 0.025630788877606392,
+    "rkd_last": 0.007884977385401726,
+    "bct_last": 0.11830540001392365,
+    "lr_last": 1.7133751222137007e-07,
+    "steps": 150,
+    "batch": 64
+  },
+  "cardinality_ok": true,
+  "expected_n_units": 14,
+  "arms_differ_verified": true,
+  "arm_digests": {
+    "A_block": "b4b4b7510805fb6f784681c40582e3dd820f5ab19e96f39b2d07f6703d6389e6",
+    "A_dense": "3b34d8d3c7d1a33b7d8c70cb1a5ed109141ade0064cde857f40023ca3df6c614",
+    "B_block_NO_BCT": "cf0e5c16106130dea079693339b641e25130e2435b5231c177ba9f92bacd38f9",
+    "B_block_WITH_BCT": "1d42f70674a5868bb4079e006790c0bef014caf1aeddcc59316af610817a4148",
+    "B_dense_NO_BCT": "7f43bd44ec8f46021d8aa15a04346d30e69bbe30de1d89d464f4526c50c55cad",
+    "B_dense_WITH_BCT": "6716f9b25e585c9852ec9bfa0c8987e0743459b796cf1db40765374e9722b6dc"
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "BCT loss partially restores cross-version retrieval (WITH_BCT min_ratio=0.7800 vs NO_BCT 0.0133) and/or partially trades off quality (retention=0.7139); real but not clean [min_ratio_no=0.0133 min_ratio_with=0.7800 quality_no=0.8652 quality_with=0.6177 retention=0.7139]",
+  "summary": "BCT loss partially restores cross-version retrieval (WITH_BCT min_ratio=0.7800 vs NO_BCT 0.0133) and/or partially trades off quality (retention=0.7139); real but not clean [min_ratio_no=0.0133 min_ratio_with=0.7800 quality_no=0.8652 quality_with=0.6177 retention=0.7139]",
+  "elapsed_s": 28.35674800002016,
+  "ts_iso": "2026-07-04T18:12:40.810404+00:00"
+}
