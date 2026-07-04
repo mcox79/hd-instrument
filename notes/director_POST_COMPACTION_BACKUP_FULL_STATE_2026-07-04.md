@@ -4,7 +4,13 @@
 (`director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-03_LATE.md`) is SUPERSEDED — do not use it.**
 Agents are ONLINE (the weekly rate-limit that throttled spawns earlier today has lifted).
 
-## >>> LATEST STATE ~20:25Z (read first) <<<
+## >>> LATEST STATE ~21:05Z (read first) <<<
+
+- **>>> OBJECTIVE-SWAP DEAD (VET-verified HF, both seeds). Retrieval is a CODE/QUANTIZATION bound, NOT a training-objective bound. STRATEGY FORK. <<<** KL-RANK ret_agree10 = 0.223/0.219 vs MSE 0.211/0.211 -> delta +0.010 (~9x smaller than K256's verified +0.093). KL-RANK FIXED the dense "decline" (plateau 0.78 vs MSE 0.65) and retrieval STILL didn't move -> proves it's not the loss family (atomized HF_STRUCTURAL_BOUND, commit 7f116800d; +1 HF). KL "looked" better on coarse cosine only by OVERSHOOTING the teacher (calib_err 0.096 vs MSE 0.006 -- worse calibration, not a win). **=> the elegant 'fix retrieval AND keep sparsity via a better loss' path is CLOSED.**
+- **THE FORK (retrieval is the real goal ~0.21, target 0.35; two lever families):** (A) SPARSITY-PRESERVING = OPQ-style LEARNED ROTATION before the block quantizer (align variance with code axes -> less quantization loss at SAME ~3% sparse; cardinality-drill #2 lever; the LAST sparsity-preserving shot). **DISPATCHED (exp_dev a8c105) -- watch: a rotation must NOT break SBC algebra.** (B) TRADE SPARSITY = K256 (+0.09 verified, 6.25% active) or bigger. **DIRECTOR CALL (full-auto): try OPQ (A) first -- it violates no goal. IF OPQ ALSO FAILS, retrieval-at-2% is likely unreachable and the 2%-sparsity-vs-retrieval tradeoff becomes a USER decision (trade sparsity / regime-switch dense-retrieval+sparse-composition / hold sparsity+weaker retrieval). Do NOT unilaterally trade the USER-confirmed 2% goal -- flag it.**
+- **NOTE:** the "2% sparse" framing is loose -- K=128 = 3.125% active (K256 = 6.25%). Full bypass (aa97d4, code-capacity ceiling K128 vs K256 for retrieval) landing -- refines whether OPQ has headroom (code-utilization gap) or retrieval is truly code-bound (must trade sparsity).
+
+## >>> LATEST STATE ~20:25Z <<<
 
 - **>>> ENCODER: two big reframes from a0ff3e's 3-cell landing (VET a746e1 in flight -- hold loosely). <<<**
   - **(1) The "DECLINE" WAS A METRIC ARTIFACT.** v3e's DECLINE_CONTINUES (which drove "needs objective-family change") was measured on the DENSE proxy. On the REAL goal metric (ret_agree10), there is NO decline over 6000 steps (v4 convergence cell, a92ae8a46 + bugfix e845cf831 -- exp_dev found+fixed its own Gate-D VAL-vs-TEST bug, recomputed offline bit-exact). => the objective-swap's CONVERGENCE motivation is moot; its RETRIEVAL motivation (rank-aware loss directly targets ranking) STANDS. Plateau-hold LR gives a small +0.02-0.03 ret_agree10 lift (free).
