@@ -1720,6 +1720,17 @@ Re-ran Probe 1 BUNDLED cross-term at TR=400 (4x) via imported `eval_phase_point`
 
 **PAIRED TR=400 DEFINITIVE: mechanism range EXACTLY 0.0000 on all 36 cells (z=-8.68).** When the 3 mechanisms see IDENTICAL items+corruptions, they produce BIT-IDENTICAL accuracy -> functionally DEGENERATE in BUNDLED. 100% of apparent TR=100 mechanism-variance was unpaired-sampling noise. **CANDIDATE META-ATOM (high value):** unpaired max/range mechanism-comparison discriminators MANUFACTURE phantom cross-terms; paired trials (shared salts) OR data-driven binomial null MANDATORY. Retroactive to whole regime-map cross-term family (P1/P6/P7/P8). Composes with P8 EV-null meta (`9825af151`).
 
+## ENCODER v2 MLP FULL LANDED 2026-07-04 ~13:55Z: HARD_FAIL at full corpus scale — my "capacity confirmed" was OVER-OPTIMISTIC
+
+Off-disk verified (`data/exp_encoder_migration_step1b_v2_mlp_distill_concept_encoder_v1/metrics.json`, run_mode=full): verdict HARD_FAIL `G_A_SEMANTIC_FAIL: spearman 0.311 < 0.70 (keyed algebra B=1.000 ok)`. Teacher = full corpus 177899 concepts (train 160109 / held 17790). Semantic spearman: **BLOCK_K128 0.311 / BLOCK_K64 0.291 / TOPK_NAIVE 0.499 / DENSE_SIGN 0.368 / CHARPOS 0.656 / RANDOM_BLOCK 0.002**. Keyed roundtrip ~1.0 all arms (ALGEBRA FINE).
+
+**THREE ANOMALIES (diagnosis dispatched to exp_dev a03cf07):**
+1. DENSE_SIGN readout COLLAPSED 0.825 (smoke 3000) -> 0.368 (full 177899). The "easy" upper-bound arm fell 0.46 at scale.
+2. **CHARPOS (UNTRAINED orthographic baseline) 0.656 BEATS every trained arm.** Distillation is worse than char-features at full scale.
+3. RANDOM_BLOCK 0.002 (control sane) — not a totally-broken eval.
+
+**FIX#28 SELF-CORRECTION:** I repeatedly framed "capacity confirmed, MLP is the fix" off the SMOKE's DENSE 0.825 — which was on an EASY 3000-concept subset and did NOT hold at scale. The dense readout collapse means the smoke was badly misleading; the sparsifier temp-annealing levers (research drill) likely DON'T apply (their premise = capacity-there, contradicted by the DENSE collapse). **Leading hypothesis (exp_dev testing): in-batch RKD (512x512/step) can't learn GLOBAL geometry over 160k concepts — smoke worked because batch 512 covered a large fraction of 3000.** If true the fix is a GLOBAL objective (memory-bank/global-anchors), not sparsifier tuning. Alt: an eval/scale bug (teacher-norm at the 177899 cache, DENSE readout). exp_dev disambiguating via intermediate-scale (20-40k) smoke. Algebra side remains DONE.
+
 ## PROBE 1 DEMOTE RATIFIED BY SKUNKWORKS (commit `bf4408f2e`, 2026-07-04T11:42Z) — agents back
 
 Independent reproduce (Skunkworks wrote its own from `eval_phase_point` + raw metrics; my scratchpad scripts were ephemeral): ALL claims CONFIRMED, none failed.
