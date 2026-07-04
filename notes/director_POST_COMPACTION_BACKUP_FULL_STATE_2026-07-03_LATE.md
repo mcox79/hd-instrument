@@ -2,6 +2,19 @@
 
 **Filed 2026-07-03 ~19:20Z. Read this file end-to-end before any other action. Replaces prior BACKUP as pickup canonical.**
 
+## CORRECTION 04:35Z UTC — Fix#28 CATCH ON DIRECTOR: Encoder Step 1 NOT LANDED
+
+**I mistook a stale crash metrics.json for a landing.** Actual state:
+- Step 1 metrics.json (23:28:20Z) = **CELL_CRASHED** (AssertionError selftest mean_nnz 616.91 outside [18,22])
+- Fix pushed between 23:28 and 23:50Z; RESTART at 23:50:18Z pid 31660 (still running)
+- **Current live heartbeat: unit 5/98 at 01:58:52Z**, rate ~10000 concepts/608s
+- **ETA to landing: ~2026-07-04T17:30Z UTC** (15.5h more from unit 5)
+- BGE cache landing status also needs re-verify (may also be stale/crash pattern; awaits Skunkworks batch VET)
+
+**Discipline:** exp_dev refused to dispatch Step 2 per verify-off-disk discipline. Skunkworks should audit whether selftest-band fix was "widen band" (discipline violation) or "fix encoder" (proper) at `experiments/exp_encoder_migration_step1_train_concept_encoder_970K_KB_v1_core.py:530`.
+
+**Next session pickup: verify Step 1 unit_idx=98 AND metrics.json mtime > start_marker.json mtime (Fix#25 landing-notifier pattern) before framing as landed.**
+
 ## FINAL AMENDMENT 04:20Z UTC — 111 ATOMS (session end; compaction imminent 2%)
 
 **SESSION FINAL: math=62, meta=49 = 111 atoms today (+23 from 88 at pickup).** 112 pending Skunkworks VET on dose-response HP.
