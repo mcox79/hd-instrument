@@ -137,7 +137,14 @@ FULL_HELD_CAP = 20_000
 
 CKPT_EVERY_STEPS_FULL = 500
 CKPT_EVERY_STEPS_SMOKE = 50
-MINE_CHUNK = 2048
+# MINE_CHUNK is purely a batching axis over teacher rows: mining is
+# shard-checkpointed (mine_*.npz) and each row's positive (argmax) + semi-hard
+# candidates (uniform sample from the [SEMI_LO,SEMI_HI] band) are computed over
+# the full V columns independent of chunk size. Reduced 2048->256 to cap the
+# per-chunk [chunk,V] float32 materialization (sims/band/multinomial-weights)
+# at ~0.5GB instead of ~4-6GB so mining fits a BOINC-shared 8GB GPU. Smaller
+# chunks = more shards, no change to the semi-hard candidate semantics.
+MINE_CHUNK = 256
 CLEANUP_CHUNK = 16384
 
 EXPECTED_N_UNITS_SMOKE = 22
@@ -279,13 +286,19 @@ def _mine_teacher(Xtr: torch.Tensor, device: str, shard_dir: Path,
         sims[rows, torch.arange(lo, hi, device=device)] = -2.0
         pos = sims.argmax(dim=1)
         band = ((sims >= SEMI_LO) & (sims <= SEMI_HI)).float()
+        del sims  # free [C,V] before materializing multinomial weights
         n_band = band.sum(dim=1)
         semi = torch.full((hi - lo, N_SEMI_CANDS), -1,
                           dtype=torch.long, device=device)
         ok = n_band > 0
         if ok.any():
+            # band[ok] copies only the ok-rows (each with >=1 band member);
+            # add the numerical-safety epsilon in place to avoid a second
+            # [n_ok, V] temporary. Math is identical to band[ok] + 1e-12.
+            band_ok = band[ok]
+            band_ok.add_(1e-12)
             picks = torch.multinomial(
-                band[ok] + 1e-12, N_SEMI_CANDS, replacement=True)
+                band_ok, N_SEMI_CANDS, replacement=True)
             semi[ok] = picks
         pos_c = pos.cpu()
         semi_c = semi.cpu()
