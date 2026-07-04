@@ -1686,10 +1686,23 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 **SMOKE LAUNCHED (background subprocess, pid 140297, ~03:50Z):** run_mode=smoke seed=7 device=cpu n_dim=4096 k_blocks=[128], teacher cache bge_large_v2_name_43905 (334.5MB). Log at scratchpad/step1b_smoke.log. **Next: read SMOKE dual-gate numbers (semantic rank-corr + algebraic cleanup); if semantic gate clears at SMOKE, this is the first real evidence the 0.85 path is viable.** NOT yet landed at this amendment.
 
+## STEP 1B SMOKE LANDED 03:36Z: HARD_FAIL (informative) — semantic+keyed gates STRONG
+
+`data/exp_encoder_migration_step1b_distill_concept_encoder_v1_smoke/metrics.json`, 266s, seed 7, N_DIM=4096, K=128, teacher 43905 concepts. Verdict `HARD_FAIL_SPARSITY_NOT_PROTECTING` (bundle J=5 BLOCK 0.584 < DENSE 0.604).
+
+**Load-bearing gates STRONG (not an approach failure):**
+- SEMANTIC spearman vs BGE: BLOCK **0.788** / TOPK 0.718 / DENSE 0.907 (ceiling) / CHARPOS **0.540** (= orthographic baseline, confirms drill-predicted ~0.52 cap) / RANDOM 0.001. Block distillation beats current orthographic 0.79 vs 0.54, on-trajectory for 0.85 at FULL.
+- KEYED ALGEBRA (bind->unbind->cleanup acc@1): BLOCK **1.0** J5+J20; shuffled-key control 0.0. Production composition path flawless.
+
+**The falsified sub-hypothesis is a real finding:** raw bundle-superposition collapses for ALL semantically-trained codes (BLOCK 0.091 / TOPK 0.081 / DENSE 0.06 at J20) while RANDOM bundles ~perfectly (0.996). => semantic training makes codes CORRELATED; correlated codes bundle badly regardless of sparsity. Decorrelation (random role keys), NOT sparsity, protects superposition — reconciles with algebra drill (production bundles KEY-BOUND fillers = the perfect keyed gate, not raw codes).
+
+**Design fix (next):** the HARD_FAIL gate tests raw-bundle (non-production). Re-aim dual-gate B at the KEYED composition path (BLOCK=1.0). Ablation's "sparse cleanup 0.93>dense 0.43" was fixed-M associative cleanup != bundle recall_at_J on trained codes (metric-mismatch). Candidate atom (Skunkworks tier Monday): MM_TENTATIVE "semantic-correlation degrades raw-bundle; keyed-binding immune."
+
 ## OPEN HIGH-PRIORITY ITEMS (agent-quota-limited until 2026-07-07)
-1. **Probe 1 CG_META extreme-value-null re-audit** (family audit was killed incomplete) — can run as main-thread MC script.
-2. **Step 1b SMOKE dual-gate read** (subprocess in flight) — the load-bearing encoder evidence.
-3. Encoder Step 1 orthographic baseline still grinding CPU (~30h, trust restored).
+1. **Step 1b gate re-aim + re-SMOKE** — reframe gate B to keyed path; approach looks SOUND (semantic 0.788 + keyed 1.0).
+2. **Probe 1 CG_META re-audit** — count/mean discriminator (24/36, mean 0.1033, cv 0.148), NOT max-statistic that sank P8 -> likely SURVIVES; Skunkworks authoritative Monday.
+3. **Negatives-2x:** P8 permutation test on existing 5-seed data (no new compute); P9v2 TR>=400 revival.
+4. Encoder Step 1 orthographic baseline grinding CPU (~30h) — now KNOWN to cap ~0.54 (CHARPOS arm confirms); floor artifact, Step 1b is the real path.
 
 ## SPAWNS IN FLIGHT AT THIS AMENDMENT (4)
 
