@@ -82,8 +82,33 @@ Both are already MIDDLE_BAND (never promoted), so the consequential finding is P
 (headline CG_META) + P8. The Monday Skunkworks family SCHEMA-VET should run the exact
 per-probe nulls + reproduce-checks before any tier change.
 
+## TR=400 REVIVAL (negatives-2x) -- CONFIRMED DEAD (decisive)
+
+Re-ran the BUNDLED cross-term grid at TR=400 (4x trials) by importing the cell's own
+`eval_phase_point` (no cell edit). Script `scratchpad/probe1_TR400_revival.py`, result
+`scratchpad/probe1_TR400_result.json`. 108 BUNDLED points (3 mech x 12 subregime x 3 seed).
+
+| stat | TR=100 obs | TR=400 obs | TR=400 null mean | z | P(null>=obs) |
+|---|---|---|---|---|---|
+| MAX range | 0.120 | **0.065** | 0.0675 | -0.20 | 0.57 |
+| MEAN range | 0.031 | **0.0198** | 0.0178 | 0.99 | 0.16 |
+| COUNT>0.02 | 16/36 | 14/36 | 13.1 | 0.45 | 0.44 |
+
+**The mechanism spread TRACKED THE NOISE FLOOR DOWN** (0.10 -> 0.065 as TR 100 -> 400;
+pure-noise prediction 0.10*sqrt(100/400)=0.05). A REAL effect would have held ~0.10 and
+cleared the tighter TR=400 floor (~0.068). It did not. Mean is marginally above null
+(p=0.16) but nowhere near significant. **VERDICT: the cross-term is a measurement
+artifact, not a real effect, confirmed at 4x power.** Any residual effect is < 0.065 even
+at TR=400 -- not CG-grade under any framing.
+
+**Caveat (last loophole):** this is UNPAIRED (independent salts per mechanism, matching the
+original design). A PAIRED test (shared salt across mechanisms per cell) is the most
+sensitive possible and would catch a sub-noise micro-effect. Running it now as belt-and-
+suspenders; if IT also shows nothing, the family is dead beyond doubt.
+
 ## Status
-- **NO cert ledger mutation performed.** This is a Director estimate.
+- **NO cert ledger mutation performed.** This is a Director estimate, now with TR=400
+  confirmation. Skunkworks ratifies + executes the split/demote.
 - Skunkworks must ratify (independent reproduce + confirm unpaired-null assumption +
   decide split-atom tiers) before demoting the Probe 1 CG_META.
 - If ratified: Probe 1 -> split into `STORAGE_MAIN_EFFECT` (CG-grade, 0.93 gap) +

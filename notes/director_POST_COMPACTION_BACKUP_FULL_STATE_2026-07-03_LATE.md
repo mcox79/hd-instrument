@@ -1714,6 +1714,10 @@ Commit `b60ee519f`. `hdlab/atom_consultation.py` extended: `_AtomRecord.recommen
 
 **FAMILY IMPLICATION (HIGH):** P1 + P8 both fall. P6v2/P7v2 near-certain same. The entire "axis moderates CLEANUP_MECHANISM at cliff/BUNDLED" family is likely a TR=100 artifact. Only main effects (storage gap, saturation) are real. **This reframes the regime-map arc.** Skunkworks must ratify (NO cert mutation done).
 
+## TR=400 REVIVAL (negatives-2x) -> CONFIRMED DEAD (2026-07-04, decisive)
+
+Re-ran Probe 1 BUNDLED cross-term at TR=400 (4x) via imported `eval_phase_point` (no cell edit; script `scratchpad/probe1_TR400_revival.py`). **Mechanism spread tracked the noise floor DOWN: 0.10 (TR=100) -> 0.065 (TR=400)**, matching the pure-noise 1/sqrt(TR) prediction (0.05). A real effect would hold ~0.10 and clear the tighter 0.068 floor -- it did not. All stats at noise (mean p=0.16, max z=-0.20, count z=0.45). **The cross-term is a measurement artifact, confirmed at 4x power; any residual < 0.065, not CG-grade.** PAIRED-design test (most-sensitive, shared salts) launched as belt-and-suspenders (pid 140647). Storage main-effect (0.93) untouched. Skunkworks ratifies + executes split/demote Monday.
+
 ## OPEN HIGH-PRIORITY ITEMS (agent-quota-limited until 2026-07-07)
 1. **NEGATIVES-2x REVIVAL (the real drill): TR>=400 re-run of P1/P6v2/P7v2/P8 cross-terms.** Cells run in 3-11s FULL -> CHEAP, local-CPU subprocess feasible, NO GPU. If a genuine 0.10 mechanism effect exists it clears at TR>=400; if still noise, the family is confirmed-dead. THIS is the negatives-2x, not a permutation test on underpowered data.
 2. **Step 1b gate re-aim + re-SMOKE** — reframe gate B to keyed path; approach SOUND (semantic 0.788 + keyed 1.0). Step 1b FULL 20k-step running (pid 140458, 39515 concepts) — read semantic-climb toward 0.85.
