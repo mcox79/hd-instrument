@@ -237,6 +237,79 @@ def _queue_running_pending(entries: list[dict]) -> tuple[list[str], list[str], l
     return running, pending, terminal
 
 
+def _norm_exp_name(n: str | None) -> str:
+    """Canonicalize an experiment/cell name for cross-source matching: lowercase,
+    strip a trailing .py, strip a leading exp_ prefix. Reconciles the script-name
+    vs queue-entry drift (`exp_<cell>.py` on the GPU card vs `<cell>` in the queue)."""
+    s = (n or "").strip().lower()
+    if s.endswith(".py"):
+        s = s[:-3]
+    if s.startswith("exp_"):
+        s = s[len("exp_"):]
+    return s
+
+
+def _exp_tracked_in_queues(exp_name: str | None, queues: dict) -> bool:
+    """True if exp_name matches a running/pending entry on ANY tracked queue
+    (remote_cpu_queue / overnight_queue / local_cpu_queue). Canonical equality plus
+    a length-guarded substring fallback so name drift still reconciles without a
+    short-name over-match. Used to suppress the GPU_EXP_UNTRACKED false-positive
+    where a CPU cell IS queue-tracked -- just not on a queue the dashboard checks."""
+    target = _norm_exp_name(exp_name)
+    if not target:
+        return False
+    for q in (queues or {}).values():
+        if not isinstance(q, dict):
+            continue
+        for nm in list(q.get("running") or []) + list(q.get("pending") or []):
+            cand = _norm_exp_name(nm)
+            if not cand:
+                continue
+            if cand == target:
+                return True
+            shorter = cand if len(cand) <= len(target) else target
+            if len(shorter) >= 8 and (cand in target or target in cand):
+                return True
+    return False
+
+
+def _gpu_exp_untracked_should_fire(gpu: dict, gpu_util, queues: dict) -> bool:
+    """Whether GPU_EXP_UNTRACKED is a GENUINE untracked-GPU experiment worth alerting.
+
+    Fires ONLY when a substrate experiment is truly on the GPU card (util>0) and no
+    queue tracks it. Suppresses the two known false-positive shapes:
+      (A) the exp name matches a running/pending entry on a tracked queue -- it IS
+          tracked; the dashboard's gpu_queue_mismatch only cross-refs the GPU/local
+          queues and misses remote_cpu_queue/overnight_queue.
+      (B) GPU util==0 while the gpu runner is idle -- the emitter classifies every
+          runner-child python proc (incl. a CPU cell under cpu_runner_0) as
+          experiment_child and the dashboard maps it onto the card; nothing is
+          really on the GPU. A genuine untracked-GPU experiment holds util>0.
+    """
+    if not gpu.get("gpu_queue_mismatch"):
+        return False
+    if _exp_tracked_in_queues(gpu.get("gpu_exp_name"), queues):
+        return False
+    util_num = gpu_util if isinstance(gpu_util, (int, float)) else None
+    gpu_runner_running = gpu.get("status") == "running"
+    if not gpu_runner_running and util_num is not None and util_num <= 0.0:
+        return False
+    return True
+
+
+def _experiment_on_card_display(gpu: dict, gpu_util) -> bool:
+    """Corrected 'on card' flag for rendering: drop the CPU-cell misattribution
+    (util==0 + gpu runner idle) so the pane/human render never show a phantom GPU
+    experiment for a cell that is actually running on the CPU."""
+    if not gpu.get("gpu_experiment_on_card"):
+        return False
+    util_num = gpu_util if isinstance(gpu_util, (int, float)) else None
+    gpu_runner_running = gpu.get("status") == "running"
+    if not gpu_runner_running and util_num is not None and util_num <= 0.0:
+        return False
+    return True
+
+
 def probe_gpu_via_ssh() -> dict | None:
     """One-shot `ssh <SSH_ALIAS> nvidia-smi` GPU probe. None on any failure/timeout.
 
@@ -411,7 +484,13 @@ def build_state() -> dict:
 
     # --- GPU reconciliation alerts (from the dashboard's enriched runs.gpu) ---
     if dashboard_up and isinstance(gpu, dict):
-        if gpu.get("gpu_queue_mismatch"):
+        # GPU_EXP_UNTRACKED fires ONLY for a genuine untracked-GPU experiment
+        # (util>0 on the card, no queue tracks it). Two false-positive shapes are
+        # suppressed by _gpu_exp_untracked_should_fire: (A) a CPU cell tracked on
+        # remote_cpu_queue/overnight_queue (the dashboard only cross-refs GPU/local
+        # queues), and (B) a CPU cell misread onto the idle card (util==0, gpu
+        # runner idle). The genuine alert is preserved.
+        if _gpu_exp_untracked_should_fire(gpu, gpu_util, queues):
             who = gpu.get("gpu_exp_name") or (gpu.get("gpu_top_proc") or {}).get("pid")
             alerts.append({"level": "WARN", "code": "GPU_EXP_UNTRACKED",
                            "msg": f"substrate experiment on GPU ({who}) but no queue tracks it "
@@ -456,7 +535,7 @@ def build_state() -> dict:
             "source": gpu_source,  # "feed" | "ssh" | "stale"
             "source_ts": ssh_gpu["queried_at"] if ssh_gpu else None,
             "queue_status": gpu.get("status"), "current": gpu.get("current"),
-            "experiment_on_card": gpu.get("gpu_experiment_on_card"),
+            "experiment_on_card": _experiment_on_card_display(gpu, gpu_util),
             "exp_name": gpu.get("gpu_exp_name"),
             "elapsed_s": gpu.get("elapsed_s"), "progress_pct": gpu.get("progress_pct"),
             "eta_sec": gpu.get("eta_sec"),
