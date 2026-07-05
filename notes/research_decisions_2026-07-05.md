@@ -34,3 +34,5 @@ interference, Van Dyke & McElree 2006); shared-vocab retest spec'd, not yet cell
 notes/exp_dev_handoff_research_capability_optimization_ranking_2026-07-05.md.
 
 - 2026-07-05T22:21:24Z research_brain_component_rerank_thalamus_cerebellum_load_2026-07-05.md -- 2x-drill re-rank: thalamic router NOW loaded (oracle_routing scope-flag on multi_hop.py, RC1/RC2/RC3 open since 06-26, RC-multihop-1 backlog undispatched); top pick exp_multihop_router_crt_residue_addressed_v1 (algebraic-first per Hash-Layers precedent + internal symbolic-beats-learned finding); cerebellum LOADED-but-needs-design (targets gonogo 0.653d4->0.075d6 depth degradation via DAgger/Wolpert-Kawato anticipatory-correction framing); CLS-consolidation and predictive-coding stay deprioritized. P_deflated=0.30 (thalamus) / 0.28 (cerebellum). SPEC ONLY, no dispatch.
+
+- 2026-07-05T23:29:42Z: language-ingest glass-box scoping (4-layer decomposition, dependency table, dev-acquisition + NLG-lit cross-check) -> notes/research_language_ingest_glassbox_scoping_2026-07-05.md ; handoff -> notes/exp_dev_handoff_research_language_ingest_glassbox_scoping_2026-07-05.md
