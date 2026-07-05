@@ -389,9 +389,13 @@ def check_declared_referents(
 
     For LOCAL queues (local_cpu_queue), each referent must exist on the
     local filesystem.
-    For REMOTE queues (overnight_queue, remote_cpu_queue), the gate runs
-    `ssh marsh@home test -f <path>` for each referent and rejects on
-    missing.
+    For REMOTE queues (overnight_queue, remote_cpu_queue): when queue_add.py
+    is running ON the remote host (HDLAB_QUEUE_ADD_ON_REMOTE=1), the local
+    filesystem IS the remote filesystem, so each referent is checked directly
+    via `(REPO/ref).exists()` -- ssh-ing to marsh@home from the remote itself
+    would be a self-loopback that false-reports MISSING. Only when dispatching
+    a remote-queue referent from the LOCAL box does the gate run
+    `ssh marsh@home test -f <path>` and reject on missing.
 
     Override: --allow-missing-referent (rare; only for cells whose first
     arm BUILDS the referent before use, such as the Tier-1
@@ -423,10 +427,21 @@ def check_declared_referents(
     print(f"[gate] PROT-022: script declares {len(referents)} KB referent(s)")
 
     is_remote = queue_name in PROT022_REMOTE_QUEUES
+    # PROT-022 self-loopback fix (2026-07-05): when queue_add.py is running ON
+    # the remote host itself (HDLAB_QUEUE_ADD_ON_REMOTE=1, set by queue_add.sh
+    # after it SCPs + SSHes into marsh@home), the LOCAL filesystem IS the remote
+    # filesystem. The prior code still ssh'd to marsh@home in this case -- an
+    # ssh-to-self loopback that false-reported every referent MISSING (exit 10)
+    # and blocked all referent-declaring remote cells. On-remote we now check
+    # REPO/ref directly. The ssh path is retained ONLY for the on-LOCAL dispatch
+    # case, where the referent genuinely lives on a different host and must be
+    # checked over the wire; that branch is unchanged and stays protective.
+    on_remote = os.environ.get("HDLAB_QUEUE_ADD_ON_REMOTE") == "1"
+    check_over_ssh = is_remote and not on_remote
     missing: list[str] = []
 
     for ref in referents:
-        if is_remote:
+        if check_over_ssh:
             remote_path = f"{PROT022_REMOTE_REPO}/{ref}"
             try:
                 _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
