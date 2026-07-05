@@ -169,10 +169,16 @@ else:
     RUN_MODE = os.environ.get("HDLAB_RUN_MODE", "full")
 
 # GEN-ONLY gate: run the gen-side V-scan rescue ONLY, skipping the heavy dual-
-# harness encoder leg (1.35GB teacher cache + long in-batch-RKD training). Env
-# gate is the runner-facing switch (runner invokes bare + injects env); the
-# --gen-only flag is the local-smoke convenience. Either enables it.
-GEN_ONLY = (os.environ.get("HDLAB_DEHUB_GEN_ONLY", "") == "1") or bool(_ARGS.gen_only)
+# harness encoder leg (1.35GB teacher cache + long in-batch-RKD training). The
+# NAME suffix is the runner-facing switch: runner_v2_prod injects only fixed env
+# keys (HDLAB_EXP_NAME/HDLAB_RUN_MODE/HDLAB_QUEUE) + NO script args, so the env
+# gate + --gen-only flag CANNOT fire via queue dispatch. But HDLAB_EXP_NAME is
+# set from the queue-entry name, and the dispatch anchor is
+# content_dehub_joint_lever_v1_genonly -> self-arm from the '_genonly' suffix
+# (consistent with the _genonly output-dir logic in _anchor_name). The env gate +
+# --gen-only flag remain as local-smoke conveniences. Any of the three enables it.
+GEN_ONLY = ((os.environ.get("HDLAB_DEHUB_GEN_ONLY", "") == "1") or bool(_ARGS.gen_only)
+            or _HDLAB_EXP_NAME.lower().endswith("_genonly"))
 
 # device: default cpu for smoke/self-test (remote_cpu / laptop safety), auto for full
 if _ARGS.device:
