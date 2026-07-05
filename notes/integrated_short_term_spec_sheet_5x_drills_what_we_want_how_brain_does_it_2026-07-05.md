@@ -111,6 +111,41 @@ are inside this headroom, not beyond it.
   Concrete: at N=8192, ~200 items/clean-bundle at recall~1.0 (~270-320 at 0.95). This is the real M-budget for cleanup/bundling.
 - Both compose with (not re-count) the prior E3 permutation-indexed-binding + hub-rescue MM_STANDARD.
 
+## SESSION OUTCOME + FRONTIER + FORWARD PLAN (2026-07-05 close -- this is the current recovery state)
+All 5 goals taken through BUILD + independent VET. Verified tiers (off-disk, atomized):
+- **PERCEPTION** = done-mediocre (GSBC_EXPAND2X). Teacher-dependence NOT a proven wall (DPI = folk bound). SHIP-IT.
+- **GENERATION** = decoder MVP MM_STANDARD (frame-known S/V/O round-trip exact-ordered 1.000, non-vacuous, controls fire);
+  envelope CHAIN_GRADE. The "mouth" exists for simple sentences. Blind factorization = a COMPREHENSION problem, not a generation blocker.
+- **MEMORY** = MM_STANDARD. Capacity is a BUYABLE linear-memory cost (M~=40 floats/item, ~200 clean items/bundle@N8192), not a wall;
+  fixed-memory ceiling is the standard crosstalk law. Hub-recall rescued (protected/index binding).
+- **REASONING** = MEASURED_MECHANISM (modest-real). Digital-repeater cleanup beats analog above the M/N~1 crosstalk threshold
+  (regen_d5 0.263 vs analog 0.087, gap WIDENS with load), faith 1.0, controls fire -- but MODEST absolute (the 0.60 smoke was over-optimistic).
+  N-scale-up refinement DEFERRED (smoke hung on N=32768 python-loop-scaling; re-launched smoke testing the fix).
+- **CONTINUAL LEARNING** = SPLIT. Not-forgetting = DONE (proven 4x). Schema-formation MECHANISM works on SYNTHETIC structure (MM_STANDARD,
+  transfer +0.59). But **real subject-conditional relational mapping = SCOPED HARD_FAIL / the FRONTIER** (VET-corrected a0f6dae): schema
+  ablation FULL (12 arms) shows real-minus-shuffled ~= 0 under BOTH surface (char-trigram) AND semantic (BGE) encodings (relation-typical prior,
+  NOT per-instance mapping). VET CORRECTED 2 of my over-claims: (1) "TRAINED~=NAIVE => training refuted" is NOT established -- the estimator-axis
+  positive control SATURATED (discriminator never fired) so the trained-transform axis is VACUOUS/untested this run (why it's MIDDLE_BAND not
+  HARD_FAIL); (2) it is NOT inductive-specific -- TRANSDUCTIVE (seen entities) also fails. Only 2 semantic relations; the TARGET GSBC encoder UNTESTED.
+
+**THE ONE FRONTIER (VET-corrected):** subject-conditional relational mapping on real KG -- recover the SPECIFIC object for a specific subject
+(seen OR unseen) instead of the relation's typical answer. Fails under both encodings tested; but the trained-transform lever is UNTESTED
+(vacuous control) and GSBC untested -- so it is NOT yet "refuted," it is OPEN. Brain does it (TEM: separate learned STRUCTURAL code + content).
+Likely engineering-hard, not info-theoretic (needs proof either way). Next experiment MUST use a PROPERLY-DISCRIMINATING trained-transform control
+(calibrate the positive control BELOW ceiling so trained CAN beat naive when it should) + test the GSBC encoder + more relations. [META_RULE banked:
+a comparison-axis positive control must DIFFERENTIATE the arms, not merely PASS.]
+
+**NO FUNDAMENTAL WALL found anywhere** across 5 goals + all drills + all VETs -- every limit was a compute cost / folk bound / threshold /
+engineering distance. The audits repeatedly trimmed build-verdict HARD_PASSes to MM_STANDARD (no-smoke working).
+
+**FORWARD PLAN (in flight / next):**
+1. GENERATION scale-the-mouth (native GSBC fillers + higher D/V) -- does the mouth work with our REAL encoder + at scale. [IN FLIGHT]
+2. FRONTIER: inductive relational transfer -- content-conditioned relation transform generalizing to unseen entities (TEM-grounded,
+   likely GPU-trainable -- fills the idle GPU). Drill -> decisive first-attempt cell. [IN FLIGHT]
+3. REASONING useful-magnitude re-run (fix: fast small-N smoke, big-N in FULL, vectorize) -- deferred, not critical (mechanism banked).
+4. Deferred tidy: director_plan.json refresh (stale pre-reframe C0-C6); capability_scorecard honest revision; a97751df light-VET;
+   push commits; auto-refill USER cmd; --self-test infra fix; n11 teacher-free revival. Re-encode still HELD.
+
 ## DISCIPLINE
 Verify off-disk before claiming; no-smoke (ratings above are deflated-honest); brain = existence proof + high-energy augment;
 this is CONSTRUCTIVE build work, not vs-LLM. Every cell: HARD-PASS/HARD-FAIL pre-reg, self-test, multi-seed FULL, joint-gate.

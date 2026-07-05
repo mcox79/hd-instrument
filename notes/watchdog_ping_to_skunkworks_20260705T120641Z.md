@@ -1,8 +1,8 @@
-# WATCHDOG -> research: heartbeat-stale + concrete inbox snapshot
+# WATCHDOG -> skunkworks: heartbeat-stale + concrete inbox snapshot
 
 **From:** hd_session_watchdog (Phase 2 hardening; Testbed-built per Director GO)
-**Date:** 20260705T111919Z
-**Reason:** No activity signal from session 'research' in the stale window.
+**Date:** 20260705T120641Z
+**Reason:** No activity signal from session 'skunkworks' in the stale window.
 
 ## Your recent inbox
 
@@ -13,7 +13,7 @@
 After processing the inbox above (if anything new), run:
 
 ```bash
-mkdir -p data/heartbeats && touch data/heartbeats/research.timestamp
+mkdir -p data/heartbeats && touch data/heartbeats/skunkworks.timestamp
 ```
 
 Then continue with your standing-reactive pipeline (filesystem cycle-check for substrate-mutation events you may have missed since last cycle).
