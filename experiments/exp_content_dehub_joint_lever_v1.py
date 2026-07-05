@@ -154,6 +154,7 @@ _P = argparse.ArgumentParser()
 _P.add_argument("--smoke", action="store_true")
 _P.add_argument("--full", action="store_true")
 _P.add_argument("--self-test", action="store_true", dest="self_test")
+_P.add_argument("--gen-only", action="store_true", dest="gen_only")
 _P.add_argument("--device", default=None, choices=[None, "cpu", "cuda"])
 _ARGS, _ = _P.parse_known_args()
 _HDLAB_EXP_NAME = os.environ.get("HDLAB_EXP_NAME", "")
@@ -166,6 +167,12 @@ elif _ARGS.smoke or _NAME_SAYS_SMOKE:
     RUN_MODE = "smoke"
 else:
     RUN_MODE = os.environ.get("HDLAB_RUN_MODE", "full")
+
+# GEN-ONLY gate: run the gen-side V-scan rescue ONLY, skipping the heavy dual-
+# harness encoder leg (1.35GB teacher cache + long in-batch-RKD training). Env
+# gate is the runner-facing switch (runner invokes bare + injects env); the
+# --gen-only flag is the local-smoke convenience. Either enables it.
+GEN_ONLY = (os.environ.get("HDLAB_DEHUB_GEN_ONLY", "") == "1") or bool(_ARGS.gen_only)
 
 # device: default cpu for smoke/self-test (remote_cpu / laptop safety), auto for full
 if _ARGS.device:
@@ -251,7 +258,7 @@ TEACHER_CACHE_FULL = "data/substrate_index/cached_indices/bge_large_v2_name_1778
 
 def expected_n_units() -> int:
     gen = len(SEEDS) * len(GEN_CONFIGS) * len(GEN_RELS) * len(GEN_METHODS)
-    enc = len(SEEDS) * len(ENC_METHODS) * len(ENC_ARMS)
+    enc = 0 if GEN_ONLY else len(SEEDS) * len(ENC_METHODS) * len(ENC_ARMS)
     return gen + enc
 
 
@@ -527,6 +534,29 @@ def aggregate(gen_runs: List[Dict], enc_runs: List[Dict]) -> Dict:
     gen_shuf_sat = _mean([x["hits1_shuf"] for (r, v, m), rows in gen_by.items()
                           if m == "CONTENT_RAW" for x in rows])
 
+    # per-V-config gen Hits@1 lift (LOCAL_SCALING vs CONTENT_RAW), averaged over
+    # relations -- the V-SCAN readout: does de-hub lift GROW with V? Emitted for
+    # EVERY GEN_CONFIG (not just HP-eligible) so the trend is directly readable
+    # off metrics.json. gen_v_shuf_lift is the paired SHUFFLED anti-phantom per V.
+    gen_v_lift: Dict[str, float] = {}
+    gen_v_shuf_lift: Dict[str, float] = {}
+    for (cname, Vv, Mm) in GEN_CONFIGS:
+        vname = f"V{Vv}"
+        rel_lifts, rel_shuf = [], []
+        for rel in GEN_RELS:
+            ls = [x["hits1_rms"] for (r, vn, mm), rows in gen_by.items()
+                  if r == rel and vn == vname and mm == "LOCAL_SCALING" for x in rows]
+            rw = [x["hits1_rms"] for (r, vn, mm), rows in gen_by.items()
+                  if r == rel and vn == vname and mm == "CONTENT_RAW" for x in rows]
+            lss = [x["hits1_shuf"] for (r, vn, mm), rows in gen_by.items()
+                   if r == rel and vn == vname and mm == "LOCAL_SCALING" for x in rows]
+            rws = [x["hits1_shuf"] for (r, vn, mm), rows in gen_by.items()
+                   if r == rel and vn == vname and mm == "CONTENT_RAW" for x in rows]
+            rel_lifts.append(_mean(ls) - _mean(rw))
+            rel_shuf.append(_mean(lss) - _mean(rws))
+        gen_v_lift[vname] = _mean(rel_lifts)
+        gen_v_shuf_lift[vname] = _mean(rel_shuf)
+
     # reference methods (ZCA/ABTT) gen lift for reporting
     def _method_lift(method: str) -> float:
         lifts = []
@@ -553,6 +583,7 @@ def aggregate(gen_runs: List[Dict], enc_runs: List[Dict]) -> Dict:
     return {
         "gen_lift_hits1": gen_lift, "gen_lift_hits1_std": _std([gen_rel_lift[r] for r in GEN_RELS]),
         "gen_rel_lift": gen_rel_lift, "gen_shuf_lift": gen_shuf_lift,
+        "gen_v_lift": gen_v_lift, "gen_v_shuf_lift": gen_v_shuf_lift,
         "gen_shuf_sat": gen_shuf_sat,
         "gen_zca_lift": gen_zca_lift, "gen_abtt_lift": gen_abtt_lift,
         "gen_nk_gini_raw": _mean(gen_nk_raw), "gen_nk_gini_dehub": _mean(gen_nk_ls),
@@ -564,7 +595,7 @@ def aggregate(gen_runs: List[Dict], enc_runs: List[Dict]) -> Dict:
 
 
 def compute_verdict(agg: Dict, synth: Dict, arms_differ_ok: bool,
-                    n_units: int) -> Tuple[str, str, Dict]:
+                    n_units: int, gen_only: bool = False) -> Tuple[str, str, Dict]:
     gen_lift = agg["gen_lift_hits1"]
     enc_lift = agg["enc_lift_ret_agree10"]
     gen_nk_reduced = agg["gen_nk_gini_dehub"] < agg["gen_nk_gini_raw"] - 1e-6
@@ -584,7 +615,63 @@ def compute_verdict(agg: Dict, synth: Dict, arms_differ_ok: bool,
         "gen_shuf_saturated": gen_sat, "enc_baseline_in_band": enc_in_band,
         "arms_differ_ok": arms_differ_ok,
         "mechanism_dehub_fires_both": gen_nk_reduced and enc_nk_reduced,
+        "gen_only": gen_only,
+        "gen_v_lift": agg.get("gen_v_lift", {}),
+        "gen_v_shuf_lift": agg.get("gen_v_shuf_lift", {}),
     }
+
+    # ---- GEN-ONLY V-scan rescue path: verdict computable from the gen side ----
+    # alone (the encoder leg is intentionally skipped; enc_* aggregates are nan).
+    if gen_only:
+        gvl = agg.get("gen_v_lift", {}) or {}
+        gvs = agg.get("gen_v_shuf_lift", {}) or {}
+
+        def _vnum(vn: str) -> int:
+            try:
+                return int(vn[1:])
+            except (ValueError, IndexError):
+                return 0
+
+        v_order = sorted(gvl.keys(), key=_vnum)
+        v_tail = " ".join(
+            f"{vn}={gvl[vn]:+.3f}(shuf{gvs.get(vn, float('nan')):+.3f})"
+            for vn in v_order)
+        v_trend = (gvl[v_order[-1]] - gvl[v_order[0]]) if len(v_order) >= 2 else float("nan")
+        diag["gen_v_scan_trend_hi_minus_lo"] = v_trend
+        gtail = (f"[GEN-ONLY gen Hits@1 lift={gen_lift:+.4f} per-V[{v_tail}] "
+                 f"trend(hi-lo)={v_trend:+.3f} (Nk-Gini {agg['gen_nk_gini_raw']:.3f}"
+                 f"->{agg['gen_nk_gini_dehub']:.3f}) shuf_lift={agg['gen_shuf_lift']:+.3f} "
+                 f"synth_both_reduced={synth_ok}]")
+        if n_units < EXPECTED_N_UNITS:
+            return ("HARD_FAIL", f"HARD_FAIL_CARDINALITY_BREACH_META_RULE_H: "
+                    f"{n_units}/{EXPECTED_N_UNITS} units {gtail}", diag)
+        if not arms_differ_ok:
+            return ("HARD_FAIL",
+                    f"META_RULE_AF_VIOLATION: de-hub arms bit-identical to RAW {gtail}", diag)
+        if not (gen_nk_reduced and synth_ok):
+            return ("SMOKE_GATE_FAIL",
+                    f"MECHANISM_DID_NOT_FIRE (gen-only): LOCAL_SCALING failed to reduce "
+                    f"Nk-Gini on gen content ({gen_nk_reduced}) OR synth joint-lever control "
+                    f"did not reduce both ({synth_ok}); re-spec k/rank before FULL. {gtail}", diag)
+        if gen_phantom:
+            return ("HARD_FAIL",
+                    f"GEN_PHANTOM: SHUFFLED gen lift {agg['gen_shuf_lift']:+.3f} > "
+                    f"{ANTIPHANTOM_MAX}; the REAL gen lift is not causal (phantom). {gtail}", diag)
+        if gen_lift >= HP_LIFT_MIN:
+            return ("HARD_PASS",
+                    f"GEN_VSCAN_RESCUE_CONFIRMED: content de-hub (LOCAL_SCALING at input + "
+                    f"retrain-from-scratch) lifts generalization Hits@1 by +{gen_lift:.3f} "
+                    f">= {HP_LIFT_MIN}; anti-phantom holds, Nk-Gini reduced + synth control "
+                    f"fires. Per-V trend readable: [{v_tail}]. {gtail}", diag)
+        if gen_lift <= HF_LIFT_MAX:
+            return ("HARD_FAIL",
+                    f"GEN_VSCAN_RESCUE_FALSIFIED: content de-hub gen Hits@1 lift +{gen_lift:.3f} "
+                    f"<= {HF_LIFT_MAX}; de-hubs the geometry (Nk-Gini reduced) but yields no "
+                    f"downstream generalization lift at any V. Per-V trend: [{v_tail}]. {gtail}", diag)
+        return ("MIDDLE_BAND",
+                f"GEN_PARTIAL: sub-threshold gen Hits@1 lift +{gen_lift:.3f} in "
+                f"({HF_LIFT_MAX},{HP_LIFT_MIN}); content-geometry de-hub partially reaches the "
+                f"pre-training application point. Per-V trend: [{v_tail}]. {gtail}", diag)
 
     tail = (f"[gen Hits@1 lift={gen_lift:+.4f} (Nk-Gini {agg['gen_nk_gini_raw']:.3f}"
             f"->{agg['gen_nk_gini_dehub']:.3f}) | enc ret_agree10 lift={enc_lift:+.4f} "
@@ -698,8 +785,12 @@ def _run_all(out_dir: Path) -> Dict:
           f"gen_cfgs={[c[0] for c in GEN_CONFIGS]} rels={GEN_RELS} "
           f"expected_units={EXPECTED_N_UNITS}", flush=True)
 
-    cache_path = _resolve_enc_cache()
-    print(f"[{ANCHOR_NAME}] enc teacher cache = {cache_path.name}", flush=True)
+    cache_path = None if GEN_ONLY else _resolve_enc_cache()
+    if cache_path is not None:
+        print(f"[{ANCHOR_NAME}] enc teacher cache = {cache_path.name}", flush=True)
+    else:
+        print(f"[{ANCHOR_NAME}] GEN_ONLY -> encoder leg SKIPPED "
+              f"(teacher cache untouched, no encoder training)", flush=True)
 
     gen_runs: List[Dict] = []
     enc_runs: List[Dict] = []
@@ -718,10 +809,11 @@ def _run_all(out_dir: Path) -> Dict:
                       f"RAW Hits@1 rms={rw['hits1_rms']:+.3f} LS Hits@1 rms={ls['hits1_rms']:+.3f} "
                       f"(lift={ls['hits1_rms']-rw['hits1_rms']:+.3f}) Nk-Gini "
                       f"{gr['nk_gini_raw_obj']:.3f}->{ls['nk_gini_obj']:.3f}", flush=True)
-        er = run_enc(seed, cache_path, _DEVICE)
-        enc_runs.append(er)
-        n_units += len(ENC_METHODS) * len(ENC_ARMS)
-        _emit_heartbeat(out_dir, ui, len(SEEDS), t0)
+        if not GEN_ONLY:
+            er = run_enc(seed, cache_path, _DEVICE)
+            enc_runs.append(er)
+            n_units += len(ENC_METHODS) * len(ENC_ARMS)
+            _emit_heartbeat(out_dir, ui, len(SEEDS), t0)
 
     synth = synth_cross_domain_shared_hub(SEEDS[0])
     print(f"  [synth cross-domain] A {synth['gA_raw']:.3f}->{synth['gA_dehub']:.3f} "
@@ -730,12 +822,15 @@ def _run_all(out_dir: Path) -> Dict:
 
     # arms-differ: RAW vs LOCAL_SCALING object matrices (gen) + raw vs dehub Gram (enc)
     g0 = gen_runs[0]["fo_digests"]
-    e0 = enc_runs[0]["gram_digests"]
-    arms_differ_ok = (g0["CONTENT_RAW"] != g0["LOCAL_SCALING"]
-                      and e0["CE_BASELINE"] != e0["LOCAL_SCALING"])
+    gen_arms_differ = g0["CONTENT_RAW"] != g0["LOCAL_SCALING"]
+    if GEN_ONLY:
+        arms_differ_ok = gen_arms_differ
+    else:
+        e0 = enc_runs[0]["gram_digests"]
+        arms_differ_ok = gen_arms_differ and (e0["CE_BASELINE"] != e0["LOCAL_SCALING"])
 
     agg = aggregate(gen_runs, enc_runs)
-    verdict, verdict_msg, diag = compute_verdict(agg, synth, arms_differ_ok, n_units)
+    verdict, verdict_msg, diag = compute_verdict(agg, synth, arms_differ_ok, n_units, GEN_ONLY)
 
     elapsed = time.time() - t0
     summary = (f"{verdict}: gen_Hits@1_lift={agg['gen_lift_hits1']:+.4f} "
@@ -745,6 +840,8 @@ def _run_all(out_dir: Path) -> Dict:
 
     metrics = {
         "anchor": ANCHOR_NAME, "anchor_name": ANCHOR_NAME, "run_mode": RUN_MODE,
+        "gen_only": GEN_ONLY, "enc_skipped": GEN_ONLY,
+        "gen_v_lift": agg["gen_v_lift"], "gen_v_shuf_lift": agg["gen_v_shuf_lift"],
         "device": _DEVICE, "seeds": SEEDS, "dehub_k": DEHUB_K,
         "gen_methods": GEN_METHODS, "enc_methods": ENC_METHODS, "enc_arms": ENC_ARMS,
         "gen_rels": GEN_RELS, "gen_configs": [c[0] for c in GEN_CONFIGS],
@@ -785,11 +882,17 @@ def _run_all(out_dir: Path) -> Dict:
     return metrics
 
 
+def _anchor_name() -> str:
+    """Output-dir anchor (non-self_test). '_genonly' suffix keeps the gen-only
+    V-scan rescue's metrics.json path distinct from the joint-lever run."""
+    a = ANCHOR_NAME + ("_genonly" if GEN_ONLY else "")
+    if RUN_MODE == "smoke":
+        a += "_smoke"
+    return a
+
+
 def main():
-    anchor = ANCHOR_NAME + ("_smoke" if RUN_MODE == "smoke" else "")
-    if RUN_MODE == "self_test":
-        anchor = ANCHOR_NAME + "_selftest"
-    out_dir = get_output_dir(anchor)
+    out_dir = get_output_dir(_anchor_name())
     _run_all(out_dir)
 
 
@@ -834,6 +937,28 @@ def run_self_test() -> int:
     v, _, _ = compute_verdict(_agg(0.08, 0.09), synth_ok, False, EXPECTED_N_UNITS)
     assert v == "HARD_FAIL", f"expected HARD_FAIL (arms identical) got {v}"
 
+    # ---- GEN-ONLY V-scan rescue verdict-band logic (enc side skipped -> nan) ----
+    nan = float("nan")
+    v, _, _ = compute_verdict(_agg(0.08, nan), synth_ok, True, EXPECTED_N_UNITS, gen_only=True)
+    assert v == "HARD_PASS", f"expected gen-only HARD_PASS got {v}"
+    v, _, _ = compute_verdict(_agg(0.01, nan), synth_ok, True, EXPECTED_N_UNITS, gen_only=True)
+    assert v == "HARD_FAIL", f"expected gen-only HARD_FAIL (gen<=0.02) got {v}"
+    v, _, _ = compute_verdict(_agg(0.035, nan), synth_ok, True, EXPECTED_N_UNITS, gen_only=True)
+    assert v == "MIDDLE_BAND", f"expected gen-only MIDDLE_BAND got {v}"
+    # gen-only must NOT gate on the (skipped) enc side: enc nk nan -> still HARD_PASS
+    v, _, _ = compute_verdict(_agg(0.08, nan, enk=(nan, nan)), synth_ok, True,
+                              EXPECTED_N_UNITS, gen_only=True)
+    assert v == "HARD_PASS", f"expected gen-only HARD_PASS with enc nan got {v}"
+    # gen-only mechanism gate still fires on synth control failure
+    v, _, _ = compute_verdict(_agg(0.08, nan), synth_no, True, EXPECTED_N_UNITS, gen_only=True)
+    assert v == "SMOKE_GATE_FAIL", f"expected gen-only SMOKE_GATE_FAIL (synth) got {v}"
+    # gen-only anti-phantom: SHUFFLED gen lift inflated -> HARD_FAIL
+    v, _, _ = compute_verdict(_agg(0.08, nan, gsl=0.10), synth_ok, True, EXPECTED_N_UNITS, gen_only=True)
+    assert v == "HARD_FAIL", f"expected gen-only HARD_FAIL (phantom) got {v}"
+    # gen-only cardinality breach
+    v, _, _ = compute_verdict(_agg(0.08, nan), synth_ok, True, EXPECTED_N_UNITS - 1, gen_only=True)
+    assert v == "HARD_FAIL", f"expected gen-only HARD_FAIL (cardinality) got {v}"
+
     # synth cross-domain control actually reduces both
     sc = synth_cross_domain_shared_hub(0)
     assert sc["both_reduced"], f"synth control did not reduce both: {sc}"
@@ -865,7 +990,7 @@ if __name__ == "__main__":
             _out = get_output_dir(ANCHOR_NAME + "_selftest")
             _write_crash_metrics(_out, e)
             raise
-    _OUT = get_output_dir(ANCHOR_NAME + ("_smoke" if RUN_MODE == "smoke" else ""))
+    _OUT = get_output_dir(_anchor_name())
     try:
         main()
     except SystemExit:
