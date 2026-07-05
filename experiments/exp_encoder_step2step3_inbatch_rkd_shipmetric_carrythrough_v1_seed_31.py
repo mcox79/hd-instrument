@@ -17,10 +17,13 @@ teacher_cache_arg) takes NO run_tag/tag parameter, so no run_tag artifact-dir
 isolation is used here. Per-seed metrics.json isolation is provided entirely by
 the runner setting HDLAB_EXP_NAME to this queue entry's own name (see
 experiments/_seed_checkpoint.get_output_dir). The core's intermediate artifact
-dir (data/substrate_concept_encoder_carrythrough_v1/: mining shards + training
-checkpoints + E_concept.pt) is a FIXED per-run_mode path shared across seeds;
-this is safe under sequential remote/GPU dispatch (one runner, one job at a
-time), which is how the FULL seed sweep is dispatched.
+dir (data/substrate_concept_encoder_carrythrough_v1{_smoke}_seed<SEED>/: mining
+shards + training checkpoints + E_concept.pt) is SEED-NAMESPACED (fix
+2026-07-05): each seed gets its own clean dir so a later seed never finds a
+PRIOR seed's leftover _ckpt_INBATCH.pt and enters v3c's cross-seed resume branch
+(that branch's gen.set_state hits a cuda-moved gen_state -> TypeError which v3c's
+resume except clause does not catch -> ~0.0s crash on every seed after the
+first). Same-seed resume (runner death then re-dispatch) is preserved.
 
 Dispatch contract: the runner invokes this script BARE (no argv) and injects
 HDLAB_RUN_MODE=full into the child env for production runs. This wrapper's

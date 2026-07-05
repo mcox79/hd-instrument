@@ -227,13 +227,28 @@ POSCTRL_KEYED_FLOOR = 0.98   # RANDOM_BLOCK SBC keyed lossless prior
 SHUFFLED_LEAK_CEIL = 0.05    # shuffled-key must not retrieve the true target
 
 
-def _artifact_dir(run_mode: str) -> Path:
+def _artifact_dir(run_mode: str, seed: int) -> Path:
+    # SEED-NAMESPACED (fix 2026-07-05): the intermediate/checkpoint dir MUST be
+    # per-seed. Under the 5-seed FULL sweep every seed shares one runner
+    # sequentially; a PRIOR seed's completed run leaves _ckpt_INBATCH.pt in this
+    # dir, so a later seed with a FIXED (non-seed) dir would find that checkpoint
+    # and enter v3c._train_student_full's resume branch. That branch calls
+    # gen.set_state(ck["gen_state"]); the CPU ByteTensor gen_state is moved to
+    # cuda by torch.load(map_location="cuda"), so set_state raises TypeError
+    # (RNG state must be a torch.ByteTensor) -- and v3c's resume except clause
+    # catches only (RuntimeError, KeyError, EOFError), so the cell crashes at
+    # ~0.0s. Namespacing per seed guarantees each seed starts in its own clean
+    # dir and never enters the cross-seed resume path. Same-seed resume (runner
+    # death then re-dispatch) is the intended restartable-checkpoint feature and
+    # is preserved. Landing (metrics.json) isolation is orthogonal -- it comes
+    # from HDLAB_EXP_NAME per queue entry (see _seed_checkpoint.get_output_dir).
     suffix = "_smoke" if run_mode == "smoke" else ""
-    return _REPO / "data" / f"substrate_concept_encoder_carrythrough_v1{suffix}"
+    return (_REPO / "data"
+            / f"substrate_concept_encoder_carrythrough_v1{suffix}_seed{int(seed)}")
 
 
-def _e_concept_path(run_mode: str) -> Path:
-    return _artifact_dir(run_mode) / "E_concept.pt"
+def _e_concept_path(run_mode: str, seed: int) -> Path:
+    return _artifact_dir(run_mode, seed) / "E_concept.pt"
 
 
 # ---------------------------------------------------------------------------
@@ -475,7 +490,7 @@ def run_carrythrough(run_mode: str, seed: int, device_arg: str, n_dim: int,
     assert run_mode in ("smoke", "full"), f"unsupported run_mode {run_mode}"
     anchor = f"{ANCHOR_NAME}_smoke" if run_mode == "smoke" else ANCHOR_NAME
     out_dir = get_output_dir(anchor)
-    art_dir = _artifact_dir(run_mode)
+    art_dir = _artifact_dir(run_mode, seed)
     art_dir.mkdir(parents=True, exist_ok=True)
     device = ("cuda" if torch.cuda.is_available() else "cpu") \
         if device_arg == "auto" else device_arg
@@ -581,7 +596,7 @@ def run_carrythrough(run_mode: str, seed: int, device_arg: str, n_dim: int,
     mean_nnz = total_nnz / max(1, n_he)
     n_rt_ck, n_rt_mm = _sparse_roundtrip_mismatch(block_dense_int8, sparse_rep,
                                                   min(100, n_he), seed)
-    pt_bytes, pt_sha = _save_e_concept(sparse_rep, _e_concept_path(run_mode),
+    pt_bytes, pt_sha = _save_e_concept(sparse_rep, _e_concept_path(run_mode, seed),
                                        "INBATCH_BLOCK")
     print(f"[carry] sparse-CSR mean_nnz={mean_nnz:.2f} roundtrip_mismatch="
           f"{n_rt_mm}/{n_rt_ck} pt_bytes={pt_bytes} sha={pt_sha[:12]}",
@@ -687,7 +702,7 @@ def run_carrythrough(run_mode: str, seed: int, device_arg: str, n_dim: int,
             "mean_nnz": mean_nnz, "total_nnz": total_nnz,
             "roundtrip_checked": n_rt_ck, "roundtrip_mismatch": n_rt_mm,
             "pt_bytes": pt_bytes, "pt_sha256": pt_sha,
-            "e_concept_path": str(_e_concept_path(run_mode)),
+            "e_concept_path": str(_e_concept_path(run_mode, seed)),
         },
         "train_diag": {k: diag[k] for k in
                        ("rkd_last", "best_dense_full", "best_step",
