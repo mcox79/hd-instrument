@@ -1,8 +1,23 @@
 # Decoder design: substrate-native generation readout (Stage A factor / B order / C cleanup)
 
 Date: 2026-07-05. Owner: Director (research). Type: ready-to-dispatch build spec for the #1 gap (GENERATION).
-Status: DRAFT, gated on the factorization-envelope FULL verdict (re-dispatched canonical, remote_cpu_queue).
-Do NOT dispatch the build until the envelope lands GO or MIDDLE_BAND; NO_GO forces the Stage-A redesign (see Branch logic).
+Status: ENVELOPE LANDED **GO** (verified off-disk 2026-07-05T06:11Z, run_mode=envelope, elapsed 530s). BUILD AUTHORIZED.
+
+## >>> ENVELOPE VERIFIED GO + HARD CONSTRAINTS (read before building; verified off-disk per-config) <<<
+data/exp_factorization_envelope_v1/metrics.json, FULL envelope, N=8192, R=16 high-energy. Verified per-config means:
+- **GEN_svo_1k (F=2, V=1024, D=3) = 1.000** -- the MVP config recovers PERFECTLY on clean-iid codebooks (the honest
+  UPPER BOUND; real correlated fillers will be lower -- that gap is exactly what the decoder cell measures).
+- **DEPTH is NOT the bottleneck:** D=1..6 all = 1.000 at V=256 high-energy. Propositions with up to 6 slots factor cleanly.
+- **FACTOR COUNT is a HARD wall:** F=2 = 1.000, F=3 = 0.217, F=4 = 0.000. => Each bound TERM MUST be exactly 2 factors.
+  DESIGN LOCK: a term = bind(position_role, filler). Position IS the role (2 factors). Do NOT add position as a THIRD
+  factor (role x filler x position = F=3 = DEAD). Stage B order therefore rides on the position-as-role, not a 3rd factor.
+- **VOCAB is the real cliff:** V<=1024 per factor = 1.000; V=4096 drops (0.633 at D=2, 0.100 at D=3). => the DIRECT decoder
+  handles a lexicon up to ~1024 fillers per slot. Larger lexicon -> sparse-block-code resonator (Hersche/Terzic 2025) or chunk.
+- **HIGH-ENERGY is decisive:** single-shot R=1 hovers 0.33-0.60; R=16 restarts -> 1.000. The restarts lever (augment beyond
+  biology) is what clears it; biology's single pass is the floor. Discriminator fires (F=3/F=4/V=4096 cliff) -> GO is real, not saturation.
+
+**DIRECT-DECODER REGIME (build this MVP): F=2 (position(x)filler) terms, lexicon V<=1024 per slot, D<=6 slots, R>=16 restarts.**
+The MVP config maps EXACTLY onto the verified GEN_svo_1k=1.000 point. Larger-vocab / F>2 nesting = v2 (sparse-block resonator).
 
 ## Why this exists
 The substrate can encode (perception: GSBC_EXPAND2X), remember, and reason ~40%, but it CANNOT SPEAK:

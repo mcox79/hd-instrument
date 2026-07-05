@@ -96,6 +96,21 @@ are inside this headroom, not beyond it.
   (D) GENERATION decoder -- after the envelope verdict (GO/MIDDLE = decoder; NO_GO = sparse-block resonator first).
 - NO BUILD: perception (ship-it); native-grounding parked as a long bet.
 
+## VET RESULTS (audits landed 2026-07-05; both banked at honest tiers, both scoped DOWN from the build verdicts)
+- **GENERATION (Skunkworks a72ec7):** envelope = **CHAIN_GRADE** (clean-iid capacity map, discriminators fire, scoped as UPPER BOUND).
+  decoder = **MM_STANDARD** (reframed DOWN from HARD_PASS). Honest capability: frame-KNOWN D=3 S/V/O round-trip on real
+  correlated fillers = exact-ordered 1.000, 3-seed bit-identical, NON-vacuous (2 controls fire). Scoped: easy-end (single-shot
+  already 1.0 -> iteration not load-bearing), bipolar-BSC not native GSBC. KEY REFRAME: the "blind factorization = 0.000" wall
+  is a COMPREHENSION/parsing problem, NOT a generation blocker -- generation is legitimately frame-known (you speak from a known
+  frame). Generation roadmap = SCALE the mouth (higher D, bigger V, native GSBC fillers), NOT blind factorization.
+- **MEMORY (Skunkworks a2ae46):** = **MM_STANDARD** (novelty-downgraded). The "no wall" is GENUINE capacity (not free averaging)
+  BUT it is the STANDARD capacity-linear-in-memory crosstalk law, not a novel "redundancy lever": equal-memory head-to-head
+  R banks of N == 1 bank of R*N (delta<0.004). Honest restatement: capacity is BUYABLE with LINEAR memory at **M ~= 40 floats/item
+  for recall~1.0** (c~25-30 at recall>=0.95); at FIXED memory the linear crosstalk ceiling IS a hard bound. => "compute-cost not
+  wall" SURVIVES only because linear memory is cheap (high-energy-compute-allowed) -- it is affordable, not a magic escape.
+  Concrete: at N=8192, ~200 items/clean-bundle at recall~1.0 (~270-320 at 0.95). This is the real M-budget for cleanup/bundling.
+- Both compose with (not re-count) the prior E3 permutation-indexed-binding + hub-rescue MM_STANDARD.
+
 ## DISCIPLINE
 Verify off-disk before claiming; no-smoke (ratings above are deflated-honest); brain = existence proof + high-energy augment;
 this is CONSTRUCTIVE build work, not vs-LLM. Every cell: HARD-PASS/HARD-FAIL pre-reg, self-test, multi-seed FULL, joint-gate.
