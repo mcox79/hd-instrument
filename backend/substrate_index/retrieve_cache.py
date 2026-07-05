@@ -42,9 +42,106 @@ def _cache_dir(root: Path) -> Path:
 
 _ENCODING_VERSION = "v2_name"  # bumped Cycle 49 Option 1: bge-NAME encoding (name + id_tokens + aliases) replaces description-based v1
 
+# Qualified-id collision-safe cache prefix (2026-07-05 wiring fix): caches keyed by
+# corpus::local_id (unique across cross-lane bare-id collisions) rather than the
+# content-hash of bare ids. Named OUT of the bge_large_* auto-pick glob on purpose;
+# selected here by atom-count + full-coverage validation so the live full-store path
+# loads the existing collision-safe cache instead of triggering a full BGE re-encode.
+_QUALIFIED_PREFIX = "qualified_"
+
 
 def _cache_path(root: Path, n_atoms: int, content_hash: str) -> Path:
     return _cache_dir(root) / f"bge_large_{_ENCODING_VERSION}_{n_atoms}_{content_hash}.npz"
+
+
+def _lane_qualified_ids(store) -> Optional[tuple[list[str], list[str]]]:
+    """(bare_ids, qualified_ids) in all_atoms() order for a PartitionedStore.
+
+    Qualifies by LANE (the partition key), matching all_qualified_ids() and the
+    cache-build convention. Returns None for a non-partitioned Store (no lanes ->
+    qualified-id caching does not apply).
+    """
+    stores = getattr(store, "_stores", None)
+    if not stores:
+        return None
+    bare: list[str] = []
+    qual: list[str] = []
+    for corpus, st in stores.items():
+        for a in st.all_atoms():
+            bare.append(a.id)
+            qual.append(f"{corpus.value}::{a.id}")
+    return bare, qual
+
+
+def _select_qualified_cache(cache_dir: Path, n_atoms: int) -> list[Path]:
+    """Qualified caches matching this atom count, newest/complete first.
+
+    Atom-count scoping is load-bearing: it prevents selecting a qualified cache
+    built for a different store size (e.g. a stale 177899 cache for a 177872 store).
+    """
+    if not cache_dir.exists():
+        return []
+    cands = list(cache_dir.glob(f"{_QUALIFIED_PREFIX}bge_large_{_ENCODING_VERSION}_{n_atoms}*.npz"))
+    # Prefer explicit "complete" builds, then most-recently-written.
+    cands.sort(key=lambda p: (("complete" in p.name), p.stat().st_mtime), reverse=True)
+    return cands
+
+
+def _try_qualified_id_cache(retriever, data_root: Path, id_order: list[str],
+                            n_atoms: int) -> bool:
+    """Load a collision-safe qualified-id cache into the retriever if one fully
+    covers the current store. Returns True on a validated cache hit, else False
+    (caller falls through to a full rebuild). Never triggers a re-encode.
+
+    Correctness gates (all must hold, else False -> fall through, never a silently
+    wrong index): partitioned store; reconstructed bare-id order matches id_order;
+    every store atom's qualified id present in the cache manifest (complete cover);
+    row-aligned matrices with the expected shape.
+    """
+    lane = _lane_qualified_ids(retriever.store)
+    if lane is None:
+        return False
+    bare, qual = lane
+    if bare != id_order:
+        # Order/content drift vs the caller's all_atoms() id_order: refuse (defensive).
+        logger.warning("qualified-id cache: reconstructed bare order != id_order; skipping")
+        return False
+
+    cache_dir = _cache_dir(data_root)
+    for cache_file in _select_qualified_cache(cache_dir, n_atoms):
+        try:
+            data = np.load(cache_file, allow_pickle=False)
+            manifest = json.loads(str(data["id_order_json"]))
+            qual_to_row = {q: i for i, q in enumerate(manifest)}
+            if not all(q in qual_to_row for q in qual):
+                logger.warning("qualified-id cache %s incomplete coverage; skipping",
+                               cache_file.name)
+                continue
+            rows = [qual_to_row[q] for q in qual]
+            sem = data["semantic"]
+            comp = data["composite"]
+            if sem.shape[0] != len(manifest) or comp.shape[0] != len(manifest):
+                logger.warning("qualified-id cache %s row/manifest mismatch; skipping",
+                               cache_file.name)
+                continue
+            if rows == list(range(n_atoms)) and sem.shape[0] == n_atoms:
+                sem_a, comp_a = sem, comp  # identity-aligned: no gather needed
+            else:
+                sem_a, comp_a = sem[rows], comp[rows]
+            if sem_a.shape[0] != n_atoms:
+                continue
+            retriever._semantic_matrix = sem_a
+            retriever._composite_matrix = comp_a
+            retriever._id_order = list(id_order)  # BARE ids (matches rebuild_index)
+            retriever._vectors = {}
+            logger.info("retriever index loaded from QUALIFIED-id collision-safe cache "
+                        "%s (%d atoms; no re-encode)", cache_file.name, n_atoms)
+            return True
+        except Exception as e:
+            logger.warning("qualified-id cache %s load failed (%s); trying next",
+                           cache_file.name, str(e)[:80])
+            continue
+    return False
 
 
 def rebuild_index_cached(retriever, data_root: Path, force_rebuild: bool = False) -> bool:
@@ -83,6 +180,18 @@ def rebuild_index_cached(retriever, data_root: Path, force_rebuild: bool = False
                 logger.warning("cache hash matched but content mismatched; rebuilding")
         except Exception as e:
             logger.warning("cache load failed (%s); rebuilding", str(e)[:80])
+
+    # Content-hash cache missed. Before paying a full BGE re-encode, try the
+    # collision-safe qualified-id cache (loads the existing full-store vectors
+    # if one fully covers this store). Preserves all other index families: a
+    # non-partitioned store or a cache dir with no qualified_* files -> no-op.
+    if not force_rebuild:
+        try:
+            if _try_qualified_id_cache(retriever, data_root, id_order, n_atoms):
+                return True
+        except Exception as e:
+            logger.warning("qualified-id cache attempt failed (%s); rebuilding",
+                           str(e)[:80])
 
     # Full rebuild
     t0 = time.time()
