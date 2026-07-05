@@ -32,3 +32,5 @@ depth_entropy_grid_v1 (P_deflated=0.50), gated hierarchical-options gate follow-
 found the disjoint-per-role-vocab test design avoids the dominant real-world difficulty driver (cue-overload/fan-effect
 interference, Van Dyke & McElree 2006); shared-vocab retest spec'd, not yet cell-authored. Companion hand-off:
 notes/exp_dev_handoff_research_capability_optimization_ranking_2026-07-05.md.
+
+- 2026-07-05T22:21:24Z research_brain_component_rerank_thalamus_cerebellum_load_2026-07-05.md -- 2x-drill re-rank: thalamic router NOW loaded (oracle_routing scope-flag on multi_hop.py, RC1/RC2/RC3 open since 06-26, RC-multihop-1 backlog undispatched); top pick exp_multihop_router_crt_residue_addressed_v1 (algebraic-first per Hash-Layers precedent + internal symbolic-beats-learned finding); cerebellum LOADED-but-needs-design (targets gonogo 0.653d4->0.075d6 depth degradation via DAgger/Wolpert-Kawato anticipatory-correction framing); CLS-consolidation and predictive-coding stay deprioritized. P_deflated=0.30 (thalamus) / 0.28 (cerebellum). SPEC ONLY, no dispatch.
