@@ -1,0 +1,155 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "REGIME_SWITCH_CERTIFIED seed=13: LINK pointer_acc@J5=1.0000 (lossless key composition); ISOTONIC residual calib_err 0.3582->0.0284 hi80 0.4805->0.8103 (out-of-sample); DENSE_LAST ret 0.6622; CAPACITY at full M=177899 pointer_acc holds, composed_val_ret>=0.35 through J=64; codebook size NOT the constraint (M-sweep pointer_acc stable). Defensible value band: DENSE_LAST+isotonic (ret 0.662/hi80 0.810/calib 0.028) vs DENSE_BESTVAL (ret 0.616/hi80 0.787/calib 0.052)",
+  "summary": "REGIME_SWITCH_CERTIFIED seed=13: LINK pointer_acc@J5=1.0000 (lossless key composition); ISOTONIC residual calib_err 0.3582->0.0284 hi80 0.4805->0.8103 (out-of-sample); DENSE_LAST ret 0.6622; CAPACITY at full M=177899 pointer_acc holds, composed_val_ret>=0.35 through J=64; codebook size NOT the constraint (M-sweep pointer_acc stable). Defensible value band: DENSE_LAST+isotonic (ret 0.662/hi80 0.810/calib 0.028) vs DENSE_BESTVAL (ret 0.616/hi80 0.787/calib 0.052)",
+  "elapsed_s": 130.42312310000125,
+  "seed": 13,
+  "run_mode": "certify",
+  "anchor_name": "v6_regime_switch_certify_seed13",
+  "canonical_inputs": {
+    "key_ckpt": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v6_annealste_seed13\\_ckpt_HARD_STE.pt",
+    "value_ckpt": "C:\\dev\\hd-instrument\\data\\substrate_concept_encoder_v6_annealste_seed13\\_ckpt_ANNEAL_STE.pt",
+    "teacher_cache": "bge_large_v2_name_177899_54f7cf6a.npz",
+    "V": 177899,
+    "held": 17790,
+    "key_step": 8000,
+    "value_step": 8000,
+    "note": "KEY=HARD_STE block (keyed@J5=1.00); VALUE=ANNEAL_STE dense readout"
+  },
+  "value_band": {
+    "DENSE_LAST_raw": {
+      "ret_agree10": 0.6621528948847767,
+      "hi80_cos": 0.48691123723983765,
+      "hi80_calib_err": 0.35240691900253296,
+      "spearman_all": 0.5704279392580577,
+      "hi80_teacher_mean": 0.8393181562423706
+    },
+    "DENSE_LAST_isotonic": {
+      "ret_agree10_UNCHANGED": 0.6621528948847767,
+      "hi80_cos": 0.810307711169874,
+      "hi80_calib_err": 0.02841732599025304,
+      "note": "isotonic is order-preserving so ret_agree10 identical to DENSE_LAST_raw"
+    },
+    "DENSE_BESTVAL": {
+      "ret_agree10": 0.6159190556492573,
+      "hi80_cos": 0.7869963645935059,
+      "hi80_calib_err": 0.052321791648864746,
+      "source": "MEASURED@C:\\dev\\hd-instrument\\data\\exp_encoder_v6_annealed_ste_fidelity_k128_v1_seed13\\metrics.json"
+    },
+    "defensible_ret_band": [
+      0.6159190556492573,
+      0.6621528948847767
+    ]
+  },
+  "isotonic_residual": {
+    "hi80_teacher": 0.838725037160127,
+    "base_calib_full_pool": 0.3524069158006306,
+    "base_hi80_oos": 0.4805239470108696,
+    "base_calib_oos": 0.35820109014925744,
+    "iso_hi80_oos": 0.810307711169874,
+    "iso_calib_oos": 0.02841732599025304,
+    "iso_spearman": 0.5685820805922144,
+    "n_hi80_eval": 230
+  },
+  "link": {
+    "codebook_M": 17790,
+    "base_val_ret": 0.6605999999999996,
+    "pointer_acc_by_J": {
+      "1": {
+        "pointer_acc": 1.0,
+        "snr_margin": 0.14835937321186066
+      },
+      "2": {
+        "pointer_acc": 1.0,
+        "snr_margin": 0.10372547060251236
+      },
+      "3": {
+        "pointer_acc": 1.0,
+        "snr_margin": 0.0839090645313263
+      },
+      "4": {
+        "pointer_acc": 1.0,
+        "snr_margin": 0.07143066078424454
+      },
+      "5": {
+        "pointer_acc": 1.0,
+        "snr_margin": 0.06349217146635056
+      }
+    },
+    "note": "pointer_acc is the INDEPENDENT number; composed_val_ret == base_val_ret when pointer correct (Skunkworks tautology note), so base_val_ret is reported separately as the value quality"
+  },
+  "capacity": {
+    "n_queries": 500,
+    "cobundle": "near_neighbor",
+    "by_M": {
+      "17790": {
+        "base_val_ret": 0.6451999999999996,
+        "per_J": {
+          "20": {
+            "pointer_acc": 0.9940000176429749,
+            "composed_val_ret_DERIVED": 0.6427999999999996,
+            "snr_margin": 0.02662752941250801
+          }
+        }
+      },
+      "50000": {
+        "base_val_ret": 0.6676,
+        "per_J": {
+          "20": {
+            "pointer_acc": 0.9919999837875366,
+            "composed_val_ret_DERIVED": 0.6625999999999999,
+            "snr_margin": 0.02327306754887104
+          }
+        }
+      },
+      "177899": {
+        "base_val_ret": 0.7010000000000006,
+        "per_J": {
+          "2": {
+            "pointer_acc": 1.0,
+            "composed_val_ret_DERIVED": 0.7010000000000006,
+            "snr_margin": 0.0830327719449997
+          },
+          "5": {
+            "pointer_acc": 1.0,
+            "composed_val_ret_DERIVED": 0.7010000000000006,
+            "snr_margin": 0.05043584480881691
+          },
+          "10": {
+            "pointer_acc": 0.9940000176429749,
+            "composed_val_ret_DERIVED": 0.6984000000000007,
+            "snr_margin": 0.03249473497271538
+          },
+          "20": {
+            "pointer_acc": 0.9860000014305115,
+            "composed_val_ret_DERIVED": 0.6912000000000006,
+            "snr_margin": 0.01925496757030487
+          },
+          "40": {
+            "pointer_acc": 0.8479999899864197,
+            "composed_val_ret_DERIVED": 0.6012000000000006,
+            "snr_margin": 0.008805371820926666
+          },
+          "64": {
+            "pointer_acc": 0.5360000133514404,
+            "composed_val_ret_DERIVED": 0.38999999999999996,
+            "snr_margin": 0.004229809623211622
+          },
+          "100": {
+            "pointer_acc": 0.257999986410141,
+            "composed_val_ret_DERIVED": 0.19299999999999984,
+            "snr_margin": 0.0025293321814388037
+          }
+        }
+      }
+    }
+  },
+  "capacity_hardpass_max_J_full_scale": 64,
+  "gates": {
+    "link_pointer_acc_J5>=0.95": true,
+    "isotonic_calib<=0.05_and_hi80>=0.80": true,
+    "dense_last_ret>=0.50": true
+  },
+  "ts_iso": "2026-07-05T00:30:09.728117+00:00",
+  "certifiability_note": "recomputable from disk: committed script + persistent remote v6 FULL ckpts + 177899 cache; this metrics.json is the persisted artifact (SCP'd back to local)"
+}
