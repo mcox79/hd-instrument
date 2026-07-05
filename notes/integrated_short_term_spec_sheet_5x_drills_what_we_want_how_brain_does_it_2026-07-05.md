@@ -111,6 +111,12 @@ are inside this headroom, not beyond it.
   Concrete: at N=8192, ~200 items/clean-bundle at recall~1.0 (~270-320 at 0.95). This is the real M-budget for cleanup/bundling.
 - Both compose with (not re-count) the prior E3 permutation-indexed-binding + hub-rescue MM_STANDARD.
 
+## >>> LATEST LANDINGS (session-live, supersede the tiers below where they differ) <<<
+- **REASONING = STRONG (not modest):** v2 collision-corrected -- the v1 HARD_FAIL was chain-key COLLISION (N_TEST over slot count), NOT load (all 3 prior witnesses mis-diagnosed; ac66c2 caught it via pre-flight sim). Collision-fixed: regen_d5 ~0.70 vs analog ~0.10, gap +0.60, RISES with N, faith 1.0. FULL running remote (5 seeds) -> VET.
+- **GENERATION = STRONG on native encoder:** exp_generation_decoder_gsbc_native_blocklocal_v1 (ec7aa9064) round-trips REAL native GSBC fillers PERFECTLY via the block-local sparse resonator (scour-relayed proven component) -- exact-ordered 1.000 to D=26/V<=1024, cliff only V8192/D26=0.86. Proved the encoding mismatch (dense bipolar-BSC on GSBC = 0.000). Resolves the earlier VET caveats. Saturates in-box (controls fire). FULL pending -> VET. Mechanism+envelope research running (block-local capacity law + next lever).
+- **FRONTIER = OFF ZERO (the session's deepest result):** exp_schema_relation_TEM_structural_content_binding_v1 (d814a43bc) smoke = MIDDLE_BAND but GENUINE nonzero inductive real-minus-shuf on ALL 3 real relations (~0.05-0.13, both mechanisms, both encoders, NOVEL entities) where the exhausted averaged-transform family showed ZERO. Repaired controls FIRE (non-vacuous). Under-parameterized, NOT a wall -> scale-up (K/steps/hidden-dim). NOTABLE: differentiable SCORER >= brain-first TEM at smoke. FULL queued -> VET. Mechanism+envelope research running (why-emerge / why-modest / scorer-vs-TEM / scale-up ceiling).
+- **NEXT (gated on the 2 mechanism+envelope drills): dispatch the frontier SCALE-UP (push ~0.1 toward >=0.21, GPU-trainable scorer) + the generation past-D26 lever.** These are the envelope-pushes.
+
 ## SESSION OUTCOME + FRONTIER + FORWARD PLAN (2026-07-05 close -- this is the current recovery state)
 All 5 goals taken through BUILD + independent VET. Verified tiers (off-disk, atomized):
 - **PERCEPTION** = done-mediocre (GSBC_EXPAND2X). Teacher-dependence NOT a proven wall (DPI = folk bound). SHIP-IT.
