@@ -443,11 +443,15 @@ def _train_student(
             ck = torch.load(str(ckpt_path), map_location=device)
             student.load_state_dict(ck["student"])
             opt.load_state_dict(ck["opt"])
-            gen.set_state(ck["gen_state"])
+            # gen is a CPU torch.Generator; its RNG state must be a CPU
+            # ByteTensor. When ckpt was loaded with map_location="cuda" the
+            # saved gen_state is a CUDA tensor, so force it back to CPU before
+            # set_state (correctness-neutral: RNG state semantics unchanged).
+            gen.set_state(ck["gen_state"].cpu())
             start_step = int(ck["step"])
             print(f"[step1b_v2] resume {arch}/{kind} student at step "
                   f"{start_step}", flush=True)
-        except (RuntimeError, KeyError, EOFError) as exc:
+        except (RuntimeError, KeyError, EOFError, TypeError) as exc:
             print(f"[step1b_v2] WARN ckpt load failed ({type(exc).__name__}); "
                   f"retraining from scratch", flush=True)
             start_step = 0
