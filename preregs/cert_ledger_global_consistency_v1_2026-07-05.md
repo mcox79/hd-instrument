@@ -115,11 +115,20 @@ HP_SCOPE: {gs1_mechanism: [HP_RECALL, MAX_CONSTRUCTED_FP, MAX_SCRAMBLED_BALACC, 
   ordered-chain walk (root->sink) + HAS_STATUS retrieval + tier-family compare + HAS_OVERRIDE
   retrieval (documented-override exemption). All three are per-atom lineage invariants: the walk is
   SUBJECT-SCOPED (terminates on leaving the audited atom's own row-set).
-- discriminator_survives_scale: analytical (option B). Smoke N_DIM=2048 already yields max gap
-  (mechanism 1.000, scrambled 0.500). Larger N_DIM=4096 (FULL) only sharpens KGStore retrieval
-  fidelity (higher-dim codebook -> cleaner separation); the discriminator is STRUCTURAL (graph
-  topology), not scale-fragile. Multiple FULL seeds vary only the codebook; constructed graph
-  identical. posctrl 1.000 at smoke N_DIM=2048 confirms clean retrieval at the smaller scale.
+- discriminator_survives_scale: EMPIRICAL (option A), CORRECTED 2026-07-06. The v1 field claimed
+  option B ("N_DIM=4096 FULL only sharpens fidelity; discriminator is structural, not scale-
+  fragile"). That analytical claim was WRONG for the MECHANISM's argmax exactness (the scrambled
+  DISCRIMINATOR gap is structural and did hold; the mechanism's retrieval exactness is not). KGStore
+  is a Hebbian shared-W associative memory: retrieval fidelity is set by loading ratio
+  n_triples/n_dim, NOT N_DIM alone. Smoke (337 rec, ~1348 tri) at N_DIM=2048 -> ratio 0.66; FULL
+  (691 rec, ~2760 tri) at N_DIM=4096 -> ratio 0.67 -- IDENTICAL loading, so 4096 bought ZERO SNR
+  over smoke, and FULL hit occasional override/status argmax collisions (GS-3 constructed_fp=2
+  seed 23; recall 0.95 via a seed-7 FN). FIX: FULL N_DIM 4096 -> 8192 (ratio 0.34). VERIFIED
+  option-A at full-N across all three seeds [7,17,23] via the cell's own retrieval functions
+  (MEASURED@scratchpad/probe_result.txt, disk-verified): status_err=0/691 all seeds,
+  override_err=0-1/691 (verdict-irrelevant), gs3 fp=0 recall=1.000, gs1/gs2 fp=0 recall=1.000.
+  N_DIM=16384 (ratio 0.17) drove override_err to 0/691 but was too slow (O(n_dim^2) score_all
+  x O(n_rows); self-test alone > 5 min) -- 8192 is the pragmatic choice meeting the target FP fix.
 - cell_chunked: false (single-file; ~2.6s; seed only permutes codebook; per-seed loop with
   start-marker + heartbeat + crash-diagnostic present).
 - start_marker_written / crash_diagnostic_present / heartbeat_present: true.
@@ -155,13 +164,38 @@ refinement in the smoke-iteration phase, not threshold-tuning-for-pass.
   0 cycles, 0 forks, 0 regressions (honest null; the loaded real pairs are consistent).
 - Overall verdict: HARD_PASS (all three independent tasks HARD_PASS).
 
+## v1.1 FIX (2026-07-06): FULL PARTIAL -> N_DIM capacity fix
+
+- v1 FULL landed PARTIAL (MEASURED@scratchpad/PARTIAL_canonical_metrics_backup.json, backup of the
+  landed data/exp_cert_ledger_global_consistency_v1/metrics.json): GS-1 HARD_PASS, GS-2 HARD_PASS,
+  GS-3 HARD_FAIL with constructed_fp=2. Disk-verified the two FP were at seed 23 ONLY (fp=0 at
+  seeds 7,17); the FP subjects were override_2 (a documented-override negative) AND upgrade_18 (a
+  FAIL->PASS negative -- NOT an override form). GS-3 recall was 0.95 (a seed-7/17 FN on regress_9/
+  regress_c). real_fp=0 (the real ledger has override=False on all rows and produced ZERO GS-3
+  flags -- so the failure was NOT "real-ledger override forms the check misses"; it was constructed-
+  set retrieval noise on ONE seed).
+- ROOT CAUSE: KGStore Hebbian loading (see discriminator_survives_scale above). The seed-7 FN =
+  override-misretr(False->True) made a genuine silent regression look documented; the seed-23 FPs =
+  override-misretr(True->False) + a status-misretr made negatives look like silent regressions.
+  Both the override exemption LOGIC and the PASS->FAIL detection LOGIC are correct; the argmax
+  RETRIEVALS they call collided under capacity starvation. NOT a Goodhart/over-flag boundary.
+- FIX: FULL N_DIM 4096 -> 8192 (regime-only; GS-1/GS-2/GS-3 detection LOGIC byte-identical). Also
+  deduped a doubled calibrate_tau() call (perf; same tau value). Smoke regime unchanged (N_DIM=2048).
+- POST-FIX VERIFICATION (this drill): --self-test PASS at 8192 (114s; constructed-set fp=0
+  recall>=0.90 hold). --smoke HARD_PASS (gs3 fp=0 recall=1.000). probe (cell's real functions,
+  full-N, 3 canonical seeds) -> gs3 fp=0 recall=1.000 status_err=0 override_err=0-1 (verdict-
+  irrelevant); gs1/gs2 fp=0 recall=1.000. Local FULL at 8192 -> [pending / see report].
+
 ## Dispatch
 
-- SMOKE: LOCAL ONLY (USER-lock), run directly (--self-test + --smoke); HARD_PASS (above).
-- FULL: PARKED. The cell declares the cert_ledger KB_REFERENT; the remote autonomous pipeline
-  will hit the remote-referent-staleness gate (local ledger != remote-staged ledger), same as
-  exp_cert_ledger_numeric_entailment_v1's FULL. STAGE FULL to remote_cpu_queue via Orchestrator
-  (push is harness-denied to exp_dev) but note it is parked behind that gate. SMOKE demonstrates
-  the capability regardless; FULL adds only 3-seed codebook robustness (structurally guaranteed).
-  Timeout estimate: 300s (cell runs in seconds; generous margin for 3 seeds + real load-200).
-- Expected run_mode of landed FULL metrics: "full" (verify per META_RULE §16).
+- SMOKE: LOCAL ONLY (USER-lock), run directly (--self-test + --smoke); HARD_PASS at N_DIM=2048.
+- FULL: STAGE to remote_cpu_queue via tools/queue_add.py (SCP/sync propagation owned by
+  orchestrator). Re-dispatches the SAME anchor (cert_ledger_global_consistency_v1) at N_DIM=8192
+  via --allow-duplicate; the corrected FULL replaces the PARTIAL landing. The cell declares
+  KB_REFERENT data/substrate_index/meta/cert_ledger.jsonl; the remote referent-staleness gate that
+  PARKED v1 is FIXED as of the 2026-07-06 queue_add.py deploy, so this cert_ledger-referent cell
+  dispatches cleanly now.
+  Timeout: 1800s (self-test-at-import ~114s at 8192 + 3 seeds full at 8192; generous margin;
+  triggers section 17 flush requirement -- SATISFIED: per-seed progress prints flush=True +
+  _heartbeat.jsonl). Anchor has no _n suffix so PROT-018/019 do not gate.
+- Expected run_mode of landed FULL metrics: "full" (verify per META_RULE section 16).

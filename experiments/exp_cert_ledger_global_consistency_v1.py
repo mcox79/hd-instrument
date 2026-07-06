@@ -159,7 +159,22 @@ if RUN_MODE == "smoke":
     REAL_SAMPLE_MAX = 40
 else:
     SEEDS = [7, 17, 23]
-    N_DIM = 4096
+    # N_DIM raised 4096 -> 8192 (v1.1 fix, 2026-07-06). The landed v1 FULL was PARTIAL:
+    # GS-3 constructed_fp=2 at seed 23 (and recall 0.95 via a seed-7 FN). ROOT CAUSE
+    # (MEASURED@scratchpad/probe_result.txt, disk-verified): KGStore is a Hebbian shared-W
+    # associative memory; retrieval fidelity is governed by loading ratio n_triples/n_dim. At the
+    # FULL graph (n_ent~901, ~2760 triples) N_DIM=4096 -> ratio ~0.67, producing occasional
+    # override/status argmax COLLISIONS (seed-7 FN = override-misretr False->True made a genuine
+    # regression look documented; seed-23 2 FP = override-misretr True->False + a status-misretr).
+    # This is a pure dimension/capacity artifact -- NOT a Goodhart/over-flag boundary and NOT a
+    # logic gap (the documented-override exemption already works; T4b asserts it). At N_DIM=8192
+    # (ratio ~0.34) the probe MEASURED status_err=0/691 on ALL three seeds and override_err=0-1/691
+    # (verdict-irrelevant residual) -> gs3 fp=0 recall=1.000 on all three canonical seeds; gs1/gs2
+    # unchanged (fp=0 recall=1.000). 16384 (ratio ~0.17) drove override_err to 0/691 but was
+    # empirically too slow (score_all is O(n_dim^2); the cell issues O(n_rows) of them across
+    # calibrate_tau + walks + posctrl + the scrambled arm; self-test alone exceeded 5 min). 8192
+    # meets the target FP fix at ~4x lower cost and is the pragmatic, laptop-friendly choice.
+    N_DIM = 8192
     N_PER_CLASS = 20
     REAL_SAMPLE_MAX = 200
 
@@ -745,8 +760,8 @@ def run_seed(seed):
 
     # Mechanism graph
     G = build_graph(records, seed=seed, scramble=None)
-    tau = calibrate_tau(G)["tau"]
-    tau_info = calibrate_tau(G)
+    tau_info = calibrate_tau(G)   # compute once (was called twice; wasteful at N_DIM=16384)
+    tau = tau_info["tau"]
 
     # Scrambled control graph (SUPERSEDED_BY targets permuted)
     Gs = build_graph(records, seed=seed, scramble="supersedes")
