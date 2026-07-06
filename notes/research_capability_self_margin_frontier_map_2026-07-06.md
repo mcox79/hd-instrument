@@ -1,3 +1,11 @@
+> **AMENDMENT (2026-07-06, later same day):** Row 4 below ("Generation ... Mechanistically already
+> covered ... direct re-parameterization of the RNS/FHRR `mu(N,M)` formula ... no NEW derivation needed")
+> is WRONG for the native-GSBC block-local decode. See
+> `notes/research_generation_decode_correlated_collision_exact_margin_2026-07-06.md`: generation's
+> disjoint single-shot argmax decode is a discrete, bounded-magnitude tie-break event (collision = exact
+> codeword duplicate), solved by an exact duplicate-count formula (`n_distinct/V`), NOT by RNS/FHRR's
+> continuous-tail `mu(N,M)`. Do not treat row 4 as closed; it needs its own dedicated cell.
+
 # RESEARCH — Capability self-margin frontier map: which capabilities admit a closed-form self-margin?
 
 **Date:** 2026-07-06

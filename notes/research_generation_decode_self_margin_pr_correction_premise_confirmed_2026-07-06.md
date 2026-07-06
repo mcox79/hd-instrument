@@ -1,3 +1,12 @@
+> **AMENDMENT (2026-07-06, later same day):** the premise below ("PR-correction is a property of the
+> codeword Gram geometry [so it] transfers to any decode that competes the same codewords") is REFUTED,
+> with a specific mechanism now understood. See
+> `notes/research_generation_decode_correlated_collision_exact_margin_2026-07-06.md`: PR is a bulk/
+> trace-based correction valid for CONTINUOUS, CLT-averaged competitions (comprehension's multi-token
+> superposition); generation's single-token disjoint-block decode is a discrete, bounded-magnitude
+> tie-break event where the correct predictor is an exact duplicate-codeword count, unrelated to PR.
+> "Same codeword population" does not imply "same competition regime."
+
 # Prep-drill: generation-decode self-margin via PR-correction -- PREMISE CONFIRMED, dispatch-ready
 
 Date: 2026-07-06. Director main-thread prep drill (off-disk verification, zero new trials), run while

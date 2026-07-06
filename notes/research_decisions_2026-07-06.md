@@ -75,3 +75,4 @@
   as if authoritative). LOAD-BEARING -- flagged for 3x follow-on (gates the north-star self-audit + the standing
   roadmap's next declared rung). 3 parallel Sonnet lit-scans, 24 sources verified, P_deflated=0.55 (mechanism) /
   0.50 (ranking, capped per novel-synthesis discipline).
+- 2026-07-06 (later): generation decode self-margin drill -> notes/research_generation_decode_correlated_collision_exact_margin_2026-07-06.md -- FOUND exact/parameter-free duplicate-class-count formula (n_distinct/V) for the disjoint-block decode collision, 0.961-1.016x ratio-fit across 9 smoke cells (vs PR-gaussian 1.6-2.7x off, naive-independent 1e1-1e20x off); CHAIN_GRADE candidate (P_deflated=0.50, capped, novel synthesis); AMENDS frontier-map row 4 + PR-transfer premise-confirmed note (both were too optimistic about PR generality). Recommends next cell exp_generation_decode_selfmargin_dupclass_exact_v1.
