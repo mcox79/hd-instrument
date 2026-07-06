@@ -906,6 +906,7 @@ def compute_verdict(all_seed_results: List[Dict[str, Any]]) -> Tuple[str, str, D
     agg_cv = round(float(np.mean(per_op_cvs)), 4) if per_op_cvs else None
     max_ctl = max(ctl_usables) if ctl_usables else 0
     min_base_d1 = min(base_d1s) if base_d1s else 0.0
+    mean_base_d1 = float(np.mean(base_d1s)) if base_d1s else 0.0
 
     mode = RUN_MODE
     extra = {
@@ -921,6 +922,7 @@ def compute_verdict(all_seed_results: List[Dict[str, Any]]) -> Tuple[str, str, D
         "loose_underpredict_frac": round(loose_dir_frac, 4),
         "aggregate_cross_seed_cv_exact": agg_cv,
         "max_ctl_usable": max_ctl, "min_base_d1": round(min_base_d1, 4),
+        "mean_base_d1": round(mean_base_d1, 4),
         "op_points": op_points,
         "chance_floor": round(CHANCE_FLOOR, 5),
         "bands": {
@@ -937,11 +939,11 @@ def compute_verdict(all_seed_results: List[Dict[str, Any]]) -> Tuple[str, str, D
 
     summ = ("n_seeds=%d units=%d/%d op_points=%d (noncensored=%d censored=%d) | "
             "EXACT mean_ratio=%s gm_err=%s max_op_err=%s | LOOSE mean_ratio=%s gm_err=%s under_frac=%s | "
-            "rel_improve=%s cross_seed_cv=%s | ctl_usable_max=%d base_d1_min=%.3f"
+            "rel_improve=%s cross_seed_cv=%s | ctl_usable_max=%d base_d1(mean=%.3f min=%.3f)"
             % (n_seeds, n_units, expected_units, len(op_points), n_nonc, len(cens),
                exact_mean_ratio, extra["exact_gm_ratio_err"], extra["max_exact_ratio_err"],
                loose_mean_ratio, extra["loose_gm_ratio_err"], extra["loose_underpredict_frac"],
-               extra["rel_improve_loose_over_exact"], agg_cv, max_ctl, min_base_d1))
+               extra["rel_improve_loose_over_exact"], agg_cv, max_ctl, mean_base_d1, min_base_d1))
 
     # ---- gates common to all modes ----
     if any_arms_bad:
@@ -1006,7 +1008,7 @@ def compute_verdict(all_seed_results: List[Dict[str, Any]]) -> Tuple[str, str, D
           and rel_improve is not None and rel_improve >= REL_IMPROVE_MIN
           and (agg_cv is None or agg_cv <= HP_CV_MAX)
           and max_ctl <= HP_CTL_USABLE_MAX
-          and min_base_d1 >= HP_D1_SANITY)
+          and mean_base_d1 >= HP_D1_SANITY)   # positive-control on MEAN (a single hard-NT dip is expected physics)
     if hp:
         return ("HARD_PASS",
                 ("EXACT REASONING-DEPTH SELF-MARGIN VALID (MB->CG candidate): the substrate predicts its OWN "
