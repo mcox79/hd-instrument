@@ -683,6 +683,24 @@ def _run_selftest() -> int:
     # scramble collapses; random near chance. (e2e magnitude not gated here -- 12 chains only.)
     orc_route, _ = _agg(per_unit, "oracle", "route_acc_mean")
     ok = ok_crt and (orc_route >= 0.999) and (scram_e2e <= 0.20) and (rand_route <= 0.25)
+    # Diagnostic-hygiene: selftest writes a run_mode=self_test marker so the output dir never
+    # shows the ambiguous "heartbeat-present / metrics-absent" state (which reads as a death).
+    # This is NOT a deliverable verdict (n_chains=12, 1 seed; deliverable bands NOT applied).
+    verdict = "SELFTEST_PASS" if ok else "SELFTEST_FAIL"
+    _write_metrics_atomic(output_dir, {
+        "anchor_name": ANCHOR_NAME,
+        "verdict": verdict,
+        "verdict_msg": (f"{verdict} (module self-test; NOT a deliverable run). crt_addr={ok_crt} "
+                        f"oracle_route={orc_route:.3f} oracle_e2e={orc_e2e:.3f} "
+                        f"scram_e2e={scram_e2e:.3f} random_route={rand_route:.3f}"),
+        "summary": f"{verdict}: machinery self-test (n_chains=12, seed 7); deliverable bands NOT applied",
+        "run_mode": "self_test",
+        "elapsed_s": round(time.perf_counter() - t0, 2),
+        "n_units": len(per_unit),
+        "ts_iso": datetime.now(timezone.utc).isoformat(),
+        "pid": os.getpid(),
+        "host": platform.node(),
+    })
     _say(f"[{ANCHOR_NAME}] SELFTEST {'PASS' if ok else 'FAIL'}: crt_addr={ok_crt} "
          f"oracle_route={orc_route:.3f} oracle_e2e={orc_e2e:.3f} scram_e2e={scram_e2e:.3f} "
          f"random_route={rand_route:.3f} [{time.perf_counter()-t0:.1f}s]")
