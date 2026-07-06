@@ -39,3 +39,22 @@
   fallback (self-nearest-neighbor empirical confusability calibration, P_deflated capped at 0.35) is spec'd inline
   as a cheaper option if Director wants a GSBC-specific signal sooner. Both lit-scans live-verified this round
   (12/15 citations; prior drill's search-backend outage cleared).
+- Encoder RMT/free-probability spectral self-margin drill (cadence gap-fill, both queues idle): does RMT/free-
+  probability give a tractable closed-form self-margin prediction for the encoder's (BGE-distilled) perception
+  Gram spectrum, the open thread BOTH prior codebook-family drills flagged? -> `notes/research_encoder_rmt_spectral_self_margin_2026-07-06.md`.
+  Ran the actual spectral/Gaussian-equivalence test (not lit-scan alone) against real on-disk BGE concept
+  embeddings (V=20820, V=41328, 2 seeds): real spectrum is a clean power law (exponent -1.0 to -1.12, R^2=0.97-
+  0.98), NOT a compact-bulk-plus-spikes ensemble -- confirms the classic BBP/free-cumulant toolkit is the wrong
+  tool. A covariance-matched Gaussian surrogate explains 60-95%+ of the collapse-vulnerability gap vs an iid
+  assumption in the DEEP-collapse regime but leaves a large, paired-trial-significant (4-20 SEs) residual
+  (13-26 accuracy points) concentrated exactly at collapse ONSET -- the regime a self-margin boundary prediction
+  needs most. Verdict: ACCEPT the boundary for a CG-tier encoder-margin cell (third independent route, after
+  one-factor and raw-Gram heterogeneity, to hit the same content-dependent-hub root cause -- a well-triangulated
+  negative, not a hand-wave). Bonus finding: once total variance is held fixed, spectral SHAPE barely affects the
+  aggregate collapse curve (P_deflated=0.55) -- a simpler, reportable mechanism clue. Both lit-scans live-verified
+  (17/25 citations fetch-confirmed); literature independently confirms the failure mode (Gaussian-equivalence
+  documented to break for classification/argmax tasks with content-dependent low-dim structure -- Mai & Liao 2024,
+  Wen et al. 2025) and the surrogate methodology. No cell recommended; GSBC drill's cheaper self-NN-cosine
+  fallback (P=0.35) remains the standing lower-tier alternative if a per-item signal is ever wanted. Next-drill
+  recommendation (saturation-avoidance, 3 consecutive spectral/correlation-themed drills): pivot to `D1 Glauber
+  dynamics on substrate codeword space` (semiconductor/stochastic-dynamics family).
