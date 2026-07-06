@@ -60,3 +60,18 @@
   dynamics on substrate codeword space` (semiconductor/stochastic-dynamics family).
 - 2026-07-06T11:36:36.294477+00:00: capability self-margin frontier map -> notes/research_capability_self_margin_frontier_map_2026-07-06.md (5/9 order-stat-family [2 CG done, 1 in-flight, 1 covered, 1 new top-pick=comprehension order-recovery cliff P0.40], 1/9 harder-2nd-pick [control given-decomposition P0.35], 3/9 honest IRREGULAR ACCEPT-boundary [encoder power-law, generalization entropy-ceiling, control autonomous-decomp Ross-Bagnell O(T^2)])
 2026-07-06T12:27:03.349642+00:00: sub-Gaussian-tail self-margin REVIVAL -> notes/research_sub_gaussian_tail_self_margin_revival_participation_ratio_2026-07-06.md (CHARACTERIZABLE=YES: participation-ratio-of-Gram-matrix effective-degrees-of-freedom correction, PR~16-29 not V-1~999, closes comprehension ACCEPT_BOUNDARY off-disk zero-new-trials: mean_ratio 1.258->1.011, max_ratio_err 2.197x->1.076x, cross-seed CV 0.008-0.03; revised cell spec comprehension_order_recovery_pr_corrected_margin_v1, P_deflated=0.50 capped-novel-synthesis; extends candidate to generation GSBC decoder, same codebook construction verified)
+- 2x negative-result revival drill (cert-ledger self-audit coverage HARD_FAIL) -> `notes/research_ledger_coverage_negative_revival_2026-07-06.md`.
+  Deepened mechanism past the cell's own docstring: gate-claims machinery (`record_gate`/`write_metrics(gate_claims=...)`)
+  exists (2026-07-05) and is sound, but adoption is 1/5822 corpus cells, AND even that one adopter's structured claims
+  never reach `cert_ledger.jsonl` -- the ledger writer's fixed schema (`tools/cert_ledger_writer.py`) has no field for
+  them; only a free-text PROSE mention survives atomization (grep confirms 5/1467 ledger rows mention the phrase,
+  0 carry actual claim data). Concrete demonstration: retrieval-free direct entailment recovers all 15 real gate-claims
+  on that one cell with 0 mismatches and 0 retrieval steps, while the existing regex harvester finds ZERO claims in
+  that same file's terse verdict_msg -- the current audit design is structurally blind to the best-instrumented cell
+  in the corpus. Ranked revival: #1 retrieval-free direct entailment (new cell, cheap, reuses the already-VET'd
+  decode_then_compare comparator, no capacity axis needed); #2 additive `gate_claims` field on the ledger writer +
+  cell-template adoption convention (upstream feed for #1, not a competitor); #3 regex retrofit-backfill NOT
+  recommended (lit-confirmed retrospective-NLP error risk; would bake known parse-artifact classes into the ledger
+  as if authoritative). LOAD-BEARING -- flagged for 3x follow-on (gates the north-star self-audit + the standing
+  roadmap's next declared rung). 3 parallel Sonnet lit-scans, 24 sources verified, P_deflated=0.55 (mechanism) /
+  0.50 (ranking, capped per novel-synthesis discipline).
