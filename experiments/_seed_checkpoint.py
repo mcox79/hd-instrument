@@ -514,8 +514,162 @@ def get_output_dir(anchor_name: str) -> Path:
     return _REPO / "data" / f"exp_{name}"
 
 
+# --- OPT-IN structured gate claims (added 2026-07-05, Testbed) --------------
+# Machine-clean self-documentation of a cell's HARD-PASS/HARD-FAIL bands so the
+# Tier-2 self-audit can read each gate as an exact JSON field instead of
+# regex-parsing "metric op threshold -> verdict" out of free-text verdict_msg.
+# Spec: notes/research_tier2_selfcheck_structured_field_2026-07-05.md
+# (commit 4feca27e3). The CELL computes each claim (it already knows its gate
+# math via record_gate); write_metrics just VALIDATES + PERSISTS -- NO regex,
+# NO re-derivation from a string. Fully opt-in and backward-compatible: a caller
+# that passes no gate_claims produces byte-identical metrics.json to before.
+
+# The five comparison operators a structured gate may use. gate_verdict is
+# computed at the source cell's own runtime from its in-scope measured/threshold
+# locals -- never inferred later.
+_GATE_OP_FUNCS = {
+    ">=": lambda a, b: a >= b,
+    "<=": lambda a, b: a <= b,
+    "==": lambda a, b: a == b,
+    ">": lambda a, b: a > b,
+    "<": lambda a, b: a < b,
+}
+_VALID_GATE_OPS = frozenset(_GATE_OP_FUNCS)
+
+
+def _gate_number(x: Any, label: str) -> Any:
+    """Coerce x to a plain JSON-safe number (int/float); raise on bool/non-numeric.
+
+    Preserves Python int-ness (so a count stays 5, not 5.0); coerces numpy
+    scalars / numeric strings to float so json.dumps can serialize them. bool is
+    rejected -- a gate measured/threshold is never a boolean (gate_verdict is).
+    """
+    if isinstance(x, bool):
+        raise ValueError(f"{label} must be numeric, not bool")
+    if isinstance(x, (int, float)):
+        return x
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        raise ValueError(
+            f"{label} must be numeric, got {type(x).__name__}: {x!r}")
+
+
+def record_gate(gate_name: str, measured: Any, threshold: Any, op: str,
+                note: Optional[str] = None) -> Dict[str, Any]:
+    """Build one normalized structured gate-claim dict with a COMPUTED verdict.
+
+    The gate_verdict is computed HERE, at the cell's own runtime, from the
+    cell's own in-scope measured/threshold values -- never re-derived from a
+    string later. This is the machine-clean alternative to free-text parsing of
+    "metric op threshold -> PASS/FAIL" bands out of verdict_msg.
+
+    Args:
+        gate_name: identifier for the gate (e.g. "op_agreement", "flag_recall").
+        measured:  measured value (int/float, or numpy scalar / numeric string
+                   coercible to one).
+        threshold: gate threshold (same numeric contract).
+        op:        one of ">=", "<=", "==", ">", "<".
+        note:      optional free-text annotation (stored verbatim, never parsed).
+
+    Returns:
+        {"gate_name", "measured", "threshold", "op", "gate_verdict"[, "note"]}
+        -- a claim that passes write_metrics' validation by construction.
+
+    Raises:
+        ValueError on unknown op, empty gate_name, or non-numeric operands.
+    """
+    if op not in _GATE_OP_FUNCS:
+        raise ValueError(
+            f"record_gate: op={op!r} not in {sorted(_VALID_GATE_OPS)}")
+    if not isinstance(gate_name, str) or not gate_name:
+        raise ValueError("record_gate: gate_name must be a non-empty str")
+    m = _gate_number(measured, "measured")
+    t = _gate_number(threshold, "threshold")
+    claim: Dict[str, Any] = {
+        "gate_name": gate_name,
+        "measured": m,
+        "threshold": t,
+        "op": op,
+        "gate_verdict": bool(_GATE_OP_FUNCS[op](m, t)),
+    }
+    if note is not None:
+        claim["note"] = str(note)
+    return claim
+
+
+def _validate_gate_claims(gate_claims: Any) -> List[Dict[str, Any]]:
+    """Validate an opt-in gate_claims list; return a fresh normalized list.
+
+    Each claim MUST be a dict carrying:
+        gate_name    -- non-empty str
+        measured     -- int/float (not bool)
+        threshold    -- int/float (not bool)
+        op           -- one of ">=", "<=", "==", ">", "<"
+        gate_verdict -- bool
+    Optional: note (str, stored verbatim).
+
+    Fail-fast: raises TypeError/ValueError on any malformed input. Does NOT
+    mutate the caller's objects and does NOT recompute gate_verdict (record_gate
+    owns that computation) -- write_metrics only validates schema + persists.
+    Returns a list of dicts with a canonical, deterministic key order.
+    """
+    if isinstance(gate_claims, (dict, str, bytes)):
+        raise TypeError(
+            "gate_claims must be a list of claim dicts, "
+            f"got {type(gate_claims).__name__}")
+    try:
+        items = list(gate_claims)
+    except TypeError as exc:
+        raise TypeError(
+            f"gate_claims must be an iterable of claim dicts: {exc}")
+    out: List[Dict[str, Any]] = []
+    for i, claim in enumerate(items):
+        if not isinstance(claim, dict):
+            raise TypeError(
+                f"gate_claims[{i}] must be a dict, got {type(claim).__name__}")
+        required = {"gate_name", "measured", "threshold", "op", "gate_verdict"}
+        missing = required - set(claim.keys())
+        if missing:
+            raise ValueError(
+                f"gate_claims[{i}] missing required keys: {sorted(missing)}")
+        gate_name = claim["gate_name"]
+        if not isinstance(gate_name, str) or not gate_name:
+            raise ValueError(
+                f"gate_claims[{i}].gate_name must be a non-empty str")
+        op = claim["op"]
+        if op not in _VALID_GATE_OPS:
+            raise ValueError(
+                f"gate_claims[{i}].op={op!r} not in {sorted(_VALID_GATE_OPS)}")
+        measured = claim["measured"]
+        if isinstance(measured, bool) or not isinstance(measured, (int, float)):
+            raise ValueError(
+                f"gate_claims[{i}].measured must be a non-bool number")
+        threshold = claim["threshold"]
+        if isinstance(threshold, bool) or \
+                not isinstance(threshold, (int, float)):
+            raise ValueError(
+                f"gate_claims[{i}].threshold must be a non-bool number")
+        if not isinstance(claim["gate_verdict"], bool):
+            raise ValueError(
+                f"gate_claims[{i}].gate_verdict must be a bool")
+        norm: Dict[str, Any] = {
+            "gate_name": gate_name,
+            "measured": measured,
+            "threshold": threshold,
+            "op": op,
+            "gate_verdict": claim["gate_verdict"],
+        }
+        if claim.get("note") is not None:
+            norm["note"] = str(claim["note"])
+        out.append(norm)
+    return out
+
+
 def write_metrics(out_dir: Path, metrics: Dict[str, Any],
-                  results: Optional[Sequence[Dict[str, Any]]] = None) -> Dict[str, Any]:
+                  results: Optional[Sequence[Dict[str, Any]]] = None,
+                  gate_claims: Optional[Sequence[Dict[str, Any]]] = None
+                  ) -> Dict[str, Any]:
     """Write metrics.json guaranteeing the runner's REQUIRED_FIELDS.
 
     The runner (queue_add.py validate_metrics) rejects a run as
@@ -526,7 +680,27 @@ def write_metrics(out_dir: Path, metrics: Dict[str, Any],
     to derive a total elapsed_s when not already present.
 
     Root cause of the 2026-06-04 3-anchor metrics_invalid batch.
+
+    OPT-IN structured gate claims (added 2026-07-05, Testbed): pass
+    `gate_claims` -- a list of dicts built by record_gate(), each carrying a
+    COMPUTED gate_verdict -- to persist them under a NEW top-level key
+    "structured_gate_claims". This gives the Tier-2 self-audit an exact
+    machine-readable record of each HARD-PASS/HARD-FAIL band instead of
+    regex-parsing verdict_msg. Contract:
+      * gate_claims=None (default) -> byte-identical output to the pre-2026-07-05
+        writer; NOT a single existing caller is affected.
+      * gate_claims supplied -> each claim is VALIDATED (schema + op + numeric)
+        FAIL-FAST *before* any file write or metrics mutation, so a malformed
+        claim surfaces in SMOKE (per the SMOKE=FULL discipline) and can never
+        silently corrupt a FULL metrics.json. NO regex, NO verdict re-derivation.
     """
+    # Validate opt-in gate_claims FIRST (before mutating metrics / writing the
+    # file) so a malformed claim raises with zero side effects. When
+    # gate_claims is None this is skipped entirely and the code below is
+    # byte-for-byte the original writer.
+    validated_gate_claims = (
+        _validate_gate_claims(gate_claims) if gate_claims is not None else None)
+
     if metrics.get("elapsed_s") is None:
         tot = 0.0
         for r in (results or []):
@@ -537,6 +711,8 @@ def write_metrics(out_dir: Path, metrics: Dict[str, Any],
         metrics["elapsed_s"] = tot
     if not metrics.get("summary"):
         metrics["summary"] = metrics.get("verdict_msg") or metrics.get("verdict") or ""
+    if validated_gate_claims is not None:
+        metrics["structured_gate_claims"] = validated_gate_claims
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
     return metrics
@@ -644,6 +820,8 @@ __all__ = [
     "clear_partials",
     "_check_run_config",
     "get_output_dir",
+    "write_metrics",
+    "record_gate",
 ]
 
 
