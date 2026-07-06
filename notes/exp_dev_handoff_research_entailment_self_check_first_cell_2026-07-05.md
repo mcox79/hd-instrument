@@ -1,5 +1,7 @@
 # exp_dev hand-off — research: entailment/self-check first cell (half-range comparator)
 
+**STATUS 2026-07-06: COMPARATOR MERGED -- do NOT auto-dispatch as a separate cell.** The half-range comparator was folded into the already-in-flight compare cell (exp_dev af6b5bf, fired from the math-envelope drill); the director routed this handoff's three additions (native-signtest HARD_FAIL control, decode-then-compare baseline honesty gate, a>=threshold target) into that cell via SendMessage, and the research agent itself reconciled to the same half-range design (not a duplicate MRC cell). The Tier-2 real-cert-ledger self-check loop (anchor #3 below) REMAINS a genuine DEFERRED follow-up to build AFTER the comparator lands. Auto-refill scan: skip the comparator, keep the Tier-2 pointer.
+
 **Filed:** 2026-07-05 by research (sub-agent context; main thread/orchestrator will dispatch
 the exp_dev wrapper).
 
