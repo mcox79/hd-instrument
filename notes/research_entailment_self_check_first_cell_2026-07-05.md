@@ -288,88 +288,94 @@ engineering convenience, it is the literal architecture the brain uses.**
 
 ---
 
-## THE CELL SPEC — `exp_math_rns_compare_mrc_v1` (Stage 0, ready for exp_dev)
+## THE CELL SPEC — `exp_math_rns_compare_halfrange_v1` (Stage 0, ready for exp_dev)
 
-**Anchor working name**: `exp_math_rns_compare_mrc_v1` (design only — not authored/dispatched,
-per Director instruction). Stage 0 = validate the comparator primitive in isolation on clean
-synthetic integers, reusing the exact regimes/moduli/codebook infrastructure from the landed
-`exp_math_rns_add_chain_v1` (same N=8192, R=3, sub-block structure, moduli sets
-small/mid/large, seeds 7/13/19) — mirrors the staging discipline both sibling cells already
-used (prove the primitive clean before attaching to real data). Stage 1 (wiring onto real
+**Anchor name**: `exp_math_rns_compare_halfrange_v1` — adopting the sibling note's name and
+mechanism choice (half-range sign-detection) rather than proposing a second, competing
+anchor; design only, not authored/dispatched, per Director instruction. This section
+reproduces the sibling note's mechanism/bands (so exp_dev has one authoritative spec, not two
+half-specs to reconcile at pickup time) and ADDS the two refinements this note's own research
+surfaced: a control arm derived from the substrate's historical comparator negative, and an
+explicit Stage 1 pointer into `exp_cert_ledger_self_query_v1`. Stage 0 = validate the
+comparator primitive in isolation on clean synthetic integers, reusing the exact regimes/
+moduli/codebook infrastructure from the landed `exp_math_rns_add_chain_v1` (small/mid/large
+moduli, seeds 7/13/19) — mirrors the staging discipline both sibling cells already used
+(prove the primitive clean before attaching to real data). Stage 1 (wiring onto real
 `(metric, threshold, verdict)` triples pulled from landed `preregs/*.md` + `metrics.json`
-pairs) is the natural next step but is EXPLICITLY OUT OF SCOPE for this cell — sequenced
-after Stage 0 passes, per Q2's staging recommendation.
+pairs, retrieved via `exp_cert_ledger_self_query_v1`'s proven KG mechanism) is the natural
+next step but is EXPLICITLY OUT OF SCOPE for this cell — sequenced after Stage 0 passes, per
+Q2's staging recommendation.
 
-**Construction**: encode two small integers `a, b` via the SAME phase-linear residue scheme
-already proven exact (reuse `exp_math_rns_add_chain_v1`'s codebook construction verbatim).
-Derive Mixed-Radix digits from the residue tuple (new: ~150-250 lines, direct port of the
-classical MRC algorithm — Szabo & Tanaka 1967 sequential form, or a parallel/table-lookup
-variant if wall-time matters at the chosen modulus count). Compare digit arrays
-most-significant-first with early exit at the first differing digit, using the SAME discrete
-exact-match primitive already validated (`equality_check` arm, accept/reject=1.000/1.000) —
-output a discrete `a > b` / `a < b` / `a == b` trit.
+**Construction** (per the sibling note): encode two small integers `a, b` via the SAME
+phase-linear residue scheme already proven exact. Compute `d = bind(enc(a), conj(enc(b)))`
+(conjugate-phasor subtraction — free, per Q3). CRT-decode `d` via the already-proven
+reconstruction (verbatim reuse). Threshold the decoded value against `M/2`: `d < M/2` implies
+`a >= b`, `d >= M/2` implies `a < b` (standard RNS signed-range convention). Output a
+discrete `a >= b` / `a < b` trit, checked against the trivial Python oracle `a >= b`.
 
 **Arms (all PAIRED on identical (a,b) integer pairs per regime/seed, matching the landed
 cell's arm-pairing discipline):**
-- `mrc_digit_compare` [MECHANISM] — the primitive under test: MRC-derive digits, compare
-  MSD-first with early exit, discrete trit output.
-- `decode_then_compare_baseline` [CONTROL, expected STRONG] — decode both values fully via
-  the ALREADY-PROVEN CRT reconstruction (exact, not the continuous-FPE decode that only hit
-  0.89 in the failed comparator cell), then compare the two recovered exact integers as
-  plain scalars. This is the "engineering, not research" floor the mechanism arm needs to
-  at least match while being more inspectable/early-exit-efficient; NOT expected to fail
-  (unlike the failed cell's raw-lookup control, which used lossy continuous FPE decode, this
-  baseline reuses an EXACT decode and should be near-1.0 — a genuinely strong baseline, not a
-  strawman).
-- `native_vector_signtest_control` [CONTROL, expected to reproduce the closed HARD_FAIL] —
-  literal repeat of the `exp_comparator_resonator_primitive_smoke_v1` sign-test-on-projected-
-  difference approach, but now applied to the EXACT discrete residue representation instead
-  of continuous FPE. Purpose: confirm the prior HARD_FAIL was about the mechanism (single-
-  shot vector projection can't reliably recover order), not merely about using a noisy
-  continuous encoding — if this control ALSO fails on the exact representation, that
-  strengthens (not weakens) the case for MRC being the right fix, not an arbitrary
-  alternative.
-- `scrambled_digit_control` [CONTROL, expected collapse] — derange MRC digit order before
-  comparison; should collapse toward chance, confirming digit ORDER (not just digit values)
-  is load-bearing.
+- `halfrange_compare` [MECHANISM] — the primitive under test: conjugate-subtract, CRT-decode,
+  threshold vs `M/2`, discrete trit output.
+- `dynamic_range_violation_control` [CONTROL, from the sibling note] — deliberately generate
+  trial pairs where `|a-b| >= M/2` (violating the mechanism's own precondition). Per the
+  sibling note's own flagged failure mode, this must come back either explicitly FLAGGED as
+  invalid/out-of-range, or its silent-wrong-sign rate must be measured and reported (NOT
+  silently passed) — this is a HARD-FAIL trigger condition, not an optional diagnostic.
+- `native_vector_signtest_control` [CONTROL, this note's addition] — literal repeat of the
+  closed `exp_comparator_resonator_primitive_smoke_v1` sign-test-on-projected-vector-
+  difference approach, applied to the SAME exact discrete residue representation instead of
+  the continuous FPE it originally used. Purpose: confirm the prior HARD_FAIL was about the
+  mechanism (single-shot vector projection can't reliably recover order) rather than merely
+  about noisy continuous encoding — if this control ALSO fails on the exact representation,
+  that corroborates (does not contradict) the case for half-range sign-detection being the
+  right fix rather than an arbitrary alternative. If it unexpectedly PASSES on the exact
+  representation, that is a significant, reportable surprise requiring verify-the-referent
+  before trusting it.
+- `scrambled_residue_control` [CONTROL, expected collapse] — derange one residue's codebook
+  before the subtract+CRT-decode step; should collapse the sign-decision toward chance,
+  confirming the CRT reconstruction (not an artifact of the threshold rule) is load-bearing.
 
-**Pre-registered bands (deflated per role discipline):**
+**Pre-registered bands (per the sibling note, adopted verbatim, plus this note's two new
+control rows):**
 
 | Metric | HARD-PASS | HARD-FAIL | MIDDLE |
 |---|---|---|---|
-| `mrc_digit_compare` exact-trit accuracy (min over regimes) | >= 0.95, cv <= 0.10 | < 0.60 at any regime | 0.60-0.95 |
-| `mrc_digit_compare` vs `decode_then_compare_baseline` gap | within 0.05 (matches the strong baseline) | worse by > 0.15 (adds nothing over decode-then-compare, same failure MODE as the closed cell) | worse by 0.05-0.15 |
-| `native_vector_signtest_control` (same exact representation) | n/a (control) | if this control does NOT collapse (>= 0.60), verify-the-referent — the "closed" prior may not generalize to exact residues, requiring re-reading Q3's conclusion | -- |
-| `scrambled_digit_control` | <= 0.10 (near 1/n_digit_values chance) | >= 0.30 (order not load-bearing; schema artifact) | -- |
-| Near-miss / early-exit efficiency (secondary, reported not gated) | MRC comparator terminates before examining all digits on >= 50% of pairs (efficiency claim, not correctness) | -- | -- |
+| `halfrange_compare` sign-accuracy within valid range (`\|a-b\|<M/2`) | >= 0.95 | < 0.70 within valid range | 0.70-0.95 |
+| `dynamic_range_violation_control` | explicitly flagged as invalid, OR silent-wrong-sign rate measured and reported | silent-wrong-sign rate on out-of-range trials unreported/buried in >50% of violating trials | reported but not flagged |
+| `native_vector_signtest_control` (this note's addition, exact representation) | n/a (control; informational) | if this control UNEXPECTEDLY passes (>= 0.60) on the exact representation, verify-the-referent before trusting `halfrange_compare`'s own result (possible shared leak) | -- |
+| `scrambled_residue_control` | <= 0.15 (near chance) | >= 0.40 (CRT-decode not load-bearing; schema artifact) | -- |
 
-**HARD-PASS overall**: `mrc_digit_compare` clears its accuracy band AND is within 0.05 of the
-strong decode-then-compare baseline AND `scrambled_digit_control` collapses. This gives the
-substrate an inspectable, exact, discrete comparison primitive that composes with Task A/B's
-retrieval and the landed equality-check, closing Tier 2's gap (Q1) and completing the
-composition loop (Q2).
+**HARD-PASS overall**: `halfrange_compare` clears >= 0.95 sign-accuracy within the valid
+dynamic range AND the range-violation control is honestly flagged/reported (not silently
+wrong) AND `scrambled_residue_control` collapses. This gives the substrate an inspectable,
+exact, discrete comparison primitive that composes with Task A/B's retrieval and the landed
+equality-check, closing Tier 2's gap (Q1) and completing the composition loop (Q2).
 
-**HARD-FAIL overall**: `mrc_digit_compare` accuracy < 0.60 at any regime, OR it underperforms
-`decode_then_compare_baseline` by > 0.15 (the SAME failure signature as the closed
-`exp_comparator_resonator_primitive_smoke_v1` result — "adds nothing over naive decode") —
-this would be the second, mechanistically-independent negative result on "does a dedicated
-substrate-native comparator op add value over decode-then-compare," and should be reported
-prominently as such (per [[feedback-research-every-finding-for-mechanism-and-envelope-push]]):
-a legitimate, non-embarrassing possible finding is "decode via already-exact CRT, then
-compare as an ordinary scalar operation IS the substrate-native answer; a dedicated
-in-representation comparator is not where the value is," which is still an honest, complete
-answer to Q3 even if MRC does not clear the bar.
+**HARD-FAIL overall**: sign-accuracy < 0.70 within the valid range (the CRT-decode-then-
+threshold trick does not transfer cleanly at substrate scale), OR the range-violation control
+silently mis-signs in > 50% of violating trials without being reported (an honest but
+important limitation, not a rare edge case) OR `scrambled_residue_control` fails to collapse.
+Per [[feedback-research-every-finding-for-mechanism-and-envelope-push]]: even a clean
+HARD-PASS on `halfrange_compare` that ALSO shows `native_vector_signtest_control` passing
+unexpectedly would itself be a reportable, mechanism-clarifying surprise (would suggest the
+prior comparator cell's HARD_FAIL was about its continuous encoding specifically, not vector-
+space projection in general) — worth a follow-up note, not a silent footnote.
 
 **Cost**: LOCAL-CPU-feasible (numpy-scale, same order of magnitude as the landed add cell's
 ~2-15s wall time), no GPU, reuses the add cell's codebook/regime infrastructure unmodified
-except for the new MRC-derivation module. Order of an afternoon to a day of `hdi_exp_dev`
-authoring + smoke, consistent with both sibling cells' actual costs.
+except for the M/2 threshold rule, the range-violation control, and the (informational)
+native-signtest control. Sibling note's own estimate: ~50-100 new lines for the mechanism
+itself; the two added controls are each small (a trial-generator tweak, and a port of an
+existing failed-cell's scoring function respectively). Order of an afternoon of `hdi_exp_dev`
+authoring + smoke.
 
 **Autonomy note** (per [[feedback-no-experiment-design-in-prompts]]-equivalent discipline):
 exp_dev owns exact grid points, seed counts, moduli choices (reuse the landed cell's
-small/mid/large regimes unless a reason emerges to change them), MRC algorithm variant
-(sequential vs. parallel/table-lookup), and queue routing. This note specifies mechanism +
-bands, not implementation minutiae.
+small/mid/large regimes, verifying `M > 2*max_operand_range` for the half-range precondition),
+and queue routing. exp_dev may drop the `native_vector_signtest_control` arm as optional
+scope-trim if it judges the historical negative sufficiently well-established already — this
+note recommends including it (cheap, directly informative) but does not mandate it.
 
 ---
 
@@ -402,15 +408,33 @@ strategic vision.
   yet identifying comparison/ordering as a DISTINCT, harder, still-open primitive — this
   note's contribution is exactly that distinction (equality != ordering, in RNS math AND in
   brain mechanism) plus a concrete, buildable next cell.
+- **With `notes/research_math_arithmetic_basis_next_primitives_2026-07-05.md`** (same-session
+  sibling, discovered mid-drill): that note independently reached the same headline
+  conclusion (comparison is the genuine gap; subtraction and set-membership are free) via a
+  different route (a direct source-code read of `exp_math_rns_add_chain_v1` plus 4 lit-scans
+  on LNS/Zech-logarithm, RNS comparison, brain log-magnitude coding, and VSA multiplication/
+  comparison operators) and got to a cheaper, better v1 mechanism (half-range sign-detection,
+  P_deflated=0.45, anchor `exp_math_rns_compare_halfrange_v1`) than this note's original MRC
+  proposal. This note DEFERS to that mechanism choice (see the reconciliation note up top) and
+  contributes back: the Tier 0/1/2 entailment framing linking to `exp_cert_ledger_self_query_v1`
+  (which the sibling note never examined), the `native_vector_signtest_control` arm derived
+  from `exp_comparator_resonator_primitive_smoke_v1` (which the sibling note never found), and
+  comparison-specific brain grounding (the sibling note's brain lit-scan was scoped to
+  multiplication's log-magnitude coding, a different question). Two independent research
+  threads converging on the same mechanism-gap diagnosis, from different entry points, is
+  itself a mild positive signal for that diagnosis being correct — reported as such, not
+  over-claimed.
 - **With `data/exp_comparator_resonator_primitive_smoke_v1/metrics.json`** (FULL, HARD_FAIL,
   prior session): the closed negative that shapes this note's design — used directly as the
   "don't repeat this" signal and as the source of the `native_vector_signtest_control` arm
   (same failed mechanism, re-run on the exact representation as an honest re-check, not a
-  blind retry).
+  blind retry). Notably absent from the sibling note above — this note's distinct
+  contribution to the shared cell design.
 - **With [[feedback-dont-dismiss-adjacent-methods]] / [[feedback-prior-work-informs-not-
   constrains]]**: the comparator HARD_FAIL is respected (no naive retry of the sign-test
   design); the pivot is to a mechanistically different, well-established classical technique
-  (MRC) that the closed attempt never tested.
+  (half-range sign-detection, with MRC cited as a considered-but-deprioritized alternative)
+  that the closed attempt never tested.
 - **Brain-component-driven development thrust (2026-07-05 standing USER thrust)**: adds
   "parietal analog magnitude vs. prefrontal criterion/rule" as a SECOND, distinct
   numeric-cognition dissociation (alongside the already-noted Dehaene triple-code /
@@ -420,16 +444,23 @@ strategic vision.
 
 ## SUBSTRATE-PRODUCT IMPLICATIONS
 
-- If `exp_math_rns_compare_mrc_v1` HARD-PASSes: the substrate gains a standalone, exact,
+- If `exp_math_rns_compare_halfrange_v1` HARD-PASSes: the substrate gains a standalone, exact,
   inspectable ordering/threshold primitive — closing the one missing piece for genuine
   numeric entailment-checking over its own certification claims (Tier 2, Q1). Directly
   reduces reliance on `hdi_skunkworks` manually re-reading `metric >= threshold -> verdict`
   bands by hand; a concrete, cheap, real next attack surface once built (hundreds of already-
   landed `(metric, threshold, verdict)` triples exist on disk as a ready-made test corpus).
-- If it HARD-FAILs in the "adds nothing over decode-then-compare" mode: still a genuinely
-  useful, reportable answer — "decode via the already-exact CRT machinery, then compare as
-  an ordinary discrete operation" becomes the substrate-native design pattern by elimination,
-  which is honest progress on Q3, not a wasted cycle.
+  The `native_vector_signtest_control` result (this note's addition) will also settle, cheaply,
+  whether the substrate's earlier comparator negative was representation-specific or
+  mechanism-general — a useful clarification either way.
+- If it HARD-FAILs (sign-accuracy too low, or the range-violation control silently mis-signs
+  and goes unreported): still a genuinely useful, reportable answer per
+  [[feedback-research-every-finding-for-mechanism-and-envelope-push]] — either "decode via the
+  already-exact CRT machinery for BOTH operands, then compare as an ordinary discrete
+  operation" becomes the substrate-native design pattern by elimination (honest progress on
+  Q3, not a wasted cycle), or the range-violation finding becomes a documented, load-bearing
+  engineering constraint (comparison primitives must ship with an explicit dynamic-range
+  guard) rather than a silently-swallowed edge case.
 - Neither outcome reopens Phase 2/3 (autoatom, substrate-proposed mathematics) of the USER's
   core-mathematics vision — this stays honestly scoped to Tier 2 numeric entailment on
   existing stored claims, per the guardrails above.
@@ -437,6 +468,14 @@ strategic vision.
 ---
 
 ## CITATIONS (verified external count = 20, plus substrate-internal artifacts)
+
+**Note on the recommended mechanism's primary citation**: the half-range sign-detection
+mechanism this note ultimately recommends (adopted from the sibling note) is Hung, C.Y. &
+Parhami, B. (1994), "An approximate sign detection method for residue numbers and its
+application to RNS division," *Computers & Mathematics with Applications* 27(4):23-35 — item
+8 below, confirmed independently by this note's own lit-scan under the generic title it
+surfaced under. The MRC citations below (items 1-4) support the deprioritized v2 alternative,
+kept for completeness per the reconciliation note above.
 
 **RNS magnitude comparison / Mixed-Radix Conversion (lit-scan 1):**
 1. Szabo, N.S. & Tanaka, R.I. (1967). *Residue Arithmetic and Its Applications to Computer
