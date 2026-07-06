@@ -76,3 +76,17 @@
   roadmap's next declared rung). 3 parallel Sonnet lit-scans, 24 sources verified, P_deflated=0.55 (mechanism) /
   0.50 (ranking, capped per novel-synthesis discipline).
 - 2026-07-06 (later): generation decode self-margin drill -> notes/research_generation_decode_correlated_collision_exact_margin_2026-07-06.md -- FOUND exact/parameter-free duplicate-class-count formula (n_distinct/V) for the disjoint-block decode collision, 0.961-1.016x ratio-fit across 9 smoke cells (vs PR-gaussian 1.6-2.7x off, naive-independent 1e1-1e20x off); CHAIN_GRADE candidate (P_deflated=0.50, capped, novel synthesis); AMENDS frontier-map row 4 + PR-transfer premise-confirmed note (both were too optimistic about PR generality). Recommends next cell exp_generation_decode_selfmargin_dupclass_exact_v1.
+- 2026-07-06 (later, encoder 2x drill): Stage-2 encoder v2 FULL HARD_FAIL diagnosed -> notes/research_encoder_nce_margin_tradeoff_2x_drill_2026-07-06.md.
+  3-way triangulation (v2 constant-NCE, v3b MID NCE-ablation, v3c FULL 5-seed NCE=0 paired tie-breaker) proves the
+  ceiling is a margin/geometry trade-off, NOT capacity/distill-target/dimensional: NCE=0 recovers DENSE semantic
+  spearman to 0.816-0.916 (5/5 seeds, beats the two prior 2026-07-04 drills' own P=0.20 estimate) but collapses
+  keyed-algebra decodability to 0.033-0.317 (need >=0.90); "raw-cardinality ceiling" downgraded to secondary
+  (P=0.15, visible only as the ~0.2 TOPK_NAIVE-vs-BLOCK gap). Top next lever: sequenced NCE curriculum (train
+  NCE=0 to convergence, reuse the 5 already-landed checkpoints, then a SHORT terminal NCE-relock fine-tune to
+  lock in decodability without re-eroding geometry) -- grounded in 2 freshly-fetched, directly-on-point papers
+  (arXiv:2605.06870 "Continuous First, Discrete Later"; arXiv:2603.22304 progressive-quantization curriculum).
+  Cheap local/short-GPU smoke recommended (NOT a fresh full GPU-day), P_deflated=0.40. Honest framing: 0.85-class
+  semantic fidelity ALONE is already effectively demonstrated reachable; 0.85-WITH-algebra jointly is the genuine
+  open question, unproven, real risk (P=0.25) it is unreachable in this code family given peak-then-decline
+  reproduces even under NCE=0 the whole run.
+- 2026-07-06: Held-out validation of self-margin taxonomy (Candidate A, resonator K-way factorization) HARD-FAILS as pre-registered -- flat order-statistic and 3 product-law-chain variants all miss K4 by 3.4x-7.1x; taxonomy is DESCRIPTIVE not CG_META-promotable on this evidence. See notes/research_self_margin_taxonomy_held_out_validation_resonator_2026-07-06.md
