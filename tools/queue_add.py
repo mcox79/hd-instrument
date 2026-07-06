@@ -370,6 +370,82 @@ PROT022_REMOTE_HOST = "marsh@home"
 PROT022_REMOTE_REPO = "C:/dev/hd-instrument"
 PROT022_REMOTE_QUEUES = {"overnight_queue", "remote_cpu_queue"}
 
+# PROT-022 SSH referent-probe hardening (2026-07-05, testbed). Two root-cause bugs
+# in the prior LOCAL->remote referent check both false-reported a PRESENT referent
+# as MISSING (exit 10), wrongly blocking a valid dispatch AND mis-diagnosing a file
+# that is actually on disk:
+#   (1) COMMAND: the probe ran POSIX `test -f`, but marsh@home is a WINDOWS host
+#       whose default ssh shell is cmd.exe, which has no `test`. It returned rc=1
+#       ("'test' is not recognized") for a PRESENT referent exactly as for an
+#       absent one -- so on EVERY fast connection a present referent looked MISSING.
+#   (2) TRANSIENT: ConnectTimeout=10 + subprocess timeout=15 + zero retries meant a
+#       single slow ssh (the observed "ssh TIMEOUT checking ... treating as MISSING"
+#       log line) also false-reported MISSING.
+# Fix: probe with PowerShell Test-Path (matches how the rest of queue_add.sh talks
+# to the remote) emitting an UNAMBIGUOUS stdout token, raise ConnectTimeout to 20s,
+# add bounded retries, and distinguish a transport failure (INDETERMINATE -> retried,
+# then a distinct CONNECTIVITY error, exit 11) from a genuine file-absent (definite
+# ABSENT token -> MISSING, exit 10, still blocks). A transport blip NEVER silently
+# disarms the guard and NEVER false-claims a present referent MISSING.
+PROT022_SSH_CONNECT_TIMEOUT_S = 20
+PROT022_SSH_SUBPROC_TIMEOUT_S = 45  # 20s connect + PowerShell cold-start + margin
+PROT022_SSH_ATTEMPTS = 3
+PROT022_SSH_RETRY_BACKOFF_S = 2
+_REF_PRESENT_TOKEN = "REFERENT_PRESENT"
+_REF_ABSENT_TOKEN = "REFERENT_ABSENT"
+
+
+def _probe_referent_over_ssh(remote_path: str) -> str:
+    """Probe whether remote_path exists on the remote host over ssh.
+
+    Returns exactly one of:
+      "PRESENT"       -- Test-Path confirmed the file exists.
+      "ABSENT"        -- Test-Path confirmed the file is absent (genuine MISSING).
+      "INDETERMINATE" -- transport timeout / connect failure / no token after all
+                         retries; the referent's presence is UNKNOWN. Callers must
+                         NOT treat this as MISSING and must NOT treat it as present.
+
+    Uses PowerShell Test-Path (the Windows remote's cmd.exe has no POSIX `test`)
+    and an unambiguous stdout token, so a genuine absent is distinguishable from a
+    transport failure. Retries only on INDETERMINATE; a definite PRESENT/ABSENT
+    returns immediately (no wasted retries).
+    """
+    _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
+    ps = (
+        "if (Test-Path -LiteralPath '" + remote_path + "') "
+        "{ '" + _REF_PRESENT_TOKEN + "' } else { '" + _REF_ABSENT_TOKEN + "' }"
+    )
+    for attempt in range(1, PROT022_SSH_ATTEMPTS + 1):
+        diag = ""
+        try:
+            # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28).
+            r = subprocess.run(
+                ["ssh", "-T",
+                 "-o", f"ConnectTimeout={PROT022_SSH_CONNECT_TIMEOUT_S}",
+                 "-o", "BatchMode=yes",
+                 PROT022_REMOTE_HOST,
+                 "powershell", "-NoProfile", "-NonInteractive", "-Command", ps],
+                timeout=PROT022_SSH_SUBPROC_TIMEOUT_S,
+                capture_output=True, encoding="utf-8", errors="replace",
+                creationflags=_no_window,
+            )
+            out = r.stdout or ""
+            if _REF_PRESENT_TOKEN in out:
+                return "PRESENT"
+            if _REF_ABSENT_TOKEN in out:
+                return "ABSENT"
+            diag = (f"no token (rc={r.returncode}, "
+                    f"stderr={(r.stderr or '').strip()[:120]!r})")
+        except subprocess.TimeoutExpired:
+            diag = f"ssh TIMEOUT after {PROT022_SSH_SUBPROC_TIMEOUT_S}s"
+        except OSError as e:
+            diag = f"ssh OSError: {e}"
+        print(f"[gate] PROT-022 transient (attempt {attempt}/{PROT022_SSH_ATTEMPTS}): "
+              f"{diag}", file=sys.stderr)
+        if attempt < PROT022_SSH_ATTEMPTS:
+            time.sleep(PROT022_SSH_RETRY_BACKOFF_S)
+    return "INDETERMINATE"
+
 
 def check_declared_referents(
     script_path: Path,
@@ -394,8 +470,11 @@ def check_declared_referents(
     filesystem IS the remote filesystem, so each referent is checked directly
     via `(REPO/ref).exists()` -- ssh-ing to marsh@home from the remote itself
     would be a self-loopback that false-reports MISSING. Only when dispatching
-    a remote-queue referent from the LOCAL box does the gate run
-    `ssh marsh@home test -f <path>` and reject on missing.
+    a remote-queue referent from the LOCAL box does the gate probe over ssh via
+    `_probe_referent_over_ssh` (PowerShell Test-Path token; the Windows remote's
+    cmd.exe has no POSIX `test`) and reject on a confirmed-absent referent. A
+    transport failure is INDETERMINATE (retried, then a distinct CONNECTIVITY
+    error, exit 11) -- NEVER a false MISSING.
 
     Override: --allow-missing-referent (rare; only for cells whose first
     arm BUILDS the referent before use, such as the Tier-1
@@ -438,66 +517,96 @@ def check_declared_referents(
     # checked over the wire; that branch is unchanged and stays protective.
     on_remote = os.environ.get("HDLAB_QUEUE_ADD_ON_REMOTE") == "1"
     check_over_ssh = is_remote and not on_remote
-    missing: list[str] = []
+    missing: list[str] = []          # confirmed-absent referents -> block (exit 10)
+    indeterminate: list[str] = []    # unverifiable over ssh transport -> exit 11
 
     for ref in referents:
         if check_over_ssh:
             remote_path = f"{PROT022_REMOTE_REPO}/{ref}"
-            try:
-                _no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000) if sys.platform == "win32" else 0
-                # ssh -T disables pseudo-tty (popup-fix per testbed 2026-06-28).
-                rc = subprocess.run(
-                    ["ssh", "-T", "-o", "ConnectTimeout=10", "-o", "BatchMode=yes",
-                     PROT022_REMOTE_HOST, f"test -f \"{remote_path}\""],
-                    timeout=15, capture_output=True,
-                    creationflags=_no_window,
-                ).returncode
-                exists = (rc == 0)
-            except subprocess.TimeoutExpired:
-                print(f"[gate] PROT-022 WARN: ssh TIMEOUT checking {ref}; "
-                      f"treating as MISSING", file=sys.stderr)
-                exists = False
-            except OSError as e:
-                print(f"[gate] PROT-022 WARN: ssh error checking {ref}: {e}; "
-                      f"treating as MISSING", file=sys.stderr)
-                exists = False
+            verdict = _probe_referent_over_ssh(remote_path)
+            if verdict == "PRESENT":
+                status = "OK"
+            elif verdict == "ABSENT":
+                status = "MISSING"
+                missing.append(ref)
+            else:  # INDETERMINATE: transport failure after all retries
+                status = "INDETERMINATE"
+                indeterminate.append(ref)
         else:
             exists = (REPO / ref).exists()
+            status = "OK" if exists else "MISSING"
+            if not exists:
+                missing.append(ref)
 
-        status = "OK" if exists else "MISSING"
         print(f"  PROT-022 {status} ({queue_name}): {ref}")
-        if not exists:
-            missing.append(ref)
 
-    if not missing:
+    if not missing and not indeterminate:
         print(f"[gate] PROT-022 OK: all {len(referents)} referent(s) resolved "
               f"on {'remote' if is_remote else 'local'} host")
         return
 
     if allow_override:
-        print(f"[gate] PROT-022 WARN: {len(missing)} declared referent(s) "
-              f"missing but --allow-missing-referent set; proceeding")
+        note = []
+        if missing:
+            note.append(f"{len(missing)} confirmed-missing")
+        if indeterminate:
+            note.append(f"{len(indeterminate)} unverifiable(transport)")
+        print(f"[gate] PROT-022 WARN: {', '.join(note)} referent(s) but "
+              f"--allow-missing-referent set; proceeding")
         return
 
+    # A genuinely-absent referent STILL blocks with the real MISSING diagnosis.
+    # This is checked FIRST so a confirmed-absent file is never masked by a
+    # transport blip -- guard intent preserved (do NOT fail-open on real absent).
+    if missing:
+        print(
+            f"\n[gate] PROT-022 REJECT: {len(missing)} declared KB referent(s) "
+            f"missing on {'remote' if is_remote else 'local'} host:\n"
+            + "\n".join(f"    {m}" for m in missing) +
+            f"\n\n  Three cells on 2026-06-27 (anchor_1_v2_partition, "
+            f"anchor_5_dual_store, anchor_3_coarse_grain_v2) wasted GPU/CPU "
+            f"compute hitting this exact failure mode. PROT-022 catches it at "
+            f"the gate.\n"
+            f"\n  Fix options:\n"
+            f"    1. Build the referent on the target host (e.g. run "
+            f"tools/sync_canonical_kb_to_remote.sh for the canonical KB).\n"
+            f"    2. Make the cell self-contained (build its own KB IN-CELL like "
+            f"exp_kb_partition_by_source_class_v3_self_contained does via "
+            f"hdlab.director_kb_chunk_ingest.run_chunk_ingest).\n"
+            f"    3. Pass --allow-missing-referent if the cell's first arm "
+            f"BUILDS the referent before use.\n",
+            file=sys.stderr,
+        )
+        sys.exit(10)
+
+    # No confirmed-absent referent, but one or more could NOT be verified because
+    # the ssh probe hit a transport timeout/connect-failure on every retry. This
+    # is NOT a missing referent -- surfacing it as MISSING (the old bug) sends the
+    # operator to rebuild a file that is very likely present. Distinct exit code
+    # (11) + CONNECTIVITY message so the operator retries / checks the tunnel. We
+    # still block (do NOT fail-open): presence is UNKNOWN, so we do not silently
+    # proceed to a dispatch that could waste compute.
     print(
-        f"\n[gate] PROT-022 REJECT: {len(missing)} declared KB referent(s) "
-        f"missing on {'remote' if is_remote else 'local'} host:\n"
-        + "\n".join(f"    {m}" for m in missing) +
-        f"\n\n  Three cells on 2026-06-27 (anchor_1_v2_partition, "
-        f"anchor_5_dual_store, anchor_3_coarse_grain_v2) wasted GPU/CPU "
-        f"compute hitting this exact failure mode. PROT-022 catches it at "
-        f"the gate.\n"
+        f"\n[gate] PROT-022 CONNECTIVITY: could not verify "
+        f"{len(indeterminate)} declared KB referent(s) over ssh after "
+        f"{PROT022_SSH_ATTEMPTS} attempt(s) (ConnectTimeout="
+        f"{PROT022_SSH_CONNECT_TIMEOUT_S}s, subprocess timeout="
+        f"{PROT022_SSH_SUBPROC_TIMEOUT_S}s):\n"
+        + "\n".join(f"    {m}" for m in indeterminate) +
+        f"\n\n  This is a TRANSPORT failure, NOT a confirmed-missing referent --\n"
+        f"  the file(s) may well be present on {PROT022_REMOTE_HOST}. Do NOT\n"
+        f"  rebuild the referent on this signal.\n"
         f"\n  Fix options:\n"
-        f"    1. Build the referent on the target host (e.g. run "
-        f"tools/sync_canonical_kb_to_remote.sh for the canonical KB).\n"
-        f"    2. Make the cell self-contained (build its own KB IN-CELL like "
-        f"exp_kb_partition_by_source_class_v3_self_contained does via "
-        f"hdlab.director_kb_chunk_ingest.run_chunk_ingest).\n"
-        f"    3. Pass --allow-missing-referent if the cell's first arm "
-        f"BUILDS the referent before use.\n",
+        f"    1. Verify ssh connectivity to {PROT022_REMOTE_HOST} and re-run the\n"
+        f"       ship (a transient network/tunnel blip is the usual cause).\n"
+        f"    2. Manually confirm presence, e.g.:\n"
+        f"       ssh {PROT022_REMOTE_HOST} powershell -NoProfile -Command \"Test-Path\n"
+        f"       -LiteralPath '{PROT022_REMOTE_REPO}/<referent>'\"\n"
+        f"    3. If you have INDEPENDENTLY confirmed the referent is present and\n"
+        f"       want to bypass this transport check, pass --allow-missing-referent.\n",
         file=sys.stderr,
     )
-    sys.exit(10)
+    sys.exit(11)
 
 
 def check_n_suffix_binding(entry_name: str, script_path: Path) -> None:
