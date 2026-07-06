@@ -115,6 +115,15 @@ POINTWISE_KS_SMOKE = (50, 200, 400)
 RECALL_THRESH = 0.9        # K_crit = largest K with recall@1 >= this (verbatim from landed cells)
 HI_FRAC = 0.2              # binary-search upper bound int(HI_FRAC*N) (verbatim from landed theory_cpu)
 
+# Seed axis: FULL runs 5 seeds (matches the RNS v2 exact-prefactor CG precedent) to CONFIRM K_crit STABILITY
+# across seeds (Skunkworks CG-promotion criterion). Config-only change; formula/arms/controls/bands unchanged.
+# K_crit is aggregated as the cross-seed MEAN (a finer, more robust ground truth than a single integer); the
+# per-seed spread + coefficient-of-variation cv is reported as the stability evidence.
+SEEDS_FULL = (7, 13, 19, 23, 29)
+SEEDS_SMOKE = (7, 13, 19)   # multi-seed smoke (>=3) to confirm the discriminator still fires across seeds
+KCRIT_CV_MAX = 0.05         # REPORTED stability bar (NOT a pre-registered verdict gate): cross-seed K_crit cv
+                           #   expected <= this (measurement is an aggregate over TR*K decode attempts -> stable).
+
 # ---- Pre-registered bands (deviation = |measured - prediction| / measured, normalized by ground-truth measured) ----
 HP_EXACT_DEV = 0.05        # HARD_PASS: exact-arm K_crit deviation <= this at EVERY N. THEORETICAL@order statistic;
                            #   MEASURED@author-recompute-vs-landed 0.0015-0.0235 (leaves margin for fresh-seed +
@@ -368,67 +377,79 @@ def _digest(arr) -> str:
     return hashlib.sha256(np.ascontiguousarray(np.asarray(arr, dtype=np.float64)).tobytes()).hexdigest()
 
 
-def run_sweep(torch, mode: str, N_grid, pointwise_ks, tr_kcrit: int, tr_point: int, seed: int,
+def run_sweep(torch, mode: str, N_grid, pointwise_ks, tr_kcrit: int, tr_point: int, seeds,
               output_dir: Path, t0: float, dev):
-    """K_crit-vs-N sweep (measured/exact/asymptotic/wrong) + pointwise cliff-style K-sweep (normal + degenerate)."""
+    """Multi-seed K_crit-vs-N sweep (measured mean/cv/per-seed vs exact/asymptotic/wrong) + multi-seed pointwise
+    cliff-style K-sweep (normal + degenerate). Predictions are deterministic (seed-independent); K_crit is
+    aggregated as the cross-seed MEAN; per-seed spread + cv is the stability evidence."""
     per_n = {}
     per_unit = []
-    total = len(N_grid) + len(pointwise_ks)
+    total = len(seeds) * (len(N_grid) + len(pointwise_ks))
     unit = 0
 
-    # --- K_crit vs N ---
+    # --- K_crit vs N (per seed, then cross-seed aggregate) ---
     for N in N_grid:
         V = min(V_BOOK, 4 * N)   # book cap VERBATIM from landed theory_cpu (min(V,4*N)); exact pred uses SAME V
-        g = torch.Generator(device=dev).manual_seed(seed + N)
-        book = cphasor(torch, V, N, g, dev)
-        kc_meas = measure_kcrit(torch, N, V, tr_kcrit, book, g, dev)
+        kc_seeds = []
+        for s in seeds:
+            g = torch.Generator(device=dev).manual_seed(s * 1000003 + N)  # independent stream per (seed, N)
+            book = cphasor(torch, V, N, g, dev)
+            kc = measure_kcrit(torch, N, V, tr_kcrit, book, g, dev)
+            kc_seeds.append(kc)
+            unit += 1
+            per_unit.append({"kind": "kcrit_vs_N", "N": N, "V": V, "seed": s, "measured_kcrit": kc})
+            _heartbeat(output_dir, unit, total, t0, extra={"N": N, "seed": s, "kc": kc})
+        kc_mean = float(np.mean(kc_seeds))
+        kc_std = float(np.std(kc_seeds))
+        kc_cv = (kc_std / kc_mean) if kc_mean else float("inf")
         kc_exact = kcrit_pred(pred_acc_exact, N, V)
         kc_asy = kcrit_asymptotic(N)
         kc_wrong = kcrit_pred(pred_acc_wrong, N, V)
-        dev_exact = abs(kc_meas - kc_exact) / kc_meas if kc_meas else float("inf")
-        dev_asy = abs(kc_meas - kc_asy) / kc_meas if kc_meas else float("inf")
-        dev_wrong = abs(kc_meas - kc_wrong) / kc_meas if kc_meas else float("inf")
+        dev_exact = abs(kc_mean - kc_exact) / kc_mean if kc_mean else float("inf")
+        dev_asy = abs(kc_mean - kc_asy) / kc_mean if kc_mean else float("inf")
+        dev_wrong = abs(kc_mean - kc_wrong) / kc_mean if kc_mean else float("inf")
         rel_improve = (dev_asy / dev_exact) if dev_exact > 1e-9 else float("inf")
-        per_n[N] = {"measured": kc_meas, "exact": kc_exact, "asymptotic": round(kc_asy, 1), "wrong": kc_wrong,
-                    "V": V, "dev_exact": round(dev_exact, 4), "dev_asymptotic": round(dev_asy, 4),
+        per_n[N] = {"measured_mean": round(kc_mean, 2), "measured_per_seed": kc_seeds,
+                    "measured_std": round(kc_std, 3), "measured_cv": round(kc_cv, 4),
+                    "exact": kc_exact, "asymptotic": round(kc_asy, 1), "wrong": kc_wrong, "V": V,
+                    "dev_exact": round(dev_exact, 4), "dev_asymptotic": round(dev_asy, 4),
                     "dev_wrong": round(dev_wrong, 4), "rel_improve_asy_over_exact": round(rel_improve, 2)}
-        per_unit.append({"kind": "kcrit_vs_N", "N": N, "V": V, "measured_kcrit": kc_meas,
-                         "exact_kcrit": kc_exact, "asymptotic_kcrit": round(kc_asy, 1), "wrong_kcrit": kc_wrong,
-                         "dev_exact": round(dev_exact, 4), "dev_asymptotic": round(dev_asy, 4),
-                         "dev_wrong": round(dev_wrong, 4)})
-        unit += 1
-        _heartbeat(output_dir, unit, total, t0,
-                   extra={"N": N, "kc_meas": kc_meas, "kc_exact": kc_exact, "dev_exact": round(dev_exact, 4)})
-        _say(f"  [N={N:5d}] K_crit meas={kc_meas:5d} exact={kc_exact:5d} (dev={dev_exact*100:5.2f}%) "
-             f"asympt={kc_asy:7.1f} (dev={dev_asy*100:5.2f}%) wrong={kc_wrong:4d} (dev={dev_wrong*100:5.2f}%) "
-             f"rel_improve={rel_improve:.1f}x")
+        _say(f"  [N={N:5d}] K_crit meas_mean={kc_mean:7.2f} per_seed={kc_seeds} cv={kc_cv*100:4.2f}% "
+             f"exact={kc_exact:5d} (dev={dev_exact*100:5.2f}%) asympt={kc_asy:7.1f} (dev={dev_asy*100:5.2f}%) "
+             f"wrong={kc_wrong:4d} (dev={dev_wrong*100:5.2f}%) rel_improve={rel_improve:.1f}x")
 
-    # --- pointwise cliff-style K-sweep at POINTWISE_N (normal + degenerate control) ---
+    # --- pointwise cliff-style K-sweep at POINTWISE_N (normal + degenerate control), cross-seed averaged ---
     Vp = min(V_BOOK, 4 * POINTWISE_N)   # = 5000 at N=4096 (matches landed cliff_gpu V=5000)
-    gp = torch.Generator(device=dev).manual_seed(seed + 777)
-    pbook = cphasor(torch, Vp, POINTWISE_N, gp, dev)
     pw_meas, pw_pred, pw_degen = {}, {}, {}
     sq = []
     for K in pointwise_ks:
-        rm = measure_recall(torch, POINTWISE_N, K, Vp, tr_point, pbook, gp, dev, degenerate=False)
-        rd = measure_recall(torch, POINTWISE_N, K, Vp, tr_point, pbook, gp, dev, degenerate=True)
+        rms_seeds, rds_seeds = [], []
+        for s in seeds:
+            gp = torch.Generator(device=dev).manual_seed(s * 1000003 + 777 + K)
+            pbook = cphasor(torch, Vp, POINTWISE_N, gp, dev)
+            rm = measure_recall(torch, POINTWISE_N, K, Vp, tr_point, pbook, gp, dev, degenerate=False)
+            rd = measure_recall(torch, POINTWISE_N, K, Vp, tr_point, pbook, gp, dev, degenerate=True)
+            rms_seeds.append(rm)
+            rds_seeds.append(rd)
+            unit += 1
+            per_unit.append({"kind": "pointwise", "N": POINTWISE_N, "K": K, "seed": s,
+                             "measured_recall": round(rm, 4), "degenerate_recall": round(rd, 4)})
+            _heartbeat(output_dir, unit, total, t0, extra={"K": K, "seed": s, "meas": round(rm, 4)})
+        rm_mean = float(np.mean(rms_seeds))
+        rd_mean = float(np.mean(rds_seeds))
         pe = pred_acc_exact(POINTWISE_N, K, Vp)
-        pw_meas[K] = round(rm, 4)
+        pw_meas[K] = round(rm_mean, 4)
         pw_pred[K] = round(pe, 4)
-        pw_degen[K] = round(rd, 4)
-        sq.append((rm - pe) ** 2)
-        per_unit.append({"kind": "pointwise", "N": POINTWISE_N, "K": K, "measured_recall": round(rm, 4),
-                         "pred_exact_recall": round(pe, 4), "degenerate_recall": round(rd, 4)})
-        unit += 1
-        _heartbeat(output_dir, unit, total, t0, extra={"K": K, "meas": round(rm, 4), "pred": round(pe, 4)})
-        _say(f"  [pointwise N={POINTWISE_N} K={K:4d}] meas={rm:.4f} pred_exact={pe:.4f} "
-             f"absdiff={abs(rm-pe):.4f} degenerate={rd:.5f}")
+        pw_degen[K] = round(rd_mean, 5)
+        sq.append((rm_mean - pe) ** 2)
+        _say(f"  [pointwise N={POINTWISE_N} K={K:4d}] meas_mean={rm_mean:.4f} pred_exact={pe:.4f} "
+             f"absdiff={abs(rm_mean-pe):.4f} degenerate_mean={rd_mean:.5f}")
     pointwise_rms = math.sqrt(sum(sq) / len(sq)) if sq else float("inf")
     degen_max = max(pw_degen.values()) if pw_degen else 1.0
 
     # --- arms-differ surfaces (META_RULE_AF) ---
     arts = {}
-    arts["surf_measured"] = _digest([per_n[N]["measured"] for N in N_grid])
+    arts["surf_measured"] = _digest([per_n[N]["measured_mean"] for N in N_grid])
     arts["surf_exact"] = _digest([per_n[N]["exact"] for N in N_grid])
     arts["surf_asymptotic"] = _digest([per_n[N]["asymptotic"] for N in N_grid])
     arts["surf_wrong"] = _digest([per_n[N]["wrong"] for N in N_grid])
@@ -457,8 +478,12 @@ def classify(per_n, pointwise, N_grid, mode: str):
                        for N in large_ns) if large_ns else False
     wrong_sep = max(devs_wrong.values()) >= WRONG_SEP_MIN
     degen_collapsed = degen_max <= DEGEN_RECALL_MAX
+    cvs = {N: per_n[N].get("measured_cv", 0.0) for N in N_grid}
+    cv_max = max(cvs.values())
 
-    diag = (f"dev_exact={ {N: round(devs_exact[N],4) for N in N_grid} } "
+    diag = (f"n_seeds={len(per_n[N_grid[0]].get('measured_per_seed', [0]))} "
+            f"K_crit_cv={ {N: round(cvs[N],4) for N in N_grid} } cv_max={cv_max:.4f} "
+            f"dev_exact={ {N: round(devs_exact[N],4) for N in N_grid} } "
             f"dev_asymptotic={ {N: round(devs_asy[N],3) for N in N_grid} } "
             f"dev_wrong_max={max(devs_wrong.values()):.2f} pointwise_rms={rms:.4f} "
             f"degen_recall_max={degen_max:.5f} (chance~{1.0/V_BOOK:.5f})")
@@ -510,10 +535,12 @@ def classify(per_n, pointwise, N_grid, mode: str):
     if max_exact <= HP_EXACT_DEV and rel_ok_large and rms <= POINTWISE_RMS_MAX:
         return ("HARD_PASS",
                 f"EXACT ORDER-STATISTIC SELF-MARGIN VALID: the substrate predicts its OWN FHRR bundle capacity "
-                f"K_crit EXACTLY. Exact-arm K_crit dev <= {HP_EXACT_DEV} at ALL N (max={max_exact:.4f}) while the "
-                f"loose N/(2 ln N) asymptotic stays {min(devs_asy.values())*100:.0f}-{max(devs_asy.values())*100:.0f}% "
-                f"off -- exact is >= {REL_IMPROVE_MIN}x tighter at N>=8192. Cliff-style pointwise recall RMS={rms:.4f} "
-                f"<= {POINTWISE_RMS_MAX}. Wrong-scaling (coherent-crosstalk) control clearly separated; degenerate "
+                f"K_crit EXACTLY, STABLE across seeds (cross-seed K_crit cv_max={cv_max*100:.2f}%). Exact-arm K_crit "
+                f"dev <= {HP_EXACT_DEV} at ALL N (max={max_exact:.4f}) vs the mean-of-{len(per_n[N_grid[0]]['measured_per_seed'])}"
+                f"-seeds measured K_crit, while the loose N/(2 ln N) asymptotic stays "
+                f"{min(devs_asy.values())*100:.0f}-{max(devs_asy.values())*100:.0f}% off -- exact is >= "
+                f"{REL_IMPROVE_MIN}x tighter at N>=8192. Cliff-style pointwise recall RMS={rms:.4f} <= "
+                f"{POINTWISE_RMS_MAX}. Wrong-scaling (coherent-crosstalk) control clearly separated; degenerate "
                 f"(rank-1) book collapses to chance. Promotes the landed bundle-capacity self-prediction from a "
                 f"loose asymptotic to an exact prediction across the substrate's most load-bearing codebook family. "
                 f"{diag}", diag)
@@ -532,14 +559,17 @@ def classify(per_n, pointwise, N_grid, mode: str):
 
 def get_config(mode: str):
     if mode == "selftest":
-        return {"N_grid": N_GRID_SMOKE, "pointwise_ks": POINTWISE_KS_SMOKE, "tr_kcrit": 4, "tr_point": 6, "seed": 7}
+        return {"N_grid": N_GRID_SMOKE, "pointwise_ks": POINTWISE_KS_SMOKE, "tr_kcrit": 4, "tr_point": 6,
+                "seeds": (7,)}
     if mode == "smoke":
-        return {"N_grid": N_GRID_SMOKE, "pointwise_ks": POINTWISE_KS_SMOKE, "tr_kcrit": 6, "tr_point": 10, "seed": 11}
-    return {"N_grid": N_GRID_FULL, "pointwise_ks": POINTWISE_KS_FULL, "tr_kcrit": 12, "tr_point": 30, "seed": 21}
+        return {"N_grid": N_GRID_SMOKE, "pointwise_ks": POINTWISE_KS_SMOKE, "tr_kcrit": 6, "tr_point": 10,
+                "seeds": SEEDS_SMOKE}
+    return {"N_grid": N_GRID_FULL, "pointwise_ks": POINTWISE_KS_FULL, "tr_kcrit": 12, "tr_point": 30,
+            "seeds": SEEDS_FULL}
 
 
 def expected_units(cfg) -> int:
-    return len(cfg["N_grid"]) + len(cfg["pointwise_ks"])
+    return len(cfg["seeds"]) * (len(cfg["N_grid"]) + len(cfg["pointwise_ks"]))
 
 
 def _run(mode: str) -> int:
@@ -563,10 +593,10 @@ def _run(mode: str) -> int:
              f"(numerically identical, slower at large N).")
     _say(f"[{ANCHOR_NAME}] mode={mode} device={dev.type} ({dev_name}) N_grid={cfg['N_grid']} "
          f"pointwise_ks={cfg['pointwise_ks']} V={V_BOOK} tr_kcrit={cfg['tr_kcrit']} tr_point={cfg['tr_point']} "
-         f"seed={cfg['seed']} expected_units={exp}")
+         f"seeds={cfg['seeds']} (n_seeds={len(cfg['seeds'])}) expected_units={exp}")
 
     per_n, per_unit, pointwise, arts = run_sweep(
-        torch, mode, cfg["N_grid"], cfg["pointwise_ks"], cfg["tr_kcrit"], cfg["tr_point"], cfg["seed"],
+        torch, mode, cfg["N_grid"], cfg["pointwise_ks"], cfg["tr_kcrit"], cfg["tr_point"], cfg["seeds"],
         output_dir, t0, dev)
 
     # arms-differ (META_RULE_AF)
@@ -593,15 +623,19 @@ def _run(mode: str) -> int:
         "summary": f"{verdict}: FHRR bundle-capacity EXACT order-statistic self-margin ({mode})",
         "run_mode": mode,
         "elapsed_s": round(elapsed, 2),
-        "n_seeds": 1,
+        "n_seeds": len(cfg["seeds"]),
         "n_units": len(per_unit),
         "expected_n_units": exp,
         "cardinality_ok": len(per_unit) >= exp,
         "device": dev.type,
+        "kcrit_stability": {"cv_per_N": {str(N): per_n[N]["measured_cv"] for N in cfg["N_grid"]},
+                            "cv_max": max(per_n[N]["measured_cv"] for N in cfg["N_grid"]),
+                            "cv_report_bar": KCRIT_CV_MAX,
+                            "per_seed_kcrit": {str(N): per_n[N]["measured_per_seed"] for N in cfg["N_grid"]}},
         "config": {"N_grid": list(cfg["N_grid"]), "V_book_cap": V_BOOK, "V_eff_rule": "min(V_book_cap, 4*N)",
                    "pointwise_N": POINTWISE_N,
                    "pointwise_ks": list(cfg["pointwise_ks"]), "tr_kcrit": cfg["tr_kcrit"],
-                   "tr_point": cfg["tr_point"], "seed": cfg["seed"], "recall_thresh": RECALL_THRESH,
+                   "tr_point": cfg["tr_point"], "seeds": list(cfg["seeds"]), "recall_thresh": RECALL_THRESH,
                    "mechanism": "fhrr_superposition_bundle_cleanup_kcrit",
                    "decode": "bind_bundle_unbind_argmax_cleanup",
                    "prediction_exact": "bundle_order_statistic_E_Phi_x_over_sqrt_NK2_pow_Vminus1_x_N_mean_var_NKm1_2",

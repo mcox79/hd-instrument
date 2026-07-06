@@ -6,8 +6,8 @@ fhrr_bundle_capacity_exact_margin_v1
 ## Queue
 overnight_queue (GPU) for FULL. SMOKE = local torch-CPU (USER-lock smoke-only-local).
 Cell: experiments/exp_fhrr_bundle_capacity_exact_margin_v1.py
-Timeout (FULL): 1800 s (heartbeat + flush progress logging present; wall estimate ~1-2 min on GPU
-based on landed largeN_gpu 5.9s for 2 N; generous headroom for GPU-queue variance).
+Timeout (FULL): 1800 s (heartbeat + flush progress logging present; wall estimate ~90 s on GPU for 5
+seeds x 5 N + 5 seeds x 6 pointwise K = 55 units; generous headroom for GPU-queue variance).
 
 ## One-line
 The substrate predicts its OWN FHRR/HRR bundle-cleanup capacity K_crit (how many role-filler pairs
@@ -50,8 +50,19 @@ terms), not a copy of the RNS formula.
 V_book_cap = 5000; V_eff = min(5000, 4*N) per N (VERBATIM from landed theory_cpu book cap; exact pred
 uses the SAME V_eff -> apples-to-apples). N_grid FULL = {1024, 2048, 4096, 8192, 16384}; SMOKE = {1024,
 2048}. Pointwise N=4096, Ks FULL={50,100,200,400,600,800} SMOKE={50,200,400}. TR_kcrit FULL=12/SMOKE=6;
-TR_point FULL=30/SMOKE=10. seed FULL=21/SMOKE=11. Predictions: numpy Gauss-Hermite 64pt + stdlib
-math.erfc (NO scipy; GH64 MEASURED-converged to 5e-6 vs 96pt).
+TR_point FULL=30/SMOKE=10. Predictions: numpy Gauss-Hermite 64pt + stdlib math.erfc (NO scipy; GH64
+MEASURED-converged to 5e-6 vs 96pt).
+
+## Seeds (multi-seed, config-only revision 2026-07-06)
+n_seeds FULL = 5 seeds {7,13,19,23,29} (MATCHES the RNS v2 exact-prefactor CG precedent); SMOKE = 3
+seeds {7,13,19}. Skunkworks VET'd v1 at MEASURED_MECHANISM (CG-adjacent) held for ONE axis only: the
+FULL ran single-seed. Explicit promotion criterion: multi-seed (>=3) K_crit STABILITY -> CG. K_crit is
+aggregated as the cross-seed MEAN (finer + more robust ground truth than a single integer); per-seed
+spread + coefficient-of-variation cv is REPORTED as the stability evidence (kcrit_stability block in
+metrics.json). This is a CONFIG-ONLY change -- the exact order-statistic formula, arms, controls, and
+pre-registered verdict bands below are UNCHANGED, so the pre-reg stands. cv is a REPORTED bar
+(KCRIT_CV_MAX=0.05 expected), NOT a new verdict gate. Multi-seed SMOKE (3 seeds, torch-CPU) re-confirmed
+HARD_PASS: cv_max 2.25% (N1024 [85,81,85], N2048 [162,162,163]); dev_exact vs mean 0.80%/0.21%.
 
 ## Deviation metric
 dev_X = |K_crit_measured - K_crit_X| / K_crit_measured (relative prediction error vs ground-truth
@@ -89,7 +100,8 @@ STRONGEST at the large-N points re-measured fresh in FULL. Smoke additionally fi
 the small N (exact <=1.82% vs asymptotic 11-19%, rel_improve >=2.5x, both controls fire).
 
 ## SCHEMA-VET fields
-- cardinality_ok: true. EXPECTED_N_UNITS = len(N_grid) + len(pointwise_ks) = 5+6=11 (FULL) / 2+3=5 (SMOKE).
+- cardinality_ok: true. EXPECTED_N_UNITS = n_seeds * (len(N_grid) + len(pointwise_ks)) = 5*(5+6)=55 (FULL)
+  / 3*(2+3)=15 (SMOKE). Now that there IS a seed axis, per_unit is granular per (seed, sweep-point).
   Verdict emits cardinality_ok = (n_units >= expected).
 - discriminator_fires: exact-arm demonstrably tighter than asymptotic + wrong-scaling separated +
   degenerate collapse; smoke gates on all three (ERROR-CORRECTION/PREDICTION-MATCH pattern).
@@ -112,7 +124,10 @@ the small N (exact <=1.82% vs asymptotic 11-19%, rel_improve >=2.5x, both contro
 - arms_differ_verified: hash-distinct measured/exact/asymptotic/wrong surfaces + normal/degenerate curves.
 - final_metrics_atomicity: tmp_replace (os.replace).
 - except SystemExit: raise BEFORE except Exception (no BaseException / bare except; grep-gate clean).
-- cell_chunked: false (single-seed sweep, no seed axis).
+- cell_chunked: false. 5 seeds run in ONE process (a sweep with a seed axis), matching the RNS v2
+  exact-prefactor CG precedent (which also ran 5 seeds in one cell). Justified: ~90s GPU wall (low
+  runner-zombie risk) + per-(seed,sweep-point) heartbeat makes silent death observable + granular
+  per-unit records let a dropped seed be caught by the cardinality gate.
 - start_marker_written / crash_diagnostic_present / heartbeat_present: true.
 - progress_logging: print_flush_true (sys.stdout line_buffered + per-unit flush=True prints + heartbeat).
 - calibration_check: default_ok_for_this_regime (RECALL_THRESH=0.9 + book cap inherited verbatim from the
