@@ -25,3 +25,17 @@
   GSBC/encoder families flagged as needing genuinely different (one-factor / spectral) derivations, untested,
   ranked as follow-on drills. P_deflated=0.50 (capped novel-synthesis; external lit-scan hit a tool outage this
   round, citations recalled not live-verified -- flagged honestly in note).
+- GSBC codebook homogeneity PREREQUISITE drill (gap-fill, remote-CPU idle): does the GSBC block-local codebook's
+  pairwise codeword correlation look homogeneous/equicorrelated (one-factor closed form applies) or heterogeneous
+  (semantic/content-dependent, closed form does not apply)? -> `notes/research_gsbc_codebook_correlation_homogeneity_2026-07-06.md`.
+  Measured the ACTUAL decode codebook (`_blocklocal_codebook_gsbc`, not the dense-cast mismatch-arm proxy the
+  prior drill cited) directly against on-disk data: pairwise codeword cosine correlates strongly with an
+  INDEPENDENT BGE ground-truth semantic-similarity signal (Pearson r=0.71-0.77 at the deployed anchor D=3,
+  reproducible across 3 seeds and a 3x larger V; still r=0.28-0.37 at the sparsest D=26 boundary regime), while
+  the iid control shows r~0.001 at every level -- a one-factor model cannot produce this by construction, so the
+  result is DEFINITIVE: HETEROGENEOUS. Verdict: ACCEPT the negative for the one-factor cell (do not build it);
+  Family D (GSBC) collapses into Family E (encoder concept-Gram) -- same root cause, fold into the ALREADY-flagged
+  RMT/free-probability spectral follow-on rather than opening a second thread. A lower-tier, non-closed-form
+  fallback (self-nearest-neighbor empirical confusability calibration, P_deflated capped at 0.35) is spec'd inline
+  as a cheaper option if Director wants a GSBC-specific signal sooner. Both lit-scans live-verified this round
+  (12/15 citations; prior drill's search-backend outage cleared).
