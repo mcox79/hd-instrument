@@ -58,3 +58,4 @@
   fallback (P=0.35) remains the standing lower-tier alternative if a per-item signal is ever wanted. Next-drill
   recommendation (saturation-avoidance, 3 consecutive spectral/correlation-themed drills): pivot to `D1 Glauber
   dynamics on substrate codeword space` (semiconductor/stochastic-dynamics family).
+- 2026-07-06T11:36:36.294477+00:00: capability self-margin frontier map -> notes/research_capability_self_margin_frontier_map_2026-07-06.md (5/9 order-stat-family [2 CG done, 1 in-flight, 1 covered, 1 new top-pick=comprehension order-recovery cliff P0.40], 1/9 harder-2nd-pick [control given-decomposition P0.35], 3/9 honest IRREGULAR ACCEPT-boundary [encoder power-law, generalization entropy-ceiling, control autonomous-decomp Ross-Bagnell O(T^2)])
