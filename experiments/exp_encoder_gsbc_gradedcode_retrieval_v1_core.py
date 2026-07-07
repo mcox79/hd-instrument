@@ -420,9 +420,12 @@ def _verdict(per_unit: List[Dict], ship: Dict, expected_units: int,
 # ---------------------------------------------------------------------------
 
 def run_paired(run_mode: str, seed: int, device_arg: str, n_dim: int,
-               teacher_cache_arg: Optional[str]) -> int:
+               teacher_cache_arg: Optional[str], run_tag: str = "") -> int:
     assert run_mode in ("smoke", "full"), f"unsupported run_mode {run_mode}"
-    anchor = f"{ANCHOR_NAME}_smoke" if run_mode == "smoke" else ANCHOR_NAME
+    # run_tag isolates per-seed FULL metrics dirs (CHUNKED single-seed-per-cell);
+    # empty tag preserves the core's original single-dir behavior (v3-style).
+    base = f"{ANCHOR_NAME}_{run_tag}" if run_tag else ANCHOR_NAME
+    anchor = f"{base}_smoke" if run_mode == "smoke" else base
     out_dir = get_output_dir(anchor)
     art_dir = _artifact_dir(run_mode, seed)
     art_dir.mkdir(parents=True, exist_ok=True)
