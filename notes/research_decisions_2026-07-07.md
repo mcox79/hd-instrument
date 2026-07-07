@@ -15,3 +15,20 @@
   literature, and find the specific anticipatory-forward-model-for-gating-horizon combination has NO direct
   precedent (novel synthesis, P capped). Full cell spec (3-arm smoke, CPU, reuses on-disk SR machinery) in
   notes/research_brain_component_consumer_ranking_cerebellum_control_depth_2026-07-07.md.
+
+- 2026-07-07 (2x drill, converging negative -- noise-compounding bound across 3 cells): resonator K-way
+  basin proliferation, autonomous waypoint HARD_FAIL_COMPOUNDING_ERROR_BOUND_REAL, cerebellar SR-rollout
+  (recovered_frac=-1.40) all show recurrent/multi-step decode underperforming single-step. VERDICT: CONTRABLE,
+  not fundamental -- TWO distinct sub-mechanisms, neither shared by reasoning-depth's survival. Class A (no
+  external reset mid-iteration, resonator): fully deterministic zero-T coupled search, no randomization axis
+  exists in the code today (confirmed by source re-read). Class B (self-referential correction, waypoint +
+  cerebellar rollout): fresh on-disk re-read finds `retry_rate_combo=0.0`/`fallback_rate_combo=0.0` at the
+  deepest FULL-tested waypoint regime -- the verify-gate NEVER triggered, proving it checked the pick against
+  the SAME noisy R matrix that produced it (decision-feedback-equalizer-style correlated error, not
+  regenerative-repeater-style independent reset) -- explains why a well-precedented rescue still landed
+  DELTA=0.004. Reasoning-depth survives because each hop is a hard argmax decode against a FIXED EXTERNAL
+  codebook (regenerative-digital-repeater property, zero residual noise on success, i.i.d per-hop failure,
+  composes as p^D). TOP candidate: finite-temperature Glauber relaxation + redundant-restart plurality vote on
+  the resonator K4 case -- converges independently with field advisor's own #2-ranked D1 candidate. Full note:
+  notes/research_noise_compounding_bound_deep_mechanism_2026-07-07.md. P_deflated=0.50 (mechanism diagnosis,
+  capped) / 0.28 (rescue clears MIDDLE) / 0.20 (rescue clears HARD-PASS).
