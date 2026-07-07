@@ -82,3 +82,4 @@
   0 external citations (internal code/filesystem audit).
 
 - 2026-07-07 (research): brain-structure->consumer re-map post-ingest-live -> notes/research_brain_structure_consumer_remap_post_ingest_live_2026-07-07.md -- CLS-consolidation classic interference-avoidance flavor REFUTED as an ingest consumer (discrete graph-store write, no shared weights, 2 lit-scans confirm); schema-extraction flavor deferred to Stage 4, not live; overall brain-component ranking UNCHANGED, top build stays cerebellar SR-rollout for basal-ganglia gate depth-degradation.
+- resonator reachability ceiling: restart-budget problem at K=4 (p_basin~0.15, R~19 for 0.95), K-dependent wall (clustering/OGP) unresolved -> notes/research_resonator_reachability_ceiling_2026-07-07.md
