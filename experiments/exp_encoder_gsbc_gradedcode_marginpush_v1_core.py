@@ -169,7 +169,11 @@ TEACHER_CACHE_FULL = base.TEACHER_CACHE_FULL
 # ---- Paired arms: 1 hard-block-STE baseline + graded-GSBC density sweep ----
 # (mode, kb, blk_l, m, recipe). kb*blk_l == N_DIM (4096); m = top-m survivors.
 HARD_ARM = base.HARD_ARM                       # ("sign", 128, 32, 1, "rkd_only")
-GRADED_M_SWEEP = (3, 5, 8)                      # THE density dial (m/blk_l density)
+GRADED_M_SWEEP = (3, 4, 5, 6, 7, 8, 10, 12)    # THE density dial (m/blk_l density);
+# finer-resolution DENSITY SWEEP (densitysweep continuation of the 3-point {3,5,8}
+# marginpush): infill {4,6,7} brackets the peak between m5 and m8; {10,12} maps the
+# far side of the cliff (density = m/blk_l = m/128). m=3 retained as the landed
+# baseline + Gate-D regime-reproducer + shuffled-GRADED control anchor.
 GRADED_KB = 32
 GRADED_BLK_L = 128                             # kb*blk_l = 4096; m <= blk_l
 GRADED_RECIPE = "full"
@@ -210,10 +214,13 @@ J_ISO = base.J_ISO                             # 5
 J_COMPOSED_FULL = base.J_COMPOSED_FULL         # 10
 J_COMPOSED_SMOKE = base.J_COMPOSED_SMOKE       # 8
 
-# Units: semantic {HARD, GRADED_m3, GRADED_m5, GRADED_m8, CHARPOS} = 5;
-# keyed {HARD@J5, HARD@Jc, (GRADED_m@J5, GRADED_m@Jc)x3, RANDOM_HARD@J5,
-#        RANDOM_GRADED@J5, shuf HARD@J5, shuf GRADED_m3@J5} = 2+6+2+2 = 12.
-EXPECTED_N_UNITS = 5 + 12  # 17
+# Units cardinality DERIVES from the density grid (M_RULE_H):
+#   semantic {HARD, GRADED_m (x n_m), CHARPOS}                       = 2 + n_m
+#   keyed {HARD@J5, HARD@Jc, RANDOM_HARD@J5, RANDOM_GRADED@J5,
+#          (GRADED_m@J5, GRADED_m@Jc) x n_m, shuf HARD@J5,
+#          shuf GRADED_m3@J5}                                        = 6 + 2*n_m
+#   total = 8 + 3*n_m. n_m=3 (marginpush) -> 17; n_m=8 (densitysweep) -> 32.
+EXPECTED_N_UNITS = 8 + 3 * len(GRADED_M_SWEEP)  # 32 for the 8-point dense grid
 PREREG_BASELINE_ARMS = ["CHARPOS", "RANDOM_HARD", "RANDOM_GRADED"]
 
 # ---- Ship bands (PRE-REGISTERED; cross-seed FIXED-m gate assembled by VET) ----
