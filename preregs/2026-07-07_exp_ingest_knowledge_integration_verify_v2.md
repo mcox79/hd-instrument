@@ -145,3 +145,25 @@ LOWER, not higher, so full dispatch is safe.
   known-item ~ <90s; 1200s is >13x margin). No GPU (numpy graph walk; CPU-only). SCP-based
   dispatch via `tools/orchestrator/queue_add.sh` (no origin push needed); post-ship verify (exit 5
   = ship FAIL). On landing -> XHIGH skunkworks VET.
+
+## v2.1 FIX AMENDMENT (deterministic FULL crash + SMOKE!=FULL coverage gap; 2026-07-07)
+
+Prior v2 FULL (commit c39dd3ba7) crashed deterministically ~0.0s into seed 7 on remote_cpu_queue:
+`KeyError: 'math::T3/hungarian_algorithm'` at run_seed `si = node_index[s]`.
+
+- ROOT CAUSE (MEASURED@live concept graph): the concept relations file references 93 cross-corpus
+  edge endpoints (e.g. `math::T3/hungarian_algorithm`) whose atoms live in another partition and are
+  absent from the concept store's `all_atom_ids()`; every USES edge auto-derives a HAS_USERS reverse
+  edge (store._load_from_disk), making 31 of those dangling nodes appear as chain SOURCES in real_out.
+  `node_index` was built from `all_atom_ids()` alone -> `node_index[s]` KeyError. SMOKE (100 chains)
+  never sampled a dangling-rooted chain; FULL (300 chains, seed 7) did -> SMOKE!=FULL slip.
+- FIX 1 (crash): node universe = atoms UNION every edge endpoint (build_adjacency, sorted for
+  determinism). Guarantees every edge source AND target is indexable; drops NO edge/content -> gate-D
+  and structural arms UNCHANGED. MEASURED@ post-fix smoke: D_hard per-seed=[0.020,0.000,0.030]
+  max=0.030, A-D worst=0.970, firing max=0.000 (identical good-case behavior to pre-crash smoke).
+- FIX 2 (smoke-gap closure): a GRAPH-CONSISTENCY GATE runs IDENTICALLY in smoke and full BEFORE any
+  chain sampling, asserting every edge endpoint is in node_index. Converts the sample-lottery latent
+  crash into a deterministic construction-time gate. PROVEN load-bearing: pre-fix (atoms-only) index
+  -> gate finds 93 missing -> smoke RAISES; post-fix (union) -> 0 missing -> smoke passes.
+  disk_completeness now logs `n_dangling_edge_only_nodes` (=93) for visibility.
+- Self-test extended with the union/dangling-coverage case; grep-gate (no bare/BaseException) PASS.

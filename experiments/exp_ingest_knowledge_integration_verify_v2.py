@@ -254,8 +254,24 @@ def _selftest():
         "selftest: firing control must collapse to chance %.3f, got %.3f (tie-break biased?)"
         % (chance, rate))
 
+    # (d) NODE-UNIVERSE UNION covers dangling cross-corpus edge endpoints (v2 FULL crash class).
+    #   An edge endpoint that is NOT an atom (e.g. a cross-corpus 'math::T3/...' node reached via a
+    #   derived HAS_USERS reverse edge) must still be indexable. The union node universe indexes it;
+    #   the pre-fix atoms-only index does NOT -> proving the graph-consistency gate would fire.
+    _atoms = {"CN_a", "CN_b"}
+    _endpoints = {"CN_a", "CN_b", "math::T3/dangling_src"}  # dangling_src is edge-only (not an atom)
+    _union_idx = {nid: i for i, nid in enumerate(sorted(_atoms | _endpoints))}
+    _atoms_only_idx = {nid: i for i, nid in enumerate(sorted(_atoms))}
+    assert "math::T3/dangling_src" in _union_idx, \
+        "selftest: union node universe must index edge-only (dangling) nodes"
+    assert "math::T3/dangling_src" not in _atoms_only_idx, \
+        "selftest: pre-fix atoms-only index MUST miss the dangling node (gate must catch this)"
+    _missing = [ep for ep in _endpoints if ep not in _union_idx]
+    assert not _missing, "selftest: consistency gate must find zero missing endpoints under union"
+
     print("[selftest] PASS: 2-hop composes + held-out; RANDOM pool leaks(1) but HARD pool "
-          "defeats(0) the name-shortcut; firing control collapses to chance %.3f (measured %.3f)"
+          "defeats(0) the name-shortcut; firing control collapses to chance %.3f (measured %.3f); "
+          "union node universe indexes dangling cross-corpus endpoints (atoms-only would miss)"
           % (chance, rate), flush=True)
 
 
@@ -282,13 +298,29 @@ def build_adjacency(store):
     real_out = defaultdict(set)
     real_any = defaultdict(set)
     per_rel_edges = defaultdict(list)
+    edge_endpoints = set()
     for (src, rt, tgt) in store.iter_relations():
         rel_str = rt.value
         real_out[(src, rel_str)].add(tgt)
         real_any[src].add(tgt)
         per_rel_edges[rel_str].append((src, tgt))
-    nodes = list(store.all_atom_ids())
-    return real_out, real_any, per_rel_edges, nodes
+        edge_endpoints.add(src)
+        edge_endpoints.add(tgt)
+    # FIX (v2 FULL crash class -- KeyError: 'math::T3/hungarian_algorithm' at node_index[s]):
+    # the node universe MUST be the atoms UNION every edge endpoint. The concept relations file
+    # references cross-corpus endpoints (e.g. 'math::T3/hungarian_algorithm') whose atoms live in
+    # a different partition and are NOT in the concept store's all_atom_ids(); moreover every USES
+    # edge auto-derives a HAS_USERS reverse edge (store._load_from_disk), which makes such
+    # cross-corpus nodes appear as chain SOURCES in real_out. Building node_index from
+    # all_atom_ids() alone left those endpoints (measured: 93 dangling, 31 dangling sources)
+    # unindexed -> node_index[s] KeyError deep in a multi-seed FULL. The union guarantees every
+    # edge's source AND target is indexable and drops NO edge/content, so the structural arms
+    # (A/B/C/C2/R/L) and gate-D leak logic are UNCHANGED -- only the node universe is completed.
+    # sorted() -> deterministic node ordering (was set-order-dependent before, non-canonical).
+    atom_ids = set(store.all_atom_ids())
+    dangling = sorted(edge_endpoints - atom_ids)
+    nodes = sorted(atom_ids | edge_endpoints)
+    return real_out, real_any, per_rel_edges, nodes, dangling, edge_endpoints
 
 
 def build_scrambled(per_rel_edges, rng):
@@ -642,9 +674,29 @@ def main():
     print("[live-store] loaded atoms=%d relations=%d in %.1fs" %
           (loaded_atoms, loaded_relations, time.time() - tL), flush=True)
 
-    real_out, real_any, per_rel_edges, nodes = build_adjacency(store)
+    real_out, real_any, per_rel_edges, nodes, dangling_nodes, edge_endpoints = build_adjacency(store)
     rel_types = sorted(per_rel_edges.keys())
     node_index = {nid: i for i, nid in enumerate(nodes)}
+
+    # GRAPH-CONSISTENCY GATE (closes the SMOKE!=FULL coverage gap that crashed v2 FULL).
+    # The v2 crash was SAMPLE-DEPENDENT: only FULL's larger chain draw happened to root a chain at
+    # one of the 31 cross-corpus dangling SOURCES, so smoke's smaller draw missed it and the crash
+    # slipped past the gate. This gate makes the missing-node/dangling-edge condition a
+    # DETERMINISTIC construction-time invariant checked IDENTICALLY in smoke and full, BEFORE any
+    # chain sampling -- so a regression (e.g. rebuilding node_index from atoms-only) FAILS at smoke,
+    # not deep in a multi-seed FULL. It exercises the exact node_index-indexability branch that
+    # crashed run_seed, independent of which chains get sampled.
+    missing_ep = sorted(ep for ep in edge_endpoints if ep not in node_index)
+    if missing_ep:
+        raise KeyError(
+            "GRAPH_INCONSISTENCY (v2-FULL crash class): %d edge endpoint(s) absent from node_index, "
+            "e.g. %r. The node universe must cover every edge SOURCE and TARGET (including derived "
+            "HAS_USERS reverse edges); rebuild node_index from the atom+edge union."
+            % (len(missing_ep), missing_ep[:5]))
+    print("[graph-consistency] OK: all %d edge endpoints indexable | node_universe=%d "
+          "(atoms=%d + %d cross-corpus edge-only nodes, all now indexed)" %
+          (len(edge_endpoints), len(node_index), loaded_atoms, len(dangling_nodes)), flush=True)
+
     node_tris = {nid: _trigrams(nid) for nid in nodes}
     tI = time.time()
     tri2nodes, node_tri_len = build_tri_index(nodes, node_tris)
@@ -652,7 +704,9 @@ def main():
           (len(rel_types), len(real_out), len(nodes), len(tri2nodes), time.time() - tI), flush=True)
 
     disk = {"disk_atoms": d_atoms, "disk_distinct_triples": d_triples, "disk_derived": d_derived,
-            "disk_uses": d_uses, "loaded_atoms": loaded_atoms, "loaded_relations": loaded_relations}
+            "disk_uses": d_uses, "loaded_atoms": loaded_atoms, "loaded_relations": loaded_relations,
+            "n_dangling_edge_only_nodes": len(dangling_nodes),
+            "dangling_edge_only_sample": dangling_nodes[:10]}
 
     per_seed = []
     consistency_checked = {"done": False, "ok": True}
