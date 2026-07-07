@@ -1,0 +1,86 @@
+"""Thin per-seed wrapper (CHUNKED single-seed-per-cell): GSBC graded-code
+retrieval MARGIN-PUSH (density-dial sweep + per-item near-dup logging) for
+seed=23. A runner-death on this process loses only seed=23.
+
+Core:
+  experiments/exp_encoder_gsbc_gradedcode_marginpush_v1_core.py
+Prereg:
+  preregs/2026-07-07_exp_encoder_gsbc_gradedcode_marginpush_v1.md
+
+The explicit sibling-core imports below (noqa; the marginpush core imports them
+transitively via the v1 gradedcode base core) force queue_add.sh Pattern-6
+import-parse to RE-SCP those cores with this dispatch, so the remote never runs
+against a stale sibling core (dep-parity guard; SCRIPT_PRECONDITION_VIOLATION
+prevention). Pattern-6 parses only the WRAPPER's DIRECT imports (non-transitive),
+so all four cores must be named here.
+
+run_tag="seed23" isolates this seed's metrics under
+data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed23/.
+
+Dispatch contract: queue_add.sh invokes this BARE (no argv) and injects
+HDLAB_RUN_MODE=full; this wrapper aliases full -> the core's FULL tier; device
+default auto -> cuda on the GPU box.
+
+ASCII-only. No emojis. No em dashes.
+"""
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+import torch  # noqa: F401 -- satisfies queue_add.sh's GPU-routing sanity gate
+
+_HERE = Path(__file__).resolve().parent
+_REPO = _HERE.parent
+if str(_REPO) not in sys.path:
+    sys.path.insert(0, str(_REPO))
+
+from experiments import (  # noqa: E402
+    exp_encoder_gsbc_gradedcode_marginpush_v1_core as core,
+)
+# Force Pattern-6 re-SCP of the transitively-imported sibling cores (dep parity).
+from experiments import (  # noqa: E402,F401
+    exp_encoder_gsbc_gradedcode_retrieval_v1_core,  # noqa: F401 (base)
+)
+from experiments import (  # noqa: E402,F401
+    exp_encoder_v11_gsbc_graded_sparse_v1_core,  # noqa: F401
+)
+from experiments import (  # noqa: E402,F401
+    exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core,  # noqa: F401
+)
+
+SEED = 23
+RUN_TAG = "seed23"
+
+
+def main() -> int:
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+    except (AttributeError, ValueError):
+        pass
+    out_dir = core.get_output_dir(f"{core.ANCHOR_NAME}_{RUN_TAG}")
+    try:
+        if "--self-test" in sys.argv:
+            return core.run_self_test()
+        if "--smoke" in sys.argv:
+            return core.run_marginpush("smoke", SEED, "auto",
+                                       core.v3.N_DIM_DEFAULT, None, run_tag=RUN_TAG)
+        run_mode = os.environ.get("HDLAB_RUN_MODE", "self_test")
+        if run_mode == "self_test":
+            return core.run_self_test()
+        if run_mode not in ("smoke", "full"):
+            run_mode = "full"
+        return core.run_marginpush(run_mode, SEED, "auto", core.v3.N_DIM_DEFAULT,
+                                   None, run_tag=RUN_TAG)
+    except SystemExit:
+        raise
+    except KeyboardInterrupt:
+        raise
+    except Exception as exc:  # NOT BaseException; preserves SystemExit/KeyboardInterrupt
+        core.base._write_crash_metrics(out_dir, exc)
+        raise
+
+
+if __name__ == "__main__":
+    sys.exit(main())
