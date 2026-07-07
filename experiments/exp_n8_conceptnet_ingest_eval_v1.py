@@ -305,34 +305,51 @@ def run_seed(seed, ent_embs_cache):
 
 def verdict(ps) -> Tuple[str, str]:
     big = "M%d" % max(SCALE_POINTS)
-    sr_all = float(np.mean([p["scale_curve"][big]["setrecall_all"] for p in ps]))
+    # Per-seed arrays (tightened gating: leak/vacuousness refuse-gate + set-recall + composition
+    # must hold on EVERY seed independently, NOT just the 3-seed mean -- a single leaky/vacuous
+    # seed must not be masked by averaging with two strong seeds. Reporting still shows the mean
+    # for readability, but every PASS gate is evaluated on the worst seed.)
+    sr_all_ps = [p["scale_curve"][big]["setrecall_all"] for p in ps]
+    ood_ps = [p["refuse_gate"]["ood_refuse"] for p in ps]
+    acc_ps = [p["refuse_gate"]["inkb_accept"] for p in ps]
+    s2_ps = [p["inference_transfer"].get("substrate_2hop", 0) for p in ps]
+    b1_ps = [p["inference_transfer"].get("baseline_1hop", 0) for p in ps]
+    enc_ps = [p["inference_transfer"].get("baseline_frozen_encoder", 0) for p in ps]
+    # Means (reporting only)
+    sr_all = float(np.mean(sr_all_ps))
     sr_11 = float(np.mean([p["scale_curve"][big]["setrecall_1to1"] for p in ps]))
-    ood = float(np.mean([p["refuse_gate"]["ood_refuse"] for p in ps]))
-    acc = float(np.mean([p["refuse_gate"]["inkb_accept"] for p in ps]))
-    s2 = float(np.mean([p["inference_transfer"].get("substrate_2hop", 0) for p in ps]))
-    b1 = float(np.mean([p["inference_transfer"].get("baseline_1hop", 0) for p in ps]))
-    enc = float(np.mean([p["inference_transfer"].get("baseline_frozen_encoder", 0) for p in ps]))
+    ood = float(np.mean(ood_ps)); acc = float(np.mean(acc_ps))
+    s2 = float(np.mean(s2_ps)); b1 = float(np.mean(b1_ps)); enc = float(np.mean(enc_ps))
+    # Per-seed worst-case (gates)
+    sr_all_min = float(np.min(sr_all_ps))
+    ood_min = float(np.min(ood_ps)); acc_min = float(np.min(acc_ps))
+    def _infer_seed_ok(i):
+        return (s2_ps[i] > b1_ps[i] + INFER_MARGIN_OVER_1HOP and
+                s2_ps[i] >= INFER_RATIO_OVER_ENC * enc_ps[i])
+    n = len(ps)
+    infer_pass = all(_infer_seed_ok(i) for i in range(n))
+    infer_1hop_any = any(s2_ps[i] > b1_ps[i] + INFER_MARGIN_OVER_1HOP for i in range(n))
+    infer_enc_any = any(s2_ps[i] >= INFER_RATIO_OVER_ENC * enc_ps[i] for i in range(n))
     curve = {M: round(float(np.mean([p["scale_curve"]["M%d" % M]["setrecall_all"] for p in ps])), 3)
              for M in SCALE_POINTS}
     enc_ratio = (s2 / enc) if enc > 1e-6 else float("inf")
     summ = ("setrecall@%s all=%.3f 1to1=%.3f (floor %.2f) | refuse OOD=%.3f accept=%.3f (>=%.2f) | "
             "infer 2hop=%.3f vs 1hop=%.3f vs frozen-enc=%.3f (ratio=%.2fx, need >=%.1fx) | "
-            "scale-curve=%s" % (big, sr_all, sr_11, SETRECALL_FLOOR, ood, acc, REFUSE_OOD_MIN,
-                                 s2, b1, enc, enc_ratio, INFER_RATIO_OVER_ENC, curve))
-    sr_pass = sr_all >= SETRECALL_FLOOR
-    sr_fail = sr_all < SETRECALL_FAIL
-    refuse_pass = ood >= REFUSE_OOD_MIN and acc >= ACCEPT_INKB_MIN
-    infer_pass_1hop = s2 > b1 + INFER_MARGIN_OVER_1HOP
-    infer_pass_enc = s2 >= INFER_RATIO_OVER_ENC * enc
-    infer_pass = infer_pass_1hop and infer_pass_enc
+            "per-seed-min: sr=%.3f ood=%.3f acc=%.3f (n=%d, all gates per-seed) | scale-curve=%s" % (
+                big, sr_all, sr_11, SETRECALL_FLOOR, ood, acc, REFUSE_OOD_MIN,
+                s2, b1, enc, enc_ratio, INFER_RATIO_OVER_ENC,
+                sr_all_min, ood_min, acc_min, n, curve))
+    sr_pass = sr_all_min >= SETRECALL_FLOOR
+    sr_fail = sr_all_min < SETRECALL_FAIL
+    refuse_pass = ood_min >= REFUSE_OOD_MIN and acc_min >= ACCEPT_INKB_MIN
     if sr_fail:
-        return ("HARD_FAIL", "HARD_FAIL: set-recall below floor. " + summ)
+        return ("HARD_FAIL", "HARD_FAIL: set-recall below floor on >=1 seed. " + summ)
     if sr_pass and refuse_pass and infer_pass:
         return ("HARD_PASS",
                 "HARD_PASS: substrate KB-ingest GOVERNED (refuse-gate) + COMPOSES (2-hop vs 1-hop AND "
-                "frozen-encoder; OPEN-C unlocked). " + summ)
-    if refuse_pass or infer_pass_1hop or infer_pass_enc:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: partial -- not all load-bearing dims hold. " + summ)
+                "frozen-encoder; OPEN-C unlocked). ALL gates per-seed. " + summ)
+    if refuse_pass or infer_1hop_any or infer_enc_any:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: partial -- not all load-bearing dims hold per-seed. " + summ)
     return ("HARD_FAIL", "HARD_FAIL: refuse-gate + inference-transfer both fall short. " + summ)
 
 
