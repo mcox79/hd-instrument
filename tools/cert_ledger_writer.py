@@ -29,6 +29,7 @@ Usage (in any atomize tool):
         'cert_class': 'pre_reg_pass',
         'verified_off_data': True,                # the auditor asserts; caller-responsibility
         'atomized_by': 'skunkworks',
+        'anchor': 'exp_my_cell_v1',                # PROT-023(a): REQUIRED for experiment rows
         'cell_commit': 'abcd1234',
         'verdict': 'HARD_PASS',
         'cert_increment_delta': 1,                # +1 for chain_grade; 0 for MM/honest_neg; -1 for demote
@@ -129,6 +130,16 @@ VALID_CERT_CLASS = {
     'infra_record', None,
 }
 
+# PROT-023(a): cert_classes that are DERIVED FROM A LANDED CELL and therefore MUST carry
+# an `anchor` (source cell/experiment name) + `cell_commit` so landed-vs-ledger
+# reconciliation is mechanically possible. discipline_meta / data_attribution /
+# infra_record / None have NO source cell and are intentionally EXEMPT -- requiring an
+# anchor on a meta/discipline rule would be wrong and would block legitimate meta atoms.
+EXPERIMENT_CERT_CLASSES = {
+    'pre_reg_pass', 'post_hoc_pass', 'pre_reg_miss_proven_bound',
+    'mechanism_characterization',
+}
+
 
 def _normalize_row(raw):
     """Build a canonical-shape row from a partial dict; fill ts; validate enums."""
@@ -169,6 +180,26 @@ def _normalize_row(raw):
             f'cert_ledger_writer: verified_off_data must be True/False/None; '
             f'got {row["verified_off_data"]!r}'
         )
+
+    # PROT-023(a) anchor gate: experiment-derived cert rows MUST carry a non-empty
+    # `anchor` (source cell/experiment name) + `cell_commit`, so that landed metrics.json
+    # dirs can be mechanically reconciled against the ledger. Meta/discipline/infra/data
+    # rows are exempt (no source cell). `anchor` is carried through as a first-class field.
+    row['anchor'] = raw.get('anchor')
+    if row['cert_class'] in EXPERIMENT_CERT_CLASSES:
+        if not (isinstance(row['anchor'], str) and row['anchor'].strip()):
+            raise ValueError(
+                f'cert_ledger_writer: anchor (source cell/experiment name) is REQUIRED for '
+                f'experiment-derived cert rows [PROT-023(a)] (cert_class={row["cert_class"]!r}, '
+                f'atom_id={row.get("atom_id")!r}); got anchor={row["anchor"]!r}. '
+                f'Pass anchor=<cell/experiment name> so this landed result is reconcilable.'
+            )
+        if not (isinstance(row['cell_commit'], str) and row['cell_commit'].strip()):
+            raise ValueError(
+                f'cert_ledger_writer: cell_commit is REQUIRED for experiment-derived cert rows '
+                f'[PROT-023(a)] (cert_class={row["cert_class"]!r}, atom_id={row.get("atom_id")!r}); '
+                f'got cell_commit={row["cell_commit"]!r}.'
+            )
 
     # referent_pointer shape
     rp = row['referent_pointer'] or {}
@@ -345,6 +376,7 @@ def append_cert_ledger_row(
 def build_chain_grade_ruling_row(
     *,
     atom_id,
+    anchor,
     cell_commit,
     verdict,
     notes_path,
@@ -355,11 +387,12 @@ def build_chain_grade_ruling_row(
     note,
     ts=None,
 ):
-    """Build a cert_ruling row for a chain-grade atomization (delta=+1)."""
+    """Build a cert_ruling row for a chain-grade atomization (delta=+1). anchor REQUIRED [PROT-023a]."""
     return {
         'ts': ts,
         'op': 'cert_ruling',
         'atom_id': atom_id,
+        'anchor': anchor,
         'cert_status': 'chain_grade',
         'cert_class': cert_class,
         'verified_off_data': True,  # atomize-tool callers ARE the auditor; verified
@@ -381,6 +414,7 @@ def build_chain_grade_ruling_row(
 def build_measured_mechanism_row(
     *,
     atom_id,
+    anchor,
     cell_commit,
     verdict,
     notes_path,
@@ -389,11 +423,12 @@ def build_measured_mechanism_row(
     note,
     ts=None,
 ):
-    """Build a cert_ruling row for an MM characterization (delta=0; CERT-neutral)."""
+    """Build a cert_ruling row for an MM characterization (delta=0; CERT-neutral). anchor REQUIRED [PROT-023a]."""
     return {
         'ts': ts,
         'op': 'cert_ruling',
         'atom_id': atom_id,
+        'anchor': anchor,
         'cert_status': 'measured_mechanism',
         'cert_class': 'mechanism_characterization',
         'verified_off_data': True,
@@ -415,6 +450,7 @@ def build_measured_mechanism_row(
 def build_honest_negative_row(
     *,
     atom_id,
+    anchor,
     cell_commit,
     verdict,
     notes_path,
@@ -425,11 +461,12 @@ def build_honest_negative_row(
     verified_off_data=True,
     ts=None,
 ):
-    """Build a cert_ruling row for an honest-negative pre-reg miss (delta=0)."""
+    """Build a cert_ruling row for an honest-negative pre-reg miss (delta=0). anchor REQUIRED [PROT-023a]."""
     return {
         'ts': ts,
         'op': 'cert_ruling',
         'atom_id': atom_id,
+        'anchor': anchor,
         'cert_status': 'honest_negative',
         'cert_class': cert_class,
         'verified_off_data': verified_off_data,
@@ -456,13 +493,18 @@ def build_demote_row(
     notes_path,
     metrics_path,
     supersedes_hash,
+    anchor=None,
     cert_class='mechanism_characterization',
     new_cert_status='measured_mechanism',
     atomized_by='skunkworks',
     note,
     ts=None,
 ):
-    """Build a cert_demote row (delta=-1) superseding a prior chain_grade row."""
+    """Build a cert_demote row (delta=-1) superseding a prior chain_grade row.
+
+    anchor is required when cert_class is experiment-derived (the default
+    'mechanism_characterization' is) -- pass the demoted cell's anchor [PROT-023a].
+    """
     if not supersedes_hash:
         raise ValueError(
             'build_demote_row: supersedes_hash is required (the prior chain_grade row hash)'
@@ -471,6 +513,7 @@ def build_demote_row(
         'ts': ts,
         'op': 'cert_demote',
         'atom_id': atom_id,
+        'anchor': anchor,
         'cert_status': new_cert_status,
         'cert_class': cert_class,
         'verified_off_data': True,
@@ -497,11 +540,16 @@ def build_retract_row(
     notes_path,
     metrics_path,
     supersedes_hash,
+    anchor=None,
     atomized_by='skunkworks',
     note,
     ts=None,
 ):
-    """Build a cert_retract row (delta=-1) superseding a prior chain_grade row."""
+    """Build a cert_retract row (delta=-1) superseding a prior chain_grade row.
+
+    cert_class is None (retract) so anchor is exempt from the PROT-023(a) gate, but
+    pass it when known so the retraction stays reconcilable to its source cell.
+    """
     if not supersedes_hash:
         raise ValueError(
             'build_retract_row: supersedes_hash is required (the prior chain_grade row hash)'
@@ -510,6 +558,7 @@ def build_retract_row(
         'ts': ts,
         'op': 'cert_retract',
         'atom_id': atom_id,
+        'anchor': anchor,
         'cert_status': 'retracted',
         'cert_class': None,
         'verified_off_data': True,
@@ -549,6 +598,7 @@ def _self_test():
     # Build a row via the convenience builder
     row1 = build_honest_negative_row(
         atom_id='math::T3/EXP_selftest_honest_negative_v1',
+        anchor='exp_selftest_honest_negative_v1',
         cell_commit='deadbeef',
         verdict='MIDDLE_BAND',
         notes_path='notes/selftest_note.md',
@@ -578,6 +628,7 @@ def _self_test():
     print('\n[4] Different row (MM characterization; delta=0)')
     row2 = build_measured_mechanism_row(
         atom_id='math::T3/EXP_selftest_mm_v1',
+        anchor='exp_selftest_mm_v1',
         cell_commit='cafefeed',
         verdict='MIDDLE_BAND',
         notes_path='notes/selftest_note_mm.md',
@@ -625,6 +676,7 @@ def _self_test():
     print('\n[7] Demote row with supersedes pointer (delta=-1)')
     demote = build_demote_row(
         atom_id='math::T3/EXP_selftest_demoted_v1',
+        anchor='exp_selftest_demoted_v1',
         cell_commit='12345678',
         verdict='MIDDLE',
         notes_path='notes/selftest_demote.md',
@@ -639,6 +691,41 @@ def _self_test():
     assert rows4[-1]['cert_increment_delta'] == -1
     assert rows4[-1]['supersedes'] == h3
     print(f'   row_hash = {h4}; supersedes = {h3}')
+
+    # PROT-023(a) anchor gate: experiment-derived row with missing/empty anchor MUST raise
+    print('\n[7b] PROT-023(a) gate: experiment-derived row missing anchor -> ValueError')
+    no_anchor = dict(row2)          # measured_mechanism / mechanism_characterization (gated)
+    no_anchor['anchor'] = None
+    try:
+        append_cert_ledger_row(no_anchor, strict_a5=False, ledger_path=tmp_ledger)
+        raise AssertionError('expected ValueError for missing anchor on experiment-derived row')
+    except ValueError as e:
+        assert 'anchor' in str(e) and 'PROT-023' in str(e), f'unexpected message: {e}'
+        print(f'   correctly raised ValueError: {e}')
+    empty_anchor = dict(row2)
+    empty_anchor['anchor'] = '   '
+    try:
+        append_cert_ledger_row(empty_anchor, strict_a5=False, ledger_path=tmp_ledger)
+        raise AssertionError('expected ValueError for whitespace-only anchor')
+    except ValueError as e:
+        print(f'   whitespace anchor also rejected: {e}')
+    rows_gate = _read_ledger(tmp_ledger)
+    assert len(rows_gate) == 3, f'gate must not have written: ledger has {len(rows_gate)} (expected 3)'
+    print(f'   gate did not write; ledger still {len(rows_gate)} rows')
+
+    # PROT-023(a) exemption: a discipline_meta row (no source cell) is allowed WITHOUT anchor
+    print('\n[7c] PROT-023(a) exemption: discipline_meta row without anchor -> allowed')
+    meta_row = {
+        'op': 'cert_ruling', 'atom_id': 'meta::T4/META_selftest_discipline_rule_v1',
+        'cert_status': 'custom', 'cert_class': 'discipline_meta', 'verified_off_data': True,
+        'atomized_by': 'skunkworks', 'cell_commit': None, 'verdict': None,
+        'cert_increment_delta': 0, 'cv': None, 'referent_pointer': None,
+        'supersedes': None, 'note': 'cert_ledger_writer_selftest_meta_exempt',
+    }
+    h_meta = append_cert_ledger_row(meta_row, strict_a5=False, ledger_path=tmp_ledger)
+    rows_meta = _read_ledger(tmp_ledger)
+    assert len(rows_meta) == 4, f'meta row should append: ledger has {len(rows_meta)} (expected 4)'
+    print(f'   meta row appended without anchor (exempt); row_hash={h_meta}; ledger {len(rows_meta)} rows')
 
     # Strict-A5 against the REAL Store/ledger (read-only check)
     print('\n[8] Strict-A5 dry path (no write -- just verify Store loads + invariants hold)')
