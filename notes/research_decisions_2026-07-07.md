@@ -45,3 +45,38 @@
   near-duplicate density measurement in the real `entities.jsonl` (Test 0), before any GPU scale-test
   dispatch. Full note: notes/research_encoder_970k_marchenko_pastur_codebook_collision_forecast_2026-07-07.md.
   3 parallel Sonnet lit-scans, 33 verified external sources, zero substrate-novel terms sent externally.
+
+- 2026-07-07 (Test 0 executed, CPU-only, no GPU, no dispatch): measured near-duplicate density
+  directly in the real `data/substrate_director_kb_v1/entities.jsonl` (970,069 rows, confirmed on
+  disk). Finding: exact-dup rate low (0.66%), but 15.86% of V (note/prereg document chunks) sit in
+  near-identical clusters by construction (within-doc Jaccard 0.96-0.97) and WordNet polysemy
+  collapses 121,274 rows to 89,395 distinct lemmas (39.6% share a lemma with >=1 other row).
+  Effective-distinct/V drops from 0.9966 (naive exact-dup) to ~0.79-0.83. Re-derived birthday margin
+  with the effective-distinct count: still ~180.5+ orders of magnitude vs raw V's 180.4 -- the
+  discrete-algebra "combinatorial margin holds" conclusion is CONFIRMED robust to the measured
+  structure (GREEN). Structured-collision risk is real but narrow: concentrated in 2 identified,
+  cheaply-dedupable sources (chunking + WordNet polysemy), not diffuse across the corpus
+  (YELLOW, not RED). Concrete recommendation: dedup near-identical sibling chunks before the 970K
+  scale-test (shrinks V by up to ~14%, ~138K rows); retune GSBC density dial against effective
+  V~800K-830K if deduped, or raw 970,069 as a safe fallback if not. Also discovered: the 970K KB is
+  NOT ConceptNet-like as the prior forecast assumed -- it is a dogfood ingest mixing external KBs
+  (WordNet/GO/KEGG/FrameNet/VerbNet/NeuroLex) with the project's own notes/preregs/memory/metrics,
+  chunked. Full note: notes/research_970k_kb_near_duplicate_density_test0_2026-07-07.md.
+  0 external citations this cycle (internal filesystem measurement, not a lit-scan).
+
+- 2026-07-07 (bounded convergence drill, re-slice attempt): tried to re-slice EXISTING
+  keyed@J5/shuffled_key per-item retrieval results by chunk-vs-non-chunk membership (Test 0's own
+  named next step) to test whether the retrieval margin is CONCENTRATED in the near-dup pool or
+  DIFFUSE. VERDICT: neither -- DATA-ABSENT. Checked all 14 full-scale metrics.json files in the
+  encoder lineage plus every non-metrics.json artifact under data/exp_encoder_*/substrate_concept_
+  encoder*: none contain per-item outcomes, only aggregate scalars. Confirmed structurally by
+  reading the eval code itself (_keyed_unit/_semantic_unit in exp_encoder_migration_step1b_v3_
+  ..._core.py): per-trial KB-row identity and per-row rank-agreement are computed transiently in
+  memory and reduced to a scalar before return -- never serialized. MID_TRIALS=60 also means even a
+  logging fix would face a thin per-run sample (~48 expected near-dup draws per unit). This closes
+  the "re-slice" branch as a dead end (cheaply, no GPU/training) -- any future test of Test 0's
+  structured-collision hypothesis needs new inference with logging added, not a re-slice. Test 0's
+  P_deflated (0.35-0.45, capped 0.50) for the underlying hypothesis is UNCHANGED (no new evidence
+  either way). Dedup of note/prereg chunk siblings remains reasonable on its own structural merits
+  regardless. Full note: notes/research_970k_retrieval_margin_concentration_reslice_2026-07-07.md.
+  0 external citations (internal code/filesystem audit).
