@@ -32,3 +32,16 @@
   the resonator K4 case -- converges independently with field advisor's own #2-ranked D1 candidate. Full note:
   notes/research_noise_compounding_bound_deep_mechanism_2026-07-07.md. P_deflated=0.50 (mechanism diagnosis,
   capped) / 0.28 (rescue clears MIDDLE) / 0.20 (rescue clears HARD-PASS).
+
+- 2026-07-07 (forward-derivation, 970K scale-test forecast): classified the encoder's two readouts
+  by decode regime per the self-margin taxonomy -- discrete SBC block-argmax algebra (K=128 x L=32)
+  = disjoint-block/collision-count (holds at 970K, combinatorial margin ~180 orders of magnitude,
+  P_deflated~0.60-0.65 HARD-PASS); continuous dense retrieval (`ret_agree10`) = order-statistic/
+  distance-concentration (ALREADY failing at 0.18-0.27 at 18% of scale, forecast to degrade further
+  with NO cliff, P_deflated~0.05 HARD-PASS at 970K on plain SBC). GSBC graded-code lever already
+  measures 1.5-3x better at the SAME 177,899 scale (0.31-0.68) but its own density-dial retune is
+  unverified past ~160K and is the one place a genuine Donoho-Tanner-class sharp cliff is plausible
+  (P_deflated~0.30-0.35, capped, HARD-PASS at 970K IF retuned). Cheapest next action: CPU-only
+  near-duplicate density measurement in the real `entities.jsonl` (Test 0), before any GPU scale-test
+  dispatch. Full note: notes/research_encoder_970k_marchenko_pastur_codebook_collision_forecast_2026-07-07.md.
+  3 parallel Sonnet lit-scans, 33 verified external sources, zero substrate-novel terms sent externally.
