@@ -80,3 +80,5 @@
   either way). Dedup of note/prereg chunk siblings remains reasonable on its own structural merits
   regardless. Full note: notes/research_970k_retrieval_margin_concentration_reslice_2026-07-07.md.
   0 external citations (internal code/filesystem audit).
+
+- 2026-07-07 (research): brain-structure->consumer re-map post-ingest-live -> notes/research_brain_structure_consumer_remap_post_ingest_live_2026-07-07.md -- CLS-consolidation classic interference-avoidance flavor REFUTED as an ingest consumer (discrete graph-store write, no shared weights, 2 lit-scans confirm); schema-extraction flavor deferred to Stage 4, not live; overall brain-component ranking UNCHANGED, top build stays cerebellar SR-rollout for basal-ganglia gate depth-degradation.
