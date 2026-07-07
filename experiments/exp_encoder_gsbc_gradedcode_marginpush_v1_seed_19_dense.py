@@ -57,6 +57,7 @@ from experiments import (  # noqa: E402,F401
 
 SEED = 19
 RUN_TAG = "seed19_dense"
+V_CAP = None  # 177K full-corpus rung (no subsample)
 
 
 def main() -> int:
@@ -70,14 +71,15 @@ def main() -> int:
             return core.run_self_test()
         if "--smoke" in sys.argv:
             return core.run_marginpush("smoke", SEED, "auto",
-                                       core.v3.N_DIM_DEFAULT, None, run_tag=RUN_TAG)
+                                       core.v3.N_DIM_DEFAULT, None, run_tag=RUN_TAG,
+                                       v_cap=V_CAP)
         run_mode = os.environ.get("HDLAB_RUN_MODE", "self_test")
         if run_mode == "self_test":
             return core.run_self_test()
         if run_mode not in ("smoke", "full"):
             run_mode = "full"
         return core.run_marginpush(run_mode, SEED, "auto", core.v3.N_DIM_DEFAULT,
-                                   None, run_tag=RUN_TAG)
+                                   None, run_tag=RUN_TAG, v_cap=V_CAP)
     except SystemExit:
         raise
     except KeyboardInterrupt:

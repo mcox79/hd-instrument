@@ -1,6 +1,6 @@
 """Thin per-seed wrapper (CHUNKED single-seed-per-cell): GSBC graded-code
 retrieval DENSITY SWEEP (finer-resolution continuation of marginpush) for
-seed=7. A runner-death on this process loses only seed=7.
+seed=7. A runner-death on this process loses only seed=13.
 
 Finer density grid m in {3,4,5,6,7,8,10,12} (set in the shared core's
 GRADED_M_SWEEP) to LOCATE the retrieval peak on the density axis + map the
@@ -13,9 +13,9 @@ Core:
 Prereg:
   preregs/2026-07-07_exp_encoder_gsbc_gradedcode_densitysweep_v1.md
 
-run_tag="seed7_dense" isolates this run's metrics under
-data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed7_dense/, so the landed
-3-point marginpush metrics at data/..._seed7/ are NOT clobbered.
+run_tag="seed13_v100k" isolates this run's metrics under
+data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed13_v100k/, so the landed
+3-point marginpush metrics at data/..._seed13/ are NOT clobbered.
 
 The explicit sibling-core imports below (noqa) force queue_add.sh Pattern-6
 import-parse to RE-SCP those cores with this dispatch (dep-parity guard;
@@ -55,9 +55,9 @@ from experiments import (  # noqa: E402,F401
     exp_encoder_migration_step1b_v3_global_objective_landmark_rkd_concept_encoder_v1_core,  # noqa: F401
 )
 
-SEED = 7
-RUN_TAG = "seed7_dense"
-V_CAP = None  # 177K full-corpus rung (no subsample)
+SEED = 13
+RUN_TAG = "seed13_v100k"
+V_CAP = 100000  # 100K corpus subsample (density x SCALE trajectory rung)
 
 
 def main() -> int:

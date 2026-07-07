@@ -27,7 +27,36 @@ substrate_query.sh "encoder retrieval density sweep graded block code peak plate
 chunks); NONE at cosine > 0.30. This is a CONTINUATION of the landed marginpush/gradedcode
 density-dial arc (same lever, finer resolution), NOT a novel rediscovery -- confirmed on disk.
 
-## Design
+## Density x SCALE trajectory (multi-scale upgrade, 2026-07-07)
+Per the density-scale design drill (notes/research_density_scale_sweep_design_970k_
+extrapolation_2026-07-07.md) this ships as a MULTI-SCALE sweep, not single-scale-177K:
+run the SAME 8-point density grid at 3 corpus scales to yield the m*(N) TRAJECTORY
+(the actual goal = predict the 970K optimum), plus the cross-seed CV(m,scale) surface.
+- Scales (rungs): V in {50000 (v050k), 100000 (v100k), 177899 (dense, full corpus)}.
+  50K/100K are FREE subsamples of the committed 177899-name teacher cache (fixed
+  corpus RNG seed 12345, IDENTICAL corpus across model-seeds at each scale, so
+  cross-seed CV reflects seed-init/split variance not corpus-draw). NO re-encode.
+- Cost is ~flat in V (steps=FULL_STEPS/batch fixed; held eval O(n_he^2), n_he capped),
+  so each rung costs ~a full 9-student training; smaller rungs are cheaper (smaller
+  n_he eval). Verified via the design's on-disk cost audit.
+- CV(m,scale) is the NEW early-warning signal: at 177K the landed cross-seed CV is
+  U-shaped (tight 0.027 @ m5, wide 0.157 @ m3, 0.146 @ m8) -- rising variance at m8
+  while the mean still climbs is a critical-slowing-down precursor of the cliff, a
+  LEADING boundary-detector cheaper than waiting for a seed to fail. Capture CV(m) per
+  scale explicitly; a rung whose CV rises at a LOWER m than the previous rung = the
+  cliff moving closer as V grows.
+- Extrapolation (VET, on landing): fit BOTH candidate forms across the 3 scales and let
+  residuals discriminate -- (1) m*(V) = a + b*ln(V) (JL/Larsen-Nelson; mild growth),
+  (2) m*(V) = a*V^c (fit c freely; c>0 Knoblauch-Palm-Sommer steep-growth, c<0
+  Willshaw sparser-at-scale). PRE-REGISTERED 970K prediction to validate at the Stage-3
+  400K/970K dispatch: central m*(970K) in [5,9] (CITED@design-note Item 1; three
+  disagreeing anchors, deflated P(band contains true optimum) ~ 0.20-0.25), with a
+  NAMED non-dismissed downside (Anchor B: density should retune DOWN). 3 fitting rungs =
+  bare minimum (2 params + 1 residual dof); honesty check = refit on {v100k,dense} only
+  and confirm the 970K prediction does not swing wildly (if it does, the form is not yet
+  identified -- that is itself the finding, do not force-fit).
+
+## Design (per-rung, identical machinery at every scale)
 - Density grid (GRADED_M_SWEEP): m in {3,4,5,6,7,8,10,12}; activefrac = m/128 =
   {0.0234,0.0313,0.0391,0.0469,0.0547,0.0625,0.0781,0.0938}. blk_l=128, kb=32 FIXED
   (kb*blk_l = N_DIM = 4096; m changes only survivors-per-block, not geometry). 9 trained
@@ -118,14 +147,24 @@ Formula self-test: PASS (anneal + graded density-sweep invariants m in [3,4,5,6,
 tration + projected-if-dedup + verdict bands HP/MB/HF/integrity/smoke), 0.68s, exit 0.
 
 ## Seeds / dispatch
-Seeds 7,13,19 (comparability). Chunked single-seed-per-cell (_dense wrappers). FULL ->
-overnight_queue (GPU). HELD (reuse committed 177899-name teacher cache; NO re-encode).
-timeout 3600s/seed. Post-ship verify referent landed (exit 5 = ship FAIL). Output isolated
-under data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed{7,13,19}_dense/ -- landed 3-point
-marginpush metrics NOT clobbered.
+Seeds 7,13,19 (comparability) x 3 scales {50K, 100K, 177K} = 9 chunked single-seed-per-cell
+FULL cells -> overnight_queue (GPU). HELD (reuse committed 177899-name teacher cache; the
+50K/100K rungs are free subsamples; NO re-encode). timeout 3600s/seed (generous ceiling;
+projected ~850-1000s/seed). Dispatch order CHEAP-FIRST (v050k -> v100k -> dense) so the two
+NEW trajectory anchors land early. Post-ship verify referent landed (exit 5 = ship FAIL).
+Output isolated under data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed{7,13,19}_{v050k,
+v100k,dense}/ -- landed 3-point marginpush metrics NOT clobbered.
+ETA: ~2-2.5h sequential on the overnight GPU runner (9 cells). This EXCEEDS the strict ~1h
+window the user framed, but (a) the coordinator explicitly preferred the multi-scale
+trajectory, (b) results land incrementally so the 50K+100K anchors complete within ~1h,
+(c) overnight_queue is the long-run queue + idle-GPU is standing policy. Cancel the dense
+(177K) rung if strict-1h is required -- the coarse 177K curve is already landed (marginpush).
 
 ## On landing
-VET: (1) locate m* (the interior peak or plateau-onset) from the cross-seed per-m curve;
-(2) characterize plateau-vs-spike (is the peak a broad plateau or a sharp single-m spike?);
-(3) map the cliff (which m does the joint gate break / ret collapse / cv explode?); (4) at
-the resolved m*, does cross-seed min graded ret_agree10 clear 0.30 with the joint gate?
+VET, PER RUNG then ACROSS rungs: (1) locate m*(scale) (interior peak or plateau-onset) from
+the cross-seed per-m curve at each scale; (2) characterize plateau-vs-spike per scale; (3)
+map the cliff per scale (which m does the joint gate break / ret collapse / CV explode?);
+(4) build the CV(m,scale) surface -- does the CV-rise onset move to lower m as V grows?;
+(5) fit BOTH m*(V) forms across the 3 scales + the {v100k,dense}-only honesty refit; emit
+the pre-registered 970K prediction band; (6) at each scale's resolved m*, does cross-seed
+min graded ret_agree10 clear 0.30 with the joint gate?

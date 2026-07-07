@@ -13,8 +13,8 @@ Core:
 Prereg:
   preregs/2026-07-07_exp_encoder_gsbc_gradedcode_densitysweep_v1.md
 
-run_tag="seed7_dense" isolates this run's metrics under
-data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed7_dense/, so the landed
+run_tag="seed7_v050k" isolates this run's metrics under
+data/exp_encoder_gsbc_gradedcode_marginpush_v1_seed7_v050k/, so the landed
 3-point marginpush metrics at data/..._seed7/ are NOT clobbered.
 
 The explicit sibling-core imports below (noqa) force queue_add.sh Pattern-6
@@ -56,8 +56,8 @@ from experiments import (  # noqa: E402,F401
 )
 
 SEED = 7
-RUN_TAG = "seed7_dense"
-V_CAP = None  # 177K full-corpus rung (no subsample)
+RUN_TAG = "seed7_v050k"
+V_CAP = 50000  # 50K corpus subsample (density x SCALE trajectory rung)
 
 
 def main() -> int:

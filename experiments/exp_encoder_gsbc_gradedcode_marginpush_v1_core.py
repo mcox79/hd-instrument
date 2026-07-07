@@ -177,6 +177,9 @@ GRADED_M_SWEEP = (3, 4, 5, 6, 7, 8, 10, 12)    # THE density dial (m/blk_l densi
 GRADED_KB = 32
 GRADED_BLK_L = 128                             # kb*blk_l = 4096; m <= blk_l
 GRADED_RECIPE = "full"
+CORPUS_SUBSAMPLE_SEED = 12345                  # FIXED corpus-draw RNG for the density
+# x SCALE trajectory: subsampling the 177899 teacher cache to V_cap uses THIS seed
+# (not the model seed) so the corpus is identical across model-seeds at each scale.
 
 
 def _graded_spec(m: int) -> Tuple:
@@ -571,7 +574,8 @@ def _verdict_mp(per_unit: List[Dict], per_m: Dict, ship: Dict, seed: int,
 # ---------------------------------------------------------------------------
 
 def run_marginpush(run_mode: str, seed: int, device_arg: str, n_dim: int,
-                   teacher_cache_arg: Optional[str], run_tag: str = "") -> int:
+                   teacher_cache_arg: Optional[str], run_tag: str = "",
+                   v_cap: Optional[int] = None) -> int:
     assert run_mode in ("smoke", "full"), f"unsupported run_mode {run_mode}"
     base_name = f"{ANCHOR_NAME}_{run_tag}" if run_tag else ANCHOR_NAME
     anchor = f"{base_name}_smoke" if run_mode == "smoke" else base_name
@@ -622,6 +626,25 @@ def run_marginpush(run_mode: str, seed: int, device_arg: str, n_dim: int,
     V_cache = X.shape[0]
     print(f"[marginpush] teacher {cache_path.name}: {V_cache} x {X.shape[1]}d "
           f"({time.perf_counter() - t0:.1f}s)", flush=True)
+
+    # ---- corpus-scale subsample (FULL only): density x SCALE trajectory rung ----
+    # A FIXED corpus-selection RNG (independent of the model seed) picks the V_cap
+    # rows, so the corpus is IDENTICAL across model-seeds at a given scale -- the
+    # cross-seed CV then reflects seed-init/split variance, NOT corpus-draw variance.
+    # The existing per-seed perm below still splits train/held within the subsample
+    # (matching landed 177K behaviour). Cost is ~flat in V (steps/batch fixed; the
+    # held eval is O(n_he^2), n_he capped) so smaller rungs are cheap-or-cheaper.
+    v_effective = V_cache
+    if run_mode == "full" and v_cap is not None and v_cap < V_cache:
+        csub = np.random.default_rng(CORPUS_SUBSAMPLE_SEED).permutation(V_cache)[:v_cap]
+        csub.sort()
+        X = X[torch.from_numpy(csub.copy())].contiguous()
+        ids = [ids[i] for i in csub]
+        V_cache = X.shape[0]
+        v_effective = V_cache
+        print(f"[marginpush] V_cap={v_cap} -> corpus subsampled to {V_cache} "
+              f"(fixed corpus seed {CORPUS_SUBSAMPLE_SEED}; identical across model "
+              f"seeds at this scale) ({time.perf_counter() - t0:.1f}s)", flush=True)
 
     rng = np.random.default_rng(seed)
     perm = rng.permutation(V_cache)
@@ -826,6 +849,10 @@ def run_marginpush(run_mode: str, seed: int, device_arg: str, n_dim: int,
         "min_step_for_best": min_step_for_best,
         "j_iso": J_ISO, "j_composed": j_composed,
         "teacher_cache": cache_path.name, "teacher_n_concepts": V_cache,
+        "v_cap": v_cap, "v_effective": int(v_effective),
+        "corpus_subsample_seed": (CORPUS_SUBSAMPLE_SEED
+                                  if (run_mode == "full" and v_cap is not None)
+                                  else None),
         "n_train": n_tr, "n_held": n_he,
         "ship": ship,
         "per_m_full": per_m,
