@@ -1,0 +1,48 @@
+# Director BACKUP -- CURRENT STATE 2026-07-07 (clean; supersedes 2026-07-06)
+
+**Read end-to-end. Self-contained. The 07-06 + 07-05 docs hold detailed pre-07-07 history if needed.**
+
+## STEP 0 on pickup
+`date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp` (every turn-end).
+Then `python tools/inflight_monitor.py`. (Note: dashboard feed was flaky late-07-07 -> monitor falls back to SSH; bash recursive scans can hang on the huge store -- use PowerShell + targeted paths, avoid `find`/`glob **`.)
+
+## >>> LATEST STATE (2026-07-07 ~19:40Z -- READ FIRST) <<<
+**MODEL + EFFORT POLICY LOCKED (USER, banked in memory feedback_subagent_model_allocation_...):** research/drills=SONNET; exp_dev + skunkworks + orchestrator + testbed + memory_curator = OPUS; director=Opus. EFFORT: HIGH baseline; XHIGH for skunkworks + any headline/critical-path VET; MEDIUM for routine/mechanical orchestrator ops; MAX rare. PASS model+effort EXPLICITLY on every Agent dispatch (overrides the exp_dev skill's sonnet default). Haiku: NO current role (reasoning-critical work = redo-risk); niche = high-vol dead-simple verifiable triage (absent now); real efficiency lever = do mechanical work INLINE (scripts), not via any LLM agent.
+
+**THE CRITICAL PATH = ENCODER RETRIEVAL -> INGEST (the big prize).**
+- ENCODER: the semantic-vs-algebra TRADE-OFF is RESOLVED + shuffled-control-verified (MM+2, VET'd xhigh): one encoder holds dense-semantic spearman 0.89 + keyed-algebra 1.0 + clean shuffled-key control 0.0, non-trivial (1-in-17790, held-out). BUT (honest, xhigh-caught): it's a VERIFICATION of the 07-04 v3c INBATCH checkpoint, NOT fresh capability (the cell's 'ALREADY_SOLVED' over-reached); and INGEST IS NOT UNBLOCKED because the SHIP RETRIEVAL metric ret_agree10 = 0.18-0.27 < 0.30 (already-landed 5-seed MIDDLE_BAND) is the real remaining blocker. NAMED LEVER = the GSBC graded-code retrieval line (exp_encoder_gsbc_gradedcode_retrieval_v1) -> lift ret_agree10 past 0.30. **NOT YET DISPATCHED -- this is the top queued critical-path dispatch (exp_dev Opus).**
+- INGEST ARC STARTED (scoping note: research_ingest_arc_scoping_staged_plan_2026-07-07). Staged plan: Stage-0 ingest-verify (running now) -> N8 cert -> small BGE dogfood pilot -> encoder SCALE-TEST >=400K before trusting the 970K-entity production KB (encoder joint verified only at 177K = 18% of 970K -> untested scale gap). re-encode HELD (Stage 0 reuses committed ConceptNet, zero new ingest).
+
+**IN FLIGHT (all Opus):**
+- Stage-0 ingest-verify smoke (exp_dev ab362695) -- STRENGTHENED sanity-checks per USER ('sanity check the ingest'): must show ingest-arm PASS **and** NO-INGEST/scrambled-KB baseline FAIL (the gap is the proof, not the raw score), + multi-hop-not-lookup, + shuffled-2nd-hop collapse, + encoder-only leak-check; if any control doesn't fire = honest VACUOUS verdict not a pass. All arms persist to disk (VET off-disk). -> route to XHIGH Opus skunkworks VET on landing.
+- Resonator external-reset lever (exp_dev a4de2cb5, SECONDARY, P~0.25): Glauber relaxation + redundant-restart plurality-vote vs the recurrent-noise-compounding bound on the resonator K4; HARD-PASS = K4 plurality>=0.50 + failures scatter >=5 configs; HARD-FAIL = <=0.192 or restarts collapse (basin-measure trap).
+- Line-ending hygiene fix (orchestrator afd7349c): benign one-time CRLF->LF flip in the cert store made git diffs noisy (CONTENT-NULL, ZERO atom loss -- cert record was always fine). Real fix = renormalize-to-LF + .gitattributes `data/substrate_index/** text eol=lf` as ONE isolated commit. Internal plumbing -- keep it OFF the USER's desk.
+
+**NEXT-SESSION FIRST ACTIONS (priority order):**
+1. Check the 3 in-flight results (Stage-0 ingest -> XHIGH VET it; resonator; line-ending fix). VET off-disk (Fix#28).
+2. DISPATCH the encoder RETRIEVAL fix (GSBC graded-code -> ret_agree10 >0.30) = the true ingest unblock (exp_dev Opus high). This is THE critical-path move.
+3. Continue the ingest staged plan (Stage0 -> N8 cert -> dogfood -> scale-test) as each stage VETs.
+4. Secondary/queued: recurrent-noise Glauber lever (if resonator smoke clears); Marchenko-Pastur collision analysis at 970K (research Sonnet); ACF-transfer resonator rescue (low-pri).
+
+## KEY LESSONS THIS SESSION (banked to memory)
+- **Communication:** keep the USER at the STRATEGIC level; handle internal plumbing (git/queues/line-endings/dispatch) SILENTLY; NEVER write 'per your instruction' for a sub-agent action (false attribution). If broken, DO THE REAL FIX, don't defer. (feedback_dont_narrate_internal_agent_plumbing_...)
+- **GPU dispatch = orchestrator's job, NOT exp_dev.** A Sonnet exp_dev BELIEVED it staged a GPU FULL but never invoked queue_add (empty ship-attempt sentinel) -> silent 26h stall on the critical path. VERIFY THE REFERENT ARRIVED on the remote, don't trust an agent's 'staged' claim. Route overnight_queue/GPU dispatch via orchestrator.
+- **XHIGH VET on headline results earns its keep:** it caught that 'encoder joint solved' over-reached (it's a verification, and ingest is gated on RETRIEVAL not the trade-off) -- a leap I'd have propagated.
+- **RECURRENT-NOISE-COMPOUNDING bound is CONTRABLE not fundamental:** reasoning-depth survives multi-hop because each hop RE-CLEANS to an EXTERNAL codebook (regenerative digital repeater, p^D); the 3 failures (resonator basin-proliferation, autonomous-decomp compounding, cerebellar-rollout) iterate on their own noisy state with NO external reset -> compound. Fix = add external-reset/re-cleanup (Glauber+plurality, being tested). (research_noise_compounding_bound_deep_mechanism_2026-07-07)
+
+## CAPABILITY MAP (this session, skunkworks-tiered honestly)
+- SELF-MARGIN FRONTIER (complete + honestly bounded): 5 CHAIN_GRADE (RNS decode / FHRR capacity / reasoning-depth chain-survival / hard-comp order-recovery / **generation dup-class exact p1=n_distinct/V -- the PR-transfer HARD_FAIL rescued via the collision-count**); control-branching MM (product-law, semi-empirical); comprehension MIDDLE (PR); compositional-math 2xMM (add/sub exact to D128 + safe self-margin depth bound). Taxonomy (order-statistic/collision-count/product-law-chain) = DESCRIPTIVE reference NOT a certified predictive law -- held-out test on the resonator FALSIFIED CG_META (a 4th mechanism, basin-proliferation, outside the 3 families; not closed-form self-predictable this cycle). Memory: reference_self_margin_taxonomy_splits_by_decode_regime (amended descriptive-only).
+- SELF-AUDIT LADDER (the north-star, this session's big payoff): 4 rungs CANONICAL -- Tier-1 self-query MM / Tier-2 SOURCE-DIRECT MM (coverage 0.813 = 24.8x the retrieval ceiling, records SELF-CONSISTENT, 0 genuine unsupported) / Tier-3 global-consistency MM clean; 5th (justification-support) SMOKE-proven but canonically drift-limited (needs richer corpus). Retrieval-HARD_FAIL foreclosed content-addressable; the fix was retrieval-FREE source-direct (audit each cited number against its citing metrics.json).
+- MATH: arithmetic set complete + composes exact to D128 (MM). ENCODER (Stage 2): semantic solved (0.9 NCE=0), trade-off resolved, RETRIEVAL is the open blocker. BRAIN-COMPONENTS: arc CLOSED honestly -- NO proven consumer (cerebellum was top candidate, failed its consumer-proof; other 4 lack a present consumer). Stay on encoder/ingest.
+
+## WHAT THIS PROJECT IS
+hd-instrument: an observable VSA/HDC glass-box substrate. USER goal (locked): a fully-functional glass-box-LLM-capable substrate, every capability inspectable/editable, brain-grounded. Brain = north-star + existence-proof, NOT a vs-LLM comparison. Deep prize (north-star): the substrate REASONING ABOUT ITSELF (self-improvement / core-mathematics), pursued as NARROW glass-box MONITOR steps (monitor-not-control, never self-modifying).
+
+## USER-LOCKED (obey)
+NO AskUserQuestion. re-encode HELD. SMOKE-local / canonical FULL via remote queue (GPU=orchestrator's job). NEVER git add -A (explicit pathspec; Store is in-repo). Agent-spawn model (director=judgment/routing/verify; sub-agents do the work; default run_in_background). No-smoke (honest GOOD/MEDIOCRE/BAD tiers off-disk, skunkworks-owned). Fix#28 verify off-disk incl agent numbers. Intuitive strategic summaries at END. Drill negatives (2x, load-bearing 5x). Never stand -- keep lanes full + own the research lane. Model+effort policy above. Keep USER at strategic level (no plumbing narration).
+
+## INFRA/HAZARDS
+- queue_add: use tools/orchestrator/queue_add.sh (the .sh wrapper) for remote queues -- queue_add.py alone GATE_FAILs on remote. SCP-based, no origin push needed. queue_add.sh writes a ship-attempt sentinel + does post-ship remote verify (exit 5 on miss).
+- Store paths: atoms.jsonl / cert_ledger.jsonl ARE git-tracked (committed). Line-ending fix in flight (afd7349c). A5-gate on Store writes (atomic tmp->replace + verify-load + tail-integrity).
+- Opus weekly limit was hit 07-07 (Sonnet bypassed it) but USER cleared it -- no limit concern now.
+- Detailed pre-07-07 history: notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-06.md.
