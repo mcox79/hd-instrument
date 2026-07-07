@@ -1,1 +1,6 @@
 *.npz filter=lfs diff=lfs merge=lfs -text
+
+# Cert Store line-ending determinism: force git's canonical repo blob to LF for
+# the substrate index regardless of which writer (LF or CRLF) emits the file.
+# Kills the recurring whole-Store line-ending churn permanently (writer-independent).
+data/substrate_index/** text eol=lf
