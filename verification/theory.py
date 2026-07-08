@@ -156,3 +156,39 @@ def erase_floor_random_alpha_one(n_facts: int, n: int) -> tuple[float, float]:
     """
     expected = 1.0 / max(1, n_facts)
     return (0.0, max(0.1, 3.0 * expected))
+
+
+def compose_freq_delta_touch_contraction(lr: float) -> float:
+    """Per-touch L2 error contraction of a cf-RPE (delta-rule) associator update: (1 - lr).
+
+    The compose-freq-routing kernels are trained by the delta rule W <- W + lr*(tgt - W@ctx)@ctx^T.
+    For a unit-norm context (||ctx||=1), a single update on pair (ctx, tgt) scales the residual
+    (tgt - W@ctx) along the ctx direction by exactly (1 - lr): error_after = (1 - lr) * error_before.
+    So 0 < lr < 1 strictly contracts, lr = 1 fits in one step, 1 < lr < 2 contracts in magnitude
+    with sign flip. This is the trace-learning contraction the routed kernels inherit; it is the
+    cf-RPE selftest ST1 of the certified cell.
+    """
+    return 1.0 - float(lr)
+
+
+def compose_freq_single_kernel_crosstalk(rho: float, lr: float) -> float:
+    """First-order cross-talk a SINGLE shared delta-rule kernel suffers; routing removes it.
+
+    Compose-frequency routing (Stage-2 chain-grade, math CG atom
+    EXP_substrate_compose_freq_routing_v5_DEFINITIVE, 5-seed cross-N, 2026-06-25) trains two
+    kernels gated by target composition-frequency: W_freq on high-frequency targets, W_rare on
+    rare targets, then routes the readout per candidate by its frequency class. The load-bearing
+    reason it beats a single shared kernel: a delta update that fits a high-frequency pair
+    (ctx_h -> tgt_h) perturbs the prediction for a rare context ctx_r by
+
+        (W + lr*(tgt_h - W@ctx_h)@ctx_h^T) @ ctx_r  -  W@ctx_r  =  lr * <ctx_h, ctx_r> * residual_h
+
+    so the per-unit-residual cross-talk coefficient is lr * |rho| where rho = <ctx_h, ctx_r>. When
+    high-frequency targets have high in-degree (function-word-like: successors of many contexts)
+    they dominate the gradient, and this cross-talk corrupts rare-target predictions. Routing gives
+    rare targets their own kernel that never sees a high-frequency update, driving the coefficient
+    to 0. The advantage therefore REQUIRES context correlation (rho != 0): with orthonormal
+    contexts the coefficient is 0 and routing gives no benefit -- the discriminator is telemetry-
+    sensitive, not by-construction.
+    """
+    return float(lr) * abs(float(rho))
