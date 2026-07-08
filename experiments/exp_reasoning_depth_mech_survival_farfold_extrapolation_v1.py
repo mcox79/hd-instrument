@@ -345,8 +345,11 @@ def load_landed_levels(metrics_path):
 
 def generate_new_levels(ntest_targets, seeds, t0):
     """Reuse the VET'd keyslots generator (baseline arm) to MEASURE usable_depth at NEW higher-fill
-    provisioning levels (near + far). collT is the closed-form theoretical collision (computable a priori).
-    Returns {fill:{depth,collT,n_pts,uds}}."""
+    provisioning levels (near + far), PER SEED. collT is the closed-form theoretical collision (a priori,
+    seed-independent). Returns (pooled, per_seed_gen):
+      pooled       : {fill:{depth(=mean over seeds), collT, n_pts, uds, source}} -- headline curve
+      per_seed_gen : {seed:{fill:{depth(=that seed's single walk), collT, source}}} -- cross-seed robustness
+    The FIT is always on the fixed landed low folds; only these OOR test folds vary per seed (clean split)."""
     os.environ.setdefault("HDLAB_RUN_MODE", "full")
     repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if repo not in sys.path:
@@ -358,11 +361,12 @@ def generate_new_levels(ntest_targets, seeds, t0):
     base_arm = {"label": "baseline", "p_rel": BASELINE_P, "shards": 1, "shuffle": False, "reuse_base": True}
     assert KS.eff_key_capacity(BASELINE_P, 1) == BASELINE_CAP, "keyslots capacity drift (Gate D)"
 
-    levels = {}
+    pooled = {}
+    per_seed_gen = {sd: {} for sd in seeds}
     total = len(ntest_targets) * len(seeds)
     done = 0
     for nt in ntest_targets:
-        uds = []; ths = []; fill = None
+        uds = []; theo = None; fill = None
         for sd in seeds:
             cec = nt * D_MAX
             m_bg = max(0, int(round(1.0 * N_GEN)) - cec)   # MOVERN_FIXED=1.0 (MEASURED@keyslots)
@@ -373,17 +377,66 @@ def generate_new_levels(ntest_targets, seeds, t0):
             store, chain_edges, _ = KS.build_arm_store(base_arm, chains, m_bg, E, R, N_GEN, g)
             r = KS.walk_curve(chains, store, E, R, DEPTHS, lambda y: KS.argmax_clean(y, E))
             curve = {d: round(v, 4) for d, v in r["curve"].items()}
-            ud = KS.usable_depth(curve, DEPTHS, FLOOR)
-            theo = KS.theoretical_collision_frac(cec, BASELINE_CAP)
+            ud = int(KS.usable_depth(curve, DEPTHS, FLOOR))
+            theo = float(KS.theoretical_collision_frac(cec, BASELINE_CAP))  # seed-independent (a priori)
             fill = KS.eff_fill(nt, D_MAX, BASELINE_P, 1)
-            uds.append(int(ud)); ths.append(float(theo))
+            f = round(float(fill), 4)
+            per_seed_gen[sd][f] = {"depth": float(ud), "collT": theo, "source": "generated_seed"}
+            uds.append(ud)
             done += 1
             print("[gen] n_test=%d seed=%d fill=%.4f ud=%d collT=%.4f d1=%.3f (%d/%d, %.1fs)"
-                  % (nt, sd, fill, ud, theo, curve[1], done, total, time.perf_counter() - t0), flush=True)
+                  % (nt, sd, f, ud, theo, curve[1], done, total, time.perf_counter() - t0), flush=True)
         f = round(float(fill), 4)
-        levels[f] = {"depth": float(np.mean(uds)), "collT": float(np.mean(ths)),
+        pooled[f] = {"depth": float(np.mean(uds)), "collT": theo,
                      "n_pts": len(uds), "uds": uds, "source": "generated"}
-    return levels
+    return pooled, per_seed_gen
+
+
+def per_seed_margin_growth(landed_levels, per_seed_gen, train_fills, oor_fills):
+    """Compute the margin-growth analysis PER SEED (cross-seed robustness). Each seed reuses the FIXED
+    landed-low FIT folds + that seed's own OOR (near+far) telemetry (clean forward-split). Returns a list of
+    per-seed dicts + a cross-seed aggregation (frac of seeds where margin grows / all-far-beat / monotone,
+    median per-seed spearman, mean/std of far-minus-near margin)."""
+    rows = []
+    for sd in sorted(per_seed_gen.keys()):
+        levels_s = dict(landed_levels)
+        levels_s.update(per_seed_gen[sd])
+        oor_s = sorted([f for f in levels_s if f > OOR_SPLIT])
+        # require the same OOR fold-set the pooled headline uses (defensive)
+        if oor_s != list(oor_fills):
+            rows.append({"seed": sd, "error": "OOR_FOLD_SET_MISMATCH", "oor_seen": oor_s})
+            continue
+        out_s, _ = eval_split(levels_s, train_fills, oor_s)
+        mg_s = margin_growth_analysis(out_s, oor_s)
+        rows.append({
+            "seed": sd,
+            "per_fold_margin": mg_s["per_fold_margin_lookupErr_minus_mechErr"],
+            "near_margin_mean": mg_s["near_margin_mean"], "far_margin_mean": mg_s["far_margin_mean"],
+            "far_minus_near_margin": mg_s["far_minus_near_margin"],
+            "margin_grows": mg_s["margin_grows_far_gt_near"],
+            "all_far_beat_lookup": mg_s["all_far_folds_mech_beats_lookup"],
+            "spearman_fill_margin": mg_s["spearman_fill_margin"],
+            "monotone_growing_margin": mg_s["monotone_growing_margin"],
+        })
+    valid = [r for r in rows if "error" not in r]
+    n = len(valid)
+    if n == 0:
+        agg = {"n_seeds": 0, "error": "NO_VALID_PER_SEED_ROWS"}
+        return rows, agg
+    fmn = [r["far_minus_near_margin"] for r in valid if r["far_minus_near_margin"] is not None]
+    spr = [r["spearman_fill_margin"] for r in valid]
+    agg = {
+        "n_seeds": n,
+        "frac_seeds_margin_grows": float(np.mean([r["margin_grows"] for r in valid])),
+        "frac_seeds_all_far_beat_lookup": float(np.mean([r["all_far_beat_lookup"] for r in valid])),
+        "frac_seeds_monotone": float(np.mean([r["monotone_growing_margin"] for r in valid])),
+        "median_per_seed_spearman": float(np.median(spr)),
+        "min_per_seed_spearman": float(np.min(spr)),
+        "mean_far_minus_near_margin": float(np.mean(fmn)) if fmn else None,
+        "std_far_minus_near_margin": float(np.std(fmn)) if fmn else None,
+        "per_seed_far_minus_near": [round(float(v), 4) for v in fmn],
+    }
+    return rows, agg
 
 # ------------------------------------------------------------------ MARGIN-GROWTH ANALYSIS (task-primary)
 
@@ -436,10 +489,16 @@ def far_degeneracy_check(levels, oor_fills):
 
 # ------------------------------------------------------------------ VERDICT
 
-def verdict_logic(mg, deg, far_floored, c1_frac, c2_fires, n_oor, expected_oor):
+CROSS_SEED_FRAC = 0.8   # >= this fraction of seeds must show the property for cross-seed robustness
+
+def verdict_logic(mg, cs_agg, deg, far_floored, c1_frac, c2_fires, n_oor, expected_oor,
+                  n_seeds, expected_seeds):
     if n_oor < expected_oor:
         return "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H", (
             "cardinality breach: got %d out-of-range folds expected %d" % (n_oor, expected_oor))
+    if n_seeds < expected_seeds:
+        return "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H", (
+            "seed cardinality breach: got %d telemetry seeds expected %d" % (n_seeds, expected_seeds))
     if far_floored:
         return "GATE_FAIL_FAR_FOLDS_FLOORED", (
             "far-fold telemetry DEGENERATE: all far folds usable_depth < 1 (floored); "
@@ -449,38 +508,66 @@ def verdict_logic(mg, deg, far_floored, c1_frac, c2_fires, n_oor, expected_oor):
     all_far_pos = mg["all_far_folds_mech_beats_lookup"]
     monotone = mg["monotone_growing_margin"]
     c1_ok = bool(c1_frac >= 0.5)
-    msg = ("far_margin=%.3f near_margin=%.3f (far-near=%s) | all_far_beat_lookup=%s grows=%s monotone=%s "
-           "spearman=%.3f | C1=%s C2=%s"
+    # cross-seed robustness (the fix): majority of seeds must independently show the margin-growth signature
+    cs_grows = bool(cs_agg.get("frac_seeds_margin_grows", 0.0) >= CROSS_SEED_FRAC)
+    cs_all_far = bool(cs_agg.get("frac_seeds_all_far_beat_lookup", 0.0) >= CROSS_SEED_FRAC)
+    cs_median_spear = bool(cs_agg.get("median_per_seed_spearman", -1.0) > 0.0)
+    cross_seed_robust = bool(cs_grows and cs_all_far and cs_median_spear)
+    msg = ("POOLED far_margin=%.3f near_margin=%.3f (far-near=%s) all_far_beat=%s grows=%s monotone=%s "
+           "spearman=%.3f | CROSS-SEED n=%d frac_grows=%.2f frac_all_far=%.2f median_spear=%.3f robust=%s "
+           "| C1=%s C2=%s"
            % (mg["far_margin_mean"], mg["near_margin_mean"], mg["far_minus_near_margin"],
-              all_far_pos, grows, monotone, mg["spearman_fill_margin"], c1_ok, c2_fires))
-    # HARD_FAIL: the far-fold win was luck -- margin does not grow OR mech ties/loses at a far fold
+              all_far_pos, grows, monotone, mg["spearman_fill_margin"], cs_agg.get("n_seeds", 0),
+              cs_agg.get("frac_seeds_margin_grows", 0.0), cs_agg.get("frac_seeds_all_far_beat_lookup", 0.0),
+              cs_agg.get("median_per_seed_spearman", 0.0), cross_seed_robust, c1_ok, c2_fires))
+    # HARD_FAIL: the far-fold win was luck -- pooled margin does not grow OR mech ties/loses at a far fold
     if (not grows) or (not all_far_pos):
-        return "HARD_FAIL", ("FAR-FOLD WIN WAS 2-FOLD LUCK: margin does NOT grow with distance / mech "
+        return "HARD_FAIL", ("FAR-FOLD WIN WAS 2-FOLD LUCK: pooled margin does NOT grow with distance / mech "
                              "ties-or-loses lookup further out (escalate to percolation-critical-fill "
                              "regime-shift drill): " + msg)
-    # HARD_PASS: growing margin + every far fold positive + monotone + both controls
-    if grows and all_far_pos and monotone and c1_ok and c2_fires:
-        return "HARD_PASS", ("MECH-vs-LOOKUP MARGIN GROWS with extrapolation distance -- a-priori forward "
-                             "model genuinely generalizes further out-of-range: " + msg)
-    return "MIDDLE_BAND", ("margin grows AND all far folds beat lookup but not strictly monotone OR a "
+    # HARD_PASS: pooled growth + every far fold positive + monotone + CROSS-SEED robust + both controls
+    if grows and all_far_pos and monotone and cross_seed_robust and c1_ok and c2_fires:
+        return "HARD_PASS", ("MECH-vs-LOOKUP MARGIN GROWS with extrapolation distance AND holds across seeds "
+                             "-- a-priori forward model genuinely generalizes further out-of-range: " + msg)
+    if grows and all_far_pos and not cross_seed_robust:
+        return "MIDDLE_BAND", ("pooled margin grows AND all far folds beat lookup but the signature is "
+                               "CROSS-SEED FRAGILE (< %.0f%% of seeds) -- robustness caveat, scope UPGRADED "
+                               "not resolved: " % (100 * CROSS_SEED_FRAC) + msg)
+    return "MIDDLE_BAND", ("pooled margin grows AND all far folds beat lookup but not strictly monotone OR a "
                            "control did not fire -- partial firming, scope UPGRADED not resolved: " + msg)
 
 # ------------------------------------------------------------------ SELF-TEST mock (designed curved law)
 
-def gen_mock_levels(rng):
-    """Designed levels from a KNOWN curved mechanistic law (s0, kappa0>0). Flat nearest-lookup extrapolates
-    the boundary depth as a CONSTANT, so lookup_err GROWS monotonically with fill while the mech law tracks
-    the curve -> the mech-vs-lookup margin grows with distance (the far-fold-driven signature). Includes
-    NEAR (0.42/0.50/0.60) and FAR (0.65/0.72/0.80) OOR folds. SMOKE=FULL: same eval + verdict code."""
+N_MOCK_SEEDS = 5
+
+def gen_mock_data(rng, n_seeds=N_MOCK_SEEDS):
+    """Designed data from a KNOWN curved mechanistic law (s0, kappa0>0), UNIFIED per-seed flow matching the
+    real path. Flat nearest-lookup extrapolates the boundary depth as a CONSTANT, so lookup_err GROWS
+    monotonically with fill while the mech law tracks the curve -> the mech-vs-lookup margin grows with
+    distance (the far-fold-driven signature), independently per seed. Train folds (fill<=OOR_SPLIT) are the
+    FIXED fit envelope; OOR folds (near 0.42/0.50/0.60 + far 0.65/0.72/0.80) are drawn per seed.
+    Returns (pooled_levels, landed_levels, per_seed_gen) -- SMOKE=FULL: same eval + verdict + per-seed code."""
     s0, k0 = 0.55, 0.30
-    fills = [0.06, 0.09, 0.11, 0.15, 0.20, 0.28, 0.35, 0.42, 0.50, 0.60, 0.65, 0.72, 0.80]
-    levels = {}
-    for f in fills:
-        collT = min(0.86 * f, COLL_CAP)                  # monotone theoretical-collision proxy
-        base = mech_depth(collT, s0, k0)
-        d = float(np.clip(base + rng.normal(0.0, 0.15), 0.0, float(D_MAX)))
-        levels[round(f, 4)] = {"depth": d, "collT": collT, "n_pts": 5, "source": "mock"}
-    return levels
+    train_fills = [0.06, 0.09, 0.11, 0.15, 0.20, 0.28, 0.35]
+    oor_fills = [0.42, 0.50, 0.60, 0.65, 0.72, 0.80]
+    landed = {}
+    for f in train_fills:
+        collT = min(0.86 * f, COLL_CAP)
+        d = float(np.clip(mech_depth(collT, s0, k0) + rng.normal(0.0, 0.10), 0.0, float(D_MAX)))
+        landed[round(f, 4)] = {"depth": d, "collT": collT, "n_pts": n_seeds, "source": "mock"}
+    per_seed_gen = {si: {} for si in range(n_seeds)}
+    for si in range(n_seeds):
+        for f in oor_fills:
+            collT = min(0.86 * f, COLL_CAP)
+            d = float(np.clip(mech_depth(collT, s0, k0) + rng.normal(0.0, 0.15), 0.0, float(D_MAX)))
+            per_seed_gen[si][round(f, 4)] = {"depth": d, "collT": collT, "source": "mock_seed"}
+    pooled = dict(landed)
+    for f in oor_fills:
+        rf = round(f, 4)
+        uds = [per_seed_gen[si][rf]["depth"] for si in range(n_seeds)]
+        pooled[rf] = {"depth": float(np.mean(uds)), "collT": min(0.86 * f, COLL_CAP),
+                      "n_pts": n_seeds, "uds": uds, "source": "mock"}
+    return pooled, landed, per_seed_gen
 
 # ------------------------------------------------------------------ main
 
@@ -520,25 +607,29 @@ def main():
 
     gen_check = None
     if run_mode == "self_test":
-        levels = gen_mock_levels(rng)
+        levels, landed_levels, per_seed_gen = gen_mock_data(rng, N_MOCK_SEEDS)
+        seeds = list(range(N_MOCK_SEEDS))
         censored = []
-        data_source = "mock_synthetic_known_curved_law"
+        data_source = "mock_synthetic_known_curved_law_per_seed"
     else:
         mp = args.metrics_path or os.path.join(
             repo, "data", "exp_reasoning_depth_keyslots_sharding_v1", "metrics.json")
         if not os.path.exists(mp):
             raise SystemExit("ERROR: landed metrics not found: %s" % mp)
         levels, censored = load_landed_levels(mp)
+        landed_levels = dict(levels)   # snapshot the FIXED landed low-fold fit envelope (before merge)
         ntests = NEW_NTEST_SMOKE if run_mode == "smoke" else NEW_NTEST_FULL
         seeds = SEEDS_SMOKE if run_mode == "smoke" else SEEDS_FULL
-        new = generate_new_levels(ntests, seeds, t0)
-        for f, v in new.items():
+        new_pooled, per_seed_gen = generate_new_levels(ntests, seeds, t0)
+        for f, v in new_pooled.items():   # merge pooled (headline) generated folds
             levels[f] = v
-        gen_check = {"generated_fills": sorted(new.keys()),
+        gen_check = {"generated_fills": sorted(new_pooled.keys()), "n_telemetry_seeds": len(seeds),
+                     "telemetry_seeds": list(seeds),
                      "sane": all(0.0 <= v["depth"] <= D_MAX and 0.0 < v["collT"] < 1.0
-                                 for v in new.values())}
+                                 for v in new_pooled.values())}
         data_source = ("landed_plus_generated_near_far_smoke" if run_mode == "smoke"
                        else "landed_plus_generated_near_far_full")
+    expected_seeds = len(seeds)
 
     _write_start_marker(output_dir, run_mode, expected_n_units=EXPECTED_OOR_FOLDS)
 
@@ -581,9 +672,13 @@ def main():
     # PRIMARY: fit on landed low envelope; TEST on ALL OOR folds (near + far), no leakage
     oor_out, oor_params = eval_split(levels, train_fills, oor_fills)
 
-    # margin-growth (task-primary discriminator) + degeneracy guard
+    # margin-growth (task-primary discriminator; POOLED headline) + degeneracy guard
     mg = margin_growth_analysis(oor_out, oor_fills)
     deg, far_floored = far_degeneracy_check(levels, oor_fills)
+
+    # CROSS-SEED robustness (the fix): recompute the margin-growth PER SEED using the fixed landed FIT
+    # folds + each seed's own OOR telemetry. Establishes the signature is not a pooled-mean artifact.
+    per_seed_rows, cs_agg = per_seed_margin_growth(landed_levels, per_seed_gen, train_fills, oor_fills)
 
     # ROBUSTNESS: forward-split horizons over the FULL sorted landscape (context, not a gate)
     horizons = []
@@ -605,8 +700,9 @@ def main():
 
     arms_differ, identical_pairs, arm_digests = arms_must_differ(oor_out)
 
-    verdict, verdict_msg = verdict_logic(mg, deg, far_floored, c1_frac, c2_fires,
-                                         len(oor_fills), EXPECTED_OOR_FOLDS)
+    verdict, verdict_msg = verdict_logic(mg, cs_agg, deg, far_floored, c1_frac, c2_fires,
+                                         len(oor_fills), EXPECTED_OOR_FOLDS,
+                                         cs_agg.get("n_seeds", 0), expected_seeds)
 
     proposal = {
         "out_of_range_fills": oor_fills, "near_fills": mg["near_fills"], "far_fills": mg["far_fills"],
@@ -627,7 +723,9 @@ def main():
             mg["all_far_folds_mech_beats_lookup"], mg["monotone_growing_margin"], c1_fires, c2_fires,
             [round(f, 4) for f in oor_fills]),
         "elapsed_s": time.perf_counter() - t0, "run_mode": run_mode, "anchor_name": ANCHOR_NAME,
-        "data_source": data_source, "seed": args.seed,
+        "data_source": data_source, "control_rng_seed": args.seed,
+        "n_telemetry_seeds": expected_seeds, "telemetry_seeds": list(seeds),
+        "cardinality_seeds_ok": bool(cs_agg.get("n_seeds", 0) == expected_seeds),
         "out_of_range_split_fill": OOR_SPLIT, "near_far_split_fill": NEAR_FAR_SPLIT,
         "train_fills": train_fills, "out_of_range_fills": oor_fills, "far_fills": far_fills,
         "n_out_of_range_folds": len(oor_fills), "expected_out_of_range_folds": EXPECTED_OOR_FOLDS,
@@ -637,6 +735,8 @@ def main():
                                   "preds": v["preds"]} for k, v in oor_out.items()},
         "out_of_range_actual_depths": [round(levels[f]["depth"], 3) for f in oor_fills],
         "margin_growth_analysis": mg,
+        "per_seed_margin_growth": per_seed_rows,
+        "cross_seed_robustness": cs_agg,
         "far_degeneracy_check": deg, "far_folds_floored": far_floored,
         "law_params": oor_params,
         "forward_split_horizons": horizons,
@@ -676,6 +776,11 @@ def main():
         mg["monotone_growing_margin"], mg["spearman_fill_margin"]), flush=True)
     print("[mech_farfold] far_depths=%s floored=%s | C1=%s C2=%s" % (
         deg["far_actual_depths"], far_floored, c1_fires, c2_fires), flush=True)
+    print("[mech_farfold] CROSS-SEED n=%d frac_grows=%.2f frac_all_far_beat=%.2f median_spear=%.3f min_spear=%.3f mean(far-near)=%s per_seed(far-near)=%s" % (
+        cs_agg.get("n_seeds", 0), cs_agg.get("frac_seeds_margin_grows", 0.0),
+        cs_agg.get("frac_seeds_all_far_beat_lookup", 0.0), cs_agg.get("median_per_seed_spearman", 0.0),
+        cs_agg.get("min_per_seed_spearman", 0.0), cs_agg.get("mean_far_minus_near_margin"),
+        cs_agg.get("per_seed_far_minus_near")), flush=True)
 
     # SELF-TEST assertions (self_test mode): closed-form nesting + margin-growth signature + controls fire
     if run_mode == "self_test":
@@ -691,13 +796,21 @@ def main():
                 mg["per_fold_margin_lookupErr_minus_mechErr"])
         assert mg["monotone_growing_margin"], \
             "SMOKE_FAIL: margin not monotone-growing on mock (spearman=%.3f)" % mg["spearman_fill_margin"]
+        assert cs_agg.get("n_seeds", 0) == N_MOCK_SEEDS, \
+            "SMOKE_FAIL: per-seed path did not produce %d seeds (got %s)" % (N_MOCK_SEEDS, cs_agg.get("n_seeds"))
+        assert cs_agg["frac_seeds_margin_grows"] >= CROSS_SEED_FRAC, \
+            "SMOKE_FAIL: margin-grows not cross-seed robust on mock (frac=%.2f)" % cs_agg["frac_seeds_margin_grows"]
+        assert cs_agg["frac_seeds_all_far_beat_lookup"] >= CROSS_SEED_FRAC, \
+            "SMOKE_FAIL: all-far-beat not cross-seed robust on mock (frac=%.2f)" % cs_agg["frac_seeds_all_far_beat_lookup"]
+        assert cs_agg["median_per_seed_spearman"] > 0.0, \
+            "SMOKE_FAIL: median per-seed spearman not positive on mock (%.3f)" % cs_agg["median_per_seed_spearman"]
         assert c1_fires, "SMOKE_FAIL: Control-1 (scramble-mech-law) did not fire on mock"
         assert c2_fires, "SMOKE_FAIL: Control-2 (scramble-curve) did not fire on mock (|T|=%.3f p90=%.3f)" % (
             c2_detail["abs_T_real"], c2_detail["null_p90"])
         assert arms_differ, "SMOKE_FAIL: prediction arms not distinct (META_RULE_AF): %s" % identical_pairs
         assert verdict == "HARD_PASS", "SMOKE_FAIL: designed curved mock did not reach HARD_PASS (got %s)" % verdict
-        print("[mech_farfold] SELF-TEST ASSERTIONS PASSED: nesting + margin-grows + all-far-beat + monotone + controls.",
-              flush=True)
+        print("[mech_farfold] SELF-TEST ASSERTIONS PASSED: nesting + margin-grows + all-far-beat + monotone "
+              "+ CROSS-SEED(n=%d) robust + controls." % cs_agg.get("n_seeds", 0), flush=True)
 
 
 if __name__ == "__main__":

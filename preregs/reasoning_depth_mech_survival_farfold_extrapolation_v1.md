@@ -18,15 +18,15 @@ HYPOTHESIS: if the win is far-fold-driven, then extending to EVEN FURTHER out-of
 - TEST on ALL out-of-range folds: NEAR {0.4219, 0.5010, 0.5977} + FAR {0.6504, 0.7207, 0.7998}.
 - FAR folds MEASURED via the VET'd keyslots generator (baseline arm; Gate D positive control, `eff_key_capacity(8,1)=2048` asserted). n_test 74/82/91 -> fill 0.6504/0.7207/0.7998 (THEORETICAL@ eff_fill = n_test*18/2048).
 - Per-fold margin m(f) = lookup_err(f) - mech_err(f) (positive => mech beats lookup).
-- 5 seeds [7,17,23,31,41], N=8192.
+- 5 seeds [7,17,23,31,41], N=8192. Telemetry is generated + analyzed PER SEED (not pooled-then-analyzed): each seed's own OOR (near+far) walk is scored against the FIXED landed FIT folds, so the margin-growth signature is measured independently per seed and cross-seed robustness is established (NOT a pooled-mean artifact). Metrics.json writes n_telemetry_seeds, telemetry_seeds, per_seed_margin_growth (one row/seed), and cross_seed_robustness aggregation. (FIX 2026-07-08: the initial FULL landed collapsed the 5 seeds into per-fold means before analysis, so spearman=1.0 was over 6 fold-means not across seeds and no cross-seed robustness existed; refactored to per-seed.)
 
 ## Discriminator (task-primary)
-The mech-vs-lookup per-fold MARGIN GROWS with extrapolation distance. NEAR/FAR split at fill 0.62.
+The mech-vs-lookup per-fold MARGIN GROWS with extrapolation distance, POOLED and PER-SEED. NEAR/FAR split at fill 0.62.
 
 ## Pre-registered bands
-- HARD_PASS: mean far-margin > mean near-margin (margin grows) AND mech beats lookup at EVERY far fold (per-fold margin > 0) AND monotone (spearman(fill, margin) > 0 over all OOR folds) AND both firing controls fire. => a-priori forward model genuinely generalizes further out-of-range.
-- HARD_FAIL: margin does NOT grow (mean far-margin <= mean near-margin) OR mech ties/loses lookup at any far fold. => the +17.5% win was 2-fold luck (honest deflation); escalate to percolation-critical-fill regime-shift drill.
-- MIDDLE_BAND: margin grows AND all far folds beat lookup but not strictly monotone OR a control did not fire. Partial firming, scope UPGRADED not resolved.
+- HARD_PASS: (POOLED) mean far-margin > mean near-margin AND mech beats lookup at EVERY far fold (per-fold margin > 0) AND monotone (spearman(fill, margin) > 0) AND (CROSS-SEED) >= 80% of seeds show margin-grows AND >= 80% show all-far-beat-lookup AND median per-seed spearman(fill,margin) > 0 AND both firing controls fire. => a-priori forward model genuinely generalizes further out-of-range AND holds across seeds.
+- HARD_FAIL: pooled margin does NOT grow (mean far-margin <= mean near-margin) OR mech ties/loses lookup at any far fold. => the +17.5% win was 2-fold luck (honest deflation); escalate to percolation-critical-fill regime-shift drill.
+- MIDDLE_BAND: pooled margin grows AND all far folds beat lookup but CROSS-SEED FRAGILE (< 80% of seeds) OR not strictly monotone OR a control did not fire. Partial firming, scope UPGRADED not resolved.
 - GATE_FAIL_FAR_FOLDS_FLOORED: far telemetry degenerate (all far folds usable_depth < 1; dead telemetry cannot carry the test). MEASURED@ smoke: far_depths=[2.0,1.5,2.0] (2 seeds), NOT floored -> gate clears.
 
 ## Firing controls
@@ -55,5 +55,5 @@ Class (b) sequential-CPU with justification: the cell IS the reuse of the VET'd 
 - run_mode: no silent default; runner injects HDLAB_RUN_MODE=full (verify landed metrics run_mode==full post-dispatch)
 
 ## Smoke result (MEASURED@ data/exp_reasoning_depth_mech_survival_farfold_extrapolation_v1_smoke/metrics.json)
-- self_test: HARD_PASS (nesting + margin-grows + all-far-beat + monotone + both controls, all assertions pass)
-- smoke (2 seeds, real telemetry): HARD_PASS. margins=[-0.328, 0.187, 0.63, 0.815, 1.018, 1.203] for fills [0.42,0.50,0.60,0.65,0.72,0.80]; near_margin=0.163 far_margin=1.012 (far-near=0.849); monotone spearman=1.000; all far beat lookup; C1=True C2=True; far_depths=[2.0,1.5,2.0] NOT floored. Canonical verdict = 5-seed FULL on remote (per canon!=preview).
+- self_test: HARD_PASS (nesting + margin-grows + all-far-beat + monotone + CROSS-SEED n=5 robust [frac_grows=1.00, frac_all_far=1.00, median_spear=0.943, min_spear=0.886] + both controls; all assertions pass)
+- smoke (2 seeds, real telemetry): HARD_PASS. Pooled margins=[-0.328, 0.187, 0.63, 0.815, 1.018, 1.203] for fills [0.42,0.50,0.60,0.65,0.72,0.80]; near_margin=0.163 far_margin=1.012 (far-near=0.849); monotone spearman=1.000; all far beat lookup; CROSS-SEED n=2 frac_grows=1.00 frac_all_far=1.00 median_spear=0.971 per_seed(far-near)=[1.0023,0.849] both positive; C1=True C2=True; far_depths=[2.0,1.5,2.0] NOT floored. Canonical verdict = 5-seed FULL on remote (per canon!=preview); FULL metrics MUST show n_telemetry_seeds=5 + per_seed_margin_growth with 5 rows.
