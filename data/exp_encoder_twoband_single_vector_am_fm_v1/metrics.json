@@ -1,0 +1,415 @@
+{
+  "verdict": "HARD_FAIL_COSMETIC_SPLIT_BOTH_BANDS_SAME",
+  "verdict_msg": "HARD_FAIL_COSMETIC_SPLIT_BOTH_BANDS_SAME | AM+FM ON ONE WIRE: can ONE N=4096-dim vector, dimensions PARTITIONED into a VICReg-decorrelated BUNDLING band (first 2048) + an RKD-distilled DETAIL band (rest), read CONDITIONALLY per task, achieve BOTH high superposition AND high pointwise from ONE vector at the frontier's N budget (half the two-head's 2N)? HEADLINE twoband_shared @frac0.5: band_B SP_wta@J5=0.961 (hit>=0.83:True) + band_D SC_dense@a1.2=1.000 (hit>=0.9:True) -> achieves_both=True joint=1.111. SPLIT-REAL (anti-cosmetic cross-read): band_D-for-superposition SP=0.896 (gap +0.066>= 0.2?) ; band_B-for-pointwise SC=0.985 (gap +0.015>= 0.1?) -> split_real=False. FRONTIER (single code, dual readout, N budget, provably can't do both): singlecode_native(SP0.99/SC1.00=BOTH) singlecode_distill(SP0.93/SC1.00=BOTH); frontier_both=True (best_joint=1.111). CEILINGS: twoband_split_trunk(SP0.96/SC1.00 joint1.11=BOTH) twohead_2N(SP0.98/SC1.00 joint1.11=BOTH). cache=bge_large_v2_name_177899_54f7cf6a.npz. INTERPRETATION: achieves_both numerically but the cross-read gaps are too small -> the split is COSMETIC (both bands carry the same content); not a real two-band decoupling.",
+  "summary": "HARD_FAIL_COSMETIC_SPLIT_BOTH_BANDS_SAME: two-band single-vector AM+FM encoder (smoke)",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "elapsed_s": 698.4144130999921,
+  "ts_iso": "2026-07-08T14:03:41.321209+00:00",
+  "anchor_name": "encoder_twoband_single_vector_am_fm_v1",
+  "cache_source": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units": 3,
+  "arms_differ_verified": true,
+  "baseline_in_band": true,
+  "classification": {
+    "verdict": "HARD_FAIL_COSMETIC_SPLIT_BOTH_BANDS_SAME",
+    "headline": {
+      "arm": "twoband_shared",
+      "band_frac_B": 0.5,
+      "sp_B": 0.9613333333333335,
+      "sc_D": 1.0,
+      "sp_D": 0.8957333333333333,
+      "sc_B": 0.9853333333333333,
+      "sp_hit": true,
+      "sc_hit": true,
+      "both": true,
+      "joint": 1.1111111111111112,
+      "cross_sp_gap": 0.06560000000000021,
+      "cross_sc_gap": 0.014666666666666717,
+      "split_real": false
+    },
+    "ceilings": {
+      "twoband_split_trunk": {
+        "sp": 0.9626666666666667,
+        "sc": 1.0,
+        "both": true,
+        "joint": 1.1111111111111112
+      },
+      "twohead_2N": {
+        "sp": 0.984,
+        "sc": 0.9986666666666667,
+        "both": true,
+        "joint": 1.1096296296296297
+      }
+    },
+    "frontier": {
+      "singlecode_native": {
+        "sp": 0.9927999999999999,
+        "sc": 0.9986666666666667,
+        "both": true,
+        "joint": 1.1096296296296297
+      },
+      "singlecode_distill": {
+        "sp": 0.932,
+        "sc": 1.0,
+        "both": true,
+        "joint": 1.1111111111111112
+      }
+    },
+    "frontier_both": true,
+    "best_frontier_joint": 1.1111111111111112,
+    "thresholds": {
+      "SP_HI": 0.83,
+      "SC_HI": 0.9,
+      "MIDDLE_TOL": 0.05,
+      "CROSS_SP_GAP": 0.2,
+      "CROSS_SC_GAP": 0.1
+    },
+    "ratio_sweep": {
+      "twoband_shared": {
+        "0.5": {
+          "sp_B_op": 0.9613333333333335,
+          "sc_D_op": 1.0,
+          "n_b": 2048
+        }
+      },
+      "twoband_split_trunk": {
+        "0.5": {
+          "sp_B_op": 0.9626666666666667,
+          "sc_D_op": 1.0,
+          "n_b": 2048
+        }
+      }
+    }
+  },
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2,
+    "GATE_FRAC": 0.5
+  },
+  "bands": {
+    "SP_HI": 0.83,
+    "SC_HI": 0.9,
+    "MIDDLE_TOL": 0.05,
+    "CROSS_SP_GAP": 0.2,
+    "CROSS_SC_GAP": 0.1,
+    "GAMMA_VAR": 1.0,
+    "MU_VIC": 1.0,
+    "NU_VIC": 1.0,
+    "LAMBDA_D": 1.0
+  },
+  "arms_config": [
+    {
+      "name": "twoband_shared",
+      "kind": "twoband",
+      "shared": true,
+      "lambda_d": 1.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "twoband_split_trunk",
+      "kind": "twoband",
+      "shared": false,
+      "lambda_d": 1.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "twohead_2N",
+      "kind": "twohead",
+      "shared": true,
+      "lambda_d": 1.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "singlecode_native",
+      "kind": "singlecode",
+      "lambda_d": 0.0,
+      "mu": 1.0,
+      "nu": 1.0
+    },
+    {
+      "name": "singlecode_distill",
+      "kind": "singlecode",
+      "lambda_d": 1.0,
+      "mu": 0.0,
+      "nu": 0.0
+    },
+    {
+      "name": "teacher_bge",
+      "kind": "teacher"
+    },
+    {
+      "name": "native_untrained",
+      "kind": "untrained"
+    }
+  ],
+  "regime": {
+    "N": 4096,
+    "H": 512,
+    "V": 1500,
+    "iters": 120,
+    "B": 768,
+    "lr": 0.001,
+    "Js": [
+      1,
+      5
+    ],
+    "alphas": [
+      0.0,
+      1.2
+    ],
+    "nq": 250,
+    "sep_sample": 800,
+    "band_fracs": [
+      0.5
+    ]
+  },
+  "agg": {
+    "n_seeds": 3,
+    "arms": {
+      "twoband_shared": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.9613333333333335
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.8957333333333333
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9853333333333333
+        },
+        "sep_B_wta_mean": 0.08403266221284866,
+        "sep_D_dense_mean": 0.5151280959447225,
+        "sp_B_op_per_seed": [
+          0.9800000000000001,
+          0.9735999999999999,
+          0.9304000000000001
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "sp_B_op_cv": 0.022914703387587613
+      },
+      "twoband_split_trunk": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.9626666666666667
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.8570666666666668
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9973333333333333
+        },
+        "sep_B_wta_mean": 0.11967277030150096,
+        "sep_D_dense_mean": 0.5139858722686768,
+        "sp_B_op_per_seed": [
+          0.9728,
+          0.956,
+          0.9592
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "sp_B_op_cv": 0.007565928135040259
+      },
+      "twohead_2N": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.984
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.9693333333333335
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9986666666666667
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 0.992
+        },
+        "sep_B_wta_mean": 0.10904451211293538,
+        "sep_D_dense_mean": 0.515260914961497,
+        "sp_B_op_per_seed": [
+          0.9944,
+          0.9688,
+          0.9888000000000001
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          0.996,
+          1.0
+        ],
+        "sp_B_op_cv": 0.01116715326722847
+      },
+      "singlecode_native": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.9927999999999999
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.9927999999999999
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9986666666666667
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9986666666666667
+        },
+        "sep_B_wta_mean": 0.11403705676396687,
+        "sep_D_dense_mean": 0.42098183433214825,
+        "sp_B_op_per_seed": [
+          0.9944,
+          0.9904000000000001,
+          0.9936
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          1.0,
+          0.996
+        ],
+        "sp_B_op_cv": 0.0017407307812000337
+      },
+      "singlecode_distill": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.932
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.932
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sep_B_wta_mean": 0.22167054812113443,
+        "sep_D_dense_mean": 0.5137137373288473,
+        "sp_B_op_per_seed": [
+          0.88,
+          0.9703999999999999,
+          0.9456
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "sp_B_op_cv": 0.040920595550485626
+      },
+      "teacher_bge": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.9586666666666668
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.9586666666666668
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sep_B_wta_mean": 0.24043783048788706,
+        "sep_D_dense_mean": 0.5129843155543009,
+        "sp_B_op_per_seed": [
+          0.9464000000000001,
+          0.964,
+          0.9656
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "sp_B_op_cv": 0.009073438904200261
+      },
+      "native_untrained": {
+        "sp_B_mean": {
+          "1": 1.0,
+          "5": 0.9837333333333333
+        },
+        "sp_D_mean": {
+          "1": 1.0,
+          "5": 0.9837333333333333
+        },
+        "sc_D_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sc_B_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sep_B_wta_mean": 0.17581353584925333,
+        "sep_D_dense_mean": 0.5153159047694055,
+        "sp_B_op_per_seed": [
+          0.9744,
+          0.9904000000000001,
+          0.9864
+        ],
+        "sc_D_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "sp_B_op_cv": 0.006911113463801558
+      }
+    },
+    "ratio_sweep": {
+      "twoband_shared": {
+        "0.5": {
+          "sp_B_op": 0.9613333333333335,
+          "sc_D_op": 1.0,
+          "n_b": 2048
+        }
+      },
+      "twoband_split_trunk": {
+        "0.5": {
+          "sp_B_op": 0.9626666666666667,
+          "sc_D_op": 1.0,
+          "n_b": 2048
+        }
+      }
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ]
+}
