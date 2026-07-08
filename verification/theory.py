@@ -116,6 +116,37 @@ def fhrr_bsc_capacity_ratio() -> float:
     return 2.52
 
 
+def lock_in_snr_gain(t_int: int) -> float:
+    """Coherent-integration SNR gain of a phase-sensitive (lock-in) readout: sqrt(t/2).
+
+    Lock-in demodulation multiplies the received amplitude-modulated signal by the reference
+    carrier and integrates over t samples with the (2/t) normalization. The signal adds
+    coherently (each sample contributes v*cos^2) while zero-mean noise adds incoherently
+    (variance shrinks as 1/t after the carrier weighting). Net effect: output noise std is
+    sqrt(2/t)*sigma, so SNR_out = SNR_in * sqrt(t/2). This is the certified sqrt(t) physics
+    (Stage-2 lock_in_amp_phase_diagram v2, 3-seed chain-grade, 2026-06-28): integrating longer
+    lifts effective SNR into the substrate-readable band exactly where single-sample readout fails.
+    """
+    if t_int < 1:
+        raise ValueError(f"lock_in_snr_gain: t_int must be >= 1; got {t_int}")
+    return math.sqrt(t_int / 2.0)
+
+
+def lock_in_cos2_norm(t_int: int, freq: float) -> float:
+    """(2/t) * sum_p cos^2(2*pi*freq*p) for p in 0..t-1; ~1.0 for freq off DC and Nyquist.
+
+    This is the coherent-signal normalization factor of the lock-in readout: with it the clean
+    (sigma=0) demodulation reconstructs the transmitted vector exactly (decoded = factor * v,
+    factor -> 1). At the certified operating point freq=0.1 the factor equals 1.0 to machine
+    precision for t in {10, 100, 1000, 10000}.
+    """
+    if t_int < 1:
+        raise ValueError(f"lock_in_cos2_norm: t_int must be >= 1; got {t_int}")
+    p = list(range(t_int))
+    s = sum(math.cos(2.0 * math.pi * freq * k) ** 2 for k in p)
+    return (2.0 / t_int) * s
+
+
 def erase_floor_random_alpha_one(n_facts: int, n: int) -> tuple[float, float]:
     """At alpha=1 with orthogonal random keys, Method B leak rate should be at the
     floor: argmax-over-bank of a near-zero retrieved vector is random.
