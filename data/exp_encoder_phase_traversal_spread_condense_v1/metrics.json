@@ -1,0 +1,286 @@
+{
+  "verdict": "HARD_FAIL_REDUCES_TO_QE1_BETA_KNOB",
+  "verdict_msg": "HARD_FAIL_REDUCES_TO_QE1_BETA_KNOB | PHASE-TRAVERSAL: store in a SPREAD/decorrelated phase (SP high), retrieve by a REAL structural CONDENSATION operator (recover pointwise SC) from ONE stored code. HEADLINE phase_traversal: native-spread SP@J5=0.977 (hit>=0.83:True) + condensed SC@a1.2=0.538 (hit>=0.9:False) -> achieves_both=False joint=0.598. STRUCTURAL-GAIN (vs beta-knob ceiling spread_static SC=0.887) = -0.348 (>= 0.15:False). FRONTIER corners: spread_static(SP0.98/SC0.89) semantic_static(SP0.95/SC1.00). ORACLE ceiling (decoupled): SP0.98/SC1.00 both=True. ENRICH localizers: phase_traversal_clean(SC0.56,dSC-0.33) phase_traversal_dense(SC0.99,dSC+0.11). cache=bge_large_v2_name_177899_54f7cf6a.npz. INTERPRETATION: the structural condensation gained ~nothing over the STATIC raw-spread readout -> it reduces to the QE-1 beta-knob no-op (a monotonic-rescale cannot change argmax); the operator must transform the geometry, not the scoring. Re-spec the condensation form.",
+  "summary": "HARD_FAIL_REDUCES_TO_QE1_BETA_KNOB: phase-traversal spread-store / condense-retrieve encoder (smoke)",
+  "run_mode": "smoke",
+  "device": "cpu",
+  "elapsed_s": 1857.331180100009,
+  "ts_iso": "2026-07-08T14:01:40.123326+00:00",
+  "anchor_name": "encoder_phase_traversal_spread_condense_v1",
+  "cache_source": "bge_large_v2_name_177899_54f7cf6a.npz",
+  "cardinality_ok": true,
+  "expected_n_units": 3,
+  "n_units": 3,
+  "arms_differ_verified": true,
+  "arm_collisions": [],
+  "arms_differ_exempt": [
+    [
+      "oracle",
+      "semantic_static"
+    ]
+  ],
+  "baseline_in_band": true,
+  "classification": {
+    "verdict": "HARD_FAIL_REDUCES_TO_QE1_BETA_KNOB",
+    "headline": {
+      "arm": "phase_traversal",
+      "sp": 0.977,
+      "sc": 0.5383333333333333,
+      "sc_static": 0.8866666666666667,
+      "structural_gain": -0.3483333333333334,
+      "sp_hit": true,
+      "sc_hit": false,
+      "struct_ok": false,
+      "both": false,
+      "joint": 0.5981481481481481
+    },
+    "enrich": {
+      "phase_traversal_clean": {
+        "sp": 0.977,
+        "sc": 0.5558333333333333,
+        "struct_gain": -0.3308333333333334
+      },
+      "phase_traversal_dense": {
+        "sp": 0.977,
+        "sc": 0.9933333333333333,
+        "struct_gain": 0.10666666666666658
+      }
+    },
+    "frontier": {
+      "spread_static": {
+        "sp": 0.977,
+        "sc": 0.8866666666666667
+      },
+      "semantic_static": {
+        "sp": 0.9471666666666668,
+        "sc": 1.0
+      }
+    },
+    "oracle": {
+      "sp": 0.977,
+      "sc": 1.0,
+      "both": true
+    },
+    "thresholds": {
+      "SP_HI": 0.83,
+      "SC_HI": 0.9,
+      "MIDDLE_TOL": 0.05,
+      "STRUCT_MARGIN": 0.15
+    }
+  },
+  "operating_points": {
+    "J_OP": 5,
+    "ALPHA_OP": 1.2
+  },
+  "bands": {
+    "SP_HI": 0.83,
+    "SC_HI": 0.9,
+    "MIDDLE_TOL": 0.05,
+    "STRUCT_MARGIN": 0.15,
+    "LAMBDA_D": 1.0
+  },
+  "arms_config": [
+    {
+      "name": "phase_traversal",
+      "kind": "condense",
+      "input": "wta_sign",
+      "noise_aug": true
+    },
+    {
+      "name": "phase_traversal_clean",
+      "kind": "condense",
+      "input": "wta_sign",
+      "noise_aug": false
+    },
+    {
+      "name": "phase_traversal_dense",
+      "kind": "condense",
+      "input": "dense",
+      "noise_aug": true
+    },
+    {
+      "name": "spread_static",
+      "kind": "static_spread"
+    },
+    {
+      "name": "semantic_static",
+      "kind": "static_semantic"
+    },
+    {
+      "name": "oracle",
+      "kind": "oracle"
+    }
+  ],
+  "regime": {
+    "N": 4096,
+    "Din": 1024,
+    "V": 8000,
+    "iters": 300,
+    "B": 1536,
+    "lr": 0.001,
+    "Js": [
+      1,
+      5
+    ],
+    "alphas": [
+      0.0,
+      1.2
+    ],
+    "nq": 400,
+    "sep_sample": 1500
+  },
+  "agg": {
+    "n_seeds": 3,
+    "arms": {
+      "phase_traversal": {
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.5383333333333333
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          0.5375,
+          0.5475,
+          0.53
+        ],
+        "train_loss_mean": 0.0013043797419716914,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.013316292983038092
+      },
+      "phase_traversal_clean": {
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.5558333333333333
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          0.5875,
+          0.5325,
+          0.5475
+        ],
+        "train_loss_mean": 0.0005525248513246576,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.041764282690207294
+      },
+      "phase_traversal_dense": {
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.9933333333333333
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          0.995,
+          0.9925,
+          0.9925
+        ],
+        "train_loss_mean": 0.002726094021151463,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.0011864207738029068
+      },
+      "spread_static": {
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 0.8866666666666667
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          0.9075,
+          0.8825,
+          0.87
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.017582976441606862
+      },
+      "semantic_static": {
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.9471666666666668
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sep_store_mean": 0.23997662961483002,
+        "sp_op_per_seed": [
+          0.9480000000000001,
+          0.9515,
+          0.9420000000000001
+        ],
+        "sc_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.004141686537371025,
+        "sc_op_cv": 0.0
+      },
+      "oracle": {
+        "sp_mean": {
+          "1": 1.0,
+          "5": 0.977
+        },
+        "sc_mean": {
+          "0.0": 1.0,
+          "1.2": 1.0
+        },
+        "sep_store_mean": 0.17411812643210092,
+        "sp_op_per_seed": [
+          0.975,
+          0.9754999999999999,
+          0.9805000000000001
+        ],
+        "sc_op_per_seed": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "train_loss_mean": null,
+        "sp_op_cv": 0.002541737363656071,
+        "sc_op_cv": 0.0
+      }
+    }
+  },
+  "seeds": [
+    7,
+    13,
+    19
+  ]
+}
