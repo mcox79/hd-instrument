@@ -573,7 +573,15 @@ def _train_student_v11(
             ck = torch.load(str(ckpt_path), map_location=device)
             student.load_state_dict(ck["student"])
             opt.load_state_dict(ck["opt"])
-            gen.set_state(ck["gen_state"])
+            # RESUME-SYMMETRY FIX: save stores gen.get_state() (a CPU uint8
+            # ByteTensor), but torch.load(map_location=device) moves EVERY
+            # checkpoint tensor onto the compute device -- on GPU that makes
+            # gen_state a CUDA tensor, which a CPU torch.Generator.set_state()
+            # rejects ("RNG state must be a torch.ByteTensor"). Coerce back to a
+            # CPU uint8 ByteTensor so restore is symmetric with get_state() on
+            # any device. (Verified: .to('cpu', torch.uint8) preserves the RNG
+            # stream bit-identically; torch 2.12.)
+            gen.set_state(ck["gen_state"].to("cpu", torch.uint8))
             start_step = int(ck["step"])
             dense_traj = list(ck.get("dense_traj", []))
             best_state["score"] = float(ck.get("best_score", -2.0))
