@@ -260,12 +260,17 @@ def _paired_significance(full_old_list, nc_old_list):
     }
 
 
-def compute_verdict(units):
+def compute_verdict(units, expected_n=None):
+    # expected_n defaults to the ambient EXPECTED_N_UNITS (FULL=8 / smoke=3), but the embedded
+    # _selftest passes it EXPLICITLY (len(SMOKE_SEEDS)) so the self-test's cardinality check does NOT
+    # inherit FULL's EXPECTED_N_UNITS=8 when _selftest runs on the no-flag FULL __main__ path.
+    if expected_n is None:
+        expected_n = EXPECTED_N_UNITS
     if not units:
         return ("HARD_FAIL", "no results", {}, [])
-    if len(units) < EXPECTED_N_UNITS:
+    if len(units) < expected_n:
         return ("HARD_FAIL_CARDINALITY_BREACH_META_RULE_H",
-                "cardinality breach: got %d units, expected %d" % (len(units), EXPECTED_N_UNITS), {}, [])
+                "cardinality breach: got %d units, expected %d" % (len(units), expected_n), {}, [])
 
     def col(arm, key):
         return [u["per_arm"][arm][key] for u in units]
@@ -408,8 +413,11 @@ def _selftest():
     # (3) verdict pipeline end-to-end at reduced-regime 3-seed smoke (proves compute_verdict + gates).
     units = [run_unit(sd, d=d, t_stream=t, n_epoch=e, decay=dec, v=v, budget_b=bud, cue_rho=rho)
              for sd in SMOKE_SEEDS]
-    # temporarily assert cardinality against the smoke set (EXPECTED_N_UNITS is smoke=3 under --self-test).
-    vv, msg, det, claims = compute_verdict(units)
+    # Pass expected_n EXPLICITLY = len(SMOKE_SEEDS). _selftest runs UNCONDITIONALLY (also on the no-flag
+    # FULL __main__ path, where the ambient EXPECTED_N_UNITS=8); building the verdict over 3 smoke units
+    # would otherwise trip the cardinality breach (3<8) -> det={} -> the primary-metric assert below would
+    # crash BEFORE main(). Explicit smoke cardinality keeps the self-test valid on BOTH paths.
+    vv, msg, det, claims = compute_verdict(units, expected_n=len(SMOKE_SEEDS))
     assert vv in ("HARD_PASS", "MIDDLE_BAND", "HARD_FAIL", "HARD_FAIL_CARDINALITY_BREACH_META_RULE_H"), "verdict %s" % vv
     assert "PRIMARY_ca3_completion_lift" in det, "detail missing primary metric"
     assert len(claims) == 4, "expected 4 structured gate claims"
