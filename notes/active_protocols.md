@@ -864,3 +864,49 @@ Evidence: I-17 R3 (exp_dev) matvec=50 gave trace=1.3e-2 WORSE than matvec=3 resu
 ```
 PROT-022 compliance: formula <name> selftest cells checked; predicted=<X> actual=<Y>; gate written as <formula>; OR no registry formula applies to this spec.
 ```
+
+---
+
+## PROT-023 — Store is source-of-truth: anchor-keyed atomization + store-query-before-dispatch
+
+- **Status**: active (approved 2026-07-07 by meta_audit sub-agent after a real
+  near-miss: a forward-map drill flagged the refuse-gate 1D->2D controller as an
+  OPEN load-bearing gap when `refuse_gate_v9_joint_alpha_sigma_surface_controller_v1`
+  had already landed HARD_PASS 2026-07-02. exp_dev's concept-query caught the
+  rediscovery before a duplicate shipped. Audit: `notes/meta_audit_2026-07-07.md`.)
+- **Applies to**: (a) hdi_skunkworks / any agent that writes cert_ledger atoms;
+  (b) Orchestrator + Director (any dispatch of a new load-bearing capability build)
+- **Trigger**: (a) every cert_ledger.jsonl atomization; (b) every dispatch of a new
+  capability-building experiment
+- **Per-atom / per-dispatch, always-on**
+
+**Root failure this plugs**: the cert store is the ONLY canonical record of
+"what's implemented." PROGRESS.md and substrate_capability_map.md are hand-maintained
+LAGGING snapshots (both missed the v9 refuse-gate). Two structural gaps let this recur:
+(1) 92% of ledger atoms carry no `anchor` field, so landed-vs-ledger reconciliation is
+mechanically impossible; (2) the store-query safeguard is only enforced at exp_dev
+authoring, not at Director dispatch.
+
+**Clause (a) — anchor-keyed atomization**: every cert_ledger atom MUST populate a
+non-empty `anchor` field AND a `cell_commit` field identifying the producing experiment.
+The atomization step rejects (or flags for backfill) any atom lacking either. This makes
+landed-cells-vs-ledger reconciliation possible; without it, the invisible-result rate is
+unmeasurable (audit Section 2).
+
+**Clause (b) — store-query-before-DISPATCH**: before dispatching any NEW load-bearing
+capability build, the Director/Orchestrator MUST run a store query
+(`tools/director_kb_query.py` cosine>0.30 AND a grep on distinctive mechanism tokens —
+the query encoder is char_trigram_v1/lexical and misses paraphrases). If a matching atom
+exists, reconcile explicitly (build-on / supersede / skip) BEFORE shipping. This elevates
+the exp_dev-authoring safeguard to the dispatch gate. NEVER decide build/no-build from
+PROGRESS.md or cap_map — they lag the store.
+
+**Adherence marker**:
+```
+PROT-023 compliance: (a) atom written with anchor=<x> cell_commit=<hash>;
+(b) store-query run before dispatch — <N> matches above 0.30 / grep clear; reconciled.
+```
+
+**Related tooling recommendations (NOT protocol, for exp_dev/skunkworks)**: auto-regen
+PROGRESS.md/cap_map tier tallies FROM the store on a nightly cadence; add a weekly
+landed-vs-ledger reconciliation tripwire (unblocked once clause (a) reaches coverage).

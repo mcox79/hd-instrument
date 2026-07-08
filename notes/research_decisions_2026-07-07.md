@@ -83,3 +83,29 @@
 
 - 2026-07-07 (research): brain-structure->consumer re-map post-ingest-live -> notes/research_brain_structure_consumer_remap_post_ingest_live_2026-07-07.md -- CLS-consolidation classic interference-avoidance flavor REFUTED as an ingest consumer (discrete graph-store write, no shared weights, 2 lit-scans confirm); schema-extraction flavor deferred to Stage 4, not live; overall brain-component ranking UNCHANGED, top build stays cerebellar SR-rollout for basal-ganglia gate depth-degradation.
 - resonator reachability ceiling: restart-budget problem at K=4 (p_basin~0.15, R~19 for 0.95), K-dependent wall (clustering/OGP) unresolved -> notes/research_resonator_reachability_ceiling_2026-07-07.md
+- density x scale sweep design (m*(N) prediction for 970K GSBC retune): 3 lit-scans found no single closed-form law -- JL/Larsen-Nelson (mild ~14% growth), Willshaw/Palm (predicts ~halving), Knoblauch-Palm-Sommer (predicts ~2.7x growth); consistent with row-10 RESISTOR precedent. New finding: cross-seed CV on the already-landed marginpush data is U-shaped (tight at m5, wide at m3/m8) -- an early-warning cliff signature. Designed a cheap 4-rung adaptive sweep (50K/100K free, 177,899 existing, ~400K folds into Stage-3) with dual-form fitting + pre-registered validation. Marginal new cost ~30-50 min idle GPU. -> notes/research_density_scale_sweep_design_970k_extrapolation_2026-07-07.md
+
+- 2026-07-07 (go/no-go scoping, multi-hop composition gap, 3-result synthesis): tested whether
+  per-hop re-cleaning + the newly-unblocked encoder can close the N8/June-19 ConceptNet composition
+  HARD_FAIL (substrate Hits@10=0.451 < BGE 0.502). REFUTED by direct code read: the June-19 cell
+  ALREADY does hard per-hop argmax cleanup against the full entity codebook (`substrate_scores()`) --
+  the "add re-cleaning" lever is not new, it was already running and lost. Root cause decomposed to
+  TWO independent, lit-confirmed causes instead: (1) branching factor -- ConceptNet's transitive
+  relations are high-out-degree "to-many" edges, and the cell uses single hard argmax (no beam),
+  exactly the brittle configuration MINERVA/MultiHopKG literature flags (to-many relations degrade
+  "regardless of model"; beam search is the standard fix, untried here); (2) representational
+  asymmetry -- substrate entity codes are pure random RNG (zero semantic content) vs BGE's pretrained
+  distributional semantics, a well-established (>10yr) asymmetry in the KG-completion literature that
+  explains why even TRIVIAL (shallow) edges also lose (-0.405), not just deep ones. Also confirmed via
+  code read that N8's own "36.5x" composition ratio is NOT contradictory evidence -- its 1-hop and
+  frozen-encoder baselines are constructed-vacuous/weak by design. Proposed (not built) cheapest
+  decisive cell: semantic-seeded entity codebook (from the CHAIN_GRADE-unblocked encoder) + top-k
+  beam per hop, same bands/held-out split as June-19. P_deflated(full HARD-PASS)~0.15-0.20,
+  P_deflated(MIDDLE-or-better)~0.40-0.45 -- legit cheap GO for exp_dev, MIDDLE pre-committed as modal
+  expectation not a likely unlock. Refines the noise-compounding drill's reset/no-reset taxonomy with
+  a 3rd regime (reset present + independent, but codebook high-branching + semantically-empty).
+  -> notes/research_multihop_composition_gap_closure_scoping_2026-07-07.md. 11 external citations (9
+  well-established, 2 recent preprints explicitly flagged low-confidence and not relied upon) + 10
+  internal artifacts freshly re-read off-disk.
+
+- 2026-07-07T(research, orthogonality capacity-lever scoping): scoped whether decorrelation/orthogonalization of stored codes is an active capacity lever (not just a passive N_eff measurement) -> notes/research_orthogonality_capacity_lever_density_cliff_2026-07-07.md. HEADLINE: two mechanistically distinct levers -- passive N_eff correction (already in use, log-compressed, ~1.5% effect) vs active frame-theoretic decorrelation (Welch bound / ETF / quasi-orthogonality, much larger ceiling but assumes free point placement, which our semantically-fixed codes are not). Dedup-retired-as-margin-fix finding (177K corpus, misses diffuse) does NOT refute the capacity-lever hypothesis: different corpus (177K barely has near-dup structure vs 970K's measured 15.86%) and different dependent variable (margin distribution at fixed m vs cliff location as V grows). Ranked levers: dedup near-dups (cheap, safe) > targeted whitening (conditional, needs test) > semantic-region code allocation (highest ceiling, most invasive, unscoped). Cheap test: fold a whitened-vs-baseline arm into the already-planned R1/R2 density-sweep rungs, zero new dispatch. Honest bound: full decorrelation is self-defeating for semantic retrieval (literature-confirmed, Mickus et al./Rudman-Eickhoff); sweet spot is targeting nuisance directions only (dedup, mean-centering), not full isotropy. P_deflated: passive effect not further deflated (closed-form); targeted-safe capacity gain 0.30-0.35; over-decorrelation-harms-retrieval 0.45-0.50; frame-theoretic large-ceiling gain 0.15-0.20 (weakest claim).
