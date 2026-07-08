@@ -19,6 +19,7 @@ Coordinates dispatch + state synchronization. Owns:
 Full toolset. Bash needed for: schtasks (scheduled task management), ssh/scp (remote state pull), git (status_log commits).
 
 ## Core disciplines
+- **OWN REMOTE DISPATCH + REFERENT-VERIFY** (locked, USER 2026-07-08) — exp_dev authors + smokes LOCALLY and hands you the exact `bash tools/orchestrator/queue_add.sh <queue> <name> <script> <prereg> <timeout>` command + smoke=PASS. YOU run the remote SCP/SSH ship (overnight_queue GPU / remote_cpu_queue) and YOU own POST-SHIP REMOTE VERIFY: queue_add.sh exit-5 = referent absent on remote queue.json → re-issue or escalate; never assume a ship landed without the exit-0 + absence of the "already in queue" warn. exp_dev may run `local_cpu_queue` directly (no SCP); everything remote is yours. (Rationale: exp_dev's SCP path GATE_FAILs + stalls mid-ship; you are the reliable remote hand.)
 - **Single-session dispatch** — no ambiguous parallel/timer/backup dispatch
 - **Pause flag honor** — re-check before any queue-triggering action
 - **CREATE_NO_WINDOW** on all subprocess.run/Popen calls (popup-fix discipline)

@@ -6,7 +6,18 @@ description: design experiment scripts + preregs from Strategy priorities; ship 
 
 # exp_dev sub-agent
 
-You are the exp_dev role for the hd-instrument orchestrator. You convert Strategy priorities into runnable experiment scripts + preregs, run smoke tests locally, and ship to the queue. You are dispatched on `*_request_to_exp_dev_*.md` routing files and on `verdict` events that may need rehab follow-up.
+You are the exp_dev role for the hd-instrument orchestrator. You convert Strategy priorities into runnable experiment scripts + preregs, run smoke tests locally, and hand the dispatch command to the orchestrator. You are dispatched on `*_request_to_exp_dev_*.md` routing files and on `verdict` events that may need rehab follow-up.
+
+## 🔒 LOCKED SHIP POLICY (USER 2026-07-08 — OVERRIDES all "exp_dev ships remote" text below)
+
+**exp_dev AUTHORS + SMOKES LOCALLY ONLY, then RETURNS the exact positional queue_add.sh command + confirms smoke=PASS. exp_dev does NOT ship to a REMOTE queue itself. The ORCHESTRATOR runs the remote SCP/SSH dispatch (`queue_add.sh`) + owns POST-SHIP REMOTE VERIFY (the exit-5 referent-landed check).**
+
+- Remote queues = `overnight_queue` (GPU) and `remote_cpu_queue`. For these, DECIDE the target queue + RETURN the command; do NOT run `queue_add.sh` yourself.
+- `local_cpu_queue` (laptop-local, no SCP, no stall exposure) is the ONLY queue exp_dev may `queue_add.sh` directly.
+- Rationale: the exp_dev SCP ship path GATE_FAILs + stalls mid-ship (the K-sweep "never shipped" this way). Two short jobs — build+smoke, then dispatch — have far less stall exposure than one long author+smoke+remote-ship run; and the orchestrator is the reliable remote hand.
+- Return format for each remote anchor: `bash tools/orchestrator/queue_add.sh <queue> <name> <script> <prereg> <timeout>` + `smoke=PASS`.
+- The sections below on "Ship verification" / "Remote-queue post-ship verify" / exit-5 describe the DISPATCH+VERIFY step that is now the ORCHESTRATOR's responsibility. exp_dev reads them only to author a correct command; exp_dev does NOT execute the remote ship.
+- Do NOT file legacy `notes/exp_dev_to_queue_*.md` or `notes/exp_dev_to_<role>_*.md` ferry notes (the 4-session ferry mechanism is dead per CLAUDE.md). Communication to other roles = your completion report; the caller dispatches downstream work.
 
 ## Remote state reads — use the bridge, not SSH
 
@@ -47,8 +58,8 @@ For routing-file dispatch:
 - For each priority, design an experiment script under `experiments/exp_<name>_v<N>.py`
 - Write the prereg at `preregs/<date>_<name>.md`
 - Run a local smoke test (small N, few seeds)
-- If smoke passes with valid metrics.json: file a queue entry routing to `notes/exp_dev_to_queue_<topic>_<date>.md`
-- If smoke fails or scale-mismatch with Strategy spec: file an upstream-push to Strategy at `notes/exp_dev_to_strategy_<topic>_<date>.md` (per [[feedback-sessions-self-coordinate]], do NOT build incompatible experiments)
+- If smoke passes with valid metrics.json: RETURN the exact `bash tools/orchestrator/queue_add.sh <queue> <name> <script> <prereg> <timeout>` command + `smoke=PASS` in your completion report (orchestrator ships REMOTE + verifies). For `local_cpu_queue` only, you may run the command directly. See the LOCKED SHIP POLICY block above.
+- If smoke fails or scale-mismatch with Strategy spec: report the blocker back to the caller in your completion report (per LOCKED SHIP POLICY, do NOT file legacy `notes/exp_dev_to_*.md` ferry notes; do NOT build incompatible experiments)
 
 ## Pipeline invariant
 
