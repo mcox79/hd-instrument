@@ -35,12 +35,15 @@ which is what the smoke cell's --self-test path chains into.
 from __future__ import annotations
 
 import argparse
+import math
 import sys
 import traceback
 from dataclasses import dataclass
 from typing import Optional
 
 import numpy as np
+
+from hdlab.iterative_attractor import iterative_cleanup
 
 
 # ---------------------------------------------------------------------------
@@ -315,6 +318,177 @@ def cls_replay_cycle(ca3: CA3AutoAssociator, stored_codes: np.ndarray,
     return cortex_W
 
 
+# ---------------------------------------------------------------------------
+# Discrete-budget CLS consolidation (Buzsaki two-stage; certified CHAIN_GRADE).
+# ---------------------------------------------------------------------------
+# Promotes exp_cls_ca3complete_consolidation_v1 (commit 92e01cf3f; CHAIN_GRADE
+# math::CHAIN_GRADE_cls_ca3complete_consolidation_v1_INTEGRATE_NEW_KNOWLEDGE_WITHOUT
+# _FORGETTING). MAIN claim (CG): a DISCRETE offline phase with a FIXED per-cycle
+# replay budget migrates OLD fast-buffer traces to a slow store while NEW items are
+# acquired -> continual-learning-without-forgetting (FULL vs NAIVE old-retention gap
+# ~0.913 all seeds MEASURED@data/exp_cls_ca3complete_consolidation_v1/metrics.json).
+# The CA3-completion of the replayed cue (via the certified iterative_cleanup operator)
+# is the MEASURED_MECHANISM refinement only (small +0.053 lift over raw readout at n=8;
+# NOT load-bearing / NOT CG). This function is a SIBLING to cls_replay_cycle: it does
+# ONE offline consolidation phase over a dense (value outer key) associative store, the
+# representation the certified cell used; it composes iterative_cleanup as the CA3
+# pattern-completer. Default module behavior is unchanged (new function).
+
+def cls_discrete_budget_consolidate(
+    fast_store: np.ndarray,
+    replay_keys: np.ndarray,
+    concept_codebook: np.ndarray,
+    slow_store: np.ndarray,
+    *,
+    budget: int,
+    cue_rho: float = 0.70,
+    ca3_complete: bool = True,
+    ca3_temp: float = 4.0,
+    ca3_alpha: float = 0.5,
+    ca3_max_steps: int = 6,
+    rng: Optional[np.random.Generator] = None,
+    seed: int = 0,
+) -> dict:
+    """One discrete-budget offline CLS consolidation phase (Buzsaki two-stage; CG).
+
+    Replays up to `budget` items from a recency-decayed fast associative store into a
+    slow store via a partial SWR cue, optionally CA3-pattern-completing the noisy
+    readout against a concept codebook before the write. This is the certified
+    integrate-new-without-forgetting mechanism (the FIXED per-phase budget is the
+    discrete-budget gate). Composes hdlab.iterative_attractor.iterative_cleanup as the
+    CA3 completer (the operator the certified cell used).
+
+    Args:
+        fast_store: [D, D] recency-decayed fast store, orientation (value outer key)
+            (i.e. F += outer(concept_value, key)); readout is keys @ F.T -> value space.
+        replay_keys: [m, D] retained (true) keys of items eligible for replay this phase.
+        concept_codebook: [V, D] clean concept attractors (CA3 completion targets).
+        slow_store: [D, D] slow store to accumulate into; MUTATED in place AND returned
+            (caller-convenience, same convention as continual.replay_cycle).
+        budget: fixed per-phase replay budget B (discrete-budget gate; first min(m, B)
+            keys are replayed). Must be > 0.
+        cue_rho: SWR partial-cue fidelity in [0, 1]; cue = rho*key + sqrt(1-rho^2)*noise.
+        ca3_complete: if True, iterative_cleanup the noisy readout to a clean concept
+            (CG mechanism); if False, write the raw normalized readout (the NO_CLEANUP
+            ablation -- isolates the MM CA3-completion refinement).
+        ca3_temp, ca3_alpha, ca3_max_steps: iterative_cleanup params (brain-canonical
+            alpha=0.5 perforant-path re-injection; temp/steps as certified cell).
+        rng: numpy Generator for the partial cue; if None, one is built from `seed`.
+            Pass the SAME rng/seed to the ca3_complete=True and =False calls of one
+            phase to keep the ablation paired (identical replay, differ only in cleanup).
+        seed: fallback seed used to build rng when rng is None.
+
+    Returns:
+        dict {slow_store, n_replayed, budget, budget_respected, ca3_complete}.
+    """
+    if int(budget) <= 0:
+        raise ValueError(f"budget must be > 0; got {budget}")
+    if fast_store.ndim != 2 or fast_store.shape[0] != fast_store.shape[1]:
+        raise ValueError(f"fast_store must be square [D, D]; got {fast_store.shape}")
+    if slow_store.shape != fast_store.shape:
+        raise ValueError(
+            f"slow_store shape {slow_store.shape} must match fast_store {fast_store.shape}")
+    d = fast_store.shape[0]
+    if replay_keys.ndim != 2 or replay_keys.shape[1] != d:
+        raise ValueError(f"replay_keys must be [m, D={d}]; got {replay_keys.shape}")
+    if concept_codebook.ndim != 2 or concept_codebook.shape[1] != d:
+        raise ValueError(
+            f"concept_codebook must be [V, D={d}]; got {concept_codebook.shape}")
+    if not (0.0 <= cue_rho <= 1.0):
+        raise ValueError(f"cue_rho must be in [0, 1]; got {cue_rho}")
+    if rng is None:
+        rng = np.random.default_rng(int(seed))
+
+    n_replay = int(min(replay_keys.shape[0], int(budget)))  # discrete fixed-budget gate
+    keys = replay_keys[:n_replay].astype(np.float32)
+    # SWR partial reactivation: cue = rho*key + sqrt(1-rho^2)*random_unit (renormalized).
+    rnd = _unit_norm(rng.standard_normal(keys.shape).astype(np.float32))
+    cue = _unit_norm(cue_rho * keys + math.sqrt(max(1e-6, 1.0 - cue_rho * cue_rho)) * rnd)
+    readout = cue @ fast_store.T.astype(np.float32)  # noisy fast readout in concept space
+    if ca3_complete:
+        out = iterative_cleanup(readout.astype(np.float32),
+                                concept_codebook.astype(np.float32),
+                                temp=ca3_temp, max_steps=ca3_max_steps, alpha=ca3_alpha)
+        value = out["state"].astype(np.float32)
+    else:
+        value = _unit_norm(readout)
+    slow_store += (value.T @ keys).astype(np.float32)  # write completed value to true key
+    return {
+        "slow_store": slow_store,
+        "n_replayed": n_replay,
+        "budget": int(budget),
+        "budget_respected": bool(n_replay <= int(budget)),
+        "ca3_complete": bool(ca3_complete),
+    }
+
+
+def _cls_consolidation_discriminator(
+    seed: int,
+    *,
+    d: int = 384,
+    t_stream: int = 240,
+    n_epoch: int = 8,
+    decay: float = 0.90,
+    v: int = 48,
+    budget: int = 30,
+    cue_rho: float = 0.70,
+) -> dict:
+    """Reproduce the certified 3-arm CLS consolidation comparison (scaffold-free).
+
+    Runs a (key -> concept) stream in epochs through a recency-decayed fast store, then
+    three arms over the SAME stream (differ only in what is queried at readout):
+      NAIVE_NO_CONSOLIDATION: fast store only -> OLD (epoch-0) decays out -> forgotten.
+      CONSOLIDATE_FULL: per-epoch discrete-budget replay + CA3 completion -> slow store.
+      CONSOLIDATE_NO_CLEANUP: same replay, raw readout (no CA3 completion; MM ablation).
+    Returns per-arm old_retention / new_acquisition + gap + ca3_lift + budget_respected.
+    Small-but-genuine regime by default (fast; NAIVE still forgets -> discriminator fires).
+    """
+    g = np.random.default_rng(int(seed))
+    VB = _unit_norm(g.standard_normal((v, d)).astype(np.float32))
+    K = _unit_norm(g.standard_normal((t_stream, d)).astype(np.float32))
+    val = g.integers(0, v, size=t_stream)
+    ipe = t_stream // n_epoch
+    old_idx = np.arange(0, ipe)
+    rec_idx = np.arange(t_stream - ipe, t_stream)
+    F = np.zeros((d, d), dtype=np.float32)
+    S_full = np.zeros((d, d), dtype=np.float32)
+    S_nc = np.zeros((d, d), dtype=np.float32)
+    budget_ok = True
+    for e in range(n_epoch):
+        lo, hi = e * ipe, (e + 1) * ipe
+        for t in range(lo, hi):  # WAKE: sequential recency-decayed writes to fast store
+            F = decay * F + np.outer(VB[val[t]], K[t]).astype(np.float32)
+        # OFFLINE discrete-budget consolidation. Same per-phase seed for both arms keeps
+        # the ablation paired (identical partial-cue replay; differ only in CA3 cleanup).
+        phase_seed = int(seed) * 7919 + 5 + e
+        rf = cls_discrete_budget_consolidate(
+            F, K[lo:hi], VB, S_full, budget=budget, cue_rho=cue_rho,
+            ca3_complete=True, seed=phase_seed)
+        cls_discrete_budget_consolidate(
+            F, K[lo:hi], VB, S_nc, budget=budget, cue_rho=cue_rho,
+            ca3_complete=False, seed=phase_seed)
+        budget_ok = budget_ok and rf["budget_respected"]
+
+    def _acc(store, idx):
+        r = K[idx].astype(np.float32) @ store.T
+        pred = np.argmax(r @ VB.T, axis=1)
+        return float(np.mean(pred == val[idx]))
+
+    naive_old = _acc(F, old_idx)
+    full_old = _acc(S_full, old_idx)
+    full_new = _acc(S_full, rec_idx)
+    nc_old = _acc(S_nc, old_idx)
+    return {
+        "naive_old": naive_old,
+        "full_old": full_old,
+        "full_new": full_new,
+        "nc_old": nc_old,
+        "gap_full_minus_naive_old": full_old - naive_old,
+        "ca3_lift_full_minus_nocleanup_old": full_old - nc_old,
+        "budget_respected": bool(budget_ok),
+    }
+
+
 # ===========================================================================
 # SELFTESTS -- 10+ mechanism-level assertions per USER-locked design mandates.
 # ===========================================================================
@@ -584,6 +758,43 @@ def _st_hippo_arms_differ() -> None:
           f"max_sym_diff={max_diff:.3f}", flush=True)
 
 
+def _st_cls_discrete_budget_consolidation() -> None:
+    """Discrete-budget CLS consolidation retains OLD (>> NAIVE forgets) while acquiring NEW.
+
+    Reproduces the CHAIN_GRADE integrate-new-without-forgetting result (small regime).
+    The discriminator fires: the NAIVE no-consolidation control MUST forget OLD. The
+    CA3-completion is only the MM refinement -- the NO_CLEANUP arm (discrete-budget
+    migration alone) already recovers the bulk of the gap.
+    """
+    # shape guards
+    for bad in (0, -3):
+        try:
+            cls_discrete_budget_consolidate(
+                np.zeros((8, 8), np.float32), np.zeros((2, 8), np.float32),
+                np.zeros((4, 8), np.float32), np.zeros((8, 8), np.float32), budget=bad)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"cls_discrete_budget_consolidate accepted budget={bad}")
+    r = _cls_consolidation_discriminator(7)
+    assert r["budget_respected"], "discrete fixed-budget not respected"
+    assert r["naive_old"] <= 0.20, (
+        f"discriminator did not fire: NAIVE retained OLD ({r['naive_old']:.3f} > 0.20)")
+    assert r["full_old"] >= 0.70, f"consolidation did not retain OLD ({r['full_old']:.3f})"
+    assert r["full_new"] >= 0.70, f"consolidation did not acquire NEW ({r['full_new']:.3f})"
+    assert r["gap_full_minus_naive_old"] >= 0.40, (
+        f"integrate-without-forgetting gap too small ({r['gap_full_minus_naive_old']:.3f})")
+    # CA3-completion is MM-refinement only: discrete-budget migration alone (NO_CLEANUP)
+    # already beats NAIVE by a wide margin -> the cleanup is not load-bearing for CG.
+    assert r["nc_old"] - r["naive_old"] >= 0.40, (
+        f"discrete-budget migration alone should carry the CG gap "
+        f"(nc_old={r['nc_old']:.3f} naive_old={r['naive_old']:.3f})")
+    print(f"[selftest cls_discrete_budget_consolidation] PASS naive_old={r['naive_old']:.3f} "
+          f"full_old={r['full_old']:.3f} full_new={r['full_new']:.3f} nc_old={r['nc_old']:.3f} "
+          f"gap={r['gap_full_minus_naive_old']:.3f} ca3_lift(MM)={r['ca3_lift_full_minus_nocleanup_old']:.3f}",
+          flush=True)
+
+
 _SELFTESTS = [
     ("dg_output_ternary", _st_dg_output_ternary),
     ("dg_sparse_rate_matches_target", _st_dg_sparse_rate_matches_target),
@@ -600,6 +811,7 @@ _SELFTESTS = [
      _st_hippo_ne_naive_wta_collision_2026_06_23),
     ("hippo_scale_sentinel_n8192", _st_hippo_scale_sentinel_n8192),
     ("hippo_arms_differ", _st_hippo_arms_differ),
+    ("cls_discrete_budget_consolidation", _st_cls_discrete_budget_consolidation),
 ]
 
 
