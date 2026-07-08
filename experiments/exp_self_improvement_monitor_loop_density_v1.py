@@ -431,11 +431,23 @@ def load_real_data(metric_dirs):
     """
     metric_dirs: list of dirs each containing metrics.json from a marginpush (seed,scale) run.
     Groups by teacher_n_concepts (V). Returns (data, grid, provenance).
+
+    GRID-HETEROGENEITY FIX (2026-07-07): the discovery glob can pick up runs on DIFFERENT
+    density grids (an older sparse [3,5,8] single-scale sweep alongside the dense
+    [3,4,5,6,7,8,10,12] multi-scale sweep). The prior code locked grid_seen to whichever dir
+    SORTED FIRST and rejected every other grid as SKIP_GRID_MISMATCH -- which discarded the
+    entire dense multi-scale sweep in favour of the sparse single-scale bare runs, yielding
+    1 scale -> GATE_FAIL_INSUFFICIENT_SCALES even though the 3-scale sweep is fully present.
+    Fix: two-pass. Pass 1 buckets rets by (grid, V). Pass 2 chooses the grid supporting the
+    MOST usable scales (>=2 seeds at every density), tie-broken toward the denser grid, then
+    builds data from that grid. A low/ragged ret at a density is a VALID measurement and is
+    NEVER filtered out (joint_ok / magnitude are signal, not invalidity). Scoring + both firing
+    controls are unchanged -- only discovery/grid-selection over-rejection is fixed.
     """
     from collections import defaultdict
-    raw = defaultdict(lambda: defaultdict(list))
+    # Pass 1: read every dir, bucket rets by (grid_tuple -> V -> m -> [ret per seed])
+    by_grid = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     provenance = []
-    grid_seen = None
     for d in metric_dirs:
         mp = os.path.join(d, "metrics.json")
         if not os.path.exists(mp):
@@ -450,26 +462,45 @@ def load_real_data(metric_dirs):
         if V is None or not isinstance(ship, dict) or "per_m" not in ship or grid is None:
             provenance.append({"dir": d, "status": "SKIP_INCOMPLETE", "verdict": verdict})
             continue
-        if grid_seen is None:
-            grid_seen = list(grid)
-        elif list(grid) != grid_seen:
-            provenance.append({"dir": d, "status": "SKIP_GRID_MISMATCH",
-                               "grid": grid, "expected": grid_seen})
-            continue
+        gtup = tuple(grid)
+        got_all = True
         for m in grid:
             entry = ship["per_m"].get(str(m)) or ship["per_m"].get(m)
             if entry is None or "ret" not in entry:
-                provenance.append({"dir": d, "status": "SKIP_NO_RET", "m": m})
+                provenance.append({"dir": d, "status": "SKIP_NO_RET", "m": m, "grid": list(grid)})
+                got_all = False
                 break
-            raw[int(V)][m].append(float(entry["ret"]))
-        else:
-            provenance.append({"dir": d, "status": "OK", "V": int(V), "verdict": verdict})
-    # keep only scales with >=2 seeds at every grid point (need cross-seed MIN/CV)
+            by_grid[gtup][int(V)][m].append(float(entry["ret"]))
+        if got_all:
+            provenance.append({"dir": d, "status": "OK", "V": int(V),
+                               "grid": list(grid), "verdict": verdict})
+
+    # Pass 2: choose the grid supporting the MOST usable scales (>=2 seeds at every density),
+    # tie-break toward the denser grid (more densities). Prevents a sort-order-first sparse
+    # grid from evicting the dense multi-scale sweep.
+    best_grid = None
+    best_key = (-1, -1)  # (n_usable_scales, n_densities)
+    grid_candidates = {}
+    for gtup, per_V in by_grid.items():
+        usable = [V for V, per_m in per_V.items()
+                  if all(len(per_m.get(m, [])) >= 2 for m in gtup)]
+        grid_candidates[str(list(gtup))] = {"usable_scales": sorted(usable),
+                                            "n_densities": len(gtup)}
+        key = (len(usable), len(gtup))
+        if key > best_key:
+            best_key = key
+            best_grid = gtup
+    provenance.append({"status": "GRID_SELECTION",
+                       "chosen_grid": (list(best_grid) if best_grid else None),
+                       "candidates": grid_candidates})
+
+    # keep only scales (on the chosen grid) with >=2 seeds at every grid point (need MIN/CV)
     data = {}
-    for V, per_m in raw.items():
-        if grid_seen and all(len(per_m.get(m, [])) >= 2 for m in grid_seen):
-            data[V] = {m: per_m[m] for m in grid_seen}
-    return data, (grid_seen or []), provenance
+    if best_grid is not None:
+        for V, per_m in by_grid[best_grid].items():
+            if all(len(per_m.get(m, [])) >= 2 for m in best_grid):
+                data[V] = {m: per_m[m] for m in best_grid}
+    return data, (list(best_grid) if best_grid else []), provenance
 
 # ------------------------------------------------------------------ main
 
