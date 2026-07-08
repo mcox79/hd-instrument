@@ -65,6 +65,8 @@ AMIT_GUTFREUND_ALPHA_WALL = 0.138          # THEORETICAL@Amit-Gutfreund 1985
 LTM_ALPHA_CG_ANCHOR = 1200 / 8192          # 0.1465 CG'd at 3 seeds (M1.5 v2)
 QUERY_KEY_TARGET_COSINE_DEFAULT = 0.85     # breaks trivial identity self-recall
 K_PER_BANK_TARGET_DEFAULT = 64             # discriminating-regime minimum
+COARSE_PROJ_DIM_DEFAULT = 128              # D_COARSE: low-dim random-proj coarse rank
+COARSE_TO_FINE_K_FRAC_DEFAULT = 0.10       # shortlist size as fraction of LTM tape
 
 
 def _bipolar_bind(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
@@ -81,6 +83,14 @@ def _bipolar_quantize(x: torch.Tensor) -> torch.Tensor:
 
 def _l2_normalize_rows(x: torch.Tensor, eps: float = 1e-12) -> torch.Tensor:
     return x / x.norm(dim=1, keepdim=True).clamp(min=eps)
+
+
+def _wta_sign_rows(x: torch.Tensor, k: int) -> torch.Tensor:
+    """Sparse-bipolar WTA code: per row keep top-k magnitude coords as sign, rest 0."""
+    out = torch.zeros_like(x)
+    idx = torch.topk(x.abs(), min(k, x.shape[1]), dim=1).indices
+    out.scatter_(1, idx, torch.sign(torch.gather(x, 1, idx)))
+    return out
 
 
 def _bipolar_random(shape, generator: torch.Generator) -> torch.Tensor:
@@ -161,6 +171,73 @@ def cleanup_argmax(query: torch.Tensor, codebook: torch.Tensor) -> int:
     cb_np = codebook.detach().cpu().numpy().astype(np.float32)
     _, diag = k_NN_lookup(q_np, cb_np, k=1)
     return int(diag["final_argmax_idx"])
+
+
+# ----- Energy-scaled selective-depth read (coarse shortlist -> dense fine read) ----
+# ADDITIVE (2026-07-08). Promotes the CHAIN_GRADE retained-trace re-query mechanism
+# (cert cell exp_encoder_retained_trace_requery_coarse_to_fine_v1, commit 5d711c2e5;
+# origin drill notes/research_energy_scaled_selective_depth_retrieval_coarse_to_fine_2026-07-08.md)
+# into the operational LTM tier. The default read() path is UNCHANGED; this is a new
+# opt-in read mode. Mechanism (hippocampal-indexing-theory analog, Teyler-Rudy 2007):
+# keep the fine trace intact and re-query IT. A cheap COARSE read ranks all retained
+# DENSE keys in a low-dim random projection (JL-preserves the geometry) to build a
+# top-k SHORTLIST; the expensive FINE dense-Hopfield read then runs only within the
+# shortlist. Because the dense trace is never destroyed, the fine read recovers full
+# fidelity. HONEST SCOPE (preserved from the VET): the cost win is an ANALYTICAL
+# flop-count (coarse_to_fine_read_cost_ratio), NOT a wall-clock speedup; and recovery
+# is partly aided by shortlist saturation (the JL random-proj shortlist captures the
+# answer even at low k). The load-bearing facts are (1) shortlist-saturation-holds and
+# (2) the DENSE trace is what recovers -- a sparse/quantized-trace coarse rank is the
+# confirmed negative (see verification/test_context_retention.py witness).
+
+
+def build_coarse_projection(n_dim: int, d_coarse: int,
+                            generator: torch.Generator) -> torch.Tensor:
+    """Fixed random JL projection (n_dim, d_coarse) for cheap coarse ranking."""
+    return torch.randn(n_dim, d_coarse, generator=generator) / math.sqrt(n_dim)
+
+
+def coarse_shortlist(query: torch.Tensor, k_tape: torch.Tensor,
+                     proj: torch.Tensor, k_shortlist: int) -> torch.Tensor:
+    """Top-k_shortlist key indices by cosine of the low-dim random-proj (coarse) codes.
+
+    query: (N,) ; k_tape: (M, N) retained dense trace ; proj: (N, D_COARSE).
+    Returns a LongTensor of shape (min(k_shortlist, M),).
+    """
+    q_c = query @ proj
+    q_c = q_c / max(float(q_c.norm()), 1e-12)
+    k_c = _l2_normalize_rows(k_tape @ proj)
+    scores = k_c @ q_c
+    k = min(int(k_shortlist), scores.shape[0])
+    return torch.topk(scores, k).indices
+
+
+def coarse_to_fine_hopfield_read(query: torch.Tensor, k_tape: torch.Tensor,
+                                 v_tape: torch.Tensor, beta: float,
+                                 proj: torch.Tensor,
+                                 k_shortlist: int) -> tuple[torch.Tensor, torch.Tensor]:
+    """Energy-scaled selective-depth dense-Hopfield read: coarse shortlist -> fine read.
+
+    Coarse (cheap, all M): rank retained DENSE keys in the low-dim projection, take the
+    top-k shortlist. Fine (expensive, shortlist only): dense_hopfield_read restricted to
+    the shortlist keys/values. Recovers the full-read value FROM the retained dense trace.
+    query: (N,) ; k_tape: (M, N) ; v_tape: (M, Din) ; proj: (N, D_COARSE).
+    Returns (value_hat (Din,), shortlist_idx (k,)).
+    """
+    idx = coarse_shortlist(query, k_tape, proj, k_shortlist)
+    val_hat = dense_hopfield_read(query, k_tape[idx], v_tape[idx], beta)
+    return val_hat, idx
+
+
+def coarse_to_fine_read_cost_ratio(m_items: int, n_dim: int, d_coarse: int,
+                                   k_shortlist: int) -> float:
+    """ANALYTICAL flop-count ratio of the coarse->fine read vs the full dense-Hopfield read.
+
+    full read       ~ M * N          (similarity dot over all M keys)
+    coarse->fine    ~ M * D_COARSE   (coarse rank over all M) + k * N (fine within shortlist)
+    ratio = D_COARSE / N + k / M. This is a flop model, NOT a wall-clock measurement.
+    """
+    return float(d_coarse / n_dim + k_shortlist / max(1, m_items))
 
 
 @dataclass
@@ -309,6 +386,63 @@ class TwoTierContext:
                 return ltm_pred
         return stm_pred
 
+    def read_coarse_to_fine(
+        self, role_key_query: torch.Tensor,
+        k_shortlist: Optional[int] = None,
+        d_coarse: int = COARSE_PROJ_DIM_DEFAULT,
+    ) -> int:
+        """Energy-scaled selective-depth read: STM path unchanged; LTM tier uses a cheap
+        coarse shortlist over the RETAINED DENSE key tape, then a dense-Hopfield fine read
+        WITHIN the shortlist. Same return contract as read() (a val_idx).
+
+        This is an ADDITIVE opt-in alternative to read(): the STM branch is bit-identical to
+        read()'s STM branch; only the LTM branch swaps the full dense-Hopfield read for the
+        selective-depth coarse->fine read. Falls back to the full LTM dense-Hopfield read
+        (identical to read()) when the LTM tape is small enough that a shortlist saves nothing
+        (k_shortlist >= LTM size, or < 2 LTM items). k_shortlist defaults to
+        ceil(COARSE_TO_FINE_K_FRAC_DEFAULT * LTM_size), floored at 2.
+
+        HONEST SCOPE: the selective-depth win is an ANALYTICAL flop-count
+        (coarse_to_fine_read_cost_ratio), NOT a wall-clock speedup at these tape sizes.
+        """
+        # STM path (identical operations to read()).
+        bank_id = _hash_bank_id(role_key_query, self.n_banks)
+        stm_bank_q = _bipolar_quantize(self._stm_state[bank_id])
+        val_hat_stm = _bipolar_bind(stm_bank_q, role_key_query)
+        stm_pred = cleanup_argmax(val_hat_stm, self._value_codebook)
+        stm_confidence = float(
+            self._value_codebook[stm_pred] @ val_hat_stm
+            / max(float(val_hat_stm.norm()), 1e-12)
+            / math.sqrt(self.n_dim))
+        # LTM path: coarse shortlist -> dense-Hopfield fine read within shortlist.
+        m_ltm = len(self._ltm_role_keys)
+        if m_ltm >= 2:
+            k_tape = _l2_normalize_rows(
+                torch.stack(self._ltm_role_keys).to(torch.float32))
+            v_tape = _l2_normalize_rows(
+                self._value_codebook[torch.tensor(self._ltm_val_indices)].to(torch.float32))
+            margin = _cosine_margin_estimate(k_tape)
+            beta = _adaptive_beta(m_ltm, margin, self.beta_min, self.beta_max)
+            if k_shortlist is None:
+                k_shortlist = max(2, math.ceil(COARSE_TO_FINE_K_FRAC_DEFAULT * m_ltm))
+            if k_shortlist >= m_ltm:
+                # shortlist covers the whole tape -> identical to the full read.
+                val_hat_ltm = dense_hopfield_read(role_key_query, k_tape, v_tape, beta)
+            else:
+                gen = torch.Generator()
+                gen.manual_seed(int(self.seed) * 1000 + 31 + int(d_coarse))
+                proj = build_coarse_projection(self.n_dim, d_coarse, gen)
+                val_hat_ltm, _ = coarse_to_fine_hopfield_read(
+                    role_key_query, k_tape, v_tape, beta, proj, k_shortlist)
+            ltm_pred = cleanup_argmax(val_hat_ltm, self._value_codebook)
+            ltm_confidence = float(
+                self._value_codebook[ltm_pred] @ val_hat_ltm
+                / max(float(val_hat_ltm.norm()), 1e-12)
+                / math.sqrt(self.n_dim))
+            if ltm_confidence > stm_confidence:
+                return ltm_pred
+        return stm_pred
+
 
 # ----- Formula selftests (reproduce Atom 18 CG numbers) -----------------------
 
@@ -397,16 +531,97 @@ def _selftest_two_tier_context_reproduces_k100_at_load50() -> None:
             f"want={val_idx_target}; CG anchor is 1.000 at 8-trial N")
 
 
+def _coarse_to_fine_discriminator(seed: int, n_dim: int = 1024, m_items: int = 200,
+                                  v_cb: int = 512, d_coarse: int = COARSE_PROJ_DIM_DEFAULT,
+                                  k_frac: float = COARSE_TO_FINE_K_FRAC_DEFAULT,
+                                  n_trials: int = 120, noise_alpha: float = 0.7,
+                                  beta: float = 32.0) -> dict:
+    """Reproduce the retained-trace re-query discriminator (cert cell mechanism A).
+
+    Keys SHARE a strong common component; the DISCRIMINATING detail is the weak unique
+    signature. WTA-sparsifying the coarse code keeps the shared (non-discriminating) coords
+    and discards the fine detail -> a sparse-trace coarse rank FAILS; the RETAINED DENSE
+    trace coarse rank RECOVERS to the full-read ceiling, at lower analytical coarse cost.
+    """
+    g = torch.Generator().manual_seed(seed)
+    codebook = _bipolar_random((v_cb, n_dim), g)
+    base = 4.0 * torch.randn(n_dim, generator=g)                 # strong shared component
+    k_tape = base.unsqueeze(0) + torch.randn(m_items, n_dim, generator=g)  # retained dense
+    val_idx = torch.randint(0, v_cb, (m_items,), generator=g)
+    v_tape = codebook[val_idx].to(torch.float32)
+    proj = build_coarse_projection(n_dim, d_coarse, g)
+    k_sp = max(1, n_dim // 32)
+    k_short = max(1, round(k_frac * m_items))
+    k_tape_sparse = _wta_sign_rows(k_tape, k_sp)
+
+    qg = torch.Generator().manual_seed(seed * 7 + 3)
+    hits_full = hits_c2f = hits_sparse = hits_short = 0
+    for _ in range(n_trials):
+        j = int(torch.randint(0, m_items, (1,), generator=qg).item())
+        nz = torch.randn(n_dim, generator=qg)
+        nz = nz / max(float(nz.norm()), 1e-12)
+        q = k_tape[j] + noise_alpha * float(k_tape[j].norm()) * nz
+        # full-fine ceiling
+        vh = dense_hopfield_read(q, k_tape, v_tape, beta)
+        hits_full += (cleanup_argmax(vh, codebook) == int(val_idx[j]))
+        # retained-dense coarse->fine
+        vh2, idx = coarse_to_fine_hopfield_read(q, k_tape, v_tape, beta, proj, k_short)
+        hits_c2f += (cleanup_argmax(vh2, codebook) == int(val_idx[j]))
+        hits_short += bool(j in set(idx.tolist()))
+        # sparse (destroyed) trace coarse->fine: coarse rank off the WTA-sparsified code
+        q_sp = _wta_sign_rows(q.unsqueeze(0), k_sp)[0]
+        idx_s = coarse_shortlist(q_sp, k_tape_sparse, proj, k_short)
+        vh3 = dense_hopfield_read(q, k_tape[idx_s], v_tape[idx_s], beta)
+        hits_sparse += (cleanup_argmax(vh3, codebook) == int(val_idx[j]))
+
+    return {
+        "full_fine": hits_full / n_trials,
+        "retained_dense_c2f": hits_c2f / n_trials,
+        "sparse_destroyed": hits_sparse / n_trials,
+        "shortlist_hit": hits_short / n_trials,
+        "cost_ratio": coarse_to_fine_read_cost_ratio(m_items, n_dim, d_coarse, k_short),
+    }
+
+
+def _selftest_coarse_to_fine_recovers_and_sparse_fails() -> dict:
+    """Discriminator: retained DENSE trace recovers to ceiling at lower coarse cost;
+    the WTA-sparsified (destroyed) trace FAILS. Fires across seeds (telemetry-sensitive).
+    """
+    RECOVER_HI, CEIL_TOL, DISCRIM_GAP, SPARSE_FAIL_CEIL = 0.90, 0.05, 0.20, 0.70
+    COST_MAX, HIT_FLOOR = 0.50, 0.65
+    res = {s: _coarse_to_fine_discriminator(s) for s in (7, 13, 19)}
+    for s, r in res.items():
+        assert r["full_fine"] >= RECOVER_HI, f"seed {s}: full-fine ceiling {r['full_fine']} < {RECOVER_HI}"
+        assert r["retained_dense_c2f"] >= RECOVER_HI, (
+            f"seed {s}: retained-dense c2f {r['retained_dense_c2f']} did not recover to {RECOVER_HI}")
+        assert r["retained_dense_c2f"] >= r["full_fine"] - CEIL_TOL, (
+            f"seed {s}: c2f {r['retained_dense_c2f']} not within {CEIL_TOL} of ceiling {r['full_fine']}")
+        assert r["sparse_destroyed"] <= SPARSE_FAIL_CEIL, (
+            f"seed {s}: sparse-destroyed {r['sparse_destroyed']} did not fail (<= {SPARSE_FAIL_CEIL})")
+        gap = r["retained_dense_c2f"] - r["sparse_destroyed"]
+        assert gap >= DISCRIM_GAP, f"seed {s}: discriminator gap {gap} < {DISCRIM_GAP}"
+        assert r["shortlist_hit"] >= HIT_FLOOR, (
+            f"seed {s}: shortlist hit {r['shortlist_hit']} below floor {HIT_FLOOR}")
+        assert r["cost_ratio"] <= COST_MAX, f"seed {s}: cost ratio {r['cost_ratio']} > {COST_MAX}"
+    # telemetry-sensitivity: perturbing the seed MOVES the sparse (unsaturated) arm.
+    sparse_vals = {r["sparse_destroyed"] for r in res.values()}
+    assert len(sparse_vals) > 1, "sparse arm did not move across seeds (telemetry-insensitive)"
+    return res
+
+
 def _run_all_selftests() -> dict:
     _selftest_alpha_above_wall()
     _selftest_codebook_cleanup_self_recall()
     _selftest_dense_hopfield_self_recall()
     _selftest_two_tier_context_reproduces_k100_at_load50()
+    c2f = _selftest_coarse_to_fine_recovers_and_sparse_fails()
     return {
         "ltm_alpha_cg_anchor": LTM_ALPHA_CG_ANCHOR,
         "amit_gutfreund_wall": AMIT_GUTFREUND_ALPHA_WALL,
         "k_per_bank_target": K_PER_BANK_TARGET_DEFAULT,
         "cg_source": "Atom 18 v2 seed_7/13/19 CG 2026-07-01",
+        "coarse_to_fine_source": "retained_trace_requery_v1 commit 5d711c2e5 (2026-07-08)",
+        "coarse_to_fine_discriminator": c2f,
     }
 
 

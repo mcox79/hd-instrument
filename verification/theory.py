@@ -192,3 +192,17 @@ def compose_freq_single_kernel_crosstalk(rho: float, lr: float) -> float:
     sensitive, not by-construction.
     """
     return float(lr) * abs(float(rho))
+
+
+def selective_depth_read_cost_ratio(m_items: int, n_dim: int, d_coarse: int,
+                                    k_shortlist: int) -> float:
+    """Analytical flop-count ratio of a coarse->fine (selective-depth) dense-Hopfield read
+    vs the full read. Closed-form oracle for hdlab.context_retention.coarse_to_fine_read.
+
+    A full dense-Hopfield read computes a similarity dot over all M keys: ~ M*N flops.
+    A coarse->fine read computes a low-dim coarse rank over all M keys (~ M*D_COARSE) plus
+    a fine similarity dot within the k-item shortlist (~ k*N):
+        ratio = (M*D_COARSE + k*N) / (M*N) = D_COARSE/N + k/M.
+    This is a flop model of energy=resolution (D_COARSE and k dial cost), NOT wall-clock.
+    """
+    return float(d_coarse / n_dim + k_shortlist / max(1, m_items))
