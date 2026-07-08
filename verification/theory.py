@@ -100,6 +100,22 @@ def peel_sic_orthonormal_recall() -> float:
     return 1.0
 
 
+def bsc_capacity_exponent() -> float:
+    """BSC bundle capacity scaling exponent: k_50% ~ N^a with a ~ 1.004 (near-linear).
+
+    Week 8 scaling-law experiment (see PROGRESS.md / week8_scaling_summary.md): BSC a=1.004
+    (R^2=0.9999), FHRR a=1.003, and the FHRR/BSC capacity ratio is constant at 2.52x. The
+    operational content of a~1 is that k_50% roughly DOUBLES when N doubles: k_50%(2N)/k_50%(N)
+    ~= 2^a. A two-point measurement at N and 2N recovers a = log2(k50(2N)/k50(N)).
+    """
+    return 1.004
+
+
+def fhrr_bsc_capacity_ratio() -> float:
+    """Constant FHRR/BSC bundle capacity ratio ~2.52x (Week 8 scaling-law; PROGRESS.md)."""
+    return 2.52
+
+
 def erase_floor_random_alpha_one(n_facts: int, n: int) -> tuple[float, float]:
     """At alpha=1 with orthogonal random keys, Method B leak rate should be at the
     floor: argmax-over-bank of a near-zero retrieved vector is random.
