@@ -423,6 +423,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-mode", choices=["self_test", "smoke", "full"], default=None,
                     help="REQUIRED (no silent default per exp_dev.md sec 16)")
+    ap.add_argument("--self-test", dest="self_test", action="store_true",
+                    help="queue_add gate flag; equivalent to --run-mode self_test (exit 0 pass / nonzero fail)")
     ap.add_argument("--metrics-path", default=None, help="landed keyslots/sharding metrics.json")
     ap.add_argument("--output-dir", default=None)
     ap.add_argument("--seed", type=int, default=20260708)
@@ -433,7 +435,9 @@ def main():
     # run-mode channel: explicit --run-mode wins (local smoke/self_test); else HDLAB_RUN_MODE env
     # (the runner invokes cells BARE and injects HDLAB_RUN_MODE=full -- exp_dev.md sec 16 / keyslots
     # convention). No silent default: if neither is set, SystemExit (never accidentally self_test).
-    if args.run_mode is not None:
+    if args.self_test:
+        run_mode = "self_test"          # queue_add gate flag; highest priority, same path as run-mode self_test
+    elif args.run_mode is not None:
         run_mode = args.run_mode
     else:
         env_mode = os.environ.get("HDLAB_RUN_MODE", "").strip().lower()
