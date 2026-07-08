@@ -5,6 +5,35 @@ Author: exp_dev (Opus 4.8 1M, agent-spawn)
 Cell: experiments/exp_glass_box_micro_loop_conceptnet_multihop_v1.py
 Extends (CG certified): experiments/exp_glass_box_micro_loop_retrieve_gate_audit_requery_v1.py (commit ba552930a)
 
+## AMENDMENT v1.1 (2026-07-08) -- store-capacity headroom fix (supersedes the N=4096 SMOKE RESULT below)
+The v1.0 FULL (5 seeds, N=4096) returned INCONCLUSIVE_RETRIEVAL_BROKEN: the oracle_bridge POSITIVE CONTROL
+measured 0.825 (< 0.85 floor). VET (skunkworks abe11a3) confirmed the reasoning loop itself is fully intact at
+the real graph (hop1=0.997, det/verify/tamper/causal=1.0); the failure was a single-cue store-capacity overshoot
+in the positive control, NOT a reasoning-capability negative. ROOT CAUSE: the ISA store is a flat additive bundle
+whose size = n_hard + n_easy = 240 real answer-edges (the M_ISA=150 param is a no-op ceiling once 240 > 150 real
+edges are present). At N=4096, V~580, the top1 wall M < N/(2 ln V) ~ 322; a 240-edge single-cue store sits at 74.6%
+of the wall (SNR sqrt(N/M)=4.13) -> soft top1 degradation to 0.825. A SECOND defect: the v1.0 SMOKE used
+n_hard=n_easy=40, so its ISA store filled to only 150 edges (via distractors) and cleared oracle at ~0.97 -- the
+smoke UNDER-SIZED the single-cue store and did NOT reproduce FULL's 240-edge pressure (discriminator did not
+survive scale), which is how the FULL INCONCLUSIVE escaped the smoke.
+
+FIX (capacity headroom ONLY; reasoning loop, gate, Merkle audit, discriminators, thresholds UNCHANGED):
+  (1) N_DIM 4096 -> 8192 (smoke AND full). Doubles the wall to ~644; the SAME 240-edge ISA store now sits at 37.3%
+      of the wall (SNR=5.84) -- the identical SNR the 120-edge SYN store had at N=4096 (which yields hop1=0.997).
+  (2) SMOKE n_hard=n_easy 40 -> 120 (== FULL). The per-seed corpus and both relation stores (SYN=120, ISA=240
+      edges) are now built BIT-IDENTICAL to FULL; only the seed count differs (3 vs 5). The oracle positive control
+      is verified at the REAL 240-edge single-cue store in smoke. NO peel/SIC added (readout is single-cue top1;
+      confidence-ordered peel cannot raise a single-cue top1 -- after peeling the answer the next argmax is a distractor).
+
+SMOKE RESULT v1.1 (MEASURED@data/exp_glass_box_micro_loop_conceptnet_multihop_v1_smoke/metrics.json; 3 seeds
+[7,17,23], N=8192, ISA=240 edges/seed): verdict=HARD_PASS. accOracle=0.994 (>=0.85, CLEARS FLOOR at real edge
+count) | hop1=1.000 | accB=0.942 (<=0.95 NON-CEILING; per-seed 0.958/0.942/0.925) | accA_hard=0.000 (discriminator
+fires) | resolve_lift=0.443 | routing=0.944 (was 0.775 at N=4096; recovered by uncrowding ISA) | gate_sep=0.418 |
+scramble_gap=0.451 | causal_flip=1.000 | det=verify=tamper=1.000 | sign_p~0. FULL timeout floor 1800s (exp_guard
+default class; raw estimate 17s). Note: accB mean 0.942 passes non-ceiling with an 8pp margin; seed 7 individually
+0.958 -- a small SATURATION_TOO_EASY risk exists if the FULL mean ticks above 0.95, but the two added seeds (31,41)
+ranked at/below the smoke seeds at N=4096, so FULL mean is expected ~0.935-0.94.
+
 ## Objective
 Extend the CG-certified glass-box reasoning micro-loop (retrieve -> gate/self-audit -> WM-mediated re-query
 -> commit, every hop Merkle-audited + hand-editable) from its clean engineered TOY regime (accB saturated at

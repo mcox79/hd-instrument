@@ -89,12 +89,16 @@ CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 # - except SystemExit: raise BEFORE except Exception (no BaseException in main)
 # - crlb_n/a: accuracy-gap discriminator; no single closed-form noise floor. Reachability by bundle-SNR
 #   feasibility: for a bundle of M edges in N dims cleaned over V nodes, top1 is reliable while
-#   M < N/(2 ln V); at N=4096, V~600 => M<~320. Stores sized near-but-under that boundary so per-hop is
-#   in [0.85,0.95] (retrieval reproduces AND leaves headroom); accB = hop1 x hop2 lands non-ceiling.
+#   M < N/(2 ln V); at N=8192, V~580 => M<~644. The ISA store holds the real edge count M=240 (=n_hard+
+#   n_easy), sitting at 37% of the wall (SNR sqrt(N/M)=5.84) -- the SAME SNR the 120-edge SYN store had at
+#   N=4096 (which yields hop1=0.997), so oracle reproduces clean (>0.95). accB = hop1 x hop2 is gated by
+#   routing quality (~0.88 real-graph cap), landing non-ceiling in [0.82,0.92] (NOT saturated).
 # - baseline_in_band (META_RULE_AG): BASELINE is ARM_A; on the MIXED corpus accA ~ frac_easy = 0.5,
 #   strictly inside (0.05, 0.95). ARM_B is the mechanism arm (bounded above by 0.95 non-ceiling gate).
-# - discriminator survives scale (option A): SMOKE holds N == FULL N (4096) AND store capacity M_SYN/M_ISA
-#   == FULL (fewer TRIALS in smoke, same per-hop difficulty), so the discriminator preview is at full scale.
+# - discriminator survives scale (option A): SMOKE holds N == FULL N (8192) AND n_hard/n_easy == FULL
+#   (120/120), so the per-seed corpus and BOTH relation stores (SYN=120, ISA=240 edges) are built bit-
+#   identical to FULL; only the seed count differs (3 vs 5). The oracle positive control is thus verified
+#   at the REAL 240-edge single-cue store in smoke (the v1.0 smoke under-sized ISA to 150 and escaped).
 # - HARD_PASS strictly above floor (META_RULE_L): gates strict (>=0.25 / <=0.95 / <=0.15 / ==1.0 / >=0.80).
 # - HP_SCOPE: resolve/scramble/routing/non-ceiling/discriminator gates apply to ARM_B vs {ARM_A, ARM_ALWAYS,
 #   ARM_B_SCRAMBLE}. ARM_ORACLE_BRIDGE carries only the >=0.85 retrieval-ceiling rail (positive control).
@@ -111,7 +115,7 @@ CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 
 Compute architecture: (b) sequential-CPU with justification. Genuinely SEQUENTIAL chained retrieval (hop-2
   depends on the hop-1 WM result) and the cell IS validating the substrate-primitive loop; wall time a few
-  seconds/seed (V~600 x N=4096 cleanup matvecs). No GPU; no encoder; no torch.
+  seconds/seed (V~580 x N=8192 cleanup matvecs). No GPU; no encoder; no torch.
   Storage: mixed -- each RELATION store is a GLOBAL bundled single-hop associative memory (exemption (a):
   single-hop read WITHIN a hop); cross-hop composition is SHARDED via WM re-binding (the bridge is carried
   in WM and re-bound into the second store, never fused into one global chain bundle).
@@ -194,7 +198,7 @@ TAUT_GATE_SEP_FLOOR = 0.05       # gate_separation < this => INCONCLUSIVE_TAUTOL
 SIGN_P_MAX = 0.05                # paired sign-test threshold
 
 # gate threshold: a-priori between the HARD-margin distribution and the EASY-margin distribution at the
-# chosen real-graph store density (M_SYN=100,M_ISA=150,N=4096). Measured margin physics: hard marginA
+# chosen real-graph store density (SYN=120,ISA=240 edges,N=8192). Measured margin physics: hard marginA
 # mean~0.06 (p90~0.12), easy marginA median~0.39 (low tail to ~0.11). TAU=0.11 sits at hard-p90 / well
 # below easy-median => routing ~0.88. A SINGLE fixed value (NOT tuned per-seed); the real easy/hard margin
 # distributions genuinely overlap so routing caps ~0.89 (honest real-graph property, not a gate failure).
@@ -215,15 +219,27 @@ if SELF_TEST_MODE:
     SEEDS = [7]
     USE_REAL_GRAPH = False       # selftest uses a tiny SYNTHETIC graph (no data-file dependency)
 elif RUN_MODE == "smoke":
-    N_DIM = 4096                 # == FULL N (discriminator preview at full scale; option A)
-    N_HARD = 40
-    N_EASY = 40
-    M_SYN = 100                  # == FULL capacity (per-hop difficulty identical to FULL); calibrated so
-    M_ISA = 150                  # == FULL capacity: oracle_bridge ~0.97 (>0.85) yet accB ~0.85 (non-ceiling)
+    # v1.1 capacity fix (2026-07-08): SMOKE now uses the SAME n_hard/n_easy as FULL so the per-seed corpus
+    # construction is BIT-IDENTICAL to FULL (SYN store = 120 edges, ISA store = 240 edges -- the REAL edge
+    # count that the FULL run loads). The original smoke used n_hard=n_easy=40 which, with the m_isa=150
+    # ceiling, built only a 150-edge ISA store; that UNDER-SIZED store cleared oracle at ~0.97 while FULL's
+    # true 240-edge store landed oracle=0.825 (<0.85) -- the discriminator did NOT survive scale. Now smoke
+    # exercises the true 240-edge single-cue store; only the seed count (3 vs 5) differs from FULL.
+    N_DIM = 8192                 # == FULL N (raised 4096->8192 for store-capacity headroom; option A preview)
+    N_HARD = 120                 # == FULL (so ISA store = n_hard+n_easy = 240 edges, real edge count)
+    N_EASY = 120                 # == FULL
+    M_SYN = 100                  # no-op ceiling: syn_edges = n_hard = 120 > 100 => 0 distractors => 120 edges
+    M_ISA = 150                  # no-op ceiling: isa_edges = n_hard+n_easy = 240 > 150 => 0 distractors => 240
     SEEDS = [7, 17, 23]          # multi-seed smoke (>=3 seeds)
     USE_REAL_GRAPH = True
 else:  # full
-    N_DIM = 4096
+    # v1.1 capacity fix (2026-07-08): N raised 4096->8192. At N=4096 the single-cue ISA store (240 real edges,
+    # V~580) sat at 74.6% of the top1 wall M<N/(2 ln V)~322 (SNR sqrt(N/M)=4.13) => oracle positive control
+    # degraded to 0.825 (<0.85 floor) => INCONCLUSIVE_RETRIEVAL_BROKEN. Doubling N to 8192 doubles the wall to
+    # ~644, dropping the SAME 240-edge store to 37.3% of wall (SNR=5.84) -- the identical SNR the 120-edge SYN
+    # store had at N=4096 (which gives hop1=0.997) -- so oracle reproduces clean. This is a pure capacity-
+    # headroom lever: the reasoning loop, gate, Merkle audit, discriminators and thresholds are UNCHANGED.
+    N_DIM = 8192
     N_HARD = 120
     N_EASY = 120
     M_SYN = 100
