@@ -147,6 +147,7 @@ if str(_REPO) not in _sys.path:
     _sys.path.insert(0, str(_REPO))
 
 from experiments._seed_checkpoint import get_output_dir, write_metrics  # noqa: E402
+from hdlab.per_item_log import PerItemLogger  # noqa: E402  ADDITIVE per-item stage-attribution log
 from experiments import (  # noqa: E402
     exp_encoder_gsbc_gradedcode_retrieval_v1_core as base,
 )
@@ -734,11 +735,17 @@ def run_marginpush(run_mode: str, seed: int, device_arg: str, n_dim: int,
             raise
 
     # ---- semantic + per-item + concentration (HARD + each graded m + CHARPOS) ----
+    # ADDITIVE per-item stage-attribution log: persists per-held-item ret_agree10 tagged
+    # by near-dup/polysemy so ret_agree10 misses are finally per-item attributable (the
+    # dedup-concentration question). Own files; does NOT affect metrics/verdict.
+    pil = PerItemLogger(out_dir, eval_name=f"{anchor}:{run_mode}", cap=4_000_000)
+    _pi_masks = {"neardup": neardup_mask, "polysemy": poly_mask}
     per_m: Dict[int, Dict] = {}
     try:
         h_unit, h_pi = _semantic_peritem("HARD_STE", hard_code, Xhe,
                                          final_pairs, seed + 3)
         h_unit["concentration"] = _concentration(h_pi, neardup_mask, poly_mask)
+        pil.log_array(names_he, "retrieval:HARD_STE", h_pi, MISS_THRESH, _pi_masks)
         _append(h_unit)
         hard_ra = float(h_unit["ret_agree10"])
 
@@ -747,12 +754,15 @@ def run_marginpush(run_mode: str, seed: int, device_arg: str, n_dim: int,
             g_unit, g_pi = _semantic_peritem(f"GRADED_m{m}", graded[m]["code"], Xhe,
                                              final_pairs, seed + 3)
             g_unit["concentration"] = _concentration(g_pi, neardup_mask, poly_mask)
+            pil.log_array(names_he, f"retrieval:GRADED_m{m}", g_pi, MISS_THRESH, _pi_masks)
             _append(g_unit)
             graded_units[m] = g_unit
 
         cp_Xhe = Xhe[:cp_cap]
         cp_unit, cp_pi = _semantic_peritem("CHARPOS", charpos_codes, cp_Xhe,
                                            final_pairs, seed + 3)
+        pil.log_array(names_he[:cp_cap], "retrieval:CHARPOS", cp_pi, MISS_THRESH,
+                      {"neardup": neardup_mask[:cp_cap], "polysemy": poly_mask[:cp_cap]})
         _append(cp_unit)
         charpos_ra = float(cp_unit["ret_agree10"])
     except (RuntimeError, ValueError, IndexError) as exc:
@@ -760,6 +770,10 @@ def run_marginpush(run_mode: str, seed: int, device_arg: str, n_dim: int,
                           "failure_class": type(exc).__name__,
                           "msg": str(exc)[:300]})
         raise
+    _pil_manifest = pil.close()  # ADDITIVE: per_item_log.jsonl + manifest; metrics unchanged
+    print(f"[marginpush] per-item-log rows={_pil_manifest['n_rows_written']} "
+          f"stages={len(_pil_manifest['miss_rate_by_stage'])} "
+          f"capped={_pil_manifest['capped']}", flush=True)
 
     # keyed algebra (sbc for hard; gsbc_circconv per graded m).
     _run_keyed("sign", "RANDOM_HARD", rand_hard, kb_h, blk_h, J_ISO, n_trials,

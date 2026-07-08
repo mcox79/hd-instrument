@@ -77,6 +77,7 @@ if str(REPO) not in sys.path:
 # June-19 cell reused as a pure-function library (identical split/metrics)
 import experiments.exp_substrate_conceptnet_kg_inference_transfer_cpu_v1 as j19  # noqa: E402
 from experiments._seed_checkpoint import get_output_dir, write_metrics  # noqa: E402
+from hdlab.per_item_log import PerItemLogger  # noqa: E402  ADDITIVE per-item stage-attribution log
 
 ANCHOR = "conceptnet_semantic_seeded_beam_composition_v1"
 DEVICE = "cpu"
@@ -352,6 +353,8 @@ def run_eval(out_dir: Path) -> int:
     rows = []
     n_rows = len(classified)
     arm_out_vec = {a: [] for a in ARMS}   # for arms-must-differ hash
+    # ADDITIVE per-item stage-attribution log (does not affect metrics/verdict; own files)
+    pil = PerItemLogger(out_dir, eval_name=f"{ANCHOR}:{RUN_MODE}", cap=1_000_000)
     for ri, (s, r, o, wp, trivial) in enumerate(classified):
         if s not in eid or o not in eid or r not in rid:
             continue
@@ -387,10 +390,24 @@ def run_eval(out_dir: Path) -> int:
             row[a + "_pos"] = float(sc[true_pos])
             arm_out_vec[a].append(float(sc[true_pos]))
         rows.append(row)
+        # per-item stage-attribution: one row per arm + baselines; tags for cause-slicing
+        _iid = f"{s}|{r}|{o}"
+        _tags = {"with_path": bool(wp), "trivial": bool(trivial),
+                 "out_degree": int(len(cpool)), "chain_depth_le2": bool(trivial)}
+        for a in ARMS:
+            _rk = int(row[a + "_rank"])
+            pil.log(_iid, f"compose:{a}", {"rank": _rk, "hit10": _rk <= 10}, _tags)
+        pil.log(_iid, "retrieval:bge", {"rank": int(row["bge_rank"]),
+                                        "hit10": int(row["bge_rank"]) <= 10}, _tags)
+        pil.log(_iid, "oracle:closure", {"rank": int(row["clo_rank"]),
+                                         "hit10": int(row["clo_rank"]) <= 10}, _tags)
         if ri % 25 == 0:
             _heartbeat(out_dir, ri, n_rows, t0, extra={"rows_scored": len(rows)})
             print(f"  [progress] row {ri}/{n_rows} scored={len(rows)} ({time.perf_counter()-t0:.1f}s)", flush=True)
 
+    _pil_manifest = pil.close()  # ADDITIVE: writes per_item_log.jsonl + manifest; metrics unchanged
+    print(f"  [per-item-log] rows={_pil_manifest['n_rows_written']} "
+          f"stages={list(_pil_manifest['miss_rate_by_stage'].keys())}", flush=True)
     return _summarize(rows, out_dir, t0, ARMS, arm_out_vec, semantic_fires,
                       {"sem": sem_edge_cos, "rand": rand_edge_cos, "scram": scr_edge_cos, "n_miss": n_miss})
 
