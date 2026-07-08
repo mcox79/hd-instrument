@@ -85,6 +85,21 @@ def erase_baseline_leak_rate_random(n_facts: int) -> tuple[float, float]:
     return (0.85, 1.0)
 
 
+def peel_sic_orthonormal_recall() -> float:
+    """Confidence-ordered peel/SIC readout on an ORTHONORMAL codebook recovers exactly.
+
+    Closed form: if a bundle S = sum_{j in T} c_j of unit orthonormal codes is decoded by
+    matching pursuit (score residual vs codebook, pick argmax, deflate the picked codeword,
+    repeat |T| times), then round 1 scores true members at 1.0 and non-members at 0.0, so the
+    argmax is a true member; unit-weight deflation removes exactly its contribution leaving a
+    residual over the remaining members. By induction every pick is a true member and the
+    residual reaches 0 after |T| rounds. Set recall = 1.0 exactly (no capacity limit while
+    codes are orthonormal). Flat top-J shares this oracle in the orthonormal case; the two
+    readouts diverge only under near-orthogonal cross-talk (finite N).
+    """
+    return 1.0
+
+
 def erase_floor_random_alpha_one(n_facts: int, n: int) -> tuple[float, float]:
     """At alpha=1 with orthogonal random keys, Method B leak rate should be at the
     floor: argmax-over-bank of a near-zero retrieved vector is random.

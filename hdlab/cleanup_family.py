@@ -10,7 +10,7 @@ This module provides the substrate-flat numpy API for any cell that wants to
 swap cleanup primitives as the OUTER axis. CPU-only; cells doing GPU-heavy
 sweeps should use the torch versions in the cell core directly.
 
-PRIMITIVES:
+PRIMITIVES (single-vector cleanup; query -> cleaned vector):
   classical_hopfield(query, codebook, *, max_steps=8, sign_quantize=True)
   modern_hopfield_continuous(query, codebook, *, beta=8.0, max_steps=8)
   k_NN_lookup(query, codebook, *, k=1)
@@ -21,6 +21,19 @@ Each returns (recovered_vector, diagnostics) where diagnostics has at least:
   n_iterations: int
   converged: bool
   final_argmax_idx: int  (or array for batch)
+
+BUNDLE_READOUTS (multi-item bundle-set recovery; bundle + codebook -> member indices):
+  peel_sic_readout(bundle, codebook, *, n_items, mode="unit"|"proj")
+  flat_topk_readout(bundle, codebook, *, n_items)
+
+These have a DIFFERENT contract from PRIMITIVES: input is a BUNDLE (sum of member
+codes), output is the set of n_items member INDICES that compose it (not a single
+cleaned vector). peel_sic_readout is the confidence-ordered successive-interference-
+cancellation / matching-pursuit readout that beats flat top-J at high bundle load
+(CG-certified: exp_encoder_peel_sic_readout_realcodes_v1 commit 916e6f7cb;
+exp_bundling_slot_peel_sic_v1 commit c2f65e53d). It is a SIBLING registry; the
+single-vector PRIMITIVES default path is unchanged. Real (HRR float32) and complex
+(FHRR complex64/complex128) codebooks are both handled (conjugate-aware scoring).
 """
 from __future__ import annotations
 
@@ -218,6 +231,110 @@ PRIMITIVES = {
 }
 
 
+# ==================== multi-item bundle-set-recovery readouts ================
+# DIFFERENT contract from the single-vector PRIMITIVES above: input is a BUNDLE
+# (sum of member codes), output is the set of member INDICES. Kept as a sibling
+# registry (BUNDLE_READOUTS) so the single-vector default path is unchanged.
+def _bundle_scores(residual: np.ndarray, codebook_conj: np.ndarray) -> np.ndarray:
+    """Real cleanup scores of residual (B, D) vs conj(codebook) (M, D) -> (B, M).
+
+    Re(<c_i, r>) with <a,b>=sum conj(a)*b; conj is a no-op for real dtypes so this
+    is a plain dot product for HRR and the phasor cleanup score for FHRR.
+    """
+    return (residual @ codebook_conj.T).real
+
+
+def flat_topk_readout(bundle: np.ndarray, codebook: np.ndarray, *, n_items: int,
+                      **kw) -> Tuple[np.ndarray, Dict[str, Any]]:
+    """Flat top-J readout: one-shot argmax-cosine, take the n_items highest-scoring codes.
+
+    bundle (D,) or (B, D); codebook (M, D) -> indices (n_items,) or (B, n_items) int64,
+    ordered by descending score. This is the current default bundle readout that peel/SIC
+    beats at high bundle load (the negative control).
+    """
+    b2, was_1d = _ensure_batch(bundle)
+    cb = codebook
+    M = cb.shape[0]
+    if not (1 <= int(n_items) <= M):
+        raise ValueError(f"flat_topk_readout n_items={n_items} must be in [1, M={M}]")
+    n_items = int(n_items)
+    scores = _bundle_scores(b2, cb.conj())                       # (B, M)
+    part = np.argpartition(-scores, n_items - 1, axis=1)[:, :n_items]  # (B, n_items) unordered
+    part_scores = np.take_along_axis(scores, part, axis=1)
+    order = np.argsort(-part_scores, axis=1)                     # descending score
+    idx = np.take_along_axis(part, order, axis=1).astype(np.int64)
+    diag = {"primitive": "flat_topk_readout", "n_items": n_items,
+            "converged": True, "final_argmax_idx": int(idx[0, 0]) if was_1d else idx[:, 0]}
+    return (idx[0] if was_1d else idx), diag
+
+
+def peel_sic_readout(bundle: np.ndarray, codebook: np.ndarray, *, n_items: int,
+                     mode: str = "unit", eps: float = 1e-12,
+                     **kw) -> Tuple[np.ndarray, Dict[str, Any]]:
+    """Confidence-ordered successive-interference-cancellation (matching pursuit) readout.
+
+    bundle (D,) or (B, D); codebook (M, D) -> member indices (n_items,) or (B, n_items) int64,
+    in confidence order (most-confident resolved first). Each round: score the running residual
+    vs the codebook, pick the global argmax (most-confident member), record it, deflate its
+    codeword from the residual, never repick. mode='unit' subtracts the codeword (unit-weight;
+    correct for a sum of members each contributing weight 1); mode='proj' subtracts its
+    projection <c,r>/<c,c> * c (magnitude-aware matching pursuit for non-unit / correlated codes).
+    """
+    if mode not in ("unit", "proj"):
+        raise ValueError(f"peel_sic_readout mode must be 'unit' or 'proj', got {mode!r}")
+    b2, was_1d = _ensure_batch(bundle)
+    cb = codebook
+    B, D = b2.shape
+    M = cb.shape[0]
+    if not (1 <= int(n_items) <= M):
+        raise ValueError(f"peel_sic_readout n_items={n_items} must be in [1, M={M}]")
+    n_items = int(n_items)
+    cb_conj = cb.conj()                                          # (M, D); no-op for real
+    cb_sqnorm = (cb_conj * cb).sum(axis=1).real.astype(np.float64) + eps  # (M,) >0
+    resid = b2.astype(cb.dtype, copy=True)                      # running residual (B, D)
+    preds = np.full((B, n_items), -1, dtype=np.int64)
+    picked = np.zeros((B, M), dtype=bool)
+    ar = np.arange(B)
+    neg = np.float64(-np.inf)
+    for r in range(n_items):
+        scores = _bundle_scores(resid, cb_conj)                # (B, M)
+        scores = np.where(picked, neg, scores)
+        ih = scores.argmax(axis=1)                             # (B,) most-confident member
+        preds[:, r] = ih
+        picked[ar, ih] = True
+        chosen = cb[ih]                                        # (B, D)
+        if mode == "unit":
+            resid = resid - chosen                            # unit-weight deflation
+        else:
+            coeff = (chosen.conj() * resid).sum(axis=1) / cb_sqnorm[ih]  # (B,) projection weight
+            resid = resid - coeff[:, None] * chosen
+    resid_norm = np.linalg.norm(resid.reshape(B, -1), axis=1).astype(np.float64)
+    diag = {"primitive": "peel_sic_readout", "mode": mode, "n_items": n_items,
+            "converged": True, "n_iterations": n_items,
+            "final_residual_norm": float(resid_norm[0]) if was_1d else resid_norm,
+            "final_argmax_idx": int(preds[0, 0]) if was_1d else preds[:, 0]}
+    return (preds[0] if was_1d else preds), diag
+
+
+def _readout_flat_topk(bundle, codebook, n_items):
+    return flat_topk_readout(bundle, codebook, n_items=n_items)
+
+
+def _readout_peel_unit(bundle, codebook, n_items):
+    return peel_sic_readout(bundle, codebook, n_items=n_items, mode="unit")
+
+
+def _readout_peel_proj(bundle, codebook, n_items):
+    return peel_sic_readout(bundle, codebook, n_items=n_items, mode="proj")
+
+
+BUNDLE_READOUTS = {
+    "flat_topk": _readout_flat_topk,
+    "peel_sic_unit": _readout_peel_unit,
+    "peel_sic_proj": _readout_peel_proj,
+}
+
+
 def _selftest() -> None:
     """Quick selftest: each primitive returns finite recovered + diagnostics."""
     rng = np.random.default_rng(0)
@@ -245,8 +362,31 @@ def _selftest() -> None:
         recovered, diag = fn(q_batch, cb_norm)
         assert recovered.shape == (B, D), f"{name} batch: bad shape {recovered.shape}"
 
+    # bundle-set readouts (sibling contract): peel/SIC must beat flat top-J at high load
+    J = 20
+    members = rng.choice(M, size=J, replace=False)
+    bundle = cb_norm[members].sum(axis=0).astype(np.float32)
+    true_set = set(int(x) for x in members)
+    for name, fn in BUNDLE_READOUTS.items():
+        idx, diag = fn(bundle, cb_norm, J)
+        assert idx.shape == (J,), f"{name}: bad readout shape {idx.shape}"
+        assert idx.dtype == np.int64, f"{name}: readout dtype {idx.dtype}"
+        assert set(int(x) for x in idx).issubset(range(M)), f"{name}: index out of range"
+    flat_idx, _ = flat_topk_readout(bundle, cb_norm, n_items=J)
+    peel_idx, _ = peel_sic_readout(bundle, cb_norm, n_items=J, mode="unit")
+    flat_recall = len(set(int(x) for x in flat_idx) & true_set) / J
+    peel_recall = len(set(int(x) for x in peel_idx) & true_set) / J
+    assert peel_recall >= flat_recall, (
+        f"peel/SIC ({peel_recall:.3f}) must not underperform flat top-J ({flat_recall:.3f})")
+    # batch readout shape
+    bundle_b = np.stack([cb_norm[rng.choice(M, size=J, replace=False)].sum(0) for _ in range(4)])
+    for name, fn in BUNDLE_READOUTS.items():
+        idx_b, _ = fn(bundle_b.astype(np.float32), cb_norm, J)
+        assert idx_b.shape == (4, J), f"{name} batch: bad shape {idx_b.shape}"
+
     print("[hdlab.cleanup_family selftest] PASS: 5 primitives finite + correct shapes "
-          "+ batch mode + diagnostics", flush=True)
+          "+ batch mode + diagnostics; 3 bundle readouts (peel_recall=%.3f >= flat=%.3f)"
+          % (peel_recall, flat_recall), flush=True)
 
 
 if __name__ == "__main__":
