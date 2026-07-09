@@ -58,6 +58,7 @@ import numpy as np
 import torch
 
 from .char_trigram_encoder import CharTrigramEncoder
+from .kb_encoder_registry import resolve_kb_encoder
 
 
 # Aliases for caller convenience. Schema (config/director_kb_schema.json) uses
@@ -188,7 +189,10 @@ class DirectorKBQuery:
                 if a["p"] == supersedes_idx:
                     self._superseded_entity_indices.add(a["o"])
 
-        self.encoder = CharTrigramEncoder(n_dim=self.n_dim)
+        # Encoder resolves through the KB encoder registry by the manifest's
+        # encoder name (default char_trigram_v1). Additive + no-regression:
+        # char_trigram_v1 returns CharTrigramEncoder exactly as before.
+        self.encoder = resolve_kb_encoder(self.encoder_name, self.n_dim)
 
         # Pre-normalize E for cosine similarity. OOM-safe path (see class docstring):
         # cache -> mmap load; else stream from mmap tensor -> chunked normalize ->

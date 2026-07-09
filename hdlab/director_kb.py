@@ -35,6 +35,7 @@ from typing import Any
 import torch
 
 from .char_trigram_encoder import CharTrigramEncoder
+from .kb_encoder_registry import resolve_kb_encoder
 from .kg_traversal import KGStore
 
 # UNIFIED-KB fold-in 2026-07-02: chunk-emission for text-mode classes is now
@@ -252,10 +253,54 @@ def _extract_triples_jsonl(
     cap = int(schema.get("limits", {}).get("max_atoms_per_file", 64))
     # Per-file atom cap is bypassed for jsonl mode: each line is itself a source-of-truth
     # row; capping at 64 would silently truncate the cert ledger / atom corpus. We rely on
-    # jsonl_max_lines_per_file instead. Belt-and-suspenders global cap at 50000:
-    hard_cap = 50000
+    # jsonl_max_lines_per_file instead. Belt-and-suspenders global cap at 2000000 (bumped
+    # 50000 -> 2000000 on 2026-07-03: paired with schema jsonl_max_lines_per_file bump
+    # 5000 -> 200000. At ~5 triples/atom (ANCHOR_FOR + 4 relations) worst case is
+    # 200000 * 5 = 1M triples; 2M is 2x headroom. Rationale: 5000-line cap made today's
+    # math atoms unqueryable per USER project_substrate_ingest_completeness_and_addressability.)
+    hard_cap = 2000000
     if len(out) > hard_cap:
         out = out[:hard_cap]
+    return out
+
+
+def _extract_triples_jsonl_edges(
+    path: Path,
+    class_def: dict,
+    text: str,
+) -> list[dict]:
+    """Extract graph edges from a {src,tgt,rel} JSONL edge list (Principle 4).
+
+    Each non-empty line is parsed as JSON; the triple (row[src_key], row[rel_key],
+    row[tgt_key]) is emitted verbatim so the relation TYPE becomes the predicate
+    (not a fixed relation), landing each row as a genuine directed graph edge.
+    Deterministic: file lines iterated in disk order. No per-file atom cap (the
+    edge list is itself source-of-truth); bounded by jsonl_max_lines_per_file.
+    """
+    src_k = class_def.get("edge_src_key", "src_id")
+    tgt_k = class_def.get("edge_tgt_key", "tgt_id")
+    rel_k = class_def.get("edge_rel_key", "rel_type")
+    max_lines = int(class_def.get("jsonl_max_lines_per_file", 500000))
+    out: list[dict] = []
+    n_lines = 0
+    for line in text.splitlines():
+        if not line.strip():
+            continue
+        n_lines += 1
+        if n_lines > max_lines:
+            break
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(row, dict):
+            continue
+        s = row.get(src_k)
+        o = row.get(tgt_k)
+        r = row.get(rel_k)
+        if not s or not o or not r:
+            continue
+        out.append({"s": str(s), "p": str(r), "o": str(o), "extra_tags": {}})
     return out
 
 
@@ -477,6 +522,12 @@ def _extract_triples_for_file(
     mode = class_def.get("mode")
     if mode == "jsonl":
         return _extract_triples_jsonl(path, class_name, class_def, text, schema, repo_root)
+
+    # JSONL edge-list mode: each line is {src_id, tgt_id, rel_type}; emit the
+    # genuine directed graph edge (src, rel_type, tgt). Used for ConceptNet-
+    # derived word-relation edges (data/substrate_index/concept/relations.jsonl).
+    if mode == "jsonl_edges":
+        return _extract_triples_jsonl_edges(path, class_def, text)
 
     # Bio/neuro modes (USER 2026-06-26 bio_trio request).
     # Dispatch by mode; each parser returns ALL triples for the file in
@@ -733,8 +784,11 @@ def run_ingest(
                     pass
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Encoder + per-trigram codebook are content-deterministic (no seed)
-    encoder = CharTrigramEncoder(n_dim=n_dim)
+    # Encoder resolves through the KB encoder registry by schema encoder_default
+    # (default char_trigram_v1). Additive + no-regression: char_trigram_v1
+    # returns CharTrigramEncoder exactly as the prior hard-coded construction.
+    encoder = resolve_kb_encoder(
+        schema.get("encoder_default", "char_trigram_v1"), n_dim)
 
     # Entity + relation tables: first-seen insertion order from a deterministic
     # walk over (class, file) -> triples
@@ -940,7 +994,11 @@ def run_ingest(
     # Use a deterministic seeded generator so same (n_dim, seed, n_ent) -> same E.
     g = torch.Generator()
     g.manual_seed(seed)
-    kg = KGStore(n_ent=max(n_entities, 1), n_rel=max(n_relations, 1), n_dim=n_dim, generator=g)
+    # init_entities=False: E is fully overwritten below with encoder codebook
+    # vectors, so skip the wasteful random bipolar init (saves ~4.6 GB transient
+    # int8 buffers at KB scale; the random init was OOM-killing the build).
+    kg = KGStore(n_ent=max(n_entities, 1), n_rel=max(n_relations, 1), n_dim=n_dim,
+                 generator=g, init_entities=False)
 
     # Override entity codebook with content-deterministic char-trigram encoding
     # (Principle 5: the encoder is the substrate-native one). For entities whose
