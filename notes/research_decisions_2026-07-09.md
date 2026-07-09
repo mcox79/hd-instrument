@@ -1,0 +1,3 @@
+# Research decisions log 2026-07-09
+
+- 2026-07-09: 5x negative-revival cross-domain drill (compounding-error wall, self-authored no sub-agents) -> notes/research_compounding_error_bound_5x_drill_new_mechanism_class_cross_domain_2026-07-09.md. Top pick: exogenous-ground-truth gate (kinetic-proofreading-style KB-grounded checkpoint), rank-1 HIGH-PROB-SUPERIOR, P_deflated~0.20; retroactively explains why bidirectional-replay/coarse2fine/verify all failed (correction signal was correlated with, not independent of, the estimator being corrected); directly reuses this-session HARD_PASS sibling (ARM_C_FRESH slope=0.0010 vs COMPOUND slope=0.0976) as proof-of-concept.
