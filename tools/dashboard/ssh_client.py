@@ -9,7 +9,8 @@ the wire.
 from __future__ import annotations
 
 import socket
-from concurrent.futures import ThreadPoolExecutor
+import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as _FuturesTimeout
 from pathlib import Path
 from typing import Optional
 
@@ -38,6 +39,20 @@ BLOCKED_TOKENS: tuple[str, ...] = (
 
 
 class CommandNotAllowed(ValueError):
+    pass
+
+
+class PollTimeout(RuntimeError):
+    """run_parallel exceeded its wall-clock cap.
+
+    Raised when the aggregate poll (all commands) does not complete within the
+    wall cap. The dominant cause is a hung ``recv_exit_status()``: paramiko's
+    exit-status wait does NOT honor the per-channel ``exec_command`` timeout, so
+    when the remote force-closes the socket (WinError 10054) mid-poll the read
+    blocks FOREVER and the poller process stays alive but wedged. The caller must
+    treat this as a dead transport and ``reset()`` -- closing the transport wakes
+    the wedged wait so the leaked worker thread can exit.
+    """
     pass
 
 
@@ -141,12 +156,23 @@ class ReadOnlySSH:
         cmds: list[str],
         timeout: float = 10.0,
         tolerate_errors: bool = False,
+        wall_cap: float | None = None,
     ) -> list[str | None]:
         """Run allowlisted commands concurrently on one transport, preserve order.
 
         With tolerate_errors=True, a per-command failure yields None at that slot
         rather than raising. Useful when some targets (e.g. per-experiment .log)
         may not exist yet.
+
+        wall_cap bounds the AGGREGATE wall time across all commands. paramiko's
+        recv_exit_status() ignores the per-command exec_command timeout, so a
+        remote socket force-close (WinError 10054) can wedge a read forever -- the
+        exact failure that silently froze the feed for ~7.2h. When the aggregate
+        exceeds wall_cap we raise PollTimeout instead of blocking; the caller
+        resets the transport (which wakes the wedged read so the leaked worker
+        thread exits). Default: max(60, timeout*6) -- generous above the per-cmd
+        socket timeout so normal slow polls never trip, tight enough to convert a
+        forever-hang into a ~60-90s bounded failure.
         """
         for cmd in cmds:
             _check_allowed(cmd)
@@ -183,8 +209,40 @@ class ReadOnlySSH:
         # silently after ~30-60 minutes (no Python traceback). max_workers=2 keeps
         # the in-flight channel count bounded and the SSH server's MaxSessions=10 has
         # plenty of headroom.
-        with ThreadPoolExecutor(max_workers=min(2, max(1, len(cmds)))) as pool:
-            return list(pool.map(_one, cmds))
+        if wall_cap is None:
+            wall_cap = max(60.0, timeout * 6.0)
+        if not cmds:
+            return []
+        deadline = time.monotonic() + wall_cap
+        pool = ThreadPoolExecutor(max_workers=min(2, max(1, len(cmds))))
+        futures = [pool.submit(_one, c) for c in cmds]
+        results: list[str | None] = []
+        timed_out = False
+        try:
+            for fut in futures:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    timed_out = True
+                    break
+                try:
+                    results.append(fut.result(timeout=remaining))
+                except _FuturesTimeout:
+                    timed_out = True
+                    break
+        finally:
+            # NEVER wait=True: a wedged recv_exit_status would make shutdown()
+            # block forever, defeating the whole point of the wall cap. On the
+            # happy path every future is already done so wait=False reclaims the
+            # threads immediately; on timeout the wedged worker unblocks once the
+            # caller calls reset() (closes the transport) and then exits on its own.
+            pool.shutdown(wait=False)
+        if timed_out:
+            raise PollTimeout(
+                f"run_parallel exceeded wall cap {wall_cap:.0f}s "
+                f"({len(results)}/{len(cmds)} cmds returned before cap); "
+                f"likely a wedged recv_exit_status / force-closed socket"
+            )
+        return results
 
     def reset(self) -> None:
         """Force-close the SSH transport; next call will reconnect cleanly."""

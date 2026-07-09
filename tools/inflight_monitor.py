@@ -84,6 +84,20 @@ CACHE_STALE_S = 300.0      # remote_state_cache file mtime age
 RUNNER_HB_STALE_S = 300.0  # runner heartbeat age while running
 GPU_STALL_UTIL = 5         # util at/below this + runner-running for the window = stall
 
+# --- Feed-freshness self-heal (durable fix, testbed 2026-07-09) --------------
+# The poller-level wall cap (ssh_client.run_parallel) already caps a wedged poll
+# and resets the transport. This is the belt-and-suspenders layer: if the feed is
+# STILL frozen past POLLER_RESTART_THRESHOLD_S (e.g. the wedge is outside the
+# capped path, or uvicorn's event loop itself is stuck), kill the uvicorn worker
+# holding the dashboard port. supervisor.py relaunches it within seconds, which
+# reconnects the SSH poller from scratch -- converting a silent multi-hour freeze
+# into ~30s auto-recovery. Rate-limited via a state file so a 7s-cadence caller
+# (GUI refresh) can never kill-loop.
+DASHBOARD_PORT = 8765
+POLLER_RESTART_THRESHOLD_S = 600.0  # feed frozen this long before auto-restart
+POLLER_RESTART_COOLDOWN_S = 300.0   # min gap between auto-restart attempts
+SELF_HEAL_STATE = DATA / ".dashboard_selfheal_state.json"
+
 # Direct-SSH GPU fallback (testbed 2026-07-04). The dashboard's localhost HTTP
 # poll is the ONLY GPU source, so when the web supervisor/poller dies the GPU
 # reading goes dark -- and "is the GPU idle?" is exactly the reading that most
@@ -370,6 +384,84 @@ def probe_gpu_via_ssh() -> dict | None:
 # Snapshot assembly + alert derivation
 # ---------------------------------------------------------------------------
 
+def _pids_listening_on_port(port: int) -> set[int]:
+    """PIDs LISTENING on a TCP port via netstat (ASCII, reliable). Windowless."""
+    pids: set[int] = set()
+    try:
+        out = subprocess.run(["netstat", "-ano", "-p", "TCP"],
+                             capture_output=True, text=True, timeout=6,
+                             creationflags=_NO_WINDOW).stdout
+    except Exception:
+        return pids
+    for line in out.splitlines():
+        parts = line.split()
+        if (len(parts) >= 5 and parts[0].upper() == "TCP"
+                and parts[3].upper() == "LISTENING"
+                and parts[1].endswith(f":{port}")):
+            try:
+                pids.add(int(parts[-1]))
+            except ValueError:
+                pass
+    return pids
+
+
+def _tasklist_image(pid: int) -> str | None:
+    """IMAGENAME (lowercased) for a pid via tasklist, or None. Guards PID reuse."""
+    try:
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"],
+                             capture_output=True, text=True, timeout=6,
+                             creationflags=_NO_WINDOW).stdout
+    except Exception:
+        return None
+    import re as _re
+    m = _re.match(r'"([^"]+)"', out.strip())
+    return m.group(1).lower() if m else None
+
+
+def _self_heal_restart_poller(feed_age: float | None) -> dict | None:
+    """Kill the wedged uvicorn worker when the SSH feed has been frozen too long.
+
+    Fires only when feed_age (seconds since the poller last succeeded) exceeds
+    POLLER_RESTART_THRESHOLD_S. Kills the python worker LISTENING on the dashboard
+    port; supervisor.py relaunches it (fresh SSH poller) within seconds. Windowless,
+    fail-open (never raises), and rate-limited by POLLER_RESTART_COOLDOWN_S via a
+    state file so overlapping callers (GUI 7s refresh + --watch + one-shots) cannot
+    kill-loop. Returns {"killed": [pid...], "feed_age_s": float} when an attempt was
+    made, else None (below threshold / within cooldown / non-Windows)."""
+    if sys.platform != "win32":
+        return None
+    if feed_age is None or feed_age < POLLER_RESTART_THRESHOLD_S:
+        return None
+    now = time.time()
+    try:
+        st = json.loads(SELF_HEAL_STATE.read_text(encoding="utf-8"))
+        last = float(st.get("last_restart_ts") or 0)
+    except Exception:
+        last = 0.0
+    if now - last < POLLER_RESTART_COOLDOWN_S:
+        return None
+    # Stamp the attempt BEFORE killing so a concurrent caller sees the cooldown.
+    try:
+        SELF_HEAL_STATE.write_text(
+            json.dumps({"last_restart_ts": now, "feed_age_s": round(feed_age, 1)}),
+            encoding="utf-8")
+    except Exception:
+        pass
+    killed: list[int] = []
+    own = os.getpid()
+    for pid in _pids_listening_on_port(DASHBOARD_PORT):
+        if pid == own:
+            continue
+        if _tasklist_image(pid) in ("python.exe", "pythonw.exe"):
+            try:
+                subprocess.run(["taskkill", "/F", "/PID", str(pid)],
+                               capture_output=True, timeout=6, creationflags=_NO_WINDOW)
+                killed.append(pid)
+            except Exception:
+                pass
+    return {"killed": killed, "feed_age_s": round(feed_age, 1)}
+
+
 def build_state() -> dict:
     now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
     alerts: list[dict] = []
@@ -411,6 +503,16 @@ def build_state() -> dict:
         alerts.append({"level": "CRITICAL", "code": "FEED_STALE",
                        "msg": f"remote SSH poll stale ({feed_age}s > {FEED_STALE_S}s); "
                               f"GPU/runner status is FROZEN, last_error={feed.get('last_error')}"})
+        # Self-heal: if the feed has been frozen past the auto-restart threshold,
+        # kill the wedged uvicorn worker; supervisor.py relaunches it with a fresh
+        # SSH poller. Converts a silent multi-hour freeze into ~30s auto-recovery.
+        healed = _self_heal_restart_poller(feed_age)
+        if healed and healed.get("killed"):
+            alerts.append({"level": "WARN", "code": "POLLER_AUTO_RESTART",
+                           "msg": f"feed frozen {healed['feed_age_s']}s "
+                                  f"(> {POLLER_RESTART_THRESHOLD_S:.0f}s); killed wedged "
+                                  f"dashboard worker pid(s) {healed['killed']} -- "
+                                  f"supervisor will relaunch + reconnect the SSH poller"})
 
     gpu = (runs or {}).get("gpu", {}) if isinstance(runs, dict) else {}
     gpu_util = gpu.get("gpu_util_ema")

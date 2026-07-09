@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 import parsers
-from ssh_client import ReadOnlySSH
+from ssh_client import ReadOnlySSH, PollTimeout
 
 # Local substrate-experiment subprocess scanner lives in tools/ (parent dir).
 # Surfaces direct agent-launched python runs that BYPASS the queue (the R1
@@ -384,7 +384,24 @@ class Poller:
             except Exception:
                 pass
         keyed = self._build_cmds()
-        results = self._ssh.run_parallel([c for _, c in keyed], tolerate_errors=True)
+        try:
+            results = self._ssh.run_parallel([c for _, c in keyed], tolerate_errors=True)
+        except PollTimeout as e:
+            # DURABLE FIX: the aggregate poll wedged (hung recv_exit_status after a
+            # remote socket force-close). Force-reset the transport so the wedged
+            # worker thread unblocks + the NEXT poll reconnects cleanly, record the
+            # error, and ABANDON this tick instead of blocking forever. This is the
+            # fix for the silent ~7.2h feed freeze: the process stayed alive but
+            # wedged, so the restart-on-death supervisor never noticed. Now the poll
+            # caps at the wall_cap (~60-90s), last_poll_ok stops advancing (feed
+            # reads stale), and self-heal / manual restart can act.
+            try:
+                self._ssh.reset()
+            except Exception:
+                pass
+            with self._lock:
+                self.last_error = f"PollTimeout: {e}"
+            return
         # If ANY commands failed, reset eagerly. Channel-open-FAILED retries inside
         # paramiko leak channels; lowering the trigger from majority to "any failure"
         # caps the leak per poll.
