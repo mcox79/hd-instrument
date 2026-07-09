@@ -75,6 +75,12 @@ class Tier(enum.Enum):
     TIER_LEXICON = "T_lexicon"  # per Research NER_GAZETTEER_8: lexicon atoms in concept partition
     TIER_METHODOLOGY = "T_methodology"  # per FINDINGS_13: meta-rule atoms
     TIER_SCHOOL = "T_school"  # per Research SCHOOLS_BATCH_01: school-of-thought atoms
+    TIER_UNSPECIFIED = "TIER_UNSPECIFIED"  # SENTINEL (testbed Option A read-path fix 2026-07-09):
+                                            # fallback for author-drift tier strings not in this enum,
+                                            # so the row still loads into _by_id (flush-safe) instead
+                                            # of being silently skipped by load_atoms. The ORIGINAL raw
+                                            # string is preserved in metadata['_raw_tier'] and re-emitted
+                                            # by to_dict (round-trip stable; disk normalization = Option C).
 
 
 class AtomKind(enum.Enum):
@@ -314,6 +320,14 @@ class AtomKind(enum.Enum):
                                                  # rel_types (IsA->IS_A, PartOf->PART_OF, rest CN_*), NEVER metadata-
                                                  # on-RELATES (the edge-metadata-drop lesson).
 
+    UNSPECIFIED = "UNSPECIFIED"                   # SENTINEL (testbed Option A read-path fix 2026-07-09):
+                                                 # fallback for author-drift kind strings not in this enum, so the
+                                                 # row still loads into _by_id (flush-safe) instead of being silently
+                                                 # skipped by load_atoms. The ORIGINAL raw string is preserved in
+                                                 # metadata['_raw_kind'] and re-emitted by to_dict (round-trip stable).
+                                                 # Replaces the per-orphan enum-add treadmill above for the read path;
+                                                 # disk normalization / canonical kind promotion = Option C (cert-owner).
+
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
 # 13 categories on 3 axes; category 13 'substrate_native' is the novel
@@ -529,12 +543,22 @@ class Atom:
         return f"{self.corpus.value}::{self.id}"
 
     def to_dict(self) -> dict:
+        # Round-trip stability (testbed Option A 2026-07-09): when tier/kind hit the
+        # UNSPECIFIED sentinel on load, re-emit the ORIGINAL author string (preserved
+        # in metadata) so the first post-fix flush re-persists the raw value, NOT the
+        # sentinel. metadata['_raw_tier'/'_raw_kind'] is carried through unchanged.
+        tier_out = self.tier.value
+        if self.tier is Tier.TIER_UNSPECIFIED and "_raw_tier" in self.metadata:
+            tier_out = self.metadata["_raw_tier"]
+        kind_out = self.kind.value
+        if self.kind is AtomKind.UNSPECIFIED and "_raw_kind" in self.metadata:
+            kind_out = self.metadata["_raw_kind"]
         d = {
             "id": self.id,
             "name": self.name,
             "corpus": self.corpus.value,
-            "tier": self.tier.value,
-            "kind": self.kind.value,
+            "tier": tier_out,
+            "kind": kind_out,
             "description": self.description,
             "aliases": list(self.aliases),
             "metadata": dict(self.metadata),
@@ -619,13 +643,38 @@ class Atom:
             if ck in d and ck not in meta:
                 meta[ck] = d[ck]
 
+        # atom_id alias for id (89 cert rows use atom_id); synthesize name/
+        # description from the id when absent (author-drift rows). Testbed Option A
+        # read-path fix 2026-07-09.
+        atom_id = d.get("id", d.get("atom_id"))
+        if atom_id is None:
+            raise KeyError("id")  # genuinely unidentifiable row -> still skip
+        name = d.get("name") or atom_id
+        description = d.get("description") or name
+
+        # Tolerant tier/kind coercion: author-drift strings not in the enum fall
+        # back to a sentinel (so the row loads into _by_id = flush-safe) while the
+        # ORIGINAL string is preserved in metadata for round-trip-stable re-emit.
+        raw_tier = d.get("tier", "NA")
+        try:
+            tier = Tier(raw_tier)
+        except ValueError:
+            tier = Tier.TIER_UNSPECIFIED
+            meta["_raw_tier"] = raw_tier
+        raw_kind = d.get("kind", "primitive")
+        try:
+            kind = AtomKind(raw_kind)
+        except ValueError:
+            kind = AtomKind.UNSPECIFIED
+            meta["_raw_kind"] = raw_kind
+
         return cls(
-            id=d["id"],
-            name=d["name"],
+            id=atom_id,
+            name=name,
             corpus=Corpus(d["corpus"]),
-            tier=Tier(d.get("tier", "NA")),
-            kind=AtomKind(d.get("kind", "primitive")),
-            description=d["description"],
+            tier=tier,
+            kind=kind,
+            description=description,
             aliases=tuple(d.get("aliases", [])),
             metadata=meta,
             algebra=algebra,
