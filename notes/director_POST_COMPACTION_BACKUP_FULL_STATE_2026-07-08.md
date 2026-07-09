@@ -1,6 +1,16 @@
 # Director BACKUP -- CURRENT STATE 2026-07-08 (clean consolidation; supersedes all earlier dated blocks)
 
-**Read end-to-end; self-contained + current (anachronistic layers removed 2026-07-08 ~22:xxZ). Deep pre-07-08 history: notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-07.md.**
+**Read end-to-end; self-contained + current. Deep pre-07-08 history: notes/director_POST_COMPACTION_BACKUP_FULL_STATE_2026-07-07.md. CRON = a40824ce (:13/:43).**
+
+### ========== OVERNIGHT CONVERGENCE (2026-07-09 ~05:5xZ -- READ FIRST) ==========
+**THE NIGHT CONVERGED ON ONE PRINCIPLE:** bound compounding reasoning-drift ONLY with an INFORMATIONALLY-INDEPENDENT correction channel -- earned 5 ways (Kalman innovation-orthogonality, DNA kinetic-proofreading, DAgger external-oracle, RG/info-bottleneck, pop-genetics) + cross-confirmed BOTH directions: the FAILURE (barrier #2 chain-drift = genuine STRUCTURAL mechanism-independent HARD_FAIL, 4 self-derived rescues dead at op4_V1200_d8) AND the ESCAPE (community-routed innovation MM: independent channel doesn't compound, fresh_slope 0.001 vs compound 0.098).
+**TWO DECISIVE GPU FULLs IN FLIGHT (overnight_queue, monitored, ~1-2h, cron collects):**
+- **KB-GROUNDED-CHECK (running, commit 4f566616b)** = the new-class mechanism: verify each hop vs the RAW ingested KB (exogenous, zero shared params w/ SR estimator; independence screen CLEAN |corr|=0.004). HARD_PASS = barrier #2 BROKEN -> XHIGH VET. HARD_FAIL = wall is DEPTH-FUNDAMENTAL (independence already confirmed) -> bounded-depth framing.
+- **GENERATION DRIFT-FREE (queued, commit 3793f9d94)** = candidate cert: bounded-plan competitive-queuing readout is DEPTH-INVARIANT/drift-free BY CONSTRUCTION (the principle's limiting case -- no running estimate to compound). The 3x "INCONCLUSIVE" was a METRIC-WIRING BUG (intra_decline discriminator built but never gated on); corrected -> REPLAY flat 0.0 vs ACCUMULATE compounds 0.167->0.217, beats random-restart +1.0. On land -> HIGH VET (positive-cert, mechanism/structural scope, real-language reader-gated).
+**DURABLE ON ORIGIN (b5462d526):** #2 HF, innovation MM, reframe MIDDLE_BAND atoms. **HONESTY:** 2 director over-claims (innovation "strong CG", reframe "BGE blind") were VET-CORRECTED DOWN -- the discipline working.
+**REFRAME (barrier #1) = MIDDLE_BAND:** native encoder beats lexical char default but trails BGE overall; "BGE blind on divergence" was TAUTOLOGICAL (mask = bge_rank>50). Direction: STRENGTHEN native semantics (dense>graded; top-1 relational binding) + test a hybrid native+BGE ensemble.
+**NEXT (cron/morning):** collect the 2 GPU verdicts -> VET; then per outcome -- KB-grounded HARD_PASS=barrier broken / HARD_FAIL=bounded-depth; generation HARD_PASS=drift-free cert; + native-semantics strengthening; dash durable fix (wall-clock poll cap); cross-modal binding (VET-first). Prove->VET->integrate; drill genuine negatives.
+### ========== END OVERNIGHT CONVERGENCE ==========
 
 ## STEP 0 on pickup (every session)
 1. Heartbeat (every turn-end): `date -u +"%Y-%m-%dT%H:%M:%SZ" > d:/AI/hd-instrument/data/heartbeats/research.timestamp`
