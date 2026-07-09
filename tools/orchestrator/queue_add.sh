@@ -245,6 +245,33 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     fi
   done
 
+  # Pattern 5b: shared framework modules in the hdlab/ PACKAGE (added 2026-07-08).
+  # Pattern 5 only matches `from experiments.<mod>`; it misses `from hdlab.<mod>`
+  # package imports. The remote runner repo (C:/dev/hd-instrument) is not kept in
+  # lock-step with origin (known repo drift), so an hdlab/ module that gained a new
+  # symbol locally (e.g. hdlab.cleanup_family.peel_sic_readout) is stale on remote
+  # and the self-test crashes with ImportError. Surfaced 2026-07-08 when
+  # community_bounded_retrieval_scale_invariance_v1 self-test HARD_FAILed on
+  # `cannot import name 'peel_sic_readout' from 'hdlab.cleanup_family'`.
+  # Fix: hardcoded allow-list of shared hdlab package modules; if the local script
+  # imports one, scp it to REPO_REMOTE/hdlab/. Kept SHORT (same discipline as
+  # Pattern 5): only true cross-cell shared hdlab modules, not a general dep resolver.
+  HDLAB_SHARED_MODULES=(
+    "cleanup_family"
+  )
+  for HMODULE in "${HDLAB_SHARED_MODULES[@]}"; do
+    if grep -qE "(from hdlab\.${HMODULE}[[:space:]]|import hdlab\.${HMODULE})" "${SCRIPT_LOCAL}"; then
+      HDLAB_LOCAL="${REPO_LOCAL}/hdlab/${HMODULE}.py"
+      if [[ -f "${HDLAB_LOCAL}" ]]; then
+        HDLAB_REMOTE_DIR="${REPO_REMOTE}/hdlab"
+        echo "[queue-add] AUTO-SCP shared hdlab module (Pattern 5b) -> ${HDLAB_LOCAL} -> ${HDLAB_REMOTE_DIR}/"
+        scp -o ConnectTimeout=10 "${HDLAB_LOCAL}" "${SSH_TARGET}:${HDLAB_REMOTE_DIR}/"
+      else
+        echo "[queue-add] WARN: script imports hdlab.${HMODULE} but ${HDLAB_LOCAL} not found locally" >&2
+      fi
+    fi
+  done
+
   # Pattern 6: generic import-parse fallback (6th recurrence fix; 2026-07-04).
   # Patterns 1-5 all match siblings by NAME CONVENTION (suffix-strip + fixed
   # filename shapes, or a hardcoded allow-list). That still misses cells like
