@@ -103,25 +103,33 @@ independent of that paper, which is why this stays close to, not far below, the 
 | Mechanism | What it does | Load-bearing status |
 |---|---|---|
 | **Predictive coding / active inference** (Rao & Ballard 1999; Friston 2010 free-energy principle; Clark 2013/2015 "surfing uncertainty"; Hohwy 2013) | Minimizes prediction error between top-down generative model and bottom-up sensory signal caused by the real world. The residual is informative specifically because the sensory cause is exogenous — a physical process outside the model's own generative loop. | **PRIMARY / load-bearing.** This is the minimal common mechanism underlying the other three; the other three are variants or consumers of it, not alternatives. |
-| **Sensorimotor contingency theory / enactivism** (O'Regan & Noe 2001; Noe 2004; Gibson 1979 ecological affordances; Varela/Thompson/Rosch 1991) | Grounding = mastery of the lawful, action-contingent structure of how real sensory input changes as a function of movement — a regularity DISCOVERED in the world via a closed action-perception loop, not invented internally. | **Secondary — a STRONGER, more complete variant of predictive coding.** Requires action/perturbation capability closing through the real world; the literature (per this drill's own prior on-disk finding, the Bender-Koller/Bisk-et-al critique) treats passive prediction of a static stream as a weaker, non-equivalent case — genuine but partial. |
-| **Harnad categorical-perception symbol grounding** (Harnad 1990 "The Symbol Grounding Problem"; Harnad 1987 categorical perception; Cangelosi, Greco & Harnad 2000 "From robotic toil to symbolic theft"; Steels 2008) | A small set of elementary symbols are grounded via NON-SYMBOLIC categorical discrimination of real sensory input at a learned decision boundary; everything else inherits grounding TRANSITIVELY through pure symbolic composition of already-grounded primitives — no further perceptual contact required for the bulk of the vocabulary. | **Tertiary — the MINIMAL-KERNEL special case of predictive coding applied to category-boundary discrimination, plus a transitive-spread claim.** This substrate has ALREADY empirically validated the transitive-spread half of this claim today (grounding-cascade note, HARD-PASS on near/far-hop decay), independently of this drill — the open part is what grounds the SEED kernel itself, which is exactly predictive coding's job. |
-| **Causal representation learning intervention screen** (Scholkopf et al. 2021 "Towards Causal Representation Learning"; Ahuja et al. 2022 interventional identifiability; Peters, Buhlmann & Meinshausen 2016 invariant causal prediction; Locatello et al. 2019 disentanglement-impossibility) | Formalizes WHEN a representation can be proven to track true causal factors: perturbing the real factor must move the representation differentially more than perturbing a spurious/confounded one; provable identifiability generally requires MULTIPLE environments or interventions, not just more passive observation. | **Not a grounding-manufacturing mechanism — the VERIFICATION mechanism.** This is the test, not the anchor. Already specified on this substrate as Prediction C (perturbation-sensitivity, `>=2x` differential requirement). |
+| **Sensorimotor contingency theory / enactivism** (O'Regan & Noe 2001; Laflaquiere/O'Regan/Gas/Terekhov 2018 arXiv:1806.02739; Held & Hein classic; SEP "Action-based Theories of Perception" 2025 ed.) | Grounding = "practical mastery" of the lawful structure governing how sensory input changes as a function of self-generated action — a regularity DISCOVERED via a closed action-perception loop. | **Secondary, and — per live verification — an UNSETTLED, contested claim, not established doctrine.** The theory's own text treats action-loop mastery as necessary-not-sufficient (a conjunctive condition with raw sensory stimulation), and the field's own empirical record undercuts strict necessity: passive-movement optical-rearrangement adaptation and passively-transported-kitten depth-avoidance both occurred without active reafference in some paradigms (SEP, citing counter-evidence to Held & Hein). This is genuinely double-edged for a passive-prediction substrate design: it means passive-only prediction is not automatically disqualified by orthodox SMCT, but it also means no consensus "minimal sufficient condition" exists anywhere in this literature to appeal to (explicitly flagged an "open research area" by Pak, arXiv:1810.01870). |
+| **Harnad categorical-perception symbol grounding** (Harnad 1990 *Physica D*; Harnad 1987 *Categorical Perception*; Vincent-Lamarre et al. 2016 *Topics in Cog. Sci.* / arXiv:1411.0129; Greco & Caneva 2010 *Front. Neurorobotics*; Shahid & Rothe 2026 arXiv:2604.26521) | A small set of elementary symbols are grounded via NON-SYMBOLIC categorical-perception discrimination of real sensory input at a learned category boundary; everything else inherits grounding TRANSITIVELY through pure symbolic composition — no further perceptual contact required for the bulk of the vocabulary. | **Tertiary — the MINIMAL-KERNEL special case, now with a genuinely quantitative anchor.** Vincent-Lamarre et al.'s dictionary-graph analysis found a "MinSet" of only ~1% of a full dictionary's vocabulary (~15% of a larger ~10%-of-dictionary "Kernel") suffices to transitively define/reach the ENTIRE remaining vocabulary — the strongest available "how small can the grounded seed be" number in the literature (symbolic/graph-theoretic demonstration, not itself a sensorimotor test). Greco & Caneva's robotic instantiation (9 elementary grounded motor-symbols, 18 compositional patterns) reached 51% novel-composition naming accuracy transitively, vs 29-46% for non-compositional controls — real but FAR FROM PERFECT generalization, a useful calibration ceiling. A newer, contested 2026 paper (Shahid & Rothe) directly challenges pure transitive-sufficiency, arguing grounding decays with compositional distance — converging independently with this substrate's OWN already-measured decay curve (0.146/hop, grounding-cascade note). |
+| **Causal representation learning intervention screen** (Scholkopf et al. 2021 arXiv:2102.11107; Ahuja et al. 2023 arXiv:2209.11924; Squires/Seigal/Bhate/Uhler 2023; Geiger et al. 2022/2024 arXiv:2303.02536 — Distributed Alignment Search / Interchange Intervention Accuracy; Veitch et al. 2021 arXiv:2106.00545) | Formalizes WHEN a representation can be proven to track true causal factors: under PERFECT interventions, latents are identifiable up to permutation/scaling (Ahuja et al.); for the linear-Gaussian case a single intervention per latent is necessary+sufficient (Squires et al.), with newer work reducing this to O(log n) unknown multi-node interventions with finite-sample bounds. The actual empirical protocol used in practice is "interchange intervention" / Interchange Intervention Accuracy (Geiger et al.'s DAS) — patch in another input's representation at a hypothesized causal-variable location and measure whether the output changes to match — reported as a continuous fidelity score, NOT gated at a universal numeric threshold. | **Not a grounding-manufacturing mechanism — the VERIFICATION mechanism, and its bridge to Harnad-sense grounding is explicitly "thin/indirect" per live verification** ("promising synthesis... not settled research" — no paper found that formally equates CRL identifiability with solving the symbol grounding problem). This program's use of it (Prediction C, `>=2x` differential-sensitivity requirement) is itself a novel application of the CRL protocol to this exact question, not an established transfer. |
 
-**Why predictive coding specifically breaks the ceiling internal decorrelation cannot:** the DG fix
-(`B1+PS`) applied a fixed, independently-seeded, sparse-expansion-plus-competitive-sparsification transform
-to the SHARED representation before splitting it per branch — a purely internal, deterministic function of
-data that was itself entirely self-generated within the loop. By the data-processing inequality, no
-deterministic (or even stochastic, data-independent-of-the-referent) transform applied downstream of a signal
-can increase that signal's mutual information with anything the signal never carried information about in the
-first place. If the shared upstream representation carries zero bits about a genuine external referent (because
-it was self-authored inside the loop), pattern separation can decorrelate the TWO BRANCHES from each other
-(and it partially did — `corr` moved from a naive-mirror baseline down through B1's cross-fit to `0.377`) but
-it cannot manufacture bits about an external world that were never there. This is precisely the formal content
-of the DG cell's own pre-registered HARD-FAIL case (a): a representation-level fix was tried, and — exactly as
-that fork predicted — failed to move the needle further, because the ceiling was never representation-level to
-begin with. Real sensory/ingest data does not have this ceiling: it is caused by a process outside the loop, so
-predicting it against a real target necessarily injects information the internal loop could not have generated
-on its own, no matter how the internal branches are shaped.
+**Why predictive coding specifically plausibly breaks the ceiling internal decorrelation cannot (honest framing
+after live verification):** the DG fix (`B1+PS`) applied a fixed, independently-seeded,
+sparse-expansion-plus-competitive-sparsification transform to the SHARED representation before splitting it
+per branch — a purely internal, deterministic function of data that was itself entirely self-generated within
+the loop. The intuitive argument is a data-processing-inequality one: no transform applied downstream of a
+signal can increase that signal's mutual information with anything it never carried information about upstream.
+**This intuition is well-supported by solid, general information theory (directed-DPI-for-feedback-systems,
+arXiv:2103.13591; closed-systems boundary-information formalization, arXiv:2311.10786) but its SPECIFIC
+application to symbol grounding is this program's own synthesis, not a cited theorem in the classical
+Friston/Rao-Ballard/Harnad canon** (confirmed absent across all 4 live lit-scans). The closest DIRECT literature
+hit is a single, very recent (2026), unreplicated ML/self-play paper (Pu, Weng, Liu et al., "Survive or
+Collapse," arXiv:2605.22217) which explicitly distinguishes externally-sourced data-gating (exogenous) from
+internally-generated reward-grounding (endogenous, even if cross-branch-decorrelated) and states directly that
+"decorrelated components within the same training loop can share fundamental error modes" — this is a strong,
+on-topic match to the DG HARD-FAIL's own diagnostic fork, but should be treated as suggestive corroboration
+from a thin source, not a proof. The substrate's OWN on-disk evidence remains the strongest single data point:
+`B1+PS` DID partially decorrelate the two branches from EACH OTHER (`corr` moved from a naive-mirror baseline
+down through B1's cross-fit to `0.377`) but — exactly as its own pre-registered fork predicted for case (a) —
+failed to move the needle further, consistent with (though not proof of) the ceiling being distribution/
+objective-level rather than representation-level. Real ingest data, being caused by a process outside the loop,
+remains the best-motivated candidate for breaking that ceiling — but this note now holds that claim at
+P=0.45 (revised down from the initial 0.50 cap) specifically because the direct literature support turned out
+thinner than the first-pass draft assumed.
 
 ---
 
@@ -137,12 +145,25 @@ actually-observed-next-real-token. This is the substrate-native analog of catego
 the write strength is concentrated on genuinely novel/surprising real transitions (Harnad's category-boundary
 warping, restated as a continuous precision-weighted gate rather than a hard boundary).
 
-**Transitive spread (already validated, reuse don't rebuild):** the grounding-cascade note's already-HARD-PASSED
-transitive-inheritance mechanism (near d1=0.63, far d3=0.48, decay 0.146) IS the spread mechanism — grounded
-seed atoms propagate their grounding to the rest of the vocabulary via the existing relational-graph readout,
-with the same note's two named depth-extension levers (iterative/recurrent settling; compositional
-bind-then-unbind chaining) available to extend reach beyond 1 hop when needed. No new architecture required
-for a first cut — this piece of S2 is a reuse instruction, not a new build.
+**Transitive spread (already validated, reuse don't rebuild) — now with external quantitative calibration:**
+the grounding-cascade note's already-HARD-PASSED transitive-inheritance mechanism (near d1=0.63, far d3=0.48,
+decay 0.146) IS the spread mechanism — grounded seed atoms propagate their grounding to the rest of the
+vocabulary via the existing relational-graph readout, with the same note's two named depth-extension levers
+(iterative/recurrent settling; compositional bind-then-unbind chaining) available to extend reach beyond 1 hop
+when needed. No new architecture required for a first cut — this piece of S2 is a reuse instruction, not a new
+build. **Live-verified external calibration for "how small a seed / how far can it reach":** Vincent-Lamarre
+et al. (2016) found that in a real dictionary-definition graph, a "MinSet" of only ~1% of the full vocabulary
+(a feedback-vertex-set subset of a larger ~10%-of-dictionary "Kernel") suffices to transitively define the
+ENTIRE remaining vocabulary by pure symbolic composition — i.e., this substrate's `W_pred` seed kernel does not
+need to be large to plausibly reach broad coverage, IF the compositional/definitional graph has similar
+connectivity structure to a natural-language dictionary (untested assumption, flagged). Greco & Caneva's (2010)
+robotic instantiation (9 grounded elementary motor-symbols compositionally covering 18 patterns) is a more
+sobering ceiling: novel-composition accuracy topped out at 51% (vs 29-46% non-compositional controls) — real,
+significant, but far from perfect. Combined with Shahid & Rothe's (2026, contested) direct claim that grounding
+decays with compositional distance, the honest expectation for a `W_pred`-sourced kernel is: broad transitive
+REACH is plausible (dictionary-graph precedent), but transitive ACCURACY should be expected to degrade with
+hop-distance (robotic precedent + this substrate's own already-measured 0.146/hop decay + the contested 2026
+critique) — not a clean, lossless spread.
 
 **Causal/held-out screen (already specified, reuse don't rebuild):** Prediction C
 (`research_native_encoder_relational_structure_vs_grounded_meaning_2026-07-09.md`) is precisely the causal
@@ -178,22 +199,32 @@ mechanism above, with agreement/disagreement on that real target substituted for
 
 ## S3 — Honest bound and the sharpest residual question
 
-**Does this give FULL referential grounding, or a stronger-but-still-partial anchor?** The literature answer,
-held consistently across all four angles even without live re-verification, is: **a stronger-but-still-partial
-anchor, not full referential grounding**, for two independent reasons already flagged on-disk and reconfirmed
-by direct knowledge of the source literatures:
+**Does this give FULL referential grounding, or a stronger-but-still-partial anchor?** The live-verified
+literature answer is even more clear-cut than the first-pass draft suggested: **a stronger-but-still-partial
+anchor, not full referential grounding**, now for THREE independently-sourced reasons (one upgraded by live
+verification from a plausible extrapolation to a directly-cited, well-published claim):
 
-1. **Passive prediction is not the same as sensorimotor/enactivist grounding.** O'Regan & Noe's mechanism
-   requires mastery of a LAWFUL ACTION-CONTINGENT regularity via a closed perception-action loop through the
-   real world; predicting a static real ingest stream with no ability to act on or query it is, at best, a
-   degenerate/minimal case the enactivist literature does not treat as equivalent to full sensorimotor
-   grounding. This substrate's design (predicting ingest data) is passive by construction.
-2. **Passive prediction is not the same as full Harnad-sense referential grounding, and the ML literature is
-   explicit and unresolved on this exact point** — already surfaced on-disk (Bender & Koller 2020 "the octopus
-   test"; Bisk et al. 2020 "Experience Grounds Language"; the 2025/2026 "epistemic parasitism" critique): a
-   corpus is a RECORD of experience, not experience itself, and text-only next-token prediction risks
-   inheriting form (and grounding humans already encoded into the text) rather than manufacturing new,
-   first-person referential contact. This drill's literature does not overturn that critique.
+1. **Passive prediction is explicitly, directly argued insufficient by the field's own leading authors —
+   this is now the single best-cited finding of the whole drill.** Pezzulo, Parr, Cisek, Clark & Friston (2023,
+   *Trends in Cognitive Sciences*) — Friston himself among the authors — argue living systems are
+   "inextricably anchored to the body and world" specifically because they must capture and control the
+   SENSORY CONSEQUENCES OF ACTION, which lets them "constantly put their best models to the test" in a way
+   passive generative AI cannot; they state this active testing is "essential to the development of genuine
+   understanding." This is a direct, high-confidence, peer-reviewed statement from within the active-inference
+   field itself that passive prediction (this note's S2 design) does not cross the full grounding threshold.
+2. **A second, independent condition is also unmet: teleosemantic function, not just causal-informational
+   contact.** Coelho Mollo & Millière (2023, "The Vector Grounding Problem," arXiv:2304.01481) argue referential
+   grounding requires BOTH (i) an appropriate causal-informational relation to the world AND (ii) a
+   selectional/functional history that gives the representation the FUNCTION of carrying that information.
+   Prediction-error minimization against real data plausibly satisfies (i) — this is exactly what `W_pred`
+   would supply — but says nothing about (ii), which this substrate has no mechanism for at all. This sharpens
+   "partial anchor" into a precise, two-part bound rather than a vague hedge.
+3. **The sensorimotor/enactivist bar is itself unsettled (see S1), which cuts both ways.** Passive-only design
+   is not automatically disqualified by orthodox SMCT (the field's own action-necessity claim has documented
+   counter-evidence), but neither is there a consensus minimal-sufficient condition to appeal to for a passive
+   design to claim victory against.
+4. **The already-on-disk "epistemic parasitism" critique (Bender & Koller 2020; Bisk et al. 2020) stands
+   unchanged** — a corpus is a record of experience, not experience itself.
 
 **What genuinely changes as a result of this drill's synthesis:** the DG HARD-FAIL is not merely "another
 negative" — it is the third confirmatory data point (with settling HF and differentiation HF) for a specific,
@@ -208,36 +239,49 @@ full referential/embodied grounding the strongest philosophical bar (Harnad's co
 problem, sensorimotor mastery) demands. This is a genuine, product-relevant advance (a real anchor, not a
 placebo), correctly bounded (not oversold as "solved").
 
-**Sharpest residual question:** the causal-representation-learning identifiability literature (Ahuja et al.;
-Peters/Buhlmann/Meinshausen invariant prediction) is fairly explicit that provable recovery of true causal
-factors from passive observational data alone is generally UNDER-IDENTIFIED — reliable identifiability
-typically requires multiple environments or genuine interventions, not merely more of the same static
-real-data stream. Does this substrate's ingest data supply enough NATURAL environment-diversity (different
-real sources, different real conditions, quasi-interventional structure across the corpus) to satisfy this
-condition, or is the current ingest stream effectively a single static environment — in which case
-prediction-error-against-it, however genuinely exogenous, may still leave the learned representation
-under-identified/non-uniquely-grounded in the causal-representation-learning sense, even though it is
-mutual-information-genuine in the data-processing-inequality sense above? This is a DIFFERENT failure mode
-than the one just confirmed (it is about identifiability/uniqueness, not about exogeneity/information-content)
-and is the natural next drill if `B1+EXOG` HARD-PASSes the `corr(failmask)` screen but a follow-up probe finds
-the grounded representation is not stable/unique across resampling of the same static corpus.
+**Sharpest residual question (now with live-verified specificity):** the causal-representation-learning
+identifiability literature is explicit and quantitative that provable recovery of true causal factors
+generally requires INTERVENTIONS, not passive observation alone — Ahuja et al. (2023) show perfect
+interventions give identifiability up to permutation/scaling; Squires, Seigal, Bhate & Uhler (2023) show that
+for the linear-Gaussian case a SINGLE intervention per latent variable is both necessary and sufficient (missing
+even one leaves that factor's identity unresolvable); very recent work (arXiv:2406.05937, arXiv:2603.25796)
+reduces the budget further to O(log n) unknown multi-node interventions with finite-sample guarantees. Does
+this substrate's ingest data supply enough NATURAL environment-diversity/quasi-interventional structure
+(different real sources, different real conditions) to approximate this, or is the current ingest stream
+effectively a single static environment with zero interventions — in which case prediction-error-against-it,
+however genuinely exogenous, may still leave the learned representation under-identified in the CRL sense, even
+if it is information-genuine in the weaker "real data, not self-generated" sense above? The live-verified
+protocol for testing this directly is interchange-intervention accuracy (Geiger et al.'s DAS): patch another
+real input's representation state into a hypothesized grounded-atom location and measure whether output
+tracks the swap — a more rigorous version of Prediction C's perturbation screen, reported as a continuous
+fidelity score rather than a fixed pass/fail cutoff (no universal threshold exists in this literature; this
+program should set its own via held-out validation, not import an external number). This is a DIFFERENT
+failure mode than the one just confirmed (identifiability/uniqueness, not exogeneity/information-content) and
+is the natural next drill if `B1+EXOG` HARD-PASSes but a follow-up probe finds the grounded representation
+unstable across resampling of the same static corpus.
 
-**Deflated P estimates (capped at 0.50, further deflated for this cycle's live-verification gap):**
+**Deflated P estimates (capped at 0.50, calibration penalty applied, revised post-live-verification):**
 - P(predict-real-ingest-data supplies a genuine, structurally distinct exogenous anchor at the mechanism
-  level — the data-processing-inequality argument): **0.50** (capped; DG HARD-FAIL is direct on-disk
-  confirmatory evidence, not pure extrapolation).
+  level): **0.45** (revised down from the initial 0.50 cap — live verification found the strongest direct
+  literature support is one thin, unreplicated 2026 paper rather than classical doctrine; the substrate's own
+  DG HARD-FAIL remains real, direct, on-disk confirmatory evidence independent of that paper).
 - P(`B1+EXOG`, wiring prediction-error-against-real-ingest-data as a shared reconstruction target for both
   self-play branches, HARD-PASSES `corr(failmask) <= 0.30` with grounding `>= 0.50` intact — the pre-registered
   number already carried from the prediction-error note): **0.25** (unchanged from that note's own figure;
   this is the single most consequential number in this note, and it was set BEFORE knowing the DG HARD-FAIL
   would land, so it is not post-hoc-inflated).
 - P(this constitutes FULL Harnad-sense referential/embodied grounding, not a partial structural anchor):
-  **0.15** (unchanged from the prediction-error note's own figure — literature explicitly contests full
-  equivalence and this drill does not overturn that).
+  **0.12** (revised down slightly from 0.15 — live verification found a direct, well-cited, peer-reviewed
+  statement (Pezzulo et al. 2023, Friston co-author) that passive prediction is explicitly insufficient for
+  "genuine understanding," plus a second independent necessary-condition gap (Coelho Mollo & Millière's
+  teleosemantic/functional-history requirement) that this design has no mechanism for at all — sharper,
+  better-sourced grounds for a low number than the first-pass draft had).
 - P(passive ingest-data prediction alone satisfies causal-representation-learning identifiability conditions
-  without additional environment-diversity/interventional structure): **0.25** (deflated — identifiability
-  literature generally requires more than single-environment passive observation; untested whether this
-  substrate's ingest corpus has enough natural diversity to qualify).
+  without additional environment-diversity/interventional structure): **0.20** (revised down from 0.25 —
+  live verification found the identifiability literature's positive results are constructively interventional
+  (single-intervention-per-latent, or O(log n) multi-node interventions), not passive-observation results;
+  a purely passive, single-environment ingest stream is a WEAKER case than anything the positive identifiability
+  results actually cover).
 
 ---
 
@@ -327,41 +371,71 @@ verification (see process note at top).
 
 ---
 
-## Citations (verified count: 15 foundational/highly-cited sources from direct knowledge; NOT independently
-re-fetched via live search this cycle — see process note at top; treat as HIGH confidence for the well-known,
-textbook-adjacent items and flag for follow-up live-verification)
+## Citations (verified count: 34 sources across 4 live Sonnet lit-scan sub-agents, WebSearch/WebFetch-confirmed
+this cycle; generic academic terms only, no substrate-novel names exposed, per
+`[[feedback-query-privacy-decomposition]]`)
 
-**Predictive coding / active inference (5):** Rao, R.P.N. & Ballard, D.H. (1999) *Nat. Neurosci.* 2(1):79-87;
-Friston, K. (2010) "The free-energy principle: a unified brain theory?" *Nat. Rev. Neurosci.* 11:127-138;
-Friston, K., Kilner, J. & Harrison, L. (2006) "A free energy principle for the brain," *J. Physiol.-Paris*;
-Clark, A. (2013) "Whatever next? Predictive brains, situated agents, and the future of cognitive science,"
-*Behav. Brain Sci.* 36:181-204; Hohwy, J. (2013) *The Predictive Mind*, Oxford University Press.
+**Predictive coding / active inference (8):** Rao, R.P.N. & Ballard, D.H. (1999) *Nat. Neurosci.*; Friston, K.
+(2010) "The free-energy principle: a rough guide to the brain?"; Pezzulo, G., Parr, T., Cisek, P., Clark, A. &
+Friston, K. (2023) "Generating meaning: active inference and the scope and limits of passive AI," *Trends in
+Cognitive Sciences* — **load-bearing for S1/S3, highest-confidence direct finding of this drill**; Coelho
+Mollo, D. & Milliere, R. (2023/2024) "The Vector Grounding Problem," arXiv:2304.01481, *Philosophy and the
+Mind Sciences* — load-bearing second necessary-condition; Harnad, S. (1990) "The Symbol Grounding Problem,"
+*Physica D* 42:335-346 (cross-cited); Pu, S.X. et al. (2026) "Survive or Collapse: The Asymmetric Roles of
+Data Gating and Reward Grounding in Self-Play RL," arXiv:2605.22217 — low-medium confidence, single very
+recent unreplicated paper, but the most direct on-topic hit for the exogenous-vs-endogenous-decorrelation
+question; arXiv:2603.02218 and arXiv:2601.05280 (2026, self-play information-closure arguments) — low
+confidence, unreplicated; data-processing-inequality math: arXiv:2103.13591 (directed DPI, feedback systems),
+arXiv:2311.10786 (closed-systems boundary-information formalization) — medium-high confidence for the math,
+medium confidence for its application to grounding (this program's own inference, not a cited theorem).
 
-**Sensorimotor contingency / enactivism (4):** O'Regan, J.K. & Noe, A. (2001) "A sensorimotor account of
-vision and visual consciousness," *Behav. Brain Sci.* 24:939-1031; Noe, A. (2004) *Action in Perception*, MIT
-Press; Gibson, J.J. (1979) *The Ecological Approach to Visual Perception*; Varela, F., Thompson, E. & Rosch, E.
-(1991) *The Embodied Mind*, MIT Press.
+**Sensorimotor contingency / enactivism (7):** O'Regan, J.K. & Noe, A. (2001) "A sensorimotor account of
+vision and visual consciousness," *Behav. Brain Sci.* 24:939-1031; Laflaquiere, A., O'Regan, J.K., Gas, B. &
+Terekhov, A. (2018) "Discovering space," *Neural Networks*, arXiv:1806.02739; companion papers
+arXiv:1810.01871, arXiv:1609.08009 (same group, robotic sensorimotor-contingency simulations); Pak, "Grounding
+Perception: A Developmental Approach to Sensorimotor Contingencies," arXiv:1810.01870; Stanford Encyclopedia of
+Philosophy, "Action-based Theories of Perception" (2025 ed.) — source of the necessity-vs-sufficiency
+disambiguation and the passive-adaptation counter-evidence; Held & Hein (classic, cited secondarily);
+"A critical approach to sensorimotor contingency theory" (2020-21, academia.edu/ResearchGate) — medium
+confidence, non-peer-reviewed venue.
 
-**Harnad symbol grounding / categorical perception (3):** Harnad, S. (1990) "The Symbol Grounding Problem,"
-*Physica D* 42:335-346; Harnad, S. (ed., 1987) *Categorical Perception: The Groundwork of Cognition*;
-Cangelosi, A., Greco, A. & Harnad, S. (2000) "From robotic toil to symbolic theft: grounding transfer from
-entry-level to higher-level categories," *Connection Science* 12:143-162.
+**Harnad symbol grounding / categorical perception (7):** Harnad, S. (1990) *Physica D* 42:335-346; Harnad, S.
+(ed., 1987) *Categorical Perception*; Vincent-Lamarre, P., Blondin Masse, A., Lopes, M., Lord, M., Marcotte, O.
+& Harnad, S. (2016) "The Latent Structure of Dictionaries," *Topics in Cognitive Science* 8:625-659,
+arXiv:1411.0129 — **load-bearing, highest-confidence quantitative kernel-size result of this drill**; Greco, A.
+& Caneva, C. (2010) "Compositional Symbol Grounding for Motor Patterns," *Frontiers in Neurorobotics* —
+load-bearing robotic transitive-grounding calibration; Greco, A. & Carrea, E. (2012) "Grounding Compositional
+Symbols," *Cognitive Processing* 13(2):139-150; Shahid & Rothe (2026) "Grounding vs. Compositionality: On the
+Non-Complementarity of Reasoning in Neuro-Symbolic Systems," arXiv:2604.26521 — moderate confidence, very
+recent/single-source, contested; Kleyko et al. (2022/2023) "A Survey on Hyperdimensional Computing," *ACM
+Computing Surveys* Parts I & II — VSA/binding background, no direct Harnad-transitive-inheritance citation
+found (inferred connection only).
 
-**Causal representation learning (3):** Scholkopf, B., Locatello, F., Bauer, S., Ke, N.R., Kalchbrenner, N.,
-Goyal, A. & Bengio, Y. (2021) "Towards Causal Representation Learning," *Proc. IEEE* 109:612-634,
-arXiv:2102.11107; Ahuja, K. et al. (2022) "Interventional Causal Representation Learning," arXiv:2209.11924;
-Peters, J., Buhlmann, P. & Meinshausen, N. (2016) "Causal inference using invariant prediction," *J. R. Stat.
-Soc. B*.
+**Causal representation learning (8):** Scholkopf, B., Locatello, F., Bauer, S., Ke, N.R., Kalchbrenner, N.,
+Goyal, A. & Bengio, Y. (2021) "Toward Causal Representation Learning," *Proc. IEEE* 109(5), arXiv:2102.11107;
+Locatello, F. et al. (2019) "Challenging Common Assumptions in the Unsupervised Learning of Disentangled
+Representations," ICML (arXiv:1811.12359, best paper) — the disentanglement-impossibility-without-inductive-bias
+result; Ahuja, K. et al. (2023) "Interventional Causal Representation Learning," ICML, arXiv:2209.11924;
+Squires, C., Seigal, A., Bhate, S. & Uhler, C. (2023) "Linear Causal Disentanglement via Interventions," ICML;
+arXiv:2406.05937 (2024) and arXiv:2603.25796 (2026) — reduced intervention-budget results, moderate confidence,
+recent; Geiger, A. et al. (2022) "Inducing Causal Structure for Interpretable Neural Networks," ICML, and
+(2024) "Finding Alignments Between Interpretable Causal Variables and Distributed Neural Representations,"
+CLeaR, arXiv:2303.02536 — the Distributed Alignment Search / Interchange Intervention Accuracy protocol, the
+concrete held-out perturbation-screen mechanism; Veitch, V. et al. (2021) "Counterfactual Invariance to
+Spurious Correlations," NeurIPS, arXiv:2106.00545 — the stress-test/spurious-vs-real differential-sensitivity
+design.
 
-**Already on-disk, reused (not re-cited independently this cycle):** Bender & Koller (2020); Bisk et al.
-(2020); Chernozhukov et al. (2017/2018) Neyman-orthogonal cross-fitting — see prior notes for full citations.
+**Already on-disk, reused (see prior notes for full citations):** Bender & Koller (2020) "the octopus test";
+Bisk et al. (2020) "Experience Grounds Language"; Chernozhukov et al. (2017/2018) Neyman-orthogonal
+cross-fitting.
 
-Confidence: HIGH for the core predictive-coding/free-energy and Harnad symbol-grounding mechanisms
-(foundational, textbook-adjacent, extremely well-replicated literatures). MEDIUM for the precise
-sensorimotor-contingency minimal-sufficient-condition and the causal-representation-learning
-identifiability-condition specifics (real literatures, correctly characterized at a high level, but exact
-thresholds/sample-complexity numbers were not independently re-verified via live search this cycle — flagged
-as the specific follow-up if the 4 dispatched lit-scan sub-agents' results arrive later).
+Confidence: HIGH for Pezzulo et al. 2023 (peer-reviewed, prominent venue, Friston co-author — this drill's
+single best-sourced finding), Vincent-Lamarre et al. 2016 (peer-reviewed, quantitative, directly on-topic), and
+the core predictive-coding/Harnad foundational texts. MEDIUM for the sensorimotor-contingency
+necessity-vs-sufficiency dispute and the CRL identifiability specifics (real, correctly characterized, but some
+numeric thresholds are recent/single-source). LOW-MEDIUM, explicitly flagged, for the 2026 self-play-RL papers
+(Pu et al. and companions) and the Shahid & Rothe grounding-decay paper — genuinely on-topic and worth citing,
+but thin/unreplicated and should be treated as suggestive, not decisive.
 
 ---
 
