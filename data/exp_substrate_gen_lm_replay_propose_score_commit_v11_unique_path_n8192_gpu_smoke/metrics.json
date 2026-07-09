@@ -1,0 +1,447 @@
+{
+  "anchor_name": "substrate_gen_lm_replay_propose_score_commit_v11_unique_path_n8192_gpu",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS[REPLAY]_GENERATION_MECHANISM_DRIFT_FREE_DEPTH_INVARIANT: on the UNIQUE-PATH graph REPLAY-PROPOSE-SCORE-COMMIT is DRIFT-FREE within-sequence (intra_decline@L14=+0.000 <= 0.05, body>=0.8) while the ACCUMULATE running-state readout COMPOUNDS (intra_decline@L14=+0.217 >= 0.12) and that compounding GROWS with depth (REP-vs-ACCUM decline gap L4=+0.167->L14=+0.217); REPLAY beats ACCUMULATE (REP-ACCUM goal_reach=+0.650>=0.2) AND RANDOM_RESTART (REP-RANDOM=+1.000>=0.15), scoring does not hurt (sel_value=+0.000), ORACLE body ceiling=1.000, cv=0.000<=0.15. Bounded-plan competitive-queuing generation is DEPTH-INVARIANT (drift-free by construction). SCOPE: synthetic structural/mechanism regime; real-language ceiling separately reader-gated. @L14 N=4096 chance~1/W=0.125 | ORACLE body=1.000(ptok=1.000) | goal_reach: REPLAY=1.000(ptok=1.000 div=0.283) ACCUM=0.350 RANDOM=0.000 | body_token_acc(artifact-free): REPLAY=1.000 ACCUM=0.900 RANDOM=0.040 | REP-ACCUM(gr)=+0.650 REP-RANDOM(gr)=+1.000 sel_value(body)=+0.000 REP-RANDOM(body)=+0.960 | ACCUM body_drift(L4->L14)=-0.100 (>0=compounds) REPLAY body_drift=+0.000 (~0=bounded) REPLAY body@L4=1.000@L14=1.000 cv=0.000",
+  "N": 4096,
+  "run_mode": "smoke",
+  "device": "cpu",
+  "n_seeds": 1,
+  "headline_L": 14,
+  "l_grid": [
+    4,
+    14
+  ],
+  "width": 8,
+  "n_goals": 5,
+  "n_live": 5,
+  "branch_max": 3,
+  "n_distract": 2,
+  "n_inst": 60,
+  "r_cand": 40,
+  "chance": 0.125,
+  "gate_tau": 0.05,
+  "beta": 1.0,
+  "lambda_acc": 0.65,
+  "expected_n_units": 10,
+  "margins": {
+    "accum": 0.2,
+    "redundancy": 0.15,
+    "no_recomb_band": 0.05,
+    "drift_min": 0.1,
+    "replay_flat_max": 0.1,
+    "replay_body_min": 0.8,
+    "oracle_floor": 0.9,
+    "oracle_body_min": 0.9,
+    "cv_max": 0.15,
+    "diversity_min": 0.1
+  },
+  "scale_preview": {
+    "N": 8192,
+    "body_acc_by_L": {
+      "4": 0.8,
+      "14": 0.89487
+    },
+    "intra_decline_by_L": {
+      "4": 0.1667,
+      "14": 0.2278
+    },
+    "intra_decline_hi": 0.2278,
+    "intra_decline_grows": true,
+    "decline_min": 0.12,
+    "fires": true,
+    "elapsed_s": 48.8
+  },
+  "arm_digests": {
+    "ORACLE": "934683df1254aaf21fd27cd2846232bc3b71ce2fe9b5de6e44495747955cc980",
+    "REPLAY": "934683df1254aaf21fd27cd2846232bc3b71ce2fe9b5de6e44495747955cc980",
+    "ACCUMULATE": "272355c3fd42c06cb2fa96f8a0f30d29732ab99fc506d78b9e2c258b75e9a4a8",
+    "RANDOM_RESTART": "99f947b11779578696f016e87c91edf9479f76bb13f2d942a6ef51e8fed7a448",
+    "REPLAY_PROPOSE_ONLY": "934683df1254aaf21fd27cd2846232bc3b71ce2fe9b5de6e44495747955cc980"
+  },
+  "per_seed": [
+    {
+      "seed": 7,
+      "N": 4096,
+      "per_unit": [
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "body_first_half": 1.0,
+          "body_second_half": 1.0,
+          "intra_decline": 0.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.2333,
+          "route_diversity_norm": 1.0,
+          "seed": 7,
+          "arm": "ORACLE",
+          "L": 4,
+          "N": 4096,
+          "V": 40,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "body_first_half": 1.0,
+          "body_second_half": 1.0,
+          "intra_decline": 0.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.2333,
+          "route_diversity_norm": 1.0,
+          "seed": 7,
+          "arm": "REPLAY",
+          "L": 4,
+          "N": 4096,
+          "V": 40,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 0.7166666666666667,
+          "body_token_acc": 0.8,
+          "body_first_half": 0.9,
+          "body_second_half": 0.7333,
+          "intra_decline": 0.1667,
+          "per_position_acc": [
+            0.9,
+            0.7667,
+            0.7333,
+            0.4667
+          ],
+          "goal_reach": 0.4666666666666667,
+          "committed_diversity": 0.0833,
+          "route_diversity_norm": 0.3571,
+          "seed": 7,
+          "arm": "ACCUMULATE",
+          "L": 4,
+          "N": 4096,
+          "V": 40,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 0.14166666666666666,
+          "body_token_acc": 0.17222222222222222,
+          "body_first_half": 0.3333,
+          "body_second_half": 0.0667,
+          "intra_decline": 0.2667,
+          "per_position_acc": [
+            0.3333,
+            0.1167,
+            0.0667,
+            0.05
+          ],
+          "goal_reach": 0.05,
+          "committed_diversity": 0.7833,
+          "route_diversity_norm": 3.3571,
+          "seed": 7,
+          "arm": "RANDOM_RESTART",
+          "L": 4,
+          "N": 4096,
+          "V": 40,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "body_first_half": 1.0,
+          "body_second_half": 1.0,
+          "intra_decline": 0.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.2333,
+          "route_diversity_norm": 1.0,
+          "seed": 7,
+          "arm": "REPLAY_PROPOSE_ONLY",
+          "L": 4,
+          "N": 4096,
+          "V": 40,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "body_first_half": 1.0,
+          "body_second_half": 1.0,
+          "intra_decline": 0.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.2833,
+          "route_diversity_norm": 1.0,
+          "seed": 7,
+          "arm": "ORACLE",
+          "L": 14,
+          "N": 4096,
+          "V": 120,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "body_first_half": 1.0,
+          "body_second_half": 1.0,
+          "intra_decline": 0.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.2833,
+          "route_diversity_norm": 1.0,
+          "seed": 7,
+          "arm": "REPLAY",
+          "L": 14,
+          "N": 4096,
+          "V": 120,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 0.8607142857142858,
+          "body_token_acc": 0.9,
+          "body_first_half": 1.0,
+          "body_second_half": 0.7833,
+          "intra_decline": 0.2167,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.9667,
+            0.9667,
+            0.8667,
+            0.7667,
+            0.5667,
+            0.5667,
+            0.35
+          ],
+          "goal_reach": 0.35,
+          "committed_diversity": 0.0833,
+          "route_diversity_norm": 0.2941,
+          "seed": 7,
+          "arm": "ACCUMULATE",
+          "L": 14,
+          "N": 4096,
+          "V": 120,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 0.036904761904761905,
+          "body_token_acc": 0.03974358974358974,
+          "body_first_half": 0.0861,
+          "body_second_half": 0.0,
+          "intra_decline": 0.0861,
+          "per_position_acc": [
+            0.3833,
+            0.1167,
+            0.0167,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "goal_reach": 0.0,
+          "committed_diversity": 1.0,
+          "route_diversity_norm": 3.5294,
+          "seed": 7,
+          "arm": "RANDOM_RESTART",
+          "L": 14,
+          "N": 4096,
+          "V": 120,
+          "width": 8,
+          "chance": 0.125
+        },
+        {
+          "per_token_acc": 1.0,
+          "body_token_acc": 1.0,
+          "body_first_half": 1.0,
+          "body_second_half": 1.0,
+          "intra_decline": 0.0,
+          "per_position_acc": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "goal_reach": 1.0,
+          "committed_diversity": 0.2833,
+          "route_diversity_norm": 1.0,
+          "seed": 7,
+          "arm": "REPLAY_PROPOSE_ONLY",
+          "L": 14,
+          "N": 4096,
+          "V": 120,
+          "width": 8,
+          "chance": 0.125
+        }
+      ],
+      "peak_gpu_gb": 0.0,
+      "elapsed_s": 31.861566305160522,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1783576894.403159
+    }
+  ],
+  "curves": {
+    "ORACLE": {
+      "L4": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.2333,
+        "route_diversity_norm": 1.0,
+        "intra_decline": 0.0
+      },
+      "L14": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.2833,
+        "route_diversity_norm": 1.0,
+        "intra_decline": 0.0
+      }
+    },
+    "REPLAY": {
+      "L4": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.2333,
+        "route_diversity_norm": 1.0,
+        "intra_decline": 0.0
+      },
+      "L14": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.2833,
+        "route_diversity_norm": 1.0,
+        "intra_decline": 0.0
+      }
+    },
+    "ACCUMULATE": {
+      "L4": {
+        "per_token_acc": 0.71667,
+        "body_token_acc": 0.8,
+        "goal_reach": 0.46667,
+        "committed_diversity": 0.0833,
+        "route_diversity_norm": 0.3571,
+        "intra_decline": 0.1667
+      },
+      "L14": {
+        "per_token_acc": 0.86071,
+        "body_token_acc": 0.9,
+        "goal_reach": 0.35,
+        "committed_diversity": 0.0833,
+        "route_diversity_norm": 0.2941,
+        "intra_decline": 0.2167
+      }
+    },
+    "RANDOM_RESTART": {
+      "L4": {
+        "per_token_acc": 0.14167,
+        "body_token_acc": 0.17222,
+        "goal_reach": 0.05,
+        "committed_diversity": 0.7833,
+        "route_diversity_norm": 3.3571,
+        "intra_decline": 0.2667
+      },
+      "L14": {
+        "per_token_acc": 0.0369,
+        "body_token_acc": 0.03974,
+        "goal_reach": 0.0,
+        "committed_diversity": 1.0,
+        "route_diversity_norm": 3.5294,
+        "intra_decline": 0.0861
+      }
+    },
+    "REPLAY_PROPOSE_ONLY": {
+      "L4": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.2333,
+        "route_diversity_norm": 1.0,
+        "intra_decline": 0.0
+      },
+      "L14": {
+        "per_token_acc": 1.0,
+        "body_token_acc": 1.0,
+        "goal_reach": 1.0,
+        "committed_diversity": 0.2833,
+        "route_diversity_norm": 1.0,
+        "intra_decline": 0.0
+      }
+    }
+  },
+  "elapsed_s": 31.861566305160522,
+  "summary": "HARD_PASS[REPLAY]_GENERATION_MECHANISM_DRIFT_FREE_DEPTH_INVARIANT: on the UNIQUE-PATH graph REPLAY-PROPOSE-SCORE-COMMIT is DRIFT-FREE within-sequence (intra_decline@L14=+0.000 <= 0.05, body>=0.8) while the ACCUMULATE running-state readout COMPOUNDS (intra_decline@L14=+0.217 >= 0.12) and that compounding GROWS with depth (REP-vs-ACCUM decline gap L4=+0.167->L14=+0.217); REPLAY beats ACCUMULATE (REP-ACCUM goal_reach=+0.650>=0.2) AND RANDOM_RESTART (REP-RANDOM=+1.000>=0.15), scoring does not hurt (sel_value=+0.000), ORACLE body ceiling=1.000, cv=0.000<=0.15. Bounded-plan competitive-queuing generation is DEPTH-INVARIANT (drift-free by construction). SCOPE: synthetic structural/mechanism regime; real-language ceiling separately reader-gated. @L14 N=4096 chance~1/W=0.125 | ORACLE body=1.000(ptok=1.000) | goal_reach: REPLAY=1.000(ptok=1.000 div=0.283) ACCUM=0.350 RANDOM=0.000 | body_token_acc(artifact-free): REPLAY=1.000 ACCUM=0.900 RANDOM=0.040 | REP-ACCUM(gr)=+0.650 REP-RANDOM(gr)=+1.000 sel_value(body)=+0.000 REP-RANDOM(body)=+0.960 | ACCUM body_drift(L4->L14)=-0.100 (>0=compounds) REPLAY body_drift=+0.000 (~0=bounded) REPLAY body@L4=1.000@L14=1.000 cv=0.000"
+}
