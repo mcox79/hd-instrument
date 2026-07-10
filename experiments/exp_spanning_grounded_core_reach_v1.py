@@ -454,49 +454,66 @@ def _iter_cn_edges():
                 yield w1, w2
 
 
+def _stream_edges(source):
+    return _iter_cskg_edges() if source == "cskg" else _iter_cn_edges()
+
+
 def build_relational_subgraph(source, seed_words, hops, max_nodes):
-    """Stream the relation source, build adjacency, induce the subgraph on seed_words + H-hop neighborhood, capped to
-    max_nodes (keep all seeds; add neighbors ranked by edge-count-to-seeds). Returns (words, edges np[E,2], adj-meta)."""
-    it = _iter_cskg_edges() if source == "cskg" else _iter_cn_edges()
-    adj = {}
+    """Induce the subgraph on seed_words + H-hop neighborhood via HOP-BY-HOP STREAMING passes (memory-bounded to the
+    growing neighborhood; the full ~2M-node CSKG adjacency is NEVER materialized). Cap to max_nodes (keep all seeds; rank
+    added neighbors by edge-count to the current keep-set). Returns (words, edges np[E,2], meta)."""
+    seed_set = set(seed_words)
+    keep = set()          # discovered seed words (in-graph)
+    frontier = set()
     n_edges_scanned = 0
-    for w1, w2 in it:
+    # HOP 0: one streaming pass to find which seed words actually appear as graph nodes.
+    for w1, w2 in _stream_edges(source):
         n_edges_scanned += 1
-        adj.setdefault(w1, set()).add(w2)
-        adj.setdefault(w2, set()).add(w1)
-    seeds = set(w for w in seed_words if w in adj)
-    frontier = set(seeds)
-    keep = set(seeds)
+        if w1 in seed_set:
+            keep.add(w1)
+        if w2 in seed_set:
+            keep.add(w2)
+    seeds = set(keep)
+    frontier = set(keep)
+    # HOPS 1..H: each hop = one streaming pass; add neighbors of the current frontier (bounded expansion).
     for _h in range(hops):
-        nxt = set()
-        for u in frontier:
-            for v in adj[u]:
-                if v not in keep:
-                    nxt.add(v)
-        keep |= nxt
-        frontier = nxt
         if len(keep) > max_nodes * 4:
             break
-    # cap: always keep seeds; rank other kept nodes by number of edges to the seed set.
+        nxt = set()
+        for w1, w2 in _stream_edges(source):
+            if w1 in frontier and w2 not in keep:
+                nxt.add(w2)
+            if w2 in frontier and w1 not in keep:
+                nxt.add(w1)
+        keep |= nxt
+        frontier = nxt
+        if not nxt:
+            break
+    # cap: keep all seeds; rank the other kept nodes by their edge-count to the seed set (one more streaming pass).
     if len(keep) > max_nodes:
-        others = [w for w in keep if w not in seeds]
-        score = {w: sum(1 for v in adj[w] if v in seeds) for w in others}
-        others.sort(key=lambda w: (-score[w], w))
+        others = set(w for w in keep if w not in seeds)
+        seed_edge_count = {}
+        for w1, w2 in _stream_edges(source):
+            if w1 in others and w2 in seeds:
+                seed_edge_count[w1] = seed_edge_count.get(w1, 0) + 1
+            if w2 in others and w1 in seeds:
+                seed_edge_count[w2] = seed_edge_count.get(w2, 0) + 1
+        ranked = sorted(others, key=lambda w: (-seed_edge_count.get(w, 0), w))
         room = max(0, max_nodes - len(seeds))
-        keep = set(seeds) | set(others[:room])
+        keep = set(seeds) | set(ranked[:room])
     words = sorted(keep)
     idx = {w: i for i, w in enumerate(words)}
+    # final streaming pass: collect induced edges among kept nodes.
     eset = set()
-    for u in words:
-        iu = idx[u]
-        for v in adj[u]:
-            if v in idx:
-                iv = idx[v]
-                if iu != iv:
-                    a, b = (iu, iv) if iu < iv else (iv, iu)
-                    eset.add((a, b))
+    for w1, w2 in _stream_edges(source):
+        if w1 in idx and w2 in idx:
+            iu = idx[w1]
+            iv = idx[w2]
+            if iu != iv:
+                a, b = (iu, iv) if iu < iv else (iv, iu)
+                eset.add((a, b))
     edges = np.array(sorted(eset), dtype=np.int64) if eset else np.zeros((0, 2), dtype=np.int64)
-    meta = dict(n_edges_scanned=n_edges_scanned, n_adj_nodes=len(adj), n_seed_in_graph=len(seeds),
+    meta = dict(n_edges_scanned=n_edges_scanned, n_adj_nodes=len(keep), n_seed_in_graph=len(seeds),
                 n_nodes=len(words), n_edges=int(edges.shape[0]))
     return words, edges, meta
 
