@@ -148,7 +148,7 @@ from experiments.exp_cskg_dense_core_headroom_acceptance_v1 import (  # noqa: E4
 )
 # Map-builder geometry (the SMOKE-CONFIRMED operator, unchanged) + its grid testbed (geometry positive control).
 from experiments.exp_course_c_operator_fix_ssp_phase_rotation_replay_v1 import (  # noqa: E402
-    make_fpe_basis, fpe_kernel_scores, fit_transe_coords, fit_transe_replay, fit_discrete_bind,
+    make_fpe_basis, fpe_kernel_scores, fpe_encode, fit_transe_coords, fit_transe_replay, fit_discrete_bind,
     build_grid_graph, split_heldout,
 )
 
@@ -190,6 +190,12 @@ SELFTEST_POP_MIN = 0.10       # planted SYN_FREQ: POP baseline fires at least th
 # ---- FPE readout: PRE-REGISTERED bandwidth (coords z-scaled by a single global scalar -> ell is
 #      data-independent; kernel k(x,y) ~ exp(-||x-y||^2 / (2 ell^2)) on standardized coords). NOT tuned. ----
 FPE_ELL = 0.55
+
+# ---- MEMORY: query-chunk the (nq, N) candidate-scoring matmul so the full [nq x N] complex map is NEVER
+#      materialized whole on the device (the CUDA-OOM fix; correctness-neutral -- scores are per-query
+#      independent so chunking is bit-identical to the un-chunked kernel). Bounds peak device memory to
+#      S_all (N x dim) + one (chunk x N) tile instead of accumulating (nq x N) per arm across 6 arms. ----
+FPE_SCORE_CHUNK = 256
 
 # ---- Rule-mining / verifier params (MATCHED to the VET headroom apparatus; calibration_check default_ok) ----
 MAX_RULES_PER_HEAD = 50
@@ -380,22 +386,59 @@ def _standardize(X, D):
     return X / s, D / s
 
 
+def _score_chunked_from_query_phasor(x_hat, X_all, W, chunk=FPE_SCORE_CHUNK):
+    """Memory-bounded equivalent of fpe_kernel_scores: encode all N candidates ONCE, then score the queries
+    in chunks so the (nq, N) candidate matmul is never materialized whole on the device. Each chunk's tile is
+    moved to CPU and freed before the next. Numerically identical to fpe_kernel_scores (same complex kernel
+    Re<S(x_hat), S(x_all)>/dim, per-query independent) -- ONLY peak memory changes. Returns (nq, N) CPU real."""
+    S_all = fpe_encode(X_all, W)                 # (N, dim) complex64 -- computed once, reused for all queries
+    S_all_cT = torch.conj(S_all).T               # (dim, N) conj-transpose
+    dim = S_all.shape[1]
+    nq = x_hat.shape[0]
+    n_ent = X_all.shape[0]
+    out = torch.empty((nq, n_ent), dtype=torch.float32)   # result accumulates on CPU (host RAM is ample)
+    for s in range(0, nq, chunk):
+        e = min(s + chunk, nq)
+        S_hat = fpe_encode(x_hat[s:e], W)         # (b, dim) complex64
+        sc = torch.real(S_hat @ S_all_cT) / dim   # (b, N) real -- the ONLY large device tile, bounded by chunk
+        out[s:e] = sc.detach().to("cpu")
+        del S_hat, sc
+    del S_all, S_all_cT
+    if x_hat.is_cuda:
+        torch.cuda.empty_cache()
+    return out
+
+
 def geom_scores(X, D, W, hold_edges, device):
-    """FPE-kernel scores (nq, N) for a coord-fit arm: x_hat = X[h]+D[r], score = Re<S(x_hat), S(x_all)>/dim."""
+    """FPE-kernel scores (nq, N) for a coord-fit arm: x_hat = X[h]+D[r], score = Re<S(x_hat), S(x_all)>/dim.
+    Query-chunked (see _score_chunked_from_query_phasor) to bound peak device memory."""
     Xn, Dn = _standardize(X, D)
     h = torch.from_numpy(hold_edges[:, 0]).long().to(device)
     r = torch.from_numpy(hold_edges[:, 1]).long().to(device)
     x_hat = Xn[h] + Dn[r]
-    return fpe_kernel_scores(x_hat, Xn, W).cpu()
+    return _score_chunked_from_query_phasor(x_hat, Xn, W)
 
 
-def discrete_scores(Z, R, hold_edges, device):
-    """DISCRETE_BIND scores (nq, N): pred = Z[h]*R[r], score = Re<pred, Z>/dim."""
+def discrete_scores(Z, R, hold_edges, device, chunk=FPE_SCORE_CHUNK):
+    """DISCRETE_BIND scores (nq, N): pred = Z[h]*R[r], score = Re<pred, Z>/dim. Query-chunked to bound peak
+    device memory (the (nq, N) complex map is the OOM driver; chunk it, move each tile to CPU, free)."""
     h = torch.from_numpy(hold_edges[:, 0]).long().to(device)
     r = torch.from_numpy(hold_edges[:, 1]).long().to(device)
-    pred = Z[h] * R[r]
+    pred = Z[h] * R[r]                            # (nq, dim) complex64
     dim = pred.shape[1]
-    return (torch.real(pred @ torch.conj(Z).T) / dim).cpu()
+    Z_cT = torch.conj(Z).T                        # (dim, N)
+    nq = pred.shape[0]
+    n_ent = Z.shape[0]
+    out = torch.empty((nq, n_ent), dtype=torch.float32)
+    for s in range(0, nq, chunk):
+        e = min(s + chunk, nq)
+        sc = torch.real(pred[s:e] @ Z_cT) / dim   # (b, N) real -- bounded by chunk
+        out[s:e] = sc.detach().to("cpu")
+        del sc
+    del pred, Z_cT
+    if Z.is_cuda:
+        torch.cuda.empty_cache()
+    return out
 
 
 def per_stratum_hits(scores, hold_edges, strat, all_true, k=PRIMARY_K):
@@ -458,6 +501,11 @@ def _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, rel_tail_freq, 
     pop_m, pop_rank_vec = pop_hits(rel_tail_freq, hold, all_true, N)
     arm_metric[POP] = pop_m
     arm_sig[POP] = _sig(pop_rank_vec.astype(np.float64))
+    # ---- free the large device residents (Z = N x dim complex is the biggest) before returning; arm_scores
+    #      already live on CPU. X_os is kept (returned for the optional back-door refit). ----
+    del Z, R, D_os, X_rp, D_rp, X_sc, D_sc, X_rnd, D_rnd, X_or, D_or, W
+    if getattr(device, "type", "") == "cuda":
+        torch.cuda.empty_cache()
     return dict(arm_metric=arm_metric, arm_sig=arm_sig, arm_scores=arm_scores,
                 pop_rank_vec=pop_rank_vec, X_os=X_os, n_commit=int(n_commit), n_frozen=int(n_frozen))
 
@@ -776,8 +824,20 @@ def main():
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     args, _unknown = ap.parse_known_args()
     run_mode = "self_test" if args.self_test else ("smoke" if args.smoke else args.run_mode)
-    device = torch.device("cpu") if args.device == "cpu" else torch.device(
-        "cuda" if ((args.device in ("auto", "cuda")) and torch.cuda.is_available()) else "cpu")
+    # Device selection honors the runner's env contract so ONE cell routes to either queue with no code change:
+    #  - overnight_queue (GPU host)  -> HDLAB_QUEUE!=remote_cpu_queue + auto -> CUDA (chunked scoring keeps peak
+    #    well under the 8GB budget).
+    #  - remote_cpu_queue (SAME GPU host) -> HDLAB_QUEUE==remote_cpu_queue forces CPU so it NEVER touches CUDA
+    #    (the runner passes no argv; device would otherwise auto-pick CUDA on this host and OOM again).
+    # Explicit --device / HDLAB_DEVICE still override.
+    env_queue = os.environ.get("HDLAB_QUEUE", "")
+    env_dev = os.environ.get("HDLAB_DEVICE", "")
+    force_cpu = (args.device == "cpu") or (env_dev == "cpu") or (env_queue == "remote_cpu_queue")
+    if force_cpu:
+        device = torch.device("cpu")
+    else:
+        want_cuda = (args.device in ("auto", "cuda")) or (env_dev == "cuda")
+        device = torch.device("cuda" if (want_cuda and torch.cuda.is_available()) else "cpu")
 
     out_dir = get_output_dir(ANCHOR_NAME)
     cfg = {"self_test": SELFTEST_CFG, "smoke": SMOKE_CFG, "full": FULL_CFG}[run_mode]
@@ -860,6 +920,9 @@ def main():
             fc = type(e).__name__
             seed_failures.append(dict(seed=seed, failure_class=fc, msg=str(e)[:300]))
             _log("SEED_FAILED seed=%d class=%s: %s" % (seed, fc, str(e)[:200]))
+        finally:
+            if getattr(device, "type", "") == "cuda":
+                torch.cuda.empty_cache()
 
     if len(per_seed) < expected_n_units:
         write_metrics(out_dir, dict(

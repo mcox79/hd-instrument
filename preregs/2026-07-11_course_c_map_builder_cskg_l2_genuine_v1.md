@@ -173,6 +173,29 @@ device=auto (cuda on the GPU host); local = SMOKE-ONLY.
 - HYPOTHESIZED vs MEASURED: all self-test/smoke numbers tagged MEASURED@ paths above; band values are pre-
   registered thresholds; VET numbers (0.276/0.226/0.412) CITED@notes VET a46eadfa.
 
+## OOM FIX (2026-07-11) -- memory footprint only; science UNCHANGED
+The first FULL (cell d28ffdedc) HARD_FAIL_CARDINALITY_BREACH: all 3 seeds CUDA OutOfMemoryError on the 8GB
+GPU (5.86 GiB resident, +2.33-3.13 GiB request > 6.80 GiB budget). ROOT CAUSE: the (nq, N) candidate-scoring
+matmul (geom_scores / discrete_scores) materialized the full [nq x N] complex64 score map on-device for EACH
+of 6 arms and PyTorch's caching allocator accumulated the un-freed buffers. The TransE coord-fit was NOT the
+driver (its (E,10,k) neg intermediate is sub-GB). FIX (correctness-neutral): query-CHUNK the scoring
+(_score_chunked_from_query_phasor: encode all N candidates ONCE, score queries in chunks of FPE_SCORE_CHUNK=
+256, move each (chunk, N) tile to CPU, del + torch.cuda.empty_cache); del the large device residents (Z =
+N x dim complex) at _fit_and_score exit; empty_cache between seeds. Peak per geom arm ~1.7 GB, discrete arm
+~0.9 GB (vs prior >6.8 GiB) -- MEASURED-by-arithmetic@N=25700/dim=4096/chunk=256; well under the 6.80 GiB
+budget. dim PRESERVED at 4096 (readout capacity; smoke under-fits at low dim). CHUNK-INVARIANCE VERIFIED
+2026-07-11: chunked scores are BIT-IDENTICAL to the operator's fpe_kernel_scores at single-chunk and max
+|diff|=5.8e-8 (float32 epsilon) at chunk=7 -- correctness-neutral. Also added env-aware device selection:
+HDLAB_QUEUE==remote_cpu_queue (or HDLAB_DEVICE=cpu / --device cpu) forces CPU so the SAME cell can route to
+remote_cpu_queue (same GPU host; would otherwise auto-pick CUDA and OOM again); overnight_queue -> auto ->
+CUDA. Operator file (exp_course_c_operator_fix_..._v1.py) is UNCHANGED (fpe_encode already exported).
+RE-SMOKE (local CPU, 2026-07-11, 21.6s): SELFTEST_PASS geometry_fires=True (grid hits BIT-IDENTICAL: ONESHOT
+h@1=0.7179 h@10=0.7436, ORACLE=1.0); CSKG assembly 3000 nodes/16487 edges/19 rels; L2-genuine arena extracts
+436 held-out; 7 distinct arm sigs; verdict INCONCLUSIVE_GEOMETRY_READOUT_UNDERFIT (oracle=0.025 under-fits at
+smoke k=8/dim512 as pre-registered -- the FULL k=24/dim4096 must clear it). No regression.
+
 ## FULL dispatch (un-shipped; director gates release on the operator-fix FULL confirmation)
-overnight_queue (GPU). queue_add command handed to the director in the completion report; NOT shipped by
-exp_dev (remote SCP/SSH dispatch is the orchestrator's job).
+overnight_queue (GPU), CHUNKED. Peak ~2 GB << 6.80 GiB budget. queue_add command handed to the director/
+orchestrator in the completion report; NOT shipped by exp_dev (remote SCP/SSH dispatch is the orchestrator's
+job). Fallback (zero code change): route the same command to remote_cpu_queue -> cell force-CPUs via
+HDLAB_QUEUE, no 8GB wall, slower.
