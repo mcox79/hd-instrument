@@ -217,6 +217,19 @@ def _kcore_nodes(edges, k):
     return alive
 
 
+def _dedupe_canonical(edges):
+    """Dedupe exact directed relational triples into a PROCESS-INVARIANT canonical order.
+    sorted() (NOT list(set(...))) makes the downstream seeded shuffle + 5/5/90 split a pure deterministic
+    function of (config, seed), so separate cells/processes (map-builder / comparator) reconstruct the
+    bit-identical held-out split. list(set(string_tuples)) is ordered by the per-process PYTHONHASHSEED
+    (unpinned) -> a bare list() made rng.shuffle(seed) yield a DIFFERENT permutation each process -> a
+    genuinely different held-out edge subset every run (the 2026-07-11 split-identity-breach root cause;
+    empirically: PYTHONHASHSEED=1 vs =2 give different test partitions with list(), identical with sorted()).
+    Keep this the SINGLE dedupe path so the comparator's split-determinism self-guard tests the real
+    primitive (no copy-drift)."""
+    return sorted({(w1, r, w2) for (w1, r, w2) in edges})
+
+
 def build_cskg_core_triples(max_lines, k_core, max_nodes, seed):
     """Stream CSKG -> cross-cutting edges -> k-core node set -> induced triples -> 90/5/5 split.
     Returns (train, valid, test, prov). Each triple is (head_label, rel_token, tail_label)."""
@@ -226,8 +239,7 @@ def build_cskg_core_triples(max_lines, k_core, max_nodes, seed):
         rng0 = random.Random(seed)
         core = set(rng0.sample(sorted(core), max_nodes))
     core_edges = [(w1, r, w2) for (w1, r, w2) in edges if w1 in core and w2 in core]
-    # dedupe exact directed relational triples
-    core_edges = list({(w1, r, w2) for (w1, r, w2) in core_edges})
+    core_edges = _dedupe_canonical(core_edges)   # process-invariant canonical order (split-identity fix)
     rng = random.Random(seed)
     rng.shuffle(core_edges)
     n = len(core_edges)

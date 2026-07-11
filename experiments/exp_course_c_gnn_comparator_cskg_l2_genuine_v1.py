@@ -107,6 +107,7 @@ import hashlib
 import json
 import os
 import platform
+import subprocess
 import sys
 import time
 import traceback
@@ -133,9 +134,10 @@ from experiments.exp_course_c_map_builder_cskg_l2_genuine_v1 import (  # noqa: E
     build_cskg_core_triples, _ensure_cskg, Graph, build_ids, mine_rules,
     MAX_RULES_PER_HEAD, HUB_CAP, STRATA, PRIMARY_K,
 )
-# Planted scale-invariant self-test corpus (identical assembly as the map-builder self-test).
+# Planted scale-invariant self-test corpus (identical assembly as the map-builder self-test) + the SINGLE
+# canonical-dedupe primitive the held-out split is built from (tested for process-invariance at self-test).
 from experiments.exp_cskg_dense_core_headroom_acceptance_v1 import (  # noqa: E402
-    build_syn_compositional,
+    build_syn_compositional, _dedupe_canonical,
 )
 
 ANCHOR_NAME = "course_c_gnn_comparator_cskg_l2_genuine_v1"
@@ -503,10 +505,68 @@ def run_seed_cskg(cfg, device, seed, assert_identity, hb):
 
 
 # ---------------------------------------------------------------------------
+# Split-determinism self-guard (task item 4): exercise the split-identity guarantee at SELF-TEST scale so a
+# non-process-invariant split can NEVER again be caught only at FULL. The 2026-07-11 breach root cause was a
+# per-process-PYTHONHASHSEED set->list ordering in build_cskg_core_triples' dedupe: two cells/processes got a
+# genuinely different 5% held-out subset (identical cardinality, different edges) -> recomputed POP sig !=
+# landed sig -> HARD_FAIL only at FULL. This runs the REAL _dedupe_canonical primitive in subprocesses with
+# DIFFERENT PYTHONHASHSEED and asserts bit-identical order; a revert to list(set(...)) fails HERE.
+# ---------------------------------------------------------------------------
+
+_DET_GUARD_EDGES = [
+    ("apple", "r1", "banana"), ("cat", "r2", "dog"), ("east", "r3", "west"),
+    ("north", "r1", "south"), ("red", "r2", "blue"), ("gold", "r3", "iron"),
+    ("moon", "r1", "sun"), ("salt", "r2", "pepper"), ("day", "r3", "night"),
+    ("up", "r1", "down"), ("left", "r2", "right"), ("hot", "r3", "cold"),
+    ("king", "r1", "queen"), ("wolf", "r2", "sheep"), ("rain", "r3", "snow"),
+    ("iron", "r1", "steel"), ("oak", "r2", "pine"), ("bee", "r3", "hive"),
+    ("ship", "r1", "port"), ("star", "r2", "planet"),
+]
+
+
+def _canon_hash(edges):
+    canon = _dedupe_canonical(edges)
+    return hashlib.sha256(repr(canon).encode("utf-8")).hexdigest()[:16], len(canon)
+
+
+def _split_determinism_selfguard():
+    """Assert the canonical dedupe the held-out split is built from is PROCESS-INVARIANT. Runs the REAL
+    _dedupe_canonical in 2 subprocesses with different PYTHONHASHSEED; raises if any order diverges."""
+    ref_hash, ref_n = _canon_hash(_DET_GUARD_EDGES)
+    snippet = (
+        "import sys, hashlib;"
+        "sys.path.insert(0, %r);"
+        "from experiments.exp_cskg_dense_core_headroom_acceptance_v1 import _dedupe_canonical;"
+        "c = _dedupe_canonical(%r);"
+        "print(hashlib.sha256(repr(c).encode('utf-8')).hexdigest()[:16])"
+        % (_REPO, _DET_GUARD_EDGES)
+    )
+    sub_hashes = {}
+    for hseed in ("0", "524287"):
+        env = dict(os.environ)
+        env["PYTHONHASHSEED"] = hseed
+        out = subprocess.run([sys.executable, "-c", snippet], cwd=_REPO, env=env,
+                             capture_output=True, text=True, timeout=180)
+        if out.returncode != 0:
+            raise RuntimeError("SPLIT_DETERMINISM_GUARD subprocess (PYTHONHASHSEED=%s) rc=%d: %s"
+                               % (hseed, out.returncode, (out.stderr or "")[:400]))
+        sub_hashes[hseed] = out.stdout.strip()
+    invariant = bool(len({ref_hash, *sub_hashes.values()}) == 1)
+    detail = dict(ref_hash=ref_hash, ref_n=ref_n, sub_hashes=sub_hashes, process_invariant=invariant)
+    if not invariant:
+        raise RuntimeError(
+            "SPLIT_DETERMINISM_BREACH: _dedupe_canonical is NOT process-invariant (%s). The held-out split "
+            "would differ across cells/processes -> the FULL split-identity assert would HARD_FAIL. Fix the "
+            "dedupe to sorted()." % detail)
+    return detail
+
+
+# ---------------------------------------------------------------------------
 # Self-test (planted; scale-invariant; SAME split + metric code path).
 # ---------------------------------------------------------------------------
 
 def _selftest(device):
+    split_det = _split_determinism_selfguard()   # task item 4: split-identity exercised at self-test scale
     cfg = dict(SELFTEST_CFG)
     # Scaled up (n_person 220->400, n_tail 55->85): N 330->570 (chance hits@10 10/N: 0.030->0.018) and the
     # held-out set ~2.5-3x larger -> the untrained control's near-chance hits@10 has far lower Poisson variance
@@ -516,7 +576,7 @@ def _selftest(device):
     N = sp["N"]
     n_rel = sp["n_rel"]
     hold = sp["hold"]
-    res = dict(l2_genuine=int(hold.shape[0]), N=N, n_rel=n_rel)
+    res = dict(l2_genuine=int(hold.shape[0]), N=N, n_rel=n_rel, split_determinism=split_det)
     if hold.shape[0] < 5:
         res["fail"] = "SYN_COMPOSITIONAL produced no L2-genuine held-out (%s)" % sp["hold_prov"]
         return False, res
