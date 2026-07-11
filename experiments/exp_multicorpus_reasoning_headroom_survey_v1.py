@@ -289,7 +289,7 @@ def run_real_corpus(name, loader, seed_dependent, seeds, n_eval, min_support, hb
                 tables.append(tbl)
                 s = tbl["strata"]
                 print("[corpus %s seed=%d] nodes=%d edges=%d avgdeg=%.1f | headroom LOW=%.3f MID=%.3f HIGH=%.3f ALL=%.3f (%.1fs)"
-                      % (name, seed, prov["n_nodes"], prov.get("n_core_edges", prov.get("n_edges", 0)),
+                      % (name, seed, prov.get("n_nodes", prov.get("n_core_nodes_in_split", 0)), prov.get("n_core_edges", prov.get("n_edges", 0)),
                          prov.get("avgdeg", prov.get("core_avgdeg", 0.0)),
                          s["low"]["headroom"], s["mid"]["headroom"], s["high"]["headroom"],
                          s["all"]["headroom"], time.time() - ts), flush=True)
@@ -480,6 +480,20 @@ def main():
     }
     write_metrics(out_dir, metrics, list(real_tables.values()))
     print("[verdict] %s :: %s" % (verdict, vmsg), flush=True)
+    # WN18RR genuine-vs-artifact diagnostic (logging-only; does NOT gate). The pre-registered sparse
+    # must-fail inverted (high headroom). Discriminator on already-computed values: if the frequency
+    # baseline (pop_relfreq_h10) is near-useless yet ALL headroom is high, the headroom is genuine
+    # compositional-hierarchy derivability (is-a/part-of transitivity, frequency-useless); if the freq
+    # baseline is non-trivial, it is likely a frequency artifact. Informs the durable-escape corpus pick.
+    _wn = real_means.get("WN18RR")
+    if _wn is not None:
+        _wn_h = _wn["all"].get("headroom", 0.0)
+        _wn_pop = _wn["all"].get("pop_relfreq_h10", 0.0)
+        _wn_genuine = (_wn_h >= 0.10) and (_wn_pop <= 0.05)
+        print("[wn18rr-note] ALL_headroom=%.3f freq_baseline_pop_h10=%.3f mustfail_fired=%s -> %s"
+              % (_wn_h, _wn_pop, gates.get("wn18rr_mustfail_fires"),
+                 "GENUINE_compositional_hierarchy_derivability(freq-useless)" if _wn_genuine
+                 else "LIKELY_FREQUENCY_ARTIFACT(freq-baseline-nontrivial)"), flush=True)
     print("[metrics] written to %s (%.1fs)" % (out_dir, elapsed), flush=True)
 
 
