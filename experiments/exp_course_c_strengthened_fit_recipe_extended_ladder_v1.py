@@ -441,8 +441,8 @@ def _run_selftest(device):
     n_rel = 4
     k = 8
     dim = 256
-    epochs = 100
-    batch = 128
+    epochs = 200                # memorizing regime for the tiny graph (the LR lever is tested in the FULL ladder,
+    batch = 128                 # not the ship gate; the gate only proves the code path + that the fit CAN memorize)
     offs = rng.integers(1, N, size=n_rel)
     h = rng.integers(0, N, size=400)
     r = rng.integers(0, n_rel, size=400)
@@ -453,7 +453,7 @@ def _run_selftest(device):
     all_true = build_true_by_hr_int(edges)
     strat, _tert = stratify_by_tail_degree(hold, {i: 1 for i in range(N)})
     W = make_fpe_basis(k, dim, FPE_ELL, device, 7)
-    X, D = _fit_anchor1(train_int, N, n_rel, k, epochs, 5e-3, 32, batch, device, 7, hold=hold)
+    X, D = _fit_anchor1(train_int, N, n_rel, k, epochs, 0.05, 64, batch, device, 7, hold=hold)
     fpe_m = filtered_hits_from_scores(geom_scores(X, D, W, hold, device), hold, all_true)
     # exercise the median-heuristic FPE readout-fix code path (bandwidth recalibration + health).
     ell_mh = _median_heuristic_ell(X, D, seed=7)
