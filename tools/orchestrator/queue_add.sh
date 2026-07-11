@@ -225,6 +225,7 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     "_bit_precision"
     "_atomic_write"
     "_common_gates"
+    "_validity_preflight"
   )
   for MODULE in "${SHARED_FRAMEWORK_MODULES[@]}"; do
     # grep for either `from experiments._MODULE ` or `import experiments._MODULE` in the local script
