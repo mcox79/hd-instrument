@@ -310,13 +310,50 @@ def _reasoning_preview(firing, train_int, valid_lbl, test_int, train_lbl, test_l
         return dict(preview_error=type(e).__name__, preview_msg=str(e)[:300])
 
 
+def _run_selftest(device):
+    """LIGHTWEIGHT self-test for the queue_add ship gate: exercises the EXACT ladder code path (_fit anchor1 ->
+    geom_scores FPE readout + _direct_scores) on a TINY SYNTHETIC functional graph -- NO CSKG data, seconds,
+    exits 0. A clean functional relation t=(h+off_r)%N is trivially memorizable, so the transductive ORACLE
+    must recover it under the direct readout (a real discriminator with margin, not a vacuous pass)."""
+    t0 = time.perf_counter()
+    rng = np.random.default_rng(0)
+    N = 120; n_rel = 4; k = 8; dim = 256; epochs = 100; batch = 128
+    offs = rng.integers(1, N, size=n_rel)
+    h = rng.integers(0, N, size=400)
+    r = rng.integers(0, n_rel, size=400)
+    t = (h + offs[r]) % N
+    edges = np.stack([h, r, t], axis=1).astype(np.int64)
+    hold = edges[-40:].copy()
+    train_int = edges[:-40].copy()
+    all_true = build_true_by_hr_int(edges)
+    W = make_fpe_basis(k, dim, FPE_ELL, device, 7)
+    X, D = _fit("anchor1", train_int, N, n_rel, k, dim, epochs, batch, device, 7, hold=hold)
+    fpe_m = filtered_hits_from_scores(geom_scores(X, D, W, hold, device), hold, all_true)
+    direct_m = filtered_hits_from_scores(_direct_scores(X, D, hold, device), hold, all_true)
+    fpe_h10 = float(fpe_m["hits@%d" % PRIMARY_K]); direct_h10 = float(direct_m["hits@%d" % PRIMARY_K])
+    finite = bool(fpe_h10 == fpe_h10 and direct_h10 == direct_h10)      # not NaN
+    fires = bool(direct_h10 >= 0.5)                                     # transductive memorization on a tiny graph
+    ok = bool(finite and fires)
+    verdict = "SELFTEST_PASS" if ok else "SELFTEST_FAIL"
+    vm = ("SELFTEST synthetic functional graph N=%d: oracle_direct h@10=%.3f (>=0.50 required), oracle_fpe "
+          "h@10=%.3f; anchor1 fit + FPE/direct readout code path runs; ok=%s" % (N, direct_h10, fpe_h10, ok))
+    _log(vm)
+    return dict(verdict=verdict, verdict_msg=vm, summary=vm[:200], run_mode="self_test",
+                elapsed_s=time.perf_counter() - t0, anchor_name=ANCHOR_NAME,
+                ts_iso=datetime.now(timezone.utc).isoformat(), device=str(device),
+                selftest=dict(oracle_fpe_h10=round(fpe_h10, 4), oracle_direct_h10=round(direct_h10, 4),
+                              finite=finite, fires=fires))
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--run-mode", choices=["smoke", "full"], default="full")
+    ap.add_argument("--run-mode", choices=["self_test", "smoke", "full"], default="full")
+    ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     args, _unknown = ap.parse_known_args()
-    run_mode = "smoke" if args.smoke else args.run_mode
+    run_mode = "self_test" if (args.self_test or args.run_mode == "self_test") else (
+        "smoke" if args.smoke else args.run_mode)
     env_queue = os.environ.get("HDLAB_QUEUE", "")
     env_dev = os.environ.get("HDLAB_DEVICE", "")
     force_cpu = (args.device == "cpu") or (env_dev == "cpu") or (env_queue == "remote_cpu_queue")
@@ -329,6 +366,13 @@ def main():
     out_dir = get_output_dir(ANCHOR_NAME)
     _write_start_marker(out_dir, run_mode, 1)
     _log("device=%s cuda=%s run_mode=%s" % (device, torch.cuda.is_available(), run_mode))
+    if run_mode == "self_test":
+        metrics = _run_selftest(device)                     # tiny synthetic; NO CSKG; seconds; ship-gate path
+        write_metrics(out_dir, metrics, results=[{"elapsed_s": metrics.get("elapsed_s", 0.0)}])
+        _log("VERDICT: %s" % metrics.get("verdict_msg", ""))
+        if metrics.get("verdict") != "SELFTEST_PASS":
+            raise SystemExit(1)
+        return
     metrics = run_ladder(run_mode, device)
     write_metrics(out_dir, metrics, results=[{"elapsed_s": metrics.get("elapsed_s", 0.0)}])
     _log("VERDICT: %s" % metrics.get("verdict_msg", ""))
