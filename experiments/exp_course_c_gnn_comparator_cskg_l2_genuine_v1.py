@@ -161,8 +161,13 @@ ST_TRAIN_LIFT = 0.08        # planted SYN: trained - untrained hits@10 >= this (
 # Config profiles. FULL split params are COPIED VERBATIM from the map-builder FULL_CFG (asserted via POP sig).
 # self_test / smoke = tiny planted SYN (must fit the 180s queue_add pre-gate). memsmoke = reduced-scale REAL
 # CSKG GPU job (the mandatory >=2-seed memory smoke). full = the identical-split 3-seed comparator.
-SELFTEST_CFG = dict(dim=32, n_layers=3, epochs=45, b_train=32, b_eval=64, lr=8e-3, wd=1e-6,
-                    min_support=2, min_conf=0.05, n_eval=0, qpe=1500)
+# Self-test is scaled up vs the prior flaky config (n_person 220->400, n_tail 55->85 in _selftest) so the
+# UNTRAINED control's near-chance hits@10 has a LARGER held-out denominator + LOWER chance rate -> its Poisson
+# variance can no longer spike above the trained arm on a lucky device/FP draw (fixes the flaky
+# VacuousSmokeError). epochs/qpe trimmed only to hold the run under the 180s pre-gate at the larger scale
+# while keeping the trained fit strong.
+SELFTEST_CFG = dict(dim=32, n_layers=3, epochs=40, b_train=32, b_eval=64, lr=8e-3, wd=1e-6,
+                    min_support=2, min_conf=0.05, n_eval=0, qpe=1200)
 SMOKE_CFG = dict(seeds=[0, 1], dim=32, n_layers=3, epochs=25, b_train=32, b_eval=64, lr=8e-3, wd=1e-6,
                  min_support=2, min_conf=0.05, n_eval=0, qpe=1500)
 MEMSMOKE_CFG = dict(seeds=[7, 17], dim=32, n_layers=3, epochs=6, b_train=6, b_eval=16, lr=5e-3, wd=1e-6,
@@ -503,7 +508,10 @@ def run_seed_cskg(cfg, device, seed, assert_identity, hb):
 
 def _selftest(device):
     cfg = dict(SELFTEST_CFG)
-    tr, va, te = build_syn_compositional(seed=0, n_person=220, n_tail=55)
+    # Scaled up (n_person 220->400, n_tail 55->85): N 330->570 (chance hits@10 10/N: 0.030->0.018) and the
+    # held-out set ~2.5-3x larger -> the untrained control's near-chance hits@10 has far lower Poisson variance
+    # and cannot spike above the trained arm on a lucky device/FP draw (the flaky-VacuousSmokeError root cause).
+    tr, va, te = build_syn_compositional(seed=0, n_person=400, n_tail=85, n_distract=6)
     sp = build_split(tr, va, te, cfg, 0)
     N = sp["N"]
     n_rel = sp["n_rel"]
