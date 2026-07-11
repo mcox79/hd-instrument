@@ -102,6 +102,87 @@ _instrumentation_selftest()  # Called at module scope before sweep
 
 If `_instrumentation_selftest()` raises, the script exits before touching the queue runner. This is the PRIMARY defense against INSTRUMENTATION_FAIL at full scale.
 
+### Discriminator-fires gate (MANDATORY — highest-leverage; block a green-but-vacuous smoke)
+
+**Root cause this closes (2026-07-08):** a smoke scores green at small V/N where the DISCRIMINATOR does not fire — the frontier/negative CONTROL arm (the arm that MUST fail for the experiment to be discriminating) also passes — so the smoke tests NOTHING and the FULL then HARD_FAILs. Hit twoband (all arms `both=True` incl the frontier control at V=1500) and twohead (achieves-both at smoke, HARD_FAIL at V=40000). This violates DISCRIMINATOR-MUST-SURVIVE-SCALE at the smoke's OWN gate.
+
+**Every cell with a negative/frontier control MUST assert the control FAILS the headline gate at the smoke's V, inside `self_test()`/smoke.** Use the shared guard (no per-cell reimplementation):
+
+```python
+from _seed_checkpoint import assert_discriminator_fires  # already the cell's shared import
+
+# after computing arm metrics at the SMOKE regime:
+control_passed = frontier_arm_meets_headline_gate  # a single bool the cell already knows
+assert_discriminator_fires(
+    control_passed,
+    control_name="singlecode_distill",   # the arm that MUST fail
+    headline_name="achieves_both",
+    run_mode=run_mode)                    # no-op on FULL; gates on smoke/self_test
+```
+
+If the control passed the headline gate at the smoke V, this raises `VacuousSmokeError` and the smoke HARD-fails loudly. **Remedy: RAISE the smoke V (and/or N) until the control fails.** If the cell class cannot be BOTH fast AND discriminator-firing at a local smoke, its smoke belongs on the remote queue (see Smoke-profile budget below) — do NOT weaken the gate to make it fast. A cell with no negative control (pure calibration probe) is exempt but must say so in the prereg `## Discriminator` section.
+
+Checklist item (pre-ship): confirm the smoke log shows the control arm FAILING the headline gate. A smoke where every arm passes is vacuous regardless of a green verdict.
+
+### Validity preflight (MANDATORY in self_test() — declare the applicable checks)
+
+**Root cause this closes (2026-07-11):** four fairness/validity failure classes were caught only reactively in landed-VET, AFTER wasting a run: (1) a HARD-PASS bar unwinnable by construction, (2) a readout structurally frozen at exactly 0.0 masquerading as a negative, (3) a fail-closed assertion armed only at run_mode=full so it fired only after the expensive FULL, (4) a must-fail control that failed nondeterministically (lucky hits at small N). The shared preflight module `experiments/_validity_preflight.py` turns these remember-to-do disciplines into pre-dispatch gates. **The gate NO-OPS if the cell does not DECLARE the checks** — so declaring is mandatory, not optional. A cell that declares nothing still ships bad tests.
+
+**Import from `experiments._validity_preflight` (this import path triggers the Pattern-5/6 auto-SCP to the remote runner — a bare `import _validity_preflight` does NOT ship the module):**
+
+```python
+from experiments._validity_preflight import run_validity_preflight
+```
+
+Fold the applicable asserts into the cell's `self_test()` boolean chain. Declare EVERY check that applies to the cell:
+
+- **assert_positive_control_passes** — MANDATORY for any cell with a HARD-PASS bar. Declare a POSITIVE control (an oracle / synthetic arm that SHOULD clear the bar). If the arm that SHOULD pass cannot clear the bar at self-test scale, the bar is unwinnable or mis-directed and no substrate truth could ever pass it.
+- **assert_metric_moves** — every reported readout/metric must MOVE under a known-good input (pass `before`/`after` = null vs known-good, or a `values` series). An exact-frozen / exact-0.0 readout is flagged as likely broken, not a negative.
+- **assert_full_gates_exercised_at_selftest** — every fail-closed assertion the FULL arms (split-identity / cardinality / arms-differ) must FIRE at tiny self-test scale, not only at run_mode=full.
+- **assert_negative_control_fails_with_margin** — the must-fail control must fail DETERMINISTICALLY over repeats/seeds WITH margin, not "failed once."
+
+**Copy-paste form (declarative — declare by rote, not from memory; drop the checks the cell does not have):**
+
+```python
+def self_test():
+    ok = True
+    # ... existing per-arm metric computation at the self-test regime ...
+    ok &= run_validity_preflight([
+        # 1. HARD-PASS bar is achievable: an oracle arm that SHOULD clear it does.
+        {"kind": "positive_control",
+         "positive_control_passed_headline_gate": oracle_cleared_bar,
+         "control_name": "oracle_arm", "headline_name": "hard_pass_bar"},
+        # 2. Every reported metric moves under a known-good input.
+        {"kind": "metric_moves", "metric_name": "readout",
+         "before": readout_on_null, "after": readout_on_known_good},
+        # 3. Every FULL fail-closed gate fires at tiny self-test scale.
+        {"kind": "full_gates_exercised",
+         "full_fail_closed_gates": ["split_identity", "cardinality"],
+         "exercised_gates": exercised_here},   # a set the self-test populates
+        # 4. Must-fail control fails deterministically over repeats, with margin.
+        {"kind": "negative_control_margin",
+         "control_scores": control_scores_per_repeat,   # >= 3 repeats/seeds
+         "headline_threshold": HEADLINE_THRESH,
+         "higher_is_pass": True, "margin": 0.05},
+    ], run_mode=run_mode)                        # no-op on FULL; gates on smoke/self_test
+    return ok
+```
+
+**Mode NOW is WARN (bake period):** a missing OR failing declaration LOGS `[validity-preflight] WARN:` to stderr and does NOT block the ship. ENFORCE (block on a declared-and-failing check, non-zero self-test exit -> queue_add exit-5) is coming after a bake period + director sign-off. **Declaring the checks NOW = compliant the moment we flip to ENFORCE.** Missing declarations always warn (never block), so undeclared legacy cells are never hard-blocked; the migration is: add the import + declare the applicable checks. Individual asserts are also importable if a cell prefers them over the declarative form; see the module docstring.
+
+### Smoke-profile budget + routing (MANDATORY — a smoke is a FAST preflight, not a full run)
+
+**Root cause this closes (2026-07-08):** heavy smokes run LOCAL for 25-40min (load a 1.3GB BGE cache + train per seed), tying up the machine AND the director session for no preflight benefit — a full run mislabeled "smoke". A smoke must be sized to run in a few minutes.
+
+Before shipping, estimate the smoke wall and route with the shared tool (code-computed, not eyeballed):
+
+```bash
+python tools/exp_guard.py smoke --est-wall <sec> [--heavy-load-gb <GB>] [--discriminator-requires-scale]
+```
+
+- **SMOKE-PROFILE BUDGET:** size smokes to run fast — 1 seed not 3, tiny V/N, reuse/skip the heavy cache load where possible. A smoke whose estimated wall exceeds ~600s (10 min) must be shrunk OR routed remote.
+- **ROUTING:** `LOCAL_OK` → run local. `SHRINK` → cut V/iters/seeds to fit the budget (only when the discriminator still fires smaller). `ROUTE_REMOTE` → ship the smoke to `remote_cpu_queue` (CPU) or `overnight_queue` (CUDA) instead of blocking local dev + the session. A heavy cache load (>=0.5GB) or a discriminator that needs scale forces `ROUTE_REMOTE` — do NOT shrink below the discriminating scale (guard above stays load-bearing).
+
 ### Suspicious-result gate (MANDATORY — block before FULL ship)
 
 After smoke, before filing the queue entry, inspect the smoke metrics.json. BLOCK the ship and emit `INSTRUMENTATION_SUSPECT` (not PASS) if ANY of these patterns appear:
@@ -145,10 +226,21 @@ When shipping a calibration probe with no prior empirical anchor (i.e., the pre-
 
 ### Per-experiment timeout estimation (REQUIRED — no silent default)
 
-`timeout_s` is a REQUIRED field in every queue entry. The 2-hour flat default is abolished. Estimate per anchor from the smoke result:
+`timeout_s` is a REQUIRED field in every queue entry. The 2-hour flat default is abolished. **Compute it with the code tool (do NOT eyeball the formula):**
+
+```bash
+python tools/exp_guard.py timeout --smoke-wall <sec> \
+    --axis iters:<smoke>:<full> --axis batch:<smoke>:<full> --axis seeds:<smoke>:<full> \
+    --axis N:<smoke>:<full>:1.5 --axis V:<smoke>:<full> \
+    --class <trained_encoder|matrix_sweep|default|light>
+```
+
+**Root cause this replaces (2026-07-08 timeout-floor miss):** the old prose formula scaled ONLY on N and seeds. Multi-arm encoder FULLs hold N at production in the smoke and scale **V (1500→40000), iters (120→800), and batch B (768→8192)** into the FULL — axes the old formula ignored — so estimates under-shot ~3-4x and 5-seed V=40000 FULLs were killed at 60-90min when they needed ~3h. **Declare EVERY axis that multiplies the work** (iters, batch, seeds, arms, N, V), not just N and seeds. The tool also applies a per-cell-class FLOOR (`trained_encoder`=3h) — the floor, not the point estimate, is what prevents the mid-sweep kill — and BLOCKs (exit 3) when the raw estimate exceeds the 4h hard cap so you escalate scope to Strategy instead of shipping a doomed run.
+
+The underlying formula (a strict superset of the old one):
 
 ```
-timeout_s = ceil(1.5 * smoke_wall_s * (FULL_N / smoke_N)**scaling_exp * (FULL_seeds / smoke_seeds))
+timeout_s = max( class_floor, ceil( 1.5 * smoke_wall_s * PRODUCT_over_axes( (full/smoke)**exp ) ) )
 ```
 
 **scaling_exp guidelines:**
