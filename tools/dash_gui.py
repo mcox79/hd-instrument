@@ -389,7 +389,7 @@ class DashGui:
         # path is unchanged.
         source = g.get("source")
         util = g.get("util_ema") if g.get("util_ema") is not None else g.get("util_pct")
-        have_util = isinstance(util, (int, float)) and source in ("feed", "ssh")
+        have_util = isinstance(util, (int, float)) and source in ("feed", "cache", "ssh")
 
         if have_util:
             queue_running = g.get("queue_status") == "running"
@@ -404,28 +404,28 @@ class DashGui:
         # ambiguously as "our work" when it is BOINC/external and our queue is idle.
         owner_text, owner_fg = "", _FG
         if not have_util:
-            owner_text = "GPU reading unavailable (dashboard feed down, SSH probe failed)"
+            owner_text = "GPU reading unavailable (cache stale + SSH probe failed)"
             owner_fg = _EXTERNAL_FG
         elif source == "ssh":
-            # Real util via SSH but the feed is down, so queue/on-card attribution
-            # is unknown -- say so rather than guessing ownership.
+            # Real util via SSH but no attribution source -- say so rather than guess.
             if util >= GPU_BUSY_UTIL:
-                owner_text = "GPU BUSY (util via SSH; feed DOWN so ownership unknown)"
+                owner_text = "GPU BUSY (util via SSH; ownership unknown)"
                 owner_fg = _EXTERNAL_FG
             else:
-                owner_text = "GPU idle (util via SSH; dashboard feed DOWN)"
+                owner_text = "GPU idle (util via SSH probe)"
                 owner_fg = _IDLE_FG
-        else:  # source == "feed": full attribution available
+        else:  # source == "feed" or "cache": full queue/on-card attribution present
+            via = " (via cache)" if source == "cache" else ""
             queue_running = g.get("queue_status") == "running"
             on_card = bool(g.get("experiment_on_card"))
             if util >= GPU_BUSY_UTIL:
                 if queue_running or on_card:
-                    owner_text, owner_fg = "OUR WORK on GPU", _OURS_FG
+                    owner_text, owner_fg = f"OUR WORK on GPU{via}", _OURS_FG
                 else:
-                    owner_text = "external load (BOINC/other); our queue idle"
+                    owner_text = f"external load (BOINC/other); our queue idle{via}"
                     owner_fg = _EXTERNAL_FG
             else:
-                owner_text, owner_fg = "GPU idle", _IDLE_FG
+                owner_text, owner_fg = f"GPU idle{via}", _IDLE_FG
         self.gpu_owner_lbl.configure(text=owner_text, fg=owner_fg)
 
         mem = g.get("mem_used_mb")
@@ -433,13 +433,22 @@ class DashGui:
         temp = g.get("temp_c")
         temp_fg = _HOT_FG if isinstance(temp, (int, float)) and temp >= GPU_HOT_C else _FG
         self.gpu_temp_lbl.configure(text=f"temp: {temp if temp is not None else '--'} C", fg=temp_fg)
-        src_txt = {"feed": "via feed", "ssh": "via SSH", "stale": "stale"}.get(source, "?")
+        src_txt = {"feed": "via feed", "cache": "via cache", "ssh": "via SSH",
+                   "stale": "stale"}.get(source, "?")
         self.gpu_status_lbl.configure(
             text=f"queue: {g.get('queue_status') or '-'} | src: {src_txt}")
-        self.gpu_feed_lbl.configure(
-            text=f"feed: {'STALE' if feed.get('stale') else 'live'} "
-                 f"({feed.get('age_s')}s) | dash: {'up' if dashboard_up else 'DOWN'} "
-                 f"| cache: {_fmt_dur(st.get('cache_age_s'))}")
+        # Feed line: when running off the fresh SCP cache (the normal mode -- the
+        # web dashboard is deprioritized), lead with cache freshness, not a scary
+        # "dash DOWN". Only surface the web feed state when it's actually the source.
+        cache_txt = f"cache: {_fmt_dur(st.get('cache_age_s'))} old"
+        if source == "cache":
+            self.gpu_feed_lbl.configure(text=f"{cache_txt} (SCP, live)")
+        elif source == "feed":
+            self.gpu_feed_lbl.configure(
+                text=f"feed: {'STALE' if feed.get('stale') else 'live'} "
+                     f"({feed.get('age_s')}s) | {cache_txt}")
+        else:
+            self.gpu_feed_lbl.configure(text=f"src: {src_txt} | {cache_txt}")
         oncard = ""
         if g.get("experiment_on_card") and g.get("exp_name"):
             prog = f" {g.get('progress_pct')}%" if g.get("progress_pct") is not None else ""
@@ -518,7 +527,42 @@ class DashGui:
         self.status_lbl.configure(text="  |  ".join(parts))
 
 
+def _enforce_single_instance() -> None:
+    """Kill any OTHER python/pythonw process running dash_gui.py before we start.
+
+    The USER hit two overlapping windows (one from the repo .venv, one from system
+    python) that read as "broken". This guarantees exactly one instance regardless
+    of how it was launched (.bat, double-click, scheduled task, manual). Windowless
+    (CREATE_NO_WINDOW), fail-open: any failure here must never stop the GUI opening.
+    """
+    if sys.platform != "win32":
+        return
+    try:
+        import os
+        import subprocess
+        from local_exp_scan import _wmic_python_procs  # reuse popup-free enum
+    except Exception:
+        return
+    no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+    own = os.getpid()
+    try:
+        ppid = os.getppid()
+    except OSError:
+        ppid = -1
+    for p in _wmic_python_procs():
+        pid = p.get("pid")
+        if pid in (own, ppid) or pid is None:
+            continue
+        if "dash_gui.py" in (p.get("cmd") or "").lower():
+            try:
+                subprocess.run(["taskkill", "/F", "/PID", str(pid)],
+                               capture_output=True, timeout=6, creationflags=no_window)
+            except Exception:
+                pass
+
+
 def main() -> int:
+    _enforce_single_instance()
     root = tk.Tk()
     DashGui(root)
     root.mainloop()

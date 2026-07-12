@@ -8,6 +8,7 @@ the wire.
 
 from __future__ import annotations
 
+import os
 import socket
 import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as _FuturesTimeout
@@ -15,6 +16,29 @@ from pathlib import Path
 from typing import Optional
 
 import paramiko
+
+
+# Connect-phase timeout (TCP + auth + banner). Bounds the FIRST connect so a
+# slow / unreachable remote fails in ~this many seconds instead of hanging the
+# poll thread indefinitely. The web server never waits on this (it binds before
+# the first poll and the poll runs in a background thread) but bounding it keeps
+# the "connecting" state from lingering forever and lets the retry loop cycle.
+# Overridable via env for tuning; default 12s (task band 10-15s).
+def _connect_timeout() -> float:
+    try:
+        return float(os.environ.get("DASHBOARD_SSH_CONNECT_TIMEOUT", "12"))
+    except (TypeError, ValueError):
+        return 12.0
+
+
+# Test / failover hook: force the SSH hostname regardless of ~/.ssh/config.
+# Set DASHBOARD_SSH_HOST_OVERRIDE=<host-or-ip> to point the poller at a
+# different (or deliberately unreachable) host. Used by the hardening
+# acceptance test to prove the web server binds + serves even when the remote
+# SSH target is a blackhole. Empty / unset = normal alias resolution.
+def _host_override() -> str | None:
+    v = os.environ.get("DASHBOARD_SSH_HOST_OVERRIDE", "").strip()
+    return v or None
 
 
 ALLOWED_PREFIXES: tuple[str, ...] = (
@@ -114,6 +138,12 @@ class ReadOnlySSH:
         port = int(cfg.get("port", 22))
         identityfile = cfg.get("identityfile")
 
+        # Test / failover override: force a specific host (e.g. a blackhole IP
+        # to prove the web server stays up when the remote is unreachable).
+        _ov = _host_override()
+        if _ov is not None:
+            hostname = _ov
+
         if _is_self(hostname):
             raise RuntimeError(
                 f"ReadOnlySSH: refusing to connect to {hostname!r}: target is this machine. "
@@ -125,13 +155,14 @@ class ReadOnlySSH:
         client.load_system_host_keys()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
+        _ct = _connect_timeout()
         kwargs: dict = {
             "hostname": hostname,
             "username": username,
             "port": port,
-            "timeout": 10.0,
-            "auth_timeout": 10.0,
-            "banner_timeout": 10.0,
+            "timeout": _ct,
+            "auth_timeout": _ct,
+            "banner_timeout": _ct,
         }
         if identityfile:
             kwargs["key_filename"] = identityfile

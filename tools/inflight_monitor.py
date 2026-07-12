@@ -491,21 +491,37 @@ def build_state() -> dict:
                        "msg": f"dashboard HTTP did not respond within {PRIMARY_BUDGET_S:.0f}s "
                               f"(half-dead server?); treating GPU feed as unavailable"})
 
+    # --- Cache view (queues, runners, logical procs, GPU) ---------------------
+    # remote_state_cache.json is SCP'd back every ~30s by the heartbeat_watchdog,
+    # INDEPENDENTLY of the web dashboard. It carries a full gpu block (util/mem/
+    # temp) plus queues/runners/logical_processes, so the GUI stays fully live even
+    # when localhost:8765 is down. Loaded FIRST so it can be the PRIMARY GPU source
+    # (no web server, no per-refresh SSH) whenever the web feed is absent/stale.
+    cache = _load_json(CACHE) if CACHE.is_file() else None
+    cache_age = _file_age_s(CACHE)
+    cache_fresh = (isinstance(cache, dict) and cache_age is not None
+                   and cache_age <= CACHE_STALE_S)
+    if cache_age is not None and cache_age > CACHE_STALE_S:
+        alerts.append({"level": "WARN", "code": "CACHE_STALE",
+                       "msg": f"remote_state_cache {int(cache_age)}s old "
+                              f"(> {int(CACHE_STALE_S)}s); emitter/SCP-back may be dead"})
+
     # --- Dashboard live view (GPU truth + feed freshness) ---
+    # The web dashboard (localhost:8765) is DEPRIORITIZED (USER monitors via the Tk
+    # GUI). It is only ONE of three GPU sources (feed > fresh cache > SSH probe), so
+    # its being down is NOT itself an alert -- we alert only if NONE of the three
+    # yield a reading (GPU_UNAVAILABLE, below). This removes the perpetual red
+    # DASHBOARD_DOWN banner that made the GUI read as "broken" while it was in fact
+    # fully live off the fresh cache.
     dashboard_up = health is not None and runs is not None
-    if not dashboard_up:
-        alerts.append({"level": "CRITICAL", "code": "DASHBOARD_DOWN",
-                       "msg": "dashboard localhost:8765 unreachable (supervisor/uvicorn dead?)"})
 
     feed = (runs or {}).get("_feed", {}) if isinstance(runs, dict) else {}
     feed_age = feed.get("age_s")
     if dashboard_up and feed.get("stale"):
-        alerts.append({"level": "CRITICAL", "code": "FEED_STALE",
-                       "msg": f"remote SSH poll stale ({feed_age}s > {FEED_STALE_S}s); "
-                              f"GPU/runner status is FROZEN, last_error={feed.get('last_error')}"})
-        # Self-heal: if the feed has been frozen past the auto-restart threshold,
-        # kill the wedged uvicorn worker; supervisor.py relaunches it with a fresh
-        # SSH poller. Converts a silent multi-hour freeze into ~30s auto-recovery.
+        alerts.append({"level": "WARN", "code": "FEED_STALE",
+                       "msg": f"web dashboard SSH poll stale ({feed_age}s); "
+                              f"using cache/SSH for GPU truth instead"})
+        # Self-heal only applies when the web dashboard is UP but its poll wedged.
         healed = _self_heal_restart_poller(feed_age)
         if healed and healed.get("killed"):
             alerts.append({"level": "WARN", "code": "POLLER_AUTO_RESTART",
@@ -519,35 +535,37 @@ def build_state() -> dict:
     if gpu_util is None:
         gpu_util = gpu.get("gpu_util_pct")
 
-    # --- Direct-SSH GPU fallback when the feed can't be trusted ---
-    # The feed-up path is UNCHANGED (gpu_source="feed"). Only when the dashboard
-    # is DOWN or the SSH poll is STALE do we run the short one-shot ssh nvidia-smi
-    # probe, so "is the GPU idle?" survives the web supervisor dying. The probe has
-    # its own subprocess timeout AND runs here under a wall-clock cap (_bounded) so
-    # a pathological SSH (DNS stall, handshake hang, grandchild pipe) can never
-    # block build_state(). On probe failure/timeout gpu_source stays "stale" and
-    # the graceful stale rendering is preserved.
+    # --- GPU source priority: feed (richest) > fresh SCP cache > one-shot SSH ----
+    # feed-up path is UNCHANGED (gpu_source="feed"). When the web feed is absent or
+    # stale we PREFER the fresh remote_state_cache (a local file read -- no SSH, no
+    # web server, and it carries queue/logical-process attribution) and only fall
+    # back to a bounded one-shot ssh nvidia-smi if the cache is ALSO stale. Every
+    # fallback is bounded so build_state() can never block the GUI refresh.
     feed_trustworthy = dashboard_up and not feed.get("stale")
     gpu_source = "feed" if feed_trustworthy else "stale"
     ssh_gpu = None
+    cache_gpu = None
     if not feed_trustworthy:
-        ssh_gpu, ssh_done = _bounded(probe_gpu_via_ssh, GPU_SSH_BUDGET_S, None)
-        if not ssh_done:
-            alerts.append({"level": "WARN", "code": "GPU_SSH_TIMEOUT",
-                           "msg": f"direct SSH nvidia-smi probe exceeded {GPU_SSH_BUDGET_S:.0f}s "
-                                  f"and was abandoned; GPU reading unavailable this tick"})
-            ssh_gpu = None
-        if ssh_gpu is not None:
-            gpu_source = "ssh"
-            gpu_util = ssh_gpu["util_pct"]
+        cg = cache.get("gpu") if isinstance(cache, dict) else None
+        if cache_fresh and isinstance(cg, dict) and cg.get("util_pct") is not None:
+            cache_gpu = cg
+            gpu_source = "cache"
+            gpu_util = cg.get("util_pct")
+        else:
+            ssh_gpu, ssh_done = _bounded(probe_gpu_via_ssh, GPU_SSH_BUDGET_S, None)
+            if not ssh_done:
+                alerts.append({"level": "WARN", "code": "GPU_SSH_TIMEOUT",
+                               "msg": f"direct SSH nvidia-smi probe exceeded {GPU_SSH_BUDGET_S:.0f}s "
+                                      f"and was abandoned; GPU reading unavailable this tick"})
+                ssh_gpu = None
+            if ssh_gpu is not None:
+                gpu_source = "ssh"
+                gpu_util = ssh_gpu["util_pct"]
 
-    # --- Cache view (queues, runners, logical procs) ---
-    cache = _load_json(CACHE) if CACHE.is_file() else None
-    cache_age = _file_age_s(CACHE)
-    if cache_age is not None and cache_age > CACHE_STALE_S:
-        alerts.append({"level": "WARN", "code": "CACHE_STALE",
-                       "msg": f"remote_state_cache {int(cache_age)}s old "
-                              f"(> {int(CACHE_STALE_S)}s); emitter/SCP-back may be dead"})
+    if gpu_source == "stale":
+        alerts.append({"level": "CRITICAL", "code": "GPU_UNAVAILABLE",
+                       "msg": "no GPU reading available (web feed down, remote_state_cache "
+                              "stale, and SSH probe failed)"})
 
     queues: dict[str, dict] = {}
     runners: dict[str, dict] = {}
@@ -614,16 +632,59 @@ def build_state() -> dict:
     else:
         cache_note = None
 
+    # --- Cache-derived GPU attribution (source="cache") -----------------------
+    # The bare cache gpu block has util/mem/temp but no queue/on-card attribution,
+    # so derive it from the cache's own queues + logical_processes: is the gpu
+    # runner running, and is a substrate experiment_child on the box? This lets the
+    # GUI say "OUR WORK" vs "external/BOINC" with ZERO web-dashboard dependency.
+    cache_queue_status = None
+    cache_on_card = False
+    cache_exp_name = None
+    cache_current = None
+    if gpu_source == "cache":
+        ov = queues.get("overnight_queue", {}) or {}
+        ov_running = list(ov.get("running") or [])
+        cache_queue_status = "running" if ov_running else "idle"
+        cache_current = ov_running[0] if ov_running else None
+        # A substrate experiment_child on the box implies GPU work ONLY if the card
+        # is actually loaded (util>0) or the GPU (overnight) runner is running. The
+        # emitter classifies EVERY runner-child python (incl. CPU cells) as
+        # experiment_child, so without this guard a CPU cell reads as "on card"
+        # with util 0 -- the same false-positive _experiment_on_card_display drops.
+        util_num = gpu_util if isinstance(gpu_util, (int, float)) else None
+        gpu_actually_busy = bool(ov_running) or (util_num is not None and util_num > 0)
+        if gpu_actually_busy:
+            for p in (cache.get("logical_processes") or []):
+                if isinstance(p, dict) and p.get("type") in ("experiment_child", "experiment"):
+                    cache_on_card = True
+                    cache_exp_name = cache_exp_name or p.get("name")
+            if cache_exp_name is None and ov_running:
+                cache_exp_name = ov_running[0]
+
     # GPU display values: prefer the SSH-probe numbers when the feed was untrusted
-    # and the probe succeeded (source="ssh"); otherwise the feed's own values. The
-    # SSH probe carries no EMA, so util_ema is None and downstream util-selection
-    # (util_ema or util_pct) picks the raw util_pct.
+    # and the probe succeeded (source="ssh"); the fresh cache's numbers when
+    # source="cache"; otherwise the feed's own values. Fallback sources carry no
+    # EMA, so util_ema is None and downstream util-selection picks the raw util_pct.
     if gpu_source == "ssh" and ssh_gpu is not None:
         disp_util_pct, disp_util_ema = ssh_gpu["util_pct"], None
         disp_mem, disp_temp = ssh_gpu["mem_used_mb"], ssh_gpu["temp_c"]
+    elif gpu_source == "cache" and cache_gpu is not None:
+        disp_util_pct, disp_util_ema = cache_gpu.get("util_pct"), None
+        disp_mem, disp_temp = cache_gpu.get("mem_used_mb"), cache_gpu.get("temp_c")
     else:
         disp_util_pct, disp_util_ema = gpu.get("gpu_util_pct"), gpu.get("gpu_util_ema")
         disp_mem, disp_temp = gpu.get("gpu_mem_used_mb"), gpu.get("gpu_temp_c")
+
+    if gpu_source == "cache":
+        disp_queue_status = cache_queue_status
+        disp_current = cache_current
+        disp_on_card = cache_on_card
+        disp_exp_name = cache_exp_name
+    else:
+        disp_queue_status = gpu.get("status")
+        disp_current = gpu.get("current")
+        disp_on_card = _experiment_on_card_display(gpu, gpu_util)
+        disp_exp_name = gpu.get("gpu_exp_name")
 
     state = {
         "ts": now_iso,
@@ -634,11 +695,11 @@ def build_state() -> dict:
         "gpu": {
             "util_pct": disp_util_pct, "util_ema": disp_util_ema,
             "mem_used_mb": disp_mem, "temp_c": disp_temp,
-            "source": gpu_source,  # "feed" | "ssh" | "stale"
+            "source": gpu_source,  # "feed" | "cache" | "ssh" | "stale"
             "source_ts": ssh_gpu["queried_at"] if ssh_gpu else None,
-            "queue_status": gpu.get("status"), "current": gpu.get("current"),
-            "experiment_on_card": _experiment_on_card_display(gpu, gpu_util),
-            "exp_name": gpu.get("gpu_exp_name"),
+            "queue_status": disp_queue_status, "current": disp_current,
+            "experiment_on_card": disp_on_card,
+            "exp_name": disp_exp_name,
             "elapsed_s": gpu.get("elapsed_s"), "progress_pct": gpu.get("progress_pct"),
             "eta_sec": gpu.get("eta_sec"),
             "last_line": (gpu.get("stdout_tail") or [""])[-1] if gpu.get("stdout_tail") else "",
@@ -690,12 +751,14 @@ def render_human(st: dict) -> str:
     util = g["util_ema"] if g["util_ema"] is not None else g["util_pct"]
     L.append(f"DASHBOARD: {dash} | {feed_txt} | cache {_fmt_dur(st['cache_age_s'])} old")
     src = g.get("source")
-    src_txt = {"feed": "via feed", "ssh": "via SSH (feed DOWN)", "stale": "STALE"}.get(src, "?")
+    src_txt = {"feed": "via feed", "cache": "via cache", "ssh": "via SSH (feed down)",
+               "stale": "STALE"}.get(src, "?")
     gpu_line = (f"GPU: util {util}% | mem {g['mem_used_mb']}MB | {g['temp_c']}C | "
                 f"queue={g['queue_status']} | src={src_txt}")
     L.append(gpu_line)
     # Ownership call-out: distinguish OUR work from external/BOINC on a high util.
-    if src == "feed" and isinstance(util, (int, float)) and util >= 25:
+    # Both feed and cache carry queue/on-card attribution; SSH does not.
+    if src in ("feed", "cache") and isinstance(util, (int, float)) and util >= 25:
         if g.get("queue_status") == "running" or g.get("experiment_on_card"):
             L.append("  -> OUR WORK on GPU")
         else:
@@ -764,10 +827,11 @@ def render_pane(st: dict) -> str:
         lines.append("")
     lines.append("## GPU")
     src = g.get("source")
-    src_txt = {"feed": "via feed", "ssh": "via SSH (feed DOWN)", "stale": "STALE"}.get(src, "?")
+    src_txt = {"feed": "via feed", "cache": "via cache", "ssh": "via SSH (feed down)",
+               "stale": "STALE"}.get(src, "?")
     lines.append(f"- util **{util}%** · mem {g['mem_used_mb']}MB · {g['temp_c']}C · "
                  f"queue={g['queue_status']} · src={src_txt}")
-    if src == "feed" and isinstance(util, (int, float)) and util >= 25:
+    if src in ("feed", "cache") and isinstance(util, (int, float)) and util >= 25:
         if g.get("queue_status") == "running" or g.get("experiment_on_card"):
             lines.append("- **OUR WORK on GPU**")
         else:

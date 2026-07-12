@@ -1281,7 +1281,7 @@ class Poller:
 
     def health(self) -> dict[str, Any]:
         with self._lock:
-            return {
+            h = {
                 "last_poll_ok": self.last_poll_ok_iso,
                 "last_poll_attempted": self.last_poll_attempted_iso,
                 "last_error": self.last_error,
@@ -1289,6 +1289,69 @@ class Poller:
                 "last_poll_ms": round(self.last_poll_ms, 1) if self.last_poll_ms else None,
                 "poll_interval_s": POLL_INTERVAL_S,
             }
+        h["remote_link"] = self._classify_remote_link(h)
+        return h
+
+    # Honest-observability classification (testbed 2026-07-12 hardening).
+    # The dashboard polls ONE remote over SSH from a laptop; a slow/flaky link or
+    # a laptop sleep must read as "my local view is stale, reconnecting" -- NOT a
+    # fake "remote down". We only escalate to "unreachable" after sustained failure.
+    #   connecting  - no successful poll yet, no error yet (first poll in flight)
+    #   live        - last good poll within FRESH_S
+    #   stale       - had good data but it's aging (age <= UNREACHABLE_AFTER_S):
+    #                 local view lag / connection hiccup; keep last-good, reconnecting
+    #   unreachable - never got data + an error, OR sustained failure past the hard cap
+    _LINK_FRESH_S = 45.0            # 3x the 15s poll interval
+    _LINK_UNREACHABLE_AFTER_S = 180.0  # sustained failure before we call it down
+
+    def _classify_remote_link(self, h: dict) -> dict:
+        now = datetime.now(timezone.utc)
+        last_ok_iso = h.get("last_poll_ok")
+        last_err = h.get("last_error")
+        poll_count = h.get("poll_count") or 0
+        age_s: float | None = None
+        if last_ok_iso:
+            try:
+                dt = datetime.fromisoformat(last_ok_iso)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                age_s = max(0.0, (now - dt).total_seconds())
+            except (ValueError, TypeError):
+                age_s = None
+
+        if last_ok_iso is None or age_s is None:
+            # Never completed a poll.
+            if last_err:
+                state = "unreachable"
+                detail = f"cannot reach remote (marsh@home): {str(last_err)[:120]}"
+            else:
+                state = "connecting"
+                detail = "connecting to remote (first poll in flight)…"
+        elif age_s <= self._LINK_FRESH_S:
+            state = "live"
+            detail = f"remote view live (updated {round(age_s)}s ago)"
+        elif age_s <= self._LINK_UNREACHABLE_AFTER_S:
+            state = "stale"
+            detail = (f"local view stale ({round(age_s)}s old) — reconnecting to remote"
+                      + (f"; last error: {str(last_err)[:80]}" if last_err else ""))
+        else:
+            state = "unreachable"
+            detail = (f"remote unreachable — no fresh data for {round(age_s)}s"
+                      + (f"; {str(last_err)[:80]}" if last_err else ""))
+
+        return {
+            "state": state,
+            "detail": detail,
+            "age_s": round(age_s, 1) if age_s is not None else None,
+            "last_error": last_err,
+            "poll_count": poll_count,
+            "fresh_threshold_s": self._LINK_FRESH_S,
+            "unreachable_threshold_s": self._LINK_UNREACHABLE_AFTER_S,
+        }
+
+    def remote_status(self) -> dict[str, Any]:
+        """Standalone remote-link status (same classification as health.remote_link)."""
+        return self.health().get("remote_link", {})
 
     def get_snapshot(self) -> dict[str, Any]:
         with self._lock:
