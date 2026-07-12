@@ -32,7 +32,7 @@ A1_BATCH = 8192         # minibatch size (step count = |aug_edges| / bs per epoc
 def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                     transductive_extra=None, reciprocal=True,
                     lr=A1_LR, gamma=A1_GAMMA, n_neg=A1_N_NEG, adv_temp=A1_ADV_TEMP,
-                    n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH):
+                    n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH, neg_chunk=None):
     """Fit X (N,k), D (n_rel,k) with CE self-adversarial loss + N3 + reciprocal augmentation, minibatch SGD.
 
     train_edges: (E,3) int64 [h, r, t]. transductive_extra: optional (E2,3) held-out edges folded into the fit
@@ -70,19 +70,49 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
             pred = X[hb] + D[rb]                                    # (b, k)
             pos_d = torch.norm(pred - X[tb], dim=1)                 # (b,)
             pos_score = gamma - pos_d                               # (b,) logit, higher = better
-            neg_t = torch.randint(0, N, (b, n_neg), generator=gneg).to(device)
-            neg_d = torch.norm(pred.unsqueeze(1) - X[neg_t], dim=2)  # (b, n_neg)
-            neg_score = gamma - neg_d                               # (b, n_neg)
-            with torch.no_grad():
-                w = torch.softmax(adv_temp * neg_score, dim=1)      # self-adversarial weights (stop-grad)
-            pos_loss = -F.logsigmoid(pos_score)                     # (b,)
-            neg_loss = -(w * F.logsigmoid(-neg_score)).sum(dim=1)   # (b,)
-            loss = (pos_loss + neg_loss).mean()
-            if n3_lambda > 0.0:
-                reg = (X[hb].abs().pow(3).sum() + X[tb].abs().pow(3).sum()
-                       + D[rb].abs().pow(3).sum()) / float(b)
-                loss = loss + n3_lambda * reg
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
+            neg_t = torch.randint(0, N, (b, n_neg), generator=gneg).to(device)  # SAME draw as pre-fix
+            if neg_chunk is None or neg_chunk >= n_neg:
+                # ORIGINAL single-shot path (bit-identical to pre-fix; default for all existing callers).
+                neg_d = torch.norm(pred.unsqueeze(1) - X[neg_t], dim=2)  # (b, n_neg)
+                neg_score = gamma - neg_d                           # (b, n_neg)
+                with torch.no_grad():
+                    w = torch.softmax(adv_temp * neg_score, dim=1)  # self-adversarial weights (stop-grad)
+                pos_loss = -F.logsigmoid(pos_score)                 # (b,)
+                neg_loss = -(w * F.logsigmoid(-neg_score)).sum(dim=1)   # (b,)
+                loss = (pos_loss + neg_loss).mean()
+                if n3_lambda > 0.0:
+                    reg = (X[hb].abs().pow(3).sum() + X[tb].abs().pow(3).sum()
+                           + D[rb].abs().pow(3).sum()) / float(b)
+                    loss = loss + n3_lambda * reg
+                opt.zero_grad()
+                loss.backward()
+                opt.step()
+            else:
+                # MEMORY-CHUNKED path: bound the (b,n_neg,k) neg-scoring transient to (b,neg_chunk,k) via
+                # per-block backward (grad accumulation). Numerically equivalent (backprop is linear); w is
+                # stop-grad so it is precomputed over ALL negatives chunked. Effective batch is UNCHANGED.
+                with torch.no_grad():
+                    neg_score_ng = torch.empty((b, n_neg), device=device, dtype=pred.dtype)
+                    for c0 in range(0, n_neg, neg_chunk):
+                        c1 = min(c0 + neg_chunk, n_neg)
+                        nd = torch.norm(pred.unsqueeze(1) - X[neg_t[:, c0:c1]], dim=2)
+                        neg_score_ng[:, c0:c1] = gamma - nd
+                    w = torch.softmax(adv_temp * neg_score_ng, dim=1)  # (b,n_neg) stop-grad
+                opt.zero_grad()
+                base = (-F.logsigmoid(pos_score)).mean()
+                if n3_lambda > 0.0:
+                    reg = (X[hb].abs().pow(3).sum() + X[tb].abs().pow(3).sum()
+                           + D[rb].abs().pow(3).sum()) / float(b)
+                    base = base + n3_lambda * reg
+                base.backward(retain_graph=True)                   # pred subgraph retained for the neg blocks
+                n_blocks = (n_neg + neg_chunk - 1) // neg_chunk
+                done = 0
+                for c0 in range(0, n_neg, neg_chunk):
+                    c1 = min(c0 + neg_chunk, n_neg)
+                    nd = torch.norm(pred.unsqueeze(1) - X[neg_t[:, c0:c1]], dim=2)  # (b,block)
+                    ns = gamma - nd
+                    lc = -(w[:, c0:c1] * F.logsigmoid(-ns)).sum(dim=1).mean()
+                    done += 1
+                    lc.backward(retain_graph=(done < n_blocks))    # free pred subgraph on the last block
+                opt.step()
     return X.detach(), D.detach()[:n_rel].contiguous()

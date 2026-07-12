@@ -155,7 +155,11 @@ SELFTEST_CFG = dict(k=12, fpe_dim=256, epochs=300, n_neg=32, batch=4096)
 SMOKE_CFG = dict(k=24, fpe_dim=2048, epochs=120, n_neg=64, batch=8192,
                  cskg_max_lines=800000, k_core=3, cskg_max_nodes=3000, min_support=2, min_conf=0.05,
                  n_eval=2000, min_heldout=10)
-FULL_CFG = dict(k=24, fpe_dim=4096, epochs=250, n_neg=128, batch=8192,
+# neg_chunk (2026-07-11 memory fix): score the n_neg=128 negatives in blocks of 16 with per-block backward so the
+# (batch,n_neg,k) neg-scoring transient (the GPU OOM driver on the 8GiB card) never materializes whole. batch
+# (effective batch=8192) + n_neg + dim + full N are ALL unchanged -> the recipe/measurement is preserved exactly;
+# only the peak footprint drops. Absent on self_test/smoke -> those keep the bit-identical single-shot path.
+FULL_CFG = dict(k=24, fpe_dim=4096, epochs=250, n_neg=128, batch=8192, neg_chunk=16,
                 cskg_max_lines=0, k_core=12, cskg_max_nodes=0, min_support=10, min_conf=0.10,
                 n_eval=6000, min_heldout=MIN_HELDOUT)
 # MEMSMOKE = FULL scale (full N + fpe_dim + n_neg -> exercises the real GPU memory path incl. the FPE-median
@@ -204,7 +208,8 @@ def _write_crash_metrics(output_dir, anchor, exc):
 
 def fit_kge_rotate(train_edges, N, n_rel, k, device, seed, epochs,
                    transductive_extra=None, reciprocal=True, lr=ROT_LR, gamma=ROT_GAMMA,
-                   n_neg=64, adv_temp=ROT_ADV_TEMP, reg_lambda=ROT_REG, batch_size=8192):
+                   n_neg=64, adv_temp=ROT_ADV_TEMP, reg_lambda=ROT_REG, batch_size=8192,
+                   neg_chunk=None):
     """Fit entity phases PHI (N,k), relation phases THETA (n_rel,k). Score s(h,r,t) = gamma*(1 - d_mean) with
     d_mean = mean_j (1 - cos((PHI_h+THETA_r)_j - PHI_t,j)) in [0,2] -- the smooth chordal phase-rotation
     distance (relation = elementwise phase rotation; entities = unit-modulus phasors). This is PP-275's
@@ -243,19 +248,50 @@ def fit_kge_rotate(train_edges, N, n_rel, k, device, seed, epochs,
             q = PHI[hb] + THETA[rb]                                   # (b,k) predicted phase
             pos_d = (1.0 - torch.cos(q - PHI[tb])).mean(dim=1)        # (b,) in [0,2]
             pos_score = gamma * (1.0 - pos_d)                        # (b,) logit
-            neg_t = torch.randint(0, N, (b, n_neg), generator=gneg).to(device)
-            neg_d = (1.0 - torch.cos(q.unsqueeze(1) - PHI[neg_t])).mean(dim=2)  # (b,n_neg)
-            neg_score = gamma * (1.0 - neg_d)                        # (b,n_neg)
-            with torch.no_grad():
-                w = torch.softmax(adv_temp * neg_score, dim=1)       # self-adversarial weights (stop-grad)
-            pos_loss = -torch.nn.functional.logsigmoid(pos_score)
-            neg_loss = -(w * torch.nn.functional.logsigmoid(-neg_score)).sum(dim=1)
-            loss = (pos_loss + neg_loss).mean()
-            if reg_lambda > 0.0:
-                loss = loss + reg_lambda * THETA[rb].pow(2).mean()
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
+            neg_t = torch.randint(0, N, (b, n_neg), generator=gneg).to(device)  # (b,n_neg) SAME draw as pre-fix
+            if neg_chunk is None or neg_chunk >= n_neg:
+                # ORIGINAL single-shot path (bit-identical to pre-fix; used by self_test/smoke -> no neg_chunk).
+                neg_d = (1.0 - torch.cos(q.unsqueeze(1) - PHI[neg_t])).mean(dim=2)  # (b,n_neg)
+                neg_score = gamma * (1.0 - neg_d)                    # (b,n_neg)
+                with torch.no_grad():
+                    w = torch.softmax(adv_temp * neg_score, dim=1)   # self-adversarial weights (stop-grad)
+                pos_loss = -torch.nn.functional.logsigmoid(pos_score)
+                neg_loss = -(w * torch.nn.functional.logsigmoid(-neg_score)).sum(dim=1)
+                loss = (pos_loss + neg_loss).mean()
+                if reg_lambda > 0.0:
+                    loss = loss + reg_lambda * THETA[rb].pow(2).mean()
+                opt.zero_grad()
+                loss.backward()
+                opt.step()
+            else:
+                # MEMORY-CHUNKED path (FULL/memsmoke GPU): bound the (b,n_neg,k) neg-scoring transient to
+                # (b,neg_chunk,k) by scoring negatives in blocks with per-block backward (grad accumulation).
+                # Numerically equivalent to the single-shot loss: total = mean_b(pos) + reg +
+                # mean_b(sum_neg -(w*logsig(-s_neg))); backprop is LINEAR so the accumulated grad == the
+                # single-shot grad (float summation order aside). w is stop-grad so it is precomputed over ALL
+                # negatives (chunked, no graph) before weighting. batch (effective batch) is UNCHANGED = 8192.
+                with torch.no_grad():
+                    neg_score_ng = torch.empty((b, n_neg), device=device, dtype=pos_score.dtype)
+                    for c0 in range(0, n_neg, neg_chunk):
+                        c1 = min(c0 + neg_chunk, n_neg)
+                        nd = (1.0 - torch.cos(q.unsqueeze(1) - PHI[neg_t[:, c0:c1]])).mean(dim=2)
+                        neg_score_ng[:, c0:c1] = gamma * (1.0 - nd)
+                    w = torch.softmax(adv_temp * neg_score_ng, dim=1)  # (b,n_neg) stop-grad
+                opt.zero_grad()
+                base = (-torch.nn.functional.logsigmoid(pos_score)).mean()
+                if reg_lambda > 0.0:
+                    base = base + reg_lambda * THETA[rb].pow(2).mean()
+                base.backward(retain_graph=True)                     # q subgraph retained for the neg blocks
+                n_blocks = (n_neg + neg_chunk - 1) // neg_chunk
+                done = 0
+                for c0 in range(0, n_neg, neg_chunk):
+                    c1 = min(c0 + neg_chunk, n_neg)
+                    nd = (1.0 - torch.cos(q.unsqueeze(1) - PHI[neg_t[:, c0:c1]])).mean(dim=2)
+                    ns = gamma * (1.0 - nd)                          # (b,block)
+                    lc = -(w[:, c0:c1] * torch.nn.functional.logsigmoid(-ns)).sum(dim=1).mean()
+                    done += 1
+                    lc.backward(retain_graph=(done < n_blocks))      # free q subgraph on the last block
+                opt.step()
     return PHI.detach(), THETA.detach()[:n_rel].contiguous()
 
 
@@ -378,21 +414,30 @@ def _pk(m):
 
 def _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, rel_tail_freq, all_true, want_fpe=True):
     k = cfg["k"]; epochs = cfg["epochs"]; n_neg = cfg["n_neg"]; batch = cfg["batch"]; dim = cfg["fpe_dim"]
+    neg_chunk = cfg.get("neg_chunk")   # memory fix: chunk the neg-scoring on FULL/memsmoke; None on self_test/smoke
+
+    def _ec():
+        if getattr(device, "type", "") == "cuda":
+            torch.cuda.empty_cache()
 
     # ONESHOT_ROTATE (the map arm)
     PHI, THETA = fit_kge_rotate(train_int, N, n_rel, k, device, seed, epochs,
-                                lr=ROT_LR, n_neg=n_neg, batch_size=batch)
+                                lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+    _ec()
     # ADDITIVE_TRANSE (SAME recipe, additive score) -- functional-form head-to-head
     Xa, Da = fit_kge_anchor1(train_int, N, n_rel, k, device, seed, epochs,
-                             reciprocal=True, lr=ROT_LR, n_neg=n_neg, batch_size=batch)
+                             reciprocal=True, lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+    _ec()
     # SCRAMBLE_ROTATE (relation labels shuffled -> must-fail)
     scr = train_int.copy()
     scr[:, 1] = np.random.default_rng(seed * 555 + 2).permutation(scr[:, 1])
     PHIs, THETAs = fit_kge_rotate(scr, N, n_rel, k, device, seed, epochs,
-                                  lr=ROT_LR, n_neg=n_neg, batch_size=batch)
+                                  lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+    _ec()
     # ORACLE_TRANSDUCTIVE (rotation fit sees held-out -> trust gate; NOT gated at 0.9)
     PHIo, THETAo = fit_kge_rotate(train_int, N, n_rel, k, device, seed, epochs,
-                                  transductive_extra=hold, lr=ROT_LR, n_neg=n_neg, batch_size=batch)
+                                  transductive_extra=hold, lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+    _ec()
     # RANDOM_CODES (random phases + same readout -> null)
     gR = torch.Generator(device="cpu").manual_seed(seed * 333 + 9)
     PHIr = (((torch.rand(N, k, generator=gR) * 2.0 * np.pi) - np.pi)).to(device)
