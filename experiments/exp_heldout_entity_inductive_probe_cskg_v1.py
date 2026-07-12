@@ -61,11 +61,14 @@ periodically fit-checkpointed (ckpt_every) so an outage/timeout resumes each arm
 
 NOTE on re-fit vs the completed gpu1024 run: the completed course_c_rotate_cskg_l2_seed_17_gpu1024_v1 did NOT
 persist loadable fit codes (only metrics.json on disk), so per the hand-off we RE-FIT cheaply on the same graph.
-The embedding dim k=24 matches the completed FULL_CFG (the capacity-relevant knob); epochs/n_neg are moderated for
-the CPU budget. The inductive metric is insensitive to seen-side fit sharpness (more epochs only sharpen SEEN
-geometry; a held-out entity has no vector to sharpen), and the ORACLE positive control fires regardless -- so the
-verdict is robust to the epochs/n_neg moderation. HYPOTHESIZED@this prereg (re-fit is faithful for the inductive
-question); the completed run's own transductive numbers are CITED for context, not required to reproduce.
+The embedding dim k=24 matches the completed FULL_CFG (the capacity-relevant knob); epochs/n_neg are UN-MODERATED
+on the GPU re-route (v2: ep=500, n_neg=128 -- the anchor-1 fidelity that fired the l2 transductive oracle, pushed
+2x for the harder held-out-entity oracle) because the GPU removes the CPU time budget that forced the v1
+moderation. The inductive metric is insensitive to seen-side fit sharpness (more epochs only sharpen SEEN
+geometry; a held-out entity has no vector to sharpen), so raising epochs cannot manufacture a false generalize
+signal -- it only gives the ORACLE positive control its best chance to fire so the verdict is INTERPRETABLE.
+HYPOTHESIZED@this prereg (re-fit is faithful for the inductive question); the completed run's own transductive
+numbers are CITED for context, not required to reproduce.
 
 CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 # - arms_differ_verified at self-test (META_RULE_AF): 5 arms produce >=4 distinct score signatures per seed.
@@ -162,9 +165,20 @@ SELFTEST_CFG = dict(k=12, epochs=220, n_neg=32, batch=4096, heldout_entity_frac=
 SMOKE_CFG = dict(k=16, epochs=60, n_neg=64, batch=8192, heldout_entity_frac=0.15,
                  cskg_max_lines=800000, k_core=3, cskg_max_nodes=3000,
                  n_heldout_eval=800, min_heldout=10, seeds=[7, 13])
-# FULL: k=24 matches the completed gpu1024 FULL_CFG (capacity-relevant knob); epochs/n_neg moderated for CPU.
-# neg_chunk bounds the (batch,n_neg,k) transient; ckpt_every makes each fit outage-resumable.
-FULL_CFG = dict(k=24, epochs=200, n_neg=64, batch=8192, neg_chunk=16, ckpt_every=20,
+# FULL: k=24 matches the completed gpu1024 FULL_CFG (capacity-relevant knob). epochs/n_neg UN-MODERATED
+# 2026-07-12 (gpu re-route v2): restored to the anchor-1 fit fidelity that FIRED the transductive oracle in the
+# multi-seed gpu1024 rotate runs (k=24 ep=250 n_neg=128; those cleared the >=0.15 direct-oracle gate ->
+# MIDDLE_BAND not INCONCLUSIVE; MEASURED@data/exp_course_c_rotate_cskg_l2_seed_{7,17,23}_gpu1024_v1/metrics.json),
+# and PUSHED to ep=500 (2x the gpu1024 epoch budget = low end of the 2-3x escalation cap) so the held-out-entity
+# ORACLE -- whose gold tails are trained on only ~1 folded edge each, a HARDER fit than the l2-oracle whose
+# entities are all richly trained -- gets its best single-shot chance to clear ORACLE_FIRE_MARGIN=0.10. More
+# epochs only sharpen the SEEN/oracle geometry; a held-out tail in the ONESHOT/ADDITIVE arms has NO vector to
+# sharpen (it stays random-init by split construction), so raising epochs CANNOT manufacture a memorize->
+# generalize false positive. The moderated ep=200/n_neg=64 v1 UNDER-TRAINED the oracle (fired 0.0123 < 0.10 ->
+# INCONCLUSIVE_ORACLE_UNDERFIT; MEASURED@data/exp_course_c_heldout_entity_inductive_probe_gpu1024_v1/metrics.json).
+# neg_chunk bounds the (batch,n_neg,k) transient; ckpt_every makes each fit outage-resumable (fingerprint keys on
+# epochs+n_neg so the new fidelity starts fresh, never stale-resumes the ep=200 checkpoints).
+FULL_CFG = dict(k=24, epochs=500, n_neg=128, batch=8192, neg_chunk=16, ckpt_every=20,
                 heldout_entity_frac=HELDOUT_ENTITY_FRAC, cskg_max_lines=0, k_core=12, cskg_max_nodes=0,
                 n_heldout_eval=3000, min_heldout=MIN_HELDOUT, seeds=[7, 13, 17])
 
