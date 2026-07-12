@@ -6,6 +6,8 @@ run_mode defaults to full (section-16 run_mode-verification safe). ASCII-only.""
 import os
 import sys
 
+import torch  # noqa: F401  top-level GPU-device visibility (torch used via _course_c_rotate_core_v1); routes to overnight_queue
+
 _THIS = os.path.abspath(__file__)
 _REPO = os.path.dirname(os.path.dirname(_THIS))
 if _REPO not in sys.path:

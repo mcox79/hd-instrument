@@ -898,8 +898,23 @@ def core_main(anchor_name, seeds, run_mode, device):
     """Run one process worth of the rotation cell: self-test (always) + the seed list at the chosen scale.
     seeds = [7] for a per-seed FULL wrapper (process isolation); [7,17] for the memory smoke."""
     out_dir = get_output_dir(anchor_name)
-    cfg = {"self_test": SELFTEST_CFG, "smoke": SMOKE_CFG,
-           "memsmoke": MEMSMOKE_CFG, "full": FULL_CFG}[run_mode]
+    cfg = dict({"self_test": SELFTEST_CFG, "smoke": SMOKE_CFG,
+                "memsmoke": MEMSMOKE_CFG, "full": FULL_CFG}[run_mode])
+    # fpe_dim override (2026-07-12): HDLAB_FPE_DIM env (set by --fpe-dim, or the dedicated GPU wrapper) reduces
+    # ONLY the SECONDARY FPE-median readout projection dim -- the S_all (N, fpe_dim) complex phasor bank + its
+    # conj-transpose is the ~3.1GiB 8GiB-card OOM driver. The PRIMARY direct-distance win metric and the KGE
+    # embedding dim k are UNAFFECTED (fpe_dim is orthogonal to k), so a dim2048 run is a fully valid win-check
+    # (SMOKE_CFG already uses fpe_dim=2048 and is memory-safe). Default: unset -> cfg unchanged (full=4096), so
+    # the CPU definitive seeds are bit-identical to the pre-knob path. Applied to a COPY; module dicts untouched.
+    _fpe_override = os.environ.get("HDLAB_FPE_DIM")
+    if _fpe_override:
+        try:
+            _fd = int(_fpe_override)
+        except ValueError:
+            raise SystemExit("HDLAB_FPE_DIM=%r is not an int" % (_fpe_override,))
+        if _fd <= 0:
+            raise SystemExit("HDLAB_FPE_DIM=%r must be a positive int" % (_fpe_override,))
+        cfg["fpe_dim"] = _fd
     expected_n_units = len(seeds)
     _write_start_marker(out_dir, anchor_name, run_mode, expected_n_units)
     t_start = time.perf_counter()
@@ -910,8 +925,9 @@ def core_main(anchor_name, seeds, run_mode, device):
             f.write(json.dumps({"ts_iso": datetime.now(timezone.utc).isoformat(),
                                 "unit": tag, "idx": i, "elapsed_s": time.perf_counter() - t_start}) + "\n")
 
-    _log(anchor_name, "device=%s cuda=%s run_mode=%s seeds=%s" %
-         (device, torch.cuda.is_available(), run_mode, seeds))
+    _log(anchor_name, "device=%s cuda=%s run_mode=%s seeds=%s fpe_dim=%s%s" %
+         (device, torch.cuda.is_available(), run_mode, seeds, cfg["fpe_dim"],
+          " (HDLAB_FPE_DIM override)" if _fpe_override else ""))
 
     st_ok, st_res = mechanism_selftest(device)
     _log(anchor_name, "mechanism_selftest ok=%s geometry_fires=%s vp_ok=%s" %
@@ -1009,7 +1025,15 @@ def wrapper_run(anchor_name, default_seeds, default_run_mode):
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
+    ap.add_argument("--fpe-dim", type=int, default=None,
+                    help="Override the SECONDARY FPE-readout projection dim only (primary direct-distance win "
+                         "metric + KGE dim k unaffected). Sets HDLAB_FPE_DIM for core_main. Use 2048 for the "
+                         "memory-safe GPU shot; unset keeps the cfg default (full=4096).")
     args, _unknown = ap.parse_known_args()
+    # Unify CLI + env at the single read point in core_main. Env (set by the dedicated GPU wrapper or the
+    # dispatch environment) is honored when --fpe-dim is not passed; an explicit --fpe-dim wins.
+    if args.fpe_dim is not None:
+        os.environ["HDLAB_FPE_DIM"] = str(args.fpe_dim)
     run_mode = "self_test" if args.self_test else ("smoke" if args.smoke else args.run_mode)
     seeds = [7] if run_mode == "self_test" else default_seeds
     device = select_device(args.device)
