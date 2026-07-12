@@ -16,9 +16,19 @@ norm-cubed prior that the KGE literature ties to generalization on sparse graphs
 ASCII-only. Returns (X, D_forward) on the given device; D_forward = the first n_rel relation displacements
 (reciprocal inverse-relation rows are used ONLY to enrich the fit, never exposed to the forward readout)."""
 
+import os
+import sys
+
 import numpy as np
 import torch
 import torch.nn.functional as F
+
+_THIS = os.path.abspath(__file__)
+_REPO = os.path.dirname(os.path.dirname(_THIS))
+if _REPO not in sys.path:
+    sys.path.insert(0, _REPO)
+
+from experiments._fit_checkpoint import edges_hash, restore_into  # noqa: E402
 
 # ---- Anchor-1 defaults (pre-registered; the ladder cell sweeps epochs/k/dim, holds these fixed) ----
 A1_LR = 0.05
@@ -32,7 +42,8 @@ A1_BATCH = 8192         # minibatch size (step count = |aug_edges| / bs per epoc
 def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                     transductive_extra=None, reciprocal=True,
                     lr=A1_LR, gamma=A1_GAMMA, n_neg=A1_N_NEG, adv_temp=A1_ADV_TEMP,
-                    n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH, neg_chunk=None):
+                    n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH, neg_chunk=None,
+                    ckpt=None, stop_after_epochs=None):
     """Fit X (N,k), D (n_rel,k) with CE self-adversarial loss + N3 + reciprocal augmentation, minibatch SGD.
 
     train_edges: (E,3) int64 [h, r, t]. transductive_extra: optional (E2,3) held-out edges folded into the fit
@@ -61,12 +72,26 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
     gperm = torch.Generator(device="cpu").manual_seed(seed * 13 + 1)
     gneg = torch.Generator(device="cpu").manual_seed(seed * 17 + 3)
 
-    for ep in range(epochs):
+    # DURABILITY: resume from a matching checkpoint (same config-fingerprint) instead of restarting.
+    start_epoch = 0
+    if ckpt is not None and ckpt.enabled():
+        ckpt.set_fingerprint(dict(
+            fn="additive", N=int(N), n_rel=int(n_rel), k=int(k), epochs=int(epochs), n_neg=int(n_neg),
+            lr=float(lr), gamma=float(gamma), adv_temp=float(adv_temp), n3_lambda=float(n3_lambda),
+            batch_size=int(bs), reciprocal=bool(reciprocal), seed=int(seed),
+            split_hash=edges_hash(ed), device=str(device)))
+        _ck = ckpt.try_load(device)
+        if _ck is not None:
+            start_epoch = restore_into(_ck, {"X": X, "D": D}, opt, {"gperm": gperm, "gneg": gneg}, device)
+
+    for ep in range(start_epoch, epochs):
         perm = torch.randperm(E, generator=gperm)
+        _last_loss = float("nan")
         for s in range(0, E, bs):
             bidx = perm[s:s + bs].to(device)
             hb = h_all[bidx]; rb = r_all[bidx]; tb = t_all[bidx]
             b = hb.shape[0]
+            _is_last_batch = (s + bs >= E)
             pred = X[hb] + D[rb]                                    # (b, k)
             pos_d = torch.norm(pred - X[tb], dim=1)                 # (b,)
             pos_score = gamma - pos_d                               # (b,) logit, higher = better
@@ -87,6 +112,8 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                 opt.zero_grad()
                 loss.backward()
                 opt.step()
+                if ckpt is not None and ckpt.enabled() and _is_last_batch:
+                    _last_loss = float((-F.logsigmoid(pos_score)).mean().detach())
             else:
                 # MEMORY-CHUNKED path: bound the (b,n_neg,k) neg-scoring transient to (b,neg_chunk,k) via
                 # per-block backward (grad accumulation). Numerically equivalent (backprop is linear); w is
@@ -115,4 +142,17 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                     done += 1
                     lc.backward(retain_graph=(done < n_blocks))    # free pred subgraph on the last block
                 opt.step()
+                if ckpt is not None and ckpt.enabled() and _is_last_batch:
+                    _last_loss = float((-F.logsigmoid(pos_score)).mean().detach())
+        # DURABILITY: periodic + final checkpoint (atomic) at the epoch boundary. Copies only; the trajectory
+        # is unchanged whether or not checkpointing is enabled. Saved gperm/gneg states are exactly where an
+        # uninterrupted run would be at the start of epoch (ep+1) -> resume reproduces the same trajectory.
+        if ckpt is not None and ckpt.enabled():
+            _do_stop = (stop_after_epochs is not None) and ((ep + 1) >= stop_after_epochs)
+            if ((ep + 1) % ckpt.every == 0) or ((ep + 1) == epochs) or _do_stop:
+                ckpt.save(ep + 1, {"X": X, "D": D}, opt,
+                          {"gperm": gperm.get_state(), "gneg": gneg.get_state()})
+                ckpt.write_progress(ep + 1, epochs, _last_loss)
+            if _do_stop:
+                break
     return X.detach(), D.detach()[:n_rel].contiguous()

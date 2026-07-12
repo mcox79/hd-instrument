@@ -100,6 +100,9 @@ from experiments.exp_course_c_operator_fix_ssp_phase_rotation_replay_v1 import (
     make_fpe_basis, fpe_encode, fit_discrete_bind, build_grid_graph, split_heldout,
 )
 from experiments._kge_anchor1_fit import fit_kge_anchor1  # noqa: E402
+from experiments._fit_checkpoint import (  # noqa: E402
+    FitCheckpoint, restore_into, edges_hash, cleanup_seed_checkpoints,
+)
 
 # ---- Arm names ----
 ONESHOT = "ONESHOT_ROTATE"       # the map arm: rotation-score fit, direct readout
@@ -161,7 +164,11 @@ SMOKE_CFG = dict(k=24, fpe_dim=2048, epochs=120, n_neg=64, batch=8192,
 # only the peak footprint drops. Absent on self_test/smoke -> those keep the bit-identical single-shot path.
 FULL_CFG = dict(k=24, fpe_dim=4096, epochs=250, n_neg=128, batch=8192, neg_chunk=16,
                 cskg_max_lines=0, k_core=12, cskg_max_nodes=0, min_support=10, min_conf=0.10,
-                n_eval=6000, min_heldout=MIN_HELDOUT)
+                n_eval=6000, min_heldout=MIN_HELDOUT, ckpt_every=25)
+# ckpt_every (2026-07-12 durability fix): FULL fits (epochs=250) periodically checkpoint the per-arm fit state
+# (PHI/THETA or X/D + Adam moments + shuffle/neg RNG + next epoch) every 25 epochs to the anchor out_dir so a
+# timeout/kill/sleep resumes from the last checkpoint (~10 checkpoints/fit; ~15MB each; correctness-neutral).
+# self_test/smoke/memsmoke leave ckpt_every unset -> checkpointing disabled (their fits are seconds-to-minutes).
 # MEMSMOKE = FULL scale (full N + fpe_dim + n_neg -> exercises the real GPU memory path incl. the FPE-median
 # readout, the OOM driver) but few epochs + 2 seeds IN-PROCESS (tests per-seed empty_cache between seeds; the
 # family OOM'd 3x). Purpose: prove no OOM at FULL memory footprint before the multi-hour FULL. Runs fast.
@@ -209,7 +216,7 @@ def _write_crash_metrics(output_dir, anchor, exc):
 def fit_kge_rotate(train_edges, N, n_rel, k, device, seed, epochs,
                    transductive_extra=None, reciprocal=True, lr=ROT_LR, gamma=ROT_GAMMA,
                    n_neg=64, adv_temp=ROT_ADV_TEMP, reg_lambda=ROT_REG, batch_size=8192,
-                   neg_chunk=None):
+                   neg_chunk=None, ckpt=None, stop_after_epochs=None):
     """Fit entity phases PHI (N,k), relation phases THETA (n_rel,k). Score s(h,r,t) = gamma*(1 - d_mean) with
     d_mean = mean_j (1 - cos((PHI_h+THETA_r)_j - PHI_t,j)) in [0,2] -- the smooth chordal phase-rotation
     distance (relation = elementwise phase rotation; entities = unit-modulus phasors). This is PP-275's
@@ -239,12 +246,27 @@ def fit_kge_rotate(train_edges, N, n_rel, k, device, seed, epochs,
     gperm = torch.Generator(device="cpu").manual_seed(seed * 13 + 1)
     gneg = torch.Generator(device="cpu").manual_seed(seed * 17 + 3)
 
-    for ep in range(epochs):
+    # DURABILITY: resume from a matching checkpoint (same config-fingerprint) instead of restarting.
+    start_epoch = 0
+    if ckpt is not None and ckpt.enabled():
+        ckpt.set_fingerprint(dict(
+            fn="rotate", N=int(N), n_rel=int(n_rel), k=int(k), epochs=int(epochs), n_neg=int(n_neg),
+            lr=float(lr), gamma=float(gamma), adv_temp=float(adv_temp), reg_lambda=float(reg_lambda),
+            batch_size=int(bs), reciprocal=bool(reciprocal), seed=int(seed),
+            split_hash=edges_hash(ed), device=str(device)))
+        _ck = ckpt.try_load(device)
+        if _ck is not None:
+            start_epoch = restore_into(_ck, {"PHI": PHI, "THETA": THETA}, opt,
+                                       {"gperm": gperm, "gneg": gneg}, device)
+
+    for ep in range(start_epoch, epochs):
         perm = torch.randperm(E, generator=gperm)
+        _last_loss = float("nan")
         for s in range(0, E, bs):
             bidx = perm[s:s + bs].to(device)
             hb = h_all[bidx]; rb = r_all[bidx]; tb = t_all[bidx]
             b = hb.shape[0]
+            _is_last_batch = (s + bs >= E)
             q = PHI[hb] + THETA[rb]                                   # (b,k) predicted phase
             pos_d = (1.0 - torch.cos(q - PHI[tb])).mean(dim=1)        # (b,) in [0,2]
             pos_score = gamma * (1.0 - pos_d)                        # (b,) logit
@@ -263,6 +285,8 @@ def fit_kge_rotate(train_edges, N, n_rel, k, device, seed, epochs,
                 opt.zero_grad()
                 loss.backward()
                 opt.step()
+                if ckpt is not None and ckpt.enabled() and _is_last_batch:
+                    _last_loss = float((-torch.nn.functional.logsigmoid(pos_score)).mean().detach())
             else:
                 # MEMORY-CHUNKED path (FULL/memsmoke GPU): bound the (b,n_neg,k) neg-scoring transient to
                 # (b,neg_chunk,k) by scoring negatives in blocks with per-block backward (grad accumulation).
@@ -292,6 +316,19 @@ def fit_kge_rotate(train_edges, N, n_rel, k, device, seed, epochs,
                     done += 1
                     lc.backward(retain_graph=(done < n_blocks))      # free q subgraph on the last block
                 opt.step()
+                if ckpt is not None and ckpt.enabled() and _is_last_batch:
+                    _last_loss = float((-torch.nn.functional.logsigmoid(pos_score)).mean().detach())
+        # DURABILITY: periodic + final checkpoint (atomic) at the epoch boundary -- after the epoch's updates,
+        # before the next randperm, so the saved gperm/gneg states are exactly where an uninterrupted run would
+        # be at the start of epoch (ep+1). Copies only; does not perturb the trajectory.
+        if ckpt is not None and ckpt.enabled():
+            _do_stop = (stop_after_epochs is not None) and ((ep + 1) >= stop_after_epochs)
+            if ((ep + 1) % ckpt.every == 0) or ((ep + 1) == epochs) or _do_stop:
+                ckpt.save(ep + 1, {"PHI": PHI, "THETA": THETA}, opt,
+                          {"gperm": gperm.get_state(), "gneg": gneg.get_state()})
+                ckpt.write_progress(ep + 1, epochs, _last_loss)
+            if _do_stop:
+                break
     return PHI.detach(), THETA.detach()[:n_rel].contiguous()
 
 
@@ -412,9 +449,17 @@ def _pk(m):
     return m["hits@%d" % PRIMARY_K]
 
 
-def _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, rel_tail_freq, all_true, want_fpe=True):
+def _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, rel_tail_freq, all_true, want_fpe=True,
+                   ckpt_dir=None):
     k = cfg["k"]; epochs = cfg["epochs"]; n_neg = cfg["n_neg"]; batch = cfg["batch"]; dim = cfg["fpe_dim"]
     neg_chunk = cfg.get("neg_chunk")   # memory fix: chunk the neg-scoring on FULL/memsmoke; None on self_test/smoke
+    ckpt_every = cfg.get("ckpt_every")  # durability: set on FULL only; None -> checkpointing disabled
+
+    def _mk_ckpt(tag_prefix):
+        # per-(arm, seed) checkpoint so the concurrent arms never collide on disk. None disables (self_test/smoke).
+        if ckpt_dir is None or not ckpt_every:
+            return None
+        return FitCheckpoint(ckpt_dir, "%s_seed%d" % (tag_prefix, seed), ckpt_every)
 
     def _ec():
         if getattr(device, "type", "") == "cuda":
@@ -422,21 +467,25 @@ def _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, rel_tail_freq, 
 
     # ONESHOT_ROTATE (the map arm)
     PHI, THETA = fit_kge_rotate(train_int, N, n_rel, k, device, seed, epochs,
-                                lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+                                lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk,
+                                ckpt=_mk_ckpt("rotate_oneshot"))
     _ec()
     # ADDITIVE_TRANSE (SAME recipe, additive score) -- functional-form head-to-head
     Xa, Da = fit_kge_anchor1(train_int, N, n_rel, k, device, seed, epochs,
-                             reciprocal=True, lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+                             reciprocal=True, lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk,
+                             ckpt=_mk_ckpt("additive"))
     _ec()
     # SCRAMBLE_ROTATE (relation labels shuffled -> must-fail)
     scr = train_int.copy()
     scr[:, 1] = np.random.default_rng(seed * 555 + 2).permutation(scr[:, 1])
     PHIs, THETAs = fit_kge_rotate(scr, N, n_rel, k, device, seed, epochs,
-                                  lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+                                  lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk,
+                                  ckpt=_mk_ckpt("rotate_scramble"))
     _ec()
     # ORACLE_TRANSDUCTIVE (rotation fit sees held-out -> trust gate; NOT gated at 0.9)
     PHIo, THETAo = fit_kge_rotate(train_int, N, n_rel, k, device, seed, epochs,
-                                  transductive_extra=hold, lr=ROT_LR, n_neg=n_neg, batch_size=batch, neg_chunk=neg_chunk)
+                                  transductive_extra=hold, lr=ROT_LR, n_neg=n_neg, batch_size=batch,
+                                  neg_chunk=neg_chunk, ckpt=_mk_ckpt("rotate_oracle"))
     _ec()
     # RANDOM_CODES (random phases + same readout -> null)
     gR = torch.Generator(device="cpu").manual_seed(seed * 333 + 9)
@@ -488,7 +537,7 @@ def _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, rel_tail_freq, 
 # One corpus run.
 # ---------------------------------------------------------------------------
 
-def run_corpus(train_lbl, valid_lbl, test_lbl, cfg, device, seed, corpus_name, want_fpe=True):
+def run_corpus(train_lbl, valid_lbl, test_lbl, cfg, device, seed, corpus_name, want_fpe=True, ckpt_dir=None):
     ent2i, rel2i = build_ids(train_lbl, valid_lbl, test_lbl)
     N = len(ent2i); n_rel = len(rel2i)
     train_int = _to_int_edges(train_lbl, ent2i, rel2i)
@@ -515,7 +564,8 @@ def run_corpus(train_lbl, valid_lbl, test_lbl, cfg, device, seed, corpus_name, w
         result["empty"] = True
         return result
 
-    fs = _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, gd.rel_tail_freq, all_true, want_fpe=want_fpe)
+    fs = _fit_and_score(train_int, hold, N, n_rel, cfg, device, seed, gd.rel_tail_freq, all_true,
+                        want_fpe=want_fpe, ckpt_dir=ckpt_dir)
     arm_metric, arm_sig, arm_scores = fs["arm_metric"], fs["arm_sig"], fs["arm_scores"]
     pop_rank_vec = fs["pop_rank_vec"]
 
@@ -761,6 +811,53 @@ def _run_syn(builder_args, cfg, device, corpus_name):
     return res
 
 
+def resume_equivalence_selftest(device):
+    """DEMONSTRATE (not assert) that a checkpoint-resumed fit reproduces an uninterrupted fit to <1e-5, per the
+    USER 2026-06-18 checkpoint/resume/kill-restart directive. 2-segment vs 1-segment on a tiny seeded graph:
+    fit 20 epochs straight, then fit 10 + (simulated kill via stop_after_epochs) + resume 10 from checkpoint;
+    assert final tensors match. Covers BOTH fit fns (rotate PHI/THETA + additive X/D). Pinned single-threaded
+    CPU for bit-reproducibility. Cheap (tiny N/epochs); runs on every self_test/smoke/full startup."""
+    import shutil
+    import tempfile
+    _prev = torch.get_num_threads()
+    torch.set_num_threads(1)
+    dev = torch.device("cpu")
+    d = tempfile.mkdtemp(prefix="rotate_resume_eq_")
+    try:
+        rng = np.random.default_rng(12345)
+        N, n_rel, E, kk, ep = 60, 4, 400, 12, 20
+        edges = np.stack([rng.integers(0, N, E), rng.integers(0, n_rel, E),
+                          rng.integers(0, N, E)], axis=1).astype(np.int64)
+
+        # --- ROTATE arm ---
+        PHI_a, TH_a = fit_kge_rotate(edges, N, n_rel, kk, dev, 3, ep, n_neg=16, batch_size=128)
+        ck1 = FitCheckpoint(d, "eq_rotate", ckpt_every=5)
+        fit_kge_rotate(edges, N, n_rel, kk, dev, 3, ep, n_neg=16, batch_size=128,
+                       ckpt=ck1, stop_after_epochs=10)                    # segment 1: run 0..10, checkpoint, "die"
+        ck2 = FitCheckpoint(d, "eq_rotate", ckpt_every=5)                 # fresh handle == fresh process
+        PHI_b, TH_b = fit_kge_rotate(edges, N, n_rel, kk, dev, 3, ep, n_neg=16, batch_size=128,
+                                     ckpt=ck2)                           # segment 2: resume 10..20
+        dev_rot = max(float((PHI_a - PHI_b).abs().max().item()),
+                      float((TH_a - TH_b).abs().max().item()))
+
+        # --- ADDITIVE arm ---
+        Xa, Da = fit_kge_anchor1(edges, N, n_rel, kk, dev, 3, ep, lr=ROT_LR, n_neg=16, batch_size=128)
+        ck3 = FitCheckpoint(d, "eq_additive", ckpt_every=5)
+        fit_kge_anchor1(edges, N, n_rel, kk, dev, 3, ep, lr=ROT_LR, n_neg=16, batch_size=128,
+                        ckpt=ck3, stop_after_epochs=10)
+        ck4 = FitCheckpoint(d, "eq_additive", ckpt_every=5)
+        Xb, Db = fit_kge_anchor1(edges, N, n_rel, kk, dev, 3, ep, lr=ROT_LR, n_neg=16, batch_size=128, ckpt=ck4)
+        dev_add = max(float((Xa - Xb).abs().max().item()), float((Da - Db).abs().max().item()))
+
+        max_dev = max(dev_rot, dev_add)
+        return dict(resume_equiv_rotate_maxdev=dev_rot, resume_equiv_additive_maxdev=dev_add,
+                    resume_equiv_max_dev=max_dev, resume_equiv_tol=1e-5,
+                    resume_equiv_ok=bool(max_dev < 1e-5))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+        torch.set_num_threads(_prev)
+
+
 def mechanism_selftest(device):
     # DETERMINISM PIN (2026-07-11): the tiny planted arenas have degenerate score-ties (regular-grid symmetry) and
     # torch multi-thread / GPU float-reduction ORDER flips boundary-rank ties -> nondeterministic hits run-to-run
@@ -874,9 +971,13 @@ def _mechanism_selftest_body(device):
                validity_preflight_ok=bool(vp_ok),
                validity_preflight_declared=["positive_control_passes", "metric_moves",
                                             "negative_control_fails_with_margin", "full_gates_exercised_at_selftest"])
+    # DURABILITY GATE (2026-07-12): demonstrate checkpoint-resume == uninterrupted (both fit fns) to <1e-5.
+    req = resume_equivalence_selftest(device)
+    res.update(req)
+
     # Grid oracle proves geometry CAN beat frequency (stable); SYN_COMP validates arena + rot>additive + must-fails.
     ok = bool(geometry_fires and rot_beats_additive and rot_beats_discrete and scramble_not_beat
-              and random_at_chance and no_manufacture and pop_fires_freq)
+              and random_at_chance and no_manufacture and pop_fires_freq and req["resume_equiv_ok"])
     return ok, res
 
 
@@ -967,7 +1068,8 @@ def core_main(anchor_name, seeds, run_mode, device):
             _log(anchor_name, "cskg seed=%d core_nodes=%d core_edges=%d avgdeg=%.1f rels=%d train=%d test=%d"
                  % (seed, prov["n_core_nodes"], prov["n_core_edges"], prov["core_avgdeg"],
                     prov["n_rel_tokens"], prov["n_train"], prov["n_test"]))
-            res = run_corpus(train_lbl, valid_lbl, test_lbl, cfg, device, seed, "CSKG_XCUT_CORE", want_fpe=True)
+            res = run_corpus(train_lbl, valid_lbl, test_lbl, cfg, device, seed, "CSKG_XCUT_CORE",
+                             want_fpe=True, ckpt_dir=out_dir)
             res["cskg_provenance"] = prov
             res["_min_support"] = cfg["min_support"]; res["_min_conf"] = cfg["min_conf"]
             min_hold = cfg.get("min_heldout", MIN_HELDOUT)
@@ -979,6 +1081,10 @@ def core_main(anchor_name, seeds, run_mode, device):
                 raise RuntimeError("ARMS_MUST_DIFFER_META_RULE_AF seed=%d only %d distinct sigs" % (seed, len(sigset)))
             per_seed.append(res)
             write_partial(out_dir, seed, dict(seed=seed, metrics=res, run_mode=run_mode))
+            # DURABILITY: this seed fully completed (all arms fit + scored + partial persisted) -> drop its fit
+            # checkpoints so a finished run leaves a clean dir. An INTERRUPTED seed (process died before here)
+            # keeps its checkpoints so the re-launch resumes each arm from its last epoch instead of restarting.
+            cleanup_seed_checkpoints(out_dir, seed)
             fh = res["fair_hits"]; ah = res["arm_hits"]
             _log(anchor_name, "seed=%d L2gen=%d | FAIR h@%d oneshot=%s additive=%s POP=%s | agg oracle=%.3f random=%.3f "
                  "(%.1fs)" % (seed, res["l2_genuine"]["n_l2_genuine"], PRIMARY_K, fh[ONESHOT]["hits"],
