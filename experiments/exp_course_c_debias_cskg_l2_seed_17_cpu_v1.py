@@ -16,6 +16,7 @@ if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
 from experiments._course_c_debias_core_v1 import wrapper_run  # noqa: E402
+from experiments._seed_checkpoint import get_output_dir as _sc_gate  # noqa: E402,F401  PROT-021: fit-checkpoint resumability wired in core
 # Belt-and-suspenders for remote dispatch: expose the transitive core deps to queue_add.sh's Pattern-6
 # import-parser so they are force-SCPed fresh (guards against remote repo drift). Already imported by the core.
 from experiments import (  # noqa: E402,F401

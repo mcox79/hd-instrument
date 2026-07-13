@@ -80,6 +80,7 @@ from experiments.exp_gt_induction_fb15k237_dense_v1 import (  # noqa: E402
 from experiments.exp_cskg_dense_core_headroom_acceptance_v1 import (  # noqa: E402
     build_cskg_core_triples, _ensure_cskg,
 )
+from experiments._fit_checkpoint import FitCheckpoint, cleanup_seed_checkpoints  # noqa: E402
 
 ANCHOR_FAMILY = "course_c_debias_cskg_l2"
 
@@ -235,7 +236,7 @@ def degmatched_fair(scores_oneshot, hold, strat, all_true, rel_tail_freq, node_d
 # One-seed faithful re-score (reproduce split + POP, refit ONESHOT, debias A + B).
 # ---------------------------------------------------------------------------
 
-def rescore_seed(seed, cfg, device, is_ref_seed):
+def rescore_seed(seed, cfg, device, is_ref_seed, ckpt_dir=None):
     train_lbl, valid_lbl, test_lbl, prov = build_cskg_core_triples(
         cfg["cskg_max_lines"], cfg["k_core"], cfg["cskg_max_nodes"], seed)
     ent2i, rel2i = build_ids(train_lbl, valid_lbl, test_lbl)
@@ -271,10 +272,15 @@ def rescore_seed(seed, cfg, device, is_ref_seed):
     if not split_identity_ok:
         raise RuntimeError("SPLIT_IDENTITY_BREACH seed=%d: %s" % (seed, split_identity_detail))
 
-    # --- refit ONESHOT_ROTATE (SAME recipe as _fit_and_score; no ckpt: fresh deterministic fit) ---
+    # --- refit ONESHOT_ROTATE (SAME recipe as _fit_and_score) ---
+    # Fit-checkpoint (ckpt_every from cfg; FULL only) so a timeout/kill of the multi-hour CPU fit RESUMES from
+    # the last epoch instead of restarting (PROT-021 resumability; correctness-neutral -- copies of the trajectory).
+    _ckpt = None
+    if ckpt_dir is not None and cfg.get("ckpt_every"):
+        _ckpt = FitCheckpoint(ckpt_dir, "rotate_oneshot_seed%d" % seed, cfg["ckpt_every"])
     PHI, THETA = fit_kge_rotate(train_int, N, n_rel, cfg["k"], device, seed, cfg["epochs"],
                                 lr=ROT_LR, n_neg=cfg["n_neg"], batch_size=cfg["batch"],
-                                neg_chunk=cfg.get("neg_chunk"))
+                                neg_chunk=cfg.get("neg_chunk"), ckpt=_ckpt)
     sc_oneshot = rotate_direct_scores(PHI, THETA, hold, device)   # (nq, N) cpu float32
     oneshot_metric = filtered_hits_from_scores(sc_oneshot, hold, all_true)
     oneshot_sig = _sig(sc_oneshot.numpy()[:min(64, sc_oneshot.shape[0])].ravel())
@@ -521,11 +527,12 @@ def core_main(anchor_name, seeds, run_mode, device):
     for si, seed in enumerate(seeds):
         try:
             ts = time.time()
-            ps = rescore_seed(seed, cfg, device, is_ref_seed=(ref_seed and seed in REF))
+            ps = rescore_seed(seed, cfg, device, is_ref_seed=(ref_seed and seed in REF), ckpt_dir=out_dir)
             v, vg = seed_verdict(ps)
             ps["seed_verdict"] = v; ps["seed_gates"] = vg
             per_seed.append(ps)
             write_partial(out_dir, seed, dict(seed=seed, metrics=ps, run_mode=run_mode))
+            cleanup_seed_checkpoints(out_dir, seed)   # seed fully done -> drop its fit checkpoints
             _log(anchor_name, "seed=%d %s | pooled_r=%.4f within_max=%.4f partial=%.4f | fair_margin=%.4f "
                  "dm_margin=%.4f (repro fair_os=%.4f pop=%.4f) (%.1fs)" % (
                      seed, v, ps["pooled_backdoor_r"], ps["within_max_abs_r"] or float("nan"),
