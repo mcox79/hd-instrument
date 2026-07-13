@@ -43,7 +43,8 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                     transductive_extra=None, reciprocal=True,
                     lr=A1_LR, gamma=A1_GAMMA, n_neg=A1_N_NEG, adv_temp=A1_ADV_TEMP,
                     n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH, neg_chunk=None,
-                    ckpt=None, stop_after_epochs=None, hard_neg_frac=0.0):
+                    ckpt=None, stop_after_epochs=None, hard_neg_frac=0.0,
+                    return_inverse=False):
     """Fit X (N,k), D (n_rel,k) with CE self-adversarial loss + N3 + reciprocal augmentation, minibatch SGD.
 
     train_edges: (E,3) int64 [h, r, t]. transductive_extra: optional (E2,3) held-out edges folded into the fit
@@ -56,7 +57,17 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
       OVERWRITTEN with shuffled batch tails -> when hard_neg_frac==0.0 the extra gneg draw never fires and the
       trajectory is bit-identical to every existing caller (v1/v2/ladder reproducibility preserved). Field
       precedent: MixKG / in-batch hard-negative KGE ablations, +0.01-0.04 MRR (arXiv:2202.09606, 1902.10197).
-    Returns X.detach() (N,k), D_forward.detach() (n_rel,k)."""
+
+    return_inverse (DEFAULT False == BIT-IDENTICAL 2-tuple return for every existing caller):
+      when True (requires reciprocal=True) ALSO return the TRAINED inverse-relation displacement block
+      D_inverse.detach() (n_rel,k) = D[n_rel:2*n_rel] -- the reciprocal inverse relations that reciprocal-augmented
+      training already fit as a byproduct (Lacroix et al. 2018). Used by the reciprocal-cold-rescue composer to bundle
+      a held-out entity's HEAD edges (e, r, known_tail) as X[known_tail] + D_inverse[r] with ZERO new training
+      (Kosko bidirectional associative memory: one learned association supports recall in either direction). The
+      trajectory / RNG order / forward return are UNCHANGED whether or not this flag is set (additive-only change).
+    Returns X.detach() (N,k), D_forward.detach() (n_rel,k); OR (X, D_forward, D_inverse) when return_inverse=True."""
+    if return_inverse and not reciprocal:
+        raise ValueError("return_inverse=True requires reciprocal=True (no inverse-relation block is fit otherwise)")
     g = torch.Generator(device="cpu").manual_seed(seed * 7919 + 11)
     ed = train_edges
     if transductive_extra is not None and transductive_extra.shape[0] > 0:
@@ -172,4 +183,7 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                 ckpt.write_progress(ep + 1, epochs, _last_loss)
             if _do_stop:
                 break
+    if return_inverse:
+        # reciprocal=True guaranteed above -> D has 2*n_rel rows; inverse block = D[n_rel:2*n_rel].
+        return (X.detach(), D.detach()[:n_rel].contiguous(), D.detach()[n_rel:2 * n_rel].contiguous())
     return X.detach(), D.detach()[:n_rel].contiguous()
