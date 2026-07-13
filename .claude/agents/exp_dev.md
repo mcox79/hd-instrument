@@ -525,7 +525,7 @@ An unexpected kwarg or a missing required arg fails the self-test (values are ig
 ```
 If POP is within `eps` of the RANDOM/arm floor, the guard mis-fires -> flag: compare the control to RANDOM/arm-floor, or gate the break-guard on POP being above the floor first (see the fixed `pop_at_floor = m[POP] <= max(m[RANDOM], 0.02)` at `exp_anchor_compose_magnitude_opt_cskg_v1.py:890`).
 
-**Mode = WARN during bake** (a declared-and-failing check LOGS `[validity-preflight] WARN:` and does NOT block the ship; missing declarations always warn, never block). Flips to ENFORCE (non-zero self-test exit -> queue_add exit-5) after director sign-off. **Declaring the F.1-F.4 checks NOW = compliant the moment we flip.**
+**Mode = ENFORCE (director sign-off 2026-07-13)** for F.1-F.4: a DECLARED-and-failing F.1-F.4 check RAISES ValidityPreflightError -> non-zero `--self-test` exit -> `queue_add` exit-5 blocks the ship. **MISSING declarations still always warn and NEVER block** (undeclared legacy cells are never gated — only declared-and-failing cells hard-fail), so the migration is purely additive: declare the applicable F.1-F.4 checks. (The original 4 validity checks — positive_control / metric_moves / full_gates_exercised / negative_control_margin — remain WARN during their own bake.) Safety hatch: `VALIDITY_PREFLIGHT_WARN=1` forces warn module-wide.
 
 **Memory rule references:** `feedback_test_design_failure_diagnosis_and_hardening_USER_2026-06-28.md` (this rule) + `feedback_chain_grade_primitives_not_trivially_composable_2026-06-28.md` + `feedback_functional_requirement_first_test_design_USER_2026-06-28.md`.
 

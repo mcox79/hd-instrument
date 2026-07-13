@@ -95,18 +95,28 @@ THREE MORE classes gated (2026-07-13, each burned a real REMOTE-gate/landed run)
      the guard mis-fires on this arena -> flag: compare the control to RANDOM /
      arm-floor, not to a structurally-zero incumbent.
 
-ROLLOUT (warn-first). Read env VALIDITY_PREFLIGHT_MODE:
-  - "warn" (DEFAULT): a DECLARED-and-failing check LOGS loudly to stderr with a
+ROLLOUT (SPLIT default as of 2026-07-13 director sign-off; per-check-class):
+  - Classes 1-4 (positive_control, metric_moves, full_gates_exercised,
+    negative_control_margin): default "warn" -- still in their bake period.
+  - Classes 5-7 (real_code_path, substrate_signature, guard_baseline_valid; the
+    F.1-F.4 hardening gates): default "enforce" -- DIRECTOR SIGN-OFF 2026-07-13.
+    These closed the 2026-07-13 REMOTE-gate + false-landed-verdict class and are
+    the highest-leverage; a DECLARED-and-failing one now hard-fails locally.
+
+  Behaviour of each mode (unchanged):
+  - "warn": a DECLARED-and-failing check LOGS loudly to stderr with a
     [validity-preflight] WARN: prefix and the assert returns False (never
-    raises) -- the self-test still exits 0 and the ship proceeds. This is the
-    bake period. Collect warns; do not block good cells.
+    raises) -- the self-test still exits 0 and the ship proceeds.
   - "enforce": a DECLARED-and-failing check RAISES ValidityPreflightError (an
     AssertionError subclass, mirroring VacuousSmokeError). That propagates out
     of the cell's --self-test -> non-zero exit -> queue_add.py step 3 fails the
-    ship (existing exit-5 path). Flip to enforce only after a bake period and
-    director sign-off.
+    ship (existing exit-5 path).
 
-  VALIDITY_PREFLIGHT_WARN=1 forces warn mode regardless (explicit override).
+  Env overrides (win over the per-class default, for whole-module control):
+  - VALIDITY_PREFLIGHT_WARN=1 forces warn EVERYWHERE (safety hatch: reverts the
+    F.1-F.4 enforce flip module-wide if a bad interaction surfaces).
+  - VALIDITY_PREFLIGHT_MODE=enforce forces enforce everywhere (opt the original
+    4 in early); =warn forces warn everywhere.
 
 MISSING vs FAILING (backward-compat / migration):
   - A MISSING declaration (cell passed None / did not declare a positive control)
@@ -147,17 +157,32 @@ WARN_PREFIX = "[validity-preflight] WARN:"
 BLOCK_PREFIX = "[validity-preflight] BLOCK:"
 
 
-def _resolve_mode(mode: Optional[str]) -> str:
-    """Return 'warn' or 'enforce'. Explicit arg > env > default 'warn'."""
+def _resolve_mode(mode: Optional[str], *, default: str = "warn") -> str:
+    """Return 'warn' or 'enforce'.
+
+    Precedence: explicit `mode` arg > VALIDITY_PREFLIGHT_WARN (force-warn safety
+    override) > VALIDITY_PREFLIGHT_MODE env > per-check-class `default`.
+
+    `default` lets a check class set its own post-bake default WITHOUT flipping
+    the whole module: the F.1-F.4 hardening checks pass default='enforce'
+    (director sign-off 2026-07-13); the original 4 bake-period checks keep
+    default='warn'. Either env var still overrides the default, so the whole
+    module can be forced warn-everywhere (VALIDITY_PREFLIGHT_WARN=1) or
+    enforce-everywhere (VALIDITY_PREFLIGHT_MODE=enforce).
+    """
     if mode is not None:
         m = str(mode).strip().lower()
         return "enforce" if m == "enforce" else "warn"
-    # Explicit warn override wins over MODE for safety during bake.
+    # Explicit warn override wins over everything else (safety hatch).
     if str(os.environ.get("VALIDITY_PREFLIGHT_WARN", "")).strip().lower() in (
             "1", "true", "yes", "on"):
         return "warn"
     env_mode = str(os.environ.get("VALIDITY_PREFLIGHT_MODE", "")).strip().lower()
-    return "enforce" if env_mode == "enforce" else "warn"
+    if env_mode == "enforce":
+        return "enforce"
+    if env_mode == "warn":
+        return "warn"
+    return "enforce" if default == "enforce" else "warn"
 
 
 def _is_selftest_mode(run_mode: str) -> bool:
@@ -489,7 +514,7 @@ def assert_real_code_path_exercised(
     """
     if not _is_selftest_mode(run_mode):
         return True
-    resolved = _resolve_mode(mode)
+    resolved = _resolve_mode(mode, default="enforce")  # F.1: ENFORCE (director sign-off 2026-07-13)
     if full_substrate_entrypoints is None:
         return _emit_missing(
             "no real-substrate-entrypoint set declared. List the live objects/"
@@ -549,7 +574,7 @@ def assert_signature_compatible(
     """
     if not _is_selftest_mode(run_mode):
         return True
-    resolved = _resolve_mode(mode)
+    resolved = _resolve_mode(mode, default="enforce")  # F.2/F.3: ENFORCE (director sign-off 2026-07-13)
     if callable_obj is None:
         return _emit_missing(
             "no callable declared for a substrate-signature check. Pass the live "
@@ -626,7 +651,7 @@ def assert_guard_baseline_valid(
     """
     if not _is_selftest_mode(run_mode):
         return True
-    resolved = _resolve_mode(mode)
+    resolved = _resolve_mode(mode, default="enforce")  # F.4: ENFORCE (director sign-off 2026-07-13)
     if baseline_score is None:
         return _emit_missing(
             f"no baseline score declared for guard {guard_name!r}. Pass the "

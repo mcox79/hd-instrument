@@ -181,7 +181,11 @@ def self_test():
     return ok
 ```
 
-**Mode NOW is WARN (bake period):** a missing OR failing declaration LOGS `[validity-preflight] WARN:` to stderr and does NOT block the ship. ENFORCE (block on a declared-and-failing check, non-zero self-test exit -> queue_add exit-5) is coming after a bake period + director sign-off. **Declaring the checks NOW = compliant the moment we flip to ENFORCE.** Missing declarations always warn (never block), so undeclared legacy cells are never hard-blocked; the migration is: add the import + declare the applicable checks. Individual asserts are also importable if a cell prefers them over the declarative form; see the module docstring.
+**Mode is SPLIT (per-check-class) as of 2026-07-13:**
+- **The 3 hardening checks — `real_code_path` / `substrate_signature` / `guard_baseline_valid` (F.1-F.4) — are ENFORCE (director sign-off 2026-07-13):** a DECLARED-and-failing one RAISES ValidityPreflightError -> non-zero `--self-test` exit -> `queue_add` exit-5 blocks the ship.
+- **The original 4 checks — `positive_control` / `metric_moves` / `full_gates_exercised` / `negative_control_margin` — remain WARN (bake period):** a declared-and-failing one only LOGS `[validity-preflight] WARN:` and does NOT block.
+
+In BOTH modes a MISSING declaration always warns and NEVER blocks, so undeclared legacy cells are never hard-blocked; the migration is purely additive: add the import + declare the applicable checks. Safety hatch: `VALIDITY_PREFLIGHT_WARN=1` forces warn module-wide (reverts the enforce flip); `VALIDITY_PREFLIGHT_MODE=enforce` opts the original 4 in early. Individual asserts are also importable if a cell prefers them over the declarative form; see the module docstring.
 
 ### Smoke-profile budget + routing (MANDATORY — a smoke is a FAST preflight, not a full run)
 
