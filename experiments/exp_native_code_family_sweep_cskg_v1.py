@@ -326,7 +326,9 @@ def build_store_with_codes(E, R, n_dim, seed, train_int, fold_in=None):
     """A KGStore whose E/R are the family codes (shared by reference across train + oracle stores; only W differs)."""
     N = E.shape[0]; n_rel = R.shape[0]
     g = torch.Generator(device="cpu").manual_seed(seed * 13 + 7)
-    store = KGStore(n_ent=N, n_rel=n_rel, n_dim=n_dim, generator=g, init_entities=False)
+    # Base constructor ONLY (portable across KGStore versions; the random E/R it fills are immediately overwritten
+    # by the injected family codes below -- do NOT pass version-specific kwargs). Bind/Hebbian/readout untouched.
+    store = KGStore(n_ent=N, n_rel=n_rel, n_dim=n_dim, generator=g)
     store.E = E
     store.R = R
     tri = torch.from_numpy(train_int).long()
@@ -701,6 +703,26 @@ def build_planted_homophilic_arena(seed, n_groups=8, members_per_group=12, rels_
 # Mechanism self-test.
 # ---------------------------------------------------------------------------
 
+def _selftest_store_injection_smoke():
+    """Directly exercise build_store_with_codes against the REAL KGStore constructor + injection path so a
+    signature/injection mismatch (e.g. a version-specific kwarg the remote KGStore lacks) fails LOCALLY at self-test,
+    not at the remote dispatch gate. Independent of the arena. Raises AssertionError/TypeError loudly on breakage."""
+    N, n_rel, n_dim = 6, 2, 16
+    g = torch.Generator(device="cpu").manual_seed(1)
+    E = _bipolar(N, n_dim, g)
+    R = _bipolar(n_rel, n_dim, g)
+    train_int = np.array([[0, 0, 1], [1, 1, 2], [2, 0, 3], [3, 1, 4]], dtype=np.int64)
+    store = build_store_with_codes(E, R, n_dim, 1, train_int)
+    assert torch.equal(store.E, E), "injected E is not on the store (injection path broken)"
+    assert torch.equal(store.R, R), "injected R is not on the store (injection path broken)"
+    assert tuple(store.W.shape) == (n_dim, n_dim), "W shape wrong after ingest"
+    assert float(store.matrix_norm()) > 0.0, "W is empty after ingest (Hebbian write did not run)"
+    # oracle fold-in path must accept the same portable constructor too
+    store_o = build_store_with_codes(E, R, n_dim, 1, train_int, fold_in=np.array([[4, 0, 5]], dtype=np.int64))
+    assert float(store_o.matrix_norm()) > 0.0, "oracle fold-in store W empty"
+    return dict(store_injection_smoke="ok", W_norm=round(float(store.matrix_norm()), 4))
+
+
 def mechanism_selftest():
     _prev = torch.get_num_threads()
     torch.set_num_threads(1)
@@ -711,12 +733,13 @@ def mechanism_selftest():
 
 
 def _mechanism_selftest_body():
+    injection_smoke = _selftest_store_injection_smoke()
     pool = build_planted_homophilic_arena(7)
     cfg = dict(SELFTEST_CFG)
     res = run_seed(pool, cfg, 7, "PLANTED_HOMOPHILIC_HELDOUT_ENTITY")
     out = dict(n_grid_entities=res.get("N"), n_heldout_entities=res.get("n_heldout_entities"),
                n_support=res.get("n_support"), n_query=res.get("n_query_scored"), n_cold=res.get("n_cold"),
-               n_dim=res.get("n_dim"))
+               n_dim=res.get("n_dim"), store_injection_smoke=injection_smoke)
     if res.get("empty") or res.get("n_query_scored", 0) < SELFTEST_MIN_HO:
         out["fail"] = "planted grid produced too few held-out-entity queries (%s)" % res.get("n_query_scored")
         return False, out
