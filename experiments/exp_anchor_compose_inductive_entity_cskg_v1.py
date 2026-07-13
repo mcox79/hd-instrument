@@ -40,21 +40,36 @@ global fact bundle):
                      induce), not an underfit harness.
   BASELINE_POP     : frequency incumbent (held-out tails have train freq 0 -> ~floor; fit-independence sanity).
 
-PRE-REG BANDS (picked BEFORE the run; margins on held-out hits@10, degree-stratified):
-  HARD-PASS : ANCHOR_COMPOSE - RANDOM >= 0.05 (real transferable relational signal to genuinely unseen entities)
-              AND ANCHOR_COMPOSE - max(ADDITIVE_TRANSE, ONESHOT_ROTATE) >= 0.02 (beats the memorize arms on unseen
-              entities -- the architectural claim) AND ORACLE fires AND scramble controlled AND not broken AND the
-              margin holds on the low+mid degree stratum (not super-hub-confined; P1 skew HARD_FAIL demands this).
-  MIDDLE    : 0.02 <= ANCHOR-RANDOM < 0.05, OR ANCHOR-RANDOM>=0.05 but form-margin<0.02, OR a scramble/degree
-              confound is present -> stratify by anchor-support degree (does margin scale with support?).
-  HARD-FAIL : ANCHOR_COMPOSE - RANDOM < 0.02 with ORACLE firing (a genuine negative: even the right-shaped
+CEILING-AWARE EVAL (the info-ceiling fix; primary metric = FILTERED MRR rank-vs-ALL, degree-unbiased). The held-out-
+ENTITY arena has an INFO-CEILING: even the transductive ORACLE (best-possible in-arena code) tops out ~0.014 hits@10
+at N~25.7k because a held-out entity is constrained only by its OWN sparse edges. A fixed 0.05/0.10-hits@10 margin
+(copied from the easier held-out-EDGE arena, oracle 0.107) is MATHEMATICALLY UNREACHABLE -> INCONCLUSIVE regardless
+of substrate quality. MEASURED@data/exp_course_c_heldout_entity_inductive_probe_gpu1024_v2/metrics.json: ORACLE
+mrr=0.0128 vs RANDOM mrr=0.00039 = a 32.8x separation (arena IS answerable) but hits@10 headroom only 0.0139. FIX =
+report the full FILTERED rank spectrum hits@{1,3,10,100}+MRR (KGE standard, rank-vs-ALL, NO sampled-negative pool ->
+NO popularity/degree bias, respecting the in-flight degree-debias cell), gate on MRR, and set the ORACLE-fire gate +
+ANCHOR bands RELATIVE to the MEASURED oracle headroom so ONE FULL run computes the ceiling AND scores against it.
+
+PRE-REG BANDS (picked BEFORE the run; primary metric = FILTERED MRR; H = MEASURED oracle headroom = ORACLE_mrr -
+RANDOM_mrr; degree-stratified):
+  ORACLE-FIRES (arena answerable) : ORACLE_mrr >= 3x RANDOM_mrr (scale-free) AND ORACLE_mrr - RANDOM_mrr >= 0.003
+              (non-noise floor). Replaces the copied absolute 0.10-hits@10 gate; the per-metric fire table shows
+              WHICH metric makes the oracle fire.
+  HARD-PASS : (ANCHOR - RANDOM)_mrr >= max(0.50*H, 0.002) (recovers >=50% of the oracle's achievable rank-headroom)
+              AND (ANCHOR - max(ADDITIVE_TRANSE, ONESHOT_ROTATE))_mrr >= 0.10*H (beats the memorize arms) AND ORACLE
+              fires AND scramble controlled ((SCRAMBLE-RANDOM)_mrr <= 0.25*H) AND not broken AND the margin holds on
+              the low+mid degree stratum (not super-hub-confined; P1 skew HARD_FAIL demands this).
+  MIDDLE    : 0.20*H <= (ANCHOR-RANDOM)_mrr and not HARD-PASS -> stratify by anchor-support degree.
+  HARD-FAIL : (ANCHOR - RANDOM)_mrr < 0.20*H with ORACLE firing (a genuine negative: even the right-shaped
               construction fails on CSKG -> localize to sparsity vs crosstalk via the stratified diagnostics).
-  Gated INCONCLUSIVE if ORACLE does not fire (arena not answerable), too few held-out queries, or a control beats POP.
+  Gated INCONCLUSIVE if ORACLE does not fire (arena not answerable), too few held-out queries, or a null beats POP by
+  a ceiling-relative margin (broken).
 
 FOUR VALIDITY-PREFLIGHT CHECKS (declared in the self-test via experiments._validity_preflight):
-  (1) positive_control_passes : ORACLE_ADDITIVE recovers planted held-out tails and clears RANDOM by the fire margin.
-  (2) metric_moves            : held-out hits@10 MOVES across [RANDOM, ADDITIVE_TRANSE, ANCHOR_COMPOSE, ORACLE].
-  (3) negative_control_margin : RANDOM + ANCHOR_SCRAMBLE sit below ORACLE by margin, deterministically (>=2 vals).
+  (1) positive_control_passes : ORACLE_ADDITIVE recovers planted held-out tails and clears RANDOM by the ceiling-aware
+                                (ratio + abs) fire gate on MRR.
+  (2) metric_moves            : held-out MRR MOVES across [RANDOM, ADDITIVE_TRANSE, ANCHOR_COMPOSE, ORACLE].
+  (3) negative_control_margin : RANDOM + ANCHOR_SCRAMBLE sit below ANCHOR by an MRR margin, deterministically (>=2).
   (4) full_gates_exercised    : aggregate_and_verdict runs on the planted per-seed, firing every fail-closed gate.
 
 ## Compute architecture
@@ -72,21 +87,23 @@ CELL-TEMPLATE MANDATORY (META_RULE_AC/AF/AG/AH + scope/scale/floor):
 # - arms_differ_verified at self-test (META_RULE_AF): 7 arms produce >=5 distinct score signatures per seed.
 # - final_metrics_atomicity: tmp_replace (via _seed_checkpoint.write_metrics + os.replace).
 # - except SystemExit: raise BEFORE except Exception (no BaseException / no bare except).
-# - crlb: chance hits@10 = 10/N ~ 0.0004 at N~25.7k. HARD-PASS 0.05-above-random is on the achievable side (the
-#   ORACLE positive control demonstrates it when the code is LEARNED). discriminator_reachability: OK.
-# - baseline_in_band: ORACLE must fire in (RANDOM+margin, 1.0); RANDOM/POP near the 10/N floor on held-out.
+# - crlb / info-ceiling: raw hits@10-vs-all-N has a CEILING (oracle ~0.014 at N~25.7k) that makes a fixed 0.05/0.10
+#   hits@10 margin UNREACHABLE. FIX = primary metric FILTERED MRR + ceiling-RELATIVE bands (fractions of the
+#   MEASURED oracle headroom H); the ORACLE positive control fires under MRR at 32.8x (MEASURED fork), so
+#   discriminator_reachability under the new metric: OK by construction (bands scale to whatever H the FULL measures).
+# - baseline_in_band: ORACLE must fire (>=3x RANDOM_mrr AND headroom>=0.003); RANDOM/POP near the 1/N floor.
 # - discriminator survives scale: analytical (B) -- a per-entity table cannot encode an unseen entity by
 #   construction (GraIL/NBFNet), so the memorize null persists at ANY N; the ORACLE-fires control proves the metric
 #   can move at scale. The self-test fires the ANCHOR-beats-RANDOM + scramble-fails discriminators deterministically.
-# - HARD-PASS strictly above floor: 0.05 clears HARD-FAIL 0.02 by 5%+ band-width; the form-margin adds strictness.
+# - HARD-PASS strictly above floor: 0.50*H clears HARD-FAIL 0.20*H by 30% of H + a MIN_SIG_MRR abs floor + form-margin.
 # - HP_SCOPE: the inductive HARD-PASS gates apply to ANCHOR_COMPOSE only. ORACLE = positive control (must fire);
 #   RANDOM/ANCHOR_SCRAMBLE = must-not-clear-bar controls; ADDITIVE_TRANSE/ONESHOT_ROTATE = memorize head-to-heads;
 #   POP = fit-independence sanity.
 # - cardinality: EXPECTED_N_UNITS = n_seeds; each seed asserted to produce all 7 arms (arm cardinality) + >=5 sigs.
 # - per-unit failure-class instrumentation (no bare except; per-seed failure_class recorded).
-# - calibration_check: adaptive_with_discriminator_gate -- HELDOUT_ENTITY_FRAC/SUPPORT_FRAC/ORACLE_FIRE_MARGIN
-#   pre-registered, NOT tuned on real data; the planted self-test verifies ORACLE+ANCHOR recover on additive-
-#   consistent structure when codes exist / can be composed.
+# - calibration_check: adaptive_with_discriminator_gate -- HELDOUT_ENTITY_FRAC/SUPPORT_FRAC/ORACLE_FIRE_RATIO/
+#   ORACLE_FIRE_ABS/HP_CEIL_FRAC pre-registered, NOT tuned on real data; the ANCHOR bands are FRACTIONS OF THE
+#   MEASURED oracle headroom (computed in-run), not fixed thresholds -- the compute-info-ceiling discipline baked in.
 # - all numbers tagged MEASURED@/HYPOTHESIZED@/THEORETICAL@/CITED@ in the prereg.
 # - progress_logging: print_flush_true (line-buffered stdout + per-seed/per-arm flush prints).
 
@@ -143,26 +160,48 @@ POP = "BASELINE_POP"             # frequency incumbent (fit-independence sanity)
 GEOM_ARMS = [ANCHOR, ADDITIVE, ONESHOT, RANDOM, SCRAMBLE, ORACLE]   # scored via geometry readouts
 ALL_ARMS = GEOM_ARMS + [POP]
 
-# ---- Pre-registered bands (picked BEFORE the run; hits@10 margins) ----
-HARD_PASS_MARGIN = 0.05    # ANCHOR - RANDOM >= this (transferable relational signal to unseen entities)
-FORM_GAP = 0.02            # ANCHOR - max(ADDITIVE, ONESHOT) >= this (beats memorize arms on unseen entities)
-MIDDLE_LO = 0.02           # MIDDLE-BAND floor: ANCHOR - RANDOM in [0.02, 0.05)
-ORACLE_FIRE_MARGIN = 0.10  # positive control: ORACLE - RANDOM >= this (arena answerable)
-SCRAMBLE_EPS = 0.02        # must-fail: SCRAMBLE - RANDOM <= this (else relational signal is a degree/anchor confound)
-CONTROL_LOSE_EPS = 0.03    # broken-test guard: a control (RANDOM/SCRAMBLE) beating POP by > this = broken
-MIN_HELDOUT = 20           # min held-out QUERY edges for a valid discriminator
-MIN_STRAT_Q = 8            # min queries in a stratum to report its margin
-PRIMARY_METRIC = "hits@%d" % PRIMARY_K   # PRIMARY_K = 10
+# ---- CEILING-AWARE, DEGREE-UNBIASED evaluation (the info-ceiling fix) ----
+# The held-out-ENTITY arena has an INFO-CEILING under raw hits@10-vs-all-N: even the transductive ORACLE (best
+# possible in-arena code) tops out ~0.014 hits@10 at N~25.7k (a held-out entity is constrained only by its OWN
+# sparse edges), so a fixed 0.05/0.10-hits@10 margin (copied from the easier held-out-EDGE arena, oracle 0.107)
+# is MATHEMATICALLY UNREACHABLE and lands INCONCLUSIVE regardless of substrate quality.
+# MEASURED@data/exp_course_c_heldout_entity_inductive_probe_gpu1024_v2/metrics.json: ORACLE mrr=0.0128 vs RANDOM
+# mrr=0.00039 = a 32.8x separation (arena IS answerable) but hits@10 headroom only 0.0139 (< the 0.10 gate).
+# FIX = (a) report the FULL FILTERED rank spectrum hits@{1,3,10,100}+MRR rank-vs-ALL-candidates (the KGE
+# standard; DEGREE-UNBIASED -- NO sampled-negative pool, which would reintroduce the popularity bias the
+# in-flight degree-debias cell is removing), (b) primary metric = filtered MRR (smooth, uses the full rank
+# distribution, standard, degree-unbiased), (c) an ORACLE-fire gate that is scale-free (ratio) + a non-noise
+# absolute floor, and (d) ANCHOR bands set as FRACTIONS OF THE MEASURED ORACLE HEADROOM so ONE FULL run computes
+# the ceiling AND scores ANCHOR against a fair fraction of it (compute-info-ceiling-before-iterating discipline).
+EVAL_KS = (1, 3, 10, 100)      # filtered hits@K spectrum reported per arm (rank-vs-all; MRR also always computed)
+CEIL_METRIC = "mrr"            # PRIMARY ceiling metric: filtered MRR (degree-unbiased, full-rank, KGE standard)
+
+# ORACLE-fire gate (arena answerable under the primary metric). Replaces the legacy fixed 0.10-hits@10 gate.
+ORACLE_FIRE_RATIO = 3.0        # ORACLE_mrr >= 3x RANDOM_mrr (scale-free clear separation; fork MEASURED 32.8x)
+ORACLE_FIRE_ABS = 0.003        # AND ORACLE_mrr - RANDOM_mrr >= this (non-noise absolute floor at nq>=3000)
+
+# CEILING-RELATIVE ANCHOR bands: fractions of the MEASURED oracle headroom H = ORACLE_mrr - RANDOM_mrr.
+HP_CEIL_FRAC = 0.50            # HARD_PASS: ANCHOR recovers >= 50% of the oracle's achievable rank-headroom
+FORM_CEIL_FRAC = 0.10          # HARD_PASS: (ANCHOR - best_memorize)_mrr >= 10% of H (beats the memorize arms)
+HF_CEIL_FRAC = 0.20            # HARD_FAIL: ANCHOR recovers < 20% of H (with the oracle firing) = genuine negative
+SCRAMBLE_CEIL_FRAC = 0.25      # scramble controlled: (SCRAMBLE - RANDOM)_mrr <= 25% of H (relational, not confound)
+MIN_SIG_MRR = 0.002            # significance floor: HARD_PASS anchor margin must ALSO clear this abs mrr (no-noise)
+CONTROL_LOSE_EPS = 0.005       # broken-test guard: a control (RANDOM/SCRAMBLE) beating POP by > this mrr = broken
+MIN_HELDOUT = 20               # min held-out QUERY edges for a valid discriminator
+MIN_STRAT_Q = 8                # min queries in a stratum to report its margin
+PRIMARY_METRIC = "hits@%d" % PRIMARY_K   # PRIMARY_K = 10; kept for legacy hits display + degree stratification
 
 # ---- Held-out-entity split knobs (pre-registered; NOT tuned on real data) ----
 HELDOUT_ENTITY_FRAC = 0.15   # fraction of entities withheld from EVERY train edge (codes never updated)
 SUPPORT_FRAC = 0.5           # fraction of a held-out entity's edges reserved as SUPPORT (build E_derived); rest=query
 
-# ---- self-test planted thresholds (calibrated on the synthetic additive-consistent grid, not real data) ----
-SELFTEST_ORACLE_MIN = 0.30   # planted grid: ORACLE recovers held-out tails (codes learned) to at least this h@10
-SELFTEST_ANCHOR_MIN = 0.20   # planted grid: ANCHOR_COMPOSE recovers held-out tails ZERO-TRAINING to at least this
-SELFTEST_AC_BEATS_RANDOM = 0.08  # planted grid: ANCHOR - RANDOM >= this (discriminator fires)
-SELFTEST_SCRAMBLE_MARGIN = 0.05  # planted grid: ANCHOR - SCRAMBLE >= this (relation signal, not anchor identity)
+# ---- self-test planted thresholds on the PRIMARY metric (MRR); calibrated on the synthetic additive-consistent
+#      grid, NOT real data. The planted arena registers strong signal (oracle recovers folded-in codes) so the
+#      ceiling-relative bands are demonstrably ACHIEVABLE-in-principle when the entity code exists/can be composed.
+SELFTEST_ORACLE_MRR_MIN = 0.30   # planted grid: ORACLE (learned held-out codes) mrr at least this
+SELFTEST_ANCHOR_MRR_MIN = 0.12   # planted grid: ANCHOR_COMPOSE mrr (ZERO-training bundle) at least this
+SELFTEST_AC_BEATS_RANDOM_MRR = 0.06  # planted grid: (ANCHOR - RANDOM)_mrr >= this (discriminator fires)
+SELFTEST_SCRAMBLE_MARGIN_MRR = 0.03  # planted grid: (ANCHOR - SCRAMBLE)_mrr >= this (relation signal, not identity)
 SELFTEST_MIN_HO = 8          # planted grid: minimum held-out QUERY edges
 
 # ---- hardest relation tertile (weak-point-localization target) ----
@@ -377,10 +416,10 @@ def fit_and_score(train_int, support_int, query_int, hold_all, N, n_rel, cfg, de
         (ORACLE, additive_direct_scores(Xo, Do, query_int, device, chunk=SCORE_CHUNK)),
         (RANDOM, additive_direct_scores(Xr, Dr, query_int, device, chunk=SCORE_CHUNK)),
     ]:
-        arm_metric[name] = filtered_hits_from_scores(sc, query_int, all_true, ks=(1, PRIMARY_K))
+        arm_metric[name] = filtered_hits_from_scores(sc, query_int, all_true, ks=EVAL_KS)
         arm_sig[name] = _sig(sc.numpy()[:min(64, sc.shape[0])].ravel())
         arm_scores[name] = sc
-    pop_m, pop_rank_vec = pop_hits(rel_tail_freq, query_int, all_true, N, ks=(1, PRIMARY_K))
+    pop_m, pop_rank_vec = pop_hits(rel_tail_freq, query_int, all_true, N, ks=EVAL_KS)
     arm_metric[POP] = pop_m
     arm_sig[POP] = _sig(pop_rank_vec.astype(np.float64))
 
@@ -396,17 +435,17 @@ def fit_and_score(train_int, support_int, query_int, hold_all, N, n_rel, cfg, de
 def _hits_subset(scores, query_int, all_true, mask, k=PRIMARY_K):
     idx = np.where(mask)[0]
     if idx.size < 1:
-        return dict(hits=float("nan"), n=0)
+        return dict(hits=float("nan"), mrr=float("nan"), n=0)
     sub = filtered_hits_from_scores(scores[idx], query_int[idx], all_true, ks=(k,))
-    return dict(hits=round(sub["hits@%d" % k], 5), n=int(idx.size))
+    return dict(hits=round(sub["hits@%d" % k], 5), mrr=round(sub["mrr"], 6), n=int(idx.size))
 
 
 def _pop_subset(rel_tail_freq, query_int, all_true, n_ent, mask, k=PRIMARY_K):
     idx = np.where(mask)[0]
     if idx.size < 1:
-        return dict(hits=float("nan"), n=0)
+        return dict(hits=float("nan"), mrr=float("nan"), n=0)
     sub, _ = pop_hits(rel_tail_freq, query_int[idx], all_true, n_ent, ks=(k,))
-    return dict(hits=round(sub["hits@%d" % k], 5), n=int(idx.size))
+    return dict(hits=round(sub["hits@%d" % k], 5), mrr=round(sub["mrr"], 6), n=int(idx.size))
 
 
 SUPPORT_BINS = [(0, 0, "cold"), (1, 1, "d1"), (2, 3, "d2_3"), (4, 7, "d4_7"), (8, 10 ** 9, "d8plus")]
@@ -500,50 +539,101 @@ def _nm(vals):
 
 
 def _h10(ps, arm):
-    return ps["arm_hits"][arm].get(PRIMARY_METRIC, float("nan"))
+    return ps["arm_hits"][arm].get(PRIMARY_METRIC, float("nan"))   # legacy hits@10 (reported, NOT gated)
 
 
-def _fair_lowmid_h10(ps, arm):
+def _m(ps, arm):
+    return ps["arm_hits"][arm].get(CEIL_METRIC, float("nan"))       # PRIMARY metric = filtered MRR (gated)
+
+
+def _fair_lowmid_mrr(ps, arm):
     loc = ps.get("localization", {})
     cell = loc.get("fair_low_mid", {}).get(arm, {})
     if cell.get("n", 0) >= MIN_STRAT_Q:
-        return cell.get("hits", float("nan"))
+        return cell.get("mrr", float("nan"))
     return float("nan")
 
 
+def _ratio(a, b):
+    if not (a == a and b == b):
+        return float("nan")
+    return float("inf") if b <= 0 else a / b
+
+
 def aggregate_and_verdict(per_seed):
-    def agg(arm):
+    def agg_m(arm):
+        return _nm([_m(ps, arm) for ps in per_seed])
+
+    def agg_h10(arm):
         return _nm([_h10(ps, arm) for ps in per_seed])
 
     def agg_fair(arm):
-        return _nm([_fair_lowmid_h10(ps, arm) for ps in per_seed])
+        return _nm([_fair_lowmid_mrr(ps, arm) for ps in per_seed])
 
-    h = {a: agg(a) for a in ALL_ARMS}
-    hf = {a: agg_fair(a) for a in [ANCHOR, ADDITIVE, ONESHOT, RANDOM, ORACLE, POP]}
+    m = {a: agg_m(a) for a in ALL_ARMS}                 # primary metric (MRR) per arm -> the GATED quantities
+    h10 = {a: agg_h10(a) for a in ALL_ARMS}             # legacy hits@10 per arm (reported for continuity)
+    mf = {a: agg_fair(a) for a in [ANCHOR, ADDITIVE, ONESHOT, RANDOM, ORACLE, POP]}
     n_query = int(_nm([ps["n_query_scored"] for ps in per_seed]))
 
-    d_anchor = (h[ANCHOR] - h[RANDOM]) if (h[ANCHOR] == h[ANCHOR] and h[RANDOM] == h[RANDOM]) else float("nan")
-    best_memorize = _nm([max(v for v in (h[ADDITIVE], h[ONESHOT]) if v == v)]) \
-        if (h[ADDITIVE] == h[ADDITIVE] or h[ONESHOT] == h[ONESHOT]) else float("nan")
-    form_margin = (h[ANCHOR] - best_memorize) if (h[ANCHOR] == h[ANCHOR] and best_memorize == best_memorize) \
-        else float("nan")
-    d_scramble = (h[SCRAMBLE] - h[RANDOM]) if (h[SCRAMBLE] == h[SCRAMBLE] and h[RANDOM] == h[RANDOM]) else float("nan")
-    oracle_margin = (h[ORACLE] - h[RANDOM]) if (h[ORACLE] == h[ORACLE] and h[RANDOM] == h[RANDOM]) else float("nan")
-    fair_anchor_margin = (hf[ANCHOR] - hf[RANDOM]) if (hf[ANCHOR] == hf[ANCHOR] and hf[RANDOM] == hf[RANDOM]) \
-        else float("nan")
+    # ---- full filtered rank spectrum per arm = the INFO-CEILING made explicit (hits@{1,3,10,100}+MRR) ----
+    metric_keys = ["hits@%d" % k for k in EVAL_KS] + ["mrr"]
+    spectrum = {a: {mk: _nm([ps["arm_hits"][a].get(mk, float("nan")) for ps in per_seed]) for mk in metric_keys}
+                for a in ALL_ARMS}
 
+    def _sub(a, b):
+        return (a - b) if (a == a and b == b) else float("nan")
+
+    d_anchor = _sub(m[ANCHOR], m[RANDOM])                                       # ANCHOR headroom (MRR)
+    best_memorize = max((v for v in (m[ADDITIVE], m[ONESHOT]) if v == v), default=float("nan"))
+    form_margin = _sub(m[ANCHOR], best_memorize)
+    d_scramble = _sub(m[SCRAMBLE], m[RANDOM])
+    oracle_headroom = _sub(m[ORACLE], m[RANDOM])                                # H = the MEASURED ceiling headroom
+    fair_anchor_margin = _sub(mf[ANCHOR], mf[RANDOM])
+    oracle_ratio = _ratio(m[ORACLE], m[RANDOM])
+
+    # ---- ORACLE-fire gate: arena answerable under the primary metric (scale-free ratio AND non-noise floor) ----
     enough_heldout = bool(n_query >= MIN_HELDOUT)
-    oracle_fires = bool(oracle_margin == oracle_margin and oracle_margin >= ORACLE_FIRE_MARGIN)
-    scramble_controlled = bool(d_scramble == d_scramble and d_scramble <= SCRAMBLE_EPS)
-    broken = bool((h[RANDOM] == h[RANDOM] and h[POP] == h[POP] and (h[RANDOM] - h[POP]) > CONTROL_LOSE_EPS)
-                  or (h[SCRAMBLE] == h[SCRAMBLE] and h[POP] == h[POP] and (h[SCRAMBLE] - h[POP]) > CONTROL_LOSE_EPS))
+    oracle_fires = bool(oracle_headroom == oracle_headroom and oracle_headroom >= ORACLE_FIRE_ABS
+                        and oracle_ratio == oracle_ratio and oracle_ratio >= ORACLE_FIRE_RATIO)
+
+    # ---- ceiling-RELATIVE thresholds resolved to absolute MRR targets from the MEASURED headroom H ----
+    H = oracle_headroom
+    hp_anchor_target = (max(HP_CEIL_FRAC * H, MIN_SIG_MRR) if H == H else float("nan"))
+    hp_form_target = (FORM_CEIL_FRAC * H if H == H else float("nan"))
+    hf_anchor_target = (HF_CEIL_FRAC * H if H == H else float("nan"))
+    scramble_target = (SCRAMBLE_CEIL_FRAC * H if H == H else float("nan"))
+
+    scramble_controlled = bool(d_scramble == d_scramble and scramble_target == scramble_target
+                               and d_scramble <= scramble_target)
+    # BROKEN guard is CEILING-RELATIVE: a null/confound control beating POP by more than max(abs-floor, a
+    # ceiling fraction) = degenerate readout. Absolute-only would false-trip when POP is structurally at floor
+    # (held-out tails have train-freq 0, so POP is sub-random by construction and any signal-carrying arm
+    # legitimately beats it -- e.g. the planted arena). SCRAMBLE partially beating POP is EXPECTED (it carries
+    # anchor-identity confound); whether that confound is disqualifying is governed by scramble_controlled.
+    broken_margin = (max(CONTROL_LOSE_EPS, SCRAMBLE_CEIL_FRAC * H) if H == H else CONTROL_LOSE_EPS)
+    broken = bool((m[RANDOM] == m[RANDOM] and m[POP] == m[POP] and (m[RANDOM] - m[POP]) > broken_margin)
+                  or (m[SCRAMBLE] == m[SCRAMBLE] and m[POP] == m[POP] and (m[SCRAMBLE] - m[POP]) > broken_margin))
     fair_holds = bool(fair_anchor_margin == fair_anchor_margin and fair_anchor_margin > 0.0)
 
-    hard_pass = bool(d_anchor == d_anchor and d_anchor >= HARD_PASS_MARGIN
-                     and form_margin == form_margin and form_margin >= FORM_GAP
+    hard_pass = bool(d_anchor == d_anchor and hp_anchor_target == hp_anchor_target and d_anchor >= hp_anchor_target
+                     and form_margin == form_margin and hp_form_target == hp_form_target
+                     and form_margin >= hp_form_target
                      and oracle_fires and scramble_controlled and not broken and fair_holds)
-    hard_fail = bool(d_anchor == d_anchor and d_anchor < MIDDLE_LO)
+    hard_fail = bool(d_anchor == d_anchor and hf_anchor_target == hf_anchor_target and d_anchor < hf_anchor_target)
     middle = bool(d_anchor == d_anchor and not hard_pass and not hard_fail)
+
+    # ---- per-metric oracle-fire table (interpretability = which metric makes the arena answerable) ----
+    oracle_fire_by_metric = {}
+    for mk in metric_keys:
+        ov = spectrum[ORACLE][mk]; rv = spectrum[RANDOM][mk]
+        hh = _sub(ov, rv); rr = _ratio(ov, rv)
+        oracle_fire_by_metric[mk] = dict(
+            oracle=(round(ov, 6) if ov == ov else None), random=(round(rv, 6) if rv == rv else None),
+            headroom=(round(hh, 6) if hh == hh else None), ratio=(round(rr, 2) if (rr == rr and rr != float("inf")) else None),
+            fires_ratio=bool(rr == rr and rr >= ORACLE_FIRE_RATIO and hh == hh and hh > 0))
+    # legacy comparison: does the OLD fixed 0.10-hits@10 gate fire? (documents WHY the arena was INCONCLUSIVE)
+    legacy_hits10_headroom = _sub(h10[ORACLE], h10[RANDOM])
+    legacy_gate_fires = bool(legacy_hits10_headroom == legacy_hits10_headroom and legacy_hits10_headroom >= 0.10)
 
     if not enough_heldout:
         verdict = "INCONCLUSIVE_TOO_FEW_HELDOUT"
@@ -559,33 +649,48 @@ def aggregate_and_verdict(per_seed):
         verdict = "MIDDLE_BAND_PARTIAL_ANCHOR_TRANSFER"
 
     verdict_msg = (
-        "%s || HELD-OUT hits@%d [nq=%d]: ANCHOR=%s | ADDITIVE=%s ONESHOT=%s | RANDOM=%s SCRAMBLE=%s | ORACLE=%s "
-        "POP=%s || anchor_margin_vs_random=%s (HARD_PASS>=%.2f MIDDLE[%.2f,%.2f) HARD_FAIL<%.2f) | "
-        "form_margin_vs_memorize=%s (>=%.2f) | fair_lowmid_anchor_margin=%s (>0) | scramble_margin=%s (<=%.2f) | "
-        "ORACLE fires(>=%.2f)=%s margin=%s | broken=%s | frac=%.2f support_frac=%.2f seeds=%d" % (
-            verdict, PRIMARY_K, n_query, _fmt(h[ANCHOR]), _fmt(h[ADDITIVE]), _fmt(h[ONESHOT]), _fmt(h[RANDOM]),
-            _fmt(h[SCRAMBLE]), _fmt(h[ORACLE]), _fmt(h[POP]), _fmt(d_anchor), HARD_PASS_MARGIN, MIDDLE_LO,
-            HARD_PASS_MARGIN, MIDDLE_LO, _fmt(form_margin), FORM_GAP, _fmt(fair_anchor_margin), _fmt(d_scramble),
-            SCRAMBLE_EPS, ORACLE_FIRE_MARGIN, oracle_fires, _fmt(oracle_margin), broken,
+        "%s || HELD-OUT MRR [nq=%d]: ANCHOR=%s | ADDITIVE=%s ONESHOT=%s | RANDOM=%s SCRAMBLE=%s | ORACLE=%s POP=%s "
+        "|| CEILING H(oracle-random)=%s ratio=%sx (fires>=%.1fx&>=%.3f=%s) | anchor_margin=%s vs HARD_PASS>=%s "
+        "(=%.2f*H|min%.3f) HARD_FAIL<%s (=%.2f*H) | form_margin=%s (>=%s) | fair_lowmid_margin=%s (>0) | "
+        "scramble_margin=%s (<=%s) | broken=%s | legacy_hits10_gate_fires=%s | frac=%.2f support_frac=%.2f seeds=%d"
+        % (
+            verdict, n_query, _fmt(m[ANCHOR]), _fmt(m[ADDITIVE]), _fmt(m[ONESHOT]), _fmt(m[RANDOM]),
+            _fmt(m[SCRAMBLE]), _fmt(m[ORACLE]), _fmt(m[POP]), _fmt(H),
+            (_fmt(oracle_ratio) if oracle_ratio != float("inf") else "inf"), ORACLE_FIRE_RATIO, ORACLE_FIRE_ABS,
+            oracle_fires, _fmt(d_anchor), _fmt(hp_anchor_target), HP_CEIL_FRAC, MIN_SIG_MRR, _fmt(hf_anchor_target),
+            HF_CEIL_FRAC, _fmt(form_margin), _fmt(hp_form_target), _fmt(fair_anchor_margin), _fmt(d_scramble),
+            _fmt(scramble_target), broken, legacy_gate_fires,
             _nm([ps["heldout_entity_frac"] for ps in per_seed]),
             _nm([ps["support_frac"] for ps in per_seed]), len(per_seed)))
 
+    def _rnd(x, nd=6):
+        return round(x, nd) if x == x else None
+
     gates = dict(
         verdict=verdict,
-        heldout_hits_at_k={a: (round(h[a], 5) if h[a] == h[a] else None) for a in ALL_ARMS},
-        heldout_hits_at_1={a: _nm([ps["arm_hits"][a].get("hits@1", float("nan")) for ps in per_seed])
-                           for a in ALL_ARMS},
-        fair_lowmid_hits_at_k={a: (round(hf[a], 5) if hf[a] == hf[a] else None)
-                               for a in [ANCHOR, ADDITIVE, ONESHOT, RANDOM, ORACLE, POP]},
+        ceil_metric=CEIL_METRIC,
+        heldout_metric_spectrum={a: {mk: _rnd(spectrum[a][mk]) for mk in metric_keys} for a in ALL_ARMS},
+        heldout_mrr={a: _rnd(m[a]) for a in ALL_ARMS},
+        heldout_hits_at_10={a: _rnd(h10[a], 5) for a in ALL_ARMS},   # legacy continuity (NOT gated)
+        fair_lowmid_mrr={a: _rnd(mf[a]) for a in [ANCHOR, ADDITIVE, ONESHOT, RANDOM, ORACLE, POP]},
         primary_k=PRIMARY_K,
-        anchor_margin_vs_random=(round(d_anchor, 5) if d_anchor == d_anchor else None),
-        form_margin_vs_memorize=(round(form_margin, 5) if form_margin == form_margin else None),
-        fair_lowmid_anchor_margin=(round(fair_anchor_margin, 5) if fair_anchor_margin == fair_anchor_margin else None),
-        scramble_margin_vs_random=(round(d_scramble, 5) if d_scramble == d_scramble else None),
-        oracle_margin_vs_random=(round(oracle_margin, 5) if oracle_margin == oracle_margin else None),
+        anchor_margin_vs_random=_rnd(d_anchor),
+        form_margin_vs_memorize=_rnd(form_margin),
+        fair_lowmid_anchor_margin=_rnd(fair_anchor_margin),
+        scramble_margin_vs_random=_rnd(d_scramble),
+        oracle_headroom=_rnd(H),
+        oracle_ratio=(round(oracle_ratio, 2) if (oracle_ratio == oracle_ratio and oracle_ratio != float("inf")) else None),
+        oracle_fire_by_metric=oracle_fire_by_metric,
+        legacy_hits10_gate_fires=legacy_gate_fires,
+        legacy_hits10_headroom=_rnd(legacy_hits10_headroom, 5),
+        # ceiling-relative thresholds resolved to absolute MRR targets from the MEASURED H
+        resolved_thresholds=dict(hard_pass_anchor=_rnd(hp_anchor_target), hard_pass_form=_rnd(hp_form_target),
+                                 hard_fail_anchor=_rnd(hf_anchor_target), scramble_ceiling=_rnd(scramble_target),
+                                 broken_margin=_rnd(broken_margin)),
         n_query_scored=n_query,
-        bands=dict(HARD_PASS_MARGIN=HARD_PASS_MARGIN, FORM_GAP=FORM_GAP, MIDDLE_LO=MIDDLE_LO,
-                   ORACLE_FIRE_MARGIN=ORACLE_FIRE_MARGIN, SCRAMBLE_EPS=SCRAMBLE_EPS, MIN_HELDOUT=MIN_HELDOUT,
+        bands=dict(CEIL_METRIC=CEIL_METRIC, ORACLE_FIRE_RATIO=ORACLE_FIRE_RATIO, ORACLE_FIRE_ABS=ORACLE_FIRE_ABS,
+                   HP_CEIL_FRAC=HP_CEIL_FRAC, FORM_CEIL_FRAC=FORM_CEIL_FRAC, HF_CEIL_FRAC=HF_CEIL_FRAC,
+                   SCRAMBLE_CEIL_FRAC=SCRAMBLE_CEIL_FRAC, MIN_SIG_MRR=MIN_SIG_MRR, MIN_HELDOUT=MIN_HELDOUT,
                    HELDOUT_ENTITY_FRAC=HELDOUT_ENTITY_FRAC, SUPPORT_FRAC=SUPPORT_FRAC),
         enough_heldout=enough_heldout, oracle_fires=oracle_fires, scramble_controlled=scramble_controlled,
         broken=broken, fair_holds=fair_holds, hard_pass=hard_pass, hard_fail=hard_fail, middle=middle,
@@ -623,22 +728,39 @@ def _mechanism_selftest_body(device):
         return False, out
 
     ah = res["arm_hits"]
-    h = {a: ah[a].get(PRIMARY_METRIC, float("nan")) for a in ALL_ARMS}
+    # PRIMARY metric = MRR (the ceiling-aware, degree-unbiased gate metric). Legacy hits@10 kept for display.
+    m = {a: ah[a].get(CEIL_METRIC, float("nan")) for a in ALL_ARMS}
+    h10 = {a: ah[a].get(PRIMARY_METRIC, float("nan")) for a in ALL_ARMS}
     n_sigs = len(set(res["arm_sigs"].values()))
-    anchor_margin = h[ANCHOR] - h[RANDOM]
-    scramble_margin = h[ANCHOR] - h[SCRAMBLE]
-    oracle_margin = h[ORACLE] - h[RANDOM]
+    anchor_margin = m[ANCHOR] - m[RANDOM]
+    scramble_margin = m[ANCHOR] - m[SCRAMBLE]
+    oracle_margin = m[ORACLE] - m[RANDOM]
+    oracle_ratio = _ratio(m[ORACLE], m[RANDOM])
 
-    oracle_recovers = bool(h[ORACLE] == h[ORACLE] and h[ORACLE] >= SELFTEST_ORACLE_MIN)
-    oracle_fires = bool(oracle_margin == oracle_margin and oracle_margin >= ORACLE_FIRE_MARGIN)
-    anchor_recovers = bool(h[ANCHOR] == h[ANCHOR] and h[ANCHOR] >= SELFTEST_ANCHOR_MIN)
-    anchor_beats_random = bool(anchor_margin == anchor_margin and anchor_margin >= SELFTEST_AC_BEATS_RANDOM)
-    scramble_fails = bool(scramble_margin == scramble_margin and scramble_margin >= SELFTEST_SCRAMBLE_MARGIN)
-    pop_at_floor = bool(h[POP] == h[POP] and h[POP] <= max(h[RANDOM], 0.05) + CONTROL_LOSE_EPS)
+    oracle_recovers = bool(m[ORACLE] == m[ORACLE] and m[ORACLE] >= SELFTEST_ORACLE_MRR_MIN)
+    # ORACLE-fire uses the SAME ceiling-aware gate the FULL uses (ratio + non-noise absolute floor).
+    oracle_fires = bool(oracle_margin == oracle_margin and oracle_margin >= ORACLE_FIRE_ABS
+                        and oracle_ratio == oracle_ratio and oracle_ratio >= ORACLE_FIRE_RATIO)
+    anchor_recovers = bool(m[ANCHOR] == m[ANCHOR] and m[ANCHOR] >= SELFTEST_ANCHOR_MRR_MIN)
+    anchor_beats_random = bool(anchor_margin == anchor_margin and anchor_margin >= SELFTEST_AC_BEATS_RANDOM_MRR)
+    scramble_fails = bool(scramble_margin == scramble_margin and scramble_margin >= SELFTEST_SCRAMBLE_MARGIN_MRR)
+    pop_at_floor = bool(m[POP] == m[POP] and m[POP] <= max(m[RANDOM], 0.02) + CONTROL_LOSE_EPS)
     arms_differ = bool(n_sigs >= 5)
 
+    # which-metric-fires-oracle readout on the planted arena (interpretability; mirrors the FULL's gates table)
+    metric_keys = ["hits@%d" % k for k in EVAL_KS] + ["mrr"]
+    oracle_fire_by_metric = {}
+    for mk in metric_keys:
+        ov = ah[ORACLE].get(mk, float("nan")); rv = ah[RANDOM].get(mk, float("nan"))
+        hh = (ov - rv) if (ov == ov and rv == rv) else float("nan")
+        rr = _ratio(ov, rv)
+        oracle_fire_by_metric[mk] = dict(
+            oracle=(round(ov, 5) if ov == ov else None), random=(round(rv, 5) if rv == rv else None),
+            headroom=(round(hh, 5) if hh == hh else None),
+            fires_ratio=bool(rr == rr and rr >= ORACLE_FIRE_RATIO and hh == hh and hh > 0))
+
     # VACUOUS-SMOKE guard: the RANDOM null must NOT reach ANCHOR_COMPOSE on the planted held-out arena.
-    random_reached_anchor = bool(anchor_margin <= SELFTEST_AC_BEATS_RANDOM)
+    random_reached_anchor = bool(anchor_margin <= SELFTEST_AC_BEATS_RANDOM_MRR)
     assert_discriminator_fires(random_reached_anchor, control_name=RANDOM,
                                headline_name="anchor_compose_beats_random_heldout", run_mode="self_test",
                                extra="RANDOM reached ANCHOR_COMPOSE on the planted held-out-entity arena -> arena "
@@ -649,30 +771,36 @@ def _mechanism_selftest_body(device):
     vp_ok = run_validity_preflight([
         {"kind": "positive_control",
          "positive_control_passed_headline_gate": bool(oracle_recovers and oracle_fires),
-         "control_name": "ORACLE_ADDITIVE", "headline_name": "oracle_beats_random_heldout",
+         "control_name": "ORACLE_ADDITIVE", "headline_name": "oracle_beats_random_heldout_mrr",
          "extra": "planted grid: ORACLE (learned held-out codes) recovers held-out tails and clears RANDOM by the "
-                  "fire margin -> the >=0.05 inductive bar is achievable when the entity code exists"},
-        {"kind": "metric_moves", "metric_name": "heldout_hits_at_k",
-         "values": [h[RANDOM], h[ADDITIVE], h[ANCHOR], h[ORACLE]],
-         "extra": "RANDOM=%.3f ADDITIVE=%.3f ANCHOR=%.3f ORACLE=%.3f: held-out readout responds to composed/learned "
-                  "codes" % (h[RANDOM], h[ADDITIVE], h[ANCHOR], h[ORACLE])},
-        {"kind": "negative_control_margin", "control_scores": [h[RANDOM], h[SCRAMBLE]],
-         "headline_threshold": h[ANCHOR], "higher_is_pass": True, "margin": SELFTEST_SCRAMBLE_MARGIN,
-         "n_repeats_min": 2, "control_name": "RANDOM_and_ANCHOR_SCRAMBLE_below_anchor",
-         "extra": "RANDOM + relation-scrambled ANCHOR must sit below ANCHOR_COMPOSE by the margin on held-out "
+                  "ceiling-aware ratio+abs fire gate -> the ceiling-relative inductive bar is achievable when the "
+                  "entity code exists"},
+        {"kind": "metric_moves", "metric_name": "heldout_mrr",
+         "values": [m[RANDOM], m[ADDITIVE], m[ANCHOR], m[ORACLE]],
+         "extra": "MRR RANDOM=%.3f ADDITIVE=%.3f ANCHOR=%.3f ORACLE=%.3f: held-out readout responds to "
+                  "composed/learned codes" % (m[RANDOM], m[ADDITIVE], m[ANCHOR], m[ORACLE])},
+        {"kind": "negative_control_margin", "control_scores": [m[RANDOM], m[SCRAMBLE]],
+         "headline_threshold": m[ANCHOR], "higher_is_pass": True, "margin": SELFTEST_SCRAMBLE_MARGIN_MRR,
+         "n_repeats_min": 2, "control_name": "RANDOM_and_ANCHOR_SCRAMBLE_below_anchor_mrr",
+         "extra": "RANDOM + relation-scrambled ANCHOR must sit below ANCHOR_COMPOSE by the MRR margin on held-out "
                   "queries -> the RELATION operators carry the signal, not anchor identity/degree"},
         {"kind": "full_gates_exercised",
          "full_fail_closed_gates": ["arms_differ", "oracle_fires", "scramble_controlled", "broken_test_guard",
-                                    "enough_heldout", "band_gate"],
+                                    "enough_heldout", "ceiling_relative_band_gate"],
          "exercised_gates": ["arms_differ", "oracle_fires", "scramble_controlled", "broken_test_guard",
-                             "enough_heldout", "band_gate"],
+                             "enough_heldout", "ceiling_relative_band_gate"],
          "extra": "aggregate_and_verdict verdict=%s at self-test scale" % st_verdict},
     ], run_mode="self_test")
 
     out.update(
-        heldout_hits={a: round(h[a], 5) for a in ALL_ARMS},
+        heldout_mrr={a: round(m[a], 5) for a in ALL_ARMS},
+        heldout_hits_at_10={a: round(h10[a], 5) for a in ALL_ARMS},
+        heldout_metric_spectrum={a: {mk: round(ah[a].get(mk, float("nan")), 5) for mk in metric_keys}
+                                 for a in ALL_ARMS},
+        oracle_fire_by_metric=oracle_fire_by_metric,
         n_distinct_sigs=n_sigs, anchor_margin=round(anchor_margin, 5), scramble_margin=round(scramble_margin, 5),
         oracle_margin=round(oracle_margin, 5),
+        oracle_ratio=(round(oracle_ratio, 2) if (oracle_ratio == oracle_ratio and oracle_ratio != float("inf")) else None),
         oracle_recovers=oracle_recovers, oracle_fires=oracle_fires, anchor_recovers=anchor_recovers,
         anchor_beats_random=anchor_beats_random, scramble_fails=scramble_fails, pop_at_floor=pop_at_floor,
         arms_differ=arms_differ, selftest_verdict=st_verdict, validity_preflight_ok=bool(vp_ok),
