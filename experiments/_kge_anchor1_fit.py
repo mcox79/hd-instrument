@@ -43,11 +43,19 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
                     transductive_extra=None, reciprocal=True,
                     lr=A1_LR, gamma=A1_GAMMA, n_neg=A1_N_NEG, adv_temp=A1_ADV_TEMP,
                     n3_lambda=A1_N3_LAMBDA, batch_size=A1_BATCH, neg_chunk=None,
-                    ckpt=None, stop_after_epochs=None):
+                    ckpt=None, stop_after_epochs=None, hard_neg_frac=0.0):
     """Fit X (N,k), D (n_rel,k) with CE self-adversarial loss + N3 + reciprocal augmentation, minibatch SGD.
 
     train_edges: (E,3) int64 [h, r, t]. transductive_extra: optional (E2,3) held-out edges folded into the fit
     (the ORACLE arm passes hold here). reciprocal: augment with inverse relations for the fit only.
+
+    hard_neg_frac (Phase-2 magnitude lever B; DEFAULT 0.0 == BIT-IDENTICAL to the confirmed uniform fit):
+      fraction of the n_neg negatives per positive that are drawn as IN-BATCH HARD NEGATIVES (real tails of
+      OTHER positives in the same minibatch = structurally-plausible wrong tails) instead of uniform-random
+      entities. Uniform negatives are drawn FIRST (unchanged RNG order), then the first n_hard columns are
+      OVERWRITTEN with shuffled batch tails -> when hard_neg_frac==0.0 the extra gneg draw never fires and the
+      trajectory is bit-identical to every existing caller (v1/v2/ladder reproducibility preserved). Field
+      precedent: MixKG / in-batch hard-negative KGE ablations, +0.01-0.04 MRR (arXiv:2202.09606, 1902.10197).
     Returns X.detach() (N,k), D_forward.detach() (n_rel,k)."""
     g = torch.Generator(device="cpu").manual_seed(seed * 7919 + 11)
     ed = train_edges
@@ -79,6 +87,7 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
             fn="additive", N=int(N), n_rel=int(n_rel), k=int(k), epochs=int(epochs), n_neg=int(n_neg),
             lr=float(lr), gamma=float(gamma), adv_temp=float(adv_temp), n3_lambda=float(n3_lambda),
             batch_size=int(bs), reciprocal=bool(reciprocal), seed=int(seed),
+            hard_neg_frac=float(hard_neg_frac),
             split_hash=edges_hash(ed), device=str(device)))
         _ck = ckpt.try_load(device)
         if _ck is not None:
@@ -96,6 +105,14 @@ def fit_kge_anchor1(train_edges, N, n_rel, k, device, seed, epochs,
             pos_d = torch.norm(pred - X[tb], dim=1)                 # (b,)
             pos_score = gamma - pos_d                               # (b,) logit, higher = better
             neg_t = torch.randint(0, N, (b, n_neg), generator=gneg).to(device)  # SAME draw as pre-fix
+            if hard_neg_frac > 0.0 and b >= 2:
+                # Phase-2 lever B: overwrite the first n_hard neg columns with in-batch hard negatives (real
+                # tails of other positives in this batch). Only fires for hard_neg_frac>0 -> gneg draw order
+                # is unchanged for the confirmed uniform fit (bit-identical). tb is (b,) tail ids on device.
+                n_hard = int(round(hard_neg_frac * n_neg))
+                if n_hard > 0:
+                    hidx = torch.randint(0, b, (b, n_hard), generator=gneg).to(device)
+                    neg_t[:, :n_hard] = tb[hidx]
             if neg_chunk is None or neg_chunk >= n_neg:
                 # ORIGINAL single-shot path (bit-identical to pre-fix; default for all existing callers).
                 neg_d = torch.norm(pred.unsqueeze(1) - X[neg_t], dim=2)  # (b, n_neg)
