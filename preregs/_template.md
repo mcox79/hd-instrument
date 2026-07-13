@@ -35,6 +35,13 @@ Smoke ~ {{SMOKE_WALL_S}}s at N={{SMOKE_N}} smoke. FULL: N={{N}}, seeds={{SEEDS}}
 formula: ceil(1.5 * {{SMOKE_WALL_S}} * ({{N}}/{{SMOKE_N}})^{{SCALING_EXPONENT}} * ({{SEEDS}}/{{SMOKE_SEEDS}})) = {{COMPUTED_VALUE}}
 timeout_s = {{TIMEOUT_S}}
 
+## Validity-preflight declarations (§15-F; run_validity_preflight in self_test)
+# Required for any cell that calls a live substrate object (KGStore / store-build helper / fit module).
+# Declare N/A per line if the cell has no such call (pure-synthetic-mechanism cell).
+real_code_path_exercised: {{LIST_REAL_SUBSTRATE_ENTRYPOINTS_THE_SELFTEST_CONSTRUCTS}}   # gate F.1 — self-test builds the REAL objects at N~16, not a synthetic-only branch
+substrate_signature_checked: {{LIST_SUBSTRATE_CALLABLES_BOUND_AGAINST_inspect_signature}}   # gate F.2/F.3 — BASE/portable kwargs only; no version-specific optional kwargs (local/remote drift)
+guard_baseline_validated: {{LIST_CONTROL_VS_BASELINE_BREAK_GUARDS_OR_NA}}   # gate F.4 — each control-beats-baseline guard validated NOT at the arena floor
+
 # -----------------------------------------------------------------------------
 # Token glossary
 # -----------------------------------------------------------------------------

@@ -15,6 +15,9 @@ same way it already calls assert_discriminator_fires:
         assert_metric_moves,
         assert_full_gates_exercised_at_selftest,
         assert_negative_control_fails_with_margin,
+        assert_signature_compatible,
+        assert_real_code_path_exercised,
+        assert_guard_baseline_valid,
         run_validity_preflight,
     )
 
@@ -59,6 +62,39 @@ The 4 failure classes gated (each burned a real run in VET before this module):
      MARGIN, not "failed once." Hardens assert_discriminator_fires from a single
      bool into a multi-repeat + margin check.
 
+THREE MORE classes gated (2026-07-13, each burned a real REMOTE-gate/landed run):
+
+  5. SELF-TEST EXERCISED A SYNTHETIC-ONLY PATH, NOT THE REAL SUBSTRATE API. A
+     cell self-tested a toy branch and NEVER constructed the objects it uses at
+     FULL (KGStore / the store-build helper / a fit module), so a signature/API
+     bug slipped through the 0.2s local self-test and GATE_FAILed at the remote
+     with `KGStore.__init__() got an unexpected keyword argument 'init_entities'`.
+     GATE: the cell DECLARES the real substrate entrypoints its FULL run calls,
+     plus the subset actually EXERCISED (constructed/called) during this self-
+     test; any declared-but-not-exercised entrypoint -> flag (self-test is toy-
+     only; the API-drift class of bug can only fail at the remote). Mirrors
+     class 3's exercised-at-self-test shape, but for real code paths not gates.
+
+  6. API/SIGNATURE DRIFT UNCHECKED. Cells invent kwargs/methods the live
+     substrate does not have and never check the call against the actual current
+     signature before ship. GATE: assert_signature_compatible binds each declared
+     (callable, kwargs) against inspect.signature(callable) at self-test scale --
+     an unexpected kwarg or a missing required arg fails LOCALLY in microseconds
+     (no object constructed). Also advises when a kwarg maps to an OPTIONAL param
+     (has a default): such version-specific kwargs may be absent on an out-of-sync
+     remote (the local repo drifts thousands of commits ahead) -- prefer the
+     portable/base call or verify remote parity.
+
+  7. GUARD MIS-CALIBRATED AGAINST AN ARENA'S STRUCTURAL BASELINE. A
+     control-beats-baseline break-guard (BROKEN_TEST_CONTROL_BEATS_POP) compared
+     a control to POP, but POP is STRUCTURALLY ~0 on held-out-entity arenas
+     (held-out tails have train-freq 0), so ANY live control clears it and the
+     guard false-broke a real run. GATE: assert_guard_baseline_valid verifies the
+     baseline a control-comparison guard fires against is NOT itself within eps of
+     the arena floor (RANDOM / 1-over-N). A structurally-at-floor baseline means
+     the guard mis-fires on this arena -> flag: compare the control to RANDOM /
+     arm-floor, not to a structurally-zero incumbent.
+
 ROLLOUT (warn-first). Read env VALIDITY_PREFLIGHT_MODE:
   - "warn" (DEFAULT): a DECLARED-and-failing check LOGS loudly to stderr with a
     [validity-preflight] WARN: prefix and the assert returns False (never
@@ -87,10 +123,11 @@ ASCII-only per feedback_ascii_only_in_scripts. No em-dashes in output.
 """
 from __future__ import annotations
 
+import inspect
 import math
 import os
 import sys
-from typing import Iterable, Optional, Sequence
+from typing import Any, Callable, Iterable, Mapping, Optional, Sequence
 
 
 # --------------------------------------------------------------------------- #
@@ -422,6 +459,207 @@ def assert_negative_control_fails_with_margin(
 
 
 # --------------------------------------------------------------------------- #
+# Class 5: self-test must EXERCISE the real substrate code path, not a toy one  #
+# --------------------------------------------------------------------------- #
+
+def assert_real_code_path_exercised(
+        full_substrate_entrypoints: Optional[Iterable[str]],
+        exercised_entrypoints: Optional[Iterable[str]],
+        *,
+        run_mode: str = "selftest",
+        mode: Optional[str] = None,
+        extra: str = "") -> bool:
+    """Every REAL substrate entrypoint the FULL uses must be exercised at self-test.
+
+    full_substrate_entrypoints: names of the live-substrate objects/functions the
+      FULL run constructs or calls (e.g. "KGStore", "build_store_with_codes",
+      "ingest_triples", "fit_kge_anchor1"). Declaring None is MISSING -> warn
+      always, return True (migration path).
+
+    exercised_entrypoints: names actually constructed/called during THIS self-test
+      (tiny inputs). Any FULL entrypoint NOT in this set means the self-test took a
+      synthetic-only branch and never touched that real object -> a signature/API
+      bug in it can only fail at the remote gate -> flag.
+
+    Root failure it closes: exp_native_code_family_sweep_cskg_v1 passed a 0.2s
+    self-test on a synthetic branch that never ran build_store_with_codes against
+    the real KGStore, so `KGStore.__init__() got an unexpected keyword argument
+    'init_entities'` GATE_FAILed only at the remote. Mirror of class 3, but for
+    real code paths instead of fail-closed gates.
+    """
+    if not _is_selftest_mode(run_mode):
+        return True
+    resolved = _resolve_mode(mode)
+    if full_substrate_entrypoints is None:
+        return _emit_missing(
+            "no real-substrate-entrypoint set declared. List the live objects/"
+            "functions the FULL constructs or calls (KGStore / store-build helper "
+            "/ fit module) and the subset the self-test actually exercises, so a "
+            "synthetic-only self-test that hides a signature/API bug is caught "
+            "pre-dispatch.")
+    declared = [str(g) for g in full_substrate_entrypoints]
+    exercised = set(str(g) for g in (exercised_entrypoints or []))
+    missing = [g for g in declared if g not in exercised]
+    if missing:
+        return _emit(
+            f"real substrate entrypoint(s) {missing} are NOT exercised at "
+            f"run_mode={run_mode} (exercised={sorted(exercised)}). The self-test "
+            f"took a synthetic-only path and never constructed/called the REAL "
+            f"object(s), so a signature/API drift in them (an unexpected kwarg, a "
+            f"renamed method) can only fail at the remote gate. Construct/call the "
+            f"REAL object(s) at tiny scale inside the self-test."
+            + (f" {extra}" if extra else ""), mode=resolved)
+    return True
+
+
+# --------------------------------------------------------------------------- #
+# Class 6: each substrate call must match the live signature (API-drift catch)  #
+# --------------------------------------------------------------------------- #
+
+def assert_signature_compatible(
+        callable_obj: Optional[Callable[..., Any]],
+        kwargs: Optional[Mapping[str, Any]] = None,
+        *,
+        args_count: int = 0,
+        callable_name: Optional[str] = None,
+        run_mode: str = "selftest",
+        mode: Optional[str] = None,
+        warn_optional_kwargs: bool = True,
+        extra: str = "") -> bool:
+    """A substrate call's kwargs must bind against the live inspect.signature.
+
+    callable_obj: the ACTUAL live callable the cell invokes (the imported KGStore
+      class, the store-build helper, a fit function). Passing None is MISSING ->
+      warn always, return True.
+    kwargs: the keyword arguments the cell passes to it (values are ignored; only
+      the KEYS are checked). args_count: number of POSITIONAL args the cell passes
+      (so required-positional coverage is validated too).
+
+    Uses inspect.signature(callable_obj).bind_partial(*placeholders, **kwargs):
+      - an UNEXPECTED kwarg or a MISSING required parameter raises TypeError ->
+        the call is INCOMPATIBLE with the live signature -> flag (fails LOCALLY in
+        microseconds; no object is constructed).
+      - if a passed kwarg maps to an OPTIONAL parameter (one with a default), emit
+        an advisory: version-specific kwargs may be absent on an out-of-sync remote
+        (the repo drifts thousands of commits ahead of the runner) -> prefer the
+        portable/base call or verify remote parity. Advisory-only; does not fail.
+
+    Root failure it closes: cells invent kwargs the live substrate lacks
+    (`init_entities`) and never check the call against the real signature.
+    """
+    if not _is_selftest_mode(run_mode):
+        return True
+    resolved = _resolve_mode(mode)
+    if callable_obj is None:
+        return _emit_missing(
+            "no callable declared for a substrate-signature check. Pass the live "
+            "callable (KGStore / store-build helper / fit fn) + the kwargs the "
+            "cell uses so an invented/renamed kwarg is caught pre-dispatch.")
+    name = callable_name or getattr(callable_obj, "__name__", repr(callable_obj))
+    kw = dict(kwargs or {})
+    try:
+        sig = inspect.signature(callable_obj)
+    except (ValueError, TypeError):
+        # Builtins / C-extensions can be un-introspectable; treat as MISSING.
+        return _emit_missing(
+            f"could not introspect signature of {name!r} (un-introspectable "
+            f"callable); skipping the signature check for it.")
+    placeholders = [None] * int(max(0, args_count))
+    try:
+        sig.bind_partial(*placeholders, **kw)
+    except TypeError as exc:
+        return _emit(
+            f"call to {name!r} is INCOMPATIBLE with its live signature "
+            f"{str(sig)}: {exc}. The cell passes args={args_count} kwargs="
+            f"{sorted(kw)} that do not bind. This is an API/signature drift (an "
+            f"invented/renamed/removed kwarg or a missing required arg); it would "
+            f"GATE_FAIL at the remote. Fix the call to match the live signature."
+            + (f" {extra}" if extra else ""), mode=resolved)
+    # Advisory: flag kwargs that hit OPTIONAL params (portability across drift).
+    if warn_optional_kwargs and kw:
+        params = sig.parameters
+        optional_hits = [
+            k for k in kw
+            if k in params and params[k].default is not inspect.Parameter.empty]
+        if optional_hits:
+            print(f"{WARN_PREFIX} (advisory) call to {name!r} passes "
+                  f"version-specific OPTIONAL kwarg(s) {sorted(optional_hits)} "
+                  f"(they have defaults in the live signature). These may be "
+                  f"ABSENT on an out-of-sync remote runner (the repo drifts ahead "
+                  f"of the runner); prefer the portable/base call or verify remote "
+                  f"parity before relying on them.", file=sys.stderr, flush=True)
+    return True
+
+
+# --------------------------------------------------------------------------- #
+# Class 7: a control-comparison guard's baseline must not be at the arena floor #
+# --------------------------------------------------------------------------- #
+
+def assert_guard_baseline_valid(
+        baseline_score: Optional[float],
+        floor_score: Optional[float],
+        *,
+        guard_name: str = "control_beats_baseline_guard",
+        baseline_name: str = "baseline",
+        floor_name: str = "floor",
+        eps: float = 0.02,
+        run_mode: str = "selftest",
+        mode: Optional[str] = None,
+        extra: str = "") -> bool:
+    """A control-beats-baseline break-guard must fire against a NON-floor baseline.
+
+    baseline_score: the incumbent the guard compares controls against (e.g. POP
+      MRR). Declaring None is MISSING -> warn always, return True.
+    floor_score: the arena's structural floor (RANDOM MRR, or 1-over-N). eps: how
+      close to the floor counts as "structurally at floor".
+
+    If the baseline is itself within eps of the floor (baseline <= floor + eps),
+    then a "control beats baseline -> BROKEN" guard mis-fires: any live control
+    trivially clears a structurally-zero baseline, so the guard false-breaks a
+    real run. Flag it: compare the control to RANDOM / arm-floor, not to a
+    structurally-zero incumbent.
+
+    Root failure it closes: exp_anchor_compose_magnitude_opt landed
+    BROKEN_TEST_CONTROL_BEATS_POP on a held-out-entity arena where POP is
+    structurally ~0 (held-out tails have train-freq 0), so RANDOM cleared POP by
+    construction -> a FALSE break.
+    """
+    if not _is_selftest_mode(run_mode):
+        return True
+    resolved = _resolve_mode(mode)
+    if baseline_score is None:
+        return _emit_missing(
+            f"no baseline score declared for guard {guard_name!r}. Pass the "
+            f"baseline the guard compares controls against ({baseline_name}) plus "
+            f"the arena floor ({floor_name}) so a guard that mis-fires on this "
+            f"arena's structural zeros is caught pre-dispatch.")
+    if floor_score is None:
+        return _emit_missing(
+            f"no floor score declared for guard {guard_name!r}. Pass the arena "
+            f"floor (RANDOM / 1-over-N) so a structurally-at-floor baseline is "
+            f"detectable.")
+    b = float(baseline_score)
+    f = float(floor_score)
+    if not (math.isfinite(b) and math.isfinite(f)):
+        return _emit(
+            f"guard {guard_name!r} has a non-finite baseline/floor "
+            f"({baseline_name}={b}, {floor_name}={f}); cannot prove the baseline "
+            f"is above the floor. A guard that fires against a non-finite baseline "
+            f"is unreliable.", mode=resolved)
+    if b <= f + eps:
+        return _emit(
+            f"guard {guard_name!r} compares controls against {baseline_name} "
+            f"(={b:.4g}) which is STRUCTURALLY AT the arena floor {floor_name} "
+            f"(={f:.4g}, eps={eps:g}). On this arena any live control clears the "
+            f"baseline by construction, so a 'control beats {baseline_name}' break "
+            f"-guard MIS-FIRES and false-breaks a real run. Remedy: compare the "
+            f"control to {floor_name} / arm-floor (or gate the guard on "
+            f"{baseline_name} being above the floor first)."
+            + (f" {extra}" if extra else ""), mode=resolved)
+    return True
+
+
+# --------------------------------------------------------------------------- #
 # Orchestration entrypoint                                                     #
 # --------------------------------------------------------------------------- #
 
@@ -430,6 +668,9 @@ _KIND_DISPATCH = {
     "metric_moves": "metric_moves",
     "full_gates_exercised": "full_gates_exercised",
     "negative_control_margin": "negative_control_margin",
+    "real_code_path": "real_code_path",
+    "substrate_signature": "substrate_signature",
+    "guard_baseline_valid": "guard_baseline_valid",
 }
 
 
@@ -482,6 +723,21 @@ def run_validity_preflight(
             ok &= assert_negative_control_fails_with_margin(
                 args.pop("control_scores", None),
                 args.pop("headline_threshold"),
+                run_mode=run_mode, mode=mode, **args)
+        elif kind == "real_code_path":
+            ok &= assert_real_code_path_exercised(
+                args.pop("full_substrate_entrypoints", None),
+                args.pop("exercised_entrypoints", None),
+                run_mode=run_mode, mode=mode, **args)
+        elif kind == "substrate_signature":
+            ok &= assert_signature_compatible(
+                args.pop("callable_obj", None),
+                args.pop("kwargs", None),
+                run_mode=run_mode, mode=mode, **args)
+        elif kind == "guard_baseline_valid":
+            ok &= assert_guard_baseline_valid(
+                args.pop("baseline_score", None),
+                args.pop("floor_score", None),
                 run_mode=run_mode, mode=mode, **args)
         else:
             raise ValidityPreflightError(

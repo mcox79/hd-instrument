@@ -292,6 +292,9 @@ Untagged numbers in a spawn prompt = REJECT before dispatch. Untagged numbers in
 # - per-unit failure-class instrumentation (META_RULE_J; no bare except)
 # - calibration_check field (META_RULE_M; default_ok | adaptive_with_gate)
 # - all numbers in cell comments tagged MEASURED@ / HYPOTHESIZED@ / THEORETICAL@ / CITED@ (META_RULE_AC)
+# - §15-F self-test CONSTRUCTS the REAL substrate objects (KGStore / store-helper / fit fn) at N~16, not a synthetic-only branch (real_code_path)
+# - §15-F substrate_signature check binds every KGStore/fit call against inspect.signature; BASE/portable kwargs only (no version-specific optional kwargs -> local/remote drift)
+# - §15-F guard_baseline_valid: any control-beats-baseline break-guard validated NOT to be at the arena floor (POP structurally ~0 on held-out arenas)
 ```
 
 If a smoke-gate check fails any of these: emit `BLOCK_DISPATCH_META_RULE_<X>` to metrics + halt. Do NOT push to remote with an unsatisfied gate.
@@ -491,15 +494,51 @@ SCHEMA-VET refuses cells composing existing chain-grade primitives WITHOUT (a) a
 **E) `functional_requirement_decomposition_present`** (catches naive-readout class; per `feedback_functional_requirement_first_test_design_USER_2026-06-28`):
 Pre-reg must include section "Functional Requirements" listing each functional requirement in plain English + the existing chain-grade primitive that addresses it. If no primitive maps, cell-author must explicitly design new mechanism + flag in pre-reg. SCHEMA-VET refuses cells missing this section.
 
+**F) `real_code_path_and_signature_preflight`** (catches the 2026-07-13 REMOTE-gate + landed-verdict class — three failure modes in one gate). This is the highest-leverage recent hardening: the class of bug that currently fails at the slow remote gate (or as a mis-calibrated LANDED verdict) MUST fail in the LOCAL self-test in seconds. Import the shared preflight and DECLARE the applicable checks (declaring is mandatory — the gate NO-OPS on undeclared checks):
+
+```python
+from experiments._validity_preflight import run_validity_preflight
+```
+
+**F.1 — Self-test must EXERCISE THE REAL substrate code path, not a synthetic-only branch (root cause of `KGStore.__init__() got an unexpected keyword argument 'init_entities'`).** A cell that self-tests a toy path and never constructs the REAL objects it uses at FULL (KGStore, the store-build helper, a fit module) lets every signature/API bug slip past a 0.2s green self-test and GATE_FAIL at the remote. **Mandate: the self-test MUST construct/call the ACTUAL substrate objects the FULL run uses, at tiny scale (N~16, few triples), inside `self_test()` — NOT a synthetic-only branch.** Then declare it so it is machine-checked:
+```python
+{"kind": "real_code_path",
+ "full_substrate_entrypoints": ["KGStore", "build_store_with_codes", "ingest_triples"],
+ "exercised_entrypoints": exercised_here},   # a set the self-test POPULATES as it calls each real object
+```
+Any declared entrypoint not in `exercised_here` -> flag (self-test took a synthetic path; the API-drift bug can only fail remote). The gold-standard pattern is a dedicated `_selftest_store_injection_smoke()` that builds the real store at N=16 and asserts the injection/ingest path ran (see `experiments/exp_native_code_family_sweep_cskg_v1.py:706`).
+
+**F.2 — Each substrate call must bind against the LIVE signature (catches API/signature drift LOCALLY, microseconds, no object constructed).** Declare every KGStore / fit-module / store-helper call the cell makes:
+```python
+from hdlab.kg_traversal import KGStore
+{"kind": "substrate_signature", "callable_obj": KGStore,
+ "kwargs": {"n_ent": 1, "n_rel": 1, "n_dim": 16, "generator": None}, "callable_name": "KGStore"},
+```
+An unexpected kwarg or a missing required arg fails the self-test (values are ignored; only the KEYS bind against `inspect.signature`).
+
+**F.3 — LOCAL vs REMOTE CODE DRIFT (the deeper root cause; a real-API local self-test is NECESSARY but NOT SUFFICIENT).** The `init_entities` failure was NOT only a self-test gap: the LOCAL `hdlab/kg_traversal.py` carries an `init_entities` kwarg the REMOTE KGStore lacks (the repo drifts thousands of commits ahead of the runner), so the local self-test PASSED on drifted local code and only SCRIPT_PRECONDITION_VIOLATION'd at the remote. **Discipline: prefer STABLE / BASE substrate signatures present on BOTH local and remote — pass only the REQUIRED, long-stable kwargs (`n_ent, n_rel, n_dim, generator`); do NOT rely on version-specific OPTIONAL kwargs (those with defaults, e.g. `init_entities`).** If the random E/R the base constructor fills are overwritten anyway (the injection pattern), the optional kwarg buys nothing and costs remote portability. `assert_signature_compatible` emits a `(advisory)` WARN whenever a passed kwarg maps to an optional/default parameter — treat that advisory as "verify remote parity or drop the kwarg" before ship. When in doubt, construct with base kwargs only and overwrite fields explicitly (see `build_store_with_codes` line 331: "Base constructor ONLY (portable across KGStore versions)").
+
+**F.4 — A control-comparison break-guard must fire against a NON-floor baseline (root cause of the FALSE landed `BROKEN_TEST_CONTROL_BEATS_POP`).** A guard that flags "BROKEN because a control (RANDOM/SCRAMBLE) beat the POP baseline" mis-fires on held-out-entity arenas where POP is STRUCTURALLY ~0 (held-out tails have train-freq 0), so ANY live control clears it by construction. **Mandate: any control-beats-baseline guard must be validated against the arena's structural floor before it can break a run.** Declare:
+```python
+{"kind": "guard_baseline_valid", "baseline_score": pop_mrr, "floor_score": random_mrr,
+ "guard_name": "BROKEN_TEST_CONTROL_BEATS_POP", "baseline_name": "POP", "floor_name": "RANDOM", "eps": 0.02},
+```
+If POP is within `eps` of the RANDOM/arm floor, the guard mis-fires -> flag: compare the control to RANDOM/arm-floor, or gate the break-guard on POP being above the floor first (see the fixed `pop_at_floor = m[POP] <= max(m[RANDOM], 0.02)` at `exp_anchor_compose_magnitude_opt_cskg_v1.py:890`).
+
+**Mode = WARN during bake** (a declared-and-failing check LOGS `[validity-preflight] WARN:` and does NOT block the ship; missing declarations always warn, never block). Flips to ENFORCE (non-zero self-test exit -> queue_add exit-5) after director sign-off. **Declaring the F.1-F.4 checks NOW = compliant the moment we flip.**
+
 **Memory rule references:** `feedback_test_design_failure_diagnosis_and_hardening_USER_2026-06-28.md` (this rule) + `feedback_chain_grade_primitives_not_trivially_composable_2026-06-28.md` + `feedback_functional_requirement_first_test_design_USER_2026-06-28.md`.
 
-Pre-reg gate summary (5 mandatory fields for any cell composing primitives or sweeping parameters):
+Pre-reg gate summary (8 mandatory fields for any cell composing primitives, sweeping parameters, OR calling live substrate objects):
 ```yaml
 sweep_alignment_verdict: ALIGNED  # gate A
 discriminating_fraction: 0.83  # gate B (must >= 0.30)
 composition_edges: [...]  # gate C (no SHAPE_MISMATCH_no_adapter)
 positive_control_arms: [...]  # gate D (mandatory when composing prior CG)
 functional_requirements: [...]  # gate E (decomposed + primitive-mapped)
+real_code_path_exercised: [KGStore, build_store_with_codes]  # gate F.1 (self-test calls the REAL objects)
+substrate_signature_checked: [KGStore, fit_kge_anchor1]  # gate F.2/F.3 (binds live sig; base/portable kwargs only)
+guard_baseline_validated: [BROKEN_TEST_CONTROL_BEATS_POP]  # gate F.4 (control-vs-baseline guard not at floor)
 ```
 
 **CONCRETE EXAMPLES of §15 gates catching real failures:**

@@ -140,6 +140,9 @@ Fold the applicable asserts into the cell's `self_test()` boolean chain. Declare
 - **assert_metric_moves** — every reported readout/metric must MOVE under a known-good input (pass `before`/`after` = null vs known-good, or a `values` series). An exact-frozen / exact-0.0 readout is flagged as likely broken, not a negative.
 - **assert_full_gates_exercised_at_selftest** — every fail-closed assertion the FULL arms (split-identity / cardinality / arms-differ) must FIRE at tiny self-test scale, not only at run_mode=full.
 - **assert_negative_control_fails_with_margin** — the must-fail control must fail DETERMINISTICALLY over repeats/seeds WITH margin, not "failed once."
+- **assert_real_code_path_exercised** (2026-07-13) — MANDATORY for any cell that calls a live substrate object (KGStore / store-build helper / fit module). The self_test MUST construct/call the ACTUAL objects the FULL uses, at tiny scale — NOT a synthetic-only branch. Declare the FULL substrate entrypoints + the subset the self-test exercises; any declared-but-not-exercised entrypoint means an API-drift bug can only fail at the remote gate. (Closed `KGStore.__init__() got an unexpected keyword argument 'init_entities'`, which GATE_FAILed remote after a green 0.2s synthetic self-test.)
+- **assert_signature_compatible** (2026-07-13) — every KGStore/fit-module call's kwargs must bind against the LIVE `inspect.signature` (values ignored; only KEYS bind) — an invented/renamed/removed kwarg or a missing required arg fails LOCALLY in microseconds. Also advisory-WARNs when a passed kwarg maps to an OPTIONAL (default-bearing) parameter: version-specific optional kwargs (e.g. `init_entities`) may be ABSENT on an out-of-sync remote (the repo drifts thousands of commits ahead of the runner). **Prefer STABLE/BASE substrate signatures present on BOTH local+remote — pass only required long-stable kwargs; the local self-test can PASS on drifted local code and only fail at the remote (SCRIPT_PRECONDITION_VIOLATION).**
+- **assert_guard_baseline_valid** (2026-07-13) — any control-beats-baseline break-guard (e.g. BROKEN_TEST_CONTROL_BEATS_POP) must be validated NOT to fire against a baseline that is structurally at the arena floor. On held-out-entity arenas POP is ~0 (held-out tails have train-freq 0), so any live control clears it by construction and the guard FALSE-BREAKS a real run. Compare the control to RANDOM/arm-floor, or gate the guard on the baseline being above the floor first. (Closed the FALSE landed `BROKEN_TEST_CONTROL_BEATS_POP`.)
 
 **Copy-paste form (declarative — declare by rote, not from memory; drop the checks the cell does not have):**
 
@@ -164,6 +167,16 @@ def self_test():
          "control_scores": control_scores_per_repeat,   # >= 3 repeats/seeds
          "headline_threshold": HEADLINE_THRESH,
          "higher_is_pass": True, "margin": 0.05},
+        # 5. Self-test exercised the REAL substrate objects the FULL uses (not a synthetic-only branch).
+        {"kind": "real_code_path",
+         "full_substrate_entrypoints": ["KGStore", "build_store_with_codes", "ingest_triples"],
+         "exercised_entrypoints": exercised_here},   # a set the self-test POPULATES as it calls each real object
+        # 6. Every live substrate call binds against inspect.signature; BASE/portable kwargs only (local/remote drift).
+        {"kind": "substrate_signature", "callable_obj": KGStore, "callable_name": "KGStore",
+         "kwargs": {"n_ent": 1, "n_rel": 1, "n_dim": 16, "generator": None}},
+        # 7. Any control-beats-baseline break-guard is NOT firing against a structurally-at-floor baseline.
+        {"kind": "guard_baseline_valid", "baseline_score": pop_mrr, "floor_score": random_mrr,
+         "guard_name": "BROKEN_TEST_CONTROL_BEATS_POP", "baseline_name": "POP", "floor_name": "RANDOM", "eps": 0.02},
     ], run_mode=run_mode)                        # no-op on FULL; gates on smoke/self_test
     return ok
 ```
