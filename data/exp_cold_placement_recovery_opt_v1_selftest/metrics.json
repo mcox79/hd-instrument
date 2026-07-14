@@ -1,0 +1,42 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS cold_placement_recovery_opt_v1: planted-arena MECHANISM recovers name-transparent, hypernym-only, AND synonym-only cold entities (proving the WN-tier recovers cases the base cell's gloss-only mechanism could NOT); SCRAMBLE/RANDOM/POP/GRAPH_SELF_REFERENCE_CONTROL collapse to floor on BOTH exact and topk-relation-level metrics; a planted decoy case proves topk_relation_match > rank0_exact_match genuinely; REAL relations.jsonl slice exercised (F.1); 8 validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.27114259998779744,
+  "mechanism_selftest": {
+    "mech_trans_exact": 0.94444,
+    "mech_trans_topk_rel": 1.0,
+    "scramble_trans_exact": 0.0,
+    "random_trans_exact": 0.0,
+    "random_trans_topk_rel": 0.33333,
+    "pop_trans_exact": 0.0,
+    "graph_self_reference_exact": 0.0,
+    "graph_self_reference_topk_rel": 0.0,
+    "hypernym_only_recovery": 1.0,
+    "synonym_only_recovery": 1.0,
+    "topk_beats_exact_case": true,
+    "arb_mech_trans_recovery": 1.0,
+    "arb_random_trans_recovery": 0.25,
+    "transparent_recovers": true,
+    "scramble_collapses": true,
+    "random_no_help": true,
+    "pop_no_help": true,
+    "graph_self_reference_zero": true,
+    "hypernym_tier_fires": true,
+    "synonym_tier_fires": true,
+    "arbitrary_generalizes": true,
+    "real_slice_ok": true,
+    "real_n_units": 30,
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "build_directed_adj",
+      "build_lemma_index",
+      "build_populations",
+      "classify_and_place_v2",
+      "load_graph",
+      "score_arbitrary_v2",
+      "score_taxonomic_v2"
+    ]
+  }
+}

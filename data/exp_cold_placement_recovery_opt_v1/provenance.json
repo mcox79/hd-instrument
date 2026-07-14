@@ -1,0 +1,7673 @@
+{
+ "entries": {
+  "CN_26_letters": {
+   "definition": "the literary culture",
+   "hypernyms": [
+    "culture"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "letters.n.01",
+   "synonyms": [
+    "letters"
+   ]
+  },
+  "CN_2_dimensional": {
+   "definition": "of or relating to dimensions",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "dimensional.a.01",
+   "synonyms": [
+    "dimensional"
+   ]
+  },
+  "CN_accomplishing": {
+   "definition": "put in effect",
+   "hypernyms": [
+    "effect",
+    "effectuate",
+    "set_up",
+    "complete",
+    "finish"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "carry_through.v.01",
+   "synonyms": [
+    "carry_through",
+    "accomplish",
+    "execute",
+    "carry_out",
+    "action",
+    "fulfill",
+    "fulfil"
+   ]
+  },
+  "CN_acidophile": {
+   "definition": "an organism that thrives in a relatively acid environment",
+   "hypernyms": [
+    "bacteria",
+    "bacterium"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "acidophil.n.01",
+   "synonyms": [
+    "acidophil",
+    "acidophile"
+   ]
+  },
+  "CN_acromphalus": {
+   "definition": "abnormal protrusion of the navel; sometimes the start of umbilical hernia",
+   "hypernyms": [
+    "abnormality",
+    "abnormalcy"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "acromphalus.n.01",
+   "synonyms": [
+    "acromphalus"
+   ]
+  },
+  "CN_addlebrained": {
+   "definition": "stupid and confused; ; - Isaac Sterne",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "addlebrained.s.01",
+   "synonyms": [
+    "addlebrained",
+    "addlepated",
+    "puddingheaded",
+    "muddleheaded"
+   ]
+  },
+  "CN_aglaomorpha_meyeniana": {
+   "definition": "epiphytic fern with large fronds; Taiwan and Philippines",
+   "hypernyms": [
+    "fern"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bear's-paw_fern.n.01",
+   "synonyms": [
+    "bear's-paw_fern",
+    "Aglaomorpha_meyeniana"
+   ]
+  },
+  "CN_air_to_air_missile": {
+   "definition": "a rocket carrying a warhead of conventional or nuclear explosives; may be ballistic or directed by remote control",
+   "hypernyms": [
+    "weapon",
+    "arm",
+    "weapon_system",
+    "rocket",
+    "projectile"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "missile.n.01",
+   "synonyms": [
+    "missile"
+   ]
+  },
+  "CN_alameda": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_aluminian": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_amaterasu": {
+   "definition": "central deity of Shinto; goddess personifying the sun and ancestress of the rulers of Japan",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "amaterasu.n.01",
+   "synonyms": [
+    "Amaterasu",
+    "Amaterasu_Omikami"
+   ]
+  },
+  "CN_american_pennyroyal": {
+   "definition": "erect hairy branching American herb having purple-blue flowers; yields an essential oil used as an insect repellent and sometimes in folk medicine",
+   "hypernyms": [
+    "herb",
+    "herbaceous_plant"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pennyroyal.n.02",
+   "synonyms": [
+    "pennyroyal",
+    "American_pennyroyal",
+    "Hedeoma_pulegioides"
+   ]
+  },
+  "CN_ammonify": {
+   "definition": "treat with ammonia; cause to undergo ammonification",
+   "hypernyms": [
+    "impregnate",
+    "saturate"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "ammonify.v.01",
+   "synonyms": [
+    "ammonify"
+   ]
+  },
+  "CN_amyloidal": {
+   "definition": "resembling starch",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "starchlike.s.01",
+   "synonyms": [
+    "starchlike",
+    "amylaceous",
+    "amyloid",
+    "amyloidal",
+    "farinaceous"
+   ]
+  },
+  "CN_ankles": {
+   "definition": "a gliding joint between the distal ends of the tibia and fibula and the proximal end of the talus",
+   "hypernyms": [
+    "gliding_joint",
+    "articulatio_plana"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ankle.n.01",
+   "synonyms": [
+    "ankle",
+    "ankle_joint",
+    "mortise_joint",
+    "articulatio_talocruralis"
+   ]
+  },
+  "CN_antheridiophore": {
+   "definition": "gametophore bearing antheridia as in certain mosses and liverworts",
+   "hypernyms": [
+    "gametophore"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "antheridiophore.n.01",
+   "synonyms": [
+    "antheridiophore"
+   ]
+  },
+  "CN_antiredeposition": {
+   "definition": "the process of preventing redeposition",
+   "hypernyms": [
+    "natural_process",
+    "natural_action",
+    "action",
+    "activity"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "antiredeposition.n.01",
+   "synonyms": [
+    "antiredeposition"
+   ]
+  },
+  "CN_apis": {
+   "definition": "type genus of the Apidae: honeybees",
+   "hypernyms": [
+    "arthropod_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "apis.n.01",
+   "synonyms": [
+    "Apis",
+    "genus_Apis"
+   ]
+  },
+  "CN_appendicularia": {
+   "definition": "free-swimming tadpole-shaped pelagic tunicate resembling larvae of other tunicates",
+   "hypernyms": [
+    "tunicate",
+    "urochordate",
+    "urochord"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "appendicularia.n.01",
+   "synonyms": [
+    "appendicularia"
+   ]
+  },
+  "CN_apple_tree_in": {
+   "definition": "a unit of length equal to one twelfth of a foot",
+   "hypernyms": [
+    "linear_unit",
+    "linear_measure"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "inch.n.01",
+   "synonyms": [
+    "inch",
+    "in"
+   ]
+  },
+  "CN_appliance_store": {
+   "definition": "a mercantile establishment for the retail sale of goods or services",
+   "hypernyms": [
+    "mercantile_establishment",
+    "retail_store",
+    "sales_outlet",
+    "outlet"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "shop.n.01",
+   "synonyms": [
+    "shop",
+    "store"
+   ]
+  },
+  "CN_approved": {
+   "definition": "give sanction to",
+   "hypernyms": [
+    "authorize",
+    "authorise",
+    "pass",
+    "clear"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "approve.v.01",
+   "synonyms": [
+    "approve",
+    "O.K.",
+    "okay",
+    "sanction"
+   ]
+  },
+  "CN_aquilegia_canadensis": {
+   "definition": "columbine of eastern North America having long-spurred red flowers",
+   "hypernyms": [
+    "columbine",
+    "aquilegia",
+    "aquilege"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "meeting_house.n.01",
+   "synonyms": [
+    "meeting_house",
+    "honeysuckle",
+    "Aquilegia_canadensis"
+   ]
+  },
+  "CN_araucaria_araucana": {
+   "definition": "large Chilean evergreen conifer having intertwined branches and bearing edible nuts",
+   "hypernyms": [
+    "araucaria"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "monkey_puzzle.n.01",
+   "synonyms": [
+    "monkey_puzzle",
+    "chile_pine",
+    "Araucaria_araucana"
+   ]
+  },
+  "CN_aristotelic": {
+   "definition": "of or relating to Aristotle or his philosophy",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "aristotelian.a.01",
+   "synonyms": [
+    "Aristotelian",
+    "Aristotelean",
+    "Aristotelic",
+    "peripatetic"
+   ]
+  },
+  "CN_artificial_skin": {
+   "definition": "a synthetic covering with two layers used experimentally to treat burn victims",
+   "hypernyms": [
+    "covering"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "artificial_skin.n.01",
+   "synonyms": [
+    "artificial_skin"
+   ]
+  },
+  "CN_assam": {
+   "definition": "state in northeastern India",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "assam.n.01",
+   "synonyms": [
+    "Assam"
+   ]
+  },
+  "CN_at_work_on_time": {
+   "definition": "an instance or single occasion for some event",
+   "hypernyms": [
+    "case",
+    "instance",
+    "example"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "time.n.01",
+   "synonyms": [
+    "time",
+    "clip"
+   ]
+  },
+  "CN_atomic_number_57": {
+   "definition": "a white soft metallic element that tarnishes readily; occurs in rare earth minerals and is usually classified as a rare earth",
+   "hypernyms": [
+    "metallic_element",
+    "metal"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "lanthanum.n.01",
+   "synonyms": [
+    "lanthanum",
+    "La",
+    "atomic_number_57"
+   ]
+  },
+  "CN_atypic": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_augmented_by_benefits": {
+   "definition": "financial assistance in time of need",
+   "hypernyms": [
+    "payment"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "benefit.n.01",
+   "synonyms": [
+    "benefit"
+   ]
+  },
+  "CN_axeblade": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_bachelor_at_arms": {
+   "definition": "weapons considered collectively",
+   "hypernyms": [
+    "instrumentality",
+    "instrumentation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "weaponry.n.01",
+   "synonyms": [
+    "weaponry",
+    "arms",
+    "implements_of_war",
+    "weapons_system",
+    "munition"
+   ]
+  },
+  "CN_bacillary_white_diarrhoea": {
+   "definition": "a serious bacterial disease of young chickens",
+   "hypernyms": [
+    "animal_disease"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pullorum_disease.n.01",
+   "synonyms": [
+    "pullorum_disease",
+    "bacillary_white_diarrhea",
+    "bacillary_white_diarrhoea"
+   ]
+  },
+  "CN_back_candidate": {
+   "definition": "a politician who is running for public office",
+   "hypernyms": [
+    "politician",
+    "politico",
+    "pol",
+    "political_leader"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "campaigner.n.01",
+   "synonyms": [
+    "campaigner",
+    "candidate",
+    "nominee"
+   ]
+  },
+  "CN_baling_wire": {
+   "definition": "wire used to make bales",
+   "hypernyms": [
+    "wire"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "baling_wire.n.01",
+   "synonyms": [
+    "baling_wire"
+   ]
+  },
+  "CN_balkanizing": {
+   "definition": "divide a territory into small, hostile states",
+   "hypernyms": [
+    "divide",
+    "split",
+    "split_up",
+    "separate",
+    "dissever",
+    "carve_up"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "balkanize.v.01",
+   "synonyms": [
+    "Balkanize",
+    "Balkanise"
+   ]
+  },
+  "CN_balto_slavonic": {
+   "definition": "a branch of the Indo-European family of languages",
+   "hypernyms": [
+    "Balto-Slavic",
+    "Balto-Slavic_language",
+    "Balto-Slavonic"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "slavic.n.01",
+   "synonyms": [
+    "Slavic",
+    "Slavic_language",
+    "Slavonic",
+    "Slavonic_language"
+   ]
+  },
+  "CN_banger": {
+   "definition": "(British informal) pork sausage",
+   "hypernyms": [
+    "pork_sausage"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "banger.n.01",
+   "synonyms": [
+    "banger"
+   ]
+  },
+  "CN_banshie": {
+   "definition": "(Irish folklore) a female spirit who wails to warn of impending death",
+   "hypernyms": [
+    "spirit",
+    "disembodied_spirit"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "banshee.n.01",
+   "synonyms": [
+    "banshee",
+    "banshie"
+   ]
+  },
+  "CN_bargain_hunter": {
+   "definition": "a shopper who hunts for bargains",
+   "hypernyms": [
+    "shopper"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bargain_hunter.n.01",
+   "synonyms": [
+    "bargain_hunter"
+   ]
+  },
+  "CN_battle_of_guadalcanal": {
+   "definition": "a battle in World War II in the Pacific (1942-1943); the island was occupied by the Japanese and later recaptured by American forces",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "guadalcanal.n.02",
+   "synonyms": [
+    "Guadalcanal",
+    "Battle_of_Guadalcanal"
+   ]
+  },
+  "CN_bc": {
+   "definition": "before the Christian era; used following dates before the supposed year Christ was born",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bc.r.01",
+   "synonyms": [
+    "BC",
+    "B.C.",
+    "before_Christ"
+   ]
+  },
+  "CN_becoming_drunk": {
+   "definition": "a chronic drinker",
+   "hypernyms": [
+    "drinker",
+    "imbiber",
+    "toper",
+    "juicer"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "drunkard.n.01",
+   "synonyms": [
+    "drunkard",
+    "drunk",
+    "rummy",
+    "sot",
+    "inebriate",
+    "wino"
+   ]
+  },
+  "CN_bed_clothing": {
+   "definition": "coverings that are used on a bed",
+   "hypernyms": [
+    "cloth_covering"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bedclothes.n.01",
+   "synonyms": [
+    "bedclothes",
+    "bed_clothing",
+    "bedding"
+   ]
+  },
+  "CN_benvenuto_cellini": {
+   "definition": "Italian sculptor (1500-1571)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cellini.n.01",
+   "synonyms": [
+    "Cellini",
+    "Benvenuto_Cellini"
+   ]
+  },
+  "CN_beta_adrenergic_blocker": {
+   "definition": "a football player whose responsibility is to block players attempting to stop an offensive play",
+   "hypernyms": [
+    "football_player",
+    "footballer"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "blocker.n.01",
+   "synonyms": [
+    "blocker"
+   ]
+  },
+  "CN_bevans": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_bibliomania": {
+   "definition": "preoccupation with the acquisition and possession of books",
+   "hypernyms": [
+    "acquisitiveness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bibliomania.n.01",
+   "synonyms": [
+    "bibliomania"
+   ]
+  },
+  "CN_big_stream": {
+   "definition": "a natural body of running water flowing on or under the earth",
+   "hypernyms": [
+    "body_of_water",
+    "water"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "stream.n.01",
+   "synonyms": [
+    "stream",
+    "watercourse"
+   ]
+  },
+  "CN_biramous": {
+   "definition": "resembling a fork; divided or separated into two branches",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bifurcate.s.01",
+   "synonyms": [
+    "bifurcate",
+    "biramous",
+    "branched",
+    "forked",
+    "fork-like",
+    "forficate",
+    "pronged",
+    "prongy"
+   ]
+  },
+  "CN_blackbody": {
+   "definition": "a hypothetical object capable of absorbing all the electromagnetic radiation falling on it",
+   "hypernyms": [
+    "natural_object"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "black_body.n.01",
+   "synonyms": [
+    "black_body",
+    "blackbody",
+    "full_radiator"
+   ]
+  },
+  "CN_blank_space": {
+   "definition": "a blank area",
+   "hypernyms": [
+    "area",
+    "expanse",
+    "surface_area"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "space.n.07",
+   "synonyms": [
+    "space",
+    "blank_space",
+    "place"
+   ]
+  },
+  "CN_block_of_wood": {
+   "definition": "the hard fibrous lignified substance under the bark of trees",
+   "hypernyms": [
+    "plant_material",
+    "plant_substance"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "wood.n.01",
+   "synonyms": [
+    "wood"
+   ]
+  },
+  "CN_blue_point_siamese": {
+   "definition": "Siamese cat having a bluish cream-colored body and dark grey points",
+   "hypernyms": [
+    "Siamese_cat",
+    "Siamese"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "blue_point_siamese.n.01",
+   "synonyms": [
+    "blue_point_Siamese"
+   ]
+  },
+  "CN_boasting": {
+   "definition": "speaking of yourself in superlatives",
+   "hypernyms": [
+    "speech_act"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "boast.n.01",
+   "synonyms": [
+    "boast",
+    "boasting",
+    "self-praise",
+    "jactitation"
+   ]
+  },
+  "CN_boone": {
+   "definition": "an American pioneer and guide and explorer (1734-1820)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "boone.n.01",
+   "synonyms": [
+    "Boone",
+    "Daniel_Boone"
+   ]
+  },
+  "CN_both_ears": {
+   "definition": "the sense organ for hearing and equilibrium",
+   "hypernyms": [
+    "sense_organ",
+    "sensory_receptor",
+    "receptor"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "ear.n.01",
+   "synonyms": [
+    "ear"
+   ]
+  },
+  "CN_botrychium_virginianum": {
+   "definition": "American fern whose clustered sporangia resemble a snake's rattle",
+   "hypernyms": [
+    "grape_fern"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "rattlesnake_fern.n.01",
+   "synonyms": [
+    "rattlesnake_fern",
+    "Botrychium_virginianum"
+   ]
+  },
+  "CN_boy's_pocket": {
+   "definition": "a small pouch inside a garment for carrying small articles",
+   "hypernyms": [
+    "pouch"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pocket.n.01",
+   "synonyms": [
+    "pocket"
+   ]
+  },
+  "CN_brachydactylic": {
+   "definition": "having abnormally short finger or toes",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "brachydactylic.s.01",
+   "synonyms": [
+    "brachydactylic",
+    "brachydactylous"
+   ]
+  },
+  "CN_brierwood": {
+   "definition": "wood from the hard woody root of the briar Erica arborea; used to make tobacco pipes",
+   "hypernyms": [
+    "wood"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "briarwood.n.01",
+   "synonyms": [
+    "briarwood",
+    "brierwood",
+    "brier-wood"
+   ]
+  },
+  "CN_bringing_back_memories": {
+   "definition": "something that is remembered",
+   "hypernyms": [
+    "representation",
+    "mental_representation",
+    "internal_representation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "memory.n.01",
+   "synonyms": [
+    "memory"
+   ]
+  },
+  "CN_brisk_up": {
+   "definition": "become brisk",
+   "hypernyms": [
+    "accelerate",
+    "speed_up",
+    "speed",
+    "quicken"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "brisk.v.01",
+   "synonyms": [
+    "brisk",
+    "brisk_up",
+    "brisken"
+   ]
+  },
+  "CN_broadcast_studios": {
+   "definition": "workplace for the teaching or practice of an art",
+   "hypernyms": [
+    "workplace",
+    "work"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "studio.n.01",
+   "synonyms": [
+    "studio"
+   ]
+  },
+  "CN_building_farm_on": {
+   "definition": "in operation or operational",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "on.a.01",
+   "synonyms": [
+    "on"
+   ]
+  },
+  "CN_buy_organic_foods": {
+   "definition": "any substance that can be metabolized by an animal to give energy and build tissue",
+   "hypernyms": [
+    "substance"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "food.n.01",
+   "synonyms": [
+    "food",
+    "nutrient"
+   ]
+  },
+  "CN_cackly": {
+   "definition": "like the cackles or squawks a hen makes especially after laying an egg",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cackly.s.01",
+   "synonyms": [
+    "cackly",
+    "squawky"
+   ]
+  },
+  "CN_calean": {
+   "definition": "an oriental tobacco pipe with a long flexible tube connected to a container where the smoke is cooled by passing through water",
+   "hypernyms": [
+    "pipe",
+    "tobacco_pipe"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "hookah.n.01",
+   "synonyms": [
+    "hookah",
+    "narghile",
+    "nargileh",
+    "sheesha",
+    "shisha",
+    "chicha",
+    "calean",
+    "kalian",
+    "water_pipe",
+    "hubble-bubble",
+    "hubbly-bubbly"
+   ]
+  },
+  "CN_callinectes_sapidus": {
+   "definition": "bluish edible crab of Atlantic and Gulf Coasts of North America",
+   "hypernyms": [
+    "swimming_crab"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "blue_crab.n.02",
+   "synonyms": [
+    "blue_crab",
+    "Callinectes_sapidus"
+   ]
+  },
+  "CN_calyptridium_umbellatum": {
+   "definition": "pink clusters of densely packed flowers on prostrate stems resemble upturned pads of cats' feet; grow in coniferous forests of western North America",
+   "hypernyms": [
+    "wildflower",
+    "wild_flower"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pussy-paw.n.01",
+   "synonyms": [
+    "pussy-paw",
+    "pussy-paws",
+    "pussy's-paw",
+    "Spraguea_umbellatum",
+    "Calyptridium_umbellatum"
+   ]
+  },
+  "CN_calystegia_sepium": {
+   "definition": "common Eurasian and American wild climber with pink flowers; sometimes placed in genus Convolvulus",
+   "hypernyms": [
+    "bindweed"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "hedge_bindweed.n.01",
+   "synonyms": [
+    "hedge_bindweed",
+    "wild_morning-glory",
+    "Calystegia_sepium",
+    "Convolvulus_sepium"
+   ]
+  },
+  "CN_campong": {
+   "definition": "a native village in Malaysia",
+   "hypernyms": [
+    "village",
+    "hamlet"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "kampong.n.01",
+   "synonyms": [
+    "kampong",
+    "campong"
+   ]
+  },
+  "CN_capital_cost": {
+   "definition": "the opportunity cost of the funds employed as the result of an investment decision; the rate of return that a business could earn if it chose another investment with equivalent risk",
+   "hypernyms": [
+    "opportunity_cost"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cost_of_capital.n.01",
+   "synonyms": [
+    "cost_of_capital",
+    "capital_cost"
+   ]
+  },
+  "CN_capital_of_ohio": {
+   "definition": "the state capital of Ohio; located in the center of the state; site of Ohio State University",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "columbus.n.01",
+   "synonyms": [
+    "Columbus",
+    "capital_of_Ohio"
+   ]
+  },
+  "CN_cardiac_glucoside": {
+   "definition": "obtained from a number of plants and used to stimulate the heart in cases of heart failure",
+   "hypernyms": [
+    "steroid"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cardiac_glycoside.n.01",
+   "synonyms": [
+    "cardiac_glycoside",
+    "cardiac_glucoside"
+   ]
+  },
+  "CN_carlovingian_dynasty": {
+   "definition": "a Frankish dynasty founded by Charlemagne's father that ruled from 751 to 987",
+   "hypernyms": [
+    "dynasty"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "carolingian_dynasty.n.01",
+   "synonyms": [
+    "Carolingian_dynasty",
+    "Carlovingian_dynasty"
+   ]
+  },
+  "CN_caryophyllaceous_plant": {
+   "definition": "a plant of the family Caryophyllaceae",
+   "hypernyms": [
+    "herb",
+    "herbaceous_plant"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "caryophyllaceous_plant.n.01",
+   "synonyms": [
+    "caryophyllaceous_plant"
+   ]
+  },
+  "CN_castor_bean_plant": {
+   "definition": "large shrub of tropical Africa and Asia having large palmate leaves and spiny capsules containing seeds that are the source of castor oil and ricin; widely naturalized throughout the tropics",
+   "hypernyms": [
+    "shrub",
+    "bush"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "castor-oil_plant.n.01",
+   "synonyms": [
+    "castor-oil_plant",
+    "castor_bean_plant",
+    "palma_christi",
+    "palma_christ",
+    "Ricinus_communis"
+   ]
+  },
+  "CN_cauliflower_ear": {
+   "definition": "an auricle deformed by injury; common among boxers",
+   "hypernyms": [
+    "auricle",
+    "pinna",
+    "ear"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cauliflower_ear.n.01",
+   "synonyms": [
+    "cauliflower_ear"
+   ]
+  },
+  "CN_causal_agency": {
+   "definition": "any entity that produces an effect or is responsible for events or results",
+   "hypernyms": [
+    "physical_entity"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "causal_agent.n.01",
+   "synonyms": [
+    "causal_agent",
+    "cause",
+    "causal_agency"
+   ]
+  },
+  "CN_cavort": {
+   "definition": "play boisterously",
+   "hypernyms": [
+    "play"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "frolic.v.01",
+   "synonyms": [
+    "frolic",
+    "lark",
+    "rollick",
+    "skylark",
+    "disport",
+    "sport",
+    "cavort",
+    "gambol",
+    "frisk",
+    "romp",
+    "run_around",
+    "lark_about"
+   ]
+  },
+  "CN_cazique": {
+   "definition": "black-and-red or black-and-yellow orioles of the American tropics",
+   "hypernyms": [
+    "New_World_oriole",
+    "American_oriole",
+    "oriole"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cacique.n.01",
+   "synonyms": [
+    "cacique",
+    "cazique"
+   ]
+  },
+  "CN_cephalometry": {
+   "definition": "measurement of human heads",
+   "hypernyms": [
+    "measurement",
+    "measuring",
+    "measure",
+    "mensuration"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cephalometry.n.01",
+   "synonyms": [
+    "cephalometry"
+   ]
+  },
+  "CN_cephaloridine": {
+   "definition": "a broad spectrum semisynthetic antibiotic produced by modifying cephalosporin",
+   "hypernyms": [
+    "antibiotic",
+    "antibiotic_drug"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cephaloridine.n.01",
+   "synonyms": [
+    "cephaloridine"
+   ]
+  },
+  "CN_chaffer": {
+   "definition": "wrangle (over a price, terms of an agreement, etc.)",
+   "hypernyms": [
+    "dicker",
+    "bargain"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "haggle.v.01",
+   "synonyms": [
+    "haggle",
+    "higgle",
+    "chaffer",
+    "huckster"
+   ]
+  },
+  "CN_charge_battery": {
+   "definition": "group of guns or missile launchers operated together at one place",
+   "hypernyms": [
+    "artillery",
+    "artillery_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "battery.n.01",
+   "synonyms": [
+    "battery"
+   ]
+  },
+  "CN_chess_pawns": {
+   "definition": "an article deposited as security",
+   "hypernyms": [
+    "pledge"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pawn.n.01",
+   "synonyms": [
+    "pawn"
+   ]
+  },
+  "CN_chicken_cordon_bleu": {
+   "definition": "thin slices of chicken stuffed with cheese and ham and then sauteed",
+   "hypernyms": [
+    "dish"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "chicken_cordon_bleu.n.01",
+   "synonyms": [
+    "chicken_cordon_bleu"
+   ]
+  },
+  "CN_chomping": {
+   "definition": "the act of chewing noisily",
+   "hypernyms": [
+    "chew",
+    "chewing",
+    "mastication",
+    "manduction"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "chomping.n.01",
+   "synonyms": [
+    "chomping"
+   ]
+  },
+  "CN_chukchi_sea": {
+   "definition": "part of the Arctic Ocean just to the north of the Bering Strait",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "chukchi_sea.n.01",
+   "synonyms": [
+    "Chukchi_Sea"
+   ]
+  },
+  "CN_circumfuse": {
+   "definition": "spread something around something",
+   "hypernyms": [
+    "spread",
+    "scatter",
+    "spread_out"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "circumfuse.v.01",
+   "synonyms": [
+    "circumfuse"
+   ]
+  },
+  "CN_clarksburg": {
+   "definition": "a city in northern West Virginia",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "clarksburg.n.01",
+   "synonyms": [
+    "Clarksburg"
+   ]
+  },
+  "CN_claude_e_shannon": {
+   "definition": "United States electrical engineer who pioneered mathematical communication theory (1916-2001)",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "shannon.n.01",
+   "synonyms": [
+    "Shannon",
+    "Claude_Shannon",
+    "Claude_E._Shannon",
+    "Claude_Elwood_Shannon"
+   ]
+  },
+  "CN_cleaning_blood_vessels_and_lungs": {
+   "definition": "either of two saclike respiratory organs in the chest of vertebrates; serves to remove carbon dioxide and provide oxygen to the blood",
+   "hypernyms": [
+    "respiratory_organ"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "lung.n.01",
+   "synonyms": [
+    "lung"
+   ]
+  },
+  "CN_climatologist": {
+   "definition": "someone who is expert in climatology",
+   "hypernyms": [
+    "expert"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "climatologist.n.01",
+   "synonyms": [
+    "climatologist"
+   ]
+  },
+  "CN_clovis_i": {
+   "definition": "king of the Franks who unified Gaul and established his capital at Paris and founded the Frankish monarchy; his name was rendered as Gallic `Louis' (466-511)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "clovis.n.01",
+   "synonyms": [
+    "Clovis",
+    "Clovis_I"
+   ]
+  },
+  "CN_clown_fish": {
+   "definition": "any of various mostly cold-blooded aquatic vertebrates usually having scales and breathing through gills",
+   "hypernyms": [
+    "aquatic_vertebrate"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "fish.n.01",
+   "synonyms": [
+    "fish"
+   ]
+  },
+  "CN_cold_gangrene": {
+   "definition": "(pathology) gangrene that develops in the presence of arterial obstruction and is characterized by dryness of the dead tissue and a dark brown color",
+   "hypernyms": [
+    "gangrene",
+    "sphacelus",
+    "slough"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "dry_gangrene.n.01",
+   "synonyms": [
+    "dry_gangrene",
+    "cold_gangrene",
+    "mumification_necrosis",
+    "mummification"
+   ]
+  },
+  "CN_collar_blight": {
+   "definition": "a disease affecting the trunks of pear and apple trees",
+   "hypernyms": [
+    "blight"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "collar_blight.n.01",
+   "synonyms": [
+    "collar_blight"
+   ]
+  },
+  "CN_collecting_debt": {
+   "definition": "the state of owing something (especially money)",
+   "hypernyms": [
+    "indebtedness",
+    "liability",
+    "financial_obligation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "debt.n.01",
+   "synonyms": [
+    "debt"
+   ]
+  },
+  "CN_colorado_beetle": {
+   "definition": "black-and-yellow beetle that feeds in adult and larval stages on potato leaves; originally of eastern Rocky Mountains; now worldwide",
+   "hypernyms": [
+    "leaf_beetle",
+    "chrysomelid"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "colorado_potato_beetle.n.01",
+   "synonyms": [
+    "Colorado_potato_beetle",
+    "Colorado_beetle",
+    "potato_bug",
+    "potato_beetle",
+    "Leptinotarsa_decemlineata"
+   ]
+  },
+  "CN_colossae": {
+   "definition": "an ancient city in south western Phrygia in Asia Minor; site of an early Christian Church",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "colossae.n.01",
+   "synonyms": [
+    "Colossae"
+   ]
+  },
+  "CN_colour_with": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_colourize": {
+   "definition": "add color to",
+   "hypernyms": [
+    "change",
+    "alter",
+    "modify"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "color.v.01",
+   "synonyms": [
+    "color",
+    "colorize",
+    "colorise",
+    "colourise",
+    "colourize",
+    "colour",
+    "color_in",
+    "colour_in"
+   ]
+  },
+  "CN_comes_in_cubes": {
+   "definition": "a hexahedron with six equal squares as faces",
+   "hypernyms": [
+    "regular_polyhedron",
+    "regular_convex_solid",
+    "regular_convex_polyhedron",
+    "Platonic_body",
+    "Platonic_solid",
+    "ideal_solid"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "cube.n.01",
+   "synonyms": [
+    "cube",
+    "regular_hexahedron"
+   ]
+  },
+  "CN_common_fault": {
+   "definition": "an inclined fault in which the hanging wall appears to have slipped downward relative to the footwall",
+   "hypernyms": [
+    "inclined_fault"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "normal_fault.n.01",
+   "synonyms": [
+    "normal_fault",
+    "gravity_fault",
+    "common_fault"
+   ]
+  },
+  "CN_communicate_with_family": {
+   "definition": "a social unit living together",
+   "hypernyms": [
+    "unit",
+    "social_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "family.n.01",
+   "synonyms": [
+    "family",
+    "household",
+    "house",
+    "home",
+    "menage"
+   ]
+  },
+  "CN_condition_of_health": {
+   "definition": "a healthy state of wellbeing free from disease",
+   "hypernyms": [
+    "wellbeing",
+    "well-being",
+    "welfare",
+    "upbeat",
+    "eudaemonia",
+    "eudaimonia"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "health.n.01",
+   "synonyms": [
+    "health",
+    "wellness"
+   ]
+  },
+  "CN_confidentially": {
+   "definition": "in a confidential manner",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "confidentially.r.01",
+   "synonyms": [
+    "confidentially"
+   ]
+  },
+  "CN_congenital_defect": {
+   "definition": "a defect that is present at birth",
+   "hypernyms": [
+    "defect",
+    "anomaly",
+    "anomalousness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "birth_defect.n.01",
+   "synonyms": [
+    "birth_defect",
+    "congenital_anomaly",
+    "congenital_defect",
+    "congenital_disorder",
+    "congenital_abnormality"
+   ]
+  },
+  "CN_consonate": {
+   "definition": "sound in sympathy",
+   "hypernyms": [
+    "resound",
+    "echo",
+    "ring",
+    "reverberate"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "consonate.v.01",
+   "synonyms": [
+    "consonate"
+   ]
+  },
+  "CN_containerize": {
+   "definition": "package in a container",
+   "hypernyms": [
+    "pack"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "containerize.v.01",
+   "synonyms": [
+    "containerize",
+    "containerise"
+   ]
+  },
+  "CN_continue_ticking": {
+   "definition": "a metallic tapping sound",
+   "hypernyms": [
+    "sound"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "tick.n.01",
+   "synonyms": [
+    "tick",
+    "ticking"
+   ]
+  },
+  "CN_conversant": {
+   "definition": "(usually followed by `with') well informed about or knowing thoroughly",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "conversant.s.01",
+   "synonyms": [
+    "conversant",
+    "familiar"
+   ]
+  },
+  "CN_conversion_reaction": {
+   "definition": "a mental disorder characterized by the conversion of mental conflict into somatic forms (into paralysis or anesthesia having no apparent cause)",
+   "hypernyms": [
+    "mental_disorder",
+    "mental_disturbance",
+    "disturbance",
+    "psychological_disorder",
+    "folie"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "conversion_disorder.n.01",
+   "synonyms": [
+    "conversion_disorder",
+    "conversion_reaction",
+    "conversion_hysteria"
+   ]
+  },
+  "CN_cost_accounting": {
+   "definition": "keeping account of the costs of items in production",
+   "hypernyms": [
+    "accountancy",
+    "accounting"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cost_accounting.n.01",
+   "synonyms": [
+    "cost_accounting"
+   ]
+  },
+  "CN_counted": {
+   "definition": "determine the number or amount of",
+   "hypernyms": [
+    "determine",
+    "find",
+    "find_out",
+    "ascertain"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "count.v.01",
+   "synonyms": [
+    "count",
+    "number",
+    "enumerate",
+    "numerate"
+   ]
+  },
+  "CN_counter_drill": {
+   "definition": "a tool with a sharp point and cutting edges for making holes in hard materials (usually rotating rapidly or by repeated blows)",
+   "hypernyms": [
+    "tool"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "drill.n.01",
+   "synonyms": [
+    "drill"
+   ]
+  },
+  "CN_create_electricity": {
+   "definition": "a physical phenomenon associated with stationary or moving electrons and protons",
+   "hypernyms": [
+    "physical_phenomenon"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "electricity.n.01",
+   "synonyms": [
+    "electricity"
+   ]
+  },
+  "CN_crestless_wave": {
+   "definition": "the undulating movement of the surface of the open sea",
+   "hypernyms": [
+    "wave",
+    "moving_ridge"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "swell.n.01",
+   "synonyms": [
+    "swell",
+    "crestless_wave"
+   ]
+  },
+  "CN_crex_crex": {
+   "definition": "common Eurasian rail that frequents grain fields",
+   "hypernyms": [
+    "crake"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "corncrake.n.01",
+   "synonyms": [
+    "corncrake",
+    "land_rail",
+    "Crex_crex"
+   ]
+  },
+  "CN_cryogenic": {
+   "definition": "of or relating to very low temperatures",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "cryogenic.a.01",
+   "synonyms": [
+    "cryogenic"
+   ]
+  },
+  "CN_curvilineal": {
+   "definition": "characterized by or following a curved line",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "curvilineal.s.01",
+   "synonyms": [
+    "curvilineal",
+    "curvilinear"
+   ]
+  },
+  "CN_cushions": {
+   "definition": "a mechanical damper; absorbs energy of sudden impulses",
+   "hypernyms": [
+    "damper",
+    "muffler"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "shock_absorber.n.01",
+   "synonyms": [
+    "shock_absorber",
+    "shock",
+    "cushion"
+   ]
+  },
+  "CN_cut_steel": {
+   "definition": "an alloy of iron with small amounts of carbon; widely used in construction; mechanical properties can be varied over a wide range",
+   "hypernyms": [
+    "alloy",
+    "metal"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "steel.n.01",
+   "synonyms": [
+    "steel"
+   ]
+  },
+  "CN_cylix": {
+   "definition": "a shallow drinking cup with two handles; used in ancient Greece",
+   "hypernyms": [
+    "cup"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "kylix.n.01",
+   "synonyms": [
+    "kylix",
+    "cylix"
+   ]
+  },
+  "CN_cypripedium_californicum": {
+   "definition": "often having many yellow-green orchids with white pouches growing along streams and seeps of southwestern Oregon and northern California",
+   "hypernyms": [
+    "lady's_slipper",
+    "lady-slipper",
+    "ladies'_slipper",
+    "slipper_orchid"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "california_lady's_slipper.n.01",
+   "synonyms": [
+    "California_lady's_slipper",
+    "Cypripedium_californicum"
+   ]
+  },
+  "CN_dark_damp_places": {
+   "definition": "a point located with respect to surface features of some region",
+   "hypernyms": [
+    "point"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "topographic_point.n.01",
+   "synonyms": [
+    "topographic_point",
+    "place",
+    "spot"
+   ]
+  },
+  "CN_date_artifact": {
+   "definition": "a man-made object taken as a whole",
+   "hypernyms": [
+    "whole",
+    "unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "artifact.n.01",
+   "synonyms": [
+    "artifact",
+    "artefact"
+   ]
+  },
+  "CN_david_cameron": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_deceiving": {
+   "definition": "be false to; be dishonest with",
+   "hypernyms": [
+    "victimize",
+    "victimise"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "deceive.v.01",
+   "synonyms": [
+    "deceive",
+    "lead_on",
+    "delude",
+    "cozen"
+   ]
+  },
+  "CN_deeper_voice_than_soprano": {
+   "definition": "a female singer",
+   "hypernyms": [
+    "singer",
+    "vocalist",
+    "vocalizer",
+    "vocaliser"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "soprano.n.01",
+   "synonyms": [
+    "soprano"
+   ]
+  },
+  "CN_defective_pleading": {
+   "definition": "any pleading that fails to conform in form or substance to minimum standards of accuracy or sufficiency",
+   "hypernyms": [
+    "pleading"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "defective_pleading.n.01",
+   "synonyms": [
+    "defective_pleading"
+   ]
+  },
+  "CN_defenestration": {
+   "definition": "the act of throwing someone or something out of a window",
+   "hypernyms": [
+    "ejection",
+    "exclusion",
+    "expulsion",
+    "riddance"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "defenestration.n.01",
+   "synonyms": [
+    "defenestration"
+   ]
+  },
+  "CN_degrease": {
+   "definition": "remove grease or oil from (a pan)",
+   "hypernyms": [
+    "get_rid_of",
+    "remove"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "degrease.v.01",
+   "synonyms": [
+    "degrease"
+   ]
+  },
+  "CN_deionize": {
+   "definition": "remove ions from",
+   "hypernyms": [
+    "get_rid_of",
+    "remove"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "deionize.v.01",
+   "synonyms": [
+    "deionize"
+   ]
+  },
+  "CN_delicatessen_counter": {
+   "definition": "table consisting of a horizontal surface over which business is transacted",
+   "hypernyms": [
+    "table"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "counter.n.01",
+   "synonyms": [
+    "counter"
+   ]
+  },
+  "CN_demasculinize": {
+   "definition": "remove the testicles of a male animal",
+   "hypernyms": [
+    "sterilize",
+    "sterilise",
+    "desex",
+    "unsex",
+    "desexualize",
+    "desexualise",
+    "fix"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "emasculate.v.02",
+   "synonyms": [
+    "emasculate",
+    "castrate",
+    "demasculinize",
+    "demasculinise"
+   ]
+  },
+  "CN_dental_chair": {
+   "definition": "a seat for one person, with a support for the back",
+   "hypernyms": [
+    "seat"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "chair.n.01",
+   "synonyms": [
+    "chair"
+   ]
+  },
+  "CN_derv": {
+   "definition": "diesel oil used in cars and lorries with diesel engines; from d(iesel) e(ngine) r(oad) v(ehicle)",
+   "hypernyms": [
+    "diesel_oil",
+    "diesel_fuel"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "derv.n.01",
+   "synonyms": [
+    "derv"
+   ]
+  },
+  "CN_despotically": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_destress": {
+   "definition": "reduce the emphasis",
+   "hypernyms": [
+    "change",
+    "alter",
+    "modify"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "de-emphasize.v.01",
+   "synonyms": [
+    "de-emphasize",
+    "de-emphasise",
+    "destress"
+   ]
+  },
+  "CN_destroyer_escort": {
+   "definition": "warship smaller than a destroyer; designed to escort fleets or convoys",
+   "hypernyms": [
+    "warship",
+    "war_vessel",
+    "combat_ship"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "destroyer_escort.n.01",
+   "synonyms": [
+    "destroyer_escort"
+   ]
+  },
+  "CN_dialectics": {
+   "definition": "a rationale for dialectical materialism based on change through the conflict of opposing forces",
+   "hypernyms": [
+    "rationale",
+    "principle"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "dialectics.n.01",
+   "synonyms": [
+    "dialectics"
+   ]
+  },
+  "CN_digital_to_analog_converter": {
+   "definition": "a device for changing one substance or form or state into another",
+   "hypernyms": [
+    "device"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "converter.n.01",
+   "synonyms": [
+    "converter",
+    "convertor"
+   ]
+  },
+  "CN_dinner_set": {
+   "definition": "a table service for serving dinner",
+   "hypernyms": [
+    "service",
+    "table_service"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "dinner_service.n.01",
+   "synonyms": [
+    "dinner_service",
+    "dinner_set"
+   ]
+  },
+  "CN_dire_straits": {
+   "definition": "a state of extreme distress",
+   "hypernyms": [
+    "pass",
+    "strait",
+    "straits"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "desperate_straits.n.01",
+   "synonyms": [
+    "desperate_straits",
+    "dire_straits"
+   ]
+  },
+  "CN_disability_insurance": {
+   "definition": "social insurance for the disabled",
+   "hypernyms": [
+    "social_insurance"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "disability_insurance.n.01",
+   "synonyms": [
+    "disability_insurance"
+   ]
+  },
+  "CN_display_cabinets": {
+   "definition": "a piece of furniture resembling a cupboard with doors and shelves and drawers; for storage or display",
+   "hypernyms": [
+    "furniture",
+    "piece_of_furniture",
+    "article_of_furniture"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "cabinet.n.01",
+   "synonyms": [
+    "cabinet"
+   ]
+  },
+  "CN_dogs_tooth_check": {
+   "definition": "a written order directing a bank to pay money",
+   "hypernyms": [
+    "draft",
+    "bill_of_exchange",
+    "order_of_payment"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "check.n.01",
+   "synonyms": [
+    "check",
+    "bank_check",
+    "cheque"
+   ]
+  },
+  "CN_doing_housework_house": {
+   "definition": "a dwelling that serves as living quarters for one or more families",
+   "hypernyms": [
+    "building",
+    "edifice",
+    "dwelling",
+    "home",
+    "domicile",
+    "abode",
+    "habitation",
+    "dwelling_house"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "house.n.01",
+   "synonyms": [
+    "house"
+   ]
+  },
+  "CN_double_team": {
+   "definition": "a cooperative unit (especially in sports)",
+   "hypernyms": [
+    "unit",
+    "social_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "team.n.01",
+   "synonyms": [
+    "team",
+    "squad"
+   ]
+  },
+  "CN_dsph": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_dunk_shot": {
+   "definition": "a basketball shot in which the basketball is propelled downward into the basket",
+   "hypernyms": [
+    "basketball_shot"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "dunk.n.01",
+   "synonyms": [
+    "dunk",
+    "dunk_shot",
+    "stuff_shot"
+   ]
+  },
+  "CN_dustmop": {
+   "definition": "a dry swab for dusting floors",
+   "hypernyms": [
+    "swab",
+    "swob",
+    "mop"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "dustmop.n.01",
+   "synonyms": [
+    "dustmop",
+    "dust_mop",
+    "dry_mop"
+   ]
+  },
+  "CN_earn_tips": {
+   "definition": "the extreme end of something; especially something pointed",
+   "hypernyms": [
+    "end",
+    "terminal"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "tip.n.01",
+   "synonyms": [
+    "tip"
+   ]
+  },
+  "CN_eat_kosher_food": {
+   "definition": "any substance that can be metabolized by an animal to give energy and build tissue",
+   "hypernyms": [
+    "substance"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "food.n.01",
+   "synonyms": [
+    "food",
+    "nutrient"
+   ]
+  },
+  "CN_eaten_with_hot_dogs": {
+   "definition": "a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds",
+   "hypernyms": [
+    "domestic_animal",
+    "domesticated_animal",
+    "canine",
+    "canid"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "dog.n.01",
+   "synonyms": [
+    "dog",
+    "domestic_dog",
+    "Canis_familiaris"
+   ]
+  },
+  "CN_ecclesiast": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_egyptian_islamic_jihad": {
+   "definition": "an Islamic extremist group active since the late 1970s; seeks to overthrow the Egyptian government and replace it with an Islamic state; works in small underground cells",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "al-jihad.n.01",
+   "synonyms": [
+    "al-Jihad",
+    "Egyptian_Islamic_Jihad",
+    "Islamic_Jihad",
+    "Vanguards_of_Conquest"
+   ]
+  },
+  "CN_egyptian_onion": {
+   "definition": "type of perennial onion grown chiefly as a curiosity or for early salad onions; having bulbils that replace the flowers",
+   "hypernyms": [
+    "onion",
+    "onion_plant",
+    "Allium_cepa"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "tree_onion.n.01",
+   "synonyms": [
+    "tree_onion",
+    "Egyptian_onion",
+    "top_onion",
+    "Allium_cepa_viviparum"
+   ]
+  },
+  "CN_eka_boron": {
+   "definition": "a trivalent metalloid element; occurs both in a hard black crystal and in the form of a yellow or brown powder",
+   "hypernyms": [
+    "chemical_element",
+    "element"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "boron.n.01",
+   "synonyms": [
+    "boron",
+    "B",
+    "atomic_number_5"
+   ]
+  },
+  "CN_engaging_mind": {
+   "definition": "that which is responsible for one's thoughts and feelings; the seat of the faculty of reason",
+   "hypernyms": [
+    "cognition",
+    "knowledge",
+    "noesis"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "mind.n.01",
+   "synonyms": [
+    "mind",
+    "head",
+    "brain",
+    "psyche",
+    "nous"
+   ]
+  },
+  "CN_engrossing": {
+   "definition": "devote (oneself) fully to",
+   "hypernyms": [
+    "concentrate",
+    "focus",
+    "center",
+    "centre",
+    "pore",
+    "rivet"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "steep.v.01",
+   "synonyms": [
+    "steep",
+    "immerse",
+    "engulf",
+    "plunge",
+    "engross",
+    "absorb",
+    "soak_up"
+   ]
+  },
+  "CN_enlarge_print": {
+   "definition": "the text appearing in a book, newspaper, or other printed publication",
+   "hypernyms": [
+    "written_communication",
+    "written_language",
+    "black_and_white"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "print.n.01",
+   "synonyms": [
+    "print"
+   ]
+  },
+  "CN_ensuite_room": {
+   "definition": "an area within a building enclosed by walls and floor and ceiling",
+   "hypernyms": [
+    "area"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "room.n.01",
+   "synonyms": [
+    "room"
+   ]
+  },
+  "CN_entrails": {
+   "definition": "internal organs collectively (especially those in the abdominal cavity)",
+   "hypernyms": [
+    "internal_organ",
+    "viscus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "viscera.n.01",
+   "synonyms": [
+    "viscera",
+    "entrails",
+    "innards"
+   ]
+  },
+  "CN_epithelial_duct": {
+   "definition": "a bodily passage or tube lined with epithelial cells and conveying a secretion or other substance",
+   "hypernyms": [
+    "passage",
+    "passageway"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "duct.n.01",
+   "synonyms": [
+    "duct",
+    "epithelial_duct",
+    "canal",
+    "channel"
+   ]
+  },
+  "CN_equal_and_opposite_reaction": {
+   "definition": "(chemistry) a process in which one or more substances are changed into others",
+   "hypernyms": [
+    "chemical_process",
+    "chemical_change",
+    "chemical_action"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "chemical_reaction.n.01",
+   "synonyms": [
+    "chemical_reaction",
+    "reaction"
+   ]
+  },
+  "CN_essonite": {
+   "definition": "a garnet ranging in color from yellow to brown",
+   "hypernyms": [
+    "garnet"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cinnamon_stone.n.01",
+   "synonyms": [
+    "cinnamon_stone",
+    "essonite",
+    "hessonite"
+   ]
+  },
+  "CN_every_so_often": {
+   "definition": "occasionally",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "every_so_often.r.01",
+   "synonyms": [
+    "every_so_often",
+    "every_now_and_then"
+   ]
+  },
+  "CN_exordium": {
+   "definition": "(rhetoric) the introductory section of an oration or discourse",
+   "hypernyms": [
+    "introduction"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "exordium.n.01",
+   "synonyms": [
+    "exordium"
+   ]
+  },
+  "CN_extended_order": {
+   "definition": "a military formation for skirmishing; as widely separated as the tactical situation permits",
+   "hypernyms": [
+    "military_formation"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "extended_order.n.01",
+   "synonyms": [
+    "extended_order"
+   ]
+  },
+  "CN_fae": {
+   "definition": "a device consisting of a container of fuel and two explosive charges; the first charge bursts open the fuel container at a predetermined height and spreads the fuel in a cloud that mixes with atmospheric oxygen; the second charge detonates the cloud which creates an enormous blast wave and incinerates whatever is below",
+   "hypernyms": [
+    "explosive_device"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "fuel-air_explosive.n.01",
+   "synonyms": [
+    "fuel-air_explosive",
+    "FAE"
+   ]
+  },
+  "CN_family_cardiidae": {
+   "definition": "somewhat heart-shaped sand-burrowing bivalve mollusks",
+   "hypernyms": [
+    "mollusk_family"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cardiidae.n.01",
+   "synonyms": [
+    "Cardiidae",
+    "family_Cardiidae"
+   ]
+  },
+  "CN_family_coerebidae": {
+   "definition": "the honeycreepers",
+   "hypernyms": [
+    "bird_family"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "coerebidae.n.01",
+   "synonyms": [
+    "Coerebidae",
+    "family_Coerebidae",
+    "Dacninae",
+    "family_Dacninae"
+   ]
+  },
+  "CN_family_congridae": {
+   "definition": "marine eels",
+   "hypernyms": [
+    "fish_family"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "congridae.n.01",
+   "synonyms": [
+    "Congridae",
+    "family_Congridae"
+   ]
+  },
+  "CN_family_leporidae": {
+   "definition": "hares and rabbits",
+   "hypernyms": [
+    "mammal_family"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "leporidae.n.01",
+   "synonyms": [
+    "Leporidae",
+    "family_Leporidae"
+   ]
+  },
+  "CN_family_myliobatidae": {
+   "definition": "eagle rays",
+   "hypernyms": [
+    "fish_family"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "myliobatidae.n.01",
+   "synonyms": [
+    "Myliobatidae",
+    "family_Myliobatidae"
+   ]
+  },
+  "CN_family_thiobacteriaceae": {
+   "definition": "free-living coccoid to rod-shaped bacteria that derive energy from oxidizing sulfur or sulfur compounds",
+   "hypernyms": [
+    "bacteria_family"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "thiobacteriaceae.n.01",
+   "synonyms": [
+    "Thiobacteriaceae",
+    "family_Thiobacteriaceae"
+   ]
+  },
+  "CN_family_to_survive": {
+   "definition": "continue to live through hardship or adversity",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "survive.v.01",
+   "synonyms": [
+    "survive",
+    "last",
+    "live",
+    "live_on",
+    "go",
+    "endure",
+    "hold_up",
+    "hold_out"
+   ]
+  },
+  "CN_farming_area": {
+   "definition": "a rural area where farming is practiced",
+   "hypernyms": [
+    "country",
+    "rural_area"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "farmland.n.01",
+   "synonyms": [
+    "farmland",
+    "farming_area"
+   ]
+  },
+  "CN_fast_walking": {
+   "definition": "the act of traveling by foot",
+   "hypernyms": [
+    "locomotion",
+    "travel"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "walk.n.01",
+   "synonyms": [
+    "walk",
+    "walking"
+   ]
+  },
+  "CN_father's_pistol": {
+   "definition": "a firearm that is held and fired with one hand",
+   "hypernyms": [
+    "firearm",
+    "piece",
+    "small-arm"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pistol.n.01",
+   "synonyms": [
+    "pistol",
+    "handgun",
+    "side_arm",
+    "shooting_iron"
+   ]
+  },
+  "CN_feebly": {
+   "definition": "in a faint and feeble manner",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "feebly.r.01",
+   "synonyms": [
+    "feebly"
+   ]
+  },
+  "CN_feed_multitudes": {
+   "definition": "a large indefinite number",
+   "hypernyms": [
+    "large_indefinite_quantity",
+    "large_indefinite_amount"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "battalion.n.02",
+   "synonyms": [
+    "battalion",
+    "large_number",
+    "multitude",
+    "plurality",
+    "pack"
+   ]
+  },
+  "CN_feeding_bottles": {
+   "definition": "a vessel fitted with a flexible teat and filled with milk or formula; used as a substitute for breast feeding infants and very young children",
+   "hypernyms": [
+    "vessel"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "bottle.n.03",
+   "synonyms": [
+    "bottle",
+    "feeding_bottle",
+    "nursing_bottle"
+   ]
+  },
+  "CN_feel_happy": {
+   "definition": "enjoying or showing or marked by joy or pleasure",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "happy.a.01",
+   "synonyms": [
+    "happy"
+   ]
+  },
+  "CN_ferrocerium": {
+   "definition": "a pyrophoric alloy of iron with cerium; used for lighter flints",
+   "hypernyms": [
+    "pyrophoric_alloy"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ferrocerium.n.01",
+   "synonyms": [
+    "ferrocerium"
+   ]
+  },
+  "CN_field_question": {
+   "definition": "an instance of questioning",
+   "hypernyms": [
+    "questioning",
+    "inquiring"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "question.n.01",
+   "synonyms": [
+    "question",
+    "inquiry",
+    "enquiry",
+    "query",
+    "interrogation"
+   ]
+  },
+  "CN_find_funny": {
+   "definition": "an account of an amusing incident (usually with a punch line)",
+   "hypernyms": [
+    "joke",
+    "gag",
+    "laugh",
+    "jest",
+    "jape"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "funny_story.n.01",
+   "synonyms": [
+    "funny_story",
+    "good_story",
+    "funny_remark",
+    "funny"
+   ]
+  },
+  "CN_finger_bar": {
+   "definition": "a room or establishment where alcoholic drinks are served over a counter",
+   "hypernyms": [
+    "room"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "barroom.n.01",
+   "synonyms": [
+    "barroom",
+    "bar",
+    "saloon",
+    "ginmill",
+    "taproom"
+   ]
+  },
+  "CN_firth_of_clyde": {
+   "definition": "a firth on the southwestern coast of Scotland emptying into the North Channel",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "firth_of_clyde.n.01",
+   "synonyms": [
+    "Firth_of_Clyde"
+   ]
+  },
+  "CN_fish_good_to_eat": {
+   "definition": "take in solid food",
+   "hypernyms": [
+    "eat",
+    "consume",
+    "ingest",
+    "take_in",
+    "take",
+    "have"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "eat.v.01",
+   "synonyms": [
+    "eat"
+   ]
+  },
+  "CN_fish_tanks": {
+   "definition": "a tank or pool or bowl filled with water for keeping live fish and underwater animals",
+   "hypernyms": [
+    "tank",
+    "storage_tank",
+    "vivarium"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "aquarium.n.01",
+   "synonyms": [
+    "aquarium",
+    "fish_tank",
+    "marine_museum"
+   ]
+  },
+  "CN_florida_pompano": {
+   "definition": "found in coastal waters New England to Brazil except clear waters of West Indies",
+   "hypernyms": [
+    "pompano"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "florida_pompano.n.01",
+   "synonyms": [
+    "Florida_pompano",
+    "Trachinotus_carolinus"
+   ]
+  },
+  "CN_flowering_glume": {
+   "definition": "the lower and stouter of the two glumes immediately enclosing the floret in most Gramineae",
+   "hypernyms": [
+    "glume"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "lemma.n.02",
+   "synonyms": [
+    "lemma",
+    "flowering_glume"
+   ]
+  },
+  "CN_footbath": {
+   "definition": "a small bathtub for warming or washing or disinfecting the feet",
+   "hypernyms": [
+    "bathtub",
+    "bathing_tub",
+    "bath",
+    "tub"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "footbath.n.01",
+   "synonyms": [
+    "footbath"
+   ]
+  },
+  "CN_forgetting_to_pack": {
+   "definition": "a large indefinite number",
+   "hypernyms": [
+    "large_indefinite_quantity",
+    "large_indefinite_amount"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "battalion.n.02",
+   "synonyms": [
+    "battalion",
+    "large_number",
+    "multitude",
+    "plurality",
+    "pack"
+   ]
+  },
+  "CN_framed": {
+   "definition": "enclose in or as if in a frame",
+   "hypernyms": [
+    "enclose",
+    "close_in",
+    "inclose",
+    "shut_in"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "frame.v.01",
+   "synonyms": [
+    "frame",
+    "frame_in",
+    "border"
+   ]
+  },
+  "CN_freight_rate": {
+   "definition": "the charge for transporting something by common carrier",
+   "hypernyms": [
+    "rate",
+    "charge_per_unit"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "freight.n.03",
+   "synonyms": [
+    "freight",
+    "freightage",
+    "freight_rate"
+   ]
+  },
+  "CN_frontward": {
+   "definition": "at or to or toward the front; ; ; ; (`forrad' and `forrard' are dialectal variations)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "forward.r.01",
+   "synonyms": [
+    "forward",
+    "forwards",
+    "frontward",
+    "frontwards",
+    "forrad",
+    "forrard"
+   ]
+  },
+  "CN_full_faith_and_credit": {
+   "definition": "a guarantee to pay interest and principal on debt; usually issued by the United States Treasury",
+   "hypernyms": [
+    "guarantee"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "full_faith_and_credit.n.01",
+   "synonyms": [
+    "full_faith_and_credit"
+   ]
+  },
+  "CN_galilean_telescope": {
+   "definition": "a type of refracting telescope that is no longer used in astronomy",
+   "hypernyms": [
+    "refracting_telescope"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "galilean_telescope.n.01",
+   "synonyms": [
+    "Galilean_telescope"
+   ]
+  },
+  "CN_gas_bomb": {
+   "definition": "a bomb laden with chemical agents that are released when the bomb explodes",
+   "hypernyms": [
+    "bomb",
+    "chemical_weapon"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "chemical_bomb.n.01",
+   "synonyms": [
+    "chemical_bomb",
+    "gas_bomb"
+   ]
+  },
+  "CN_gate_crashes": {
+   "definition": "a loud resonant repeating noise",
+   "hypernyms": [
+    "noise"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "clang.n.01",
+   "synonyms": [
+    "clang",
+    "clangor",
+    "clangour",
+    "clangoring",
+    "clank",
+    "clash",
+    "crash"
+   ]
+  },
+  "CN_gather_clan": {
+   "definition": "group of people related by blood or marriage",
+   "hypernyms": [
+    "social_group"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "kin.n.02",
+   "synonyms": [
+    "kin",
+    "kin_group",
+    "kinship_group",
+    "kindred",
+    "clan",
+    "tribe"
+   ]
+  },
+  "CN_gather_energy_for_tomorrow": {
+   "definition": "the day after today",
+   "hypernyms": [
+    "day",
+    "twenty-four_hours",
+    "twenty-four_hour_period",
+    "24-hour_interval",
+    "solar_day",
+    "mean_solar_day"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "tomorrow.n.01",
+   "synonyms": [
+    "tomorrow"
+   ]
+  },
+  "CN_gather_no_moss": {
+   "definition": "tiny leafy-stemmed flowerless plants",
+   "hypernyms": [
+    "bryophyte",
+    "nonvascular_plant"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "moss.n.01",
+   "synonyms": [
+    "moss"
+   ]
+  },
+  "CN_generics": {
+   "definition": "a wine that is a blend of several varieties of grapes with no one grape predominating; a wine that does not carry the name of any specific grape",
+   "hypernyms": [
+    "wine",
+    "vino"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "generic.n.01",
+   "synonyms": [
+    "generic",
+    "generic_wine"
+   ]
+  },
+  "CN_genus_agave": {
+   "definition": "type genus of the Agavaceae; in some classifications considered a genus of Amaryllidaceae",
+   "hypernyms": [
+    "liliid_monocot_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "genus_agave.n.01",
+   "synonyms": [
+    "genus_Agave"
+   ]
+  },
+  "CN_genus_canna": {
+   "definition": "type and sole genus of the Cannaceae: perennial lily-like herbs of New World tropics",
+   "hypernyms": [
+    "monocot_genus",
+    "liliopsid_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "genus_canna.n.01",
+   "synonyms": [
+    "genus_Canna"
+   ]
+  },
+  "CN_genus_charadrius": {
+   "definition": "type genus of the Charadriidae: plovers",
+   "hypernyms": [
+    "bird_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "charadrius.n.01",
+   "synonyms": [
+    "Charadrius",
+    "genus_Charadrius"
+   ]
+  },
+  "CN_genus_gastrophryne": {
+   "definition": "primarily tropical narrow-mouthed toads",
+   "hypernyms": [
+    "amphibian_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "gastrophryne.n.01",
+   "synonyms": [
+    "Gastrophryne",
+    "genus_Gastrophryne"
+   ]
+  },
+  "CN_genus_harrisia": {
+   "definition": "genus of slender often treelike spiny cacti with solitary showy nocturnal white or pink flowers; Florida and Caribbean to South America",
+   "hypernyms": [
+    "caryophylloid_dicot_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "harrisia.n.01",
+   "synonyms": [
+    "Harrisia",
+    "genus_Harrisia"
+   ]
+  },
+  "CN_genus_helleborus": {
+   "definition": "a genus of Helleborus",
+   "hypernyms": [
+    "magnoliid_dicot_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "helleborus.n.01",
+   "synonyms": [
+    "Helleborus",
+    "genus_Helleborus"
+   ]
+  },
+  "CN_genus_hibbertia": {
+   "definition": "evergreen heathlike or scandent shrubs of Madagascar; Australasia; Polynesia",
+   "hypernyms": [
+    "dilleniid_dicot_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "hibbertia.n.01",
+   "synonyms": [
+    "Hibbertia",
+    "genus_Hibbertia"
+   ]
+  },
+  "CN_genus_numida": {
+   "definition": "guinea fowl",
+   "hypernyms": [
+    "bird_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "numida.n.01",
+   "synonyms": [
+    "Numida",
+    "genus_Numida"
+   ]
+  },
+  "CN_genus_oryza": {
+   "definition": "rice",
+   "hypernyms": [
+    "monocot_genus",
+    "liliopsid_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "oryza.n.01",
+   "synonyms": [
+    "Oryza",
+    "genus_Oryza"
+   ]
+  },
+  "CN_genus_philohela": {
+   "definition": "American woodcocks",
+   "hypernyms": [
+    "bird_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "philohela.n.01",
+   "synonyms": [
+    "Philohela",
+    "genus_Philohela"
+   ]
+  },
+  "CN_genus_sansevieria": {
+   "definition": "Old World tropical herbaceous perennial of the agave family; in some classifications considered a genus of Liliaceae",
+   "hypernyms": [
+    "liliid_monocot_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "genus_sansevieria.n.01",
+   "synonyms": [
+    "genus_Sansevieria"
+   ]
+  },
+  "CN_get_at_able": {
+   "definition": "(usually followed by `to') having the necessary means or skill or know-how or authority to do something",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "able.a.01",
+   "synonyms": [
+    "able"
+   ]
+  },
+  "CN_getting_hair_styled": {
+   "definition": "designate by an identifying term",
+   "hypernyms": [
+    "name",
+    "call"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "style.v.01",
+   "synonyms": [
+    "style",
+    "title"
+   ]
+  },
+  "CN_glamour_photography": {
+   "definition": "the act of taking and printing photographs",
+   "hypernyms": [
+    "pictorial_representation",
+    "picturing"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "photography.n.01",
+   "synonyms": [
+    "photography",
+    "picture_taking"
+   ]
+  },
+  "CN_goat's_foot": {
+   "definition": "the part of the leg of a human being below the ankle joint",
+   "hypernyms": [
+    "vertebrate_foot",
+    "pedal_extremity"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "foot.n.01",
+   "synonyms": [
+    "foot",
+    "human_foot",
+    "pes"
+   ]
+  },
+  "CN_goddaughter": {
+   "definition": "a female godchild",
+   "hypernyms": [
+    "godchild"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "goddaughter.n.01",
+   "synonyms": [
+    "goddaughter"
+   ]
+  },
+  "CN_good_tempered": {
+   "definition": "bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling",
+   "hypernyms": [
+    "harden",
+    "indurate"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "anneal.v.01",
+   "synonyms": [
+    "anneal",
+    "temper",
+    "normalize"
+   ]
+  },
+  "CN_gormandize": {
+   "definition": "overeat or eat immodestly; make a pig of oneself",
+   "hypernyms": [
+    "eat"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "gorge.v.01",
+   "synonyms": [
+    "gorge",
+    "ingurgitate",
+    "overindulge",
+    "glut",
+    "englut",
+    "stuff",
+    "engorge",
+    "overgorge",
+    "overeat",
+    "gormandize",
+    "gormandise",
+    "gourmandize",
+    "binge",
+    "pig_out",
+    "satiate",
+    "scarf_out"
+   ]
+  },
+  "CN_got_flu": {
+   "definition": "an acute febrile highly contagious viral disease",
+   "hypernyms": [
+    "respiratory_disease",
+    "respiratory_illness",
+    "respiratory_disorder",
+    "contagious_disease",
+    "contagion"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "influenza.n.01",
+   "synonyms": [
+    "influenza",
+    "flu",
+    "grippe"
+   ]
+  },
+  "CN_gray_sage": {
+   "definition": "low much-branched perennial of western United States having silvery leaves; an important browse and shelter plant",
+   "hypernyms": [
+    "sagebrush",
+    "sage_brush"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "silver_sage.n.01",
+   "synonyms": [
+    "silver_sage",
+    "silver_sagebrush",
+    "grey_sage",
+    "gray_sage",
+    "Seriphidium_canum",
+    "Artemisia_cana"
+   ]
+  },
+  "CN_gray_wolf": {
+   "definition": "a wolf with a brindled grey coat living in forested northern regions of North America",
+   "hypernyms": [
+    "wolf"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "timber_wolf.n.01",
+   "synonyms": [
+    "timber_wolf",
+    "grey_wolf",
+    "gray_wolf",
+    "Canis_lupus"
+   ]
+  },
+  "CN_greaser": {
+   "definition": "(ethnic slur) offensive term for a person of Mexican descent",
+   "hypernyms": [
+    "Mexican"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "greaser.n.01",
+   "synonyms": [
+    "greaser",
+    "wetback",
+    "taco"
+   ]
+  },
+  "CN_grenada_dollar": {
+   "definition": "the basic unit of money in Grenada",
+   "hypernyms": [
+    "dollar"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "grenada_dollar.n.01",
+   "synonyms": [
+    "Grenada_dollar"
+   ]
+  },
+  "CN_grinding_things": {
+   "definition": "any movable possession (especially articles of clothing)",
+   "hypernyms": [
+    "property",
+    "belongings",
+    "holding"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "things.n.01",
+   "synonyms": [
+    "things"
+   ]
+  },
+  "CN_guilt_trip": {
+   "definition": "remorse caused by feeling responsible for some offense",
+   "hypernyms": [
+    "compunction",
+    "remorse",
+    "self-reproach"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "guilt.n.02",
+   "synonyms": [
+    "guilt",
+    "guilty_conscience",
+    "guilt_feelings",
+    "guilt_trip"
+   ]
+  },
+  "CN_guinea_gold_vine": {
+   "definition": "any of several Australasian evergreen vines widely cultivated in warm regions for their large bright yellow single flowers",
+   "hypernyms": [
+    "shrub",
+    "bush"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "guinea_gold_vine.n.01",
+   "synonyms": [
+    "guinea_gold_vine",
+    "guinea_flower"
+   ]
+  },
+  "CN_gulf_of_aqaba": {
+   "definition": "a northeastern arm of the Red Sea; between the Sinai Peninsula (Egypt) and Saudi Arabia",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "gulf_of_aqaba.n.01",
+   "synonyms": [
+    "Gulf_of_Aqaba",
+    "Gulf_of_Akaba"
+   ]
+  },
+  "CN_gun_barrel": {
+   "definition": "a tube through which a bullet travels when a gun is fired",
+   "hypernyms": [
+    "tube",
+    "tubing"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "barrel.n.01",
+   "synonyms": [
+    "barrel",
+    "gun_barrel"
+   ]
+  },
+  "CN_habenaria_unalascensis": {
+   "definition": "similar to coastal rein orchid but with smaller flowers; Alaska to Baja California and east to the Dakotas and Colorado",
+   "hypernyms": [
+    "rein_orchid",
+    "rein_orchis"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "alaska_rein_orchid.n.01",
+   "synonyms": [
+    "Alaska_rein_orchid",
+    "Habenaria_unalascensis"
+   ]
+  },
+  "CN_happy_event": {
+   "definition": "the live birth of a child",
+   "hypernyms": [
+    "live_birth"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "blessed_event.n.01",
+   "synonyms": [
+    "blessed_event",
+    "happy_event"
+   ]
+  },
+  "CN_hard_copy_of_document": {
+   "definition": "writing that provides information (especially information of an official nature)",
+   "hypernyms": [
+    "writing",
+    "written_material",
+    "piece_of_writing"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "document.n.01",
+   "synonyms": [
+    "document",
+    "written_document",
+    "papers"
+   ]
+  },
+  "CN_hard_exercise": {
+   "definition": "the activity of exerting your muscles in various ways to keep fit",
+   "hypernyms": [
+    "effort",
+    "elbow_grease",
+    "exertion",
+    "travail",
+    "sweat"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "exercise.n.01",
+   "synonyms": [
+    "exercise",
+    "exercising",
+    "physical_exercise",
+    "physical_exertion",
+    "workout"
+   ]
+  },
+  "CN_harley_street": {
+   "definition": "a street in central London where the consulting rooms of many physicians and surgeons are located",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "harley_street.n.01",
+   "synonyms": [
+    "Harley_Street"
+   ]
+  },
+  "CN_harpoon_gun": {
+   "definition": "a cannon or similar gun that fires harpoons",
+   "hypernyms": [
+    "cannon"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "harpoon_gun.n.01",
+   "synonyms": [
+    "harpoon_gun"
+   ]
+  },
+  "CN_has_gone_wrong": {
+   "definition": "that which is contrary to the principles of justice or law",
+   "hypernyms": [
+    "injustice",
+    "unjustness"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "wrong.n.01",
+   "synonyms": [
+    "wrong",
+    "wrongfulness"
+   ]
+  },
+  "CN_haul_off": {
+   "definition": "take away by means of a vehicle",
+   "hypernyms": [
+    "take_away",
+    "take_out"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cart_off.v.01",
+   "synonyms": [
+    "cart_off",
+    "cart_away",
+    "haul_off",
+    "haul_away"
+   ]
+  },
+  "CN_have_birthday_party": {
+   "definition": "an organization to gain political power",
+   "hypernyms": [
+    "organization",
+    "organisation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "party.n.01",
+   "synonyms": [
+    "party",
+    "political_party"
+   ]
+  },
+  "CN_having_finished_product": {
+   "definition": "commodities offered for sale",
+   "hypernyms": [
+    "commodity",
+    "trade_good",
+    "good"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "merchandise.n.01",
+   "synonyms": [
+    "merchandise",
+    "ware",
+    "product"
+   ]
+  },
+  "CN_head_linesman": {
+   "definition": "a football official in charge of recording yardage gained or lost",
+   "hypernyms": [
+    "football_official"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "head_linesman.n.01",
+   "synonyms": [
+    "head_linesman"
+   ]
+  },
+  "CN_healing_from_illness": {
+   "definition": "impairment of normal physiological function affecting part or all of an organism",
+   "hypernyms": [
+    "ill_health",
+    "unhealthiness",
+    "health_problem"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "illness.n.01",
+   "synonyms": [
+    "illness",
+    "unwellness",
+    "malady",
+    "sickness"
+   ]
+  },
+  "CN_heisenbugs": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_hematogenic": {
+   "definition": "pertaining to the formation of blood or blood cells",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "hematopoietic.a.01",
+   "synonyms": [
+    "hematopoietic",
+    "haematopoietic",
+    "hemopoietic",
+    "haemopoietic",
+    "hematogenic",
+    "haematogenic"
+   ]
+  },
+  "CN_henchman": {
+   "definition": "someone who assists in a plot",
+   "hypernyms": [
+    "accessory",
+    "accessary"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "confederate.n.02",
+   "synonyms": [
+    "confederate",
+    "collaborator",
+    "henchman",
+    "partner_in_crime"
+   ]
+  },
+  "CN_herbal_tea": {
+   "definition": "tea-like drink made of leaves of various herbs",
+   "hypernyms": [
+    "tea"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "herb_tea.n.01",
+   "synonyms": [
+    "herb_tea",
+    "herbal_tea",
+    "herbal"
+   ]
+  },
+  "CN_heroism": {
+   "definition": "the qualities of a hero or heroine; exceptional or heroic courage when facing danger (especially in battle)",
+   "hypernyms": [
+    "courage",
+    "courageousness",
+    "bravery",
+    "braveness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "heroism.n.01",
+   "synonyms": [
+    "heroism",
+    "gallantry",
+    "valor",
+    "valour",
+    "valorousness",
+    "valiance",
+    "valiancy"
+   ]
+  },
+  "CN_high_flown": {
+   "definition": "travel through the air; be airborne",
+   "hypernyms": [
+    "travel",
+    "go",
+    "move",
+    "locomote"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "fly.v.01",
+   "synonyms": [
+    "fly",
+    "wing"
+   ]
+  },
+  "CN_highways": {
+   "definition": "a major road for any form of motor transport",
+   "hypernyms": [
+    "road",
+    "route"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "highway.n.01",
+   "synonyms": [
+    "highway",
+    "main_road"
+   ]
+  },
+  "CN_hobbie": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_holding_animals": {
+   "definition": "a living organism characterized by voluntary movement",
+   "hypernyms": [
+    "organism",
+    "being"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "animal.n.01",
+   "synonyms": [
+    "animal",
+    "animate_being",
+    "beast",
+    "brute",
+    "creature",
+    "fauna"
+   ]
+  },
+  "CN_holding_bay": {
+   "definition": "an indentation of a shoreline larger than a cove but smaller than a gulf",
+   "hypernyms": [
+    "body_of_water",
+    "water"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "bay.n.01",
+   "synonyms": [
+    "bay",
+    "embayment"
+   ]
+  },
+  "CN_holding_checkbook": {
+   "definition": "a book issued to holders of checking accounts",
+   "hypernyms": [
+    "record"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "checkbook.n.01",
+   "synonyms": [
+    "checkbook",
+    "chequebook"
+   ]
+  },
+  "CN_honeyed_words": {
+   "definition": "inconsequential expressions of affection",
+   "hypernyms": [
+    "nothings"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sweet_nothings.n.01",
+   "synonyms": [
+    "sweet_nothings",
+    "honeyed_words"
+   ]
+  },
+  "CN_hoof_mark": {
+   "definition": "a visible impression on a surface made by the hoof of an animal",
+   "hypernyms": [
+    "mark",
+    "print"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "hoofprint.n.01",
+   "synonyms": [
+    "hoofprint",
+    "hoof_mark",
+    "hoof-mark"
+   ]
+  },
+  "CN_hot_rodder": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_hound_dog": {
+   "definition": "any of several breeds of dog used for hunting typically having large drooping ears",
+   "hypernyms": [
+    "hunting_dog"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "hound.n.01",
+   "synonyms": [
+    "hound",
+    "hound_dog"
+   ]
+  },
+  "CN_house_of_islam": {
+   "definition": "areas where Muslims are in the majority",
+   "hypernyms": [
+    "geographical_area",
+    "geographic_area",
+    "geographical_region",
+    "geographic_region"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "dar_al-islam.n.01",
+   "synonyms": [
+    "Dar_al-Islam",
+    "House_of_Islam"
+   ]
+  },
+  "CN_hundred_and_fifth": {
+   "definition": "a quantity of liquor equal to one fifth of a United States gallon",
+   "hypernyms": [
+    "United_States_liquid_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "fifth.n.01",
+   "synonyms": [
+    "fifth"
+   ]
+  },
+  "CN_hundred_and_sixty_fifth": {
+   "definition": "a quantity of liquor equal to one fifth of a United States gallon",
+   "hypernyms": [
+    "United_States_liquid_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "fifth.n.01",
+   "synonyms": [
+    "fifth"
+   ]
+  },
+  "CN_hungarian_grass": {
+   "definition": "coarse drought-resistant annual grass grown for grain, hay, and forage in Europe and Asia and chiefly for forage and hay in United States",
+   "hypernyms": [
+    "foxtail",
+    "foxtail_grass"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "foxtail_millet.n.01",
+   "synonyms": [
+    "foxtail_millet",
+    "Italian_millet",
+    "Hungarian_grass",
+    "Setaria_italica"
+   ]
+  },
+  "CN_hurting_others": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_i'm_hungry": {
+   "definition": "feeling hunger; feeling a need or desire to eat food",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "hungry.a.01",
+   "synonyms": [
+    "hungry"
+   ]
+  },
+  "CN_ibrd": {
+   "definition": "a United Nations agency created to assist developing nations by loans guaranteed by member governments",
+   "hypernyms": [
+    "United_Nations_agency",
+    "UN_agency"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "international_bank_for_reconstruction_and_development.n.01",
+   "synonyms": [
+    "International_Bank_for_Reconstruction_and_Development",
+    "World_Bank",
+    "IBRD"
+   ]
+  },
+  "CN_iliac": {
+   "definition": "of or relating to the ilium",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "iliac.a.01",
+   "synonyms": [
+    "iliac"
+   ]
+  },
+  "CN_illicit": {
+   "definition": "contrary to accepted morality (especially sexual morality) or convention",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "illicit.a.01",
+   "synonyms": [
+    "illicit"
+   ]
+  },
+  "CN_in_style": {
+   "definition": "in the current fashion or style",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "latest.s.02",
+   "synonyms": [
+    "latest",
+    "a_la_mode",
+    "in_style",
+    "in_vogue",
+    "modish"
+   ]
+  },
+  "CN_inbuilt": {
+   "definition": "existing as an essential constituent or characteristic",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "built-in.s.01",
+   "synonyms": [
+    "built-in",
+    "constitutional",
+    "inbuilt",
+    "inherent",
+    "integral"
+   ]
+  },
+  "CN_incorrectly": {
+   "definition": "in an incorrect manner",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "falsely.r.02",
+   "synonyms": [
+    "falsely",
+    "incorrectly"
+   ]
+  },
+  "CN_increasing_fairness": {
+   "definition": "conformity with rules or standards",
+   "hypernyms": [
+    "justice",
+    "justness"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "fairness.n.01",
+   "synonyms": [
+    "fairness",
+    "equity"
+   ]
+  },
+  "CN_incurably": {
+   "definition": "to an incurable degree",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "incurably.r.01",
+   "synonyms": [
+    "incurably"
+   ]
+  },
+  "CN_ink_on": {
+   "definition": "in operation or operational",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "on.a.01",
+   "synonyms": [
+    "on"
+   ]
+  },
+  "CN_inmarry": {
+   "definition": "marry within one's own tribe or group",
+   "hypernyms": [
+    "marry",
+    "get_married",
+    "wed",
+    "conjoin",
+    "hook_up_with",
+    "get_hitched_with",
+    "espouse"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "inmarry.v.01",
+   "synonyms": [
+    "inmarry"
+   ]
+  },
+  "CN_inuit": {
+   "definition": "a member of a people inhabiting the Arctic (northern Canada or Greenland or Alaska or eastern Siberia); the Algonquians called them Eskimo (`eaters of raw flesh') but they call themselves the Inuit (`the people')",
+   "hypernyms": [
+    "Indian",
+    "American_Indian",
+    "Red_Indian"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "eskimo.n.01",
+   "synonyms": [
+    "Eskimo",
+    "Esquimau",
+    "Inuit"
+   ]
+  },
+  "CN_investing_in_commercial_development": {
+   "definition": "act of improving by expanding or enlarging or refining",
+   "hypernyms": [
+    "improvement"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "development.n.01",
+   "synonyms": [
+    "development"
+   ]
+  },
+  "CN_investment_letter": {
+   "definition": "a letter of intent saying that a letter security is being bought for investment and not for resale; avoids need for SEC registration",
+   "hypernyms": [
+    "letter_of_intent"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "investment_letter.n.01",
+   "synonyms": [
+    "investment_letter"
+   ]
+  },
+  "CN_isherwood": {
+   "definition": "United States writer (born in England) whose best known novels portray Berlin in the 1930's and who collaborated with W. H. Auden in writing plays in verse (1904-1986)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "isherwood.n.01",
+   "synonyms": [
+    "Isherwood",
+    "Christopher_Isherwood",
+    "Christopher_William_Bradshaw_Isherwood"
+   ]
+  },
+  "CN_isostasy": {
+   "definition": "(geology) a general equilibrium of the forces tending to elevate or depress the earth's crust",
+   "hypernyms": [
+    "equilibrium"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "isostasy.n.01",
+   "synonyms": [
+    "isostasy"
+   ]
+  },
+  "CN_jestingly": {
+   "definition": "in jest",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "jokingly.r.01",
+   "synonyms": [
+    "jokingly",
+    "jestingly"
+   ]
+  },
+  "CN_jewlery_store": {
+   "definition": "a mercantile establishment for the retail sale of goods or services",
+   "hypernyms": [
+    "mercantile_establishment",
+    "retail_store",
+    "sales_outlet",
+    "outlet"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "shop.n.01",
+   "synonyms": [
+    "shop",
+    "store"
+   ]
+  },
+  "CN_joggers": {
+   "definition": "someone who runs a steady slow pace (usually for exercise)",
+   "hypernyms": [
+    "runner"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "jogger.n.01",
+   "synonyms": [
+    "jogger"
+   ]
+  },
+  "CN_johann_gutenberg": {
+   "definition": "German printer who was the first in Europe to print using movable type and the first to use a press (1400-1468)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "gutenberg.n.01",
+   "synonyms": [
+    "Gutenberg",
+    "Johann_Gutenberg",
+    "Johannes_Gutenberg"
+   ]
+  },
+  "CN_john_osborne": {
+   "definition": "English playwright (1929-1994)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "osborne.n.01",
+   "synonyms": [
+    "Osborne",
+    "John_Osborne",
+    "John_James_Osborne"
+   ]
+  },
+  "CN_john_wain": {
+   "definition": "English writer (1925-1994)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "wain.n.01",
+   "synonyms": [
+    "Wain",
+    "John_Wain",
+    "John_Barrington_Wain"
+   ]
+  },
+  "CN_john_wiclif": {
+   "definition": "English theologian whose objections to Roman Catholic doctrine anticipated the Protestant Reformation (1328-1384)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "wycliffe.n.01",
+   "synonyms": [
+    "Wycliffe",
+    "John_Wycliffe",
+    "Wickliffe",
+    "John_Wickliffe",
+    "Wyclif",
+    "John_Wyclif",
+    "Wiclif",
+    "John_Wiclif"
+   ]
+  },
+  "CN_just_now": {
+   "definition": "only a moment ago",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "just.r.03",
+   "synonyms": [
+    "just",
+    "just_now"
+   ]
+  },
+  "CN_kadikoy": {
+   "definition": "a former town on the Bosporus (now part of Istanbul); site of the Council of Chalcedon",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "chalcedon.n.01",
+   "synonyms": [
+    "Chalcedon",
+    "Kadikoy"
+   ]
+  },
+  "CN_karaya_gum": {
+   "definition": "exudate of an Asian tree; used for finishing textiles and to thicken foodstuffs and cosmetics",
+   "hypernyms": [
+    "gum"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sterculia_gum.n.01",
+   "synonyms": [
+    "sterculia_gum",
+    "karaya_gum"
+   ]
+  },
+  "CN_katharevusa": {
+   "definition": "literary style of Modern Greek containing features borrowed from Koine",
+   "hypernyms": [
+    "Modern_Greek",
+    "New_Greek"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "katharevusa.n.01",
+   "synonyms": [
+    "Katharevusa"
+   ]
+  },
+  "CN_kazoo": {
+   "definition": "a toy wind instrument that has a membrane that makes a sound when you hum into the mouthpiece",
+   "hypernyms": [
+    "wind_instrument",
+    "wind"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "kazoo.n.01",
+   "synonyms": [
+    "kazoo"
+   ]
+  },
+  "CN_keychain": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_kilo_watt": {
+   "definition": "a unit of power equal to 1 joule per second; the power dissipated by a current of 1 ampere flowing across a resistance of 1 ohm",
+   "hypernyms": [
+    "power_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "watt.n.01",
+   "synonyms": [
+    "watt",
+    "W"
+   ]
+  },
+  "CN_kinesis": {
+   "definition": "a movement that is a response to a stimulus but is not oriented with respect to the source of stimulation",
+   "hypernyms": [
+    "reaction",
+    "response"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "kinesis.n.01",
+   "synonyms": [
+    "kinesis"
+   ]
+  },
+  "CN_knuckles": {
+   "definition": "a small metal weapon; worn over the knuckles on the back of the hand",
+   "hypernyms": [
+    "weapon",
+    "arm",
+    "weapon_system"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "brass_knucks.n.01",
+   "synonyms": [
+    "brass_knucks",
+    "knucks",
+    "brass_knuckles",
+    "knuckles",
+    "knuckle_duster"
+   ]
+  },
+  "CN_ko_punch": {
+   "definition": "a hard punch that renders the opponent unable to continue boxing",
+   "hypernyms": [
+    "punch",
+    "clout",
+    "poke",
+    "lick",
+    "biff",
+    "slug"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "haymaker.n.02",
+   "synonyms": [
+    "haymaker",
+    "knockout_punch",
+    "KO_punch",
+    "Sunday_punch"
+   ]
+  },
+  "CN_kolonia": {
+   "definition": "capital of Micronesia",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "kolonia.n.01",
+   "synonyms": [
+    "Kolonia"
+   ]
+  },
+  "CN_korean_velvet_grass": {
+   "definition": "Asiatic creeping perennial grass; introduced in southern United States as a drought-resistant lawn grass",
+   "hypernyms": [
+    "zoysia"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "mascarene_grass.n.01",
+   "synonyms": [
+    "mascarene_grass",
+    "Korean_velvet_grass",
+    "Zoysia_tenuifolia"
+   ]
+  },
+  "CN_kosovar": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_kph": {
+   "definition": "the ratio of the distance traveled (in kilometers) to the time spent traveling (in hours)",
+   "hypernyms": [
+    "rate"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "kilometers_per_hour.n.01",
+   "synonyms": [
+    "kilometers_per_hour",
+    "kilometres_per_hour",
+    "kph",
+    "km/h"
+   ]
+  },
+  "CN_kshatriya": {
+   "definition": "a member of the royal or warrior Hindu caste",
+   "hypernyms": [
+    "Hindu",
+    "Hindoo",
+    "Hindustani"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "kshatriya.n.01",
+   "synonyms": [
+    "Kshatriya"
+   ]
+  },
+  "CN_laborious": {
+   "definition": "characterized by effort to the point of exhaustion; especially physical effort",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "arduous.s.01",
+   "synonyms": [
+    "arduous",
+    "backbreaking",
+    "grueling",
+    "gruelling",
+    "hard",
+    "heavy",
+    "laborious",
+    "operose",
+    "punishing",
+    "toilsome"
+   ]
+  },
+  "CN_lactuca_sativa_crispa": {
+   "definition": "distinguished by leaves having curled or incised leaves forming a loose rosette that does not develop into a compact head",
+   "hypernyms": [
+    "lettuce"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "leaf_lettuce.n.01",
+   "synonyms": [
+    "leaf_lettuce",
+    "Lactuca_sativa_crispa"
+   ]
+  },
+  "CN_launched_from_launch_pad": {
+   "definition": "a number of sheets of paper fastened together along one edge",
+   "hypernyms": [
+    "paper"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pad.n.01",
+   "synonyms": [
+    "pad",
+    "pad_of_paper",
+    "tablet"
+   ]
+  },
+  "CN_letter_writing": {
+   "definition": "the act of creating written works",
+   "hypernyms": [
+    "verbal_creation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "writing.n.01",
+   "synonyms": [
+    "writing",
+    "authorship",
+    "composition",
+    "penning"
+   ]
+  },
+  "CN_lilac_pink": {
+   "definition": "a light shade of red",
+   "hypernyms": [
+    "chromatic_color",
+    "chromatic_colour",
+    "spectral_color",
+    "spectral_colour"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pink.n.01",
+   "synonyms": [
+    "pink"
+   ]
+  },
+  "CN_limited_review": {
+   "definition": "(accounting) a service (less exhaustive than an audit) that provides some assurance to interested parties as to the reliability of financial data",
+   "hypernyms": [
+    "accounting",
+    "accounting_system",
+    "method_of_accounting"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "review.n.04",
+   "synonyms": [
+    "review",
+    "limited_review"
+   ]
+  },
+  "CN_linosyris_vulgaris": {
+   "definition": "early-flowering perennial of southern and southeastern Europe with flower heads resembling those of goldenrod",
+   "hypernyms": [
+    "aster"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "goldilocks.n.01",
+   "synonyms": [
+    "goldilocks",
+    "goldilocks_aster",
+    "Aster_linosyris",
+    "Linosyris_vulgaris"
+   ]
+  },
+  "CN_live_long": {
+   "definition": "desire strongly or persistently",
+   "hypernyms": [
+    "desire",
+    "want"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "hanker.v.01",
+   "synonyms": [
+    "hanker",
+    "long",
+    "yearn"
+   ]
+  },
+  "CN_long_for_dead_owner": {
+   "definition": "(law) someone who owns (is legal possessor of) a business",
+   "hypernyms": [
+    "businessman",
+    "man_of_affairs"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "owner.n.01",
+   "synonyms": [
+    "owner",
+    "proprietor"
+   ]
+  },
+  "CN_lost_child": {
+   "definition": "a young person of either sex",
+   "hypernyms": [
+    "juvenile",
+    "juvenile_person"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "child.n.01",
+   "synonyms": [
+    "child",
+    "kid",
+    "youngster",
+    "minor",
+    "shaver",
+    "nipper",
+    "small_fry",
+    "tiddler",
+    "tike",
+    "tyke",
+    "fry",
+    "nestling"
+   ]
+  },
+  "CN_lower_rank": {
+   "definition": "the state of being inferior",
+   "hypernyms": [
+    "low_status",
+    "lowness",
+    "lowliness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "inferiority.n.01",
+   "synonyms": [
+    "inferiority",
+    "lower_status",
+    "lower_rank"
+   ]
+  },
+  "CN_lucy_stone": {
+   "definition": "United States feminist and suffragist (1818-1893)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "stone.n.09",
+   "synonyms": [
+    "Stone",
+    "Lucy_Stone"
+   ]
+  },
+  "CN_luminance": {
+   "definition": "the quality of being luminous; emitting or reflecting light",
+   "hypernyms": [
+    "physical_property"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "luminosity.n.01",
+   "synonyms": [
+    "luminosity",
+    "brightness",
+    "brightness_level",
+    "luminance",
+    "luminousness",
+    "light"
+   ]
+  },
+  "CN_maharashtra": {
+   "definition": "a historical area in west-central India",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "maharashtra.n.01",
+   "synonyms": [
+    "Maharashtra"
+   ]
+  },
+  "CN_major_cause_of_pollution": {
+   "definition": "undesirable state of the natural environment being contaminated with harmful substances as a consequence of human activities",
+   "hypernyms": [
+    "environmental_condition",
+    "impurity",
+    "impureness"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pollution.n.01",
+   "synonyms": [
+    "pollution"
+   ]
+  },
+  "CN_make_glass": {
+   "definition": "a brittle transparent solid with irregular atomic structure",
+   "hypernyms": [
+    "solid"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "glass.n.01",
+   "synonyms": [
+    "glass"
+   ]
+  },
+  "CN_making_goal": {
+   "definition": "the state of affairs that a plan is intended to achieve and that (when achieved) terminates behavior intended to achieve it",
+   "hypernyms": [
+    "content",
+    "cognitive_content",
+    "mental_object"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "goal.n.01",
+   "synonyms": [
+    "goal",
+    "end"
+   ]
+  },
+  "CN_malinger": {
+   "definition": "avoid responsibilities and duties, e.g., by pretending to be ill",
+   "hypernyms": [
+    "fiddle",
+    "shirk",
+    "shrink_from",
+    "goldbrick"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "malinger.v.01",
+   "synonyms": [
+    "malinger",
+    "skulk"
+   ]
+  },
+  "CN_mantispid": {
+   "definition": "insect that resembles a mantis; larvae are parasites in the nests of spiders and wasps",
+   "hypernyms": [
+    "neuropteron",
+    "neuropteran",
+    "neuropterous_insect"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "mantispid.n.01",
+   "synonyms": [
+    "mantispid"
+   ]
+  },
+  "CN_mare_liberum": {
+   "definition": "(free sea) a navigable body of water to which all nations have equal access",
+   "hypernyms": [
+    "waterway"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "mare_liberum.n.01",
+   "synonyms": [
+    "mare_liberum"
+   ]
+  },
+  "CN_martin_buber": {
+   "definition": "Israeli religious philosopher (born in Austria); as a Zionist he promoted understanding between Jews and Arabs; his writings affected Christian thinkers as well as Jews (1878-1965)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "buber.n.01",
+   "synonyms": [
+    "Buber",
+    "Martin_Buber"
+   ]
+  },
+  "CN_matched_game": {
+   "definition": "an international championship match",
+   "hypernyms": [
+    "match"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "test_match.n.01",
+   "synonyms": [
+    "test_match",
+    "match_game",
+    "matched_game"
+   ]
+  },
+  "CN_medial_rectus": {
+   "definition": "the ocular muscle whose contraction turns the eyeball medially",
+   "hypernyms": [
+    "ocular_muscle",
+    "eye_muscle"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "medial_rectus_muscle.n.01",
+   "synonyms": [
+    "medial_rectus_muscle",
+    "medial_rectus",
+    "rectus_medialis"
+   ]
+  },
+  "CN_mega_amps": {
+   "definition": "the basic unit of electric current adopted under the Systeme International d'Unites",
+   "hypernyms": [
+    "current_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "ampere.n.02",
+   "synonyms": [
+    "ampere",
+    "amp",
+    "A"
+   ]
+  },
+  "CN_memristive": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_mercurism": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_meronymic": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_messina": {
+   "definition": "a port city in northeastern Sicily on the Strait of Messina",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "messina.n.01",
+   "synonyms": [
+    "Messina"
+   ]
+  },
+  "CN_millenniumism": {
+   "definition": "belief in the Christian doctrine of the millennium mentioned in the Book of Revelations",
+   "hypernyms": [
+    "theological_doctrine"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "millenarianism.n.01",
+   "synonyms": [
+    "millenarianism",
+    "millenarism",
+    "millenniumism",
+    "chiliasm"
+   ]
+  },
+  "CN_milli_electron_volt": {
+   "definition": "a unit of potential equal to the potential difference between two points on a conductor carrying a current of 1 ampere when the power dissipated between the two points is 1 watt; equivalent to the potential difference across a resistance of 1 ohm when 1 ampere of current flows through it",
+   "hypernyms": [
+    "potential_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "volt.n.01",
+   "synonyms": [
+    "volt",
+    "V"
+   ]
+  },
+  "CN_millivoltmeter": {
+   "definition": "sensitive voltmeter that can measure voltage in millivolts",
+   "hypernyms": [
+    "voltmeter"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "millivoltmeter.n.01",
+   "synonyms": [
+    "millivoltmeter"
+   ]
+  },
+  "CN_mindanao": {
+   "definition": "the second largest island of the Philippines at the southern end of the archipelago; mountainous and volcanic",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "mindanao.n.01",
+   "synonyms": [
+    "Mindanao"
+   ]
+  },
+  "CN_mini_dress": {
+   "definition": "a one-piece garment for a woman; has skirt and bodice",
+   "hypernyms": [
+    "woman's_clothing"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "dress.n.01",
+   "synonyms": [
+    "dress",
+    "frock"
+   ]
+  },
+  "CN_misshapen": {
+   "definition": "so badly formed or out of shape as to be ugly",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "deformed.s.01",
+   "synonyms": [
+    "deformed",
+    "distorted",
+    "ill-shapen",
+    "malformed",
+    "misshapen"
+   ]
+  },
+  "CN_moldy_leftovers": {
+   "definition": "food remaining from a previous meal",
+   "hypernyms": [
+    "food",
+    "solid_food"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "leftovers.n.01",
+   "synonyms": [
+    "leftovers"
+   ]
+  },
+  "CN_money_made": {
+   "definition": "engage in",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "make.v.01",
+   "synonyms": [
+    "make",
+    "do"
+   ]
+  },
+  "CN_msg": {
+   "definition": "white crystalline compound used as a food additive to enhance flavor; often used in Chinese cooking",
+   "hypernyms": [
+    "flavorer",
+    "flavourer",
+    "flavoring",
+    "flavouring",
+    "seasoner",
+    "seasoning"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "monosodium_glutamate.n.01",
+   "synonyms": [
+    "monosodium_glutamate",
+    "MSG"
+   ]
+  },
+  "CN_multiplication_table": {
+   "definition": "a set of data arranged in rows and columns",
+   "hypernyms": [
+    "array"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "table.n.01",
+   "synonyms": [
+    "table",
+    "tabular_array"
+   ]
+  },
+  "CN_musical_movement": {
+   "definition": "a change of position that does not entail a change of location",
+   "hypernyms": [
+    "change"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "motion.n.03",
+   "synonyms": [
+    "motion",
+    "movement",
+    "move",
+    "motility"
+   ]
+  },
+  "CN_muskrat_fur": {
+   "definition": "the brown fur of a muskrat",
+   "hypernyms": [
+    "fur",
+    "pelt"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "muskrat.n.01",
+   "synonyms": [
+    "muskrat",
+    "muskrat_fur"
+   ]
+  },
+  "CN_nag_hammadi_library": {
+   "definition": "a collection of 13 ancient papyrus codices translated from Greek into Coptic that were discovered by farmers near the town of Nag Hammadi in 1945; the codices contain 45 distinct works including the chief sources of firsthand knowledge of Gnosticism",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nag_hammadi.n.02",
+   "synonyms": [
+    "Nag_Hammadi",
+    "Nag_Hammadi_Library"
+   ]
+  },
+  "CN_near_parking": {
+   "definition": "space in which vehicles can be parked",
+   "hypernyms": [
+    "room",
+    "way",
+    "elbow_room"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "parking.n.01",
+   "synonyms": [
+    "parking"
+   ]
+  },
+  "CN_negotiatrix": {
+   "definition": "a woman negotiator",
+   "hypernyms": [
+    "negotiator",
+    "negotiant",
+    "treater"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "negotiatress.n.01",
+   "synonyms": [
+    "negotiatress",
+    "negotiatrix"
+   ]
+  },
+  "CN_nervus_radialis": {
+   "definition": "largest branch of the brachial plexus; extends down the humerus to the lateral epicondyle where it divides into one branch that goes to the skin on the back of the hand and another that goes to the underlying extensor muscles",
+   "hypernyms": [
+    "nerve",
+    "nervus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "radial_nerve.n.01",
+   "synonyms": [
+    "radial_nerve",
+    "nervus_radialis",
+    "musculospiral_nerve"
+   ]
+  },
+  "CN_nightwear": {
+   "definition": "garments designed to be worn in bed",
+   "hypernyms": [
+    "clothing",
+    "article_of_clothing",
+    "vesture",
+    "wear",
+    "wearable",
+    "habiliment"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nightwear.n.01",
+   "synonyms": [
+    "nightwear",
+    "sleepwear",
+    "nightclothes"
+   ]
+  },
+  "CN_nine_banded_armadillo": {
+   "definition": "burrowing chiefly nocturnal mammal with body covered with strong horny plates",
+   "hypernyms": [
+    "edentate"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "armadillo.n.01",
+   "synonyms": [
+    "armadillo"
+   ]
+  },
+  "CN_nineteenth_amendment": {
+   "definition": "an amendment to the Constitution of the United States adopted in 1920; guarantees that no state can deny the right to vote on the basis of sex",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nineteenth_amendment.n.01",
+   "synonyms": [
+    "Nineteenth_Amendment"
+   ]
+  },
+  "CN_no_two_people": {
+   "definition": "(plural) any group of human beings (men or women or children) collectively",
+   "hypernyms": [
+    "group",
+    "grouping"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "people.n.01",
+   "synonyms": [
+    "people"
+   ]
+  },
+  "CN_nogging": {
+   "definition": "rough brick masonry used to fill in the gaps in a wooden frame",
+   "hypernyms": [
+    "brickwork"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nogging.n.01",
+   "synonyms": [
+    "nogging"
+   ]
+  },
+  "CN_non_discrimination": {
+   "definition": "unfair treatment of a person or group on the basis of prejudice",
+   "hypernyms": [
+    "social_control"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "discrimination.n.01",
+   "synonyms": [
+    "discrimination",
+    "favoritism",
+    "favouritism"
+   ]
+  },
+  "CN_nonchalance": {
+   "definition": "the trait of remaining calm and seeming not to care; a casual lack of concern",
+   "hypernyms": [
+    "carefreeness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nonchalance.n.01",
+   "synonyms": [
+    "nonchalance",
+    "unconcern",
+    "indifference"
+   ]
+  },
+  "CN_nondisjunction": {
+   "definition": "meiosis in which there is a failure of paired homologous chromosomes to separate; results in an abnormal number of chromosomes in the daughter cells",
+   "hypernyms": [
+    "meiosis",
+    "miosis",
+    "reduction_division"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nondisjunction.n.01",
+   "synonyms": [
+    "nondisjunction"
+   ]
+  },
+  "CN_nonresistant": {
+   "definition": "(often followed by `to') likely to be affected with",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "liable.s.03",
+   "synonyms": [
+    "liable",
+    "nonimmune",
+    "nonresistant",
+    "unresistant"
+   ]
+  },
+  "CN_nubia": {
+   "definition": "an ancient region of northeastern Africa (southern Egypt and northern Sudan) on the Nile; much of Nubia is now under Lake Nasser",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "nubia.n.01",
+   "synonyms": [
+    "Nubia"
+   ]
+  },
+  "CN_nut_chaser": {
+   "definition": "a person who is pursuing and trying to overtake or capture",
+   "hypernyms": [
+    "follower"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pursuer.n.01",
+   "synonyms": [
+    "pursuer",
+    "chaser"
+   ]
+  },
+  "CN_ockham": {
+   "definition": "English scholastic philosopher and assumed author of Occam's Razor (1285-1349)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "occam.n.01",
+   "synonyms": [
+    "Occam",
+    "William_of_Occam",
+    "Ockham",
+    "William_of_Ockham"
+   ]
+  },
+  "CN_ogle": {
+   "definition": "look at with amorous intentions",
+   "hypernyms": [
+    "look"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ogle.v.01",
+   "synonyms": [
+    "ogle"
+   ]
+  },
+  "CN_on_your_guard": {
+   "definition": "vigilant",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "on_guard.s.01",
+   "synonyms": [
+    "on_guard",
+    "on_one's_guard",
+    "upon_one's_guard",
+    "on_your_guard"
+   ]
+  },
+  "CN_one_thumb": {
+   "definition": "the thick short innermost digit of the forelimb",
+   "hypernyms": [
+    "finger"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "thumb.n.01",
+   "synonyms": [
+    "thumb",
+    "pollex"
+   ]
+  },
+  "CN_ooze_through": {
+   "definition": "run slowly and gradually",
+   "hypernyms": [
+    "penetrate",
+    "perforate"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "ooze_through.v.01",
+   "synonyms": [
+    "ooze_through"
+   ]
+  },
+  "CN_opaline": {
+   "definition": "having a play of lustrous rainbow colors",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "iridescent.s.02",
+   "synonyms": [
+    "iridescent",
+    "nacreous",
+    "opalescent",
+    "opaline",
+    "pearlescent"
+   ]
+  },
+  "CN_open_sight": {
+   "definition": "rear gunsight having an open notch instead of a peephole or telescope",
+   "hypernyms": [
+    "gunsight",
+    "gun-sight"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "open_sight.n.01",
+   "synonyms": [
+    "open_sight"
+   ]
+  },
+  "CN_order_percomorphi": {
+   "definition": "one of the largest natural groups of fishes of both marine and fresh water: true perches; basses; tuna",
+   "hypernyms": [
+    "animal_order"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "perciformes.n.01",
+   "synonyms": [
+    "Perciformes",
+    "order_Perciformes",
+    "Percomorphi",
+    "order_Percomorphi"
+   ]
+  },
+  "CN_organisms": {
+   "definition": "a living thing that has (or can develop) the ability to act or function independently",
+   "hypernyms": [
+    "living_thing",
+    "animate_thing"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "organism.n.01",
+   "synonyms": [
+    "organism",
+    "being"
+   ]
+  },
+  "CN_orthoceras": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_oryza_sativa": {
+   "definition": "yields the staple food of 50 percent of world's population",
+   "hypernyms": [
+    "rice"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cultivated_rice.n.01",
+   "synonyms": [
+    "cultivated_rice",
+    "Oryza_sativa"
+   ]
+  },
+  "CN_ouija_board": {
+   "definition": "a board with the alphabet on it; used with a planchette to spell out supernatural messages",
+   "hypernyms": [
+    "board",
+    "gameboard"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ouija.n.01",
+   "synonyms": [
+    "Ouija",
+    "Ouija_board"
+   ]
+  },
+  "CN_outspan": {
+   "definition": "remove the yoke or harness from",
+   "hypernyms": [
+    "unyoke",
+    "unharness"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "outspan.v.01",
+   "synonyms": [
+    "outspan"
+   ]
+  },
+  "CN_outta": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_own_toy": {
+   "definition": "an artifact designed to be played with",
+   "hypernyms": [
+    "artifact",
+    "artefact"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "plaything.n.01",
+   "synonyms": [
+    "plaything",
+    "toy"
+   ]
+  },
+  "CN_oxime": {
+   "definition": "any compound containing the group -C=NOH",
+   "hypernyms": [
+    "organic_compound"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "oxime.n.01",
+   "synonyms": [
+    "oxime"
+   ]
+  },
+  "CN_pace_lap": {
+   "definition": "the first lap of a car race that prepares the cars for a fast start",
+   "hypernyms": [
+    "lap",
+    "circle",
+    "circuit"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pace_lap.n.01",
+   "synonyms": [
+    "pace_lap"
+   ]
+  },
+  "CN_page_number": {
+   "definition": "the system of numbering pages",
+   "hypernyms": [
+    "number"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pagination.n.01",
+   "synonyms": [
+    "pagination",
+    "folio",
+    "page_number",
+    "paging"
+   ]
+  },
+  "CN_paleodiet": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_palm_beach": {
+   "definition": "a resort town in southeast Florida on an island on the Atlantic coast",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "palm_beach.n.01",
+   "synonyms": [
+    "Palm_Beach"
+   ]
+  },
+  "CN_papeete": {
+   "definition": "the capital of French Polynesia on the northwestern coast of Tahiti",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "papeete.n.01",
+   "synonyms": [
+    "Papeete"
+   ]
+  },
+  "CN_paraguayan": {
+   "definition": "a native or inhabitant of Paraguay",
+   "hypernyms": [
+    "South_American"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "paraguayan.n.01",
+   "synonyms": [
+    "Paraguayan"
+   ]
+  },
+  "CN_partner_off": {
+   "definition": "form a pair or pairs",
+   "hypernyms": [
+    "unite",
+    "unify"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pair.v.01",
+   "synonyms": [
+    "pair",
+    "pair_off",
+    "partner_off",
+    "couple"
+   ]
+  },
+  "CN_pastrami": {
+   "definition": "highly seasoned cut of smoked beef",
+   "hypernyms": [
+    "beef",
+    "boeuf"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pastrami.n.01",
+   "synonyms": [
+    "pastrami"
+   ]
+  },
+  "CN_pay_on_bill": {
+   "definition": "a statute in draft before it becomes law",
+   "hypernyms": [
+    "legal_document",
+    "legal_instrument",
+    "official_document",
+    "instrument"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "bill.n.01",
+   "synonyms": [
+    "bill",
+    "measure"
+   ]
+  },
+  "CN_pelvic_fin": {
+   "definition": "either of a pair of fins attached to the pelvic girdle in fishes that help control the direction of movement; correspond to hind limbs of a land vertebrate",
+   "hypernyms": [
+    "fin"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pelvic_fin.n.01",
+   "synonyms": [
+    "pelvic_fin",
+    "ventral_fin"
+   ]
+  },
+  "CN_pencil_tip": {
+   "definition": "the extreme end of something; especially something pointed",
+   "hypernyms": [
+    "end",
+    "terminal"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "tip.n.01",
+   "synonyms": [
+    "tip"
+   ]
+  },
+  "CN_pentatone": {
+   "definition": "a gapped scale with five notes; usually the fourth and seventh notes of the diatonic scale are omitted",
+   "hypernyms": [
+    "gapped_scale"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pentatonic_scale.n.01",
+   "synonyms": [
+    "pentatonic_scale",
+    "pentatone"
+   ]
+  },
+  "CN_pericementoclasia": {
+   "definition": "pus pocket formation around a tooth",
+   "hypernyms": [
+    "pyorrhea",
+    "pyorrhoea",
+    "pyorrhea_alveolaris",
+    "Riggs'_disease"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pericementoclasia.n.01",
+   "synonyms": [
+    "pericementoclasia"
+   ]
+  },
+  "CN_peristedion_miniatum": {
+   "definition": "sea robins having bony scutes on the body and barbels on the chin; found mostly on the continental slope",
+   "hypernyms": [
+    "sea_robin",
+    "searobin"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "armored_searobin.n.01",
+   "synonyms": [
+    "armored_searobin",
+    "armored_sea_robin",
+    "Peristedion_miniatum"
+   ]
+  },
+  "CN_peta_electron_volt": {
+   "definition": "a unit of potential equal to the potential difference between two points on a conductor carrying a current of 1 ampere when the power dissipated between the two points is 1 watt; equivalent to the potential difference across a resistance of 1 ohm when 1 ampere of current flows through it",
+   "hypernyms": [
+    "potential_unit"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "volt.n.01",
+   "synonyms": [
+    "volt",
+    "V"
+   ]
+  },
+  "CN_petroleum_refinery": {
+   "definition": "a refinery for petroleum",
+   "hypernyms": [
+    "refinery"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "oil_refinery.n.01",
+   "synonyms": [
+    "oil_refinery",
+    "petroleum_refinery"
+   ]
+  },
+  "CN_picture_tube": {
+   "definition": "a cathode-ray tube in a television receiver; translates the received signal into a picture on a luminescent screen",
+   "hypernyms": [
+    "cathode-ray_tube",
+    "CRT"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "kinescope.n.01",
+   "synonyms": [
+    "kinescope",
+    "picture_tube",
+    "television_tube"
+   ]
+  },
+  "CN_pinafore": {
+   "definition": "a sleeveless dress resembling an apron; worn over other clothing",
+   "hypernyms": [
+    "dress",
+    "frock"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "jumper.n.07",
+   "synonyms": [
+    "jumper",
+    "pinafore",
+    "pinny"
+   ]
+  },
+  "CN_pinnace": {
+   "definition": "a boat for communication between ship and shore",
+   "hypernyms": [
+    "boat"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "tender.n.05",
+   "synonyms": [
+    "tender",
+    "ship's_boat",
+    "pinnace",
+    "cutter"
+   ]
+  },
+  "CN_pirate_ship": {
+   "definition": "a ship that is manned by pirates",
+   "hypernyms": [
+    "ship"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pirate.n.03",
+   "synonyms": [
+    "pirate",
+    "pirate_ship"
+   ]
+  },
+  "CN_pis": {
+   "definition": "the ratio of the circumference to the diameter of a circle; approximately equal to 3.14159265358979323846...",
+   "hypernyms": [
+    "transcendental_number"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pi.n.01",
+   "synonyms": [
+    "pi"
+   ]
+  },
+  "CN_pitch_blackness": {
+   "definition": "total absence of light",
+   "hypernyms": [
+    "dark",
+    "darkness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "total_darkness.n.01",
+   "synonyms": [
+    "total_darkness",
+    "lightlessness",
+    "blackness",
+    "pitch_blackness",
+    "black"
+   ]
+  },
+  "CN_platitudinize": {
+   "definition": "utter platitudes",
+   "hypernyms": [
+    "express",
+    "verbalize",
+    "verbalise",
+    "utter",
+    "give_tongue_to"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "platitudinize.v.01",
+   "synonyms": [
+    "platitudinize"
+   ]
+  },
+  "CN_play_by_play": {
+   "definition": "a dramatic work intended for performance by actors on a stage",
+   "hypernyms": [
+    "dramatic_composition",
+    "dramatic_work"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "play.n.01",
+   "synonyms": [
+    "play",
+    "drama",
+    "dramatic_play"
+   ]
+  },
+  "CN_poikilothermic": {
+   "definition": "of animals except birds and mammals; having body temperature that varies with the environment",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "poikilothermic.s.01",
+   "synonyms": [
+    "poikilothermic",
+    "poikilothermous",
+    "heterothermic",
+    "ectothermic"
+   ]
+  },
+  "CN_polly_fish": {
+   "definition": "gaudy tropical fishes with parrotlike beaks formed by fusion of teeth",
+   "hypernyms": [
+    "percoid_fish",
+    "percoid",
+    "percoidean"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "parrotfish.n.01",
+   "synonyms": [
+    "parrotfish",
+    "polly_fish",
+    "pollyfish"
+   ]
+  },
+  "CN_polygala_lutea": {
+   "definition": "bog plant of pine barrens of southeastern United States having spikes of irregular yellow-orange flowers",
+   "hypernyms": [
+    "milkwort"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "orange_milkwort.n.01",
+   "synonyms": [
+    "orange_milkwort",
+    "yellow_milkwort",
+    "candyweed",
+    "yellow_bachelor's_button",
+    "Polygala_lutea"
+   ]
+  },
+  "CN_population_shift": {
+   "definition": "a change in the relative numbers of the different groups of individuals making up a population",
+   "hypernyms": [
+    "transformation",
+    "transmutation",
+    "shift"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "population_shift.n.01",
+   "synonyms": [
+    "population_shift"
+   ]
+  },
+  "CN_positive_fraud": {
+   "definition": "actual deceit; concealing something or making a false representation with an evil intent to cause injury to another",
+   "hypernyms": [
+    "fraud"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "fraud_in_fact.n.01",
+   "synonyms": [
+    "fraud_in_fact",
+    "positive_fraud"
+   ]
+  },
+  "CN_postmodern": {
+   "definition": "of or relating to postmodernism",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "postmodernist.a.01",
+   "synonyms": [
+    "postmodernist",
+    "postmodern"
+   ]
+  },
+  "CN_potassium_cyanide": {
+   "definition": "a poisonous salt (KCN) used in electroplating and in photography",
+   "hypernyms": [
+    "cyanide"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "potassium_cyanide.n.01",
+   "synonyms": [
+    "potassium_cyanide"
+   ]
+  },
+  "CN_potato_wart": {
+   "definition": "fungous disease causing dark warty spongy excrescences in the eyes of potato tubers",
+   "hypernyms": [
+    "plant_disease"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "potato_wart.n.01",
+   "synonyms": [
+    "potato_wart"
+   ]
+  },
+  "CN_pots_and_pans": {
+   "definition": "cooking utensil consisting of a wide metal vessel",
+   "hypernyms": [
+    "cooking_utensil",
+    "cookware"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pan.n.01",
+   "synonyms": [
+    "pan",
+    "cooking_pan"
+   ]
+  },
+  "CN_practice_reading_english": {
+   "definition": "an Indo-European language belonging to the West Germanic branch; the official language of Britain and the United States and most of the commonwealth countries",
+   "hypernyms": [
+    "West_Germanic",
+    "West_Germanic_language"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "english.n.01",
+   "synonyms": [
+    "English",
+    "English_language"
+   ]
+  },
+  "CN_preside": {
+   "definition": "act as president",
+   "hypernyms": [
+    "control",
+    "command"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "preside.v.01",
+   "synonyms": [
+    "preside"
+   ]
+  },
+  "CN_pretermit": {
+   "definition": "disregard intentionally or let pass",
+   "hypernyms": [
+    "neglect",
+    "ignore",
+    "disregard"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pretermit.v.01",
+   "synonyms": [
+    "pretermit"
+   ]
+  },
+  "CN_price_of_over_counter_stocks": {
+   "definition": "a frame that supports a boat while it is under construction",
+   "hypernyms": [
+    "framework"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "stocks.n.01",
+   "synonyms": [
+    "stocks"
+   ]
+  },
+  "CN_priest_penitent_privilege": {
+   "definition": "a special advantage or immunity or benefit not enjoyed by all",
+   "hypernyms": [
+    "advantage",
+    "vantage"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "privilege.n.01",
+   "synonyms": [
+    "privilege"
+   ]
+  },
+  "CN_prosthetic_device": {
+   "definition": "corrective consisting of a replacement for a part of the body",
+   "hypernyms": [
+    "corrective",
+    "restorative"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "prosthesis.n.01",
+   "synonyms": [
+    "prosthesis",
+    "prosthetic_device"
+   ]
+  },
+  "CN_psophocarpus_tetragonolobus": {
+   "definition": "a tuberous twining annual vine bearing clusters of purplish flowers and pods with four jagged wings; Old World tropics",
+   "hypernyms": [
+    "vine"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "winged_bean.n.01",
+   "synonyms": [
+    "winged_bean",
+    "winged_pea",
+    "goa_bean",
+    "goa_bean_vine",
+    "Manila_bean",
+    "Psophocarpus_tetragonolobus"
+   ]
+  },
+  "CN_pumpkin_patch": {
+   "definition": "a small contrasting part of something",
+   "hypernyms": [
+    "marking"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "spot.n.05",
+   "synonyms": [
+    "spot",
+    "speckle",
+    "dapple",
+    "patch",
+    "fleck",
+    "maculation"
+   ]
+  },
+  "CN_punitory": {
+   "definition": "inflicting punishment",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "punitive.a.01",
+   "synonyms": [
+    "punitive",
+    "punitory"
+   ]
+  },
+  "CN_puppyish": {
+   "definition": "characteristic of a puppy",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "puppyish.s.01",
+   "synonyms": [
+    "puppyish",
+    "puppylike"
+   ]
+  },
+  "CN_put_into_cars": {
+   "definition": "a motor vehicle with four wheels; usually propelled by an internal combustion engine",
+   "hypernyms": [
+    "motor_vehicle",
+    "automotive_vehicle"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "car.n.01",
+   "synonyms": [
+    "car",
+    "auto",
+    "automobile",
+    "machine",
+    "motorcar"
+   ]
+  },
+  "CN_pyjamas": {
+   "definition": "a pair of loose trousers tied by a drawstring around the waist; worn by men and women in some Asian countries",
+   "hypernyms": [
+    "trouser",
+    "pant"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "pajama.n.01",
+   "synonyms": [
+    "pajama",
+    "pyjama"
+   ]
+  },
+  "CN_qepiq": {
+   "definition": "100 qepiq equal 1 manat in Azerbaijan",
+   "hypernyms": [
+    "Azerbaijani_monetary_unit"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "qepiq.n.01",
+   "synonyms": [
+    "qepiq"
+   ]
+  },
+  "CN_quacksalver": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_quaint": {
+   "definition": "strange in an interesting or pleasing way",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "quaint.s.01",
+   "synonyms": [
+    "quaint"
+   ]
+  },
+  "CN_quiet_storm": {
+   "definition": "a violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning",
+   "hypernyms": [
+    "atmospheric_phenomenon"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "storm.n.01",
+   "synonyms": [
+    "storm",
+    "violent_storm"
+   ]
+  },
+  "CN_quite_few": {
+   "definition": "a small elite group",
+   "hypernyms": [
+    "elite",
+    "elite_group"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "few.n.01",
+   "synonyms": [
+    "few"
+   ]
+  },
+  "CN_raisin_nut_cookie": {
+   "definition": "any of various small flat sweet cakes (`biscuit' is the British term)",
+   "hypernyms": [
+    "cake"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "cookie.n.01",
+   "synonyms": [
+    "cookie",
+    "cooky",
+    "biscuit"
+   ]
+  },
+  "CN_rawalpindi": {
+   "definition": "an ancient city in northeastern Pakistan; served as capital of Pakistan while Islamabad was being built",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "rawalpindi.n.01",
+   "synonyms": [
+    "Rawalpindi"
+   ]
+  },
+  "CN_realtimely": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_reaper_binder": {
+   "definition": "a machine that cuts grain and binds it in sheaves",
+   "hypernyms": [
+    "harvester",
+    "reaper"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "binder.n.01",
+   "synonyms": [
+    "binder",
+    "reaper_binder"
+   ]
+  },
+  "CN_receiving_letters": {
+   "definition": "the literary culture",
+   "hypernyms": [
+    "culture"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "letters.n.01",
+   "synonyms": [
+    "letters"
+   ]
+  },
+  "CN_rechargeable": {
+   "definition": "capable of being recharged",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "rechargeable.s.01",
+   "synonyms": [
+    "rechargeable"
+   ]
+  },
+  "CN_record_messages": {
+   "definition": "a communication (usually brief) that is written or spoken or signaled",
+   "hypernyms": [
+    "communication"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "message.n.01",
+   "synonyms": [
+    "message"
+   ]
+  },
+  "CN_red_gray": {
+   "definition": "a neutral achromatic color midway between white and black",
+   "hypernyms": [
+    "achromatic_color",
+    "achromatic_colour"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "gray.n.01",
+   "synonyms": [
+    "gray",
+    "grayness",
+    "grey",
+    "greyness"
+   ]
+  },
+  "CN_red_tailed_hawk": {
+   "definition": "diurnal bird of prey typically having short rounded wings and a long tail",
+   "hypernyms": [
+    "bird_of_prey",
+    "raptor",
+    "raptorial_bird"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "hawk.n.01",
+   "synonyms": [
+    "hawk"
+   ]
+  },
+  "CN_redemptorist": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_reims": {
+   "definition": "a city in northeastern France to the east of Paris; scene of the coronation of most French kings; site of the unconditional German surrender in 1945 at the end of World War II",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "rheims.n.01",
+   "synonyms": [
+    "Rheims",
+    "Reims"
+   ]
+  },
+  "CN_repine": {
+   "definition": "express discontent",
+   "hypernyms": [
+    "complain",
+    "kick",
+    "plain",
+    "sound_off",
+    "quetch",
+    "kvetch"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "repine.v.01",
+   "synonyms": [
+    "repine"
+   ]
+  },
+  "CN_republic_of_cyprus": {
+   "definition": "a country on the island of Cyprus; 80% of the people are of Greek origin and 20% or Turkish origin",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cyprus.n.01",
+   "synonyms": [
+    "Cyprus",
+    "Republic_of_Cyprus"
+   ]
+  },
+  "CN_res_judicata": {
+   "definition": "a matter already settled in court; cannot be raised again",
+   "hypernyms": [
+    "topic",
+    "subject",
+    "issue",
+    "matter"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "res_judicata.n.01",
+   "synonyms": [
+    "res_judicata",
+    "res_adjudicata"
+   ]
+  },
+  "CN_rewrite_man": {
+   "definition": "someone who puts text into appropriate form for publication",
+   "hypernyms": [
+    "editor",
+    "editor_in_chief"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "redact.n.01",
+   "synonyms": [
+    "redact",
+    "redactor",
+    "reviser",
+    "rewriter",
+    "rewrite_man"
+   ]
+  },
+  "CN_rfd": {
+   "definition": "free government delivery of mail in outlying country areas",
+   "hypernyms": [
+    "mail",
+    "mail_service",
+    "postal_service",
+    "post"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "rural_free_delivery.n.01",
+   "synonyms": [
+    "rural_free_delivery",
+    "RFD"
+   ]
+  },
+  "CN_rhode_island_red": {
+   "definition": "American breed of heavy-bodied brownish-red general-purpose chicken",
+   "hypernyms": [
+    "chicken",
+    "Gallus_gallus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "rhode_island_red.n.01",
+   "synonyms": [
+    "Rhode_Island_red"
+   ]
+  },
+  "CN_richler": {
+   "definition": "Canadian novelist (born in 1931)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "richler.n.01",
+   "synonyms": [
+    "Richler",
+    "Mordecai_Richler"
+   ]
+  },
+  "CN_ride_fast_horse": {
+   "definition": "solid-hoofed herbivorous quadruped domesticated since prehistoric times",
+   "hypernyms": [
+    "equine",
+    "equid"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "horse.n.01",
+   "synonyms": [
+    "horse",
+    "Equus_caballus"
+   ]
+  },
+  "CN_rigorousness": {
+   "definition": "something hard to endure",
+   "hypernyms": [
+    "difficulty",
+    "difficultness"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "asperity.n.01",
+   "synonyms": [
+    "asperity",
+    "grimness",
+    "hardship",
+    "rigor",
+    "rigour",
+    "severity",
+    "severeness",
+    "rigorousness",
+    "rigourousness"
+   ]
+  },
+  "CN_rinkhals": {
+   "definition": "highly venomous snake of southern Africa able to spit venom up to seven feet",
+   "hypernyms": [
+    "elapid",
+    "elapid_snake"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ringhals.n.01",
+   "synonyms": [
+    "ringhals",
+    "rinkhals",
+    "spitting_snake",
+    "Hemachatus_haemachatus"
+   ]
+  },
+  "CN_rise_quickly": {
+   "definition": "with rapid movements",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "quickly.r.01",
+   "synonyms": [
+    "quickly",
+    "rapidly",
+    "speedily",
+    "chop-chop",
+    "apace"
+   ]
+  },
+  "CN_robert_frost": {
+   "definition": "United States poet famous for his lyrical poems on country life in New England (1874-1963)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "frost.n.04",
+   "synonyms": [
+    "Frost",
+    "Robert_Frost",
+    "Robert_Lee_Frost"
+   ]
+  },
+  "CN_robotlike": {
+   "definition": "resembling the unthinking functioning of a machine",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "automatic.s.01",
+   "synonyms": [
+    "automatic",
+    "automatonlike",
+    "machinelike",
+    "robotlike",
+    "robotic"
+   ]
+  },
+  "CN_roll_down_hill": {
+   "definition": "a local and well-defined elevation of the land",
+   "hypernyms": [
+    "natural_elevation",
+    "elevation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "hill.n.01",
+   "synonyms": [
+    "hill"
+   ]
+  },
+  "CN_roriferous": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_round_shot": {
+   "definition": "a solid projectile that in former times was fired from a cannon",
+   "hypernyms": [
+    "projectile",
+    "missile"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "cannonball.n.01",
+   "synonyms": [
+    "cannonball",
+    "cannon_ball",
+    "round_shot"
+   ]
+  },
+  "CN_rubens": {
+   "definition": "prolific Flemish baroque painter; knighted by the English king Charles I (1577-1640)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "rubens.n.01",
+   "synonyms": [
+    "Rubens",
+    "Peter_Paul_Rubens",
+    "Sir_Peter_Paul_Rubens"
+   ]
+  },
+  "CN_ruptiliocarpon_caracolito": {
+   "definition": "large Costa Rican tree having light-colored wood suitable for cabinetry; similar to the African lepidobotrys in wood structure as well as in fruit and flowers and leaves and seeds; often classified in other families",
+   "hypernyms": [
+    "tree"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "caracolito.n.01",
+   "synonyms": [
+    "caracolito",
+    "Ruptiliocarpon_caracolito"
+   ]
+  },
+  "CN_saba": {
+   "definition": "a island in the Netherlands Antilles that is the top of an extinct volcano",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "saba.n.01",
+   "synonyms": [
+    "Saba"
+   ]
+  },
+  "CN_salisbury_steak": {
+   "definition": "ground beef patty usually with a sauce",
+   "hypernyms": [
+    "dish"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "salisbury_steak.n.01",
+   "synonyms": [
+    "Salisbury_steak"
+   ]
+  },
+  "CN_sanctifier": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_sand_trap": {
+   "definition": "a hazard on a golf course",
+   "hypernyms": [
+    "hazard"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "bunker.n.01",
+   "synonyms": [
+    "bunker",
+    "sand_trap",
+    "trap"
+   ]
+  },
+  "CN_scallion": {
+   "definition": "plant having a large slender white bulb and flat overlapping dark green leaves; used in cooking; believed derived from the wild Allium ampeloprasum",
+   "hypernyms": [
+    "alliaceous_plant"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "leek.n.01",
+   "synonyms": [
+    "leek",
+    "scallion",
+    "Allium_porrum"
+   ]
+  },
+  "CN_scaramouch": {
+   "definition": "a stock character in commedia dell'arte depicted as a boastful coward",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "scaramouch.n.01",
+   "synonyms": [
+    "Scaramouch",
+    "Scaramouche"
+   ]
+  },
+  "CN_schematisation": {
+   "definition": "providing a chart or outline of a system",
+   "hypernyms": [
+    "representation"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "schematization.n.01",
+   "synonyms": [
+    "schematization",
+    "schematisation",
+    "diagramming"
+   ]
+  },
+  "CN_school_books": {
+   "definition": "a written work or composition that has been published (printed on pages bound together)",
+   "hypernyms": [
+    "publication"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "book.n.01",
+   "synonyms": [
+    "book"
+   ]
+  },
+  "CN_school_of_law": {
+   "definition": "a graduate school offering study leading to a law degree",
+   "hypernyms": [
+    "graduate_school",
+    "grad_school"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "law_school.n.01",
+   "synonyms": [
+    "law_school",
+    "school_of_law"
+   ]
+  },
+  "CN_screwbean_mesquite": {
+   "definition": "shrub or small tree of southwestern United States and northwestern Mexico having spirally twisted pods",
+   "hypernyms": [
+    "mesquite",
+    "mesquit"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "screw_bean.n.02",
+   "synonyms": [
+    "screw_bean",
+    "screwbean",
+    "tornillo",
+    "screwbean_mesquite",
+    "Prosopis_pubescens"
+   ]
+  },
+  "CN_second_violin": {
+   "definition": "bowed stringed instrument that is the highest member of the violin family; this instrument has four strings and a hollow body and an unfretted fingerboard and is played with a bow",
+   "hypernyms": [
+    "bowed_stringed_instrument",
+    "string"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "violin.n.01",
+   "synonyms": [
+    "violin",
+    "fiddle"
+   ]
+  },
+  "CN_seen_from_space": {
+   "definition": "the unlimited expanse in which everything is located",
+   "hypernyms": [
+    "attribute"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "space.n.01",
+   "synonyms": [
+    "space",
+    "infinite"
+   ]
+  },
+  "CN_sell_someone_out": {
+   "definition": "(baseball) a failure by a batter or runner to reach a base safely in baseball",
+   "hypernyms": [
+    "failure"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "out.n.01",
+   "synonyms": [
+    "out"
+   ]
+  },
+  "CN_send_word": {
+   "definition": "inform (somebody) of something",
+   "hypernyms": [
+    "inform"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "advise.v.02",
+   "synonyms": [
+    "advise",
+    "notify",
+    "give_notice",
+    "send_word",
+    "apprise",
+    "apprize"
+   ]
+  },
+  "CN_seneciosis": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "CN_several_residential_units": {
+   "definition": "any division of quantity accepted as a standard of measurement or exchange",
+   "hypernyms": [
+    "definite_quantity"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "unit_of_measurement.n.01",
+   "synonyms": [
+    "unit_of_measurement",
+    "unit"
+   ]
+  },
+  "CN_sex_gland": {
+   "definition": "a gland in which gametes (sex cells) are produced",
+   "hypernyms": [
+    "endocrine_gland",
+    "endocrine",
+    "ductless_gland"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "gonad.n.01",
+   "synonyms": [
+    "gonad",
+    "sex_gland"
+   ]
+  },
+  "CN_ship_product": {
+   "definition": "commodities offered for sale",
+   "hypernyms": [
+    "commodity",
+    "trade_good",
+    "good"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "merchandise.n.01",
+   "synonyms": [
+    "merchandise",
+    "ware",
+    "product"
+   ]
+  },
+  "CN_shirring": {
+   "definition": "baking shelled eggs",
+   "hypernyms": [
+    "baking"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "shirring.n.01",
+   "synonyms": [
+    "shirring"
+   ]
+  },
+  "CN_shmuck": {
+   "definition": "(Yiddish) a jerk",
+   "hypernyms": [
+    "jerk",
+    "dork"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "schmuck.n.01",
+   "synonyms": [
+    "schmuck",
+    "shmuck",
+    "schmo",
+    "shmo"
+   ]
+  },
+  "CN_shoe_repairing": {
+   "definition": "the shoemaker's trade",
+   "hypernyms": [
+    "trade",
+    "craft"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "shoemaking.n.01",
+   "synonyms": [
+    "shoemaking",
+    "shoe_repairing",
+    "cobbling"
+   ]
+  },
+  "CN_show_toy_to_friend": {
+   "definition": "a person you know well and regard with affection and trust",
+   "hypernyms": [
+    "person",
+    "individual",
+    "someone",
+    "somebody",
+    "mortal",
+    "soul"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "friend.n.01",
+   "synonyms": [
+    "friend"
+   ]
+  },
+  "CN_sifting": {
+   "definition": "the act of separating grain from chaff",
+   "hypernyms": [
+    "separation"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "winnow.n.01",
+   "synonyms": [
+    "winnow",
+    "winnowing",
+    "sifting"
+   ]
+  },
+  "CN_sign_bill": {
+   "definition": "a statute in draft before it becomes law",
+   "hypernyms": [
+    "legal_document",
+    "legal_instrument",
+    "official_document",
+    "instrument"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "bill.n.01",
+   "synonyms": [
+    "bill",
+    "measure"
+   ]
+  },
+  "CN_silicon_dioxide": {
+   "definition": "a white or colorless vitreous insoluble solid (SiO2); various forms occur widely in the earth's crust as quartz or cristobalite or tridymite or lechatelierite",
+   "hypernyms": [
+    "oxide"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "silica.n.01",
+   "synonyms": [
+    "silica",
+    "silicon_oxide",
+    "silicon_dioxide"
+   ]
+  },
+  "CN_silk_stocking": {
+   "definition": "women's stockings made from a sheer material (nylon or rayon or silk)",
+   "hypernyms": [
+    "stocking"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "nylons.n.01",
+   "synonyms": [
+    "nylons",
+    "nylon_stocking",
+    "rayons",
+    "rayon_stocking",
+    "silk_stocking"
+   ]
+  },
+  "CN_silver_city": {
+   "definition": "a town in southwestern New Mexico",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "silver_city.n.01",
+   "synonyms": [
+    "Silver_City"
+   ]
+  },
+  "CN_silver_sagebrush": {
+   "definition": "low much-branched perennial of western United States having silvery leaves; an important browse and shelter plant",
+   "hypernyms": [
+    "sagebrush",
+    "sage_brush"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "silver_sage.n.01",
+   "synonyms": [
+    "silver_sage",
+    "silver_sagebrush",
+    "grey_sage",
+    "gray_sage",
+    "Seriphidium_canum",
+    "Artemisia_cana"
+   ]
+  },
+  "CN_simulated_military_operation": {
+   "definition": "a military training exercise",
+   "hypernyms": [
+    "operation",
+    "military_operation"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "maneuver.n.01",
+   "synonyms": [
+    "maneuver",
+    "manoeuvre",
+    "simulated_military_operation"
+   ]
+  },
+  "CN_sing_in_choirs": {
+   "definition": "a chorus that sings as part of a religious ceremony",
+   "hypernyms": [
+    "chorus"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "choir.n.01",
+   "synonyms": [
+    "choir"
+   ]
+  },
+  "CN_singing_along": {
+   "definition": "with a forward motion",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "along.r.01",
+   "synonyms": [
+    "along",
+    "on"
+   ]
+  },
+  "CN_sipper": {
+   "definition": "a drinker who sips",
+   "hypernyms": [
+    "drinker"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sipper.n.01",
+   "synonyms": [
+    "sipper"
+   ]
+  },
+  "CN_skunk_bear": {
+   "definition": "stocky shaggy-coated North American carnivorous mammal",
+   "hypernyms": [
+    "musteline_mammal",
+    "mustelid",
+    "musteline"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "wolverine.n.03",
+   "synonyms": [
+    "wolverine",
+    "carcajou",
+    "skunk_bear",
+    "Gulo_luscus"
+   ]
+  },
+  "CN_sleep_on_windowsill": {
+   "definition": "the sill of a window; the horizontal member at the bottom of the window frame",
+   "hypernyms": [
+    "sill"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "windowsill.n.01",
+   "synonyms": [
+    "windowsill"
+   ]
+  },
+  "CN_slow_down_traffic": {
+   "definition": "the aggregation of things (pedestrians or vehicles) coming and going in a particular locality during a specified period of time",
+   "hypernyms": [
+    "collection",
+    "aggregation",
+    "accumulation",
+    "assemblage"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "traffic.n.01",
+   "synonyms": [
+    "traffic"
+   ]
+  },
+  "CN_socialized": {
+   "definition": "take part in social activities; interact with others",
+   "hypernyms": [
+    "interact"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "socialize.v.01",
+   "synonyms": [
+    "socialize",
+    "socialise"
+   ]
+  },
+  "CN_socks_and_underwear": {
+   "definition": "undergarment worn next to the skin and under the outer garments",
+   "hypernyms": [
+    "undergarment",
+    "unmentionable"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "underwear.n.01",
+   "synonyms": [
+    "underwear",
+    "underclothes",
+    "underclothing"
+   ]
+  },
+  "CN_sodomist": {
+   "definition": "someone who engages in anal copulation (especially a male who engages in anal copulation with another male)",
+   "hypernyms": [
+    "pervert",
+    "deviant",
+    "deviate",
+    "degenerate"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sodomite.n.01",
+   "synonyms": [
+    "sodomite",
+    "sodomist",
+    "sod",
+    "bugger"
+   ]
+  },
+  "CN_solid_colored": {
+   "definition": "a United States term for Blacks that is now considered offensive",
+   "hypernyms": [
+    "Black",
+    "Black_person",
+    "blackamoor",
+    "Negro",
+    "Negroid"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "colored_person.n.01",
+   "synonyms": [
+    "colored_person",
+    "colored"
+   ]
+  },
+  "CN_solomon_guggenheim": {
+   "definition": "United States philanthropist; son of Meyer Guggenheim who created several foundations to support the arts (1861-1949)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "guggenheim.n.01",
+   "synonyms": [
+    "Guggenheim",
+    "Solomon_Guggenheim"
+   ]
+  },
+  "CN_sondheim": {
+   "definition": "United States composer of musicals (born in 1930)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sondheim.n.01",
+   "synonyms": [
+    "Sondheim",
+    "Stephen_Sondheim"
+   ]
+  },
+  "CN_sore_side": {
+   "definition": "a place within a region identified relative to a center or reference location",
+   "hypernyms": [
+    "region",
+    "part"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "side.n.01",
+   "synonyms": [
+    "side"
+   ]
+  },
+  "CN_spaceships": {
+   "definition": "a spacecraft designed to carry a crew into interstellar space (especially in science fiction)",
+   "hypernyms": [
+    "spacecraft",
+    "ballistic_capsule",
+    "space_vehicle"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "starship.n.01",
+   "synonyms": [
+    "starship",
+    "spaceship"
+   ]
+  },
+  "CN_spectate": {
+   "definition": "be a spectator in a sports event",
+   "hypernyms": [
+    "watch",
+    "view",
+    "see",
+    "catch",
+    "take_in"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "spectate.v.01",
+   "synonyms": [
+    "spectate"
+   ]
+  },
+  "CN_spinnable": {
+   "definition": "capable or susceptible to being influenced by biased information",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "spinnable.s.01",
+   "synonyms": [
+    "spinnable"
+   ]
+  },
+  "CN_spirochaetales": {
+   "definition": "higher bacteria; slender spiral rodlike forms",
+   "hypernyms": [
+    "animal_order"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "spirochaetales.n.01",
+   "synonyms": [
+    "Spirochaetales",
+    "order_Spirochaetales"
+   ]
+  },
+  "CN_sport_coat": {
+   "definition": "lightweight single-breasted jacket; often striped in the colors of a club or school",
+   "hypernyms": [
+    "jacket"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "blazer.n.01",
+   "synonyms": [
+    "blazer",
+    "sport_jacket",
+    "sport_coat",
+    "sports_jacket",
+    "sports_coat"
+   ]
+  },
+  "CN_sport_shirt": {
+   "definition": "a shirt with short sleeves designed for comfort and casual wear",
+   "hypernyms": [
+    "shirt"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "polo_shirt.n.01",
+   "synonyms": [
+    "polo_shirt",
+    "sport_shirt"
+   ]
+  },
+  "CN_stable_boys": {
+   "definition": "a youthful male person",
+   "hypernyms": [
+    "male",
+    "male_person"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "male_child.n.01",
+   "synonyms": [
+    "male_child",
+    "boy"
+   ]
+  },
+  "CN_standard_procedure": {
+   "definition": "a prescribed procedure to be followed routinely",
+   "hypernyms": [
+    "operating_procedure"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "standing_operating_procedure.n.01",
+   "synonyms": [
+    "standing_operating_procedure",
+    "standard_operating_procedure",
+    "SOP",
+    "standard_procedure"
+   ]
+  },
+  "CN_staplegun": {
+   "definition": "a hand-held machine for driving staples home",
+   "hypernyms": [
+    "machine"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "staple_gun.n.01",
+   "synonyms": [
+    "staple_gun",
+    "staplegun",
+    "tacker"
+   ]
+  },
+  "CN_state_case": {
+   "definition": "an occurrence of something",
+   "hypernyms": [
+    "happening",
+    "occurrence",
+    "occurrent",
+    "natural_event"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "case.n.01",
+   "synonyms": [
+    "case",
+    "instance",
+    "example"
+   ]
+  },
+  "CN_sticky_pad": {
+   "definition": "a number of sheets of paper fastened together along one edge",
+   "hypernyms": [
+    "paper"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "pad.n.01",
+   "synonyms": [
+    "pad",
+    "pad_of_paper",
+    "tablet"
+   ]
+  },
+  "CN_stipulative_definition": {
+   "definition": "a definition that is stipulated by someone and that is not a standard usage",
+   "hypernyms": [
+    "definition"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "stipulative_definition.n.01",
+   "synonyms": [
+    "stipulative_definition"
+   ]
+  },
+  "CN_stopping_bleeding": {
+   "definition": "the flow of blood from a ruptured blood vessel",
+   "hypernyms": [
+    "injury",
+    "hurt",
+    "harm",
+    "trauma"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "bleeding.n.01",
+   "synonyms": [
+    "bleeding",
+    "hemorrhage",
+    "haemorrhage"
+   ]
+  },
+  "CN_storing_bicycle": {
+   "definition": "a wheeled vehicle that has two wheels and is moved by foot pedals",
+   "hypernyms": [
+    "wheeled_vehicle"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "bicycle.n.01",
+   "synonyms": [
+    "bicycle",
+    "bike",
+    "wheel",
+    "cycle"
+   ]
+  },
+  "CN_storing_foods": {
+   "definition": "any substance that can be metabolized by an animal to give energy and build tissue",
+   "hypernyms": [
+    "substance"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "food.n.01",
+   "synonyms": [
+    "food",
+    "nutrient"
+   ]
+  },
+  "CN_storm_beach": {
+   "definition": "an area of sand sloping down to the water of a sea or lake",
+   "hypernyms": [
+    "geological_formation",
+    "formation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "beach.n.01",
+   "synonyms": [
+    "beach"
+   ]
+  },
+  "CN_stow": {
+   "definition": "fill by packing tightly",
+   "hypernyms": [
+    "pack"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "stow.v.01",
+   "synonyms": [
+    "stow"
+   ]
+  },
+  "CN_stressed_out": {
+   "definition": "(baseball) a failure by a batter or runner to reach a base safely in baseball",
+   "hypernyms": [
+    "failure"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "out.n.01",
+   "synonyms": [
+    "out"
+   ]
+  },
+  "CN_sub_lieutenant": {
+   "definition": "a commissioned military officer",
+   "hypernyms": [
+    "commissioned_military_officer"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "lieutenant.n.01",
+   "synonyms": [
+    "lieutenant"
+   ]
+  },
+  "CN_subdivision_deuteromycotina": {
+   "definition": "large and heterogeneous form division of fungi comprising forms for which no sexually reproductive stage is known",
+   "hypernyms": [
+    "division"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "deuteromycota.n.01",
+   "synonyms": [
+    "Deuteromycota",
+    "subdivision_Deuteromycota",
+    "Deuteromycotina",
+    "Fungi_imperfecti",
+    "subdivision_Deuteromycotina"
+   ]
+  },
+  "CN_sugar_apple": {
+   "definition": "sweet pulpy tropical fruit with thick scaly rind and shiny black seeds",
+   "hypernyms": [
+    "custard_apple"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sweetsop.n.02",
+   "synonyms": [
+    "sweetsop",
+    "annon",
+    "sugar_apple"
+   ]
+  },
+  "CN_sulfuretted": {
+   "definition": "combine with sulfur",
+   "hypernyms": [
+    "compound",
+    "combine"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sulfurette.v.01",
+   "synonyms": [
+    "sulfurette",
+    "sulphurette"
+   ]
+  },
+  "CN_sulphurette": {
+   "definition": "combine with sulfur",
+   "hypernyms": [
+    "compound",
+    "combine"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sulfurette.v.01",
+   "synonyms": [
+    "sulfurette",
+    "sulphurette"
+   ]
+  },
+  "CN_sun_ray": {
+   "definition": "a column of light (as from a beacon)",
+   "hypernyms": [
+    "light",
+    "visible_light",
+    "visible_radiation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "beam.n.04",
+   "synonyms": [
+    "beam",
+    "beam_of_light",
+    "light_beam",
+    "ray",
+    "ray_of_light",
+    "shaft",
+    "shaft_of_light",
+    "irradiation"
+   ]
+  },
+  "CN_suv": {
+   "definition": "a high-performance four-wheel drive car built on a truck chassis",
+   "hypernyms": [
+    "car",
+    "auto",
+    "automobile",
+    "machine",
+    "motorcar"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sport_utility.n.01",
+   "synonyms": [
+    "sport_utility",
+    "sport_utility_vehicle",
+    "S.U.V.",
+    "SUV"
+   ]
+  },
+  "CN_swatch": {
+   "definition": "a sample piece of cloth",
+   "hypernyms": [
+    "piece_of_cloth",
+    "piece_of_material"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "swatch.n.01",
+   "synonyms": [
+    "swatch"
+   ]
+  },
+  "CN_sweat_duct": {
+   "definition": "a small duct that conveys sweat from a sudoriferous gland to the surface of the skin",
+   "hypernyms": [
+    "ductule",
+    "ductulus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sweat_duct.n.01",
+   "synonyms": [
+    "sweat_duct"
+   ]
+  },
+  "CN_sword_dancing": {
+   "definition": "any of various dances by men who step nimbly over swords or flourish them in the air",
+   "hypernyms": [
+    "folk_dancing",
+    "folk_dance"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sword_dance.n.01",
+   "synonyms": [
+    "sword_dance",
+    "sword_dancing"
+   ]
+  },
+  "CN_sylphlike": {
+   "definition": "moving and bending with ease",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "lissome.s.01",
+   "synonyms": [
+    "lissome",
+    "lissom",
+    "lithe",
+    "lithesome",
+    "slender",
+    "supple",
+    "svelte",
+    "sylphlike"
+   ]
+  },
+  "CN_sylvine": {
+   "definition": "a mineral consisting of native potassium chloride; an important ore of potassium that is found in sedimentary beds",
+   "hypernyms": [
+    "mineral"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "sylvite.n.01",
+   "synonyms": [
+    "sylvite",
+    "sylvine"
+   ]
+  },
+  "CN_synchronise": {
+   "definition": "happen at the same time",
+   "hypernyms": [
+    "happen",
+    "hap",
+    "go_on",
+    "pass_off",
+    "occur",
+    "pass",
+    "fall_out",
+    "come_about",
+    "take_place"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "synchronize.v.02",
+   "synonyms": [
+    "synchronize",
+    "synchronise",
+    "contemporize",
+    "contemporise"
+   ]
+  },
+  "CN_synchronised": {
+   "definition": "happen at the same time",
+   "hypernyms": [
+    "happen",
+    "hap",
+    "go_on",
+    "pass_off",
+    "occur",
+    "pass",
+    "fall_out",
+    "come_about",
+    "take_place"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "synchronize.v.02",
+   "synonyms": [
+    "synchronize",
+    "synchronise",
+    "contemporize",
+    "contemporise"
+   ]
+  },
+  "CN_t_tests": {
+   "definition": "trying something to find out about it",
+   "hypernyms": [
+    "experiment",
+    "experimentation"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "trial.n.02",
+   "synonyms": [
+    "trial",
+    "trial_run",
+    "test",
+    "tryout"
+   ]
+  },
+  "CN_taipei": {
+   "definition": "the capital of Nationalist China; located in northern Taiwan",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "taipei.n.01",
+   "synonyms": [
+    "Taipei",
+    "Taipeh",
+    "capital_of_Taiwan"
+   ]
+  },
+  "CN_taking_notes_on_subject": {
+   "definition": "the subject matter of a conversation or discussion",
+   "hypernyms": [
+    "message",
+    "content",
+    "subject_matter",
+    "substance"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "subject.n.01",
+   "synonyms": [
+    "subject",
+    "topic",
+    "theme"
+   ]
+  },
+  "CN_talk_dirty": {
+   "definition": "make soiled, filthy, or dirty",
+   "hypernyms": [
+    "change",
+    "alter",
+    "modify"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "dirty.v.01",
+   "synonyms": [
+    "dirty",
+    "soil",
+    "begrime",
+    "grime",
+    "colly",
+    "bemire"
+   ]
+  },
+  "CN_tarsus": {
+   "definition": "the part of the foot of a vertebrate between the metatarsus and the leg; in human beings the bones of the ankle and heel collectively",
+   "hypernyms": [
+    "skeletal_structure"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "tarsus.n.01",
+   "synonyms": [
+    "tarsus"
+   ]
+  },
+  "CN_tattle": {
+   "definition": "disclosing information or giving evidence about another",
+   "hypernyms": [
+    "disclosure",
+    "revelation",
+    "revealing"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "tattle.n.01",
+   "synonyms": [
+    "tattle",
+    "singing",
+    "telling"
+   ]
+  },
+  "CN_taxus": {
+   "definition": "yews",
+   "hypernyms": [
+    "gymnosperm_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "taxus.n.01",
+   "synonyms": [
+    "Taxus",
+    "genus_Taxus"
+   ]
+  },
+  "CN_thomas_middleton": {
+   "definition": "English playwright and pamphleteer (1570-1627)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "middleton.n.01",
+   "synonyms": [
+    "Middleton",
+    "Thomas_Middleton"
+   ]
+  },
+  "CN_thorns_on_stems": {
+   "definition": "(linguistics) the form of a word after all affixes are removed",
+   "hypernyms": [
+    "form",
+    "word_form",
+    "signifier",
+    "descriptor"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "root.n.03",
+   "synonyms": [
+    "root",
+    "root_word",
+    "base",
+    "stem",
+    "theme",
+    "radical"
+   ]
+  },
+  "CN_time_limit": {
+   "definition": "a time period within which something must be done or completed",
+   "hypernyms": [
+    "time_period",
+    "period_of_time",
+    "period"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "time_limit.n.01",
+   "synonyms": [
+    "time_limit"
+   ]
+  },
+  "CN_town_center": {
+   "definition": "an area that is approximately central within some larger region",
+   "hypernyms": [
+    "area",
+    "country"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "center.n.01",
+   "synonyms": [
+    "center",
+    "centre",
+    "middle",
+    "heart",
+    "eye"
+   ]
+  },
+  "CN_treetops": {
+   "definition": "the upper branches and leaves of a tree or other plant",
+   "hypernyms": [
+    "top"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "crown.n.07",
+   "synonyms": [
+    "crown",
+    "treetop"
+   ]
+  },
+  "CN_turn_screw": {
+   "definition": "someone who guards prisoners",
+   "hypernyms": [
+    "lawman",
+    "law_officer",
+    "peace_officer",
+    "keeper"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "prison_guard.n.01",
+   "synonyms": [
+    "prison_guard",
+    "jailer",
+    "jailor",
+    "gaoler",
+    "screw",
+    "turnkey"
+   ]
+  },
+  "CN_turning_off_tv": {
+   "definition": "broadcasting visual images of stationary or moving objects; ;  - Ernie Kovacs",
+   "hypernyms": [
+    "broadcasting"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "television.n.01",
+   "synonyms": [
+    "television",
+    "telecasting",
+    "TV",
+    "video"
+   ]
+  },
+  "CN_unknowledgeable": {
+   "definition": "unaware because of a lack of relevant information or knowledge",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ignorant.s.03",
+   "synonyms": [
+    "ignorant",
+    "unknowledgeable",
+    "unknowing",
+    "unwitting"
+   ]
+  },
+  "CN_unofficial": {
+   "definition": "not having official authority or sanction",
+   "hypernyms": [],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "unofficial.a.01",
+   "synonyms": [
+    "unofficial"
+   ]
+  },
+  "CN_ustilaginoidea": {
+   "definition": "genus of imperfect fungi causing plant diseases like smut",
+   "hypernyms": [
+    "fungus_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "ustilaginoidea.n.01",
+   "synonyms": [
+    "Ustilaginoidea",
+    "genus_Ustilaginoidea"
+   ]
+  },
+  "CN_visual_organ": {
+   "definition": "a fully differentiated structural and functional unit in an animal that is specialized for some particular function",
+   "hypernyms": [
+    "body_part"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "organ.n.01",
+   "synonyms": [
+    "organ"
+   ]
+  },
+  "CN_vittaria": {
+   "definition": "tropical epiphytic ferns with straplike fronds",
+   "hypernyms": [
+    "fern_genus"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "vittaria.n.01",
+   "synonyms": [
+    "Vittaria",
+    "genus_Vittaria"
+   ]
+  },
+  "CN_voting_record_of_politician": {
+   "definition": "a leader engaged in civil administration",
+   "hypernyms": [
+    "leader"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "politician.n.01",
+   "synonyms": [
+    "politician"
+   ]
+  },
+  "CN_wainscoted": {
+   "definition": "fitted or decorated with panels or wainscoting",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "paneled.s.01",
+   "synonyms": [
+    "paneled",
+    "wainscoted"
+   ]
+  },
+  "CN_walking_dog": {
+   "definition": "a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds",
+   "hypernyms": [
+    "domestic_animal",
+    "domesticated_animal",
+    "canine",
+    "canid"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "dog.n.01",
+   "synonyms": [
+    "dog",
+    "domestic_dog",
+    "Canis_familiaris"
+   ]
+  },
+  "CN_water_flowers": {
+   "definition": "a plant cultivated for its blooms or blossoms",
+   "hypernyms": [
+    "angiosperm",
+    "flowering_plant"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "flower.n.01",
+   "synonyms": [
+    "flower"
+   ]
+  },
+  "CN_william_congreve": {
+   "definition": "English playwright remembered for his comedies (1670-1729)",
+   "hypernyms": [],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "congreve.n.01",
+   "synonyms": [
+    "Congreve",
+    "William_Congreve"
+   ]
+  },
+  "CN_woof_woof": {
+   "definition": "the yarn woven across the warp yarn in weaving",
+   "hypernyms": [
+    "thread",
+    "yarn"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "woof.n.01",
+   "synonyms": [
+    "woof",
+    "weft",
+    "filling",
+    "pick"
+   ]
+  },
+  "CN_woolen_fabric": {
+   "definition": "artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers",
+   "hypernyms": [
+    "artifact",
+    "artefact"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "fabric.n.01",
+   "synonyms": [
+    "fabric",
+    "cloth",
+    "material",
+    "textile"
+   ]
+  },
+  "CN_write_books": {
+   "definition": "a written work or composition that has been published (printed on pages bound together)",
+   "hypernyms": [
+    "publication"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "book.n.01",
+   "synonyms": [
+    "book"
+   ]
+  },
+  "CN_write_programs": {
+   "definition": "a series of steps to be carried out or goals to be accomplished",
+   "hypernyms": [
+    "idea",
+    "thought"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "plan.n.01",
+   "synonyms": [
+    "plan",
+    "program",
+    "programme"
+   ]
+  },
+  "CN_x_factor": {
+   "definition": "anything that contributes causally to a result",
+   "hypernyms": [
+    "cause"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "factor.n.01",
+   "synonyms": [
+    "factor"
+   ]
+  },
+  "CN_xanthate": {
+   "definition": "a salt or ester of xanthic acid",
+   "hypernyms": [
+    "salt"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "xanthate.n.01",
+   "synonyms": [
+    "xanthate"
+   ]
+  },
+  "CN_yellow_mariposa_tulip": {
+   "definition": "mariposa having clusters of a few large deep yellow bell-shaped flowers atop slender stems; California coastal ranges",
+   "hypernyms": [
+    "mariposa",
+    "mariposa_tulip",
+    "mariposa_lily"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "yellow_mariposa_tulip.n.01",
+   "synonyms": [
+    "yellow_mariposa_tulip",
+    "Calochortus_luteus"
+   ]
+  },
+  "CN_you_wish": {
+   "definition": "a specific feeling of desire",
+   "hypernyms": [
+    "desire"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "wish.n.01",
+   "synonyms": [
+    "wish",
+    "wishing",
+    "want"
+   ]
+  },
+  "CN_\u2641": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "FN_Emergency": {
+   "definition": "a sudden unforeseen crisis (usually involving danger) that requires immediate action",
+   "hypernyms": [
+    "crisis"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "emergency.n.01",
+   "synonyms": [
+    "emergency",
+    "exigency",
+    "pinch"
+   ]
+  },
+  "FN_Evaluative_comparison": {
+   "definition": "the act of examining resemblances",
+   "hypernyms": [
+    "examination",
+    "scrutiny"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "comparison.n.01",
+   "synonyms": [
+    "comparison",
+    "comparing"
+   ]
+  },
+  "FN_Fighting_activity": {
+   "definition": "a process existing in or produced by nature (rather than by the intent of human beings)",
+   "hypernyms": [
+    "process",
+    "physical_process"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "natural_process.n.01",
+   "synonyms": [
+    "natural_process",
+    "natural_action",
+    "action",
+    "activity"
+   ]
+  },
+  "FN_Losing_it": {
+   "definition": "the branch of engineering that deals with the use of computers and telecommunications to retrieve and store and transmit information",
+   "hypernyms": [
+    "engineering",
+    "engineering_science",
+    "applied_science",
+    "technology"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "information_technology.n.01",
+   "synonyms": [
+    "information_technology",
+    "IT"
+   ]
+  },
+  "FN_Nuclear_process": {
+   "definition": "a writ issued by authority of law; usually compels the defendant's attendance in a civil suit; failure to appear results in a default judgment against the defendant",
+   "hypernyms": [
+    "writ",
+    "judicial_writ"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "summons.n.03",
+   "synonyms": [
+    "summons",
+    "process"
+   ]
+  },
+  "FN_Sign_agreement": {
+   "definition": "the statement (oral or written) of an exchange of promises",
+   "hypernyms": [
+    "statement"
+   ],
+   "method": "wn_lemma_disambiguated",
+   "sense_name": "agreement.n.01",
+   "synonyms": [
+    "agreement",
+    "understanding"
+   ]
+  },
+  "FN_Simple_naming": {
+   "definition": "the verbal act of naming",
+   "hypernyms": [
+    "speech_act"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "naming.n.01",
+   "synonyms": [
+    "naming"
+   ]
+  },
+  "RF/exp_dev_handoff_research_bipartite_engineered_underperforms_learned_2026_06_11": {
+   "definition": "the cardinal number that is the sum of ten and one",
+   "hypernyms": [
+    "large_integer"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "eleven.n.01",
+   "synonyms": [
+    "eleven",
+    "11",
+    "XI"
+   ]
+  },
+  "RF/exp_dev_handoff_research_substrate_confidence_continuous_3x_2026_06_10": {
+   "definition": "the cardinal number that is the sum of nine and one; the base of the decimal system",
+   "hypernyms": [
+    "large_integer"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "ten.n.01",
+   "synonyms": [
+    "ten",
+    "10",
+    "X",
+    "tenner",
+    "decade"
+   ]
+  },
+  "RF/exp_dev_handoff_research_substrate_controller_hybrid_2026_06_05": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "RF/research_SUBSTRATE_PRODUCT_ELEVATOR_PITCH_audit_robust_single_paragraph___4_claim_core___e": {
+   "definition": "a fat-soluble vitamin that is essential for normal reproduction; an important antioxidant that neutralizes free radicals in the body",
+   "hypernyms": [
+    "antioxidant",
+    "fat-soluble_vitamin"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "vitamin_e.n.01",
+   "synonyms": [
+    "vitamin_E",
+    "tocopherol",
+    "E"
+   ]
+  },
+  "RF/research_drill_key_collision_real_encoder_rescue_2x_2026_06_06": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "RF/research_drill_qb1_chain_capability_ceiling_deep_dive_2026_06_03": {
+   "definition": null,
+   "hypernyms": [],
+   "method": "oov",
+   "sense_name": null,
+   "synonyms": []
+  },
+  "WN_athapaskan.n.02": {
+   "definition": "a group of Amerindian languages (the name coined by an American anthropologist, Edward Sapir)",
+   "hypernyms": [
+    "Amerind",
+    "Amerindian_language",
+    "American-Indian_language",
+    "American_Indian",
+    "Indian"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "athapaskan.n.02",
+   "synonyms": [
+    "Athapaskan",
+    "Athapascan",
+    "Athabaskan",
+    "Athabascan",
+    "Athapaskan_language"
+   ]
+  },
+  "WN_beach_wagon.n.01": {
+   "definition": "a car that has a long body and rear door with space behind rear seat",
+   "hypernyms": [
+    "car",
+    "auto",
+    "automobile",
+    "machine",
+    "motorcar"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "beach_wagon.n.01",
+   "synonyms": [
+    "beach_wagon",
+    "station_wagon",
+    "wagon",
+    "estate_car",
+    "beach_waggon",
+    "station_waggon",
+    "waggon"
+   ]
+  },
+  "WN_black_body.n.01": {
+   "definition": "a hypothetical object capable of absorbing all the electromagnetic radiation falling on it",
+   "hypernyms": [
+    "natural_object"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "black_body.n.01",
+   "synonyms": [
+    "black_body",
+    "blackbody",
+    "full_radiator"
+   ]
+  },
+  "WN_builder.n.01": {
+   "definition": "a substance added to soaps or detergents to increase their cleansing action",
+   "hypernyms": [
+    "material",
+    "stuff"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "builder.n.01",
+   "synonyms": [
+    "builder",
+    "detergent_builder"
+   ]
+  },
+  "WN_catharsis.n.01": {
+   "definition": "(psychoanalysis) purging of emotional tensions",
+   "hypernyms": [
+    "purge",
+    "purging"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "catharsis.n.01",
+   "synonyms": [
+    "catharsis",
+    "katharsis",
+    "abreaction"
+   ]
+  },
+  "WN_contact.n.02": {
+   "definition": "the act of touching physically",
+   "hypernyms": [
+    "touch",
+    "touching"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "contact.n.02",
+   "synonyms": [
+    "contact",
+    "physical_contact"
+   ]
+  },
+  "WN_counterpart.n.01": {
+   "definition": "a person or thing having the same function or characteristics as another",
+   "hypernyms": [
+    "equivalent"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "counterpart.n.01",
+   "synonyms": [
+    "counterpart",
+    "opposite_number",
+    "vis-a-vis"
+   ]
+  },
+  "WN_head_covering.n.01": {
+   "definition": "a garment that covers the head and face",
+   "hypernyms": [
+    "garment"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "head_covering.n.01",
+   "synonyms": [
+    "head_covering",
+    "veil"
+   ]
+  },
+  "WN_integration.n.01": {
+   "definition": "the action of incorporating a racial or religious group into a community",
+   "hypernyms": [
+    "group_action"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "integration.n.01",
+   "synonyms": [
+    "integration",
+    "integrating",
+    "desegregation"
+   ]
+  },
+  "WN_kernel.n.03": {
+   "definition": "the choicest or most essential or most vital part of some idea or experience",
+   "hypernyms": [
+    "content",
+    "cognitive_content",
+    "mental_object"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "kernel.n.03",
+   "synonyms": [
+    "kernel",
+    "substance",
+    "core",
+    "center",
+    "centre",
+    "essence",
+    "gist",
+    "heart",
+    "heart_and_soul",
+    "inwardness",
+    "marrow",
+    "meat",
+    "nub",
+    "pith",
+    "sum",
+    "nitty-gritty"
+   ]
+  },
+  "WN_legal_power.n.01": {
+   "definition": "(law) the right and power to interpret and apply the law",
+   "hypernyms": [
+    "power",
+    "powerfulness"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "legal_power.n.01",
+   "synonyms": [
+    "legal_power",
+    "jurisdiction"
+   ]
+  },
+  "WN_mono-iodotyrosine.n.01": {
+   "definition": "tyrosine with one iodine atom added",
+   "hypernyms": [
+    "iodotyrosine"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "mono-iodotyrosine.n.01",
+   "synonyms": [
+    "mono-iodotyrosine"
+   ]
+  },
+  "WN_one-half.n.01": {
+   "definition": "one of two equal parts of a divisible whole",
+   "hypernyms": [
+    "common_fraction",
+    "simple_fraction"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "one-half.n.01",
+   "synonyms": [
+    "one-half",
+    "half"
+   ]
+  },
+  "WN_plan.n.03": {
+   "definition": "scale drawing of a structure",
+   "hypernyms": [
+    "drawing"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "plan.n.03",
+   "synonyms": [
+    "plan",
+    "architectural_plan"
+   ]
+  },
+  "WN_potential_energy.n.01": {
+   "definition": "the mechanical energy that a body has by virtue of its position; stored energy",
+   "hypernyms": [
+    "mechanical_energy"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "potential_energy.n.01",
+   "synonyms": [
+    "potential_energy",
+    "P.E."
+   ]
+  },
+  "WN_preciseness.n.02": {
+   "definition": "the quality of being reproducible in amount or performance",
+   "hypernyms": [
+    "exactness",
+    "exactitude"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "preciseness.n.02",
+   "synonyms": [
+    "preciseness",
+    "precision"
+   ]
+  },
+  "WN_prolongation.n.01": {
+   "definition": "the act of prolonging something",
+   "hypernyms": [
+    "continuance",
+    "continuation"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "prolongation.n.01",
+   "synonyms": [
+    "prolongation",
+    "protraction",
+    "perpetuation",
+    "lengthening"
+   ]
+  },
+  "WN_smudge.n.02": {
+   "definition": "a blemish made by dirt",
+   "hypernyms": [
+    "blemish",
+    "defect",
+    "mar"
+   ],
+   "method": "wn_exact_sense",
+   "sense_name": "smudge.n.02",
+   "synonyms": [
+    "smudge",
+    "spot",
+    "blot",
+    "daub",
+    "smear",
+    "smirch",
+    "slur"
+   ]
+  },
+  "math::T1/cross_entropy": {
+   "definition": "(communication theory) a numerical measure of the uncertainty of an outcome",
+   "hypernyms": [
+    "information_measure"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "information.n.05",
+   "synonyms": [
+    "information",
+    "selective_information",
+    "entropy"
+   ]
+  },
+  "math::T1/metric_space": {
+   "definition": "the unlimited expanse in which everything is located",
+   "hypernyms": [
+    "attribute"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "space.n.01",
+   "synonyms": [
+    "space",
+    "infinite"
+   ]
+  },
+  "math::T3/hungarian_algorithm": {
+   "definition": "a precise rule (or set of rules) specifying how to solve some problem",
+   "hypernyms": [
+    "rule",
+    "formula"
+   ],
+   "method": "wn_lemma_default_sense",
+   "sense_name": "algorithm.n.01",
+   "synonyms": [
+    "algorithm",
+    "algorithmic_rule",
+    "algorithmic_program"
+   ]
+  }
+ },
+ "method_note": "WN_ entities resolved via exact synset(name); CN_/FN_ via synsets(lemma) disambiguated against gloss+ablated-neighbor tokens, else default (most-frequent) sense",
+ "n_entities": 600,
+ "n_oov": 32,
+ "n_resolved": 568,
+ "nltk_version": "3.9.4",
+ "source": "nltk wordnet local corpora, interactive one-time build (network-free/corpus-free at cell runtime)"
+}
