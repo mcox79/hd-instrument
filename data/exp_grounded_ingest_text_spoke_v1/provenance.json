@@ -1,0 +1,7727 @@
+{
+ "provenance": {
+  "method": "nltk wordnet(3.9.4)/framenet local corpora, single interactive session, sample identical to grounded_ingest_tail_join_v1's SEED42_LEXICAL_TAIL sampling",
+  "source_relations_sha256_pinned_separately_in_cell": true
+ },
+ "sample_order": [
+  "CN_reims",
+  "CN_water_flowers",
+  "CN_addlebrained",
+  "CN_thomas_middleton",
+  "CN_ockham",
+  "CN_sipper",
+  "CN_every_so_often",
+  "CN_calystegia_sepium",
+  "CN_incorrectly",
+  "CN_gather_clan",
+  "CN_punitory",
+  "CN_calyptridium_umbellatum",
+  "WN_integration.n.01",
+  "CN_becoming_drunk",
+  "CN_school_of_law",
+  "CN_block_of_wood",
+  "CN_taxus",
+  "CN_herbal_tea",
+  "CN_schematisation",
+  "CN_harpoon_gun",
+  "CN_john_wain",
+  "CN_silicon_dioxide",
+  "CN_katharevusa",
+  "CN_republic_of_cyprus",
+  "CN_gray_wolf",
+  "CN_rhode_island_red",
+  "CN_epithelial_duct",
+  "CN_aquilegia_canadensis",
+  "CN_suv",
+  "CN_prosthetic_device",
+  "CN_ustilaginoidea",
+  "CN_ibrd",
+  "CN_blackbody",
+  "CN_reaper_binder",
+  "CN_synchronised",
+  "CN_population_shift",
+  "CN_genus_numida",
+  "WN_athapaskan.n.02",
+  "CN_blank_space",
+  "CN_limited_review",
+  "CN_getting_hair_styled",
+  "CN_pentatone",
+  "CN_preside",
+  "CN_create_electricity",
+  "CN_family_congridae",
+  "CN_dustmop",
+  "CN_genus_harrisia",
+  "CN_genus_oryza",
+  "WN_prolongation.n.01",
+  "CN_nightwear",
+  "CN_head_linesman",
+  "CN_frontward",
+  "CN_ruptiliocarpon_caracolito",
+  "CN_cylix",
+  "CN_deionize",
+  "CN_derv",
+  "CN_fae",
+  "CN_hematogenic",
+  "CN_roll_down_hill",
+  "CN_assam",
+  "CN_egyptian_islamic_jihad",
+  "CN_footbath",
+  "CN_cavort",
+  "CN_simulated_military_operation",
+  "CN_pirate_ship",
+  "CN_blue_point_siamese",
+  "CN_shirring",
+  "CN_field_question",
+  "CN_quaint",
+  "CN_get_at_able",
+  "CN_bc",
+  "CN_polly_fish",
+  "CN_collar_blight",
+  "CN_priest_penitent_privilege",
+  "CN_increasing_fairness",
+  "CN_mare_liberum",
+  "CN_rigorousness",
+  "CN_partner_off",
+  "CN_laborious",
+  "CN_send_word",
+  "CN_ankles",
+  "CN_pastrami",
+  "CN_petroleum_refinery",
+  "CN_opaline",
+  "CN_page_number",
+  "CN_nine_banded_armadillo",
+  "CN_egyptian_onion",
+  "CN_john_osborne",
+  "CN_causal_agency",
+  "CN_mantispid",
+  "FN_Fighting_activity",
+  "CN_eka_boron",
+  "CN_orthoceras",
+  "CN_rewrite_man",
+  "CN_ouija_board",
+  "CN_rinkhals",
+  "CN_screwbean_mesquite",
+  "CN_artificial_skin",
+  "CN_appendicularia",
+  "CN_continue_ticking",
+  "CN_pace_lap",
+  "CN_kph",
+  "CN_lucy_stone",
+  "CN_florida_pompano",
+  "CN_aglaomorpha_meyeniana",
+  "CN_gas_bomb",
+  "CN_full_faith_and_credit",
+  "CN_henchman",
+  "CN_claude_e_shannon",
+  "CN_red_tailed_hawk",
+  "CN_goddaughter",
+  "CN_inmarry",
+  "CN_no_two_people",
+  "CN_habenaria_unalascensis",
+  "CN_banshie",
+  "CN_spinnable",
+  "CN_sword_dancing",
+  "CN_lactuca_sativa_crispa",
+  "CN_destress",
+  "WN_builder.n.01",
+  "CN_condition_of_health",
+  "CN_caryophyllaceous_plant",
+  "CN_potassium_cyanide",
+  "CN_rfd",
+  "CN_bargain_hunter",
+  "CN_crestless_wave",
+  "CN_american_pennyroyal",
+  "CN_goat's_foot",
+  "CN_linosyris_vulgaris",
+  "CN_ko_punch",
+  "CN_hobbie",
+  "CN_honeyed_words",
+  "CN_lower_rank",
+  "CN_house_of_islam",
+  "CN_dsph",
+  "CN_chukchi_sea",
+  "CN_botrychium_virginianum",
+  "CN_nonchalance",
+  "CN_unknowledgeable",
+  "CN_pyjamas",
+  "CN_papeete",
+  "CN_crex_crex",
+  "CN_gray_sage",
+  "CN_polygala_lutea",
+  "CN_town_center",
+  "CN_genus_philohela",
+  "CN_capital_cost",
+  "CN_hoof_mark",
+  "CN_john_wiclif",
+  "CN_swatch",
+  "CN_order_percomorphi",
+  "CN_muskrat_fur",
+  "CN_grenada_dollar",
+  "CN_atypic",
+  "CN_medial_rectus",
+  "CN_disability_insurance",
+  "CN_karaya_gum",
+  "CN_carlovingian_dynasty",
+  "CN_sand_trap",
+  "CN_knuckles",
+  "CN_staplegun",
+  "CN_brierwood",
+  "CN_defective_pleading",
+  "CN_dogs_tooth_check",
+  "CN_res_judicata",
+  "CN_joggers",
+  "WN_kernel.n.03",
+  "CN_stipulative_definition",
+  "CN_lilac_pink",
+  "CN_consonate",
+  "CN_socialized",
+  "CN_got_flu",
+  "CN_cypripedium_californicum",
+  "CN_martin_buber",
+  "CN_lost_child",
+  "CN_atomic_number_57",
+  "WN_beach_wagon.n.01",
+  "CN_colorado_beetle",
+  "CN_cardiac_glucoside",
+  "CN_bachelor_at_arms",
+  "CN_sweat_duct",
+  "CN_harley_street",
+  "CN_peristedion_miniatum",
+  "CN_farming_area",
+  "CN_sex_gland",
+  "CN_engrossing",
+  "CN_bacillary_white_diarrhoea",
+  "CN_quacksalver",
+  "CN_tattle",
+  "CN_richler",
+  "WN_catharsis.n.01",
+  "CN_guilt_trip",
+  "CN_positive_fraud",
+  "CN_callinectes_sapidus",
+  "CN_genus_canna",
+  "CN_acromphalus",
+  "CN_digital_to_analog_converter",
+  "CN_psophocarpus_tetragonolobus",
+  "CN_conversion_reaction",
+  "CN_standard_procedure",
+  "WN_counterpart.n.01",
+  "CN_chaffer",
+  "CN_vittaria",
+  "CN_shmuck",
+  "CN_raisin_nut_cookie",
+  "CN_johann_gutenberg",
+  "CN_dinner_set",
+  "CN_taipei",
+  "CN_matched_game",
+  "CN_beta_adrenergic_blocker",
+  "WN_preciseness.n.02",
+  "CN_genus_sansevieria",
+  "CN_salisbury_steak",
+  "CN_cold_gangrene",
+  "CN_synchronise",
+  "CN_jestingly",
+  "CN_sell_someone_out",
+  "CN_msg",
+  "CN_sylvine",
+  "CN_hundred_and_sixty_fifth",
+  "CN_castor_bean_plant",
+  "CN_brachydactylic",
+  "CN_solomon_guggenheim",
+  "CN_kinesis",
+  "CN_brisk_up",
+  "CN_genus_gastrophryne",
+  "CN_scallion",
+  "CN_hundred_and_fifth",
+  "CN_acidophile",
+  "CN_skunk_bear",
+  "CN_sport_shirt",
+  "CN_apis",
+  "CN_heroism",
+  "CN_haul_off",
+  "CN_ship_product",
+  "CN_genus_charadrius",
+  "CN_nondisjunction",
+  "CN_both_ears",
+  "CN_deeper_voice_than_soprano",
+  "CN_common_fault",
+  "CN_destroyer_escort",
+  "CN_meronymic",
+  "CN_antheridiophore",
+  "CN_essonite",
+  "CN_balto_slavonic",
+  "CN_grinding_things",
+  "CN_isostasy",
+  "CN_dunk_shot",
+  "CN_banger",
+  "CN_galilean_telescope",
+  "CN_milli_electron_volt",
+  "CN_bringing_back_memories",
+  "CN_on_your_guard",
+  "CN_pericementoclasia",
+  "CN_spirochaetales",
+  "CN_luminance",
+  "CN_biramous",
+  "WN_head_covering.n.01",
+  "CN_scaramouch",
+  "CN_puppyish",
+  "CN_sulfuretted",
+  "CN_family_coerebidae",
+  "CN_boy's_pocket",
+  "CN_congenital_defect",
+  "CN_hard_exercise",
+  "CN_investing_in_commercial_development",
+  "CN_pitch_blackness",
+  "CN_hungarian_grass",
+  "CN_nogging",
+  "CN_exordium",
+  "CN_calean",
+  "CN_genus_agave",
+  "CN_xanthate",
+  "CN_conversant",
+  "CN_x_factor",
+  "CN_inuit",
+  "CN_rubens",
+  "CN_pelvic_fin",
+  "CN_at_work_on_time",
+  "CN_millenniumism",
+  "CN_genus_helleborus",
+  "CN_voting_record_of_politician",
+  "CN_degrease",
+  "CN_colourize",
+  "WN_smudge.n.02",
+  "CN_millivoltmeter",
+  "CN_back_candidate",
+  "CN_feebly",
+  "CN_second_violin",
+  "CN_ogle",
+  "CN_dialectics",
+  "CN_buy_organic_foods",
+  "CN_just_now",
+  "CN_major_cause_of_pollution",
+  "CN_hound_dog",
+  "CN_defenestration",
+  "CN_sport_coat",
+  "CN_investment_letter",
+  "CN_spaceships",
+  "FN_Sign_agreement",
+  "CN_gormandize",
+  "CN_kazoo",
+  "CN_qepiq",
+  "CN_cephaloridine",
+  "CN_happy_event",
+  "CN_robert_frost",
+  "CN_chicken_cordon_bleu",
+  "WN_mono-iodotyrosine.n.01",
+  "CN_family_cardiidae",
+  "CN_alameda",
+  "CN_robotlike",
+  "CN_cackly",
+  "CN_gun_barrel",
+  "CN_sylphlike",
+  "CN_misshapen",
+  "CN_kosovar",
+  "CN_2_dimensional",
+  "CN_eat_kosher_food",
+  "CN_demasculinize",
+  "CN_dire_straits",
+  "CN_capital_of_ohio",
+  "CN_kadikoy",
+  "CN_curvilineal",
+  "FN_Nuclear_process",
+  "CN_oryza_sativa",
+  "CN_double_team",
+  "CN_postmodern",
+  "CN_red_gray",
+  "CN_illicit",
+  "CN_silver_sagebrush",
+  "CN_greaser",
+  "CN_isherwood",
+  "CN_show_toy_to_friend",
+  "CN_boone",
+  "CN_campong",
+  "CN_aristotelic",
+  "CN_chomping",
+  "CN_open_sight",
+  "CN_nineteenth_amendment",
+  "CN_slow_down_traffic",
+  "CN_baling_wire",
+  "CN_high_flown",
+  "CN_outta",
+  "CN_family_thiobacteriaceae",
+  "CN_potato_wart",
+  "CN_sign_bill",
+  "CN_paraguayan",
+  "CN_boasting",
+  "CN_you_wish",
+  "CN_non_discrimination",
+  "CN_bed_clothing",
+  "CN_climatologist",
+  "CN_write_programs",
+  "CN_shoe_repairing",
+  "WN_one-half.n.01",
+  "CN_family_leporidae",
+  "CN_circumfuse",
+  "CN_yellow_mariposa_tulip",
+  "CN_rechargeable",
+  "CN_cost_accounting",
+  "CN_sondheim",
+  "WN_potential_energy.n.01",
+  "CN_in_style",
+  "CN_round_shot",
+  "CN_apple_tree_in",
+  "CN_wainscoted",
+  "CN_benvenuto_cellini",
+  "CN_clown_fish",
+  "CN_approved",
+  "CN_pretermit",
+  "CN_good_tempered",
+  "CN_araucaria_araucana",
+  "CN_flowering_glume",
+  "CN_sifting",
+  "CN_entrails",
+  "WN_contact.n.02",
+  "CN_cauliflower_ear",
+  "CN_inbuilt",
+  "CN_korean_velvet_grass",
+  "CN_battle_of_guadalcanal",
+  "CN_pinnace",
+  "WN_legal_power.n.01",
+  "CN_clovis_i",
+  "CN_axeblade",
+  "CN_freight_rate",
+  "WN_black_body.n.01",
+  "CN_solid_colored",
+  "CN_nag_hammadi_library",
+  "CN_sun_ray",
+  "CN_extended_order",
+  "CN_picture_tube",
+  "CN_poikilothermic",
+  "CN_genus_hibbertia",
+  "CN_time_limit",
+  "CN_nonresistant",
+  "CN_amyloidal",
+  "CN_sulphurette",
+  "CN_ferrocerium",
+  "CN_guinea_gold_vine",
+  "CN_silk_stocking",
+  "CN_nervus_radialis",
+  "CN_air_to_air_missile",
+  "CN_subdivision_deuteromycotina",
+  "CN_deceiving",
+  "CN_pinafore",
+  "CN_sugar_apple",
+  "CN_cazique",
+  "CN_cephalometry",
+  "WN_plan.n.03",
+  "CN_negotiatrix",
+  "CN_william_congreve",
+  "CN_bibliomania",
+  "CN_family_myliobatidae",
+  "CN_antiredeposition",
+  "CN_sodomist",
+  "CN_oxime",
+  "CN_cryptogam",
+  "CN_haematopoietic",
+  "CN_diaghilev",
+  "CN_irregularly",
+  "CN_meliorist",
+  "CN_incurably",
+  "CN_comes_in_cubes",
+  "CN_st_lucia",
+  "CN_st_bridget",
+  "CN_rissole",
+  "CN_hairstreak_butterfly",
+  "CN_stopping_bleeding",
+  "CN_acellular",
+  "CN_jagganath",
+  "CN_spring_to_mind",
+  "WN_mess.n.01",
+  "CN_immunized",
+  "CN_gillespie",
+  "CN_augmented_by_benefits",
+  "CN_handling_cost",
+  "CN_mary_martin",
+  "CN_overcultivate",
+  "CN_storing_bicycle",
+  "CN_rhomboidal",
+  "CN_sabbatum",
+  "CN_hypericum_maculatum",
+  "CN_price_increase",
+  "CN_oenothera_biennis",
+  "CN_american_wisteria",
+  "CN_mitella",
+  "CN_criterial",
+  "CN_sarcoid",
+  "CN_olefine",
+  "CN_irritative",
+  "CN_amphistylar",
+  "CN_male_hypogonadism",
+  "CN_screw_eye",
+  "CN_95",
+  "CN_gravitons",
+  "CN_mussitation",
+  "CN_genus_centrolobium",
+  "CN_brownish",
+  "CN_winter_mushroom",
+  "CN_sweet_grass",
+  "CN_running_suit",
+  "CN_panty",
+  "CN_pinus_palustris",
+  "CN_electoral_system",
+  "CN_meandering",
+  "CN_mores",
+  "CN_electrocardiograph",
+  "CN_ropiness",
+  "CN_emerson",
+  "CN_generics",
+  "CN_spartina_cynosuroides",
+  "WN_sensitivity.n.02",
+  "CN_numerous",
+  "CN_barbecuing",
+  "CN_hyalophora_cecropia",
+  "CN_genus_fissurella",
+  "CN_finger_bar",
+  "CN_chondritic",
+  "CN_bacca",
+  "CN_organisms",
+  "CN_la_fayette",
+  "CN_discount_store",
+  "CN_heroin_addict",
+  "CN_ranunculus_repens",
+  "CN_cold_war",
+  "WN_street.n.01",
+  "CN_platitudinize",
+  "CN_duramen",
+  "CN_self_absorbed",
+  "CN_sore_side",
+  "CN_diplomate",
+  "CN_multiversity",
+  "CN_potassium_hydrogen_carbonate",
+  "CN_genus_regalecus",
+  "CN_flagellated_protozoan",
+  "CN_building_farm_on",
+  "CN_genus_scolopax",
+  "CN_shamelessly",
+  "CN_genus_notemigonus",
+  "CN_gaskell"
+ ],
+ "results": {
+  "CN_reims": {
+   "entity_id": "CN_reims",
+   "prefix": "CN",
+   "lemma": "reims",
+   "gloss": "a city in northeastern France to the east of Paris; scene of the coronation of most French kings; site of the unconditional German surrender in 1945 at the end of World War II",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rheims",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_water_flowers": {
+   "entity_id": "CN_water_flowers",
+   "prefix": "CN",
+   "lemma": "water_flowers",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_gardener",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_addlebrained": {
+   "entity_id": "CN_addlebrained",
+   "prefix": "CN",
+   "lemma": "addlebrained",
+   "gloss": "stupid and confused; ; - Isaac Sterne",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_puddingheaded",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_thomas_middleton": {
+   "entity_id": "CN_thomas_middleton",
+   "prefix": "CN",
+   "lemma": "thomas_middleton",
+   "gloss": "English playwright and pamphleteer (1570-1627)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_middleton",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ockham": {
+   "entity_id": "CN_ockham",
+   "prefix": "CN",
+   "lemma": "ockham",
+   "gloss": "English scholastic philosopher and assumed author of Occam's Razor (1285-1349)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_william_of_ockham",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sipper": {
+   "entity_id": "CN_sipper",
+   "prefix": "CN",
+   "lemma": "sipper",
+   "gloss": "a drinker who sips",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_drinker",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_every_so_often": {
+   "entity_id": "CN_every_so_often",
+   "prefix": "CN",
+   "lemma": "every_so_often",
+   "gloss": "occasionally",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_every_now_and_then",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_calystegia_sepium": {
+   "entity_id": "CN_calystegia_sepium",
+   "prefix": "CN",
+   "lemma": "calystegia_sepium",
+   "gloss": "common Eurasian and American wild climber with pink flowers; sometimes placed in genus Convolvulus",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hedge_bindweed",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_incorrectly": {
+   "entity_id": "CN_incorrectly",
+   "prefix": "CN",
+   "lemma": "incorrectly",
+   "gloss": "in an incorrect manner",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_falsely",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gather_clan": {
+   "entity_id": "CN_gather_clan",
+   "prefix": "CN",
+   "lemma": "gather_clan",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_family_room",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_punitory": {
+   "entity_id": "CN_punitory",
+   "prefix": "CN",
+   "lemma": "punitory",
+   "gloss": "inflicting punishment",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_punitive",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_calyptridium_umbellatum": {
+   "entity_id": "CN_calyptridium_umbellatum",
+   "prefix": "CN",
+   "lemma": "calyptridium_umbellatum",
+   "gloss": "pink clusters of densely packed flowers on prostrate stems resemble upturned pads of cats' feet; grow in coniferous forests of western North America",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pussy_paw",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_integration.n.01": {
+   "entity_id": "WN_integration.n.01",
+   "prefix": "WN",
+   "lemma": "integration",
+   "gloss": "the action of incorporating a racial or religious group into a community",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_group_action.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_becoming_drunk": {
+   "entity_id": "CN_becoming_drunk",
+   "prefix": "CN",
+   "lemma": "becoming_drunk",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_drinking_alcohol",
+     "CN_CAUSES"
+    ]
+   ]
+  },
+  "CN_school_of_law": {
+   "entity_id": "CN_school_of_law",
+   "prefix": "CN",
+   "lemma": "school_of_law",
+   "gloss": "a graduate school offering study leading to a law degree",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_law_school",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_block_of_wood": {
+   "entity_id": "CN_block_of_wood",
+   "prefix": "CN",
+   "lemma": "block_of_wood",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_wedge_in_door",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_taxus": {
+   "entity_id": "CN_taxus",
+   "prefix": "CN",
+   "lemma": "taxus",
+   "gloss": "yews",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_genus_taxus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_herbal_tea": {
+   "entity_id": "CN_herbal_tea",
+   "prefix": "CN",
+   "lemma": "herbal_tea",
+   "gloss": "tea-like drink made of leaves of various herbs",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_herb_tea",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_schematisation": {
+   "entity_id": "CN_schematisation",
+   "prefix": "CN",
+   "lemma": "schematisation",
+   "gloss": "providing a chart or outline of a system",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_schematization",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_harpoon_gun": {
+   "entity_id": "CN_harpoon_gun",
+   "prefix": "CN",
+   "lemma": "harpoon_gun",
+   "gloss": "a cannon or similar gun that fires harpoons",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cannon",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_john_wain": {
+   "entity_id": "CN_john_wain",
+   "prefix": "CN",
+   "lemma": "john_wain",
+   "gloss": "English writer (1925-1994)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_john_barrington_wain",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_silicon_dioxide": {
+   "entity_id": "CN_silicon_dioxide",
+   "prefix": "CN",
+   "lemma": "silicon_dioxide",
+   "gloss": "a white or colorless vitreous insoluble solid (SiO2); various forms occur widely in the earth's crust as quartz or cristobalite or tridymite or lechatelierite",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_silica",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_katharevusa": {
+   "entity_id": "CN_katharevusa",
+   "prefix": "CN",
+   "lemma": "katharevusa",
+   "gloss": "literary style of Modern Greek containing features borrowed from Koine",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_modern_greek",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_republic_of_cyprus": {
+   "entity_id": "CN_republic_of_cyprus",
+   "prefix": "CN",
+   "lemma": "republic_of_cyprus",
+   "gloss": "a country on the island of Cyprus; 80% of the people are of Greek origin and 20% or Turkish origin",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cyprus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gray_wolf": {
+   "entity_id": "CN_gray_wolf",
+   "prefix": "CN",
+   "lemma": "gray_wolf",
+   "gloss": "a wolf with a brindled grey coat living in forested northern regions of North America",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_timber_wolf",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_rhode_island_red": {
+   "entity_id": "CN_rhode_island_red",
+   "prefix": "CN",
+   "lemma": "rhode_island_red",
+   "gloss": "American breed of heavy-bodied brownish-red general-purpose chicken",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_chicken",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_epithelial_duct": {
+   "entity_id": "CN_epithelial_duct",
+   "prefix": "CN",
+   "lemma": "epithelial_duct",
+   "gloss": "a bodily passage or tube lined with epithelial cells and conveying a secretion or other substance",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_duct",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_aquilegia_canadensis": {
+   "entity_id": "CN_aquilegia_canadensis",
+   "prefix": "CN",
+   "lemma": "aquilegia_canadensis",
+   "gloss": "columbine of eastern North America having long-spurred red flowers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_meeting_house",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_suv": {
+   "entity_id": "CN_suv",
+   "prefix": "CN",
+   "lemma": "suv",
+   "gloss": "a high-performance four-wheel drive car built on a truck chassis",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sport_utility",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_prosthetic_device": {
+   "entity_id": "CN_prosthetic_device",
+   "prefix": "CN",
+   "lemma": "prosthetic_device",
+   "gloss": "corrective consisting of a replacement for a part of the body",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_prosthesis",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ustilaginoidea": {
+   "entity_id": "CN_ustilaginoidea",
+   "prefix": "CN",
+   "lemma": "ustilaginoidea",
+   "gloss": "genus of imperfect fungi causing plant diseases like smut",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_genus_ustilaginoidea",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ibrd": {
+   "entity_id": "CN_ibrd",
+   "prefix": "CN",
+   "lemma": "ibrd",
+   "gloss": "a United Nations agency created to assist developing nations by loans guaranteed by member governments",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_international_bank_for_reconstruction_and_development",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_blackbody": {
+   "entity_id": "CN_blackbody",
+   "prefix": "CN",
+   "lemma": "blackbody",
+   "gloss": "a hypothetical object capable of absorbing all the electromagnetic radiation falling on it",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_black_body",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_reaper_binder": {
+   "entity_id": "CN_reaper_binder",
+   "prefix": "CN",
+   "lemma": "reaper_binder",
+   "gloss": "a machine that cuts grain and binds it in sheaves",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_binder",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_synchronised": {
+   "entity_id": "CN_synchronised",
+   "prefix": "CN",
+   "lemma": "synchronised",
+   "gloss": "happen at the same time",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_synchronized",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_population_shift": {
+   "entity_id": "CN_population_shift",
+   "prefix": "CN",
+   "lemma": "population_shift",
+   "gloss": "a change in the relative numbers of the different groups of individuals making up a population",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_transformation",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_genus_numida": {
+   "entity_id": "CN_genus_numida",
+   "prefix": "CN",
+   "lemma": "genus_numida",
+   "gloss": "guinea fowl",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_numida",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_athapaskan.n.02": {
+   "entity_id": "WN_athapaskan.n.02",
+   "prefix": "WN",
+   "lemma": "athapaskan",
+   "gloss": "a group of Amerindian languages (the name coined by an American anthropologist, Edward Sapir)",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_amerind.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_blank_space": {
+   "entity_id": "CN_blank_space",
+   "prefix": "CN",
+   "lemma": "blank_space",
+   "gloss": "a blank area",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_space",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_limited_review": {
+   "entity_id": "CN_limited_review",
+   "prefix": "CN",
+   "lemma": "limited_review",
+   "gloss": "(accounting) a service (less exhaustive than an audit) that provides some assurance to interested parties as to the reliability of financial data",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_review",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_getting_hair_styled": {
+   "entity_id": "CN_getting_hair_styled",
+   "prefix": "CN",
+   "lemma": "getting_hair_styled",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_going_to_hairdresser",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_pentatone": {
+   "entity_id": "CN_pentatone",
+   "prefix": "CN",
+   "lemma": "pentatone",
+   "gloss": "a gapped scale with five notes; usually the fourth and seventh notes of the diatonic scale are omitted",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pentatonic_scale",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_preside": {
+   "entity_id": "CN_preside",
+   "prefix": "CN",
+   "lemma": "preside",
+   "gloss": "act as president",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_control",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_create_electricity": {
+   "entity_id": "CN_create_electricity",
+   "prefix": "CN",
+   "lemma": "create_electricity",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_machine",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_family_congridae": {
+   "entity_id": "CN_family_congridae",
+   "prefix": "CN",
+   "lemma": "family_congridae",
+   "gloss": "marine eels",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_congridae",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_dustmop": {
+   "entity_id": "CN_dustmop",
+   "prefix": "CN",
+   "lemma": "dustmop",
+   "gloss": "a dry swab for dusting floors",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dry_mop",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_harrisia": {
+   "entity_id": "CN_genus_harrisia",
+   "prefix": "CN",
+   "lemma": "genus_harrisia",
+   "gloss": "genus of slender often treelike spiny cacti with solitary showy nocturnal white or pink flowers; Florida and Caribbean to South America",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_harrisia",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_oryza": {
+   "entity_id": "CN_genus_oryza",
+   "prefix": "CN",
+   "lemma": "genus_oryza",
+   "gloss": "rice",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_oryza",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_prolongation.n.01": {
+   "entity_id": "WN_prolongation.n.01",
+   "prefix": "WN",
+   "lemma": "prolongation",
+   "gloss": "the act of prolonging something",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_continuance.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_nightwear": {
+   "entity_id": "CN_nightwear",
+   "prefix": "CN",
+   "lemma": "nightwear",
+   "gloss": "garments designed to be worn in bed",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_nightclothes",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_head_linesman": {
+   "entity_id": "CN_head_linesman",
+   "prefix": "CN",
+   "lemma": "head_linesman",
+   "gloss": "a football official in charge of recording yardage gained or lost",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_football_official",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_frontward": {
+   "entity_id": "CN_frontward",
+   "prefix": "CN",
+   "lemma": "frontward",
+   "gloss": "at or to or toward the front; ; ; ; (`forrad' and `forrard' are dialectal variations)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_frontwards",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ruptiliocarpon_caracolito": {
+   "entity_id": "CN_ruptiliocarpon_caracolito",
+   "prefix": "CN",
+   "lemma": "ruptiliocarpon_caracolito",
+   "gloss": "large Costa Rican tree having light-colored wood suitable for cabinetry; similar to the African lepidobotrys in wood structure as well as in fruit and flowers and leaves and seeds; often classified in other families",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_caracolito",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_cylix": {
+   "entity_id": "CN_cylix",
+   "prefix": "CN",
+   "lemma": "cylix",
+   "gloss": "a shallow drinking cup with two handles; used in ancient Greece",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_kylix",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_deionize": {
+   "entity_id": "CN_deionize",
+   "prefix": "CN",
+   "lemma": "deionize",
+   "gloss": "remove ions from",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_get_rid_of",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_derv": {
+   "entity_id": "CN_derv",
+   "prefix": "CN",
+   "lemma": "derv",
+   "gloss": "diesel oil used in cars and lorries with diesel engines; from d(iesel) e(ngine) r(oad) v(ehicle)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_diesel_oil",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_fae": {
+   "entity_id": "CN_fae",
+   "prefix": "CN",
+   "lemma": "fae",
+   "gloss": "a device consisting of a container of fuel and two explosive charges; the first charge bursts open the fuel container at a predetermined height and spreads the fuel in a cloud that mixes with atmospheric oxygen; the second charge detonates the cloud which creates an enormous blast wave and incinerates whatever is below",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_fuel_air_explosive",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hematogenic": {
+   "entity_id": "CN_hematogenic",
+   "prefix": "CN",
+   "lemma": "hematogenic",
+   "gloss": "pertaining to the formation of blood or blood cells",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hematopoietic",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_roll_down_hill": {
+   "entity_id": "CN_roll_down_hill",
+   "prefix": "CN",
+   "lemma": "roll_down_hill",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_ball",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_assam": {
+   "entity_id": "CN_assam",
+   "prefix": "CN",
+   "lemma": "assam",
+   "gloss": "state in northeastern India",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_india",
+     "PART_OF"
+    ]
+   ]
+  },
+  "CN_egyptian_islamic_jihad": {
+   "entity_id": "CN_egyptian_islamic_jihad",
+   "prefix": "CN",
+   "lemma": "egyptian_islamic_jihad",
+   "gloss": "an Islamic extremist group active since the late 1970s; seeks to overthrow the Egyptian government and replace it with an Islamic state; works in small underground cells",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_al_jihad",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_footbath": {
+   "entity_id": "CN_footbath",
+   "prefix": "CN",
+   "lemma": "footbath",
+   "gloss": "a small bathtub for warming or washing or disinfecting the feet",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_bathtub",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_cavort": {
+   "entity_id": "CN_cavort",
+   "prefix": "CN",
+   "lemma": "cavort",
+   "gloss": "play boisterously",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_frolic",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_simulated_military_operation": {
+   "entity_id": "CN_simulated_military_operation",
+   "prefix": "CN",
+   "lemma": "simulated_military_operation",
+   "gloss": "a military training exercise",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_maneuver",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pirate_ship": {
+   "entity_id": "CN_pirate_ship",
+   "prefix": "CN",
+   "lemma": "pirate_ship",
+   "gloss": "a ship that is manned by pirates",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pirate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_blue_point_siamese": {
+   "entity_id": "CN_blue_point_siamese",
+   "prefix": "CN",
+   "lemma": "blue_point_siamese",
+   "gloss": "Siamese cat having a bluish cream-colored body and dark grey points",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_siamese_cat",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_shirring": {
+   "entity_id": "CN_shirring",
+   "prefix": "CN",
+   "lemma": "shirring",
+   "gloss": "baking shelled eggs",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_baking",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_field_question": {
+   "entity_id": "CN_field_question",
+   "prefix": "CN",
+   "lemma": "field_question",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_speaker",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_quaint": {
+   "entity_id": "CN_quaint",
+   "prefix": "CN",
+   "lemma": "quaint",
+   "gloss": "strange in an interesting or pleasing way",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_olde_worlde",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_get_at_able": {
+   "entity_id": "CN_get_at_able",
+   "prefix": "CN",
+   "lemma": "get_at_able",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_come_at_able",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_bc": {
+   "entity_id": "CN_bc",
+   "prefix": "CN",
+   "lemma": "bc",
+   "gloss": "before the Christian era; used following dates before the supposed year Christ was born",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_before_christ",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_polly_fish": {
+   "entity_id": "CN_polly_fish",
+   "prefix": "CN",
+   "lemma": "polly_fish",
+   "gloss": "gaudy tropical fishes with parrotlike beaks formed by fusion of teeth",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_parrotfish",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_collar_blight": {
+   "entity_id": "CN_collar_blight",
+   "prefix": "CN",
+   "lemma": "collar_blight",
+   "gloss": "a disease affecting the trunks of pear and apple trees",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_blight",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_priest_penitent_privilege": {
+   "entity_id": "CN_priest_penitent_privilege",
+   "prefix": "CN",
+   "lemma": "priest_penitent_privilege",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_privilege",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_increasing_fairness": {
+   "entity_id": "CN_increasing_fairness",
+   "prefix": "CN",
+   "lemma": "increasing_fairness",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_changing_society",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_mare_liberum": {
+   "entity_id": "CN_mare_liberum",
+   "prefix": "CN",
+   "lemma": "mare_liberum",
+   "gloss": "(free sea) a navigable body of water to which all nations have equal access",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_waterway",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_rigorousness": {
+   "entity_id": "CN_rigorousness",
+   "prefix": "CN",
+   "lemma": "rigorousness",
+   "gloss": "something hard to endure",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_asperity",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_partner_off": {
+   "entity_id": "CN_partner_off",
+   "prefix": "CN",
+   "lemma": "partner_off",
+   "gloss": "form a pair or pairs",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pair",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_laborious": {
+   "entity_id": "CN_laborious",
+   "prefix": "CN",
+   "lemma": "laborious",
+   "gloss": "characterized by effort to the point of exhaustion; especially physical effort",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_backbreaking",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_send_word": {
+   "entity_id": "CN_send_word",
+   "prefix": "CN",
+   "lemma": "send_word",
+   "gloss": "inform (somebody) of something",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_advise",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ankles": {
+   "entity_id": "CN_ankles",
+   "prefix": "CN",
+   "lemma": "ankles",
+   "gloss": "a gliding joint between the distal ends of the tibia and fibula and the proximal end of the talus",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_feet",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_pastrami": {
+   "entity_id": "CN_pastrami",
+   "prefix": "CN",
+   "lemma": "pastrami",
+   "gloss": "highly seasoned cut of smoked beef",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_beef",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_petroleum_refinery": {
+   "entity_id": "CN_petroleum_refinery",
+   "prefix": "CN",
+   "lemma": "petroleum_refinery",
+   "gloss": "a refinery for petroleum",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_oil_refinery",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_opaline": {
+   "entity_id": "CN_opaline",
+   "prefix": "CN",
+   "lemma": "opaline",
+   "gloss": "having a play of lustrous rainbow colors",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pearlescent",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_page_number": {
+   "entity_id": "CN_page_number",
+   "prefix": "CN",
+   "lemma": "page_number",
+   "gloss": "the system of numbering pages",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pagination",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_nine_banded_armadillo": {
+   "entity_id": "CN_nine_banded_armadillo",
+   "prefix": "CN",
+   "lemma": "nine_banded_armadillo",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_peba",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_egyptian_onion": {
+   "entity_id": "CN_egyptian_onion",
+   "prefix": "CN",
+   "lemma": "egyptian_onion",
+   "gloss": "type of perennial onion grown chiefly as a curiosity or for early salad onions; having bulbils that replace the flowers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_tree_onion",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_john_osborne": {
+   "entity_id": "CN_john_osborne",
+   "prefix": "CN",
+   "lemma": "john_osborne",
+   "gloss": "English playwright (1929-1994)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_john_james_osborne",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_causal_agency": {
+   "entity_id": "CN_causal_agency",
+   "prefix": "CN",
+   "lemma": "causal_agency",
+   "gloss": "any entity that produces an effect or is responsible for events or results",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_causal_agent",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_mantispid": {
+   "entity_id": "CN_mantispid",
+   "prefix": "CN",
+   "lemma": "mantispid",
+   "gloss": "insect that resembles a mantis; larvae are parasites in the nests of spiders and wasps",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_neuropteron",
+     "IS_A"
+    ]
+   ]
+  },
+  "FN_Fighting_activity": {
+   "entity_id": "FN_Fighting_activity",
+   "prefix": "FN",
+   "lemma": "Fighting_activity",
+   "gloss": "A generally large group of people, the Combatants, are engaged in a chaotic, violent, and usually protracted Fight amongst themselves.  There are no distinct sides, and generally no particular goal (compare Hostile_encounter).  The Fight may be described as having a Manner or Degree of violence.  Time and Place may also be expressed.  'The gladiators entered the fray.' ",
+   "source_used": "FN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "FN_Hostile_encounter",
+     "FRAME_INHERITS"
+    ]
+   ]
+  },
+  "CN_eka_boron": {
+   "entity_id": "CN_eka_boron",
+   "prefix": "CN",
+   "lemma": "eka_boron",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_scandium",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_orthoceras": {
+   "entity_id": "CN_orthoceras",
+   "prefix": "CN",
+   "lemma": "orthoceras",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_orthoceratite",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_rewrite_man": {
+   "entity_id": "CN_rewrite_man",
+   "prefix": "CN",
+   "lemma": "rewrite_man",
+   "gloss": "someone who puts text into appropriate form for publication",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_redact",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ouija_board": {
+   "entity_id": "CN_ouija_board",
+   "prefix": "CN",
+   "lemma": "ouija_board",
+   "gloss": "a board with the alphabet on it; used with a planchette to spell out supernatural messages",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ouija",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_rinkhals": {
+   "entity_id": "CN_rinkhals",
+   "prefix": "CN",
+   "lemma": "rinkhals",
+   "gloss": "highly venomous snake of southern Africa able to spit venom up to seven feet",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ringhals",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_screwbean_mesquite": {
+   "entity_id": "CN_screwbean_mesquite",
+   "prefix": "CN",
+   "lemma": "screwbean_mesquite",
+   "gloss": "shrub or small tree of southwestern United States and northwestern Mexico having spirally twisted pods",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_screw_bean",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_artificial_skin": {
+   "entity_id": "CN_artificial_skin",
+   "prefix": "CN",
+   "lemma": "artificial_skin",
+   "gloss": "a synthetic covering with two layers used experimentally to treat burn victims",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_covering",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_appendicularia": {
+   "entity_id": "CN_appendicularia",
+   "prefix": "CN",
+   "lemma": "appendicularia",
+   "gloss": "free-swimming tadpole-shaped pelagic tunicate resembling larvae of other tunicates",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_tunicate",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_continue_ticking": {
+   "entity_id": "CN_continue_ticking",
+   "prefix": "CN",
+   "lemma": "continue_ticking",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_clock",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_pace_lap": {
+   "entity_id": "CN_pace_lap",
+   "prefix": "CN",
+   "lemma": "pace_lap",
+   "gloss": "the first lap of a car race that prepares the cars for a fast start",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_lap",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_kph": {
+   "entity_id": "CN_kph",
+   "prefix": "CN",
+   "lemma": "kph",
+   "gloss": "the ratio of the distance traveled (in kilometers) to the time spent traveling (in hours)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_kilometers_per_hour",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_lucy_stone": {
+   "entity_id": "CN_lucy_stone",
+   "prefix": "CN",
+   "lemma": "lucy_stone",
+   "gloss": "United States feminist and suffragist (1818-1893)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_stone",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_florida_pompano": {
+   "entity_id": "CN_florida_pompano",
+   "prefix": "CN",
+   "lemma": "florida_pompano",
+   "gloss": "found in coastal waters New England to Brazil except clear waters of West Indies",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pompano",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_aglaomorpha_meyeniana": {
+   "entity_id": "CN_aglaomorpha_meyeniana",
+   "prefix": "CN",
+   "lemma": "aglaomorpha_meyeniana",
+   "gloss": "epiphytic fern with large fronds; Taiwan and Philippines",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_bear's_paw_fern",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gas_bomb": {
+   "entity_id": "CN_gas_bomb",
+   "prefix": "CN",
+   "lemma": "gas_bomb",
+   "gloss": "a bomb laden with chemical agents that are released when the bomb explodes",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_chemical_bomb",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_full_faith_and_credit": {
+   "entity_id": "CN_full_faith_and_credit",
+   "prefix": "CN",
+   "lemma": "full_faith_and_credit",
+   "gloss": "a guarantee to pay interest and principal on debt; usually issued by the United States Treasury",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_guarantee",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_henchman": {
+   "entity_id": "CN_henchman",
+   "prefix": "CN",
+   "lemma": "henchman",
+   "gloss": "someone who assists in a plot",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_confederate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_claude_e_shannon": {
+   "entity_id": "CN_claude_e_shannon",
+   "prefix": "CN",
+   "lemma": "claude_e_shannon",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_claude_elwood_shannon",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_red_tailed_hawk": {
+   "entity_id": "CN_red_tailed_hawk",
+   "prefix": "CN",
+   "lemma": "red_tailed_hawk",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_redtail",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_goddaughter": {
+   "entity_id": "CN_goddaughter",
+   "prefix": "CN",
+   "lemma": "goddaughter",
+   "gloss": "a female godchild",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_daughter",
+     "CN_DERIVED_FROM"
+    ]
+   ]
+  },
+  "CN_inmarry": {
+   "entity_id": "CN_inmarry",
+   "prefix": "CN",
+   "lemma": "inmarry",
+   "gloss": "marry within one's own tribe or group",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_marry",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_no_two_people": {
+   "entity_id": "CN_no_two_people",
+   "prefix": "CN",
+   "lemma": "no_two_people",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_alike",
+     "CN_HAS_PROPERTY"
+    ]
+   ]
+  },
+  "CN_habenaria_unalascensis": {
+   "entity_id": "CN_habenaria_unalascensis",
+   "prefix": "CN",
+   "lemma": "habenaria_unalascensis",
+   "gloss": "similar to coastal rein orchid but with smaller flowers; Alaska to Baja California and east to the Dakotas and Colorado",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_alaska_rein_orchid",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_banshie": {
+   "entity_id": "CN_banshie",
+   "prefix": "CN",
+   "lemma": "banshie",
+   "gloss": "(Irish folklore) a female spirit who wails to warn of impending death",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_banshee",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_spinnable": {
+   "entity_id": "CN_spinnable",
+   "prefix": "CN",
+   "lemma": "spinnable",
+   "gloss": "capable or susceptible to being influenced by biased information",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_spinnbar",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sword_dancing": {
+   "entity_id": "CN_sword_dancing",
+   "prefix": "CN",
+   "lemma": "sword_dancing",
+   "gloss": "any of various dances by men who step nimbly over swords or flourish them in the air",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sword_dance",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_lactuca_sativa_crispa": {
+   "entity_id": "CN_lactuca_sativa_crispa",
+   "prefix": "CN",
+   "lemma": "lactuca_sativa_crispa",
+   "gloss": "distinguished by leaves having curled or incised leaves forming a loose rosette that does not develop into a compact head",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_leaf_lettuce",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_destress": {
+   "entity_id": "CN_destress",
+   "prefix": "CN",
+   "lemma": "destress",
+   "gloss": "reduce the emphasis",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_de_emphasize",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_builder.n.01": {
+   "entity_id": "WN_builder.n.01",
+   "prefix": "WN",
+   "lemma": "builder",
+   "gloss": "a substance added to soaps or detergents to increase their cleansing action",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_material.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_condition_of_health": {
+   "entity_id": "CN_condition_of_health",
+   "prefix": "CN",
+   "lemma": "condition_of_health",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_sick",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_caryophyllaceous_plant": {
+   "entity_id": "CN_caryophyllaceous_plant",
+   "prefix": "CN",
+   "lemma": "caryophyllaceous_plant",
+   "gloss": "a plant of the family Caryophyllaceae",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_herb",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_potassium_cyanide": {
+   "entity_id": "CN_potassium_cyanide",
+   "prefix": "CN",
+   "lemma": "potassium_cyanide",
+   "gloss": "a poisonous salt (KCN) used in electroplating and in photography",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cyanide",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_rfd": {
+   "entity_id": "CN_rfd",
+   "prefix": "CN",
+   "lemma": "rfd",
+   "gloss": "free government delivery of mail in outlying country areas",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rural_free_delivery",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_bargain_hunter": {
+   "entity_id": "CN_bargain_hunter",
+   "prefix": "CN",
+   "lemma": "bargain_hunter",
+   "gloss": "a shopper who hunts for bargains",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_shopper",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_crestless_wave": {
+   "entity_id": "CN_crestless_wave",
+   "prefix": "CN",
+   "lemma": "crestless_wave",
+   "gloss": "the undulating movement of the surface of the open sea",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_swell",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_american_pennyroyal": {
+   "entity_id": "CN_american_pennyroyal",
+   "prefix": "CN",
+   "lemma": "american_pennyroyal",
+   "gloss": "erect hairy branching American herb having purple-blue flowers; yields an essential oil used as an insect repellent and sometimes in folk medicine",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pennyroyal",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_goat's_foot": {
+   "entity_id": "CN_goat's_foot",
+   "prefix": "CN",
+   "lemma": "goat's_foot",
+   "gloss": "short-stemmed South African plant with bluish flowers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_goatsfoot",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_linosyris_vulgaris": {
+   "entity_id": "CN_linosyris_vulgaris",
+   "prefix": "CN",
+   "lemma": "linosyris_vulgaris",
+   "gloss": "early-flowering perennial of southern and southeastern Europe with flower heads resembling those of goldenrod",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_goldilocks",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ko_punch": {
+   "entity_id": "CN_ko_punch",
+   "prefix": "CN",
+   "lemma": "ko_punch",
+   "gloss": "a hard punch that renders the opponent unable to continue boxing",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_haymaker",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hobbie": {
+   "entity_id": "CN_hobbie",
+   "prefix": "CN",
+   "lemma": "hobbie",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_painting_picture",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_honeyed_words": {
+   "entity_id": "CN_honeyed_words",
+   "prefix": "CN",
+   "lemma": "honeyed_words",
+   "gloss": "inconsequential expressions of affection",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sweet_nothings",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_lower_rank": {
+   "entity_id": "CN_lower_rank",
+   "prefix": "CN",
+   "lemma": "lower_rank",
+   "gloss": "the state of being inferior",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_inferiority",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_house_of_islam": {
+   "entity_id": "CN_house_of_islam",
+   "prefix": "CN",
+   "lemma": "house_of_islam",
+   "gloss": "areas where Muslims are in the majority",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dar_al_islam",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_dsph": {
+   "entity_id": "CN_dsph",
+   "prefix": "CN",
+   "lemma": "dsph",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_deg",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_chukchi_sea": {
+   "entity_id": "CN_chukchi_sea",
+   "prefix": "CN",
+   "lemma": "chukchi_sea",
+   "gloss": "part of the Arctic Ocean just to the north of the Bering Strait",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_arctic_ocean",
+     "PART_OF"
+    ]
+   ]
+  },
+  "CN_botrychium_virginianum": {
+   "entity_id": "CN_botrychium_virginianum",
+   "prefix": "CN",
+   "lemma": "botrychium_virginianum",
+   "gloss": "American fern whose clustered sporangia resemble a snake's rattle",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rattlesnake_fern",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_nonchalance": {
+   "entity_id": "CN_nonchalance",
+   "prefix": "CN",
+   "lemma": "nonchalance",
+   "gloss": "the trait of remaining calm and seeming not to care; a casual lack of concern",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_carefreeness",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_unknowledgeable": {
+   "entity_id": "CN_unknowledgeable",
+   "prefix": "CN",
+   "lemma": "unknowledgeable",
+   "gloss": "unaware because of a lack of relevant information or knowledge",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ignorant",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pyjamas": {
+   "entity_id": "CN_pyjamas",
+   "prefix": "CN",
+   "lemma": "pyjamas",
+   "gloss": "a pair of loose trousers tied by a drawstring around the waist; worn by men and women in some Asian countries",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_bedroom",
+     "CN_AT_LOCATION"
+    ]
+   ]
+  },
+  "CN_papeete": {
+   "entity_id": "CN_papeete",
+   "prefix": "CN",
+   "lemma": "papeete",
+   "gloss": "the capital of French Polynesia on the northwestern coast of Tahiti",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_tahiti",
+     "PART_OF"
+    ]
+   ]
+  },
+  "CN_crex_crex": {
+   "entity_id": "CN_crex_crex",
+   "prefix": "CN",
+   "lemma": "crex_crex",
+   "gloss": "common Eurasian rail that frequents grain fields",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_corncrake",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gray_sage": {
+   "entity_id": "CN_gray_sage",
+   "prefix": "CN",
+   "lemma": "gray_sage",
+   "gloss": "low much-branched perennial of western United States having silvery leaves; an important browse and shelter plant",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_silver_sage",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_polygala_lutea": {
+   "entity_id": "CN_polygala_lutea",
+   "prefix": "CN",
+   "lemma": "polygala_lutea",
+   "gloss": "bog plant of pine barrens of southeastern United States having spikes of irregular yellow-orange flowers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_orange_milkwort",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_town_center": {
+   "entity_id": "CN_town_center",
+   "prefix": "CN",
+   "lemma": "town_center",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_square",
+     "CN_AT_LOCATION"
+    ]
+   ]
+  },
+  "CN_genus_philohela": {
+   "entity_id": "CN_genus_philohela",
+   "prefix": "CN",
+   "lemma": "genus_philohela",
+   "gloss": "American woodcocks",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_philohela",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_capital_cost": {
+   "entity_id": "CN_capital_cost",
+   "prefix": "CN",
+   "lemma": "capital_cost",
+   "gloss": "the opportunity cost of the funds employed as the result of an investment decision; the rate of return that a business could earn if it chose another investment with equivalent risk",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cost_of_capital",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hoof_mark": {
+   "entity_id": "CN_hoof_mark",
+   "prefix": "CN",
+   "lemma": "hoof_mark",
+   "gloss": "a visible impression on a surface made by the hoof of an animal",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hoofprint",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_john_wiclif": {
+   "entity_id": "CN_john_wiclif",
+   "prefix": "CN",
+   "lemma": "john_wiclif",
+   "gloss": "English theologian whose objections to Roman Catholic doctrine anticipated the Protestant Reformation (1328-1384)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_john_wickliffe",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_swatch": {
+   "entity_id": "CN_swatch",
+   "prefix": "CN",
+   "lemma": "swatch",
+   "gloss": "a sample piece of cloth",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_piece_of_cloth",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_order_percomorphi": {
+   "entity_id": "CN_order_percomorphi",
+   "prefix": "CN",
+   "lemma": "order_percomorphi",
+   "gloss": "one of the largest natural groups of fishes of both marine and fresh water: true perches; basses; tuna",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_perciformes",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_muskrat_fur": {
+   "entity_id": "CN_muskrat_fur",
+   "prefix": "CN",
+   "lemma": "muskrat_fur",
+   "gloss": "the brown fur of a muskrat",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_muskrat",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_grenada_dollar": {
+   "entity_id": "CN_grenada_dollar",
+   "prefix": "CN",
+   "lemma": "grenada_dollar",
+   "gloss": "the basic unit of money in Grenada",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dollar",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_atypic": {
+   "entity_id": "CN_atypic",
+   "prefix": "CN",
+   "lemma": "atypic",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_atypical",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_medial_rectus": {
+   "entity_id": "CN_medial_rectus",
+   "prefix": "CN",
+   "lemma": "medial_rectus",
+   "gloss": "the ocular muscle whose contraction turns the eyeball medially",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_medial_rectus_muscle",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_disability_insurance": {
+   "entity_id": "CN_disability_insurance",
+   "prefix": "CN",
+   "lemma": "disability_insurance",
+   "gloss": "social insurance for the disabled",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_social_insurance",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_karaya_gum": {
+   "entity_id": "CN_karaya_gum",
+   "prefix": "CN",
+   "lemma": "karaya_gum",
+   "gloss": "exudate of an Asian tree; used for finishing textiles and to thicken foodstuffs and cosmetics",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sterculia_gum",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_carlovingian_dynasty": {
+   "entity_id": "CN_carlovingian_dynasty",
+   "prefix": "CN",
+   "lemma": "carlovingian_dynasty",
+   "gloss": "a Frankish dynasty founded by Charlemagne's father that ruled from 751 to 987",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_carolingian_dynasty",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sand_trap": {
+   "entity_id": "CN_sand_trap",
+   "prefix": "CN",
+   "lemma": "sand_trap",
+   "gloss": "a hazard on a golf course",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_bunker",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_knuckles": {
+   "entity_id": "CN_knuckles",
+   "prefix": "CN",
+   "lemma": "knuckles",
+   "gloss": "a small metal weapon; worn over the knuckles on the back of the hand",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_brass_knucks",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_staplegun": {
+   "entity_id": "CN_staplegun",
+   "prefix": "CN",
+   "lemma": "staplegun",
+   "gloss": "a hand-held machine for driving staples home",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_staple_gun",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_brierwood": {
+   "entity_id": "CN_brierwood",
+   "prefix": "CN",
+   "lemma": "brierwood",
+   "gloss": "wood from the hard woody root of the briar Erica arborea; used to make tobacco pipes",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_briarwood",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_defective_pleading": {
+   "entity_id": "CN_defective_pleading",
+   "prefix": "CN",
+   "lemma": "defective_pleading",
+   "gloss": "any pleading that fails to conform in form or substance to minimum standards of accuracy or sufficiency",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pleading",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_dogs_tooth_check": {
+   "entity_id": "CN_dogs_tooth_check",
+   "prefix": "CN",
+   "lemma": "dogs_tooth_check",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_houndstooth_check",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_res_judicata": {
+   "entity_id": "CN_res_judicata",
+   "prefix": "CN",
+   "lemma": "res_judicata",
+   "gloss": "a matter already settled in court; cannot be raised again",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_res_adjudicata",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_joggers": {
+   "entity_id": "CN_joggers",
+   "prefix": "CN",
+   "lemma": "joggers",
+   "gloss": "someone who runs a steady slow pace (usually for exercise)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_jogger",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "WN_kernel.n.03": {
+   "entity_id": "WN_kernel.n.03",
+   "prefix": "WN",
+   "lemma": "kernel",
+   "gloss": "the choicest or most essential or most vital part of some idea or experience",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_content.n.05",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_stipulative_definition": {
+   "entity_id": "CN_stipulative_definition",
+   "prefix": "CN",
+   "lemma": "stipulative_definition",
+   "gloss": "a definition that is stipulated by someone and that is not a standard usage",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_definition",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_lilac_pink": {
+   "entity_id": "CN_lilac_pink",
+   "prefix": "CN",
+   "lemma": "lilac_pink",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_lavender_pink",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_consonate": {
+   "entity_id": "CN_consonate",
+   "prefix": "CN",
+   "lemma": "consonate",
+   "gloss": "sound in sympathy",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_resound",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_socialized": {
+   "entity_id": "CN_socialized",
+   "prefix": "CN",
+   "lemma": "socialized",
+   "gloss": "take part in social activities; interact with others",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_socialised",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_got_flu": {
+   "entity_id": "CN_got_flu",
+   "prefix": "CN",
+   "lemma": "got_flu",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_mike",
+     "CN_HAS_A"
+    ]
+   ]
+  },
+  "CN_cypripedium_californicum": {
+   "entity_id": "CN_cypripedium_californicum",
+   "prefix": "CN",
+   "lemma": "cypripedium_californicum",
+   "gloss": "often having many yellow-green orchids with white pouches growing along streams and seeps of southwestern Oregon and northern California",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_california_lady's_slipper",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_martin_buber": {
+   "entity_id": "CN_martin_buber",
+   "prefix": "CN",
+   "lemma": "martin_buber",
+   "gloss": "Israeli religious philosopher (born in Austria); as a Zionist he promoted understanding between Jews and Arabs; his writings affected Christian thinkers as well as Jews (1878-1965)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_buber",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_lost_child": {
+   "entity_id": "CN_lost_child",
+   "prefix": "CN",
+   "lemma": "lost_child",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_park",
+     "CN_AT_LOCATION"
+    ]
+   ]
+  },
+  "CN_atomic_number_57": {
+   "entity_id": "CN_atomic_number_57",
+   "prefix": "CN",
+   "lemma": "atomic_number_57",
+   "gloss": "a white soft metallic element that tarnishes readily; occurs in rare earth minerals and is usually classified as a rare earth",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_lanthanum",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_beach_wagon.n.01": {
+   "entity_id": "WN_beach_wagon.n.01",
+   "prefix": "WN",
+   "lemma": "beach_wagon",
+   "gloss": "a car that has a long body and rear door with space behind rear seat",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_car.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_colorado_beetle": {
+   "entity_id": "CN_colorado_beetle",
+   "prefix": "CN",
+   "lemma": "colorado_beetle",
+   "gloss": "black-and-yellow beetle that feeds in adult and larval stages on potato leaves; originally of eastern Rocky Mountains; now worldwide",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_colorado_potato_beetle",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_cardiac_glucoside": {
+   "entity_id": "CN_cardiac_glucoside",
+   "prefix": "CN",
+   "lemma": "cardiac_glucoside",
+   "gloss": "obtained from a number of plants and used to stimulate the heart in cases of heart failure",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cardiac_glycoside",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_bachelor_at_arms": {
+   "entity_id": "CN_bachelor_at_arms",
+   "prefix": "CN",
+   "lemma": "bachelor_at_arms",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_knight_bachelor",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sweat_duct": {
+   "entity_id": "CN_sweat_duct",
+   "prefix": "CN",
+   "lemma": "sweat_duct",
+   "gloss": "a small duct that conveys sweat from a sudoriferous gland to the surface of the skin",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ductule",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_harley_street": {
+   "entity_id": "CN_harley_street",
+   "prefix": "CN",
+   "lemma": "harley_street",
+   "gloss": "a street in central London where the consulting rooms of many physicians and surgeons are located",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_london",
+     "PART_OF"
+    ]
+   ]
+  },
+  "CN_peristedion_miniatum": {
+   "entity_id": "CN_peristedion_miniatum",
+   "prefix": "CN",
+   "lemma": "peristedion_miniatum",
+   "gloss": "sea robins having bony scutes on the body and barbels on the chin; found mostly on the continental slope",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_armored_searobin",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_farming_area": {
+   "entity_id": "CN_farming_area",
+   "prefix": "CN",
+   "lemma": "farming_area",
+   "gloss": "a rural area where farming is practiced",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_farmland",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sex_gland": {
+   "entity_id": "CN_sex_gland",
+   "prefix": "CN",
+   "lemma": "sex_gland",
+   "gloss": "a gland in which gametes (sex cells) are produced",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_gonad",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_engrossing": {
+   "entity_id": "CN_engrossing",
+   "prefix": "CN",
+   "lemma": "engrossing",
+   "gloss": "devote (oneself) fully to",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_fascinating",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_bacillary_white_diarrhoea": {
+   "entity_id": "CN_bacillary_white_diarrhoea",
+   "prefix": "CN",
+   "lemma": "bacillary_white_diarrhoea",
+   "gloss": "a serious bacterial disease of young chickens",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pullorum_disease",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_quacksalver": {
+   "entity_id": "CN_quacksalver",
+   "prefix": "CN",
+   "lemma": "quacksalver",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_quack",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_tattle": {
+   "entity_id": "CN_tattle",
+   "prefix": "CN",
+   "lemma": "tattle",
+   "gloss": "disclosing information or giving evidence about another",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_singing",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_richler": {
+   "entity_id": "CN_richler",
+   "prefix": "CN",
+   "lemma": "richler",
+   "gloss": "Canadian novelist (born in 1931)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_mordecai_richler",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_catharsis.n.01": {
+   "entity_id": "WN_catharsis.n.01",
+   "prefix": "WN",
+   "lemma": "catharsis",
+   "gloss": "(psychoanalysis) purging of emotional tensions",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_purge.n.02",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_guilt_trip": {
+   "entity_id": "CN_guilt_trip",
+   "prefix": "CN",
+   "lemma": "guilt_trip",
+   "gloss": "remorse caused by feeling responsible for some offense",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_guilt",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_positive_fraud": {
+   "entity_id": "CN_positive_fraud",
+   "prefix": "CN",
+   "lemma": "positive_fraud",
+   "gloss": "actual deceit; concealing something or making a false representation with an evil intent to cause injury to another",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_fraud_in_fact",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_callinectes_sapidus": {
+   "entity_id": "CN_callinectes_sapidus",
+   "prefix": "CN",
+   "lemma": "callinectes_sapidus",
+   "gloss": "bluish edible crab of Atlantic and Gulf Coasts of North America",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_blue_crab",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_canna": {
+   "entity_id": "CN_genus_canna",
+   "prefix": "CN",
+   "lemma": "genus_canna",
+   "gloss": "type and sole genus of the Cannaceae: perennial lily-like herbs of New World tropics",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_monocot_genus",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_acromphalus": {
+   "entity_id": "CN_acromphalus",
+   "prefix": "CN",
+   "lemma": "acromphalus",
+   "gloss": "abnormal protrusion of the navel; sometimes the start of umbilical hernia",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_abnormality",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_digital_to_analog_converter": {
+   "entity_id": "CN_digital_to_analog_converter",
+   "prefix": "CN",
+   "lemma": "digital_to_analog_converter",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_digital_analog_converter",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_psophocarpus_tetragonolobus": {
+   "entity_id": "CN_psophocarpus_tetragonolobus",
+   "prefix": "CN",
+   "lemma": "psophocarpus_tetragonolobus",
+   "gloss": "a tuberous twining annual vine bearing clusters of purplish flowers and pods with four jagged wings; Old World tropics",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_winged_bean",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_conversion_reaction": {
+   "entity_id": "CN_conversion_reaction",
+   "prefix": "CN",
+   "lemma": "conversion_reaction",
+   "gloss": "a mental disorder characterized by the conversion of mental conflict into somatic forms (into paralysis or anesthesia having no apparent cause)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_conversion_disorder",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_standard_procedure": {
+   "entity_id": "CN_standard_procedure",
+   "prefix": "CN",
+   "lemma": "standard_procedure",
+   "gloss": "a prescribed procedure to be followed routinely",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_standing_operating_procedure",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_counterpart.n.01": {
+   "entity_id": "WN_counterpart.n.01",
+   "prefix": "WN",
+   "lemma": "counterpart",
+   "gloss": "a person or thing having the same function or characteristics as another",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_equivalent.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_chaffer": {
+   "entity_id": "CN_chaffer",
+   "prefix": "CN",
+   "lemma": "chaffer",
+   "gloss": "wrangle (over a price, terms of an agreement, etc.)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_haggle",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_vittaria": {
+   "entity_id": "CN_vittaria",
+   "prefix": "CN",
+   "lemma": "vittaria",
+   "gloss": "tropical epiphytic ferns with straplike fronds",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_genus_vittaria",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_shmuck": {
+   "entity_id": "CN_shmuck",
+   "prefix": "CN",
+   "lemma": "shmuck",
+   "gloss": "(Yiddish) a jerk",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_schmuck",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_raisin_nut_cookie": {
+   "entity_id": "CN_raisin_nut_cookie",
+   "prefix": "CN",
+   "lemma": "raisin_nut_cookie",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_cookie",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_johann_gutenberg": {
+   "entity_id": "CN_johann_gutenberg",
+   "prefix": "CN",
+   "lemma": "johann_gutenberg",
+   "gloss": "German printer who was the first in Europe to print using movable type and the first to use a press (1400-1468)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_johannes_gutenberg",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_dinner_set": {
+   "entity_id": "CN_dinner_set",
+   "prefix": "CN",
+   "lemma": "dinner_set",
+   "gloss": "a table service for serving dinner",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dinner_service",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_taipei": {
+   "entity_id": "CN_taipei",
+   "prefix": "CN",
+   "lemma": "taipei",
+   "gloss": "the capital of Nationalist China; located in northern Taiwan",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_capital_of_taiwan",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_matched_game": {
+   "entity_id": "CN_matched_game",
+   "prefix": "CN",
+   "lemma": "matched_game",
+   "gloss": "an international championship match",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_test_match",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_beta_adrenergic_blocker": {
+   "entity_id": "CN_beta_adrenergic_blocker",
+   "prefix": "CN",
+   "lemma": "beta_adrenergic_blocker",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_beta_blocker",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_preciseness.n.02": {
+   "entity_id": "WN_preciseness.n.02",
+   "prefix": "WN",
+   "lemma": "preciseness",
+   "gloss": "the quality of being reproducible in amount or performance",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_exactness.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_genus_sansevieria": {
+   "entity_id": "CN_genus_sansevieria",
+   "prefix": "CN",
+   "lemma": "genus_sansevieria",
+   "gloss": "Old World tropical herbaceous perennial of the agave family; in some classifications considered a genus of Liliaceae",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_liliid_monocot_genus",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_salisbury_steak": {
+   "entity_id": "CN_salisbury_steak",
+   "prefix": "CN",
+   "lemma": "salisbury_steak",
+   "gloss": "ground beef patty usually with a sauce",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dish",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_cold_gangrene": {
+   "entity_id": "CN_cold_gangrene",
+   "prefix": "CN",
+   "lemma": "cold_gangrene",
+   "gloss": "(pathology) gangrene that develops in the presence of arterial obstruction and is characterized by dryness of the dead tissue and a dark brown color",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dry_gangrene",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_synchronise": {
+   "entity_id": "CN_synchronise",
+   "prefix": "CN",
+   "lemma": "synchronise",
+   "gloss": "happen at the same time",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_synchronize",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_jestingly": {
+   "entity_id": "CN_jestingly",
+   "prefix": "CN",
+   "lemma": "jestingly",
+   "gloss": "in jest",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_jokingly",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sell_someone_out": {
+   "entity_id": "CN_sell_someone_out",
+   "prefix": "CN",
+   "lemma": "sell_someone_out",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_denounce",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_msg": {
+   "entity_id": "CN_msg",
+   "prefix": "CN",
+   "lemma": "msg",
+   "gloss": "white crystalline compound used as a food additive to enhance flavor; often used in Chinese cooking",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_monosodium_glutamate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sylvine": {
+   "entity_id": "CN_sylvine",
+   "prefix": "CN",
+   "lemma": "sylvine",
+   "gloss": "a mineral consisting of native potassium chloride; an important ore of potassium that is found in sedimentary beds",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sylvite",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hundred_and_sixty_fifth": {
+   "entity_id": "CN_hundred_and_sixty_fifth",
+   "prefix": "CN",
+   "lemma": "hundred_and_sixty_fifth",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_165th",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_castor_bean_plant": {
+   "entity_id": "CN_castor_bean_plant",
+   "prefix": "CN",
+   "lemma": "castor_bean_plant",
+   "gloss": "large shrub of tropical Africa and Asia having large palmate leaves and spiny capsules containing seeds that are the source of castor oil and ricin; widely naturalized throughout the tropics",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_castor_oil_plant",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_brachydactylic": {
+   "entity_id": "CN_brachydactylic",
+   "prefix": "CN",
+   "lemma": "brachydactylic",
+   "gloss": "having abnormally short finger or toes",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_brachydactylous",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_solomon_guggenheim": {
+   "entity_id": "CN_solomon_guggenheim",
+   "prefix": "CN",
+   "lemma": "solomon_guggenheim",
+   "gloss": "United States philanthropist; son of Meyer Guggenheim who created several foundations to support the arts (1861-1949)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_guggenheim",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_kinesis": {
+   "entity_id": "CN_kinesis",
+   "prefix": "CN",
+   "lemma": "kinesis",
+   "gloss": "a movement that is a response to a stimulus but is not oriented with respect to the source of stimulation",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_reaction",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_brisk_up": {
+   "entity_id": "CN_brisk_up",
+   "prefix": "CN",
+   "lemma": "brisk_up",
+   "gloss": "become brisk",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_brisk",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_gastrophryne": {
+   "entity_id": "CN_genus_gastrophryne",
+   "prefix": "CN",
+   "lemma": "genus_gastrophryne",
+   "gloss": "primarily tropical narrow-mouthed toads",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_gastrophryne",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_scallion": {
+   "entity_id": "CN_scallion",
+   "prefix": "CN",
+   "lemma": "scallion",
+   "gloss": "plant having a large slender white bulb and flat overlapping dark green leaves; used in cooking; believed derived from the wild Allium ampeloprasum",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_leek",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hundred_and_fifth": {
+   "entity_id": "CN_hundred_and_fifth",
+   "prefix": "CN",
+   "lemma": "hundred_and_fifth",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_105th",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_acidophile": {
+   "entity_id": "CN_acidophile",
+   "prefix": "CN",
+   "lemma": "acidophile",
+   "gloss": "an organism that thrives in a relatively acid environment",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_acidophil",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_skunk_bear": {
+   "entity_id": "CN_skunk_bear",
+   "prefix": "CN",
+   "lemma": "skunk_bear",
+   "gloss": "stocky shaggy-coated North American carnivorous mammal",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_wolverine",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sport_shirt": {
+   "entity_id": "CN_sport_shirt",
+   "prefix": "CN",
+   "lemma": "sport_shirt",
+   "gloss": "a shirt with short sleeves designed for comfort and casual wear",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_polo_shirt",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_apis": {
+   "entity_id": "CN_apis",
+   "prefix": "CN",
+   "lemma": "apis",
+   "gloss": "type genus of the Apidae: honeybees",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_arthropod_genus",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_heroism": {
+   "entity_id": "CN_heroism",
+   "prefix": "CN",
+   "lemma": "heroism",
+   "gloss": "the qualities of a hero or heroine; exceptional or heroic courage when facing danger (especially in battle)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_courage",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_haul_off": {
+   "entity_id": "CN_haul_off",
+   "prefix": "CN",
+   "lemma": "haul_off",
+   "gloss": "take away by means of a vehicle",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cart_off",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ship_product": {
+   "entity_id": "CN_ship_product",
+   "prefix": "CN",
+   "lemma": "ship_product",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_supplier",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_genus_charadrius": {
+   "entity_id": "CN_genus_charadrius",
+   "prefix": "CN",
+   "lemma": "genus_charadrius",
+   "gloss": "type genus of the Charadriidae: plovers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_charadrius",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_nondisjunction": {
+   "entity_id": "CN_nondisjunction",
+   "prefix": "CN",
+   "lemma": "nondisjunction",
+   "gloss": "meiosis in which there is a failure of paired homologous chromosomes to separate; results in an abnormal number of chromosomes in the daughter cells",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_meiosis",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_both_ears": {
+   "entity_id": "CN_both_ears",
+   "prefix": "CN",
+   "lemma": "both_ears",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_in_both_ears",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_deeper_voice_than_soprano": {
+   "entity_id": "CN_deeper_voice_than_soprano",
+   "prefix": "CN",
+   "lemma": "deeper_voice_than_soprano",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_alto",
+     "CN_HAS_A"
+    ]
+   ]
+  },
+  "CN_common_fault": {
+   "entity_id": "CN_common_fault",
+   "prefix": "CN",
+   "lemma": "common_fault",
+   "gloss": "an inclined fault in which the hanging wall appears to have slipped downward relative to the footwall",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_normal_fault",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_destroyer_escort": {
+   "entity_id": "CN_destroyer_escort",
+   "prefix": "CN",
+   "lemma": "destroyer_escort",
+   "gloss": "warship smaller than a destroyer; designed to escort fleets or convoys",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_warship",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_meronymic": {
+   "entity_id": "CN_meronymic",
+   "prefix": "CN",
+   "lemma": "meronymic",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_meronym",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_antheridiophore": {
+   "entity_id": "CN_antheridiophore",
+   "prefix": "CN",
+   "lemma": "antheridiophore",
+   "gloss": "gametophore bearing antheridia as in certain mosses and liverworts",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_gametophore",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_essonite": {
+   "entity_id": "CN_essonite",
+   "prefix": "CN",
+   "lemma": "essonite",
+   "gloss": "a garnet ranging in color from yellow to brown",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cinnamon_stone",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_balto_slavonic": {
+   "entity_id": "CN_balto_slavonic",
+   "prefix": "CN",
+   "lemma": "balto_slavonic",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_balto_slavic",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_grinding_things": {
+   "entity_id": "CN_grinding_things",
+   "prefix": "CN",
+   "lemma": "grinding_things",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_mortar",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_isostasy": {
+   "entity_id": "CN_isostasy",
+   "prefix": "CN",
+   "lemma": "isostasy",
+   "gloss": "(geology) a general equilibrium of the forces tending to elevate or depress the earth's crust",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_equilibrium",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_dunk_shot": {
+   "entity_id": "CN_dunk_shot",
+   "prefix": "CN",
+   "lemma": "dunk_shot",
+   "gloss": "a basketball shot in which the basketball is propelled downward into the basket",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dunk",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_banger": {
+   "entity_id": "CN_banger",
+   "prefix": "CN",
+   "lemma": "banger",
+   "gloss": "(British informal) pork sausage",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_firecracker",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_galilean_telescope": {
+   "entity_id": "CN_galilean_telescope",
+   "prefix": "CN",
+   "lemma": "galilean_telescope",
+   "gloss": "a type of refracting telescope that is no longer used in astronomy",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_refracting_telescope",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_milli_electron_volt": {
+   "entity_id": "CN_milli_electron_volt",
+   "prefix": "CN",
+   "lemma": "milli_electron_volt",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_milli_electron_volts",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_bringing_back_memories": {
+   "entity_id": "CN_bringing_back_memories",
+   "prefix": "CN",
+   "lemma": "bringing_back_memories",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_seeing_old_things",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_on_your_guard": {
+   "entity_id": "CN_on_your_guard",
+   "prefix": "CN",
+   "lemma": "on_your_guard",
+   "gloss": "vigilant",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_upon_one's_guard",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pericementoclasia": {
+   "entity_id": "CN_pericementoclasia",
+   "prefix": "CN",
+   "lemma": "pericementoclasia",
+   "gloss": "pus pocket formation around a tooth",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pyorrhea",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_spirochaetales": {
+   "entity_id": "CN_spirochaetales",
+   "prefix": "CN",
+   "lemma": "spirochaetales",
+   "gloss": "higher bacteria; slender spiral rodlike forms",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_animal_order",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_luminance": {
+   "entity_id": "CN_luminance",
+   "prefix": "CN",
+   "lemma": "luminance",
+   "gloss": "the quality of being luminous; emitting or reflecting light",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_luminosity",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_biramous": {
+   "entity_id": "CN_biramous",
+   "prefix": "CN",
+   "lemma": "biramous",
+   "gloss": "resembling a fork; divided or separated into two branches",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_forficate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_head_covering.n.01": {
+   "entity_id": "WN_head_covering.n.01",
+   "prefix": "WN",
+   "lemma": "head_covering",
+   "gloss": "a garment that covers the head and face",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_garment.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_scaramouch": {
+   "entity_id": "CN_scaramouch",
+   "prefix": "CN",
+   "lemma": "scaramouch",
+   "gloss": "a stock character in commedia dell'arte depicted as a boastful coward",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_scaramouche",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_puppyish": {
+   "entity_id": "CN_puppyish",
+   "prefix": "CN",
+   "lemma": "puppyish",
+   "gloss": "characteristic of a puppy",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_puppylike",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sulfuretted": {
+   "entity_id": "CN_sulfuretted",
+   "prefix": "CN",
+   "lemma": "sulfuretted",
+   "gloss": "combine with sulfur",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sulphuretted",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_family_coerebidae": {
+   "entity_id": "CN_family_coerebidae",
+   "prefix": "CN",
+   "lemma": "family_coerebidae",
+   "gloss": "the honeycreepers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_coerebidae",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_boy's_pocket": {
+   "entity_id": "CN_boy's_pocket",
+   "prefix": "CN",
+   "lemma": "boy's_pocket",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_marble",
+     "CN_AT_LOCATION"
+    ]
+   ]
+  },
+  "CN_congenital_defect": {
+   "entity_id": "CN_congenital_defect",
+   "prefix": "CN",
+   "lemma": "congenital_defect",
+   "gloss": "a defect that is present at birth",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_birth_defect",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hard_exercise": {
+   "entity_id": "CN_hard_exercise",
+   "prefix": "CN",
+   "lemma": "hard_exercise",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_make_muscles_sore",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_investing_in_commercial_development": {
+   "entity_id": "CN_investing_in_commercial_development",
+   "prefix": "CN",
+   "lemma": "investing_in_commercial_development",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_office_building",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_pitch_blackness": {
+   "entity_id": "CN_pitch_blackness",
+   "prefix": "CN",
+   "lemma": "pitch_blackness",
+   "gloss": "total absence of light",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_total_darkness",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hungarian_grass": {
+   "entity_id": "CN_hungarian_grass",
+   "prefix": "CN",
+   "lemma": "hungarian_grass",
+   "gloss": "coarse drought-resistant annual grass grown for grain, hay, and forage in Europe and Asia and chiefly for forage and hay in United States",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_foxtail_millet",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_nogging": {
+   "entity_id": "CN_nogging",
+   "prefix": "CN",
+   "lemma": "nogging",
+   "gloss": "rough brick masonry used to fill in the gaps in a wooden frame",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_brickwork",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_exordium": {
+   "entity_id": "CN_exordium",
+   "prefix": "CN",
+   "lemma": "exordium",
+   "gloss": "(rhetoric) the introductory section of an oration or discourse",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_introduction",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_calean": {
+   "entity_id": "CN_calean",
+   "prefix": "CN",
+   "lemma": "calean",
+   "gloss": "an oriental tobacco pipe with a long flexible tube connected to a container where the smoke is cooled by passing through water",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hookah",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_agave": {
+   "entity_id": "CN_genus_agave",
+   "prefix": "CN",
+   "lemma": "genus_agave",
+   "gloss": "type genus of the Agavaceae; in some classifications considered a genus of Amaryllidaceae",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_liliid_monocot_genus",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_xanthate": {
+   "entity_id": "CN_xanthate",
+   "prefix": "CN",
+   "lemma": "xanthate",
+   "gloss": "a salt or ester of xanthic acid",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cellulose_xanthate",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_conversant": {
+   "entity_id": "CN_conversant",
+   "prefix": "CN",
+   "lemma": "conversant",
+   "gloss": "(usually followed by `with') well informed about or knowing thoroughly",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_familiar",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_x_factor": {
+   "entity_id": "CN_x_factor",
+   "prefix": "CN",
+   "lemma": "x_factor",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_x_factors",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_inuit": {
+   "entity_id": "CN_inuit",
+   "prefix": "CN",
+   "lemma": "inuit",
+   "gloss": "a member of a people inhabiting the Arctic (northern Canada or Greenland or Alaska or eastern Siberia); the Algonquians called them Eskimo (`eaters of raw flesh') but they call themselves the Inuit (`the people')",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_esquimau",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_rubens": {
+   "entity_id": "CN_rubens",
+   "prefix": "CN",
+   "lemma": "rubens",
+   "gloss": "prolific Flemish baroque painter; knighted by the English king Charles I (1577-1640)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sir_peter_paul_rubens",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pelvic_fin": {
+   "entity_id": "CN_pelvic_fin",
+   "prefix": "CN",
+   "lemma": "pelvic_fin",
+   "gloss": "either of a pair of fins attached to the pelvic girdle in fishes that help control the direction of movement; correspond to hind limbs of a land vertebrate",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_fin",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_at_work_on_time": {
+   "entity_id": "CN_at_work_on_time",
+   "prefix": "CN",
+   "lemma": "at_work_on_time",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_drive_to_work",
+     "CN_MOTIVATED_BY_GOAL"
+    ]
+   ]
+  },
+  "CN_millenniumism": {
+   "entity_id": "CN_millenniumism",
+   "prefix": "CN",
+   "lemma": "millenniumism",
+   "gloss": "belief in the Christian doctrine of the millennium mentioned in the Book of Revelations",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_millenarianism",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_helleborus": {
+   "entity_id": "CN_genus_helleborus",
+   "prefix": "CN",
+   "lemma": "genus_helleborus",
+   "gloss": "a genus of Helleborus",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_helleborus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_voting_record_of_politician": {
+   "entity_id": "CN_voting_record_of_politician",
+   "prefix": "CN",
+   "lemma": "voting_record_of_politician",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_matter_of_public_interest",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_degrease": {
+   "entity_id": "CN_degrease",
+   "prefix": "CN",
+   "lemma": "degrease",
+   "gloss": "remove grease or oil from (a pan)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_get_rid_of",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_colourize": {
+   "entity_id": "CN_colourize",
+   "prefix": "CN",
+   "lemma": "colourize",
+   "gloss": "add color to",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_color",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_smudge.n.02": {
+   "entity_id": "WN_smudge.n.02",
+   "prefix": "WN",
+   "lemma": "smudge",
+   "gloss": "a blemish made by dirt",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_blemish.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_millivoltmeter": {
+   "entity_id": "CN_millivoltmeter",
+   "prefix": "CN",
+   "lemma": "millivoltmeter",
+   "gloss": "sensitive voltmeter that can measure voltage in millivolts",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_voltmeter",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_back_candidate": {
+   "entity_id": "CN_back_candidate",
+   "prefix": "CN",
+   "lemma": "back_candidate",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_political_party",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_feebly": {
+   "entity_id": "CN_feebly",
+   "prefix": "CN",
+   "lemma": "feebly",
+   "gloss": "in a faint and feeble manner",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_feeble",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_second_violin": {
+   "entity_id": "CN_second_violin",
+   "prefix": "CN",
+   "lemma": "second_violin",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_playing_music",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_ogle": {
+   "entity_id": "CN_ogle",
+   "prefix": "CN",
+   "lemma": "ogle",
+   "gloss": "look at with amorous intentions",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_look",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_dialectics": {
+   "entity_id": "CN_dialectics",
+   "prefix": "CN",
+   "lemma": "dialectics",
+   "gloss": "a rationale for dialectical materialism based on change through the conflict of opposing forces",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rationale",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_buy_organic_foods": {
+   "entity_id": "CN_buy_organic_foods",
+   "prefix": "CN",
+   "lemma": "buy_organic_foods",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_health_food_store",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_just_now": {
+   "entity_id": "CN_just_now",
+   "prefix": "CN",
+   "lemma": "just_now",
+   "gloss": "only a moment ago",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_just",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_major_cause_of_pollution": {
+   "entity_id": "CN_major_cause_of_pollution",
+   "prefix": "CN",
+   "lemma": "major_cause_of_pollution",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_cars",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_hound_dog": {
+   "entity_id": "CN_hound_dog",
+   "prefix": "CN",
+   "lemma": "hound_dog",
+   "gloss": "any of several breeds of dog used for hunting typically having large drooping ears",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hound",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_defenestration": {
+   "entity_id": "CN_defenestration",
+   "prefix": "CN",
+   "lemma": "defenestration",
+   "gloss": "the act of throwing someone or something out of a window",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ejection",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_sport_coat": {
+   "entity_id": "CN_sport_coat",
+   "prefix": "CN",
+   "lemma": "sport_coat",
+   "gloss": "lightweight single-breasted jacket; often striped in the colors of a club or school",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_blazer",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_investment_letter": {
+   "entity_id": "CN_investment_letter",
+   "prefix": "CN",
+   "lemma": "investment_letter",
+   "gloss": "a letter of intent saying that a letter security is being bought for investment and not for resale; avoids need for SEC registration",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_letter_of_intent",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_spaceships": {
+   "entity_id": "CN_spaceships",
+   "prefix": "CN",
+   "lemma": "spaceships",
+   "gloss": "a spacecraft designed to carry a crew into interstellar space (especially in science fiction)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_space",
+     "CN_AT_LOCATION"
+    ]
+   ]
+  },
+  "FN_Sign_agreement": {
+   "entity_id": "FN_Sign_agreement",
+   "prefix": "FN",
+   "lemma": "Sign_agreement",
+   "gloss": "A Signatory signs an Agreement document, thereby taking on a commitment encoded in the Agreement.  '. During this time, 84 countries (including the United States) signed the Protocol.' ",
+   "source_used": "FN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "FN_Text_creation",
+     "FRAME_INHERITS"
+    ]
+   ]
+  },
+  "CN_gormandize": {
+   "entity_id": "CN_gormandize",
+   "prefix": "CN",
+   "lemma": "gormandize",
+   "gloss": "overeat or eat immodestly; make a pig of oneself",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_gorge",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_kazoo": {
+   "entity_id": "CN_kazoo",
+   "prefix": "CN",
+   "lemma": "kazoo",
+   "gloss": "a toy wind instrument that has a membrane that makes a sound when you hum into the mouthpiece",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_wind_instrument",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_qepiq": {
+   "entity_id": "CN_qepiq",
+   "prefix": "CN",
+   "lemma": "qepiq",
+   "gloss": "100 qepiq equal 1 manat in Azerbaijan",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_azerbaijani_monetary_unit",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_cephaloridine": {
+   "entity_id": "CN_cephaloridine",
+   "prefix": "CN",
+   "lemma": "cephaloridine",
+   "gloss": "a broad spectrum semisynthetic antibiotic produced by modifying cephalosporin",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_antibiotic",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_happy_event": {
+   "entity_id": "CN_happy_event",
+   "prefix": "CN",
+   "lemma": "happy_event",
+   "gloss": "the live birth of a child",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_blessed_event",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_robert_frost": {
+   "entity_id": "CN_robert_frost",
+   "prefix": "CN",
+   "lemma": "robert_frost",
+   "gloss": "United States poet famous for his lyrical poems on country life in New England (1874-1963)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_robert_lee_frost",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_chicken_cordon_bleu": {
+   "entity_id": "CN_chicken_cordon_bleu",
+   "prefix": "CN",
+   "lemma": "chicken_cordon_bleu",
+   "gloss": "thin slices of chicken stuffed with cheese and ham and then sauteed",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dish",
+     "IS_A"
+    ]
+   ]
+  },
+  "WN_mono-iodotyrosine.n.01": {
+   "entity_id": "WN_mono-iodotyrosine.n.01",
+   "prefix": "WN",
+   "lemma": "mono-iodotyrosine",
+   "gloss": "tyrosine with one iodine atom added",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_iodotyrosine.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_family_cardiidae": {
+   "entity_id": "CN_family_cardiidae",
+   "prefix": "CN",
+   "lemma": "family_cardiidae",
+   "gloss": "somewhat heart-shaped sand-burrowing bivalve mollusks",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cardiidae",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_alameda": {
+   "entity_id": "CN_alameda",
+   "prefix": "CN",
+   "lemma": "alameda",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_spain",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_robotlike": {
+   "entity_id": "CN_robotlike",
+   "prefix": "CN",
+   "lemma": "robotlike",
+   "gloss": "resembling the unthinking functioning of a machine",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_automatonlike",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_cackly": {
+   "entity_id": "CN_cackly",
+   "prefix": "CN",
+   "lemma": "cackly",
+   "gloss": "like the cackles or squawks a hen makes especially after laying an egg",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_squawky",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gun_barrel": {
+   "entity_id": "CN_gun_barrel",
+   "prefix": "CN",
+   "lemma": "gun_barrel",
+   "gloss": "a tube through which a bullet travels when a gun is fired",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_barrel",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sylphlike": {
+   "entity_id": "CN_sylphlike",
+   "prefix": "CN",
+   "lemma": "sylphlike",
+   "gloss": "moving and bending with ease",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sylphic",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_misshapen": {
+   "entity_id": "CN_misshapen",
+   "prefix": "CN",
+   "lemma": "misshapen",
+   "gloss": "so badly formed or out of shape as to be ugly",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ill_shapen",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_kosovar": {
+   "entity_id": "CN_kosovar",
+   "prefix": "CN",
+   "lemma": "kosovar",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_kosovan",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_2_dimensional": {
+   "entity_id": "CN_2_dimensional",
+   "prefix": "CN",
+   "lemma": "2_dimensional",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_flat",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_eat_kosher_food": {
+   "entity_id": "CN_eat_kosher_food",
+   "prefix": "CN",
+   "lemma": "eat_kosher_food",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_jewish_people",
+     "CN_HAS_A"
+    ]
+   ]
+  },
+  "CN_demasculinize": {
+   "entity_id": "CN_demasculinize",
+   "prefix": "CN",
+   "lemma": "demasculinize",
+   "gloss": "remove the testicles of a male animal",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_emasculate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_dire_straits": {
+   "entity_id": "CN_dire_straits",
+   "prefix": "CN",
+   "lemma": "dire_straits",
+   "gloss": "a state of extreme distress",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_desperate_straits",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_capital_of_ohio": {
+   "entity_id": "CN_capital_of_ohio",
+   "prefix": "CN",
+   "lemma": "capital_of_ohio",
+   "gloss": "the state capital of Ohio; located in the center of the state; site of Ohio State University",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_columbus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_kadikoy": {
+   "entity_id": "CN_kadikoy",
+   "prefix": "CN",
+   "lemma": "kadikoy",
+   "gloss": "a former town on the Bosporus (now part of Istanbul); site of the Council of Chalcedon",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_chalcedon",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_curvilineal": {
+   "entity_id": "CN_curvilineal",
+   "prefix": "CN",
+   "lemma": "curvilineal",
+   "gloss": "characterized by or following a curved line",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_curvilinear",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "FN_Nuclear_process": {
+   "entity_id": "FN_Nuclear_process",
+   "prefix": "FN",
+   "lemma": "Nuclear_process",
+   "gloss": "An Initial_element is converted into a Final_element via a process of decay, fusion, or fission which changes the number or type of hadrons (protons or neutrons) in the nucleus of the atoms that make up the Element.  '5.5 percent of nucleii decay from tritium to He3 in a year .'",
+   "source_used": "FN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "FN_Undergo_change",
+     "FRAME_INHERITS"
+    ]
+   ]
+  },
+  "CN_oryza_sativa": {
+   "entity_id": "CN_oryza_sativa",
+   "prefix": "CN",
+   "lemma": "oryza_sativa",
+   "gloss": "yields the staple food of 50 percent of world's population",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cultivated_rice",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_double_team": {
+   "entity_id": "CN_double_team",
+   "prefix": "CN",
+   "lemma": "double_team",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_cover",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_postmodern": {
+   "entity_id": "CN_postmodern",
+   "prefix": "CN",
+   "lemma": "postmodern",
+   "gloss": "of or relating to postmodernism",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_postmodernist",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_red_gray": {
+   "entity_id": "CN_red_gray",
+   "prefix": "CN",
+   "lemma": "red_gray",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_reddish_gray",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_illicit": {
+   "entity_id": "CN_illicit",
+   "prefix": "CN",
+   "lemma": "illicit",
+   "gloss": "contrary to accepted morality (especially sexual morality) or convention",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_outlawed",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_silver_sagebrush": {
+   "entity_id": "CN_silver_sagebrush",
+   "prefix": "CN",
+   "lemma": "silver_sagebrush",
+   "gloss": "low much-branched perennial of western United States having silvery leaves; an important browse and shelter plant",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_silver_sage",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_greaser": {
+   "entity_id": "CN_greaser",
+   "prefix": "CN",
+   "lemma": "greaser",
+   "gloss": "(ethnic slur) offensive term for a person of Mexican descent",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_mexican",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_isherwood": {
+   "entity_id": "CN_isherwood",
+   "prefix": "CN",
+   "lemma": "isherwood",
+   "gloss": "United States writer (born in England) whose best known novels portray Berlin in the 1930's and who collaborated with W. H. Auden in writing plays in verse (1904-1986)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_christopher_william_bradshaw_isherwood",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_show_toy_to_friend": {
+   "entity_id": "CN_show_toy_to_friend",
+   "prefix": "CN",
+   "lemma": "show_toy_to_friend",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_child",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_boone": {
+   "entity_id": "CN_boone",
+   "prefix": "CN",
+   "lemma": "boone",
+   "gloss": "an American pioneer and guide and explorer (1734-1820)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_daniel_boone",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_campong": {
+   "entity_id": "CN_campong",
+   "prefix": "CN",
+   "lemma": "campong",
+   "gloss": "a native village in Malaysia",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_kampong",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_aristotelic": {
+   "entity_id": "CN_aristotelic",
+   "prefix": "CN",
+   "lemma": "aristotelic",
+   "gloss": "of or relating to Aristotle or his philosophy",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_aristotelian",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_chomping": {
+   "entity_id": "CN_chomping",
+   "prefix": "CN",
+   "lemma": "chomping",
+   "gloss": "the act of chewing noisily",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_chew",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_open_sight": {
+   "entity_id": "CN_open_sight",
+   "prefix": "CN",
+   "lemma": "open_sight",
+   "gloss": "rear gunsight having an open notch instead of a peephole or telescope",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_gunsight",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_nineteenth_amendment": {
+   "entity_id": "CN_nineteenth_amendment",
+   "prefix": "CN",
+   "lemma": "nineteenth_amendment",
+   "gloss": "an amendment to the Constitution of the United States adopted in 1920; guarantees that no state can deny the right to vote on the basis of sex",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_united_states_constitution",
+     "PART_OF"
+    ]
+   ]
+  },
+  "CN_slow_down_traffic": {
+   "entity_id": "CN_slow_down_traffic",
+   "prefix": "CN",
+   "lemma": "slow_down_traffic",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_accident",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_baling_wire": {
+   "entity_id": "CN_baling_wire",
+   "prefix": "CN",
+   "lemma": "baling_wire",
+   "gloss": "wire used to make bales",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_wire",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_high_flown": {
+   "entity_id": "CN_high_flown",
+   "prefix": "CN",
+   "lemma": "high_flown",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_noble_minded",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_outta": {
+   "entity_id": "CN_outta",
+   "prefix": "CN",
+   "lemma": "outta",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_out_of",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_family_thiobacteriaceae": {
+   "entity_id": "CN_family_thiobacteriaceae",
+   "prefix": "CN",
+   "lemma": "family_thiobacteriaceae",
+   "gloss": "free-living coccoid to rod-shaped bacteria that derive energy from oxidizing sulfur or sulfur compounds",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_thiobacteriaceae",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_potato_wart": {
+   "entity_id": "CN_potato_wart",
+   "prefix": "CN",
+   "lemma": "potato_wart",
+   "gloss": "fungous disease causing dark warty spongy excrescences in the eyes of potato tubers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_plant_disease",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_sign_bill": {
+   "entity_id": "CN_sign_bill",
+   "prefix": "CN",
+   "lemma": "sign_bill",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_president",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_paraguayan": {
+   "entity_id": "CN_paraguayan",
+   "prefix": "CN",
+   "lemma": "paraguayan",
+   "gloss": "a native or inhabitant of Paraguay",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_south_american",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_boasting": {
+   "entity_id": "CN_boasting",
+   "prefix": "CN",
+   "lemma": "boasting",
+   "gloss": "speaking of yourself in superlatives",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_boast",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_you_wish": {
+   "entity_id": "CN_you_wish",
+   "prefix": "CN",
+   "lemma": "you_wish",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_dream_on",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_non_discrimination": {
+   "entity_id": "CN_non_discrimination",
+   "prefix": "CN",
+   "lemma": "non_discrimination",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_fairness",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_bed_clothing": {
+   "entity_id": "CN_bed_clothing",
+   "prefix": "CN",
+   "lemma": "bed_clothing",
+   "gloss": "coverings that are used on a bed",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_bedclothes",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_climatologist": {
+   "entity_id": "CN_climatologist",
+   "prefix": "CN",
+   "lemma": "climatologist",
+   "gloss": "someone who is expert in climatology",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_expert",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_write_programs": {
+   "entity_id": "CN_write_programs",
+   "prefix": "CN",
+   "lemma": "write_programs",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_programmer",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_shoe_repairing": {
+   "entity_id": "CN_shoe_repairing",
+   "prefix": "CN",
+   "lemma": "shoe_repairing",
+   "gloss": "the shoemaker's trade",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_shoemaking",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_one-half.n.01": {
+   "entity_id": "WN_one-half.n.01",
+   "prefix": "WN",
+   "lemma": "one-half",
+   "gloss": "one of two equal parts of a divisible whole",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_common_fraction.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_family_leporidae": {
+   "entity_id": "CN_family_leporidae",
+   "prefix": "CN",
+   "lemma": "family_leporidae",
+   "gloss": "hares and rabbits",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_leporidae",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_circumfuse": {
+   "entity_id": "CN_circumfuse",
+   "prefix": "CN",
+   "lemma": "circumfuse",
+   "gloss": "spread something around something",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_spread",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_yellow_mariposa_tulip": {
+   "entity_id": "CN_yellow_mariposa_tulip",
+   "prefix": "CN",
+   "lemma": "yellow_mariposa_tulip",
+   "gloss": "mariposa having clusters of a few large deep yellow bell-shaped flowers atop slender stems; California coastal ranges",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_calochortus_luteus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_rechargeable": {
+   "entity_id": "CN_rechargeable",
+   "prefix": "CN",
+   "lemma": "rechargeable",
+   "gloss": "capable of being recharged",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_lithium_ion_battery",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_cost_accounting": {
+   "entity_id": "CN_cost_accounting",
+   "prefix": "CN",
+   "lemma": "cost_accounting",
+   "gloss": "keeping account of the costs of items in production",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_accountancy",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_sondheim": {
+   "entity_id": "CN_sondheim",
+   "prefix": "CN",
+   "lemma": "sondheim",
+   "gloss": "United States composer of musicals (born in 1930)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_stephen_sondheim",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_potential_energy.n.01": {
+   "entity_id": "WN_potential_energy.n.01",
+   "prefix": "WN",
+   "lemma": "potential_energy",
+   "gloss": "the mechanical energy that a body has by virtue of its position; stored energy",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_mechanical_energy.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_in_style": {
+   "entity_id": "CN_in_style",
+   "prefix": "CN",
+   "lemma": "in_style",
+   "gloss": "in the current fashion or style",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_la_mode",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_round_shot": {
+   "entity_id": "CN_round_shot",
+   "prefix": "CN",
+   "lemma": "round_shot",
+   "gloss": "a solid projectile that in former times was fired from a cannon",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cannonball",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_apple_tree_in": {
+   "entity_id": "CN_apple_tree_in",
+   "prefix": "CN",
+   "lemma": "apple_tree_in",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_back_yard",
+     "CN_AT_LOCATION"
+    ]
+   ]
+  },
+  "CN_wainscoted": {
+   "entity_id": "CN_wainscoted",
+   "prefix": "CN",
+   "lemma": "wainscoted",
+   "gloss": "fitted or decorated with panels or wainscoting",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_paneled",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_benvenuto_cellini": {
+   "entity_id": "CN_benvenuto_cellini",
+   "prefix": "CN",
+   "lemma": "benvenuto_cellini",
+   "gloss": "Italian sculptor (1500-1571)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cellini",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_clown_fish": {
+   "entity_id": "CN_clown_fish",
+   "prefix": "CN",
+   "lemma": "clown_fish",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_immune_to_sting_of_anemone",
+     "CN_HAS_PROPERTY"
+    ]
+   ]
+  },
+  "CN_approved": {
+   "entity_id": "CN_approved",
+   "prefix": "CN",
+   "lemma": "approved",
+   "gloss": "give sanction to",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sanctioned",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pretermit": {
+   "entity_id": "CN_pretermit",
+   "prefix": "CN",
+   "lemma": "pretermit",
+   "gloss": "disregard intentionally or let pass",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_neglect",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_good_tempered": {
+   "entity_id": "CN_good_tempered",
+   "prefix": "CN",
+   "lemma": "good_tempered",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_even_tempered",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_araucaria_araucana": {
+   "entity_id": "CN_araucaria_araucana",
+   "prefix": "CN",
+   "lemma": "araucaria_araucana",
+   "gloss": "large Chilean evergreen conifer having intertwined branches and bearing edible nuts",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_monkey_puzzle",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_flowering_glume": {
+   "entity_id": "CN_flowering_glume",
+   "prefix": "CN",
+   "lemma": "flowering_glume",
+   "gloss": "the lower and stouter of the two glumes immediately enclosing the floret in most Gramineae",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_lemma",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sifting": {
+   "entity_id": "CN_sifting",
+   "prefix": "CN",
+   "lemma": "sifting",
+   "gloss": "the act of separating grain from chaff",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_winnow",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_entrails": {
+   "entity_id": "CN_entrails",
+   "prefix": "CN",
+   "lemma": "entrails",
+   "gloss": "internal organs collectively (especially those in the abdominal cavity)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_viscera",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_contact.n.02": {
+   "entity_id": "WN_contact.n.02",
+   "prefix": "WN",
+   "lemma": "contact",
+   "gloss": "the act of touching physically",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_touch.n.05",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_cauliflower_ear": {
+   "entity_id": "CN_cauliflower_ear",
+   "prefix": "CN",
+   "lemma": "cauliflower_ear",
+   "gloss": "an auricle deformed by injury; common among boxers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_auricle",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_inbuilt": {
+   "entity_id": "CN_inbuilt",
+   "prefix": "CN",
+   "lemma": "inbuilt",
+   "gloss": "existing as an essential constituent or characteristic",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_built_in",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_korean_velvet_grass": {
+   "entity_id": "CN_korean_velvet_grass",
+   "prefix": "CN",
+   "lemma": "korean_velvet_grass",
+   "gloss": "Asiatic creeping perennial grass; introduced in southern United States as a drought-resistant lawn grass",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_mascarene_grass",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_battle_of_guadalcanal": {
+   "entity_id": "CN_battle_of_guadalcanal",
+   "prefix": "CN",
+   "lemma": "battle_of_guadalcanal",
+   "gloss": "a battle in World War II in the Pacific (1942-1943); the island was occupied by the Japanese and later recaptured by American forces",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_guadalcanal",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pinnace": {
+   "entity_id": "CN_pinnace",
+   "prefix": "CN",
+   "lemma": "pinnace",
+   "gloss": "a boat for communication between ship and shore",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_tender",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_legal_power.n.01": {
+   "entity_id": "WN_legal_power.n.01",
+   "prefix": "WN",
+   "lemma": "legal_power",
+   "gloss": "(law) the right and power to interpret and apply the law",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_power.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_clovis_i": {
+   "entity_id": "CN_clovis_i",
+   "prefix": "CN",
+   "lemma": "clovis_i",
+   "gloss": "king of the Franks who unified Gaul and established his capital at Paris and founded the Frankish monarchy; his name was rendered as Gallic `Louis' (466-511)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_clovis",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_axeblade": {
+   "entity_id": "CN_axeblade",
+   "prefix": "CN",
+   "lemma": "axeblade",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_blade",
+     "CN_DERIVED_FROM"
+    ]
+   ]
+  },
+  "CN_freight_rate": {
+   "entity_id": "CN_freight_rate",
+   "prefix": "CN",
+   "lemma": "freight_rate",
+   "gloss": "the charge for transporting something by common carrier",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_freight",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_black_body.n.01": {
+   "entity_id": "WN_black_body.n.01",
+   "prefix": "WN",
+   "lemma": "black_body",
+   "gloss": "a hypothetical object capable of absorbing all the electromagnetic radiation falling on it",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_natural_object.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_solid_colored": {
+   "entity_id": "CN_solid_colored",
+   "prefix": "CN",
+   "lemma": "solid_colored",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_solid_coloured",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_nag_hammadi_library": {
+   "entity_id": "CN_nag_hammadi_library",
+   "prefix": "CN",
+   "lemma": "nag_hammadi_library",
+   "gloss": "a collection of 13 ancient papyrus codices translated from Greek into Coptic that were discovered by farmers near the town of Nag Hammadi in 1945; the codices contain 45 distinct works including the chief sources of firsthand knowledge of Gnosticism",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_nag_hammadi",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sun_ray": {
+   "entity_id": "CN_sun_ray",
+   "prefix": "CN",
+   "lemma": "sun_ray",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_sunray",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_extended_order": {
+   "entity_id": "CN_extended_order",
+   "prefix": "CN",
+   "lemma": "extended_order",
+   "gloss": "a military formation for skirmishing; as widely separated as the tactical situation permits",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_military_formation",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_picture_tube": {
+   "entity_id": "CN_picture_tube",
+   "prefix": "CN",
+   "lemma": "picture_tube",
+   "gloss": "a cathode-ray tube in a television receiver; translates the received signal into a picture on a luminescent screen",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_kinescope",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_poikilothermic": {
+   "entity_id": "CN_poikilothermic",
+   "prefix": "CN",
+   "lemma": "poikilothermic",
+   "gloss": "of animals except birds and mammals; having body temperature that varies with the environment",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_poikilothermous",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_hibbertia": {
+   "entity_id": "CN_genus_hibbertia",
+   "prefix": "CN",
+   "lemma": "genus_hibbertia",
+   "gloss": "evergreen heathlike or scandent shrubs of Madagascar; Australasia; Polynesia",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hibbertia",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_time_limit": {
+   "entity_id": "CN_time_limit",
+   "prefix": "CN",
+   "lemma": "time_limit",
+   "gloss": "a time period within which something must be done or completed",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_limitation",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_nonresistant": {
+   "entity_id": "CN_nonresistant",
+   "prefix": "CN",
+   "lemma": "nonresistant",
+   "gloss": "(often followed by `to') likely to be affected with",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_unresistant",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_amyloidal": {
+   "entity_id": "CN_amyloidal",
+   "prefix": "CN",
+   "lemma": "amyloidal",
+   "gloss": "resembling starch",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_amylaceous",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sulphurette": {
+   "entity_id": "CN_sulphurette",
+   "prefix": "CN",
+   "lemma": "sulphurette",
+   "gloss": "combine with sulfur",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sulfurette",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ferrocerium": {
+   "entity_id": "CN_ferrocerium",
+   "prefix": "CN",
+   "lemma": "ferrocerium",
+   "gloss": "a pyrophoric alloy of iron with cerium; used for lighter flints",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pyrophoric_alloy",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_guinea_gold_vine": {
+   "entity_id": "CN_guinea_gold_vine",
+   "prefix": "CN",
+   "lemma": "guinea_gold_vine",
+   "gloss": "any of several Australasian evergreen vines widely cultivated in warm regions for their large bright yellow single flowers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_guinea_flower",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_silk_stocking": {
+   "entity_id": "CN_silk_stocking",
+   "prefix": "CN",
+   "lemma": "silk_stocking",
+   "gloss": "women's stockings made from a sheer material (nylon or rayon or silk)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_nylons",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_nervus_radialis": {
+   "entity_id": "CN_nervus_radialis",
+   "prefix": "CN",
+   "lemma": "nervus_radialis",
+   "gloss": "largest branch of the brachial plexus; extends down the humerus to the lateral epicondyle where it divides into one branch that goes to the skin on the back of the hand and another that goes to the underlying extensor muscles",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_radial_nerve",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_air_to_air_missile": {
+   "entity_id": "CN_air_to_air_missile",
+   "prefix": "CN",
+   "lemma": "air_to_air_missile",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_missile",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_subdivision_deuteromycotina": {
+   "entity_id": "CN_subdivision_deuteromycotina",
+   "prefix": "CN",
+   "lemma": "subdivision_deuteromycotina",
+   "gloss": "large and heterogeneous form division of fungi comprising forms for which no sexually reproductive stage is known",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_deuteromycota",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_deceiving": {
+   "entity_id": "CN_deceiving",
+   "prefix": "CN",
+   "lemma": "deceiving",
+   "gloss": "be false to; be dishonest with",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_deceivingly",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_pinafore": {
+   "entity_id": "CN_pinafore",
+   "prefix": "CN",
+   "lemma": "pinafore",
+   "gloss": "a sleeveless dress resembling an apron; worn over other clothing",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_jumper",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sugar_apple": {
+   "entity_id": "CN_sugar_apple",
+   "prefix": "CN",
+   "lemma": "sugar_apple",
+   "gloss": "sweet pulpy tropical fruit with thick scaly rind and shiny black seeds",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sweetsop",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_cazique": {
+   "entity_id": "CN_cazique",
+   "prefix": "CN",
+   "lemma": "cazique",
+   "gloss": "black-and-red or black-and-yellow orioles of the American tropics",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cacique",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_cephalometry": {
+   "entity_id": "CN_cephalometry",
+   "prefix": "CN",
+   "lemma": "cephalometry",
+   "gloss": "measurement of human heads",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_measurement",
+     "IS_A"
+    ]
+   ]
+  },
+  "WN_plan.n.03": {
+   "entity_id": "WN_plan.n.03",
+   "prefix": "WN",
+   "lemma": "plan",
+   "gloss": "scale drawing of a structure",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_drawing.n.02",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_negotiatrix": {
+   "entity_id": "CN_negotiatrix",
+   "prefix": "CN",
+   "lemma": "negotiatrix",
+   "gloss": "a woman negotiator",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_negotiatress",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_william_congreve": {
+   "entity_id": "CN_william_congreve",
+   "prefix": "CN",
+   "lemma": "william_congreve",
+   "gloss": "English playwright remembered for his comedies (1670-1729)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_congreve",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_bibliomania": {
+   "entity_id": "CN_bibliomania",
+   "prefix": "CN",
+   "lemma": "bibliomania",
+   "gloss": "preoccupation with the acquisition and possession of books",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_acquisitiveness",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_family_myliobatidae": {
+   "entity_id": "CN_family_myliobatidae",
+   "prefix": "CN",
+   "lemma": "family_myliobatidae",
+   "gloss": "eagle rays",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_myliobatidae",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_antiredeposition": {
+   "entity_id": "CN_antiredeposition",
+   "prefix": "CN",
+   "lemma": "antiredeposition",
+   "gloss": "the process of preventing redeposition",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_natural_process",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_sodomist": {
+   "entity_id": "CN_sodomist",
+   "prefix": "CN",
+   "lemma": "sodomist",
+   "gloss": "someone who engages in anal copulation (especially a male who engages in anal copulation with another male)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sodomite",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_oxime": {
+   "entity_id": "CN_oxime",
+   "prefix": "CN",
+   "lemma": "oxime",
+   "gloss": "any compound containing the group -C=NOH",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_organic_compound",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_cryptogam": {
+   "entity_id": "CN_cryptogam",
+   "prefix": "CN",
+   "lemma": "cryptogam",
+   "gloss": "formerly recognized taxonomic group including all flowerless and seedless plants that reproduce by means of spores: ferns, mosses, algae, fungi",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_plant",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_haematopoietic": {
+   "entity_id": "CN_haematopoietic",
+   "prefix": "CN",
+   "lemma": "haematopoietic",
+   "gloss": "pertaining to the formation of blood or blood cells",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hematopoietic",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_diaghilev": {
+   "entity_id": "CN_diaghilev",
+   "prefix": "CN",
+   "lemma": "diaghilev",
+   "gloss": "Russian ballet impresario who founded the Russian ballet and later introduced it to the West (1872-1929)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sergei_pavlovich_diaghilev",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_irregularly": {
+   "entity_id": "CN_irregularly",
+   "prefix": "CN",
+   "lemma": "irregularly",
+   "gloss": "in an irregular manner",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_on_irregular_basis",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_meliorist": {
+   "entity_id": "CN_meliorist",
+   "prefix": "CN",
+   "lemma": "meliorist",
+   "gloss": "a disputant who advocates reform",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_reformer",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_incurably": {
+   "entity_id": "CN_incurably",
+   "prefix": "CN",
+   "lemma": "incurably",
+   "gloss": "to an incurable degree",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_incurable",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_comes_in_cubes": {
+   "entity_id": "CN_comes_in_cubes",
+   "prefix": "CN",
+   "lemma": "comes_in_cubes",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_sugar",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_st_lucia": {
+   "entity_id": "CN_st_lucia",
+   "prefix": "CN",
+   "lemma": "st_lucia",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_saint_lucia",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_st_bridget": {
+   "entity_id": "CN_st_bridget",
+   "prefix": "CN",
+   "lemma": "st_bridget",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_saint_bridget",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_rissole": {
+   "entity_id": "CN_rissole",
+   "prefix": "CN",
+   "lemma": "rissole",
+   "gloss": "minced cooked meat or fish coated in egg and breadcrumbs and fried in deep fat",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_dish",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_hairstreak_butterfly": {
+   "entity_id": "CN_hairstreak_butterfly",
+   "prefix": "CN",
+   "lemma": "hairstreak_butterfly",
+   "gloss": "small butterflies having striped markings under the wings",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hairstreak",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_stopping_bleeding": {
+   "entity_id": "CN_stopping_bleeding",
+   "prefix": "CN",
+   "lemma": "stopping_bleeding",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_band_aid",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_acellular": {
+   "entity_id": "CN_acellular",
+   "prefix": "CN",
+   "lemma": "acellular",
+   "gloss": "not made up of or divided into cells",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_noncellular",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_jagganath": {
+   "entity_id": "CN_jagganath",
+   "prefix": "CN",
+   "lemma": "jagganath",
+   "gloss": "an avatar of Vishnu",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_jagannatha",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_spring_to_mind": {
+   "entity_id": "CN_spring_to_mind",
+   "prefix": "CN",
+   "lemma": "spring_to_mind",
+   "gloss": "be remembered",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_come_to_mind",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_mess.n.01": {
+   "entity_id": "WN_mess.n.01",
+   "prefix": "WN",
+   "lemma": "mess",
+   "gloss": "a state of confusion and disorderliness",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_disorderliness.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_immunized": {
+   "entity_id": "CN_immunized",
+   "prefix": "CN",
+   "lemma": "immunized",
+   "gloss": "law: grant immunity from prosecution",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_vaccinated",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gillespie": {
+   "entity_id": "CN_gillespie",
+   "prefix": "CN",
+   "lemma": "gillespie",
+   "gloss": "United States jazz trumpeter and exponent of bebop (1917-1993)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_john_birks_gillespie",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_augmented_by_benefits": {
+   "entity_id": "CN_augmented_by_benefits",
+   "prefix": "CN",
+   "lemma": "augmented_by_benefits",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_salary",
+     "CN_RECEIVES_ACTION"
+    ]
+   ]
+  },
+  "CN_handling_cost": {
+   "entity_id": "CN_handling_cost",
+   "prefix": "CN",
+   "lemma": "handling_cost",
+   "gloss": "the cost of handling (especially the cost of packaging and mailing an order)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cost",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_mary_martin": {
+   "entity_id": "CN_mary_martin",
+   "prefix": "CN",
+   "lemma": "mary_martin",
+   "gloss": "United States actress (1913-1990)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_martin",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_overcultivate": {
+   "entity_id": "CN_overcultivate",
+   "prefix": "CN",
+   "lemma": "overcultivate",
+   "gloss": "to exhaust by excessive cultivation",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_overcrop",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_storing_bicycle": {
+   "entity_id": "CN_storing_bicycle",
+   "prefix": "CN",
+   "lemma": "storing_bicycle",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_bicycle_storage_area",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_rhomboidal": {
+   "entity_id": "CN_rhomboidal",
+   "prefix": "CN",
+   "lemma": "rhomboidal",
+   "gloss": "shaped like a rhombus or rhomboid",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rhomboid",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sabbatum": {
+   "entity_id": "CN_sabbatum",
+   "prefix": "CN",
+   "lemma": "sabbatum",
+   "gloss": "the seventh and last day of the week; observed as the Sabbath by Jews and some Christians",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_saturday",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_hypericum_maculatum": {
+   "entity_id": "CN_hypericum_maculatum",
+   "prefix": "CN",
+   "lemma": "hypericum_maculatum",
+   "gloss": "European perennial St John's wort; Ireland and France to western Siberia",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_st_peter's_wort",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_price_increase": {
+   "entity_id": "CN_price_increase",
+   "prefix": "CN",
+   "lemma": "price_increase",
+   "gloss": "increase in price",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_increase",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_oenothera_biennis": {
+   "entity_id": "CN_oenothera_biennis",
+   "prefix": "CN",
+   "lemma": "oenothera_biennis",
+   "gloss": "a coarse biennial of eastern North America with yellow flowers that open in the evening; naturalized in Europe",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_common_evening_primrose",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_american_wisteria": {
+   "entity_id": "CN_american_wisteria",
+   "prefix": "CN",
+   "lemma": "american_wisteria",
+   "gloss": "an eastern United States native resembling the cultivated Japanese wisteria having pale purple-lilac flowers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_american_wistaria",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_mitella": {
+   "entity_id": "CN_mitella",
+   "prefix": "CN",
+   "lemma": "mitella",
+   "gloss": "genus of low slender herbs of North America and northeastern Asia having flowers with trifid or pinnatifid petals",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rosid_dicot_genus",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_criterial": {
+   "entity_id": "CN_criterial",
+   "prefix": "CN",
+   "lemma": "criterial",
+   "gloss": "serving as a basis for evaluation",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_criterional",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sarcoid": {
+   "entity_id": "CN_sarcoid",
+   "prefix": "CN",
+   "lemma": "sarcoid",
+   "gloss": "of or relating to or resembling flesh",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_fleshy",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_olefine": {
+   "entity_id": "CN_olefine",
+   "prefix": "CN",
+   "lemma": "olefine",
+   "gloss": "any unsaturated aliphatic hydrocarbon",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_alkene",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_irritative": {
+   "entity_id": "CN_irritative",
+   "prefix": "CN",
+   "lemma": "irritative",
+   "gloss": "(used of physical stimuli) serving to stimulate or excite",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_irritating",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_amphistylar": {
+   "entity_id": "CN_amphistylar",
+   "prefix": "CN",
+   "lemma": "amphistylar",
+   "gloss": "having columns either at both ends or at both sides",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_amphiprostylar",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_male_hypogonadism": {
+   "entity_id": "CN_male_hypogonadism",
+   "prefix": "CN",
+   "lemma": "male_hypogonadism",
+   "gloss": "the state of being a eunuch (either because of lacking testicles or because they failed to develop)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_eunuchoidism",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_screw_eye": {
+   "entity_id": "CN_screw_eye",
+   "prefix": "CN",
+   "lemma": "screw_eye",
+   "gloss": "a woodscrew having its shank bent into a ring",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_woodscrew",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_95": {
+   "entity_id": "CN_95",
+   "prefix": "CN",
+   "lemma": "95",
+   "gloss": "being five more than ninety",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ninety_five",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gravitons": {
+   "entity_id": "CN_gravitons",
+   "prefix": "CN",
+   "lemma": "gravitons",
+   "gloss": "a gauge boson that mediates the (extremely weak) gravitational interactions between particles",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_graviton",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_mussitation": {
+   "entity_id": "CN_mussitation",
+   "prefix": "CN",
+   "lemma": "mussitation",
+   "gloss": "a low continuous indistinct sound; often accompanied by movement of the lips without the production of articulate speech",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_mutter",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_centrolobium": {
+   "entity_id": "CN_genus_centrolobium",
+   "prefix": "CN",
+   "lemma": "genus_centrolobium",
+   "gloss": "a genus of Centrolobium",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_centrolobium",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_brownish": {
+   "entity_id": "CN_brownish",
+   "prefix": "CN",
+   "lemma": "brownish",
+   "gloss": "of a color similar to that of wood or earth",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_chocolate_brown",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_winter_mushroom": {
+   "entity_id": "CN_winter_mushroom",
+   "prefix": "CN",
+   "lemma": "winter_mushroom",
+   "gloss": "an edible agaric that is available in early spring or late fall when few other mushrooms are; has a viscid smooth orange to brown cap and a velvety stalk that turns black in maturity and pallid gills; often occur in clusters",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_flammulina_velutipes",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sweet_grass": {
+   "entity_id": "CN_sweet_grass",
+   "prefix": "CN",
+   "lemma": "sweet_grass",
+   "gloss": "any of several moisture-loving grasses of the genus Glyceria having sweet flavor or odor",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_manna_grass",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_running_suit": {
+   "entity_id": "CN_running_suit",
+   "prefix": "CN",
+   "lemma": "running_suit",
+   "gloss": "a matching jacket and pants worn by joggers and made of fabric that absorbs perspiration",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_sportswear",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_panty": {
+   "entity_id": "CN_panty",
+   "prefix": "CN",
+   "lemma": "panty",
+   "gloss": "short underpants for women or children (usually used in the plural)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_pantie",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_pinus_palustris": {
+   "entity_id": "CN_pinus_palustris",
+   "prefix": "CN",
+   "lemma": "pinus_palustris",
+   "gloss": "large three-needled pine of southeastern United States having very long needles and gnarled twisted limbs; bark is red-brown deeply ridged; an important timber tree",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_longleaf_pine",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_electoral_system": {
+   "entity_id": "CN_electoral_system",
+   "prefix": "CN",
+   "lemma": "electoral_system",
+   "gloss": "a legal system for making democratic choices",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_voting_system",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_meandering": {
+   "entity_id": "CN_meandering",
+   "prefix": "CN",
+   "lemma": "meandering",
+   "gloss": "to move or cause to move in a sinuous, spiral, or circular course",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_rambling",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_mores": {
+   "entity_id": "CN_mores",
+   "prefix": "CN",
+   "lemma": "mores",
+   "gloss": "(sociology) the conventions that embody the fundamental values of a group",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_convention",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_electrocardiograph": {
+   "entity_id": "CN_electrocardiograph",
+   "prefix": "CN",
+   "lemma": "electrocardiograph",
+   "gloss": "medical instrument that records electric currents associated with contractions of the heart",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cardiograph",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_ropiness": {
+   "entity_id": "CN_ropiness",
+   "prefix": "CN",
+   "lemma": "ropiness",
+   "gloss": "the property of being cohesive and sticky",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cohesiveness",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_emerson": {
+   "entity_id": "CN_emerson",
+   "prefix": "CN",
+   "lemma": "emerson",
+   "gloss": "United States writer and leading exponent of transcendentalism (1803-1882)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_ralph_waldo_emerson",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_generics": {
+   "entity_id": "CN_generics",
+   "prefix": "CN",
+   "lemma": "generics",
+   "gloss": "a wine that is a blend of several varieties of grapes with no one grape predominating; a wine that does not carry the name of any specific grape",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_generic",
+     "CN_RELATED_TO"
+    ]
+   ]
+  },
+  "CN_spartina_cynosuroides": {
+   "entity_id": "CN_spartina_cynosuroides",
+   "prefix": "CN",
+   "lemma": "spartina_cynosuroides",
+   "gloss": "tall reedlike grass common in salt meadows",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_salt_reed_grass",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "WN_sensitivity.n.02": {
+   "entity_id": "WN_sensitivity.n.02",
+   "prefix": "WN",
+   "lemma": "sensitivity",
+   "gloss": "the ability to respond to physical stimuli or to register small physical amounts or differences",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_physical_property.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_numerous": {
+   "entity_id": "CN_numerous",
+   "prefix": "CN",
+   "lemma": "numerous",
+   "gloss": "amounting to a large indefinite number",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_legion",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_barbecuing": {
+   "entity_id": "CN_barbecuing",
+   "prefix": "CN",
+   "lemma": "barbecuing",
+   "gloss": "roasting a large piece of meat on a revolving spit out of doors over an open fire",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_roasting",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_hyalophora_cecropia": {
+   "entity_id": "CN_hyalophora_cecropia",
+   "prefix": "CN",
+   "lemma": "hyalophora_cecropia",
+   "gloss": "North American silkworm moth; larvae feed on the leaves of forest trees",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_cecropia",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_fissurella": {
+   "entity_id": "CN_genus_fissurella",
+   "prefix": "CN",
+   "lemma": "genus_fissurella",
+   "gloss": "type genus of the family Fissurellidae: keyhole limpets",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_fissurella",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_finger_bar": {
+   "entity_id": "CN_finger_bar",
+   "prefix": "CN",
+   "lemma": "finger_bar",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_finger",
+     "CN_DERIVED_FROM"
+    ]
+   ]
+  },
+  "CN_chondritic": {
+   "entity_id": "CN_chondritic",
+   "prefix": "CN",
+   "lemma": "chondritic",
+   "gloss": "having a granular structure like that of chondrites",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_granular",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_bacca": {
+   "entity_id": "CN_bacca",
+   "prefix": "CN",
+   "lemma": "bacca",
+   "gloss": "an indehiscent fruit derived from a single ovary having one or many seeds within a fleshy wall or pericarp: e.g. grape; tomato; cranberry",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_simple_fruit",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_organisms": {
+   "entity_id": "CN_organisms",
+   "prefix": "CN",
+   "lemma": "organisms",
+   "gloss": "a living thing that has (or can develop) the ability to act or function independently",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_die",
+     "CN_CAPABLE_OF"
+    ]
+   ]
+  },
+  "CN_la_fayette": {
+   "entity_id": "CN_la_fayette",
+   "prefix": "CN",
+   "lemma": "la_fayette",
+   "gloss": "French soldier who served under George Washington in the American Revolution (1757-1834)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_marie_joseph_paul_yves_roch_gilbert_du_motier",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_discount_store": {
+   "entity_id": "CN_discount_store",
+   "prefix": "CN",
+   "lemma": "discount_store",
+   "gloss": "a sales outlet offering goods at a discounted price",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_discount_house",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_heroin_addict": {
+   "entity_id": "CN_heroin_addict",
+   "prefix": "CN",
+   "lemma": "heroin_addict",
+   "gloss": "someone addicted to heroin",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_drug_addict",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_ranunculus_repens": {
+   "entity_id": "CN_ranunculus_repens",
+   "prefix": "CN",
+   "lemma": "ranunculus_repens",
+   "gloss": "perennial European herb with long creeping stolons",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_creeping_buttercup",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_cold_war": {
+   "entity_id": "CN_cold_war",
+   "prefix": "CN",
+   "lemma": "cold_war",
+   "gloss": "a state of political hostility between countries using means short of armed warfare",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_hostility",
+     "IS_A"
+    ]
+   ]
+  },
+  "WN_street.n.01": {
+   "entity_id": "WN_street.n.01",
+   "prefix": "WN",
+   "lemma": "street",
+   "gloss": "a thoroughfare (usually including sidewalks) that is lined with buildings",
+   "source_used": "WN_native",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "WN_thoroughfare.n.01",
+     "HYPERNYM"
+    ]
+   ]
+  },
+  "CN_platitudinize": {
+   "entity_id": "CN_platitudinize",
+   "prefix": "CN",
+   "lemma": "platitudinize",
+   "gloss": "utter platitudes",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_express",
+     "CN_MANNER_OF"
+    ]
+   ]
+  },
+  "CN_duramen": {
+   "entity_id": "CN_duramen",
+   "prefix": "CN",
+   "lemma": "duramen",
+   "gloss": "the older inactive central wood of a tree or woody plant; usually darker and denser than the surrounding sapwood",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_heartwood",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_self_absorbed": {
+   "entity_id": "CN_self_absorbed",
+   "prefix": "CN",
+   "lemma": "self_absorbed",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_self_involved",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_sore_side": {
+   "entity_id": "CN_sore_side",
+   "prefix": "CN",
+   "lemma": "sore_side",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_howling_with_laughter",
+     "CN_CAUSES"
+    ]
+   ]
+  },
+  "CN_diplomate": {
+   "entity_id": "CN_diplomate",
+   "prefix": "CN",
+   "lemma": "diplomate",
+   "gloss": "medical specialist whose competence has been certified by a diploma granted by an appropriate professional group",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_specialist",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_multiversity": {
+   "entity_id": "CN_multiversity",
+   "prefix": "CN",
+   "lemma": "multiversity",
+   "gloss": "a university system having several separate campuses and colleges and research centers",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_university",
+     "IS_A"
+    ]
+   ]
+  },
+  "CN_potassium_hydrogen_carbonate": {
+   "entity_id": "CN_potassium_hydrogen_carbonate",
+   "prefix": "CN",
+   "lemma": "potassium_hydrogen_carbonate",
+   "gloss": "a crystalline salt (KHCO3) that is used in baking powder and as an antacid",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_potassium_bicarbonate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_regalecus": {
+   "entity_id": "CN_genus_regalecus",
+   "prefix": "CN",
+   "lemma": "genus_regalecus",
+   "gloss": "type genus of the Regalecidae",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_reglaecus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_flagellated_protozoan": {
+   "entity_id": "CN_flagellated_protozoan",
+   "prefix": "CN",
+   "lemma": "flagellated_protozoan",
+   "gloss": "a usually nonphotosynthetic free-living protozoan with whiplike appendages; some are pathogens of humans and other animals",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_flagellate",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_building_farm_on": {
+   "entity_id": "CN_building_farm_on",
+   "prefix": "CN",
+   "lemma": "building_farm_on",
+   "gloss": null,
+   "source_used": null,
+   "hit": false,
+   "neighbor_edges": [
+    [
+     "CN_farmland",
+     "CN_USED_FOR"
+    ]
+   ]
+  },
+  "CN_genus_scolopax": {
+   "entity_id": "CN_genus_scolopax",
+   "prefix": "CN",
+   "lemma": "genus_scolopax",
+   "gloss": "type of the Scolopacidae: Old World woodcocks",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_scolopax",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_shamelessly": {
+   "entity_id": "CN_shamelessly",
+   "prefix": "CN",
+   "lemma": "shamelessly",
+   "gloss": "without shame",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_barefacedly",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_genus_notemigonus": {
+   "entity_id": "CN_genus_notemigonus",
+   "prefix": "CN",
+   "lemma": "genus_notemigonus",
+   "gloss": "golden shiners",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_notemigonus",
+     "CN_SYNONYM"
+    ]
+   ]
+  },
+  "CN_gaskell": {
+   "entity_id": "CN_gaskell",
+   "prefix": "CN",
+   "lemma": "gaskell",
+   "gloss": "English writer who is remembered for her biography of Charlotte Bronte (1810-1865)",
+   "source_used": "CN_lemma_match_WN",
+   "hit": true,
+   "neighbor_edges": [
+    [
+     "CN_elizabeth_cleghorn_stevenson_gaskell",
+     "CN_SYNONYM"
+    ]
+   ]
+  }
+ },
+ "scramble_control": {
+  "control_hit_rates": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "n_repeats": 3,
+  "per_repeat": 15,
+  "detail": [
+   [
+    {
+     "scrambled": "eabirdealdnd",
+     "hit": false
+    },
+    {
+     "scrambled": "inulietisdaago",
+     "hit": false
+    },
+    {
+     "scrambled": "ahetrlacgn",
+     "hit": false
+    },
+    {
+     "scrambled": "hvseruaatka",
+     "hit": false
+    },
+    {
+     "scrambled": "fserlewwraot",
+     "hit": false
+    },
+    {
+     "scrambled": "mupamiduyuilmtalecbtrl",
+     "hit": false
+    },
+    {
+     "scrambled": "pseirp",
+     "hit": false
+    },
+    {
+     "scrambled": "waocloosfhl",
+     "hit": false
+    },
+    {
+     "scrambled": "rrdeoisdahnled",
+     "hit": false
+    },
+    {
+     "scrambled": "ixidsdolinieoc",
+     "hit": false
+    },
+    {
+     "scrambled": "ckoahm",
+     "hit": false
+    },
+    {
+     "scrambled": "nmeohildosatdtm",
+     "hit": false
+    },
+    {
+     "scrambled": "ipnrtuyo",
+     "hit": false
+    },
+    {
+     "scrambled": "eecrdetcivpsohti",
+     "hit": false
+    },
+    {
+     "scrambled": "esrim",
+     "hit": false
+    }
+   ],
+   [
+    {
+     "scrambled": "rptnuyoi",
+     "hit": false
+    },
+    {
+     "scrambled": "cfoasohowll",
+     "hit": false
+    },
+    {
+     "scrambled": "sermi",
+     "hit": false
+    },
+    {
+     "scrambled": "ranldeaibedd",
+     "hit": false
+    },
+    {
+     "scrambled": "deaedohisnlrdr",
+     "hit": false
+    },
+    {
+     "scrambled": "chvtoeeriesdticp",
+     "hit": false
+    },
+    {
+     "scrambled": "ssmatthoinicae",
+     "hit": false
+    },
+    {
+     "scrambled": "tapiiacuslyemseg",
+     "hit": false
+    },
+    {
+     "scrambled": "glaoyfwr",
+     "hit": false
+    },
+    {
+     "scrambled": "oclwokdofbo",
+     "hit": false
+    },
+    {
+     "scrambled": "aerhleabt",
+     "hit": false
+    },
+    {
+     "scrambled": "nnudgbeocmkir",
+     "hit": false
+    },
+    {
+     "scrambled": "siperp",
+     "hit": false
+    },
+    {
+     "scrambled": "nsidsigueneaaclaaiq",
+     "hit": false
+    },
+    {
+     "scrambled": "sorfwaeewlrt",
+     "hit": false
+    }
+   ],
+   [
+    {
+     "scrambled": "hmaokc",
+     "hit": false
+    },
+    {
+     "scrambled": "eipsagtylumaeisc",
+     "hit": false
+    },
+    {
+     "scrambled": "ebhtlaear",
+     "hit": false
+    },
+    {
+     "scrambled": "oodkocbwofl",
+     "hit": false
+    },
+    {
+     "scrambled": "fevteyrseoon",
+     "hit": false
+    },
+    {
+     "scrambled": "tuasx",
+     "hit": false
+    },
+    {
+     "scrambled": "eclhepiuatidlt",
+     "hit": false
+    },
+    {
+     "scrambled": "njaiwhno",
+     "hit": false
+    },
+    {
+     "scrambled": "iserm",
+     "hit": false
+    },
+    {
+     "scrambled": "toryccerlni",
+     "hit": false
+    },
+    {
+     "scrambled": "otceasnitmashi",
+     "hit": false
+    },
+    {
+     "scrambled": "irnsderholaedd",
+     "hit": false
+    },
+    {
+     "scrambled": "itomnehstolddam",
+     "hit": false
+    },
+    {
+     "scrambled": "traevasaukh",
+     "hit": false
+    },
+    {
+     "scrambled": "yauprltmuecuamdlimtbil",
+     "hit": false
+    }
+   ]
+  ]
+ },
+ "availability_by_source": {
+  "WN_native": {
+   "hit": 21,
+   "total": 21
+  },
+  "CN_lemma_match_WN": {
+   "hit": 392,
+   "total": 476
+  },
+  "FN_native": {
+   "hit": 3,
+   "total": 3
+  },
+  "CN_ConceptNet_DefinedAs_HasContext": {
+   "hit": 0,
+   "total": 476,
+   "note": "unavailable: relations.jsonl contains no CN_DEFINED_AS / CN_HAS_CONTEXT rel_type (checked full rel_type histogram, 2026-07-14); would require a raw ConceptNet assertions dump not present in this repo/environment. Honestly reported as 0, not silently omitted."
+  }
+ },
+ "union_hit_rate": 0.832
+}

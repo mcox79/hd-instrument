@@ -1,0 +1,778 @@
+{
+  "anchor_name": "grounded_ingest_text_spoke_v1",
+  "version": "v1",
+  "run_mode": "smoke",
+  "dispatched_ts": "2026-07-14T14:25:42.415801+00:00",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: availability 88.00% >= 50% AND mean exogenous fraction 0.916 >= 0.7 AND clearing-fraction 0.909 >= 0.7 AND both must-fail guards held (synth max fold 0.000, scramble max rep 0.000). The exogenous text channel reaches the sparse tail with genuine exogenous content -- justifies proceeding to the glass-box text/situational spoke build (per the canonical reference's Q5 design), held until pinpoint confirms tail is DATA-limited.",
+  "summary": "HARD_PASS: availability=0.8800 (44/50), mean_exogenous_fraction=0.9156, frac_clearing=0.9091, source_sha256_match=True",
+  "elapsed_s": 1.233,
+  "configs": {
+    "sample_size": 50,
+    "sample_seed_prefix": "SEED42_LEXICAL_TAIL::",
+    "hard_pass_avail": 0.5,
+    "hard_fail_avail": 0.15,
+    "exo_per_entity_threshold": 0.7,
+    "hard_pass_exo_mean": 0.7,
+    "hard_pass_exo_clear_frac": 0.7,
+    "hard_fail_exo_mean": 0.3,
+    "hard_fail_exo_clear_frac": 0.3,
+    "must_fail_synth_margin": 0.3,
+    "must_fail_synth_hard_fail_ceiling": 0.3,
+    "scramble_control_margin": 0.1,
+    "scramble_control_hard_fail_floor": 0.15
+  },
+  "REQUIRED_FIELDS": [
+    "verdict_msg",
+    "elapsed_s"
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 50,
+  "n_units_measured": 50,
+  "availability_hit_rate": 0.88,
+  "n_hit": 44,
+  "per_source_hit": {
+    "WN_native": 3,
+    "WN_native_total": 3,
+    "CN_lemma_match_WN": 41,
+    "CN_lemma_match_WN_total": 47,
+    "FN_native": 0,
+    "FN_native_total": 0
+  },
+  "conceptnet_defined_as_has_context_hit": 0,
+  "conceptnet_defined_as_has_context_note": "unavailable: relations.jsonl contains no CN_DEFINED_AS / CN_HAS_CONTEXT rel_type (full histogram checked); would require a raw ConceptNet assertions dump not present in this repo/env.",
+  "mean_exogenous_fraction": 0.9155782664305392,
+  "frac_clearing_exo_threshold": 0.9090909090909091,
+  "n_degenerate_empty_gloss": 0,
+  "must_fail_synthetic_control_folds": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "must_fail_synthetic_control_max": 0.0,
+  "scramble_control_hit_rates": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "scramble_control_max": 0.0,
+  "avail_hard_pass": true,
+  "avail_hard_fail": false,
+  "exo_hard_pass": true,
+  "exo_hard_fail": false,
+  "synth_guard_ok": true,
+  "scramble_guard_ok": true,
+  "prefix_composition_in_sample": {
+    "CN": 47,
+    "WN": 3
+  },
+  "excluded_nonlexical_tail_count": 400,
+  "source_graph_sha256": "d88acf2055fd986d67ea26eb79481bdf172f3284207e26f4679795fb73790e6d",
+  "source_graph_sha256_expected": "d88acf2055fd986d67ea26eb79481bdf172f3284207e26f4679795fb73790e6d",
+  "source_graph_sha256_match": true,
+  "snapshot_identity_check_ok": true,
+  "per_entity": [
+    {
+      "entity_id": "CN_reims",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a city in northeastern France to the east of Paris; scene of the coronation of most French kings; site of the unconditional German surrender in 1945 at the end of World War II",
+      "neighbor_ids": [
+        "CN_rheims"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_water_flowers",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": false,
+      "source_used": null,
+      "gloss": null,
+      "neighbor_ids": [
+        "CN_gardener"
+      ],
+      "exogenous_fraction": null,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_addlebrained",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "stupid and confused; ; - Isaac Sterne",
+      "neighbor_ids": [
+        "CN_puddingheaded"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_thomas_middleton",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "English playwright and pamphleteer (1570-1627)",
+      "neighbor_ids": [
+        "CN_middleton"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_ockham",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "English scholastic philosopher and assumed author of Occam's Razor (1285-1349)",
+      "neighbor_ids": [
+        "CN_william_of_ockham"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_sipper",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a drinker who sips",
+      "neighbor_ids": [
+        "CN_drinker"
+      ],
+      "exogenous_fraction": 0.5,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_every_so_often",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "occasionally",
+      "neighbor_ids": [
+        "CN_every_now_and_then"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_calystegia_sepium",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "common Eurasian and American wild climber with pink flowers; sometimes placed in genus Convolvulus",
+      "neighbor_ids": [
+        "CN_hedge_bindweed"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_incorrectly",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "in an incorrect manner",
+      "neighbor_ids": [
+        "CN_falsely"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_gather_clan",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": false,
+      "source_used": null,
+      "gloss": null,
+      "neighbor_ids": [
+        "CN_family_room"
+      ],
+      "exogenous_fraction": null,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_punitory",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "inflicting punishment",
+      "neighbor_ids": [
+        "CN_punitive"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_calyptridium_umbellatum",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "pink clusters of densely packed flowers on prostrate stems resemble upturned pads of cats' feet; grow in coniferous forests of western North America",
+      "neighbor_ids": [
+        "CN_pussy_paw"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "WN_integration.n.01",
+      "support_pre": 1,
+      "prefix": "WN",
+      "hit": true,
+      "source_used": "WN_native",
+      "gloss": "the action of incorporating a racial or religious group into a community",
+      "neighbor_ids": [
+        "WN_group_action.n.01"
+      ],
+      "exogenous_fraction": 0.6666666666666666,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_becoming_drunk",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": false,
+      "source_used": null,
+      "gloss": null,
+      "neighbor_ids": [
+        "CN_drinking_alcohol"
+      ],
+      "exogenous_fraction": null,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_school_of_law",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a graduate school offering study leading to a law degree",
+      "neighbor_ids": [
+        "CN_law_school"
+      ],
+      "exogenous_fraction": 0.7142857142857143,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_block_of_wood",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": false,
+      "source_used": null,
+      "gloss": null,
+      "neighbor_ids": [
+        "CN_wedge_in_door"
+      ],
+      "exogenous_fraction": null,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_taxus",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "yews",
+      "neighbor_ids": [
+        "CN_genus_taxus"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_herbal_tea",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "tea-like drink made of leaves of various herbs",
+      "neighbor_ids": [
+        "CN_herb_tea"
+      ],
+      "exogenous_fraction": 0.8571428571428571,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_schematisation",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "providing a chart or outline of a system",
+      "neighbor_ids": [
+        "CN_schematization"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_harpoon_gun",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a cannon or similar gun that fires harpoons",
+      "neighbor_ids": [
+        "CN_cannon"
+      ],
+      "exogenous_fraction": 0.6,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_john_wain",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "English writer (1925-1994)",
+      "neighbor_ids": [
+        "CN_john_barrington_wain"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_silicon_dioxide",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a white or colorless vitreous insoluble solid (SiO2); various forms occur widely in the earth's crust as quartz or cristobalite or tridymite or lechatelierite",
+      "neighbor_ids": [
+        "CN_silica"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_katharevusa",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "literary style of Modern Greek containing features borrowed from Koine",
+      "neighbor_ids": [
+        "CN_modern_greek"
+      ],
+      "exogenous_fraction": 0.75,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_republic_of_cyprus",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a country on the island of Cyprus; 80% of the people are of Greek origin and 20% or Turkish origin",
+      "neighbor_ids": [
+        "CN_cyprus"
+      ],
+      "exogenous_fraction": 0.875,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_gray_wolf",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a wolf with a brindled grey coat living in forested northern regions of North America",
+      "neighbor_ids": [
+        "CN_timber_wolf"
+      ],
+      "exogenous_fraction": 0.9,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_rhode_island_red",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "American breed of heavy-bodied brownish-red general-purpose chicken",
+      "neighbor_ids": [
+        "CN_chicken"
+      ],
+      "exogenous_fraction": 0.7777777777777778,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_epithelial_duct",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a bodily passage or tube lined with epithelial cells and conveying a secretion or other substance",
+      "neighbor_ids": [
+        "CN_duct"
+      ],
+      "exogenous_fraction": 0.8888888888888888,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_aquilegia_canadensis",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "columbine of eastern North America having long-spurred red flowers",
+      "neighbor_ids": [
+        "CN_meeting_house"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_suv",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a high-performance four-wheel drive car built on a truck chassis",
+      "neighbor_ids": [
+        "CN_sport_utility"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_prosthetic_device",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "corrective consisting of a replacement for a part of the body",
+      "neighbor_ids": [
+        "CN_prosthesis"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_ustilaginoidea",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "genus of imperfect fungi causing plant diseases like smut",
+      "neighbor_ids": [
+        "CN_genus_ustilaginoidea"
+      ],
+      "exogenous_fraction": 0.875,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_ibrd",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a United Nations agency created to assist developing nations by loans guaranteed by member governments",
+      "neighbor_ids": [
+        "CN_international_bank_for_reconstruction_and_development"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_blackbody",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a hypothetical object capable of absorbing all the electromagnetic radiation falling on it",
+      "neighbor_ids": [
+        "CN_black_body"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_reaper_binder",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a machine that cuts grain and binds it in sheaves",
+      "neighbor_ids": [
+        "CN_binder"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_synchronised",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "happen at the same time",
+      "neighbor_ids": [
+        "CN_synchronized"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_population_shift",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a change in the relative numbers of the different groups of individuals making up a population",
+      "neighbor_ids": [
+        "CN_transformation"
+      ],
+      "exogenous_fraction": 0.875,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_genus_numida",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "guinea fowl",
+      "neighbor_ids": [
+        "CN_numida"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "WN_athapaskan.n.02",
+      "support_pre": 1,
+      "prefix": "WN",
+      "hit": true,
+      "source_used": "WN_native",
+      "gloss": "a group of Amerindian languages (the name coined by an American anthropologist, Edward Sapir)",
+      "neighbor_ids": [
+        "WN_amerind.n.01"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_blank_space",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a blank area",
+      "neighbor_ids": [
+        "CN_space"
+      ],
+      "exogenous_fraction": 0.5,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_limited_review",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "(accounting) a service (less exhaustive than an audit) that provides some assurance to interested parties as to the reliability of financial data",
+      "neighbor_ids": [
+        "CN_review"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_getting_hair_styled",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": false,
+      "source_used": null,
+      "gloss": null,
+      "neighbor_ids": [
+        "CN_going_to_hairdresser"
+      ],
+      "exogenous_fraction": null,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_pentatone",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a gapped scale with five notes; usually the fourth and seventh notes of the diatonic scale are omitted",
+      "neighbor_ids": [
+        "CN_pentatonic_scale"
+      ],
+      "exogenous_fraction": 0.8181818181818182,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_preside",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "act as president",
+      "neighbor_ids": [
+        "CN_control"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_create_electricity",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": false,
+      "source_used": null,
+      "gloss": null,
+      "neighbor_ids": [
+        "CN_machine"
+      ],
+      "exogenous_fraction": null,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": false
+    },
+    {
+      "entity_id": "CN_family_congridae",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "marine eels",
+      "neighbor_ids": [
+        "CN_congridae"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_dustmop",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "a dry swab for dusting floors",
+      "neighbor_ids": [
+        "CN_dry_mop"
+      ],
+      "exogenous_fraction": 0.75,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_genus_harrisia",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "genus of slender often treelike spiny cacti with solitary showy nocturnal white or pink flowers; Florida and Caribbean to South America",
+      "neighbor_ids": [
+        "CN_harrisia"
+      ],
+      "exogenous_fraction": 0.9375,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_genus_oryza",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "rice",
+      "neighbor_ids": [
+        "CN_oryza"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "WN_prolongation.n.01",
+      "support_pre": 1,
+      "prefix": "WN",
+      "hit": true,
+      "source_used": "WN_native",
+      "gloss": "the act of prolonging something",
+      "neighbor_ids": [
+        "WN_continuance.n.01"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    },
+    {
+      "entity_id": "CN_nightwear",
+      "support_pre": 1,
+      "prefix": "CN",
+      "hit": true,
+      "source_used": "CN_lemma_match_WN",
+      "gloss": "garments designed to be worn in bed",
+      "neighbor_ids": [
+        "CN_nightclothes"
+      ],
+      "exogenous_fraction": 1.0,
+      "synthetic_control_exogenous_fraction": 0.0,
+      "clears_exo_threshold": true
+    }
+  ]
+}
