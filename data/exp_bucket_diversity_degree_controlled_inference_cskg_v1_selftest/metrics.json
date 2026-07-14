@@ -1,0 +1,170 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS bucket_diversity_degree_controlled: MAIN beats RANDOM (arena fires); relation-scramble collapses; both div1/div3plus groups present in >=1 stratum; permutation p-values valid in [0,1]; validity-preflight checks declared",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 5.714221199974418,
+  "self_test": {
+    "n_query": 357,
+    "n_entities_with_queries": 150,
+    "selftest_verdict": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED",
+    "gates": {
+      "verdict": "BUCKET_DIVERSITY_NEUTRAL_DEGREE_CONTROLLED",
+      "main_mrr": 0.217932,
+      "random_mrr": 0.030747,
+      "scramble_mrr": 0.066654,
+      "pop_mrr": 0.216394,
+      "arena_margin": 0.187185,
+      "arena_ratio": 7.088,
+      "arena_fires": true,
+      "scramble_margin": 0.035907,
+      "scramble_ceiling": 0.046796,
+      "scramble_controlled": true,
+      "arms_differ": true,
+      "n_distinct_sigs": 3,
+      "mean_aggregate_lift": 0.064081,
+      "max_p_perm_aggregate": 0.4251,
+      "seeds_agree_sign": true,
+      "all_seeds_qualify": true,
+      "per_seed_aggregate": [
+        {
+          "aggregate_lift": 0.064081,
+          "n_qualifying_strata": 2,
+          "sign_consistent": true,
+          "p_perm_aggregate": 0.4251,
+          "qualifying_strata": [
+            "d3_5",
+            "d6_8"
+          ]
+        }
+      ],
+      "per_seed_stratum_groups": [
+        {
+          "d3_5": {
+            "div1": {
+              "n_queries": 44,
+              "n_entities": 22,
+              "mean_rr": 0.151766
+            },
+            "div2": {
+              "n_queries": 18,
+              "n_entities": 9,
+              "mean_rr": 0.190359
+            },
+            "div3plus": {
+              "n_queries": 80,
+              "n_entities": 40,
+              "mean_rr": 0.253396
+            }
+          },
+          "d6_8": {
+            "div1": {
+              "n_queries": 84,
+              "n_entities": 31,
+              "mean_rr": 0.197599
+            },
+            "div2": {
+              "n_queries": 3,
+              "n_entities": 1,
+              "mean_rr": 0.247863
+            },
+            "div3plus": {
+              "n_queries": 128,
+              "n_entities": 47,
+              "mean_rr": 0.23503
+            }
+          },
+          "d9_14": {
+            "div1": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div2": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div3plus": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            }
+          },
+          "d15plus": {
+            "div1": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div2": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            },
+            "div3plus": {
+              "n_queries": 0,
+              "n_entities": 0,
+              "mean_rr": null
+            }
+          }
+        }
+      ],
+      "per_seed_stratum_perm": [
+        {
+          "d3_5": {
+            "real_lift": 0.101631,
+            "n1": 22,
+            "n3": 40,
+            "n_queries_div1": 44,
+            "n_queries_div3plus": 80,
+            "p_perm": 0.0739,
+            "null_mean": -6.7e-05,
+            "null_std": 0.056386
+          },
+          "d6_8": {
+            "real_lift": 0.037432,
+            "n1": 31,
+            "n3": 47,
+            "n_queries_div1": 84,
+            "n_queries_div3plus": 128,
+            "p_perm": 0.4251,
+            "null_mean": 0.004105,
+            "null_std": 0.048781
+          }
+        }
+      ],
+      "bands": {
+        "HELPS_THRESH": 0.02,
+        "HURTS_THRESH": -0.02,
+        "P_SIG_STRATUM": 0.1,
+        "P_SIG_CROSS_SEED": 0.15,
+        "ARENA_FIRE_RATIO": 3.0,
+        "ARENA_FIRE_ABS": 0.01,
+        "SCRAMBLE_CEIL_FRAC": 0.25,
+        "MIN_STRATUM_N": 10,
+        "N_PERM": 500
+      }
+    },
+    "arena_fires": true,
+    "scramble_controlled": true,
+    "arms_differ": true,
+    "any_stratum_has_both_groups": true,
+    "p_perm_values": [
+      0.0739,
+      0.4251
+    ],
+    "p_valid": true,
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "additive_direct_scores",
+      "aggregate_across_strata",
+      "build_holdout_split",
+      "build_planted_bucket_arena",
+      "filtered_rr_per_query",
+      "fit_kge_anchor1",
+      "permutation_test_stratum",
+      "verdict_from_gates"
+    ]
+  }
+}
