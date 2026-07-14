@@ -1,0 +1,43 @@
+{
+  "verdict": "SELFTEST_PASS",
+  "run_mode": "self_test",
+  "verdict_msg": "SELFTEST_PASS cold_placement_usefulness_v1: planted-arena MECHANISM recovers name-transparent cold entities AND gloss-sourced-opaque entities (dictionary path proven wired); SCRAMBLE/RANDOM/POP/GRAPH_SELF_REFERENCE_CONTROL collapse to floor for BOTH strata; NEIGHBOR_COMPOSE structural-zero reproduced; polysemy guard fires; arbitrary-edge generalization control passes; REAL relations.jsonl slice exercised (F.1); 8 validity-preflight checks declared (F.1-F.4 enforce)",
+  "summary": "SELFTEST_PASS",
+  "elapsed_s": 0.2641022000461817,
+  "mechanism_selftest": {
+    "mech_trans_exact": 1.0,
+    "mech_gloss_exact": 1.0,
+    "mech_opaque_exact": 0.66667,
+    "scramble_trans_exact": 0.05882,
+    "scramble_gloss_exact": 0.0,
+    "random_trans_exact": 0.11765,
+    "pop_trans_exact": 0.0,
+    "neighbor_compose_trans_exact": 0.0,
+    "graph_self_reference_exact": 0.0,
+    "arb_mech_trans_recovery": 1.0,
+    "arb_random_trans_recovery": 0.25,
+    "transparent_recovers": true,
+    "scramble_collapses": true,
+    "random_no_help": true,
+    "pop_no_help": true,
+    "neighbor_compose_zero": true,
+    "graph_self_reference_zero": true,
+    "gloss_fallback_fires": true,
+    "gloss_sourced_lifts": true,
+    "gloss_scramble_collapses": true,
+    "polysemy_guard_exercised": true,
+    "arbitrary_generalizes": true,
+    "real_slice_ok": true,
+    "real_n_units": 30,
+    "validity_preflight_ok": true,
+    "exercised_entrypoints": [
+      "build_directed_adj",
+      "build_lemma_index",
+      "build_populations",
+      "classify_and_place",
+      "load_graph",
+      "score_arbitrary_entity",
+      "score_taxonomic_entity"
+    ]
+  }
+}
