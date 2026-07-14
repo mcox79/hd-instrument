@@ -1,0 +1,4584 @@
+{
+ "provenance": {
+  "fetched_ts_utc": "2026-07-14T00:00:00Z",
+  "fetched_by": "exp_dev (Claude Sonnet 5), interactive Bash with live internet access",
+  "source_graph_file": "data/substrate_index/concept/relations.jsonl",
+  "source_graph_sha256": "d88acf2055fd986d67ea26eb79481bdf172f3284207e26f4679795fb73790e6d",
+  "source_graph_size_bytes": 18304525,
+  "source_graph_mtime": 1781907852.0,
+  "sample_method": "sha256('SEED42_LEXICAL_TAIL::' + entity_id) sorted ascending, take first 500",
+  "sample_population_filter": "prefix in {CN,WN,FN} (lexical/concept entity types) AND degree(support) <= 1 in relations.jsonl",
+  "excluded_non_lexical_tail_count": 400,
+  "excluded_non_lexical_tail_note": "entities with support<=1 whose id did not match ^(CN|WN|FN)_ (mostly provenance/admin refs e.g. 'RF/research_drill_...', EXP_/CAP_/RETRIEVAL_ prefixes) -- these are not groundable concept nouns, excluded from sampling population per fairness discipline (disclosed, not silently dropped)",
+  "join_method": "exact enwiki-sitelink-title lookup via Wikidata API action=wbgetentities&sites=enwiki&titles=<title>&props=claims -- NO fuzzy search, NO wbsearchentities substring matching. Title normalization: strip CN_/WN_/FN_ prefix; for WN_ additionally strip trailing WordNet sense suffix (regex \\.[a-z]\\.\\d+$); replace underscores with spaces; capitalize first character only (standard enwiki title casing). A returned 'missing' flag = definitive miss (no fuzzy fallback attempted).",
+  "hit_definition": "entity resolves to a live Wikidata QID via exact enwiki title AND that QID has >=1 claim whose mainsnak.datatype == 'quantity' (a genuine numeric-literal-typed property, e.g. P2067 mass, P2046 area, P1082 population -- NOT any claim, NOT identifier-typed claims)",
+  "api_endpoint": "https://www.wikidata.org/w/api.php",
+  "requests_issued": 500,
+  "request_pattern": "one wbgetentities call per entity (unambiguous 1:1 mapping; an earlier batched-multi-title approach was abandoned after it was found the API omits the queried 'title' field on HITS, making reverse entity-attribution ambiguous)"
+ },
+ "sample_order": [
+  "CN_reims",
+  "CN_water_flowers",
+  "CN_addlebrained",
+  "CN_thomas_middleton",
+  "CN_ockham",
+  "CN_sipper",
+  "CN_every_so_often",
+  "CN_calystegia_sepium",
+  "CN_incorrectly",
+  "CN_gather_clan",
+  "CN_punitory",
+  "CN_calyptridium_umbellatum",
+  "WN_integration.n.01",
+  "CN_becoming_drunk",
+  "CN_school_of_law",
+  "CN_block_of_wood",
+  "CN_taxus",
+  "CN_herbal_tea",
+  "CN_schematisation",
+  "CN_harpoon_gun",
+  "CN_john_wain",
+  "CN_silicon_dioxide",
+  "CN_katharevusa",
+  "CN_republic_of_cyprus",
+  "CN_gray_wolf",
+  "CN_rhode_island_red",
+  "CN_epithelial_duct",
+  "CN_aquilegia_canadensis",
+  "CN_suv",
+  "CN_prosthetic_device",
+  "CN_ustilaginoidea",
+  "CN_ibrd",
+  "CN_blackbody",
+  "CN_reaper_binder",
+  "CN_synchronised",
+  "CN_population_shift",
+  "CN_genus_numida",
+  "WN_athapaskan.n.02",
+  "CN_blank_space",
+  "CN_limited_review",
+  "CN_getting_hair_styled",
+  "CN_pentatone",
+  "CN_preside",
+  "CN_create_electricity",
+  "CN_family_congridae",
+  "CN_dustmop",
+  "CN_genus_harrisia",
+  "CN_genus_oryza",
+  "WN_prolongation.n.01",
+  "CN_nightwear",
+  "CN_head_linesman",
+  "CN_frontward",
+  "CN_ruptiliocarpon_caracolito",
+  "CN_cylix",
+  "CN_deionize",
+  "CN_derv",
+  "CN_fae",
+  "CN_hematogenic",
+  "CN_roll_down_hill",
+  "CN_assam",
+  "CN_egyptian_islamic_jihad",
+  "CN_footbath",
+  "CN_cavort",
+  "CN_simulated_military_operation",
+  "CN_pirate_ship",
+  "CN_blue_point_siamese",
+  "CN_shirring",
+  "CN_field_question",
+  "CN_quaint",
+  "CN_get_at_able",
+  "CN_bc",
+  "CN_polly_fish",
+  "CN_collar_blight",
+  "CN_priest_penitent_privilege",
+  "CN_increasing_fairness",
+  "CN_mare_liberum",
+  "CN_rigorousness",
+  "CN_partner_off",
+  "CN_laborious",
+  "CN_send_word",
+  "CN_ankles",
+  "CN_pastrami",
+  "CN_petroleum_refinery",
+  "CN_opaline",
+  "CN_page_number",
+  "CN_nine_banded_armadillo",
+  "CN_egyptian_onion",
+  "CN_john_osborne",
+  "CN_causal_agency",
+  "CN_mantispid",
+  "FN_Fighting_activity",
+  "CN_eka_boron",
+  "CN_orthoceras",
+  "CN_rewrite_man",
+  "CN_ouija_board",
+  "CN_rinkhals",
+  "CN_screwbean_mesquite",
+  "CN_artificial_skin",
+  "CN_appendicularia",
+  "CN_continue_ticking",
+  "CN_pace_lap",
+  "CN_kph",
+  "CN_lucy_stone",
+  "CN_florida_pompano",
+  "CN_aglaomorpha_meyeniana",
+  "CN_gas_bomb",
+  "CN_full_faith_and_credit",
+  "CN_henchman",
+  "CN_claude_e_shannon",
+  "CN_red_tailed_hawk",
+  "CN_goddaughter",
+  "CN_inmarry",
+  "CN_no_two_people",
+  "CN_habenaria_unalascensis",
+  "CN_banshie",
+  "CN_spinnable",
+  "CN_sword_dancing",
+  "CN_lactuca_sativa_crispa",
+  "CN_destress",
+  "WN_builder.n.01",
+  "CN_condition_of_health",
+  "CN_caryophyllaceous_plant",
+  "CN_potassium_cyanide",
+  "CN_rfd",
+  "CN_bargain_hunter",
+  "CN_crestless_wave",
+  "CN_american_pennyroyal",
+  "CN_goat's_foot",
+  "CN_linosyris_vulgaris",
+  "CN_ko_punch",
+  "CN_hobbie",
+  "CN_honeyed_words",
+  "CN_lower_rank",
+  "CN_house_of_islam",
+  "CN_dsph",
+  "CN_chukchi_sea",
+  "CN_botrychium_virginianum",
+  "CN_nonchalance",
+  "CN_unknowledgeable",
+  "CN_pyjamas",
+  "CN_papeete",
+  "CN_crex_crex",
+  "CN_gray_sage",
+  "CN_polygala_lutea",
+  "CN_town_center",
+  "CN_genus_philohela",
+  "CN_capital_cost",
+  "CN_hoof_mark",
+  "CN_john_wiclif",
+  "CN_swatch",
+  "CN_order_percomorphi",
+  "CN_muskrat_fur",
+  "CN_grenada_dollar",
+  "CN_atypic",
+  "CN_medial_rectus",
+  "CN_disability_insurance",
+  "CN_karaya_gum",
+  "CN_carlovingian_dynasty",
+  "CN_sand_trap",
+  "CN_knuckles",
+  "CN_staplegun",
+  "CN_brierwood",
+  "CN_defective_pleading",
+  "CN_dogs_tooth_check",
+  "CN_res_judicata",
+  "CN_joggers",
+  "WN_kernel.n.03",
+  "CN_stipulative_definition",
+  "CN_lilac_pink",
+  "CN_consonate",
+  "CN_socialized",
+  "CN_got_flu",
+  "CN_cypripedium_californicum",
+  "CN_martin_buber",
+  "CN_lost_child",
+  "CN_atomic_number_57",
+  "WN_beach_wagon.n.01",
+  "CN_colorado_beetle",
+  "CN_cardiac_glucoside",
+  "CN_bachelor_at_arms",
+  "CN_sweat_duct",
+  "CN_harley_street",
+  "CN_peristedion_miniatum",
+  "CN_farming_area",
+  "CN_sex_gland",
+  "CN_engrossing",
+  "CN_bacillary_white_diarrhoea",
+  "CN_quacksalver",
+  "CN_tattle",
+  "CN_richler",
+  "WN_catharsis.n.01",
+  "CN_guilt_trip",
+  "CN_positive_fraud",
+  "CN_callinectes_sapidus",
+  "CN_genus_canna",
+  "CN_acromphalus",
+  "CN_digital_to_analog_converter",
+  "CN_psophocarpus_tetragonolobus",
+  "CN_conversion_reaction",
+  "CN_standard_procedure",
+  "WN_counterpart.n.01",
+  "CN_chaffer",
+  "CN_vittaria",
+  "CN_shmuck",
+  "CN_raisin_nut_cookie",
+  "CN_johann_gutenberg",
+  "CN_dinner_set",
+  "CN_taipei",
+  "CN_matched_game",
+  "CN_beta_adrenergic_blocker",
+  "WN_preciseness.n.02",
+  "CN_genus_sansevieria",
+  "CN_salisbury_steak",
+  "CN_cold_gangrene",
+  "CN_synchronise",
+  "CN_jestingly",
+  "CN_sell_someone_out",
+  "CN_msg",
+  "CN_sylvine",
+  "CN_hundred_and_sixty_fifth",
+  "CN_castor_bean_plant",
+  "CN_brachydactylic",
+  "CN_solomon_guggenheim",
+  "CN_kinesis",
+  "CN_brisk_up",
+  "CN_genus_gastrophryne",
+  "CN_scallion",
+  "CN_hundred_and_fifth",
+  "CN_acidophile",
+  "CN_skunk_bear",
+  "CN_sport_shirt",
+  "CN_apis",
+  "CN_heroism",
+  "CN_haul_off",
+  "CN_ship_product",
+  "CN_genus_charadrius",
+  "CN_nondisjunction",
+  "CN_both_ears",
+  "CN_deeper_voice_than_soprano",
+  "CN_common_fault",
+  "CN_destroyer_escort",
+  "CN_meronymic",
+  "CN_antheridiophore",
+  "CN_essonite",
+  "CN_balto_slavonic",
+  "CN_grinding_things",
+  "CN_isostasy",
+  "CN_dunk_shot",
+  "CN_banger",
+  "CN_galilean_telescope",
+  "CN_milli_electron_volt",
+  "CN_bringing_back_memories",
+  "CN_on_your_guard",
+  "CN_pericementoclasia",
+  "CN_spirochaetales",
+  "CN_luminance",
+  "CN_biramous",
+  "WN_head_covering.n.01",
+  "CN_scaramouch",
+  "CN_puppyish",
+  "CN_sulfuretted",
+  "CN_family_coerebidae",
+  "CN_boy's_pocket",
+  "CN_congenital_defect",
+  "CN_hard_exercise",
+  "CN_investing_in_commercial_development",
+  "CN_pitch_blackness",
+  "CN_hungarian_grass",
+  "CN_nogging",
+  "CN_exordium",
+  "CN_calean",
+  "CN_genus_agave",
+  "CN_xanthate",
+  "CN_conversant",
+  "CN_x_factor",
+  "CN_inuit",
+  "CN_rubens",
+  "CN_pelvic_fin",
+  "CN_at_work_on_time",
+  "CN_millenniumism",
+  "CN_genus_helleborus",
+  "CN_voting_record_of_politician",
+  "CN_degrease",
+  "CN_colourize",
+  "WN_smudge.n.02",
+  "CN_millivoltmeter",
+  "CN_back_candidate",
+  "CN_feebly",
+  "CN_second_violin",
+  "CN_ogle",
+  "CN_dialectics",
+  "CN_buy_organic_foods",
+  "CN_just_now",
+  "CN_major_cause_of_pollution",
+  "CN_hound_dog",
+  "CN_defenestration",
+  "CN_sport_coat",
+  "CN_investment_letter",
+  "CN_spaceships",
+  "FN_Sign_agreement",
+  "CN_gormandize",
+  "CN_kazoo",
+  "CN_qepiq",
+  "CN_cephaloridine",
+  "CN_happy_event",
+  "CN_robert_frost",
+  "CN_chicken_cordon_bleu",
+  "WN_mono-iodotyrosine.n.01",
+  "CN_family_cardiidae",
+  "CN_alameda",
+  "CN_robotlike",
+  "CN_cackly",
+  "CN_gun_barrel",
+  "CN_sylphlike",
+  "CN_misshapen",
+  "CN_kosovar",
+  "CN_2_dimensional",
+  "CN_eat_kosher_food",
+  "CN_demasculinize",
+  "CN_dire_straits",
+  "CN_capital_of_ohio",
+  "CN_kadikoy",
+  "CN_curvilineal",
+  "FN_Nuclear_process",
+  "CN_oryza_sativa",
+  "CN_double_team",
+  "CN_postmodern",
+  "CN_red_gray",
+  "CN_illicit",
+  "CN_silver_sagebrush",
+  "CN_greaser",
+  "CN_isherwood",
+  "CN_show_toy_to_friend",
+  "CN_boone",
+  "CN_campong",
+  "CN_aristotelic",
+  "CN_chomping",
+  "CN_open_sight",
+  "CN_nineteenth_amendment",
+  "CN_slow_down_traffic",
+  "CN_baling_wire",
+  "CN_high_flown",
+  "CN_outta",
+  "CN_family_thiobacteriaceae",
+  "CN_potato_wart",
+  "CN_sign_bill",
+  "CN_paraguayan",
+  "CN_boasting",
+  "CN_you_wish",
+  "CN_non_discrimination",
+  "CN_bed_clothing",
+  "CN_climatologist",
+  "CN_write_programs",
+  "CN_shoe_repairing",
+  "WN_one-half.n.01",
+  "CN_family_leporidae",
+  "CN_circumfuse",
+  "CN_yellow_mariposa_tulip",
+  "CN_rechargeable",
+  "CN_cost_accounting",
+  "CN_sondheim",
+  "WN_potential_energy.n.01",
+  "CN_in_style",
+  "CN_round_shot",
+  "CN_apple_tree_in",
+  "CN_wainscoted",
+  "CN_benvenuto_cellini",
+  "CN_clown_fish",
+  "CN_approved",
+  "CN_pretermit",
+  "CN_good_tempered",
+  "CN_araucaria_araucana",
+  "CN_flowering_glume",
+  "CN_sifting",
+  "CN_entrails",
+  "WN_contact.n.02",
+  "CN_cauliflower_ear",
+  "CN_inbuilt",
+  "CN_korean_velvet_grass",
+  "CN_battle_of_guadalcanal",
+  "CN_pinnace",
+  "WN_legal_power.n.01",
+  "CN_clovis_i",
+  "CN_axeblade",
+  "CN_freight_rate",
+  "WN_black_body.n.01",
+  "CN_solid_colored",
+  "CN_nag_hammadi_library",
+  "CN_sun_ray",
+  "CN_extended_order",
+  "CN_picture_tube",
+  "CN_poikilothermic",
+  "CN_genus_hibbertia",
+  "CN_time_limit",
+  "CN_nonresistant",
+  "CN_amyloidal",
+  "CN_sulphurette",
+  "CN_ferrocerium",
+  "CN_guinea_gold_vine",
+  "CN_silk_stocking",
+  "CN_nervus_radialis",
+  "CN_air_to_air_missile",
+  "CN_subdivision_deuteromycotina",
+  "CN_deceiving",
+  "CN_pinafore",
+  "CN_sugar_apple",
+  "CN_cazique",
+  "CN_cephalometry",
+  "WN_plan.n.03",
+  "CN_negotiatrix",
+  "CN_william_congreve",
+  "CN_bibliomania",
+  "CN_family_myliobatidae",
+  "CN_antiredeposition",
+  "CN_sodomist",
+  "CN_oxime",
+  "CN_cryptogam",
+  "CN_haematopoietic",
+  "CN_diaghilev",
+  "CN_irregularly",
+  "CN_meliorist",
+  "CN_incurably",
+  "CN_comes_in_cubes",
+  "CN_st_lucia",
+  "CN_st_bridget",
+  "CN_rissole",
+  "CN_hairstreak_butterfly",
+  "CN_stopping_bleeding",
+  "CN_acellular",
+  "CN_jagganath",
+  "CN_spring_to_mind",
+  "WN_mess.n.01",
+  "CN_immunized",
+  "CN_gillespie",
+  "CN_augmented_by_benefits",
+  "CN_handling_cost",
+  "CN_mary_martin",
+  "CN_overcultivate",
+  "CN_storing_bicycle",
+  "CN_rhomboidal",
+  "CN_sabbatum",
+  "CN_hypericum_maculatum",
+  "CN_price_increase",
+  "CN_oenothera_biennis",
+  "CN_american_wisteria",
+  "CN_mitella",
+  "CN_criterial",
+  "CN_sarcoid",
+  "CN_olefine",
+  "CN_irritative",
+  "CN_amphistylar",
+  "CN_male_hypogonadism",
+  "CN_screw_eye",
+  "CN_95",
+  "CN_gravitons",
+  "CN_mussitation",
+  "CN_genus_centrolobium",
+  "CN_brownish",
+  "CN_winter_mushroom",
+  "CN_sweet_grass",
+  "CN_running_suit",
+  "CN_panty",
+  "CN_pinus_palustris",
+  "CN_electoral_system",
+  "CN_meandering",
+  "CN_mores",
+  "CN_electrocardiograph",
+  "CN_ropiness",
+  "CN_emerson",
+  "CN_generics",
+  "CN_spartina_cynosuroides",
+  "WN_sensitivity.n.02",
+  "CN_numerous",
+  "CN_barbecuing",
+  "CN_hyalophora_cecropia",
+  "CN_genus_fissurella",
+  "CN_finger_bar",
+  "CN_chondritic",
+  "CN_bacca",
+  "CN_organisms",
+  "CN_la_fayette",
+  "CN_discount_store",
+  "CN_heroin_addict",
+  "CN_ranunculus_repens",
+  "CN_cold_war",
+  "WN_street.n.01",
+  "CN_platitudinize",
+  "CN_duramen",
+  "CN_self_absorbed",
+  "CN_sore_side",
+  "CN_diplomate",
+  "CN_multiversity",
+  "CN_potassium_hydrogen_carbonate",
+  "CN_genus_regalecus",
+  "CN_flagellated_protozoan",
+  "CN_building_farm_on",
+  "CN_genus_scolopax",
+  "CN_shamelessly",
+  "CN_genus_notemigonus",
+  "CN_gaskell"
+ ],
+ "results": {
+  "CN_reims": {
+   "entity_id": "CN_reims",
+   "title_queried": "Reims",
+   "qid": "Q41876",
+   "missing": false,
+   "quantity_props": [
+    "P2046",
+    "P1082",
+    "P2044",
+    "P1540",
+    "P1539",
+    "P8687"
+   ],
+   "hit": true
+  },
+  "CN_water_flowers": {
+   "entity_id": "CN_water_flowers",
+   "title_queried": "Water flowers",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_addlebrained": {
+   "entity_id": "CN_addlebrained",
+   "title_queried": "Addlebrained",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_thomas_middleton": {
+   "entity_id": "CN_thomas_middleton",
+   "title_queried": "Thomas middleton",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ockham": {
+   "entity_id": "CN_ockham",
+   "title_queried": "Ockham",
+   "qid": "Q408260",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sipper": {
+   "entity_id": "CN_sipper",
+   "title_queried": "Sipper",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_every_so_often": {
+   "entity_id": "CN_every_so_often",
+   "title_queried": "Every so often",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_calystegia_sepium": {
+   "entity_id": "CN_calystegia_sepium",
+   "title_queried": "Calystegia sepium",
+   "qid": "Q161704",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_incorrectly": {
+   "entity_id": "CN_incorrectly",
+   "title_queried": "Incorrectly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gather_clan": {
+   "entity_id": "CN_gather_clan",
+   "title_queried": "Gather clan",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_punitory": {
+   "entity_id": "CN_punitory",
+   "title_queried": "Punitory",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_calyptridium_umbellatum": {
+   "entity_id": "CN_calyptridium_umbellatum",
+   "title_queried": "Calyptridium umbellatum",
+   "qid": "Q2974357",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_integration.n.01": {
+   "entity_id": "WN_integration.n.01",
+   "title_queried": "Integration",
+   "qid": "Q224621",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_becoming_drunk": {
+   "entity_id": "CN_becoming_drunk",
+   "title_queried": "Becoming drunk",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_school_of_law": {
+   "entity_id": "CN_school_of_law",
+   "title_queried": "School of law",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_block_of_wood": {
+   "entity_id": "CN_block_of_wood",
+   "title_queried": "Block of wood",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_taxus": {
+   "entity_id": "CN_taxus",
+   "title_queried": "Taxus",
+   "qid": "Q27355",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_herbal_tea": {
+   "entity_id": "CN_herbal_tea",
+   "title_queried": "Herbal tea",
+   "qid": "Q379932",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_schematisation": {
+   "entity_id": "CN_schematisation",
+   "title_queried": "Schematisation",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_harpoon_gun": {
+   "entity_id": "CN_harpoon_gun",
+   "title_queried": "Harpoon gun",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_john_wain": {
+   "entity_id": "CN_john_wain",
+   "title_queried": "John wain",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_silicon_dioxide": {
+   "entity_id": "CN_silicon_dioxide",
+   "title_queried": "Silicon dioxide",
+   "qid": "Q116269",
+   "missing": false,
+   "quantity_props": [
+    "P2101",
+    "P2102",
+    "P2119",
+    "P2067",
+    "P2177"
+   ],
+   "hit": true
+  },
+  "CN_katharevusa": {
+   "entity_id": "CN_katharevusa",
+   "title_queried": "Katharevusa",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_republic_of_cyprus": {
+   "entity_id": "CN_republic_of_cyprus",
+   "title_queried": "Republic of cyprus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gray_wolf": {
+   "entity_id": "CN_gray_wolf",
+   "title_queried": "Gray wolf",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rhode_island_red": {
+   "entity_id": "CN_rhode_island_red",
+   "title_queried": "Rhode island red",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_epithelial_duct": {
+   "entity_id": "CN_epithelial_duct",
+   "title_queried": "Epithelial duct",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_aquilegia_canadensis": {
+   "entity_id": "CN_aquilegia_canadensis",
+   "title_queried": "Aquilegia canadensis",
+   "qid": "Q2846008",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_suv": {
+   "entity_id": "CN_suv",
+   "title_queried": "Suv",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_prosthetic_device": {
+   "entity_id": "CN_prosthetic_device",
+   "title_queried": "Prosthetic device",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ustilaginoidea": {
+   "entity_id": "CN_ustilaginoidea",
+   "title_queried": "Ustilaginoidea",
+   "qid": "Q7902189",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ibrd": {
+   "entity_id": "CN_ibrd",
+   "title_queried": "Ibrd",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_blackbody": {
+   "entity_id": "CN_blackbody",
+   "title_queried": "Blackbody",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_reaper_binder": {
+   "entity_id": "CN_reaper_binder",
+   "title_queried": "Reaper binder",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_synchronised": {
+   "entity_id": "CN_synchronised",
+   "title_queried": "Synchronised",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_population_shift": {
+   "entity_id": "CN_population_shift",
+   "title_queried": "Population shift",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_numida": {
+   "entity_id": "CN_genus_numida",
+   "title_queried": "Genus numida",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_athapaskan.n.02": {
+   "entity_id": "WN_athapaskan.n.02",
+   "title_queried": "Athapaskan",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_blank_space": {
+   "entity_id": "CN_blank_space",
+   "title_queried": "Blank space",
+   "qid": "Q25102739",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_limited_review": {
+   "entity_id": "CN_limited_review",
+   "title_queried": "Limited review",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_getting_hair_styled": {
+   "entity_id": "CN_getting_hair_styled",
+   "title_queried": "Getting hair styled",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pentatone": {
+   "entity_id": "CN_pentatone",
+   "title_queried": "Pentatone",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_preside": {
+   "entity_id": "CN_preside",
+   "title_queried": "Preside",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_create_electricity": {
+   "entity_id": "CN_create_electricity",
+   "title_queried": "Create electricity",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_family_congridae": {
+   "entity_id": "CN_family_congridae",
+   "title_queried": "Family congridae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dustmop": {
+   "entity_id": "CN_dustmop",
+   "title_queried": "Dustmop",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_harrisia": {
+   "entity_id": "CN_genus_harrisia",
+   "title_queried": "Genus harrisia",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_oryza": {
+   "entity_id": "CN_genus_oryza",
+   "title_queried": "Genus oryza",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_prolongation.n.01": {
+   "entity_id": "WN_prolongation.n.01",
+   "title_queried": "Prolongation",
+   "qid": "Q7249641",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nightwear": {
+   "entity_id": "CN_nightwear",
+   "title_queried": "Nightwear",
+   "qid": "Q1187616",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_head_linesman": {
+   "entity_id": "CN_head_linesman",
+   "title_queried": "Head linesman",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_frontward": {
+   "entity_id": "CN_frontward",
+   "title_queried": "Frontward",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ruptiliocarpon_caracolito": {
+   "entity_id": "CN_ruptiliocarpon_caracolito",
+   "title_queried": "Ruptiliocarpon caracolito",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cylix": {
+   "entity_id": "CN_cylix",
+   "title_queried": "Cylix",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_deionize": {
+   "entity_id": "CN_deionize",
+   "title_queried": "Deionize",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_derv": {
+   "entity_id": "CN_derv",
+   "title_queried": "Derv",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_fae": {
+   "entity_id": "CN_fae",
+   "title_queried": "Fae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hematogenic": {
+   "entity_id": "CN_hematogenic",
+   "title_queried": "Hematogenic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_roll_down_hill": {
+   "entity_id": "CN_roll_down_hill",
+   "title_queried": "Roll down hill",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_assam": {
+   "entity_id": "CN_assam",
+   "title_queried": "Assam",
+   "qid": "Q1164",
+   "missing": false,
+   "quantity_props": [
+    "P2046",
+    "P1082",
+    "P1540",
+    "P1539",
+    "P6343",
+    "P6344",
+    "P6499",
+    "P6498"
+   ],
+   "hit": true
+  },
+  "CN_egyptian_islamic_jihad": {
+   "entity_id": "CN_egyptian_islamic_jihad",
+   "title_queried": "Egyptian islamic jihad",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_footbath": {
+   "entity_id": "CN_footbath",
+   "title_queried": "Footbath",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cavort": {
+   "entity_id": "CN_cavort",
+   "title_queried": "Cavort",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_simulated_military_operation": {
+   "entity_id": "CN_simulated_military_operation",
+   "title_queried": "Simulated military operation",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pirate_ship": {
+   "entity_id": "CN_pirate_ship",
+   "title_queried": "Pirate ship",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_blue_point_siamese": {
+   "entity_id": "CN_blue_point_siamese",
+   "title_queried": "Blue point siamese",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_shirring": {
+   "entity_id": "CN_shirring",
+   "title_queried": "Shirring",
+   "qid": "Q7498977",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_field_question": {
+   "entity_id": "CN_field_question",
+   "title_queried": "Field question",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_quaint": {
+   "entity_id": "CN_quaint",
+   "title_queried": "Quaint",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_get_at_able": {
+   "entity_id": "CN_get_at_able",
+   "title_queried": "Get at able",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bc": {
+   "entity_id": "CN_bc",
+   "title_queried": "Bc",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_polly_fish": {
+   "entity_id": "CN_polly_fish",
+   "title_queried": "Polly fish",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_collar_blight": {
+   "entity_id": "CN_collar_blight",
+   "title_queried": "Collar blight",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_priest_penitent_privilege": {
+   "entity_id": "CN_priest_penitent_privilege",
+   "title_queried": "Priest penitent privilege",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_increasing_fairness": {
+   "entity_id": "CN_increasing_fairness",
+   "title_queried": "Increasing fairness",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_mare_liberum": {
+   "entity_id": "CN_mare_liberum",
+   "title_queried": "Mare liberum",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rigorousness": {
+   "entity_id": "CN_rigorousness",
+   "title_queried": "Rigorousness",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_partner_off": {
+   "entity_id": "CN_partner_off",
+   "title_queried": "Partner off",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_laborious": {
+   "entity_id": "CN_laborious",
+   "title_queried": "Laborious",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_send_word": {
+   "entity_id": "CN_send_word",
+   "title_queried": "Send word",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ankles": {
+   "entity_id": "CN_ankles",
+   "title_queried": "Ankles",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pastrami": {
+   "entity_id": "CN_pastrami",
+   "title_queried": "Pastrami",
+   "qid": "Q1347754",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_petroleum_refinery": {
+   "entity_id": "CN_petroleum_refinery",
+   "title_queried": "Petroleum refinery",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_opaline": {
+   "entity_id": "CN_opaline",
+   "title_queried": "Opaline",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_page_number": {
+   "entity_id": "CN_page_number",
+   "title_queried": "Page number",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nine_banded_armadillo": {
+   "entity_id": "CN_nine_banded_armadillo",
+   "title_queried": "Nine banded armadillo",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_egyptian_onion": {
+   "entity_id": "CN_egyptian_onion",
+   "title_queried": "Egyptian onion",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_john_osborne": {
+   "entity_id": "CN_john_osborne",
+   "title_queried": "John osborne",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_causal_agency": {
+   "entity_id": "CN_causal_agency",
+   "title_queried": "Causal agency",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_mantispid": {
+   "entity_id": "CN_mantispid",
+   "title_queried": "Mantispid",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "FN_Fighting_activity": {
+   "entity_id": "FN_Fighting_activity",
+   "title_queried": "Fighting activity",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_eka_boron": {
+   "entity_id": "CN_eka_boron",
+   "title_queried": "Eka boron",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_orthoceras": {
+   "entity_id": "CN_orthoceras",
+   "title_queried": "Orthoceras",
+   "qid": "Q5605054",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rewrite_man": {
+   "entity_id": "CN_rewrite_man",
+   "title_queried": "Rewrite man",
+   "qid": "Q40235359",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ouija_board": {
+   "entity_id": "CN_ouija_board",
+   "title_queried": "Ouija board",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rinkhals": {
+   "entity_id": "CN_rinkhals",
+   "title_queried": "Rinkhals",
+   "qid": "Q169936",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_screwbean_mesquite": {
+   "entity_id": "CN_screwbean_mesquite",
+   "title_queried": "Screwbean mesquite",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_artificial_skin": {
+   "entity_id": "CN_artificial_skin",
+   "title_queried": "Artificial skin",
+   "qid": "Q3344895",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_appendicularia": {
+   "entity_id": "CN_appendicularia",
+   "title_queried": "Appendicularia",
+   "qid": "Q15872638",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_continue_ticking": {
+   "entity_id": "CN_continue_ticking",
+   "title_queried": "Continue ticking",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pace_lap": {
+   "entity_id": "CN_pace_lap",
+   "title_queried": "Pace lap",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_kph": {
+   "entity_id": "CN_kph",
+   "title_queried": "Kph",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_lucy_stone": {
+   "entity_id": "CN_lucy_stone",
+   "title_queried": "Lucy stone",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_florida_pompano": {
+   "entity_id": "CN_florida_pompano",
+   "title_queried": "Florida pompano",
+   "qid": "Q2601525",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_aglaomorpha_meyeniana": {
+   "entity_id": "CN_aglaomorpha_meyeniana",
+   "title_queried": "Aglaomorpha meyeniana",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gas_bomb": {
+   "entity_id": "CN_gas_bomb",
+   "title_queried": "Gas bomb",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_full_faith_and_credit": {
+   "entity_id": "CN_full_faith_and_credit",
+   "title_queried": "Full faith and credit",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_henchman": {
+   "entity_id": "CN_henchman",
+   "title_queried": "Henchman",
+   "qid": "Q247297",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_claude_e_shannon": {
+   "entity_id": "CN_claude_e_shannon",
+   "title_queried": "Claude e shannon",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_red_tailed_hawk": {
+   "entity_id": "CN_red_tailed_hawk",
+   "title_queried": "Red tailed hawk",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_goddaughter": {
+   "entity_id": "CN_goddaughter",
+   "title_queried": "Goddaughter",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_inmarry": {
+   "entity_id": "CN_inmarry",
+   "title_queried": "Inmarry",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_no_two_people": {
+   "entity_id": "CN_no_two_people",
+   "title_queried": "No two people",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_habenaria_unalascensis": {
+   "entity_id": "CN_habenaria_unalascensis",
+   "title_queried": "Habenaria unalascensis",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_banshie": {
+   "entity_id": "CN_banshie",
+   "title_queried": "Banshie",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_spinnable": {
+   "entity_id": "CN_spinnable",
+   "title_queried": "Spinnable",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sword_dancing": {
+   "entity_id": "CN_sword_dancing",
+   "title_queried": "Sword dancing",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_lactuca_sativa_crispa": {
+   "entity_id": "CN_lactuca_sativa_crispa",
+   "title_queried": "Lactuca sativa crispa",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_destress": {
+   "entity_id": "CN_destress",
+   "title_queried": "Destress",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_builder.n.01": {
+   "entity_id": "WN_builder.n.01",
+   "title_queried": "Builder",
+   "qid": "Q1002999",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_condition_of_health": {
+   "entity_id": "CN_condition_of_health",
+   "title_queried": "Condition of health",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_caryophyllaceous_plant": {
+   "entity_id": "CN_caryophyllaceous_plant",
+   "title_queried": "Caryophyllaceous plant",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_potassium_cyanide": {
+   "entity_id": "CN_potassium_cyanide",
+   "title_queried": "Potassium cyanide",
+   "qid": "Q192470",
+   "missing": false,
+   "quantity_props": [
+    "P2054",
+    "P2240",
+    "P2129",
+    "P2101",
+    "P2102",
+    "P2119",
+    "P2177",
+    "P2404",
+    "P2405",
+    "P2067"
+   ],
+   "hit": true
+  },
+  "CN_rfd": {
+   "entity_id": "CN_rfd",
+   "title_queried": "Rfd",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bargain_hunter": {
+   "entity_id": "CN_bargain_hunter",
+   "title_queried": "Bargain hunter",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_crestless_wave": {
+   "entity_id": "CN_crestless_wave",
+   "title_queried": "Crestless wave",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_american_pennyroyal": {
+   "entity_id": "CN_american_pennyroyal",
+   "title_queried": "American pennyroyal",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_goat's_foot": {
+   "entity_id": "CN_goat's_foot",
+   "title_queried": "Goat's foot",
+   "qid": "Q18345117",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_linosyris_vulgaris": {
+   "entity_id": "CN_linosyris_vulgaris",
+   "title_queried": "Linosyris vulgaris",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ko_punch": {
+   "entity_id": "CN_ko_punch",
+   "title_queried": "Ko punch",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hobbie": {
+   "entity_id": "CN_hobbie",
+   "title_queried": "Hobbie",
+   "qid": "Q2718808",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_honeyed_words": {
+   "entity_id": "CN_honeyed_words",
+   "title_queried": "Honeyed words",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_lower_rank": {
+   "entity_id": "CN_lower_rank",
+   "title_queried": "Lower rank",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_house_of_islam": {
+   "entity_id": "CN_house_of_islam",
+   "title_queried": "House of islam",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dsph": {
+   "entity_id": "CN_dsph",
+   "title_queried": "Dsph",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_chukchi_sea": {
+   "entity_id": "CN_chukchi_sea",
+   "title_queried": "Chukchi sea",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_botrychium_virginianum": {
+   "entity_id": "CN_botrychium_virginianum",
+   "title_queried": "Botrychium virginianum",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nonchalance": {
+   "entity_id": "CN_nonchalance",
+   "title_queried": "Nonchalance",
+   "qid": "Q114315929",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_unknowledgeable": {
+   "entity_id": "CN_unknowledgeable",
+   "title_queried": "Unknowledgeable",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pyjamas": {
+   "entity_id": "CN_pyjamas",
+   "title_queried": "Pyjamas",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_papeete": {
+   "entity_id": "CN_papeete",
+   "title_queried": "Papeete",
+   "qid": "Q130800",
+   "missing": false,
+   "quantity_props": [
+    "P2046",
+    "P1082",
+    "P2044"
+   ],
+   "hit": true
+  },
+  "CN_crex_crex": {
+   "entity_id": "CN_crex_crex",
+   "title_queried": "Crex crex",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gray_sage": {
+   "entity_id": "CN_gray_sage",
+   "title_queried": "Gray sage",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_polygala_lutea": {
+   "entity_id": "CN_polygala_lutea",
+   "title_queried": "Polygala lutea",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_town_center": {
+   "entity_id": "CN_town_center",
+   "title_queried": "Town center",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_philohela": {
+   "entity_id": "CN_genus_philohela",
+   "title_queried": "Genus philohela",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_capital_cost": {
+   "entity_id": "CN_capital_cost",
+   "title_queried": "Capital cost",
+   "qid": "Q5035697",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hoof_mark": {
+   "entity_id": "CN_hoof_mark",
+   "title_queried": "Hoof mark",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_john_wiclif": {
+   "entity_id": "CN_john_wiclif",
+   "title_queried": "John wiclif",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_swatch": {
+   "entity_id": "CN_swatch",
+   "title_queried": "Swatch",
+   "qid": "Q573422",
+   "missing": false,
+   "quantity_props": [
+    "P8687"
+   ],
+   "hit": true
+  },
+  "CN_order_percomorphi": {
+   "entity_id": "CN_order_percomorphi",
+   "title_queried": "Order percomorphi",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_muskrat_fur": {
+   "entity_id": "CN_muskrat_fur",
+   "title_queried": "Muskrat fur",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_grenada_dollar": {
+   "entity_id": "CN_grenada_dollar",
+   "title_queried": "Grenada dollar",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_atypic": {
+   "entity_id": "CN_atypic",
+   "title_queried": "Atypic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_medial_rectus": {
+   "entity_id": "CN_medial_rectus",
+   "title_queried": "Medial rectus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_disability_insurance": {
+   "entity_id": "CN_disability_insurance",
+   "title_queried": "Disability insurance",
+   "qid": "Q4118291",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_karaya_gum": {
+   "entity_id": "CN_karaya_gum",
+   "title_queried": "Karaya gum",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_carlovingian_dynasty": {
+   "entity_id": "CN_carlovingian_dynasty",
+   "title_queried": "Carlovingian dynasty",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sand_trap": {
+   "entity_id": "CN_sand_trap",
+   "title_queried": "Sand trap",
+   "qid": "Q7415911",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_knuckles": {
+   "entity_id": "CN_knuckles",
+   "title_queried": "Knuckles",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_staplegun": {
+   "entity_id": "CN_staplegun",
+   "title_queried": "Staplegun",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_brierwood": {
+   "entity_id": "CN_brierwood",
+   "title_queried": "Brierwood",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_defective_pleading": {
+   "entity_id": "CN_defective_pleading",
+   "title_queried": "Defective pleading",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dogs_tooth_check": {
+   "entity_id": "CN_dogs_tooth_check",
+   "title_queried": "Dogs tooth check",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_res_judicata": {
+   "entity_id": "CN_res_judicata",
+   "title_queried": "Res judicata",
+   "qid": "Q1062245",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_joggers": {
+   "entity_id": "CN_joggers",
+   "title_queried": "Joggers",
+   "qid": "Q80800339",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_kernel.n.03": {
+   "entity_id": "WN_kernel.n.03",
+   "title_queried": "Kernel",
+   "qid": "Q202400",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_stipulative_definition": {
+   "entity_id": "CN_stipulative_definition",
+   "title_queried": "Stipulative definition",
+   "qid": "Q7617524",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_lilac_pink": {
+   "entity_id": "CN_lilac_pink",
+   "title_queried": "Lilac pink",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_consonate": {
+   "entity_id": "CN_consonate",
+   "title_queried": "Consonate",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_socialized": {
+   "entity_id": "CN_socialized",
+   "title_queried": "Socialized",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_got_flu": {
+   "entity_id": "CN_got_flu",
+   "title_queried": "Got flu",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cypripedium_californicum": {
+   "entity_id": "CN_cypripedium_californicum",
+   "title_queried": "Cypripedium californicum",
+   "qid": "Q2704503",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_martin_buber": {
+   "entity_id": "CN_martin_buber",
+   "title_queried": "Martin buber",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_lost_child": {
+   "entity_id": "CN_lost_child",
+   "title_queried": "Lost child",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_atomic_number_57": {
+   "entity_id": "CN_atomic_number_57",
+   "title_queried": "Atomic number 57",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_beach_wagon.n.01": {
+   "entity_id": "WN_beach_wagon.n.01",
+   "title_queried": "Beach wagon",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_colorado_beetle": {
+   "entity_id": "CN_colorado_beetle",
+   "title_queried": "Colorado beetle",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cardiac_glucoside": {
+   "entity_id": "CN_cardiac_glucoside",
+   "title_queried": "Cardiac glucoside",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bachelor_at_arms": {
+   "entity_id": "CN_bachelor_at_arms",
+   "title_queried": "Bachelor at arms",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sweat_duct": {
+   "entity_id": "CN_sweat_duct",
+   "title_queried": "Sweat duct",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_harley_street": {
+   "entity_id": "CN_harley_street",
+   "title_queried": "Harley street",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_peristedion_miniatum": {
+   "entity_id": "CN_peristedion_miniatum",
+   "title_queried": "Peristedion miniatum",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_farming_area": {
+   "entity_id": "CN_farming_area",
+   "title_queried": "Farming area",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sex_gland": {
+   "entity_id": "CN_sex_gland",
+   "title_queried": "Sex gland",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_engrossing": {
+   "entity_id": "CN_engrossing",
+   "title_queried": "Engrossing",
+   "qid": "Q5378750",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bacillary_white_diarrhoea": {
+   "entity_id": "CN_bacillary_white_diarrhoea",
+   "title_queried": "Bacillary white diarrhoea",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_quacksalver": {
+   "entity_id": "CN_quacksalver",
+   "title_queried": "Quacksalver",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_tattle": {
+   "entity_id": "CN_tattle",
+   "title_queried": "Tattle",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_richler": {
+   "entity_id": "CN_richler",
+   "title_queried": "Richler",
+   "qid": "Q7330713",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_catharsis.n.01": {
+   "entity_id": "WN_catharsis.n.01",
+   "title_queried": "Catharsis",
+   "qid": "Q156296",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_guilt_trip": {
+   "entity_id": "CN_guilt_trip",
+   "title_queried": "Guilt trip",
+   "qid": "Q28134287",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_positive_fraud": {
+   "entity_id": "CN_positive_fraud",
+   "title_queried": "Positive fraud",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_callinectes_sapidus": {
+   "entity_id": "CN_callinectes_sapidus",
+   "title_queried": "Callinectes sapidus",
+   "qid": "Q844839",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_canna": {
+   "entity_id": "CN_genus_canna",
+   "title_queried": "Genus canna",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_acromphalus": {
+   "entity_id": "CN_acromphalus",
+   "title_queried": "Acromphalus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_digital_to_analog_converter": {
+   "entity_id": "CN_digital_to_analog_converter",
+   "title_queried": "Digital to analog converter",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_psophocarpus_tetragonolobus": {
+   "entity_id": "CN_psophocarpus_tetragonolobus",
+   "title_queried": "Psophocarpus tetragonolobus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_conversion_reaction": {
+   "entity_id": "CN_conversion_reaction",
+   "title_queried": "Conversion reaction",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_standard_procedure": {
+   "entity_id": "CN_standard_procedure",
+   "title_queried": "Standard procedure",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_counterpart.n.01": {
+   "entity_id": "WN_counterpart.n.01",
+   "title_queried": "Counterpart",
+   "qid": "Q1137078",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_chaffer": {
+   "entity_id": "CN_chaffer",
+   "title_queried": "Chaffer",
+   "qid": "Q21493777",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_vittaria": {
+   "entity_id": "CN_vittaria",
+   "title_queried": "Vittaria",
+   "qid": "Q5873616",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_shmuck": {
+   "entity_id": "CN_shmuck",
+   "title_queried": "Shmuck",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_raisin_nut_cookie": {
+   "entity_id": "CN_raisin_nut_cookie",
+   "title_queried": "Raisin nut cookie",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_johann_gutenberg": {
+   "entity_id": "CN_johann_gutenberg",
+   "title_queried": "Johann gutenberg",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dinner_set": {
+   "entity_id": "CN_dinner_set",
+   "title_queried": "Dinner set",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_taipei": {
+   "entity_id": "CN_taipei",
+   "title_queried": "Taipei",
+   "qid": "Q1867",
+   "missing": false,
+   "quantity_props": [
+    "P1082",
+    "P2046",
+    "P2044",
+    "P1538",
+    "P1540",
+    "P1539",
+    "P8687"
+   ],
+   "hit": true
+  },
+  "CN_matched_game": {
+   "entity_id": "CN_matched_game",
+   "title_queried": "Matched game",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_beta_adrenergic_blocker": {
+   "entity_id": "CN_beta_adrenergic_blocker",
+   "title_queried": "Beta adrenergic blocker",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_preciseness.n.02": {
+   "entity_id": "WN_preciseness.n.02",
+   "title_queried": "Preciseness",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_sansevieria": {
+   "entity_id": "CN_genus_sansevieria",
+   "title_queried": "Genus sansevieria",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_salisbury_steak": {
+   "entity_id": "CN_salisbury_steak",
+   "title_queried": "Salisbury steak",
+   "qid": "Q200527",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cold_gangrene": {
+   "entity_id": "CN_cold_gangrene",
+   "title_queried": "Cold gangrene",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_synchronise": {
+   "entity_id": "CN_synchronise",
+   "title_queried": "Synchronise",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_jestingly": {
+   "entity_id": "CN_jestingly",
+   "title_queried": "Jestingly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sell_someone_out": {
+   "entity_id": "CN_sell_someone_out",
+   "title_queried": "Sell someone out",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_msg": {
+   "entity_id": "CN_msg",
+   "title_queried": "Msg",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sylvine": {
+   "entity_id": "CN_sylvine",
+   "title_queried": "Sylvine",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hundred_and_sixty_fifth": {
+   "entity_id": "CN_hundred_and_sixty_fifth",
+   "title_queried": "Hundred and sixty fifth",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_castor_bean_plant": {
+   "entity_id": "CN_castor_bean_plant",
+   "title_queried": "Castor bean plant",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_brachydactylic": {
+   "entity_id": "CN_brachydactylic",
+   "title_queried": "Brachydactylic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_solomon_guggenheim": {
+   "entity_id": "CN_solomon_guggenheim",
+   "title_queried": "Solomon guggenheim",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_kinesis": {
+   "entity_id": "CN_kinesis",
+   "title_queried": "Kinesis",
+   "qid": "Q6410716",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_brisk_up": {
+   "entity_id": "CN_brisk_up",
+   "title_queried": "Brisk up",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_gastrophryne": {
+   "entity_id": "CN_genus_gastrophryne",
+   "title_queried": "Genus gastrophryne",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_scallion": {
+   "entity_id": "CN_scallion",
+   "title_queried": "Scallion",
+   "qid": "Q774278",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hundred_and_fifth": {
+   "entity_id": "CN_hundred_and_fifth",
+   "title_queried": "Hundred and fifth",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_acidophile": {
+   "entity_id": "CN_acidophile",
+   "title_queried": "Acidophile",
+   "qid": "Q196188",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_skunk_bear": {
+   "entity_id": "CN_skunk_bear",
+   "title_queried": "Skunk bear",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sport_shirt": {
+   "entity_id": "CN_sport_shirt",
+   "title_queried": "Sport shirt",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_apis": {
+   "entity_id": "CN_apis",
+   "title_queried": "Apis",
+   "qid": "Q225246",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_heroism": {
+   "entity_id": "CN_heroism",
+   "title_queried": "Heroism",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_haul_off": {
+   "entity_id": "CN_haul_off",
+   "title_queried": "Haul off",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ship_product": {
+   "entity_id": "CN_ship_product",
+   "title_queried": "Ship product",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_charadrius": {
+   "entity_id": "CN_genus_charadrius",
+   "title_queried": "Genus charadrius",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nondisjunction": {
+   "entity_id": "CN_nondisjunction",
+   "title_queried": "Nondisjunction",
+   "qid": "Q1414557",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_both_ears": {
+   "entity_id": "CN_both_ears",
+   "title_queried": "Both ears",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_deeper_voice_than_soprano": {
+   "entity_id": "CN_deeper_voice_than_soprano",
+   "title_queried": "Deeper voice than soprano",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_common_fault": {
+   "entity_id": "CN_common_fault",
+   "title_queried": "Common fault",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_destroyer_escort": {
+   "entity_id": "CN_destroyer_escort",
+   "title_queried": "Destroyer escort",
+   "qid": "Q1499623",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_meronymic": {
+   "entity_id": "CN_meronymic",
+   "title_queried": "Meronymic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_antheridiophore": {
+   "entity_id": "CN_antheridiophore",
+   "title_queried": "Antheridiophore",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_essonite": {
+   "entity_id": "CN_essonite",
+   "title_queried": "Essonite",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_balto_slavonic": {
+   "entity_id": "CN_balto_slavonic",
+   "title_queried": "Balto slavonic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_grinding_things": {
+   "entity_id": "CN_grinding_things",
+   "title_queried": "Grinding things",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_isostasy": {
+   "entity_id": "CN_isostasy",
+   "title_queried": "Isostasy",
+   "qid": "Q188719",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dunk_shot": {
+   "entity_id": "CN_dunk_shot",
+   "title_queried": "Dunk shot",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_banger": {
+   "entity_id": "CN_banger",
+   "title_queried": "Banger",
+   "qid": "Q124428522",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_galilean_telescope": {
+   "entity_id": "CN_galilean_telescope",
+   "title_queried": "Galilean telescope",
+   "qid": "Q24867267",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_milli_electron_volt": {
+   "entity_id": "CN_milli_electron_volt",
+   "title_queried": "Milli electron volt",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bringing_back_memories": {
+   "entity_id": "CN_bringing_back_memories",
+   "title_queried": "Bringing back memories",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_on_your_guard": {
+   "entity_id": "CN_on_your_guard",
+   "title_queried": "On your guard",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pericementoclasia": {
+   "entity_id": "CN_pericementoclasia",
+   "title_queried": "Pericementoclasia",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_spirochaetales": {
+   "entity_id": "CN_spirochaetales",
+   "title_queried": "Spirochaetales",
+   "qid": "Q221315",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_luminance": {
+   "entity_id": "CN_luminance",
+   "title_queried": "Luminance",
+   "qid": "Q355386",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_biramous": {
+   "entity_id": "CN_biramous",
+   "title_queried": "Biramous",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_head_covering.n.01": {
+   "entity_id": "WN_head_covering.n.01",
+   "title_queried": "Head covering",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_scaramouch": {
+   "entity_id": "CN_scaramouch",
+   "title_queried": "Scaramouch",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_puppyish": {
+   "entity_id": "CN_puppyish",
+   "title_queried": "Puppyish",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sulfuretted": {
+   "entity_id": "CN_sulfuretted",
+   "title_queried": "Sulfuretted",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_family_coerebidae": {
+   "entity_id": "CN_family_coerebidae",
+   "title_queried": "Family coerebidae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_boy's_pocket": {
+   "entity_id": "CN_boy's_pocket",
+   "title_queried": "Boy's pocket",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_congenital_defect": {
+   "entity_id": "CN_congenital_defect",
+   "title_queried": "Congenital defect",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hard_exercise": {
+   "entity_id": "CN_hard_exercise",
+   "title_queried": "Hard exercise",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_investing_in_commercial_development": {
+   "entity_id": "CN_investing_in_commercial_development",
+   "title_queried": "Investing in commercial development",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pitch_blackness": {
+   "entity_id": "CN_pitch_blackness",
+   "title_queried": "Pitch blackness",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hungarian_grass": {
+   "entity_id": "CN_hungarian_grass",
+   "title_queried": "Hungarian grass",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nogging": {
+   "entity_id": "CN_nogging",
+   "title_queried": "Nogging",
+   "qid": "Q7047481",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_exordium": {
+   "entity_id": "CN_exordium",
+   "title_queried": "Exordium",
+   "qid": "Q243058",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_calean": {
+   "entity_id": "CN_calean",
+   "title_queried": "Calean",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_agave": {
+   "entity_id": "CN_genus_agave",
+   "title_queried": "Genus agave",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_xanthate": {
+   "entity_id": "CN_xanthate",
+   "title_queried": "Xanthate",
+   "qid": "Q417615",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_conversant": {
+   "entity_id": "CN_conversant",
+   "title_queried": "Conversant",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_x_factor": {
+   "entity_id": "CN_x_factor",
+   "title_queried": "X factor",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_inuit": {
+   "entity_id": "CN_inuit",
+   "title_queried": "Inuit",
+   "qid": "Q189975",
+   "missing": false,
+   "quantity_props": [
+    "P1082"
+   ],
+   "hit": true
+  },
+  "CN_rubens": {
+   "entity_id": "CN_rubens",
+   "title_queried": "Rubens",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pelvic_fin": {
+   "entity_id": "CN_pelvic_fin",
+   "title_queried": "Pelvic fin",
+   "qid": "Q3335089",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_at_work_on_time": {
+   "entity_id": "CN_at_work_on_time",
+   "title_queried": "At work on time",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_millenniumism": {
+   "entity_id": "CN_millenniumism",
+   "title_queried": "Millenniumism",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_helleborus": {
+   "entity_id": "CN_genus_helleborus",
+   "title_queried": "Genus helleborus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_voting_record_of_politician": {
+   "entity_id": "CN_voting_record_of_politician",
+   "title_queried": "Voting record of politician",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_degrease": {
+   "entity_id": "CN_degrease",
+   "title_queried": "Degrease",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_colourize": {
+   "entity_id": "CN_colourize",
+   "title_queried": "Colourize",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_smudge.n.02": {
+   "entity_id": "WN_smudge.n.02",
+   "title_queried": "Smudge",
+   "qid": "Q11253479",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_millivoltmeter": {
+   "entity_id": "CN_millivoltmeter",
+   "title_queried": "Millivoltmeter",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_back_candidate": {
+   "entity_id": "CN_back_candidate",
+   "title_queried": "Back candidate",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_feebly": {
+   "entity_id": "CN_feebly",
+   "title_queried": "Feebly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_second_violin": {
+   "entity_id": "CN_second_violin",
+   "title_queried": "Second violin",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ogle": {
+   "entity_id": "CN_ogle",
+   "title_queried": "Ogle",
+   "qid": "Q253429",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dialectics": {
+   "entity_id": "CN_dialectics",
+   "title_queried": "Dialectics",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_buy_organic_foods": {
+   "entity_id": "CN_buy_organic_foods",
+   "title_queried": "Buy organic foods",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_just_now": {
+   "entity_id": "CN_just_now",
+   "title_queried": "Just now",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_major_cause_of_pollution": {
+   "entity_id": "CN_major_cause_of_pollution",
+   "title_queried": "Major cause of pollution",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hound_dog": {
+   "entity_id": "CN_hound_dog",
+   "title_queried": "Hound dog",
+   "qid": "Q341682",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_defenestration": {
+   "entity_id": "CN_defenestration",
+   "title_queried": "Defenestration",
+   "qid": "Q220277",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sport_coat": {
+   "entity_id": "CN_sport_coat",
+   "title_queried": "Sport coat",
+   "qid": "Q55400351",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_investment_letter": {
+   "entity_id": "CN_investment_letter",
+   "title_queried": "Investment letter",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_spaceships": {
+   "entity_id": "CN_spaceships",
+   "title_queried": "Spaceships",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "FN_Sign_agreement": {
+   "entity_id": "FN_Sign_agreement",
+   "title_queried": "Sign agreement",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gormandize": {
+   "entity_id": "CN_gormandize",
+   "title_queried": "Gormandize",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_kazoo": {
+   "entity_id": "CN_kazoo",
+   "title_queried": "Kazoo",
+   "qid": "Q483994",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_qepiq": {
+   "entity_id": "CN_qepiq",
+   "title_queried": "Qepiq",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cephaloridine": {
+   "entity_id": "CN_cephaloridine",
+   "title_queried": "Cephaloridine",
+   "qid": "Q5063323",
+   "missing": false,
+   "quantity_props": [
+    "P2067",
+    "P4250"
+   ],
+   "hit": true
+  },
+  "CN_happy_event": {
+   "entity_id": "CN_happy_event",
+   "title_queried": "Happy event",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_robert_frost": {
+   "entity_id": "CN_robert_frost",
+   "title_queried": "Robert frost",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_chicken_cordon_bleu": {
+   "entity_id": "CN_chicken_cordon_bleu",
+   "title_queried": "Chicken cordon bleu",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_mono-iodotyrosine.n.01": {
+   "entity_id": "WN_mono-iodotyrosine.n.01",
+   "title_queried": "Mono-iodotyrosine",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_family_cardiidae": {
+   "entity_id": "CN_family_cardiidae",
+   "title_queried": "Family cardiidae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_alameda": {
+   "entity_id": "CN_alameda",
+   "title_queried": "Alameda",
+   "qid": "Q247989",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_robotlike": {
+   "entity_id": "CN_robotlike",
+   "title_queried": "Robotlike",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cackly": {
+   "entity_id": "CN_cackly",
+   "title_queried": "Cackly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gun_barrel": {
+   "entity_id": "CN_gun_barrel",
+   "title_queried": "Gun barrel",
+   "qid": "Q487192",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sylphlike": {
+   "entity_id": "CN_sylphlike",
+   "title_queried": "Sylphlike",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_misshapen": {
+   "entity_id": "CN_misshapen",
+   "title_queried": "Misshapen",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_kosovar": {
+   "entity_id": "CN_kosovar",
+   "title_queried": "Kosovar",
+   "qid": "Q19893891",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_2_dimensional": {
+   "entity_id": "CN_2_dimensional",
+   "title_queried": "2 dimensional",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_eat_kosher_food": {
+   "entity_id": "CN_eat_kosher_food",
+   "title_queried": "Eat kosher food",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_demasculinize": {
+   "entity_id": "CN_demasculinize",
+   "title_queried": "Demasculinize",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_dire_straits": {
+   "entity_id": "CN_dire_straits",
+   "title_queried": "Dire straits",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_capital_of_ohio": {
+   "entity_id": "CN_capital_of_ohio",
+   "title_queried": "Capital of ohio",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_kadikoy": {
+   "entity_id": "CN_kadikoy",
+   "title_queried": "Kadikoy",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_curvilineal": {
+   "entity_id": "CN_curvilineal",
+   "title_queried": "Curvilineal",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "FN_Nuclear_process": {
+   "entity_id": "FN_Nuclear_process",
+   "title_queried": "Nuclear process",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_oryza_sativa": {
+   "entity_id": "CN_oryza_sativa",
+   "title_queried": "Oryza sativa",
+   "qid": "Q161426",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_double_team": {
+   "entity_id": "CN_double_team",
+   "title_queried": "Double team",
+   "qid": "Q3493567",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_postmodern": {
+   "entity_id": "CN_postmodern",
+   "title_queried": "Postmodern",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_red_gray": {
+   "entity_id": "CN_red_gray",
+   "title_queried": "Red gray",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_illicit": {
+   "entity_id": "CN_illicit",
+   "title_queried": "Illicit",
+   "qid": "Q5999164",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_silver_sagebrush": {
+   "entity_id": "CN_silver_sagebrush",
+   "title_queried": "Silver sagebrush",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_greaser": {
+   "entity_id": "CN_greaser",
+   "title_queried": "Greaser",
+   "qid": "Q5598579",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_isherwood": {
+   "entity_id": "CN_isherwood",
+   "title_queried": "Isherwood",
+   "qid": "Q1673874",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_show_toy_to_friend": {
+   "entity_id": "CN_show_toy_to_friend",
+   "title_queried": "Show toy to friend",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_boone": {
+   "entity_id": "CN_boone",
+   "title_queried": "Boone",
+   "qid": "Q296601",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_campong": {
+   "entity_id": "CN_campong",
+   "title_queried": "Campong",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_aristotelic": {
+   "entity_id": "CN_aristotelic",
+   "title_queried": "Aristotelic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_chomping": {
+   "entity_id": "CN_chomping",
+   "title_queried": "Chomping",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_open_sight": {
+   "entity_id": "CN_open_sight",
+   "title_queried": "Open sight",
+   "qid": "Q11853690",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nineteenth_amendment": {
+   "entity_id": "CN_nineteenth_amendment",
+   "title_queried": "Nineteenth amendment",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_slow_down_traffic": {
+   "entity_id": "CN_slow_down_traffic",
+   "title_queried": "Slow down traffic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_baling_wire": {
+   "entity_id": "CN_baling_wire",
+   "title_queried": "Baling wire",
+   "qid": "Q4581084",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_high_flown": {
+   "entity_id": "CN_high_flown",
+   "title_queried": "High flown",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_outta": {
+   "entity_id": "CN_outta",
+   "title_queried": "Outta",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_family_thiobacteriaceae": {
+   "entity_id": "CN_family_thiobacteriaceae",
+   "title_queried": "Family thiobacteriaceae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_potato_wart": {
+   "entity_id": "CN_potato_wart",
+   "title_queried": "Potato wart",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sign_bill": {
+   "entity_id": "CN_sign_bill",
+   "title_queried": "Sign bill",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_paraguayan": {
+   "entity_id": "CN_paraguayan",
+   "title_queried": "Paraguayan",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_boasting": {
+   "entity_id": "CN_boasting",
+   "title_queried": "Boasting",
+   "qid": "Q2663273",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_you_wish": {
+   "entity_id": "CN_you_wish",
+   "title_queried": "You wish",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_non_discrimination": {
+   "entity_id": "CN_non_discrimination",
+   "title_queried": "Non discrimination",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bed_clothing": {
+   "entity_id": "CN_bed_clothing",
+   "title_queried": "Bed clothing",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_climatologist": {
+   "entity_id": "CN_climatologist",
+   "title_queried": "Climatologist",
+   "qid": "Q1113838",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_write_programs": {
+   "entity_id": "CN_write_programs",
+   "title_queried": "Write programs",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_shoe_repairing": {
+   "entity_id": "CN_shoe_repairing",
+   "title_queried": "Shoe repairing",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_one-half.n.01": {
+   "entity_id": "WN_one-half.n.01",
+   "title_queried": "One-half",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_family_leporidae": {
+   "entity_id": "CN_family_leporidae",
+   "title_queried": "Family leporidae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_circumfuse": {
+   "entity_id": "CN_circumfuse",
+   "title_queried": "Circumfuse",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_yellow_mariposa_tulip": {
+   "entity_id": "CN_yellow_mariposa_tulip",
+   "title_queried": "Yellow mariposa tulip",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rechargeable": {
+   "entity_id": "CN_rechargeable",
+   "title_queried": "Rechargeable",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cost_accounting": {
+   "entity_id": "CN_cost_accounting",
+   "title_queried": "Cost accounting",
+   "qid": "Q1077518",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sondheim": {
+   "entity_id": "CN_sondheim",
+   "title_queried": "Sondheim",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_potential_energy.n.01": {
+   "entity_id": "WN_potential_energy.n.01",
+   "title_queried": "Potential energy",
+   "qid": "Q155640",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_in_style": {
+   "entity_id": "CN_in_style",
+   "title_queried": "In style",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_round_shot": {
+   "entity_id": "CN_round_shot",
+   "title_queried": "Round shot",
+   "qid": "Q1723884",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_apple_tree_in": {
+   "entity_id": "CN_apple_tree_in",
+   "title_queried": "Apple tree in",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_wainscoted": {
+   "entity_id": "CN_wainscoted",
+   "title_queried": "Wainscoted",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_benvenuto_cellini": {
+   "entity_id": "CN_benvenuto_cellini",
+   "title_queried": "Benvenuto cellini",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_clown_fish": {
+   "entity_id": "CN_clown_fish",
+   "title_queried": "Clown fish",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_approved": {
+   "entity_id": "CN_approved",
+   "title_queried": "Approved",
+   "qid": "Q20996488",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pretermit": {
+   "entity_id": "CN_pretermit",
+   "title_queried": "Pretermit",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_good_tempered": {
+   "entity_id": "CN_good_tempered",
+   "title_queried": "Good tempered",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_araucaria_araucana": {
+   "entity_id": "CN_araucaria_araucana",
+   "title_queried": "Araucaria araucana",
+   "qid": "Q158780",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_flowering_glume": {
+   "entity_id": "CN_flowering_glume",
+   "title_queried": "Flowering glume",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sifting": {
+   "entity_id": "CN_sifting",
+   "title_queried": "Sifting",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_entrails": {
+   "entity_id": "CN_entrails",
+   "title_queried": "Entrails",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_contact.n.02": {
+   "entity_id": "WN_contact.n.02",
+   "title_queried": "Contact",
+   "qid": "Q394963",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cauliflower_ear": {
+   "entity_id": "CN_cauliflower_ear",
+   "title_queried": "Cauliflower ear",
+   "qid": "Q886261",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_inbuilt": {
+   "entity_id": "CN_inbuilt",
+   "title_queried": "Inbuilt",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_korean_velvet_grass": {
+   "entity_id": "CN_korean_velvet_grass",
+   "title_queried": "Korean velvet grass",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_battle_of_guadalcanal": {
+   "entity_id": "CN_battle_of_guadalcanal",
+   "title_queried": "Battle of guadalcanal",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pinnace": {
+   "entity_id": "CN_pinnace",
+   "title_queried": "Pinnace",
+   "qid": "Q19848762",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_legal_power.n.01": {
+   "entity_id": "WN_legal_power.n.01",
+   "title_queried": "Legal power",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_clovis_i": {
+   "entity_id": "CN_clovis_i",
+   "title_queried": "Clovis i",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_axeblade": {
+   "entity_id": "CN_axeblade",
+   "title_queried": "Axeblade",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_freight_rate": {
+   "entity_id": "CN_freight_rate",
+   "title_queried": "Freight rate",
+   "qid": "Q927345",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_black_body.n.01": {
+   "entity_id": "WN_black_body.n.01",
+   "title_queried": "Black body",
+   "qid": "Q161424",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_solid_colored": {
+   "entity_id": "CN_solid_colored",
+   "title_queried": "Solid colored",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nag_hammadi_library": {
+   "entity_id": "CN_nag_hammadi_library",
+   "title_queried": "Nag hammadi library",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sun_ray": {
+   "entity_id": "CN_sun_ray",
+   "title_queried": "Sun ray",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_extended_order": {
+   "entity_id": "CN_extended_order",
+   "title_queried": "Extended order",
+   "qid": "Q5421892",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_picture_tube": {
+   "entity_id": "CN_picture_tube",
+   "title_queried": "Picture tube",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_poikilothermic": {
+   "entity_id": "CN_poikilothermic",
+   "title_queried": "Poikilothermic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_hibbertia": {
+   "entity_id": "CN_genus_hibbertia",
+   "title_queried": "Genus hibbertia",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_time_limit": {
+   "entity_id": "CN_time_limit",
+   "title_queried": "Time limit",
+   "qid": "Q1465133",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nonresistant": {
+   "entity_id": "CN_nonresistant",
+   "title_queried": "Nonresistant",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_amyloidal": {
+   "entity_id": "CN_amyloidal",
+   "title_queried": "Amyloidal",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sulphurette": {
+   "entity_id": "CN_sulphurette",
+   "title_queried": "Sulphurette",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ferrocerium": {
+   "entity_id": "CN_ferrocerium",
+   "title_queried": "Ferrocerium",
+   "qid": "Q759260",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_guinea_gold_vine": {
+   "entity_id": "CN_guinea_gold_vine",
+   "title_queried": "Guinea gold vine",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_silk_stocking": {
+   "entity_id": "CN_silk_stocking",
+   "title_queried": "Silk stocking",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_nervus_radialis": {
+   "entity_id": "CN_nervus_radialis",
+   "title_queried": "Nervus radialis",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_air_to_air_missile": {
+   "entity_id": "CN_air_to_air_missile",
+   "title_queried": "Air to air missile",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_subdivision_deuteromycotina": {
+   "entity_id": "CN_subdivision_deuteromycotina",
+   "title_queried": "Subdivision deuteromycotina",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_deceiving": {
+   "entity_id": "CN_deceiving",
+   "title_queried": "Deceiving",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pinafore": {
+   "entity_id": "CN_pinafore",
+   "title_queried": "Pinafore",
+   "qid": "Q3247116",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sugar_apple": {
+   "entity_id": "CN_sugar_apple",
+   "title_queried": "Sugar apple",
+   "qid": "Q6648683",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cazique": {
+   "entity_id": "CN_cazique",
+   "title_queried": "Cazique",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cephalometry": {
+   "entity_id": "CN_cephalometry",
+   "title_queried": "Cephalometry",
+   "qid": "Q2418904",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_plan.n.03": {
+   "entity_id": "WN_plan.n.03",
+   "title_queried": "Plan",
+   "qid": "Q1371819",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_negotiatrix": {
+   "entity_id": "CN_negotiatrix",
+   "title_queried": "Negotiatrix",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_william_congreve": {
+   "entity_id": "CN_william_congreve",
+   "title_queried": "William congreve",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bibliomania": {
+   "entity_id": "CN_bibliomania",
+   "title_queried": "Bibliomania",
+   "qid": "Q856396",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_family_myliobatidae": {
+   "entity_id": "CN_family_myliobatidae",
+   "title_queried": "Family myliobatidae",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_antiredeposition": {
+   "entity_id": "CN_antiredeposition",
+   "title_queried": "Antiredeposition",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sodomist": {
+   "entity_id": "CN_sodomist",
+   "title_queried": "Sodomist",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_oxime": {
+   "entity_id": "CN_oxime",
+   "title_queried": "Oxime",
+   "qid": "Q182738",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cryptogam": {
+   "entity_id": "CN_cryptogam",
+   "title_queried": "Cryptogam",
+   "qid": "Q333458",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_haematopoietic": {
+   "entity_id": "CN_haematopoietic",
+   "title_queried": "Haematopoietic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_diaghilev": {
+   "entity_id": "CN_diaghilev",
+   "title_queried": "Diaghilev",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_irregularly": {
+   "entity_id": "CN_irregularly",
+   "title_queried": "Irregularly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_meliorist": {
+   "entity_id": "CN_meliorist",
+   "title_queried": "Meliorist",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_incurably": {
+   "entity_id": "CN_incurably",
+   "title_queried": "Incurably",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_comes_in_cubes": {
+   "entity_id": "CN_comes_in_cubes",
+   "title_queried": "Comes in cubes",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_st_lucia": {
+   "entity_id": "CN_st_lucia",
+   "title_queried": "St lucia",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_st_bridget": {
+   "entity_id": "CN_st_bridget",
+   "title_queried": "St bridget",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rissole": {
+   "entity_id": "CN_rissole",
+   "title_queried": "Rissole",
+   "qid": "Q2991822",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hairstreak_butterfly": {
+   "entity_id": "CN_hairstreak_butterfly",
+   "title_queried": "Hairstreak butterfly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_stopping_bleeding": {
+   "entity_id": "CN_stopping_bleeding",
+   "title_queried": "Stopping bleeding",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_acellular": {
+   "entity_id": "CN_acellular",
+   "title_queried": "Acellular",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_jagganath": {
+   "entity_id": "CN_jagganath",
+   "title_queried": "Jagganath",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_spring_to_mind": {
+   "entity_id": "CN_spring_to_mind",
+   "title_queried": "Spring to mind",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_mess.n.01": {
+   "entity_id": "WN_mess.n.01",
+   "title_queried": "Mess",
+   "qid": "Q113695405",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_immunized": {
+   "entity_id": "CN_immunized",
+   "title_queried": "Immunized",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gillespie": {
+   "entity_id": "CN_gillespie",
+   "title_queried": "Gillespie",
+   "qid": "Q401716",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_augmented_by_benefits": {
+   "entity_id": "CN_augmented_by_benefits",
+   "title_queried": "Augmented by benefits",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_handling_cost": {
+   "entity_id": "CN_handling_cost",
+   "title_queried": "Handling cost",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_mary_martin": {
+   "entity_id": "CN_mary_martin",
+   "title_queried": "Mary martin",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_overcultivate": {
+   "entity_id": "CN_overcultivate",
+   "title_queried": "Overcultivate",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_storing_bicycle": {
+   "entity_id": "CN_storing_bicycle",
+   "title_queried": "Storing bicycle",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_rhomboidal": {
+   "entity_id": "CN_rhomboidal",
+   "title_queried": "Rhomboidal",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sabbatum": {
+   "entity_id": "CN_sabbatum",
+   "title_queried": "Sabbatum",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hypericum_maculatum": {
+   "entity_id": "CN_hypericum_maculatum",
+   "title_queried": "Hypericum maculatum",
+   "qid": "Q162486",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_price_increase": {
+   "entity_id": "CN_price_increase",
+   "title_queried": "Price increase",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_oenothera_biennis": {
+   "entity_id": "CN_oenothera_biennis",
+   "title_queried": "Oenothera biennis",
+   "qid": "Q157353",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_american_wisteria": {
+   "entity_id": "CN_american_wisteria",
+   "title_queried": "American wisteria",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_mitella": {
+   "entity_id": "CN_mitella",
+   "title_queried": "Mitella",
+   "qid": "Q144225",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_criterial": {
+   "entity_id": "CN_criterial",
+   "title_queried": "Criterial",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sarcoid": {
+   "entity_id": "CN_sarcoid",
+   "title_queried": "Sarcoid",
+   "qid": "Q7423589",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_olefine": {
+   "entity_id": "CN_olefine",
+   "title_queried": "Olefine",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_irritative": {
+   "entity_id": "CN_irritative",
+   "title_queried": "Irritative",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_amphistylar": {
+   "entity_id": "CN_amphistylar",
+   "title_queried": "Amphistylar",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_male_hypogonadism": {
+   "entity_id": "CN_male_hypogonadism",
+   "title_queried": "Male hypogonadism",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_screw_eye": {
+   "entity_id": "CN_screw_eye",
+   "title_queried": "Screw eye",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_95": {
+   "entity_id": "CN_95",
+   "title_queried": "95",
+   "qid": "Q1166413",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gravitons": {
+   "entity_id": "CN_gravitons",
+   "title_queried": "Gravitons",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_mussitation": {
+   "entity_id": "CN_mussitation",
+   "title_queried": "Mussitation",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_centrolobium": {
+   "entity_id": "CN_genus_centrolobium",
+   "title_queried": "Genus centrolobium",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_brownish": {
+   "entity_id": "CN_brownish",
+   "title_queried": "Brownish",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_winter_mushroom": {
+   "entity_id": "CN_winter_mushroom",
+   "title_queried": "Winter mushroom",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sweet_grass": {
+   "entity_id": "CN_sweet_grass",
+   "title_queried": "Sweet grass",
+   "qid": "Q7655619",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_running_suit": {
+   "entity_id": "CN_running_suit",
+   "title_queried": "Running suit",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_panty": {
+   "entity_id": "CN_panty",
+   "title_queried": "Panty",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_pinus_palustris": {
+   "entity_id": "CN_pinus_palustris",
+   "title_queried": "Pinus palustris",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_electoral_system": {
+   "entity_id": "CN_electoral_system",
+   "title_queried": "Electoral system",
+   "qid": "Q182985",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_meandering": {
+   "entity_id": "CN_meandering",
+   "title_queried": "Meandering",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_mores": {
+   "entity_id": "CN_mores",
+   "title_queried": "Mores",
+   "qid": "Q1115221",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_electrocardiograph": {
+   "entity_id": "CN_electrocardiograph",
+   "title_queried": "Electrocardiograph",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ropiness": {
+   "entity_id": "CN_ropiness",
+   "title_queried": "Ropiness",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_emerson": {
+   "entity_id": "CN_emerson",
+   "title_queried": "Emerson",
+   "qid": "Q224022",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_generics": {
+   "entity_id": "CN_generics",
+   "title_queried": "Generics",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_spartina_cynosuroides": {
+   "entity_id": "CN_spartina_cynosuroides",
+   "title_queried": "Spartina cynosuroides",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_sensitivity.n.02": {
+   "entity_id": "WN_sensitivity.n.02",
+   "title_queried": "Sensitivity",
+   "qid": "Q1339274",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_numerous": {
+   "entity_id": "CN_numerous",
+   "title_queried": "Numerous",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_barbecuing": {
+   "entity_id": "CN_barbecuing",
+   "title_queried": "Barbecuing",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_hyalophora_cecropia": {
+   "entity_id": "CN_hyalophora_cecropia",
+   "title_queried": "Hyalophora cecropia",
+   "qid": "Q142322",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_fissurella": {
+   "entity_id": "CN_genus_fissurella",
+   "title_queried": "Genus fissurella",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_finger_bar": {
+   "entity_id": "CN_finger_bar",
+   "title_queried": "Finger bar",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_chondritic": {
+   "entity_id": "CN_chondritic",
+   "title_queried": "Chondritic",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_bacca": {
+   "entity_id": "CN_bacca",
+   "title_queried": "Bacca",
+   "qid": "Q798009",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_organisms": {
+   "entity_id": "CN_organisms",
+   "title_queried": "Organisms",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_la_fayette": {
+   "entity_id": "CN_la_fayette",
+   "title_queried": "La fayette",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_discount_store": {
+   "entity_id": "CN_discount_store",
+   "title_queried": "Discount store",
+   "qid": "Q261428",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_heroin_addict": {
+   "entity_id": "CN_heroin_addict",
+   "title_queried": "Heroin addict",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_ranunculus_repens": {
+   "entity_id": "CN_ranunculus_repens",
+   "title_queried": "Ranunculus repens",
+   "qid": "Q213356",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_cold_war": {
+   "entity_id": "CN_cold_war",
+   "title_queried": "Cold war",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "WN_street.n.01": {
+   "entity_id": "WN_street.n.01",
+   "title_queried": "Street",
+   "qid": "Q79007",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_platitudinize": {
+   "entity_id": "CN_platitudinize",
+   "title_queried": "Platitudinize",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_duramen": {
+   "entity_id": "CN_duramen",
+   "title_queried": "Duramen",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_self_absorbed": {
+   "entity_id": "CN_self_absorbed",
+   "title_queried": "Self absorbed",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_sore_side": {
+   "entity_id": "CN_sore_side",
+   "title_queried": "Sore side",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_diplomate": {
+   "entity_id": "CN_diplomate",
+   "title_queried": "Diplomate",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_multiversity": {
+   "entity_id": "CN_multiversity",
+   "title_queried": "Multiversity",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_potassium_hydrogen_carbonate": {
+   "entity_id": "CN_potassium_hydrogen_carbonate",
+   "title_queried": "Potassium hydrogen carbonate",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_regalecus": {
+   "entity_id": "CN_genus_regalecus",
+   "title_queried": "Genus regalecus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_flagellated_protozoan": {
+   "entity_id": "CN_flagellated_protozoan",
+   "title_queried": "Flagellated protozoan",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_building_farm_on": {
+   "entity_id": "CN_building_farm_on",
+   "title_queried": "Building farm on",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_scolopax": {
+   "entity_id": "CN_genus_scolopax",
+   "title_queried": "Genus scolopax",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_shamelessly": {
+   "entity_id": "CN_shamelessly",
+   "title_queried": "Shamelessly",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_genus_notemigonus": {
+   "entity_id": "CN_genus_notemigonus",
+   "title_queried": "Genus notemigonus",
+   "qid": null,
+   "missing": true,
+   "quantity_props": [],
+   "hit": false
+  },
+  "CN_gaskell": {
+   "entity_id": "CN_gaskell",
+   "title_queried": "Gaskell",
+   "qid": "Q21506913",
+   "missing": false,
+   "quantity_props": [],
+   "hit": false
+  }
+ },
+ "scramble_control": {
+  "control_hit_rates": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "n_repeats": 3,
+  "per_repeat": 15
+ }
+}

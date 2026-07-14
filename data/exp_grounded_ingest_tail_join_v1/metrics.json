@@ -1,0 +1,5114 @@
+{
+  "anchor_name": "grounded_ingest_tail_join_v1",
+  "version": "v1",
+  "run_mode": "full",
+  "dispatched_ts": "2026-07-14T12:37:55.510368+00:00",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: join hit-rate 1.80% < 5% floor. Bulk measured-numeric sources (Wikidata quantity claims) do not reach this substrate's sparse tail via exact-ID join; the tail is dominated by entities with no measured-data analog (proper nouns, rare taxonomic leaves, abstract relations). Do NOT build the literal-fusion pipeline (Phase 1-3) on this basis; the next grounding channel to try is gloss/definition text (WordNet/Wiktionary), not numeric literals.",
+  "summary": "HARD_FAIL: hit_rate=0.0180 (9/500), cross_frac=1.0000, source_sha256_match=True",
+  "elapsed_s": 0.755,
+  "configs": {
+    "sample_size": 500,
+    "sample_seed_prefix": "SEED42_LEXICAL_TAIL::",
+    "hard_pass_hit_rate": 0.15,
+    "hard_pass_cross_frac": 0.5,
+    "hard_fail_hit_rate": 0.05
+  },
+  "REQUIRED_FIELDS": [
+    "verdict_msg",
+    "elapsed_s"
+  ],
+  "cardinality_ok": true,
+  "expected_n_units": 500,
+  "n_units_measured": 500,
+  "join_hit_rate": 0.018,
+  "n_hit": 9,
+  "n_missing": 377,
+  "n_found_no_quantity_claim": 114,
+  "cross_threshold_frac_of_hits": 1.0,
+  "cross_threshold_caveat": "sample is scoped to support==1 entities; any hit trivially crosses 1->2, so this fraction is a degenerate corollary of the scoping, not an independent signal -- see prereg.",
+  "hit_entity_examples": [
+    "CN_reims",
+    "CN_silicon_dioxide",
+    "CN_assam",
+    "CN_potassium_cyanide",
+    "CN_papeete",
+    "CN_swatch",
+    "CN_taipei",
+    "CN_inuit",
+    "CN_cephaloridine"
+  ],
+  "prefix_composition_in_sample": {
+    "CN": 476,
+    "WN": 21,
+    "FN": 3
+  },
+  "excluded_nonlexical_tail_count": 400,
+  "source_graph_sha256": "d88acf2055fd986d67ea26eb79481bdf172f3284207e26f4679795fb73790e6d",
+  "source_graph_sha256_expected": "d88acf2055fd986d67ea26eb79481bdf172f3284207e26f4679795fb73790e6d",
+  "source_graph_sha256_match": true,
+  "snapshot_identity_check_ok": true,
+  "scramble_control": {
+    "control_hit_rates": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "n_repeats": 3,
+    "per_repeat": 15
+  },
+  "per_entity": [
+    {
+      "entity_id": "CN_reims",
+      "support_pre": 1,
+      "title_queried": "Reims",
+      "qid": "Q41876",
+      "missing": false,
+      "quantity_props": [
+        "P2046",
+        "P1082",
+        "P2044",
+        "P1540",
+        "P1539",
+        "P8687"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_water_flowers",
+      "support_pre": 1,
+      "title_queried": "Water flowers",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_addlebrained",
+      "support_pre": 1,
+      "title_queried": "Addlebrained",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_thomas_middleton",
+      "support_pre": 1,
+      "title_queried": "Thomas middleton",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ockham",
+      "support_pre": 1,
+      "title_queried": "Ockham",
+      "qid": "Q408260",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sipper",
+      "support_pre": 1,
+      "title_queried": "Sipper",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_every_so_often",
+      "support_pre": 1,
+      "title_queried": "Every so often",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_calystegia_sepium",
+      "support_pre": 1,
+      "title_queried": "Calystegia sepium",
+      "qid": "Q161704",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_incorrectly",
+      "support_pre": 1,
+      "title_queried": "Incorrectly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gather_clan",
+      "support_pre": 1,
+      "title_queried": "Gather clan",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_punitory",
+      "support_pre": 1,
+      "title_queried": "Punitory",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_calyptridium_umbellatum",
+      "support_pre": 1,
+      "title_queried": "Calyptridium umbellatum",
+      "qid": "Q2974357",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_integration.n.01",
+      "support_pre": 1,
+      "title_queried": "Integration",
+      "qid": "Q224621",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_becoming_drunk",
+      "support_pre": 1,
+      "title_queried": "Becoming drunk",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_school_of_law",
+      "support_pre": 1,
+      "title_queried": "School of law",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_block_of_wood",
+      "support_pre": 1,
+      "title_queried": "Block of wood",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_taxus",
+      "support_pre": 1,
+      "title_queried": "Taxus",
+      "qid": "Q27355",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_herbal_tea",
+      "support_pre": 1,
+      "title_queried": "Herbal tea",
+      "qid": "Q379932",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_schematisation",
+      "support_pre": 1,
+      "title_queried": "Schematisation",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_harpoon_gun",
+      "support_pre": 1,
+      "title_queried": "Harpoon gun",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_john_wain",
+      "support_pre": 1,
+      "title_queried": "John wain",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_silicon_dioxide",
+      "support_pre": 1,
+      "title_queried": "Silicon dioxide",
+      "qid": "Q116269",
+      "missing": false,
+      "quantity_props": [
+        "P2101",
+        "P2102",
+        "P2119",
+        "P2067",
+        "P2177"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_katharevusa",
+      "support_pre": 1,
+      "title_queried": "Katharevusa",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_republic_of_cyprus",
+      "support_pre": 1,
+      "title_queried": "Republic of cyprus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gray_wolf",
+      "support_pre": 1,
+      "title_queried": "Gray wolf",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rhode_island_red",
+      "support_pre": 1,
+      "title_queried": "Rhode island red",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_epithelial_duct",
+      "support_pre": 1,
+      "title_queried": "Epithelial duct",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_aquilegia_canadensis",
+      "support_pre": 1,
+      "title_queried": "Aquilegia canadensis",
+      "qid": "Q2846008",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_suv",
+      "support_pre": 1,
+      "title_queried": "Suv",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_prosthetic_device",
+      "support_pre": 1,
+      "title_queried": "Prosthetic device",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ustilaginoidea",
+      "support_pre": 1,
+      "title_queried": "Ustilaginoidea",
+      "qid": "Q7902189",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ibrd",
+      "support_pre": 1,
+      "title_queried": "Ibrd",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_blackbody",
+      "support_pre": 1,
+      "title_queried": "Blackbody",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_reaper_binder",
+      "support_pre": 1,
+      "title_queried": "Reaper binder",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_synchronised",
+      "support_pre": 1,
+      "title_queried": "Synchronised",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_population_shift",
+      "support_pre": 1,
+      "title_queried": "Population shift",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_numida",
+      "support_pre": 1,
+      "title_queried": "Genus numida",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_athapaskan.n.02",
+      "support_pre": 1,
+      "title_queried": "Athapaskan",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_blank_space",
+      "support_pre": 1,
+      "title_queried": "Blank space",
+      "qid": "Q25102739",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_limited_review",
+      "support_pre": 1,
+      "title_queried": "Limited review",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_getting_hair_styled",
+      "support_pre": 1,
+      "title_queried": "Getting hair styled",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pentatone",
+      "support_pre": 1,
+      "title_queried": "Pentatone",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_preside",
+      "support_pre": 1,
+      "title_queried": "Preside",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_create_electricity",
+      "support_pre": 1,
+      "title_queried": "Create electricity",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_family_congridae",
+      "support_pre": 1,
+      "title_queried": "Family congridae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dustmop",
+      "support_pre": 1,
+      "title_queried": "Dustmop",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_harrisia",
+      "support_pre": 1,
+      "title_queried": "Genus harrisia",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_oryza",
+      "support_pre": 1,
+      "title_queried": "Genus oryza",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_prolongation.n.01",
+      "support_pre": 1,
+      "title_queried": "Prolongation",
+      "qid": "Q7249641",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nightwear",
+      "support_pre": 1,
+      "title_queried": "Nightwear",
+      "qid": "Q1187616",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_head_linesman",
+      "support_pre": 1,
+      "title_queried": "Head linesman",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_frontward",
+      "support_pre": 1,
+      "title_queried": "Frontward",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ruptiliocarpon_caracolito",
+      "support_pre": 1,
+      "title_queried": "Ruptiliocarpon caracolito",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cylix",
+      "support_pre": 1,
+      "title_queried": "Cylix",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_deionize",
+      "support_pre": 1,
+      "title_queried": "Deionize",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_derv",
+      "support_pre": 1,
+      "title_queried": "Derv",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_fae",
+      "support_pre": 1,
+      "title_queried": "Fae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hematogenic",
+      "support_pre": 1,
+      "title_queried": "Hematogenic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_roll_down_hill",
+      "support_pre": 1,
+      "title_queried": "Roll down hill",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_assam",
+      "support_pre": 1,
+      "title_queried": "Assam",
+      "qid": "Q1164",
+      "missing": false,
+      "quantity_props": [
+        "P2046",
+        "P1082",
+        "P1540",
+        "P1539",
+        "P6343",
+        "P6344",
+        "P6499",
+        "P6498"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_egyptian_islamic_jihad",
+      "support_pre": 1,
+      "title_queried": "Egyptian islamic jihad",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_footbath",
+      "support_pre": 1,
+      "title_queried": "Footbath",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cavort",
+      "support_pre": 1,
+      "title_queried": "Cavort",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_simulated_military_operation",
+      "support_pre": 1,
+      "title_queried": "Simulated military operation",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pirate_ship",
+      "support_pre": 1,
+      "title_queried": "Pirate ship",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_blue_point_siamese",
+      "support_pre": 1,
+      "title_queried": "Blue point siamese",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_shirring",
+      "support_pre": 1,
+      "title_queried": "Shirring",
+      "qid": "Q7498977",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_field_question",
+      "support_pre": 1,
+      "title_queried": "Field question",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_quaint",
+      "support_pre": 1,
+      "title_queried": "Quaint",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_get_at_able",
+      "support_pre": 1,
+      "title_queried": "Get at able",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bc",
+      "support_pre": 1,
+      "title_queried": "Bc",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_polly_fish",
+      "support_pre": 1,
+      "title_queried": "Polly fish",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_collar_blight",
+      "support_pre": 1,
+      "title_queried": "Collar blight",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_priest_penitent_privilege",
+      "support_pre": 1,
+      "title_queried": "Priest penitent privilege",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_increasing_fairness",
+      "support_pre": 1,
+      "title_queried": "Increasing fairness",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_mare_liberum",
+      "support_pre": 1,
+      "title_queried": "Mare liberum",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rigorousness",
+      "support_pre": 1,
+      "title_queried": "Rigorousness",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_partner_off",
+      "support_pre": 1,
+      "title_queried": "Partner off",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_laborious",
+      "support_pre": 1,
+      "title_queried": "Laborious",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_send_word",
+      "support_pre": 1,
+      "title_queried": "Send word",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ankles",
+      "support_pre": 1,
+      "title_queried": "Ankles",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pastrami",
+      "support_pre": 1,
+      "title_queried": "Pastrami",
+      "qid": "Q1347754",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_petroleum_refinery",
+      "support_pre": 1,
+      "title_queried": "Petroleum refinery",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_opaline",
+      "support_pre": 1,
+      "title_queried": "Opaline",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_page_number",
+      "support_pre": 1,
+      "title_queried": "Page number",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nine_banded_armadillo",
+      "support_pre": 1,
+      "title_queried": "Nine banded armadillo",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_egyptian_onion",
+      "support_pre": 1,
+      "title_queried": "Egyptian onion",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_john_osborne",
+      "support_pre": 1,
+      "title_queried": "John osborne",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_causal_agency",
+      "support_pre": 1,
+      "title_queried": "Causal agency",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_mantispid",
+      "support_pre": 1,
+      "title_queried": "Mantispid",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "FN_Fighting_activity",
+      "support_pre": 1,
+      "title_queried": "Fighting activity",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_eka_boron",
+      "support_pre": 1,
+      "title_queried": "Eka boron",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_orthoceras",
+      "support_pre": 1,
+      "title_queried": "Orthoceras",
+      "qid": "Q5605054",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rewrite_man",
+      "support_pre": 1,
+      "title_queried": "Rewrite man",
+      "qid": "Q40235359",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ouija_board",
+      "support_pre": 1,
+      "title_queried": "Ouija board",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rinkhals",
+      "support_pre": 1,
+      "title_queried": "Rinkhals",
+      "qid": "Q169936",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_screwbean_mesquite",
+      "support_pre": 1,
+      "title_queried": "Screwbean mesquite",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_artificial_skin",
+      "support_pre": 1,
+      "title_queried": "Artificial skin",
+      "qid": "Q3344895",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_appendicularia",
+      "support_pre": 1,
+      "title_queried": "Appendicularia",
+      "qid": "Q15872638",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_continue_ticking",
+      "support_pre": 1,
+      "title_queried": "Continue ticking",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pace_lap",
+      "support_pre": 1,
+      "title_queried": "Pace lap",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_kph",
+      "support_pre": 1,
+      "title_queried": "Kph",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_lucy_stone",
+      "support_pre": 1,
+      "title_queried": "Lucy stone",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_florida_pompano",
+      "support_pre": 1,
+      "title_queried": "Florida pompano",
+      "qid": "Q2601525",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_aglaomorpha_meyeniana",
+      "support_pre": 1,
+      "title_queried": "Aglaomorpha meyeniana",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gas_bomb",
+      "support_pre": 1,
+      "title_queried": "Gas bomb",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_full_faith_and_credit",
+      "support_pre": 1,
+      "title_queried": "Full faith and credit",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_henchman",
+      "support_pre": 1,
+      "title_queried": "Henchman",
+      "qid": "Q247297",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_claude_e_shannon",
+      "support_pre": 1,
+      "title_queried": "Claude e shannon",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_red_tailed_hawk",
+      "support_pre": 1,
+      "title_queried": "Red tailed hawk",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_goddaughter",
+      "support_pre": 1,
+      "title_queried": "Goddaughter",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_inmarry",
+      "support_pre": 1,
+      "title_queried": "Inmarry",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_no_two_people",
+      "support_pre": 1,
+      "title_queried": "No two people",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_habenaria_unalascensis",
+      "support_pre": 1,
+      "title_queried": "Habenaria unalascensis",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_banshie",
+      "support_pre": 1,
+      "title_queried": "Banshie",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_spinnable",
+      "support_pre": 1,
+      "title_queried": "Spinnable",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sword_dancing",
+      "support_pre": 1,
+      "title_queried": "Sword dancing",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_lactuca_sativa_crispa",
+      "support_pre": 1,
+      "title_queried": "Lactuca sativa crispa",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_destress",
+      "support_pre": 1,
+      "title_queried": "Destress",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_builder.n.01",
+      "support_pre": 1,
+      "title_queried": "Builder",
+      "qid": "Q1002999",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_condition_of_health",
+      "support_pre": 1,
+      "title_queried": "Condition of health",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_caryophyllaceous_plant",
+      "support_pre": 1,
+      "title_queried": "Caryophyllaceous plant",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_potassium_cyanide",
+      "support_pre": 1,
+      "title_queried": "Potassium cyanide",
+      "qid": "Q192470",
+      "missing": false,
+      "quantity_props": [
+        "P2054",
+        "P2240",
+        "P2129",
+        "P2101",
+        "P2102",
+        "P2119",
+        "P2177",
+        "P2404",
+        "P2405",
+        "P2067"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_rfd",
+      "support_pre": 1,
+      "title_queried": "Rfd",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bargain_hunter",
+      "support_pre": 1,
+      "title_queried": "Bargain hunter",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_crestless_wave",
+      "support_pre": 1,
+      "title_queried": "Crestless wave",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_american_pennyroyal",
+      "support_pre": 1,
+      "title_queried": "American pennyroyal",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_goat's_foot",
+      "support_pre": 1,
+      "title_queried": "Goat's foot",
+      "qid": "Q18345117",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_linosyris_vulgaris",
+      "support_pre": 1,
+      "title_queried": "Linosyris vulgaris",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ko_punch",
+      "support_pre": 1,
+      "title_queried": "Ko punch",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hobbie",
+      "support_pre": 1,
+      "title_queried": "Hobbie",
+      "qid": "Q2718808",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_honeyed_words",
+      "support_pre": 1,
+      "title_queried": "Honeyed words",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_lower_rank",
+      "support_pre": 1,
+      "title_queried": "Lower rank",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_house_of_islam",
+      "support_pre": 1,
+      "title_queried": "House of islam",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dsph",
+      "support_pre": 1,
+      "title_queried": "Dsph",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_chukchi_sea",
+      "support_pre": 1,
+      "title_queried": "Chukchi sea",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_botrychium_virginianum",
+      "support_pre": 1,
+      "title_queried": "Botrychium virginianum",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nonchalance",
+      "support_pre": 1,
+      "title_queried": "Nonchalance",
+      "qid": "Q114315929",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_unknowledgeable",
+      "support_pre": 1,
+      "title_queried": "Unknowledgeable",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pyjamas",
+      "support_pre": 1,
+      "title_queried": "Pyjamas",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_papeete",
+      "support_pre": 1,
+      "title_queried": "Papeete",
+      "qid": "Q130800",
+      "missing": false,
+      "quantity_props": [
+        "P2046",
+        "P1082",
+        "P2044"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_crex_crex",
+      "support_pre": 1,
+      "title_queried": "Crex crex",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gray_sage",
+      "support_pre": 1,
+      "title_queried": "Gray sage",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_polygala_lutea",
+      "support_pre": 1,
+      "title_queried": "Polygala lutea",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_town_center",
+      "support_pre": 1,
+      "title_queried": "Town center",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_philohela",
+      "support_pre": 1,
+      "title_queried": "Genus philohela",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_capital_cost",
+      "support_pre": 1,
+      "title_queried": "Capital cost",
+      "qid": "Q5035697",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hoof_mark",
+      "support_pre": 1,
+      "title_queried": "Hoof mark",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_john_wiclif",
+      "support_pre": 1,
+      "title_queried": "John wiclif",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_swatch",
+      "support_pre": 1,
+      "title_queried": "Swatch",
+      "qid": "Q573422",
+      "missing": false,
+      "quantity_props": [
+        "P8687"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_order_percomorphi",
+      "support_pre": 1,
+      "title_queried": "Order percomorphi",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_muskrat_fur",
+      "support_pre": 1,
+      "title_queried": "Muskrat fur",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_grenada_dollar",
+      "support_pre": 1,
+      "title_queried": "Grenada dollar",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_atypic",
+      "support_pre": 1,
+      "title_queried": "Atypic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_medial_rectus",
+      "support_pre": 1,
+      "title_queried": "Medial rectus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_disability_insurance",
+      "support_pre": 1,
+      "title_queried": "Disability insurance",
+      "qid": "Q4118291",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_karaya_gum",
+      "support_pre": 1,
+      "title_queried": "Karaya gum",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_carlovingian_dynasty",
+      "support_pre": 1,
+      "title_queried": "Carlovingian dynasty",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sand_trap",
+      "support_pre": 1,
+      "title_queried": "Sand trap",
+      "qid": "Q7415911",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_knuckles",
+      "support_pre": 1,
+      "title_queried": "Knuckles",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_staplegun",
+      "support_pre": 1,
+      "title_queried": "Staplegun",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_brierwood",
+      "support_pre": 1,
+      "title_queried": "Brierwood",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_defective_pleading",
+      "support_pre": 1,
+      "title_queried": "Defective pleading",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dogs_tooth_check",
+      "support_pre": 1,
+      "title_queried": "Dogs tooth check",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_res_judicata",
+      "support_pre": 1,
+      "title_queried": "Res judicata",
+      "qid": "Q1062245",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_joggers",
+      "support_pre": 1,
+      "title_queried": "Joggers",
+      "qid": "Q80800339",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_kernel.n.03",
+      "support_pre": 1,
+      "title_queried": "Kernel",
+      "qid": "Q202400",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_stipulative_definition",
+      "support_pre": 1,
+      "title_queried": "Stipulative definition",
+      "qid": "Q7617524",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_lilac_pink",
+      "support_pre": 1,
+      "title_queried": "Lilac pink",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_consonate",
+      "support_pre": 1,
+      "title_queried": "Consonate",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_socialized",
+      "support_pre": 1,
+      "title_queried": "Socialized",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_got_flu",
+      "support_pre": 1,
+      "title_queried": "Got flu",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cypripedium_californicum",
+      "support_pre": 1,
+      "title_queried": "Cypripedium californicum",
+      "qid": "Q2704503",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_martin_buber",
+      "support_pre": 1,
+      "title_queried": "Martin buber",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_lost_child",
+      "support_pre": 1,
+      "title_queried": "Lost child",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_atomic_number_57",
+      "support_pre": 1,
+      "title_queried": "Atomic number 57",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_beach_wagon.n.01",
+      "support_pre": 1,
+      "title_queried": "Beach wagon",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_colorado_beetle",
+      "support_pre": 1,
+      "title_queried": "Colorado beetle",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cardiac_glucoside",
+      "support_pre": 1,
+      "title_queried": "Cardiac glucoside",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bachelor_at_arms",
+      "support_pre": 1,
+      "title_queried": "Bachelor at arms",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sweat_duct",
+      "support_pre": 1,
+      "title_queried": "Sweat duct",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_harley_street",
+      "support_pre": 1,
+      "title_queried": "Harley street",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_peristedion_miniatum",
+      "support_pre": 1,
+      "title_queried": "Peristedion miniatum",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_farming_area",
+      "support_pre": 1,
+      "title_queried": "Farming area",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sex_gland",
+      "support_pre": 1,
+      "title_queried": "Sex gland",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_engrossing",
+      "support_pre": 1,
+      "title_queried": "Engrossing",
+      "qid": "Q5378750",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bacillary_white_diarrhoea",
+      "support_pre": 1,
+      "title_queried": "Bacillary white diarrhoea",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_quacksalver",
+      "support_pre": 1,
+      "title_queried": "Quacksalver",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_tattle",
+      "support_pre": 1,
+      "title_queried": "Tattle",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_richler",
+      "support_pre": 1,
+      "title_queried": "Richler",
+      "qid": "Q7330713",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_catharsis.n.01",
+      "support_pre": 1,
+      "title_queried": "Catharsis",
+      "qid": "Q156296",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_guilt_trip",
+      "support_pre": 1,
+      "title_queried": "Guilt trip",
+      "qid": "Q28134287",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_positive_fraud",
+      "support_pre": 1,
+      "title_queried": "Positive fraud",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_callinectes_sapidus",
+      "support_pre": 1,
+      "title_queried": "Callinectes sapidus",
+      "qid": "Q844839",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_canna",
+      "support_pre": 1,
+      "title_queried": "Genus canna",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_acromphalus",
+      "support_pre": 1,
+      "title_queried": "Acromphalus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_digital_to_analog_converter",
+      "support_pre": 1,
+      "title_queried": "Digital to analog converter",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_psophocarpus_tetragonolobus",
+      "support_pre": 1,
+      "title_queried": "Psophocarpus tetragonolobus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_conversion_reaction",
+      "support_pre": 1,
+      "title_queried": "Conversion reaction",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_standard_procedure",
+      "support_pre": 1,
+      "title_queried": "Standard procedure",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_counterpart.n.01",
+      "support_pre": 1,
+      "title_queried": "Counterpart",
+      "qid": "Q1137078",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_chaffer",
+      "support_pre": 1,
+      "title_queried": "Chaffer",
+      "qid": "Q21493777",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_vittaria",
+      "support_pre": 1,
+      "title_queried": "Vittaria",
+      "qid": "Q5873616",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_shmuck",
+      "support_pre": 1,
+      "title_queried": "Shmuck",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_raisin_nut_cookie",
+      "support_pre": 1,
+      "title_queried": "Raisin nut cookie",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_johann_gutenberg",
+      "support_pre": 1,
+      "title_queried": "Johann gutenberg",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dinner_set",
+      "support_pre": 1,
+      "title_queried": "Dinner set",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_taipei",
+      "support_pre": 1,
+      "title_queried": "Taipei",
+      "qid": "Q1867",
+      "missing": false,
+      "quantity_props": [
+        "P1082",
+        "P2046",
+        "P2044",
+        "P1538",
+        "P1540",
+        "P1539",
+        "P8687"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_matched_game",
+      "support_pre": 1,
+      "title_queried": "Matched game",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_beta_adrenergic_blocker",
+      "support_pre": 1,
+      "title_queried": "Beta adrenergic blocker",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_preciseness.n.02",
+      "support_pre": 1,
+      "title_queried": "Preciseness",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_sansevieria",
+      "support_pre": 1,
+      "title_queried": "Genus sansevieria",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_salisbury_steak",
+      "support_pre": 1,
+      "title_queried": "Salisbury steak",
+      "qid": "Q200527",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cold_gangrene",
+      "support_pre": 1,
+      "title_queried": "Cold gangrene",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_synchronise",
+      "support_pre": 1,
+      "title_queried": "Synchronise",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_jestingly",
+      "support_pre": 1,
+      "title_queried": "Jestingly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sell_someone_out",
+      "support_pre": 1,
+      "title_queried": "Sell someone out",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_msg",
+      "support_pre": 1,
+      "title_queried": "Msg",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sylvine",
+      "support_pre": 1,
+      "title_queried": "Sylvine",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hundred_and_sixty_fifth",
+      "support_pre": 1,
+      "title_queried": "Hundred and sixty fifth",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_castor_bean_plant",
+      "support_pre": 1,
+      "title_queried": "Castor bean plant",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_brachydactylic",
+      "support_pre": 1,
+      "title_queried": "Brachydactylic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_solomon_guggenheim",
+      "support_pre": 1,
+      "title_queried": "Solomon guggenheim",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_kinesis",
+      "support_pre": 1,
+      "title_queried": "Kinesis",
+      "qid": "Q6410716",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_brisk_up",
+      "support_pre": 1,
+      "title_queried": "Brisk up",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_gastrophryne",
+      "support_pre": 1,
+      "title_queried": "Genus gastrophryne",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_scallion",
+      "support_pre": 1,
+      "title_queried": "Scallion",
+      "qid": "Q774278",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hundred_and_fifth",
+      "support_pre": 1,
+      "title_queried": "Hundred and fifth",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_acidophile",
+      "support_pre": 1,
+      "title_queried": "Acidophile",
+      "qid": "Q196188",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_skunk_bear",
+      "support_pre": 1,
+      "title_queried": "Skunk bear",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sport_shirt",
+      "support_pre": 1,
+      "title_queried": "Sport shirt",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_apis",
+      "support_pre": 1,
+      "title_queried": "Apis",
+      "qid": "Q225246",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_heroism",
+      "support_pre": 1,
+      "title_queried": "Heroism",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_haul_off",
+      "support_pre": 1,
+      "title_queried": "Haul off",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ship_product",
+      "support_pre": 1,
+      "title_queried": "Ship product",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_charadrius",
+      "support_pre": 1,
+      "title_queried": "Genus charadrius",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nondisjunction",
+      "support_pre": 1,
+      "title_queried": "Nondisjunction",
+      "qid": "Q1414557",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_both_ears",
+      "support_pre": 1,
+      "title_queried": "Both ears",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_deeper_voice_than_soprano",
+      "support_pre": 1,
+      "title_queried": "Deeper voice than soprano",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_common_fault",
+      "support_pre": 1,
+      "title_queried": "Common fault",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_destroyer_escort",
+      "support_pre": 1,
+      "title_queried": "Destroyer escort",
+      "qid": "Q1499623",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_meronymic",
+      "support_pre": 1,
+      "title_queried": "Meronymic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_antheridiophore",
+      "support_pre": 1,
+      "title_queried": "Antheridiophore",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_essonite",
+      "support_pre": 1,
+      "title_queried": "Essonite",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_balto_slavonic",
+      "support_pre": 1,
+      "title_queried": "Balto slavonic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_grinding_things",
+      "support_pre": 1,
+      "title_queried": "Grinding things",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_isostasy",
+      "support_pre": 1,
+      "title_queried": "Isostasy",
+      "qid": "Q188719",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dunk_shot",
+      "support_pre": 1,
+      "title_queried": "Dunk shot",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_banger",
+      "support_pre": 1,
+      "title_queried": "Banger",
+      "qid": "Q124428522",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_galilean_telescope",
+      "support_pre": 1,
+      "title_queried": "Galilean telescope",
+      "qid": "Q24867267",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_milli_electron_volt",
+      "support_pre": 1,
+      "title_queried": "Milli electron volt",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bringing_back_memories",
+      "support_pre": 1,
+      "title_queried": "Bringing back memories",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_on_your_guard",
+      "support_pre": 1,
+      "title_queried": "On your guard",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pericementoclasia",
+      "support_pre": 1,
+      "title_queried": "Pericementoclasia",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_spirochaetales",
+      "support_pre": 1,
+      "title_queried": "Spirochaetales",
+      "qid": "Q221315",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_luminance",
+      "support_pre": 1,
+      "title_queried": "Luminance",
+      "qid": "Q355386",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_biramous",
+      "support_pre": 1,
+      "title_queried": "Biramous",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_head_covering.n.01",
+      "support_pre": 1,
+      "title_queried": "Head covering",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_scaramouch",
+      "support_pre": 1,
+      "title_queried": "Scaramouch",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_puppyish",
+      "support_pre": 1,
+      "title_queried": "Puppyish",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sulfuretted",
+      "support_pre": 1,
+      "title_queried": "Sulfuretted",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_family_coerebidae",
+      "support_pre": 1,
+      "title_queried": "Family coerebidae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_boy's_pocket",
+      "support_pre": 1,
+      "title_queried": "Boy's pocket",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_congenital_defect",
+      "support_pre": 1,
+      "title_queried": "Congenital defect",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hard_exercise",
+      "support_pre": 1,
+      "title_queried": "Hard exercise",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_investing_in_commercial_development",
+      "support_pre": 1,
+      "title_queried": "Investing in commercial development",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pitch_blackness",
+      "support_pre": 1,
+      "title_queried": "Pitch blackness",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hungarian_grass",
+      "support_pre": 1,
+      "title_queried": "Hungarian grass",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nogging",
+      "support_pre": 1,
+      "title_queried": "Nogging",
+      "qid": "Q7047481",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_exordium",
+      "support_pre": 1,
+      "title_queried": "Exordium",
+      "qid": "Q243058",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_calean",
+      "support_pre": 1,
+      "title_queried": "Calean",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_agave",
+      "support_pre": 1,
+      "title_queried": "Genus agave",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_xanthate",
+      "support_pre": 1,
+      "title_queried": "Xanthate",
+      "qid": "Q417615",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_conversant",
+      "support_pre": 1,
+      "title_queried": "Conversant",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_x_factor",
+      "support_pre": 1,
+      "title_queried": "X factor",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_inuit",
+      "support_pre": 1,
+      "title_queried": "Inuit",
+      "qid": "Q189975",
+      "missing": false,
+      "quantity_props": [
+        "P1082"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_rubens",
+      "support_pre": 1,
+      "title_queried": "Rubens",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pelvic_fin",
+      "support_pre": 1,
+      "title_queried": "Pelvic fin",
+      "qid": "Q3335089",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_at_work_on_time",
+      "support_pre": 1,
+      "title_queried": "At work on time",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_millenniumism",
+      "support_pre": 1,
+      "title_queried": "Millenniumism",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_helleborus",
+      "support_pre": 1,
+      "title_queried": "Genus helleborus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_voting_record_of_politician",
+      "support_pre": 1,
+      "title_queried": "Voting record of politician",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_degrease",
+      "support_pre": 1,
+      "title_queried": "Degrease",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_colourize",
+      "support_pre": 1,
+      "title_queried": "Colourize",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_smudge.n.02",
+      "support_pre": 1,
+      "title_queried": "Smudge",
+      "qid": "Q11253479",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_millivoltmeter",
+      "support_pre": 1,
+      "title_queried": "Millivoltmeter",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_back_candidate",
+      "support_pre": 1,
+      "title_queried": "Back candidate",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_feebly",
+      "support_pre": 1,
+      "title_queried": "Feebly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_second_violin",
+      "support_pre": 1,
+      "title_queried": "Second violin",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ogle",
+      "support_pre": 1,
+      "title_queried": "Ogle",
+      "qid": "Q253429",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dialectics",
+      "support_pre": 1,
+      "title_queried": "Dialectics",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_buy_organic_foods",
+      "support_pre": 1,
+      "title_queried": "Buy organic foods",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_just_now",
+      "support_pre": 1,
+      "title_queried": "Just now",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_major_cause_of_pollution",
+      "support_pre": 1,
+      "title_queried": "Major cause of pollution",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hound_dog",
+      "support_pre": 1,
+      "title_queried": "Hound dog",
+      "qid": "Q341682",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_defenestration",
+      "support_pre": 1,
+      "title_queried": "Defenestration",
+      "qid": "Q220277",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sport_coat",
+      "support_pre": 1,
+      "title_queried": "Sport coat",
+      "qid": "Q55400351",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_investment_letter",
+      "support_pre": 1,
+      "title_queried": "Investment letter",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_spaceships",
+      "support_pre": 1,
+      "title_queried": "Spaceships",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "FN_Sign_agreement",
+      "support_pre": 1,
+      "title_queried": "Sign agreement",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gormandize",
+      "support_pre": 1,
+      "title_queried": "Gormandize",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_kazoo",
+      "support_pre": 1,
+      "title_queried": "Kazoo",
+      "qid": "Q483994",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_qepiq",
+      "support_pre": 1,
+      "title_queried": "Qepiq",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cephaloridine",
+      "support_pre": 1,
+      "title_queried": "Cephaloridine",
+      "qid": "Q5063323",
+      "missing": false,
+      "quantity_props": [
+        "P2067",
+        "P4250"
+      ],
+      "hit": true,
+      "crosses_threshold": true
+    },
+    {
+      "entity_id": "CN_happy_event",
+      "support_pre": 1,
+      "title_queried": "Happy event",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_robert_frost",
+      "support_pre": 1,
+      "title_queried": "Robert frost",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_chicken_cordon_bleu",
+      "support_pre": 1,
+      "title_queried": "Chicken cordon bleu",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_mono-iodotyrosine.n.01",
+      "support_pre": 1,
+      "title_queried": "Mono-iodotyrosine",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_family_cardiidae",
+      "support_pre": 1,
+      "title_queried": "Family cardiidae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_alameda",
+      "support_pre": 1,
+      "title_queried": "Alameda",
+      "qid": "Q247989",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_robotlike",
+      "support_pre": 1,
+      "title_queried": "Robotlike",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cackly",
+      "support_pre": 1,
+      "title_queried": "Cackly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gun_barrel",
+      "support_pre": 1,
+      "title_queried": "Gun barrel",
+      "qid": "Q487192",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sylphlike",
+      "support_pre": 1,
+      "title_queried": "Sylphlike",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_misshapen",
+      "support_pre": 1,
+      "title_queried": "Misshapen",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_kosovar",
+      "support_pre": 1,
+      "title_queried": "Kosovar",
+      "qid": "Q19893891",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_2_dimensional",
+      "support_pre": 1,
+      "title_queried": "2 dimensional",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_eat_kosher_food",
+      "support_pre": 1,
+      "title_queried": "Eat kosher food",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_demasculinize",
+      "support_pre": 1,
+      "title_queried": "Demasculinize",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_dire_straits",
+      "support_pre": 1,
+      "title_queried": "Dire straits",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_capital_of_ohio",
+      "support_pre": 1,
+      "title_queried": "Capital of ohio",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_kadikoy",
+      "support_pre": 1,
+      "title_queried": "Kadikoy",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_curvilineal",
+      "support_pre": 1,
+      "title_queried": "Curvilineal",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "FN_Nuclear_process",
+      "support_pre": 1,
+      "title_queried": "Nuclear process",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_oryza_sativa",
+      "support_pre": 1,
+      "title_queried": "Oryza sativa",
+      "qid": "Q161426",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_double_team",
+      "support_pre": 1,
+      "title_queried": "Double team",
+      "qid": "Q3493567",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_postmodern",
+      "support_pre": 1,
+      "title_queried": "Postmodern",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_red_gray",
+      "support_pre": 1,
+      "title_queried": "Red gray",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_illicit",
+      "support_pre": 1,
+      "title_queried": "Illicit",
+      "qid": "Q5999164",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_silver_sagebrush",
+      "support_pre": 1,
+      "title_queried": "Silver sagebrush",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_greaser",
+      "support_pre": 1,
+      "title_queried": "Greaser",
+      "qid": "Q5598579",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_isherwood",
+      "support_pre": 1,
+      "title_queried": "Isherwood",
+      "qid": "Q1673874",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_show_toy_to_friend",
+      "support_pre": 1,
+      "title_queried": "Show toy to friend",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_boone",
+      "support_pre": 1,
+      "title_queried": "Boone",
+      "qid": "Q296601",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_campong",
+      "support_pre": 1,
+      "title_queried": "Campong",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_aristotelic",
+      "support_pre": 1,
+      "title_queried": "Aristotelic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_chomping",
+      "support_pre": 1,
+      "title_queried": "Chomping",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_open_sight",
+      "support_pre": 1,
+      "title_queried": "Open sight",
+      "qid": "Q11853690",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nineteenth_amendment",
+      "support_pre": 1,
+      "title_queried": "Nineteenth amendment",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_slow_down_traffic",
+      "support_pre": 1,
+      "title_queried": "Slow down traffic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_baling_wire",
+      "support_pre": 1,
+      "title_queried": "Baling wire",
+      "qid": "Q4581084",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_high_flown",
+      "support_pre": 1,
+      "title_queried": "High flown",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_outta",
+      "support_pre": 1,
+      "title_queried": "Outta",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_family_thiobacteriaceae",
+      "support_pre": 1,
+      "title_queried": "Family thiobacteriaceae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_potato_wart",
+      "support_pre": 1,
+      "title_queried": "Potato wart",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sign_bill",
+      "support_pre": 1,
+      "title_queried": "Sign bill",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_paraguayan",
+      "support_pre": 1,
+      "title_queried": "Paraguayan",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_boasting",
+      "support_pre": 1,
+      "title_queried": "Boasting",
+      "qid": "Q2663273",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_you_wish",
+      "support_pre": 1,
+      "title_queried": "You wish",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_non_discrimination",
+      "support_pre": 1,
+      "title_queried": "Non discrimination",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bed_clothing",
+      "support_pre": 1,
+      "title_queried": "Bed clothing",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_climatologist",
+      "support_pre": 1,
+      "title_queried": "Climatologist",
+      "qid": "Q1113838",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_write_programs",
+      "support_pre": 1,
+      "title_queried": "Write programs",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_shoe_repairing",
+      "support_pre": 1,
+      "title_queried": "Shoe repairing",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_one-half.n.01",
+      "support_pre": 1,
+      "title_queried": "One-half",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_family_leporidae",
+      "support_pre": 1,
+      "title_queried": "Family leporidae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_circumfuse",
+      "support_pre": 1,
+      "title_queried": "Circumfuse",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_yellow_mariposa_tulip",
+      "support_pre": 1,
+      "title_queried": "Yellow mariposa tulip",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rechargeable",
+      "support_pre": 1,
+      "title_queried": "Rechargeable",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cost_accounting",
+      "support_pre": 1,
+      "title_queried": "Cost accounting",
+      "qid": "Q1077518",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sondheim",
+      "support_pre": 1,
+      "title_queried": "Sondheim",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_potential_energy.n.01",
+      "support_pre": 1,
+      "title_queried": "Potential energy",
+      "qid": "Q155640",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_in_style",
+      "support_pre": 1,
+      "title_queried": "In style",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_round_shot",
+      "support_pre": 1,
+      "title_queried": "Round shot",
+      "qid": "Q1723884",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_apple_tree_in",
+      "support_pre": 1,
+      "title_queried": "Apple tree in",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_wainscoted",
+      "support_pre": 1,
+      "title_queried": "Wainscoted",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_benvenuto_cellini",
+      "support_pre": 1,
+      "title_queried": "Benvenuto cellini",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_clown_fish",
+      "support_pre": 1,
+      "title_queried": "Clown fish",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_approved",
+      "support_pre": 1,
+      "title_queried": "Approved",
+      "qid": "Q20996488",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pretermit",
+      "support_pre": 1,
+      "title_queried": "Pretermit",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_good_tempered",
+      "support_pre": 1,
+      "title_queried": "Good tempered",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_araucaria_araucana",
+      "support_pre": 1,
+      "title_queried": "Araucaria araucana",
+      "qid": "Q158780",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_flowering_glume",
+      "support_pre": 1,
+      "title_queried": "Flowering glume",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sifting",
+      "support_pre": 1,
+      "title_queried": "Sifting",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_entrails",
+      "support_pre": 1,
+      "title_queried": "Entrails",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_contact.n.02",
+      "support_pre": 1,
+      "title_queried": "Contact",
+      "qid": "Q394963",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cauliflower_ear",
+      "support_pre": 1,
+      "title_queried": "Cauliflower ear",
+      "qid": "Q886261",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_inbuilt",
+      "support_pre": 1,
+      "title_queried": "Inbuilt",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_korean_velvet_grass",
+      "support_pre": 1,
+      "title_queried": "Korean velvet grass",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_battle_of_guadalcanal",
+      "support_pre": 1,
+      "title_queried": "Battle of guadalcanal",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pinnace",
+      "support_pre": 1,
+      "title_queried": "Pinnace",
+      "qid": "Q19848762",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_legal_power.n.01",
+      "support_pre": 1,
+      "title_queried": "Legal power",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_clovis_i",
+      "support_pre": 1,
+      "title_queried": "Clovis i",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_axeblade",
+      "support_pre": 1,
+      "title_queried": "Axeblade",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_freight_rate",
+      "support_pre": 1,
+      "title_queried": "Freight rate",
+      "qid": "Q927345",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_black_body.n.01",
+      "support_pre": 1,
+      "title_queried": "Black body",
+      "qid": "Q161424",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_solid_colored",
+      "support_pre": 1,
+      "title_queried": "Solid colored",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nag_hammadi_library",
+      "support_pre": 1,
+      "title_queried": "Nag hammadi library",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sun_ray",
+      "support_pre": 1,
+      "title_queried": "Sun ray",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_extended_order",
+      "support_pre": 1,
+      "title_queried": "Extended order",
+      "qid": "Q5421892",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_picture_tube",
+      "support_pre": 1,
+      "title_queried": "Picture tube",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_poikilothermic",
+      "support_pre": 1,
+      "title_queried": "Poikilothermic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_hibbertia",
+      "support_pre": 1,
+      "title_queried": "Genus hibbertia",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_time_limit",
+      "support_pre": 1,
+      "title_queried": "Time limit",
+      "qid": "Q1465133",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nonresistant",
+      "support_pre": 1,
+      "title_queried": "Nonresistant",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_amyloidal",
+      "support_pre": 1,
+      "title_queried": "Amyloidal",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sulphurette",
+      "support_pre": 1,
+      "title_queried": "Sulphurette",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ferrocerium",
+      "support_pre": 1,
+      "title_queried": "Ferrocerium",
+      "qid": "Q759260",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_guinea_gold_vine",
+      "support_pre": 1,
+      "title_queried": "Guinea gold vine",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_silk_stocking",
+      "support_pre": 1,
+      "title_queried": "Silk stocking",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_nervus_radialis",
+      "support_pre": 1,
+      "title_queried": "Nervus radialis",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_air_to_air_missile",
+      "support_pre": 1,
+      "title_queried": "Air to air missile",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_subdivision_deuteromycotina",
+      "support_pre": 1,
+      "title_queried": "Subdivision deuteromycotina",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_deceiving",
+      "support_pre": 1,
+      "title_queried": "Deceiving",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pinafore",
+      "support_pre": 1,
+      "title_queried": "Pinafore",
+      "qid": "Q3247116",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sugar_apple",
+      "support_pre": 1,
+      "title_queried": "Sugar apple",
+      "qid": "Q6648683",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cazique",
+      "support_pre": 1,
+      "title_queried": "Cazique",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cephalometry",
+      "support_pre": 1,
+      "title_queried": "Cephalometry",
+      "qid": "Q2418904",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_plan.n.03",
+      "support_pre": 1,
+      "title_queried": "Plan",
+      "qid": "Q1371819",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_negotiatrix",
+      "support_pre": 1,
+      "title_queried": "Negotiatrix",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_william_congreve",
+      "support_pre": 1,
+      "title_queried": "William congreve",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bibliomania",
+      "support_pre": 1,
+      "title_queried": "Bibliomania",
+      "qid": "Q856396",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_family_myliobatidae",
+      "support_pre": 1,
+      "title_queried": "Family myliobatidae",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_antiredeposition",
+      "support_pre": 1,
+      "title_queried": "Antiredeposition",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sodomist",
+      "support_pre": 1,
+      "title_queried": "Sodomist",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_oxime",
+      "support_pre": 1,
+      "title_queried": "Oxime",
+      "qid": "Q182738",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cryptogam",
+      "support_pre": 1,
+      "title_queried": "Cryptogam",
+      "qid": "Q333458",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_haematopoietic",
+      "support_pre": 1,
+      "title_queried": "Haematopoietic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_diaghilev",
+      "support_pre": 1,
+      "title_queried": "Diaghilev",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_irregularly",
+      "support_pre": 1,
+      "title_queried": "Irregularly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_meliorist",
+      "support_pre": 1,
+      "title_queried": "Meliorist",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_incurably",
+      "support_pre": 1,
+      "title_queried": "Incurably",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_comes_in_cubes",
+      "support_pre": 1,
+      "title_queried": "Comes in cubes",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_st_lucia",
+      "support_pre": 1,
+      "title_queried": "St lucia",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_st_bridget",
+      "support_pre": 1,
+      "title_queried": "St bridget",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rissole",
+      "support_pre": 1,
+      "title_queried": "Rissole",
+      "qid": "Q2991822",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hairstreak_butterfly",
+      "support_pre": 1,
+      "title_queried": "Hairstreak butterfly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_stopping_bleeding",
+      "support_pre": 1,
+      "title_queried": "Stopping bleeding",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_acellular",
+      "support_pre": 1,
+      "title_queried": "Acellular",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_jagganath",
+      "support_pre": 1,
+      "title_queried": "Jagganath",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_spring_to_mind",
+      "support_pre": 1,
+      "title_queried": "Spring to mind",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_mess.n.01",
+      "support_pre": 1,
+      "title_queried": "Mess",
+      "qid": "Q113695405",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_immunized",
+      "support_pre": 1,
+      "title_queried": "Immunized",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gillespie",
+      "support_pre": 1,
+      "title_queried": "Gillespie",
+      "qid": "Q401716",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_augmented_by_benefits",
+      "support_pre": 1,
+      "title_queried": "Augmented by benefits",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_handling_cost",
+      "support_pre": 1,
+      "title_queried": "Handling cost",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_mary_martin",
+      "support_pre": 1,
+      "title_queried": "Mary martin",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_overcultivate",
+      "support_pre": 1,
+      "title_queried": "Overcultivate",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_storing_bicycle",
+      "support_pre": 1,
+      "title_queried": "Storing bicycle",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_rhomboidal",
+      "support_pre": 1,
+      "title_queried": "Rhomboidal",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sabbatum",
+      "support_pre": 1,
+      "title_queried": "Sabbatum",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hypericum_maculatum",
+      "support_pre": 1,
+      "title_queried": "Hypericum maculatum",
+      "qid": "Q162486",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_price_increase",
+      "support_pre": 1,
+      "title_queried": "Price increase",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_oenothera_biennis",
+      "support_pre": 1,
+      "title_queried": "Oenothera biennis",
+      "qid": "Q157353",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_american_wisteria",
+      "support_pre": 1,
+      "title_queried": "American wisteria",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_mitella",
+      "support_pre": 1,
+      "title_queried": "Mitella",
+      "qid": "Q144225",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_criterial",
+      "support_pre": 1,
+      "title_queried": "Criterial",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sarcoid",
+      "support_pre": 1,
+      "title_queried": "Sarcoid",
+      "qid": "Q7423589",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_olefine",
+      "support_pre": 1,
+      "title_queried": "Olefine",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_irritative",
+      "support_pre": 1,
+      "title_queried": "Irritative",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_amphistylar",
+      "support_pre": 1,
+      "title_queried": "Amphistylar",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_male_hypogonadism",
+      "support_pre": 1,
+      "title_queried": "Male hypogonadism",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_screw_eye",
+      "support_pre": 1,
+      "title_queried": "Screw eye",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_95",
+      "support_pre": 1,
+      "title_queried": "95",
+      "qid": "Q1166413",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gravitons",
+      "support_pre": 1,
+      "title_queried": "Gravitons",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_mussitation",
+      "support_pre": 1,
+      "title_queried": "Mussitation",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_centrolobium",
+      "support_pre": 1,
+      "title_queried": "Genus centrolobium",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_brownish",
+      "support_pre": 1,
+      "title_queried": "Brownish",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_winter_mushroom",
+      "support_pre": 1,
+      "title_queried": "Winter mushroom",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sweet_grass",
+      "support_pre": 1,
+      "title_queried": "Sweet grass",
+      "qid": "Q7655619",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_running_suit",
+      "support_pre": 1,
+      "title_queried": "Running suit",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_panty",
+      "support_pre": 1,
+      "title_queried": "Panty",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_pinus_palustris",
+      "support_pre": 1,
+      "title_queried": "Pinus palustris",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_electoral_system",
+      "support_pre": 1,
+      "title_queried": "Electoral system",
+      "qid": "Q182985",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_meandering",
+      "support_pre": 1,
+      "title_queried": "Meandering",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_mores",
+      "support_pre": 1,
+      "title_queried": "Mores",
+      "qid": "Q1115221",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_electrocardiograph",
+      "support_pre": 1,
+      "title_queried": "Electrocardiograph",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ropiness",
+      "support_pre": 1,
+      "title_queried": "Ropiness",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_emerson",
+      "support_pre": 1,
+      "title_queried": "Emerson",
+      "qid": "Q224022",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_generics",
+      "support_pre": 1,
+      "title_queried": "Generics",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_spartina_cynosuroides",
+      "support_pre": 1,
+      "title_queried": "Spartina cynosuroides",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_sensitivity.n.02",
+      "support_pre": 1,
+      "title_queried": "Sensitivity",
+      "qid": "Q1339274",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_numerous",
+      "support_pre": 1,
+      "title_queried": "Numerous",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_barbecuing",
+      "support_pre": 1,
+      "title_queried": "Barbecuing",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_hyalophora_cecropia",
+      "support_pre": 1,
+      "title_queried": "Hyalophora cecropia",
+      "qid": "Q142322",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_fissurella",
+      "support_pre": 1,
+      "title_queried": "Genus fissurella",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_finger_bar",
+      "support_pre": 1,
+      "title_queried": "Finger bar",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_chondritic",
+      "support_pre": 1,
+      "title_queried": "Chondritic",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_bacca",
+      "support_pre": 1,
+      "title_queried": "Bacca",
+      "qid": "Q798009",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_organisms",
+      "support_pre": 1,
+      "title_queried": "Organisms",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_la_fayette",
+      "support_pre": 1,
+      "title_queried": "La fayette",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_discount_store",
+      "support_pre": 1,
+      "title_queried": "Discount store",
+      "qid": "Q261428",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_heroin_addict",
+      "support_pre": 1,
+      "title_queried": "Heroin addict",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_ranunculus_repens",
+      "support_pre": 1,
+      "title_queried": "Ranunculus repens",
+      "qid": "Q213356",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_cold_war",
+      "support_pre": 1,
+      "title_queried": "Cold war",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "WN_street.n.01",
+      "support_pre": 1,
+      "title_queried": "Street",
+      "qid": "Q79007",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_platitudinize",
+      "support_pre": 1,
+      "title_queried": "Platitudinize",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_duramen",
+      "support_pre": 1,
+      "title_queried": "Duramen",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_self_absorbed",
+      "support_pre": 1,
+      "title_queried": "Self absorbed",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_sore_side",
+      "support_pre": 1,
+      "title_queried": "Sore side",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_diplomate",
+      "support_pre": 1,
+      "title_queried": "Diplomate",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_multiversity",
+      "support_pre": 1,
+      "title_queried": "Multiversity",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_potassium_hydrogen_carbonate",
+      "support_pre": 1,
+      "title_queried": "Potassium hydrogen carbonate",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_regalecus",
+      "support_pre": 1,
+      "title_queried": "Genus regalecus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_flagellated_protozoan",
+      "support_pre": 1,
+      "title_queried": "Flagellated protozoan",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_building_farm_on",
+      "support_pre": 1,
+      "title_queried": "Building farm on",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_scolopax",
+      "support_pre": 1,
+      "title_queried": "Genus scolopax",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_shamelessly",
+      "support_pre": 1,
+      "title_queried": "Shamelessly",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_genus_notemigonus",
+      "support_pre": 1,
+      "title_queried": "Genus notemigonus",
+      "qid": null,
+      "missing": true,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    },
+    {
+      "entity_id": "CN_gaskell",
+      "support_pre": 1,
+      "title_queried": "Gaskell",
+      "qid": "Q21506913",
+      "missing": false,
+      "quantity_props": [],
+      "hit": false,
+      "crosses_threshold": false
+    }
+  ]
+}
