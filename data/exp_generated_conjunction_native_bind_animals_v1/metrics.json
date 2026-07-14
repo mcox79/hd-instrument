@@ -1,0 +1,153 @@
+{
+  "verdict": "GENERATED_CONJUNCTION_PREMISE_REFUTED_OR_NOT_ADDITIVE",
+  "verdict_msg": "GENERATED_CONJUNCTION_PREMISE_REFUTED_OR_NOT_ADDITIVE || n=191 truth=0.9005(>=0.85=True) | CONJ: joint_mi=1.884 best_single=1.111 margin=0.773(>=0.15=True) singles={'body_size': 0.1758, 'habitat_temperature': 0.1386, 'activity_level': 1.1109, 'diet_richness': 0.1114} | CLEAN_REAL novel: NBIND=0.1592 FREQ_NULL=0.5108 diss=-0.3515(>=0.15=False) MEMO=0.3966 ORACLE=1.0000 | ARBITRARY(mf): gap=0.0495(<=0.05) SHUFFLE(mf): gap=-0.1017(<=0.05) mustfails_fire=True ceiling_ok=True",
+  "summary": "GENERATED_CONJUNCTION_PREMISE_REFUTED_OR_NOT_ADDITIVE || n=191 truth=0.9005(>=0.85=True) | CONJ: joint_mi=1.884 best_single=1.111 margin=0.773(>=0.15=True) singles={'body_size': 0.1758, 'habitat_tempe",
+  "run_mode": "local_measure",
+  "elapsed_s": 0.11487110005691648,
+  "anchor_name": "generated_conjunction_native_bind_animals_v1",
+  "ts_iso": "2026-07-14T23:31:18.115752+00:00",
+  "n_entities": 191,
+  "truth_rate": 0.900523560209424,
+  "n_judged": 191,
+  "n_true": 172,
+  "seeds": [
+    7,
+    13,
+    17
+  ],
+  "n_dim": 1024,
+  "L": 5,
+  "conjunction": {
+    "single_mi": {
+      "body_size": 0.1758,
+      "habitat_temperature": 0.1386,
+      "activity_level": 1.1109,
+      "diet_richness": 0.1114
+    },
+    "best_single_mi": 1.1109,
+    "joint_mi": 1.8842,
+    "mi_margin": 0.7733
+  },
+  "gates": {
+    "conj_present": true,
+    "truth_ok": true,
+    "generalizes": false,
+    "mustfails_fire": true,
+    "ceiling_ok": true,
+    "hard_pass": false,
+    "refute": true
+  },
+  "clean": {
+    "native_bind": 0.15923,
+    "freq_null": 0.51077,
+    "dissociation": -0.35154,
+    "memorize": 0.39663,
+    "oracle": 1.0
+  },
+  "arbitrary": {
+    "gap": 0.04953,
+    "native_bind": 0.23418,
+    "freq_null": 0.18465
+  },
+  "shuffle": {
+    "gap": -0.10167,
+    "native_bind": 0.21659,
+    "pop": 0.31826
+  },
+  "bands": {
+    "HP_MI_MARGIN": 0.15,
+    "HP_TRUTH": 0.85,
+    "HP_DISSOCIATION": 0.15,
+    "MUSTFAIL_TOL": 0.05,
+    "REFUTE_TOL": 0.05
+  },
+  "per_seed": [
+    {
+      "CLEAN_REAL": {
+        "NATIVE_BIND": 0.07547,
+        "HOMOPHILY_COND": 0.58491,
+        "MEMORIZE": 0.41509,
+        "POP": 0.41509,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.58491,
+        "n": 53
+      },
+      "ARBITRARY": {
+        "NATIVE_BIND": 0.37736,
+        "HOMOPHILY_COND": 0.09434,
+        "MEMORIZE": 0.11321,
+        "POP": 0.11321,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.11321,
+        "n": 53
+      },
+      "SHUFFLE": {
+        "NATIVE_BIND": 0.20755,
+        "HOMOPHILY_COND": 0.35849,
+        "MEMORIZE": 0.35849,
+        "POP": 0.35849,
+        "ORACLE": 0.28302,
+        "FREQ_NULL": 0.35849,
+        "n": 53
+      }
+    },
+    {
+      "CLEAN_REAL": {
+        "NATIVE_BIND": 0.18,
+        "HOMOPHILY_COND": 0.54,
+        "MEMORIZE": 0.46,
+        "POP": 0.46,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.54,
+        "n": 50
+      },
+      "ARBITRARY": {
+        "NATIVE_BIND": 0.14,
+        "HOMOPHILY_COND": 0.2,
+        "MEMORIZE": 0.2,
+        "POP": 0.2,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.2,
+        "n": 50
+      },
+      "SHUFFLE": {
+        "NATIVE_BIND": 0.22,
+        "HOMOPHILY_COND": 0.3,
+        "MEMORIZE": 0.3,
+        "POP": 0.3,
+        "ORACLE": 0.24,
+        "FREQ_NULL": 0.3,
+        "n": 50
+      }
+    },
+    {
+      "CLEAN_REAL": {
+        "NATIVE_BIND": 0.22222,
+        "HOMOPHILY_COND": 0.40741,
+        "MEMORIZE": 0.31481,
+        "POP": 0.31481,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.40741,
+        "n": 54
+      },
+      "ARBITRARY": {
+        "NATIVE_BIND": 0.18519,
+        "HOMOPHILY_COND": 0.24074,
+        "MEMORIZE": 0.18519,
+        "POP": 0.18519,
+        "ORACLE": 1.0,
+        "FREQ_NULL": 0.24074,
+        "n": 54
+      },
+      "SHUFFLE": {
+        "NATIVE_BIND": 0.22222,
+        "HOMOPHILY_COND": 0.25926,
+        "MEMORIZE": 0.2963,
+        "POP": 0.2963,
+        "ORACLE": 0.2963,
+        "FREQ_NULL": 0.2963,
+        "n": 54
+      }
+    }
+  ]
+}
