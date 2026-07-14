@@ -76,7 +76,7 @@ firewall/rate-limit/DNS could differ from the authoring environment). The
 500-entity join was performed ONCE, interactively, with an internet-capable
 Bash session, with retries and a scramble-control sanity check (below), and
 the full result is committed at
-`data/exp_grounded_ingest_tail_join_v1/wikidata_tail_join_snapshot_500.json`
+`data/exp_grounded_ingest_tail_join_v1/provenance.json`
 (full provenance block: fetch method, endpoint, per-entity title/QID/claim
 result, scramble-control repeats). The CELL recomputes the tail sample
 IDENTICALLY from the committed `concept/relations.jsonl` (present in the
@@ -87,7 +87,7 @@ reproduction of a real, already-measured join, not a live network call.
 
 ## MEASURED result (this session, direct join, not simulated)
 
-- **Join hit-rate: 9/500 = 1.80%** MEASURED@`data/exp_grounded_ingest_tail_join_v1/wikidata_tail_join_snapshot_500.json:results`
+- **Join hit-rate: 9/500 = 1.80%** MEASURED@`data/exp_grounded_ingest_tail_join_v1/provenance.json:results`
   (hit = exact enwiki-title match to a live QID AND that QID carries >=1
   claim with `mainsnak.datatype == "quantity"`, e.g. P2067 mass, P2046 area,
   P1082 population -- genuine numeric-literal claims, not identifier claims).

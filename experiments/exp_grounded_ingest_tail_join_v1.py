@@ -41,7 +41,7 @@ What this measures (NOT a training run -- a data-join measurement):
 Network-free at cell runtime: the actual Wikidata join was performed once,
 interactively, with retries + a scramble-control sanity check; the full
 result is committed at
-data/exp_grounded_ingest_tail_join_v1/wikidata_tail_join_snapshot_500.json.
+data/exp_grounded_ingest_tail_join_v1/provenance.json.
 This cell RECOMPUTES the tail sample identically from the committed
 relations.jsonl and cross-validates entity-for-entity identity against the
 cached snapshot before trusting it -- a mismatch is a HARD_FAIL, not a
@@ -69,7 +69,7 @@ ANCHOR_NAME = "grounded_ingest_tail_join_v1"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RELATIONS_PATH = REPO_ROOT / "data" / "substrate_index" / "concept" / "relations.jsonl"
 SNAPSHOT_PATH = (REPO_ROOT / "data" / "exp_grounded_ingest_tail_join_v1"
-                 / "wikidata_tail_join_snapshot_500.json")
+                 / "provenance.json")
 EXPECTED_SOURCE_SHA256 = "d88acf2055fd986d67ea26eb79481bdf172f3284207e26f4679795fb73790e6d"
 
 SAMPLE_SEED_PREFIX = "SEED42_LEXICAL_TAIL::"

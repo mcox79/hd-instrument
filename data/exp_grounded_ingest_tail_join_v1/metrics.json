@@ -2,11 +2,11 @@
   "anchor_name": "grounded_ingest_tail_join_v1",
   "version": "v1",
   "run_mode": "full",
-  "dispatched_ts": "2026-07-14T12:37:55.510368+00:00",
+  "dispatched_ts": "2026-07-14T12:40:14.002353+00:00",
   "verdict": "HARD_FAIL",
   "verdict_msg": "HARD_FAIL: join hit-rate 1.80% < 5% floor. Bulk measured-numeric sources (Wikidata quantity claims) do not reach this substrate's sparse tail via exact-ID join; the tail is dominated by entities with no measured-data analog (proper nouns, rare taxonomic leaves, abstract relations). Do NOT build the literal-fusion pipeline (Phase 1-3) on this basis; the next grounding channel to try is gloss/definition text (WordNet/Wiktionary), not numeric literals.",
   "summary": "HARD_FAIL: hit_rate=0.0180 (9/500), cross_frac=1.0000, source_sha256_match=True",
-  "elapsed_s": 0.755,
+  "elapsed_s": 0.529,
   "configs": {
     "sample_size": 500,
     "sample_seed_prefix": "SEED42_LEXICAL_TAIL::",
