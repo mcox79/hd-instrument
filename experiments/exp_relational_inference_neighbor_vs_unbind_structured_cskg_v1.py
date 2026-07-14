@@ -159,15 +159,29 @@ ST_NEIGHBOR_BEATS_UNBIND = 0.03  # random codes: RANDOM_NEIGHBOR mrr - RANDOM_UN
 ST_SHUFFLE_COLLAPSE = 0.01    # SHUFFLE_NEIGHBOR - POP <= this on the planted arena (one-sided; below-marginal is OK)
 ST_STRUCT_NOVEL_GAIN = 0.02   # planted: SN_valsim - RN_valsim on NOVEL >= this (structure adds on novel, graded;
                               #          on the planted arena RANDOM sits at value_sim=0.0 so 0.02 needs genuine structure)
+SPLIT_SIZING_MARGIN = 1.5     # self-test: the MEMSMOKE-scale held-out split must clear MEMSMOKE min_query by >= this
+                              #            factor (guards the 2026-07-14 n_query<min_query fast-fail locally)
 
 SCORE_CHUNK = 512
 
 # Config profiles. SELFTEST/MEMSMOKE/FULL exercise the SAME split->fit->bundle->readout->stratify->verdict path.
 SELFTEST_CFG = dict(mode="synthetic", n_dim=256, k=8, epochs=120, n_neg=32, batch=2048, neg_chunk=16,
                     m_nn=15, k_min_rel=3, match_min=2, seeds=[7])
+# MEMSMOKE reduced-core sizing (config-only fix 2026-07-14): the prior (cskg_max_lines=150000, k_core=6,
+# cskg_max_nodes=800) streamed too few CSKG lines -> only 7 relation tokens survived and the k=6 core collapsed to
+# 224 nodes, so almost no head had k_min_rel=4 distinct relations to donate a held-out edge -> n_query=9 < min_query
+# -> the L~925 guard fast-failed the MEMSMOKE (exit=1, ~15s). ROOT: cskg_max_lines (relation diversity), NOT the node
+# cap (800 was never binding; the k-core was already 224<800). Random node-capping (build_cskg_core_triples samples
+# max_nodes nodes) DESTROYS density, so cskg_max_nodes=0 (no cap) keeps the reduced core dense. Chosen values were
+# calibrated by a read-only structural probe (NO fit / NO scoring / NO CSKG experiment run) over the on-disk
+# cskg.tsv.gz: at cskg_max_lines=600000, k_core=5, cskg_max_nodes=0 -> core_nodes=2869 core_edges=38183 rels=20 and
+# n_query(dense heads)=254 = 2.5x the FULL-parity min_query=100 (comfortable margin; not borderline). Still ~10x
+# smaller/lighter than FULL (all lines, k_core=12, n_dim=1024, k=24, epochs=500, 3 seeds), so it stays a de-risk
+# smoke. n_query=254 MEASURED@read-only structural calibration 2026-07-14 (build_cskg_core_triples +
+# build_heldout_relation_split, seed 7).
 MEMSMOKE_CFG = dict(mode="cskg", n_dim=512, k=16, epochs=200, n_neg=64, batch=4096, neg_chunk=16, ckpt_every=25,
-                    m_nn=15, k_min_rel=4, match_min=2, cskg_max_lines=150000, k_core=6, cskg_max_nodes=800,
-                    n_query_cap=1500, min_query=40, seeds=[7])
+                    m_nn=15, k_min_rel=4, match_min=2, cskg_max_lines=600000, k_core=5, cskg_max_nodes=0,
+                    n_query_cap=1500, min_query=100, seeds=[7])
 FULL_CFG = dict(mode="cskg", n_dim=1024, k=24, epochs=500, n_neg=128, batch=8192, neg_chunk=16, ckpt_every=20,
                 m_nn=25, k_min_rel=4, match_min=2, cskg_max_lines=0, k_core=12, cskg_max_nodes=0,
                 n_query_cap=3000, min_query=100, seeds=[7, 13, 17])
@@ -750,6 +764,60 @@ def build_planted_kind_arena(seed, n_concept=500, n_kind=8, n_rel=6, vals_per_re
 
 
 # ---------------------------------------------------------------------------
+# Synthetic reduced-core for the MEMSMOKE split-sizing self-test (no torch / no CSKG).
+# ---------------------------------------------------------------------------
+
+def build_synthetic_reduced_core(seed, n_concept, n_rel, dense_frac, rels_dense, rels_sparse, vals_per_rel=24):
+    """A synthetic reduced-core graph -> (h,r,t) label triples, calibrated to the MEASURED real MEMSMOKE CSKG core
+    (core_nodes~2869, dense-head-frac~0.09, n_rel~20 at cskg_max_lines=600000/k_core=5;
+    MEASURED@read-only structural calibration 2026-07-14). Each concept emits one tail per chosen relation (tails
+    from a shared per-relation vocab). A concept is a DENSE head (donates a held-out query edge) iff it has
+    >= k_min_rel distinct relations, so n_query ~ dense_frac * n_concept. Deterministic per seed."""
+    rng = np.random.default_rng(seed * 100057 + 3)
+    edges = []
+    for c in range(n_concept):
+        is_dense = bool(rng.random() < dense_frac)
+        nrel_c = min(rels_dense if is_dense else rels_sparse, n_rel)
+        chosen = rng.choice(n_rel, size=nrel_c, replace=False).tolist()
+        for r in chosen:
+            vi = int(rng.integers(vals_per_rel))
+            edges.append(("c%d" % c, "r%d" % r, "r%dv%d" % (r, vi)))
+    return list(dict.fromkeys(edges))
+
+
+def selftest_memsmoke_split_sizing():
+    """LOCAL guard for the 2026-07-14 MEMSMOKE fast-fail ("held-out query edges too few (%d)" < min_query at the
+    core_main guard): actually BUILD the MEMSMOKE held-out split (build_heldout_relation_split, the REAL split code
+    path) on a realistic-sized synthetic reduced-core calibrated to the measured real MEMSMOKE core, and ASSERT
+    n_query clears MEMSMOKE min_query with margin. Also asserts the split correctly UNDER-produces on a
+    deliberately-sparse core (reproduces the old cskg_max_lines=150000/k_core=6 collapse: ~9 dense heads) so the
+    guard is not vacuous. No torch, no CSKG stream, no metrics -> no-local-smokes safe (pure split machinery)."""
+    cfg = MEMSMOKE_CFG
+    k_min_rel = cfg["k_min_rel"]
+    min_query = cfg["min_query"]
+    ncap = cfg.get("n_query_cap", 0)
+    required = int(min_query * SPLIT_SIZING_MARGIN)
+    # POSITIVE: MEMSMOKE-scale core (mirrors measured real: ~2800 concepts, ~10% dense heads, 20 relations).
+    pool_pos = build_synthetic_reduced_core(7, n_concept=2800, n_rel=20, dense_frac=0.10,
+                                            rels_dense=5, rels_sparse=2)
+    _tr_p, _q_p, prov_pos = build_heldout_relation_split(pool_pos, k_min_rel, 7, n_query_cap=ncap)
+    nq_pos = int(prov_pos["n_query"])
+    pos_ok = bool(nq_pos >= required)
+    # NEGATIVE: deliberately-sparse tiny core (the old collapse regime) -> split MUST under-produce vs min_query.
+    pool_neg = build_synthetic_reduced_core(7, n_concept=220, n_rel=7, dense_frac=0.04,
+                                            rels_dense=4, rels_sparse=2)
+    _tr_n, _q_n, prov_neg = build_heldout_relation_split(pool_neg, k_min_rel, 7, n_query_cap=ncap)
+    nq_neg = int(prov_neg["n_query"])
+    neg_ok = bool(nq_neg < min_query)
+    ok = bool(pos_ok and neg_ok)
+    return ok, dict(memsmoke_min_query=min_query, split_sizing_margin=SPLIT_SIZING_MARGIN,
+                    synthetic_pos_n_query=nq_pos, synthetic_pos_required=required, synthetic_pos_ok=pos_ok,
+                    synthetic_neg_n_query=nq_neg, synthetic_neg_ok=neg_ok,
+                    memsmoke_cskg_max_lines=cfg["cskg_max_lines"], memsmoke_k_core=cfg["k_core"],
+                    memsmoke_cskg_max_nodes=cfg["cskg_max_nodes"])
+
+
+# ---------------------------------------------------------------------------
 # Self-test: apparatus validity on the planted KIND arena (real code path) + validity-preflight.
 # ---------------------------------------------------------------------------
 
@@ -792,6 +860,9 @@ def _mechanism_selftest_body(device):
                                headline_name="neighbor_beats_unbind_random_synth", run_mode="self_test",
                                extra="on the planted KIND arena random-code NEIGHBOR did NOT beat self-UNBIND -> arena "
                                      "not answerable / apparatus frozen (the a6bbdfd0 readout confound is not testable)")
+
+    # MEMSMOKE split-sizing guard (2026-07-14): the reduced-core config must yield n_query >= min_query with margin.
+    split_sizing_ok, split_sizing_info = selftest_memsmoke_split_sizing()
 
     v_verdict, _vm, _vg = decisive_verdict([res])
 
@@ -840,9 +911,10 @@ def _mechanism_selftest_body(device):
         decisive_selftest_verdict=v_verdict, validity_preflight_ok=bool(vp_ok),
         validity_preflight_declared=["real_code_path", "substrate_signature", "positive_control", "metric_moves",
                                      "negative_control_margin", "full_gates_exercised"],
+        memsmoke_split_sizing_ok=bool(split_sizing_ok), memsmoke_split_sizing=split_sizing_info,
     )
     ok = bool(sn_beats_pop and neighbor_beats_unbind and shuffle_collapses and struct_novel_gain
-              and ceiling_ok and arms_differ and fits_finite and novel_pop)
+              and ceiling_ok and arms_differ and fits_finite and novel_pop and split_sizing_ok)
     return ok, out
 
 
@@ -884,7 +956,8 @@ def core_main(run_mode, device):
             verdict="HARD_FAIL", run_mode=run_mode,
             verdict_msg="MECHANISM_SELFTEST_FAILED: %s"
                         % {kk: st_res.get(kk) for kk in ("sn_beats_pop", "neighbor_beats_unbind",
-                           "shuffle_collapses", "struct_novel_gain", "ceiling_ok", "arms_differ", "fits_finite")},
+                           "shuffle_collapses", "struct_novel_gain", "ceiling_ok", "arms_differ", "fits_finite",
+                           "memsmoke_split_sizing_ok", "memsmoke_split_sizing")},
             summary="mechanism selftest failed", elapsed_s=time.perf_counter() - t_start, mechanism_selftest=st_res))
         raise SystemExit(1)
 
